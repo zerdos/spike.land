@@ -1,4 +1,4 @@
-import "./chunk-chunk-FECZIH2P.mjs";
+import "./chunk-chunk-HPXHEL5F.mjs";
 import {
   $,
   AccessibilityHelpNLS,
@@ -610,17 +610,18 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-LKOJNPTN.mjs";
+} from "./chunk-chunk-AI4QHZO7.mjs";
 import {
   __commonJS,
   __esm,
+  __name,
   __privateAdd,
   __privateGet,
   __privateSet,
   __publicField,
   __toESM,
   init_define_process
-} from "./chunk-chunk-2SR2QKSU.mjs";
+} from "./chunk-chunk-BE5LE3QF.mjs";
 
 // (disabled):os
 var require_os = __commonJS({
@@ -629,9 +630,9 @@ var require_os = __commonJS({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js"(exports2) {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js"(exports2) {
     init_define_process();
     init_arrays();
     init_cancellation();
@@ -673,6 +674,7 @@ var require_formatActions = __commonJS({
           resolve(value);
         });
       }
+      __name(adopt, "adopt");
       return new (P || (P = Promise))(function(resolve, reject) {
         function fulfilled(value) {
           try {
@@ -681,6 +683,7 @@ var require_formatActions = __commonJS({
             reject(e);
           }
         }
+        __name(fulfilled, "fulfilled");
         function rejected(value) {
           try {
             step(generator["throw"](value));
@@ -688,13 +691,15 @@ var require_formatActions = __commonJS({
             reject(e);
           }
         }
+        __name(rejected, "rejected");
         function step(result) {
           result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
         }
+        __name(step, "step");
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
     };
-    var FormatOnType = class FormatOnType {
+    var FormatOnType = /* @__PURE__ */ __name(class FormatOnType {
       constructor(_editor, _languageFeaturesService, _workerService) {
         this._editor = _editor;
         this._languageFeaturesService = _languageFeaturesService;
@@ -775,13 +780,13 @@ var require_formatActions = __commonJS({
           unbind.dispose();
         });
       }
-    };
+    }, "FormatOnType");
     FormatOnType.ID = "editor.contrib.autoFormat";
     FormatOnType = __decorate77([
       __param77(1, ILanguageFeaturesService),
       __param77(2, IEditorWorkerService)
     ], FormatOnType);
-    var FormatOnPaste = class FormatOnPaste {
+    var FormatOnPaste = /* @__PURE__ */ __name(class FormatOnPaste {
       constructor(editor2, _languageFeaturesService, _instantiationService) {
         this.editor = editor2;
         this._languageFeaturesService = _languageFeaturesService;
@@ -819,7 +824,7 @@ var require_formatActions = __commonJS({
         }
         this._instantiationService.invokeFunction(formatDocumentRangesWithSelectedProvider, this.editor, range, 2, Progress.None, CancellationToken.None).catch(onUnexpectedError);
       }
-    };
+    }, "FormatOnPaste");
     FormatOnPaste.ID = "editor.contrib.formatOnPaste";
     FormatOnPaste = __decorate77([
       __param77(1, ILanguageFeaturesService),
@@ -854,6 +859,7 @@ var require_formatActions = __commonJS({
         });
       }
     };
+    __name(FormatDocumentAction, "FormatDocumentAction");
     var FormatSelectionAction = class extends EditorAction {
       constructor() {
         super({
@@ -888,6 +894,7 @@ var require_formatActions = __commonJS({
         });
       }
     };
+    __name(FormatSelectionAction, "FormatSelectionAction");
     registerEditorContribution(FormatOnType.ID, FormatOnType);
     registerEditorContribution(FormatOnPaste.ID, FormatOnPaste);
     registerEditorAction(FormatDocumentAction);
@@ -907,10 +914,10 @@ var require_formatActions = __commonJS({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/outlineModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/outlineModel.js
 var __decorate36, __param36, __awaiter28, TreeElement, OutlineElement, OutlineGroup, OutlineModel, IOutlineModelService, OutlineModelService;
 var init_outlineModel = __esm({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/outlineModel.js"() {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/outlineModel.js"() {
     init_define_process();
     init_arrays();
     init_cancellation();
@@ -946,6 +953,7 @@ var init_outlineModel = __esm({
           resolve(value);
         });
       }
+      __name(adopt, "adopt");
       return new (P || (P = Promise))(function(resolve, reject) {
         function fulfilled(value) {
           try {
@@ -954,6 +962,7 @@ var init_outlineModel = __esm({
             reject(e);
           }
         }
+        __name(fulfilled, "fulfilled");
         function rejected(value) {
           try {
             step(generator["throw"](value));
@@ -961,9 +970,11 @@ var init_outlineModel = __esm({
             reject(e);
           }
         }
+        __name(rejected, "rejected");
         function step(result) {
           result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
         }
+        __name(step, "step");
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
     };
@@ -992,6 +1003,7 @@ var init_outlineModel = __esm({
         return element.children.size === 0;
       }
     };
+    __name(TreeElement, "TreeElement");
     OutlineElement = class extends TreeElement {
       constructor(id, parent, symbol) {
         super();
@@ -1001,6 +1013,7 @@ var init_outlineModel = __esm({
         this.children = /* @__PURE__ */ new Map();
       }
     };
+    __name(OutlineElement, "OutlineElement");
     OutlineGroup = class extends TreeElement {
       constructor(id, parent, label, order) {
         super();
@@ -1011,6 +1024,7 @@ var init_outlineModel = __esm({
         this.children = /* @__PURE__ */ new Map();
       }
     };
+    __name(OutlineGroup, "OutlineGroup");
     OutlineModel = class extends TreeElement {
       constructor(uri) {
         super();
@@ -1127,8 +1141,9 @@ var init_outlineModel = __esm({
         }
       }
     };
+    __name(OutlineModel, "OutlineModel");
     IOutlineModelService = createDecorator("IOutlineModelService");
-    OutlineModelService = class OutlineModelService2 {
+    OutlineModelService = /* @__PURE__ */ __name(class OutlineModelService2 {
       constructor(_languageFeaturesService, debounces, modelService) {
         this._languageFeaturesService = _languageFeaturesService;
         this._disposables = new DisposableStore();
@@ -1182,7 +1197,7 @@ var init_outlineModel = __esm({
           }
         });
       }
-    };
+    }, "OutlineModelService");
     OutlineModelService = __decorate36([
       __param36(0, ILanguageFeaturesService),
       __param36(1, ILanguageFeatureDebounceService),
@@ -1192,9 +1207,9 @@ var init_outlineModel = __esm({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/documentSymbols.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/documentSymbols.js
 var require_documentSymbols = __commonJS({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/documentSymbols.js"(exports2) {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/documentSymbols.js"(exports2) {
     init_define_process();
     init_cancellation();
     init_types();
@@ -1208,6 +1223,7 @@ var require_documentSymbols = __commonJS({
           resolve(value);
         });
       }
+      __name(adopt, "adopt");
       return new (P || (P = Promise))(function(resolve, reject) {
         function fulfilled(value) {
           try {
@@ -1216,6 +1232,7 @@ var require_documentSymbols = __commonJS({
             reject(e);
           }
         }
+        __name(fulfilled, "fulfilled");
         function rejected(value) {
           try {
             step(generator["throw"](value));
@@ -1223,9 +1240,11 @@ var require_documentSymbols = __commonJS({
             reject(e);
           }
         }
+        __name(rejected, "rejected");
         function step(result) {
           result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
         }
+        __name(step, "step");
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
     };
@@ -1246,10 +1265,10 @@ var require_documentSymbols = __commonJS({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inPlaceReplace/browser/inPlaceReplaceCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inPlaceReplace/browser/inPlaceReplaceCommand.js
 var InPlaceReplaceCommand;
 var init_inPlaceReplaceCommand = __esm({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inPlaceReplace/browser/inPlaceReplaceCommand.js"() {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inPlaceReplace/browser/inPlaceReplaceCommand.js"() {
     init_define_process();
     init_selection();
     InPlaceReplaceCommand = class {
@@ -1270,12 +1289,13 @@ var init_inPlaceReplaceCommand = __esm({
         return new Selection(srcRange.endLineNumber, Math.min(this._originalSelection.positionColumn, srcRange.endColumn), srcRange.endLineNumber, Math.min(this._originalSelection.positionColumn, srcRange.endColumn));
       }
     };
+    __name(InPlaceReplaceCommand, "InPlaceReplaceCommand");
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inPlaceReplace/browser/inPlaceReplace.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inPlaceReplace/browser/inPlaceReplace.js
 var require_inPlaceReplace = __commonJS({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inPlaceReplace/browser/inPlaceReplace.js"(exports2) {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inPlaceReplace/browser/inPlaceReplace.js"(exports2) {
     init_define_process();
     init_async();
     init_errors();
@@ -1305,7 +1325,7 @@ var require_inPlaceReplace = __commonJS({
         decorator(target, key, paramIndex);
       };
     };
-    var InPlaceReplaceController = class InPlaceReplaceController2 {
+    var InPlaceReplaceController = /* @__PURE__ */ __name(class InPlaceReplaceController2 {
       constructor(editor2, editorWorkerService) {
         this.editor = editor2;
         this.editorWorkerService = editorWorkerService;
@@ -1369,7 +1389,7 @@ var require_inPlaceReplace = __commonJS({
           this.decorationRemover.then(() => this.decorations.clear()).catch(onUnexpectedError);
         }).catch(onUnexpectedError);
       }
-    };
+    }, "InPlaceReplaceController");
     InPlaceReplaceController.ID = "editor.contrib.inPlaceReplaceController";
     InPlaceReplaceController.DECORATION = ModelDecorationOptions.register({
       description: "in-place-replace",
@@ -1400,6 +1420,7 @@ var require_inPlaceReplace = __commonJS({
         return controller.run(this.id, true);
       }
     };
+    __name(InPlaceReplaceUp, "InPlaceReplaceUp");
     var InPlaceReplaceDown = class extends EditorAction {
       constructor() {
         super({
@@ -1422,6 +1443,7 @@ var require_inPlaceReplace = __commonJS({
         return controller.run(this.id, false);
       }
     };
+    __name(InPlaceReplaceDown, "InPlaceReplaceDown");
     registerEditorContribution(InPlaceReplaceController.ID, InPlaceReplaceController);
     registerEditorAction(InPlaceReplaceUp);
     registerEditorAction(InPlaceReplaceDown);
@@ -1434,9 +1456,9 @@ var require_inPlaceReplace = __commonJS({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/stickyScroll/browser/stickyScroll.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/stickyScroll/browser/stickyScroll.js
 var require_stickyScroll = __commonJS({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/stickyScroll/browser/stickyScroll.js"(exports2) {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/stickyScroll/browser/stickyScroll.js"(exports2) {
     init_define_process();
     init_lifecycle();
     init_editorExtensions();
@@ -1470,6 +1492,7 @@ var require_stickyScroll = __commonJS({
           resolve(value);
         });
       }
+      __name(adopt, "adopt");
       return new (P || (P = Promise))(function(resolve, reject) {
         function fulfilled(value) {
           try {
@@ -1478,6 +1501,7 @@ var require_stickyScroll = __commonJS({
             reject(e);
           }
         }
+        __name(fulfilled, "fulfilled");
         function rejected(value) {
           try {
             step(generator["throw"](value));
@@ -1485,14 +1509,16 @@ var require_stickyScroll = __commonJS({
             reject(e);
           }
         }
+        __name(rejected, "rejected");
         function step(result) {
           result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
         }
+        __name(step, "step");
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
     };
     var _a5;
-    var StickyScrollController = class StickyScrollController extends Disposable {
+    var StickyScrollController = /* @__PURE__ */ __name(class StickyScrollController extends Disposable {
       constructor(editor2, _languageFeaturesService) {
         super();
         this._sessionStore = new DisposableStore();
@@ -1679,7 +1705,7 @@ var require_stickyScroll = __commonJS({
         super.dispose();
         this._sessionStore.dispose();
       }
-    };
+    }, "StickyScrollController");
     StickyScrollController.ID = "store.contrib.stickyScrollController";
     StickyScrollController = __decorate77([
       __param77(1, ILanguageFeaturesService)
@@ -1780,6 +1806,7 @@ var require_stickyScroll = __commonJS({
         return root;
       }
     };
+    __name(StickyScrollCodeLine, "StickyScrollCodeLine");
     var StickyScrollWidget = class {
       constructor(_editor) {
         this._editor = _editor;
@@ -1825,14 +1852,15 @@ var require_stickyScroll = __commonJS({
         };
       }
     };
+    __name(StickyScrollWidget, "StickyScrollWidget");
     registerEditorContribution(StickyScrollController.ID, StickyScrollController);
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/toggleTabFocusMode/browser/toggleTabFocusMode.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/toggleTabFocusMode/browser/toggleTabFocusMode.js
 var ToggleTabFocusModeAction;
 var init_toggleTabFocusMode = __esm({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/toggleTabFocusMode/browser/toggleTabFocusMode.js"() {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/toggleTabFocusMode/browser/toggleTabFocusMode.js"() {
     init_define_process();
     init_aria();
     init_tabFocus();
@@ -1864,14 +1892,15 @@ var init_toggleTabFocusMode = __esm({
         }
       }
     };
+    __name(ToggleTabFocusModeAction, "ToggleTabFocusModeAction");
     ToggleTabFocusModeAction.ID = "editor.action.toggleTabFocusMode";
     registerEditorAction(ToggleTabFocusModeAction);
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/viewportSemanticTokens/browser/viewportSemanticTokens.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/viewportSemanticTokens/browser/viewportSemanticTokens.js
 var require_viewportSemanticTokens = __commonJS({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/viewportSemanticTokens/browser/viewportSemanticTokens.js"(exports2) {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/viewportSemanticTokens/browser/viewportSemanticTokens.js"(exports2) {
     init_define_process();
     init_async();
     init_lifecycle();
@@ -1900,7 +1929,7 @@ var require_viewportSemanticTokens = __commonJS({
         decorator(target, key, paramIndex);
       };
     };
-    var ViewportSemanticTokensContribution = class ViewportSemanticTokensContribution extends Disposable {
+    var ViewportSemanticTokensContribution = /* @__PURE__ */ __name(class ViewportSemanticTokensContribution extends Disposable {
       constructor(editor2, _modelService, _themeService, _configurationService, languageFeatureDebounceService, languageFeaturesService) {
         super();
         this._modelService = _modelService;
@@ -1911,11 +1940,11 @@ var require_viewportSemanticTokens = __commonJS({
         this._debounceInformation = languageFeatureDebounceService.for(this._provider, "DocumentRangeSemanticTokens", { min: 100, max: 500 });
         this._tokenizeViewport = this._register(new RunOnceScheduler(() => this._tokenizeViewportNow(), 100));
         this._outstandingRequests = [];
-        const scheduleTokenizeViewport = () => {
+        const scheduleTokenizeViewport = /* @__PURE__ */ __name(() => {
           if (this._editor.hasModel()) {
             this._tokenizeViewport.schedule(this._debounceInformation.get(this._editor.getModel()));
           }
-        };
+        }, "scheduleTokenizeViewport");
         this._register(this._editor.onDidScrollChange(() => {
           scheduleTokenizeViewport();
         }));
@@ -1994,7 +2023,7 @@ var require_viewportSemanticTokens = __commonJS({
         }).then(() => this._removeOutstandingRequest(request), () => this._removeOutstandingRequest(request));
         return request;
       }
-    };
+    }, "ViewportSemanticTokensContribution");
     ViewportSemanticTokensContribution.ID = "editor.contrib.viewportSemanticTokens";
     ViewportSemanticTokensContribution = __decorate77([
       __param77(1, IModelService),
@@ -2007,15 +2036,15 @@ var require_viewportSemanticTokens = __commonJS({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.css
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.css
 var init_ = __esm({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.css"() {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.css"() {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.js
 var require_accessibilityHelp = __commonJS({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.js"(exports2) {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.js"(exports2) {
     init_define_process();
     init_();
     init_dom();
@@ -2053,7 +2082,7 @@ var require_accessibilityHelp = __commonJS({
       };
     };
     var CONTEXT_ACCESSIBILITY_WIDGET_VISIBLE = new RawContextKey("accessibilityHelpWidgetVisible", false);
-    var AccessibilityHelpController = class AccessibilityHelpController2 extends Disposable {
+    var AccessibilityHelpController = /* @__PURE__ */ __name(class AccessibilityHelpController2 extends Disposable {
       constructor(editor2, instantiationService) {
         super();
         this._editor = editor2;
@@ -2068,7 +2097,7 @@ var require_accessibilityHelp = __commonJS({
       hide() {
         this._widget.hide();
       }
-    };
+    }, "AccessibilityHelpController");
     AccessibilityHelpController.ID = "editor.contrib.accessibilityHelpController";
     AccessibilityHelpController = __decorate77([
       __param77(1, IInstantiationService)
@@ -2091,7 +2120,8 @@ var require_accessibilityHelp = __commonJS({
       }
       return "";
     }
-    var AccessibilityHelpWidget = class AccessibilityHelpWidget2 extends Widget {
+    __name(getSelectionLabel, "getSelectionLabel");
+    var AccessibilityHelpWidget = /* @__PURE__ */ __name(class AccessibilityHelpWidget2 extends Widget {
       constructor(editor2, _contextKeyService, _keybindingService, _openerService) {
         super();
         this._contextKeyService = _contextKeyService;
@@ -2252,7 +2282,7 @@ var require_accessibilityHelp = __commonJS({
         const left = Math.round((editorLayout.width - w) / 2);
         this._domNode.setLeft(left);
       }
-    };
+    }, "AccessibilityHelpWidget");
     AccessibilityHelpWidget.ID = "editor.contrib.accessibilityHelpWidget";
     AccessibilityHelpWidget.WIDTH = 500;
     AccessibilityHelpWidget.HEIGHT = 300;
@@ -2285,6 +2315,7 @@ var require_accessibilityHelp = __commonJS({
         }
       }
     };
+    __name(ShowAccessibilityHelpAction, "ShowAccessibilityHelpAction");
     registerEditorContribution(AccessibilityHelpController.ID, AccessibilityHelpController);
     registerEditorAction(ShowAccessibilityHelpAction);
     var AccessibilityHelpCommand = EditorCommand.bindToContribution(AccessibilityHelpController.get);
@@ -2320,15 +2351,15 @@ var require_accessibilityHelp = __commonJS({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.css
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.css
 var init_2 = __esm({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.css"() {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.css"() {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.js
 var require_inspectTokens = __commonJS({
-  "../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.js"(exports2) {
+  "../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.js"(exports2) {
     init_define_process();
     init_2();
     init_dom();
@@ -2359,7 +2390,7 @@ var require_inspectTokens = __commonJS({
         decorator(target, key, paramIndex);
       };
     };
-    var InspectTokensController = class InspectTokensController2 extends Disposable {
+    var InspectTokensController = /* @__PURE__ */ __name(class InspectTokensController2 extends Disposable {
       constructor(editor2, standaloneColorService, languageService) {
         super();
         this._editor = editor2;
@@ -2392,7 +2423,7 @@ var require_inspectTokens = __commonJS({
           this._widget = null;
         }
       }
-    };
+    }, "InspectTokensController");
     InspectTokensController.ID = "editor.contrib.inspectTokens";
     InspectTokensController = __decorate77([
       __param77(1, IStandaloneThemeService),
@@ -2414,6 +2445,7 @@ var require_inspectTokens = __commonJS({
         }
       }
     };
+    __name(InspectTokens, "InspectTokens");
     function renderTokenText(tokenText) {
       let result = "";
       for (let charIndex = 0, len = tokenText.length; charIndex < len; charIndex++) {
@@ -2431,6 +2463,7 @@ var require_inspectTokens = __commonJS({
       }
       return result;
     }
+    __name(renderTokenText, "renderTokenText");
     function getSafeTokenizationSupport(languageIdCodec, languageId) {
       const tokenizationSupport = TokenizationRegistry.get(languageId);
       if (tokenizationSupport) {
@@ -2443,6 +2476,7 @@ var require_inspectTokens = __commonJS({
         tokenizeEncoded: (line, hasEOL, state) => nullTokenizeEncoded(encodedLanguageId, state)
       };
     }
+    __name(getSafeTokenizationSupport, "getSafeTokenizationSupport");
     var InspectTokensWidget = class extends Disposable {
       constructor(editor2, languageService) {
         super();
@@ -2575,6 +2609,7 @@ var require_inspectTokens = __commonJS({
         };
       }
     };
+    __name(InspectTokensWidget, "InspectTokensWidget");
     InspectTokensWidget._ID = "editor.contrib.inspectTokensWidget";
     registerEditorContribution(InspectTokensController.ID, InspectTokensController);
     registerEditorAction(InspectTokens);
@@ -2600,13 +2635,13 @@ var require_inspectTokens = __commonJS({
 // js/startMonaco.ts
 init_define_process();
 
-// ../../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-8c9.zip/node_modules/p-map/index.js
+// ../../../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9c9.zip/node_modules/p-map/index.js
 init_define_process();
 
-// ../../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-8c9.zip/node_modules/aggregate-error/index.js
+// ../../../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9c9.zip/node_modules/aggregate-error/index.js
 init_define_process();
 
-// ../../../.yarn/global/cache/indent-string-npm-5.0.0-35eaa3b052-8c9.zip/node_modules/indent-string/index.js
+// ../../../../.yarn/global/cache/indent-string-npm-5.0.0-35eaa3b052-9c9.zip/node_modules/indent-string/index.js
 init_define_process();
 function indentString(string, count = 1, options = {}) {
   const {
@@ -2639,12 +2674,13 @@ function indentString(string, count = 1, options = {}) {
   const regex = includeEmptyLines ? /^/gm : /^(?!\s*$)/gm;
   return string.replace(regex, indent.repeat(count));
 }
+__name(indentString, "indentString");
 
-// ../../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-8c9.zip/node_modules/clean-stack/index.js
+// ../../../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-9c9.zip/node_modules/clean-stack/index.js
 init_define_process();
 var import_os = __toESM(require_os(), 1);
 
-// ../../../.yarn/global/cache/escape-string-regexp-npm-5.0.0-a663e825ce-8c9.zip/node_modules/escape-string-regexp/index.js
+// ../../../../.yarn/global/cache/escape-string-regexp-npm-5.0.0-a663e825ce-9c9.zip/node_modules/escape-string-regexp/index.js
 init_define_process();
 function escapeStringRegexp(string) {
   if (typeof string !== "string") {
@@ -2652,8 +2688,9 @@ function escapeStringRegexp(string) {
   }
   return string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
 }
+__name(escapeStringRegexp, "escapeStringRegexp");
 
-// ../../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-8c9.zip/node_modules/clean-stack/index.js
+// ../../../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-9c9.zip/node_modules/clean-stack/index.js
 var extractPathRegex = /\s+at.*[(\s](.*)\)?/;
 var pathRegex = /^(?:(?:(?:node|node:[\w/]+|(?:(?:node:)?internal\/[\w/]*|.*node_modules\/(?:babel-polyfill|pirates)\/.*)?\w+)(?:\.js)?:\d+:\d+)|native)/;
 var homeDir = typeof import_os.default.homedir === "undefined" ? "" : import_os.default.homedir().replace(/\\/g, "/");
@@ -2682,9 +2719,10 @@ function cleanStack(stack, { pretty = false, basePath } = {}) {
     return line;
   }).join("\n");
 }
+__name(cleanStack, "cleanStack");
 
-// ../../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-8c9.zip/node_modules/aggregate-error/index.js
-var cleanInternalStack = (stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, "");
+// ../../../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9c9.zip/node_modules/aggregate-error/index.js
+var cleanInternalStack = /* @__PURE__ */ __name((stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, ""), "cleanInternalStack");
 var _errors;
 var AggregateError = class extends Error {
   constructor(errors) {
@@ -2713,9 +2751,10 @@ var AggregateError = class extends Error {
     return __privateGet(this, _errors).slice();
   }
 };
+__name(AggregateError, "AggregateError");
 _errors = new WeakMap();
 
-// ../../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-8c9.zip/node_modules/p-map/index.js
+// ../../../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9c9.zip/node_modules/p-map/index.js
 var AbortError = class extends Error {
   constructor(message) {
     super();
@@ -2723,11 +2762,12 @@ var AbortError = class extends Error {
     this.message = message;
   }
 };
-var getDOMException = (errorMessage) => globalThis.DOMException === void 0 ? new AbortError(errorMessage) : new DOMException(errorMessage);
-var getAbortedReason = (signal) => {
+__name(AbortError, "AbortError");
+var getDOMException = /* @__PURE__ */ __name((errorMessage) => globalThis.DOMException === void 0 ? new AbortError(errorMessage) : new DOMException(errorMessage), "getDOMException");
+var getAbortedReason = /* @__PURE__ */ __name((signal) => {
   const reason = signal.reason === void 0 ? getDOMException("This operation was aborted.") : signal.reason;
   return reason instanceof Error ? reason : getDOMException(reason);
-};
+}, "getAbortedReason");
 async function pMap(iterable, mapper, {
   concurrency = Number.POSITIVE_INFINITY,
   stopOnError = true,
@@ -2752,11 +2792,11 @@ async function pMap(iterable, mapper, {
     let resolvingCount = 0;
     let currentIndex = 0;
     const iterator = iterable[Symbol.iterator] === void 0 ? iterable[Symbol.asyncIterator]() : iterable[Symbol.iterator]();
-    const reject = (reason) => {
+    const reject = /* @__PURE__ */ __name((reason) => {
       isRejected = true;
       isResolved = true;
       reject_(reason);
-    };
+    }, "reject");
     if (signal) {
       if (signal.aborted) {
         reject(getAbortedReason(signal));
@@ -2765,7 +2805,7 @@ async function pMap(iterable, mapper, {
         reject(getAbortedReason(signal));
       });
     }
-    const next = async () => {
+    const next = /* @__PURE__ */ __name(async () => {
       if (isResolved) {
         return;
       }
@@ -2823,7 +2863,7 @@ async function pMap(iterable, mapper, {
           }
         }
       })();
-    };
+    }, "next");
     (async () => {
       for (let index = 0; index < concurrency; index++) {
         try {
@@ -2839,37 +2879,38 @@ async function pMap(iterable, mapper, {
     })();
   });
 }
+__name(pMap, "pMap");
 var pMapSkip = Symbol("skip");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.main.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.main.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/monaco.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/monaco.contribution.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/abap/abap.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/abap/abap.contribution.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/_.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/_.contribution.js
 init_define_process();
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
+var __copyProps = /* @__PURE__ */ __name((to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
         __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
   return to;
-};
-var __reExport = (target, mod2, secondTarget) => (__copyProps(target, mod2, "default"), secondTarget && __copyProps(secondTarget, mod2, "default"));
+}, "__copyProps");
+var __reExport = /* @__PURE__ */ __name((target, mod2, secondTarget) => (__copyProps(target, mod2, "default"), secondTarget && __copyProps(secondTarget, mod2, "default")), "__reExport");
 var monaco_editor_core_exports = {};
 __reExport(monaco_editor_core_exports, editor_api_exports);
 var languageDefinitions = {};
 var lazyLanguageLoaders = {};
-var LazyLanguageLoader = class {
+var LazyLanguageLoader = /* @__PURE__ */ __name(class {
   constructor(languageId) {
     __publicField(this, "_languageId");
     __publicField(this, "_loadingTriggered");
@@ -2896,7 +2937,7 @@ var LazyLanguageLoader = class {
     }
     return this._lazyLoadPromise;
   }
-};
+}, "LazyLanguageLoader");
 function registerLanguage(def) {
   const languageId = def.id;
   languageDefinitions[languageId] = def;
@@ -2913,8 +2954,9 @@ function registerLanguage(def) {
     monaco_editor_core_exports.languages.setLanguageConfiguration(languageId, mod2.conf);
   });
 }
+__name(registerLanguage, "registerLanguage");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/abap/abap.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/abap/abap.contribution.js
 registerLanguage({
   id: "abap",
   extensions: [".abap"],
@@ -2925,12 +2967,12 @@ registerLanguage({
         __require(["vs/basic-languages/abap/abap"], resolve, reject);
       });
     } else {
-      return import("./chunk-abap-MFI6KKZA.mjs");
+      return import("./chunk-abap-67FLRQQI.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/apex/apex.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/apex/apex.contribution.js
 init_define_process();
 registerLanguage({
   id: "apex",
@@ -2943,12 +2985,12 @@ registerLanguage({
         __require(["vs/basic-languages/apex/apex"], resolve, reject);
       });
     } else {
-      return import("./chunk-apex-SCSO22YN.mjs");
+      return import("./chunk-apex-7TN7MW5D.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/azcli/azcli.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/azcli/azcli.contribution.js
 init_define_process();
 registerLanguage({
   id: "azcli",
@@ -2960,12 +3002,12 @@ registerLanguage({
         __require(["vs/basic-languages/azcli/azcli"], resolve, reject);
       });
     } else {
-      return import("./chunk-azcli-OJ6AYV5E.mjs");
+      return import("./chunk-azcli-3FNAZZV3.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/bat/bat.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/bat/bat.contribution.js
 init_define_process();
 registerLanguage({
   id: "bat",
@@ -2977,12 +3019,12 @@ registerLanguage({
         __require(["vs/basic-languages/bat/bat"], resolve, reject);
       });
     } else {
-      return import("./chunk-bat-G2UMF7TU.mjs");
+      return import("./chunk-bat-YIYR5OSF.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/bicep/bicep.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/bicep/bicep.contribution.js
 init_define_process();
 registerLanguage({
   id: "bicep",
@@ -2994,12 +3036,12 @@ registerLanguage({
         __require(["vs/basic-languages/bicep/bicep"], resolve, reject);
       });
     } else {
-      return import("./chunk-bicep-MPQFNDGK.mjs");
+      return import("./chunk-bicep-NFPRMSEE.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/cameligo/cameligo.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/cameligo/cameligo.contribution.js
 init_define_process();
 registerLanguage({
   id: "cameligo",
@@ -3011,12 +3053,12 @@ registerLanguage({
         __require(["vs/basic-languages/cameligo/cameligo"], resolve, reject);
       });
     } else {
-      return import("./chunk-cameligo-7WHWL4NJ.mjs");
+      return import("./chunk-cameligo-UQOCOALP.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/clojure/clojure.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/clojure/clojure.contribution.js
 init_define_process();
 registerLanguage({
   id: "clojure",
@@ -3028,12 +3070,12 @@ registerLanguage({
         __require(["vs/basic-languages/clojure/clojure"], resolve, reject);
       });
     } else {
-      return import("./chunk-clojure-MBW54AQC.mjs");
+      return import("./chunk-clojure-CTGLXPN2.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/coffee/coffee.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/coffee/coffee.contribution.js
 init_define_process();
 registerLanguage({
   id: "coffeescript",
@@ -3046,12 +3088,12 @@ registerLanguage({
         __require(["vs/basic-languages/coffee/coffee"], resolve, reject);
       });
     } else {
-      return import("./chunk-coffee-KL2QECCP.mjs");
+      return import("./chunk-coffee-72VQUGB7.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/cpp/cpp.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/cpp/cpp.contribution.js
 init_define_process();
 registerLanguage({
   id: "c",
@@ -3063,7 +3105,7 @@ registerLanguage({
         __require(["vs/basic-languages/cpp/cpp"], resolve, reject);
       });
     } else {
-      return import("./chunk-cpp-O2VBFBO5.mjs");
+      return import("./chunk-cpp-62PV2QLM.mjs");
     }
   }
 });
@@ -3077,12 +3119,12 @@ registerLanguage({
         __require(["vs/basic-languages/cpp/cpp"], resolve, reject);
       });
     } else {
-      return import("./chunk-cpp-O2VBFBO5.mjs");
+      return import("./chunk-cpp-62PV2QLM.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/csharp/csharp.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/csharp/csharp.contribution.js
 init_define_process();
 registerLanguage({
   id: "csharp",
@@ -3094,12 +3136,12 @@ registerLanguage({
         __require(["vs/basic-languages/csharp/csharp"], resolve, reject);
       });
     } else {
-      return import("./chunk-csharp-NXJBNOIG.mjs");
+      return import("./chunk-csharp-NCLKFVLT.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/csp/csp.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/csp/csp.contribution.js
 init_define_process();
 registerLanguage({
   id: "csp",
@@ -3111,12 +3153,12 @@ registerLanguage({
         __require(["vs/basic-languages/csp/csp"], resolve, reject);
       });
     } else {
-      return import("./chunk-csp-EVBAEQTA.mjs");
+      return import("./chunk-csp-35ZTCVQ4.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/css/css.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/css/css.contribution.js
 init_define_process();
 registerLanguage({
   id: "css",
@@ -3129,12 +3171,12 @@ registerLanguage({
         __require(["vs/basic-languages/css/css"], resolve, reject);
       });
     } else {
-      return import("./chunk-css-T4D6RCNX.mjs");
+      return import("./chunk-css-PI2IYDBF.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/cypher/cypher.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/cypher/cypher.contribution.js
 init_define_process();
 registerLanguage({
   id: "cypher",
@@ -3146,12 +3188,12 @@ registerLanguage({
         __require(["vs/basic-languages/cypher/cypher"], resolve, reject);
       });
     } else {
-      return import("./chunk-cypher-WSEGZ6OS.mjs");
+      return import("./chunk-cypher-VA6OYNU7.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/dart/dart.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/dart/dart.contribution.js
 init_define_process();
 registerLanguage({
   id: "dart",
@@ -3164,12 +3206,12 @@ registerLanguage({
         __require(["vs/basic-languages/dart/dart"], resolve, reject);
       });
     } else {
-      return import("./chunk-dart-WUQJ2XQK.mjs");
+      return import("./chunk-dart-WFQ237FA.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/dockerfile/dockerfile.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/dockerfile/dockerfile.contribution.js
 init_define_process();
 registerLanguage({
   id: "dockerfile",
@@ -3182,12 +3224,12 @@ registerLanguage({
         __require(["vs/basic-languages/dockerfile/dockerfile"], resolve, reject);
       });
     } else {
-      return import("./chunk-dockerfile-24FIVPAF.mjs");
+      return import("./chunk-dockerfile-2QHCUDRC.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/ecl/ecl.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/ecl/ecl.contribution.js
 init_define_process();
 registerLanguage({
   id: "ecl",
@@ -3199,12 +3241,12 @@ registerLanguage({
         __require(["vs/basic-languages/ecl/ecl"], resolve, reject);
       });
     } else {
-      return import("./chunk-ecl-U56MHNJY.mjs");
+      return import("./chunk-ecl-DKUE6Y4Q.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/elixir/elixir.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/elixir/elixir.contribution.js
 init_define_process();
 registerLanguage({
   id: "elixir",
@@ -3216,12 +3258,12 @@ registerLanguage({
         __require(["vs/basic-languages/elixir/elixir"], resolve, reject);
       });
     } else {
-      return import("./chunk-elixir-FPUVCQOR.mjs");
+      return import("./chunk-elixir-JMHQV4IK.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/flow9/flow9.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/flow9/flow9.contribution.js
 init_define_process();
 registerLanguage({
   id: "flow9",
@@ -3233,12 +3275,12 @@ registerLanguage({
         __require(["vs/basic-languages/flow9/flow9"], resolve, reject);
       });
     } else {
-      return import("./chunk-flow9-FVVCFA75.mjs");
+      return import("./chunk-flow9-3BW3JXXW.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/fsharp/fsharp.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/fsharp/fsharp.contribution.js
 init_define_process();
 registerLanguage({
   id: "fsharp",
@@ -3250,12 +3292,12 @@ registerLanguage({
         __require(["vs/basic-languages/fsharp/fsharp"], resolve, reject);
       });
     } else {
-      return import("./chunk-fsharp-FN44SGKQ.mjs");
+      return import("./chunk-fsharp-DJYOQQBL.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/freemarker2/freemarker2.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/freemarker2/freemarker2.contribution.js
 init_define_process();
 registerLanguage({
   id: "freemarker2",
@@ -3267,7 +3309,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-XXOQQWPK.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -3280,7 +3322,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-XXOQQWPK.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -3293,7 +3335,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-XXOQQWPK.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -3306,7 +3348,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("./chunk-freemarker2-XXOQQWPK.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -3319,7 +3361,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("./chunk-freemarker2-XXOQQWPK.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -3332,7 +3374,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-XXOQQWPK.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -3345,12 +3387,12 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("./chunk-freemarker2-XXOQQWPK.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/go/go.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/go/go.contribution.js
 init_define_process();
 registerLanguage({
   id: "go",
@@ -3362,12 +3404,12 @@ registerLanguage({
         __require(["vs/basic-languages/go/go"], resolve, reject);
       });
     } else {
-      return import("./chunk-go-ZQ3TVEU7.mjs");
+      return import("./chunk-go-JHCNBL54.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/graphql/graphql.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/graphql/graphql.contribution.js
 init_define_process();
 registerLanguage({
   id: "graphql",
@@ -3380,12 +3422,12 @@ registerLanguage({
         __require(["vs/basic-languages/graphql/graphql"], resolve, reject);
       });
     } else {
-      return import("./chunk-graphql-ITT5NS6M.mjs");
+      return import("./chunk-graphql-SXO5GN65.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/handlebars/handlebars.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/handlebars/handlebars.contribution.js
 init_define_process();
 registerLanguage({
   id: "handlebars",
@@ -3398,12 +3440,12 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("./chunk-handlebars-X3SMA6W5.mjs");
+      return import("./chunk-handlebars-T6ZXTVJQ.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/hcl/hcl.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/hcl/hcl.contribution.js
 init_define_process();
 registerLanguage({
   id: "hcl",
@@ -3415,12 +3457,12 @@ registerLanguage({
         __require(["vs/basic-languages/hcl/hcl"], resolve, reject);
       });
     } else {
-      return import("./chunk-hcl-Z2JXDOOP.mjs");
+      return import("./chunk-hcl-J5GSAJZS.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/html/html.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/html/html.contribution.js
 init_define_process();
 registerLanguage({
   id: "html",
@@ -3433,12 +3475,12 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("./chunk-html-J7MITUWU.mjs");
+      return import("./chunk-html-P73C7XUQ.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/ini/ini.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/ini/ini.contribution.js
 init_define_process();
 registerLanguage({
   id: "ini",
@@ -3451,12 +3493,12 @@ registerLanguage({
         __require(["vs/basic-languages/ini/ini"], resolve, reject);
       });
     } else {
-      return import("./chunk-ini-LT6GC5DM.mjs");
+      return import("./chunk-ini-TLMEIL3K.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/java/java.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/java/java.contribution.js
 init_define_process();
 registerLanguage({
   id: "java",
@@ -3469,12 +3511,12 @@ registerLanguage({
         __require(["vs/basic-languages/java/java"], resolve, reject);
       });
     } else {
-      return import("./chunk-java-VQNVCSZK.mjs");
+      return import("./chunk-java-MDE4BYGG.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution.js
 init_define_process();
 registerLanguage({
   id: "javascript",
@@ -3489,12 +3531,12 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("./chunk-javascript-VEHCIOXH.mjs");
+      return import("./chunk-javascript-ZHQRXIDF.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/julia/julia.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/julia/julia.contribution.js
 init_define_process();
 registerLanguage({
   id: "julia",
@@ -3506,12 +3548,12 @@ registerLanguage({
         __require(["vs/basic-languages/julia/julia"], resolve, reject);
       });
     } else {
-      return import("./chunk-julia-VJHGPJCZ.mjs");
+      return import("./chunk-julia-RRRAQ7W7.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/kotlin/kotlin.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/kotlin/kotlin.contribution.js
 init_define_process();
 registerLanguage({
   id: "kotlin",
@@ -3524,12 +3566,12 @@ registerLanguage({
         __require(["vs/basic-languages/kotlin/kotlin"], resolve, reject);
       });
     } else {
-      return import("./chunk-kotlin-JCGBMNCC.mjs");
+      return import("./chunk-kotlin-TUPLRUJC.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/less/less.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/less/less.contribution.js
 init_define_process();
 registerLanguage({
   id: "less",
@@ -3542,12 +3584,12 @@ registerLanguage({
         __require(["vs/basic-languages/less/less"], resolve, reject);
       });
     } else {
-      return import("./chunk-less-RMP5RTRQ.mjs");
+      return import("./chunk-less-NY5NTQMM.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/lexon/lexon.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/lexon/lexon.contribution.js
 init_define_process();
 registerLanguage({
   id: "lexon",
@@ -3559,12 +3601,12 @@ registerLanguage({
         __require(["vs/basic-languages/lexon/lexon"], resolve, reject);
       });
     } else {
-      return import("./chunk-lexon-473Q5HF5.mjs");
+      return import("./chunk-lexon-SM6L24VZ.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/lua/lua.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/lua/lua.contribution.js
 init_define_process();
 registerLanguage({
   id: "lua",
@@ -3576,12 +3618,12 @@ registerLanguage({
         __require(["vs/basic-languages/lua/lua"], resolve, reject);
       });
     } else {
-      return import("./chunk-lua-BW5IS3UK.mjs");
+      return import("./chunk-lua-KIDOGIDD.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/liquid/liquid.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/liquid/liquid.contribution.js
 init_define_process();
 registerLanguage({
   id: "liquid",
@@ -3594,12 +3636,12 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("./chunk-liquid-R63O7BPP.mjs");
+      return import("./chunk-liquid-4KGYWCJZ.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/m3/m3.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/m3/m3.contribution.js
 init_define_process();
 registerLanguage({
   id: "m3",
@@ -3611,12 +3653,12 @@ registerLanguage({
         __require(["vs/basic-languages/m3/m3"], resolve, reject);
       });
     } else {
-      return import("./chunk-m3-CI74FOWI.mjs");
+      return import("./chunk-m3-T6UFZOFL.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/markdown/markdown.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/markdown/markdown.contribution.js
 init_define_process();
 registerLanguage({
   id: "markdown",
@@ -3628,12 +3670,12 @@ registerLanguage({
         __require(["vs/basic-languages/markdown/markdown"], resolve, reject);
       });
     } else {
-      return import("./chunk-markdown-LCN7AUCU.mjs");
+      return import("./chunk-markdown-BML7YWTX.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/mips/mips.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/mips/mips.contribution.js
 init_define_process();
 registerLanguage({
   id: "mips",
@@ -3646,12 +3688,12 @@ registerLanguage({
         __require(["vs/basic-languages/mips/mips"], resolve, reject);
       });
     } else {
-      return import("./chunk-mips-BQYGOWIS.mjs");
+      return import("./chunk-mips-DH5IY7RM.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/msdax/msdax.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/msdax/msdax.contribution.js
 init_define_process();
 registerLanguage({
   id: "msdax",
@@ -3663,12 +3705,12 @@ registerLanguage({
         __require(["vs/basic-languages/msdax/msdax"], resolve, reject);
       });
     } else {
-      return import("./chunk-msdax-7GMIPBQV.mjs");
+      return import("./chunk-msdax-ZCAFKMAK.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/mysql/mysql.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/mysql/mysql.contribution.js
 init_define_process();
 registerLanguage({
   id: "mysql",
@@ -3680,12 +3722,12 @@ registerLanguage({
         __require(["vs/basic-languages/mysql/mysql"], resolve, reject);
       });
     } else {
-      return import("./chunk-mysql-2DJVYNZO.mjs");
+      return import("./chunk-mysql-ZTM6S3BS.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/objective-c/objective-c.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/objective-c/objective-c.contribution.js
 init_define_process();
 registerLanguage({
   id: "objective-c",
@@ -3697,12 +3739,12 @@ registerLanguage({
         __require(["vs/basic-languages/objective-c/objective-c"], resolve, reject);
       });
     } else {
-      return import("./chunk-objective-c-DK7BUWVM.mjs");
+      return import("./chunk-objective-c-ZPVOFM2U.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pascal/pascal.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pascal/pascal.contribution.js
 init_define_process();
 registerLanguage({
   id: "pascal",
@@ -3715,12 +3757,12 @@ registerLanguage({
         __require(["vs/basic-languages/pascal/pascal"], resolve, reject);
       });
     } else {
-      return import("./chunk-pascal-FU5IYU3D.mjs");
+      return import("./chunk-pascal-T545CRLK.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pascaligo/pascaligo.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pascaligo/pascaligo.contribution.js
 init_define_process();
 registerLanguage({
   id: "pascaligo",
@@ -3732,12 +3774,12 @@ registerLanguage({
         __require(["vs/basic-languages/pascaligo/pascaligo"], resolve, reject);
       });
     } else {
-      return import("./chunk-pascaligo-7XXAPV2Q.mjs");
+      return import("./chunk-pascaligo-IGZTW554.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/perl/perl.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/perl/perl.contribution.js
 init_define_process();
 registerLanguage({
   id: "perl",
@@ -3749,12 +3791,12 @@ registerLanguage({
         __require(["vs/basic-languages/perl/perl"], resolve, reject);
       });
     } else {
-      return import("./chunk-perl-EYOY2VLI.mjs");
+      return import("./chunk-perl-QHKHJBGJ.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pgsql/pgsql.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pgsql/pgsql.contribution.js
 init_define_process();
 registerLanguage({
   id: "pgsql",
@@ -3766,12 +3808,12 @@ registerLanguage({
         __require(["vs/basic-languages/pgsql/pgsql"], resolve, reject);
       });
     } else {
-      return import("./chunk-pgsql-AT3TE56H.mjs");
+      return import("./chunk-pgsql-KKC6YKQ7.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/php/php.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/php/php.contribution.js
 init_define_process();
 registerLanguage({
   id: "php",
@@ -3784,12 +3826,12 @@ registerLanguage({
         __require(["vs/basic-languages/php/php"], resolve, reject);
       });
     } else {
-      return import("./chunk-php-2SCE64SZ.mjs");
+      return import("./chunk-php-LIP3Q77L.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pla/pla.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pla/pla.contribution.js
 init_define_process();
 registerLanguage({
   id: "pla",
@@ -3800,12 +3842,12 @@ registerLanguage({
         __require(["vs/basic-languages/pla/pla"], resolve, reject);
       });
     } else {
-      return import("./chunk-pla-4KHMFEYR.mjs");
+      return import("./chunk-pla-AS6PPPA2.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/postiats/postiats.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/postiats/postiats.contribution.js
 init_define_process();
 registerLanguage({
   id: "postiats",
@@ -3817,12 +3859,12 @@ registerLanguage({
         __require(["vs/basic-languages/postiats/postiats"], resolve, reject);
       });
     } else {
-      return import("./chunk-postiats-VF4ICH53.mjs");
+      return import("./chunk-postiats-ICXJFU3O.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/powerquery/powerquery.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/powerquery/powerquery.contribution.js
 init_define_process();
 registerLanguage({
   id: "powerquery",
@@ -3834,12 +3876,12 @@ registerLanguage({
         __require(["vs/basic-languages/powerquery/powerquery"], resolve, reject);
       });
     } else {
-      return import("./chunk-powerquery-4YX7RCA7.mjs");
+      return import("./chunk-powerquery-GDLRCMCB.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/powershell/powershell.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/powershell/powershell.contribution.js
 init_define_process();
 registerLanguage({
   id: "powershell",
@@ -3851,12 +3893,12 @@ registerLanguage({
         __require(["vs/basic-languages/powershell/powershell"], resolve, reject);
       });
     } else {
-      return import("./chunk-powershell-MWEFRYZP.mjs");
+      return import("./chunk-powershell-DSS6USTA.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/protobuf/protobuf.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/protobuf/protobuf.contribution.js
 init_define_process();
 registerLanguage({
   id: "proto",
@@ -3868,12 +3910,12 @@ registerLanguage({
         __require(["vs/basic-languages/protobuf/protobuf"], resolve, reject);
       });
     } else {
-      return import("./chunk-protobuf-FF3EWGZC.mjs");
+      return import("./chunk-protobuf-O7XAYREX.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pug/pug.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pug/pug.contribution.js
 init_define_process();
 registerLanguage({
   id: "pug",
@@ -3885,12 +3927,12 @@ registerLanguage({
         __require(["vs/basic-languages/pug/pug"], resolve, reject);
       });
     } else {
-      return import("./chunk-pug-I24G3F2O.mjs");
+      return import("./chunk-pug-PI7UG3IK.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/python/python.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/python/python.contribution.js
 init_define_process();
 registerLanguage({
   id: "python",
@@ -3903,12 +3945,12 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("./chunk-python-3EVSYK5Z.mjs");
+      return import("./chunk-python-OMLCSYEJ.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/qsharp/qsharp.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/qsharp/qsharp.contribution.js
 init_define_process();
 registerLanguage({
   id: "qsharp",
@@ -3920,12 +3962,12 @@ registerLanguage({
         __require(["vs/basic-languages/qsharp/qsharp"], resolve, reject);
       });
     } else {
-      return import("./chunk-qsharp-UNIZNHOK.mjs");
+      return import("./chunk-qsharp-ZOMIH3LI.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/r/r.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/r/r.contribution.js
 init_define_process();
 registerLanguage({
   id: "r",
@@ -3937,12 +3979,12 @@ registerLanguage({
         __require(["vs/basic-languages/r/r"], resolve, reject);
       });
     } else {
-      return import("./chunk-r-7ELJ3AVR.mjs");
+      return import("./chunk-r-LTTH37H4.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/razor/razor.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/razor/razor.contribution.js
 init_define_process();
 registerLanguage({
   id: "razor",
@@ -3955,12 +3997,12 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("./chunk-razor-HYL2PN3O.mjs");
+      return import("./chunk-razor-VDJYDQUD.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/redis/redis.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/redis/redis.contribution.js
 init_define_process();
 registerLanguage({
   id: "redis",
@@ -3972,12 +4014,12 @@ registerLanguage({
         __require(["vs/basic-languages/redis/redis"], resolve, reject);
       });
     } else {
-      return import("./chunk-redis-JSAOMQQY.mjs");
+      return import("./chunk-redis-A2TUWN3U.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/redshift/redshift.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/redshift/redshift.contribution.js
 init_define_process();
 registerLanguage({
   id: "redshift",
@@ -3989,12 +4031,12 @@ registerLanguage({
         __require(["vs/basic-languages/redshift/redshift"], resolve, reject);
       });
     } else {
-      return import("./chunk-redshift-OFCFN4H2.mjs");
+      return import("./chunk-redshift-OUOQWN4W.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/restructuredtext/restructuredtext.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/restructuredtext/restructuredtext.contribution.js
 init_define_process();
 registerLanguage({
   id: "restructuredtext",
@@ -4006,12 +4048,12 @@ registerLanguage({
         __require(["vs/basic-languages/restructuredtext/restructuredtext"], resolve, reject);
       });
     } else {
-      return import("./chunk-restructuredtext-SU4DWDYB.mjs");
+      return import("./chunk-restructuredtext-V4IWVHJK.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/ruby/ruby.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/ruby/ruby.contribution.js
 init_define_process();
 registerLanguage({
   id: "ruby",
@@ -4024,12 +4066,12 @@ registerLanguage({
         __require(["vs/basic-languages/ruby/ruby"], resolve, reject);
       });
     } else {
-      return import("./chunk-ruby-WFO3FIVE.mjs");
+      return import("./chunk-ruby-TQN6HIEU.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/rust/rust.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/rust/rust.contribution.js
 init_define_process();
 registerLanguage({
   id: "rust",
@@ -4041,12 +4083,12 @@ registerLanguage({
         __require(["vs/basic-languages/rust/rust"], resolve, reject);
       });
     } else {
-      return import("./chunk-rust-TKKXTJIE.mjs");
+      return import("./chunk-rust-6EUEZ23X.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sb/sb.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sb/sb.contribution.js
 init_define_process();
 registerLanguage({
   id: "sb",
@@ -4058,12 +4100,12 @@ registerLanguage({
         __require(["vs/basic-languages/sb/sb"], resolve, reject);
       });
     } else {
-      return import("./chunk-sb-RRCCJUXO.mjs");
+      return import("./chunk-sb-NJ7CM7VV.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/scala/scala.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/scala/scala.contribution.js
 init_define_process();
 registerLanguage({
   id: "scala",
@@ -4076,12 +4118,12 @@ registerLanguage({
         __require(["vs/basic-languages/scala/scala"], resolve, reject);
       });
     } else {
-      return import("./chunk-scala-BJHFCLDD.mjs");
+      return import("./chunk-scala-IF5FD2C5.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/scheme/scheme.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/scheme/scheme.contribution.js
 init_define_process();
 registerLanguage({
   id: "scheme",
@@ -4093,12 +4135,12 @@ registerLanguage({
         __require(["vs/basic-languages/scheme/scheme"], resolve, reject);
       });
     } else {
-      return import("./chunk-scheme-FCQ4KDOA.mjs");
+      return import("./chunk-scheme-V77BIWYZ.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/scss/scss.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/scss/scss.contribution.js
 init_define_process();
 registerLanguage({
   id: "scss",
@@ -4111,12 +4153,12 @@ registerLanguage({
         __require(["vs/basic-languages/scss/scss"], resolve, reject);
       });
     } else {
-      return import("./chunk-scss-W2OCQJPQ.mjs");
+      return import("./chunk-scss-6KIZ4TBO.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/shell/shell.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/shell/shell.contribution.js
 init_define_process();
 registerLanguage({
   id: "shell",
@@ -4128,12 +4170,12 @@ registerLanguage({
         __require(["vs/basic-languages/shell/shell"], resolve, reject);
       });
     } else {
-      return import("./chunk-shell-7N6OFE32.mjs");
+      return import("./chunk-shell-SQK64QAS.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/solidity/solidity.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/solidity/solidity.contribution.js
 init_define_process();
 registerLanguage({
   id: "sol",
@@ -4145,12 +4187,12 @@ registerLanguage({
         __require(["vs/basic-languages/solidity/solidity"], resolve, reject);
       });
     } else {
-      return import("./chunk-solidity-XF6WOVCB.mjs");
+      return import("./chunk-solidity-3NWHU5OI.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sophia/sophia.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sophia/sophia.contribution.js
 init_define_process();
 registerLanguage({
   id: "aes",
@@ -4162,12 +4204,12 @@ registerLanguage({
         __require(["vs/basic-languages/sophia/sophia"], resolve, reject);
       });
     } else {
-      return import("./chunk-sophia-A7V57HFJ.mjs");
+      return import("./chunk-sophia-TQ2UFKLX.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sparql/sparql.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sparql/sparql.contribution.js
 init_define_process();
 registerLanguage({
   id: "sparql",
@@ -4179,12 +4221,12 @@ registerLanguage({
         __require(["vs/basic-languages/sparql/sparql"], resolve, reject);
       });
     } else {
-      return import("./chunk-sparql-YUJMIXJO.mjs");
+      return import("./chunk-sparql-6V7RVHC6.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sql/sql.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sql/sql.contribution.js
 init_define_process();
 registerLanguage({
   id: "sql",
@@ -4196,12 +4238,12 @@ registerLanguage({
         __require(["vs/basic-languages/sql/sql"], resolve, reject);
       });
     } else {
-      return import("./chunk-sql-N2W7YVEL.mjs");
+      return import("./chunk-sql-CTJUAZLI.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/st/st.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/st/st.contribution.js
 init_define_process();
 registerLanguage({
   id: "st",
@@ -4213,12 +4255,12 @@ registerLanguage({
         __require(["vs/basic-languages/st/st"], resolve, reject);
       });
     } else {
-      return import("./chunk-st-SVZT44OV.mjs");
+      return import("./chunk-st-B36EYD4L.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/swift/swift.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/swift/swift.contribution.js
 init_define_process();
 registerLanguage({
   id: "swift",
@@ -4231,12 +4273,12 @@ registerLanguage({
         __require(["vs/basic-languages/swift/swift"], resolve, reject);
       });
     } else {
-      return import("./chunk-swift-LFBWNZWV.mjs");
+      return import("./chunk-swift-VFQDDGWH.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/systemverilog/systemverilog.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/systemverilog/systemverilog.contribution.js
 init_define_process();
 registerLanguage({
   id: "systemverilog",
@@ -4248,7 +4290,7 @@ registerLanguage({
         __require(["vs/basic-languages/systemverilog/systemverilog"], resolve, reject);
       });
     } else {
-      return import("./chunk-systemverilog-HJSRZ3GJ.mjs");
+      return import("./chunk-systemverilog-2DFNKXJN.mjs");
     }
   }
 });
@@ -4262,12 +4304,12 @@ registerLanguage({
         __require(["vs/basic-languages/systemverilog/systemverilog"], resolve, reject);
       });
     } else {
-      return import("./chunk-systemverilog-HJSRZ3GJ.mjs");
+      return import("./chunk-systemverilog-2DFNKXJN.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/tcl/tcl.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/tcl/tcl.contribution.js
 init_define_process();
 registerLanguage({
   id: "tcl",
@@ -4279,12 +4321,12 @@ registerLanguage({
         __require(["vs/basic-languages/tcl/tcl"], resolve, reject);
       });
     } else {
-      return import("./chunk-tcl-XQ7T4KTP.mjs");
+      return import("./chunk-tcl-6KZ7RLYX.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/twig/twig.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/twig/twig.contribution.js
 init_define_process();
 registerLanguage({
   id: "twig",
@@ -4297,12 +4339,12 @@ registerLanguage({
         __require(["vs/basic-languages/twig/twig"], resolve, reject);
       });
     } else {
-      return import("./chunk-twig-YXDBOLJ2.mjs");
+      return import("./chunk-twig-SRPTYFAY.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.js
 init_define_process();
 registerLanguage({
   id: "typescript",
@@ -4315,12 +4357,12 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-RWJDOOUG.mjs");
+      return import("./chunk-typescript-MQUHLLAF.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/vb/vb.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/vb/vb.contribution.js
 init_define_process();
 registerLanguage({
   id: "vb",
@@ -4332,12 +4374,12 @@ registerLanguage({
         __require(["vs/basic-languages/vb/vb"], resolve, reject);
       });
     } else {
-      return import("./chunk-vb-NN27B6QL.mjs");
+      return import("./chunk-vb-PHMGW3U7.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/xml/xml.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/xml/xml.contribution.js
 init_define_process();
 registerLanguage({
   id: "xml",
@@ -4365,12 +4407,12 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("./chunk-xml-5SFOQBLF.mjs");
+      return import("./chunk-xml-HMMUCL6S.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/yaml/yaml.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/yaml/yaml.contribution.js
 init_define_process();
 registerLanguage({
   id: "yaml",
@@ -4383,29 +4425,29 @@ registerLanguage({
         __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
       });
     } else {
-      return import("./chunk-yaml-LZYO5KP3.mjs");
+      return import("./chunk-yaml-HCYD5W3A.mjs");
     }
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/language/css/monaco.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/language/css/monaco.contribution.js
 init_define_process();
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames2 = Object.getOwnPropertyNames;
 var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-var __copyProps2 = (to, from, except, desc) => {
+var __copyProps2 = /* @__PURE__ */ __name((to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames2(from))
       if (!__hasOwnProp2.call(to, key) && key !== except)
         __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
   }
   return to;
-};
-var __reExport2 = (target, mod2, secondTarget) => (__copyProps2(target, mod2, "default"), secondTarget && __copyProps2(secondTarget, mod2, "default"));
+}, "__copyProps");
+var __reExport2 = /* @__PURE__ */ __name((target, mod2, secondTarget) => (__copyProps2(target, mod2, "default"), secondTarget && __copyProps2(secondTarget, mod2, "default")), "__reExport");
 var monaco_editor_core_exports2 = {};
 __reExport2(monaco_editor_core_exports2, editor_api_exports);
-var LanguageServiceDefaultsImpl = class {
+var LanguageServiceDefaultsImpl = /* @__PURE__ */ __name(class {
   constructor(languageId, options, modeConfiguration) {
     __publicField(this, "_onDidChange", new monaco_editor_core_exports2.Emitter());
     __publicField(this, "_options");
@@ -4441,7 +4483,7 @@ var LanguageServiceDefaultsImpl = class {
     this._modeConfiguration = modeConfiguration || /* @__PURE__ */ Object.create(null);
     this._onDidChange.fire(this);
   }
-};
+}, "LanguageServiceDefaultsImpl");
 var optionsDefault = {
   validate: true,
   lint: {
@@ -4499,9 +4541,10 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-cssMode-NRAAB5PN.mjs");
+    return import("./chunk-cssMode-LOVDGRKR.mjs");
   }
 }
+__name(getMode, "getMode");
 monaco_editor_core_exports2.languages.onLanguage("less", () => {
   getMode().then((mode) => mode.setupMode(lessDefaults));
 });
@@ -4512,24 +4555,24 @@ monaco_editor_core_exports2.languages.onLanguage("css", () => {
   getMode().then((mode) => mode.setupMode(cssDefaults));
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/language/html/monaco.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/language/html/monaco.contribution.js
 init_define_process();
 var __defProp3 = Object.defineProperty;
 var __getOwnPropDesc3 = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames3 = Object.getOwnPropertyNames;
 var __hasOwnProp3 = Object.prototype.hasOwnProperty;
-var __copyProps3 = (to, from, except, desc) => {
+var __copyProps3 = /* @__PURE__ */ __name((to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames3(from))
       if (!__hasOwnProp3.call(to, key) && key !== except)
         __defProp3(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc3(from, key)) || desc.enumerable });
   }
   return to;
-};
-var __reExport3 = (target, mod2, secondTarget) => (__copyProps3(target, mod2, "default"), secondTarget && __copyProps3(secondTarget, mod2, "default"));
+}, "__copyProps");
+var __reExport3 = /* @__PURE__ */ __name((target, mod2, secondTarget) => (__copyProps3(target, mod2, "default"), secondTarget && __copyProps3(secondTarget, mod2, "default")), "__reExport");
 var monaco_editor_core_exports3 = {};
 __reExport3(monaco_editor_core_exports3, editor_api_exports);
-var LanguageServiceDefaultsImpl2 = class {
+var LanguageServiceDefaultsImpl2 = /* @__PURE__ */ __name(class {
   constructor(languageId, options, modeConfiguration) {
     __publicField(this, "_onDidChange", new monaco_editor_core_exports3.Emitter());
     __publicField(this, "_options");
@@ -4559,7 +4602,7 @@ var LanguageServiceDefaultsImpl2 = class {
     this._modeConfiguration = modeConfiguration || /* @__PURE__ */ Object.create(null);
     this._onDidChange.fire(this);
   }
-};
+}, "LanguageServiceDefaultsImpl");
 var formatDefaults = {
   tabSize: 4,
   insertSpaces: false,
@@ -4595,6 +4638,7 @@ function getConfigurationDefault(languageId) {
     documentRangeFormattingEdits: languageId === htmlLanguageId
   };
 }
+__name(getConfigurationDefault, "getConfigurationDefault");
 var htmlLanguageId = "html";
 var handlebarsLanguageId = "handlebars";
 var razorLanguageId = "razor";
@@ -4619,9 +4663,10 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-htmlMode-ROH7IXZQ.mjs");
+    return import("./chunk-htmlMode-RINLNQB6.mjs");
   }
 }
+__name(getMode2, "getMode");
 function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
   const defaults = new LanguageServiceDefaultsImpl2(languageId, options, modeConfiguration);
   let mode;
@@ -4637,25 +4682,26 @@ function registerHTMLLanguageService(languageId, options = optionsDefault2, mode
     }
   };
 }
+__name(registerHTMLLanguageService, "registerHTMLLanguageService");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/language/json/monaco.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/language/json/monaco.contribution.js
 init_define_process();
 var __defProp4 = Object.defineProperty;
 var __getOwnPropDesc4 = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames4 = Object.getOwnPropertyNames;
 var __hasOwnProp4 = Object.prototype.hasOwnProperty;
-var __copyProps4 = (to, from, except, desc) => {
+var __copyProps4 = /* @__PURE__ */ __name((to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames4(from))
       if (!__hasOwnProp4.call(to, key) && key !== except)
         __defProp4(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc4(from, key)) || desc.enumerable });
   }
   return to;
-};
-var __reExport4 = (target, mod2, secondTarget) => (__copyProps4(target, mod2, "default"), secondTarget && __copyProps4(secondTarget, mod2, "default"));
+}, "__copyProps");
+var __reExport4 = /* @__PURE__ */ __name((target, mod2, secondTarget) => (__copyProps4(target, mod2, "default"), secondTarget && __copyProps4(secondTarget, mod2, "default")), "__reExport");
 var monaco_editor_core_exports4 = {};
 __reExport4(monaco_editor_core_exports4, editor_api_exports);
-var LanguageServiceDefaultsImpl3 = class {
+var LanguageServiceDefaultsImpl3 = /* @__PURE__ */ __name(class {
   constructor(languageId, diagnosticsOptions, modeConfiguration) {
     __publicField(this, "_onDidChange", new monaco_editor_core_exports4.Emitter());
     __publicField(this, "_diagnosticsOptions");
@@ -4685,7 +4731,7 @@ var LanguageServiceDefaultsImpl3 = class {
     this._modeConfiguration = modeConfiguration || /* @__PURE__ */ Object.create(null);
     this._onDidChange.fire(this);
   }
-};
+}, "LanguageServiceDefaultsImpl");
 var diagnosticDefault = {
   validate: true,
   allowComments: true,
@@ -4716,9 +4762,10 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-jsonMode-FJDSM5KP.mjs");
+    return import("./chunk-jsonMode-7S5W3HDS.mjs");
   }
 }
+__name(getMode3, "getMode");
 monaco_editor_core_exports4.languages.register({
   id: "json",
   extensions: [".json", ".bowerrc", ".jshintrc", ".jscsrc", ".eslintrc", ".babelrc", ".har"],
@@ -4729,13 +4776,13 @@ monaco_editor_core_exports4.languages.onLanguage("json", () => {
   getMode3().then((mode) => mode.setupMode(jsonDefaults));
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/edcore.main.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/edcore.main.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/anchorSelect/browser/anchorSelect.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/anchorSelect/browser/anchorSelect.js
 init_define_process();
 init_aria();
 init_keyCodes();
@@ -4765,6 +4812,7 @@ var __awaiter = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -4773,6 +4821,7 @@ var __awaiter = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -4780,14 +4829,16 @@ var __awaiter = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
 var SelectionAnchorSet = new RawContextKey("selectionAnchorSet", false);
-var SelectionAnchorController = class SelectionAnchorController2 {
+var SelectionAnchorController = /* @__PURE__ */ __name(class SelectionAnchorController2 {
   constructor(editor2, contextKeyService) {
     this.editor = editor2;
     this.selectionAnchorSetContextKey = SelectionAnchorSet.bindTo(contextKeyService);
@@ -4846,7 +4897,7 @@ var SelectionAnchorController = class SelectionAnchorController2 {
     this.cancelSelectionAnchor();
     this.modelChangeListener.dispose();
   }
-};
+}, "SelectionAnchorController");
 SelectionAnchorController.ID = "editor.contrib.selectionAnchorController";
 SelectionAnchorController = __decorate([
   __param(1, IContextKeyService)
@@ -4872,6 +4923,7 @@ var SetSelectionAnchor = class extends EditorAction {
     });
   }
 };
+__name(SetSelectionAnchor, "SetSelectionAnchor");
 var GoToSelectionAnchor = class extends EditorAction {
   constructor() {
     super({
@@ -4888,6 +4940,7 @@ var GoToSelectionAnchor = class extends EditorAction {
     });
   }
 };
+__name(GoToSelectionAnchor, "GoToSelectionAnchor");
 var SelectFromAnchorToCursor = class extends EditorAction {
   constructor() {
     super({
@@ -4909,6 +4962,7 @@ var SelectFromAnchorToCursor = class extends EditorAction {
     });
   }
 };
+__name(SelectFromAnchorToCursor, "SelectFromAnchorToCursor");
 var CancelSelectionAnchor = class extends EditorAction {
   constructor() {
     super({
@@ -4930,13 +4984,14 @@ var CancelSelectionAnchor = class extends EditorAction {
     });
   }
 };
+__name(CancelSelectionAnchor, "CancelSelectionAnchor");
 registerEditorContribution(SelectionAnchorController.ID, SelectionAnchorController);
 registerEditorAction(SetSelectionAnchor);
 registerEditorAction(GoToSelectionAnchor);
 registerEditorAction(SelectFromAnchorToCursor);
 registerEditorAction(CancelSelectionAnchor);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/bracketMatching/browser/bracketMatching.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/bracketMatching/browser/bracketMatching.js
 init_define_process();
 init_async();
 init_lifecycle();
@@ -4972,6 +5027,7 @@ var JumpToBracketAction = class extends EditorAction {
     (_a5 = BracketMatchingController.get(editor2)) === null || _a5 === void 0 ? void 0 : _a5.jumpToBracket();
   }
 };
+__name(JumpToBracketAction, "JumpToBracketAction");
 var SelectToBracketAction = class extends EditorAction {
   constructor() {
     super({
@@ -5005,6 +5061,7 @@ var SelectToBracketAction = class extends EditorAction {
     (_a5 = BracketMatchingController.get(editor2)) === null || _a5 === void 0 ? void 0 : _a5.selectToBracket(selectBrackets);
   }
 };
+__name(SelectToBracketAction, "SelectToBracketAction");
 var BracketsData = class {
   constructor(position, brackets, options) {
     this.position = position;
@@ -5012,6 +5069,7 @@ var BracketsData = class {
     this.options = options;
   }
 };
+__name(BracketsData, "BracketsData");
 var BracketMatchingController = class extends Disposable {
   constructor(editor2) {
     super();
@@ -5202,6 +5260,7 @@ var BracketMatchingController = class extends Disposable {
     this._lastVersionId = versionId;
   }
 };
+__name(BracketMatchingController, "BracketMatchingController");
 BracketMatchingController.ID = "editor.contrib.bracketMatchingController";
 BracketMatchingController._DECORATION_OPTIONS_WITH_OVERVIEW_RULER = ModelDecorationOptions.register({
   description: "bracket-match-overview",
@@ -5239,12 +5298,12 @@ MenuRegistry.appendMenuItem(MenuId.MenubarGoMenu, {
   order: 2
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/caretOperations/browser/caretOperations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/caretOperations/browser/caretOperations.js
 init_define_process();
 init_editorExtensions();
 init_editorContextKeys();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/caretOperations/browser/moveCaretCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/caretOperations/browser/moveCaretCommand.js
 init_define_process();
 init_range();
 init_selection();
@@ -5286,8 +5345,9 @@ var MoveCaretCommand = class {
     }
   }
 };
+__name(MoveCaretCommand, "MoveCaretCommand");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/caretOperations/browser/caretOperations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/caretOperations/browser/caretOperations.js
 init_nls();
 var MoveCaretAction = class extends EditorAction {
   constructor(left, opts) {
@@ -5308,6 +5368,7 @@ var MoveCaretAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(MoveCaretAction, "MoveCaretAction");
 var MoveCaretLeftAction = class extends MoveCaretAction {
   constructor() {
     super(true, {
@@ -5318,6 +5379,7 @@ var MoveCaretLeftAction = class extends MoveCaretAction {
     });
   }
 };
+__name(MoveCaretLeftAction, "MoveCaretLeftAction");
 var MoveCaretRightAction = class extends MoveCaretAction {
   constructor() {
     super(false, {
@@ -5328,10 +5390,11 @@ var MoveCaretRightAction = class extends MoveCaretAction {
     });
   }
 };
+__name(MoveCaretRightAction, "MoveCaretRightAction");
 registerEditorAction(MoveCaretLeftAction);
 registerEditorAction(MoveCaretRightAction);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/caretOperations/browser/transpose.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/caretOperations/browser/transpose.js
 init_define_process();
 init_editorExtensions();
 init_range();
@@ -5386,9 +5449,10 @@ var TransposeLettersAction = class extends EditorAction {
     }
   }
 };
+__name(TransposeLettersAction, "TransposeLettersAction");
 registerEditorAction(TransposeLettersAction);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/clipboard/browser/clipboard.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/clipboard/browser/clipboard.js
 init_define_process();
 init_browser();
 init_platform();
@@ -5403,6 +5467,7 @@ var __awaiter2 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -5411,6 +5476,7 @@ var __awaiter2 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -5418,9 +5484,11 @@ var __awaiter2 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -5432,6 +5500,7 @@ function registerCommand(command) {
   command.register();
   return command;
 }
+__name(registerCommand, "registerCommand");
 var CutAction = supportsCut ? registerCommand(new MultiCommand({
   id: "editor.action.clipboardCutAction",
   precondition: void 0,
@@ -5558,6 +5627,7 @@ var ExecCommandCopyWithSyntaxHighlightingAction = class extends EditorAction {
     CopyOptions.forceCopyWithSyntaxHighlighting = false;
   }
 };
+__name(ExecCommandCopyWithSyntaxHighlightingAction, "ExecCommandCopyWithSyntaxHighlightingAction");
 function registerExecCommandImpl(target, browserCommand) {
   if (!target) {
     return;
@@ -5580,6 +5650,7 @@ function registerExecCommandImpl(target, browserCommand) {
     return true;
   });
 }
+__name(registerExecCommandImpl, "registerExecCommandImpl");
 registerExecCommandImpl(CutAction, "cut");
 registerExecCommandImpl(CopyAction, "copy");
 if (PasteAction) {
@@ -5624,11 +5695,11 @@ if (supportsCopy) {
   registerEditorAction(ExecCommandCopyWithSyntaxHighlightingAction);
 }
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionContributions.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionContributions.js
 init_define_process();
 init_editorExtensions();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionCommands.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionCommands.js
 init_define_process();
 init_cancellation();
 init_lazy();
@@ -5638,7 +5709,7 @@ init_editorExtensions();
 init_editorContextKeys();
 init_languageFeatures();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeAction.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeAction.js
 init_define_process();
 init_arrays();
 init_cancellation();
@@ -5652,7 +5723,7 @@ init_model2();
 init_commands();
 init_progress();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/types.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/types.js
 init_define_process();
 var CodeActionKind = class {
   constructor(value) {
@@ -5671,6 +5742,7 @@ var CodeActionKind = class {
     return new CodeActionKind(this.value + CodeActionKind.sep + part);
   }
 };
+__name(CodeActionKind, "CodeActionKind");
 CodeActionKind.sep = ".";
 CodeActionKind.None = new CodeActionKind("@@none@@");
 CodeActionKind.Empty = new CodeActionKind("");
@@ -5708,6 +5780,7 @@ function mayIncludeActionsOfKind(filter, providedKind) {
   }
   return true;
 }
+__name(mayIncludeActionsOfKind, "mayIncludeActionsOfKind");
 function filtersAction(filter, action) {
   const actionKind = action.kind ? new CodeActionKind(action.kind) : void 0;
   if (filter.include) {
@@ -5732,6 +5805,7 @@ function filtersAction(filter, action) {
   }
   return true;
 }
+__name(filtersAction, "filtersAction");
 function excludesAction(providedKind, exclude, include) {
   if (!exclude.contains(providedKind)) {
     return false;
@@ -5741,6 +5815,7 @@ function excludesAction(providedKind, exclude, include) {
   }
   return true;
 }
+__name(excludesAction, "excludesAction");
 var CodeActionCommandArgs = class {
   constructor(kind, apply, preferred) {
     this.kind = kind;
@@ -5772,8 +5847,9 @@ var CodeActionCommandArgs = class {
     return typeof arg.preferred === "boolean" ? arg.preferred : false;
   }
 };
+__name(CodeActionCommandArgs, "CodeActionCommandArgs");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeAction.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeAction.js
 init_languageFeatures();
 var __awaiter3 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
@@ -5781,6 +5857,7 @@ var __awaiter3 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -5789,6 +5866,7 @@ var __awaiter3 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -5796,9 +5874,11 @@ var __awaiter3 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -5831,6 +5911,7 @@ var CodeActionItem = class {
     });
   }
 };
+__name(CodeActionItem, "CodeActionItem");
 var ManagedCodeActionSet = class extends Disposable {
   constructor(actions, documentation, disposables) {
     super();
@@ -5861,6 +5942,7 @@ var ManagedCodeActionSet = class extends Disposable {
     return this.validActions.some(({ action: fix }) => !!fix.kind && CodeActionKind.QuickFix.contains(new CodeActionKind(fix.kind)) && !!fix.isPreferred);
   }
 };
+__name(ManagedCodeActionSet, "ManagedCodeActionSet");
 var emptyCodeActionsResponse = { actions: [], documentation: void 0 };
 function getCodeActions(registry, model, rangeOrSelection, trigger, progress, token) {
   var _a5;
@@ -5911,6 +5993,7 @@ function getCodeActions(registry, model, rangeOrSelection, trigger, progress, to
     cts.dispose();
   });
 }
+__name(getCodeActions, "getCodeActions");
 function getCodeActionProviders(registry, model, filter) {
   return registry.all(model).filter((provider) => {
     if (!provider.providedCodeActionKinds) {
@@ -5919,6 +6002,7 @@ function getCodeActionProviders(registry, model, filter) {
     return provider.providedCodeActionKinds.some((kind) => mayIncludeActionsOfKind(filter, new CodeActionKind(kind)));
   });
 }
+__name(getCodeActionProviders, "getCodeActionProviders");
 function getDocumentation(provider, providedCodeActions, only) {
   if (!provider.documentation) {
     return void 0;
@@ -5953,6 +6037,7 @@ function getDocumentation(provider, providedCodeActions, only) {
   }
   return void 0;
 }
+__name(getDocumentation, "getDocumentation");
 CommandsRegistry.registerCommand("_executeCodeActionProvider", function(accessor, resource, rangeOrSelection, kind, itemResolveCount) {
   return __awaiter3(this, void 0, void 0, function* () {
     if (!(resource instanceof URI)) {
@@ -5983,13 +6068,13 @@ CommandsRegistry.registerCommand("_executeCodeActionProvider", function(accessor
   });
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionUi.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionUi.js
 init_define_process();
 init_errors();
 init_lazy();
 init_lifecycle();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/message/browser/messageController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/message/browser/messageController.js
 init_define_process();
 init_aria();
 init_async();
@@ -6013,7 +6098,7 @@ var __param2 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var MessageController = class MessageController2 {
+var MessageController = /* @__PURE__ */ __name(class MessageController2 {
   constructor(editor2, contextKeyService) {
     this._messageWidget = new MutableDisposable();
     this._messageListeners = new DisposableStore();
@@ -6058,7 +6143,7 @@ var MessageController = class MessageController2 {
       this._messageListeners.add(MessageWidget.fadeOut(this._messageWidget.value));
     }
   }
-};
+}, "MessageController");
 MessageController.ID = "editor.contrib.messageController";
 MessageController.MESSAGE_VISIBLE = new RawContextKey("messageVisible", false, localize("messageVisible", "Whether the editor is currently showing an inline message"));
 MessageController = __decorate2([
@@ -6098,11 +6183,11 @@ var MessageWidget = class {
     this._domNode.classList.add("fadeIn");
   }
   static fadeOut(messageWidget) {
-    const dispose2 = () => {
+    const dispose2 = /* @__PURE__ */ __name(() => {
       messageWidget.dispose();
       clearTimeout(handle);
       messageWidget.getDomNode().removeEventListener("animationend", dispose2);
-    };
+    }, "dispose");
     const handle = setTimeout(dispose2, 110);
     messageWidget.getDomNode().addEventListener("animationend", dispose2);
     messageWidget.getDomNode().classList.add("fadeOut");
@@ -6131,12 +6216,13 @@ var MessageWidget = class {
     this._domNode.classList.toggle("below", position === 2);
   }
 };
+__name(MessageWidget, "MessageWidget");
 registerEditorContribution(MessageController.ID, MessageController);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionUi.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionUi.js
 init_instantiation();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionMenu.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionMenu.js
 init_define_process();
 init_dom();
 init_actions();
@@ -6172,6 +6258,7 @@ var __awaiter4 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -6180,6 +6267,7 @@ var __awaiter4 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -6187,9 +6275,11 @@ var __awaiter4 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -6202,12 +6292,14 @@ var CodeActionAction = class extends Action {
     this.action = action;
   }
 };
+__name(CodeActionAction, "CodeActionAction");
 function stripNewlines(str) {
   return str.replace(/\r\n|\r|\n/g, " ");
 }
+__name(stripNewlines, "stripNewlines");
 var TEMPLATE_ID = "codeActionWidget";
 var codeActionLineHeight = 26;
-var CodeMenuRenderer = class CodeMenuRenderer2 {
+var CodeMenuRenderer = /* @__PURE__ */ __name(class CodeMenuRenderer2 {
   constructor(acceptKeybindings, keybindingService) {
     this.acceptKeybindings = acceptKeybindings;
     this.keybindingService = keybindingService;
@@ -6241,22 +6333,22 @@ var CodeMenuRenderer = class CodeMenuRenderer2 {
       data.root.style.height = "10px";
     }
     if (!isDocumentation) {
-      const updateLabel = () => {
+      const updateLabel = /* @__PURE__ */ __name(() => {
         var _a5, _b2;
         const [accept, preview] = this.acceptKeybindings;
         data.root.title = localize({ key: "label", comment: ['placeholders are keybindings, e.g "F2 to Refactor, Shift+F2 to Preview"'] }, "{0} to Refactor, {1} to Preview", (_a5 = this.keybindingService.lookupKeybinding(accept)) === null || _a5 === void 0 ? void 0 : _a5.getLabel(), (_b2 = this.keybindingService.lookupKeybinding(preview)) === null || _b2 === void 0 ? void 0 : _b2.getLabel());
-      };
+      }, "updateLabel");
       updateLabel();
     }
   }
   disposeTemplate(templateData) {
     templateData.disposables = dispose(templateData.disposables);
   }
-};
+}, "CodeMenuRenderer");
 CodeMenuRenderer = __decorate3([
   __param3(1, IKeybindingService)
 ], CodeMenuRenderer);
-var CodeActionMenu = class CodeActionMenu2 extends Disposable {
+var CodeActionMenu = /* @__PURE__ */ __name(class CodeActionMenu2 extends Disposable {
   constructor(_editor, _delegate, _contextMenuService, keybindingService, _languageFeaturesService, _telemetryService, _themeService, _configurationService, _contextViewService, _contextKeyService) {
     super();
     this._editor = _editor;
@@ -6516,7 +6608,7 @@ var CodeActionMenu = class CodeActionMenu2 extends Disposable {
   }
   getMenuActions(trigger, actionsToShow, documentation) {
     var _a5, _b2;
-    const toCodeActionAction = (item) => new CodeActionAction(item.action, () => this._delegate.onSelectCodeAction(item, trigger));
+    const toCodeActionAction = /* @__PURE__ */ __name((item) => new CodeActionAction(item.action, () => this._delegate.onSelectCodeAction(item, trigger)), "toCodeActionAction");
     const result = actionsToShow.map(toCodeActionAction);
     const allDocumentation = [...documentation];
     const model = this._editor.getModel();
@@ -6548,7 +6640,7 @@ var CodeActionMenu = class CodeActionMenu2 extends Disposable {
     const y = editorCoords.top + cursorCoords.top + cursorCoords.height;
     return { x, y };
   }
-};
+}, "CodeActionMenu");
 CodeActionMenu.documentationID = "_documentation";
 CodeActionMenu = __decorate3([
   __param3(2, IContextMenuService),
@@ -6603,6 +6695,7 @@ var CodeActionKeybindingResolver = class {
     }, void 0);
   }
 };
+__name(CodeActionKeybindingResolver, "CodeActionKeybindingResolver");
 CodeActionKeybindingResolver.codeActionCommands = [
   refactorCommandId,
   codeActionCommandId,
@@ -6611,7 +6704,7 @@ CodeActionKeybindingResolver.codeActionCommands = [
   fixAllCommandId
 ];
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/lightBulbWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/lightBulbWidget.js
 init_define_process();
 init_dom();
 init_touch();
@@ -6650,9 +6743,10 @@ var LightBulbState;
       this.type = 1;
     }
   }
+  __name(Showing, "Showing");
   LightBulbState2.Showing = Showing;
 })(LightBulbState || (LightBulbState = {}));
-var LightBulbWidget = class LightBulbWidget2 extends Disposable {
+var LightBulbWidget = /* @__PURE__ */ __name(class LightBulbWidget2 extends Disposable {
   constructor(_editor, _quickFixActionId, _preferredFixActionId, _keybindingService) {
     super();
     this._editor = _editor;
@@ -6736,9 +6830,9 @@ var LightBulbWidget = class LightBulbWidget2 extends Disposable {
     const lineContent = model.getLineContent(lineNumber);
     const indent = computeIndentLevel(lineContent, tabSize);
     const lineHasSpace = fontInfo.spaceWidth * indent > 22;
-    const isFolded = (lineNumber2) => {
+    const isFolded = /* @__PURE__ */ __name((lineNumber2) => {
       return lineNumber2 > 2 && this._editor.getTopForLineNumber(lineNumber2) === this._editor.getTopForLineNumber(lineNumber2 - 1);
-    };
+    }, "isFolded");
     let effectiveLineNumber = lineNumber;
     if (!lineHasSpace) {
       if (lineNumber > 1 && !isFolded(lineNumber - 1)) {
@@ -6788,7 +6882,7 @@ var LightBulbWidget = class LightBulbWidget2 extends Disposable {
   set title(value) {
     this._domNode.title = value;
   }
-};
+}, "LightBulbWidget");
 LightBulbWidget._posPref = [0];
 LightBulbWidget = __decorate4([
   __param4(3, IKeybindingService)
@@ -6814,7 +6908,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionUi.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionUi.js
 var __decorate5 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -6836,6 +6930,7 @@ var __awaiter5 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -6844,6 +6939,7 @@ var __awaiter5 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -6851,9 +6947,11 @@ var __awaiter5 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -6874,7 +6972,7 @@ var __classPrivateFieldGet = function(receiver, state, kind, f) {
   return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _CodeActionUi_disposed;
-var CodeActionUi = class CodeActionUi2 extends Disposable {
+var CodeActionUi = /* @__PURE__ */ __name(class CodeActionUi2 extends Disposable {
   constructor(_editor, quickFixActionId, preferredFixActionId, delegate, instantiationService) {
     super();
     this._editor = _editor;
@@ -7009,13 +7107,13 @@ var CodeActionUi = class CodeActionUi2 extends Disposable {
       this._codeActionWidget.getValue().show(trigger, actions, at, options);
     });
   }
-};
+}, "CodeActionUi");
 _CodeActionUi_disposed = /* @__PURE__ */ new WeakMap();
 CodeActionUi = __decorate5([
   __param5(4, IInstantiationService)
 ], CodeActionUi);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionCommands.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionCommands.js
 init_nls();
 init_commands();
 init_contextkey();
@@ -7023,7 +7121,7 @@ init_instantiation();
 init_progress();
 init_telemetry();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionModel.js
 init_define_process();
 init_async();
 init_errors();
@@ -7139,6 +7237,7 @@ var CodeActionOracle = class extends Disposable {
     return e;
   }
 };
+__name(CodeActionOracle, "CodeActionOracle");
 var CodeActionsState;
 (function(CodeActionsState2) {
   CodeActionsState2.Empty = { type: 0 };
@@ -7160,6 +7259,7 @@ var CodeActionsState;
       this._cancellablePromise.cancel();
     }
   }
+  __name(Triggered, "Triggered");
   CodeActionsState2.Triggered = Triggered;
 })(CodeActionsState || (CodeActionsState = {}));
 var emptyCodeActionSet = {
@@ -7245,9 +7345,10 @@ var CodeActionModel = class extends Disposable {
     }
   }
 };
+__name(CodeActionModel, "CodeActionModel");
 _CodeActionModel_isDisposed = /* @__PURE__ */ new WeakMap();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionCommands.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionCommands.js
 var __decorate6 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -7269,6 +7370,7 @@ var __awaiter6 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -7277,6 +7379,7 @@ var __awaiter6 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -7284,15 +7387,18 @@ var __awaiter6 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
 function contextKeyForSupportedActions(kind) {
   return ContextKeyExpr.regex(SUPPORTED_CODE_ACTIONS.keys()[0], new RegExp("(\\s|^)" + escapeRegExpCharacters(kind.value) + "\\b"));
 }
+__name(contextKeyForSupportedActions, "contextKeyForSupportedActions");
 function refactorTrigger(editor2, userArgs, preview, codeActionFrom) {
   const args = CodeActionCommandArgs.fromUser(userArgs, {
     kind: CodeActionKind.Refactor,
@@ -7303,6 +7409,7 @@ function refactorTrigger(editor2, userArgs, preview, codeActionFrom) {
     onlyIncludePreferredActions: args.preferred
   }, args.apply, preview, codeActionFrom);
 }
+__name(refactorTrigger, "refactorTrigger");
 var argsSchema = {
   type: "object",
   defaultSnippets: [{ body: { kind: "" } }],
@@ -7329,7 +7436,7 @@ var argsSchema = {
     }
   }
 };
-var QuickFixController = class QuickFixController2 extends Disposable {
+var QuickFixController = /* @__PURE__ */ __name(class QuickFixController2 extends Disposable {
   constructor(editor2, markerService, contextKeyService, progressService, _instantiationService, languageFeaturesService) {
     super();
     this._instantiationService = _instantiationService;
@@ -7392,7 +7499,7 @@ var QuickFixController = class QuickFixController2 extends Disposable {
   _applyCodeAction(action, preview) {
     return this._instantiationService.invokeFunction(applyCodeAction, action, ApplyCodeActionReason.FromCodeActions, { preview, editor: this._editor });
   }
-};
+}, "QuickFixController");
 QuickFixController.ID = "editor.contrib.quickFixController";
 QuickFixController = __decorate6([
   __param6(1, IMarkerService),
@@ -7440,6 +7547,7 @@ function applyCodeAction(accessor, item, codeActionReason, options) {
     }
   });
 }
+__name(applyCodeAction, "applyCodeAction");
 function asMessage(err) {
   if (typeof err === "string") {
     return err;
@@ -7449,12 +7557,14 @@ function asMessage(err) {
     return void 0;
   }
 }
+__name(asMessage, "asMessage");
 function triggerCodeActionsForEditorSelection(editor2, notAvailableMessage, filter, autoApply, preview = false, triggerAction = CodeActionTriggerSource.Default) {
   if (editor2.hasModel()) {
     const controller = QuickFixController.get(editor2);
     controller === null || controller === void 0 ? void 0 : controller.manualTriggerAtCurrentPosition(notAvailableMessage, triggerAction, filter, autoApply, preview);
   }
 }
+__name(triggerCodeActionsForEditorSelection, "triggerCodeActionsForEditorSelection");
 var QuickFixAction = class extends EditorAction {
   constructor() {
     super({
@@ -7473,6 +7583,7 @@ var QuickFixAction = class extends EditorAction {
     return triggerCodeActionsForEditorSelection(editor2, localize("editor.action.quickFix.noneMessage", "No code actions available"), void 0, void 0, false, CodeActionTriggerSource.QuickFix);
   }
 };
+__name(QuickFixAction, "QuickFixAction");
 QuickFixAction.Id = "editor.action.quickFix";
 var CodeActionCommand = class extends EditorCommand {
   constructor() {
@@ -7497,6 +7608,7 @@ var CodeActionCommand = class extends EditorCommand {
     }, args.apply);
   }
 };
+__name(CodeActionCommand, "CodeActionCommand");
 var RefactorAction = class extends EditorAction {
   constructor() {
     super({
@@ -7527,6 +7639,7 @@ var RefactorAction = class extends EditorAction {
     return refactorTrigger(editor2, userArgs, false, CodeActionTriggerSource.Refactor);
   }
 };
+__name(RefactorAction, "RefactorAction");
 var RefactorPreview = class extends EditorAction {
   constructor() {
     super({
@@ -7544,6 +7657,7 @@ var RefactorPreview = class extends EditorAction {
     return refactorTrigger(editor2, userArgs, true, CodeActionTriggerSource.RefactorPreview);
   }
 };
+__name(RefactorPreview, "RefactorPreview");
 var SourceAction = class extends EditorAction {
   constructor() {
     super({
@@ -7574,6 +7688,7 @@ var SourceAction = class extends EditorAction {
     }, args.apply, void 0, CodeActionTriggerSource.SourceAction);
   }
 };
+__name(SourceAction, "SourceAction");
 var OrganizeImportsAction = class extends EditorAction {
   constructor() {
     super({
@@ -7592,6 +7707,7 @@ var OrganizeImportsAction = class extends EditorAction {
     return triggerCodeActionsForEditorSelection(editor2, localize("editor.action.organize.noneMessage", "No organize imports action available"), { include: CodeActionKind.SourceOrganizeImports, includeSourceActions: true }, "ifSingle", void 0, CodeActionTriggerSource.OrganizeImports);
   }
 };
+__name(OrganizeImportsAction, "OrganizeImportsAction");
 var FixAllAction = class extends EditorAction {
   constructor() {
     super({
@@ -7605,6 +7721,7 @@ var FixAllAction = class extends EditorAction {
     return triggerCodeActionsForEditorSelection(editor2, localize("fixAll.noneMessage", "No fix all action available"), { include: CodeActionKind.SourceFixAll, includeSourceActions: true }, "ifSingle", void 0, CodeActionTriggerSource.FixAll);
   }
 };
+__name(FixAllAction, "FixAllAction");
 var AutoFixAction = class extends EditorAction {
   constructor() {
     super({
@@ -7629,6 +7746,7 @@ var AutoFixAction = class extends EditorAction {
     }, "ifSingle", void 0, CodeActionTriggerSource.AutoFix);
   }
 };
+__name(AutoFixAction, "AutoFixAction");
 AutoFixAction.Id = "editor.action.autoFix";
 var CodeActionContribution = EditorCommand.bindToContribution(QuickFixController.get);
 var weight = 100 + 90;
@@ -7692,7 +7810,7 @@ registerEditorCommand(new CodeActionContribution({
   }
 }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionWidgetContribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionWidgetContribution.js
 init_define_process();
 init_nls();
 init_configurationRegistry();
@@ -7707,7 +7825,7 @@ Registry.as(Extensions.Configuration).registerConfiguration(Object.assign(Object
   }
 } }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionContributions.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/codeActionContributions.js
 registerEditorContribution(QuickFixController.ID, QuickFixController);
 registerEditorAction(QuickFixAction);
 registerEditorAction(RefactorAction);
@@ -7718,7 +7836,7 @@ registerEditorAction(AutoFixAction);
 registerEditorAction(FixAllAction);
 registerEditorCommand(new CodeActionCommand());
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codelensController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codelensController.js
 init_define_process();
 init_dom();
 init_async();
@@ -7728,7 +7846,7 @@ init_lifecycle();
 init_editorExtensions();
 init_editorContextKeys();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codelens.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codelens.js
 init_define_process();
 init_cancellation();
 init_errors();
@@ -7744,6 +7862,7 @@ var __awaiter7 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -7752,6 +7871,7 @@ var __awaiter7 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -7759,9 +7879,11 @@ var __awaiter7 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -7783,6 +7905,7 @@ var CodeLensModel = class {
     }
   }
 };
+__name(CodeLensModel, "CodeLensModel");
 function getCodeLensModel(registry, model, token) {
   return __awaiter7(this, void 0, void 0, function* () {
     const provider = registry.ordered(model);
@@ -7820,6 +7943,7 @@ function getCodeLensModel(registry, model, token) {
     return result;
   });
 }
+__name(getCodeLensModel, "getCodeLensModel");
 CommandsRegistry.registerCommand("_executeCodeLensProvider", function(accessor, ...args) {
   let [uri, itemResolveCount] = args;
   assertType(URI.isUri(uri));
@@ -7849,7 +7973,7 @@ CommandsRegistry.registerCommand("_executeCodeLensProvider", function(accessor, 
   });
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codeLensCache.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codeLensCache.js
 init_define_process();
 init_async();
 init_functional();
@@ -7879,7 +8003,8 @@ var CacheItem = class {
     this.data = data;
   }
 };
-var CodeLensCache = class CodeLensCache2 {
+__name(CacheItem, "CacheItem");
+var CodeLensCache = /* @__PURE__ */ __name(class CodeLensCache2 {
   constructor(storageService) {
     this._fakeProvider = new class {
       provideCodeLenses() {
@@ -7950,13 +8075,13 @@ var CodeLensCache = class CodeLensCache2 {
     } catch (_a5) {
     }
   }
-};
+}, "CodeLensCache");
 CodeLensCache = __decorate7([
   __param7(0, IStorageService)
 ], CodeLensCache);
 registerSingleton(ICodeLensCache, CodeLensCache);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codelensWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codelensWidget.js
 init_define_process();
 init_dom();
 init_range();
@@ -7982,6 +8107,7 @@ var CodeLensViewZone = class {
     return this._lastHeight !== 0 && this.domNode.hasAttribute("monaco-visible-view-zone");
   }
 };
+__name(CodeLensViewZone, "CodeLensViewZone");
 var CodeLensContentWidget = class {
   constructor(editor2, className, line) {
     this.allowEditorOverflow = false;
@@ -8047,6 +8173,7 @@ var CodeLensContentWidget = class {
     return this._widgetPosition || null;
   }
 };
+__name(CodeLensContentWidget, "CodeLensContentWidget");
 CodeLensContentWidget._idPool = 0;
 var CodeLensHelper = class {
   constructor() {
@@ -8068,6 +8195,7 @@ var CodeLensHelper = class {
     }
   }
 };
+__name(CodeLensHelper, "CodeLensHelper");
 var CodeLensWidget = class {
   constructor(data, editor2, className, helper, viewZoneChangeAccessor, heightInPx, updateCallback) {
     this._isDisposed = false;
@@ -8192,8 +8320,9 @@ var CodeLensWidget = class {
     }
   }
 };
+__name(CodeLensWidget, "CodeLensWidget");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codelensController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codelensController.js
 init_nls();
 init_commands();
 init_languageFeatureDebounce();
@@ -8219,6 +8348,7 @@ var __awaiter8 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -8227,6 +8357,7 @@ var __awaiter8 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -8234,13 +8365,15 @@ var __awaiter8 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var CodeLensContribution = class CodeLensContribution2 {
+var CodeLensContribution = /* @__PURE__ */ __name(class CodeLensContribution2 {
   constructor(_editor, _languageFeaturesService, debounceService, _commandService, _notificationService, _codeLensCache) {
     this._editor = _editor;
     this._languageFeaturesService = _languageFeaturesService;
@@ -8571,7 +8704,7 @@ var CodeLensContribution = class CodeLensContribution2 {
   getModel() {
     return this._currentCodeLensModel;
   }
-};
+}, "CodeLensContribution");
 CodeLensContribution.ID = "css.editor.codeLens";
 CodeLensContribution = __decorate8([
   __param8(1, ILanguageFeaturesService),
@@ -8581,7 +8714,7 @@ CodeLensContribution = __decorate8([
   __param8(5, ICodeLensCache)
 ], CodeLensContribution);
 registerEditorContribution(CodeLensContribution.ID, CodeLensContribution);
-registerEditorAction(class ShowLensesInCurrentLine extends EditorAction {
+registerEditorAction(/* @__PURE__ */ __name(class ShowLensesInCurrentLine extends EditorAction {
   constructor() {
     super({
       id: "codelens.showLensesInCurrentLine",
@@ -8633,15 +8766,15 @@ registerEditorAction(class ShowLensesInCurrentLine extends EditorAction {
       }
     });
   }
-});
+}, "ShowLensesInCurrentLine"));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorContributions.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorContributions.js
 init_define_process();
 init_lifecycle();
 init_editorExtensions();
 init_range();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorDetector.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorDetector.js
 init_define_process();
 init_async();
 init_color();
@@ -8655,7 +8788,7 @@ init_textModel();
 init_languageFeatureDebounce();
 init_languageFeatures();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/color.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/color.js
 init_define_process();
 init_cancellation();
 init_errors();
@@ -8676,9 +8809,11 @@ function getColors(registry, model, token) {
   }));
   return Promise.all(promises).then(() => colors);
 }
+__name(getColors, "getColors");
 function getColorPresentations(model, colorInfo, provider, token) {
   return Promise.resolve(provider.provideColorPresentations(model, colorInfo, token));
 }
+__name(getColorPresentations, "getColorPresentations");
 CommandsRegistry.registerCommand("_executeDocumentColorProvider", function(accessor, ...args) {
   const [resource] = args;
   if (!(resource instanceof URI)) {
@@ -8726,7 +8861,7 @@ CommandsRegistry.registerCommand("_executeColorPresentationProvider", function(a
   return Promise.all(promises).then(() => presentations);
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorDetector.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorDetector.js
 init_configuration();
 var __decorate9 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8749,6 +8884,7 @@ var __awaiter9 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -8757,6 +8893,7 @@ var __awaiter9 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -8764,15 +8901,17 @@ var __awaiter9 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
 var ColorDecorationInjectedTextMarker = /* @__PURE__ */ Object.create({});
 var MAX_DECORATORS = 500;
-var ColorDetector = class ColorDetector2 extends Disposable {
+var ColorDetector = /* @__PURE__ */ __name(class ColorDetector2 extends Disposable {
   constructor(_editor, _configurationService, _languageFeaturesService, languageFeatureDebounceService) {
     super();
     this._editor = _editor;
@@ -8944,7 +9083,7 @@ var ColorDetector = class ColorDetector2 extends Disposable {
   isColorDecoration(decoration2) {
     return this._colorDecoratorIds.has(decoration2);
   }
-};
+}, "ColorDetector");
 ColorDetector.ID = "editor.contrib.colorDetector";
 ColorDetector.RECOMPUTE_TIME = 1e3;
 ColorDetector = __decorate9([
@@ -8954,7 +9093,7 @@ ColorDetector = __decorate9([
 ], ColorDetector);
 registerEditorContribution(ColorDetector.ID, ColorDetector);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorHoverParticipant.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorHoverParticipant.js
 init_define_process();
 init_async();
 init_cancellation();
@@ -8962,7 +9101,7 @@ init_color();
 init_lifecycle();
 init_range();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorPickerModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorPickerModel.js
 init_define_process();
 init_event();
 var ColorPickerModel = class {
@@ -9019,8 +9158,9 @@ var ColorPickerModel = class {
     this._onColorFlushed.fire(this._color);
   }
 };
+__name(ColorPickerModel, "ColorPickerModel");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorPickerWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorPickerWidget.js
 init_define_process();
 init_browser();
 init_dom();
@@ -9068,6 +9208,7 @@ var ColorPickerHeader = class extends Disposable {
     this.pickedColorNode.prepend($2(".codicon.codicon-color-mode"));
   }
 };
+__name(ColorPickerHeader, "ColorPickerHeader");
 var ColorPickerBody = class extends Disposable {
   constructor(container, model, pixelRatio) {
     super();
@@ -9110,6 +9251,7 @@ var ColorPickerBody = class extends Disposable {
     this.hueStrip.layout();
   }
 };
+__name(ColorPickerBody, "ColorPickerBody");
 var SaturationBox = class extends Disposable {
   constructor(container, model, pixelRatio) {
     super();
@@ -9195,6 +9337,7 @@ var SaturationBox = class extends Disposable {
     this.paint();
   }
 };
+__name(SaturationBox, "SaturationBox");
 var Strip = class extends Disposable {
   constructor(container, model) {
     super();
@@ -9242,6 +9385,7 @@ var Strip = class extends Disposable {
     this.slider.style.top = `${(1 - value) * this.height}px`;
   }
 };
+__name(Strip, "Strip");
 var OpacityStrip = class extends Strip {
   constructor(container, model) {
     super(container, model);
@@ -9259,6 +9403,7 @@ var OpacityStrip = class extends Strip {
     return color.hsva.a;
   }
 };
+__name(OpacityStrip, "OpacityStrip");
 var HueStrip = class extends Strip {
   constructor(container, model) {
     super(container, model);
@@ -9268,6 +9413,7 @@ var HueStrip = class extends Strip {
     return 1 - color.hsva.h / 360;
   }
 };
+__name(HueStrip, "HueStrip");
 var ColorPickerWidget = class extends Widget {
   constructor(container, model, pixelRatio, themeService) {
     super();
@@ -9285,8 +9431,9 @@ var ColorPickerWidget = class extends Widget {
     this.body.layout();
   }
 };
+__name(ColorPickerWidget, "ColorPickerWidget");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorHoverParticipant.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorHoverParticipant.js
 init_themeService();
 var __decorate10 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -9309,6 +9456,7 @@ var __awaiter10 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -9317,6 +9465,7 @@ var __awaiter10 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -9324,9 +9473,11 @@ var __awaiter10 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -9342,7 +9493,8 @@ var ColorHover = class {
     return anchor.type === 1 && this.range.startColumn <= anchor.range.startColumn && this.range.endColumn >= anchor.range.endColumn;
   }
 };
-var ColorHoverParticipant = class ColorHoverParticipant2 {
+__name(ColorHover, "ColorHover");
+var ColorHoverParticipant = /* @__PURE__ */ __name(class ColorHoverParticipant2 {
   constructor(_editor, _themeService) {
     this._editor = _editor;
     this._themeService = _themeService;
@@ -9400,7 +9552,7 @@ var ColorHoverParticipant = class ColorHoverParticipant2 {
     const widget = disposables.add(new ColorPickerWidget(context.fragment, model, this._editor.getOption(131), this._themeService));
     context.setColorPicker(widget);
     let range = new Range(colorHover.range.startLineNumber, colorHover.range.startColumn, colorHover.range.endLineNumber, colorHover.range.endColumn);
-    const updateEditorModel = () => {
+    const updateEditorModel = /* @__PURE__ */ __name(() => {
       let textEdits;
       let newRange;
       if (model.presentation.textEdit) {
@@ -9423,8 +9575,8 @@ var ColorHoverParticipant = class ColorHoverParticipant2 {
       }
       this._editor.pushUndoStop();
       range = newRange;
-    };
-    const updateColorPresentations = (color) => {
+    }, "updateEditorModel");
+    const updateColorPresentations = /* @__PURE__ */ __name((color) => {
       return getColorPresentations(editorModel, {
         range,
         color: {
@@ -9436,19 +9588,19 @@ var ColorHoverParticipant = class ColorHoverParticipant2 {
       }, colorHover.provider, CancellationToken.None).then((colorPresentations) => {
         model.colorPresentations = colorPresentations || [];
       });
-    };
+    }, "updateColorPresentations");
     disposables.add(model.onColorFlushed((color) => {
       updateColorPresentations(color).then(updateEditorModel);
     }));
     disposables.add(model.onDidChangeColor(updateColorPresentations));
     return disposables;
   }
-};
+}, "ColorHoverParticipant");
 ColorHoverParticipant = __decorate10([
   __param10(1, IThemeService)
 ], ColorHoverParticipant);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hover.js
 init_define_process();
 init_keyCodes();
 init_lifecycle();
@@ -9457,7 +9609,7 @@ init_range();
 init_editorContextKeys();
 init_language();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/goToDefinitionAtPosition.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/goToDefinitionAtPosition.js
 init_define_process();
 init_async();
 init_errors();
@@ -9469,7 +9621,7 @@ init_range();
 init_language();
 init_resolverService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/clickLinkGesture.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/clickLinkGesture.js
 init_define_process();
 init_event();
 init_lifecycle();
@@ -9477,6 +9629,7 @@ init_platform();
 function hasModifier(e, modifier) {
   return !!e[modifier];
 }
+__name(hasModifier, "hasModifier");
 var ClickLinkMouseEvent = class {
   constructor(source, opts) {
     this.target = source.target;
@@ -9485,6 +9638,7 @@ var ClickLinkMouseEvent = class {
     this.isNoneOrSingleMouseDown = source.event.detail <= 1;
   }
 };
+__name(ClickLinkMouseEvent, "ClickLinkMouseEvent");
 var ClickLinkKeyboardEvent = class {
   constructor(source, opts) {
     this.keyCodeIsTriggerKey = source.keyCode === opts.triggerKey;
@@ -9492,6 +9646,7 @@ var ClickLinkKeyboardEvent = class {
     this.hasTriggerModifier = hasModifier(source, opts.triggerModifier);
   }
 };
+__name(ClickLinkKeyboardEvent, "ClickLinkKeyboardEvent");
 var ClickLinkOptions = class {
   constructor(triggerKey, triggerModifier, triggerSideBySideKey, triggerSideBySideModifier) {
     this.triggerKey = triggerKey;
@@ -9503,6 +9658,7 @@ var ClickLinkOptions = class {
     return this.triggerKey === other.triggerKey && this.triggerModifier === other.triggerModifier && this.triggerSideBySideKey === other.triggerSideBySideKey && this.triggerSideBySideModifier === other.triggerSideBySideModifier;
   }
 };
+__name(ClickLinkOptions, "ClickLinkOptions");
 function createOptions(multiCursorModifier) {
   if (multiCursorModifier === "altKey") {
     if (isMacintosh) {
@@ -9515,6 +9671,7 @@ function createOptions(multiCursorModifier) {
   }
   return new ClickLinkOptions(6, "altKey", 5, "ctrlKey");
 }
+__name(createOptions, "createOptions");
 var ClickLinkGesture = class extends Disposable {
   constructor(editor2) {
     super();
@@ -9594,8 +9751,9 @@ var ClickLinkGesture = class extends Disposable {
     this._onCancel.fire();
   }
 };
+__name(ClickLinkGesture, "ClickLinkGesture");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/peekView/browser/peekView.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/peekView/browser/peekView.js
 init_define_process();
 init_dom();
 init_actions();
@@ -9606,7 +9764,7 @@ init_objects();
 init_editorExtensions();
 init_codeEditorService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/widget/embeddedCodeEditorWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/widget/embeddedCodeEditorWidget.js
 init_define_process();
 init_objects();
 init_codeEditorService();
@@ -9631,7 +9789,7 @@ var __param11 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var EmbeddedCodeEditorWidget = class EmbeddedCodeEditorWidget2 extends CodeEditorWidget {
+var EmbeddedCodeEditorWidget = /* @__PURE__ */ __name(class EmbeddedCodeEditorWidget2 extends CodeEditorWidget {
   constructor(domElement, options, parentEditor, instantiationService, codeEditorService, commandService, contextKeyService, themeService, notificationService, accessibilityService, languageConfigurationService, languageFeaturesService) {
     super(domElement, Object.assign(Object.assign({}, parentEditor.getRawOptions()), { overflowWidgetsDomNode: parentEditor.getOverflowWidgetsDomNode() }), {}, instantiationService, codeEditorService, commandService, contextKeyService, themeService, notificationService, accessibilityService, languageConfigurationService, languageFeaturesService);
     this._parentEditor = parentEditor;
@@ -9650,7 +9808,7 @@ var EmbeddedCodeEditorWidget = class EmbeddedCodeEditorWidget2 extends CodeEdito
     mixin(this._overwriteOptions, newOptions, true);
     super.updateOptions(this._overwriteOptions);
   }
-};
+}, "EmbeddedCodeEditorWidget");
 EmbeddedCodeEditorWidget = __decorate11([
   __param11(3, IInstantiationService),
   __param11(4, ICodeEditorService),
@@ -9663,7 +9821,7 @@ EmbeddedCodeEditorWidget = __decorate11([
   __param11(11, ILanguageFeaturesService)
 ], EmbeddedCodeEditorWidget);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/zoneWidget/browser/zoneWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/zoneWidget/browser/zoneWidget.js
 init_define_process();
 init_dom();
 init_color();
@@ -9698,6 +9856,7 @@ var ViewZoneDelegate = class {
     this._onComputedHeight(height);
   }
 };
+__name(ViewZoneDelegate, "ViewZoneDelegate");
 var OverlayWidgetDelegate = class {
   constructor(id, domNode) {
     this._id = id;
@@ -9713,6 +9872,7 @@ var OverlayWidgetDelegate = class {
     return null;
   }
 };
+__name(OverlayWidgetDelegate, "OverlayWidgetDelegate");
 var Arrow = class {
   constructor(_editor) {
     this._editor = _editor;
@@ -9758,6 +9918,7 @@ var Arrow = class {
     this._decorations.clear();
   }
 };
+__name(Arrow, "Arrow");
 Arrow._IdGenerator = new IdGenerator(".arrow-decoration-");
 var ZoneWidget = class {
   constructor(editor2, options = {}) {
@@ -10036,20 +10197,21 @@ var ZoneWidget = class {
     return layoutInfo.width - layoutInfo.minimap.minimapWidth;
   }
 };
+__name(ZoneWidget, "ZoneWidget");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/peekView/browser/peekView.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/peekView/browser/peekView.js
 init_nls();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/actions/browser/menuEntryActionViewItem.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/actions/browser/menuEntryActionViewItem.js
 init_define_process();
 init_dom();
 init_keyboardEvent();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/dropdown/dropdownActionViewItem.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/dropdown/dropdownActionViewItem.js
 init_define_process();
 init_dom();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/dropdown/dropdown.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/dropdown/dropdown.js
 init_define_process();
 init_dom();
 init_keyboardEvent();
@@ -10065,10 +10227,10 @@ var BaseDropdown = class extends ActionRunner {
     this._label = append(this._element, $(".dropdown-label"));
     let labelRenderer = options.labelRenderer;
     if (!labelRenderer) {
-      labelRenderer = (container2) => {
+      labelRenderer = /* @__PURE__ */ __name((container2) => {
         container2.textContent = options.label || "";
         return null;
-      };
+      }, "labelRenderer");
     }
     for (const event of [EventType.CLICK, EventType.MOUSE_DOWN, EventType2.Tap]) {
       this._register(addDisposableListener(this.element, event, (e) => EventHelper.stop(e, true)));
@@ -10134,6 +10296,7 @@ var BaseDropdown = class extends ActionRunner {
     }
   }
 };
+__name(BaseDropdown, "BaseDropdown");
 var DropdownMenu = class extends BaseDropdown {
   constructor(container, options) {
     super(container, options);
@@ -10183,8 +10346,9 @@ var DropdownMenu = class extends BaseDropdown {
     this.element.classList.remove("active");
   }
 };
+__name(DropdownMenu, "DropdownMenu");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/dropdown/dropdownActionViewItem.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/dropdown/dropdownActionViewItem.js
 init_event();
 var DropdownMenuActionViewItem = class extends BaseActionViewItem {
   constructor(action, menuActionsOrProvider, contextMenuProvider, options = /* @__PURE__ */ Object.create(null)) {
@@ -10200,7 +10364,7 @@ var DropdownMenuActionViewItem = class extends BaseActionViewItem {
   }
   render(container) {
     this.actionItem = container;
-    const labelRenderer = (el) => {
+    const labelRenderer = /* @__PURE__ */ __name((el) => {
       this.element = append(el, $("a.action-label"));
       let classNames = [];
       if (typeof this.options.classNames === "string") {
@@ -10218,7 +10382,7 @@ var DropdownMenuActionViewItem = class extends BaseActionViewItem {
       this.element.title = this._action.label || "";
       this.element.ariaLabel = this._action.label || "";
       return null;
-    };
+    }, "labelRenderer");
     const isActionsArray = Array.isArray(this.menuActionsOrProvider);
     const options = {
       contextMenuProvider: this.contextMenuProvider,
@@ -10274,8 +10438,9 @@ var DropdownMenuActionViewItem = class extends BaseActionViewItem {
     (_b2 = this.element) === null || _b2 === void 0 ? void 0 : _b2.classList.toggle("disabled", disabled);
   }
 };
+__name(DropdownMenuActionViewItem, "DropdownMenuActionViewItem");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/actions/browser/menuEntryActionViewItem.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/actions/browser/menuEntryActionViewItem.js
 init_actions();
 init_lifecycle();
 init_platform();
@@ -10308,6 +10473,7 @@ var __awaiter11 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -10316,6 +10482,7 @@ var __awaiter11 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -10323,9 +10490,11 @@ var __awaiter11 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -10335,6 +10504,7 @@ function createAndFillInActionBarActions(menu, options, target, primaryGroup, pr
   fillInActions(groups, target, false, isPrimaryAction, primaryMaxCount, shouldInlineSubmenu, useSeparatorsInPrimaryActions);
   return asDisposable(groups);
 }
+__name(createAndFillInActionBarActions, "createAndFillInActionBarActions");
 function asDisposable(groups) {
   const disposables = new DisposableStore();
   for (const [, actions] of groups) {
@@ -10344,6 +10514,7 @@ function asDisposable(groups) {
   }
   return disposables;
 }
+__name(asDisposable, "asDisposable");
 function fillInActions(groups, target, useAlternativeActions, isPrimaryAction = (actionGroup) => actionGroup === "navigation", primaryMaxCount = Number.MAX_SAFE_INTEGER, shouldInlineSubmenu = () => false, useSeparatorsInPrimaryActions = false) {
   let primaryBucket;
   let secondaryBucket;
@@ -10390,7 +10561,8 @@ function fillInActions(groups, target, useAlternativeActions, isPrimaryAction = 
     secondaryBucket.unshift(...overflow, new Separator());
   }
 }
-var MenuEntryActionViewItem = class MenuEntryActionViewItem2 extends ActionViewItem {
+__name(fillInActions, "fillInActions");
+var MenuEntryActionViewItem = /* @__PURE__ */ __name(class MenuEntryActionViewItem2 extends ActionViewItem {
   constructor(action, options, _keybindingService, _notificationService, _contextKeyService, _themeService, _contextMenuService) {
     super(void 0, action, { icon: !!(action.class || action.item.icon), label: !action.class && !action.item.icon, draggable: options === null || options === void 0 ? void 0 : options.draggable, keybinding: options === null || options === void 0 ? void 0 : options.keybinding, hoverDelegate: options === null || options === void 0 ? void 0 : options.hoverDelegate });
     this._keybindingService = _keybindingService;
@@ -10425,7 +10597,7 @@ var MenuEntryActionViewItem = class MenuEntryActionViewItem2 extends ActionViewI
     this._updateItemClass(this._menuItemAction.item);
     let mouseOver = false;
     let alternativeKeyDown = this._altKey.keyStatus.altKey || (isWindows || isLinux) && this._altKey.keyStatus.shiftKey;
-    const updateAltState = () => {
+    const updateAltState = /* @__PURE__ */ __name(() => {
       var _a5;
       const wantsAltCommand = mouseOver && alternativeKeyDown && !!((_a5 = this._commandAction.alt) === null || _a5 === void 0 ? void 0 : _a5.enabled);
       if (wantsAltCommand !== this._wantsAltCommand) {
@@ -10434,7 +10606,7 @@ var MenuEntryActionViewItem = class MenuEntryActionViewItem2 extends ActionViewI
         this.updateTooltip();
         this.updateClass();
       }
-    };
+    }, "updateAltState");
     if (this._menuItemAction.alt) {
       this._register(this._altKey.event((value) => {
         alternativeKeyDown = value.altKey || (isWindows || isLinux) && value.shiftKey;
@@ -10509,7 +10681,7 @@ var MenuEntryActionViewItem = class MenuEntryActionViewItem2 extends ActionViewI
       }));
     }
   }
-};
+}, "MenuEntryActionViewItem");
 MenuEntryActionViewItem = __decorate12([
   __param12(2, IKeybindingService),
   __param12(3, INotificationService),
@@ -10517,7 +10689,7 @@ MenuEntryActionViewItem = __decorate12([
   __param12(5, IThemeService),
   __param12(6, IContextMenuService)
 ], MenuEntryActionViewItem);
-var SubmenuEntryActionViewItem = class SubmenuEntryActionViewItem2 extends DropdownMenuActionViewItem {
+var SubmenuEntryActionViewItem = /* @__PURE__ */ __name(class SubmenuEntryActionViewItem2 extends DropdownMenuActionViewItem {
   constructor(action, options, _contextMenuService, _themeService) {
     var _a5, _b2;
     const dropdownOptions = Object.assign({}, options !== null && options !== void 0 ? options : /* @__PURE__ */ Object.create(null), {
@@ -10536,23 +10708,23 @@ var SubmenuEntryActionViewItem = class SubmenuEntryActionViewItem2 extends Dropd
     const { icon } = action.item;
     if (icon && !ThemeIcon.isThemeIcon(icon)) {
       this.element.classList.add("icon");
-      const setBackgroundImage = () => {
+      const setBackgroundImage = /* @__PURE__ */ __name(() => {
         if (this.element) {
           this.element.style.backgroundImage = isDark(this._themeService.getColorTheme().type) ? asCSSUrl(icon.dark) : asCSSUrl(icon.light);
         }
-      };
+      }, "setBackgroundImage");
       setBackgroundImage();
       this._register(this._themeService.onDidColorThemeChange(() => {
         setBackgroundImage();
       }));
     }
   }
-};
+}, "SubmenuEntryActionViewItem");
 SubmenuEntryActionViewItem = __decorate12([
   __param12(2, IContextMenuService),
   __param12(3, IThemeService)
 ], SubmenuEntryActionViewItem);
-var DropdownWithDefaultActionViewItem = class DropdownWithDefaultActionViewItem2 extends BaseActionViewItem {
+var DropdownWithDefaultActionViewItem = /* @__PURE__ */ __name(class DropdownWithDefaultActionViewItem2 extends BaseActionViewItem {
   constructor(submenuAction, options, _keybindingService, _notificationService, _contextMenuService, _menuService, _instaService, _storageService) {
     var _a5, _b2, _c2;
     super(null, submenuAction);
@@ -10670,7 +10842,7 @@ var DropdownWithDefaultActionViewItem = class DropdownWithDefaultActionViewItem2
     this._dropdown.dispose();
     super.dispose();
   }
-};
+}, "DropdownWithDefaultActionViewItem");
 DropdownWithDefaultActionViewItem = __decorate12([
   __param12(2, IKeybindingService),
   __param12(3, INotificationService),
@@ -10692,8 +10864,9 @@ function createActionViewItem(instaService, action, options) {
     return void 0;
   }
 }
+__name(createActionViewItem, "createActionViewItem");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/peekView/browser/peekView.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/peekView/browser/peekView.js
 init_contextkey();
 init_extensions();
 init_instantiation();
@@ -10724,13 +10897,13 @@ registerSingleton(IPeekViewService, class {
       existing.listener.dispose();
       existing.widget.dispose();
     }
-    const remove = () => {
+    const remove = /* @__PURE__ */ __name(() => {
       const data = this._widgets.get(editor2);
       if (data && data.widget === widget) {
         data.listener.dispose();
         this._widgets.delete(editor2);
       }
-    };
+    }, "remove");
     this._widgets.set(editor2, { widget, listener: widget.onDidClose(remove) });
   }
 });
@@ -10739,7 +10912,7 @@ var PeekContext;
   PeekContext2.inPeekEditor = new RawContextKey("inReferenceSearchEditor", true, localize("inReferenceSearchEditor", "Whether the current code editor is embedded inside peek"));
   PeekContext2.notInPeekEditor = PeekContext2.inPeekEditor.toNegated();
 })(PeekContext || (PeekContext = {}));
-var PeekContextController = class PeekContextController2 {
+var PeekContextController = /* @__PURE__ */ __name(class PeekContextController2 {
   constructor(editor2, contextKeyService) {
     if (editor2 instanceof EmbeddedCodeEditorWidget) {
       PeekContext.inPeekEditor.bindTo(contextKeyService);
@@ -10747,7 +10920,7 @@ var PeekContextController = class PeekContextController2 {
   }
   dispose() {
   }
-};
+}, "PeekContextController");
 PeekContextController.ID = "editor.contrib.referenceController";
 PeekContextController = __decorate13([
   __param13(1, IContextKeyService)
@@ -10760,12 +10933,13 @@ function getOuterEditor(accessor) {
   }
   return editor2;
 }
+__name(getOuterEditor, "getOuterEditor");
 var defaultOptions2 = {
   headerBackgroundColor: Color.white,
   primaryHeadingColor: Color.fromHex("#333333"),
   secondaryHeadingColor: Color.fromHex("#6c6c6cb3")
 };
-var PeekViewWidget = class PeekViewWidget2 extends ZoneWidget {
+var PeekViewWidget = /* @__PURE__ */ __name(class PeekViewWidget2 extends ZoneWidget {
   constructor(editor2, options, instantiationService) {
     super(editor2, options);
     this.instantiationService = instantiationService;
@@ -10894,7 +11068,7 @@ var PeekViewWidget = class PeekViewWidget2 extends ZoneWidget {
       this._bodyElement.style.height = `${heightInPixel}px`;
     }
   }
-};
+}, "PeekViewWidget");
 PeekViewWidget = __decorate13([
   __param13(2, IInstantiationService)
 ], PeekViewWidget);
@@ -10913,13 +11087,13 @@ var peekViewResultsMatchHighlight = registerColor("peekViewResult.matchHighlight
 var peekViewEditorMatchHighlight = registerColor("peekViewEditor.matchHighlightBackground", { dark: "#ff8f0099", light: "#f5d802de", hcDark: null, hcLight: null }, localize("peekViewEditorMatchHighlight", "Match highlight color in the peek view editor."));
 var peekViewEditorMatchHighlightBorder = registerColor("peekViewEditor.matchHighlightBorder", { dark: null, light: null, hcDark: activeContrastBorder, hcLight: activeContrastBorder }, localize("peekViewEditorMatchHighlightBorder", "Match highlight border in the peek view editor."));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/goToDefinitionAtPosition.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/goToDefinitionAtPosition.js
 init_nls();
 init_contextkey();
 init_colorRegistry();
 init_themeService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/goToCommands.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/goToCommands.js
 init_define_process();
 init_browser();
 init_aria();
@@ -10937,7 +11111,7 @@ init_range();
 init_editorContextKeys();
 init_languages();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesController.js
 init_define_process();
 init_async();
 init_errors();
@@ -10953,7 +11127,7 @@ init_contextkey();
 init_instantiation();
 init_keybindingsRegistry();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/referencesModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/referencesModel.js
 init_define_process();
 init_errors();
 init_event();
@@ -10969,6 +11143,7 @@ var __awaiter12 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -10977,6 +11152,7 @@ var __awaiter12 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -10984,9 +11160,11 @@ var __awaiter12 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -11019,6 +11197,7 @@ var OneReference = class {
     }
   }
 };
+__name(OneReference, "OneReference");
 var FilePreview = class {
   constructor(_modelReference) {
     this._modelReference = _modelReference;
@@ -11044,6 +11223,7 @@ var FilePreview = class {
     };
   }
 };
+__name(FilePreview, "FilePreview");
 var FileReferences = class {
   constructor(parent, uri) {
     this.parent = parent;
@@ -11086,6 +11266,7 @@ var FileReferences = class {
     });
   }
 };
+__name(FileReferences, "FileReferences");
 var ReferencesModel = class {
   constructor(links, title) {
     this.groups = [];
@@ -11203,8 +11384,9 @@ var ReferencesModel = class {
     return extUri.compare(a.uri, b.uri) || Range.compareRangesUsingStarts(a.range, b.range);
   }
 };
+__name(ReferencesModel, "ReferencesModel");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesWidget.js
 init_define_process();
 init_dom();
 init_color();
@@ -11219,7 +11401,7 @@ init_modesRegistry();
 init_language();
 init_resolverService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesTree.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesTree.js
 init_define_process();
 init_dom();
 init_lifecycle();
@@ -11244,7 +11426,7 @@ var __param14 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var DataSource = class DataSource2 {
+var DataSource = /* @__PURE__ */ __name(class DataSource2 {
   constructor(_resolverService) {
     this._resolverService = _resolverService;
   }
@@ -11268,7 +11450,7 @@ var DataSource = class DataSource2 {
     }
     throw new Error("bad tree");
   }
-};
+}, "DataSource");
 DataSource = __decorate14([
   __param14(0, ITextModelService)
 ], DataSource);
@@ -11284,7 +11466,8 @@ var Delegate = class {
     }
   }
 };
-var StringRepresentationProvider = class StringRepresentationProvider2 {
+__name(Delegate, "Delegate");
+var StringRepresentationProvider = /* @__PURE__ */ __name(class StringRepresentationProvider2 {
   constructor(_keybindingService) {
     this._keybindingService = _keybindingService;
   }
@@ -11298,7 +11481,7 @@ var StringRepresentationProvider = class StringRepresentationProvider2 {
     }
     return basename2(element.uri);
   }
-};
+}, "StringRepresentationProvider");
 StringRepresentationProvider = __decorate14([
   __param14(0, IKeybindingService)
 ], StringRepresentationProvider);
@@ -11307,7 +11490,8 @@ var IdentityProvider = class {
     return element instanceof OneReference ? element.id : element.uri;
   }
 };
-var FileReferencesTemplate = class FileReferencesTemplate2 extends Disposable {
+__name(IdentityProvider, "IdentityProvider");
+var FileReferencesTemplate = /* @__PURE__ */ __name(class FileReferencesTemplate2 extends Disposable {
   constructor(container, _labelService, themeService) {
     super();
     this._labelService = _labelService;
@@ -11329,12 +11513,12 @@ var FileReferencesTemplate = class FileReferencesTemplate2 extends Disposable {
       this.badge.setTitleFormat(localize("referenceCount", "{0} reference", len));
     }
   }
-};
+}, "FileReferencesTemplate");
 FileReferencesTemplate = __decorate14([
   __param14(1, ILabelService),
   __param14(2, IThemeService)
 ], FileReferencesTemplate);
-var FileReferencesRenderer = class FileReferencesRenderer2 {
+var FileReferencesRenderer = /* @__PURE__ */ __name(class FileReferencesRenderer2 {
   constructor(_instantiationService) {
     this._instantiationService = _instantiationService;
     this.templateId = FileReferencesRenderer2.id;
@@ -11348,7 +11532,7 @@ var FileReferencesRenderer = class FileReferencesRenderer2 {
   disposeTemplate(templateData) {
     templateData.dispose();
   }
-};
+}, "FileReferencesRenderer");
 FileReferencesRenderer.id = "FileReferencesRenderer";
 FileReferencesRenderer = __decorate14([
   __param14(0, IInstantiationService)
@@ -11374,6 +11558,7 @@ var OneReferenceTemplate = class {
     }
   }
 };
+__name(OneReferenceTemplate, "OneReferenceTemplate");
 var OneReferenceRenderer = class {
   constructor() {
     this.templateId = OneReferenceRenderer.id;
@@ -11387,6 +11572,7 @@ var OneReferenceRenderer = class {
   disposeTemplate() {
   }
 };
+__name(OneReferenceRenderer, "OneReferenceRenderer");
 OneReferenceRenderer.id = "OneReferenceRenderer";
 var AccessibilityProvider = class {
   getWidgetAriaLabel() {
@@ -11396,8 +11582,9 @@ var AccessibilityProvider = class {
     return element.ariaMessage;
   }
 };
+__name(AccessibilityProvider, "AccessibilityProvider");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesWidget.js
 init_nls();
 init_instantiation();
 init_keybinding();
@@ -11424,6 +11611,7 @@ var __awaiter13 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -11432,6 +11620,7 @@ var __awaiter13 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -11439,9 +11628,11 @@ var __awaiter13 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -11543,6 +11734,7 @@ var DecorationsManager = class {
     this._decorations.clear();
   }
 };
+__name(DecorationsManager, "DecorationsManager");
 DecorationsManager.DecorationOptions = ModelDecorationOptions.register({
   description: "reference-decoration",
   stickiness: 1,
@@ -11568,9 +11760,11 @@ var LayoutData = class {
     };
   }
 };
+__name(LayoutData, "LayoutData");
 var ReferencesTree = class extends WorkbenchAsyncDataTree {
 };
-var ReferenceWidget = class ReferenceWidget2 extends PeekViewWidget {
+__name(ReferencesTree, "ReferencesTree");
+var ReferenceWidget = /* @__PURE__ */ __name(class ReferenceWidget2 extends PeekViewWidget {
   constructor(editor2, _defaultTreeKeyboardSupport, layoutData, themeService, _textModelResolverService, _instantiationService, _peekViewService, _uriLabel, _undoRedoService, _keybindingService, _languageService, _languageConfigurationService) {
     super(editor2, { showFrame: false, showArrow: true, isResizeable: true, isAccessible: true, supportOnTitleClick: true }, _instantiationService);
     this._defaultTreeKeyboardSupport = _defaultTreeKeyboardSupport;
@@ -11709,14 +11903,14 @@ var ReferenceWidget = class ReferenceWidget2 extends PeekViewWidget {
         this.layoutData.ratio = this._splitView.getViewSize(0) / this._dim.width;
       }
     }, void 0));
-    const onEvent = (element, kind) => {
+    const onEvent = /* @__PURE__ */ __name((element, kind) => {
       if (element instanceof OneReference) {
         if (kind === "show") {
           this._revealReference(element, false);
         }
         this._onDidSelectReference.fire({ element, kind, source: "tree" });
       }
-    };
+    }, "onEvent");
     this._tree.onDidOpen((e) => {
       if (e.sideBySide) {
         onEvent(e.element, "side");
@@ -11851,7 +12045,7 @@ var ReferenceWidget = class ReferenceWidget2 extends PeekViewWidget {
       }
     });
   }
-};
+}, "ReferenceWidget");
 ReferenceWidget = __decorate15([
   __param15(3, IThemeService),
   __param15(4, ITextModelService),
@@ -11864,7 +12058,7 @@ ReferenceWidget = __decorate15([
   __param15(11, ILanguageConfigurationService)
 ], ReferenceWidget);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesController.js
 var __decorate16 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -11886,6 +12080,7 @@ var __awaiter14 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -11894,6 +12089,7 @@ var __awaiter14 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -11901,14 +12097,16 @@ var __awaiter14 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
 var ctxReferenceSearchVisible = new RawContextKey("referenceSearchVisible", false, localize("referenceSearchVisible", "Whether reference peek is visible, like 'Peek References' or 'Peek Definition'"));
-var ReferencesController = class ReferencesController2 {
+var ReferencesController = /* @__PURE__ */ __name(class ReferencesController2 {
   constructor(_defaultTreeKeyboardSupport, _editor, contextKeyService, _editorService, _notificationService, _instantiationService, _storageService, _configurationService) {
     this._defaultTreeKeyboardSupport = _defaultTreeKeyboardSupport;
     this._editor = _editor;
@@ -12119,7 +12317,7 @@ var ReferencesController = class ReferencesController2 {
       options: { selection: range, selectionSource: "code.jump", pinned }
     }, this._editor, sideBySide);
   }
-};
+}, "ReferencesController");
 ReferencesController.ID = "editor.contrib.referencesController";
 ReferencesController = __decorate16([
   __param16(2, IContextKeyService),
@@ -12139,6 +12337,7 @@ function withController(accessor, fn) {
     fn(controller);
   }
 }
+__name(withController, "withController");
 KeybindingsRegistry.registerCommandAndKeybindingRule({
   id: "togglePeekWidgetFocus",
   weight: 100,
@@ -12236,7 +12435,7 @@ CommandsRegistry.registerCommand("openReference", (accessor) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/symbolNavigation.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/symbolNavigation.js
 init_define_process();
 init_event();
 init_lifecycle();
@@ -12267,7 +12466,7 @@ var __param17 = function(paramIndex, decorator) {
 };
 var ctxHasSymbols = new RawContextKey("hasSymbols", false, localize("hasSymbols", "Whether there are symbol locations that can be navigated via keyboard-only."));
 var ISymbolNavigationService = createDecorator("ISymbolNavigationService");
-var SymbolNavigationService = class SymbolNavigationService2 {
+var SymbolNavigationService = /* @__PURE__ */ __name(class SymbolNavigationService2 {
   constructor(contextKeyService, _editorService, _notificationService, _keybindingService) {
     this._editorService = _editorService;
     this._notificationService = _notificationService;
@@ -12351,7 +12550,7 @@ var SymbolNavigationService = class SymbolNavigationService2 {
     const message = kb ? localize("location.kb", "Symbol {0} of {1}, {2} for next", this._currentIdx + 1, this._currentModel.references.length, kb.getLabel()) : localize("location", "Symbol {0} of {1}", this._currentIdx + 1, this._currentModel.references.length);
     this._currentMessage = this._notificationService.status(message);
   }
-};
+}, "SymbolNavigationService");
 SymbolNavigationService = __decorate17([
   __param17(0, IContextKeyService),
   __param17(1, ICodeEditorService),
@@ -12383,7 +12582,7 @@ KeybindingsRegistry.registerCommandAndKeybindingRule({
     accessor.get(ISymbolNavigationService).reset();
   }
 });
-var EditorState2 = class EditorState3 {
+var EditorState2 = /* @__PURE__ */ __name(class EditorState3 {
   constructor(editorService) {
     this._listener = /* @__PURE__ */ new Map();
     this._disposables = new DisposableStore();
@@ -12406,12 +12605,12 @@ var EditorState2 = class EditorState3 {
     (_a5 = this._listener.get(editor2)) === null || _a5 === void 0 ? void 0 : _a5.dispose();
     this._listener.delete(editor2);
   }
-};
+}, "EditorState");
 EditorState2 = __decorate17([
   __param17(0, ICodeEditorService)
 ], EditorState2);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/goToCommands.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/goToCommands.js
 init_nls();
 init_actions2();
 init_commands();
@@ -12419,7 +12618,7 @@ init_contextkey();
 init_instantiation();
 init_progress();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/goToSymbol.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/goToSymbol.js
 init_define_process();
 init_cancellation();
 init_errors();
@@ -12431,6 +12630,7 @@ var __awaiter15 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -12439,6 +12639,7 @@ var __awaiter15 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -12446,9 +12647,11 @@ var __awaiter15 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -12472,26 +12675,31 @@ function getLocationLinks(model, position, registry, provide) {
     return result;
   });
 }
+__name(getLocationLinks, "getLocationLinks");
 function getDefinitionsAtPosition(registry, model, position, token) {
   return getLocationLinks(model, position, registry, (provider, model2, position2) => {
     return provider.provideDefinition(model2, position2, token);
   });
 }
+__name(getDefinitionsAtPosition, "getDefinitionsAtPosition");
 function getDeclarationsAtPosition(registry, model, position, token) {
   return getLocationLinks(model, position, registry, (provider, model2, position2) => {
     return provider.provideDeclaration(model2, position2, token);
   });
 }
+__name(getDeclarationsAtPosition, "getDeclarationsAtPosition");
 function getImplementationsAtPosition(registry, model, position, token) {
   return getLocationLinks(model, position, registry, (provider, model2, position2) => {
     return provider.provideImplementation(model2, position2, token);
   });
 }
+__name(getImplementationsAtPosition, "getImplementationsAtPosition");
 function getTypeDefinitionsAtPosition(registry, model, position, token) {
   return getLocationLinks(model, position, registry, (provider, model2, position2) => {
     return provider.provideTypeDefinition(model2, position2, token);
   });
 }
+__name(getTypeDefinitionsAtPosition, "getTypeDefinitionsAtPosition");
 function getReferencesAtPosition(registry, model, position, compact, token) {
   return getLocationLinks(model, position, registry, (provider, model2, position2) => __awaiter15(this, void 0, void 0, function* () {
     const result = yield provider.provideReferences(model2, position2, { includeDeclaration: true }, token);
@@ -12505,6 +12713,7 @@ function getReferencesAtPosition(registry, model, position, compact, token) {
     return result;
   }));
 }
+__name(getReferencesAtPosition, "getReferencesAtPosition");
 function _sortedAndDeduped(callback) {
   return __awaiter15(this, void 0, void 0, function* () {
     const rawLinks = yield callback();
@@ -12514,6 +12723,7 @@ function _sortedAndDeduped(callback) {
     return modelLinks;
   });
 }
+__name(_sortedAndDeduped, "_sortedAndDeduped");
 registerModelAndPositionCommand("_executeDefinitionProvider", (accessor, model, position) => {
   const languageFeaturesService = accessor.get(ILanguageFeaturesService);
   const promise = getDefinitionsAtPosition(languageFeaturesService.definitionProvider, model, position, CancellationToken.None);
@@ -12540,7 +12750,7 @@ registerModelAndPositionCommand("_executeImplementationProvider", (accessor, mod
   return _sortedAndDeduped(() => promise);
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/goToCommands.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/goToCommands.js
 init_languageFeatures();
 var __awaiter16 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
@@ -12548,6 +12758,7 @@ var __awaiter16 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -12556,6 +12767,7 @@ var __awaiter16 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -12563,9 +12775,11 @@ var __awaiter16 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -12590,6 +12804,7 @@ function registerGoToAction(ctor) {
   _goToActionIds.add(result.id);
   return result;
 }
+__name(registerGoToAction, "registerGoToAction");
 var SymbolNavigationAnchor = class {
   constructor(model, position) {
     this.model = model;
@@ -12608,6 +12823,7 @@ var SymbolNavigationAnchor = class {
     return false;
   }
 };
+__name(SymbolNavigationAnchor, "SymbolNavigationAnchor");
 var SymbolNavigationAction = class extends EditorAction {
   constructor(configuration, opts) {
     super(opts);
@@ -12725,6 +12941,7 @@ var SymbolNavigationAction = class extends EditorAction {
     }
   }
 };
+__name(SymbolNavigationAction, "SymbolNavigationAction");
 SymbolNavigationAction._activeAlternativeCommands = /* @__PURE__ */ new Set();
 var DefinitionAction = class extends SymbolNavigationAction {
   _getLocationModel(languageFeaturesService, model, position, token) {
@@ -12742,8 +12959,9 @@ var DefinitionAction = class extends SymbolNavigationAction {
     return editor2.getOption(53).multipleDefinitions;
   }
 };
+__name(DefinitionAction, "DefinitionAction");
 var goToDefinitionKb = isWeb && !isStandalone() ? 2048 | 70 : 70;
-registerGoToAction((_a = class GoToDefinitionAction extends DefinitionAction {
+registerGoToAction((_a = /* @__PURE__ */ __name(class GoToDefinitionAction extends DefinitionAction {
   constructor() {
     super({
       openToSide: false,
@@ -12766,8 +12984,8 @@ registerGoToAction((_a = class GoToDefinitionAction extends DefinitionAction {
     });
     CommandsRegistry.registerCommandAlias("editor.action.goToDeclaration", GoToDefinitionAction.id);
   }
-}, _a.id = "editor.action.revealDefinition", _a));
-registerGoToAction((_b = class OpenDefinitionToSideAction extends DefinitionAction {
+}, "GoToDefinitionAction"), _a.id = "editor.action.revealDefinition", _a));
+registerGoToAction((_b = /* @__PURE__ */ __name(class OpenDefinitionToSideAction extends DefinitionAction {
   constructor() {
     super({
       openToSide: true,
@@ -12786,8 +13004,8 @@ registerGoToAction((_b = class OpenDefinitionToSideAction extends DefinitionActi
     });
     CommandsRegistry.registerCommandAlias("editor.action.openDeclarationToTheSide", OpenDefinitionToSideAction.id);
   }
-}, _b.id = "editor.action.revealDefinitionAside", _b));
-registerGoToAction((_c = class PeekDefinitionAction extends DefinitionAction {
+}, "OpenDefinitionToSideAction"), _b.id = "editor.action.revealDefinitionAside", _b));
+registerGoToAction((_c = /* @__PURE__ */ __name(class PeekDefinitionAction extends DefinitionAction {
   constructor() {
     super({
       openToSide: false,
@@ -12812,7 +13030,7 @@ registerGoToAction((_c = class PeekDefinitionAction extends DefinitionAction {
     });
     CommandsRegistry.registerCommandAlias("editor.action.previewDeclaration", PeekDefinitionAction.id);
   }
-}, _c.id = "editor.action.peekDefinition", _c));
+}, "PeekDefinitionAction"), _c.id = "editor.action.peekDefinition", _c));
 var DeclarationAction = class extends SymbolNavigationAction {
   _getLocationModel(languageFeaturesService, model, position, token) {
     return __awaiter16(this, void 0, void 0, function* () {
@@ -12829,7 +13047,8 @@ var DeclarationAction = class extends SymbolNavigationAction {
     return editor2.getOption(53).multipleDeclarations;
   }
 };
-registerGoToAction((_d = class GoToDeclarationAction extends DeclarationAction {
+__name(DeclarationAction, "DeclarationAction");
+registerGoToAction((_d = /* @__PURE__ */ __name(class GoToDeclarationAction extends DeclarationAction {
   constructor() {
     super({
       openToSide: false,
@@ -12849,8 +13068,8 @@ registerGoToAction((_d = class GoToDeclarationAction extends DeclarationAction {
   _getNoResultFoundMessage(info) {
     return info && info.word ? localize("decl.noResultWord", "No declaration found for '{0}'", info.word) : localize("decl.generic.noResults", "No declaration found");
   }
-}, _d.id = "editor.action.revealDeclaration", _d));
-registerGoToAction(class PeekDeclarationAction extends DeclarationAction {
+}, "GoToDeclarationAction"), _d.id = "editor.action.revealDeclaration", _d));
+registerGoToAction(/* @__PURE__ */ __name(class PeekDeclarationAction extends DeclarationAction {
   constructor() {
     super({
       openToSide: false,
@@ -12868,7 +13087,7 @@ registerGoToAction(class PeekDeclarationAction extends DeclarationAction {
       }
     });
   }
-});
+}, "PeekDeclarationAction"));
 var TypeDefinitionAction = class extends SymbolNavigationAction {
   _getLocationModel(languageFeaturesService, model, position, token) {
     return __awaiter16(this, void 0, void 0, function* () {
@@ -12885,7 +13104,8 @@ var TypeDefinitionAction = class extends SymbolNavigationAction {
     return editor2.getOption(53).multipleTypeDefinitions;
   }
 };
-registerGoToAction((_e = class GoToTypeDefinitionAction extends TypeDefinitionAction {
+__name(TypeDefinitionAction, "TypeDefinitionAction");
+registerGoToAction((_e = /* @__PURE__ */ __name(class GoToTypeDefinitionAction extends TypeDefinitionAction {
   constructor() {
     super({
       openToSide: false,
@@ -12907,8 +13127,8 @@ registerGoToAction((_e = class GoToTypeDefinitionAction extends TypeDefinitionAc
       }
     });
   }
-}, _e.ID = "editor.action.goToTypeDefinition", _e));
-registerGoToAction((_f = class PeekTypeDefinitionAction extends TypeDefinitionAction {
+}, "GoToTypeDefinitionAction"), _e.ID = "editor.action.goToTypeDefinition", _e));
+registerGoToAction((_f = /* @__PURE__ */ __name(class PeekTypeDefinitionAction extends TypeDefinitionAction {
   constructor() {
     super({
       openToSide: false,
@@ -12926,7 +13146,7 @@ registerGoToAction((_f = class PeekTypeDefinitionAction extends TypeDefinitionAc
       }
     });
   }
-}, _f.ID = "editor.action.peekTypeDefinition", _f));
+}, "PeekTypeDefinitionAction"), _f.ID = "editor.action.peekTypeDefinition", _f));
 var ImplementationAction = class extends SymbolNavigationAction {
   _getLocationModel(languageFeaturesService, model, position, token) {
     return __awaiter16(this, void 0, void 0, function* () {
@@ -12943,7 +13163,8 @@ var ImplementationAction = class extends SymbolNavigationAction {
     return editor2.getOption(53).multipleImplementations;
   }
 };
-registerGoToAction((_g = class GoToImplementationAction extends ImplementationAction {
+__name(ImplementationAction, "ImplementationAction");
+registerGoToAction((_g = /* @__PURE__ */ __name(class GoToImplementationAction extends ImplementationAction {
   constructor() {
     super({
       openToSide: false,
@@ -12965,8 +13186,8 @@ registerGoToAction((_g = class GoToImplementationAction extends ImplementationAc
       }
     });
   }
-}, _g.ID = "editor.action.goToImplementation", _g));
-registerGoToAction((_h = class PeekImplementationAction extends ImplementationAction {
+}, "GoToImplementationAction"), _g.ID = "editor.action.goToImplementation", _g));
+registerGoToAction((_h = /* @__PURE__ */ __name(class PeekImplementationAction extends ImplementationAction {
   constructor() {
     super({
       openToSide: false,
@@ -12989,7 +13210,7 @@ registerGoToAction((_h = class PeekImplementationAction extends ImplementationAc
       }
     });
   }
-}, _h.ID = "editor.action.peekImplementation", _h));
+}, "PeekImplementationAction"), _h.ID = "editor.action.peekImplementation", _h));
 var ReferencesAction = class extends SymbolNavigationAction {
   _getNoResultFoundMessage(info) {
     return info ? localize("references.no", "No references found for '{0}'", info.word) : localize("references.noGeneric", "No references found");
@@ -13001,7 +13222,8 @@ var ReferencesAction = class extends SymbolNavigationAction {
     return editor2.getOption(53).multipleReferences;
   }
 };
-registerGoToAction(class GoToReferencesAction extends ReferencesAction {
+__name(ReferencesAction, "ReferencesAction");
+registerGoToAction(/* @__PURE__ */ __name(class GoToReferencesAction extends ReferencesAction {
   constructor() {
     super({
       openToSide: false,
@@ -13028,8 +13250,8 @@ registerGoToAction(class GoToReferencesAction extends ReferencesAction {
       return new ReferencesModel(yield getReferencesAtPosition(languageFeaturesService.referenceProvider, model, position, true, token), localize("ref.title", "References"));
     });
   }
-});
-registerGoToAction(class PeekReferencesAction extends ReferencesAction {
+}, "GoToReferencesAction"));
+registerGoToAction(/* @__PURE__ */ __name(class PeekReferencesAction extends ReferencesAction {
   constructor() {
     super({
       openToSide: false,
@@ -13052,7 +13274,7 @@ registerGoToAction(class PeekReferencesAction extends ReferencesAction {
       return new ReferencesModel(yield getReferencesAtPosition(languageFeaturesService.referenceProvider, model, position, false, token), localize("ref.title", "References"));
     });
   }
-});
+}, "PeekReferencesAction"));
 var GenericGoToLocationAction = class extends SymbolNavigationAction {
   constructor(config, _references, _gotoMultipleBehaviour) {
     super(config, {
@@ -13080,6 +13302,7 @@ var GenericGoToLocationAction = class extends SymbolNavigationAction {
     return "";
   }
 };
+__name(GenericGoToLocationAction, "GenericGoToLocationAction");
 CommandsRegistry.registerCommand({
   id: "editor.action.goToLocations",
   description: {
@@ -13213,7 +13436,7 @@ MenuRegistry.appendMenuItems([
   }
 ]);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/goToDefinitionAtPosition.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/goToDefinitionAtPosition.js
 init_languageFeatures();
 var __decorate18 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -13230,7 +13453,7 @@ var __param18 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var GotoDefinitionAtPositionEditorContribution = class GotoDefinitionAtPositionEditorContribution2 {
+var GotoDefinitionAtPositionEditorContribution = /* @__PURE__ */ __name(class GotoDefinitionAtPositionEditorContribution2 {
   constructor(editor2, textModelResolverService, languageService, languageFeaturesService) {
     this.textModelResolverService = textModelResolverService;
     this.languageService = languageService;
@@ -13418,7 +13641,7 @@ var GotoDefinitionAtPositionEditorContribution = class GotoDefinitionAtPositionE
   dispose() {
     this.toUnhook.dispose();
   }
-};
+}, "GotoDefinitionAtPositionEditorContribution");
 GotoDefinitionAtPositionEditorContribution.ID = "editor.contrib.gotodefinitionatposition";
 GotoDefinitionAtPositionEditorContribution.MAX_SOURCE_PREVIEW_LINES = 8;
 GotoDefinitionAtPositionEditorContribution = __decorate18([
@@ -13434,11 +13657,11 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/contentHover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/contentHover.js
 init_define_process();
 init_dom();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/hover/hoverWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/hover/hoverWidget.js
 init_define_process();
 init_dom();
 init_keyboardEvent();
@@ -13462,6 +13685,7 @@ var HoverWidget = class extends Disposable {
     this.scrollbar.scanDomNode();
   }
 };
+__name(HoverWidget, "HoverWidget");
 var HoverAction = class extends Disposable {
   constructor(parent, actionOptions, keybindingLabel) {
     super();
@@ -13502,8 +13726,9 @@ var HoverAction = class extends Disposable {
     }
   }
 };
+__name(HoverAction, "HoverAction");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/contentHover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/contentHover.js
 init_arrays();
 init_lifecycle();
 init_position();
@@ -13511,7 +13736,7 @@ init_range();
 init_textModel();
 init_languages();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hoverOperation.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hoverOperation.js
 init_define_process();
 init_async();
 init_errors();
@@ -13523,6 +13748,7 @@ var __awaiter17 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -13531,6 +13757,7 @@ var __awaiter17 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -13538,9 +13765,11 @@ var __awaiter17 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -13558,11 +13787,13 @@ var __asyncValues = function(o) {
       });
     };
   }
+  __name(verb, "verb");
   function settle(resolve, reject, d, v) {
     Promise.resolve(v).then(function(v2) {
       resolve({ value: v2, done: d });
     }, reject);
   }
+  __name(settle, "settle");
 };
 var HoverResult = class {
   constructor(value, isComplete, hasLoadingMessage) {
@@ -13571,6 +13802,7 @@ var HoverResult = class {
     this.hasLoadingMessage = hasLoadingMessage;
   }
 };
+__name(HoverResult, "HoverResult");
 var HoverOperation = class extends Disposable {
   constructor(_editor, _computer) {
     super();
@@ -13703,8 +13935,9 @@ var HoverOperation = class extends Disposable {
     this._setState(0, false);
   }
 };
+__name(HoverOperation, "HoverOperation");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hoverTypes.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hoverTypes.js
 init_define_process();
 var HoverRangeAnchor = class {
   constructor(priority, range) {
@@ -13719,6 +13952,7 @@ var HoverRangeAnchor = class {
     return lastAnchor.type === 1 && showAtPosition.lineNumber === this.range.startLineNumber;
   }
 };
+__name(HoverRangeAnchor, "HoverRangeAnchor");
 var HoverForeignElementAnchor = class {
   constructor(priority, owner, range) {
     this.priority = priority;
@@ -13733,7 +13967,8 @@ var HoverForeignElementAnchor = class {
     return lastAnchor.type === 2 && this.owner === lastAnchor.owner;
   }
 };
-var HoverParticipantRegistry = new class HoverParticipantRegistry2 {
+__name(HoverForeignElementAnchor, "HoverForeignElementAnchor");
+var HoverParticipantRegistry = new (/* @__PURE__ */ __name(class HoverParticipantRegistry2 {
   constructor() {
     this._participants = [];
   }
@@ -13743,14 +13978,14 @@ var HoverParticipantRegistry = new class HoverParticipantRegistry2 {
   getAll() {
     return this._participants;
   }
-}();
+}, "HoverParticipantRegistry"))();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/contentHover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/contentHover.js
 init_contextkey();
 init_instantiation();
 init_keybinding();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggest.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggest.js
 init_define_process();
 init_cancellation();
 init_errors();
@@ -13762,7 +13997,7 @@ init_position();
 init_range();
 init_resolverService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetParser.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetParser.js
 init_define_process();
 var Scanner = class {
   constructor() {
@@ -13821,6 +14056,7 @@ var Scanner = class {
     return { type, pos, len };
   }
 };
+__name(Scanner, "Scanner");
 Scanner._table = {
   [36]: 0,
   [58]: 1,
@@ -13853,12 +14089,12 @@ var Marker = class {
     const newChildren = parent.children.slice(0);
     newChildren.splice(idx, 1, ...others);
     parent._children = newChildren;
-    (function _fixParent(children, parent2) {
+    (/* @__PURE__ */ __name(function _fixParent(children, parent2) {
       for (const child2 of children) {
         child2.parent = parent2;
         _fixParent(child2.children, child2);
       }
-    })(others, parent);
+    }, "_fixParent"))(others, parent);
   }
   get children() {
     return this._children;
@@ -13882,6 +14118,7 @@ var Marker = class {
     return 0;
   }
 };
+__name(Marker, "Marker");
 var Text = class extends Marker {
   constructor(value) {
     super();
@@ -13897,8 +14134,10 @@ var Text = class extends Marker {
     return new Text(this.value);
   }
 };
+__name(Text, "Text");
 var TransformableMarker = class extends Marker {
 };
+__name(TransformableMarker, "TransformableMarker");
 var Placeholder = class extends TransformableMarker {
   constructor(index) {
     super();
@@ -13934,6 +14173,7 @@ var Placeholder = class extends TransformableMarker {
     return ret;
   }
 };
+__name(Placeholder, "Placeholder");
 var Choice = class extends Marker {
   constructor() {
     super(...arguments);
@@ -13958,6 +14198,7 @@ var Choice = class extends Marker {
     return ret;
   }
 };
+__name(Choice, "Choice");
 var Transform = class extends Marker {
   constructor() {
     super(...arguments);
@@ -13998,6 +14239,7 @@ var Transform = class extends Marker {
     return ret;
   }
 };
+__name(Transform, "Transform");
 var FormatString = class extends Marker {
   constructor(index, shorthandName, ifValue, elseValue) {
     super();
@@ -14051,6 +14293,7 @@ var FormatString = class extends Marker {
     return ret;
   }
 };
+__name(FormatString, "FormatString");
 var Variable = class extends TransformableMarker {
   constructor(name) {
     super();
@@ -14076,6 +14319,7 @@ var Variable = class extends TransformableMarker {
     return ret;
   }
 };
+__name(Variable, "Variable");
 function walk(marker, visitor) {
   const stack = [...marker];
   while (stack.length > 0) {
@@ -14087,6 +14331,7 @@ function walk(marker, visitor) {
     stack.unshift(...marker2.children);
   }
 }
+__name(walk, "walk");
 var TextmateSnippet = class extends Marker {
   get placeholderInfo() {
     if (!this._placeholders) {
@@ -14170,6 +14415,7 @@ var TextmateSnippet = class extends Marker {
     walk(this.children, visitor);
   }
 };
+__name(TextmateSnippet, "TextmateSnippet");
 var SnippetParser = class {
   constructor() {
     this._scanner = new Scanner();
@@ -14519,18 +14765,19 @@ var SnippetParser = class {
     return false;
   }
 };
+__name(SnippetParser, "SnippetParser");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggest.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggest.js
 init_nls();
 init_actions2();
 init_commands();
 init_contextkey();
 init_languageFeatures();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/history/browser/contextScopedHistoryWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/history/browser/contextScopedHistoryWidget.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/findinput/replaceInput.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/findinput/replaceInput.js
 init_define_process();
 init_dom();
 init_widget();
@@ -14551,6 +14798,7 @@ var PreserveCaseToggle = class extends Toggle {
     });
   }
 };
+__name(PreserveCaseToggle, "PreserveCaseToggle");
 var ReplaceInput = class extends Widget {
   constructor(parent, contextViewProvider, _showOptionButtons, options) {
     super();
@@ -14763,8 +15011,9 @@ var ReplaceInput = class extends Widget {
     super.dispose();
   }
 };
+__name(ReplaceInput, "ReplaceInput");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/history/browser/contextScopedHistoryWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/history/browser/contextScopedHistoryWidget.js
 init_contextkey();
 init_keybindingsRegistry();
 init_nls();
@@ -14800,16 +15049,16 @@ function registerAndCreateHistoryNavigationContext(contextKeyService, widget) {
   const historyNavigationWidgetFocus = new RawContextKey(HistoryNavigationWidgetFocusContext, false).bindTo(scopedContextKeyService);
   const historyNavigationForwardsEnablement = new RawContextKey(HistoryNavigationForwardsEnablementContext, true).bindTo(scopedContextKeyService);
   const historyNavigationBackwardsEnablement = new RawContextKey(HistoryNavigationBackwardsEnablementContext, true).bindTo(scopedContextKeyService);
-  const onDidFocus = () => {
+  const onDidFocus = /* @__PURE__ */ __name(() => {
     historyNavigationWidgetFocus.set(true);
     lastFocusedWidget = widget;
-  };
-  const onDidBlur = () => {
+  }, "onDidFocus");
+  const onDidBlur = /* @__PURE__ */ __name(() => {
     historyNavigationWidgetFocus.set(false);
     if (lastFocusedWidget === widget) {
       lastFocusedWidget = void 0;
     }
-  };
+  }, "onDidBlur");
   if (widget.element === document.activeElement) {
     onDidFocus();
   }
@@ -14828,21 +15077,22 @@ function registerAndCreateHistoryNavigationContext(contextKeyService, widget) {
     }
   };
 }
-var ContextScopedFindInput = class ContextScopedFindInput2 extends FindInput {
+__name(registerAndCreateHistoryNavigationContext, "registerAndCreateHistoryNavigationContext");
+var ContextScopedFindInput = /* @__PURE__ */ __name(class ContextScopedFindInput2 extends FindInput {
   constructor(container, contextViewProvider, options, contextKeyService, showFindOptions = false) {
     super(container, contextViewProvider, showFindOptions, options);
     this._register(registerAndCreateHistoryNavigationContext(contextKeyService, this.inputBox));
   }
-};
+}, "ContextScopedFindInput");
 ContextScopedFindInput = __decorate19([
   __param19(3, IContextKeyService)
 ], ContextScopedFindInput);
-var ContextScopedReplaceInput = class ContextScopedReplaceInput2 extends ReplaceInput {
+var ContextScopedReplaceInput = /* @__PURE__ */ __name(class ContextScopedReplaceInput2 extends ReplaceInput {
   constructor(container, contextViewProvider, options, contextKeyService, showReplaceOptions = false) {
     super(container, contextViewProvider, showReplaceOptions, options);
     this._register(registerAndCreateHistoryNavigationContext(contextKeyService, this.inputBox));
   }
-};
+}, "ContextScopedReplaceInput");
 ContextScopedReplaceInput = __decorate19([
   __param19(3, IContextKeyService)
 ], ContextScopedReplaceInput);
@@ -14871,13 +15121,14 @@ KeybindingsRegistry.registerCommandAndKeybindingRule({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggest.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggest.js
 var __awaiter18 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -14886,6 +15137,7 @@ var __awaiter18 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -14893,9 +15145,11 @@ var __awaiter18 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -14967,6 +15221,7 @@ var CompletionItem = class {
     });
   }
 };
+__name(CompletionItem, "CompletionItem");
 var CompletionOptions = class {
   constructor(snippetSortOrder = 2, kindFilter = /* @__PURE__ */ new Set(), providerFilter = /* @__PURE__ */ new Set(), showDeprecated = true) {
     this.snippetSortOrder = snippetSortOrder;
@@ -14975,11 +15230,13 @@ var CompletionOptions = class {
     this.showDeprecated = showDeprecated;
   }
 };
+__name(CompletionOptions, "CompletionOptions");
 CompletionOptions.default = new CompletionOptions();
 var _snippetSuggestSupport;
 function getSnippetSuggestSupport() {
   return _snippetSuggestSupport;
 }
+__name(getSnippetSuggestSupport, "getSnippetSuggestSupport");
 var CompletionItemModel = class {
   constructor(items, needsClipboard, durations, disposable) {
     this.items = items;
@@ -14988,6 +15245,7 @@ var CompletionItemModel = class {
     this.disposable = disposable;
   }
 };
+__name(CompletionItemModel, "CompletionItemModel");
 function provideSuggestionItems(registry, model, position, options = CompletionOptions.default, context = { triggerKind: 0 }, token = CancellationToken.None) {
   return __awaiter18(this, void 0, void 0, function* () {
     const sw = new StopWatch(true);
@@ -14999,7 +15257,7 @@ function provideSuggestionItems(registry, model, position, options = CompletionO
     const disposables = new DisposableStore();
     const durations = [];
     let needsClipboard = false;
-    const onCompletionList = (provider, container, sw2) => {
+    const onCompletionList = /* @__PURE__ */ __name((provider, container, sw2) => {
       var _a5, _b2, _c2;
       let didAddResult = false;
       if (!container) {
@@ -15032,7 +15290,7 @@ function provideSuggestionItems(registry, model, position, options = CompletionO
         elapsedOverall: sw2.elapsed()
       });
       return didAddResult;
-    };
+    }, "onCompletionList");
     const snippetCompletions = (() => __awaiter18(this, void 0, void 0, function* () {
       if (!_snippetSuggestSupport || options.kindFilter.has(27)) {
         return;
@@ -15070,6 +15328,7 @@ function provideSuggestionItems(registry, model, position, options = CompletionO
     return new CompletionItemModel(result.sort(getSuggestionComparator(options.snippetSortOrder)), needsClipboard, { entries: durations, elapsed: sw.elapsed() }, disposables);
   });
 }
+__name(provideSuggestionItems, "provideSuggestionItems");
 function defaultComparator(a, b) {
   if (a.sortTextLow && b.sortTextLow) {
     if (a.sortTextLow < b.sortTextLow) {
@@ -15085,6 +15344,7 @@ function defaultComparator(a, b) {
   }
   return a.completion.kind - b.completion.kind;
 }
+__name(defaultComparator, "defaultComparator");
 function snippetUpComparator(a, b) {
   if (a.completion.kind !== b.completion.kind) {
     if (a.completion.kind === 27) {
@@ -15095,6 +15355,7 @@ function snippetUpComparator(a, b) {
   }
   return defaultComparator(a, b);
 }
+__name(snippetUpComparator, "snippetUpComparator");
 function snippetDownComparator(a, b) {
   if (a.completion.kind !== b.completion.kind) {
     if (a.completion.kind === 27) {
@@ -15105,6 +15366,7 @@ function snippetDownComparator(a, b) {
   }
   return defaultComparator(a, b);
 }
+__name(snippetDownComparator, "snippetDownComparator");
 var _snippetComparators = /* @__PURE__ */ new Map();
 _snippetComparators.set(0, snippetUpComparator);
 _snippetComparators.set(2, snippetDownComparator);
@@ -15112,6 +15374,7 @@ _snippetComparators.set(1, defaultComparator);
 function getSuggestionComparator(snippetConfig) {
   return _snippetComparators.get(snippetConfig);
 }
+__name(getSuggestionComparator, "getSuggestionComparator");
 CommandsRegistry.registerCommand("_executeCompletionItemProvider", (accessor, ...args) => __awaiter18(void 0, void 0, void 0, function* () {
   const [uri, position, triggerCharacter, maxItemsToResolve] = args;
   assertType(URI.isUri(uri));
@@ -15148,6 +15411,7 @@ function showSimpleSuggestions(editor2, provider) {
   var _a5;
   (_a5 = editor2.getContribution("editor.contrib.suggestController")) === null || _a5 === void 0 ? void 0 : _a5.triggerSuggest((/* @__PURE__ */ new Set()).add(provider), void 0, true);
 }
+__name(showSimpleSuggestions, "showSimpleSuggestions");
 var QuickSuggestionsOptions = class {
   static isAllOff(config) {
     return config.other === "off" && config.comments === "off" && config.strings === "off";
@@ -15166,8 +15430,9 @@ var QuickSuggestionsOptions = class {
     }
   }
 };
+__name(QuickSuggestionsOptions, "QuickSuggestionsOptions");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/contentHover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/contentHover.js
 init_async();
 init_editorContextKeys();
 var __decorate20 = function(decorators, target, key, desc) {
@@ -15186,7 +15451,7 @@ var __param20 = function(paramIndex, decorator) {
   };
 };
 var $4 = $;
-var ContentHoverController = class ContentHoverController2 extends Disposable {
+var ContentHoverController = /* @__PURE__ */ __name(class ContentHoverController2 extends Disposable {
   constructor(_editor, _instantiationService, _keybindingService) {
     super();
     this._editor = _editor;
@@ -15388,7 +15653,7 @@ var ContentHoverController = class ContentHoverController2 extends Disposable {
       highlightRange
     };
   }
-};
+}, "ContentHoverController");
 ContentHoverController._DECORATION_OPTIONS = ModelDecorationOptions.register({
   description: "content-hover-highlight",
   className: "hoverHighlight"
@@ -15407,7 +15672,8 @@ var ContentHoverVisibleData = class {
     this.disposables = disposables;
   }
 };
-var ContentHoverWidget = class ContentHoverWidget2 extends Disposable {
+__name(ContentHoverVisibleData, "ContentHoverVisibleData");
+var ContentHoverWidget = /* @__PURE__ */ __name(class ContentHoverWidget2 extends Disposable {
   constructor(_editor, _contextKeyService) {
     super();
     this._editor = _editor;
@@ -15524,12 +15790,12 @@ var ContentHoverWidget = class ContentHoverWidget2 extends Disposable {
   clear() {
     this._hover.contentsDomNode.textContent = "";
   }
-};
+}, "ContentHoverWidget");
 ContentHoverWidget.ID = "editor.contrib.contentHoverWidget";
 ContentHoverWidget = __decorate20([
   __param20(1, IContextKeyService)
 ], ContentHoverWidget);
-var EditorHoverStatusBar = class EditorHoverStatusBar2 extends Disposable {
+var EditorHoverStatusBar = /* @__PURE__ */ __name(class EditorHoverStatusBar2 extends Disposable {
   constructor(_keybindingService) {
     super();
     this._keybindingService = _keybindingService;
@@ -15551,7 +15817,7 @@ var EditorHoverStatusBar = class EditorHoverStatusBar2 extends Disposable {
     this._hasContent = true;
     return result;
   }
-};
+}, "EditorHoverStatusBar");
 EditorHoverStatusBar = __decorate20([
   __param20(0, IKeybindingService)
 ], EditorHoverStatusBar);
@@ -15627,17 +15893,18 @@ var ContentHoverComputer = class {
     return coalesce(result);
   }
 };
+__name(ContentHoverComputer, "ContentHoverComputer");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/marginHover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/marginHover.js
 init_define_process();
 init_dom();
 init_arrays();
 init_lifecycle();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/markdownRenderer/browser/markdownRenderer.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/markdownRenderer/browser/markdownRenderer.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/browser/markdownRenderer.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/markdownRenderer.js
 init_define_process();
 init_dom();
 init_dompurify();
@@ -15647,13 +15914,14 @@ init_errors();
 init_event();
 init_lifecycle();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/common/marked/marked.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/common/marked/marked.js
 init_define_process();
 var __marked_exports = {};
 (function() {
   function define(deps, factory) {
     factory(__marked_exports);
   }
+  __name(define, "define");
   define.amd = true;
   (function(global, factory) {
     typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.marked = {}));
@@ -15669,6 +15937,7 @@ var __marked_exports = {};
         Object.defineProperty(target, descriptor.key, descriptor);
       }
     }
+    __name(_defineProperties, "_defineProperties");
     function _createClass(Constructor, protoProps, staticProps) {
       if (protoProps)
         _defineProperties(Constructor.prototype, protoProps);
@@ -15679,6 +15948,7 @@ var __marked_exports = {};
       });
       return Constructor;
     }
+    __name(_createClass, "_createClass");
     function _unsupportedIterableToArray(o, minLen) {
       if (!o)
         return;
@@ -15692,6 +15962,7 @@ var __marked_exports = {};
       if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
         return _arrayLikeToArray(o, minLen);
     }
+    __name(_unsupportedIterableToArray, "_unsupportedIterableToArray");
     function _arrayLikeToArray(arr, len) {
       if (len == null || len > arr.length)
         len = arr.length;
@@ -15699,6 +15970,7 @@ var __marked_exports = {};
         arr2[i] = arr[i];
       return arr2;
     }
+    __name(_arrayLikeToArray, "_arrayLikeToArray");
     function _createForOfIteratorHelperLoose(o, allowArrayLike) {
       var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
       if (it)
@@ -15720,6 +15992,7 @@ var __marked_exports = {};
       }
       throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
+    __name(_createForOfIteratorHelperLoose, "_createForOfIteratorHelperLoose");
     function getDefaults() {
       return {
         baseUrl: null,
@@ -15743,10 +16016,12 @@ var __marked_exports = {};
         xhtml: false
       };
     }
+    __name(getDefaults, "getDefaults");
     exports2.defaults = getDefaults();
     function changeDefaults(newDefaults) {
       exports2.defaults = newDefaults;
     }
+    __name(changeDefaults, "changeDefaults");
     var escapeTest = /[&<>"']/;
     var escapeReplace = /[&<>"']/g;
     var escapeTestNoEncode = /[<>"']|&(?!#?\w+;)/;
@@ -15758,9 +16033,9 @@ var __marked_exports = {};
       '"': "&quot;",
       "'": "&#39;"
     };
-    var getEscapeReplacement = function getEscapeReplacement2(ch) {
+    var getEscapeReplacement = /* @__PURE__ */ __name(function getEscapeReplacement2(ch) {
       return escapeReplacements[ch];
-    };
+    }, "getEscapeReplacement");
     function escape2(html, encode) {
       if (encode) {
         if (escapeTest.test(html)) {
@@ -15773,6 +16048,7 @@ var __marked_exports = {};
       }
       return html;
     }
+    __name(escape2, "escape");
     var unescapeTest = /&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/ig;
     function unescape(html) {
       return html.replace(unescapeTest, function(_, n) {
@@ -15785,23 +16061,25 @@ var __marked_exports = {};
         return "";
       });
     }
+    __name(unescape, "unescape");
     var caret = /(^|[^\[])\^/g;
     function edit(regex, opt) {
       regex = typeof regex === "string" ? regex : regex.source;
       opt = opt || "";
       var obj = {
-        replace: function replace(name, val) {
+        replace: /* @__PURE__ */ __name(function replace(name, val) {
           val = val.source || val;
           val = val.replace(caret, "$1");
           regex = regex.replace(name, val);
           return obj;
-        },
-        getRegex: function getRegex() {
+        }, "replace"),
+        getRegex: /* @__PURE__ */ __name(function getRegex() {
           return new RegExp(regex, opt);
-        }
+        }, "getRegex")
       };
       return obj;
     }
+    __name(edit, "edit");
     var nonWordAndColonTest = /[^\w:]/g;
     var originIndependentUrl = /^$|^[a-z][a-z0-9+.-]*:|^[?#]/i;
     function cleanUrl(sanitize2, base, href) {
@@ -15826,6 +16104,7 @@ var __marked_exports = {};
       }
       return href;
     }
+    __name(cleanUrl, "cleanUrl");
     var baseUrls = {};
     var justDomain = /^[^:]+:\/*[^/]*$/;
     var protocol = /^([^:]+:)[\s\S]*$/;
@@ -15854,9 +16133,10 @@ var __marked_exports = {};
         return base + href;
       }
     }
+    __name(resolveUrl, "resolveUrl");
     var noopTest = {
-      exec: function noopTest2() {
-      }
+      exec: /* @__PURE__ */ __name(function noopTest2() {
+      }, "noopTest")
     };
     function merge(obj) {
       var i = 1, target, key;
@@ -15870,6 +16150,7 @@ var __marked_exports = {};
       }
       return obj;
     }
+    __name(merge, "merge");
     function splitCells(tableRow, count) {
       var row = tableRow.replace(/\|/g, function(match, offset, str) {
         var escaped = false, curr = offset;
@@ -15901,6 +16182,7 @@ var __marked_exports = {};
       }
       return cells;
     }
+    __name(splitCells, "splitCells");
     function rtrim(str, c, invert) {
       var l = str.length;
       if (l === 0) {
@@ -15919,6 +16201,7 @@ var __marked_exports = {};
       }
       return str.slice(0, l - suffLen);
     }
+    __name(rtrim, "rtrim");
     function findClosingBracket(str, b) {
       if (str.indexOf(b[1]) === -1) {
         return -1;
@@ -15939,11 +16222,13 @@ var __marked_exports = {};
       }
       return -1;
     }
+    __name(findClosingBracket, "findClosingBracket");
     function checkSanitizeDeprecation(opt) {
       if (opt && opt.sanitize && !opt.silent) {
         console.warn("marked(): sanitize and sanitizer parameters are deprecated since version 0.7.0, should not be used and will be removed in the future. Read more here: https://marked.js.org/#/USING_ADVANCED.md#options");
       }
     }
+    __name(checkSanitizeDeprecation, "checkSanitizeDeprecation");
     function repeatString(pattern, count) {
       if (count < 1) {
         return "";
@@ -15958,6 +16243,7 @@ var __marked_exports = {};
       }
       return result + pattern;
     }
+    __name(repeatString, "repeatString");
     function outputLink(cap, link, raw, lexer2) {
       var href = link.href;
       var title = link.title ? escape2(link.title) : null;
@@ -15983,6 +16269,7 @@ var __marked_exports = {};
         text: escape2(text)
       };
     }
+    __name(outputLink, "outputLink");
     function indentCodeCompensation(raw, text) {
       var matchIndentToCode = raw.match(/^(\s+)(?:```)/);
       if (matchIndentToCode === null) {
@@ -16001,12 +16288,14 @@ var __marked_exports = {};
         return node;
       }).join("\n");
     }
+    __name(indentCodeCompensation, "indentCodeCompensation");
     var Tokenizer = function() {
       function Tokenizer2(options2) {
         this.options = options2 || exports2.defaults;
       }
+      __name(Tokenizer2, "Tokenizer");
       var _proto = Tokenizer2.prototype;
-      _proto.space = function space(src) {
+      _proto.space = /* @__PURE__ */ __name(function space(src) {
         var cap = this.rules.block.newline.exec(src);
         if (cap && cap[0].length > 0) {
           return {
@@ -16014,8 +16303,8 @@ var __marked_exports = {};
             raw: cap[0]
           };
         }
-      };
-      _proto.code = function code(src) {
+      }, "space");
+      _proto.code = /* @__PURE__ */ __name(function code(src) {
         var cap = this.rules.block.code.exec(src);
         if (cap) {
           var text = cap[0].replace(/^ {1,4}/gm, "");
@@ -16026,8 +16315,8 @@ var __marked_exports = {};
             text: !this.options.pedantic ? rtrim(text, "\n") : text
           };
         }
-      };
-      _proto.fences = function fences(src) {
+      }, "code");
+      _proto.fences = /* @__PURE__ */ __name(function fences(src) {
         var cap = this.rules.block.fences.exec(src);
         if (cap) {
           var raw = cap[0];
@@ -16039,8 +16328,8 @@ var __marked_exports = {};
             text
           };
         }
-      };
-      _proto.heading = function heading(src) {
+      }, "fences");
+      _proto.heading = /* @__PURE__ */ __name(function heading(src) {
         var cap = this.rules.block.heading.exec(src);
         if (cap) {
           var text = cap[2].trim();
@@ -16062,8 +16351,8 @@ var __marked_exports = {};
           this.lexer.inline(token.text, token.tokens);
           return token;
         }
-      };
-      _proto.hr = function hr(src) {
+      }, "heading");
+      _proto.hr = /* @__PURE__ */ __name(function hr(src) {
         var cap = this.rules.block.hr.exec(src);
         if (cap) {
           return {
@@ -16071,8 +16360,8 @@ var __marked_exports = {};
             raw: cap[0]
           };
         }
-      };
-      _proto.blockquote = function blockquote(src) {
+      }, "hr");
+      _proto.blockquote = /* @__PURE__ */ __name(function blockquote(src) {
         var cap = this.rules.block.blockquote.exec(src);
         if (cap) {
           var text = cap[0].replace(/^ *>[ \t]?/gm, "");
@@ -16083,8 +16372,8 @@ var __marked_exports = {};
             text
           };
         }
-      };
-      _proto.list = function list(src) {
+      }, "blockquote");
+      _proto.list = /* @__PURE__ */ __name(function list(src) {
         var cap = this.rules.block.list.exec(src);
         if (cap) {
           var raw, istask, ischecked, indent, i, blankLine, endsWithBlankLine, line, nextLine, rawLine, itemContents, endEarly;
@@ -16214,8 +16503,8 @@ var __marked_exports = {};
           }
           return list2;
         }
-      };
-      _proto.html = function html(src) {
+      }, "list");
+      _proto.html = /* @__PURE__ */ __name(function html(src) {
         var cap = this.rules.block.html.exec(src);
         if (cap) {
           var token = {
@@ -16232,8 +16521,8 @@ var __marked_exports = {};
           }
           return token;
         }
-      };
-      _proto.def = function def(src) {
+      }, "html");
+      _proto.def = /* @__PURE__ */ __name(function def(src) {
         var cap = this.rules.block.def.exec(src);
         if (cap) {
           if (cap[3])
@@ -16247,8 +16536,8 @@ var __marked_exports = {};
             title: cap[3]
           };
         }
-      };
-      _proto.table = function table(src) {
+      }, "def");
+      _proto.table = /* @__PURE__ */ __name(function table(src) {
         var cap = this.rules.block.table.exec(src);
         if (cap) {
           var item = {
@@ -16300,8 +16589,8 @@ var __marked_exports = {};
             return item;
           }
         }
-      };
-      _proto.lheading = function lheading(src) {
+      }, "table");
+      _proto.lheading = /* @__PURE__ */ __name(function lheading(src) {
         var cap = this.rules.block.lheading.exec(src);
         if (cap) {
           var token = {
@@ -16314,8 +16603,8 @@ var __marked_exports = {};
           this.lexer.inline(token.text, token.tokens);
           return token;
         }
-      };
-      _proto.paragraph = function paragraph(src) {
+      }, "lheading");
+      _proto.paragraph = /* @__PURE__ */ __name(function paragraph(src) {
         var cap = this.rules.block.paragraph.exec(src);
         if (cap) {
           var token = {
@@ -16327,8 +16616,8 @@ var __marked_exports = {};
           this.lexer.inline(token.text, token.tokens);
           return token;
         }
-      };
-      _proto.text = function text(src) {
+      }, "paragraph");
+      _proto.text = /* @__PURE__ */ __name(function text(src) {
         var cap = this.rules.block.text.exec(src);
         if (cap) {
           var token = {
@@ -16340,8 +16629,8 @@ var __marked_exports = {};
           this.lexer.inline(token.text, token.tokens);
           return token;
         }
-      };
-      _proto.escape = function escape$1(src) {
+      }, "text");
+      _proto.escape = /* @__PURE__ */ __name(function escape$1(src) {
         var cap = this.rules.inline.escape.exec(src);
         if (cap) {
           return {
@@ -16350,8 +16639,8 @@ var __marked_exports = {};
             text: escape2(cap[1])
           };
         }
-      };
-      _proto.tag = function tag(src) {
+      }, "escape$1");
+      _proto.tag = /* @__PURE__ */ __name(function tag(src) {
         var cap = this.rules.inline.tag.exec(src);
         if (cap) {
           if (!this.lexer.state.inLink && /^<a /i.test(cap[0])) {
@@ -16372,8 +16661,8 @@ var __marked_exports = {};
             text: this.options.sanitize ? this.options.sanitizer ? this.options.sanitizer(cap[0]) : escape2(cap[0]) : cap[0]
           };
         }
-      };
-      _proto.link = function link(src) {
+      }, "tag");
+      _proto.link = /* @__PURE__ */ __name(function link(src) {
         var cap = this.rules.inline.link.exec(src);
         if (cap) {
           var trimmedUrl = cap[2].trim();
@@ -16419,8 +16708,8 @@ var __marked_exports = {};
             title: title ? title.replace(this.rules.inline._escapes, "$1") : title
           }, cap[0], this.lexer);
         }
-      };
-      _proto.reflink = function reflink(src, links) {
+      }, "link");
+      _proto.reflink = /* @__PURE__ */ __name(function reflink(src, links) {
         var cap;
         if ((cap = this.rules.inline.reflink.exec(src)) || (cap = this.rules.inline.nolink.exec(src))) {
           var link = (cap[2] || cap[1]).replace(/\s+/g, " ");
@@ -16435,8 +16724,8 @@ var __marked_exports = {};
           }
           return outputLink(cap, link, cap[0], this.lexer);
         }
-      };
-      _proto.emStrong = function emStrong(src, maskedSrc, prevChar) {
+      }, "reflink");
+      _proto.emStrong = /* @__PURE__ */ __name(function emStrong(src, maskedSrc, prevChar) {
         if (prevChar === void 0) {
           prevChar = "";
         }
@@ -16488,8 +16777,8 @@ var __marked_exports = {};
             };
           }
         }
-      };
-      _proto.codespan = function codespan(src) {
+      }, "emStrong");
+      _proto.codespan = /* @__PURE__ */ __name(function codespan(src) {
         var cap = this.rules.inline.code.exec(src);
         if (cap) {
           var text = cap[2].replace(/\n/g, " ");
@@ -16505,8 +16794,8 @@ var __marked_exports = {};
             text
           };
         }
-      };
-      _proto.br = function br(src) {
+      }, "codespan");
+      _proto.br = /* @__PURE__ */ __name(function br(src) {
         var cap = this.rules.inline.br.exec(src);
         if (cap) {
           return {
@@ -16514,8 +16803,8 @@ var __marked_exports = {};
             raw: cap[0]
           };
         }
-      };
-      _proto.del = function del(src) {
+      }, "br");
+      _proto.del = /* @__PURE__ */ __name(function del(src) {
         var cap = this.rules.inline.del.exec(src);
         if (cap) {
           return {
@@ -16525,8 +16814,8 @@ var __marked_exports = {};
             tokens: this.lexer.inlineTokens(cap[2], [])
           };
         }
-      };
-      _proto.autolink = function autolink(src, mangle2) {
+      }, "del");
+      _proto.autolink = /* @__PURE__ */ __name(function autolink(src, mangle2) {
         var cap = this.rules.inline.autolink.exec(src);
         if (cap) {
           var text, href;
@@ -16549,8 +16838,8 @@ var __marked_exports = {};
             }]
           };
         }
-      };
-      _proto.url = function url(src, mangle2) {
+      }, "autolink");
+      _proto.url = /* @__PURE__ */ __name(function url(src, mangle2) {
         var cap;
         if (cap = this.rules.inline.url.exec(src)) {
           var text, href;
@@ -16582,8 +16871,8 @@ var __marked_exports = {};
             }]
           };
         }
-      };
-      _proto.inlineText = function inlineText(src, smartypants2) {
+      }, "url");
+      _proto.inlineText = /* @__PURE__ */ __name(function inlineText(src, smartypants2) {
         var cap = this.rules.inline.text.exec(src);
         if (cap) {
           var text;
@@ -16598,7 +16887,7 @@ var __marked_exports = {};
             text
           };
         }
-      };
+      }, "inlineText");
       return Tokenizer2;
     }();
     var block = {
@@ -16714,6 +17003,7 @@ var __marked_exports = {};
     function smartypants(text) {
       return text.replace(/---/g, "\u2014").replace(/--/g, "\u2013").replace(/(^|[-\u2014/(\[{"\s])'/g, "$1\u2018").replace(/'/g, "\u2019").replace(/(^|[-\u2014/(\[{\u2018\s])"/g, "$1\u201C").replace(/"/g, "\u201D").replace(/\.{3}/g, "\u2026");
     }
+    __name(smartypants, "smartypants");
     function mangle(text) {
       var out = "", i, ch;
       var l = text.length;
@@ -16726,6 +17016,7 @@ var __marked_exports = {};
       }
       return out;
     }
+    __name(mangle, "mangle");
     var Lexer = function() {
       function Lexer2(options2) {
         this.tokens = [];
@@ -16758,16 +17049,17 @@ var __marked_exports = {};
         }
         this.tokenizer.rules = rules;
       }
-      Lexer2.lex = function lex(src, options2) {
+      __name(Lexer2, "Lexer");
+      Lexer2.lex = /* @__PURE__ */ __name(function lex(src, options2) {
         var lexer2 = new Lexer2(options2);
         return lexer2.lex(src);
-      };
-      Lexer2.lexInline = function lexInline(src, options2) {
+      }, "lex");
+      Lexer2.lexInline = /* @__PURE__ */ __name(function lexInline(src, options2) {
         var lexer2 = new Lexer2(options2);
         return lexer2.inlineTokens(src);
-      };
+      }, "lexInline");
       var _proto = Lexer2.prototype;
-      _proto.lex = function lex(src) {
+      _proto.lex = /* @__PURE__ */ __name(function lex(src) {
         src = src.replace(/\r\n|\r/g, "\n");
         this.blockTokens(src, this.tokens);
         var next;
@@ -16775,8 +17067,8 @@ var __marked_exports = {};
           this.inlineTokens(next.src, next.tokens);
         }
         return this.tokens;
-      };
-      _proto.blockTokens = function blockTokens(src, tokens) {
+      }, "lex");
+      _proto.blockTokens = /* @__PURE__ */ __name(function blockTokens(src, tokens) {
         var _this = this;
         if (tokens === void 0) {
           tokens = [];
@@ -16936,14 +17228,14 @@ var __marked_exports = {};
         }
         this.state.top = true;
         return tokens;
-      };
-      _proto.inline = function inline2(src, tokens) {
+      }, "blockTokens");
+      _proto.inline = /* @__PURE__ */ __name(function inline2(src, tokens) {
         this.inlineQueue.push({
           src,
           tokens
         });
-      };
-      _proto.inlineTokens = function inlineTokens(src, tokens) {
+      }, "inline");
+      _proto.inlineTokens = /* @__PURE__ */ __name(function inlineTokens(src, tokens) {
         var _this2 = this;
         if (tokens === void 0) {
           tokens = [];
@@ -17092,15 +17384,15 @@ var __marked_exports = {};
           }
         }
         return tokens;
-      };
+      }, "inlineTokens");
       _createClass(Lexer2, null, [{
         key: "rules",
-        get: function get() {
+        get: /* @__PURE__ */ __name(function get() {
           return {
             block,
             inline
           };
-        }
+        }, "get")
       }]);
       return Lexer2;
     }();
@@ -17108,8 +17400,9 @@ var __marked_exports = {};
       function Renderer2(options2) {
         this.options = options2 || exports2.defaults;
       }
+      __name(Renderer2, "Renderer");
       var _proto = Renderer2.prototype;
-      _proto.code = function code(_code, infostring, escaped) {
+      _proto.code = /* @__PURE__ */ __name(function code(_code, infostring, escaped) {
         var lang = (infostring || "").match(/\S*/)[0];
         if (this.options.highlight) {
           var out = this.options.highlight(_code, lang);
@@ -17123,65 +17416,65 @@ var __marked_exports = {};
           return "<pre><code>" + (escaped ? _code : escape2(_code, true)) + "</code></pre>\n";
         }
         return '<pre><code class="' + this.options.langPrefix + escape2(lang, true) + '">' + (escaped ? _code : escape2(_code, true)) + "</code></pre>\n";
-      };
-      _proto.blockquote = function blockquote(quote) {
+      }, "code");
+      _proto.blockquote = /* @__PURE__ */ __name(function blockquote(quote) {
         return "<blockquote>\n" + quote + "</blockquote>\n";
-      };
-      _proto.html = function html(_html) {
+      }, "blockquote");
+      _proto.html = /* @__PURE__ */ __name(function html(_html) {
         return _html;
-      };
-      _proto.heading = function heading(text, level, raw, slugger) {
+      }, "html");
+      _proto.heading = /* @__PURE__ */ __name(function heading(text, level, raw, slugger) {
         if (this.options.headerIds) {
           var id = this.options.headerPrefix + slugger.slug(raw);
           return "<h" + level + ' id="' + id + '">' + text + "</h" + level + ">\n";
         }
         return "<h" + level + ">" + text + "</h" + level + ">\n";
-      };
-      _proto.hr = function hr() {
+      }, "heading");
+      _proto.hr = /* @__PURE__ */ __name(function hr() {
         return this.options.xhtml ? "<hr/>\n" : "<hr>\n";
-      };
-      _proto.list = function list(body, ordered, start) {
+      }, "hr");
+      _proto.list = /* @__PURE__ */ __name(function list(body, ordered, start) {
         var type = ordered ? "ol" : "ul", startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
         return "<" + type + startatt + ">\n" + body + "</" + type + ">\n";
-      };
-      _proto.listitem = function listitem(text) {
+      }, "list");
+      _proto.listitem = /* @__PURE__ */ __name(function listitem(text) {
         return "<li>" + text + "</li>\n";
-      };
-      _proto.checkbox = function checkbox(checked) {
+      }, "listitem");
+      _proto.checkbox = /* @__PURE__ */ __name(function checkbox(checked) {
         return "<input " + (checked ? 'checked="" ' : "") + 'disabled="" type="checkbox"' + (this.options.xhtml ? " /" : "") + "> ";
-      };
-      _proto.paragraph = function paragraph(text) {
+      }, "checkbox");
+      _proto.paragraph = /* @__PURE__ */ __name(function paragraph(text) {
         return "<p>" + text + "</p>\n";
-      };
-      _proto.table = function table(header, body) {
+      }, "paragraph");
+      _proto.table = /* @__PURE__ */ __name(function table(header, body) {
         if (body)
           body = "<tbody>" + body + "</tbody>";
         return "<table>\n<thead>\n" + header + "</thead>\n" + body + "</table>\n";
-      };
-      _proto.tablerow = function tablerow(content) {
+      }, "table");
+      _proto.tablerow = /* @__PURE__ */ __name(function tablerow(content) {
         return "<tr>\n" + content + "</tr>\n";
-      };
-      _proto.tablecell = function tablecell(content, flags) {
+      }, "tablerow");
+      _proto.tablecell = /* @__PURE__ */ __name(function tablecell(content, flags) {
         var type = flags.header ? "th" : "td";
         var tag = flags.align ? "<" + type + ' align="' + flags.align + '">' : "<" + type + ">";
         return tag + content + ("</" + type + ">\n");
-      };
-      _proto.strong = function strong(text) {
+      }, "tablecell");
+      _proto.strong = /* @__PURE__ */ __name(function strong(text) {
         return "<strong>" + text + "</strong>";
-      };
-      _proto.em = function em(text) {
+      }, "strong");
+      _proto.em = /* @__PURE__ */ __name(function em(text) {
         return "<em>" + text + "</em>";
-      };
-      _proto.codespan = function codespan(text) {
+      }, "em");
+      _proto.codespan = /* @__PURE__ */ __name(function codespan(text) {
         return "<code>" + text + "</code>";
-      };
-      _proto.br = function br() {
+      }, "codespan");
+      _proto.br = /* @__PURE__ */ __name(function br() {
         return this.options.xhtml ? "<br/>" : "<br>";
-      };
-      _proto.del = function del(text) {
+      }, "br");
+      _proto.del = /* @__PURE__ */ __name(function del(text) {
         return "<del>" + text + "</del>";
-      };
-      _proto.link = function link(href, title, text) {
+      }, "del");
+      _proto.link = /* @__PURE__ */ __name(function link(href, title, text) {
         href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
         if (href === null) {
           return text;
@@ -17192,8 +17485,8 @@ var __marked_exports = {};
         }
         out += ">" + text + "</a>";
         return out;
-      };
-      _proto.image = function image(href, title, text) {
+      }, "link");
+      _proto.image = /* @__PURE__ */ __name(function image(href, title, text) {
         href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
         if (href === null) {
           return text;
@@ -17204,54 +17497,56 @@ var __marked_exports = {};
         }
         out += this.options.xhtml ? "/>" : ">";
         return out;
-      };
-      _proto.text = function text(_text) {
+      }, "image");
+      _proto.text = /* @__PURE__ */ __name(function text(_text) {
         return _text;
-      };
+      }, "text");
       return Renderer2;
     }();
     var TextRenderer = function() {
       function TextRenderer2() {
       }
+      __name(TextRenderer2, "TextRenderer");
       var _proto = TextRenderer2.prototype;
-      _proto.strong = function strong(text) {
+      _proto.strong = /* @__PURE__ */ __name(function strong(text) {
         return text;
-      };
-      _proto.em = function em(text) {
+      }, "strong");
+      _proto.em = /* @__PURE__ */ __name(function em(text) {
         return text;
-      };
-      _proto.codespan = function codespan(text) {
+      }, "em");
+      _proto.codespan = /* @__PURE__ */ __name(function codespan(text) {
         return text;
-      };
-      _proto.del = function del(text) {
+      }, "codespan");
+      _proto.del = /* @__PURE__ */ __name(function del(text) {
         return text;
-      };
-      _proto.html = function html(text) {
+      }, "del");
+      _proto.html = /* @__PURE__ */ __name(function html(text) {
         return text;
-      };
-      _proto.text = function text(_text) {
+      }, "html");
+      _proto.text = /* @__PURE__ */ __name(function text(_text) {
         return _text;
-      };
-      _proto.link = function link(href, title, text) {
+      }, "text");
+      _proto.link = /* @__PURE__ */ __name(function link(href, title, text) {
         return "" + text;
-      };
-      _proto.image = function image(href, title, text) {
+      }, "link");
+      _proto.image = /* @__PURE__ */ __name(function image(href, title, text) {
         return "" + text;
-      };
-      _proto.br = function br() {
+      }, "image");
+      _proto.br = /* @__PURE__ */ __name(function br() {
         return "";
-      };
+      }, "br");
       return TextRenderer2;
     }();
     var Slugger = function() {
       function Slugger2() {
         this.seen = {};
       }
+      __name(Slugger2, "Slugger");
       var _proto = Slugger2.prototype;
-      _proto.serialize = function serialize(value) {
+      _proto.serialize = /* @__PURE__ */ __name(function serialize(value) {
         return value.toLowerCase().trim().replace(/<[!\/a-z].*?>/ig, "").replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, "").replace(/\s/g, "-");
-      };
-      _proto.getNextSafeSlug = function getNextSafeSlug(originalSlug, isDryRun) {
+      }, "serialize");
+      _proto.getNextSafeSlug = /* @__PURE__ */ __name(function getNextSafeSlug(originalSlug, isDryRun) {
         var slug = originalSlug;
         var occurenceAccumulator = 0;
         if (this.seen.hasOwnProperty(slug)) {
@@ -17266,14 +17561,14 @@ var __marked_exports = {};
           this.seen[slug] = 0;
         }
         return slug;
-      };
-      _proto.slug = function slug(value, options2) {
+      }, "getNextSafeSlug");
+      _proto.slug = /* @__PURE__ */ __name(function slug(value, options2) {
         if (options2 === void 0) {
           options2 = {};
         }
         var slug2 = this.serialize(value);
         return this.getNextSafeSlug(slug2, options2.dryrun);
-      };
+      }, "slug");
       return Slugger2;
     }();
     var Parser = function() {
@@ -17285,16 +17580,17 @@ var __marked_exports = {};
         this.textRenderer = new TextRenderer();
         this.slugger = new Slugger();
       }
-      Parser2.parse = function parse3(tokens, options2) {
+      __name(Parser2, "Parser");
+      Parser2.parse = /* @__PURE__ */ __name(function parse3(tokens, options2) {
         var parser2 = new Parser2(options2);
         return parser2.parse(tokens);
-      };
-      Parser2.parseInline = function parseInline2(tokens, options2) {
+      }, "parse");
+      Parser2.parseInline = /* @__PURE__ */ __name(function parseInline2(tokens, options2) {
         var parser2 = new Parser2(options2);
         return parser2.parseInline(tokens);
-      };
+      }, "parseInline");
       var _proto = Parser2.prototype;
-      _proto.parse = function parse3(tokens, top) {
+      _proto.parse = /* @__PURE__ */ __name(function parse3(tokens, top) {
         if (top === void 0) {
           top = true;
         }
@@ -17424,8 +17720,8 @@ var __marked_exports = {};
           }
         }
         return out;
-      };
-      _proto.parseInline = function parseInline2(tokens, renderer) {
+      }, "parse");
+      _proto.parseInline = /* @__PURE__ */ __name(function parseInline2(tokens, renderer) {
         renderer = renderer || this.renderer;
         var out = "", i, token, ret;
         var l = tokens.length;
@@ -17493,7 +17789,7 @@ var __marked_exports = {};
           }
         }
         return out;
-      };
+      }, "parseInline");
       return Parser2;
     }();
     function marked2(src, opt, callback) {
@@ -17517,7 +17813,7 @@ var __marked_exports = {};
         } catch (e) {
           return callback(e);
         }
-        var done = function done2(err) {
+        var done = /* @__PURE__ */ __name(function done2(err) {
           var out;
           if (!err) {
             try {
@@ -17531,7 +17827,7 @@ var __marked_exports = {};
           }
           opt.highlight = highlight;
           return err ? callback(err) : callback(null, out);
-        };
+        }, "done");
         if (!highlight || highlight.length < 3) {
           return done();
         }
@@ -17578,6 +17874,7 @@ var __marked_exports = {};
         throw e;
       }
     }
+    __name(marked2, "marked");
     marked2.options = marked2.setOptions = function(opt) {
       merge(marked2.defaults, opt);
       changeDefaults(marked2.defaults);
@@ -17652,7 +17949,7 @@ var __marked_exports = {};
         if (pack.renderer) {
           (function() {
             var renderer = marked2.defaults.renderer || new Renderer();
-            var _loop = function _loop2(prop2) {
+            var _loop = /* @__PURE__ */ __name(function _loop2(prop2) {
               var prevRenderer = renderer[prop2];
               renderer[prop2] = function() {
                 for (var _len3 = arguments.length, args2 = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
@@ -17664,7 +17961,7 @@ var __marked_exports = {};
                 }
                 return ret;
               };
-            };
+            }, "_loop");
             for (var prop in pack.renderer) {
               _loop(prop);
             }
@@ -17674,7 +17971,7 @@ var __marked_exports = {};
         if (pack.tokenizer) {
           (function() {
             var tokenizer = marked2.defaults.tokenizer || new Tokenizer();
-            var _loop2 = function _loop22(prop2) {
+            var _loop2 = /* @__PURE__ */ __name(function _loop22(prop2) {
               var prevTokenizer = tokenizer[prop2];
               tokenizer[prop2] = function() {
                 for (var _len4 = arguments.length, args2 = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
@@ -17686,7 +17983,7 @@ var __marked_exports = {};
                 }
                 return ret;
               };
-            };
+            }, "_loop2");
             for (var prop in pack.tokenizer) {
               _loop2(prop);
             }
@@ -17709,7 +18006,7 @@ var __marked_exports = {};
       });
     };
     marked2.walkTokens = function(tokens, callback) {
-      var _loop3 = function _loop32() {
+      var _loop3 = /* @__PURE__ */ __name(function _loop32() {
         var token = _step.value;
         callback.call(marked2, token);
         switch (token.type) {
@@ -17741,7 +18038,7 @@ var __marked_exports = {};
             }
           }
         }
-      };
+      }, "_loop3");
       for (var _iterator = _createForOfIteratorHelperLoose(tokens), _step; !(_step = _iterator()).done; ) {
         _loop3();
       }
@@ -17807,7 +18104,7 @@ var __marked_exports = {};
 })();
 var marked = __marked_exports || exports;
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/browser/markdownRenderer.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/markdownRenderer.js
 init_network();
 init_objects();
 init_resources();
@@ -17818,7 +18115,7 @@ function renderMarkdown(markdown, options = {}, markedOptions = {}) {
   const disposables = new DisposableStore();
   let isDisposed = false;
   const element = createElement(options);
-  const _uriMassage = function(part) {
+  const _uriMassage = /* @__PURE__ */ __name(function(part) {
     let data;
     try {
       data = parse(decodeURIComponent(part));
@@ -17835,8 +18132,8 @@ function renderMarkdown(markdown, options = {}, markedOptions = {}) {
       }
     });
     return encodeURIComponent(JSON.stringify(data));
-  };
-  const _href = function(href, isDomUri) {
+  }, "_uriMassage");
+  const _href = /* @__PURE__ */ __name(function(href, isDomUri) {
     const data = markdown.uris && markdown.uris[href];
     let uri = URI.revive(data);
     if (isDomUri) {
@@ -17858,7 +18155,7 @@ function renderMarkdown(markdown, options = {}, markedOptions = {}) {
       uri = uri.with({ query: _uriMassage(uri.query) });
     }
     return uri.toString();
-  };
+  }, "_href");
   const renderer = new marked.Renderer();
   renderer.image = (href, title, text) => {
     let dimensions = [];
@@ -18015,6 +18312,7 @@ function renderMarkdown(markdown, options = {}, markedOptions = {}) {
     }
   };
 }
+__name(renderMarkdown, "renderMarkdown");
 function resolveWithBaseUri(baseUri, href) {
   const hasScheme = /^\w[\w\d+.-]*:/.test(href);
   if (hasScheme) {
@@ -18026,6 +18324,7 @@ function resolveWithBaseUri(baseUri, href) {
     return resolvePath(dirname2(baseUri), href).toString();
   }
 }
+__name(resolveWithBaseUri, "resolveWithBaseUri");
 function sanitizeRenderedMarkdown(options, renderedMarkdown) {
   const { config, allowedSchemes } = getSanitizerOptions(options);
   addHook("uponSanitizeAttribute", (element, e) => {
@@ -18051,6 +18350,7 @@ function sanitizeRenderedMarkdown(options, renderedMarkdown) {
     hook.dispose();
   }
 }
+__name(sanitizeRenderedMarkdown, "sanitizeRenderedMarkdown");
 function getSanitizerOptions(options) {
   const allowedSchemes = [
     Schemas.http,
@@ -18074,8 +18374,9 @@ function getSanitizerOptions(options) {
     allowedSchemes
   };
 }
+__name(getSanitizerOptions, "getSanitizerOptions");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/markdownRenderer/browser/markdownRenderer.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/markdownRenderer/browser/markdownRenderer.js
 init_opener();
 init_language();
 init_errors();
@@ -18103,6 +18404,7 @@ var __awaiter19 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -18111,6 +18413,7 @@ var __awaiter19 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -18118,14 +18421,16 @@ var __awaiter19 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
 var _a2;
-var MarkdownRenderer = class MarkdownRenderer2 {
+var MarkdownRenderer = /* @__PURE__ */ __name(class MarkdownRenderer2 {
   constructor(_options, _languageService, _openerService) {
     this._options = _options;
     this._languageService = _languageService;
@@ -18183,7 +18488,7 @@ var MarkdownRenderer = class MarkdownRenderer2 {
       }
     };
   }
-};
+}, "MarkdownRenderer");
 MarkdownRenderer._ttpTokenizer = (_a2 = window.trustedTypes) === null || _a2 === void 0 ? void 0 : _a2.createPolicy("tokenizeToString", {
   createHTML(html) {
     return html;
@@ -18194,7 +18499,7 @@ MarkdownRenderer = __decorate21([
   __param21(2, IOpenerService)
 ], MarkdownRenderer);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/marginHover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/marginHover.js
 init_opener();
 var $5 = $;
 var MarginHoverWidget = class extends Disposable {
@@ -18302,6 +18607,7 @@ var MarginHoverWidget = class extends Disposable {
     this._hover.containerDomNode.style.top = `${Math.max(Math.round(top), 0)}px`;
   }
 };
+__name(MarginHoverWidget, "MarginHoverWidget");
 MarginHoverWidget.ID = "editor.contrib.modesGlyphHoverWidget";
 var MarginHoverComputer = class {
   constructor(_editor) {
@@ -18315,11 +18621,11 @@ var MarginHoverComputer = class {
     this._lineNumber = value;
   }
   computeSync() {
-    const toHoverMessage = (contents) => {
+    const toHoverMessage = /* @__PURE__ */ __name((contents) => {
       return {
         value: contents
       };
-    };
+    }, "toHoverMessage");
     const lineDecorations = this._editor.getLineDecorations(this._lineNumber);
     const result = [];
     if (!lineDecorations) {
@@ -18338,8 +18644,9 @@ var MarginHoverComputer = class {
     return result;
   }
 };
+__name(MarginHoverComputer, "MarginHoverComputer");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hover.js
 init_nls();
 init_contextkey();
 init_instantiation();
@@ -18347,7 +18654,7 @@ init_opener();
 init_colorRegistry();
 init_themeService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/markdownHoverParticipant.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/markdownHoverParticipant.js
 init_define_process();
 init_dom();
 init_arrays();
@@ -18357,7 +18664,7 @@ init_position();
 init_range();
 init_language();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/getHover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/getHover.js
 init_define_process();
 init_async();
 init_cancellation();
@@ -18370,6 +18677,7 @@ var __awaiter20 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -18378,6 +18686,7 @@ var __awaiter20 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -18385,9 +18694,11 @@ var __awaiter20 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -18398,6 +18709,7 @@ var HoverProviderResult = class {
     this.ordinal = ordinal;
   }
 };
+__name(HoverProviderResult, "HoverProviderResult");
 function executeProvider(provider, ordinal, model, position, token) {
   return __awaiter20(this, void 0, void 0, function* () {
     try {
@@ -18411,14 +18723,17 @@ function executeProvider(provider, ordinal, model, position, token) {
     return void 0;
   });
 }
+__name(executeProvider, "executeProvider");
 function getHover(registry, model, position, token) {
   const providers = registry.ordered(model);
   const promises = providers.map((provider, index) => executeProvider(provider, index, model, position, token));
   return AsyncIterableObject.fromPromises(promises).coalesce();
 }
+__name(getHover, "getHover");
 function getHoverPromise(registry, model, position, token) {
   return getHover(registry, model, position, token).map((item) => item.hover).toPromise();
 }
+__name(getHoverPromise, "getHoverPromise");
 registerModelAndPositionCommand("_executeHoverProvider", (accessor, model, position) => {
   const languageFeaturesService = accessor.get(ILanguageFeaturesService);
   return getHoverPromise(languageFeaturesService.hoverProvider, model, position, CancellationToken.None);
@@ -18428,8 +18743,9 @@ function isValid(result) {
   const hasHtmlContent = typeof result.contents !== "undefined" && result.contents && result.contents.length > 0;
   return hasRange && hasHtmlContent;
 }
+__name(isValid, "isValid");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/markdownHoverParticipant.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/markdownHoverParticipant.js
 init_nls();
 init_configuration();
 init_opener();
@@ -18461,7 +18777,8 @@ var MarkdownHover = class {
     return anchor.type === 1 && this.range.startColumn <= anchor.range.startColumn && this.range.endColumn >= anchor.range.endColumn;
   }
 };
-var MarkdownHoverParticipant = class MarkdownHoverParticipant2 {
+__name(MarkdownHover, "MarkdownHover");
+var MarkdownHoverParticipant = /* @__PURE__ */ __name(class MarkdownHoverParticipant2 {
   constructor(_editor, _languageService, _openerService, _configurationService, _languageFeaturesService) {
     this._editor = _editor;
     this._languageService = _languageService;
@@ -18521,7 +18838,7 @@ var MarkdownHoverParticipant = class MarkdownHoverParticipant2 {
   renderHoverParts(context, hoverParts) {
     return renderMarkdownHovers(context, hoverParts, this._editor, this._languageService, this._openerService);
   }
-};
+}, "MarkdownHoverParticipant");
 MarkdownHoverParticipant = __decorate22([
   __param22(1, ILanguageService),
   __param22(2, IOpenerService),
@@ -18550,8 +18867,9 @@ function renderMarkdownHovers(context, hoverParts, editor2, languageService, ope
   }
   return disposables;
 }
+__name(renderMarkdownHovers, "renderMarkdownHovers");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/markerHoverParticipant.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/markerHoverParticipant.js
 init_define_process();
 init_dom();
 init_arrays();
@@ -18561,7 +18879,7 @@ init_lifecycle();
 init_resources();
 init_range();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoError.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoError.js
 init_define_process();
 init_codicons();
 init_lifecycle();
@@ -18571,7 +18889,7 @@ init_position();
 init_range();
 init_editorContextKeys();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/markerNavigationService.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/markerNavigationService.js
 init_define_process();
 init_arrays();
 init_event();
@@ -18605,7 +18923,8 @@ var MarkerCoordinate = class {
     this.total = total;
   }
 };
-var MarkerList = class MarkerList2 {
+__name(MarkerCoordinate, "MarkerCoordinate");
+var MarkerList = /* @__PURE__ */ __name(class MarkerList2 {
   constructor(resourceFilter, _markerService, _configService) {
     this._markerService = _markerService;
     this._configService = _configService;
@@ -18620,7 +18939,7 @@ var MarkerList = class MarkerList2 {
       this._resourceFilter = resourceFilter;
     }
     const compareOrder = this._configService.getValue("problems.sortOrder");
-    const compareMarker = (a, b) => {
+    const compareMarker = /* @__PURE__ */ __name((a, b) => {
       let res = compare(a.resource.toString(), b.resource.toString());
       if (res === 0) {
         if (compareOrder === "position") {
@@ -18630,8 +18949,8 @@ var MarkerList = class MarkerList2 {
         }
       }
       return res;
-    };
-    const updateMarker = () => {
+    }, "compareMarker");
+    const updateMarker = /* @__PURE__ */ __name(() => {
       this._markers = this._markerService.read({
         resource: URI.isUri(resourceFilter) ? resourceFilter : void 0,
         severities: MarkerSeverity.Error | MarkerSeverity.Warning | MarkerSeverity.Info
@@ -18640,7 +18959,7 @@ var MarkerList = class MarkerList2 {
         this._markers = this._markers.filter((m) => this._resourceFilter(m.resource));
       }
       this._markers.sort(compareMarker);
-    };
+    }, "updateMarker");
     updateMarker();
     this._dispoables.add(_markerService.onMarkerChanged((uris) => {
       if (!this._resourceFilter || uris.some((uri) => this._resourceFilter(uri))) {
@@ -18732,13 +19051,13 @@ var MarkerList = class MarkerList2 {
     }
     return void 0;
   }
-};
+}, "MarkerList");
 MarkerList = __decorate23([
   __param23(1, IMarkerService),
   __param23(2, IConfigurationService)
 ], MarkerList);
 var IMarkerNavigationService = createDecorator("IMarkerNavigationService");
-var MarkerNavigationService = class MarkerNavigationService2 {
+var MarkerNavigationService = /* @__PURE__ */ __name(class MarkerNavigationService2 {
   constructor(_markerService, _configService) {
     this._markerService = _markerService;
     this._configService = _configService;
@@ -18753,20 +19072,20 @@ var MarkerNavigationService = class MarkerNavigationService2 {
     }
     return new MarkerList(resource, this._markerService, this._configService);
   }
-};
+}, "MarkerNavigationService");
 MarkerNavigationService = __decorate23([
   __param23(0, IMarkerService),
   __param23(1, IConfigurationService)
 ], MarkerNavigationService);
 registerSingleton(IMarkerNavigationService, MarkerNavigationService, true);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoError.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoError.js
 init_nls();
 init_actions2();
 init_contextkey();
 init_instantiation();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoErrorWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoErrorWidget.js
 init_define_process();
 init_dom();
 init_arrays();
@@ -18782,7 +19101,7 @@ init_contextkey();
 init_instantiation();
 init_opener();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/severityIcon/common/severityIcon.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/severityIcon/common/severityIcon.js
 init_define_process();
 init_codicons();
 init_colorRegistry();
@@ -18803,6 +19122,7 @@ var SeverityIcon;
         return "";
     }
   }
+  __name(className, "className");
   SeverityIcon2.className = className;
 })(SeverityIcon || (SeverityIcon = {}));
 registerThemingParticipant((theme, collector) => {
@@ -18847,7 +19167,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoErrorWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoErrorWidget.js
 init_colorRegistry();
 init_themeService();
 var __decorate24 = function(decorators, target, key, desc) {
@@ -19024,7 +19344,8 @@ var MessageWidget2 = class {
     return ariaLabel;
   }
 };
-var MarkerNavigationWidget = class MarkerNavigationWidget2 extends PeekViewWidget {
+__name(MessageWidget2, "MessageWidget");
+var MarkerNavigationWidget = /* @__PURE__ */ __name(class MarkerNavigationWidget2 extends PeekViewWidget {
   constructor(editor2, _themeService, _openerService, _menuService, instantiationService, _contextKeyService, _labelService) {
     super(editor2, { showArrow: true, showFrame: true, isAccessible: true, frameWidth: 1 }, instantiationService);
     this._themeService = _themeService;
@@ -19138,7 +19459,7 @@ var MarkerNavigationWidget = class MarkerNavigationWidget2 extends PeekViewWidge
   computeRequiredHeight() {
     return 3 + this._message.getHeightInLines();
   }
-};
+}, "MarkerNavigationWidget");
 MarkerNavigationWidget.TitleMenu = new MenuId("gotoErrorTitleMenu");
 MarkerNavigationWidget = __decorate24([
   __param24(1, IThemeService),
@@ -19159,7 +19480,7 @@ var editorMarkerNavigationInfo = registerColor("editorMarkerNavigationInfo.backg
 var editorMarkerNavigationInfoHeader = registerColor("editorMarkerNavigationInfo.headerBackground", { dark: transparent(editorMarkerNavigationInfo, 0.1), light: transparent(editorMarkerNavigationInfo, 0.1), hcDark: null, hcLight: null }, localize("editorMarkerNavigationInfoHeaderBackground", "Editor marker navigation widget info heading background."));
 var editorMarkerNavigationBackground = registerColor("editorMarkerNavigation.background", { dark: editorBackground, light: editorBackground, hcDark: editorBackground, hcLight: editorBackground }, localize("editorMarkerNavigationBackground", "Editor marker navigation widget background."));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoError.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoError.js
 var __decorate25 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -19181,6 +19502,7 @@ var __awaiter21 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -19189,6 +19511,7 @@ var __awaiter21 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -19196,13 +19519,15 @@ var __awaiter21 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var MarkerController = class MarkerController2 {
+var MarkerController = /* @__PURE__ */ __name(class MarkerController2 {
   constructor(editor2, _markerNavigationService, _contextKeyService, _editorService, _instantiationService) {
     this._markerNavigationService = _markerNavigationService;
     this._contextKeyService = _contextKeyService;
@@ -19311,7 +19636,7 @@ var MarkerController = class MarkerController2 {
       }
     });
   }
-};
+}, "MarkerController");
 MarkerController.ID = "editor.contrib.markerController";
 MarkerController = __decorate25([
   __param25(1, IMarkerNavigationService),
@@ -19334,6 +19659,7 @@ var MarkerNavigationAction = class extends EditorAction {
     });
   }
 };
+__name(MarkerNavigationAction, "MarkerNavigationAction");
 var NextMarkerAction = class extends MarkerNavigationAction {
   constructor() {
     super(true, false, {
@@ -19356,6 +19682,7 @@ var NextMarkerAction = class extends MarkerNavigationAction {
     });
   }
 };
+__name(NextMarkerAction, "NextMarkerAction");
 NextMarkerAction.ID = "editor.action.marker.next";
 NextMarkerAction.LABEL = localize("markerAction.next.label", "Go to Next Problem (Error, Warning, Info)");
 var PrevMarkerAction = class extends MarkerNavigationAction {
@@ -19380,6 +19707,7 @@ var PrevMarkerAction = class extends MarkerNavigationAction {
     });
   }
 };
+__name(PrevMarkerAction, "PrevMarkerAction");
 PrevMarkerAction.ID = "editor.action.marker.prev";
 PrevMarkerAction.LABEL = localize("markerAction.previous.label", "Go to Previous Problem (Error, Warning, Info)");
 var NextMarkerInFilesAction = class extends MarkerNavigationAction {
@@ -19403,6 +19731,7 @@ var NextMarkerInFilesAction = class extends MarkerNavigationAction {
     });
   }
 };
+__name(NextMarkerInFilesAction, "NextMarkerInFilesAction");
 var PrevMarkerInFilesAction = class extends MarkerNavigationAction {
   constructor() {
     super(false, true, {
@@ -19424,6 +19753,7 @@ var PrevMarkerInFilesAction = class extends MarkerNavigationAction {
     });
   }
 };
+__name(PrevMarkerInFilesAction, "PrevMarkerInFilesAction");
 registerEditorContribution(MarkerController.ID, MarkerController);
 registerEditorAction(NextMarkerAction);
 registerEditorAction(PrevMarkerAction);
@@ -19443,7 +19773,7 @@ registerEditorCommand(new MarkerCommand({
   }
 }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/markerHoverParticipant.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/markerHoverParticipant.js
 init_nls();
 init_opener();
 init_progress();
@@ -19476,12 +19806,13 @@ var MarkerHover = class {
     return anchor.type === 1 && this.range.startColumn <= anchor.range.startColumn && this.range.endColumn >= anchor.range.endColumn;
   }
 };
+__name(MarkerHover, "MarkerHover");
 var markerCodeActionTrigger = {
   type: 1,
   filter: { include: CodeActionKind.QuickFix },
   triggerAction: CodeActionTriggerSource.QuickFixHover
 };
-var MarkerHoverParticipant = class MarkerHoverParticipant2 {
+var MarkerHoverParticipant = /* @__PURE__ */ __name(class MarkerHoverParticipant2 {
   constructor(_editor, _markerDecorationsService, _openerService, _languageFeaturesService) {
     this._editor = _editor;
     this._markerDecorationsService = _markerDecorationsService;
@@ -19647,7 +19978,7 @@ var MarkerHoverParticipant = class MarkerHoverParticipant2 {
       return getCodeActions(this._languageFeaturesService.codeActionProvider, this._editor.getModel(), new Range(marker.startLineNumber, marker.startColumn, marker.endLineNumber, marker.endColumn), markerCodeActionTrigger, Progress.None, cancellationToken);
     });
   }
-};
+}, "MarkerHoverParticipant");
 MarkerHoverParticipant = __decorate26([
   __param26(1, IMarkerDecorationsService),
   __param26(2, IOpenerService),
@@ -19664,7 +19995,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/hover.js
 var __decorate27 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -19680,7 +20011,7 @@ var __param27 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var ModesHoverController = class ModesHoverController2 {
+var ModesHoverController = /* @__PURE__ */ __name(class ModesHoverController2 {
   constructor(_editor, _instantiationService, _openerService, _languageService, _contextKeyService) {
     this._editor = _editor;
     this._instantiationService = _instantiationService;
@@ -19703,7 +20034,7 @@ var ModesHoverController = class ModesHoverController2 {
     return editor2.getContribution(ModesHoverController2.ID);
   }
   _hookEvents() {
-    const hideWidgetsEventHandler = () => this._hideWidgets();
+    const hideWidgetsEventHandler = /* @__PURE__ */ __name(() => this._hideWidgets(), "hideWidgetsEventHandler");
     const hoverOpts = this._editor.getOption(55);
     this._isHoverEnabled = hoverOpts.enabled;
     this._isHoverSticky = hoverOpts.sticky;
@@ -19826,7 +20157,7 @@ var ModesHoverController = class ModesHoverController2 {
     (_a5 = this._glyphWidget) === null || _a5 === void 0 ? void 0 : _a5.dispose();
     (_b2 = this._contentWidget) === null || _b2 === void 0 ? void 0 : _b2.dispose();
   }
-};
+}, "ModesHoverController");
 ModesHoverController.ID = "editor.contrib.hover";
 ModesHoverController = __decorate27([
   __param27(1, IInstantiationService),
@@ -19868,6 +20199,7 @@ var ShowHoverAction = class extends EditorAction {
     controller.showContentHover(range, 1, focus);
   }
 };
+__name(ShowHoverAction, "ShowHoverAction");
 var ShowDefinitionPreviewHoverAction = class extends EditorAction {
   constructor() {
     super({
@@ -19903,6 +20235,7 @@ var ShowDefinitionPreviewHoverAction = class extends EditorAction {
     });
   }
 };
+__name(ShowDefinitionPreviewHoverAction, "ShowDefinitionPreviewHoverAction");
 registerEditorContribution(ModesHoverController.ID, ModesHoverController);
 registerEditorAction(ShowHoverAction);
 registerEditorAction(ShowDefinitionPreviewHoverAction);
@@ -19946,7 +20279,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorContributions.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorContributions.js
 var ColorContribution = class extends Disposable {
   constructor(_editor) {
     super();
@@ -19980,20 +20313,21 @@ var ColorContribution = class extends Disposable {
     }
   }
 };
+__name(ColorContribution, "ColorContribution");
 ColorContribution.ID = "editor.contrib.colorContribution";
 registerEditorContribution(ColorContribution.ID, ColorContribution);
 HoverParticipantRegistry.register(ColorHoverParticipant);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteContribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteContribution.js
 init_define_process();
 init_editorExtensions();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
 init_define_process();
 init_dom();
 init_async();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/common/dataTransfer.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/common/dataTransfer.js
 init_define_process();
 var __awaiter22 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
@@ -20001,6 +20335,7 @@ var __awaiter22 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -20009,6 +20344,7 @@ var __awaiter22 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -20016,9 +20352,11 @@ var __awaiter22 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -20031,6 +20369,7 @@ function createStringDataTransferItem(stringOrPromise) {
     value: typeof stringOrPromise === "string" ? stringOrPromise : void 0
   };
 }
+__name(createStringDataTransferItem, "createStringDataTransferItem");
 function createFileDataTransferItem(fileName, uri, data) {
   return {
     asString: () => __awaiter22(this, void 0, void 0, function* () {
@@ -20040,6 +20379,7 @@ function createFileDataTransferItem(fileName, uri, data) {
     value: void 0
   };
 }
+__name(createFileDataTransferItem, "createFileDataTransferItem");
 var VSDataTransfer = class {
   constructor() {
     this._entries = /* @__PURE__ */ new Map();
@@ -20087,12 +20427,13 @@ var VSDataTransfer = class {
     return mimeType.toLowerCase();
   }
 };
+__name(VSDataTransfer, "VSDataTransfer");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
 init_lifecycle();
 init_mime();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/common/uuid.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/common/uuid.js
 init_define_process();
 var generateUuid = function() {
   if (typeof crypto === "object" && typeof crypto.randomUUID === "function") {
@@ -20102,19 +20443,19 @@ var generateUuid = function() {
   if (typeof crypto === "object" && typeof crypto.getRandomValues === "function") {
     getRandomValues = crypto.getRandomValues.bind(crypto);
   } else {
-    getRandomValues = function(bucket) {
+    getRandomValues = /* @__PURE__ */ __name(function(bucket) {
       for (let i = 0; i < bucket.length; i++) {
         bucket[i] = Math.floor(Math.random() * 256);
       }
       return bucket;
-    };
+    }, "getRandomValues");
   }
   const _data = new Uint8Array(16);
   const _hex = [];
   for (let i = 0; i < 256; i++) {
     _hex.push(i.toString(16).padStart(2, "0"));
   }
-  return function generateUuid2() {
+  return /* @__PURE__ */ __name(function generateUuid2() {
     getRandomValues(_data);
     _data[6] = _data[6] & 15 | 64;
     _data[8] = _data[8] & 63 | 128;
@@ -20141,16 +20482,16 @@ var generateUuid = function() {
     result += _hex[_data[i++]];
     result += _hex[_data[i++]];
     return result;
-  };
+  }, "generateUuid");
 }();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/dnd.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/dnd.js
 init_define_process();
 init_arrays();
 init_mime();
 init_uri();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/dnd/browser/dnd.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/dnd/browser/dnd.js
 init_define_process();
 init_uri();
 init_opener();
@@ -20210,6 +20551,7 @@ function extractEditorsDropData(e) {
   }
   return editors;
 }
+__name(extractEditorsDropData, "extractEditorsDropData");
 function createDraggedEditorInputFromRawResourcesData(rawResourcesData) {
   const editors = [];
   if (rawResourcesData) {
@@ -20223,6 +20565,7 @@ function createDraggedEditorInputFromRawResourcesData(rawResourcesData) {
   }
   return editors;
 }
+__name(createDraggedEditorInputFromRawResourcesData, "createDraggedEditorInputFromRawResourcesData");
 var DragAndDropContributionRegistry = class {
   constructor() {
     this._contributions = /* @__PURE__ */ new Map();
@@ -20231,18 +20574,20 @@ var DragAndDropContributionRegistry = class {
     return this._contributions.values();
   }
 };
+__name(DragAndDropContributionRegistry, "DragAndDropContributionRegistry");
 var Extensions3 = {
   DragAndDropContribution: "workbench.contributions.dragAndDrop"
 };
 Registry.add(Extensions3.DragAndDropContribution, new DragAndDropContributionRegistry());
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/dnd.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/dnd.js
 var __awaiter23 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -20251,6 +20596,7 @@ var __awaiter23 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -20258,9 +20604,11 @@ var __awaiter23 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -20280,12 +20628,14 @@ function toVSDataTransfer(dataTransfer) {
   }
   return vsDataTransfer;
 }
+__name(toVSDataTransfer, "toVSDataTransfer");
 function createFileDataTransferItemFromFile(file) {
   const uri = file.path ? URI.parse(file.path) : void 0;
   return createFileDataTransferItem(file.name, uri, () => __awaiter23(this, void 0, void 0, function* () {
     return new Uint8Array(yield file.arrayBuffer());
   }));
 }
+__name(createFileDataTransferItemFromFile, "createFileDataTransferItemFromFile");
 var INTERNAL_DND_MIME_TYPES = Object.freeze([
   CodeDataTransfers.EDITORS,
   CodeDataTransfers.FILES,
@@ -20309,6 +20659,7 @@ function addExternalEditorsDropData(dataTransfer, dragEvent, overwriteUriList = 
     dataTransfer.delete(internal);
   }
 }
+__name(addExternalEditorsDropData, "addExternalEditorsDropData");
 var UriList = Object.freeze({
   create: (entries) => {
     return distinct(entries.map((x) => x.toString())).join("\r\n");
@@ -20318,12 +20669,12 @@ var UriList = Object.freeze({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
 init_range();
 init_languageFeatures();
 init_editorState();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetController2.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetController2.js
 init_define_process();
 init_lifecycle();
 init_types();
@@ -20337,7 +20688,7 @@ init_nls();
 init_contextkey();
 init_log();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetSession.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetSession.js
 init_define_process();
 init_arrays();
 init_lifecycle();
@@ -20348,10 +20699,10 @@ init_selection();
 init_languageConfigurationRegistry();
 init_textModel();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetVariables.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetVariables.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/common/labels.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/common/labels.js
 init_define_process();
 init_extpath();
 init_platform();
@@ -20361,8 +20712,9 @@ function normalizeDriveLetter(path, isWindowsOS = isWindows) {
   }
   return path;
 }
+__name(normalizeDriveLetter, "normalizeDriveLetter");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetVariables.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetVariables.js
 init_path();
 init_resources();
 init_strings();
@@ -20433,6 +20785,7 @@ var CompositeSnippetVariableResolver = class {
     return void 0;
   }
 };
+__name(CompositeSnippetVariableResolver, "CompositeSnippetVariableResolver");
 var SelectionBasedVariableResolver = class {
   constructor(_model, _selection, _selectionIdx, _overtypingCapturer) {
     this._model = _model;
@@ -20489,6 +20842,7 @@ var SelectionBasedVariableResolver = class {
     return void 0;
   }
 };
+__name(SelectionBasedVariableResolver, "SelectionBasedVariableResolver");
 var ModelBasedVariableResolver = class {
   constructor(_labelService, _model) {
     this._labelService = _labelService;
@@ -20519,6 +20873,7 @@ var ModelBasedVariableResolver = class {
     return void 0;
   }
 };
+__name(ModelBasedVariableResolver, "ModelBasedVariableResolver");
 var ClipboardBasedVariableResolver = class {
   constructor(_readClipboardText, _selectionIdx, _selectionCount, _spread) {
     this._readClipboardText = _readClipboardText;
@@ -20543,7 +20898,8 @@ var ClipboardBasedVariableResolver = class {
     return clipboardText;
   }
 };
-var CommentBasedVariableResolver = class CommentBasedVariableResolver2 {
+__name(ClipboardBasedVariableResolver, "ClipboardBasedVariableResolver");
+var CommentBasedVariableResolver = /* @__PURE__ */ __name(class CommentBasedVariableResolver2 {
   constructor(_model, _selection, _languageConfigurationService) {
     this._model = _model;
     this._selection = _selection;
@@ -20565,7 +20921,7 @@ var CommentBasedVariableResolver = class CommentBasedVariableResolver2 {
     }
     return void 0;
   }
-};
+}, "CommentBasedVariableResolver");
 CommentBasedVariableResolver = __decorate28([
   __param28(2, ILanguageConfigurationService)
 ], CommentBasedVariableResolver);
@@ -20603,6 +20959,7 @@ var TimeBasedVariableResolver = class {
     return void 0;
   }
 };
+__name(TimeBasedVariableResolver, "TimeBasedVariableResolver");
 TimeBasedVariableResolver.dayNames = [localize("Sunday", "Sunday"), localize("Monday", "Monday"), localize("Tuesday", "Tuesday"), localize("Wednesday", "Wednesday"), localize("Thursday", "Thursday"), localize("Friday", "Friday"), localize("Saturday", "Saturday")];
 TimeBasedVariableResolver.dayNamesShort = [localize("SundayShort", "Sun"), localize("MondayShort", "Mon"), localize("TuesdayShort", "Tue"), localize("WednesdayShort", "Wed"), localize("ThursdayShort", "Thu"), localize("FridayShort", "Fri"), localize("SaturdayShort", "Sat")];
 TimeBasedVariableResolver.monthNames = [localize("January", "January"), localize("February", "February"), localize("March", "March"), localize("April", "April"), localize("May", "May"), localize("June", "June"), localize("July", "July"), localize("August", "August"), localize("September", "September"), localize("October", "October"), localize("November", "November"), localize("December", "December")];
@@ -20648,6 +21005,7 @@ var WorkspaceBasedVariableResolver = class {
     return folderpath ? normalizeDriveLetter(folderpath) : "/";
   }
 };
+__name(WorkspaceBasedVariableResolver, "WorkspaceBasedVariableResolver");
 var RandomBasedVariableResolver = class {
   resolve(variable) {
     const { name } = variable;
@@ -20661,8 +21019,9 @@ var RandomBasedVariableResolver = class {
     return void 0;
   }
 };
+__name(RandomBasedVariableResolver, "RandomBasedVariableResolver");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetSession.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetSession.js
 var __decorate29 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -20881,6 +21240,7 @@ var OneSnippet = class {
     });
   }
 };
+__name(OneSnippet, "OneSnippet");
 OneSnippet._decor = {
   active: ModelDecorationOptions.register({ description: "snippet-placeholder-1", stickiness: 0, className: "snippet-placeholder" }),
   inactive: ModelDecorationOptions.register({ description: "snippet-placeholder-2", stickiness: 1, className: "snippet-placeholder" }),
@@ -20894,7 +21254,7 @@ var _defaultOptions = {
   clipboardText: void 0,
   overtypingCapturer: void 0
 };
-var SnippetSession = class SnippetSession2 {
+var SnippetSession = /* @__PURE__ */ __name(class SnippetSession2 {
   constructor(_editor, _template, _options = _defaultOptions, _languageConfigurationService) {
     this._editor = _editor;
     this._template = _template;
@@ -20960,7 +21320,7 @@ var SnippetSession = class SnippetSession2 {
     const model = editor2.getModel();
     const workspaceService = editor2.invokeWithinContext((accessor) => accessor.get(IWorkspaceContextService));
     const modelBasedVariableResolver = editor2.invokeWithinContext((accessor) => new ModelBasedVariableResolver(accessor.get(ILabelService), model));
-    const readClipboardText = () => clipboardText;
+    const readClipboardText = /* @__PURE__ */ __name(() => clipboardText, "readClipboardText");
     const firstBeforeText = model.getValueInRange(SnippetSession2.adjustSelection(model, editor2.getSelection(), overwriteBefore, 0));
     const firstAfterText = model.getValueInRange(SnippetSession2.adjustSelection(model, editor2.getSelection(), 0, overwriteAfter));
     const firstLineFirstNonWhitespace = model.getLineFirstNonWhitespaceColumn(editor2.getSelection().positionLineNumber);
@@ -21166,12 +21526,12 @@ var SnippetSession = class SnippetSession2 {
     }
     return allPossibleSelections.size > 0;
   }
-};
+}, "SnippetSession");
 SnippetSession = __decorate29([
   __param29(3, ILanguageConfigurationService)
 ], SnippetSession);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetController2.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetController2.js
 var __decorate30 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -21196,7 +21556,7 @@ var _defaultOptions2 = {
   clipboardText: void 0,
   overtypingCapturer: void 0
 };
-var SnippetController2 = class SnippetController22 {
+var SnippetController2 = /* @__PURE__ */ __name(class SnippetController22 {
   constructor(_editor, _logService, _languageFeaturesService, contextKeyService, _languageConfigurationService) {
     this._editor = _editor;
     this._logService = _logService;
@@ -21374,7 +21734,7 @@ var SnippetController2 = class SnippetController22 {
   isInSnippet() {
     return Boolean(this._inSnippet.get());
   }
-};
+}, "SnippetController2");
 SnippetController2.ID = "snippetController2";
 SnippetController2.InSnippetMode = new RawContextKey("inSnippetMode", false, localize("inSnippetMode", "Whether the editor in current in snippet mode"));
 SnippetController2.HasNextTabstop = new RawContextKey("hasNextTabstop", false, localize("hasNextTabstop", "Whether there is a next tab stop when in snippet mode"));
@@ -21437,8 +21797,9 @@ function performSnippetEdit(editor2, snippet, selections) {
   }));
   return controller.isInSnippet();
 }
+__name(performSnippetEdit, "performSnippetEdit");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
 init_configuration();
 var __decorate31 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -21461,6 +21822,7 @@ var __awaiter24 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -21469,6 +21831,7 @@ var __awaiter24 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -21476,14 +21839,16 @@ var __awaiter24 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
 var vscodeClipboardMime = "application/vnd.code.copyMetadata";
-var CopyPasteController = class CopyPasteController2 extends Disposable {
+var CopyPasteController = /* @__PURE__ */ __name(class CopyPasteController2 extends Disposable {
   constructor(editor2, _bulkEditService, _clipboardService, _configurationService, _languageFeaturesService) {
     super();
     this._bulkEditService = _bulkEditService;
@@ -21632,7 +21997,7 @@ var CopyPasteController = class CopyPasteController2 extends Disposable {
       }
     });
   }
-};
+}, "CopyPasteController");
 CopyPasteController.ID = "editor.contrib.copyPasteActionController";
 CopyPasteController = __decorate31([
   __param31(1, IBulkEditService),
@@ -21641,7 +22006,7 @@ CopyPasteController = __decorate31([
   __param31(4, ILanguageFeaturesService)
 ], CopyPasteController);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteContribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteContribution.js
 init_nls();
 init_configurationRegistry();
 init_platform2();
@@ -21655,7 +22020,7 @@ Registry.as(Extensions.Configuration).registerConfiguration(Object.assign(Object
   }
 } }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/comment/browser/comment.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/comment/browser/comment.js
 init_define_process();
 init_keyCodes();
 init_editorExtensions();
@@ -21663,7 +22028,7 @@ init_range();
 init_editorContextKeys();
 init_languageConfigurationRegistry();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/comment/browser/blockCommentCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/comment/browser/blockCommentCommand.js
 init_define_process();
 init_editOperation();
 init_position();
@@ -21788,8 +22153,9 @@ var BlockCommentCommand = class {
     }
   }
 };
+__name(BlockCommentCommand, "BlockCommentCommand");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/comment/browser/lineCommentCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/comment/browser/lineCommentCommand.js
 init_define_process();
 init_strings();
 init_editOperation();
@@ -22062,8 +22428,9 @@ var LineCommentCommand = class {
     }
   }
 };
+__name(LineCommentCommand, "LineCommentCommand");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/comment/browser/comment.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/comment/browser/comment.js
 init_nls();
 init_actions2();
 var CommentLineAction = class extends EditorAction {
@@ -22102,6 +22469,7 @@ var CommentLineAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(CommentLineAction, "CommentLineAction");
 var ToggleCommentLineAction = class extends CommentLineAction {
   constructor() {
     super(0, {
@@ -22123,6 +22491,7 @@ var ToggleCommentLineAction = class extends CommentLineAction {
     });
   }
 };
+__name(ToggleCommentLineAction, "ToggleCommentLineAction");
 var AddLineCommentAction = class extends CommentLineAction {
   constructor() {
     super(1, {
@@ -22138,6 +22507,7 @@ var AddLineCommentAction = class extends CommentLineAction {
     });
   }
 };
+__name(AddLineCommentAction, "AddLineCommentAction");
 var RemoveLineCommentAction = class extends CommentLineAction {
   constructor() {
     super(2, {
@@ -22153,6 +22523,7 @@ var RemoveLineCommentAction = class extends CommentLineAction {
     });
   }
 };
+__name(RemoveLineCommentAction, "RemoveLineCommentAction");
 var BlockCommentAction = class extends EditorAction {
   constructor() {
     super({
@@ -22190,12 +22561,13 @@ var BlockCommentAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(BlockCommentAction, "BlockCommentAction");
 registerEditorAction(ToggleCommentLineAction);
 registerEditorAction(AddLineCommentAction);
 registerEditorAction(RemoveLineCommentAction);
 registerEditorAction(BlockCommentAction);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/contextmenu/browser/contextmenu.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/contextmenu/browser/contextmenu.js
 init_define_process();
 init_dom();
 init_actions();
@@ -22223,7 +22595,7 @@ var __param32 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var ContextMenuController = class ContextMenuController2 {
+var ContextMenuController = /* @__PURE__ */ __name(class ContextMenuController2 {
   constructor(editor2, _contextMenuService, _contextViewService, _contextKeyService, _keybindingService, _menuService, _configurationService) {
     this._contextMenuService = _contextMenuService;
     this._contextViewService = _contextViewService;
@@ -22397,7 +22769,7 @@ var ContextMenuController = class ContextMenuController2 {
     }
     const minimapOptions = this._editor.getOption(67);
     let lastId = 0;
-    const createAction = (opts) => {
+    const createAction = /* @__PURE__ */ __name((opts) => {
       return {
         id: `menu-action-${++lastId}`,
         label: opts.label,
@@ -22408,20 +22780,20 @@ var ContextMenuController = class ContextMenuController2 {
         run: opts.run,
         dispose: () => null
       };
-    };
-    const createSubmenuAction = (label, actions2) => {
+    }, "createAction");
+    const createSubmenuAction = /* @__PURE__ */ __name((label, actions2) => {
       return new SubmenuAction(`menu-action-${++lastId}`, label, actions2, void 0);
-    };
-    const createEnumAction = (label, enabled, configName, configuredValue, options) => {
+    }, "createSubmenuAction");
+    const createEnumAction = /* @__PURE__ */ __name((label, enabled, configName, configuredValue, options) => {
       if (!enabled) {
         return createAction({ label, enabled, run: () => {
         } });
       }
-      const createRunner = (value) => {
+      const createRunner = /* @__PURE__ */ __name((value) => {
         return () => {
           this._configurationService.updateValue(configName, value);
         };
-      };
+      }, "createRunner");
       const actions2 = [];
       for (const option of options) {
         actions2.push(createAction({
@@ -22431,7 +22803,7 @@ var ContextMenuController = class ContextMenuController2 {
         }));
       }
       return createSubmenuAction(label, actions2);
-    };
+    }, "createEnumAction");
     const actions = [];
     actions.push(createAction({
       label: localize("context.minimap.minimap", "Minimap"),
@@ -22487,7 +22859,7 @@ var ContextMenuController = class ContextMenuController2 {
     }
     this._toDispose.dispose();
   }
-};
+}, "ContextMenuController");
 ContextMenuController.ID = "editor.contrib.contextmenu";
 ContextMenuController = __decorate32([
   __param32(1, IContextMenuService),
@@ -22516,10 +22888,11 @@ var ShowContextMenu = class extends EditorAction {
     (_a5 = ContextMenuController.get(editor2)) === null || _a5 === void 0 ? void 0 : _a5.showContextMenu();
   }
 };
+__name(ShowContextMenu, "ShowContextMenu");
 registerEditorContribution(ContextMenuController.ID, ContextMenuController);
 registerEditorAction(ShowContextMenu);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/cursorUndo/browser/cursorUndo.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/cursorUndo/browser/cursorUndo.js
 init_define_process();
 init_lifecycle();
 init_editorExtensions();
@@ -22543,6 +22916,7 @@ var CursorState2 = class {
     return true;
   }
 };
+__name(CursorState2, "CursorState");
 var StackElement = class {
   constructor(cursorState, scrollTop, scrollLeft) {
     this.cursorState = cursorState;
@@ -22550,6 +22924,7 @@ var StackElement = class {
     this.scrollLeft = scrollLeft;
   }
 };
+__name(StackElement, "StackElement");
 var CursorUndoRedoController = class extends Disposable {
   constructor(editor2) {
     super();
@@ -22613,6 +22988,7 @@ var CursorUndoRedoController = class extends Disposable {
     this._isCursorUndoRedo = false;
   }
 };
+__name(CursorUndoRedoController, "CursorUndoRedoController");
 CursorUndoRedoController.ID = "editor.contrib.cursorUndoRedoController";
 var CursorUndo = class extends EditorAction {
   constructor() {
@@ -22633,6 +23009,7 @@ var CursorUndo = class extends EditorAction {
     (_a5 = CursorUndoRedoController.get(editor2)) === null || _a5 === void 0 ? void 0 : _a5.cursorUndo();
   }
 };
+__name(CursorUndo, "CursorUndo");
 var CursorRedo = class extends EditorAction {
   constructor() {
     super({
@@ -22647,11 +23024,12 @@ var CursorRedo = class extends EditorAction {
     (_a5 = CursorUndoRedoController.get(editor2)) === null || _a5 === void 0 ? void 0 : _a5.cursorRedo();
   }
 };
+__name(CursorRedo, "CursorRedo");
 registerEditorContribution(CursorUndoRedoController.ID, CursorUndoRedoController);
 registerEditorAction(CursorUndo);
 registerEditorAction(CursorRedo);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/dnd/browser/dnd.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/dnd/browser/dnd.js
 init_define_process();
 init_lifecycle();
 init_platform();
@@ -22661,7 +23039,7 @@ init_range();
 init_selection();
 init_textModel();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/dnd/browser/dragAndDropCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/dnd/browser/dragAndDropCommand.js
 init_define_process();
 init_range();
 init_selection();
@@ -22704,8 +23082,9 @@ var DragAndDropCommand = class {
     return this.targetSelection;
   }
 };
+__name(DragAndDropCommand, "DragAndDropCommand");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/dnd/browser/dnd.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/dnd/browser/dnd.js
 function hasTriggerModifier(e) {
   if (isMacintosh) {
     return e.altKey;
@@ -22713,6 +23092,7 @@ function hasTriggerModifier(e) {
     return e.ctrlKey;
   }
 }
+__name(hasTriggerModifier, "hasTriggerModifier");
 var DragAndDropController = class extends Disposable {
   constructor(editor2) {
     super();
@@ -22866,6 +23246,7 @@ var DragAndDropController = class extends Disposable {
     super.dispose();
   }
 };
+__name(DragAndDropController, "DragAndDropController");
 DragAndDropController.ID = "editor.contrib.dragAndDrop";
 DragAndDropController.TRIGGER_KEY_VALUE = isMacintosh ? 6 : 5;
 DragAndDropController._DECORATION_OPTIONS = ModelDecorationOptions.register({
@@ -22874,7 +23255,7 @@ DragAndDropController._DECORATION_OPTIONS = ModelDecorationOptions.register({
 });
 registerEditorContribution(DragAndDropController.ID, DragAndDropController);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/dropIntoEditor/browser/dropIntoEditorContribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/dropIntoEditor/browser/dropIntoEditorContribution.js
 init_define_process();
 init_async();
 init_lifecycle();
@@ -22909,6 +23290,7 @@ var __awaiter25 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -22917,6 +23299,7 @@ var __awaiter25 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -22924,13 +23307,15 @@ var __awaiter25 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var DropIntoEditorController = class DropIntoEditorController2 extends Disposable {
+var DropIntoEditorController = /* @__PURE__ */ __name(class DropIntoEditorController2 extends Disposable {
   constructor(editor2, _bulkEditService, _languageFeaturesService, _progressService, workspaceContextService) {
     super();
     this._bulkEditService = _bulkEditService;
@@ -23003,7 +23388,7 @@ var DropIntoEditorController = class DropIntoEditorController2 extends Disposabl
       return textEditorDataTransfer;
     });
   }
-};
+}, "DropIntoEditorController");
 DropIntoEditorController.ID = "editor.contrib.dropIntoEditorController";
 DropIntoEditorController = __decorate33([
   __param33(1, IBulkEditService),
@@ -23011,7 +23396,7 @@ DropIntoEditorController = __decorate33([
   __param33(3, IProgressService),
   __param33(4, IWorkspaceContextService)
 ], DropIntoEditorController);
-var DefaultOnDropProvider = class DefaultOnDropProvider2 {
+var DefaultOnDropProvider = /* @__PURE__ */ __name(class DefaultOnDropProvider2 {
   constructor(_workspaceContextService) {
     this._workspaceContextService = _workspaceContextService;
   }
@@ -23056,13 +23441,13 @@ var DefaultOnDropProvider = class DefaultOnDropProvider2 {
       return uri.fsPath;
     }).join(" ");
   }
-};
+}, "DefaultOnDropProvider");
 DefaultOnDropProvider = __decorate33([
   __param33(0, IWorkspaceContextService)
 ], DefaultOnDropProvider);
 registerEditorContribution(DropIntoEditorController.ID, DropIntoEditorController);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findController.js
 init_define_process();
 init_async();
 init_lifecycle();
@@ -23070,7 +23455,7 @@ init_strings();
 init_editorExtensions();
 init_editorContextKeys();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findModel.js
 init_define_process();
 init_arrays();
 init_async();
@@ -23080,7 +23465,7 @@ init_range();
 init_selection();
 init_textModelSearch();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findDecorations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findDecorations.js
 init_define_process();
 init_range();
 init_model();
@@ -23301,6 +23686,7 @@ var FindDecorations = class {
     return result;
   }
 };
+__name(FindDecorations, "FindDecorations");
 FindDecorations._CURRENT_FIND_MATCH_DECORATION = ModelDecorationOptions.register({
   description: "current-find-match",
   stickiness: 1,
@@ -23357,7 +23743,7 @@ FindDecorations._FIND_SCOPE_DECORATION = ModelDecorationOptions.register({
   isWholeLine: true
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/replaceAllCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/replaceAllCommand.js
 init_define_process();
 init_range();
 var ReplaceAllCommand = class {
@@ -23401,11 +23787,12 @@ var ReplaceAllCommand = class {
     return helper.getTrackedSelection(this._trackedEditorSelectionId);
   }
 };
+__name(ReplaceAllCommand, "ReplaceAllCommand");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/replacePattern.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/replacePattern.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/common/search.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/common/search.js
 init_define_process();
 init_strings();
 function buildReplaceStringWithCasePreserved(matches, pattern) {
@@ -23432,10 +23819,12 @@ function buildReplaceStringWithCasePreserved(matches, pattern) {
     return pattern;
   }
 }
+__name(buildReplaceStringWithCasePreserved, "buildReplaceStringWithCasePreserved");
 function validateSpecificSpecialCharacter(matches, pattern, specialCharacter) {
   const doesContainSpecialCharacter = matches[0].indexOf(specialCharacter) !== -1 && pattern.indexOf(specialCharacter) !== -1;
   return doesContainSpecialCharacter && matches[0].split(specialCharacter).length === pattern.split(specialCharacter).length;
 }
+__name(validateSpecificSpecialCharacter, "validateSpecificSpecialCharacter");
 function buildReplaceStringForSpecificSpecialCharacter(matches, pattern, specialCharacter) {
   const splitPatternAtSpecialCharacter = pattern.split(specialCharacter);
   const splitMatchAtSpecialCharacter = matches[0].split(specialCharacter);
@@ -23445,20 +23834,23 @@ function buildReplaceStringForSpecificSpecialCharacter(matches, pattern, special
   });
   return replaceString.slice(0, -1);
 }
+__name(buildReplaceStringForSpecificSpecialCharacter, "buildReplaceStringForSpecificSpecialCharacter");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/replacePattern.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/replacePattern.js
 var StaticValueReplacePattern = class {
   constructor(staticValue) {
     this.staticValue = staticValue;
     this.kind = 0;
   }
 };
+__name(StaticValueReplacePattern, "StaticValueReplacePattern");
 var DynamicPiecesReplacePattern = class {
   constructor(pieces) {
     this.pieces = pieces;
     this.kind = 1;
   }
 };
+__name(DynamicPiecesReplacePattern, "DynamicPiecesReplacePattern");
 var ReplacePattern = class {
   constructor(pieces) {
     if (!pieces || pieces.length === 0) {
@@ -23544,6 +23936,7 @@ var ReplacePattern = class {
     return "$" + remainder;
   }
 };
+__name(ReplacePattern, "ReplacePattern");
 var ReplacePiece = class {
   constructor(staticValue, matchIndex, caseOps) {
     this.staticValue = staticValue;
@@ -23561,6 +23954,7 @@ var ReplacePiece = class {
     return new ReplacePiece(null, index, caseOps);
   }
 };
+__name(ReplacePiece, "ReplacePiece");
 var ReplacePieceBuilder = class {
   constructor(source) {
     this._source = source;
@@ -23600,6 +23994,7 @@ var ReplacePieceBuilder = class {
     return new ReplacePattern(this._result);
   }
 };
+__name(ReplacePieceBuilder, "ReplacePieceBuilder");
 function parseReplaceString(replaceString) {
   if (!replaceString || replaceString.length === 0) {
     return new ReplacePattern(null);
@@ -23677,8 +24072,9 @@ function parseReplaceString(replaceString) {
   }
   return result.finalize();
 }
+__name(parseReplaceString, "parseReplaceString");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findModel.js
 init_contextkey();
 var CONTEXT_FIND_WIDGET_VISIBLE = new RawContextKey("findWidgetVisible", false);
 var CONTEXT_FIND_WIDGET_NOT_VISIBLE = CONTEXT_FIND_WIDGET_VISIBLE.toNegated();
@@ -24099,8 +24495,9 @@ var FindModelBoundToEditorModel = class {
     }
   }
 };
+__name(FindModelBoundToEditorModel, "FindModelBoundToEditorModel");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findOptionsWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findOptionsWidget.js
 init_define_process();
 init_dom();
 init_widget();
@@ -24247,6 +24644,7 @@ var FindOptionsWidget = class extends Widget {
     this.regex.style(inputStyles);
   }
 };
+__name(FindOptionsWidget, "FindOptionsWidget");
 FindOptionsWidget.ID = "editor.contrib.findOptionsWidget";
 registerThemingParticipant((theme, collector) => {
   const widgetBackground = theme.getColor(editorWidgetBackground);
@@ -24267,7 +24665,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findState.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findState.js
 init_define_process();
 init_event();
 init_lifecycle();
@@ -24281,6 +24679,7 @@ function effectiveOptionValue(override, value) {
   }
   return value;
 }
+__name(effectiveOptionValue, "effectiveOptionValue");
 var FindReplaceState = class extends Disposable {
   constructor() {
     super();
@@ -24537,8 +24936,9 @@ var FindReplaceState = class extends Disposable {
     return this._loop || this.matchesCount >= MATCHES_LIMIT;
   }
 };
+__name(FindReplaceState, "FindReplaceState");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findWidget.js
 init_define_process();
 init_dom();
 init_aria();
@@ -24552,14 +24952,15 @@ init_strings();
 init_range();
 init_nls();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/history/browser/historyWidgetKeybindingHint.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/history/browser/historyWidgetKeybindingHint.js
 init_define_process();
 function showHistoryKeybindingHint(keybindingService) {
   var _a5, _b2;
   return ((_a5 = keybindingService.lookupKeybinding("history.showPrevious")) === null || _a5 === void 0 ? void 0 : _a5.getElectronAccelerator()) === "Up" && ((_b2 = keybindingService.lookupKeybinding("history.showNext")) === null || _b2 === void 0 ? void 0 : _b2.getElectronAccelerator()) === "Down";
 }
+__name(showHistoryKeybindingHint, "showHistoryKeybindingHint");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findWidget.js
 init_colorRegistry();
 init_themeService();
 init_theme();
@@ -24569,6 +24970,7 @@ var __awaiter26 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -24577,6 +24979,7 @@ var __awaiter26 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -24584,9 +24987,11 @@ var __awaiter26 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -24627,6 +25032,7 @@ var FindWidgetViewZone = class {
     this.domNode.className = "dock-find-viewzone";
   }
 };
+__name(FindWidgetViewZone, "FindWidgetViewZone");
 function stopPropagationForMultiLineUpwards(event, value, textarea) {
   const isMultiline = !!value.match(/\n/);
   if (textarea && isMultiline && textarea.selectionStart > 0) {
@@ -24634,6 +25040,7 @@ function stopPropagationForMultiLineUpwards(event, value, textarea) {
     return;
   }
 }
+__name(stopPropagationForMultiLineUpwards, "stopPropagationForMultiLineUpwards");
 function stopPropagationForMultiLineDownwards(event, value, textarea) {
   const isMultiline = !!value.match(/\n/);
   if (textarea && isMultiline && textarea.selectionEnd < textarea.value.length) {
@@ -24641,6 +25048,7 @@ function stopPropagationForMultiLineDownwards(event, value, textarea) {
     return;
   }
 }
+__name(stopPropagationForMultiLineDownwards, "stopPropagationForMultiLineDownwards");
 var FindWidget = class extends Widget {
   constructor(codeEditor, controller, state, contextViewProvider, keybindingService, contextKeyService, themeService, storageService, notificationService) {
     super();
@@ -25550,6 +25958,7 @@ var FindWidget = class extends Widget {
     this._findInput.setFocusInputOnOptionClick(value !== 2);
   }
 };
+__name(FindWidget, "FindWidget");
 FindWidget.ID = "editor.contrib.findWidget";
 var SimpleButton = class extends Widget {
   constructor(opts) {
@@ -25607,12 +26016,13 @@ var SimpleButton = class extends Widget {
     }
   }
 };
+__name(SimpleButton, "SimpleButton");
 registerThemingParticipant((theme, collector) => {
-  const addBackgroundColorRule = (selector, color) => {
+  const addBackgroundColorRule = /* @__PURE__ */ __name((selector, color) => {
     if (color) {
       collector.addRule(`.monaco-editor ${selector} { background-color: ${color}; }`);
     }
-  };
+  }, "addBackgroundColorRule");
   addBackgroundColorRule(".findMatch", theme.getColor(editorFindMatchHighlight));
   addBackgroundColorRule(".currentFindMatch", theme.getColor(editorFindMatch));
   addBackgroundColorRule(".findScope", theme.getColor(editorFindRangeHighlight));
@@ -25670,7 +26080,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findController.js
 init_nls();
 init_actions2();
 init_contextkey();
@@ -25697,6 +26107,7 @@ var __awaiter27 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -25705,6 +26116,7 @@ var __awaiter27 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -25712,9 +26124,11 @@ var __awaiter27 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -25738,7 +26152,8 @@ function getSelectionSearchString(editor2, seedSearchStringFromSelection = "sing
   }
   return null;
 }
-var CommonFindController = class CommonFindController2 extends Disposable {
+__name(getSelectionSearchString, "getSelectionSearchString");
+var CommonFindController = /* @__PURE__ */ __name(class CommonFindController2 extends Disposable {
   constructor(editor2, contextKeyService, storageService, clipboardService) {
     super();
     this._editor = editor2;
@@ -25994,14 +26409,14 @@ var CommonFindController = class CommonFindController2 extends Disposable {
       this._clipboardService.writeFindText(text);
     }
   }
-};
+}, "CommonFindController");
 CommonFindController.ID = "editor.contrib.findController";
 CommonFindController = __decorate34([
   __param34(1, IContextKeyService),
   __param34(2, IStorageService),
   __param34(3, IClipboardService)
 ], CommonFindController);
-var FindController = class FindController2 extends CommonFindController {
+var FindController = /* @__PURE__ */ __name(class FindController2 extends CommonFindController {
   constructor(editor2, _contextViewService, _contextKeyService, _keybindingService, _themeService, _notificationService, _storageService, clipboardService) {
     super(editor2, _contextKeyService, _storageService, clipboardService);
     this._contextViewService = _contextViewService;
@@ -26061,7 +26476,7 @@ var FindController = class FindController2 extends CommonFindController {
     this._widget = this._register(new FindWidget(this._editor, this, this._state, this._contextViewService, this._keybindingService, this._contextKeyService, this._themeService, this._storageService, this._notificationService));
     this._findOptionsWidget = this._register(new FindOptionsWidget(this._editor, this._state, this._keybindingService, this._themeService));
   }
-};
+}, "FindController");
 FindController = __decorate34([
   __param34(1, IContextViewService),
   __param34(2, IContextKeyService),
@@ -26180,6 +26595,7 @@ var StartFindWithArgsAction = class extends EditorAction {
     });
   }
 };
+__name(StartFindWithArgsAction, "StartFindWithArgsAction");
 var StartFindWithSelectionAction = class extends EditorAction {
   constructor() {
     super({
@@ -26216,6 +26632,7 @@ var StartFindWithSelectionAction = class extends EditorAction {
     });
   }
 };
+__name(StartFindWithSelectionAction, "StartFindWithSelectionAction");
 var MatchFindAction = class extends EditorAction {
   run(accessor, editor2) {
     return __awaiter27(this, void 0, void 0, function* () {
@@ -26236,6 +26653,7 @@ var MatchFindAction = class extends EditorAction {
     });
   }
 };
+__name(MatchFindAction, "MatchFindAction");
 var NextMatchFindAction = class extends MatchFindAction {
   constructor() {
     super({
@@ -26264,6 +26682,7 @@ var NextMatchFindAction = class extends MatchFindAction {
     return false;
   }
 };
+__name(NextMatchFindAction, "NextMatchFindAction");
 var PreviousMatchFindAction = class extends MatchFindAction {
   constructor() {
     super({
@@ -26290,6 +26709,7 @@ var PreviousMatchFindAction = class extends MatchFindAction {
     return controller.moveToPrevMatch();
   }
 };
+__name(PreviousMatchFindAction, "PreviousMatchFindAction");
 var SelectionMatchFindAction = class extends EditorAction {
   run(accessor, editor2) {
     return __awaiter27(this, void 0, void 0, function* () {
@@ -26321,6 +26741,7 @@ var SelectionMatchFindAction = class extends EditorAction {
     });
   }
 };
+__name(SelectionMatchFindAction, "SelectionMatchFindAction");
 var NextSelectionMatchFindAction = class extends SelectionMatchFindAction {
   constructor() {
     super({
@@ -26339,6 +26760,7 @@ var NextSelectionMatchFindAction = class extends SelectionMatchFindAction {
     return controller.moveToNextMatch();
   }
 };
+__name(NextSelectionMatchFindAction, "NextSelectionMatchFindAction");
 var PreviousSelectionMatchFindAction = class extends SelectionMatchFindAction {
   constructor() {
     super({
@@ -26357,6 +26779,7 @@ var PreviousSelectionMatchFindAction = class extends SelectionMatchFindAction {
     return controller.moveToPrevMatch();
   }
 };
+__name(PreviousSelectionMatchFindAction, "PreviousSelectionMatchFindAction");
 var StartFindReplaceAction = registerMultiEditorAction(new MultiEditorAction({
   id: FIND_IDS.StartFindReplaceAction,
   label: localize("startReplace", "Replace"),
@@ -26536,7 +26959,7 @@ registerEditorCommand(new FindCommand({
   }
 }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/folding.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/folding.js
 init_define_process();
 init_async();
 init_errors();
@@ -26549,11 +26972,11 @@ init_editorContextKeys();
 init_languages();
 init_languageConfigurationRegistry();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/foldingModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/foldingModel.js
 init_define_process();
 init_event();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/foldingRanges.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/foldingRanges.js
 init_define_process();
 var MAX_FOLDING_REGIONS = 65535;
 var MAX_LINE_NUMBER = 16777215;
@@ -26579,6 +27002,7 @@ var BitField = class {
     }
   }
 };
+__name(BitField, "BitField");
 var FoldingRegions = class {
   constructor(startIndexes, endIndexes, types) {
     this.sourceAbbr = {
@@ -26601,10 +27025,10 @@ var FoldingRegions = class {
     if (!this._parentsComputed) {
       this._parentsComputed = true;
       const parentIndexes = [];
-      const isInsideLast = (startLineNumber, endLineNumber) => {
+      const isInsideLast = /* @__PURE__ */ __name((startLineNumber, endLineNumber) => {
         const index = parentIndexes[parentIndexes.length - 1];
         return this.getStartLineNumber(index) <= startLineNumber && this.getEndLineNumber(index) >= endLineNumber;
-      };
+      }, "isInsideLast");
       for (let i = 0, len = this._startIndexes.length; i < len; i++) {
         const startLineNumber = this._startIndexes[i];
         const endLineNumber = this._endIndexes[i];
@@ -26777,13 +27201,13 @@ var FoldingRegions = class {
   }
   static sanitizeAndMerge(rangesA, rangesB, maxLineNumber) {
     maxLineNumber = maxLineNumber !== null && maxLineNumber !== void 0 ? maxLineNumber : Number.MAX_VALUE;
-    const getIndexedFunction = (r, limit) => {
+    const getIndexedFunction = /* @__PURE__ */ __name((r, limit) => {
       return Array.isArray(r) ? (i) => {
         return i < limit ? r[i] : void 0;
       } : (i) => {
         return i < limit ? r.toFoldRange(i) : void 0;
       };
-    };
+    }, "getIndexedFunction");
     const getA = getIndexedFunction(rangesA, rangesA.length);
     const getB = getIndexedFunction(rangesB, rangesB.length);
     let indexA = 0;
@@ -26845,6 +27269,7 @@ var FoldingRegions = class {
     return resultRanges;
   }
 };
+__name(FoldingRegions, "FoldingRegions");
 var FoldingRegion = class {
   constructor(ranges, index) {
     this.ranges = ranges;
@@ -26872,8 +27297,9 @@ var FoldingRegion = class {
     return this.startLineNumber <= lineNumber && lineNumber <= this.endLineNumber;
   }
 };
+__name(FoldingRegion, "FoldingRegion");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/foldingModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/foldingModel.js
 init_hash();
 var FoldingModel = class {
   constructor(textModel, decorationProvider) {
@@ -26900,7 +27326,7 @@ var FoldingModel = class {
       let k = 0;
       let dirtyRegionEndLine = -1;
       let lastHiddenLine = -1;
-      const updateDecorationsUntil = (index) => {
+      const updateDecorationsUntil = /* @__PURE__ */ __name((index) => {
         while (k < index) {
           const endLineNumber = this._regions.getEndLineNumber(k);
           const isCollapsed = this._regions.isCollapsed(k);
@@ -26913,7 +27339,7 @@ var FoldingModel = class {
           }
           k++;
         }
-      };
+      }, "updateDecorationsUntil");
       for (const region of toggledRegions) {
         const index = region.regionIndex;
         const editorDecorationId = this._editorDecorationIds[index];
@@ -26931,14 +27357,14 @@ var FoldingModel = class {
   }
   removeManualRanges(ranges) {
     const newFoldingRanges = new Array();
-    const intersects = (foldRange) => {
+    const intersects = /* @__PURE__ */ __name((foldRange) => {
       for (const range of ranges) {
         if (!(range.startLineNumber > foldRange.endLineNumber || foldRange.startLineNumber > range.endLineNumber)) {
           return true;
         }
       }
       return false;
-    };
+    }, "intersects");
     for (let i = 0; i < this._regions.length; i++) {
       const foldRange = this._regions.toFoldRange(i);
       if (foldRange.source === 0 || !intersects(foldRange)) {
@@ -26976,14 +27402,14 @@ var FoldingModel = class {
     this._updateEventEmitter.fire({ model: this });
   }
   _currentFoldedOrManualRanges(blockedLineNumers = []) {
-    const isBlocked = (startLineNumber, endLineNumber) => {
+    const isBlocked = /* @__PURE__ */ __name((startLineNumber, endLineNumber) => {
       for (const blockedLineNumber of blockedLineNumers) {
         if (startLineNumber < blockedLineNumber && blockedLineNumber <= endLineNumber) {
           return true;
         }
       }
       return false;
-    };
+    }, "isBlocked");
     const foldedRanges = [];
     for (let i = 0, limit = this._regions.length; i < limit; i++) {
       let isCollapsed = this.regions.isCollapsed(i);
@@ -27115,6 +27541,7 @@ var FoldingModel = class {
     return result;
   }
 };
+__name(FoldingModel, "FoldingModel");
 function toggleCollapseState(foldingModel, levels, lineNumbers) {
   const toToggle = [];
   for (const lineNumber of lineNumbers) {
@@ -27130,6 +27557,7 @@ function toggleCollapseState(foldingModel, levels, lineNumbers) {
   }
   foldingModel.toggleCollapseState(toToggle);
 }
+__name(toggleCollapseState, "toggleCollapseState");
 function setCollapseStateLevelsDown(foldingModel, doCollapse, levels = Number.MAX_VALUE, lineNumbers) {
   const toToggle = [];
   if (lineNumbers && lineNumbers.length > 0) {
@@ -27151,6 +27579,7 @@ function setCollapseStateLevelsDown(foldingModel, doCollapse, levels = Number.MA
   }
   foldingModel.toggleCollapseState(toToggle);
 }
+__name(setCollapseStateLevelsDown, "setCollapseStateLevelsDown");
 function setCollapseStateLevelsUp(foldingModel, doCollapse, levels, lineNumbers) {
   const toToggle = [];
   for (const lineNumber of lineNumbers) {
@@ -27159,6 +27588,7 @@ function setCollapseStateLevelsUp(foldingModel, doCollapse, levels, lineNumbers)
   }
   foldingModel.toggleCollapseState(toToggle);
 }
+__name(setCollapseStateLevelsUp, "setCollapseStateLevelsUp");
 function setCollapseStateUp(foldingModel, doCollapse, lineNumbers) {
   const toToggle = [];
   for (const lineNumber of lineNumbers) {
@@ -27169,11 +27599,13 @@ function setCollapseStateUp(foldingModel, doCollapse, lineNumbers) {
   }
   foldingModel.toggleCollapseState(toToggle);
 }
+__name(setCollapseStateUp, "setCollapseStateUp");
 function setCollapseStateAtLevel(foldingModel, foldLevel, doCollapse, blockedLineNumbers) {
-  const filter = (region, level) => level === foldLevel && region.isCollapsed !== doCollapse && !blockedLineNumbers.some((line) => region.containsLine(line));
+  const filter = /* @__PURE__ */ __name((region, level) => level === foldLevel && region.isCollapsed !== doCollapse && !blockedLineNumbers.some((line) => region.containsLine(line)), "filter");
   const toToggle = foldingModel.getRegionsInside(null, filter);
   foldingModel.toggleCollapseState(toToggle);
 }
+__name(setCollapseStateAtLevel, "setCollapseStateAtLevel");
 function setCollapseStateForRest(foldingModel, doCollapse, blockedLineNumbers) {
   const filteredRegions = [];
   for (const lineNumber of blockedLineNumbers) {
@@ -27182,10 +27614,11 @@ function setCollapseStateForRest(foldingModel, doCollapse, blockedLineNumbers) {
       filteredRegions.push(regions[0]);
     }
   }
-  const filter = (region) => filteredRegions.every((filteredRegion) => !filteredRegion.containedBy(region) && !region.containedBy(filteredRegion)) && region.isCollapsed !== doCollapse;
+  const filter = /* @__PURE__ */ __name((region) => filteredRegions.every((filteredRegion) => !filteredRegion.containedBy(region) && !region.containedBy(filteredRegion)) && region.isCollapsed !== doCollapse, "filter");
   const toToggle = foldingModel.getRegionsInside(null, filter);
   foldingModel.toggleCollapseState(toToggle);
 }
+__name(setCollapseStateForRest, "setCollapseStateForRest");
 function setCollapseStateForMatchingLines(foldingModel, regExp, doCollapse) {
   const editorModel = foldingModel.textModel;
   const regions = foldingModel.regions;
@@ -27200,6 +27633,7 @@ function setCollapseStateForMatchingLines(foldingModel, regExp, doCollapse) {
   }
   foldingModel.toggleCollapseState(toToggle);
 }
+__name(setCollapseStateForMatchingLines, "setCollapseStateForMatchingLines");
 function setCollapseStateForType(foldingModel, type, doCollapse) {
   const regions = foldingModel.regions;
   const toToggle = [];
@@ -27210,6 +27644,7 @@ function setCollapseStateForType(foldingModel, type, doCollapse) {
   }
   foldingModel.toggleCollapseState(toToggle);
 }
+__name(setCollapseStateForType, "setCollapseStateForType");
 function getParentFoldLine(lineNumber, foldingModel) {
   let startLineNumber = null;
   const foldingRegion = foldingModel.getRegionAtLine(lineNumber);
@@ -27226,6 +27661,7 @@ function getParentFoldLine(lineNumber, foldingModel) {
   }
   return startLineNumber;
 }
+__name(getParentFoldLine, "getParentFoldLine");
 function getPreviousFoldLine(lineNumber, foldingModel) {
   let foldingRegion = foldingModel.getRegionAtLine(lineNumber);
   if (foldingRegion !== null && foldingRegion.startLineNumber === lineNumber) {
@@ -27267,6 +27703,7 @@ function getPreviousFoldLine(lineNumber, foldingModel) {
   }
   return null;
 }
+__name(getPreviousFoldLine, "getPreviousFoldLine");
 function getNextFoldLine(lineNumber, foldingModel) {
   let foldingRegion = foldingModel.getRegionAtLine(lineNumber);
   if (foldingRegion !== null && foldingRegion.startLineNumber === lineNumber) {
@@ -27308,8 +27745,9 @@ function getNextFoldLine(lineNumber, foldingModel) {
   }
   return null;
 }
+__name(getNextFoldLine, "getNextFoldLine");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/hiddenRangeModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/hiddenRangeModel.js
 init_define_process();
 init_arrays();
 init_event();
@@ -27385,7 +27823,7 @@ var HiddenRangeModel = class {
     let hasChanges = false;
     const editorModel = this._foldingModel.textModel;
     let lastRange = null;
-    const adjustLine = (line) => {
+    const adjustLine = /* @__PURE__ */ __name((line) => {
       if (!lastRange || !isInside(line, lastRange)) {
         lastRange = findRange(this._hiddenRanges, line);
       }
@@ -27393,7 +27831,7 @@ var HiddenRangeModel = class {
         return lastRange.startLineNumber - 1;
       }
       return null;
-    };
+    }, "adjustLine");
     for (let i = 0, len = selections.length; i < len; i++) {
       let selection = selections[i];
       const adjustedStartLine = adjustLine(selection.startLineNumber);
@@ -27421,9 +27859,11 @@ var HiddenRangeModel = class {
     }
   }
 };
+__name(HiddenRangeModel, "HiddenRangeModel");
 function isInside(line, range) {
   return line >= range.startLineNumber && line <= range.endLineNumber;
 }
+__name(isInside, "isInside");
 function findRange(ranges, line) {
   const i = findFirstInSorted(ranges, (r) => line < r.startLineNumber) - 1;
   if (i >= 0 && ranges[i].endLineNumber >= line) {
@@ -27431,8 +27871,9 @@ function findRange(ranges, line) {
   }
   return null;
 }
+__name(findRange, "findRange");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/indentRangeProvider.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/indentRangeProvider.js
 init_define_process();
 init_utils();
 var MAX_FOLDING_REGIONS_FOR_INDENT_DEFAULT = 5e3;
@@ -27453,6 +27894,7 @@ var IndentRangeProvider = class {
     return Promise.resolve(computeRanges(this.editorModel, offSide, markers, this.maxFoldingRegions, notifyTooManyRegions));
   }
 };
+__name(IndentRangeProvider, "IndentRangeProvider");
 var RangesCollector = class {
   constructor(foldingRangesLimit, _notifyTooManyRegions) {
     this._notifyTooManyRegions = _notifyTooManyRegions;
@@ -27515,6 +27957,7 @@ var RangesCollector = class {
     }
   }
 };
+__name(RangesCollector, "RangesCollector");
 function computeRanges(model, offSide, markers, foldingRangesLimit, notifyTooManyRegions) {
   const tabSize = model.getOptions().tabSize;
   foldingRangesLimit = foldingRangesLimit !== null && foldingRangesLimit !== void 0 ? foldingRangesLimit : MAX_FOLDING_REGIONS_FOR_INDENT_DEFAULT;
@@ -27576,14 +28019,15 @@ function computeRanges(model, offSide, markers, foldingRangesLimit, notifyTooMan
   }
   return result.toIndentRanges(model);
 }
+__name(computeRanges, "computeRanges");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/folding.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/folding.js
 init_nls();
 init_contextkey();
 init_colorRegistry();
 init_themeService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/foldingDecorations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/foldingDecorations.js
 init_define_process();
 init_codicons();
 init_textModel();
@@ -27618,6 +28062,7 @@ var FoldingDecorationProvider = class {
     this.editor.removeDecorations(decorationIds);
   }
 };
+__name(FoldingDecorationProvider, "FoldingDecorationProvider");
 FoldingDecorationProvider.COLLAPSED_VISUAL_DECORATION = ModelDecorationOptions.register({
   description: "folding-collapsed-visual-decoration",
   stickiness: 0,
@@ -27677,7 +28122,7 @@ FoldingDecorationProvider.HIDDEN_RANGE_DECORATION = ModelDecorationOptions.regis
   stickiness: 1
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/syntaxRangeProvider.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/syntaxRangeProvider.js
 init_define_process();
 init_errors();
 init_lifecycle();
@@ -27712,6 +28157,7 @@ var SyntaxRangeProvider = class {
     (_a5 = this.disposables) === null || _a5 === void 0 ? void 0 : _a5.dispose();
   }
 };
+__name(SyntaxRangeProvider, "SyntaxRangeProvider");
 function collectSyntaxRanges(providers, model, cancellationToken) {
   let rangeData = null;
   const promises = providers.map((provider, i) => {
@@ -27736,6 +28182,7 @@ function collectSyntaxRanges(providers, model, cancellationToken) {
     return rangeData;
   });
 }
+__name(collectSyntaxRanges, "collectSyntaxRanges");
 var RangesCollector2 = class {
   constructor(foldingRangesLimit, _notifyTooManyRegions) {
     this._notifyTooManyRegions = _notifyTooManyRegions;
@@ -27801,6 +28248,7 @@ var RangesCollector2 = class {
     }
   }
 };
+__name(RangesCollector2, "RangesCollector");
 function sanitizeRanges(rangeData, limit, notifyTooManyRegions) {
   const sorted = rangeData.sort((d1, d2) => {
     let diff = d1.start - d2.start;
@@ -27839,8 +28287,9 @@ function sanitizeRanges(rangeData, limit, notifyTooManyRegions) {
   }
   return collector.toIndentRanges();
 }
+__name(sanitizeRanges, "sanitizeRanges");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/folding.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/folding.js
 init_languageFeatureDebounce();
 init_stopwatch();
 init_languageFeatures();
@@ -27860,7 +28309,7 @@ var __param35 = function(paramIndex, decorator) {
   };
 };
 var CONTEXT_FOLDING_ENABLED = new RawContextKey("foldingEnabled", false);
-var FoldingController = class FoldingController2 extends Disposable {
+var FoldingController = /* @__PURE__ */ __name(class FoldingController2 extends Disposable {
   constructor(editor2, contextKeyService, languageConfigurationService, notificationService, languageFeatureDebounceService, languageFeaturesService) {
     super();
     this.contextKeyService = contextKeyService;
@@ -28189,7 +28638,7 @@ var FoldingController = class FoldingController2 extends Disposable {
         const surrounding = e.event.altKey;
         let toToggle = [];
         if (surrounding) {
-          const filter = (otherRegion) => !otherRegion.containedBy(region) && !region.containedBy(otherRegion);
+          const filter = /* @__PURE__ */ __name((otherRegion) => !otherRegion.containedBy(region) && !region.containedBy(otherRegion), "filter");
           const toMaybeToggle = foldingModel.getRegionsInside(null, filter);
           for (const r of toMaybeToggle) {
             if (r.isCollapsed) {
@@ -28220,7 +28669,7 @@ var FoldingController = class FoldingController2 extends Disposable {
   reveal(position) {
     this.editor.revealPositionInCenterIfOutsideViewport(position, 0);
   }
-};
+}, "FoldingController");
 FoldingController.ID = "editor.contrib.folding";
 FoldingController = __decorate35([
   __param35(1, IContextKeyService),
@@ -28263,6 +28712,7 @@ var FoldingAction = class extends EditorAction {
   run(_accessor, _editor) {
   }
 };
+__name(FoldingAction, "FoldingAction");
 function foldingArgumentsConstraint(args) {
   if (!isUndefined(args)) {
     if (!isObject(args)) {
@@ -28281,6 +28731,7 @@ function foldingArgumentsConstraint(args) {
   }
   return true;
 }
+__name(foldingArgumentsConstraint, "foldingArgumentsConstraint");
 var UnfoldAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28342,6 +28793,7 @@ var UnfoldAction = class extends FoldingAction {
     }
   }
 };
+__name(UnfoldAction, "UnfoldAction");
 var UnFoldRecursivelyAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28360,6 +28812,7 @@ var UnFoldRecursivelyAction = class extends FoldingAction {
     setCollapseStateLevelsDown(foldingModel, false, Number.MAX_VALUE, this.getSelectedLines(editor2));
   }
 };
+__name(UnFoldRecursivelyAction, "UnFoldRecursivelyAction");
 var FoldAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28425,6 +28878,7 @@ var FoldAction = class extends FoldingAction {
     }
   }
 };
+__name(FoldAction, "FoldAction");
 var ToggleFoldAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28444,6 +28898,7 @@ var ToggleFoldAction = class extends FoldingAction {
     toggleCollapseState(foldingModel, 1, selectedLines);
   }
 };
+__name(ToggleFoldAction, "ToggleFoldAction");
 var FoldRecursivelyAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28463,6 +28918,7 @@ var FoldRecursivelyAction = class extends FoldingAction {
     setCollapseStateLevelsDown(foldingModel, true, Number.MAX_VALUE, selectedLines);
   }
 };
+__name(FoldRecursivelyAction, "FoldRecursivelyAction");
 var FoldAllBlockCommentsAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28493,6 +28949,7 @@ var FoldAllBlockCommentsAction = class extends FoldingAction {
     }
   }
 };
+__name(FoldAllBlockCommentsAction, "FoldAllBlockCommentsAction");
 var FoldAllRegionsAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28523,6 +28980,7 @@ var FoldAllRegionsAction = class extends FoldingAction {
     }
   }
 };
+__name(FoldAllRegionsAction, "FoldAllRegionsAction");
 var UnfoldAllRegionsAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28553,6 +29011,7 @@ var UnfoldAllRegionsAction = class extends FoldingAction {
     }
   }
 };
+__name(UnfoldAllRegionsAction, "UnfoldAllRegionsAction");
 var FoldAllRegionsExceptAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28572,6 +29031,7 @@ var FoldAllRegionsExceptAction = class extends FoldingAction {
     setCollapseStateForRest(foldingModel, true, selectedLines);
   }
 };
+__name(FoldAllRegionsExceptAction, "FoldAllRegionsExceptAction");
 var UnfoldAllRegionsExceptAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28591,6 +29051,7 @@ var UnfoldAllRegionsExceptAction = class extends FoldingAction {
     setCollapseStateForRest(foldingModel, false, selectedLines);
   }
 };
+__name(UnfoldAllRegionsExceptAction, "UnfoldAllRegionsExceptAction");
 var FoldAllAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28609,6 +29070,7 @@ var FoldAllAction = class extends FoldingAction {
     setCollapseStateLevelsDown(foldingModel, true);
   }
 };
+__name(FoldAllAction, "FoldAllAction");
 var UnfoldAllAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28627,6 +29089,7 @@ var UnfoldAllAction = class extends FoldingAction {
     setCollapseStateLevelsDown(foldingModel, false);
   }
 };
+__name(UnfoldAllAction, "UnfoldAllAction");
 var FoldLevelAction = class extends FoldingAction {
   getFoldingLevel() {
     return parseInt(this.id.substr(FoldLevelAction.ID_PREFIX.length));
@@ -28635,6 +29098,7 @@ var FoldLevelAction = class extends FoldingAction {
     setCollapseStateAtLevel(foldingModel, this.getFoldingLevel(), true, this.getSelectedLines(editor2));
   }
 };
+__name(FoldLevelAction, "FoldLevelAction");
 FoldLevelAction.ID_PREFIX = "editor.foldLevel";
 FoldLevelAction.ID = (level) => FoldLevelAction.ID_PREFIX + level;
 var GotoParentFoldAction = class extends FoldingAction {
@@ -28665,6 +29129,7 @@ var GotoParentFoldAction = class extends FoldingAction {
     }
   }
 };
+__name(GotoParentFoldAction, "GotoParentFoldAction");
 var GotoPreviousFoldAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28693,6 +29158,7 @@ var GotoPreviousFoldAction = class extends FoldingAction {
     }
   }
 };
+__name(GotoPreviousFoldAction, "GotoPreviousFoldAction");
 var GotoNextFoldAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28721,6 +29187,7 @@ var GotoNextFoldAction = class extends FoldingAction {
     }
   }
 };
+__name(GotoNextFoldAction, "GotoNextFoldAction");
 var FoldRangeFromSelectionAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28771,6 +29238,7 @@ var FoldRangeFromSelectionAction = class extends FoldingAction {
     }
   }
 };
+__name(FoldRangeFromSelectionAction, "FoldRangeFromSelectionAction");
 var RemoveFoldRangeFromSelectionAction = class extends FoldingAction {
   constructor() {
     super({
@@ -28798,6 +29266,7 @@ var RemoveFoldRangeFromSelectionAction = class extends FoldingAction {
     }
   }
 };
+__name(RemoveFoldRangeFromSelectionAction, "RemoveFoldRangeFromSelectionAction");
 registerEditorContribution(FoldingController.ID, FoldingController);
 registerEditorAction(UnfoldAction);
 registerEditorAction(UnFoldRecursivelyAction);
@@ -28849,7 +29318,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/fontZoom/browser/fontZoom.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/fontZoom/browser/fontZoom.js
 init_define_process();
 init_editorExtensions();
 init_nls();
@@ -28866,6 +29335,7 @@ var EditorFontZoomIn = class extends EditorAction {
     EditorZoom.setZoomLevel(EditorZoom.getZoomLevel() + 1);
   }
 };
+__name(EditorFontZoomIn, "EditorFontZoomIn");
 var EditorFontZoomOut = class extends EditorAction {
   constructor() {
     super({
@@ -28879,6 +29349,7 @@ var EditorFontZoomOut = class extends EditorAction {
     EditorZoom.setZoomLevel(EditorZoom.getZoomLevel() - 1);
   }
 };
+__name(EditorFontZoomOut, "EditorFontZoomOut");
 var EditorFontZoomReset = class extends EditorAction {
   constructor() {
     super({
@@ -28892,24 +29363,25 @@ var EditorFontZoomReset = class extends EditorAction {
     EditorZoom.setZoomLevel(0);
   }
 };
+__name(EditorFontZoomReset, "EditorFontZoomReset");
 registerEditorAction(EditorFontZoomIn);
 registerEditorAction(EditorFontZoomOut);
 registerEditorAction(EditorFontZoomReset);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
 var import_formatActions = __toESM(require_formatActions());
 var import_documentSymbols = __toESM(require_documentSymbols());
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.contribution.js
 init_define_process();
 init_editorExtensions();
 init_editorContextKeys();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/consts.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/consts.js
 init_define_process();
 var inlineSuggestCommitId = "editor.action.inlineSuggest.commit";
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextController.js
 init_define_process();
 init_event();
 init_lifecycle();
@@ -28918,14 +29390,14 @@ init_editorExtensions();
 init_cursorColumns();
 init_editorContextKeys();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextModel.js
 init_define_process();
 init_event();
 init_lifecycle();
 init_position();
 init_languages();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsModel.js
 init_define_process();
 init_async();
 init_cancellation();
@@ -28936,12 +29408,12 @@ init_editOperation();
 init_range();
 init_languages();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.js
 init_define_process();
 init_event();
 init_lifecycle();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/utils.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/utils.js
 init_define_process();
 init_range();
 function createDisposableRef(object, disposable) {
@@ -28950,6 +29422,7 @@ function createDisposableRef(object, disposable) {
     dispose: () => disposable === null || disposable === void 0 ? void 0 : disposable.dispose()
   };
 }
+__name(createDisposableRef, "createDisposableRef");
 function applyEdits(text, edits) {
   const transformer = new PositionOffsetTransformer(text);
   const offsetEdits = edits.map((e) => {
@@ -28966,6 +29439,7 @@ function applyEdits(text, edits) {
   }
   return text;
 }
+__name(applyEdits, "applyEdits");
 var PositionOffsetTransformer = class {
   constructor(text) {
     this.lineStartOffsetByLineIdx = [];
@@ -28980,12 +29454,14 @@ var PositionOffsetTransformer = class {
     return this.lineStartOffsetByLineIdx[position.lineNumber - 1] + position.column - 1;
   }
 };
+__name(PositionOffsetTransformer, "PositionOffsetTransformer");
 var array = [];
 function getReadonlyEmptyArray() {
   return array;
 }
+__name(getReadonlyEmptyArray, "getReadonlyEmptyArray");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.js
 var GhostText = class {
   constructor(lineNumber, parts, additionalReservedLineCount = 0) {
     this.lineNumber = lineNumber;
@@ -29008,6 +29484,7 @@ var GhostText = class {
     return this.parts.every((p) => p.lines.length === 0);
   }
 };
+__name(GhostText, "GhostText");
 var GhostTextPart = class {
   constructor(column, lines, preview) {
     this.column = column;
@@ -29015,6 +29492,7 @@ var GhostTextPart = class {
     this.preview = preview;
   }
 };
+__name(GhostTextPart, "GhostTextPart");
 var GhostTextReplacement = class {
   constructor(lineNumber, columnStart, length, newLines, additionalReservedLineCount = 0) {
     this.lineNumber = lineNumber;
@@ -29030,6 +29508,7 @@ var GhostTextReplacement = class {
     return this.newLines.join("\n");
   }
 };
+__name(GhostTextReplacement, "GhostTextReplacement");
 var BaseGhostTextWidgetModel = class extends Disposable {
   constructor(editor2) {
     super();
@@ -29048,11 +29527,12 @@ var BaseGhostTextWidgetModel = class extends Disposable {
     this.onDidChangeEmitter.fire();
   }
 };
+__name(BaseGhostTextWidgetModel, "BaseGhostTextWidgetModel");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsModel.js
 init_commands();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionToGhostText.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionToGhostText.js
 init_define_process();
 init_strings();
 init_range();
@@ -29075,6 +29555,7 @@ function minimizeInlineCompletion(model, inlineCompletion) {
     additionalTextEdits: inlineCompletion.additionalTextEdits
   };
 }
+__name(minimizeInlineCompletion, "minimizeInlineCompletion");
 function normalizedInlineCompletionsEquals(a, b) {
   if (a === b) {
     return true;
@@ -29084,6 +29565,7 @@ function normalizedInlineCompletionsEquals(a, b) {
   }
   return a.range.equalsRange(b.range) && a.insertText === b.insertText && a.command === b.command;
 }
+__name(normalizedInlineCompletionsEquals, "normalizedInlineCompletionsEquals");
 function inlineCompletionToGhostText(inlineCompletion, textModel, mode, cursorPosition, previewSuffixLength = 0) {
   if (inlineCompletion.range.startLineNumber !== inlineCompletion.range.endLineNumber) {
     return void 0;
@@ -29145,6 +29627,7 @@ function inlineCompletionToGhostText(inlineCompletion, textModel, mode, cursorPo
   }
   return new GhostText(lineNumber, parts, 0);
 }
+__name(inlineCompletionToGhostText, "inlineCompletionToGhostText");
 var lastRequest = void 0;
 function cachingDiff(originalValue, newValue) {
   if ((lastRequest === null || lastRequest === void 0 ? void 0 : lastRequest.originalValue) === originalValue && (lastRequest === null || lastRequest === void 0 ? void 0 : lastRequest.newValue) === newValue) {
@@ -29168,6 +29651,7 @@ function cachingDiff(originalValue, newValue) {
     return changes;
   }
 }
+__name(cachingDiff, "cachingDiff");
 function deletedCharacters(changes) {
   let sum2 = 0;
   for (const c of changes) {
@@ -29175,6 +29659,7 @@ function deletedCharacters(changes) {
   }
   return sum2;
 }
+__name(deletedCharacters, "deletedCharacters");
 function smartDiff(originalValue, newValue, smartBracketMatching) {
   if (originalValue.length > 5e3 || newValue.length > 5e3) {
     return void 0;
@@ -29189,6 +29674,7 @@ function smartDiff(originalValue, newValue, smartBracketMatching) {
     }
     return maxCharCode2;
   }
+  __name(getMaxCharCode, "getMaxCharCode");
   const maxCharCode = Math.max(getMaxCharCode(originalValue), getMaxCharCode(newValue));
   function getUniqueCharCode(id) {
     if (id < 0) {
@@ -29196,6 +29682,7 @@ function smartDiff(originalValue, newValue, smartBracketMatching) {
     }
     return maxCharCode + id + 1;
   }
+  __name(getUniqueCharCode, "getUniqueCharCode");
   function getElements(source) {
     let level = 0;
     let group = 0;
@@ -29218,15 +29705,17 @@ function smartDiff(originalValue, newValue, smartBracketMatching) {
     }
     return characters;
   }
+  __name(getElements, "getElements");
   const elements1 = getElements(originalValue);
   const elements2 = getElements(newValue);
   return new LcsDiff({ getElements: () => elements1 }, { getElements: () => elements2 }).ComputeDiff(false).changes;
 }
+__name(smartDiff, "smartDiff");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsModel.js
 init_languageConfigurationRegistry();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/common/model/bracketPairsTextModelPart/fixBrackets.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/common/model/bracketPairsTextModelPart/fixBrackets.js
 init_define_process();
 init_brackets();
 init_length();
@@ -29266,9 +29755,11 @@ function fixBracketsInLine(tokens, languageConfigurationService) {
       }
     }
   }
+  __name(processNode, "processNode");
   processNode(node, lengthZero);
   return str;
 }
+__name(fixBracketsInLine, "fixBracketsInLine");
 var StaticTokenizerSource = class {
   constructor(lines) {
     this.lines = lines;
@@ -29285,8 +29776,9 @@ var StaticTokenizerSource = class {
     return this.lines[lineNumber - 1].getLineContent().length;
   }
 };
+__name(StaticTokenizerSource, "StaticTokenizerSource");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsModel.js
 init_languageFeatures();
 init_languageFeatureDebounce();
 init_types();
@@ -29312,6 +29804,7 @@ var __awaiter29 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -29320,6 +29813,7 @@ var __awaiter29 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -29327,13 +29821,15 @@ var __awaiter29 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var InlineCompletionsModel = class InlineCompletionsModel2 extends Disposable {
+var InlineCompletionsModel = /* @__PURE__ */ __name(class InlineCompletionsModel2 extends Disposable {
   constructor(editor2, cache, commandService, languageConfigurationService, languageFeaturesService, debounceService, configurationService) {
     super();
     this.editor = editor2;
@@ -29455,7 +29951,7 @@ var InlineCompletionsModel = class InlineCompletionsModel2 extends Disposable {
       return result !== void 0 ? result : false;
     });
   }
-};
+}, "InlineCompletionsModel");
 InlineCompletionsModel = __decorate37([
   __param37(2, ICommandService),
   __param37(3, ILanguageConfigurationService),
@@ -29723,6 +30219,7 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
     return [...lists].flatMap((l) => l.commands || []);
   }
 };
+__name(InlineCompletionsSession, "InlineCompletionsSession");
 var UpdateOperation = class {
   constructor(promise, triggerKind) {
     this.promise = promise;
@@ -29732,6 +30229,7 @@ var UpdateOperation = class {
     this.promise.cancel();
   }
 };
+__name(UpdateOperation, "UpdateOperation");
 var SynchronizedInlineCompletionsCache = class extends Disposable {
   constructor(completionsSource, editor2, onChange, triggerKind) {
     super();
@@ -29779,6 +30277,7 @@ var SynchronizedInlineCompletionsCache = class extends Disposable {
     }
   }
 };
+__name(SynchronizedInlineCompletionsCache, "SynchronizedInlineCompletionsCache");
 var CachedInlineCompletion = class {
   constructor(inlineCompletion, decorationId) {
     this.inlineCompletion = inlineCompletion;
@@ -29806,6 +30305,7 @@ var CachedInlineCompletion = class {
     };
   }
 };
+__name(CachedInlineCompletion, "CachedInlineCompletion");
 function provideInlineCompletions(registry, position, model, context, token = CancellationToken.None, languageConfigurationService) {
   return __awaiter29(this, void 0, void 0, function* () {
     const defaultReplaceRange = getDefaultRange(position, model);
@@ -29879,11 +30379,13 @@ function provideInlineCompletions(registry, position, model, context, token = Ca
     };
   });
 }
+__name(provideInlineCompletions, "provideInlineCompletions");
 function getDefaultRange(position, model) {
   const word = model.getWordAtPosition(position);
   const maxColumn = model.getLineMaxColumn(position.lineNumber);
   return word ? new Range(position.lineNumber, word.startColumn, position.lineNumber, maxColumn) : Range.fromPositions(position, position.with(void 0, maxColumn));
 }
+__name(getDefaultRange, "getDefaultRange");
 function closeBrackets(text, position, model, languageConfigurationService) {
   const lineStart = model.getLineContent(position.lineNumber).substring(0, position.column - 1);
   const newLine = lineStart + text;
@@ -29895,8 +30397,9 @@ function closeBrackets(text, position, model, languageConfigurationService) {
   const newText = fixBracketsInLine(slicedTokens, languageConfigurationService);
   return newText;
 }
+__name(closeBrackets, "closeBrackets");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetPreviewModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetPreviewModel.js
 init_define_process();
 init_async();
 init_errors();
@@ -29904,7 +30407,7 @@ init_lifecycle();
 init_languages();
 init_languageFeatures();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetInlineCompletionProvider.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetInlineCompletionProvider.js
 init_define_process();
 init_arrays();
 init_async();
@@ -29913,7 +30416,7 @@ init_lifecycle();
 init_position();
 init_range();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController.js
 init_define_process();
 init_aria();
 init_arrays();
@@ -29932,7 +30435,7 @@ init_position();
 init_range();
 init_editorContextKeys();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestMemory.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestMemory.js
 init_define_process();
 init_async();
 init_lifecycle();
@@ -29977,6 +30480,7 @@ var Memory = class {
     return 0;
   }
 };
+__name(Memory, "Memory");
 var NoMemory = class extends Memory {
   constructor() {
     super("first");
@@ -29989,6 +30493,7 @@ var NoMemory = class extends Memory {
   fromJSON() {
   }
 };
+__name(NoMemory, "NoMemory");
 var LRUMemory = class extends Memory {
   constructor() {
     super("recentlyUsed");
@@ -30051,6 +30556,7 @@ var LRUMemory = class extends Memory {
     this._seq = this._cache.size;
   }
 };
+__name(LRUMemory, "LRUMemory");
 var PrefixMemory = class extends Memory {
   constructor() {
     super("recentlyUsedByPrefix");
@@ -30103,7 +30609,8 @@ var PrefixMemory = class extends Memory {
     }
   }
 };
-var SuggestMemoryService = class SuggestMemoryService2 {
+__name(PrefixMemory, "PrefixMemory");
+var SuggestMemoryService = /* @__PURE__ */ __name(class SuggestMemoryService2 {
   constructor(_storageService, _configService) {
     this._storageService = _storageService;
     this._configService = _configService;
@@ -30156,7 +30663,7 @@ var SuggestMemoryService = class SuggestMemoryService2 {
       this._storageService.store(`${SuggestMemoryService2._storagePrefix}/${this._strategy.name}`, raw, scope, 1);
     }
   }
-};
+}, "SuggestMemoryService");
 SuggestMemoryService._strategyCtors = /* @__PURE__ */ new Map([
   ["recentlyUsedByPrefix", PrefixMemory],
   ["recentlyUsed", LRUMemory],
@@ -30170,7 +30677,7 @@ SuggestMemoryService = __decorate38([
 var ISuggestMemoryService = createDecorator("ISuggestMemories");
 registerSingleton(ISuggestMemoryService, SuggestMemoryService, true);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/wordContextKey.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/wordContextKey.js
 init_define_process();
 init_contextkey();
 var __decorate39 = function(decorators, target, key, desc) {
@@ -30188,7 +30695,7 @@ var __param39 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var WordContextKey = class WordContextKey2 {
+var WordContextKey = /* @__PURE__ */ __name(class WordContextKey2 {
   constructor(_editor, contextKeyService) {
     this._editor = _editor;
     this._enabled = false;
@@ -30209,7 +30716,7 @@ var WordContextKey = class WordContextKey2 {
     }
     this._enabled = enabled;
     if (this._enabled) {
-      const checkForWordEnd = () => {
+      const checkForWordEnd = /* @__PURE__ */ __name(() => {
         if (!this._editor.hasModel()) {
           this._ckAtEnd.set(false);
           return;
@@ -30222,7 +30729,7 @@ var WordContextKey = class WordContextKey2 {
           return;
         }
         this._ckAtEnd.set(word.endColumn === selection.getStartPosition().column);
-      };
+      }, "checkForWordEnd");
       this._selectionListener = this._editor.onDidChangeCursorSelection(checkForWordEnd);
       checkForWordEnd();
     } else if (this._selectionListener) {
@@ -30231,20 +30738,20 @@ var WordContextKey = class WordContextKey2 {
       this._selectionListener = void 0;
     }
   }
-};
+}, "WordContextKey");
 WordContextKey.AtEnd = new RawContextKey("atEndOfWord", false);
 WordContextKey = __decorate39([
   __param39(1, IContextKeyService)
 ], WordContextKey);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController.js
 init_nls();
 init_commands();
 init_contextkey();
 init_instantiation();
 init_log();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestAlternatives.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestAlternatives.js
 init_define_process();
 init_contextkey();
 var __decorate40 = function(decorators, target, key, desc) {
@@ -30262,7 +30769,7 @@ var __param40 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var SuggestAlternatives = class SuggestAlternatives2 {
+var SuggestAlternatives = /* @__PURE__ */ __name(class SuggestAlternatives2 {
   constructor(_editor, contextKeyService) {
     this._editor = _editor;
     this._index = 0;
@@ -30330,13 +30837,13 @@ var SuggestAlternatives = class SuggestAlternatives2 {
       this._ignore = false;
     }
   }
-};
+}, "SuggestAlternatives");
 SuggestAlternatives.OtherSuggestions = new RawContextKey("hasOtherSuggestions", false);
 SuggestAlternatives = __decorate40([
   __param40(1, IContextKeyService)
 ], SuggestAlternatives);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestCommitCharacters.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestCommitCharacters.js
 init_define_process();
 init_arrays();
 init_lifecycle();
@@ -30379,8 +30886,9 @@ var CommitCharacterController = class {
     this._disposables.dispose();
   }
 };
+__name(CommitCharacterController, "CommitCharacterController");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestModel.js
 init_define_process();
 init_async();
 init_cancellation();
@@ -30391,12 +30899,12 @@ init_strings();
 init_selection();
 init_editorWorker();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/wordDistance.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/wordDistance.js
 init_define_process();
 init_arrays();
 init_range();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/smartSelect/browser/bracketSelections.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/smartSelect/browser/bracketSelections.js
 init_define_process();
 init_linkedList();
 init_position();
@@ -30407,6 +30915,7 @@ var __awaiter30 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -30415,6 +30924,7 @@ var __awaiter30 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -30422,9 +30932,11 @@ var __awaiter30 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -30554,16 +31066,18 @@ var BracketSelectionRangeProvider = class {
     }
   }
 };
+__name(BracketSelectionRangeProvider, "BracketSelectionRangeProvider");
 BracketSelectionRangeProvider._maxDuration = 30;
 BracketSelectionRangeProvider._maxRounds = 2;
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/wordDistance.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/wordDistance.js
 var __awaiter31 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -30572,6 +31086,7 @@ var __awaiter31 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -30579,9 +31094,11 @@ var __awaiter31 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -30637,19 +31154,20 @@ var WordDistance = class {
     });
   }
 };
+__name(WordDistance, "WordDistance");
 WordDistance.None = new class extends WordDistance {
   distance() {
     return 0;
   }
 }();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestModel.js
 init_configuration();
 init_contextkey();
 init_log();
 init_telemetry();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/completionModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/completionModel.js
 init_define_process();
 init_arrays();
 init_strings();
@@ -30659,6 +31177,7 @@ var LineContext = class {
     this.characterCountDelta = characterCountDelta;
   }
 };
+__name(LineContext, "LineContext");
 var CompletionModel = class {
   constructor(items, column, lineContext, wordDistance, options, snippetSuggestions, fuzzyScoreOptions = FuzzyScoreOptions.default, clipboardText = void 0) {
     this.clipboardText = clipboardText;
@@ -30830,8 +31349,9 @@ var CompletionModel = class {
     return CompletionModel._compareCompletionItems(a, b);
   }
 };
+__name(CompletionModel, "CompletionModel");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestModel.js
 init_languageFeatures();
 var __decorate41 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -30854,6 +31374,7 @@ var __awaiter32 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -30862,6 +31383,7 @@ var __awaiter32 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -30869,9 +31391,11 @@ var __awaiter32 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -30905,6 +31429,7 @@ var LineContext2 = class {
     return true;
   }
 };
+__name(LineContext2, "LineContext");
 function canShowQuickSuggest(editor2, contextKeyService, configurationService) {
   if (!Boolean(contextKeyService.getContextKeyValue("inlineSuggestionVisible"))) {
     return true;
@@ -30915,6 +31440,7 @@ function canShowQuickSuggest(editor2, contextKeyService, configurationService) {
   }
   return false;
 }
+__name(canShowQuickSuggest, "canShowQuickSuggest");
 function canShowSuggestOnTriggerCharacters(editor2, contextKeyService, configurationService) {
   if (!Boolean(contextKeyService.getContextKeyValue("inlineSuggestionVisible"))) {
     return true;
@@ -30925,7 +31451,8 @@ function canShowSuggestOnTriggerCharacters(editor2, contextKeyService, configura
   }
   return false;
 }
-var SuggestModel = class SuggestModel2 {
+__name(canShowSuggestOnTriggerCharacters, "canShowSuggestOnTriggerCharacters");
+var SuggestModel = /* @__PURE__ */ __name(class SuggestModel2 {
   constructor(_editor, _editorWorkerService, _clipboardService, _telemetryService, _logService, _contextKeyService, _configurationService, _languageFeaturesService) {
     this._editor = _editor;
     this._editorWorkerService = _editorWorkerService;
@@ -31007,7 +31534,7 @@ var SuggestModel = class SuggestModel2 {
         set.add(support);
       }
     }
-    const checkTriggerCharacter = (text) => {
+    const checkTriggerCharacter = /* @__PURE__ */ __name((text) => {
       if (!canShowSuggestOnTriggerCharacters(this._editor, this._contextKeyService, this._configurationService)) {
         return;
       }
@@ -31032,7 +31559,7 @@ var SuggestModel = class SuggestModel2 {
         const existing = this._completionModel ? { items: this._completionModel.adopt(supports), clipboardText: this._completionModel.clipboardText } : void 0;
         this.trigger({ auto: true, shy: false, noSelect: false, triggerCharacter: lastChar }, Boolean(this._completionModel), supports, existing);
       }
-    };
+    }, "checkTriggerCharacter");
     this._triggerCharacterListener.add(this._editor.onDidType(checkTriggerCharacter));
     this._triggerCharacterListener.add(this._editor.onDidCompositionEnd(() => checkTriggerCharacter()));
   }
@@ -31378,7 +31905,7 @@ var SuggestModel = class SuggestModel2 {
       });
     }
   }
-};
+}, "SuggestModel");
 SuggestModel = __decorate41([
   __param41(1, IEditorWorkerService),
   __param41(2, IClipboardService),
@@ -31389,7 +31916,7 @@ SuggestModel = __decorate41([
   __param41(7, ILanguageFeaturesService)
 ], SuggestModel);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestOvertypingCapturer.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestOvertypingCapturer.js
 init_define_process();
 init_lifecycle();
 var OvertypingCapturer = class {
@@ -31443,9 +31970,10 @@ var OvertypingCapturer = class {
     this._disposables.dispose();
   }
 };
+__name(OvertypingCapturer, "OvertypingCapturer");
 OvertypingCapturer._maxSelectionLength = 51200;
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidget.js
 init_define_process();
 init_dom();
 init_async();
@@ -31455,7 +31983,7 @@ init_lifecycle();
 init_numbers();
 init_strings();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetStatus.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetStatus.js
 init_define_process();
 init_dom();
 init_lifecycle();
@@ -31493,15 +32021,16 @@ var StatusBarViewItem = class extends MenuEntryActionViewItem {
     return (_a5 = kb.getLabel()) === null || _a5 === void 0 ? void 0 : _a5.replace(/\benter\b/gi, "\u23CE");
   }
 };
-var SuggestWidgetStatus = class SuggestWidgetStatus2 {
+__name(StatusBarViewItem, "StatusBarViewItem");
+var SuggestWidgetStatus = /* @__PURE__ */ __name(class SuggestWidgetStatus2 {
   constructor(container, instantiationService, _menuService, _contextKeyService) {
     this._menuService = _menuService;
     this._contextKeyService = _contextKeyService;
     this._menuDisposables = new DisposableStore();
     this.element = append(container, $(".suggest-status-bar"));
-    const actionViewItemProvider = (action) => {
+    const actionViewItemProvider = /* @__PURE__ */ __name((action) => {
       return action instanceof MenuItemAction ? instantiationService.createInstance(StatusBarViewItem, action, void 0) : void 0;
-    };
+    }, "actionViewItemProvider");
     this._leftActions = new ActionBar(this.element, { actionViewItemProvider });
     this._rightActions = new ActionBar(this.element, { actionViewItemProvider });
     this._leftActions.domNode.classList.add("left");
@@ -31513,7 +32042,7 @@ var SuggestWidgetStatus = class SuggestWidgetStatus2 {
   }
   show() {
     const menu = this._menuService.createMenu(suggestWidgetStatusbarMenu, this._contextKeyService);
-    const renderMenu = () => {
+    const renderMenu = /* @__PURE__ */ __name(() => {
       const left = [];
       const right = [];
       for (const [group, actions] of menu.getActions()) {
@@ -31527,21 +32056,21 @@ var SuggestWidgetStatus = class SuggestWidgetStatus2 {
       this._leftActions.push(left);
       this._rightActions.clear();
       this._rightActions.push(right);
-    };
+    }, "renderMenu");
     this._menuDisposables.add(menu.onDidChange(() => renderMenu()));
     this._menuDisposables.add(menu);
   }
   hide() {
     this._menuDisposables.clear();
   }
-};
+}, "SuggestWidgetStatus");
 SuggestWidgetStatus = __decorate42([
   __param42(1, IInstantiationService),
   __param42(2, IMenuService),
   __param42(3, IContextKeyService)
 ], SuggestWidgetStatus);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/symbolIcons/browser/symbolIcons.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/symbolIcons/browser/symbolIcons.js
 init_define_process();
 init_codicons();
 init_nls();
@@ -31881,7 +32410,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidget.js
 init_nls();
 init_contextkey();
 init_instantiation();
@@ -31889,7 +32418,7 @@ init_colorRegistry();
 init_theme();
 init_themeService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/resizable/resizable.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/resizable/resizable.js
 init_define_process();
 init_dom();
 init_event();
@@ -32033,8 +32562,9 @@ var ResizableHTMLElement = class {
     return this._preferredSize;
   }
 };
+__name(ResizableHTMLElement, "ResizableHTMLElement");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetDetails.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetDetails.js
 init_define_process();
 init_dom();
 init_codicons();
@@ -32060,7 +32590,8 @@ var __param43 = function(paramIndex, decorator) {
 function canExpandCompletionItem(item) {
   return !!item && Boolean(item.completion.documentation || item.completion.detail && item.completion.detail !== item.completion.label);
 }
-var SuggestDetailsWidget = class SuggestDetailsWidget2 {
+__name(canExpandCompletionItem, "canExpandCompletionItem");
+var SuggestDetailsWidget = /* @__PURE__ */ __name(class SuggestDetailsWidget2 {
   constructor(_editor, instaService) {
     this._editor = _editor;
     this._onDidClose = new Emitter();
@@ -32240,7 +32771,7 @@ var SuggestDetailsWidget = class SuggestDetailsWidget2 {
   get borderWidth() {
     return this._borderWidth;
   }
-};
+}, "SuggestDetailsWidget");
 SuggestDetailsWidget = __decorate43([
   __param43(1, IInstantiationService)
 ], SuggestDetailsWidget);
@@ -32405,8 +32936,9 @@ var SuggestDetailsOverlay = class {
     this.getDomNode().style.top = `${this._topLeft.top}px`;
   }
 };
+__name(SuggestDetailsOverlay, "SuggestDetailsOverlay");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetRenderer.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetRenderer.js
 init_define_process();
 init_dom();
 init_codicons();
@@ -32415,13 +32947,13 @@ init_lifecycle();
 init_uri();
 init_languages();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/common/services/getIconClasses.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/common/services/getIconClasses.js
 init_define_process();
 init_network();
 init_resources();
 init_modesRegistry();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/files/common/files.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/files/common/files.js
 init_define_process();
 var FileKind;
 (function(FileKind2) {
@@ -32430,7 +32962,7 @@ var FileKind;
   FileKind2[FileKind2["ROOT_FOLDER"] = 2] = "ROOT_FOLDER";
 })(FileKind || (FileKind = {}));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/common/services/getIconClasses.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/common/services/getIconClasses.js
 var fileIconDirectoryRegex = /(?:\/|^)(?:([^\/]+)\/)?([^\/]+)$/;
 function getIconClasses(modelService, languageService, resource, fileKind) {
   const classes = fileKind === FileKind.ROOT_FOLDER ? ["rootfolder-icon"] : fileKind === FileKind.FOLDER ? ["folder-icon"] : ["file-icon"];
@@ -32472,6 +33004,7 @@ function getIconClasses(modelService, languageService, resource, fileKind) {
   }
   return classes;
 }
+__name(getIconClasses, "getIconClasses");
 function detectLanguageId(modelService, languageService, resource) {
   if (!resource) {
     return null;
@@ -32494,11 +33027,13 @@ function detectLanguageId(modelService, languageService, resource) {
   }
   return languageService.guessLanguageIdByFilepathOrFirstLine(resource);
 }
+__name(detectLanguageId, "detectLanguageId");
 function cssEscape(str) {
   return str.replace(/[\11\12\14\15\40]/g, "/");
 }
+__name(cssEscape, "cssEscape");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetRenderer.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetRenderer.js
 init_model2();
 init_language();
 init_nls();
@@ -32522,8 +33057,9 @@ var _a3;
 function getAriaId(index) {
   return `suggest-aria-id:${index}`;
 }
+__name(getAriaId, "getAriaId");
 var suggestMoreInfoIcon = registerIcon("suggest-more-info", Codicon.chevronRight, localize("suggestMoreInfoIcon", "Icon for more information in the suggest widget."));
-var _completionItemColor = new (_a3 = class ColorExtractor {
+var _completionItemColor = new (_a3 = /* @__PURE__ */ __name(class ColorExtractor {
   extract(item, out) {
     if (item.textLabel.match(ColorExtractor._regexStrict)) {
       out[0] = item.textLabel;
@@ -32542,8 +33078,8 @@ var _completionItemColor = new (_a3 = class ColorExtractor {
     }
     return false;
   }
-}, _a3._regexRelaxed = /(#([\da-fA-F]{3}){1,2}|(rgb|hsl)a\(\s*(\d{1,3}%?\s*,\s*){3}(1|0?\.\d+)\)|(rgb|hsl)\(\s*\d{1,3}%?(\s*,\s*\d{1,3}%?){2}\s*\))/, _a3._regexStrict = new RegExp(`^${_a3._regexRelaxed.source}$`, "i"), _a3)();
-var ItemRenderer = class ItemRenderer2 {
+}, "ColorExtractor"), _a3._regexRelaxed = /(#([\da-fA-F]{3}){1,2}|(rgb|hsl)a\(\s*(\d{1,3}%?\s*,\s*){3}(1|0?\.\d+)\)|(rgb|hsl)\(\s*\d{1,3}%?(\s*,\s*\d{1,3}%?){2}\s*\))/, _a3._regexStrict = new RegExp(`^${_a3._regexRelaxed.source}$`, "i"), _a3)();
+var ItemRenderer = /* @__PURE__ */ __name(class ItemRenderer2 {
   constructor(_editor, _modelService, _languageService, _themeService) {
     this._editor = _editor;
     this._modelService = _modelService;
@@ -32575,7 +33111,7 @@ var ItemRenderer = class ItemRenderer2 {
     data.detailsLabel = append(data.right, $("span.details-label"));
     data.readMore = append(data.right, $("span.readMore" + ThemeIcon.asCSSSelector(suggestMoreInfoIcon)));
     data.readMore.title = localize("readMore", "Read More");
-    const configureFont = () => {
+    const configureFont = /* @__PURE__ */ __name(() => {
       const options = this._editor.getOptions();
       const fontInfo = options.get(46);
       const fontFamily = fontInfo.getMassagedFontFamily();
@@ -32597,7 +33133,7 @@ var ItemRenderer = class ItemRenderer2 {
       data.icon.style.width = lineHeightPx;
       data.readMore.style.height = lineHeightPx;
       data.readMore.style.width = lineHeightPx;
-    };
+    }, "configureFont");
     configureFont();
     data.disposables.add(this._editor.onDidChangeConfiguration((e) => {
       if (e.hasChanged(46) || e.hasChanged(109) || e.hasChanged(110)) {
@@ -32678,7 +33214,7 @@ var ItemRenderer = class ItemRenderer2 {
   disposeTemplate(templateData) {
     templateData.disposables.dispose();
   }
-};
+}, "ItemRenderer");
 ItemRenderer = __decorate44([
   __param44(1, IModelService),
   __param44(2, ILanguageService),
@@ -32687,8 +33223,9 @@ ItemRenderer = __decorate44([
 function stripNewLines(str) {
   return str.replace(/\r\n|\r|\n/g, "");
 }
+__name(stripNewLines, "stripNewLines");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidget.js
 var __decorate45 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -32710,6 +33247,7 @@ var __awaiter33 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -32718,6 +33256,7 @@ var __awaiter33 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -32725,9 +33264,11 @@ var __awaiter33 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -32764,7 +33305,8 @@ var PersistedWidgetSize = class {
     this._service.remove(this._key, 0);
   }
 };
-var SuggestWidget = class SuggestWidget2 {
+__name(PersistedWidgetSize, "PersistedWidgetSize");
+var SuggestWidget = /* @__PURE__ */ __name(class SuggestWidget2 {
   constructor(editor2, _storageService, _contextKeyService, _themeService, instantiationService) {
     this.editor = editor2;
     this._storageService = _storageService;
@@ -32797,6 +33339,7 @@ var SuggestWidget = class SuggestWidget2 {
         this.persistWidth = persistWidth;
       }
     }
+    __name(ResizeState, "ResizeState");
     let state;
     this._disposables.add(this.element.onDidWillResize(() => {
       this._contentWidget.lockPreference();
@@ -32832,7 +33375,7 @@ var SuggestWidget = class SuggestWidget2 {
     const details = instantiationService.createInstance(SuggestDetailsWidget, this.editor);
     details.onDidClose(this.toggleDetails, this, this._disposables);
     this._details = new SuggestDetailsOverlay(details, this.editor);
-    const applyIconStyle = () => this.element.domNode.classList.toggle("no-icons", !this.editor.getOption(108).showIcons);
+    const applyIconStyle = /* @__PURE__ */ __name(() => this.element.domNode.classList.toggle("no-icons", !this.editor.getOption(108).showIcons), "applyIconStyle");
     applyIconStyle();
     const renderer = instantiationService.createInstance(ItemRenderer, this.editor);
     this._disposables.add(renderer);
@@ -32871,7 +33414,7 @@ var SuggestWidget = class SuggestWidget2 {
       }
     });
     this._status = instantiationService.createInstance(SuggestWidgetStatus, this.element.domNode);
-    const applyStatusBarStyle = () => this.element.domNode.classList.toggle("with-status-bar", this.editor.getOption(108).showStatusBar);
+    const applyStatusBarStyle = /* @__PURE__ */ __name(() => this.element.domNode.classList.toggle("with-status-bar", this.editor.getOption(108).showStatusBar), "applyStatusBarStyle");
     applyStatusBarStyle();
     this._disposables.add(attachListStyler(this._list, _themeService, {
       listInactiveFocusBackground: editorSuggestWidgetSelectedBackground,
@@ -33389,7 +33932,7 @@ var SuggestWidget = class SuggestWidget2 {
   stopForceRenderingAbove() {
     this._forceRenderingAbove = false;
   }
-};
+}, "SuggestWidget");
 SuggestWidget.LOADING_MESSAGE = localize("suggestWidget.loading", "Loading...");
 SuggestWidget.NO_SUGGESTIONS_MESSAGE = localize("suggestWidget.noSuggestions", "No suggestions.");
 SuggestWidget = __decorate45([
@@ -33468,8 +34011,9 @@ var SuggestContentWidget = class {
     this._position = position;
   }
 };
+__name(SuggestContentWidget, "SuggestContentWidget");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController.js
 init_telemetry();
 init_resources();
 init_hash();
@@ -33521,7 +34065,8 @@ var LineSuffix = class {
     }
   }
 };
-var SuggestController = class SuggestController2 {
+__name(LineSuffix, "LineSuffix");
+var SuggestController = /* @__PURE__ */ __name(class SuggestController2 {
   constructor(editor2, _memoryService, _commandService, _contextKeyService, _instantiationService, _logService, _telemetryService) {
     this._memoryService = _memoryService;
     this._commandService = _commandService;
@@ -33627,10 +34172,10 @@ var SuggestController = class SuggestController2 {
       }
     }));
     const acceptSuggestionsOnEnter = Context2.AcceptSuggestionsOnEnter.bindTo(_contextKeyService);
-    const updateFromConfig = () => {
+    const updateFromConfig = /* @__PURE__ */ __name(() => {
       const acceptSuggestionOnEnter = this.editor.getOption(1);
       acceptSuggestionsOnEnter.set(acceptSuggestionOnEnter === "on" || acceptSuggestionOnEnter === "smart");
-    };
+    }, "updateFromConfig");
     this._toDispose.add(this.editor.onDidChangeConfiguration(() => updateFromConfig()));
     updateFromConfig();
   }
@@ -33811,12 +34356,12 @@ var SuggestController = class SuggestController2 {
       return;
     }
     const positionNow = this.editor.getPosition();
-    const fallback = () => {
+    const fallback = /* @__PURE__ */ __name(() => {
       if (positionNow.equals(this.editor.getPosition())) {
         this._commandService.executeCommand(arg.fallback);
       }
-    };
-    const makesTextEdit = (item) => {
+    }, "fallback");
+    const makesTextEdit = /* @__PURE__ */ __name((item) => {
       if (item.completion.insertTextRules & 4 || item.completion.additionalTextEdits) {
         return true;
       }
@@ -33833,7 +34378,7 @@ var SuggestController = class SuggestController2 {
         endColumn
       });
       return textNow !== item.completion.insertText;
-    };
+    }, "makesTextEdit");
     Event.once(this.model.onDidTrigger)((_) => {
       const listener = [];
       Event.any(this.model.onDidTrigger, this.model.onDidCancel)(() => {
@@ -33924,7 +34469,7 @@ var SuggestController = class SuggestController2 {
   registerSelector(selector) {
     return this._selectors.register(selector);
   }
-};
+}, "SuggestController");
 SuggestController.ID = "editor.contrib.suggestController";
 SuggestController = __decorate46([
   __param46(1, ISuggestMemoryService),
@@ -33958,6 +34503,7 @@ var PriorityRegistry = class {
     return this._items;
   }
 };
+__name(PriorityRegistry, "PriorityRegistry");
 var TriggerSuggestAction = class extends EditorAction {
   constructor() {
     super({
@@ -33992,6 +34538,7 @@ var TriggerSuggestAction = class extends EditorAction {
     controller.triggerSuggest(void 0, auto, void 0, noSelect);
   }
 };
+__name(TriggerSuggestAction, "TriggerSuggestAction");
 TriggerSuggestAction.id = "editor.action.triggerSuggest";
 registerEditorContribution(SuggestController.ID, SuggestController);
 registerEditorAction(TriggerSuggestAction);
@@ -34217,7 +34764,7 @@ registerEditorAction(class extends EditorAction {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetInlineCompletionProvider.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetInlineCompletionProvider.js
 var SuggestWidgetInlineCompletionProvider = class extends Disposable {
   constructor(editor2, suggestControllerPreselector) {
     super();
@@ -34274,7 +34821,7 @@ var SuggestWidgetInlineCompletionProvider = class extends Disposable {
         }
       }));
       let isBoundToSuggestWidget = false;
-      const bindToSuggestWidget = () => {
+      const bindToSuggestWidget = /* @__PURE__ */ __name(() => {
         if (isBoundToSuggestWidget) {
           return;
         }
@@ -34292,7 +34839,7 @@ var SuggestWidgetInlineCompletionProvider = class extends Disposable {
           this.isSuggestWidgetVisible = true;
           this.update(true);
         }));
-      };
+      }, "bindToSuggestWidget");
       this._register(Event.once(suggestController.model.onDidTrigger)((e) => {
         bindToSuggestWidget();
       }));
@@ -34347,9 +34894,11 @@ var SuggestWidgetInlineCompletionProvider = class extends Disposable {
     }
   }
 };
+__name(SuggestWidgetInlineCompletionProvider, "SuggestWidgetInlineCompletionProvider");
 function rangeStartsWith(rangeToTest, prefix) {
   return prefix.startLineNumber === rangeToTest.startLineNumber && prefix.startColumn === rangeToTest.startColumn && (prefix.endLineNumber < rangeToTest.endLineNumber || prefix.endLineNumber === rangeToTest.endLineNumber && prefix.endColumn <= rangeToTest.endColumn);
 }
+__name(rangeStartsWith, "rangeStartsWith");
 function suggestItemInfoEquals(a, b) {
   if (a === b) {
     return true;
@@ -34359,6 +34908,7 @@ function suggestItemInfoEquals(a, b) {
   }
   return a.completionItemKind === b.completionItemKind && a.isSnippetText === b.isSnippetText && normalizedInlineCompletionsEquals(a.normalizedInlineCompletion, b.normalizedInlineCompletion);
 }
+__name(suggestItemInfoEquals, "suggestItemInfoEquals");
 function suggestionToSuggestItemInfo(suggestController, position, item, toggleMode) {
   if (Array.isArray(item.completion.additionalTextEdits) && item.completion.additionalTextEdits.length > 0) {
     return {
@@ -34398,8 +34948,9 @@ function suggestionToSuggestItemInfo(suggestController, position, item, toggleMo
     }
   };
 }
+__name(suggestionToSuggestItemInfo, "suggestionToSuggestItemInfo");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetPreviewModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetPreviewModel.js
 var __decorate47 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -34421,6 +34972,7 @@ var __awaiter34 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -34429,6 +34981,7 @@ var __awaiter34 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -34436,13 +34989,15 @@ var __awaiter34 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var SuggestWidgetPreviewModel = class SuggestWidgetPreviewModel2 extends BaseGhostTextWidgetModel {
+var SuggestWidgetPreviewModel = /* @__PURE__ */ __name(class SuggestWidgetPreviewModel2 extends BaseGhostTextWidgetModel {
   constructor(editor2, cache, languageFeaturesService) {
     super(editor2);
     this.cache = cache;
@@ -34554,15 +35109,16 @@ var SuggestWidgetPreviewModel = class SuggestWidgetPreviewModel2 extends BaseGho
     const mode = this.editor.getOptions().get(108).previewMode;
     return completion ? inlineCompletionToGhostText(completion, this.editor.getModel(), mode, this.editor.getPosition(), inlineCompletionPreviewLength) || new GhostText(completion.range.endLineNumber, [], this.minReservedLineCount) : void 0;
   }
-};
+}, "SuggestWidgetPreviewModel");
 SuggestWidgetPreviewModel = __decorate47([
   __param47(2, ILanguageFeaturesService)
 ], SuggestWidgetPreviewModel);
 function sum(arr) {
   return arr.reduce((a, b) => a + b, 0);
 }
+__name(sum, "sum");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextModel.js
 init_instantiation();
 var __decorate48 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -34585,6 +35141,7 @@ var __awaiter35 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -34593,6 +35150,7 @@ var __awaiter35 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -34600,9 +35158,11 @@ var __awaiter35 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -34647,7 +35207,8 @@ var DelegatingModel = class extends Disposable {
     return this.targetModel ? this.targetModel.minReservedLineCount : 0;
   }
 };
-var GhostTextModel = class GhostTextModel2 extends DelegatingModel {
+__name(DelegatingModel, "DelegatingModel");
+var GhostTextModel = /* @__PURE__ */ __name(class GhostTextModel2 extends DelegatingModel {
   constructor(editor2, instantiationService) {
     super();
     this.editor = editor2;
@@ -34705,7 +35266,7 @@ var GhostTextModel = class GhostTextModel2 extends DelegatingModel {
       return result !== void 0 ? result : false;
     });
   }
-};
+}, "GhostTextModel");
 GhostTextModel = __decorate48([
   __param48(1, IInstantiationService)
 ], GhostTextModel);
@@ -34729,8 +35290,9 @@ var SharedInlineCompletionCache = class extends Disposable {
     this.cache.clear();
   }
 };
+__name(SharedInlineCompletionCache, "SharedInlineCompletionCache");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextWidget.js
 init_define_process();
 init_dom();
 init_lifecycle();
@@ -34763,7 +35325,7 @@ var __param49 = function(paramIndex, decorator) {
 };
 var _a4;
 var ttPolicy = (_a4 = window.trustedTypes) === null || _a4 === void 0 ? void 0 : _a4.createPolicy("editorGhostText", { createHTML: (value) => value });
-var GhostTextWidget = class GhostTextWidget2 extends Disposable {
+var GhostTextWidget = /* @__PURE__ */ __name(class GhostTextWidget2 extends Disposable {
   constructor(editor2, model, instantiationService, languageService) {
     super();
     this.editor = editor2;
@@ -34822,6 +35384,7 @@ var GhostTextWidget = class GhostTextWidget2 extends Disposable {
         });
       }
     }
+    __name(addToAdditionalLines, "addToAdditionalLines");
     if (ghostText instanceof GhostTextReplacement) {
       this.replacementDecoration.setDecorations([
         {
@@ -34896,7 +35459,7 @@ var GhostTextWidget = class GhostTextWidget2 extends Disposable {
     domNode.append(button);
     return new ViewMoreLinesContentWidget(this.editor, position, domNode, disposableStore);
   }
-};
+}, "GhostTextWidget");
 GhostTextWidget = __decorate49([
   __param49(2, IInstantiationService),
   __param49(3, ILanguageService)
@@ -34918,6 +35481,7 @@ var DisposableDecorations = class {
     this.clear();
   }
 };
+__name(DisposableDecorations, "DisposableDecorations");
 var DecorationsWidget = class {
   constructor(editor2) {
     this.editor = editor2;
@@ -34960,6 +35524,7 @@ var DecorationsWidget = class {
     });
   }
 };
+__name(DecorationsWidget, "DecorationsWidget");
 var AdditionalLinesWidget = class {
   constructor(editor2, languageIdCodec) {
     this.editor = editor2;
@@ -35005,6 +35570,7 @@ var AdditionalLinesWidget = class {
     });
   }
 };
+__name(AdditionalLinesWidget, "AdditionalLinesWidget");
 function renderLines(domNode, tabSize, lines, opts, languageIdCodec) {
   const disableMonospaceOptimizations = opts.get(29);
   const stopRenderingLineAfter = opts.get(107);
@@ -35034,6 +35600,7 @@ function renderLines(domNode, tabSize, lines, opts, languageIdCodec) {
   const trustedhtml = ttPolicy ? ttPolicy.createHTML(html) : html;
   domNode.innerHTML = trustedhtml;
 }
+__name(renderLines, "renderLines");
 var ViewMoreLinesContentWidget = class extends Disposable {
   constructor(editor2, position, domNode, disposableStore) {
     super();
@@ -35061,6 +35628,7 @@ var ViewMoreLinesContentWidget = class extends Disposable {
     };
   }
 };
+__name(ViewMoreLinesContentWidget, "ViewMoreLinesContentWidget");
 registerThemingParticipant((theme, collector) => {
   const foreground2 = theme.getColor(ghostTextForeground);
   if (foreground2) {
@@ -35082,7 +35650,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextController.js
 init_nls();
 init_contextkey();
 init_instantiation();
@@ -35107,6 +35675,7 @@ var __awaiter36 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -35115,6 +35684,7 @@ var __awaiter36 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -35122,13 +35692,15 @@ var __awaiter36 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var GhostTextController = class GhostTextController2 extends Disposable {
+var GhostTextController = /* @__PURE__ */ __name(class GhostTextController2 extends Disposable {
   constructor(editor2, instantiationService) {
     super();
     this.editor = editor2;
@@ -35202,7 +35774,7 @@ var GhostTextController = class GhostTextController2 extends Disposable {
       return result !== void 0 ? result : false;
     });
   }
-};
+}, "GhostTextController");
 GhostTextController.inlineSuggestionVisible = new RawContextKey("inlineSuggestionVisible", false, localize("inlineSuggestionVisible", "Whether an inline suggestion is visible"));
 GhostTextController.inlineSuggestionHasIndentation = new RawContextKey("inlineSuggestionHasIndentation", false, localize("inlineSuggestionHasIndentation", "Whether the inline suggestion starts with whitespace"));
 GhostTextController.inlineSuggestionHasIndentationLessThanTabSize = new RawContextKey("inlineSuggestionHasIndentationLessThanTabSize", true, localize("inlineSuggestionHasIndentationLessThanTabSize", "Whether the inline suggestion starts with whitespace that is less than what would be inserted by tab"));
@@ -35218,7 +35790,8 @@ var GhostTextContextKeys = class {
     this.inlineCompletionSuggestsIndentationLessThanTabSize = GhostTextController.inlineSuggestionHasIndentationLessThanTabSize.bindTo(this.contextKeyService);
   }
 };
-var ActiveGhostTextController = class ActiveGhostTextController2 extends Disposable {
+__name(GhostTextContextKeys, "GhostTextContextKeys");
+var ActiveGhostTextController = /* @__PURE__ */ __name(class ActiveGhostTextController2 extends Disposable {
   constructor(editor2, instantiationService, contextKeyService) {
     super();
     this.editor = editor2;
@@ -35262,7 +35835,7 @@ var ActiveGhostTextController = class ActiveGhostTextController2 extends Disposa
     this.contextKeys.inlineCompletionSuggestsIndentation.set(startsWithIndentation);
     this.contextKeys.inlineCompletionSuggestsIndentationLessThanTabSize.set(startsWithIndentationLessThanTabSize);
   }
-};
+}, "ActiveGhostTextController");
 ActiveGhostTextController = __decorate50([
   __param50(1, IInstantiationService),
   __param50(2, IContextKeyService)
@@ -35290,6 +35863,7 @@ var ShowNextInlineSuggestionAction = class extends EditorAction {
     });
   }
 };
+__name(ShowNextInlineSuggestionAction, "ShowNextInlineSuggestionAction");
 ShowNextInlineSuggestionAction.ID = "editor.action.inlineSuggest.showNext";
 var ShowPreviousInlineSuggestionAction = class extends EditorAction {
   constructor() {
@@ -35314,6 +35888,7 @@ var ShowPreviousInlineSuggestionAction = class extends EditorAction {
     });
   }
 };
+__name(ShowPreviousInlineSuggestionAction, "ShowPreviousInlineSuggestionAction");
 ShowPreviousInlineSuggestionAction.ID = "editor.action.inlineSuggest.showPrevious";
 var TriggerInlineSuggestionAction = class extends EditorAction {
   constructor() {
@@ -35333,8 +35908,9 @@ var TriggerInlineSuggestionAction = class extends EditorAction {
     });
   }
 };
+__name(TriggerInlineSuggestionAction, "TriggerInlineSuggestionAction");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextHoverParticipant.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextHoverParticipant.js
 init_define_process();
 init_dom();
 init_lifecycle();
@@ -35377,7 +35953,8 @@ var InlineCompletionsHover = class {
     return ((_c2 = (_b2 = (_a5 = this.controller.activeModel) === null || _a5 === void 0 ? void 0 : _a5.activeInlineCompletionsModel) === null || _b2 === void 0 ? void 0 : _b2.completionSession.value) === null || _c2 === void 0 ? void 0 : _c2.commands) || [];
   }
 };
-var InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant2 {
+__name(InlineCompletionsHover, "InlineCompletionsHover");
+var InlineCompletionsHoverParticipant = /* @__PURE__ */ __name(class InlineCompletionsHoverParticipant2 {
   constructor(_editor, _commandService, _menuService, _contextKeyService, _languageService, _openerService, accessibilityService) {
     this._editor = _editor;
     this._commandService = _commandService;
@@ -35477,7 +36054,7 @@ var InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant2
     const markdownHoverElement = $9("div.hover-row.markdown-hover");
     const hoverContentsElement = append(markdownHoverElement, $9("div.hover-contents"));
     const renderer = disposableStore.add(new MarkdownRenderer({ editor: this._editor }, this._languageService, this._openerService));
-    const render = (code) => {
+    const render = /* @__PURE__ */ __name((code) => {
       disposableStore.add(renderer.onDidRenderAsync(() => {
         hoverContentsElement.className = "hover-contents code-hover-contents";
         context.onContentsChanged();
@@ -35485,7 +36062,7 @@ var InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant2
       const inlineSuggestionAvailable = localize("inlineSuggestionFollows", "Suggestion:");
       const renderedContents = disposableStore.add(renderer.render(new MarkdownString().appendText(inlineSuggestionAvailable).appendCodeblock("text", code)));
       hoverContentsElement.replaceChildren(renderedContents.element);
-    };
+    }, "render");
     const ghostText = (_b2 = (_a5 = part.controller.activeModel) === null || _a5 === void 0 ? void 0 : _a5.inlineCompletionsModel) === null || _b2 === void 0 ? void 0 : _b2.ghostText;
     if (ghostText) {
       const lineText = this._editor.getModel().getLineContent(ghostText.lineNumber);
@@ -35493,7 +36070,7 @@ var InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant2
     }
     context.fragment.appendChild(markdownHoverElement);
   }
-};
+}, "InlineCompletionsHoverParticipant");
 InlineCompletionsHoverParticipant = __decorate51([
   __param51(1, ICommandService),
   __param51(2, IMenuService),
@@ -35503,7 +36080,7 @@ InlineCompletionsHoverParticipant = __decorate51([
   __param51(6, IAccessibilityService)
 ], InlineCompletionsHoverParticipant);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.contribution.js
 init_contextkey();
 init_keybindingsRegistry();
 registerEditorContribution(GhostTextController.ID, GhostTextController);
@@ -35539,7 +36116,7 @@ registerEditorCommand(new GhostTextCommand({
   }
 }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/indentation/browser/indentation.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/indentation/browser/indentation.js
 init_define_process();
 init_lifecycle();
 init_strings();
@@ -35551,7 +36128,7 @@ init_editorContextKeys();
 init_languageConfigurationRegistry();
 init_model2();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/indentation/browser/indentUtils.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/indentation/browser/indentUtils.js
 init_define_process();
 function getSpaceCnt(str, tabSize) {
   let spacesCnt = 0;
@@ -35564,6 +36141,7 @@ function getSpaceCnt(str, tabSize) {
   }
   return spacesCnt;
 }
+__name(getSpaceCnt, "getSpaceCnt");
 function generateIndent(spacesCnt, tabSize, insertSpaces) {
   spacesCnt = spacesCnt < 0 ? 0 : spacesCnt;
   let result = "";
@@ -35579,8 +36157,9 @@ function generateIndent(spacesCnt, tabSize, insertSpaces) {
   }
   return result;
 }
+__name(generateIndent, "generateIndent");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/indentation/browser/indentation.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/indentation/browser/indentation.js
 init_nls();
 init_indentation();
 var __decorate52 = function(decorators, target, key, desc) {
@@ -35621,14 +36200,14 @@ function getReindentEditOperations(model, languageConfigurationService, startLin
     return [];
   }
   const { tabSize, indentSize, insertSpaces } = model.getOptions();
-  const shiftIndent = (indentation, count) => {
+  const shiftIndent = /* @__PURE__ */ __name((indentation, count) => {
     count = count || 1;
     return ShiftCommand.shiftIndent(indentation, indentation.length + count, tabSize, indentSize, insertSpaces);
-  };
-  const unshiftIndent = (indentation, count) => {
+  }, "shiftIndent");
+  const unshiftIndent = /* @__PURE__ */ __name((indentation, count) => {
     count = count || 1;
     return ShiftCommand.unshiftIndent(indentation, indentation.length + count, tabSize, indentSize, insertSpaces);
-  };
+  }, "unshiftIndent");
   const indentEdits = [];
   let globalIndent;
   const currentLineText = model.getLineContent(startLineNumber);
@@ -35679,6 +36258,7 @@ function getReindentEditOperations(model, languageConfigurationService, startLin
   }
   return indentEdits;
 }
+__name(getReindentEditOperations, "getReindentEditOperations");
 var IndentationToSpacesAction = class extends EditorAction {
   constructor() {
     super({
@@ -35707,6 +36287,7 @@ var IndentationToSpacesAction = class extends EditorAction {
     });
   }
 };
+__name(IndentationToSpacesAction, "IndentationToSpacesAction");
 IndentationToSpacesAction.ID = "editor.action.indentationToSpaces";
 var IndentationToTabsAction = class extends EditorAction {
   constructor() {
@@ -35736,6 +36317,7 @@ var IndentationToTabsAction = class extends EditorAction {
     });
   }
 };
+__name(IndentationToTabsAction, "IndentationToTabsAction");
 IndentationToTabsAction.ID = "editor.action.indentationToTabs";
 var ChangeIndentationSizeAction = class extends EditorAction {
   constructor(insertSpaces, opts) {
@@ -35770,6 +36352,7 @@ var ChangeIndentationSizeAction = class extends EditorAction {
     }, 50);
   }
 };
+__name(ChangeIndentationSizeAction, "ChangeIndentationSizeAction");
 var IndentUsingTabs = class extends ChangeIndentationSizeAction {
   constructor() {
     super(false, {
@@ -35780,6 +36363,7 @@ var IndentUsingTabs = class extends ChangeIndentationSizeAction {
     });
   }
 };
+__name(IndentUsingTabs, "IndentUsingTabs");
 IndentUsingTabs.ID = "editor.action.indentUsingTabs";
 var IndentUsingSpaces = class extends ChangeIndentationSizeAction {
   constructor() {
@@ -35791,6 +36375,7 @@ var IndentUsingSpaces = class extends ChangeIndentationSizeAction {
     });
   }
 };
+__name(IndentUsingSpaces, "IndentUsingSpaces");
 IndentUsingSpaces.ID = "editor.action.indentUsingSpaces";
 var DetectIndentation = class extends EditorAction {
   constructor() {
@@ -35811,6 +36396,7 @@ var DetectIndentation = class extends EditorAction {
     model.detectIndentation(creationOpts.insertSpaces, creationOpts.tabSize);
   }
 };
+__name(DetectIndentation, "DetectIndentation");
 DetectIndentation.ID = "editor.action.detectIndentation";
 var ReindentLinesAction = class extends EditorAction {
   constructor() {
@@ -35835,6 +36421,7 @@ var ReindentLinesAction = class extends EditorAction {
     }
   }
 };
+__name(ReindentLinesAction, "ReindentLinesAction");
 var ReindentSelectedLinesAction = class extends EditorAction {
   constructor() {
     super({
@@ -35878,6 +36465,7 @@ var ReindentSelectedLinesAction = class extends EditorAction {
     }
   }
 };
+__name(ReindentSelectedLinesAction, "ReindentSelectedLinesAction");
 var AutoIndentOnPasteCommand = class {
   constructor(edits, initialSelection) {
     this._initialSelection = initialSelection;
@@ -35911,7 +36499,8 @@ var AutoIndentOnPasteCommand = class {
     return helper.getTrackedSelection(this._selectionId);
   }
 };
-var AutoIndentOnPaste = class AutoIndentOnPaste2 {
+__name(AutoIndentOnPasteCommand, "AutoIndentOnPasteCommand");
+var AutoIndentOnPaste = /* @__PURE__ */ __name(class AutoIndentOnPaste2 {
   constructor(editor2, _languageConfigurationService) {
     this.editor = editor2;
     this._languageConfigurationService = _languageConfigurationService;
@@ -36066,7 +36655,7 @@ var AutoIndentOnPaste = class AutoIndentOnPaste2 {
     this.callOnDispose.dispose();
     this.callOnModel.dispose();
   }
-};
+}, "AutoIndentOnPaste");
 AutoIndentOnPaste.ID = "editor.contrib.autoIndentOnPaste";
 AutoIndentOnPaste = __decorate52([
   __param52(1, ILanguageConfigurationService)
@@ -36094,6 +36683,7 @@ function getIndentationEditOperations(model, builder, tabSize, tabsToSpaces) {
     builder.addEditOperation(originalIndentationRange, newIndentation);
   }
 }
+__name(getIndentationEditOperations, "getIndentationEditOperations");
 var IndentationToSpacesCommand = class {
   constructor(selection, tabSize) {
     this.selection = selection;
@@ -36108,6 +36698,7 @@ var IndentationToSpacesCommand = class {
     return helper.getTrackedSelection(this.selectionId);
   }
 };
+__name(IndentationToSpacesCommand, "IndentationToSpacesCommand");
 var IndentationToTabsCommand = class {
   constructor(selection, tabSize) {
     this.selection = selection;
@@ -36122,6 +36713,7 @@ var IndentationToTabsCommand = class {
     return helper.getTrackedSelection(this.selectionId);
   }
 };
+__name(IndentationToTabsCommand, "IndentationToTabsCommand");
 registerEditorContribution(AutoIndentOnPaste.ID, AutoIndentOnPaste);
 registerEditorAction(IndentationToSpacesAction);
 registerEditorAction(IndentationToTabsAction);
@@ -36131,11 +36723,11 @@ registerEditorAction(DetectIndentation);
 registerEditorAction(ReindentLinesAction);
 registerEditorAction(ReindentSelectedLinesAction);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsContribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsContribution.js
 init_define_process();
 init_editorExtensions();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsController.js
 init_define_process();
 init_dom();
 init_arrays();
@@ -36155,7 +36747,7 @@ init_languageFeatureDebounce();
 init_languageFeatures();
 init_resolverService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHints.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHints.js
 init_define_process();
 init_errors();
 init_lifecycle();
@@ -36169,6 +36761,7 @@ var __awaiter37 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -36177,6 +36770,7 @@ var __awaiter37 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -36184,9 +36778,11 @@ var __awaiter37 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -36196,6 +36792,7 @@ var InlayHintAnchor = class {
     this.direction = direction;
   }
 };
+__name(InlayHintAnchor, "InlayHintAnchor");
 var InlayHintItem = class {
   constructor(hint, anchor, provider) {
     this.hint = hint;
@@ -36242,6 +36839,7 @@ var InlayHintItem = class {
     });
   }
 };
+__name(InlayHintItem, "InlayHintItem");
 var InlayHintsFragments = class {
   constructor(ranges, data, model) {
     this._disposables = new DisposableStore();
@@ -36315,6 +36913,7 @@ var InlayHintsFragments = class {
     return new Range(line, start + 1, line, end + 1);
   }
 };
+__name(InlayHintsFragments, "InlayHintsFragments");
 function asCommandLink(command) {
   return URI.from({
     scheme: Schemas.command,
@@ -36322,8 +36921,9 @@ function asCommandLink(command) {
     query: command.arguments && encodeURIComponent(JSON.stringify(command.arguments))
   }).toString();
 }
+__name(asCommandLink, "asCommandLink");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsLocations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsLocations.js
 init_define_process();
 init_dom();
 init_actions();
@@ -36341,6 +36941,7 @@ var __awaiter38 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -36349,6 +36950,7 @@ var __awaiter38 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -36356,9 +36958,11 @@ var __awaiter38 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -36420,6 +37024,7 @@ function showGoToContextMenu(accessor, editor2, anchor, part) {
     });
   });
 }
+__name(showGoToContextMenu, "showGoToContextMenu");
 function goToDefinitionWithLocation(accessor, event, editor2, location2) {
   return __awaiter38(this, void 0, void 0, function* () {
     const resolverService = accessor.get(ITextModelService);
@@ -36435,8 +37040,9 @@ function goToDefinitionWithLocation(accessor, event, editor2, location2) {
     ref.dispose();
   });
 }
+__name(goToDefinitionWithLocation, "goToDefinitionWithLocation");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsController.js
 init_commands();
 init_extensions();
 init_instantiation();
@@ -36463,6 +37069,7 @@ var __awaiter39 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -36471,6 +37078,7 @@ var __awaiter39 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -36478,9 +37086,11 @@ var __awaiter39 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -36500,6 +37110,7 @@ var InlayHintsCache = class {
     return `${model.uri.toString()}/${model.getVersionId()}`;
   }
 };
+__name(InlayHintsCache, "InlayHintsCache");
 var IInlayHintsCache = createDecorator("IInlayHintsCache");
 registerSingleton(IInlayHintsCache, InlayHintsCache, true);
 var RenderedInlayHintLabelPart = class {
@@ -36516,13 +37127,15 @@ var RenderedInlayHintLabelPart = class {
     }
   }
 };
+__name(RenderedInlayHintLabelPart, "RenderedInlayHintLabelPart");
 var ActiveInlayHintInfo = class {
   constructor(part, hasTriggerModifier2) {
     this.part = part;
     this.hasTriggerModifier = hasTriggerModifier2;
   }
 };
-var InlayHintsController = class InlayHintsController2 {
+__name(ActiveInlayHintInfo, "ActiveInlayHintInfo");
+var InlayHintsController = /* @__PURE__ */ __name(class InlayHintsController2 {
   constructor(_editor, _languageFeaturesService, _featureDebounce, _inlayHintsCache, _commandService, _notificationService, _instaService) {
     this._editor = _editor;
     this._languageFeaturesService = _languageFeaturesService;
@@ -36793,7 +37406,7 @@ var InlayHintsController = class InlayHintsController2 {
   _updateHintsDecorators(ranges, items) {
     var _a5, _b2;
     const newDecorationsData = [];
-    const addInjectedText = (item, ref, content, cursorStops, attachedData) => {
+    const addInjectedText = /* @__PURE__ */ __name((item, ref, content, cursorStops, attachedData) => {
       const opts = {
         content,
         inlineClassNameAffectsLetterSpacing: true,
@@ -36815,14 +37428,14 @@ var InlayHintsController = class InlayHintsController2 {
           }
         }
       });
-    };
-    const addInjectedWhitespace = (item, isLast) => {
+    }, "addInjectedText");
+    const addInjectedWhitespace = /* @__PURE__ */ __name((item, isLast) => {
       const marginRule = this._ruleFactory.createClassNameRef({
         width: `${fontSize / 3 | 0}px`,
         display: "inline-block"
       });
       addInjectedText(item, marginRule, "\u200A", isLast ? InjectedTextCursorStops.Right : InjectedTextCursorStops.None);
-    };
+    }, "addInjectedWhitespace");
     const { fontSize, fontFamily, padding, isUniform } = this._getLayoutInfo();
     const fontFamilyVar = "--code-editorInlayHintsFontFamily";
     this._editor.getContainerDomNode().style.setProperty(fontFamilyVar, fontFamily);
@@ -36925,7 +37538,7 @@ var InlayHintsController = class InlayHintsController2 {
     }
     this._decorationsMetadata.clear();
   }
-};
+}, "InlayHintsController");
 InlayHintsController.ID = "editor.contrib.InlayHints";
 InlayHintsController._MAX_DECORATORS = 1500;
 InlayHintsController = __decorate53([
@@ -36940,6 +37553,7 @@ function fixSpace(str) {
   const noBreakWhitespace2 = "\xA0";
   return str.replace(/[ \t]/g, noBreakWhitespace2);
 }
+__name(fixSpace, "fixSpace");
 CommandsRegistry.registerCommand("_executeInlayHintProvider", (accessor, ...args) => __awaiter39(void 0, void 0, void 0, function* () {
   const [uri, range] = args;
   assertType(URI.isUri(uri));
@@ -36956,7 +37570,7 @@ CommandsRegistry.registerCommand("_executeInlayHintProvider", (accessor, ...args
   }
 }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsHover.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsHover.js
 init_define_process();
 init_async();
 init_position();
@@ -36990,6 +37604,7 @@ var __awaiter40 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -36998,6 +37613,7 @@ var __awaiter40 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -37005,9 +37621,11 @@ var __awaiter40 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -37025,11 +37643,13 @@ var __asyncValues2 = function(o) {
       });
     };
   }
+  __name(verb, "verb");
   function settle(resolve, reject, d, v) {
     Promise.resolve(v).then(function(v2) {
       resolve({ value: v2, done: d });
     }, reject);
   }
+  __name(settle, "settle");
 };
 var InlayHintsHoverAnchor = class extends HoverForeignElementAnchor {
   constructor(part, owner) {
@@ -37037,7 +37657,8 @@ var InlayHintsHoverAnchor = class extends HoverForeignElementAnchor {
     this.part = part;
   }
 };
-var InlayHintsHover = class InlayHintsHover2 extends MarkdownHoverParticipant {
+__name(InlayHintsHoverAnchor, "InlayHintsHoverAnchor");
+var InlayHintsHover = /* @__PURE__ */ __name(class InlayHintsHover2 extends MarkdownHoverParticipant {
   constructor(editor2, languageService, openerService, configurationService, _resolverService, languageFeaturesService) {
     super(editor2, languageService, openerService, configurationService, languageFeaturesService);
     this._resolverService = _resolverService;
@@ -37145,7 +37766,7 @@ var InlayHintsHover = class InlayHintsHover2 extends MarkdownHoverParticipant {
       }
     });
   }
-};
+}, "InlayHintsHover");
 InlayHintsHover = __decorate54([
   __param54(1, ILanguageService),
   __param54(2, IOpenerService),
@@ -37154,14 +37775,14 @@ InlayHintsHover = __decorate54([
   __param54(5, ILanguageFeaturesService)
 ], InlayHintsHover);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsContribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsContribution.js
 registerEditorContribution(InlayHintsController.ID, InlayHintsController);
 HoverParticipantRegistry.register(InlayHintsHover);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
 var import_inPlaceReplace = __toESM(require_inPlaceReplace());
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/lineSelection/browser/lineSelection.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/lineSelection/browser/lineSelection.js
 init_define_process();
 init_editorExtensions();
 init_editorContextKeys();
@@ -37191,14 +37812,15 @@ var ExpandLineSelectionAction = class extends EditorAction {
     viewModel.revealPrimaryCursor(args.source, true);
   }
 };
+__name(ExpandLineSelectionAction, "ExpandLineSelectionAction");
 registerEditorAction(ExpandLineSelectionAction);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/linesOperations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/linesOperations.js
 init_define_process();
 init_keyCodes();
 init_editorExtensions();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/common/commands/trimTrailingWhitespaceCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/common/commands/trimTrailingWhitespaceCommand.js
 init_define_process();
 init_strings();
 init_editOperation();
@@ -37221,6 +37843,7 @@ var TrimTrailingWhitespaceCommand = class {
     return helper.getTrackedSelection(this._selectionId);
   }
 };
+__name(TrimTrailingWhitespaceCommand, "TrimTrailingWhitespaceCommand");
 function trimTrailingWhitespace(model, cursors) {
   cursors.sort((a, b) => {
     if (a.lineNumber === b.lineNumber) {
@@ -37265,15 +37888,16 @@ function trimTrailingWhitespace(model, cursors) {
   }
   return r;
 }
+__name(trimTrailingWhitespace, "trimTrailingWhitespace");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/linesOperations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/linesOperations.js
 init_editOperation();
 init_position();
 init_range();
 init_selection();
 init_editorContextKeys();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/copyLinesCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/copyLinesCommand.js
 init_define_process();
 init_range();
 init_selection();
@@ -37338,8 +37962,9 @@ var CopyLinesCommand = class {
     return result;
   }
 };
+__name(CopyLinesCommand, "CopyLinesCommand");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/moveLinesCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/moveLinesCommand.js
 init_define_process();
 init_strings();
 init_range();
@@ -37361,7 +37986,7 @@ var __param55 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var MoveLinesCommand = class MoveLinesCommand2 {
+var MoveLinesCommand = /* @__PURE__ */ __name(class MoveLinesCommand2 {
   constructor(selection, isMovingDown, autoIndent, _languageConfigurationService) {
     this._languageConfigurationService = _languageConfigurationService;
     this._selection = selection;
@@ -37638,12 +38263,12 @@ var MoveLinesCommand = class MoveLinesCommand2 {
     }
     return result;
   }
-};
+}, "MoveLinesCommand");
 MoveLinesCommand = __decorate55([
   __param55(3, ILanguageConfigurationService)
 ], MoveLinesCommand);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/sortLinesCommand.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/sortLinesCommand.js
 init_define_process();
 init_editOperation();
 init_range();
@@ -37685,6 +38310,7 @@ var SortLinesCommand = class {
     return false;
   }
 };
+__name(SortLinesCommand, "SortLinesCommand");
 SortLinesCommand._COLLATOR = null;
 function getSortData(model, selection, descending) {
   const startLineNumber = selection.startLineNumber;
@@ -37711,6 +38337,7 @@ function getSortData(model, selection, descending) {
     after: sorted
   };
 }
+__name(getSortData, "getSortData");
 function sortLines(model, selection, descending) {
   const data = getSortData(model, selection, descending);
   if (!data) {
@@ -37718,8 +38345,9 @@ function sortLines(model, selection, descending) {
   }
   return EditOperation.replace(new Range(data.startLineNumber, 1, data.endLineNumber, model.getLineMaxColumn(data.endLineNumber)), data.after.join("\n"));
 }
+__name(sortLines, "sortLines");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/linesOperations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/linesOperations.js
 init_nls();
 init_actions2();
 init_languageConfigurationRegistry();
@@ -37755,6 +38383,7 @@ var AbstractCopyLinesAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(AbstractCopyLinesAction, "AbstractCopyLinesAction");
 var CopyLinesUpAction = class extends AbstractCopyLinesAction {
   constructor() {
     super(false, {
@@ -37777,6 +38406,7 @@ var CopyLinesUpAction = class extends AbstractCopyLinesAction {
     });
   }
 };
+__name(CopyLinesUpAction, "CopyLinesUpAction");
 var CopyLinesDownAction = class extends AbstractCopyLinesAction {
   constructor() {
     super(true, {
@@ -37799,6 +38429,7 @@ var CopyLinesDownAction = class extends AbstractCopyLinesAction {
     });
   }
 };
+__name(CopyLinesDownAction, "CopyLinesDownAction");
 var DuplicateSelectionAction = class extends EditorAction {
   constructor() {
     super({
@@ -37834,6 +38465,7 @@ var DuplicateSelectionAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(DuplicateSelectionAction, "DuplicateSelectionAction");
 var AbstractMoveLinesAction = class extends EditorAction {
   constructor(down, opts) {
     super(opts);
@@ -37852,6 +38484,7 @@ var AbstractMoveLinesAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(AbstractMoveLinesAction, "AbstractMoveLinesAction");
 var MoveLinesUpAction = class extends AbstractMoveLinesAction {
   constructor() {
     super(false, {
@@ -37874,6 +38507,7 @@ var MoveLinesUpAction = class extends AbstractMoveLinesAction {
     });
   }
 };
+__name(MoveLinesUpAction, "MoveLinesUpAction");
 var MoveLinesDownAction = class extends AbstractMoveLinesAction {
   constructor() {
     super(true, {
@@ -37896,6 +38530,7 @@ var MoveLinesDownAction = class extends AbstractMoveLinesAction {
     });
   }
 };
+__name(MoveLinesDownAction, "MoveLinesDownAction");
 var AbstractSortLinesAction = class extends EditorAction {
   constructor(descending, opts) {
     super(opts);
@@ -37917,6 +38552,7 @@ var AbstractSortLinesAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(AbstractSortLinesAction, "AbstractSortLinesAction");
 var SortLinesAscendingAction = class extends AbstractSortLinesAction {
   constructor() {
     super(false, {
@@ -37927,6 +38563,7 @@ var SortLinesAscendingAction = class extends AbstractSortLinesAction {
     });
   }
 };
+__name(SortLinesAscendingAction, "SortLinesAscendingAction");
 var SortLinesDescendingAction = class extends AbstractSortLinesAction {
   constructor() {
     super(true, {
@@ -37937,6 +38574,7 @@ var SortLinesDescendingAction = class extends AbstractSortLinesAction {
     });
   }
 };
+__name(SortLinesDescendingAction, "SortLinesDescendingAction");
 var DeleteDuplicateLinesAction = class extends EditorAction {
   constructor() {
     super({
@@ -37980,6 +38618,7 @@ var DeleteDuplicateLinesAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(DeleteDuplicateLinesAction, "DeleteDuplicateLinesAction");
 var TrimTrailingWhitespaceAction = class extends EditorAction {
   constructor() {
     super({
@@ -38009,6 +38648,7 @@ var TrimTrailingWhitespaceAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(TrimTrailingWhitespaceAction, "TrimTrailingWhitespaceAction");
 TrimTrailingWhitespaceAction.ID = "editor.action.trimTrailingWhitespace";
 var DeleteLinesAction = class extends EditorAction {
   constructor() {
@@ -38090,6 +38730,7 @@ var DeleteLinesAction = class extends EditorAction {
     return mergedOperations;
   }
 };
+__name(DeleteLinesAction, "DeleteLinesAction");
 var IndentLinesAction = class extends EditorAction {
   constructor() {
     super({
@@ -38114,6 +38755,7 @@ var IndentLinesAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(IndentLinesAction, "IndentLinesAction");
 var OutdentLinesAction = class extends EditorAction {
   constructor() {
     super({
@@ -38132,6 +38774,7 @@ var OutdentLinesAction = class extends EditorAction {
     CoreEditingCommands.Outdent.runEditorCommand(_accessor, editor2, null);
   }
 };
+__name(OutdentLinesAction, "OutdentLinesAction");
 var InsertLineBeforeAction = class extends EditorAction {
   constructor() {
     super({
@@ -38155,6 +38798,7 @@ var InsertLineBeforeAction = class extends EditorAction {
     editor2.executeCommands(this.id, TypeOperations.lineInsertBefore(viewModel.cursorConfig, editor2.getModel(), editor2.getSelections()));
   }
 };
+__name(InsertLineBeforeAction, "InsertLineBeforeAction");
 var InsertLineAfterAction = class extends EditorAction {
   constructor() {
     super({
@@ -38178,6 +38822,7 @@ var InsertLineAfterAction = class extends EditorAction {
     editor2.executeCommands(this.id, TypeOperations.lineInsertAfter(viewModel.cursorConfig, editor2.getModel(), editor2.getSelections()));
   }
 };
+__name(InsertLineAfterAction, "InsertLineAfterAction");
 var AbstractDeleteAllToBoundaryAction = class extends EditorAction {
   run(_accessor, editor2) {
     if (!editor2.hasModel()) {
@@ -38205,6 +38850,7 @@ var AbstractDeleteAllToBoundaryAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(AbstractDeleteAllToBoundaryAction, "AbstractDeleteAllToBoundaryAction");
 var DeleteAllLeftAction = class extends AbstractDeleteAllToBoundaryAction {
   constructor() {
     super({
@@ -38271,6 +38917,7 @@ var DeleteAllLeftAction = class extends AbstractDeleteAllToBoundaryAction {
     return rangesToDelete;
   }
 };
+__name(DeleteAllLeftAction, "DeleteAllLeftAction");
 var DeleteAllRightAction = class extends AbstractDeleteAllToBoundaryAction {
   constructor() {
     super({
@@ -38327,6 +38974,7 @@ var DeleteAllRightAction = class extends AbstractDeleteAllToBoundaryAction {
     return rangesToDelete;
   }
 };
+__name(DeleteAllRightAction, "DeleteAllRightAction");
 var JoinLinesAction = class extends EditorAction {
   constructor() {
     super({
@@ -38458,6 +39106,7 @@ var JoinLinesAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(JoinLinesAction, "JoinLinesAction");
 var TransposeAction = class extends EditorAction {
   constructor() {
     super({
@@ -38502,6 +39151,7 @@ var TransposeAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(TransposeAction, "TransposeAction");
 var AbstractCaseAction = class extends EditorAction {
   run(_accessor, editor2) {
     const selections = editor2.getSelections();
@@ -38534,6 +39184,7 @@ var AbstractCaseAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(AbstractCaseAction, "AbstractCaseAction");
 var UpperCaseAction = class extends AbstractCaseAction {
   constructor() {
     super({
@@ -38547,6 +39198,7 @@ var UpperCaseAction = class extends AbstractCaseAction {
     return text.toLocaleUpperCase();
   }
 };
+__name(UpperCaseAction, "UpperCaseAction");
 var LowerCaseAction = class extends AbstractCaseAction {
   constructor() {
     super({
@@ -38560,6 +39212,7 @@ var LowerCaseAction = class extends AbstractCaseAction {
     return text.toLocaleLowerCase();
   }
 };
+__name(LowerCaseAction, "LowerCaseAction");
 var BackwardsCompatibleRegExp = class {
   constructor(_pattern, _flags) {
     this._pattern = _pattern;
@@ -38581,6 +39234,7 @@ var BackwardsCompatibleRegExp = class {
     return this.get() !== null;
   }
 };
+__name(BackwardsCompatibleRegExp, "BackwardsCompatibleRegExp");
 var TitleCaseAction = class extends AbstractCaseAction {
   constructor() {
     super({
@@ -38598,6 +39252,7 @@ var TitleCaseAction = class extends AbstractCaseAction {
     return text.toLocaleLowerCase().replace(titleBoundary, (b) => b.toLocaleUpperCase());
   }
 };
+__name(TitleCaseAction, "TitleCaseAction");
 TitleCaseAction.titleBoundary = new BackwardsCompatibleRegExp("(^|[^\\p{L}\\p{N}']|((^|\\P{L})'))\\p{L}", "gmu");
 var SnakeCaseAction = class extends AbstractCaseAction {
   constructor() {
@@ -38617,6 +39272,7 @@ var SnakeCaseAction = class extends AbstractCaseAction {
     return text.replace(caseBoundary, "$1_$2").replace(singleLetters, "$1_$2$3").toLocaleLowerCase();
   }
 };
+__name(SnakeCaseAction, "SnakeCaseAction");
 SnakeCaseAction.caseBoundary = new BackwardsCompatibleRegExp("(\\p{Ll})(\\p{Lu})", "gmu");
 SnakeCaseAction.singleLetters = new BackwardsCompatibleRegExp("(\\p{Lu}|\\p{N})(\\p{Lu})(\\p{Ll})", "gmu");
 var KebabCaseAction = class extends AbstractCaseAction {
@@ -38646,6 +39302,7 @@ var KebabCaseAction = class extends AbstractCaseAction {
     return text.replace(underscoreBoundary, "$1-$3").replace(caseBoundary, "$1-$2").replace(singleLetters, "$1-$2").toLocaleLowerCase();
   }
 };
+__name(KebabCaseAction, "KebabCaseAction");
 KebabCaseAction.caseBoundary = new BackwardsCompatibleRegExp("(\\p{Ll})(\\p{Lu})", "gmu");
 KebabCaseAction.singleLetters = new BackwardsCompatibleRegExp("(\\p{Lu}|\\p{N})(\\p{Lu}\\p{Ll})", "gmu");
 KebabCaseAction.underscoreBoundary = new BackwardsCompatibleRegExp("(\\S)(_)(\\S)", "gm");
@@ -38679,7 +39336,7 @@ if (KebabCaseAction.isSupported()) {
   registerEditorAction(KebabCaseAction);
 }
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linkedEditing/browser/linkedEditing.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/linkedEditing/browser/linkedEditing.js
 init_define_process();
 init_arrays();
 init_async();
@@ -38725,6 +39382,7 @@ var __awaiter41 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -38733,6 +39391,7 @@ var __awaiter41 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -38740,15 +39399,17 @@ var __awaiter41 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
 var CONTEXT_ONTYPE_RENAME_INPUT_VISIBLE = new RawContextKey("LinkedEditingInputVisible", false);
 var DECORATION_CLASS_NAME = "linked-editing-decoration";
-var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposable {
+var LinkedEditingContribution = /* @__PURE__ */ __name(class LinkedEditingContribution2 extends Disposable {
   constructor(editor2, contextKeyService, languageFeaturesService, languageConfigurationService, languageFeatureDebounceService) {
     super();
     this.languageConfigurationService = languageConfigurationService;
@@ -38798,14 +39459,14 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
       this._languageWordPattern = this.languageConfigurationService.getLanguageConfiguration(model.getLanguageId()).getWordDefinition();
     }));
     const rangeUpdateScheduler = new Delayer(this._debounceInformation.get(model));
-    const triggerRangeUpdate = () => {
+    const triggerRangeUpdate = /* @__PURE__ */ __name(() => {
       var _a5;
       this._rangeUpdateTriggerPromise = rangeUpdateScheduler.trigger(() => this.updateRanges(), (_a5 = this._debounceDuration) !== null && _a5 !== void 0 ? _a5 : this._debounceInformation.get(model));
-    };
+    }, "triggerRangeUpdate");
     const rangeSyncScheduler = new Delayer(0);
-    const triggerRangeSync = (token) => {
+    const triggerRangeSync = /* @__PURE__ */ __name((token) => {
       this._rangeSyncTriggerPromise = rangeSyncScheduler.trigger(() => this._syncRanges(token));
-    };
+    }, "triggerRangeSync");
     this._localToDispose.add(this._editor.onDidChangeCursorPosition(() => {
       triggerRangeUpdate();
     }));
@@ -38980,7 +39641,7 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
       return request;
     });
   }
-};
+}, "LinkedEditingContribution");
 LinkedEditingContribution.ID = "editor.contrib.linkedEditing";
 LinkedEditingContribution.DECORATION = ModelDecorationOptions.register({
   description: "linked-editing",
@@ -39032,6 +39693,7 @@ var LinkedEditingAction = class extends EditorAction {
     return Promise.resolve();
   }
 };
+__name(LinkedEditingAction, "LinkedEditingAction");
 var LinkedEditingCommand = EditorCommand.bindToContribution(LinkedEditingContribution.get);
 registerEditorCommand(new LinkedEditingCommand({
   id: "cancelLinkedEditingInput",
@@ -39055,6 +39717,7 @@ function getLinkedEditingRanges(providers, model, position, token) {
     }
   })), (result) => !!result && isNonEmptyArray(result === null || result === void 0 ? void 0 : result.ranges));
 }
+__name(getLinkedEditingRanges, "getLinkedEditingRanges");
 var editorLinkedEditingBackground = registerColor("editor.linkedEditingBackground", { dark: Color.fromHex("#f00").transparent(0.3), light: Color.fromHex("#f00").transparent(0.3), hcDark: Color.fromHex("#f00").transparent(0.3), hcLight: Color.white }, localize("editorLinkedEditingBackground", "Background color when the editor auto renames on type."));
 registerThemingParticipant((theme, collector) => {
   const editorLinkedEditingBackgroundColor = theme.getColor(editorLinkedEditingBackground);
@@ -39069,7 +39732,7 @@ registerModelAndPositionCommand("_executeLinkedEditingProvider", (_accessor, mod
 registerEditorContribution(LinkedEditingContribution.ID, LinkedEditingContribution);
 registerEditorAction(LinkedEditingAction);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/links/browser/links.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/links/browser/links.js
 init_define_process();
 init_async();
 init_cancellation();
@@ -39085,7 +39748,7 @@ init_textModel();
 init_languageFeatureDebounce();
 init_languageFeatures();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/links/browser/getLinks.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/links/browser/getLinks.js
 init_define_process();
 init_arrays();
 init_cancellation();
@@ -39103,6 +39766,7 @@ var __awaiter42 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -39111,6 +39775,7 @@ var __awaiter42 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -39118,9 +39783,11 @@ var __awaiter42 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -39163,6 +39830,7 @@ var Link = class {
     });
   }
 };
+__name(Link, "Link");
 var LinksList = class {
   constructor(tuples) {
     this._disposables = new DisposableStore();
@@ -39211,6 +39879,7 @@ var LinksList = class {
     return result;
   }
 };
+__name(LinksList, "LinksList");
 function getLinks(providers, model, token) {
   const lists = [];
   const promises = providers.ordered(model).reverse().map((provider, i) => {
@@ -39229,6 +39898,7 @@ function getLinks(providers, model, token) {
     return new LinksList([]);
   });
 }
+__name(getLinks, "getLinks");
 CommandsRegistry.registerCommand("_executeLinkProvider", (accessor, ...args) => __awaiter42(void 0, void 0, void 0, function* () {
   let [uri, resolveCount] = args;
   assertType(uri instanceof URI);
@@ -39252,7 +39922,7 @@ CommandsRegistry.registerCommand("_executeLinkProvider", (accessor, ...args) => 
   return result;
 }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/links/browser/links.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/links/browser/links.js
 init_nls();
 init_opener();
 init_colorRegistry();
@@ -39278,6 +39948,7 @@ var __awaiter43 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -39286,6 +39957,7 @@ var __awaiter43 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -39293,13 +39965,15 @@ var __awaiter43 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var LinkDetector = class LinkDetector2 extends Disposable {
+var LinkDetector = /* @__PURE__ */ __name(class LinkDetector2 extends Disposable {
   constructor(editor2, openerService, notificationService, languageFeaturesService, languageFeatureDebounceService) {
     super();
     this.editor = editor2;
@@ -39519,7 +40193,7 @@ var LinkDetector = class LinkDetector2 extends Disposable {
     super.dispose();
     this.stop();
   }
-};
+}, "LinkDetector");
 LinkDetector.ID = "editor.linkDetector";
 LinkDetector = __decorate57([
   __param57(1, IOpenerService),
@@ -39564,6 +40238,7 @@ var LinkOccurrence = class {
     changeAccessor.changeDecorationOptions(this.decorationId, LinkOccurrence._getOptions(this.link, useMetaKey, false));
   }
 };
+__name(LinkOccurrence, "LinkOccurrence");
 function getHoverMessage(link, useMetaKey) {
   const executeCmd = link.url && /^command:/i.test(link.url.toString());
   const label = link.tooltip ? link.tooltip : executeCmd ? localize("links.navigate.executeCmd", "Execute command") : localize("links.navigate.follow", "Follow link");
@@ -39583,6 +40258,7 @@ function getHoverMessage(link, useMetaKey) {
     return new MarkdownString().appendText(`${label} (${kb})`);
   }
 }
+__name(getHoverMessage, "getHoverMessage");
 var OpenLinkAction = class extends EditorAction {
   constructor() {
     super({
@@ -39609,6 +40285,7 @@ var OpenLinkAction = class extends EditorAction {
     }
   }
 };
+__name(OpenLinkAction, "OpenLinkAction");
 registerEditorContribution(LinkDetector.ID, LinkDetector);
 registerEditorAction(OpenLinkAction);
 registerThemingParticipant((theme, collector) => {
@@ -39618,7 +40295,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/multicursor/browser/multicursor.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/multicursor/browser/multicursor.js
 init_define_process();
 init_aria();
 init_async();
@@ -39659,6 +40336,7 @@ function announceCursorChange(previousCursorState, cursorState) {
     status(msg);
   }
 }
+__name(announceCursorChange, "announceCursorChange");
 var InsertCursorAbove = class extends EditorAction {
   constructor() {
     super({
@@ -39702,6 +40380,7 @@ var InsertCursorAbove = class extends EditorAction {
     announceCursorChange(previousCursorState, viewModel.getCursorStates());
   }
 };
+__name(InsertCursorAbove, "InsertCursorAbove");
 var InsertCursorBelow = class extends EditorAction {
   constructor() {
     super({
@@ -39745,6 +40424,7 @@ var InsertCursorBelow = class extends EditorAction {
     announceCursorChange(previousCursorState, viewModel.getCursorStates());
   }
 };
+__name(InsertCursorBelow, "InsertCursorBelow");
 var InsertCursorAtEndOfEachLineSelected = class extends EditorAction {
   constructor() {
     super({
@@ -39793,6 +40473,7 @@ var InsertCursorAtEndOfEachLineSelected = class extends EditorAction {
     announceCursorChange(previousCursorState, viewModel.getCursorStates());
   }
 };
+__name(InsertCursorAtEndOfEachLineSelected, "InsertCursorAtEndOfEachLineSelected");
 var InsertCursorAtEndOfLineSelected = class extends EditorAction {
   constructor() {
     super({
@@ -39820,6 +40501,7 @@ var InsertCursorAtEndOfLineSelected = class extends EditorAction {
     announceCursorChange(previousCursorState, viewModel.getCursorStates());
   }
 };
+__name(InsertCursorAtEndOfLineSelected, "InsertCursorAtEndOfLineSelected");
 var InsertCursorAtTopOfLineSelected = class extends EditorAction {
   constructor() {
     super({
@@ -39846,6 +40528,7 @@ var InsertCursorAtTopOfLineSelected = class extends EditorAction {
     announceCursorChange(previousCursorState, viewModel.getCursorStates());
   }
 };
+__name(InsertCursorAtTopOfLineSelected, "InsertCursorAtTopOfLineSelected");
 var MultiCursorSessionResult = class {
   constructor(selections, revealRange, revealScrollType) {
     this.selections = selections;
@@ -39853,6 +40536,7 @@ var MultiCursorSessionResult = class {
     this.revealScrollType = revealScrollType;
   }
 };
+__name(MultiCursorSessionResult, "MultiCursorSessionResult");
 var MultiCursorSession = class {
   constructor(_editor, findController, isDisconnectedFromFindController, searchText, wholeWord, matchCase, currentMatch) {
     this._editor = _editor;
@@ -39990,6 +40674,7 @@ var MultiCursorSession = class {
     return editorModel.findMatches(this.searchText, true, false, this.matchCase, this.wholeWord ? this._editor.getOption(119) : null, false, 1073741824);
   }
 };
+__name(MultiCursorSession, "MultiCursorSession");
 var MultiCursorSelectionController = class extends Disposable {
   constructor(editor2) {
     super();
@@ -40153,6 +40838,7 @@ var MultiCursorSelectionController = class extends Disposable {
     }
   }
 };
+__name(MultiCursorSelectionController, "MultiCursorSelectionController");
 MultiCursorSelectionController.ID = "editor.contrib.multiCursorController";
 var MultiCursorSelectionControllerAction = class extends EditorAction {
   run(accessor, editor2) {
@@ -40172,6 +40858,7 @@ var MultiCursorSelectionControllerAction = class extends EditorAction {
     }
   }
 };
+__name(MultiCursorSelectionControllerAction, "MultiCursorSelectionControllerAction");
 var AddSelectionToNextFindMatchAction = class extends MultiCursorSelectionControllerAction {
   constructor() {
     super({
@@ -40196,6 +40883,7 @@ var AddSelectionToNextFindMatchAction = class extends MultiCursorSelectionContro
     multiCursorController.addSelectionToNextFindMatch(findController);
   }
 };
+__name(AddSelectionToNextFindMatchAction, "AddSelectionToNextFindMatchAction");
 var AddSelectionToPreviousFindMatchAction = class extends MultiCursorSelectionControllerAction {
   constructor() {
     super({
@@ -40215,6 +40903,7 @@ var AddSelectionToPreviousFindMatchAction = class extends MultiCursorSelectionCo
     multiCursorController.addSelectionToPreviousFindMatch(findController);
   }
 };
+__name(AddSelectionToPreviousFindMatchAction, "AddSelectionToPreviousFindMatchAction");
 var MoveSelectionToNextFindMatchAction = class extends MultiCursorSelectionControllerAction {
   constructor() {
     super({
@@ -40233,6 +40922,7 @@ var MoveSelectionToNextFindMatchAction = class extends MultiCursorSelectionContr
     multiCursorController.moveSelectionToNextFindMatch(findController);
   }
 };
+__name(MoveSelectionToNextFindMatchAction, "MoveSelectionToNextFindMatchAction");
 var MoveSelectionToPreviousFindMatchAction = class extends MultiCursorSelectionControllerAction {
   constructor() {
     super({
@@ -40246,6 +40936,7 @@ var MoveSelectionToPreviousFindMatchAction = class extends MultiCursorSelectionC
     multiCursorController.moveSelectionToPreviousFindMatch(findController);
   }
 };
+__name(MoveSelectionToPreviousFindMatchAction, "MoveSelectionToPreviousFindMatchAction");
 var SelectHighlightsAction = class extends MultiCursorSelectionControllerAction {
   constructor() {
     super({
@@ -40270,6 +40961,7 @@ var SelectHighlightsAction = class extends MultiCursorSelectionControllerAction 
     multiCursorController.selectAll(findController);
   }
 };
+__name(SelectHighlightsAction, "SelectHighlightsAction");
 var CompatChangeAll = class extends MultiCursorSelectionControllerAction {
   constructor() {
     super({
@@ -40292,6 +40984,7 @@ var CompatChangeAll = class extends MultiCursorSelectionControllerAction {
     multiCursorController.selectAll(findController);
   }
 };
+__name(CompatChangeAll, "CompatChangeAll");
 var SelectionHighlighterState = class {
   constructor(_model, _searchText, _matchCase, _wordSeparators, prevState) {
     this._model = _model;
@@ -40312,7 +41005,8 @@ var SelectionHighlighterState = class {
     return this._cachedFindMatches;
   }
 };
-var SelectionHighlighter = class SelectionHighlighter2 extends Disposable {
+__name(SelectionHighlighterState, "SelectionHighlighterState");
+var SelectionHighlighter = /* @__PURE__ */ __name(class SelectionHighlighter2 extends Disposable {
   constructor(editor2, _languageFeaturesService) {
     super();
     this._languageFeaturesService = _languageFeaturesService;
@@ -40470,7 +41164,7 @@ var SelectionHighlighter = class SelectionHighlighter2 extends Disposable {
     this._setState(null);
     super.dispose();
   }
-};
+}, "SelectionHighlighter");
 SelectionHighlighter.ID = "editor.contrib.selectionHighlighter";
 SelectionHighlighter._SELECTION_HIGHLIGHT_OVERVIEW = ModelDecorationOptions.register({
   description: "selection-highlight-overview",
@@ -40507,10 +41201,12 @@ function modelRangesContainSameText(model, ranges, matchCase) {
   }
   return true;
 }
+__name(modelRangesContainSameText, "modelRangesContainSameText");
 function getValueInRange(model, range, toLowerCase) {
   const text = model.getValueInRange(range);
   return toLowerCase ? text.toLowerCase() : text;
 }
+__name(getValueInRange, "getValueInRange");
 var FocusNextCursor = class extends EditorAction {
   constructor() {
     super({
@@ -40544,6 +41240,7 @@ var FocusNextCursor = class extends EditorAction {
     announceCursorChange(previousCursorState, viewModel.getCursorStates());
   }
 };
+__name(FocusNextCursor, "FocusNextCursor");
 var FocusPreviousCursor = class extends EditorAction {
   constructor() {
     super({
@@ -40577,6 +41274,7 @@ var FocusPreviousCursor = class extends EditorAction {
     announceCursorChange(previousCursorState, viewModel.getCursorStates());
   }
 };
+__name(FocusPreviousCursor, "FocusPreviousCursor");
 registerEditorContribution(MultiCursorSelectionController.ID, MultiCursorSelectionController);
 registerEditorContribution(SelectionHighlighter.ID, SelectionHighlighter);
 registerEditorAction(InsertCursorAbove);
@@ -40593,14 +41291,14 @@ registerEditorAction(InsertCursorAtTopOfLineSelected);
 registerEditorAction(FocusNextCursor);
 registerEditorAction(FocusPreviousCursor);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints.js
 init_define_process();
 init_lifecycle();
 init_editorExtensions();
 init_editorContextKeys();
 init_languages();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/provideSignatureHelp.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/provideSignatureHelp.js
 init_define_process();
 init_cancellation();
 init_errors();
@@ -40618,6 +41316,7 @@ var __awaiter44 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -40626,6 +41325,7 @@ var __awaiter44 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -40633,9 +41333,11 @@ var __awaiter44 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -40659,6 +41361,7 @@ function provideSignatureHelp(registry, model, position, context, token) {
     return void 0;
   });
 }
+__name(provideSignatureHelp, "provideSignatureHelp");
 CommandsRegistry.registerCommand("_executeSignatureHelpProvider", (accessor, ...args) => __awaiter44(void 0, void 0, void 0, function* () {
   const [uri, position, triggerCharacter] = args;
   assertType(URI.isUri(uri));
@@ -40682,12 +41385,12 @@ CommandsRegistry.registerCommand("_executeSignatureHelpProvider", (accessor, ...
   }
 }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints.js
 init_nls();
 init_contextkey();
 init_instantiation();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHintsWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHintsWidget.js
 init_define_process();
 init_dom();
 init_aria();
@@ -40699,7 +41402,7 @@ init_types();
 init_language();
 init_languageFeatures();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHintsModel.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHintsModel.js
 init_define_process();
 init_async();
 init_errors();
@@ -40713,6 +41416,7 @@ var __awaiter45 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -40721,6 +41425,7 @@ var __awaiter45 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -40728,9 +41433,11 @@ var __awaiter45 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -40744,6 +41451,7 @@ var ParameterHintState;
       this.type = 2;
     }
   }
+  __name(Pending, "Pending");
   ParameterHintState2.Pending = Pending;
   class Active {
     constructor(hints) {
@@ -40751,6 +41459,7 @@ var ParameterHintState;
       this.type = 1;
     }
   }
+  __name(Active, "Active");
   ParameterHintState2.Active = Active;
 })(ParameterHintState || (ParameterHintState = {}));
 var ParameterHintsModel = class extends Disposable {
@@ -40956,6 +41665,7 @@ var ParameterHintsModel = class extends Disposable {
     super.dispose();
   }
 };
+__name(ParameterHintsModel, "ParameterHintsModel");
 ParameterHintsModel.DEFAULT_DELAY = 120;
 function mergeTriggerContexts(previous, current) {
   switch (current.triggerKind) {
@@ -40968,8 +41678,9 @@ function mergeTriggerContexts(previous, current) {
       return current;
   }
 }
+__name(mergeTriggerContexts, "mergeTriggerContexts");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHintsWidget.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHintsWidget.js
 init_nls();
 init_contextkey();
 init_opener();
@@ -40994,7 +41705,7 @@ var __param59 = function(paramIndex, decorator) {
 var $8 = $;
 var parameterHintsNextIcon = registerIcon("parameter-hints-next", Codicon.chevronDown, localize("parameterHintsNextIcon", "Icon for show next parameter hint."));
 var parameterHintsPreviousIcon = registerIcon("parameter-hints-previous", Codicon.chevronUp, localize("parameterHintsPreviousIcon", "Icon for show previous parameter hint."));
-var ParameterHintsWidget = class ParameterHintsWidget2 extends Disposable {
+var ParameterHintsWidget = /* @__PURE__ */ __name(class ParameterHintsWidget2 extends Disposable {
   constructor(editor2, contextKeyService, openerService, languageService, languageFeaturesService) {
     super();
     this.editor = editor2;
@@ -41054,14 +41765,14 @@ var ParameterHintsWidget = class ParameterHintsWidget2 extends Disposable {
         this.editor.layoutContentWidget(this);
       }
     }));
-    const updateFont = () => {
+    const updateFont = /* @__PURE__ */ __name(() => {
       if (!this.domNodes) {
         return;
       }
       const fontInfo = this.editor.getOption(46);
       this.domNodes.element.style.fontSize = `${fontInfo.fontSize}px`;
       this.domNodes.element.style.lineHeight = `${fontInfo.lineHeight / fontInfo.fontSize}`;
-    };
+    }, "updateFont");
     updateFont();
     this._register(Event.chain(this.editor.onDidChangeConfiguration.bind(this.editor)).filter((e) => e.hasChanged(46)).on(updateFont, null));
     this._register(this.editor.onDidLayoutChange((e) => this.updateMaxHeight()));
@@ -41260,7 +41971,7 @@ var ParameterHintsWidget = class ParameterHintsWidget2 extends Disposable {
       wrapper[0].style.maxHeight = maxHeight;
     }
   }
-};
+}, "ParameterHintsWidget");
 ParameterHintsWidget.ID = "editor.widget.parameterHintsWidget";
 ParameterHintsWidget = __decorate59([
   __param59(1, IContextKeyService),
@@ -41303,7 +42014,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints.js
 var __decorate60 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -41319,7 +42030,7 @@ var __param60 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var ParameterHintsController = class ParameterHintsController2 extends Disposable {
+var ParameterHintsController = /* @__PURE__ */ __name(class ParameterHintsController2 extends Disposable {
   constructor(editor2, instantiationService) {
     super();
     this.editor = editor2;
@@ -41340,7 +42051,7 @@ var ParameterHintsController = class ParameterHintsController2 extends Disposabl
   trigger(context) {
     this.widget.trigger(context);
   }
-};
+}, "ParameterHintsController");
 ParameterHintsController.ID = "editor.controller.parameterHints";
 ParameterHintsController = __decorate60([
   __param60(1, IInstantiationService)
@@ -41368,6 +42079,7 @@ var TriggerParameterHintsAction = class extends EditorAction {
     }
   }
 };
+__name(TriggerParameterHintsAction, "TriggerParameterHintsAction");
 registerEditorContribution(ParameterHintsController.ID, ParameterHintsController);
 registerEditorAction(TriggerParameterHintsAction);
 var weight3 = 100 + 75;
@@ -41408,7 +42120,7 @@ registerEditorCommand(new ParameterHintsCommand({
   }
 }));
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/rename/browser/rename.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/rename/browser/rename.js
 init_define_process();
 init_aria();
 init_async();
@@ -41432,7 +42144,7 @@ init_log();
 init_progress();
 init_platform2();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/rename/browser/renameInputField.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/rename/browser/renameInputField.js
 init_define_process();
 init_lifecycle();
 init_position();
@@ -41457,7 +42169,7 @@ var __param61 = function(paramIndex, decorator) {
   };
 };
 var CONTEXT_RENAME_INPUT_VISIBLE = new RawContextKey("renameInputVisible", false, localize("renameInputVisible", "Whether the rename input widget is visible"));
-var RenameInputField = class RenameInputField2 {
+var RenameInputField = /* @__PURE__ */ __name(class RenameInputField2 {
   constructor(_editor, _acceptKeybindings, _themeService, _keybindingService, contextKeyService) {
     this._editor = _editor;
     this._acceptKeybindings = _acceptKeybindings;
@@ -41493,12 +42205,12 @@ var RenameInputField = class RenameInputField2 {
       this._label = document.createElement("div");
       this._label.className = "rename-label";
       this._domNode.appendChild(this._label);
-      const updateLabel = () => {
+      const updateLabel = /* @__PURE__ */ __name(() => {
         var _a5, _b2;
         const [accept, preview] = this._acceptKeybindings;
         this._keybindingService.lookupKeybinding(accept);
         this._label.innerText = localize({ key: "label", comment: ['placeholders are keybindings, e.g "F2 to Rename, Shift+F2 to Preview"'] }, "{0} to Rename, {1} to Preview", (_a5 = this._keybindingService.lookupKeybinding(accept)) === null || _a5 === void 0 ? void 0 : _a5.getLabel(), (_b2 = this._keybindingService.lookupKeybinding(preview)) === null || _b2 === void 0 ? void 0 : _b2.getLabel());
-      };
+      }, "updateLabel");
       updateLabel();
       this._disposables.add(this._keybindingService.onDidUpdateKeybindings(updateLabel));
       this._updateFont();
@@ -41603,14 +42315,14 @@ var RenameInputField = class RenameInputField2 {
     this._visibleContextKey.reset();
     this._editor.layoutContentWidget(this);
   }
-};
+}, "RenameInputField");
 RenameInputField = __decorate61([
   __param61(2, IThemeService),
   __param61(3, IKeybindingService),
   __param61(4, IContextKeyService)
 ], RenameInputField);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/rename/browser/rename.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/rename/browser/rename.js
 init_languageFeatures();
 var __decorate62 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41633,6 +42345,7 @@ var __awaiter46 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -41641,6 +42354,7 @@ var __awaiter46 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -41648,9 +42362,11 @@ var __awaiter46 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -41721,6 +42437,7 @@ var RenameSkeleton = class {
     });
   }
 };
+__name(RenameSkeleton, "RenameSkeleton");
 function rename(registry, model, position, newName) {
   return __awaiter46(this, void 0, void 0, function* () {
     const skeleton = new RenameSkeleton(model, position, registry);
@@ -41731,7 +42448,8 @@ function rename(registry, model, position, newName) {
     return skeleton.provideRenameEdits(newName, CancellationToken.None);
   });
 }
-var RenameController = class RenameController2 {
+__name(rename, "rename");
+var RenameController = /* @__PURE__ */ __name(class RenameController2 {
   constructor(editor2, _instaService, _notificationService, _bulkEditService, _progressService, _logService, _configService, _languageFeaturesService) {
     this.editor = editor2;
     this._instaService = _instaService;
@@ -41840,7 +42558,7 @@ var RenameController = class RenameController2 {
   cancelRenameInput() {
     this._renameInputField.value.cancelInput(true);
   }
-};
+}, "RenameController");
 RenameController.ID = "editor.contrib.renameController";
 RenameController = __decorate62([
   __param62(1, IInstantiationService),
@@ -41894,6 +42612,7 @@ var RenameAction = class extends EditorAction {
     return Promise.resolve();
   }
 };
+__name(RenameAction, "RenameAction");
 registerEditorContribution(RenameController.ID, RenameController);
 registerEditorAction(RenameAction);
 var RenameCommand = EditorCommand.bindToContribution(RenameController.get);
@@ -41957,10 +42676,10 @@ Registry.as(Extensions.Configuration).registerConfiguration({
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
 var import_stickyScroll = __toESM(require_stickyScroll());
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/smartSelect/browser/smartSelect.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/smartSelect/browser/smartSelect.js
 init_define_process();
 init_arrays();
 init_cancellation();
@@ -41971,7 +42690,7 @@ init_range();
 init_selection();
 init_editorContextKeys();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/smartSelect/browser/wordSelections.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/smartSelect/browser/wordSelections.js
 init_define_process();
 init_strings();
 init_range();
@@ -42033,8 +42752,9 @@ var WordSelectionRangeProvider = class {
     }
   }
 };
+__name(WordSelectionRangeProvider, "WordSelectionRangeProvider");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/smartSelect/browser/smartSelect.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/smartSelect/browser/smartSelect.js
 init_nls();
 init_actions2();
 init_commands();
@@ -42063,6 +42783,7 @@ var __awaiter47 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -42071,6 +42792,7 @@ var __awaiter47 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -42078,9 +42800,11 @@ var __awaiter47 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -42101,7 +42825,8 @@ var SelectionRanges = class {
     return res;
   }
 };
-var SmartSelectController = class SmartSelectController2 {
+__name(SelectionRanges, "SelectionRanges");
+var SmartSelectController = /* @__PURE__ */ __name(class SmartSelectController2 {
   constructor(_editor, _languageFeaturesService) {
     this._editor = _editor;
     this._languageFeaturesService = _languageFeaturesService;
@@ -42160,7 +42885,7 @@ var SmartSelectController = class SmartSelectController2 {
       }
     });
   }
-};
+}, "SmartSelectController");
 SmartSelectController.ID = "editor.contrib.smartSelectController";
 SmartSelectController = __decorate63([
   __param63(1, ILanguageFeaturesService)
@@ -42179,6 +42904,7 @@ var AbstractSmartSelect = class extends EditorAction {
     });
   }
 };
+__name(AbstractSmartSelect, "AbstractSmartSelect");
 var GrowSelectionAction = class extends AbstractSmartSelect {
   constructor() {
     super(true, {
@@ -42204,6 +42930,7 @@ var GrowSelectionAction = class extends AbstractSmartSelect {
     });
   }
 };
+__name(GrowSelectionAction, "GrowSelectionAction");
 CommandsRegistry.registerCommandAlias("editor.action.smartSelect.grow", "editor.action.smartSelect.expand");
 var ShrinkSelectionAction = class extends AbstractSmartSelect {
   constructor() {
@@ -42230,6 +42957,7 @@ var ShrinkSelectionAction = class extends AbstractSmartSelect {
     });
   }
 };
+__name(ShrinkSelectionAction, "ShrinkSelectionAction");
 registerEditorContribution(SmartSelectController.ID, SmartSelectController);
 registerEditorAction(GrowSelectionAction);
 registerEditorAction(ShrinkSelectionAction);
@@ -42306,6 +43034,7 @@ function provideSelectionRanges(registry, model, positions, options, token) {
     });
   });
 }
+__name(provideSelectionRanges, "provideSelectionRanges");
 CommandsRegistry.registerCommand("_executeSelectionRangeProvider", function(accessor, ...args) {
   return __awaiter47(this, void 0, void 0, function* () {
     const [resource, positions] = args;
@@ -42320,7 +43049,7 @@ CommandsRegistry.registerCommand("_executeSelectionRangeProvider", function(acce
   });
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestInlineCompletions.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestInlineCompletions.js
 init_define_process();
 init_cancellation();
 init_iterator();
@@ -42351,6 +43080,7 @@ var __awaiter48 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -42359,6 +43089,7 @@ var __awaiter48 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -42366,9 +43097,11 @@ var __awaiter48 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -42382,7 +43115,8 @@ var SuggestInlineCompletion = class {
     this.completion = completion;
   }
 };
-var InlineCompletionResults = class InlineCompletionResults2 extends RefCountedDisposable {
+__name(SuggestInlineCompletion, "SuggestInlineCompletion");
+var InlineCompletionResults = /* @__PURE__ */ __name(class InlineCompletionResults2 extends RefCountedDisposable {
   constructor(model, line, word, completionModel, completions, _suggestMemoryService) {
     super(completions.disposable);
     this.model = model;
@@ -42420,11 +43154,11 @@ var InlineCompletionResults = class InlineCompletionResults2 extends RefCountedD
     }
     return result;
   }
-};
+}, "InlineCompletionResults");
 InlineCompletionResults = __decorate64([
   __param64(5, ISuggestMemoryService)
 ], InlineCompletionResults);
-var SuggestInlineCompletions = class SuggestInlineCompletions2 {
+var SuggestInlineCompletions = /* @__PURE__ */ __name(class SuggestInlineCompletions2 {
   constructor(_getEditorOption, _languageFeatureService, _clipboardService, _suggestMemoryService) {
     this._getEditorOption = _getEditorOption;
     this._languageFeatureService = _languageFeatureService;
@@ -42501,13 +43235,13 @@ var SuggestInlineCompletions = class SuggestInlineCompletions2 {
     }
     return { providers, ch };
   }
-};
+}, "SuggestInlineCompletions");
 SuggestInlineCompletions = __decorate64([
   __param64(1, ILanguageFeaturesService),
   __param64(2, IClipboardService),
   __param64(3, ISuggestMemoryService)
 ], SuggestInlineCompletions);
-var EditorContribution = class EditorContribution2 {
+var EditorContribution = /* @__PURE__ */ __name(class EditorContribution2 {
   constructor(_editor, languageFeatureService, editorService, instaService) {
     if (++EditorContribution2._counter === 1) {
       const provider = instaService.createInstance(SuggestInlineCompletions, (id, model) => {
@@ -42525,7 +43259,7 @@ var EditorContribution = class EditorContribution2 {
       EditorContribution2._disposable = void 0;
     }
   }
-};
+}, "EditorContribution");
 EditorContribution._counter = 0;
 EditorContribution = __decorate64([
   __param64(1, ILanguageFeaturesService),
@@ -42534,7 +43268,7 @@ EditorContribution = __decorate64([
 ], EditorContribution);
 registerEditorContribution("suggest.inlineCompletionsProvider", EditorContribution);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/tokenization/browser/tokenization.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/tokenization/browser/tokenization.js
 init_define_process();
 init_stopwatch();
 init_editorExtensions();
@@ -42560,12 +43294,13 @@ var ForceRetokenizeAction = class extends EditorAction {
     console.log(`tokenization took ${sw.elapsed()}`);
   }
 };
+__name(ForceRetokenizeAction, "ForceRetokenizeAction");
 registerEditorAction(ForceRetokenizeAction);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
 init_toggleTabFocusMode();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/unicodeHighlighter.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/unicodeHighlighter.js
 init_define_process();
 init_async();
 init_codicons();
@@ -42577,14 +43312,14 @@ init_textModel();
 init_editorWorker();
 init_language();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/bannerController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/bannerController.js
 init_define_process();
 init_dom();
 init_actions();
 init_lifecycle();
 init_instantiation();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/opener/browser/link.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/opener/browser/link.js
 init_define_process();
 init_dom();
 init_keyboardEvent();
@@ -42609,7 +43344,7 @@ var __param65 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var Link2 = class Link3 extends Disposable {
+var Link2 = /* @__PURE__ */ __name(class Link3 extends Disposable {
   constructor(container, _link, options = {}, openerService) {
     var _a5;
     super();
@@ -42661,7 +43396,7 @@ var Link2 = class Link3 extends Disposable {
     }
     this._enabled = enabled;
   }
-};
+}, "Link");
 Link2 = __decorate65([
   __param65(3, IOpenerService)
 ], Link2);
@@ -42676,7 +43411,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/bannerController.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/bannerController.js
 init_themeService();
 var __decorate66 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -42694,7 +43429,7 @@ var __param66 = function(paramIndex, decorator) {
   };
 };
 var BANNER_ELEMENT_HEIGHT = 26;
-var BannerController = class BannerController2 extends Disposable {
+var BannerController = /* @__PURE__ */ __name(class BannerController2 extends Disposable {
   constructor(_editor, instantiationService) {
     super();
     this._editor = _editor;
@@ -42713,11 +43448,11 @@ var BannerController = class BannerController2 extends Disposable {
     } }));
     this._editor.setBanner(this.banner.element, BANNER_ELEMENT_HEIGHT);
   }
-};
+}, "BannerController");
 BannerController = __decorate66([
   __param66(1, IInstantiationService)
 ], BannerController);
-var Banner = class Banner2 extends Disposable {
+var Banner = /* @__PURE__ */ __name(class Banner2 extends Disposable {
   constructor(instantiationService) {
     super();
     this.instantiationService = instantiationService;
@@ -42774,12 +43509,12 @@ var Banner = class Banner2 extends Disposable {
     })), { icon: true, label: false });
     this.actionBar.setFocusable(false);
   }
-};
+}, "Banner");
 Banner = __decorate66([
   __param66(0, IInstantiationService)
 ], Banner);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/unicodeHighlighter.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/unicodeHighlighter.js
 init_nls();
 init_configuration();
 init_instantiation();
@@ -42805,6 +43540,7 @@ var __awaiter49 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -42813,6 +43549,7 @@ var __awaiter49 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -42820,14 +43557,16 @@ var __awaiter49 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
 var warningIcon = registerIcon("extensions-warning-message", Codicon.warning, localize("warningIcon", "Icon shown with a warning message in the extensions editor."));
-var UnicodeHighlighter = class UnicodeHighlighter2 extends Disposable {
+var UnicodeHighlighter = /* @__PURE__ */ __name(class UnicodeHighlighter2 extends Disposable {
   constructor(_editor, _editorWorkerService, _workspaceTrustService, instantiationService) {
     super();
     this._editor = _editor;
@@ -42948,7 +43687,7 @@ var UnicodeHighlighter = class UnicodeHighlighter2 extends Disposable {
     }
     return null;
   }
-};
+}, "UnicodeHighlighter");
 UnicodeHighlighter.ID = "editor.contrib.unicodeHighlighter";
 UnicodeHighlighter = __decorate67([
   __param67(1, IEditorWorkerService),
@@ -42966,7 +43705,8 @@ function resolveOptions(trusted, options) {
     allowedLocales: options.allowedLocales
   };
 }
-var DocumentUnicodeHighlighter = class DocumentUnicodeHighlighter2 extends Disposable {
+__name(resolveOptions, "resolveOptions");
+var DocumentUnicodeHighlighter = /* @__PURE__ */ __name(class DocumentUnicodeHighlighter2 extends Disposable {
   constructor(_editor, _options, _updateState, _editorWorkerService) {
     super();
     this._editor = _editor;
@@ -43029,7 +43769,7 @@ var DocumentUnicodeHighlighter = class DocumentUnicodeHighlighter2 extends Dispo
       inString: isModelDecorationInString(model, decoration2)
     };
   }
-};
+}, "DocumentUnicodeHighlighter");
 DocumentUnicodeHighlighter = __decorate67([
   __param67(3, IEditorWorkerService)
 ], DocumentUnicodeHighlighter);
@@ -43111,7 +43851,8 @@ var ViewportUnicodeHighlighter = class extends Disposable {
     };
   }
 };
-var UnicodeHighlighterHoverParticipant = class UnicodeHighlighterHoverParticipant2 {
+__name(ViewportUnicodeHighlighter, "ViewportUnicodeHighlighter");
+var UnicodeHighlighterHoverParticipant = /* @__PURE__ */ __name(class UnicodeHighlighterHoverParticipant2 {
   constructor(_editor, _languageService, _openerService) {
     this._editor = _editor;
     this._languageService = _languageService;
@@ -43165,7 +43906,7 @@ var UnicodeHighlighterHoverParticipant = class UnicodeHighlighterHoverParticipan
   renderHoverParts(context, hoverParts) {
     return renderMarkdownHovers(context, hoverParts, this._editor, this._languageService, this._openerService);
   }
-};
+}, "UnicodeHighlighterHoverParticipant");
 UnicodeHighlighterHoverParticipant = __decorate67([
   __param67(1, ILanguageService),
   __param67(2, IOpenerService)
@@ -43173,6 +43914,7 @@ UnicodeHighlighterHoverParticipant = __decorate67([
 function codePointToHex(codePoint) {
   return `U+${codePoint.toString(16).padStart(4, "0")}`;
 }
+__name(codePointToHex, "codePointToHex");
 function formatCodePointMarkdown(codePoint) {
   let value = `\`${codePointToHex(codePoint)}\``;
   if (!InvisibleCharacters.isInvisibleCharacter(codePoint)) {
@@ -43180,15 +43922,18 @@ function formatCodePointMarkdown(codePoint) {
   }
   return value;
 }
+__name(formatCodePointMarkdown, "formatCodePointMarkdown");
 function renderCodePointAsInlineCode(codePoint) {
   if (codePoint === 96) {
     return "`` ` ``";
   }
   return "`" + String.fromCodePoint(codePoint) + "`";
 }
+__name(renderCodePointAsInlineCode, "renderCodePointAsInlineCode");
 function computeReason(char, options) {
   return UnicodeTextModelHighlighter.computeUnicodeHighlightReason(char, options);
 }
+__name(computeReason, "computeReason");
 var Decorations = class {
   constructor() {
     this.map = /* @__PURE__ */ new Map();
@@ -43215,6 +43960,7 @@ var Decorations = class {
     return options;
   }
 };
+__name(Decorations, "Decorations");
 Decorations.instance = new Decorations();
 var DisableHighlightingInCommentsAction = class extends EditorAction {
   constructor() {
@@ -43240,6 +43986,7 @@ var DisableHighlightingInCommentsAction = class extends EditorAction {
     });
   }
 };
+__name(DisableHighlightingInCommentsAction, "DisableHighlightingInCommentsAction");
 var DisableHighlightingInStringsAction = class extends EditorAction {
   constructor() {
     super({
@@ -43264,6 +44011,7 @@ var DisableHighlightingInStringsAction = class extends EditorAction {
     });
   }
 };
+__name(DisableHighlightingInStringsAction, "DisableHighlightingInStringsAction");
 var DisableHighlightingOfAmbiguousCharactersAction = class extends EditorAction {
   constructor() {
     super({
@@ -43288,6 +44036,7 @@ var DisableHighlightingOfAmbiguousCharactersAction = class extends EditorAction 
     });
   }
 };
+__name(DisableHighlightingOfAmbiguousCharactersAction, "DisableHighlightingOfAmbiguousCharactersAction");
 DisableHighlightingOfAmbiguousCharactersAction.ID = "editor.action.unicodeHighlight.disableHighlightingOfAmbiguousCharacters";
 var DisableHighlightingOfInvisibleCharactersAction = class extends EditorAction {
   constructor() {
@@ -43313,6 +44062,7 @@ var DisableHighlightingOfInvisibleCharactersAction = class extends EditorAction 
     });
   }
 };
+__name(DisableHighlightingOfInvisibleCharactersAction, "DisableHighlightingOfInvisibleCharactersAction");
 DisableHighlightingOfInvisibleCharactersAction.ID = "editor.action.unicodeHighlight.disableHighlightingOfInvisibleCharacters";
 var DisableHighlightingOfNonBasicAsciiCharactersAction = class extends EditorAction {
   constructor() {
@@ -43338,6 +44088,7 @@ var DisableHighlightingOfNonBasicAsciiCharactersAction = class extends EditorAct
     });
   }
 };
+__name(DisableHighlightingOfNonBasicAsciiCharactersAction, "DisableHighlightingOfNonBasicAsciiCharactersAction");
 DisableHighlightingOfNonBasicAsciiCharactersAction.ID = "editor.action.unicodeHighlight.disableHighlightingOfNonBasicAsciiCharacters";
 var ShowExcludeOptions = class extends EditorAction {
   constructor() {
@@ -43360,6 +44111,7 @@ var ShowExcludeOptions = class extends EditorAction {
         }
         return localize("unicodeHighlight.excludeCharFromBeingHighlighted", "Exclude {0} from being highlighted", `${codePointToHex(codePoint2)} "${char}"`);
       }
+      __name(getExcludeCharFromBeingHighlightedLabel, "getExcludeCharFromBeingHighlightedLabel");
       const options = [];
       if (reason.kind === 0) {
         for (const locale of reason.notAmbiguousInLocales) {
@@ -43411,6 +44163,7 @@ var ShowExcludeOptions = class extends EditorAction {
     });
   }
 };
+__name(ShowExcludeOptions, "ShowExcludeOptions");
 ShowExcludeOptions.ID = "editor.action.unicodeHighlight.showExcludeOptions";
 function excludeCharFromBeingHighlighted(configurationService, charCodes) {
   return __awaiter49(this, void 0, void 0, function* () {
@@ -43427,6 +44180,7 @@ function excludeCharFromBeingHighlighted(configurationService, charCodes) {
     yield configurationService.updateValue(unicodeHighlightConfigKeys.allowedCharacters, value, 2);
   });
 }
+__name(excludeCharFromBeingHighlighted, "excludeCharFromBeingHighlighted");
 function excludeLocaleFromBeingHighlighted(configurationService, locales) {
   var _a5;
   return __awaiter49(this, void 0, void 0, function* () {
@@ -43443,9 +44197,11 @@ function excludeLocaleFromBeingHighlighted(configurationService, locales) {
     yield configurationService.updateValue(unicodeHighlightConfigKeys.allowedLocales, value, 2);
   });
 }
+__name(excludeLocaleFromBeingHighlighted, "excludeLocaleFromBeingHighlighted");
 function expectNever(value) {
   throw new Error(`Unexpected value: ${value}`);
 }
+__name(expectNever, "expectNever");
 registerEditorAction(DisableHighlightingOfAmbiguousCharactersAction);
 registerEditorAction(DisableHighlightingOfInvisibleCharactersAction);
 registerEditorAction(DisableHighlightingOfNonBasicAsciiCharactersAction);
@@ -43453,7 +44209,7 @@ registerEditorAction(ShowExcludeOptions);
 registerEditorContribution(UnicodeHighlighter.ID, UnicodeHighlighter);
 HoverParticipantRegistry.register(UnicodeHighlighterHoverParticipant);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unusualLineTerminators/browser/unusualLineTerminators.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unusualLineTerminators/browser/unusualLineTerminators.js
 init_define_process();
 init_lifecycle();
 init_resources();
@@ -43481,6 +44237,7 @@ var __awaiter50 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -43489,6 +44246,7 @@ var __awaiter50 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -43496,9 +44254,11 @@ var __awaiter50 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -43506,10 +44266,12 @@ var ignoreUnusualLineTerminators = "ignoreUnusualLineTerminators";
 function writeIgnoreState(codeEditorService, model, state) {
   codeEditorService.setModelProperty(model.uri, ignoreUnusualLineTerminators, state);
 }
+__name(writeIgnoreState, "writeIgnoreState");
 function readIgnoreState(codeEditorService, model) {
   return codeEditorService.getModelProperty(model.uri, ignoreUnusualLineTerminators);
 }
-var UnusualLineTerminatorsDetector = class UnusualLineTerminatorsDetector2 extends Disposable {
+__name(readIgnoreState, "readIgnoreState");
+var UnusualLineTerminatorsDetector = /* @__PURE__ */ __name(class UnusualLineTerminatorsDetector2 extends Disposable {
   constructor(_editor, _dialogService, _codeEditorService) {
     super();
     this._editor = _editor;
@@ -43569,7 +44331,7 @@ var UnusualLineTerminatorsDetector = class UnusualLineTerminatorsDetector2 exten
       model.removeUnusualLineTerminators(this._editor.getSelections());
     });
   }
-};
+}, "UnusualLineTerminatorsDetector");
 UnusualLineTerminatorsDetector.ID = "editor.contrib.unusualLineTerminatorsDetector";
 UnusualLineTerminatorsDetector = __decorate68([
   __param68(1, IDialogService),
@@ -43577,10 +44339,10 @@ UnusualLineTerminatorsDetector = __decorate68([
 ], UnusualLineTerminatorsDetector);
 registerEditorContribution(UnusualLineTerminatorsDetector.ID, UnusualLineTerminatorsDetector);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
 var import_viewportSemanticTokens = __toESM(require_viewportSemanticTokens());
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/wordHighlighter/browser/wordHighlighter.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/wordHighlighter/browser/wordHighlighter.js
 init_define_process();
 init_aria();
 init_arrays();
@@ -43628,6 +44390,7 @@ function getOccurrencesAtPosition(registry, model, position, token) {
     return Promise.resolve(provider.provideDocumentHighlights(model, position, token)).then(void 0, onUnexpectedExternalError);
   }), isNonEmptyArray);
 }
+__name(getOccurrencesAtPosition, "getOccurrencesAtPosition");
 var OccurenceAtPositionRequest = class {
   constructor(_model, _selection, _wordSeparators) {
     this._model = _model;
@@ -43669,6 +44432,7 @@ var OccurenceAtPositionRequest = class {
     this.result.cancel();
   }
 };
+__name(OccurenceAtPositionRequest, "OccurenceAtPositionRequest");
 var SemanticOccurenceAtPositionRequest = class extends OccurenceAtPositionRequest {
   constructor(model, selection, wordSeparators, providers) {
     super(model, selection, wordSeparators);
@@ -43678,6 +44442,7 @@ var SemanticOccurenceAtPositionRequest = class extends OccurenceAtPositionReques
     return getOccurrencesAtPosition(this._providers, model, selection.getPosition(), token).then((value) => value || []);
   }
 };
+__name(SemanticOccurenceAtPositionRequest, "SemanticOccurenceAtPositionRequest");
 var TextualOccurenceAtPositionRequest = class extends OccurenceAtPositionRequest {
   constructor(model, selection, wordSeparators) {
     super(model, selection, wordSeparators);
@@ -43709,12 +44474,14 @@ var TextualOccurenceAtPositionRequest = class extends OccurenceAtPositionRequest
     return super.isValid(model, selection, decorations);
   }
 };
+__name(TextualOccurenceAtPositionRequest, "TextualOccurenceAtPositionRequest");
 function computeOccurencesAtPosition(registry, model, selection, wordSeparators) {
   if (registry.has(model)) {
     return new SemanticOccurenceAtPositionRequest(model, selection, wordSeparators, registry);
   }
   return new TextualOccurenceAtPositionRequest(model, selection, wordSeparators);
 }
+__name(computeOccurencesAtPosition, "computeOccurencesAtPosition");
 registerModelAndPositionCommand("_executeDocumentHighlights", (accessor, model, position) => {
   const languageFeaturesService = accessor.get(ILanguageFeaturesService);
   return getOccurrencesAtPosition(languageFeaturesService.documentHighlightProvider, model, position, CancellationToken.None);
@@ -43923,6 +44690,7 @@ var WordHighlighter = class {
     this.toUnhook.dispose();
   }
 };
+__name(WordHighlighter, "WordHighlighter");
 WordHighlighter._WRITE_OPTIONS = ModelDecorationOptions.register({
   description: "word-highlight-strong",
   stickiness: 1,
@@ -43962,15 +44730,15 @@ WordHighlighter._REGULAR_OPTIONS = ModelDecorationOptions.register({
     position: MinimapPosition.Inline
   }
 });
-var WordHighlighterContribution = class WordHighlighterContribution2 extends Disposable {
+var WordHighlighterContribution = /* @__PURE__ */ __name(class WordHighlighterContribution2 extends Disposable {
   constructor(editor2, contextKeyService, languageFeaturesService) {
     super();
     this.wordHighlighter = null;
-    const createWordHighlighterIfPossible = () => {
+    const createWordHighlighterIfPossible = /* @__PURE__ */ __name(() => {
       if (editor2.hasModel()) {
         this.wordHighlighter = new WordHighlighter(editor2, languageFeaturesService.documentHighlightProvider, contextKeyService);
       }
-    };
+    }, "createWordHighlighterIfPossible");
     this._register(editor2.onDidChangeModel((e) => {
       if (this.wordHighlighter) {
         this.wordHighlighter.dispose();
@@ -44011,7 +44779,7 @@ var WordHighlighterContribution = class WordHighlighterContribution2 extends Dis
     }
     super.dispose();
   }
-};
+}, "WordHighlighterContribution");
 WordHighlighterContribution.ID = "editor.contrib.wordHighlighter";
 WordHighlighterContribution = __decorate69([
   __param69(1, IContextKeyService),
@@ -44034,6 +44802,7 @@ var WordHighlightNavigationAction = class extends EditorAction {
     }
   }
 };
+__name(WordHighlightNavigationAction, "WordHighlightNavigationAction");
 var NextWordHighlightAction = class extends WordHighlightNavigationAction {
   constructor() {
     super(true, {
@@ -44049,6 +44818,7 @@ var NextWordHighlightAction = class extends WordHighlightNavigationAction {
     });
   }
 };
+__name(NextWordHighlightAction, "NextWordHighlightAction");
 var PrevWordHighlightAction = class extends WordHighlightNavigationAction {
   constructor() {
     super(false, {
@@ -44064,6 +44834,7 @@ var PrevWordHighlightAction = class extends WordHighlightNavigationAction {
     });
   }
 };
+__name(PrevWordHighlightAction, "PrevWordHighlightAction");
 var TriggerWordHighlightAction = class extends EditorAction {
   constructor() {
     super({
@@ -44086,6 +44857,7 @@ var TriggerWordHighlightAction = class extends EditorAction {
     controller.restoreViewState(true);
   }
 };
+__name(TriggerWordHighlightAction, "TriggerWordHighlightAction");
 registerEditorContribution(WordHighlighterContribution.ID, WordHighlighterContribution);
 registerEditorAction(NextWordHighlightAction);
 registerEditorAction(PrevWordHighlightAction);
@@ -44118,7 +44890,7 @@ registerThemingParticipant((theme, collector) => {
   }
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/wordOperations/browser/wordOperations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/wordOperations/browser/wordOperations.js
 init_define_process();
 init_editorExtensions();
 init_wordCharacterClassifier();
@@ -44162,16 +44934,19 @@ var MoveWordCommand = class extends EditorCommand {
     }
   }
 };
+__name(MoveWordCommand, "MoveWordCommand");
 var WordLeftCommand = class extends MoveWordCommand {
   _move(wordSeparators, model, position, wordNavigationType) {
     return WordOperations.moveWordLeft(wordSeparators, model, position, wordNavigationType);
   }
 };
+__name(WordLeftCommand, "WordLeftCommand");
 var WordRightCommand = class extends MoveWordCommand {
   _move(wordSeparators, model, position, wordNavigationType) {
     return WordOperations.moveWordRight(wordSeparators, model, position, wordNavigationType);
   }
 };
+__name(WordRightCommand, "WordRightCommand");
 var CursorWordStartLeft = class extends WordLeftCommand {
   constructor() {
     super({
@@ -44182,6 +44957,7 @@ var CursorWordStartLeft = class extends WordLeftCommand {
     });
   }
 };
+__name(CursorWordStartLeft, "CursorWordStartLeft");
 var CursorWordEndLeft = class extends WordLeftCommand {
   constructor() {
     super({
@@ -44192,6 +44968,7 @@ var CursorWordEndLeft = class extends WordLeftCommand {
     });
   }
 };
+__name(CursorWordEndLeft, "CursorWordEndLeft");
 var CursorWordLeft = class extends WordLeftCommand {
   constructor() {
     var _a5;
@@ -44209,6 +44986,7 @@ var CursorWordLeft = class extends WordLeftCommand {
     });
   }
 };
+__name(CursorWordLeft, "CursorWordLeft");
 var CursorWordStartLeftSelect = class extends WordLeftCommand {
   constructor() {
     super({
@@ -44219,6 +44997,7 @@ var CursorWordStartLeftSelect = class extends WordLeftCommand {
     });
   }
 };
+__name(CursorWordStartLeftSelect, "CursorWordStartLeftSelect");
 var CursorWordEndLeftSelect = class extends WordLeftCommand {
   constructor() {
     super({
@@ -44229,6 +45008,7 @@ var CursorWordEndLeftSelect = class extends WordLeftCommand {
     });
   }
 };
+__name(CursorWordEndLeftSelect, "CursorWordEndLeftSelect");
 var CursorWordLeftSelect = class extends WordLeftCommand {
   constructor() {
     var _a5;
@@ -44246,6 +45026,7 @@ var CursorWordLeftSelect = class extends WordLeftCommand {
     });
   }
 };
+__name(CursorWordLeftSelect, "CursorWordLeftSelect");
 var CursorWordAccessibilityLeft = class extends WordLeftCommand {
   constructor() {
     super({
@@ -44259,6 +45040,7 @@ var CursorWordAccessibilityLeft = class extends WordLeftCommand {
     return super._move(getMapForWordSeparators(EditorOptions.wordSeparators.defaultValue), model, position, wordNavigationType);
   }
 };
+__name(CursorWordAccessibilityLeft, "CursorWordAccessibilityLeft");
 var CursorWordAccessibilityLeftSelect = class extends WordLeftCommand {
   constructor() {
     super({
@@ -44272,6 +45054,7 @@ var CursorWordAccessibilityLeftSelect = class extends WordLeftCommand {
     return super._move(getMapForWordSeparators(EditorOptions.wordSeparators.defaultValue), model, position, wordNavigationType);
   }
 };
+__name(CursorWordAccessibilityLeftSelect, "CursorWordAccessibilityLeftSelect");
 var CursorWordStartRight = class extends WordRightCommand {
   constructor() {
     super({
@@ -44282,6 +45065,7 @@ var CursorWordStartRight = class extends WordRightCommand {
     });
   }
 };
+__name(CursorWordStartRight, "CursorWordStartRight");
 var CursorWordEndRight = class extends WordRightCommand {
   constructor() {
     var _a5;
@@ -44299,6 +45083,7 @@ var CursorWordEndRight = class extends WordRightCommand {
     });
   }
 };
+__name(CursorWordEndRight, "CursorWordEndRight");
 var CursorWordRight = class extends WordRightCommand {
   constructor() {
     super({
@@ -44309,6 +45094,7 @@ var CursorWordRight = class extends WordRightCommand {
     });
   }
 };
+__name(CursorWordRight, "CursorWordRight");
 var CursorWordStartRightSelect = class extends WordRightCommand {
   constructor() {
     super({
@@ -44319,6 +45105,7 @@ var CursorWordStartRightSelect = class extends WordRightCommand {
     });
   }
 };
+__name(CursorWordStartRightSelect, "CursorWordStartRightSelect");
 var CursorWordEndRightSelect = class extends WordRightCommand {
   constructor() {
     var _a5;
@@ -44336,6 +45123,7 @@ var CursorWordEndRightSelect = class extends WordRightCommand {
     });
   }
 };
+__name(CursorWordEndRightSelect, "CursorWordEndRightSelect");
 var CursorWordRightSelect = class extends WordRightCommand {
   constructor() {
     super({
@@ -44346,6 +45134,7 @@ var CursorWordRightSelect = class extends WordRightCommand {
     });
   }
 };
+__name(CursorWordRightSelect, "CursorWordRightSelect");
 var CursorWordAccessibilityRight = class extends WordRightCommand {
   constructor() {
     super({
@@ -44359,6 +45148,7 @@ var CursorWordAccessibilityRight = class extends WordRightCommand {
     return super._move(getMapForWordSeparators(EditorOptions.wordSeparators.defaultValue), model, position, wordNavigationType);
   }
 };
+__name(CursorWordAccessibilityRight, "CursorWordAccessibilityRight");
 var CursorWordAccessibilityRightSelect = class extends WordRightCommand {
   constructor() {
     super({
@@ -44372,6 +45162,7 @@ var CursorWordAccessibilityRightSelect = class extends WordRightCommand {
     return super._move(getMapForWordSeparators(EditorOptions.wordSeparators.defaultValue), model, position, wordNavigationType);
   }
 };
+__name(CursorWordAccessibilityRightSelect, "CursorWordAccessibilityRightSelect");
 var DeleteWordCommand = class extends EditorCommand {
   constructor(opts) {
     super(opts);
@@ -44409,6 +45200,7 @@ var DeleteWordCommand = class extends EditorCommand {
     editor2.pushUndoStop();
   }
 };
+__name(DeleteWordCommand, "DeleteWordCommand");
 var DeleteWordLeftCommand = class extends DeleteWordCommand {
   _delete(ctx, wordNavigationType) {
     const r = WordOperations.deleteWordLeft(ctx, wordNavigationType);
@@ -44418,6 +45210,7 @@ var DeleteWordLeftCommand = class extends DeleteWordCommand {
     return new Range(1, 1, 1, 1);
   }
 };
+__name(DeleteWordLeftCommand, "DeleteWordLeftCommand");
 var DeleteWordRightCommand = class extends DeleteWordCommand {
   _delete(ctx, wordNavigationType) {
     const r = WordOperations.deleteWordRight(ctx, wordNavigationType);
@@ -44429,6 +45222,7 @@ var DeleteWordRightCommand = class extends DeleteWordCommand {
     return new Range(lineCount, maxColumn, lineCount, maxColumn);
   }
 };
+__name(DeleteWordRightCommand, "DeleteWordRightCommand");
 var DeleteWordStartLeft = class extends DeleteWordLeftCommand {
   constructor() {
     super({
@@ -44439,6 +45233,7 @@ var DeleteWordStartLeft = class extends DeleteWordLeftCommand {
     });
   }
 };
+__name(DeleteWordStartLeft, "DeleteWordStartLeft");
 var DeleteWordEndLeft = class extends DeleteWordLeftCommand {
   constructor() {
     super({
@@ -44449,6 +45244,7 @@ var DeleteWordEndLeft = class extends DeleteWordLeftCommand {
     });
   }
 };
+__name(DeleteWordEndLeft, "DeleteWordEndLeft");
 var DeleteWordLeft = class extends DeleteWordLeftCommand {
   constructor() {
     super({
@@ -44465,6 +45261,7 @@ var DeleteWordLeft = class extends DeleteWordLeftCommand {
     });
   }
 };
+__name(DeleteWordLeft, "DeleteWordLeft");
 var DeleteWordStartRight = class extends DeleteWordRightCommand {
   constructor() {
     super({
@@ -44475,6 +45272,7 @@ var DeleteWordStartRight = class extends DeleteWordRightCommand {
     });
   }
 };
+__name(DeleteWordStartRight, "DeleteWordStartRight");
 var DeleteWordEndRight = class extends DeleteWordRightCommand {
   constructor() {
     super({
@@ -44485,6 +45283,7 @@ var DeleteWordEndRight = class extends DeleteWordRightCommand {
     });
   }
 };
+__name(DeleteWordEndRight, "DeleteWordEndRight");
 var DeleteWordRight = class extends DeleteWordRightCommand {
   constructor() {
     super({
@@ -44501,6 +45300,7 @@ var DeleteWordRight = class extends DeleteWordRightCommand {
     });
   }
 };
+__name(DeleteWordRight, "DeleteWordRight");
 var DeleteInsideWord = class extends EditorAction {
   constructor() {
     super({
@@ -44526,6 +45326,7 @@ var DeleteInsideWord = class extends EditorAction {
     editor2.pushUndoStop();
   }
 };
+__name(DeleteInsideWord, "DeleteInsideWord");
 registerEditorCommand(new CursorWordStartLeft());
 registerEditorCommand(new CursorWordEndLeft());
 registerEditorCommand(new CursorWordLeft());
@@ -44550,7 +45351,7 @@ registerEditorCommand(new DeleteWordEndRight());
 registerEditorCommand(new DeleteWordRight());
 registerEditorAction(DeleteInsideWord);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/wordPartOperations/browser/wordPartOperations.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/wordPartOperations/browser/wordPartOperations.js
 init_define_process();
 init_editorExtensions();
 init_range();
@@ -44579,6 +45380,7 @@ var DeleteWordPartLeft = class extends DeleteWordCommand {
     return new Range(1, 1, 1, 1);
   }
 };
+__name(DeleteWordPartLeft, "DeleteWordPartLeft");
 var DeleteWordPartRight = class extends DeleteWordCommand {
   constructor() {
     super({
@@ -44604,11 +45406,13 @@ var DeleteWordPartRight = class extends DeleteWordCommand {
     return new Range(lineCount, maxColumn, lineCount, maxColumn);
   }
 };
+__name(DeleteWordPartRight, "DeleteWordPartRight");
 var WordPartLeftCommand = class extends MoveWordCommand {
   _move(wordSeparators, model, position, wordNavigationType) {
     return WordPartOperations.moveWordPartLeft(wordSeparators, model, position);
   }
 };
+__name(WordPartLeftCommand, "WordPartLeftCommand");
 var CursorWordPartLeft = class extends WordPartLeftCommand {
   constructor() {
     super({
@@ -44625,6 +45429,7 @@ var CursorWordPartLeft = class extends WordPartLeftCommand {
     });
   }
 };
+__name(CursorWordPartLeft, "CursorWordPartLeft");
 CommandsRegistry.registerCommandAlias("cursorWordPartStartLeft", "cursorWordPartLeft");
 var CursorWordPartLeftSelect = class extends WordPartLeftCommand {
   constructor() {
@@ -44642,12 +45447,14 @@ var CursorWordPartLeftSelect = class extends WordPartLeftCommand {
     });
   }
 };
+__name(CursorWordPartLeftSelect, "CursorWordPartLeftSelect");
 CommandsRegistry.registerCommandAlias("cursorWordPartStartLeftSelect", "cursorWordPartLeftSelect");
 var WordPartRightCommand = class extends MoveWordCommand {
   _move(wordSeparators, model, position, wordNavigationType) {
     return WordPartOperations.moveWordPartRight(wordSeparators, model, position);
   }
 };
+__name(WordPartRightCommand, "WordPartRightCommand");
 var CursorWordPartRight = class extends WordPartRightCommand {
   constructor() {
     super({
@@ -44664,6 +45471,7 @@ var CursorWordPartRight = class extends WordPartRightCommand {
     });
   }
 };
+__name(CursorWordPartRight, "CursorWordPartRight");
 var CursorWordPartRightSelect = class extends WordPartRightCommand {
   constructor() {
     super({
@@ -44680,6 +45488,7 @@ var CursorWordPartRightSelect = class extends WordPartRightCommand {
     });
   }
 };
+__name(CursorWordPartRightSelect, "CursorWordPartRightSelect");
 registerEditorCommand(new DeleteWordPartLeft());
 registerEditorCommand(new DeleteWordPartRight());
 registerEditorCommand(new CursorWordPartLeft());
@@ -44687,7 +45496,7 @@ registerEditorCommand(new CursorWordPartLeftSelect());
 registerEditorCommand(new CursorWordPartRight());
 registerEditorCommand(new CursorWordPartRightSelect());
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/readOnlyMessage/browser/contribution.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/readOnlyMessage/browser/contribution.js
 init_define_process();
 init_lifecycle();
 init_editorExtensions();
@@ -44709,16 +45518,17 @@ var ReadOnlyMessageController = class extends Disposable {
     }
   }
 };
+__name(ReadOnlyMessageController, "ReadOnlyMessageController");
 ReadOnlyMessageController.ID = "editor.contrib.readOnlyMessageController";
 registerEditorContribution(ReadOnlyMessageController.ID, ReadOnlyMessageController);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
 init_standaloneStrings();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/edcore.main.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/edcore.main.js
 var import_accessibilityHelp = __toESM(require_accessibilityHelp());
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard.js
 init_define_process();
 init_dom();
 init_lifecycle();
@@ -44751,6 +45561,7 @@ var IPadShowKeyboard = class extends Disposable {
     }
   }
 };
+__name(IPadShowKeyboard, "IPadShowKeyboard");
 IPadShowKeyboard.ID = "editor.contrib.iPadShowKeyboard";
 var ShowKeyboardWidget = class extends Disposable {
   constructor(editor2) {
@@ -44782,18 +45593,19 @@ var ShowKeyboardWidget = class extends Disposable {
     };
   }
 };
+__name(ShowKeyboardWidget, "ShowKeyboardWidget");
 ShowKeyboardWidget.ID = "editor.contrib.ShowKeyboardWidget";
 registerEditorContribution(IPadShowKeyboard.ID, IPadShowKeyboard);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/edcore.main.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/edcore.main.js
 var import_inspectTokens = __toESM(require_inspectTokens());
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess.js
 init_define_process();
 init_platform2();
 init_standaloneStrings();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/helpQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/helpQuickAccess.js
 init_define_process();
 init_nls();
 init_platform2();
@@ -44814,7 +45626,7 @@ var __param70 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var HelpQuickAccessProvider = class HelpQuickAccessProvider2 {
+var HelpQuickAccessProvider = /* @__PURE__ */ __name(class HelpQuickAccessProvider2 {
   constructor(quickInputService, keybindingService) {
     this.quickInputService = quickInputService;
     this.keybindingService = keybindingService;
@@ -44857,29 +45669,29 @@ var HelpQuickAccessProvider = class HelpQuickAccessProvider2 {
     }
     return providers;
   }
-};
+}, "HelpQuickAccessProvider");
 HelpQuickAccessProvider.PREFIX = "?";
 HelpQuickAccessProvider = __decorate70([
   __param70(0, IQuickInputService),
   __param70(1, IKeybindingService)
 ], HelpQuickAccessProvider);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess.js
 Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
   ctor: HelpQuickAccessProvider,
   prefix: "",
   helpEntries: [{ description: QuickHelpNLS.helpQuickAccessActionLabel }]
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/gotoLineQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/gotoLineQuickAccess.js
 init_define_process();
 init_lifecycle();
 init_editorBrowser();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/editorNavigationQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/editorNavigationQuickAccess.js
 init_define_process();
 init_functional();
 init_lifecycle();
@@ -44993,8 +45805,9 @@ var AbstractEditorNavigationQuickAccessProvider = class {
     }
   }
 };
+__name(AbstractEditorNavigationQuickAccessProvider, "AbstractEditorNavigationQuickAccessProvider");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/gotoLineQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/gotoLineQuickAccess.js
 init_nls();
 var AbstractGotoLineQuickAccessProvider = class extends AbstractEditorNavigationQuickAccessProvider {
   constructor() {
@@ -45021,7 +45834,7 @@ var AbstractGotoLineQuickAccessProvider = class extends AbstractEditorNavigation
         }
       }
     }));
-    const updatePickerAndEditor = () => {
+    const updatePickerAndEditor = /* @__PURE__ */ __name(() => {
       const position = this.parsePosition(editor2, picker.value.trim().substr(AbstractGotoLineQuickAccessProvider.PREFIX.length));
       const label = this.getPickLabel(editor2, position.lineNumber, position.column);
       picker.items = [{
@@ -45037,7 +45850,7 @@ var AbstractGotoLineQuickAccessProvider = class extends AbstractEditorNavigation
       const range = this.toRange(position.lineNumber, position.column);
       editor2.revealRangeInCenter(range, 0);
       this.addDecorations(editor2, range);
-    };
+    }, "updatePickerAndEditor");
     updatePickerAndEditor();
     disposables.add(picker.onDidChangeValue(() => updatePickerAndEditor()));
     const codeEditor = getCodeEditor(editor2);
@@ -45103,9 +45916,10 @@ var AbstractGotoLineQuickAccessProvider = class extends AbstractEditorNavigation
     return (_b2 = (_a5 = this.getModel(editor2)) === null || _a5 === void 0 ? void 0 : _a5.getLineCount()) !== null && _b2 !== void 0 ? _b2 : 0;
   }
 };
+__name(AbstractGotoLineQuickAccessProvider, "AbstractGotoLineQuickAccessProvider");
 AbstractGotoLineQuickAccessProvider.PREFIX = ":";
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess.js
 init_platform2();
 init_codeEditorService();
 init_types();
@@ -45128,7 +45942,7 @@ var __param71 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var StandaloneGotoLineQuickAccessProvider = class StandaloneGotoLineQuickAccessProvider2 extends AbstractGotoLineQuickAccessProvider {
+var StandaloneGotoLineQuickAccessProvider = /* @__PURE__ */ __name(class StandaloneGotoLineQuickAccessProvider2 extends AbstractGotoLineQuickAccessProvider {
   constructor(editorService) {
     super();
     this.editorService = editorService;
@@ -45137,7 +45951,7 @@ var StandaloneGotoLineQuickAccessProvider = class StandaloneGotoLineQuickAccessP
   get activeTextEditorControl() {
     return withNullAsUndefined(this.editorService.getFocusedCodeEditor());
   }
-};
+}, "StandaloneGotoLineQuickAccessProvider");
 StandaloneGotoLineQuickAccessProvider = __decorate71([
   __param71(0, ICodeEditorService)
 ], StandaloneGotoLineQuickAccessProvider);
@@ -45160,6 +45974,7 @@ var GotoLineAction = class extends EditorAction {
     accessor.get(IQuickInputService).quickAccess.show(StandaloneGotoLineQuickAccessProvider.PREFIX);
   }
 };
+__name(GotoLineAction, "GotoLineAction");
 GotoLineAction.ID = "editor.action.gotoLine";
 registerEditorAction(GotoLineAction);
 Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
@@ -45168,16 +45983,16 @@ Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
   helpEntries: [{ description: GoToLineNLS.gotoLineActionLabel, commandId: GotoLineAction.ID }]
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/gotoSymbolQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/gotoSymbolQuickAccess.js
 init_define_process();
 init_async();
 init_cancellation();
 init_codicons();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/common/fuzzyScorer.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/common/fuzzyScorer.js
 init_define_process();
 init_path();
 init_platform();
@@ -45190,6 +46005,7 @@ function scoreFuzzy2(target, query, patternStart = 0, wordStart = 0) {
   }
   return doScoreFuzzy2Single(target, query, patternStart, wordStart);
 }
+__name(scoreFuzzy2, "scoreFuzzy2");
 function doScoreFuzzy2Multiple(target, query, patternStart, wordStart) {
   let totalScore = 0;
   const totalMatches = [];
@@ -45203,6 +46019,7 @@ function doScoreFuzzy2Multiple(target, query, patternStart, wordStart) {
   }
   return [totalScore, normalizeMatches(totalMatches)];
 }
+__name(doScoreFuzzy2Multiple, "doScoreFuzzy2Multiple");
 function doScoreFuzzy2Single(target, query, patternStart, wordStart) {
   const score = fuzzyScore(query.original, query.originalLowercase, patternStart, target, target.toLowerCase(), wordStart, { firstMatchCanBeWeak: true, boostFullMatch: true });
   if (!score) {
@@ -45210,6 +46027,7 @@ function doScoreFuzzy2Single(target, query, patternStart, wordStart) {
   }
   return [score[0], createMatches(score)];
 }
+__name(doScoreFuzzy2Single, "doScoreFuzzy2Single");
 var NO_ITEM_SCORE = Object.freeze({ score: 0 });
 function normalizeMatches(matches) {
   const sortedMatches = matches.sort((matchA, matchB) => {
@@ -45228,6 +46046,7 @@ function normalizeMatches(matches) {
   }
   return normalizedMatches;
 }
+__name(normalizeMatches, "normalizeMatches");
 function matchOverlaps(matchA, matchB) {
   if (matchA.end < matchB.start) {
     return false;
@@ -45237,9 +46056,11 @@ function matchOverlaps(matchA, matchB) {
   }
   return true;
 }
+__name(matchOverlaps, "matchOverlaps");
 function queryExpectsExactMatch(query) {
   return query.startsWith('"') && query.endsWith('"');
 }
+__name(queryExpectsExactMatch, "queryExpectsExactMatch");
 var MULTIPLE_QUERY_VALUES_SEPARATOR = " ";
 function prepareQuery(original) {
   if (typeof original !== "string") {
@@ -45272,6 +46093,7 @@ function prepareQuery(original) {
   }
   return { original, originalLowercase, pathNormalized, normalized, normalizedLowercase, values, containsPathSeparator, expectContiguousMatch: expectExactMatch };
 }
+__name(prepareQuery, "prepareQuery");
 function normalizeQuery(original) {
   let pathNormalized;
   if (isWindows) {
@@ -45286,14 +46108,16 @@ function normalizeQuery(original) {
     normalizedLowercase: normalized.toLowerCase()
   };
 }
+__name(normalizeQuery, "normalizeQuery");
 function pieceToQuery(arg1) {
   if (Array.isArray(arg1)) {
     return prepareQuery(arg1.map((piece) => piece.original).join(MULTIPLE_QUERY_VALUES_SEPARATOR));
   }
   return prepareQuery(arg1.original);
 }
+__name(pieceToQuery, "pieceToQuery");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/gotoSymbolQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/gotoSymbolQuickAccess.js
 init_lifecycle();
 init_strings();
 init_range();
@@ -45323,6 +46147,7 @@ var __awaiter51 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -45331,6 +46156,7 @@ var __awaiter51 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -45338,13 +46164,15 @@ var __awaiter51 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessProvider2 extends AbstractEditorNavigationQuickAccessProvider {
+var AbstractGotoSymbolQuickAccessProvider = /* @__PURE__ */ __name(class AbstractGotoSymbolQuickAccessProvider2 extends AbstractEditorNavigationQuickAccessProvider {
   constructor(_languageFeaturesService, _outlineModelService, options = /* @__PURE__ */ Object.create(null)) {
     super(options);
     this._languageFeaturesService = _languageFeaturesService;
@@ -45420,7 +46248,7 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
     }));
     const symbolsPromise = this.getDocumentSymbols(model, token);
     let picksCts = void 0;
-    const updatePickerItems = (positionToEnclose) => __awaiter51(this, void 0, void 0, function* () {
+    const updatePickerItems = /* @__PURE__ */ __name((positionToEnclose) => __awaiter51(this, void 0, void 0, function* () {
       picksCts === null || picksCts === void 0 ? void 0 : picksCts.dispose(true);
       picker.busy = false;
       picksCts = new CancellationTokenSource(token);
@@ -45451,7 +46279,7 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
           picker.busy = false;
         }
       }
-    });
+    }), "updatePickerItems");
     disposables.add(picker.onDidChangeValue(() => updatePickerItems(void 0)));
     updatePickerItems((_a5 = editor2.getSelection()) === null || _a5 === void 0 ? void 0 : _a5.getPosition());
     let ignoreFirstActiveEvent = 2;
@@ -45567,6 +46395,7 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
             lastSeparator.label = format(NLS_SYMBOL_KIND_CACHE[lastSymbolKind] || FALLBACK_NLS_SYMBOL_KIND, lastSymbolKindCounter);
           }
         };
+        __name(updateLastSeparatorLabel, "updateLastSeparatorLabel");
         let lastSymbolKind = void 0;
         let lastSeparator = void 0;
         let lastSymbolKindCounter = 0;
@@ -45627,7 +46456,7 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
       return token.isCancellationRequested ? [] : model.asListOfDocumentSymbols();
     });
   }
-};
+}, "AbstractGotoSymbolQuickAccessProvider");
 AbstractGotoSymbolQuickAccessProvider.PREFIX = "@";
 AbstractGotoSymbolQuickAccessProvider.SCOPE_PREFIX = ":";
 AbstractGotoSymbolQuickAccessProvider.PREFIX_BY_CATEGORY = `${AbstractGotoSymbolQuickAccessProvider.PREFIX}${AbstractGotoSymbolQuickAccessProvider.SCOPE_PREFIX}`;
@@ -45664,7 +46493,7 @@ var NLS_SYMBOL_KIND_CACHE = {
   [13]: localize("constant", "constants ({0})")
 };
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess.js
 init_platform2();
 init_codeEditorService();
 init_types();
@@ -45689,7 +46518,7 @@ var __param73 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var StandaloneGotoSymbolQuickAccessProvider = class StandaloneGotoSymbolQuickAccessProvider2 extends AbstractGotoSymbolQuickAccessProvider {
+var StandaloneGotoSymbolQuickAccessProvider = /* @__PURE__ */ __name(class StandaloneGotoSymbolQuickAccessProvider2 extends AbstractGotoSymbolQuickAccessProvider {
   constructor(editorService, languageFeaturesService, outlineModelService) {
     super(languageFeaturesService, outlineModelService);
     this.editorService = editorService;
@@ -45698,7 +46527,7 @@ var StandaloneGotoSymbolQuickAccessProvider = class StandaloneGotoSymbolQuickAcc
   get activeTextEditorControl() {
     return withNullAsUndefined(this.editorService.getFocusedCodeEditor());
   }
-};
+}, "StandaloneGotoSymbolQuickAccessProvider");
 StandaloneGotoSymbolQuickAccessProvider = __decorate73([
   __param73(0, ICodeEditorService),
   __param73(1, ILanguageFeaturesService),
@@ -45726,6 +46555,7 @@ var GotoSymbolAction = class extends EditorAction {
     accessor.get(IQuickInputService).quickAccess.show(AbstractGotoSymbolQuickAccessProvider.PREFIX);
   }
 };
+__name(GotoSymbolAction, "GotoSymbolAction");
 GotoSymbolAction.ID = "editor.action.quickOutline";
 registerEditorAction(GotoSymbolAction);
 Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
@@ -45737,19 +46567,19 @@ Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
   ]
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess.js
 init_define_process();
 init_platform2();
 init_standaloneStrings();
 init_codeEditorService();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/commandsQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/commandsQuickAccess.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/commandsQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/commandsQuickAccess.js
 init_define_process();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/base/common/errorMessage.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/common/errorMessage.js
 init_define_process();
 init_arrays();
 init_types();
@@ -45760,18 +46590,21 @@ function exceptionToErrorMessage(exception, verbose) {
   }
   return detectSystemErrorMessage(exception);
 }
+__name(exceptionToErrorMessage, "exceptionToErrorMessage");
 function stackToString(stack) {
   if (Array.isArray(stack)) {
     return stack.join("\n");
   }
   return stack;
 }
+__name(stackToString, "stackToString");
 function detectSystemErrorMessage(exception) {
   if (typeof exception.code === "string" && typeof exception.errno === "number" && typeof exception.syscall === "string") {
     return localize("nodeExceptionMessage", "A system error occurred ({0})", exception.message);
   }
   return exception.message || localize("error.defaultMessage", "An unknown error occurred. Please consult the log for more details.");
 }
+__name(detectSystemErrorMessage, "detectSystemErrorMessage");
 function toErrorMessage(error = null, verbose = false) {
   if (!error) {
     return localize("error.defaultMessage", "An unknown error occurred. Please consult the log for more details.");
@@ -45804,8 +46637,9 @@ function toErrorMessage(error = null, verbose = false) {
   }
   return localize("error.defaultMessage", "An unknown error occurred. Please consult the log for more details.");
 }
+__name(toErrorMessage, "toErrorMessage");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/commandsQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/commandsQuickAccess.js
 init_errors();
 init_lifecycle();
 init_map();
@@ -45816,7 +46650,7 @@ init_configuration();
 init_instantiation();
 init_keybinding();
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/pickerQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/pickerQuickAccess.js
 init_define_process();
 init_async();
 init_cancellation();
@@ -45827,6 +46661,7 @@ var __awaiter52 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -45835,6 +46670,7 @@ var __awaiter52 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -45842,9 +46678,11 @@ var __awaiter52 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
@@ -45859,10 +46697,12 @@ function isPicksWithActive(obj) {
   const candidate = obj;
   return Array.isArray(candidate.items);
 }
+__name(isPicksWithActive, "isPicksWithActive");
 function isFastAndSlowPicks(obj) {
   const candidate = obj;
   return !!candidate.picks && candidate.additionalPicks instanceof Promise;
 }
+__name(isFastAndSlowPicks, "isFastAndSlowPicks");
 var PickerQuickAccessProvider = class extends Disposable {
   constructor(prefix, options) {
     super();
@@ -45876,7 +46716,7 @@ var PickerQuickAccessProvider = class extends Disposable {
     picker.matchOnLabel = picker.matchOnDescription = picker.matchOnDetail = picker.sortByLabel = false;
     let picksCts = void 0;
     const picksDisposable = disposables.add(new MutableDisposable());
-    const updatePickerItems = () => __awaiter52(this, void 0, void 0, function* () {
+    const updatePickerItems = /* @__PURE__ */ __name(() => __awaiter52(this, void 0, void 0, function* () {
       const picksDisposables = picksDisposable.value = new DisposableStore();
       picksCts === null || picksCts === void 0 ? void 0 : picksCts.dispose(true);
       picker.busy = false;
@@ -45884,7 +46724,7 @@ var PickerQuickAccessProvider = class extends Disposable {
       const picksToken = picksCts.token;
       const picksFilter = picker.value.substr(this.prefix.length).trim();
       const providedPicks = this._getPicks(picksFilter, picksDisposables, picksToken);
-      const applyPicks = (picks, skipEmpty) => {
+      const applyPicks = /* @__PURE__ */ __name((picks, skipEmpty) => {
         var _a6;
         let items;
         let activeItem = void 0;
@@ -45907,7 +46747,7 @@ var PickerQuickAccessProvider = class extends Disposable {
           picker.activeItems = [activeItem];
         }
         return true;
-      };
+      }, "applyPicks");
       if (providedPicks === null) {
       } else if (isFastAndSlowPicks(providedPicks)) {
         let fastPicksApplied = false;
@@ -45982,7 +46822,7 @@ var PickerQuickAccessProvider = class extends Disposable {
           }
         }
       }
-    });
+    }), "updatePickerItems");
     disposables.add(picker.onDidChangeValue(() => updatePickerItems()));
     updatePickerItems();
     disposables.add(picker.onDidAccept((event) => {
@@ -46036,9 +46876,10 @@ var PickerQuickAccessProvider = class extends Disposable {
     return disposables;
   }
 };
+__name(PickerQuickAccessProvider, "PickerQuickAccessProvider");
 PickerQuickAccessProvider.FAST_PICKS_RACE_DELAY = 200;
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/commandsQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/quickinput/browser/commandsQuickAccess.js
 init_telemetry();
 var __decorate74 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -46061,6 +46902,7 @@ var __awaiter53 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -46069,6 +46911,7 @@ var __awaiter53 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -46076,13 +46919,15 @@ var __awaiter53 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var AbstractCommandsQuickAccessProvider = class AbstractCommandsQuickAccessProvider2 extends PickerQuickAccessProvider {
+var AbstractCommandsQuickAccessProvider = /* @__PURE__ */ __name(class AbstractCommandsQuickAccessProvider2 extends PickerQuickAccessProvider {
   constructor(options, instantiationService, keybindingService, commandService, telemetryService, dialogService) {
     super(AbstractCommandsQuickAccessProvider2.PREFIX, options);
     this.instantiationService = instantiationService;
@@ -46169,7 +47014,7 @@ var AbstractCommandsQuickAccessProvider = class AbstractCommandsQuickAccessProvi
       return commandPicks;
     });
   }
-};
+}, "AbstractCommandsQuickAccessProvider");
 AbstractCommandsQuickAccessProvider.PREFIX = ">";
 AbstractCommandsQuickAccessProvider.WORD_FILTER = or(matchesPrefix, matchesWords, matchesContiguousSubString);
 AbstractCommandsQuickAccessProvider = __decorate74([
@@ -46179,7 +47024,7 @@ AbstractCommandsQuickAccessProvider = __decorate74([
   __param74(4, ITelemetryService),
   __param74(5, IDialogService)
 ], AbstractCommandsQuickAccessProvider);
-var CommandsHistory = class CommandsHistory2 extends Disposable {
+var CommandsHistory = /* @__PURE__ */ __name(class CommandsHistory2 extends Disposable {
   constructor(storageService, configurationService) {
     super();
     this.storageService = storageService;
@@ -46249,7 +47094,7 @@ var CommandsHistory = class CommandsHistory2 extends Disposable {
     }
     return CommandsHistory2.DEFAULT_COMMANDS_HISTORY_LENGTH;
   }
-};
+}, "CommandsHistory");
 CommandsHistory.DEFAULT_COMMANDS_HISTORY_LENGTH = 50;
 CommandsHistory.PREF_KEY_CACHE = "commandPalette.mru.cache";
 CommandsHistory.PREF_KEY_COUNTER = "commandPalette.mru.counter";
@@ -46259,7 +47104,7 @@ CommandsHistory = __decorate74([
   __param74(1, IConfigurationService)
 ], CommandsHistory);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/commandsQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/commandsQuickAccess.js
 var AbstractEditorCommandsQuickAccessProvider = class extends AbstractCommandsQuickAccessProvider {
   constructor(options, instantiationService, keybindingService, commandService, telemetryService, dialogService) {
     super(options, instantiationService, keybindingService, commandService, telemetryService, dialogService);
@@ -46280,8 +47125,9 @@ var AbstractEditorCommandsQuickAccessProvider = class extends AbstractCommandsQu
     return editorCommandPicks;
   }
 };
+__name(AbstractEditorCommandsQuickAccessProvider, "AbstractEditorCommandsQuickAccessProvider");
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess.js
 init_types();
 init_instantiation();
 init_keybinding();
@@ -46310,6 +47156,7 @@ var __awaiter54 = function(thisArg, _arguments, P, generator) {
       resolve(value);
     });
   }
+  __name(adopt, "adopt");
   return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
@@ -46318,6 +47165,7 @@ var __awaiter54 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
@@ -46325,13 +47173,15 @@ var __awaiter54 = function(thisArg, _arguments, P, generator) {
         reject(e);
       }
     }
+    __name(rejected, "rejected");
     function step(result) {
       result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
+    __name(step, "step");
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var StandaloneCommandsQuickAccessProvider = class StandaloneCommandsQuickAccessProvider2 extends AbstractEditorCommandsQuickAccessProvider {
+var StandaloneCommandsQuickAccessProvider = /* @__PURE__ */ __name(class StandaloneCommandsQuickAccessProvider2 extends AbstractEditorCommandsQuickAccessProvider {
   constructor(instantiationService, codeEditorService, keybindingService, commandService, telemetryService, dialogService) {
     super({ showAlias: false }, instantiationService, keybindingService, commandService, telemetryService, dialogService);
     this.codeEditorService = codeEditorService;
@@ -46344,7 +47194,7 @@ var StandaloneCommandsQuickAccessProvider = class StandaloneCommandsQuickAccessP
       return this.getCodeEditorCommandPicks();
     });
   }
-};
+}, "StandaloneCommandsQuickAccessProvider");
 StandaloneCommandsQuickAccessProvider = __decorate75([
   __param75(0, IInstantiationService),
   __param75(1, ICodeEditorService),
@@ -46375,6 +47225,7 @@ var GotoLineAction2 = class extends EditorAction {
     accessor.get(IQuickInputService).quickAccess.show(StandaloneCommandsQuickAccessProvider.PREFIX);
   }
 };
+__name(GotoLineAction2, "GotoLineAction");
 GotoLineAction2.ID = "editor.action.quickCommand";
 registerEditorAction(GotoLineAction2);
 Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
@@ -46383,7 +47234,7 @@ Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
   helpEntries: [{ description: QuickCommandNLS.quickCommandHelp, commandId: GotoLineAction2.ID }]
 });
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/referenceSearch/standaloneReferenceSearch.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/referenceSearch/standaloneReferenceSearch.js
 init_define_process();
 init_editorExtensions();
 init_codeEditorService();
@@ -46405,11 +47256,11 @@ var __param76 = function(paramIndex, decorator) {
     decorator(target, key, paramIndex);
   };
 };
-var StandaloneReferencesController = class StandaloneReferencesController2 extends ReferencesController {
+var StandaloneReferencesController = /* @__PURE__ */ __name(class StandaloneReferencesController2 extends ReferencesController {
   constructor(editor2, contextKeyService, editorService, notificationService, instantiationService, storageService, configurationService) {
     super(true, editor2, contextKeyService, editorService, notificationService, instantiationService, storageService, configurationService);
   }
-};
+}, "StandaloneReferencesController");
 StandaloneReferencesController = __decorate76([
   __param76(1, IContextKeyService),
   __param76(2, ICodeEditorService),
@@ -46420,7 +47271,7 @@ StandaloneReferencesController = __decorate76([
 ], StandaloneReferencesController);
 registerEditorContribution(ReferencesController.ID, StandaloneReferencesController);
 
-// ../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-8c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/toggleHighContrast/toggleHighContrast.js
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/toggleHighContrast/toggleHighContrast.js
 init_define_process();
 init_editorExtensions();
 init_standaloneTheme();
@@ -46448,6 +47299,7 @@ var ToggleHighContrast = class extends EditorAction {
     }
   }
 };
+__name(ToggleHighContrast, "ToggleHighContrast");
 registerEditorAction(ToggleHighContrast);
 
 // js/startMonaco.ts
@@ -46464,7 +47316,7 @@ var lib = [
   "es2018.regexp",
   "es2019.array"
 ];
-var monacoContribution = async (typescript, editor2, Uri2, code) => {
+var monacoContribution = /* @__PURE__ */ __name(async (typescript, editor2, Uri2, code) => {
   typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,
@@ -46532,7 +47384,7 @@ var monacoContribution = async (typescript, editor2, Uri2, code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-5OQ33KDM.mjs");
+    const { dtsFiles } = await import("./chunk-types-DWMBU5DR.mjs");
     const {
       reactDts,
       jsxRuntimeDts,
@@ -46647,12 +47499,12 @@ var monacoContribution = async (typescript, editor2, Uri2, code) => {
       }
     ];
     try {
-      const mapper = async ({ name, url }) => typescript.typescriptDefaults.addExtraLib(
+      const mapper = /* @__PURE__ */ __name(async ({ name, url }) => typescript.typescriptDefaults.addExtraLib(
         await (await fetch(
           url
         )).text(),
         location.origin + `/node_modules/${name}/index.d.ts`
-      );
+      ), "mapper");
       await pMap(importHelper, mapper, { concurrency: 2 });
     } catch {
       console.error("Error in loading d.ts");
@@ -46665,7 +47517,7 @@ var monacoContribution = async (typescript, editor2, Uri2, code) => {
     });
   })();
   return code;
-};
+}, "monacoContribution");
 window.MonacoEnvironment = {
   getWorker: async function(_workerId, label) {
     if (label === "typescript" || label === "javascript") {
@@ -46681,7 +47533,7 @@ window.MonacoEnvironment = {
   }
 };
 var mod = {};
-var startMonaco = async ({ code, container, name }) => {
+var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name }) => {
   if (mod[name])
     return mod[name];
   const codeSpace = name;
@@ -46749,7 +47601,7 @@ var startMonaco = async ({ code, container, name }) => {
     model,
     monaco: { editor, languages, Uri }
   };
-};
+}, "startMonaco");
 export {
   startMonaco
 };
