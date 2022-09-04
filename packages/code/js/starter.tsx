@@ -8,7 +8,6 @@ import type {} from "react-dom/next";
 import { hashCode, mST } from "./session";
 import { css } from "@emotion/react";
 import ErrorBoundary from "./ErrorBoundary";
-import { isInstance } from "big-integer";
 
 // Object.assign(window, {});
 
