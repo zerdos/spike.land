@@ -1,4 +1,4 @@
-import "./chunk-chunk-HPXHEL5F.mjs";
+import "./chunk-chunk-3MJAIZ2G.mjs";
 import {
   $,
   AccessibilityHelpNLS,
@@ -610,7 +610,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-AI4QHZO7.mjs";
+} from "./chunk-chunk-TPHZHNRA.mjs";
 import {
   __commonJS,
   __esm,
@@ -621,7 +621,7 @@ import {
   __publicField,
   __toESM,
   init_define_process
-} from "./chunk-chunk-BE5LE3QF.mjs";
+} from "./chunk-chunk-S6BTEEN4.mjs";
 
 // (disabled):os
 var require_os = __commonJS({
@@ -2967,7 +2967,7 @@ registerLanguage({
         __require(["vs/basic-languages/abap/abap"], resolve, reject);
       });
     } else {
-      return import("./chunk-abap-67FLRQQI.mjs");
+      return import("./chunk-abap-GJRLZLOS.mjs");
     }
   }
 });
@@ -2985,7 +2985,7 @@ registerLanguage({
         __require(["vs/basic-languages/apex/apex"], resolve, reject);
       });
     } else {
-      return import("./chunk-apex-7TN7MW5D.mjs");
+      return import("./chunk-apex-Y6GFRAKX.mjs");
     }
   }
 });
@@ -3002,7 +3002,7 @@ registerLanguage({
         __require(["vs/basic-languages/azcli/azcli"], resolve, reject);
       });
     } else {
-      return import("./chunk-azcli-3FNAZZV3.mjs");
+      return import("./chunk-azcli-76UPDXH2.mjs");
     }
   }
 });
@@ -3019,7 +3019,7 @@ registerLanguage({
         __require(["vs/basic-languages/bat/bat"], resolve, reject);
       });
     } else {
-      return import("./chunk-bat-YIYR5OSF.mjs");
+      return import("./chunk-bat-XVNPCGJR.mjs");
     }
   }
 });
@@ -3036,7 +3036,7 @@ registerLanguage({
         __require(["vs/basic-languages/bicep/bicep"], resolve, reject);
       });
     } else {
-      return import("./chunk-bicep-NFPRMSEE.mjs");
+      return import("./chunk-bicep-IWU6DME4.mjs");
     }
   }
 });
@@ -3053,7 +3053,7 @@ registerLanguage({
         __require(["vs/basic-languages/cameligo/cameligo"], resolve, reject);
       });
     } else {
-      return import("./chunk-cameligo-UQOCOALP.mjs");
+      return import("./chunk-cameligo-QIECQTMX.mjs");
     }
   }
 });
@@ -3070,7 +3070,7 @@ registerLanguage({
         __require(["vs/basic-languages/clojure/clojure"], resolve, reject);
       });
     } else {
-      return import("./chunk-clojure-CTGLXPN2.mjs");
+      return import("./chunk-clojure-AU7XTLHH.mjs");
     }
   }
 });
@@ -3088,7 +3088,7 @@ registerLanguage({
         __require(["vs/basic-languages/coffee/coffee"], resolve, reject);
       });
     } else {
-      return import("./chunk-coffee-72VQUGB7.mjs");
+      return import("./chunk-coffee-4B4C4E2B.mjs");
     }
   }
 });
@@ -3105,7 +3105,7 @@ registerLanguage({
         __require(["vs/basic-languages/cpp/cpp"], resolve, reject);
       });
     } else {
-      return import("./chunk-cpp-62PV2QLM.mjs");
+      return import("./chunk-cpp-A3N3ZOH7.mjs");
     }
   }
 });
@@ -3119,7 +3119,7 @@ registerLanguage({
         __require(["vs/basic-languages/cpp/cpp"], resolve, reject);
       });
     } else {
-      return import("./chunk-cpp-62PV2QLM.mjs");
+      return import("./chunk-cpp-A3N3ZOH7.mjs");
     }
   }
 });
@@ -3136,7 +3136,7 @@ registerLanguage({
         __require(["vs/basic-languages/csharp/csharp"], resolve, reject);
       });
     } else {
-      return import("./chunk-csharp-NCLKFVLT.mjs");
+      return import("./chunk-csharp-XZCVQQ37.mjs");
     }
   }
 });
@@ -3153,7 +3153,7 @@ registerLanguage({
         __require(["vs/basic-languages/csp/csp"], resolve, reject);
       });
     } else {
-      return import("./chunk-csp-35ZTCVQ4.mjs");
+      return import("./chunk-csp-AC2QMYT7.mjs");
     }
   }
 });
@@ -3171,7 +3171,7 @@ registerLanguage({
         __require(["vs/basic-languages/css/css"], resolve, reject);
       });
     } else {
-      return import("./chunk-css-PI2IYDBF.mjs");
+      return import("./chunk-css-TBAASLQ7.mjs");
     }
   }
 });
@@ -3188,7 +3188,7 @@ registerLanguage({
         __require(["vs/basic-languages/cypher/cypher"], resolve, reject);
       });
     } else {
-      return import("./chunk-cypher-VA6OYNU7.mjs");
+      return import("./chunk-cypher-VOEZIUF7.mjs");
     }
   }
 });
@@ -3206,7 +3206,7 @@ registerLanguage({
         __require(["vs/basic-languages/dart/dart"], resolve, reject);
       });
     } else {
-      return import("./chunk-dart-WFQ237FA.mjs");
+      return import("./chunk-dart-ET4CO6T6.mjs");
     }
   }
 });
@@ -3224,7 +3224,7 @@ registerLanguage({
         __require(["vs/basic-languages/dockerfile/dockerfile"], resolve, reject);
       });
     } else {
-      return import("./chunk-dockerfile-2QHCUDRC.mjs");
+      return import("./chunk-dockerfile-QIYHGCAU.mjs");
     }
   }
 });
@@ -3241,7 +3241,7 @@ registerLanguage({
         __require(["vs/basic-languages/ecl/ecl"], resolve, reject);
       });
     } else {
-      return import("./chunk-ecl-DKUE6Y4Q.mjs");
+      return import("./chunk-ecl-F2MKLE24.mjs");
     }
   }
 });
@@ -3258,7 +3258,7 @@ registerLanguage({
         __require(["vs/basic-languages/elixir/elixir"], resolve, reject);
       });
     } else {
-      return import("./chunk-elixir-JMHQV4IK.mjs");
+      return import("./chunk-elixir-C2ZXIZHE.mjs");
     }
   }
 });
@@ -3275,7 +3275,7 @@ registerLanguage({
         __require(["vs/basic-languages/flow9/flow9"], resolve, reject);
       });
     } else {
-      return import("./chunk-flow9-3BW3JXXW.mjs");
+      return import("./chunk-flow9-GC366I33.mjs");
     }
   }
 });
@@ -3292,7 +3292,7 @@ registerLanguage({
         __require(["vs/basic-languages/fsharp/fsharp"], resolve, reject);
       });
     } else {
-      return import("./chunk-fsharp-DJYOQQBL.mjs");
+      return import("./chunk-fsharp-UM55CRWD.mjs");
     }
   }
 });
@@ -3309,7 +3309,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -3322,7 +3322,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -3335,7 +3335,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -3348,7 +3348,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -3361,7 +3361,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -3374,7 +3374,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -3387,7 +3387,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("./chunk-freemarker2-KVZMK74L.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
@@ -3404,7 +3404,7 @@ registerLanguage({
         __require(["vs/basic-languages/go/go"], resolve, reject);
       });
     } else {
-      return import("./chunk-go-JHCNBL54.mjs");
+      return import("./chunk-go-KMM7ZDJ4.mjs");
     }
   }
 });
@@ -3422,7 +3422,7 @@ registerLanguage({
         __require(["vs/basic-languages/graphql/graphql"], resolve, reject);
       });
     } else {
-      return import("./chunk-graphql-SXO5GN65.mjs");
+      return import("./chunk-graphql-UF5DGLSM.mjs");
     }
   }
 });
@@ -3440,7 +3440,7 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("./chunk-handlebars-T6ZXTVJQ.mjs");
+      return import("./chunk-handlebars-WL2WCXL7.mjs");
     }
   }
 });
@@ -3457,7 +3457,7 @@ registerLanguage({
         __require(["vs/basic-languages/hcl/hcl"], resolve, reject);
       });
     } else {
-      return import("./chunk-hcl-J5GSAJZS.mjs");
+      return import("./chunk-hcl-FTVA7Y7X.mjs");
     }
   }
 });
@@ -3475,7 +3475,7 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("./chunk-html-P73C7XUQ.mjs");
+      return import("./chunk-html-2KODTAIF.mjs");
     }
   }
 });
@@ -3493,7 +3493,7 @@ registerLanguage({
         __require(["vs/basic-languages/ini/ini"], resolve, reject);
       });
     } else {
-      return import("./chunk-ini-TLMEIL3K.mjs");
+      return import("./chunk-ini-B75JXMST.mjs");
     }
   }
 });
@@ -3511,7 +3511,7 @@ registerLanguage({
         __require(["vs/basic-languages/java/java"], resolve, reject);
       });
     } else {
-      return import("./chunk-java-MDE4BYGG.mjs");
+      return import("./chunk-java-F7SE7SBC.mjs");
     }
   }
 });
@@ -3531,7 +3531,7 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("./chunk-javascript-ZHQRXIDF.mjs");
+      return import("./chunk-javascript-4UWXCRXN.mjs");
     }
   }
 });
@@ -3548,7 +3548,7 @@ registerLanguage({
         __require(["vs/basic-languages/julia/julia"], resolve, reject);
       });
     } else {
-      return import("./chunk-julia-RRRAQ7W7.mjs");
+      return import("./chunk-julia-PGF4LY22.mjs");
     }
   }
 });
@@ -3566,7 +3566,7 @@ registerLanguage({
         __require(["vs/basic-languages/kotlin/kotlin"], resolve, reject);
       });
     } else {
-      return import("./chunk-kotlin-TUPLRUJC.mjs");
+      return import("./chunk-kotlin-TLIRC635.mjs");
     }
   }
 });
@@ -3584,7 +3584,7 @@ registerLanguage({
         __require(["vs/basic-languages/less/less"], resolve, reject);
       });
     } else {
-      return import("./chunk-less-NY5NTQMM.mjs");
+      return import("./chunk-less-5UTI6UYA.mjs");
     }
   }
 });
@@ -3601,7 +3601,7 @@ registerLanguage({
         __require(["vs/basic-languages/lexon/lexon"], resolve, reject);
       });
     } else {
-      return import("./chunk-lexon-SM6L24VZ.mjs");
+      return import("./chunk-lexon-KG4JTBDY.mjs");
     }
   }
 });
@@ -3618,7 +3618,7 @@ registerLanguage({
         __require(["vs/basic-languages/lua/lua"], resolve, reject);
       });
     } else {
-      return import("./chunk-lua-KIDOGIDD.mjs");
+      return import("./chunk-lua-AVQ2PRNR.mjs");
     }
   }
 });
@@ -3636,7 +3636,7 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("./chunk-liquid-4KGYWCJZ.mjs");
+      return import("./chunk-liquid-RCCRFWAT.mjs");
     }
   }
 });
@@ -3653,7 +3653,7 @@ registerLanguage({
         __require(["vs/basic-languages/m3/m3"], resolve, reject);
       });
     } else {
-      return import("./chunk-m3-T6UFZOFL.mjs");
+      return import("./chunk-m3-PFK2UW57.mjs");
     }
   }
 });
@@ -3670,7 +3670,7 @@ registerLanguage({
         __require(["vs/basic-languages/markdown/markdown"], resolve, reject);
       });
     } else {
-      return import("./chunk-markdown-BML7YWTX.mjs");
+      return import("./chunk-markdown-62GWFPGV.mjs");
     }
   }
 });
@@ -3688,7 +3688,7 @@ registerLanguage({
         __require(["vs/basic-languages/mips/mips"], resolve, reject);
       });
     } else {
-      return import("./chunk-mips-DH5IY7RM.mjs");
+      return import("./chunk-mips-WFTN4LA4.mjs");
     }
   }
 });
@@ -3705,7 +3705,7 @@ registerLanguage({
         __require(["vs/basic-languages/msdax/msdax"], resolve, reject);
       });
     } else {
-      return import("./chunk-msdax-ZCAFKMAK.mjs");
+      return import("./chunk-msdax-HCC6ENEB.mjs");
     }
   }
 });
@@ -3722,7 +3722,7 @@ registerLanguage({
         __require(["vs/basic-languages/mysql/mysql"], resolve, reject);
       });
     } else {
-      return import("./chunk-mysql-ZTM6S3BS.mjs");
+      return import("./chunk-mysql-5K2POW7L.mjs");
     }
   }
 });
@@ -3739,7 +3739,7 @@ registerLanguage({
         __require(["vs/basic-languages/objective-c/objective-c"], resolve, reject);
       });
     } else {
-      return import("./chunk-objective-c-ZPVOFM2U.mjs");
+      return import("./chunk-objective-c-EU3FUNOX.mjs");
     }
   }
 });
@@ -3757,7 +3757,7 @@ registerLanguage({
         __require(["vs/basic-languages/pascal/pascal"], resolve, reject);
       });
     } else {
-      return import("./chunk-pascal-T545CRLK.mjs");
+      return import("./chunk-pascal-T52QRQJH.mjs");
     }
   }
 });
@@ -3774,7 +3774,7 @@ registerLanguage({
         __require(["vs/basic-languages/pascaligo/pascaligo"], resolve, reject);
       });
     } else {
-      return import("./chunk-pascaligo-IGZTW554.mjs");
+      return import("./chunk-pascaligo-Z6CIEAXA.mjs");
     }
   }
 });
@@ -3791,7 +3791,7 @@ registerLanguage({
         __require(["vs/basic-languages/perl/perl"], resolve, reject);
       });
     } else {
-      return import("./chunk-perl-QHKHJBGJ.mjs");
+      return import("./chunk-perl-NCRQ5PTH.mjs");
     }
   }
 });
@@ -3808,7 +3808,7 @@ registerLanguage({
         __require(["vs/basic-languages/pgsql/pgsql"], resolve, reject);
       });
     } else {
-      return import("./chunk-pgsql-KKC6YKQ7.mjs");
+      return import("./chunk-pgsql-X6C6HBDW.mjs");
     }
   }
 });
@@ -3826,7 +3826,7 @@ registerLanguage({
         __require(["vs/basic-languages/php/php"], resolve, reject);
       });
     } else {
-      return import("./chunk-php-LIP3Q77L.mjs");
+      return import("./chunk-php-R2SMQQFP.mjs");
     }
   }
 });
@@ -3842,7 +3842,7 @@ registerLanguage({
         __require(["vs/basic-languages/pla/pla"], resolve, reject);
       });
     } else {
-      return import("./chunk-pla-AS6PPPA2.mjs");
+      return import("./chunk-pla-JJHDGFEF.mjs");
     }
   }
 });
@@ -3859,7 +3859,7 @@ registerLanguage({
         __require(["vs/basic-languages/postiats/postiats"], resolve, reject);
       });
     } else {
-      return import("./chunk-postiats-ICXJFU3O.mjs");
+      return import("./chunk-postiats-QFFRBUPS.mjs");
     }
   }
 });
@@ -3876,7 +3876,7 @@ registerLanguage({
         __require(["vs/basic-languages/powerquery/powerquery"], resolve, reject);
       });
     } else {
-      return import("./chunk-powerquery-GDLRCMCB.mjs");
+      return import("./chunk-powerquery-63OAEP62.mjs");
     }
   }
 });
@@ -3893,7 +3893,7 @@ registerLanguage({
         __require(["vs/basic-languages/powershell/powershell"], resolve, reject);
       });
     } else {
-      return import("./chunk-powershell-DSS6USTA.mjs");
+      return import("./chunk-powershell-EDO6EPQR.mjs");
     }
   }
 });
@@ -3910,7 +3910,7 @@ registerLanguage({
         __require(["vs/basic-languages/protobuf/protobuf"], resolve, reject);
       });
     } else {
-      return import("./chunk-protobuf-O7XAYREX.mjs");
+      return import("./chunk-protobuf-ZHEXGYJ7.mjs");
     }
   }
 });
@@ -3927,7 +3927,7 @@ registerLanguage({
         __require(["vs/basic-languages/pug/pug"], resolve, reject);
       });
     } else {
-      return import("./chunk-pug-PI7UG3IK.mjs");
+      return import("./chunk-pug-ZAZXA6Z7.mjs");
     }
   }
 });
@@ -3945,7 +3945,7 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("./chunk-python-OMLCSYEJ.mjs");
+      return import("./chunk-python-NFDM4FU6.mjs");
     }
   }
 });
@@ -3962,7 +3962,7 @@ registerLanguage({
         __require(["vs/basic-languages/qsharp/qsharp"], resolve, reject);
       });
     } else {
-      return import("./chunk-qsharp-ZOMIH3LI.mjs");
+      return import("./chunk-qsharp-YVWOKHFA.mjs");
     }
   }
 });
@@ -3979,7 +3979,7 @@ registerLanguage({
         __require(["vs/basic-languages/r/r"], resolve, reject);
       });
     } else {
-      return import("./chunk-r-LTTH37H4.mjs");
+      return import("./chunk-r-NTIBCJHF.mjs");
     }
   }
 });
@@ -3997,7 +3997,7 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("./chunk-razor-VDJYDQUD.mjs");
+      return import("./chunk-razor-IV5KQOPO.mjs");
     }
   }
 });
@@ -4014,7 +4014,7 @@ registerLanguage({
         __require(["vs/basic-languages/redis/redis"], resolve, reject);
       });
     } else {
-      return import("./chunk-redis-A2TUWN3U.mjs");
+      return import("./chunk-redis-ZROSSETE.mjs");
     }
   }
 });
@@ -4031,7 +4031,7 @@ registerLanguage({
         __require(["vs/basic-languages/redshift/redshift"], resolve, reject);
       });
     } else {
-      return import("./chunk-redshift-OUOQWN4W.mjs");
+      return import("./chunk-redshift-JACIX7AJ.mjs");
     }
   }
 });
@@ -4048,7 +4048,7 @@ registerLanguage({
         __require(["vs/basic-languages/restructuredtext/restructuredtext"], resolve, reject);
       });
     } else {
-      return import("./chunk-restructuredtext-V4IWVHJK.mjs");
+      return import("./chunk-restructuredtext-ES5T3CBP.mjs");
     }
   }
 });
@@ -4066,7 +4066,7 @@ registerLanguage({
         __require(["vs/basic-languages/ruby/ruby"], resolve, reject);
       });
     } else {
-      return import("./chunk-ruby-TQN6HIEU.mjs");
+      return import("./chunk-ruby-LXQHGLNG.mjs");
     }
   }
 });
@@ -4083,7 +4083,7 @@ registerLanguage({
         __require(["vs/basic-languages/rust/rust"], resolve, reject);
       });
     } else {
-      return import("./chunk-rust-6EUEZ23X.mjs");
+      return import("./chunk-rust-2XEQ7V6X.mjs");
     }
   }
 });
@@ -4100,7 +4100,7 @@ registerLanguage({
         __require(["vs/basic-languages/sb/sb"], resolve, reject);
       });
     } else {
-      return import("./chunk-sb-NJ7CM7VV.mjs");
+      return import("./chunk-sb-T74US3K7.mjs");
     }
   }
 });
@@ -4118,7 +4118,7 @@ registerLanguage({
         __require(["vs/basic-languages/scala/scala"], resolve, reject);
       });
     } else {
-      return import("./chunk-scala-IF5FD2C5.mjs");
+      return import("./chunk-scala-ATGPLUCE.mjs");
     }
   }
 });
@@ -4135,7 +4135,7 @@ registerLanguage({
         __require(["vs/basic-languages/scheme/scheme"], resolve, reject);
       });
     } else {
-      return import("./chunk-scheme-V77BIWYZ.mjs");
+      return import("./chunk-scheme-UA35RF4S.mjs");
     }
   }
 });
@@ -4153,7 +4153,7 @@ registerLanguage({
         __require(["vs/basic-languages/scss/scss"], resolve, reject);
       });
     } else {
-      return import("./chunk-scss-6KIZ4TBO.mjs");
+      return import("./chunk-scss-UIEUQJI3.mjs");
     }
   }
 });
@@ -4170,7 +4170,7 @@ registerLanguage({
         __require(["vs/basic-languages/shell/shell"], resolve, reject);
       });
     } else {
-      return import("./chunk-shell-SQK64QAS.mjs");
+      return import("./chunk-shell-XXYGX65I.mjs");
     }
   }
 });
@@ -4187,7 +4187,7 @@ registerLanguage({
         __require(["vs/basic-languages/solidity/solidity"], resolve, reject);
       });
     } else {
-      return import("./chunk-solidity-3NWHU5OI.mjs");
+      return import("./chunk-solidity-RICQKKOU.mjs");
     }
   }
 });
@@ -4204,7 +4204,7 @@ registerLanguage({
         __require(["vs/basic-languages/sophia/sophia"], resolve, reject);
       });
     } else {
-      return import("./chunk-sophia-TQ2UFKLX.mjs");
+      return import("./chunk-sophia-RDZGH26U.mjs");
     }
   }
 });
@@ -4221,7 +4221,7 @@ registerLanguage({
         __require(["vs/basic-languages/sparql/sparql"], resolve, reject);
       });
     } else {
-      return import("./chunk-sparql-6V7RVHC6.mjs");
+      return import("./chunk-sparql-ZOGONTHM.mjs");
     }
   }
 });
@@ -4238,7 +4238,7 @@ registerLanguage({
         __require(["vs/basic-languages/sql/sql"], resolve, reject);
       });
     } else {
-      return import("./chunk-sql-CTJUAZLI.mjs");
+      return import("./chunk-sql-KP5ERYGV.mjs");
     }
   }
 });
@@ -4255,7 +4255,7 @@ registerLanguage({
         __require(["vs/basic-languages/st/st"], resolve, reject);
       });
     } else {
-      return import("./chunk-st-B36EYD4L.mjs");
+      return import("./chunk-st-AZXBPBR2.mjs");
     }
   }
 });
@@ -4273,7 +4273,7 @@ registerLanguage({
         __require(["vs/basic-languages/swift/swift"], resolve, reject);
       });
     } else {
-      return import("./chunk-swift-VFQDDGWH.mjs");
+      return import("./chunk-swift-BAA76FLA.mjs");
     }
   }
 });
@@ -4290,7 +4290,7 @@ registerLanguage({
         __require(["vs/basic-languages/systemverilog/systemverilog"], resolve, reject);
       });
     } else {
-      return import("./chunk-systemverilog-2DFNKXJN.mjs");
+      return import("./chunk-systemverilog-4CYW5O6Y.mjs");
     }
   }
 });
@@ -4304,7 +4304,7 @@ registerLanguage({
         __require(["vs/basic-languages/systemverilog/systemverilog"], resolve, reject);
       });
     } else {
-      return import("./chunk-systemverilog-2DFNKXJN.mjs");
+      return import("./chunk-systemverilog-4CYW5O6Y.mjs");
     }
   }
 });
@@ -4321,7 +4321,7 @@ registerLanguage({
         __require(["vs/basic-languages/tcl/tcl"], resolve, reject);
       });
     } else {
-      return import("./chunk-tcl-6KZ7RLYX.mjs");
+      return import("./chunk-tcl-NKLVKMTR.mjs");
     }
   }
 });
@@ -4339,7 +4339,7 @@ registerLanguage({
         __require(["vs/basic-languages/twig/twig"], resolve, reject);
       });
     } else {
-      return import("./chunk-twig-SRPTYFAY.mjs");
+      return import("./chunk-twig-KFMVGI6U.mjs");
     }
   }
 });
@@ -4357,7 +4357,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-MQUHLLAF.mjs");
+      return import("./chunk-typescript-4UKBH7UB.mjs");
     }
   }
 });
@@ -4374,7 +4374,7 @@ registerLanguage({
         __require(["vs/basic-languages/vb/vb"], resolve, reject);
       });
     } else {
-      return import("./chunk-vb-PHMGW3U7.mjs");
+      return import("./chunk-vb-5Z6N4AGM.mjs");
     }
   }
 });
@@ -4407,7 +4407,7 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("./chunk-xml-HMMUCL6S.mjs");
+      return import("./chunk-xml-G65JPWQV.mjs");
     }
   }
 });
@@ -4425,7 +4425,7 @@ registerLanguage({
         __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
       });
     } else {
-      return import("./chunk-yaml-HCYD5W3A.mjs");
+      return import("./chunk-yaml-SGGM7NYF.mjs");
     }
   }
 });
@@ -4541,7 +4541,7 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-cssMode-LOVDGRKR.mjs");
+    return import("./chunk-cssMode-SHWJ4YRF.mjs");
   }
 }
 __name(getMode, "getMode");
@@ -4663,7 +4663,7 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-htmlMode-RINLNQB6.mjs");
+    return import("./chunk-htmlMode-LQZRTOLM.mjs");
   }
 }
 __name(getMode2, "getMode");
@@ -4762,7 +4762,7 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-jsonMode-7S5W3HDS.mjs");
+    return import("./chunk-jsonMode-T4RP4RRC.mjs");
   }
 }
 __name(getMode3, "getMode");
@@ -47303,19 +47303,19 @@ __name(ToggleHighContrast, "ToggleHighContrast");
 registerEditorAction(ToggleHighContrast);
 
 // js/monaco-workers/language/typescript/ts.worker.js
-var ts_worker_default = "./chunk-ts.worker-DCLETTID.js";
+var ts_worker_default = "./chunk-ts.worker-YTHDH3IS.js";
 
 // js/monaco-workers/language/json/json.worker.js
-var json_worker_default = "./chunk-json.worker-SGOW4WD6.js";
+var json_worker_default = "./chunk-json.worker-LVTR5ELN.js";
 
 // js/monaco-workers/language/css/css.worker.js
-var css_worker_default = "./chunk-css.worker-KF2BWG24.js";
+var css_worker_default = "./chunk-css.worker-M7GMPINM.js";
 
 // js/monaco-workers/language/html/html.worker.js
-var html_worker_default = "./chunk-html.worker-43VT7D6Z.js";
+var html_worker_default = "./chunk-html.worker-A25DEBIP.js";
 
 // js/monaco-workers/editor/editor.worker.js
-var editor_worker_default = "./chunk-editor.worker-T7ZMIVFZ.js";
+var editor_worker_default = "./chunk-editor.worker-IUASZYH7.js";
 
 // js/startMonaco.ts
 var lib = [
@@ -47399,7 +47399,7 @@ var monacoContribution = /* @__PURE__ */ __name(async (typescript, editor2, Uri2
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-DWMBU5DR.mjs");
+    const { dtsFiles } = await import("./chunk-types-PZAC3NPM.mjs");
     const {
       reactDts,
       jsxRuntimeDts,

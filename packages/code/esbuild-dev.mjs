@@ -25,7 +25,7 @@ const define = {
   "process.env.version": `"1.1.1"`,
   "process.env.DUMP_SESSION_KEYS": false,
   "process": JSON.stringify({
-    env: { NODE_ENV: environment },
+    env: { NODE_ENV: "production" },
     version: "1.1.1",
     browser: true,
   }),
