@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "esbuild": "0.15.6"
+    "esbuild": "0.15.7"
   },
   "gitHead": "67d48a100505652f0e431fa7dd2fa810a2b1dec5"
 }
