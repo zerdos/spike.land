@@ -1,4 +1,7 @@
 import esbuild from "esbuild";
+import  postcss from 'esbuild-postcss';
+import autoprefixer from "autoprefixer"
+import postcssNested from "postcss-nested"
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -28,14 +31,39 @@ const define = {
   }),
   "global": "window",
 };
+const plugins = [postcss({
+  plugins: [
+    autoprefixer,
+    postcssNested
+  ]
+})];
 
 const buildOptions = {
   define,
   target,
   platform: "browser",
+  plugins,
   external: ["./mST"],
   legalComments: "none",
 };
+
+
+const workerEntryPoints = [
+	'vs/language/json/json.worker.js',
+	'vs/language/css/css.worker.js',
+	'vs/language/html/html.worker.js',
+	'vs/language/typescript/ts.worker.js',
+	'vs/editor/editor.worker.js'
+];
+
+await esbuild.build({
+	entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
+	bundle: true,
+  define,
+	format: 'iife',
+	outbase: 'monaco-editor/esm/vs',
+	outdir: 'js/monaco-workers'
+});
 
 const build = (entryPoints, format = "esm") =>
   esbuild.build({
@@ -60,7 +88,6 @@ const build = (entryPoints, format = "esm") =>
     format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
-    external: ["monaco-editor/*"],
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     assetNames: "chunk-[name]-[hash]",
@@ -77,7 +104,7 @@ const build = (entryPoints, format = "esm") =>
       ".js",
       ".wasm",
       ".tsWorker.js",
-      ".editor.main.js",
+      ".worker.js?worker",
     ],
 
     define,
@@ -90,7 +117,7 @@ const build = (entryPoints, format = "esm") =>
       ".ttf": "file",
       ".d.ts": "file",
       ".js?file": "file",
-      // ".worker.js": "file",
+      ".worker.js": "file",
       ".wasm": "file",
     },
     outdir,
@@ -107,3 +134,16 @@ await build([
   "js/startMonaco.ts", 
   "js/ws.ts",
 ]);
+
+await esbuild
+  .build({
+    entryPoints: ['dist/startMonaco.css'],
+    bundle: true,
+    outdir: 'dist',
+    allowOverwrite: true,
+    loader: {
+      ".ttf": "file",
+    },
+    plugins,
+  })
+  .catch(() => process.exit(1));

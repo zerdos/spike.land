@@ -32,8 +32,6 @@ export const imap = {
     "@emotion/react": emotionReact,
     "@emotion/react/jsx-runtime": emotionReact,
     "@emotion/react/jsx-dev-runtime": emotionReact,
-    "monaco-editor": "npm:monaco-editor",
-    "monaco-editor/": "npm:monaco-editor/",
     "@mui/": "npm:@mui/",
     "react": preact,
     "react-dom": preact,
@@ -393,9 +391,9 @@ export default {
                 },
               );
 
-              const chunkRegx = /[.]{1}[a-f0-9]{10}[.]+/gm;
+              const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
 
-              if (url.href.includes("chunk-") || chunkRegx.test(url.href)) {
+              if (url.href.includes("chunk-") || chunkRegExp.test(url.href)) {
                 kvResp.headers.append("Cache-Control", "immutable");
               }
 
