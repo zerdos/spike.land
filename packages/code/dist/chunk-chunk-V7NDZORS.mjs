@@ -19683,7 +19683,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-2NRTKTIY.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-FPC6O7CI.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-JALIKOB4.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -19725,7 +19725,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["startMonaco.css"];
       document.head.appendChild(link);
-      const { startMonaco } = await import("./startMonaco.mjs");
+      const { startMonaco } = await import(new URL(assets["startMonaco.mjs"], location.origin).toString());
       const { editor, monaco, model } = await startMonaco(
         {
           container: ref.current,

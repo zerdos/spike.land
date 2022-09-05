@@ -1,3 +1,4 @@
+import "./chunk-chunk-3MJAIZ2G.mjs";
 import {
   $,
   AccessibilityHelpNLS,
@@ -312,6 +313,7 @@ import {
   editorWidgetBorder,
   editorWidgetForeground,
   editorWidgetResizeBorder,
+  editor_api_exports,
   equals,
   errorForeground,
   escape,
@@ -608,7 +610,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-UGRDPTEB.mjs";
+} from "./chunk-chunk-TPHZHNRA.mjs";
 import {
   __commonJS,
   __esm,
@@ -2632,6 +2634,91 @@ var require_os = __commonJS({
 
 // js/startMonaco.ts
 init_define_process();
+
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.js
+init_define_process();
+
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/_.contribution.js
+init_define_process();
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __copyProps = /* @__PURE__ */ __name((to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+}, "__copyProps");
+var __reExport = /* @__PURE__ */ __name((target, mod2, secondTarget) => (__copyProps(target, mod2, "default"), secondTarget && __copyProps(secondTarget, mod2, "default")), "__reExport");
+var monaco_editor_core_exports = {};
+__reExport(monaco_editor_core_exports, editor_api_exports);
+var languageDefinitions = {};
+var lazyLanguageLoaders = {};
+var LazyLanguageLoader = /* @__PURE__ */ __name(class {
+  constructor(languageId) {
+    __publicField(this, "_languageId");
+    __publicField(this, "_loadingTriggered");
+    __publicField(this, "_lazyLoadPromise");
+    __publicField(this, "_lazyLoadPromiseResolve");
+    __publicField(this, "_lazyLoadPromiseReject");
+    this._languageId = languageId;
+    this._loadingTriggered = false;
+    this._lazyLoadPromise = new Promise((resolve, reject) => {
+      this._lazyLoadPromiseResolve = resolve;
+      this._lazyLoadPromiseReject = reject;
+    });
+  }
+  static getOrCreate(languageId) {
+    if (!lazyLanguageLoaders[languageId]) {
+      lazyLanguageLoaders[languageId] = new LazyLanguageLoader(languageId);
+    }
+    return lazyLanguageLoaders[languageId];
+  }
+  load() {
+    if (!this._loadingTriggered) {
+      this._loadingTriggered = true;
+      languageDefinitions[this._languageId].loader().then((mod2) => this._lazyLoadPromiseResolve(mod2), (err) => this._lazyLoadPromiseReject(err));
+    }
+    return this._lazyLoadPromise;
+  }
+}, "LazyLanguageLoader");
+function registerLanguage(def) {
+  const languageId = def.id;
+  languageDefinitions[languageId] = def;
+  monaco_editor_core_exports.languages.register(def);
+  const lazyLanguageLoader = LazyLanguageLoader.getOrCreate(languageId);
+  monaco_editor_core_exports.languages.registerTokensProviderFactory(languageId, {
+    create: async () => {
+      const mod2 = await lazyLanguageLoader.load();
+      return mod2.language;
+    }
+  });
+  monaco_editor_core_exports.languages.onLanguage(languageId, async () => {
+    const mod2 = await lazyLanguageLoader.load();
+    monaco_editor_core_exports.languages.setLanguageConfiguration(languageId, mod2.conf);
+  });
+}
+__name(registerLanguage, "registerLanguage");
+
+// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.js
+registerLanguage({
+  id: "typescript",
+  extensions: [".ts", ".tsx"],
+  aliases: ["TypeScript", "ts", "typescript"],
+  mimetypes: ["text/typescript"],
+  loader: () => {
+    if (false) {
+      return new Promise((resolve, reject) => {
+        __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
+      });
+    } else {
+      return import("./chunk-typescript-EDAELWBN.mjs");
+    }
+  }
+});
 
 // ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/edcore.main.js
 init_define_process();
@@ -45442,7 +45529,6 @@ __name(pMap, "pMap");
 var pMapSkip = Symbol("skip");
 
 // js/startMonaco.ts
-var { typescript } = languages;
 var lib = [
   "dom",
   "dom.iterable",
@@ -45507,14 +45593,14 @@ var lib = [
   "webworker.iterable"
 ];
 var monacoContribution = /* @__PURE__ */ __name(async (code) => {
-  typescript.typescriptDefaults.setDiagnosticsOptions({
+  languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,
     noSyntaxValidation: true
   });
-  typescript.typescriptDefaults.setCompilerOptions({
+  languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: location.origin + "/",
-    target: typescript.ScriptTarget.ESNext,
+    target: languages.typescript.ScriptTarget.ESNext,
     importHelpers: true,
     lib,
     allowJs: true,
@@ -45529,10 +45615,10 @@ var monacoContribution = /* @__PURE__ */ __name(async (code) => {
     noEmit: true,
     allowNonTsExtensions: true,
     "traceResolution": true,
-    moduleResolution: typescript.ModuleResolutionKind.NodeJs,
+    moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
     moduleSpecifierCompletion: 2,
     declaration: true,
-    module: typescript.ModuleKind.CommonJS,
+    module: languages.typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
     "sourceMap": true,
     "mapRoot": location.origin + "/src/sourcemaps",
@@ -45554,7 +45640,7 @@ var monacoContribution = /* @__PURE__ */ __name(async (code) => {
       location.origin + "/unpkg:/"
     ],
     jsxImportSource: "@emotion/react",
-    jsx: typescript.JsxEmit.ReactJSX,
+    jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     "include": [location.origin + "/node_modules"]
   });
@@ -45689,7 +45775,7 @@ var monacoContribution = /* @__PURE__ */ __name(async (code) => {
       }
     ];
     try {
-      const mapper = /* @__PURE__ */ __name(async ({ name, url }) => typescript.typescriptDefaults.addExtraLib(
+      const mapper = /* @__PURE__ */ __name(async ({ name, url }) => languages.typescript.typescriptDefaults.addExtraLib(
         await (await fetch(
           url
         )).text(),
@@ -45699,8 +45785,8 @@ var monacoContribution = /* @__PURE__ */ __name(async (code) => {
     } catch {
       console.error("Error in loading d.ts");
     }
-    typescript.typescriptDefaults.setEagerModelSync(true);
-    typescript.typescriptDefaults.setDiagnosticsOptions({
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
       noSyntaxValidation: false
@@ -45775,7 +45861,7 @@ var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name }) => {
       autoClosingBrackets: "beforeWhitespace"
     }),
     model,
-    monaco: { editor, languages: { typescript }, Uri }
+    monaco: { editor, languages, Uri }
   };
 }, "startMonaco");
 export {

@@ -1,11 +1,12 @@
 // import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
 
-
+import 'monaco-editor/esm/vs/editor/editor.api.js';
+import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
 import 'monaco-editor/esm/vs/language/typescript/monaco.contribution';
-import { editor,  Uri } from 'monaco-editor/esm/vs/editor/edcore.main';
-import {languages as Lang} from 'monaco-editor/esm/vs/editor/edcore.main';
 
-const {typescript} = Lang;
+import { editor,  Uri, languages } from 'monaco-editor/esm/vs/editor/edcore.main';
+
+
 
 import { getWorkerUrl } from "./monacoWorkers.mjs";
 
@@ -77,21 +78,19 @@ const lib = [
 ];
 
 const monacoContribution = async (
-  
-
   code: string,
 ) => {
   // const {typescript} = languages;
-  typescript.typescriptDefaults
+  languages.typescript.typescriptDefaults
     .setDiagnosticsOptions({
       noSuggestionDiagnostics: true,
       noSemanticValidation: true,
       noSyntaxValidation: true,
     });
 
-  typescript.typescriptDefaults.setCompilerOptions({
+    languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: location.origin + "/",
-    target: typescript.ScriptTarget.ESNext,
+    target: languages.typescript.ScriptTarget.ESNext,
 
     importHelpers: true,
 
@@ -109,10 +108,10 @@ const monacoContribution = async (
     noEmit: true,
     allowNonTsExtensions: true,
     "traceResolution": true,
-    moduleResolution: typescript.ModuleResolutionKind.NodeJs,
+    moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
     moduleSpecifierCompletion: 2,
     declaration: true,
-    module: typescript.ModuleKind.CommonJS,
+    module: languages.typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
     "sourceMap": true,
     "mapRoot": location.origin + "/src/sourcemaps",
@@ -135,7 +134,7 @@ const monacoContribution = async (
     ],
 
     jsxImportSource: "@emotion/react",
-    jsx: typescript.JsxEmit.ReactJSX,
+    jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     "include": [location.origin + "/node_modules"],
   });
@@ -304,7 +303,7 @@ const monacoContribution = async (
 
     try {
       const mapper = async ({ name, url }: { name: string; url: string }) =>
-        typescript.typescriptDefaults.addExtraLib(
+      languages.typescript.typescriptDefaults.addExtraLib(
           await (await fetch(
             url,
           )).text(),
@@ -315,8 +314,8 @@ const monacoContribution = async (
     } catch {
       console.error("Error in loading d.ts");
     }
-    typescript.typescriptDefaults.setEagerModelSync(true);
-    typescript.typescriptDefaults.setDiagnosticsOptions({
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
       noSyntaxValidation: false,
@@ -348,7 +347,7 @@ export const startMonaco = async (
   // container.appendChild(innerStyle);
 
   const replaced = await monacoContribution(
-    code,
+    code
   );
 
   // editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${location.origin}/package.json`))
@@ -486,6 +485,6 @@ export const startMonaco = async (
       autoClosingBrackets: "beforeWhitespace",
     }),
     model,
-    monaco: { editor, languages: {typescript}, Uri },
+    monaco: { editor, languages, Uri },
   };
 };

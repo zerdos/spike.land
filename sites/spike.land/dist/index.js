@@ -659,7 +659,7 @@ var chat_default = {
                   }
                 },
                 {
-                  cacheControl: url.href.includes("chunk-") ? {
+                  cacheControl: isChunk(url.href) ? {
                     browserTTL: 2 * 60 * 60 * 24,
                     edgeTTL: 2 * 60 * 60 * 24,
                     bypassCache: false
@@ -672,8 +672,7 @@ var chat_default = {
                   ASSET_MANIFEST: manifestJSON
                 }
               );
-              const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
-              if (url.href.includes("chunk-") || chunkRegExp.test(url.href)) {
+              if (isChunk(url.href)) {
                 kvResp.headers.append("Cache-Control", "public, max-age=604800, immutable");
               }
               return kvResp;
@@ -719,6 +718,10 @@ async function handleApiRequest(path, request, env) {
     default:
       return new Response("Not found", { status: 404 });
   }
+}
+function isChunk(link) {
+  const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
+  return link.includes("chunk-") || chunkRegExp.test(link);
 }
 
 // src/rateLimiterClient.ts
@@ -6460,6 +6463,7 @@ var Code = class {
             "react.mjs": a2["react.mjs"],
             "emotion.mjs": a2["emotion.mjs"],
             "framer-motion.mjs": a2["framer-motion.mjs"],
+            "startMonaco.mjs": a2["startMonaco.mjs"],
             "startMonaco.css": a2["startMonaco.css"]
           };
           return new Response(
