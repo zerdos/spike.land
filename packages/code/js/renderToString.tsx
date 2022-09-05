@@ -43,7 +43,7 @@ export const renderFromString = async (
   transpiled: string,
   codeSpace: string,
 ) => {
-  const md5Code = "ID" + md5(code).slice(0, 14);
+  const md5Code = "ID" + md5(transpiled).slice(0, 14);
   const App = await appFactory(transpiled);
 
   // const myCache =  createCache({
@@ -66,35 +66,37 @@ export const renderFromString = async (
 
   if (!await mod[md5Code]) return null;
   const html = temp.querySelector(`#${md5Code}`)?.innerHTML;
+  const css = html ? await prefixer( extractCritical(html)): null;
+  // flushSync();
   tempRoot.unmount();
 
-  setTimeout(() => {
-    const hash = hashCode();
-    setTimeout(() => {
-      if (hash !== hashCode()) return;
-      const { css, html, code } = mST();
-      const newMd5Code = "ID" + md5(code).slice(0, 14);
-      if (newMd5Code !== md5Code) return;
-      // @ts-ignore
-      // const codeSpace: string = globalThis["codeSpace"] as unknown as string;
-      const tmp = document.getElementById("root-" + codeSpace)!;
+  // setTimeout(() => {
+  //   const hash = hashCode();
+  //   setTimeout(() => {
+  //     if (hash !== hashCode()) return;
+  //     const { css, html, transpiled } = mST();
+  //     const newMd5Code = "ID" + md5(transpiled).slice(0, 14);
+  //     if (newMd5Code !== md5Code) return;
+  //     // @ts-ignore
+  //     // const codeSpace: string = globalThis["codeSpace"] as unknown as string;
+  //     const tmp = document.getElementById("root-" + codeSpace)!;
 
-      const htmlHtml = tmp.innerHTML;
-      const newCss = extractCritical(htmlHtml);
-      if (css !== newCss || html !== htmlHtml) {
-        patchSync({
-          ...mST(),
-          html: htmlHtml,
-          css: newCss,
-        });
-      }
-    }, 50);
-  }, 100);
+  //     const htmlHtml = tmp.innerHTML;
+  //     const newCss = extractCritical(htmlHtml);
+  //     if (css !== newCss || html !== htmlHtml) {
+  //       patchSync({
+  //         ...mST(),
+  //         html: htmlHtml,
+  //         css: newCss,
+  //       });
+  //     }
+  //   }, 500);
+  // }, 1000);
 
   return html
     ? {
       html,
-      css: await prefixer( extractCritical(html)),
+      css
     }
     : null;
 };

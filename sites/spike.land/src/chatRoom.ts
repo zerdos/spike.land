@@ -374,15 +374,15 @@ export class Code {
          const Etag = request.headers.get("Etag");
           const newEtag = await sha256(respText);
           const headers = new Headers();
-          headers.set(                "Access-Control-Allow-Origin", "*")
+          headers.set(  "Access-Control-Allow-Origin", "*")
           headers.set( "Cache-Control","max-age=604800, stale-while-revalidate=86400");
-          headers.set('Etag', newEtag);
+          // headers.set('Etag', newEtag);
 
 
           if(Etag === newEtag) {
 
 
-            headers.set('CF-Cache-Status', 'HIT');
+            // headers.set('CF-Cache-Status', 'HIT');
             return new Response(null, {status: 304, 
             statusText: "Not modified",
             headers

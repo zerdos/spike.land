@@ -1,13 +1,14 @@
 // import { createPortal } from "react-dom";
 // import { prefixer } from 'stylis';
 
-import type {} from "react-dom/next";
+// import type * as next from "react-dom/next";
 // import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
 import { hashCode, mST } from "./session";
 import { css } from "@emotion/react";
 import ErrorBoundary from "./ErrorBoundary";
+import { md5 } from "md5";
 
 // Object.assign(window, {});
 
@@ -96,9 +97,9 @@ const apps: { [key: string]: React.FC } = {};
 export const AutoUpdateApp: React.FC<{ hash: number }> = ({ hash }) => {
   // const result = md5(mST().transpiled);
 
-  // const ref = useRef(null);
-
-  const App = apps[hash];
+  // const ref = useRef(null);  
+  const transpiled = mST().transpiled;
+  const App = apps[md5(transpiled)];
 
   // return <Root codeSpace={codeSpace}>
   return (
@@ -109,12 +110,15 @@ export const AutoUpdateApp: React.FC<{ hash: number }> = ({ hash }) => {
 };
 
 export async function appFactory(transpiled = ""): Promise<React.FC> {
-  const hash = hashCode();
+  // const hashC = hashCode();
+
+  const trp = transpiled.length?transpiled: mST().transpiled;
+
+  const hash = md5(trp);
 
   if (!apps[hash]) {
     try {
-      apps[hash] = (await import(createJsBlob(transpiled || mST().transpiled)))
-        .default as unknown as React.FC;
+      apps[hash] = (await import(createJsBlob(trp))).default as unknown as React.FC;
     } catch (err) {
       if (err instanceof SyntaxError) {
         const name = err.name;
@@ -161,12 +165,20 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
     }
   }
 
-  if (transpiled && mST().transpiled !== transpiled) {
-    const newApp = apps[hash];
 
-    delete apps[hash];
-    return newApp;
-  }
+  // if ( mST().transpiled !== trp) {
+  //   if (hashC===hashCode()){
+  //     apps[hashC]=apps[hash];
+  //   } else {
+  //     apps[hashC] =  await  appFactory(mST().transpiled)
+  //   }
+   
+  // }
+  //   const newApp = apps[hash];
+
+  //   // delete apps[hash];
+  //   return newApp;
+  // }
   return apps[hash];
 }
 

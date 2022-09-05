@@ -71,7 +71,7 @@ await esbuild.build({
   define,
   // splitting: true, 
   treeShaking: true, 
-  minify: true,
+  minify: false,
   ignoreAnnotations: true,
   // loader: {
   //   ".wasm": "file",
@@ -172,7 +172,7 @@ await esbuild
     format: "esm",
     ignoreAnnotations: true,
     splitting: true,
-    minify:  true,
+    minify:  false,
     treeShaking: true,
     outdir: 'dist',
     allowOverwrite: true,
