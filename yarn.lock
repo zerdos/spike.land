@@ -2070,7 +2070,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:^3.16.0"
     "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:^1.25.1"
-    "@types/node": "npm:^18.7.14"
+    "@types/node": "npm:^18.7.15"
     "@types/react": "npm:18.0.18"
     "@types/xo": "npm:^0.39.3"
     "@yarnpkg/fslib": "npm:^2.7.1"
@@ -2223,14 +2223,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.7.14":
+"@types/node@npm:*":
   version: 18.7.14
   resolution: "@types/node@npm:18.7.14"
   checksum: 69800bcbe87d32faa3b40a68cdbfaff3e380f2cdb30775b5cbc88a9e76f032df998618b573bb0c6a2019aeb5475a21b60196553a9917c03df5f2d9ae8ea3c190
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.7.15":
+"@types/node@npm:18.7.15, @types/node@npm:^18.7.15":
   version: 18.7.15
   resolution: "@types/node@npm:18.7.15"
   checksum: 9e9059021ec1cafb093fd88a2a1be86e7cc615555770c98c51060861590b14e6ebb0e0bbfc1839e53efd74097b443b708c61800ad2103ea97146b0ca560d5924

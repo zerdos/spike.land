@@ -34,7 +34,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^3.16.0",
     "@playwright/test": "^1.25.1",
-    "@types/node": "^18.7.14",
+    "@types/node": "^18.7.15",
     "@types/xo": "^0.39.3",
     "@yarnpkg/sdks": "3.0.0-rc.15",
     "esbuild": "^0.15.7",
