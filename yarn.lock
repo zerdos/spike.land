@@ -2010,11 +2010,13 @@ __metadata:
     "@types/events": "npm:^3.0.0"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
-    "@types/node": "npm:18.7.14"
+    "@types/node": "npm:18.7.15"
     "@types/prettier": "npm:2.7.0"
     "@types/react": "npm:^18.0.18"
     "@types/react-dom": "npm:18.0.6"
+    "@types/web": "npm:0.0.72"
     "@types/xo": "npm:^0.39.3"
+    "@typescript/lib-dom": "npm:@types/web@0.0.72"
     ace-builds: "npm:1.10.0"
     async-mutex: "npm:0.4.0"
     autoprefixer: "npm:^10.4.8"
@@ -2221,10 +2223,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.7.14, @types/node@npm:^18.7.14":
+"@types/node@npm:*, @types/node@npm:^18.7.14":
   version: 18.7.14
   resolution: "@types/node@npm:18.7.14"
   checksum: 69800bcbe87d32faa3b40a68cdbfaff3e380f2cdb30775b5cbc88a9e76f032df998618b573bb0c6a2019aeb5475a21b60196553a9917c03df5f2d9ae8ea3c190
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.7.15":
+  version: 18.7.15
+  resolution: "@types/node@npm:18.7.15"
+  checksum: 9e9059021ec1cafb093fd88a2a1be86e7cc615555770c98c51060861590b14e6ebb0e0bbfc1839e53efd74097b443b708c61800ad2103ea97146b0ca560d5924
   languageName: node
   linkType: hard
 
@@ -2328,6 +2337,13 @@ __metadata:
   version: 1.0.0
   resolution: "@types/treeify@npm:1.0.0"
   checksum: 9a51bd33d129a578009e355039829a7d80a2100a881a5cda96befa0e7d59bdf0541728f07c3a2ddb26124c750792f6a9e8c1e12b202481c5196bed7b311a0a2d
+  languageName: node
+  linkType: hard
+
+"@types/web@npm:0.0.72, @typescript/lib-dom@npm:@types/web@0.0.72":
+  version: 0.0.72
+  resolution: "@types/web@npm:0.0.72"
+  checksum: 97f8f0af1001d27942d621acdaa92ec7c0b023c1b32242607cb7791930a5757118de3e04cb9cc8998cad9bc0bbc358d643e26769c594691bc3938ad923b6d54c
   languageName: node
   linkType: hard
 
