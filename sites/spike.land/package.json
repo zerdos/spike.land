@@ -6,9 +6,11 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler publish --env=testing src/index.ts",
-    "prepublishOnly": "yarn wrangler publish",
-    "xbuild": "esbuild  --bundle --tree-shaking=true --metafile=good.json --format=esm --loader:.html=text --external:__STATIC_CONTENT_MANIFEST --target=es2021 src/index.ts --outdir=dist"
+    "deploy": "yarn prep && npx wrangler publish --env=testing src/index.ts",
+    "prepublishOnly": "npx yarn wrangler publish",
+    "prep": "yarn c:build && yarn x:build",
+    "c:build": "yarn workspace @spike.land/code build",
+    "x:build": "esbuild  --bundle --tree-shaking=true --metafile=good.json --format=esm --loader:.html=text --external:__STATIC_CONTENT_MANIFEST --target=es2021 src/index.ts --outdir=dist"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.16.0",

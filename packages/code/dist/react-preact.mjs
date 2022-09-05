@@ -40,7 +40,7 @@ import {
   useState,
   version,
   y
-} from "./chunk-chunk-MPXJH6YS.mjs";
+} from "./chunk-chunk-BKZY7FJ5.mjs";
 import "./chunk-chunk-S6BTEEN4.mjs";
 init_react_preact();
 export {

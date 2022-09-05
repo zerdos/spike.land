@@ -890,7 +890,7 @@ var init_client = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/preact-render-to-string-virtual-ce4f098cc4/3/.yarn/global/cache/preact-render-to-string-npm-5.2.2-b8f2c0c74e-9c9.zip/node_modules/preact-render-to-string/dist/index.mjs
+// .yarn/__virtual__/preact-render-to-string-virtual-01f41805c5/5/.yarn/global/cache/preact-render-to-string-npm-5.2.2-b8f2c0c74e-9c9.zip/node_modules/preact-render-to-string/dist/index.mjs
 function o3(e4) {
   if (false === n2.test(e4 += ""))
     return e4;
@@ -1170,7 +1170,7 @@ function k4(e4) {
 }
 var r3, n2, i3, a3, l3, c3, u3, _3, p3, d3, h3, g4;
 var init_dist = __esm({
-  "../../.yarn/__virtual__/preact-render-to-string-virtual-ce4f098cc4/3/.yarn/global/cache/preact-render-to-string-npm-5.2.2-b8f2c0c74e-9c9.zip/node_modules/preact-render-to-string/dist/index.mjs"() {
+  ".yarn/__virtual__/preact-render-to-string-virtual-01f41805c5/5/.yarn/global/cache/preact-render-to-string-npm-5.2.2-b8f2c0c74e-9c9.zip/node_modules/preact-render-to-string/dist/index.mjs"() {
     init_define_process();
     init_preact_module();
     r3 = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|^--/i;
