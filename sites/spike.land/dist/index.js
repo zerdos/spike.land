@@ -6563,7 +6563,7 @@ var Code = class {
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
           headers.set("Cache-Control", "max-age=604800, stale-while-revalidate=86400");
-          headers.set("etag", newEtag);
+          headers.set("Etag", newEtag);
           if (Etag === newEtag) {
             headers.set("CF-Cache-Status", "HIT");
             return new Response(null, {
