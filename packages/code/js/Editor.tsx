@@ -90,7 +90,7 @@ export const Editor: React.FC<
       link.href = location.origin + "/" + assets["startMonaco.css"];
       document.head.appendChild(link);
 
-      const { startMonaco } = await import("./startMonaco");
+      const { startMonaco } = await import(new URL(assets["startMonaco.mjs"], location.origin).toString());
 
       const { editor, monaco, model } = await startMonaco(
         /**

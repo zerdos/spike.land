@@ -375,7 +375,7 @@ export default {
                   },
                 },
                 {
-                  cacheControl: (url.href.includes("chunk-")
+                  cacheControl: (isChunk(url.href)
                     ? {
                       browserTTL: 2 * 60 * 60 * 24,
                       edgeTTL: 2 * 60 * 60 * 24,
@@ -391,9 +391,9 @@ export default {
                 },
               );
 
-              const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
+         
 
-              if (url.href.includes("chunk-") || chunkRegExp.test(url.href)) {
+              if (isChunk(url.href)) {
                 kvResp.headers.append("Cache-Control", "public, max-age=604800, immutable");
               }
 
@@ -466,3 +466,9 @@ async function getHTMLResp(env: CodeEnv, room: string) {
 
   return roomObject.fetch("public?room=" + room);
 }
+
+
+function isChunk(link:string) {
+  const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
+ return link.includes("chunk-") || chunkRegExp.test(link)
+  }
