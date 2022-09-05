@@ -8,7 +8,7 @@ import { md5 } from "./md5";
 // import { m } from "framer-motion";
 
 const mod = {
-  toJs: (name: string):string => {
+  toJs: (name: string): string => {
     const md5Name = mod.hashMap[name];
     const data = mod.data[md5Name];
     if (!data) {
@@ -17,7 +17,9 @@ const mod = {
     }
 
     return (mod.data[md5Name].code +
-      mod.data[md5Name].deps.map(name =>mod.toJs(name)).join("\n")) as string;
+      mod.data[md5Name].deps.map((name) => mod.toJs(name)).join(
+        "\n",
+      )) as string;
   },
   hashMap: {} as unknown as { [key: string]: string },
   // toJs: (name: string)=>{
