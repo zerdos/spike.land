@@ -53,7 +53,7 @@ export async function runner({ code, counter, codeSpace }: {
   if (code === mST().code) return;
   if (mod.i > counter) return;
 
-  // session.changes.push(changes); 
+  // session.changes.push(changes);
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
 

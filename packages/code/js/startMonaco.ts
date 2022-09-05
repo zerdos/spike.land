@@ -5,7 +5,7 @@ import pMap from "p-map";
 
 import { editor, languages, Uri } from "monaco-editor";
 
-import {getWorkerUrl} from "./monacoWorkers.mjs"
+import { getWorkerUrl } from "./monacoWorkers.mjs";
 
 const lib = [
   "dom",
@@ -322,12 +322,11 @@ const monacoContribution = async (
   return code;
 };
 
-
 self.MonacoEnvironment = {
-	getWorkerUrl
+  getWorkerUrl,
 };
 
-const mod:{[key: string]:Object } = {};
+const mod: { [key: string]: Object } = {};
 
 export const startMonaco = async (
   { code, container, name }: {
@@ -336,7 +335,7 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
-  if(mod[name]) return mod[name];
+  if (mod[name]) return mod[name];
   const codeSpace = name;
 
   // const innerStyle = document.createElement("style");
@@ -360,7 +359,7 @@ export const startMonaco = async (
     Uri.parse(`${location.origin}/live/${codeSpace}.tsx`),
   );
 
-  return mod[name] ={
+  return mod[name] = {
     editor: editor.create(container, {
       model,
       scrollbar: {
@@ -480,7 +479,7 @@ export const startMonaco = async (
       codeActionsOnSaveTimeout: 300,
       dropIntoEditor: { enabled: true },
       // gotoLocation: true,]]
-      mouseStyle:"default",
+      mouseStyle: "default",
       definitionLinkOpensInPeek: true,
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace",
