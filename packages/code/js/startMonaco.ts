@@ -1,11 +1,16 @@
 // import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
 
-import type monaco from "monaco-editor";
-import pMap from "p-map";
 
-import { editor, languages, Uri } from "monaco-editor";
+import 'monaco-editor/esm/vs/language/typescript/monaco.contribution';
+import { editor,  Uri } from 'monaco-editor/esm/vs/editor/edcore.main';
+import {languages as Lang} from 'monaco-editor/esm/vs/editor/edcore.main';
+
+const {typescript} = Lang;
 
 import { getWorkerUrl } from "./monacoWorkers.mjs";
+
+import pMap from "p-map";
+
 
 const lib = [
   "dom",
@@ -72,9 +77,8 @@ const lib = [
 ];
 
 const monacoContribution = async (
-  typescript: typeof monaco.languages.typescript,
-  editor: typeof monaco.editor,
-  Uri: typeof monaco.Uri,
+  
+
   code: string,
 ) => {
   // const {typescript} = languages;
@@ -344,9 +348,6 @@ export const startMonaco = async (
   // container.appendChild(innerStyle);
 
   const replaced = await monacoContribution(
-    languages.typescript,
-    editor,
-    Uri,
     code,
   );
 
@@ -485,6 +486,6 @@ export const startMonaco = async (
       autoClosingBrackets: "beforeWhitespace",
     }),
     model,
-    monaco: { editor, languages, Uri },
+    monaco: { editor, languages: {typescript}, Uri },
   };
 };

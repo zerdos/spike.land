@@ -1,9 +1,7 @@
 import {
+  editor_api_exports,
   typescriptDefaults
-} from "./chunk-chunk-3MJAIZ2G.mjs";
-import {
-  editor_api_exports
-} from "./chunk-chunk-TPHZHNRA.mjs";
+} from "./chunk-chunk-UGRDPTEB.mjs";
 import {
   __name,
   __publicField,

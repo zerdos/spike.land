@@ -1,4 +1,3 @@
-import "./chunk-chunk-3MJAIZ2G.mjs";
 import {
   $,
   AccessibilityHelpNLS,
@@ -313,7 +312,6 @@ import {
   editorWidgetBorder,
   editorWidgetForeground,
   editorWidgetResizeBorder,
-  editor_api_exports,
   equals,
   errorForeground,
   escape,
@@ -610,7 +608,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-TPHZHNRA.mjs";
+} from "./chunk-chunk-UGRDPTEB.mjs";
 import {
   __commonJS,
   __esm,
@@ -622,13 +620,6 @@ import {
   __toESM,
   init_define_process
 } from "./chunk-chunk-S6BTEEN4.mjs";
-
-// (disabled):os
-var require_os = __commonJS({
-  "(disabled):os"() {
-    init_define_process();
-  }
-});
 
 // ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -2632,2149 +2623,15 @@ var require_inspectTokens = __commonJS({
   }
 });
 
+// (disabled):os
+var require_os = __commonJS({
+  "(disabled):os"() {
+    init_define_process();
+  }
+});
+
 // js/startMonaco.ts
 init_define_process();
-
-// ../../../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9c9.zip/node_modules/p-map/index.js
-init_define_process();
-
-// ../../../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9c9.zip/node_modules/aggregate-error/index.js
-init_define_process();
-
-// ../../../../.yarn/global/cache/indent-string-npm-5.0.0-35eaa3b052-9c9.zip/node_modules/indent-string/index.js
-init_define_process();
-function indentString(string, count = 1, options = {}) {
-  const {
-    indent = " ",
-    includeEmptyLines = false
-  } = options;
-  if (typeof string !== "string") {
-    throw new TypeError(
-      `Expected \`input\` to be a \`string\`, got \`${typeof string}\``
-    );
-  }
-  if (typeof count !== "number") {
-    throw new TypeError(
-      `Expected \`count\` to be a \`number\`, got \`${typeof count}\``
-    );
-  }
-  if (count < 0) {
-    throw new RangeError(
-      `Expected \`count\` to be at least 0, got \`${count}\``
-    );
-  }
-  if (typeof indent !== "string") {
-    throw new TypeError(
-      `Expected \`options.indent\` to be a \`string\`, got \`${typeof indent}\``
-    );
-  }
-  if (count === 0) {
-    return string;
-  }
-  const regex = includeEmptyLines ? /^/gm : /^(?!\s*$)/gm;
-  return string.replace(regex, indent.repeat(count));
-}
-__name(indentString, "indentString");
-
-// ../../../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-9c9.zip/node_modules/clean-stack/index.js
-init_define_process();
-var import_os = __toESM(require_os(), 1);
-
-// ../../../../.yarn/global/cache/escape-string-regexp-npm-5.0.0-a663e825ce-9c9.zip/node_modules/escape-string-regexp/index.js
-init_define_process();
-function escapeStringRegexp(string) {
-  if (typeof string !== "string") {
-    throw new TypeError("Expected a string");
-  }
-  return string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
-}
-__name(escapeStringRegexp, "escapeStringRegexp");
-
-// ../../../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-9c9.zip/node_modules/clean-stack/index.js
-var extractPathRegex = /\s+at.*[(\s](.*)\)?/;
-var pathRegex = /^(?:(?:(?:node|node:[\w/]+|(?:(?:node:)?internal\/[\w/]*|.*node_modules\/(?:babel-polyfill|pirates)\/.*)?\w+)(?:\.js)?:\d+:\d+)|native)/;
-var homeDir = typeof import_os.default.homedir === "undefined" ? "" : import_os.default.homedir().replace(/\\/g, "/");
-function cleanStack(stack, { pretty = false, basePath } = {}) {
-  const basePathRegex = basePath && new RegExp(`(at | \\()${escapeStringRegexp(basePath.replace(/\\/g, "/"))}`, "g");
-  if (typeof stack !== "string") {
-    return void 0;
-  }
-  return stack.replace(/\\/g, "/").split("\n").filter((line) => {
-    const pathMatches = line.match(extractPathRegex);
-    if (pathMatches === null || !pathMatches[1]) {
-      return true;
-    }
-    const match = pathMatches[1];
-    if (match.includes(".app/Contents/Resources/electron.asar") || match.includes(".app/Contents/Resources/default_app.asar") || match.includes("node_modules/electron/dist/resources/electron.asar") || match.includes("node_modules/electron/dist/resources/default_app.asar")) {
-      return false;
-    }
-    return !pathRegex.test(match);
-  }).filter((line) => line.trim() !== "").map((line) => {
-    if (basePathRegex) {
-      line = line.replace(basePathRegex, "$1");
-    }
-    if (pretty) {
-      line = line.replace(extractPathRegex, (m, p1) => m.replace(p1, p1.replace(homeDir, "~")));
-    }
-    return line;
-  }).join("\n");
-}
-__name(cleanStack, "cleanStack");
-
-// ../../../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9c9.zip/node_modules/aggregate-error/index.js
-var cleanInternalStack = /* @__PURE__ */ __name((stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, ""), "cleanInternalStack");
-var _errors;
-var AggregateError = class extends Error {
-  constructor(errors) {
-    if (!Array.isArray(errors)) {
-      throw new TypeError(`Expected input to be an Array, got ${typeof errors}`);
-    }
-    errors = errors.map((error) => {
-      if (error instanceof Error) {
-        return error;
-      }
-      if (error !== null && typeof error === "object") {
-        return Object.assign(new Error(error.message), error);
-      }
-      return new Error(error);
-    });
-    let message = errors.map((error) => {
-      return typeof error.stack === "string" && error.stack.length > 0 ? cleanInternalStack(cleanStack(error.stack)) : String(error);
-    }).join("\n");
-    message = "\n" + indentString(message, 4);
-    super(message);
-    __privateAdd(this, _errors, void 0);
-    __publicField(this, "name", "AggregateError");
-    __privateSet(this, _errors, errors);
-  }
-  get errors() {
-    return __privateGet(this, _errors).slice();
-  }
-};
-__name(AggregateError, "AggregateError");
-_errors = new WeakMap();
-
-// ../../../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9c9.zip/node_modules/p-map/index.js
-var AbortError = class extends Error {
-  constructor(message) {
-    super();
-    this.name = "AbortError";
-    this.message = message;
-  }
-};
-__name(AbortError, "AbortError");
-var getDOMException = /* @__PURE__ */ __name((errorMessage) => globalThis.DOMException === void 0 ? new AbortError(errorMessage) : new DOMException(errorMessage), "getDOMException");
-var getAbortedReason = /* @__PURE__ */ __name((signal) => {
-  const reason = signal.reason === void 0 ? getDOMException("This operation was aborted.") : signal.reason;
-  return reason instanceof Error ? reason : getDOMException(reason);
-}, "getAbortedReason");
-async function pMap(iterable, mapper, {
-  concurrency = Number.POSITIVE_INFINITY,
-  stopOnError = true,
-  signal
-} = {}) {
-  return new Promise((resolve, reject_) => {
-    if (iterable[Symbol.iterator] === void 0 && iterable[Symbol.asyncIterator] === void 0) {
-      throw new TypeError(`Expected \`input\` to be either an \`Iterable\` or \`AsyncIterable\`, got (${typeof iterable})`);
-    }
-    if (typeof mapper !== "function") {
-      throw new TypeError("Mapper function is required");
-    }
-    if (!((Number.isSafeInteger(concurrency) || concurrency === Number.POSITIVE_INFINITY) && concurrency >= 1)) {
-      throw new TypeError(`Expected \`concurrency\` to be an integer from 1 and up or \`Infinity\`, got \`${concurrency}\` (${typeof concurrency})`);
-    }
-    const result = [];
-    const errors = [];
-    const skippedIndexesMap = /* @__PURE__ */ new Map();
-    let isRejected = false;
-    let isResolved = false;
-    let isIterableDone = false;
-    let resolvingCount = 0;
-    let currentIndex = 0;
-    const iterator = iterable[Symbol.iterator] === void 0 ? iterable[Symbol.asyncIterator]() : iterable[Symbol.iterator]();
-    const reject = /* @__PURE__ */ __name((reason) => {
-      isRejected = true;
-      isResolved = true;
-      reject_(reason);
-    }, "reject");
-    if (signal) {
-      if (signal.aborted) {
-        reject(getAbortedReason(signal));
-      }
-      signal.addEventListener("abort", () => {
-        reject(getAbortedReason(signal));
-      });
-    }
-    const next = /* @__PURE__ */ __name(async () => {
-      if (isResolved) {
-        return;
-      }
-      const nextItem = await iterator.next();
-      const index = currentIndex;
-      currentIndex++;
-      if (nextItem.done) {
-        isIterableDone = true;
-        if (resolvingCount === 0 && !isResolved) {
-          if (!stopOnError && errors.length > 0) {
-            reject(new AggregateError(errors));
-            return;
-          }
-          isResolved = true;
-          if (skippedIndexesMap.size === 0) {
-            resolve(result);
-            return;
-          }
-          const pureResult = [];
-          for (const [index2, value] of result.entries()) {
-            if (skippedIndexesMap.get(index2) === pMapSkip) {
-              continue;
-            }
-            pureResult.push(value);
-          }
-          resolve(pureResult);
-        }
-        return;
-      }
-      resolvingCount++;
-      (async () => {
-        try {
-          const element = await nextItem.value;
-          if (isResolved) {
-            return;
-          }
-          const value = await mapper(element, index);
-          if (value === pMapSkip) {
-            skippedIndexesMap.set(index, value);
-          }
-          result[index] = value;
-          resolvingCount--;
-          await next();
-        } catch (error) {
-          if (stopOnError) {
-            reject(error);
-          } else {
-            errors.push(error);
-            resolvingCount--;
-            try {
-              await next();
-            } catch (error2) {
-              reject(error2);
-            }
-          }
-        }
-      })();
-    }, "next");
-    (async () => {
-      for (let index = 0; index < concurrency; index++) {
-        try {
-          await next();
-        } catch (error) {
-          reject(error);
-          break;
-        }
-        if (isIterableDone || isRejected) {
-          break;
-        }
-      }
-    })();
-  });
-}
-__name(pMap, "pMap");
-var pMapSkip = Symbol("skip");
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/editor.main.js
-init_define_process();
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/monaco.contribution.js
-init_define_process();
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/abap/abap.contribution.js
-init_define_process();
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/_.contribution.js
-init_define_process();
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = /* @__PURE__ */ __name((to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-}, "__copyProps");
-var __reExport = /* @__PURE__ */ __name((target, mod2, secondTarget) => (__copyProps(target, mod2, "default"), secondTarget && __copyProps(secondTarget, mod2, "default")), "__reExport");
-var monaco_editor_core_exports = {};
-__reExport(monaco_editor_core_exports, editor_api_exports);
-var languageDefinitions = {};
-var lazyLanguageLoaders = {};
-var LazyLanguageLoader = /* @__PURE__ */ __name(class {
-  constructor(languageId) {
-    __publicField(this, "_languageId");
-    __publicField(this, "_loadingTriggered");
-    __publicField(this, "_lazyLoadPromise");
-    __publicField(this, "_lazyLoadPromiseResolve");
-    __publicField(this, "_lazyLoadPromiseReject");
-    this._languageId = languageId;
-    this._loadingTriggered = false;
-    this._lazyLoadPromise = new Promise((resolve, reject) => {
-      this._lazyLoadPromiseResolve = resolve;
-      this._lazyLoadPromiseReject = reject;
-    });
-  }
-  static getOrCreate(languageId) {
-    if (!lazyLanguageLoaders[languageId]) {
-      lazyLanguageLoaders[languageId] = new LazyLanguageLoader(languageId);
-    }
-    return lazyLanguageLoaders[languageId];
-  }
-  load() {
-    if (!this._loadingTriggered) {
-      this._loadingTriggered = true;
-      languageDefinitions[this._languageId].loader().then((mod2) => this._lazyLoadPromiseResolve(mod2), (err) => this._lazyLoadPromiseReject(err));
-    }
-    return this._lazyLoadPromise;
-  }
-}, "LazyLanguageLoader");
-function registerLanguage(def) {
-  const languageId = def.id;
-  languageDefinitions[languageId] = def;
-  monaco_editor_core_exports.languages.register(def);
-  const lazyLanguageLoader = LazyLanguageLoader.getOrCreate(languageId);
-  monaco_editor_core_exports.languages.registerTokensProviderFactory(languageId, {
-    create: async () => {
-      const mod2 = await lazyLanguageLoader.load();
-      return mod2.language;
-    }
-  });
-  monaco_editor_core_exports.languages.onLanguage(languageId, async () => {
-    const mod2 = await lazyLanguageLoader.load();
-    monaco_editor_core_exports.languages.setLanguageConfiguration(languageId, mod2.conf);
-  });
-}
-__name(registerLanguage, "registerLanguage");
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/abap/abap.contribution.js
-registerLanguage({
-  id: "abap",
-  extensions: [".abap"],
-  aliases: ["abap", "ABAP"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/abap/abap"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-abap-GJRLZLOS.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/apex/apex.contribution.js
-init_define_process();
-registerLanguage({
-  id: "apex",
-  extensions: [".cls"],
-  aliases: ["Apex", "apex"],
-  mimetypes: ["text/x-apex-source", "text/x-apex"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/apex/apex"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-apex-Y6GFRAKX.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/azcli/azcli.contribution.js
-init_define_process();
-registerLanguage({
-  id: "azcli",
-  extensions: [".azcli"],
-  aliases: ["Azure CLI", "azcli"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/azcli/azcli"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-azcli-76UPDXH2.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/bat/bat.contribution.js
-init_define_process();
-registerLanguage({
-  id: "bat",
-  extensions: [".bat", ".cmd"],
-  aliases: ["Batch", "bat"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/bat/bat"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-bat-XVNPCGJR.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/bicep/bicep.contribution.js
-init_define_process();
-registerLanguage({
-  id: "bicep",
-  extensions: [".bicep"],
-  aliases: ["Bicep"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/bicep/bicep"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-bicep-IWU6DME4.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/cameligo/cameligo.contribution.js
-init_define_process();
-registerLanguage({
-  id: "cameligo",
-  extensions: [".mligo"],
-  aliases: ["Cameligo"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/cameligo/cameligo"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-cameligo-QIECQTMX.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/clojure/clojure.contribution.js
-init_define_process();
-registerLanguage({
-  id: "clojure",
-  extensions: [".clj", ".cljs", ".cljc", ".edn"],
-  aliases: ["clojure", "Clojure"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/clojure/clojure"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-clojure-AU7XTLHH.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/coffee/coffee.contribution.js
-init_define_process();
-registerLanguage({
-  id: "coffeescript",
-  extensions: [".coffee"],
-  aliases: ["CoffeeScript", "coffeescript", "coffee"],
-  mimetypes: ["text/x-coffeescript", "text/coffeescript"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/coffee/coffee"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-coffee-4B4C4E2B.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/cpp/cpp.contribution.js
-init_define_process();
-registerLanguage({
-  id: "c",
-  extensions: [".c", ".h"],
-  aliases: ["C", "c"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/cpp/cpp"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-cpp-A3N3ZOH7.mjs");
-    }
-  }
-});
-registerLanguage({
-  id: "cpp",
-  extensions: [".cpp", ".cc", ".cxx", ".hpp", ".hh", ".hxx"],
-  aliases: ["C++", "Cpp", "cpp"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/cpp/cpp"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-cpp-A3N3ZOH7.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/csharp/csharp.contribution.js
-init_define_process();
-registerLanguage({
-  id: "csharp",
-  extensions: [".cs", ".csx", ".cake"],
-  aliases: ["C#", "csharp"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/csharp/csharp"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-csharp-XZCVQQ37.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/csp/csp.contribution.js
-init_define_process();
-registerLanguage({
-  id: "csp",
-  extensions: [],
-  aliases: ["CSP", "csp"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/csp/csp"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-csp-AC2QMYT7.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/css/css.contribution.js
-init_define_process();
-registerLanguage({
-  id: "css",
-  extensions: [".css"],
-  aliases: ["CSS", "css"],
-  mimetypes: ["text/css"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/css/css"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-css-TBAASLQ7.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/cypher/cypher.contribution.js
-init_define_process();
-registerLanguage({
-  id: "cypher",
-  extensions: [".cypher", ".cyp"],
-  aliases: ["Cypher", "OpenCypher"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/cypher/cypher"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-cypher-VOEZIUF7.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/dart/dart.contribution.js
-init_define_process();
-registerLanguage({
-  id: "dart",
-  extensions: [".dart"],
-  aliases: ["Dart", "dart"],
-  mimetypes: ["text/x-dart-source", "text/x-dart"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/dart/dart"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-dart-ET4CO6T6.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/dockerfile/dockerfile.contribution.js
-init_define_process();
-registerLanguage({
-  id: "dockerfile",
-  extensions: [".dockerfile"],
-  filenames: ["Dockerfile"],
-  aliases: ["Dockerfile"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/dockerfile/dockerfile"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-dockerfile-QIYHGCAU.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/ecl/ecl.contribution.js
-init_define_process();
-registerLanguage({
-  id: "ecl",
-  extensions: [".ecl"],
-  aliases: ["ECL", "Ecl", "ecl"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/ecl/ecl"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-ecl-F2MKLE24.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/elixir/elixir.contribution.js
-init_define_process();
-registerLanguage({
-  id: "elixir",
-  extensions: [".ex", ".exs"],
-  aliases: ["Elixir", "elixir", "ex"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/elixir/elixir"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-elixir-C2ZXIZHE.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/flow9/flow9.contribution.js
-init_define_process();
-registerLanguage({
-  id: "flow9",
-  extensions: [".flow"],
-  aliases: ["Flow9", "Flow", "flow9", "flow"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/flow9/flow9"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-flow9-GC366I33.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/fsharp/fsharp.contribution.js
-init_define_process();
-registerLanguage({
-  id: "fsharp",
-  extensions: [".fs", ".fsi", ".ml", ".mli", ".fsx", ".fsscript"],
-  aliases: ["F#", "FSharp", "fsharp"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/fsharp/fsharp"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-fsharp-UM55CRWD.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/freemarker2/freemarker2.contribution.js
-init_define_process();
-registerLanguage({
-  id: "freemarker2",
-  extensions: [".ftl", ".ftlh", ".ftlx"],
-  aliases: ["FreeMarker2", "Apache FreeMarker2"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
-      }).then((m) => m.TagAngleInterpolationDollar);
-    } else {
-      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAutoInterpolationDollar);
-    }
-  }
-});
-registerLanguage({
-  id: "freemarker2.tag-angle.interpolation-dollar",
-  aliases: ["FreeMarker2 (Angle/Dollar)", "Apache FreeMarker2 (Angle/Dollar)"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
-      }).then((m) => m.TagAngleInterpolationDollar);
-    } else {
-      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAngleInterpolationDollar);
-    }
-  }
-});
-registerLanguage({
-  id: "freemarker2.tag-bracket.interpolation-dollar",
-  aliases: ["FreeMarker2 (Bracket/Dollar)", "Apache FreeMarker2 (Bracket/Dollar)"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
-      }).then((m) => m.TagBracketInterpolationDollar);
-    } else {
-      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagBracketInterpolationDollar);
-    }
-  }
-});
-registerLanguage({
-  id: "freemarker2.tag-angle.interpolation-bracket",
-  aliases: ["FreeMarker2 (Angle/Bracket)", "Apache FreeMarker2 (Angle/Bracket)"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
-      }).then((m) => m.TagAngleInterpolationBracket);
-    } else {
-      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAngleInterpolationBracket);
-    }
-  }
-});
-registerLanguage({
-  id: "freemarker2.tag-bracket.interpolation-bracket",
-  aliases: ["FreeMarker2 (Bracket/Bracket)", "Apache FreeMarker2 (Bracket/Bracket)"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
-      }).then((m) => m.TagBracketInterpolationBracket);
-    } else {
-      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagBracketInterpolationBracket);
-    }
-  }
-});
-registerLanguage({
-  id: "freemarker2.tag-auto.interpolation-dollar",
-  aliases: ["FreeMarker2 (Auto/Dollar)", "Apache FreeMarker2 (Auto/Dollar)"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
-      }).then((m) => m.TagAutoInterpolationDollar);
-    } else {
-      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAutoInterpolationDollar);
-    }
-  }
-});
-registerLanguage({
-  id: "freemarker2.tag-auto.interpolation-bracket",
-  aliases: ["FreeMarker2 (Auto/Bracket)", "Apache FreeMarker2 (Auto/Bracket)"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
-      }).then((m) => m.TagAutoInterpolationBracket);
-    } else {
-      return import("./chunk-freemarker2-4KJIR3YF.mjs").then((m) => m.TagAutoInterpolationBracket);
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/go/go.contribution.js
-init_define_process();
-registerLanguage({
-  id: "go",
-  extensions: [".go"],
-  aliases: ["Go"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/go/go"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-go-KMM7ZDJ4.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/graphql/graphql.contribution.js
-init_define_process();
-registerLanguage({
-  id: "graphql",
-  extensions: [".graphql", ".gql"],
-  aliases: ["GraphQL", "graphql", "gql"],
-  mimetypes: ["application/graphql"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/graphql/graphql"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-graphql-UF5DGLSM.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/handlebars/handlebars.contribution.js
-init_define_process();
-registerLanguage({
-  id: "handlebars",
-  extensions: [".handlebars", ".hbs"],
-  aliases: ["Handlebars", "handlebars", "hbs"],
-  mimetypes: ["text/x-handlebars-template"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-handlebars-WL2WCXL7.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/hcl/hcl.contribution.js
-init_define_process();
-registerLanguage({
-  id: "hcl",
-  extensions: [".tf", ".tfvars", ".hcl"],
-  aliases: ["Terraform", "tf", "HCL", "hcl"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/hcl/hcl"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-hcl-FTVA7Y7X.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/html/html.contribution.js
-init_define_process();
-registerLanguage({
-  id: "html",
-  extensions: [".html", ".htm", ".shtml", ".xhtml", ".mdoc", ".jsp", ".asp", ".aspx", ".jshtm"],
-  aliases: ["HTML", "htm", "html", "xhtml"],
-  mimetypes: ["text/html", "text/x-jshtm", "text/template", "text/ng-template"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/html/html"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-html-2KODTAIF.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/ini/ini.contribution.js
-init_define_process();
-registerLanguage({
-  id: "ini",
-  extensions: [".ini", ".properties", ".gitconfig"],
-  filenames: ["config", ".gitattributes", ".gitconfig", ".editorconfig"],
-  aliases: ["Ini", "ini"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/ini/ini"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-ini-B75JXMST.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/java/java.contribution.js
-init_define_process();
-registerLanguage({
-  id: "java",
-  extensions: [".java", ".jav"],
-  aliases: ["Java", "java"],
-  mimetypes: ["text/x-java-source", "text/x-java"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/java/java"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-java-F7SE7SBC.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution.js
-init_define_process();
-registerLanguage({
-  id: "javascript",
-  extensions: [".js", ".es6", ".jsx", ".mjs", ".cjs"],
-  firstLine: "^#!.*\\bnode",
-  filenames: ["jakefile"],
-  aliases: ["JavaScript", "javascript", "js"],
-  mimetypes: ["text/javascript"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-javascript-4UWXCRXN.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/julia/julia.contribution.js
-init_define_process();
-registerLanguage({
-  id: "julia",
-  extensions: [".jl"],
-  aliases: ["julia", "Julia"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/julia/julia"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-julia-PGF4LY22.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/kotlin/kotlin.contribution.js
-init_define_process();
-registerLanguage({
-  id: "kotlin",
-  extensions: [".kt"],
-  aliases: ["Kotlin", "kotlin"],
-  mimetypes: ["text/x-kotlin-source", "text/x-kotlin"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/kotlin/kotlin"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-kotlin-TLIRC635.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/less/less.contribution.js
-init_define_process();
-registerLanguage({
-  id: "less",
-  extensions: [".less"],
-  aliases: ["Less", "less"],
-  mimetypes: ["text/x-less", "text/less"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/less/less"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-less-5UTI6UYA.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/lexon/lexon.contribution.js
-init_define_process();
-registerLanguage({
-  id: "lexon",
-  extensions: [".lex"],
-  aliases: ["Lexon"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/lexon/lexon"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-lexon-KG4JTBDY.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/lua/lua.contribution.js
-init_define_process();
-registerLanguage({
-  id: "lua",
-  extensions: [".lua"],
-  aliases: ["Lua", "lua"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/lua/lua"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-lua-AVQ2PRNR.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/liquid/liquid.contribution.js
-init_define_process();
-registerLanguage({
-  id: "liquid",
-  extensions: [".liquid", ".html.liquid"],
-  aliases: ["Liquid", "liquid"],
-  mimetypes: ["application/liquid"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-liquid-RCCRFWAT.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/m3/m3.contribution.js
-init_define_process();
-registerLanguage({
-  id: "m3",
-  extensions: [".m3", ".i3", ".mg", ".ig"],
-  aliases: ["Modula-3", "Modula3", "modula3", "m3"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/m3/m3"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-m3-PFK2UW57.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/markdown/markdown.contribution.js
-init_define_process();
-registerLanguage({
-  id: "markdown",
-  extensions: [".md", ".markdown", ".mdown", ".mkdn", ".mkd", ".mdwn", ".mdtxt", ".mdtext"],
-  aliases: ["Markdown", "markdown"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/markdown/markdown"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-markdown-62GWFPGV.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/mips/mips.contribution.js
-init_define_process();
-registerLanguage({
-  id: "mips",
-  extensions: [".s"],
-  aliases: ["MIPS", "MIPS-V"],
-  mimetypes: ["text/x-mips", "text/mips", "text/plaintext"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/mips/mips"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-mips-WFTN4LA4.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/msdax/msdax.contribution.js
-init_define_process();
-registerLanguage({
-  id: "msdax",
-  extensions: [".dax", ".msdax"],
-  aliases: ["DAX", "MSDAX"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/msdax/msdax"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-msdax-HCC6ENEB.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/mysql/mysql.contribution.js
-init_define_process();
-registerLanguage({
-  id: "mysql",
-  extensions: [],
-  aliases: ["MySQL", "mysql"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/mysql/mysql"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-mysql-5K2POW7L.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/objective-c/objective-c.contribution.js
-init_define_process();
-registerLanguage({
-  id: "objective-c",
-  extensions: [".m"],
-  aliases: ["Objective-C"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/objective-c/objective-c"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-objective-c-EU3FUNOX.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pascal/pascal.contribution.js
-init_define_process();
-registerLanguage({
-  id: "pascal",
-  extensions: [".pas", ".p", ".pp"],
-  aliases: ["Pascal", "pas"],
-  mimetypes: ["text/x-pascal-source", "text/x-pascal"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/pascal/pascal"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-pascal-T52QRQJH.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pascaligo/pascaligo.contribution.js
-init_define_process();
-registerLanguage({
-  id: "pascaligo",
-  extensions: [".ligo"],
-  aliases: ["Pascaligo", "ligo"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/pascaligo/pascaligo"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-pascaligo-Z6CIEAXA.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/perl/perl.contribution.js
-init_define_process();
-registerLanguage({
-  id: "perl",
-  extensions: [".pl"],
-  aliases: ["Perl", "pl"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/perl/perl"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-perl-NCRQ5PTH.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pgsql/pgsql.contribution.js
-init_define_process();
-registerLanguage({
-  id: "pgsql",
-  extensions: [],
-  aliases: ["PostgreSQL", "postgres", "pg", "postgre"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/pgsql/pgsql"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-pgsql-X6C6HBDW.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/php/php.contribution.js
-init_define_process();
-registerLanguage({
-  id: "php",
-  extensions: [".php", ".php4", ".php5", ".phtml", ".ctp"],
-  aliases: ["PHP", "php"],
-  mimetypes: ["application/x-php"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/php/php"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-php-R2SMQQFP.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pla/pla.contribution.js
-init_define_process();
-registerLanguage({
-  id: "pla",
-  extensions: [".pla"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/pla/pla"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-pla-JJHDGFEF.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/postiats/postiats.contribution.js
-init_define_process();
-registerLanguage({
-  id: "postiats",
-  extensions: [".dats", ".sats", ".hats"],
-  aliases: ["ATS", "ATS/Postiats"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/postiats/postiats"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-postiats-QFFRBUPS.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/powerquery/powerquery.contribution.js
-init_define_process();
-registerLanguage({
-  id: "powerquery",
-  extensions: [".pq", ".pqm"],
-  aliases: ["PQ", "M", "Power Query", "Power Query M"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/powerquery/powerquery"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-powerquery-63OAEP62.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/powershell/powershell.contribution.js
-init_define_process();
-registerLanguage({
-  id: "powershell",
-  extensions: [".ps1", ".psm1", ".psd1"],
-  aliases: ["PowerShell", "powershell", "ps", "ps1"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/powershell/powershell"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-powershell-EDO6EPQR.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/protobuf/protobuf.contribution.js
-init_define_process();
-registerLanguage({
-  id: "proto",
-  extensions: [".proto"],
-  aliases: ["protobuf", "Protocol Buffers"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/protobuf/protobuf"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-protobuf-ZHEXGYJ7.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/pug/pug.contribution.js
-init_define_process();
-registerLanguage({
-  id: "pug",
-  extensions: [".jade", ".pug"],
-  aliases: ["Pug", "Jade", "jade"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/pug/pug"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-pug-ZAZXA6Z7.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/python/python.contribution.js
-init_define_process();
-registerLanguage({
-  id: "python",
-  extensions: [".py", ".rpy", ".pyw", ".cpy", ".gyp", ".gypi"],
-  aliases: ["Python", "py"],
-  firstLine: "^#!/.*\\bpython[0-9.-]*\\b",
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/python/python"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-python-NFDM4FU6.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/qsharp/qsharp.contribution.js
-init_define_process();
-registerLanguage({
-  id: "qsharp",
-  extensions: [".qs"],
-  aliases: ["Q#", "qsharp"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/qsharp/qsharp"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-qsharp-YVWOKHFA.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/r/r.contribution.js
-init_define_process();
-registerLanguage({
-  id: "r",
-  extensions: [".r", ".rhistory", ".rmd", ".rprofile", ".rt"],
-  aliases: ["R", "r"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/r/r"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-r-NTIBCJHF.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/razor/razor.contribution.js
-init_define_process();
-registerLanguage({
-  id: "razor",
-  extensions: [".cshtml"],
-  aliases: ["Razor", "razor"],
-  mimetypes: ["text/x-cshtml"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/razor/razor"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-razor-IV5KQOPO.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/redis/redis.contribution.js
-init_define_process();
-registerLanguage({
-  id: "redis",
-  extensions: [".redis"],
-  aliases: ["redis"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/redis/redis"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-redis-ZROSSETE.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/redshift/redshift.contribution.js
-init_define_process();
-registerLanguage({
-  id: "redshift",
-  extensions: [],
-  aliases: ["Redshift", "redshift"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/redshift/redshift"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-redshift-JACIX7AJ.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/restructuredtext/restructuredtext.contribution.js
-init_define_process();
-registerLanguage({
-  id: "restructuredtext",
-  extensions: [".rst"],
-  aliases: ["reStructuredText", "restructuredtext"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/restructuredtext/restructuredtext"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-restructuredtext-ES5T3CBP.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/ruby/ruby.contribution.js
-init_define_process();
-registerLanguage({
-  id: "ruby",
-  extensions: [".rb", ".rbx", ".rjs", ".gemspec", ".pp"],
-  filenames: ["rakefile", "Gemfile"],
-  aliases: ["Ruby", "rb"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/ruby/ruby"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-ruby-LXQHGLNG.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/rust/rust.contribution.js
-init_define_process();
-registerLanguage({
-  id: "rust",
-  extensions: [".rs", ".rlib"],
-  aliases: ["Rust", "rust"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/rust/rust"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-rust-2XEQ7V6X.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sb/sb.contribution.js
-init_define_process();
-registerLanguage({
-  id: "sb",
-  extensions: [".sb"],
-  aliases: ["Small Basic", "sb"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/sb/sb"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-sb-T74US3K7.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/scala/scala.contribution.js
-init_define_process();
-registerLanguage({
-  id: "scala",
-  extensions: [".scala", ".sc", ".sbt"],
-  aliases: ["Scala", "scala", "SBT", "Sbt", "sbt", "Dotty", "dotty"],
-  mimetypes: ["text/x-scala-source", "text/x-scala", "text/x-sbt", "text/x-dotty"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/scala/scala"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-scala-ATGPLUCE.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/scheme/scheme.contribution.js
-init_define_process();
-registerLanguage({
-  id: "scheme",
-  extensions: [".scm", ".ss", ".sch", ".rkt"],
-  aliases: ["scheme", "Scheme"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/scheme/scheme"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-scheme-UA35RF4S.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/scss/scss.contribution.js
-init_define_process();
-registerLanguage({
-  id: "scss",
-  extensions: [".scss"],
-  aliases: ["Sass", "sass", "scss"],
-  mimetypes: ["text/x-scss", "text/scss"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/scss/scss"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-scss-UIEUQJI3.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/shell/shell.contribution.js
-init_define_process();
-registerLanguage({
-  id: "shell",
-  extensions: [".sh", ".bash"],
-  aliases: ["Shell", "sh"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/shell/shell"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-shell-XXYGX65I.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/solidity/solidity.contribution.js
-init_define_process();
-registerLanguage({
-  id: "sol",
-  extensions: [".sol"],
-  aliases: ["sol", "solidity", "Solidity"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/solidity/solidity"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-solidity-RICQKKOU.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sophia/sophia.contribution.js
-init_define_process();
-registerLanguage({
-  id: "aes",
-  extensions: [".aes"],
-  aliases: ["aes", "sophia", "Sophia"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/sophia/sophia"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-sophia-RDZGH26U.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sparql/sparql.contribution.js
-init_define_process();
-registerLanguage({
-  id: "sparql",
-  extensions: [".rq"],
-  aliases: ["sparql", "SPARQL"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/sparql/sparql"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-sparql-ZOGONTHM.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/sql/sql.contribution.js
-init_define_process();
-registerLanguage({
-  id: "sql",
-  extensions: [".sql"],
-  aliases: ["SQL"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/sql/sql"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-sql-KP5ERYGV.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/st/st.contribution.js
-init_define_process();
-registerLanguage({
-  id: "st",
-  extensions: [".st", ".iecst", ".iecplc", ".lc3lib"],
-  aliases: ["StructuredText", "scl", "stl"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/st/st"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-st-AZXBPBR2.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/swift/swift.contribution.js
-init_define_process();
-registerLanguage({
-  id: "swift",
-  aliases: ["Swift", "swift"],
-  extensions: [".swift"],
-  mimetypes: ["text/swift"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/swift/swift"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-swift-BAA76FLA.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/systemverilog/systemverilog.contribution.js
-init_define_process();
-registerLanguage({
-  id: "systemverilog",
-  extensions: [".sv", ".svh"],
-  aliases: ["SV", "sv", "SystemVerilog", "systemverilog"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/systemverilog/systemverilog"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-systemverilog-4CYW5O6Y.mjs");
-    }
-  }
-});
-registerLanguage({
-  id: "verilog",
-  extensions: [".v", ".vh"],
-  aliases: ["V", "v", "Verilog", "verilog"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/systemverilog/systemverilog"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-systemverilog-4CYW5O6Y.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/tcl/tcl.contribution.js
-init_define_process();
-registerLanguage({
-  id: "tcl",
-  extensions: [".tcl"],
-  aliases: ["tcl", "Tcl", "tcltk", "TclTk", "tcl/tk", "Tcl/Tk"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/tcl/tcl"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-tcl-NKLVKMTR.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/twig/twig.contribution.js
-init_define_process();
-registerLanguage({
-  id: "twig",
-  extensions: [".twig"],
-  aliases: ["Twig", "twig"],
-  mimetypes: ["text/x-twig"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/twig/twig"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-twig-KFMVGI6U.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.js
-init_define_process();
-registerLanguage({
-  id: "typescript",
-  extensions: [".ts", ".tsx"],
-  aliases: ["TypeScript", "ts", "typescript"],
-  mimetypes: ["text/typescript"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-typescript-4UKBH7UB.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/vb/vb.contribution.js
-init_define_process();
-registerLanguage({
-  id: "vb",
-  extensions: [".vb"],
-  aliases: ["Visual Basic", "vb"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/vb/vb"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-vb-5Z6N4AGM.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/xml/xml.contribution.js
-init_define_process();
-registerLanguage({
-  id: "xml",
-  extensions: [
-    ".xml",
-    ".dtd",
-    ".ascx",
-    ".csproj",
-    ".config",
-    ".wxi",
-    ".wxl",
-    ".wxs",
-    ".xaml",
-    ".svg",
-    ".svgz",
-    ".opf",
-    ".xsl"
-  ],
-  firstLine: "(\\<\\?xml.*)|(\\<svg)|(\\<\\!doctype\\s+svg)",
-  aliases: ["XML", "xml"],
-  mimetypes: ["text/xml", "application/xml", "application/xaml+xml", "application/xml-dtd"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/xml/xml"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-xml-G65JPWQV.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/basic-languages/yaml/yaml.contribution.js
-init_define_process();
-registerLanguage({
-  id: "yaml",
-  extensions: [".yaml", ".yml"],
-  aliases: ["YAML", "yaml", "YML", "yml"],
-  mimetypes: ["application/x-yaml", "text/x-yaml"],
-  loader: () => {
-    if (false) {
-      return new Promise((resolve, reject) => {
-        __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
-      });
-    } else {
-      return import("./chunk-yaml-SGGM7NYF.mjs");
-    }
-  }
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/language/css/monaco.contribution.js
-init_define_process();
-var __defProp2 = Object.defineProperty;
-var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames2 = Object.getOwnPropertyNames;
-var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-var __copyProps2 = /* @__PURE__ */ __name((to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames2(from))
-      if (!__hasOwnProp2.call(to, key) && key !== except)
-        __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
-  }
-  return to;
-}, "__copyProps");
-var __reExport2 = /* @__PURE__ */ __name((target, mod2, secondTarget) => (__copyProps2(target, mod2, "default"), secondTarget && __copyProps2(secondTarget, mod2, "default")), "__reExport");
-var monaco_editor_core_exports2 = {};
-__reExport2(monaco_editor_core_exports2, editor_api_exports);
-var LanguageServiceDefaultsImpl = /* @__PURE__ */ __name(class {
-  constructor(languageId, options, modeConfiguration) {
-    __publicField(this, "_onDidChange", new monaco_editor_core_exports2.Emitter());
-    __publicField(this, "_options");
-    __publicField(this, "_modeConfiguration");
-    __publicField(this, "_languageId");
-    this._languageId = languageId;
-    this.setOptions(options);
-    this.setModeConfiguration(modeConfiguration);
-  }
-  get onDidChange() {
-    return this._onDidChange.event;
-  }
-  get languageId() {
-    return this._languageId;
-  }
-  get modeConfiguration() {
-    return this._modeConfiguration;
-  }
-  get diagnosticsOptions() {
-    return this.options;
-  }
-  get options() {
-    return this._options;
-  }
-  setOptions(options) {
-    this._options = options || /* @__PURE__ */ Object.create(null);
-    this._onDidChange.fire(this);
-  }
-  setDiagnosticsOptions(options) {
-    this.setOptions(options);
-  }
-  setModeConfiguration(modeConfiguration) {
-    this._modeConfiguration = modeConfiguration || /* @__PURE__ */ Object.create(null);
-    this._onDidChange.fire(this);
-  }
-}, "LanguageServiceDefaultsImpl");
-var optionsDefault = {
-  validate: true,
-  lint: {
-    compatibleVendorPrefixes: "ignore",
-    vendorPrefix: "warning",
-    duplicateProperties: "warning",
-    emptyRules: "warning",
-    importStatement: "ignore",
-    boxModel: "ignore",
-    universalSelector: "ignore",
-    zeroUnits: "ignore",
-    fontFaceProperties: "warning",
-    hexColorLength: "error",
-    argumentsInColorFunction: "error",
-    unknownProperties: "warning",
-    ieHack: "ignore",
-    unknownVendorSpecificProperties: "ignore",
-    propertyIgnoredDueToDisplay: "warning",
-    important: "ignore",
-    float: "ignore",
-    idSelector: "ignore"
-  },
-  data: { useDefaultDataProvider: true },
-  format: {
-    newlineBetweenSelectors: true,
-    newlineBetweenRules: true,
-    spaceAroundSelectorSeparator: false,
-    braceStyle: "collapse",
-    maxPreserveNewLines: void 0,
-    preserveNewLines: true
-  }
-};
-var modeConfigurationDefault = {
-  completionItems: true,
-  hovers: true,
-  documentSymbols: true,
-  definitions: true,
-  references: true,
-  documentHighlights: true,
-  rename: true,
-  colors: true,
-  foldingRanges: true,
-  diagnostics: true,
-  selectionRanges: true,
-  documentFormattingEdits: true,
-  documentRangeFormattingEdits: true
-};
-var cssDefaults = new LanguageServiceDefaultsImpl("css", optionsDefault, modeConfigurationDefault);
-var scssDefaults = new LanguageServiceDefaultsImpl("scss", optionsDefault, modeConfigurationDefault);
-var lessDefaults = new LanguageServiceDefaultsImpl("less", optionsDefault, modeConfigurationDefault);
-monaco_editor_core_exports2.languages.css = { cssDefaults, lessDefaults, scssDefaults };
-function getMode() {
-  if (false) {
-    return new Promise((resolve, reject) => {
-      __require(["vs/language/css/cssMode"], resolve, reject);
-    });
-  } else {
-    return import("./chunk-cssMode-SHWJ4YRF.mjs");
-  }
-}
-__name(getMode, "getMode");
-monaco_editor_core_exports2.languages.onLanguage("less", () => {
-  getMode().then((mode) => mode.setupMode(lessDefaults));
-});
-monaco_editor_core_exports2.languages.onLanguage("scss", () => {
-  getMode().then((mode) => mode.setupMode(scssDefaults));
-});
-monaco_editor_core_exports2.languages.onLanguage("css", () => {
-  getMode().then((mode) => mode.setupMode(cssDefaults));
-});
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/language/html/monaco.contribution.js
-init_define_process();
-var __defProp3 = Object.defineProperty;
-var __getOwnPropDesc3 = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames3 = Object.getOwnPropertyNames;
-var __hasOwnProp3 = Object.prototype.hasOwnProperty;
-var __copyProps3 = /* @__PURE__ */ __name((to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames3(from))
-      if (!__hasOwnProp3.call(to, key) && key !== except)
-        __defProp3(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc3(from, key)) || desc.enumerable });
-  }
-  return to;
-}, "__copyProps");
-var __reExport3 = /* @__PURE__ */ __name((target, mod2, secondTarget) => (__copyProps3(target, mod2, "default"), secondTarget && __copyProps3(secondTarget, mod2, "default")), "__reExport");
-var monaco_editor_core_exports3 = {};
-__reExport3(monaco_editor_core_exports3, editor_api_exports);
-var LanguageServiceDefaultsImpl2 = /* @__PURE__ */ __name(class {
-  constructor(languageId, options, modeConfiguration) {
-    __publicField(this, "_onDidChange", new monaco_editor_core_exports3.Emitter());
-    __publicField(this, "_options");
-    __publicField(this, "_modeConfiguration");
-    __publicField(this, "_languageId");
-    this._languageId = languageId;
-    this.setOptions(options);
-    this.setModeConfiguration(modeConfiguration);
-  }
-  get onDidChange() {
-    return this._onDidChange.event;
-  }
-  get languageId() {
-    return this._languageId;
-  }
-  get options() {
-    return this._options;
-  }
-  get modeConfiguration() {
-    return this._modeConfiguration;
-  }
-  setOptions(options) {
-    this._options = options || /* @__PURE__ */ Object.create(null);
-    this._onDidChange.fire(this);
-  }
-  setModeConfiguration(modeConfiguration) {
-    this._modeConfiguration = modeConfiguration || /* @__PURE__ */ Object.create(null);
-    this._onDidChange.fire(this);
-  }
-}, "LanguageServiceDefaultsImpl");
-var formatDefaults = {
-  tabSize: 4,
-  insertSpaces: false,
-  wrapLineLength: 120,
-  unformatted: 'default": "a, abbr, acronym, b, bdo, big, br, button, cite, code, dfn, em, i, img, input, kbd, label, map, object, q, samp, select, small, span, strong, sub, sup, textarea, tt, var',
-  contentUnformatted: "pre",
-  indentInnerHtml: false,
-  preserveNewLines: true,
-  maxPreserveNewLines: void 0,
-  indentHandlebars: false,
-  endWithNewline: false,
-  extraLiners: "head, body, /html",
-  wrapAttributes: "auto"
-};
-var optionsDefault2 = {
-  format: formatDefaults,
-  suggest: {},
-  data: { useDefaultDataProvider: true }
-};
-function getConfigurationDefault(languageId) {
-  return {
-    completionItems: true,
-    hovers: true,
-    documentSymbols: true,
-    links: true,
-    documentHighlights: true,
-    rename: true,
-    colors: true,
-    foldingRanges: true,
-    selectionRanges: true,
-    diagnostics: languageId === htmlLanguageId,
-    documentFormattingEdits: languageId === htmlLanguageId,
-    documentRangeFormattingEdits: languageId === htmlLanguageId
-  };
-}
-__name(getConfigurationDefault, "getConfigurationDefault");
-var htmlLanguageId = "html";
-var handlebarsLanguageId = "handlebars";
-var razorLanguageId = "razor";
-var htmlLanguageService = registerHTMLLanguageService(htmlLanguageId, optionsDefault2, getConfigurationDefault(htmlLanguageId));
-var htmlDefaults = htmlLanguageService.defaults;
-var handlebarLanguageService = registerHTMLLanguageService(handlebarsLanguageId, optionsDefault2, getConfigurationDefault(handlebarsLanguageId));
-var handlebarDefaults = handlebarLanguageService.defaults;
-var razorLanguageService = registerHTMLLanguageService(razorLanguageId, optionsDefault2, getConfigurationDefault(razorLanguageId));
-var razorDefaults = razorLanguageService.defaults;
-monaco_editor_core_exports3.languages.html = {
-  htmlDefaults,
-  razorDefaults,
-  handlebarDefaults,
-  htmlLanguageService,
-  handlebarLanguageService,
-  razorLanguageService,
-  registerHTMLLanguageService
-};
-function getMode2() {
-  if (false) {
-    return new Promise((resolve, reject) => {
-      __require(["vs/language/html/htmlMode"], resolve, reject);
-    });
-  } else {
-    return import("./chunk-htmlMode-LQZRTOLM.mjs");
-  }
-}
-__name(getMode2, "getMode");
-function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
-  const defaults = new LanguageServiceDefaultsImpl2(languageId, options, modeConfiguration);
-  let mode;
-  const onLanguageListener = monaco_editor_core_exports3.languages.onLanguage(languageId, async () => {
-    mode = (await getMode2()).setupMode(defaults);
-  });
-  return {
-    defaults,
-    dispose() {
-      onLanguageListener.dispose();
-      mode?.dispose();
-      mode = void 0;
-    }
-  };
-}
-__name(registerHTMLLanguageService, "registerHTMLLanguageService");
-
-// ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/language/json/monaco.contribution.js
-init_define_process();
-var __defProp4 = Object.defineProperty;
-var __getOwnPropDesc4 = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames4 = Object.getOwnPropertyNames;
-var __hasOwnProp4 = Object.prototype.hasOwnProperty;
-var __copyProps4 = /* @__PURE__ */ __name((to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames4(from))
-      if (!__hasOwnProp4.call(to, key) && key !== except)
-        __defProp4(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc4(from, key)) || desc.enumerable });
-  }
-  return to;
-}, "__copyProps");
-var __reExport4 = /* @__PURE__ */ __name((target, mod2, secondTarget) => (__copyProps4(target, mod2, "default"), secondTarget && __copyProps4(secondTarget, mod2, "default")), "__reExport");
-var monaco_editor_core_exports4 = {};
-__reExport4(monaco_editor_core_exports4, editor_api_exports);
-var LanguageServiceDefaultsImpl3 = /* @__PURE__ */ __name(class {
-  constructor(languageId, diagnosticsOptions, modeConfiguration) {
-    __publicField(this, "_onDidChange", new monaco_editor_core_exports4.Emitter());
-    __publicField(this, "_diagnosticsOptions");
-    __publicField(this, "_modeConfiguration");
-    __publicField(this, "_languageId");
-    this._languageId = languageId;
-    this.setDiagnosticsOptions(diagnosticsOptions);
-    this.setModeConfiguration(modeConfiguration);
-  }
-  get onDidChange() {
-    return this._onDidChange.event;
-  }
-  get languageId() {
-    return this._languageId;
-  }
-  get modeConfiguration() {
-    return this._modeConfiguration;
-  }
-  get diagnosticsOptions() {
-    return this._diagnosticsOptions;
-  }
-  setDiagnosticsOptions(options) {
-    this._diagnosticsOptions = options || /* @__PURE__ */ Object.create(null);
-    this._onDidChange.fire(this);
-  }
-  setModeConfiguration(modeConfiguration) {
-    this._modeConfiguration = modeConfiguration || /* @__PURE__ */ Object.create(null);
-    this._onDidChange.fire(this);
-  }
-}, "LanguageServiceDefaultsImpl");
-var diagnosticDefault = {
-  validate: true,
-  allowComments: true,
-  schemas: [],
-  enableSchemaRequest: false,
-  schemaRequest: "warning",
-  schemaValidation: "warning",
-  comments: "error",
-  trailingCommas: "error"
-};
-var modeConfigurationDefault2 = {
-  documentFormattingEdits: true,
-  documentRangeFormattingEdits: true,
-  completionItems: true,
-  hovers: true,
-  documentSymbols: true,
-  tokens: true,
-  colors: true,
-  foldingRanges: true,
-  diagnostics: true,
-  selectionRanges: true
-};
-var jsonDefaults = new LanguageServiceDefaultsImpl3("json", diagnosticDefault, modeConfigurationDefault2);
-monaco_editor_core_exports4.languages.json = { jsonDefaults };
-function getMode3() {
-  if (false) {
-    return new Promise((resolve, reject) => {
-      __require(["vs/language/json/jsonMode"], resolve, reject);
-    });
-  } else {
-    return import("./chunk-jsonMode-T4RP4RRC.mjs");
-  }
-}
-__name(getMode3, "getMode");
-monaco_editor_core_exports4.languages.register({
-  id: "json",
-  extensions: [".json", ".bowerrc", ".jshintrc", ".jscsrc", ".eslintrc", ".babelrc", ".har"],
-  aliases: ["JSON", "json"],
-  mimetypes: ["application/json"]
-});
-monaco_editor_core_exports4.languages.onLanguage("json", () => {
-  getMode3().then((mode) => mode.setupMode(jsonDefaults));
-});
 
 // ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/edcore.main.js
 init_define_process();
@@ -47337,7 +45194,255 @@ var getWorkerUrl = /* @__PURE__ */ __name((_moduleId, label) => {
   return new URL(editor_worker_workerJs_default, location.origin).toString();
 }, "getWorkerUrl");
 
+// ../../../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9c9.zip/node_modules/p-map/index.js
+init_define_process();
+
+// ../../../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9c9.zip/node_modules/aggregate-error/index.js
+init_define_process();
+
+// ../../../../.yarn/global/cache/indent-string-npm-5.0.0-35eaa3b052-9c9.zip/node_modules/indent-string/index.js
+init_define_process();
+function indentString(string, count = 1, options = {}) {
+  const {
+    indent = " ",
+    includeEmptyLines = false
+  } = options;
+  if (typeof string !== "string") {
+    throw new TypeError(
+      `Expected \`input\` to be a \`string\`, got \`${typeof string}\``
+    );
+  }
+  if (typeof count !== "number") {
+    throw new TypeError(
+      `Expected \`count\` to be a \`number\`, got \`${typeof count}\``
+    );
+  }
+  if (count < 0) {
+    throw new RangeError(
+      `Expected \`count\` to be at least 0, got \`${count}\``
+    );
+  }
+  if (typeof indent !== "string") {
+    throw new TypeError(
+      `Expected \`options.indent\` to be a \`string\`, got \`${typeof indent}\``
+    );
+  }
+  if (count === 0) {
+    return string;
+  }
+  const regex = includeEmptyLines ? /^/gm : /^(?!\s*$)/gm;
+  return string.replace(regex, indent.repeat(count));
+}
+__name(indentString, "indentString");
+
+// ../../../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-9c9.zip/node_modules/clean-stack/index.js
+init_define_process();
+var import_os = __toESM(require_os(), 1);
+
+// ../../../../.yarn/global/cache/escape-string-regexp-npm-5.0.0-a663e825ce-9c9.zip/node_modules/escape-string-regexp/index.js
+init_define_process();
+function escapeStringRegexp(string) {
+  if (typeof string !== "string") {
+    throw new TypeError("Expected a string");
+  }
+  return string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
+}
+__name(escapeStringRegexp, "escapeStringRegexp");
+
+// ../../../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-9c9.zip/node_modules/clean-stack/index.js
+var extractPathRegex = /\s+at.*[(\s](.*)\)?/;
+var pathRegex = /^(?:(?:(?:node|node:[\w/]+|(?:(?:node:)?internal\/[\w/]*|.*node_modules\/(?:babel-polyfill|pirates)\/.*)?\w+)(?:\.js)?:\d+:\d+)|native)/;
+var homeDir = typeof import_os.default.homedir === "undefined" ? "" : import_os.default.homedir().replace(/\\/g, "/");
+function cleanStack(stack, { pretty = false, basePath } = {}) {
+  const basePathRegex = basePath && new RegExp(`(at | \\()${escapeStringRegexp(basePath.replace(/\\/g, "/"))}`, "g");
+  if (typeof stack !== "string") {
+    return void 0;
+  }
+  return stack.replace(/\\/g, "/").split("\n").filter((line) => {
+    const pathMatches = line.match(extractPathRegex);
+    if (pathMatches === null || !pathMatches[1]) {
+      return true;
+    }
+    const match = pathMatches[1];
+    if (match.includes(".app/Contents/Resources/electron.asar") || match.includes(".app/Contents/Resources/default_app.asar") || match.includes("node_modules/electron/dist/resources/electron.asar") || match.includes("node_modules/electron/dist/resources/default_app.asar")) {
+      return false;
+    }
+    return !pathRegex.test(match);
+  }).filter((line) => line.trim() !== "").map((line) => {
+    if (basePathRegex) {
+      line = line.replace(basePathRegex, "$1");
+    }
+    if (pretty) {
+      line = line.replace(extractPathRegex, (m, p1) => m.replace(p1, p1.replace(homeDir, "~")));
+    }
+    return line;
+  }).join("\n");
+}
+__name(cleanStack, "cleanStack");
+
+// ../../../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9c9.zip/node_modules/aggregate-error/index.js
+var cleanInternalStack = /* @__PURE__ */ __name((stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, ""), "cleanInternalStack");
+var _errors;
+var AggregateError = class extends Error {
+  constructor(errors) {
+    if (!Array.isArray(errors)) {
+      throw new TypeError(`Expected input to be an Array, got ${typeof errors}`);
+    }
+    errors = errors.map((error) => {
+      if (error instanceof Error) {
+        return error;
+      }
+      if (error !== null && typeof error === "object") {
+        return Object.assign(new Error(error.message), error);
+      }
+      return new Error(error);
+    });
+    let message = errors.map((error) => {
+      return typeof error.stack === "string" && error.stack.length > 0 ? cleanInternalStack(cleanStack(error.stack)) : String(error);
+    }).join("\n");
+    message = "\n" + indentString(message, 4);
+    super(message);
+    __privateAdd(this, _errors, void 0);
+    __publicField(this, "name", "AggregateError");
+    __privateSet(this, _errors, errors);
+  }
+  get errors() {
+    return __privateGet(this, _errors).slice();
+  }
+};
+__name(AggregateError, "AggregateError");
+_errors = new WeakMap();
+
+// ../../../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9c9.zip/node_modules/p-map/index.js
+var AbortError = class extends Error {
+  constructor(message) {
+    super();
+    this.name = "AbortError";
+    this.message = message;
+  }
+};
+__name(AbortError, "AbortError");
+var getDOMException = /* @__PURE__ */ __name((errorMessage) => globalThis.DOMException === void 0 ? new AbortError(errorMessage) : new DOMException(errorMessage), "getDOMException");
+var getAbortedReason = /* @__PURE__ */ __name((signal) => {
+  const reason = signal.reason === void 0 ? getDOMException("This operation was aborted.") : signal.reason;
+  return reason instanceof Error ? reason : getDOMException(reason);
+}, "getAbortedReason");
+async function pMap(iterable, mapper, {
+  concurrency = Number.POSITIVE_INFINITY,
+  stopOnError = true,
+  signal
+} = {}) {
+  return new Promise((resolve, reject_) => {
+    if (iterable[Symbol.iterator] === void 0 && iterable[Symbol.asyncIterator] === void 0) {
+      throw new TypeError(`Expected \`input\` to be either an \`Iterable\` or \`AsyncIterable\`, got (${typeof iterable})`);
+    }
+    if (typeof mapper !== "function") {
+      throw new TypeError("Mapper function is required");
+    }
+    if (!((Number.isSafeInteger(concurrency) || concurrency === Number.POSITIVE_INFINITY) && concurrency >= 1)) {
+      throw new TypeError(`Expected \`concurrency\` to be an integer from 1 and up or \`Infinity\`, got \`${concurrency}\` (${typeof concurrency})`);
+    }
+    const result = [];
+    const errors = [];
+    const skippedIndexesMap = /* @__PURE__ */ new Map();
+    let isRejected = false;
+    let isResolved = false;
+    let isIterableDone = false;
+    let resolvingCount = 0;
+    let currentIndex = 0;
+    const iterator = iterable[Symbol.iterator] === void 0 ? iterable[Symbol.asyncIterator]() : iterable[Symbol.iterator]();
+    const reject = /* @__PURE__ */ __name((reason) => {
+      isRejected = true;
+      isResolved = true;
+      reject_(reason);
+    }, "reject");
+    if (signal) {
+      if (signal.aborted) {
+        reject(getAbortedReason(signal));
+      }
+      signal.addEventListener("abort", () => {
+        reject(getAbortedReason(signal));
+      });
+    }
+    const next = /* @__PURE__ */ __name(async () => {
+      if (isResolved) {
+        return;
+      }
+      const nextItem = await iterator.next();
+      const index = currentIndex;
+      currentIndex++;
+      if (nextItem.done) {
+        isIterableDone = true;
+        if (resolvingCount === 0 && !isResolved) {
+          if (!stopOnError && errors.length > 0) {
+            reject(new AggregateError(errors));
+            return;
+          }
+          isResolved = true;
+          if (skippedIndexesMap.size === 0) {
+            resolve(result);
+            return;
+          }
+          const pureResult = [];
+          for (const [index2, value] of result.entries()) {
+            if (skippedIndexesMap.get(index2) === pMapSkip) {
+              continue;
+            }
+            pureResult.push(value);
+          }
+          resolve(pureResult);
+        }
+        return;
+      }
+      resolvingCount++;
+      (async () => {
+        try {
+          const element = await nextItem.value;
+          if (isResolved) {
+            return;
+          }
+          const value = await mapper(element, index);
+          if (value === pMapSkip) {
+            skippedIndexesMap.set(index, value);
+          }
+          result[index] = value;
+          resolvingCount--;
+          await next();
+        } catch (error) {
+          if (stopOnError) {
+            reject(error);
+          } else {
+            errors.push(error);
+            resolvingCount--;
+            try {
+              await next();
+            } catch (error2) {
+              reject(error2);
+            }
+          }
+        }
+      })();
+    }, "next");
+    (async () => {
+      for (let index = 0; index < concurrency; index++) {
+        try {
+          await next();
+        } catch (error) {
+          reject(error);
+          break;
+        }
+        if (isIterableDone || isRejected) {
+          break;
+        }
+      }
+    })();
+  });
+}
+__name(pMap, "pMap");
+var pMapSkip = Symbol("skip");
+
 // js/startMonaco.ts
+var { typescript } = languages;
 var lib = [
   "dom",
   "dom.iterable",
@@ -47401,7 +45506,7 @@ var lib = [
   "webworker.importscripts",
   "webworker.iterable"
 ];
-var monacoContribution = /* @__PURE__ */ __name(async (typescript, editor2, Uri2, code) => {
+var monacoContribution = /* @__PURE__ */ __name(async (code) => {
   typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,
@@ -47462,10 +45567,10 @@ var monacoContribution = /* @__PURE__ */ __name(async (typescript, editor2, Uri2
     console.log("***** EXTRA MODELS *****");
     const extraModel = match[0].slice(7) + ".tsx";
     console.log(extraModel);
-    editor2.createModel(
+    editor.createModel(
       await fetch(extraModel).then((res) => res.text()),
       "typescript",
-      Uri2.parse(extraModel)
+      Uri.parse(extraModel)
     );
   }
   (async () => {
@@ -47612,9 +45717,6 @@ var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name }) => {
     return mod[name];
   const codeSpace = name;
   const replaced = await monacoContribution(
-    languages.typescript,
-    editor,
-    Uri,
     code
   );
   const model = editor.createModel(
@@ -47673,7 +45775,7 @@ var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name }) => {
       autoClosingBrackets: "beforeWhitespace"
     }),
     model,
-    monaco: { editor, languages, Uri }
+    monaco: { editor, languages: { typescript }, Uri }
   };
 }, "startMonaco");
 export {
