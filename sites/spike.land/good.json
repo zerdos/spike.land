@@ -51,7 +51,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 16036,
+      "bytes": 15105,
       "imports": [
         {
           "path": "../../../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9c9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -68,7 +68,7 @@
       "imports": []
     },
     "src/index.html": {
-      "bytes": 2678,
+      "bytes": 2367,
       "imports": []
     },
     "src/iife.html": {
@@ -106,7 +106,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 20084,
+      "bytes": 19736,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -203,7 +203,7 @@
           "bytesInOutput": 8924
         },
         "src/chat.ts": {
-          "bytesInOutput": 13247
+          "bytesInOutput": 12816
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -212,13 +212,13 @@
           "bytesInOutput": 1170
         },
         "src/index.html": {
-          "bytesInOutput": 2706
+          "bytesInOutput": 2395
         },
         "src/iife.html": {
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15046
+          "bytesInOutput": 14794
         },
         "../../../../.yarn/global/cache/@spike.land-code-npm-0.9.1-2ecb047d3e-9c9.zip/node_modules/@spike.land/code/dist/chunk-chunk-LOLF3VNB.mjs": {
           "bytesInOutput": 1342
@@ -239,7 +239,7 @@
           "bytesInOutput": 522
         }
       },
-      "bytes": 259090
+      "bytes": 258096
     }
   }
 }

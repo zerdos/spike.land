@@ -349,41 +349,28 @@ export class Code {
         }
         case "hydrated":
         case "public": {
-          const { css, html } = mST();
-
           const a = JSON.parse(manifestJSON);
-
-          const imaps: { [key: string]: string } = { ...imap.imports };
-
-          Object.keys(imap.imports).map((k) =>
-            imaps[k] = url.origin + "/" + imaps[k]
-          );
-
           return new Response(
             HTML.replaceAll(
               "/live/coder/",
               `/live/${this.codeSpace}/`,
-            ).replace(
-              `<script type="importmap"></script>`,
-              ` <script type="importmap-shim">${
-                JSON.stringify({ imports: { ...imaps } })
-              }</script>`,
-            )
-              .replace(
+            ) .replace(
                 `/* #root{} */`,
                 `
           #root{
             height: 100%; 
           }
-          ${css}
-          `,
-              ).replace(
+          ${mST().css}
+          `
+            ).replace('favicon.ico', a["favicon.ico"])
+              .replace(
                 `<div id="root"></div>`,
-                `<div id="root"><div id="root-${this.codeSpace}" style="height: 100%">` +
-                  html + `</div></div>
-           `,
-              ),
-            {
+                `<div id="root">
+                      <div id="root-${this.codeSpace}" style="height: 100%">
+                        ${mST().html}
+                      </div>
+                </div>
+           `),{
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
