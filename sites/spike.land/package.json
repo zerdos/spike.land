@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "yarn run wrangler publish --env=testing dist/index.js",
+    "deploy": "wrangler publish --env=testing src/index.ts",
     "prepublishOnly": "yarn wrangler publish",
     "xbuild": "esbuild  --bundle --tree-shaking=true --metafile=good.json --format=esm --loader:.html=text --external:__STATIC_CONTENT_MANIFEST --target=es2021 src/index.ts --outdir=dist"
   },

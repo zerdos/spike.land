@@ -169,7 +169,7 @@ export default {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "immutable",
+                  "Cache-Control": "public, max-age=604800, immutable",
                   "Content-Type": resp.headers.get("Content-Type")!,
                 },
               },
@@ -231,7 +231,7 @@ export default {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "immutable",
+                  "Cache-Control": "public, max-age=604800, immutable",
                   "Content-Type": resp.headers.get("Content-Type")!,
                 },
               },
@@ -294,7 +294,7 @@ export default {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "immutable",
+                  "Cache-Control": "public, max-age=604800, immutable",
                   "Content-Type": resp.headers.get("Content-Type")!,
                 },
               },
@@ -394,7 +394,7 @@ export default {
               const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
 
               if (url.href.includes("chunk-") || chunkRegExp.test(url.href)) {
-                kvResp.headers.append("Cache-Control", "immutable");
+                kvResp.headers.append("Cache-Control", "public, max-age=604800, immutable");
               }
 
               return kvResp;
