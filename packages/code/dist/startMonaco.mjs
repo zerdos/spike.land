@@ -45250,19 +45250,19 @@ registerEditorAction(ToggleHighContrast);
 init_define_process();
 
 // js/monaco-workers/language/typescript/ts.worker.workerJs.js
-var ts_worker_workerJs_default = "./chunk-ts.worker.workerJs-7LKZJQVS.js";
+var ts_worker_workerJs_default = "./chunk-ts.worker.workerJs-YTHDH3IS.js";
 
 // js/monaco-workers/language/json/json.worker.workerJs.js
-var json_worker_workerJs_default = "./chunk-json.worker.workerJs-Z7PF6DUM.js";
+var json_worker_workerJs_default = "./chunk-json.worker.workerJs-LVTR5ELN.js";
 
 // js/monaco-workers/language/css/css.worker.workerJs.js
-var css_worker_workerJs_default = "./chunk-css.worker.workerJs-J57ACXKN.js";
+var css_worker_workerJs_default = "./chunk-css.worker.workerJs-M7GMPINM.js";
 
 // js/monaco-workers/language/html/html.worker.workerJs.js
-var html_worker_workerJs_default = "./chunk-html.worker.workerJs-NHDCPAOR.js";
+var html_worker_workerJs_default = "./chunk-html.worker.workerJs-A25DEBIP.js";
 
 // js/monaco-workers/editor/editor.worker.workerJs.js
-var editor_worker_workerJs_default = "./chunk-editor.worker.workerJs-J5YC4E4Y.js";
+var editor_worker_workerJs_default = "./chunk-editor.worker.workerJs-IUASZYH7.js";
 
 // js/monacoWorkers.mjs
 var getWorkerUrl = /* @__PURE__ */ __name((_moduleId, label) => {
