@@ -124,7 +124,7 @@ export class Code {
 
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
-    return await handleErrors(request, async () => {
+    return handleErrors(request, async () => {
       let path = url.pathname.slice(1).split("/");
 
       switch (path[0]) {

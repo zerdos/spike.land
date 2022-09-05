@@ -435,10 +435,10 @@ var chat_default = {
       const path = url.pathname.slice(1).split("/");
       if (!path[0]) {
         return new Response(
-          `<meta http-equiv="refresh" content="0; URL=${u.protocol + "//" + u.hostname + ":" + u.port}/live/coder/" />`,
+          `<meta http-equiv="refresh" content="0; URL=${u.origin}/live/coder/" />`,
           {
             headers: {
-              "Location": `${u.protocol}//${u.hostname}:${u.port}/live/coder`,
+              "Location": `${u.origin}/live/coder`,
               "Content-Type": "text/html;charset=UTF-8",
               "Cache-Control": "no-cache"
             }
@@ -6358,7 +6358,7 @@ var Code = class {
       this.sessionStarted = true;
     }
     this.codeSpace = url.searchParams.get("room") || "code-main";
-    return await handleErrors(request, async () => {
+    return handleErrors(request, async () => {
       let path = url.pathname.slice(1).split("/");
       switch (path[0]) {
         case "":
