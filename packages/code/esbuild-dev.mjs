@@ -5,7 +5,7 @@ import postcssNested from "postcss-nested"
 import fs from "fs";
 import {promisify} from "util"
 
-const rm = promisify(fs.rmdir);
+const rm = promisify(fs.rm);
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"

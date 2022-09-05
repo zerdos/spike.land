@@ -5,7 +5,6 @@
   "type": "module",
   "license": "MIT",
   "devDependencies": {
-    "@jspm/generator": "^1.0.0-beta.37",
     "@types/react-dom": "18.0.6",
     "esbuild": "^0.15.7",
     "esbuild-plugin-import-map": "^2.1.0",
