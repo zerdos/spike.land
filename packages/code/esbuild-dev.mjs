@@ -73,7 +73,7 @@ await esbuild.build({
   define,
 	format: 'iife',
 	outbase: 'monaco-editor/esm/vs',
-	outdir: 'js/monaco-workers'
+	outdir: './js/monaco-workers'
 });
 
 const build = (entryPoints, format = "esm") =>
@@ -146,15 +146,15 @@ await build([
   "js/ws.ts",
 ]);
 
-await esbuild
-  .build({
-    entryPoints: ['dist/startMonaco.css'],
-    bundle: true,
-    outdir: 'dist',
-    allowOverwrite: true,
-    loader: {
-      ".ttf": "file",
-    },
-    plugins,
-  })
-  .catch(() => process.exit(1));
+// await esbuild
+//   .build({
+//     entryPoints: ['dist/startMonaco.css'],
+//     bundle: true,
+//     outdir: 'dist',
+//     allowOverwrite: true,
+//     loader: {
+//       ".ttf": "file",
+//     },
+//     plugins,
+//   })
+//   .catch(() => process.exit(1));
