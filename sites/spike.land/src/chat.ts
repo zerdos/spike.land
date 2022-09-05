@@ -47,6 +47,7 @@ export const imap = {
   },
 };
 
+
 export default {
   async fetch(
     request: Request,
@@ -98,6 +99,21 @@ export default {
         const _request = new Request(newUrl, { ...request, url: newUrl });
 
         return (async (request) => {
+
+
+
+          const cacheKey = new Request(request.url);
+
+          const cache = caches.default;
+
+          // Check whether the value is already available in the cache
+          // if not, you will need to fetch it from origin, and store it in the cache
+          // for future access
+          const cachedResponse = await cache.match(cacheKey);
+          if (cachedResponse) {
+            return cachedResponse.clone();
+          }
+
           if (path[0].startsWith("npm:")) {
             const isJs = u.toString().includes(".js") ||
               u.toString().includes(".mjs");
@@ -113,20 +129,7 @@ export default {
               : "");
             const esmUrl = "https://esm.sh/" + packageName + searchParams;
 
-            const cacheUrl = new URL(request.url + searchParams);
-
-            // Construct the cache key from the cache URL
-            const cacheKey = new Request(cacheUrl.toString());
-            const cache = caches.default;
-
-            // Check whether the value is already available in the cache
-            // if not, you will need to fetch it from origin, and store it in the cache
-            // for future access
-            const cachedResponse = await cache.match(cacheKey);
-            if (cachedResponse && cachedResponse.ok) {
-              return cachedResponse.clone();
-            }
-
+         
             let resp = await fetch(esmUrl, { ...request, url: esmUrl });
 
             if (resp !== null && !resp.ok || resp.status === 307) {
@@ -179,19 +182,7 @@ export default {
           }
 
           if (path[0].startsWith("unpkg:")) {
-            const cacheUrl = new URL(request.url);
-
-            // Construct the cache key from the cache URL
-            const cacheKey = new Request(cacheUrl.toString());
-            const cache = caches.default;
-
-            // Check whether the value is already available in the cache
-            // if not, you will need to fetch it from origin, and store it in the cache
-            // for future access
-            const cachedResponse = await cache.match(cacheKey);
-            if (cachedResponse && cachedResponse.ok) {
-              return cachedResponse.clone();
-            }
+         
 
             const esmUrl = u.toString().replace(
               u.origin + "/unpkg:",
@@ -221,7 +212,7 @@ export default {
 
             const responseToCache = new Response(
               `
-              // ${cacheUrl}
+              // ${request.url}
               ` +
                 bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
@@ -241,20 +232,6 @@ export default {
           }
 
           if (path[0].startsWith("node_modules")) {
-            const cacheUrl = new URL(request.url);
-
-            // Construct the cache key from the cache URL
-            const cacheKey = new Request(cacheUrl.toString());
-            const cache = caches.default;
-
-            // Check whether the value is already available in the cache
-            // if not, you will need to fetch it from origin, and store it in the cache
-            // for future access
-            const cachedResponse = await cache.match(cacheKey);
-            if (cachedResponse && cachedResponse.ok) {
-              return cachedResponse.clone();
-            }
-
             const esmUrl = u.toString().replace(
               u.origin + "/node_modules/",
               "https://unpkg.com/",
@@ -284,7 +261,7 @@ export default {
 
             const responseToCache = new Response(
               `
-              // ${cacheUrl}
+              // ${request.url}
               ` +
                 bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
@@ -325,8 +302,21 @@ export default {
                   "Cache-Control": "no-cache",
                 },
               });
+
+
             case "importmap.json":
-              return new Response(JSON.stringify(imap), {
+
+
+              const importmapImport: { [k: string]: string} = {...imap.imports};
+
+
+              for (const [key, value] of  Object.entries(imap.imports)) {
+                importmapImport[key] ="/" + value;
+              }
+
+
+
+              return new Response(JSON.stringify({imports: importmapImport}), {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache",
@@ -391,13 +381,17 @@ export default {
                 },
               );
 
+
+         const cacheKV =        kvResp.clone();
          
 
               if (isChunk(url.href)) {
-                kvResp.headers.append("Cache-Control", "public, max-age=604800, immutable");
+                cacheKV.headers.append("Cache-Control", "public, max-age=604800, immutable");
+                
               }
+              await cache.put(cacheKey, cacheKV.clone());
 
-              return kvResp;
+              return cacheKV.clone();
           }
         })(_request);
       };

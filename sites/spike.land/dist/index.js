@@ -449,6 +449,12 @@ var chat_default = {
         const newUrl = new URL(path2.join("/"), url.origin).toString();
         const _request = new Request(newUrl, { ...request, url: newUrl });
         return (async (request2) => {
+          const cacheKey = new Request(request2.url);
+          const cache = caches.default;
+          const cachedResponse = await cache.match(cacheKey);
+          if (cachedResponse) {
+            return cachedResponse.clone();
+          }
           if (path2[0].startsWith("npm:")) {
             const isJs = u.toString().includes(".js") || u.toString().includes(".mjs");
             const packageName = u.toString().replace(
@@ -457,13 +463,6 @@ var chat_default = {
             );
             const searchParams = isJs ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} ` : "";
             const esmUrl = "https://esm.sh/" + packageName + searchParams;
-            const cacheUrl = new URL(request2.url + searchParams);
-            const cacheKey = new Request(cacheUrl.toString());
-            const cache = caches.default;
-            const cachedResponse = await cache.match(cacheKey);
-            if (cachedResponse && cachedResponse.ok) {
-              return cachedResponse.clone();
-            }
             let resp = await fetch(esmUrl, { ...request2, url: esmUrl });
             if (resp !== null && !resp.ok || resp.status === 307) {
               const redirectUrl = resp.headers.get("location");
@@ -504,13 +503,6 @@ var chat_default = {
             return responseToCache;
           }
           if (path2[0].startsWith("unpkg:")) {
-            const cacheUrl = new URL(request2.url);
-            const cacheKey = new Request(cacheUrl.toString());
-            const cache = caches.default;
-            const cachedResponse = await cache.match(cacheKey);
-            if (cachedResponse && cachedResponse.ok) {
-              return cachedResponse.clone();
-            }
             const esmUrl = u.toString().replace(
               u.origin + "/unpkg:",
               "https://unpkg.com/"
@@ -537,7 +529,7 @@ var chat_default = {
               throw new Error("empty body");
             const responseToCache = new Response(
               `
-              // ${cacheUrl}
+              // ${request2.url}
               ` + bodyStr ? bodyStr.replaceAll(regex, u.origin + "/unpkg:").replaceAll(regex2, ' from "/unpkg:') : await resp.blob(),
               {
                 status: 200,
@@ -552,13 +544,6 @@ var chat_default = {
             return responseToCache;
           }
           if (path2[0].startsWith("node_modules")) {
-            const cacheUrl = new URL(request2.url);
-            const cacheKey = new Request(cacheUrl.toString());
-            const cache = caches.default;
-            const cachedResponse = await cache.match(cacheKey);
-            if (cachedResponse && cachedResponse.ok) {
-              return cachedResponse.clone();
-            }
             const esmUrl = u.toString().replace(
               u.origin + "/node_modules/",
               "https://unpkg.com/"
@@ -585,7 +570,7 @@ var chat_default = {
               throw new Error("empty body");
             const responseToCache = new Response(
               `
-              // ${cacheUrl}
+              // ${request2.url}
               ` + bodyStr ? bodyStr.replaceAll(regex, u.origin + "/node_modules/").replaceAll(regex2, ' from "/node_modules/') : await resp.blob(),
               {
                 status: 200,
@@ -622,7 +607,11 @@ var chat_default = {
                 }
               });
             case "importmap.json":
-              return new Response(JSON.stringify(imap), {
+              const importmapImport = { ...imap.imports };
+              for (const [key, value] of Object.entries(imap.imports)) {
+                importmapImport[key] = "/" + value;
+              }
+              return new Response(JSON.stringify({ imports: importmapImport }), {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache"
@@ -672,10 +661,12 @@ var chat_default = {
                   ASSET_MANIFEST: manifestJSON
                 }
               );
+              const cacheKV = kvResp.clone();
               if (isChunk(url.href)) {
-                kvResp.headers.append("Cache-Control", "public, max-age=604800, immutable");
+                cacheKV.headers.append("Cache-Control", "public, max-age=604800, immutable");
               }
-              return kvResp;
+              await cache.put(cacheKey, cacheKV.clone());
+              return cacheKV.clone();
           }
         })(_request);
       };
@@ -777,7 +768,7 @@ var src_default = `<!DOCTYPE html>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <base href="./">
-
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <title>Instant React Editor</title>
 <style>
   html,
@@ -803,38 +794,26 @@ html[data-theme='dark'] {
 html, body {margin: 0; height: 100%}
 
  /* #root{} */
- /* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+
+
  *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
    all: unset;
    display: revert;
   }
- 
- /* Preferred box-sizing value */
  *,
   *::before,
  *::after {
    box-sizing: border-box;
  }
- 
- /*
-   Remove list styles (bullets/numbers)
-   in case you use it with normalize.css
- */
  ol, ul {
    list-style: none;
  }
- 
- /* For images to not be able to exceed their container */
  img {
    max-width: 100%;
  }
- 
- /* Removes spacing between cells in tables */
  table {
    border-collapse: collapse;
  }
- 
- /* Revert the 'white-space' property for textarea elements on Safari */
  textarea {
    white-space: revert;
  }
@@ -848,7 +827,7 @@ html, body {margin: 0; height: 100%}
     }
     <\/script>
 
-   <script type="importmap"><\/script>
+   <script async type="importmap-shim" src="/importmap.json"><\/script>
    </head>
    
    
@@ -6558,30 +6537,26 @@ var Code = class {
         }
         case "hydrated":
         case "public": {
-          const { css: css2, html: html2 } = mST();
           const a3 = JSON.parse(manifestJSON2);
-          const imaps = { ...imap.imports };
-          Object.keys(imap.imports).map(
-            (k) => imaps[k] = url.origin + "/" + imaps[k]
-          );
           return new Response(
             src_default.replaceAll(
               "/live/coder/",
               `/live/${this.codeSpace}/`
-            ).replace(
-              `<script type="importmap"><\/script>`,
-              ` <script type="importmap-shim">${JSON.stringify({ imports: { ...imaps } })}<\/script>`
             ).replace(
               `/* #root{} */`,
               `
           #root{
             height: 100%; 
           }
-          ${css2}
+          ${mST().css}
           `
-            ).replace(
+            ).replace("favicon.ico", a3["favicon.ico"]).replace(
               `<div id="root"></div>`,
-              `<div id="root"><div id="root-${this.codeSpace}" style="height: 100%">` + html2 + `</div></div>
+              `<div id="root">
+                      <div id="root-${this.codeSpace}" style="height: 100%">
+                        ${mST().html}
+                      </div>
+                </div>
            `
             ),
             {

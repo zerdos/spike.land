@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <base href="./">
-
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <title>Instant React Editor</title>
 <style>
   html,
@@ -30,38 +30,26 @@ html[data-theme='dark'] {
 html, body {margin: 0; height: 100%}
 
  /* #root{} */
- /* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+
+
  *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
    all: unset;
    display: revert;
   }
- 
- /* Preferred box-sizing value */
  *,
   *::before,
  *::after {
    box-sizing: border-box;
  }
- 
- /*
-   Remove list styles (bullets/numbers)
-   in case you use it with normalize.css
- */
  ol, ul {
    list-style: none;
  }
- 
- /* For images to not be able to exceed their container */
  img {
    max-width: 100%;
  }
- 
- /* Removes spacing between cells in tables */
  table {
    border-collapse: collapse;
  }
- 
- /* Revert the 'white-space' property for textarea elements on Safari */
  textarea {
    white-space: revert;
  }
@@ -75,7 +63,7 @@ html, body {margin: 0; height: 100%}
     }
     </script>
 
-   <script type="importmap"></script>
+   <script async type="importmap-shim" src="/importmap.json"></script>
    </head>
    
    
