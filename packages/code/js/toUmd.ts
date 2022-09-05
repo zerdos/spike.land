@@ -8,7 +8,7 @@ import { md5 } from "./md5";
 // import { m } from "framer-motion";
 
 const mod = {
-  toJs: (name: string) => {
+  toJs: (name: string):string => {
     const md5Name = mod.hashMap[name];
     const data = mod.data[md5Name];
     if (!data) {
@@ -16,8 +16,8 @@ const mod = {
       return "";
     }
 
-    return mod.data[md5Name].code +
-      mod.data[md5Name].deps.map(mod.toJs).join("\n");
+    return (mod.data[md5Name].code +
+      mod.data[md5Name].deps.map(name =>mod.toJs(name)).join("\n")) as string;
   },
   hashMap: {} as unknown as { [key: string]: string },
   // toJs: (name: string)=>{
@@ -51,7 +51,7 @@ export const toUmd = async (source: string, name: string) => {
       globalName: hash.replace(/[^a-f]/g, ""),
     });
     if (!transformed || !transformed.code) {
-      console.log("tranform result -code is empty");
+      console.log("transform result -code is empty");
       return;
     }
     mod.data = {
@@ -76,7 +76,7 @@ export const toUmd = async (source: string, name: string) => {
         urlHash = md5(dep);
       } else {
         try {
-          url = await import.meta.resolve!(dep, name);
+          url = await importShim.resolve!(dep, name);
           urlHash = md5(dep);
         } catch {
           console.error(`failed to resolve: ${dep}`);
@@ -126,7 +126,7 @@ export const toUmd = async (source: string, name: string) => {
 const opts = {
   loader: "tsx",
   format: "iife",
-  globalName: "myAppp",
+  globalName: "myApp",
   treeShaking: true,
   tsconfigRaw: {
     "compilerOptions": {
