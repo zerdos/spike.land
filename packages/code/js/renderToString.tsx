@@ -6,6 +6,20 @@ import { appFactory } from "starter";
 import { hashCode, mST, patchSync } from "./session";
 import { useEffect } from "react";
 
+import  postcss from 'postcss';
+import autoprefixer from "autoprefixer"
+// import postcssNested from "postcss-nested"
+
+const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
+console.log("•••••••CSS*******")
+  console.log({result})
+  result.warnings().forEach(warn => {
+    console.warn(warn.toString())
+  })
+  console.log(result.css)
+  return result.css
+})
+
 // const WithCache: FC<{children: ReactNode, cache: EmotionCache}> = ({children, cache}) => <CacheProvider value={cache}>{children}</CacheProvider>
 const temp = document.createElement("div");
 
@@ -80,7 +94,7 @@ export const renderFromString = async (
   return html
     ? {
       html,
-      css: extractCritical(html),
+      css: await prefixer( extractCritical(html)),
     }
     : null;
 };
@@ -94,11 +108,12 @@ const extractCritical = (html: string) => {
         Array.from(styleSheet.cssRules).forEach((rule) => {
           if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
             const selector = rule.cssText.slice(1, 11);
+            const selectorText = rule.selectorText || selector;
             if (
               !rules[selector] && html.includes(selector) &&
               !rule.cssText.slice(10).includes(".css-")
             ) {
-              rules[selector] = rule.cssText;
+              rules[selectorText] = rule.cssText;
             }
           }
         });
