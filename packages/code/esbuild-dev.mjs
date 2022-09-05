@@ -1,6 +1,7 @@
 import esbuild from "esbuild";
 import  postcss from 'esbuild-postcss';
-import autoprefixer from "autoprefixer"
+// import autoprefixer from "autoprefixer"
+// import postcssNested from "postcss-nested"
 import fs from "fs";
 import {promisify} from "util"
 
@@ -21,7 +22,7 @@ console.log(`
 -------------------------------------------------
 -------------------------------------------------`);
 
-await rm("js/monaco-workers", {"recursive": true});
+await rm("js/monaco-workers", {"recursive": true, force: true});
 
 const define = {
   "process.env.NODE_ENV": `"production"`,
@@ -37,11 +38,18 @@ const define = {
   }),
   "global": "window",
 };
+// const plugins = [postcss({
+//   plugins: [
+//     autoprefixer,
+//     postcssNested
+//   ]
+// })];
 
 const buildOptions = {
   define,
   target,
   platform: "browser",
+  // plugins,
   external: ["./mST"],
   legalComments: "none",
 };
@@ -52,45 +60,21 @@ const workerEntryPoints = [
 	'vs/language/css/css.worker.js',
 	'vs/language/html/html.worker.js',
 	'vs/language/typescript/ts.worker.js',
-  'vs/editor/editor.worker.js'
+	'vs/editor/editor.worker.js'
 ];
 
 await esbuild.build({
-	entryPoints: [...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
-// "js/esbuildEsm.ts",
-// "js/prettierEsm.ts",
-// "js/startAce.ts",
-// "js/renderToString.tsx",
-// "js/session.ts"
-],
+	entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
 	bundle: true,
   treeShaking: true,
   ignoreAnnotations: true,
   platform: "browser",
   outExtension: {".js": ".workerJs.js"},
   define,
-  // splitting: true, 
-  treeShaking: true, 
-  minify: false,
-  ignoreAnnotations: true,
-  // loader: {
-  //   ".wasm": "file",
-  // },
 	format: 'iife',
 	outbase: 'monaco-editor/esm/vs',
 	outdir: './js/monaco-workers'
 });
-
-
-
-
-// const workerEntryPoints = [
-// 	'language/json/json.worker.js',
-// 	'language/css/css.worker.js',
-// 	'language/html/html.worker.js',
-// 	'language/typescript/ts.worker.js',
-//   'editor/editor.worker.js'
-// ];
 
 const build = (entryPoints, format = "esm") =>
   esbuild.build({
@@ -162,25 +146,15 @@ await build([
   "js/ws.ts",
 ]);
 
-await esbuild
-  .build({
-    entryPoints: ['dist/ws.mjs'],
-    bundle: true,
-    outExtension: {
-      ".js": ".mjs"
-    },
-    format: "esm",
-    ignoreAnnotations: true,
-    splitting: true,
-    minify:  false,
-    treeShaking: true,
-    outdir: 'dist',
-    allowOverwrite: true,
-    loader: {
-      ".ttf": "file",
-    }
-  })
-  .catch(() => process.exit(1));
-  
-  //vs/language/typescript/ts.worker.js',
-  
+// await esbuild
+//   .build({
+//     entryPoints: ['dist/startMonaco.css'],
+//     bundle: true,
+//     outdir: 'dist',
+//     allowOverwrite: true,
+//     loader: {
+//       ".ttf": "file",
+//     },
+//     plugins,
+//   })
+//   .catch(() => process.exit(1));

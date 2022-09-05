@@ -3,15 +3,15 @@
 import 'monaco-editor/esm/vs/editor/editor.api.js';
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
 import 'monaco-editor/esm/vs/language/typescript/monaco.contribution';
+import pMap from "p-map";
+import { editor,  Uri, languages, } from 'monaco-editor/esm/vs/editor/edcore.main.js';
 
-import { editor,  Uri, languages } from 'monaco-editor/esm/vs/editor/edcore.main';
 
-
-
+ 
 import { getWorkerUrl } from "./monacoWorkers.mjs";
 
-import pMap from "p-map";
 
+const {create, createModel} = editor;
 
 const lib = [
   "dom",
@@ -155,7 +155,7 @@ const monacoContribution = async (
 
     const extraModel = match[0].slice(7) + ".tsx";
     console.log(extraModel);
-    editor.createModel(
+    createModel(
       await fetch(extraModel).then((res) => res.text()),
       "typescript",
       Uri.parse(extraModel),
@@ -353,14 +353,14 @@ export const startMonaco = async (
   // editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${location.origin}/package.json`))
   // languages.typescript.typescriptDefaults.inlayHintsOptions
 
-  const model = editor.createModel(
+  const model = createModel(
     replaced,
     "typescript",
     Uri.parse(`${location.origin}/live/${codeSpace}.tsx`),
   );
 
   return mod[name] = {
-    editor: editor.create(container, {
+    editor: create(container, {
       model,
       scrollbar: {
         scrollByPage: false,
