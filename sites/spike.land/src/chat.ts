@@ -454,12 +454,12 @@ async function handleApiRequest(
   }
 }
 
-async function getHTMLResp(env: CodeEnv, room: string) {
-  const id = env.CODE.idFromName(room);
-  const roomObject = env.CODE.get(id);
+// async function getHTMLResp(env: CodeEnv, room: string) {
+//   const id = env.CODE.idFromName(room);
+//   const roomObject = env.CODE.get(id);
 
-  return roomObject.fetch("public?room=" + room);
-}
+//   return roomObject.fetch("public?room=" + room);
+// }
 
 
 function isChunk(link:string) {

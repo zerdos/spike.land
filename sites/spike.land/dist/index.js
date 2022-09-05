@@ -6538,36 +6538,45 @@ var Code = class {
         case "hydrated":
         case "public": {
           const a3 = JSON.parse(manifestJSON2);
-          return new Response(
-            src_default.replaceAll(
-              "/live/coder/",
-              `/live/${this.codeSpace}/`
-            ).replace(
-              `/* #root{} */`,
-              `
-          #root{
-            height: 100%; 
-          }
-          ${mST().css}
-          `
-            ).replace("favicon.ico", a3["favicon.ico"]).replace(
-              `<div id="root"></div>`,
-              `<div id="root">
-                      <div id="root-${this.codeSpace}" style="height: 100%">
-                        ${mST().html}
-                      </div>
-                </div>
-           `
-            ),
-            {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "no-cache",
-                "Content-Type": "text/html; charset=UTF-8"
-              }
-            }
+          const respText = src_default.replaceAll(
+            "/live/coder/",
+            `/live/${this.codeSpace}/`
+          ).replace(
+            `/* #root{} */`,
+            `
+        #root{
+          height: 100%; 
+        }
+        ${mST().css}
+        `
+          ).replace("favicon.ico", a3["favicon.ico"]).replace(
+            `<div id="root"></div>`,
+            `<div id="root">
+                    <div id="root-${this.codeSpace}" style="height: 100%">
+                      ${mST().html}
+                    </div>
+              </div>
+         `
           );
+          const Etag = request.headers.get("Etag");
+          const newEtag = await sha256(respText);
+          const headers = new Headers();
+          headers.set("Access-Control-Allow-Origin", "*");
+          headers.set("Cache-Control", "max-age=604800, stale-while-revalidate=86400");
+          headers.set("etag", newEtag);
+          if (Etag === newEtag) {
+            headers.set("CF-Cache-Status", "HIT");
+            return new Response(null, {
+              status: 304,
+              statusText: "Not modified",
+              headers
+            });
+          }
+          headers.set("Content-Type", "text/html; charset=UTF-8");
+          return new Response(respText, {
+            status: 200,
+            headers
+          });
         }
         case "iife": {
           const startState = mST();
@@ -6771,6 +6780,16 @@ function importMapReplace(codeInp) {
     );
   });
   return returnStr;
+}
+async function sha256(myText) {
+  const myY = new TextEncoder().encode(myText);
+  const myDigest = await crypto.subtle.digest(
+    {
+      name: "SHA-256"
+    },
+    myY
+  );
+  return new TextDecoder("utf-8").decode(new Uint8Array(myDigest));
 }
 
 // src/users.ts
