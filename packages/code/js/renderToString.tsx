@@ -93,7 +93,7 @@ export const renderFromString = async (
   //   }, 500);
   // }, 1000);
 
-  return html
+  return (html && css)
     ? {
       html,
       css

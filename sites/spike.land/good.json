@@ -75,28 +75,28 @@
       "bytes": 2244,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-GXKC332Z.mjs": {
-      "bytes": 1345,
+    "../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs": {
+      "bytes": 2847,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-WMQNDN7G.mjs": {
-      "bytes": 79724,
+    "../../packages/code/dist/chunk-chunk-NCAFBSNA.mjs": {
+      "bytes": 184806,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-GXKC332Z.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs",
           "kind": "import-statement"
         }
       ]
     },
     "../../packages/code/dist/session.mjs": {
-      "bytes": 265,
+      "bytes": 375,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-WMQNDN7G.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-NCAFBSNA.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/dist/chunk-chunk-GXKC332Z.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs",
           "kind": "import-statement"
         }
       ]
@@ -185,7 +185,7 @@
       "entryPoint": "src/index.ts",
       "inputs": {
         "../../../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9c9.zip/node_modules/mime/Mime.js": {
-          "bytesInOutput": 2077
+          "bytesInOutput": 2073
         },
         "../../../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9c9.zip/node_modules/mime/types/standard.js": {
           "bytesInOutput": 10418
@@ -203,7 +203,7 @@
           "bytesInOutput": 8924
         },
         "src/chat.ts": {
-          "bytesInOutput": 12769
+          "bytesInOutput": 12752
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -218,13 +218,13 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15257
+          "bytesInOutput": 15365
         },
-        "../../packages/code/dist/chunk-chunk-GXKC332Z.mjs": {
-          "bytesInOutput": 1114
+        "../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs": {
+          "bytesInOutput": 1757
         },
-        "../../packages/code/dist/chunk-chunk-WMQNDN7G.mjs": {
-          "bytesInOutput": 109878
+        "../../packages/code/dist/chunk-chunk-NCAFBSNA.mjs": {
+          "bytesInOutput": 183879
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -239,7 +239,7 @@
           "bytesInOutput": 522
         }
       },
-      "bytes": 202165
+      "bytes": 276896
     }
   }
 }
