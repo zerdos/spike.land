@@ -51,7 +51,7 @@ export async function runner({ code, counter, codeSpace }: {
   mod.i = counter;
 
   if (code === mST().code) return;
-  if (mod.i > counter) return;
+  // if (mod.i > counter) return;
 
   // session.changes.push(changes);
   // esbuildEsmTransform = esbuildEsmTransform ||
@@ -102,7 +102,7 @@ export async function runner({ code, counter, codeSpace }: {
         }
         const { html, css } = res;
         // console.log({html, css});
-
+// if (counter !== mod.i) return;
         await saveCode({
           code,
           transpiled: transpiled.code,
