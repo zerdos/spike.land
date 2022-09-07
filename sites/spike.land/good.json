@@ -75,28 +75,28 @@
       "bytes": 2244,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-IA5ZPNWL.mjs": {
-      "bytes": 2747,
+    "../../packages/code/dist/chunk-chunk-UURPA34U.mjs": {
+      "bytes": 1287,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-ZS6ERYUJ.mjs": {
-      "bytes": 166637,
+    "../../packages/code/dist/chunk-chunk-HJZ23XEN.mjs": {
+      "bytes": 71717,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-IA5ZPNWL.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-UURPA34U.mjs",
           "kind": "import-statement"
         }
       ]
     },
     "../../packages/code/dist/session.mjs": {
-      "bytes": 375,
+      "bytes": 265,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-ZS6ERYUJ.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-HJZ23XEN.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/dist/chunk-chunk-IA5ZPNWL.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-UURPA34U.mjs",
           "kind": "import-statement"
         }
       ]
@@ -185,7 +185,7 @@
       "entryPoint": "src/index.ts",
       "inputs": {
         "../../node_modules/mime/Mime.js": {
-          "bytesInOutput": 2014
+          "bytesInOutput": 2020
         },
         "../../node_modules/mime/types/standard.js": {
           "bytesInOutput": 10359
@@ -218,13 +218,13 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15548
+          "bytesInOutput": 15426
         },
-        "../../packages/code/dist/chunk-chunk-IA5ZPNWL.mjs": {
-          "bytesInOutput": 1666
+        "../../packages/code/dist/chunk-chunk-UURPA34U.mjs": {
+          "bytesInOutput": 1044
         },
-        "../../packages/code/dist/chunk-chunk-ZS6ERYUJ.mjs": {
-          "bytesInOutput": 166018
+        "../../packages/code/dist/chunk-chunk-HJZ23XEN.mjs": {
+          "bytesInOutput": 101606
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -239,7 +239,7 @@
           "bytesInOutput": 522
         }
       },
-      "bytes": 258208
+      "bytes": 193058
     }
   }
 }
