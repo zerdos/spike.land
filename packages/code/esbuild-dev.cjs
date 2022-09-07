@@ -126,7 +126,7 @@ const build = (entryPoints, format = "esm") =>
 
 (async()=>{
   await esbuild.build({
-    entryPoints: workerEntryPoints.map((entry) => `../../node_modules/monaco-editor/esm/${entry}`),
+    entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     bundle: true,
     treeShaking: true,
     ignoreAnnotations: true,
