@@ -128,8 +128,15 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
 
   if (!apps[hash]) {
     try {
-      apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
+      apps[hash] = (await import(createJsBlob(trp))).default as unknown as React.FC;
     } catch (err) {
+
+      try {
+        apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
+      } catch {
+        console.error("not even importshim");
+      }
+
       if (err instanceof SyntaxError) {
         const name = err.name;
         const message = err.message;
