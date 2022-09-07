@@ -66,10 +66,10 @@ export async function runner({ code, counter, codeSpace }: {
       tsconfigRaw: {
         "compilerOptions": {
           "jsx": "react-jsx",
+          "module": "es2022",
           "jsxImportSource": "@emotion/react",
         },
       },
-      module: "es2022",
       target: "es2021",
     } as unknown as TransformOptions);
 
