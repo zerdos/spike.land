@@ -14,7 +14,7 @@ import {
 import { Delta } from "@spike.land/code/js/session";
 // import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
-import { imap } from "./chat";
+import { getImportMapStr, imap } from "./chat";
 // const imap = {
 //   "imports": {
 //     // ...imap,
@@ -364,7 +364,7 @@ export class Code {
           ).replace('favicon.ico', a["favicon.ico"])
           .replace(
             `<script async type="importmap"></script>`,`<script async type="importmap">
-            ${JSON.stringify(imap)}
+            ${getImportMapStr()}
             </script>`)
             .replace(
               `<div id="root"></div>`,

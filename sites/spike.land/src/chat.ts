@@ -303,17 +303,7 @@ export default {
 
             case "importmap.json":
 
-
-              const importmapImport: { [k: string]: string} = {...imap.imports};
-
-
-              for (const [key, value] of  Object.entries(imap.imports)) {
-                importmapImport[key] ="/" + value;
-              }
-
-
-
-              return new Response(JSON.stringify({imports: importmapImport}), {
+              return new Response(getImportMapStr(), {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache",
@@ -462,4 +452,17 @@ async function handleApiRequest(
 function isChunk(link:string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
  return link.includes("chunk-") || chunkRegExp.test(link)
+  }
+
+
+  export const getImportMapStr = ()=>{
+
+    const importmapImport: { [k: string]: string} = {...imap.imports};
+
+
+    for (const [key, value] of  Object.entries(imap.imports)) {
+      importmapImport[key] ="/" + value;
+    }
+
+    return JSON.stringify({imports: importmapImport});
   }
