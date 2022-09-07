@@ -3,7 +3,7 @@ import {
   md5,
   require_emotion_react_jsx_runtime_cjs,
   saveCode
-} from "./chunk-chunk-WA2ZVTW6.mjs";
+} from "./chunk-chunk-HZBMUESD.mjs";
 import {
   mST
 } from "./chunk-chunk-F7S3J2R4.mjs";
@@ -2835,10 +2835,10 @@ async function runner({ code, counter, codeSpace }) {
       tsconfigRaw: {
         "compilerOptions": {
           "jsx": "react-jsx",
+          "module": "es2022",
           "jsxImportSource": "@emotion/react"
         }
       },
-      module: "es2022",
       target: "es2021"
     });
     if (transpiled.code === mST().transpiled)

@@ -10650,7 +10650,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-3SSL2RAG.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-CM5Z3XRF.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-CYXCAOJW.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
