@@ -613,11 +613,7 @@ var chat_default = {
                 }
               });
             case "importmap.json":
-              const importmapImport = { ...imap.imports };
-              for (const [key, value] of Object.entries(imap.imports)) {
-                importmapImport[key] = "/" + value;
-              }
-              return new Response(JSON.stringify({ imports: importmapImport }), {
+              return new Response(getImportMapStr(), {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache"
@@ -720,6 +716,13 @@ function isChunk(link) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.includes("chunk-") || chunkRegExp.test(link);
 }
+var getImportMapStr = () => {
+  const importmapImport = { ...imap.imports };
+  for (const [key, value] of Object.entries(imap.imports)) {
+    importmapImport[key] = "/" + value;
+  }
+  return JSON.stringify({ imports: importmapImport });
+};
 
 // src/rateLimiterClient.ts
 var RateLimiterClient = class {
@@ -4352,7 +4355,7 @@ var Code = class {
           ).replace("favicon.ico", a3["favicon.ico"]).replace(
             `<script async type="importmap"><\/script>`,
             `<script async type="importmap">
-            ${JSON.stringify(imap)}
+            ${getImportMapStr()}
             <\/script>`
           ).replace(
             `<div id="root"></div>`,
