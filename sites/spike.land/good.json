@@ -68,7 +68,7 @@
       "imports": []
     },
     "src/index.html": {
-      "bytes": 2373,
+      "bytes": 2398,
       "imports": []
     },
     "src/iife.html": {
@@ -212,7 +212,7 @@
           "bytesInOutput": 1170
         },
         "src/index.html": {
-          "bytesInOutput": 2401
+          "bytesInOutput": 2426
         },
         "src/iife.html": {
           "bytesInOutput": 2272
@@ -239,7 +239,7 @@
           "bytesInOutput": 522
         }
       },
-      "bytes": 192982
+      "bytes": 193007
     }
   }
 }
