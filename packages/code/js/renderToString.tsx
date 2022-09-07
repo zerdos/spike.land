@@ -1,13 +1,14 @@
 // import {CacheProvider } from "@emotion/react"
 
 import { md5 } from "./md5";
-import { createRoot, flushSync } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { appFactory } from "starter";
 import { useEffect } from "react";
 
 // import  postcss from 'postcss';
 // import autoprefixer from "autoprefixer"
 import { useState } from "react";
+import { wait } from "wait";
 // import postcssNested from "postcss-nested"
 
 // const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
@@ -60,8 +61,10 @@ export const renderFromString = async (
       <App />
     </TestBed>,
   );
-  await new Promise<boolean>((_res) => flushSync(_res, true));
+  // await new Promise<boolean>((_res) => flushSync(_res, true));
   // await new Promise<boolean>((_res=>fluxshSync(_res, true)));
+  await wait(50);
+ 
   if (!mod[md5Code]) return null;
 
   if (!await mod[md5Code]) return null;
