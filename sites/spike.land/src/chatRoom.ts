@@ -364,7 +364,7 @@ export class Code {
           ).replace('favicon.ico', a["favicon.ico"])
           .replace(
             `<script async type="importmap"></script>`,`<script async type="importmap">
-            ${getImportMapStr()}
+            ${getImportMapStr(url.origin)}
             </script>`)
             .replace(
               `<div id="root"></div>`,
