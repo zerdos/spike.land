@@ -16,7 +16,7 @@
     "downlevelIteration": true,
 
     "noEmit": true,
-    "module": "esnext",
+    "module": "CommonJS",
     "jsx": "react-jsx",
     "checkJs": false,
   
@@ -79,6 +79,6 @@
       "react/jsx-dev-runtime": ["react-preact.ts"]
     }
   },
-  "include": ["js", "package.json"],
+  "include": ["js", "package.json", "esbuild-dev.cjs"],
   "exclude": []
 }

@@ -93,7 +93,7 @@ export async function runner({ code, counter, codeSpace }: {
       try {
         // console.log(transpiled);
 
-        const res = await renderFromString(code, transpiled.code, codeSpace);
+        const res = await renderFromString( transpiled.code, codeSpace);
 
         if (res === null) {
           console.error("COULD NOT RENDER:");

@@ -5,10 +5,11 @@
 // import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
-import { hashCode, mST } from "./session";
+import {  mST } from "./session";
 import { css } from "@emotion/react";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "md5";
+import { useRef } from "react";
 
 // Object.assign(window, {});
 
@@ -94,18 +95,19 @@ const apps: { [key: string]: React.FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
+const ErrorBoundaryJ = ErrorBoundary as unknown as React.FC;
 export const AutoUpdateApp: React.FC<{ hash: number }> = ({ hash }) => {
   // const result = md5(mST().transpiled);
 
-  // const ref = useRef(null);  
+  const ref = useRef(null);  
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled)];
-
+3
   // return <Root codeSpace={codeSpace}>
   return (
-    <ErrorBoundary key={hash}>
+    <ErrorBoundaryJ ref={ref} key={hash}>
       <App />
-    </ErrorBoundary>
+    </ErrorBoundaryJ>
   );
 };
 
@@ -123,8 +125,6 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
       if (err instanceof SyntaxError) {
         const name = err.name;
         const message = err.message;
-        const cause = err.cause;
-        const stack = err.stack;
         apps[hash] = () => (
           <div
             css={css`

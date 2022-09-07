@@ -1,11 +1,11 @@
-import esbuild from "esbuild";
-import  postcss from 'esbuild-postcss';
+const esbuild = require( "esbuild");
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
-import fs from "fs";
-import {promisify} from "util"
-
-const rm = promisify(fs.rm);
+const fs= require("fs");
+// const { request } = requirez("http");
+// const {promisify} = require("util")
+// require("monaco-editor/esm/vs/language/css/css.worker")
+// const rm = promisify(fs.rm);
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -22,10 +22,10 @@ console.log(`
 -------------------------------------------------
 -------------------------------------------------`);
 
-await rm("js/monaco-workers", {"recursive": true, force: true});
+ fs.rmSync("js/monaco-workers", {"recursive": true, force: true});
 
 const define = {
-  "process.env.NODE_ENV": `"production"`,
+  "process.env.NODE_ENV": `""`,
   "process.env.NODE_DEBUG": false,
   "process.env.DEBUG": false,
   "process.env.version": `"1.1.1"`,
@@ -35,8 +35,7 @@ const define = {
     env: { NODE_ENV: "production" },
     version: "1.1.1",
     browser: true,
-  }),
-  "global": "window",
+  })
 };
 // const plugins = [postcss({
 //   plugins: [
@@ -46,7 +45,7 @@ const define = {
 // })];
 
 const buildOptions = {
-  define,
+  // defdefinedefineine,
   target,
   platform: "browser",
   // plugins,
@@ -56,25 +55,13 @@ const buildOptions = {
 
 
 const workerEntryPoints = [
-	'vs/language/json/json.worker.js',
-	'vs/language/css/css.worker.js',
-	'vs/language/html/html.worker.js',
-	'vs/language/typescript/ts.worker.js',
-	'vs/editor/editor.worker.js'
+	'vs/language/json/json.worker',
+	'vs/language/css/css.worker',
+	'vs/language/html/html.worker',
+	'vs/language/typescript/ts.worker',
+	'vs/editor/editor.worker'
 ];
 
-await esbuild.build({
-	entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
-	bundle: true,
-  treeShaking: true,
-  ignoreAnnotations: true,
-  platform: "browser",
-  outExtension: {".js": ".workerJs.js"},
-  define,
-	format: 'iife',
-	outbase: 'monaco-editor/esm/vs',
-	outdir: './js/monaco-workers'
-});
 
 const build = (entryPoints, format = "esm") =>
   esbuild.build({
@@ -118,7 +105,7 @@ const build = (entryPoints, format = "esm") =>
       ".js?worker",
     ],
 
-    define,
+    // define,
     loader: {
       ".ttf": "file",
       ".webp": "file",
@@ -127,7 +114,7 @@ const build = (entryPoints, format = "esm") =>
       ".css": "css",
       ".ttf": "file",
       ".d.ts": "file",
-      ".js?file": "file",
+      ".js": "ts",
       ".workerJs.js": "file",
       ".wasm": "file",
     },
@@ -137,6 +124,19 @@ const build = (entryPoints, format = "esm") =>
     process.exit(1);
   });
 
+(async()=>{
+  await esbuild.build({
+    entryPoints: workerEntryPoints.map((entry) => `../../node_modules/monaco-editor/esm/${entry}`),
+    bundle: true,
+    treeShaking: true,
+    ignoreAnnotations: true,
+    platform: "browser",
+    outExtension: {".js": ".workerJs.js"},
+    format: 'iife',
+    outbase: 'monaco-editor/esm/vs',
+    outdir: './js/monaco-workers'
+  });
+  
 await build([
   "js/session.ts",
   "js/react-preact.ts",
@@ -145,6 +145,7 @@ await build([
   "js/startMonaco.ts", 
   "js/ws.ts",
 ]);
+})();
 
 // await esbuild
 //   .build({
