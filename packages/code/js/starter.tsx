@@ -12,12 +12,13 @@ import { md5 } from "md5";
 import { useRef } from "react";
 import "es-module-shims";
 
-
+(async()=>{
 const res = await fetch(location.origin + '/importmap.json')
 const importMap = await res.json();
 
 
 importShim.addImportMap(importMap);
+})();
 // Object.assign(window, {});
 
 // const modalRoot = document.getElementById("root")!;

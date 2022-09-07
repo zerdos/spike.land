@@ -365,7 +365,7 @@ export class Code {
           .replace(
             `<script async type="importmap"></script>`,`<script async type="importmap">
             ${JSON.stringify(imap)}
-            </script>`
+            </script>`)
             .replace(
               `<div id="root"></div>`,
               `<div id="root">
