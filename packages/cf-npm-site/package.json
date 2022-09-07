@@ -15,5 +15,5 @@
   "license": "BSD-3-Clause",
   "typings": "public/index.d.ts",
   "main": "public/index.mjs",
-  "gitHead": "d0a0900f93473b9b959d0e4d242e95f99be8bb0b"
+  "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
 }
