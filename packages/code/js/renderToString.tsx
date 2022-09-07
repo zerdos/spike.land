@@ -3,11 +3,11 @@
 import { md5 } from "./md5";
 import { createRoot, flushSync } from "react-dom/client";
 import { appFactory } from "starter";
-import { hashCode, mST, patchSync } from "./session";
 import { useEffect } from "react";
 
 import  postcss from 'postcss';
 import autoprefixer from "autoprefixer"
+import { useState } from "react";
 // import postcssNested from "postcss-nested"
 
 const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
@@ -28,22 +28,22 @@ const mod: { [key: string]: Promise<boolean> } = {};
 const TestBed: React.FC<{ md5Hash: string; children: JSX.Element }> = (
   { md5Hash, children },
 ) => {
-  let resolv;
-  mod[md5Hash] = new Promise((res) => resolv = res);
+  const [resolveMod, setResolve] = useState< {res: null | (( success: boolean)=> void) } >({res: null});
+  mod[md5Hash] = new Promise((res) => setResolve({res}));
 
   useEffect(() => {
-    resolv(true);
-  }, []);
+    if (resolveMod.res) resolveMod.res(true);
+  }, [resolveMod]);
 
   return <div id={md5Hash}>{children}</div>;
 };
 
 export const renderFromString = async (
-  code: string,
+  // code: string,
   transpiled: string,
   codeSpace: string,
 ) => {
-  const md5Code = "ID" + md5(transpiled).slice(0, 14);
+  const md5Code =codeSpace + md5(transpiled).slice(0, 14);
   const App = await appFactory(transpiled);
 
   // const myCache =  createCache({

@@ -4,7 +4,7 @@ import 'monaco-editor/esm/vs/editor/editor.api.js';
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
 import 'monaco-editor/esm/vs/language/typescript/monaco.contribution';
 import pMap from "p-map";
-import { editor,  Uri, languages, } from 'monaco-editor/esm/vs/editor/edcore.main.js';
+import { editor,  Uri, languages, } from 'monaco-editor';
 
 
  
