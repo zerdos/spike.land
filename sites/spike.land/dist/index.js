@@ -404,7 +404,6 @@ esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
 var imap = {
   "imports": {
     ...mods,
-    "ws": ws,
     "@emotion/react": emotionReact,
     "@emotion/react/jsx-runtime": emotionReact,
     "@emotion/react/jsx-dev-runtime": emotionReact,
@@ -869,16 +868,15 @@ window.addEventListener('pageshow', (event) => {
 
 <div id="root"></div>
 
-<script type="module-shim">
+<script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
-    import {run } from "ws"
-
-    run({
+   
+import(assets["ws.mjs"]).then(({run})=>run({
       mST,
       codeSpace,
       address,
       assets
-    });
+    }));
 <\/script>
 
   <!-- Cloudflare Web Analytics -->
