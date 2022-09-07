@@ -303,7 +303,7 @@ export default {
 
             case "importmap.json":
 
-              return new Response(getImportMapStr(), {
+              return new Response(getImportMapStr(url.origin), {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache",
@@ -455,13 +455,13 @@ function isChunk(link:string) {
   }
 
 
-  export const getImportMapStr = ()=>{
+  export const getImportMapStr = (orig: string)=>{
 
     const importmapImport: { [k: string]: string} = {...imap.imports};
 
 
     for (const [key, value] of  Object.entries(imap.imports)) {
-      importmapImport[key] ="/" + value;
+      importmapImport[key] = orig + "/" + value;
     }
 
     return JSON.stringify({imports: importmapImport});
