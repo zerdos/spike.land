@@ -79,6 +79,6 @@
       "react/jsx-dev-runtime": ["react-preact.ts"]
     }
   },
-  "include": ["js", "package.json", "esbuild-dev.cjs"],
+  "include": ["js", "package.json", "esbuild-dev.mjs"],
   "exclude": []
 }

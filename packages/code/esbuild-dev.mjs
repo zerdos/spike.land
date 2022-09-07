@@ -1,11 +1,11 @@
-const esbuild = require( "esbuild");
+import esbuild from  "esbuild";
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
-const fs= require("fs");
+import fs from "fs";
 // const { request } = requirez("http");
-// const {promisify} = require("util")
-// require("monaco-editor/esm/vs/language/css/css.worker")
-// const rm = promisify(fs.rm);
+import {promisify} from "util"
+// require("monaco-editr/esm/vs/language/css/css.worker")
+const rmAsync = promisify(fs.rm);
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -14,7 +14,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment === "development";
 
 const outdir = "./dist";
-const target = "es2020";
+const target = "es2021";
 
 console.log(`
 -------------------------------------------------
@@ -22,14 +22,13 @@ console.log(`
 -------------------------------------------------
 -------------------------------------------------`);
 
- fs.rmSync("js/monaco-workers", {"recursive": true, force: true});
 
 const define = {
-  "process.env.NODE_ENV": `""`,
-  "process.env.NODE_DEBUG": false,
-  "process.env.DEBUG": false,
+  "process.env.NODE_ENV": `"${environment}"`,
+  "process.env.NODE_DEBUG":  JSON.stringify(false),
+  "process.env.DEBUG":  JSON.stringify(false),
   "process.env.version": `"1.1.1"`,
-  "process.env.DUMP_SESSION_KEYS": false,
+  "process.env.DUMP_SESSION_KEYS":  JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   "process": JSON.stringify({
     env: { NODE_ENV: "production" },
@@ -45,7 +44,7 @@ const define = {
 // })];
 
 const buildOptions = {
-  // defdefinedefineine,
+  define,
   target,
   platform: "browser",
   // plugins,
@@ -82,7 +81,7 @@ const build = (entryPoints, format = "esm") =>
     treeShaking: true,
     logLimit: 0,
     metafile: true,
-    keepNames: true, 
+    // keepNames: true, 
     format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
@@ -105,7 +104,7 @@ const build = (entryPoints, format = "esm") =>
       ".js?worker",
     ],
 
-    // define,
+    define,
     loader: {
       ".ttf": "file",
       ".webp": "file",
@@ -125,9 +124,13 @@ const build = (entryPoints, format = "esm") =>
   });
 
 (async()=>{
+  await rmAsync("js/monaco-workers", {"recursive": true, force: true});
+
+
   await esbuild.build({
     entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     bundle: true,
+    define,
     treeShaking: true,
     ignoreAnnotations: true,
     platform: "browser",
