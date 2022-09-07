@@ -5,20 +5,20 @@ import { createRoot, flushSync } from "react-dom/client";
 import { appFactory } from "starter";
 import { useEffect } from "react";
 
-import  postcss from 'postcss';
-import autoprefixer from "autoprefixer"
+// import  postcss from 'postcss';
+// import autoprefixer from "autoprefixer"
 import { useState } from "react";
 // import postcssNested from "postcss-nested"
 
-const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
-console.log("•••••••CSS*******")
-  console.log({result})
-  result.warnings().forEach(warn => {
-    console.warn(warn.toString())
-  })
-  console.log(result.css)
-  return result.css
-})
+// const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
+// console.log("•••••••CSS*******")
+//   console.log({result})
+//   result.warnings().forEach(warn => {
+//     console.warn(warn.toString())
+//   })
+//   console.log(result.css)
+//   return result.css
+// })
 
 // const WithCache: FC<{children: ReactNode, cache: EmotionCache}> = ({children, cache}) => <CacheProvider value={cache}>{children}</CacheProvider>
 const temp = document.createElement("div");
@@ -65,10 +65,11 @@ export const renderFromString = async (
   if (!mod[md5Code]) return null;
 
   if (!await mod[md5Code]) return null;
+
   const html = temp.querySelector(`#${md5Code}`)?.innerHTML;
-  const css = html ? await prefixer( extractCritical(html)): null;
+  const css = html ? extractCritical(html): null;
   // flushSync();
-  tempRoot.unmount();
+  // tempRoot.unmount();
 
   // setTimeout(() => {
   //   const hash = hashCode();

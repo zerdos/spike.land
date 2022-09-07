@@ -4,6 +4,7 @@ import { mST } from "./session";
 import { renderFromString } from "./renderToString";
 // import { toUmd } from "./toUmd";
 import type { TransformOptions } from "esbuild-wasm";
+import {init} from "./esbuildEsm"
 // import type { Dispatch, SetStateAction, ReactNode } from "react";
 // import { md5 } from "./md5";
 // var Stream = require('stream/')
@@ -36,7 +37,7 @@ import type { TransformOptions } from "esbuild-wasm";
 
 const mod = {
   i: 0,
-  esbuildInit: async () => await (await (await import("./esbuildEsm"))).init(),
+  esbuild: init()
 };
 
 export async function runner({ code, counter, codeSpace }: {
@@ -46,7 +47,7 @@ export async function runner({ code, counter, codeSpace }: {
 }) {
   // console.log({ i, counter });
 
-  const esbuild = await (mod.esbuildInit());
+  const esbuild = {transform: await (await (mod.esbuild)).transform};
 
   mod.i = counter;
 

@@ -16,7 +16,7 @@
     "downlevelIteration": true,
 
     "noEmit": true,
-    "module": "CommonJS",
+    "module": "ES2022",
     "jsx": "react-jsx",
     "checkJs": false,
   

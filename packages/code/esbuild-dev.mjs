@@ -78,7 +78,8 @@ const build = (entryPoints, format = "esm") =>
     minifySyntax: !isDevelopment,
     legalComments: "none",
     ignoreAnnotations: true,
-    external: ["react", "react/*", "react-dom", "react-dom/*", "@emotion/react",  "@emotion/react/*"],
+    // external
+    // external: [ "@emotion/react/*"],
 
     treeShaking: true,
     logLimit: 0,
