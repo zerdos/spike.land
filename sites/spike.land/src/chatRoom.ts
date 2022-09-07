@@ -362,6 +362,10 @@ export class Code {
         ${mST().css}
         `
           ).replace('favicon.ico', a["favicon.ico"])
+          .replace(
+            `<script async type="importmap"></script>`,`<script async type="importmap">
+            ${JSON.stringify(imap)}
+            </script>`
             .replace(
               `<div id="root"></div>`,
               `<div id="root">

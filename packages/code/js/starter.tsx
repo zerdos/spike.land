@@ -10,7 +10,14 @@ import { css } from "@emotion/react";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "md5";
 import { useRef } from "react";
+import "es-module-shims";
 
+
+const res = await fetch(location.origin + '/importmap.json')
+const importMap = await res.json();
+
+
+importShim.addImportMap(importMap);
 // Object.assign(window, {});
 
 // const modalRoot = document.getElementById("root")!;
@@ -120,7 +127,7 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
 
   if (!apps[hash]) {
     try {
-      apps[hash] = (await import(createJsBlob(trp))).default as unknown as React.FC;
+      apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
     } catch (err) {
       if (err instanceof SyntaxError) {
         const name = err.name;

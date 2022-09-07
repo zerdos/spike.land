@@ -871,7 +871,7 @@ window.addEventListener('pageshow', (event) => {
 <script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
    
-import(assets["ws.mjs"]).then(({run})=>run({
+import( location.origin + "/" + assets["ws.mjs"]).then(({run})=>run({
       mST,
       codeSpace,
       address,
