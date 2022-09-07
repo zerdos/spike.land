@@ -28,7 +28,6 @@ esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
 export const imap = {
   "imports": {
     ...mods,
-    "ws": ws,
     "@emotion/react": emotionReact,
     "@emotion/react/jsx-runtime": emotionReact,
     "@emotion/react/jsx-dev-runtime": emotionReact,
