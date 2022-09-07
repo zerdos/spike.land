@@ -3,18 +3,16 @@ import {
   md5,
   require_emotion_react_jsx_runtime_cjs,
   saveCode
-} from "./chunk-chunk-HZBMUESD.mjs";
+} from "./chunk-chunk-LJ2MJEKB.mjs";
 import {
-  mST
+  mST,
+  patchSync
 } from "./chunk-chunk-F7S3J2R4.mjs";
-import "./chunk-chunk-WPGRT6FZ.mjs";
-import "./chunk-chunk-UXUJGLZ4.mjs";
+import "./chunk-chunk-7SYED4KS.mjs";
+import "./chunk-chunk-TDMXQA4U.mjs";
 import {
-  createRoot,
-  flushSync,
   init_react_preact,
-  useEffect,
-  useState
+  k
 } from "./chunk-chunk-7ZST6BGS.mjs";
 import {
   __commonJS,
@@ -1876,9 +1874,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
             let onmessage2;
             let globalThis = {};
             for (let o = self; o; o = Object.getPrototypeOf(o))
-              for (let k of Object.getOwnPropertyNames(o))
-                if (!(k in globalThis))
-                  Object.defineProperty(globalThis, k, { get: () => self[k] });
+              for (let k2 of Object.getOwnPropertyNames(o))
+                if (!(k2 in globalThis))
+                  Object.defineProperty(globalThis, k2, { get: () => self[k2] });
             "use strict";
             (() => {
               const enosys = /* @__PURE__ */ __name(() => {
@@ -2534,37 +2532,27 @@ init_react_preact();
 init_react_preact();
 init_react_preact();
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var temp = document.createElement("div");
-var tempRoot = createRoot(temp);
-var mod = {};
-var TestBed = /* @__PURE__ */ __name(({ md5Hash, children }) => {
-  const [resolveMod, setResolve] = useState({ res: null });
-  mod[md5Hash] = new Promise((res) => setResolve({ res }));
-  useEffect(() => {
-    if (resolveMod.res)
-      resolveMod.res(true);
-  }, [resolveMod]);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-    id: md5Hash,
-    children
-  });
-}, "TestBed");
+var mod = { transpiled: "" };
 var renderFromString = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
+  mod.transpiled = transpiled;
   const md5Code = codeSpace + md5(transpiled).slice(0, 14);
   const App = await appFactory(transpiled);
-  tempRoot.render(
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TestBed, {
-      md5Hash: md5Code,
-      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
-    }, md5Code)
-  );
-  await new Promise((_res) => flushSync(_res, true));
-  if (!mod[md5Code])
-    return null;
-  if (!await mod[md5Code])
-    return null;
-  const html = temp.querySelector(`#${md5Code}`)?.innerHTML;
+  const html = k(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}));
   const css = html ? extractCritical(html) : null;
+  setTimeout(() => {
+    if (mod.transpiled === transpiled && mST().transpiled === transpiled) {
+      const tmp = document.getElementById("root-" + codeSpace);
+      const htmlHtml = tmp.innerHTML;
+      const newCss = extractCritical(htmlHtml);
+      if (css !== newCss || html !== htmlHtml) {
+        patchSync({
+          ...mST(),
+          html: htmlHtml,
+          css: newCss
+        });
+      }
+    }
+  }, 200);
   return html && css ? {
     html,
     css
