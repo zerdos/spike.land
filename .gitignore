@@ -1,5 +1,4 @@
-.yarn
-**.yarn
+.yarn/cache
 # ignore haters
 **.yarn/cache
 haters/
