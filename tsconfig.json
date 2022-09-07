@@ -26,8 +26,8 @@
     "lib": ["ES2020"],
     "types": ["node"]
   },
+  "exclude": ["node_modules"],
   "include": [
-    "packages/code/js",
-    "sites/spike.land/src"
-  ]
+    "packages/code",
+    "sites/spike.land/src" ]
 }
