@@ -4,24 +4,29 @@ import { Mutex } from "async-mutex";
 
 import { initialize, transform, TransformOptions } from "esbuild-wasm";
 import wasmURL from "esbuild-wasm/esbuild.wasm";
-const mutex = new Mutex();
 
 const esbuild = {
   initialize,
-  transform: async (code: string, options: TransformOptions) =>
-    await mutex.runExclusive(async () => {
+  mutex: new Mutex(),
+  transform: async (code: string, options: TransformOptions) => {
+    let transformObj;
+    
+    await esbuild.mutex.runExclusive(async () => {
       try {
         console.info(`esbuild start`);
 
         // if (options?.format==="esm") {
-        const transformObj = await transform(code, options);
+        transformObj = await transform(code, options);
         console.info(`esbuild transpile done`);
         return transformObj;
       } catch (err) {
         console.error("Ebuild transform error: ", { code, err });
         throw err;
       }
-    }),
+    });
+  
+  return transformObj
+  }
 };
 // import type { transform } from "esbuild/lib/main";
 

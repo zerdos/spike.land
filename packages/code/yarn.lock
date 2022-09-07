@@ -589,7 +589,7 @@ __metadata:
     "@types/web": 0.0.72
     "@types/xo": ^0.39.3
     "@typescript/lib-dom": "npm:@types/web@0.0.72"
-    ace-builds: 1.10.0
+    ace-builds: 1.10.1
     async-mutex: 0.4.0
     autoprefixer: ^10.4.8
     big-integer: 1.6.51
@@ -602,7 +602,7 @@ __metadata:
     esbuild-postcss: ^0.0.4
     esbuild-wasm: 0.15.7
     fast-diff: 1.2.0
-    framer-motion: ^7.2.1
+    framer-motion: ^7.3.0
     immutable: 4.1.0
     lodash.debounce: 4.0.8
     lodash.throttle: 4.1.1
@@ -611,7 +611,7 @@ __metadata:
     postcss: ^8.4.16
     postcss-nested: ^5.0.6
     preact: 10.10.6
-    preact-render-to-string: 5.2.2
+    preact-render-to-string: 5.2.3
     prettier: 2.7.1
     prop-types: ^15.8.1
     qrious: ^4.0.2
@@ -920,10 +920,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.10.0":
-  version: 1.10.0
-  resolution: "ace-builds@npm:1.10.0"
-  checksum: af6bc0059375b172a38444087f29232314f83be5242567a71336f055f93ba631d0c167ca045cc8ba8687a3eb6056218e2105c7ed8ae1107ce34e674f15347a2a
+"ace-builds@npm:1.10.1":
+  version: 1.10.1
+  resolution: "ace-builds@npm:1.10.1"
+  checksum: b924b92656b283808e33d9bb7666502079d06a3b33c0bbddf5309efc20388cb6c00b7381f6ac69c7b45d70a9c45f515fefb8e139cd9bade04ae117fcbd6d9760
   languageName: node
   linkType: hard
 
@@ -2450,9 +2450,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^7.2.1":
-  version: 7.2.1
-  resolution: "framer-motion@npm:7.2.1"
+"framer-motion@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "framer-motion@npm:7.3.0"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     "@motionone/dom": 10.13.1
@@ -2467,7 +2467,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 765406514606c5c812b7f81fb7c250f3ab7b0fe2b9eb01de79257219239252e6ccb897455377ae16ce8353248c6481b53b55da54f8aedd6a0f6e08a90dbebbdd
+  checksum: 8ba02478d3ffc0de625a963581349119760eefbb6e44ba4afe177e2e31f3a65044643afba5f741d6fe18beec5de3c57c6c3435c2df241d4e43272e8c80d43523
   languageName: node
   linkType: hard
 
@@ -3913,14 +3913,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact-render-to-string@npm:5.2.2":
-  version: 5.2.2
-  resolution: "preact-render-to-string@npm:5.2.2"
+"preact-render-to-string@npm:5.2.3":
+  version: 5.2.3
+  resolution: "preact-render-to-string@npm:5.2.3"
   dependencies:
     pretty-format: ^3.8.0
   peerDependencies:
     preact: ">=10"
-  checksum: 2068b8ce4836ca1f01e086e34872dbf1642fd8569e5df655bb7270327d58867ef1a97b7c17dee9ec19fe4a8e73ff6d9ab0fee3be6fa3cffcba028aa265f97bf4
+  checksum: 6e46288d8956adde35b9fe3a21aecd9dea29751b40f0f155dea62f3896f27cb8614d457b32f48d33909d2da81135afcca6c55077520feacd7d15164d1371fb44
   languageName: node
   linkType: hard
 
