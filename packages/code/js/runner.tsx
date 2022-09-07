@@ -69,6 +69,7 @@ export async function runner({ code, counter, codeSpace }: {
           "jsxImportSource": "@emotion/react",
         },
       },
+      module: "es2022",
       target: "es2021",
     } as unknown as TransformOptions);
 
