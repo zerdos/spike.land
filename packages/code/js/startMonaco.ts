@@ -335,16 +335,31 @@ self.MonacoEnvironment = {
   getWorkerUrl,
 };
 
-const mod: { [key: string]: Object } = {};
+const mod: { [key: string]: Object } = {}
 
-export const startMonaco = async (
+export const startMonaco= async (
   { code, container, name }: {
     code: string;
     container: HTMLDivElement;
     name: string;
   },
-) => {
-  if (mod[name]) return mod[name];
+)=> {
+
+  if (mod[name]) return mod[name] as unknown as typeof ret;
+
+
+  const ret = await startMonacoPristine({code, container, name});
+mod[name] = ret;
+  return ret;
+
+
+async function startMonacoPristine(
+  { code, container, name }: {
+    code: string;
+    container: HTMLDivElement;
+    name: string;
+  }){
+  // if (mod[name]) return mod[name];
   const codeSpace = name;
 
   // const innerStyle = document.createElement("style");
@@ -490,7 +505,7 @@ export const startMonaco = async (
     autoClosingBrackets: "beforeWhitespace",
   });
 
-  return mod[name] = {
+  return {
     getTypeScriptWorker: ()=>languages.typescript.getTypeScriptWorker(),
     setValue: (code: string) => {
       let state = null;
@@ -506,4 +521,6 @@ export const startMonaco = async (
     }, 
     model,
   };
-};
+
+
+}};
