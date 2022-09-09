@@ -4,11 +4,17 @@ import 'monaco-editor/esm/vs/editor/editor.api.js';
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
 import 'monaco-editor/esm/vs/language/typescript/monaco.contribution';
 import pMap from "p-map";
-import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
-import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
+import * as monaco from "monaco-editor"
+// import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
+// import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
 // const {createModel} = editor
-const create = editor.create;
- 
+const create = monaco.editor.create;
+const languages = monaco.languages
+const createModel = monaco.editor.createModel
+const Uri = monaco.Uri;
+
+
+
 import { getWorkerUrl } from "./monacoWorkers.mjs";
 
 

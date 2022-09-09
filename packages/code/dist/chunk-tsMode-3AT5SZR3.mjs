@@ -1,9 +1,9 @@
 import {
   typescriptDefaults
-} from "./chunk-chunk-QSU7IXUL.mjs";
+} from "./chunk-chunk-XN7G2TCA.mjs";
 import {
   editor_api_exports
-} from "./chunk-chunk-6CYCXJJB.mjs";
+} from "./chunk-chunk-B4PHDMAB.mjs";
 import {
   __name,
   init_define_process

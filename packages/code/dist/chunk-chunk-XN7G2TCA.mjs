@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./chunk-chunk-6CYCXJJB.mjs";
+} from "./chunk-chunk-B4PHDMAB.mjs";
 import {
   __name,
   init_define_process
@@ -223,7 +223,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-tsMode-WDA4GHZU.mjs");
+    return import("./chunk-tsMode-3AT5SZR3.mjs");
   }
 }
 __name(getMode, "getMode");

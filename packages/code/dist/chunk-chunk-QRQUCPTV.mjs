@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./chunk-chunk-6CYCXJJB.mjs";
+} from "./chunk-chunk-B4PHDMAB.mjs";
 import {
   __name,
   init_define_process
@@ -333,6 +333,7 @@ var language = {
     ]
   }
 };
+
 export {
   conf,
   language
