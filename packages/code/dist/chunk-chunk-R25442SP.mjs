@@ -13,7 +13,7 @@ import {
   domAnimation,
   domMax,
   m
-} from "./chunk-chunk-WPGRT6FZ.mjs";
+} from "./chunk-chunk-RHL7BVQQ.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_element_20108edd_cjs_prod,
@@ -10645,7 +10645,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-LNMADQ6A.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-VS367QFY.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-CYXCAOJW.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({

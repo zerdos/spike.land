@@ -812,6 +812,10 @@ var VisualElementHandler = class extends react_preact_default.Component {
 };
 __name(VisualElementHandler, "VisualElementHandler");
 
+// node_modules/framer-motion/dist/es/motion/utils/symbol.mjs
+init_define_process();
+var motionComponentSymbol = Symbol.for("motionComponentSymbol");
+
 // node_modules/framer-motion/dist/es/motion/index.mjs
 function createMotionComponent({ preloadedFeatures, createVisualElement, projectionNodeConstructor, useRender, useVisualState: useVisualState2, Component: Component2 }) {
   preloadedFeatures && loadFeatures(preloadedFeatures);
@@ -842,7 +846,9 @@ function createMotionComponent({ preloadedFeatures, createVisualElement, project
     );
   }
   __name(MotionComponent, "MotionComponent");
-  return forwardRef(MotionComponent);
+  const ForwardRefComponent = forwardRef(MotionComponent);
+  ForwardRefComponent[motionComponentSymbol] = Component2;
+  return ForwardRefComponent;
 }
 __name(createMotionComponent, "createMotionComponent");
 function useLayoutId({ layoutId }) {
@@ -2571,7 +2577,7 @@ var isFloat = /* @__PURE__ */ __name((value) => {
 }, "isFloat");
 var MotionValue = class {
   constructor(init) {
-    this.version = "7.3.0";
+    this.version = "7.3.2";
     this.timeDelta = 0;
     this.lastUpdated = 0;
     this.updateSubscribers = new SubscriptionManager();
@@ -3196,6 +3202,7 @@ var transformPropOrder = [
   "rotate",
   "rotateX",
   "rotateY",
+  "rotateZ",
   "skew",
   "skewX",
   "skewY"
@@ -3706,7 +3713,7 @@ function updateMotionValuesFromProps(element, next, prev) {
         willChange.add(key);
       }
       if (false) {
-        warnOnce(nextValue.version === "7.3.0", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.3.0 may not work as expected.`);
+        warnOnce(nextValue.version === "7.3.2", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.3.2 may not work as expected.`);
       }
     } else if (isMotionValue(prevValue)) {
       element.addValue(key, motionValue(nextValue));
