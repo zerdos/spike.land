@@ -993,7 +993,7 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../../packages/code/dist/chunk-chunk-5RTROEFV.mjs
+// ../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -1031,7 +1031,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-WYR3SQZJ.mjs
+// ../../packages/code/dist/chunk-chunk-F7S3J2R4.mjs
 var require_diff = __commonJS2({
   "node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6599,8 +6599,7 @@ var Code = class {
             "react.mjs": a2["react.mjs"],
             "emotion.mjs": a2["emotion.mjs"],
             "framer-motion.mjs": a2["framer-motion.mjs"],
-            "startMonaco.mjs": a2["startMonaco.mjs"],
-            "startMonaco.css": a2["startMonaco.css"]
+            "ws.css": a2["ws.css"]
           };
           return new Response(
             `
