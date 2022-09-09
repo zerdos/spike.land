@@ -828,7 +828,7 @@ html, body {margin: 0; height: 100%}
     }
     <\/script>
 
-   <script async type="importmap"><\/script>
+   <script type="importmap"><\/script>
    </head>
    
    
@@ -6707,8 +6707,8 @@ var Code = class {
         ${mST().css}
         `
           ).replace("favicon.ico", a3["favicon.ico"]).replace(
-            `<script async type="importmap"><\/script>`,
-            `<script async type="importmap">
+            `<script type="importmap"><\/script>`,
+            `<script type="importmap">
             ${getImportMapStr(url.origin)}
             <\/script>`
           ).replace(

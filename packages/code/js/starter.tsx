@@ -12,13 +12,20 @@ import { md5 } from "md5";
 import { useRef } from "react";
 import "es-module-shims";
 
-(async()=>{
-const res = await fetch(location.origin + '/importmap.json')
-const importMap = await res.json();
+
+try{
+  importShim.addImportMap(JSON.parse((Array.from(document.scripts).find(s=>s.type==="importmap").innerText)));
+} catch{
+  console.error("no importmap")
+}
+// (async()=>{
+// Array.from( document.scripts).find(s=>s.type==="importmap")
+// const res = await fetch(location.origin + '/importmap.json')
+// const importMap = await res.json();
 
 
-importShim.addImportMap(importMap);
-})();
+// importShim.addImportMap(importMap);
+// })();
 // Object.assign(window, {});
 
 // const modalRoot = document.getElementById("root")!;
@@ -128,14 +135,14 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
 
   if (!apps[hash]) {
     try {
-      apps[hash] = (await import(createJsBlob(trp))).default as unknown as React.FC;
+      apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
     } catch (err) {
 
-      try {
-        apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
-      } catch {
-        console.error("not even importshim");
-      }
+      // try {
+      //   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
+      // } catch {
+      //   console.error("not even importshim");
+      // }
 
       if (err instanceof SyntaxError) {
         const name = err.name;

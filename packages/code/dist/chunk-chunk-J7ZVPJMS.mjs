@@ -6964,11 +6964,11 @@ init_define_process();
 
 // js/starter.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-(async () => {
-  const res = await fetch(location.origin + "/importmap.json");
-  const importMap = await res.json();
-  importShim.addImportMap(importMap);
-})();
+try {
+  importShim.addImportMap(JSON.parse(Array.from(document.scripts).find((s) => s.type === "importmap").innerText));
+} catch {
+  console.error("no importmap");
+}
 var apps = {};
 var ErrorBoundaryJ = ErrorBoundary_default;
 var AutoUpdateApp = /* @__PURE__ */ __name(({ hash }) => {
@@ -6986,13 +6986,8 @@ async function appFactory(transpiled = "") {
   const hash = md5(trp);
   if (!apps[hash]) {
     try {
-      apps[hash] = (await import(createJsBlob(trp))).default;
+      apps[hash] = (await importShim(createJsBlob(trp))).default;
     } catch (err) {
-      try {
-        apps[hash] = (await importShim(createJsBlob(trp))).default;
-      } catch {
-        console.error("not even importshim");
-      }
       if (err instanceof SyntaxError) {
         const name = err.name;
         const message = err.message;
@@ -11680,7 +11675,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-Q6J4FTX4.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-HDBTJ4QA.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-CYXCAOJW.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
