@@ -2182,7 +2182,7 @@ __metadata:
     "@spike.land/code": ^0.9.2
     esbuild: 0.15.7
     miniflare: ^2.8.1
-    typescript: 4.8.2
+    typescript: 4.8.3
     wrangler: 2.0.29
   languageName: unknown
   linkType: soft
@@ -2237,7 +2237,7 @@ __metadata:
     react-qrious: 2.5.5
     react-reverse-portal: ^2.1.1
     tslib: ^2.4.0
-    typescript: 4.8.2
+    typescript: 4.8.3
     uvu: 0.5.6
     xo: ^0.52.3
   languageName: unknown
@@ -2269,7 +2269,7 @@ __metadata:
     lerna: ^5.5.1
     monaco-editor: ^0.34.0
     react: ^18.2.0
-    typescript: ^4.8.2
+    typescript: ^4.8.3
     xo: ^0.52.3
   languageName: unknown
   linkType: soft
@@ -7812,7 +7812,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     serve: ^14.0.1
-    typescript: ^4.8.2
+    typescript: ^4.8.3
   languageName: unknown
   linkType: soft
 
@@ -10327,7 +10327,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.8.2, typescript@npm:^3 || ^4, typescript@npm:^4.7.3, typescript@npm:^4.8.2":
+"typescript@npm:4.8.3, typescript@npm:^4.8.3":
+  version: 4.8.3
+  resolution: "typescript@npm:4.8.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 8286a5edcaf3d68e65c451aa1e7150ad1cf53ee0813c07ec35b7abdfdb10f355ecaa13c6a226a694ae7a67785fd7eeebf89f845da0b4f7e4a35561ddc459aba0
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^3 || ^4, typescript@npm:^4.7.3":
   version: 4.8.2
   resolution: "typescript@npm:4.8.2"
   bin:
@@ -10337,7 +10347,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.8.2#~builtin<compat/typescript>, typescript@patch:typescript@^3 || ^4#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.8.2#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.8.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.8.3#~builtin<compat/typescript>":
+  version: 4.8.3
+  resolution: "typescript@patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 2222d2382fb3146089b1d27ce2b55e9d1f99cc64118f1aba75809b693b856c5d3c324f052f60c75b577947fc538bc1c27bad0eb76cbdba9a63a253489504ba7e
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^3 || ^4#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.3#~builtin<compat/typescript>":
   version: 4.8.2
   resolution: "typescript@patch:typescript@npm%3A4.8.2#~builtin<compat/typescript>::version=4.8.2&hash=a1c5e5"
   bin:
