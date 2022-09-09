@@ -47599,79 +47599,85 @@ var mod = {};
 var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name }) => {
   if (mod[name])
     return mod[name];
-  const codeSpace = name;
-  const replaced = await monacoContribution(
-    code
-  );
-  const model = createModel(
-    replaced,
-    "typescript",
-    Uri2.parse(`${location.origin}/live/${codeSpace}.tsx`)
-  );
-  const editor2 = create(container, {
-    model,
-    scrollbar: {
-      scrollByPage: false,
-      alwaysConsumeMouseWheel: false
-    },
-    scrollBeyondLastLine: false,
-    scrollPredominantAxis: false,
-    smoothScrolling: true,
-    suggest: {
-      insertMode: "replace",
-      filterGraceful: false,
-      snippetsPreventQuickSuggestions: false,
-      localityBonus: true,
-      shareSuggestSelections: true,
-      showIcons: true,
-      showStatusBar: true,
-      preview: true,
-      previewMode: "subwordSmart",
-      showInlineDetails: true,
-      showMethods: true,
-      showFunctions: true,
-      showConstructors: true,
-      showFields: true,
-      showColors: true,
-      showFiles: true,
-      showReferences: true,
-      showFolders: true,
-      showTypeParameters: true,
-      showIssues: true,
-      showUsers: true,
-      showSnippets: true
-    },
-    automaticLayout: true,
-    useShadowDOM: true,
-    bracketPairColorization: {
-      independentColorPoolPerBracketType: true,
-      enabled: true
-    },
-    codeLens: true,
-    "semanticHighlighting.enabled": true,
-    dragAndDrop: true,
-    codeActionsOnSaveTimeout: 300,
-    dropIntoEditor: { enabled: true },
-    mouseStyle: "default",
-    definitionLinkOpensInPeek: true,
-    theme: "vs-dark",
-    autoClosingBrackets: "beforeWhitespace"
-  });
-  return mod[name] = {
-    getTypeScriptWorker: () => languages2.typescript.getTypeScriptWorker(),
-    setValue: (code2) => {
-      let state = null;
-      try {
-        state = editor2.saveViewState();
-      } catch (e) {
-        console.error("error while saving the state");
-      }
-      model.setValue(code2);
-      if (state)
-        editor2.restoreViewState(state);
-    },
-    model
-  };
+  const ret = await startMonacoPristine({ code, container, name });
+  mod[name] = ret;
+  return ret;
+  async function startMonacoPristine({ code: code2, container: container2, name: name2 }) {
+    const codeSpace = name2;
+    const replaced = await monacoContribution(
+      code2
+    );
+    const model = createModel(
+      replaced,
+      "typescript",
+      Uri2.parse(`${location.origin}/live/${codeSpace}.tsx`)
+    );
+    const editor2 = create(container2, {
+      model,
+      scrollbar: {
+        scrollByPage: false,
+        alwaysConsumeMouseWheel: false
+      },
+      scrollBeyondLastLine: false,
+      scrollPredominantAxis: false,
+      smoothScrolling: true,
+      suggest: {
+        insertMode: "replace",
+        filterGraceful: false,
+        snippetsPreventQuickSuggestions: false,
+        localityBonus: true,
+        shareSuggestSelections: true,
+        showIcons: true,
+        showStatusBar: true,
+        preview: true,
+        previewMode: "subwordSmart",
+        showInlineDetails: true,
+        showMethods: true,
+        showFunctions: true,
+        showConstructors: true,
+        showFields: true,
+        showColors: true,
+        showFiles: true,
+        showReferences: true,
+        showFolders: true,
+        showTypeParameters: true,
+        showIssues: true,
+        showUsers: true,
+        showSnippets: true
+      },
+      automaticLayout: true,
+      useShadowDOM: true,
+      bracketPairColorization: {
+        independentColorPoolPerBracketType: true,
+        enabled: true
+      },
+      codeLens: true,
+      "semanticHighlighting.enabled": true,
+      dragAndDrop: true,
+      codeActionsOnSaveTimeout: 300,
+      dropIntoEditor: { enabled: true },
+      mouseStyle: "default",
+      definitionLinkOpensInPeek: true,
+      theme: "vs-dark",
+      autoClosingBrackets: "beforeWhitespace"
+    });
+    return {
+      getTypeScriptWorker: () => languages2.typescript.getTypeScriptWorker(),
+      setValue: (code3) => {
+        let state = null;
+        try {
+          state = editor2.saveViewState();
+        } catch (e) {
+          console.error("error while saving the state");
+        }
+        model.setValue(code3);
+        if (state)
+          editor2.restoreViewState(state);
+      },
+      model
+    };
+  }
+  __name(startMonacoPristine, "startMonacoPristine");
 }, "startMonaco");
 export {
   startMonaco
