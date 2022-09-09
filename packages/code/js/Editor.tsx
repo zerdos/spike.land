@@ -87,12 +87,12 @@ export const Editor: React.FC<
     const setMonaco = async () => {
       const link = document.createElement("link");
       link.setAttribute("rel", "stylesheet");
-      link.href = location.origin + "/" + assets["startMonaco.css"];
+      link.href = location.origin + "/" + assets["ws.css"];
       document.head.appendChild(link);
 
-      const { startMonaco } = await import(new URL(assets["startMonaco.mjs"], location.origin).toString());
+      const { startMonaco } = await import("./startMonaco");
 
-      const { editor, monaco, model } = await startMonaco(
+      const { model, getTypeScriptWorker, setValue  } = await startMonaco(
         /**
          * @param {any} code
          */
@@ -103,30 +103,16 @@ export const Editor: React.FC<
         },
       );
 
+
       changeContent((x) => ({
         ...x,
         started: true,
-        setValue: (code: string) => {
-          if (code == mST().code || code == mod.code) return;
-          let state = null;
-          try {
-            state = editor.saveViewState();
-          } catch (e) {
-            console.error("error while saving the state");
-          }
-
-          model.setValue(code);
-
-          if (state) editor.restoreViewState(state);
-        },
+       setValue,
         getValue: () => {
           try {
             (async () => {
-              const tsWorker = await (await monaco.languages.typescript
-                .getTypeScriptWorker())(
-                  monaco.Uri.parse(
-                    location.origin + "/live/" + codeSpace + ".tsx",
-                  ),
+              const tsWorker = await (await getTypeScriptWorker())(
+                  model.uri
                 );
 
               const diag = await tsWorker.getSemanticDiagnostics(

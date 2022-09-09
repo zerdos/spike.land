@@ -4,14 +4,14 @@ import 'monaco-editor/esm/vs/editor/editor.api.js';
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
 import 'monaco-editor/esm/vs/language/typescript/monaco.contribution';
 import pMap from "p-map";
-import { editor,  Uri, languages, } from 'monaco-editor/esm/vs/editor/edcore.main';
-
+import { create, createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
+import { languages, Uri} from 'monaco-editor/esm/vs/editor/editor.api'
+// const {createModel} = editor
 
  
 import { getWorkerUrl } from "./monacoWorkers.mjs";
 
 
-const {create, createModel} = editor;
 
 const lib = [
   "dom",
@@ -359,132 +359,145 @@ export const startMonaco = async (
     Uri.parse(`${location.origin}/live/${codeSpace}.tsx`),
   );
 
-  return mod[name] = {
-    editor: create(container, {
-      model,
-      scrollbar: {
-        scrollByPage: false,
-        alwaysConsumeMouseWheel: false,
-      },
-      scrollBeyondLastLine: false,
-      scrollPredominantAxis: false,
-
-      smoothScrolling: true,
-      suggest: {
-        /**
-         * Overwrite word ends on accept. Default to false.
-         */
-        insertMode: "replace",
-        /**
-         * Enable graceful matching. Defaults to true.
-         */
-        filterGraceful: false,
-        /**
-         * Prevent quick suggestions when a snippet is active. Defaults to true.
-         */
-        snippetsPreventQuickSuggestions: false,
-        /**
-         * Favors words that appear close to the cursor.
-         */
-        localityBonus: true,
-        /**
-         * Enable using global storage for remembering suggestions.
-         */
-        shareSuggestSelections: true,
-        /**
-         * Enable or disable icons in suggestions. Defaults to true.
-         */
-        showIcons: true,
-        /**
-         * Enable or disable the suggest status bar.
-         */
-        showStatusBar: true,
-        /**
-         * Enable or disable the rendering of the suggestion preview.
-         */
-        preview: true,
-        /**
-         * Configures the mode of the preview.
-         */
-        previewMode: "subwordSmart",
-        /**
-         * Show details inline with the label. Defaults to true.
-         */
-        showInlineDetails: true,
-
-        /**
-         * Show method-suggestions.
-         */
-        showMethods: true,
-        /**
-         * Show function-suggestions.
-         */
-        showFunctions: true,
-        /**
-         * Show constructor-suggestions.
-         */
-        showConstructors: true,
-        /**
-         * Show deprecated-suggestions.
-         */
-
-        /**
-         * Show field-suggestions.
-         */
-        showFields: true,
-
-        /**
-         * Show color-suggestions.
-         */
-        showColors: true,
-        /**
-         * Show file-suggestions.
-         */
-        showFiles: true,
-        /**
-         * Show reference-suggestions.
-         */
-        showReferences: true,
-        /**
-         * Show folder-suggestions.
-         */
-        showFolders: true,
-        /**
-         * Show typeParameter-suggestions.
-         */
-        showTypeParameters: true,
-        /**
-         * Show issue-suggestions.
-         */
-        showIssues: true,
-        /**
-         * Show user-suggestions.
-         */
-        showUsers: true,
-        /**
-         * Show snippet-suggestions.
-         */
-        showSnippets: true,
-      },
-      automaticLayout: true,
-
-      useShadowDOM: true,
-      bracketPairColorization: {
-        independentColorPoolPerBracketType: true,
-        enabled: true,
-      },
-      codeLens: true,
-      "semanticHighlighting.enabled": true,
-      dragAndDrop: true,
-      codeActionsOnSaveTimeout: 300,
-      dropIntoEditor: { enabled: true },
-      // gotoLocation: true,]]
-      mouseStyle: "default",
-      definitionLinkOpensInPeek: true,
-      theme: "vs-dark",
-      autoClosingBrackets: "beforeWhitespace",
-    }),
+  const editor = create(container, {
     model,
-    monaco: { editor, languages, Uri },
+    scrollbar: {
+      scrollByPage: false,
+      alwaysConsumeMouseWheel: false,
+    },
+    scrollBeyondLastLine: false,
+    scrollPredominantAxis: false,
+
+    smoothScrolling: true,
+    suggest: {
+      /**
+       * Overwrite word ends on accept. Default to false.
+       */
+      insertMode: "replace",
+      /**
+       * Enable graceful matching. Defaults to true.
+       */
+      filterGraceful: false,
+      /**
+       * Prevent quick suggestions when a snippet is active. Defaults to true.
+       */
+      snippetsPreventQuickSuggestions: false,
+      /**
+       * Favors words that appear close to the cursor.
+       */
+      localityBonus: true,
+      /**
+       * Enable using global storage for remembering suggestions.
+       */
+      shareSuggestSelections: true,
+      /**
+       * Enable or disable icons in suggestions. Defaults to true.
+       */
+      showIcons: true,
+      /**
+       * Enable or disable the suggest status bar.
+       */
+      showStatusBar: true,
+      /**
+       * Enable or disable the rendering of the suggestion preview.
+       */
+      preview: true,
+      /**
+       * Configures the mode of the preview.
+       */
+      previewMode: "subwordSmart",
+      /**
+       * Show details inline with the label. Defaults to true.
+       */
+      showInlineDetails: true,
+
+      /**
+       * Show method-suggestions.
+       */
+      showMethods: true,
+      /**
+       * Show function-suggestions.
+       */
+      showFunctions: true,
+      /**
+       * Show constructor-suggestions.
+       */
+      showConstructors: true,
+      /**
+       * Show deprecated-suggestions.
+       */
+
+      /**
+       * Show field-suggestions.
+       */
+      showFields: true,
+
+      /**
+       * Show color-suggestions.
+       */
+      showColors: true,
+      /**
+       * Show file-suggestions.
+       */
+      showFiles: true,
+      /**
+       * Show reference-suggestions.
+       */
+      showReferences: true,
+      /**
+       * Show folder-suggestions.
+       */
+      showFolders: true,
+      /**
+       * Show typeParameter-suggestions.
+       */
+      showTypeParameters: true,
+      /**
+       * Show issue-suggestions.
+       */
+      showIssues: true,
+      /**
+       * Show user-suggestions.
+       */
+      showUsers: true,
+      /**
+       * Show snippet-suggestions.
+       */
+      showSnippets: true,
+    },
+    automaticLayout: true,
+
+    useShadowDOM: true,
+    bracketPairColorization: {
+      independentColorPoolPerBracketType: true,
+      enabled: true,
+    },
+    codeLens: true,
+    "semanticHighlighting.enabled": true,
+    dragAndDrop: true,
+    codeActionsOnSaveTimeout: 300,
+    dropIntoEditor: { enabled: true },
+    // gotoLocation: true,]]
+    mouseStyle: "default",
+    definitionLinkOpensInPeek: true,
+    theme: "vs-dark",
+    autoClosingBrackets: "beforeWhitespace",
+  });
+
+  return mod[name] = {
+    getTypeScriptWorker: ()=>languages.typescript.getTypeScriptWorker(),
+    setValue: (code: string) => {
+      let state = null;
+      try {
+        state = editor.saveViewState();
+      } catch (e) {
+        console.error("error while saving the state");
+      }
+
+      model.setValue(code);
+
+      if (state) editor.restoreViewState(state);
+    }, 
+    model,
   };
 };

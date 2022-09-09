@@ -245,8 +245,7 @@ export class Code {
             "react.mjs": a["react.mjs"],
             "emotion.mjs": a["emotion.mjs"],
             "framer-motion.mjs": a["framer-motion.mjs"],
-            "startMonaco.mjs": a["startMonaco.mjs"],
-            "startMonaco.css": a["startMonaco.css"],
+            "ws.css": a["ws.css"],
 
           };
           return new Response(
