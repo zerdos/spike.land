@@ -440,11 +440,12 @@ async function processData(data: any, source: "ws" | "rtc") {
   }
 
   if (wsLastHashCode !== hashCode()) {
-    const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
-    const state = await resp.json();
 
-    const codePatch = await makePatch(state.mST);
-    if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
+    // const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
+    // const state = await resp.json();
+
+    // const codePatch = await makePatch(state.mST);
+    // if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
   }
 
   function createPeerConnection(target: string) {
