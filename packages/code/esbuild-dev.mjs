@@ -1,11 +1,10 @@
 import esbuild from  "esbuild";
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
-import fs from "fs";
+import fs from "fs/promises";
 // const { request } = requirez("http");
-import {promisify} from "util"
 // require("monaco-editr/esm/vs/language/css/css.worker")
-const rmAsync = promisify(fs.rm);
+// const rmAsync = promisify(fs.rm);
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -127,7 +126,7 @@ const build = (entryPoints, format = "esm") =>
   });
 
 (async()=>{
-  await rmAsync("js/monaco-workers", {"recursive": true, force: true});
+  await fs.rm("js/monaco-workers", {"recursive": true, force: true});
 
 
   await esbuild.build({
