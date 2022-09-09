@@ -606,7 +606,7 @@ var chat_default = {
                 }
               });
             case "importmap.json":
-              return new Response(getImportMapStr(), {
+              return new Response(getImportMapStr(url.origin), {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache"
@@ -709,10 +709,10 @@ function isChunk(link) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.includes("chunk-") || chunkRegExp.test(link);
 }
-var getImportMapStr = () => {
+var getImportMapStr = (orig) => {
   const importmapImport = { ...imap.imports };
   for (const [key, value] of Object.entries(imap.imports)) {
-    importmapImport[key] = "/" + value;
+    importmapImport[key] = orig + "/" + value;
   }
   return JSON.stringify({ imports: importmapImport });
 };
@@ -6709,7 +6709,7 @@ var Code = class {
           ).replace("favicon.ico", a3["favicon.ico"]).replace(
             `<script async type="importmap"><\/script>`,
             `<script async type="importmap">
-            ${getImportMapStr()}
+            ${getImportMapStr(url.origin)}
             <\/script>`
           ).replace(
             `<div id="root"></div>`,

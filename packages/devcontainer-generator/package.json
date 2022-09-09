@@ -9,7 +9,7 @@
   ],
   "exports": "./index.mjs",
   "scripts": {
-    "build": "yarn esbuild --bundle src/index.ts --format=\"esm\" --platform=node --outfile=index.mjs",
+    "build": "npx esbuild --bundle src/index.ts --format=\"esm\" --platform=node --outfile=index.mjs",
     "clean": "rm -rf lib"
   },
   "publishConfig": {

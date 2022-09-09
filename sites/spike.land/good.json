@@ -51,7 +51,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 15051,
+      "bytes": 15081,
       "imports": [
         {
           "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -106,7 +106,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 20654,
+      "bytes": 20664,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -203,7 +203,7 @@
           "bytesInOutput": 8841
         },
         "src/chat.ts": {
-          "bytesInOutput": 12751
+          "bytesInOutput": 12772
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -218,7 +218,7 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15545
+          "bytesInOutput": 15555
         },
         "../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs": {
           "bytesInOutput": 1757
@@ -239,7 +239,7 @@
           "bytesInOutput": 522
         }
       },
-      "bytes": 273717
+      "bytes": 273748
     }
   }
 }
