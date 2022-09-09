@@ -148,7 +148,6 @@ await build([
   "js/react-preact.ts",
   "js/motion.ts",
   "js/emotion.ts",
-  "js/startMonaco.ts", 
   "js/ws.ts",
 ]);
 })();
