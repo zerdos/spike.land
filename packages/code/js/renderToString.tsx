@@ -72,7 +72,7 @@ export const renderFromString = async (
   // if (!await mod[md5Code]) return null;
 
   const html = renderToString(<App />)
-  const css = html ? extractCritical(html): null;
+  const css = html ? (extractCritical(html) || "") : null;
   // flushSync();
   // tempRoot.unmount();
 
@@ -94,7 +94,7 @@ export const renderFromString = async (
   }
 }, 200);
 
-  return (html && css)
+  return (html)
     ? {
       html,
       css
