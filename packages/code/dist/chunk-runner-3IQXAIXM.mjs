@@ -3,7 +3,7 @@ import {
   md5,
   require_emotion_react_jsx_runtime_cjs,
   saveCode
-} from "./chunk-chunk-ORHVFRUR.mjs";
+} from "./chunk-chunk-UI5747I3.mjs";
 import {
   mST,
   patchSync
@@ -2538,7 +2538,7 @@ var renderFromString = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
   const md5Code = codeSpace + md5(transpiled).slice(0, 14);
   const App = await appFactory(transpiled);
   const html = k(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}));
-  const css = html ? extractCritical(html) : null;
+  const css = html ? extractCritical(html) || "" : null;
   setTimeout(() => {
     if (mod.transpiled === transpiled && mST().transpiled === transpiled) {
       const tmp = document.getElementById("root-" + codeSpace);
@@ -2553,7 +2553,7 @@ var renderFromString = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
       }
     }
   }, 200);
-  return html && css ? {
+  return html ? {
     html,
     css
   } : null;
