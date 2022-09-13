@@ -1,7 +1,6 @@
 import {
-  appFactory,
   saveCode
-} from "./chunk-chunk-JA4LJYTO.mjs";
+} from "./chunk-chunk-CHYV4LEZ.mjs";
 import {
   mST,
   patchSync
@@ -1143,7 +1142,7 @@ var require_browser = __commonJS({
           let servedir = getFlag(options, keys, "servedir", mustBeString);
           let onRequest = getFlag(options, keys, "onRequest", mustBeFunction);
           let onWait;
-          let wait2 = new Promise((resolve, reject) => {
+          let wait = new Promise((resolve, reject) => {
             onWait = /* @__PURE__ */ __name((error) => {
               serveCallbacks.delete(key);
               if (error !== null)
@@ -1165,7 +1164,7 @@ var require_browser = __commonJS({
             onWait
           });
           return {
-            wait: wait2,
+            wait,
             stop() {
               sendRequest(refs, { command: "serve-stop", key }, () => {
               });
@@ -2521,40 +2520,6 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 // js/runner.tsx
 init_define_process();
 
-// js/renderToString.tsx
-init_define_process();
-var renderFromString = /* @__PURE__ */ __name((codeSpace) => {
-  const html = document.getElementById(`root-${codeSpace}`)?.innerHTML;
-  const css = extractCritical22(html);
-  return {
-    html,
-    css
-  };
-}, "renderFromString");
-var extractCritical22 = /* @__PURE__ */ __name((html) => {
-  try {
-    const rules = {};
-    for (let i in document.styleSheets) {
-      const styleSheet = document.styleSheets[i];
-      if (styleSheet?.cssRules) {
-        Array.from(styleSheet.cssRules).forEach((rule) => {
-          if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
-            const selector = rule.cssText.slice(1, 9);
-            const selectorText = rule.selectorText || selector;
-            if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".css-")) {
-              rules[selectorText] = rule.cssText;
-            }
-          }
-        });
-      }
-    }
-    return Object.keys(rules).map((r) => rules[r]).join(" ");
-  } catch {
-    console.error("no css");
-    return "";
-  }
-}, "extractCritical22");
-
 // js/esbuildEsm.ts
 init_define_process();
 
@@ -2778,17 +2743,6 @@ var init = /* @__PURE__ */ __name(async () => {
   }
 }, "init");
 
-// js/wait.ts
-init_define_process();
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
-__name(wait, "wait");
-
 // js/runner.tsx
 var mod = {
   i: 0,
@@ -2815,10 +2769,6 @@ async function runner({ code, counter, codeSpace }) {
     patchSync({ ...mST(), transpiled: transpiled.code });
     if (transpiled.code.length > 0) {
       try {
-        await appFactory();
-        await wait(50);
-        const { html, css } = renderFromString(codeSpace);
-        patchSync({ ...mST(), html, css });
         saveCode();
       } catch (error) {
         console.error("EXCEPTION");

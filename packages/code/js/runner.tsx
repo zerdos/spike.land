@@ -108,8 +108,8 @@ export async function runner({ code, counter, codeSpace }: {
       try {
         // console.log(transpiled);
 
-        await appFactory();
-        await wait(50);
+        // await appFactory();
+        // await wait(50);
         // const res = renderFromString( App);
 
         // if (res === null) {
@@ -117,9 +117,9 @@ export async function runner({ code, counter, codeSpace }: {
         //   console.error({ code, transpiled: transpiled.code });
         //   return;
         // }
-        const { html, css } = renderFromString(codeSpace);
+        // const { html, css } = renderFromString(codeSpace);
 
-        patchSync({...mST(), html, css});
+        // patchSync({...mST(), html, css});
         // console.log({html, css});
 // if (counter !== mod.i) return;
          saveCode();
