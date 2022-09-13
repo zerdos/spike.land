@@ -1,10 +1,13 @@
 // import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { saveCode } from "./ws";
-import { mST } from "./session";
+import { mST, patchSync } from "./session";
 import { renderFromString } from "./renderToString";
 // import { toUmd } from "./toUmd";
 import type { TransformOptions } from "esbuild-wasm";
 import {init} from "./esbuildEsm"
+import { appFactory } from "starter";
+import { wait } from "wait";
+
 // import type { Dispatch, SetStateAction, ReactNode } from "react";
 // import { md5 } from "./md5";
 // var Stream = require('stream/')
@@ -34,24 +37,31 @@ import {init} from "./esbuildEsm"
 // });
 
 // export const runnerDebounced: typeof runner = (props) => debounced(props);
-
 const mod = {
   i: 0,
   esbuild: init()
 };
+
+
+const esb = (async ()=>({transform: await (await (mod.esbuild)).transform}))();
 
 export async function runner({ code, counter, codeSpace }: {
   code: string;
   codeSpace: string;
   counter: number;
 }) {
+  const esbuild = await esb;
+  
+
+  patchSync({...mST(), code, i: counter});
+
   // console.log({ i, counter });
 
-  const esbuild = {transform: await (await (mod.esbuild)).transform};
 
-  mod.i = counter;
 
-  if (code === mST().code) return;
+  // mod.i = counter;
+
+  // if (code === mST().code) return;
   // if (mod.i > counter) return;
 
   // session.changes.push(changes);
@@ -73,6 +83,9 @@ export async function runner({ code, counter, codeSpace }: {
       target: "es2021",
     } as unknown as TransformOptions);
 
+    patchSync({...mST(), transpiled: transpiled.code});
+
+
     //   try{
     //     (async ()=>{
     //       const name = `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`;
@@ -87,39 +100,37 @@ export async function runner({ code, counter, codeSpace }: {
     //   catch(e){
     //     console.error({e});
     //   }
-    if (transpiled.code === mST().transpiled) return;
+    // if (transpiled.code === mST().transpiled) return;
 
-    let restartError = false;
+    // let restartError = false;
     /// yellow
     if (transpiled.code.length > 0) {
       try {
         // console.log(transpiled);
 
-        const res = await renderFromString( transpiled.code, codeSpace);
+        await appFactory();
+        await wait(50);
+        // const res = renderFromString( App);
 
-        if (res === null) {
-          console.error("COULD NOT RENDER:");
-          console.error({ code, transpiled: transpiled.code });
-          return;
-        }
-        const { html, css } = res;
+        // if (res === null) {
+        //   console.error("COULD NOT RENDER:");
+        //   console.error({ code, transpiled: transpiled.code });
+        //   return;
+        // }
+        const { html, css } = renderFromString(codeSpace);
+
+        patchSync({...mST(), html, css});
         // console.log({html, css});
 // if (counter !== mod.i) return;
-        await saveCode({
-          code,
-          transpiled: transpiled.code,
-          i: counter,
-          html,
-          css,
-        });
+         saveCode();
 
-        return;
+        // return;
       } catch (error) {
         console.error("EXCEPTION");
         console.error(error);
-        restartError = true;
-        console.error({ restartError });
-        return;
+        // restartError = true;
+        // console.error({ restartError });
+        // return;
       }
     }
   } catch (error) {
