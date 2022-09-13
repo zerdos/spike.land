@@ -7,7 +7,7 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-BYVUEBM7.mjs";
+} from "./chunk-chunk-FEVHDESR.mjs";
 import {
   LazyMotion,
   __rest,
@@ -6969,7 +6969,8 @@ init_react_preact();
 // js/renderToString.tsx
 init_define_process();
 var renderFromString = /* @__PURE__ */ __name((codeSpace2) => {
-  const html = document.getElementById(`root-${codeSpace2}`)?.innerHTML;
+  var _a;
+  const html = (_a = document.getElementById(`root-${codeSpace2}`)) == null ? void 0 : _a.innerHTML;
   const css7 = extractCritical22(html);
   return {
     html,
@@ -6981,7 +6982,7 @@ var extractCritical22 = /* @__PURE__ */ __name((html) => {
     const rules = {};
     for (let i in document.styleSheets) {
       const styleSheet = document.styleSheets[i];
-      if (styleSheet?.cssRules) {
+      if (styleSheet == null ? void 0 : styleSheet.cssRules) {
         Array.from(styleSheet.cssRules).forEach((rule) => {
           if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
             const selector = rule.cssText.slice(1, 9);
@@ -6994,7 +6995,7 @@ var extractCritical22 = /* @__PURE__ */ __name((html) => {
       }
     }
     return Object.keys(rules).map((r2) => rules[r2]).join(" ");
-  } catch {
+  } catch (e) {
     console.error("no css");
     return "";
   }
@@ -7004,7 +7005,7 @@ var extractCritical22 = /* @__PURE__ */ __name((html) => {
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 try {
   importShim.addImportMap(JSON.parse(Array.from(document.scripts).find((s) => s.type === "importmap").innerText));
-} catch {
+} catch (e) {
   console.error("no importmap");
 }
 var apps = {};
@@ -11659,7 +11660,8 @@ var DraggableWindow = /* @__PURE__ */ __name(({
               children: [
                 /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Fab_default, {
                   onClick: () => {
-                    document.getElementById("root")?.requestFullscreen();
+                    var _a;
+                    (_a = document.getElementById("root")) == null ? void 0 : _a.requestFullscreen();
                   },
                   children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FullscreenIcon, {}, "fs")
                 }, "fullscreen"),
@@ -11715,8 +11717,8 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-VCN5NCDQ.mjs");
-      const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-P36IACZJ.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-KL4XA4OG.mjs");
+      const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-TOMNIK4R.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
@@ -11748,16 +11750,16 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     onChange
   } = mySession;
   mod.code = myCode;
-  const lines = code?.split("\n").length || 0;
+  const lines = (code == null ? void 0 : code.split("\n").length) || 0;
   useEffect(() => {
-    if (!ref?.current)
+    if (!(ref == null ? void 0 : ref.current))
       return;
     const setMonaco = /* @__PURE__ */ __name(async () => {
       const link = document.createElement("link");
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.appendChild(link);
-      const { startMonaco } = await import("./chunk-startMonaco-QKU65WNK.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-MVWPC576.mjs");
       const { model, getTypeScriptWorker, setValue: setValue2 } = await startMonaco(
         {
           container: ref.current,
@@ -11780,7 +11782,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
               );
               console.log({ diag });
             })();
-          } catch {
+          } catch (e) {
             console.error("ts diag error");
           }
           return model.getValue();
@@ -12137,7 +12139,7 @@ var run = /* @__PURE__ */ __name(async (startState) => {
       return;
     console.log({ event });
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      ws == null ? void 0 : ws.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
@@ -12243,7 +12245,7 @@ async function join() {
     ws = wsConnection;
     const mess = /* @__PURE__ */ __name((data) => {
       try {
-        ws && ws?.send && ws?.send(data);
+        ws && (ws == null ? void 0 : ws.send) && (ws == null ? void 0 : ws.send(data));
       } catch (e) {
         ws = null;
         rejoined = false;
@@ -12264,7 +12266,7 @@ async function join() {
       if (diff > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
-            return wsConnection?.send(
+            return wsConnection == null ? void 0 : wsConnection.send(
               JSON.stringify({
                 name: user,
                 timestamp: lastSeenTimestamp + diff
@@ -12273,7 +12275,7 @@ async function join() {
           }
           rejoined = false;
           rejoin();
-        } catch {
+        } catch (e) {
           rejoined = false;
           rejoin();
         }
@@ -12379,7 +12381,7 @@ async function processData(data, source) {
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
         log("*** Outgoing ICE candidate: " + event.candidate);
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
@@ -12466,13 +12468,13 @@ async function processData(data, source) {
         log("---> Setting local description to the offer");
         await rtcConns[target].setLocalDescription(offer);
         log("---> Sending the offer to the remote peer");
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           target,
           name: user,
           type: "offer",
           offer: rtcConns[target].localDescription
         }));
-      } catch {
+      } catch (e) {
         log(
           "*** The following error occurred while handling the negotiationneeded event:"
         );
@@ -12519,7 +12521,7 @@ async function processData(data, source) {
     await rtcConns[target].setLocalDescription(
       answer
     );
-    ws?.send(JSON.stringify({
+    ws == null ? void 0 : ws.send(JSON.stringify({
       target,
       name: user,
       type: "answer",
@@ -12586,7 +12588,7 @@ async function sw() {
       }, "load");
       return load(location.pathname);
     }
-  } catch {
+  } catch (e) {
     console.log("ipfs load error");
   }
 }

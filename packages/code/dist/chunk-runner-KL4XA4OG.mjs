@@ -1,10 +1,10 @@
 import {
   saveCode
-} from "./chunk-chunk-CHYV4LEZ.mjs";
+} from "./chunk-chunk-GOFFWHZP.mjs";
 import {
   mST,
   patchSync
-} from "./chunk-chunk-BYVUEBM7.mjs";
+} from "./chunk-chunk-FEVHDESR.mjs";
 import "./chunk-chunk-4W3235JR.mjs";
 import "./chunk-chunk-6RHEFDMG.mjs";
 import "./chunk-chunk-C25QXX5Q.mjs";
@@ -1600,9 +1600,9 @@ var require_browser = __commonJS({
           try {
             let lines = (e.stack + "").split("\n");
             lines.splice(1, 1);
-            let location = parseStackLinesV8(streamIn, lines, ident);
-            if (location) {
-              note = { text: e.message, location };
+            let location2 = parseStackLinesV8(streamIn, lines, ident);
+            if (location2) {
+              note = { text: e.message, location: location2 };
               return note;
             }
           } catch (e2) {
@@ -1612,16 +1612,16 @@ var require_browser = __commonJS({
       __name(extractCallerV8, "extractCallerV8");
       function extractErrorMessageV8(e, streamIn, stash, note, pluginName) {
         let text = "Internal error";
-        let location = null;
+        let location2 = null;
         try {
           text = (e && e.message || e) + "";
         } catch (e2) {
         }
         try {
-          location = parseStackLinesV8(streamIn, (e.stack + "").split("\n"), "");
+          location2 = parseStackLinesV8(streamIn, (e.stack + "").split("\n"), "");
         } catch (e2) {
         }
-        return { id: "", pluginName, text, location, notes: note ? [note] : [], detail: stash ? stash.store(e) : -1 };
+        return { id: "", pluginName, text, location: location2, notes: note ? [note] : [], detail: stash ? stash.store(e) : -1 };
       }
       __name(extractErrorMessageV8, "extractErrorMessageV8");
       function parseStackLinesV8(streamIn, lines, ident) {
@@ -1697,18 +1697,18 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
         return messages;
       }
       __name(replaceDetailsInMessages, "replaceDetailsInMessages");
-      function sanitizeLocation(location, where) {
-        if (location == null)
+      function sanitizeLocation(location2, where) {
+        if (location2 == null)
           return null;
         let keys = {};
-        let file = getFlag(location, keys, "file", mustBeString);
-        let namespace = getFlag(location, keys, "namespace", mustBeString);
-        let line = getFlag(location, keys, "line", mustBeInteger);
-        let column = getFlag(location, keys, "column", mustBeInteger);
-        let length = getFlag(location, keys, "length", mustBeInteger);
-        let lineText = getFlag(location, keys, "lineText", mustBeString);
-        let suggestion = getFlag(location, keys, "suggestion", mustBeString);
-        checkForInvalidFlags(location, keys, where);
+        let file = getFlag(location2, keys, "file", mustBeString);
+        let namespace = getFlag(location2, keys, "namespace", mustBeString);
+        let line = getFlag(location2, keys, "line", mustBeInteger);
+        let column = getFlag(location2, keys, "column", mustBeInteger);
+        let length = getFlag(location2, keys, "length", mustBeInteger);
+        let lineText = getFlag(location2, keys, "lineText", mustBeString);
+        let suggestion = getFlag(location2, keys, "suggestion", mustBeString);
+        checkForInvalidFlags(location2, keys, where);
         return {
           file: file || "",
           namespace: namespace || "",
@@ -1728,7 +1728,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
           let id = getFlag(message, keys, "id", mustBeString);
           let pluginName = getFlag(message, keys, "pluginName", mustBeString);
           let text = getFlag(message, keys, "text", mustBeString);
-          let location = getFlag(message, keys, "location", mustBeObjectOrNull);
+          let location2 = getFlag(message, keys, "location", mustBeObjectOrNull);
           let notes = getFlag(message, keys, "notes", mustBeArray);
           let detail = getFlag(message, keys, "detail", canBeAnything);
           let where = `in element ${index} of "${property}"`;
@@ -1750,7 +1750,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
             id: id || "",
             pluginName: pluginName || fallbackPluginName,
             text: text || "",
-            location: sanitizeLocation(location, where),
+            location: sanitizeLocation(location2, where),
             notes: notesClone,
             detail: stash ? stash.store(detail) : -1
           });
@@ -2727,14 +2727,14 @@ var init = /* @__PURE__ */ __name(async () => {
     initFinished = initFinished || new Promise((resolve) => {
       (0, import_esbuild_wasm.initialize)(
         {
-          wasmURL: new URL(esbuild_default, import.meta.url).toString()
+          wasmURL: new URL(esbuild_default, location.origin).toString()
         }
       ).then(() => resolve(true));
     });
     if (await initFinished === true)
       return esbuild;
     throw new Error("esbuild couldn't initialize");
-  } catch {
+  } catch (e) {
     throw new Error("esbuild couldn't initialize");
   } finally {
     if (await initFinished === true)

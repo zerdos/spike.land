@@ -33,7 +33,7 @@ var require_standalone = __commonJS({
         nu.exports = function(e) {
           try {
             return !!e();
-          } catch {
+          } catch (e2) {
             return true;
           }
         };
@@ -169,7 +169,7 @@ var require_standalone = __commonJS({
         qu.exports = function(e) {
           try {
             return tl(e);
-          } catch {
+          } catch (e2) {
             return "Object";
           }
         };
@@ -206,7 +206,7 @@ var require_standalone = __commonJS({
         Ju.exports = function(e, n) {
           try {
             ll(Gu, e, { value: n, configurable: true, writable: true });
-          } catch {
+          } catch (e2) {
             Gu[e] = n;
           }
           return n;
@@ -291,7 +291,7 @@ var require_standalone = __commonJS({
           if (n = Jl(n), t = Ul(t), Xl)
             try {
               return ms(n, t);
-            } catch {
+            } catch (e) {
             }
           if (zl(n, t))
             return Gl(!$l(Hl.f, n, t), n[t]);
@@ -324,7 +324,7 @@ var require_standalone = __commonJS({
           if (dr(n), t = Cs(t), dr(s), nc)
             try {
               return en(n, t, s);
-            } catch {
+            } catch (e) {
             }
           if ("get" in s || "set" in s)
             throw sc("Accessors not supported");
@@ -560,7 +560,7 @@ var require_standalone = __commonJS({
         }()) == "Arguments", Wp = /* @__PURE__ */ __name(function(e, n) {
           try {
             return e[n];
-          } catch {
+          } catch (e2) {
           }
         }, "Wp");
         xi.exports = jp ? Fr : function(e) {
@@ -575,7 +575,7 @@ var require_standalone = __commonJS({
             return false;
           try {
             return Bi(Ti, zp, n), true;
-          } catch {
+          } catch (e) {
             return false;
           }
         }, "Gt"), Ni = /* @__PURE__ */ __name(function(n) {
@@ -589,7 +589,7 @@ var require_standalone = __commonJS({
           }
           try {
             return Kp || !!Xp(Cn, Up(n));
-          } catch {
+          } catch (e) {
             return true;
           }
         }, "Ni");
@@ -1961,7 +1961,7 @@ var require_standalone = __commonJS({
           if (e.outdent = T, e.default = T, typeof n < "u")
             try {
               n.exports = T, Object.defineProperty(T, "__esModule", { value: true }), T.default = T, T.outdent = T;
-            } catch {
+            } catch (e2) {
             }
         } }), ND = Z({ "src/main/core-options.js"(e, n) {
           "use strict";
@@ -11783,7 +11783,7 @@ var require_standalone = __commonJS({
                   else
                     try {
                       G.push(s(["{{", r([u, te(U, { parser: "__ng_interpolation", __isInHtmlInterpolation: true })]), u, "}}"]));
-                    } catch {
+                    } catch (e2) {
                       G.push("{{", v(U), "}}");
                     }
                 return s(G);
@@ -12486,7 +12486,7 @@ var require_parser_babel = __commonJS({
         Yr.exports = function(h) {
           try {
             return !!h();
-          } catch {
+          } catch (e) {
             return true;
           }
         };
@@ -12622,7 +12622,7 @@ var require_parser_babel = __commonJS({
         Fi.exports = function(h) {
           try {
             return ql(h);
-          } catch {
+          } catch (e) {
             return "Object";
           }
         };
@@ -12659,7 +12659,7 @@ var require_parser_babel = __commonJS({
         zi.exports = function(h, l) {
           try {
             Gl(_i, h, { value: l, configurable: true, writable: true });
-          } catch {
+          } catch (e) {
             _i[h] = l;
           }
           return l;
@@ -12744,7 +12744,7 @@ var require_parser_babel = __commonJS({
           if (l = ku(l), p = Du(p), Lu)
             try {
               return ua(l, p);
-            } catch {
+            } catch (e) {
             }
           if (Fu(l, p))
             return Iu(!wu(Nu.f, l, p), l[p]);
@@ -12777,7 +12777,7 @@ var require_parser_babel = __commonJS({
           if (Dt(l), p = ya(p), Dt(d), _u)
             try {
               return Bs(l, p, d);
-            } catch {
+            } catch (e) {
             }
           if ("get" in d || "set" in d)
             throw Ku("Accessors not supported");
@@ -13020,7 +13020,7 @@ var require_parser_babel = __commonJS({
         }()) == "Arguments", Np = /* @__PURE__ */ __name(function(h, l) {
           try {
             return h[l];
-          } catch {
+          } catch (e) {
           }
         }, "Np");
         Sn.exports = Ep ? Rt : function(h) {
@@ -13035,7 +13035,7 @@ var require_parser_babel = __commonJS({
             return false;
           try {
             return kn(In, Op, l), true;
-          } catch {
+          } catch (e) {
             return false;
           }
         }, "st"), Dn = /* @__PURE__ */ __name(function(l) {
@@ -13049,7 +13049,7 @@ var require_parser_babel = __commonJS({
           }
           try {
             return Mp || !!Bp(er, Lp(l));
-          } catch {
+          } catch (e) {
             return true;
           }
         }, "Dn");
@@ -13895,7 +13895,7 @@ var require_parser_babel = __commonJS({
               let { pattern: s, flags: r } = e, i = null;
               try {
                 i = new RegExp(s, r);
-              } catch {
+              } catch (e2) {
               }
               let a = this.estreeParseLiteral(i);
               return a.regex = { pattern: s, flags: r }, a;
@@ -13904,7 +13904,7 @@ var require_parser_babel = __commonJS({
               let s;
               try {
                 s = BigInt(e);
-              } catch {
+              } catch (e2) {
                 s = null;
               }
               let r = this.estreeParseLiteral(s);
@@ -17507,7 +17507,7 @@ var require_parser_babel = __commonJS({
                 let { errors: e } = this.state, s = e.length;
                 try {
                   return this.parseObjectLike(8, true), e.length === s;
-                } catch {
+                } catch (e2) {
                   return false;
                 }
               }
@@ -17516,7 +17516,7 @@ var require_parser_babel = __commonJS({
                 let { errors: e } = this.state, s = e.length;
                 try {
                   return this.parseBindingList(3, 93, true), e.length === s;
-                } catch {
+                } catch (e2) {
                   return false;
                 }
               }
@@ -20551,7 +20551,7 @@ var require_parser_babel = __commonJS({
                 if (r.ambiguousScriptDifferentAst)
                   try {
                     return e.sourceType = "script", Ye(e, t).parse();
-                  } catch {
+                  } catch (e2) {
                   }
                 else
                   i.program.sourceType = "script";
@@ -20559,7 +20559,7 @@ var require_parser_babel = __commonJS({
               } catch (r) {
                 try {
                   return e.sourceType = "script", Ye(e, t).parse();
-                } catch {
+                } catch (e2) {
                 }
                 throw r;
               }
@@ -20751,7 +20751,7 @@ var require_parser_html = __commonJS({
         Wr.exports = function(e) {
           try {
             return !!e();
-          } catch {
+          } catch (e2) {
             return true;
           }
         };
@@ -20887,7 +20887,7 @@ var require_parser_html = __commonJS({
         wt.exports = function(e) {
           try {
             return sa(e);
-          } catch {
+          } catch (e2) {
             return "Object";
           }
         };
@@ -20924,7 +20924,7 @@ var require_parser_html = __commonJS({
         kt.exports = function(e, r) {
           try {
             pa(Pt, e, { value: r, configurable: true, writable: true });
-          } catch {
+          } catch (e2) {
             Pt[e] = r;
           }
           return r;
@@ -21009,7 +21009,7 @@ var require_parser_html = __commonJS({
           if (r = Qa(r), t = Ka(t), Za)
             try {
               return su(r, t);
-            } catch {
+            } catch (e) {
             }
           if (Ja(r, t))
             return Ya(!za(Wa.f, r, t), r[t]);
@@ -21042,7 +21042,7 @@ var require_parser_html = __commonJS({
           if ($e(r), t = lu(t), $e(s), ii)
             try {
               return mr(r, t, s);
-            } catch {
+            } catch (e) {
             }
           if ("get" in s || "set" in s)
             throw ci("Accessors not supported");
@@ -21285,7 +21285,7 @@ var require_parser_html = __commonJS({
         }()) == "Arguments", Yo = /* @__PURE__ */ __name(function(e, r) {
           try {
             return e[r];
-          } catch {
+          } catch (e2) {
           }
         }, "Yo");
         Fn.exports = Go ? We : function(e) {
@@ -21300,7 +21300,7 @@ var require_parser_html = __commonJS({
             return false;
           try {
             return _n(vn, rc, r), true;
-          } catch {
+          } catch (e) {
             return false;
           }
         }, "Se"), Sn = /* @__PURE__ */ __name(function(r) {
@@ -21314,7 +21314,7 @@ var require_parser_html = __commonJS({
           }
           try {
             return uc || !!tc(kr, ec(r));
-          } catch {
+          } catch (e) {
             return true;
           }
         }, "Sn");
@@ -22289,7 +22289,7 @@ var require_parser_html = __commonJS({
           if (e.outdent = B, e.default = B, typeof r < "u")
             try {
               r.exports = B, Object.defineProperty(B, "__esModule", { value: true }), B.default = B, B.outdent = B;
-            } catch {
+            } catch (e2) {
             }
         } }), gD = I({ "src/main/core-options.js"(e, r) {
           "use strict";
@@ -22846,7 +22846,7 @@ var require_parser_html = __commonJS({
             let [, l, h, C] = i, d = 4 + l.length, m = D.sourceSpan.start.moveBy(d), T = m.moveBy(C.length), [B, A] = (() => {
               try {
                 return [true, g(C, m).children];
-              } catch {
+              } catch (e2) {
                 let N = { type: "text", value: C, sourceSpan: new t(m, T) };
                 return [false, [N]];
               }
@@ -23343,7 +23343,7 @@ var require_parser_html = __commonJS({
                 try {
                   let F = parseInt(f, o ? 16 : 10);
                   return String.fromCharCode(F);
-                } catch {
+                } catch (e2) {
                   throw this._createError(h(this._cursor.getChars(u)), this._cursor.getSpan());
                 }
               } else {
@@ -24069,7 +24069,7 @@ var require_parser_postcss = __commonJS({
         Wt.exports = function(e) {
           try {
             return !!e();
-          } catch {
+          } catch (e2) {
             return true;
           }
         };
@@ -24205,7 +24205,7 @@ var require_parser_postcss = __commonJS({
         En.exports = function(e) {
           try {
             return Ua(e);
-          } catch {
+          } catch (e2) {
             return "Object";
           }
         };
@@ -24242,7 +24242,7 @@ var require_parser_postcss = __commonJS({
         Ln.exports = function(e, n) {
           try {
             Qa(Dn, e, { value: n, configurable: true, writable: true });
-          } catch {
+          } catch (e2) {
             Dn[e] = n;
           }
           return n;
@@ -24327,7 +24327,7 @@ var require_parser_postcss = __commonJS({
           if (n = Cu(n), i = Nu(i), Mu)
             try {
               return ui(n, i);
-            } catch {
+            } catch (e) {
             }
           if (ju(n, i))
             return Iu(!Pu(Ru.f, n, i), n[i]);
@@ -24360,7 +24360,7 @@ var require_parser_postcss = __commonJS({
           if (ur(n), i = di(i), ur(a), $u)
             try {
               return $r(n, i, a);
-            } catch {
+            } catch (e) {
             }
           if ("get" in a || "set" in a)
             throw Gu("Accessors not supported");
@@ -25449,10 +25449,10 @@ var require_parser_postcss = __commonJS({
             return be = setTimeout, setTimeout(e, 0);
           try {
             return be(e, 0);
-          } catch {
+          } catch (e2) {
             try {
               return be.call(null, e, 0);
-            } catch {
+            } catch (e3) {
               return be.call(this, e, 0);
             }
           }
@@ -25465,10 +25465,10 @@ var require_parser_postcss = __commonJS({
             return xe = clearTimeout, clearTimeout(e);
           try {
             return xe(e);
-          } catch {
+          } catch (e2) {
             try {
               return xe.call(null, e);
-            } catch {
+            } catch (e3) {
               return xe.call(this, e);
             }
           }
@@ -25568,7 +25568,7 @@ var require_parser_postcss = __commonJS({
               case "%j":
                 try {
                   return JSON.stringify(a[i++]);
-                } catch {
+                } catch (e2) {
                   return "[Circular]";
                 }
               default:
@@ -27675,7 +27675,7 @@ var require_parser_postcss = __commonJS({
             try {
               return Date.prototype.toString.call(Reflect.construct(Date, [], function() {
               })), true;
-            } catch {
+            } catch (e2) {
               return false;
             }
           }
@@ -29798,7 +29798,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           let i = lf(), a = null;
           try {
             a = i(e, { loose: true }).parse();
-          } catch {
+          } catch (e2) {
             return { type: "value-unknown", value: e };
           }
           a.text = e;
@@ -29814,7 +29814,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             n((a) => {
               i = a;
             }).process(e);
-          } catch {
+          } catch (e2) {
             return { type: "selector-unknown", value: e };
           }
           return Xe(i, "selector-");
@@ -29824,7 +29824,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           let n = gf().default, i = null;
           try {
             i = n(e);
-          } catch {
+          } catch (e2) {
             return { type: "selector-unknown", value: e };
           }
           return Xe(oa(i), "media-");

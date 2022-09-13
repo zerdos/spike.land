@@ -1,4 +1,4 @@
-import "./chunk-chunk-X4SQHKLY.mjs";
+import "./chunk-chunk-RNG4SHXL.mjs";
 import {
   $,
   AccessibilityHelpNLS,
@@ -4665,7 +4665,7 @@ function registerHTMLLanguageService(languageId, options = optionsDefault2, mode
     defaults,
     dispose() {
       onLanguageListener.dispose();
-      mode?.dispose();
+      mode == null ? void 0 : mode.dispose();
       mode = void 0;
     }
   };
@@ -47580,7 +47580,7 @@ var monacoContribution = /* @__PURE__ */ __name(async (code) => {
         location.origin + `/node_modules/${name}/index.d.ts`
       ), "mapper");
       await pMap(importHelper, mapper, { concurrency: 2 });
-    } catch {
+    } catch (e) {
       console.error("Error in loading d.ts");
     }
     languages2.typescript.typescriptDefaults.setEagerModelSync(true);

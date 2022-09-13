@@ -223,7 +223,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-tsMode-ZLG7QZEP.mjs");
+    return import("./chunk-tsMode-4HPHTLB4.mjs");
   }
 }
 __name(getMode, "getMode");

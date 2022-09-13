@@ -1,6 +1,6 @@
 import {
   typescriptDefaults
-} from "./chunk-chunk-X4SQHKLY.mjs";
+} from "./chunk-chunk-RNG4SHXL.mjs";
 import {
   editor_api_exports
 } from "./chunk-chunk-LWC3MXND.mjs";
@@ -447,6 +447,7 @@ var SuggestAdapter = /* @__PURE__ */ __name(class extends Adapter {
       return;
     }
     const suggestions = info.entries.map((entry) => {
+      var _a;
       let range = wordRange;
       if (entry.replacementSpan) {
         const p1 = model.getPositionAt(entry.replacementSpan.start);
@@ -454,7 +455,7 @@ var SuggestAdapter = /* @__PURE__ */ __name(class extends Adapter {
         range = new monaco_editor_core_exports.Range(p1.lineNumber, p1.column, p2.lineNumber, p2.column);
       }
       const tags = [];
-      if (entry.kindModifiers?.indexOf("deprecated") !== -1) {
+      if (((_a = entry.kindModifiers) == null ? void 0 : _a.indexOf("deprecated")) !== -1) {
         tags.push(monaco_editor_core_exports.languages.CompletionItemTag.Deprecated);
       }
       return {

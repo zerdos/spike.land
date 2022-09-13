@@ -5430,10 +5430,10 @@ function str(s) {
 }
 __name(str, "str");
 var applyPatch2 = /* @__PURE__ */ __name(async (x) => {
-  await session?.applyPatch(x);
-  session?.update();
+  await (session == null ? void 0 : session.applyPatch(x));
+  session == null ? void 0 : session.update();
 }, "applyPatch");
-var onSessionUpdate = /* @__PURE__ */ __name((fn, regId = "default") => session?.onUpdate(fn, regId), "onSessionUpdate");
+var onSessionUpdate = /* @__PURE__ */ __name((fn, regId = "default") => session == null ? void 0 : session.onUpdate(fn, regId), "onSessionUpdate");
 var makePatchFrom = /* @__PURE__ */ __name((n, st) => session.createPatchFromHashCode(n, st), "makePatchFrom");
 var makePatch = /* @__PURE__ */ __name((st) => makePatchFrom(hashCode3(), st), "makePatch");
 var startSession = /* @__PURE__ */ __name((room, u, originStr) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) }), "startSession");
@@ -5441,7 +5441,7 @@ function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
 __name(createPatch, "createPatch");
-var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync(sess), "patchSync");
+var patchSync = /* @__PURE__ */ __name((sess) => session == null ? void 0 : session.patchSync(sess), "patchSync");
 
 export {
   initSession,
