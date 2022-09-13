@@ -5,13 +5,14 @@
 // import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
-import {  mST } from "./session";
+import {  mST, patchSync } from "./session";
 import { css } from "@emotion/react";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "md5";
 import { useRef } from "react";
 import "es-module-shims";
-
+import { useEffect } from "react";
+import { renderFromString } from "renderToString";
 
 try{
   importShim.addImportMap(JSON.parse((Array.from(document.scripts).find(s=>s.type==="importmap").innerText)));
@@ -111,13 +112,17 @@ const apps: { [key: string]: React.FC } = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
 const ErrorBoundaryJ = ErrorBoundary as unknown as React.FC;
-export const AutoUpdateApp: React.FC<{ hash: number }> = ({ hash }) => {
+export const AutoUpdateApp: React.FC<{ hash: number, codeSpace: string }> = ({ hash, codeSpace }) => {
   // const result = md5(mST().transpiled);
+
+  useEffect(()=>{
+    patchSync({...mST(), ...(renderFromString(codeSpace))});
+      }, [hash]);
+    
 
   const ref = useRef(null);  
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled)];
-3
   // return <Root codeSpace={codeSpace}>
   return (
     <ErrorBoundaryJ ref={ref} key={hash}>
@@ -132,6 +137,7 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
   const trp = transpiled.length?transpiled: mST().transpiled;
 
   const hash = md5(trp);
+
 
   if (!apps[hash]) {
     try {

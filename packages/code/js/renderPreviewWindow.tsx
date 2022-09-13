@@ -113,7 +113,7 @@ const AppToRender: FC<
   return (
     <Fragment>
       <InPortal node={portalNode}>
-        <AutoUpdateApp hash={hash} />
+        <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
       </InPortal>
 
       {isStandalone
