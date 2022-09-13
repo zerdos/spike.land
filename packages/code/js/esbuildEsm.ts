@@ -21,7 +21,7 @@ export const init = async () => {
     initFinished = initFinished || new Promise<boolean>((resolve) => {
     initialize(
         {
-          wasmURL: new URL(wasmURL, import.meta.url).toString(),
+          wasmURL: new URL(wasmURL, location.origin).toString(),
         },
       ).then(() => resolve(true));
     });
