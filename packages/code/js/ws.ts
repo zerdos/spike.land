@@ -6,6 +6,7 @@ import {
   makePatch,
   makePatchFrom,
   mST,
+  onSessionUpdate,
   startSession,
 } from "./session";
 
@@ -97,20 +98,6 @@ export const run = async (startState: {
     state: startState.mST,
   }, location.origin);
 
-  await appFactory(startState.mST.transpiled);
-
-  renderPreviewWindow(startState);
-
-  // const {join} = await import("./rtc");
-
-  // const conn = join(codeSpace, user, (message)=>{
-
-  //   processData(message, "rtc")
-  // })
-
-  // sendChannel.send = (message: object)=> conn.broadcast(message);
-
-  join();
 
   bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {
@@ -136,6 +123,23 @@ export const run = async (startState: {
       await applyPatch(messageData);
     }
   };
+
+  onSessionUpdate((_f: boolean, messageData)=> bc.postMessage({ ignoreUser: user, sess: mST(), codeSpace, address, messageData }), "broadcast");
+  await appFactory(startState.mST.transpiled);
+
+  renderPreviewWindow(startState);
+
+  // const {join} = await import("./rtc");
+
+  // const conn = join(codeSpace, user, (message)=>{
+
+  //   processData(message, "rtc")
+  // })
+
+  // sendChannel.send = (message: object)=> conn.broadcast(message);
+
+  join();
+
 };
 
 // (async (.) => {
@@ -175,18 +179,18 @@ async function rejoin() {
 
 const ignoreUsers: string[] = [];
 
-export async function saveCode(sess: ICodeSession) {
-  if (sess.i <= mST().i) return;
+export function saveCode() {
+  // if (sess.i <= mST().i) return;
 
-  console.log("creating a patch");
-  const messageData = await makePatch(sess);
+  // console.log("creating a patch");
+  // const messageData = await makePatch(sess);
 
-  console.log("applying the patch");
-  await applyPatch(messageData);
+  // console.log("applying the patch");
+  // await applyPatch(messageData);
 
-  console.log("done");
-  if (sess.i !== mST().i) return;
-  bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
+  // console.log("done");
+  // if (sess.i !== mST().i) return;
+  
 
   debouncedSyncWs();
   debouncedSyncRTC();

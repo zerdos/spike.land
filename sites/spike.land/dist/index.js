@@ -1031,7 +1031,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-F7S3J2R4.mjs
+// ../../packages/code/dist/chunk-chunk-BYVUEBM7.mjs
 var require_diff = __commonJS2({
   "node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6388,10 +6388,10 @@ var CodeSession = class {
       state: savedState ? savedState : JSON.parse(str(user.state))
     })();
   }
-  update() {
+  update(oldHash, newHash, delta) {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
       try {
-        x(true);
+        x(true), { oldHash, newHash, delta };
       } catch (err) {
         console.error("error calling callback", { err });
       }

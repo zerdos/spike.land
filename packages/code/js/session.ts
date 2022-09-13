@@ -74,10 +74,10 @@ let session: CodeSession | null = null;
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
-  update() {
+  update(oldHash: number, newHash: number, delta: Delta[]) {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
       try {
-        x(true);
+        x(true), {oldHash, newHash, delta};
       } catch (err) {
         console.error("error calling callback", { err });
       }
@@ -284,7 +284,7 @@ export const applyPatch: IApplyPatch = async (x) => {
   session?.update();
 };
 export const onSessionUpdate = (
-  fn: (_force: boolean) => void,
+  fn: (_force: boolean, messageData: object) => void,
   regId = "default",
 ) => session?.onUpdate(fn, regId);
 export const makePatchFrom = (n: number, st: ICodeSession) =>

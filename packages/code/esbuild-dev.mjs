@@ -27,6 +27,7 @@ const define = {
   "process.env.NODE_DEBUG":  JSON.stringify(false),
   "process.env.DEBUG":  JSON.stringify(false),
   "process.env.version": `"1.1.1"`,
+  "global": "globalThis",
   "process.env.DUMP_SESSION_KEYS":  JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   "process": JSON.stringify({
