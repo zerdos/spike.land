@@ -45,7 +45,7 @@
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "@emotion/react": "^11.10.4",
-    "@types/react": "18.0.19",
+    "@types/react": "18.0.20",
     "@yarnpkg/fslib": "^3.0.0-rc.18",
     "comlink": "^4.3.1",
     "monaco-editor": "^0.34.0",
