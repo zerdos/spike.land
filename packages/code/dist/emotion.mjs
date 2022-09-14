@@ -14,7 +14,7 @@ import {
 init_define_process();
 var ea = __toESM(require_emotion_react_cjs(), 1);
 init_react_preact();
-var EmotionReact = window.EmotionReact = window.EmotionReact || ea;
+var EmotionReact = window.emotionReact = window.emotionReact || ea;
 var { jsx } = EmotionReact;
 var { css } = EmotionReact;
 var { CacheProvider } = EmotionReact;

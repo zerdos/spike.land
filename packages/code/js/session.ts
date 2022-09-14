@@ -74,17 +74,17 @@ let session: CodeSession | null = null;
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
-  update(oldHash: number, newHash: number, delta: Delta[]) {
+  update(patch: CodePatch) {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
       try {
-        x(true), {oldHash, newHash, delta};
+        x(true, patch);
       } catch (err) {
         console.error("error calling callback", { err });
       }
     });
   }
-  cb: { [key: string]: (_force: boolean) => void } = {};
-  onUpdate(fn: (force: boolean) => void, regId: string) {
+  cb: { [key: string]: (_force: boolean, patch: CodePatch) => void } = {};
+  onUpdate(fn: (force: boolean, patch: CodePatch) => void, regId: string) {
     this.cb[regId] = fn;
   }
   hashCodeSession: number = 0;
@@ -159,11 +159,16 @@ export class CodeSession implements ICodeSess {
   };
 
   patchSync = (sess: ICodeSession) => {
+    console.log({sess});
+    const oldHash = this.session.hashCode();
     this.session = this.session.set(
       "state",
       this.session.get("state").merge(sess),
     );
-    this.update();
+    const newHash=this.session.hashCode();
+    if (newHash !== oldHash) {
+      requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then(this.update));
+    }
   };
 
   applyPatch = async ({
@@ -281,7 +286,7 @@ function str(s: ICodeSession) {
 
 export const applyPatch: IApplyPatch = async (x) => {
   await session?.applyPatch(x);
-  session?.update();
+  session?.update(x);
 };
 export const onSessionUpdate = (
   fn: (_force: boolean, messageData: object) => void,
