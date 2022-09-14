@@ -1,12 +1,12 @@
 // import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { saveCode } from "./ws";
 import { mST, patchSync } from "./session";
-import { renderFromString } from "./renderToString";
+// import { renderFromString } from "./renderToString";
 // import { toUmd } from "./toUmd";
 import type { TransformOptions } from "esbuild-wasm";
 import {init} from "./esbuildEsm"
-import { appFactory } from "starter";
-import { wait } from "wait";
+// import { appFactory } from "starter";
+// import { wait } from "wait";
 
 // import type { Dispatch, SetStateAction, ReactNode } from "react";
 // import { md5 } from "./md5";
@@ -45,7 +45,7 @@ const mod = {
 
 const esb = (async ()=>({transform: await (await (mod.esbuild)).transform}))();
 
-export async function runner({ code, counter, codeSpace }: {
+export async function runner({ code, counter }: {
   code: string;
   codeSpace: string;
   counter: number;
