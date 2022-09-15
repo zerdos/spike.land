@@ -144,11 +144,11 @@ export class Code {
         case "session.json":
         case "session": {
           if (path[1]) {
-            const session = await this.kv.get<ICodeSession>(path[1]);
+            const session = await this.kv.get<string>(path[1]);
             if (session) {
-              const { i, transpiled, code, html, css } = session;
+              // const { i, transpiled, code, html, css } = session;
 
-              new Response(JSON.stringify({ i, transpiled, code, html, css }), {
+              return new Response(session, {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
@@ -156,6 +156,17 @@ export class Code {
                   "Content-Type": "application/json; charset=UTF-8",
                 },
               });
+            } else {
+            
+               return new Response(JSON.stringify({success: false, statusCode: 404}), {
+                  status: 404,
+                  headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Cache-Control": "no-cache",
+                    "Content-Type": "application/json; charset=UTF-8",
+                  },
+                });
+              
             }
           }
           return new Response(JSON.stringify(mST()), {

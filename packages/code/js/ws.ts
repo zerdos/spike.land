@@ -155,7 +155,7 @@ export const run = async (startState: {
 // }));
 //}
 //})();
-let intervalHandler: number | null = null;
+let intervalHandler: NodeJS.Timer | null = null;
 
 // const w = window as unknown as {
 //   sess: {
