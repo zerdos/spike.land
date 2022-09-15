@@ -8,6 +8,7 @@ import {
   StrictMode,
   Suspense,
   cloneElement,
+  createClass,
   createContext,
   createFactory,
   createRef,
@@ -41,7 +42,7 @@ import {
   useState,
   version,
   x
-} from "./chunk-chunk-C25QXX5Q.mjs";
+} from "./chunk-chunk-7NE5WN2V.mjs";
 import "./chunk-chunk-S6BTEEN4.mjs";
 init_react_preact();
 export {
@@ -53,6 +54,7 @@ export {
   Suspense,
   M as SuspenseList,
   cloneElement,
+  createClass,
   createContext,
   h as createElement,
   createFactory,
