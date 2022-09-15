@@ -4,7 +4,8 @@ import { Buffer } from "buffer/";
 export { createRoot, hydrateRoot} from "preact/compat/client";
 export { flushSync } from "preact/compat/server";
 
-import { createClass } from 'preact-compat/dist/preact-compat.min'
+// import { createClass  as crc  } from 'preact-compat/dist/preact-compat.min'
+
 
 import * as Preact from "preact";
 
@@ -21,7 +22,7 @@ import { createPortal, findDOMNode, SuspenseList } from "preact/compat";
 import PreactCompat from "preact/compat";
 
 const React = window.React = window.React ||
-  { ...Preact, ...PreactCompat, createPortal, SuspenseList, findDOMNode ,};
+  { ...Preact, ...PreactCompat, createPortal, SuspenseList, findDOMNode};
 
 export const { createContext } = React;
 
@@ -58,12 +59,12 @@ export const {
   useMemo,
   useReducer,
   useRef,
-  createClass,
   useState,
   lazy,
   Suspense,
   StrictMode,
   useId,
+  // createClass,
   forwardRef,
   memo,
   Children,
