@@ -4,6 +4,8 @@ import { Buffer } from "buffer/";
 export { createRoot, hydrateRoot} from "preact/compat/client";
 export { flushSync } from "preact/compat/server";
 
+import { createClass } from 'preact-compat/dist/preact-compat.min'
+
 import * as Preact from "preact";
 
 import { createElement, Fragment } from "preact";
@@ -56,6 +58,7 @@ export const {
   useMemo,
   useReducer,
   useRef,
+  createClass,
   useState,
   lazy,
   Suspense,

@@ -92,6 +92,7 @@
     "p-map": "5.5.0",
     "postcss": "^8.4.16",
     "preact": "10.11.0",
+    "preact-compat": "^3.19.0",
     "preact-render-to-string": "5.2.4",
     "prettier": "2.7.1",
     "prop-types": "^15.8.1",
