@@ -5292,9 +5292,12 @@ var CodeSession = class {
       const s = JSON.parse(str(state));
       if (!hashStore[oldHash]) {
         const resp = await fetch(
-          `/live/${this.room}
-        `
+          `/live/${this.room}/mST`
         );
+        if (!resp.ok) {
+          console.error(location.origin + " is NOT OK", await resp.text());
+          throw new Error(location.origin + " is NOT OK");
+        }
         const { mST: mST2, hashCode: hashCode4 } = await resp.json();
         hashStore[hashCode4] = this.session.get("state").merge(mST2);
       }
