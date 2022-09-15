@@ -1996,6 +1996,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@preact/compat@npm:^17.1.1":
+  version: 17.1.1
+  resolution: "@preact/compat@npm:17.1.1"
+  peerDependencies:
+    preact: "*"
+  checksum: 4171731dee6f25bdb8a200117c7d5b75527d79080aa864482e6b50a74e08b0fd24329aa7d97feb1c3e1b4aa9cbcc8a8b5e25ac01bab0fdf4d67843a53bda0eab
+  languageName: node
+  linkType: hard
+
 "@sindresorhus/is@npm:^4.0.0":
   version: 4.6.0
   resolution: "@sindresorhus/is@npm:4.6.0"
@@ -2036,6 +2045,7 @@ __metadata:
     "@emotion/server": ^11.10.0
     "@emotion/styled": 11.10.4
     "@mui/material": 5.10.0
+    "@preact/compat": ^17.1.1
     "@types/events": ^3.0.0
     "@types/lodash.debounce": ^4.0.7
     "@types/lodash.throttle": ^4.1.7

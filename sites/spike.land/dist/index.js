@@ -1031,7 +1031,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-DFL2XHD5.mjs
+// ../../packages/code/dist/chunk-chunk-X7FUL5UQ.mjs
 var require_diff = __commonJS2({
   "node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6307,15 +6307,21 @@ var CodeSession = class {
     }, "hashOfState"));
     __publicField2(this, "createPatchFromHashCode", /* @__PURE__ */ __name(async (oldHash, state) => {
       const s = JSON.parse(str(state));
-      if (!hashStore[oldHash]) {
+      let oldRec = hashStore[oldHash];
+      let usedOldHash = oldHash;
+      if (!oldRec) {
         const resp = await fetch(
-          `/live/${this.room}
-        `
+          `/live/${this.room}/mST`
         );
+        if (!resp.ok) {
+          console.error(location.origin + " is NOT OK", await resp.text());
+          throw new Error(location.origin + " is NOT OK");
+        }
         const { mST: mST2, hashCode: hashCode4 } = await resp.json();
         hashStore[hashCode4] = this.session.get("state").merge(mST2);
+        usedOldHash = hashCode4;
+        oldRec = hashStore[hashCode4];
       }
-      const oldRec = hashStore[oldHash];
       const oldStr = str(oldRec.toJSON());
       const newRec = oldRec.merge(s);
       const newStr = str(newRec.toJSON());
@@ -6323,7 +6329,7 @@ var CodeSession = class {
       hashStore[newHash] = newRec;
       const patch = createPatch(oldStr, newStr);
       return {
-        oldHash,
+        oldHash: usedOldHash,
         newHash,
         patch
       };
@@ -6337,7 +6343,7 @@ var CodeSession = class {
       );
       const newHash = this.session.hashCode();
       if (newHash !== oldHash) {
-        requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then(this.update));
+        requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x)));
       }
     }, "patchSync"));
     __publicField2(this, "applyPatch", /* @__PURE__ */ __name(async ({
@@ -6541,9 +6547,17 @@ var Code = class {
           if (path[1]) {
             const session2 = await this.kv.get(path[1]);
             if (session2) {
-              const { i, transpiled: transpiled2, code, html: html2, css: css2 } = session2;
-              new Response(JSON.stringify({ i, transpiled: transpiled2, code, html: html2, css: css2 }), {
+              return new Response(session2, {
                 status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "application/json; charset=UTF-8"
+                }
+              });
+            } else {
+              return new Response(JSON.stringify({ success: false, statusCode: 404 }), {
+                status: 404,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cache-Control": "no-cache",

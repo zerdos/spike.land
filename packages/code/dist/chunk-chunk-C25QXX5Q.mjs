@@ -3213,7 +3213,6 @@ __export(react_preact_exports, {
   Suspense: () => Suspense,
   SuspenseList: () => M2,
   cloneElement: () => cloneElement,
-  createClass: () => createClass,
   createContext: () => createContext,
   createElement: () => h,
   createFactory: () => createFactory,
@@ -3250,7 +3249,7 @@ __export(react_preact_exports, {
   useState: () => useState,
   version: () => version
 });
-var import_buffer, React, createContext, hydrate, render, unmountComponentAtNode, react_preact_default, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, createClass, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
+var import_buffer, React, createContext, hydrate, render, unmountComponentAtNode, react_preact_default, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
 var init_react_preact = __esm({
   "js/react-preact.ts"() {
     init_define_process();
@@ -3283,7 +3282,6 @@ var init_react_preact = __esm({
       useMemo,
       useReducer,
       useRef,
-      createClass,
       useState,
       lazy,
       Suspense,
@@ -3331,7 +3329,6 @@ export {
   useMemo,
   useReducer,
   useRef,
-  createClass,
   useState,
   lazy,
   Suspense,
