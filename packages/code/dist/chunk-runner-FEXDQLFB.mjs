@@ -1,6 +1,6 @@
 import {
   saveCode
-} from "./chunk-chunk-K2OVR42G.mjs";
+} from "./chunk-chunk-4EXFGUAY.mjs";
 import {
   mST,
   patchSync
@@ -2749,7 +2749,7 @@ var mod = {
   esbuild: init()
 };
 var esb = (async () => ({ transform: await (await mod.esbuild).transform }))();
-async function runner({ code, counter, codeSpace }) {
+async function runner({ code, counter }) {
   const esbuild2 = await esb;
   patchSync({ ...mST(), code, i: counter });
   try {
