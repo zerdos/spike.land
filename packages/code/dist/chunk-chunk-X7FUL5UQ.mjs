@@ -5290,7 +5290,9 @@ var CodeSession = class {
     }, "hashOfState"));
     __publicField(this, "createPatchFromHashCode", /* @__PURE__ */ __name(async (oldHash, state) => {
       const s = JSON.parse(str(state));
-      if (!hashStore[oldHash]) {
+      let oldRec = hashStore[oldHash];
+      let usedOldHash = oldHash;
+      if (!oldRec) {
         const resp = await fetch(
           `/live/${this.room}/mST`
         );
@@ -5300,8 +5302,9 @@ var CodeSession = class {
         }
         const { mST: mST2, hashCode: hashCode4 } = await resp.json();
         hashStore[hashCode4] = this.session.get("state").merge(mST2);
+        usedOldHash = hashCode4;
+        oldRec = hashStore[hashCode4];
       }
-      const oldRec = hashStore[oldHash];
       const oldStr = str(oldRec.toJSON());
       const newRec = oldRec.merge(s);
       const newStr = str(newRec.toJSON());
@@ -5309,7 +5312,7 @@ var CodeSession = class {
       hashStore[newHash] = newRec;
       const patch = createPatch(oldStr, newStr);
       return {
-        oldHash,
+        oldHash: usedOldHash,
         newHash,
         patch
       };
@@ -5323,7 +5326,7 @@ var CodeSession = class {
       );
       const newHash = this.session.hashCode();
       if (newHash !== oldHash) {
-        requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then(this.update));
+        requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x)));
       }
     }, "patchSync"));
     __publicField(this, "applyPatch", /* @__PURE__ */ __name(async ({

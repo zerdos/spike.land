@@ -132,7 +132,11 @@ export class CodeSession implements ICodeSess {
   ) => {
     const s = JSON.parse(str(state));
 
-    if (!hashStore[oldHash]) {
+
+    let oldRec = hashStore[oldHash];
+    let usedOldHash = oldHash;
+
+    if (!oldRec) {
       const resp = await fetch(
         `/live/${this.room}/mST`,
       );
@@ -142,9 +146,13 @@ export class CodeSession implements ICodeSess {
 
       const { mST, hashCode } = await resp.json();
       hashStore[hashCode] = this.session.get("state").merge(mST);
+
+       usedOldHash =hashCode;
+      oldRec = hashStore[hashCode];
+      
+
     }
 
-    const oldRec = hashStore[oldHash];
     const oldStr = str(oldRec.toJSON());
 
     const newRec = oldRec.merge(s);
@@ -154,7 +162,7 @@ export class CodeSession implements ICodeSess {
 
     const patch = createPatch(oldStr, newStr);
     return {
-      oldHash,
+      oldHash: usedOldHash,
       newHash,
       patch,
     };
@@ -169,7 +177,7 @@ export class CodeSession implements ICodeSess {
     );
     const newHash=this.session.hashCode();
     if (newHash !== oldHash) {
-      requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then(this.update));
+      requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then((x)=>this.update(x)));
     }
   };
 

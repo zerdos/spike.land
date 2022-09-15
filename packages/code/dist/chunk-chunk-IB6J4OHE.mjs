@@ -7,7 +7,7 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-YELQELXW.mjs";
+} from "./chunk-chunk-X7FUL5UQ.mjs";
 import {
   LazyMotion,
   __rest,
@@ -11717,7 +11717,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-OJO5IKTP.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-FBSXDBQ3.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-TOMNIK4R.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
