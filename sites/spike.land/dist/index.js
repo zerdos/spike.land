@@ -1031,7 +1031,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-BYVUEBM7.mjs
+// ../../packages/code/dist/chunk-chunk-DFL2XHD5.mjs
 var require_diff = __commonJS2({
   "node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6329,11 +6329,16 @@ var CodeSession = class {
       };
     }, "createPatchFromHashCode"));
     __publicField2(this, "patchSync", /* @__PURE__ */ __name((sess) => {
+      console.log({ sess });
+      const oldHash = this.session.hashCode();
       this.session = this.session.set(
         "state",
         this.session.get("state").merge(sess)
       );
-      this.update();
+      const newHash = this.session.hashCode();
+      if (newHash !== oldHash) {
+        requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then(this.update));
+      }
     }, "patchSync"));
     __publicField2(this, "applyPatch", /* @__PURE__ */ __name(async ({
       oldHash,
@@ -6388,10 +6393,10 @@ var CodeSession = class {
       state: savedState ? savedState : JSON.parse(str(user.state))
     })();
   }
-  update(oldHash, newHash, delta) {
+  update(patch) {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
       try {
-        x(true), { oldHash, newHash, delta };
+        x(true, patch);
       } catch (err) {
         console.error("error calling callback", { err });
       }
@@ -6447,8 +6452,8 @@ function str(s) {
 }
 __name(str, "str");
 var applyPatch2 = /* @__PURE__ */ __name(async (x) => {
-  await session?.applyPatch(x);
-  session?.update();
+  await (session == null ? void 0 : session.applyPatch(x));
+  session == null ? void 0 : session.update(x);
 }, "applyPatch");
 var startSession = /* @__PURE__ */ __name((room, u, originStr) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) }), "startSession");
 function createPatch(oldCode, newCode) {

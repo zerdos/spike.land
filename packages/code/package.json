@@ -84,7 +84,7 @@
     "es-module-shims": "^1.5.18",
     "esbuild-wasm": "0.15.7",
     "fast-diff": "1.2.0",
-    "framer-motion": "^7.3.4",
+    "framer-motion": "^7.3.5",
     "immutable": "4.1.0",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",

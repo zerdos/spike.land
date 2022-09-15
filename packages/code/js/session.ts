@@ -134,9 +134,11 @@ export class CodeSession implements ICodeSess {
 
     if (!hashStore[oldHash]) {
       const resp = await fetch(
-        `/live/${this.room}
-        `,
+        `/live/${this.room}/mST`,
       );
+      if (!resp.ok) {console.error(location.origin  + " is NOT OK", await resp.text() );
+      throw new Error(location.origin  + " is NOT OK");
+    }
 
       const { mST, hashCode } = await resp.json();
       hashStore[hashCode] = this.session.get("state").merge(mST);
