@@ -16,6 +16,7 @@ import {
   m
 } from "./chunk-chunk-4W3235JR.mjs";
 import {
+  _extends,
   require_emotion_cache_cjs,
   require_emotion_element_b63ca7c6_cjs_dev,
   require_emotion_memoize_cjs,
@@ -27,7 +28,7 @@ import {
   require_emotion_weak_memoize_cjs,
   require_extends,
   require_hoist_non_react_statics_cjs
-} from "./chunk-chunk-6RHEFDMG.mjs";
+} from "./chunk-chunk-6IX2G55U.mjs";
 import {
   $,
   Children,
@@ -7174,24 +7175,6 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 }
 __name(_objectWithoutPropertiesLoose, "_objectWithoutPropertiesLoose");
 
-// node_modules/@babel/runtime/helpers/esm/extends.js
-init_define_process();
-function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
-}
-__name(_extends, "_extends");
-
 // node_modules/@mui/material/Fab/Fab.js
 init_react_preact();
 var import_prop_types8 = __toESM(require_prop_types());
@@ -11717,7 +11700,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-FBSXDBQ3.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-VS7U2JXZ.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-TOMNIK4R.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({

@@ -1163,8 +1163,8 @@ var require_emotion_cache_cjs = __commonJS({
 var require_extends = __commonJS({
   "node_modules/@babel/runtime/helpers/extends.js"(exports, module) {
     init_define_process();
-    function _extends() {
-      module.exports = _extends = Object.assign ? Object.assign.bind() : function(target) {
+    function _extends2() {
+      module.exports = _extends2 = Object.assign ? Object.assign.bind() : function(target) {
         for (var i = 1; i < arguments.length; i++) {
           var source = arguments[i];
           for (var key in source) {
@@ -1175,10 +1175,10 @@ var require_extends = __commonJS({
         }
         return target;
       }, module.exports.__esModule = true, module.exports["default"] = module.exports;
-      return _extends.apply(this, arguments);
+      return _extends2.apply(this, arguments);
     }
-    __name(_extends, "_extends");
-    module.exports = _extends, module.exports.__esModule = true, module.exports["default"] = module.exports;
+    __name(_extends2, "_extends");
+    module.exports = _extends2, module.exports.__esModule = true, module.exports["default"] = module.exports;
   }
 });
 
@@ -1999,7 +1999,7 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
     init_define_process();
     var React = (init_react_preact(), __toCommonJS(react_preact_exports));
     var createCache = require_emotion_cache_cjs();
-    var _extends = require_extends();
+    var _extends2 = require_extends();
     var weakMemoize = require_emotion_weak_memoize_cjs();
     var _isolatedHnrs_dist_emotionReact_isolatedHnrs = require_emotion_react_isolated_hnrs_cjs_dev();
     var utils = require_emotion_utils_cjs();
@@ -2066,7 +2066,7 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
       if (theme == null || typeof theme !== "object" || Array.isArray(theme)) {
         throw new Error("[ThemeProvider] Please make your theme prop a plain object");
       }
-      return _extends({}, outerTheme, theme);
+      return _extends2({}, outerTheme, theme);
     }, "getTheme");
     var createCacheWithTheme = /* @__PURE__ */ weakMemoize__default["default"](function(outerTheme) {
       return weakMemoize__default["default"](function(theme) {
@@ -2086,7 +2086,7 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
       var componentName = Component.displayName || Component.name || "Component";
       var render = /* @__PURE__ */ __name(function render2(props, ref) {
         var theme = React.useContext(ThemeContext);
-        return /* @__PURE__ */ React.createElement(Component, _extends({
+        return /* @__PURE__ */ React.createElement(Component, _extends2({
           theme,
           ref
         }, props));
@@ -2628,6 +2628,24 @@ var require_emotion_react_cjs = __commonJS({
   }
 });
 
+// node_modules/@babel/runtime/helpers/esm/extends.js
+init_define_process();
+function _extends() {
+  _extends = Object.assign ? Object.assign.bind() : function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
+}
+__name(_extends, "_extends");
+
 export {
   require_emotion_weak_memoize_cjs,
   require_emotion_memoize_cjs,
@@ -2639,5 +2657,6 @@ export {
   require_emotion_serialize_cjs,
   require_emotion_use_insertion_effect_with_fallbacks_cjs,
   require_emotion_element_b63ca7c6_cjs_dev,
-  require_emotion_react_cjs
+  require_emotion_react_cjs,
+  _extends
 };

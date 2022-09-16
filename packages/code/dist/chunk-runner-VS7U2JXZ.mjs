@@ -1,12 +1,12 @@
 import {
   saveCode
-} from "./chunk-chunk-IB6J4OHE.mjs";
+} from "./chunk-chunk-IPYQ4NYD.mjs";
 import {
   mST,
   patchSync
 } from "./chunk-chunk-X7FUL5UQ.mjs";
 import "./chunk-chunk-4W3235JR.mjs";
-import "./chunk-chunk-6RHEFDMG.mjs";
+import "./chunk-chunk-6IX2G55U.mjs";
 import "./chunk-chunk-C25QXX5Q.mjs";
 import {
   __commonJS,
@@ -2761,6 +2761,7 @@ async function runner({ code, counter }) {
         "compilerOptions": {
           "jsx": "react-jsx",
           "module": "es2022",
+          "jsxFragmentFactory": "Fragment",
           "jsxImportSource": "@emotion/react"
         }
       },
