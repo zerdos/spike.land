@@ -7,7 +7,7 @@ const EmotionReact = (window.emotionReact = window.emotionReact || ea);
 // export {JSX} from "@emotion/react/jsx-dev-runtime";
 // export { jsx as jsxs } from "./react-preact";
 // export { Fragment } from "./react-preact"
-export { Fragment, jsx, jsxs, hoistNonReactStatics } from "./emotionJsxRuntime";
+export { Fragment, hoistNonReactStatics, jsx, jsxs } from "./emotionJsxRuntime";
 //
 // export const  jsxs  = jsxOrig;
 

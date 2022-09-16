@@ -5,7 +5,7 @@
 // import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
-import {  mST, patchSync } from "./session";
+import { mST, patchSync } from "./session";
 import { css } from "@emotion/react";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "md5";
@@ -14,16 +14,20 @@ import "es-module-shims";
 import { useEffect } from "react";
 import { renderFromString } from "renderToString";
 
-try{
-  importShim.addImportMap(JSON.parse((Array.from(document.scripts).find(s=>s.type==="importmap").innerText)));
-} catch{
-  console.error("no importmap")
+try {
+  importShim.addImportMap(
+    JSON.parse(
+      [...Array.from(document.scripts!)].find((s) => s.type === "importmap")
+        .innerText,
+    ),
+  );
+} catch {
+  console.error("no importmap");
 }
 // (async()=>{
 // Array.from( document.scripts).find(s=>s.type==="importmap")
 // const res = await fetch(location.origin + '/importmap.json')
 // const importMap = await res.json();
-
 
 // importShim.addImportMap(importMap);
 // })();
@@ -112,15 +116,16 @@ const apps: { [key: string]: React.FC } = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
 const ErrorBoundaryJ = ErrorBoundary as unknown as React.FC;
-export const AutoUpdateApp: React.FC<{ hash: number, codeSpace: string }> = ({ hash, codeSpace }) => {
+export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
+  { hash, codeSpace },
+) => {
   // const result = md5(mST().transpiled);
 
-  useEffect(()=>{
-    patchSync({...mST(), ...(renderFromString(codeSpace))});
-      }, [hash]);
-    
+  useEffect(() => {
+    patchSync({ ...mST(), ...(renderFromString(codeSpace)) });
+  }, [hash]);
 
-  const ref = useRef(null);  
+  const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled)];
   // return <Root codeSpace={codeSpace}>
@@ -134,16 +139,15 @@ export const AutoUpdateApp: React.FC<{ hash: number, codeSpace: string }> = ({ h
 export async function appFactory(transpiled = ""): Promise<React.FC> {
   // const hashC = hashCode();
 
-  const trp = transpiled.length?transpiled: mST().transpiled;
+  const trp = transpiled.length ? transpiled : mST().transpiled;
 
   const hash = md5(trp);
 
-
   if (!apps[hash]) {
     try {
-      apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
+      apps[hash] = (await importShim(createJsBlob(trp)))
+        .default as unknown as React.FC;
     } catch (err) {
-
       // try {
       //   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
       // } catch {
@@ -193,14 +197,13 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
     }
   }
 
-
   // if ( mST().transpiled !== trp) {
   //   if (hashC===hashCode()){
   //     apps[hashC]=apps[hash];
   //   } else {
   //     apps[hashC] =  await  appFactory(mST().transpiled)
   //   }
-   
+
   // }
   //   const newApp = apps[hash];
 

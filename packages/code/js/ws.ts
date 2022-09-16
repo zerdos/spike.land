@@ -1,4 +1,6 @@
 // import "core-js/full";
+Object.assign(globalThis,require('buffer/'))  
+Object.assign(globalThis,require("stream-browserify"))
 
 import {
   applyPatch,
@@ -98,7 +100,6 @@ export const run = async (startState: {
     state: startState.mST,
   }, location.origin);
 
-
   bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) return;
@@ -124,7 +125,17 @@ export const run = async (startState: {
     }
   };
 
-  onSessionUpdate((_f: boolean, messageData)=> bc.postMessage({ ignoreUser: user, sess: mST(), codeSpace, address, messageData }), "broadcast");
+  onSessionUpdate(
+    (_f: boolean, messageData) =>
+      bc.postMessage({
+        ignoreUser: user,
+        sess: mST(),
+        codeSpace,
+        address,
+        messageData,
+      }),
+    "broadcast",
+  );
   await appFactory(startState.mST.transpiled);
 
   renderPreviewWindow(startState);
@@ -139,7 +150,6 @@ export const run = async (startState: {
   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
   join();
-
 };
 
 // (async (.) => {
@@ -190,7 +200,6 @@ export function saveCode() {
 
   // console.log("done");
   // if (sess.i !== mST().i) return;
-  
 
   debouncedSyncWs();
   debouncedSyncRTC();
@@ -444,7 +453,6 @@ async function processData(data: any, source: "ws" | "rtc") {
   }
 
   if (wsLastHashCode !== hashCode()) {
-
     // const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
     // const state = await resp.json();
 

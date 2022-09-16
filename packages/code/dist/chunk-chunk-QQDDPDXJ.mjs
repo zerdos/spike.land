@@ -5326,7 +5326,9 @@ var CodeSession = class {
       );
       const newHash = this.session.hashCode();
       if (newHash !== oldHash) {
-        requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x)));
+        requestAnimationFrame(
+          () => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x))
+        );
       }
     }, "patchSync"));
     __publicField(this, "applyPatch", /* @__PURE__ */ __name(async ({

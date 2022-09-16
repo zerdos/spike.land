@@ -132,7 +132,6 @@ export class CodeSession implements ICodeSess {
   ) => {
     const s = JSON.parse(str(state));
 
-
     let oldRec = hashStore[oldHash];
     let usedOldHash = oldHash;
 
@@ -140,17 +139,16 @@ export class CodeSession implements ICodeSess {
       const resp = await fetch(
         `/live/${this.room}/mST`,
       );
-      if (!resp.ok) {console.error(location.origin  + " is NOT OK", await resp.text() );
-      throw new Error(location.origin  + " is NOT OK");
-    }
+      if (!resp.ok) {
+        console.error(location.origin + " is NOT OK", await resp.text());
+        throw new Error(location.origin + " is NOT OK");
+      }
 
       const { mST, hashCode } = await resp.json();
       hashStore[hashCode] = this.session.get("state").merge(mST);
 
-       usedOldHash =hashCode;
+      usedOldHash = hashCode;
       oldRec = hashStore[hashCode];
-      
-
     }
 
     const oldStr = str(oldRec.toJSON());
@@ -169,15 +167,17 @@ export class CodeSession implements ICodeSess {
   };
 
   patchSync = (sess: ICodeSession) => {
-    console.log({sess});
+    console.log({ sess });
     const oldHash = this.session.hashCode();
     this.session = this.session.set(
       "state",
       this.session.get("state").merge(sess),
     );
-    const newHash=this.session.hashCode();
+    const newHash = this.session.hashCode();
     if (newHash !== oldHash) {
-      requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then((x)=>this.update(x)));
+      requestAnimationFrame(() =>
+        this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x))
+      );
     }
   };
 
