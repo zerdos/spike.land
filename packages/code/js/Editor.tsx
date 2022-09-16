@@ -92,7 +92,7 @@ export const Editor: React.FC<
 
       const { startMonaco } = await import("./startMonaco");
 
-      const { model, getTypeScriptWorker, setValue  } = await startMonaco(
+      const { model, getTypeScriptWorker, setValue } = await startMonaco(
         /**
          * @param {any} code
          */
@@ -103,17 +103,16 @@ export const Editor: React.FC<
         },
       );
 
-
       changeContent((x) => ({
         ...x,
         started: true,
-       setValue,
+        setValue,
         getValue: () => {
           try {
             (async () => {
               const tsWorker = await (await getTypeScriptWorker())(
-                  model.uri
-                );
+                model.uri,
+              );
 
               const diag = await tsWorker.getSemanticDiagnostics(
                 location.origin + "/live/" + codeSpace + ".tsx",

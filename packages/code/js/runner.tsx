@@ -4,7 +4,7 @@ import { mST, patchSync } from "./session";
 // import { renderFromString } from "./renderToString";
 // import { toUmd } from "./toUmd";
 import type { TransformOptions } from "esbuild-wasm";
-import {init} from "./esbuildEsm"
+import { init } from "./esbuildEsm";
 // import { appFactory } from "starter";
 // import { wait } from "wait";
 
@@ -39,11 +39,11 @@ import {init} from "./esbuildEsm"
 // export const runnerDebounced: typeof runner = (props) => debounced(props);
 const mod = {
   i: 0,
-  esbuild: init()
+  esbuild: init(),
 };
 
-
-const esb = (async ()=>({transform: await (await (mod.esbuild)).transform}))();
+const esb =
+  (async () => ({ transform: await (await (mod.esbuild)).transform }))();
 
 export async function runner({ code, counter }: {
   code: string;
@@ -51,13 +51,10 @@ export async function runner({ code, counter }: {
   counter: number;
 }) {
   const esbuild = await esb;
-  
 
-  patchSync({...mST(), code, i: counter});
+  patchSync({ ...mST(), code, i: counter });
 
   // console.log({ i, counter });
-
-
 
   // mod.i = counter;
 
@@ -84,8 +81,7 @@ export async function runner({ code, counter }: {
       target: "es2021",
     } as unknown as TransformOptions);
 
-    patchSync({...mST(), transpiled: transpiled.code});
-
+    patchSync({ ...mST(), transpiled: transpiled.code });
 
     //   try{
     //     (async ()=>{
@@ -122,8 +118,8 @@ export async function runner({ code, counter }: {
 
         // patchSync({...mST(), html, css});
         // console.log({html, css});
-// if (counter !== mod.i) return;
-         saveCode();
+        // if (counter !== mod.i) return;
+        saveCode();
 
         // return;
       } catch (error) {

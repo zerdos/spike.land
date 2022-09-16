@@ -1,31 +1,26 @@
-import { Buffer } from "buffer/";
 
-
-export { createRoot, hydrateRoot} from "preact/compat/client";
+export { createRoot, hydrateRoot } from "preact/compat/client";
 export { flushSync } from "preact/compat/server";
 
 // import { createClass  as crc  } from 'preact-compat/dist/preact-compat.min'
-
 
 import * as Preact from "preact";
 
 import { createElement, Fragment } from "preact";
 
-export {renderToString, shallowRender} from "preact-render-to-string"
+export { renderToString, shallowRender } from "preact-render-to-string";
 
 export { createElement };
 // import { createContext  } from "preact/compat"
 
 import { createPortal, findDOMNode, SuspenseList } from "preact/compat";
 
-
 import PreactCompat from "preact/compat";
 
 const React = window.React = window.React ||
-  { ...Preact, ...PreactCompat, createPortal, SuspenseList, findDOMNode};
+  { ...Preact, ...PreactCompat, createPortal, SuspenseList, findDOMNode };
 
 export const { createContext } = React;
-
 
 import { jsx, jsxDEV, jsxs } from "preact/jsx-runtime";
 
@@ -72,5 +67,3 @@ export const {
   Component,
   version,
 } = React;
-
-globalThis.Buffer = Buffer;

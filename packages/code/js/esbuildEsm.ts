@@ -5,13 +5,12 @@ import { Mutex } from "async-mutex";
 import { initialize, transform } from "esbuild-wasm";
 import wasmURL from "esbuild-wasm/esbuild.wasm";
 
-
 // import type { transform } from "esbuild/lib/main";
 
 let initFinished: Promise<boolean> | boolean = false;
 
 const esbuild = {
-  transform:  (new Mutex()).runExclusive(()=>transform),
+  transform: (new Mutex()).runExclusive(() => transform),
 };
 
 export const init = async () => {
@@ -19,7 +18,7 @@ export const init = async () => {
     if (initFinished === true) return esbuild;
 
     initFinished = initFinished || new Promise<boolean>((resolve) => {
-    initialize(
+      initialize(
         {
           wasmURL: new URL(wasmURL, location.origin).toString(),
         },

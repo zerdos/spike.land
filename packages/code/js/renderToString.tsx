@@ -3,12 +3,12 @@
 // import { md5 } from "./md5";
 // import { createRoot } from "react-dom/client";
 // import { appFactory } from "starter";
-import {default as createCache, EmotionCache} from "@emotion/cache";
-import {default as createEmotionServer} from '@emotion/server/create-instance'
+import { default as createCache, EmotionCache } from "@emotion/cache";
+import { default as createEmotionServer } from "@emotion/server/create-instance";
 
-import {CacheProvider} from "@emotion/react"
+import { CacheProvider } from "@emotion/react";
 import type { FunctionComponent } from "preact";
-import  {renderToString}  from "preact-render-to-string";
+import { renderToString } from "preact-render-to-string";
 // import { useEffect } from "react";
 
 // import  postcss from 'postcss';
@@ -50,47 +50,39 @@ export const renderFromString = (
   // App: FunctionComponent
   codeSpace: string,
 ) => {
-
- 
   const html = document.getElementById(`root-${codeSpace}`)?.innerHTML!;
   const css = extractCritical22(html);
 
   // const temp = document.createElement("div");
-
 
   // const cache = createCache.default({
   //     key: 'my-prefix-key',
   //     container: temp,
   //   //   stylisPlugins: [
   //   //     /* your plugins here */
-  //     // 
+  //     //
   //   }) as EmotionCache;
 
-    
+  // const cache = createCache.default({ key }) as EmotionCache
+  // const {  renderStylesToString } = createEmotionServer.default(cache)
 
-// const cache = createCache.default({ key }) as EmotionCache
-// const {  renderStylesToString } = createEmotionServer.default(cache)
-
-
-// const myCache = createCache.default({
-//   key: 'my-prefix-key',
-//   container: temp,
-//   stylisPlugins: [
-//     /* your plugins here */
-//   ]
-// }) as EmotionCache
+  // const myCache = createCache.default({
+  //   key: 'my-prefix-key',
+  //   container: temp,
+  //   stylisPlugins: [
+  //     /* your plugins here */
+  //   ]
+  // }) as EmotionCache
 
   // mod.transpiled = transpiled;
   // const md5Code =codeSpace + md5(transpiled).slice(0, 14);
 
-  
   // const myCache =  createCache({
   //   prepend: true,
   //   key: 'css',
   //   stylisPlugins: [
   //   ]
   // });
-
 
   // tempRoot.render(
   //   <TestBed key={md5Code} md5Hash={md5Code}>
@@ -100,50 +92,43 @@ export const renderFromString = (
   // // await new Promise<boolean>((_res) => flushSync(_res, true));
   // // await new Promise<boolean>((_res=>fluxshSync(_res, true)));
   // await wait(50);
- 
+
   // if (!mod[md5Code]) return null;
 
   // if (!await mod[md5Code]) return null;
 
-  
   // const html = renderToString(  <CacheProvider value={cache}><App /></CacheProvider>);
   // const css = extractCritical22(html);
 
-
   // console.log({html, css})
-// const css = constructStyleTagsFromChunks(chunks)
+  // const css = constructStyleTagsFromChunks(chunks)
 
-// console.log( {chunks, 
-// cache, 
-// css}); 
-
-
-
+  // console.log( {chunks,
+  // cache,
+  // css});
 
   // flushSync();
   // tempRoot.unmount();
 
-//   setTimeout(() => {
-//     if (mod.transpiled === transpiled && mST().transpiled===transpiled) {
+  //   setTimeout(() => {
+  //     if (mod.transpiled === transpiled && mST().transpiled===transpiled) {
 
-//       const tmp = document.getElementById("root-" + codeSpace)!;
+  //       const tmp = document.getElementById("root-" + codeSpace)!;
 
-//       const htmlHtml = tmp.innerHTML;
-//       const newCss = extractCritical(htmlHtml);
-//       if (css !== newCss || html !== htmlHtml) {
-//         patchSync({
-//           ...mST(),
-//           html: htmlHtml,
-//           css: newCss,
-//         });
-//       }
-   
-//   }
-// }, 200);
+  //       const htmlHtml = tmp.innerHTML;
+  //       const newCss = extractCritical(htmlHtml);
+  //       if (css !== newCss || html !== htmlHtml) {
+  //         patchSync({
+  //           ...mST(),
+  //           html: htmlHtml,
+  //           css: newCss,
+  //         });
+  //       }
 
-  return {html,
-      css
-    };
+  //   }
+  // }, 200);
+
+  return { html, css };
 };
 const extractCritical22 = (html: string) => {
   try {

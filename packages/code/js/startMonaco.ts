@@ -1,23 +1,19 @@
 // import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
 
-import 'monaco-editor/esm/vs/editor/editor.api.js';
-import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
-import 'monaco-editor/esm/vs/language/typescript/monaco.contribution';
+import "monaco-editor/esm/vs/editor/editor.api.js";
+import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
+import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
 import pMap from "p-map";
-import * as monaco from "monaco-editor"
+import * as monaco from "monaco-editor";
 // import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
 // import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
 // const {createModel} = editor
 const create = monaco.editor.create;
-const languages = monaco.languages
-const createModel = monaco.editor.createModel
+const languages = monaco.languages;
+const createModel = monaco.editor.createModel;
 const Uri = monaco.Uri;
 
-
-
 import { getWorkerUrl } from "./monacoWorkers.mjs";
-
-
 
 const lib = [
   "dom",
@@ -94,7 +90,7 @@ const monacoContribution = async (
       noSyntaxValidation: true,
     });
 
-    languages.typescript.typescriptDefaults.setCompilerOptions({
+  languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: location.origin + "/",
     target: languages.typescript.ScriptTarget.ESNext,
 
@@ -309,7 +305,7 @@ const monacoContribution = async (
 
     try {
       const mapper = async ({ name, url }: { name: string; url: string }) =>
-      languages.typescript.typescriptDefaults.addExtraLib(
+        languages.typescript.typescriptDefaults.addExtraLib(
           await (await fetch(
             url,
           )).text(),
@@ -335,192 +331,189 @@ self.MonacoEnvironment = {
   getWorkerUrl,
 };
 
-const mod: { [key: string]: Object } = {}
+const mod: { [key: string]: Object } = {};
 
-export const startMonaco= async (
+export const startMonaco = async (
   { code, container, name }: {
     code: string;
     container: HTMLDivElement;
     name: string;
   },
-)=> {
-
+) => {
   if (mod[name]) return mod[name] as unknown as typeof ret;
 
-
-  const ret = await startMonacoPristine({code, container, name});
-mod[name] = ret;
+  const ret = await startMonacoPristine({ code, container, name });
+  mod[name] = ret;
   return ret;
 
-
-async function startMonacoPristine(
-  { code, container, name }: {
-    code: string;
-    container: HTMLDivElement;
-    name: string;
-  }){
-  // if (mod[name]) return mod[name];
-  const codeSpace = name;
-
-  // const innerStyle = document.createElement("style");
-  // monacoCss
-  // innerStyle.innerText = `@import url(${location.origin}/npm:/monaco-editor@${version}/?css);`;
-  // container.appendChild(innerStyle);
-
-  const replaced = await monacoContribution(
-    code
-  );
-
-  // editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${location.origin}/package.json`))
-  // languages.typescript.typescriptDefaults.inlayHintsOptions
-
-  const model = createModel(
-    replaced,
-    "typescript",
-    Uri.parse(`${location.origin}/live/${codeSpace}.tsx`),
-  );
-
-  const editor = create(container, {
-    model,
-    scrollbar: {
-      scrollByPage: false,
-      alwaysConsumeMouseWheel: false,
+  async function startMonacoPristine(
+    { code, container, name }: {
+      code: string;
+      container: HTMLDivElement;
+      name: string;
     },
-    scrollBeyondLastLine: false,
-    scrollPredominantAxis: false,
+  ) {
+    // if (mod[name]) return mod[name];
+    const codeSpace = name;
 
-    smoothScrolling: true,
-    suggest: {
-      /**
-       * Overwrite word ends on accept. Default to false.
-       */
-      insertMode: "replace",
-      /**
-       * Enable graceful matching. Defaults to true.
-       */
-      filterGraceful: false,
-      /**
-       * Prevent quick suggestions when a snippet is active. Defaults to true.
-       */
-      snippetsPreventQuickSuggestions: false,
-      /**
-       * Favors words that appear close to the cursor.
-       */
-      localityBonus: true,
-      /**
-       * Enable using global storage for remembering suggestions.
-       */
-      shareSuggestSelections: true,
-      /**
-       * Enable or disable icons in suggestions. Defaults to true.
-       */
-      showIcons: true,
-      /**
-       * Enable or disable the suggest status bar.
-       */
-      showStatusBar: true,
-      /**
-       * Enable or disable the rendering of the suggestion preview.
-       */
-      preview: true,
-      /**
-       * Configures the mode of the preview.
-       */
-      previewMode: "subwordSmart",
-      /**
-       * Show details inline with the label. Defaults to true.
-       */
-      showInlineDetails: true,
+    // const innerStyle = document.createElement("style");
+    // monacoCss
+    // innerStyle.innerText = `@import url(${location.origin}/npm:/monaco-editor@${version}/?css);`;
+    // container.appendChild(innerStyle);
 
-      /**
-       * Show method-suggestions.
-       */
-      showMethods: true,
-      /**
-       * Show function-suggestions.
-       */
-      showFunctions: true,
-      /**
-       * Show constructor-suggestions.
-       */
-      showConstructors: true,
-      /**
-       * Show deprecated-suggestions.
-       */
+    const replaced = await monacoContribution(
+      code,
+    );
 
-      /**
-       * Show field-suggestions.
-       */
-      showFields: true,
+    // editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${location.origin}/package.json`))
+    // languages.typescript.typescriptDefaults.inlayHintsOptions
 
-      /**
-       * Show color-suggestions.
-       */
-      showColors: true,
-      /**
-       * Show file-suggestions.
-       */
-      showFiles: true,
-      /**
-       * Show reference-suggestions.
-       */
-      showReferences: true,
-      /**
-       * Show folder-suggestions.
-       */
-      showFolders: true,
-      /**
-       * Show typeParameter-suggestions.
-       */
-      showTypeParameters: true,
-      /**
-       * Show issue-suggestions.
-       */
-      showIssues: true,
-      /**
-       * Show user-suggestions.
-       */
-      showUsers: true,
-      /**
-       * Show snippet-suggestions.
-       */
-      showSnippets: true,
-    },
-    automaticLayout: true,
+    const model = createModel(
+      replaced,
+      "typescript",
+      Uri.parse(`${location.origin}/live/${codeSpace}.tsx`),
+    );
 
-    useShadowDOM: true,
-    bracketPairColorization: {
-      independentColorPoolPerBracketType: true,
-      enabled: true,
-    },
-    codeLens: true,
-    "semanticHighlighting.enabled": true,
-    dragAndDrop: true,
-    codeActionsOnSaveTimeout: 300,
-    dropIntoEditor: { enabled: true },
-    // gotoLocation: true,]]
-    mouseStyle: "default",
-    definitionLinkOpensInPeek: true,
-    theme: "vs-dark",
-    autoClosingBrackets: "beforeWhitespace",
-  });
+    const editor = create(container, {
+      model,
+      scrollbar: {
+        scrollByPage: false,
+        alwaysConsumeMouseWheel: false,
+      },
+      scrollBeyondLastLine: false,
+      scrollPredominantAxis: false,
 
-  return {
-    getTypeScriptWorker: ()=>languages.typescript.getTypeScriptWorker(),
-    setValue: (code: string) => {
-      let state = null;
-      try {
-        state = editor.saveViewState();
-      } catch (e) {
-        console.error("error while saving the state");
-      }
+      smoothScrolling: true,
+      suggest: {
+        /**
+         * Overwrite word ends on accept. Default to false.
+         */
+        insertMode: "replace",
+        /**
+         * Enable graceful matching. Defaults to true.
+         */
+        filterGraceful: false,
+        /**
+         * Prevent quick suggestions when a snippet is active. Defaults to true.
+         */
+        snippetsPreventQuickSuggestions: false,
+        /**
+         * Favors words that appear close to the cursor.
+         */
+        localityBonus: true,
+        /**
+         * Enable using global storage for remembering suggestions.
+         */
+        shareSuggestSelections: true,
+        /**
+         * Enable or disable icons in suggestions. Defaults to true.
+         */
+        showIcons: true,
+        /**
+         * Enable or disable the suggest status bar.
+         */
+        showStatusBar: true,
+        /**
+         * Enable or disable the rendering of the suggestion preview.
+         */
+        preview: true,
+        /**
+         * Configures the mode of the preview.
+         */
+        previewMode: "subwordSmart",
+        /**
+         * Show details inline with the label. Defaults to true.
+         */
+        showInlineDetails: true,
 
-      model.setValue(code);
+        /**
+         * Show method-suggestions.
+         */
+        showMethods: true,
+        /**
+         * Show function-suggestions.
+         */
+        showFunctions: true,
+        /**
+         * Show constructor-suggestions.
+         */
+        showConstructors: true,
+        /**
+         * Show deprecated-suggestions.
+         */
 
-      if (state) editor.restoreViewState(state);
-    }, 
-    model,
-  };
+        /**
+         * Show field-suggestions.
+         */
+        showFields: true,
 
+        /**
+         * Show color-suggestions.
+         */
+        showColors: true,
+        /**
+         * Show file-suggestions.
+         */
+        showFiles: true,
+        /**
+         * Show reference-suggestions.
+         */
+        showReferences: true,
+        /**
+         * Show folder-suggestions.
+         */
+        showFolders: true,
+        /**
+         * Show typeParameter-suggestions.
+         */
+        showTypeParameters: true,
+        /**
+         * Show issue-suggestions.
+         */
+        showIssues: true,
+        /**
+         * Show user-suggestions.
+         */
+        showUsers: true,
+        /**
+         * Show snippet-suggestions.
+         */
+        showSnippets: true,
+      },
+      automaticLayout: true,
 
-}};
+      useShadowDOM: true,
+      bracketPairColorization: {
+        independentColorPoolPerBracketType: true,
+        enabled: true,
+      },
+      codeLens: true,
+      "semanticHighlighting.enabled": true,
+      dragAndDrop: true,
+      codeActionsOnSaveTimeout: 300,
+      dropIntoEditor: { enabled: true },
+      // gotoLocation: true,]]
+      mouseStyle: "default",
+      definitionLinkOpensInPeek: true,
+      theme: "vs-dark",
+      autoClosingBrackets: "beforeWhitespace",
+    });
+
+    return {
+      getTypeScriptWorker: () => languages.typescript.getTypeScriptWorker(),
+      setValue: (code: string) => {
+        let state = null;
+        try {
+          state = editor.saveViewState();
+        } catch (e) {
+          console.error("error while saving the state");
+        }
+
+        model.setValue(code);
+
+        if (state) editor.restoreViewState(state);
+      },
+      model,
+    };
+  }
+};
