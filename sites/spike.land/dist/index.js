@@ -1031,7 +1031,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-X7FUL5UQ.mjs
+// ../../packages/code/dist/chunk-chunk-QQDDPDXJ.mjs
 var require_diff = __commonJS2({
   "node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6343,7 +6343,9 @@ var CodeSession = class {
       );
       const newHash = this.session.hashCode();
       if (newHash !== oldHash) {
-        requestAnimationFrame(() => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x)));
+        requestAnimationFrame(
+          () => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x))
+        );
       }
     }, "patchSync"));
     __publicField2(this, "applyPatch", /* @__PURE__ */ __name(async ({

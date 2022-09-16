@@ -5,7 +5,8 @@
     "package.json",
     "sw.js",
     "getBackupSession.ts",
-    "md5.ts"
+    "md5.ts",
+    "good.json"
   ],
   "words": [
     "ampproject",
