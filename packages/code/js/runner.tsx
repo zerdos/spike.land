@@ -77,6 +77,7 @@ export async function runner({ code, counter }: {
         "compilerOptions": {
           "jsx": "react-jsx",
           "module": "es2022",
+          "jsxFragmentFactory": "Fragment",
           "jsxImportSource": "@emotion/react",
         },
       },

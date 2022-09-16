@@ -5,15 +5,16 @@ const EmotionReact = (window.emotionReact = window.emotionReact || ea);
 
 // import createCache from "@emotion/cache";
 // export {JSX} from "@emotion/react/jsx-dev-runtime";
-export { jsx as jsxs } from "react/jsx-runtime";
-
+// export { jsx as jsxs } from "./react-preact";
+// export { Fragment } from "./react-preact"
+export { Fragment, jsx, jsxs, hoistNonReactStatics } from "./emotionJsxRuntime";
 //
 // export const  jsxs  = jsxOrig;
 
 // export const ss = JSX.
 // export {jsxs as jsx} from "./react-preact";
 
-export const { jsx } = EmotionReact;
+// import {JSX} from  "@emotion/react/jsx-runtime" ;
 // export { jsxs } = {...jsxDEV, ...jsxRunTime};
 
 export const { css } = EmotionReact;
