@@ -39,7 +39,7 @@ interface DraggableWindowProps {
   hashCode: number;
   position?: string;
   room: string;
-  children: React.FC;
+  children: React.ReactNode;
 }
 
 export const DraggableWindow: React.FC<DraggableWindowProps> = (

@@ -4,11 +4,11 @@ import {
   c as createEmotionProps,
   E as Emotion,
   h as hasOwnProperty,
-} from "../../../node_modules/@emotion/react/dist/emotion-element-6a883da9.browser.esm.js";
+} from "../node_modules/@emotion/react/dist/emotion-element-6a883da9.browser.esm.js";
 import "@babel/runtime/helpers/extends";
 import "@emotion/weak-memoize";
 import "hoist-non-react-statics";
-import hoistNonReactStatics from "../../../node_modules/@emotion/react/_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm";
+import hoistNonReactStatics from "../node_modules/@emotion/react/_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm";
 import "@emotion/utils";
 import "@emotion/serialize";
 import "@emotion/use-insertion-effect-with-fallbacks";
