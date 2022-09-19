@@ -167,7 +167,7 @@ export class CodeSession implements ICodeSess {
   };
 
   patchSync = (sess: ICodeSession) => {
-    console.log({ sess });
+  
     const oldHash = this.session.hashCode();
     this.session = this.session.set(
       "state",
@@ -175,6 +175,7 @@ export class CodeSession implements ICodeSess {
     );
     const newHash = this.session.hashCode();
     if (newHash !== oldHash) {
+      console.log({ sess });
       requestAnimationFrame(() =>
         this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x))
       );

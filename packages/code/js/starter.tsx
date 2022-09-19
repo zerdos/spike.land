@@ -15,12 +15,19 @@ import { useEffect } from "react";
 import { renderFromString } from "renderToString";
 
 try {
-  importShim.addImportMap(
-    JSON.parse(
-      [...Array.from(document.scripts!)].find((s) => s.type === "importmap")
-        .innerText,
-    ),
-  );
+
+  if (document.scripts ) {
+    const scripts = Array.from(document.scripts);
+    const imap =  scripts.find((s) => s.type === "importmap");
+    if (imap) {
+      importShim.addImportMap(
+        JSON.parse(
+         imap.innerText,
+        ),
+      );
+    }
+ 
+}
 } catch {
   console.error("no importmap");
 }
@@ -122,7 +129,11 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   // const result = md5(mST().transpiled);
 
   useEffect(() => {
-    patchSync({ ...mST(), ...(renderFromString(codeSpace)) });
+    const {html, css} = renderFromString(codeSpace);
+    const mst = mST();
+    if (html && css && (html!==mst.html || css!==mst.css)){
+      patchSync({...mst, html, css});
+    }
   }, [hash]);
 
   const ref = useRef(null);
@@ -130,8 +141,14 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   const App = apps[md5(transpiled)];
   // return <Root codeSpace={codeSpace}>
   return (
-    <ErrorBoundaryJ ref={ref} key={hash}>
-      <App />
+    <ErrorBoundaryJ ref={ref}>
+      <div
+       key={hash}
+        css={css`
+        height: 100%;
+              `} id={`${codeSpace}-${hash}`}>
+          <App />
+      </div>
     </ErrorBoundaryJ>
   );
 };

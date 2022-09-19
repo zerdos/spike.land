@@ -5318,7 +5318,6 @@ var CodeSession = class {
       };
     }, "createPatchFromHashCode"));
     __publicField(this, "patchSync", /* @__PURE__ */ __name((sess) => {
-      console.log({ sess });
       const oldHash = this.session.hashCode();
       this.session = this.session.set(
         "state",
@@ -5326,6 +5325,7 @@ var CodeSession = class {
       );
       const newHash = this.session.hashCode();
       if (newHash !== oldHash) {
+        console.log({ sess });
         requestAnimationFrame(
           () => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x))
         );

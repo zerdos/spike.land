@@ -7,7 +7,7 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-QQDDPDXJ.mjs";
+} from "./chunk-chunk-6V3S5WGL.mjs";
 import {
   LazyMotion,
   __rest,
@@ -12276,8 +12276,8 @@ init_react_preact();
 init_define_process();
 var renderFromString = /* @__PURE__ */ __name((codeSpace2) => {
   var _a;
-  const html = (_a = document.getElementById(`root-${codeSpace2}`)) == null ? void 0 : _a.innerHTML;
-  const css7 = extractCritical22(html);
+  const html = (_a = document.getElementById(`${codeSpace2}-${hashCode()}`)) == null ? void 0 : _a.innerHTML;
+  const css7 = html ? extractCritical22(html) : "";
   return { html, css: css7 };
 }, "renderFromString");
 var extractCritical22 = /* @__PURE__ */ __name((html) => {
@@ -12307,11 +12307,17 @@ var extractCritical22 = /* @__PURE__ */ __name((html) => {
 // js/starter.tsx
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 try {
-  importShim.addImportMap(
-    JSON.parse(
-      [...Array.from(document.scripts)].find((s) => s.type === "importmap").innerText
-    )
-  );
+  if (document.scripts) {
+    const scripts = Array.from(document.scripts);
+    const imap = scripts.find((s) => s.type === "importmap");
+    if (imap) {
+      importShim.addImportMap(
+        JSON.parse(
+          imap.innerText
+        )
+      );
+    }
+  }
 } catch (e) {
   console.error("no importmap");
 }
@@ -12319,15 +12325,25 @@ var apps = {};
 var ErrorBoundaryJ = ErrorBoundary_default;
 var AutoUpdateApp = /* @__PURE__ */ __name(({ hash, codeSpace: codeSpace2 }) => {
   useEffect(() => {
-    patchSync({ ...mST(), ...renderFromString(codeSpace2) });
+    const { html, css: css7 } = renderFromString(codeSpace2);
+    const mst = mST();
+    if (html && css7 && (html !== mst.html || css7 !== mst.css)) {
+      patchSync({ ...mst, html, css: css7 });
+    }
   }, [hash]);
   const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled)];
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ErrorBoundaryJ, {
     ref,
-    children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App, {})
-  }, hash);
+    children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", {
+      css: import_react2.css`
+        height: 100%;
+              `,
+      id: `${codeSpace2}-${hash}`,
+      children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App, {})
+    }, hash)
+  });
 }, "AutoUpdateApp");
 async function appFactory(transpiled = "") {
   const trp = transpiled.length ? transpiled : mST().transpiled;
@@ -16730,7 +16746,7 @@ var QRButton = /* @__PURE__ */ __name(({ url }) => {
               `,
       children: showQR ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(QR, {
         url: url || "/live/coder/public"
-      }, url || "http://spike.land") : /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Fab_default, {
+      }, url || origin + url) : /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Fab_default, {
         children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(QrCode, {})
       })
     })
@@ -16847,7 +16863,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                   onChange: (_e, newScale) => {
                     newScale && changeScaleRange(newScale);
                   },
-                  children: sizes.map((size) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(ToggleButton3, {
+                  children: sizes.map((size, ind) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(ToggleButton3, {
                     value: size,
                     children: /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("span", {
                       css: import_react13.css`
@@ -16858,7 +16874,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                         "%"
                       ]
                     })
-                  }, size))
+                  }, ind))
                 })
               }),
               /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(m.div, {
@@ -16914,7 +16930,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                       setWidth(newSize);
                     }
                   },
-                  children: breakPoints.map((size) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(ToggleButton3, {
+                  children: breakPoints.map((size, ind) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(ToggleButton3, {
                     value: size,
                     children: size === 680 ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Phone, {
                       css: import_react13.css`
@@ -16929,7 +16945,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                         color: ${width2 === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `
                     })
-                  }, `size-${size}`))
+                  }, ind))
                 })
               })
             ]
@@ -16956,7 +16972,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                 }, "fullscreen"),
                 /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(QRButton, {
                   url: location.origin + `/live/${room}/public`
-                }, `qr-${hashCode2}`),
+                }),
                 /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Fab_default, {
                   onClick: () => open(`/live/${room}/public`),
                   children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Share, {})
@@ -17006,7 +17022,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-LSIXOD6U.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-2WVVPEV3.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-TOMNIK4R.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({

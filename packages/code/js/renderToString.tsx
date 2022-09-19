@@ -1,6 +1,6 @@
 // import {CacheProvider } from "@emotion/react"
 
-// import { md5 } from "./md5";
+
 // import { createRoot } from "react-dom/client";
 // import { appFactory } from "starter";
 // import { default as createCache, EmotionCache } from "@emotion/cache";
@@ -15,7 +15,7 @@
 // import autoprefixer from "autoprefixer"
 // import { useState } from "react";
 // import { wait } from "wait";
-// import { hashCode, mST, patchSync } from "session";
+import {  hashCode, mST } from "session";
 // import postcssNested from "postcss-nested"
 
 // const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
@@ -50,8 +50,10 @@ export const renderFromString = (
   // App: FunctionComponent
   codeSpace: string,
 ) => {
-  const html = document.getElementById(`root-${codeSpace}`)?.innerHTML!;
-  const css = extractCritical22(html);
+  // const hash = md5(mST().transpiled);
+  const html = document.getElementById(`${codeSpace}-${hashCode()}`)?.innerHTML!;
+
+  const css = html? extractCritical22(html): '';
 
   // const temp = document.createElement("div");
 
