@@ -170,9 +170,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   newScale && changeScaleRange(newScale);
                 }}
               >
-                {sizes.map((size) => (
+                {sizes.map((size, ind) => (
                   <ToggleButton
-                    key={size}
+                    key={ind}
                     value={size}
                   >
                     <span
@@ -256,9 +256,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   }
                 }}
               >
-                {breakPoints.map((size) => (
+                {breakPoints.map((size, ind) => (
                   <ToggleButton
-                    key={`size-${size}`}
+                    key={ind}
                     value={size}
                   >
                     {size === 680
@@ -327,7 +327,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
               <QRButton
                 url={location.origin + `/live/${room}/public`}
-                key={`qr-${hashCode}`}
               />
 
               <Fab

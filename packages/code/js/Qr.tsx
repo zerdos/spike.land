@@ -28,7 +28,7 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
         {showQR
           ? (
             <QR
-              key={url || "http://spike.land"}
+              key={url || origin + url}
               url={url || "/live/coder/public"}
             />
           )
