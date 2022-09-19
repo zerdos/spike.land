@@ -26,7 +26,7 @@
   },
   "scripts": {
     "test": "uvu -r esbuild-register tests",
-    "typecheck": "cd monorepo/packages/code && yarn tsc",
+    "typecheck": "yarn tsc",
     "clean": "rm -rf .tsBuildInfo js/vendor && js/vendor && yarn favicons",
     "build:sw": "esbuild --outfile=../sites/spike.land/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
     "start": "cd ../../.. && yarn start",
@@ -34,10 +34,10 @@
     "build:preact": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=../../sites/spike.land/public/react.mjs",
     "build:orbit-db": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=../../sites/spike.land/public/react.mjs",
     "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=../../sites/spike.land/public/framer-motion.mjs",
-    "build:emotion": "esbuild --bundle js/emotion.tsx  --target=esnext --format=esm --external:react --external:react/jsx-runtime --platform=browser --define:process.env.NODE_ENV=\\\"production\\\" --outfile=../../sites/spike.land/public/emotion.mjs",
+    "build:emotion": "yarn test && esbuild --bundle js/emotion.tsx  --target=esnext --format=esm --external:react --external:react/jsx-runtime --platform=browser --define:process.env.NODE_ENV=\\\"production\\\" --outfile=../../sites/spike.land/public/emotion.mjs",
     "prebuild": "yarn test || echo FAILED",
     "build": "rm -rf dist && yarn install && yarn favicons && yarn es:build",
-    "es:build": "node esbuild-dev.mjs",
+    "es:build": "yarn test && node esbuild-dev.mjs",
     "favicons": "cp -af js/assets/favicons/. ./dist && mkdir -p  ../../sites/spike.land/public/assets && cp js/assets/synthwave.webp   ../../sites/spike.land/public/assets/",
     "workbox-cli": "workbox-cli",
     "sw": "echo ok",
@@ -103,7 +103,6 @@
     "react-dom": "^18.2.0",
     "react-qrious": "2.5.5",
     "react-reverse-portal": "^2.1.1",
-    "stream-browserify": "^3.0.0",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
@@ -118,6 +117,7 @@
     "esbuild": "^0.15.8",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-postcss": "^0.0.4",
+    "esbuild-register": "^3.3.3",
     "postcss-nested": "^5.0.6",
     "typescript": "4.8.3",
     "uvu": "0.5.6",
