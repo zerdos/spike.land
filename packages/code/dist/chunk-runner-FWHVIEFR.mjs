@@ -1,6 +1,6 @@
 import {
   saveCode
-} from "./chunk-chunk-6AWSAW3N.mjs";
+} from "./chunk-chunk-DCPXKIPI.mjs";
 import {
   mST,
   patchSync
@@ -2646,8 +2646,9 @@ var esbuild_default = "./chunk-esbuild-U35YOP5D.wasm";
 
 // js/esbuildEsm.ts
 var initFinished = false;
+var mutex = new Mutex();
 var esbuild = {
-  transform: new Mutex().runExclusive(() => import_esbuild_wasm.transform)
+  transform: mutex.runExclusive(() => import_esbuild_wasm.transform)
 };
 var init = /* @__PURE__ */ __name(async () => {
   try {

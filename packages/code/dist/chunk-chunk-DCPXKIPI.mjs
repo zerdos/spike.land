@@ -12289,7 +12289,7 @@ var extractCritical22 = /* @__PURE__ */ __name((html) => {
         Array.from(styleSheet.cssRules).forEach((rule) => {
           if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
             const selector = rule.cssText.slice(1, 9);
-            const selectorText = rule.selectorText || selector;
+            const selectorText = selector;
             if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".css-")) {
               rules[selectorText] = rule.cssText;
             }
@@ -17006,7 +17006,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-PF3H44HS.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-FWHVIEFR.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-TOMNIK4R.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({

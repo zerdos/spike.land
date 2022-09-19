@@ -103,6 +103,7 @@
     "react-dom": "^18.2.0",
     "react-qrious": "2.5.5",
     "react-reverse-portal": "^2.1.1",
+    "stream-browserify": "^3.0.0",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
