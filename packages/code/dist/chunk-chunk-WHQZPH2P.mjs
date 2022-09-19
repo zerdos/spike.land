@@ -82,7 +82,7 @@ var require_emotion_react_jsx_runtime_cjs_dev = __commonJS({
     require_emotion_serialize_cjs();
     require_emotion_use_insertion_effect_with_fallbacks_cjs();
     var ReactJSXRuntime = (init_react_preact(), __toCommonJS(react_preact_exports));
-    var Fragment = ReactJSXRuntime.Fragment;
+    var Fragment2 = ReactJSXRuntime.Fragment;
     function jsx8(type, props, key) {
       if (!emotionElement.hasOwnProperty.call(props, "css")) {
         return ReactJSXRuntime.jsx(type, props, key);
@@ -97,7 +97,7 @@ var require_emotion_react_jsx_runtime_cjs_dev = __commonJS({
       return ReactJSXRuntime.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
     }
     __name(jsxs5, "jsxs");
-    exports.Fragment = Fragment;
+    exports.Fragment = Fragment2;
     exports.jsx = jsx8;
     exports.jsxs = jsxs5;
   }
@@ -2524,7 +2524,7 @@ var require_react_is_development = __commonJS({
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element = REACT_ELEMENT_TYPE;
         var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-        var Fragment = REACT_FRAGMENT_TYPE;
+        var Fragment2 = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
         var Memo2 = REACT_MEMO_TYPE;
         var Portal = REACT_PORTAL_TYPE;
@@ -2596,7 +2596,7 @@ var require_react_is_development = __commonJS({
         exports.ContextProvider = ContextProvider;
         exports.Element = Element;
         exports.ForwardRef = ForwardRef2;
-        exports.Fragment = Fragment;
+        exports.Fragment = Fragment2;
         exports.Lazy = Lazy;
         exports.Memo = Memo2;
         exports.Portal = Portal;
@@ -3374,7 +3374,7 @@ var require_react_is_development2 = __commonJS({
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element = REACT_ELEMENT_TYPE;
         var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-        var Fragment = REACT_FRAGMENT_TYPE;
+        var Fragment2 = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
         var Memo2 = REACT_MEMO_TYPE;
         var Portal = REACT_PORTAL_TYPE;
@@ -3456,7 +3456,7 @@ var require_react_is_development2 = __commonJS({
         exports.ContextProvider = ContextProvider;
         exports.Element = Element;
         exports.ForwardRef = ForwardRef2;
-        exports.Fragment = Fragment;
+        exports.Fragment = Fragment2;
         exports.Lazy = Lazy;
         exports.Memo = Memo2;
         exports.Portal = Portal;
@@ -9515,7 +9515,7 @@ var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var ErrorBoundary = class extends react_preact_default.Component {
   constructor(props) {
     super(props);
-    this.state = { error: null, errorInfo: null };
+    this.state = { error: void 0, errorInfo: void 0 };
   }
   componentDidCatch(error, errorInfo) {
     this.setState({
@@ -9541,7 +9541,7 @@ var ErrorBoundary = class extends react_preact_default.Component {
         ]
       });
     }
-    return this.props.children;
+    return this.props.children || /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {});
   }
 };
 __name(ErrorBoundary, "ErrorBoundary");
@@ -17006,7 +17006,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-FWHVIEFR.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-LSIXOD6U.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-TOMNIK4R.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
