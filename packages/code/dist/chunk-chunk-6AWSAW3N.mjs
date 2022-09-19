@@ -16768,7 +16768,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
         setHeight(breakPointHeights[0]);
       }
       if (window.innerWidth / devicePixelRatio < 1200) {
-        changeScaleRange(75);
+        changeScaleRange(100);
         setWidth(breakPoints[0]);
         setHeight(breakPointHeights[0]);
       } else if (window.innerWidth / devicePixelRatio < 1800) {
@@ -17006,7 +17006,7 @@ var Editor = /* @__PURE__ */ __name(({ code, i, codeSpace: codeSpace2, assets })
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-GFVFLFPP.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-PF3H44HS.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-TOMNIK4R.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
