@@ -638,6 +638,7 @@ __metadata:
     esbuild: "npm:^0.15.8"
     esbuild-plugin-import-map: "npm:2.1.0"
     esbuild-postcss: "npm:^0.0.4"
+    esbuild-register: "npm:^3.3.3"
     esbuild-wasm: "npm:0.15.8"
     events: "npm:^3.3.0"
     fast-diff: "npm:1.2.0"
@@ -1821,6 +1822,15 @@ __metadata:
     esbuild: "*"
     postcss: ^8.0.0
   checksum: a12081ab11fb47b06b4b2079199f4076c85f39db070b31ccc374a3db01056869b4381fb121905cae650f7bf1b16b479037e3484180ad2c2b2cd31c9b06902a0c
+  languageName: node
+  linkType: hard
+
+"esbuild-register@npm:^3.3.3":
+  version: 3.3.3
+  resolution: "esbuild-register@npm:3.3.3"
+  peerDependencies:
+    esbuild: ">=0.12 <1"
+  checksum: 7e1b1c113a3ef13b4ca7740ab972fbe22327facfa6f9f20d72a00a9c109276c1c98761bfe706c2288908c54404f1d293078948bc69b4393cee77b19186a2474e
   languageName: node
   linkType: hard
 
