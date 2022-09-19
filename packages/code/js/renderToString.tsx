@@ -3,13 +3,13 @@
 // import { md5 } from "./md5";
 // import { createRoot } from "react-dom/client";
 // import { appFactory } from "starter";
-import { default as createCache, EmotionCache } from "@emotion/cache";
-import { default as createEmotionServer } from "@emotion/server/create-instance";
+// import { default as createCache, EmotionCache } from "@emotion/cache";
+// import { default as createEmotionServer } from "@emotion/server/create-instance";
 
-import { CacheProvider } from "@emotion/react";
-import type { FunctionComponent } from "preact";
-import { renderToString } from "preact-render-to-string";
-// import { useEffect } from "react";
+// import { CacheProvider } from "@emotion/react";
+// import type { FunctionComponent } from "preact";
+// import { renderToString } from "preact-render-to-string";
+// // import { useEffect } from "react";
 
 // import  postcss from 'postcss';
 // import autoprefixer from "autoprefixer"
@@ -140,7 +140,8 @@ const extractCritical22 = (html: string) => {
         Array.from(styleSheet.cssRules).forEach((rule) => {
           if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
             const selector = rule.cssText.slice(1, 9);
-            const selectorText = rule.selectorText || selector;
+            const selectorText =  selector //rule.selectorText ||
+            //  selector;
             if (
               !rules[selector] && html.includes(selector) &&
               !rule.cssText.slice(10).includes(".css-")

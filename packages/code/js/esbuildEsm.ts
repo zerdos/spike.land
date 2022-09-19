@@ -8,9 +8,9 @@ import wasmURL from "esbuild-wasm/esbuild.wasm";
 // import type { transform } from "esbuild/lib/main";
 
 let initFinished: Promise<boolean> | boolean = false;
-
+const mutex = new Mutex();
 const esbuild = {
-  transform: (new Mutex()).runExclusive(() => transform),
+  transform: mutex.runExclusive(() => transform),
 };
 
 export const init = async () => {
