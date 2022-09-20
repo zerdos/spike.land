@@ -1,6 +1,5 @@
 // import {CacheProvider } from "@emotion/react"
 
-
 // import { createRoot } from "react-dom/client";
 // import { appFactory } from "starter";
 // import { default as createCache, EmotionCache } from "@emotion/cache";
@@ -15,7 +14,7 @@
 // import autoprefixer from "autoprefixer"
 // import { useState } from "react";
 // import { wait } from "wait";
-import {  hashCode, mST } from "session";
+import { hashCode, mST } from "session";
 // import postcssNested from "postcss-nested"
 
 // const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
@@ -51,9 +50,10 @@ export const renderFromString = (
   codeSpace: string,
 ) => {
   // const hash = md5(mST().transpiled);
-  const html = document.getElementById(`${codeSpace}-${hashCode()}`)?.innerHTML!;
+  const html = document.getElementById(`${codeSpace}-${hashCode()}`)
+    ?.innerHTML!;
 
-  const css = html? extractCritical22(html): '';
+  const css = html ? extractCritical22(html) : "";
 
   // const temp = document.createElement("div");
 
@@ -142,7 +142,7 @@ const extractCritical22 = (html: string) => {
         Array.from(styleSheet.cssRules).forEach((rule) => {
           if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
             const selector = rule.cssText.slice(1, 9);
-            const selectorText =  selector //rule.selectorText ||
+            const selectorText = selector; //rule.selectorText ||
             //  selector;
             if (
               !rules[selector] && html.includes(selector) &&

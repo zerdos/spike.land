@@ -1,6 +1,5 @@
-
 export { createRoot, hydrateRoot } from "preact/compat/client";
-export {flushSync} from "preact/compat/server";
+export { flushSync } from "preact/compat/server";
 export { signal } from "@preact/signals";
 
 // export const flushSync = PreactCompatServer;
