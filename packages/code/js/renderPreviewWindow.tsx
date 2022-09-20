@@ -5,19 +5,19 @@ import {
   InPortal,
   OutPortal,
 } from "react-reverse-portal";
-import { ReactNode, useEffect, useState } from "react";
+import {  useEffect, useState  } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";
-import { css } from "@emotion/react";
+import { css, jsx } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
-import type { FC } from "react";
 
 // import { useSpring, a } from '@react-spring/web'
 
 import { hashCode, mST, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
+import { ReactNode } from "react";
 
-const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
+const RainbowContainer: React.FC<{ children:  ReactNode}> = ({ children }) => (
   <div
     css={css`
 height: 100%;
@@ -67,7 +67,7 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const AppToRender: FC<
+const AppToRender: React.FC<
   { codeSpace: string; assets: { [key: string]: string } }
 > = (
   { codeSpace, assets },
@@ -112,12 +112,24 @@ const AppToRender: FC<
 
   return (
     <Fragment>
-      <InPortal node={portalNode}>
-        <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
-      </InPortal>
-
-      {isStandalone
-        ? <OutPortal node={portalNode}></OutPortal>
+      {
+      jsx(
+        InPortal,{
+          node: portalNode, 
+          children: 
+              jsx(
+                AutoUpdateApp, {
+                      hash, 
+                      codeSpace
+                    }
+                  )
+                  }
+                  )
+        }
+      
+       
+ 
+      {isStandalone? jsx(OutPortal,{node:portalNode})
         : (
           <RainbowContainer>
             {
@@ -128,7 +140,7 @@ const AppToRender: FC<
   justify-content: center;
 `} onClick={() => set(state => !state)} > */
             }
-            <OutPortal node={portalNode}></OutPortal>
+            {jsx(OutPortal,{node:portalNode})}
             {
               /* <a.div
         css={css`
@@ -181,7 +193,7 @@ const AppToRender: FC<
               hashCode={0}
               room={codeSpace}
             >
-              <OutPortal node={portalNode}></OutPortal>
+              {jsx(OutPortal, {node:portalNode})}
             </DraggableWindow>
           </RainbowContainer>
         )}
