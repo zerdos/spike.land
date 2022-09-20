@@ -43,7 +43,7 @@ export const Editor: React.FC<
     ) => {
       // if (!mySession.x/) return;
       const { runner } = await import("./runner");
-      const { prettierJs } = await import("./prettierEsm");
+      const { prettierJs } = await import("./prettierJs");
 
       runner({ code: prettierJs(code), counter, codeSpace });
       changeContent((x: typeof mySession) => ({
