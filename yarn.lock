@@ -1998,15 +1998,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@playwright/test@npm:1.25.2"
+"@playwright/test@npm:^1.26.0":
+  version: 1.26.0
+  resolution: "@playwright/test@npm:1.26.0"
   dependencies:
     "@types/node": "npm:*"
-    playwright-core: "npm:1.25.2"
+    playwright-core: "npm:1.26.0"
   bin:
     playwright: cli.js
-  checksum: 2e91052b921ea8940d4550ad5ba5994d73fe61bc255dd0b7272b3b57be089113dc21c55ec7ec1fde1abe7af2ea556a63bc22892ddb0f163ba2f01a644c8a98e2
+  checksum: 83d11de7d584c4d9ee512ce46d3158c59d8dbc36100a5790876b0bf9a7fbb3a5cb3f250281ac35ae311aa1121b030147bbe685487e6bfdba985ffa89b5abbc19
   languageName: node
   linkType: hard
 
@@ -2060,7 +2060,7 @@ __metadata:
     esbuild: "npm:0.15.8"
     miniflare: "npm:^2.9.0"
     typescript: "npm:4.8.3"
-    wrangler: "npm:2.1.4"
+    wrangler: "npm:2.1.5"
   languageName: unknown
   linkType: soft
 
@@ -2085,7 +2085,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.6"
     "@types/web": "npm:0.0.73"
     "@types/xo": "npm:^0.39.3"
-    ace-builds: "npm:1.10.1"
+    ace-builds: "npm:1.11.0"
     async-mutex: "npm:0.4.0"
     autoprefixer: "npm:^10.4.11"
     big-integer: "npm:1.6.51"
@@ -2142,7 +2142,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@cloudflare/workers-types": "npm:^3.16.0"
     "@emotion/react": "npm:^11.10.4"
-    "@playwright/test": "npm:^1.25.2"
+    "@playwright/test": "npm:^1.26.0"
     "@types/node": "npm:^18.7.18"
     "@types/react": "npm:18.0.20"
     "@types/xo": "npm:^0.39.3"
@@ -2685,10 +2685,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.10.1":
-  version: 1.10.1
-  resolution: "ace-builds@npm:1.10.1"
-  checksum: 24322319c415115a6906e93919cff76bf24440053702c5d0147316229ad1ace324a9e22d730cb80ac5991c55b88f6a383ebb896b8f8d98d2168077da21f79586
+"ace-builds@npm:1.11.0":
+  version: 1.11.0
+  resolution: "ace-builds@npm:1.11.0"
+  checksum: 2f8afe59e03098e93635e2f2af931ee266bb2967fd999e096692dfddd48a79b72cfdef832084f958b9efa65f48faa2a174177b8fd721f90a1c3b8664a8482421
   languageName: node
   linkType: hard
 
@@ -8704,12 +8704,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.25.2":
-  version: 1.25.2
-  resolution: "playwright-core@npm:1.25.2"
+"playwright-core@npm:1.26.0":
+  version: 1.26.0
+  resolution: "playwright-core@npm:1.26.0"
   bin:
     playwright: cli.js
-  checksum: 0b70f6e806e066356b1e9bc4c9bf0e299118904b88abc780a7452f5a21ef694f29d09af9fd65c9d35c8e8eb84455e6c0aea61698636a75ecb443eb80a2bb368a
+  checksum: 33125ff44ac638a1d2ca2137518b1719620d95e44d63f9526d7e1a1a810944de5564ca3ce172fde1098e0598fb1bbb355586a21684833cd8b3f5cea260119682
   languageName: node
   linkType: hard
 
@@ -10768,9 +10768,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.1.4":
-  version: 2.1.4
-  resolution: "wrangler@npm:2.1.4"
+"wrangler@npm:2.1.5":
+  version: 2.1.5
+  resolution: "wrangler@npm:2.1.5"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
@@ -10791,7 +10791,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: a2aa2b575a89aced537f4d7c896dca52e01bca43effedce978b444a26d8643dbe2bea068d44c1d91f6351d3543c55d651b9434050e7730af8803b719399dce71
+  checksum: f243cba78449418de4f69944f0c5a68b6870985efccbd547182e08f0945a45a6eea71ca185a9829351832837dbe496ecbe6650e5e97eb20bfcad7f31287bcddd
   languageName: node
   linkType: hard
 
