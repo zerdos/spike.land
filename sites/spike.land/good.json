@@ -75,28 +75,28 @@
       "bytes": 2244,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs": {
-      "bytes": 2847,
+    "../../packages/code/dist/chunk-chunk-UURPA34U.mjs": {
+      "bytes": 1287,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-QQDDPDXJ.mjs": {
-      "bytes": 182874,
+    "../../packages/code/dist/chunk-chunk-Y4OJPUCW.mjs": {
+      "bytes": 72062,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-UURPA34U.mjs",
           "kind": "import-statement"
         }
       ]
     },
     "../../packages/code/dist/session.mjs": {
-      "bytes": 375,
+      "bytes": 265,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-QQDDPDXJ.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-Y4OJPUCW.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-UURPA34U.mjs",
           "kind": "import-statement"
         }
       ]
@@ -139,7 +139,7 @@
       ]
     },
     "src/users.ts": {
-      "bytes": 175,
+      "bytes": 152,
       "imports": []
     },
     "src/rateLimiter.ts": {
@@ -185,7 +185,7 @@
       "entryPoint": "src/index.ts",
       "inputs": {
         "../../node_modules/mime/Mime.js": {
-          "bytesInOutput": 2014
+          "bytesInOutput": 2020
         },
         "../../node_modules/mime/types/standard.js": {
           "bytesInOutput": 10359
@@ -218,13 +218,13 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15688
+          "bytesInOutput": 15558
         },
-        "../../packages/code/dist/chunk-chunk-S6BTEEN4.mjs": {
-          "bytesInOutput": 1757
+        "../../packages/code/dist/chunk-chunk-UURPA34U.mjs": {
+          "bytesInOutput": 1044
         },
-        "../../packages/code/dist/chunk-chunk-QQDDPDXJ.mjs": {
-          "bytesInOutput": 182035
+        "../../packages/code/dist/chunk-chunk-Y4OJPUCW.mjs": {
+          "bytesInOutput": 102022
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -233,13 +233,13 @@
           "bytesInOutput": 33
         },
         "src/users.ts": {
-          "bytesInOutput": 97
+          "bytesInOutput": 91
         },
         "src/rateLimiter.ts": {
           "bytesInOutput": 522
         }
       },
-      "bytes": 274484
+      "bytes": 193628
     }
   }
 }
