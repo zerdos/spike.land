@@ -1,7 +1,7 @@
 import {
   init_react_preact,
   react_preact_exports
-} from "./chunk-chunk-HV73MJXZ.mjs";
+} from "./chunk-chunk-4W6GUSGN.mjs";
 import {
   __commonJS,
   __name,

@@ -71,8 +71,8 @@ import {
   useWillChange,
   visualElement,
   wrapHandler
-} from "./chunk-chunk-CNREOSRE.mjs";
-import "./chunk-chunk-HV73MJXZ.mjs";
+} from "./chunk-chunk-QWM53WXC.mjs";
+import "./chunk-chunk-4W6GUSGN.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-S6BTEEN4.mjs";

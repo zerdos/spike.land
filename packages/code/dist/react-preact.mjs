@@ -40,8 +40,9 @@ import {
   useRef,
   useState,
   version,
+  w,
   x
-} from "./chunk-chunk-HV73MJXZ.mjs";
+} from "./chunk-chunk-4W6GUSGN.mjs";
 import "./chunk-chunk-S6BTEEN4.mjs";
 init_react_preact();
 export {
@@ -73,6 +74,7 @@ export {
   render,
   S as renderToString,
   x as shallowRender,
+  w as signal,
   unmountComponentAtNode,
   unstable_batchedUpdates,
   useCallback,
