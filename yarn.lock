@@ -2017,12 +2017,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@preact/compat@npm:^17.1.1":
-  version: 17.1.1
-  resolution: "@preact/compat@npm:17.1.1"
+"@preact/signals-core@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@preact/signals-core@npm:1.1.1"
+  checksum: 08c49a2b0be2f084609920cfc33133f08c1117a34a616efebabcd39dd0ba43b642454049c6c6096d4060de27f37e927294249e63fd2898f28702d274894c2ecf
+  languageName: node
+  linkType: hard
+
+"@preact/signals@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "@preact/signals@npm:1.0.4"
+  dependencies:
+    "@preact/signals-core": "npm:^1.1.1"
   peerDependencies:
-    preact: "*"
-  checksum: 837e68f5e81f32da10e6bead2b73411e7c8e2ce8cb70f571aa83e408b1f5bd45ec7f950c8bd9fefb6588980677e59b31dbd177de680586facca0a1a626407eae
+    preact: 10.x
+  checksum: bb0b14bdffe5a13bafa5b5ce9aa30a6c238c602fb0d770c1fa342c0f85568c6f2bfba572cf1f78c41c4f81aaf009da412ef6407bdaf61fdd38c7d76b131c5873
   languageName: node
   linkType: hard
 
@@ -2066,7 +2075,7 @@ __metadata:
     "@emotion/server": "npm:^11.10.0"
     "@emotion/styled": "npm:11.10.4"
     "@mui/material": "npm:5.10.0"
-    "@preact/compat": "npm:^17.1.1"
+    "@preact/signals": "npm:^1.0.4"
     "@types/events": "npm:^3.0.0"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
