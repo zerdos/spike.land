@@ -2,7 +2,7 @@ import ea from "@emotion/react";
 // import { jsxDEV } from "react";
 
 window.EmotionReact = window.EmotionReact || ea;
-const {EmotionReact} = window;
+const { EmotionReact } = window;
 
 // import createCache from "@emotion/cache";
 // export {JSX} from "@emotion/react/jsx-dev-runtime";

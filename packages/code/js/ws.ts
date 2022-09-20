@@ -1,6 +1,6 @@
 // import "core-js/full";
-Object.assign(globalThis,require('buffer/'))  
-Object.assign(globalThis,require("stream-browserify"))
+Object.assign(globalThis, require("buffer/"));
+Object.assign(globalThis, require("stream-browserify"));
 
 import {
   applyPatch,

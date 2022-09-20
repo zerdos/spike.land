@@ -15,19 +15,17 @@ import { useEffect } from "react";
 import { renderFromString } from "renderToString";
 
 try {
-
-  if (document.scripts ) {
+  if (document.scripts) {
     const scripts = Array.from(document.scripts);
-    const imap =  scripts.find((s) => s.type === "importmap");
+    const imap = scripts.find((s) => s.type === "importmap");
     if (imap) {
       importShim.addImportMap(
         JSON.parse(
-         imap.innerText,
+          imap.innerText,
         ),
       );
     }
- 
-}
+  }
 } catch {
   console.error("no importmap");
 }
@@ -129,10 +127,10 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   // const result = md5(mST().transpiled);
 
   useEffect(() => {
-    const {html, css} = renderFromString(codeSpace);
+    const { html, css } = renderFromString(codeSpace);
     const mst = mST();
-    if (html && css && (html!==mst.html || css!==mst.css)){
-      patchSync({...mst, html, css});
+    if (html && css && (html !== mst.html || css !== mst.css)) {
+      patchSync({ ...mst, html, css });
     }
   }, [hash]);
 
@@ -143,11 +141,13 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   return (
     <ErrorBoundaryJ ref={ref}>
       <div
-       key={hash}
+        key={hash}
         css={css`
         height: 100%;
-              `} id={`${codeSpace}-${hash}`}>
-          <App />
+              `}
+        id={`${codeSpace}-${hash}`}
+      >
+        <App />
       </div>
     </ErrorBoundaryJ>
   );

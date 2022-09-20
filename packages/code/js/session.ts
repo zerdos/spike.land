@@ -167,7 +167,6 @@ export class CodeSession implements ICodeSess {
   };
 
   patchSync = (sess: ICodeSession) => {
-  
     const oldHash = this.session.hashCode();
     this.session = this.session.set(
       "state",

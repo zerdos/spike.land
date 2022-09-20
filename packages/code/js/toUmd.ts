@@ -41,7 +41,7 @@ export const toUmd = async (source: string, name: string) => {
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
 
   if (!mod.data[hash]) {
-    const transformed =  await esbuild.transform(source, {
+    const transformed = await (await esbuild.transform)(source, {
       ...opts,
       loader: name.includes(".tsx")
         ? "tsx"

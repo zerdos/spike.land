@@ -1,6 +1,9 @@
 import React from "react";
 
-class ErrorBoundary extends React.Component<{children: React.ReactNode}, {errorInfo?: {componentStack: string}, error?: Error}> {
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { errorInfo?: { componentStack: string }; error?: Error }
+> {
   constructor(props: { children: React.ReactNode }) {
     super(props);
     this.state = { error: undefined, errorInfo: undefined };
@@ -17,7 +20,7 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {errorI
 
   render() {
     if (this.state.errorInfo) {
-    //   // Error path
+      //   // Error path
       return (
         <div>
           <h2>Something went wrong.</h2>
@@ -31,7 +34,7 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {errorI
     }
     // }
     // Normally, just render children
-    return this.props.children||<></>;
+    return this.props.children || <></>;
   }
 }
 
