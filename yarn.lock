@@ -1830,23 +1830,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/cli@npm:14.7.6":
-  version: 14.7.6
-  resolution: "@nrwl/cli@npm:14.7.6"
+"@nrwl/cli@npm:14.7.8":
+  version: 14.7.8
+  resolution: "@nrwl/cli@npm:14.7.8"
   dependencies:
-    nx: "npm:14.7.6"
-  checksum: 62f3d55f25ca862662af05e56e84700e94a94093d165586be27c9ee0b8d9fc87e875fcc7b61e76227e3216a4075f1e9bc26a54a8328690d183b9ce279977f161
+    nx: "npm:14.7.8"
+  checksum: d16ab5d65074e4ac79ee7c86f2771eb62b9f21cc7eef98b603d3201a2363c0c702e9f8c38dc0a4a0ed913c90d5931ff74163ce06c0e46388d99f67a5b9e4670d
   languageName: node
   linkType: hard
 
-"@nrwl/tao@npm:14.7.6":
-  version: 14.7.6
-  resolution: "@nrwl/tao@npm:14.7.6"
+"@nrwl/tao@npm:14.7.8":
+  version: 14.7.8
+  resolution: "@nrwl/tao@npm:14.7.8"
   dependencies:
-    nx: "npm:14.7.6"
+    nx: "npm:14.7.8"
   bin:
     tao: index.js
-  checksum: fc67ec37c1f568bc4d6aa31c69097ef91bf4e48e26e6ef38f300499b9982570be8344d59b01cfe9e4e892fdc9c39c9f382f12d2da04673f0d247e17cd59fc634
+  checksum: 0debed11c055f3b60c4f4269c9c6187420150b4452df4635ad2d1a9539deecdac3b3a00727cb1e0c2b66bc7e5a734c79211b778fb2ad902edbfb490fad3ecf0e
   languageName: node
   linkType: hard
 
@@ -3343,14 +3343,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001400":
-  version: 1.0.30001406
-  resolution: "caniuse-lite@npm:1.0.30001406"
-  checksum: 88c477ddf880b81ea92200d72c566028823a8eb63a9e90fec4ff6686975c7260edf9b8db4be1bcf59d42c4ea5965799c85e52189e476c6fb2ed886996f57c308
-  languageName: node
-  linkType: hard
-
-"caniuse-lite@npm:^1.0.30001407":
+"caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407":
   version: 1.0.30001409
   resolution: "caniuse-lite@npm:1.0.30001409"
   checksum: 74d6ab68fb491875756a3fc21b5d47dfc7ce152eb55399d7b75799600b3b1fc6f252792ac151576a71497c5570ff78a321af678756bf4304fe7797522d923e05
@@ -4229,9 +4222,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.251":
-  version: 1.4.254
-  resolution: "electron-to-chromium@npm:1.4.254"
-  checksum: 91823a19a100415502fc3b239b1781a2d314cf921af4b22b5d81daeeec81f3c2420687c8d65224b33a15418729740b6c0e00ade870e232d607ea2d536a7a4f64
+  version: 1.4.256
+  resolution: "electron-to-chromium@npm:1.4.256"
+  checksum: 6e43ca9d0543e17b7193dcc657fe6bc7c3b211092c937453f5c3d5f9077e6d96de72a6482e72397895d2c8fff97f78df073f8412f8d9dc9378cac2062f5c64db
   languageName: node
   linkType: hard
 
@@ -8097,12 +8090,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:14.7.6, nx@npm:>=14.6.1 < 16":
-  version: 14.7.6
-  resolution: "nx@npm:14.7.6"
+"nx@npm:14.7.8, nx@npm:>=14.6.1 < 16":
+  version: 14.7.8
+  resolution: "nx@npm:14.7.8"
   dependencies:
-    "@nrwl/cli": "npm:14.7.6"
-    "@nrwl/tao": "npm:14.7.6"
+    "@nrwl/cli": "npm:14.7.8"
+    "@nrwl/tao": "npm:14.7.8"
     "@parcel/watcher": "npm:2.0.4"
     chalk: "npm:4.1.0"
     chokidar: "npm:^3.5.1"
@@ -8141,7 +8134,7 @@ __metadata:
       optional: true
   bin:
     nx: bin/nx.js
-  checksum: e6cb53ff6e2a8ac319c772432136e1f391dc879883fd6769ab18b15d392f8ea7766987d71e5a3cd8eaec108dc366ccb5dfdac3fa796585caa1b5932c4ea9d2dd
+  checksum: f48a6de2a5eb60c2cdee73daf473450af45537468d588bf00da6fe6db12e462ae53fccd3b1733d8270a10ac2befb94d4f362d6ce139a59b10646403d7aa9b050
   languageName: node
   linkType: hard
 
@@ -10492,11 +10485,11 @@ __metadata:
   linkType: hard
 
 "uglify-js@npm:^3.1.4":
-  version: 3.17.0
-  resolution: "uglify-js@npm:3.17.0"
+  version: 3.17.1
+  resolution: "uglify-js@npm:3.17.1"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: a996e2957932c0cdf6b3b88126e3371f902a3e7f840491af2741f311a265245a79a1ca1b49bffd19d223f81a480ae4e8a8a1f326e3619b21faf671ed98764fa3
+  checksum: acd5c4749bcead22053576444e2e7f733a471ee6aa64caf01ceba158cae9f5f1326bf853bd0e6715e181652f4705a319955c1c304c95fdd28cdbfe63e4537c80
   languageName: node
   linkType: hard
 
