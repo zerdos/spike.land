@@ -11,7 +11,7 @@ mages.githubusercontent.com/1433047/152510558-c0b763f5-d64d-4884-9fb6-8a82f57106
 ```js
 if (code) return "it is in the monorepo";
 
-// blog:          sites/blog.spike.land
+// blog:          packages/.blog.spike.land
 // docker-images: dockerhub/devimages/groovy-devcontainer
 //                                   /focal-devcontainer
 //                                   /rolling-devcontainer

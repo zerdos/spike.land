@@ -72,10 +72,10 @@ const build = (entryPoints, format = "esm") =>
     target,
     sourcemap: false,
 
-    minify: true ,//!isDevelopment,
-    minifyWhitespace: true ,//!isDevelopment,
-    minifyIdentifiers: true ,//!isDevelopment,
-    minifySyntax: true ,//!isDevelopment,
+    minify: false ,//!isDevelopment,
+    minifyWhitespace: false ,//!isDevelopment,
+    minifyIdentifiers: false ,//!isDevelopment,
+    minifySyntax: false ,//!isDevelopment,
     legalComments: "none",
     ignoreAnnotations: true ,//true,
     // external
@@ -116,7 +116,7 @@ const build = (entryPoints, format = "esm") =>
       ".css": "css",
       ".ttf": "file",
       ".d.ts": "file",
-      ".js": "ts",
+      ".js": "tsx",
       ".workerJs.js": "file",
       ".wasm": "file",
     },
