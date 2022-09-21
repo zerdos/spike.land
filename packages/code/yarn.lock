@@ -596,21 +596,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@preact/signals-core@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "@preact/signals-core@npm:1.1.1"
-  checksum: 08c49a2b0be2f084609920cfc33133f08c1117a34a616efebabcd39dd0ba43b642454049c6c6096d4060de27f37e927294249e63fd2898f28702d274894c2ecf
+"@preact/signals-core@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@preact/signals-core@npm:1.2.0"
+  checksum: 55983142a9357a68351235a3a66df8d6699fd72077c625126b94b1ccc31777f6ea5baf7e7002ea4d80cc94ff4ad943b27dd5eed660588a69d6cae1c34ea56c80
   languageName: node
   linkType: hard
 
-"@preact/signals@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "@preact/signals@npm:1.0.4"
+"@preact/signals@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@preact/signals@npm:1.1.0"
   dependencies:
-    "@preact/signals-core": "npm:^1.1.1"
+    "@preact/signals-core": "npm:^1.2.0"
   peerDependencies:
     preact: 10.x
-  checksum: bb0b14bdffe5a13bafa5b5ce9aa30a6c238c602fb0d770c1fa342c0f85568c6f2bfba572cf1f78c41c4f81aaf009da412ef6407bdaf61fdd38c7d76b131c5873
+  checksum: b68ff829f1da3ab64c9ac743c22797b02f2ce0ca25f9cac31c95d5659e57913fdf0aead2eb496fe9c0f152f9e387b5345c63ad704a750f9f276b3c517ef1d73d
   languageName: node
   linkType: hard
 
@@ -625,7 +625,7 @@ __metadata:
     "@emotion/server": "npm:^11.10.0"
     "@emotion/styled": "npm:11.10.4"
     "@mui/material": "npm:5.10.0"
-    "@preact/signals": "npm:^1.0.4"
+    "@preact/signals": "npm:^1.1.0"
     "@types/events": "npm:^3.0.0"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
@@ -637,7 +637,7 @@ __metadata:
     "@types/xo": "npm:^0.39.3"
     ace-builds: "npm:1.11.0"
     async-mutex: "npm:0.4.0"
-    autoprefixer: "npm:^10.4.11"
+    autoprefixer: "npm:^10.4.12"
     big-integer: "npm:1.6.51"
     buffer: "npm:^6.0.3"
     clean-stack: "npm:^4.2.0"
@@ -1120,12 +1120,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.11":
-  version: 10.4.11
-  resolution: "autoprefixer@npm:10.4.11"
+"autoprefixer@npm:^10.4.12":
+  version: 10.4.12
+  resolution: "autoprefixer@npm:10.4.12"
   dependencies:
-    browserslist: "npm:^4.21.3"
-    caniuse-lite: "npm:^1.0.30001399"
+    browserslist: "npm:^4.21.4"
+    caniuse-lite: "npm:^1.0.30001407"
     fraction.js: "npm:^4.2.0"
     normalize-range: "npm:^0.1.2"
     picocolors: "npm:^1.0.0"
@@ -1134,7 +1134,7 @@ __metadata:
     postcss: ^8.1.0
   bin:
     autoprefixer: bin/autoprefixer
-  checksum: e893bb48348916d33ec84b3fe5565b58f82760e402fd38da6dfd26f6b2b7fe271e49092a8bbbb1bb242fb9ae7dab6be6b9a85ae3ea53b8b449ad47ad74ce2546
+  checksum: a13c3666500092555c7ef370162868f6553035f7a7ec45dd101733665d84c7c2e510a6c87ac9be046be0f34dc51124dac59eefc891fd1068f62f2b77cc9ff12c
   languageName: node
   linkType: hard
 
@@ -1189,7 +1189,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.21.3":
+"browserslist@npm:^4.21.4":
   version: 4.21.4
   resolution: "browserslist@npm:4.21.4"
   dependencies:
@@ -1272,10 +1272,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001399, caniuse-lite@npm:^1.0.30001400":
+"caniuse-lite@npm:^1.0.30001400":
   version: 1.0.30001406
   resolution: "caniuse-lite@npm:1.0.30001406"
   checksum: 88c477ddf880b81ea92200d72c566028823a8eb63a9e90fec4ff6686975c7260edf9b8db4be1bcf59d42c4ea5965799c85e52189e476c6fb2ed886996f57c308
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001407":
+  version: 1.0.30001409
+  resolution: "caniuse-lite@npm:1.0.30001409"
+  checksum: 74d6ab68fb491875756a3fc21b5d47dfc7ce152eb55399d7b75799600b3b1fc6f252792ac151576a71497c5570ff78a321af678756bf4304fe7797522d923e05
   languageName: node
   linkType: hard
 
