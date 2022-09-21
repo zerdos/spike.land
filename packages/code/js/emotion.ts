@@ -1,4 +1,4 @@
-import ea from "@emotion/react";
+import * as ea from "../node_modules/@emotion/react/dist/emotion-react.worker.esm";
 // import { jsxDEV } from "react";
 
 window.EmotionReact = window.EmotionReact || ea;

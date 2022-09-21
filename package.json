@@ -6,8 +6,7 @@
   "author": "Zoltan Erdos <zoliika84@gmail.com>",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "sites/*"
+    "packages/*"
   ],
   "scripts": {
     "start": "lerna build && yarn open && yarn serve",
@@ -29,7 +28,7 @@
     "build:prod": "NODE_ENV=production yarn build:all",
     "docker:build": "lerna docker:build",
     "docker:push": "lerna docker:push",
-    "push": "git pull && yarn && git add . && git commit -m push && git push && cd sites/spike.land && NODE_ENV=production  yarn deploy",
+    "push": "git pull && yarn && git add . && git commit -m push && git push && cd packages/spike.land && NODE_ENV=production  yarn deploy",
     "test": "playwright test tests/*.spec.ts"
   },
   "devDependencies": {

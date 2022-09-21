@@ -3,9 +3,7 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": [
-    "packages/*",
-    "dockerhub/devimages/*",
-    "sites/*"
+    "packages/*"
   ],
   "useNx": false,
   "$schema": "node_modules/lerna/schemas/lerna-schema.json"
