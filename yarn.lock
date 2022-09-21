@@ -2090,7 +2090,7 @@ __metadata:
     "@mui/material": "npm:5.10.0"
     "@preact/signals": "npm:^1.1.0"
     "@types/events": "npm:^3.0.0"
-    "@types/hoist-non-react-statics": "npm:^3"
+    "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
     "@types/node": "npm:^18.7.18"
@@ -2308,7 +2308,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hoist-non-react-statics@npm:^3":
+"@types/hoist-non-react-statics@npm:^3.3.1":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
   dependencies:
