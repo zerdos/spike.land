@@ -46,3 +46,5 @@ test("applies a path", async () => {
 
   assert.is(hashCode(), p.newHash);
 });
+
+test.run();
