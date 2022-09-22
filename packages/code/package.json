@@ -121,7 +121,7 @@
     "@types/node": "^18.7.18",
     "@types/prettier": "2.7.0",
     "@types/react": "^18.0.20",
-    "@types/web": "0.0.73",
+    "@types/web": "0.0.74",
     "@types/xo": "^0.39.3",
     "esbuild": "^0.15.8",
     "esbuild-plugin-import-map": "2.1.0",

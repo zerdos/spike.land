@@ -2097,7 +2097,7 @@ __metadata:
     "@types/prettier": "npm:2.7.0"
     "@types/react": "npm:^18.0.20"
     "@types/react-dom": "npm:18.0.6"
-    "@types/web": "npm:0.0.73"
+    "@types/web": "npm:0.0.74"
     "@types/xo": "npm:^0.39.3"
     ace-builds: "npm:1.11.0"
     assert: "npm:^2.0.0"
@@ -2497,10 +2497,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.73":
-  version: 0.0.73
-  resolution: "@types/web@npm:0.0.73"
-  checksum: 469658c15a9e7e83c42c2ef82e560f17cdde70178ce6469d7e12284c38c2f5988c722f00c90d71ac28f80366ea06e1fd669af532a9c42df669d04d25b38d0f06
+"@types/web@npm:0.0.74":
+  version: 0.0.74
+  resolution: "@types/web@npm:0.0.74"
+  checksum: 82cadacaaa11871842da7ca665f152cbf192180d1a38de86120294ed6feff7df520ff0d4b490cf4cd4a9f14249752dea2441322e647ddcf2643933faff3868c4
   languageName: node
   linkType: hard
 
