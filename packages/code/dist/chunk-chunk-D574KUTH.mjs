@@ -18,13 +18,13 @@ import {
 import {
   _extends,
   require_emotion_cache_cjs,
-  require_emotion_memoize_cjs,
   require_emotion_serialize_cjs,
   require_emotion_use_insertion_effect_with_fallbacks_cjs,
   require_emotion_utils_cjs,
   require_emotion_weak_memoize_cjs,
-  require_hoist_non_react_statics_cjs
-} from "./chunk-chunk-Z7VM4D37.mjs";
+  require_hoist_non_react_statics_cjs,
+  require_memoize_browser_cjs
+} from "./chunk-chunk-5PWELUDJ.mjs";
 import {
   $,
   Children,
@@ -4097,7 +4097,7 @@ var require_emotion_is_prop_valid_cjs_dev = __commonJS({
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
-    var memoize2 = require_emotion_memoize_cjs();
+    var memoize2 = require_memoize_browser_cjs();
     function _interopDefault(e) {
       return e && e.__esModule ? e : { "default": e };
     }
@@ -28777,7 +28777,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-EJ72ZFKG.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-SKWTUVUE.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-VBDRVHRA.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({

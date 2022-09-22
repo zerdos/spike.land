@@ -766,14 +766,14 @@ var require_stylis = __commonJS({
   }
 });
 
-// node_modules/@emotion/memoize/dist/emotion-memoize.cjs.dev.js
-var require_emotion_memoize_cjs_dev = __commonJS({
-  "node_modules/@emotion/memoize/dist/emotion-memoize.cjs.dev.js"(exports) {
+// node_modules/@emotion/memoize/dist/memoize.browser.cjs.js
+var require_memoize_browser_cjs = __commonJS({
+  "node_modules/@emotion/memoize/dist/memoize.browser.cjs.js"(exports) {
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
     function memoize(fn) {
-      var cache = /* @__PURE__ */ Object.create(null);
+      var cache = {};
       return function(arg) {
         if (cache[arg] === void 0)
           cache[arg] = fn(arg);
@@ -781,19 +781,6 @@ var require_emotion_memoize_cjs_dev = __commonJS({
       };
     }
     exports.default = memoize;
-  }
-});
-
-// node_modules/@emotion/memoize/dist/emotion-memoize.cjs.js
-var require_emotion_memoize_cjs = __commonJS({
-  "node_modules/@emotion/memoize/dist/emotion-memoize.cjs.js"(exports, module) {
-    "use strict";
-    init_define_process();
-    if (false) {
-      module.exports = null;
-    } else {
-      module.exports = require_emotion_memoize_cjs_dev();
-    }
   }
 });
 
@@ -806,7 +793,7 @@ var require_emotion_cache_cjs_dev = __commonJS({
     var sheet = require_emotion_sheet_cjs();
     var stylis = require_stylis();
     var weakMemoize = require_emotion_weak_memoize_cjs();
-    var memoize = require_emotion_memoize_cjs();
+    var memoize = require_memoize_browser_cjs();
     function _interopDefault(e) {
       return e && e.__esModule ? e : { "default": e };
     }
@@ -1552,7 +1539,7 @@ var require_emotion_serialize_cjs_dev = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     var hashString = require_emotion_hash_cjs();
     var unitless = require_emotion_unitless_cjs();
-    var memoize = require_emotion_memoize_cjs();
+    var memoize = require_memoize_browser_cjs();
     function _interopDefault(e) {
       return e && e.__esModule ? e : { "default": e };
     }
@@ -1898,7 +1885,7 @@ function _extends() {
 
 export {
   require_emotion_weak_memoize_cjs,
-  require_emotion_memoize_cjs,
+  require_memoize_browser_cjs,
   require_emotion_cache_cjs,
   _extends,
   require_hoist_non_react_statics_cjs,
