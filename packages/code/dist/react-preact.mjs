@@ -13,6 +13,7 @@ import {
   createFactory,
   createRef,
   createRoot,
+  effect,
   fn,
   forwardRef,
   h,
@@ -43,7 +44,7 @@ import {
   useState,
   version,
   x
-} from "./chunk-chunk-FT2CTBSL.mjs";
+} from "./chunk-chunk-5QR72ELO.mjs";
 import "./chunk-chunk-IA5ZPNWL.mjs";
 init_react_preact();
 export {
@@ -63,6 +64,7 @@ export {
   createRef,
   createRoot,
   react_preact_default as default,
+  effect,
   fn as findDOMNode,
   forwardRef,
   hydrate,

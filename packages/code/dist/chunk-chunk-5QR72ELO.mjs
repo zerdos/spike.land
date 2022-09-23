@@ -1765,6 +1765,7 @@ __export(react_preact_exports, {
   createRef: () => createRef,
   createRoot: () => createRoot,
   default: () => react_preact_default,
+  effect: () => effect,
   findDOMNode: () => fn,
   forwardRef: () => forwardRef,
   hydrate: () => hydrate,
@@ -1795,7 +1796,7 @@ __export(react_preact_exports, {
   useState: () => useState,
   version: () => version
 });
-var React, createContext, signal, computed, hydrate, render, unmountComponentAtNode, react_preact_default, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
+var React, createContext, signal, effect, computed, hydrate, render, unmountComponentAtNode, react_preact_default, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
 var init_react_preact = __esm({
   "js/react-preact.ts"() {
     init_define_process();
@@ -1811,6 +1812,7 @@ var init_react_preact = __esm({
     React = window.React = window.React || { ...preact_module_exports, ..._n, ...signals_module_exports, createPortal: $2, SuspenseList: M2, findDOMNode: fn };
     ({ createContext } = React);
     ({ signal } = signals_module_exports);
+    ({ effect } = signals_module_exports);
     ({ computed } = signals_module_exports);
     ({ hydrate, render, unmountComponentAtNode } = React);
     react_preact_default = React;
@@ -1858,6 +1860,7 @@ export {
   o5 as o,
   createContext,
   signal,
+  effect,
   computed,
   hydrate,
   render,
