@@ -1,8 +1,7 @@
 export { createRoot, hydrateRoot } from "preact/compat/client";
 export { flushSync } from "preact/compat/server";
-export { signal } from "@preact/signals";
+import * as  PreactSignals from "@preact/signals";
 
-// export const flushSync = PreactCompatServer;
 
 // import { createClass  as crc  } from 'preact-compat/dist/preact-compat.min'
 
@@ -13,6 +12,7 @@ import { createElement, Fragment } from "preact";
 export { renderToString, shallowRender } from "preact-render-to-string";
 
 export { createElement };
+
 // import { createContext  } from "preact/compat"
 
 import { createPortal, findDOMNode, SuspenseList } from "preact/compat";
@@ -20,9 +20,13 @@ import { createPortal, findDOMNode, SuspenseList } from "preact/compat";
 import PreactCompat from "preact/compat";
 
 const React = window.React = window.React ||
-  { ...Preact, ...PreactCompat, createPortal, SuspenseList, findDOMNode };
+  { ...Preact, ...PreactCompat, ...PreactSignals, createPortal, SuspenseList, findDOMNode };
 
 export const { createContext } = React;
+export const {signal} = PreactSignals;
+export const {computed} = PreactSignals;
+
+
 
 import { jsx, jsxDEV, jsxs } from "preact/jsx-runtime";
 

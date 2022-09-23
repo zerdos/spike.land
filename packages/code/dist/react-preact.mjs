@@ -8,6 +8,7 @@ import {
   StrictMode,
   Suspense,
   cloneElement,
+  computed,
   createContext,
   createFactory,
   createRef,
@@ -25,7 +26,7 @@ import {
   p,
   react_preact_default,
   render,
-  u,
+  signal,
   unmountComponentAtNode,
   unstable_batchedUpdates,
   useCallback,
@@ -42,7 +43,7 @@ import {
   useState,
   version,
   x
-} from "./chunk-chunk-HNTP2YLY.mjs";
+} from "./chunk-chunk-FT2CTBSL.mjs";
 import "./chunk-chunk-IA5ZPNWL.mjs";
 init_react_preact();
 export {
@@ -54,6 +55,7 @@ export {
   Suspense,
   M as SuspenseList,
   cloneElement,
+  computed,
   createContext,
   h as createElement,
   createFactory,
@@ -74,7 +76,7 @@ export {
   render,
   S as renderToString,
   x as shallowRender,
-  u as signal,
+  signal,
   unmountComponentAtNode,
   unstable_batchedUpdates,
   useCallback,
