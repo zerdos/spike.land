@@ -38,6 +38,7 @@ export const imap = {
     "react-dom/client": preact,
     "react-dom/server": preact,
     "react/jsx-runtime": preact,
+    "@preact/signals": preact,
     "react/jsx-dev-runtime": preact,
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
