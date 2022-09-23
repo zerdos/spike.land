@@ -638,7 +638,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.6"
     "@types/web": "npm:0.0.74"
     "@types/xo": "npm:^0.39.3"
-    ace-builds: "npm:1.11.0"
+    ace-builds: "npm:1.11.1"
     assert: "npm:^2.0.0"
     async-mutex: "npm:0.4.0"
     autoprefixer: "npm:^10.4.12"
@@ -996,10 +996,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.11.0":
-  version: 1.11.0
-  resolution: "ace-builds@npm:1.11.0"
-  checksum: 2f8afe59e03098e93635e2f2af931ee266bb2967fd999e096692dfddd48a79b72cfdef832084f958b9efa65f48faa2a174177b8fd721f90a1c3b8664a8482421
+"ace-builds@npm:1.11.1":
+  version: 1.11.1
+  resolution: "ace-builds@npm:1.11.1"
+  checksum: 75d5344352db595436186feb481a23cd105ca69a7bf71bdd89d6d3ba61bf2486f1b42b0559b09078795d2355e0ac4478730bb71f63958db237bae6dd5a4bc445
   languageName: node
   linkType: hard
 

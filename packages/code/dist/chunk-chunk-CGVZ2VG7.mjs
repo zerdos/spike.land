@@ -28777,7 +28777,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-TEA76ARW.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-I3LUQKPY.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-VBDRVHRA.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -28852,7 +28852,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-5WYYONU3.mjs");
+      const { startAce } = await import("./chunk-startAce-CYZ5XDYR.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,

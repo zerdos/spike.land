@@ -1084,7 +1084,7 @@ var require_ace = __commonJS({
           };
         }
       };
-      exports2.version = "1.11.0";
+      exports2.version = "1.11.1";
     });
     ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(require2, exports2, module2) {
       "use strict";
@@ -6641,7 +6641,7 @@ var require_ace = __commonJS({
         this.setValue = function(text) {
           var len = this.getLength() - 1;
           this.remove(new Range(0, 0, len, this.getLine(len).length));
-          this.insert({ row: 0, column: 0 }, text);
+          this.insert({ row: 0, column: 0 }, text || "");
         };
         this.getValue = function() {
           return this.getAllLines().join(this.getNewLineCharacter());
