@@ -368,7 +368,7 @@ export class DevcontainerGenerator {
   ) =>
     await fs
       .readFile(
-        `../../../packages/devcontainer-generator/templates/${filename}.${extension}`,
+        `../devcontainer-generator/templates/${filename}.${extension}`,
       )
       .catch((e) => {
         console.error({ e });
