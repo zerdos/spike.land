@@ -3,10 +3,10 @@ import { promises as fs } from "fs";
 
 // versions.json
 var node = {
-  lts: "16.17.0",
-  current: "18.9.0"
+  lts: "16.17.1",
+  current: "18.9.1"
 };
-var deno = "1.25.2";
+var deno = "1.25.4";
 var git = "2.37.2";
 var cypress = "10.8.0";
 var yarn = "1.22.19";
@@ -73,7 +73,7 @@ var DevcontainerGenerator = class {
     this._chromium = false;
     this._chrome = false;
     this.loadTemplate = async (filename, extension) => await fs.readFile(
-      `../../../packages/devcontainer-generator/templates/${filename}.${extension}`
+      `../devcontainer-generator/templates/${filename}.${extension}`
     ).catch((e) => {
       console.error({ e });
       return "";
