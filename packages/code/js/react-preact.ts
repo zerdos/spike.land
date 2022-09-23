@@ -24,6 +24,7 @@ const React = window.React = window.React ||
 
 export const { createContext } = React;
 export const {signal} = PreactSignals;
+export const {effect} = PreactSignals;
 export const {computed} = PreactSignals;
 
 
