@@ -1,5 +1,5 @@
-// const reactDts = "/node_modules/../../../node_modules/@types/react/index.d.ts";
-// const jsxRuntimeDts = "/node_modules/../../../node_modules/@types/react/jsx-runtime.d.ts";
+// const reactDts = "/node_modules/../../@types/react/index.d.ts";
+// const jsxRuntimeDts = "/node_modules/../../@types/react/jsx-runtime.d.ts";
 // const reactExpDts = "/node_modules/@types/react/experimental.d.ts";
 // const globalDts = "/node_modules/@types/react/global.d.ts";
 // const propTypesDts = "/node_modules/@types/prop-types/index.d.ts";

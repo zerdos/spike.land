@@ -2114,7 +2114,7 @@ __metadata:
     esbuild-wasm: "npm:0.15.9"
     events: "npm:^3.3.0"
     fast-diff: "npm:1.2.0"
-    framer-motion: "npm:^7.3.6"
+    framer-motion: "npm:^7.4.0"
     hoist-non-react-statics: "npm:^3.3.2"
     immutable: "npm:4.1.0"
     lodash.debounce: "npm:4.0.8"
@@ -2385,14 +2385,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 18.7.21
-  resolution: "@types/node@npm:18.7.21"
-  checksum: 3de253a220d6ddbc72811a6806ff43f2c5f038cd2e1ac573bc19fa78a5207a9db7a7216f5a94c329b8f9e738671633896e945c54e7c8c558d68a24e23e751ba2
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.7.22":
+"@types/node@npm:*, @types/node@npm:^18.7.22":
   version: 18.7.22
   resolution: "@types/node@npm:18.7.22"
   checksum: 6ad2ddf9e697936d16d90561019fe3b5f28d635f6140ba08d26a98395cfec255ea68116b15453933f16c39373a4319981d0b6ec4966279c4bfed4aaf675ff83b
@@ -5707,9 +5700,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^7.3.6":
-  version: 7.3.6
-  resolution: "framer-motion@npm:7.3.6"
+"framer-motion@npm:^7.4.0":
+  version: 7.4.0
+  resolution: "framer-motion@npm:7.4.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
@@ -5724,7 +5717,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 66b86062c6bc447c2d755620965a51c820ca5caa4b7dfb3a64e1ebf99d9b7b9f05d13ff67c3e1104faf09b895be872288b9da03d7db782ad8685fbd5a8a4ddae
+  checksum: b2a4990b7d1e3cf7494cdac8f875486b113a2bebf2d78e51991f192c1afbdacc0bb60f75777f4b49f61ae037f32f031bb440680653c23c4d706a35246d50fac7
   languageName: node
   linkType: hard
 
@@ -7972,7 +7965,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.6"
     esbuild: "npm:^0.15.9"
     esbuild-plugin-import-map: "npm:^2.1.0"
-    framer-motion: "npm:^7.3.6"
+    framer-motion: "npm:^7.4.0"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:^14.0.1"

@@ -152,6 +152,7 @@ await build([
   "js/react-preact.ts",
   "js/motion.ts",
   "js/emotion.ts",
+  "js/emotionJsxRuntime.ts",
   "js/ws.ts",
 ]);
 })();

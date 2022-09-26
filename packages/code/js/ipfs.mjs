@@ -1,18 +1,18 @@
-// require("../../../node_modules/ipfs-core/dist/index.min.js");
+// require("../../ipfs-core/dist/index.min.js");
 // import { IPFSService, Server } from "ipfs-message-port-server";
 
-// import defaultConfig from "../../../node_modules/ipfs-core-config/src/config.browser.js";
-// import { libp2pConfig } from "../../../node_modules/ipfs-core-config/src/libp2p.browser.js";
-// // import repo from "../../../node_modules/ipfs-core-config/repo.browser.js"
-// // import {routers} from "../../../node_modules/ipfs-core-config/libp2p-pubsub-routers.browser.js"
+// import defaultConfig from "../../ipfs-core-config/src/config.browser.js";
+// import { libp2pConfig } from "../../ipfs-core-config/src/libp2p.browser.js";
+// // import repo from "../../ipfs-core-config/repo.browser.js"
+// // import {routers} from "../../ipfs-core-config/libp2p-pubsub-routers.browser.js"
 
 // const { IpfsCore } = self;
 
 // //import OrbitDB from "orbit-db"
-// //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
+// //import { create } from "../ipfs-core/index.min.js"//;
 // //import { create,  } from "ipfs-core"//;
 
-// // } from "../../node_modules/ipfs-message-port-server/index.min.js";
+// // } from "../ipfs-message-port-server/index.min.js";
 // // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
