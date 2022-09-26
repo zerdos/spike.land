@@ -2092,10 +2092,10 @@ __metadata:
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
     "@types/node": "npm:^18.7.19"
-    "@types/prettier": "npm:2.7.0"
+    "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
-    "@types/web": "npm:0.0.74"
+    "@types/web": "npm:0.0.75"
     "@types/xo": "npm:^0.39.3"
     ace-builds: "npm:1.11.1"
     assert: "npm:^2.0.0"
@@ -2413,10 +2413,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:2.7.0":
-  version: 2.7.0
-  resolution: "@types/prettier@npm:2.7.0"
-  checksum: ee4924676c522c0fcd10c7e03b225f09b420f5e2113cd70663539e963028bc6df3afe48055595398afeadb4871d23843d877822e673ffc62db17f23e455e0f29
+"@types/prettier@npm:2.7.1":
+  version: 2.7.1
+  resolution: "@types/prettier@npm:2.7.1"
+  checksum: 7edc43b829b0047573c1328259a1ccfee3e0127b031b8e5a4b7115e9f375abed195d1f42ee350590372041cc0f0d5b529e2dbac1198989a050f38e1ec5e19760
   languageName: node
   linkType: hard
 
@@ -2502,10 +2502,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.74":
-  version: 0.0.74
-  resolution: "@types/web@npm:0.0.74"
-  checksum: 82cadacaaa11871842da7ca665f152cbf192180d1a38de86120294ed6feff7df520ff0d4b490cf4cd4a9f14249752dea2441322e647ddcf2643933faff3868c4
+"@types/web@npm:0.0.75":
+  version: 0.0.75
+  resolution: "@types/web@npm:0.0.75"
+  checksum: 1d1c44c146d56135b0685b747cbcc6fd91c7662e90b9d3bea1a9e68964f33d57450e769caed12d17ecabf7ebe43fb0fdb6bbfde59090556be5bc0555381972e7
   languageName: node
   linkType: hard
 
