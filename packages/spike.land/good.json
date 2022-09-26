@@ -1,47 +1,47 @@
 {
   "inputs": {
-    "../../node_modules/mime/Mime.js": {
+    "../mime/Mime.js": {
       "bytes": 2892,
       "imports": []
     },
-    "../../node_modules/mime/types/standard.js": {
+    "../mime/types/standard.js": {
       "bytes": 9530,
       "imports": []
     },
-    "../../node_modules/mime/types/other.js": {
+    "../mime/types/other.js": {
       "bytes": 25894,
       "imports": []
     },
-    "../../node_modules/mime/index.js": {
+    "../mime/index.js": {
       "bytes": 127,
       "imports": [
         {
-          "path": "../../node_modules/mime/Mime.js",
+          "path": "../mime/Mime.js",
           "kind": "require-call"
         },
         {
-          "path": "../../node_modules/mime/types/standard.js",
+          "path": "../mime/types/standard.js",
           "kind": "require-call"
         },
         {
-          "path": "../../node_modules/mime/types/other.js",
+          "path": "../mime/types/other.js",
           "kind": "require-call"
         }
       ]
     },
-    "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+    "../@cloudflare/kv-asset-handler/dist/types.js": {
       "bytes": 1166,
       "imports": []
     },
-    "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+    "../@cloudflare/kv-asset-handler/dist/index.js": {
       "bytes": 11622,
       "imports": [
         {
-          "path": "../../node_modules/mime/index.js",
+          "path": "../mime/index.js",
           "kind": "require-call"
         },
         {
-          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js",
+          "path": "../@cloudflare/kv-asset-handler/dist/types.js",
           "kind": "require-call"
         }
       ]
@@ -54,7 +54,7 @@
       "bytes": 15081,
       "imports": [
         {
-          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
+          "path": "../@cloudflare/kv-asset-handler/dist/index.js",
           "kind": "import-statement"
         },
         {
@@ -184,22 +184,22 @@
       ],
       "entryPoint": "src/index.ts",
       "inputs": {
-        "../../node_modules/mime/Mime.js": {
+        "../mime/Mime.js": {
           "bytesInOutput": 2020
         },
-        "../../node_modules/mime/types/standard.js": {
+        "../mime/types/standard.js": {
           "bytesInOutput": 10359
         },
-        "../../node_modules/mime/types/other.js": {
+        "../mime/types/other.js": {
           "bytesInOutput": 27456
         },
-        "../../node_modules/mime/index.js": {
+        "../mime/index.js": {
           "bytesInOutput": 213
         },
-        "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+        "../@cloudflare/kv-asset-handler/dist/types.js": {
           "bytesInOutput": 1240
         },
-        "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+        "../@cloudflare/kv-asset-handler/dist/index.js": {
           "bytesInOutput": 8841
         },
         "src/chat.ts": {

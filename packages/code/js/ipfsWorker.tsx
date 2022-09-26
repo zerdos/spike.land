@@ -13,12 +13,12 @@ export {};
 // // import config from "ipfs-core-config/config";
 
 // //import OrbitDB from "orbit-db"
-// //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
+// //import { create } from "../ipfs-core/index.min.js"//;
 // //import { create,  } from "ipfs-core"//;
 
 // // import  {OrbitDB} from "orbit-db";
 // import { MultiService } from "ipfs-message-port-server/dist/src/server";
-// // } from "../../node_modules/ipfs-message-port-server/index.min.js";
+// // } from "../ipfs-message-port-server/index.min.js";
 // // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
