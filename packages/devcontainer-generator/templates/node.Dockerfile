@@ -2,7 +2,7 @@ FROM devimage
 
 
 
-COPY --from=node:{NODE_VERSION}-bullseye-slim --link /usr/local/bin/node /usr/local/bin/node
+COPY --from=node:lts-bullseye-slim --link /usr/local/bin/node /usr/local/bin/node
 COPY --from=node-builder --link /usr/local/bin/yarn /usr/local/bin/yarn
                                                     
 
