@@ -632,7 +632,7 @@ __metadata:
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
-    "@types/node": "npm:^18.7.21"
+    "@types/node": "npm:^18.7.22"
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
@@ -660,7 +660,7 @@ __metadata:
     immutable: "npm:4.1.0"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.35.0-dev.20220830"
+    monaco-editor: "npm:0.34.0"
     p-map: "npm:5.5.0"
     postcss: "npm:^8.4.16"
     postcss-nested: "npm:^5.0.6"
@@ -772,10 +772,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.7.21":
-  version: 18.7.21
-  resolution: "@types/node@npm:18.7.21"
-  checksum: 3de253a220d6ddbc72811a6806ff43f2c5f038cd2e1ac573bc19fa78a5207a9db7a7216f5a94c329b8f9e738671633896e945c54e7c8c558d68a24e23e751ba2
+"@types/node@npm:^18.7.22":
+  version: 18.7.22
+  resolution: "@types/node@npm:18.7.22"
+  checksum: 6ad2ddf9e697936d16d90561019fe3b5f28d635f6140ba08d26a98395cfec255ea68116b15453933f16c39373a4319981d0b6ec4966279c4bfed4aaf675ff83b
   languageName: node
   linkType: hard
 
@@ -3715,10 +3715,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20220830":
-  version: 0.35.0-dev.20220830
-  resolution: "monaco-editor@npm:0.35.0-dev.20220830"
-  checksum: 4f50515d19433fd1f643ed75d015d33f7ad27a2b6356f5163826fa597ff73fef3a9012ff7878e8c9ee75a56d471c96a04fdb6840d275f456dd3ea08818e4fa41
+"monaco-editor@npm:0.34.0":
+  version: 0.34.0
+  resolution: "monaco-editor@npm:0.34.0"
+  checksum: c88399a1b1e86eca6818719c08ec70cd76e133b949a22712ec42a0183f0566ce7887c63d8bab6cca08fbbf7723ad16092e46e331f3b15fcf288cca6aa64e9ab2
   languageName: node
   linkType: hard
 

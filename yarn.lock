@@ -2091,7 +2091,7 @@ __metadata:
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
-    "@types/node": "npm:^18.7.21"
+    "@types/node": "npm:^18.7.22"
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
@@ -2119,7 +2119,7 @@ __metadata:
     immutable: "npm:4.1.0"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.35.0-dev.20220830"
+    monaco-editor: "npm:0.34.0"
     p-map: "npm:5.5.0"
     postcss: "npm:^8.4.16"
     postcss-nested: "npm:^5.0.6"
@@ -2205,11 +2205,11 @@ __metadata:
     "@cloudflare/workers-types": "npm:^3.16.0"
     "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:^1.26.0"
-    "@types/node": "npm:^18.7.21"
+    "@types/node": "npm:^18.7.22"
     "@types/react": "npm:18.0.21"
     "@types/xo": "npm:^0.39.3"
     "@yarnpkg/fslib": "npm:^3.0.0-rc.21"
-    "@yarnpkg/sdks": "npm:3.0.0-rc.20"
+    "@yarnpkg/sdks": "npm:3.0.0-rc.21"
     comlink: "npm:^4.3.1"
     esbuild: "npm:^0.15.9"
     lerna: "npm:^5.5.2"
@@ -2385,10 +2385,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.7.21":
+"@types/node@npm:*":
   version: 18.7.21
   resolution: "@types/node@npm:18.7.21"
   checksum: 3de253a220d6ddbc72811a6806ff43f2c5f038cd2e1ac573bc19fa78a5207a9db7a7216f5a94c329b8f9e738671633896e945c54e7c8c558d68a24e23e751ba2
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.7.22":
+  version: 18.7.22
+  resolution: "@types/node@npm:18.7.22"
+  checksum: 6ad2ddf9e697936d16d90561019fe3b5f28d635f6140ba08d26a98395cfec255ea68116b15453933f16c39373a4319981d0b6ec4966279c4bfed4aaf675ff83b
   languageName: node
   linkType: hard
 
@@ -2628,17 +2635,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.0.0-rc.20":
-  version: 4.0.0-rc.20
-  resolution: "@yarnpkg/core@npm:4.0.0-rc.20"
+"@yarnpkg/core@npm:^4.0.0-rc.21":
+  version: 4.0.0-rc.21
+  resolution: "@yarnpkg/core@npm:4.0.0-rc.21"
   dependencies:
     "@arcanis/slice-ansi": "npm:^1.1.1"
     "@types/semver": "npm:^7.1.0"
     "@types/treeify": "npm:^1.0.0"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.20"
-    "@yarnpkg/libzip": "npm:^3.0.0-rc.20"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.20"
-    "@yarnpkg/shell": "npm:^4.0.0-rc.20"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.21"
+    "@yarnpkg/libzip": "npm:^3.0.0-rc.21"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.21"
+    "@yarnpkg/shell": "npm:^4.0.0-rc.21"
     camelcase: "npm:^5.3.1"
     chalk: "npm:^3.0.0"
     ci-info: "npm:^3.2.0"
@@ -2657,11 +2664,11 @@ __metadata:
     treeify: "npm:^1.1.0"
     tslib: "npm:^2.4.0"
     tunnel: "npm:^0.0.6"
-  checksum: 0140cc661e3925530856ce8ad591458ac9608f86e0fff07c4b050a11f4ca4ac1a6e95175f05747d4d2573b0a4fffa9705540f9471367d0e2e5df755f062c47b4
+  checksum: 599362d0f895fe0d9a020800548fa944751b1241e6495a3d1679b64087aad0844272aded6e65bb8fcaa0881e4b8b06565a3eacdc41a2cc5942543111b4305332
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.0.0-rc.20, @yarnpkg/fslib@npm:^3.0.0-rc.21":
+"@yarnpkg/fslib@npm:^3.0.0-rc.21":
   version: 3.0.0-rc.21
   resolution: "@yarnpkg/fslib@npm:3.0.0-rc.21"
   dependencies:
@@ -2670,7 +2677,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/libzip@npm:^3.0.0-rc.20":
+"@yarnpkg/libzip@npm:^3.0.0-rc.21":
   version: 3.0.0-rc.21
   resolution: "@yarnpkg/libzip@npm:3.0.0-rc.21"
   dependencies:
@@ -2690,7 +2697,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^3.0.0-rc.18, @yarnpkg/parsers@npm:^3.0.0-rc.20, @yarnpkg/parsers@npm:^3.0.0-rc.21":
+"@yarnpkg/parsers@npm:^3.0.0-rc.18, @yarnpkg/parsers@npm:^3.0.0-rc.21":
   version: 3.0.0-rc.21
   resolution: "@yarnpkg/parsers@npm:3.0.0-rc.21"
   dependencies:
@@ -2700,13 +2707,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:3.0.0-rc.20":
-  version: 3.0.0-rc.20
-  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.20"
+"@yarnpkg/sdks@npm:3.0.0-rc.21":
+  version: 3.0.0-rc.21
+  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.21"
   dependencies:
-    "@yarnpkg/core": "npm:^4.0.0-rc.20"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.20"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.20"
+    "@yarnpkg/core": "npm:^4.0.0-rc.21"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.21"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.21"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^3.2.0-rc.10"
     comment-json: "npm:^2.2.0"
@@ -2714,11 +2721,11 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     sdks: ./lib/cli.js
-  checksum: 561a70198492b7c6690b4d2810437f4e969bf292ed04de66f8c39ceff0b59ba3a53e0c1707fad04e8a1a37eedded8cd17ca9376bb0905fdd5aa632e8a5b54cf5
+  checksum: 9ed5a0f707f67b48a82e05873f0f3eaa3349e5b52b0d0357535014978d694e867d10d6fd286167b4721b684340dcacc17f792161671f6633f151553ab8c3b8a7
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:^4.0.0-rc.20":
+"@yarnpkg/shell@npm:^4.0.0-rc.21":
   version: 4.0.0-rc.21
   resolution: "@yarnpkg/shell@npm:4.0.0-rc.21"
   dependencies:
@@ -7853,14 +7860,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20220830":
-  version: 0.35.0-dev.20220830
-  resolution: "monaco-editor@npm:0.35.0-dev.20220830"
-  checksum: 4f50515d19433fd1f643ed75d015d33f7ad27a2b6356f5163826fa597ff73fef3a9012ff7878e8c9ee75a56d471c96a04fdb6840d275f456dd3ea08818e4fa41
-  languageName: node
-  linkType: hard
-
-"monaco-editor@npm:^0.34.0":
+"monaco-editor@npm:0.34.0, monaco-editor@npm:^0.34.0":
   version: 0.34.0
   resolution: "monaco-editor@npm:0.34.0"
   checksum: c88399a1b1e86eca6818719c08ec70cd76e133b949a22712ec42a0183f0566ce7887c63d8bab6cca08fbbf7723ad16092e46e331f3b15fcf288cca6aa64e9ab2
