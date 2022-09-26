@@ -2067,7 +2067,7 @@ __metadata:
     esbuild: "npm:0.15.9"
     miniflare: "npm:^2.9.0"
     typescript: "npm:4.8.3"
-    wrangler: "npm:2.1.6"
+    wrangler: "npm:2.1.7"
   languageName: unknown
   linkType: soft
 
@@ -7650,7 +7650,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miniflare@npm:^2.8.1, miniflare@npm:^2.9.0":
+"miniflare@npm:2.9.0, miniflare@npm:^2.9.0":
   version: 2.9.0
   resolution: "miniflare@npm:2.9.0"
   dependencies:
@@ -10985,18 +10985,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.1.6":
-  version: 2.1.6
-  resolution: "wrangler@npm:2.1.6"
+"wrangler@npm:2.1.7":
+  version: 2.1.7
+  resolution: "wrangler@npm:2.1.7"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
     "@esbuild-plugins/node-modules-polyfill": "npm:^0.1.4"
+    "@miniflare/core": "npm:2.9.0"
+    "@miniflare/d1": "npm:2.9.0"
+    "@miniflare/durable-objects": "npm:2.9.0"
     blake3-wasm: "npm:^2.1.5"
     chokidar: "npm:^3.5.3"
     esbuild: "npm:0.14.51"
     fsevents: "npm:~2.3.2"
-    miniflare: "npm:^2.8.1"
+    miniflare: "npm:2.9.0"
     nanoid: "npm:^3.3.3"
     path-to-regexp: "npm:^6.2.0"
     selfsigned: "npm:^2.0.1"
@@ -11008,7 +11011,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: d75adc8dff87ae960a8e7dfda80d86d0a5aceba924e57230a6b12efe6527439c63a43f130a051b4bf39300e2b00b48c97d690799857a89170ee4164a65ffac2f
+  checksum: 5d52d557699a52f285952453e87273f84c503d955c9cb0662efb5d616ce48b74a8915fde008ec247dc41dd5f3527605b3680eeb11c9800949242b340f515cb10
   languageName: node
   linkType: hard
 
