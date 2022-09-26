@@ -34,7 +34,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^3.16.0",
     "@playwright/test": "^1.26.0",
-    "@types/node": "^18.7.19",
+    "@types/node": "^18.7.21",
     "@types/xo": "^0.39.3",
     "@yarnpkg/sdks": "3.0.0-rc.20",
     "esbuild": "^0.15.9",
@@ -46,7 +46,7 @@
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "@emotion/react": "^11.10.4",
     "@types/react": "18.0.21",
-    "@yarnpkg/fslib": "^3.0.0-rc.20",
+    "@yarnpkg/fslib": "^3.0.0-rc.21",
     "comlink": "^4.3.1",
     "monaco-editor": "^0.34.0",
     "react": "^18.2.0"
