@@ -28078,7 +28078,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-XJHCP6YZ.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-MODFXYIP.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-MSFJDELE.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -28120,7 +28120,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.appendChild(link);
-      const { startMonaco } = await import("./chunk-startMonaco-5WW7CVUO.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-LXOYYLVQ.mjs");
       const { model, getTypeScriptWorker, setValue: setValue2 } = await startMonaco(
         {
           container: ref.current,

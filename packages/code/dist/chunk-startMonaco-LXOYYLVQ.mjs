@@ -2718,11 +2718,11 @@ function indentString(string, count = 1, options = {}) {
   return string.replace(regex, indent.repeat(count));
 }
 
-// ../../node_modules/clean-stack/index.js
+// ../../node_modules/p-map/node_modules/clean-stack/index.js
 init_define_process();
 var import_os = __toESM(require_os(), 1);
 
-// ../../node_modules/clean-stack/node_modules/escape-string-regexp/index.js
+// ../../node_modules/p-map/node_modules/escape-string-regexp/index.js
 init_define_process();
 function escapeStringRegexp(string) {
   if (typeof string !== "string") {
@@ -2731,7 +2731,7 @@ function escapeStringRegexp(string) {
   return string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
 }
 
-// ../../node_modules/clean-stack/index.js
+// ../../node_modules/p-map/node_modules/clean-stack/index.js
 var extractPathRegex = /\s+at.*[(\s](.*)\)?/;
 var pathRegex = /^(?:(?:(?:node|node:[\w/]+|(?:(?:node:)?internal\/[\w/]*|.*node_modules\/(?:babel-polyfill|pirates)\/.*)?\w+)(?:\.js)?:\d+:\d+)|native)/;
 var homeDir = typeof import_os.default.homedir === "undefined" ? "" : import_os.default.homedir().replace(/\\/g, "/");
