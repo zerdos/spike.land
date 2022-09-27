@@ -1,6 +1,11 @@
+export * from 'preact/compat'
 export { createRoot, hydrateRoot } from "preact/compat/client";
-export { flushSync } from "preact/compat/server";
-import * as  PreactSignals from "@preact/signals";
+export {jsx, jsxs} from "./preact-jsx-runtime"
+// import compat from 'preact/compat'
+// export default compat
+
+// export { flushSync } from "preact/compat/server";
+// import * as  PreactSignals from "@preact/signals";
 
 
 // import { createClass  as crc  } from 'preact-compat/dist/preact-compat.min'
@@ -20,22 +25,21 @@ import { createPortal, findDOMNode, SuspenseList } from "preact/compat";
 import PreactCompat from "preact/compat";
 
 const React = window.React = window.React ||
-  { ...Preact, ...PreactCompat, ...PreactSignals, createPortal, SuspenseList, findDOMNode };
+  { ...Preact, ...PreactCompat, createPortal, SuspenseList, findDOMNode };
 
 export const { createContext } = React;
-export const {signal} = PreactSignals;
-export const {effect} = PreactSignals;
-export const {computed} = PreactSignals;
+// export const {signal} = PreactSignals;
+// export const {effect} = PreactSignals;
+// export const {computed} = PreactSignals;
 
 
 
-import { jsx, jsxDEV, jsxs } from "preact/jsx-runtime";
+// export { jsx, jsxs } from "./preact-jsx-runtime";
 
 export { Fragment };
 // window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
 // window.renderToString = window.renderToString || renderToStr;
 
-export { jsx, jsxDEV, jsxs };
 
 export const { hydrate, render, unmountComponentAtNode } = React;
 // @ts-ignore
