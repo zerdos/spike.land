@@ -5,21 +5,6 @@ import {
 } from "./chunk-chunk-IA5ZPNWL.mjs";
 
 // ../../node_modules/preact/dist/preact.module.js
-var preact_module_exports = {};
-__export(preact_module_exports, {
-  Component: () => d,
-  Fragment: () => p,
-  cloneElement: () => q,
-  createContext: () => B,
-  createElement: () => h,
-  createRef: () => y,
-  h: () => h,
-  hydrate: () => S,
-  isValidElement: () => i,
-  options: () => l,
-  render: () => P,
-  toChildArray: () => x
-});
 function s(n3, l4) {
   for (var u4 in l4)
     n3[u4] = l4[u4];
@@ -1240,14 +1225,13 @@ var init_react_preact = __esm({
     init_client();
     init_preact_jsx_runtime();
     init_preact_module();
-    init_preact_module();
     init_dist();
     init_compat_module();
     init_compat_module();
-    React = window.React = window.React || { ...preact_module_exports, ..._n, createPortal: $2, SuspenseList: M2, findDOMNode: fn };
+    React = window.React = window.React || { ..._n, createPortal: $2, SuspenseList: M2, findDOMNode: fn };
     ({ createContext } = React);
     ({ hydrate, render, unmountComponentAtNode } = React);
-    react_preact_default = React;
+    react_preact_default = _n;
     ({
       cloneElement,
       createFactory,
