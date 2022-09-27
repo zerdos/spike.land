@@ -10,13 +10,11 @@ export {jsx, jsxs} from "./preact-jsx-runtime"
 
 // import { createClass  as crc  } from 'preact-compat/dist/preact-compat.min'
 
-import * as Preact from "preact";
 
-import { createElement, Fragment } from "preact";
+export { createElement, Fragment } from "preact";
 
 export { renderToString, shallowRender } from "preact-render-to-string";
 
-export { createElement };
 
 // import { createContext  } from "preact/compat"
 
@@ -25,8 +23,7 @@ import { createPortal, findDOMNode, SuspenseList } from "preact/compat";
 import PreactCompat from "preact/compat";
 
 const React = window.React = window.React ||
-  { ...Preact, ...PreactCompat, createPortal, SuspenseList, findDOMNode };
-
+  { ...PreactCompat, createPortal, SuspenseList, findDOMNode }; 
 export const { createContext } = React;
 // export const {signal} = PreactSignals;
 // export const {effect} = PreactSignals;
@@ -36,7 +33,6 @@ export const { createContext } = React;
 
 // export { jsx, jsxs } from "./preact-jsx-runtime";
 
-export { Fragment };
 // window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
 // window.renderToString = window.renderToString || renderToStr;
 
@@ -45,7 +41,7 @@ export const { hydrate, render, unmountComponentAtNode } = React;
 // @ts-ignore
 
 // export const { toChildArray } = PreactCompat;
-export default React;
+export default PreactCompat;
 
 export { createPortal, findDOMNode, SuspenseList };
 
