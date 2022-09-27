@@ -1186,18 +1186,18 @@ __export(react_preact_exports, {
   findDOMNode: () => fn,
   flushSync: () => sn,
   forwardRef: () => forwardRef,
-  hydrate: () => hydrate,
+  hydrate: () => Y,
   hydrateRoot: () => hydrateRoot,
   isValidElement: () => isValidElement,
   jsx: () => o3,
   jsxs: () => o3,
   lazy: () => lazy,
   memo: () => memo,
-  render: () => render,
+  render: () => Z,
   renderToString: () => S2,
   shallowRender: () => x4,
   startTransition: () => vn,
-  unmountComponentAtNode: () => unmountComponentAtNode,
+  unmountComponentAtNode: () => cn,
   unstable_batchedUpdates: () => unstable_batchedUpdates,
   useCallback: () => useCallback,
   useContext: () => useContext,
@@ -1217,7 +1217,7 @@ __export(react_preact_exports, {
   useTransition: () => pn,
   version: () => version
 });
-var React, createContext, hydrate, render, unmountComponentAtNode, react_preact_default, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
+var React, createContext, react_preact_default, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
 var init_react_preact = __esm({
   "js/react-preact.ts"() {
     init_define_process();
@@ -1229,7 +1229,6 @@ var init_react_preact = __esm({
     init_compat_module();
     React = window.React = window.React || { ..._n };
     ({ createContext } = React);
-    ({ hydrate, render, unmountComponentAtNode } = React);
     react_preact_default = _n;
     ({
       cloneElement,
@@ -1268,7 +1267,10 @@ export {
   V,
   M2 as M,
   $2 as $,
+  Z,
+  Y,
   en,
+  cn,
   fn,
   sn,
   vn,
@@ -1281,9 +1283,6 @@ export {
   x4 as x,
   S2 as S,
   createContext,
-  hydrate,
-  render,
-  unmountComponentAtNode,
   react_preact_default,
   cloneElement,
   createFactory,

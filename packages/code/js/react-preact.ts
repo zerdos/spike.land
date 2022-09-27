@@ -37,13 +37,13 @@ export const { createContext } = React;
 // window.renderToString = window.renderToString || renderToStr;
 
 
-export const { hydrate, render, unmountComponentAtNode } = React;
+// export const { hydrate, render, unmountComponentAtNode } = React;
 // @ts-ignore
 
 // export const { toChildArray } = PreactCompat;
 export default PreactCompat;
 
-export { createPortal, findDOMNode, SuspenseList };
+// export { createPortal, findDOMNode, SuspenseList };
 
 export const {
   cloneElement,
