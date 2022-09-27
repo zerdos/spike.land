@@ -2067,7 +2067,7 @@ __metadata:
     esbuild: "npm:0.15.9"
     miniflare: "npm:^2.9.0"
     typescript: "npm:4.8.3"
-    wrangler: "npm:2.1.7"
+    wrangler: "npm:2.1.8"
   languageName: unknown
   linkType: soft
 
@@ -2103,7 +2103,7 @@ __metadata:
     autoprefixer: "npm:^10.4.12"
     big-integer: "npm:1.6.51"
     buffer: "npm:^6.0.3"
-    clean-stack: "npm:^4.2.0"
+    clean-stack: "npm:^5.0.0"
     comlink: "npm:^4.3.1"
     csstype: "npm:^3.1.1"
     es-module-shims: "npm:^1.5.18"
@@ -3593,12 +3593,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clean-stack@npm:^4.0.0, clean-stack@npm:^4.2.0":
+"clean-stack@npm:^4.0.0":
   version: 4.2.0
   resolution: "clean-stack@npm:4.2.0"
   dependencies:
     escape-string-regexp: "npm:5.0.0"
   checksum: 5753ba03151b57a01faeff9191beb94d443bfe532bbea51d60838dbf33100ca260e776f6de0b2183fe4fb931d5102dd23fdcbd4431ddfa8e3bfca7ed005104cd
+  languageName: node
+  linkType: hard
+
+"clean-stack@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "clean-stack@npm:5.0.0"
+  dependencies:
+    escape-string-regexp: "npm:5.0.0"
+  checksum: 0272e95e95c21fed7a938252404d981773da3a236fe83a41e6a84f56b834d0950847b7cddd0ef6b5832b7a9dde42711e0aff2d8ecef6a0b0631da46ecb2dc883
   languageName: node
   linkType: hard
 
@@ -10992,9 +11001,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.1.7":
-  version: 2.1.7
-  resolution: "wrangler@npm:2.1.7"
+"wrangler@npm:2.1.8":
+  version: 2.1.8
+  resolution: "wrangler@npm:2.1.8"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
@@ -11018,7 +11027,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 5d52d557699a52f285952453e87273f84c503d955c9cb0662efb5d616ce48b74a8915fde008ec247dc41dd5f3527605b3680eeb11c9800949242b340f515cb10
+  checksum: dd14faccd7962ad711371ccf083c75dcfea28c8289b743ef9a10e5743a0eb289eebb46db032d38236ea01495294659993856cc4e34b0d20023638310117bfddd
   languageName: node
   linkType: hard
 
