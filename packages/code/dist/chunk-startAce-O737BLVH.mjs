@@ -1084,7 +1084,7 @@ var require_ace = __commonJS({
           };
         }
       };
-      exports2.version = "1.11.1";
+      exports2.version = "1.11.2";
     });
     ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(require2, exports2, module2) {
       "use strict";
