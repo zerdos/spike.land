@@ -22116,7 +22116,7 @@ function hslToRgb(color2) {
 }
 function getLuminance(color2) {
   color2 = decomposeColor(color2);
-  let rgb = color2.type === "hsl" ? decomposeColor(hslToRgb(color2)).values : color2.values;
+  let rgb = color2.type === "hsl" || color2.type === "hsla" ? decomposeColor(hslToRgb(color2)).values : color2.values;
   rgb = rgb.map((val) => {
     if (color2.type !== "color") {
       val /= 255;
@@ -22306,7 +22306,7 @@ var DEFAULT_ATTRIBUTE = "data-color-scheme";
 function getInitColorSchemeScript(options) {
   const {
     enableColorScheme = true,
-    enableSystem = false,
+    defaultMode = "light",
     defaultLightColorScheme = "light",
     defaultDarkColorScheme = "dark",
     modeStorageKey = DEFAULT_MODE_STORAGE_KEY,
@@ -22317,10 +22317,10 @@ function getInitColorSchemeScript(options) {
   return o("script", {
     dangerouslySetInnerHTML: {
       __html: `(function() { try {
-        var mode = localStorage.getItem('${modeStorageKey}');
+        var mode = localStorage.getItem('${modeStorageKey}') || '${defaultMode}';
         var cssColorScheme = mode;
         var colorScheme = '';
-        if (mode === 'system' || (!mode && !!${enableSystem})) {
+        if (mode === 'system') {
           // handle system mode
           var mql = window.matchMedia('(prefers-color-scheme: dark)');
           if (mql.matches) {
@@ -22563,7 +22563,8 @@ function createCssVarsProvider(options) {
     disableTransitionOnChange: designSystemTransitionOnChange = false,
     enableColorScheme: designSystemEnableColorScheme = true,
     shouldSkipGeneratingVar: designSystemShouldSkipGeneratingVar,
-    resolveTheme
+    resolveTheme,
+    excludeVariablesFromRoot
   } = options;
   if (!defaultTheme7.colorSchemes || typeof designSystemColorScheme === "string" && !defaultTheme7.colorSchemes[designSystemColorScheme] || typeof designSystemColorScheme === "object" && !defaultTheme7.colorSchemes[designSystemColorScheme == null ? void 0 : designSystemColorScheme.light] || typeof designSystemColorScheme === "object" && !defaultTheme7.colorSchemes[designSystemColorScheme == null ? void 0 : designSystemColorScheme.dark]) {
     console.error(`MUI: \`${designSystemColorScheme}\` does not exist in \`theme.colorSchemes\`.`);
@@ -22672,6 +22673,14 @@ function createCssVarsProvider(options) {
         return defaultColorScheme.light;
       })();
       if (key === resolvedDefaultColorScheme) {
+        if (excludeVariablesFromRoot) {
+          const excludedVariables = {};
+          excludeVariablesFromRoot(cssVarPrefix).forEach((cssVar) => {
+            excludedVariables[cssVar] = css7[cssVar];
+            delete css7[cssVar];
+          });
+          defaultColorSchemeStyleSheet[`[${attribute}="${key}"]`] = excludedVariables;
+        }
         defaultColorSchemeStyleSheet[`${colorSchemeSelector}, [${attribute}="${key}"]`] = css7;
       } else {
         otherColorSchemesStyleSheet[`${colorSchemeSelector === ":root" ? "" : colorSchemeSelector}[${attribute}="${key}"]`] = css7;
@@ -28078,7 +28087,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-C4MIRJQQ.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-OB4JS5CJ.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-MSFJDELE.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
