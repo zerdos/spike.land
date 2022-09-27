@@ -1227,8 +1227,7 @@ var init_react_preact = __esm({
     init_preact_module();
     init_dist();
     init_compat_module();
-    init_compat_module();
-    React = window.React = window.React || { ..._n, createPortal: $2, SuspenseList: M2, findDOMNode: fn };
+    React = window.React = window.React || { ..._n };
     ({ createContext } = React);
     ({ hydrate, render, unmountComponentAtNode } = React);
     react_preact_default = _n;

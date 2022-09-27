@@ -18,12 +18,12 @@ export { renderToString, shallowRender } from "preact-render-to-string";
 
 // import { createContext  } from "preact/compat"
 
-import { createPortal, findDOMNode, SuspenseList } from "preact/compat";
+// export { createPortal, findDOMNode, SuspenseList } from "preact/compat";
 
 import PreactCompat from "preact/compat";
 
 const React = window.React = window.React ||
-  { ...PreactCompat, createPortal, SuspenseList, findDOMNode }; 
+  { ...PreactCompat }; 
 export const { createContext } = React;
 // export const {signal} = PreactSignals;
 // export const {effect} = PreactSignals;
