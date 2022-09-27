@@ -2091,13 +2091,13 @@ __metadata:
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
-    "@types/node": "npm:^18.7.22"
+    "@types/node": "npm:^18.7.23"
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
     "@types/web": "npm:0.0.75"
     "@types/xo": "npm:^0.39.3"
-    ace-builds: "npm:1.11.1"
+    ace-builds: "npm:1.11.2"
     assert: "npm:^2.0.0"
     async-mutex: "npm:0.4.0"
     autoprefixer: "npm:^10.4.12"
@@ -2205,7 +2205,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:^3.16.0"
     "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:^1.26.0"
-    "@types/node": "npm:^18.7.22"
+    "@types/node": "npm:^18.7.23"
     "@types/react": "npm:18.0.21"
     "@types/xo": "npm:^0.39.3"
     "@yarnpkg/fslib": "npm:^3.0.0-rc.21"
@@ -2385,10 +2385,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.7.22":
+"@types/node@npm:*":
   version: 18.7.22
   resolution: "@types/node@npm:18.7.22"
   checksum: 6ad2ddf9e697936d16d90561019fe3b5f28d635f6140ba08d26a98395cfec255ea68116b15453933f16c39373a4319981d0b6ec4966279c4bfed4aaf675ff83b
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.7.23":
+  version: 18.7.23
+  resolution: "@types/node@npm:18.7.23"
+  checksum: 83f50561f3858e514d864cea3fbfc3142ec58a6acaf9c405609776b97b67a4692309feb1b9f928cca8ebdc964554a2e02480feb98f1774881ce440a9df722924
   languageName: node
   linkType: hard
 
@@ -2783,10 +2790,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.11.1":
-  version: 1.11.1
-  resolution: "ace-builds@npm:1.11.1"
-  checksum: 75d5344352db595436186feb481a23cd105ca69a7bf71bdd89d6d3ba61bf2486f1b42b0559b09078795d2355e0ac4478730bb71f63958db237bae6dd5a4bc445
+"ace-builds@npm:1.11.2":
+  version: 1.11.2
+  resolution: "ace-builds@npm:1.11.2"
+  checksum: 5f32a3db42be8cd166f1f8829046e91ff21925fc134d3cb9b5c60c29f65fb57a3c01c9cbdca16b61f2f728fafa05e447a121c47c941922d5fb63102706668dc4
   languageName: node
   linkType: hard
 

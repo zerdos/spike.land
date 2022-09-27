@@ -229,7 +229,7 @@ export const Editor: React.FC<
   }, [setValue, getValue, onChange, counter, prettierJs, runner]);
 
   onSessionUpdate(() => {
-    console.log("sessUP");
+  
     const sess = mST();
 
     setTimeout(() => {
@@ -237,7 +237,7 @@ export const Editor: React.FC<
         return;
       }
       if (mST().i > sess.i) return;
-
+      console.log("sessUP");
       // console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
       setValue(sess.code);
 
