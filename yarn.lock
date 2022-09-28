@@ -1997,15 +1997,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.26.0":
-  version: 1.26.0
-  resolution: "@playwright/test@npm:1.26.0"
+"@playwright/test@npm:^1.26.1":
+  version: 1.26.1
+  resolution: "@playwright/test@npm:1.26.1"
   dependencies:
     "@types/node": "npm:*"
-    playwright-core: "npm:1.26.0"
+    playwright-core: "npm:1.26.1"
   bin:
     playwright: cli.js
-  checksum: 83d11de7d584c4d9ee512ce46d3158c59d8dbc36100a5790876b0bf9a7fbb3a5cb3f250281ac35ae311aa1121b030147bbe685487e6bfdba985ffa89b5abbc19
+  checksum: 47f0a7899b031ff75fa97a9ab25ab68960099db139793f814068a3744ac04b50e76fda5edcca301e92d8c390e1bc63da2b22f7bfdc3522ca9c7e8caa8462c7e3
   languageName: node
   linkType: hard
 
@@ -2066,7 +2066,7 @@ __metadata:
     "@spike.land/code": "npm:^0.9.2"
     esbuild: "npm:0.15.9"
     miniflare: "npm:^2.9.0"
-    typescript: "npm:4.8.3"
+    typescript: "npm:4.8.4"
     wrangler: "npm:2.1.8"
   languageName: unknown
   linkType: soft
@@ -2135,7 +2135,7 @@ __metadata:
     react-reverse-portal: "npm:^2.1.1"
     stream-browserify: "npm:^3.0.0"
     tslib: "npm:^2.4.0"
-    typescript: "npm:4.8.3"
+    typescript: "npm:4.8.4"
     uvu: "npm:0.5.6"
     xo: "npm:^0.52.3"
   languageName: unknown
@@ -2204,7 +2204,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@cloudflare/workers-types": "npm:^3.16.0"
     "@emotion/react": "npm:^11.10.4"
-    "@playwright/test": "npm:^1.26.0"
+    "@playwright/test": "npm:^1.26.1"
     "@types/node": "npm:^18.7.23"
     "@types/react": "npm:18.0.21"
     "@types/xo": "npm:^0.39.3"
@@ -2215,7 +2215,7 @@ __metadata:
     lerna: "npm:^5.5.2"
     monaco-editor: "npm:^0.34.0"
     react: "npm:^18.2.0"
-    typescript: "npm:^4.8.3"
+    typescript: "npm:^4.8.4"
     xo: "npm:^0.52.3"
   languageName: unknown
   linkType: soft
@@ -7978,7 +7978,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:^14.0.1"
-    typescript: "npm:^4.8.3"
+    typescript: "npm:^4.8.4"
   languageName: unknown
   linkType: soft
 
@@ -8891,12 +8891,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.26.0":
-  version: 1.26.0
-  resolution: "playwright-core@npm:1.26.0"
+"playwright-core@npm:1.26.1":
+  version: 1.26.1
+  resolution: "playwright-core@npm:1.26.1"
   bin:
     playwright: cli.js
-  checksum: 33125ff44ac638a1d2ca2137518b1719620d95e44d63f9526d7e1a1a810944de5564ca3ce172fde1098e0598fb1bbb355586a21684833cd8b3f5cea260119682
+  checksum: b4bf350ec3e66186ba31c95991f28bdb87fbe0a0c2ac5fd951c6f585bdb246c174ae44aee95d82537743357f179468e69daaee1c1623724418e0e5e374310786
   languageName: node
   linkType: hard
 
@@ -10664,7 +10664,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.8.3, typescript@npm:^3 || ^4, typescript@npm:^4.7.3, typescript@npm:^4.8.3":
+"typescript@npm:4.8.4, typescript@npm:^4.8.4":
+  version: 4.8.4
+  resolution: "typescript@npm:4.8.4"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 008c336ed785130b6e13254adbfc4084f5dbbe62851df9bac3eaf62fc29e0a396839c00ce47e0d92db44fa9a08b9f7ba4d31304f2b10cf7d42a0817728e822a1
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^3 || ^4, typescript@npm:^4.7.3":
   version: 4.8.3
   resolution: "typescript@npm:4.8.3"
   bin:
@@ -10674,7 +10684,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A4.8.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^3 || ^4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.7.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.8.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.8.4#optional!builtin<compat/typescript>":
+  version: 4.8.4
+  resolution: "typescript@patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=a1c5e5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 696783974850fa4a345b270a7629f37bbb5277504e7262a105e44d3e3776a4337f13b5f0a484ebb0b377449391a7fd270746c8c9f7492bfa389613477fb5ea6a
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^3 || ^4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.7.3#optional!builtin<compat/typescript>":
   version: 4.8.3
   resolution: "typescript@patch:typescript@npm%3A4.8.3#optional!builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"
   bin:
