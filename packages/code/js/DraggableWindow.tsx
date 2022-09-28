@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { domMax, LazyMotion, m } from "framer-motion";
 import { QRButton } from "./Qr";
 
+import { MdFullscreen as FullscreenIcon } from "react-icons/md";
+
 // import { useSpring, a } from '@react-spring/web'
 
 import {
   Fab,
-  FullscreenIcon,
   Phone,
   Share,
   Tablet,
@@ -39,7 +40,7 @@ interface DraggableWindowProps {
   hashCode: number;
   position?: string;
   room: string;
-  children: React.ReactNode;
+  children: JSX.Element;
 }
 
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
@@ -263,7 +264,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   >
                     {size === 680
                       ? (
-                        <Phone
+                        <span
                           css={css`
                         color: ${
                             width === 680
@@ -271,11 +272,11 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                               : "rgba(0,0,0,.3)"
                           };
                         `}
-                        />
+                        ><Phone/></span>
                       )
                       : (size === 768
                         ? (
-                          <Tablet
+                          <span
                             css={css`
                         color: ${
                               width === 768
@@ -283,10 +284,10 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                                 : "rgba(0,0,0,.3)"
                             };
                         `}
-                          />
+                          ><Tablet/></span>
                         )
                         : (
-                          <Tv
+                          <span
                             css={css`
                         color: ${
                               width === 1920
@@ -294,7 +295,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                                 : "rgba(0,0,0,.3)"
                             };
                       `}
-                          />
+                          ><Tv/></span>
                         ))}
                   </ToggleButton>
                 ))}
@@ -321,8 +322,13 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 onClick={() => {
                   document.getElementById("root")?.requestFullscreen();
                 }}
-              >
+              ><span css={css`
+                font-size: 20pt;
+              `}>
+
+          
                 <FullscreenIcon key="fs" />
+                </span>
               </Fab>
 
               <QRButton
