@@ -4,7 +4,9 @@ import { useState } from "react";
 import type { FC } from "react";
 import { QRious } from "react-qrious";
 
-import { Fab, QrCode } from "./mui";
+import { MdQrCode2 as QrCode } from "react-icons/md";
+
+import { Fab } from "./mui";
 
 const QR: FC<{ url: string }> = ({ url }) => <QRious value={url} />;
 
@@ -33,9 +35,9 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
             />
           )
           : (
-            <Fab>
+            <Fab><span css={css`font-size: 20pt;`}>
               <QrCode />
-            </Fab>
+              </span>            </Fab>
           )}
       </m.div>
     </LazyMotion>

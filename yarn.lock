@@ -2131,6 +2131,7 @@ __metadata:
     qrious: "npm:^4.0.2"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-icons: "npm:^4.4.0"
     react-qrious: "npm:2.5.5"
     react-reverse-portal: "npm:^2.1.1"
     stream-browserify: "npm:^3.0.0"
@@ -9313,6 +9314,15 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7c5b915fb793d63563cec1f721e059e6ff0e2855ac116ab5cb7450b6c59398f5e25f95c960ce5cb93504cc58ab724a75a78e99282354e702a0e667d0d787d028
+  languageName: node
+  linkType: hard
+
+"react-icons@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "react-icons@npm:4.4.0"
+  peerDependencies:
+    react: "*"
+  checksum: bf7636ddd253fe199e2e71c030971ddc9a2f1d2c874409eecea88707ada655346a26153422cba6db30f7d6e4a7db8d545c76adba01b2197db0e57b4ea4d5b7ff
   languageName: node
   linkType: hard
 

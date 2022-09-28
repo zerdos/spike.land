@@ -41,7 +41,6 @@ import {
   h,
   init_react_preact,
   isValidElement,
-  memo,
   o,
   p,
   react_preact_default,
@@ -11820,8 +11819,8 @@ init_define_process();
 var renderFromString = (codeSpace2) => {
   var _a;
   const html = (_a = document.getElementById(`${codeSpace2}-${hashCode()}`)) == null ? void 0 : _a.innerHTML;
-  const css7 = html ? extractCritical22(html) : "";
-  return { html, css: css7 };
+  const css8 = html ? extractCritical22(html) : "";
+  return { html, css: css8 };
 };
 var extractCritical22 = (html) => {
   try {
@@ -11868,10 +11867,10 @@ var apps = {};
 var ErrorBoundaryJ = ErrorBoundary_default;
 var AutoUpdateApp = ({ hash: hash3, codeSpace: codeSpace2 }) => {
   useEffect(() => {
-    const { html, css: css7 } = renderFromString(codeSpace2);
+    const { html, css: css8 } = renderFromString(codeSpace2);
     const mst = mST();
-    if (html && css7 && (html !== mst.html || css7 !== mst.css)) {
-      patchSync({ ...mst, html, css: css7 });
+    if (html && css8 && (html !== mst.html || css8 !== mst.css)) {
+      patchSync({ ...mst, html, css: css8 });
     }
   }, [hash3]);
   const ref = useRef(null);
@@ -11967,16 +11966,16 @@ function createJsBlob(code) {
 }
 
 // js/renderPreviewWindow.tsx
-var import_react28 = __toESM(require_emotion_react_cjs(), 1);
+var import_react31 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/DraggableWindow.tsx
 init_define_process();
-var import_react22 = __toESM(require_emotion_react_cjs(), 1);
+var import_react25 = __toESM(require_emotion_react_cjs(), 1);
 init_react_preact();
 
 // js/Qr.tsx
 init_define_process();
-var import_react20 = __toESM(require_emotion_react_cjs(), 1);
+var import_react23 = __toESM(require_emotion_react_cjs(), 1);
 init_react_preact();
 
 // ../../node_modules/react-qrious/lib/index.js
@@ -12017,8 +12016,121 @@ var QRious2 = (_a) => {
   return h("img", Object.assign(Object.assign({}, props), { src: dataUrl }));
 };
 
+// ../../node_modules/react-icons/md/index.esm.js
+init_define_process();
+
+// ../../node_modules/react-icons/lib/esm/index.js
+init_define_process();
+
+// ../../node_modules/react-icons/lib/esm/iconsManifest.js
+init_define_process();
+
+// ../../node_modules/react-icons/lib/esm/iconBase.js
+init_define_process();
+init_react_preact();
+
+// ../../node_modules/react-icons/lib/esm/iconContext.js
+init_define_process();
+init_react_preact();
+var DefaultContext = {
+  color: void 0,
+  size: void 0,
+  className: void 0,
+  style: void 0,
+  attr: void 0
+};
+var IconContext = react_preact_default.createContext && react_preact_default.createContext(DefaultContext);
+
+// ../../node_modules/react-icons/lib/esm/iconBase.js
+var __assign = function() {
+  __assign = Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+      for (var p2 in s)
+        if (Object.prototype.hasOwnProperty.call(s, p2))
+          t[p2] = s[p2];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
+};
+var __rest2 = function(s, e) {
+  var t = {};
+  for (var p2 in s)
+    if (Object.prototype.hasOwnProperty.call(s, p2) && e.indexOf(p2) < 0)
+      t[p2] = s[p2];
+  if (s != null && typeof Object.getOwnPropertySymbols === "function")
+    for (var i = 0, p2 = Object.getOwnPropertySymbols(s); i < p2.length; i++) {
+      if (e.indexOf(p2[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p2[i]))
+        t[p2[i]] = s[p2[i]];
+    }
+  return t;
+};
+function Tree2Element(tree) {
+  return tree && tree.map(function(node, i) {
+    return react_preact_default.createElement(node.tag, __assign({
+      key: i
+    }, node.attr), Tree2Element(node.child));
+  });
+}
+function GenIcon(data) {
+  return function(props) {
+    return react_preact_default.createElement(IconBase, __assign({
+      attr: __assign({}, data.attr)
+    }, props), Tree2Element(data.child));
+  };
+}
+function IconBase(props) {
+  var elem = function(conf) {
+    var attr = props.attr, size = props.size, title = props.title, svgProps = __rest2(props, ["attr", "size", "title"]);
+    var computedSize = size || conf.size || "1em";
+    var className;
+    if (conf.className)
+      className = conf.className;
+    if (props.className)
+      className = (className ? className + " " : "") + props.className;
+    return react_preact_default.createElement("svg", __assign({
+      stroke: "currentColor",
+      fill: "currentColor",
+      strokeWidth: "0"
+    }, conf.attr, attr, svgProps, {
+      className,
+      style: __assign(__assign({
+        color: props.color || conf.color
+      }, conf.style), props.style),
+      height: computedSize,
+      width: computedSize,
+      xmlns: "http://www.w3.org/2000/svg"
+    }), title && react_preact_default.createElement("title", null, title), props.children);
+  };
+  return IconContext !== void 0 ? react_preact_default.createElement(IconContext.Consumer, null, function(conf) {
+    return elem(conf);
+  }) : elem(DefaultContext);
+}
+
+// ../../node_modules/react-icons/md/index.esm.js
+function MdQrCode2(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M15 21h-2v-2h2v2zm-2-7h-2v5h2v-5zm8-2h-2v4h2v-4zm-2-2h-2v2h2v-2zM7 12H5v2h2v-2zm-2-2H3v2h2v-2zm7-5h2V3h-2v2zm-7.5-.5v3h3v-3h-3zM9 9H3V3h6v6zm-4.5 7.5v3h3v-3h-3zM9 21H3v-6h6v6zm7.5-16.5v3h3v-3h-3zM21 9h-6V3h6v6zm-2 10v-3h-4v2h2v3h4v-2h-2zm-2-7h-4v2h4v-2zm-4-2H7v2h2v2h2v-2h2v-2zm1-1V7h-2V5h-2v4h4zM6.75 5.25h-1.5v1.5h1.5v-1.5zm0 12h-1.5v1.5h1.5v-1.5zm12-12h-1.5v1.5h1.5v-1.5z" } }] })(props);
+}
+function MdPhoneAndroid(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z" } }] })(props);
+}
+function MdTabletAndroid(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z" } }] })(props);
+}
+function MdTv(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z" } }] })(props);
+}
+function MdFullscreen(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" } }] })(props);
+}
+function MdShare(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" } }] })(props);
+}
+
 // js/mui.tsx
 init_define_process();
+var import_react22 = __toESM(require_emotion_react_cjs(), 1);
 
 // ../../node_modules/@mui/material/Fab/Fab.js
 init_define_process();
@@ -14937,8 +15049,8 @@ function getContainingBlock(element) {
     currentNode = currentNode.host;
   }
   while (isHTMLElement(currentNode) && ["html", "body"].indexOf(getNodeName(currentNode)) < 0) {
-    var css7 = getComputedStyle(currentNode);
-    if (css7.transform !== "none" || css7.perspective !== "none" || css7.contain === "paint" || ["transform", "perspective"].indexOf(css7.willChange) !== -1 || isFirefox && css7.willChange === "filter" || isFirefox && css7.filter && css7.filter !== "none") {
+    var css8 = getComputedStyle(currentNode);
+    if (css8.transform !== "none" || css8.perspective !== "none" || css8.contain === "paint" || ["transform", "perspective"].indexOf(css8.willChange) !== -1 || isFirefox && css8.willChange === "filter" || isFirefox && css8.filter && css8.filter !== "none") {
       return currentNode;
     } else {
       currentNode = currentNode.parentNode;
@@ -20503,7 +20615,7 @@ init_define_process();
 // ../../node_modules/@mui/styled-engine/index.js
 init_define_process();
 var import_styled = __toESM(require_emotion_styled_cjs());
-var import_react12 = __toESM(require_emotion_react_cjs());
+var import_react14 = __toESM(require_emotion_react_cjs());
 
 // ../../node_modules/@mui/styled-engine/StyledEngineProvider/index.js
 init_define_process();
@@ -20511,7 +20623,7 @@ init_define_process();
 // ../../node_modules/@mui/styled-engine/StyledEngineProvider/StyledEngineProvider.js
 init_define_process();
 var import_prop_types28 = __toESM(require_prop_types());
-var import_react10 = __toESM(require_emotion_react_cjs());
+var import_react12 = __toESM(require_emotion_react_cjs());
 var import_cache = __toESM(require_emotion_cache_cjs());
 init_react_preact();
 var cache = (0, import_cache.default)({
@@ -20523,7 +20635,7 @@ function StyledEngineProvider(props) {
     injectFirst,
     children: children2
   } = props;
-  return injectFirst ? o(import_react10.CacheProvider, {
+  return injectFirst ? o(import_react12.CacheProvider, {
     value: cache,
     children: children2
   }) : children2;
@@ -20539,7 +20651,7 @@ init_define_process();
 // ../../node_modules/@mui/styled-engine/GlobalStyles/GlobalStyles.js
 init_define_process();
 var import_prop_types29 = __toESM(require_prop_types());
-var import_react11 = __toESM(require_emotion_react_cjs());
+var import_react13 = __toESM(require_emotion_react_cjs());
 init_react_preact();
 function isEmpty2(obj) {
   return obj === void 0 || obj === null || Object.keys(obj).length === 0;
@@ -20550,7 +20662,7 @@ function GlobalStyles(props) {
     defaultTheme: defaultTheme7 = {}
   } = props;
   const globalStyles = typeof styles2 === "function" ? (themeInput) => styles2(isEmpty2(themeInput) ? defaultTheme7 : themeInput) : styles2;
-  return o(import_react11.Global, {
+  return o(import_react13.Global, {
     styles: globalStyles
   });
 }
@@ -21400,13 +21512,13 @@ function unstable_createStyleFunctionSx(styleFunctionMapping2 = styleFunctionMap
       }
       const emptyBreakpoints = createEmptyBreakpointObject(theme.breakpoints);
       const breakpointsKeys = Object.keys(emptyBreakpoints);
-      let css7 = emptyBreakpoints;
+      let css8 = emptyBreakpoints;
       Object.keys(sxObject).forEach((styleKey) => {
         const value = callIfFn(sxObject[styleKey], theme);
         if (value !== null && value !== void 0) {
           if (typeof value === "object") {
             if (propToStyleFunction2[styleKey]) {
-              css7 = merge_default(css7, getThemeValue(styleKey, value, theme));
+              css8 = merge_default(css8, getThemeValue(styleKey, value, theme));
             } else {
               const breakpointsValues = handleBreakpoints({
                 theme
@@ -21414,20 +21526,20 @@ function unstable_createStyleFunctionSx(styleFunctionMapping2 = styleFunctionMap
                 [styleKey]: x
               }));
               if (objectsHaveSameKeys(breakpointsValues, value)) {
-                css7[styleKey] = styleFunctionSx2({
+                css8[styleKey] = styleFunctionSx2({
                   sx: value,
                   theme
                 });
               } else {
-                css7 = merge_default(css7, breakpointsValues);
+                css8 = merge_default(css8, breakpointsValues);
               }
             }
           } else {
-            css7 = merge_default(css7, getThemeValue(styleKey, value, theme));
+            css8 = merge_default(css8, getThemeValue(styleKey, value, theme));
           }
         }
       });
-      return removeUnusedBreakpoints(breakpointsKeys, css7);
+      return removeUnusedBreakpoints(breakpointsKeys, css8);
     }
     return Array.isArray(sx) ? sx.map(traverse) : traverse(sx);
   }
@@ -22184,7 +22296,7 @@ var import_prop_types34 = __toESM(require_prop_types());
 init_react_preact();
 function InnerThemeProvider(props) {
   const theme = useTheme_default();
-  return o(import_react12.ThemeContext.Provider, {
+  return o(import_react14.ThemeContext.Provider, {
     value: typeof theme === "object" ? theme : {},
     children: props.children
   });
@@ -22271,7 +22383,7 @@ function cssVarsParser(theme, options) {
     prefix,
     shouldSkipGeneratingVar: shouldSkipGeneratingVar2
   } = options || {};
-  const css7 = {};
+  const css8 = {};
   const vars = {};
   const parsedTheme = {};
   walkObjectDeep(
@@ -22280,7 +22392,7 @@ function cssVarsParser(theme, options) {
       if (typeof value === "string" || typeof value === "number") {
         if (!shouldSkipGeneratingVar2 || shouldSkipGeneratingVar2 && !shouldSkipGeneratingVar2(keys, value)) {
           const cssVar = `--${prefix ? `${prefix}-` : ""}${keys.join("-")}`;
-          Object.assign(css7, {
+          Object.assign(css8, {
             [cssVar]: getCssValue(keys, value)
           });
           assignNestedKeys(vars, keys, `var(${cssVar})`, arrayKeys);
@@ -22291,7 +22403,7 @@ function cssVarsParser(theme, options) {
     (keys) => keys[0] === "vars"
   );
   return {
-    css: css7,
+    css: css8,
     vars,
     parsedTheme
   };
@@ -22648,7 +22760,7 @@ function createCssVarsProvider(options) {
     const otherColorSchemesStyleSheet = {};
     Object.entries(colorSchemes).forEach(([key, scheme]) => {
       const {
-        css: css7,
+        css: css8,
         vars,
         parsedTheme: parsedScheme
       } = cssVarsParser(scheme, {
@@ -22676,14 +22788,14 @@ function createCssVarsProvider(options) {
         if (excludeVariablesFromRoot) {
           const excludedVariables = {};
           excludeVariablesFromRoot(cssVarPrefix).forEach((cssVar) => {
-            excludedVariables[cssVar] = css7[cssVar];
-            delete css7[cssVar];
+            excludedVariables[cssVar] = css8[cssVar];
+            delete css8[cssVar];
           });
           defaultColorSchemeStyleSheet[`[${attribute}="${key}"]`] = excludedVariables;
         }
-        defaultColorSchemeStyleSheet[`${colorSchemeSelector}, [${attribute}="${key}"]`] = css7;
+        defaultColorSchemeStyleSheet[`${colorSchemeSelector}, [${attribute}="${key}"]`] = css8;
       } else {
-        otherColorSchemesStyleSheet[`${colorSchemeSelector === ":root" ? "" : colorSchemeSelector}[${attribute}="${key}"]`] = css7;
+        otherColorSchemesStyleSheet[`${colorSchemeSelector === ":root" ? "" : colorSchemeSelector}[${attribute}="${key}"]`] = css8;
       }
     });
     useEffect(() => {
@@ -22708,12 +22820,12 @@ function createCssVarsProvider(options) {
     useEffect(() => {
       let timer;
       if (disableTransitionOnChange && hasMounted.current && documentNode) {
-        const css7 = documentNode.createElement("style");
-        css7.appendChild(documentNode.createTextNode(DISABLE_CSS_TRANSITION));
-        documentNode.head.appendChild(css7);
+        const css8 = documentNode.createElement("style");
+        css8.appendChild(documentNode.createTextNode(DISABLE_CSS_TRANSITION));
+        documentNode.head.appendChild(css8);
         (() => window.getComputedStyle(documentNode.body))();
         timer = setTimeout(() => {
-          documentNode.head.removeChild(css7);
+          documentNode.head.removeChild(css8);
         }, 1);
       }
       return () => {
@@ -23187,7 +23299,7 @@ function createGrid(options = {}) {
   } = options;
   const NestedContext = createContext(false);
   const OverflowContext = createContext(void 0);
-  const useUtilityClasses24 = (ownerState, theme) => {
+  const useUtilityClasses23 = (ownerState, theme) => {
     const {
       container,
       direction,
@@ -23254,7 +23366,7 @@ function createGrid(options = {}) {
       disableEqualOverflow: (_ref3 = (_disableEqualOverflow = disableEqualOverflow) != null ? _disableEqualOverflow : overflow2) != null ? _ref3 : false,
       parentDisableEqualOverflow: overflow2
     });
-    const classes = useUtilityClasses24(ownerState, theme);
+    const classes = useUtilityClasses23(ownerState, theme);
     let result = o(GridRoot, _extends({
       ref,
       as: component,
@@ -23457,7 +23569,7 @@ function createStack(options = {}) {
     useThemeProps: useThemeProps3 = useThemePropsDefault3,
     componentName = "MuiStack"
   } = options;
-  const useUtilityClasses24 = () => {
+  const useUtilityClasses23 = () => {
     const slots = {
       root: ["root"]
     };
@@ -23479,7 +23591,7 @@ function createStack(options = {}) {
       direction,
       spacing: spacing2
     };
-    const classes = useUtilityClasses24();
+    const classes = useUtilityClasses23();
     return o(StackRoot, _extends({
       as: component,
       ownerState,
@@ -25265,7 +25377,7 @@ var _t3;
 var _t4;
 var DURATION = 550;
 var DELAY_RIPPLE = 80;
-var enterKeyframe = (0, import_react12.keyframes)(_t || (_t = _`
+var enterKeyframe = (0, import_react14.keyframes)(_t || (_t = _`
   0% {
     transform: scale(0);
     opacity: 0.1;
@@ -25276,7 +25388,7 @@ var enterKeyframe = (0, import_react12.keyframes)(_t || (_t = _`
     opacity: 0.3;
   }
 `));
-var exitKeyframe = (0, import_react12.keyframes)(_t2 || (_t2 = _`
+var exitKeyframe = (0, import_react14.keyframes)(_t2 || (_t2 = _`
   0% {
     opacity: 1;
   }
@@ -25285,7 +25397,7 @@ var exitKeyframe = (0, import_react12.keyframes)(_t2 || (_t2 = _`
     opacity: 0;
   }
 `));
-var pulsateKeyframe = (0, import_react12.keyframes)(_t3 || (_t3 = _`
+var pulsateKeyframe = (0, import_react14.keyframes)(_t3 || (_t3 = _`
   0% {
     transform: scale(1);
   }
@@ -27262,158 +27374,10 @@ true ? Slider.propTypes = {
   valueLabelFormat: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.string])
 } : void 0;
 
-// ../../node_modules/@mui/material/utils/createSvgIcon.js
-init_define_process();
-init_react_preact();
-
-// ../../node_modules/@mui/material/SvgIcon/index.js
-init_define_process();
-
-// ../../node_modules/@mui/material/SvgIcon/SvgIcon.js
-init_define_process();
-init_react_preact();
-var import_prop_types56 = __toESM(require_prop_types());
-
-// ../../node_modules/@mui/material/SvgIcon/svgIconClasses.js
-init_define_process();
-function getSvgIconUtilityClass(slot) {
-  return generateUtilityClass("MuiSvgIcon", slot);
-}
-var svgIconClasses = generateUtilityClasses("MuiSvgIcon", ["root", "colorPrimary", "colorSecondary", "colorAction", "colorError", "colorDisabled", "fontSizeInherit", "fontSizeSmall", "fontSizeMedium", "fontSizeLarge"]);
-
-// ../../node_modules/@mui/material/SvgIcon/SvgIcon.js
-init_react_preact();
-init_react_preact();
-var _excluded46 = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"];
-var useUtilityClasses21 = (ownerState) => {
-  const {
-    color: color2,
-    fontSize: fontSize2,
-    classes
-  } = ownerState;
-  const slots = {
-    root: ["root", color2 !== "inherit" && `color${capitalize_default(color2)}`, `fontSize${capitalize_default(fontSize2)}`]
-  };
-  return composeClasses(slots, getSvgIconUtilityClass, classes);
-};
-var SvgIconRoot = styled_default2("svg", {
-  name: "MuiSvgIcon",
-  slot: "Root",
-  overridesResolver: (props, styles2) => {
-    const {
-      ownerState
-    } = props;
-    return [styles2.root, ownerState.color !== "inherit" && styles2[`color${capitalize_default(ownerState.color)}`], styles2[`fontSize${capitalize_default(ownerState.fontSize)}`]];
-  }
-})(({
-  theme,
-  ownerState
-}) => {
-  var _theme$transitions, _theme$transitions$cr, _theme$transitions2, _theme$transitions2$d, _theme$typography, _theme$typography$pxT, _theme$typography2, _theme$typography2$px, _theme$typography3, _theme$typography3$px, _palette$ownerState$c, _palette, _palette$ownerState$c2, _palette2, _palette2$action, _palette3, _palette3$action;
-  return {
-    userSelect: "none",
-    width: "1em",
-    height: "1em",
-    display: "inline-block",
-    fill: "currentColor",
-    flexShrink: 0,
-    transition: (_theme$transitions = theme.transitions) == null ? void 0 : (_theme$transitions$cr = _theme$transitions.create) == null ? void 0 : _theme$transitions$cr.call(_theme$transitions, "fill", {
-      duration: (_theme$transitions2 = theme.transitions) == null ? void 0 : (_theme$transitions2$d = _theme$transitions2.duration) == null ? void 0 : _theme$transitions2$d.shorter
-    }),
-    fontSize: {
-      inherit: "inherit",
-      small: ((_theme$typography = theme.typography) == null ? void 0 : (_theme$typography$pxT = _theme$typography.pxToRem) == null ? void 0 : _theme$typography$pxT.call(_theme$typography, 20)) || "1.25rem",
-      medium: ((_theme$typography2 = theme.typography) == null ? void 0 : (_theme$typography2$px = _theme$typography2.pxToRem) == null ? void 0 : _theme$typography2$px.call(_theme$typography2, 24)) || "1.5rem",
-      large: ((_theme$typography3 = theme.typography) == null ? void 0 : (_theme$typography3$px = _theme$typography3.pxToRem) == null ? void 0 : _theme$typography3$px.call(_theme$typography3, 35)) || "2.1875"
-    }[ownerState.fontSize],
-    color: (_palette$ownerState$c = (_palette = (theme.vars || theme).palette) == null ? void 0 : (_palette$ownerState$c2 = _palette[ownerState.color]) == null ? void 0 : _palette$ownerState$c2.main) != null ? _palette$ownerState$c : {
-      action: (_palette2 = (theme.vars || theme).palette) == null ? void 0 : (_palette2$action = _palette2.action) == null ? void 0 : _palette2$action.active,
-      disabled: (_palette3 = (theme.vars || theme).palette) == null ? void 0 : (_palette3$action = _palette3.action) == null ? void 0 : _palette3$action.disabled,
-      inherit: void 0
-    }[ownerState.color]
-  };
-});
-var SvgIcon = forwardRef(function SvgIcon2(inProps, ref) {
-  const props = useThemeProps2({
-    props: inProps,
-    name: "MuiSvgIcon"
-  });
-  const {
-    children: children2,
-    className,
-    color: color2 = "inherit",
-    component = "svg",
-    fontSize: fontSize2 = "medium",
-    htmlColor,
-    inheritViewBox = false,
-    titleAccess,
-    viewBox = "0 0 24 24"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded46);
-  const ownerState = _extends({}, props, {
-    color: color2,
-    component,
-    fontSize: fontSize2,
-    instanceFontSize: inProps.fontSize,
-    inheritViewBox,
-    viewBox
-  });
-  const more = {};
-  if (!inheritViewBox) {
-    more.viewBox = viewBox;
-  }
-  const classes = useUtilityClasses21(ownerState);
-  return o(SvgIconRoot, _extends({
-    as: component,
-    className: clsx_m_default(classes.root, className),
-    ownerState,
-    focusable: "false",
-    color: htmlColor,
-    "aria-hidden": titleAccess ? void 0 : true,
-    role: titleAccess ? "img" : void 0,
-    ref
-  }, more, other, {
-    children: [children2, titleAccess ? o("title", {
-      children: titleAccess
-    }) : null]
-  }));
-});
-true ? SvgIcon.propTypes = {
-  children: import_prop_types56.default.node,
-  classes: import_prop_types56.default.object,
-  className: import_prop_types56.default.string,
-  color: import_prop_types56.default.oneOfType([import_prop_types56.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types56.default.string]),
-  component: import_prop_types56.default.elementType,
-  fontSize: import_prop_types56.default.oneOfType([import_prop_types56.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types56.default.string]),
-  htmlColor: import_prop_types56.default.string,
-  inheritViewBox: import_prop_types56.default.bool,
-  shapeRendering: import_prop_types56.default.string,
-  sx: import_prop_types56.default.oneOfType([import_prop_types56.default.arrayOf(import_prop_types56.default.oneOfType([import_prop_types56.default.func, import_prop_types56.default.object, import_prop_types56.default.bool])), import_prop_types56.default.func, import_prop_types56.default.object]),
-  titleAccess: import_prop_types56.default.string,
-  viewBox: import_prop_types56.default.string
-} : void 0;
-SvgIcon.muiName = "SvgIcon";
-var SvgIcon_default = SvgIcon;
-
-// ../../node_modules/@mui/material/utils/createSvgIcon.js
-init_react_preact();
-function createSvgIcon(path, displayName) {
-  const Component = (props, ref) => o(SvgIcon_default, _extends({
-    "data-testid": `${displayName}Icon`,
-    ref
-  }, props, {
-    children: path
-  }));
-  if (true) {
-    Component.displayName = `${displayName}Icon`;
-  }
-  Component.muiName = SvgIcon_default.muiName;
-  return memo(forwardRef(Component));
-}
-
 // ../../node_modules/@mui/material/ToggleButton/ToggleButton.js
 init_define_process();
 init_react_preact();
-var import_prop_types57 = __toESM(require_prop_types());
+var import_prop_types56 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/ToggleButton/toggleButtonClasses.js
 init_define_process();
@@ -27425,8 +27389,8 @@ var toggleButtonClasses_default = toggleButtonClasses;
 
 // ../../node_modules/@mui/material/ToggleButton/ToggleButton.js
 init_react_preact();
-var _excluded47 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
-var useUtilityClasses22 = (ownerState) => {
+var _excluded46 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
+var useUtilityClasses21 = (ownerState) => {
   const {
     classes,
     fullWidth,
@@ -27513,7 +27477,7 @@ var ToggleButton = forwardRef(function ToggleButton2(inProps, ref) {
     selected,
     size = "medium",
     value
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded47);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded46);
   const ownerState = _extends({}, props, {
     color: color2,
     disabled,
@@ -27521,7 +27485,7 @@ var ToggleButton = forwardRef(function ToggleButton2(inProps, ref) {
     fullWidth,
     size
   });
-  const classes = useUtilityClasses22(ownerState);
+  const classes = useUtilityClasses21(ownerState);
   const handleChange = (event) => {
     if (onClick) {
       onClick(event, value);
@@ -27548,20 +27512,20 @@ var ToggleButton = forwardRef(function ToggleButton2(inProps, ref) {
   }));
 });
 true ? ToggleButton.propTypes = {
-  children: import_prop_types57.default.node,
-  classes: import_prop_types57.default.object,
-  className: import_prop_types57.default.string,
-  color: import_prop_types57.default.oneOfType([import_prop_types57.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types57.default.string]),
-  disabled: import_prop_types57.default.bool,
-  disableFocusRipple: import_prop_types57.default.bool,
-  disableRipple: import_prop_types57.default.bool,
-  fullWidth: import_prop_types57.default.bool,
-  onChange: import_prop_types57.default.func,
-  onClick: import_prop_types57.default.func,
-  selected: import_prop_types57.default.bool,
-  size: import_prop_types57.default.oneOfType([import_prop_types57.default.oneOf(["small", "medium", "large"]), import_prop_types57.default.string]),
-  sx: import_prop_types57.default.oneOfType([import_prop_types57.default.arrayOf(import_prop_types57.default.oneOfType([import_prop_types57.default.func, import_prop_types57.default.object, import_prop_types57.default.bool])), import_prop_types57.default.func, import_prop_types57.default.object]),
-  value: import_prop_types57.default.any.isRequired
+  children: import_prop_types56.default.node,
+  classes: import_prop_types56.default.object,
+  className: import_prop_types56.default.string,
+  color: import_prop_types56.default.oneOfType([import_prop_types56.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types56.default.string]),
+  disabled: import_prop_types56.default.bool,
+  disableFocusRipple: import_prop_types56.default.bool,
+  disableRipple: import_prop_types56.default.bool,
+  fullWidth: import_prop_types56.default.bool,
+  onChange: import_prop_types56.default.func,
+  onClick: import_prop_types56.default.func,
+  selected: import_prop_types56.default.bool,
+  size: import_prop_types56.default.oneOfType([import_prop_types56.default.oneOf(["small", "medium", "large"]), import_prop_types56.default.string]),
+  sx: import_prop_types56.default.oneOfType([import_prop_types56.default.arrayOf(import_prop_types56.default.oneOfType([import_prop_types56.default.func, import_prop_types56.default.object, import_prop_types56.default.bool])), import_prop_types56.default.func, import_prop_types56.default.object]),
+  value: import_prop_types56.default.any.isRequired
 } : void 0;
 var ToggleButton_default = ToggleButton;
 
@@ -27569,7 +27533,7 @@ var ToggleButton_default = ToggleButton;
 init_define_process();
 init_react_preact();
 var import_react_is3 = __toESM(require_react_is2());
-var import_prop_types58 = __toESM(require_prop_types());
+var import_prop_types57 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/ToggleButtonGroup/isValueSelected.js
 init_define_process();
@@ -27593,8 +27557,8 @@ var toggleButtonGroupClasses_default = toggleButtonGroupClasses;
 
 // ../../node_modules/@mui/material/ToggleButtonGroup/ToggleButtonGroup.js
 init_react_preact();
-var _excluded48 = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
-var useUtilityClasses23 = (ownerState) => {
+var _excluded47 = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
+var useUtilityClasses22 = (ownerState) => {
   const {
     classes,
     orientation,
@@ -27679,14 +27643,14 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
     orientation = "horizontal",
     size = "medium",
     value
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded48);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded47);
   const ownerState = _extends({}, props, {
     disabled,
     fullWidth,
     orientation,
     size
   });
-  const classes = useUtilityClasses23(ownerState);
+  const classes = useUtilityClasses22(ownerState);
   const handleChange = (event, buttonValue) => {
     if (!onChange) {
       return;
@@ -27735,70 +27699,50 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
   }));
 });
 true ? ToggleButtonGroup.propTypes = {
-  children: import_prop_types58.default.node,
-  classes: import_prop_types58.default.object,
-  className: import_prop_types58.default.string,
-  color: import_prop_types58.default.oneOfType([import_prop_types58.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types58.default.string]),
-  disabled: import_prop_types58.default.bool,
-  exclusive: import_prop_types58.default.bool,
-  fullWidth: import_prop_types58.default.bool,
-  onChange: import_prop_types58.default.func,
-  orientation: import_prop_types58.default.oneOf(["horizontal", "vertical"]),
-  size: import_prop_types58.default.oneOfType([import_prop_types58.default.oneOf(["small", "medium", "large"]), import_prop_types58.default.string]),
-  sx: import_prop_types58.default.oneOfType([import_prop_types58.default.arrayOf(import_prop_types58.default.oneOfType([import_prop_types58.default.func, import_prop_types58.default.object, import_prop_types58.default.bool])), import_prop_types58.default.func, import_prop_types58.default.object]),
-  value: import_prop_types58.default.any
+  children: import_prop_types57.default.node,
+  classes: import_prop_types57.default.object,
+  className: import_prop_types57.default.string,
+  color: import_prop_types57.default.oneOfType([import_prop_types57.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types57.default.string]),
+  disabled: import_prop_types57.default.bool,
+  exclusive: import_prop_types57.default.bool,
+  fullWidth: import_prop_types57.default.bool,
+  onChange: import_prop_types57.default.func,
+  orientation: import_prop_types57.default.oneOf(["horizontal", "vertical"]),
+  size: import_prop_types57.default.oneOfType([import_prop_types57.default.oneOf(["small", "medium", "large"]), import_prop_types57.default.string]),
+  sx: import_prop_types57.default.oneOfType([import_prop_types57.default.arrayOf(import_prop_types57.default.oneOfType([import_prop_types57.default.func, import_prop_types57.default.object, import_prop_types57.default.bool])), import_prop_types57.default.func, import_prop_types57.default.object]),
+  value: import_prop_types57.default.any
 } : void 0;
 var ToggleButtonGroup_default = ToggleButtonGroup;
 
 // js/mui.tsx
-var import_jsx_runtime62 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FullscreenIcon = createSvgIcon(
-  (0, import_jsx_runtime62.jsx)("path", {
-    d: "M17 4h5v5h-2V6h-3V4zM4 9V6h3V4H2v5h2zm16 6v3h-3v2h5v-5h-2zM7 18H4v-3H2v5h5v-2zM18 8H6v8h12V8z"
-  }),
-  "Fullscreen"
-);
-var Phone = createSvgIcon(
-  (0, import_jsx_runtime62.jsx)("path", {
-    d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
-  }, "12"),
-  "PhoneAndroid"
-);
-var Share = createSvgIcon(
-  (0, import_jsx_runtime62.jsx)("path", {
-    d: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
-  }, "12"),
-  "Share"
-);
-var Tablet = createSvgIcon(
-  (0, import_jsx_runtime62.jsx)("path", {
-    d: "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z"
-  }, "12"),
-  "TabletAndroid"
-);
-var Tv = createSvgIcon(
-  (0, import_jsx_runtime62.jsx)("path", {
-    d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
-  }, "12"),
-  "Tv"
-);
-var QrCode = createSvgIcon(
-  (0, import_jsx_runtime62.jsx)("path", {
-    d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
-  }, "12"),
-  "QrCode"
-);
+var import_jsx_runtime59 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var Phone = () => (0, import_jsx_runtime59.jsx)("span", {
+  css: import_react22.css`font-size:20pt`,
+  children: (0, import_jsx_runtime59.jsx)(MdPhoneAndroid, {})
+});
+var Share = () => (0, import_jsx_runtime59.jsx)("span", {
+  css: import_react22.css`font-size:20pt`,
+  children: (0, import_jsx_runtime59.jsx)(MdShare, {})
+});
+var Tablet = () => (0, import_jsx_runtime59.jsx)("span", {
+  css: import_react22.css`font-size:20pt`,
+  children: (0, import_jsx_runtime59.jsx)(MdTabletAndroid, {})
+});
+var Tv = () => (0, import_jsx_runtime59.jsx)("span", {
+  css: import_react22.css`font-size:20pt`,
+  children: (0, import_jsx_runtime59.jsx)(MdTv, {})
+});
 
 // js/Qr.tsx
-var import_jsx_runtime63 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var QR = ({ url }) => (0, import_jsx_runtime63.jsx)(QRious2, {
+var import_jsx_runtime60 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var QR = ({ url }) => (0, import_jsx_runtime60.jsx)(QRious2, {
   value: url
 });
 var QRButton = ({ url }) => {
   const [showQR, setQR] = useState(false);
-  return (0, import_jsx_runtime63.jsx)(LazyMotion, {
+  return (0, import_jsx_runtime60.jsx)(LazyMotion, {
     features: domAnimation,
-    children: (0, import_jsx_runtime63.jsx)(m.div, {
+    children: (0, import_jsx_runtime60.jsx)(m.div, {
       animate: {
         width: showQR ? 200 : 56,
         height: showQR ? 220 : 48
@@ -27806,21 +27750,27 @@ var QRButton = ({ url }) => {
       onClick: () => {
         setQR(!showQR);
       },
-      css: import_react20.css`
+      css: import_react23.css`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
-      children: showQR ? (0, import_jsx_runtime63.jsx)(QR, {
+      children: showQR ? (0, import_jsx_runtime60.jsx)(QR, {
         url: url || "/live/coder/public"
-      }, url || origin + url) : (0, import_jsx_runtime63.jsx)(Fab_default, {
-        children: (0, import_jsx_runtime63.jsx)(QrCode, {})
+      }, url || origin + url) : (0, import_jsx_runtime60.jsxs)(Fab_default, {
+        children: [
+          (0, import_jsx_runtime60.jsx)("span", {
+            css: import_react23.css`font-size: 20pt;`,
+            children: (0, import_jsx_runtime60.jsx)(MdQrCode2, {})
+          }),
+          "            "
+        ]
       })
     })
   });
 };
 
 // js/DraggableWindow.tsx
-var import_jsx_runtime64 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var import_jsx_runtime61 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var ToggleButtonGroup3 = ToggleButtonGroup_default;
 var ToggleButton3 = ToggleButton_default;
 var breakPoints = [680, 768, 1920];
@@ -27873,9 +27823,9 @@ var DraggableWindow = ({
     };
     reveal();
   }, []);
-  return (0, import_jsx_runtime64.jsx)(LazyMotion, {
+  return (0, import_jsx_runtime61.jsx)(LazyMotion, {
     features: domMax,
-    children: (0, import_jsx_runtime64.jsx)(m.div, {
+    children: (0, import_jsx_runtime61.jsx)(m.div, {
       transition: { delay: 0, duration: 0.4 },
       initial: {
         top: 0,
@@ -27889,7 +27839,7 @@ var DraggableWindow = ({
         right: right3,
         borderRadius: 16
       },
-      css: import_react22.css`
+      css: import_react25.css`
             background-color:${bg};
             backdrop-filter: blur(15px);
             z-index: 10;
@@ -27905,34 +27855,34 @@ var DraggableWindow = ({
         bottom: innerHeight
       },
       dragElastic: 0.5,
-      children: (0, import_jsx_runtime64.jsxs)("div", {
-        css: import_react22.css` 
+      children: (0, import_jsx_runtime61.jsxs)("div", {
+        css: import_react25.css` 
               display: flex;
               
                 `,
         children: [
-          (0, import_jsx_runtime64.jsxs)("div", {
-            css: import_react22.css`
+          (0, import_jsx_runtime61.jsxs)("div", {
+            css: import_react25.css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `,
             children: [
-              (0, import_jsx_runtime64.jsx)(m.div, {
+              (0, import_jsx_runtime61.jsx)(m.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: { height: 0, width: 0 },
                 animate: { height: "auto", width: "auto" },
-                children: (0, import_jsx_runtime64.jsx)(ToggleButtonGroup3, {
+                children: (0, import_jsx_runtime61.jsx)(ToggleButtonGroup3, {
                   value: scaleRange,
                   size: "small",
                   exclusive: true,
                   onChange: (_e, newScale) => {
                     newScale && changeScaleRange(newScale);
                   },
-                  children: sizes.map((size, ind) => (0, import_jsx_runtime64.jsx)(ToggleButton3, {
+                  children: sizes.map((size, ind) => (0, import_jsx_runtime61.jsx)(ToggleButton3, {
                     value: size,
-                    children: (0, import_jsx_runtime64.jsxs)("span", {
-                      css: import_react22.css`
+                    children: (0, import_jsx_runtime61.jsxs)("span", {
+                      css: import_react25.css`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
                       children: [
@@ -27943,7 +27893,7 @@ var DraggableWindow = ({
                   }, ind))
                 })
               }),
-              (0, import_jsx_runtime64.jsx)(m.div, {
+              (0, import_jsx_runtime61.jsx)(m.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: {
                   width: window.innerWidth,
@@ -27955,13 +27905,13 @@ var DraggableWindow = ({
                   height: height2 * scale / devicePixelRatio,
                   borderRadius: 8
                 },
-                css: import_react22.css`
+                css: import_react25.css`
 
                 display: block;
                 overflow: hidden;
                 overflow-y: hidden;
             `,
-                children: (0, import_jsx_runtime64.jsx)(m.div, {
+                children: (0, import_jsx_runtime61.jsx)(m.div, {
                   transition: { delay: 0, duration: 0.4 },
                   initial: {
                     width: window.innerWidth,
@@ -27977,16 +27927,16 @@ var DraggableWindow = ({
                     scale: scaleRange / 100
                   },
                   "data-test-id": "z-body",
-                  css: import_react22.css`
+                  css: import_react25.css`
                   overflow:overlay;
                   overflow-y: hidden;
               `,
                   children: children2
                 })
               }),
-              (0, import_jsx_runtime64.jsx)(m.div, {
+              (0, import_jsx_runtime61.jsx)(m.div, {
                 transition: { delay: 0, duration: 0.4 },
-                children: (0, import_jsx_runtime64.jsx)(ToggleButtonGroup3, {
+                children: (0, import_jsx_runtime61.jsx)(ToggleButtonGroup3, {
                   value: width2,
                   size: "small",
                   exclusive: true,
@@ -27996,32 +27946,35 @@ var DraggableWindow = ({
                       setWidth(newSize);
                     }
                   },
-                  children: breakPoints.map((size, ind) => (0, import_jsx_runtime64.jsx)(ToggleButton3, {
+                  children: breakPoints.map((size, ind) => (0, import_jsx_runtime61.jsx)(ToggleButton3, {
                     value: size,
-                    children: size === 680 ? (0, import_jsx_runtime64.jsx)(Phone, {
-                      css: import_react22.css`
+                    children: size === 680 ? (0, import_jsx_runtime61.jsx)("span", {
+                      css: import_react25.css`
                         color: ${width2 === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
-                        `
-                    }) : size === 768 ? (0, import_jsx_runtime64.jsx)(Tablet, {
-                      css: import_react22.css`
+                        `,
+                      children: (0, import_jsx_runtime61.jsx)(Phone, {})
+                    }) : size === 768 ? (0, import_jsx_runtime61.jsx)("span", {
+                      css: import_react25.css`
                         color: ${width2 === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
-                        `
-                    }) : (0, import_jsx_runtime64.jsx)(Tv, {
-                      css: import_react22.css`
+                        `,
+                      children: (0, import_jsx_runtime61.jsx)(Tablet, {})
+                    }) : (0, import_jsx_runtime61.jsx)("span", {
+                      css: import_react25.css`
                         color: ${width2 === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
-                      `
+                      `,
+                      children: (0, import_jsx_runtime61.jsx)(Tv, {})
                     })
                   }, ind))
                 })
               })
             ]
           }),
-          (0, import_jsx_runtime64.jsx)(m.div, {
+          (0, import_jsx_runtime61.jsx)(m.div, {
             transition: { delay: 0, duration: 0.4 },
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
-            children: (0, import_jsx_runtime64.jsxs)("div", {
-              css: import_react22.css`
+            children: (0, import_jsx_runtime61.jsxs)("div", {
+              css: import_react25.css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
@@ -28029,19 +27982,24 @@ var DraggableWindow = ({
               flex-direction: column;
               `,
               children: [
-                (0, import_jsx_runtime64.jsx)(Fab_default, {
+                (0, import_jsx_runtime61.jsx)(Fab_default, {
                   onClick: () => {
                     var _a;
                     (_a = document.getElementById("root")) == null ? void 0 : _a.requestFullscreen();
                   },
-                  children: (0, import_jsx_runtime64.jsx)(FullscreenIcon, {}, "fs")
+                  children: (0, import_jsx_runtime61.jsx)("span", {
+                    css: import_react25.css`
+                font-size: 20pt;
+              `,
+                    children: (0, import_jsx_runtime61.jsx)(MdFullscreen, {}, "fs")
+                  })
                 }, "fullscreen"),
-                (0, import_jsx_runtime64.jsx)(QRButton, {
+                (0, import_jsx_runtime61.jsx)(QRButton, {
                   url: location.origin + `/live/${room}/public`
                 }),
-                (0, import_jsx_runtime64.jsx)(Fab_default, {
+                (0, import_jsx_runtime61.jsx)(Fab_default, {
                   onClick: () => open(`/live/${room}/public`),
-                  children: (0, import_jsx_runtime64.jsx)(Share, {})
+                  children: (0, import_jsx_runtime61.jsx)(Share, {})
                 }, "Share")
               ]
             })
@@ -28069,8 +28027,8 @@ function isMobile() {
 }
 
 // js/Editor.tsx
-var import_react25 = __toESM(require_emotion_react_cjs(), 1);
-var import_jsx_runtime65 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var import_react28 = __toESM(require_emotion_react_cjs(), 1);
+var import_jsx_runtime62 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod = {
   CH: () => {
   },
@@ -28087,7 +28045,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-OB4JS5CJ.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-WHDP7KFH.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-MSFJDELE.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -28259,18 +28217,18 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       }));
     }, 300);
   }, "editor");
-  return engine === "monaco" ? (0, import_jsx_runtime65.jsx)("div", {
+  return engine === "monaco" ? (0, import_jsx_runtime62.jsx)("div", {
     "data-test-id": myId,
-    css: import_react25.css`
+    css: import_react28.css`
         
             max-width: 640px;
               height: ${60 + lines / 40 * 100}%;
             
         `,
     ref
-  }) : (0, import_jsx_runtime65.jsx)("div", {
+  }) : (0, import_jsx_runtime62.jsx)("div", {
     "data-test-id": myId,
-    css: import_react25.css`
+    css: import_react28.css`
                 margin: 0;
                 position: absolute;
                 bottom: 0;
@@ -28284,9 +28242,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
 };
 
 // js/renderPreviewWindow.tsx
-var import_jsx_runtime66 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var RainbowContainer = ({ children: children2 }) => (0, import_jsx_runtime66.jsx)("div", {
-  css: import_react28.css`
+var import_jsx_runtime63 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var RainbowContainer = ({ children: children2 }) => (0, import_jsx_runtime63.jsx)("div", {
+  css: import_react31.css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -28356,13 +28314,13 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
   const portalNode = useMemo(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return (0, import_jsx_runtime66.jsxs)(p, {
+  return (0, import_jsx_runtime63.jsxs)(p, {
     children: [
-      (0, import_react28.jsx)(
+      (0, import_react31.jsx)(
         InPortal,
         {
           node: portalNode,
-          children: (0, import_react28.jsx)(
+          children: (0, import_react31.jsx)(
             AutoUpdateApp,
             {
               hash: hash3,
@@ -28371,19 +28329,19 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
           )
         }
       ),
-      isStandalone ? (0, import_react28.jsx)(OutPortal, { node: portalNode }) : (0, import_jsx_runtime66.jsxs)(RainbowContainer, {
+      isStandalone ? (0, import_react31.jsx)(OutPortal, { node: portalNode }) : (0, import_jsx_runtime63.jsxs)(RainbowContainer, {
         children: [
-          (0, import_react28.jsx)(OutPortal, { node: portalNode }),
-          (0, import_jsx_runtime66.jsx)(Editor, {
+          (0, import_react31.jsx)(OutPortal, { node: portalNode }),
+          (0, import_jsx_runtime63.jsx)(Editor, {
             code: mST().code,
             i: mST().i,
             codeSpace: codeSpace2,
             assets
           }),
-          (0, import_jsx_runtime66.jsx)(DraggableWindow, {
+          (0, import_jsx_runtime63.jsx)(DraggableWindow, {
             hashCode: 0,
             room: codeSpace2,
-            children: (0, import_react28.jsx)(OutPortal, { node: portalNode })
+            children: (0, import_react31.jsx)(OutPortal, { node: portalNode })
           })
         ]
       })
@@ -28394,8 +28352,8 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2, assets }) => {
   const div = document.getElementById("root");
   const root = createRoot(div);
   root.render(
-    (0, import_jsx_runtime66.jsx)(p, {
-      children: (0, import_jsx_runtime66.jsx)(AppToRender, {
+    (0, import_jsx_runtime63.jsx)(p, {
+      children: (0, import_jsx_runtime63.jsx)(AppToRender, {
         codeSpace: codeSpace2,
         assets
       })
