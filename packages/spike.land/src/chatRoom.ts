@@ -323,7 +323,7 @@ export class Code {
               });
             }
           }
-          return new Response(importMapReplace(mST().transpiled), {
+          return new Response(mST().transpiled, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

@@ -2105,6 +2105,7 @@ __metadata:
     buffer: "npm:^6.0.3"
     clean-stack: "npm:^5.0.0"
     comlink: "npm:^4.3.1"
+    css-paint-polyfill: "npm:^3.4.0"
     csstype: "npm:^3.1.1"
     es-module-shims: "npm:^1.5.18"
     esbuild: "npm:^0.15.9"
@@ -4042,6 +4043,13 @@ __metadata:
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
   checksum: 37ec685f91f04d4719892f305fa6f632aae256df7f2f3f98d5c36f2197651ad7b77851aaa2d397d19a9555f0fb89fa18f9bb3ff4b440535cc0fb4fe0a72004b9
+  languageName: node
+  linkType: hard
+
+"css-paint-polyfill@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "css-paint-polyfill@npm:3.4.0"
+  checksum: 0c37f166d5cdb0d7cc66574989850e72f4c29f67e4537507d9cb6ceaca25594fcccb86851a0654b24608db3c6aec0e91c0210c824047e579d4521632b9cfb411
   languageName: node
   linkType: hard
 

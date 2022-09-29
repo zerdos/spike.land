@@ -7647,7 +7647,7 @@ var require_end_of_stream = __commonJS({
         if (!writable)
           callback.call(stream);
       };
-      var onerror = function onerror2(err) {
+      var onerror2 = function onerror3(err) {
         callback.call(stream, err);
       };
       var onclose = function onclose2() {
@@ -7680,7 +7680,7 @@ var require_end_of_stream = __commonJS({
       stream.on("end", onend);
       stream.on("finish", onfinish);
       if (opts.error !== false)
-        stream.on("error", onerror);
+        stream.on("error", onerror2);
       stream.on("close", onclose);
       return function() {
         stream.removeListener("complete", onfinish);
@@ -7692,7 +7692,7 @@ var require_end_of_stream = __commonJS({
         stream.removeListener("close", onlegacyfinish);
         stream.removeListener("finish", onfinish);
         stream.removeListener("end", onend);
-        stream.removeListener("error", onerror);
+        stream.removeListener("error", onerror2);
         stream.removeListener("close", onclose);
       };
     }
@@ -8318,7 +8318,7 @@ var require_stream_readable = __commonJS({
         dest.removeListener("close", onclose);
         dest.removeListener("finish", onfinish);
         dest.removeListener("drain", ondrain);
-        dest.removeListener("error", onerror);
+        dest.removeListener("error", onerror2);
         dest.removeListener("unpipe", onunpipe);
         src.removeListener("end", onend);
         src.removeListener("end", unpipe);
@@ -8340,14 +8340,14 @@ var require_stream_readable = __commonJS({
           src.pause();
         }
       }
-      function onerror(er) {
+      function onerror2(er) {
         debug("onerror", er);
         unpipe();
-        dest.removeListener("error", onerror);
+        dest.removeListener("error", onerror2);
         if (EElistenerCount(dest, "error") === 0)
           errorOrDestroy(dest, er);
       }
-      prependListener(dest, "error", onerror);
+      prependListener(dest, "error", onerror2);
       function onclose() {
         dest.removeListener("finish", onfinish);
         unpipe();
@@ -8944,21 +8944,21 @@ var require_stream_browserify = __commonJS({
         if (typeof dest.destroy === "function")
           dest.destroy();
       }
-      function onerror(er) {
+      function onerror2(er) {
         cleanup();
         if (EE.listenerCount(this, "error") === 0) {
           throw er;
         }
       }
-      source.on("error", onerror);
-      dest.on("error", onerror);
+      source.on("error", onerror2);
+      dest.on("error", onerror2);
       function cleanup() {
         source.removeListener("data", ondata);
         dest.removeListener("drain", ondrain);
         source.removeListener("end", onend);
         source.removeListener("close", onclose);
-        source.removeListener("error", onerror);
-        dest.removeListener("error", onerror);
+        source.removeListener("error", onerror2);
+        dest.removeListener("error", onerror2);
         source.removeListener("end", cleanup);
         source.removeListener("close", cleanup);
         dest.removeListener("close", cleanup);
@@ -8974,6 +8974,511 @@ var require_stream_browserify = __commonJS({
 
 // js/ws.ts
 init_define_process();
+
+// ../../node_modules/css-paint-polyfill/dist/css-paint-polyfill.js
+init_define_process();
+!function() {
+  function e(e2, t2) {
+    var n2 = new XMLHttpRequest();
+    n2.onreadystatechange = function() {
+      4 === n2.readyState && t2(n2.responseText);
+    }, n2.open("GET", e2, true), n2.send();
+  }
+  function t(e2, t2, n2) {
+    Object.defineProperty ? Object.defineProperty(e2, t2, n2) : e2[t2] = n2.get();
+  }
+  var n, r2 = window.CSS;
+  r2 || (window.CSS = r2 = {}), r2.supports || (r2.supports = function e2(t2, n2) {
+    if ("paint" == t2)
+      return true;
+    if (n2) {
+      var r3 = u.contentDocument.body;
+      return r3.style.cssText = t2 + ":" + n2, r3.style.cssText.length > 0;
+    }
+    for (var i2, o3, a2, s2, l2 = /(^|not|(or)|(and))\s*\(\s*(.+?)\s*:(.+?)\)\s*|(.)/gi; a2 = l2.exec(t2); ) {
+      if (a2[6])
+        return false;
+      s2 = e2(a2[4], a2[5]), o3 = a2[2] ? o3 || s2 : a2[3] ? o3 && s2 : (i2 = !a2[1], s2);
+    }
+    return o3 == i2;
+  }), r2.escape || (r2.escape = function(e2) {
+    return e2.replace(/([^\w-])/g, "\\$1");
+  });
+  var i = {};
+  function o2(e2, t2) {
+    var n2 = parseFloat(e2);
+    this.value = isNaN(n2) ? e2 : n2, this.unit = t2;
+  }
+  r2.registerProperty || (r2.registerProperty = function(e2) {
+    i[e2.name] = e2;
+  }), o2.prototype.toString = function() {
+    return this.value + ("number" == this.unit ? "" : this.unit);
+  }, o2.prototype.valueOf = function() {
+    return this.value;
+  }, "Hz Q ch cm deg dpcm dpi ddpx em ex fr grad in kHz mm ms number pc percent pt px rad rem s turn vh vmax vmin vw".split(" ").forEach(function(e2) {
+    r2[e2] || (r2[e2] = function(t2) {
+      return new o2(t2, e2);
+    });
+  });
+  var a = /(background|mask|cursor|-image|-source)/, s = !!r2.paintWorklet;
+  s || (n = new ie(), t(r2, "paintWorklet", { enumerable: true, configurable: true, get: function() {
+    return n;
+  } }));
+  var l = "css-paint-polyfill", c = document.createElement(l);
+  s || document.documentElement.appendChild(c);
+  var u = document.createElement("iframe");
+  u.style.cssText = "position:absolute; left:0; top:-999px; width:1px; height:1px;", c.appendChild(u);
+  var p2 = document.createElement("style");
+  p2.id = l, p2.$$isPaint = true, c.appendChild(p2);
+  var d = p2.sheet, f = c.style, v = false, h3 = [], m2 = /(paint\(|-moz-element\(#paint-|-webkit-canvas\(paint-|[('"]blob:[^'"#]+#paint=|[('"]data:image\/paint-)/, g = "getCSSCanvasContext" in document, y = (f.backgroundImage = "-moz-element(#" + l + ")") === f.backgroundImage, $2 = "function" == typeof Promise;
+  f.cssText = "display:none !important;";
+  var b = window.requestAnimationFrame || setTimeout, w = function() {
+    return window.devicePixelRatio || 1;
+  }, P = {}, x = {}, R = 0;
+  function S(e2) {
+    var t2 = e2.bit ^= 1;
+    return e2.instances[t2] || (e2.instances[t2] = new e2.Painter());
+  }
+  function O(e2, t2) {
+    var n2 = e2.cssText, r3 = m2.test(n2);
+    if (true === t2.isNew && r3 && n2 !== (n2 = z(n2)) && (e2 = function(e3, t3) {
+      for (var n3 = e3.parentStyleSheet, r4 = e3.parentRule, i3 = (r4 || n3).cssRules, o4 = i3.length - 1, a3 = 0; a3 <= o4; a3++)
+        if (i3[a3] === e3) {
+          (r4 || n3).deleteRule(a3), o4 = a3;
+          break;
+        }
+      if (null != t3) {
+        if (r4) {
+          var s3 = r4.appendRule(t3);
+          return r4.cssRules[s3];
+        }
+        return n3.insertRule(t3, o4), n3.cssRules[o4];
+      }
+    }(e2, n2)), r3) {
+      var i2, o3, a2, s2 = e2.selectorText, l2 = B(e2.style);
+      if (i2 = null == t2.counters[s2] ? t2.counters[s2] = 1 : ++t2.counters[s2], null != x[o3 = "sheet" + t2.sheetId + "\n" + s2 + "\n" + i2]) {
+        if ((a2 = x[o3]).selector === s2)
+          return a2.rule = e2, void (a2.cssText !== l2 && t2.toProcess.push(a2));
+        t2.toRemove.push(a2);
+      } else
+        a2 = x[o3] = { key: o3, selector: s2, cssText: l2, properties: {}, rule: e2 }, t2.toProcess.push(a2.selector);
+    }
+  }
+  function C(e2, t2) {
+    if (!("ownerSVGElement" in e2)) {
+      t2(e2);
+      for (var n2 = e2.firstElementChild; n2; )
+        C(n2, t2), n2 = n2.nextElementSibling;
+    }
+  }
+  function T() {
+    for (var e2, t2 = [].slice.call(document.styleSheets), n2 = { toProcess: [], toRemove: [], counters: {}, isNew: false, sheetId: null, rules: null }, r3 = 0; r3 < t2.length; r3++) {
+      var i2 = t2[r3].ownerNode;
+      if (!i2.$$isPaint) {
+        try {
+          n2.rules = i2.sheet.cssRules;
+        } catch (e3) {
+          continue;
+        }
+        if (n2.sheetId = i2.$$paintid, n2.isNew = null == n2.sheetId, n2.isNew) {
+          if (n2.sheetId = i2.$$paintid = ++R, false === k(i2))
+            continue;
+          e2 = true;
+        }
+        E(i2.sheet, O, n2);
+      }
+    }
+    for (var o3 = n2.toRemove.length; o3--; )
+      delete x[n2.toRemove[o3].key];
+    n2.toProcess.length > 0 && F(n2.toProcess.join(", ")), e2 && F("[data-css-paint]", true);
+  }
+  function E(t2, n2, r3) {
+    var i2 = [[0, t2.cssRules]], o3 = i2[0], a2 = o3[1];
+    if (a2)
+      for (var s2 = 0; i2.length > 0; s2++)
+        if (s2 >= a2.length) {
+          i2.pop();
+          var l2 = i2.length;
+          l2 > 0 && (a2 = (o3 = i2[l2 - 1])[1], s2 = o3[0]);
+        } else {
+          o3[0] = s2;
+          var c2 = a2[s2];
+          if (3 !== c2.type)
+            if (1 === c2.type) {
+              var u2 = n2(c2, r3);
+              void 0 !== u2 && (r3 = u2);
+            } else
+              c2.cssRules && c2.cssRules.length > 0 && i2.push([0, c2.cssRules]);
+          else {
+            if (c2.$$isPaint)
+              continue;
+            var p3 = c2.media && c2.media.mediaText;
+            if (p3 && !self.matchMedia(p3).matches)
+              continue;
+            if (/ts\.g.{7}is\.com\/css/.test(c2.href))
+              continue;
+            c2.$$isPaint = true, e(c2.href, N);
+          }
+        }
+    return r3;
+  }
+  function k(t2) {
+    if (!t2.$$isPaint) {
+      if (t2.href)
+        return e(t2.href, N), false;
+      for (var n2 = t2.childNodes.length; n2--; ) {
+        var r3 = t2.childNodes[n2].nodeValue, i2 = z(r3);
+        i2 !== r3 && (t2.childNodes[n2].nodeValue = i2);
+      }
+    }
+  }
+  function N(e2) {
+    var t2 = function(e3) {
+      var t3 = u.contentDocument.body, n3 = document.createElement("style");
+      return n3.media = "print", n3.$$paintid = ++R, n3.appendChild(document.createTextNode(e3)), t3.appendChild(n3), n3.sheet.remove = function() {
+        return t3.removeChild(n3);
+      }, n3.sheet;
+    }(z(e2));
+    try {
+      t2._ = t2.cssRules.length;
+    } catch (e3) {
+      var n2 = function() {
+        t2 && G(t2), t2 = null, clearTimeout(r3);
+      };
+      t2.ownerNode.onload = t2.ownerNode.onerror = n2;
+      var r3 = setTimeout(n2, 5e3);
+      return;
+    }
+    G(t2);
+  }
+  function G(e2) {
+    var t2 = "";
+    if (E(e2, function(e3) {
+      if (1 === e3.type) {
+        for (var n3 = "", r3 = 0; r3 < e3.style.length; r3++) {
+          var i2 = e3.style.item(r3), o3 = e3.style.getPropertyValue(i2);
+          m2.test(o3) && (n3 = i2 + ": " + o3 + e3.style.getPropertyPriority(i2) + ";");
+        }
+        if (n3) {
+          n3 = e3.selectorText + "{" + n3 + "}";
+          for (var a2 = e3; a2 = a2.parentRule; )
+            n3 = "" + a2.cssText.match(/^[\s\S]+?\{/)[0] + n3 + "}";
+          t2 += n3;
+        }
+      }
+    }), e2.remove(), t2) {
+      var n2 = document.createElement("style");
+      n2.appendChild(document.createTextNode(t2)), c.appendChild(n2), T();
+    }
+  }
+  function z(e2) {
+    return e2.replace(/( |;|,|\b)paint\s*\(\s*(['"]?)(.+?)\2\s*\)( |;|,|!|\b|$)/g, "$1url(data:image/paint-$3,=)$4");
+  }
+  var V, D, L, j = [];
+  function A(e2, t2) {
+    t2 && (e2.$$paintObservedProperties = null, e2.$$paintGeometry && !e2.$$paintGeometry.live && (e2.$$paintGeometry = null)), true !== e2.$$paintPending && (e2.$$paintPending = true, -1 === j.indexOf(e2) && 1 === j.push(e2) && b(I));
+  }
+  function I() {
+    for (var e2, t2 = 0; t2 < j.length; t2++)
+      j[t2] && "style" === j[t2].localName && (e2 = true, j[t2] = null);
+    if (e2)
+      return b(I), void T();
+    var n2 = j.length && j.some(function(e3) {
+      return e3 && true === e3.$$needsOverrides;
+    });
+    for (n2 && K(); j.length; ) {
+      var r3 = j.pop();
+      r3 && W(r3);
+    }
+    n2 && Y();
+  }
+  function F(e2, t2) {
+    try {
+      for (var n2 = document.querySelectorAll(e2), r3 = 0; r3 < n2.length; r3++)
+        A(n2[r3], t2);
+    } catch (e3) {
+    }
+  }
+  function M(e2, t2, n2) {
+    for (var r3 = e2.length, i2 = function() {
+      --r3 || t2.apply(null, n2 || h3);
+    }, o3 = 0; o3 < e2.length; o3++) {
+      var a2 = new Image();
+      a2.onload = i2, a2.onerror = onerror, a2.src = e2[o3];
+    }
+  }
+  function H(e2) {
+    var t2 = e2.$$paintId;
+    return null == t2 && (t2 = e2.$$paintId = ++Z), t2;
+  }
+  function U(e2) {
+    var t2 = e2.$$paintRule, n2 = H(e2);
+    if (Number(e2.getAttribute("data-css-paint")) !== n2 && e2.setAttribute("data-css-paint", n2), null == t2) {
+      var r3 = d.insertRule('[data-css-paint="' + n2 + '"] {}', d.cssRules.length);
+      t2 = e2.$$paintRule = d.cssRules[r3];
+    }
+    return t2;
+  }
+  function B(e2) {
+    var t2 = e2.cssText;
+    if (t2)
+      return t2;
+    t2 = "";
+    for (var n2 = 0, r3 = void 0; n2 < e2.length; n2++)
+      r3 = e2[n2], 0 !== n2 && (t2 += " "), t2 += r3, t2 += ":", t2 += e2.getPropertyValue(r3), t2 += ";";
+    return t2;
+  }
+  function W(e2) {
+    var t2 = getComputedStyle(e2);
+    if (e2.$$paintObservedProperties && !e2.$$needsOverrides)
+      for (var n2 = 0; n2 < e2.$$paintObservedProperties.length; n2++) {
+        var r3 = e2.$$paintObservedProperties[n2];
+        if (t2.getPropertyValue(r3).trim() !== e2.$$paintedPropertyValues[r3]) {
+          _2(e2, t2);
+          break;
+        }
+      }
+    else if (e2.$$paintId || m2.test(B(t2)))
+      _2(e2, t2);
+    else {
+      var i2 = e2.getAttribute("style");
+      m2.test(i2) && (e2.style.cssText = i2.replace(/;\s*$/, "") + "; " + e2.style.cssText, _2(e2));
+    }
+    e2.$$paintPending = false;
+  }
+  function q(e2) {
+    e2.$$paintGeometry && !e2.$$paintGeometry.live && (e2.$$paintGeometry = null), A(e2);
+  }
+  var Q = { get: function(e2) {
+    var t2 = i[e2], n2 = t2 && false === t2.inherits ? D.style.getPropertyValue(e2) : Q.getRaw(e2);
+    if (null == n2 && t2)
+      n2 = t2.initialValue;
+    else if (t2 && t2.syntax) {
+      var o3 = t2.syntax.replace(/[<>\s]/g, "");
+      "function" == typeof r2[o3] && (n2 = r2[o3](n2));
+    }
+    return "string" == typeof n2 && (n2 = n2.trim()), n2;
+  }, getRaw: function(e2) {
+    if (e2 in L)
+      return L[e2];
+    var t2 = V.getPropertyValue(e2);
+    return "string" == typeof t2 && (t2 = t2.trim()), L[e2] = t2;
+  } };
+  var X = window.ResizeObserver && new window.ResizeObserver(function(e2) {
+    for (var t2 = 0; t2 < e2.length; t2++) {
+      var n2 = e2[t2], r3 = n2.target.$$paintGeometry;
+      r3 ? r3.live = true : r3 = n2.target.$$paintGeometry = { width: 0, height: 0, live: true };
+      var i2 = n2.borderBoxSize;
+      if (i2 && i2.length && (i2 = i2[0]), i2)
+        r3.width = 0 | i2.inlineSize, r3.height = 0 | i2.blockSize;
+      else {
+        var o3 = getComputedStyle(n2.target), a2 = parseFloat(o3.paddingLeft) + parseFloat(o3.paddingRight), s2 = parseFloat(o3.paddingTop) + parseFloat(o3.paddingBottom);
+        r3.width = Math.round((n2.contentRect.right - n2.contentRect.left || n2.contentRect.width) + a2), r3.height = Math.round((n2.contentRect.bottom - n2.contentRect.top || n2.contentRect.height) + s2);
+      }
+      A(n2.target, true);
+    }
+  });
+  var Z = 0;
+  function _2(e2, t2) {
+    true === e2.$$needsOverrides && K();
+    var n2, r3 = V = null == t2 ? getComputedStyle(e2) : t2;
+    D = e2, L = {};
+    var i2 = [];
+    e2.$$paintPending = false;
+    var o3 = function(e3) {
+      return e3.$$paintGeometry || (e3.$$paintGeometry = { width: e3.clientWidth, height: e3.clientHeight, live: false });
+    }(e2);
+    !function(e3) {
+      X && !e3.$$paintGeometry.live && (e3.$$paintGeometry.live = true, X.observe(e3));
+    }(e2), o3 = { width: o3.width, height: o3.height };
+    for (var s2 = w(), l2 = e2.$$paintedProperties, u2 = 0; u2 < r3.length; u2++) {
+      var p3 = r3[u2], d2 = Q.getRaw(p3), f2 = /(,|\b|^)(?:url\((['"]?))?((?:-moz-element\(#|-webkit-canvas\()paint-\d+-([^;,]+)|(?:data:image\/paint-|blob:[^'"#]+#paint=)([^"';, ]+)(?:[;,].*?)?)\2\)(;|,|\s|\b|$)/g, v2 = "", h4 = 0, m3 = [], $3 = false, b2 = false, x2 = void 0, R2 = void 0, O2 = false, C2 = o3;
+      if (a.test(p3) && "-webkit-border-image" !== p3) {
+        if (/border-image/.test(p3)) {
+          var T2 = C2.width, E2 = C2.height, k2 = re(Q.getRaw("border-image-slice").replace(/\sfill/, "").split(" ")), N2 = re(Q.getRaw("border-width").split(" ")), G2 = re(Q.getRaw("border-image-outset").split(" "));
+          T2 += ne("0" != k2.left && parseFloat(N2.left) || 0, G2.left || 0, true), T2 += ne("0" != k2.right && parseFloat(N2.right) || 0, G2.right || 0, true), E2 += ne("0" != k2.top && parseFloat(N2.top) || 0, G2.top || 0, true), O2 = true, C2 = { width: T2, height: E2 += ne("0" != k2.bottom && parseFloat(N2.bottom) || 0, G2.bottom || 0, true) };
+        }
+        for (; R2 = f2.exec(d2); ) {
+          false === b2 && (x2 = H(e2)), b2 = true, v2 += d2.substring(0, R2.index);
+          var z2 = R2[4] || R2[5], j2 = R2[3], A2 = P[z2], I2 = A2 && A2.Painter.contextOptions || {}, F2 = O2 || false === I2.scaling ? 1 : s2, B2 = void 0;
+          A2 && (A2.Painter.inputProperties && i2.push.apply(i2, A2.Painter.inputProperties), B2 = S(A2)), true === I2.nativePixels && (C2.width *= s2, C2.height *= s2, F2 = 1);
+          var W2 = F2 * C2.width, q2 = F2 * C2.height, Z2 = e2.$$paintContext, _3 = "paint-" + x2 + "-" + z2, J2 = Z2 && Z2.canvas;
+          if (!J2 || J2.width != W2 || J2.height != q2 || true === g && Z2 && _3 !== Z2.id) {
+            if (true === g)
+              (Z2 = document.getCSSCanvasContext("2d", _3, W2, q2)).id = _3, e2.$$paintContext && Z2.clearRect(0, 0, W2, q2);
+            else {
+              var ie2 = false;
+              J2 || ((J2 = document.createElement("canvas")).id = _3, ie2 = y), J2.width = W2, J2.height = q2, ie2 && (J2.style.display = "none", c.appendChild(J2)), Z2 = J2.getContext("2d");
+            }
+            e2.$$paintContext = Z2, Z2.imageSmoothingEnabled = false, 1 !== F2 && Z2.scale(F2, F2);
+          } else
+            Z2.clearRect(0, 0, W2, q2);
+          if (B2 && (Z2.save(), Z2.beginPath(), B2.paint(Z2, C2, Q), Z2.closePath(), Z2.restore(), false === g && !y && "resetTransform" in Z2 && Z2.resetTransform()), v2 += R2[1], true === g)
+            v2 += "-webkit-canvas(" + _3 + ")", (null == R2[4] || J2 && J2.id !== _3) && ($3 = true);
+          else if (true === y)
+            v2 += "-moz-element(#" + _3 + ")", null == R2[4] && ($3 = true), J2 && J2.id !== _3 && (J2.id = _3, $3 = true);
+          else {
+            var oe = J2.toDataURL("image/png").replace("/png", "/paint-" + z2);
+            if ("function" == typeof MSBlobBuilder && (oe = ee(oe, z2)), m3.push(oe), v2 += 'url("' + oe + '")', oe !== j2 || !n2) {
+              var ae = j2 ? j2.indexOf("#") : -1;
+              ~ae && URL.revokeObjectURL(j2.substring(0, ae)), $3 = true;
+            }
+            j2 = oe;
+          }
+          v2 += R2[6], h4 = R2.index + R2[0].length;
+        }
+        false !== b2 || null == l2 || null == l2[p3] ? (v2 += d2.substring(h4), $3 && (n2 || (n2 = U(e2)), null == l2 && (l2 = e2.$$paintedProperties = {}), l2[p3] = true, "background" === p3.substring(0, 10) && 1 !== s2 && te(n2.style, "background-size", "100% 100%"), /mask/.test(p3) && 1 !== s2 && (te(n2.style, "mask-size", "contain"), g && te(n2.style, "-webkit-mask-size", "contain")), /border-image/.test(p3) && g && (te(n2.style, "border-color", "initial"), te(n2.style, "image-rendering", "optimizeSpeed")), 0 === m3.length ? te(n2.style, p3, v2) : M(m3, te, [n2.style, p3, v2]))) : (n2 || (n2 = U(e2)), n2.style.removeProperty(p3), X && X.unobserve(e2), e2.$$paintGeometry && (e2.$$paintGeometry.live = false));
+      }
+    }
+    e2.$$paintObservedProperties = 0 === i2.length ? null : i2;
+    for (var se = e2.$$paintedPropertyValues = {}, le = 0; le < i2.length; le++) {
+      var ce = i2[le];
+      se[ce] = Q.getRaw(ce);
+    }
+    true === e2.$$needsOverrides && Y(), e2.$$needsOverrides = null;
+  }
+  var J = 0;
+  function K() {
+    J++ || (p2.disabled = true);
+  }
+  function Y() {
+    --J || (p2.disabled = false);
+  }
+  function ee(e2, t2) {
+    for (var n2 = atob(e2.split(",")[1]), r3 = new Uint8Array(n2.length), i2 = 0; i2 < n2.length; i2++)
+      r3[i2] = n2.charCodeAt(i2);
+    return URL.createObjectURL(new Blob([r3])) + "#paint=" + t2;
+  }
+  function te(e2, t2, n2) {
+    var r3 = v;
+    v = true, e2.setProperty(t2, n2, "important"), v = r3;
+  }
+  function ne(e2, t2, n2) {
+    var r3 = n2 ? 0 : e2, i2 = parseFloat(t2);
+    return t2 ? t2.match("px") ? r3 + i2 : (t2.match("%") && (i2 /= 100), e2 * i2) : r3;
+  }
+  function re(e2) {
+    return { top: e2[0], bottom: e2[2] || e2[0], left: e2[3] || e2[1] || e2[0], right: e2[1] || e2[0] };
+  }
+  function ie() {
+  }
+  if (ie.prototype.addModule = function(n2) {
+    var r3, i2, o3 = this;
+    return $2 && (r3 = new Promise(function(e2) {
+      return i2 = e2;
+    })), e(n2, function(e2) {
+      var n3 = { registerPaint: function(e3, t2) {
+        !function(e4, t3, n4) {
+          P[e4] = { worklet: n4, Painter: t3, properties: t3.inputProperties ? [].slice.call(t3.inputProperties) : [], bit: 0, instances: [] };
+          for (var r5 = "", i3 = d.cssRules.length; i3--; ) {
+            var o4 = d.cssRules[i3];
+            -1 !== o4.style.cssText.indexOf("-" + e4) && (r5 += o4.selectorText);
+          }
+          r5 && F(r5, true);
+        }(e3, t2, { context: n3, realm: r4 });
+      } };
+      t(n3, "devicePixelRatio", { get: w }), n3.self = n3;
+      var r4 = new function(e3, t2) {
+        var n4 = document.createElement("iframe");
+        n4.style.cssText = "position:absolute; left:0; top:-999px; width:1px; height:1px;", t2.appendChild(n4);
+        var r5 = n4.contentWindow, i3 = r5.document, o4 = "var window,$hook";
+        for (var a2 in r5)
+          a2 in e3 || "eval" === a2 || (o4 += ",", o4 += a2);
+        for (var s2 in e3)
+          o4 += ",", o4 += s2, o4 += "=self.", o4 += s2;
+        var l2 = i3.createElement("script");
+        l2.appendChild(i3.createTextNode('function $hook(self,console) {"use strict";\n		' + o4 + ";return function() {return eval(arguments[0])}}")), i3.body.appendChild(l2), this.exec = r5.$hook(e3, console);
+      }(n3, u.contentDocument && u.contentDocument.body || c);
+      e2 = (o3.transpile || String)(e2), r4.exec(e2), i2 && i2();
+    }), r3;
+  }, !s)
+    try {
+      !function() {
+        var e2 = false;
+        new MutationObserver(function(t2) {
+          if (true !== e2 && !J) {
+            e2 = true;
+            for (var n3 = 0; n3 < t2.length; n3++) {
+              var r4 = t2[n3], i3 = r4.target, o4 = void 0, a2 = void 0;
+              if (!(i3 && "ownerSVGElement" in i3)) {
+                if ("childList" === r4.type) {
+                  if (o4 = r4.addedNodes)
+                    for (var s3 = 0; s3 < o4.length; s3++)
+                      1 === o4[s3].nodeType && C(o4[s3], A);
+                  if (a2 = r4.removedNodes)
+                    for (var l3 = 0; l3 < a2.length; l3++)
+                      X && a2[l3].$$paintGeometry && (a2[l3].$$paintGeometry.live = false, X && X.unobserve(a2[l3]));
+                } else if ("attributes" === r4.type && 1 === i3.nodeType) {
+                  if ("data-css-paint" === r4.attributeName && r4.oldValue && null != i3.$$paintId && !i3.getAttribute("data-css-paint")) {
+                    H(i3);
+                    continue;
+                  }
+                  C(i3, q);
+                }
+              }
+            }
+            e2 = false;
+          }
+        }).observe(document.body, { childList: true, attributes: true, attributeOldValue: true, subtree: true });
+        var n2 = Object.getOwnPropertyDescriptor(Element.prototype, "setAttribute"), r3 = n2.value;
+        n2.value = function(e3, t2) {
+          return "style" === e3 && m2.test(t2) && (t2 = z(t2), H(this), this.$$needsOverrides = true, q(this)), r3.call(this, e3, t2);
+        }, t(Element.prototype, "setAttribute", n2);
+        var i2 = Object.getOwnPropertyDescriptor(Element.prototype, "removeAttribute"), o3 = i2.value;
+        i2.value = function(e3) {
+          if ("data-css-paint" !== e3)
+            return o3.call(this, e3);
+        }, t(Element.prototype, "removeAttribute", i2);
+        var s2 = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "style"), l2 = s2.get;
+        s2.set = function(e3) {
+          return s2.get.call(this).cssText = e3;
+        }, s2.get = function() {
+          var e3 = l2.call(this);
+          return e3.ownerElement !== this && t(e3, "ownerElement", { value: this }), e3;
+        }, t(HTMLElement.prototype, "style", s2);
+        var c2 = {}, u2 = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, "cssText"), p3 = u2.set;
+        u2.set = function(e3) {
+          if (!J && m2.test(e3)) {
+            e3 = e3 && z(e3);
+            var t2 = this.ownerElement;
+            t2 && (H(t2), t2.$$needsOverrides = true, q(t2));
+          }
+          return p3.call(this, e3);
+        }, c2.cssText = u2, Object.keys((window.CSS2Properties || CSSStyleDeclaration).prototype).filter(function(e3) {
+          return a.test(e3);
+        }).forEach(function(e3) {
+          var t2 = e3.replace(/([A-Z])/g, "-$1").toLowerCase();
+          c2[e3] = { configurable: true, enumerable: true, get: function() {
+            var e4 = this.getPropertyPriority(t2);
+            return this.getPropertyValue(t2) + (e4 ? " !" + e4 : "");
+          }, set: function(n3) {
+            var r4 = String(n3).match(/^(.*?)\s*(?:!\s*(important)\s*)?$/);
+            return this.setProperty(t2, r4[1], r4[2]), this[e3];
+          } };
+        });
+        var d2 = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, "setProperty"), f2 = d2.value;
+        d2.value = function(e3, t2, n3) {
+          if (!v && !J && m2.test(t2)) {
+            t2 = t2 && z(t2);
+            var r4 = this.ownerElement;
+            r4 && (H(r4), r4.$$needsOverrides = true, q(r4));
+          }
+          f2.call(this, e3, t2, n3);
+        }, c2.setProperty = d2, Object.defineProperties(CSSStyleDeclaration.prototype, c2), window.CSS2Properties && Object.defineProperties(window.CSS2Properties.prototype, c2), addEventListener("resize", function() {
+          F("[data-css-paint]");
+        });
+        var h4 = { passive: true };
+        function g2(e3) {
+          for (var t2 = e3.target; t2; )
+            1 === t2.nodeType && A(t2), t2 = t2.parentNode;
+        }
+        ["animationiteration", "animationend", "animationstart", "transitionstart", "transitionend", "transitionrun", "transitioncancel", "mouseover", "mouseout", "mousedown", "mouseup", "focus", "blur"].forEach(function(e3) {
+          addEventListener(e3, g2, h4);
+        }), T(), F('[style*="paint"]');
+      }();
+    } catch (e2) {
+    }
+}();
 
 // js/renderPreviewWindow.tsx
 init_define_process();
@@ -9343,7 +9848,7 @@ init_define_process();
     if (nonceElement)
       nonce = nonceElement.nonce || nonceElement.getAttribute("nonce");
   }
-  const onerror = globalHook(esmsInitOptions.onerror || noop2);
+  const onerror2 = globalHook(esmsInitOptions.onerror || noop2);
   const onpolyfill = esmsInitOptions.onpolyfill ? globalHook(esmsInitOptions.onpolyfill) : () => {
     console.log("%c^^ Module TypeError above is polyfilled and can be ignored ^^", "font-weight:900;color:#391");
   };
@@ -9361,7 +9866,7 @@ init_define_process();
     throw err;
   });
   const throwError = (err) => {
-    (self.reportError || hasWindow && window.safari && console.error || eoop)(err), void onerror(err);
+    (self.reportError || hasWindow && window.safari && console.error || eoop)(err), void onerror2(err);
   };
   function fromParent(parent) {
     return parent ? ` imported from ${parent}` : "";
@@ -15001,7 +15506,7 @@ init_define_process();
 
 // ../../node_modules/@popperjs/core/lib/dom-utils/getComputedStyle.js
 init_define_process();
-function getComputedStyle(element) {
+function getComputedStyle2(element) {
   return getWindow(element).getComputedStyle(element);
 }
 
@@ -15030,7 +15535,7 @@ function getParentNode(element) {
 
 // ../../node_modules/@popperjs/core/lib/dom-utils/getOffsetParent.js
 function getTrueOffsetParent(element) {
-  if (!isHTMLElement(element) || getComputedStyle(element).position === "fixed") {
+  if (!isHTMLElement(element) || getComputedStyle2(element).position === "fixed") {
     return null;
   }
   return element.offsetParent;
@@ -15039,7 +15544,7 @@ function getContainingBlock(element) {
   var isFirefox = /firefox/i.test(getUAString());
   var isIE = /Trident/i.test(getUAString());
   if (isIE && isHTMLElement(element)) {
-    var elementCss = getComputedStyle(element);
+    var elementCss = getComputedStyle2(element);
     if (elementCss.position === "fixed") {
       return null;
     }
@@ -15049,7 +15554,7 @@ function getContainingBlock(element) {
     currentNode = currentNode.host;
   }
   while (isHTMLElement(currentNode) && ["html", "body"].indexOf(getNodeName(currentNode)) < 0) {
-    var css8 = getComputedStyle(currentNode);
+    var css8 = getComputedStyle2(currentNode);
     if (css8.transform !== "none" || css8.perspective !== "none" || css8.contain === "paint" || ["transform", "perspective"].indexOf(css8.willChange) !== -1 || isFirefox && css8.willChange === "filter" || isFirefox && css8.filter && css8.filter !== "none") {
       return currentNode;
     } else {
@@ -15061,10 +15566,10 @@ function getContainingBlock(element) {
 function getOffsetParent(element) {
   var window2 = getWindow(element);
   var offsetParent = getTrueOffsetParent(element);
-  while (offsetParent && isTableElement(offsetParent) && getComputedStyle(offsetParent).position === "static") {
+  while (offsetParent && isTableElement(offsetParent) && getComputedStyle2(offsetParent).position === "static") {
     offsetParent = getTrueOffsetParent(offsetParent);
   }
-  if (offsetParent && (getNodeName(offsetParent) === "html" || getNodeName(offsetParent) === "body" && getComputedStyle(offsetParent).position === "static")) {
+  if (offsetParent && (getNodeName(offsetParent) === "html" || getNodeName(offsetParent) === "body" && getComputedStyle2(offsetParent).position === "static")) {
     return window2;
   }
   return offsetParent || getContainingBlock(element) || window2;
@@ -15233,7 +15738,7 @@ function mapToStyles(_ref2) {
     var widthProp = "clientWidth";
     if (offsetParent === getWindow(popper2)) {
       offsetParent = getDocumentElement(popper2);
-      if (getComputedStyle(offsetParent).position !== "static" && position2 === "absolute") {
+      if (getComputedStyle2(offsetParent).position !== "static" && position2 === "absolute") {
         heightProp = "scrollHeight";
         widthProp = "scrollWidth";
       }
@@ -15274,7 +15779,7 @@ function computeStyles(_ref5) {
   var state = _ref5.state, options = _ref5.options;
   var _options$gpuAccelerat = options.gpuAcceleration, gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat, _options$adaptive = options.adaptive, adaptive = _options$adaptive === void 0 ? true : _options$adaptive, _options$roundOffsets = options.roundOffsets, roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
   if (true) {
-    var transitionProperty = getComputedStyle(state.elements.popper).transitionProperty || "";
+    var transitionProperty = getComputedStyle2(state.elements.popper).transitionProperty || "";
     if (adaptive && ["transform", "top", "right", "bottom", "left"].some(function(property) {
       return transitionProperty.indexOf(property) >= 0;
     })) {
@@ -15451,7 +15956,7 @@ function getDocumentRect(element) {
   var height2 = max(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
   var x = -winScroll.scrollLeft + getWindowScrollBarX(element);
   var y = -winScroll.scrollTop;
-  if (getComputedStyle(body || html).direction === "rtl") {
+  if (getComputedStyle2(body || html).direction === "rtl") {
     x += max(html.clientWidth, body ? body.clientWidth : 0) - width2;
   }
   return {
@@ -15471,7 +15976,7 @@ init_define_process();
 // ../../node_modules/@popperjs/core/lib/dom-utils/isScrollParent.js
 init_define_process();
 function isScrollParent(element) {
-  var _getComputedStyle = getComputedStyle(element), overflow2 = _getComputedStyle.overflow, overflowX = _getComputedStyle.overflowX, overflowY = _getComputedStyle.overflowY;
+  var _getComputedStyle = getComputedStyle2(element), overflow2 = _getComputedStyle.overflow, overflowX = _getComputedStyle.overflowX, overflowY = _getComputedStyle.overflowY;
   return /auto|scroll|overlay|hidden/.test(overflow2 + overflowY + overflowX);
 }
 
@@ -15529,7 +16034,7 @@ function getClientRectFromMixedType(element, clippingParent, strategy) {
 }
 function getClippingParents(element) {
   var clippingParents2 = listScrollParents(getParentNode(element));
-  var canEscapeClipping = ["absolute", "fixed"].indexOf(getComputedStyle(element).position) >= 0;
+  var canEscapeClipping = ["absolute", "fixed"].indexOf(getComputedStyle2(element).position) >= 0;
   var clipperElement = canEscapeClipping && isHTMLElement(element) ? getOffsetParent(element) : element;
   if (!isElement(clipperElement)) {
     return [];
@@ -16307,7 +16812,7 @@ function popperGenerator(generatorOptions) {
               console.error(['Popper: "auto" placements require the "flip" modifier be', "present and enabled to work."].join(" "));
             }
           }
-          var _getComputedStyle = getComputedStyle(popper2), marginTop = _getComputedStyle.marginTop, marginRight = _getComputedStyle.marginRight, marginBottom = _getComputedStyle.marginBottom, marginLeft = _getComputedStyle.marginLeft;
+          var _getComputedStyle = getComputedStyle2(popper2), marginTop = _getComputedStyle.marginTop, marginRight = _getComputedStyle.marginRight, marginBottom = _getComputedStyle.marginBottom, marginLeft = _getComputedStyle.marginLeft;
           if ([marginTop, marginRight, marginBottom, marginLeft].some(function(margin2) {
             return parseFloat(margin2);
           })) {
@@ -28045,7 +28550,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-WHDP7KFH.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-UURIEFTU.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-MSFJDELE.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({

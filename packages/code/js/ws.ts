@@ -2,6 +2,7 @@
 Object.assign(globalThis, require("buffer/"));
 Object.assign(globalThis, require("stream-browserify"));
 
+import 'css-paint-polyfill'
 import {
   applyPatch,
   hashCode,
