@@ -117,7 +117,6 @@ const build = (entryPoints, format = "esm") =>
       ".ttf": "file",
       ".d.ts": "file",
       ".js": "tsx",
-      ".svg": "file",
       ".workerJs.js": "file",
       ".wasm": "file",
     },
