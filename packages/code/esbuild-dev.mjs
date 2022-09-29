@@ -2,8 +2,8 @@ import esbuild from  "esbuild";
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 import fs from "fs/promises";
-// const { request } = requirez("http");
-// require("monaco-editr/esm/vs/language/css/css.worker")
+// const { request } = require("http");
+// require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
 
 const environment = process.env.NODE_ENV === "production"
