@@ -2115,7 +2115,7 @@ __metadata:
     esbuild-wasm: "npm:0.15.9"
     events: "npm:^3.3.0"
     fast-diff: "npm:1.2.0"
-    framer-motion: "npm:^7.4.0"
+    framer-motion: "npm:^7.5.0"
     hoist-non-react-statics: "npm:^3.3.2"
     immutable: "npm:4.1.0"
     lodash.debounce: "npm:4.0.8"
@@ -5747,9 +5747,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^7.4.0":
-  version: 7.4.0
-  resolution: "framer-motion@npm:7.4.0"
+"framer-motion@npm:^7.5.0":
+  version: 7.5.0
+  resolution: "framer-motion@npm:7.5.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
@@ -5764,7 +5764,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: b2a4990b7d1e3cf7494cdac8f875486b113a2bebf2d78e51991f192c1afbdacc0bb60f75777f4b49f61ae037f32f031bb440680653c23c4d706a35246d50fac7
+  checksum: e192f671a1c30e27c899332bd056679a117ff64da5ac7593ee9c0027481e4bc3717f2080400813823c27d50c2740677ceb400c9fcde7815ed7928c4be127f7f8
   languageName: node
   linkType: hard
 
@@ -8012,7 +8012,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.6"
     esbuild: "npm:^0.15.9"
     esbuild-plugin-import-map: "npm:^2.1.0"
-    framer-motion: "npm:^7.4.0"
+    framer-motion: "npm:^7.5.0"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:^14.0.1"
