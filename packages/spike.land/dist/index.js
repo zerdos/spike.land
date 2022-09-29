@@ -389,6 +389,7 @@ var a = JSON.parse(manifestJSON);
 var ws = a["ws.mjs"];
 var preact = a["react-preact.mjs"];
 var emotionReact = a["emotion.mjs"];
+var emotionJsxRuntime = a["emotionJsxRuntime.mjs"];
 var motion = a["motion.mjs"];
 var esbuildExternal = [
   "monaco-editor",
@@ -405,8 +406,8 @@ var imap = {
   "imports": {
     ...mods,
     "@emotion/react": emotionReact,
-    "@emotion/react/jsx-runtime": emotionReact,
-    "@emotion/react/jsx-dev-runtime": emotionReact,
+    "@emotion/react/jsx-runtime": emotionJsxRuntime,
+    "@emotion/react/jsx-dev-runtime": emotionJsxRuntime,
     "@mui/": "npm:@mui/",
     "react": preact,
     "react-dom": preact,
@@ -414,6 +415,7 @@ var imap = {
     "react-dom/client": preact,
     "react-dom/server": preact,
     "react/jsx-runtime": preact,
+    "@preact/signals": preact,
     "react/jsx-dev-runtime": preact
   }
 };
@@ -993,7 +995,7 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../../packages/code/dist/chunk-chunk-UURPA34U.mjs
+// ../code/dist/chunk-chunk-UURPA34U.mjs
 var i = Object.create;
 var f = Object.defineProperty;
 var j = Object.getOwnPropertyDescriptor;
@@ -1016,7 +1018,7 @@ var q = o(() => {
   B = { env: { NODE_ENV: "production" }, version: "1.1.1", browser: true };
 });
 
-// ../../packages/code/dist/chunk-chunk-Y4OJPUCW.mjs
+// ../code/dist/chunk-chunk-4ZLJ3PZE.mjs
 var Kn = r((eo, kn) => {
   q();
   var ut = -1, et = 1, K = 0;
@@ -4303,7 +4305,7 @@ var Code = class {
               });
             }
           }
-          return new Response(importMapReplace(Zi().transpiled), {
+          return new Response(Zi().transpiled, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
