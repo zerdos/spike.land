@@ -1,47 +1,47 @@
 {
   "inputs": {
-    "../mime/Mime.js": {
+    "../../node_modules/mime/Mime.js": {
       "bytes": 2892,
       "imports": []
     },
-    "../mime/types/standard.js": {
+    "../../node_modules/mime/types/standard.js": {
       "bytes": 9530,
       "imports": []
     },
-    "../mime/types/other.js": {
+    "../../node_modules/mime/types/other.js": {
       "bytes": 25894,
       "imports": []
     },
-    "../mime/index.js": {
+    "../../node_modules/mime/index.js": {
       "bytes": 127,
       "imports": [
         {
-          "path": "../mime/Mime.js",
+          "path": "../../node_modules/mime/Mime.js",
           "kind": "require-call"
         },
         {
-          "path": "../mime/types/standard.js",
+          "path": "../../node_modules/mime/types/standard.js",
           "kind": "require-call"
         },
         {
-          "path": "../mime/types/other.js",
+          "path": "../../node_modules/mime/types/other.js",
           "kind": "require-call"
         }
       ]
     },
-    "../@cloudflare/kv-asset-handler/dist/types.js": {
+    "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
       "bytes": 1166,
       "imports": []
     },
-    "../@cloudflare/kv-asset-handler/dist/index.js": {
+    "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
       "bytes": 11622,
       "imports": [
         {
-          "path": "../mime/index.js",
+          "path": "../../node_modules/mime/index.js",
           "kind": "require-call"
         },
         {
-          "path": "../@cloudflare/kv-asset-handler/dist/types.js",
+          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js",
           "kind": "require-call"
         }
       ]
@@ -51,10 +51,10 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 15081,
+      "bytes": 15174,
       "imports": [
         {
-          "path": "../@cloudflare/kv-asset-handler/dist/index.js",
+          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
           "kind": "import-statement"
         },
         {
@@ -75,28 +75,28 @@
       "bytes": 2244,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-UURPA34U.mjs": {
+    "../code/dist/chunk-chunk-UURPA34U.mjs": {
       "bytes": 1287,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-Y4OJPUCW.mjs": {
+    "../code/dist/chunk-chunk-4ZLJ3PZE.mjs": {
       "bytes": 72062,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-UURPA34U.mjs",
+          "path": "../code/dist/chunk-chunk-UURPA34U.mjs",
           "kind": "import-statement"
         }
       ]
     },
-    "../../packages/code/dist/session.mjs": {
+    "../code/dist/session.mjs": {
       "bytes": 265,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-Y4OJPUCW.mjs",
+          "path": "../code/dist/chunk-chunk-4ZLJ3PZE.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/dist/chunk-chunk-UURPA34U.mjs",
+          "path": "../code/dist/chunk-chunk-UURPA34U.mjs",
           "kind": "import-statement"
         }
       ]
@@ -106,7 +106,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 20956,
+      "bytes": 20938,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -125,7 +125,7 @@
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/dist/session.mjs",
+          "path": "../code/dist/session.mjs",
           "kind": "import-statement"
         },
         {
@@ -184,26 +184,26 @@
       ],
       "entryPoint": "src/index.ts",
       "inputs": {
-        "../mime/Mime.js": {
+        "../../node_modules/mime/Mime.js": {
           "bytesInOutput": 2020
         },
-        "../mime/types/standard.js": {
+        "../../node_modules/mime/types/standard.js": {
           "bytesInOutput": 10359
         },
-        "../mime/types/other.js": {
+        "../../node_modules/mime/types/other.js": {
           "bytesInOutput": 27456
         },
-        "../mime/index.js": {
+        "../../node_modules/mime/index.js": {
           "bytesInOutput": 213
         },
-        "../@cloudflare/kv-asset-handler/dist/types.js": {
+        "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
           "bytesInOutput": 1240
         },
-        "../@cloudflare/kv-asset-handler/dist/index.js": {
+        "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
           "bytesInOutput": 8841
         },
         "src/chat.ts": {
-          "bytesInOutput": 12772
+          "bytesInOutput": 12865
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -218,12 +218,12 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15558
+          "bytesInOutput": 15540
         },
-        "../../packages/code/dist/chunk-chunk-UURPA34U.mjs": {
+        "../code/dist/chunk-chunk-UURPA34U.mjs": {
           "bytesInOutput": 1044
         },
-        "../../packages/code/dist/chunk-chunk-Y4OJPUCW.mjs": {
+        "../code/dist/chunk-chunk-4ZLJ3PZE.mjs": {
           "bytesInOutput": 102022
         },
         "src/getBackupSession.ts": {
@@ -239,7 +239,7 @@
           "bytesInOutput": 522
         }
       },
-      "bytes": 193628
+      "bytes": 193679
     }
   }
 }
