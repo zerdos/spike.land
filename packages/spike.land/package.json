@@ -10,7 +10,7 @@
     "prepublishOnly": "wrangler publish",
     "predeploy": "yarn c:build && yarn x:build",
     "c:build": "yarn workspace @spike.land/code build",
-    "x:build": "esbuild  --bundle --tree-shaking=true --metafile=good.json --format=esm --loader:.html=text --external:__STATIC_CONTENT_MANIFEST --target=es2021 src/index.ts --outdir=dist"
+    "x:build": "esbuild  --bundle --tree-shaking=true --metafile=good.json --format=esm --loader:.html=file --external:__STATIC_CONTENT_MANIFEST --tree-shaking --target=es2021 src/index.ts --outdir=dist"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.16.0",
