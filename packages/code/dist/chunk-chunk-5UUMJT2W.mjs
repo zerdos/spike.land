@@ -3120,7 +3120,7 @@ var isFloat = (value) => {
 };
 var MotionValue = class {
   constructor(init) {
-    this.version = "7.5.0";
+    this.version = "7.5.1";
     this.timeDelta = 0;
     this.lastUpdated = 0;
     this.updateSubscribers = new SubscriptionManager();
@@ -4446,7 +4446,7 @@ function updateMotionValuesFromProps(element, next, prev) {
         willChange.add(key);
       }
       if (true) {
-        warnOnce(nextValue.version === "7.5.0", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.5.0 may not work as expected.`);
+        warnOnce(nextValue.version === "7.5.1", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.5.1 may not work as expected.`);
       }
     } else if (isMotionValue(prevValue)) {
       element.addValue(key, motionValue(nextValue));
@@ -6819,10 +6819,13 @@ init_define_process();
 
 // ../../node_modules/framer-motion/dist/es/value/use-on-change.mjs
 init_define_process();
-function useMultiOnChange(values, handler) {
+function useMultiOnChange(values, handler, cleanup) {
   useIsomorphicLayoutEffect(() => {
     const subscriptions = values.map((value) => value.onChange(handler));
-    return () => subscriptions.forEach((unsubscribe) => unsubscribe());
+    return () => {
+      subscriptions.forEach((unsubscribe) => unsubscribe());
+      cleanup();
+    };
   });
 }
 
@@ -6831,7 +6834,7 @@ function useCombineMotionValues(values, combineValues) {
   const value = useMotionValue(combineValues());
   const updateValue = () => value.set(combineValues());
   updateValue();
-  useMultiOnChange(values, () => es_default.update(updateValue, false, true));
+  useMultiOnChange(values, () => es_default.update(updateValue, false, true), () => cancelSync.update(updateValue));
   return value;
 }
 
