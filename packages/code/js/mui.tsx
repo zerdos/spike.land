@@ -1,11 +1,18 @@
 import { css } from "@emotion/react";
-export {Fab,Button, Box, Slider, ToggleButton, ToggleButtonGroup} from "@mui/material";
+export {
+  Box,
+  Button,
+  Fab,
+  Slider,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
 
 import { MdPhoneAndroid, MdShare, MdTabletAndroid, MdTv } from "react-icons/md";
 
 export const Phone = () => (
   <span css={css`font-size:20pt`}>
-    <MdPhoneAndroid/>
+    <MdPhoneAndroid />
   </span>
 );
 
