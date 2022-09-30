@@ -2151,6 +2151,7 @@ __metadata:
     es-module-shims: "npm:^1.6.0"
     esbuild: "npm:^0.15.10"
     esbuild-plugin-import-map: "npm:2.1.0"
+    esbuild-plugin-inline-worker: "npm:^0.1.1"
     esbuild-postcss: "npm:^0.0.4"
     esbuild-register: "npm:^3.3.3"
     esbuild-wasm: "npm:0.15.10"
@@ -5143,6 +5144,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esbuild-plugin-inline-worker@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "esbuild-plugin-inline-worker@npm:0.1.1"
+  dependencies:
+    esbuild: "npm:latest"
+    find-cache-dir: "npm:^3.3.1"
+  checksum: 4474b162f71b13d4166c20d8c8f9b0d17cf9e8541ba63776cb1fba02f793fe3a06d55e9c34ce0c6fd602e2d6f9dd2aa445d4ece30e3ea64292a12ef0fd56be2b
+  languageName: node
+  linkType: hard
+
 "esbuild-postcss@npm:^0.0.4":
   version: 0.0.4
   resolution: "esbuild-postcss@npm:0.0.4"
@@ -5311,7 +5322,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.15.10, esbuild@npm:^0.15.10":
+"esbuild@npm:0.15.10, esbuild@npm:^0.15.10, esbuild@npm:latest":
   version: 0.15.10
   resolution: "esbuild@npm:0.15.10"
   dependencies:
@@ -6067,7 +6078,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-cache-dir@npm:^3.3.2":
+"find-cache-dir@npm:^3.3.1, find-cache-dir@npm:^3.3.2":
   version: 3.3.2
   resolution: "find-cache-dir@npm:3.3.2"
   dependencies:

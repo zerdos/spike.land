@@ -91,6 +91,7 @@
     "css-paint-polyfill": "^3.4.0",
     "csstype": "^3.1.1",
     "es-module-shims": "^1.6.0",
+    "esbuild-plugin-inline-worker": "^0.1.1",
     "esbuild-wasm": "0.15.10",
     "events": "^3.3.0",
     "extract-css": "^3.0.0",
