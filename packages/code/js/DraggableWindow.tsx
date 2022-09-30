@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 import { useEffect, useState } from "react";
-import {  motion as m} from "framer-motion";
+import { motion as m } from "framer-motion";
 import { QRButton } from "./Qr";
 
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
@@ -113,21 +113,21 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   }, []);
 
   return (
-      <m.div
-        transition={{ delay: 0, duration: 0.4 }}
-        initial={{
-          top: 0,
-          padding: 0,
-          right: 0,
-          borderRadius: 0,
-        }}
-        animate={{
-          top: bottom,
-          padding: 8,
-          right,
-          borderRadius: 16,
-        }}
-        css={css`
+    <m.div
+      transition={{ delay: 0, duration: 0.4 }}
+      initial={{
+        top: 0,
+        padding: 0,
+        right: 0,
+        borderRadius: 0,
+      }}
+      animate={{
+        top: bottom,
+        padding: 8,
+        right,
+        borderRadius: 16,
+      }}
+      css={css`
             background-color:${bg};
             backdrop-filter: blur(15px);
             z-index: 10;
@@ -135,222 +135,222 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             white-space: normal;
             position: fixed;
           `}
-        drag={true}
-        dragMomentum={false}
-        dragConstraints={{
-          left: 0,
-          right: width - 20 - width / 6,
-          bottom: innerHeight,
-        }}
-        dragElastic={0.5}
-      >
-        <div
-          css={css` 
+      drag={true}
+      dragMomentum={false}
+      dragConstraints={{
+        left: 0,
+        right: width - 20 - width / 6,
+        bottom: innerHeight,
+      }}
+      dragElastic={0.5}
+    >
+      <div
+        css={css` 
               display: flex;
               
                 `}
-        >
-          <div
-            css={css`
+      >
+        <div
+          css={css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `}
+        >
+          <m.div
+            transition={{ delay: 0, duration: 0.4 }}
+            initial={{ height: 0, width: 0 }}
+            animate={{ height: "auto", width: "auto" }}
           >
-            <m.div
-              transition={{ delay: 0, duration: 0.4 }}
-              initial={{ height: 0, width: 0 }}
-              animate={{ height: "auto", width: "auto" }}
+            <ToggleButtonGroup
+              value={scaleRange}
+              size="small"
+              exclusive
+              onChange={(_e: unknown, newScale: number) => {
+                newScale && changeScaleRange(newScale);
+              }}
             >
-              <ToggleButtonGroup
-                value={scaleRange}
-                size="small"
-                exclusive
-                onChange={(_e: unknown, newScale: number) => {
-                  newScale && changeScaleRange(newScale);
-                }}
-              >
-                {sizes.map((size, ind) => (
-                  <ToggleButton
-                    key={ind}
-                    value={size}
-                  >
-                    <span
-                      css={css`
+              {sizes.map((size, ind) => (
+                <ToggleButton
+                  key={ind}
+                  value={size}
+                >
+                  <span
+                    css={css`
                        color: ${
-                        size === scaleRange
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
+                      size === scaleRange
+                        ? "rgba(255,255,255,.8)"
+                        : "rgba(0,0,0,.3)"
+                    };
                        `}
-                    >
-                      {size}%
-                    </span>
-                  </ToggleButton>
-                ))}
-              </ToggleButtonGroup>
-            </m.div>
-            {/* <span>{width}*{height}</span> */}
+                  >
+                    {size}%
+                  </span>
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </m.div>
+          {/* <span>{width}*{height}</span> */}
 
-            <m.div
-              transition={{ delay: 0, duration: 0.4 }}
-              initial={{
-                width: window.innerWidth,
-                height: window.innerHeight,
-                borderRadius: 0,
-                // Opacity: isFullScreen ? 1 : 0.7,
-              }}
-              animate={{
-                width: width * scale / devicePixelRatio,
-                height: height * scale / devicePixelRatio,
-                borderRadius: 8,
-                // Opacity: isFullScreen ? 1 : 0.7,
-              }}
-              css={css`
+          <m.div
+            transition={{ delay: 0, duration: 0.4 }}
+            initial={{
+              width: window.innerWidth,
+              height: window.innerHeight,
+              borderRadius: 0,
+              // Opacity: isFullScreen ? 1 : 0.7,
+            }}
+            animate={{
+              width: width * scale / devicePixelRatio,
+              height: height * scale / devicePixelRatio,
+              borderRadius: 8,
+              // Opacity: isFullScreen ? 1 : 0.7,
+            }}
+            css={css`
 
                 display: block;
                 overflow: hidden;
                 overflow-y: hidden;
             `}
-            >
-              <m.div
-                transition={{ delay: 0, duration: 0.4 }}
-                initial={{
-                  width: window.innerWidth,
-                  height: window.innerHeight,
-                  background: "rgba(0,0,0, 1)",
-                  scale: 1,
-                }}
-                animate={{
-                  background: "rgba(92,92,92, 0.5)",
-                  transformOrigin: "0px 0px",
-                  width: width / devicePixelRatio,
-                  height: height / devicePixelRatio,
-                  scale: scaleRange / 100,
-                }}
-                data-test-id="z-body"
-                css={css`
+          >
+            <m.div
+              transition={{ delay: 0, duration: 0.4 }}
+              initial={{
+                width: window.innerWidth,
+                height: window.innerHeight,
+                background: "rgba(0,0,0, 1)",
+                scale: 1,
+              }}
+              animate={{
+                background: "rgba(92,92,92, 0.5)",
+                transformOrigin: "0px 0px",
+                width: width / devicePixelRatio,
+                height: height / devicePixelRatio,
+                scale: scaleRange / 100,
+              }}
+              data-test-id="z-body"
+              css={css`
                   overflow:overlay;
                   overflow-y: hidden;
               `}
-              >
-                {
-                  /* <div
-                  style={{height: "100%"}} ref={ref}> */
-                }
-                {children}
-                {/* </div> */}
-              </m.div>
-            </m.div>
-            <m.div
-              transition={{ delay: 0, duration: 0.4 }}
             >
-              <ToggleButtonGroup
-                value={width}
-                size="small"
-                exclusive
-                onChange={(_e: unknown, newSize: number) => {
-                  if (newSize) {
-                    setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
-                    setWidth(newSize);
-                  }
-                }}
-              >
-                {breakPoints.map((size, ind) => (
-                  <ToggleButton
-                    key={ind}
-                    value={size}
-                  >
-                    {size === 680
+              {
+                /* <div
+                  style={{height: "100%"}} ref={ref}> */
+              }
+              {children}
+              {/* </div> */}
+            </m.div>
+          </m.div>
+          <m.div
+            transition={{ delay: 0, duration: 0.4 }}
+          >
+            <ToggleButtonGroup
+              value={width}
+              size="small"
+              exclusive
+              onChange={(_e: unknown, newSize: number) => {
+                if (newSize) {
+                  setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
+                  setWidth(newSize);
+                }
+              }}
+            >
+              {breakPoints.map((size, ind) => (
+                <ToggleButton
+                  key={ind}
+                  value={size}
+                >
+                  {size === 680
+                    ? (
+                      <span
+                        css={css`
+                        color: ${
+                          width === 680
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
+                        `}
+                      >
+                        <Phone />
+                      </span>
+                    )
+                    : (size === 768
                       ? (
                         <span
                           css={css`
                         color: ${
-                            width === 680
+                            width === 768
                               ? "rgba(255,255,255,.8)"
                               : "rgba(0,0,0,.3)"
                           };
                         `}
                         >
-                          <Phone />
+                          <Tablet />
                         </span>
                       )
-                      : (size === 768
-                        ? (
-                          <span
-                            css={css`
+                      : (
+                        <span
+                          css={css`
                         color: ${
-                              width === 768
-                                ? "rgba(255,255,255,.8)"
-                                : "rgba(0,0,0,.3)"
-                            };
-                        `}
-                          >
-                            <Tablet />
-                          </span>
-                        )
-                        : (
-                          <span
-                            css={css`
-                        color: ${
-                              width === 1920
-                                ? "rgba(255,255,255,.8)"
-                                : "rgba(0,0,0,.3)"
-                            };
+                            width === 1920
+                              ? "rgba(255,255,255,.8)"
+                              : "rgba(0,0,0,.3)"
+                          };
                       `}
-                          >
-                            <Tv />
-                          </span>
-                        ))}
-                  </ToggleButton>
-                ))}
-              </ToggleButtonGroup>
-            </m.div>
-          </div>
+                        >
+                          <Tv />
+                        </span>
+                      ))}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </m.div>
+        </div>
 
-          <m.div
-            transition={{ delay: 0, duration: 0.4 }}
-            initial={{ height: 0, width: 0 }}
-            animate={{ height: "100%", width: "auto" }}
-          >
-            <div
-              css={css`
+        <m.div
+          transition={{ delay: 0, duration: 0.4 }}
+          initial={{ height: 0, width: 0 }}
+          animate={{ height: "100%", width: "auto" }}
+        >
+          <div
+            css={css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
               align-items: center;          
               flex-direction: column;
               `}
+          >
+            <Fab
+              key="fullscreen"
+              onClick={() => {
+                document.getElementById("root")?.requestFullscreen();
+              }}
             >
-              <Fab
-                key="fullscreen"
-                onClick={() => {
-                  document.getElementById("root")?.requestFullscreen();
-                }}
-              >
-                <span
-                  css={css`
+              <span
+                css={css`
                 font-size: 20pt;
               `}
-                >
-                  <FullscreenIcon key="fs" />
-                </span>
-              </Fab>
-
-              <QRButton
-                url={location.origin + `/live/${room}/public`}
-              />
-
-              <Fab
-                key="Share"
-                onClick={() => open(`/live/${room}/public`)}
               >
-                <Share />
-              </Fab>
-            </div>
-          </m.div>
-        </div>
-      </m.div>
+                <FullscreenIcon key="fs" />
+              </span>
+            </Fab>
+
+            <QRButton
+              url={location.origin + `/live/${room}/public`}
+            />
+
+            <Fab
+              key="Share"
+              onClick={() => open(`/live/${room}/public`)}
+            >
+              <Share />
+            </Fab>
+          </div>
+        </m.div>
+      </div>
+    </m.div>
   );
 };
 

@@ -1,7 +1,7 @@
 import { Fragment, useMemo } from "react";
 import { createRoot } from "react-dom/client";
 import * as portals from "react-reverse-portal";
-import {  useEffect, useState  } from "react";
+import { useEffect, useState } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";
 import { css, jsx } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
@@ -12,7 +12,9 @@ import { hashCode, mST, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
 
-const RainbowContainer: React.FC<{ children:  JSX.Element}> = ({ children }) => (
+const RainbowContainer: React.FC<{ children: JSX.Element }> = (
+  { children },
+) => (
   <div
     css={css`
 height: 100%;
@@ -107,31 +109,27 @@ const AppToRender: React.FC<
 
   return (
     <Fragment>
-      
-      <portals.InPortal node={portalNode} >
-      <AutoUpdateApp hash={hash} 
-                      codeSpace={codeSpace}
-                    /> </portals.InPortal >      
-   
-        
- 
-      {isStandalone? 
-            <portals.OutPortal node={portalNode} />
+      <portals.InPortal node={portalNode}>
+        <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
+      </portals.InPortal>
+
+      {isStandalone
+        ? <portals.OutPortal node={portalNode} />
         : (
           <RainbowContainer>
-               <Fragment>
-            <Editor
-              code={mST().code}
-              i={mST().i}
-              codeSpace={codeSpace}
-              assets={assets}
-            />
-            <DraggableWindow
-              hashCode={0}
-              room={codeSpace}
-            >
-              {jsx(portals.OutPortal, {node:portalNode})}
-            </DraggableWindow>
+            <Fragment>
+              <Editor
+                code={mST().code}
+                i={mST().i}
+                codeSpace={codeSpace}
+                assets={assets}
+              />
+              <DraggableWindow
+                hashCode={0}
+                room={codeSpace}
+              >
+                {jsx(portals.OutPortal, { node: portalNode })}
+              </DraggableWindow>
             </Fragment>
           </RainbowContainer>
         )}

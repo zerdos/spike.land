@@ -11870,7 +11870,9 @@ var renderFromString = async (codeSpace2) => {
   const html2 = (_b = document.getElementById(`${codeSpace2}-${hashCode()}`)) == null ? void 0 : _b.innerHTML;
   if (html1 != html2)
     return { html: null, css: null };
-  const canvas = await (0, import_html2canvas.default)(document.getElementById(`${codeSpace2}-${hashCode()}`));
+  const canvas = await (0, import_html2canvas.default)(
+    document.getElementById(`${codeSpace2}-${hashCode()}`)
+  );
   globalThis.canvas = canvas;
   const css8 = html2 ? extractCritical22(html2) : "";
   return { html: html2, css: css8 };
@@ -50938,7 +50940,9 @@ var import_jsx_runtime254 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var QR = ({ url }) => (0, import_jsx_runtime254.jsx)(QRious, {
   value: url
 });
-var QRiousLazy = lazy(() => import("./chunk-lib-3SJEX46J.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 })));
+var QRiousLazy = lazy(
+  () => import("./chunk-lib-3SJEX46J.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
+);
 var QRious = ({ value }) => (0, import_jsx_runtime254.jsx)(Suspense, {
   children: (0, import_jsx_runtime254.jsx)(QRiousLazy, {
     value
@@ -51242,7 +51246,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-JU4PDI3D.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-4WVNNYI4.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-MSFJDELE.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -51513,15 +51517,12 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
   }), []);
   return (0, import_jsx_runtime257.jsxs)(p, {
     children: [
-      (0, import_jsx_runtime257.jsxs)(InPortal, {
+      (0, import_jsx_runtime257.jsx)(InPortal, {
         node: portalNode,
-        children: [
-          (0, import_jsx_runtime257.jsx)(AutoUpdateApp, {
-            hash: hash3,
-            codeSpace: codeSpace2
-          }),
-          " "
-        ]
+        children: (0, import_jsx_runtime257.jsx)(AutoUpdateApp, {
+          hash: hash3,
+          codeSpace: codeSpace2
+        })
       }),
       isStandalone ? (0, import_jsx_runtime257.jsx)(OutPortal, {
         node: portalNode
