@@ -1,10 +1,6 @@
 import { Fragment, useMemo } from "react";
 import { createRoot } from "react-dom/client";
-import {
-  createHtmlPortalNode,
-  InPortal,
-  OutPortal,
-} from "react-reverse-portal";
+import * as portals from "react-reverse-portal";
 import {  useEffect, useState  } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";
 import { css, jsx } from "@emotion/react";
@@ -15,9 +11,8 @@ import { DraggableWindow } from "./DraggableWindow";
 import { hashCode, mST, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
-import { ReactNode } from "react";
 
-const RainbowContainer: React.FC<{ children:  ReactNode}> = ({ children }) => (
+const RainbowContainer: React.FC<{ children:  JSX.Element}> = ({ children }) => (
   <div
     css={css`
 height: 100%;
@@ -106,95 +101,38 @@ const AppToRender: React.FC<
   }, []);
 
   const portalNode = useMemo(() =>
-    createHtmlPortalNode({
+    portals.createHtmlPortalNode({
       attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
     }), []);
 
   return (
     <Fragment>
-      {
-      jsx(
-        InPortal,{
-          node: portalNode, 
-          children: 
-              jsx(
-                AutoUpdateApp, {
-                      hash, 
-                      codeSpace
-                    }
-                  )
-                  }
-                  )
-        }
       
-       
+      <portals.InPortal node={portalNode} >
+      <AutoUpdateApp hash={hash} 
+                      codeSpace={codeSpace}
+                    /> </portals.InPortal >      
+   
+        
  
-      {isStandalone? jsx(OutPortal,{node:portalNode})
+      {isStandalone? 
+            <portals.OutPortal node={portalNode} />
         : (
           <RainbowContainer>
-            {
-              /* <div css={css`
-  display: flex;
-  align-items: center;
-  height: 100%;
-  justify-content: center;
-`} onClick={() => set(state => !state)} > */
-            }
-            {jsx(OutPortal,{node:portalNode})}
-            {
-              /* <a.div
-        css={css`
-        background-size: cover;
-        position: absolute;
-        max-width: 500px;
-        max-height: 500px;
-        width: 350px;
-        height: 200px;
-        cursor: pointer;
-        will-change: transform, opacity;
-
-        `}
-        style={{ opacity: opacity.to((o: number)=> 1 - o), transform }}
-      >
-
-
-
-      </a.div> */
-            }
-            {
-              /* <a.div
-    css={css`
-    background-size: cover;
-    position: absolute;
-    max-width: 500px;
-    max-height: 500px;
-    width: 350px;
-    height: 200px;
-    cursor: pointer;
-    will-change: transform, opacity;
-
-    `}
-        style={{
-          opacity,
-          transform,
-          rotateX: '180deg',
-        }}
-      >    */
-            }
+               <Fragment>
             <Editor
               code={mST().code}
               i={mST().i}
               codeSpace={codeSpace}
               assets={assets}
             />
-            {/* </a.div> */}
-            {/* </div> */}
             <DraggableWindow
               hashCode={0}
               room={codeSpace}
             >
-              {jsx(OutPortal, {node:portalNode})}
+              {jsx(portals.OutPortal, {node:portalNode})}
             </DraggableWindow>
+            </Fragment>
           </RainbowContainer>
         )}
     </Fragment>

@@ -20596,7 +20596,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-X73RLIN3.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-E3GTCTXV.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-MSFJDELE.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -20867,34 +20867,34 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
   }), []);
   return (0, import_jsx_runtime63.jsxs)(p, {
     children: [
-      (0, import_react29.jsx)(
-        InPortal,
-        {
-          node: portalNode,
-          children: (0, import_react29.jsx)(
-            AutoUpdateApp,
-            {
-              hash: hash3,
-              codeSpace: codeSpace2
-            }
-          )
-        }
-      ),
-      isStandalone ? (0, import_react29.jsx)(OutPortal, { node: portalNode }) : (0, import_jsx_runtime63.jsxs)(RainbowContainer, {
+      (0, import_jsx_runtime63.jsxs)(InPortal, {
+        node: portalNode,
         children: [
-          (0, import_react29.jsx)(OutPortal, { node: portalNode }),
-          (0, import_jsx_runtime63.jsx)(Editor, {
-            code: mST().code,
-            i: mST().i,
-            codeSpace: codeSpace2,
-            assets
+          (0, import_jsx_runtime63.jsx)(AutoUpdateApp, {
+            hash: hash3,
+            codeSpace: codeSpace2
           }),
-          (0, import_jsx_runtime63.jsx)(DraggableWindow, {
-            hashCode: 0,
-            room: codeSpace2,
-            children: (0, import_react29.jsx)(OutPortal, { node: portalNode })
-          })
+          " "
         ]
+      }),
+      isStandalone ? (0, import_jsx_runtime63.jsx)(OutPortal, {
+        node: portalNode
+      }) : (0, import_jsx_runtime63.jsx)(RainbowContainer, {
+        children: (0, import_jsx_runtime63.jsxs)(p, {
+          children: [
+            (0, import_jsx_runtime63.jsx)(Editor, {
+              code: mST().code,
+              i: mST().i,
+              codeSpace: codeSpace2,
+              assets
+            }),
+            (0, import_jsx_runtime63.jsx)(DraggableWindow, {
+              hashCode: 0,
+              room: codeSpace2,
+              children: (0, import_react29.jsx)(OutPortal, { node: portalNode })
+            })
+          ]
+        })
       })
     ]
   });
