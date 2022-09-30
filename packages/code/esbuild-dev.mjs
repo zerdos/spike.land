@@ -1,4 +1,4 @@
-import esbuild from  "esbuild";
+import esbuild from "esbuild";
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 import fs from "fs/promises";
@@ -21,20 +21,19 @@ console.log(`
 -------------------------------------------------
 -------------------------------------------------`);
 
-
 const define = {
   "process.env.NODE_ENV": `"${environment}"`,
-  "process.env.NODE_DEBUG":  JSON.stringify(false),
-  "process.env.DEBUG":  JSON.stringify(false),
+  "process.env.NODE_DEBUG": JSON.stringify(false),
+  "process.env.DEBUG": JSON.stringify(false),
   "process.env.version": `"1.1.1"`,
   "global": "globalThis",
-  "process.env.DUMP_SESSION_KEYS":  JSON.stringify(false),
+  "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   "process": JSON.stringify({
     env: { NODE_ENV: "production" },
     version: "1.1.1",
     browser: true,
-  })
+  }),
 };
 // const plugins = [postcss({
 //   plugins: [
@@ -52,15 +51,13 @@ const buildOptions = {
   legalComments: "none",
 };
 
-
 const workerEntryPoints = [
-	'vs/language/json/json.worker',
-	'vs/language/css/css.worker',
-	'vs/language/html/html.worker',
-	'vs/language/typescript/ts.worker',
-	'vs/editor/editor.worker'
+  "vs/language/json/json.worker",
+  "vs/language/css/css.worker",
+  "vs/language/html/html.worker",
+  "vs/language/typescript/ts.worker",
+  "vs/editor/editor.worker",
 ];
-
 
 const build = (entryPoints, format = "esm") =>
   esbuild.build({
@@ -71,19 +68,20 @@ const build = (entryPoints, format = "esm") =>
     splitting: true,
     target,
     sourcemap: false,
-    minify: !isDevelopment,
-    minifyWhitespace: !isDevelopment,
-    minifyIdentifiers: !isDevelopment,
-    minifySyntax: !isDevelopment,
+
+    minify: false, //!isDevelopment,
+    minifyWhitespace: false, //!isDevelopment,
+    minifyIdentifiers: false, //!isDevelopment,
+    minifySyntax: false, //!isDevelopment,
     legalComments: "none",
-    ignoreAnnotations: true ,//true,
+    ignoreAnnotations: true, //true,
     // external
     // external: [ "@emotion/react/*"],
-// sourcemap: true,
+    // sourcemap: true,
     treeShaking: true,
     logLimit: 0,
-    metafile: false,
-    keepNames: false, 
+    metafile: true,
+    keepNames: false,
     format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
@@ -125,36 +123,35 @@ const build = (entryPoints, format = "esm") =>
     process.exit(1);
   });
 
-(async()=>{
-  await fs.rm("js/monaco-workers", {"recursive": true, force: true});
-
+(async () => {
+  await fs.rm("js/monaco-workers", { "recursive": true, force: true });
 
   await esbuild.build({
     entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     bundle: true,
     define,
     treeShaking: true,
-    minify: true ,//!isDevelopment,
-    minifyWhitespace: true ,//!isDevelopment,
-    minifyIdentifiers: true ,//!isDevelopment,
-    minifySyntax: true ,//!isDevelopment,
+    minify: true, //!isDevelopment,
+    minifyWhitespace: true, //!isDevelopment,
+    minifyIdentifiers: true, //!isDevelopment,
+    minifySyntax: true, //!isDevelopment,
     ignoreAnnotations: true,
     metafile: true,
     platform: "browser",
-    outExtension: {".js": ".workerJs.js"},
-    format: 'iife',
-    outbase: 'monaco-editor/esm/vs',
-    outdir: './js/monaco-workers'
+    outExtension: { ".js": ".workerJs.js" },
+    format: "iife",
+    outbase: "monaco-editor/esm/vs",
+    outdir: "./js/monaco-workers",
   });
-  
-await build([
-  "js/session.ts",
-  "js/react-preact.ts",
-  "js/motion.ts",
-  "js/emotion.ts",
-  "js/emotionJsxRuntime.ts",
-  "js/ws.ts",
-]);
+
+  await build([
+    "js/session.ts",
+    "js/react-preact.ts",
+    "js/motion.ts",
+    "js/emotion.ts",
+    "js/emotionJsxRuntime.ts",
+    "js/ws.ts",
+  ]);
 })();
 
 // await esbuild

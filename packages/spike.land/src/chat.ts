@@ -12,7 +12,7 @@ const a = JSON.parse(manifestJSON);
 const ws = a["ws.mjs"];
 const preact = a["react-preact.mjs"];
 const emotionReact = a["emotion.mjs"];
-const emotionJsxRuntime=a["emotionJsxRuntime.mjs"];
+const emotionJsxRuntime = a["emotionJsxRuntime.mjs"];
 const motion = a["motion.mjs"];
 
 const esbuildExternal = [
@@ -47,7 +47,6 @@ export const imap = {
     // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
   },
 };
-
 
 export default {
   async fetch(
@@ -98,9 +97,6 @@ export default {
         const _request = new Request(newUrl, { ...request, url: newUrl });
 
         return (async (request) => {
-
-
-
           const cacheKey = new Request(request.url);
 
           const cache = caches.default;
@@ -128,7 +124,6 @@ export default {
               : "");
             const esmUrl = "https://esm.sh/" + packageName + searchParams;
 
-         
             let resp = await fetch(esmUrl, { ...request, url: esmUrl });
 
             if (resp !== null && !resp.ok || resp.status === 307) {
@@ -181,8 +176,6 @@ export default {
           }
 
           if (path[0].startsWith("unpkg:")) {
-         
-
             const esmUrl = u.toString().replace(
               u.origin + "/unpkg:",
               "https://unpkg.com/",
@@ -241,11 +234,13 @@ export default {
             if (resp !== null && !resp.ok || resp.status === 307) {
               const redirectUrl = resp.headers.get("location");
               if (redirectUrl) {
-             
-                resp = await fetch(new URL(redirectUrl, `https://unpkg.com`).toString(), {
-                  ...request,
-                  url: redirectUrl
-                });
+                resp = await fetch(
+                  new URL(redirectUrl, `https://unpkg.com`).toString(),
+                  {
+                    ...request,
+                    url: redirectUrl,
+                  },
+                );
               }
               if (resp !== null && !resp.ok) return resp;
             }
@@ -302,9 +297,7 @@ export default {
                 },
               });
 
-
             case "importmap.json":
-
               return new Response(getImportMapStr(url.origin), {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
@@ -370,13 +363,13 @@ export default {
                 },
               );
 
-
-         const cacheKV =        kvResp.clone();
-         
+              const cacheKV = kvResp.clone();
 
               if (isChunk(url.href)) {
-                cacheKV.headers.append("Cache-Control", "public, max-age=604800, immutable");
-                
+                cacheKV.headers.append(
+                  "Cache-Control",
+                  "public, max-age=604800, immutable",
+                );
               }
               await cache.put(cacheKey, cacheKV.clone());
 
@@ -450,21 +443,17 @@ async function handleApiRequest(
 //   return roomObject.fetch("public?room=" + room);
 // }
 
-
-function isChunk(link:string) {
+function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
- return link.includes("chunk-") || chunkRegExp.test(link)
+  return link.includes("chunk-") || chunkRegExp.test(link);
+}
+
+export const getImportMapStr = (orig: string) => {
+  const importmapImport: { [k: string]: string } = { ...imap.imports };
+
+  for (const [key, value] of Object.entries(imap.imports)) {
+    importmapImport[key] = orig + "/" + value;
   }
 
-
-  export const getImportMapStr = (orig: string)=>{
-
-    const importmapImport: { [k: string]: string} = {...imap.imports};
-
-
-    for (const [key, value] of  Object.entries(imap.imports)) {
-      importmapImport[key] = orig + "/" + value;
-    }
-
-    return JSON.stringify({imports: importmapImport});
-  }
+  return JSON.stringify({ imports: importmapImport });
+};

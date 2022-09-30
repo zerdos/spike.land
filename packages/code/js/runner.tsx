@@ -1,7 +1,7 @@
 // import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { saveCode } from "./ws";
 import { mST, patchSync } from "./session";
-// import { renderFromString } from "./renderToString";
+// import { cF } from "./renderToString";
 // import { toUmd } from "./toUmd";
 import type { TransformOptions } from "esbuild-wasm";
 import { init } from "./esbuildEsm";

@@ -15,6 +15,8 @@
 // import { useState } from "react";
 // import { wait } from "wait";
 import { hashCode } from "session";
+import { wait } from "wait";
+import html2canvas from "html2canvas"
 // import postcssNested from "postcss-nested"
 
 // const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
@@ -44,14 +46,23 @@ import { hashCode } from "session";
 
 //   return <div id={md5Hash}>{children}</div>;
 // };
-export const renderFromString = (
+export const renderFromString = async (
   // code: string,
   // App: FunctionComponent
   codeSpace: string,
 ) => {
   // const hash = md5(mST().transpiled);
+  const html1 = document.getElementById(`${codeSpace}-${hashCode()}`)
+    ?.innerHTML!;
+    await wait(100);
+
   const html = document.getElementById(`${codeSpace}-${hashCode()}`)
     ?.innerHTML!;
+    
+    if(html1!=html) return {html: null, css: null};
+
+ const canvas = await html2canvas( document.getElementById(`${codeSpace}-${hashCode()}`)!);
+ globalThis.canvas=canvas;
 
   const css = html ? extractCritical22(html) : "";
 
@@ -136,11 +147,12 @@ const extractCritical22 = (html: string) => {
   try {
     const rules: { [key: string]: string } = {};
     for (let i in document.styleSheets) {
+      let yesFromNow=false;
       const styleSheet = document.styleSheets[i];
       // for (let r in styleSheet.cssRules) {
       if (styleSheet?.cssRules) {
         Array.from(styleSheet.cssRules).forEach((rule) => {
-          if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
+          if (yesFromNow || rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
             const selector = rule.cssText.slice(1, 9);
             const selectorText = selector; //rule.selectorText ||
             //  selector;
@@ -148,6 +160,7 @@ const extractCritical22 = (html: string) => {
               !rules[selector] && html.includes(selector) &&
               !rule.cssText.slice(10).includes(".css-")
             ) {
+              yesFromNow=true;
               rules[selectorText] = rule.cssText;
             }
           }
