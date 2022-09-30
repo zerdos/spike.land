@@ -78,6 +78,7 @@
     "@emotion/weak-memoize": "^0.3.0",
     "@mui/material": "5.10.0",
     "@preact/signals": "^1.1.1",
+    "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "ace-builds": "1.11.2",
     "assert": "^2.0.0",
