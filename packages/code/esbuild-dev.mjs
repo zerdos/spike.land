@@ -105,7 +105,7 @@ const build = (entryPoints, format = "esm") =>
       ".workerJs.js",
       ".js?worker",
     ],
-
+    metafile: true,
     define,
     loader: {
       ".ttf": "file",
@@ -139,6 +139,7 @@ const build = (entryPoints, format = "esm") =>
     minifyIdentifiers: true ,//!isDevelopment,
     minifySyntax: true ,//!isDevelopment,
     ignoreAnnotations: true,
+    metafile: true,
     platform: "browser",
     outExtension: {".js": ".workerJs.js"},
     format: 'iife',
