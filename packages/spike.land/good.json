@@ -229,7 +229,7 @@
           "bytesInOutput": 838
         },
         "src/rateLimiterClient.ts": {
-          "bytesInOutput": 1170
+          "bytesInOutput": 1120
         },
         "src/index.html": {
           "bytesInOutput": 47
@@ -238,13 +238,13 @@
           "bytesInOutput": 48
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15795
+          "bytesInOutput": 15596
         },
         "../code/dist/chunk-chunk-IA5ZPNWL.mjs": {
-          "bytesInOutput": 1666
+          "bytesInOutput": 1663
         },
         "../code/dist/chunk-chunk-ZA36UADW.mjs": {
-          "bytesInOutput": 166635
+          "bytesInOutput": 166626
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -256,10 +256,10 @@
           "bytesInOutput": 91
         },
         "src/rateLimiter.ts": {
-          "bytesInOutput": 522
+          "bytesInOutput": 497
         }
       },
-      "bytes": 254803
+      "bytes": 254221
     }
   }
 }

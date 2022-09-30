@@ -4,7 +4,6 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -20,10 +19,6 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
 
 // ../../node_modules/mime/Mime.js
 var require_Mime = __commonJS({
@@ -730,13 +725,13 @@ var RateLimiterClient = class {
   constructor(getLimiterStub, reportError) {
     this.getLimiterStub = getLimiterStub;
     this.reportError = reportError;
-    __publicField(this, "limiter");
-    __publicField(this, "inCoolDown");
     this.getLimiterStub = getLimiterStub;
     this.reportError = reportError;
     this.limiter = getLimiterStub();
     this.inCoolDown = false;
   }
+  limiter;
+  inCoolDown;
   checkLimit() {
     if (this.inCoolDown) {
       return false;
@@ -787,7 +782,7 @@ var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames2 = Object.getOwnPropertyNames;
 var __getProtoOf2 = Object.getPrototypeOf;
 var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-var __defNormalProp2 = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
 };
@@ -806,8 +801,8 @@ var __toESM2 = (mod, isNodeMode, target) => (target = mod != null ? __create2(__
   isNodeMode || !mod || !mod.__esModule ? __defProp2(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
-var __publicField2 = (obj, key, value) => {
-  __defNormalProp2(obj, typeof key !== "symbol" ? key + "" : key, value);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
 var define_process_default;
@@ -5943,18 +5938,18 @@ var session = null;
 var hashStore = {};
 var CodeSession = class {
   constructor(room, user) {
-    __publicField2(this, "session");
-    __publicField2(this, "cb", {});
-    __publicField2(this, "hashCodeSession", 0);
-    __publicField2(this, "room");
-    __publicField2(this, "created", new Date().toISOString());
-    __publicField2(this, "hashOfState", () => {
+    __publicField(this, "session");
+    __publicField(this, "cb", {});
+    __publicField(this, "hashCodeSession", 0);
+    __publicField(this, "room");
+    __publicField(this, "created", new Date().toISOString());
+    __publicField(this, "hashOfState", () => {
       const state = this.session.get("state");
       const hashCode4 = state.hashCode();
       hashStore[hashCode4] = state;
       return hashCode4;
     });
-    __publicField2(this, "createPatchFromHashCode", async (oldHash, state) => {
+    __publicField(this, "createPatchFromHashCode", async (oldHash, state) => {
       const s = JSON.parse(str(state));
       let oldRec = hashStore[oldHash];
       let usedOldHash = oldHash;
@@ -5983,7 +5978,7 @@ var CodeSession = class {
         patch
       };
     });
-    __publicField2(this, "patchSync", (sess) => {
+    __publicField(this, "patchSync", (sess) => {
       const oldHash = this.session.hashCode();
       this.session = this.session.set(
         "state",
@@ -5997,7 +5992,7 @@ var CodeSession = class {
         );
       }
     });
-    __publicField2(this, "applyPatch", async ({
+    __publicField(this, "applyPatch", async ({
       oldHash,
       newHash,
       patch
@@ -6129,14 +6124,6 @@ function getBackupSession() {
 var Code = class {
   constructor(state, env) {
     this.env = env;
-    __publicField(this, "state");
-    __publicField(this, "room", "");
-    __publicField(this, "kv");
-    __publicField(this, "codeSpace");
-    __publicField(this, "sess");
-    __publicField(this, "sessionStarted");
-    __publicField(this, "address");
-    __publicField(this, "sessions");
     this.kv = state.storage;
     this.state = state;
     this.sessionStarted = false;
@@ -6161,6 +6148,14 @@ var Code = class {
       this.sessionStarted = false;
     });
   }
+  state;
+  room = "";
+  kv;
+  codeSpace;
+  sess;
+  sessionStarted;
+  address;
+  sessions;
   async fetch(request, env, ctx) {
     const state = this.sess;
     let url = new URL(request.url);
@@ -6633,8 +6628,8 @@ var Users = class {
 
 // src/rateLimiter.ts
 var CodeRateLimiter = class {
+  nextAllowedTime;
   constructor(_state, _env) {
-    __publicField(this, "nextAllowedTime");
     this.nextAllowedTime = 0;
   }
   async fetch(request) {
