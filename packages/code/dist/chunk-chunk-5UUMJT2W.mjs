@@ -1597,7 +1597,7 @@ var warning = function() {
 };
 var invariant = function() {
 };
-if (false) {
+if (true) {
   warning = function(check, message) {
     if (!check && typeof console !== "undefined") {
       console.warn(message);
@@ -2602,7 +2602,7 @@ init_define_process();
 // ../../node_modules/framer-motion/dist/es/utils/process.mjs
 init_define_process();
 var defaultEnvironment = "production";
-var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "production";
+var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "development";
 
 // ../../node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 init_react_preact();
@@ -4445,7 +4445,7 @@ function updateMotionValuesFromProps(element, next, prev) {
       if (isWillChangeMotionValue(willChange)) {
         willChange.add(key);
       }
-      if (false) {
+      if (true) {
         warnOnce(nextValue.version === "7.5.1", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.5.1 may not work as expected.`);
       }
     } else if (isMotionValue(prevValue)) {
