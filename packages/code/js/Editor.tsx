@@ -229,7 +229,6 @@ export const Editor: React.FC<
   }, [setValue, getValue, onChange, counter, prettierJs, runner]);
 
   onSessionUpdate(() => {
-  
     const sess = mST();
 
     setTimeout(() => {

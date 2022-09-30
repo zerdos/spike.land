@@ -127,11 +127,13 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   // const result = md5(mST().transpiled);
 
   useEffect(() => {
-    const { html, css } = renderFromString(codeSpace);
+    (async()=>{
+    const { html, css } = await renderFromString(codeSpace);
     const mst = mST();
     if (html && css && (html !== mst.html || css !== mst.css)) {
       patchSync({ ...mst, html, css });
     }
+  })();
   }, [hash]);
 
   const ref = useRef(null);

@@ -51,7 +51,11 @@
       "imports": []
     },
     "src/chat.ts": {
+<<<<<<< HEAD
       "bytes": 15174,
+=======
+      "bytes": 15213,
+>>>>>>> beta
       "imports": [
         {
           "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -75,6 +79,7 @@
       "bytes": 2244,
       "imports": []
     },
+<<<<<<< HEAD
     "../code/dist/chunk-chunk-UURPA34U.mjs": {
       "bytes": 1287,
       "imports": []
@@ -84,11 +89,23 @@
       "imports": [
         {
           "path": "../code/dist/chunk-chunk-UURPA34U.mjs",
+=======
+    "../code/dist/chunk-chunk-IA5ZPNWL.mjs": {
+      "bytes": 2747,
+      "imports": []
+    },
+    "../code/dist/chunk-chunk-ZA36UADW.mjs": {
+      "bytes": 167318,
+      "imports": [
+        {
+          "path": "../code/dist/chunk-chunk-IA5ZPNWL.mjs",
+>>>>>>> beta
           "kind": "import-statement"
         }
       ]
     },
     "../code/dist/session.mjs": {
+<<<<<<< HEAD
       "bytes": 265,
       "imports": [
         {
@@ -97,6 +114,16 @@
         },
         {
           "path": "../code/dist/chunk-chunk-UURPA34U.mjs",
+=======
+      "bytes": 375,
+      "imports": [
+        {
+          "path": "../code/dist/chunk-chunk-ZA36UADW.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../code/dist/chunk-chunk-IA5ZPNWL.mjs",
+>>>>>>> beta
           "kind": "import-statement"
         }
       ]
@@ -106,7 +133,11 @@
       "imports": []
     },
     "src/chatRoom.ts": {
+<<<<<<< HEAD
       "bytes": 20938,
+=======
+      "bytes": 21092,
+>>>>>>> beta
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -139,7 +170,7 @@
       ]
     },
     "src/users.ts": {
-      "bytes": 152,
+      "bytes": 151,
       "imports": []
     },
     "src/rateLimiter.ts": {
@@ -185,7 +216,11 @@
       "entryPoint": "src/index.ts",
       "inputs": {
         "../../node_modules/mime/Mime.js": {
+<<<<<<< HEAD
           "bytesInOutput": 2020
+=======
+          "bytesInOutput": 2014
+>>>>>>> beta
         },
         "../../node_modules/mime/types/standard.js": {
           "bytesInOutput": 10359
@@ -203,7 +238,11 @@
           "bytesInOutput": 8841
         },
         "src/chat.ts": {
+<<<<<<< HEAD
           "bytesInOutput": 12865
+=======
+          "bytesInOutput": 12979
+>>>>>>> beta
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -218,6 +257,7 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
+<<<<<<< HEAD
           "bytesInOutput": 15540
         },
         "../code/dist/chunk-chunk-UURPA34U.mjs": {
@@ -225,6 +265,15 @@
         },
         "../code/dist/chunk-chunk-4ZLJ3PZE.mjs": {
           "bytesInOutput": 102022
+=======
+          "bytesInOutput": 15813
+        },
+        "../code/dist/chunk-chunk-IA5ZPNWL.mjs": {
+          "bytesInOutput": 1666
+        },
+        "../code/dist/chunk-chunk-ZA36UADW.mjs": {
+          "bytesInOutput": 166635
+>>>>>>> beta
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -239,7 +288,11 @@
           "bytesInOutput": 522
         }
       },
+<<<<<<< HEAD
       "bytes": 193679
+=======
+      "bytes": 259295
+>>>>>>> beta
     }
   }
 }

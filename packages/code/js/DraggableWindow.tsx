@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 import { useEffect, useState } from "react";
-import { domMax, LazyMotion, m } from "framer-motion";
+import {  motion as m} from "framer-motion";
 import { QRButton } from "./Qr";
 
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
@@ -113,7 +113,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   }, []);
 
   return (
-    <LazyMotion features={domMax}>
       <m.div
         transition={{ delay: 0, duration: 0.4 }}
         initial={{
@@ -272,7 +271,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                               : "rgba(0,0,0,.3)"
                           };
                         `}
-                        ><Phone/></span>
+                        >
+                          <Phone />
+                        </span>
                       )
                       : (size === 768
                         ? (
@@ -284,7 +285,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                                 : "rgba(0,0,0,.3)"
                             };
                         `}
-                          ><Tablet/></span>
+                          >
+                            <Tablet />
+                          </span>
                         )
                         : (
                           <span
@@ -295,7 +298,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                                 : "rgba(0,0,0,.3)"
                             };
                       `}
-                          ><Tv/></span>
+                          >
+                            <Tv />
+                          </span>
                         ))}
                   </ToggleButton>
                 ))}
@@ -322,12 +327,13 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 onClick={() => {
                   document.getElementById("root")?.requestFullscreen();
                 }}
-              ><span css={css`
+              >
+                <span
+                  css={css`
                 font-size: 20pt;
-              `}>
-
-          
-                <FullscreenIcon key="fs" />
+              `}
+                >
+                  <FullscreenIcon key="fs" />
                 </span>
               </Fab>
 
@@ -345,7 +351,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           </m.div>
         </div>
       </m.div>
-    </LazyMotion>
   );
 };
 

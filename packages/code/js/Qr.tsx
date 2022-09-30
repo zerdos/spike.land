@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import {  motion as m} from "framer-motion";
 import { useState, lazy, Suspense } from "react";
 import type { FC } from "react";
 
@@ -15,7 +15,6 @@ const QRious =({value})=> <Suspense><QRiousLazy value={value}/></Suspense>
 export const QRButton: FC<{ url: string }> = ({ url }) => {
   const [showQR, setQR] = useState(false);
   return (
-    <LazyMotion features={domAnimation}>
       <m.div
         animate={{
           width: showQR ? 200 : 56,
@@ -37,11 +36,13 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
             />
           )
           : (
-            <Fab><span css={css`font-size: 20pt;`}>
-              <QrCode />
-              </span>            </Fab>
+            <Fab>
+              <span css={css`font-size: 20pt;`}>
+                <QrCode />
+              </span>
+            </Fab>
           )}
       </m.div>
-    </LazyMotion>
+    
   );
 };

@@ -157,16 +157,17 @@ export class Code {
                 },
               });
             } else {
-            
-               return new Response(JSON.stringify({success: false, statusCode: 404}), {
+              return new Response(
+                JSON.stringify({ success: false, statusCode: 404 }),
+                {
                   status: 404,
                   headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Cache-Control": "no-cache",
                     "Content-Type": "application/json; charset=UTF-8",
                   },
-                });
-              
+                },
+              );
             }
           }
           return new Response(JSON.stringify(mST()), {
@@ -257,7 +258,6 @@ export class Code {
             "emotion.mjs": a["emotion.mjs"],
             "framer-motion.mjs": a["framer-motion.mjs"],
             "ws.css": a["ws.css"],
-
           };
           return new Response(
             `
@@ -358,24 +358,27 @@ export class Code {
           });
         }
         case "hydrated":
+        case "unhydrated":
         case "public": {
           const a = JSON.parse(manifestJSON);
-          const respText =    HTML.replaceAll(
+          const respText = HTML.replaceAll(
             "/live/coder/",
             `/live/${this.codeSpace}/`,
-          ) .replace(
-              `/* #root{} */`,
-              `
+          ).replace(
+            `/* #root{} */`,
+            `
         #root{
           height: 100%; 
         }
         ${mST().css}
-        `
-          ).replace('favicon.ico', a["favicon.ico"])
-          .replace(
-            `<script type="importmap"></script>`,`<script type="importmap">
+        `,
+          ).replace("favicon.ico", a["favicon.ico"])
+            .replace(
+              `<script type="importmap"></script>`,
+              `<script type="importmap">
             ${getImportMapStr(url.origin)}
-            </script>`)
+            </script>`,
+            )
             .replace(
               `<div id="root"></div>`,
               `<div id="root">
@@ -383,33 +386,35 @@ export class Code {
                       ${mST().html}
                     </div>
               </div>
-         `);
+         `,
+            );
 
-         const Etag = request.headers.get("Etag");
+          const Etag = request.headers.get("Etag");
           const newEtag = await sha256(respText);
           const headers = new Headers();
-          headers.set(  "Access-Control-Allow-Origin", "*")
-          headers.set( "Cache-Control","max-age=604800, stale-while-revalidate=86400");
+          headers.set("Access-Control-Allow-Origin", "*");
+          headers.set(
+            "Cache-Control",
+            "max-age=604800, stale-while-revalidate=86400",
+          );
           // headers.set('Etag', newEtag);
 
-
-          if(Etag === newEtag) {
-
-
+          if (Etag === newEtag) {
             // headers.set('CF-Cache-Status', 'HIT');
-            return new Response(null, {status: 304, 
-            statusText: "Not modified",
-            headers
-          });
-        
-        }
-
-        headers.set( "Content-Type", "text/html; charset=UTF-8");
-
-          return new Response(respText,{
-              status: 200,
+            return new Response(null, {
+              status: 304,
+              statusText: "Not modified",
               headers,
-        })}
+            });
+          }
+
+          headers.set("Content-Type", "text/html; charset=UTF-8");
+
+          return new Response(respText, {
+            status: 200,
+            headers,
+          });
+        }
         case "iife": {
           const startState = mST();
           const html = IIFE.replace(
@@ -690,17 +695,15 @@ function importMapReplace(codeInp: string) {
   return returnStr;
 }
 
-
-          
-async function sha256(myText: string){
-  const myY = new TextEncoder().encode(myText)
+async function sha256(myText: string) {
+  const myY = new TextEncoder().encode(myText);
 
   const myDigest = await crypto.subtle.digest(
     {
-      name: 'SHA-256',
+      name: "SHA-256",
     },
-    myY // The data you want to hash as an ArrayBuffer
+    myY, // The data you want to hash as an ArrayBuffer
   );
-  
-  return new TextDecoder("utf-8").decode(new Uint8Array(myDigest))
-  }
+
+  return new TextDecoder("utf-8").decode(new Uint8Array(myDigest));
+}

@@ -6697,28 +6697,6 @@ init_react_preact();
 init_define_process();
 init_react_preact();
 init_react_preact();
-function LazyMotion({ children, features, strict = false }) {
-  const [, setIsLoaded] = useState(!isLazyBundle(features));
-  const loadedRenderer = useRef(void 0);
-  if (!isLazyBundle(features)) {
-    const { renderer, ...loadedFeatures } = features;
-    loadedRenderer.current = renderer;
-    loadFeatures(loadedFeatures);
-  }
-  useEffect(() => {
-    if (isLazyBundle(features)) {
-      features().then(({ renderer, ...loadedFeatures }) => {
-        loadFeatures(loadedFeatures);
-        loadedRenderer.current = renderer;
-        setIsLoaded(true);
-      });
-    }
-  }, []);
-  return h(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
-}
-function isLazyBundle(features) {
-  return typeof features === "function";
-}
 
 // ../../node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 init_define_process();
@@ -7686,7 +7664,5 @@ export {
   motion,
   m,
   AnimatePresence,
-  LazyMotion,
-  domAnimation,
   domMax
 };
