@@ -13,7 +13,7 @@ const languages = monaco.languages;
 const createModel = monaco.editor.createModel;
 const Uri = monaco.Uri;
 
-import { getWorkerUrl } from "./monacoWorkers.mjs";
+import getWorker from "./monacoWorkers.mjs";
 
 const lib = [
   "dom",
@@ -328,7 +328,7 @@ const monacoContribution = async (
 };
 
 self.MonacoEnvironment = {
-  getWorkerUrl,
+  getWorker,
 };
 
 const mod: { [key: string]: Object } = {};
