@@ -1,14 +1,14 @@
 import {
   require_emotion_cache_cjs,
-  require_emotion_element_b63ca7c6_cjs_dev,
-  require_emotion_react_isolated_hnrs_cjs_dev,
+  require_emotion_element_20108edd_cjs_prod,
+  require_emotion_react_isolated_hnrs_cjs_prod,
   require_emotion_serialize_cjs,
   require_emotion_use_insertion_effect_with_fallbacks_cjs,
   require_emotion_utils_cjs,
   require_emotion_weak_memoize_cjs,
   require_extends,
   require_hoist_non_react_statics_cjs
-} from "./chunk-chunk-DRRVPI5Q.mjs";
+} from "./chunk-chunk-F3EA5BRN.mjs";
 import {
   init_react_preact,
   react_preact_exports
@@ -19,144 +19,22 @@ import {
   init_define_process
 } from "./chunk-chunk-IA5ZPNWL.mjs";
 
-// ../../node_modules/@emotion/react/dist/emotion-react.cjs.dev.js
-var require_emotion_react_cjs_dev = __commonJS({
-  "../../node_modules/@emotion/react/dist/emotion-react.cjs.dev.js"(exports) {
+// ../../node_modules/@emotion/react/dist/emotion-react.cjs.prod.js
+var require_emotion_react_cjs_prod = __commonJS({
+  "../../node_modules/@emotion/react/dist/emotion-react.cjs.prod.js"(exports) {
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
     var React = (init_react_preact(), __toCommonJS(react_preact_exports));
     require_emotion_cache_cjs();
-    var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
+    var emotionElement = require_emotion_element_20108edd_cjs_prod();
     require_extends();
     require_emotion_weak_memoize_cjs();
     require_hoist_non_react_statics_cjs();
-    require_emotion_react_isolated_hnrs_cjs_dev();
+    require_emotion_react_isolated_hnrs_cjs_prod();
     var utils = require_emotion_utils_cjs();
     var serialize = require_emotion_serialize_cjs();
     var useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs();
-    var pkg = {
-      name: "@emotion/react",
-      version: "11.10.4",
-      main: "dist/emotion-react.cjs.js",
-      module: "dist/emotion-react.esm.js",
-      browser: {
-        "./dist/emotion-react.esm.js": "./dist/emotion-react.browser.esm.js"
-      },
-      exports: {
-        ".": {
-          module: {
-            worker: "./dist/emotion-react.worker.esm.js",
-            browser: "./dist/emotion-react.browser.esm.js",
-            "default": "./dist/emotion-react.esm.js"
-          },
-          "default": "./dist/emotion-react.cjs.js"
-        },
-        "./jsx-runtime": {
-          module: {
-            worker: "./jsx-runtime/dist/emotion-react-jsx-runtime.worker.esm.js",
-            browser: "./jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm.js",
-            "default": "./jsx-runtime/dist/emotion-react-jsx-runtime.esm.js"
-          },
-          "default": "./jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js"
-        },
-        "./_isolated-hnrs": {
-          module: {
-            worker: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.worker.esm.js",
-            browser: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm.js",
-            "default": "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.esm.js"
-          },
-          "default": "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.js"
-        },
-        "./jsx-dev-runtime": {
-          module: {
-            worker: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.worker.esm.js",
-            browser: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.browser.esm.js",
-            "default": "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.esm.js"
-          },
-          "default": "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.cjs.js"
-        },
-        "./package.json": "./package.json",
-        "./types/css-prop": "./types/css-prop.d.ts",
-        "./macro": "./macro.js"
-      },
-      types: "types/index.d.ts",
-      files: [
-        "src",
-        "dist",
-        "jsx-runtime",
-        "jsx-dev-runtime",
-        "_isolated-hnrs",
-        "types/*.d.ts",
-        "macro.js",
-        "macro.d.ts",
-        "macro.js.flow"
-      ],
-      sideEffects: false,
-      author: "Emotion Contributors",
-      license: "MIT",
-      scripts: {
-        "test:typescript": "dtslint types"
-      },
-      dependencies: {
-        "@babel/runtime": "^7.18.3",
-        "@emotion/babel-plugin": "^11.10.0",
-        "@emotion/cache": "^11.10.0",
-        "@emotion/serialize": "^1.1.0",
-        "@emotion/use-insertion-effect-with-fallbacks": "^1.0.0",
-        "@emotion/utils": "^1.2.0",
-        "@emotion/weak-memoize": "^0.3.0",
-        "hoist-non-react-statics": "^3.3.1"
-      },
-      peerDependencies: {
-        "@babel/core": "^7.0.0",
-        react: ">=16.8.0"
-      },
-      peerDependenciesMeta: {
-        "@babel/core": {
-          optional: true
-        },
-        "@types/react": {
-          optional: true
-        }
-      },
-      devDependencies: {
-        "@babel/core": "^7.18.5",
-        "@definitelytyped/dtslint": "0.0.112",
-        "@emotion/css": "11.10.0",
-        "@emotion/css-prettifier": "1.1.0",
-        "@emotion/server": "11.10.0",
-        "@emotion/styled": "11.10.4",
-        "html-tag-names": "^1.1.2",
-        react: "16.14.0",
-        "svg-tag-names": "^1.1.1",
-        typescript: "^4.5.5"
-      },
-      repository: "https://github.com/emotion-js/emotion/tree/main/packages/react",
-      publishConfig: {
-        access: "public"
-      },
-      "umd:main": "dist/emotion-react.umd.min.js",
-      preconstruct: {
-        entrypoints: [
-          "./index.js",
-          "./jsx-runtime.js",
-          "./jsx-dev-runtime.js",
-          "./_isolated-hnrs.js"
-        ],
-        umdName: "emotionReact",
-        exports: {
-          envConditions: [
-            "browser",
-            "worker"
-          ],
-          extra: {
-            "./types/css-prop": "./types/css-prop.d.ts",
-            "./macro": "./macro.js"
-          }
-        }
-      }
-    };
     var jsx = function jsx2(type, props) {
       var args = arguments;
       if (props == null || !emotionElement.hasOwnProperty.call(props, "css")) {
@@ -171,12 +49,7 @@ var require_emotion_react_cjs_dev = __commonJS({
       }
       return React.createElement.apply(null, createElementArgArray);
     };
-    var warnedAboutCssPropForGlobal = false;
     var Global = emotionElement.withEmotionCache(function(props, cache) {
-      if (!warnedAboutCssPropForGlobal && (props.className || props.css)) {
-        console.error("It looks like you're using the css prop on Global, did you mean to use the styles prop instead?");
-        warnedAboutCssPropForGlobal = true;
-      }
       var styles = props.styles;
       var serialized = serialize.serializeStyles([styles], void 0, React.useContext(emotionElement.ThemeContext));
       if (!emotionElement.isBrowser) {
@@ -244,9 +117,6 @@ var require_emotion_react_cjs_dev = __commonJS({
       }, [cache, serialized.name]);
       return null;
     });
-    if (true) {
-      Global.displayName = "EmotionGlobal";
-    }
     function css() {
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
@@ -281,9 +151,6 @@ var require_emotion_react_cjs_dev = __commonJS({
             if (Array.isArray(arg)) {
               toAdd = classnames2(arg);
             } else {
-              if (arg.styles !== void 0 && arg.name !== void 0) {
-                console.error("You have passed styles created with `css` from `@emotion/react` package to the `cx`.\n`cx` is meant to compose class names (strings) so you should convert those styles to a class name by passing them to the `css` received from <ClassNames/> component.");
-              }
               toAdd = "";
               for (var k in arg) {
                 if (arg[k] && k) {
@@ -341,7 +208,7 @@ var require_emotion_react_cjs_dev = __commonJS({
       var hasRendered = false;
       var serializedArr = [];
       var css2 = function css3() {
-        if (hasRendered && true) {
+        if (hasRendered && false) {
           throw new Error("css can only be used during render");
         }
         for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -353,7 +220,7 @@ var require_emotion_react_cjs_dev = __commonJS({
         return cache.key + "-" + serialized.name;
       };
       var cx = function cx2() {
-        if (hasRendered && true) {
+        if (hasRendered && false) {
           throw new Error("cx can only be used during render");
         }
         for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
@@ -373,25 +240,6 @@ var require_emotion_react_cjs_dev = __commonJS({
         serializedArr
       }), ele);
     });
-    if (true) {
-      ClassNames.displayName = "EmotionClassNames";
-    }
-    if (true) {
-      isBrowser = typeof document !== "undefined";
-      isJest = typeof jest !== "undefined";
-      if (isBrowser && !isJest) {
-        globalContext = typeof globalThis !== "undefined" ? globalThis : isBrowser ? window : globalThis;
-        globalKey = "__EMOTION_REACT_" + pkg.version.split(".")[0] + "__";
-        if (globalContext[globalKey]) {
-          console.warn("You are loading @emotion/react when it is already loaded. Running multiple instances may cause problems. This can happen if multiple versions are used, or if multiple builds of the same version are used.");
-        }
-        globalContext[globalKey] = true;
-      }
-    }
-    var isBrowser;
-    var isJest;
-    var globalContext;
-    var globalKey;
     exports.CacheProvider = emotionElement.CacheProvider;
     exports.ThemeContext = emotionElement.ThemeContext;
     exports.ThemeProvider = emotionElement.ThemeProvider;
@@ -418,10 +266,10 @@ var require_emotion_react_cjs = __commonJS({
   "../../node_modules/@emotion/react/dist/emotion-react.cjs.js"(exports, module) {
     "use strict";
     init_define_process();
-    if (false) {
-      module.exports = null;
+    if (true) {
+      module.exports = require_emotion_react_cjs_prod();
     } else {
-      module.exports = require_emotion_react_cjs_dev();
+      module.exports = null;
     }
   }
 });

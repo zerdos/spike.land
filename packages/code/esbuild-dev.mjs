@@ -141,6 +141,7 @@ const build = (entryPoints, format = "esm") =>
     minifySyntax: true, //!isDevelopment,
     ignoreAnnotations: true,
     metafile: true,
+    keepNames: false,
     platform: "browser",
     outExtension: { ".js": ".worker.js" },
     format: "iife",
