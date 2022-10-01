@@ -174,26 +174,6 @@
     }
   },
   "outputs": {
-    "dist/index-WED7STLW.html": {
-      "imports": [],
-      "exports": [],
-      "inputs": {
-        "src/index.html": {
-          "bytesInOutput": 2261
-        }
-      },
-      "bytes": 2261
-    },
-    "dist/iife-6GVHRYG6.html": {
-      "imports": [],
-      "exports": [],
-      "inputs": {
-        "src/iife.html": {
-          "bytesInOutput": 2244
-        }
-      },
-      "bytes": 2244
-    },
     "dist/index.js": {
       "imports": [],
       "exports": [
@@ -232,10 +212,10 @@
           "bytesInOutput": 1120
         },
         "src/index.html": {
-          "bytesInOutput": 47
+          "bytesInOutput": 2288
         },
         "src/iife.html": {
-          "bytesInOutput": 48
+          "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
           "bytesInOutput": 15596
@@ -259,7 +239,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 254221
+      "bytes": 258695
     }
   }
 }

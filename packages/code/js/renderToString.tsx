@@ -14,9 +14,10 @@
 // import autoprefixer from "autoprefixer"
 // import { useState } from "react";
 // import { wait } from "wait";
-import { hashCode } from "session";
-import { wait } from "wait";
-import html2canvas from "html2canvas";
+import { hashCode, mST } from "session";
+// import { wait } from "wait";
+// import html2canvas from "html2canvas";
+import { md5 } from "md5";
 // import postcssNested from "postcss-nested"
 
 // const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
@@ -46,25 +47,29 @@ import html2canvas from "html2canvas";
 
 //   return <div id={md5Hash}>{children}</div>;
 // };
-export const renderFromString = async (
+export const renderFromString = (
   // code: string,
   // App: FunctionComponent
   codeSpace: string,
+  hash: number
 ) => {
-  // const hash = md5(mST().transpiled);
-  const html1 = document.getElementById(`${codeSpace}-${hashCode()}`)
+  // await wait(100);
+  const md5hash = md5(mST().transpiled).slice(0,8);
+  if (hash!==hashCode()) return {html: null, css: null};
+  mST().transpiled
+  const html = document.getElementById(`${codeSpace}-${md5hash}`)
     ?.innerHTML!;
-  await wait(100);
+  // await wait(100);
 
-  const html = document.getElementById(`${codeSpace}-${hashCode()}`)
-    ?.innerHTML!;
+  // const html = document.getElementById(`${codeSpace}-${hashCode()}`)
+    // ?.innerHTML!;
 
-  if (html1 != html) return { html: null, css: null };
+  // if (html1 !== html) return { html: null, css: null };
 
-  const canvas = await html2canvas(
-    document.getElementById(`${codeSpace}-${hashCode()}`)!,
-  );
-  globalThis.canvas = canvas;
+  // const canvas = await html2canvas(
+  //   document.getElementById(`${codeSpace}-${hashCode()}`)!,
+  // );
+  // globalThis.canvas = canvas;
 
   const css = html ? extractCritical22(html) : "";
 
@@ -143,7 +148,7 @@ export const renderFromString = async (
   //   }
   // }, 200);
 
-  return { html, css };
+  return { html: `<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`, css };
 };
 const extractCritical22 = (html: string) => {
   try {

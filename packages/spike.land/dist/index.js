@@ -767,10 +767,231 @@ var RateLimiterClient = class {
 };
 
 // src/index.html
-var src_default = "./index-WED7STLW.html";
+var src_default = `<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <base href="./">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <title>Instant React Editor</title>
+<style>
+  html,
+body {
+  overflow: overlay;
+}
+
+html[data-theme='dark'] {
+  background-color: #121212;
+ --text-color-normal: hsl(210, 10%, 62%);
+  --text-color-light: hsl(210, 15%, 35%);
+  --text-color-richer: hsl(210, 50%, 72%);
+  --text-color-highlight: hsl(25, 70%, 45%);
+}
+@media screen and (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: black;
+    --text-color-normal: #0a244d;
+    --text-color-light: #8cabd9;
+  }
+}
+html, body {margin: 0; height: 100%}
+
+ /* #root{} */
+
+
+ *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+   all: unset;
+   display: revert;
+  }
+ *,
+  *::before,
+ *::after {
+   box-sizing: border-box;
+ }
+ ol, ul {
+   list-style: none;
+ }
+ img {
+   max-width: 100%;
+ }
+ table {
+   border-collapse: collapse;
+ }
+ textarea {
+   white-space: revert;
+ }
+ 
+ 
+   </style>
+   <script type="esms-options">
+    {
+      "shimMode": true
+    }
+    <\/script>
+
+   <script type="importmap"><\/script>
+   </head>
+   
+   
+  <body>
+  
+  
+  
+  
+  
+  
+
+<script>     
+  
+  if (location.href.indexOf(".tsx")!==-1) {
+    const loc = location.href.indexOf(".tsx");
+
+    location.href = location.href.slice(0,loc);
+  }
+
+  window.process = {
+    env: {
+      "NODE_ENV": "production"
+    }};
+    
+
+
+
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    console.log('This page was restored from the background cache.');
+  } else {
+    console.log('This page was loaded normally.');
+  }
+});
+ 
+ <\/script>
+
+
+
+<div id="root"></div>
+
+<script type="module">
+    import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
+   
+import( location.origin + "/" + assets["ws.mjs"]).then(({run})=>run({
+      mST,
+      codeSpace,
+      address,
+      assets
+    }));
+<\/script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'><\/script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>`;
 
 // src/iife.html
-var iife_default = "./iife-6GVHRYG6.html";
+var iife_default = `
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <base href="//">
+  <title>Instant React Editor</title>
+  <style>
+    html,
+body,
+#root,
+#zbody {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%; 
+ }
+
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: fixed;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: top;
+  overscroll-behavior-y: contain;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-height: -webkit-fill-available;
+  height: 100%;
+  /* prevent overscroll bounce*/
+  /* overflow-y: scroll; */
+  --webkit-overflow-scrolling: touch;
+  padding-bottom: 0 !important;
+  overflow: hidden;
+  /* overflow-x: hidden; */
+  /* overflow-y: hidden; */
+}
+  </style>
+</head>
+<body>
+  <script>     
+  window.startedWithNativeEsmModules = false;
+  if (location.href.indexOf(".tsx")!==-1) {
+    const loc = location.href.indexOf(".tsx");
+
+    location.href = location.href.slice(0,loc);
+  }
+  window.process = {
+    env: {
+      "NODE_ENV": "production"
+    }};
+  <\/script>
+  <div id="root"></div>
+  <script>
+
+
+   /** startState **/
+
+
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    console.log('This page was restored from the bg cache.');
+  } else {
+    console.log('This page was loaded normally.');
+  }
+});
+ 
+ <\/script>
+
+  <script type="importmap">
+{
+  "imports": {
+    "react/jsx-runtime": "/react.mjs",
+    "react": "/react.mjs",
+    "preact": "/react.mjs",
+    "react-dom/client": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "framer-motion": "/framer-motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/react/jsx-runtime": "/emotion.mjs",
+    "@emotion/cache": "/emotion.mjs"
+  }
+}
+    <\/script>
+  
+    <script defer src="/iife.js"><\/script>
+
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'><\/script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>`;
 
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
