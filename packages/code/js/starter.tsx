@@ -124,16 +124,17 @@ const ErrorBoundaryJ = ErrorBoundary as unknown as React.FC;
 export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   { hash, codeSpace },
 ) => {
-  // const result = md5(mST().transpiled);
+  const md5Hash = md5(mST().transpiled).slice(0,8);
 
   useEffect(() => {
-    (async () => {
-      const { html, css } = await renderFromString(codeSpace);
+  //  setTimeout(()=>{
+      const { html, css } = renderFromString(codeSpace, hash);
       const mst = mST();
       if (html && css && (html !== mst.html || css !== mst.css)) {
         patchSync({ ...mst, html, css });
       }
-    })();
+    // }, 100);
+ 
   }, [hash]);
 
   const ref = useRef(null);
@@ -144,10 +145,11 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
     <ErrorBoundaryJ ref={ref}>
       <div
         key={hash}
-        css={css`
-        height: 100%;
-              `}
-        id={`${codeSpace}-${hash}`}
+        style={{
+        height: "100%"
+
+        }}
+        id={`${codeSpace}-${md5Hash}`}
       >
         <App />
       </div>
