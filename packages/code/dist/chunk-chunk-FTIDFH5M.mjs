@@ -843,21 +843,12 @@ var init_jsxRuntime_module = __esm({
   }
 });
 
-// ../../node_modules/preact/compat/jsx-runtime.mjs
-var init_jsx_runtime = __esm({
-  "../../node_modules/preact/compat/jsx-runtime.mjs"() {
-    init_define_process();
-    init_compat_module();
-    init_jsxRuntime_module();
-  }
-});
-
 // js/preact-jsx-runtime.ts
 var init_preact_jsx_runtime = __esm({
   "js/preact-jsx-runtime.ts"() {
     "use strict";
     init_define_process();
-    init_jsx_runtime();
+    init_jsxRuntime_module();
   }
 });
 

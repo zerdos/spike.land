@@ -10,13 +10,13 @@ import {
 } from "./chunk-chunk-U477UOCV.mjs";
 import {
   motion
-} from "./chunk-chunk-5UUMJT2W.mjs";
+} from "./chunk-chunk-QMSC3WU4.mjs";
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-4GFS3IBU.mjs";
+} from "./chunk-chunk-E3FOMO3O.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-4EDZOGYU.mjs";
+} from "./chunk-chunk-PIXVED6H.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_memoize_cjs,
@@ -24,7 +24,7 @@ import {
   require_emotion_use_insertion_effect_with_fallbacks_cjs,
   require_emotion_utils_cjs,
   require_extends
-} from "./chunk-chunk-DRRVPI5Q.mjs";
+} from "./chunk-chunk-MRETKKSP.mjs";
 import {
   $,
   Children,
@@ -57,7 +57,7 @@ import {
   useRef,
   useState,
   yn
-} from "./chunk-chunk-N3OK4Q2D.mjs";
+} from "./chunk-chunk-FTIDFH5M.mjs";
 import {
   __commonJS,
   __toCommonJS,
@@ -43923,9 +43923,12 @@ var QR = ({ url }) => (0, import_jsx_runtime260.jsx)(QRious, {
   value: url
 });
 var QRiousLazy = lazy(
-  () => import("./chunk-lib-3SJEX46J.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
+  () => import("./chunk-lib-6FZBDJPD.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
 );
 var QRious = ({ value }) => (0, import_jsx_runtime260.jsx)(Suspense, {
+  fallback: (0, import_jsx_runtime260.jsx)("span", {
+    children: "..."
+  }),
   children: (0, import_jsx_runtime260.jsx)(QRiousLazy, {
     value
   })
@@ -44228,7 +44231,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-74CPF4BA.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-VOBHCMGR.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-MSFJDELE.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
