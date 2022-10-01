@@ -87,6 +87,10 @@ const sendChannel = {
 
 // }
 
+export const setWsLastHashCode = (hashCode: string)=> {
+  wsLastHashCode=Number(hashCode);
+return 
+}
 export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;
@@ -121,7 +125,7 @@ export const run = async (startState: {
     if (
       event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
     ) {
-      const messageData = await makePatch(event.data.sess);
+      const messageData = await makePatch(event.data.sess, setWsLastHashCode);
 
       await applyPatch(messageData);
     }
