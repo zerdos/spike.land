@@ -53,7 +53,7 @@ export const renderFromString = (
   codeSpace: string,
   hash: number
 ) => {
-  // await wait(100);
+  // await waitππ0);
   const md5hash = md5(mST().transpiled).slice(0,8);
   if (hash!==hashCode()) return {html: null, css: null};
   mST().transpiled
