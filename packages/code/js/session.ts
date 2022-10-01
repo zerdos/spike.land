@@ -65,7 +65,7 @@ type IApplyPatch = (
 interface ICodeSess {
   hashOfState: () => number;
   applyPatch: IApplyPatch;
-  createPatchFromHashCode: (c: number, st: ICodeSession) => Promise<CodePatch>;
+  createPatchFromHashCode: (c: number, st: ICodeSession, updateHash?: (h: string)=>void) => Promise<CodePatch>;
   json: () => IUserJSON;
 }
 
@@ -129,6 +129,7 @@ export class CodeSession implements ICodeSess {
   createPatchFromHashCode = async (
     oldHash: number,
     state: ICodeSession,
+    updateHash?: (h: string)=>void 
   ) => {
     const s = JSON.parse(str(state));
 
@@ -145,6 +146,7 @@ export class CodeSession implements ICodeSess {
       }
 
       const { mST, hashCode } = await resp.json();
+      if (updateHash) updateHash(hashCode);
       hashStore[hashCode] = this.session.get("state").merge(mST);
 
       usedOldHash = hashCode;
@@ -302,9 +304,9 @@ export const onSessionUpdate = (
   fn: (_force: boolean, messageData: object) => void,
   regId = "default",
 ) => session?.onUpdate(fn, regId);
-export const makePatchFrom = (n: number, st: ICodeSession) =>
-  (session as CodeSession).createPatchFromHashCode(n, st);
-export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
+export const makePatchFrom = (n: number, st: ICodeSession, update?: (h:string)=>void) =>
+  (session as CodeSession).createPatchFromHashCode(n, st, update);
+export const makePatch = (st: ICodeSession, update?: (h:string)=>void) => makePatchFrom(hashCode(), st, update);
 
 export const startSession = (
   room: string,

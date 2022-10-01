@@ -5150,7 +5150,7 @@ var CodeSession = class {
       hashStore[hashCode4] = state;
       return hashCode4;
     });
-    __publicField(this, "createPatchFromHashCode", async (oldHash, state) => {
+    __publicField(this, "createPatchFromHashCode", async (oldHash, state, updateHash) => {
       const s = JSON.parse(str(state));
       let oldRec = hashStore[oldHash];
       let usedOldHash = oldHash;
@@ -5163,6 +5163,8 @@ var CodeSession = class {
           throw new Error(location.origin + " is NOT OK");
         }
         const { mST: mST2, hashCode: hashCode4 } = await resp.json();
+        if (updateHash)
+          updateHash(hashCode4);
         hashStore[hashCode4] = this.session.get("state").merge(mST2);
         usedOldHash = hashCode4;
         oldRec = hashStore[hashCode4];
@@ -5306,8 +5308,8 @@ var applyPatch2 = async (x) => {
   session == null ? void 0 : session.update(x);
 };
 var onSessionUpdate = (fn, regId = "default") => session == null ? void 0 : session.onUpdate(fn, regId);
-var makePatchFrom = (n, st) => session.createPatchFromHashCode(n, st);
-var makePatch = (st) => makePatchFrom(hashCode3(), st);
+var makePatchFrom = (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
+var makePatch = (st, update8) => makePatchFrom(hashCode3(), st, update8);
 var startSession = (room, u, originStr) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) });
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);

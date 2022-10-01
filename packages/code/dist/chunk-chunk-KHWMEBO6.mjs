@@ -7,7 +7,7 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-ZA36UADW.mjs";
+} from "./chunk-chunk-U477UOCV.mjs";
 import {
   motion
 } from "./chunk-chunk-5UUMJT2W.mjs";
@@ -44228,7 +44228,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-OIQLTQU5.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-74CPF4BA.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-MSFJDELE.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -44630,6 +44630,10 @@ var sendChannel = {
     });
   }
 };
+var setWsLastHashCode = (hashCode2) => {
+  wsLastHashCode = Number(hashCode2);
+  return;
+};
 var run = async (startState) => {
   if (location.pathname.endsWith("unhydrated"))
     return;
@@ -44651,7 +44655,7 @@ var run = async (startState) => {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
     }
     if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
-      const messageData = await makePatch(event.data.sess);
+      const messageData = await makePatch(event.data.sess, setWsLastHashCode);
       await applyPatch(messageData);
     }
   };
@@ -45092,6 +45096,7 @@ async function sw() {
 }
 
 export {
+  setWsLastHashCode,
   run,
   saveCode,
   join,
