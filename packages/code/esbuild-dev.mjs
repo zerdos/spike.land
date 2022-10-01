@@ -1,5 +1,5 @@
 import esbuild from "esbuild";
-import inlineWorkerPlugin from 'esbuild-plugin-inline-worker';
+// import inlineWorkerPlugin from 'esbuild-plugin-inline-worker';
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 import fs from "fs/promises";
@@ -36,7 +36,7 @@ const define = {
     browser: true,
   }),
 };
-const plugins = [inlineWorkerPlugin()];
+// const plugins = [inlineWorkerPlugin()];
 
 //[postcss({
  // plugins: [
@@ -50,7 +50,7 @@ const buildOptions = {
   define,
   target,
   platform: "browser",
-  plugins,
+  // plugins,
   external: ["./mST"],
   legalComments: "none",
 };
@@ -143,7 +143,7 @@ const build = (entryPoints, format = "esm") =>
     metafile: true,
     keepNames: false,
     platform: "browser",
-    outExtension: { ".js": ".worker.js" },
+    outExtension: { ".js": ".workerJs.js" },
     format: "iife",
     outbase: "monaco-editor/esm/vs",
     outdir: "./js/monaco-workers",
