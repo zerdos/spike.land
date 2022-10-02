@@ -380,7 +380,7 @@ export const startMonaco = async (
         scrollByPage: false,
         alwaysConsumeMouseWheel: false,
       },
-      scrollBeyondLastLine: false,
+      scrollBeyondLastLine: true,
       scrollPredominantAxis: false,
 
       smoothScrolling: true,
@@ -482,7 +482,7 @@ export const startMonaco = async (
       },
       automaticLayout: true,
 
-      useShadowDOM: true,
+      useShadowDOM: false,
       bracketPairColorization: {
         independentColorPoolPerBracketType: true,
         enabled: true,
