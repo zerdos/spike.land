@@ -265,7 +265,7 @@ export const Editor: React.FC<
           css={css`
         
             max-width: 640px;
-              height: ${60 + lines / 40 * 100}%;
+            height: 100%;
             
         `}
           ref={ref}

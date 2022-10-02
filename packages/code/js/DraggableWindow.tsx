@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 import { useEffect, useState } from "react";
-import { motion as m } from "framer-motion";
+import { motion } from "framer-motion";
 import { QRButton } from "./Qr";
 
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
@@ -113,7 +113,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   }, []);
 
   return (
-    <m.div
+    <motion.div
       transition={{ delay: 0, duration: 0.4 }}
       initial={{
         top: 0,
@@ -127,7 +127,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
         right,
         borderRadius: 16,
       }}
+      onPan={(e, pointInfo) => {console.log({e, pointInfo})}}
       css={css`
+            touch-action: pinch-zoom;
             background-color:${bg};
             backdrop-filter: blur(15px);
             z-index: 10;
@@ -157,7 +159,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             align-items: center;
           `}
         >
-          <m.div
+          <motion.div
             transition={{ delay: 0, duration: 0.4 }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "auto", width: "auto" }}
@@ -189,10 +191,10 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 </ToggleButton>
               ))}
             </ToggleButtonGroup>
-          </m.div>
+          </motion.div>
           {/* <span>{width}*{height}</span> */}
 
-          <m.div
+          <motion.div
             transition={{ delay: 0, duration: 0.4 }}
             initial={{
               width: window.innerWidth,
@@ -213,7 +215,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 overflow-y: hidden;
             `}
           >
-            <m.div
+            <motion.div
               transition={{ delay: 0, duration: 0.4 }}
               initial={{
                 width: window.innerWidth,
@@ -240,9 +242,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               }
               {children}
               {/* </div> */}
-            </m.div>
-          </m.div>
-          <m.div
+            </motion.div>
+          </motion.div>
+          <motion.div
             transition={{ delay: 0, duration: 0.4 }}
           >
             <ToggleButtonGroup
@@ -305,10 +307,10 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 </ToggleButton>
               ))}
             </ToggleButtonGroup>
-          </m.div>
+          </motion.div>
         </div>
 
-        <m.div
+        <motion.div
           transition={{ delay: 0, duration: 0.4 }}
           initial={{ height: 0, width: 0 }}
           animate={{ height: "100%", width: "auto" }}
@@ -348,9 +350,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               <Share />
             </Fab>
           </div>
-        </m.div>
+        </motion.div>
       </div>
-    </m.div>
+    </motion.div>
   );
 };
 
