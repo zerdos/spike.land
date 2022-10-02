@@ -2058,9 +2058,9 @@ __metadata:
   linkType: hard
 
 "@preact/signals-core@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@preact/signals-core@npm:1.2.0"
-  checksum: 55983142a9357a68351235a3a66df8d6699fd72077c625126b94b1ccc31777f6ea5baf7e7002ea4d80cc94ff4ad943b27dd5eed660588a69d6cae1c34ea56c80
+  version: 1.2.1
+  resolution: "@preact/signals-core@npm:1.2.1"
+  checksum: 9d6f9db441f015e751d9e28e8aebcf7e50deb2ae1939cbead5e8c4ef505deaacbb1c9fd911d8bbe027838c74a2c27aa45102c1f3fcb71cae0598567d3088a252
   languageName: node
   linkType: hard
 
@@ -3845,6 +3845,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cliui@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "cliui@npm:8.0.1"
+  dependencies:
+    string-width: "npm:^4.2.0"
+    strip-ansi: "npm:^6.0.1"
+    wrap-ansi: "npm:^7.0.0"
+  checksum: 4db0fc81f3dbd46b65840a739a43ce83a69e58d7da5ae701948fbfc14c25d82a02dd3a3dbed5a20828000e93b4bf2217b181a0a089d580af5daf9452e9c9eab3
+  languageName: node
+  linkType: hard
+
 "clone-deep@npm:^4.0.1":
   version: 4.0.1
   resolution: "clone-deep@npm:4.0.1"
@@ -4727,9 +4738,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.251":
-  version: 1.4.266
-  resolution: "electron-to-chromium@npm:1.4.266"
-  checksum: 30be3084d5c9dbdf4688adb0366ca8c7d933d52f7a72999992cf58248e544b9956732016bbb71b27c03b90300e672bef85e2505562b547c393cf29244131d8ea
+  version: 1.4.270
+  resolution: "electron-to-chromium@npm:1.4.270"
+  checksum: e9de9f4545a9897649b2e86c7a2ba4959bc8a906733da1115109a9be116e60d7f694d94683dfedacc0a6e4543964a1a84aad0b9a69cd70fd188f2d2be74c5661
   languageName: node
   linkType: hard
 
@@ -7645,9 +7656,9 @@ __metadata:
   linkType: hard
 
 "js-sdsl@npm:^4.1.4":
-  version: 4.1.4
-  resolution: "js-sdsl@npm:4.1.4"
-  checksum: bf97179276b433ff4f138bd53fe411549893999f5571cc0da7cc5d16bc24cd50631bad83a61c32ed7e6f4ded7cc2ae06ad5ad4d56e05ed70d5c6993fc4553c41
+  version: 4.1.5
+  resolution: "js-sdsl@npm:4.1.5"
+  checksum: dafad5531a0a7a345a8ec5d83b16c8daf068893a90db8e718cf857b25878d87bbb08eee44bae309c4967dea3f2bd1aecaa8f107cf5c5c09d1579a671f1a14ed5
   languageName: node
   linkType: hard
 
@@ -10910,12 +10921,12 @@ __metadata:
   linkType: hard
 
 "socks@npm:^2.3.3, socks@npm:^2.6.2":
-  version: 2.7.0
-  resolution: "socks@npm:2.7.0"
+  version: 2.7.1
+  resolution: "socks@npm:2.7.1"
   dependencies:
     ip: "npm:^2.0.0"
     smart-buffer: "npm:^4.2.0"
-  checksum: 50863d0aa15029fbaf164bd5ff78ad87799d4d0f833b42ca3e66ccff8311f6a199e18d496aac07244aeef546ce0c427bf63ca9fa445c0fa6b036e5d054f74ebb
+  checksum: a8026d6abfcd168a661240848f6989fbba66276e8fa97ff1cb1079c2f3c6907dcc8284fcbc4f6d3fee8d071afb4fc8313da7e5fbf6d8768f206347a671f1542b
   languageName: node
   linkType: hard
 
@@ -12349,17 +12360,17 @@ __metadata:
   linkType: hard
 
 "yargs@npm:^17.4.0":
-  version: 17.5.1
-  resolution: "yargs@npm:17.5.1"
+  version: 17.6.0
+  resolution: "yargs@npm:17.6.0"
   dependencies:
-    cliui: "npm:^7.0.2"
+    cliui: "npm:^8.0.1"
     escalade: "npm:^3.1.1"
     get-caller-file: "npm:^2.0.5"
     require-directory: "npm:^2.1.1"
     string-width: "npm:^4.2.3"
     y18n: "npm:^5.0.5"
     yargs-parser: "npm:^21.0.0"
-  checksum: 73e3e3f22a5e278bd335bd2c61bbfdae8181ecb178c304ca8438a3f34065e63885639b81e01c6ffee44dfeee7172f224c857feaec0ac2a940580b93b626f5080
+  checksum: f68c5da23fcce6ffa05da2735e5cbca04e0f95138167272b68193f674b206584614ef7363c6d2c6f18c04fb98c9703b0f672f8444695e6d87de34cec004924e0
   languageName: node
   linkType: hard
 
