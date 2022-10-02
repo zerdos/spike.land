@@ -73,12 +73,12 @@ export async function runner({ code, counter }: {
       tsconfigRaw: {
         "compilerOptions": {
           "jsx": "react-jsx",
-          "module": "es2022",
+          "module": "ESNext",
           "jsxFragmentFactory": "Fragment",
           "jsxImportSource": "@emotion/react",
         },
       },
-      target: "es2021",
+      target: "es2015",
     } as unknown as TransformOptions);
 
     patchSync({ ...mST(), transpiled: transpiled.code });
