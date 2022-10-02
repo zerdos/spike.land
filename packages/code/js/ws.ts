@@ -87,10 +87,9 @@ const sendChannel = {
 
 // }
 
-export const setWsLastHashCode = (hashCode: string)=> {
-  wsLastHashCode=Number(hashCode);
-return 
-}
+const setWsLastHashCode = (hashCode: string) => {
+  wsLastHashCode = Number(hashCode);
+};
 export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;

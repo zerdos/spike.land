@@ -8,19 +8,18 @@ import { MdQrCode2 as QrCode } from "react-icons/md";
 import { Fab } from "./mui";
 
 interface QrProps {
-  url: string
+  url: string;
 }
 
-const QR =({ url }:QrProps) => <QRious value={url} />;
+const QR = ({ url }: QrProps) => <QRious value={url} />;
 
 const QRiousLazy = lazy(() =>
   import("react-qrious").then(({ QRious }) => ({ default: QRious }))
 );
 const QRious = ({ value }) => (
- <Suspense fallback={<span>...</span>}>
+  <Suspense fallback={<span>...</span>}>
     <QRiousLazy value={value} />
   </Suspense>
-  
 );
 
 export const QRButton: FC<{ url: string }> = ({ url }) => {

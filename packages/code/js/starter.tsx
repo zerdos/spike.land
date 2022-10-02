@@ -124,17 +124,16 @@ const ErrorBoundaryJ = ErrorBoundary as unknown as React.FC;
 export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   { hash, codeSpace },
 ) => {
-  const md5Hash = md5(mST().transpiled).slice(0,8);
+  const md5Hash = md5(mST().transpiled).slice(0, 8);
 
   useEffect(() => {
-  //  setTimeout(()=>{
-      const { html, css } = renderFromString(codeSpace, hash);
-      const mst = mST();
-      if (html && css && (html !== mst.html || css !== mst.css)) {
-        patchSync({ ...mst, html, css });
-      }
+    //  setTimeout(()=>{
+    const { html, css } = renderFromString(codeSpace, hash);
+    const mst = mST();
+    if (html && css && (html !== mst.html || css !== mst.css)) {
+      patchSync({ ...mst, html, css });
+    }
     // }, 100);
- 
   }, [hash]);
 
   const ref = useRef(null);
@@ -146,8 +145,7 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
       <div
         key={hash}
         style={{
-        height: "100%"
-
+          height: "100%",
         }}
         id={`${codeSpace}-${md5Hash}`}
       >

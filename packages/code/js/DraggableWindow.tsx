@@ -127,7 +127,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
         right,
         borderRadius: 16,
       }}
-      onPan={(e, pointInfo) => {console.log({e, pointInfo})}}
+      onPan={(e, pointInfo) => {
+        console.log({ e, pointInfo });
+      }}
       css={css`
             touch-action: pinch-zoom;
             background-color:${bg};

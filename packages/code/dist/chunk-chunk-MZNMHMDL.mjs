@@ -4424,7 +4424,10 @@ var renderFromString = (codeSpace2, hash3) => {
   mST().transpiled;
   const html2 = (_a = document.getElementById(`${codeSpace2}-${md5hash}`)) == null ? void 0 : _a.innerHTML;
   const css8 = html2 ? extractCritical22(html2) : "";
-  return { html: `<div id="${codeSpace2}-${md5hash}" style="height:100%">${html2}</div>`, css: css8 };
+  return {
+    html: `<div id="${codeSpace2}-${md5hash}" style="height:100%">${html2}</div>`,
+    css: css8
+  };
 };
 var extractCritical22 = (html2) => {
   try {
@@ -44255,7 +44258,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: (_0) => __async(void 0, [_0], function* ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = yield import("./chunk-runner-QMGGQ55S.mjs");
+      const { runner: runner2 } = yield import("./chunk-runner-4PVGT7UI.mjs");
       const { prettierJs: prettierJs2 } = yield import("./chunk-prettierJs-Y2LMGKUI.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => __spreadProps(__spreadValues({}, x), {
@@ -44652,7 +44655,6 @@ var sendChannel = {
 };
 var setWsLastHashCode = (hashCode2) => {
   wsLastHashCode = Number(hashCode2);
-  return;
 };
 var run = (startState) => __async(void 0, null, function* () {
   if (location.pathname.endsWith("unhydrated"))
@@ -45138,7 +45140,6 @@ function sw() {
 }
 
 export {
-  setWsLastHashCode,
   run,
   saveCode,
   join,

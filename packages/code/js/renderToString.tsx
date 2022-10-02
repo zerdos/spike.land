@@ -51,18 +51,18 @@ export const renderFromString = (
   // code: string,
   // App: FunctionComponent
   codeSpace: string,
-  hash: number
+  hash: number,
 ) => {
   // await waitππ0);
-  const md5hash = md5(mST().transpiled).slice(0,8);
-  if (hash!==hashCode()) return {html: null, css: null};
-  mST().transpiled
+  const md5hash = md5(mST().transpiled).slice(0, 8);
+  if (hash !== hashCode()) return { html: null, css: null };
+  mST().transpiled;
   const html = document.getElementById(`${codeSpace}-${md5hash}`)
     ?.innerHTML!;
   // await wait(100);
 
   // const html = document.getElementById(`${codeSpace}-${hashCode()}`)
-    // ?.innerHTML!;
+  // ?.innerHTML!;
 
   // if (html1 !== html) return { html: null, css: null };
 
@@ -148,7 +148,10 @@ export const renderFromString = (
   //   }
   // }, 200);
 
-  return { html: `<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`, css };
+  return {
+    html: `<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`,
+    css,
+  };
 };
 const extractCritical22 = (html: string) => {
   try {
