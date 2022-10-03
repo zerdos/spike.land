@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 import { css } from "@emotion/react";
+import { wait } from "wait";
 
 const mod = {
   CH: () => {},
@@ -79,7 +80,6 @@ export const Editor: React.FC<
 
   mod.code = myCode;
 
-  const lines = code?.split("\n").length || 0;
 
   useEffect(() => {
     if (!ref?.current) return;
@@ -151,13 +151,14 @@ export const Editor: React.FC<
     };
 
     const loadEditors = async () => {
+      await wait(100);
       if (engine === "monaco") {
         await setMonaco();
       } else {
         await setAce();
       }
       // console.log("RUN THE RUNNER");
-      runner({ code: code + " ", counter, codeSpace });
+      runner({ code, counter, codeSpace });
     };
 
     loadEditors();
@@ -257,35 +258,19 @@ export const Editor: React.FC<
     }, 300);
   }, "editor");
 
-  return (
-    engine === "monaco"
-      ? (
-        <div
+  return <div
           data-test-id={myId}
+          id="editor"
           css={css`
         
             max-width: 640px;
             height: 100%;
             
+            
         `}
           ref={ref}
         />
-      )
-      : (
-        <div
-          data-test-id={myId}
-          css={css`
-                margin: 0;
-                position: absolute;
-                bottom: 0;
-                top: 0;
-                left: 0;
-                right: 0;
-              `}
-          id="editor"
-          ref={ref}
-        >
-        </div>
-      )
-  );
+      
+    
+  
 };
