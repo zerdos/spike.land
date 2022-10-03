@@ -34,7 +34,7 @@ const ToggleButton = muiToggleButton as typeof MuiToggleButton;
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
 
-const sizes = [10, 25, 50, 75, 100, 150];
+const sizes = [10, 25, 50, 75, 100];
 
 const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
   Math.random() * 128 + 64
