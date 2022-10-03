@@ -16,7 +16,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment === "development";
 
 const outdir = "./dist";
-const target = "es2015";
+const target = "es2017";
 
 console.log(`
 -------------------------------------------------

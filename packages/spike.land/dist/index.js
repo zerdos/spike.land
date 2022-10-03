@@ -1048,30 +1048,13 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../code/dist/chunk-chunk-MYDWED46.mjs
+// ../code/dist/chunk-chunk-GCAZFFX3.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
-var __defProps = Object.defineProperties;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames2 = Object.getOwnPropertyNames;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf2 = Object.getPrototypeOf;
 var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a2, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp2.call(b, prop))
-      __defNormalProp(a2, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a2, prop, b[prop]);
-    }
-  return a2;
-};
-var __spreadProps = (a2, b) => __defProps(a2, __getOwnPropDescs(b));
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
 };
@@ -1090,30 +1073,6 @@ var __toESM2 = (mod, isNodeMode, target) => (target = mod != null ? __create2(__
   isNodeMode || !mod || !mod.__esModule ? __defProp2(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
-};
 var define_process_default;
 var init_define_process = __esm({
   "<define:process>"() {
@@ -1121,7 +1080,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-4F4YHRHD.mjs
+// ../code/dist/chunk-chunk-EW7EBTEZ.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6241,120 +6200,12 @@ function applyPatch(original, delta) {
   return result;
 }
 function initSession(room, u) {
-  return Record(__spreadProps(__spreadValues({}, u), { room, state: Record(u.state)() }));
+  return Record({ ...u, room, state: Record(u.state)() });
 }
 var session = null;
 var hashStore = {};
 var CodeSession = class {
-  constructor(room, user) {
-    __publicField(this, "session");
-    __publicField(this, "cb", {});
-    __publicField(this, "hashCodeSession", 0);
-    __publicField(this, "room");
-    __publicField(this, "created", new Date().toISOString());
-    __publicField(this, "hashOfState", () => {
-      const state = this.session.get("state");
-      const hashCode4 = state.hashCode();
-      hashStore[hashCode4] = state;
-      return hashCode4;
-    });
-    __publicField(this, "createPatchFromHashCode", (oldHash, state, updateHash) => __async(this, null, function* () {
-      const s = JSON.parse(str(state));
-      let oldRec = hashStore[oldHash];
-      let usedOldHash = oldHash;
-      if (!oldRec) {
-        const resp = yield fetch(
-          `/live/${this.room}/mST`
-        );
-        if (!resp.ok) {
-          console.error(location.origin + " is NOT OK", yield resp.text());
-          throw new Error(location.origin + " is NOT OK");
-        }
-        const { mST: mST2, hashCode: hashCode4 } = yield resp.json();
-        if (updateHash)
-          updateHash(hashCode4);
-        hashStore[hashCode4] = this.session.get("state").merge(mST2);
-        usedOldHash = hashCode4;
-        oldRec = hashStore[hashCode4];
-      }
-      const oldStr = str(oldRec.toJSON());
-      const newRec = oldRec.merge(s);
-      const newStr = str(newRec.toJSON());
-      const newHash = newRec.hashCode();
-      hashStore[newHash] = newRec;
-      const patch = createPatch(oldStr, newStr);
-      return {
-        oldHash: usedOldHash,
-        newHash,
-        patch
-      };
-    }));
-    __publicField(this, "patchSync", (sess) => {
-      const oldHash = this.session.hashCode();
-      this.session = this.session.set(
-        "state",
-        this.session.get("state").merge(sess)
-      );
-      const newHash = this.session.hashCode();
-      if (newHash !== oldHash) {
-        console.log({ sess });
-        requestAnimationFrame(
-          () => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x))
-        );
-      }
-    });
-    __publicField(this, "applyPatch", (_0) => __async(this, [_0], function* ({
-      oldHash,
-      newHash,
-      patch
-    }) {
-      const codeSpace = this.room || "";
-      if (!Object.keys(hashStore).map((x) => Number(x)).includes(
-        Number(oldHash)
-      ) && codeSpace) {
-        console.log(Object.keys(hashStore));
-        const resp = yield fetch(
-          `/live/${codeSpace}/mST`
-        );
-        if (resp.ok) {
-          const s = yield resp.json();
-          const serverRecord = this.session.get("state").merge(
-            JSON.parse(str(s.mST))
-          );
-          hashStore[serverRecord.hashCode()] = serverRecord;
-        } else {
-          const { mST: mST2 } = yield import(
-            /* @vite-ignore */
-            location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`
-          );
-          const latestRec = this.session.get("state").merge(
-            JSON.parse(str(mST2))
-          );
-          hashStore[latestRec.hashCode()] = latestRec;
-        }
-      }
-      const oldStr = str(hashStore[oldHash].toJSON());
-      const applied = applyPatch(oldStr, patch);
-      const newState = JSON.parse(applied);
-      const newRec = this.session.get("state").merge(
-        newState
-      );
-      const newRecord = this.session.get("state").merge(newRec);
-      const newHashCheck = newRecord.hashCode();
-      if (newHashCheck === newHash) {
-        this.session = this.session.set("state", newRecord);
-      } else {
-        new Error("Wrong patch");
-        return;
-      }
-    }));
-    session = this;
-    this.room = room;
-    const savedState = null;
-    this.session = initSession(room, __spreadProps(__spreadValues({}, user), {
-      state: savedState ? savedState : JSON.parse(str(user.state))
-    }))();
-  }
+  session;
   update(patch) {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
       try {
@@ -6364,13 +6215,122 @@ var CodeSession = class {
       }
     });
   }
+  cb = {};
   onUpdate(fn, regId) {
     this.cb[regId] = fn;
   }
+  hashCodeSession = 0;
+  room;
+  created = new Date().toISOString();
+  constructor(room, user) {
+    session = this;
+    this.room = room;
+    const savedState = null;
+    this.session = initSession(room, {
+      ...user,
+      state: savedState ? savedState : JSON.parse(str(user.state))
+    })();
+  }
+  hashOfState = () => {
+    const state = this.session.get("state");
+    const hashCode4 = state.hashCode();
+    hashStore[hashCode4] = state;
+    return hashCode4;
+  };
+  createPatchFromHashCode = async (oldHash, state, updateHash) => {
+    const s = JSON.parse(str(state));
+    let oldRec = hashStore[oldHash];
+    let usedOldHash = oldHash;
+    if (!oldRec) {
+      const resp = await fetch(
+        `/live/${this.room}/mST`
+      );
+      if (!resp.ok) {
+        console.error(location.origin + " is NOT OK", await resp.text());
+        throw new Error(location.origin + " is NOT OK");
+      }
+      const { mST: mST2, hashCode: hashCode4 } = await resp.json();
+      if (updateHash)
+        updateHash(hashCode4);
+      hashStore[hashCode4] = this.session.get("state").merge(mST2);
+      usedOldHash = hashCode4;
+      oldRec = hashStore[hashCode4];
+    }
+    const oldStr = str(oldRec.toJSON());
+    const newRec = oldRec.merge(s);
+    const newStr = str(newRec.toJSON());
+    const newHash = newRec.hashCode();
+    hashStore[newHash] = newRec;
+    const patch = createPatch(oldStr, newStr);
+    return {
+      oldHash: usedOldHash,
+      newHash,
+      patch
+    };
+  };
+  patchSync = (sess) => {
+    const oldHash = this.session.hashCode();
+    this.session = this.session.set(
+      "state",
+      this.session.get("state").merge(sess)
+    );
+    const newHash = this.session.hashCode();
+    if (newHash !== oldHash) {
+      console.log({ sess });
+      requestAnimationFrame(
+        () => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x))
+      );
+    }
+  };
+  applyPatch = async ({
+    oldHash,
+    newHash,
+    patch
+  }) => {
+    const codeSpace = this.room || "";
+    if (!Object.keys(hashStore).map((x) => Number(x)).includes(
+      Number(oldHash)
+    ) && codeSpace) {
+      console.log(Object.keys(hashStore));
+      const resp = await fetch(
+        `/live/${codeSpace}/mST`
+      );
+      if (resp.ok) {
+        const s = await resp.json();
+        const serverRecord = this.session.get("state").merge(
+          JSON.parse(str(s.mST))
+        );
+        hashStore[serverRecord.hashCode()] = serverRecord;
+      } else {
+        const { mST: mST2 } = await import(
+          /* @vite-ignore */
+          location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`
+        );
+        const latestRec = this.session.get("state").merge(
+          JSON.parse(str(mST2))
+        );
+        hashStore[latestRec.hashCode()] = latestRec;
+      }
+    }
+    const oldStr = str(hashStore[oldHash].toJSON());
+    const applied = applyPatch(oldStr, patch);
+    const newState = JSON.parse(applied);
+    const newRec = this.session.get("state").merge(
+      newState
+    );
+    const newRecord = this.session.get("state").merge(newRec);
+    const newHashCheck = newRecord.hashCode();
+    if (newHashCheck === newHash) {
+      this.session = this.session.set("state", newRecord);
+    } else {
+      new Error("Wrong patch");
+      return;
+    }
+  };
   json() {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
-    return __spreadProps(__spreadValues({}, user), { state });
+    return { ...user, state };
   }
   setRoom(codeSpace) {
     const user = this.session.set("room", codeSpace);
@@ -6410,10 +6370,10 @@ function str(s) {
   const { i, transpiled, code, html, css } = s;
   return JSON.stringify({ i, transpiled, code, html, css });
 }
-var applyPatch2 = (x) => __async(void 0, null, function* () {
-  yield session == null ? void 0 : session.applyPatch(x);
-  session == null ? void 0 : session.update(x);
-});
+var applyPatch2 = async (x) => {
+  await session?.applyPatch(x);
+  session?.update(x);
+};
 var startSession = (room, u, originStr) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) });
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
