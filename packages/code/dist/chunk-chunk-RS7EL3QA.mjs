@@ -801,28 +801,6 @@ var init_compat_module = __esm({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/preact-npm-10.11.0-3c0f4d60eb-9.zip/node_modules/preact/compat/client.mjs
-function createRoot(container) {
-  return {
-    render(children) {
-      Z(children, container);
-    },
-    unmount() {
-      cn(container);
-    }
-  };
-}
-function hydrateRoot(container, children) {
-  Y(children, container);
-  return createRoot(container);
-}
-var init_client = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/preact-npm-10.11.0-3c0f4d60eb-9.zip/node_modules/preact/compat/client.mjs"() {
-    init_define_process();
-    init_compat_module();
-  }
-});
-
 // ../../../../../Users/z/.yarn/berry/cache/preact-npm-10.11.0-3c0f4d60eb-9.zip/node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js
 function o3(o5, e3, n3, t2, f4) {
   var l4, s4, u4 = {};
@@ -1178,18 +1156,18 @@ __export(react_preact_exports, {
   findDOMNode: () => fn,
   flushSync: () => sn,
   forwardRef: () => forwardRef,
-  hydrate: () => Y,
+  hydrate: () => hydrate,
   hydrateRoot: () => hydrateRoot,
   isValidElement: () => isValidElement,
   jsx: () => o3,
   jsxs: () => o3,
   lazy: () => lazy,
   memo: () => memo,
-  render: () => Z,
+  render: () => render,
   renderToString: () => S2,
   shallowRender: () => x4,
   startTransition: () => vn,
-  unmountComponentAtNode: () => cn,
+  unmountComponentAtNode: () => unmountComponentAtNode,
   unstable_batchedUpdates: () => an,
   useCallback: () => useCallback,
   useContext: () => useContext,
@@ -1209,16 +1187,30 @@ __export(react_preact_exports, {
   useTransition: () => pn,
   version: () => version
 });
-var React, createContext, react_preact_default, cloneElement, createFactory, useInsertionEffect, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
+function createRoot(container) {
+  return {
+    render(children) {
+      render(children, container);
+    },
+    unmount() {
+      unmountComponentAtNode(container);
+    }
+  };
+}
+function hydrateRoot(container, children) {
+  hydrate(children, container);
+  return createRoot(container);
+}
+var render, hydrate, unmountComponentAtNode, React, createContext, react_preact_default, cloneElement, createFactory, useInsertionEffect, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
 var init_react_preact = __esm({
   "js/react-preact.ts"() {
     init_define_process();
     init_compat_module();
-    init_client();
     init_preact_jsx_runtime();
     init_preact_module();
     init_dist();
     init_compat_module();
+    ({ render, hydrate, unmountComponentAtNode } = _n);
     React = window.React = window.React || __spreadValues({}, _n);
     ({ createContext } = React);
     react_preact_default = _n;
@@ -1258,10 +1250,7 @@ export {
   V,
   M2 as M,
   $2 as $,
-  Z,
-  Y,
   en,
-  cn,
   fn,
   an,
   sn,
@@ -1269,11 +1258,14 @@ export {
   dn,
   pn,
   yn,
-  createRoot,
-  hydrateRoot,
   o3 as o,
   x4 as x,
   S2 as S,
+  render,
+  hydrate,
+  unmountComponentAtNode,
+  createRoot,
+  hydrateRoot,
   createContext,
   react_preact_default,
   cloneElement,

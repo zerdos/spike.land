@@ -1,10 +1,8 @@
 export * from "preact/compat";
-export { createRoot, hydrateRoot } from "preact/compat/client";
 export { jsx, jsxs } from "./preact-jsx-runtime";
 // import compat from 'preact/compat'
 // export default compat
 
-// export { flushSync } from "preact/compat/server";
 // import * as  PreactSignals from "@preact/signals";
 
 // import { createClass  as crc  } from 'preact-compat/dist/preact-compat.min'
@@ -18,6 +16,24 @@ export { renderToString, shallowRender } from "preact-render-to-string";
 // export { createPortal, findDOMNode, SuspenseList } from "preact/compat";
 
 import PreactCompat from "preact/compat";
+
+export const { render, hydrate, unmountComponentAtNode} = PreactCompat; 
+
+export function createRoot(container: HTMLDivElement) {
+	return {
+		render(children: JSX.Element) {
+			render(children, container);
+		},
+		unmount() {
+			unmountComponentAtNode(container);
+		}
+	};
+}
+
+export function hydrateRoot(container: HTMLDivElement, children: JSX.Element){
+	hydrate(children, container);
+	return createRoot(container);
+}
 
 const React = window.React = window.React ||
   { ...PreactCompat };
