@@ -1,3 +1,4 @@
+// @ts-ignore
 export * from "preact/compat";
 export { jsx, jsxs } from "./preact-jsx-runtime";
 // import compat from 'preact/compat'
