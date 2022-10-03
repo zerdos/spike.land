@@ -48,7 +48,7 @@ import {
   vn,
   x,
   yn
-} from "./chunk-chunk-G24TNYK2.mjs";
+} from "./chunk-chunk-JHHSU7HV.mjs";
 import "./chunk-chunk-MYDWED46.mjs";
 init_react_preact();
 export {
