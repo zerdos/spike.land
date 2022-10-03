@@ -107,7 +107,7 @@ export default {
           // for future access
           const cachedResponse = await cache.match(cacheKey);
           if (cachedResponse) {
-            return cachedResponse.clone();
+            return cachedResponse;
           }
 
           if (path[0].startsWith("npm:")) {

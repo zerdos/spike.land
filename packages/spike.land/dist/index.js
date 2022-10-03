@@ -450,7 +450,7 @@ var chat_default = {
           const cache = caches.default;
           const cachedResponse = await cache.match(cacheKey);
           if (cachedResponse) {
-            return cachedResponse.clone();
+            return cachedResponse;
           }
           if (path2[0].startsWith("npm:")) {
             const isJs = u.toString().includes(".js") || u.toString().includes(".mjs");
