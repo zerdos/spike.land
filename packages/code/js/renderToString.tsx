@@ -1,51 +1,6 @@
-// import {CacheProvider } from "@emotion/react"
-
-// import { createRoot } from "react-dom/client";
-// import { appFactory } from "starter";
-// import { default as createCache, EmotionCache } from "@emotion/cache";
-// import { default as createEmotionServer } from "@emotion/server/create-instance";
-
-// import { CacheProvider } from "@emotion/react";
-// import type { FunctionComponent } from "preact";
-// import { renderToString } from "preact-render-to-string";
-// // import { useEffect } from "react";
-
-// import  postcss from 'postcss';
-// import autoprefixer from "autoprefixer"
-// import { useState } from "react";
-// import { wait } from "wait";
 import { hashCode, mST } from "session";
-// import { wait } from "wait";
-// import html2canvas from "html2canvas";
 import { md5 } from "md5";
-// import postcssNested from "postcss-nested"
 
-// const prefixer = (css: string)=> postcss([autoprefixer({ grid: 'autoplace' })]).process(css).then(result => {
-// console.log("•••••••CSS*******")
-//   console.log({result})
-//   result.warnings().forEach(warn => {
-//     console.warn(warn.toString())
-//   })
-//   console.log(result.css)
-//   return result.css
-// })
-
-// const WithCache: FC<{children: ReactNode, cache: EmotionCache}> = ({children, cache}) => <CacheProvider value={cache}>{children}</CacheProvider>
-// const temp = document.createElement("div");
-
-// const tempRoot = createRoot(temp);
-// const mod: { [key: string]: Promise<boolean> | string } = {  transpiled: ""};
-// const TestBed: React.FC<{ md5Hash: string; children: JSX.Element }> = (
-//   { md5Hash, children },
-// ) => {
-//   const [resolveMod, setResolve] = useState< {res: null | (( success: boolean)=> void) } >({res: null});
-//   mod[md5Hash] = new Promise((res) => setResolve({res}));
-
-//   useEffect(() => {
-//     if (resolveMod.res) resolveMod.res(true);
-//   }, [resolveMod]);
-
-//   return <div id={md5Hash}>{children}</div>;
 // };
 export const renderFromString = (
   // code: string,
@@ -53,100 +8,15 @@ export const renderFromString = (
   codeSpace: string,
   hash: number,
 ) => {
-  // await waitππ0);
   const md5hash = md5(mST().transpiled).slice(0, 8);
   if (hash !== hashCode()) return { html: null, css: null };
   mST().transpiled;
   const html = document.getElementById(`${codeSpace}-${md5hash}`)
     ?.innerHTML!;
-  // await wait(100);
 
-  // const html = document.getElementById(`${codeSpace}-${hashCode()}`)
-  // ?.innerHTML!;
-
-  // if (html1 !== html) return { html: null, css: null };
-
-  // const canvas = await html2canvas(
-  //   document.getElementById(`${codeSpace}-${hashCode()}`)!,
-  // );
-  // globalThis.canvas = canvas;
 
   const css = html ? extractCritical22(html) : "";
 
-  // const temp = document.createElement("div");
-
-  // const cache = createCache.default({
-  //     key: 'my-prefix-key',
-  //     container: temp,
-  //   //   stylisPlugins: [
-  //   //     /* your plugins here */
-  //     //
-  //   }) as EmotionCache;
-
-  // const cache = createCache.default({ key }) as EmotionCache
-  // const {  renderStylesToString } = createEmotionServer.default(cache)
-
-  // const myCache = createCache.default({
-  //   key: 'my-prefix-key',
-  //   container: temp,
-  //   stylisPlugins: [
-  //     /* your plugins here */
-  //   ]
-  // }) as EmotionCache
-
-  // mod.transpiled = transpiled;
-  // const md5Code =codeSpace + md5(transpiled).slice(0, 14);
-
-  // const myCache =  createCache({
-  //   prepend: true,
-  //   key: 'css',
-  //   stylisPlugins: [
-  //   ]
-  // });
-
-  // tempRoot.render(
-  //   <TestBed key={md5Code} md5Hash={md5Code}>
-  //     <App />
-  //   </TestBed>,
-  // );
-  // // await new Promise<boolean>((_res) => flushSync(_res, true));
-  // // await new Promise<boolean>((_res=>fluxshSync(_res, true)));
-  // await wait(50);
-
-  // if (!mod[md5Code]) return null;
-
-  // if (!await mod[md5Code]) return null;
-
-  // const html = renderToString(  <CacheProvider value={cache}><App /></CacheProvider>);
-  // const css = extractCritical22(html);
-
-  // console.log({html, css})
-  // const css = constructStyleTagsFromChunks(chunks)
-
-  // console.log( {chunks,
-  // cache,
-  // css});
-
-  // flushSync();
-  // tempRoot.unmount();
-
-  //   setTimeout(() => {
-  //     if (mod.transpiled === transpiled && mST().transpiled===transpiled) {
-
-  //       const tmp = document.getElementById("root-" + codeSpace)!;
-
-  //       const htmlHtml = tmp.innerHTML;
-  //       const newCss = extractCritical(htmlHtml);
-  //       if (css !== newCss || html !== htmlHtml) {
-  //         patchSync({
-  //           ...mST(),
-  //           html: htmlHtml,
-  //           css: newCss,
-  //         });
-  //       }
-
-  //   }
-  // }, 200);
 
   return {
     html: `<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`,

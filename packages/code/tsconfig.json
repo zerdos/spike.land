@@ -70,13 +70,7 @@
     "paths": {
       "buffer": ["buffer"],
       "stream": ["stream-browserify"],
-      "path": ["../path/index.js"],
-      "react": ["react-preact.ts"],
-      "react-dom": ["react-preact.ts"],
-      "react-dom/client": ["react-preact.ts"],
-      "react-dom/server": ["react-preact.ts"],
-      "react/jsx-runtime": ["react-preact.ts"],
-      "react/jsx-dev-runtime": ["react-preact.ts"]
+      "path": ["../path/index.js"]
     }
   },
   "include": ["js", "package.json", "esbuild-dev.mjs"],

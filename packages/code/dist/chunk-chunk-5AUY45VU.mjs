@@ -1190,7 +1190,7 @@ __export(react_preact_exports, {
   shallowRender: () => x4,
   startTransition: () => vn,
   unmountComponentAtNode: () => cn,
-  unstable_batchedUpdates: () => unstable_batchedUpdates,
+  unstable_batchedUpdates: () => an,
   useCallback: () => useCallback,
   useContext: () => useContext,
   useDebugValue: () => useDebugValue,
@@ -1209,7 +1209,7 @@ __export(react_preact_exports, {
   useTransition: () => pn,
   version: () => version
 });
-var React, createContext, react_preact_default, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
+var React, createContext, react_preact_default, cloneElement, createFactory, useInsertionEffect, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
 var init_react_preact = __esm({
   "js/react-preact.ts"() {
     init_define_process();
@@ -1226,7 +1226,6 @@ var init_react_preact = __esm({
       cloneElement,
       createFactory,
       useInsertionEffect,
-      unstable_batchedUpdates,
       createRef,
       useCallback,
       useContext,
@@ -1264,6 +1263,7 @@ export {
   en,
   cn,
   fn,
+  an,
   sn,
   vn,
   dn,
@@ -1279,7 +1279,6 @@ export {
   cloneElement,
   createFactory,
   useInsertionEffect,
-  unstable_batchedUpdates,
   createRef,
   useCallback,
   useContext,

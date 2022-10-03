@@ -10,13 +10,13 @@ import {
 } from "./chunk-chunk-4F4YHRHD.mjs";
 import {
   motion
-} from "./chunk-chunk-DKTSWGKF.mjs";
+} from "./chunk-chunk-2SMSQPUP.mjs";
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-CNHPHT2T.mjs";
+} from "./chunk-chunk-BH7X6KVY.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-RXKS4FNT.mjs";
+} from "./chunk-chunk-D34EIJS5.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_memoize_cjs,
@@ -25,27 +25,23 @@ import {
   require_emotion_utils_cjs,
   require_extends,
   require_react_is
-} from "./chunk-chunk-3AYZ3WMQ.mjs";
+} from "./chunk-chunk-DIJMMDTP.mjs";
 import {
-  $,
   Children,
   PureComponent,
   Suspense,
   cloneElement,
   createContext,
   createRef,
-  createRoot,
   forwardRef,
   h,
   init_react_preact,
   isValidElement,
-  lazy,
   memo,
   o,
   p,
   react_preact_default,
   react_preact_exports,
-  sn,
   useCallback,
   useContext,
   useDebugValue,
@@ -58,7 +54,7 @@ import {
   useRef,
   useState,
   yn
-} from "./chunk-chunk-JHHSU7HV.mjs";
+} from "./chunk-chunk-5AUY45VU.mjs";
 import {
   __async,
   __commonJS,
@@ -1388,12 +1384,12 @@ init_define_process();
 // js/renderPreviewWindow.tsx
 init_define_process();
 init_react_preact();
-init_react_preact();
+import { createRoot } from "react-dom/client";
 
 // ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/4/Users/z/.yarn/berry/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
 init_define_process();
 init_react_preact();
-init_react_preact();
+import * as ReactDOM from "react-dom";
 var __extends = function() {
   var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
@@ -1504,7 +1500,7 @@ var InPortal = function(_super) {
   InPortal2.prototype.render = function() {
     var _this = this;
     var _a = this.props, children2 = _a.children, node = _a.node;
-    return $(Children.map(children2, function(child) {
+    return ReactDOM.createPortal(Children.map(children2, function(child) {
       if (!isValidElement(child))
         return child;
       return cloneElement(child, _this.state.nodeProps);
@@ -2374,7 +2370,7 @@ init_define_process();
                                           e3 = e3 + -2 | 0;
                                           t2[62] = e3;
                                         } while (D(s2[e3 >> 1] | 0) | 0);
-                                        if ($2(e3) | 0) {
+                                        if ($(e3) | 0) {
                                           g();
                                           i2[776] = 0;
                                           b3 = 81;
@@ -3449,7 +3445,7 @@ init_define_process();
           t2[s3 + 16 >> 2] = 0;
           return;
         }
-        function $2(e3) {
+        function $(e3) {
           e3 = e3 | 0;
           switch (s2[e3 >> 1] | 0) {
             case 107: {
@@ -4306,7 +4302,6 @@ try {
   console.error("no importmap");
 }
 var apps = {};
-var ErrorBoundaryJ = ErrorBoundary_default;
 var AutoUpdateApp = ({ hash: hash3, codeSpace: codeSpace2 }) => {
   const md5Hash = md5(mST().transpiled).slice(0, 8);
   useEffect(() => {
@@ -4319,7 +4314,7 @@ var AutoUpdateApp = ({ hash: hash3, codeSpace: codeSpace2 }) => {
   const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled)];
-  return (0, import_jsx_runtime2.jsx)(ErrorBoundaryJ, {
+  return (0, import_jsx_runtime2.jsx)(ErrorBoundary_default, {
     ref,
     children: (0, import_jsx_runtime2.jsx)("div", {
       style: {
@@ -13163,8 +13158,8 @@ init_define_process();
 // ../../.yarn/__virtual__/@mui-base-virtual-7587afb1a7/4/Users/z/.yarn/berry/cache/@mui-base-npm-5.0.0-alpha.99-a0ec698cec-9.zip/node_modules/@mui/base/Portal/Portal.js
 init_define_process();
 init_react_preact();
-init_react_preact();
 var import_prop_types24 = __toESM(require_prop_types());
+import * as ReactDOM2 from "react-dom";
 init_react_preact();
 function getContainer(container) {
   return typeof container === "function" ? container() : container;
@@ -13200,7 +13195,7 @@ var Portal = forwardRef(function Portal2(props, ref) {
     return children2;
   }
   return o(p, {
-    children: mountNode ? $(children2, mountNode) : mountNode
+    children: mountNode ? ReactDOM2.createPortal(children2, mountNode) : mountNode
   });
 });
 true ? Portal.propTypes = {
@@ -17326,7 +17321,7 @@ init_define_process();
 init_define_process();
 init_react_preact();
 var import_prop_types42 = __toESM(require_prop_types());
-init_react_preact();
+import { flushSync } from "react-dom";
 init_react_preact();
 init_react_preact();
 var _excluded36 = ["onChange", "maxRows", "minRows", "style", "value"];
@@ -17430,7 +17425,7 @@ var TextareaAutosize = forwardRef(function TextareaAutosize2(props, ref) {
     if (isEmpty4(newState)) {
       return;
     }
-    sn(() => {
+    flushSync(() => {
       setState((prevState) => {
         return updateState(prevState, newState);
       });
@@ -18765,7 +18760,7 @@ init_react_preact();
 init_define_process();
 var import_prop_types46 = __toESM(require_prop_types());
 init_react_preact();
-init_react_preact();
+import ReactDOM3 from "react-dom";
 
 // ../../.yarn/__virtual__/react-transition-group-virtual-b3cd9833e0/4/Users/z/.yarn/berry/cache/react-transition-group-npm-4.4.5-98ea4ef96e-9.zip/node_modules/react-transition-group/esm/config.js
 init_define_process();
@@ -18895,7 +18890,7 @@ var Transition = function(_React$Component) {
       this.cancelNextCallback();
       if (nextStatus === ENTERING) {
         if (this.props.unmountOnExit || this.props.mountOnEnter) {
-          var node = this.props.nodeRef ? this.props.nodeRef.current : react_preact_default.findDOMNode(this);
+          var node = this.props.nodeRef ? this.props.nodeRef.current : ReactDOM3.findDOMNode(this);
           if (node)
             forceReflow(node);
         }
@@ -18913,7 +18908,7 @@ var Transition = function(_React$Component) {
     var _this2 = this;
     var enter = this.props.enter;
     var appearing = this.context ? this.context.isMounting : mounting;
-    var _ref2 = this.props.nodeRef ? [appearing] : [react_preact_default.findDOMNode(this), appearing], maybeNode = _ref2[0], maybeAppearing = _ref2[1];
+    var _ref2 = this.props.nodeRef ? [appearing] : [ReactDOM3.findDOMNode(this), appearing], maybeNode = _ref2[0], maybeAppearing = _ref2[1];
     var timeouts = this.getTimeouts();
     var enterTimeout = appearing ? timeouts.appear : timeouts.enter;
     if (!mounting && !enter || config_default.disabled) {
@@ -18942,7 +18937,7 @@ var Transition = function(_React$Component) {
     var _this3 = this;
     var exit = this.props.exit;
     var timeouts = this.getTimeouts();
-    var maybeNode = this.props.nodeRef ? void 0 : react_preact_default.findDOMNode(this);
+    var maybeNode = this.props.nodeRef ? void 0 : ReactDOM3.findDOMNode(this);
     if (!exit || config_default.disabled) {
       this.safeSetState({
         status: EXITED
@@ -18992,7 +18987,7 @@ var Transition = function(_React$Component) {
   };
   _proto.onTransitionEnd = function onTransitionEnd(timeout2, handler) {
     this.setNextCallback(handler);
-    var node = this.props.nodeRef ? this.props.nodeRef.current : react_preact_default.findDOMNode(this);
+    var node = this.props.nodeRef ? this.props.nodeRef.current : ReactDOM3.findDOMNode(this);
     var doesNotHaveTimeoutOrListener = timeout2 == null && !this.props.addEndListener;
     if (!node || doesNotHaveTimeoutOrListener) {
       setTimeout(this.nextCallback, 0);
@@ -19223,7 +19218,7 @@ CSSTransition.propTypes = true ? _extends({}, Transition_default.propTypes, {
 init_define_process();
 var import_prop_types49 = __toESM(require_prop_types());
 init_react_preact();
-init_react_preact();
+import ReactDOM4 from "react-dom";
 
 // ../../.yarn/__virtual__/react-transition-group-virtual-b3cd9833e0/4/Users/z/.yarn/berry/cache/react-transition-group-npm-4.4.5-98ea4ef96e-9.zip/node_modules/react-transition-group/esm/TransitionGroup.js
 init_define_process();
@@ -19486,7 +19481,7 @@ var ReplaceTransition = function(_React$Component) {
     if (child.props[handler])
       (_child$props = child.props)[handler].apply(_child$props, originalArgs);
     if (this.props[handler]) {
-      var maybeNode = child.props.nodeRef ? void 0 : react_preact_default.findDOMNode(this);
+      var maybeNode = child.props.nodeRef ? void 0 : ReactDOM4.findDOMNode(this);
       this.props[handler](maybeNode);
     }
   };
@@ -35832,7 +35827,7 @@ var Rating = forwardRef(function Rating2(inProps, ref) {
           className: clsx_m_default(classes.decimal, isActive && classes.iconActive),
           ownerState,
           iconActive: isActive,
-          children: items.map(($2, indexDecimal) => {
+          children: items.map(($, indexDecimal) => {
             const itemDecimalValue = roundValueToPrecision(itemValue - 1 + (indexDecimal + 1) * precision, precision);
             return o(RatingItem, _extends({}, ratingItemProps, {
               isActive: false,
@@ -43778,12 +43773,12 @@ var import_jsx_runtime260 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var QR = ({ url }) => (0, import_jsx_runtime260.jsx)(QRious, {
   value: url
 });
-var QRiousLazy = lazy(
-  () => import("./chunk-lib-D26KMUQ5.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
+var QRiousLazy = react_preact_default.lazy(
+  () => import("./chunk-lib-7CHP4OVU.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
 );
 var QRious = ({ value }) => (0, import_jsx_runtime260.jsx)(Suspense, {
-  fallback: (0, import_jsx_runtime260.jsx)("span", {
-    children: "..."
+  fallback: (0, import_jsx_runtime260.jsx)("p", {
+    children: ".."
   }),
   children: (0, import_jsx_runtime260.jsx)(QRiousLazy, {
     value
@@ -44106,7 +44101,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: (_0) => __async(void 0, [_0], function* ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = yield import("./chunk-runner-UX4IWMMR.mjs");
+      const { runner: runner2 } = yield import("./chunk-runner-6H4HPWL2.mjs");
       const { prettierJs: prettierJs2 } = yield import("./chunk-prettierJs-V2X5LXMM.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => __spreadProps(__spreadValues({}, x), {

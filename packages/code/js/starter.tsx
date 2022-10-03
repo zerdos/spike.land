@@ -120,7 +120,6 @@ const apps: { [key: string]: React.FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-const ErrorBoundaryJ = ErrorBoundary as unknown as React.FC;
 export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   { hash, codeSpace },
 ) => {
@@ -141,7 +140,7 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   const App = apps[md5(transpiled)];
   // return <Root codeSpace={codeSpace}>
   return (
-    <ErrorBoundaryJ ref={ref}>
+    <ErrorBoundary ref={ref}>
       <div
         key={hash}
         style={{
@@ -151,7 +150,7 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
       >
         <App />
       </div>
-    </ErrorBoundaryJ>
+    </ErrorBoundary>
   );
 };
 

@@ -10,6 +10,7 @@ import {
   V,
   Y,
   Z,
+  an,
   cloneElement,
   cn,
   createContext,
@@ -31,7 +32,6 @@ import {
   pn,
   react_preact_default,
   sn,
-  unstable_batchedUpdates,
   useCallback,
   useContext,
   useDebugValue,
@@ -48,7 +48,7 @@ import {
   vn,
   x,
   yn
-} from "./chunk-chunk-JHHSU7HV.mjs";
+} from "./chunk-chunk-5AUY45VU.mjs";
 import "./chunk-chunk-MYDWED46.mjs";
 init_react_preact();
 export {
@@ -83,7 +83,7 @@ export {
   x as shallowRender,
   vn as startTransition,
   cn as unmountComponentAtNode,
-  unstable_batchedUpdates,
+  an as unstable_batchedUpdates,
   useCallback,
   useContext,
   useDebugValue,
