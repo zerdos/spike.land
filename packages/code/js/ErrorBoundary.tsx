@@ -1,10 +1,10 @@
 import React from "react";
 
 class ErrorBoundary extends React.Component<
-  { children: React.ReactNode },
+  { children: JSX.Element},
   { errorInfo?: { componentStack: string }; error?: Error }
 > {
-  constructor(props: { children: React.ReactNode }) {
+  constructor(props: { children: JSX.Element }) {
     super(props);
     this.state = { error: undefined, errorInfo: undefined };
   }
