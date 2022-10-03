@@ -1,35 +1,14 @@
-import { css } from "@emotion/react";
+// export {default as Fab} from "@mui/material/Fab/Fab"
+// export {default as ToggleButtonGroup} from "@mui/material/ToggleButtonGroup/ToggleButtonGroup"
+// export {default as ToggleButton} from "@mui/material/ToggleButton/ToggleButton"
+
+
+
 export {
-  Box,
-  Button,
-  Fab,
-  Slider,
-  ToggleButton,
-  ToggleButtonGroup,
-} from "@mui/material";
+    
+    
+    Fab,
 
-import { MdPhoneAndroid, MdShare, MdTabletAndroid, MdTv } from "react-icons/md";
-
-export const Phone = () => (
-  <span css={css`font-size:20pt`}>
-    <MdPhoneAndroid />
-  </span>
-);
-
-export const Share = () => (
-  <span css={css`font-size:20pt`}>
-    <MdShare />
-  </span>
-);
-
-export const Tablet = () => (
-  <span css={css`font-size:20pt`}>
-    <MdTabletAndroid />
-  </span>
-);
-
-export const Tv = () => (
-  <span css={css`font-size:20pt`}>
-    <MdTv />
-  </span>
-);
+    ToggleButton,
+    ToggleButtonGroup,
+  } from "@mui/material";

@@ -169,7 +169,7 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
       // try {
       //   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
       // } catch {
-      //   console.error("not even importshim");
+      //   console.error("not even importShim");
       // }
 
       if (err instanceof SyntaxError) {

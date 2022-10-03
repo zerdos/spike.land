@@ -3,7 +3,7 @@ import esbuild from "esbuild";
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 import fs from "fs/promises";
-import {resolve} from "path";
+import {resolve} from "node:path";
 // const { request } = require("http");
 // require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
