@@ -110,12 +110,15 @@ export default {
             return cachedResponse;
           }
 
-          if (path[0].startsWith("npm:")) {
+          if (path[0].startsWith("npm:") || path[0].startsWith("node_modules/")  ) {
             const isJs = u.toString().includes(".js") ||
               u.toString().includes(".mjs");
 
             const packageName = u.toString().replace(
               u.origin + "/npm:",
+              "",
+            ).replace(
+              u.origin + "/node_modules",
               "",
             );
             const searchParams = (isJs

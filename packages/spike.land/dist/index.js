@@ -452,10 +452,13 @@ var chat_default = {
           if (cachedResponse) {
             return cachedResponse;
           }
-          if (path2[0].startsWith("npm:")) {
+          if (path2[0].startsWith("npm:") || path2[0].startsWith("node_modules/")) {
             const isJs = u.toString().includes(".js") || u.toString().includes(".mjs");
             const packageName = u.toString().replace(
               u.origin + "/npm:",
+              ""
+            ).replace(
+              u.origin + "/node_modules",
               ""
             );
             const searchParams = isJs ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} ` : "";

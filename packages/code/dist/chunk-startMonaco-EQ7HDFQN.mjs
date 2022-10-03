@@ -46746,6 +46746,7 @@ var monacoContribution = (code) => __async(void 0, null, function* () {
   return code;
 });
 self.MonacoEnvironment = {
+  baseUrl: location.origin,
   getWorkerUrl
 };
 var mod = {};
