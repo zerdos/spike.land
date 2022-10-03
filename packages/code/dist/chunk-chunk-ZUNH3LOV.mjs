@@ -1600,7 +1600,7 @@ var warning = function() {
 };
 var invariant = function() {
 };
-if (true) {
+if (false) {
   warning = function(check, message) {
     if (!check && typeof console !== "undefined") {
       console.warn(message);
@@ -2605,7 +2605,7 @@ init_define_process();
 // ../../.yarn/__virtual__/framer-motion-virtual-4f2ebdde79/4/Users/z/.yarn/berry/cache/framer-motion-npm-7.5.1-450b8d268a-9.zip/node_modules/framer-motion/dist/es/utils/process.mjs
 init_define_process();
 var defaultEnvironment = "production";
-var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "development";
+var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "production";
 
 // ../../.yarn/__virtual__/framer-motion-virtual-4f2ebdde79/4/Users/z/.yarn/berry/cache/framer-motion-npm-7.5.1-450b8d268a-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 init_react_preact();
@@ -4435,7 +4435,7 @@ function updateMotionValuesFromProps(element, next, prev) {
       if (isWillChangeMotionValue(willChange)) {
         willChange.add(key);
       }
-      if (true) {
+      if (false) {
         warnOnce(nextValue.version === "7.5.1", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.5.1 may not work as expected.`);
       }
     } else if (isMotionValue(prevValue)) {
