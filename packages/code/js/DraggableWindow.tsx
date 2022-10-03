@@ -127,7 +127,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
         right,
         borderRadius: 16,
       }}
-      onPan={(e, pointInfo) => {
+      onPan={(e: any, pointInfo: any) => {
         console.log({ e, pointInfo });
       }}
       css={css`
