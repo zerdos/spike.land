@@ -54,14 +54,14 @@ const buildOptions = {
   platform: "browser",
  plugins: [
     aliasPlugin({
-        'react':  resolve("./js/react-preact.ts"),
-        'react-dom':  resolve("./js/react-preact.ts"),
+        'react':             resolve("./js/react-preact.ts"),
+        'react-dom':         resolve("./js/react-preact.ts"),
         'react-dom/client':  resolve("./js/react-preact.ts"),
         'react/jsx-dev-runtime': resolve("./js/react-preact.ts"),
         'react/jsx-runtime': resolve("./js/react-preact.ts")
     }),
 ],
-  external: ["./mST", , "react-dom", "react-dom/client", "react/"],
+  external: ["./mST"],
   legalComments: "none",
 };
 
