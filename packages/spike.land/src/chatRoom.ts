@@ -359,7 +359,7 @@ export class Code {
           });
         }
         case "hydrated":
-        case "unhydrated":
+        case "dehydrated":
         case "public": {
           const a = JSON.parse(manifestJSON);
           const respText = HTML.replaceAll(

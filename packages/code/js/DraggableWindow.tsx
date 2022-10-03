@@ -10,13 +10,17 @@ import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 
 import {
   Fab,
+  ToggleButton as muiToggleButton,
+  ToggleButtonGroup as muiToggleButtonGroup,
+} from "./mui";
+
+import {
   Phone,
   Share,
   Tablet,
-  ToggleButton as muiToggleButton,
-  ToggleButtonGroup as muiToggleButtonGroup,
   Tv,
-} from "./mui";
+} from "./icons";
+
 
 import type {
   ToggleButton as MuiToggleButton,
@@ -26,6 +30,7 @@ import type {
 
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
+
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
 
@@ -48,7 +53,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     children,
     // onRestore,
     room,
-    hashCode,
+    // hashCode,
   },
 ) => {
   const [scaleRange, changeScaleRange] = useState(100);
@@ -337,7 +342,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 font-size: 20pt;
               `}
               >
-                <FullscreenIcon key="fs" />
+              <FullscreenIcon key="fs" />
               </span>
             </Fab>
 

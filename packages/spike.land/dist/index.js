@@ -6663,7 +6663,7 @@ var Code = class {
           });
         }
         case "hydrated":
-        case "unhydrated":
+        case "dehydrated":
         case "public": {
           const a3 = JSON.parse(manifestJSON2);
           const respText = src_default.replaceAll(

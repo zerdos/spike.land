@@ -4418,7 +4418,7 @@ init_react_preact();
 
 // js/Qr.tsx
 init_define_process();
-var import_react24 = __toESM(require_emotion_react_cjs(), 1);
+var import_react23 = __toESM(require_emotion_react_cjs(), 1);
 init_react_preact();
 
 // ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/md/index.esm.js
@@ -4535,7 +4535,6 @@ function MdShare(props) {
 
 // js/mui.tsx
 init_define_process();
-var import_react23 = __toESM(require_emotion_react_cjs(), 1);
 
 // ../../.yarn/__virtual__/@mui-material-virtual-3940b734f5/4/Users/z/.yarn/berry/cache/@mui-material-npm-5.10.7-3aa11e9a3e-9.zip/node_modules/@mui/material/esm/index.js
 init_define_process();
@@ -43752,44 +43751,25 @@ init_define_process();
 // ../../.yarn/__virtual__/@mui-material-virtual-3940b734f5/4/Users/z/.yarn/berry/cache/@mui-material-npm-5.10.7-3aa11e9a3e-9.zip/node_modules/@mui/material/esm/Unstable_TrapFocus/index.js
 init_define_process();
 
-// js/mui.tsx
-var import_jsx_runtime259 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var Phone = () => (0, import_jsx_runtime259.jsx)("span", {
-  css: import_react23.css`font-size:20pt`,
-  children: (0, import_jsx_runtime259.jsx)(MdPhoneAndroid, {})
-});
-var Share = () => (0, import_jsx_runtime259.jsx)("span", {
-  css: import_react23.css`font-size:20pt`,
-  children: (0, import_jsx_runtime259.jsx)(MdShare, {})
-});
-var Tablet = () => (0, import_jsx_runtime259.jsx)("span", {
-  css: import_react23.css`font-size:20pt`,
-  children: (0, import_jsx_runtime259.jsx)(MdTabletAndroid, {})
-});
-var Tv = () => (0, import_jsx_runtime259.jsx)("span", {
-  css: import_react23.css`font-size:20pt`,
-  children: (0, import_jsx_runtime259.jsx)(MdTv, {})
-});
-
 // js/Qr.tsx
-var import_jsx_runtime260 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var QR = ({ url }) => (0, import_jsx_runtime260.jsx)(QRious, {
+var import_jsx_runtime259 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var QR = ({ url }) => (0, import_jsx_runtime259.jsx)(QRious, {
   value: url
 });
 var QRiousLazy = react_preact_default.lazy(
   () => import("./chunk-lib-DECVEXEV.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
 );
-var QRious = ({ value }) => (0, import_jsx_runtime260.jsx)(Suspense, {
-  fallback: (0, import_jsx_runtime260.jsx)("p", {
+var QRious = ({ value }) => (0, import_jsx_runtime259.jsx)(Suspense, {
+  fallback: (0, import_jsx_runtime259.jsx)("p", {
     children: ".."
   }),
-  children: (0, import_jsx_runtime260.jsx)(QRiousLazy, {
+  children: (0, import_jsx_runtime259.jsx)(QRiousLazy, {
     value
   })
 });
 var QRButton = ({ url }) => {
   const [showQR, setQR] = useState(false);
-  return (0, import_jsx_runtime260.jsx)(motion.div, {
+  return (0, import_jsx_runtime259.jsx)(motion.div, {
     animate: {
       width: showQR ? 200 : 56,
       height: showQR ? 220 : 48
@@ -43797,20 +43777,43 @@ var QRButton = ({ url }) => {
     onClick: () => {
       setQR(!showQR);
     },
-    css: import_react24.css`
+    css: import_react23.css`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
-    children: showQR ? (0, import_jsx_runtime260.jsx)(QR, {
+    children: showQR ? (0, import_jsx_runtime259.jsx)(QR, {
       url: url || "/live/coder/public"
-    }, url || origin + url) : (0, import_jsx_runtime260.jsx)(Fab_default, {
-      children: (0, import_jsx_runtime260.jsx)("span", {
-        css: import_react24.css`font-size: 20pt;`,
-        children: (0, import_jsx_runtime260.jsx)(MdQrCode2, {})
+    }, url || origin + url) : (0, import_jsx_runtime259.jsx)(Fab_default, {
+      children: (0, import_jsx_runtime259.jsx)("span", {
+        css: import_react23.css`font-size: 20pt;`,
+        children: (0, import_jsx_runtime259.jsx)(MdQrCode2, {})
       })
     })
   });
 };
+
+// js/icons.tsx
+init_define_process();
+var import_react25 = __toESM(require_emotion_react_cjs(), 1);
+var import_jsx_runtime260 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var Wrap = ({ children: children2 }) => (0, import_jsx_runtime260.jsx)("span", {
+  css: import_react25.css`
+font-size:20pt;
+`,
+  children: children2
+});
+var Phone = () => (0, import_jsx_runtime260.jsx)(Wrap, {
+  children: (0, import_jsx_runtime260.jsx)(MdPhoneAndroid, {})
+});
+var Share = () => (0, import_jsx_runtime260.jsx)(Wrap, {
+  children: (0, import_jsx_runtime260.jsx)(MdShare, {})
+});
+var Tablet = () => (0, import_jsx_runtime260.jsx)(Wrap, {
+  children: (0, import_jsx_runtime260.jsx)(MdTabletAndroid, {})
+});
+var Tv = () => (0, import_jsx_runtime260.jsx)(Wrap, {
+  children: (0, import_jsx_runtime260.jsx)(MdTv, {})
+});
 
 // js/DraggableWindow.tsx
 var import_jsx_runtime261 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
@@ -43822,8 +43825,7 @@ var sizes = [10, 25, 50, 75, 100, 150];
 var bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${!navigator.userAgent.includes("Firefox") ? 0.3 : 0.7})`;
 var DraggableWindow = ({
   children: children2,
-  room,
-  hashCode: hashCode2
+  room
 }) => {
   const [scaleRange, changeScaleRange] = useState(100);
   const startPositions = { bottom: 0, right: 0 };
@@ -44104,7 +44106,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: (_0) => __async(void 0, [_0], function* ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = yield import("./chunk-runner-JY7QBMDK.mjs");
+      const { runner: runner2 } = yield import("./chunk-runner-F3WBOJYQ.mjs");
       const { prettierJs: prettierJs2 } = yield import("./chunk-prettierJs-V2X5LXMM.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => __spreadProps(__spreadValues({}, x), {
@@ -44493,7 +44495,7 @@ var setWsLastHashCode = (hashCode2) => {
   wsLastHashCode = Number(hashCode2);
 };
 var run = (startState) => __async(void 0, null, function* () {
-  if (location.pathname.endsWith("unhydrated"))
+  if (location.pathname.endsWith("dehydrated"))
     return;
   codeSpace = startState.codeSpace;
   address = startState.address;

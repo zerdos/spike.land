@@ -96,7 +96,7 @@ export const run = async (startState: {
   address: string;
   assets: { [key: string]: string };
 }) => {
-  if (location.pathname.endsWith("unhydrated")) return;
+  if (location.pathname.endsWith("dehydrated")) return;
   codeSpace = startState.codeSpace;
   address = startState.address;
 
