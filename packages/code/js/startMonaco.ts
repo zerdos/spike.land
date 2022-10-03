@@ -328,6 +328,7 @@ const monacoContribution = async (
 };
 
 self.MonacoEnvironment = {
+  baseUrl: location.origin,
   getWorkerUrl,
 };
 
