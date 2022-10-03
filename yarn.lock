@@ -2132,7 +2132,7 @@ __metadata:
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
-    "@types/node": "npm:^18.7.23"
+    "@types/node": "npm:^18.8.0"
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
@@ -2251,7 +2251,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:^3.16.0"
     "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:^1.26.1"
-    "@types/node": "npm:^18.7.23"
+    "@types/node": "npm:^18.8.0"
     "@types/react": "npm:18.0.21"
     "@types/xo": "npm:^0.39.3"
     "@yarnpkg/fslib": "npm:^3.0.0-rc.22"
@@ -2441,10 +2441,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.7.23":
+"@types/node@npm:*":
   version: 18.7.23
   resolution: "@types/node@npm:18.7.23"
   checksum: 83f50561f3858e514d864cea3fbfc3142ec58a6acaf9c405609776b97b67a4692309feb1b9f928cca8ebdc964554a2e02480feb98f1774881ce440a9df722924
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.8.0":
+  version: 18.8.0
+  resolution: "@types/node@npm:18.8.0"
+  checksum: c1975b388b51a1687918210cc54e70663c44fd22af25fb943653520444a47dc4a8ede70392a58a4f4b2c3062903b408b2105266af8c2c44548184ec7cdbc0439
   languageName: node
   linkType: hard
 
