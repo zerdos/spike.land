@@ -83,10 +83,10 @@ const build = (entryPoints, format = "esm") =>
     target,
     sourcemap: false,
 
-    minify: false, //!isDevelopment,
-    minifyWhitespace: false, //!isDevelopment,
-    minifyIdentifiers: false, //!isDevelopment,
-    minifySyntax: false, //!isDevelopment,
+    minify: !isDevelopment,
+    minifyWhitespace: !isDevelopment,
+    minifyIdentifiers: !isDevelopment,
+    minifySyntax: !isDevelopment,
     legalComments: "none",
     ignoreAnnotations: true, //true,
     // external
