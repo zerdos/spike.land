@@ -1,7 +1,7 @@
 import React from "react";
 
 class ErrorBoundary extends React.Component<
-  { children: JSX.Element},
+  { children: JSX.Element },
   { errorInfo?: { componentStack: string }; error?: Error }
 > {
   constructor(props: { children: JSX.Element }) {

@@ -1,6 +1,10 @@
 import { Fragment, useMemo } from "react";
 import { createRoot } from "react-dom/client";
-import {createHtmlPortalNode, InPortal, OutPortal} from "react-reverse-portal";
+import {
+  createHtmlPortalNode,
+  InPortal,
+  OutPortal,
+} from "react-reverse-portal";
 import { useEffect, useState } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";
 import { css } from "@emotion/react";
@@ -113,26 +117,24 @@ const AppToRender: React.FC<
         <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
       </InPortal>
 
-      {isStandalone
-        ? <OutPortal node={portalNode} />
-        : (
-          <RainbowContainer>
-            <Fragment>
-              <Editor
-                code={mST().code}
-                i={mST().i}
-                codeSpace={codeSpace}
-                assets={assets}
-              />
-              <DraggableWindow
-                hashCode={0}
-                room={codeSpace}
-              >
-                <OutPortal node={portalNode} />
-              </DraggableWindow>
-            </Fragment>
-          </RainbowContainer>
-        )}
+      {isStandalone ? <OutPortal node={portalNode} /> : (
+        <RainbowContainer>
+          <Fragment>
+            <Editor
+              code={mST().code}
+              i={mST().i}
+              codeSpace={codeSpace}
+              assets={assets}
+            />
+            <DraggableWindow
+              hashCode={0}
+              room={codeSpace}
+            >
+              <OutPortal node={portalNode} />
+            </DraggableWindow>
+          </Fragment>
+        </RainbowContainer>
+      )}
     </Fragment>
   );
 };

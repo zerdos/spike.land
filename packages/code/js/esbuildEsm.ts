@@ -10,7 +10,7 @@ import wasmURL from "esbuild-wasm/esbuild.wasm";
 let initFinished: Promise<boolean> | boolean = false;
 // const mutex = new Mutex();
 const esbuild = {
-  transform//: mutex.runExclusive(() => transform),
+  transform, //: mutex.runExclusive(() => transform),
 };
 
 export const init = async () => {

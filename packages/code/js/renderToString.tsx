@@ -14,9 +14,7 @@ export const renderFromString = (
   const html = document.getElementById(`${codeSpace}-${md5hash}`)
     ?.innerHTML!;
 
-
   const css = html ? extractCritical22(html) : "";
-
 
   return {
     html: `<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`,

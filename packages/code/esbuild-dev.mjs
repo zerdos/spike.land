@@ -3,11 +3,11 @@ import esbuild from "esbuild";
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 import fs from "fs/promises";
-import {resolve} from "node:path";
+import { resolve } from "node:path";
 // const { request } = require("http");
 // require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
-import aliasPlugin from '@chialab/esbuild-plugin-alias';
+import aliasPlugin from "@chialab/esbuild-plugin-alias";
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -52,15 +52,15 @@ const buildOptions = {
   define,
   target,
   platform: "browser",
- plugins: [
+  plugins: [
     aliasPlugin({
-        'react':             resolve("./js/react-preact.ts"),
-        'react-dom':         resolve("./js/react-preact.ts"),
-        'react-dom/client':  resolve("./js/react-preact.ts"),
-        'react/jsx-dev-runtime': resolve("./js/react-preact.ts"),
-        'react/jsx-runtime': resolve("./js/react-preact.ts")
+      "react": resolve("./js/react-preact.ts"),
+      "react-dom": resolve("./js/react-preact.ts"),
+      "react-dom/client": resolve("./js/react-preact.ts"),
+      "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
+      "react/jsx-runtime": resolve("./js/react-preact.ts"),
     }),
-],
+  ],
   external: ["./mST"],
   legalComments: "none",
 };
@@ -96,7 +96,7 @@ const build = (entryPoints, format = "esm") =>
     logLimit: 0,
     metafile: true,
     keepNames: false,
-  
+
     format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
