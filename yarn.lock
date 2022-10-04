@@ -2190,7 +2190,7 @@ __metadata:
     immutable: "npm:4.1.0"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.34.0"
+    monaco-editor: "npm:0.35.0-dev.20221004"
     p-map: "npm:5.5.0"
     preact: "npm:10.11.0"
     preact-render-to-string: "npm:^5.2.4"
@@ -2203,7 +2203,7 @@ __metadata:
     tslib: "npm:^2.4.0"
     typescript: "npm:^4.8.4"
     uvu: "npm:0.5.6"
-    xo: "npm:^0.52.3"
+    xo: "npm:^0.52.4"
   languageName: unknown
   linkType: soft
 
@@ -2283,7 +2283,7 @@ __metadata:
     node-fetch: "npm:^3.2.10"
     playwright: "npm:^1.26.1"
     typescript: "npm:^4.8.4"
-    xo: "npm:^0.52.3"
+    xo: "npm:^0.52.4"
   languageName: unknown
   linkType: soft
 
@@ -7808,7 +7808,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.34.0, monaco-editor@npm:^0.34.0":
+"monaco-editor@npm:0.35.0-dev.20221004":
+  version: 0.35.0-dev.20221004
+  resolution: "monaco-editor@npm:0.35.0-dev.20221004"
+  checksum: 915782d933a1edd5a366b1b1f22308dc6fc53557d6a64e716602a15b26ff55ebadceb42c8fc4e330467cc0c8db170a233a2fa474e07663d77b8d4ca0b996b99a
+  languageName: node
+  linkType: hard
+
+"monaco-editor@npm:^0.34.0":
   version: 0.34.0
   resolution: "monaco-editor@npm:0.34.0"
   checksum: c88399a1b1e86eca6818719c08ec70cd76e133b949a22712ec42a0183f0566ce7887c63d8bab6cca08fbbf7723ad16092e46e331f3b15fcf288cca6aa64e9ab2
@@ -10932,9 +10939,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xo@npm:^0.52.3":
-  version: 0.52.3
-  resolution: "xo@npm:0.52.3"
+"xo@npm:^0.52.4":
+  version: 0.52.4
+  resolution: "xo@npm:0.52.4"
   dependencies:
     "@eslint/eslintrc": "npm:^1.3.0"
     "@typescript-eslint/eslint-plugin": "npm:*"
@@ -10974,7 +10981,7 @@ __metadata:
     typescript: "npm:^4.7.3"
   bin:
     xo: cli.js
-  checksum: 9d7290406731379344ff8e55c30d371fc61eb202fdeaff3e3b1708d0c2d3185240f6a25a266862a505d137510afb5eaed9c5ecd8d3b88da69a638641886fdb96
+  checksum: 6887690b1be01e346900f167cf9d4bea4d4d913c526ac4c1dc7441b1b4d7fe0319cbfd0da016c81fb4a0c56efd0565aa59d0b8ef53aa3d00a207efade611f74f
   languageName: node
   linkType: hard
 

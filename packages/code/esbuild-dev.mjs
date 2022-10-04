@@ -13,7 +13,7 @@ const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
 
-const isDevelopment = environment === "development";
+const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
 const target = "es2017";
