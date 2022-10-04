@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { motion as m } from "framer-motion";
 
-import React, {  Suspense, useState, FC } from "react";
+import React, { FC, Suspense, useState } from "react";
 
 import { QrCodeIcon } from "./icons";
 
@@ -15,9 +15,9 @@ const QR = ({ url }: QrProps) => <QRious value={url} />;
 
 const QRiousLazy = React.lazy(() =>
   import("react-qrious").then(({ QRious }) => ({ default: QRious }))
-) as FC<{value: Object}>;
+) as FC<{ value: Object }>;
 
-const QRious:FC<{value: Object}> = ({ value }) => (
+const QRious: FC<{ value: Object }> = ({ value }) => (
   <Suspense fallback={<p>..</p>}>
     <QRiousLazy value={value} />
   </Suspense>
@@ -48,7 +48,7 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
         )
         : (
           <Fab>
-            <QrCodeIcon/>
+            <QrCodeIcon />
           </Fab>
         )}
     </m.div>

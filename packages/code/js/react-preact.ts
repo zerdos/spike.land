@@ -18,22 +18,22 @@ export { renderToString, shallowRender } from "preact-render-to-string";
 
 import PreactCompat from "preact/compat";
 
-export const { render, hydrate, unmountComponentAtNode} = PreactCompat; 
+export const { render, hydrate, unmountComponentAtNode } = PreactCompat;
 
 export function createRoot(container: HTMLDivElement) {
-	return {
-		render(children: JSX.Element) {
-			render(children, container);
-		},
-		unmount() {
-			unmountComponentAtNode(container);
-		}
-	};
+  return {
+    render(children: JSX.Element) {
+      render(children, container);
+    },
+    unmount() {
+      unmountComponentAtNode(container);
+    },
+  };
 }
 
-export function hydrateRoot(container: HTMLDivElement, children: JSX.Element){
-	hydrate(children, container);
-	return createRoot(container);
+export function hydrateRoot(container: HTMLDivElement, children: JSX.Element) {
+  hydrate(children, container);
+  return createRoot(container);
 }
 
 const React = window.React = window.React ||

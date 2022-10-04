@@ -80,7 +80,6 @@ export const Editor: React.FC<
 
   mod.code = myCode;
 
-
   useEffect(() => {
     if (!ref?.current) return;
 
@@ -258,19 +257,18 @@ export const Editor: React.FC<
     }, 300);
   }, "editor");
 
-  return <div
-          data-test-id={myId}
-          id="editor"
-          css={css`
+  return (
+    <div
+      data-test-id={myId}
+      id="editor"
+      css={css`
         
             max-width: 640px;
             height: 100%;
             
             
         `}
-          ref={ref}
-        />
-      
-    
-  
+      ref={ref}
+    />
+  );
 };

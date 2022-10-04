@@ -3358,7 +3358,9 @@ var ToggleButtonLazy = lazy(() => import("./chunk-ToggleButton-SIYOWSNJ.mjs"));
 var ToggleButton = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(ToggleButtonLazy, __spreadValues({}, props))
 });
-var ToggleButtonGroupLazy = lazy(() => import("./chunk-ToggleButtonGroup-M7YPPU52.mjs"));
+var ToggleButtonGroupLazy = lazy(
+  () => import("./chunk-ToggleButtonGroup-M7YPPU52.mjs")
+);
 var ToggleButtonGroup = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(ToggleButtonGroupLazy, __spreadValues({}, props))
 });
@@ -3688,7 +3690,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-BJOFCJSS.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-K62LEZL7.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-XMSQTNYM.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => __spreadProps(__spreadValues({}, x), {
