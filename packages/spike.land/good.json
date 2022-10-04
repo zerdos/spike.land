@@ -1,47 +1,47 @@
 {
   "inputs": {
-    "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js": {
+    "../../node_modules/mime/Mime.js": {
       "bytes": 2892,
       "imports": []
     },
-    "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js": {
+    "../../node_modules/mime/types/standard.js": {
       "bytes": 9530,
       "imports": []
     },
-    "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js": {
+    "../../node_modules/mime/types/other.js": {
       "bytes": 25894,
       "imports": []
     },
-    "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js": {
+    "../../node_modules/mime/index.js": {
       "bytes": 127,
       "imports": [
         {
-          "path": "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js",
+          "path": "../../node_modules/mime/Mime.js",
           "kind": "require-call"
         },
         {
-          "path": "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js",
+          "path": "../../node_modules/mime/types/standard.js",
           "kind": "require-call"
         },
         {
-          "path": "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js",
+          "path": "../../node_modules/mime/types/other.js",
           "kind": "require-call"
         }
       ]
     },
-    "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+    "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
       "bytes": 1166,
       "imports": []
     },
-    "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+    "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
       "bytes": 11622,
       "imports": [
         {
-          "path": "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js",
+          "path": "../../node_modules/mime/index.js",
           "kind": "require-call"
         },
         {
-          "path": "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js",
+          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js",
           "kind": "require-call"
         }
       ]
@@ -54,7 +54,7 @@
       "bytes": 15369,
       "imports": [
         {
-          "path": "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
+          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
           "kind": "import-statement"
         },
         {
@@ -184,26 +184,26 @@
       ],
       "entryPoint": "src/index.ts",
       "inputs": {
-        "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js": {
-          "bytesInOutput": 2081
+        "../../node_modules/mime/Mime.js": {
+          "bytesInOutput": 2014
         },
-        "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js": {
-          "bytesInOutput": 10426
+        "../../node_modules/mime/types/standard.js": {
+          "bytesInOutput": 10359
         },
-        "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js": {
-          "bytesInOutput": 27523
+        "../../node_modules/mime/types/other.js": {
+          "bytesInOutput": 27456
         },
-        "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js": {
-          "bytesInOutput": 280
+        "../../node_modules/mime/index.js": {
+          "bytesInOutput": 213
         },
-        "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
-          "bytesInOutput": 1331
+        "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+          "bytesInOutput": 1240
         },
-        "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
-          "bytesInOutput": 8932
+        "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+          "bytesInOutput": 8841
         },
         "src/chat.ts": {
-          "bytesInOutput": 13111
+          "bytesInOutput": 13114
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -239,7 +239,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 260634
+      "bytes": 259737
     }
   }
 }

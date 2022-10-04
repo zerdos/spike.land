@@ -3,6 +3,7 @@
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
   "version": "0.9.2",
   "main": "dist/index.js",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
