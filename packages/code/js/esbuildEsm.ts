@@ -1,4 +1,4 @@
-import { Mutex } from "async-mutex";
+// import { Mutex } from "async-mutex";
 
 // import "core-js/proposals/string-replace-all-stage-4";
 
@@ -8,9 +8,9 @@ import wasmURL from "esbuild-wasm/esbuild.wasm";
 // import type { transform } from "esbuild/lib/main";
 
 let initFinished: Promise<boolean> | boolean = false;
-const mutex = new Mutex();
+// const mutex = new Mutex();
 const esbuild = {
-  transform: mutex.runExclusive(() => transform),
+  transform//: mutex.runExclusive(() => transform),
 };
 
 export const init = async () => {

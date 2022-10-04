@@ -6669,6 +6669,29 @@ init_react_preact();
 init_define_process();
 init_react_preact();
 init_react_preact();
+function LazyMotion({ children, features, strict = false }) {
+  const [, setIsLoaded] = useState(!isLazyBundle(features));
+  const loadedRenderer = useRef(void 0);
+  if (!isLazyBundle(features)) {
+    const _a = features, { renderer } = _a, loadedFeatures = __objRest(_a, ["renderer"]);
+    loadedRenderer.current = renderer;
+    loadFeatures(loadedFeatures);
+  }
+  useEffect(() => {
+    if (isLazyBundle(features)) {
+      features().then((_a2) => {
+        var _b = _a2, { renderer } = _b, loadedFeatures = __objRest(_b, ["renderer"]);
+        loadFeatures(loadedFeatures);
+        loadedRenderer.current = renderer;
+        setIsLoaded(true);
+      });
+    }
+  }, []);
+  return h(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
+}
+function isLazyBundle(features) {
+  return typeof features === "function";
+}
 
 // ../../.yarn/__virtual__/framer-motion-virtual-4f2ebdde79/4/Users/z/.yarn/berry/cache/framer-motion-npm-7.5.1-450b8d268a-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 init_define_process();
@@ -7641,5 +7664,7 @@ export {
   motion,
   m,
   AnimatePresence,
+  LazyMotion,
+  domAnimation,
   domMax
 };

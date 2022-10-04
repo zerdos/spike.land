@@ -9,8 +9,12 @@ import {
   startSession
 } from "./chunk-chunk-GS6QCLJX.mjs";
 import {
+  LazyMotion,
+  domAnimation,
+  domMax,
+  m,
   motion
-} from "./chunk-chunk-JH5VFIUD.mjs";
+} from "./chunk-chunk-NW4ERTTQ.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
 } from "./chunk-chunk-DYPQTNND.mjs";
@@ -411,8 +415,8 @@ function md5(inputString) {
   }
   function ad(x2, y) {
     var l = (x2 & 65535) + (y & 65535);
-    var m = (x2 >> 16) + (y >> 16) + (l >> 16);
-    return m << 16 | l & 65535;
+    var m2 = (x2 >> 16) + (y >> 16) + (l >> 16);
+    return m2 << 16 | l & 65535;
   }
   function rl(n, c2) {
     return n << c2 | n >>> 32 - c2;
@@ -874,7 +878,7 @@ init_define_process();
                     case 32:
                       break;
                     case 101: {
-                      if ((((s2[386] | 0) == 0 ? F(r3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) ? (l3(), (i2[775] | 0) == 0) : 0) {
+                      if ((((s2[386] | 0) == 0 ? F(r3) | 0 : 0) ? (m2(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) ? (l3(), (i2[775] | 0) == 0) : 0) {
                         b3 = 9;
                         break e;
                       } else
@@ -882,7 +886,7 @@ init_define_process();
                       break;
                     }
                     case 105: {
-                      if (F(r3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                      if (F(r3) | 0 ? (m2(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
                         k3();
                         b3 = 17;
                       } else
@@ -957,7 +961,7 @@ init_define_process();
                         case 32:
                           break;
                         case 101: {
-                          if (((s2[386] | 0) == 0 ? F(a3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) {
+                          if (((s2[386] | 0) == 0 ? F(a3) | 0 : 0) ? (m2(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) {
                             l3();
                             b3 = 81;
                           } else
@@ -965,7 +969,7 @@ init_define_process();
                           break;
                         }
                         case 105: {
-                          if (F(a3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                          if (F(a3) | 0 ? (m2(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
                             k3();
                             b3 = 81;
                           } else
@@ -973,7 +977,7 @@ init_define_process();
                           break;
                         }
                         case 99: {
-                          if ((F(a3) | 0 ? (m(e3 + 4 | 0, 36, 8) | 0) == 0 : 0) ? R(s2[e3 + 12 >> 1] | 0) | 0 : 0) {
+                          if ((F(a3) | 0 ? (m2(e3 + 4 | 0, 36, 8) | 0) == 0 : 0) ? R(s2[e3 + 12 >> 1] | 0) | 0 : 0) {
                             i2[777] = 1;
                             b3 = 81;
                           } else
@@ -1318,7 +1322,7 @@ init_define_process();
                             break;
                           }
                           case 99: {
-                            if ((m(e3 + 2 | 0, 36, 8) | 0) == 0 ? (a3 = e3 + 10 | 0, B(s2[a3 >> 1] | 0) | 0) : 0) {
+                            if ((m2(e3 + 2 | 0, 36, 8) | 0) == 0 ? (a3 = e3 + 10 | 0, B(s2[a3 >> 1] | 0) | 0) : 0) {
                               t2[65] = a3;
                               b3 = w2(1) | 0;
                               n3 = t2[65] | 0;
@@ -1382,7 +1386,7 @@ init_define_process();
                   } while (0);
                 b3 = (w2(1) | 0) << 16 >> 16 == 102;
                 e3 = t2[65] | 0;
-                if (b3 ? (m(e3 + 2 | 0, 52, 6) | 0) == 0 : 0) {
+                if (b3 ? (m2(e3 + 2 | 0, 52, 6) | 0) == 0 : 0) {
                   t2[65] = e3 + 8;
                   o2(f3, w2(1) | 0);
                   e3 = (n3 | 0) == 0 ? 212 : n3 + 16 | 0;
@@ -1472,7 +1476,7 @@ init_define_process();
                 }
                 case 46: {
                   t2[65] = (t2[65] | 0) + 2;
-                  if (((w2(1) | 0) << 16 >> 16 == 109 ? (e3 = t2[65] | 0, (m(e3 + 2 | 0, 44, 6) | 0) == 0) : 0) ? (s2[t2[62] >> 1] | 0) != 46 : 0)
+                  if (((w2(1) | 0) << 16 >> 16 == 109 ? (e3 = t2[65] | 0, (m2(e3 + 2 | 0, 44, 6) | 0) == 0) : 0) ? (s2[t2[62] >> 1] | 0) != 46 : 0)
                     A(f3, f3, e3 + 8 | 0, 2);
                   break;
                 }
@@ -1506,7 +1510,7 @@ init_define_process();
                     t2[65] = (t2[65] | 0) + 2;
                   w2(1) | 0;
                   e3 = t2[65] | 0;
-                  if (m(e3, 50, 8) | 0) {
+                  if (m2(e3, 50, 8) | 0) {
                     Q();
                     break e;
                   }
@@ -1700,7 +1704,7 @@ init_define_process();
               t2[65] = (t2[65] | 0) + 2;
               i3 = (w2(0) | 0) << 16 >> 16 == 97;
               a3 = t2[65] | 0;
-              if (i3 ? (m(a3 + 2 | 0, 58, 10) | 0) == 0 : 0) {
+              if (i3 ? (m2(a3 + 2 | 0, 58, 10) | 0) == 0 : 0) {
                 t2[65] = a3 + 12;
                 if ((w2(1) | 0) << 16 >> 16 != 123) {
                   t2[65] = a3;
@@ -2103,7 +2107,7 @@ init_define_process();
           t2[65] = a3;
           return;
         }
-        function m(e3, a3, r3) {
+        function m2(e3, a3, r3) {
           e3 = e3 | 0;
           a3 = a3 | 0;
           r3 = r3 | 0;
@@ -2218,7 +2222,7 @@ init_define_process();
           i3 = e3 + (0 - r3 << 1) | 0;
           c3 = i3 + 2 | 0;
           e3 = t2[3] | 0;
-          if (c3 >>> 0 >= e3 >>> 0 ? (m(c3, a3, r3 << 1) | 0) == 0 : 0)
+          if (c3 >>> 0 >= e3 >>> 0 ? (m2(c3, a3, r3 << 1) | 0) == 0 : 0)
             if ((c3 | 0) == (e3 | 0))
               e3 = 1;
             else
@@ -3397,8 +3401,6 @@ var Tv = () => (0, import_jsx_runtime5.jsx)(Wrap, {
 
 // js/DraggableWindow.tsx
 var import_jsx_runtime6 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var ToggleButtonGroup2 = ToggleButtonGroup;
-var ToggleButton2 = ToggleButton;
 var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100];
@@ -3448,24 +3450,23 @@ var DraggableWindow = ({
     };
     reveal();
   }, []);
-  return (0, import_jsx_runtime6.jsx)(motion.div, {
-    transition: { delay: 0, duration: 0.4 },
-    initial: {
-      top: 0,
-      padding: 0,
-      right: 0,
-      borderRadius: 0
-    },
-    animate: {
-      top: bottom,
-      padding: 8,
-      right,
-      borderRadius: 16
-    },
-    onPan: (e, pointInfo) => {
-      console.log({ e, pointInfo });
-    },
-    css: import_react11.css`
+  return (0, import_jsx_runtime6.jsx)(LazyMotion, {
+    features: __spreadValues(__spreadValues({}, domAnimation), domMax),
+    children: (0, import_jsx_runtime6.jsx)(m.div, {
+      transition: { delay: 0, duration: 0.4 },
+      initial: {
+        top: 0,
+        padding: 0,
+        right: 0,
+        borderRadius: 0
+      },
+      animate: {
+        top: bottom,
+        padding: 8,
+        right,
+        borderRadius: 16
+      },
+      css: import_react11.css`
             touch-action: pinch-zoom;
             background-color:${bg};
             backdrop-filter: blur(15px);
@@ -3474,164 +3475,165 @@ var DraggableWindow = ({
             white-space: normal;
             position: fixed;
           `,
-    drag: true,
-    dragMomentum: false,
-    dragConstraints: {
-      left: 0,
-      right: width - 20 - width / 6,
-      bottom: innerHeight
-    },
-    dragElastic: 0.5,
-    children: (0, import_jsx_runtime6.jsxs)("div", {
-      css: import_react11.css` 
+      drag: true,
+      dragMomentum: false,
+      dragConstraints: {
+        left: 0,
+        right: width - 20 - width / 6,
+        bottom: innerHeight
+      },
+      dragElastic: 0.5,
+      children: (0, import_jsx_runtime6.jsxs)("div", {
+        css: import_react11.css` 
               display: flex;
               
                 `,
-      children: [
-        (0, import_jsx_runtime6.jsxs)("div", {
-          css: import_react11.css`
+        children: [
+          (0, import_jsx_runtime6.jsxs)("div", {
+            css: import_react11.css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `,
-          children: [
-            (0, import_jsx_runtime6.jsx)(motion.div, {
-              transition: { delay: 0, duration: 0.4 },
-              initial: { height: 0, width: 0 },
-              animate: { height: "auto", width: "auto" },
-              children: (0, import_jsx_runtime6.jsx)(ToggleButtonGroup2, {
-                value: scaleRange,
-                size: "small",
-                exclusive: true,
-                onChange: (_e, newScale) => {
-                  newScale && changeScaleRange(newScale);
-                },
-                children: sizes.map((size, ind) => (0, import_jsx_runtime6.jsx)(ToggleButton2, {
-                  value: size,
-                  children: (0, import_jsx_runtime6.jsxs)("span", {
-                    css: import_react11.css`
+            children: [
+              (0, import_jsx_runtime6.jsx)(m.div, {
+                transition: { delay: 0, duration: 0.4 },
+                initial: { height: 0, width: 0 },
+                animate: { height: "auto", width: "auto" },
+                children: (0, import_jsx_runtime6.jsx)(ToggleButtonGroup, {
+                  value: scaleRange,
+                  size: "small",
+                  exclusive: true,
+                  onChange: (_e, newScale) => {
+                    newScale && changeScaleRange(newScale);
+                  },
+                  children: sizes.map((size, ind) => (0, import_jsx_runtime6.jsx)(ToggleButton, {
+                    value: size,
+                    children: (0, import_jsx_runtime6.jsxs)("span", {
+                      css: import_react11.css`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
-                    children: [
-                      size,
-                      "%"
-                    ]
-                  })
-                }, ind))
-              })
-            }),
-            (0, import_jsx_runtime6.jsx)(motion.div, {
-              transition: { delay: 0, duration: 0.4 },
-              initial: {
-                width: window.innerWidth,
-                height: window.innerHeight,
-                borderRadius: 0
-              },
-              animate: {
-                width: width * scale / devicePixelRatio,
-                height: height * scale / devicePixelRatio,
-                borderRadius: 8
-              },
-              css: import_react11.css`
+                      children: [
+                        size,
+                        "%"
+                      ]
+                    })
+                  }, ind))
+                })
+              }),
+              (0, import_jsx_runtime6.jsx)(m.div, {
+                transition: { delay: 0, duration: 0.4 },
+                initial: {
+                  width: window.innerWidth,
+                  height: window.innerHeight,
+                  borderRadius: 0
+                },
+                animate: {
+                  width: width * scale / devicePixelRatio,
+                  height: height * scale / devicePixelRatio,
+                  borderRadius: 8
+                },
+                css: import_react11.css`
 
                 display: block;
                 overflow: hidden;
                 overflow-y: hidden;
             `,
-              children: (0, import_jsx_runtime6.jsx)(motion.div, {
-                transition: { delay: 0, duration: 0.4 },
-                initial: {
-                  width: window.innerWidth,
-                  height: window.innerHeight,
-                  background: "rgba(0,0,0, 1)",
-                  scale: 1
-                },
-                animate: {
-                  background: "rgba(92,92,92, 0.5)",
-                  transformOrigin: "0px 0px",
-                  width: width / devicePixelRatio,
-                  height: height / devicePixelRatio,
-                  scale: scaleRange / 100
-                },
-                "data-test-id": "z-body",
-                css: import_react11.css`
+                children: (0, import_jsx_runtime6.jsx)(m.div, {
+                  transition: { delay: 0, duration: 0.4 },
+                  initial: {
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    background: "rgba(0,0,0, 1)",
+                    scale: 1
+                  },
+                  animate: {
+                    background: "rgba(92,92,92, 0.5)",
+                    transformOrigin: "0px 0px",
+                    width: width / devicePixelRatio,
+                    height: height / devicePixelRatio,
+                    scale: scaleRange / 100
+                  },
+                  "data-test-id": "z-body",
+                  css: import_react11.css`
                   overflow:overlay;
                   overflow-y: hidden;
               `,
-                children
-              })
-            }),
-            (0, import_jsx_runtime6.jsx)(motion.div, {
-              transition: { delay: 0, duration: 0.4 },
-              children: (0, import_jsx_runtime6.jsx)(ToggleButtonGroup2, {
-                value: width,
-                size: "small",
-                exclusive: true,
-                onChange: (_e, newSize) => {
-                  if (newSize) {
-                    setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
-                    setWidth(newSize);
-                  }
-                },
-                children: breakPoints.map((size, ind) => (0, import_jsx_runtime6.jsx)(ToggleButton2, {
-                  value: size,
-                  children: size === 680 ? (0, import_jsx_runtime6.jsx)("span", {
-                    css: import_react11.css`
+                  children
+                })
+              }),
+              (0, import_jsx_runtime6.jsx)(m.div, {
+                transition: { delay: 0, duration: 0.4 },
+                children: (0, import_jsx_runtime6.jsx)(ToggleButtonGroup, {
+                  value: width,
+                  size: "small",
+                  exclusive: true,
+                  onChange: (_e, newSize) => {
+                    if (newSize) {
+                      setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
+                      setWidth(newSize);
+                    }
+                  },
+                  children: breakPoints.map((size, ind) => (0, import_jsx_runtime6.jsx)(ToggleButton, {
+                    value: size,
+                    children: size === 680 ? (0, import_jsx_runtime6.jsx)("span", {
+                      css: import_react11.css`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                    children: (0, import_jsx_runtime6.jsx)(Phone, {})
-                  }) : size === 768 ? (0, import_jsx_runtime6.jsx)("span", {
-                    css: import_react11.css`
+                      children: (0, import_jsx_runtime6.jsx)(Phone, {})
+                    }) : size === 768 ? (0, import_jsx_runtime6.jsx)("span", {
+                      css: import_react11.css`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                    children: (0, import_jsx_runtime6.jsx)(Tablet, {})
-                  }) : (0, import_jsx_runtime6.jsx)("span", {
-                    css: import_react11.css`
+                      children: (0, import_jsx_runtime6.jsx)(Tablet, {})
+                    }) : (0, import_jsx_runtime6.jsx)("span", {
+                      css: import_react11.css`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
-                    children: (0, import_jsx_runtime6.jsx)(Tv, {})
-                  })
-                }, ind))
+                      children: (0, import_jsx_runtime6.jsx)(Tv, {})
+                    })
+                  }, ind))
+                })
               })
-            })
-          ]
-        }),
-        (0, import_jsx_runtime6.jsx)(motion.div, {
-          transition: { delay: 0, duration: 0.4 },
-          initial: { height: 0, width: 0 },
-          animate: { height: "100%", width: "auto" },
-          children: (0, import_jsx_runtime6.jsxs)("div", {
-            css: import_react11.css`
+            ]
+          }),
+          (0, import_jsx_runtime6.jsx)(m.div, {
+            transition: { delay: 0, duration: 0.4 },
+            initial: { height: 0, width: 0 },
+            animate: { height: "100%", width: "auto" },
+            children: (0, import_jsx_runtime6.jsxs)("div", {
+              css: import_react11.css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
               align-items: center;          
               flex-direction: column;
               `,
-            children: [
-              (0, import_jsx_runtime6.jsx)(Fab, {
-                onClick: () => {
-                  var _a;
-                  (_a = document.getElementById("root")) == null ? void 0 : _a.requestFullscreen();
-                },
-                children: (0, import_jsx_runtime6.jsx)("span", {
-                  css: import_react11.css`
+              children: [
+                (0, import_jsx_runtime6.jsx)(Fab, {
+                  onClick: () => {
+                    var _a;
+                    (_a = document.getElementById("root")) == null ? void 0 : _a.requestFullscreen();
+                  },
+                  children: (0, import_jsx_runtime6.jsx)("span", {
+                    css: import_react11.css`
                 font-size: 20pt;
               `,
-                  children: (0, import_jsx_runtime6.jsx)(MdFullscreen, {}, "fs")
-                })
-              }, "fullscreen"),
-              (0, import_jsx_runtime6.jsx)(QRButton, {
-                url: location.origin + `/live/${room}/public`
-              }),
-              (0, import_jsx_runtime6.jsx)(Fab, {
-                onClick: () => open(`/live/${room}/public`),
-                children: (0, import_jsx_runtime6.jsx)(Share, {})
-              }, "Share")
-            ]
+                    children: (0, import_jsx_runtime6.jsx)(MdFullscreen, {}, "fs")
+                  })
+                }, "fullscreen"),
+                (0, import_jsx_runtime6.jsx)(QRButton, {
+                  url: location.origin + `/live/${room}/public`
+                }),
+                (0, import_jsx_runtime6.jsx)(Fab, {
+                  onClick: () => open(`/live/${room}/public`),
+                  children: (0, import_jsx_runtime6.jsx)(Share, {})
+                }, "Share")
+              ]
+            })
           })
-        })
-      ]
+        ]
+      })
     })
   });
 };
@@ -3684,7 +3686,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-5GW6TOLG.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-LV52YAFM.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-XMSQTNYM.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => __spreadProps(__spreadValues({}, x), {
@@ -3960,7 +3962,9 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
             (0, import_jsx_runtime8.jsx)(DraggableWindow, {
               hashCode: 0,
               room: codeSpace2,
-              children: (0, import_react17.jsx)(OutPortal, { node: portalNode })
+              children: (0, import_jsx_runtime8.jsx)(OutPortal, {
+                node: portalNode
+              })
             })
           ]
         })
