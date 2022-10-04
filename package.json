@@ -35,7 +35,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^3.16.0",
     "@playwright/test": "^1.26.1",
-    "@types/node": "^18.8.0",
+    "@types/node": "^18.8.1",
     "@types/xo": "^0.39.3",
     "@yarnpkg/sdks": "3.0.0-rc.22",
     "esbuild": "^0.15.10",
@@ -51,9 +51,7 @@
     "comlink": "^4.3.1",
     "monaco-editor": "^0.34.0",
     "node-fetch": "^3.2.10",
-    "playwright": "^1.26.1",
-    "react": "^18.2.0",
-    "whatwg-fetch": "^3.6.2"
+    "playwright": "^1.26.1"
   },
   "packageManager": "yarn@4.0.0-rc.22"
 }

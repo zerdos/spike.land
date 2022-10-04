@@ -13,10 +13,10 @@ import {
 } from "./chunk-chunk-JH5VFIUD.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-TUMVVIEV.mjs";
+} from "./chunk-chunk-DYPQTNND.mjs";
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-OH6GYCKO.mjs";
+} from "./chunk-chunk-R7AXWXI5.mjs";
 import {
   $,
   Children,
@@ -28,6 +28,7 @@ import {
   h,
   init_react_preact,
   isValidElement,
+  lazy,
   p,
   react_preact_default,
   useEffect,
@@ -3317,26 +3318,17 @@ function MdShare(props) {
 init_define_process();
 init_react_preact();
 var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FabLazy = react_preact_default.lazy(() => import("./chunk-Fab-FQNJKASY.mjs"));
+var FabLazy = lazy(() => import("./chunk-Fab-YFEWUQZG.mjs"));
 var Fab = (props) => (0, import_jsx_runtime3.jsx)(Suspense, {
   children: (0, import_jsx_runtime3.jsx)(FabLazy, __spreadValues({}, props))
 });
-var ToggleButtonLazy = react_preact_default.lazy(() => import("./chunk-ToggleButton-SP4MERIA.mjs"));
-var ToggleButton = ({ value, children, onChange }) => (0, import_jsx_runtime3.jsx)(Suspense, {
-  children: (0, import_jsx_runtime3.jsx)(ToggleButtonLazy, {
-    value,
-    onChange,
-    children
-  })
+var ToggleButtonLazy = lazy(() => import("./chunk-ToggleButton-SIYOWSNJ.mjs"));
+var ToggleButton = (props) => (0, import_jsx_runtime3.jsx)(Suspense, {
+  children: (0, import_jsx_runtime3.jsx)(ToggleButtonLazy, __spreadValues({}, props))
 });
-var ToggleButtonGroupLazy = react_preact_default.lazy(() => import("./chunk-ToggleButtonGroup-EEFKVWBN.mjs"));
-var ToggleButtonGroup = ({ children, value, exclusive, onChange }) => (0, import_jsx_runtime3.jsx)(Suspense, {
-  children: (0, import_jsx_runtime3.jsx)(ToggleButtonGroupLazy, {
-    exclusive,
-    onChange,
-    value,
-    children
-  })
+var ToggleButtonGroupLazy = lazy(() => import("./chunk-ToggleButtonGroup-M7YPPU52.mjs"));
+var ToggleButtonGroup = (props) => (0, import_jsx_runtime3.jsx)(Suspense, {
+  children: (0, import_jsx_runtime3.jsx)(ToggleButtonGroupLazy, __spreadValues({}, props))
 });
 
 // js/Qr.tsx
@@ -3692,7 +3684,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-NLNEJF5T.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-5GW6TOLG.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-XMSQTNYM.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => __spreadProps(__spreadValues({}, x), {
