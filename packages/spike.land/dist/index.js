@@ -922,7 +922,6 @@ window.addEventListener('pageshow', (event) => {
 
 
 <div id="root"></div>
-<script src="https://unpkg.com/ipfs@0.64.2/dist/index.min.js"><\/script>
   
 <script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
@@ -1049,7 +1048,7 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../code/dist/chunk-chunk-2QDYJ352.mjs
+// ../code/dist/chunk-chunk-UOA4FCKA.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -1086,7 +1085,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-DL7IZ3HK.mjs
+// ../code/dist/chunk-chunk-LKSOYGON.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
