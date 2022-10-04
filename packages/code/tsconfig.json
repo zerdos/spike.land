@@ -66,7 +66,10 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "baseUrl": "js"
+    "baseUrl": "js",
+    "paths": {
+      "events": ["events/events.js"]
+    }
   },
   "include": ["js", "package.json", "esbuild-dev.mjs"],
   "exclude": []

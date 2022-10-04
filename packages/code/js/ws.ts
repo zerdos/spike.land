@@ -22,6 +22,12 @@ import debounce from "lodash.debounce";
 import uidV4 from "./uidV4.mjs";
 import { appFactory } from "./starter";
 
+  import PubSubRoom from 'ipfs-pubsub-room'
+
+
+
+
+
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
@@ -131,14 +137,24 @@ export const run = async (startState: {
   };
 
   onSessionUpdate(
-    (_f: boolean, messageData) =>
+    (_f: boolean, messageData) =>{
+      if (room && room.broadcast) {
+        room.broadcast(JSON.stringify({
+          ignoreUser: user,
+          sess: mST(),
+          codeSpace,
+          address,
+          messageData,
+        }));
+      }
       bc.postMessage({
         ignoreUser: user,
         sess: mST(),
         codeSpace,
         address,
         messageData,
-      }),
+      })
+    },
     "broadcast",
   );
   await appFactory(startState.mST.transpiled);
@@ -154,7 +170,8 @@ export const run = async (startState: {
 
   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
-  join();
+  await join();
+  await startIpfs();
 };
 
 // (async (.) => {
@@ -275,8 +292,55 @@ async function syncRTC() {
   }
 }
 
+
+const startIpfs = async()=>{
+
+  const  ipfs = Ipfs.create({
+    repo: codeSpace,
+    EXPERIMENTAL:{ pubsub: true },
+    Discovery: {
+      MDNS: {
+        Enabled: true,
+        Interval: 10
+      },
+      webRTCStar: {
+        Enabled: true
+      }
+    },
+    ipld: {
+      async loadCodec (codec) {
+        if (codec === multicodec.GIT_RAW) {
+          return convert(await import('ipld-git')) // This is a dynamic import
+        } else {
+          throw new Error('unable to load format ' + multicodec.print[codec])
+        }
+      }
+    }
+  });
+
+  globalThis.ipfs = ipfs;
+
+
+ const room =  new PubSubRoom(ipfs, '12D3KooWQNWHF6o7jdEq6VQAYmE4tnYyJw7XTMHip49whBfdi7MJ')
+
+ globalThis.room = room;
+room.on('peer joined', (peer) => {
+  console.log('Peer joined the room', peer)
+})
+
+room.on('peer left', (peer) => {
+  console.log('Peer left...', peer)
+})
+
+// now started to listen to room
+room.on('subscribed', () => {
+  console.log('Now connected!')
+})  
+}
+
 export async function join() {
   if (ws !== null) return ws;
+
 
   rejoined = true;
 

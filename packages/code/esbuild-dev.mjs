@@ -16,7 +16,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
-const target = "es2017";
+const target = "es2020";
 
 console.log(`
 -------------------------------------------------
@@ -54,6 +54,10 @@ const buildOptions = {
   platform: "browser",
   plugins: [
     aliasPlugin({
+      "buffer": resolve('./js/buffer/index.js'),
+      "ms": resolve("./js/ms/index.js"),
+      "debug": resolve("./js/debug.ts"),
+      "events": resolve("./js/events/events.js"),
       "react": resolve("./js/react-preact.ts"),
       "react-dom": resolve("./js/react-preact.ts"),
       "react-dom/client": resolve("./js/react-preact.ts"),
