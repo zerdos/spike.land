@@ -3203,8 +3203,12 @@ init_react_preact();
 
 // js/Qr.tsx
 init_define_process();
-var import_react8 = __toESM(require_emotion_react_cjs(), 1);
+var import_react9 = __toESM(require_emotion_react_cjs(), 1);
 init_react_preact();
+
+// js/icons.tsx
+init_define_process();
+var import_react7 = __toESM(require_emotion_react_cjs(), 1);
 
 // ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/md/index.esm.js
 init_define_process();
@@ -3299,8 +3303,8 @@ function IconBase(props) {
 }
 
 // ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/md/index.esm.js
-function MdQrCode2(props) {
-  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M15 21h-2v-2h2v2zm-2-7h-2v5h2v-5zm8-2h-2v4h2v-4zm-2-2h-2v2h2v-2zM7 12H5v2h2v-2zm-2-2H3v2h2v-2zm7-5h2V3h-2v2zm-7.5-.5v3h3v-3h-3zM9 9H3V3h6v6zm-4.5 7.5v3h3v-3h-3zM9 21H3v-6h6v6zm7.5-16.5v3h3v-3h-3zM21 9h-6V3h6v6zm-2 10v-3h-4v2h2v3h4v-2h-2zm-2-7h-4v2h4v-2zm-4-2H7v2h2v2h2v-2h2v-2zm1-1V7h-2V5h-2v4h4zM6.75 5.25h-1.5v1.5h1.5v-1.5zm0 12h-1.5v1.5h1.5v-1.5zm12-12h-1.5v1.5h1.5v-1.5z" } }] })(props);
+function MdQrCode(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zM13 3v8h8V3h-8zm6 6h-4V5h4v4zM19 19h2v2h-2zM13 13h2v2h-2zM15 15h2v2h-2zM13 17h2v2h-2zM15 19h2v2h-2zM17 17h2v2h-2zM17 13h2v2h-2zM19 15h2v2h-2z" } }] })(props);
 }
 function MdPhoneAndroid(props) {
   return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z" } }] })(props);
@@ -3318,42 +3322,66 @@ function MdShare(props) {
   return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" } }] })(props);
 }
 
+// js/icons.tsx
+var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var Wrap = ({ children }) => (0, import_jsx_runtime3.jsx)("span", {
+  css: import_react7.css`
+font-size:20pt;
+`,
+  children
+});
+var QrCodeIcon = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdQrCode, {})
+});
+var Phone = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdPhoneAndroid, {})
+});
+var Share = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdShare, {})
+});
+var Tablet = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdTabletAndroid, {})
+});
+var Tv = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdTv, {})
+});
+
 // js/mui.tsx
 init_define_process();
 init_react_preact();
-var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var FabLazy = lazy(() => import("./chunk-Fab-YFEWUQZG.mjs"));
-var Fab = (props) => (0, import_jsx_runtime3.jsx)(Suspense, {
-  children: (0, import_jsx_runtime3.jsx)(FabLazy, __spreadValues({}, props))
+var Fab = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
+  children: (0, import_jsx_runtime4.jsx)(FabLazy, __spreadValues({}, props))
 });
 var ToggleButtonLazy = lazy(() => import("./chunk-ToggleButton-SIYOWSNJ.mjs"));
-var ToggleButton = (props) => (0, import_jsx_runtime3.jsx)(Suspense, {
-  children: (0, import_jsx_runtime3.jsx)(ToggleButtonLazy, __spreadValues({}, props))
+var ToggleButton = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
+  children: (0, import_jsx_runtime4.jsx)(ToggleButtonLazy, __spreadValues({}, props))
 });
 var ToggleButtonGroupLazy = lazy(() => import("./chunk-ToggleButtonGroup-M7YPPU52.mjs"));
-var ToggleButtonGroup = (props) => (0, import_jsx_runtime3.jsx)(Suspense, {
-  children: (0, import_jsx_runtime3.jsx)(ToggleButtonGroupLazy, __spreadValues({}, props))
+var ToggleButtonGroup = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
+  children: (0, import_jsx_runtime4.jsx)(ToggleButtonGroupLazy, __spreadValues({}, props))
 });
 
 // js/Qr.tsx
-var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var QR = ({ url }) => (0, import_jsx_runtime4.jsx)(QRious, {
+var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var QR = ({ url }) => (0, import_jsx_runtime5.jsx)(QRious, {
   value: url
 });
 var QRiousLazy = react_preact_default.lazy(
   () => import("./chunk-lib-PLNXSJ4U.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
 );
-var QRious = ({ value }) => (0, import_jsx_runtime4.jsx)(Suspense, {
-  fallback: (0, import_jsx_runtime4.jsx)("p", {
+var QRious = ({ value }) => (0, import_jsx_runtime5.jsx)(Suspense, {
+  fallback: (0, import_jsx_runtime5.jsx)("p", {
     children: ".."
   }),
-  children: (0, import_jsx_runtime4.jsx)(QRiousLazy, {
+  children: (0, import_jsx_runtime5.jsx)(QRiousLazy, {
     value
   })
 });
 var QRButton = ({ url }) => {
   const [showQR, setQR] = useState(false);
-  return (0, import_jsx_runtime4.jsx)(motion.div, {
+  return (0, import_jsx_runtime5.jsx)(motion.div, {
     animate: {
       width: showQR ? 200 : 56,
       height: showQR ? 220 : 48
@@ -3361,43 +3389,17 @@ var QRButton = ({ url }) => {
     onClick: () => {
       setQR(!showQR);
     },
-    css: import_react8.css`
+    css: import_react9.css`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
-    children: showQR ? (0, import_jsx_runtime4.jsx)(QR, {
+    children: showQR ? (0, import_jsx_runtime5.jsx)(QR, {
       url: url || "/live/coder/public"
-    }, url || origin + url) : (0, import_jsx_runtime4.jsx)(Fab, {
-      children: (0, import_jsx_runtime4.jsx)("span", {
-        css: import_react8.css`font-size: 20pt;`,
-        children: (0, import_jsx_runtime4.jsx)(MdQrCode2, {})
-      })
+    }, url || origin + url) : (0, import_jsx_runtime5.jsx)(Fab, {
+      children: (0, import_jsx_runtime5.jsx)(QrCodeIcon, {})
     })
   });
 };
-
-// js/icons.tsx
-init_define_process();
-var import_react10 = __toESM(require_emotion_react_cjs(), 1);
-var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var Wrap = ({ children }) => (0, import_jsx_runtime5.jsx)("span", {
-  css: import_react10.css`
-font-size:20pt;
-`,
-  children
-});
-var Phone = () => (0, import_jsx_runtime5.jsx)(Wrap, {
-  children: (0, import_jsx_runtime5.jsx)(MdPhoneAndroid, {})
-});
-var Share = () => (0, import_jsx_runtime5.jsx)(Wrap, {
-  children: (0, import_jsx_runtime5.jsx)(MdShare, {})
-});
-var Tablet = () => (0, import_jsx_runtime5.jsx)(Wrap, {
-  children: (0, import_jsx_runtime5.jsx)(MdTabletAndroid, {})
-});
-var Tv = () => (0, import_jsx_runtime5.jsx)(Wrap, {
-  children: (0, import_jsx_runtime5.jsx)(MdTv, {})
-});
 
 // js/DraggableWindow.tsx
 var import_jsx_runtime6 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
@@ -3686,7 +3688,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-LV52YAFM.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-BJOFCJSS.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-XMSQTNYM.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => __spreadProps(__spreadValues({}, x), {
