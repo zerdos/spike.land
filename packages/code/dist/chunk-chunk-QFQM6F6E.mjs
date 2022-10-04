@@ -1,4 +1,5 @@
 import {
+  __commonJS,
   __esm,
   __export,
   init_define_process
@@ -1244,6 +1245,12 @@ var init_basics = __esm({
 });
 
 // ../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/alloc.js
+function alloc(size = 0) {
+  if (globalThis.Buffer != null && globalThis.Buffer.alloc != null) {
+    return globalThis.Buffer.alloc(size);
+  }
+  return new Uint8Array(size);
+}
 function allocUnsafe(size = 0) {
   if (globalThis.Buffer != null && globalThis.Buffer.allocUnsafe != null) {
     return globalThis.Buffer.allocUnsafe(size);
@@ -1309,28 +1316,6 @@ var init_bases = __esm({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/from-string.js
-var from_string_exports = {};
-__export(from_string_exports, {
-  fromString: () => fromString2
-});
-function fromString2(string2, encoding = "utf8") {
-  const base3 = bases_default[encoding];
-  if (!base3) {
-    throw new Error(`Unsupported encoding "${encoding}"`);
-  }
-  if ((encoding === "utf8" || encoding === "utf-8") && globalThis.Buffer != null && globalThis.Buffer.from != null) {
-    return globalThis.Buffer.from(string2, "utf8");
-  }
-  return base3.decoder.decode(`${base3.prefix}${string2}`);
-}
-var init_from_string = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/from-string.js"() {
-    init_define_process();
-    init_bases();
-  }
-});
-
 // ../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/to-string.js
 var to_string_exports = {};
 __export(to_string_exports, {
@@ -1353,13 +1338,242 @@ var init_to_string = __esm({
   }
 });
 
+// ../../../../../Users/z/.yarn/berry/cache/err-code-npm-3.0.1-3a0dc5fc51-9.zip/node_modules/err-code/index.js
+var require_err_code = __commonJS({
+  "../../../../../Users/z/.yarn/berry/cache/err-code-npm-3.0.1-3a0dc5fc51-9.zip/node_modules/err-code/index.js"(exports, module) {
+    "use strict";
+    init_define_process();
+    function assign(obj, props) {
+      for (const key in props) {
+        Object.defineProperty(obj, key, {
+          value: props[key],
+          enumerable: true,
+          configurable: true
+        });
+      }
+      return obj;
+    }
+    function createError(err, code2, props) {
+      if (!err || typeof err === "string") {
+        throw new TypeError("Please pass an Error to err-code");
+      }
+      if (!props) {
+        props = {};
+      }
+      if (typeof code2 === "object") {
+        props = code2;
+        code2 = "";
+      }
+      if (code2) {
+        props.code = code2;
+      }
+      try {
+        return assign(err, props);
+      } catch (_) {
+        props.message = err.message;
+        props.stack = err.stack;
+        const ErrClass = function() {
+        };
+        ErrClass.prototype = Object.create(Object.getPrototypeOf(err));
+        const output = assign(new ErrClass(), props);
+        return output;
+      }
+    }
+    module.exports = createError;
+  }
+});
+
+// ../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/encode.js
+var require_encode = __commonJS({
+  "../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/encode.js"(exports, module) {
+    init_define_process();
+    module.exports = encode5;
+    var MSB2 = 128;
+    var REST2 = 127;
+    var MSBALL2 = ~REST2;
+    var INT2 = Math.pow(2, 31);
+    function encode5(num, out, offset) {
+      if (Number.MAX_SAFE_INTEGER && num > Number.MAX_SAFE_INTEGER) {
+        encode5.bytes = 0;
+        throw new RangeError("Could not encode varint");
+      }
+      out = out || [];
+      offset = offset || 0;
+      var oldOffset = offset;
+      while (num >= INT2) {
+        out[offset++] = num & 255 | MSB2;
+        num /= 128;
+      }
+      while (num & MSBALL2) {
+        out[offset++] = num & 255 | MSB2;
+        num >>>= 7;
+      }
+      out[offset] = num | 0;
+      encode5.bytes = offset - oldOffset + 1;
+      return out;
+    }
+  }
+});
+
+// ../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/decode.js
+var require_decode = __commonJS({
+  "../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/decode.js"(exports, module) {
+    init_define_process();
+    module.exports = read2;
+    var MSB2 = 128;
+    var REST2 = 127;
+    function read2(buf, offset) {
+      var res = 0, offset = offset || 0, shift = 0, counter = offset, b, l = buf.length;
+      do {
+        if (counter >= l || shift > 49) {
+          read2.bytes = 0;
+          throw new RangeError("Could not decode varint");
+        }
+        b = buf[counter++];
+        res += shift < 28 ? (b & REST2) << shift : (b & REST2) * Math.pow(2, shift);
+        shift += 7;
+      } while (b >= MSB2);
+      read2.bytes = counter - offset;
+      return res;
+    }
+  }
+});
+
+// ../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/length.js
+var require_length = __commonJS({
+  "../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/length.js"(exports, module) {
+    init_define_process();
+    var N12 = Math.pow(2, 7);
+    var N22 = Math.pow(2, 14);
+    var N32 = Math.pow(2, 21);
+    var N42 = Math.pow(2, 28);
+    var N52 = Math.pow(2, 35);
+    var N62 = Math.pow(2, 42);
+    var N72 = Math.pow(2, 49);
+    var N82 = Math.pow(2, 56);
+    var N92 = Math.pow(2, 63);
+    module.exports = function(value) {
+      return value < N12 ? 1 : value < N22 ? 2 : value < N32 ? 3 : value < N42 ? 4 : value < N52 ? 5 : value < N62 ? 6 : value < N72 ? 7 : value < N82 ? 8 : value < N92 ? 9 : 10;
+    };
+  }
+});
+
+// ../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/index.js
+var require_varint = __commonJS({
+  "../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/index.js"(exports, module) {
+    init_define_process();
+    module.exports = {
+      encode: require_encode(),
+      decode: require_decode(),
+      encodingLength: require_length()
+    };
+  }
+});
+
+// ../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/concat.js
+var concat_exports = {};
+__export(concat_exports, {
+  concat: () => concat
+});
+function concat(arrays, length2) {
+  if (!length2) {
+    length2 = arrays.reduce((acc, curr) => acc + curr.length, 0);
+  }
+  const output = allocUnsafe(length2);
+  let offset = 0;
+  for (const arr of arrays) {
+    output.set(arr, offset);
+    offset += arr.length;
+  }
+  return output;
+}
+var init_concat = __esm({
+  "../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/concat.js"() {
+    init_define_process();
+    init_alloc();
+  }
+});
+
+// ../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/equals.js
+var equals_exports = {};
+__export(equals_exports, {
+  equals: () => equals3
+});
+function equals3(a, b) {
+  if (a === b) {
+    return true;
+  }
+  if (a.byteLength !== b.byteLength) {
+    return false;
+  }
+  for (let i = 0; i < a.byteLength; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+var init_equals = __esm({
+  "../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/equals.js"() {
+    init_define_process();
+  }
+});
+
+// ../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/from-string.js
+var from_string_exports = {};
+__export(from_string_exports, {
+  fromString: () => fromString2
+});
+function fromString2(string2, encoding = "utf8") {
+  const base3 = bases_default[encoding];
+  if (!base3) {
+    throw new Error(`Unsupported encoding "${encoding}"`);
+  }
+  if ((encoding === "utf8" || encoding === "utf-8") && globalThis.Buffer != null && globalThis.Buffer.from != null) {
+    return globalThis.Buffer.from(string2, "utf8");
+  }
+  return base3.decoder.decode(`${base3.prefix}${string2}`);
+}
+var init_from_string = __esm({
+  "../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/from-string.js"() {
+    init_define_process();
+    init_bases();
+  }
+});
+
 export {
+  base58btc,
+  init_base58,
+  base32,
+  init_base32,
+  base64,
+  init_base64,
+  require_err_code,
+  create,
+  decode5 as decode,
+  init_digest,
+  sha256,
+  init_sha2_browser,
+  identity2 as identity,
+  init_identity2 as init_identity,
+  CID,
+  init_cid,
+  bases,
+  init_basics,
+  alloc,
   allocUnsafe,
   init_alloc,
+  toString2 as toString,
+  to_string_exports,
+  init_to_string,
+  require_varint,
   fromString2 as fromString,
   from_string_exports,
   init_from_string,
-  toString2 as toString,
-  to_string_exports,
-  init_to_string
+  concat,
+  concat_exports,
+  init_concat,
+  equals3 as equals,
+  equals_exports,
+  init_equals
 };

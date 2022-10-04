@@ -13,6 +13,10 @@ import {
   startSession,
 } from "./session";
 
+
+import defaultConf from "ipfs-core-config/config"
+import {libp2pConfig} from "ipfs-core-config/libp2p"
+import {routers} from "ipfs-core-config/libp2p-pubsub-routers"
 // import * as FS from '@isomorphic-git/lightning-fs';
 
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -22,7 +26,7 @@ import debounce from "lodash.debounce";
 import uidV4 from "./uidV4.mjs";
 import { appFactory } from "./starter";
 
-  import PubSubRoom from 'ipfs-pubsub-room'
+  // import PubSubRoom from 'ipfs-pubsub-room'
 
 
 
@@ -138,8 +142,8 @@ export const run = async (startState: {
 
   onSessionUpdate(
     (_f: boolean, messageData) =>{
-      if (room && room.broadcast) {
-        room.broadcast(JSON.stringify({
+      if (globalThis.send) {
+        globalThis.send(JSON.stringify({
           ignoreUser: user,
           sess: mST(),
           codeSpace,
@@ -170,7 +174,7 @@ export const run = async (startState: {
 
   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
-  await join();
+  // await join();
   await startIpfs();
 };
 
@@ -202,11 +206,11 @@ async function rejoin() {
   if (!rejoined || ws === null) {
     ws = null;
 
-    const newWs = await join();
+    // const newWs = await join();
 
-    return newWs;
+    // return newWs;
   }
-  return ws;
+  // return ws;
 }
 
 const ignoreUsers: string[] = [];
@@ -295,9 +299,39 @@ async function syncRTC() {
 
 const startIpfs = async()=>{
 
-  const  ipfs = Ipfs.create({
+  const options =defaultConf();
+
+
+
+  const  ipfs = await Ipfs.create();
+
+  const newOptions = {
+
+    ...options,
+    Addresses: {...options.Addresses, Swarm: [
+
+      '/ip4/172.16.0.2/udp/4001/quic',
+
+
+      '/ip4/172.20.10.2/udp/4001/quic',
+      '/ip6/2606:4700:110:88cb:ccbf:a5cd:58d5:a15f/tcp/4001'
+    ]},
+    Bootstrap: [
+      "/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
+      "/ip4/104.131.131.82/udp/4001/quic/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
+      "/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN",
+      "/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa",
+      "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
+      "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
+    ],
     repo: codeSpace,
-    EXPERIMENTAL:{ pubsub: true },
+    Swarm: {...options.Swarm,
+      ...libp2pConfig()
+    },
+    Pubsub: {
+      Enabled: true,
+      ...routers
+    } ,
     Discovery: {
       MDNS: {
         Enabled: true,
@@ -316,26 +350,34 @@ const startIpfs = async()=>{
         }
       }
     }
-  });
-
+  };
+  await ipfs.config.replace(newOptions);
   globalThis.ipfs = ipfs;
 
+const topic = origin + "/live/" + codeSpace;
+const receiveMsg = (msg) => console.log(new TextDecoder().decode(msg.data))
 
- const room =  new PubSubRoom(ipfs, '12D3KooWQNWHF6o7jdEq6VQAYmE4tnYyJw7XTMHip49whBfdi7MJ')
+await ipfs.pubsub.subscribe(topic, receiveMsg)
 
- globalThis.room = room;
-room.on('peer joined', (peer) => {
-  console.log('Peer joined the room', peer)
-})
+console.log(`subscribed to ${topic}`)
 
-room.on('peer left', (peer) => {
-  console.log('Peer left...', peer)
-})
+globalThis.send = (data)=>ipfs.pubsub.publish(topic, new TextEncoder().encode(data))  
 
-// now started to listen to room
-room.on('subscribed', () => {
-  console.log('Now connected!')
-})  
+//  const room =  new PubSubRoom(ipfs.libp2p, '12D3KooWQNWHF6o7jdEq6VQAYmE4tnYyJw7XTMHip49whBfdi7MJ')
+
+//  globalThis.room = room;
+// room.on('peer joined', (peer) => {
+//   console.log('Peer joined the room', peer)
+// })
+
+// room.on('peer left', (peer) => {
+//   console.log('Peer left...', peer)
+// })
+
+// // now started to listen to room
+// room.on('subscribed', () => {
+//   console.log('Now connected!')
+// })  
 }
 
 export async function join() {

@@ -1,64 +1,21 @@
 import {
-  allocUnsafe,
+  concat_exports,
+  equals_exports,
   from_string_exports,
-  init_alloc,
+  init_concat,
+  init_equals,
   init_from_string,
   init_to_string,
+  require_err_code,
+  require_varint,
   to_string_exports
-} from "./chunk-chunk-TLTQUOYF.mjs";
+} from "./chunk-chunk-QFQM6F6E.mjs";
 import {
   __commonJS,
-  __esm,
-  __export,
   __toCommonJS,
   define_process_default,
   init_define_process
 } from "./chunk-chunk-2QDYJ352.mjs";
-
-// ../../../../../Users/z/.yarn/berry/cache/err-code-npm-3.0.1-3a0dc5fc51-9.zip/node_modules/err-code/index.js
-var require_err_code = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/err-code-npm-3.0.1-3a0dc5fc51-9.zip/node_modules/err-code/index.js"(exports, module) {
-    "use strict";
-    init_define_process();
-    function assign(obj, props) {
-      for (const key in props) {
-        Object.defineProperty(obj, key, {
-          value: props[key],
-          enumerable: true,
-          configurable: true
-        });
-      }
-      return obj;
-    }
-    function createError(err, code, props) {
-      if (!err || typeof err === "string") {
-        throw new TypeError("Please pass an Error to err-code");
-      }
-      if (!props) {
-        props = {};
-      }
-      if (typeof code === "object") {
-        props = code;
-        code = "";
-      }
-      if (code) {
-        props.code = code;
-      }
-      try {
-        return assign(err, props);
-      } catch (_) {
-        props.message = err.message;
-        props.stack = err.stack;
-        const ErrClass = function() {
-        };
-        ErrClass.prototype = Object.create(Object.getPrototypeOf(err));
-        const output = assign(new ErrClass(), props);
-        return output;
-      }
-    }
-    module.exports = createError;
-  }
-});
 
 // ../../../../../Users/z/.yarn/berry/cache/@multiformats-base-x-npm-4.0.1-a1a1c51d61-9.zip/node_modules/@multiformats/base-x/src/index.js
 var require_src = __commonJS({
@@ -208,7 +165,7 @@ var require_util = __commonJS({
     var decodeText = (bytes) => textDecoder.decode(bytes);
     var textEncoder = new TextEncoder();
     var encodeText = (text) => textEncoder.encode(text);
-    function concat2(arrs, length) {
+    function concat(arrs, length) {
       const output = new Uint8Array(length);
       let offset = 0;
       for (const arr of arrs) {
@@ -217,7 +174,7 @@ var require_util = __commonJS({
       }
       return output;
     }
-    module.exports = { decodeText, encodeText, concat: concat2 };
+    module.exports = { decodeText, encodeText, concat };
   }
 });
 
@@ -385,19 +342,19 @@ var require_src2 = __commonJS({
     "use strict";
     init_define_process();
     var constants = require_constants();
-    var { encodeText, decodeText, concat: concat2 } = require_util();
+    var { encodeText, decodeText, concat } = require_util();
     function multibase(nameOrCode, buf) {
       if (!buf) {
         throw new Error("requires an encoded Uint8Array");
       }
       const { name, codeBuf } = encoding(nameOrCode);
       validEncode(name, buf);
-      return concat2([codeBuf, buf], codeBuf.length + buf.length);
+      return concat([codeBuf, buf], codeBuf.length + buf.length);
     }
     function encode(nameOrCode, buf) {
       const enc = encoding(nameOrCode);
       const data = encodeText(enc.encode(buf));
-      return concat2([enc.codeBuf, data], enc.codeBuf.length + data.length);
+      return concat([enc.codeBuf, data], enc.codeBuf.length + data.length);
     }
     function decode(data) {
       if (data instanceof Uint8Array) {
@@ -528,7 +485,7 @@ var require_length = __commonJS({
 });
 
 // ../../../../../Users/z/.yarn/berry/cache/varint-npm-5.0.2-fcb43e79c5-9.zip/node_modules/varint/index.js
-var require_varint = __commonJS({
+var require_varint2 = __commonJS({
   "../../../../../Users/z/.yarn/berry/cache/varint-npm-5.0.2-fcb43e79c5-9.zip/node_modules/varint/index.js"(exports, module) {
     init_define_process();
     module.exports = {
@@ -901,37 +858,13 @@ var require_constants2 = __commonJS({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/concat.js
-var concat_exports = {};
-__export(concat_exports, {
-  concat: () => concat
-});
-function concat(arrays, length) {
-  if (!length) {
-    length = arrays.reduce((acc, curr) => acc + curr.length, 0);
-  }
-  const output = allocUnsafe(length);
-  let offset = 0;
-  for (const arr of arrays) {
-    output.set(arr, offset);
-    offset += arr.length;
-  }
-  return output;
-}
-var init_concat = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/concat.js"() {
-    init_define_process();
-    init_alloc();
-  }
-});
-
 // ../../../../../Users/z/.yarn/berry/cache/multihashes-npm-4.0.3-66c3bf1aca-9.zip/node_modules/multihashes/src/index.js
 var require_src3 = __commonJS({
   "../../../../../Users/z/.yarn/berry/cache/multihashes-npm-4.0.3-66c3bf1aca-9.zip/node_modules/multihashes/src/index.js"(exports, module) {
     "use strict";
     init_define_process();
     var multibase = require_src2();
-    var varint = require_varint();
+    var varint = require_varint2();
     var { names } = require_constants2();
     var { toString: uint8ArrayToString } = (init_to_string(), __toCommonJS(to_string_exports));
     var { fromString: uint8ArrayFromString } = (init_from_string(), __toCommonJS(from_string_exports));
@@ -3099,31 +3032,6 @@ var require_crypto = __commonJS({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/equals.js
-var equals_exports = {};
-__export(equals_exports, {
-  equals: () => equals
-});
-function equals(a, b) {
-  if (a === b) {
-    return true;
-  }
-  if (a.byteLength !== b.byteLength) {
-    return false;
-  }
-  for (let i = 0; i < a.byteLength; i++) {
-    if (a[i] !== b[i]) {
-      return false;
-    }
-  }
-  return true;
-}
-var init_equals = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/uint8arrays-npm-3.1.0-cd35ea0b8f-9.zip/node_modules/uint8arrays/esm/src/equals.js"() {
-    init_define_process();
-  }
-});
-
 // ../../../../../Users/z/.yarn/berry/cache/multihashing-async-npm-2.1.4-a6b3a01090-9.zip/node_modules/multihashing-async/src/index.js
 var require_src4 = __commonJS({
   "../../../../../Users/z/.yarn/berry/cache/multihashing-async-npm-2.1.4-a6b3a01090-9.zip/node_modules/multihashing-async/src/index.js"(exports, module) {
@@ -3132,7 +3040,7 @@ var require_src4 = __commonJS({
     var errcode = require_err_code();
     var multihash = require_src3();
     var crypto = require_crypto();
-    var { equals: equals2 } = (init_equals(), __toCommonJS(equals_exports));
+    var { equals } = (init_equals(), __toCommonJS(equals_exports));
     async function Multihashing(bytes, alg, length) {
       const digest = await Multihashing.digest(bytes, alg, length);
       return multihash.encode(digest, alg, length);
@@ -3176,96 +3084,9 @@ var require_src4 = __commonJS({
     crypto.addBlake(Multihashing.functions);
     Multihashing.validate = async (bytes, hash) => {
       const newHash = await Multihashing(bytes, multihash.decode(hash).name);
-      return equals2(hash, newHash);
+      return equals(hash, newHash);
     };
     module.exports = Multihashing;
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/encode.js
-var require_encode2 = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/encode.js"(exports, module) {
-    init_define_process();
-    module.exports = encode;
-    var MSB = 128;
-    var REST = 127;
-    var MSBALL = ~REST;
-    var INT = Math.pow(2, 31);
-    function encode(num, out, offset) {
-      if (Number.MAX_SAFE_INTEGER && num > Number.MAX_SAFE_INTEGER) {
-        encode.bytes = 0;
-        throw new RangeError("Could not encode varint");
-      }
-      out = out || [];
-      offset = offset || 0;
-      var oldOffset = offset;
-      while (num >= INT) {
-        out[offset++] = num & 255 | MSB;
-        num /= 128;
-      }
-      while (num & MSBALL) {
-        out[offset++] = num & 255 | MSB;
-        num >>>= 7;
-      }
-      out[offset] = num | 0;
-      encode.bytes = offset - oldOffset + 1;
-      return out;
-    }
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/decode.js
-var require_decode2 = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/decode.js"(exports, module) {
-    init_define_process();
-    module.exports = read;
-    var MSB = 128;
-    var REST = 127;
-    function read(buf, offset) {
-      var res = 0, offset = offset || 0, shift = 0, counter = offset, b, l = buf.length;
-      do {
-        if (counter >= l || shift > 49) {
-          read.bytes = 0;
-          throw new RangeError("Could not decode varint");
-        }
-        b = buf[counter++];
-        res += shift < 28 ? (b & REST) << shift : (b & REST) * Math.pow(2, shift);
-        shift += 7;
-      } while (b >= MSB);
-      read.bytes = counter - offset;
-      return res;
-    }
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/length.js
-var require_length2 = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/length.js"(exports, module) {
-    init_define_process();
-    var N1 = Math.pow(2, 7);
-    var N2 = Math.pow(2, 14);
-    var N3 = Math.pow(2, 21);
-    var N4 = Math.pow(2, 28);
-    var N5 = Math.pow(2, 35);
-    var N6 = Math.pow(2, 42);
-    var N7 = Math.pow(2, 49);
-    var N8 = Math.pow(2, 56);
-    var N9 = Math.pow(2, 63);
-    module.exports = function(value) {
-      return value < N1 ? 1 : value < N2 ? 2 : value < N3 ? 3 : value < N4 ? 4 : value < N5 ? 5 : value < N6 ? 6 : value < N7 ? 7 : value < N8 ? 8 : value < N9 ? 9 : 10;
-    };
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/index.js
-var require_varint2 = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/varint-npm-6.0.0-a638e8f225-9.zip/node_modules/varint/index.js"(exports, module) {
-    init_define_process();
-    module.exports = {
-      encode: require_encode2(),
-      decode: require_decode2(),
-      encodingLength: require_length2()
-    };
   }
 });
 
@@ -3274,7 +3095,7 @@ var require_util3 = __commonJS({
   "../../../../../Users/z/.yarn/berry/cache/multicodec-npm-3.2.1-d41604b743-9.zip/node_modules/multicodec/src/util.js"(exports, module) {
     "use strict";
     init_define_process();
-    var varint = require_varint2();
+    var varint = require_varint();
     var { toString: uint8ArrayToString } = (init_to_string(), __toCommonJS(to_string_exports));
     var { fromString: uint8ArrayFromString } = (init_from_string(), __toCommonJS(from_string_exports));
     module.exports = {
@@ -3822,7 +3643,7 @@ var require_src5 = __commonJS({
   "../../../../../Users/z/.yarn/berry/cache/multicodec-npm-3.2.1-d41604b743-9.zip/node_modules/multicodec/src/index.js"(exports, module) {
     "use strict";
     init_define_process();
-    var varint = require_varint2();
+    var varint = require_varint();
     var { concat: uint8ArrayConcat } = (init_concat(), __toCommonJS(concat_exports));
     var util = require_util3();
     var { nameToVarint, constantToCode, nameToCode, codeToName } = require_maps();
@@ -4383,7 +4204,7 @@ var require_buffer = __commonJS({
             'The "string" argument must be of type string. Received type number'
           );
         }
-        return allocUnsafe2(arg);
+        return allocUnsafe(arg);
       }
       return from(arg, encodingOrOffset, length);
     }
@@ -4450,15 +4271,15 @@ var require_buffer = __commonJS({
     Buffer2.alloc = function(size, fill, encoding) {
       return alloc(size, fill, encoding);
     };
-    function allocUnsafe2(size) {
+    function allocUnsafe(size) {
       assertSize(size);
       return createBuffer(size < 0 ? 0 : checked(size) | 0);
     }
     Buffer2.allocUnsafe = function(size) {
-      return allocUnsafe2(size);
+      return allocUnsafe(size);
     };
     Buffer2.allocUnsafeSlow = function(size) {
-      return allocUnsafe2(size);
+      return allocUnsafe(size);
     };
     function fromString(string, encoding) {
       if (typeof encoding !== "string" || encoding === "") {
@@ -4588,7 +4409,7 @@ var require_buffer = __commonJS({
           return false;
       }
     };
-    Buffer2.concat = function concat2(list, length) {
+    Buffer2.concat = function concat(list, length) {
       if (!Array.isArray(list)) {
         throw new TypeError('"list" argument must be an Array of Buffers');
       }
@@ -4769,7 +4590,7 @@ var require_buffer = __commonJS({
       return slowToString.apply(this, arguments);
     };
     Buffer2.prototype.toLocaleString = Buffer2.prototype.toString;
-    Buffer2.prototype.equals = function equals2(b) {
+    Buffer2.prototype.equals = function equals(b) {
       if (!Buffer2.isBuffer(b))
         throw new TypeError("Argument must be a Buffer");
       if (this === b)
