@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import {createHtmlPortalNode, InPortal, OutPortal} from "react-reverse-portal";
 import { useEffect, useState } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 
 // import { useSpring, a } from '@react-spring/web'

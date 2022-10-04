@@ -3,7 +3,7 @@ import { motion as m } from "framer-motion";
 
 import React, {  Suspense, useState, FC } from "react";
 
-import { MdQrCode2 as QrCode } from "react-icons/md";
+import { QrCodeIcon } from "./icons";
 
 import { Fab } from "./mui";
 
@@ -48,9 +48,7 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
         )
         : (
           <Fab>
-            <span css={css`font-size: 20pt;`}>
-              <QrCode />
-            </span>
+            <QrCodeIcon/>
           </Fab>
         )}
     </m.div>
