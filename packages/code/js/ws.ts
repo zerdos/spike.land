@@ -174,7 +174,7 @@ export const run = async (startState: {
 
   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
-  // await join();
+  await join();
   await startIpfs();
 };
 
@@ -206,11 +206,11 @@ async function rejoin() {
   if (!rejoined || ws === null) {
     ws = null;
 
-    // const newWs = await join();
+    const newWs = await join();
 
-    // return newWs;
+    return newWs;
   }
-  // return ws;
+  return ws;
 }
 
 const ignoreUsers: string[] = [];
@@ -302,20 +302,14 @@ const startIpfs = async()=>{
   const options =defaultConf();
 
 
+const {create} = await import('ipfs');
 
-  const  ipfs = await Ipfs.create();
 
   const newOptions = {
-
+  
     ...options,
-    Addresses: {...options.Addresses, Swarm: [
-
-      '/ip4/172.16.0.2/udp/4001/quic',
-
-
-      '/ip4/172.20.10.2/udp/4001/quic',
-      '/ip6/2606:4700:110:88cb:ccbf:a5cd:58d5:a15f/tcp/4001'
-    ]},
+   
+   
     Bootstrap: [
       "/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
       "/ip4/104.131.131.82/udp/4001/quic/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
@@ -324,7 +318,6 @@ const startIpfs = async()=>{
       "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
       "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
     ],
-    repo: codeSpace,
     Swarm: {...options.Swarm,
       ...libp2pConfig()
     },
@@ -340,29 +333,39 @@ const startIpfs = async()=>{
       webRTCStar: {
         Enabled: true
       }
-    },
-    ipld: {
-      async loadCodec (codec) {
-        if (codec === multicodec.GIT_RAW) {
-          return convert(await import('ipld-git')) // This is a dynamic import
-        } else {
-          throw new Error('unable to load format ' + multicodec.print[codec])
-        }
-      }
     }
   };
-  await ipfs.config.replace(newOptions);
+
+  const  ipfs = await create({  repo: codeSpace, ...newOptions});
+  
+  // await ipfs.config.replace({ ...(await ipfs.config.getAll()), ...newOptions});
+  globalThis.newOptions = newOptions;
   globalThis.ipfs = ipfs;
 
 const topic = origin + "/live/" + codeSpace;
-const receiveMsg = (msg) => console.log(new TextDecoder().decode(msg.data))
 
-await ipfs.pubsub.subscribe(topic, receiveMsg)
+
+if (!(await ipfs.key.list()).map(x=>x.name).includes("coder")) await ipfs.key.import('coder', "mWWiB7oiZ2ke5fQsg2fN8jAC6+WHhY/dYrwuhgI0zbAzE/lbIlHdATjwtgKAfmnhgaGdLOuk5pl0A2i4eDTCtw+dASlAHN3/dXGrdDhwq+l8OouPyq3NwDlC/l8D/CdpEG/K+SWWynbFbHgo9877XuA"
+, "zolika84");
+await ipfs.swarm.connect("/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa");
+await ipfs.pubsub.subscribe(topic, (msg: {data: ArrayBuffer}) => console.log(new TextDecoder().decode(msg.data)))
 
 console.log(`subscribed to ${topic}`)
 
 globalThis.send = (data)=>ipfs.pubsub.publish(topic, new TextEncoder().encode(data))  
+globalThis.cat = async (cid)=>{
+  const stream = ipfs.cat(cid)
 
+  const decoder = new TextDecoder()
+let data = ''
+
+for await (const chunk of stream) {
+  // chunks of data are returned as a Uint8Array, convert it back to a string
+  data += decoder.decode(chunk, { stream: true })
+}
+console.log(data);
+return data;
+}
 //  const room =  new PubSubRoom(ipfs.libp2p, '12D3KooWQNWHF6o7jdEq6VQAYmE4tnYyJw7XTMHip49whBfdi7MJ')
 
 //  globalThis.room = room;
