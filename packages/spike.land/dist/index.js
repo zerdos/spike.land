@@ -4,7 +4,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) => function __require() {
+var __commonJS = (cb, mod) => function __require2() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __copyProps = (to, from, except, desc) => {
@@ -922,7 +922,8 @@ window.addEventListener('pageshow', (event) => {
 
 
 <div id="root"></div>
-
+<script src="https://unpkg.com/ipfs@0.64.2/dist/index.min.js"><\/script>
+  
 <script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
    
@@ -1048,34 +1049,18 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../code/dist/chunk-chunk-XDWI57YK.mjs
+// ../code/dist/chunk-chunk-2QDYJ352.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
-var __defProps = Object.defineProperties;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames2 = Object.getOwnPropertyNames;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf2 = Object.getPrototypeOf;
 var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a2, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp2.call(b, prop))
-      __defNormalProp(a2, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a2, prop, b[prop]);
-    }
-  return a2;
-};
-var __spreadProps = (a2, b) => __defProps(a2, __getOwnPropDescs(b));
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
 };
-var __commonJS2 = (cb, mod) => function __require() {
+var __commonJS2 = (cb, mod) => function __require2() {
   return mod || (0, cb[__getOwnPropNames2(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __copyProps2 = (to, from, except, desc) => {
@@ -1101,7 +1086,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-GS6QCLJX.mjs
+// ../code/dist/chunk-chunk-DL7IZ3HK.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6221,7 +6206,7 @@ function applyPatch(original, delta) {
   return result;
 }
 function initSession(room, u) {
-  return Record(__spreadProps(__spreadValues({}, u), { room, state: Record(u.state)() }));
+  return Record({ ...u, room, state: Record(u.state)() });
 }
 var session = null;
 var hashStore = {};
@@ -6331,9 +6316,10 @@ var CodeSession = class {
     session = this;
     this.room = room;
     const savedState = null;
-    this.session = initSession(room, __spreadProps(__spreadValues({}, user), {
+    this.session = initSession(room, {
+      ...user,
       state: savedState ? savedState : JSON.parse(str(user.state))
-    }))();
+    })();
   }
   update(patch) {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
@@ -6350,7 +6336,7 @@ var CodeSession = class {
   json() {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
-    return __spreadProps(__spreadValues({}, user), { state });
+    return { ...user, state };
   }
   setRoom(codeSpace) {
     const user = this.session.set("room", codeSpace);
@@ -6391,8 +6377,8 @@ function str(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 var applyPatch2 = async (x) => {
-  await (session == null ? void 0 : session.applyPatch(x));
-  session == null ? void 0 : session.update(x);
+  await session?.applyPatch(x);
+  session?.update(x);
 };
 var startSession = (room, u, originStr) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) });
 function createPatch(oldCode, newCode) {

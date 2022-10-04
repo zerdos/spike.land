@@ -68,22 +68,22 @@
       "imports": []
     },
     "src/index.html": {
-      "bytes": 3077,
+      "bytes": 3151,
       "imports": []
     },
     "src/iife.html": {
       "bytes": 2244,
       "imports": []
     },
-    "../code/dist/chunk-chunk-XDWI57YK.mjs": {
-      "bytes": 3818,
+    "../code/dist/chunk-chunk-2QDYJ352.mjs": {
+      "bytes": 3134,
       "imports": []
     },
-    "../code/dist/chunk-chunk-GS6QCLJX.mjs": {
-      "bytes": 167764,
+    "../code/dist/chunk-chunk-DL7IZ3HK.mjs": {
+      "bytes": 167533,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-XDWI57YK.mjs",
+          "path": "../code/dist/chunk-chunk-2QDYJ352.mjs",
           "kind": "import-statement"
         }
       ]
@@ -92,11 +92,11 @@
       "bytes": 375,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-GS6QCLJX.mjs",
+          "path": "../code/dist/chunk-chunk-DL7IZ3HK.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../code/dist/chunk-chunk-XDWI57YK.mjs",
+          "path": "../code/dist/chunk-chunk-2QDYJ352.mjs",
           "kind": "import-statement"
         }
       ]
@@ -212,7 +212,7 @@
           "bytesInOutput": 1120
         },
         "src/index.html": {
-          "bytesInOutput": 3104
+          "bytesInOutput": 3179
         },
         "src/iife.html": {
           "bytesInOutput": 2272
@@ -220,11 +220,11 @@
         "src/chatRoom.ts": {
           "bytesInOutput": 15596
         },
-        "../code/dist/chunk-chunk-XDWI57YK.mjs": {
-          "bytesInOutput": 2271
+        "../code/dist/chunk-chunk-2QDYJ352.mjs": {
+          "bytesInOutput": 1664
         },
-        "../code/dist/chunk-chunk-GS6QCLJX.mjs": {
-          "bytesInOutput": 166857
+        "../code/dist/chunk-chunk-DL7IZ3HK.mjs": {
+          "bytesInOutput": 166713
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -239,7 +239,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 261382
+      "bytes": 260707
     }
   }
 }
