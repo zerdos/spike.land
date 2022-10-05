@@ -34,7 +34,7 @@ export const Editor: React.FC<
 		myCode: code,
 		counter: i,
 		started: false,
-		prettierJs: (code: string) => code + '// ' + Math.random(),
+		prettierJs: (code: string) => code,
 		async runner(
 			{code, counter, codeSpace}: {
 				code: string;

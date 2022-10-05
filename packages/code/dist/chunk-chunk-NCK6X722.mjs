@@ -1196,9 +1196,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     myCode: code,
     counter: i,
     started: false,
-    prettierJs: (code2) => code2 + "// " + Math.random(),
+    prettierJs: (code2) => code2,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-3EV4GWKH.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-PN5WDITA.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-OJUT5PRH.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -1580,7 +1580,6 @@ var sendChannel = {
   webRtcArray,
   rtcConns,
   send(data) {
-    const target = data.target;
     const messageString = JSON.stringify({
       ...data,
       name: data.name || user
@@ -1591,7 +1590,7 @@ var sendChannel = {
         if (ch.readyState !== "open") {
           return;
         }
-        if (!target || ch.target === target && !ignoreUsers.includes(ch.target)) {
+        if (!data.target || ch.target === data.target && !ignoreUsers.includes(ch.target)) {
           ch.send(messageString);
         }
       } catch (error) {
