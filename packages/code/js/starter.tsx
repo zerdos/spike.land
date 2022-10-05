@@ -28,7 +28,6 @@ async function importShim(scr: string): Promise<any> {
 	// @ts-expect-error
 	await import('es-module-shims');
 
-	// @ts-expect-error
 	await window.importShim.addImportMap(
 		JSON.parse(
 			imap.innerText,
