@@ -28374,8 +28374,8 @@ var prettierJs = (code) => {
       plugins: [import_parser_babel.default, import_parser_html.default, import_parser_postcss.default]
     });
     return lastSuccessful = current;
-  } catch (err) {
-    console.error("prettier error"), console.error({ err });
+  } catch (error) {
+    console.error("prettier error"), console.error({ err: error });
     return lastSuccessful || code;
   }
 };

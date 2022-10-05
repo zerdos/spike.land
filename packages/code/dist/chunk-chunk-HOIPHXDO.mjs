@@ -4,6 +4,7 @@ import {
 import {
   Children,
   Component,
+  _n,
   cloneElement,
   createContext,
   forwardRef,
@@ -11,7 +12,6 @@ import {
   init_react_preact,
   isValidElement,
   p,
-  react_preact_default,
   useCallback,
   useContext,
   useEffect,
@@ -21,7 +21,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-G5TGW3ON.mjs";
+} from "./chunk-chunk-QVJ2UJAV.mjs";
 import {
   define_process_default,
   init_define_process
@@ -326,7 +326,7 @@ var LayoutGroupContext = createContext({});
 // ../../.yarn/__virtual__/framer-motion-virtual-4b0f84ad70/4/Users/z/.yarn/berry/cache/framer-motion-npm-7.5.2-c3ba13b2c0-9.zip/node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.mjs
 init_define_process();
 init_react_preact();
-var VisualElementHandler = class extends react_preact_default.Component {
+var VisualElementHandler = class extends _n.Component {
   getSnapshotBeforeUpdate() {
     const { visualElement: visualElement2, props } = this.props;
     if (visualElement2)
@@ -5140,7 +5140,7 @@ var correctBoxShadow = {
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-4b0f84ad70/4/Users/z/.yarn/berry/cache/framer-motion-npm-7.5.2-c3ba13b2c0-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
-var MeasureLayoutWithContext = class extends react_preact_default.Component {
+var MeasureLayoutWithContext = class extends _n.Component {
   componentDidMount() {
     const { visualElement: visualElement2, layoutGroup, switchLayoutGroup, layoutId } = this.props;
     const { projection } = visualElement2;
@@ -5218,7 +5218,7 @@ var MeasureLayoutWithContext = class extends react_preact_default.Component {
 function MeasureLayout(props) {
   const [isPresent, safeToRemove] = usePresence();
   const layoutGroup = useContext(LayoutGroupContext);
-  return react_preact_default.createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: useContext(SwitchLayoutGroupContext), isPresent, safeToRemove });
+  return _n.createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: useContext(SwitchLayoutGroupContext), isPresent, safeToRemove });
 }
 var defaultScaleCorrectors = {
   borderRadius: {

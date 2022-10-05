@@ -1,4 +1,4 @@
-// require("../../ipfs-core/dist/index.min.js");
+// Require("../../ipfs-core/dist/index.min.js");
 // import { IPFSService, Server } from "ipfs-message-port-server";
 
 // import defaultConfig from "../../ipfs-core-config/src/config.browser.js";

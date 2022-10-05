@@ -3559,6 +3559,7 @@ __metadata:
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
+    "@types/xo": "npm:^0.39.3"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.22"
     ace-builds: "npm:1.11.2"
     csstype: "npm:^3.1.1"
@@ -3586,6 +3587,7 @@ __metadata:
     tslib: "npm:^2.4.0"
     typescript: "npm:^4.8.4"
     uvu: "npm:0.5.6"
+    xo: "npm:^0.52.4"
   languageName: unknown
   linkType: soft
 

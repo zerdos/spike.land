@@ -1,1 +1,1 @@
-export { prettierJs } from "./prettierEsm";
+export {prettierJs} from './prettierEsm';

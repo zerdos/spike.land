@@ -1,3 +1,3 @@
-import { run } from "./ws";
+import {run} from './ws';
 
 run();

@@ -1,16 +1,16 @@
 import {
   saveCode
-} from "./chunk-chunk-6MMCNYNH.mjs";
+} from "./chunk-chunk-VQLJFYDV.mjs";
 import {
   mST,
   patchSync
-} from "./chunk-chunk-BHWUYVJN.mjs";
-import "./chunk-chunk-SM5FIFJE.mjs";
+} from "./chunk-chunk-572ETWXX.mjs";
+import "./chunk-chunk-HOIPHXDO.mjs";
 import "./chunk-chunk-ADLHIUHO.mjs";
-import "./chunk-chunk-QT5OO765.mjs";
-import "./chunk-chunk-KW32RCL3.mjs";
-import "./chunk-chunk-N7UTXNMW.mjs";
-import "./chunk-chunk-G5TGW3ON.mjs";
+import "./chunk-chunk-3K5FGABK.mjs";
+import "./chunk-chunk-C2ZKYUOB.mjs";
+import "./chunk-chunk-3MVZU2TF.mjs";
+import "./chunk-chunk-QVJ2UJAV.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";
@@ -2436,24 +2436,29 @@ var esbuild = {
 };
 var init = async () => {
   try {
-    if (initFinished === true)
+    if (initFinished === true) {
       return esbuild;
+    }
     const wasmURL = (await import("./chunk-esbuild-JEQRQQ7K.mjs")).default;
     initFinished = initFinished || new Promise((resolve) => {
       (0, import_esbuild_wasm.initialize)(
         {
           wasmURL: new URL(wasmURL, location.origin).toString()
         }
-      ).then(() => resolve(true));
+      ).then(() => {
+        resolve(true);
+      });
     });
-    if (await initFinished === true)
+    if (await initFinished) {
       return esbuild;
+    }
     throw new Error("esbuild couldn't initialize");
   } catch {
     throw new Error("esbuild couldn't initialize");
   } finally {
-    if (await initFinished === true)
+    if (await initFinished) {
       return esbuild;
+    }
     throw new Error("esbuild couldn't initialize");
   }
 };
@@ -2473,11 +2478,11 @@ async function runner({ code, counter }) {
       format: "esm",
       treeShaking: true,
       tsconfigRaw: {
-        "compilerOptions": {
-          "jsx": "react-jsx",
-          "module": "ESNext",
-          "jsxFragmentFactory": "Fragment",
-          "jsxImportSource": "@emotion/react"
+        compilerOptions: {
+          jsx: "react-jsx",
+          module: "ESNext",
+          jsxFragmentFactory: "Fragment",
+          jsxImportSource: "@emotion/react"
         }
       },
       target: "es2015"

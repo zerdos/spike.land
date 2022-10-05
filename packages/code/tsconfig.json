@@ -68,5 +68,5 @@
     "baseUrl": "js"
   },
   "include": ["js", "package.json", "esbuild-dev.mjs"],
-  "exclude": [".yarn","js/monaco-workers/", "dist"]
+  "exclude": [".yarn", "js/monaco-workers/", "dist"]
 }

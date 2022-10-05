@@ -1,331 +1,340 @@
-import { Record } from "immutable";
+import {Record} from 'immutable';
 
-import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
+import type {Delta} from './textDiff';
+import {applyPatch as aPatch, createDelta} from './textDiff';
 // Import * as Immutable from "immutable"
 
-export type { Delta };
 type IUsername = string;
 
-export interface ICodeSession {
-  code: string;
-  i: number;
-  transpiled: string;
-  html: string;
-  css: string;
-}
+export type ICodeSession = {
+	code: string;
+	i: number;
+	transpiled: string;
+	html: string;
+	css: string;
+};
 
-export interface INewWSConnection {
-  uuid: string;
-  timestamp: number;
-  hashCode: number;
-  type: "new-ws-connection";
-}
+export type INewWSConnection = {
+	uuid: string;
+	timestamp: number;
+	hashCode: number;
+	type: 'new-ws-connection';
+};
 
-interface ICodeInitEvent extends ICodeSession {
-  name: IUsername;
-  uuid: string;
-  type: "code-init";
-  hashOfCode: string;
-}
+type ICodeInitEvent = {
+	name: IUsername;
+	uuid: string;
+	type: 'code-init';
+	hashOfCode: string;
+} & ICodeSession;
 
-interface OtherEvent {
-  name: IUsername;
-  uuid: string;
-  target: IUsername | "broadcast";
-  type: "start" | "open" | "quit" | "get-cid" | "provide-cid" | "new-ws";
-  timestamp: number;
-}
+type OtherEvent = {
+	name: IUsername;
+	uuid: string;
+	target: IUsername | 'broadcast';
+	type: 'start' | 'open' | 'quit' | 'get-cid' | 'provide-cid' | 'new-ws';
+	timestamp: number;
+};
 
 export type IEvent =
   | INewWSConnection
   | OtherEvent
   | ICodeInitEvent;
 
-export interface IUserJSON {
-  name: IUsername;
-  state: ICodeSession;
-}
+export type IUserJSON = {
+	name: IUsername;
+	state: ICodeSession;
+};
 
 export type IUser = Record<
-  IUserJSON & {
-    room: string;
-    state: Record<ICodeSession>;
-  }
+IUserJSON & {
+	room: string;
+	state: Record<ICodeSession>;
+}
 >;
 
 export function initSession(room: string, u: IUserJSON) {
-  return Record({ ...u, room, state: Record(u.state)() });
+	return Record({...u, room, state: Record(u.state)()});
 }
 
-type CodePatch = { oldHash: number; newHash: number; patch: Delta[] };
+type CodePatch = {oldHash: number; newHash: number; patch: Delta[]};
 type IApplyPatch = (
-  prop: CodePatch,
+	prop: CodePatch,
 ) => Promise<void>;
 
-interface ICodeSess {
-  hashOfState: () => number;
-  applyPatch: IApplyPatch;
-  createPatchFromHashCode: (
-    c: number,
-    st: ICodeSession,
-    updateHash?: (h: string) => void,
-  ) => Promise<CodePatch>;
-  json: () => IUserJSON;
-}
+type ICodeSess = {
+	hashOfState: () => number;
+	applyPatch: IApplyPatch;
+	createPatchFromHashCode: (
+		c: number,
+		st: ICodeSession,
+		updateHash?: (h: string) => void,
+	) => Promise<CodePatch>;
+	json: () => IUserJSON;
+};
 
-let session: CodeSession | null = null;
+let session: CodeSession | undefined = null;
 
-const hashStore: { [key: number]: Record<ICodeSession> } = {};
+const hashStore: Record<number, Record<ICodeSession>> = {};
 export class CodeSession implements ICodeSess {
-  session: IUser;
-  update(patch: CodePatch) {
-    Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
-      try {
-        x(true, patch);
-      } catch (err) {
-        console.error("error calling callback", { err });
-      }
-    });
-  }
-  cb: { [key: string]: (_force: boolean, patch: CodePatch) => void } = {};
-  onUpdate(fn: (force: boolean, patch: CodePatch) => void, regId: string) {
-    this.cb[regId] = fn;
-  }
-  hashCodeSession: number = 0;
-  room: string;
-  created: string = new Date().toISOString();
-  constructor(room: string, user: IUserJSON) {
-    session = this;
-    this.room = room;
-    const savedState: ICodeSession | null = null;
+	session: IUser;
+	update(patch: CodePatch) {
+		Object.keys(this.cb).map(k => this.cb[k]).map(x => {
+			try {
+				x(true, patch);
+			} catch (error) {
+				console.error('error calling callback', {err: error});
+			}
+		});
+	}
 
-    // If (user.state.code === "" && room) {
-    // const cacheKey = `state-${room}`;
+	cb: Record<string, (_force: boolean, patch: CodePatch) => void> = {};
+	onUpdate(fn: (force: boolean, patch: CodePatch) => void, regId: string) {
+		this.cb[regId] = fn;
+	}
 
-    // if (storageAvailable("localStorage")) {
-    //   const savedStateStr = localStorage.getItem(cacheKey);
-    //   if (savedStateStr) {
-    //     savedState = JSON.parse(savedStateStr);
-    //   } else {
-    //     fetch(`/live/${room}/mySession`).then(
-    //       (resp) => resp.json(),
-    //     ).then((session: IUserJSON) => {
-    //       localStorage.setItem(cacheKey, JSON.stringify(session.state));
-    //       this.session.set("state", Record(session.state)());
-    //     });
-    //   }
-    // }
-    // }
+	hashCodeSession = 0;
+	room: string;
+	created: string = new Date().toISOString();
+	constructor(room: string, user: IUserJSON) {
+		session = this;
+		this.room = room;
+		const savedState: ICodeSession | undefined = null;
 
-    this.session = initSession(room, {
-      ...user,
-      state: savedState ? savedState : JSON.parse(str(user.state)),
-    })();
-  }
+		// If (user.state.code === "" && room) {
+		// const cacheKey = `state-${room}`;
 
-  hashOfState = () => {
-    const state = this.session.get("state");
-    const hashCode = state.hashCode();
-    hashStore[hashCode] = state;
-    return hashCode;
-  };
+		// if (storageAvailable("localStorage")) {
+		//   const savedStateStr = localStorage.getItem(cacheKey);
+		//   if (savedStateStr) {
+		//     savedState = JSON.parse(savedStateStr);
+		//   } else {
+		//     fetch(`/live/${room}/mySession`).then(
+		//       (resp) => resp.json(),
+		//     ).then((session: IUserJSON) => {
+		//       localStorage.setItem(cacheKey, JSON.stringify(session.state));
+		//       this.session.set("state", Record(session.state)());
+		//     });
+		//   }
+		// }
+		// }
 
-  createPatchFromHashCode = async (
-    oldHash: number,
-    state: ICodeSession,
-    updateHash?: (h: string) => void,
-  ) => {
-    const s = JSON.parse(str(state));
+		this.session = initSession(room, {
+			...user,
+			state: savedState ? savedState : JSON.parse(string_(user.state)),
+		})();
+	}
 
-    let oldRec = hashStore[oldHash];
-    let usedOldHash = oldHash;
+	hashOfState = () => {
+		const state = this.session.get('state');
+		const hashCode = state.hashCode();
+		hashStore[hashCode] = state;
+		return hashCode;
+	};
 
-    if (!oldRec) {
-      const resp = await fetch(
-        `/live/${this.room}/mST`,
-      );
-      if (!resp.ok) {
-        console.error(location.origin + " is NOT OK", await resp.text());
-        throw new Error(location.origin + " is NOT OK");
-      }
+	createPatchFromHashCode = async (
+		oldHash: number,
+		state: ICodeSession,
+		updateHash?: (h: string) => void,
+	) => {
+		const s = JSON.parse(string_(state));
 
-      const { mST, hashCode } = await resp.json() ;
-      if (updateHash) updateHash(hashCode);
-      hashStore[hashCode] = this.session.get("state").merge(mST);
+		let oldRec = hashStore[oldHash];
+		let usedOldHash = oldHash;
 
-      usedOldHash = hashCode;
-      oldRec = hashStore[hashCode];
-    }
+		if (!oldRec) {
+			const resp = await fetch(
+				`/live/${this.room}/mST`,
+			);
+			if (!resp.ok) {
+				console.error(location.origin + ' is NOT OK', await resp.text());
+				throw new Error(location.origin + ' is NOT OK');
+			}
 
-    const oldStr = str(oldRec.toJSON());
+			const {mST, hashCode} = await resp.json();
+			if (updateHash) {
+				updateHash(hashCode);
+			}
 
-    const newRec = oldRec.merge(s);
-    const newStr = str(newRec.toJSON());
-    const newHash = newRec.hashCode();
-    hashStore[newHash] = newRec;
+			hashStore[hashCode] = this.session.get('state').merge(mST);
 
-    const patch = createPatch(oldStr, newStr);
-    return {
-      oldHash: usedOldHash,
-      newHash,
-      patch,
-    };
-  };
+			usedOldHash = hashCode;
+			oldRec = hashStore[hashCode];
+		}
 
-  patchSync = (sess: ICodeSession) => {
-    const oldHash = this.session.hashCode();
-    this.session = this.session.set(
-      "state",
-      this.session.get("state").merge(sess),
-    );
-    const newHash = this.session.hashCode();
-    if (newHash !== oldHash) {
-      console.log({ sess });
-      (self["requestAnimationFrame"] || setTimeout)(() => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x)));
-    }
-  };
+		const oldString = string_(oldRec.toJSON());
 
-  applyPatch = async ({
-    oldHash,
-    newHash,
-    patch,
-  }: CodePatch) => {
-    const codeSpace = this.room || "";
+		const newRec = oldRec.merge(s);
+		const newString = string_(newRec.toJSON());
+		const newHash = newRec.hashCode();
+		hashStore[newHash] = newRec;
 
-    if (
-      !(Object.keys(hashStore).map((x) => Number(x)).includes(
-        Number(oldHash),
-      )) &&
-      codeSpace
-    ) {
-      console.log(Object.keys(hashStore));
-      const resp = await fetch(
-        `/live/${codeSpace}/mST`,
-      );
-      if (resp.ok) {
-        const s: { hashCode: string; mST: ICodeSession } = await resp.json();
+		const patch = createPatch(oldString, newString);
+		return {
+			oldHash: usedOldHash,
+			newHash,
+			patch,
+		};
+	};
 
-        // hashStore[Number(s.hashCode)] =
+	patchSync = (sess: ICodeSession) => {
+		const oldHash = this.session.hashCode();
+		this.session = this.session.set(
+			'state',
+			this.session.get('state').merge(sess),
+		);
+		const newHash = this.session.hashCode();
+		if (newHash !== oldHash) {
+			console.log({sess});
+			(self.requestAnimationFrame || setTimeout)(async () =>
+				this.createPatchFromHashCode(oldHash, mST()).then(x => {
+					this.update(x);
+				}),
+			);
+		}
+	};
 
-        const serverRecord = this.session.get("state").merge(
-          JSON.parse(str(s.mST)),
-        );
-        hashStore[serverRecord.hashCode()] = serverRecord;
-      } else {
-        const { mST } = await import(
-        `/live/${this.room}/mst.mjs?${Date.now()}`
-        );
-        const latestRec = this.session.get("state").merge(
-          JSON.parse(str(mST)),
-        );
-        hashStore[latestRec.hashCode()] = latestRec;
-      }
-    }
+	applyPatch = async ({
+		oldHash,
+		newHash,
+		patch,
+	}: CodePatch) => {
+		const codeSpace = this.room || '';
 
-    const oldStr = str(hashStore[oldHash].toJSON());
-    const applied = aPatch(oldStr, patch);
-    const newState = JSON.parse(applied);
-    const newRec: Record<ICodeSession> = this.session.get("state").merge(
-      newState,
-    );
+		if (
+			!(Object.keys(hashStore).map(Number).includes(
+				Number(oldHash),
+			))
+      && codeSpace
+		) {
+			console.log(Object.keys(hashStore));
+			const resp = await fetch(
+				`/live/${codeSpace}/mST`,
+			);
+			if (resp.ok) {
+				const s: {hashCode: string; mST: ICodeSession} = await resp.json();
 
-    const newRecord = this.session.get("state").merge(newRec);
+				// HashStore[Number(s.hashCode)] =
 
-    const newHashCheck = newRecord.hashCode();
+				const serverRecord = this.session.get('state').merge(
+					JSON.parse(string_(s.mST)),
+				);
+				hashStore[serverRecord.hashCode()] = serverRecord;
+			} else {
+				const {mST} = await import(
+					`/live/${this.room}/mst.mjs?${Date.now()}`
+				);
+				const latestRec = this.session.get('state').merge(
+					JSON.parse(string_(mST)),
+				);
+				hashStore[latestRec.hashCode()] = latestRec;
+			}
+		}
 
-    if (newHashCheck === newHash) {
-      this.session = this.session.set("state", newRecord);
-      //  Console.error("WRONG update");
-    } else {
-      new Error("Wrong patch");
-      return;
-    }
-  };
+		const oldString = string_(hashStore[oldHash].toJSON());
+		const applied = aPatch(oldString, patch);
+		const newState = JSON.parse(applied);
+		const newRec: Record<ICodeSession> = this.session.get('state').merge(
+			newState,
+		);
 
-  json() {
-    const user = this.session.toJSON();
-    const state = user.state.toJSON();
-    return { ...user, state };
-  }
+		const newRecord = this.session.get('state').merge(newRec);
 
-  setRoom(codeSpace: string) {
-    const user = this.session.set("room", codeSpace);
-    this.session = user;
-  }
+		const newHashCheck = newRecord.hashCode();
+
+		if (newHashCheck === newHash) {
+			this.session = this.session.set('state', newRecord);
+			//  Console.error("WRONG update");
+		} else {
+			new Error('Wrong patch');
+		}
+	};
+
+	json() {
+		const user = this.session.toJSON();
+		const state = user.state.toJSON();
+		return {...user, state};
+	}
+
+	setRoom(codeSpace: string) {
+		const user = this.session.set('room', codeSpace);
+		this.session = user;
+	}
 }
 
-export const hashCode = () => {
- return session ? session.hashOfState() : 0
-};
+export const hashCode = () => session ? session.hashOfState() : 0;
 
+export function mST() {
+	if (!session) {
+		return {
+			i: 0,
+			transpiled: '',
+			code: '',
+			html: '',
+			css: '',
+		};
+	}
 
-export function mST(){
-  if (!session) {
-    return {
-      i: 0,
-      transpiled: "",
-      code: "",
-      html: "",
-      css: "",
-    };
-  }
+	// If (originStr) return addOrigin(session.json().state, originStr);
 
-  // if (originStr) return addOrigin(session.json().state, originStr);
-
-  const { i, transpiled, code, html, css } = session.session.toJSON().state;
-return { i, transpiled, code, html, css };
-};
-
-function addOrigin(s: ICodeSession, originStr: string) {
-  const { i, transpiled, code, html, css } = s;
-
-  const mst = { i, transpiled, code, html, css };
-
-  mst.code = mst.code.replace(`from '/live`, `from '${originStr}/live`);
-  mst.code = mst.code.replace(`from './`, `from '${originStr}/live/`);
-
-  mst.transpiled = mst.transpiled.replace(
-    `from "/live`,
-    `from "${originStr}/live`,
-  );
-
-  mst.transpiled = mst.transpiled.replace(
-    `from "./`,
-    `from "${originStr}/live/`,
-  );
-  return mst;
-}
-function str(s: ICodeSession) {
-  const { i, transpiled, code, html, css } = s;
-  return JSON.stringify({ i, transpiled, code, html, css });
+	const {i, transpiled, code, html, css} = session.session.toJSON().state;
+	return {i, transpiled, code, html, css};
 }
 
-export const applyPatch: IApplyPatch = async (x) => {
-  await session?.applyPatch(x);
-  session?.update(x);
+function addOrigin(s: ICodeSession, originString: string) {
+	const {i, transpiled, code, html, css} = s;
+
+	const mst = {i, transpiled, code, html, css};
+
+	mst.code = mst.code.replace('from \'/live', `from '${originString}/live`);
+	mst.code = mst.code.replace('from \'./', `from '${originString}/live/`);
+
+	mst.transpiled = mst.transpiled.replace(
+		'from "/live',
+		`from "${originString}/live`,
+	);
+
+	mst.transpiled = mst.transpiled.replace(
+		'from "./',
+		`from "${originString}/live/`,
+	);
+	return mst;
+}
+
+function string_(s: ICodeSession) {
+	const {i, transpiled, code, html, css} = s;
+	return JSON.stringify({i, transpiled, code, html, css});
+}
+
+export const applyPatch: IApplyPatch = async x => {
+	await session?.applyPatch(x);
+	session?.update(x);
 };
+
 export const onSessionUpdate = (
-  fn: (_force: boolean, messageData: object) => void,
-  regId = "default",
+	fn: (_force: boolean, messageData: Record<string, unknown>) => void,
+	regId = 'default',
 ) => session?.onUpdate(fn, regId);
-export const makePatchFrom = (
-  n: number,
-  st: ICodeSession,
-  update?: (h: string) => void,
-) => (session as CodeSession).createPatchFromHashCode(n, st, update);
-export const makePatch = (st: ICodeSession, update?: (h: string) => void) =>
-  makePatchFrom(hashCode(), st, update);
+export const makePatchFrom = async (
+	n: number,
+	st: ICodeSession,
+	update?: (h: string) => void,
+) => (session!).createPatchFromHashCode(n, st, update);
+export const makePatch = async (st: ICodeSession, update?: (h: string) => void) =>
+	makePatchFrom(hashCode(), st, update);
 
 export const startSession = (
-  room: string,
-  u: IUserJSON,
-  originStr: string,
+	room: string,
+	u: IUserJSON,
+	originString: string,
 ): CodeSession =>
-  session ||
-  new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) });
+	session
+  || new CodeSession(room, {name: u.name, state: addOrigin(u.state, originString)});
 
 function createPatch(oldCode: string, newCode: string) {
-  return createDelta(oldCode, newCode);
+	return createDelta(oldCode, newCode);
 }
 
 export const patchSync = (sess: ICodeSession) => session?.patchSync(sess);
+
+export {type Delta} from './textDiff';

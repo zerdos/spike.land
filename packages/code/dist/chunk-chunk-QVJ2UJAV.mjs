@@ -1156,7 +1156,7 @@ __export(react_preact_exports, {
   createPortal: () => $2,
   createRef: () => createRef,
   createRoot: () => createRoot,
-  default: () => react_preact_default,
+  default: () => _n,
   findDOMNode: () => fn,
   flushSync: () => sn,
   forwardRef: () => forwardRef,
@@ -1205,10 +1205,11 @@ function hydrateRoot(container, children) {
   hydrate(children, container);
   return createRoot(container);
 }
-var render, hydrate, unmountComponentAtNode, React, createContext, react_preact_default, cloneElement, createFactory, useInsertionEffect, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
+var render, hydrate, unmountComponentAtNode, React, createContext, cloneElement, createFactory, useInsertionEffect, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, useId, forwardRef, memo, Children, PureComponent, Component, version;
 var init_react_preact = __esm({
   "js/react-preact.ts"() {
     init_define_process();
+    init_compat_module();
     init_compat_module();
     init_preact_jsx_runtime();
     init_preact_module();
@@ -1217,7 +1218,6 @@ var init_react_preact = __esm({
     ({ render, hydrate, unmountComponentAtNode } = _n);
     React = window.React = window.React || { ..._n };
     ({ createContext } = React);
-    react_preact_default = _n;
     ({
       cloneElement,
       createFactory,
@@ -1262,6 +1262,7 @@ export {
   dn,
   pn,
   yn,
+  _n,
   o3 as o,
   x4 as x,
   S2 as S,
@@ -1271,7 +1272,6 @@ export {
   createRoot,
   hydrateRoot,
   createContext,
-  react_preact_default,
   cloneElement,
   createFactory,
   useInsertionEffect,

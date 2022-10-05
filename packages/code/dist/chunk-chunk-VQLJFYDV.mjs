@@ -7,25 +7,26 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-BHWUYVJN.mjs";
+} from "./chunk-chunk-572ETWXX.mjs";
 import {
   LazyMotion,
   domAnimation,
   domMax,
   m,
   motion
-} from "./chunk-chunk-SM5FIFJE.mjs";
+} from "./chunk-chunk-HOIPHXDO.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-QT5OO765.mjs";
+} from "./chunk-chunk-3K5FGABK.mjs";
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-KW32RCL3.mjs";
+} from "./chunk-chunk-C2ZKYUOB.mjs";
 import {
   $,
   Children,
   PureComponent,
   Suspense,
+  _n,
   cloneElement,
   createRef,
   createRoot,
@@ -34,12 +35,11 @@ import {
   isValidElement,
   lazy,
   p,
-  react_preact_default,
   useEffect,
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-G5TGW3ON.mjs";
+} from "./chunk-chunk-QVJ2UJAV.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";
@@ -184,6 +184,7 @@ var require_lodash = __commonJS({
 
 // js/ws.ts
 init_define_process();
+var import_lodash = __toESM(require_lodash(), 1);
 
 // js/renderPreviewWindow.tsx
 init_define_process();
@@ -358,17 +359,18 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-init_react_preact();
+var import_react15 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/starter.tsx
 init_define_process();
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
+init_react_preact();
 
 // js/ErrorBoundary.tsx
 init_define_process();
 init_react_preact();
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var ErrorBoundary = class extends react_preact_default.Component {
+var ErrorBoundary = class extends _n.Component {
   constructor(props) {
     super(props);
     this.state = { error: void 0, errorInfo: void 0 };
@@ -405,17 +407,18 @@ var ErrorBoundary_default = ErrorBoundary;
 // js/md5.js
 init_define_process();
 function md5(inputString) {
-  var hc = "0123456789abcdef";
+  const hc = "0123456789abcdef";
   function rh(n) {
-    var j, s = "";
+    let j;
+    let s = "";
     for (j = 0; j <= 3; j++) {
       s += hc.charAt(n >> j * 8 + 4 & 15) + hc.charAt(n >> j * 8 & 15);
     }
     return s;
   }
   function ad(x2, y) {
-    var l = (x2 & 65535) + (y & 65535);
-    var m2 = (x2 >> 16) + (y >> 16) + (l >> 16);
+    const l = (x2 & 65535) + (y & 65535);
+    const m2 = (x2 >> 16) + (y >> 16) + (l >> 16);
     return m2 << 16 | l & 65535;
   }
   function rl(n, c2) {
@@ -437,11 +440,12 @@ function md5(inputString) {
     return cm(c2 ^ (b2 | ~d2), a2, b2, x2, s, t);
   }
   function sb(x2) {
-    var i2;
-    var nblk = (x2.length + 8 >> 6) + 1;
-    var blks = new Array(nblk * 16);
-    for (i2 = 0; i2 < nblk * 16; i2++)
+    let i2;
+    const nblk = (x2.length + 8 >> 6) + 1;
+    const blks = Array.from({ length: nblk * 16 });
+    for (i2 = 0; i2 < nblk * 16; i2++) {
       blks[i2] = 0;
+    }
     for (i2 = 0; i2 < x2.length; i2++) {
       blks[i2 >> 2] |= x2.charCodeAt(i2) << i2 % 4 * 8;
     }
@@ -449,7 +453,16 @@ function md5(inputString) {
     blks[nblk * 16 - 2] = x2.length * 8;
     return blks;
   }
-  var i, x = sb(inputString), a = 1732584193, b = -271733879, c = -1732584194, d = 271733878, olda, oldb, oldc, oldd;
+  let i;
+  const x = sb(inputString);
+  let a = 1732584193;
+  let b = -271733879;
+  let c = -1732584194;
+  let d = 271733878;
+  let olda;
+  let oldb;
+  let oldc;
+  let oldd;
   for (i = 0; i < x.length; i += 16) {
     olda = a;
     oldb = b;
@@ -527,16 +540,13 @@ function md5(inputString) {
   return rh(a) + rh(b) + rh(c) + rh(d);
 }
 
-// js/starter.tsx
-init_react_preact();
-init_react_preact();
-
 // js/renderToString.tsx
 init_define_process();
 var renderFromString = (codeSpace2, hash) => {
   const md5hash = md5(mST().transpiled).slice(0, 8);
-  if (hash !== hashCode())
+  if (hash !== hashCode()) {
     return { html: null, css: null };
+  }
   mST().transpiled;
   const html = document.getElementById(`${codeSpace2}-${md5hash}`)?.innerHTML;
   const css7 = html ? extractCritical22(html) : "";
@@ -548,12 +558,12 @@ var renderFromString = (codeSpace2, hash) => {
 var extractCritical22 = (html) => {
   try {
     const rules = {};
-    for (let i in document.styleSheets) {
+    for (const i in document.styleSheets) {
       let yesFromNow = false;
       const styleSheet = document.styleSheets[i];
       if (styleSheet?.cssRules) {
-        Array.from(styleSheet.cssRules).forEach((rule) => {
-          if (yesFromNow || rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
+        for (const rule of Array.from(styleSheet.cssRules)) {
+          if (yesFromNow || rule && rule.cssText && rule.cssText.startsWith(".css-")) {
             const selector = rule.cssText.slice(1, 9);
             const selectorText = selector;
             if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".css-")) {
@@ -561,7 +571,7 @@ var extractCritical22 = (html) => {
               rules[selectorText] = rule.cssText;
             }
           }
-        });
+        }
       }
     }
     return Object.keys(rules).map((r) => rules[r]).join(" ");
@@ -575,12 +585,12 @@ var extractCritical22 = (html) => {
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 async function importShim(scr) {
   if (!document.scripts) {
-    throw Error("document.scripts");
+    throw new Error("document.scripts");
   }
   const scripts = Array.from(document.scripts);
   const imap = scripts.find((s) => s.type === "importmap");
   if (!imap) {
-    throw Error("no imap");
+    throw new Error("no imap");
   }
   await import("./chunk-es-module-shims-V26B5OGY.mjs");
   await window.importShim.addImportMap(
@@ -616,15 +626,15 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   });
 };
 async function appFactory(transpiled = "") {
-  const trp = transpiled.length ? transpiled : mST().transpiled;
+  const trp = transpiled.length > 0 ? transpiled : mST().transpiled;
   const hash = md5(trp);
   if (!apps[hash]) {
     try {
       apps[hash] = (await importShim(createJsBlob(trp))).default;
-    } catch (err) {
-      if (err instanceof SyntaxError) {
-        const name = err.name;
-        const message = err.message;
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        const name = error.name;
+        const message = error.message;
         apps[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
           css: import_react2.css`
         background-color: orange;
@@ -641,13 +651,13 @@ async function appFactory(transpiled = "") {
               ]
             }),
             (0, import_jsx_runtime2.jsx)("p", {
-              children: JSON.stringify({ err })
+              children: JSON.stringify({ err: error })
             })
           ]
         });
-      } else if (err instanceof Error) {
-        const name = err.name;
-        const message = err.message;
+      } else if (error instanceof Error) {
+        const name = error.name;
+        const message = error.message;
         apps[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
           css: import_react2.css`
         background-color: orange;
@@ -664,7 +674,7 @@ async function appFactory(transpiled = "") {
               ]
             }),
             (0, import_jsx_runtime2.jsx)("p", {
-              children: JSON.stringify({ err })
+              children: JSON.stringify({ err: error })
             })
           ]
         });
@@ -693,22 +703,10 @@ function createJsBlob(code) {
   return blobUrl;
 }
 
-// js/renderPreviewWindow.tsx
-var import_react17 = __toESM(require_emotion_react_cjs(), 1);
-
 // js/DraggableWindow.tsx
 init_define_process();
-var import_react11 = __toESM(require_emotion_react_cjs(), 1);
+var import_react10 = __toESM(require_emotion_react_cjs(), 1);
 init_react_preact();
-
-// js/Qr.tsx
-init_define_process();
-var import_react9 = __toESM(require_emotion_react_cjs(), 1);
-init_react_preact();
-
-// js/icons.tsx
-init_define_process();
-var import_react7 = __toESM(require_emotion_react_cjs(), 1);
 
 // ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/md/index.esm.js
 init_define_process();
@@ -733,7 +731,7 @@ var DefaultContext = {
   style: void 0,
   attr: void 0
 };
-var IconContext = react_preact_default.createContext && react_preact_default.createContext(DefaultContext);
+var IconContext = _n.createContext && _n.createContext(DefaultContext);
 
 // ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/lib/esm/iconBase.js
 var __assign = function() {
@@ -762,14 +760,14 @@ var __rest = function(s, e) {
 };
 function Tree2Element(tree) {
   return tree && tree.map(function(node, i) {
-    return react_preact_default.createElement(node.tag, __assign({
+    return _n.createElement(node.tag, __assign({
       key: i
     }, node.attr), Tree2Element(node.child));
   });
 }
 function GenIcon(data) {
   return function(props) {
-    return react_preact_default.createElement(IconBase, __assign({
+    return _n.createElement(IconBase, __assign({
       attr: __assign({}, data.attr)
     }, props), Tree2Element(data.child));
   };
@@ -783,7 +781,7 @@ function IconBase(props) {
       className = conf.className;
     if (props.className)
       className = (className ? className + " " : "") + props.className;
-    return react_preact_default.createElement("svg", __assign({
+    return _n.createElement("svg", __assign({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
@@ -795,9 +793,9 @@ function IconBase(props) {
       height: computedSize,
       width: computedSize,
       xmlns: "http://www.w3.org/2000/svg"
-    }), title && react_preact_default.createElement("title", null, title), props.children);
+    }), title && _n.createElement("title", null, title), props.children);
   };
-  return IconContext !== void 0 ? react_preact_default.createElement(IconContext.Consumer, null, function(conf) {
+  return IconContext !== void 0 ? _n.createElement(IconContext.Consumer, null, function(conf) {
     return elem(conf);
   }) : elem(DefaultContext);
 }
@@ -822,10 +820,17 @@ function MdShare(props) {
   return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" } }] })(props);
 }
 
+// js/Qr.tsx
+init_define_process();
+var import_react8 = __toESM(require_emotion_react_cjs(), 1);
+init_react_preact();
+
 // js/icons.tsx
+init_define_process();
+var import_react6 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var Wrap = ({ children }) => (0, import_jsx_runtime3.jsx)("span", {
-  css: import_react7.css`
+  css: import_react6.css`
 font-size:20pt;
 `,
   children
@@ -850,20 +855,20 @@ var Tv = () => (0, import_jsx_runtime3.jsx)(Wrap, {
 init_define_process();
 init_react_preact();
 var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FabLazy = lazy(() => import("./chunk-Fab-6LOQPQGL.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-RF5DJ72S.mjs"));
 var Fab = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(FabLazy, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(() => import("./chunk-ToggleButton-BDLTY77U.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-RY4DYHAG.mjs"));
 var ToggleButton = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(ToggleButtonLazy, {
     ...props
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  () => import("./chunk-ToggleButtonGroup-HODVDA56.mjs")
+  async () => import("./chunk-ToggleButtonGroup-6X77VE35.mjs")
 );
 var ToggleButtonGroup = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(ToggleButtonGroupLazy, {
@@ -876,8 +881,8 @@ var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var QR = ({ url }) => (0, import_jsx_runtime5.jsx)(QRious, {
   value: url
 });
-var QRiousLazy = react_preact_default.lazy(
-  () => import("./chunk-lib-CRCT2BDC.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
+var QRiousLazy = _n.lazy(
+  async () => import("./chunk-lib-3NBL6X55.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
 );
 var QRious = ({ value }) => (0, import_jsx_runtime5.jsx)(Suspense, {
   fallback: (0, import_jsx_runtime5.jsx)("p", {
@@ -897,7 +902,7 @@ var QRButton = ({ url }) => {
     onClick: () => {
       setQR(!showQR);
     },
-    css: import_react9.css`
+    css: import_react8.css`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
@@ -976,7 +981,7 @@ var DraggableWindow = ({
         right,
         borderRadius: 16
       },
-      css: import_react11.css`
+      css: import_react10.css`
             touch-action: pinch-zoom;
             background-color:${bg};
             backdrop-filter: blur(15px);
@@ -994,13 +999,13 @@ var DraggableWindow = ({
       },
       dragElastic: 0.5,
       children: (0, import_jsx_runtime6.jsxs)("div", {
-        css: import_react11.css` 
+        css: import_react10.css` 
               display: flex;
               
                 `,
         children: [
           (0, import_jsx_runtime6.jsxs)("div", {
-            css: import_react11.css`
+            css: import_react10.css`
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1020,7 +1025,7 @@ var DraggableWindow = ({
                   children: sizes.map((size, ind) => (0, import_jsx_runtime6.jsx)(ToggleButton, {
                     value: size,
                     children: (0, import_jsx_runtime6.jsxs)("span", {
-                      css: import_react11.css`
+                      css: import_react10.css`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
                       children: [
@@ -1043,7 +1048,7 @@ var DraggableWindow = ({
                   height: height * scale / devicePixelRatio,
                   borderRadius: 8
                 },
-                css: import_react11.css`
+                css: import_react10.css`
 
                 display: block;
                 overflow: hidden;
@@ -1065,7 +1070,7 @@ var DraggableWindow = ({
                     scale: scaleRange / 100
                   },
                   "data-test-id": "z-body",
-                  css: import_react11.css`
+                  css: import_react10.css`
                   overflow:overlay;
                   overflow-y: hidden;
               `,
@@ -1087,17 +1092,17 @@ var DraggableWindow = ({
                   children: breakPoints.map((size, ind) => (0, import_jsx_runtime6.jsx)(ToggleButton, {
                     value: size,
                     children: size === 680 ? (0, import_jsx_runtime6.jsx)("span", {
-                      css: import_react11.css`
+                      css: import_react10.css`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
                       children: (0, import_jsx_runtime6.jsx)(Phone, {})
                     }) : size === 768 ? (0, import_jsx_runtime6.jsx)("span", {
-                      css: import_react11.css`
+                      css: import_react10.css`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
                       children: (0, import_jsx_runtime6.jsx)(Tablet, {})
                     }) : (0, import_jsx_runtime6.jsx)("span", {
-                      css: import_react11.css`
+                      css: import_react10.css`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
                       children: (0, import_jsx_runtime6.jsx)(Tv, {})
@@ -1112,7 +1117,7 @@ var DraggableWindow = ({
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
             children: (0, import_jsx_runtime6.jsxs)("div", {
-              css: import_react11.css`
+              css: import_react10.css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
@@ -1122,10 +1127,10 @@ var DraggableWindow = ({
               children: [
                 (0, import_jsx_runtime6.jsx)(Fab, {
                   onClick: () => {
-                    document.getElementById("root")?.requestFullscreen();
+                    document.querySelector("#root")?.requestFullscreen();
                   },
                   children: (0, import_jsx_runtime6.jsx)("span", {
-                    css: import_react11.css`
+                    css: import_react10.css`
                 font-size: 20pt;
               `,
                     children: (0, import_jsx_runtime6.jsx)(MdFullscreen, {}, "fs")
@@ -1150,22 +1155,7 @@ var DraggableWindow = ({
 // js/Editor.tsx
 init_define_process();
 init_react_preact();
-
-// js/isMobile.mjs
-init_define_process();
-function isMobile() {
-  let isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || navigator.platform === "MacIntel";
-  let check = false;
-  (function(a) {
-    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) {
-      check = true;
-    }
-  })(navigator.userAgent || navigator.vendor || window.opera);
-  return check && !isIOS;
-}
-
-// js/Editor.tsx
-var import_react14 = __toESM(require_emotion_react_cjs(), 1);
+var import_react13 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/wait.ts
 init_define_process();
@@ -1177,10 +1167,23 @@ async function wait(delay) {
   });
 }
 
+// js/isMobile.mjs
+init_define_process();
+function isMobile() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || navigator.platform === "MacIntel";
+  let check = false;
+  (function(a) {
+    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[23]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(a.slice(0, 4))) {
+      check = true;
+    }
+  })(navigator.userAgent || navigator.vendor || window.opera);
+  return check && !isIOS;
+}
+
 // js/Editor.tsx
 var import_jsx_runtime7 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod = {
-  CH: () => {
+  CH() {
   },
   code: ""
 };
@@ -1194,9 +1197,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     counter: i,
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
-    runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-GK53IE6W.mjs");
-      const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-EEM232AC.mjs");
+    async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
+      const { runner: runner2 } = await import("./chunk-runner-6F6XLKNW.mjs");
+      const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-OJUT5PRH.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
@@ -1208,9 +1211,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     },
     myId: "loading",
     getValue: () => "",
-    setValue: (_code) => {
+    setValue(_code) {
     },
-    onChange: (_cb) => {
+    onChange(_cb) {
     },
     engine: isMobile() ? "ace" : "monaco"
   });
@@ -1229,14 +1232,15 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
   } = mySession;
   mod.code = myCode;
   useEffect(() => {
-    if (!ref?.current)
+    if (!ref?.current) {
       return;
+    }
     const setMonaco = async () => {
       const link = document.createElement("link");
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
-      document.head.appendChild(link);
-      const { startMonaco } = await import("./chunk-startMonaco-CEMHFREF.mjs");
+      document.head.append(link);
+      const { startMonaco } = await import("./chunk-startMonaco-I4LX3JWK.mjs");
       const { model, getTypeScriptWorker, setValue: setValue2 } = await startMonaco(
         {
           container: ref.current,
@@ -1248,7 +1252,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
         ...x,
         started: true,
         setValue: setValue2,
-        getValue: () => {
+        getValue() {
           try {
             (async () => {
               const tsWorker = await (await getTypeScriptWorker())(
@@ -1273,50 +1277,56 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
-        onChange: (cb) => {
+        onChange(cb) {
           editor.session.on("change", cb);
-          return () => editor.session.off("change", cb);
+          return () => {
+            editor.session.off("change", cb);
+          };
         },
         started: true,
         getValue: () => editor.session.getValue(),
-        setValue: (code2) => editor.session.setValue(code2),
+        setValue(code2) {
+          editor.session.setValue(code2);
+        },
         myId: "editor"
       }));
     };
     const loadEditors = async () => {
       await wait(100);
-      if (engine === "monaco") {
-        await setMonaco();
-      } else {
-        await setAce();
-      }
+      await (engine === "monaco" ? setMonaco() : setAce());
       runner({ code, counter, codeSpace: codeSpace2 });
     };
     loadEditors();
   }, [started, ref]);
   useEffect(() => {
-    if (!started)
+    if (!started) {
       return;
+    }
     const lastCode = mod.code;
     let last = 0;
     const handler = setInterval(() => {
       const now = Date.now();
-      if (now - last < 5e3)
+      if (now - last < 5e3) {
         return;
+      }
       last = now;
       if (getValue() !== lastCode) {
         const code2 = getValue();
-        if (code2 === mST().code || code2 === mod.code)
+        if (code2 === mST().code || code2 === mod.code) {
           return;
+        }
         changeContent((x) => ({ ...x, myCode: code2, i: i + 1 }));
         runner({ code: code2, counter, codeSpace: codeSpace2 });
       }
     }, 5e3);
-    return () => clearInterval(handler);
+    return () => {
+      clearInterval(handler);
+    };
   }, [changeContent, i, runner, prettierJs]);
   useEffect(() => {
-    if (!started)
+    if (!started) {
       return;
+    }
     if (i > counter) {
       changeContent((x) => ({ ...x, myCode: code, counter: i }));
       return;
@@ -1324,10 +1334,12 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     const cb = async () => {
       const code2 = getValue();
       const newCode = prettierJs(code2);
-      if (newCode === mod.code)
+      if (newCode === mod.code) {
         return;
-      if (newCode === mST().code)
+      }
+      if (newCode === mST().code) {
         return;
+      }
       try {
         changeContent((x) => ({
           ...x,
@@ -1335,12 +1347,12 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
           myCode: newCode
         }));
         await runner({ code: newCode, counter: counter + 1, codeSpace: codeSpace2 });
-      } catch (err) {
-        console.error({ err });
+      } catch (error) {
+        console.error({ err: error });
         console.error("restore editor");
       }
     };
-    return onChange(() => cb());
+    onChange(async () => cb());
   }, [setValue, getValue, onChange, counter, prettierJs, runner]);
   onSessionUpdate(() => {
     const sess = mST();
@@ -1348,8 +1360,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       if (sess.i <= counter) {
         return;
       }
-      if (mST().i > sess.i)
+      if (mST().i > sess.i) {
         return;
+      }
       console.log("sessUP");
       setValue(sess.code);
       if (mod.CH() !== changeContent) {
@@ -1370,7 +1383,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
   return (0, import_jsx_runtime7.jsx)("div", {
     "data-test-id": myId,
     id: "editor",
-    css: import_react14.css`
+    css: import_react13.css`
         
             max-width: 640px;
             height: 100%;
@@ -1384,7 +1397,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime8 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime8.jsx)("div", {
-  css: import_react17.css`
+  css: import_react15.css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -1439,8 +1452,8 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
         try {
           await appFactory();
           setHash(newHash);
-        } catch (e) {
-          console.error({ e });
+        } catch (error) {
+          console.error({ e: error });
         }
       }
     }, "myApp");
@@ -1488,7 +1501,7 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
   });
 };
 var renderPreviewWindow = ({ codeSpace: codeSpace2, assets }) => {
-  const div = document.getElementById("root");
+  const div = document.querySelector("#root");
   const root = createRoot(div);
   root.render(
     (0, import_jsx_runtime8.jsx)(p, {
@@ -1499,9 +1512,6 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2, assets }) => {
     })
   );
 };
-
-// js/ws.ts
-var import_lodash = __toESM(require_lodash(), 1);
 
 // js/uidV4.mjs
 init_define_process();
@@ -1569,7 +1579,7 @@ var rejoined = false;
 var sendChannel = {
   webRtcArray,
   rtcConns,
-  send: (data) => {
+  send(data) {
     const target = data.target;
     const messageString = JSON.stringify({
       ...data,
@@ -1578,13 +1588,14 @@ var sendChannel = {
     webRtcArray.map((ch) => {
       try {
         console.log("WebRtc send", data, ch);
-        if (ch.readyState !== "open")
+        if (ch.readyState !== "open") {
           return;
+        }
         if (!target || ch.target === target && !ignoreUsers.includes(ch.target)) {
           ch.send(messageString);
         }
-      } catch (e) {
-        console.error("Error in broadcasting event", { e });
+      } catch (error) {
+        console.error("Error in broadcasting event", { e: error });
       }
     });
   }
@@ -1593,8 +1604,9 @@ var setWsLastHashCode = (hashCode2) => {
   wsLastHashCode = Number(hashCode2);
 };
 var run = async (startState) => {
-  if (location.pathname.endsWith("dehydrated"))
+  if (location.pathname.endsWith("dehydrated")) {
     return;
+  }
   codeSpace = startState.codeSpace;
   address = startState.address;
   startSession(codeSpace, {
@@ -1603,8 +1615,9 @@ var run = async (startState) => {
   }, location.origin);
   bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {
-    if (event.data.ignoreUser && event.data.ignoreUser === user)
+    if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
+    }
     console.log({ event });
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
       ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
@@ -1660,16 +1673,18 @@ var debouncedSyncWs = (0, import_lodash.default)(syncWS, 1200, {
 async function syncWS() {
   try {
     if (ws) {
-      if (wsLastHashCode === hashCode())
+      if (wsLastHashCode === hashCode()) {
         return;
+      }
       const sess = mST();
       console.log({ wsLastHashCode });
       const message = await makePatchFrom(
         wsLastHashCode,
         sess
       );
-      if (!message)
+      if (!message) {
         return;
+      }
       if (message.newHash !== hashCode()) {
         console.error("NEW hash is not even hashCode", hashCode());
         return;
@@ -1680,15 +1695,16 @@ async function syncWS() {
       rejoined = false;
       await rejoin();
     }
-  } catch (e) {
-    console.error("error 2", { e });
+  } catch (error) {
+    console.error("error 2", { e: error });
   }
 }
 async function syncRTC() {
   try {
     if (Object.keys(rtcConns).length > 0) {
-      if (webRTCLastSeenHashCode === hashCode())
+      if (webRTCLastSeenHashCode === hashCode()) {
         return;
+      }
       const sess = mST();
       console.log({ wsLastHashCode });
       const message = webRTCLastSeenHashCode ? await makePatchFrom(
@@ -1700,17 +1716,19 @@ async function syncRTC() {
         sendChannel.send(message);
       }
     }
-  } catch (e) {
-    console.error("Error sending RTC...", { e });
+  } catch (error) {
+    console.error("Error sending RTC...", { e: error });
   }
 }
 async function join() {
-  if (ws !== null)
+  if (ws !== null) {
     return ws;
+  }
   rejoined = true;
   console.log("WS connect!");
-  if (location.host.includes("localhost"))
+  if (location.host.includes("localhost")) {
     return;
+  }
   const wsConnection = new WebSocket(
     `wss://${location.host}/live/` + codeSpace + "/websocket"
   );
@@ -1721,7 +1739,7 @@ async function join() {
     const mess = (data) => {
       try {
         ws && ws?.send && ws?.send(data);
-      } catch (e) {
+      } catch {
         ws = null;
         rejoined = false;
         rejoin();
@@ -1730,7 +1748,7 @@ async function join() {
     sendWS = mess;
     ws.addEventListener(
       "message",
-      (message) => processWsMessage(message, "ws")
+      async (message) => processWsMessage(message, "ws")
     );
     if (intervalHandler) {
       clearInterval(intervalHandler);
@@ -1741,12 +1759,13 @@ async function join() {
       if (diff > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
-            return wsConnection?.send(
+            wsConnection?.send(
               JSON.stringify({
                 name: user,
                 timestamp: lastSeenTimestamp + diff
               })
             );
+            return;
           }
           rejoined = false;
           rejoin();
@@ -1763,8 +1782,9 @@ async function join() {
 }
 var h2 = {};
 async function processWsMessage(event, source) {
-  if (ws == null)
+  if (ws == null) {
     return;
+  }
   lastSeenNow = Date.now();
   const data = JSON.parse(event.data);
   processData(data, source);
@@ -1784,17 +1804,21 @@ async function processData(data, source) {
   if (source === "rtc" && data.hashCode || data.newHash) {
     webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
-  if (ignoreUsers.includes(data.name))
+  if (ignoreUsers.includes(data.name)) {
     return;
-  if (data.newHash === hashCode())
+  }
+  if (data.newHash === hashCode()) {
     return;
+  }
   if (data.oldHash && data.newHash) {
-    if (h2[data.oldHash] && h2[data.oldHash] === data.newHash)
+    if (h2[data.oldHash] && h2[data.oldHash] === data.newHash) {
       return;
+    }
     h2[data.oldHash] = data.newHash;
   }
-  if (data.newHash === hashCode())
+  if (data.newHash === hashCode()) {
     return;
+  }
   (async () => {
     try {
       if (data.type === "new-ice-candidate") {
@@ -1828,9 +1852,8 @@ async function processData(data, source) {
         sendChannel.send({ hashCode: data.newHash });
       }
       return;
-    } else {
-      console.log("error -sending on sendChannel");
     }
+    console.log("error -sending on sendChannel");
     return;
   }
   if (data.patch && data.name === user) {
@@ -1874,7 +1897,9 @@ async function processData(data, source) {
       }
     };
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
-    rtcConns[target].ontrack = (ev) => console.log(ev);
+    rtcConns[target].ontrack = (ev) => {
+      console.log(ev);
+    };
     rtcConns[target].ondatachannel = (event) => {
       console.log("Receive Channel Callback");
       const rtc2 = event.channel;
@@ -1882,7 +1907,7 @@ async function processData(data, source) {
       rtc2.addEventListener("close", onReceiveChannelClosed);
       rtc2.addEventListener(
         "message",
-        (message) => processWsMessage(message, "rtc")
+        async (message) => processWsMessage(message, "rtc")
       );
       const rtcWithTarget = Object.assign(rtc2, { target });
       webRtcArray.push(rtcWithTarget);
@@ -1900,7 +1925,7 @@ async function processData(data, source) {
       { target }
     );
     rtc.binaryType = "arraybuffer";
-    rtc.addEventListener("message", (message) => {
+    rtc.addEventListener("message", async (message) => {
       console.log("***********RTC***", { msg: message });
       const data2 = JSON.parse(message.data);
       if (data2 && data2.hashCode) {
@@ -1978,8 +2003,9 @@ async function processData(data, source) {
     ).catch(console.error);
   }
   async function handleChatOffer(offer, target) {
-    if (!rtcConns[target])
+    if (!rtcConns[target]) {
       createPeerConnection(target);
+    }
     await rtcConns[target].setRemoteDescription(
       new RTCSessionDescription(offer)
     );
@@ -2024,17 +2050,20 @@ async function sw() {
   try {
     navigator.serviceWorker.onmessage = async (event) => {
       const serviceWorker = event.source;
-      if (serviceWorker == null)
+      if (serviceWorker == null) {
         return;
+      }
       switch (event.data.method) {
         case "ipfs-message-port":
           console.log("Message port request");
           const channel = new MessageChannel();
-          return serviceWorker.postMessage({
-            method: "ipfs-message-port",
-            id: event.data.id,
-            port: channel.port2
-          }, { transfer: [channel.port2] });
+          {
+            serviceWorker.postMessage({
+              method: "ipfs-message-port",
+              id: event.data.id,
+              port: channel.port2
+            }, { transfer: [channel.port2] });
+          }
       }
     };
     if (document.documentElement.dataset.viewer) {
@@ -2048,7 +2077,8 @@ async function sw() {
           }
         }
       };
-      return load(location.pathname);
+      await load(location.pathname);
+      return;
     }
   } catch {
     console.log("ipfs load error");

@@ -1,1 +1,1 @@
-export { jsx, jsxs } from "preact/jsx-runtime";
+export {jsx, jsxs} from 'preact/jsx-runtime';

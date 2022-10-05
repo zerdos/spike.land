@@ -427,11 +427,11 @@ var require_diff = __commonJS({
     function is_surrogate_pair_end(charCode) {
       return charCode >= 56320 && charCode <= 57343;
     }
-    function starts_with_pair_end(str2) {
-      return is_surrogate_pair_end(str2.charCodeAt(0));
+    function starts_with_pair_end(str) {
+      return is_surrogate_pair_end(str.charCodeAt(0));
     }
-    function ends_with_pair_start(str2) {
-      return is_surrogate_pair_start(str2.charCodeAt(str2.length - 1));
+    function ends_with_pair_start(str) {
+      return is_surrogate_pair_start(str.charCodeAt(str.length - 1));
     }
     function remove_empty_tuples(tuples) {
       var ret = [];
@@ -4901,14 +4901,14 @@ var Record = function Record2(defaultValues, name) {
   return RecordType;
 };
 Record.prototype.toString = function toString4() {
-  var str2 = recordName(this) + " { ";
+  var str = recordName(this) + " { ";
   var keys2 = this._keys;
   var k;
   for (var i = 0, l = keys2.length; i !== l; i++) {
     k = keys2[i];
-    str2 += (i ? ", " : "") + k + ": " + quoteString(this.get(k));
+    str += (i ? ", " : "") + k + ": " + quoteString(this.get(k));
   }
-  return str2 + " }";
+  return str + " }";
 };
 Record.prototype.equals = function equals2(other) {
   return this === other || isRecord(other) && recordSeq(this).equals(recordSeq(other));
@@ -5112,16 +5112,18 @@ var EMPTY_REPEAT;
 init_define_process();
 var import_fast_diff = __toESM(require_diff(), 1);
 function createDelta(original, revision) {
-  var result = (0, import_fast_diff.default)(original, revision);
+  const result = (0, import_fast_diff.default)(original, revision);
   const delta = result.map(
     (r) => r[0] === 1 ? r : [r[0], r[1].length]
   );
   return delta;
 }
 function applyPatch(original, delta) {
-  var result = "", index = 0;
-  for (var i = 0; i < delta.length; i++) {
-    var item = delta[i], operation = item[0], value = item[1];
+  let result = "";
+  let index = 0;
+  for (const item of delta) {
+    const operation = item[0];
+    const value = item[1];
     if (item[0] === -1 && typeof value === "number") {
       index += value;
     } else if (operation == 0 && typeof value === "number") {
@@ -5153,7 +5155,7 @@ var CodeSession = class {
       return hashCode4;
     });
     __publicField(this, "createPatchFromHashCode", async (oldHash, state, updateHash) => {
-      const s = JSON.parse(str(state));
+      const s = JSON.parse(string_(state));
       let oldRec = hashStore[oldHash];
       let usedOldHash = oldHash;
       if (!oldRec) {
@@ -5165,18 +5167,19 @@ var CodeSession = class {
           throw new Error(location.origin + " is NOT OK");
         }
         const { mST: mST2, hashCode: hashCode4 } = await resp.json();
-        if (updateHash)
+        if (updateHash) {
           updateHash(hashCode4);
+        }
         hashStore[hashCode4] = this.session.get("state").merge(mST2);
         usedOldHash = hashCode4;
         oldRec = hashStore[hashCode4];
       }
-      const oldStr = str(oldRec.toJSON());
+      const oldString = string_(oldRec.toJSON());
       const newRec = oldRec.merge(s);
-      const newStr = str(newRec.toJSON());
+      const newString = string_(newRec.toJSON());
       const newHash = newRec.hashCode();
       hashStore[newHash] = newRec;
-      const patch = createPatch(oldStr, newStr);
+      const patch = createPatch(oldString, newString);
       return {
         oldHash: usedOldHash,
         newHash,
@@ -5192,7 +5195,11 @@ var CodeSession = class {
       const newHash = this.session.hashCode();
       if (newHash !== oldHash) {
         console.log({ sess });
-        (self["requestAnimationFrame"] || setTimeout)(() => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x)));
+        (self.requestAnimationFrame || setTimeout)(
+          async () => this.createPatchFromHashCode(oldHash, mST()).then((x) => {
+            this.update(x);
+          })
+        );
       }
     });
     __publicField(this, "applyPatch", async ({
@@ -5201,7 +5208,7 @@ var CodeSession = class {
       patch
     }) => {
       const codeSpace = this.room || "";
-      if (!Object.keys(hashStore).map((x) => Number(x)).includes(
+      if (!Object.keys(hashStore).map(Number).includes(
         Number(oldHash)
       ) && codeSpace) {
         console.log(Object.keys(hashStore));
@@ -5211,19 +5218,19 @@ var CodeSession = class {
         if (resp.ok) {
           const s = await resp.json();
           const serverRecord = this.session.get("state").merge(
-            JSON.parse(str(s.mST))
+            JSON.parse(string_(s.mST))
           );
           hashStore[serverRecord.hashCode()] = serverRecord;
         } else {
           const { mST: mST2 } = await import(`/live/${this.room}/mst.mjs?${Date.now()}`);
           const latestRec = this.session.get("state").merge(
-            JSON.parse(str(mST2))
+            JSON.parse(string_(mST2))
           );
           hashStore[latestRec.hashCode()] = latestRec;
         }
       }
-      const oldStr = str(hashStore[oldHash].toJSON());
-      const applied = applyPatch(oldStr, patch);
+      const oldString = string_(hashStore[oldHash].toJSON());
+      const applied = applyPatch(oldString, patch);
       const newState = JSON.parse(applied);
       const newRec = this.session.get("state").merge(
         newState
@@ -5234,7 +5241,6 @@ var CodeSession = class {
         this.session = this.session.set("state", newRecord);
       } else {
         new Error("Wrong patch");
-        return;
       }
     });
     session = this;
@@ -5242,15 +5248,15 @@ var CodeSession = class {
     const savedState = null;
     this.session = initSession(room, {
       ...user,
-      state: savedState ? savedState : JSON.parse(str(user.state))
+      state: savedState ? savedState : JSON.parse(string_(user.state))
     })();
   }
   update(patch) {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
       try {
         x(true, patch);
-      } catch (err) {
-        console.error("error calling callback", { err });
+      } catch (error) {
+        console.error("error calling callback", { err: error });
       }
     });
   }
@@ -5267,9 +5273,7 @@ var CodeSession = class {
     this.session = user;
   }
 };
-var hashCode3 = () => {
-  return session ? session.hashOfState() : 0;
-};
+var hashCode3 = () => session ? session.hashOfState() : 0;
 function mST() {
   if (!session) {
     return {
@@ -5283,22 +5287,22 @@ function mST() {
   const { i, transpiled, code, html, css } = session.session.toJSON().state;
   return { i, transpiled, code, html, css };
 }
-function addOrigin(s, originStr) {
+function addOrigin(s, originString) {
   const { i, transpiled, code, html, css } = s;
   const mst = { i, transpiled, code, html, css };
-  mst.code = mst.code.replace(`from '/live`, `from '${originStr}/live`);
-  mst.code = mst.code.replace(`from './`, `from '${originStr}/live/`);
+  mst.code = mst.code.replace("from '/live", `from '${originString}/live`);
+  mst.code = mst.code.replace("from './", `from '${originString}/live/`);
   mst.transpiled = mst.transpiled.replace(
-    `from "/live`,
-    `from "${originStr}/live`
+    'from "/live',
+    `from "${originString}/live`
   );
   mst.transpiled = mst.transpiled.replace(
-    `from "./`,
-    `from "${originStr}/live/`
+    'from "./',
+    `from "${originString}/live/`
   );
   return mst;
 }
-function str(s) {
+function string_(s) {
   const { i, transpiled, code, html, css } = s;
   return JSON.stringify({ i, transpiled, code, html, css });
 }
@@ -5307,9 +5311,9 @@ var applyPatch2 = async (x) => {
   session?.update(x);
 };
 var onSessionUpdate = (fn, regId = "default") => session?.onUpdate(fn, regId);
-var makePatchFrom = (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
-var makePatch = (st, update8) => makePatchFrom(hashCode3(), st, update8);
-var startSession = (room, u, originStr) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) });
+var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
+var makePatch = async (st, update8) => makePatchFrom(hashCode3(), st, update8);
+var startSession = (room, u, originString) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originString) });
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }

@@ -46532,16 +46532,16 @@ var monacoContribution = async (code) => {
     isolatedModules: true,
     noEmit: true,
     allowNonTsExtensions: true,
-    "traceResolution": true,
+    traceResolution: true,
     moduleResolution: languages2.typescript.ModuleResolutionKind.NodeJs,
     moduleSpecifierCompletion: 2,
     declaration: true,
     module: languages2.typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
-    "sourceMap": true,
-    "mapRoot": location.origin + "/src/sourcemaps",
+    sourceMap: true,
+    mapRoot: location.origin + "/src/sourcemaps",
     maxNodeModuleJsDepth: 10,
-    "rootDir": location.origin + "/live",
+    rootDir: location.origin + "/live",
     paths: {
       [location.origin + "/live/node_modules/"]: [location.origin + "/npm:/*"],
       [location.origin + "/live/*"]: [location.origin + "/live/*"],
@@ -46560,10 +46560,10 @@ var monacoContribution = async (code) => {
     jsxImportSource: "@emotion/react",
     jsx: languages2.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
-    "include": [location.origin + "/node_modules"]
+    include: [location.origin + "/node_modules"]
   });
-  const regex1 = / from \'\.\./ig;
-  const regex2 = / from \'\./ig;
+  const regex1 = / from '\.\./gi;
+  const regex2 = / from '\./gi;
   const search = new RegExp(` from '${origin}/live/[a-zA-Z]+`, "gm");
   const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`).replaceAll(regex2, ` from '${location.origin}/live`);
   const models = replaced.matchAll(search);
@@ -46572,7 +46572,7 @@ var monacoContribution = async (code) => {
     const extraModel = match[0].slice(7) + ".tsx";
     console.log(extraModel);
     createModel(
-      await fetch(extraModel).then((res) => res.text()),
+      await fetch(extraModel).then(async (res) => res.text()),
       "typescript",
       Uri2.parse(extraModel)
     );
@@ -46678,7 +46678,7 @@ var monacoContribution = async (code) => {
       },
       {
         name: "@emotion/serialize",
-        url: `/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts`,
+        url: "/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
@@ -46718,11 +46718,12 @@ self.MonacoEnvironment = {
 };
 var mod = {};
 var startMonaco = async ({ code, container, name }) => {
-  if (mod[name])
+  if (mod[name]) {
     return mod[name];
-  const ret = await startMonacoPristine({ code, container, name });
-  mod[name] = ret;
-  return ret;
+  }
+  const returnValue = await startMonacoPristine({ code, container, name });
+  mod[name] = returnValue;
+  return returnValue;
   async function startMonacoPristine({ code: code2, container: container2, name: name2 }) {
     const codeSpace = name2;
     const replaced = await monacoContribution(
@@ -46783,17 +46784,18 @@ var startMonaco = async ({ code, container, name }) => {
       autoClosingBrackets: "beforeWhitespace"
     });
     return {
-      getTypeScriptWorker: () => languages2.typescript.getTypeScriptWorker(),
-      setValue: (code3) => {
+      getTypeScriptWorker: async () => languages2.typescript.getTypeScriptWorker(),
+      setValue(code3) {
         let state = null;
         try {
           state = editor2.saveViewState();
-        } catch (e) {
+        } catch {
           console.error("error while saving the state");
         }
         model.setValue(code3);
-        if (state)
+        if (state) {
           editor2.restoreViewState(state);
+        }
       },
       model
     };

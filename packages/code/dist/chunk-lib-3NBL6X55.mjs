@@ -6,7 +6,7 @@ import {
   init_react_preact,
   useEffect,
   useState
-} from "./chunk-chunk-G5TGW3ON.mjs";
+} from "./chunk-chunk-QVJ2UJAV.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";

@@ -1,48 +1,45 @@
-// import { createPortal } from "react-dom";
+// Import { createPortal } from "react-dom";
 // import { prefixer } from 'stylis';
 
 // import type * as next from "react-dom/next";
 // import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
-import { mST, patchSync } from "./session";
-import { css } from "@emotion/react";
-import ErrorBoundary from "./ErrorBoundary";
-import { md5 } from "./md5";
-import { useRef } from "react";
+import {css} from '@emotion/react';
+import {useRef, useEffect} from 'react';
+import {mST, patchSync} from './session';
+import ErrorBoundary from './ErrorBoundary';
+import {md5} from './md5.js';
 
-import { useEffect } from "react";
-import { renderFromString } from "./renderToString";
+import {renderFromString} from './renderToString';
 
-async function importShim(scr: string): Promise<any>{
-  if (!document.scripts) {
-  throw Error("document.scripts");
-  }
+async function importShim(scr: string): Promise<any> {
+	if (!document.scripts) {
+		throw new Error('document.scripts');
+	}
 
+	const scripts = Array.from(document.scripts);
+	const imap = scripts.find(s => s.type === 'importmap');
 
-    const scripts = Array.from(document.scripts);
-    const imap = scripts.find((s) => s.type === "importmap");
+	if (!imap) {
+		throw new Error('no imap');
+	}
 
-    if (!imap) {
-      throw Error("no imap");
-    }
+	// @ts-expect-error
+	await import('es-module-shims');
 
-      // @ts-ignore
-      await import("es-module-shims");
-      
+	// @ts-expect-error
+	await window.importShim.addImportMap(
+		JSON.parse(
+			imap.innerText,
+		),
+	);
 
-      // @ts-ignore
-      await window.importShim.addImportMap(
-        JSON.parse(
-          imap.innerText,
-        ),
-      );
+	// @ts-expect-error
+	importShim = window.importShim;
 
-          // @ts-ignore
-      importShim = window.importShim;
-
-      return importShim(scr);
-  }
+	return importShim(scr);
+}
 
 // (async()=>{
 // Array.from( document.scripts).find(s=>s.type==="importmap")
@@ -131,128 +128,128 @@ async function importShim(scr: string): Promise<any>{
 //   });
 // };
 
-const apps: { [key: string]: React.FC } = {};
+const apps: Record<string, React.FC> = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
-  { hash, codeSpace },
+export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
+	{hash, codeSpace},
 ) => {
-  const md5Hash = md5(mST().transpiled).slice(0, 8);
+	const md5Hash = md5(mST().transpiled).slice(0, 8);
 
-  useEffect(() => {
-    //  setTimeout(()=>{
-    const { html, css } = renderFromString(codeSpace, hash);
-    const mst = mST();
-    if (html && css && (html !== mst.html || css !== mst.css)) {
-      patchSync({ ...mst, html, css });
-    }
-    // }, 100);
-  }, [hash]);
+	useEffect(() => {
+		//  SetTimeout(()=>{
+		const {html, css} = renderFromString(codeSpace, hash);
+		const mst = mST();
+		if (html && css && (html !== mst.html || css !== mst.css)) {
+			patchSync({...mst, html, css});
+		}
+		// }, 100);
+	}, [hash]);
 
-  const ref = useRef(null);
-  const transpiled = mST().transpiled;
-  const App = apps[md5(transpiled)];
-  // return <Root codeSpace={codeSpace}>
-  return (
-    <ErrorBoundary ref={ref}>
-      <div
-        key={hash}
-        style={{
-          height: "100%",
-        }}
-        id={`${codeSpace}-${md5Hash}`}
-      >
-        <App />
-      </div>
-    </ErrorBoundary>
-  );
+	const ref = useRef(null);
+	const transpiled = mST().transpiled;
+	const App = apps[md5(transpiled)];
+	// Return <Root codeSpace={codeSpace}>
+	return (
+		<ErrorBoundary ref={ref}>
+			<div
+				key={hash}
+				style={{
+					height: '100%',
+				}}
+				id={`${codeSpace}-${md5Hash}`}
+			>
+				<App />
+			</div>
+		</ErrorBoundary>
+	);
 };
 
-export async function appFactory(transpiled = ""): Promise<React.FC> {
-  // const hashC = hashCode();
+export async function appFactory(transpiled = ''): Promise<React.FC> {
+	// Const hashC = hashCode();
 
-  const trp = transpiled.length ? transpiled : mST().transpiled;
+	const trp = transpiled.length > 0 ? transpiled : mST().transpiled;
 
-  const hash = md5(trp);
+	const hash = md5(trp);
 
-  if (!apps[hash]) {
-    try {
-      apps[hash] = (await importShim(createJsBlob(trp)))
-        .default as unknown as React.FC;
-    } catch (err) {
-      // try {
-      //   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
-      // } catch {
-      //   console.error("not even importShim");
-      // }
+	if (!apps[hash]) {
+		try {
+			apps[hash] = (await importShim(createJsBlob(trp)))
+				.default as unknown as React.FC;
+		} catch (error) {
+			// Try {
+			//   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
+			// } catch {
+			//   console.error("not even importShim");
+			// }
 
-      if (err instanceof SyntaxError) {
-        const name = err.name;
-        const message = err.message;
-        apps[hash] = () => (
-          <div
-            css={css`
+			if (error instanceof SyntaxError) {
+				const name = error.name;
+				const message = error.message;
+				apps[hash] = () => (
+					<div
+						css={css`
         background-color: orange;
         `}
-          >
-            <h1>Syntax Error</h1>
-            <h2>{name}: {message}</h2>
-            <p>{JSON.stringify({ err })}</p>
-          </div>
-        );
-      } else if (err instanceof Error) {
-        const name = err.name;
-        const message = err.message;
+					>
+						<h1>Syntax Error</h1>
+						<h2>{name}: {message}</h2>
+						<p>{JSON.stringify({err: error})}</p>
+					</div>
+				);
+			} else if (error instanceof Error) {
+				const name = error.name;
+				const message = error.message;
 
-        apps[hash] = () => (
-          <div
-            css={css`
+				apps[hash] = () => (
+					<div
+						css={css`
         background-color: orange;
         `}
-          >
-            <h1>Syntax Error</h1>
-            <h2>{name}: {message}</h2>
-            <p>{JSON.stringify({ err })}</p>
-          </div>
-        );
-      } else {
-        apps[hash] = () => (
-          <div
-            css={css`
+					>
+						<h1>Syntax Error</h1>
+						<h2>{name}: {message}</h2>
+						<p>{JSON.stringify({err: error})}</p>
+					</div>
+				);
+			} else {
+				apps[hash] = () => (
+					<div
+						css={css`
         background-color: orange;
       `}
-          >
-            <h1>Unknown Error: ${hash}</h1>
-          </div>
-        );
-      }
-    }
-  }
+					>
+						<h1>Unknown Error: ${hash}</h1>
+					</div>
+				);
+			}
+		}
+	}
 
-  // if ( mST().transpiled !== trp) {
-  //   if (hashC===hashCode()){
-  //     apps[hashC]=apps[hash];
-  //   } else {
-  //     apps[hashC] =  await  appFactory(mST().transpiled)
-  //   }
+	// If ( mST().transpiled !== trp) {
+	//   if (hashC===hashCode()){
+	//     apps[hashC]=apps[hash];
+	//   } else {
+	//     apps[hashC] =  await  appFactory(mST().transpiled)
+	//   }
 
-  // }
-  //   const newApp = apps[hash];
+	// }
+	//   const newApp = apps[hash];
 
-  //   // delete apps[hash];
-  //   return newApp;
-  // }
-  return apps[hash];
+	//   // delete apps[hash];
+	//   return newApp;
+	// }
+	return apps[hash];
 }
 
 export function createJsBlob(code: string) {
-  const file = new File([code], "index.mjs", {
-    type: "application/javascript",
-  });
-  const blobUrl = URL.createObjectURL(file);
-  return blobUrl;
-  // const actualUrl = new URL(blobUrl,'//live/');
+	const file = new File([code], 'index.mjs', {
+		type: 'application/javascript',
+	});
+	const blobUrl = URL.createObjectURL(file);
+	return blobUrl;
+	// Const actualUrl = new URL(blobUrl,'//live/');
 
-  // return actualUrl;
+	// return actualUrl;
 }

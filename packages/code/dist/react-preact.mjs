@@ -8,6 +8,7 @@ import {
   StrictMode,
   Suspense,
   V,
+  _n,
   an,
   cloneElement,
   createContext,
@@ -28,7 +29,6 @@ import {
   o,
   p,
   pn,
-  react_preact_default,
   render,
   sn,
   unmountComponentAtNode,
@@ -48,7 +48,7 @@ import {
   vn,
   x,
   yn
-} from "./chunk-chunk-G5TGW3ON.mjs";
+} from "./chunk-chunk-QVJ2UJAV.mjs";
 import "./chunk-chunk-QTIR5YHF.mjs";
 import "./chunk-chunk-477FBAEY.mjs";
 init_react_preact();
@@ -68,7 +68,7 @@ export {
   $ as createPortal,
   createRef,
   createRoot,
-  react_preact_default as default,
+  _n as default,
   fn as findDOMNode,
   sn as flushSync,
   forwardRef,
