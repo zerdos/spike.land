@@ -8,27 +8,42 @@
 import { mST, patchSync } from "./session";
 import { css } from "@emotion/react";
 import ErrorBoundary from "./ErrorBoundary";
-import { md5 } from "md5";
+import { md5 } from "./md5";
 import { useRef } from "react";
-import "es-module-shims";
-import { useEffect } from "react";
-import { renderFromString } from "renderToString";
 
-try {
-  if (document.scripts) {
+import { useEffect } from "react";
+import { renderFromString } from "./renderToString";
+
+async function importShim(scr: string): Promise<any>{
+  if (!document.scripts) {
+  throw Error("document.scripts");
+  }
+
+
     const scripts = Array.from(document.scripts);
     const imap = scripts.find((s) => s.type === "importmap");
-    if (imap) {
-      importShim.addImportMap(
+
+    if (!imap) {
+      throw Error("no imap");
+    }
+
+      // @ts-ignore
+      await import("es-module-shims");
+      
+
+      // @ts-ignore
+      await window.importShim.addImportMap(
         JSON.parse(
           imap.innerText,
         ),
       );
-    }
+
+          // @ts-ignore
+      importShim = window.importShim;
+
+      return importShim(scr);
   }
-} catch {
-  console.error("no importmap");
-}
+
 // (async()=>{
 // Array.from( document.scripts).find(s=>s.type==="importmap")
 // const res = await fetch(location.origin + '/importmap.json')
