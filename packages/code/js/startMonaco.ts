@@ -145,7 +145,7 @@ const monacoContribution = async (
 
 	const regex2 = / from '\./gi;
 
-	const search = new RegExp(` from '${origin}/live/[a-zA-Z]+`, 'gm');
+	const search = new RegExp(` from '(${location.origin}/)?live/[a-zA-Z]+`, 'gm');
 	const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`)
 		.replaceAll(regex2, ` from '${location.origin}/live`);
 
@@ -155,7 +155,7 @@ const monacoContribution = async (
 	for (const match of models) {
 		console.log('***** EXTRA MODELS *****');
 
-		const extraModel = match[0].slice(7) + '.tsx';
+		const extraModel = new URL(match[0].slice(7) + '.tsx', location.origin).toString()
 		console.log(extraModel);
 		createModel(
 			await fetch(extraModel).then(async res => res.text()),

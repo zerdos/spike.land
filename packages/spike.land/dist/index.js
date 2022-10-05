@@ -404,6 +404,7 @@ var imap = {
     "@emotion/react/jsx-runtime": emotionJsxRuntime,
     "@emotion/react/jsx-dev-runtime": emotionJsxRuntime,
     "@mui/": "npm:@mui/",
+    "live/": "live/",
     "react": preact,
     "react-dom": preact,
     "framer-motion": motion,

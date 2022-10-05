@@ -1,5 +1,6 @@
-import EmotionReact from '@emotion/react';
+export {css, jsx, Global}  from '@emotion/react';
 
-export const {css, jsx, Global} = EmotionReact;
 
-export {default} from '@emotion/react';
+
+export { x}  from '@xstyled/emotion';
+
