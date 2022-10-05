@@ -1,4 +1,4 @@
-import type { CodeEnv } from "./env.ts";
+import type { CodeEnv } from "./env";
 
 export class Users {
   async fetch(_request: Request, _env: CodeEnv) {

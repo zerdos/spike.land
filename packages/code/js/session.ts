@@ -149,7 +149,7 @@ export class CodeSession implements ICodeSess {
         throw new Error(location.origin + " is NOT OK");
       }
 
-      const { mST, hashCode } = await resp.json();
+      const { mST, hashCode } = await resp.json() ;
       if (updateHash) updateHash(hashCode);
       hashStore[hashCode] = this.session.get("state").merge(mST);
 
@@ -181,9 +181,7 @@ export class CodeSession implements ICodeSess {
     const newHash = this.session.hashCode();
     if (newHash !== oldHash) {
       console.log({ sess });
-      requestAnimationFrame(() =>
-        this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x))
-      );
+      (self["requestAnimationFrame"] || setTimeout)(() => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x)));
     }
   };
 
@@ -215,8 +213,7 @@ export class CodeSession implements ICodeSess {
         hashStore[serverRecord.hashCode()] = serverRecord;
       } else {
         const { mST } = await import(
-          /* @vite-ignore */
-          location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`
+        `/live/${this.room}/mst.mjs?${Date.now()}`
         );
         const latestRec = this.session.get("state").merge(
           JSON.parse(str(mST)),
@@ -257,9 +254,12 @@ export class CodeSession implements ICodeSess {
   }
 }
 
-export const hashCode = () => session ? session.hashOfState() : 0;
+export const hashCode = () => {
+ return session ? session.hashOfState() : 0
+};
 
-export const mST: () => ICodeSession = () => {
+
+export function mST(){
   if (!session) {
     return {
       i: 0,
@@ -272,8 +272,8 @@ export const mST: () => ICodeSession = () => {
 
   // if (originStr) return addOrigin(session.json().state, originStr);
 
-  const { i, transpiled, code, html, css } = session.json().state;
-  return { i, transpiled, code, html, css };
+  const { i, transpiled, code, html, css } = session.session.toJSON().state;
+return { i, transpiled, code, html, css };
 };
 
 function addOrigin(s: ICodeSession, originStr: string) {

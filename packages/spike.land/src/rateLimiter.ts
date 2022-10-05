@@ -1,4 +1,4 @@
-import { CodeEnv } from "./env.ts";
+import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
 // =======================================================================================
 // The RateLimiter Durable Object class.
