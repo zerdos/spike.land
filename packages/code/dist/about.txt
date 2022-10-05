@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Kanit
+- Font Author: Copyright 2020 The Kanit Project Authors (https://github.com/cadsondemak/kanit)
+- Font Source: http://fonts.gstatic.com/s/kanit/v12/nKKS-Go6G5tXcraQI_GjVaRrMFJyAu4.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
