@@ -1085,7 +1085,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-6I4RNNAL.mjs
+// ../code/dist/chunk-chunk-BZGN6OHY.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6262,9 +6262,7 @@ var CodeSession = class {
       const newHash = this.session.hashCode();
       if (newHash !== oldHash) {
         console.log({ sess });
-        requestAnimationFrame(
-          () => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x))
-        );
+        (self["requestAnimationFrame"] || setTimeout)(() => this.createPatchFromHashCode(oldHash, mST()).then((x) => this.update(x)));
       }
     });
     __publicField(this, "applyPatch", async ({
@@ -6287,10 +6285,7 @@ var CodeSession = class {
           );
           hashStore[serverRecord.hashCode()] = serverRecord;
         } else {
-          const { mST: mST2 } = await import(
-            /* @vite-ignore */
-            location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`
-          );
+          const { mST: mST2 } = await import(`/live/${this.room}/mst.mjs?${Date.now()}`);
           const latestRec = this.session.get("state").merge(
             JSON.parse(str(mST2))
           );
@@ -6342,8 +6337,10 @@ var CodeSession = class {
     this.session = user;
   }
 };
-var hashCode3 = () => session ? session.hashOfState() : 0;
-var mST = () => {
+var hashCode3 = () => {
+  return session ? session.hashOfState() : 0;
+};
+function mST() {
   if (!session) {
     return {
       i: 0,
@@ -6353,9 +6350,9 @@ var mST = () => {
       css: ""
     };
   }
-  const { i, transpiled, code, html, css } = session.json().state;
+  const { i, transpiled, code, html, css } = session.session.toJSON().state;
   return { i, transpiled, code, html, css };
-};
+}
 function addOrigin(s, originStr) {
   const { i, transpiled, code, html, css } = s;
   const mst = { i, transpiled, code, html, css };

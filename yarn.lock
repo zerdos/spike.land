@@ -3641,7 +3641,6 @@ __metadata:
     preact-render-to-string: "npm:^5.2.4"
     prettier: "npm:2.7.1"
     qrious: "npm:^4.0.2"
-    react: "npm:^18.2.0"
     react-icons: "npm:^4.4.0"
     react-qrious: "npm:2.5.5"
     react-reverse-portal: "npm:^2.1.1"
@@ -15002,7 +15001,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0, react@npm:^18.2.0":
+"react@npm:18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
