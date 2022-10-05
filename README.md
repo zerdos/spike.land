@@ -11,12 +11,12 @@ mages.githubusercontent.com/1433047/152510558-c0b763f5-d64d-4884-9fb6-8a82f57106
 ```js
 if (code) return "it is in the monorepo";
 
-// blog:          packages/.blog.spike.land
-// docker-images: dockerhub/devimages/groovy-devcontainer
-//                                   /focal-devcontainer
-//                                   /rolling-devcontainer
+// spike.land-frontend:              /packages/code
+// spike.land cloudflare worker:     /packages/spike.land
+// docker-images:                    /packages/groovy-devcontainer
+//                                   /packages/focal-devcontainer
+//                                   /packages/rolling-devcontainer
 //
-// code-editor:   packages/code
 ```
 
 ### If you came here for a specific thing - then look in the packages folder.
