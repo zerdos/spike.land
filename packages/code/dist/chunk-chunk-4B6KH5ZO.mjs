@@ -855,20 +855,20 @@ var Tv = () => (0, import_jsx_runtime3.jsx)(Wrap, {
 init_define_process();
 init_react_preact();
 var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FabLazy = lazy(async () => import("./chunk-Fab-RF5DJ72S.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-TRZJGXBG.mjs"));
 var Fab = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(FabLazy, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-RY4DYHAG.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-4IOKXAHM.mjs"));
 var ToggleButton = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(ToggleButtonLazy, {
     ...props
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-6X77VE35.mjs")
+  async () => import("./chunk-ToggleButtonGroup-MLIYRB4Q.mjs")
 );
 var ToggleButtonGroup = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(ToggleButtonGroupLazy, {
@@ -965,7 +965,9 @@ var DraggableWindow = ({
     };
     reveal();
   }, []);
-  const bg2 = window.getComputedStyle(document.body, null).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).join(",");
+  const bg2 = window.getComputedStyle(document.body, null).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map(
+    (x) => Number(x) || "0"
+  ).join(",");
   return (0, import_jsx_runtime6.jsx)(LazyMotion, {
     features: { ...domAnimation, ...domMax },
     children: (0, import_jsx_runtime6.jsx)(m.div, {
@@ -1199,7 +1201,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-DJ76VICU.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-WARHSIPK.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-OJUT5PRH.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -1241,7 +1243,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-TLLVRUDG.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-EDO4T3HG.mjs");
       const { model, getTypeScriptWorker, setValue: setValue2 } = await startMonaco(
         {
           container: ref.current,
@@ -1332,7 +1334,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       changeContent((x) => ({ ...x, myCode: code, counter: i }));
       return;
     }
-    const cb = async () => {
+    const cb = () => {
       const code2 = getValue();
       const newCode = prettierJs(code2);
       if (newCode === mod.code) {
@@ -1347,13 +1349,13 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
           counter: counter + 1,
           myCode: newCode
         }));
-        await runner({ code: newCode, counter: counter + 1, codeSpace: codeSpace2 });
+        runner({ code: newCode, counter: counter + 1, codeSpace: codeSpace2 });
       } catch (error) {
         console.error({ err: error });
         console.error("restore editor");
       }
     };
-    onChange(async () => cb());
+    onChange(cb);
   }, [setValue, getValue, onChange, counter, prettierJs, runner]);
   onSessionUpdate(() => {
     const sess = mST();

@@ -6339,11 +6339,11 @@ var SaturationBox = class extends Disposable {
       return;
     }
     this.monitor = this._register(new GlobalPointerMoveMonitor());
-    const origin2 = getDomNodePagePosition(this.domNode);
+    const origin = getDomNodePagePosition(this.domNode);
     if (e.target !== this.selection) {
       this.onDidChangePosition(e.offsetX, e.offsetY);
     }
-    this.monitor.startMonitoring(e.target, e.pointerId, e.buttons, (event) => this.onDidChangePosition(event.pageX - origin2.left, event.pageY - origin2.top), () => null);
+    this.monitor.startMonitoring(e.target, e.pointerId, e.buttons, (event) => this.onDidChangePosition(event.pageX - origin.left, event.pageY - origin.top), () => null);
     const pointerUpListener = addDisposableListener(document, EventType.POINTER_UP, () => {
       this._onColorFlushed.fire();
       pointerUpListener.dispose();
@@ -6423,12 +6423,12 @@ var Strip = class extends Disposable {
       return;
     }
     const monitor = this._register(new GlobalPointerMoveMonitor());
-    const origin2 = getDomNodePagePosition(this.domNode);
+    const origin = getDomNodePagePosition(this.domNode);
     this.domNode.classList.add("grabbing");
     if (e.target !== this.slider) {
       this.onDidChangeTop(e.offsetY);
     }
-    monitor.startMonitoring(e.target, e.pointerId, e.buttons, (event) => this.onDidChangeTop(event.pageY - origin2.top), () => null);
+    monitor.startMonitoring(e.target, e.pointerId, e.buttons, (event) => this.onDidChangeTop(event.pageY - origin.top), () => null);
     const pointerUpListener = addDisposableListener(document, EventType.POINTER_UP, () => {
       this._onColorFlushed.fire();
       pointerUpListener.dispose();
@@ -42413,12 +42413,12 @@ var monacoContribution = async (code) => {
   });
   const regex1 = / from '\.\./gi;
   const regex2 = / from '\./gi;
-  const search = new RegExp(` from '${origin}/live/[a-zA-Z]+`, "gm");
+  const search = new RegExp(` from '(${location.origin}/)?live/[a-zA-Z]+`, "gm");
   const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`).replaceAll(regex2, ` from '${location.origin}/live`);
   const models = replaced.matchAll(search);
   for (const match of models) {
     console.log("***** EXTRA MODELS *****");
-    const extraModel = match[0].slice(7) + ".tsx";
+    const extraModel = new URL(match[0].slice(7) + ".tsx", location.origin).toString();
     console.log(extraModel);
     createModel(
       await fetch(extraModel).then(async (res) => res.text()),

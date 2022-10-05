@@ -210,7 +210,7 @@ export const Editor: React.FC<
 			return;
 		}
 
-		const cb = async () => {
+		const cb = () => {
 			const code = getValue();
 			const newCode = prettierJs(code);
 
@@ -233,7 +233,7 @@ export const Editor: React.FC<
 				}));
 
 				// Console.log("RUN THE RUNNER AGAIN");
-				await runner({code: newCode, counter: counter + 1, codeSpace});
+				runner({code: newCode, counter: counter + 1, codeSpace});
 			} catch (error) {
 				console.error({err: error});
 				console.error('restore editor');
@@ -248,7 +248,7 @@ export const Editor: React.FC<
 		//   leading: true,
 		// });
 
-		onChange(async () => cb());
+		onChange(cb);
 	}, [setValue, getValue, onChange, counter, prettierJs, runner]);
 
 	onSessionUpdate(() => {

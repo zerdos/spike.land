@@ -3560,6 +3560,7 @@ __metadata:
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
     "@types/xo": "npm:^0.39.3"
+    "@xstyled/emotion": "npm:^3.7.0"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.22"
     ace-builds: "npm:1.11.2"
     csstype: "npm:^3.1.1"
@@ -4257,6 +4258,47 @@ __metadata:
   version: 1.1.0
   resolution: "@vascosantos/moving-average@npm:1.1.0"
   checksum: e75d888ec8b5568d9030cc9e0432b6d477fbe642d7025c0b57a0b8211ee978befbb6dcd47d212718819eb3610580f9f773f96daa615e1766b51312a53686c69d
+  languageName: node
+  linkType: hard
+
+"@xstyled/core@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "@xstyled/core@npm:3.7.0"
+  dependencies:
+    "@xstyled/system": "npm:^3.7.0"
+    "@xstyled/util": "npm:^3.7.0"
+  checksum: b98aeff19bb3b1693e8ac244cfba82432ba64f493931011760873d3ab26b7bdeab220978852d39dbf18698ef1d5017f5d8cdca54dd8c49db646df941817f6022
+  languageName: node
+  linkType: hard
+
+"@xstyled/emotion@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "@xstyled/emotion@npm:3.7.0"
+  dependencies:
+    "@xstyled/core": "npm:^3.7.0"
+    "@xstyled/system": "npm:^3.7.0"
+    "@xstyled/util": "npm:^3.7.0"
+  peerDependencies:
+    "@emotion/react": ^11.0.0
+    "@emotion/styled": ^11.0.0
+  checksum: 401759bc51e424b11a5a04560e69222b1db7ebfc6726ece96bab35f5f881a1655800f337f3150e3d75837050a6eacf45d2a3def638152df69bf095d9f7f42df5
+  languageName: node
+  linkType: hard
+
+"@xstyled/system@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "@xstyled/system@npm:3.7.0"
+  dependencies:
+    "@xstyled/util": "npm:^3.7.0"
+    csstype: "npm:^3.1.1"
+  checksum: 4a0a295461d82eb53a55747cc1bb7cfcbaf80fb65836bdf687d421db4c9a75341edee23914a9787cd28ecce122ea196852b56654ff745022adb805f4a2c7c4ac
+  languageName: node
+  linkType: hard
+
+"@xstyled/util@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "@xstyled/util@npm:3.7.0"
+  checksum: 54744f9bccb5a88e5b15da70ea938b06f66ee26685421f930342cc526bc3ad847d59c852ab7de8f6691b98c2443f5f83ccc9cc1475e71e5a0bc1de6679bf783e
   languageName: node
   linkType: hard
 
