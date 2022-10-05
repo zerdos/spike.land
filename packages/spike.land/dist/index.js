@@ -873,7 +873,15 @@ body {
 .hidden {
   display: none;
 }
- 
+
+@font-face {
+          font-family: 'Futura Bold';
+          src: url('https://cdn.jsdelivr.net/npm/futura-font@1.0.0/FuturaBT-Medium.woff') format('woff');
+        }
+@font-face {
+          font-family: 'Wallpoet';
+          src: url('/Wallpoet.ttf') format('ttf');
+        }
    </style>
    <script type="esms-options">
     {

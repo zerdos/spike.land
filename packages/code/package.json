@@ -39,7 +39,7 @@
     "prebuild": "yarn test || echo FAILED",
     "build": "rm -rf dist && yarn favicons && yarn es:build",
     "es:build": "yarn test && node esbuild-dev.mjs",
-    "favicons": "cp -af js/assets/favicons/. ./dist && mkdir -p  ../../packages/.spike.land/public/assets && cp js/assets/synthwave.webp   ../../packages/.spike.land/public/assets/",
+    "favicons": "cp -af js/assets ./dist && mkdir -p  ../../packages/.spike.land/public/assets && cp js/assets/synthwave.webp   ../../packages/.spike.land/public/assets/",
     "workbox-cli": "workbox-cli",
     "sw": "echo ok",
     "xsw": "yarn workbox injectManifest workbox-config.json"
