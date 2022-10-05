@@ -4,6 +4,7 @@
     "yarn.lock",
     "package.json",
     "sw.js",
+    "startIpfs.ts",
     "getBackupSession.ts",
     "md5.ts",
     "good.json"
