@@ -55,9 +55,9 @@ const buildOptions = {
   plugins: [
     aliasPlugin({
       "buffer": resolve('./js/buffer/index.js'),
-      "ms": resolve("./js/ms/index.js"),
+      "ms": resolve("./js/ms.js"),
       "debug": resolve("./js/debug.ts"),
-      "events": resolve("./js/events/events.js"),
+      "events": resolve("./js/events.js"),
       "react": resolve("./js/react-preact.ts"),
       "react-dom": resolve("./js/react-preact.ts"),
       "react-dom/client": resolve("./js/react-preact.ts"),
