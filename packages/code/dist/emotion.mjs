@@ -14,9 +14,10 @@ import {
 init_define_process();
 var import_react = __toESM(require_emotion_react_cjs(), 1);
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
-var { css, jsx } = import_react.default;
+var { css, jsx, Global } = import_react.default;
 var export_default = import_react2.default;
 export {
+  Global,
   css,
   export_default as default,
   jsx
