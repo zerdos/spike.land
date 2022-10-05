@@ -1,6 +1,6 @@
 export function isMobile() {
 	const isIOS = /iPad|iPhone|iPod/.test(navigator.platform)
-    || (navigator.platform === 'MacIntel');
+    || (navigator.platform === 'MacIntel' && navigator.userAgent.indexOf("SAMSUNG")===-1);
 
 	let check = false;
 	(function (a) {

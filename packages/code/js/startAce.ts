@@ -1,17 +1,18 @@
-import {createEditSession, edit} from 'ace-builds';
+import { edit} from 'ace-builds';
+import 'ace-builds/src-min-noconflict/theme-monokai';
+import 'ace-builds/src-min-noconflict/mode-typescript';
 
-import 'ace-builds/src-noconflict/theme-monokai';
-
-import 'ace-builds/src-noconflict/mode-typescript';
 
 export async function startAce(code: string) {
 	// Const {ace} = window;
-	const editor = edit('editor');
+	const editor = edit('editor', {    
+		autoScrollEditorIntoView: true,
+		scrollPastEnd:true,
+		copyWithEmptySelection: true,});
 	editor.setTheme('ace/theme/monokai');
+	
 	editor.session.setMode('ace/mode/typescript', () => ({jsx: true}));
-	const mode = editor.session.getMode();
-	const js = createEditSession(code, mode);
-	editor.setSession(js);
+	editor.session.setValue(code);
 
 	return editor;
 }
