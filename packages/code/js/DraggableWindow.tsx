@@ -1,6 +1,6 @@
 import {css} from '@emotion/react';
 
-import {useEffect, useState} from 'react';
+import {useEffect, useState, FC} from 'react';
 import {domAnimation, domMax, LazyMotion, m} from 'framer-motion';
 import {MdFullscreen as FullscreenIcon} from 'react-icons/md';
 import {QRButton} from './Qr';
@@ -25,10 +25,10 @@ type DraggableWindowProps = {
 	hashCode: number;
 	position?: string;
 	room: string;
-	children: JSX.Element;
+	children: FC;
 };
 
-export const DraggableWindow: React.FC<DraggableWindowProps> = (
+export const DraggableWindow: FC<DraggableWindowProps> = (
 	{
 		children,
 		// OnRestore,
@@ -97,6 +97,11 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 		reveal();
 		// SetTimeout(reveal, 200);
 	}, []);
+
+
+	const bg=window.getComputedStyle( document.body ,null).getPropertyValue('background-color').slice(4, -1).split(",").slice(0,3).map(x=>Number(x)||"0"
+		).join(",");  
+
 
 	return (
 		<LazyMotion features={{...domAnimation, ...domMax}}>
@@ -210,7 +215,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 									scale: 1,
 								}}
 								animate={{
-									background: 'rgba(92,92,92, 0.5)',
+									background: 'rgba('+bg+', 0.5)',
 									transformOrigin: '0px 0px',
 									width: width / devicePixelRatio,
 									height: height / devicePixelRatio,
