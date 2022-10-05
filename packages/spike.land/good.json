@@ -75,15 +75,15 @@
       "bytes": 2244,
       "imports": []
     },
-    "../code/dist/chunk-chunk-UOA4FCKA.mjs": {
-      "bytes": 3347,
+    "../code/dist/chunk-chunk-IA5ZPNWL.mjs": {
+      "bytes": 2747,
       "imports": []
     },
-    "../code/dist/chunk-chunk-LKSOYGON.mjs": {
-      "bytes": 167533,
+    "../code/dist/chunk-chunk-AZ6WSMTX.mjs": {
+      "bytes": 167317,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-UOA4FCKA.mjs",
+          "path": "../code/dist/chunk-chunk-IA5ZPNWL.mjs",
           "kind": "import-statement"
         }
       ]
@@ -92,11 +92,11 @@
       "bytes": 375,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-LKSOYGON.mjs",
+          "path": "../code/dist/chunk-chunk-AZ6WSMTX.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../code/dist/chunk-chunk-UOA4FCKA.mjs",
+          "path": "../code/dist/chunk-chunk-IA5ZPNWL.mjs",
           "kind": "import-statement"
         }
       ]
@@ -220,11 +220,11 @@
         "src/chatRoom.ts": {
           "bytesInOutput": 15596
         },
-        "../code/dist/chunk-chunk-UOA4FCKA.mjs": {
-          "bytesInOutput": 1664
+        "../code/dist/chunk-chunk-IA5ZPNWL.mjs": {
+          "bytesInOutput": 1663
         },
-        "../code/dist/chunk-chunk-LKSOYGON.mjs": {
-          "bytesInOutput": 166713
+        "../code/dist/chunk-chunk-AZ6WSMTX.mjs": {
+          "bytesInOutput": 166641
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -239,7 +239,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 259737
+      "bytes": 259663
     }
   }
 }
