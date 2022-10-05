@@ -33,7 +33,6 @@
     "p:test": "playwright test tests/*.spec.ts"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^3.16.0",
     "@playwright/test": "^1.26.1",
     "@types/node": "^18.8.2",
     "@types/xo": "^0.39.3",
@@ -44,15 +43,8 @@
     "xo": "^0.52.4"
   },
   "dependencies": {
-    "@cloudflare/kv-asset-handler": "^0.2.0",
     "@emotion/react": "^11.10.4",
     "@types/react": "18.0.21",
-    "@yarnpkg/fslib": "^3.0.0-rc.22",
-    "base64-js": "^1.5.1",
-    "comlink": "^4.3.1",
-    "ieee754": "^1.2.1",
-    "monaco-editor": "^0.34.0",
-    "node-fetch": "^3.2.10",
     "playwright": "^1.26.1"
   },
   "packageManager": "yarn@4.0.0-rc.22"
