@@ -139,11 +139,11 @@
       ]
     },
     "src/users.ts": {
-      "bytes": 151,
+      "bytes": 148,
       "imports": []
     },
     "src/rateLimiter.ts": {
-      "bytes": 1934,
+      "bytes": 1931,
       "imports": [
         {
           "path": "src/handleErrors.ts",
