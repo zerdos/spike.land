@@ -40,14 +40,14 @@ let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
-let ws: WebSocket | undefined = null;
+let ws: WebSocket | null = null;
 let sendWS: (message: string) => void;
 let rejoined = false;
 const sendChannel = {
 	webRtcArray,
 	rtcConns,
-	send(data: Record<string, string | number | Record<string, unknown>>) {
-		const target = data.target;
+	send(data: any) {
+		// const target = data.target;
 		const messageString = JSON.stringify({
 			...data,
 			name: data.name || user,
@@ -61,7 +61,7 @@ const sendChannel = {
 				}
 
 				if (
-					!target || ch.target === target && !ignoreUsers.includes(ch.target)
+					!data.target || ch.target === data.target && !ignoreUsers.includes(ch.target)
 				) {
 					ch.send(messageString);
 				}
@@ -190,7 +190,7 @@ export const run = async (startState: {
 // }));
 // }
 // })();
-let intervalHandler: NodeJS.Timer | undefined = null;
+let intervalHandler: NodeJS.Timer | null = null;
 
 // Const w = window as unknown as {
 //   sess: {
@@ -846,8 +846,7 @@ export async function sw() {
 			}
 		};
 
-		// @ts-expect-error - register expects string but webPack requires this URL hack.
-
+		
 		// This is just for testing, lets us know when SW is ready.
 
 		// are loaded from service worker. However it could be that such a URL is loaded

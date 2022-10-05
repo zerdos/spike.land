@@ -77,7 +77,7 @@ const workerEntryPoints = [
 	'vs/editor/editor.worker',
 ];
 
-const build = (entryPoints, format = 'esm') =>
+const build = (/** @type {string[]} */ entryPoints) =>
 	esbuild.build({
 		...buildOptions,
 		entryPoints,
@@ -85,6 +85,7 @@ const build = (entryPoints, format = 'esm') =>
 		bundle: true,
 		splitting: true,
 		target,
+		format: 'esm',
 		sourcemap: false,
 
 		minify: !isDevelopment,
@@ -98,10 +99,8 @@ const build = (entryPoints, format = 'esm') =>
 		// sourcemap: true,
 		treeShaking: true,
 		logLimit: 0,
-		metafile: true,
 		keepNames: false,
 
-		format,
 		tsconfig: './tsconfig.json',
 		allowOverwrite: true,
 		platform: 'browser',
@@ -130,7 +129,6 @@ const build = (entryPoints, format = 'esm') =>
 			'.tsx': 'tsx',
 			'.jsx': 'tsx',
 			'.css': 'css',
-			'.ttf': 'file',
 			'.d.ts': 'file',
 			'.js': 'tsx',
 			'.workerJs.js': 'file',
@@ -155,7 +153,6 @@ const build = (entryPoints, format = 'esm') =>
 		minifyIdentifiers: true, //! isDevelopment,
 		minifySyntax: true, //! isDevelopment,
 		ignoreAnnotations: true,
-		metafile: true,
 		keepNames: false,
 		platform: 'browser',
 		outExtension: {'.js': '.workerJs.js'},
