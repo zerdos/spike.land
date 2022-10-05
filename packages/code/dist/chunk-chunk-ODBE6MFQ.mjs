@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./chunk-chunk-D4MCVUAY.mjs";
+} from "./chunk-chunk-YQDI4DTW.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";
@@ -222,7 +222,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-tsMode-MQ2FIXU6.mjs");
+    return import("./chunk-tsMode-Y6ZVWPTT.mjs");
   }
 }
 monaco_editor_core_exports.languages.onLanguage("typescript", () => {

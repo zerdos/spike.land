@@ -5734,10 +5734,6 @@ function escape(html2) {
 function escapeRegExpCharacters(value) {
   return value.replace(/[\\\{\}\*\+\?\|\^\$\.\[\]\(\)]/g, "\\$&");
 }
-function trim(haystack, needle = " ") {
-  const trimmed = ltrim(haystack, needle);
-  return rtrim(trimmed, needle);
-}
 function ltrim(haystack, needle) {
   if (!haystack || !needle) {
     return haystack;
@@ -5775,9 +5771,6 @@ function rtrim(haystack, needle) {
 }
 function convertSimple2RegExpPattern(pattern) {
   return pattern.replace(/[\-\\\{\}\+\?\|\^\$\.\,\[\]\(\)\#\s]/g, "\\$&").replace(/[\*]/g, ".*");
-}
-function stripWildcards(pattern) {
-  return pattern.replace(/\*/g, "");
 }
 function createRegExp(searchString, isRegex, options = {}) {
   if (!searchString) {
@@ -6452,243 +6445,6 @@ var init_browser = __esm({
         standalone = matches;
       });
     }
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/fastDomNode.js
-function numberAsPixels(value) {
-  return typeof value === "number" ? `${value}px` : value;
-}
-function createFastDomNode(domNode) {
-  return new FastDomNode(domNode);
-}
-var FastDomNode;
-var init_fastDomNode = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/fastDomNode.js"() {
-    init_define_process();
-    FastDomNode = class {
-      constructor(domNode) {
-        this.domNode = domNode;
-        this._maxWidth = "";
-        this._width = "";
-        this._height = "";
-        this._top = "";
-        this._left = "";
-        this._bottom = "";
-        this._right = "";
-        this._fontFamily = "";
-        this._fontWeight = "";
-        this._fontSize = "";
-        this._fontStyle = "";
-        this._fontFeatureSettings = "";
-        this._textDecoration = "";
-        this._lineHeight = "";
-        this._letterSpacing = "";
-        this._className = "";
-        this._display = "";
-        this._position = "";
-        this._visibility = "";
-        this._color = "";
-        this._backgroundColor = "";
-        this._layerHint = false;
-        this._contain = "none";
-        this._boxShadow = "";
-      }
-      setMaxWidth(_maxWidth) {
-        const maxWidth = numberAsPixels(_maxWidth);
-        if (this._maxWidth === maxWidth) {
-          return;
-        }
-        this._maxWidth = maxWidth;
-        this.domNode.style.maxWidth = this._maxWidth;
-      }
-      setWidth(_width) {
-        const width = numberAsPixels(_width);
-        if (this._width === width) {
-          return;
-        }
-        this._width = width;
-        this.domNode.style.width = this._width;
-      }
-      setHeight(_height) {
-        const height = numberAsPixels(_height);
-        if (this._height === height) {
-          return;
-        }
-        this._height = height;
-        this.domNode.style.height = this._height;
-      }
-      setTop(_top) {
-        const top = numberAsPixels(_top);
-        if (this._top === top) {
-          return;
-        }
-        this._top = top;
-        this.domNode.style.top = this._top;
-      }
-      setLeft(_left) {
-        const left = numberAsPixels(_left);
-        if (this._left === left) {
-          return;
-        }
-        this._left = left;
-        this.domNode.style.left = this._left;
-      }
-      setBottom(_bottom) {
-        const bottom = numberAsPixels(_bottom);
-        if (this._bottom === bottom) {
-          return;
-        }
-        this._bottom = bottom;
-        this.domNode.style.bottom = this._bottom;
-      }
-      setRight(_right) {
-        const right = numberAsPixels(_right);
-        if (this._right === right) {
-          return;
-        }
-        this._right = right;
-        this.domNode.style.right = this._right;
-      }
-      setFontFamily(fontFamily) {
-        if (this._fontFamily === fontFamily) {
-          return;
-        }
-        this._fontFamily = fontFamily;
-        this.domNode.style.fontFamily = this._fontFamily;
-      }
-      setFontWeight(fontWeight) {
-        if (this._fontWeight === fontWeight) {
-          return;
-        }
-        this._fontWeight = fontWeight;
-        this.domNode.style.fontWeight = this._fontWeight;
-      }
-      setFontSize(_fontSize) {
-        const fontSize = numberAsPixels(_fontSize);
-        if (this._fontSize === fontSize) {
-          return;
-        }
-        this._fontSize = fontSize;
-        this.domNode.style.fontSize = this._fontSize;
-      }
-      setFontStyle(fontStyle) {
-        if (this._fontStyle === fontStyle) {
-          return;
-        }
-        this._fontStyle = fontStyle;
-        this.domNode.style.fontStyle = this._fontStyle;
-      }
-      setFontFeatureSettings(fontFeatureSettings) {
-        if (this._fontFeatureSettings === fontFeatureSettings) {
-          return;
-        }
-        this._fontFeatureSettings = fontFeatureSettings;
-        this.domNode.style.fontFeatureSettings = this._fontFeatureSettings;
-      }
-      setTextDecoration(textDecoration) {
-        if (this._textDecoration === textDecoration) {
-          return;
-        }
-        this._textDecoration = textDecoration;
-        this.domNode.style.textDecoration = this._textDecoration;
-      }
-      setLineHeight(_lineHeight) {
-        const lineHeight = numberAsPixels(_lineHeight);
-        if (this._lineHeight === lineHeight) {
-          return;
-        }
-        this._lineHeight = lineHeight;
-        this.domNode.style.lineHeight = this._lineHeight;
-      }
-      setLetterSpacing(_letterSpacing) {
-        const letterSpacing = numberAsPixels(_letterSpacing);
-        if (this._letterSpacing === letterSpacing) {
-          return;
-        }
-        this._letterSpacing = letterSpacing;
-        this.domNode.style.letterSpacing = this._letterSpacing;
-      }
-      setClassName(className) {
-        if (this._className === className) {
-          return;
-        }
-        this._className = className;
-        this.domNode.className = this._className;
-      }
-      toggleClassName(className, shouldHaveIt) {
-        this.domNode.classList.toggle(className, shouldHaveIt);
-        this._className = this.domNode.className;
-      }
-      setDisplay(display) {
-        if (this._display === display) {
-          return;
-        }
-        this._display = display;
-        this.domNode.style.display = this._display;
-      }
-      setPosition(position) {
-        if (this._position === position) {
-          return;
-        }
-        this._position = position;
-        this.domNode.style.position = this._position;
-      }
-      setVisibility(visibility) {
-        if (this._visibility === visibility) {
-          return;
-        }
-        this._visibility = visibility;
-        this.domNode.style.visibility = this._visibility;
-      }
-      setColor(color) {
-        if (this._color === color) {
-          return;
-        }
-        this._color = color;
-        this.domNode.style.color = this._color;
-      }
-      setBackgroundColor(backgroundColor) {
-        if (this._backgroundColor === backgroundColor) {
-          return;
-        }
-        this._backgroundColor = backgroundColor;
-        this.domNode.style.backgroundColor = this._backgroundColor;
-      }
-      setLayerHinting(layerHint) {
-        if (this._layerHint === layerHint) {
-          return;
-        }
-        this._layerHint = layerHint;
-        this.domNode.style.transform = this._layerHint ? "translate3d(0px, 0px, 0px)" : "";
-      }
-      setBoxShadow(boxShadow) {
-        if (this._boxShadow === boxShadow) {
-          return;
-        }
-        this._boxShadow = boxShadow;
-        this.domNode.style.boxShadow = boxShadow;
-      }
-      setContain(contain) {
-        if (this._contain === contain) {
-          return;
-        }
-        this._contain = contain;
-        this.domNode.style.contain = this._contain;
-      }
-      setAttribute(name, value) {
-        this.domNode.setAttribute(name, value);
-      }
-      removeAttribute(name) {
-        this.domNode.removeAttribute(name);
-      }
-      appendChild(child) {
-        this.domNode.appendChild(child.domNode);
-      }
-      removeChild(child) {
-        this.domNode.removeChild(child.domNode);
-      }
-    };
   }
 });
 
@@ -15502,320 +15258,6 @@ var init_editorExtensions = __esm({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/config/tabFocus.js
-var TabFocusImpl, TabFocus;
-var init_tabFocus = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/config/tabFocus.js"() {
-    init_define_process();
-    init_event();
-    TabFocusImpl = class {
-      constructor() {
-        this._tabFocus = false;
-        this._onDidChangeTabFocus = new Emitter();
-        this.onDidChangeTabFocus = this._onDidChangeTabFocus.event;
-      }
-      getTabFocusMode() {
-        return this._tabFocus;
-      }
-      setTabFocusMode(tabFocusMode) {
-        if (this._tabFocus === tabFocusMode) {
-          return;
-        }
-        this._tabFocus = tabFocusMode;
-        this._onDidChangeTabFocus.fire(this._tabFocus);
-      }
-    };
-    TabFocus = new TabFocusImpl();
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/common/decorators.js
-function memoize(_target, key, descriptor) {
-  let fnKey = null;
-  let fn = null;
-  if (typeof descriptor.value === "function") {
-    fnKey = "value";
-    fn = descriptor.value;
-    if (fn.length !== 0) {
-      console.warn("Memoize should only be used in functions with zero parameters");
-    }
-  } else if (typeof descriptor.get === "function") {
-    fnKey = "get";
-    fn = descriptor.get;
-  }
-  if (!fn) {
-    throw new Error("not supported");
-  }
-  const memoizeKey = `$memoize$${key}`;
-  descriptor[fnKey] = function(...args) {
-    if (!this.hasOwnProperty(memoizeKey)) {
-      Object.defineProperty(this, memoizeKey, {
-        configurable: false,
-        enumerable: false,
-        writable: false,
-        value: fn.apply(this, args)
-      });
-    }
-    return this[memoizeKey];
-  };
-}
-var init_decorators = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/common/decorators.js"() {
-    init_define_process();
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/touch.js
-var __decorate7, EventType2, Gesture;
-var init_touch = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/touch.js"() {
-    init_define_process();
-    init_dom();
-    init_arrays();
-    init_decorators();
-    init_lifecycle();
-    __decorate7 = function(decorators, target, key, desc) {
-      var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-      if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
-        r = Reflect.decorate(decorators, target, key, desc);
-      else
-        for (var i = decorators.length - 1; i >= 0; i--)
-          if (d = decorators[i])
-            r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    (function(EventType3) {
-      EventType3.Tap = "-monaco-gesturetap";
-      EventType3.Change = "-monaco-gesturechange";
-      EventType3.Start = "-monaco-gesturestart";
-      EventType3.End = "-monaco-gesturesend";
-      EventType3.Contextmenu = "-monaco-gesturecontextmenu";
-    })(EventType2 || (EventType2 = {}));
-    Gesture = class extends Disposable {
-      constructor() {
-        super();
-        this.dispatched = false;
-        this.activeTouches = {};
-        this.handle = null;
-        this.targets = [];
-        this.ignoreTargets = [];
-        this._lastSetTapCountTime = 0;
-        this._register(addDisposableListener(document, "touchstart", (e) => this.onTouchStart(e), { passive: false }));
-        this._register(addDisposableListener(document, "touchend", (e) => this.onTouchEnd(e)));
-        this._register(addDisposableListener(document, "touchmove", (e) => this.onTouchMove(e), { passive: false }));
-      }
-      static addTarget(element) {
-        if (!Gesture.isTouchDevice()) {
-          return Disposable.None;
-        }
-        if (!Gesture.INSTANCE) {
-          Gesture.INSTANCE = new Gesture();
-        }
-        Gesture.INSTANCE.targets.push(element);
-        return {
-          dispose: () => {
-            Gesture.INSTANCE.targets = Gesture.INSTANCE.targets.filter((t) => t !== element);
-          }
-        };
-      }
-      static ignoreTarget(element) {
-        if (!Gesture.isTouchDevice()) {
-          return Disposable.None;
-        }
-        if (!Gesture.INSTANCE) {
-          Gesture.INSTANCE = new Gesture();
-        }
-        Gesture.INSTANCE.ignoreTargets.push(element);
-        return {
-          dispose: () => {
-            Gesture.INSTANCE.ignoreTargets = Gesture.INSTANCE.ignoreTargets.filter((t) => t !== element);
-          }
-        };
-      }
-      static isTouchDevice() {
-        return "ontouchstart" in window || navigator.maxTouchPoints > 0;
-      }
-      dispose() {
-        if (this.handle) {
-          this.handle.dispose();
-          this.handle = null;
-        }
-        super.dispose();
-      }
-      onTouchStart(e) {
-        const timestamp = Date.now();
-        if (this.handle) {
-          this.handle.dispose();
-          this.handle = null;
-        }
-        for (let i = 0, len = e.targetTouches.length; i < len; i++) {
-          const touch = e.targetTouches.item(i);
-          this.activeTouches[touch.identifier] = {
-            id: touch.identifier,
-            initialTarget: touch.target,
-            initialTimeStamp: timestamp,
-            initialPageX: touch.pageX,
-            initialPageY: touch.pageY,
-            rollingTimestamps: [timestamp],
-            rollingPageX: [touch.pageX],
-            rollingPageY: [touch.pageY]
-          };
-          const evt = this.newGestureEvent(EventType2.Start, touch.target);
-          evt.pageX = touch.pageX;
-          evt.pageY = touch.pageY;
-          this.dispatchEvent(evt);
-        }
-        if (this.dispatched) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.dispatched = false;
-        }
-      }
-      onTouchEnd(e) {
-        const timestamp = Date.now();
-        const activeTouchCount = Object.keys(this.activeTouches).length;
-        for (let i = 0, len = e.changedTouches.length; i < len; i++) {
-          const touch = e.changedTouches.item(i);
-          if (!this.activeTouches.hasOwnProperty(String(touch.identifier))) {
-            console.warn("move of an UNKNOWN touch", touch);
-            continue;
-          }
-          const data = this.activeTouches[touch.identifier], holdTime = Date.now() - data.initialTimeStamp;
-          if (holdTime < Gesture.HOLD_DELAY && Math.abs(data.initialPageX - tail(data.rollingPageX)) < 30 && Math.abs(data.initialPageY - tail(data.rollingPageY)) < 30) {
-            const evt = this.newGestureEvent(EventType2.Tap, data.initialTarget);
-            evt.pageX = tail(data.rollingPageX);
-            evt.pageY = tail(data.rollingPageY);
-            this.dispatchEvent(evt);
-          } else if (holdTime >= Gesture.HOLD_DELAY && Math.abs(data.initialPageX - tail(data.rollingPageX)) < 30 && Math.abs(data.initialPageY - tail(data.rollingPageY)) < 30) {
-            const evt = this.newGestureEvent(EventType2.Contextmenu, data.initialTarget);
-            evt.pageX = tail(data.rollingPageX);
-            evt.pageY = tail(data.rollingPageY);
-            this.dispatchEvent(evt);
-          } else if (activeTouchCount === 1) {
-            const finalX = tail(data.rollingPageX);
-            const finalY = tail(data.rollingPageY);
-            const deltaT = tail(data.rollingTimestamps) - data.rollingTimestamps[0];
-            const deltaX = finalX - data.rollingPageX[0];
-            const deltaY = finalY - data.rollingPageY[0];
-            const dispatchTo = this.targets.filter((t) => data.initialTarget instanceof Node && t.contains(data.initialTarget));
-            this.inertia(
-              dispatchTo,
-              timestamp,
-              Math.abs(deltaX) / deltaT,
-              deltaX > 0 ? 1 : -1,
-              finalX,
-              Math.abs(deltaY) / deltaT,
-              deltaY > 0 ? 1 : -1,
-              finalY
-            );
-          }
-          this.dispatchEvent(this.newGestureEvent(EventType2.End, data.initialTarget));
-          delete this.activeTouches[touch.identifier];
-        }
-        if (this.dispatched) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.dispatched = false;
-        }
-      }
-      newGestureEvent(type, initialTarget) {
-        const event = document.createEvent("CustomEvent");
-        event.initEvent(type, false, true);
-        event.initialTarget = initialTarget;
-        event.tapCount = 0;
-        return event;
-      }
-      dispatchEvent(event) {
-        if (event.type === EventType2.Tap) {
-          const currentTime = new Date().getTime();
-          let setTapCount = 0;
-          if (currentTime - this._lastSetTapCountTime > Gesture.CLEAR_TAP_COUNT_TIME) {
-            setTapCount = 1;
-          } else {
-            setTapCount = 2;
-          }
-          this._lastSetTapCountTime = currentTime;
-          event.tapCount = setTapCount;
-        } else if (event.type === EventType2.Change || event.type === EventType2.Contextmenu) {
-          this._lastSetTapCountTime = 0;
-        }
-        for (let i = 0; i < this.ignoreTargets.length; i++) {
-          if (event.initialTarget instanceof Node && this.ignoreTargets[i].contains(event.initialTarget)) {
-            return;
-          }
-        }
-        this.targets.forEach((target) => {
-          if (event.initialTarget instanceof Node && target.contains(event.initialTarget)) {
-            target.dispatchEvent(event);
-            this.dispatched = true;
-          }
-        });
-      }
-      inertia(dispatchTo, t1, vX, dirX, x, vY, dirY, y) {
-        this.handle = scheduleAtNextAnimationFrame(() => {
-          const now = Date.now();
-          const deltaT = now - t1;
-          let delta_pos_x = 0, delta_pos_y = 0;
-          let stopped = true;
-          vX += Gesture.SCROLL_FRICTION * deltaT;
-          vY += Gesture.SCROLL_FRICTION * deltaT;
-          if (vX > 0) {
-            stopped = false;
-            delta_pos_x = dirX * vX * deltaT;
-          }
-          if (vY > 0) {
-            stopped = false;
-            delta_pos_y = dirY * vY * deltaT;
-          }
-          const evt = this.newGestureEvent(EventType2.Change);
-          evt.translationX = delta_pos_x;
-          evt.translationY = delta_pos_y;
-          dispatchTo.forEach((d) => d.dispatchEvent(evt));
-          if (!stopped) {
-            this.inertia(dispatchTo, now, vX, dirX, x + delta_pos_x, vY, dirY, y + delta_pos_y);
-          }
-        });
-      }
-      onTouchMove(e) {
-        const timestamp = Date.now();
-        for (let i = 0, len = e.changedTouches.length; i < len; i++) {
-          const touch = e.changedTouches.item(i);
-          if (!this.activeTouches.hasOwnProperty(String(touch.identifier))) {
-            console.warn("end of an UNKNOWN touch", touch);
-            continue;
-          }
-          const data = this.activeTouches[touch.identifier];
-          const evt = this.newGestureEvent(EventType2.Change, data.initialTarget);
-          evt.translationX = touch.pageX - tail(data.rollingPageX);
-          evt.translationY = touch.pageY - tail(data.rollingPageY);
-          evt.pageX = touch.pageX;
-          evt.pageY = touch.pageY;
-          this.dispatchEvent(evt);
-          if (data.rollingPageX.length > 3) {
-            data.rollingPageX.shift();
-            data.rollingPageY.shift();
-            data.rollingTimestamps.shift();
-          }
-          data.rollingPageX.push(touch.pageX);
-          data.rollingPageY.push(touch.pageY);
-          data.rollingTimestamps.push(timestamp);
-        }
-        if (this.dispatched) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.dispatched = false;
-        }
-      }
-    };
-    Gesture.SCROLL_FRICTION = -5e-3;
-    Gesture.HOLD_DELAY = 700;
-    Gesture.CLEAR_TAP_COUNT_TIME = 400;
-    __decorate7([
-      memoize
-    ], Gesture, "isTouchDevice", null);
-  }
-});
-
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/common/color.js
 function roundFloat(number, decimalPoints) {
   const decimal = Math.pow(10, decimalPoints);
@@ -16870,51 +16312,6 @@ var init_editorContextKeys = __esm({
       EditorContextKeys2.hasMultipleDocumentFormattingProvider = new RawContextKey("editorHasMultipleDocumentFormattingProvider", false, localize("editorHasMultipleDocumentFormattingProvider", "Whether the editor has multiple document formatting providers"));
       EditorContextKeys2.hasMultipleDocumentSelectionFormattingProvider = new RawContextKey("editorHasMultipleDocumentSelectionFormattingProvider", false, localize("editorHasMultipleDocumentSelectionFormattingProvider", "Whether the editor has multiple document selection formatting providers"));
     })(EditorContextKeys || (EditorContextKeys = {}));
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/widget.js
-var Widget2;
-var init_widget = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/widget.js"() {
-    init_define_process();
-    init_dom();
-    init_keyboardEvent();
-    init_mouseEvent();
-    init_touch();
-    init_lifecycle();
-    Widget2 = class extends Disposable {
-      onclick(domNode, listener) {
-        this._register(addDisposableListener(domNode, EventType.CLICK, (e) => listener(new StandardMouseEvent(e))));
-      }
-      onmousedown(domNode, listener) {
-        this._register(addDisposableListener(domNode, EventType.MOUSE_DOWN, (e) => listener(new StandardMouseEvent(e))));
-      }
-      onmouseover(domNode, listener) {
-        this._register(addDisposableListener(domNode, EventType.MOUSE_OVER, (e) => listener(new StandardMouseEvent(e))));
-      }
-      onmouseleave(domNode, listener) {
-        this._register(addDisposableListener(domNode, EventType.MOUSE_LEAVE, (e) => listener(new StandardMouseEvent(e))));
-      }
-      onkeydown(domNode, listener) {
-        this._register(addDisposableListener(domNode, EventType.KEY_DOWN, (e) => listener(new StandardKeyboardEvent(e))));
-      }
-      onkeyup(domNode, listener) {
-        this._register(addDisposableListener(domNode, EventType.KEY_UP, (e) => listener(new StandardKeyboardEvent(e))));
-      }
-      oninput(domNode, listener) {
-        this._register(addDisposableListener(domNode, EventType.INPUT, listener));
-      }
-      onblur(domNode, listener) {
-        this._register(addDisposableListener(domNode, EventType.BLUR, listener));
-      }
-      onfocus(domNode, listener) {
-        this._register(addDisposableListener(domNode, EventType.FOCUS, listener));
-      }
-      ignoreGesture(domNode) {
-        Gesture.ignoreTarget(domNode);
-      }
-    };
   }
 });
 
@@ -28259,77 +27656,6 @@ var init_editOperation = __esm({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/platform/keybinding/common/keybinding.js
-var IKeybindingService;
-var init_keybinding = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/platform/keybinding/common/keybinding.js"() {
-    init_define_process();
-    init_instantiation();
-    IKeybindingService = createDecorator("keybindingService");
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/common/standaloneStrings.js
-var AccessibilityHelpNLS, InspectTokensNLS, GoToLineNLS, QuickHelpNLS, QuickCommandNLS, QuickOutlineNLS, StandaloneCodeEditorNLS, ToggleHighContrastNLS, StandaloneServicesNLS;
-var init_standaloneStrings = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/common/standaloneStrings.js"() {
-    init_define_process();
-    init_nls();
-    (function(AccessibilityHelpNLS2) {
-      AccessibilityHelpNLS2.noSelection = localize("noSelection", "No selection");
-      AccessibilityHelpNLS2.singleSelectionRange = localize("singleSelectionRange", "Line {0}, Column {1} ({2} selected)");
-      AccessibilityHelpNLS2.singleSelection = localize("singleSelection", "Line {0}, Column {1}");
-      AccessibilityHelpNLS2.multiSelectionRange = localize("multiSelectionRange", "{0} selections ({1} characters selected)");
-      AccessibilityHelpNLS2.multiSelection = localize("multiSelection", "{0} selections");
-      AccessibilityHelpNLS2.emergencyConfOn = localize("emergencyConfOn", "Now changing the setting `accessibilitySupport` to 'on'.");
-      AccessibilityHelpNLS2.openingDocs = localize("openingDocs", "Now opening the Editor Accessibility documentation page.");
-      AccessibilityHelpNLS2.readonlyDiffEditor = localize("readonlyDiffEditor", " in a read-only pane of a diff editor.");
-      AccessibilityHelpNLS2.editableDiffEditor = localize("editableDiffEditor", " in a pane of a diff editor.");
-      AccessibilityHelpNLS2.readonlyEditor = localize("readonlyEditor", " in a read-only code editor");
-      AccessibilityHelpNLS2.editableEditor = localize("editableEditor", " in a code editor");
-      AccessibilityHelpNLS2.changeConfigToOnMac = localize("changeConfigToOnMac", "To configure the editor to be optimized for usage with a Screen Reader press Command+E now.");
-      AccessibilityHelpNLS2.changeConfigToOnWinLinux = localize("changeConfigToOnWinLinux", "To configure the editor to be optimized for usage with a Screen Reader press Control+E now.");
-      AccessibilityHelpNLS2.auto_on = localize("auto_on", "The editor is configured to be optimized for usage with a Screen Reader.");
-      AccessibilityHelpNLS2.auto_off = localize("auto_off", "The editor is configured to never be optimized for usage with a Screen Reader, which is not the case at this time.");
-      AccessibilityHelpNLS2.tabFocusModeOnMsg = localize("tabFocusModeOnMsg", "Pressing Tab in the current editor will move focus to the next focusable element. Toggle this behavior by pressing {0}.");
-      AccessibilityHelpNLS2.tabFocusModeOnMsgNoKb = localize("tabFocusModeOnMsgNoKb", "Pressing Tab in the current editor will move focus to the next focusable element. The command {0} is currently not triggerable by a keybinding.");
-      AccessibilityHelpNLS2.tabFocusModeOffMsg = localize("tabFocusModeOffMsg", "Pressing Tab in the current editor will insert the tab character. Toggle this behavior by pressing {0}.");
-      AccessibilityHelpNLS2.tabFocusModeOffMsgNoKb = localize("tabFocusModeOffMsgNoKb", "Pressing Tab in the current editor will insert the tab character. The command {0} is currently not triggerable by a keybinding.");
-      AccessibilityHelpNLS2.openDocMac = localize("openDocMac", "Press Command+H now to open a browser window with more information related to editor accessibility.");
-      AccessibilityHelpNLS2.openDocWinLinux = localize("openDocWinLinux", "Press Control+H now to open a browser window with more information related to editor accessibility.");
-      AccessibilityHelpNLS2.outroMsg = localize("outroMsg", "You can dismiss this tooltip and return to the editor by pressing Escape or Shift+Escape.");
-      AccessibilityHelpNLS2.showAccessibilityHelpAction = localize("showAccessibilityHelpAction", "Show Accessibility Help");
-    })(AccessibilityHelpNLS || (AccessibilityHelpNLS = {}));
-    (function(InspectTokensNLS2) {
-      InspectTokensNLS2.inspectTokensAction = localize("inspectTokens", "Developer: Inspect Tokens");
-    })(InspectTokensNLS || (InspectTokensNLS = {}));
-    (function(GoToLineNLS2) {
-      GoToLineNLS2.gotoLineActionLabel = localize("gotoLineActionLabel", "Go to Line/Column...");
-    })(GoToLineNLS || (GoToLineNLS = {}));
-    (function(QuickHelpNLS2) {
-      QuickHelpNLS2.helpQuickAccessActionLabel = localize("helpQuickAccess", "Show all Quick Access Providers");
-    })(QuickHelpNLS || (QuickHelpNLS = {}));
-    (function(QuickCommandNLS2) {
-      QuickCommandNLS2.quickCommandActionLabel = localize("quickCommandActionLabel", "Command Palette");
-      QuickCommandNLS2.quickCommandHelp = localize("quickCommandActionHelp", "Show And Run Commands");
-    })(QuickCommandNLS || (QuickCommandNLS = {}));
-    (function(QuickOutlineNLS2) {
-      QuickOutlineNLS2.quickOutlineActionLabel = localize("quickOutlineActionLabel", "Go to Symbol...");
-      QuickOutlineNLS2.quickOutlineByCategoryActionLabel = localize("quickOutlineByCategoryActionLabel", "Go to Symbol by Category...");
-    })(QuickOutlineNLS || (QuickOutlineNLS = {}));
-    (function(StandaloneCodeEditorNLS2) {
-      StandaloneCodeEditorNLS2.editorViewAccessibleLabel = localize("editorViewAccessibleLabel", "Editor content");
-      StandaloneCodeEditorNLS2.accessibilityHelpMessage = localize("accessibilityHelpMessage", "Press Alt+F1 for Accessibility Options.");
-    })(StandaloneCodeEditorNLS || (StandaloneCodeEditorNLS = {}));
-    (function(ToggleHighContrastNLS2) {
-      ToggleHighContrastNLS2.toggleHighContrast = localize("toggleHighContrast", "Toggle High Contrast Theme");
-    })(ToggleHighContrastNLS || (ToggleHighContrastNLS = {}));
-    (function(StandaloneServicesNLS2) {
-      StandaloneServicesNLS2.bulkEditServiceSummary = localize("bulkEditServiceSummary", "Made {0} edits in {1} files");
-    })(StandaloneServicesNLS || (StandaloneServicesNLS = {}));
-  }
-});
-
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/common/tokens/sparseMultilineTokens.js
 var SparseMultilineTokens, SparseMultilineTokensStorage, SparseLineTokens;
 var init_sparseMultilineTokens = __esm({
@@ -30020,176 +29346,6 @@ var init_modelService = __esm({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/formattedTextRenderer.js
-function renderText(text2, options = {}) {
-  const element = createElement(options);
-  element.textContent = text2;
-  return element;
-}
-function renderFormattedText(formattedText, options = {}) {
-  const element = createElement(options);
-  _renderFormattedText(element, parseFormattedText(formattedText, !!options.renderCodeSegments), options.actionHandler, options.renderCodeSegments);
-  return element;
-}
-function createElement(options) {
-  const tagName = options.inline ? "span" : "div";
-  const element = document.createElement(tagName);
-  if (options.className) {
-    element.className = options.className;
-  }
-  return element;
-}
-function _renderFormattedText(element, treeNode, actionHandler, renderCodeSegments) {
-  let child;
-  if (treeNode.type === 2) {
-    child = document.createTextNode(treeNode.content || "");
-  } else if (treeNode.type === 3) {
-    child = document.createElement("b");
-  } else if (treeNode.type === 4) {
-    child = document.createElement("i");
-  } else if (treeNode.type === 7 && renderCodeSegments) {
-    child = document.createElement("code");
-  } else if (treeNode.type === 5 && actionHandler) {
-    const a = document.createElement("a");
-    actionHandler.disposables.add(addStandardDisposableListener(a, "click", (event) => {
-      actionHandler.callback(String(treeNode.index), event);
-    }));
-    child = a;
-  } else if (treeNode.type === 8) {
-    child = document.createElement("br");
-  } else if (treeNode.type === 1) {
-    child = element;
-  }
-  if (child && element !== child) {
-    element.appendChild(child);
-  }
-  if (child && Array.isArray(treeNode.children)) {
-    treeNode.children.forEach((nodeChild) => {
-      _renderFormattedText(child, nodeChild, actionHandler, renderCodeSegments);
-    });
-  }
-}
-function parseFormattedText(content, parseCodeSegments) {
-  const root = {
-    type: 1,
-    children: []
-  };
-  let actionViewItemIndex = 0;
-  let current = root;
-  const stack = [];
-  const stream = new StringStream(content);
-  while (!stream.eos()) {
-    let next = stream.next();
-    const isEscapedFormatType = next === "\\" && formatTagType(stream.peek(), parseCodeSegments) !== 0;
-    if (isEscapedFormatType) {
-      next = stream.next();
-    }
-    if (!isEscapedFormatType && isFormatTag(next, parseCodeSegments) && next === stream.peek()) {
-      stream.advance();
-      if (current.type === 2) {
-        current = stack.pop();
-      }
-      const type = formatTagType(next, parseCodeSegments);
-      if (current.type === type || current.type === 5 && type === 6) {
-        current = stack.pop();
-      } else {
-        const newCurrent = {
-          type,
-          children: []
-        };
-        if (type === 5) {
-          newCurrent.index = actionViewItemIndex;
-          actionViewItemIndex++;
-        }
-        current.children.push(newCurrent);
-        stack.push(current);
-        current = newCurrent;
-      }
-    } else if (next === "\n") {
-      if (current.type === 2) {
-        current = stack.pop();
-      }
-      current.children.push({
-        type: 8
-      });
-    } else {
-      if (current.type !== 2) {
-        const textCurrent = {
-          type: 2,
-          content: next
-        };
-        current.children.push(textCurrent);
-        stack.push(current);
-        current = textCurrent;
-      } else {
-        current.content += next;
-      }
-    }
-  }
-  if (current.type === 2) {
-    current = stack.pop();
-  }
-  if (stack.length) {
-  }
-  return root;
-}
-function isFormatTag(char, supportCodeSegments) {
-  return formatTagType(char, supportCodeSegments) !== 0;
-}
-function formatTagType(char, supportCodeSegments) {
-  switch (char) {
-    case "*":
-      return 3;
-    case "_":
-      return 4;
-    case "[":
-      return 5;
-    case "]":
-      return 6;
-    case "`":
-      return supportCodeSegments ? 7 : 0;
-    default:
-      return 0;
-  }
-}
-var StringStream;
-var init_formattedTextRenderer = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/formattedTextRenderer.js"() {
-    init_define_process();
-    init_dom();
-    StringStream = class {
-      constructor(source) {
-        this.source = source;
-        this.index = 0;
-      }
-      eos() {
-        return this.index >= this.source.length;
-      }
-      next() {
-        const next = this.peek();
-        this.advance();
-        return next;
-      }
-      peek() {
-        return this.source[this.index];
-      }
-      advance() {
-        this.index++;
-      }
-    };
-  }
-});
-
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/common/standaloneTheme.js
-var IStandaloneThemeService;
-var init_standaloneTheme = __esm({
-  "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/common/standaloneTheme.js"() {
-    init_define_process();
-    init_instantiation();
-    IStandaloneThemeService = createDecorator("themeService");
-  }
-});
-
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/editorState/browser/keybindingCancellation.js
 var IEditorCancellationTokens, ctxCancellableOperation, EditorKeybindingCancellationTokenSource;
 var init_keybindingCancellation = __esm({
@@ -30381,28 +29537,6 @@ function isCodeEditor(thing) {
   } else {
     return false;
   }
-}
-function isDiffEditor(thing) {
-  if (thing && typeof thing.getEditorType === "function") {
-    return thing.getEditorType() === EditorType.IDiffEditor;
-  } else {
-    return false;
-  }
-}
-function isCompositeEditor(thing) {
-  return !!thing && typeof thing === "object" && typeof thing.onDidChangeActiveEditor === "function";
-}
-function getCodeEditor(thing) {
-  if (isCodeEditor(thing)) {
-    return thing;
-  }
-  if (isDiffEditor(thing)) {
-    return thing.getModifiedEditor();
-  }
-  if (isCompositeEditor(thing) && isCodeEditor(thing.activeCodeEditor)) {
-    return thing.activeCodeEditor;
-  }
-  return null;
 }
 var init_editorBrowser = __esm({
   "../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/editorBrowser.js"() {
@@ -34003,7 +33137,240 @@ init_define_process();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/config/domFontInfo.js
 init_define_process();
-init_fastDomNode();
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/fastDomNode.js
+init_define_process();
+var FastDomNode = class {
+  constructor(domNode) {
+    this.domNode = domNode;
+    this._maxWidth = "";
+    this._width = "";
+    this._height = "";
+    this._top = "";
+    this._left = "";
+    this._bottom = "";
+    this._right = "";
+    this._fontFamily = "";
+    this._fontWeight = "";
+    this._fontSize = "";
+    this._fontStyle = "";
+    this._fontFeatureSettings = "";
+    this._textDecoration = "";
+    this._lineHeight = "";
+    this._letterSpacing = "";
+    this._className = "";
+    this._display = "";
+    this._position = "";
+    this._visibility = "";
+    this._color = "";
+    this._backgroundColor = "";
+    this._layerHint = false;
+    this._contain = "none";
+    this._boxShadow = "";
+  }
+  setMaxWidth(_maxWidth) {
+    const maxWidth = numberAsPixels(_maxWidth);
+    if (this._maxWidth === maxWidth) {
+      return;
+    }
+    this._maxWidth = maxWidth;
+    this.domNode.style.maxWidth = this._maxWidth;
+  }
+  setWidth(_width) {
+    const width = numberAsPixels(_width);
+    if (this._width === width) {
+      return;
+    }
+    this._width = width;
+    this.domNode.style.width = this._width;
+  }
+  setHeight(_height) {
+    const height = numberAsPixels(_height);
+    if (this._height === height) {
+      return;
+    }
+    this._height = height;
+    this.domNode.style.height = this._height;
+  }
+  setTop(_top) {
+    const top = numberAsPixels(_top);
+    if (this._top === top) {
+      return;
+    }
+    this._top = top;
+    this.domNode.style.top = this._top;
+  }
+  setLeft(_left) {
+    const left = numberAsPixels(_left);
+    if (this._left === left) {
+      return;
+    }
+    this._left = left;
+    this.domNode.style.left = this._left;
+  }
+  setBottom(_bottom) {
+    const bottom = numberAsPixels(_bottom);
+    if (this._bottom === bottom) {
+      return;
+    }
+    this._bottom = bottom;
+    this.domNode.style.bottom = this._bottom;
+  }
+  setRight(_right) {
+    const right = numberAsPixels(_right);
+    if (this._right === right) {
+      return;
+    }
+    this._right = right;
+    this.domNode.style.right = this._right;
+  }
+  setFontFamily(fontFamily) {
+    if (this._fontFamily === fontFamily) {
+      return;
+    }
+    this._fontFamily = fontFamily;
+    this.domNode.style.fontFamily = this._fontFamily;
+  }
+  setFontWeight(fontWeight) {
+    if (this._fontWeight === fontWeight) {
+      return;
+    }
+    this._fontWeight = fontWeight;
+    this.domNode.style.fontWeight = this._fontWeight;
+  }
+  setFontSize(_fontSize) {
+    const fontSize = numberAsPixels(_fontSize);
+    if (this._fontSize === fontSize) {
+      return;
+    }
+    this._fontSize = fontSize;
+    this.domNode.style.fontSize = this._fontSize;
+  }
+  setFontStyle(fontStyle) {
+    if (this._fontStyle === fontStyle) {
+      return;
+    }
+    this._fontStyle = fontStyle;
+    this.domNode.style.fontStyle = this._fontStyle;
+  }
+  setFontFeatureSettings(fontFeatureSettings) {
+    if (this._fontFeatureSettings === fontFeatureSettings) {
+      return;
+    }
+    this._fontFeatureSettings = fontFeatureSettings;
+    this.domNode.style.fontFeatureSettings = this._fontFeatureSettings;
+  }
+  setTextDecoration(textDecoration) {
+    if (this._textDecoration === textDecoration) {
+      return;
+    }
+    this._textDecoration = textDecoration;
+    this.domNode.style.textDecoration = this._textDecoration;
+  }
+  setLineHeight(_lineHeight) {
+    const lineHeight = numberAsPixels(_lineHeight);
+    if (this._lineHeight === lineHeight) {
+      return;
+    }
+    this._lineHeight = lineHeight;
+    this.domNode.style.lineHeight = this._lineHeight;
+  }
+  setLetterSpacing(_letterSpacing) {
+    const letterSpacing = numberAsPixels(_letterSpacing);
+    if (this._letterSpacing === letterSpacing) {
+      return;
+    }
+    this._letterSpacing = letterSpacing;
+    this.domNode.style.letterSpacing = this._letterSpacing;
+  }
+  setClassName(className) {
+    if (this._className === className) {
+      return;
+    }
+    this._className = className;
+    this.domNode.className = this._className;
+  }
+  toggleClassName(className, shouldHaveIt) {
+    this.domNode.classList.toggle(className, shouldHaveIt);
+    this._className = this.domNode.className;
+  }
+  setDisplay(display) {
+    if (this._display === display) {
+      return;
+    }
+    this._display = display;
+    this.domNode.style.display = this._display;
+  }
+  setPosition(position) {
+    if (this._position === position) {
+      return;
+    }
+    this._position = position;
+    this.domNode.style.position = this._position;
+  }
+  setVisibility(visibility) {
+    if (this._visibility === visibility) {
+      return;
+    }
+    this._visibility = visibility;
+    this.domNode.style.visibility = this._visibility;
+  }
+  setColor(color) {
+    if (this._color === color) {
+      return;
+    }
+    this._color = color;
+    this.domNode.style.color = this._color;
+  }
+  setBackgroundColor(backgroundColor) {
+    if (this._backgroundColor === backgroundColor) {
+      return;
+    }
+    this._backgroundColor = backgroundColor;
+    this.domNode.style.backgroundColor = this._backgroundColor;
+  }
+  setLayerHinting(layerHint) {
+    if (this._layerHint === layerHint) {
+      return;
+    }
+    this._layerHint = layerHint;
+    this.domNode.style.transform = this._layerHint ? "translate3d(0px, 0px, 0px)" : "";
+  }
+  setBoxShadow(boxShadow) {
+    if (this._boxShadow === boxShadow) {
+      return;
+    }
+    this._boxShadow = boxShadow;
+    this.domNode.style.boxShadow = boxShadow;
+  }
+  setContain(contain) {
+    if (this._contain === contain) {
+      return;
+    }
+    this._contain = contain;
+    this.domNode.style.contain = this._contain;
+  }
+  setAttribute(name, value) {
+    this.domNode.setAttribute(name, value);
+  }
+  removeAttribute(name) {
+    this.domNode.removeAttribute(name);
+  }
+  appendChild(child) {
+    this.domNode.appendChild(child.domNode);
+  }
+  removeChild(child) {
+    this.domNode.removeChild(child.domNode);
+  }
+};
+function numberAsPixels(value) {
+  return typeof value === "number" ? `${value}px` : value;
+}
+function createFastDomNode(domNode) {
+  return new FastDomNode(domNode);
+}
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/config/domFontInfo.js
 function applyFontInfo(domNode, fontInfo) {
   if (domNode instanceof FastDomNode) {
     domNode.setFontFamily(fontInfo.getMassagedFontFamily());
@@ -40456,8 +39823,27 @@ registerEditorSettingMigration("experimental.stickyScroll.maxLineCount", (value,
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/config/editorConfiguration.js
-init_tabFocus();
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/config/tabFocus.js
+init_define_process();
+init_event();
+var TabFocusImpl = class {
+  constructor() {
+    this._tabFocus = false;
+    this._onDidChangeTabFocus = new Emitter();
+    this.onDidChangeTabFocus = this._onDidChangeTabFocus.event;
+  }
+  getTabFocusMode() {
+    return this._tabFocus;
+  }
+  setTabFocusMode(tabFocusMode) {
+    if (this._tabFocus === tabFocusMode) {
+      return;
+    }
+    this._tabFocus = tabFocusMode;
+    this._onDidChangeTabFocus.fire(this._tabFocus);
+  }
+};
+var TabFocus = new TabFocusImpl();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/platform/accessibility/common/accessibility.js
 init_define_process();
@@ -40725,14 +40111,294 @@ init_codeEditorService();
 init_define_process();
 init_dom();
 init_selection();
-init_fastDomNode();
 init_errors();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/controller/pointerHandler.js
 init_define_process();
 init_dom();
 init_platform();
-init_touch();
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/touch.js
+init_define_process();
+init_dom();
+init_arrays();
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/common/decorators.js
+init_define_process();
+function memoize(_target, key, descriptor) {
+  let fnKey = null;
+  let fn = null;
+  if (typeof descriptor.value === "function") {
+    fnKey = "value";
+    fn = descriptor.value;
+    if (fn.length !== 0) {
+      console.warn("Memoize should only be used in functions with zero parameters");
+    }
+  } else if (typeof descriptor.get === "function") {
+    fnKey = "get";
+    fn = descriptor.get;
+  }
+  if (!fn) {
+    throw new Error("not supported");
+  }
+  const memoizeKey = `$memoize$${key}`;
+  descriptor[fnKey] = function(...args) {
+    if (!this.hasOwnProperty(memoizeKey)) {
+      Object.defineProperty(this, memoizeKey, {
+        configurable: false,
+        enumerable: false,
+        writable: false,
+        value: fn.apply(this, args)
+      });
+    }
+    return this[memoizeKey];
+  };
+}
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/touch.js
+init_lifecycle();
+var __decorate7 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var EventType2;
+(function(EventType3) {
+  EventType3.Tap = "-monaco-gesturetap";
+  EventType3.Change = "-monaco-gesturechange";
+  EventType3.Start = "-monaco-gesturestart";
+  EventType3.End = "-monaco-gesturesend";
+  EventType3.Contextmenu = "-monaco-gesturecontextmenu";
+})(EventType2 || (EventType2 = {}));
+var Gesture = class extends Disposable {
+  constructor() {
+    super();
+    this.dispatched = false;
+    this.activeTouches = {};
+    this.handle = null;
+    this.targets = [];
+    this.ignoreTargets = [];
+    this._lastSetTapCountTime = 0;
+    this._register(addDisposableListener(document, "touchstart", (e) => this.onTouchStart(e), { passive: false }));
+    this._register(addDisposableListener(document, "touchend", (e) => this.onTouchEnd(e)));
+    this._register(addDisposableListener(document, "touchmove", (e) => this.onTouchMove(e), { passive: false }));
+  }
+  static addTarget(element) {
+    if (!Gesture.isTouchDevice()) {
+      return Disposable.None;
+    }
+    if (!Gesture.INSTANCE) {
+      Gesture.INSTANCE = new Gesture();
+    }
+    Gesture.INSTANCE.targets.push(element);
+    return {
+      dispose: () => {
+        Gesture.INSTANCE.targets = Gesture.INSTANCE.targets.filter((t) => t !== element);
+      }
+    };
+  }
+  static ignoreTarget(element) {
+    if (!Gesture.isTouchDevice()) {
+      return Disposable.None;
+    }
+    if (!Gesture.INSTANCE) {
+      Gesture.INSTANCE = new Gesture();
+    }
+    Gesture.INSTANCE.ignoreTargets.push(element);
+    return {
+      dispose: () => {
+        Gesture.INSTANCE.ignoreTargets = Gesture.INSTANCE.ignoreTargets.filter((t) => t !== element);
+      }
+    };
+  }
+  static isTouchDevice() {
+    return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  }
+  dispose() {
+    if (this.handle) {
+      this.handle.dispose();
+      this.handle = null;
+    }
+    super.dispose();
+  }
+  onTouchStart(e) {
+    const timestamp = Date.now();
+    if (this.handle) {
+      this.handle.dispose();
+      this.handle = null;
+    }
+    for (let i = 0, len = e.targetTouches.length; i < len; i++) {
+      const touch = e.targetTouches.item(i);
+      this.activeTouches[touch.identifier] = {
+        id: touch.identifier,
+        initialTarget: touch.target,
+        initialTimeStamp: timestamp,
+        initialPageX: touch.pageX,
+        initialPageY: touch.pageY,
+        rollingTimestamps: [timestamp],
+        rollingPageX: [touch.pageX],
+        rollingPageY: [touch.pageY]
+      };
+      const evt = this.newGestureEvent(EventType2.Start, touch.target);
+      evt.pageX = touch.pageX;
+      evt.pageY = touch.pageY;
+      this.dispatchEvent(evt);
+    }
+    if (this.dispatched) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.dispatched = false;
+    }
+  }
+  onTouchEnd(e) {
+    const timestamp = Date.now();
+    const activeTouchCount = Object.keys(this.activeTouches).length;
+    for (let i = 0, len = e.changedTouches.length; i < len; i++) {
+      const touch = e.changedTouches.item(i);
+      if (!this.activeTouches.hasOwnProperty(String(touch.identifier))) {
+        console.warn("move of an UNKNOWN touch", touch);
+        continue;
+      }
+      const data = this.activeTouches[touch.identifier], holdTime = Date.now() - data.initialTimeStamp;
+      if (holdTime < Gesture.HOLD_DELAY && Math.abs(data.initialPageX - tail(data.rollingPageX)) < 30 && Math.abs(data.initialPageY - tail(data.rollingPageY)) < 30) {
+        const evt = this.newGestureEvent(EventType2.Tap, data.initialTarget);
+        evt.pageX = tail(data.rollingPageX);
+        evt.pageY = tail(data.rollingPageY);
+        this.dispatchEvent(evt);
+      } else if (holdTime >= Gesture.HOLD_DELAY && Math.abs(data.initialPageX - tail(data.rollingPageX)) < 30 && Math.abs(data.initialPageY - tail(data.rollingPageY)) < 30) {
+        const evt = this.newGestureEvent(EventType2.Contextmenu, data.initialTarget);
+        evt.pageX = tail(data.rollingPageX);
+        evt.pageY = tail(data.rollingPageY);
+        this.dispatchEvent(evt);
+      } else if (activeTouchCount === 1) {
+        const finalX = tail(data.rollingPageX);
+        const finalY = tail(data.rollingPageY);
+        const deltaT = tail(data.rollingTimestamps) - data.rollingTimestamps[0];
+        const deltaX = finalX - data.rollingPageX[0];
+        const deltaY = finalY - data.rollingPageY[0];
+        const dispatchTo = this.targets.filter((t) => data.initialTarget instanceof Node && t.contains(data.initialTarget));
+        this.inertia(
+          dispatchTo,
+          timestamp,
+          Math.abs(deltaX) / deltaT,
+          deltaX > 0 ? 1 : -1,
+          finalX,
+          Math.abs(deltaY) / deltaT,
+          deltaY > 0 ? 1 : -1,
+          finalY
+        );
+      }
+      this.dispatchEvent(this.newGestureEvent(EventType2.End, data.initialTarget));
+      delete this.activeTouches[touch.identifier];
+    }
+    if (this.dispatched) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.dispatched = false;
+    }
+  }
+  newGestureEvent(type, initialTarget) {
+    const event = document.createEvent("CustomEvent");
+    event.initEvent(type, false, true);
+    event.initialTarget = initialTarget;
+    event.tapCount = 0;
+    return event;
+  }
+  dispatchEvent(event) {
+    if (event.type === EventType2.Tap) {
+      const currentTime = new Date().getTime();
+      let setTapCount = 0;
+      if (currentTime - this._lastSetTapCountTime > Gesture.CLEAR_TAP_COUNT_TIME) {
+        setTapCount = 1;
+      } else {
+        setTapCount = 2;
+      }
+      this._lastSetTapCountTime = currentTime;
+      event.tapCount = setTapCount;
+    } else if (event.type === EventType2.Change || event.type === EventType2.Contextmenu) {
+      this._lastSetTapCountTime = 0;
+    }
+    for (let i = 0; i < this.ignoreTargets.length; i++) {
+      if (event.initialTarget instanceof Node && this.ignoreTargets[i].contains(event.initialTarget)) {
+        return;
+      }
+    }
+    this.targets.forEach((target) => {
+      if (event.initialTarget instanceof Node && target.contains(event.initialTarget)) {
+        target.dispatchEvent(event);
+        this.dispatched = true;
+      }
+    });
+  }
+  inertia(dispatchTo, t1, vX, dirX, x, vY, dirY, y) {
+    this.handle = scheduleAtNextAnimationFrame(() => {
+      const now = Date.now();
+      const deltaT = now - t1;
+      let delta_pos_x = 0, delta_pos_y = 0;
+      let stopped = true;
+      vX += Gesture.SCROLL_FRICTION * deltaT;
+      vY += Gesture.SCROLL_FRICTION * deltaT;
+      if (vX > 0) {
+        stopped = false;
+        delta_pos_x = dirX * vX * deltaT;
+      }
+      if (vY > 0) {
+        stopped = false;
+        delta_pos_y = dirY * vY * deltaT;
+      }
+      const evt = this.newGestureEvent(EventType2.Change);
+      evt.translationX = delta_pos_x;
+      evt.translationY = delta_pos_y;
+      dispatchTo.forEach((d) => d.dispatchEvent(evt));
+      if (!stopped) {
+        this.inertia(dispatchTo, now, vX, dirX, x + delta_pos_x, vY, dirY, y + delta_pos_y);
+      }
+    });
+  }
+  onTouchMove(e) {
+    const timestamp = Date.now();
+    for (let i = 0, len = e.changedTouches.length; i < len; i++) {
+      const touch = e.changedTouches.item(i);
+      if (!this.activeTouches.hasOwnProperty(String(touch.identifier))) {
+        console.warn("end of an UNKNOWN touch", touch);
+        continue;
+      }
+      const data = this.activeTouches[touch.identifier];
+      const evt = this.newGestureEvent(EventType2.Change, data.initialTarget);
+      evt.translationX = touch.pageX - tail(data.rollingPageX);
+      evt.translationY = touch.pageY - tail(data.rollingPageY);
+      evt.pageX = touch.pageX;
+      evt.pageY = touch.pageY;
+      this.dispatchEvent(evt);
+      if (data.rollingPageX.length > 3) {
+        data.rollingPageX.shift();
+        data.rollingPageY.shift();
+        data.rollingTimestamps.shift();
+      }
+      data.rollingPageX.push(touch.pageX);
+      data.rollingPageY.push(touch.pageY);
+      data.rollingTimestamps.push(timestamp);
+    }
+    if (this.dispatched) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.dispatched = false;
+    }
+  }
+};
+Gesture.SCROLL_FRICTION = -5e-3;
+Gesture.HOLD_DELAY = 700;
+Gesture.CLEAR_TAP_COUNT_TIME = 400;
+__decorate7([
+  memoize
+], Gesture, "isTouchDevice", null);
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/controller/pointerHandler.js
 init_lifecycle();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/controller/mouseHandler.js
@@ -41273,7 +40939,6 @@ var PartFingerprints = class {
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/lines/viewLine.js
 init_define_process();
 init_browser();
-init_fastDomNode();
 init_platform();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/lines/rangeUtil.js
@@ -44098,7 +43763,6 @@ var PointerHandler = class extends Disposable {
 init_define_process();
 init_nls();
 init_browser();
-init_fastDomNode();
 init_platform();
 init_strings();
 
@@ -44260,7 +43924,6 @@ registerThemingParticipant((theme, collector) => {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/margin/margin.js
 init_define_process();
-init_fastDomNode();
 var Margin = class extends ViewPart {
   constructor(context) {
     super(context);
@@ -46221,33 +45884,33 @@ var WordOperations = class {
     if (prevWord && prevWord.wordType === 1 && prevWord.start <= position.column - 1 && position.column - 1 <= prevWord.end) {
       return WordOperations._createWordAtPosition(model, position.lineNumber, prevWord);
     }
-    const nextWord2 = WordOperations._findNextWordOnLine(wordSeparators2, model, position);
-    if (nextWord2 && nextWord2.wordType === 1 && nextWord2.start <= position.column - 1 && position.column - 1 <= nextWord2.end) {
-      return WordOperations._createWordAtPosition(model, position.lineNumber, nextWord2);
+    const nextWord = WordOperations._findNextWordOnLine(wordSeparators2, model, position);
+    if (nextWord && nextWord.wordType === 1 && nextWord.start <= position.column - 1 && position.column - 1 <= nextWord.end) {
+      return WordOperations._createWordAtPosition(model, position.lineNumber, nextWord);
     }
     return null;
   }
   static word(config, model, cursor, inSelectionMode, position) {
     const wordSeparators2 = getMapForWordSeparators(config.wordSeparators);
     const prevWord = WordOperations._findPreviousWordOnLine(wordSeparators2, model, position);
-    const nextWord2 = WordOperations._findNextWordOnLine(wordSeparators2, model, position);
+    const nextWord = WordOperations._findNextWordOnLine(wordSeparators2, model, position);
     if (!inSelectionMode) {
       let startColumn2;
       let endColumn2;
       if (prevWord && prevWord.wordType === 1 && prevWord.start <= position.column - 1 && position.column - 1 <= prevWord.end) {
         startColumn2 = prevWord.start + 1;
         endColumn2 = prevWord.end + 1;
-      } else if (nextWord2 && nextWord2.wordType === 1 && nextWord2.start <= position.column - 1 && position.column - 1 <= nextWord2.end) {
-        startColumn2 = nextWord2.start + 1;
-        endColumn2 = nextWord2.end + 1;
+      } else if (nextWord && nextWord.wordType === 1 && nextWord.start <= position.column - 1 && position.column - 1 <= nextWord.end) {
+        startColumn2 = nextWord.start + 1;
+        endColumn2 = nextWord.end + 1;
       } else {
         if (prevWord) {
           startColumn2 = prevWord.end + 1;
         } else {
           startColumn2 = 1;
         }
-        if (nextWord2) {
-          endColumn2 = nextWord2.start + 1;
+        if (nextWord) {
+          endColumn2 = nextWord.start + 1;
         } else {
           endColumn2 = model.getLineMaxColumn(position.lineNumber);
         }
@@ -46259,9 +45922,9 @@ var WordOperations = class {
     if (prevWord && prevWord.wordType === 1 && prevWord.start < position.column - 1 && position.column - 1 < prevWord.end) {
       startColumn = prevWord.start + 1;
       endColumn = prevWord.end + 1;
-    } else if (nextWord2 && nextWord2.wordType === 1 && nextWord2.start < position.column - 1 && position.column - 1 < nextWord2.end) {
-      startColumn = nextWord2.start + 1;
-      endColumn = nextWord2.end + 1;
+    } else if (nextWord && nextWord.wordType === 1 && nextWord.start < position.column - 1 && position.column - 1 < nextWord.end) {
+      startColumn = nextWord.start + 1;
+      endColumn = nextWord.end + 1;
     } else {
       startColumn = position.column;
       endColumn = position.column;
@@ -50272,11 +49935,9 @@ var ViewUserInputEvents = class {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/view/viewOverlays.js
 init_define_process();
-init_fastDomNode();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/view/viewLayer.js
 init_define_process();
-init_fastDomNode();
 init_stringBuilder();
 var _a5;
 var RenderedLinesCollection = class {
@@ -50882,7 +50543,6 @@ var MarginViewOverlays = class extends ViewOverlays {
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/contentWidgets/contentWidgets.js
 init_define_process();
 init_dom();
-init_fastDomNode();
 var Coordinate = class {
   constructor(top, left) {
     this._coordinateBrand = void 0;
@@ -51631,13 +51291,11 @@ var DecorationsOverlay = class extends DynamicViewOverlay {
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/editorScrollbar/editorScrollbar.js
 init_define_process();
 init_dom();
-init_fastDomNode();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/scrollbar/scrollableElement.js
 init_define_process();
 init_browser();
 init_dom();
-init_fastDomNode();
 init_mouseEvent();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/scrollbar/horizontalScrollbar.js
@@ -51647,11 +51305,50 @@ init_mouseEvent();
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/scrollbar/abstractScrollbar.js
 init_define_process();
 init_dom();
-init_fastDomNode();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/scrollbar/scrollbarArrow.js
 init_define_process();
-init_widget();
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/widget.js
+init_define_process();
+init_dom();
+init_keyboardEvent();
+init_mouseEvent();
+init_lifecycle();
+var Widget2 = class extends Disposable {
+  onclick(domNode, listener) {
+    this._register(addDisposableListener(domNode, EventType.CLICK, (e) => listener(new StandardMouseEvent(e))));
+  }
+  onmousedown(domNode, listener) {
+    this._register(addDisposableListener(domNode, EventType.MOUSE_DOWN, (e) => listener(new StandardMouseEvent(e))));
+  }
+  onmouseover(domNode, listener) {
+    this._register(addDisposableListener(domNode, EventType.MOUSE_OVER, (e) => listener(new StandardMouseEvent(e))));
+  }
+  onmouseleave(domNode, listener) {
+    this._register(addDisposableListener(domNode, EventType.MOUSE_LEAVE, (e) => listener(new StandardMouseEvent(e))));
+  }
+  onkeydown(domNode, listener) {
+    this._register(addDisposableListener(domNode, EventType.KEY_DOWN, (e) => listener(new StandardKeyboardEvent(e))));
+  }
+  onkeyup(domNode, listener) {
+    this._register(addDisposableListener(domNode, EventType.KEY_UP, (e) => listener(new StandardKeyboardEvent(e))));
+  }
+  oninput(domNode, listener) {
+    this._register(addDisposableListener(domNode, EventType.INPUT, listener));
+  }
+  onblur(domNode, listener) {
+    this._register(addDisposableListener(domNode, EventType.BLUR, listener));
+  }
+  onfocus(domNode, listener) {
+    this._register(addDisposableListener(domNode, EventType.FOCUS, listener));
+  }
+  ignoreGesture(domNode) {
+    Gesture.ignoreTarget(domNode);
+  }
+};
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/scrollbar/scrollbarArrow.js
 init_async();
 init_dom();
 var ARROW_IMG_SIZE = 11;
@@ -51806,7 +51503,6 @@ var ScrollbarVisibilityController = class extends Disposable {
 };
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/scrollbar/abstractScrollbar.js
-init_widget();
 init_platform();
 var POINTER_DRAG_RESET_DISTANCE = 140;
 var AbstractScrollbar = class extends Widget2 {
@@ -52294,7 +51990,6 @@ var VerticalScrollbar = class extends AbstractScrollbar {
 };
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/scrollbar/scrollableElement.js
-init_widget();
 init_async();
 init_event();
 init_lifecycle();
@@ -54307,7 +54002,6 @@ var MarginViewLineDecorationsOverlay = class extends DedupOverlay {
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/minimap/minimap.js
 init_define_process();
 init_dom();
-init_fastDomNode();
 init_lifecycle();
 init_platform();
 init_strings();
@@ -54393,7 +54087,6 @@ MinimapTokensColorTracker._INSTANCE = null;
 init_colorRegistry();
 init_themeService();
 init_selection();
-init_touch();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/minimap/minimapCharRendererFactory.js
 init_define_process();
@@ -55904,7 +55597,6 @@ registerThemingParticipant((theme, collector) => {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/overlayWidgets/overlayWidgets.js
 init_define_process();
-init_fastDomNode();
 var ViewOverlayWidgets = class extends ViewPart {
   constructor(context) {
     super(context);
@@ -56000,7 +55692,6 @@ var ViewOverlayWidgets = class extends ViewPart {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/overviewRuler/decorationsOverviewRuler.js
 init_define_process();
-init_fastDomNode();
 init_color();
 init_position();
 init_languages();
@@ -56328,7 +56019,6 @@ var DecorationsOverviewRuler = class extends ViewPart {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/overviewRuler/overviewRuler.js
 init_define_process();
-init_fastDomNode();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/common/viewModel/overviewZoneManager.js
 init_define_process();
@@ -56618,7 +56308,6 @@ var OverviewRuler = class extends ViewEventHandler {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/rulers/rulers.js
 init_define_process();
-init_fastDomNode();
 init_editorColorRegistry();
 init_themeService();
 var Rulers = class extends ViewPart {
@@ -56694,7 +56383,6 @@ registerThemingParticipant((theme, collector) => {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/scrollDecoration/scrollDecoration.js
 init_define_process();
-init_fastDomNode();
 init_colorRegistry();
 init_themeService();
 var ScrollDecorationViewPart = class extends ViewPart {
@@ -57061,13 +56749,11 @@ function abs(n) {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/viewCursors/viewCursors.js
 init_define_process();
-init_fastDomNode();
 init_async();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/viewCursors/viewCursor.js
 init_define_process();
 init_dom();
-init_fastDomNode();
 init_strings();
 init_position();
 init_range();
@@ -57515,7 +57201,6 @@ registerThemingParticipant((theme, collector) => {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/viewZones/viewZones.js
 init_define_process();
-init_fastDomNode();
 init_errors();
 init_position();
 var invalidFunc = () => {
@@ -57899,7 +57584,6 @@ init_themeService();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/blockDecorations/blockDecorations.js
 init_define_process();
-init_fastDomNode();
 var BlockDecorations = class extends ViewPart {
   constructor(context) {
     super(context);
@@ -65863,14 +65547,11 @@ init_define_process();
 init_nls();
 init_dom();
 init_assert();
-init_fastDomNode();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/sash/sash.js
 init_define_process();
 init_dom();
-init_touch();
 init_async();
-init_decorators();
 init_event();
 init_lifecycle();
 init_platform();
@@ -66286,7 +65967,6 @@ init_codeEditorService();
 init_define_process();
 init_nls();
 init_dom();
-init_fastDomNode();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/actionbar/actionbar.js
 init_define_process();
@@ -66309,7 +65989,6 @@ var DataTransfers = {
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/actionbar/actionViewItems.js
 init_dom();
-init_touch();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/iconLabel/iconLabelHover.js
 init_define_process();
@@ -66397,12 +66076,6 @@ function isWhitespace(code) {
 }
 var wordSeparators = /* @__PURE__ */ new Set();
 "()[]{}<>`'\"-/;:,.?!".split("").forEach((s) => wordSeparators.add(s.charCodeAt(0)));
-function isWordSeparator(code) {
-  return isWhitespace(code) || wordSeparators.has(code);
-}
-function charactersMatch(codeA, codeB) {
-  return codeA === codeB || isWordSeparator(codeA) && isWordSeparator(codeB);
-}
 function isAlphanumeric(code) {
   return isLower(code) || isUpper(code) || isNumber2(code);
 }
@@ -66522,53 +66195,6 @@ function matchesCamelCase(word, camelCaseWord) {
     i = nextAnchor(camelCaseWord, i + 1);
   }
   return result;
-}
-function matchesWords(word, target, contiguous = false) {
-  if (!target || target.length === 0) {
-    return null;
-  }
-  let result = null;
-  let i = 0;
-  word = word.toLowerCase();
-  target = target.toLowerCase();
-  while (i < target.length && (result = _matchesWords(word, target, 0, i, contiguous)) === null) {
-    i = nextWord(target, i + 1);
-  }
-  return result;
-}
-function _matchesWords(word, target, i, j, contiguous) {
-  if (i === word.length) {
-    return [];
-  } else if (j === target.length) {
-    return null;
-  } else if (!charactersMatch(word.charCodeAt(i), target.charCodeAt(j))) {
-    return null;
-  } else {
-    let result = null;
-    let nextWordIndex = j + 1;
-    result = _matchesWords(word, target, i + 1, j + 1, contiguous);
-    if (!contiguous) {
-      while (!result && (nextWordIndex = nextWord(target, nextWordIndex)) < target.length) {
-        result = _matchesWords(word, target, i + 1, nextWordIndex, contiguous);
-        nextWordIndex++;
-      }
-    }
-    if (!result) {
-      return null;
-    }
-    if (word.charCodeAt(i) !== target.charCodeAt(j)) {
-      return result;
-    }
-    return join({ start: j, end: j + 1 }, result);
-  }
-}
-function nextWord(word, start) {
-  for (let i = start; i < word.length; i++) {
-    if (isWordSeparator(word.charCodeAt(i)) || i > 0 && isWordSeparator(word.charCodeAt(i - 1))) {
-      return i;
-    }
-  }
-  return word.length;
 }
 var fuzzyContiguousFilter = or(matchesPrefix, matchesCamelCase, matchesContiguousSubString);
 var fuzzySeparateFilter = or(matchesPrefix, matchesCamelCase, matchesSubString);
@@ -73580,8 +73206,10 @@ var KeybindingModifierSet = class {
 };
 KeybindingModifierSet.EMPTY = new KeybindingModifierSet(null);
 
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/standaloneServices.js
-init_keybinding();
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/platform/keybinding/common/keybinding.js
+init_define_process();
+init_instantiation();
+var IKeybindingService = createDecorator("keybindingService");
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/platform/keybinding/common/keybindingResolver.js
 init_define_process();
@@ -74300,8 +73928,72 @@ var WorkspaceFolder = class {
 var WORKSPACE_EXTENSION = "code-workspace";
 var WORKSPACE_FILTER = [{ name: localize("codeWorkspace", "Code Workspace"), extensions: [WORKSPACE_EXTENSION] }];
 
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/common/standaloneStrings.js
+init_define_process();
+init_nls();
+var AccessibilityHelpNLS;
+(function(AccessibilityHelpNLS2) {
+  AccessibilityHelpNLS2.noSelection = localize("noSelection", "No selection");
+  AccessibilityHelpNLS2.singleSelectionRange = localize("singleSelectionRange", "Line {0}, Column {1} ({2} selected)");
+  AccessibilityHelpNLS2.singleSelection = localize("singleSelection", "Line {0}, Column {1}");
+  AccessibilityHelpNLS2.multiSelectionRange = localize("multiSelectionRange", "{0} selections ({1} characters selected)");
+  AccessibilityHelpNLS2.multiSelection = localize("multiSelection", "{0} selections");
+  AccessibilityHelpNLS2.emergencyConfOn = localize("emergencyConfOn", "Now changing the setting `accessibilitySupport` to 'on'.");
+  AccessibilityHelpNLS2.openingDocs = localize("openingDocs", "Now opening the Editor Accessibility documentation page.");
+  AccessibilityHelpNLS2.readonlyDiffEditor = localize("readonlyDiffEditor", " in a read-only pane of a diff editor.");
+  AccessibilityHelpNLS2.editableDiffEditor = localize("editableDiffEditor", " in a pane of a diff editor.");
+  AccessibilityHelpNLS2.readonlyEditor = localize("readonlyEditor", " in a read-only code editor");
+  AccessibilityHelpNLS2.editableEditor = localize("editableEditor", " in a code editor");
+  AccessibilityHelpNLS2.changeConfigToOnMac = localize("changeConfigToOnMac", "To configure the editor to be optimized for usage with a Screen Reader press Command+E now.");
+  AccessibilityHelpNLS2.changeConfigToOnWinLinux = localize("changeConfigToOnWinLinux", "To configure the editor to be optimized for usage with a Screen Reader press Control+E now.");
+  AccessibilityHelpNLS2.auto_on = localize("auto_on", "The editor is configured to be optimized for usage with a Screen Reader.");
+  AccessibilityHelpNLS2.auto_off = localize("auto_off", "The editor is configured to never be optimized for usage with a Screen Reader, which is not the case at this time.");
+  AccessibilityHelpNLS2.tabFocusModeOnMsg = localize("tabFocusModeOnMsg", "Pressing Tab in the current editor will move focus to the next focusable element. Toggle this behavior by pressing {0}.");
+  AccessibilityHelpNLS2.tabFocusModeOnMsgNoKb = localize("tabFocusModeOnMsgNoKb", "Pressing Tab in the current editor will move focus to the next focusable element. The command {0} is currently not triggerable by a keybinding.");
+  AccessibilityHelpNLS2.tabFocusModeOffMsg = localize("tabFocusModeOffMsg", "Pressing Tab in the current editor will insert the tab character. Toggle this behavior by pressing {0}.");
+  AccessibilityHelpNLS2.tabFocusModeOffMsgNoKb = localize("tabFocusModeOffMsgNoKb", "Pressing Tab in the current editor will insert the tab character. The command {0} is currently not triggerable by a keybinding.");
+  AccessibilityHelpNLS2.openDocMac = localize("openDocMac", "Press Command+H now to open a browser window with more information related to editor accessibility.");
+  AccessibilityHelpNLS2.openDocWinLinux = localize("openDocWinLinux", "Press Control+H now to open a browser window with more information related to editor accessibility.");
+  AccessibilityHelpNLS2.outroMsg = localize("outroMsg", "You can dismiss this tooltip and return to the editor by pressing Escape or Shift+Escape.");
+  AccessibilityHelpNLS2.showAccessibilityHelpAction = localize("showAccessibilityHelpAction", "Show Accessibility Help");
+})(AccessibilityHelpNLS || (AccessibilityHelpNLS = {}));
+var InspectTokensNLS;
+(function(InspectTokensNLS2) {
+  InspectTokensNLS2.inspectTokensAction = localize("inspectTokens", "Developer: Inspect Tokens");
+})(InspectTokensNLS || (InspectTokensNLS = {}));
+var GoToLineNLS;
+(function(GoToLineNLS2) {
+  GoToLineNLS2.gotoLineActionLabel = localize("gotoLineActionLabel", "Go to Line/Column...");
+})(GoToLineNLS || (GoToLineNLS = {}));
+var QuickHelpNLS;
+(function(QuickHelpNLS2) {
+  QuickHelpNLS2.helpQuickAccessActionLabel = localize("helpQuickAccess", "Show all Quick Access Providers");
+})(QuickHelpNLS || (QuickHelpNLS = {}));
+var QuickCommandNLS;
+(function(QuickCommandNLS2) {
+  QuickCommandNLS2.quickCommandActionLabel = localize("quickCommandActionLabel", "Command Palette");
+  QuickCommandNLS2.quickCommandHelp = localize("quickCommandActionHelp", "Show And Run Commands");
+})(QuickCommandNLS || (QuickCommandNLS = {}));
+var QuickOutlineNLS;
+(function(QuickOutlineNLS2) {
+  QuickOutlineNLS2.quickOutlineActionLabel = localize("quickOutlineActionLabel", "Go to Symbol...");
+  QuickOutlineNLS2.quickOutlineByCategoryActionLabel = localize("quickOutlineByCategoryActionLabel", "Go to Symbol by Category...");
+})(QuickOutlineNLS || (QuickOutlineNLS = {}));
+var StandaloneCodeEditorNLS;
+(function(StandaloneCodeEditorNLS2) {
+  StandaloneCodeEditorNLS2.editorViewAccessibleLabel = localize("editorViewAccessibleLabel", "Editor content");
+  StandaloneCodeEditorNLS2.accessibilityHelpMessage = localize("accessibilityHelpMessage", "Press Alt+F1 for Accessibility Options.");
+})(StandaloneCodeEditorNLS || (StandaloneCodeEditorNLS = {}));
+var ToggleHighContrastNLS;
+(function(ToggleHighContrastNLS2) {
+  ToggleHighContrastNLS2.toggleHighContrast = localize("toggleHighContrast", "Toggle High Contrast Theme");
+})(ToggleHighContrastNLS || (ToggleHighContrastNLS = {}));
+var StandaloneServicesNLS;
+(function(StandaloneServicesNLS2) {
+  StandaloneServicesNLS2.bulkEditServiceSummary = localize("bulkEditServiceSummary", "Made {0} edits in {1} files");
+})(StandaloneServicesNLS || (StandaloneServicesNLS = {}));
+
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/standaloneServices.js
-init_standaloneStrings();
 init_resources();
 init_codeEditorService();
 init_log();
@@ -75706,7 +75398,6 @@ init_dom();
 init_define_process();
 init_dom();
 init_keyboardEvent();
-init_touch();
 init_actions();
 init_event();
 var BaseDropdown = class extends ActionRunner {
@@ -75936,7 +75627,6 @@ init_nls();
 init_actions2();
 init_contextkey();
 init_instantiation();
-init_keybinding();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/platform/storage/common/storage.js
 init_define_process();
@@ -76698,7 +76388,6 @@ function createActionViewItem(instaService, action, options) {
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/platform/contextview/browser/contextMenuService.js
 init_actions2();
 init_contextkey();
-init_keybinding();
 init_telemetry();
 init_themeService();
 
@@ -76710,7 +76399,6 @@ init_mouseEvent();
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/menu/menu.js
 init_define_process();
 init_browser();
-init_touch();
 init_dom();
 init_keyboardEvent();
 init_mouseEvent();
@@ -78724,7 +78412,6 @@ init_keyboardEvent();
 init_define_process();
 init_dom();
 init_keyboardEvent();
-init_touch();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/iconLabel/iconLabels.js
 init_define_process();
@@ -79155,7 +78842,6 @@ init_define_process();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/toggle/toggle.js
 init_define_process();
-init_widget();
 init_codicons();
 init_color();
 init_event();
@@ -79304,9 +78990,164 @@ var RegexToggle = class extends Toggle {
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/inputbox/inputBox.js
 init_define_process();
 init_dom();
-init_formattedTextRenderer();
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/formattedTextRenderer.js
+init_define_process();
+init_dom();
+function renderText(text2, options = {}) {
+  const element = createElement(options);
+  element.textContent = text2;
+  return element;
+}
+function renderFormattedText(formattedText, options = {}) {
+  const element = createElement(options);
+  _renderFormattedText(element, parseFormattedText(formattedText, !!options.renderCodeSegments), options.actionHandler, options.renderCodeSegments);
+  return element;
+}
+function createElement(options) {
+  const tagName = options.inline ? "span" : "div";
+  const element = document.createElement(tagName);
+  if (options.className) {
+    element.className = options.className;
+  }
+  return element;
+}
+var StringStream = class {
+  constructor(source) {
+    this.source = source;
+    this.index = 0;
+  }
+  eos() {
+    return this.index >= this.source.length;
+  }
+  next() {
+    const next = this.peek();
+    this.advance();
+    return next;
+  }
+  peek() {
+    return this.source[this.index];
+  }
+  advance() {
+    this.index++;
+  }
+};
+function _renderFormattedText(element, treeNode, actionHandler, renderCodeSegments) {
+  let child;
+  if (treeNode.type === 2) {
+    child = document.createTextNode(treeNode.content || "");
+  } else if (treeNode.type === 3) {
+    child = document.createElement("b");
+  } else if (treeNode.type === 4) {
+    child = document.createElement("i");
+  } else if (treeNode.type === 7 && renderCodeSegments) {
+    child = document.createElement("code");
+  } else if (treeNode.type === 5 && actionHandler) {
+    const a = document.createElement("a");
+    actionHandler.disposables.add(addStandardDisposableListener(a, "click", (event) => {
+      actionHandler.callback(String(treeNode.index), event);
+    }));
+    child = a;
+  } else if (treeNode.type === 8) {
+    child = document.createElement("br");
+  } else if (treeNode.type === 1) {
+    child = element;
+  }
+  if (child && element !== child) {
+    element.appendChild(child);
+  }
+  if (child && Array.isArray(treeNode.children)) {
+    treeNode.children.forEach((nodeChild) => {
+      _renderFormattedText(child, nodeChild, actionHandler, renderCodeSegments);
+    });
+  }
+}
+function parseFormattedText(content, parseCodeSegments) {
+  const root = {
+    type: 1,
+    children: []
+  };
+  let actionViewItemIndex = 0;
+  let current = root;
+  const stack = [];
+  const stream = new StringStream(content);
+  while (!stream.eos()) {
+    let next = stream.next();
+    const isEscapedFormatType = next === "\\" && formatTagType(stream.peek(), parseCodeSegments) !== 0;
+    if (isEscapedFormatType) {
+      next = stream.next();
+    }
+    if (!isEscapedFormatType && isFormatTag(next, parseCodeSegments) && next === stream.peek()) {
+      stream.advance();
+      if (current.type === 2) {
+        current = stack.pop();
+      }
+      const type = formatTagType(next, parseCodeSegments);
+      if (current.type === type || current.type === 5 && type === 6) {
+        current = stack.pop();
+      } else {
+        const newCurrent = {
+          type,
+          children: []
+        };
+        if (type === 5) {
+          newCurrent.index = actionViewItemIndex;
+          actionViewItemIndex++;
+        }
+        current.children.push(newCurrent);
+        stack.push(current);
+        current = newCurrent;
+      }
+    } else if (next === "\n") {
+      if (current.type === 2) {
+        current = stack.pop();
+      }
+      current.children.push({
+        type: 8
+      });
+    } else {
+      if (current.type !== 2) {
+        const textCurrent = {
+          type: 2,
+          content: next
+        };
+        current.children.push(textCurrent);
+        stack.push(current);
+        current = textCurrent;
+      } else {
+        current.content += next;
+      }
+    }
+  }
+  if (current.type === 2) {
+    current = stack.pop();
+  }
+  if (stack.length) {
+  }
+  return root;
+}
+function isFormatTag(char, supportCodeSegments) {
+  return formatTagType(char, supportCodeSegments) !== 0;
+}
+function formatTagType(char, supportCodeSegments) {
+  switch (char) {
+    case "*":
+      return 3;
+    case "_":
+      return 4;
+    case "[":
+      return 5;
+    case "]":
+      return 6;
+    case "`":
+      return supportCodeSegments ? 7 : 0;
+    default:
+      return 0;
+  }
+}
+
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/inputbox/inputBox.js
 init_aria();
-init_widget();
 init_color();
 init_event();
 
@@ -79929,7 +79770,6 @@ var HistoryInputBox = class extends InputBox {
 };
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/findinput/findInput.js
-init_widget();
 init_event();
 init_nls();
 init_lifecycle();
@@ -80841,7 +80681,6 @@ function compareByPrefix(one, other, lookFor) {
 }
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/parts/quickinput/browser/quickInputList.js
-init_decorators();
 init_event();
 init_lifecycle();
 init_platform();
@@ -82763,7 +82602,6 @@ init_lifecycle();
 init_define_process();
 init_dom();
 init_keyboardEvent();
-init_touch();
 init_aria();
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/list/splice.js
@@ -82781,7 +82619,6 @@ var CombinedSpliceable = class {
 init_arrays();
 init_async();
 init_color();
-init_decorators();
 init_event();
 init_lifecycle();
 init_numbers();
@@ -82801,10 +82638,8 @@ var ListError = class extends Error {
 init_define_process();
 init_browser();
 init_dom();
-init_touch();
 init_arrays();
 init_async();
-init_decorators();
 init_event();
 init_lifecycle();
 
@@ -88326,7 +88161,6 @@ var CompressibleObjectTreeModel = class {
 };
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/tree/objectTree.js
-init_decorators();
 init_iterator();
 var __decorate30 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -89323,7 +89157,6 @@ var InputFocusedContext = new RawContextKey(InputFocusedContextKey, false, local
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/platform/list/browser/listService.js
 init_instantiation();
-init_keybinding();
 init_platform2();
 init_themeService();
 var __decorate31 = function(decorators, target, key, desc) {
@@ -91604,8 +91437,10 @@ ${this._themeCSS}`;
   }
 };
 
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/standaloneServices.js
-init_standaloneTheme();
+// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/common/standaloneTheme.js
+init_define_process();
+init_instantiation();
+var IStandaloneThemeService = createDecorator("themeService");
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/platform/accessibility/browser/accessibilityService.js
 init_define_process();
@@ -93943,7 +93778,7 @@ var StandaloneWorkspaceContextService = class {
   }
 };
 StandaloneWorkspaceContextService.SCHEME = "inmemory";
-function updateConfigurationService(configurationService, source, isDiffEditor2) {
+function updateConfigurationService(configurationService, source, isDiffEditor) {
   if (!source) {
     return;
   }
@@ -93955,7 +93790,7 @@ function updateConfigurationService(configurationService, source, isDiffEditor2)
     if (isEditorConfigurationKey(key)) {
       toUpdate.push([`editor.${key}`, source[key]]);
     }
-    if (isDiffEditor2 && isDiffEditorConfigurationKey(key)) {
+    if (isDiffEditor && isDiffEditorConfigurationKey(key)) {
       toUpdate.push([`diffEditor.${key}`, source[key]]);
     }
   });
@@ -94152,15 +93987,12 @@ var StandaloneServices;
 })(StandaloneServices || (StandaloneServices = {}));
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/standaloneCodeEditor.js
-init_standaloneTheme();
 init_actions2();
 init_commands();
 init_configuration();
 init_contextkey();
 init_instantiation();
-init_keybinding();
 init_themeService();
-init_standaloneStrings();
 init_progress();
 init_model2();
 init_language();
@@ -94436,7 +94268,6 @@ function doCreateModel(modelService, value, languageSelection, uri) {
 }
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor.js
-init_standaloneTheme();
 init_commands();
 function create2(domElement, options, override) {
   const instantiationService = StandaloneServices.initialize(override || {});
@@ -95084,7 +94915,6 @@ function compile(languageId, json) {
 }
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221004-2a6d4da92b-9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/standaloneLanguages.js
-init_standaloneTheme();
 init_languageFeatures();
 init_configuration();
 var __awaiter29 = function(thisArg, _arguments, P, generator) {
@@ -95534,51 +95364,6 @@ if (typeof self.require !== "undefined" && typeof self.require.config === "funct
 export {
   localize,
   init_nls,
-  isWindows,
-  isMacintosh,
-  isLinux,
-  isNative,
-  isWeb,
-  isIOS,
-  language,
-  OS,
-  init_platform,
-  Iterable,
-  init_iterator,
-  LinkedList,
-  init_linkedList,
-  equals,
-  binarySearch,
-  findFirstInSorted,
-  quickSelect,
-  groupBy,
-  coalesce,
-  isFalsyOrEmpty,
-  isNonEmptyArray,
-  distinct,
-  findLast,
-  asArray,
-  compareBy,
-  numberComparator,
-  findMaxBy,
-  init_arrays,
-  isString,
-  isObject,
-  isNumber,
-  isUndefined,
-  assertType,
-  assertIsDefined,
-  withNullAsUndefined,
-  init_types,
-  deepClone,
-  cloneAndChange,
-  mixin,
-  init_objects,
-  EditorFontLigatures,
-  inUntrustedWorkspace,
-  unicodeHighlightConfigKeys,
-  EDITOR_FONT_DEFAULTS,
-  EditorOptions,
   onUnexpectedError,
   onUnexpectedExternalError,
   isCancellationError,
@@ -95587,6 +95372,8 @@ export {
   init_errors,
   once,
   init_functional,
+  Iterable,
+  init_iterator,
   isDisposable,
   dispose,
   combinedDisposable,
@@ -95596,151 +95383,36 @@ export {
   MutableDisposable,
   RefCountedDisposable,
   init_lifecycle,
+  LinkedList,
+  init_linkedList,
+  isWindows,
+  isMacintosh,
+  isLinux,
+  isNative,
+  isWeb,
+  isIOS,
+  language,
+  OS,
+  init_platform,
   StopWatch,
   init_stopwatch,
   Event,
   Emitter,
   init_event,
-  CancellationToken,
-  CancellationTokenSource,
-  init_cancellation,
-  KeyChord,
-  init_keyCodes,
-  dirname,
-  basename,
-  sep,
-  init_path,
-  URI,
-  init_uri,
-  Position,
-  init_position,
-  Range,
-  init_range,
-  Selection,
-  init_selection,
-  Codicon,
-  CSSIcon,
-  init_codicons,
-  CompletionItemKinds,
-  InlineCompletionTriggerKind,
-  SignatureHelpTriggerKind,
-  DocumentHighlightKind,
-  isLocationLink,
-  SymbolKinds,
-  FoldingRangeKind,
-  Command,
-  InlayHintKind,
-  TokenizationRegistry2 as TokenizationRegistry,
-  init_languages,
-  CompletionItemInsertTextRule,
-  Lazy,
-  init_lazy,
-  isFalsyOrWhitespace,
-  format,
-  escape,
-  escapeRegExpCharacters,
-  trim,
-  stripWildcards,
-  splitLines,
-  firstNonWhitespaceIndex,
-  getLeadingWhitespace,
-  lastNonWhitespaceIndex,
-  compare,
-  compareIgnoreCase,
-  isLowerAsciiLetter,
-  isUpperAsciiLetter,
-  commonPrefixLength,
-  commonSuffixLength,
-  isHighSurrogate,
-  isLowSurrogate,
-  containsRTL,
-  isBasicASCII,
-  containsUppercaseCharacter,
-  noBreakWhitespace,
-  InvisibleCharacters,
-  init_strings,
   PixelRatio,
   isFirefox2 as isFirefox,
   isStandalone,
   init_browser,
-  createFastDomNode,
-  init_fastDomNode,
-  applyFontInfo,
-  EditorZoom,
-  IInstantiationService,
-  createDecorator,
-  init_instantiation,
-  ICodeEditorService,
-  init_codeEditorService,
-  assertNever,
-  init_assert,
-  OverviewRulerLane2 as OverviewRulerLane,
-  MinimapPosition2 as MinimapPosition,
-  InjectedTextCursorStops2 as InjectedTextCursorStops,
-  init_model,
-  IndentAction2 as IndentAction,
-  init_languageConfiguration,
-  StringBuilder,
-  init_stringBuilder,
-  IConfigurationService,
-  init_configuration,
-  ILanguageService,
-  init_language,
-  registerSingleton,
-  init_extensions,
-  Registry,
-  init_platform2,
-  Mimes,
-  init_mime,
-  Extensions2 as Extensions,
-  init_configurationRegistry,
-  PLAINTEXT_LANGUAGE_ID,
-  init_modesRegistry,
-  ILanguageConfigurationService,
-  init_languageConfigurationRegistry,
-  NullState,
-  nullTokenize,
-  nullTokenizeEncoded,
-  init_nullTokenize,
-  IModelService,
-  init_model2,
-  createCancelablePromise,
-  raceCancellation,
-  Delayer,
-  timeout,
-  disposableTimeout,
-  first,
-  TimeoutTimer,
-  RunOnceScheduler,
-  runWhenIdle,
-  IdleValue,
-  DeferredPromise,
-  AsyncIterableObject,
-  createCancelableAsyncIterable,
-  init_async,
-  hash,
-  init_hash,
-  LcsDiff,
-  CharacterSet,
-  init_characterClassifier,
-  getMapForWordSeparators,
-  init_wordCharacterClassifier,
-  SearchParams,
-  init_textModelSearch,
-  UnicodeTextModelHighlighter,
-  ITextResourceConfigurationService,
-  init_textResourceConfiguration,
-  ILogService,
-  init_log,
-  ILanguageFeaturesService,
-  init_languageFeatures,
-  TokenMetadata,
-  init_encodedTokenAttributes,
-  LineTokens,
-  init_lineTokens,
-  LineDecoration,
-  RenderLineInput,
-  renderViewLine,
+  isString,
+  isObject,
+  isNumber,
+  isUndefined,
+  assertType,
+  assertIsDefined,
+  withNullAsUndefined,
+  init_types,
+  KeyChord,
+  init_keyCodes,
   SimpleKeybinding,
   init_keybindings,
   StandardKeyboardEvent,
@@ -95751,6 +95423,11 @@ export {
   addHook,
   removeHook,
   init_dompurify,
+  dirname,
+  basename,
+  init_path,
+  URI,
+  init_uri,
   Schemas,
   FileAccess,
   init_network,
@@ -95786,24 +95463,62 @@ export {
   alert,
   status,
   init_aria,
-  IMarkerDecorationsService,
+  IInstantiationService,
+  createDecorator,
+  init_instantiation,
+  ICodeEditorService,
+  init_codeEditorService,
+  Position,
+  init_position,
+  IModelService,
+  init_model2 as init_model,
   ITextModelService,
   init_resolverService,
   Action,
   Separator,
   SubmenuAction,
   init_actions,
+  Codicon,
+  CSSIcon,
+  init_codicons,
   ICommandService,
   CommandsRegistry,
   init_commands,
+  Lazy,
+  init_lazy,
+  isFalsyOrWhitespace,
+  format,
+  escape,
+  escapeRegExpCharacters,
+  splitLines,
+  firstNonWhitespaceIndex,
+  getLeadingWhitespace,
+  lastNonWhitespaceIndex,
+  compare,
+  compareIgnoreCase,
+  isLowerAsciiLetter,
+  isUpperAsciiLetter,
+  commonPrefixLength,
+  commonSuffixLength,
+  isHighSurrogate,
+  isLowSurrogate,
+  containsRTL,
+  isBasicASCII,
+  containsUppercaseCharacter,
+  noBreakWhitespace,
+  InvisibleCharacters,
+  init_strings,
   ContextKeyExpr,
   RawContextKey,
   IContextKeyService,
   init_contextkey,
+  assertNever,
+  init_assert,
+  Registry,
+  init_platform2,
   KeybindingsRegistry,
   init_keybindingsRegistry,
   isHighContrast,
-  isDark,
   init_theme,
   IThemeService,
   themeColorFromId,
@@ -95821,6 +95536,8 @@ export {
   init_actions2,
   ITelemetryService,
   init_telemetry,
+  ILogService,
+  init_log,
   MultiCommand,
   EditorCommand,
   EditorAction,
@@ -95833,14 +95550,100 @@ export {
   registerInstantiatedEditorAction,
   registerEditorContribution,
   init_editorExtensions,
+  Range,
+  init_range,
+  Selection,
+  init_selection,
+  CursorColumns,
+  init_cursorColumns,
+  normalizeIndentation,
+  init_indentation,
+  CursorState,
+  ReplaceCommand,
+  ReplaceCommandThatSelectsText,
+  ReplaceCommandThatPreservesSelection,
+  MoveOperations,
+  CharacterSet,
+  init_characterClassifier,
+  getMapForWordSeparators,
+  init_wordCharacterClassifier,
+  WordOperations,
+  WordPartOperations,
+  CursorMoveCommands,
+  IndentAction2 as IndentAction,
+  init_languageConfiguration,
+  equals,
+  binarySearch,
+  findFirstInSorted,
+  quickSelect,
+  groupBy,
+  coalesce,
+  isFalsyOrEmpty,
+  isNonEmptyArray,
+  distinct,
+  asArray,
+  compareBy,
+  numberComparator,
+  findMaxBy,
+  init_arrays,
+  StringBuilder,
+  init_stringBuilder,
+  IConfigurationService,
+  init_configuration,
+  ILanguageService,
+  init_language,
+  registerSingleton,
+  init_extensions,
+  Mimes,
+  init_mime,
+  Extensions2 as Extensions,
+  init_configurationRegistry,
+  PLAINTEXT_LANGUAGE_ID,
+  init_modesRegistry,
+  ILanguageConfigurationService,
+  init_languageConfigurationRegistry,
+  getEnterAction,
+  ShiftCommand,
+  getGoodIndentForLine,
+  getIndentMetadata,
+  TypeOperations,
+  EditorContextKeys,
+  init_editorContextKeys,
+  CoreEditingCommands,
+  IMarkerDecorationsService,
+  deepClone,
+  cloneAndChange,
+  mixin,
+  init_objects,
+  applyFontInfo,
+  EditorFontLigatures,
+  inUntrustedWorkspace,
+  unicodeHighlightConfigKeys,
+  EDITOR_FONT_DEFAULTS,
+  EditorOptions,
+  EditorZoom,
   TabFocus,
-  init_tabFocus,
   IAccessibilityService,
   CONTEXT_ACCESSIBILITY_MODE_ENABLED,
   EventType2,
   Gesture,
-  init_touch,
   GlobalPointerMoveMonitor,
+  CancellationToken,
+  CancellationTokenSource,
+  init_cancellation,
+  createCancelablePromise,
+  raceCancellation,
+  Delayer,
+  timeout,
+  disposableTimeout,
+  first,
+  TimeoutTimer,
+  RunOnceScheduler,
+  runWhenIdle,
+  IdleValue,
+  AsyncIterableObject,
+  createCancelableAsyncIterable,
+  init_async,
   RGBA,
   HSVA,
   Color,
@@ -95923,8 +95726,9 @@ export {
   oneOf,
   init_colorRegistry,
   DynamicCssRules,
-  CursorColumns,
-  init_cursorColumns,
+  LineDecoration,
+  RenderLineInput,
+  renderViewLine,
   DomEmitter,
   CopyOptions,
   InMemoryClipboardMetadataManager,
@@ -95933,32 +95737,26 @@ export {
   ghostTextBorder,
   ghostTextForeground,
   ghostTextBackground,
-  overviewRulerRangeHighlight,
   init_editorColorRegistry,
-  normalizeIndentation,
-  init_indentation,
-  CursorState,
-  ReplaceCommand,
-  ReplaceCommandThatSelectsText,
-  ReplaceCommandThatPreservesSelection,
-  MoveOperations,
-  WordOperations,
-  WordPartOperations,
-  CursorMoveCommands,
-  getEnterAction,
-  ShiftCommand,
-  getGoodIndentForLine,
-  getIndentMetadata,
-  TypeOperations,
-  EditorContextKeys,
-  init_editorContextKeys,
-  CoreEditingCommands,
+  CompletionItemKinds,
+  InlineCompletionTriggerKind,
+  SignatureHelpTriggerKind,
+  DocumentHighlightKind,
+  isLocationLink,
+  FoldingRangeKind,
+  Command,
+  InlayHintKind,
+  TokenizationRegistry2 as TokenizationRegistry,
+  init_languages,
   Widget2 as Widget,
-  init_widget,
   ScrollableElement,
   DomScrollableElement,
   computeIndentLevel,
   init_utils,
+  OverviewRulerLane2 as OverviewRulerLane,
+  MinimapPosition2 as MinimapPosition,
+  InjectedTextCursorStops2 as InjectedTextCursorStops,
+  init_model as init_model2,
   countEOL,
   init_eolCounter,
   lengthZero,
@@ -95987,6 +95785,10 @@ export {
   resolvePath,
   DataUri,
   init_resources,
+  SearchParams,
+  init_textModelSearch,
+  LineTokens,
+  init_lineTokens,
   IUndoRedoService,
   init_undoRedo,
   TextModel,
@@ -96000,6 +95802,8 @@ export {
   severity_default,
   Severity2 as Severity,
   INotificationService,
+  ILanguageFeaturesService,
+  init_languageFeatures,
   CodeEditorWidget,
   OrthogonalEdge,
   Sash,
@@ -96009,11 +95813,7 @@ export {
   ResourceMap,
   LRUCache,
   init_map,
-  or,
-  matchesPrefix,
-  matchesContiguousSubString,
   matchesSubString,
-  matchesWords,
   anyScore,
   createMatches,
   FuzzyScore,
@@ -96021,7 +95821,6 @@ export {
   fuzzyScore,
   fuzzyScoreGracefulAggressive,
   markdownEscapeEscapedIcons,
-  stripIcons,
   MarkdownString,
   isEmptyMarkdownString,
   escapeDoubleQuotes,
@@ -96040,96 +95839,69 @@ export {
   init_progress,
   IEditorWorkerService,
   init_editorWorker,
-  IDialogService,
+  editorConfigurationBaseNode,
+  IBulkEditService,
+  ResourceTextEdit,
+  EditorState,
+  EditorStateCancellationTokenSource,
+  TextModelCancellationTokenSource,
+  init_editorState,
+  KeybindingLabel,
   clamp,
   init_numbers,
+  List,
+  IKeybindingService,
+  MarkerSeverity2 as MarkerSeverity,
+  IMarkerData,
+  IMarkerService,
+  hash,
+  init_hash,
+  IStorageService,
+  WillSaveStateReason,
+  renderLabelWithIcons,
+  IQuickInputService,
   IOpenerService,
   NullOpenerService,
   extractSelection,
   init_opener,
   ILanguageFeatureDebounceService,
   init_languageFeatureDebounce,
-  IBulkEditService,
-  ResourceTextEdit,
-  editorConfigurationBaseNode,
-  EditOperation,
-  init_editOperation,
-  IKeybindingService,
-  init_keybinding,
-  ILabelService,
-  IWorkspaceContextService,
-  isSingleFolderWorkspaceIdentifier,
-  toWorkspaceIdentifier,
-  WORKSPACE_EXTENSION,
-  AccessibilityHelpNLS,
-  InspectTokensNLS,
-  GoToLineNLS,
-  QuickHelpNLS,
-  QuickCommandNLS,
-  QuickOutlineNLS,
-  ToggleHighContrastNLS,
-  init_standaloneStrings,
-  IWorkspaceTrustManagementService,
-  IStorageService,
-  WillSaveStateReason,
+  IdGenerator,
+  defaultGenerator,
   createAndFillInActionBarActions,
   MenuEntryActionViewItem,
   createActionViewItem,
-  attachBadgeStyler,
-  attachListStyler,
-  parse2 as parse,
-  MarkerSeverity2 as MarkerSeverity,
-  IMarkerData,
-  IMarkerService,
-  toMultilineTokens2,
-  init_semanticTokensProviderStyling,
-  hasDocumentRangeSemanticTokensProvider,
-  getDocumentRangeSemanticTokens,
-  init_getSemanticTokens,
-  SEMANTIC_HIGHLIGHTING_SETTING_ID,
-  isSemanticColoringEnabled,
-  init_modelService,
-  renderLabelWithIcons,
-  CountBadge,
-  IdGenerator,
-  defaultGenerator,
+  isCodeEditor,
+  init_editorBrowser,
+  Sizing,
+  SplitView,
   Toggle,
   CaseSensitiveToggle,
   WholeWordsToggle,
   RegexToggle,
-  renderFormattedText,
   createElement,
-  init_formattedTextRenderer,
   HistoryInputBox,
   FindInput,
-  HighlightedLabel,
-  IconLabel,
-  KeybindingLabel,
-  List,
-  Sizing,
-  SplitView,
+  LcsDiff,
   IsWindowsContext,
+  attachBadgeStyler,
+  attachListStyler,
   IListService,
   WorkbenchListFocusContextKey,
   WorkbenchTreeElementCanCollapse,
   WorkbenchTreeElementCanExpand,
   WorkbenchAsyncDataTree,
-  Extensions9 as Extensions2,
-  IQuickInputService,
-  VS_LIGHT_THEME_NAME,
-  VS_DARK_THEME_NAME,
-  HC_BLACK_THEME_NAME,
-  HC_LIGHT_THEME_NAME,
-  IStandaloneThemeService,
-  init_standaloneTheme,
-  EditorState,
-  EditorStateCancellationTokenSource,
-  TextModelCancellationTokenSource,
-  init_editorState,
-  isCodeEditor,
-  isDiffEditor,
-  getCodeEditor,
-  init_editorBrowser,
+  CountBadge,
+  HighlightedLabel,
+  IconLabel,
+  ILabelService,
+  parse2 as parse,
+  EditOperation,
+  init_editOperation,
+  IWorkspaceContextService,
+  isSingleFolderWorkspaceIdentifier,
+  toWorkspaceIdentifier,
+  WORKSPACE_EXTENSION,
   FormattingEdit,
   init_formattingEdit,
   alertFormattingEdits,
@@ -96137,6 +95909,20 @@ export {
   formatDocumentWithSelectedProvider,
   getOnTypeFormattingEdits,
   init_format,
+  ITextResourceConfigurationService,
+  init_textResourceConfiguration,
+  CompletionItemInsertTextRule,
+  UnicodeTextModelHighlighter,
+  IWorkspaceTrustManagementService,
+  IDialogService,
+  hasDocumentRangeSemanticTokensProvider,
+  getDocumentRangeSemanticTokens,
+  init_getSemanticTokens,
+  toMultilineTokens2,
+  init_semanticTokensProviderStyling,
+  SEMANTIC_HIGHLIGHTING_SETTING_ID,
+  isSemanticColoringEnabled,
+  init_modelService,
   Uri2 as Uri,
   editor,
   languages,

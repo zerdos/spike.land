@@ -1,6 +1,6 @@
 import {
   saveCode
-} from "./chunk-chunk-VQLJFYDV.mjs";
+} from "./chunk-chunk-62WIRENV.mjs";
 import {
   mST,
   patchSync
@@ -2485,7 +2485,7 @@ async function runner({ code, counter }) {
           jsxImportSource: "@emotion/react"
         }
       },
-      target: "es2015"
+      target: "es2021"
     });
     patchSync({ ...mST(), transpiled: transpiled.code });
     if (transpiled.code.length > 0) {
