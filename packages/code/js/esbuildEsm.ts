@@ -1,37 +1,49 @@
-// import { Mutex } from "async-mutex";
+// Import { Mutex } from "async-mutex";
 
 // import "core-js/proposals/string-replace-all-stage-4";
 
-import { initialize, transform } from "esbuild-wasm";
+import {initialize, transform} from 'esbuild-wasm';
 
-// import type { transform } from "esbuild/lib/main";
+// Import type { transform } from "esbuild/lib/main";
 
 let initFinished: Promise<boolean> | boolean = false;
-// const mutex = new Mutex();
+// Const mutex = new Mutex();
 const esbuild = {
-  transform, //: mutex.runExclusive(() => transform),
+	transform, // : mutex.runExclusive(() => transform),
 };
 
 export const init = async () => {
-  try {
-    if (initFinished === true) return esbuild;
-    //@ts-ignore
-    const wasmURL = (await import("esbuild-wasm/esbuild.wasm")).default as unknown as string;
+	try {
+		if (initFinished === true) {
+			return esbuild;
+		}
 
-    initFinished = initFinished || new Promise<boolean>((resolve) => {
-      initialize(
-        {
-          wasmURL: new URL(wasmURL, location.origin).toString(),
-        },
-      ).then(() => resolve(true));
-    });
+		// @ts-expect-error
+		const wasmURL = (await import('esbuild-wasm/esbuild.wasm'))
+			.default as unknown as string;
 
-    if (await initFinished === true) return esbuild;
-    throw new Error("esbuild couldn't initialize");
-  } catch {
-    throw new Error("esbuild couldn't initialize");
-  } finally {
-    if (await initFinished === true) return esbuild;
-    throw new Error("esbuild couldn't initialize");
-  }
+		initFinished = initFinished || new Promise<boolean>(resolve => {
+			initialize(
+				{
+					wasmURL: new URL(wasmURL, location.origin).toString(),
+				},
+			).then(() => {
+				resolve(true);
+			});
+		});
+
+		if (await initFinished) {
+			return esbuild;
+		}
+
+		throw new Error('esbuild couldn\'t initialize');
+	} catch {
+		throw new Error('esbuild couldn\'t initialize');
+	} finally {
+		if (await initFinished) {
+			return esbuild;
+		}
+
+		throw new Error('esbuild couldn\'t initialize');
+	}
 };

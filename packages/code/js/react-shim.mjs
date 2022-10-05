@@ -1,2 +1,2 @@
-import { jsx } from "@emotion/react";
-export { jsx };
+
+export {jsx} from '@emotion/react';

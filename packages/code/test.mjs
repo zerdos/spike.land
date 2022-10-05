@@ -1,2 +1,3 @@
-import {} from "react";
-export const zoli = "Zoltan";
+import {} from 'react';
+
+export const zoli = 'Zoltan';

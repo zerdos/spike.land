@@ -1,62 +1,62 @@
-import { Workbox } from "workbox-window";
+import {Workbox} from 'workbox-window';
 
 export const workboxLoader = async () => {
-  if (
-    "serviceWorker" in window.navigator
-  ) {
-    // fetch("//check").then((x) => x.json())
-    //   .then((x) => x.missing).then((missingArray) =>
-    //     import("./ipfsClient.mjs").then(({ ipfsCat }) =>
-    //       Promise.all(
-    //         missingArray.map((cid) =>
-    //           Promise.race([
-    //             ipfsCat(cid),
-    //             fetch(`http://127.0.0.1:8080/ipfs/${cid}/`).then((x) =>
-    //               x.text()
-    //             ),
-    //           ]).then((content) =>
-    //             fetch(`//add/${cid}`, {
-    //               method: "POST",
-    //               body: content,
-    //             })
-    //           )
-    //         ),
-    //       )
-    //     )
-    //   );
+	if (
+		'serviceWorker' in window.navigator
+	) {
+		// Fetch("//check").then((x) => x.json())
+		//   .then((x) => x.missing).then((missingArray) =>
+		//     import("./ipfsClient.mjs").then(({ ipfsCat }) =>
+		//       Promise.all(
+		//         missingArray.map((cid) =>
+		//           Promise.race([
+		//             ipfsCat(cid),
+		//             fetch(`http://127.0.0.1:8080/ipfs/${cid}/`).then((x) =>
+		//               x.text()
+		//             ),
+		//           ]).then((content) =>
+		//             fetch(`//add/${cid}`, {
+		//               method: "POST",
+		//               body: content,
+		//             })
+		//           )
+		//         ),
+		//       )
+		//     )
+		//   );
 
-    // navigator.serviceWorker.getRegistrations().then(function (registrations) {
-    //   for (let registration of registrations) {
-    //     registration.unregister();
-    //   }
-    // });
+		// navigator.serviceWorker.getRegistrations().then(function (registrations) {
+		//   for (let registration of registrations) {
+		//     registration.unregister();
+		//   }
+		// });
 
-    try {
-      let url = "./sw.js";
-      if (location.hostname.includes("spike.land")) {
-        url = "/sw.js";
-      }
+		try {
+			let url = './sw.js';
+			if (location.hostname.includes('spike.land')) {
+				url = '/sw.js';
+			}
 
-      const wb = new Workbox(url);
+			const wb = new Workbox(url);
 
-      wb.addEventListener("activated", async (event) => {
-        if (!event.isUpdate) {
-          console.log("Service worker activated for the first time!");
-        }
+			wb.addEventListener('activated', async event => {
+				if (!event.isUpdate) {
+					console.log('Service worker activated for the first time!');
+				}
 
-        const swVersion = await wb.messageSW({ type: "GET_VERSION" });
-        console.log(`version: ${swVersion}`);
-      });
+				const swVersion = await wb.messageSW({type: 'GET_VERSION'});
+				console.log(`version: ${swVersion}`);
+			});
 
-      window.wb = wb;
-      wb.register();
+			window.wb = wb;
+			wb.register();
 
-      // Console.log('Service Worker version:', swVersion);
+			// Console.log('Service Worker version:', swVersion);
 
-      // const packageJson = await wb.messageSW({type: 'GET_PACKAGE_JSON'});
-      // console.log(packageJson);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+			// const packageJson = await wb.messageSW({type: 'GET_PACKAGE_JSON'});
+			// console.log(packageJson);
+		} catch (error) {
+			console.error(error);
+		}
+	}
 };
