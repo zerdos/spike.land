@@ -75,28 +75,45 @@
       "bytes": 2244,
       "imports": []
     },
-    "../code/dist/chunk-chunk-IA5ZPNWL.mjs": {
-      "bytes": 2747,
+    "../code/dist/chunk-chunk-477FBAEY.mjs": {
+      "bytes": 2483,
       "imports": []
     },
-    "../code/dist/chunk-chunk-BZGN6OHY.mjs": {
-      "bytes": 167486,
+    "../code/dist/chunk-chunk-QTIR5YHF.mjs": {
+      "bytes": 330,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-IA5ZPNWL.mjs",
+          "path": "../code/dist/chunk-chunk-477FBAEY.mjs",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "../code/dist/chunk-chunk-BHWUYVJN.mjs": {
+      "bytes": 167531,
+      "imports": [
+        {
+          "path": "../code/dist/chunk-chunk-QTIR5YHF.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../code/dist/chunk-chunk-477FBAEY.mjs",
           "kind": "import-statement"
         }
       ]
     },
     "../code/dist/session.mjs": {
-      "bytes": 375,
+      "bytes": 412,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-BZGN6OHY.mjs",
+          "path": "../code/dist/chunk-chunk-BHWUYVJN.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../code/dist/chunk-chunk-IA5ZPNWL.mjs",
+          "path": "../code/dist/chunk-chunk-QTIR5YHF.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../code/dist/chunk-chunk-477FBAEY.mjs",
           "kind": "import-statement"
         }
       ]
@@ -220,10 +237,13 @@
         "src/chatRoom.ts": {
           "bytesInOutput": 15596
         },
-        "../code/dist/chunk-chunk-IA5ZPNWL.mjs": {
-          "bytesInOutput": 1663
+        "../code/dist/chunk-chunk-477FBAEY.mjs": {
+          "bytesInOutput": 1469
         },
-        "../code/dist/chunk-chunk-BZGN6OHY.mjs": {
+        "../code/dist/chunk-chunk-QTIR5YHF.mjs": {
+          "bytesInOutput": 194
+        },
+        "../code/dist/chunk-chunk-BHWUYVJN.mjs": {
           "bytesInOutput": 166666
         },
         "src/getBackupSession.ts": {
@@ -239,7 +259,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 260588
+      "bytes": 260630
     }
   }
 }

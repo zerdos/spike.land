@@ -1048,7 +1048,7 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../code/dist/chunk-chunk-IA5ZPNWL.mjs
+// ../code/dist/chunk-chunk-477FBAEY.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -1078,6 +1078,8 @@ var __publicField = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
+
+// ../code/dist/chunk-chunk-QTIR5YHF.mjs
 var define_process_default;
 var init_define_process = __esm({
   "<define:process>"() {
@@ -1085,7 +1087,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-BZGN6OHY.mjs
+// ../code/dist/chunk-chunk-BHWUYVJN.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
