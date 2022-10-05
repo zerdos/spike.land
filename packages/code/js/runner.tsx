@@ -78,7 +78,7 @@ export async function runner({code, counter}: {
 					jsxImportSource: '@emotion/react',
 				},
 			},
-			target: 'es2015',
+			target: 'es2021',
 		} as unknown as TransformOptions);
 
 		patchSync({...mST(), transpiled: transpiled.code});
