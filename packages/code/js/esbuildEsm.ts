@@ -3,7 +3,6 @@
 // import "core-js/proposals/string-replace-all-stage-4";
 
 import { initialize, transform } from "esbuild-wasm";
-import wasmURL from "esbuild-wasm/esbuild.wasm";
 
 // import type { transform } from "esbuild/lib/main";
 
@@ -16,6 +15,8 @@ const esbuild = {
 export const init = async () => {
   try {
     if (initFinished === true) return esbuild;
+    //@ts-ignore
+    const wasmURL = (await import("esbuild-wasm/esbuild.wasm")).default as unknown as string;
 
     initFinished = initFinished || new Promise<boolean>((resolve) => {
       initialize(

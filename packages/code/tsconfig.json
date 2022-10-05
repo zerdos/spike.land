@@ -18,7 +18,7 @@
     "noEmit": true,
     "module": "ES2022",
     "jsx": "react-jsx",
-    "checkJs": false,
+    "checkJs": true,
 
     "jsxImportSource": "@emotion/react",
     "sourceMap": false,
@@ -60,17 +60,13 @@
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "composite": true,
-    "removeComments": true,
-    "importHelpers": true,
+    "preserveValueImports": true,
     "incremental": true,
     "skipDefaultLibCheck": true,
-    "skipLibCheck": true, /* Skip type checking of declaration files. */
+    "skipLibCheck": false, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "baseUrl": "js",
-    "paths": {
-      "events": ["events/events.js"]
-    }
+    "baseUrl": "js"
   },
   "include": ["js", "package.json", "esbuild-dev.mjs"],
-  "exclude": []
+  "exclude": [".yarn","js/monaco-workers/", "dist"]
 }

@@ -23,6 +23,7 @@
   "npm.packageManager": "yarn",
   "explorer.expandSingleFolderWorkspaces": true,
   "cSpell.words": [
+    "applewebkit",
     "axax",
     "codicon",
     "devimages",

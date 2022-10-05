@@ -174,7 +174,7 @@ var require_ooo = __commonJS({
         var process = module3.exports = {};
         var cachedSetTimeout;
         var cachedClearTimeout;
-        function defaultSetTimout() {
+        function defaultSetTimeout() {
           throw new Error("setTimeout has not been defined");
         }
         function defaultClearTimeout() {
@@ -185,10 +185,10 @@ var require_ooo = __commonJS({
             if (typeof setTimeout === "function") {
               cachedSetTimeout = setTimeout;
             } else {
-              cachedSetTimeout = defaultSetTimout;
+              cachedSetTimeout = defaultSetTimeout;
             }
           } catch (e) {
-            cachedSetTimeout = defaultSetTimout;
+            cachedSetTimeout = defaultSetTimeout;
           }
           try {
             if (typeof clearTimeout === "function") {
@@ -204,7 +204,7 @@ var require_ooo = __commonJS({
           if (cachedSetTimeout === setTimeout) {
             return setTimeout(fun, 0);
           }
-          if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+          if ((cachedSetTimeout === defaultSetTimeout || !cachedSetTimeout) && setTimeout) {
             cachedSetTimeout = setTimeout;
             return setTimeout(fun, 0);
           }
@@ -492,7 +492,7 @@ var require_ooo = __commonJS({
             exports3.save = save;
             exports3.load = load;
             exports3.useColors = useColors;
-            exports3.storage = localstorage();
+            exports3.storage = localStorage();
             exports3.destroy = (() => {
               let warned = false;
               return () => {
@@ -632,12 +632,7 @@ var require_ooo = __commonJS({
               }
               return r;
             }
-            function localstorage() {
-              try {
-                return localStorage;
-              } catch (error) {
-              }
-            }
+           
             module3.exports = require2("./common")(exports3);
             const { formatters } = module3.exports;
             formatters.j = function(v) {
