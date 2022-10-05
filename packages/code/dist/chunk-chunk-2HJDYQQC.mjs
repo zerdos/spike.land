@@ -965,7 +965,7 @@ var DraggableWindow = ({
     };
     reveal();
   }, []);
-  const bg2 = window.getComputedStyle(document.body, null).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map(
+  const bgCV = window.getComputedStyle(document.body, null).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map(
     (x) => Number(x) || "0"
   ).join(",");
   return (0, import_jsx_runtime6.jsx)(LazyMotion, {
@@ -986,7 +986,7 @@ var DraggableWindow = ({
       },
       css: import_react10.css`
             touch-action: pinch-zoom;
-            background-color:${bg2};
+            background-color: ${bg};
             backdrop-filter: blur(15px);
             z-index: 10;
 
@@ -1066,7 +1066,7 @@ var DraggableWindow = ({
                     scale: 1
                   },
                   animate: {
-                    background: "rgba(" + bg2 + ", 0.5)",
+                    background: "rgba(" + bgCV + ", 0.5)",
                     transformOrigin: "0px 0px",
                     width: width / devicePixelRatio,
                     height: height / devicePixelRatio,
@@ -1201,7 +1201,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-WARHSIPK.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-555TWBMV.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-OJUT5PRH.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
