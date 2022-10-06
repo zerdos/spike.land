@@ -165,7 +165,7 @@ export const Editor: React.FC<
 			//runner({code, counter, codeSpace});
 		};
 
-		loadEditors();
+		!started && loadEditors();
 	}, [started, ref]);
 
 	// UseInsertionEffect(()=>{
