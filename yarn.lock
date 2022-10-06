@@ -3576,7 +3576,7 @@ __metadata:
     ipfs-core-config: "npm:^0.5.1"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.35.0-dev.20221006"
+    monaco-editor: "npm:0.34.0"
     p-map: "npm:5.5.0"
     preact: "npm:10.11.1"
     preact-render-to-string: "npm:^5.2.4"
@@ -5449,7 +5449,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.0.1, chalk@npm:^5.0.1":
+"chalk@npm:5.0.1":
   version: 5.0.1
   resolution: "chalk@npm:5.0.1"
   checksum: 0902c556d549b64dacd1eeb46fa2679789dcd0455ec9c050b9e1cfe60a144170708f040a6486489532672332fcfaca61e68fecf28d35560d8c77a9291400d72e
@@ -5473,6 +5473,13 @@ __metadata:
     ansi-styles: "npm:^4.1.0"
     supports-color: "npm:^7.1.0"
   checksum: cb96ab47eb1b55525e72caac9eed1513bff28e686df7eee6b04379c80922df21c8283d9938af16a645826c94c9e19fb52ad63cbead6b5073d08ae5f8fa2661a2
+  languageName: node
+  linkType: hard
+
+"chalk@npm:^5.0.1":
+  version: 5.1.0
+  resolution: "chalk@npm:5.1.0"
+  checksum: e5e974b32fcf5674c9a9ed1a6782412a57c7b7dd5737bdf5490e3a44740b6a0b47de04a3afe9c73f7b91c04e009e992361658c7a331893ff20e92de1ff007734
   languageName: node
   linkType: hard
 
@@ -11255,8 +11262,8 @@ __metadata:
   linkType: hard
 
 "libp2p@npm:^0.39.2":
-  version: 0.39.4
-  resolution: "libp2p@npm:0.39.4"
+  version: 0.39.5
+  resolution: "libp2p@npm:0.39.5"
   dependencies:
     "@achingbrain/nat-port-mapper": "npm:^1.0.3"
     "@libp2p/components": "npm:^2.1.0"
@@ -11327,7 +11334,7 @@ __metadata:
     uint8arrays: "npm:^3.0.0"
     wherearewe: "npm:^2.0.0"
     xsalsa20: "npm:^1.1.0"
-  checksum: c4e55747e0a3413e536461dc9921527ee4af77290595a928048c96155ae024f55e74197e91cd6b17bf805fc724d4c042369f4559f19bf5d0412d2180ecac4780
+  checksum: 4fd5b10fec06cb5f988b5c7d83ea885c8cadb3d084c337736313c2f95bc886e1fc202a44c6f1ebff0716f3966c95f0ae3ae929758d935ac425e9396dd52b7f0a
   languageName: node
   linkType: hard
 
@@ -12033,10 +12040,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20221006":
-  version: 0.35.0-dev.20221006
-  resolution: "monaco-editor@npm:0.35.0-dev.20221006"
-  checksum: b872b8910edfb96990ea789ce1984e1a6fdfbe36f15ffc25585022f1e14c6de0d72ca2c24b04b6f35871d900f4fbc35678866df037401a23c3df82bb94610652
+"monaco-editor@npm:0.34.0":
+  version: 0.34.0
+  resolution: "monaco-editor@npm:0.34.0"
+  checksum: c88399a1b1e86eca6818719c08ec70cd76e133b949a22712ec42a0183f0566ce7887c63d8bab6cca08fbbf7723ad16092e46e331f3b15fcf288cca6aa64e9ab2
   languageName: node
   linkType: hard
 
@@ -15922,11 +15929,11 @@ __metadata:
   linkType: hard
 
 "uglify-js@npm:^3.1.4":
-  version: 3.17.2
-  resolution: "uglify-js@npm:3.17.2"
+  version: 3.17.3
+  resolution: "uglify-js@npm:3.17.3"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: 8b6d8c6fa1c4bae5b670547c237b023d96f93b91e9f8edb4985c1451626a97d10e4eb68e047ab7c52e3c6bd054dcb4ef7b9233440aee924bf44553c38cc8f921
+  checksum: 8707c6aae1ff5c36318332a370459d6172941c78f386d851803e1bdf7485990a36c1071334b0ee552fec15db8b0ab5d9844fbd70abcc591cb1bbb9cc071429e1
   languageName: node
   linkType: hard
 
