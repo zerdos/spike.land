@@ -1,4 +1,5 @@
 import {Record} from 'immutable';
+import debounce from 'lodash.debounce';
 
 import type {Delta} from './textDiff';
 import {applyPatch as aPatch, createDelta} from './textDiff';
@@ -73,23 +74,29 @@ type ICodeSess = {
 	json: () => IUserJSON;
 };
 
-let session: CodeSession | undefined = null;
+let session: CodeSession | null = null;
 
-const hashStore: Record<number, Record<ICodeSession>> = {};
+const hashStore: {[key:number]: Record<ICodeSession>}= {};
 export class CodeSession implements ICodeSess {
 	session: IUser;
-	update(patch: CodePatch) {
+	update(){
+		return debounce(()=>this.updateNonDebounced(), 200, {maxWait: 500, trailing: true, leading: true})();
+	}
+
+	updateNonDebounced() {
 		Object.keys(this.cb).map(k => this.cb[k]).map(x => {
 			try {
-				x(true, patch);
+				x();
 			} catch (error) {
 				console.error('error calling callback', {err: error});
 			}
 		});
 	}
 
-	cb: Record<string, (_force: boolean, patch: CodePatch) => void> = {};
-	onUpdate(fn: (force: boolean, patch: CodePatch) => void, regId: string) {
+
+	cb: {[key: string]: () => void} = {};
+	
+	onUpdate(fn: () => void, regId: string) {
 		this.cb[regId] = fn;
 	}
 
@@ -99,7 +106,7 @@ export class CodeSession implements ICodeSess {
 	constructor(room: string, user: IUserJSON) {
 		session = this;
 		this.room = room;
-		const savedState: ICodeSession | undefined = null;
+		const savedState: ICodeSession | null = null;
 
 		// If (user.state.code === "" && room) {
 		// const cacheKey = `state-${room}`;
@@ -187,9 +194,7 @@ export class CodeSession implements ICodeSess {
 		if (newHash !== oldHash) {
 			console.log({sess});
 			(self.requestAnimationFrame || setTimeout)(async () =>
-				this.createPatchFromHashCode(oldHash, mST()).then(x => {
-					this.update(x);
-				}),
+				this.createPatchFromHashCode(oldHash, mST()).then(()=>this.update()),
 			);
 		}
 	};
@@ -239,6 +244,7 @@ export class CodeSession implements ICodeSess {
 		);
 
 		const newRecord = this.session.get('state').merge(newRec);
+		if (newRecord.code !==  this.session.get('state').code && newRecord.i === this.session.get('state').i ) return;
 
 		const newHashCheck = newRecord.hashCode();
 
@@ -308,11 +314,11 @@ function string_(s: ICodeSession) {
 
 export const applyPatch: IApplyPatch = async x => {
 	await session?.applyPatch(x);
-	session?.update(x);
+	session?.update();
 };
 
 export const onSessionUpdate = (
-	fn: (_force: boolean, messageData: Record<string, unknown>) => void,
+	fn: () => void,
 	regId = 'default',
 ) => session?.onUpdate(fn, regId);
 export const makePatchFrom = async (

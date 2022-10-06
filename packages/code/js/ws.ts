@@ -21,6 +21,7 @@ import {renderPreviewWindow} from './renderPreviewWindow';
 import type {ICodeSession} from './session';
 import uidV4 from './uidV4.mjs';
 import {appFactory} from './starter';
+import { md5 } from 'md5';
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
 
@@ -35,6 +36,7 @@ const user = ((self && self.crypto && self.crypto.randomUUID
 const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection
 let bc: BroadcastChannel;
 let codeSpace: string;
+let _hash = "";
 let address: string;
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
@@ -139,8 +141,9 @@ export const run = async (startState: {
 		}
 	};
 
+	
 	onSessionUpdate(
-		(_f: boolean, messageData) => {
+		() => {
 			// If (globalThis.send) {
 			//   globalThis.send(JSON.stringify({
 			//     ignoreUser: user,
@@ -150,12 +153,18 @@ export const run = async (startState: {
 			//     messageData,
 			//   }));
 			// }
+
+			const sess= mST();
+
+			const hash = md5(JSON.stringify(sess));
+			if (hash === _hash) return;
+			_hash = hash;
+			
 			bc.postMessage({
 				ignoreUser: user,
-				sess: mST(),
+				sess,
 				codeSpace,
 				address,
-				messageData,
 			});
 		},
 		'broadcast',

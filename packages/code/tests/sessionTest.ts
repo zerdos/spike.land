@@ -5,6 +5,8 @@ import {applyPatch, hashCode, makePatch, startSession} from '../js/session';
 
 const state1 = {code: '', transpiled: '', i: 33, css: '', html: ''};
 const state2 = {code: 'dddd', transpiled: '', i: 33, css: '', html: ''};
+const state3 = {code: 'dddd', transpiled: '', i: 34, css: '', html: ''};
+
 let hash1 = 0;
 let hash2 = 0;
 
@@ -35,8 +37,21 @@ test('wont start a new session', () => {
 	assert.is(Number(hashCode()), hash1);
 });
 
-test('applies a path', async () => {
+test('do nothing if code change without the i', async () => {
 	const p = await makePatch(state2);
+	assert.is(hashCode(), hash1);
+	assert.is(p.oldHash, hash1);
+
+	hash2 = p.newHash;
+
+	await applyPatch(p);
+
+	assert.not.equal(hashCode(), p.newHash);
+});
+
+
+test('applies a path', async () => {
+	const p = await makePatch(state3);
 	assert.is(hashCode(), hash1);
 	assert.is(p.oldHash, hash1);
 
@@ -46,5 +61,6 @@ test('applies a path', async () => {
 
 	assert.is(hashCode(), p.newHash);
 });
+
 
 test.run();

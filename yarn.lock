@@ -3576,7 +3576,7 @@ __metadata:
     ipfs-core-config: "npm:^0.5.1"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.35.0-dev.20221005"
+    monaco-editor: "npm:0.35.0-dev.20221006"
     p-map: "npm:5.5.0"
     preact: "npm:10.11.1"
     preact-render-to-string: "npm:^5.2.4"
@@ -12033,10 +12033,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20221005":
-  version: 0.35.0-dev.20221005
-  resolution: "monaco-editor@npm:0.35.0-dev.20221005"
-  checksum: 17db79cfb90865e716f41df706e1ccc3c6b1561cf15c33728e37c6aeff63f4650bef2c38de2041d1a90e0b9f7be4163831359f02ff47926fcadc7fa3994a2b26
+"monaco-editor@npm:0.35.0-dev.20221006":
+  version: 0.35.0-dev.20221006
+  resolution: "monaco-editor@npm:0.35.0-dev.20221006"
+  checksum: b872b8910edfb96990ea789ce1984e1a6fdfbe36f15ffc25585022f1e14c6de0d72ca2c24b04b6f35871d900f4fbc35678866df037401a23c3df82bb94610652
   languageName: node
   linkType: hard
 

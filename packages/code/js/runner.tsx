@@ -82,7 +82,6 @@ export async function runner({code, counter}: {
 		} as unknown as TransformOptions);
 
 		patchSync({...mST(), transpiled: transpiled.code});
-
 		//   Try{
 		//     (async ()=>{
 		//       const name = `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`;
