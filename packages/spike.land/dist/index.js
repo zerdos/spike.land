@@ -1096,7 +1096,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-GHNPI7JH.mjs
+// ../code/dist/chunk-chunk-QABWHZTN.mjs
 var require_lodash = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6448,13 +6448,14 @@ var CodeSession = class {
         newState
       );
       const newRecord = this.session.get("state").merge(newRec);
-      if (newRecord.code !== this.session.get("state").code && newRecord.i === this.session.get("state").i)
-        return;
+      if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
+        throw new Error("Code update without I update error");
+      ;
       const newHashCheck = newRecord.hashCode();
       if (newHashCheck === newHash) {
         this.session = this.session.set("state", newRecord);
       } else {
-        new Error("Wrong patch");
+        throw new Error("Wrong patch");
       }
     });
     session = this;
@@ -6466,7 +6467,7 @@ var CodeSession = class {
     })();
   }
   update() {
-    return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, { maxWait: 500, trailing: true, leading: true })();
+    return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, { maxWait: 500, trailing: true, leading: false })();
   }
   updateNonDebounced() {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
@@ -6961,9 +6962,10 @@ var Code = class {
           try {
             await applyPatch2({ patch, newHash, oldHash });
           } catch (err) {
+            let errMessage = err.message;
             return respondWith({
-              msg: "strange error",
-              err: err instanceof SyntaxError ? err.toString() : "Some error",
+              message: errMessage,
+              err: JSON.stringify({ err }),
               stack: err instanceof SyntaxError ? err.stack?.toString() : "no stack",
               hash: hashCode3()
             });

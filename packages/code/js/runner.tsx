@@ -50,8 +50,12 @@ export async function runner({code, counter}: {
 	codeSpace: string;
 	counter: number;
 }) {
-	const esbuild = await esb;
 
+	const mst = mST();
+	console.log(`${mst.i} => ${counter}`);
+	
+	if (counter<=mst.i) return;
+	
 	patchSync({...mST(), code, i: counter});
 
 	// Console.log({ i, counter });
@@ -66,6 +70,8 @@ export async function runner({code, counter}: {
 	//   (await import("./esbuildEsm.ts")).transform;
 
 	try {
+		const esbuild = await esb;
+
 		const transpiled = await esbuild.transform(code, {
 			loader: 'tsx',
 			format: 'esm',

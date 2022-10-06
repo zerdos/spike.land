@@ -244,6 +244,16 @@ export const Editor: React.FC<
 	}, [onChange]);
 
 
+	useEffect(() => {
+		if (!started) return;
+
+		runner({code: myCode, counter: counter, codeSpace});
+	
+	}, [myCode, counter, codeSpace, started]);
+
+
+	
+
 
 	useEffect(() => {
 		if (!started) {
@@ -292,13 +302,12 @@ export const Editor: React.FC<
 
 			changeContent(x => ({
 				...x,
-				counter: counter + 1,
+				counter: mST().i + 1,
 				myCode: newCode,
 			}));
 		
 
 			// Console.log("RUN THE RUNNER AGAIN");
-			runner({code: newCode, counter: counter + 1, codeSpace});
 		} catch (error) {
 			console.error({err: error});
 			console.error('restore editor');
