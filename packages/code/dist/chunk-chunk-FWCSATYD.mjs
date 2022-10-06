@@ -8,7 +8,7 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-GHNPI7JH.mjs";
+} from "./chunk-chunk-QABWHZTN.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -1065,7 +1065,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-WAIW5FZZ.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-VBRRQZYS.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-OJUT5PRH.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -1220,6 +1220,11 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     onChange(cb);
   }, [onChange]);
   useEffect(() => {
+    if (!started)
+      return;
+    runner({ code: myCode, counter, codeSpace: codeSpace2 });
+  }, [myCode, counter, codeSpace2, started]);
+  useEffect(() => {
     if (!started) {
       return;
     }
@@ -1252,10 +1257,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     try {
       changeContent((x) => ({
         ...x,
-        counter: counter + 1,
+        counter: mST().i + 1,
         myCode: newCode
       }));
-      runner({ code: newCode, counter: counter + 1, codeSpace: codeSpace2 });
     } catch (error) {
       console.error({ err: error });
       console.error("restore editor");

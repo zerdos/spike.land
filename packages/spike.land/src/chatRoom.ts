@@ -608,9 +608,10 @@ export class Code {
           try {
             await applyPatch({ patch, newHash, oldHash });
           } catch (err) {
+            let errMessage = (err as unknown as {message: string}).message;
             return respondWith({
-              msg: "strange error",
-              err: (err instanceof SyntaxError) ? err.toString() : "Some error",
+              message: errMessage,
+              err: JSON.stringify({err}),
               stack: (err instanceof SyntaxError)
                 ? err.stack?.toString()
                 : "no stack",

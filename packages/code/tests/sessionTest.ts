@@ -43,8 +43,14 @@ test('do nothing if code change without the i', async () => {
 	assert.is(p.oldHash, hash1);
 
 	hash2 = p.newHash;
-
+let errMessage = ""
+	try{
 	await applyPatch(p);
+	} catch(err) {
+errMessage = err.message;
+	}
+
+	assert.equal(errMessage, "Code update without I update error");
 
 	assert.not.equal(hashCode(), p.newHash);
 });

@@ -80,7 +80,7 @@ const hashStore: {[key:number]: Record<ICodeSession>}= {};
 export class CodeSession implements ICodeSess {
 	session: IUser;
 	update(){
-		return debounce(()=>this.updateNonDebounced(), 200, {maxWait: 500, trailing: true, leading: true})();
+		return debounce(()=>this.updateNonDebounced(), 200, {maxWait: 500, trailing: true, leading: false})();
 	}
 
 	updateNonDebounced() {
@@ -244,6 +244,7 @@ export class CodeSession implements ICodeSess {
 		);
 
 		const newRecord = this.session.get('state').merge(newRec);
+		if (newRecord.code !== this.session.get('state').code && newRecord.i <= this.session.get('state').i ) throw new Error('Code update without I update error');;
 
 		const newHashCheck = newRecord.hashCode();
 
@@ -251,7 +252,7 @@ export class CodeSession implements ICodeSess {
 			this.session = this.session.set('state', newRecord);
 			//  Console.error("WRONG update");
 		} else {
-			new Error('Wrong patch');
+			throw new Error('Wrong patch');
 		}
 	};
 
@@ -333,7 +334,8 @@ export const startSession = (
 	u: IUserJSON,
 	originString: string,
 ): CodeSession =>
-	session = session || new CodeSession(room, {name: u.name, state: addOrigin(u.state, originString)});
+	session
+  || new CodeSession(room, {name: u.name, state: addOrigin(u.state, originString)});
 
 function createPatch(oldCode: string, newCode: string) {
 	return createDelta(oldCode, newCode);

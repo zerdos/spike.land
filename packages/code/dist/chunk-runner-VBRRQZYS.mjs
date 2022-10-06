@@ -1,10 +1,10 @@
 import {
   saveCode
-} from "./chunk-chunk-VVAUWPUL.mjs";
+} from "./chunk-chunk-FWCSATYD.mjs";
 import {
   mST,
   patchSync
-} from "./chunk-chunk-GHNPI7JH.mjs";
+} from "./chunk-chunk-QABWHZTN.mjs";
 import "./chunk-chunk-HOIPHXDO.mjs";
 import "./chunk-chunk-ADLHIUHO.mjs";
 import "./chunk-chunk-3K5FGABK.mjs";
@@ -2470,9 +2470,13 @@ var mod = {
 };
 var esb = (async () => ({ transform: await (await mod.esbuild).transform }))();
 async function runner({ code, counter }) {
-  const esbuild2 = await esb;
+  const mst = mST();
+  console.log(`${mst.i} => ${counter}`);
+  if (counter <= mst.i)
+    return;
   patchSync({ ...mST(), code, i: counter });
   try {
+    const esbuild2 = await esb;
     const transpiled = await esbuild2.transform(code, {
       loader: "tsx",
       format: "esm",

@@ -5371,13 +5371,14 @@ var CodeSession = class {
         newState
       );
       const newRecord = this.session.get("state").merge(newRec);
-      if (newRecord.code !== this.session.get("state").code && newRecord.i === this.session.get("state").i)
-        return;
+      if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
+        throw new Error("Code update without I update error");
+      ;
       const newHashCheck = newRecord.hashCode();
       if (newHashCheck === newHash) {
         this.session = this.session.set("state", newRecord);
       } else {
-        new Error("Wrong patch");
+        throw new Error("Wrong patch");
       }
     });
     session = this;
@@ -5389,7 +5390,7 @@ var CodeSession = class {
     })();
   }
   update() {
-    return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, { maxWait: 500, trailing: true, leading: true })();
+    return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, { maxWait: 500, trailing: true, leading: false })();
   }
   updateNonDebounced() {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
