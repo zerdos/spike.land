@@ -233,7 +233,7 @@ export const Editor: React.FC<
 		return () => {
 			clearInterval(handler);
 		};
-	}, [changeContent, i, runner, prettierJs]);
+	}, [changeContent, counter, myCode]);
 
 	useEffect(() => {
 		

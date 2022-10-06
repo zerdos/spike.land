@@ -1065,7 +1065,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-VBRRQZYS.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-MFGF6UTW.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierJs-OJUT5PRH.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -1159,11 +1159,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       }));
     };
     const loadEditors = async () => {
-      await wait(100);
-      await (engine === "monaco" ? setMonaco() : setAce());
-      runner({ code, counter, codeSpace: codeSpace2 });
+      engine === "monaco" ? await setMonaco() : await setAce();
     };
-    loadEditors();
+    !started && loadEditors();
   }, [started, ref]);
   useEffect(() => {
     if (!started) {
@@ -1215,7 +1213,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     return () => {
       clearInterval(handler);
     };
-  }, [changeContent, i, runner, prettierJs]);
+  }, [changeContent, counter, myCode]);
   useEffect(() => {
     onChange(cb);
   }, [onChange]);
@@ -1224,15 +1222,6 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       return;
     runner({ code: myCode, counter, codeSpace: codeSpace2 });
   }, [myCode, counter, codeSpace2, started]);
-  useEffect(() => {
-    if (!started) {
-      return;
-    }
-    if (i > counter) {
-      changeContent((x) => ({ ...x, myCode: code, counter: i }));
-      return;
-    }
-  }, [setValue, getValue, counter, prettierJs, runner]);
   return (0, import_jsx_runtime7.jsx)("div", {
     "data-test-id": myId,
     id: "editor",
@@ -1521,6 +1510,10 @@ var run = async (startState) => {
     "broadcast"
   );
   await appFactory(startState.mST.transpiled);
+  while (!mST().code) {
+    console.log("mst.code is empty, waiting");
+    await wait(100);
+  }
   renderPreviewWindow(startState);
   await join();
 };

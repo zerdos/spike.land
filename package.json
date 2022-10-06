@@ -28,7 +28,7 @@
     "build:prod": "NODE_ENV=production yarn build:all",
     "docker:build": "lerna docker:build",
     "docker:push": "lerna docker:push",
-    "push": "git pull && yarn && git add . && git commit -m push && git push && cd packages/spike.land && NODE_ENV=production  yarn deploy",
+    "push": "yarn deploy && git pull && yarn && git add . && git commit -m push && git push && cd packages/spike.land",
     "test": "NODE_OPTIONS=--experimental-fetch yarn p:test",
     "p:test": "playwright test tests/*.spec.ts"
   },
