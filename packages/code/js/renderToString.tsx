@@ -13,7 +13,6 @@ export const renderFromString = (
 		return {html: null, css: null};
 	}
 
-	mST().transpiled;
 	const html = document.getElementById(`${codeSpace}-${md5hash}`)
 		?.innerHTML!;
 

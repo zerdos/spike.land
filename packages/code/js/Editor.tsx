@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 // Import type FC from "react"
 import {css} from '@emotion/react';
 import {wait} from 'wait';
+import { prettierJs } from 'prettierEsm';
 import {mST, onSessionUpdate} from './session';
 import {isMobile} from './isMobile.mjs';
 
@@ -34,7 +35,6 @@ export const Editor: React.FC<
 		myCode: code,
 		counter: i,
 		started: false,
-		prettierJs: (code: string) => code,
 		async runner(
 			{code, counter, codeSpace}: {
 				code: string;
@@ -44,7 +44,6 @@ export const Editor: React.FC<
 		) {
 			// If (!mySession.x/) return;
 			const {runner} = await import('./runner');
-			const {prettierJs} = await import('./prettierJs');
 
 			runner({code: prettierJs(code), counter, codeSpace});
 			changeContent((x: typeof mySession) => ({
@@ -52,7 +51,6 @@ export const Editor: React.FC<
 				runner,
 				code,
 				counter,
-				prettierJs,
 			}));
 		},
 		myId: 'loading',
@@ -72,7 +70,6 @@ export const Editor: React.FC<
 		myId,
 		runner,
 		engine,
-		prettierJs,
 		getValue,
 		setValue,
 		onChange,
@@ -104,28 +101,34 @@ export const Editor: React.FC<
 				},
 			);
 
+			const getValue =()=> {
+				try {
+					(async () => {
+						const tsWorker = await (await getTypeScriptWorker())(
+							model.uri,
+						);
+
+						const diag = await tsWorker.getSemanticDiagnostics(
+							location.origin + '/live/' + codeSpace + '.tsx',
+						);
+						console.log({diag});
+					})();
+				} catch {
+					console.error('ts diag error');
+				}
+
+				return prettierJs(model.getValue());
+			}
+
 			changeContent(x => ({
 				...x,
 				started: true,
-				setValue,
-				getValue() {
-					try {
-						(async () => {
-							const tsWorker = await (await getTypeScriptWorker())(
-								model.uri,
-							);
+				setValue: (code: string)=>{
+					if (code===getValue()) return;
+					setValue(code);
 
-							const diag = await tsWorker.getSemanticDiagnostics(
-								location.origin + '/live/' + codeSpace + '.tsx',
-							);
-							console.log({diag});
-						})();
-					} catch {
-						console.error('ts diag error');
-					}
-
-					return model.getValue();
 				},
+				getValue,
 				onChange: (cb: () => void) => model.onDidChangeContent(cb).dispose,
 				myId: 'editor',
 				// Model: editor.getModel(),
@@ -139,6 +142,8 @@ export const Editor: React.FC<
 		const setAce = async () => {
 			const {startAce} = await import('./startAce');
 			const editor = await startAce(mST().code);
+			const getValue = ()=>prettierJs(editor.session.getValue());
+
 			changeContent(x => ({
 				...x,
 				onChange(cb: () => void) {
@@ -148,8 +153,9 @@ export const Editor: React.FC<
 					};
 				},
 				started: true,
-				getValue: () => editor.session.getValue(),
+				getValue,
 				setValue(code: string) {
+					if (code === getValue())	 return;
 					editor.session.setValue(code);
 				},
 				myId: 'editor',
@@ -246,10 +252,11 @@ export const Editor: React.FC<
 
 	useEffect(() => {
 		if (!started) return;
+		setValue(myCode);
 
 		runner({code: myCode, counter: counter, codeSpace});
 	
-	}, [myCode, counter, codeSpace, started]);
+	}, [setValue, myCode, counter, codeSpace, started]);
 
 
 	

@@ -505,7 +505,7 @@ export const startMonaco = async (
 
 		return {
 			getTypeScriptWorker: async () => languages.typescript.getTypeScriptWorker(),
-			setValue(code: string) {
+			setValue:(code: string)=>{
 				let state = null;
 				try {
 					state = editor.saveViewState();
