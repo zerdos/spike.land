@@ -244,7 +244,6 @@ export class CodeSession implements ICodeSess {
 		);
 
 		const newRecord = this.session.get('state').merge(newRec);
-		if (newRecord.code !==  this.session.get('state').code && newRecord.i === this.session.get('state').i ) return;
 
 		const newHashCheck = newRecord.hashCode();
 
