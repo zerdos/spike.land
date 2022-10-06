@@ -1096,7 +1096,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-QABWHZTN.mjs
+// ../code/dist/chunk-chunk-WIKV4S6D.mjs
 var require_lodash = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6401,6 +6401,9 @@ var CodeSession = class {
       };
     });
     __publicField(this, "patchSync", (sess) => {
+      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+        throw new Error("Code update without I update error");
+      ;
       const oldHash = this.session.hashCode();
       this.session = this.session.set(
         "state",

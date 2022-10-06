@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 // Import type FC from "react"
 import {css} from '@emotion/react';
-import {wait} from 'wait';
 import { prettierJs } from 'prettierEsm';
 import {mST, onSessionUpdate} from './session';
 import {isMobile} from './isMobile.mjs';
