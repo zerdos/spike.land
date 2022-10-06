@@ -139,10 +139,8 @@ export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 	useEffect(() => {
 		//  SetTimeout(()=>{
 		const {html, css} = renderFromString(codeSpace, hash);
-		const mst = mST();
-		if (html && css && (html !== mst.html || css !== mst.css)) {
-			patchSync({...mst, html, css});
-		}
+		if (html && css)
+			patchSync({...mST(), html, css});
 		// }, 100);
 	}, [hash]);
 

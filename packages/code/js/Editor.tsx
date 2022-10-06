@@ -161,6 +161,7 @@ export const Editor: React.FC<
 			await (engine === 'monaco' ? setMonaco() : setAce());
 
 			// Console.log("RUN THE RUNNER");
+		
 			runner({code, counter, codeSpace});
 		};
 
@@ -195,10 +196,54 @@ export const Editor: React.FC<
 				runner({code, counter, codeSpace});
 			}
 		}, 5000);
+
+		onSessionUpdate(() => {
+			const sess = mST();
+	
+			setTimeout(() => {
+				
+				if (mST().i <= counter) {
+					return;
+				}
+	
+				if (mST().i > sess.i) {
+					return;
+				}
+	
+				console.log('sessUP');
+				// Console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
+				setValue(sess.code);
+	
+				if (mod.CH() as unknown as typeof changeContent !== changeContent) {
+					const ch = mod.CH() as unknown as typeof changeContent;
+					ch(x => ({
+						...x,
+						myCode: sess.code,
+						counter: sess.i,
+					}));
+				}
+	
+				changeContent(x => ({
+					...x,
+					myCode: sess.code,
+					counter: sess.i,
+				}));
+			}, 300);
+		}, 'editor');
 		return () => {
 			clearInterval(handler);
 		};
 	}, [changeContent, i, runner, prettierJs]);
+
+	useEffect(() => {
+		
+		onChange(cb);
+
+
+	
+	}, [onChange]);
+
+
 
 	useEffect(() => {
 		if (!started) {
@@ -210,79 +255,9 @@ export const Editor: React.FC<
 			return;
 		}
 
-		const cb = () => {
-			const code = getValue();
-			const newCode = prettierJs(code);
+	}, [setValue, getValue, counter, prettierJs, runner]);
 
-			if (newCode === mod.code) {
-				return;
-			}
-
-			if (newCode === mST().code) {
-				return;
-			}
-			// If (i === mST().i) return;
-
-			try {
-				// Console.log("change content");
-
-				changeContent(x => ({
-					...x,
-					counter: counter + 1,
-					myCode: newCode,
-				}));
-
-				// Console.log("RUN THE RUNNER AGAIN");
-				runner({code: newCode, counter: counter + 1, codeSpace});
-			} catch (error) {
-				console.error({err: error});
-				console.error('restore editor');
-
-				// Model?.setValue(code);
-			}
-		};
-
-		// Const debounced = debounce(cb, 0, {
-		//   maxWait: 600,
-		//   trailing: true,
-		//   leading: true,
-		// });
-
-		onChange(cb);
-	}, [setValue, getValue, onChange, counter, prettierJs, runner]);
-
-	onSessionUpdate(() => {
-		const sess = mST();
-
-		setTimeout(() => {
-			if (sess.i <= counter) {
-				return;
-			}
-
-			if (mST().i > sess.i) {
-				return;
-			}
-
-			console.log('sessUP');
-			// Console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-			setValue(sess.code);
-
-			if (mod.CH() as unknown as typeof changeContent !== changeContent) {
-				const ch = mod.CH() as unknown as typeof changeContent;
-				ch(x => ({
-					...x,
-					myCode: sess.code,
-					counter: sess.i,
-				}));
-			}
-
-			changeContent(x => ({
-				...x,
-				myCode: sess.code,
-				counter: sess.i,
-			}));
-		}, 300);
-	}, 'editor');
+	
 
 	return (
 		<div
@@ -298,4 +273,37 @@ export const Editor: React.FC<
 			ref={ref}
 		/>
 	);
+
+	function cb() {
+		const code = getValue();
+		const newCode = prettierJs(code);
+
+		if (newCode === mod.code) {
+			return;
+		}
+
+		if (newCode === mST().code) {
+			return;
+		}
+		// If (i === mST().i) return;
+
+		try {
+			// Console.log("change content");
+
+			changeContent(x => ({
+				...x,
+				counter: counter + 1,
+				myCode: newCode,
+			}));
+		
+
+			// Console.log("RUN THE RUNNER AGAIN");
+			runner({code: newCode, counter: counter + 1, codeSpace});
+		} catch (error) {
+			console.error({err: error});
+			console.error('restore editor');
+
+			// Model?.setValue(code);
+		}
+	};
 };
