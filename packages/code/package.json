@@ -83,7 +83,7 @@
     "immutable": "4.1.0",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
-    "monaco-editor": "0.35.0-dev.20221006",
+    "monaco-editor": "0.34.0",
     "p-map": "5.5.0",
     "preact": "10.11.1",
     "preact-render-to-string": "^5.2.4",
