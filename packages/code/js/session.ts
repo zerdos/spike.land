@@ -333,8 +333,7 @@ export const startSession = (
 	u: IUserJSON,
 	originString: string,
 ): CodeSession =>
-	session
-  || new CodeSession(room, {name: u.name, state: addOrigin(u.state, originString)});
+	session = session || new CodeSession(room, {name: u.name, state: addOrigin(u.state, originString)});
 
 function createPatch(oldCode: string, newCode: string) {
 	return createDelta(oldCode, newCode);
