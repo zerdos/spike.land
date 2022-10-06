@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 // Import type FC from "react"
 import {css} from '@emotion/react';
+import {wait} from 'wait';
 import {mST, onSessionUpdate} from './session';
 import {isMobile} from './isMobile.mjs';
 
@@ -155,9 +156,16 @@ export const Editor: React.FC<
 			}));
 		};
 
-		
+		const loadEditors = async () => {
+			await wait(100);
+			await (engine === 'monaco' ? await setMonaco() : await setAce());
 
-		engine === 'monaco' ? setMonaco() : setAce()
+			// Console.log("RUN THE RUNNER");
+		
+			//runner({code, counter, codeSpace});
+		};
+
+		loadEditors();
 	}, [started, ref]);
 
 	// UseInsertionEffect(()=>{
