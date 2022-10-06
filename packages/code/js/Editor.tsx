@@ -255,17 +255,17 @@ export const Editor: React.FC<
 	
 
 
-	useEffect(() => {
-		if (!started) {
-			return;
-		}
+	// useEffect(() => {
+	// 	if (!started) {
+	// 		return;
+	// 	}
 
-		if (i > counter) {
-			changeContent(x => ({...x, myCode: code, counter: i}));
-			return;
-		}
+	// 	if (i > counter) {
+	// 		changeContent(x => ({...x, myCode: code, counter: i}));
+	// 		return;
+	// 	}
 
-	}, [setValue, getValue, counter, prettierJs, runner]);
+	// }, [setValue, getValue, counter, prettierJs, runner]);
 
 	
 
