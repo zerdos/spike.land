@@ -157,8 +157,8 @@ export const Editor: React.FC<
 		};
 
 		const loadEditors = async () => {
-			await wait(100);
-			await (engine === 'monaco' ? await setMonaco() : await setAce());
+
+			(engine === 'monaco' ? await setMonaco() : await setAce());
 
 			// Console.log("RUN THE RUNNER");
 		
