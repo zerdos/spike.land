@@ -22,6 +22,7 @@ import type {ICodeSession} from './session';
 import uidV4 from './uidV4.mjs';
 import {appFactory} from './starter';
 import { md5 } from 'md5';
+import { wait } from 'wait';
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
 
@@ -154,6 +155,7 @@ export const run = async (startState: {
 			//   }));
 			// }
 
+
 			const sess= mST();
 
 			const hash = md5(JSON.stringify(sess));
@@ -171,6 +173,10 @@ export const run = async (startState: {
 	);
 	await appFactory(startState.mST.transpiled);
 
+	while (!(mST().code)) {
+		console.log('mst.code is empty, waiting');
+		await wait(100);
+	}
 	renderPreviewWindow(startState);
 
 	// Const {join} = await import("./rtc");
