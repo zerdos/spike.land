@@ -8,7 +8,7 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-QABWHZTN.mjs";
+} from "./chunk-chunk-WIKV4S6D.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -29070,20 +29070,20 @@ var Tv = () => (0, import_jsx_runtime3.jsx)(Wrap, {
 init_define_process();
 init_react_preact();
 var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FabLazy = lazy(async () => import("./chunk-Fab-TRZJGXBG.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-56N72KXJ.mjs"));
 var Fab = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(FabLazy, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-4IOKXAHM.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-RVUBDPN5.mjs"));
 var ToggleButton = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(ToggleButtonLazy, {
     ...props
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-MLIYRB4Q.mjs")
+  async () => import("./chunk-ToggleButtonGroup-UULWXIOB.mjs")
 );
 var ToggleButtonGroup = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
   children: (0, import_jsx_runtime4.jsx)(ToggleButtonGroupLazy, {
@@ -29441,7 +29441,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     counter: i,
     started: false,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-6CSUREMM.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-4DFWW3KJ.mjs");
       runner2({ code: prettierJs(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
@@ -29480,7 +29480,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-QRPKLESS.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-PJKJVL4B.mjs");
       const { model, getTypeScriptWorker, setValue: setValue2 } = await startMonaco(
         {
           container: ref.current,
@@ -29845,9 +29845,6 @@ var sendChannel = {
     });
   }
 };
-var setWsLastHashCode = (hashCode2) => {
-  wsLastHashCode = Number(hashCode2);
-};
 var run = async (startState) => {
   if (location.pathname.endsWith("dehydrated")) {
     return;
@@ -29871,7 +29868,7 @@ var run = async (startState) => {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
     }
     if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
-      const messageData = await makePatch(event.data.sess, setWsLastHashCode);
+      const messageData = await makePatch(event.data.sess);
       await applyPatch(messageData);
     }
   };

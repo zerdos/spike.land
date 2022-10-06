@@ -5324,6 +5324,9 @@ var CodeSession = class {
       };
     });
     __publicField(this, "patchSync", (sess) => {
+      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+        throw new Error("Code update without I update error");
+      ;
       const oldHash = this.session.hashCode();
       this.session = this.session.set(
         "state",

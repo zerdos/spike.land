@@ -1172,7 +1172,7 @@ var refType_default = refType;
 init_define_process();
 function capitalize(string) {
   if (typeof string !== "string") {
-    throw new Error(true ? `MUI: \`capitalize(string)\` expects a string argument.` : _formatMuiErrorMessage(7));
+    throw new Error(true ? `MUI: \`capitalize(string)\` expects a string argument.` : formatMuiErrorMessage(7));
   }
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -2724,7 +2724,7 @@ function useInput(parameters) {
     if (!isControlled) {
       const element = event.target || inputRef.current;
       if (element == null) {
-        throw new Error(true ? `MUI: Expected valid input target. Did you use a custom \`components.Input\` and forget to forward refs? See https://mui.com/r/input-component-ref-interface for more info.` : _formatMuiErrorMessage2(17));
+        throw new Error(true ? `MUI: Expected valid input target. Did you use a custom \`components.Input\` and forget to forward refs? See https://mui.com/r/input-component-ref-interface for more info.` : formatMuiErrorMessage(17));
       }
     }
     formControlContext == null ? void 0 : (_formControlContext$o2 = formControlContext.onChange) == null ? void 0 : _formControlContext$o2.call(formControlContext, event);
@@ -9965,7 +9965,7 @@ function decomposeColor(color2) {
   const type = color2.substring(0, marker);
   if (["rgb", "rgba", "hsl", "hsla", "color"].indexOf(type) === -1) {
     throw new Error(true ? `MUI: Unsupported \`${color2}\` color.
-The following formats are supported: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color().` : _formatMuiErrorMessage3(9, color2));
+The following formats are supported: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color().` : formatMuiErrorMessage(9, color2));
   }
   let values2 = color2.substring(marker + 1, color2.length - 1);
   let colorSpace;
@@ -9977,7 +9977,7 @@ The following formats are supported: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
     }
     if (["srgb", "display-p3", "a98-rgb", "prophoto-rgb", "rec-2020"].indexOf(colorSpace) === -1) {
       throw new Error(true ? `MUI: unsupported \`${colorSpace}\` color space.
-The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rgb, rec-2020.` : _formatMuiErrorMessage3(10, colorSpace));
+The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rgb, rec-2020.` : formatMuiErrorMessage(10, colorSpace));
     }
   } else {
     values2 = values2.split(",");
@@ -10112,6 +10112,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-styled-engine-virtual-cbdd8e2357/4/Users/z/.yarn/berry/cache/@mui-styled-engine-npm-5.10.8-a0cbfa59bc-9.zip/node_modules/@mui/styled-engine/StyledEngineProvider/StyledEngineProvider.js
 init_define_process();
+init_react_preact();
 var import_prop_types30 = __toESM(require_prop_types());
 var import_react5 = __toESM(require_emotion_react_cjs());
 var import_cache = __toESM(require_emotion_cache_cjs());
@@ -10140,6 +10141,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-styled-engine-virtual-cbdd8e2357/4/Users/z/.yarn/berry/cache/@mui-styled-engine-npm-5.10.8-a0cbfa59bc-9.zip/node_modules/@mui/styled-engine/GlobalStyles/GlobalStyles.js
 init_define_process();
+init_react_preact();
 var import_prop_types31 = __toESM(require_prop_types());
 var import_react6 = __toESM(require_emotion_react_cjs());
 init_react_preact();
@@ -11619,6 +11621,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-system-virtual-e5a68a8849/4/Users/z/.yarn/berry/cache/@mui-system-npm-5.10.8-37ec41e34f-9.zip/node_modules/@mui/system/esm/ThemeProvider/ThemeProvider.js
 init_define_process();
+init_react_preact();
 var import_prop_types36 = __toESM(require_prop_types());
 init_react_preact();
 function InnerThemeProvider(props) {
@@ -11738,6 +11741,7 @@ function cssVarsParser(theme, options) {
 
 // ../../.yarn/__virtual__/@mui-system-virtual-e5a68a8849/4/Users/z/.yarn/berry/cache/@mui-system-npm-5.10.8-37ec41e34f-9.zip/node_modules/@mui/system/esm/cssVars/getInitColorSchemeScript.js
 init_define_process();
+init_react_preact();
 init_react_preact();
 var DEFAULT_MODE_STORAGE_KEY = "mode";
 var DEFAULT_COLOR_SCHEME_STORAGE_KEY = "color-scheme";
@@ -12012,7 +12016,7 @@ function createCssVarsProvider(options) {
   const useColorScheme = () => {
     const value = useContext(ColorSchemeContext);
     if (!value) {
-      throw new Error(true ? `MUI: \`useColorScheme\` must be called under <CssVarsProvider />` : _formatMuiErrorMessage4(19));
+      throw new Error(true ? `MUI: \`useColorScheme\` must be called under <CssVarsProvider />` : formatMuiErrorMessage(19));
     }
     return value;
   };
@@ -13318,7 +13322,7 @@ function createPalette(palette2) {
     }
     if (!color2.hasOwnProperty("main")) {
       throw new Error(true ? `MUI: The color${name ? ` (${name})` : ""} provided to augmentColor(color) is invalid.
-The color object needs to have a \`main\` property or a \`${mainShade}\` property.` : _formatMuiErrorMessage5(11, name ? ` (${name})` : "", mainShade));
+The color object needs to have a \`main\` property or a \`${mainShade}\` property.` : formatMuiErrorMessage(11, name ? ` (${name})` : "", mainShade));
     }
     if (typeof color2.main !== "string") {
       throw new Error(true ? `MUI: The color${name ? ` (${name})` : ""} provided to augmentColor(color) is invalid.
@@ -13334,7 +13338,7 @@ const theme1 = createTheme({ palette: {
 
 const theme2 = createTheme({ palette: {
   primary: { main: green[500] },
-} });` : _formatMuiErrorMessage5(12, name ? ` (${name})` : "", JSON.stringify(color2.main)));
+} });` : formatMuiErrorMessage(12, name ? ` (${name})` : "", JSON.stringify(color2.main)));
     }
     addLightOrDark(color2, "light", lightShade, tonalOffset);
     addLightOrDark(color2, "dark", darkShade, tonalOffset);
@@ -13563,7 +13567,7 @@ function createTheme2(options = {}, ...args) {
   } = options, other = _objectWithoutPropertiesLoose(options, _excluded40);
   if (options.vars) {
     throw new Error(true ? `MUI: \`vars\` is a private field used for CSS variables support.
-Please use another name.` : _formatMuiErrorMessage6(18));
+Please use another name.` : formatMuiErrorMessage(18));
   }
   const palette2 = createPalette(paletteInput);
   const systemTheme = createTheme_default(options);

@@ -130,7 +130,6 @@ const build = (/** @type {string[]} */ entryPoints) =>
 			'.jsx': 'tsx',
 			'.css': 'css',
 			'.d.ts': 'file',
-			'.js': 'tsx',
 			'.workerJs.js': 'file',
 			'.wasm': 'file',
 		},

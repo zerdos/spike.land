@@ -1,4 +1,4 @@
-import "./chunk-chunk-P7D6Q73R.mjs";
+import "./chunk-chunk-FC7FLGHR.mjs";
 import {
   $,
   Action,
@@ -575,6 +575,7 @@ import {
   __privateAdd,
   __privateGet,
   __privateSet,
+  __publicField,
   __toESM
 } from "./chunk-chunk-477FBAEY.mjs";
 
@@ -42038,19 +42039,24 @@ __reExport(monaco_editor_core_exports, editor_api_exports);
 var languageDefinitions = {};
 var lazyLanguageLoaders = {};
 var LazyLanguageLoader = class {
-  static getOrCreate(languageId) {
-    if (!lazyLanguageLoaders[languageId]) {
-      lazyLanguageLoaders[languageId] = new LazyLanguageLoader(languageId);
-    }
-    return lazyLanguageLoaders[languageId];
-  }
   constructor(languageId) {
+    __publicField(this, "_languageId");
+    __publicField(this, "_loadingTriggered");
+    __publicField(this, "_lazyLoadPromise");
+    __publicField(this, "_lazyLoadPromiseResolve");
+    __publicField(this, "_lazyLoadPromiseReject");
     this._languageId = languageId;
     this._loadingTriggered = false;
     this._lazyLoadPromise = new Promise((resolve, reject) => {
       this._lazyLoadPromiseResolve = resolve;
       this._lazyLoadPromiseReject = reject;
     });
+  }
+  static getOrCreate(languageId) {
+    if (!lazyLanguageLoaders[languageId]) {
+      lazyLanguageLoaders[languageId] = new LazyLanguageLoader(languageId);
+    }
+    return lazyLanguageLoaders[languageId];
   }
   load() {
     if (!this._loadingTriggered) {
@@ -42200,7 +42206,7 @@ var AggregateError = class extends Error {
     message = "\n" + indentString(message, 4);
     super(message);
     __privateAdd(this, _errors, void 0);
-    this.name = "AggregateError";
+    __publicField(this, "name", "AggregateError");
     __privateSet(this, _errors, errors);
   }
   get errors() {

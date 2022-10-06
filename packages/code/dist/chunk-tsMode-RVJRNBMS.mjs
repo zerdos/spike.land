@@ -1,13 +1,15 @@
 import {
   typescriptDefaults
-} from "./chunk-chunk-P7D6Q73R.mjs";
+} from "./chunk-chunk-FC7FLGHR.mjs";
 import {
   editor_api_exports
 } from "./chunk-chunk-I4GNXK6C.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";
-import "./chunk-chunk-477FBAEY.mjs";
+import {
+  __publicField
+} from "./chunk-chunk-477FBAEY.mjs";
 
 // ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20221006-5475d29935-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
 init_define_process();
@@ -25,7 +27,7 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
-var __publicField = (obj, key, value) => {
+var __publicField2 = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
@@ -33,6 +35,11 @@ var monaco_editor_core_exports = {};
 __reExport(monaco_editor_core_exports, editor_api_exports);
 var WorkerManager = class {
   constructor(_modeId, _defaults) {
+    __publicField(this, "_configChangeListener");
+    __publicField(this, "_updateExtraLibsToken");
+    __publicField(this, "_extraLibsChangeListener");
+    __publicField(this, "_worker");
+    __publicField(this, "_client");
     this._modeId = _modeId;
     this._defaults = _defaults;
     this._worker = null;
@@ -199,6 +206,9 @@ var Adapter = class {
 };
 var LibFiles = class {
   constructor(_worker) {
+    __publicField(this, "_libFiles");
+    __publicField(this, "_hasFetchedLibFiles");
+    __publicField(this, "_fetchLibFilesPromise");
     this._worker = _worker;
     this._libFiles = {};
     this._hasFetchedLibFiles = false;
@@ -255,8 +265,8 @@ var LibFiles = class {
 var DiagnosticsAdapter = class extends Adapter {
   constructor(_libFiles, _defaults, _selector, worker) {
     super(worker);
-    this._disposables = [];
-    this._listener = /* @__PURE__ */ Object.create(null);
+    __publicField(this, "_disposables", []);
+    __publicField(this, "_listener", /* @__PURE__ */ Object.create(null));
     this._libFiles = _libFiles;
     this._defaults = _defaults;
     this._selector = _selector;
@@ -552,7 +562,7 @@ function tagToString(tag) {
 var SignatureHelpAdapter = class extends Adapter {
   constructor() {
     super(...arguments);
-    this.signatureHelpTriggerCharacters = ["(", ","];
+    __publicField(this, "signatureHelpTriggerCharacters", ["(", ","]);
   }
   static _toSignatureHelpTriggerReason(context) {
     switch (context.triggerKind) {
@@ -774,34 +784,34 @@ var OutlineAdapter = class extends Adapter {
 };
 var Kind = class {
 };
-__publicField(Kind, "unknown", "");
-__publicField(Kind, "keyword", "keyword");
-__publicField(Kind, "script", "script");
-__publicField(Kind, "module", "module");
-__publicField(Kind, "class", "class");
-__publicField(Kind, "interface", "interface");
-__publicField(Kind, "type", "type");
-__publicField(Kind, "enum", "enum");
-__publicField(Kind, "variable", "var");
-__publicField(Kind, "localVariable", "local var");
-__publicField(Kind, "function", "function");
-__publicField(Kind, "localFunction", "local function");
-__publicField(Kind, "memberFunction", "method");
-__publicField(Kind, "memberGetAccessor", "getter");
-__publicField(Kind, "memberSetAccessor", "setter");
-__publicField(Kind, "memberVariable", "property");
-__publicField(Kind, "constructorImplementation", "constructor");
-__publicField(Kind, "callSignature", "call");
-__publicField(Kind, "indexSignature", "index");
-__publicField(Kind, "constructSignature", "construct");
-__publicField(Kind, "parameter", "parameter");
-__publicField(Kind, "typeParameter", "type parameter");
-__publicField(Kind, "primitiveType", "primitive type");
-__publicField(Kind, "label", "label");
-__publicField(Kind, "alias", "alias");
-__publicField(Kind, "const", "const");
-__publicField(Kind, "let", "let");
-__publicField(Kind, "warning", "warning");
+__publicField2(Kind, "unknown", "");
+__publicField2(Kind, "keyword", "keyword");
+__publicField2(Kind, "script", "script");
+__publicField2(Kind, "module", "module");
+__publicField2(Kind, "class", "class");
+__publicField2(Kind, "interface", "interface");
+__publicField2(Kind, "type", "type");
+__publicField2(Kind, "enum", "enum");
+__publicField2(Kind, "variable", "var");
+__publicField2(Kind, "localVariable", "local var");
+__publicField2(Kind, "function", "function");
+__publicField2(Kind, "localFunction", "local function");
+__publicField2(Kind, "memberFunction", "method");
+__publicField2(Kind, "memberGetAccessor", "getter");
+__publicField2(Kind, "memberSetAccessor", "setter");
+__publicField2(Kind, "memberVariable", "property");
+__publicField2(Kind, "constructorImplementation", "constructor");
+__publicField2(Kind, "callSignature", "call");
+__publicField2(Kind, "indexSignature", "index");
+__publicField2(Kind, "constructSignature", "construct");
+__publicField2(Kind, "parameter", "parameter");
+__publicField2(Kind, "typeParameter", "type parameter");
+__publicField2(Kind, "primitiveType", "primitive type");
+__publicField2(Kind, "label", "label");
+__publicField2(Kind, "alias", "alias");
+__publicField2(Kind, "const", "const");
+__publicField2(Kind, "let", "let");
+__publicField2(Kind, "warning", "warning");
 var outlineTypeTable = /* @__PURE__ */ Object.create(null);
 outlineTypeTable[Kind.module] = monaco_editor_core_exports.languages.SymbolKind.Module;
 outlineTypeTable[Kind.class] = monaco_editor_core_exports.languages.SymbolKind.Class;
