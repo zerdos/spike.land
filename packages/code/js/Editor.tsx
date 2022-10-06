@@ -156,16 +156,9 @@ export const Editor: React.FC<
 			}));
 		};
 
-		const loadEditors = async () => {
-			await wait(100);
-			await (engine === 'monaco' ? setMonaco() : setAce());
-
-			// Console.log("RUN THE RUNNER");
 		
-			runner({code, counter, codeSpace});
-		};
 
-		loadEditors();
+		engine === 'monaco' ? setMonaco() : setAce()
 	}, [started, ref]);
 
 	// UseInsertionEffect(()=>{
