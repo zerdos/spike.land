@@ -12,6 +12,7 @@ import ErrorBoundary from './ErrorBoundary';
 import {md5} from './md5.js';
 
 import {renderFromString} from './renderToString';
+import { wait } from 'wait';
 
 async function importShim(scr: string): Promise<any> {
 	if (!document.scripts) {
@@ -138,9 +139,15 @@ export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 
 	useEffect(() => {
 		//  SetTimeout(()=>{
+		const {i}= mST();
+		(async()=>{
+		await wait(100);
+		if (i!==mST().i) return
 		const {html, css} = renderFromString(codeSpace, hash);
 		if (html && css)
 			patchSync({...mST(), html, css});
+
+		})();
 		// }, 100);
 	}, [hash]);
 

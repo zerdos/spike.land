@@ -1,4 +1,47 @@
 import {
+  applyPatch,
+  hashCode,
+  mST,
+  makePatch,
+  makePatchFrom,
+  onSessionUpdate,
+  patchSync,
+  require_lodash,
+  startSession
+} from "./chunk-chunk-QABWHZTN.mjs";
+import {
+  LazyMotion,
+  domAnimation,
+  domMax,
+  m,
+  motion
+} from "./chunk-chunk-HOIPHXDO.mjs";
+import {
+  require_emotion_react_jsx_runtime_cjs
+} from "./chunk-chunk-3K5FGABK.mjs";
+import {
+  require_emotion_react_cjs
+} from "./chunk-chunk-C2ZKYUOB.mjs";
+import {
+  $,
+  Children,
+  PureComponent,
+  Suspense,
+  _n,
+  cloneElement,
+  createRef,
+  createRoot,
+  h,
+  init_react_preact,
+  isValidElement,
+  lazy,
+  p,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "./chunk-chunk-QVJ2UJAV.mjs";
+import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";
 import {
@@ -357,8 +400,8 @@ var require_standalone = __commonJS({
           return Ts[e] || (Ts[e] = yc(e));
         };
       });
-      var sn = we((x0, ws) => {
-        ws.exports = {};
+      var sn = we((x0, ws2) => {
+        ws2.exports = {};
       });
       var js = we((b0, Ls) => {
         var hc = bs(), Is = Ye(), an = at(), vc = Ft(), Cc = yr(), on = gt(), ln = fr(), Ec = Ns(), Fc = sn(), _s = "Object already initialized", pn = Is.TypeError, Ac = Is.WeakMap, vr, Wt, Cr, Sc = function(e) {
@@ -392,7 +435,7 @@ var require_standalone = __commonJS({
         Ls.exports = { set: vr, get: Wt, has: Cr, enforce: Sc, getterFor: xc };
       });
       var Ms = we((T0, qs) => {
-        var fn = Ct(), bc = gt(), Os = Function.prototype, Tc = fn && Object.getOwnPropertyDescriptor, Dn = bc(Os, "name"), Bc = Dn && function() {
+        var fn = Ct(), bc2 = gt(), Os = Function.prototype, Tc = fn && Object.getOwnPropertyDescriptor, Dn = bc2(Os, "name"), Bc = Dn && function() {
         }.name === "something", Nc = Dn && (!fn || fn && Tc(Os, "name").configurable);
         qs.exports = { EXISTS: Dn, PROPER: Bc, CONFIGURABLE: Nc };
       });
@@ -533,14 +576,14 @@ var require_standalone = __commonJS({
       var hn = we((H0, Ei) => {
         "use strict";
         var Bp = Ye(), Np = gn(), wp = _t(), _p = yn(), Pp = Bp.TypeError, Ci = function(e, n, t, s, a, r, u, i) {
-          for (var o = a, c = 0, v = u ? _p(u, i) : false, m, d; c < s; ) {
+          for (var o = a, c = 0, v = u ? _p(u, i) : false, m2, d; c < s; ) {
             if (c in t) {
-              if (m = v ? v(t[c], c, n) : t[c], r > 0 && Np(m))
-                d = wp(m), o = Ci(e, n, m, d, o, r - 1) - 1;
+              if (m2 = v ? v(t[c], c, n) : t[c], r > 0 && Np(m2))
+                d = wp(m2), o = Ci(e, n, m2, d, o, r - 1) - 1;
               else {
                 if (o >= 9007199254740991)
                   throw Pp("Exceed the acceptable array length");
-                e[o] = m;
+                e[o] = m2;
               }
               o++;
             }
@@ -675,10 +718,10 @@ var require_standalone = __commonJS({
           this.stopped = e, this.result = n;
         }, Ki = Ar.prototype;
         Yi.exports = function(e, n, t) {
-          var s = t && t.that, a = !!(t && t.AS_ENTRIES), r = !!(t && t.IS_ITERATOR), u = !!(t && t.INTERRUPTED), i = Bf(n, s), o, c, v, m, d, p, f, h = function(T) {
+          var s = t && t.that, a = !!(t && t.AS_ENTRIES), r = !!(t && t.IS_ITERATOR), u = !!(t && t.INTERRUPTED), i = Bf(n, s), o, c, v, m2, d, p2, f, h3 = function(T) {
             return o && Xi(o, "normal", T), new Ar(true, T);
           }, w = function(T) {
-            return a ? (wf(T), u ? i(T[0], T[1], h) : i(T[0], T[1])) : u ? i(T, h) : i(T);
+            return a ? (wf(T), u ? i(T[0], T[1], h3) : i(T[0], T[1])) : u ? i(T, h3) : i(T);
           };
           if (r)
             o = e;
@@ -686,14 +729,14 @@ var require_standalone = __commonJS({
             if (c = Lf(e), !c)
               throw jf(_f(e) + " is not iterable");
             if (Pf(c)) {
-              for (v = 0, m = kf(e); m > v; v++)
+              for (v = 0, m2 = kf(e); m2 > v; v++)
                 if (d = w(e[v]), d && zi(Ki, d))
                   return d;
               return new Ar(false);
             }
             o = If(e, c);
           }
-          for (p = o.next; !(f = Nf(p, o)).done; ) {
+          for (p2 = o.next; !(f = Nf(p2, o)).done; ) {
             try {
               d = w(f.value);
             } catch (T) {
@@ -796,34 +839,34 @@ var require_standalone = __commonJS({
               }, 0), true) : S;
             }
             r = this.castInput(r), u = this.castInput(u), r = this.removeEmpty(this.tokenize(r)), u = this.removeEmpty(this.tokenize(u));
-            var m = u.length, d = r.length, p = 1, f = m + d, h = [{ newPos: -1, components: [] }], w = this.extractCommon(h[0], u, r, 0);
-            if (h[0].newPos + 1 >= m && w + 1 >= d)
+            var m2 = u.length, d = r.length, p2 = 1, f = m2 + d, h3 = [{ newPos: -1, components: [] }], w = this.extractCommon(h3[0], u, r, 0);
+            if (h3[0].newPos + 1 >= m2 && w + 1 >= d)
               return v([{ value: this.join(u), count: u.length }]);
             function T() {
-              for (var S = -1 * p; S <= p; S += 2) {
-                var B = void 0, I = h[S - 1], k = h[S + 1], P = (k ? k.newPos : 0) - S;
-                I && (h[S - 1] = void 0);
-                var C = I && I.newPos + 1 < m, D = k && 0 <= P && P < d;
+              for (var S = -1 * p2; S <= p2; S += 2) {
+                var B = void 0, I = h3[S - 1], k = h3[S + 1], P = (k ? k.newPos : 0) - S;
+                I && (h3[S - 1] = void 0);
+                var C = I && I.newPos + 1 < m2, D = k && 0 <= P && P < d;
                 if (!C && !D) {
-                  h[S] = void 0;
+                  h3[S] = void 0;
                   continue;
                 }
-                if (!C || D && I.newPos < k.newPos ? (B = s(k), c.pushComponent(B.components, void 0, true)) : (B = I, B.newPos++, c.pushComponent(B.components, true, void 0)), P = c.extractCommon(B, u, r, S), B.newPos + 1 >= m && P + 1 >= d)
+                if (!C || D && I.newPos < k.newPos ? (B = s(k), c.pushComponent(B.components, void 0, true)) : (B = I, B.newPos++, c.pushComponent(B.components, true, void 0)), P = c.extractCommon(B, u, r, S), B.newPos + 1 >= m2 && P + 1 >= d)
                   return v(t(c, B.components, u, r, c.useLongestToken));
-                h[S] = B;
+                h3[S] = B;
               }
-              p++;
+              p2++;
             }
             if (o)
               (function S() {
                 setTimeout(function() {
-                  if (p > f)
+                  if (p2 > f)
                     return o();
                   T() || S();
                 }, 0);
               })();
             else
-              for (; p <= f; ) {
+              for (; p2 <= f; ) {
                 var A = T();
                 if (A)
                   return A;
@@ -832,9 +875,9 @@ var require_standalone = __commonJS({
             var o = r[r.length - 1];
             o && o.added === u && o.removed === i ? r[r.length - 1] = { count: o.count + 1, added: u, removed: i } : r.push({ count: 1, added: u, removed: i });
           }, extractCommon: function(r, u, i, o) {
-            for (var c = u.length, v = i.length, m = r.newPos, d = m - o, p = 0; m + 1 < c && d + 1 < v && this.equals(u[m + 1], i[d + 1]); )
-              m++, d++, p++;
-            return p && r.components.push({ count: p }), r.newPos = m, d;
+            for (var c = u.length, v = i.length, m2 = r.newPos, d = m2 - o, p2 = 0; m2 + 1 < c && d + 1 < v && this.equals(u[m2 + 1], i[d + 1]); )
+              m2++, d++, p2++;
+            return p2 && r.components.push({ count: p2 }), r.newPos = m2, d;
           }, equals: function(r, u) {
             return this.options.comparator ? this.options.comparator(r, u) : r === u || this.options.ignoreCase && r.toLowerCase() === u.toLowerCase();
           }, removeEmpty: function(r) {
@@ -849,23 +892,23 @@ var require_standalone = __commonJS({
             return r.join("");
           } };
           function t(a, r, u, i, o) {
-            for (var c = 0, v = r.length, m = 0, d = 0; c < v; c++) {
-              var p = r[c];
-              if (p.removed) {
-                if (p.value = a.join(i.slice(d, d + p.count)), d += p.count, c && r[c - 1].added) {
-                  var h = r[c - 1];
-                  r[c - 1] = r[c], r[c] = h;
+            for (var c = 0, v = r.length, m2 = 0, d = 0; c < v; c++) {
+              var p2 = r[c];
+              if (p2.removed) {
+                if (p2.value = a.join(i.slice(d, d + p2.count)), d += p2.count, c && r[c - 1].added) {
+                  var h3 = r[c - 1];
+                  r[c - 1] = r[c], r[c] = h3;
                 }
               } else {
-                if (!p.added && o) {
-                  var f = u.slice(m, m + p.count);
+                if (!p2.added && o) {
+                  var f = u.slice(m2, m2 + p2.count);
                   f = f.map(function(T, A) {
                     var S = i[d + A];
                     return S.length > T.length ? S : T;
-                  }), p.value = a.join(f);
+                  }), p2.value = a.join(f);
                 } else
-                  p.value = a.join(u.slice(m, m + p.count));
-                m += p.count, p.added || (d += p.count);
+                  p2.value = a.join(u.slice(m2, m2 + p2.count));
+                m2 += p2.count, p2.added || (d += p2.count);
               }
             }
             var w = r[v - 1];
@@ -921,17 +964,17 @@ var require_standalone = __commonJS({
           function v(F) {
             return { type: "fill", parts: F };
           }
-          function m(F, l) {
+          function m2(F, l) {
             let E = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
             return { type: "if-break", breakContents: F, flatContents: l, groupId: E.groupId };
           }
           function d(F, l) {
             return { type: "indent-if-break", contents: F, groupId: l.groupId, negate: l.negate };
           }
-          function p(F) {
+          function p2(F) {
             return { type: "line-suffix", contents: F };
           }
-          var f = { type: "line-suffix-boundary" }, h = { type: "break-parent" }, w = { type: "trim" }, T = { type: "line", hard: true }, A = { type: "line", hard: true, literal: true }, S = { type: "line" }, B = { type: "line", soft: true }, I = t([T, h]), k = t([A, h]), P = { type: "cursor", placeholder: Symbol("cursor") };
+          var f = { type: "line-suffix-boundary" }, h3 = { type: "break-parent" }, w = { type: "trim" }, T = { type: "line", hard: true }, A = { type: "line", hard: true, literal: true }, S = { type: "line" }, B = { type: "line", soft: true }, I = t([T, h3]), k = t([A, h3]), P = { type: "cursor", placeholder: Symbol("cursor") };
           function C(F, l) {
             let E = [];
             for (let y = 0; y < l.length; y++)
@@ -950,7 +993,7 @@ var require_standalone = __commonJS({
           function g(F, l) {
             return { type: "label", label: F, contents: l };
           }
-          n.exports = { concat: t, join: C, line: S, softline: B, hardline: I, literalline: k, group: r, conditionalGroup: c, fill: v, lineSuffix: p, lineSuffixBoundary: f, cursor: P, breakParent: h, ifBreak: m, trim: w, indent: s, indentIfBreak: d, align: a, addAlignmentToDoc: D, markAsRoot: i, dedentToRoot: u, dedent: o, hardlineWithoutBreakParent: T, literallineWithoutBreakParent: A, label: g };
+          n.exports = { concat: t, join: C, line: S, softline: B, hardline: I, literalline: k, group: r, conditionalGroup: c, fill: v, lineSuffix: p2, lineSuffixBoundary: f, cursor: P, breakParent: h3, ifBreak: m2, trim: w, indent: s, indentIfBreak: d, align: a, addAlignmentToDoc: D, markAsRoot: i, dedentToRoot: u, dedent: o, hardlineWithoutBreakParent: T, literallineWithoutBreakParent: A, label: g };
         } }), jn = Z({ "src/common/end-of-line.js"(e, n) {
           "use strict";
           re();
@@ -1125,14 +1168,14 @@ var require_standalone = __commonJS({
             }
             return o(l, b), N;
           }
-          function m(l) {
+          function m2(l) {
             if (l.type === "group" && l.break || l.type === "line" && l.hard || l.type === "break-parent")
               return true;
           }
           function d(l) {
-            return v(l, m, false);
+            return v(l, m2, false);
           }
-          function p(l) {
+          function p2(l) {
             if (l.length > 0) {
               let E = t(l);
               !E.expandedStates && !E.break && (E.break = "propagated");
@@ -1142,22 +1185,22 @@ var require_standalone = __commonJS({
           function f(l) {
             let E = /* @__PURE__ */ new Set(), y = [];
             function N(b) {
-              if (b.type === "break-parent" && p(y), b.type === "group") {
+              if (b.type === "break-parent" && p2(y), b.type === "group") {
                 if (y.push(b), E.has(b))
                   return false;
                 E.add(b);
               }
             }
             function x(b) {
-              b.type === "group" && y.pop().break && p(y);
+              b.type === "group" && y.pop().break && p2(y);
             }
             o(l, N, x, true);
           }
-          function h(l) {
+          function h3(l) {
             return l.type === "line" && !l.hard ? l.soft ? "" : " " : l.type === "if-break" ? l.flatContents || "" : l;
           }
           function w(l) {
-            return c(l, h);
+            return c(l, h3);
           }
           var T = (l, E) => l && l.type === "line" && l.hard && E && E.type === "break-parent";
           function A(l) {
@@ -1272,15 +1315,15 @@ var require_standalone = __commonJS({
         } }), yD = Z({ "src/document/doc-printer.js"(e, n) {
           "use strict";
           re();
-          var { convertEndOfLineToChars: t } = jn(), s = it(), a = Ca(), { fill: r, cursor: u, indent: i } = Ln(), { isConcat: o, getDocParts: c } = On(), v, m = 1, d = 2;
-          function p() {
+          var { convertEndOfLineToChars: t } = jn(), s = it(), a = Ca(), { fill: r, cursor: u, indent: i } = Ln(), { isConcat: o, getDocParts: c } = On(), v, m2 = 1, d = 2;
+          function p2() {
             return { value: "", length: 0, queue: [] };
           }
           function f(B, I) {
             return w(B, { type: "indent" }, I);
           }
-          function h(B, I, k) {
-            return I === Number.NEGATIVE_INFINITY ? B.root || p() : I < 0 ? w(B, { type: "dedent" }, k) : I ? I.type === "root" ? Object.assign(Object.assign({}, B), {}, { root: B }) : w(B, { type: typeof I == "string" ? "stringAlign" : "numberAlign", n: I }, k) : B;
+          function h3(B, I, k) {
+            return I === Number.NEGATIVE_INFINITY ? B.root || p2() : I < 0 ? w(B, { type: "dedent" }, k) : I ? I.type === "root" ? Object.assign(Object.assign({}, B), {}, { root: B }) : w(B, { type: typeof I == "string" ? "stringAlign" : "numberAlign", n: I }, k) : B;
           }
           function w(B, I, k) {
             let P = I.type === "dedent" ? B.queue.slice(0, -1) : [...B.queue, I], C = "", D = 0, g = 0, F = 0;
@@ -1352,7 +1395,7 @@ var require_standalone = __commonJS({
                     F.push([f(E, P), y, N.contents]);
                     break;
                   case "align":
-                    F.push([h(E, N.n, P), y, N.contents]);
+                    F.push([h3(E, N.n, P), y, N.contents]);
                     break;
                   case "trim":
                     k += T(l);
@@ -1360,8 +1403,8 @@ var require_standalone = __commonJS({
                   case "group": {
                     if (D && N.break)
                       return false;
-                    let x = N.break ? m : y;
-                    F.push([E, x, N.expandedStates && x === m ? s(N.expandedStates) : N.contents]), N.id && (v[N.id] = x);
+                    let x = N.break ? m2 : y;
+                    F.push([E, x, N.expandedStates && x === m2 ? s(N.expandedStates) : N.contents]), N.id && (v[N.id] = x);
                     break;
                   }
                   case "fill":
@@ -1371,7 +1414,7 @@ var require_standalone = __commonJS({
                   case "if-break":
                   case "indent-if-break": {
                     let x = N.groupId ? v[N.groupId] : y;
-                    if (x === m) {
+                    if (x === m2) {
                       let b = N.type === "if-break" ? N.breakContents : N.negate ? N.contents : i(N.contents);
                       b && F.push([E, y, b]);
                     }
@@ -1389,7 +1432,7 @@ var require_standalone = __commonJS({
                           break;
                         }
                         return true;
-                      case m:
+                      case m2:
                         return true;
                     }
                     break;
@@ -1409,7 +1452,7 @@ var require_standalone = __commonJS({
           }
           function S(B, I) {
             v = {};
-            let k = I.printWidth, P = t(I.endOfLine), C = 0, D = [[p(), m, B]], g = [], F = false, l = [];
+            let k = I.printWidth, P = t(I.endOfLine), C = 0, D = [[p2(), m2, B]], g = [], F = false, l = [];
             for (; D.length > 0; ) {
               let [y, N, x] = D.pop();
               if (typeof x == "string") {
@@ -1429,7 +1472,7 @@ var require_standalone = __commonJS({
                     D.push([f(y, I), N, x.contents]);
                     break;
                   case "align":
-                    D.push([h(y, x.n, I), N, x.contents]);
+                    D.push([h3(y, x.n, I), N, x.contents]);
                     break;
                   case "trim":
                     C -= T(g);
@@ -1438,10 +1481,10 @@ var require_standalone = __commonJS({
                     switch (N) {
                       case d:
                         if (!F) {
-                          D.push([y, x.break ? m : d, x.contents]);
+                          D.push([y, x.break ? m2 : d, x.contents]);
                           break;
                         }
-                      case m: {
+                      case m2: {
                         F = false;
                         let b = [y, d, x.contents], L = k - C, M = l.length > 0;
                         if (!x.break && A(b, D, L, I, M))
@@ -1449,22 +1492,22 @@ var require_standalone = __commonJS({
                         else if (x.expandedStates) {
                           let j = s(x.expandedStates);
                           if (x.break) {
-                            D.push([y, m, j]);
+                            D.push([y, m2, j]);
                             break;
                           } else
-                            for (let $ = 1; $ < x.expandedStates.length + 1; $++)
-                              if ($ >= x.expandedStates.length) {
-                                D.push([y, m, j]);
+                            for (let $2 = 1; $2 < x.expandedStates.length + 1; $2++)
+                              if ($2 >= x.expandedStates.length) {
+                                D.push([y, m2, j]);
                                 break;
                               } else {
-                                let V = x.expandedStates[$], q = [y, d, V];
+                                let V = x.expandedStates[$2], q = [y, d, V];
                                 if (A(q, D, L, I, M)) {
                                   D.push(q);
                                   break;
                                 }
                               }
                         } else
-                          D.push([y, m, x.contents]);
+                          D.push([y, m2, x.contents]);
                         break;
                       }
                     }
@@ -1474,25 +1517,25 @@ var require_standalone = __commonJS({
                     let b = k - C, { parts: L } = x;
                     if (L.length === 0)
                       break;
-                    let [M, j] = L, $ = [y, d, M], V = [y, m, M], q = A($, [], b, I, l.length > 0, true);
+                    let [M, j] = L, $2 = [y, d, M], V = [y, m2, M], q = A($2, [], b, I, l.length > 0, true);
                     if (L.length === 1) {
-                      q ? D.push($) : D.push(V);
+                      q ? D.push($2) : D.push(V);
                       break;
                     }
-                    let Y = [y, d, j], H = [y, m, j];
+                    let Y = [y, d, j], H = [y, m2, j];
                     if (L.length === 2) {
-                      q ? D.push(Y, $) : D.push(H, V);
+                      q ? D.push(Y, $2) : D.push(H, V);
                       break;
                     }
                     L.splice(0, 2);
                     let R = [y, N, r(L)], Q = L[0];
-                    A([y, d, [M, j, Q]], [], b, I, l.length > 0, true) ? D.push(R, Y, $) : q ? D.push(R, H, $) : D.push(R, H, V);
+                    A([y, d, [M, j, Q]], [], b, I, l.length > 0, true) ? D.push(R, Y, $2) : q ? D.push(R, H, $2) : D.push(R, H, V);
                     break;
                   }
                   case "if-break":
                   case "indent-if-break": {
                     let b = x.groupId ? v[x.groupId] : N;
-                    if (b === m) {
+                    if (b === m2) {
                       let L = x.type === "if-break" ? x.breakContents : x.negate ? x.contents : i(x.contents);
                       L && D.push([y, N, L]);
                     }
@@ -1517,7 +1560,7 @@ var require_standalone = __commonJS({
                           x.soft || (g.push(" "), C += 1);
                           break;
                         }
-                      case m:
+                      case m2:
                         if (l.length > 0) {
                           D.push([y, N, x], ...l.reverse()), l = [];
                           break;
@@ -1564,59 +1607,59 @@ var require_standalone = __commonJS({
           function r(u) {
             let i = /* @__PURE__ */ Object.create(null), o = /* @__PURE__ */ new Set();
             return c(a(u));
-            function c(m, d, p) {
-              if (typeof m == "string")
-                return JSON.stringify(m);
-              if (t(m)) {
-                let f = s(m).map(c).filter(Boolean);
+            function c(m2, d, p2) {
+              if (typeof m2 == "string")
+                return JSON.stringify(m2);
+              if (t(m2)) {
+                let f = s(m2).map(c).filter(Boolean);
                 return f.length === 1 ? f[0] : "[".concat(f.join(", "), "]");
               }
-              if (m.type === "line") {
-                let f = Array.isArray(p) && p[d + 1] && p[d + 1].type === "break-parent";
-                return m.literal ? f ? "literalline" : "literallineWithoutBreakParent" : m.hard ? f ? "hardline" : "hardlineWithoutBreakParent" : m.soft ? "softline" : "line";
+              if (m2.type === "line") {
+                let f = Array.isArray(p2) && p2[d + 1] && p2[d + 1].type === "break-parent";
+                return m2.literal ? f ? "literalline" : "literallineWithoutBreakParent" : m2.hard ? f ? "hardline" : "hardlineWithoutBreakParent" : m2.soft ? "softline" : "line";
               }
-              if (m.type === "break-parent")
-                return Array.isArray(p) && p[d - 1] && p[d - 1].type === "line" && p[d - 1].hard ? void 0 : "breakParent";
-              if (m.type === "trim")
+              if (m2.type === "break-parent")
+                return Array.isArray(p2) && p2[d - 1] && p2[d - 1].type === "line" && p2[d - 1].hard ? void 0 : "breakParent";
+              if (m2.type === "trim")
                 return "trim";
-              if (m.type === "indent")
-                return "indent(" + c(m.contents) + ")";
-              if (m.type === "align")
-                return m.n === Number.NEGATIVE_INFINITY ? "dedentToRoot(" + c(m.contents) + ")" : m.n < 0 ? "dedent(" + c(m.contents) + ")" : m.n.type === "root" ? "markAsRoot(" + c(m.contents) + ")" : "align(" + JSON.stringify(m.n) + ", " + c(m.contents) + ")";
-              if (m.type === "if-break")
-                return "ifBreak(" + c(m.breakContents) + (m.flatContents ? ", " + c(m.flatContents) : "") + (m.groupId ? (m.flatContents ? "" : ', ""') + ", { groupId: ".concat(v(m.groupId), " }") : "") + ")";
-              if (m.type === "indent-if-break") {
+              if (m2.type === "indent")
+                return "indent(" + c(m2.contents) + ")";
+              if (m2.type === "align")
+                return m2.n === Number.NEGATIVE_INFINITY ? "dedentToRoot(" + c(m2.contents) + ")" : m2.n < 0 ? "dedent(" + c(m2.contents) + ")" : m2.n.type === "root" ? "markAsRoot(" + c(m2.contents) + ")" : "align(" + JSON.stringify(m2.n) + ", " + c(m2.contents) + ")";
+              if (m2.type === "if-break")
+                return "ifBreak(" + c(m2.breakContents) + (m2.flatContents ? ", " + c(m2.flatContents) : "") + (m2.groupId ? (m2.flatContents ? "" : ', ""') + ", { groupId: ".concat(v(m2.groupId), " }") : "") + ")";
+              if (m2.type === "indent-if-break") {
                 let f = [];
-                m.negate && f.push("negate: true"), m.groupId && f.push("groupId: ".concat(v(m.groupId)));
-                let h = f.length > 0 ? ", { ".concat(f.join(", "), " }") : "";
-                return "indentIfBreak(".concat(c(m.contents)).concat(h, ")");
+                m2.negate && f.push("negate: true"), m2.groupId && f.push("groupId: ".concat(v(m2.groupId)));
+                let h3 = f.length > 0 ? ", { ".concat(f.join(", "), " }") : "";
+                return "indentIfBreak(".concat(c(m2.contents)).concat(h3, ")");
               }
-              if (m.type === "group") {
+              if (m2.type === "group") {
                 let f = [];
-                m.break && m.break !== "propagated" && f.push("shouldBreak: true"), m.id && f.push("id: ".concat(v(m.id)));
-                let h = f.length > 0 ? ", { ".concat(f.join(", "), " }") : "";
-                return m.expandedStates ? "conditionalGroup([".concat(m.expandedStates.map((w) => c(w)).join(","), "]").concat(h, ")") : "group(".concat(c(m.contents)).concat(h, ")");
+                m2.break && m2.break !== "propagated" && f.push("shouldBreak: true"), m2.id && f.push("id: ".concat(v(m2.id)));
+                let h3 = f.length > 0 ? ", { ".concat(f.join(", "), " }") : "";
+                return m2.expandedStates ? "conditionalGroup([".concat(m2.expandedStates.map((w) => c(w)).join(","), "]").concat(h3, ")") : "group(".concat(c(m2.contents)).concat(h3, ")");
               }
-              if (m.type === "fill")
-                return "fill([".concat(m.parts.map((f) => c(f)).join(", "), "])");
-              if (m.type === "line-suffix")
-                return "lineSuffix(" + c(m.contents) + ")";
-              if (m.type === "line-suffix-boundary")
+              if (m2.type === "fill")
+                return "fill([".concat(m2.parts.map((f) => c(f)).join(", "), "])");
+              if (m2.type === "line-suffix")
+                return "lineSuffix(" + c(m2.contents) + ")";
+              if (m2.type === "line-suffix-boundary")
                 return "lineSuffixBoundary";
-              if (m.type === "label")
-                return "label(".concat(JSON.stringify(m.label), ", ").concat(c(m.contents), ")");
-              throw new Error("Unknown doc type " + m.type);
+              if (m2.type === "label")
+                return "label(".concat(JSON.stringify(m2.label), ", ").concat(c(m2.contents), ")");
+              throw new Error("Unknown doc type " + m2.type);
             }
-            function v(m) {
-              if (typeof m != "symbol")
-                return JSON.stringify(String(m));
-              if (m in i)
-                return i[m];
-              let d = String(m).slice(7, -1) || "symbol";
-              for (let p = 0; ; p++) {
-                let f = d + (p > 0 ? " #".concat(p) : "");
+            function v(m2) {
+              if (typeof m2 != "symbol")
+                return JSON.stringify(String(m2));
+              if (m2 in i)
+                return i[m2];
+              let d = String(m2).slice(7, -1) || "symbol";
+              for (let p2 = 0; ; p2++) {
+                let f = d + (p2 > 0 ? " #".concat(p2) : "");
                 if (!o.has(f))
-                  return o.add(f), i[m] = "Symbol.for(".concat(JSON.stringify(f), ")");
+                  return o.add(f), i[m2] = "Symbol.for(".concat(JSON.stringify(f), ")");
               }
             }
           }
@@ -1650,9 +1693,9 @@ var require_standalone = __commonJS({
           re();
           var { MAX_SAFE_COMPONENT_LENGTH: t } = Aa(), s = Fa();
           e = n.exports = {};
-          var a = e.re = [], r = e.src = [], u = e.t = {}, i = 0, o = (c, v, m) => {
+          var a = e.re = [], r = e.src = [], u = e.t = {}, i = 0, o = (c, v, m2) => {
             let d = i++;
-            s(c, d, v), u[c] = d, r[d] = v, a[d] = new RegExp(v, m ? "g" : void 0);
+            s(c, d, v), u[c] = d, r[d] = v, a[d] = new RegExp(v, m2 ? "g" : void 0);
           };
           o("NUMERICIDENTIFIER", "0|[1-9]\\d*"), o("NUMERICIDENTIFIERLOOSE", "[0-9]+"), o("NONNUMERICIDENTIFIER", "\\d*[a-zA-Z-][a-zA-Z0-9-]*"), o("MAINVERSION", "(".concat(r[u.NUMERICIDENTIFIER], ")\\.(").concat(r[u.NUMERICIDENTIFIER], ")\\.(").concat(r[u.NUMERICIDENTIFIER], ")")), o("MAINVERSIONLOOSE", "(".concat(r[u.NUMERICIDENTIFIERLOOSE], ")\\.(").concat(r[u.NUMERICIDENTIFIERLOOSE], ")\\.(").concat(r[u.NUMERICIDENTIFIERLOOSE], ")")), o("PRERELEASEIDENTIFIER", "(?:".concat(r[u.NUMERICIDENTIFIER], "|").concat(r[u.NONNUMERICIDENTIFIER], ")")), o("PRERELEASEIDENTIFIERLOOSE", "(?:".concat(r[u.NUMERICIDENTIFIERLOOSE], "|").concat(r[u.NONNUMERICIDENTIFIER], ")")), o("PRERELEASE", "(?:-(".concat(r[u.PRERELEASEIDENTIFIER], "(?:\\.").concat(r[u.PRERELEASEIDENTIFIER], ")*))")), o("PRERELEASELOOSE", "(?:-?(".concat(r[u.PRERELEASEIDENTIFIERLOOSE], "(?:\\.").concat(r[u.PRERELEASEIDENTIFIERLOOSE], ")*))")), o("BUILDIDENTIFIER", "[0-9A-Za-z-]+"), o("BUILD", "(?:\\+(".concat(r[u.BUILDIDENTIFIER], "(?:\\.").concat(r[u.BUILDIDENTIFIER], ")*))")), o("FULLPLAIN", "v?".concat(r[u.MAINVERSION]).concat(r[u.PRERELEASE], "?").concat(r[u.BUILD], "?")), o("FULL", "^".concat(r[u.FULLPLAIN], "$")), o("LOOSEPLAIN", "[v=\\s]*".concat(r[u.MAINVERSIONLOOSE]).concat(r[u.PRERELEASELOOSE], "?").concat(r[u.BUILD], "?")), o("LOOSE", "^".concat(r[u.LOOSEPLAIN], "$")), o("GTLT", "((?:<|>)?=?)"), o("XRANGEIDENTIFIERLOOSE", "".concat(r[u.NUMERICIDENTIFIERLOOSE], "|x|X|\\*")), o("XRANGEIDENTIFIER", "".concat(r[u.NUMERICIDENTIFIER], "|x|X|\\*")), o("XRANGEPLAIN", "[v=\\s]*(".concat(r[u.XRANGEIDENTIFIER], ")(?:\\.(").concat(r[u.XRANGEIDENTIFIER], ")(?:\\.(").concat(r[u.XRANGEIDENTIFIER], ")(?:").concat(r[u.PRERELEASE], ")?").concat(r[u.BUILD], "?)?)?")), o("XRANGEPLAINLOOSE", "[v=\\s]*(".concat(r[u.XRANGEIDENTIFIERLOOSE], ")(?:\\.(").concat(r[u.XRANGEIDENTIFIERLOOSE], ")(?:\\.(").concat(r[u.XRANGEIDENTIFIERLOOSE], ")(?:").concat(r[u.PRERELEASELOOSE], ")?").concat(r[u.BUILD], "?)?)?")), o("XRANGE", "^".concat(r[u.GTLT], "\\s*").concat(r[u.XRANGEPLAIN], "$")), o("XRANGELOOSE", "^".concat(r[u.GTLT], "\\s*").concat(r[u.XRANGEPLAINLOOSE], "$")), o("COERCE", "(^|[^\\d])(\\d{1,".concat(t, "})(?:\\.(\\d{1,").concat(t, "}))?(?:\\.(\\d{1,").concat(t, "}))?(?:$|[^\\d])")), o("COERCERTL", r[u.COERCE], true), o("LONETILDE", "(?:~>?)"), o("TILDETRIM", "(\\s*)".concat(r[u.LONETILDE], "\\s+"), true), e.tildeTrimReplace = "$1~", o("TILDE", "^".concat(r[u.LONETILDE]).concat(r[u.XRANGEPLAIN], "$")), o("TILDELOOSE", "^".concat(r[u.LONETILDE]).concat(r[u.XRANGEPLAINLOOSE], "$")), o("LONECARET", "(?:\\^)"), o("CARETTRIM", "(\\s*)".concat(r[u.LONECARET], "\\s+"), true), e.caretTrimReplace = "$1^", o("CARET", "^".concat(r[u.LONECARET]).concat(r[u.XRANGEPLAIN], "$")), o("CARETLOOSE", "^".concat(r[u.LONECARET]).concat(r[u.XRANGEPLAINLOOSE], "$")), o("COMPARATORLOOSE", "^".concat(r[u.GTLT], "\\s*(").concat(r[u.LOOSEPLAIN], ")$|^$")), o("COMPARATOR", "^".concat(r[u.GTLT], "\\s*(").concat(r[u.FULLPLAIN], ")$|^$")), o("COMPARATORTRIM", "(\\s*)".concat(r[u.GTLT], "\\s*(").concat(r[u.LOOSEPLAIN], "|").concat(r[u.XRANGEPLAIN], ")"), true), e.comparatorTrimReplace = "$1$2$3", o("HYPHENRANGE", "^\\s*(".concat(r[u.XRANGEPLAIN], ")\\s+-\\s+(").concat(r[u.XRANGEPLAIN], ")\\s*$")), o("HYPHENRANGELOOSE", "^\\s*(".concat(r[u.XRANGEPLAINLOOSE], ")\\s+-\\s+(").concat(r[u.XRANGEPLAINLOOSE], ")\\s*$")), o("STAR", "(<|>)?=?\\s*\\*"), o("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$"), o("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
         } }), FD = Z({ "node_modules/semver/internal/parse-options.js"(e, n) {
@@ -1669,17 +1712,17 @@ var require_standalone = __commonJS({
         } }), SD = Z({ "node_modules/semver/classes/semver.js"(e, n) {
           re();
           var t = Fa(), { MAX_LENGTH: s, MAX_SAFE_INTEGER: a } = Aa(), { re: r, t: u } = ED(), i = FD(), { compareIdentifiers: o } = AD(), c = class {
-            constructor(v, m) {
-              if (m = i(m), v instanceof c) {
-                if (v.loose === !!m.loose && v.includePrerelease === !!m.includePrerelease)
+            constructor(v, m2) {
+              if (m2 = i(m2), v instanceof c) {
+                if (v.loose === !!m2.loose && v.includePrerelease === !!m2.includePrerelease)
                   return v;
                 v = v.version;
               } else if (typeof v != "string")
                 throw new TypeError("Invalid Version: ".concat(v));
               if (v.length > s)
                 throw new TypeError("version is longer than ".concat(s, " characters"));
-              t("SemVer", v, m), this.options = m, this.loose = !!m.loose, this.includePrerelease = !!m.includePrerelease;
-              let d = v.trim().match(m.loose ? r[u.LOOSE] : r[u.FULL]);
+              t("SemVer", v, m2), this.options = m2, this.loose = !!m2.loose, this.includePrerelease = !!m2.includePrerelease;
+              let d = v.trim().match(m2.loose ? r[u.LOOSE] : r[u.FULL]);
               if (!d)
                 throw new TypeError("Invalid Version: ".concat(v));
               if (this.raw = v, this.major = +d[1], this.minor = +d[2], this.patch = +d[3], this.major > a || this.major < 0)
@@ -1688,13 +1731,13 @@ var require_standalone = __commonJS({
                 throw new TypeError("Invalid minor version");
               if (this.patch > a || this.patch < 0)
                 throw new TypeError("Invalid patch version");
-              d[4] ? this.prerelease = d[4].split(".").map((p) => {
-                if (/^[0-9]+$/.test(p)) {
-                  let f = +p;
+              d[4] ? this.prerelease = d[4].split(".").map((p2) => {
+                if (/^[0-9]+$/.test(p2)) {
+                  let f = +p2;
                   if (f >= 0 && f < a)
                     return f;
                 }
-                return p;
+                return p2;
               }) : this.prerelease = [], this.build = d[5] ? d[5].split(".") : [], this.format();
             }
             format() {
@@ -1721,49 +1764,49 @@ var require_standalone = __commonJS({
                 return 1;
               if (!this.prerelease.length && !v.prerelease.length)
                 return 0;
-              let m = 0;
+              let m2 = 0;
               do {
-                let d = this.prerelease[m], p = v.prerelease[m];
-                if (t("prerelease compare", m, d, p), d === void 0 && p === void 0)
+                let d = this.prerelease[m2], p2 = v.prerelease[m2];
+                if (t("prerelease compare", m2, d, p2), d === void 0 && p2 === void 0)
                   return 0;
-                if (p === void 0)
+                if (p2 === void 0)
                   return 1;
                 if (d === void 0)
                   return -1;
-                if (d === p)
+                if (d === p2)
                   continue;
-                return o(d, p);
-              } while (++m);
+                return o(d, p2);
+              } while (++m2);
             }
             compareBuild(v) {
               v instanceof c || (v = new c(v, this.options));
-              let m = 0;
+              let m2 = 0;
               do {
-                let d = this.build[m], p = v.build[m];
-                if (t("prerelease compare", m, d, p), d === void 0 && p === void 0)
+                let d = this.build[m2], p2 = v.build[m2];
+                if (t("prerelease compare", m2, d, p2), d === void 0 && p2 === void 0)
                   return 0;
-                if (p === void 0)
+                if (p2 === void 0)
                   return 1;
                 if (d === void 0)
                   return -1;
-                if (d === p)
+                if (d === p2)
                   continue;
-                return o(d, p);
-              } while (++m);
+                return o(d, p2);
+              } while (++m2);
             }
-            inc(v, m) {
+            inc(v, m2) {
               switch (v) {
                 case "premajor":
-                  this.prerelease.length = 0, this.patch = 0, this.minor = 0, this.major++, this.inc("pre", m);
+                  this.prerelease.length = 0, this.patch = 0, this.minor = 0, this.major++, this.inc("pre", m2);
                   break;
                 case "preminor":
-                  this.prerelease.length = 0, this.patch = 0, this.minor++, this.inc("pre", m);
+                  this.prerelease.length = 0, this.patch = 0, this.minor++, this.inc("pre", m2);
                   break;
                 case "prepatch":
-                  this.prerelease.length = 0, this.inc("patch", m), this.inc("pre", m);
+                  this.prerelease.length = 0, this.inc("patch", m2), this.inc("pre", m2);
                   break;
                 case "prerelease":
-                  this.prerelease.length === 0 && this.inc("patch", m), this.inc("pre", m);
+                  this.prerelease.length === 0 && this.inc("patch", m2), this.inc("pre", m2);
                   break;
                 case "major":
                   (this.minor !== 0 || this.patch !== 0 || this.prerelease.length === 0) && this.major++, this.minor = 0, this.patch = 0, this.prerelease = [];
@@ -1783,7 +1826,7 @@ var require_standalone = __commonJS({
                       typeof this.prerelease[d] == "number" && (this.prerelease[d]++, d = -2);
                     d === -1 && this.prerelease.push(0);
                   }
-                  m && (o(this.prerelease[0], m) === 0 ? isNaN(this.prerelease[1]) && (this.prerelease = [m, 0]) : this.prerelease = [m, 0]);
+                  m2 && (o(this.prerelease[0], m2) === 0 ? isNaN(this.prerelease[1]) && (this.prerelease = [m2, 0]) : this.prerelease = [m2, 0]);
                   break;
                 default:
                   throw new Error("invalid increment argument: ".concat(v));
@@ -1833,9 +1876,9 @@ var require_standalone = __commonJS({
               u(S, B) && (A[B] = S[B]);
             return A;
           }
-          var o = /^[ \t]*(?:\r\n|\r|\n)/, c = /(?:\r\n|\r|\n)[ \t]*$/, v = /^(?:[\r\n]|$)/, m = /(?:\r\n|\r|\n)([ \t]*)(?:[^ \t\r\n]|$)/, d = /^[ \t]*[\r\n][ \t\r\n]*$/;
-          function p(A, S, B) {
-            var I = 0, k = A[0].match(m);
+          var o = /^[ \t]*(?:\r\n|\r|\n)/, c = /(?:\r\n|\r|\n)[ \t]*$/, v = /^(?:[\r\n]|$)/, m2 = /(?:\r\n|\r|\n)([ \t]*)(?:[^ \t\r\n]|$)/, d = /^[ \t]*[\r\n][ \t\r\n]*$/;
+          function p2(A, S, B) {
+            var I = 0, k = A[0].match(m2);
             k && (I = k[1].length);
             var P = "(\\r\\n|\\r|\\n).{0," + I + "}", C = new RegExp(P, "g");
             S && (A = A.slice(1));
@@ -1851,7 +1894,7 @@ var require_standalone = __commonJS({
               B += A[I], I < k - 1 && (B += S[I]);
             return B;
           }
-          function h(A) {
+          function h3(A) {
             return u(A, "raw") && u(A, "length");
           }
           function w(A) {
@@ -1859,9 +1902,9 @@ var require_standalone = __commonJS({
             function I(P) {
               for (var C = [], D = 1; D < arguments.length; D++)
                 C[D - 1] = arguments[D];
-              if (h(P)) {
+              if (h3(P)) {
                 var g = P, F = (C[0] === I || C[0] === T) && d.test(g[0]) && v.test(g[1]), l = F ? B : S, E = l.get(g);
-                if (E || (E = p(g, F, A), l.set(g, E)), C.length === 0)
+                if (E || (E = p2(g, F, A), l.set(g, E)), C.length === 0)
                   return E[0];
                 var y = f(E, F ? C.slice(1) : C);
                 return y;
@@ -1869,7 +1912,7 @@ var require_standalone = __commonJS({
                 return w(i(i({}, A), P || {}));
             }
             var k = i(I, { string: function(P) {
-              return p([P], false, A)[0];
+              return p2([P], false, A)[0];
             } });
             return k;
           }
@@ -1888,11 +1931,11 @@ var require_standalone = __commonJS({
     `]))), cliCategory: a }, endOfLine: { since: "1.15.0", category: o, type: "choice", default: [{ since: "1.15.0", value: "auto" }, { since: "2.0.0", value: "lf" }], description: "Which end of line characters to apply.", choices: [{ value: "lf", description: "Line Feed only (\\n), common on Linux and macOS as well as inside git repos" }, { value: "crlf", description: "Carriage Return + Line Feed characters (\\r\\n), common on Windows" }, { value: "cr", description: "Carriage Return character only (\\r), used very rarely" }, { value: "auto", description: t(ia || (ia = Pt([`
           Maintain existing
           (mixed values within one file are normalised by looking at what's used after the first line)
-        `]))) }] }, filepath: { since: "1.4.0", category: c, type: "path", description: "Specify the input filepath. This will be used to do parser inference.", cliName: "stdin-filepath", cliCategory: u, cliDescription: "Path to the file to pretend that stdin comes from." }, insertPragma: { since: "1.8.0", category: c, type: "boolean", default: false, description: "Insert @format pragma into file's first docblock comment.", cliCategory: u }, parser: { since: "0.0.10", category: o, type: "choice", default: [{ since: "0.0.10", value: "babylon" }, { since: "1.13.0", value: void 0 }], description: "Which parser to use.", exception: (m) => typeof m == "string" || typeof m == "function", choices: [{ value: "flow", description: "Flow" }, { value: "babel", since: "1.16.0", description: "JavaScript" }, { value: "babel-flow", since: "1.16.0", description: "Flow" }, { value: "babel-ts", since: "2.0.0", description: "TypeScript" }, { value: "typescript", since: "1.4.0", description: "TypeScript" }, { value: "acorn", since: "2.6.0", description: "JavaScript" }, { value: "espree", since: "2.2.0", description: "JavaScript" }, { value: "meriyah", since: "2.2.0", description: "JavaScript" }, { value: "css", since: "1.7.1", description: "CSS" }, { value: "less", since: "1.7.1", description: "Less" }, { value: "scss", since: "1.7.1", description: "SCSS" }, { value: "json", since: "1.5.0", description: "JSON" }, { value: "json5", since: "1.13.0", description: "JSON5" }, { value: "json-stringify", since: "1.13.0", description: "JSON.stringify" }, { value: "graphql", since: "1.5.0", description: "GraphQL" }, { value: "markdown", since: "1.8.0", description: "Markdown" }, { value: "mdx", since: "1.15.0", description: "MDX" }, { value: "vue", since: "1.10.0", description: "Vue" }, { value: "yaml", since: "1.14.0", description: "YAML" }, { value: "glimmer", since: "2.3.0", description: "Ember / Handlebars" }, { value: "html", since: "1.15.0", description: "HTML" }, { value: "angular", since: "1.15.0", description: "Angular" }, { value: "lwc", since: "1.17.0", description: "Lightning Web Components" }] }, plugins: { since: "1.10.0", type: "path", array: true, default: [{ value: [] }], category: o, description: "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.", exception: (m) => typeof m == "string" || typeof m == "object", cliName: "plugin", cliCategory: s }, pluginSearchDirs: { since: "1.13.0", type: "path", array: true, default: [{ value: [] }], category: o, description: t(aa || (aa = Pt([`
+        `]))) }] }, filepath: { since: "1.4.0", category: c, type: "path", description: "Specify the input filepath. This will be used to do parser inference.", cliName: "stdin-filepath", cliCategory: u, cliDescription: "Path to the file to pretend that stdin comes from." }, insertPragma: { since: "1.8.0", category: c, type: "boolean", default: false, description: "Insert @format pragma into file's first docblock comment.", cliCategory: u }, parser: { since: "0.0.10", category: o, type: "choice", default: [{ since: "0.0.10", value: "babylon" }, { since: "1.13.0", value: void 0 }], description: "Which parser to use.", exception: (m2) => typeof m2 == "string" || typeof m2 == "function", choices: [{ value: "flow", description: "Flow" }, { value: "babel", since: "1.16.0", description: "JavaScript" }, { value: "babel-flow", since: "1.16.0", description: "Flow" }, { value: "babel-ts", since: "2.0.0", description: "TypeScript" }, { value: "typescript", since: "1.4.0", description: "TypeScript" }, { value: "acorn", since: "2.6.0", description: "JavaScript" }, { value: "espree", since: "2.2.0", description: "JavaScript" }, { value: "meriyah", since: "2.2.0", description: "JavaScript" }, { value: "css", since: "1.7.1", description: "CSS" }, { value: "less", since: "1.7.1", description: "Less" }, { value: "scss", since: "1.7.1", description: "SCSS" }, { value: "json", since: "1.5.0", description: "JSON" }, { value: "json5", since: "1.13.0", description: "JSON5" }, { value: "json-stringify", since: "1.13.0", description: "JSON.stringify" }, { value: "graphql", since: "1.5.0", description: "GraphQL" }, { value: "markdown", since: "1.8.0", description: "Markdown" }, { value: "mdx", since: "1.15.0", description: "MDX" }, { value: "vue", since: "1.10.0", description: "Vue" }, { value: "yaml", since: "1.14.0", description: "YAML" }, { value: "glimmer", since: "2.3.0", description: "Ember / Handlebars" }, { value: "html", since: "1.15.0", description: "HTML" }, { value: "angular", since: "1.15.0", description: "Angular" }, { value: "lwc", since: "1.17.0", description: "Lightning Web Components" }] }, plugins: { since: "1.10.0", type: "path", array: true, default: [{ value: [] }], category: o, description: "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.", exception: (m2) => typeof m2 == "string" || typeof m2 == "object", cliName: "plugin", cliCategory: s }, pluginSearchDirs: { since: "1.13.0", type: "path", array: true, default: [{ value: [] }], category: o, description: t(aa || (aa = Pt([`
       Custom directory that contains prettier plugins in node_modules subdirectory.
       Overrides default behavior when plugins are searched relatively to the location of Prettier.
       Multiple values are accepted.
-    `]))), exception: (m) => typeof m == "string" || typeof m == "object", cliName: "plugin-search-dir", cliCategory: s }, printWidth: { since: "0.0.0", category: o, type: "int", default: 80, description: "The line length where Prettier will try wrap.", range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 } }, rangeEnd: { since: "1.4.0", category: c, type: "int", default: Number.POSITIVE_INFINITY, range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 }, description: t(oa || (oa = Pt([`
+    `]))), exception: (m2) => typeof m2 == "string" || typeof m2 == "object", cliName: "plugin-search-dir", cliCategory: s }, printWidth: { since: "0.0.0", category: o, type: "int", default: 80, description: "The line length where Prettier will try wrap.", range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 } }, rangeEnd: { since: "1.4.0", category: c, type: "int", default: Number.POSITIVE_INFINITY, range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 }, description: t(oa || (oa = Pt([`
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
@@ -1910,37 +1953,37 @@ var require_standalone = __commonJS({
           re();
           var t = { compare: qn(), lt: xD(), gte: bD() }, s = TD(), a = ya().version, r = ND().options;
           function u() {
-            let { plugins: o = [], showUnreleased: c = false, showDeprecated: v = false, showInternal: m = false } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, d = a.split("-", 1)[0], p = o.flatMap((A) => A.languages || []).filter(h), f = s(Object.assign({}, ...o.map((A) => {
+            let { plugins: o = [], showUnreleased: c = false, showDeprecated: v = false, showInternal: m2 = false } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, d = a.split("-", 1)[0], p2 = o.flatMap((A) => A.languages || []).filter(h3), f = s(Object.assign({}, ...o.map((A) => {
               let { options: S } = A;
               return S;
-            }), r), "name").filter((A) => h(A) && w(A)).sort((A, S) => A.name === S.name ? 0 : A.name < S.name ? -1 : 1).map(T).map((A) => {
-              A = Object.assign({}, A), Array.isArray(A.default) && (A.default = A.default.length === 1 ? A.default[0].value : A.default.filter(h).sort((B, I) => t.compare(I.since, B.since))[0].value), Array.isArray(A.choices) && (A.choices = A.choices.filter((B) => h(B) && w(B)), A.name === "parser" && i(A, p, o));
+            }), r), "name").filter((A) => h3(A) && w(A)).sort((A, S) => A.name === S.name ? 0 : A.name < S.name ? -1 : 1).map(T).map((A) => {
+              A = Object.assign({}, A), Array.isArray(A.default) && (A.default = A.default.length === 1 ? A.default[0].value : A.default.filter(h3).sort((B, I) => t.compare(I.since, B.since))[0].value), Array.isArray(A.choices) && (A.choices = A.choices.filter((B) => h3(B) && w(B)), A.name === "parser" && i(A, p2, o));
               let S = Object.fromEntries(o.filter((B) => B.defaultOptions && B.defaultOptions[A.name] !== void 0).map((B) => [B.name, B.defaultOptions[A.name]]));
               return Object.assign(Object.assign({}, A), {}, { pluginDefaults: S });
             });
-            return { languages: p, options: f };
-            function h(A) {
+            return { languages: p2, options: f };
+            function h3(A) {
               return c || !("since" in A) || A.since && t.gte(d, A.since);
             }
             function w(A) {
               return v || !("deprecated" in A) || A.deprecated && t.lt(d, A.deprecated);
             }
             function T(A) {
-              if (m)
+              if (m2)
                 return A;
               let { cliName: S, cliCategory: B, cliDescription: I } = A;
               return kn(A, Yf);
             }
           }
           function i(o, c, v) {
-            let m = new Set(o.choices.map((d) => d.value));
+            let m2 = new Set(o.choices.map((d) => d.value));
             for (let d of c)
               if (d.parsers) {
-                for (let p of d.parsers)
-                  if (!m.has(p)) {
-                    m.add(p);
-                    let f = v.find((w) => w.parsers && w.parsers[p]), h = d.name;
-                    f && f.name && (h += " (plugin: ".concat(f.name, ")")), o.choices.push({ value: p, description: h });
+                for (let p2 of d.parsers)
+                  if (!m2.has(p2)) {
+                    m2.add(p2);
+                    let f = v.find((w) => w.parsers && w.parsers[p2]), h3 = d.name;
+                    f && f.name && (h3 += " (plugin: ".concat(f.name, ")")), o.choices.push({ value: p2, description: h3 });
                   }
               }
           }
@@ -1957,20 +2000,20 @@ var require_standalone = __commonJS({
           re();
           function t(i) {
             return (o, c, v) => {
-              let m = v && v.backwards;
+              let m2 = v && v.backwards;
               if (c === false)
                 return false;
-              let { length: d } = o, p = c;
-              for (; p >= 0 && p < d; ) {
-                let f = o.charAt(p);
+              let { length: d } = o, p2 = c;
+              for (; p2 >= 0 && p2 < d; ) {
+                let f = o.charAt(p2);
                 if (i instanceof RegExp) {
                   if (!i.test(f))
-                    return p;
+                    return p2;
                 } else if (!i.includes(f))
-                  return p;
-                m ? p-- : p++;
+                  return p2;
+                m2 ? p2-- : p2++;
               }
-              return p === -1 || p === d ? p : false;
+              return p2 === -1 || p2 === d ? p2 : false;
             };
           }
           var s = t(/\s/), a = t(" 	"), r = t(",; 	"), u = t(/[^\n\r]/);
@@ -2037,7 +2080,7 @@ var require_standalone = __commonJS({
         } }), Ue = Z({ "src/common/util.js"(e, n) {
           "use strict";
           re();
-          var { default: t } = (CD(), lt(Ea)), s = it(), { getSupportInfo: a } = Mn(), r = Rn(), u = Ca(), { skipWhitespace: i, skipSpaces: o, skipToLineEnd: c, skipEverythingButNewLine: v } = Nr(), m = Sa(), d = xa(), p = ba(), f = wD(), h = (H) => H[H.length - 2];
+          var { default: t } = (CD(), lt(Ea)), s = it(), { getSupportInfo: a } = Mn(), r = Rn(), u = Ca(), { skipWhitespace: i, skipSpaces: o, skipToLineEnd: c, skipEverythingButNewLine: v } = Nr(), m2 = Sa(), d = xa(), p2 = ba(), f = wD(), h3 = (H) => H[H.length - 2];
           function w(H) {
             return (R, Q, ee) => {
               let te = ee && ee.backwards;
@@ -2057,7 +2100,7 @@ var require_standalone = __commonJS({
             };
           }
           function T(H, R) {
-            let Q = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, ee = o(H, Q.backwards ? R - 1 : R, Q), te = p(H, ee, Q);
+            let Q = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, ee = o(H, Q.backwards ? R - 1 : R, Q), te = p2(H, ee, Q);
             return ee !== te;
           }
           function A(H, R, Q) {
@@ -2069,15 +2112,15 @@ var require_standalone = __commonJS({
           }
           function S(H, R, Q) {
             let ee = Q(R) - 1;
-            ee = o(H, ee, { backwards: true }), ee = p(H, ee, { backwards: true }), ee = o(H, ee, { backwards: true });
-            let te = p(H, ee, { backwards: true });
+            ee = o(H, ee, { backwards: true }), ee = p2(H, ee, { backwards: true }), ee = o(H, ee, { backwards: true });
+            let te = p2(H, ee, { backwards: true });
             return ee !== te;
           }
           function B(H, R) {
             let Q = null, ee = R;
             for (; ee !== Q; )
-              Q = ee, ee = c(H, ee), ee = m(H, ee), ee = o(H, ee);
-            return ee = d(H, ee), ee = p(H, ee), ee !== false && T(H, ee);
+              Q = ee, ee = c(H, ee), ee = m2(H, ee), ee = o(H, ee);
+            return ee = d(H, ee), ee = p2(H, ee), ee !== false && T(H, ee);
           }
           function I(H, R, Q) {
             return B(H, Q(R));
@@ -2152,7 +2195,7 @@ var require_standalone = __commonJS({
           function j(H, R) {
             R.leading = false, R.trailing = true, b(H, R);
           }
-          function $(H, R) {
+          function $2(H, R) {
             let { languages: Q } = a({ plugins: R.plugins }), ee = Q.find((te) => {
               let { name: oe } = te;
               return oe.toLowerCase() === H;
@@ -2178,7 +2221,7 @@ var require_standalone = __commonJS({
             let R = H.type || H.kind || "(unknown type)", Q = String(H.name || H.id && (typeof H.id == "object" ? H.id.name : H.id) || H.key && (typeof H.key == "object" ? H.key.name : H.key) || H.value && (typeof H.value == "object" ? "" : String(H.value)) || H.operator || "");
             return Q.length > 20 && (Q = Q.slice(0, 19) + "\u2026"), R + (Q ? " " + Q : "");
           }
-          n.exports = { inferParserByLanguage: $, getStringWidth: u, getMaxContinuousCount: N, getMinNotPresentContinuousCount: x, getPenultimate: h, getLast: s, getNextNonSpaceNonCommentCharacterIndexWithStartIndex: f, getNextNonSpaceNonCommentCharacterIndex: k, getNextNonSpaceNonCommentCharacter: P, skip: w, skipWhitespace: i, skipSpaces: o, skipToLineEnd: c, skipEverythingButNewLine: v, skipInlineComment: m, skipTrailingComment: d, skipNewline: p, isNextLineEmptyAfterIndex: B, isNextLineEmpty: I, isPreviousLineEmpty: S, hasNewline: T, hasNewlineInRange: A, hasSpaces: C, getAlignmentSize: D, getIndentSize: g, getPreferredQuote: F, printString: l, printNumber: y, makeString: E, addLeadingComment: L, addDanglingComment: M, addTrailingComment: j, isFrontMatterNode: V, isNonEmptyArray: r, createGroupIdMapper: q };
+          n.exports = { inferParserByLanguage: $2, getStringWidth: u, getMaxContinuousCount: N, getMinNotPresentContinuousCount: x, getPenultimate: h3, getLast: s, getNextNonSpaceNonCommentCharacterIndexWithStartIndex: f, getNextNonSpaceNonCommentCharacterIndex: k, getNextNonSpaceNonCommentCharacter: P, skip: w, skipWhitespace: i, skipSpaces: o, skipToLineEnd: c, skipEverythingButNewLine: v, skipInlineComment: m2, skipTrailingComment: d, skipNewline: p2, isNextLineEmptyAfterIndex: B, isNextLineEmpty: I, isPreviousLineEmpty: S, hasNewline: T, hasNewlineInRange: A, hasSpaces: C, getAlignmentSize: D, getIndentSize: g, getPreferredQuote: F, printString: l, printNumber: y, makeString: E, addLeadingComment: L, addDanglingComment: M, addTrailingComment: j, isFrontMatterNode: V, isNonEmptyArray: r, createGroupIdMapper: q };
         } }), Ta = {};
         Ut(Ta, { basename: () => Pa, default: () => Ia, delimiter: () => Bn, dirname: () => _a, extname: () => ka, isAbsolute: () => Wn, join: () => Na, normalize: () => Vn, relative: () => wa, resolve: () => Tr, sep: () => Tn });
         function Ba(e, n) {
@@ -2226,9 +2269,9 @@ var require_standalone = __commonJS({
           function t(c) {
             for (var v = 0; v < c.length && c[v] === ""; v++)
               ;
-            for (var m = c.length - 1; m >= 0 && c[m] === ""; m--)
+            for (var m2 = c.length - 1; m2 >= 0 && c[m2] === ""; m2--)
               ;
-            return v > m ? [] : c.slice(v, m - v + 1);
+            return v > m2 ? [] : c.slice(v, m2 - v + 1);
           }
           for (var s = t(e.split("/")), a = t(n.split("/")), r = Math.min(s.length, a.length), u = r, i = 0; i < r; i++)
             if (s[i] !== a[i]) {
@@ -2329,15 +2372,15 @@ var require_standalone = __commonJS({
             function i(v) {
               try {
                 c(s.next(v));
-              } catch (m) {
-                u(m);
+              } catch (m2) {
+                u(m2);
               }
             }
             function o(v) {
               try {
                 c(s.throw(v));
-              } catch (m) {
-                u(m);
+              } catch (m2) {
+                u(m2);
               }
             }
             function c(v) {
@@ -2472,21 +2515,21 @@ var require_standalone = __commonJS({
             return this;
           }, a;
           function u(d) {
-            s[d] && (a[d] = function(p) {
-              return new Promise(function(f, h) {
-                r.push([d, p, f, h]) > 1 || i(d, p);
+            s[d] && (a[d] = function(p2) {
+              return new Promise(function(f, h3) {
+                r.push([d, p2, f, h3]) > 1 || i(d, p2);
               });
             });
           }
-          function i(d, p) {
+          function i(d, p2) {
             try {
-              o(s[d](p));
+              o(s[d](p2));
             } catch (f) {
-              m(r[0][3], f);
+              m2(r[0][3], f);
             }
           }
           function o(d) {
-            d.value instanceof Jt ? Promise.resolve(d.value.v).then(c, v) : m(r[0][2], d);
+            d.value instanceof Jt ? Promise.resolve(d.value.v).then(c, v) : m2(r[0][2], d);
           }
           function c(d) {
             i("next", d);
@@ -2494,8 +2537,8 @@ var require_standalone = __commonJS({
           function v(d) {
             i("throw", d);
           }
-          function m(d, p) {
-            d(p), r.shift(), r.length && i(r[0][0], r[0][1]);
+          function m2(d, p2) {
+            d(p2), r.shift(), r.length && i(r[0][0], r[0][1]);
           }
         }
         function GD(e) {
@@ -2642,19 +2685,19 @@ var require_standalone = __commonJS({
               c++;
             if (i -= c, o -= c, i === 0)
               return o;
-            for (var v, m, d, p, f = 0, h = 0; f < i; )
+            for (var v, m2, d, p2, f = 0, h3 = 0; f < i; )
               s[c + f] = a.charCodeAt(c + f), t[f] = ++f;
-            for (; h < o; )
-              for (v = r.charCodeAt(c + h), d = h++, m = h, f = 0; f < i; f++)
-                p = v === s[c + f] ? d : d + 1, d = t[f], m = t[f] = d > m ? p > m ? m + 1 : p : p > d ? d + 1 : p;
-            return m;
+            for (; h3 < o; )
+              for (v = r.charCodeAt(c + h3), d = h3++, m2 = h3, f = 0; f < i; f++)
+                p2 = v === s[c + f] ? d : d + 1, d = t[f], m2 = t[f] = d > m2 ? p2 > m2 ? m2 + 1 : p2 : p2 > d ? d + 1 : p2;
+            return m2;
           };
         } }), Ra = Z({ "node_modules/vnopts/lib/handlers/unknown/leven.js"(e) {
           "use strict";
           re(), Object.defineProperty(e, "__esModule", { value: true });
           var n = _r(), t = tm();
           e.levenUnknownHandler = (s, a, r) => {
-            let { descriptor: u, logger: i, schemas: o } = r, c = ["Ignored unknown option ".concat(n.default.yellow(u.pair({ key: s, value: a })), ".")], v = Object.keys(o).sort().find((m) => t(s, m) < 3);
+            let { descriptor: u, logger: i, schemas: o } = r, c = ["Ignored unknown option ".concat(n.default.yellow(u.pair({ key: s, value: a })), ".")], v = Object.keys(o).sort().find((m2) => t(s, m2) < 3);
             v && c.push("Did you mean ".concat(n.default.blue(u.key(v)), "?")), i.warn(c.join(" "));
           };
         } }), rm = Z({ "node_modules/vnopts/lib/handlers/unknown/index.js"(e) {
@@ -2774,8 +2817,8 @@ var require_standalone = __commonJS({
               for (let o of r) {
                 let c = u.normalizeDeprecatedResult(this._valueSchema.deprecated(o, u), o);
                 c !== false && i.push(...c.map((v) => {
-                  let { value: m } = v;
-                  return { value: [m] };
+                  let { value: m2 } = v;
+                  return { value: [m2] };
                 }));
               }
               return i;
@@ -2820,78 +2863,78 @@ var require_standalone = __commonJS({
         } }), Hn = Z({ "node_modules/vnopts/lib/utils.js"(e) {
           "use strict";
           re(), Object.defineProperty(e, "__esModule", { value: true });
-          function n(p, f) {
-            let h = /* @__PURE__ */ Object.create(null);
-            for (let w of p) {
+          function n(p2, f) {
+            let h3 = /* @__PURE__ */ Object.create(null);
+            for (let w of p2) {
               let T = w[f];
-              if (h[T])
+              if (h3[T])
                 throw new Error("Duplicate ".concat(f, " ").concat(JSON.stringify(T)));
-              h[T] = w;
+              h3[T] = w;
             }
-            return h;
+            return h3;
           }
           e.recordFromArray = n;
-          function t(p, f) {
-            let h = /* @__PURE__ */ new Map();
-            for (let w of p) {
+          function t(p2, f) {
+            let h3 = /* @__PURE__ */ new Map();
+            for (let w of p2) {
               let T = w[f];
-              if (h.has(T))
+              if (h3.has(T))
                 throw new Error("Duplicate ".concat(f, " ").concat(JSON.stringify(T)));
-              h.set(T, w);
+              h3.set(T, w);
             }
-            return h;
+            return h3;
           }
           e.mapFromArray = t;
           function s() {
-            let p = /* @__PURE__ */ Object.create(null);
+            let p2 = /* @__PURE__ */ Object.create(null);
             return (f) => {
-              let h = JSON.stringify(f);
-              return p[h] ? true : (p[h] = true, false);
+              let h3 = JSON.stringify(f);
+              return p2[h3] ? true : (p2[h3] = true, false);
             };
           }
           e.createAutoChecklist = s;
-          function a(p, f) {
-            let h = [], w = [];
-            for (let T of p)
-              f(T) ? h.push(T) : w.push(T);
-            return [h, w];
+          function a(p2, f) {
+            let h3 = [], w = [];
+            for (let T of p2)
+              f(T) ? h3.push(T) : w.push(T);
+            return [h3, w];
           }
           e.partition = a;
-          function r(p) {
-            return p === Math.floor(p);
+          function r(p2) {
+            return p2 === Math.floor(p2);
           }
           e.isInt = r;
-          function u(p, f) {
-            if (p === f)
+          function u(p2, f) {
+            if (p2 === f)
               return 0;
-            let h = typeof p, w = typeof f, T = ["undefined", "object", "boolean", "number", "string"];
-            return h !== w ? T.indexOf(h) - T.indexOf(w) : h !== "string" ? Number(p) - Number(f) : p.localeCompare(f);
+            let h3 = typeof p2, w = typeof f, T = ["undefined", "object", "boolean", "number", "string"];
+            return h3 !== w ? T.indexOf(h3) - T.indexOf(w) : h3 !== "string" ? Number(p2) - Number(f) : p2.localeCompare(f);
           }
           e.comparePrimitive = u;
-          function i(p) {
-            return p === void 0 ? {} : p;
+          function i(p2) {
+            return p2 === void 0 ? {} : p2;
           }
           e.normalizeDefaultResult = i;
-          function o(p, f) {
-            return p === true ? true : p === false ? { value: f } : p;
+          function o(p2, f) {
+            return p2 === true ? true : p2 === false ? { value: f } : p2;
           }
           e.normalizeValidateResult = o;
-          function c(p, f) {
-            let h = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
-            return p === false ? false : p === true ? h ? true : [{ value: f }] : "value" in p ? [p] : p.length === 0 ? false : p;
+          function c(p2, f) {
+            let h3 = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
+            return p2 === false ? false : p2 === true ? h3 ? true : [{ value: f }] : "value" in p2 ? [p2] : p2.length === 0 ? false : p2;
           }
           e.normalizeDeprecatedResult = c;
-          function v(p, f) {
-            return typeof p == "string" || "key" in p ? { from: f, to: p } : "from" in p ? { from: p.from, to: p.to } : { from: f, to: p.to };
+          function v(p2, f) {
+            return typeof p2 == "string" || "key" in p2 ? { from: f, to: p2 } : "from" in p2 ? { from: p2.from, to: p2.to } : { from: f, to: p2.to };
           }
           e.normalizeTransferResult = v;
-          function m(p, f) {
-            return p === void 0 ? [] : Array.isArray(p) ? p.map((h) => v(h, f)) : [v(p, f)];
+          function m2(p2, f) {
+            return p2 === void 0 ? [] : Array.isArray(p2) ? p2.map((h3) => v(h3, f)) : [v(p2, f)];
           }
-          e.normalizeForwardResult = m;
-          function d(p, f) {
-            let h = m(typeof p == "object" && "redirect" in p ? p.redirect : p, f);
-            return h.length === 0 ? { remain: f, redirect: h } : typeof p == "object" && "remain" in p ? { remain: p.remain, redirect: h } : { redirect: h };
+          e.normalizeForwardResult = m2;
+          function d(p2, f) {
+            let h3 = m2(typeof p2 == "object" && "redirect" in p2 ? p2.redirect : p2, f);
+            return h3.length === 0 ? { remain: f, redirect: h3 } : typeof p2 == "object" && "remain" in p2 ? { remain: p2.remain, redirect: h3 } : { redirect: h3 };
           }
           e.normalizeRedirectResult = d;
         } }), om = Z({ "node_modules/vnopts/lib/schemas/choice.js"(e) {
@@ -3007,16 +3050,16 @@ var require_standalone = __commonJS({
             _applyNormalization(a, r) {
               let u = [], [i, o] = t.partition(Object.keys(a), (c) => c in this._utils.schemas);
               for (let c of i) {
-                let v = this._utils.schemas[c], m = v.preprocess(a[c], this._utils), d = t.normalizeValidateResult(v.validate(m, this._utils), m);
+                let v = this._utils.schemas[c], m2 = v.preprocess(a[c], this._utils), d = t.normalizeValidateResult(v.validate(m2, this._utils), m2);
                 if (d !== true) {
                   let { value: T } = d, A = this._invalidHandler(c, T, this._utils);
                   throw typeof A == "string" ? new Error(A) : A;
                 }
-                let p = (T) => {
+                let p2 = (T) => {
                   let { from: A, to: S } = T;
                   u.push(typeof S == "string" ? { [S]: A } : { [S.key]: S.value });
                 }, f = (T) => {
-                  let { value: A, redirectTo: S } = T, B = t.normalizeDeprecatedResult(v.deprecated(A, this._utils), m, true);
+                  let { value: A, redirectTo: S } = T, B = t.normalizeDeprecatedResult(v.deprecated(A, this._utils), m2, true);
                   if (B !== false)
                     if (B === true)
                       this._hasDeprecationWarned(c) || this._utils.logger.warn(this._deprecatedHandler(c, S, this._utils));
@@ -3029,9 +3072,9 @@ var require_standalone = __commonJS({
                         }
                       }
                 };
-                t.normalizeForwardResult(v.forward(m, this._utils), m).forEach(p);
-                let w = t.normalizeRedirectResult(v.redirect(m, this._utils), m);
-                if (w.redirect.forEach(p), "remain" in w) {
+                t.normalizeForwardResult(v.forward(m2, this._utils), m2).forEach(p2);
+                let w = t.normalizeRedirectResult(v.redirect(m2, this._utils), m2);
+                if (w.redirect.forEach(p2), "remain" in w) {
                   let T = w.remain;
                   r[c] = c in r ? v.overlap(r[c], T, this._utils) : T, f({ value: T });
                 }
@@ -3039,11 +3082,11 @@ var require_standalone = __commonJS({
                   f({ value: T, redirectTo: A });
               }
               for (let c of o) {
-                let v = a[c], m = this._unknownHandler(c, v, this._utils);
-                if (m)
-                  for (let d of Object.keys(m)) {
-                    let p = { [d]: m[d] };
-                    d in this._utils.schemas ? u.push(p) : Object.assign(r, p);
+                let v = a[c], m2 = this._unknownHandler(c, v, this._utils);
+                if (m2)
+                  for (let d of Object.keys(m2)) {
+                    let p2 = { [d]: m2[d] };
+                    d in this._utils.schemas ? u.push(p2) : Object.assign(r, p2);
                   }
               }
               return u;
@@ -3059,10 +3102,10 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var t = mm(), s = it(), a = { key: (d) => d.length === 1 ? "-".concat(d) : "--".concat(d), value: (d) => t.apiDescriptor.value(d), pair: (d) => {
-            let { key: p, value: f } = d;
-            return f === false ? "--no-".concat(p) : f === true ? a.key(p) : f === "" ? "".concat(a.key(p), " without an argument") : "".concat(a.key(p), "=").concat(f);
+            let { key: p2, value: f } = d;
+            return f === false ? "--no-".concat(p2) : f === true ? a.key(p2) : f === "" ? "".concat(a.key(p2), " without an argument") : "".concat(a.key(p2), "=").concat(f);
           } }, r = (d) => {
-            let { colorsModule: p, levenshteinDistance: f } = d;
+            let { colorsModule: p2, levenshteinDistance: f } = d;
             return class extends t.ChoiceSchema {
               constructor(w) {
                 let { name: T, flags: A } = w;
@@ -3072,7 +3115,7 @@ var require_standalone = __commonJS({
                 if (typeof w == "string" && w.length > 0 && !this._flags.includes(w)) {
                   let A = this._flags.find((S) => f(S, w) < 3);
                   if (A)
-                    return T.logger.warn(["Unknown flag ".concat(p.yellow(T.descriptor.value(w)), ","), "did you mean ".concat(p.blue(T.descriptor.value(A)), "?")].join(" ")), A;
+                    return T.logger.warn(["Unknown flag ".concat(p2.yellow(T.descriptor.value(w)), ","), "did you mean ".concat(p2.blue(T.descriptor.value(A)), "?")].join(" ")), A;
                 }
                 return w;
               }
@@ -3081,24 +3124,24 @@ var require_standalone = __commonJS({
               }
             };
           }, u;
-          function i(d, p) {
-            let { logger: f = false, isCLI: h = false, passThrough: w = false, colorsModule: T = null, levenshteinDistance: A = null } = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, S = w ? Array.isArray(w) ? (D, g) => w.includes(D) ? { [D]: g } : void 0 : (D, g) => ({ [D]: g }) : (D, g, F) => {
+          function i(d, p2) {
+            let { logger: f = false, isCLI: h3 = false, passThrough: w = false, colorsModule: T = null, levenshteinDistance: A = null } = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, S = w ? Array.isArray(w) ? (D, g) => w.includes(D) ? { [D]: g } : void 0 : (D, g) => ({ [D]: g }) : (D, g, F) => {
               let l = F.schemas, { _: E } = l, y = kn(l, Qf);
               return t.levenUnknownHandler(D, g, Object.assign(Object.assign({}, F), {}, { schemas: y }));
-            }, B = h ? a : t.apiDescriptor, I = o(p, { isCLI: h, colorsModule: T, levenshteinDistance: A }), k = new t.Normalizer(I, { logger: f, unknown: S, descriptor: B }), P = f !== false;
+            }, B = h3 ? a : t.apiDescriptor, I = o(p2, { isCLI: h3, colorsModule: T, levenshteinDistance: A }), k = new t.Normalizer(I, { logger: f, unknown: S, descriptor: B }), P = f !== false;
             P && u && (k._hasDeprecationWarned = u);
             let C = k.normalize(d);
-            return P && (u = k._hasDeprecationWarned), h && C["plugin-search"] === false && (C["plugin-search-dir"] = false), C;
+            return P && (u = k._hasDeprecationWarned), h3 && C["plugin-search"] === false && (C["plugin-search-dir"] = false), C;
           }
-          function o(d, p) {
-            let { isCLI: f, colorsModule: h, levenshteinDistance: w } = p, T = [];
+          function o(d, p2) {
+            let { isCLI: f, colorsModule: h3, levenshteinDistance: w } = p2, T = [];
             f && T.push(t.AnySchema.create({ name: "_" }));
             for (let A of d)
-              T.push(c(A, { isCLI: f, optionInfos: d, colorsModule: h, levenshteinDistance: w })), A.alias && f && T.push(t.AliasSchema.create({ name: A.alias, sourceName: A.name }));
+              T.push(c(A, { isCLI: f, optionInfos: d, colorsModule: h3, levenshteinDistance: w })), A.alias && f && T.push(t.AliasSchema.create({ name: A.alias, sourceName: A.name }));
             return T;
           }
-          function c(d, p) {
-            let { isCLI: f, optionInfos: h, colorsModule: w, levenshteinDistance: T } = p, { name: A } = d;
+          function c(d, p2) {
+            let { isCLI: f, optionInfos: h3, colorsModule: w, levenshteinDistance: T } = p2, { name: A } = d;
             if (A === "plugin-search-dir" || A === "pluginSearchDirs")
               return t.AnySchema.create({ name: A, preprocess(k) {
                 return k === false || (k = Array.isArray(k) ? k : [k]), k;
@@ -3122,7 +3165,7 @@ var require_standalone = __commonJS({
                 B = t.BooleanSchema;
                 break;
               case "flag":
-                B = r({ colorsModule: w, levenshteinDistance: T }), S.flags = h.flatMap((k) => [k.alias, k.description && k.name, k.oppositeDescription && "no-".concat(k.name)].filter(Boolean));
+                B = r({ colorsModule: w, levenshteinDistance: T }), S.flags = h3.flatMap((k) => [k.alias, k.description && k.name, k.oppositeDescription && "no-".concat(k.name)].filter(Boolean));
                 break;
               case "path":
                 B = t.StringSchema;
@@ -3136,13 +3179,13 @@ var require_standalone = __commonJS({
             }
             return d.array ? t.ArraySchema.create(Object.assign(Object.assign(Object.assign({}, f ? { preprocess: (k) => Array.isArray(k) ? k : [k] } : {}), I), {}, { valueSchema: B.create(S) })) : B.create(Object.assign(Object.assign({}, S), I));
           }
-          function v(d, p, f) {
-            return i(d, p, f);
+          function v(d, p2, f) {
+            return i(d, p2, f);
           }
-          function m(d, p, f) {
-            return i(d, p, Object.assign({ isCLI: true }, f));
+          function m2(d, p2, f) {
+            return i(d, p2, Object.assign({ isCLI: true }, f));
           }
-          n.exports = { normalizeApiOptions: v, normalizeCliOptions: m };
+          n.exports = { normalizeApiOptions: v, normalizeCliOptions: m2 };
         } }), st = Z({ "src/language-js/loc.js"(e, n) {
           "use strict";
           re();
@@ -3150,9 +3193,9 @@ var require_standalone = __commonJS({
           function s(o, c) {
             let { ignoreDecorators: v } = c || {};
             if (!v) {
-              let m = o.declaration && o.declaration.decorators || o.decorators;
-              if (t(m))
-                return s(m[0]);
+              let m2 = o.declaration && o.declaration.decorators || o.decorators;
+              if (t(m2))
+                return s(m2[0]);
             }
             return o.range ? o.range[0] : o.start;
           }
@@ -3188,12 +3231,12 @@ var require_standalone = __commonJS({
           }
           var a = /\r\n|[\n\r\u2028\u2029]/;
           function r(o, c, v) {
-            let m = Object.assign({ column: 0, line: -1 }, o.start), d = Object.assign({}, m, o.end), { linesAbove: p = 2, linesBelow: f = 3 } = v || {}, h = m.line, w = m.column, T = d.line, A = d.column, S = Math.max(h - (p + 1), 0), B = Math.min(c.length, T + f);
-            h === -1 && (S = 0), T === -1 && (B = c.length);
-            let I = T - h, k = {};
+            let m2 = Object.assign({ column: 0, line: -1 }, o.start), d = Object.assign({}, m2, o.end), { linesAbove: p2 = 2, linesBelow: f = 3 } = v || {}, h3 = m2.line, w = m2.column, T = d.line, A = d.column, S = Math.max(h3 - (p2 + 1), 0), B = Math.min(c.length, T + f);
+            h3 === -1 && (S = 0), T === -1 && (B = c.length);
+            let I = T - h3, k = {};
             if (I)
               for (let P = 0; P <= I; P++) {
-                let C = P + h;
+                let C = P + h3;
                 if (!w)
                   k[C] = true;
                 else if (P === 0) {
@@ -3207,69 +3250,69 @@ var require_standalone = __commonJS({
                 }
               }
             else
-              w === A ? w ? k[h] = [w, 0] : k[h] = true : k[h] = [w, A - w];
+              w === A ? w ? k[h3] = [w, 0] : k[h3] = true : k[h3] = [w, A - w];
             return { start: S, end: B, markerLines: k };
           }
           function u(o, c) {
-            let v = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, m = (v.highlightCode || v.forceColor) && (0, n.shouldHighlight)(v), d = (0, n.getChalk)(v), p = s(d), f = (P, C) => m ? P(C) : C, h = o.split(a), { start: w, end: T, markerLines: A } = r(c, h, v), S = c.start && typeof c.start.column == "number", B = String(T).length, k = (m ? (0, n.default)(o, v) : o).split(a, T).slice(w, T).map((P, C) => {
+            let v = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, m2 = (v.highlightCode || v.forceColor) && (0, n.shouldHighlight)(v), d = (0, n.getChalk)(v), p2 = s(d), f = (P, C) => m2 ? P(C) : C, h3 = o.split(a), { start: w, end: T, markerLines: A } = r(c, h3, v), S = c.start && typeof c.start.column == "number", B = String(T).length, k = (m2 ? (0, n.default)(o, v) : o).split(a, T).slice(w, T).map((P, C) => {
               let D = w + 1 + C, g = " ".concat(D).slice(-B), F = " ".concat(g, " |"), l = A[D], E = !A[D + 1];
               if (l) {
                 let y = "";
                 if (Array.isArray(l)) {
                   let N = P.slice(0, Math.max(l[0] - 1, 0)).replace(/[^\t]/g, " "), x = l[1] || 1;
                   y = [`
- `, f(p.gutter, F.replace(/\d/g, " ")), " ", N, f(p.marker, "^").repeat(x)].join(""), E && v.message && (y += " " + f(p.message, v.message));
+ `, f(p2.gutter, F.replace(/\d/g, " ")), " ", N, f(p2.marker, "^").repeat(x)].join(""), E && v.message && (y += " " + f(p2.message, v.message));
                 }
-                return [f(p.marker, ">"), f(p.gutter, F), P.length > 0 ? " ".concat(P) : "", y].join("");
+                return [f(p2.marker, ">"), f(p2.gutter, F), P.length > 0 ? " ".concat(P) : "", y].join("");
               } else
-                return " ".concat(f(p.gutter, F)).concat(P.length > 0 ? " ".concat(P) : "");
+                return " ".concat(f(p2.gutter, F)).concat(P.length > 0 ? " ".concat(P) : "");
             }).join(`
 `);
             return v.message && !S && (k = "".concat(" ".repeat(B + 1)).concat(v.message, `
-`).concat(k)), m ? d.reset(k) : k;
+`).concat(k)), m2 ? d.reset(k) : k;
           }
           function i(o, c, v) {
-            let m = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {};
+            let m2 = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {};
             if (!t) {
               t = true;
-              let p = "Passing lineNumber and colNumber is deprecated to @babel/code-frame. Please use `codeFrameColumns`.";
+              let p2 = "Passing lineNumber and colNumber is deprecated to @babel/code-frame. Please use `codeFrameColumns`.";
               if (Tt.emitWarning)
-                Tt.emitWarning(p, "DeprecationWarning");
+                Tt.emitWarning(p2, "DeprecationWarning");
               else {
-                let f = new Error(p);
-                f.name = "DeprecationWarning", console.warn(new Error(p));
+                let f = new Error(p2);
+                f.name = "DeprecationWarning", console.warn(new Error(p2));
               }
             }
-            return v = Math.max(v, 0), u(o, { start: { column: v, line: c } }, m);
+            return v = Math.max(v, 0), u(o, { start: { column: v, line: c } }, m2);
           }
         } }), Gn = Z({ "src/main/parser.js"(e, n) {
           "use strict";
           re();
           var { ConfigError: t } = zt(), s = st(), a = gm(), { locStart: r, locEnd: u } = s, i = Object.getOwnPropertyNames, o = Object.getOwnPropertyDescriptor;
           function c(d) {
-            let p = {};
+            let p2 = {};
             for (let f of d.plugins)
               if (!!f.parsers)
-                for (let h of i(f.parsers))
-                  Object.defineProperty(p, h, o(f.parsers, h));
-            return p;
+                for (let h3 of i(f.parsers))
+                  Object.defineProperty(p2, h3, o(f.parsers, h3));
+            return p2;
           }
           function v(d) {
-            let p = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : c(d);
+            let p2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : c(d);
             if (typeof d.parser == "function")
               return { parse: d.parser, astFormat: "estree", locStart: r, locEnd: u };
             if (typeof d.parser == "string") {
-              if (Object.prototype.hasOwnProperty.call(p, d.parser))
-                return p[d.parser];
+              if (Object.prototype.hasOwnProperty.call(p2, d.parser))
+                return p2[d.parser];
               throw new t(`Couldn't resolve parser "`.concat(d.parser, '". Parsers must be explicitly added to the standalone bundle.'));
             }
           }
-          function m(d, p) {
-            let f = c(p), h = Object.defineProperties({}, Object.fromEntries(Object.keys(f).map((T) => [T, { enumerable: true, get() {
+          function m2(d, p2) {
+            let f = c(p2), h3 = Object.defineProperties({}, Object.fromEntries(Object.keys(f).map((T) => [T, { enumerable: true, get() {
               return f[T].parse;
-            } }]))), w = v(p, f);
+            } }]))), w = v(p2, f);
             try {
-              return w.preprocess && (d = w.preprocess(d, p)), { text: d, ast: w.parse(d, h, p) };
+              return w.preprocess && (d = w.preprocess(d, p2)), { text: d, ast: w.parse(d, h3, p2) };
             } catch (T) {
               let { loc: A } = T;
               if (A) {
@@ -3280,40 +3323,40 @@ var require_standalone = __commonJS({
               throw T.stack;
             }
           }
-          n.exports = { parse: m, resolveParser: v };
+          n.exports = { parse: m2, resolveParser: v };
         } }), Wa = Z({ "src/main/options.js"(e, n) {
           "use strict";
           re();
           var t = PD(), { UndefinedParserError: s } = zt(), { getSupportInfo: a } = Mn(), r = dm(), { resolveParser: u } = Gn(), i = { astFormat: "estree", printer: {}, originalText: void 0, locStart: null, locEnd: null };
-          function o(m) {
-            let d = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, p = Object.assign({}, m), f = a({ plugins: m.plugins, showUnreleased: true, showDeprecated: true }).options, h = Object.assign(Object.assign({}, i), Object.fromEntries(f.filter((B) => B.default !== void 0).map((B) => [B.name, B.default])));
-            if (!p.parser) {
-              if (!p.filepath)
-                (d.logger || console).warn("No parser and no filepath given, using 'babel' the parser now but this will throw an error in the future. Please specify a parser or a filepath so one can be inferred."), p.parser = "babel";
-              else if (p.parser = v(p.filepath, p.plugins), !p.parser)
-                throw new s("No parser could be inferred for file: ".concat(p.filepath));
+          function o(m2) {
+            let d = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, p2 = Object.assign({}, m2), f = a({ plugins: m2.plugins, showUnreleased: true, showDeprecated: true }).options, h3 = Object.assign(Object.assign({}, i), Object.fromEntries(f.filter((B) => B.default !== void 0).map((B) => [B.name, B.default])));
+            if (!p2.parser) {
+              if (!p2.filepath)
+                (d.logger || console).warn("No parser and no filepath given, using 'babel' the parser now but this will throw an error in the future. Please specify a parser or a filepath so one can be inferred."), p2.parser = "babel";
+              else if (p2.parser = v(p2.filepath, p2.plugins), !p2.parser)
+                throw new s("No parser could be inferred for file: ".concat(p2.filepath));
             }
-            let w = u(r.normalizeApiOptions(p, [f.find((B) => B.name === "parser")], { passThrough: true, logger: false }));
-            p.astFormat = w.astFormat, p.locEnd = w.locEnd, p.locStart = w.locStart;
-            let T = c(p);
-            p.printer = T.printers[p.astFormat];
-            let A = Object.fromEntries(f.filter((B) => B.pluginDefaults && B.pluginDefaults[T.name] !== void 0).map((B) => [B.name, B.pluginDefaults[T.name]])), S = Object.assign(Object.assign({}, h), A);
+            let w = u(r.normalizeApiOptions(p2, [f.find((B) => B.name === "parser")], { passThrough: true, logger: false }));
+            p2.astFormat = w.astFormat, p2.locEnd = w.locEnd, p2.locStart = w.locStart;
+            let T = c(p2);
+            p2.printer = T.printers[p2.astFormat];
+            let A = Object.fromEntries(f.filter((B) => B.pluginDefaults && B.pluginDefaults[T.name] !== void 0).map((B) => [B.name, B.pluginDefaults[T.name]])), S = Object.assign(Object.assign({}, h3), A);
             for (let [B, I] of Object.entries(S))
-              (p[B] === null || p[B] === void 0) && (p[B] = I);
-            return p.parser === "json" && (p.trailingComma = "none"), r.normalizeApiOptions(p, f, Object.assign({ passThrough: Object.keys(i) }, d));
+              (p2[B] === null || p2[B] === void 0) && (p2[B] = I);
+            return p2.parser === "json" && (p2.trailingComma = "none"), r.normalizeApiOptions(p2, f, Object.assign({ passThrough: Object.keys(i) }, d));
           }
-          function c(m) {
-            let { astFormat: d } = m;
+          function c(m2) {
+            let { astFormat: d } = m2;
             if (!d)
               throw new Error("getPlugin() requires astFormat to be set");
-            let p = m.plugins.find((f) => f.printers && f.printers[d]);
-            if (!p)
+            let p2 = m2.plugins.find((f) => f.printers && f.printers[d]);
+            if (!p2)
               throw new Error(`Couldn't find plugin for AST format "`.concat(d, '"'));
-            return p;
+            return p2;
           }
-          function v(m, d) {
-            let p = t.basename(m).toLowerCase(), h = a({ plugins: d }).languages.filter((w) => w.since !== null).find((w) => w.extensions && w.extensions.some((T) => p.endsWith(T)) || w.filenames && w.filenames.some((T) => T.toLowerCase() === p));
-            return h && h.parsers[0];
+          function v(m2, d) {
+            let p2 = t.basename(m2).toLowerCase(), h3 = a({ plugins: d }).languages.filter((w) => w.since !== null).find((w) => w.extensions && w.extensions.some((T) => p2.endsWith(T)) || w.filenames && w.filenames.some((T) => T.toLowerCase() === p2));
+            return h3 && h3.parsers[0];
           }
           n.exports = { normalize: o, hiddenDefaults: i, inferParser: v };
         } }), vm = Z({ "src/main/massage-ast.js"(e, n) {
@@ -3348,13 +3391,13 @@ var require_standalone = __commonJS({
         } }), et = Z({ "src/main/comments.js"(e, n) {
           "use strict";
           re();
-          var t = Xt(), { builders: { line: s, hardline: a, breakParent: r, indent: u, lineSuffix: i, join: o, cursor: c } } = Oe(), { hasNewline: v, skipNewline: m, skipSpaces: d, isPreviousLineEmpty: p, addLeadingComment: f, addDanglingComment: h, addTrailingComment: w } = Ue(), T = /* @__PURE__ */ new WeakMap();
+          var t = Xt(), { builders: { line: s, hardline: a, breakParent: r, indent: u, lineSuffix: i, join: o, cursor: c } } = Oe(), { hasNewline: v, skipNewline: m2, skipSpaces: d, isPreviousLineEmpty: p2, addLeadingComment: f, addDanglingComment: h3, addTrailingComment: w } = Ue(), T = /* @__PURE__ */ new WeakMap();
           function A(L, M, j) {
             if (!L)
               return;
-            let { printer: $, locStart: V, locEnd: q } = M;
+            let { printer: $2, locStart: V, locEnd: q } = M;
             if (j) {
-              if ($.canAttachComment && $.canAttachComment(L)) {
+              if ($2.canAttachComment && $2.canAttachComment(L)) {
                 let H;
                 for (H = j.length - 1; H >= 0 && !(V(j[H]) <= V(L) && q(j[H]) <= q(L)); --H)
                   ;
@@ -3363,7 +3406,7 @@ var require_standalone = __commonJS({
               }
             } else if (T.has(L))
               return T.get(L);
-            let Y = $.getCommentChildNodes && $.getCommentChildNodes(L, M) || typeof L == "object" && Object.entries(L).filter((H) => {
+            let Y = $2.getCommentChildNodes && $2.getCommentChildNodes(L, M) || typeof L == "object" && Object.entries(L).filter((H) => {
               let [R] = H;
               return R !== "enclosingNode" && R !== "precedingNode" && R !== "followingNode" && R !== "tokens" && R !== "comments" && R !== "parent";
             }).map((H) => {
@@ -3377,7 +3420,7 @@ var require_standalone = __commonJS({
               return j;
             }
           }
-          function S(L, M, j, $) {
+          function S(L, M, j, $2) {
             let { locStart: V, locEnd: q } = j, Y = V(M), H = q(M), R = A(L, j), Q, ee, te = 0, oe = R.length;
             for (; te < oe; ) {
               let W = te + oe >> 1, X = R[W], ue = V(X), De = q(X);
@@ -3393,17 +3436,17 @@ var require_standalone = __commonJS({
               }
               throw new Error("Comment location overlaps with node location");
             }
-            if ($ && $.type === "TemplateLiteral") {
-              let { quasis: W } = $, X = F(W, M, j);
+            if ($2 && $2.type === "TemplateLiteral") {
+              let { quasis: W } = $2, X = F(W, M, j);
               Q && F(W, Q, j) !== X && (Q = null), ee && F(W, ee, j) !== X && (ee = null);
             }
-            return { enclosingNode: $, precedingNode: Q, followingNode: ee };
+            return { enclosingNode: $2, precedingNode: Q, followingNode: ee };
           }
           var B = () => false;
-          function I(L, M, j, $) {
+          function I(L, M, j, $2) {
             if (!Array.isArray(L))
               return;
-            let V = [], { locStart: q, locEnd: Y, printer: { handleComments: H = {} } } = $, { avoidAstMutation: R, ownLine: Q = B, endOfLine: ee = B, remaining: te = B } = H, oe = L.map((W, X) => Object.assign(Object.assign({}, S(M, W, $)), {}, { comment: W, text: j, options: $, ast: M, isLastComment: L.length - 1 === X }));
+            let V = [], { locStart: q, locEnd: Y, printer: { handleComments: H = {} } } = $2, { avoidAstMutation: R, ownLine: Q = B, endOfLine: ee = B, remaining: te = B } = H, oe = L.map((W, X) => Object.assign(Object.assign({}, S(M, W, $2)), {}, { comment: W, text: j, options: $2, ast: M, isLastComment: L.length - 1 === X }));
             for (let [W, X] of oe.entries()) {
               let { comment: ue, precedingNode: De, enclosingNode: ie, followingNode: G, text: z, options: U, ast: le, isLastComment: ge } = X;
               if (U.parser === "json" || U.parser === "json5" || U.parser === "__js_expression" || U.parser === "__vue_expression" || U.parser === "__vue_ts_expression") {
@@ -3418,25 +3461,25 @@ var require_standalone = __commonJS({
               }
               let Ae;
               if (R ? Ae = [X] : (ue.enclosingNode = ie, ue.precedingNode = De, ue.followingNode = G, Ae = [ue, z, U, le, ge]), P(z, U, oe, W))
-                ue.placement = "ownLine", Q(...Ae) || (G ? f(G, ue) : De ? w(De, ue) : h(ie || le, ue));
+                ue.placement = "ownLine", Q(...Ae) || (G ? f(G, ue) : De ? w(De, ue) : h3(ie || le, ue));
               else if (C(z, U, oe, W))
-                ue.placement = "endOfLine", ee(...Ae) || (De ? w(De, ue) : G ? f(G, ue) : h(ie || le, ue));
+                ue.placement = "endOfLine", ee(...Ae) || (De ? w(De, ue) : G ? f(G, ue) : h3(ie || le, ue));
               else if (ue.placement = "remaining", !te(...Ae))
                 if (De && G) {
                   let Ne = V.length;
                   Ne > 0 && V[Ne - 1].followingNode !== G && D(V, z, U), V.push(X);
                 } else
-                  De ? w(De, ue) : G ? f(G, ue) : h(ie || le, ue);
+                  De ? w(De, ue) : G ? f(G, ue) : h3(ie || le, ue);
             }
-            if (D(V, j, $), !R)
+            if (D(V, j, $2), !R)
               for (let W of L)
                 delete W.precedingNode, delete W.enclosingNode, delete W.followingNode;
           }
           var k = (L) => !/[\S\n\u2028\u2029]/.test(L);
-          function P(L, M, j, $) {
-            let { comment: V, precedingNode: q } = j[$], { locStart: Y, locEnd: H } = M, R = Y(V);
+          function P(L, M, j, $2) {
+            let { comment: V, precedingNode: q } = j[$2], { locStart: Y, locEnd: H } = M, R = Y(V);
             if (q)
-              for (let Q = $ - 1; Q >= 0; Q--) {
+              for (let Q = $2 - 1; Q >= 0; Q--) {
                 let { comment: ee, precedingNode: te } = j[Q];
                 if (te !== q || !k(L.slice(H(ee), R)))
                   break;
@@ -3444,10 +3487,10 @@ var require_standalone = __commonJS({
               }
             return v(L, R, { backwards: true });
           }
-          function C(L, M, j, $) {
-            let { comment: V, followingNode: q } = j[$], { locStart: Y, locEnd: H } = M, R = H(V);
+          function C(L, M, j, $2) {
+            let { comment: V, followingNode: q } = j[$2], { locStart: Y, locEnd: H } = M, R = H(V);
             if (q)
-              for (let Q = $ + 1; Q < j.length; Q++) {
+              for (let Q = $2 + 1; Q < j.length; Q++) {
                 let { comment: ee, followingNode: te } = j[Q];
                 if (te !== q || !k(L.slice(R, Y(ee))))
                   break;
@@ -3456,11 +3499,11 @@ var require_standalone = __commonJS({
             return v(L, R);
           }
           function D(L, M, j) {
-            let $ = L.length;
-            if ($ === 0)
+            let $2 = L.length;
+            if ($2 === 0)
               return;
             let { precedingNode: V, followingNode: q, enclosingNode: Y } = L[0], H = j.printer.getGapRegex && j.printer.getGapRegex(Y) || /^[\s(]*$/, R = j.locStart(q), Q;
-            for (Q = $; Q > 0; --Q) {
+            for (Q = $2; Q > 0; --Q) {
               let { comment: ee, precedingNode: te, followingNode: oe } = L[Q - 1];
               t.strictEqual(te, V), t.strictEqual(oe, q);
               let W = M.slice(j.locEnd(ee), R);
@@ -3480,45 +3523,45 @@ var require_standalone = __commonJS({
             return j.printed = true, M.printer.printComment(L, M);
           }
           function F(L, M, j) {
-            let $ = j.locStart(M) - 1;
+            let $2 = j.locStart(M) - 1;
             for (let V = 1; V < L.length; ++V)
-              if ($ < j.locStart(L[V]))
+              if ($2 < j.locStart(L[V]))
                 return V - 1;
             return 0;
           }
           function l(L, M) {
-            let j = L.getValue(), $ = [g(L, M)], { printer: V, originalText: q, locStart: Y, locEnd: H } = M;
+            let j = L.getValue(), $2 = [g(L, M)], { printer: V, originalText: q, locStart: Y, locEnd: H } = M;
             if (V.isBlockComment && V.isBlockComment(j)) {
               let ee = v(q, H(j)) ? v(q, Y(j), { backwards: true }) ? a : s : " ";
-              $.push(ee);
+              $2.push(ee);
             } else
-              $.push(a);
-            let Q = m(q, d(q, H(j)));
-            return Q !== false && v(q, Q) && $.push(a), $;
+              $2.push(a);
+            let Q = m2(q, d(q, H(j)));
+            return Q !== false && v(q, Q) && $2.push(a), $2;
           }
           function E(L, M) {
-            let j = L.getValue(), $ = g(L, M), { printer: V, originalText: q, locStart: Y } = M, H = V.isBlockComment && V.isBlockComment(j);
+            let j = L.getValue(), $2 = g(L, M), { printer: V, originalText: q, locStart: Y } = M, H = V.isBlockComment && V.isBlockComment(j);
             if (v(q, Y(j), { backwards: true })) {
-              let Q = p(q, j, Y);
-              return i([a, Q ? a : "", $]);
+              let Q = p2(q, j, Y);
+              return i([a, Q ? a : "", $2]);
             }
-            let R = [" ", $];
+            let R = [" ", $2];
             return H || (R = [i(R), r]), R;
           }
-          function y(L, M, j, $) {
+          function y(L, M, j, $2) {
             let V = [], q = L.getValue();
             return !q || !q.comments || (L.each(() => {
               let Y = L.getValue();
-              !Y.leading && !Y.trailing && (!$ || $(Y)) && V.push(g(L, M));
+              !Y.leading && !Y.trailing && (!$2 || $2(Y)) && V.push(g(L, M));
             }, "comments"), V.length === 0) ? "" : j ? o(a, V) : u([a, o(a, V)]);
           }
           function N(L, M, j) {
-            let $ = L.getValue();
-            if (!$)
+            let $2 = L.getValue();
+            if (!$2)
               return {};
-            let V = $.comments || [];
+            let V = $2.comments || [];
             j && (V = V.filter((R) => !j.has(R)));
-            let q = $ === M.cursorNode;
+            let q = $2 === M.cursorNode;
             if (V.length === 0) {
               let R = q ? c : "";
               return { leading: R, trailing: R };
@@ -3532,8 +3575,8 @@ var require_standalone = __commonJS({
               Q ? Y.push(l(L, M)) : ee && H.push(E(L, M));
             }, "comments"), q && (Y.unshift(c), H.push(c)), { leading: Y, trailing: H };
           }
-          function x(L, M, j, $) {
-            let { leading: V, trailing: q } = N(L, j, $);
+          function x(L, M, j, $2) {
+            let { leading: V, trailing: q } = N(L, j, $2);
             return !V && !q ? M : [V, M, q];
           }
           function b(L) {
@@ -3582,12 +3625,12 @@ var require_standalone = __commonJS({
             }
             call(u) {
               let { stack: i } = this, { length: o } = i, c = t(i);
-              for (var v = arguments.length, m = new Array(v > 1 ? v - 1 : 0), d = 1; d < v; d++)
-                m[d - 1] = arguments[d];
-              for (let f of m)
+              for (var v = arguments.length, m2 = new Array(v > 1 ? v - 1 : 0), d = 1; d < v; d++)
+                m2[d - 1] = arguments[d];
+              for (let f of m2)
                 c = c[f], i.push(f, c);
-              let p = u(this);
-              return i.length = o, p;
+              let p2 = u(this);
+              return i.length = o, p2;
             }
             callParent(u) {
               let i = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0, o = a(this.stack, i + 1), c = this.stack.splice(o + 1), v = u(this);
@@ -3595,20 +3638,20 @@ var require_standalone = __commonJS({
             }
             each(u) {
               let { stack: i } = this, { length: o } = i, c = t(i);
-              for (var v = arguments.length, m = new Array(v > 1 ? v - 1 : 0), d = 1; d < v; d++)
-                m[d - 1] = arguments[d];
-              for (let p of m)
-                c = c[p], i.push(p, c);
-              for (let p = 0; p < c.length; ++p)
-                i.push(p, c[p]), u(this, p, c), i.length -= 2;
+              for (var v = arguments.length, m2 = new Array(v > 1 ? v - 1 : 0), d = 1; d < v; d++)
+                m2[d - 1] = arguments[d];
+              for (let p2 of m2)
+                c = c[p2], i.push(p2, c);
+              for (let p2 = 0; p2 < c.length; ++p2)
+                i.push(p2, c[p2]), u(this, p2, c), i.length -= 2;
               i.length = o;
             }
             map(u) {
               let i = [];
               for (var o = arguments.length, c = new Array(o > 1 ? o - 1 : 0), v = 1; v < o; v++)
                 c[v - 1] = arguments[v];
-              return this.each((m, d, p) => {
-                i[d] = u(m, d, p);
+              return this.each((m2, d, p2) => {
+                i[d] = u(m2, d, p2);
               }, ...c), i;
             }
             try(u) {
@@ -3621,13 +3664,13 @@ var require_standalone = __commonJS({
             }
             match() {
               let u = this.stack.length - 1, i = null, o = this.stack[u--];
-              for (var c = arguments.length, v = new Array(c), m = 0; m < c; m++)
-                v[m] = arguments[m];
+              for (var c = arguments.length, v = new Array(c), m2 = 0; m2 < c; m2++)
+                v[m2] = arguments[m2];
               for (let d of v) {
                 if (o === void 0)
                   return false;
-                let p = null;
-                if (typeof i == "number" && (p = i, i = this.stack[u--], o = this.stack[u--]), d && !d(o, i, p))
+                let p2 = null;
+                if (typeof i == "number" && (p2 = i, i = this.stack[u--], o = this.stack[u--]), d && !d(o, i, p2))
                   return false;
                 i = this.stack[u--], o = this.stack[u--];
               }
@@ -3650,93 +3693,93 @@ var require_standalone = __commonJS({
           var { utils: { stripTrailingHardline: t } } = Oe(), { normalize: s } = Wa(), a = et();
           function r(i, o, c, v) {
             if (c.printer.embed && c.embeddedLanguageFormatting === "auto")
-              return c.printer.embed(i, o, (m, d, p) => u(m, d, c, v, p), c);
+              return c.printer.embed(i, o, (m2, d, p2) => u(m2, d, c, v, p2), c);
           }
           function u(i, o, c, v) {
-            let { stripTrailingHardline: m = false } = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : {}, d = s(Object.assign(Object.assign(Object.assign({}, c), o), {}, { parentParser: c.parser, originalText: i }), { passThrough: true }), p = Gn().parse(i, d), { ast: f } = p;
-            i = p.text;
-            let h = f.comments;
-            delete f.comments, a.attach(h, f, i, d), d[Symbol.for("comments")] = h || [], d[Symbol.for("tokens")] = f.tokens || [];
+            let { stripTrailingHardline: m2 = false } = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : {}, d = s(Object.assign(Object.assign(Object.assign({}, c), o), {}, { parentParser: c.parser, originalText: i }), { passThrough: true }), p2 = Gn().parse(i, d), { ast: f } = p2;
+            i = p2.text;
+            let h3 = f.comments;
+            delete f.comments, a.attach(h3, f, i, d), d[Symbol.for("comments")] = h3 || [], d[Symbol.for("tokens")] = f.tokens || [];
             let w = v(f, d);
-            return a.ensureAllCommentsPrinted(h), m ? typeof w == "string" ? w.replace(/(?:\r?\n)*$/, "") : t(w) : w;
+            return a.ensureAllCommentsPrinted(h3), m2 ? typeof w == "string" ? w.replace(/(?:\r?\n)*$/, "") : t(w) : w;
           }
           n.exports = { printSubtree: r };
         } }), Fm = Z({ "src/main/ast-to-doc.js"(e, n) {
           "use strict";
           re();
           var t = Cm(), { builders: { hardline: s, addAlignmentToDoc: a }, utils: { propagateBreaks: r } } = Oe(), { printComments: u } = et(), i = Em();
-          function o(m, d) {
-            let p = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : 0, { printer: f } = d;
-            f.preprocess && (m = f.preprocess(m, d));
-            let h = /* @__PURE__ */ new Map(), w = new t(m), T = A();
-            return p > 0 && (T = a([s, T], p, d.tabWidth)), r(T), T;
+          function o(m2, d) {
+            let p2 = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : 0, { printer: f } = d;
+            f.preprocess && (m2 = f.preprocess(m2, d));
+            let h3 = /* @__PURE__ */ new Map(), w = new t(m2), T = A();
+            return p2 > 0 && (T = a([s, T], p2, d.tabWidth)), r(T), T;
             function A(B, I) {
               return B === void 0 || B === w ? S(I) : Array.isArray(B) ? w.call(() => S(I), ...B) : w.call(() => S(I), B);
             }
             function S(B) {
               let I = w.getValue(), k = I && typeof I == "object" && B === void 0;
-              if (k && h.has(I))
-                return h.get(I);
+              if (k && h3.has(I))
+                return h3.get(I);
               let P = v(w, d, A, B);
-              return k && h.set(I, P), P;
+              return k && h3.set(I, P), P;
             }
           }
-          function c(m, d) {
-            let { originalText: p, [Symbol.for("comments")]: f, locStart: h, locEnd: w } = d, T = h(m), A = w(m), S = /* @__PURE__ */ new Set();
+          function c(m2, d) {
+            let { originalText: p2, [Symbol.for("comments")]: f, locStart: h3, locEnd: w } = d, T = h3(m2), A = w(m2), S = /* @__PURE__ */ new Set();
             for (let B of f)
-              h(B) >= T && w(B) <= A && (B.printed = true, S.add(B));
-            return { doc: p.slice(T, A), printedComments: S };
+              h3(B) >= T && w(B) <= A && (B.printed = true, S.add(B));
+            return { doc: p2.slice(T, A), printedComments: S };
           }
-          function v(m, d, p, f) {
-            let h = m.getValue(), { printer: w } = d, T, A;
-            if (w.hasPrettierIgnore && w.hasPrettierIgnore(m))
-              ({ doc: T, printedComments: A } = c(h, d));
+          function v(m2, d, p2, f) {
+            let h3 = m2.getValue(), { printer: w } = d, T, A;
+            if (w.hasPrettierIgnore && w.hasPrettierIgnore(m2))
+              ({ doc: T, printedComments: A } = c(h3, d));
             else {
-              if (h)
+              if (h3)
                 try {
-                  T = i.printSubtree(m, p, d, o);
+                  T = i.printSubtree(m2, p2, d, o);
                 } catch (S) {
                   if (globalThis.PRETTIER_DEBUG)
                     throw S;
                 }
-              T || (T = w.print(m, d, p, f));
+              T || (T = w.print(m2, d, p2, f));
             }
-            return (!w.willPrintOwnComments || !w.willPrintOwnComments(m, d)) && (T = u(m, T, d, A)), T;
+            return (!w.willPrintOwnComments || !w.willPrintOwnComments(m2, d)) && (T = u(m2, T, d, A)), T;
           }
           n.exports = o;
         } }), Am = Z({ "src/main/range-util.js"(e, n) {
           "use strict";
           re();
           var t = Xt(), s = et(), a = (f) => {
-            let { parser: h } = f;
-            return h === "json" || h === "json5" || h === "json-stringify";
+            let { parser: h3 } = f;
+            return h3 === "json" || h3 === "json5" || h3 === "json-stringify";
           };
-          function r(f, h) {
-            let w = [f.node, ...f.parentNodes], T = /* @__PURE__ */ new Set([h.node, ...h.parentNodes]);
+          function r(f, h3) {
+            let w = [f.node, ...f.parentNodes], T = /* @__PURE__ */ new Set([h3.node, ...h3.parentNodes]);
             return w.find((A) => v.has(A.type) && T.has(A));
           }
           function u(f) {
-            let h = f.length - 1;
+            let h3 = f.length - 1;
             for (; ; ) {
-              let w = f[h];
+              let w = f[h3];
               if (w && (w.type === "Program" || w.type === "File"))
-                h--;
+                h3--;
               else
                 break;
             }
-            return f.slice(0, h + 1);
+            return f.slice(0, h3 + 1);
           }
-          function i(f, h, w) {
-            let { locStart: T, locEnd: A } = w, S = f.node, B = h.node;
+          function i(f, h3, w) {
+            let { locStart: T, locEnd: A } = w, S = f.node, B = h3.node;
             if (S === B)
               return { startNode: S, endNode: B };
             let I = T(f.node);
-            for (let P of u(h.parentNodes))
+            for (let P of u(h3.parentNodes))
               if (T(P) >= I)
                 B = P;
               else
                 break;
-            let k = A(h.node);
+            let k = A(h3.node);
             for (let P of u(f.parentNodes))
               if (A(P) <= k)
                 S = P;
@@ -3744,11 +3787,11 @@ var require_standalone = __commonJS({
                 break;
             return { startNode: S, endNode: B };
           }
-          function o(f, h, w, T) {
+          function o(f, h3, w, T) {
             let A = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : [], S = arguments.length > 5 ? arguments[5] : void 0, { locStart: B, locEnd: I } = w, k = B(f), P = I(f);
-            if (!(h > P || h < k || S === "rangeEnd" && h === k || S === "rangeStart" && h === P)) {
+            if (!(h3 > P || h3 < k || S === "rangeEnd" && h3 === k || S === "rangeStart" && h3 === P)) {
               for (let C of s.getSortedChildNodes(f, w)) {
-                let D = o(C, h, w, T, [f, ...A], S);
+                let D = o(C, h3, w, T, [f, ...A], S);
                 if (D)
                   return D;
               }
@@ -3756,12 +3799,12 @@ var require_standalone = __commonJS({
                 return { node: f, parentNodes: A };
             }
           }
-          function c(f, h) {
-            return h !== "DeclareExportDeclaration" && f !== "TypeParameterDeclaration" && (f === "Directive" || f === "TypeAlias" || f === "TSExportAssignment" || f.startsWith("Declare") || f.startsWith("TSDeclare") || f.endsWith("Statement") || f.endsWith("Declaration"));
+          function c(f, h3) {
+            return h3 !== "DeclareExportDeclaration" && f !== "TypeParameterDeclaration" && (f === "Directive" || f === "TypeAlias" || f === "TSExportAssignment" || f.startsWith("Declare") || f.startsWith("TSDeclare") || f.endsWith("Statement") || f.endsWith("Declaration"));
           }
-          var v = /* @__PURE__ */ new Set(["ObjectExpression", "ArrayExpression", "StringLiteral", "NumericLiteral", "BooleanLiteral", "NullLiteral", "UnaryExpression", "TemplateLiteral"]), m = /* @__PURE__ */ new Set(["OperationDefinition", "FragmentDefinition", "VariableDefinition", "TypeExtensionDefinition", "ObjectTypeDefinition", "FieldDefinition", "DirectiveDefinition", "EnumTypeDefinition", "EnumValueDefinition", "InputValueDefinition", "InputObjectTypeDefinition", "SchemaDefinition", "OperationTypeDefinition", "InterfaceTypeDefinition", "UnionTypeDefinition", "ScalarTypeDefinition"]);
-          function d(f, h, w) {
-            if (!h)
+          var v = /* @__PURE__ */ new Set(["ObjectExpression", "ArrayExpression", "StringLiteral", "NumericLiteral", "BooleanLiteral", "NullLiteral", "UnaryExpression", "TemplateLiteral"]), m2 = /* @__PURE__ */ new Set(["OperationDefinition", "FragmentDefinition", "VariableDefinition", "TypeExtensionDefinition", "ObjectTypeDefinition", "FieldDefinition", "DirectiveDefinition", "EnumTypeDefinition", "EnumValueDefinition", "InputValueDefinition", "InputObjectTypeDefinition", "SchemaDefinition", "OperationTypeDefinition", "InterfaceTypeDefinition", "UnionTypeDefinition", "ScalarTypeDefinition"]);
+          function d(f, h3, w) {
+            if (!h3)
               return false;
             switch (f.parser) {
               case "flow":
@@ -3773,41 +3816,41 @@ var require_standalone = __commonJS({
               case "espree":
               case "meriyah":
               case "__babel_estree":
-                return c(h.type, w && w.type);
+                return c(h3.type, w && w.type);
               case "json":
               case "json5":
               case "json-stringify":
-                return v.has(h.type);
+                return v.has(h3.type);
               case "graphql":
-                return m.has(h.kind);
+                return m2.has(h3.kind);
               case "vue":
-                return h.tag !== "root";
+                return h3.tag !== "root";
             }
             return false;
           }
-          function p(f, h, w) {
-            let { rangeStart: T, rangeEnd: A, locStart: S, locEnd: B } = h;
+          function p2(f, h3, w) {
+            let { rangeStart: T, rangeEnd: A, locStart: S, locEnd: B } = h3;
             t.ok(A > T);
             let I = f.slice(T, A).search(/\S/), k = I === -1;
             if (!k)
               for (T += I; A > T && !/\S/.test(f[A - 1]); --A)
                 ;
-            let P = o(w, T, h, (F, l) => d(h, F, l), [], "rangeStart"), C = k ? P : o(w, A, h, (F) => d(h, F), [], "rangeEnd");
+            let P = o(w, T, h3, (F, l) => d(h3, F, l), [], "rangeStart"), C = k ? P : o(w, A, h3, (F) => d(h3, F), [], "rangeEnd");
             if (!P || !C)
               return { rangeStart: 0, rangeEnd: 0 };
             let D, g;
-            if (a(h)) {
+            if (a(h3)) {
               let F = r(P, C);
               D = F, g = F;
             } else
-              ({ startNode: D, endNode: g } = i(P, C, h));
+              ({ startNode: D, endNode: g } = i(P, C, h3));
             return { rangeStart: Math.min(S(D), S(g)), rangeEnd: Math.max(B(D), B(g)) };
           }
-          n.exports = { calculateRange: p, findNodeAtOffset: o };
+          n.exports = { calculateRange: p2, findNodeAtOffset: o };
         } }), Sm = Z({ "src/main/core.js"(e, n) {
           "use strict";
           re();
-          var { diffArrays: t } = aD(), { printer: { printDocToString: s }, debug: { printDocToDebug: a } } = Oe(), { getAlignmentSize: r } = Ue(), { guessEndOfLine: u, convertEndOfLineToChars: i, countEndOfLineChars: o, normalizeEndOfLine: c } = jn(), v = Wa().normalize, m = vm(), d = et(), p = Gn(), f = Fm(), h = Am(), w = "\uFEFF", T = Symbol("cursor");
+          var { diffArrays: t } = aD(), { printer: { printDocToString: s }, debug: { printDocToDebug: a } } = Oe(), { getAlignmentSize: r } = Ue(), { guessEndOfLine: u, convertEndOfLineToChars: i, countEndOfLineChars: o, normalizeEndOfLine: c } = jn(), v = Wa().normalize, m2 = vm(), d = et(), p2 = Gn(), f = Fm(), h3 = Am(), w = "\uFEFF", T = Symbol("cursor");
           function A(g, F, l) {
             let E = F.comments;
             return E && (delete F.comments, d.attach(E, F, g, l)), l[Symbol.for("comments")] = E || [], l[Symbol.for("tokens")] = F.tokens || [], l.originalText = g, E;
@@ -3816,9 +3859,9 @@ var require_standalone = __commonJS({
             let l = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : 0;
             if (!g || g.trim().length === 0)
               return { formatted: "", cursorOffset: -1, comments: [] };
-            let { ast: E, text: y } = p.parse(g, F);
+            let { ast: E, text: y } = p2.parse(g, F);
             if (F.cursorOffset >= 0) {
-              let L = h.findNodeAtOffset(E, F.cursorOffset, F);
+              let L = h3.findNodeAtOffset(E, F.cursorOffset, F);
               L && L.node && (F.cursorNode = L.node);
             }
             let N = A(y, E, F), x = f(E, F, l), b = s(x, F);
@@ -3827,12 +3870,12 @@ var require_standalone = __commonJS({
               b.cursorNodeStart !== void 0 && (b.cursorNodeStart -= b.formatted.indexOf(L)), b.formatted = L + i(F.endOfLine);
             }
             if (F.cursorOffset >= 0) {
-              let L, M, j, $, V;
-              if (F.cursorNode && b.cursorNodeText ? (L = F.locStart(F.cursorNode), M = y.slice(L, F.locEnd(F.cursorNode)), j = F.cursorOffset - L, $ = b.cursorNodeStart, V = b.cursorNodeText) : (L = 0, M = y, j = F.cursorOffset, $ = 0, V = b.formatted), M === V)
-                return { formatted: b.formatted, cursorOffset: $ + j, comments: N };
+              let L, M, j, $2, V;
+              if (F.cursorNode && b.cursorNodeText ? (L = F.locStart(F.cursorNode), M = y.slice(L, F.locEnd(F.cursorNode)), j = F.cursorOffset - L, $2 = b.cursorNodeStart, V = b.cursorNodeText) : (L = 0, M = y, j = F.cursorOffset, $2 = 0, V = b.formatted), M === V)
+                return { formatted: b.formatted, cursorOffset: $2 + j, comments: N };
               let q = [...M];
               q.splice(j, 0, T);
-              let Y = [...V], H = t(q, Y), R = $;
+              let Y = [...V], H = t(q, Y), R = $2;
               for (let Q of H)
                 if (Q.removed) {
                   if (Q.value.includes(T))
@@ -3844,10 +3887,10 @@ var require_standalone = __commonJS({
             return { formatted: b.formatted, cursorOffset: -1, comments: N };
           }
           function B(g, F) {
-            let { ast: l, text: E } = p.parse(g, F), { rangeStart: y, rangeEnd: N } = h.calculateRange(E, F, l), x = E.slice(y, N), b = Math.min(y, E.lastIndexOf(`
-`, y) + 1), L = E.slice(b, y).match(/^\s*/)[0], M = r(L, F.tabWidth), j = S(x, Object.assign(Object.assign({}, F), {}, { rangeStart: 0, rangeEnd: Number.POSITIVE_INFINITY, cursorOffset: F.cursorOffset > y && F.cursorOffset <= N ? F.cursorOffset - y : -1, endOfLine: "lf" }), M), $ = j.formatted.trimEnd(), { cursorOffset: V } = F;
-            V > N ? V += $.length - x.length : j.cursorOffset >= 0 && (V = j.cursorOffset + y);
-            let q = E.slice(0, y) + $ + E.slice(N);
+            let { ast: l, text: E } = p2.parse(g, F), { rangeStart: y, rangeEnd: N } = h3.calculateRange(E, F, l), x = E.slice(y, N), b = Math.min(y, E.lastIndexOf(`
+`, y) + 1), L = E.slice(b, y).match(/^\s*/)[0], M = r(L, F.tabWidth), j = S(x, Object.assign(Object.assign({}, F), {}, { rangeStart: 0, rangeEnd: Number.POSITIVE_INFINITY, cursorOffset: F.cursorOffset > y && F.cursorOffset <= N ? F.cursorOffset - y : -1, endOfLine: "lf" }), M), $2 = j.formatted.trimEnd(), { cursorOffset: V } = F;
+            V > N ? V += $2.length - x.length : j.cursorOffset >= 0 && (V = j.cursorOffset + y);
+            let q = E.slice(0, y) + $2 + E.slice(N);
             if (F.endOfLine !== "lf") {
               let Y = i(F.endOfLine);
               V >= 0 && Y === `\r
@@ -3873,7 +3916,7 @@ var require_standalone = __commonJS({
             return { hasBOM: x, text: g, options: k(g, Object.assign(Object.assign({}, F), {}, { cursorOffset: l, rangeStart: E, rangeEnd: y, endOfLine: N })) };
           }
           function C(g, F) {
-            let l = p.resolveParser(F);
+            let l = p2.resolveParser(F);
             return !l.hasPragma || l.hasPragma(g);
           }
           function D(g, F) {
@@ -3884,8 +3927,8 @@ var require_standalone = __commonJS({
             return y.rangeStart > 0 || y.rangeEnd < E.length ? N = B(E, y) : (!y.requirePragma && y.insertPragma && y.printer.insertPragma && !C(E, y) && (E = y.printer.insertPragma(E)), N = S(E, y)), l && (N.formatted = w + N.formatted, N.cursorOffset >= 0 && N.cursorOffset++), N;
           }
           n.exports = { formatWithCursor: D, parse(g, F, l) {
-            let { text: E, options: y } = P(g, v(F)), N = p.parse(E, y);
-            return l && (N.ast = m(N.ast, y)), N;
+            let { text: E, options: y } = P(g, v(F)), N = p2.parse(E, y);
+            return l && (N.ast = m2(N.ast, y)), N;
           }, formatAST(g, F) {
             F = v(F);
             let l = f(g, F);
@@ -3894,7 +3937,7 @@ var require_standalone = __commonJS({
             return D(a(g), Object.assign(Object.assign({}, F), {}, { parser: "__js_expression" })).formatted;
           }, printToDoc(g, F) {
             F = v(F);
-            let { ast: l, text: E } = p.parse(g, F);
+            let { ast: l, text: E } = p2.parse(g, F);
             return A(E, l, F), f(l, F);
           }, printDocToString(g, F) {
             return s(g, v(F));
@@ -3902,8 +3945,8 @@ var require_standalone = __commonJS({
         } }), xm = Z({ "src/common/util-shared.js"(e, n) {
           "use strict";
           re();
-          var { getMaxContinuousCount: t, getStringWidth: s, getAlignmentSize: a, getIndentSize: r, skip: u, skipWhitespace: i, skipSpaces: o, skipNewline: c, skipToLineEnd: v, skipEverythingButNewLine: m, skipInlineComment: d, skipTrailingComment: p, hasNewline: f, hasNewlineInRange: h, hasSpaces: w, isNextLineEmpty: T, isNextLineEmptyAfterIndex: A, isPreviousLineEmpty: S, getNextNonSpaceNonCommentCharacterIndex: B, makeString: I, addLeadingComment: k, addDanglingComment: P, addTrailingComment: C } = Ue();
-          n.exports = { getMaxContinuousCount: t, getStringWidth: s, getAlignmentSize: a, getIndentSize: r, skip: u, skipWhitespace: i, skipSpaces: o, skipNewline: c, skipToLineEnd: v, skipEverythingButNewLine: m, skipInlineComment: d, skipTrailingComment: p, hasNewline: f, hasNewlineInRange: h, hasSpaces: w, isNextLineEmpty: T, isNextLineEmptyAfterIndex: A, isPreviousLineEmpty: S, getNextNonSpaceNonCommentCharacterIndex: B, makeString: I, addLeadingComment: k, addDanglingComment: P, addTrailingComment: C };
+          var { getMaxContinuousCount: t, getStringWidth: s, getAlignmentSize: a, getIndentSize: r, skip: u, skipWhitespace: i, skipSpaces: o, skipNewline: c, skipToLineEnd: v, skipEverythingButNewLine: m2, skipInlineComment: d, skipTrailingComment: p2, hasNewline: f, hasNewlineInRange: h3, hasSpaces: w, isNextLineEmpty: T, isNextLineEmptyAfterIndex: A, isPreviousLineEmpty: S, getNextNonSpaceNonCommentCharacterIndex: B, makeString: I, addLeadingComment: k, addDanglingComment: P, addTrailingComment: C } = Ue();
+          n.exports = { getMaxContinuousCount: t, getStringWidth: s, getAlignmentSize: a, getIndentSize: r, skip: u, skipWhitespace: i, skipSpaces: o, skipNewline: c, skipToLineEnd: v, skipEverythingButNewLine: m2, skipInlineComment: d, skipTrailingComment: p2, hasNewline: f, hasNewlineInRange: h3, hasSpaces: w, isNextLineEmpty: T, isNextLineEmptyAfterIndex: A, isPreviousLineEmpty: S, getNextNonSpaceNonCommentCharacterIndex: B, makeString: I, addLeadingComment: k, addDanglingComment: P, addTrailingComment: C };
         } }), Bt = Z({ "src/utils/create-language.js"(e, n) {
           "use strict";
           re(), n.exports = function(t, s) {
@@ -4020,13 +4063,13 @@ var require_standalone = __commonJS({
               return A >= 48 && A <= 55;
             }
             a = [5760, 8192, 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200, 8201, 8202, 8239, 8287, 12288, 65279];
-            function m(A) {
+            function m2(A) {
               return A === 32 || A === 9 || A === 11 || A === 12 || A === 160 || A >= 5760 && a.indexOf(A) >= 0;
             }
             function d(A) {
               return A === 10 || A === 13 || A === 8232 || A === 8233;
             }
-            function p(A) {
+            function p2(A) {
               if (A <= 65535)
                 return String.fromCharCode(A);
               var S = String.fromCharCode(Math.floor((A - 65536) / 1024) + 55296), B = String.fromCharCode((A - 65536) % 1024 + 56320);
@@ -4037,18 +4080,18 @@ var require_standalone = __commonJS({
             for (u = new Array(128), i = 0; i < 128; ++i)
               u[i] = i >= 97 && i <= 122 || i >= 65 && i <= 90 || i >= 48 && i <= 57 || i === 36 || i === 95;
             function f(A) {
-              return A < 128 ? r[A] : s.NonAsciiIdentifierStart.test(p(A));
+              return A < 128 ? r[A] : s.NonAsciiIdentifierStart.test(p2(A));
             }
-            function h(A) {
-              return A < 128 ? u[A] : s.NonAsciiIdentifierPart.test(p(A));
+            function h3(A) {
+              return A < 128 ? u[A] : s.NonAsciiIdentifierPart.test(p2(A));
             }
             function w(A) {
-              return A < 128 ? r[A] : t.NonAsciiIdentifierStart.test(p(A));
+              return A < 128 ? r[A] : t.NonAsciiIdentifierStart.test(p2(A));
             }
             function T(A) {
-              return A < 128 ? u[A] : t.NonAsciiIdentifierPart.test(p(A));
+              return A < 128 ? u[A] : t.NonAsciiIdentifierPart.test(p2(A));
             }
-            n.exports = { isDecimalDigit: o, isHexDigit: c, isOctalDigit: v, isWhiteSpace: m, isLineTerminator: d, isIdentifierStartES5: f, isIdentifierPartES5: h, isIdentifierStartES6: w, isIdentifierPartES6: T };
+            n.exports = { isDecimalDigit: o, isHexDigit: c, isOctalDigit: v, isWhiteSpace: m2, isLineTerminator: d, isIdentifierStartES5: f, isIdentifierPartES5: h3, isIdentifierStartES6: w, isIdentifierPartES6: T };
           }();
         } }), Tm = Z({ "node_modules/esutils/lib/keyword.js"(e, n) {
           re(), function() {
@@ -4069,11 +4112,11 @@ var require_standalone = __commonJS({
                   return false;
               }
             }
-            function a(f, h) {
-              return !h && f === "yield" ? false : r(f, h);
+            function a(f, h3) {
+              return !h3 && f === "yield" ? false : r(f, h3);
             }
-            function r(f, h) {
-              if (h && s(f))
+            function r(f, h3) {
+              if (h3 && s(f))
                 return true;
               switch (f.length) {
                 case 2:
@@ -4096,34 +4139,34 @@ var require_standalone = __commonJS({
                   return false;
               }
             }
-            function u(f, h) {
-              return f === "null" || f === "true" || f === "false" || a(f, h);
+            function u(f, h3) {
+              return f === "null" || f === "true" || f === "false" || a(f, h3);
             }
-            function i(f, h) {
-              return f === "null" || f === "true" || f === "false" || r(f, h);
+            function i(f, h3) {
+              return f === "null" || f === "true" || f === "false" || r(f, h3);
             }
             function o(f) {
               return f === "eval" || f === "arguments";
             }
             function c(f) {
-              var h, w, T;
+              var h3, w, T;
               if (f.length === 0 || (T = f.charCodeAt(0), !t.isIdentifierStartES5(T)))
                 return false;
-              for (h = 1, w = f.length; h < w; ++h)
-                if (T = f.charCodeAt(h), !t.isIdentifierPartES5(T))
+              for (h3 = 1, w = f.length; h3 < w; ++h3)
+                if (T = f.charCodeAt(h3), !t.isIdentifierPartES5(T))
                   return false;
               return true;
             }
-            function v(f, h) {
-              return (f - 55296) * 1024 + (h - 56320) + 65536;
+            function v(f, h3) {
+              return (f - 55296) * 1024 + (h3 - 56320) + 65536;
             }
-            function m(f) {
-              var h, w, T, A, S;
+            function m2(f) {
+              var h3, w, T, A, S;
               if (f.length === 0)
                 return false;
-              for (S = t.isIdentifierStartES6, h = 0, w = f.length; h < w; ++h) {
-                if (T = f.charCodeAt(h), 55296 <= T && T <= 56319) {
-                  if (++h, h >= w || (A = f.charCodeAt(h), !(56320 <= A && A <= 57343)))
+              for (S = t.isIdentifierStartES6, h3 = 0, w = f.length; h3 < w; ++h3) {
+                if (T = f.charCodeAt(h3), 55296 <= T && T <= 56319) {
+                  if (++h3, h3 >= w || (A = f.charCodeAt(h3), !(56320 <= A && A <= 57343)))
                     return false;
                   T = v(T, A);
                 }
@@ -4133,13 +4176,13 @@ var require_standalone = __commonJS({
               }
               return true;
             }
-            function d(f, h) {
-              return c(f) && !u(f, h);
+            function d(f, h3) {
+              return c(f) && !u(f, h3);
             }
-            function p(f, h) {
-              return m(f) && !i(f, h);
+            function p2(f, h3) {
+              return m2(f) && !i(f, h3);
             }
-            n.exports = { isKeywordES5: a, isKeywordES6: r, isReservedWordES5: u, isReservedWordES6: i, isRestrictedWord: o, isIdentifierNameES5: c, isIdentifierNameES6: m, isIdentifierES5: d, isIdentifierES6: p };
+            n.exports = { isKeywordES5: a, isKeywordES6: r, isReservedWordES5: u, isReservedWordES6: i, isRestrictedWord: o, isIdentifierNameES5: c, isIdentifierNameES6: m2, isIdentifierES5: d, isIdentifierES6: p2 };
           }();
         } }), Bm = Z({ "node_modules/esutils/lib/utils.js"(e) {
           re(), function() {
@@ -4172,10 +4215,10 @@ var require_standalone = __commonJS({
         } }), Ke = Z({ "src/language-js/utils/index.js"(e, n) {
           "use strict";
           re();
-          var t = Bm().keyword.isIdentifierNameES5, { getLast: s, hasNewline: a, skipWhitespace: r, isNonEmptyArray: u, isNextLineEmptyAfterIndex: i, getStringWidth: o } = Ue(), { locStart: c, locEnd: v, hasSameLocStart: m } = st(), d = It(), p = Nm(), f = "(?:(?=.)\\s)", h = new RegExp("^".concat(f, "*:")), w = new RegExp("^".concat(f, "*::"));
+          var t = Bm().keyword.isIdentifierNameES5, { getLast: s, hasNewline: a, skipWhitespace: r, isNonEmptyArray: u, isNextLineEmptyAfterIndex: i, getStringWidth: o } = Ue(), { locStart: c, locEnd: v, hasSameLocStart: m2 } = st(), d = It(), p2 = Nm(), f = "(?:(?=.)\\s)", h3 = new RegExp("^".concat(f, "*:")), w = new RegExp("^".concat(f, "*::"));
           function T(O) {
             var fe, Te;
-            return ((fe = O.extra) === null || fe === void 0 ? void 0 : fe.parenthesized) && d((Te = O.trailingComments) === null || Te === void 0 ? void 0 : Te[0]) && h.test(O.trailingComments[0].value);
+            return ((fe = O.extra) === null || fe === void 0 ? void 0 : fe.parenthesized) && d((Te = O.trailingComments) === null || Te === void 0 ? void 0 : Te[0]) && h3.test(O.trailingComments[0].value);
           }
           function A(O) {
             let fe = O == null ? void 0 : O[0];
@@ -4250,17 +4293,17 @@ var require_standalone = __commonJS({
             let $e = fe.getParentNode();
             return $e.type === "Program" && $e.body.length === 1;
           }
-          function $(O) {
+          function $2(O) {
             return O.kind === "get" || O.kind === "set";
           }
           function V(O) {
-            return $(O) || m(O, O.value);
+            return $2(O) || m2(O, O.value);
           }
           function q(O) {
             return (O.type === "ObjectTypeProperty" || O.type === "ObjectTypeInternalSlot") && O.value.type === "FunctionTypeAnnotation" && !O.static && !V(O);
           }
           function Y(O) {
-            return (O.type === "TypeAnnotation" || O.type === "TSTypeAnnotation") && O.typeAnnotation.type === "FunctionTypeAnnotation" && !O.static && !m(O, O.typeAnnotation);
+            return (O.type === "TypeAnnotation" || O.type === "TSTypeAnnotation") && O.typeAnnotation.type === "FunctionTypeAnnotation" && !O.static && !m2(O, O.typeAnnotation);
           }
           var H = P(["BinaryExpression", "LogicalExpression", "NGPipeExpression"]);
           function R(O) {
@@ -4276,7 +4319,7 @@ var require_standalone = __commonJS({
           }
           var oe = ["it", "it.only", "it.skip", "describe", "describe.only", "describe.skip", "test", "test.only", "test.skip", "test.step", "test.describe", "test.describe.only", "test.describe.parallel", "test.describe.parallel.only", "test.describe.serial", "test.describe.serial.only", "skip", "xit", "xdescribe", "xtest", "fit", "fdescribe", "ftest"];
           function W(O) {
-            return p(O, oe);
+            return p2(O, oe);
           }
           function X(O, fe) {
             if (O.type !== "CallExpression")
@@ -4499,11 +4542,11 @@ var require_standalone = __commonJS({
             return Boolean(O.__isUsingHackPipeline);
           }
           var pt = Symbol("ifWithoutBlockAndSameLineComment");
-          n.exports = { getFunctionParameters: Se, iterateFunctionParametersPath: Qe, getCallArguments: Xe, iterateCallArgumentsPath: _e, hasRestParameter: Be, getLeftSide: I, getLeftSidePathName: k, getParentExportDeclaration: g, getTypeScriptMappedTypeModifier: G, hasFlowAnnotationComment: A, hasFlowShorthandAnnotationComment: T, hasLeadingOwnLineComment: U, hasNakedLeftSide: B, hasNode: S, hasIgnoreComment: be, hasNodeIgnoreComment: Re, identity: K, isBinaryish: H, isCallLikeExpression: ze, isEnabledHackPipeline: tt, isLineComment: C, isPrettierIgnoreComment: je, isCallExpression: ue, isMemberExpression: De, isExportDeclaration: D, isFlowAnnotationComment: z, isFunctionCompositionArgs: pe, isFunctionNotation: V, isFunctionOrArrowExpression: x, isGetterOrSetter: $, isJestEachTemplateLiteral: Ae, isJsxNode: M, isLiteral: F, isLongCurriedCallExpression: de, isSimpleCallArgument: ae, isMemberish: R, isNumericLiteral: l, isSignedNumericLiteral: E, isObjectProperty: nt, isObjectType: N, isObjectTypePropertyAFunction: q, isSimpleType: ee, isSimpleNumber: ge, isSimpleTemplateLiteral: ie, isStringLiteral: y, isStringPropSafeToUnquote: le, isTemplateOnItsOwnLine: ke, isTestCall: X, isTheOnlyJsxElementInMarkdown: j, isTSXFile: he, isTypeAnnotationAFunction: Y, isNextLineEmpty: Me, needsHardlineAfterDanglingComment: ce, rawText: ve, shouldPrintComma: ye, isBitwiseOperator: We, shouldFlatten: _, startsWithNoLookaheadToken: Ce, getPrecedence: ne, hasComment: se, getComments: He, CommentCheckFlags: Le, markerForIfWithoutBlockAndSameLineComment: pt };
+          n.exports = { getFunctionParameters: Se, iterateFunctionParametersPath: Qe, getCallArguments: Xe, iterateCallArgumentsPath: _e, hasRestParameter: Be, getLeftSide: I, getLeftSidePathName: k, getParentExportDeclaration: g, getTypeScriptMappedTypeModifier: G, hasFlowAnnotationComment: A, hasFlowShorthandAnnotationComment: T, hasLeadingOwnLineComment: U, hasNakedLeftSide: B, hasNode: S, hasIgnoreComment: be, hasNodeIgnoreComment: Re, identity: K, isBinaryish: H, isCallLikeExpression: ze, isEnabledHackPipeline: tt, isLineComment: C, isPrettierIgnoreComment: je, isCallExpression: ue, isMemberExpression: De, isExportDeclaration: D, isFlowAnnotationComment: z, isFunctionCompositionArgs: pe, isFunctionNotation: V, isFunctionOrArrowExpression: x, isGetterOrSetter: $2, isJestEachTemplateLiteral: Ae, isJsxNode: M, isLiteral: F, isLongCurriedCallExpression: de, isSimpleCallArgument: ae, isMemberish: R, isNumericLiteral: l, isSignedNumericLiteral: E, isObjectProperty: nt, isObjectType: N, isObjectTypePropertyAFunction: q, isSimpleType: ee, isSimpleNumber: ge, isSimpleTemplateLiteral: ie, isStringLiteral: y, isStringPropSafeToUnquote: le, isTemplateOnItsOwnLine: ke, isTestCall: X, isTheOnlyJsxElementInMarkdown: j, isTSXFile: he, isTypeAnnotationAFunction: Y, isNextLineEmpty: Me, needsHardlineAfterDanglingComment: ce, rawText: ve, shouldPrintComma: ye, isBitwiseOperator: We, shouldFlatten: _, startsWithNoLookaheadToken: Ce, getPrecedence: ne, hasComment: se, getComments: He, CommentCheckFlags: Le, markerForIfWithoutBlockAndSameLineComment: pt };
         } }), Lt = Z({ "src/language-js/print/template-literal.js"(e, n) {
           "use strict";
           re();
-          var t = it(), { getStringWidth: s, getIndentSize: a } = Ue(), { builders: { join: r, hardline: u, softline: i, group: o, indent: c, align: v, lineSuffixBoundary: m, addAlignmentToDoc: d }, printer: { printDocToString: p }, utils: { mapDoc: f } } = Oe(), { isBinaryish: h, isJestEachTemplateLiteral: w, isSimpleTemplateLiteral: T, hasComment: A, isMemberExpression: S } = Ke();
+          var t = it(), { getStringWidth: s, getIndentSize: a } = Ue(), { builders: { join: r, hardline: u, softline: i, group: o, indent: c, align: v, lineSuffixBoundary: m2, addAlignmentToDoc: d }, printer: { printDocToString: p2 }, utils: { mapDoc: f } } = Oe(), { isBinaryish: h3, isJestEachTemplateLiteral: w, isSimpleTemplateLiteral: T, hasComment: A, isMemberExpression: S } = Ke();
           function B(g, F, l) {
             let E = g.getValue();
             if (E.type === "TemplateLiteral" && w(E, g.getParentNode())) {
@@ -4514,17 +4557,17 @@ var require_standalone = __commonJS({
             let N = "expressions";
             E.type === "TSTemplateLiteralType" && (N = "types");
             let x = [], b = g.map(F, N), L = T(E);
-            return L && (b = b.map((M) => p(M, Object.assign(Object.assign({}, l), {}, { printWidth: Number.POSITIVE_INFINITY })).formatted)), x.push(m, "`"), g.each((M) => {
+            return L && (b = b.map((M) => p2(M, Object.assign(Object.assign({}, l), {}, { printWidth: Number.POSITIVE_INFINITY })).formatted)), x.push(m2, "`"), g.each((M) => {
               let j = M.getName();
               if (x.push(F()), j < b.length) {
-                let { tabWidth: $ } = l, V = M.getValue(), q = a(V.value.raw, $), Y = b[j];
+                let { tabWidth: $2 } = l, V = M.getValue(), q = a(V.value.raw, $2), Y = b[j];
                 if (!L) {
                   let R = E[N][j];
-                  (A(R) || S(R) || R.type === "ConditionalExpression" || R.type === "SequenceExpression" || R.type === "TSAsExpression" || h(R)) && (Y = [c([i, Y]), i]);
+                  (A(R) || S(R) || R.type === "ConditionalExpression" || R.type === "SequenceExpression" || R.type === "TSAsExpression" || h3(R)) && (Y = [c([i, Y]), i]);
                 }
                 let H = q === 0 && V.value.raw.endsWith(`
-`) ? v(Number.NEGATIVE_INFINITY, Y) : d(Y, q, $);
-                x.push(o(["${", H, m, "}"]));
+`) ? v(Number.NEGATIVE_INFINITY, Y) : d(Y, q, $2);
+                x.push(o(["${", H, m2, "}"]));
               }
             }, "quasis"), x.push("`"), x;
           }
@@ -4534,23 +4577,23 @@ var require_standalone = __commonJS({
               F.__inJestEach = true;
               let N = g.map(l, "expressions");
               F.__inJestEach = false;
-              let x = [], b = N.map((V) => "${" + p(V, Object.assign(Object.assign({}, F), {}, { printWidth: Number.POSITIVE_INFINITY, endOfLine: "lf" })).formatted + "}"), L = [{ hasLineBreak: false, cells: [] }];
+              let x = [], b = N.map((V) => "${" + p2(V, Object.assign(Object.assign({}, F), {}, { printWidth: Number.POSITIVE_INFINITY, endOfLine: "lf" })).formatted + "}"), L = [{ hasLineBreak: false, cells: [] }];
               for (let V = 1; V < E.quasis.length; V++) {
                 let q = t(L), Y = b[V - 1];
                 q.cells.push(Y), Y.includes(`
 `) && (q.hasLineBreak = true), E.quasis[V].value.raw.includes(`
 `) && L.push({ hasLineBreak: false, cells: [] });
               }
-              let M = Math.max(y.length, ...L.map((V) => V.cells.length)), j = Array.from({ length: M }).fill(0), $ = [{ cells: y }, ...L.filter((V) => V.cells.length > 0)];
-              for (let { cells: V } of $.filter((q) => !q.hasLineBreak))
+              let M = Math.max(y.length, ...L.map((V) => V.cells.length)), j = Array.from({ length: M }).fill(0), $2 = [{ cells: y }, ...L.filter((V) => V.cells.length > 0)];
+              for (let { cells: V } of $2.filter((q) => !q.hasLineBreak))
                 for (let [q, Y] of V.entries())
                   j[q] = Math.max(j[q], s(Y));
-              return x.push(m, "`", c([u, r(u, $.map((V) => r(" | ", V.cells.map((q, Y) => V.hasLineBreak ? q : q + " ".repeat(j[Y] - s(q))))))]), u, "`"), x;
+              return x.push(m2, "`", c([u, r(u, $2.map((V) => r(" | ", V.cells.map((q, Y) => V.hasLineBreak ? q : q + " ".repeat(j[Y] - s(q))))))]), u, "`"), x;
             }
           }
           function k(g, F) {
             let l = g.getValue(), E = F();
-            return A(l) && (E = o([c([i, E]), i])), ["${", E, m, "}"];
+            return A(l) && (E = o([c([i, E]), i])), ["${", E, m2, "}"];
           }
           function P(g, F) {
             return g.map((l) => k(l, F), "expressions");
@@ -4566,11 +4609,11 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { builders: { indent: t, softline: s, literalline: a, dedentToRoot: r } } = Oe(), { escapeTemplateCharacters: u } = Lt();
-          function i(c, v, m) {
-            let p = c.getValue().quasis[0].value.raw.replace(/((?:\\\\)*)\\`/g, (T, A) => "\\".repeat(A.length / 2) + "`"), f = o(p), h = f !== "";
-            h && (p = p.replace(new RegExp("^".concat(f), "gm"), ""));
-            let w = u(m(p, { parser: "markdown", __inJsTemplate: true }, { stripTrailingHardline: true }), true);
-            return ["`", h ? t([s, w]) : [a, r(w)], s, "`"];
+          function i(c, v, m2) {
+            let p2 = c.getValue().quasis[0].value.raw.replace(/((?:\\\\)*)\\`/g, (T, A) => "\\".repeat(A.length / 2) + "`"), f = o(p2), h3 = f !== "";
+            h3 && (p2 = p2.replace(new RegExp("^".concat(f), "gm"), ""));
+            let w = u(m2(p2, { parser: "markdown", __inJsTemplate: true }, { stripTrailingHardline: true }), true);
+            return ["`", h3 ? t([s, w]) : [a, r(w)], s, "`"];
           }
           function o(c) {
             let v = c.match(/^([^\S\n]*)\S/m);
@@ -4581,48 +4624,48 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { isNonEmptyArray: t } = Ue(), { builders: { indent: s, hardline: a, softline: r }, utils: { mapDoc: u, replaceEndOfLine: i, cleanDoc: o } } = Oe(), { printTemplateExpressions: c } = Lt();
-          function v(p, f, h) {
-            let w = p.getValue(), T = w.quasis.map((k) => k.value.raw), A = 0, S = T.reduce((k, P, C) => C === 0 ? P : k + "@prettier-placeholder-" + A++ + "-id" + P, ""), B = h(S, { parser: "scss" }, { stripTrailingHardline: true }), I = c(p, f);
-            return m(B, w, I);
+          function v(p2, f, h3) {
+            let w = p2.getValue(), T = w.quasis.map((k) => k.value.raw), A = 0, S = T.reduce((k, P, C) => C === 0 ? P : k + "@prettier-placeholder-" + A++ + "-id" + P, ""), B = h3(S, { parser: "scss" }, { stripTrailingHardline: true }), I = c(p2, f);
+            return m2(B, w, I);
           }
-          function m(p, f, h) {
+          function m2(p2, f, h3) {
             if (f.quasis.length === 1 && !f.quasis[0].value.raw.trim())
               return "``";
-            let T = d(p, h);
+            let T = d(p2, h3);
             if (!T)
               throw new Error("Couldn't insert all the expressions");
             return ["`", s([a, T]), r, "`"];
           }
-          function d(p, f) {
+          function d(p2, f) {
             if (!t(f))
-              return p;
-            let h = 0, w = u(o(p), (T) => typeof T != "string" || !T.includes("@prettier-placeholder") ? T : T.split(/@prettier-placeholder-(\d+)-id/).map((A, S) => S % 2 === 0 ? i(A) : (h++, f[A])));
-            return f.length === h ? w : null;
+              return p2;
+            let h3 = 0, w = u(o(p2), (T) => typeof T != "string" || !T.includes("@prettier-placeholder") ? T : T.split(/@prettier-placeholder-(\d+)-id/).map((A, S) => S % 2 === 0 ? i(A) : (h3++, f[A])));
+            return f.length === h3 ? w : null;
           }
           n.exports = v;
         } }), Pm = Z({ "src/language-js/embed/graphql.js"(e, n) {
           "use strict";
           re();
           var { builders: { indent: t, join: s, hardline: a } } = Oe(), { escapeTemplateCharacters: r, printTemplateExpressions: u } = Lt();
-          function i(c, v, m) {
-            let d = c.getValue(), p = d.quasis.length;
-            if (p === 1 && d.quasis[0].value.raw.trim() === "")
+          function i(c, v, m2) {
+            let d = c.getValue(), p2 = d.quasis.length;
+            if (p2 === 1 && d.quasis[0].value.raw.trim() === "")
               return "``";
-            let f = u(c, v), h = [];
-            for (let w = 0; w < p; w++) {
-              let T = d.quasis[w], A = w === 0, S = w === p - 1, B = T.value.cooked, I = B.split(`
+            let f = u(c, v), h3 = [];
+            for (let w = 0; w < p2; w++) {
+              let T = d.quasis[w], A = w === 0, S = w === p2 - 1, B = T.value.cooked, I = B.split(`
 `), k = I.length, P = f[w], C = k > 2 && I[0].trim() === "" && I[1].trim() === "", D = k > 2 && I[k - 1].trim() === "" && I[k - 2].trim() === "", g = I.every((l) => /^\s*(?:#[^\n\r]*)?$/.test(l));
               if (!S && /#[^\n\r]*$/.test(I[k - 1]))
                 return null;
               let F = null;
-              g ? F = o(I) : F = m(B, { parser: "graphql" }, { stripTrailingHardline: true }), F ? (F = r(F, false), !A && C && h.push(""), h.push(F), !S && D && h.push("")) : !A && !S && C && h.push(""), P && h.push(P);
+              g ? F = o(I) : F = m2(B, { parser: "graphql" }, { stripTrailingHardline: true }), F ? (F = r(F, false), !A && C && h3.push(""), h3.push(F), !S && D && h3.push("")) : !A && !S && C && h3.push(""), P && h3.push(P);
             }
-            return ["`", t([a, s(a, h)]), a, "`"];
+            return ["`", t([a, s(a, h3)]), a, "`"];
           }
           function o(c) {
-            let v = [], m = false, d = c.map((p) => p.trim());
-            for (let [p, f] of d.entries())
-              f !== "" && (d[p - 1] === "" && m ? v.push([a, f]) : v.push(f), m = true);
+            let v = [], m2 = false, d = c.map((p2) => p2.trim());
+            for (let [p2, f] of d.entries())
+              f !== "" && (d[p2 - 1] === "" && m2 ? v.push([a, f]) : v.push(f), m2 = true);
             return v.length === 0 ? null : s(a, v);
           }
           n.exports = i;
@@ -4630,13 +4673,13 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { builders: { indent: t, line: s, hardline: a, group: r }, utils: { mapDoc: u } } = Oe(), { printTemplateExpressions: i, uncookTemplateElementValue: o } = Lt(), c = 0;
-          function v(m, d, p, f, h) {
-            let { parser: w } = h, T = m.getValue(), A = c;
+          function v(m2, d, p2, f, h3) {
+            let { parser: w } = h3, T = m2.getValue(), A = c;
             c = c + 1 >>> 0;
-            let S = (E) => "PRETTIER_HTML_PLACEHOLDER_".concat(E, "_").concat(A, "_IN_JS"), B = T.quasis.map((E, y, N) => y === N.length - 1 ? E.value.cooked : E.value.cooked + S(y)).join(""), I = i(m, d);
+            let S = (E) => "PRETTIER_HTML_PLACEHOLDER_".concat(E, "_").concat(A, "_IN_JS"), B = T.quasis.map((E, y, N) => y === N.length - 1 ? E.value.cooked : E.value.cooked + S(y)).join(""), I = i(m2, d);
             if (I.length === 0 && B.trim().length === 0)
               return "``";
-            let k = new RegExp(S("(\\d+)"), "g"), P = 0, C = p(B, { parser: w, __onHtmlRoot(E) {
+            let k = new RegExp(S("(\\d+)"), "g"), P = 0, C = p2(B, { parser: w, __onHtmlRoot(E) {
               P = E.children.length;
             } }, { stripTrailingHardline: true }), D = u(C, (E) => {
               if (typeof E != "string")
@@ -4661,7 +4704,7 @@ var require_standalone = __commonJS({
           re();
           var { hasComment: t, CommentCheckFlags: s, isObjectProperty: a } = Ke(), r = wm(), u = _m(), i = Pm(), o = km();
           function c(C) {
-            if (d(C) || w(C) || T(C) || p(C))
+            if (d(C) || w(C) || T(C) || p2(C))
               return "css";
             if (B(C))
               return "graphql";
@@ -4669,7 +4712,7 @@ var require_standalone = __commonJS({
               return "html";
             if (f(C))
               return "angular";
-            if (m(C))
+            if (m2(C))
               return "markdown";
           }
           function v(C, D, g, F) {
@@ -4688,7 +4731,7 @@ var require_standalone = __commonJS({
                 return o(C, D, g, F, { parser: E });
             }
           }
-          function m(C) {
+          function m2(C) {
             let D = C.getValue(), g = C.getParentNode();
             return g && g.type === "TaggedTemplateExpression" && D.quasis.length === 1 && g.tag.type === "Identifier" && (g.tag.name === "md" || g.tag.name === "markdown");
           }
@@ -4696,13 +4739,13 @@ var require_standalone = __commonJS({
             let D = C.getValue(), g = C.getParentNode(), F = C.getParentNode(1);
             return F && D.quasis && g.type === "JSXExpressionContainer" && F.type === "JSXElement" && F.openingElement.name.name === "style" && F.openingElement.attributes.some((l) => l.name.name === "jsx") || g && g.type === "TaggedTemplateExpression" && g.tag.type === "Identifier" && g.tag.name === "css" || g && g.type === "TaggedTemplateExpression" && g.tag.type === "MemberExpression" && g.tag.object.name === "css" && (g.tag.property.name === "global" || g.tag.property.name === "resolve");
           }
-          function p(C) {
-            return C.match((D) => D.type === "TemplateLiteral", (D, g) => D.type === "ArrayExpression" && g === "elements", (D, g) => a(D) && D.key.type === "Identifier" && D.key.name === "styles" && g === "value", ...h);
+          function p2(C) {
+            return C.match((D) => D.type === "TemplateLiteral", (D, g) => D.type === "ArrayExpression" && g === "elements", (D, g) => a(D) && D.key.type === "Identifier" && D.key.name === "styles" && g === "value", ...h3);
           }
           function f(C) {
-            return C.match((D) => D.type === "TemplateLiteral", (D, g) => a(D) && D.key.type === "Identifier" && D.key.name === "template" && g === "value", ...h);
+            return C.match((D) => D.type === "TemplateLiteral", (D, g) => a(D) && D.key.type === "Identifier" && D.key.name === "template" && g === "value", ...h3);
           }
-          var h = [(C, D) => C.type === "ObjectExpression" && D === "properties", (C, D) => C.type === "CallExpression" && C.callee.type === "Identifier" && C.callee.name === "Component" && D === "arguments", (C, D) => C.type === "Decorator" && D === "expression"];
+          var h3 = [(C, D) => C.type === "ObjectExpression" && D === "properties", (C, D) => C.type === "CallExpression" && C.callee.type === "Identifier" && C.callee.name === "Component" && D === "arguments", (C, D) => C.type === "Decorator" && D === "expression"];
           function w(C) {
             let D = C.getParentNode();
             if (!D || D.type !== "TaggedTemplateExpression")
@@ -4760,33 +4803,33 @@ var require_standalone = __commonJS({
           function r(u, i, o) {
             if (u.type === "Program" && delete i.sourceType, (u.type === "BigIntLiteral" || u.type === "BigIntLiteralTypeAnnotation") && i.value && (i.value = i.value.toLowerCase()), (u.type === "BigIntLiteral" || u.type === "Literal") && i.bigint && (i.bigint = i.bigint.toLowerCase()), u.type === "DecimalLiteral" && (i.value = Number(i.value)), u.type === "Literal" && i.decimal && (i.decimal = Number(i.decimal)), u.type === "EmptyStatement" || u.type === "JSXText" || u.type === "JSXExpressionContainer" && (u.expression.type === "Literal" || u.expression.type === "StringLiteral") && u.expression.value === " ")
               return null;
-            if ((u.type === "Property" || u.type === "ObjectProperty" || u.type === "MethodDefinition" || u.type === "ClassProperty" || u.type === "ClassMethod" || u.type === "PropertyDefinition" || u.type === "TSDeclareMethod" || u.type === "TSPropertySignature" || u.type === "ObjectTypeProperty") && typeof u.key == "object" && u.key && (u.key.type === "Literal" || u.key.type === "NumericLiteral" || u.key.type === "StringLiteral" || u.key.type === "Identifier") && delete i.key, u.type === "JSXElement" && u.openingElement.name.name === "style" && u.openingElement.attributes.some((m) => m.name.name === "jsx"))
-              for (let { type: m, expression: d } of i.children)
-                m === "JSXExpressionContainer" && d.type === "TemplateLiteral" && a(d);
+            if ((u.type === "Property" || u.type === "ObjectProperty" || u.type === "MethodDefinition" || u.type === "ClassProperty" || u.type === "ClassMethod" || u.type === "PropertyDefinition" || u.type === "TSDeclareMethod" || u.type === "TSPropertySignature" || u.type === "ObjectTypeProperty") && typeof u.key == "object" && u.key && (u.key.type === "Literal" || u.key.type === "NumericLiteral" || u.key.type === "StringLiteral" || u.key.type === "Identifier") && delete i.key, u.type === "JSXElement" && u.openingElement.name.name === "style" && u.openingElement.attributes.some((m2) => m2.name.name === "jsx"))
+              for (let { type: m2, expression: d } of i.children)
+                m2 === "JSXExpressionContainer" && d.type === "TemplateLiteral" && a(d);
             u.type === "JSXAttribute" && u.name.name === "css" && u.value.type === "JSXExpressionContainer" && u.value.expression.type === "TemplateLiteral" && a(i.value.expression), u.type === "JSXAttribute" && u.value && u.value.type === "Literal" && /["']|&quot;|&apos;/.test(u.value.value) && (i.value.value = i.value.value.replace(/["']|&quot;|&apos;/g, '"'));
             let c = u.expression || u.callee;
             if (u.type === "Decorator" && c.type === "CallExpression" && c.callee.name === "Component" && c.arguments.length === 1) {
-              let m = u.expression.arguments[0].properties;
-              for (let [d, p] of i.expression.arguments[0].properties.entries())
-                switch (m[d].key.name) {
+              let m2 = u.expression.arguments[0].properties;
+              for (let [d, p2] of i.expression.arguments[0].properties.entries())
+                switch (m2[d].key.name) {
                   case "styles":
-                    p.value.type === "ArrayExpression" && a(p.value.elements[0]);
+                    p2.value.type === "ArrayExpression" && a(p2.value.elements[0]);
                     break;
                   case "template":
-                    p.value.type === "TemplateLiteral" && a(p.value);
+                    p2.value.type === "TemplateLiteral" && a(p2.value);
                     break;
                 }
             }
             if (u.type === "TaggedTemplateExpression" && (u.tag.type === "MemberExpression" || u.tag.type === "Identifier" && (u.tag.name === "gql" || u.tag.name === "graphql" || u.tag.name === "css" || u.tag.name === "md" || u.tag.name === "markdown" || u.tag.name === "html") || u.tag.type === "CallExpression") && a(i.quasi), u.type === "TemplateLiteral") {
               var v;
-              (((v = u.leadingComments) === null || v === void 0 ? void 0 : v.some((d) => t(d) && ["GraphQL", "HTML"].some((p) => d.value === " ".concat(p, " ")))) || o.type === "CallExpression" && o.callee.name === "graphql" || !u.leadingComments) && a(i);
+              (((v = u.leadingComments) === null || v === void 0 ? void 0 : v.some((d) => t(d) && ["GraphQL", "HTML"].some((p2) => d.value === " ".concat(p2, " ")))) || o.type === "CallExpression" && o.callee.name === "graphql" || !u.leadingComments) && a(i);
             }
             if (u.type === "InterpreterDirective" && (i.value = i.value.trimEnd()), (u.type === "TSIntersectionType" || u.type === "TSUnionType") && u.types.length === 1)
               return i.types[0];
           }
           r.ignoredProperties = s, n.exports = r;
         } }), Ha = {};
-        Ut(Ha, { EOL: () => Pn, arch: () => jm, cpus: () => Ya, default: () => ro, endianness: () => Ga, freemem: () => Xa, getNetworkInterfaces: () => to, hostname: () => Ja, loadavg: () => Ua, networkInterfaces: () => eo, platform: () => Om, release: () => Za, tmpDir: () => wn, tmpdir: () => _n, totalmem: () => Ka, type: () => Qa, uptime: () => za });
+        Ut(Ha, { EOL: () => Pn, arch: () => jm, cpus: () => Ya, default: () => ro, endianness: () => Ga, freemem: () => Xa, getNetworkInterfaces: () => to, hostname: () => Ja, loadavg: () => Ua, networkInterfaces: () => eo, platform: () => Om, release: () => Za, tmpDir: () => wn, tmpdir: () => _n2, totalmem: () => Ka, type: () => Qa, uptime: () => za });
         function Ga() {
           if (typeof Sr > "u") {
             var e = new ArrayBuffer(2), n = new Uint8Array(e), t = new Uint16Array(e);
@@ -4836,9 +4879,9 @@ var require_standalone = __commonJS({
         function wn() {
           return "/tmp";
         }
-        var Sr, _n, Pn, ro, qm = mt({ "node-modules-polyfills:os"() {
-          re(), _n = wn, Pn = `
-`, ro = { EOL: Pn, tmpdir: _n, tmpDir: wn, networkInterfaces: eo, getNetworkInterfaces: to, release: Za, type: Qa, cpus: Ya, totalmem: Ka, freemem: Xa, uptime: za, loadavg: Ua, hostname: Ja, endianness: Ga };
+        var Sr, _n2, Pn, ro, qm = mt({ "node-modules-polyfills:os"() {
+          re(), _n2 = wn, Pn = `
+`, ro = { EOL: Pn, tmpdir: _n2, tmpDir: wn, networkInterfaces: eo, getNetworkInterfaces: to, release: Za, type: Qa, cpus: Ya, totalmem: Ka, freemem: Xa, uptime: za, loadavg: Ua, hostname: Ja, endianness: Ga };
         } }), Mm = Z({ "node-modules-polyfills-commonjs:os"(e, n) {
           re();
           var t = (qm(), lt(Ha));
@@ -4867,7 +4910,7 @@ var require_standalone = __commonJS({
 `;
         } }), Vm = Z({ "node_modules/jest-docblock/build/index.js"(e) {
           "use strict";
-          re(), Object.defineProperty(e, "__esModule", { value: true }), e.extract = p, e.parse = h, e.parseWithComments = w, e.print = T, e.strip = f;
+          re(), Object.defineProperty(e, "__esModule", { value: true }), e.extract = p2, e.parse = h3, e.parseWithComments = w, e.print = T, e.strip = f;
           function n() {
             let S = Mm();
             return n = function() {
@@ -4883,8 +4926,8 @@ var require_standalone = __commonJS({
           function s(S) {
             return S && S.__esModule ? S : { default: S };
           }
-          var a = /\*\/$/, r = /^\/\*\*/, u = /^\s*(\/\*\*?(.|\r?\n)*?\*\/)/, i = /(^|\s+)\/\/([^\r\n]*)/g, o = /^(\r?\n)+/, c = /(?:^|\r?\n) *(@[^\r\n]*?) *\r?\n *(?![^@\r\n]*\/\/[^]*)([^@\r\n\s][^@\r\n]+?) *\r?\n/g, v = /(?:^|\r?\n) *@(\S+) *([^\r\n]*)/g, m = /(\r?\n|^) *\* ?/g, d = [];
-          function p(S) {
+          var a = /\*\/$/, r = /^\/\*\*/, u = /^\s*(\/\*\*?(.|\r?\n)*?\*\/)/, i = /(^|\s+)\/\/([^\r\n]*)/g, o = /^(\r?\n)+/, c = /(?:^|\r?\n) *(@[^\r\n]*?) *\r?\n *(?![^@\r\n]*\/\/[^]*)([^@\r\n\s][^@\r\n]+?) *\r?\n/g, v = /(?:^|\r?\n) *@(\S+) *([^\r\n]*)/g, m2 = /(\r?\n|^) *\* ?/g, d = [];
+          function p2(S) {
             let B = S.match(u);
             return B ? B[0].trimLeft() : "";
           }
@@ -4892,12 +4935,12 @@ var require_standalone = __commonJS({
             let B = S.match(u);
             return B && B[0] ? S.substring(B[0].length) : S;
           }
-          function h(S) {
+          function h3(S) {
             return w(S).pragmas;
           }
           function w(S) {
             let B = (0, t().default)(S) || n().EOL;
-            S = S.replace(r, "").replace(a, "").replace(m, "$1");
+            S = S.replace(r, "").replace(a, "").replace(m2, "$1");
             let I = "";
             for (; I !== S; )
               I = S, S = S.replace(c, "".concat(B, "$1 $2").concat(B));
@@ -4940,18 +4983,18 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { parseWithComments: t, strip: s, extract: a, print: r } = Vm(), { normalizeEndOfLine: u } = jn(), i = Wm();
-          function o(m) {
-            let d = i(m);
-            d && (m = m.slice(d.length + 1));
-            let p = a(m), { pragmas: f, comments: h } = t(p);
-            return { shebang: d, text: m, pragmas: f, comments: h };
+          function o(m2) {
+            let d = i(m2);
+            d && (m2 = m2.slice(d.length + 1));
+            let p2 = a(m2), { pragmas: f, comments: h3 } = t(p2);
+            return { shebang: d, text: m2, pragmas: f, comments: h3 };
           }
-          function c(m) {
-            let d = Object.keys(o(m).pragmas);
+          function c(m2) {
+            let d = Object.keys(o(m2).pragmas);
             return d.includes("prettier") || d.includes("format");
           }
-          function v(m) {
-            let { shebang: d, text: p, pragmas: f, comments: h } = o(m), w = s(p), T = r({ pragmas: Object.assign({ format: "" }, f), comments: h.trimStart() });
+          function v(m2) {
+            let { shebang: d, text: p2, pragmas: f, comments: h3 } = o(m2), w = s(p2), T = r({ pragmas: Object.assign({ format: "" }, f), comments: h3.trimStart() });
             return (d ? "".concat(d, `
 `) : "") + u(T) + (w.startsWith(`
 `) ? `
@@ -4963,15 +5006,15 @@ var require_standalone = __commonJS({
         } }), uo = Z({ "src/language-js/comments.js"(e, n) {
           "use strict";
           re();
-          var { getLast: t, hasNewline: s, getNextNonSpaceNonCommentCharacterIndexWithStartIndex: a, getNextNonSpaceNonCommentCharacter: r, hasNewlineInRange: u, addLeadingComment: i, addTrailingComment: o, addDanglingComment: c, getNextNonSpaceNonCommentCharacterIndex: v, isNonEmptyArray: m } = Ue(), { getFunctionParameters: d, isPrettierIgnoreComment: p, isJsxNode: f, hasFlowShorthandAnnotationComment: h, hasFlowAnnotationComment: w, hasIgnoreComment: T, isCallLikeExpression: A, getCallArguments: S, isCallExpression: B, isMemberExpression: I, isObjectProperty: k, isLineComment: P, getComments: C, CommentCheckFlags: D, markerForIfWithoutBlockAndSameLineComment: g } = Ke(), { locStart: F, locEnd: l } = st(), E = It();
+          var { getLast: t, hasNewline: s, getNextNonSpaceNonCommentCharacterIndexWithStartIndex: a, getNextNonSpaceNonCommentCharacter: r, hasNewlineInRange: u, addLeadingComment: i, addTrailingComment: o, addDanglingComment: c, getNextNonSpaceNonCommentCharacterIndex: v, isNonEmptyArray: m2 } = Ue(), { getFunctionParameters: d, isPrettierIgnoreComment: p2, isJsxNode: f, hasFlowShorthandAnnotationComment: h3, hasFlowAnnotationComment: w, hasIgnoreComment: T, isCallLikeExpression: A, getCallArguments: S, isCallExpression: B, isMemberExpression: I, isObjectProperty: k, isLineComment: P, getComments: C, CommentCheckFlags: D, markerForIfWithoutBlockAndSameLineComment: g } = Ke(), { locStart: F, locEnd: l } = st(), E = It();
           function y(me) {
-            return [ve, De, q, j, $, V, Q, Ae, U, ge, Ne, ke, te, ie, G].some((_) => _(me));
+            return [ve, De, q, j, $2, V, Q, Ae, U, ge, Ne, ke, te, ie, G].some((_) => _(me));
           }
           function N(me) {
-            return [M, De, Y, Ne, j, $, V, Q, ie, z, le, ge, de, G, he].some((_) => _(me));
+            return [M, De, Y, Ne, j, $2, V, Q, ie, z, le, ge, de, G, he].some((_) => _(me));
           }
           function x(me) {
-            return [ve, j, $, H, ue, te, ge, X, W, K, G, ae].some((_) => _(me));
+            return [ve, j, $2, H, ue, te, ge, X, W, K, G, ae].some((_) => _(me));
           }
           function b(me, _) {
             let J = (me.body || me.properties).find((ne) => {
@@ -5004,7 +5047,7 @@ var require_standalone = __commonJS({
             }
             return Ee.type === "BlockStatement" ? (b(Ee, _), true) : Ee.type === "IfStatement" ? (L(Ee.consequent, _), true) : ne.consequent === Ee ? (i(Ee, _), true) : false;
           }
-          function $(me) {
+          function $2(me) {
             let { comment: _, precedingNode: J, enclosingNode: ne, followingNode: Ee, text: We } = me;
             return (ne == null ? void 0 : ne.type) !== "WhileStatement" || !Ee ? false : r(We, _, l) === ")" ? (o(J, _), true) : Ee.type === "BlockStatement" ? (b(Ee, _), true) : ne.body === Ee ? (i(Ee, _), true) : false;
           }
@@ -5028,7 +5071,7 @@ var require_standalone = __commonJS({
           function Q(me) {
             let { comment: _, precedingNode: J, enclosingNode: ne, followingNode: Ee } = me;
             if (R.has(ne == null ? void 0 : ne.type)) {
-              if (m(ne.decorators) && !(Ee && Ee.type === "Decorator"))
+              if (m2(ne.decorators) && !(Ee && Ee.type === "Decorator"))
                 return o(t(ne.decorators), _), true;
               if (ne.body && Ee === ne.body)
                 return b(ne.body, _), true;
@@ -5094,7 +5137,7 @@ var require_standalone = __commonJS({
           }
           function U(me) {
             let { comment: _, precedingNode: J, enclosingNode: ne, followingNode: Ee } = me;
-            return (ne == null ? void 0 : ne.type) === "UnionTypeAnnotation" || (ne == null ? void 0 : ne.type) === "TSUnionType" ? (p(_) && (Ee.prettierIgnore = true, _.unignore = true), J ? (o(J, _), true) : false) : (((Ee == null ? void 0 : Ee.type) === "UnionTypeAnnotation" || (Ee == null ? void 0 : Ee.type) === "TSUnionType") && p(_) && (Ee.types[0].prettierIgnore = true, _.unignore = true), false);
+            return (ne == null ? void 0 : ne.type) === "UnionTypeAnnotation" || (ne == null ? void 0 : ne.type) === "TSUnionType" ? (p2(_) && (Ee.prettierIgnore = true, _.unignore = true), J ? (o(J, _), true) : false) : (((Ee == null ? void 0 : Ee.type) === "UnionTypeAnnotation" || (Ee == null ? void 0 : Ee.type) === "TSUnionType") && p2(_) && (Ee.types[0].prettierIgnore = true, _.unignore = true), false);
           }
           function le(me) {
             let { comment: _, enclosingNode: J } = me;
@@ -5102,7 +5145,7 @@ var require_standalone = __commonJS({
           }
           function ge(me) {
             let { comment: _, enclosingNode: J, followingNode: ne, ast: Ee, isLastComment: We } = me;
-            return Ee && Ee.body && Ee.body.length === 0 ? (We ? c(Ee, _) : i(Ee, _), true) : (J == null ? void 0 : J.type) === "Program" && (J == null ? void 0 : J.body.length) === 0 && !m(J.directives) ? (We ? c(J, _) : i(J, _), true) : (ne == null ? void 0 : ne.type) === "Program" && (ne == null ? void 0 : ne.body.length) === 0 && (J == null ? void 0 : J.type) === "ModuleExpression" ? (c(ne, _), true) : false;
+            return Ee && Ee.body && Ee.body.length === 0 ? (We ? c(Ee, _) : i(Ee, _), true) : (J == null ? void 0 : J.type) === "Program" && (J == null ? void 0 : J.body.length) === 0 && !m2(J.directives) ? (We ? c(J, _) : i(J, _), true) : (ne == null ? void 0 : ne.type) === "Program" && (ne == null ? void 0 : ne.body.length) === 0 && (J == null ? void 0 : J.type) === "ModuleExpression" ? (c(ne, _), true) : false;
           }
           function Ae(me) {
             let { comment: _, enclosingNode: J } = me;
@@ -5130,7 +5173,7 @@ var require_standalone = __commonJS({
           }
           function ve(me) {
             let { comment: _, enclosingNode: J, followingNode: ne } = me;
-            if (p(_) && (J == null ? void 0 : J.type) === "TSMappedType" && (ne == null ? void 0 : ne.type) === "TSTypeParameter" && ne.constraint)
+            if (p2(_) && (J == null ? void 0 : J.type) === "TSMappedType" && (ne == null ? void 0 : ne.type) === "TSTypeParameter" && ne.constraint)
               return J.prettierIgnore = true, _.unignore = true, true;
           }
           function K(me) {
@@ -5145,7 +5188,7 @@ var require_standalone = __commonJS({
             return me.type === "ArrowFunctionExpression" || me.type === "FunctionExpression" || me.type === "FunctionDeclaration" || me.type === "ObjectMethod" || me.type === "ClassMethod" || me.type === "TSDeclareFunction" || me.type === "TSCallSignatureDeclaration" || me.type === "TSConstructSignatureDeclaration" || me.type === "TSMethodSignature" || me.type === "TSConstructorType" || me.type === "TSFunctionType" || me.type === "TSDeclareMethod";
           }
           function Ce(me, _) {
-            if ((_.parser === "typescript" || _.parser === "flow" || _.parser === "acorn" || _.parser === "espree" || _.parser === "meriyah" || _.parser === "__babel_estree") && me.type === "MethodDefinition" && me.value && me.value.type === "FunctionExpression" && d(me.value).length === 0 && !me.value.returnType && !m(me.value.typeParameters) && me.value.body)
+            if ((_.parser === "typescript" || _.parser === "flow" || _.parser === "acorn" || _.parser === "espree" || _.parser === "meriyah" || _.parser === "__babel_estree") && me.type === "MethodDefinition" && me.value && me.value.type === "FunctionExpression" && d(me.value).length === 0 && !me.value.returnType && !m2(me.value.typeParameters) && me.value.body)
               return [...me.decorators || [], me.key, me.value.body];
           }
           function Ie(me) {
@@ -5153,13 +5196,13 @@ var require_standalone = __commonJS({
           }
           function Fe(me) {
             let _ = me.getValue(), J = me.getParentNode(), ne = (Ee) => w(C(Ee, D.Leading)) || w(C(Ee, D.Trailing));
-            return (_ && (f(_) || h(_) || B(J) && ne(_)) || J && (J.type === "JSXSpreadAttribute" || J.type === "JSXSpreadChild" || J.type === "UnionTypeAnnotation" || J.type === "TSUnionType" || (J.type === "ClassDeclaration" || J.type === "ClassExpression") && J.superClass === _)) && (!T(me) || J.type === "UnionTypeAnnotation" || J.type === "TSUnionType");
+            return (_ && (f(_) || h3(_) || B(J) && ne(_)) || J && (J.type === "JSXSpreadAttribute" || J.type === "JSXSpreadChild" || J.type === "UnionTypeAnnotation" || J.type === "TSUnionType" || (J.type === "ClassDeclaration" || J.type === "ClassExpression") && J.superClass === _)) && (!T(me) || J.type === "UnionTypeAnnotation" || J.type === "TSUnionType");
           }
           n.exports = { handleOwnLineComment: y, handleEndOfLineComment: N, handleRemainingComment: x, isTypeCastComment: Ie, getCommentChildNodes: Ce, willPrintOwnComments: Fe };
         } }), jt = Z({ "src/language-js/needs-parens.js"(e, n) {
           "use strict";
           re();
-          var t = it(), s = Rn(), { getFunctionParameters: a, getLeftSidePathName: r, hasFlowShorthandAnnotationComment: u, hasNakedLeftSide: i, hasNode: o, isBitwiseOperator: c, startsWithNoLookaheadToken: v, shouldFlatten: m, getPrecedence: d, isCallExpression: p, isMemberExpression: f, isObjectProperty: h } = Ke();
+          var t = it(), s = Rn(), { getFunctionParameters: a, getLeftSidePathName: r, hasFlowShorthandAnnotationComment: u, hasNakedLeftSide: i, hasNode: o, isBitwiseOperator: c, startsWithNoLookaheadToken: v, shouldFlatten: m2, getPrecedence: d, isCallExpression: p2, isMemberExpression: f, isObjectProperty: h3 } = Ke();
           function w(P, C) {
             let D = P.getParentNode();
             if (!D)
@@ -5294,7 +5337,7 @@ var require_standalone = __commonJS({
                     if (!l && E !== "TSTypeAssertion")
                       return true;
                     let y = d(l), N = D.operator, x = d(N);
-                    return x > y || g === "right" && x === y || x === y && !m(N, l) ? true : x < y && l === "%" ? N === "+" || N === "-" : !!c(N);
+                    return x > y || g === "right" && x === y || x === y && !m2(N, l) ? true : x < y && l === "%" ? N === "+" || N === "-" : !!c(N);
                   }
                   default:
                     return false;
@@ -5493,10 +5536,10 @@ var require_standalone = __commonJS({
               case "BindExpression":
                 return g === "callee" && (D.type === "BindExpression" || D.type === "NewExpression") || g === "object" && f(D);
               case "NGPipeExpression":
-                return !(D.type === "NGRoot" || D.type === "NGMicrosyntaxExpression" || D.type === "ObjectProperty" && !(F.extra && F.extra.parenthesized) || D.type === "ArrayExpression" || p(D) && D.arguments[g] === F || g === "right" && D.type === "NGPipeExpression" || g === "property" && D.type === "MemberExpression" || D.type === "AssignmentExpression");
+                return !(D.type === "NGRoot" || D.type === "NGMicrosyntaxExpression" || D.type === "ObjectProperty" && !(F.extra && F.extra.parenthesized) || D.type === "ArrayExpression" || p2(D) && D.arguments[g] === F || g === "right" && D.type === "NGPipeExpression" || g === "property" && D.type === "MemberExpression" || D.type === "AssignmentExpression");
               case "JSXFragment":
               case "JSXElement":
-                return g === "callee" || g === "left" && D.type === "BinaryExpression" && D.operator === "<" || D.type !== "ArrayExpression" && D.type !== "ArrowFunctionExpression" && D.type !== "AssignmentExpression" && D.type !== "AssignmentPattern" && D.type !== "BinaryExpression" && D.type !== "NewExpression" && D.type !== "ConditionalExpression" && D.type !== "ExpressionStatement" && D.type !== "JsExpressionRoot" && D.type !== "JSXAttribute" && D.type !== "JSXElement" && D.type !== "JSXExpressionContainer" && D.type !== "JSXFragment" && D.type !== "LogicalExpression" && !p(D) && !h(D) && D.type !== "ReturnStatement" && D.type !== "ThrowStatement" && D.type !== "TypeCastExpression" && D.type !== "VariableDeclarator" && D.type !== "YieldExpression";
+                return g === "callee" || g === "left" && D.type === "BinaryExpression" && D.operator === "<" || D.type !== "ArrayExpression" && D.type !== "ArrowFunctionExpression" && D.type !== "AssignmentExpression" && D.type !== "AssignmentPattern" && D.type !== "BinaryExpression" && D.type !== "NewExpression" && D.type !== "ConditionalExpression" && D.type !== "ExpressionStatement" && D.type !== "JsExpressionRoot" && D.type !== "JSXAttribute" && D.type !== "JSXElement" && D.type !== "JSXExpressionContainer" && D.type !== "JSXFragment" && D.type !== "LogicalExpression" && !p2(D) && !h3(D) && D.type !== "ReturnStatement" && D.type !== "ThrowStatement" && D.type !== "TypeCastExpression" && D.type !== "VariableDeclarator" && D.type !== "YieldExpression";
               case "TypeAnnotation":
                 return g === "returnType" && D.type === "ArrowFunctionExpression" && S(F);
             }
@@ -5581,16 +5624,16 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { builders: { join: t, line: s, group: a, softline: r, indent: u } } = Oe();
-          function i(c, v, m) {
+          function i(c, v, m2) {
             let d = c.getValue();
             if (v.__onHtmlBindingRoot && c.getName() === null && v.__onHtmlBindingRoot(d, v), d.type === "File") {
               if (v.__isVueForBindingLeft)
-                return c.call((p) => {
-                  let f = t([",", s], p.map(m, "params")), { params: h } = p.getValue();
-                  return h.length === 1 ? f : ["(", u([r, a(f)]), r, ")"];
+                return c.call((p2) => {
+                  let f = t([",", s], p2.map(m2, "params")), { params: h3 } = p2.getValue();
+                  return h3.length === 1 ? f : ["(", u([r, a(f)]), r, ")"];
                 }, "program", "body", 0);
               if (v.__isVueBindings)
-                return c.call((p) => t([",", s], p.map(m, "params")), "program", "body", 0);
+                return c.call((p2) => t([",", s], p2.map(m2, "params")), "program", "body", 0);
             }
           }
           function o(c) {
@@ -5613,25 +5656,25 @@ var require_standalone = __commonJS({
         } }), Jn = Z({ "src/language-js/print/binaryish.js"(e, n) {
           "use strict";
           re();
-          var { printComments: t } = et(), { getLast: s } = Ue(), { builders: { join: a, line: r, softline: u, group: i, indent: o, align: c, ifBreak: v, indentIfBreak: m }, utils: { cleanDoc: d, getDocParts: p, isConcat: f } } = Oe(), { hasLeadingOwnLineComment: h, isBinaryish: w, isJsxNode: T, shouldFlatten: A, hasComment: S, CommentCheckFlags: B, isCallExpression: I, isMemberExpression: k, isObjectProperty: P, isEnabledHackPipeline: C } = Ke(), D = 0;
+          var { printComments: t } = et(), { getLast: s } = Ue(), { builders: { join: a, line: r, softline: u, group: i, indent: o, align: c, ifBreak: v, indentIfBreak: m2 }, utils: { cleanDoc: d, getDocParts: p2, isConcat: f } } = Oe(), { hasLeadingOwnLineComment: h3, isBinaryish: w, isJsxNode: T, shouldFlatten: A, hasComment: S, CommentCheckFlags: B, isCallExpression: I, isMemberExpression: k, isObjectProperty: P, isEnabledHackPipeline: C } = Ke(), D = 0;
           function g(E, y, N) {
-            let x = E.getValue(), b = E.getParentNode(), L = E.getParentNode(1), M = x !== b.body && (b.type === "IfStatement" || b.type === "WhileStatement" || b.type === "SwitchStatement" || b.type === "DoWhileStatement"), j = C(y) && x.operator === "|>", $ = F(E, N, y, false, M);
+            let x = E.getValue(), b = E.getParentNode(), L = E.getParentNode(1), M = x !== b.body && (b.type === "IfStatement" || b.type === "WhileStatement" || b.type === "SwitchStatement" || b.type === "DoWhileStatement"), j = C(y) && x.operator === "|>", $2 = F(E, N, y, false, M);
             if (M)
-              return $;
+              return $2;
             if (j)
-              return i($);
+              return i($2);
             if (I(b) && b.callee === x || b.type === "UnaryExpression" || k(b) && !b.computed)
-              return i([o([u, ...$]), u]);
+              return i([o([u, ...$2]), u]);
             let V = b.type === "ReturnStatement" || b.type === "ThrowStatement" || b.type === "JSXExpressionContainer" && L.type === "JSXAttribute" || x.operator !== "|" && b.type === "JsExpressionRoot" || x.type !== "NGPipeExpression" && (b.type === "NGRoot" && y.parser === "__ng_binding" || b.type === "NGMicrosyntaxExpression" && L.type === "NGMicrosyntax" && L.body.length === 1) || x === b.body && b.type === "ArrowFunctionExpression" || x !== b.body && b.type === "ForStatement" || b.type === "ConditionalExpression" && L.type !== "ReturnStatement" && L.type !== "ThrowStatement" && !I(L) || b.type === "TemplateLiteral", q = b.type === "AssignmentExpression" || b.type === "VariableDeclarator" || b.type === "ClassProperty" || b.type === "PropertyDefinition" || b.type === "TSAbstractPropertyDefinition" || b.type === "ClassPrivateProperty" || P(b), Y = w(x.left) && A(x.operator, x.left.operator);
             if (V || l(x) && !Y || !l(x) && q)
-              return i($);
-            if ($.length === 0)
+              return i($2);
+            if ($2.length === 0)
               return "";
-            let H = T(x.right), R = $.findIndex((X) => typeof X != "string" && !Array.isArray(X) && X.type === "group"), Q = $.slice(0, R === -1 ? 1 : R + 1), ee = $.slice(Q.length, H ? -1 : void 0), te = Symbol("logicalChain-" + ++D), oe = i([...Q, o(ee)], { id: te });
+            let H = T(x.right), R = $2.findIndex((X) => typeof X != "string" && !Array.isArray(X) && X.type === "group"), Q = $2.slice(0, R === -1 ? 1 : R + 1), ee = $2.slice(Q.length, H ? -1 : void 0), te = Symbol("logicalChain-" + ++D), oe = i([...Q, o(ee)], { id: te });
             if (!H)
               return oe;
-            let W = s($);
-            return i([oe, m(W, { groupId: te })]);
+            let W = s($2);
+            return i([oe, m2(W, { groupId: te })]);
           }
           function F(E, y, N, x, b) {
             let L = E.getValue();
@@ -5639,17 +5682,17 @@ var require_standalone = __commonJS({
               return [i(y())];
             let M = [];
             A(L.operator, L.left.operator) ? M = E.call((ee) => F(ee, y, N, true, b), "left") : M.push(i(y("left")));
-            let j = l(L), $ = (L.operator === "|>" || L.type === "NGPipeExpression" || L.operator === "|" && N.parser === "__vue_expression") && !h(N.originalText, L.right), V = L.type === "NGPipeExpression" ? "|" : L.operator, q = L.type === "NGPipeExpression" && L.arguments.length > 0 ? i(o([u, ": ", a([u, ":", v(" ")], E.map(y, "arguments").map((ee) => c(2, i(ee))))])) : "", Y;
+            let j = l(L), $2 = (L.operator === "|>" || L.type === "NGPipeExpression" || L.operator === "|" && N.parser === "__vue_expression") && !h3(N.originalText, L.right), V = L.type === "NGPipeExpression" ? "|" : L.operator, q = L.type === "NGPipeExpression" && L.arguments.length > 0 ? i(o([u, ": ", a([u, ":", v(" ")], E.map(y, "arguments").map((ee) => c(2, i(ee))))])) : "", Y;
             if (j)
               Y = [V, " ", y("right"), q];
             else {
               let te = C(N) && V === "|>" ? E.call((oe) => F(oe, y, N, true, b), "right") : y("right");
-              Y = [$ ? r : "", V, $ ? " " : r, te, q];
+              Y = [$2 ? r : "", V, $2 ? " " : r, te, q];
             }
             let H = E.getParentNode(), R = S(L.left, B.Trailing | B.Line), Q = R || !(b && L.type === "LogicalExpression") && H.type !== L.type && L.left.type !== L.type && L.right.type !== L.type;
-            if (M.push($ ? "" : " ", Q ? i(Y, { shouldBreak: R }) : Y), x && S(L)) {
+            if (M.push($2 ? "" : " ", Q ? i(Y, { shouldBreak: R }) : Y), x && S(L)) {
               let ee = d(t(E, M, N));
-              return f(ee) || ee.type === "fill" ? p(ee) : [ee];
+              return f(ee) || ee.type === "fill" ? p2(ee) : [ee];
             }
             return M;
           }
@@ -5661,44 +5704,44 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { builders: { join: t, line: s, group: a } } = Oe(), { hasNode: r, hasComment: u, getComments: i } = Ke(), { printBinaryishExpression: o } = Jn();
-          function c(d, p, f) {
-            let h = d.getValue();
-            if (!!h.type.startsWith("NG"))
-              switch (h.type) {
+          function c(d, p2, f) {
+            let h3 = d.getValue();
+            if (!!h3.type.startsWith("NG"))
+              switch (h3.type) {
                 case "NGRoot":
-                  return [f("node"), u(h.node) ? " //" + i(h.node)[0].value.trimEnd() : ""];
+                  return [f("node"), u(h3.node) ? " //" + i(h3.node)[0].value.trimEnd() : ""];
                 case "NGPipeExpression":
-                  return o(d, p, f);
+                  return o(d, p2, f);
                 case "NGChainedExpression":
-                  return a(t([";", s], d.map((w) => m(w) ? f() : ["(", f(), ")"], "expressions")));
+                  return a(t([";", s], d.map((w) => m2(w) ? f() : ["(", f(), ")"], "expressions")));
                 case "NGEmptyExpression":
                   return "";
                 case "NGQuotedExpression":
-                  return [h.prefix, ": ", h.value.trim()];
+                  return [h3.prefix, ": ", h3.value.trim()];
                 case "NGMicrosyntax":
-                  return d.map((w, T) => [T === 0 ? "" : v(w.getValue(), T, h) ? " " : [";", s], f()], "body");
+                  return d.map((w, T) => [T === 0 ? "" : v(w.getValue(), T, h3) ? " " : [";", s], f()], "body");
                 case "NGMicrosyntaxKey":
-                  return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(h.name) ? h.name : JSON.stringify(h.name);
+                  return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(h3.name) ? h3.name : JSON.stringify(h3.name);
                 case "NGMicrosyntaxExpression":
-                  return [f("expression"), h.alias === null ? "" : [" as ", f("alias")]];
+                  return [f("expression"), h3.alias === null ? "" : [" as ", f("alias")]];
                 case "NGMicrosyntaxKeyedExpression": {
-                  let w = d.getName(), T = d.getParentNode(), A = v(h, w, T) || (w === 1 && (h.key.name === "then" || h.key.name === "else") || w === 2 && h.key.name === "else" && T.body[w - 1].type === "NGMicrosyntaxKeyedExpression" && T.body[w - 1].key.name === "then") && T.body[0].type === "NGMicrosyntaxExpression";
+                  let w = d.getName(), T = d.getParentNode(), A = v(h3, w, T) || (w === 1 && (h3.key.name === "then" || h3.key.name === "else") || w === 2 && h3.key.name === "else" && T.body[w - 1].type === "NGMicrosyntaxKeyedExpression" && T.body[w - 1].key.name === "then") && T.body[0].type === "NGMicrosyntaxExpression";
                   return [f("key"), A ? " " : ": ", f("expression")];
                 }
                 case "NGMicrosyntaxLet":
-                  return ["let ", f("key"), h.value === null ? "" : [" = ", f("value")]];
+                  return ["let ", f("key"), h3.value === null ? "" : [" = ", f("value")]];
                 case "NGMicrosyntaxAs":
                   return [f("key"), " as ", f("alias")];
                 default:
-                  throw new Error("Unknown Angular node type: ".concat(JSON.stringify(h.type), "."));
+                  throw new Error("Unknown Angular node type: ".concat(JSON.stringify(h3.type), "."));
               }
           }
-          function v(d, p, f) {
-            return d.type === "NGMicrosyntaxKeyedExpression" && d.key.name === "of" && p === 1 && f.body[0].type === "NGMicrosyntaxLet" && f.body[0].value === null;
+          function v(d, p2, f) {
+            return d.type === "NGMicrosyntaxKeyedExpression" && d.key.name === "of" && p2 === 1 && f.body[0].type === "NGMicrosyntaxLet" && f.body[0].value === null;
           }
-          function m(d) {
-            return r(d.getValue(), (p) => {
-              switch (p.type) {
+          function m2(d) {
+            return r(d.getValue(), (p2) => {
+              switch (p2.type) {
                 case void 0:
                   return false;
                 case "CallExpression":
@@ -5712,7 +5755,7 @@ var require_standalone = __commonJS({
         } }), Gm = Z({ "src/language-js/print/jsx.js"(e, n) {
           "use strict";
           re();
-          var { printComments: t, printDanglingComments: s } = et(), { builders: { line: a, hardline: r, softline: u, group: i, indent: o, conditionalGroup: c, fill: v, ifBreak: m, lineSuffixBoundary: d, join: p }, utils: { willBreak: f } } = Oe(), { getLast: h, getPreferredQuote: w } = Ue(), { isJsxNode: T, rawText: A, isLiteral: S, isCallExpression: B, isStringLiteral: I, isBinaryish: k, hasComment: P, CommentCheckFlags: C, hasNodeIgnoreComment: D } = Ke(), g = jt(), { willPrintOwnComments: F } = uo(), l = (ie) => ie === "" || ie === a || ie === r || ie === u;
+          var { printComments: t, printDanglingComments: s } = et(), { builders: { line: a, hardline: r, softline: u, group: i, indent: o, conditionalGroup: c, fill: v, ifBreak: m2, lineSuffixBoundary: d, join: p2 }, utils: { willBreak: f } } = Oe(), { getLast: h3, getPreferredQuote: w } = Ue(), { isJsxNode: T, rawText: A, isLiteral: S, isCallExpression: B, isStringLiteral: I, isBinaryish: k, hasComment: P, CommentCheckFlags: C, hasNodeIgnoreComment: D } = Ke(), g = jt(), { willPrintOwnComments: F } = uo(), l = (ie) => ie === "" || ie === a || ie === r || ie === u;
           function E(ie, G, z) {
             let U = ie.getValue();
             if (U.type === "JSXElement" && W(U))
@@ -5721,12 +5764,12 @@ var require_standalone = __commonJS({
             if (U.children.length === 1 && U.children[0].type === "JSXExpressionContainer" && (U.children[0].expression.type === "TemplateLiteral" || U.children[0].expression.type === "TaggedTemplateExpression"))
               return [le, ...ie.map(z, "children"), ge];
             U.children = U.children.map((Fe) => ue(Fe) ? { type: "JSXText", value: " ", raw: " " } : Fe);
-            let Ae = U.children.some(T), Ne = U.children.filter((Fe) => Fe.type === "JSXExpressionContainer").length > 1, ke = U.type === "JSXElement" && U.openingElement.attributes.length > 1, ce = f(le) || Ae || ke || Ne, pe = ie.getParentNode().rootMarker === "mdx", de = G.singleQuote ? "{' '}" : '{" "}', ae = pe ? " " : m([de, u], " "), ve = U.openingElement && U.openingElement.name && U.openingElement.name.name === "fbt", K = y(ie, G, z, ae, ve), he = U.children.some((Fe) => X(Fe));
+            let Ae = U.children.some(T), Ne = U.children.filter((Fe) => Fe.type === "JSXExpressionContainer").length > 1, ke = U.type === "JSXElement" && U.openingElement.attributes.length > 1, ce = f(le) || Ae || ke || Ne, pe = ie.getParentNode().rootMarker === "mdx", de = G.singleQuote ? "{' '}" : '{" "}', ae = pe ? " " : m2([de, u], " "), ve = U.openingElement && U.openingElement.name && U.openingElement.name.name === "fbt", K = y(ie, G, z, ae, ve), he = U.children.some((Fe) => X(Fe));
             for (let Fe = K.length - 2; Fe >= 0; Fe--) {
               let me = K[Fe] === "" && K[Fe + 1] === "", _ = K[Fe] === r && K[Fe + 1] === "" && K[Fe + 2] === r, J = (K[Fe] === u || K[Fe] === r) && K[Fe + 1] === "" && K[Fe + 2] === ae, ne = K[Fe] === ae && K[Fe + 1] === "" && (K[Fe + 2] === u || K[Fe + 2] === r), Ee = K[Fe] === ae && K[Fe + 1] === "" && K[Fe + 2] === ae, We = K[Fe] === u && K[Fe + 1] === "" && K[Fe + 2] === r || K[Fe] === r && K[Fe + 1] === "" && K[Fe + 2] === u;
               _ && he || me || J || Ee || We ? K.splice(Fe, 2) : ne && K.splice(Fe + 1, 2);
             }
-            for (; K.length > 0 && l(h(K)); )
+            for (; K.length > 0 && l(h3(K)); )
               K.pop();
             for (; K.length > 1 && l(K[0]) && l(K[1]); )
               K.shift(), K.shift();
@@ -5773,19 +5816,19 @@ var require_standalone = __commonJS({
                     de.shift();
                   }
                   let ae;
-                  if (h(de) === "" && (de.pop(), ae = de.pop()), de.length === 0)
+                  if (h3(de) === "" && (de.pop(), ae = de.pop()), de.length === 0)
                     return;
                   for (let [ve, K] of de.entries())
                     ve % 2 === 1 ? ge.push(a) : ge.push(K);
                   if (ae !== void 0)
                     if (/\n/.test(ae)) {
                       let ve = ke[Ne + 1];
-                      ge.push(x(le, h(ge), ce, ve));
+                      ge.push(x(le, h3(ge), ce, ve));
                     } else
                       ge.push(U);
                   else {
                     let ve = ke[Ne + 1];
-                    ge.push(N(le, h(ge), ce, ve));
+                    ge.push(N(le, h3(ge), ce, ve));
                   }
                 } else
                   /\n/.test(pe) ? pe.match(/\n/g).length > 1 && ge.push("", r) : ge.push("", U);
@@ -5812,7 +5855,7 @@ var require_standalone = __commonJS({
             if (!U || { ArrayExpression: true, JSXAttribute: true, JSXElement: true, JSXExpressionContainer: true, JSXFragment: true, ExpressionStatement: true, CallExpression: true, OptionalCallExpression: true, ConditionalExpression: true, JsExpressionRoot: true }[U.type])
               return G;
             let ge = ie.match(void 0, (Ne) => Ne.type === "ArrowFunctionExpression", B, (Ne) => Ne.type === "JSXExpressionContainer"), Ae = g(ie, z);
-            return i([Ae ? "" : m("("), o([u, G]), u, Ae ? "" : m(")")], { shouldBreak: ge });
+            return i([Ae ? "" : m2("("), o([u, G]), u, Ae ? "" : m2(")")], { shouldBreak: ge });
           }
           function L(ie, G, z) {
             let U = ie.getValue(), le = [];
@@ -5838,11 +5881,11 @@ var require_standalone = __commonJS({
             if (U.attributes && U.attributes.length === 1 && U.attributes[0].value && I(U.attributes[0].value) && !U.attributes[0].value.value.includes(`
 `) && !le && !P(U.attributes[0]))
               return i(["<", z("name"), z("typeParameters"), " ", ...ie.map(z, "attributes"), U.selfClosing ? " />" : ">"]);
-            let ge = U.attributes.length > 0 && P(h(U.attributes), C.Trailing), Ae = U.attributes.length === 0 && !le || (G.bracketSameLine || G.jsxBracketSameLine) && (!le || U.attributes.length > 0) && !ge, Ne = U.attributes && U.attributes.some((ce) => ce.value && I(ce.value) && ce.value.value.includes(`
+            let ge = U.attributes.length > 0 && P(h3(U.attributes), C.Trailing), Ae = U.attributes.length === 0 && !le || (G.bracketSameLine || G.jsxBracketSameLine) && (!le || U.attributes.length > 0) && !ge, Ne = U.attributes && U.attributes.some((ce) => ce.value && I(ce.value) && ce.value.value.includes(`
 `)), ke = G.singleAttributePerLine && U.attributes.length > 1 ? r : a;
             return i(["<", z("name"), z("typeParameters"), o(ie.map(() => [ke, z()], "attributes")), U.selfClosing ? a : Ae ? ">" : u, U.selfClosing ? "/>" : Ae ? "" : ">"], { shouldBreak: Ne });
           }
-          function $(ie, G, z) {
+          function $2(ie, G, z) {
             let U = ie.getValue(), le = [];
             le.push("</");
             let ge = z("name");
@@ -5876,9 +5919,9 @@ var require_standalone = __commonJS({
                 case "JSXIdentifier":
                   return String(U.name);
                 case "JSXNamespacedName":
-                  return p(":", [z("namespace"), z("name")]);
+                  return p2(":", [z("namespace"), z("name")]);
                 case "JSXMemberExpression":
-                  return p(".", [z("object"), z("property")]);
+                  return p2(".", [z("object"), z("property")]);
                 case "JSXSpreadAttribute":
                   return H(ie, G, z);
                 case "JSXSpreadChild":
@@ -5891,7 +5934,7 @@ var require_standalone = __commonJS({
                 case "JSXOpeningElement":
                   return j(ie, G, z);
                 case "JSXClosingElement":
-                  return $(ie, G, z);
+                  return $2(ie, G, z);
                 case "JSXOpeningFragment":
                 case "JSXClosingFragment":
                   return V(ie, G);
@@ -5938,46 +5981,46 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { isNonEmptyArray: t } = Ue(), { builders: { indent: s, join: a, line: r } } = Oe(), { isFlowAnnotationComment: u } = Ke();
-          function i(h) {
-            let w = h.getValue();
-            return !w.optional || w.type === "Identifier" && w === h.getParentNode().key ? "" : w.type === "OptionalCallExpression" || w.type === "OptionalMemberExpression" && w.computed ? "?." : "?";
+          function i(h3) {
+            let w = h3.getValue();
+            return !w.optional || w.type === "Identifier" && w === h3.getParentNode().key ? "" : w.type === "OptionalCallExpression" || w.type === "OptionalMemberExpression" && w.computed ? "?." : "?";
           }
-          function o(h) {
-            return h.getValue().definite || h.match(void 0, (w, T) => T === "id" && w.type === "VariableDeclarator" && w.definite) ? "!" : "";
+          function o(h3) {
+            return h3.getValue().definite || h3.match(void 0, (w, T) => T === "id" && w.type === "VariableDeclarator" && w.definite) ? "!" : "";
           }
-          function c(h, w, T) {
-            let A = h.getValue();
+          function c(h3, w, T) {
+            let A = h3.getValue();
             return A.typeArguments ? T("typeArguments") : A.typeParameters ? T("typeParameters") : "";
           }
-          function v(h, w, T) {
-            let A = h.getValue();
+          function v(h3, w, T) {
+            let A = h3.getValue();
             if (!A.typeAnnotation)
               return "";
-            let S = h.getParentNode(), B = S.type === "DeclareFunction" && S.id === A;
+            let S = h3.getParentNode(), B = S.type === "DeclareFunction" && S.id === A;
             return u(w.originalText, A.typeAnnotation) ? [" /*: ", T("typeAnnotation"), " */"] : [B ? "" : ": ", T("typeAnnotation")];
           }
-          function m(h, w, T) {
+          function m2(h3, w, T) {
             return ["::", T("callee")];
           }
-          function d(h, w, T) {
-            let A = h.getValue();
-            return t(A.modifiers) ? [a(" ", h.map(T, "modifiers")), " "] : "";
+          function d(h3, w, T) {
+            let A = h3.getValue();
+            return t(A.modifiers) ? [a(" ", h3.map(T, "modifiers")), " "] : "";
           }
-          function p(h, w, T) {
-            return h.type === "EmptyStatement" ? ";" : h.type === "BlockStatement" || T ? [" ", w] : s([r, w]);
+          function p2(h3, w, T) {
+            return h3.type === "EmptyStatement" ? ";" : h3.type === "BlockStatement" || T ? [" ", w] : s([r, w]);
           }
-          function f(h, w, T) {
-            return ["...", T("argument"), v(h, w, T)];
+          function f(h3, w, T) {
+            return ["...", T("argument"), v(h3, w, T)];
           }
-          n.exports = { printOptionalToken: i, printDefiniteToken: o, printFunctionTypeParameters: c, printBindExpressionCallee: m, printTypeScriptModifiers: d, printTypeAnnotation: v, printRestSpread: f, adjustClause: p };
+          n.exports = { printOptionalToken: i, printDefiniteToken: o, printFunctionTypeParameters: c, printBindExpressionCallee: m2, printTypeScriptModifiers: d, printTypeAnnotation: v, printRestSpread: f, adjustClause: p2 };
         } }), Kt = Z({ "src/language-js/print/array.js"(e, n) {
           "use strict";
           re();
-          var { printDanglingComments: t } = et(), { builders: { line: s, softline: a, hardline: r, group: u, indent: i, ifBreak: o, fill: c } } = Oe(), { getLast: v, hasNewline: m } = Ue(), { shouldPrintComma: d, hasComment: p, CommentCheckFlags: f, isNextLineEmpty: h, isNumericLiteral: w, isSignedNumericLiteral: T } = Ke(), { locStart: A } = st(), { printOptionalToken: S, printTypeAnnotation: B } = ct();
+          var { printDanglingComments: t } = et(), { builders: { line: s, softline: a, hardline: r, group: u, indent: i, ifBreak: o, fill: c } } = Oe(), { getLast: v, hasNewline: m2 } = Ue(), { shouldPrintComma: d, hasComment: p2, CommentCheckFlags: f, isNextLineEmpty: h3, isNumericLiteral: w, isSignedNumericLiteral: T } = Ke(), { locStart: A } = st(), { printOptionalToken: S, printTypeAnnotation: B } = ct();
           function I(D, g, F) {
             let l = D.getValue(), E = [], y = l.type === "TupleExpression" ? "#[" : "[", N = "]";
             if (l.elements.length === 0)
-              p(l, f.Dangling) ? E.push(u([y, t(D, g), a, N])) : E.push(y, N);
+              p2(l, f.Dangling) ? E.push(u([y, t(D, g), a, N])) : E.push(y, N);
             else {
               let x = v(l.elements), b = !(x && x.type === "RestElement"), L = x === null, M = Symbol("array"), j = !g.__inJestEach && l.elements.length > 1 && l.elements.every((q, Y, H) => {
                 let R = q && q.type;
@@ -5988,57 +6031,57 @@ var require_standalone = __commonJS({
                   return false;
                 let ee = R === "ArrayExpression" ? "elements" : "properties";
                 return q[ee] && q[ee].length > 1;
-              }), $ = k(l, g), V = b ? L ? "," : d(g) ? $ ? o(",", "", { groupId: M }) : o(",") : "" : "";
-              E.push(u([y, i([a, $ ? C(D, g, F, V) : [P(D, g, "elements", F), V], t(D, g, true)]), a, N], { shouldBreak: j, id: M }));
+              }), $2 = k(l, g), V = b ? L ? "," : d(g) ? $2 ? o(",", "", { groupId: M }) : o(",") : "" : "";
+              E.push(u([y, i([a, $2 ? C(D, g, F, V) : [P(D, g, "elements", F), V], t(D, g, true)]), a, N], { shouldBreak: j, id: M }));
             }
             return E.push(S(D), B(D, g, F)), E;
           }
           function k(D, g) {
-            return D.elements.length > 1 && D.elements.every((F) => F && (w(F) || T(F) && !p(F.argument)) && !p(F, f.Trailing | f.Line, (l) => !m(g.originalText, A(l), { backwards: true })));
+            return D.elements.length > 1 && D.elements.every((F) => F && (w(F) || T(F) && !p2(F.argument)) && !p2(F, f.Trailing | f.Line, (l) => !m2(g.originalText, A(l), { backwards: true })));
           }
           function P(D, g, F, l) {
             let E = [], y = [];
             return D.each((N) => {
-              E.push(y, u(l())), y = [",", s], N.getValue() && h(N.getValue(), g) && y.push(a);
+              E.push(y, u(l())), y = [",", s], N.getValue() && h3(N.getValue(), g) && y.push(a);
             }, F), E;
           }
           function C(D, g, F, l) {
             let E = [];
             return D.each((y, N, x) => {
               let b = N === x.length - 1;
-              E.push([F(), b ? l : ","]), b || E.push(h(y.getValue(), g) ? [r, r] : p(x[N + 1], f.Leading | f.Line) ? r : s);
+              E.push([F(), b ? l : ","]), b || E.push(h3(y.getValue(), g) ? [r, r] : p2(x[N + 1], f.Leading | f.Line) ? r : s);
             }, "elements"), c(E);
           }
           n.exports = { printArray: I, printArrayItems: P, isConciselyPrintedArray: k };
         } }), io = Z({ "src/language-js/print/call-arguments.js"(e, n) {
           "use strict";
           re();
-          var { printDanglingComments: t } = et(), { getLast: s, getPenultimate: a } = Ue(), { getFunctionParameters: r, hasComment: u, CommentCheckFlags: i, isFunctionCompositionArgs: o, isJsxNode: c, isLongCurriedCallExpression: v, shouldPrintComma: m, getCallArguments: d, iterateCallArgumentsPath: p, isNextLineEmpty: f, isCallExpression: h, isStringLiteral: w, isObjectProperty: T } = Ke(), { builders: { line: A, hardline: S, softline: B, group: I, indent: k, conditionalGroup: P, ifBreak: C, breakParent: D }, utils: { willBreak: g } } = Oe(), { ArgExpansionBailout: F } = zt(), { isConciselyPrintedArray: l } = Kt();
-          function E(j, $, V) {
+          var { printDanglingComments: t } = et(), { getLast: s, getPenultimate: a } = Ue(), { getFunctionParameters: r, hasComment: u, CommentCheckFlags: i, isFunctionCompositionArgs: o, isJsxNode: c, isLongCurriedCallExpression: v, shouldPrintComma: m2, getCallArguments: d, iterateCallArgumentsPath: p2, isNextLineEmpty: f, isCallExpression: h3, isStringLiteral: w, isObjectProperty: T } = Ke(), { builders: { line: A, hardline: S, softline: B, group: I, indent: k, conditionalGroup: P, ifBreak: C, breakParent: D }, utils: { willBreak: g } } = Oe(), { ArgExpansionBailout: F } = zt(), { isConciselyPrintedArray: l } = Kt();
+          function E(j, $2, V) {
             let q = j.getValue(), Y = q.type === "ImportExpression", H = d(q);
             if (H.length === 0)
-              return ["(", t(j, $, true), ")"];
+              return ["(", t(j, $2, true), ")"];
             if (b(H))
               return ["(", V(["arguments", 0]), ", ", V(["arguments", 1]), ")"];
             let R = false, Q = false, ee = H.length - 1, te = [];
-            p(j, (ie, G) => {
+            p2(j, (ie, G) => {
               let z = ie.getNode(), U = [V()];
-              G === ee || (f(z, $) ? (G === 0 && (Q = true), R = true, U.push(",", S, S)) : U.push(",", A)), te.push(U);
+              G === ee || (f(z, $2) ? (G === 0 && (Q = true), R = true, U.push(",", S, S)) : U.push(",", A)), te.push(U);
             });
-            let oe = !(Y || q.callee && q.callee.type === "Import") && m($, "all") ? "," : "";
+            let oe = !(Y || q.callee && q.callee.type === "Import") && m2($2, "all") ? "," : "";
             function W() {
               return I(["(", k([A, ...te]), oe, A, ")"], { shouldBreak: true });
             }
             if (R || j.getParentNode().type !== "Decorator" && o(H))
               return W();
-            let X = x(H), ue = N(H, $);
+            let X = x(H), ue = N(H, $2);
             if (X || ue) {
               if (X ? te.slice(1).some(g) : te.slice(0, -1).some(g))
                 return W();
               let ie = [];
               try {
                 j.try(() => {
-                  p(j, (G, z) => {
+                  p2(j, (G, z) => {
                     X && z === 0 && (ie = [[V([], { expandFirstArg: true }), te.length > 1 ? "," : "", Q ? S : A, Q ? S : ""], ...te.slice(1)]), ue && z === ee && (ie = [...te.slice(0, -1), V([], { expandLastArg: true })]);
                   });
                 });
@@ -6053,24 +6096,24 @@ var require_standalone = __commonJS({
             return v(j) ? De : I(De, { shouldBreak: te.some(g) || R });
           }
           function y(j) {
-            let $ = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
-            return j.type === "ObjectExpression" && (j.properties.length > 0 || u(j)) || j.type === "ArrayExpression" && (j.elements.length > 0 || u(j)) || j.type === "TSTypeAssertion" && y(j.expression) || j.type === "TSAsExpression" && y(j.expression) || j.type === "FunctionExpression" || j.type === "ArrowFunctionExpression" && (!j.returnType || !j.returnType.typeAnnotation || j.returnType.typeAnnotation.type !== "TSTypeReference" || L(j.body)) && (j.body.type === "BlockStatement" || j.body.type === "ArrowFunctionExpression" && y(j.body, true) || j.body.type === "ObjectExpression" || j.body.type === "ArrayExpression" || !$ && (h(j.body) || j.body.type === "ConditionalExpression") || c(j.body)) || j.type === "DoExpression" || j.type === "ModuleExpression";
+            let $2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
+            return j.type === "ObjectExpression" && (j.properties.length > 0 || u(j)) || j.type === "ArrayExpression" && (j.elements.length > 0 || u(j)) || j.type === "TSTypeAssertion" && y(j.expression) || j.type === "TSAsExpression" && y(j.expression) || j.type === "FunctionExpression" || j.type === "ArrowFunctionExpression" && (!j.returnType || !j.returnType.typeAnnotation || j.returnType.typeAnnotation.type !== "TSTypeReference" || L(j.body)) && (j.body.type === "BlockStatement" || j.body.type === "ArrowFunctionExpression" && y(j.body, true) || j.body.type === "ObjectExpression" || j.body.type === "ArrayExpression" || !$2 && (h3(j.body) || j.body.type === "ConditionalExpression") || c(j.body)) || j.type === "DoExpression" || j.type === "ModuleExpression";
           }
-          function N(j, $) {
+          function N(j, $2) {
             let V = s(j), q = a(j);
-            return !u(V, i.Leading) && !u(V, i.Trailing) && y(V) && (!q || q.type !== V.type) && (j.length !== 2 || q.type !== "ArrowFunctionExpression" || V.type !== "ArrayExpression") && !(j.length > 1 && V.type === "ArrayExpression" && l(V, $));
+            return !u(V, i.Leading) && !u(V, i.Trailing) && y(V) && (!q || q.type !== V.type) && (j.length !== 2 || q.type !== "ArrowFunctionExpression" || V.type !== "ArrayExpression") && !(j.length > 1 && V.type === "ArrayExpression" && l(V, $2));
           }
           function x(j) {
             if (j.length !== 2)
               return false;
-            let [$, V] = j;
-            return $.type === "ModuleExpression" && M(V) ? true : !u($) && ($.type === "FunctionExpression" || $.type === "ArrowFunctionExpression" && $.body.type === "BlockStatement") && V.type !== "FunctionExpression" && V.type !== "ArrowFunctionExpression" && V.type !== "ConditionalExpression" && !y(V);
+            let [$2, V] = j;
+            return $2.type === "ModuleExpression" && M(V) ? true : !u($2) && ($2.type === "FunctionExpression" || $2.type === "ArrowFunctionExpression" && $2.body.type === "BlockStatement") && V.type !== "FunctionExpression" && V.type !== "ArrowFunctionExpression" && V.type !== "ConditionalExpression" && !y(V);
           }
           function b(j) {
-            return j.length === 2 && j[0].type === "ArrowFunctionExpression" && r(j[0]).length === 0 && j[0].body.type === "BlockStatement" && j[1].type === "ArrayExpression" && !j.some(($) => u($));
+            return j.length === 2 && j[0].type === "ArrowFunctionExpression" && r(j[0]).length === 0 && j[0].body.type === "BlockStatement" && j[1].type === "ArrayExpression" && !j.some(($2) => u($2));
           }
           function L(j) {
-            return j.type === "BlockStatement" && (j.body.some(($) => $.type !== "EmptyStatement") || u(j, i.Dangling));
+            return j.type === "BlockStatement" && (j.body.some(($2) => $2.type !== "EmptyStatement") || u(j, i.Dangling));
           }
           function M(j) {
             return j.type === "ObjectExpression" && j.properties.length === 1 && T(j.properties[0]) && j.properties[0].key.type === "Identifier" && j.properties[0].key.name === "type" && w(j.properties[0].value) && j.properties[0].value.value === "module";
@@ -6080,52 +6123,52 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { builders: { softline: t, group: s, indent: a, label: r } } = Oe(), { isNumericLiteral: u, isMemberExpression: i, isCallExpression: o } = Ke(), { printOptionalToken: c } = ct();
-          function v(d, p, f) {
-            let h = d.getValue(), w = d.getParentNode(), T, A = 0;
+          function v(d, p2, f) {
+            let h3 = d.getValue(), w = d.getParentNode(), T, A = 0;
             do
               T = d.getParentNode(A), A++;
             while (T && (i(T) || T.type === "TSNonNullExpression"));
-            let S = f("object"), B = m(d, p, f), I = T && (T.type === "NewExpression" || T.type === "BindExpression" || T.type === "AssignmentExpression" && T.left.type !== "Identifier") || h.computed || h.object.type === "Identifier" && h.property.type === "Identifier" && !i(w) || (w.type === "AssignmentExpression" || w.type === "VariableDeclarator") && (o(h.object) && h.object.arguments.length > 0 || h.object.type === "TSNonNullExpression" && o(h.object.expression) && h.object.expression.arguments.length > 0 || S.label === "member-chain");
+            let S = f("object"), B = m2(d, p2, f), I = T && (T.type === "NewExpression" || T.type === "BindExpression" || T.type === "AssignmentExpression" && T.left.type !== "Identifier") || h3.computed || h3.object.type === "Identifier" && h3.property.type === "Identifier" && !i(w) || (w.type === "AssignmentExpression" || w.type === "VariableDeclarator") && (o(h3.object) && h3.object.arguments.length > 0 || h3.object.type === "TSNonNullExpression" && o(h3.object.expression) && h3.object.expression.arguments.length > 0 || S.label === "member-chain");
             return r(S.label === "member-chain" ? "member-chain" : "member", [S, I ? B : s(a([t, B]))]);
           }
-          function m(d, p, f) {
-            let h = f("property"), w = d.getValue(), T = c(d);
-            return w.computed ? !w.property || u(w.property) ? [T, "[", h, "]"] : s([T, "[", a([t, h]), t, "]"]) : [T, ".", h];
+          function m2(d, p2, f) {
+            let h3 = f("property"), w = d.getValue(), T = c(d);
+            return w.computed ? !w.property || u(w.property) ? [T, "[", h3, "]"] : s([T, "[", a([t, h3]), t, "]"]) : [T, ".", h3];
           }
-          n.exports = { printMemberExpression: v, printMemberLookup: m };
+          n.exports = { printMemberExpression: v, printMemberLookup: m2 };
         } }), Jm = Z({ "src/language-js/print/member-chain.js"(e, n) {
           "use strict";
           re();
-          var { printComments: t } = et(), { getLast: s, isNextLineEmptyAfterIndex: a, getNextNonSpaceNonCommentCharacterIndex: r } = Ue(), u = jt(), { isCallExpression: i, isMemberExpression: o, isFunctionOrArrowExpression: c, isLongCurriedCallExpression: v, isMemberish: m, isNumericLiteral: d, isSimpleCallArgument: p, hasComment: f, CommentCheckFlags: h, isNextLineEmpty: w } = Ke(), { locEnd: T } = st(), { builders: { join: A, hardline: S, group: B, indent: I, conditionalGroup: k, breakParent: P, label: C }, utils: { willBreak: D } } = Oe(), g = io(), { printMemberLookup: F } = ao(), { printOptionalToken: l, printFunctionTypeParameters: E, printBindExpressionCallee: y } = ct();
+          var { printComments: t } = et(), { getLast: s, isNextLineEmptyAfterIndex: a, getNextNonSpaceNonCommentCharacterIndex: r } = Ue(), u = jt(), { isCallExpression: i, isMemberExpression: o, isFunctionOrArrowExpression: c, isLongCurriedCallExpression: v, isMemberish: m2, isNumericLiteral: d, isSimpleCallArgument: p2, hasComment: f, CommentCheckFlags: h3, isNextLineEmpty: w } = Ke(), { locEnd: T } = st(), { builders: { join: A, hardline: S, group: B, indent: I, conditionalGroup: k, breakParent: P, label: C }, utils: { willBreak: D } } = Oe(), g = io(), { printMemberLookup: F } = ao(), { printOptionalToken: l, printFunctionTypeParameters: E, printBindExpressionCallee: y } = ct();
           function N(x, b, L) {
-            let M = x.getParentNode(), j = !M || M.type === "ExpressionStatement", $ = [];
+            let M = x.getParentNode(), j = !M || M.type === "ExpressionStatement", $2 = [];
             function V(de) {
               let { originalText: ae } = b, ve = r(ae, de, T);
               return ae.charAt(ve) === ")" ? ve !== false && a(ae, ve + 1) : w(de, b);
             }
             function q(de) {
               let ae = de.getValue();
-              i(ae) && (m(ae.callee) || i(ae.callee)) ? ($.unshift({ node: ae, printed: [t(de, [l(de), E(de, b, L), g(de, b, L)], b), V(ae) ? S : ""] }), de.call((ve) => q(ve), "callee")) : m(ae) ? ($.unshift({ node: ae, needsParens: u(de, b), printed: t(de, o(ae) ? F(de, b, L) : y(de, b, L), b) }), de.call((ve) => q(ve), "object")) : ae.type === "TSNonNullExpression" ? ($.unshift({ node: ae, printed: t(de, "!", b) }), de.call((ve) => q(ve), "expression")) : $.unshift({ node: ae, printed: L() });
+              i(ae) && (m2(ae.callee) || i(ae.callee)) ? ($2.unshift({ node: ae, printed: [t(de, [l(de), E(de, b, L), g(de, b, L)], b), V(ae) ? S : ""] }), de.call((ve) => q(ve), "callee")) : m2(ae) ? ($2.unshift({ node: ae, needsParens: u(de, b), printed: t(de, o(ae) ? F(de, b, L) : y(de, b, L), b) }), de.call((ve) => q(ve), "object")) : ae.type === "TSNonNullExpression" ? ($2.unshift({ node: ae, printed: t(de, "!", b) }), de.call((ve) => q(ve), "expression")) : $2.unshift({ node: ae, printed: L() });
             }
             let Y = x.getValue();
-            $.unshift({ node: Y, printed: [l(x), E(x, b, L), g(x, b, L)] }), Y.callee && x.call((de) => q(de), "callee");
-            let H = [], R = [$[0]], Q = 1;
-            for (; Q < $.length && ($[Q].node.type === "TSNonNullExpression" || i($[Q].node) || o($[Q].node) && $[Q].node.computed && d($[Q].node.property)); ++Q)
-              R.push($[Q]);
-            if (!i($[0].node))
-              for (; Q + 1 < $.length && (m($[Q].node) && m($[Q + 1].node)); ++Q)
-                R.push($[Q]);
+            $2.unshift({ node: Y, printed: [l(x), E(x, b, L), g(x, b, L)] }), Y.callee && x.call((de) => q(de), "callee");
+            let H = [], R = [$2[0]], Q = 1;
+            for (; Q < $2.length && ($2[Q].node.type === "TSNonNullExpression" || i($2[Q].node) || o($2[Q].node) && $2[Q].node.computed && d($2[Q].node.property)); ++Q)
+              R.push($2[Q]);
+            if (!i($2[0].node))
+              for (; Q + 1 < $2.length && (m2($2[Q].node) && m2($2[Q + 1].node)); ++Q)
+                R.push($2[Q]);
             H.push(R), R = [];
             let ee = false;
-            for (; Q < $.length; ++Q) {
-              if (ee && m($[Q].node)) {
-                if ($[Q].node.computed && d($[Q].node.property)) {
-                  R.push($[Q]);
+            for (; Q < $2.length; ++Q) {
+              if (ee && m2($2[Q].node)) {
+                if ($2[Q].node.computed && d($2[Q].node.property)) {
+                  R.push($2[Q]);
                   continue;
                 }
                 H.push(R), R = [], ee = false;
               }
-              (i($[Q].node) || $[Q].node.type === "ImportExpression") && (ee = true), R.push($[Q]), f($[Q].node, h.Trailing) && (H.push(R), R = [], ee = false);
+              (i($2[Q].node) || $2[Q].node.type === "ImportExpression") && (ee = true), R.push($2[Q]), f($2[Q].node, h3.Trailing) && (H.push(R), R = [], ee = false);
             }
             R.length > 0 && H.push(R);
             function te(de) {
@@ -6151,10 +6194,10 @@ var require_standalone = __commonJS({
             function De(de) {
               return de.length === 0 ? "" : I(B([S, A(S, de.map(ue))]));
             }
-            let ie = H.map(ue), G = ie, z = X ? 3 : 2, U = H.flat(), le = U.slice(1, -1).some((de) => f(de.node, h.Leading)) || U.slice(0, -1).some((de) => f(de.node, h.Trailing)) || H[z] && f(H[z][0].node, h.Leading);
+            let ie = H.map(ue), G = ie, z = X ? 3 : 2, U = H.flat(), le = U.slice(1, -1).some((de) => f(de.node, h3.Leading)) || U.slice(0, -1).some((de) => f(de.node, h3.Trailing)) || H[z] && f(H[z][0].node, h3.Leading);
             if (H.length <= z && !le)
               return v(x) ? G : B(G);
-            let ge = s(H[X ? 1 : 0]).node, Ae = !i(ge) && V(ge), Ne = [ue(H[0]), X ? H.slice(1, 2).map(ue) : "", Ae ? S : "", De(H.slice(X ? 2 : 1))], ke = $.map((de) => {
+            let ge = s(H[X ? 1 : 0]).node, Ae = !i(ge) && V(ge), Ne = [ue(H[0]), X ? H.slice(1, 2).map(ue) : "", Ae ? S : "", De(H.slice(X ? 2 : 1))], ke = $2.map((de) => {
               let { node: ae } = de;
               return ae;
             }).filter(i);
@@ -6163,16 +6206,16 @@ var require_standalone = __commonJS({
               return i(de) && D(ae) && ke.slice(0, -1).some((ve) => ve.arguments.some(c));
             }
             let pe;
-            return le || ke.length > 2 && ke.some((de) => !de.arguments.every((ae) => p(ae, 0))) || ie.slice(0, -1).some(D) || ce() ? pe = B(Ne) : pe = [D(G) || Ae ? P : "", k([G, Ne])], C("member-chain", pe);
+            return le || ke.length > 2 && ke.some((de) => !de.arguments.every((ae) => p2(ae, 0))) || ie.slice(0, -1).some(D) || ce() ? pe = B(Ne) : pe = [D(G) || Ae ? P : "", k([G, Ne])], C("member-chain", pe);
           }
           n.exports = N;
         } }), oo = Z({ "src/language-js/print/call-expression.js"(e, n) {
           "use strict";
           re();
-          var { builders: { join: t, group: s } } = Oe(), a = jt(), { getCallArguments: r, hasFlowAnnotationComment: u, isCallExpression: i, isMemberish: o, isStringLiteral: c, isTemplateOnItsOwnLine: v, isTestCall: m, iterateCallArgumentsPath: d } = Ke(), p = Jm(), f = io(), { printOptionalToken: h, printFunctionTypeParameters: w } = ct();
+          var { builders: { join: t, group: s } } = Oe(), a = jt(), { getCallArguments: r, hasFlowAnnotationComment: u, isCallExpression: i, isMemberish: o, isStringLiteral: c, isTemplateOnItsOwnLine: v, isTestCall: m2, iterateCallArgumentsPath: d } = Ke(), p2 = Jm(), f = io(), { printOptionalToken: h3, printFunctionTypeParameters: w } = ct();
           function T(S, B, I) {
-            let k = S.getValue(), P = S.getParentNode(), C = k.type === "NewExpression", D = k.type === "ImportExpression", g = h(S), F = r(k);
-            if (F.length > 0 && (!D && !C && A(k, P) || F.length === 1 && v(F[0], B.originalText) || !C && m(k, P))) {
+            let k = S.getValue(), P = S.getParentNode(), C = k.type === "NewExpression", D = k.type === "ImportExpression", g = h3(S), F = r(k);
+            if (F.length > 0 && (!D && !C && A(k, P) || F.length === 1 && v(F[0], B.originalText) || !C && m2(k, P))) {
               let y = [];
               return d(S, () => {
                 y.push(I());
@@ -6180,7 +6223,7 @@ var require_standalone = __commonJS({
             }
             let l = (B.parser === "babel" || B.parser === "babel-flow") && k.callee && k.callee.type === "Identifier" && u(k.callee.trailingComments);
             if (l && (k.callee.trailingComments[0].printed = true), !D && !C && o(k.callee) && !S.call((y) => a(y, B), "callee"))
-              return p(S, B, I);
+              return p2(S, B, I);
             let E = [C ? "new " : "", D ? "import" : I("callee"), g, l ? "/*:: ".concat(k.callee.trailingComments[0].value.slice(2).trim(), " */") : "", w(S, B, I), f(S, B, I)];
             return D || i(k.callee) ? s(E) : E;
           }
@@ -6199,7 +6242,7 @@ var require_standalone = __commonJS({
         } }), Yt = Z({ "src/language-js/print/assignment.js"(e, n) {
           "use strict";
           re();
-          var { isNonEmptyArray: t, getStringWidth: s } = Ue(), { builders: { line: a, group: r, indent: u, indentIfBreak: i, lineSuffixBoundary: o }, utils: { cleanDoc: c, willBreak: v, canBreak: m } } = Oe(), { hasLeadingOwnLineComment: d, isBinaryish: p, isStringLiteral: f, isLiteral: h, isNumericLiteral: w, isCallExpression: T, isMemberExpression: A, getCallArguments: S, rawText: B, hasComment: I, isSignedNumericLiteral: k, isObjectProperty: P } = Ke(), { shouldInlineLogicalExpression: C } = Jn(), { printCallExpression: D } = oo();
+          var { isNonEmptyArray: t, getStringWidth: s } = Ue(), { builders: { line: a, group: r, indent: u, indentIfBreak: i, lineSuffixBoundary: o }, utils: { cleanDoc: c, willBreak: v, canBreak: m2 } } = Oe(), { hasLeadingOwnLineComment: d, isBinaryish: p2, isStringLiteral: f, isLiteral: h3, isNumericLiteral: w, isCallExpression: T, isMemberExpression: A, getCallArguments: S, rawText: B, hasComment: I, isSignedNumericLiteral: k, isObjectProperty: P } = Ke(), { shouldInlineLogicalExpression: C } = Jn(), { printCallExpression: D } = oo();
           function g(W, X, ue, De, ie, G) {
             let z = E(W, X, ue, De, G), U = ue(G, { assignmentLayout: z });
             switch (z) {
@@ -6241,14 +6284,14 @@ var require_standalone = __commonJS({
               return "break-after-operator";
             if (z.type === "CallExpression" && z.callee.name === "require" || X.parser === "json5" || X.parser === "json")
               return "never-break-after-operator";
-            if (N(G) || L(G) || $(G) || V(G) && m(De))
+            if (N(G) || L(G) || $2(G) || V(G) && m2(De))
               return "break-lhs";
             let Ae = ee(G, De, X);
             return W.call(() => y(W, X, ue, Ae), ie) ? "break-after-operator" : Ae || z.type === "TemplateLiteral" || z.type === "TaggedTemplateExpression" || z.type === "BooleanLiteral" || w(z) || z.type === "ClassExpression" ? "never-break-after-operator" : "fluid";
           }
           function y(W, X, ue, De) {
             let ie = W.getValue();
-            if (p(ie) && !C(ie))
+            if (p2(ie) && !C(ie))
               return true;
             switch (ie.type) {
               case "StringLiteralTypeAnnotation":
@@ -6256,7 +6299,7 @@ var require_standalone = __commonJS({
                 return true;
               case "ConditionalExpression": {
                 let { test: U } = ie;
-                return p(U) && !C(U);
+                return p2(U) && !C(U);
               }
               case "ClassExpression":
                 return t(ie.decorators);
@@ -6301,7 +6344,7 @@ var require_standalone = __commonJS({
           function j(W) {
             return W.type === "TSTypeAliasDeclaration" || W.type === "TypeAlias";
           }
-          function $(W) {
+          function $2(W) {
             if (W.type !== "VariableDeclarator")
               return false;
             let { typeAnnotation: X } = W.id;
@@ -6341,7 +6384,7 @@ var require_standalone = __commonJS({
               return true;
             let ie = W.type === "Literal" && "regex" in W && W.regex.pattern || W.type === "RegExpLiteral" && W.pattern;
             return ie ? ie.length <= De : f(W) ? B(W).length <= De : W.type === "TemplateLiteral" ? W.expressions.length === 0 && W.quasis[0].value.raw.length <= De && !W.quasis[0].value.raw.includes(`
-`) : h(W);
+`) : h3(W);
           }
           function ee(W, X, ue) {
             if (!P(W))
@@ -6373,22 +6416,22 @@ var require_standalone = __commonJS({
         } }), Pr = Z({ "src/language-js/print/function-parameters.js"(e, n) {
           "use strict";
           re();
-          var { getNextNonSpaceNonCommentCharacter: t } = Ue(), { printDanglingComments: s } = et(), { builders: { line: a, hardline: r, softline: u, group: i, indent: o, ifBreak: c }, utils: { removeLines: v, willBreak: m } } = Oe(), { getFunctionParameters: d, iterateFunctionParametersPath: p, isSimpleType: f, isTestCall: h, isTypeAnnotationAFunction: w, isObjectType: T, isObjectTypePropertyAFunction: A, hasRestParameter: S, shouldPrintComma: B, hasComment: I, isNextLineEmpty: k } = Ke(), { locEnd: P } = st(), { ArgExpansionBailout: C } = zt(), { printFunctionTypeParameters: D } = ct();
+          var { getNextNonSpaceNonCommentCharacter: t } = Ue(), { printDanglingComments: s } = et(), { builders: { line: a, hardline: r, softline: u, group: i, indent: o, ifBreak: c }, utils: { removeLines: v, willBreak: m2 } } = Oe(), { getFunctionParameters: d, iterateFunctionParametersPath: p2, isSimpleType: f, isTestCall: h3, isTypeAnnotationAFunction: w, isObjectType: T, isObjectTypePropertyAFunction: A, hasRestParameter: S, shouldPrintComma: B, hasComment: I, isNextLineEmpty: k } = Ke(), { locEnd: P } = st(), { ArgExpansionBailout: C } = zt(), { printFunctionTypeParameters: D } = ct();
           function g(y, N, x, b, L) {
-            let M = y.getValue(), j = d(M), $ = L ? D(y, x, N) : "";
+            let M = y.getValue(), j = d(M), $2 = L ? D(y, x, N) : "";
             if (j.length === 0)
-              return [$, "(", s(y, x, true, (ee) => t(x.originalText, ee, P) === ")"), ")"];
-            let V = y.getParentNode(), q = h(V), Y = F(M), H = [];
-            if (p(y, (ee, te) => {
+              return [$2, "(", s(y, x, true, (ee) => t(x.originalText, ee, P) === ")"), ")"];
+            let V = y.getParentNode(), q = h3(V), Y = F(M), H = [];
+            if (p2(y, (ee, te) => {
               let oe = te === j.length - 1;
               oe && M.rest && H.push("..."), H.push(N()), !oe && (H.push(","), q || Y ? H.push(" ") : k(j[te], x) ? H.push(r, r) : H.push(a));
             }), b) {
-              if (m($) || m(H))
+              if (m2($2) || m2(H))
                 throw new C();
-              return i([v($), "(", v(H), ")"]);
+              return i([v($2), "(", v(H), ")"]);
             }
             let R = j.every((ee) => !ee.decorators);
-            return Y && R ? [$, "(", ...H, ")"] : q ? [$, "(", ...H, ")"] : (A(V) || w(V) || V.type === "TypeAlias" || V.type === "UnionTypeAnnotation" || V.type === "TSUnionType" || V.type === "IntersectionTypeAnnotation" || V.type === "FunctionTypeAnnotation" && V.returnType === M) && j.length === 1 && j[0].name === null && M.this !== j[0] && j[0].typeAnnotation && M.typeParameters === null && f(j[0].typeAnnotation) && !M.rest ? x.arrowParens === "always" ? ["(", ...H, ")"] : H : [$, "(", o([u, ...H]), c(!S(M) && B(x, "all") ? "," : ""), u, ")"];
+            return Y && R ? [$2, "(", ...H, ")"] : q ? [$2, "(", ...H, ")"] : (A(V) || w(V) || V.type === "TypeAlias" || V.type === "UnionTypeAnnotation" || V.type === "TSUnionType" || V.type === "IntersectionTypeAnnotation" || V.type === "FunctionTypeAnnotation" && V.returnType === M) && j.length === 1 && j[0].name === null && M.this !== j[0] && j[0].typeAnnotation && M.typeParameters === null && f(j[0].typeAnnotation) && !M.rest ? x.arrowParens === "always" ? ["(", ...H, ")"] : H : [$2, "(", o([u, ...H]), c(!S(M) && B(x, "all") ? "," : ""), u, ")"];
           }
           function F(y) {
             if (!y)
@@ -6417,15 +6460,15 @@ var require_standalone = __commonJS({
                   return false;
               }
             }
-            return d(y).length === 1 && (T(x) || m(N));
+            return d(y).length === 1 && (T(x) || m2(N));
           }
           n.exports = { printFunctionParameters: g, shouldHugFunctionParameters: F, shouldGroupFunctionParameters: E };
         } }), kr = Z({ "src/language-js/print/type-annotation.js"(e, n) {
           "use strict";
           re();
-          var { printComments: t, printDanglingComments: s } = et(), { isNonEmptyArray: a } = Ue(), { builders: { group: r, join: u, line: i, softline: o, indent: c, align: v, ifBreak: m } } = Oe(), d = jt(), { locStart: p } = st(), { isSimpleType: f, isObjectType: h, hasLeadingOwnLineComment: w, isObjectTypePropertyAFunction: T, shouldPrintComma: A } = Ke(), { printAssignment: S } = Yt(), { printFunctionParameters: B, shouldGroupFunctionParameters: I } = Pr(), { printArrayItems: k } = Kt();
+          var { printComments: t, printDanglingComments: s } = et(), { isNonEmptyArray: a } = Ue(), { builders: { group: r, join: u, line: i, softline: o, indent: c, align: v, ifBreak: m2 } } = Oe(), d = jt(), { locStart: p2 } = st(), { isSimpleType: f, isObjectType: h3, hasLeadingOwnLineComment: w, isObjectTypePropertyAFunction: T, shouldPrintComma: A } = Ke(), { printAssignment: S } = Yt(), { printFunctionParameters: B, shouldGroupFunctionParameters: I } = Pr(), { printArrayItems: k } = Kt();
           function P(x) {
-            if (f(x) || h(x))
+            if (f(x) || h3(x))
               return true;
             if (x.type === "UnionTypeAnnotation" || x.type === "TSUnionType") {
               let b = x.types.filter((M) => M.type === "VoidTypeAnnotation" || M.type === "TSVoidKeyword" || M.type === "NullLiteralTypeAnnotation" || M.type === "TSNullKeyword").length, L = x.types.some((M) => M.type === "ObjectTypeAnnotation" || M.type === "TSTypeLiteral" || M.type === "GenericTypeAnnotation" || M.type === "TSTypeReference");
@@ -6435,40 +6478,40 @@ var require_standalone = __commonJS({
             return false;
           }
           function C(x, b, L) {
-            let M = b.semi ? ";" : "", j = x.getValue(), $ = [];
-            return $.push("opaque type ", L("id"), L("typeParameters")), j.supertype && $.push(": ", L("supertype")), j.impltype && $.push(" = ", L("impltype")), $.push(M), $;
+            let M = b.semi ? ";" : "", j = x.getValue(), $2 = [];
+            return $2.push("opaque type ", L("id"), L("typeParameters")), j.supertype && $2.push(": ", L("supertype")), j.impltype && $2.push(" = ", L("impltype")), $2.push(M), $2;
           }
           function D(x, b, L) {
-            let M = b.semi ? ";" : "", j = x.getValue(), $ = [];
-            j.declare && $.push("declare "), $.push("type ", L("id"), L("typeParameters"));
+            let M = b.semi ? ";" : "", j = x.getValue(), $2 = [];
+            j.declare && $2.push("declare "), $2.push("type ", L("id"), L("typeParameters"));
             let V = j.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
-            return [S(x, b, L, $, " =", V), M];
+            return [S(x, b, L, $2, " =", V), M];
           }
           function g(x, b, L) {
-            let M = x.getValue(), j = x.map(L, "types"), $ = [], V = false;
+            let M = x.getValue(), j = x.map(L, "types"), $2 = [], V = false;
             for (let q = 0; q < j.length; ++q)
-              q === 0 ? $.push(j[q]) : h(M.types[q - 1]) && h(M.types[q]) ? $.push([" & ", V ? c(j[q]) : j[q]]) : !h(M.types[q - 1]) && !h(M.types[q]) ? $.push(c([" &", i, j[q]])) : (q > 1 && (V = true), $.push(" & ", q > 1 ? c(j[q]) : j[q]));
-            return r($);
+              q === 0 ? $2.push(j[q]) : h3(M.types[q - 1]) && h3(M.types[q]) ? $2.push([" & ", V ? c(j[q]) : j[q]]) : !h3(M.types[q - 1]) && !h3(M.types[q]) ? $2.push(c([" &", i, j[q]])) : (q > 1 && (V = true), $2.push(" & ", q > 1 ? c(j[q]) : j[q]));
+            return r($2);
           }
           function F(x, b, L) {
-            let M = x.getValue(), j = x.getParentNode(), $ = j.type !== "TypeParameterInstantiation" && j.type !== "TSTypeParameterInstantiation" && j.type !== "GenericTypeAnnotation" && j.type !== "TSTypeReference" && j.type !== "TSTypeAssertion" && j.type !== "TupleTypeAnnotation" && j.type !== "TSTupleType" && !(j.type === "FunctionTypeParam" && !j.name && x.getParentNode(1).this !== j) && !((j.type === "TypeAlias" || j.type === "VariableDeclarator" || j.type === "TSTypeAliasDeclaration") && w(b.originalText, M)), V = P(M), q = x.map((R) => {
+            let M = x.getValue(), j = x.getParentNode(), $2 = j.type !== "TypeParameterInstantiation" && j.type !== "TSTypeParameterInstantiation" && j.type !== "GenericTypeAnnotation" && j.type !== "TSTypeReference" && j.type !== "TSTypeAssertion" && j.type !== "TupleTypeAnnotation" && j.type !== "TSTupleType" && !(j.type === "FunctionTypeParam" && !j.name && x.getParentNode(1).this !== j) && !((j.type === "TypeAlias" || j.type === "VariableDeclarator" || j.type === "TSTypeAliasDeclaration") && w(b.originalText, M)), V = P(M), q = x.map((R) => {
               let Q = L();
               return V || (Q = v(2, Q)), t(R, Q, b);
             }, "types");
             if (V)
               return u(" | ", q);
-            let Y = $ && !w(b.originalText, M), H = [m([Y ? i : "", "| "]), u([i, "| "], q)];
-            return d(x, b) ? r([c(H), o]) : j.type === "TupleTypeAnnotation" && j.types.length > 1 || j.type === "TSTupleType" && j.elementTypes.length > 1 ? r([c([m(["(", o]), H]), o, m(")")]) : r($ ? c(H) : H);
+            let Y = $2 && !w(b.originalText, M), H = [m2([Y ? i : "", "| "]), u([i, "| "], q)];
+            return d(x, b) ? r([c(H), o]) : j.type === "TupleTypeAnnotation" && j.types.length > 1 || j.type === "TSTupleType" && j.elementTypes.length > 1 ? r([c([m2(["(", o]), H]), o, m2(")")]) : r($2 ? c(H) : H);
           }
           function l(x, b, L) {
-            let M = x.getValue(), j = [], $ = x.getParentNode(0), V = x.getParentNode(1), q = x.getParentNode(2), Y = M.type === "TSFunctionType" || !(($.type === "ObjectTypeProperty" || $.type === "ObjectTypeInternalSlot") && !$.variance && !$.optional && p($) === p(M) || $.type === "ObjectTypeCallProperty" || q && q.type === "DeclareFunction"), H = Y && ($.type === "TypeAnnotation" || $.type === "TSTypeAnnotation"), R = H && Y && ($.type === "TypeAnnotation" || $.type === "TSTypeAnnotation") && V.type === "ArrowFunctionExpression";
-            T($) && (Y = true, H = true), R && j.push("(");
+            let M = x.getValue(), j = [], $2 = x.getParentNode(0), V = x.getParentNode(1), q = x.getParentNode(2), Y = M.type === "TSFunctionType" || !(($2.type === "ObjectTypeProperty" || $2.type === "ObjectTypeInternalSlot") && !$2.variance && !$2.optional && p2($2) === p2(M) || $2.type === "ObjectTypeCallProperty" || q && q.type === "DeclareFunction"), H = Y && ($2.type === "TypeAnnotation" || $2.type === "TSTypeAnnotation"), R = H && Y && ($2.type === "TypeAnnotation" || $2.type === "TSTypeAnnotation") && V.type === "ArrowFunctionExpression";
+            T($2) && (Y = true, H = true), R && j.push("(");
             let Q = B(x, L, b, false, true), ee = M.returnType || M.predicate || M.typeAnnotation ? [Y ? " => " : ": ", L("returnType"), L("predicate"), L("typeAnnotation")] : "", te = I(M, ee);
             return j.push(te ? r(Q) : Q), ee && j.push(ee), R && j.push(")"), r(j);
           }
           function E(x, b, L) {
-            let M = x.getValue(), j = M.type === "TSTupleType" ? "elementTypes" : "types", $ = M[j], V = a($), q = V ? o : "";
-            return r(["[", c([q, k(x, b, j, L)]), m(V && A(b, "all") ? "," : ""), s(x, b, true), q, "]"]);
+            let M = x.getValue(), j = M.type === "TSTupleType" ? "elementTypes" : "types", $2 = M[j], V = a($2), q = V ? o : "";
+            return r(["[", c([q, k(x, b, j, L)]), m2(V && A(b, "all") ? "," : ""), s(x, b, true), q, "]"]);
           }
           function y(x, b, L) {
             let M = x.getValue(), j = M.type === "OptionalIndexedAccessType" && M.optional ? "?.[" : "[";
@@ -6482,7 +6525,7 @@ var require_standalone = __commonJS({
         } }), Ir = Z({ "src/language-js/print/type-parameters.js"(e, n) {
           "use strict";
           re();
-          var { printDanglingComments: t } = et(), { builders: { join: s, line: a, hardline: r, softline: u, group: i, indent: o, ifBreak: c } } = Oe(), { isTestCall: v, hasComment: m, CommentCheckFlags: d, isTSXFile: p, shouldPrintComma: f, getFunctionParameters: h, isObjectType: w } = Ke(), { createGroupIdMapper: T } = Ue(), { shouldHugType: A } = kr(), { isArrowFunctionVariableDeclarator: S } = Yt(), B = T("typeParameters");
+          var { printDanglingComments: t } = et(), { builders: { join: s, line: a, hardline: r, softline: u, group: i, indent: o, ifBreak: c } } = Oe(), { isTestCall: v, hasComment: m2, CommentCheckFlags: d, isTSXFile: p2, shouldPrintComma: f, getFunctionParameters: h3, isObjectType: w } = Ke(), { createGroupIdMapper: T } = Ue(), { shouldHugType: A } = kr(), { isArrowFunctionVariableDeclarator: S } = Yt(), B = T("typeParameters");
           function I(C, D, g, F) {
             let l = C.getValue();
             if (!l[F])
@@ -6492,14 +6535,14 @@ var require_standalone = __commonJS({
             let E = C.getNode(2), y = E && v(E);
             if (!C.match((L) => !(L[F].length === 1 && w(L[F][0])), void 0, (L, M) => M === "typeAnnotation", (L) => L.type === "Identifier", S) && (y || l[F].length === 0 || l[F].length === 1 && (l[F][0].type === "NullableTypeAnnotation" || A(l[F][0]))))
               return ["<", s(", ", C.map(g, F)), k(C, D), ">"];
-            let b = l.type === "TSTypeParameterInstantiation" ? "" : h(l).length === 1 && p(D) && !l[F][0].constraint && C.getParentNode().type === "ArrowFunctionExpression" ? "," : f(D, "all") ? c(",") : "";
+            let b = l.type === "TSTypeParameterInstantiation" ? "" : h3(l).length === 1 && p2(D) && !l[F][0].constraint && C.getParentNode().type === "ArrowFunctionExpression" ? "," : f(D, "all") ? c(",") : "";
             return i(["<", o([u, s([",", a], C.map(g, F))]), b, u, ">"], { id: B(l) });
           }
           function k(C, D) {
             let g = C.getValue();
-            if (!m(g, d.Dangling))
+            if (!m2(g, d.Dangling))
               return "";
-            let F = !m(g, d.Line), l = t(C, D, F);
+            let F = !m2(g, d.Line), l = t(C, D, F);
             return F ? l : [l, r];
           }
           function P(C, D, g) {
@@ -6510,32 +6553,32 @@ var require_standalone = __commonJS({
         } }), Qt = Z({ "src/language-js/print/property.js"(e, n) {
           "use strict";
           re();
-          var { printComments: t } = et(), { printString: s, printNumber: a } = Ue(), { isNumericLiteral: r, isSimpleNumber: u, isStringLiteral: i, isStringPropSafeToUnquote: o, rawText: c } = Ke(), { printAssignment: v } = Yt(), m = /* @__PURE__ */ new WeakMap();
-          function d(f, h, w) {
+          var { printComments: t } = et(), { printString: s, printNumber: a } = Ue(), { isNumericLiteral: r, isSimpleNumber: u, isStringLiteral: i, isStringPropSafeToUnquote: o, rawText: c } = Ke(), { printAssignment: v } = Yt(), m2 = /* @__PURE__ */ new WeakMap();
+          function d(f, h3, w) {
             let T = f.getNode();
             if (T.computed)
               return ["[", w("key"), "]"];
             let A = f.getParentNode(), { key: S } = T;
             if (T.type === "ClassPrivateProperty" && S.type === "Identifier")
               return ["#", w("key")];
-            if (h.quoteProps === "consistent" && !m.has(A)) {
-              let B = (A.properties || A.body || A.members).some((I) => !I.computed && I.key && i(I.key) && !o(I, h));
-              m.set(A, B);
+            if (h3.quoteProps === "consistent" && !m2.has(A)) {
+              let B = (A.properties || A.body || A.members).some((I) => !I.computed && I.key && i(I.key) && !o(I, h3));
+              m2.set(A, B);
             }
-            if ((S.type === "Identifier" || r(S) && u(a(c(S))) && String(S.value) === a(c(S)) && !(h.parser === "typescript" || h.parser === "babel-ts")) && (h.parser === "json" || h.quoteProps === "consistent" && m.get(A))) {
-              let B = s(JSON.stringify(S.type === "Identifier" ? S.name : S.value.toString()), h);
-              return f.call((I) => t(I, B, h), "key");
+            if ((S.type === "Identifier" || r(S) && u(a(c(S))) && String(S.value) === a(c(S)) && !(h3.parser === "typescript" || h3.parser === "babel-ts")) && (h3.parser === "json" || h3.quoteProps === "consistent" && m2.get(A))) {
+              let B = s(JSON.stringify(S.type === "Identifier" ? S.name : S.value.toString()), h3);
+              return f.call((I) => t(I, B, h3), "key");
             }
-            return o(T, h) && (h.quoteProps === "as-needed" || h.quoteProps === "consistent" && !m.get(A)) ? f.call((B) => t(B, /^\d/.test(S.value) ? a(S.value) : S.value, h), "key") : w("key");
+            return o(T, h3) && (h3.quoteProps === "as-needed" || h3.quoteProps === "consistent" && !m2.get(A)) ? f.call((B) => t(B, /^\d/.test(S.value) ? a(S.value) : S.value, h3), "key") : w("key");
           }
-          function p(f, h, w) {
-            return f.getValue().shorthand ? w("value") : v(f, h, w, d(f, h, w), ":", "value");
+          function p2(f, h3, w) {
+            return f.getValue().shorthand ? w("value") : v(f, h3, w, d(f, h3, w), ":", "value");
           }
-          n.exports = { printProperty: p, printPropertyKey: d };
+          n.exports = { printProperty: p2, printPropertyKey: d };
         } }), Lr = Z({ "src/language-js/print/function.js"(e, n) {
           "use strict";
           re();
-          var t = Xt(), { printDanglingComments: s, printCommentsSeparately: a } = et(), r = it(), { getNextNonSpaceNonCommentCharacterIndex: u } = Ue(), { builders: { line: i, softline: o, group: c, indent: v, ifBreak: m, hardline: d, join: p, indentIfBreak: f }, utils: { removeLines: h, willBreak: w } } = Oe(), { ArgExpansionBailout: T } = zt(), { getFunctionParameters: A, hasLeadingOwnLineComment: S, isFlowAnnotationComment: B, isJsxNode: I, isTemplateOnItsOwnLine: k, shouldPrintComma: P, startsWithNoLookaheadToken: C, isBinaryish: D, isLineComment: g, hasComment: F, getComments: l, CommentCheckFlags: E, isCallLikeExpression: y, isCallExpression: N, getCallArguments: x, hasNakedLeftSide: b, getLeftSide: L } = Ke(), { locEnd: M } = st(), { printFunctionParameters: j, shouldGroupFunctionParameters: $ } = Pr(), { printPropertyKey: V } = Qt(), { printFunctionTypeParameters: q } = ct();
+          var t = Xt(), { printDanglingComments: s, printCommentsSeparately: a } = et(), r = it(), { getNextNonSpaceNonCommentCharacterIndex: u } = Ue(), { builders: { line: i, softline: o, group: c, indent: v, ifBreak: m2, hardline: d, join: p2, indentIfBreak: f }, utils: { removeLines: h3, willBreak: w } } = Oe(), { ArgExpansionBailout: T } = zt(), { getFunctionParameters: A, hasLeadingOwnLineComment: S, isFlowAnnotationComment: B, isJsxNode: I, isTemplateOnItsOwnLine: k, shouldPrintComma: P, startsWithNoLookaheadToken: C, isBinaryish: D, isLineComment: g, hasComment: F, getComments: l, CommentCheckFlags: E, isCallLikeExpression: y, isCallExpression: N, getCallArguments: x, hasNakedLeftSide: b, getLeftSide: L } = Ke(), { locEnd: M } = st(), { printFunctionParameters: j, shouldGroupFunctionParameters: $2 } = Pr(), { printPropertyKey: V } = Qt(), { printFunctionTypeParameters: q } = ct();
           function Y(z, U, le, ge) {
             let Ae = z.getValue(), Ne = false;
             if ((Ae.type === "FunctionDeclaration" || Ae.type === "FunctionExpression") && ge && ge.expandLastArg) {
@@ -6544,7 +6587,7 @@ var require_standalone = __commonJS({
             }
             let ke = [];
             Ae.type === "TSDeclareFunction" && Ae.declare && ke.push("declare "), Ae.async && ke.push("async "), Ae.generator ? ke.push("function* ") : ke.push("function "), Ae.id && ke.push(U("id"));
-            let ce = j(z, U, le, Ne), pe = X(z, U, le), de = $(Ae, pe);
+            let ce = j(z, U, le, Ne), pe = X(z, U, le), de = $2(Ae, pe);
             return ke.push(q(z, le, U), c([de ? c(ce) : ce, pe]), Ae.body ? " " : "", U("body")), le.semi && (Ae.declare || !Ae.body) && ke.push(";"), ke;
           }
           function H(z, U, le) {
@@ -6552,7 +6595,7 @@ var require_standalone = __commonJS({
             return !Ae || Ae === "init" || Ae === "method" || Ae === "constructor" ? Ne.async && ke.push("async ") : (t.ok(Ae === "get" || Ae === "set"), ke.push(Ae, " ")), Ne.generator && ke.push("*"), ke.push(V(z, U, le), ge.optional || ge.key.optional ? "?" : ""), ge === Ne ? ke.push(R(z, U, le)) : Ne.type === "FunctionExpression" ? ke.push(z.call((ce) => R(ce, U, le), "value")) : ke.push(le("value")), ke;
           }
           function R(z, U, le) {
-            let ge = z.getNode(), Ae = j(z, le, U), Ne = X(z, le, U), ke = $(ge, Ne), ce = [q(z, U, le), c([ke ? c(Ae) : Ae, Ne])];
+            let ge = z.getNode(), Ae = j(z, le, U), Ne = X(z, le, U), ke = $2(ge, Ne), ce = [q(z, U, le), c([ke ? c(Ae) : Ae, Ne])];
             return ge.body ? ce.push(" ", le("body")) : ce.push(U.semi ? ";" : ""), ce;
           }
           function Q(z, U, le, ge) {
@@ -6564,7 +6607,7 @@ var require_standalone = __commonJS({
               if (ce) {
                 if (w(pe))
                   throw new T();
-                pe = c(h(pe));
+                pe = c(h3(pe));
               }
               Ne.push(c([j(z, le, U, ce, true), pe]));
             }
@@ -6576,7 +6619,7 @@ var require_standalone = __commonJS({
           }
           function ee(z, U, le, ge, Ae, Ne) {
             let ke = z.getName(), ce = z.getParentNode(), pe = y(ce) && ke === "callee", de = Boolean(U && U.assignmentLayout), ae = Ne.body.type !== "BlockStatement" && Ne.body.type !== "ObjectExpression" && Ne.body.type !== "SequenceExpression", ve = pe && ae || U && U.assignmentLayout === "chain-tail-arrow-chain", K = Symbol("arrow-chain");
-            return Ne.body.type === "SequenceExpression" && (Ae = c(["(", v([o, Ae]), o, ")"])), c([c(v([pe || de ? o : "", c(p([" =>", i], le), { shouldBreak: ge })]), { id: K, shouldBreak: ve }), " =>", f(ae ? v([i, Ae]) : [" ", Ae], { groupId: K }), pe ? m(o, "", { groupId: K }) : ""]);
+            return Ne.body.type === "SequenceExpression" && (Ae = c(["(", v([o, Ae]), o, ")"])), c([c(v([pe || de ? o : "", c(p2([" =>", i], le), { shouldBreak: ge })]), { id: K, shouldBreak: ve }), " =>", f(ae ? v([i, Ae]) : [" ", Ae], { groupId: K }), pe ? m2(o, "", { groupId: K }) : ""]);
           }
           function te(z, U, le, ge) {
             let Ae = z.getValue(), Ne = [], ke = [], ce = false;
@@ -6597,7 +6640,7 @@ var require_standalone = __commonJS({
             if (Ae.body.type === "SequenceExpression")
               return c([...pe, c([" (", v([o, ke]), o, ")"])]);
             let de = (ge && ge.expandLastArg || z.getParentNode().type === "JSXExpressionContainer") && !F(Ae), ae = ge && ge.expandLastArg && P(U, "all"), ve = Ae.body.type === "ConditionalExpression" && !C(Ae.body, false);
-            return c([...pe, c([v([i, ve ? m("", "(") : "", ke, ve ? m("", ")") : ""]), de ? [m(ae ? "," : ""), o] : ""])]);
+            return c([...pe, c([v([i, ve ? m2("", "(") : "", ke, ve ? m2("", ")") : ""]), de ? [m2(ae ? "," : ""), o] : ""])]);
           }
           function oe(z) {
             let U = A(z);
@@ -6621,7 +6664,7 @@ var require_standalone = __commonJS({
           }
           function ue(z, U, le) {
             let ge = z.getValue(), Ae = U.semi ? ";" : "", Ne = [];
-            ge.argument && (G(U, ge.argument) ? Ne.push([" (", v([d, le("argument")]), d, ")"]) : D(ge.argument) || ge.argument.type === "SequenceExpression" ? Ne.push(c([m(" (", " "), v([o, le("argument")]), o, m(")")])) : Ne.push(" ", le("argument")));
+            ge.argument && (G(U, ge.argument) ? Ne.push([" (", v([d, le("argument")]), d, ")"]) : D(ge.argument) || ge.argument.type === "SequenceExpression" ? Ne.push(c([m2(" (", " "), v([o, le("argument")]), o, m2(")")])) : Ne.push(" ", le("argument")));
             let ke = l(ge), ce = r(ke), pe = ce && g(ce);
             return pe && Ne.push(Ae), F(ge, E.Dangling) && Ne.push(" ", s(z, U, true)), pe || Ne.push(Ae), Ne;
           }
@@ -6646,22 +6689,22 @@ var require_standalone = __commonJS({
         } }), Un = Z({ "src/language-js/print/decorators.js"(e, n) {
           "use strict";
           re();
-          var { isNonEmptyArray: t, hasNewline: s } = Ue(), { builders: { line: a, hardline: r, join: u, breakParent: i, group: o } } = Oe(), { locStart: c, locEnd: v } = st(), { getParentExportDeclaration: m } = Ke();
+          var { isNonEmptyArray: t, hasNewline: s } = Ue(), { builders: { line: a, hardline: r, join: u, breakParent: i, group: o } } = Oe(), { locStart: c, locEnd: v } = st(), { getParentExportDeclaration: m2 } = Ke();
           function d(T, A, S) {
             let B = T.getValue();
-            return o([u(a, T.map(S, "decorators")), h(B, A) ? r : a]);
+            return o([u(a, T.map(S, "decorators")), h3(B, A) ? r : a]);
           }
-          function p(T, A, S) {
+          function p2(T, A, S) {
             return [u(r, T.map(S, "declaration", "decorators")), r];
           }
           function f(T, A, S) {
             let B = T.getValue(), { decorators: I } = B;
             if (!t(I) || w(T.getParentNode()))
               return;
-            let k = B.type === "ClassExpression" || B.type === "ClassDeclaration" || h(B, A);
-            return [m(T) ? r : k ? i : "", u(a, T.map(S, "decorators")), a];
+            let k = B.type === "ClassExpression" || B.type === "ClassDeclaration" || h3(B, A);
+            return [m2(T) ? r : k ? i : "", u(a, T.map(S, "decorators")), a];
           }
-          function h(T, A) {
+          function h3(T, A) {
             return T.decorators.some((S) => s(A.originalText, v(S)));
           }
           function w(T) {
@@ -6670,23 +6713,23 @@ var require_standalone = __commonJS({
             let A = T.declaration && T.declaration.decorators;
             return t(A) && c(T, { ignoreDecorators: true }) > c(A[0]);
           }
-          n.exports = { printDecorators: f, printClassMemberDecorators: d, printDecoratorsBeforeExport: p, hasDecoratorsBeforeExport: w };
+          n.exports = { printDecorators: f, printClassMemberDecorators: d, printDecoratorsBeforeExport: p2, hasDecoratorsBeforeExport: w };
         } }), Zt = Z({ "src/language-js/print/class.js"(e, n) {
           "use strict";
           re();
-          var { isNonEmptyArray: t, createGroupIdMapper: s } = Ue(), { printComments: a, printDanglingComments: r } = et(), { builders: { join: u, line: i, hardline: o, softline: c, group: v, indent: m, ifBreak: d } } = Oe(), { hasComment: p, CommentCheckFlags: f } = Ke(), { getTypeParametersGroupId: h } = Ir(), { printMethod: w } = Lr(), { printOptionalToken: T, printTypeAnnotation: A, printDefiniteToken: S } = ct(), { printPropertyKey: B } = Qt(), { printAssignment: I } = Yt(), { printClassMemberDecorators: k } = Un();
+          var { isNonEmptyArray: t, createGroupIdMapper: s } = Ue(), { printComments: a, printDanglingComments: r } = et(), { builders: { join: u, line: i, hardline: o, softline: c, group: v, indent: m2, ifBreak: d } } = Oe(), { hasComment: p2, CommentCheckFlags: f } = Ke(), { getTypeParametersGroupId: h3 } = Ir(), { printMethod: w } = Lr(), { printOptionalToken: T, printTypeAnnotation: A, printDefiniteToken: S } = ct(), { printPropertyKey: B } = Qt(), { printAssignment: I } = Yt(), { printClassMemberDecorators: k } = Un();
           function P(x, b, L) {
             let M = x.getValue(), j = [];
             M.declare && j.push("declare "), M.abstract && j.push("abstract "), j.push("class");
-            let $ = M.id && p(M.id, f.Trailing) || M.typeParameters && p(M.typeParameters, f.Trailing) || M.superClass && p(M.superClass) || t(M.extends) || t(M.mixins) || t(M.implements), V = [], q = [];
+            let $2 = M.id && p2(M.id, f.Trailing) || M.typeParameters && p2(M.typeParameters, f.Trailing) || M.superClass && p2(M.superClass) || t(M.extends) || t(M.mixins) || t(M.implements), V = [], q = [];
             if (M.id && V.push(" ", L("id")), V.push(L("typeParameters")), M.superClass) {
               let Y = [E(x, b, L), L("superTypeParameters")], H = x.call((R) => ["extends ", a(R, Y, b)], "superClass");
-              $ ? q.push(i, v(H)) : q.push(" ", H);
+              $2 ? q.push(i, v(H)) : q.push(" ", H);
             } else
               q.push(l(x, b, L, "extends"));
-            if (q.push(l(x, b, L, "mixins"), l(x, b, L, "implements")), $) {
+            if (q.push(l(x, b, L, "mixins"), l(x, b, L, "implements")), $2) {
               let Y;
-              F(M) ? Y = [...V, m(q)] : Y = m([...V, q]), j.push(v(Y, { id: C(M) }));
+              F(M) ? Y = [...V, m2(q)] : Y = m2([...V, q]), j.push(v(Y, { id: C(M) }));
             } else
               j.push(...V, ...q);
             return j.push(" ", L("body")), j;
@@ -6699,61 +6742,61 @@ var require_standalone = __commonJS({
             return ["superClass", "extends", "mixins", "implements"].filter((b) => Boolean(x[b])).length > 1;
           }
           function F(x) {
-            return x.typeParameters && !p(x.typeParameters, f.Trailing | f.Line) && !g(x);
+            return x.typeParameters && !p2(x.typeParameters, f.Trailing | f.Line) && !g(x);
           }
           function l(x, b, L, M) {
             let j = x.getValue();
             if (!t(j[M]))
               return "";
-            let $ = r(x, b, true, (V) => {
+            let $2 = r(x, b, true, (V) => {
               let { marker: q } = V;
               return q === M;
             });
-            return [F(j) ? d(" ", i, { groupId: h(j.typeParameters) }) : i, $, $ && o, M, v(m([i, u([",", i], x.map(L, M))]))];
+            return [F(j) ? d(" ", i, { groupId: h3(j.typeParameters) }) : i, $2, $2 && o, M, v(m2([i, u([",", i], x.map(L, M))]))];
           }
           function E(x, b, L) {
             let M = L("superClass");
-            return x.getParentNode().type === "AssignmentExpression" ? v(d(["(", m([c, M]), c, ")"], M)) : M;
+            return x.getParentNode().type === "AssignmentExpression" ? v(d(["(", m2([c, M]), c, ")"], M)) : M;
           }
           function y(x, b, L) {
             let M = x.getValue(), j = [];
             return t(M.decorators) && j.push(k(x, b, L)), M.accessibility && j.push(M.accessibility + " "), M.readonly && j.push("readonly "), M.declare && j.push("declare "), M.static && j.push("static "), (M.type === "TSAbstractMethodDefinition" || M.abstract) && j.push("abstract "), M.override && j.push("override "), j.push(w(x, b, L)), j;
           }
           function N(x, b, L) {
-            let M = x.getValue(), j = [], $ = b.semi ? ";" : "";
-            return t(M.decorators) && j.push(k(x, b, L)), M.accessibility && j.push(M.accessibility + " "), M.declare && j.push("declare "), M.static && j.push("static "), (M.type === "TSAbstractPropertyDefinition" || M.abstract) && j.push("abstract "), M.override && j.push("override "), M.readonly && j.push("readonly "), M.variance && j.push(L("variance")), M.type === "ClassAccessorProperty" && j.push("accessor "), j.push(B(x, b, L), T(x), S(x), A(x, b, L)), [I(x, b, L, j, " =", "value"), $];
+            let M = x.getValue(), j = [], $2 = b.semi ? ";" : "";
+            return t(M.decorators) && j.push(k(x, b, L)), M.accessibility && j.push(M.accessibility + " "), M.declare && j.push("declare "), M.static && j.push("static "), (M.type === "TSAbstractPropertyDefinition" || M.abstract) && j.push("abstract "), M.override && j.push("override "), M.readonly && j.push("readonly "), M.variance && j.push(L("variance")), M.type === "ClassAccessorProperty" && j.push("accessor "), j.push(B(x, b, L), T(x), S(x), A(x, b, L)), [I(x, b, L, j, " =", "value"), $2];
           }
           n.exports = { printClass: P, printClassMethod: y, printClassProperty: N, printHardlineAfterHeritage: D };
         } }), lo = Z({ "src/language-js/print/interface.js"(e, n) {
           "use strict";
           re();
-          var { isNonEmptyArray: t } = Ue(), { builders: { join: s, line: a, group: r, indent: u, ifBreak: i } } = Oe(), { hasComment: o, identity: c, CommentCheckFlags: v } = Ke(), { getTypeParametersGroupId: m } = Ir(), { printTypeScriptModifiers: d } = ct();
-          function p(f, h, w) {
+          var { isNonEmptyArray: t } = Ue(), { builders: { join: s, line: a, group: r, indent: u, ifBreak: i } } = Oe(), { hasComment: o, identity: c, CommentCheckFlags: v } = Ke(), { getTypeParametersGroupId: m2 } = Ir(), { printTypeScriptModifiers: d } = ct();
+          function p2(f, h3, w) {
             let T = f.getValue(), A = [];
-            T.declare && A.push("declare "), T.type === "TSInterfaceDeclaration" && A.push(T.abstract ? "abstract " : "", d(f, h, w)), A.push("interface");
+            T.declare && A.push("declare "), T.type === "TSInterfaceDeclaration" && A.push(T.abstract ? "abstract " : "", d(f, h3, w)), A.push("interface");
             let S = [], B = [];
             T.type !== "InterfaceTypeAnnotation" && S.push(" ", w("id"), w("typeParameters"));
             let I = T.typeParameters && !o(T.typeParameters, v.Trailing | v.Line);
-            return t(T.extends) && B.push(I ? i(" ", a, { groupId: m(T.typeParameters) }) : a, "extends ", (T.extends.length === 1 ? c : u)(s([",", a], f.map(w, "extends")))), T.id && o(T.id, v.Trailing) || t(T.extends) ? I ? A.push(r([...S, u(B)])) : A.push(r(u([...S, ...B]))) : A.push(...S, ...B), A.push(" ", w("body")), r(A);
+            return t(T.extends) && B.push(I ? i(" ", a, { groupId: m2(T.typeParameters) }) : a, "extends ", (T.extends.length === 1 ? c : u)(s([",", a], f.map(w, "extends")))), T.id && o(T.id, v.Trailing) || t(T.extends) ? I ? A.push(r([...S, u(B)])) : A.push(r(u([...S, ...B]))) : A.push(...S, ...B), A.push(" ", w("body")), r(A);
           }
-          n.exports = { printInterface: p };
+          n.exports = { printInterface: p2 };
         } }), co = Z({ "src/language-js/print/module.js"(e, n) {
           "use strict";
           re();
-          var { isNonEmptyArray: t } = Ue(), { builders: { softline: s, group: a, indent: r, join: u, line: i, ifBreak: o, hardline: c } } = Oe(), { printDanglingComments: v } = et(), { hasComment: m, CommentCheckFlags: d, shouldPrintComma: p, needsHardlineAfterDanglingComment: f, isStringLiteral: h, rawText: w } = Ke(), { locStart: T, hasSameLoc: A } = st(), { hasDecoratorsBeforeExport: S, printDecoratorsBeforeExport: B } = Un();
+          var { isNonEmptyArray: t } = Ue(), { builders: { softline: s, group: a, indent: r, join: u, line: i, ifBreak: o, hardline: c } } = Oe(), { printDanglingComments: v } = et(), { hasComment: m2, CommentCheckFlags: d, shouldPrintComma: p2, needsHardlineAfterDanglingComment: f, isStringLiteral: h3, rawText: w } = Ke(), { locStart: T, hasSameLoc: A } = st(), { hasDecoratorsBeforeExport: S, printDecoratorsBeforeExport: B } = Un();
           function I(N, x, b) {
-            let L = N.getValue(), M = x.semi ? ";" : "", j = [], { importKind: $ } = L;
-            return j.push("import"), $ && $ !== "value" && j.push(" ", $), j.push(g(N, x, b), D(N, x, b), l(N, x, b), M), j;
+            let L = N.getValue(), M = x.semi ? ";" : "", j = [], { importKind: $2 } = L;
+            return j.push("import"), $2 && $2 !== "value" && j.push(" ", $2), j.push(g(N, x, b), D(N, x, b), l(N, x, b), M), j;
           }
           function k(N, x, b) {
             let L = N.getValue(), M = [];
             S(L) && M.push(B(N, x, b));
-            let { type: j, exportKind: $, declaration: V } = L;
-            return M.push("export"), (L.default || j === "ExportDefaultDeclaration") && M.push(" default"), m(L, d.Dangling) && (M.push(" ", v(N, x, true)), f(L) && M.push(c)), V ? M.push(" ", b("declaration")) : M.push($ === "type" ? " type" : "", g(N, x, b), D(N, x, b), l(N, x, b)), C(L, x) && M.push(";"), M;
+            let { type: j, exportKind: $2, declaration: V } = L;
+            return M.push("export"), (L.default || j === "ExportDefaultDeclaration") && M.push(" default"), m2(L, d.Dangling) && (M.push(" ", v(N, x, true)), f(L) && M.push(c)), V ? M.push(" ", b("declaration")) : M.push($2 === "type" ? " type" : "", g(N, x, b), D(N, x, b), l(N, x, b)), C(L, x) && M.push(";"), M;
           }
           function P(N, x, b) {
-            let L = N.getValue(), M = x.semi ? ";" : "", j = [], { exportKind: $, exported: V } = L;
-            return j.push("export"), $ === "type" && j.push(" type"), j.push(" *"), V && j.push(" as ", b("exported")), j.push(D(N, x, b), l(N, x, b), M), j;
+            let L = N.getValue(), M = x.semi ? ";" : "", j = [], { exportKind: $2, exported: V } = L;
+            return j.push("export"), $2 === "type" && j.push(" type"), j.push(" *"), V && j.push(" as ", b("exported")), j.push(D(N, x, b), l(N, x, b), M), j;
           }
           function C(N, x) {
             if (!x.semi)
@@ -6777,16 +6820,16 @@ var require_standalone = __commonJS({
               return "";
             let M = [" "];
             if (t(L.specifiers)) {
-              let j = [], $ = [];
+              let j = [], $2 = [];
               N.each(() => {
                 let V = N.getValue().type;
                 if (V === "ExportNamespaceSpecifier" || V === "ExportDefaultSpecifier" || V === "ImportNamespaceSpecifier" || V === "ImportDefaultSpecifier")
                   j.push(b());
                 else if (V === "ExportSpecifier" || V === "ImportSpecifier")
-                  $.push(b());
+                  $2.push(b());
                 else
                   throw new Error("Unknown specifier type ".concat(JSON.stringify(V)));
-              }, "specifiers"), M.push(u(", ", j)), $.length > 0 && (j.length > 0 && M.push(", "), $.length > 1 || j.length > 0 || L.specifiers.some((q) => m(q)) ? M.push(a(["{", r([x.bracketSpacing ? i : s, u([",", i], $)]), o(p(x) ? "," : ""), x.bracketSpacing ? i : s, "}"])) : M.push(["{", x.bracketSpacing ? " " : "", ...$, x.bracketSpacing ? " " : "", "}"]));
+              }, "specifiers"), M.push(u(", ", j)), $2.length > 0 && (j.length > 0 && M.push(", "), $2.length > 1 || j.length > 0 || L.specifiers.some((q) => m2(q)) ? M.push(a(["{", r([x.bracketSpacing ? i : s, u([",", i], $2)]), o(p2(x) ? "," : ""), x.bracketSpacing ? i : s, "}"])) : M.push(["{", x.bracketSpacing ? " " : "", ...$2, x.bracketSpacing ? " " : "", "}"]));
             } else
               M.push("{}");
             return M;
@@ -6800,8 +6843,8 @@ var require_standalone = __commonJS({
             return t(L.assertions) ? [" assert {", x.bracketSpacing ? " " : "", u(", ", N.map(b, "assertions")), x.bracketSpacing ? " " : "", "}"] : "";
           }
           function E(N, x, b) {
-            let L = N.getNode(), { type: M } = L, j = [], $ = M === "ImportSpecifier" ? L.importKind : L.exportKind;
-            $ && $ !== "value" && j.push($, " ");
+            let L = N.getNode(), { type: M } = L, j = [], $2 = M === "ImportSpecifier" ? L.importKind : L.exportKind;
+            $2 && $2 !== "value" && j.push($2, " ");
             let V = M.startsWith("Import"), q = V ? "imported" : "local", Y = V ? "local" : "exported", H = L[q], R = L[Y], Q = "", ee = "";
             return M === "ExportNamespaceSpecifier" || M === "ImportNamespaceSpecifier" ? Q = "*" : H && (Q = b(q)), R && !y(L) && (ee = b(Y)), j.push(Q, Q && ee ? " as " : "", ee), j;
           }
@@ -6811,7 +6854,7 @@ var require_standalone = __commonJS({
             let { local: x, [N.type === "ImportSpecifier" ? "imported" : "exported"]: b } = N;
             if (x.type !== b.type || !A(x, b))
               return false;
-            if (h(x))
+            if (h3(x))
               return x.value === b.value && w(x) === w(b);
             switch (x.type) {
               case "Identifier":
@@ -6824,13 +6867,13 @@ var require_standalone = __commonJS({
         } }), zn = Z({ "src/language-js/print/object.js"(e, n) {
           "use strict";
           re();
-          var { printDanglingComments: t } = et(), { builders: { line: s, softline: a, group: r, indent: u, ifBreak: i, hardline: o } } = Oe(), { getLast: c, hasNewlineInRange: v, hasNewline: m, isNonEmptyArray: d } = Ue(), { shouldPrintComma: p, hasComment: f, getComments: h, CommentCheckFlags: w, isNextLineEmpty: T } = Ke(), { locStart: A, locEnd: S } = st(), { printOptionalToken: B, printTypeAnnotation: I } = ct(), { shouldHugFunctionParameters: k } = Pr(), { shouldHugType: P } = kr(), { printHardlineAfterHeritage: C } = Zt();
+          var { printDanglingComments: t } = et(), { builders: { line: s, softline: a, group: r, indent: u, ifBreak: i, hardline: o } } = Oe(), { getLast: c, hasNewlineInRange: v, hasNewline: m2, isNonEmptyArray: d } = Ue(), { shouldPrintComma: p2, hasComment: f, getComments: h3, CommentCheckFlags: w, isNextLineEmpty: T } = Ke(), { locStart: A, locEnd: S } = st(), { printOptionalToken: B, printTypeAnnotation: I } = ct(), { shouldHugFunctionParameters: k } = Pr(), { shouldHugType: P } = kr(), { printHardlineAfterHeritage: C } = Zt();
           function D(g, F, l) {
             let E = F.semi ? ";" : "", y = g.getValue(), N;
             y.type === "TSTypeLiteral" ? N = "members" : y.type === "TSInterfaceBody" ? N = "body" : N = "properties";
             let x = y.type === "ObjectTypeAnnotation", b = [N];
             x && b.push("indexers", "callProperties", "internalSlots");
-            let L = b.map((W) => y[W][0]).sort((W, X) => A(W) - A(X))[0], M = g.getParentNode(0), j = x && M && (M.type === "InterfaceDeclaration" || M.type === "DeclareInterface" || M.type === "DeclareClass") && g.getName() === "body", $ = y.type === "TSInterfaceBody" || j || y.type === "ObjectPattern" && M.type !== "FunctionDeclaration" && M.type !== "FunctionExpression" && M.type !== "ArrowFunctionExpression" && M.type !== "ObjectMethod" && M.type !== "ClassMethod" && M.type !== "ClassPrivateMethod" && M.type !== "AssignmentPattern" && M.type !== "CatchClause" && y.properties.some((W) => W.value && (W.value.type === "ObjectPattern" || W.value.type === "ArrayPattern")) || y.type !== "ObjectPattern" && L && v(F.originalText, A(y), A(L)), V = j ? ";" : y.type === "TSInterfaceBody" || y.type === "TSTypeLiteral" ? i(E, ";") : ",", q = y.type === "RecordExpression" ? "#{" : y.exact ? "{|" : "{", Y = y.exact ? "|}" : "}", H = [];
+            let L = b.map((W) => y[W][0]).sort((W, X) => A(W) - A(X))[0], M = g.getParentNode(0), j = x && M && (M.type === "InterfaceDeclaration" || M.type === "DeclareInterface" || M.type === "DeclareClass") && g.getName() === "body", $2 = y.type === "TSInterfaceBody" || j || y.type === "ObjectPattern" && M.type !== "FunctionDeclaration" && M.type !== "FunctionExpression" && M.type !== "ArrowFunctionExpression" && M.type !== "ObjectMethod" && M.type !== "ClassMethod" && M.type !== "ClassPrivateMethod" && M.type !== "AssignmentPattern" && M.type !== "CatchClause" && y.properties.some((W) => W.value && (W.value.type === "ObjectPattern" || W.value.type === "ArrayPattern")) || y.type !== "ObjectPattern" && L && v(F.originalText, A(y), A(L)), V = j ? ";" : y.type === "TSInterfaceBody" || y.type === "TSTypeLiteral" ? i(E, ";") : ",", q = y.type === "RecordExpression" ? "#{" : y.exact ? "{|" : "{", Y = y.exact ? "|}" : "}", H = [];
             for (let W of b)
               g.each((X) => {
                 let ue = X.getValue();
@@ -6845,7 +6888,7 @@ var require_standalone = __commonJS({
               let W;
               if (f(y, w.Dangling)) {
                 let X = f(y, w.Line);
-                W = [t(g, F, true), X || m(F.originalText, S(c(h(y)))) ? o : s, "..."];
+                W = [t(g, F, true), X || m2(F.originalText, S(c(h3(y)))) ? o : s, "..."];
               } else
                 W = ["..."];
               Q.push([...R, ...W]);
@@ -6856,37 +6899,37 @@ var require_standalone = __commonJS({
                 return [q, Y, I(g, F, l)];
               oe = r([q, t(g, F), a, Y, B(g), I(g, F, l)]);
             } else
-              oe = [j && d(y.properties) ? C(M) : "", q, u([F.bracketSpacing ? s : a, ...Q]), i(te && (V !== "," || p(F)) ? V : ""), F.bracketSpacing ? s : a, Y, B(g), I(g, F, l)];
-            return g.match((W) => W.type === "ObjectPattern" && !W.decorators, (W, X, ue) => k(W) && (X === "params" || X === "parameters" || X === "this" || X === "rest") && ue === 0) || g.match(P, (W, X) => X === "typeAnnotation", (W, X) => X === "typeAnnotation", (W, X, ue) => k(W) && (X === "params" || X === "parameters" || X === "this" || X === "rest") && ue === 0) || !$ && g.match((W) => W.type === "ObjectPattern", (W) => W.type === "AssignmentExpression" || W.type === "VariableDeclarator") ? oe : r(oe, { shouldBreak: $ });
+              oe = [j && d(y.properties) ? C(M) : "", q, u([F.bracketSpacing ? s : a, ...Q]), i(te && (V !== "," || p2(F)) ? V : ""), F.bracketSpacing ? s : a, Y, B(g), I(g, F, l)];
+            return g.match((W) => W.type === "ObjectPattern" && !W.decorators, (W, X, ue) => k(W) && (X === "params" || X === "parameters" || X === "this" || X === "rest") && ue === 0) || g.match(P, (W, X) => X === "typeAnnotation", (W, X) => X === "typeAnnotation", (W, X, ue) => k(W) && (X === "params" || X === "parameters" || X === "this" || X === "rest") && ue === 0) || !$2 && g.match((W) => W.type === "ObjectPattern", (W) => W.type === "AssignmentExpression" || W.type === "VariableDeclarator") ? oe : r(oe, { shouldBreak: $2 });
           }
           n.exports = { printObject: D };
         } }), Um = Z({ "src/language-js/print/flow.js"(e, n) {
           "use strict";
           re();
-          var t = Xt(), { printDanglingComments: s } = et(), { printString: a, printNumber: r } = Ue(), { builders: { hardline: u, softline: i, group: o, indent: c } } = Oe(), { getParentExportDeclaration: v, isFunctionNotation: m, isGetterOrSetter: d, rawText: p, shouldPrintComma: f } = Ke(), { locStart: h, locEnd: w } = st(), { printClass: T } = Zt(), { printOpaqueType: A, printTypeAlias: S, printIntersectionType: B, printUnionType: I, printFunctionType: k, printTupleType: P, printIndexedAccessType: C } = kr(), { printInterface: D } = lo(), { printTypeParameter: g, printTypeParameters: F } = Ir(), { printExportDeclaration: l, printExportAllDeclaration: E } = co(), { printArrayItems: y } = Kt(), { printObject: N } = zn(), { printPropertyKey: x } = Qt(), { printOptionalToken: b, printTypeAnnotation: L, printRestSpread: M } = ct();
+          var t = Xt(), { printDanglingComments: s } = et(), { printString: a, printNumber: r } = Ue(), { builders: { hardline: u, softline: i, group: o, indent: c } } = Oe(), { getParentExportDeclaration: v, isFunctionNotation: m2, isGetterOrSetter: d, rawText: p2, shouldPrintComma: f } = Ke(), { locStart: h3, locEnd: w } = st(), { printClass: T } = Zt(), { printOpaqueType: A, printTypeAlias: S, printIntersectionType: B, printUnionType: I, printFunctionType: k, printTupleType: P, printIndexedAccessType: C } = kr(), { printInterface: D } = lo(), { printTypeParameter: g, printTypeParameters: F } = Ir(), { printExportDeclaration: l, printExportAllDeclaration: E } = co(), { printArrayItems: y } = Kt(), { printObject: N } = zn(), { printPropertyKey: x } = Qt(), { printOptionalToken: b, printTypeAnnotation: L, printRestSpread: M } = ct();
           function j(V, q, Y) {
             let H = V.getValue(), R = q.semi ? ";" : "", Q = [];
             switch (H.type) {
               case "DeclareClass":
-                return $(V, T(V, q, Y));
+                return $2(V, T(V, q, Y));
               case "DeclareFunction":
-                return $(V, ["function ", Y("id"), H.predicate ? " " : "", Y("predicate"), R]);
+                return $2(V, ["function ", Y("id"), H.predicate ? " " : "", Y("predicate"), R]);
               case "DeclareModule":
-                return $(V, ["module ", Y("id"), " ", Y("body")]);
+                return $2(V, ["module ", Y("id"), " ", Y("body")]);
               case "DeclareModuleExports":
-                return $(V, ["module.exports", ": ", Y("typeAnnotation"), R]);
+                return $2(V, ["module.exports", ": ", Y("typeAnnotation"), R]);
               case "DeclareVariable":
-                return $(V, ["var ", Y("id"), R]);
+                return $2(V, ["var ", Y("id"), R]);
               case "DeclareOpaqueType":
-                return $(V, A(V, q, Y));
+                return $2(V, A(V, q, Y));
               case "DeclareInterface":
-                return $(V, D(V, q, Y));
+                return $2(V, D(V, q, Y));
               case "DeclareTypeAlias":
-                return $(V, S(V, q, Y));
+                return $2(V, S(V, q, Y));
               case "DeclareExportDeclaration":
-                return $(V, l(V, q, Y));
+                return $2(V, l(V, q, Y));
               case "DeclareExportAllDeclaration":
-                return $(V, E(V, q, Y));
+                return $2(V, E(V, q, Y));
               case "OpaqueType":
                 return A(V, q, Y);
               case "TypeAlias":
@@ -6980,7 +7023,7 @@ var require_standalone = __commonJS({
                 return [H.static ? "static " : "", H.variance ? Y("variance") : "", "[", Y("id"), H.id ? ": " : "", Y("key"), "]: ", Y("value")];
               case "ObjectTypeProperty": {
                 let ee = "";
-                return H.proto ? ee = "proto " : H.static && (ee = "static "), [ee, d(H) ? H.kind + " " : "", H.variance ? Y("variance") : "", x(V, q, Y), b(V), m(H) ? "" : ": ", Y("value")];
+                return H.proto ? ee = "proto " : H.static && (ee = "static "), [ee, d(H) ? H.kind + " " : "", H.variance ? Y("variance") : "", x(V, q, Y), b(V), m2(H) ? "" : ": ", Y("value")];
               }
               case "ObjectTypeAnnotation":
                 return N(V, q, Y);
@@ -6992,7 +7035,7 @@ var require_standalone = __commonJS({
               case "QualifiedTypeIdentifier":
                 return [Y("qualification"), ".", Y("id")];
               case "StringLiteralTypeAnnotation":
-                return a(p(H), q);
+                return a(p2(H), q);
               case "NumberLiteralTypeAnnotation":
                 t.strictEqual(typeof H.value, "number");
               case "BigIntLiteralTypeAnnotation":
@@ -7003,7 +7046,7 @@ var require_standalone = __commonJS({
               case "TypeParameterInstantiation": {
                 let ee = F(V, q, Y, "params");
                 if (q.parser === "flow") {
-                  let te = h(H), oe = w(H), W = q.originalText.lastIndexOf("/*", te), X = q.originalText.indexOf("*/", oe);
+                  let te = h3(H), oe = w(H), W = q.originalText.lastIndexOf("/*", te), X = q.originalText.indexOf("*/", oe);
                   if (W !== -1 && X !== -1) {
                     let ue = q.originalText.slice(W + 2, X).trim();
                     if (ue.startsWith("::") && !ue.includes("/*") && !ue.includes("*/"))
@@ -7051,7 +7094,7 @@ var require_standalone = __commonJS({
                 throw new Error("unprintable type: " + JSON.stringify(H.type));
             }
           }
-          function $(V, q) {
+          function $2(V, q) {
             let Y = v(V);
             return Y ? (t.strictEqual(Y.type, "DeclareExportDeclaration"), q) : ["declare ", q];
           }
@@ -7067,7 +7110,7 @@ var require_standalone = __commonJS({
         } }), po = Z({ "src/language-js/print/ternary.js"(e, n) {
           "use strict";
           re();
-          var { hasNewlineInRange: t } = Ue(), { isJsxNode: s, getComments: a, isCallExpression: r, isMemberExpression: u } = Ke(), { locStart: i, locEnd: o } = st(), c = It(), { builders: { line: v, softline: m, group: d, indent: p, align: f, ifBreak: h, dedent: w, breakParent: T } } = Oe();
+          var { hasNewlineInRange: t } = Ue(), { isJsxNode: s, getComments: a, isCallExpression: r, isMemberExpression: u } = Ke(), { locStart: i, locEnd: o } = st(), c = It(), { builders: { line: v, softline: m2, group: d, indent: p2, align: f, ifBreak: h3, dedent: w, breakParent: T } } = Oe();
           function A(P) {
             let C = [P];
             for (let D = 0; D < C.length; D++) {
@@ -7102,29 +7145,29 @@ var require_standalone = __commonJS({
             return g === C ? false : D[B.get(D.type)] === g;
           }
           function k(P, C, D) {
-            let g = P.getValue(), F = g.type === "ConditionalExpression", l = F ? "consequent" : "trueType", E = F ? "alternate" : "falseType", y = F ? ["test"] : ["checkType", "extendsType"], N = g[l], x = g[E], b = [], L = false, M = P.getParentNode(), j = M.type === g.type && y.some((ue) => M[ue] === g), $ = M.type === g.type && !j, V, q, Y = 0;
+            let g = P.getValue(), F = g.type === "ConditionalExpression", l = F ? "consequent" : "trueType", E = F ? "alternate" : "falseType", y = F ? ["test"] : ["checkType", "extendsType"], N = g[l], x = g[E], b = [], L = false, M = P.getParentNode(), j = M.type === g.type && y.some((ue) => M[ue] === g), $2 = M.type === g.type && !j, V, q, Y = 0;
             do
               q = V || g, V = P.getParentNode(Y), Y++;
             while (V && V.type === g.type && y.every((ue) => V[ue] !== q));
             let H = V || M, R = q;
             if (F && (s(g[y[0]]) || s(N) || s(x) || A(R))) {
-              L = true, $ = true;
-              let ue = (ie) => [h("("), p([m, ie]), m, h(")")], De = (ie) => ie.type === "NullLiteral" || ie.type === "Literal" && ie.value === null || ie.type === "Identifier" && ie.name === "undefined";
+              L = true, $2 = true;
+              let ue = (ie) => [h3("("), p2([m2, ie]), m2, h3(")")], De = (ie) => ie.type === "NullLiteral" || ie.type === "Literal" && ie.value === null || ie.type === "Identifier" && ie.name === "undefined";
               b.push(" ? ", De(N) ? D(l) : ue(D(l)), " : ", x.type === g.type || De(x) ? D(E) : ue(D(E)));
             } else {
-              let ue = [v, "? ", N.type === g.type ? h("", "(") : "", f(2, D(l)), N.type === g.type ? h("", ")") : "", v, ": ", x.type === g.type ? D(E) : f(2, D(E))];
-              b.push(M.type !== g.type || M[E] === g || j ? ue : C.useTabs ? w(p(ue)) : f(Math.max(0, C.tabWidth - 2), ue));
+              let ue = [v, "? ", N.type === g.type ? h3("", "(") : "", f(2, D(l)), N.type === g.type ? h3("", ")") : "", v, ": ", x.type === g.type ? D(E) : f(2, D(E))];
+              b.push(M.type !== g.type || M[E] === g || j ? ue : C.useTabs ? w(p2(ue)) : f(Math.max(0, C.tabWidth - 2), ue));
             }
-            let ee = [...y.map((ue) => a(g[ue])), a(N), a(x)].flat().some((ue) => c(ue) && t(C.originalText, i(ue), o(ue))), te = (ue) => M === H ? d(ue, { shouldBreak: ee }) : ee ? [ue, T] : ue, oe = !L && (u(M) || M.type === "NGPipeExpression" && M.left === g) && !M.computed, W = I(P), X = te([S(P, C, D), $ ? b : p(b), F && oe && !W ? m : ""]);
-            return j || W ? d([p([m, X]), m]) : X;
+            let ee = [...y.map((ue) => a(g[ue])), a(N), a(x)].flat().some((ue) => c(ue) && t(C.originalText, i(ue), o(ue))), te = (ue) => M === H ? d(ue, { shouldBreak: ee }) : ee ? [ue, T] : ue, oe = !L && (u(M) || M.type === "NGPipeExpression" && M.left === g) && !M.computed, W = I(P), X = te([S(P, C, D), $2 ? b : p2(b), F && oe && !W ? m2 : ""]);
+            return j || W ? d([p2([m2, X]), m2]) : X;
           }
           n.exports = { printTernary: k };
         } }), fo = Z({ "src/language-js/print/statement.js"(e, n) {
           "use strict";
           re();
-          var { builders: { hardline: t } } = Oe(), s = jt(), { getLeftSidePathName: a, hasNakedLeftSide: r, isJsxNode: u, isTheOnlyJsxElementInMarkdown: i, hasComment: o, CommentCheckFlags: c, isNextLineEmpty: v } = Ke(), { shouldPrintParamsWithoutParens: m } = Lr();
+          var { builders: { hardline: t } } = Oe(), s = jt(), { getLeftSidePathName: a, hasNakedLeftSide: r, isJsxNode: u, isTheOnlyJsxElementInMarkdown: i, hasComment: o, CommentCheckFlags: c, isNextLineEmpty: v } = Ke(), { shouldPrintParamsWithoutParens: m2 } = Lr();
           function d(B, I, k, P) {
-            let C = B.getValue(), D = [], g = C.type === "ClassBody", F = p(C[P]);
+            let C = B.getValue(), D = [], g = C.type === "ClassBody", F = p2(C[P]);
             return B.each((l, E, y) => {
               let N = l.getValue();
               if (N.type === "EmptyStatement")
@@ -7133,7 +7176,7 @@ var require_standalone = __commonJS({
               !I.semi && !g && !i(I, l) && f(l, I) ? o(N, c.Leading) ? D.push(k([], { needsSemi: true })) : D.push(";", x) : D.push(x), !I.semi && g && A(N) && S(N, y[E + 1]) && D.push(";"), N !== F && (D.push(t), v(N, I) && D.push(t));
             }, P), D;
           }
-          function p(B) {
+          function p2(B) {
             for (let I = B.length - 1; I >= 0; I--) {
               let k = B[I];
               if (k.type !== "EmptyStatement")
@@ -7141,9 +7184,9 @@ var require_standalone = __commonJS({
             }
           }
           function f(B, I) {
-            return B.getNode().type !== "ExpressionStatement" ? false : B.call((P) => h(P, I), "expression");
+            return B.getNode().type !== "ExpressionStatement" ? false : B.call((P) => h3(P, I), "expression");
           }
-          function h(B, I) {
+          function h3(B, I) {
             let k = B.getValue();
             switch (k.type) {
               case "ParenthesizedExpression":
@@ -7155,7 +7198,7 @@ var require_standalone = __commonJS({
               case "RegExpLiteral":
                 return true;
               case "ArrowFunctionExpression": {
-                if (!m(B, I))
+                if (!m2(B, I))
                   return true;
                 break;
               }
@@ -7179,7 +7222,7 @@ var require_standalone = __commonJS({
                 if (u(k))
                   return true;
             }
-            return s(B, I) ? true : r(k) ? B.call((P) => h(P, I), ...a(B, k)) : false;
+            return s(B, I) ? true : r(k) ? B.call((P) => h3(P, I), ...a(B, k)) : false;
           }
           function w(B, I, k) {
             return d(B, I, k, "body");
@@ -7228,40 +7271,40 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { printDanglingComments: t } = et(), { isNonEmptyArray: s } = Ue(), { builders: { hardline: a, indent: r } } = Oe(), { hasComment: u, CommentCheckFlags: i, isNextLineEmpty: o } = Ke(), { printHardlineAfterHeritage: c } = Zt(), { printBody: v } = fo();
-          function m(p, f, h) {
-            let w = p.getValue(), T = [];
+          function m2(p2, f, h3) {
+            let w = p2.getValue(), T = [];
             if (w.type === "StaticBlock" && T.push("static "), w.type === "ClassBody" && s(w.body)) {
-              let S = p.getParentNode();
+              let S = p2.getParentNode();
               T.push(c(S));
             }
             T.push("{");
-            let A = d(p, f, h);
+            let A = d(p2, f, h3);
             if (A)
               T.push(r([a, A]), a);
             else {
-              let S = p.getParentNode(), B = p.getParentNode(1);
+              let S = p2.getParentNode(), B = p2.getParentNode(1);
               S.type === "ArrowFunctionExpression" || S.type === "FunctionExpression" || S.type === "FunctionDeclaration" || S.type === "ObjectMethod" || S.type === "ClassMethod" || S.type === "ClassPrivateMethod" || S.type === "ForStatement" || S.type === "WhileStatement" || S.type === "DoWhileStatement" || S.type === "DoExpression" || S.type === "CatchClause" && !B.finalizer || S.type === "TSModuleDeclaration" || S.type === "TSDeclareFunction" || w.type === "StaticBlock" || w.type === "ClassBody" || T.push(a);
             }
             return T.push("}"), T;
           }
-          function d(p, f, h) {
-            let w = p.getValue(), T = s(w.directives), A = w.body.some((I) => I.type !== "EmptyStatement"), S = u(w, i.Dangling);
+          function d(p2, f, h3) {
+            let w = p2.getValue(), T = s(w.directives), A = w.body.some((I) => I.type !== "EmptyStatement"), S = u(w, i.Dangling);
             if (!T && !A && !S)
               return "";
             let B = [];
-            if (T && p.each((I, k, P) => {
-              B.push(h()), (k < P.length - 1 || A || S) && (B.push(a), o(I.getValue(), f) && B.push(a));
-            }, "directives"), A && B.push(v(p, f, h)), S && B.push(t(p, f, true)), w.type === "Program") {
-              let I = p.getParentNode();
+            if (T && p2.each((I, k, P) => {
+              B.push(h3()), (k < P.length - 1 || A || S) && (B.push(a), o(I.getValue(), f) && B.push(a));
+            }, "directives"), A && B.push(v(p2, f, h3)), S && B.push(t(p2, f, true)), w.type === "Program") {
+              let I = p2.getParentNode();
               (!I || I.type !== "ModuleExpression") && B.push(a);
             }
             return B;
           }
-          n.exports = { printBlock: m, printBlockBody: d };
+          n.exports = { printBlock: m2, printBlockBody: d };
         } }), Xm = Z({ "src/language-js/print/typescript.js"(e, n) {
           "use strict";
           re();
-          var { printDanglingComments: t } = et(), { hasNewlineInRange: s } = Ue(), { builders: { join: a, line: r, hardline: u, softline: i, group: o, indent: c, conditionalGroup: v, ifBreak: m } } = Oe(), { isLiteral: d, getTypeScriptMappedTypeModifier: p, shouldPrintComma: f, isCallExpression: h, isMemberExpression: w } = Ke(), T = zm(), { locStart: A, locEnd: S } = st(), { printOptionalToken: B, printTypeScriptModifiers: I } = ct(), { printTernary: k } = po(), { printFunctionParameters: P, shouldGroupFunctionParameters: C } = Pr(), { printTemplateLiteral: D } = Lt(), { printArrayItems: g } = Kt(), { printObject: F } = zn(), { printClassProperty: l, printClassMethod: E } = Zt(), { printTypeParameter: y, printTypeParameters: N } = Ir(), { printPropertyKey: x } = Qt(), { printFunction: b, printMethodInternal: L } = Lr(), { printInterface: M } = lo(), { printBlock: j } = Do(), { printTypeAlias: $, printIntersectionType: V, printUnionType: q, printFunctionType: Y, printTupleType: H, printIndexedAccessType: R, printJSDocType: Q } = kr();
+          var { printDanglingComments: t } = et(), { hasNewlineInRange: s } = Ue(), { builders: { join: a, line: r, hardline: u, softline: i, group: o, indent: c, conditionalGroup: v, ifBreak: m2 } } = Oe(), { isLiteral: d, getTypeScriptMappedTypeModifier: p2, shouldPrintComma: f, isCallExpression: h3, isMemberExpression: w } = Ke(), T = zm(), { locStart: A, locEnd: S } = st(), { printOptionalToken: B, printTypeScriptModifiers: I } = ct(), { printTernary: k } = po(), { printFunctionParameters: P, shouldGroupFunctionParameters: C } = Pr(), { printTemplateLiteral: D } = Lt(), { printArrayItems: g } = Kt(), { printObject: F } = zn(), { printClassProperty: l, printClassMethod: E } = Zt(), { printTypeParameter: y, printTypeParameters: N } = Ir(), { printPropertyKey: x } = Qt(), { printFunction: b, printMethodInternal: L } = Lr(), { printInterface: M } = lo(), { printBlock: j } = Do(), { printTypeAlias: $2, printIntersectionType: V, printUnionType: q, printFunctionType: Y, printTupleType: H, printIndexedAccessType: R, printJSDocType: Q } = kr();
           function ee(te, oe, W) {
             let X = te.getValue();
             if (!X.type.startsWith("TS"))
@@ -7273,7 +7316,7 @@ var require_standalone = __commonJS({
               case "TSThisType":
                 return "this";
               case "TSTypeAssertion": {
-                let ie = !(X.expression.type === "ArrayExpression" || X.expression.type === "ObjectExpression"), G = o(["<", c([i, W("typeAnnotation")]), i, ">"]), z = [m("("), c([i, W("expression")]), i, m(")")];
+                let ie = !(X.expression.type === "ArrayExpression" || X.expression.type === "ObjectExpression"), G = o(["<", c([i, W("typeAnnotation")]), i, ">"]), z = [m2("("), c([i, W("expression")]), i, m2(")")];
                 return ie ? v([[G, W("expression")], [G, o(z, { shouldBreak: true })], [G, W("expression")]]) : o([G, W("expression")]);
               }
               case "TSDeclareFunction":
@@ -7286,7 +7329,7 @@ var require_standalone = __commonJS({
               case "TSTypeLiteral":
                 return F(te, oe, W);
               case "TSTypeAliasDeclaration":
-                return $(te, oe, W);
+                return $2(te, oe, W);
               case "TSQualifiedName":
                 return a(".", [W("left"), W("right")]);
               case "TSAbstractMethodDefinition":
@@ -7317,7 +7360,7 @@ var require_standalone = __commonJS({
               case "TSAsExpression": {
                 De.push(W("expression"), " as ", W("typeAnnotation"));
                 let ie = te.getParentNode();
-                return h(ie) && ie.callee === X || w(ie) && ie.object === X ? o([c([i, ...De]), i]) : De;
+                return h3(ie) && ie.callee === X || w(ie) && ie.object === X ? o([c([i, ...De]), i]) : De;
               }
               case "TSArrayType":
                 return [W("elementType"), "[]"];
@@ -7328,7 +7371,7 @@ var require_standalone = __commonJS({
               case "TSTypeQuery":
                 return ["typeof ", W("exprName"), W("typeParameters")];
               case "TSIndexSignature": {
-                let ie = te.getParentNode(), G = X.parameters.length > 1 ? m(f(oe) ? "," : "") : "", z = o([c([i, a([", ", i], te.map(W, "parameters"))]), G, i]);
+                let ie = te.getParentNode(), G = X.parameters.length > 1 ? m2(f(oe) ? "," : "") : "", z = o([c([i, a([", ", i], te.map(W, "parameters"))]), G, i]);
                 return [X.export ? "export " : "", X.accessibility ? [X.accessibility, " "] : "", X.static ? "static " : "", X.readonly ? "readonly " : "", X.declare ? "declare " : "", "[", X.parameters ? z : "", X.typeAnnotation ? "]: " : "]", X.typeAnnotation ? W("typeAnnotation") : "", ie.type === "ClassBody" ? ue : ""];
               }
               case "TSTypePredicate":
@@ -7354,7 +7397,7 @@ var require_standalone = __commonJS({
                 return [X.operator, " ", W("typeAnnotation")];
               case "TSMappedType": {
                 let ie = s(oe.originalText, A(X), S(X));
-                return o(["{", c([oe.bracketSpacing ? r : i, X.readonly ? [p(X.readonly, "readonly"), " "] : "", I(te, oe, W), W("typeParameter"), X.optional ? p(X.optional, "?") : "", X.typeAnnotation ? ": " : "", W("typeAnnotation"), m(ue)]), t(te, oe, true), oe.bracketSpacing ? r : i, "}"], { shouldBreak: ie });
+                return o(["{", c([oe.bracketSpacing ? r : i, X.readonly ? [p2(X.readonly, "readonly"), " "] : "", I(te, oe, W), W("typeParameter"), X.optional ? p2(X.optional, "?") : "", X.typeAnnotation ? ": " : "", W("typeAnnotation"), m2(ue)]), t(te, oe, true), oe.bracketSpacing ? r : i, "}"], { shouldBreak: ie });
               }
               case "TSMethodSignature": {
                 let ie = X.kind && X.kind !== "method" ? "".concat(X.kind, " ") : "";
@@ -7420,29 +7463,29 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { hasNewline: t } = Ue(), { builders: { join: s, hardline: a }, utils: { replaceTextEndOfLine: r } } = Oe(), { isLineComment: u } = Ke(), { locStart: i, locEnd: o } = st(), c = It();
-          function v(p, f) {
-            let h = p.getValue();
-            if (u(h))
-              return f.originalText.slice(i(h), o(h)).trimEnd();
-            if (c(h)) {
-              if (m(h)) {
-                let A = d(h);
-                return h.trailing && !t(f.originalText, i(h), { backwards: true }) ? [a, A] : A;
+          function v(p2, f) {
+            let h3 = p2.getValue();
+            if (u(h3))
+              return f.originalText.slice(i(h3), o(h3)).trimEnd();
+            if (c(h3)) {
+              if (m2(h3)) {
+                let A = d(h3);
+                return h3.trailing && !t(f.originalText, i(h3), { backwards: true }) ? [a, A] : A;
               }
-              let w = o(h), T = f.originalText.slice(w - 3, w) === "*-/";
-              return ["/*", r(h.value), T ? "*-/" : "*/"];
+              let w = o(h3), T = f.originalText.slice(w - 3, w) === "*-/";
+              return ["/*", r(h3.value), T ? "*-/" : "*/"];
             }
-            throw new Error("Not a comment: " + JSON.stringify(h));
+            throw new Error("Not a comment: " + JSON.stringify(h3));
           }
-          function m(p) {
-            let f = "*".concat(p.value, "*").split(`
+          function m2(p2) {
+            let f = "*".concat(p2.value, "*").split(`
 `);
-            return f.length > 1 && f.every((h) => h.trim()[0] === "*");
+            return f.length > 1 && f.every((h3) => h3.trim()[0] === "*");
           }
-          function d(p) {
-            let f = p.value.split(`
+          function d(p2) {
+            let f = p2.value.split(`
 `);
-            return ["/*", s(a, f.map((h, w) => w === 0 ? h.trimEnd() : " " + (w < f.length - 1 ? h.trim() : h.trimStart()))), "*/"];
+            return ["/*", s(a, f.map((h3, w) => w === 0 ? h3.trimEnd() : " " + (w < f.length - 1 ? h3.trim() : h3.trimStart()))), "*/"];
           }
           n.exports = { printComment: v };
         } }), Ym = Z({ "src/language-js/print/literal.js"(e, n) {
@@ -7489,7 +7532,7 @@ var require_standalone = __commonJS({
         } }), Qm = Z({ "src/language-js/printer-estree.js"(e, n) {
           "use strict";
           re();
-          var { printDanglingComments: t } = et(), { hasNewline: s } = Ue(), { builders: { join: a, line: r, hardline: u, softline: i, group: o, indent: c }, utils: { replaceTextEndOfLine: v } } = Oe(), m = Im(), d = Lm(), { insertPragma: p } = no(), f = uo(), h = jt(), w = so(), { hasFlowShorthandAnnotationComment: T, hasComment: A, CommentCheckFlags: S, isTheOnlyJsxElementInMarkdown: B, isLineComment: I, isNextLineEmpty: k, needsHardlineAfterDanglingComment: P, rawText: C, hasIgnoreComment: D, isCallExpression: g, isMemberExpression: F, markerForIfWithoutBlockAndSameLineComment: l } = Ke(), { locStart: E, locEnd: y } = st(), N = It(), { printHtmlBinding: x, isVueEventBindingExpression: b } = $m(), { printAngular: L } = Hm(), { printJsx: M, hasJsxIgnoreComment: j } = Gm(), { printFlow: $ } = Um(), { printTypescript: V } = Xm(), { printOptionalToken: q, printBindExpressionCallee: Y, printTypeAnnotation: H, adjustClause: R, printRestSpread: Q, printDefiniteToken: ee } = ct(), { printImportDeclaration: te, printExportDeclaration: oe, printExportAllDeclaration: W, printModuleSpecifier: X } = co(), { printTernary: ue } = po(), { printTemplateLiteral: De } = Lt(), { printArray: ie } = Kt(), { printObject: G } = zn(), { printClass: z, printClassMethod: U, printClassProperty: le } = Zt(), { printProperty: ge } = Qt(), { printFunction: Ae, printArrowFunction: Ne, printMethod: ke, printReturnStatement: ce, printThrowStatement: pe } = Lr(), { printCallExpression: de } = oo(), { printVariableDeclarator: ae, printAssignmentExpression: ve } = Yt(), { printBinaryishExpression: K } = Jn(), { printSwitchCaseConsequent: he } = fo(), { printMemberExpression: ye } = ao(), { printBlock: Ce, printBlockBody: Ie } = Do(), { printComment: Fe } = Km(), { printLiteral: me } = Ym(), { printDecorators: _ } = Un();
+          var { printDanglingComments: t } = et(), { hasNewline: s } = Ue(), { builders: { join: a, line: r, hardline: u, softline: i, group: o, indent: c }, utils: { replaceTextEndOfLine: v } } = Oe(), m2 = Im(), d = Lm(), { insertPragma: p2 } = no(), f = uo(), h3 = jt(), w = so(), { hasFlowShorthandAnnotationComment: T, hasComment: A, CommentCheckFlags: S, isTheOnlyJsxElementInMarkdown: B, isLineComment: I, isNextLineEmpty: k, needsHardlineAfterDanglingComment: P, rawText: C, hasIgnoreComment: D, isCallExpression: g, isMemberExpression: F, markerForIfWithoutBlockAndSameLineComment: l } = Ke(), { locStart: E, locEnd: y } = st(), N = It(), { printHtmlBinding: x, isVueEventBindingExpression: b } = $m(), { printAngular: L } = Hm(), { printJsx: M, hasJsxIgnoreComment: j } = Gm(), { printFlow: $2 } = Um(), { printTypescript: V } = Xm(), { printOptionalToken: q, printBindExpressionCallee: Y, printTypeAnnotation: H, adjustClause: R, printRestSpread: Q, printDefiniteToken: ee } = ct(), { printImportDeclaration: te, printExportDeclaration: oe, printExportAllDeclaration: W, printModuleSpecifier: X } = co(), { printTernary: ue } = po(), { printTemplateLiteral: De } = Lt(), { printArray: ie } = Kt(), { printObject: G } = zn(), { printClass: z, printClassMethod: U, printClassProperty: le } = Zt(), { printProperty: ge } = Qt(), { printFunction: Ae, printArrowFunction: Ne, printMethod: ke, printReturnStatement: ce, printThrowStatement: pe } = Lr(), { printCallExpression: de } = oo(), { printVariableDeclarator: ae, printAssignmentExpression: ve } = Yt(), { printBinaryishExpression: K } = Jn(), { printSwitchCaseConsequent: he } = fo(), { printMemberExpression: ye } = ao(), { printBlock: Ce, printBlockBody: Ie } = Do(), { printComment: Fe } = Km(), { printLiteral: me } = Ym(), { printDecorators: _ } = Un();
           function J(Be, Pe, Se, Qe) {
             let xe = ne(Be, Pe, Se, Qe);
             if (!xe)
@@ -7500,7 +7543,7 @@ var require_standalone = __commonJS({
             let je = [xe], Re = _(Be, Pe, Se), be = Xe.type === "ClassExpression" && Re;
             if (Re && (je = [...Re, xe], !be))
               return o(je);
-            if (!h(Be, Pe))
+            if (!h3(Be, Pe))
               return Qe && Qe.needsSemi && je.unshift(";"), je.length === 1 && je[0] === xe ? xe : je;
             if (be && (je = [c([r, ...je])]), je.unshift("("), Qe && Qe.needsSemi && je.unshift(";"), T(Xe)) {
               let [qe] = Xe.trailingComments;
@@ -7514,7 +7557,7 @@ var require_standalone = __commonJS({
               return "";
             if (typeof xe == "string")
               return xe;
-            for (let je of [me, x, L, M, $, V]) {
+            for (let je of [me, x, L, M, $2, V]) {
               let Re = je(Be, Pe, Se);
               if (typeof Re < "u")
                 return Re;
@@ -7770,30 +7813,30 @@ var require_standalone = __commonJS({
           function We(Be) {
             return Be.type && !N(Be) && !I(Be) && Be.type !== "EmptyStatement" && Be.type !== "TemplateElement" && Be.type !== "Import" && Be.type !== "TSEmptyBodyFunctionExpression";
           }
-          n.exports = { preprocess: w, print: J, embed: m, insertPragma: p, massageAstNode: d, hasPrettierIgnore(Be) {
+          n.exports = { preprocess: w, print: J, embed: m2, insertPragma: p2, massageAstNode: d, hasPrettierIgnore(Be) {
             return D(Be) || j(Be);
           }, willPrintOwnComments: f.willPrintOwnComments, canAttachComment: We, printComment: Fe, isBlockComment: N, handleComments: { avoidAstMutation: true, ownLine: f.handleOwnLineComment, endOfLine: f.handleEndOfLineComment, remaining: f.handleRemainingComment }, getCommentChildNodes: f.getCommentChildNodes };
         } }), Zm = Z({ "src/language-js/printer-estree-json.js"(e, n) {
           "use strict";
           re();
           var { builders: { hardline: t, indent: s, join: a } } = Oe(), r = so();
-          function u(c, v, m) {
+          function u(c, v, m2) {
             let d = c.getValue();
             switch (d.type) {
               case "JsonRoot":
-                return [m("node"), t];
+                return [m2("node"), t];
               case "ArrayExpression": {
                 if (d.elements.length === 0)
                   return "[]";
-                let p = c.map(() => c.getValue() === null ? "null" : m(), "elements");
-                return ["[", s([t, a([",", t], p)]), t, "]"];
+                let p2 = c.map(() => c.getValue() === null ? "null" : m2(), "elements");
+                return ["[", s([t, a([",", t], p2)]), t, "]"];
               }
               case "ObjectExpression":
-                return d.properties.length === 0 ? "{}" : ["{", s([t, a([",", t], c.map(m, "properties"))]), t, "}"];
+                return d.properties.length === 0 ? "{}" : ["{", s([t, a([",", t], c.map(m2, "properties"))]), t, "}"];
               case "ObjectProperty":
-                return [m("key"), ": ", m("value")];
+                return [m2("key"), ": ", m2("value")];
               case "UnaryExpression":
-                return [d.operator === "+" ? "" : d.operator, m("argument")];
+                return [d.operator === "+" ? "" : d.operator, m2("argument")];
               case "NullLiteral":
                 return "null";
               case "BooleanLiteral":
@@ -7802,11 +7845,11 @@ var require_standalone = __commonJS({
               case "NumericLiteral":
                 return JSON.stringify(d.value);
               case "Identifier": {
-                let p = c.getParentNode();
-                return p && p.type === "ObjectProperty" && p.key === d ? JSON.stringify(d.name) : d.name;
+                let p2 = c.getParentNode();
+                return p2 && p2.type === "ObjectProperty" && p2.key === d ? JSON.stringify(d.name) : d.name;
               }
               case "TemplateLiteral":
-                return m(["quasis", 0]);
+                return m2(["quasis", 0]);
               case "TemplateElement":
                 return JSON.stringify(d.value.cooked);
               default:
@@ -7815,19 +7858,19 @@ var require_standalone = __commonJS({
           }
           var i = /* @__PURE__ */ new Set(["start", "end", "extra", "loc", "comments", "leadingComments", "trailingComments", "innerComments", "errors", "range", "tokens"]);
           function o(c, v) {
-            let { type: m } = c;
-            if (m === "ObjectProperty" && c.key.type === "Identifier") {
+            let { type: m2 } = c;
+            if (m2 === "ObjectProperty" && c.key.type === "Identifier") {
               v.key = { type: "StringLiteral", value: c.key.name };
               return;
             }
-            if (m === "UnaryExpression" && c.operator === "+")
+            if (m2 === "UnaryExpression" && c.operator === "+")
               return v.argument;
-            if (m === "ArrayExpression") {
-              for (let [d, p] of c.elements.entries())
-                p === null && v.elements.splice(d, 0, { type: "NullLiteral" });
+            if (m2 === "ArrayExpression") {
+              for (let [d, p2] of c.elements.entries())
+                p2 === null && v.elements.splice(d, 0, { type: "NullLiteral" });
               return;
             }
-            if (m === "TemplateLiteral")
+            if (m2 === "TemplateLiteral")
               return { type: "StringLiteral", value: c.quasis[0].value.cooked };
           }
           o.ignoredProperties = i, n.exports = { preprocess: r, print: u, massageAstNode: o };
@@ -7867,15 +7910,15 @@ var require_standalone = __commonJS({
           function r(i, o, c) {
             if (t(i) && i.lang === "yaml" && delete o.value, i.type === "css-comment" && c.type === "css-root" && c.nodes.length > 0 && ((c.nodes[0] === i || t(c.nodes[0]) && c.nodes[1] === i) && (delete o.text, /^\*\s*@(?:format|prettier)\s*$/.test(i.text)) || c.type === "css-root" && s(c.nodes) === i))
               return null;
-            if (i.type === "value-root" && delete o.text, (i.type === "media-query" || i.type === "media-query-list" || i.type === "media-feature-expression") && delete o.value, i.type === "css-rule" && delete o.params, i.type === "selector-combinator" && (o.value = o.value.replace(/\s+/g, " ")), i.type === "media-feature" && (o.value = o.value.replace(/ /g, "")), (i.type === "value-word" && (i.isColor && i.isHex || ["initial", "inherit", "unset", "revert"].includes(o.value.replace().toLowerCase())) || i.type === "media-feature" || i.type === "selector-root-invalid" || i.type === "selector-pseudo") && (o.value = o.value.toLowerCase()), i.type === "css-decl" && (o.prop = o.prop.toLowerCase()), (i.type === "css-atrule" || i.type === "css-import") && (o.name = o.name.toLowerCase()), i.type === "value-number" && (o.unit = o.unit.toLowerCase()), (i.type === "media-feature" || i.type === "media-keyword" || i.type === "media-type" || i.type === "media-unknown" || i.type === "media-url" || i.type === "media-value" || i.type === "selector-attribute" || i.type === "selector-string" || i.type === "selector-class" || i.type === "selector-combinator" || i.type === "value-string") && o.value && (o.value = u(o.value)), i.type === "selector-attribute" && (o.attribute = o.attribute.trim(), o.namespace && typeof o.namespace == "string" && (o.namespace = o.namespace.trim(), o.namespace.length === 0 && (o.namespace = true)), o.value && (o.value = o.value.trim().replace(/^["']|["']$/g, ""), delete o.quoted)), (i.type === "media-value" || i.type === "media-type" || i.type === "value-number" || i.type === "selector-root-invalid" || i.type === "selector-class" || i.type === "selector-combinator" || i.type === "selector-tag") && o.value && (o.value = o.value.replace(/([\d+.Ee-]+)([A-Za-z]*)/g, (v, m, d) => {
-              let p = Number(m);
-              return Number.isNaN(p) ? v : p + d.toLowerCase();
+            if (i.type === "value-root" && delete o.text, (i.type === "media-query" || i.type === "media-query-list" || i.type === "media-feature-expression") && delete o.value, i.type === "css-rule" && delete o.params, i.type === "selector-combinator" && (o.value = o.value.replace(/\s+/g, " ")), i.type === "media-feature" && (o.value = o.value.replace(/ /g, "")), (i.type === "value-word" && (i.isColor && i.isHex || ["initial", "inherit", "unset", "revert"].includes(o.value.replace().toLowerCase())) || i.type === "media-feature" || i.type === "selector-root-invalid" || i.type === "selector-pseudo") && (o.value = o.value.toLowerCase()), i.type === "css-decl" && (o.prop = o.prop.toLowerCase()), (i.type === "css-atrule" || i.type === "css-import") && (o.name = o.name.toLowerCase()), i.type === "value-number" && (o.unit = o.unit.toLowerCase()), (i.type === "media-feature" || i.type === "media-keyword" || i.type === "media-type" || i.type === "media-unknown" || i.type === "media-url" || i.type === "media-value" || i.type === "selector-attribute" || i.type === "selector-string" || i.type === "selector-class" || i.type === "selector-combinator" || i.type === "value-string") && o.value && (o.value = u(o.value)), i.type === "selector-attribute" && (o.attribute = o.attribute.trim(), o.namespace && typeof o.namespace == "string" && (o.namespace = o.namespace.trim(), o.namespace.length === 0 && (o.namespace = true)), o.value && (o.value = o.value.trim().replace(/^["']|["']$/g, ""), delete o.quoted)), (i.type === "media-value" || i.type === "media-type" || i.type === "value-number" || i.type === "selector-root-invalid" || i.type === "selector-class" || i.type === "selector-combinator" || i.type === "selector-tag") && o.value && (o.value = o.value.replace(/([\d+.Ee-]+)([A-Za-z]*)/g, (v, m2, d) => {
+              let p2 = Number(m2);
+              return Number.isNaN(p2) ? v : p2 + d.toLowerCase();
             })), i.type === "selector-tag") {
               let v = i.value.toLowerCase();
               ["from", "to"].includes(v) && (o.value = v);
             }
             if (i.type === "css-atrule" && i.name.toLowerCase() === "supports" && delete o.value, i.type === "selector-unknown" && delete o.value, i.type === "value-comma_group") {
-              let v = i.groups.findIndex((m) => m.type === "value-number" && m.unit === "...");
+              let v = i.groups.findIndex((m2) => m2.type === "value-number" && m2.unit === "...");
               v !== -1 && (o.groups[v].unit = "", o.groups.splice(v + 1, 0, { type: "value-word", value: "...", isColor: false, isHex: false }));
             }
           }
@@ -7918,8 +7961,8 @@ var require_standalone = __commonJS({
             let { startDelimiter: u, language: i, value: o = "", endDelimiter: c } = r.groups, v = i.trim() || "yaml";
             if (u === "+++" && (v = "toml"), v !== "yaml" && u !== c)
               return { content: a };
-            let [m] = r;
-            return { frontMatter: { type: "front-matter", lang: v, value: o, startDelimiter: u, endDelimiter: c, raw: m.replace(/\n$/, "") }, content: m.replace(/[^\n]/g, " ") + a.slice(m.length) };
+            let [m2] = r;
+            return { frontMatter: { type: "front-matter", lang: v, value: o, startDelimiter: u, endDelimiter: c, raw: m2.replace(/\n$/, "") }, content: m2.replace(/[^\n]/g, " ") + a.slice(m2.length) };
           }
           n.exports = s;
         } }), ld = Z({ "src/language-css/pragma.js"(e, n) {
@@ -7972,7 +8015,7 @@ var require_standalone = __commonJS({
             let le = a(G, "value-func");
             return (le == null || (U = le.value) === null || U === void 0 ? void 0 : U.toLowerCase()) === z;
           }
-          function m(G) {
+          function m2(G) {
             var z;
             let U = a(G, "css-rule"), le = U == null || (z = U.raws) === null || z === void 0 ? void 0 : z.selector;
             return le && (le.startsWith(":import") || le.startsWith(":export"));
@@ -7981,14 +8024,14 @@ var require_standalone = __commonJS({
             let U = Array.isArray(z) ? z : [z], le = a(G, "css-atrule");
             return le && U.includes(le.name.toLowerCase());
           }
-          function p(G) {
+          function p2(G) {
             let z = G.getValue(), U = a(G, "css-atrule");
             return (U == null ? void 0 : U.name) === "import" && z.groups[0].value === "url" && z.groups.length === 2;
           }
           function f(G) {
             return G.type === "value-func" && G.value.toLowerCase() === "url";
           }
-          function h(G, z) {
+          function h3(G, z) {
             var U;
             let le = (U = G.getParentNode()) === null || U === void 0 ? void 0 : U.nodes;
             return le && le.indexOf(z) === le.length - 1;
@@ -8062,7 +8105,7 @@ var require_standalone = __commonJS({
             var z, U;
             return G.type === "value-comma_group" && ((z = G.groups) === null || z === void 0 || (U = z[1]) === null || U === void 0 ? void 0 : U.type) === "value-colon";
           }
-          function $(G) {
+          function $2(G) {
             var z;
             return G.type === "value-paren_group" && ((z = G.groups) === null || z === void 0 ? void 0 : z[0]) && j(G.groups[0]);
           }
@@ -8072,10 +8115,10 @@ var require_standalone = __commonJS({
             if (U.groups.length === 0)
               return false;
             let le = G.getParentNode(1);
-            if (!$(U) && !(le && $(le)))
+            if (!$2(U) && !(le && $2(le)))
               return false;
             let ge = a(G, "css-decl");
-            return !!(ge != null && (z = ge.prop) !== null && z !== void 0 && z.startsWith("$") || $(le) || le.type === "value-func");
+            return !!(ge != null && (z = ge.prop) !== null && z !== void 0 && z.startsWith("$") || $2(le) || le.type === "value-func");
           }
           function q(G) {
             return G.type === "value-comment" && G.inline;
@@ -8128,7 +8171,7 @@ var require_standalone = __commonJS({
             var z, U;
             return G.type === "value-paren_group" && ((z = G.open) === null || z === void 0 ? void 0 : z.value) === "(" && ((U = G.close) === null || U === void 0 ? void 0 : U.value) === ")";
           }
-          n.exports = { getAncestorCounter: s, getAncestorNode: a, getPropOfDeclNode: r, maybeToLowerCase: c, insideValueFunctionNode: v, insideICSSRuleNode: m, insideAtRuleNode: d, insideURLFunctionInImportAtRuleNode: p, isKeyframeAtRuleKeywords: o, isWideKeywords: i, isLastNode: h, isSCSSControlDirectiveNode: l, isDetachedRulesetDeclarationNode: w, isRelationalOperatorNode: F, isEqualityOperatorNode: g, isMultiplicationNode: B, isDivisionNode: I, isAdditionNode: k, isSubtractionNode: P, isModuloNode: C, isMathOperatorNode: D, isEachKeywordNode: S, isForKeywordNode: T, isURLFunctionNode: f, isIfElseKeywordNode: A, hasComposesNode: b, hasParensAroundNode: L, hasEmptyRawBefore: M, isDetachedRulesetCallNode: E, isTemplatePlaceholderNode: y, isTemplatePropNode: N, isPostcssSimpleVarNode: x, isKeyValuePairNode: j, isKeyValuePairInParenGroupNode: $, isKeyInValuePairNode: te, isSCSSMapItemNode: V, isInlineValueCommentNode: q, isHashNode: Y, isLeftCurlyBraceNode: H, isRightCurlyBraceNode: R, isWordNode: Q, isColonNode: ee, isMediaAndSupportsKeywords: oe, isColorAdjusterFuncNode: W, lastLineHasInlineComment: X, isAtWordPlaceholderNode: ue, isConfigurationNode: De, isParenGroupNode: ie };
+          n.exports = { getAncestorCounter: s, getAncestorNode: a, getPropOfDeclNode: r, maybeToLowerCase: c, insideValueFunctionNode: v, insideICSSRuleNode: m2, insideAtRuleNode: d, insideURLFunctionInImportAtRuleNode: p2, isKeyframeAtRuleKeywords: o, isWideKeywords: i, isLastNode: h3, isSCSSControlDirectiveNode: l, isDetachedRulesetDeclarationNode: w, isRelationalOperatorNode: F, isEqualityOperatorNode: g, isMultiplicationNode: B, isDivisionNode: I, isAdditionNode: k, isSubtractionNode: P, isModuloNode: C, isMathOperatorNode: D, isEachKeywordNode: S, isForKeywordNode: T, isURLFunctionNode: f, isIfElseKeywordNode: A, hasComposesNode: b, hasParensAroundNode: L, hasEmptyRawBefore: M, isDetachedRulesetCallNode: E, isTemplatePlaceholderNode: y, isTemplatePropNode: N, isPostcssSimpleVarNode: x, isKeyValuePairNode: j, isKeyValuePairInParenGroupNode: $2, isKeyInValuePairNode: te, isSCSSMapItemNode: V, isInlineValueCommentNode: q, isHashNode: Y, isLeftCurlyBraceNode: H, isRightCurlyBraceNode: R, isWordNode: Q, isColonNode: ee, isMediaAndSupportsKeywords: oe, isColorAdjusterFuncNode: W, lastLineHasInlineComment: X, isAtWordPlaceholderNode: ue, isConfigurationNode: De, isParenGroupNode: ie };
         } }), pd = Z({ "src/utils/line-column-to-index.js"(e, n) {
           "use strict";
           re(), n.exports = function(t, s) {
@@ -8142,37 +8185,37 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { skipEverythingButNewLine: t } = Nr(), s = it(), a = pd();
-          function r(p, f) {
-            return typeof p.sourceIndex == "number" ? p.sourceIndex : p.source ? a(p.source.start, f) - 1 : null;
+          function r(p2, f) {
+            return typeof p2.sourceIndex == "number" ? p2.sourceIndex : p2.source ? a(p2.source.start, f) - 1 : null;
           }
-          function u(p, f) {
-            if (p.type === "css-comment" && p.inline)
-              return t(f, p.source.startOffset);
-            let h = p.nodes && s(p.nodes);
-            return h && p.source && !p.source.end && (p = h), p.source && p.source.end ? a(p.source.end, f) : null;
+          function u(p2, f) {
+            if (p2.type === "css-comment" && p2.inline)
+              return t(f, p2.source.startOffset);
+            let h3 = p2.nodes && s(p2.nodes);
+            return h3 && p2.source && !p2.source.end && (p2 = h3), p2.source && p2.source.end ? a(p2.source.end, f) : null;
           }
-          function i(p, f) {
-            p.source && (p.source.startOffset = r(p, f), p.source.endOffset = u(p, f));
-            for (let h in p) {
-              let w = p[h];
-              h === "source" || !w || typeof w != "object" || (w.type === "value-root" || w.type === "value-unknown" ? o(w, c(p), w.text || w.value) : i(w, f));
+          function i(p2, f) {
+            p2.source && (p2.source.startOffset = r(p2, f), p2.source.endOffset = u(p2, f));
+            for (let h3 in p2) {
+              let w = p2[h3];
+              h3 === "source" || !w || typeof w != "object" || (w.type === "value-root" || w.type === "value-unknown" ? o(w, c(p2), w.text || w.value) : i(w, f));
             }
           }
-          function o(p, f, h) {
-            p.source && (p.source.startOffset = r(p, h) + f, p.source.endOffset = u(p, h) + f);
-            for (let w in p) {
-              let T = p[w];
-              w === "source" || !T || typeof T != "object" || o(T, f, h);
+          function o(p2, f, h3) {
+            p2.source && (p2.source.startOffset = r(p2, h3) + f, p2.source.endOffset = u(p2, h3) + f);
+            for (let w in p2) {
+              let T = p2[w];
+              w === "source" || !T || typeof T != "object" || o(T, f, h3);
             }
           }
-          function c(p) {
-            let f = p.source.startOffset;
-            return typeof p.prop == "string" && (f += p.prop.length), p.type === "css-atrule" && typeof p.name == "string" && (f += 1 + p.name.length + p.raws.afterName.match(/^\s*:?\s*/)[0].length), p.type !== "css-atrule" && p.raws && typeof p.raws.between == "string" && (f += p.raws.between.length), f;
+          function c(p2) {
+            let f = p2.source.startOffset;
+            return typeof p2.prop == "string" && (f += p2.prop.length), p2.type === "css-atrule" && typeof p2.name == "string" && (f += 1 + p2.name.length + p2.raws.afterName.match(/^\s*:?\s*/)[0].length), p2.type !== "css-atrule" && p2.raws && typeof p2.raws.between == "string" && (f += p2.raws.between.length), f;
           }
-          function v(p) {
-            let f = "initial", h = "initial", w, T = false, A = [];
-            for (let S = 0; S < p.length; S++) {
-              let B = p[S];
+          function v(p2) {
+            let f = "initial", h3 = "initial", w, T = false, A = [];
+            for (let S = 0; S < p2.length; S++) {
+              let B = p2[S];
               switch (f) {
                 case "initial":
                   if (B === "'") {
@@ -8183,44 +8226,44 @@ var require_standalone = __commonJS({
                     f = "double-quotes";
                     continue;
                   }
-                  if ((B === "u" || B === "U") && p.slice(S, S + 4).toLowerCase() === "url(") {
+                  if ((B === "u" || B === "U") && p2.slice(S, S + 4).toLowerCase() === "url(") {
                     f = "url", S += 3;
                     continue;
                   }
-                  if (B === "*" && p[S - 1] === "/") {
+                  if (B === "*" && p2[S - 1] === "/") {
                     f = "comment-block";
                     continue;
                   }
-                  if (B === "/" && p[S - 1] === "/") {
+                  if (B === "/" && p2[S - 1] === "/") {
                     f = "comment-inline", w = S - 1;
                     continue;
                   }
                   continue;
                 case "single-quotes":
-                  if (B === "'" && p[S - 1] !== "\\" && (f = h, h = "initial"), B === `
+                  if (B === "'" && p2[S - 1] !== "\\" && (f = h3, h3 = "initial"), B === `
 ` || B === "\r")
-                    return p;
+                    return p2;
                   continue;
                 case "double-quotes":
-                  if (B === '"' && p[S - 1] !== "\\" && (f = h, h = "initial"), B === `
+                  if (B === '"' && p2[S - 1] !== "\\" && (f = h3, h3 = "initial"), B === `
 ` || B === "\r")
-                    return p;
+                    return p2;
                   continue;
                 case "url":
                   if (B === ")" && (f = "initial"), B === `
 ` || B === "\r")
-                    return p;
+                    return p2;
                   if (B === "'") {
-                    f = "single-quotes", h = "url";
+                    f = "single-quotes", h3 = "url";
                     continue;
                   }
                   if (B === '"') {
-                    f = "double-quotes", h = "url";
+                    f = "double-quotes", h3 = "url";
                     continue;
                   }
                   continue;
                 case "comment-block":
-                  B === "/" && p[S - 1] === "*" && (f = "initial");
+                  B === "/" && p2[S - 1] === "*" && (f = "initial");
                   continue;
                 case "comment-inline":
                   (B === '"' || B === "'" || B === "*") && (T = true), (B === `
@@ -8229,16 +8272,16 @@ var require_standalone = __commonJS({
               }
             }
             for (let [S, B] of A)
-              p = p.slice(0, S) + p.slice(S, B).replace(/["'*]/g, " ") + p.slice(B);
-            return p;
+              p2 = p2.slice(0, S) + p2.slice(S, B).replace(/["'*]/g, " ") + p2.slice(B);
+            return p2;
           }
-          function m(p) {
-            return p.source.startOffset;
+          function m2(p2) {
+            return p2.source.startOffset;
           }
-          function d(p) {
-            return p.source.endOffset;
+          function d(p2) {
+            return p2.source.endOffset;
           }
-          n.exports = { locStart: m, locEnd: d, calculateLoc: i, replaceQuotesInInlineComments: v };
+          n.exports = { locStart: m2, locEnd: d, calculateLoc: i, replaceQuotesInInlineComments: v };
         } }), Dd = Z({ "src/language-css/utils/is-less-parser.js"(e, n) {
           "use strict";
           re();
@@ -8267,7 +8310,7 @@ var require_standalone = __commonJS({
         } }), yd = Z({ "src/language-css/printer-postcss.js"(e, n) {
           "use strict";
           re();
-          var t = it(), { printNumber: s, printString: a, hasNewline: r, isFrontMatterNode: u, isNextLineEmpty: i, isNonEmptyArray: o } = Ue(), { builders: { join: c, line: v, hardline: m, softline: d, group: p, fill: f, indent: h, dedent: w, ifBreak: T, breakParent: A }, utils: { removeLines: S, getDocParts: B } } = Oe(), I = ad(), k = od(), { insertPragma: P } = ld(), { getAncestorNode: C, getPropOfDeclNode: D, maybeToLowerCase: g, insideValueFunctionNode: F, insideICSSRuleNode: l, insideAtRuleNode: E, insideURLFunctionInImportAtRuleNode: y, isKeyframeAtRuleKeywords: N, isWideKeywords: x, isLastNode: b, isSCSSControlDirectiveNode: L, isDetachedRulesetDeclarationNode: M, isRelationalOperatorNode: j, isEqualityOperatorNode: $, isMultiplicationNode: V, isDivisionNode: q, isAdditionNode: Y, isSubtractionNode: H, isMathOperatorNode: R, isEachKeywordNode: Q, isForKeywordNode: ee, isURLFunctionNode: te, isIfElseKeywordNode: oe, hasComposesNode: W, hasParensAroundNode: X, hasEmptyRawBefore: ue, isKeyValuePairNode: De, isKeyInValuePairNode: ie, isDetachedRulesetCallNode: G, isTemplatePlaceholderNode: z, isTemplatePropNode: U, isPostcssSimpleVarNode: le, isSCSSMapItemNode: ge, isInlineValueCommentNode: Ae, isHashNode: Ne, isLeftCurlyBraceNode: ke, isRightCurlyBraceNode: ce, isWordNode: pe, isColonNode: de, isMediaAndSupportsKeywords: ae, isColorAdjusterFuncNode: ve, lastLineHasInlineComment: K, isAtWordPlaceholderNode: he, isConfigurationNode: ye, isParenGroupNode: Ce } = cd(), { locStart: Ie, locEnd: Fe } = fd(), me = Dd(), _ = md(), J = gd();
+          var t = it(), { printNumber: s, printString: a, hasNewline: r, isFrontMatterNode: u, isNextLineEmpty: i, isNonEmptyArray: o } = Ue(), { builders: { join: c, line: v, hardline: m2, softline: d, group: p2, fill: f, indent: h3, dedent: w, ifBreak: T, breakParent: A }, utils: { removeLines: S, getDocParts: B } } = Oe(), I = ad(), k = od(), { insertPragma: P } = ld(), { getAncestorNode: C, getPropOfDeclNode: D, maybeToLowerCase: g, insideValueFunctionNode: F, insideICSSRuleNode: l, insideAtRuleNode: E, insideURLFunctionInImportAtRuleNode: y, isKeyframeAtRuleKeywords: N, isWideKeywords: x, isLastNode: b, isSCSSControlDirectiveNode: L, isDetachedRulesetDeclarationNode: M, isRelationalOperatorNode: j, isEqualityOperatorNode: $2, isMultiplicationNode: V, isDivisionNode: q, isAdditionNode: Y, isSubtractionNode: H, isMathOperatorNode: R, isEachKeywordNode: Q, isForKeywordNode: ee, isURLFunctionNode: te, isIfElseKeywordNode: oe, hasComposesNode: W, hasParensAroundNode: X, hasEmptyRawBefore: ue, isKeyValuePairNode: De, isKeyInValuePairNode: ie, isDetachedRulesetCallNode: G, isTemplatePlaceholderNode: z, isTemplatePropNode: U, isPostcssSimpleVarNode: le, isSCSSMapItemNode: ge, isInlineValueCommentNode: Ae, isHashNode: Ne, isLeftCurlyBraceNode: ke, isRightCurlyBraceNode: ce, isWordNode: pe, isColonNode: de, isMediaAndSupportsKeywords: ae, isColorAdjusterFuncNode: ve, lastLineHasInlineComment: K, isAtWordPlaceholderNode: he, isConfigurationNode: ye, isParenGroupNode: Ce } = cd(), { locStart: Ie, locEnd: Fe } = fd(), me = Dd(), _ = md(), J = gd();
           function ne(be) {
             return be.trailingComma === "es5" || be.trailingComma === "all";
           }
@@ -8279,20 +8322,20 @@ var require_standalone = __commonJS({
               return se;
             switch (se.type) {
               case "front-matter":
-                return [se.raw, m];
+                return [se.raw, m2];
               case "css-root": {
                 let He = We(be, Le, qe), Me = se.raws.after.trim();
-                return [He, Me ? " ".concat(Me) : "", B(He).length > 0 ? m : ""];
+                return [He, Me ? " ".concat(Me) : "", B(He).length > 0 ? m2 : ""];
               }
               case "css-comment": {
                 let He = se.inline || se.raws.inline, Me = Le.originalText.slice(Ie(se), Fe(se));
                 return He ? Me.trimEnd() : Me;
               }
               case "css-rule":
-                return [qe("selector"), se.important ? " !important" : "", se.nodes ? [se.selector && se.selector.type === "selector-unknown" && K(se.selector.value) ? v : " ", "{", se.nodes.length > 0 ? h([m, We(be, Le, qe)]) : "", m, "}", M(se) ? ";" : ""] : ";"];
+                return [qe("selector"), se.important ? " !important" : "", se.nodes ? [se.selector && se.selector.type === "selector-unknown" && K(se.selector.value) ? v : " ", "{", se.nodes.length > 0 ? h3([m2, We(be, Le, qe)]) : "", m2, "}", M(se) ? ";" : ""] : ";"];
               case "css-decl": {
                 let He = be.getParentNode(), { between: Me } = se.raws, ze = Me.trim(), nt = ze === ":", tt = W(se) ? S(qe("value")) : qe("value");
-                return !nt && K(ze) && (tt = h([m, w(tt)])), [se.raws.before.replace(/[\s;]/g, ""), l(be) ? se.prop : g(se.prop), ze.startsWith("//") ? " " : "", ze, se.extend ? "" : " ", me(Le) && se.extend && se.selector ? ["extend(", qe("selector"), ")"] : "", tt, se.raws.important ? se.raws.important.replace(/\s*!\s*important/i, " !important") : se.important ? " !important" : "", se.raws.scssDefault ? se.raws.scssDefault.replace(/\s*!default/i, " !default") : se.scssDefault ? " !default" : "", se.raws.scssGlobal ? se.raws.scssGlobal.replace(/\s*!global/i, " !global") : se.scssGlobal ? " !global" : "", se.nodes ? [" {", h([d, We(be, Le, qe)]), d, "}"] : U(se) && !He.raws.semicolon && Le.originalText[Fe(se) - 1] !== ";" ? "" : Le.__isHTMLStyleAttribute && b(be, se) ? T(";") : ";"];
+                return !nt && K(ze) && (tt = h3([m2, w(tt)])), [se.raws.before.replace(/[\s;]/g, ""), l(be) ? se.prop : g(se.prop), ze.startsWith("//") ? " " : "", ze, se.extend ? "" : " ", me(Le) && se.extend && se.selector ? ["extend(", qe("selector"), ")"] : "", tt, se.raws.important ? se.raws.important.replace(/\s*!\s*important/i, " !important") : se.important ? " !important" : "", se.raws.scssDefault ? se.raws.scssDefault.replace(/\s*!default/i, " !default") : se.scssDefault ? " !default" : "", se.raws.scssGlobal ? se.raws.scssGlobal.replace(/\s*!global/i, " !global") : se.scssGlobal ? " !global" : "", se.nodes ? [" {", h3([d, We(be, Le, qe)]), d, "}"] : U(se) && !He.raws.semicolon && Le.originalText[Fe(se) - 1] !== ";" ? "" : Le.__isHTMLStyleAttribute && b(be, se) ? T(";") : ";"];
               }
               case "css-atrule": {
                 let He = be.getParentNode(), Me = z(se) && !He.raws.semicolon && Le.originalText[Fe(se) - 1] !== ";";
@@ -8302,16 +8345,16 @@ var require_standalone = __commonJS({
                   if (se.function)
                     return [se.name, qe("params"), Me ? "" : ";"];
                   if (se.variable)
-                    return ["@", se.name, ": ", se.value ? qe("value") : "", se.raws.between.trim() ? se.raws.between.trim() + " " : "", se.nodes ? ["{", h([se.nodes.length > 0 ? d : "", We(be, Le, qe)]), d, "}"] : "", Me ? "" : ";"];
+                    return ["@", se.name, ": ", se.value ? qe("value") : "", se.raws.between.trim() ? se.raws.between.trim() + " " : "", se.nodes ? ["{", h3([se.nodes.length > 0 ? d : "", We(be, Le, qe)]), d, "}"] : "", Me ? "" : ";"];
                 }
-                return ["@", G(se) || se.name.endsWith(":") ? se.name : g(se.name), se.params ? [G(se) ? "" : z(se) ? se.raws.afterName === "" ? "" : se.name.endsWith(":") ? " " : /^\s*\n\s*\n/.test(se.raws.afterName) ? [m, m] : /^\s*\n/.test(se.raws.afterName) ? m : " " : " ", qe("params")] : "", se.selector ? h([" ", qe("selector")]) : "", se.value ? p([" ", qe("value"), L(se) ? X(se) ? " " : v : ""]) : se.name === "else" ? " " : "", se.nodes ? [L(se) ? "" : se.selector && !se.selector.nodes && typeof se.selector.value == "string" && K(se.selector.value) || !se.selector && typeof se.params == "string" && K(se.params) ? v : " ", "{", h([se.nodes.length > 0 ? d : "", We(be, Le, qe)]), d, "}"] : Me ? "" : ";"];
+                return ["@", G(se) || se.name.endsWith(":") ? se.name : g(se.name), se.params ? [G(se) ? "" : z(se) ? se.raws.afterName === "" ? "" : se.name.endsWith(":") ? " " : /^\s*\n\s*\n/.test(se.raws.afterName) ? [m2, m2] : /^\s*\n/.test(se.raws.afterName) ? m2 : " " : " ", qe("params")] : "", se.selector ? h3([" ", qe("selector")]) : "", se.value ? p2([" ", qe("value"), L(se) ? X(se) ? " " : v : ""]) : se.name === "else" ? " " : "", se.nodes ? [L(se) ? "" : se.selector && !se.selector.nodes && typeof se.selector.value == "string" && K(se.selector.value) || !se.selector && typeof se.params == "string" && K(se.params) ? v : " ", "{", h3([se.nodes.length > 0 ? d : "", We(be, Le, qe)]), d, "}"] : Me ? "" : ";"];
               }
               case "media-query-list": {
                 let He = [];
                 return be.each((Me) => {
                   let ze = Me.getValue();
                   ze.type === "media-query" && ze.value === "" || He.push(qe());
-                }, "nodes"), p(h(c(v, He)));
+                }, "nodes"), p2(h3(c(v, He)));
               }
               case "media-query":
                 return [c(" ", be.map(qe, "nodes")), b(be, se) ? "" : ","];
@@ -8332,9 +8375,9 @@ var require_standalone = __commonJS({
               case "media-unknown":
                 return se.value;
               case "selector-root":
-                return p([E(be, "custom-selector") ? [C(be, "css-atrule").customSelector, v] : "", c([",", E(be, ["extend", "custom-selector", "nest"]) ? v : m], be.map(qe, "nodes"))]);
+                return p2([E(be, "custom-selector") ? [C(be, "css-atrule").customSelector, v] : "", c([",", E(be, ["extend", "custom-selector", "nest"]) ? v : m2], be.map(qe, "nodes"))]);
               case "selector-selector":
-                return p(h(be.map(qe, "nodes")));
+                return p2(h3(be.map(qe, "nodes")));
               case "selector-comment":
                 return se.value;
               case "selector-string":
@@ -8409,13 +8452,13 @@ var require_standalone = __commonJS({
                   if (!(!(V(Ge) || V(Ve)) && !F(be, "calc") && !Ao && (q(Ge) && !eu || q(Ve) && !tu || Y(Ge) && !eu || Y(Ve) && !tu || H(Ge) || H(Ve)) && (ue(Ge) || Qn && (!rt || rt && R(rt))))) {
                     if (Ae(Ve)) {
                       if (He.type === "value-paren_group") {
-                        Te.push(w(m));
+                        Te.push(w(m2));
                         continue;
                       }
-                      Te.push(m);
+                      Te.push(m2);
                       continue;
                     }
-                    if (pt && ($(Ge) || j(Ge) || oe(Ge) || Q(Ve) || ee(Ve))) {
+                    if (pt && ($2(Ge) || j(Ge) || oe(Ge) || Q(Ve) || ee(Ve))) {
                       Te.push(" ");
                       continue;
                     }
@@ -8424,7 +8467,7 @@ var require_standalone = __commonJS({
                       continue;
                     }
                     if (nt) {
-                      Ve.source && Ge.source && Ve.source.start.line !== Ge.source.start.line ? (Te.push(m), Ze = true) : Te.push(" ");
+                      Ve.source && Ge.source && Ve.source.start.line !== Ge.source.start.line ? (Te.push(m2), Ze = true) : Te.push(" ");
                       continue;
                     }
                     if (Zn) {
@@ -8444,7 +8487,7 @@ var require_standalone = __commonJS({
                     }
                   }
                 }
-                return O && Te.push(A), Ze && Te.unshift(m), pt ? p(h(Te)) : y(be) ? p(f(Te)) : p(h(f(Te)));
+                return O && Te.push(A), Ze && Te.unshift(m2), pt ? p2(h3(Te)) : y(be) ? p2(f(Te)) : p2(h3(f(Te)));
               }
               case "value-paren_group": {
                 let He = be.getParentNode();
@@ -8454,17 +8497,17 @@ var require_standalone = __commonJS({
                   let $e = be.map(qe, "groups"), Je = [];
                   for (let Ze = 0; Ze < $e.length; Ze++)
                     Ze !== 0 && Je.push([",", v]), Je.push($e[Ze]);
-                  return p(h(f(Je)));
+                  return p2(h3(f(Je)));
                 }
-                let Me = ge(be), ze = t(se.groups), nt = ze && ze.type === "value-comment", tt = ie(se, He), pt = ye(se, He), O = pt || Me && !tt, fe = pt || tt, Te = p([se.open ? qe("open") : "", h([d, c([v], be.map(($e, Je) => {
+                let Me = ge(be), ze = t(se.groups), nt = ze && ze.type === "value-comment", tt = ie(se, He), pt = ye(se, He), O = pt || Me && !tt, fe = pt || tt, Te = p2([se.open ? qe("open") : "", h3([d, c([v], be.map(($e, Je) => {
                   let Ze = $e.getValue(), ut = Je === se.groups.length - 1, rt = [qe(), ut ? "" : ","];
                   if (De(Ze) && Ze.type === "value-comma_group" && Ze.groups && Ze.groups[0].type !== "value-paren_group" && Ze.groups[2] && Ze.groups[2].type === "value-paren_group") {
                     let Ve = B(rt[0].contents.contents);
-                    return Ve[1] = p(Ve[1]), p(w(rt));
+                    return Ve[1] = p2(Ve[1]), p2(w(rt));
                   }
                   if (!ut && Ze.type === "value-comma_group" && o(Ze.groups)) {
                     let Ve = t(Ze.groups);
-                    Ve.source && i(Le.originalText, Ve, Fe) && rt.push(m);
+                    Ve.source && i(Le.originalText, Ve, Fe) && rt.push(m2);
                   }
                   return rt;
                 }, "groups"))]), T(!nt && _(Le.parser, Le.originalText) && Me && ne(Le) ? "," : ""), d, se.close ? qe("close") : ""], { shouldBreak: O });
@@ -8507,7 +8550,7 @@ var require_standalone = __commonJS({
                 se.push(Le.originalText.slice(Ie(tt), Fe(tt)));
               } else
                 se.push(qe());
-              Me !== ze.length - 1 && (ze[Me + 1].type === "css-comment" && !r(Le.originalText, Ie(ze[Me + 1]), { backwards: true }) && !u(ze[Me]) || ze[Me + 1].type === "css-atrule" && ze[Me + 1].name === "else" && ze[Me].type !== "css-comment" ? se.push(" ") : (se.push(Le.__isHTMLStyleAttribute ? v : m), i(Le.originalText, He.getValue(), Fe) && !u(ze[Me]) && se.push(m)));
+              Me !== ze.length - 1 && (ze[Me + 1].type === "css-comment" && !r(Le.originalText, Ie(ze[Me + 1]), { backwards: true }) && !u(ze[Me]) || ze[Me + 1].type === "css-atrule" && ze[Me + 1].name === "else" && ze[Me].type !== "css-comment" ? se.push(" ") : (se.push(Le.__isHTMLStyleAttribute ? v : m2), i(Le.originalText, He.getValue(), Fe) && !u(ze[Me]) && se.push(m2)));
             }, "nodes"), se;
           }
           var Be = /(["'])(?:(?!\1)[^\\]|\\.)*\1/gs, Pe = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g, Se = /[A-Za-z]+/g, Qe = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g, xe = new RegExp(Be.source + "|(".concat(Qe.source, ")?(").concat(Pe.source, ")(").concat(Se.source, ")?"), "g");
@@ -8576,7 +8619,7 @@ var require_standalone = __commonJS({
           var { htmlVoidElements: t } = Td(), s = it();
           function a(S) {
             let B = S.getValue(), I = S.getParentNode(0);
-            return !!(m(S, ["ElementNode"]) && s(I.children) === B || m(S, ["Block"]) && s(I.body) === B);
+            return !!(m2(S, ["ElementNode"]) && s(I.children) === B || m2(S, ["Block"]) && s(I.body) === B);
           }
           function r(S) {
             return S.toUpperCase() === S;
@@ -8594,15 +8637,15 @@ var require_standalone = __commonJS({
           function v(S, B) {
             return S && B.includes(S.type);
           }
-          function m(S, B) {
+          function m2(S, B) {
             let I = S.getParentNode(0);
             return v(I, B);
           }
           function d(S, B) {
-            let I = h(S);
+            let I = h3(S);
             return v(I, B);
           }
-          function p(S, B) {
+          function p2(S, B) {
             let I = w(S);
             return v(I, B);
           }
@@ -8611,7 +8654,7 @@ var require_standalone = __commonJS({
             let D = S.getValue(), g = (I = S.getParentNode(0)) !== null && I !== void 0 ? I : {}, F = (k = (P = (C = g.children) !== null && C !== void 0 ? C : g.body) !== null && P !== void 0 ? P : g.parts) !== null && k !== void 0 ? k : [], l = F.indexOf(D);
             return l !== -1 && F[l + B];
           }
-          function h(S) {
+          function h3(S) {
             let B = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
             return f(S, -B);
           }
@@ -8622,20 +8665,20 @@ var require_standalone = __commonJS({
             return v(S, ["MustacheCommentStatement"]) && typeof S.value == "string" && S.value.trim() === "prettier-ignore";
           }
           function A(S) {
-            let B = S.getValue(), I = h(S, 2);
+            let B = S.getValue(), I = h3(S, 2);
             return T(B) || T(I);
           }
-          n.exports = { getNextNode: w, getPreviousNode: h, hasPrettierIgnore: A, isLastNodeOfSiblings: a, isNextNodeOfSomeType: p, isNodeOfSomeType: v, isParentOfSomeType: m, isPreviousNodeOfSomeType: d, isVoid: o, isWhitespaceNode: c };
+          n.exports = { getNextNode: w, getPreviousNode: h3, hasPrettierIgnore: A, isLastNodeOfSiblings: a, isNextNodeOfSomeType: p2, isNodeOfSomeType: v, isParentOfSomeType: m2, isPreviousNodeOfSomeType: d, isVoid: o, isWhitespaceNode: c };
         } }), Nd = Z({ "src/language-handlebars/printer-glimmer.js"(e, n) {
           "use strict";
           re();
-          var { builders: { dedent: t, fill: s, group: a, hardline: r, ifBreak: u, indent: i, join: o, line: c, softline: v }, utils: { getDocParts: m, replaceTextEndOfLine: d } } = Oe(), { getPreferredQuote: p, isNonEmptyArray: f } = Ue(), { locStart: h, locEnd: w } = xd(), T = bd(), { getNextNode: A, getPreviousNode: S, hasPrettierIgnore: B, isLastNodeOfSiblings: I, isNextNodeOfSomeType: k, isNodeOfSomeType: P, isParentOfSomeType: C, isPreviousNodeOfSomeType: D, isVoid: g, isWhitespaceNode: F } = Bd(), l = 2;
+          var { builders: { dedent: t, fill: s, group: a, hardline: r, ifBreak: u, indent: i, join: o, line: c, softline: v }, utils: { getDocParts: m2, replaceTextEndOfLine: d } } = Oe(), { getPreferredQuote: p2, isNonEmptyArray: f } = Ue(), { locStart: h3, locEnd: w } = xd(), T = bd(), { getNextNode: A, getPreviousNode: S, hasPrettierIgnore: B, isLastNodeOfSiblings: I, isNextNodeOfSomeType: k, isNodeOfSomeType: P, isParentOfSomeType: C, isPreviousNodeOfSomeType: D, isVoid: g, isWhitespaceNode: F } = Bd(), l = 2;
           function E(K, he, ye) {
             let Ce = K.getValue();
             if (!Ce)
               return "";
             if (B(K))
-              return he.originalText.slice(h(Ce), w(Ce));
+              return he.originalText.slice(h3(Ce), w(Ce));
             let Ie = he.singleQuote ? "'" : '"';
             switch (Ce.type) {
               case "Block":
@@ -8661,9 +8704,9 @@ var require_standalone = __commonJS({
                 return a(["(", ce(K, ye), v, ")"]);
               case "AttrNode": {
                 let Fe = Ce.value.type === "TextNode";
-                if (Fe && Ce.value.chars === "" && h(Ce.value) === w(Ce.value))
+                if (Fe && Ce.value.chars === "" && h3(Ce.value) === w(Ce.value))
                   return Ce.name;
-                let _ = Fe ? p(Ce.value.chars, Ie).quote : Ce.value.type === "ConcatStatement" ? p(Ce.value.parts.filter((ne) => ne.type === "TextNode").map((ne) => ne.chars).join(""), Ie).quote : "", J = ye("value");
+                let _ = Fe ? p2(Ce.value.chars, Ie).quote : Ce.value.type === "ConcatStatement" ? p2(Ce.value.parts.filter((ne) => ne.type === "TextNode").map((ne) => ne.chars).join(""), Ie).quote : "", J = ye("value");
                 return [Ce.name, "=", _, Ce.name === "class" && _ ? a(i(J)) : J, _];
               }
               case "ConcatStatement":
@@ -8715,7 +8758,7 @@ var require_standalone = __commonJS({
                 return Pe === 0 && k(K, ["MustacheStatement"]) && (Qe = " "), Be === 0 && D(K, ["MustacheStatement"]) && (Se = " "), ne && (Be = 0, Se = ""), Ee && (Pe = 0, Qe = ""), Fe = Fe.replace(/^[\t\n\f\r ]+/g, Se).replace(/[\t\n\f\r ]+$/, Qe), [...Ae(Be), s(ie(Fe)), ...Ae(Pe)];
               }
               case "MustacheCommentStatement": {
-                let Fe = h(Ce), me = w(Ce), _ = he.originalText.charAt(Fe + 2) === "~", J = he.originalText.charAt(me - 3) === "~", ne = Ce.value.includes("}}") ? "--" : "";
+                let Fe = h3(Ce), me = w(Ce), _ = he.originalText.charAt(Fe + 2) === "~", J = he.originalText.charAt(me - 3) === "~", ne = Ce.value.includes("}}") ? "--" : "";
                 return ["{{", _ ? "~" : "", "!", ne, Ce.value, ne, J ? "~" : "", "}}"];
               }
               case "PathExpression":
@@ -8742,7 +8785,7 @@ var require_standalone = __commonJS({
             }
           }
           function y(K, he) {
-            return h(K) - h(he);
+            return h3(K) - h3(he);
           }
           function N(K, he) {
             let ye = K.getValue(), Ce = ["attributes", "modifiers", "comments"].filter((Fe) => f(ye[Fe])), Ie = Ce.flatMap((Fe) => ye[Fe]).sort(y);
@@ -8775,7 +8818,7 @@ var require_standalone = __commonJS({
             let he = L(K), ye = K.openStrip.open ? "~" : "";
             return [he, ye, "#"];
           }
-          function $(K) {
+          function $2(K) {
             let he = M(K);
             return [K.openStrip.close ? "~" : "", he];
           }
@@ -8796,7 +8839,7 @@ var require_standalone = __commonJS({
             return [K.inverseStrip.close ? "~" : "", he];
           }
           function R(K, he) {
-            let ye = K.getValue(), Ce = j(ye), Ie = $(ye), Fe = [de(K, he)], me = ae(K, he);
+            let ye = K.getValue(), Ce = j(ye), Ie = $2(ye), Fe = [de(K, he)], me = ae(K, he);
             if (me && Fe.push(c, me), f(ye.program.blockParams)) {
               let _ = ve(ye.program);
               Fe.push(c, _);
@@ -8835,7 +8878,7 @@ var require_standalone = __commonJS({
             return W(Ce) ? Fe : X(Ce) ? [Q(Ce, ye), i(Fe)] : "";
           }
           function ie(K) {
-            return m(o(c, G(K)));
+            return m2(o(c, G(K)));
           }
           function G(K) {
             return K.split(/[\t\n\f\r ]+/);
@@ -8866,7 +8909,7 @@ var require_standalone = __commonJS({
             return Array.from({ length: Math.min(K, l) }).fill(r);
           }
           function Ne(K, he) {
-            let { quote: ye, regex: Ce } = p(K, he);
+            let { quote: ye, regex: Ce } = p2(K, he);
             return [ye, K.replace(Ce, "\\".concat(ye)), ye];
           }
           function ke(K) {
@@ -8936,7 +8979,7 @@ var require_standalone = __commonJS({
         } }), Ld = Z({ "src/language-graphql/printer-graphql.js"(e, n) {
           "use strict";
           re();
-          var { builders: { join: t, hardline: s, line: a, softline: r, group: u, indent: i, ifBreak: o } } = Oe(), { isNextLineEmpty: c, isNonEmptyArray: v } = Ue(), { insertPragma: m } = kd(), { locStart: d, locEnd: p } = Id();
+          var { builders: { join: t, hardline: s, line: a, softline: r, group: u, indent: i, ifBreak: o } } = Oe(), { isNextLineEmpty: c, isNonEmptyArray: v } = Ue(), { insertPragma: m2 } = kd(), { locStart: d, locEnd: p2 } = Id();
           function f(k, P, C) {
             let D = k.getValue();
             if (!D)
@@ -8947,19 +8990,19 @@ var require_standalone = __commonJS({
               case "Document": {
                 let g = [];
                 return k.each((F, l, E) => {
-                  g.push(C()), l !== E.length - 1 && (g.push(s), c(P.originalText, F.getValue(), p) && g.push(s));
+                  g.push(C()), l !== E.length - 1 && (g.push(s), c(P.originalText, F.getValue(), p2) && g.push(s));
                 }, "definitions"), [...g, s];
               }
               case "OperationDefinition": {
                 let g = P.originalText[d(D)] !== "{", F = Boolean(D.name);
-                return [g ? D.operation : "", g && F ? [" ", C("name")] : "", g && !F && v(D.variableDefinitions) ? " " : "", v(D.variableDefinitions) ? u(["(", i([r, t([o("", ", "), r], k.map(C, "variableDefinitions"))]), r, ")"]) : "", h(k, C, D), D.selectionSet ? !g && !F ? "" : " " : "", C("selectionSet")];
+                return [g ? D.operation : "", g && F ? [" ", C("name")] : "", g && !F && v(D.variableDefinitions) ? " " : "", v(D.variableDefinitions) ? u(["(", i([r, t([o("", ", "), r], k.map(C, "variableDefinitions"))]), r, ")"]) : "", h3(k, C, D), D.selectionSet ? !g && !F ? "" : " " : "", C("selectionSet")];
               }
               case "FragmentDefinition":
-                return ["fragment ", C("name"), v(D.variableDefinitions) ? u(["(", i([r, t([o("", ", "), r], k.map(C, "variableDefinitions"))]), r, ")"]) : "", " on ", C("typeCondition"), h(k, C, D), " ", C("selectionSet")];
+                return ["fragment ", C("name"), v(D.variableDefinitions) ? u(["(", i([r, t([o("", ", "), r], k.map(C, "variableDefinitions"))]), r, ")"]) : "", " on ", C("typeCondition"), h3(k, C, D), " ", C("selectionSet")];
               case "SelectionSet":
                 return ["{", i([s, t(s, w(k, P, C, "selections"))]), s, "}"];
               case "Field":
-                return u([D.alias ? [C("alias"), ": "] : "", C("name"), D.arguments.length > 0 ? u(["(", i([r, t([o("", ", "), r], w(k, P, C, "arguments"))]), r, ")"]) : "", h(k, C, D), D.selectionSet ? " " : "", C("selectionSet")]);
+                return u([D.alias ? [C("alias"), ": "] : "", C("name"), D.arguments.length > 0 ? u(["(", i([r, t([o("", ", "), r], w(k, P, C, "arguments"))]), r, ")"]) : "", h3(k, C, D), D.selectionSet ? " " : "", C("selectionSet")]);
               case "Name":
                 return D.value;
               case "StringValue": {
@@ -8992,43 +9035,43 @@ var require_standalone = __commonJS({
               case "NamedType":
                 return C("name");
               case "VariableDefinition":
-                return [C("variable"), ": ", C("type"), D.defaultValue ? [" = ", C("defaultValue")] : "", h(k, C, D)];
+                return [C("variable"), ": ", C("type"), D.defaultValue ? [" = ", C("defaultValue")] : "", h3(k, C, D)];
               case "ObjectTypeExtension":
               case "ObjectTypeDefinition":
-                return [C("description"), D.description ? s : "", D.kind === "ObjectTypeExtension" ? "extend " : "", "type ", C("name"), D.interfaces.length > 0 ? [" implements ", ...S(k, P, C)] : "", h(k, C, D), D.fields.length > 0 ? [" {", i([s, t(s, w(k, P, C, "fields"))]), s, "}"] : ""];
+                return [C("description"), D.description ? s : "", D.kind === "ObjectTypeExtension" ? "extend " : "", "type ", C("name"), D.interfaces.length > 0 ? [" implements ", ...S(k, P, C)] : "", h3(k, C, D), D.fields.length > 0 ? [" {", i([s, t(s, w(k, P, C, "fields"))]), s, "}"] : ""];
               case "FieldDefinition":
-                return [C("description"), D.description ? s : "", C("name"), D.arguments.length > 0 ? u(["(", i([r, t([o("", ", "), r], w(k, P, C, "arguments"))]), r, ")"]) : "", ": ", C("type"), h(k, C, D)];
+                return [C("description"), D.description ? s : "", C("name"), D.arguments.length > 0 ? u(["(", i([r, t([o("", ", "), r], w(k, P, C, "arguments"))]), r, ")"]) : "", ": ", C("type"), h3(k, C, D)];
               case "DirectiveDefinition":
                 return [C("description"), D.description ? s : "", "directive ", "@", C("name"), D.arguments.length > 0 ? u(["(", i([r, t([o("", ", "), r], w(k, P, C, "arguments"))]), r, ")"]) : "", D.repeatable ? " repeatable" : "", " on ", t(" | ", k.map(C, "locations"))];
               case "EnumTypeExtension":
               case "EnumTypeDefinition":
-                return [C("description"), D.description ? s : "", D.kind === "EnumTypeExtension" ? "extend " : "", "enum ", C("name"), h(k, C, D), D.values.length > 0 ? [" {", i([s, t(s, w(k, P, C, "values"))]), s, "}"] : ""];
+                return [C("description"), D.description ? s : "", D.kind === "EnumTypeExtension" ? "extend " : "", "enum ", C("name"), h3(k, C, D), D.values.length > 0 ? [" {", i([s, t(s, w(k, P, C, "values"))]), s, "}"] : ""];
               case "EnumValueDefinition":
-                return [C("description"), D.description ? s : "", C("name"), h(k, C, D)];
+                return [C("description"), D.description ? s : "", C("name"), h3(k, C, D)];
               case "InputValueDefinition":
-                return [C("description"), D.description ? D.description.block ? s : a : "", C("name"), ": ", C("type"), D.defaultValue ? [" = ", C("defaultValue")] : "", h(k, C, D)];
+                return [C("description"), D.description ? D.description.block ? s : a : "", C("name"), ": ", C("type"), D.defaultValue ? [" = ", C("defaultValue")] : "", h3(k, C, D)];
               case "InputObjectTypeExtension":
               case "InputObjectTypeDefinition":
-                return [C("description"), D.description ? s : "", D.kind === "InputObjectTypeExtension" ? "extend " : "", "input ", C("name"), h(k, C, D), D.fields.length > 0 ? [" {", i([s, t(s, w(k, P, C, "fields"))]), s, "}"] : ""];
+                return [C("description"), D.description ? s : "", D.kind === "InputObjectTypeExtension" ? "extend " : "", "input ", C("name"), h3(k, C, D), D.fields.length > 0 ? [" {", i([s, t(s, w(k, P, C, "fields"))]), s, "}"] : ""];
               case "SchemaExtension":
-                return ["extend schema", h(k, C, D), ...D.operationTypes.length > 0 ? [" {", i([s, t(s, w(k, P, C, "operationTypes"))]), s, "}"] : []];
+                return ["extend schema", h3(k, C, D), ...D.operationTypes.length > 0 ? [" {", i([s, t(s, w(k, P, C, "operationTypes"))]), s, "}"] : []];
               case "SchemaDefinition":
-                return [C("description"), D.description ? s : "", "schema", h(k, C, D), " {", D.operationTypes.length > 0 ? i([s, t(s, w(k, P, C, "operationTypes"))]) : "", s, "}"];
+                return [C("description"), D.description ? s : "", "schema", h3(k, C, D), " {", D.operationTypes.length > 0 ? i([s, t(s, w(k, P, C, "operationTypes"))]) : "", s, "}"];
               case "OperationTypeDefinition":
                 return [C("operation"), ": ", C("type")];
               case "InterfaceTypeExtension":
               case "InterfaceTypeDefinition":
-                return [C("description"), D.description ? s : "", D.kind === "InterfaceTypeExtension" ? "extend " : "", "interface ", C("name"), D.interfaces.length > 0 ? [" implements ", ...S(k, P, C)] : "", h(k, C, D), D.fields.length > 0 ? [" {", i([s, t(s, w(k, P, C, "fields"))]), s, "}"] : ""];
+                return [C("description"), D.description ? s : "", D.kind === "InterfaceTypeExtension" ? "extend " : "", "interface ", C("name"), D.interfaces.length > 0 ? [" implements ", ...S(k, P, C)] : "", h3(k, C, D), D.fields.length > 0 ? [" {", i([s, t(s, w(k, P, C, "fields"))]), s, "}"] : ""];
               case "FragmentSpread":
-                return ["...", C("name"), h(k, C, D)];
+                return ["...", C("name"), h3(k, C, D)];
               case "InlineFragment":
-                return ["...", D.typeCondition ? [" on ", C("typeCondition")] : "", h(k, C, D), " ", C("selectionSet")];
+                return ["...", D.typeCondition ? [" on ", C("typeCondition")] : "", h3(k, C, D), " ", C("selectionSet")];
               case "UnionTypeExtension":
               case "UnionTypeDefinition":
-                return u([C("description"), D.description ? s : "", u([D.kind === "UnionTypeExtension" ? "extend " : "", "union ", C("name"), h(k, C, D), D.types.length > 0 ? [" =", o("", " "), i([o([a, "  "]), t([a, "| "], k.map(C, "types"))])] : ""])]);
+                return u([C("description"), D.description ? s : "", u([D.kind === "UnionTypeExtension" ? "extend " : "", "union ", C("name"), h3(k, C, D), D.types.length > 0 ? [" =", o("", " "), i([o([a, "  "]), t([a, "| "], k.map(C, "types"))])] : ""])]);
               case "ScalarTypeExtension":
               case "ScalarTypeDefinition":
-                return [C("description"), D.description ? s : "", D.kind === "ScalarTypeExtension" ? "extend " : "", "scalar ", C("name"), h(k, C, D)];
+                return [C("description"), D.description ? s : "", D.kind === "ScalarTypeExtension" ? "extend " : "", "scalar ", C("name"), h3(k, C, D)];
               case "NonNullType":
                 return [C("type"), "!"];
               case "ListType":
@@ -9037,7 +9080,7 @@ var require_standalone = __commonJS({
                 throw new Error("unknown graphql type: " + JSON.stringify(D.kind));
             }
           }
-          function h(k, P, C) {
+          function h3(k, P, C) {
             if (C.directives.length === 0)
               return "";
             let D = t(a, k.map(P, "directives"));
@@ -9046,7 +9089,7 @@ var require_standalone = __commonJS({
           function w(k, P, C, D) {
             return k.map((g, F, l) => {
               let E = C();
-              return F < l.length - 1 && c(P.originalText, g.getValue(), p) ? [E, s] : E;
+              return F < l.length - 1 && c(P.originalText, g.getValue(), p2) ? [E, s] : E;
             }, D);
           }
           function T(k) {
@@ -9081,7 +9124,7 @@ var require_standalone = __commonJS({
             let C = k.getValue();
             return C == null || (P = C.comments) === null || P === void 0 ? void 0 : P.some((D) => D.value.trim() === "prettier-ignore");
           }
-          n.exports = { print: f, massageAstNode: B, hasPrettierIgnore: I, insertPragma: m, printComment: A, canAttachComment: T };
+          n.exports = { print: f, massageAstNode: B, hasPrettierIgnore: I, insertPragma: m2, printComment: A, canAttachComment: T };
         } }), jd = Z({ "src/language-graphql/options.js"(e, n) {
           "use strict";
           re();
@@ -9111,7 +9154,7 @@ var require_standalone = __commonJS({
         } }), Kn = Z({ "src/language-markdown/utils.js"(e, n) {
           "use strict";
           re();
-          var { getLast: t } = Ue(), { locStart: s, locEnd: a } = go(), { cjkPattern: r, kPattern: u, punctuationPattern: i } = Rd(), o = ["liquidNode", "inlineCode", "emphasis", "esComment", "strong", "delete", "wikiLink", "link", "linkReference", "image", "imageReference", "footnote", "footnoteReference", "sentence", "whitespace", "word", "break", "inlineMath"], c = [...o, "tableCell", "paragraph", "heading"], v = new RegExp(u), m = new RegExp(i);
+          var { getLast: t } = Ue(), { locStart: s, locEnd: a } = go(), { cjkPattern: r, kPattern: u, punctuationPattern: i } = Rd(), o = ["liquidNode", "inlineCode", "emphasis", "esComment", "strong", "delete", "wikiLink", "link", "linkReference", "image", "imageReference", "footnote", "footnoteReference", "sentence", "whitespace", "word", "break", "inlineMath"], c = [...o, "tableCell", "paragraph", "heading"], v = new RegExp(u), m2 = new RegExp(i);
           function d(A, S) {
             let B = "non-cjk", I = "cj-letter", k = "k-letter", P = "cjk-punctuation", C = [], D = (S.proseWrap === "preserve" ? A : A.replace(new RegExp("(".concat(r, `)
 (`).concat(r, ")"), "g"), "$1$2")).split(/([\t\n ]+)/);
@@ -9127,10 +9170,10 @@ var require_standalone = __commonJS({
               for (let [y, N] of E.entries())
                 if (!((y === 0 || y === E.length - 1) && N === "")) {
                   if (y % 2 === 0) {
-                    N !== "" && g({ type: "word", value: N, kind: B, hasLeadingPunctuation: m.test(N[0]), hasTrailingPunctuation: m.test(t(N)) });
+                    N !== "" && g({ type: "word", value: N, kind: B, hasLeadingPunctuation: m2.test(N[0]), hasTrailingPunctuation: m2.test(t(N)) });
                     continue;
                   }
-                  g(m.test(N) ? { type: "word", value: N, kind: P, hasLeadingPunctuation: true, hasTrailingPunctuation: true } : { type: "word", value: N, kind: v.test(N) ? k : I, hasLeadingPunctuation: false, hasTrailingPunctuation: false });
+                  g(m2.test(N) ? { type: "word", value: N, kind: P, hasLeadingPunctuation: true, hasTrailingPunctuation: true } : { type: "word", value: N, kind: v.test(N) ? k : I, hasLeadingPunctuation: false, hasTrailingPunctuation: false });
                 }
             }
             return C;
@@ -9142,21 +9185,21 @@ var require_standalone = __commonJS({
               }
             }
           }
-          function p(A, S) {
+          function p2(A, S) {
             let [, B, I, k] = S.slice(A.position.start.offset, A.position.end.offset).match(/^\s*(\d+)(\.|\))(\s*)/);
             return { numberText: B, marker: I, leadingSpaces: k };
           }
           function f(A, S) {
             if (!A.ordered || A.children.length < 2)
               return false;
-            let B = Number(p(A.children[0], S.originalText).numberText), I = Number(p(A.children[1], S.originalText).numberText);
+            let B = Number(p2(A.children[0], S.originalText).numberText), I = Number(p2(A.children[1], S.originalText).numberText);
             if (B === 0 && A.children.length > 2) {
-              let k = Number(p(A.children[2], S.originalText).numberText);
+              let k = Number(p2(A.children[2], S.originalText).numberText);
               return I === 1 && k === 1;
             }
             return I === 1;
           }
-          function h(A, S) {
+          function h3(A, S) {
             let { value: B } = A;
             return A.position.end.offset === S.length && B.endsWith(`
 `) && S.endsWith(`
@@ -9174,19 +9217,19 @@ var require_standalone = __commonJS({
             let [S] = A.children;
             return s(A) === s(S) && a(A) === a(S);
           }
-          n.exports = { mapAst: w, splitText: d, punctuationPattern: i, getFencedCodeBlockValue: h, getOrderedListItemInfo: p, hasGitDiffFriendlyOrderedList: f, INLINE_NODE_TYPES: o, INLINE_NODE_WRAPPER_TYPES: c, isAutolink: T };
+          n.exports = { mapAst: w, splitText: d, punctuationPattern: i, getFencedCodeBlockValue: h3, getOrderedListItemInfo: p2, hasGitDiffFriendlyOrderedList: f, INLINE_NODE_TYPES: o, INLINE_NODE_WRAPPER_TYPES: c, isAutolink: T };
         } }), Vd = Z({ "src/language-markdown/embed.js"(e, n) {
           "use strict";
           re();
           var { inferParserByLanguage: t, getMaxContinuousCount: s } = Ue(), { builders: { hardline: a, markAsRoot: r }, utils: { replaceEndOfLine: u } } = Oe(), i = Xn(), { getFencedCodeBlockValue: o } = Kn();
-          function c(v, m, d, p) {
+          function c(v, m2, d, p2) {
             let f = v.getValue();
             if (f.type === "code" && f.lang !== null) {
-              let h = t(f.lang, p);
-              if (h) {
-                let w = p.__inJsTemplate ? "~" : "`", T = w.repeat(Math.max(3, s(f.value, w) + 1)), A = { parser: h };
+              let h3 = t(f.lang, p2);
+              if (h3) {
+                let w = p2.__inJsTemplate ? "~" : "`", T = w.repeat(Math.max(3, s(f.value, w) + 1)), A = { parser: h3 };
                 f.lang === "tsx" && (A.filepath = "dummy.tsx");
-                let S = d(o(f, p.originalText), A, { stripTrailingHardline: true });
+                let S = d(o(f, p2.originalText), A, { stripTrailingHardline: true });
                 return r([T, f.lang, f.meta ? " " + f.meta : "", a, u(S), a, T]);
               }
             }
@@ -9230,7 +9273,7 @@ var require_standalone = __commonJS({
           re();
           var t = it(), { getOrderedListItemInfo: s, mapAst: a, splitText: r } = Kn(), u = /^.$/su;
           function i(T, A) {
-            return T = v(T, A), T = p(T), T = c(T), T = h(T, A), T = w(T, A), T = f(T, A), T = o(T), T = m(T), T;
+            return T = v(T, A), T = p2(T), T = c(T), T = h3(T, A), T = w(T, A), T = f(T, A), T = o(T), T = m2(T), T;
           }
           function o(T) {
             return a(T, (A) => A.type !== "import" && A.type !== "export" ? A : Object.assign(Object.assign({}, A), {}, { type: "importExport" }));
@@ -9241,7 +9284,7 @@ var require_standalone = __commonJS({
           function v(T, A) {
             return a(T, (S) => S.type !== "text" || S.value === "*" || S.value === "_" || !u.test(S.value) || S.position.end.offset - S.position.start.offset === S.value.length ? S : Object.assign(Object.assign({}, S), {}, { value: A.originalText.slice(S.position.start.offset, S.position.end.offset) }));
           }
-          function m(T) {
+          function m2(T) {
             return d(T, (A, S) => A.type === "importExport" && S.type === "importExport", (A, S) => ({ type: "importExport", value: A.value + `
 
 ` + S.value, position: { start: A.position.start, end: S.position.end } }));
@@ -9257,7 +9300,7 @@ var require_standalone = __commonJS({
               return Object.assign(Object.assign({}, B), {}, { children: I });
             });
           }
-          function p(T) {
+          function p2(T) {
             return d(T, (A, S) => A.type === "text" && S.type === "text", (A, S) => ({ type: "text", value: A.value + S.value, position: { start: A.position.start, end: S.position.end } }));
           }
           function f(T, A) {
@@ -9269,7 +9312,7 @@ var require_standalone = __commonJS({
               return k.type === "paragraph" && (B === 0 && (P = P.trimStart()), B === k.children.length - 1 && (P = P.trimEnd())), { type: "sentence", position: S.position, children: r(P, A) };
             });
           }
-          function h(T, A) {
+          function h3(T, A) {
             return a(T, (S, B, I) => {
               if (S.type === "code") {
                 let k = /^\n?(?: {4,}|\t)/.test(A.originalText.slice(S.position.start.offset, S.position.end.offset));
@@ -9327,7 +9370,7 @@ var require_standalone = __commonJS({
         } }), Hd = Z({ "src/language-markdown/printer-markdown.js"(e, n) {
           "use strict";
           re();
-          var { getLast: t, getMinNotPresentContinuousCount: s, getMaxContinuousCount: a, getStringWidth: r, isNonEmptyArray: u } = Ue(), { builders: { breakParent: i, join: o, line: c, literalline: v, markAsRoot: m, hardline: d, softline: p, ifBreak: f, fill: h, align: w, indent: T, group: A, hardlineWithoutBreakParent: S }, utils: { normalizeDoc: B, replaceTextEndOfLine: I }, printer: { printDocToString: k } } = Oe(), P = Vd(), { insertPragma: C } = yo(), { locStart: D, locEnd: g } = go(), F = Wd(), l = $d(), { getFencedCodeBlockValue: E, hasGitDiffFriendlyOrderedList: y, splitText: N, punctuationPattern: x, INLINE_NODE_TYPES: b, INLINE_NODE_WRAPPER_TYPES: L, isAutolink: M } = Kn(), j = /* @__PURE__ */ new Set(["importExport"]), $ = ["heading", "tableCell", "link", "wikiLink"], V = /* @__PURE__ */ new Set(["listItem", "definition", "footnoteDefinition"]);
+          var { getLast: t, getMinNotPresentContinuousCount: s, getMaxContinuousCount: a, getStringWidth: r, isNonEmptyArray: u } = Ue(), { builders: { breakParent: i, join: o, line: c, literalline: v, markAsRoot: m2, hardline: d, softline: p2, ifBreak: f, fill: h3, align: w, indent: T, group: A, hardlineWithoutBreakParent: S }, utils: { normalizeDoc: B, replaceTextEndOfLine: I }, printer: { printDocToString: k } } = Oe(), P = Vd(), { insertPragma: C } = yo(), { locStart: D, locEnd: g } = go(), F = Wd(), l = $d(), { getFencedCodeBlockValue: E, hasGitDiffFriendlyOrderedList: y, splitText: N, punctuationPattern: x, INLINE_NODE_TYPES: b, INLINE_NODE_WRAPPER_TYPES: L, isAutolink: M } = Kn(), j = /* @__PURE__ */ new Set(["importExport"]), $2 = ["heading", "tableCell", "link", "wikiLink"], V = /* @__PURE__ */ new Set(["listItem", "definition", "footnoteDefinition"]);
           function q(ce, pe, de) {
             let ae = ce.getValue();
             if (le(ce))
@@ -9338,7 +9381,7 @@ var require_standalone = __commonJS({
               case "root":
                 return ae.children.length === 0 ? "" : [B(X(ce, pe, de)), j.has(De(ae).type) ? "" : d];
               case "paragraph":
-                return ue(ce, pe, de, { postprocessor: h });
+                return ue(ce, pe, de, { postprocessor: h3 });
               case "sentence":
                 return ue(ce, pe, de);
               case "word": {
@@ -9398,7 +9441,7 @@ var require_standalone = __commonJS({
               }
               case "html": {
                 let ve = ce.getParentNode(), K = ve.type === "root" && t(ve.children) === ae ? ae.value.trimEnd() : ae.value, he = /^<!--.*-->$/s.test(K);
-                return I(K, he ? d : m(v));
+                return I(K, he ? d : m2(v));
               }
               case "list": {
                 let ve = R(ae, ce.getParentNode()), K = y(ae, pe);
@@ -9436,14 +9479,14 @@ var require_standalone = __commonJS({
                 return ["[^", ae.identifier, "]"];
               case "footnoteDefinition": {
                 let ve = ce.getParentNode().children[ce.getName() + 1], K = ae.children.length === 1 && ae.children[0].type === "paragraph" && (pe.proseWrap === "never" || pe.proseWrap === "preserve" && ae.children[0].position.start.line === ae.children[0].position.end.line);
-                return ["[^", ae.identifier, "]: ", K ? ue(ce, pe, de) : A([w(" ".repeat(4), ue(ce, pe, de, { processor: (he, ye) => ye === 0 ? A([p, de()]) : de() })), ve && ve.type === "footnoteDefinition" ? p : ""])];
+                return ["[^", ae.identifier, "]: ", K ? ue(ce, pe, de) : A([w(" ".repeat(4), ue(ce, pe, de, { processor: (he, ye) => ye === 0 ? A([p2, de()]) : de() })), ve && ve.type === "footnoteDefinition" ? p2 : ""])];
               }
               case "table":
                 return W(ce, pe, de);
               case "tableCell":
                 return ue(ce, pe, de);
               case "break":
-                return /\s/.test(pe.originalText[ae.position.start.offset]) ? ["  ", m(v)] : ["\\", d];
+                return /\s/.test(pe.originalText[ae.position.start.offset]) ? ["  ", m2(v)] : ["\\", d];
               case "liquidNode":
                 return I(ae.value, d);
               case "importExport":
@@ -9503,8 +9546,8 @@ var require_standalone = __commonJS({
             if (de.proseWrap === "preserve" && pe === `
 `)
               return d;
-            let ae = de.proseWrap === "always" && !te(ce, $);
-            return pe !== "" ? ae ? c : " " : ae ? p : "";
+            let ae = de.proseWrap === "always" && !te(ce, $2);
+            return pe !== "" ? ae ? c : " " : ae ? p2 : "";
           }
           function W(ce, pe, de) {
             let ae = ce.getValue(), ve = [], K = ce.map((me) => me.map((_, J) => {
@@ -9670,8 +9713,8 @@ var require_standalone = __commonJS({
         } }), qt = Z({ "src/language-html/utils/index.js"(e, n) {
           "use strict";
           re();
-          var { inferParserByLanguage: t, isFrontMatterNode: s } = Ue(), { builders: { line: a, hardline: r, join: u }, utils: { getDocParts: i, replaceTextEndOfLine: o } } = Oe(), { CSS_DISPLAY_TAGS: c, CSS_DISPLAY_DEFAULT: v, CSS_WHITE_SPACE_TAGS: m, CSS_WHITE_SPACE_DEFAULT: d } = Xd(), p = Kd(), f = /* @__PURE__ */ new Set(["	", `
-`, "\f", "\r", " "]), h = (_) => _.replace(/^[\t\n\f\r ]+/, ""), w = (_) => _.replace(/[\t\n\f\r ]+$/, ""), T = (_) => h(w(_)), A = (_) => _.replace(/^[\t\f\r ]*\n/g, ""), S = (_) => A(w(_)), B = (_) => _.split(/[\t\n\f\r ]+/), I = (_) => _.match(/^[\t\n\f\r ]*/)[0], k = (_) => {
+          var { inferParserByLanguage: t, isFrontMatterNode: s } = Ue(), { builders: { line: a, hardline: r, join: u }, utils: { getDocParts: i, replaceTextEndOfLine: o } } = Oe(), { CSS_DISPLAY_TAGS: c, CSS_DISPLAY_DEFAULT: v, CSS_WHITE_SPACE_TAGS: m2, CSS_WHITE_SPACE_DEFAULT: d } = Xd(), p2 = Kd(), f = /* @__PURE__ */ new Set(["	", `
+`, "\f", "\r", " "]), h3 = (_) => _.replace(/^[\t\n\f\r ]+/, ""), w = (_) => _.replace(/[\t\n\f\r ]+$/, ""), T = (_) => h3(w(_)), A = (_) => _.replace(/^[\t\f\r ]*\n/g, ""), S = (_) => A(w(_)), B = (_) => _.split(/[\t\n\f\r ]+/), I = (_) => _.match(/^[\t\n\f\r ]*/)[0], k = (_) => {
             let [, J, ne, Ee] = _.match(/^([\t\n\f\r ]*)(.*?)([\t\n\f\r ]*)$/s);
             return { leadingWhitespace: J, trailingWhitespace: Ee, text: ne };
           }, P = (_) => /[\t\n\f\r ]/.test(_);
@@ -9688,7 +9731,7 @@ var require_standalone = __commonJS({
             return _.type === "text" || _.type === "comment";
           }
           function l(_) {
-            return _.type === "element" && (_.fullName === "script" || _.fullName === "style" || _.fullName === "svg:style" || p(_) && (_.name === "script" || _.name === "style"));
+            return _.type === "element" && (_.fullName === "script" || _.fullName === "style" || _.fullName === "svg:style" || p2(_) && (_.name === "script" || _.name === "style"));
           }
           function E(_) {
             return _.children && !l(_);
@@ -9718,9 +9761,9 @@ var require_standalone = __commonJS({
             return s(_) || _.next && _.sourceSpan.end && _.sourceSpan.end.line + 1 < _.next.sourceSpan.start.line;
           }
           function j(_) {
-            return $(_) || _.type === "element" && _.children.length > 0 && (["body", "script", "style"].includes(_.name) || _.children.some((J) => te(J))) || _.firstChild && _.firstChild === _.lastChild && _.firstChild.type !== "text" && H(_.firstChild) && (!_.lastChild.isTrailingSpaceSensitive || R(_.lastChild));
+            return $2(_) || _.type === "element" && _.children.length > 0 && (["body", "script", "style"].includes(_.name) || _.children.some((J) => te(J))) || _.firstChild && _.firstChild === _.lastChild && _.firstChild.type !== "text" && H(_.firstChild) && (!_.lastChild.isTrailingSpaceSensitive || R(_.lastChild));
           }
-          function $(_) {
+          function $2(_) {
             return _.type === "element" && _.children.length > 0 && (["html", "head", "ul", "ol", "select"].includes(_.name) || _.cssDisplay.startsWith("table") && _.cssDisplay !== "table-cell");
           }
           function V(_) {
@@ -9845,11 +9888,11 @@ var require_standalone = __commonJS({
               case "ignore":
                 return "block";
               default:
-                return J.parser === "vue" && _.parent && _.parent.type === "root" ? "block" : _.type === "element" && (!_.namespace || ne || p(_)) && c[_.name] || v;
+                return J.parser === "vue" && _.parent && _.parent.type === "root" ? "block" : _.type === "element" && (!_.namespace || ne || p2(_)) && c[_.name] || v;
             }
           }
           function ke(_) {
-            return _.type === "element" && (!_.namespace || p(_)) && m[_.name] || d;
+            return _.type === "element" && (!_.namespace || p2(_)) && m2[_.name] || d;
           }
           function ce(_) {
             let J = Number.POSITIVE_INFINITY;
@@ -9907,7 +9950,7 @@ var require_standalone = __commonJS({
           function me(_, J) {
             return he(_, J) && _.name === "script";
           }
-          n.exports = { htmlTrim: T, htmlTrimPreserveIndentation: S, hasHtmlWhitespace: P, getLeadingAndTrailingHtmlWhitespace: k, canHaveInterpolation: E, countChars: de, countParents: ge, dedentString: pe, forceBreakChildren: $, forceBreakContent: j, forceNextEmptyLine: M, getLastDescendant: ee, getNodeCssStyleDisplay: Ne, getNodeCssStyleWhiteSpace: ke, hasPrettierIgnore: D, inferScriptParser: X, isVueCustomBlock: K, isVueNonHtmlBlock: ye, isVueScriptTag: me, isVueSlotAttribute: Ce, isVueSfcBindingsAttribute: Ie, isVueSfcBlock: he, isDanglingSpaceSensitiveNode: L, isIndentationSensitiveNode: N, isLeadingSpaceSensitiveNode: x, isPreLikeNode: le, isScriptLikeTag: l, isTextLikeNode: F, isTrailingSpaceSensitiveNode: b, isWhitespaceSensitiveNode: y, isUnknownNamespace: p, preferHardlineAsLeadingSpaces: V, preferHardlineAsTrailingSpaces: q, shouldPreserveContent: C, unescapeQuoteEntities: ae, getTextValueParts: Fe };
+          n.exports = { htmlTrim: T, htmlTrimPreserveIndentation: S, hasHtmlWhitespace: P, getLeadingAndTrailingHtmlWhitespace: k, canHaveInterpolation: E, countChars: de, countParents: ge, dedentString: pe, forceBreakChildren: $2, forceBreakContent: j, forceNextEmptyLine: M, getLastDescendant: ee, getNodeCssStyleDisplay: Ne, getNodeCssStyleWhiteSpace: ke, hasPrettierIgnore: D, inferScriptParser: X, isVueCustomBlock: K, isVueNonHtmlBlock: ye, isVueScriptTag: me, isVueSlotAttribute: Ce, isVueSfcBindingsAttribute: Ie, isVueSfcBlock: he, isDanglingSpaceSensitiveNode: L, isIndentationSensitiveNode: N, isLeadingSpaceSensitiveNode: x, isPreLikeNode: le, isScriptLikeTag: l, isTextLikeNode: F, isTrailingSpaceSensitiveNode: b, isWhitespaceSensitiveNode: y, isUnknownNamespace: p2, preferHardlineAsLeadingSpaces: V, preferHardlineAsTrailingSpaces: q, shouldPreserveContent: C, unescapeQuoteEntities: ae, getTextValueParts: Fe };
         } }), Yd = Z({ "node_modules/angular-html-parser/lib/compiler/src/chars.js"(e) {
           "use strict";
           re(), Object.defineProperty(e, "__esModule", { value: true }), e.$EOF = 0, e.$BSPACE = 8, e.$TAB = 9, e.$LF = 10, e.$VTAB = 11, e.$FF = 12, e.$CR = 13, e.$SPACE = 32, e.$BANG = 33, e.$DQ = 34, e.$HASH = 35, e.$$ = 36, e.$PERCENT = 37, e.$AMPERSAND = 38, e.$SQ = 39, e.$LPAREN = 40, e.$RPAREN = 41, e.$STAR = 42, e.$PLUS = 43, e.$COMMA = 44, e.$MINUS = 45, e.$PERIOD = 46, e.$SLASH = 47, e.$COLON = 58, e.$SEMICOLON = 59, e.$LT = 60, e.$EQ = 61, e.$GT = 62, e.$QUESTION = 63, e.$0 = 48, e.$7 = 55, e.$9 = 57, e.$A = 65, e.$E = 69, e.$F = 70, e.$X = 88, e.$Z = 90, e.$LBRACKET = 91, e.$BACKSLASH = 92, e.$RBRACKET = 93, e.$CARET = 94, e.$_ = 95, e.$a = 97, e.$b = 98, e.$e = 101, e.$f = 102, e.$n = 110, e.$r = 114, e.$t = 116, e.$u = 117, e.$v = 118, e.$x = 120, e.$z = 122, e.$LBRACE = 123, e.$BAR = 124, e.$RBRACE = 125, e.$NBSP = 160, e.$PIPE = 124, e.$TILDA = 126, e.$AT = 64, e.$BT = 96;
@@ -10021,20 +10064,20 @@ var require_standalone = __commonJS({
             throw new Error("Internal Error: ".concat(l));
           }
           e.error = v;
-          function m(l, E) {
+          function m2(l, E) {
             let y = Error(l);
-            return y[d] = true, E && (y[p] = E), y;
+            return y[d] = true, E && (y[p2] = E), y;
           }
-          e.syntaxError = m;
-          var d = "ngSyntaxError", p = "ngParseErrors";
+          e.syntaxError = m2;
+          var d = "ngSyntaxError", p2 = "ngParseErrors";
           function f(l) {
             return l[d];
           }
           e.isSyntaxError = f;
-          function h(l) {
-            return l[p] || [];
+          function h3(l) {
+            return l[p2] || [];
           }
-          e.getParseErrors = h;
+          e.getParseErrors = h3;
           function w(l) {
             return l.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
           }
@@ -10133,33 +10176,33 @@ var require_standalone = __commonJS({
             return "HostView_".concat(u({ reference: y }));
           }
           e.hostViewClassName = v;
-          function m(y) {
+          function m2(y) {
             return "".concat(u({ reference: y }), "NgFactory");
           }
-          e.componentFactoryName = m;
+          e.componentFactoryName = m2;
           var d;
           (function(y) {
             y[y.Pipe = 0] = "Pipe", y[y.Directive = 1] = "Directive", y[y.NgModule = 2] = "NgModule", y[y.Injectable = 3] = "Injectable";
           })(d = e.CompileSummaryKind || (e.CompileSummaryKind = {}));
-          function p(y) {
+          function p2(y) {
             return y.value != null ? a(y.value) : u(y.identifier);
           }
-          e.tokenName = p;
+          e.tokenName = p2;
           function f(y) {
             return y.identifier != null ? y.identifier.reference : y.value;
           }
           e.tokenReference = f;
-          var h = class {
+          var h3 = class {
             constructor() {
               let { moduleUrl: y, styles: N, styleUrls: x } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
               this.moduleUrl = y || null, this.styles = k(N), this.styleUrls = k(x);
             }
           };
-          e.CompileStylesheetMetadata = h;
+          e.CompileStylesheetMetadata = h3;
           var w = class {
             constructor(y) {
-              let { encapsulation: N, template: x, templateUrl: b, htmlAst: L, styles: M, styleUrls: j, externalStylesheets: $, animations: V, ngContentSelectors: q, interpolation: Y, isInline: H, preserveWhitespaces: R } = y;
-              if (this.encapsulation = N, this.template = x, this.templateUrl = b, this.htmlAst = L, this.styles = k(M), this.styleUrls = k(j), this.externalStylesheets = k($), this.animations = V ? C(V) : [], this.ngContentSelectors = q || [], Y && Y.length != 2)
+              let { encapsulation: N, template: x, templateUrl: b, htmlAst: L, styles: M, styleUrls: j, externalStylesheets: $2, animations: V, ngContentSelectors: q, interpolation: Y, isInline: H, preserveWhitespaces: R } = y;
+              if (this.encapsulation = N, this.template = x, this.templateUrl = b, this.htmlAst = L, this.styles = k(M), this.styleUrls = k(j), this.externalStylesheets = k($2), this.animations = V ? C(V) : [], this.ngContentSelectors = q || [], Y && Y.length != 2)
                 throw new Error("'interpolation' should have a start and an end symbol.");
               this.interpolation = Y, this.isInline = H, this.preserveWhitespaces = R;
             }
@@ -10170,13 +10213,13 @@ var require_standalone = __commonJS({
           e.CompileTemplateMetadata = w;
           var T = class {
             static create(y) {
-              let { isHost: N, type: x, isComponent: b, selector: L, exportAs: M, changeDetection: j, inputs: $, outputs: V, host: q, providers: Y, viewProviders: H, queries: R, guards: Q, viewQueries: ee, entryComponents: te, template: oe, componentViewType: W, rendererType: X, componentFactory: ue } = y, De = {}, ie = {}, G = {};
+              let { isHost: N, type: x, isComponent: b, selector: L, exportAs: M, changeDetection: j, inputs: $2, outputs: V, host: q, providers: Y, viewProviders: H, queries: R, guards: Q, viewQueries: ee, entryComponents: te, template: oe, componentViewType: W, rendererType: X, componentFactory: ue } = y, De = {}, ie = {}, G = {};
               q != null && Object.keys(q).forEach((le) => {
                 let ge = q[le], Ae = le.match(s);
                 Ae === null ? G[le] = ge : Ae[1] != null ? ie[Ae[1]] = ge : Ae[2] != null && (De[Ae[2]] = ge);
               });
               let z = {};
-              $ != null && $.forEach((le) => {
+              $2 != null && $2.forEach((le) => {
                 let ge = t.splitAtColon(le, [le, le]);
                 z[ge[0]] = ge[1];
               });
@@ -10187,8 +10230,8 @@ var require_standalone = __commonJS({
               }), new T({ isHost: N, type: x, isComponent: !!b, selector: L, exportAs: M, changeDetection: j, inputs: z, outputs: U, hostListeners: De, hostProperties: ie, hostAttributes: G, providers: Y, viewProviders: H, queries: R, guards: Q, viewQueries: ee, entryComponents: te, template: oe, componentViewType: W, rendererType: X, componentFactory: ue });
             }
             constructor(y) {
-              let { isHost: N, type: x, isComponent: b, selector: L, exportAs: M, changeDetection: j, inputs: $, outputs: V, hostListeners: q, hostProperties: Y, hostAttributes: H, providers: R, viewProviders: Q, queries: ee, guards: te, viewQueries: oe, entryComponents: W, template: X, componentViewType: ue, rendererType: De, componentFactory: ie } = y;
-              this.isHost = !!N, this.type = x, this.isComponent = b, this.selector = L, this.exportAs = M, this.changeDetection = j, this.inputs = $, this.outputs = V, this.hostListeners = q, this.hostProperties = Y, this.hostAttributes = H, this.providers = k(R), this.viewProviders = k(Q), this.queries = k(ee), this.guards = te, this.viewQueries = k(oe), this.entryComponents = k(W), this.template = X, this.componentViewType = ue, this.rendererType = De, this.componentFactory = ie;
+              let { isHost: N, type: x, isComponent: b, selector: L, exportAs: M, changeDetection: j, inputs: $2, outputs: V, hostListeners: q, hostProperties: Y, hostAttributes: H, providers: R, viewProviders: Q, queries: ee, guards: te, viewQueries: oe, entryComponents: W, template: X, componentViewType: ue, rendererType: De, componentFactory: ie } = y;
+              this.isHost = !!N, this.type = x, this.isComponent = b, this.selector = L, this.exportAs = M, this.changeDetection = j, this.inputs = $2, this.outputs = V, this.hostListeners = q, this.hostProperties = Y, this.hostAttributes = H, this.providers = k(R), this.viewProviders = k(Q), this.queries = k(ee), this.guards = te, this.viewQueries = k(oe), this.entryComponents = k(W), this.template = X, this.componentViewType = ue, this.rendererType = De, this.componentFactory = ie;
             }
             toSummary() {
               return { summaryKind: d.Directive, type: this.type, isComponent: this.isComponent, selector: this.selector, exportAs: this.exportAs, inputs: this.inputs, outputs: this.outputs, hostListeners: this.hostListeners, hostProperties: this.hostProperties, hostAttributes: this.hostAttributes, providers: this.providers, viewProviders: this.viewProviders, queries: this.queries, guards: this.guards, viewQueries: this.viewQueries, entryComponents: this.entryComponents, changeDetection: this.changeDetection, template: this.template && this.template.toSummary(), componentViewType: this.componentViewType, rendererType: this.rendererType, componentFactory: this.componentFactory };
@@ -10210,8 +10253,8 @@ var require_standalone = __commonJS({
           e.CompileShallowModuleMetadata = S;
           var B = class {
             constructor(y) {
-              let { type: N, providers: x, declaredDirectives: b, exportedDirectives: L, declaredPipes: M, exportedPipes: j, entryComponents: $, bootstrapComponents: V, importedModules: q, exportedModules: Y, schemas: H, transitiveModule: R, id: Q } = y;
-              this.type = N || null, this.declaredDirectives = k(b), this.exportedDirectives = k(L), this.declaredPipes = k(M), this.exportedPipes = k(j), this.providers = k(x), this.entryComponents = k($), this.bootstrapComponents = k(V), this.importedModules = k(q), this.exportedModules = k(Y), this.schemas = k(H), this.id = Q || null, this.transitiveModule = R || null;
+              let { type: N, providers: x, declaredDirectives: b, exportedDirectives: L, declaredPipes: M, exportedPipes: j, entryComponents: $2, bootstrapComponents: V, importedModules: q, exportedModules: Y, schemas: H, transitiveModule: R, id: Q } = y;
+              this.type = N || null, this.declaredDirectives = k(b), this.exportedDirectives = k(L), this.declaredPipes = k(M), this.exportedPipes = k(j), this.providers = k(x), this.entryComponents = k($2), this.bootstrapComponents = k(V), this.importedModules = k(q), this.exportedModules = k(Y), this.schemas = k(H), this.id = Q || null, this.transitiveModule = R || null;
             }
             toSummary() {
               let y = this.transitiveModule;
@@ -10251,8 +10294,8 @@ var require_standalone = __commonJS({
           }
           var P = class {
             constructor(y, N) {
-              let { useClass: x, useValue: b, useExisting: L, useFactory: M, deps: j, multi: $ } = N;
-              this.token = y, this.useClass = x || null, this.useValue = b, this.useExisting = L, this.useFactory = M || null, this.dependencies = j || null, this.multi = !!$;
+              let { useClass: x, useValue: b, useExisting: L, useFactory: M, deps: j, multi: $2 } = N;
+              this.token = y, this.useClass = x || null, this.useValue = b, this.useExisting = L, this.useFactory = M || null, this.dependencies = j || null, this.multi = !!$2;
             }
           };
           e.ProviderMeta = P;
@@ -10288,54 +10331,54 @@ var require_standalone = __commonJS({
           "use strict";
           re(), Object.defineProperty(e, "__esModule", { value: true });
           var n = Yd(), t = eg(), s = class {
-            constructor(v, m, d, p) {
-              this.file = v, this.offset = m, this.line = d, this.col = p;
+            constructor(v, m2, d, p2) {
+              this.file = v, this.offset = m2, this.line = d, this.col = p2;
             }
             toString() {
               return this.offset != null ? "".concat(this.file.url, "@").concat(this.line, ":").concat(this.col) : this.file.url;
             }
             moveBy(v) {
-              let m = this.file.content, d = m.length, p = this.offset, f = this.line, h = this.col;
-              for (; p > 0 && v < 0; )
-                if (p--, v++, m.charCodeAt(p) == n.$LF) {
+              let m2 = this.file.content, d = m2.length, p2 = this.offset, f = this.line, h3 = this.col;
+              for (; p2 > 0 && v < 0; )
+                if (p2--, v++, m2.charCodeAt(p2) == n.$LF) {
                   f--;
-                  let T = m.substr(0, p - 1).lastIndexOf(String.fromCharCode(n.$LF));
-                  h = T > 0 ? p - T : p;
+                  let T = m2.substr(0, p2 - 1).lastIndexOf(String.fromCharCode(n.$LF));
+                  h3 = T > 0 ? p2 - T : p2;
                 } else
-                  h--;
-              for (; p < d && v > 0; ) {
-                let w = m.charCodeAt(p);
-                p++, v--, w == n.$LF ? (f++, h = 0) : h++;
+                  h3--;
+              for (; p2 < d && v > 0; ) {
+                let w = m2.charCodeAt(p2);
+                p2++, v--, w == n.$LF ? (f++, h3 = 0) : h3++;
               }
-              return new s(this.file, p, f, h);
+              return new s(this.file, p2, f, h3);
             }
-            getContext(v, m) {
-              let d = this.file.content, p = this.offset;
-              if (p != null) {
-                p > d.length - 1 && (p = d.length - 1);
-                let f = p, h = 0, w = 0;
-                for (; h < v && p > 0 && (p--, h++, !(d[p] == `
-` && ++w == m)); )
+            getContext(v, m2) {
+              let d = this.file.content, p2 = this.offset;
+              if (p2 != null) {
+                p2 > d.length - 1 && (p2 = d.length - 1);
+                let f = p2, h3 = 0, w = 0;
+                for (; h3 < v && p2 > 0 && (p2--, h3++, !(d[p2] == `
+` && ++w == m2)); )
                   ;
-                for (h = 0, w = 0; h < v && f < d.length - 1 && (f++, h++, !(d[f] == `
-` && ++w == m)); )
+                for (h3 = 0, w = 0; h3 < v && f < d.length - 1 && (f++, h3++, !(d[f] == `
+` && ++w == m2)); )
                   ;
-                return { before: d.substring(p, this.offset), after: d.substring(this.offset, f + 1) };
+                return { before: d.substring(p2, this.offset), after: d.substring(this.offset, f + 1) };
               }
               return null;
             }
           };
           e.ParseLocation = s;
           var a = class {
-            constructor(v, m) {
-              this.content = v, this.url = m;
+            constructor(v, m2) {
+              this.content = v, this.url = m2;
             }
           };
           e.ParseSourceFile = a;
           var r = class {
-            constructor(v, m) {
+            constructor(v, m2) {
               let d = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null;
-              this.start = v, this.end = m, this.details = d;
+              this.start = v, this.end = m2, this.details = d;
             }
             toString() {
               return this.start.file.content.substring(this.start.offset, this.end.offset);
@@ -10347,9 +10390,9 @@ var require_standalone = __commonJS({
             v[v.WARNING = 0] = "WARNING", v[v.ERROR = 1] = "ERROR";
           })(u = e.ParseErrorLevel || (e.ParseErrorLevel = {}));
           var i = class {
-            constructor(v, m) {
+            constructor(v, m2) {
               let d = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : u.ERROR;
-              this.span = v, this.msg = m, this.level = d;
+              this.span = v, this.msg = m2, this.level = d;
             }
             contextualMessage() {
               let v = this.span.start.getContext(100, 3);
@@ -10361,21 +10404,21 @@ var require_standalone = __commonJS({
             }
           };
           e.ParseError = i;
-          function o(v, m) {
-            let d = t.identifierModuleUrl(m), p = d != null ? "in ".concat(v, " ").concat(t.identifierName(m), " in ").concat(d) : "in ".concat(v, " ").concat(t.identifierName(m)), f = new a("", p);
+          function o(v, m2) {
+            let d = t.identifierModuleUrl(m2), p2 = d != null ? "in ".concat(v, " ").concat(t.identifierName(m2), " in ").concat(d) : "in ".concat(v, " ").concat(t.identifierName(m2)), f = new a("", p2);
             return new r(new s(f, -1, -1, -1), new s(f, -1, -1, -1));
           }
           e.typeSourceSpan = o;
-          function c(v, m, d) {
-            let p = "in ".concat(v, " ").concat(m, " in ").concat(d), f = new a("", p);
+          function c(v, m2, d) {
+            let p2 = "in ".concat(v, " ").concat(m2, " in ").concat(d), f = new a("", p2);
             return new r(new s(f, -1, -1, -1), new s(f, -1, -1, -1));
           }
           e.r3JitTypeSourceSpan = c;
         } }), rg = Z({ "src/language-html/print-preprocess.js"(e, n) {
           "use strict";
           re();
-          var { ParseSourceSpan: t } = tg(), { htmlTrim: s, getLeadingAndTrailingHtmlWhitespace: a, hasHtmlWhitespace: r, canHaveInterpolation: u, getNodeCssStyleDisplay: i, isDanglingSpaceSensitiveNode: o, isIndentationSensitiveNode: c, isLeadingSpaceSensitiveNode: v, isTrailingSpaceSensitiveNode: m, isWhitespaceSensitiveNode: d, isVueScriptTag: p } = qt(), f = [w, T, S, I, k, D, P, C, g, B, F];
-          function h(l, E) {
+          var { ParseSourceSpan: t } = tg(), { htmlTrim: s, getLeadingAndTrailingHtmlWhitespace: a, hasHtmlWhitespace: r, canHaveInterpolation: u, getNodeCssStyleDisplay: i, isDanglingSpaceSensitiveNode: o, isIndentationSensitiveNode: c, isLeadingSpaceSensitiveNode: v, isTrailingSpaceSensitiveNode: m2, isWhitespaceSensitiveNode: d, isVueScriptTag: p2 } = qt(), f = [w, T, S, I, k, D, P, C, g, B, F];
+          function h3(l, E) {
             for (let y of f)
               y(l, E);
             return l;
@@ -10444,12 +10487,12 @@ var require_standalone = __commonJS({
                     continue;
                   let b = x.sourceSpan.start, L = null, M = x.value.split(y);
                   for (let j = 0; j < M.length; j++, b = L) {
-                    let $ = M[j];
+                    let $2 = M[j];
                     if (j % 2 === 0) {
-                      L = b.moveBy($.length), $.length > 0 && N.insertChildBefore(x, { type: "text", value: $, sourceSpan: new t(b, L) });
+                      L = b.moveBy($2.length), $2.length > 0 && N.insertChildBefore(x, { type: "text", value: $2, sourceSpan: new t(b, L) });
                       continue;
                     }
-                    L = b.moveBy($.length + 4), N.insertChildBefore(x, { type: "interpolation", sourceSpan: new t(b, L), children: $.length === 0 ? [] : [{ type: "text", value: $, sourceSpan: new t(b.moveBy(2), L.moveBy(-2)) }] });
+                    L = b.moveBy($2.length + 4), N.insertChildBefore(x, { type: "interpolation", sourceSpan: new t(b, L), children: $2.length === 0 ? [] : [{ type: "text", value: $2, sourceSpan: new t(b.moveBy(2), L.moveBy(-2)) }] });
                   }
                   N.removeChild(x);
                 }
@@ -10469,8 +10512,8 @@ var require_standalone = __commonJS({
                   let b = E.children[x];
                   if (b.type !== "text")
                     continue;
-                  let { leadingWhitespace: L, text: M, trailingWhitespace: j } = a(b.value), $ = b.prev, V = b.next;
-                  M ? (b.value = M, b.sourceSpan = new t(b.sourceSpan.start.moveBy(L.length), b.sourceSpan.end.moveBy(-j.length)), L && ($ && ($.hasTrailingSpaces = true), b.hasLeadingSpaces = true), j && (b.hasTrailingSpaces = true, V && (V.hasLeadingSpaces = true))) : (E.removeChild(b), x--, (L || j) && ($ && ($.hasTrailingSpaces = true), V && (V.hasLeadingSpaces = true)));
+                  let { leadingWhitespace: L, text: M, trailingWhitespace: j } = a(b.value), $2 = b.prev, V = b.next;
+                  M ? (b.value = M, b.sourceSpan = new t(b.sourceSpan.start.moveBy(L.length), b.sourceSpan.end.moveBy(-j.length)), L && ($2 && ($2.hasTrailingSpaces = true), b.hasLeadingSpaces = true), j && (b.hasTrailingSpaces = true, V && (V.hasLeadingSpaces = true))) : (E.removeChild(b), x--, (L || j) && ($2 && ($2.hasTrailingSpaces = true), V && (V.hasLeadingSpaces = true)));
                 }
               E.isWhitespaceSensitive = y, E.isIndentationSensitive = N;
             });
@@ -10499,7 +10542,7 @@ var require_standalone = __commonJS({
                   return;
                 }
                 for (let x of N)
-                  x.isLeadingSpaceSensitive = v(x, E), x.isTrailingSpaceSensitive = m(x, E);
+                  x.isLeadingSpaceSensitive = v(x, E), x.isTrailingSpaceSensitive = m2(x, E);
                 for (let x = 0; x < N.length; x++) {
                   let b = N[x];
                   b.isLeadingSpaceSensitive = (x === 0 || b.prev.isTrailingSpaceSensitive) && b.isLeadingSpaceSensitive, b.isTrailingSpaceSensitive = (x === N.length - 1 || b.next.isLeadingSpaceSensitive) && b.isTrailingSpaceSensitive;
@@ -10509,14 +10552,14 @@ var require_standalone = __commonJS({
           }
           function F(l, E) {
             if (E.parser === "vue") {
-              let y = l.children.find((x) => p(x, E));
+              let y = l.children.find((x) => p2(x, E));
               if (!y)
                 return;
               let { lang: N } = y.attrMap;
               (N === "ts" || N === "typescript") && (E.__should_parse_vue_template_with_ts = true);
             }
           }
-          n.exports = h;
+          n.exports = h3;
         } }), ng = Z({ "src/language-html/pragma.js"(e, n) {
           "use strict";
           re();
@@ -10542,7 +10585,7 @@ var require_standalone = __commonJS({
         } }), er = Z({ "src/language-html/print/tag.js"(e, n) {
           "use strict";
           re();
-          var t = Xt(), { isNonEmptyArray: s } = Ue(), { builders: { indent: a, join: r, line: u, softline: i, hardline: o }, utils: { replaceTextEndOfLine: c } } = Oe(), { locStart: v, locEnd: m } = Yn(), { isTextLikeNode: d, getLastDescendant: p, isPreLikeNode: f, hasPrettierIgnore: h, shouldPreserveContent: w, isVueSfcBlock: T } = qt();
+          var t = Xt(), { isNonEmptyArray: s } = Ue(), { builders: { indent: a, join: r, line: u, softline: i, hardline: o }, utils: { replaceTextEndOfLine: c } } = Oe(), { locStart: v, locEnd: m2 } = Yn(), { isTextLikeNode: d, getLastDescendant: p2, isPreLikeNode: f, hasPrettierIgnore: h3, shouldPreserveContent: w, isVueSfcBlock: T } = qt();
           function A(q, Y) {
             return [q.isSelfClosing ? "" : S(q, Y), B(q, Y)];
           }
@@ -10556,7 +10599,7 @@ var require_standalone = __commonJS({
             return F(q) ? C(q.lastChild, Y) : "";
           }
           function k(q, Y) {
-            return l(q) ? P(q.parent, Y) : E(q) ? $(q.next) : "";
+            return l(q) ? P(q.parent, Y) : E(q) ? $2(q.next) : "";
           }
           function P(q, Y) {
             if (t(!q.isSelfClosing), D(q, Y))
@@ -10590,16 +10633,16 @@ var require_standalone = __commonJS({
             }
           }
           function D(q, Y) {
-            return !q.isSelfClosing && !q.endSourceSpan && (h(q) || w(q.parent, Y));
+            return !q.isSelfClosing && !q.endSourceSpan && (h3(q) || w(q.parent, Y));
           }
           function g(q) {
             return q.prev && q.prev.type !== "docType" && !d(q.prev) && q.isLeadingSpaceSensitive && !q.hasLeadingSpaces;
           }
           function F(q) {
-            return q.lastChild && q.lastChild.isTrailingSpaceSensitive && !q.lastChild.hasTrailingSpaces && !d(p(q.lastChild)) && !f(q);
+            return q.lastChild && q.lastChild.isTrailingSpaceSensitive && !q.lastChild.hasTrailingSpaces && !d(p2(q.lastChild)) && !f(q);
           }
           function l(q) {
-            return !q.next && !q.hasTrailingSpaces && q.isTrailingSpaceSensitive && d(p(q));
+            return !q.next && !q.hasTrailingSpaces && q.isTrailingSpaceSensitive && d(p2(q));
           }
           function E(q) {
             return q.next && !d(q.next) && d(q) && q.isTrailingSpaceSensitive && !q.hasTrailingSpaces;
@@ -10617,7 +10660,7 @@ var require_standalone = __commonJS({
               return R.isSelfClosing ? " " : "";
             let Q = R.prev && R.prev.type === "comment" && y(R.prev.value), ee = typeof Q == "boolean" ? () => Q : Array.isArray(Q) ? (De) => Q.includes(De.rawName) : () => false, te = q.map((De) => {
               let ie = De.getValue();
-              return ee(ie) ? c(Y.originalText.slice(v(ie), m(ie))) : H();
+              return ee(ie) ? c(Y.originalText.slice(v(ie), m2(ie))) : H();
             }, "attrs"), oe = R.type === "element" && R.fullName === "script" && R.attrs.length === 1 && R.attrs[0].fullName === "src" && R.children.length === 0, X = Y.singleAttributePerLine && R.attrs.length > 1 && !T(R, Y) ? o : u, ue = [a([oe ? " " : u, r(X, te)])];
             return R.firstChild && N(R.firstChild) || R.isSelfClosing && F(R.parent) || oe ? ue.push(R.isSelfClosing ? " " : "") : ue.push(Y.bracketSameLine ? R.isSelfClosing ? " " : "" : R.isSelfClosing ? u : i), ue;
           }
@@ -10629,12 +10672,12 @@ var require_standalone = __commonJS({
             return [M(R, Y), x(q, Y, H), R.isSelfClosing ? "" : b(R)];
           }
           function M(q, Y) {
-            return q.prev && E(q.prev) ? "" : [j(q, Y), $(q)];
+            return q.prev && E(q.prev) ? "" : [j(q, Y), $2(q)];
           }
           function j(q, Y) {
             return N(q) ? V(q.parent) : g(q) ? C(q.prev, Y) : "";
           }
-          function $(q) {
+          function $2(q) {
             switch (q.type) {
               case "ieConditionalComment":
               case "ieConditionalStartComment":
@@ -10663,7 +10706,7 @@ var require_standalone = __commonJS({
                 return ">";
             }
           }
-          n.exports = { printClosingTag: A, printClosingTagStart: S, printClosingTagStartMarker: P, printClosingTagEndMarker: C, printClosingTagSuffix: k, printClosingTagEnd: B, needsToBorrowLastChildClosingTagEndMarker: F, needsToBorrowParentClosingTagStartMarker: l, needsToBorrowPrevClosingTagEndMarker: g, printOpeningTag: L, printOpeningTagStart: M, printOpeningTagPrefix: j, printOpeningTagStartMarker: $, printOpeningTagEndMarker: V, needsToBorrowNextOpeningTagStartMarker: E, needsToBorrowParentOpeningTagEndMarker: N };
+          n.exports = { printClosingTag: A, printClosingTagStart: S, printClosingTagStartMarker: P, printClosingTagEndMarker: C, printClosingTagSuffix: k, printClosingTagEnd: B, needsToBorrowLastChildClosingTagEndMarker: F, needsToBorrowParentClosingTagStartMarker: l, needsToBorrowPrevClosingTagEndMarker: g, printOpeningTag: L, printOpeningTagStart: M, printOpeningTagPrefix: j, printOpeningTagStartMarker: $2, printOpeningTagEndMarker: V, needsToBorrowNextOpeningTagStartMarker: E, needsToBorrowParentOpeningTagEndMarker: N };
         } }), ug = Z({ "node_modules/parse-srcset/src/parse-srcset.js"(e, n) {
           re(), function(t, s) {
             typeof define == "function" && define.amd ? define([], s) : typeof n == "object" && n.exports ? n.exports = s() : t.parseSrcset = s();
@@ -10679,23 +10722,23 @@ var require_standalone = __commonJS({
                 if (D)
                   return C = D[0], S += C.length, C;
               }
-              for (var i = t.length, o = /^[ \t\n\r\u000c]+/, c = /^[, \t\n\r\u000c]+/, v = /^[^ \t\n\r\u000c]+/, m = /[,]+$/, d = /^\d+$/, p = /^-?(?:[0-9]+|[0-9]*\.[0-9]+)(?:[eE][+-]?[0-9]+)?$/, f, h, w, T, A, S = 0, B = []; ; ) {
+              for (var i = t.length, o = /^[ \t\n\r\u000c]+/, c = /^[, \t\n\r\u000c]+/, v = /^[^ \t\n\r\u000c]+/, m2 = /[,]+$/, d = /^\d+$/, p2 = /^-?(?:[0-9]+|[0-9]*\.[0-9]+)(?:[eE][+-]?[0-9]+)?$/, f, h3, w, T, A, S = 0, B = []; ; ) {
                 if (u(c), S >= i)
                   return B;
-                f = u(v), h = [], f.slice(-1) === "," ? (f = f.replace(m, ""), k()) : I();
+                f = u(v), h3 = [], f.slice(-1) === "," ? (f = f.replace(m2, ""), k()) : I();
               }
               function I() {
                 for (u(o), w = "", T = "in descriptor"; ; ) {
                   if (A = t.charAt(S), T === "in descriptor")
                     if (r(A))
-                      w && (h.push(w), w = "", T = "after descriptor");
+                      w && (h3.push(w), w = "", T = "after descriptor");
                     else if (A === ",") {
-                      S += 1, w && h.push(w), k();
+                      S += 1, w && h3.push(w), k();
                       return;
                     } else if (A === "(")
                       w = w + A, T = "in parens";
                     else if (A === "") {
-                      w && h.push(w), k();
+                      w && h3.push(w), k();
                       return;
                     } else
                       w = w + A;
@@ -10703,7 +10746,7 @@ var require_standalone = __commonJS({
                     if (A === ")")
                       w = w + A, T = "in descriptor";
                     else if (A === "") {
-                      h.push(w), k();
+                      h3.push(w), k();
                       return;
                     } else
                       w = w + A;
@@ -10718,8 +10761,8 @@ var require_standalone = __commonJS({
               }
               function k() {
                 var P = false, C, D, g, F, l = {}, E, y, N, x, b;
-                for (F = 0; F < h.length; F++)
-                  E = h[F], y = E[E.length - 1], N = E.substring(0, E.length - 1), x = parseInt(N, 10), b = parseFloat(N), d.test(N) && y === "w" ? ((C || D) && (P = true), x === 0 ? P = true : C = x) : p.test(N) && y === "x" ? ((C || D || g) && (P = true), b < 0 ? P = true : D = b) : d.test(N) && y === "h" ? ((g || D) && (P = true), x === 0 ? P = true : g = x) : P = true;
+                for (F = 0; F < h3.length; F++)
+                  E = h3[F], y = E[E.length - 1], N = E.substring(0, E.length - 1), x = parseInt(N, 10), b = parseFloat(N), d.test(N) && y === "w" ? ((C || D) && (P = true), x === 0 ? P = true : C = x) : p2.test(N) && y === "x" ? ((C || D || g) && (P = true), b < 0 ? P = true : D = b) : d.test(N) && y === "h" ? ((g || D) && (P = true), x === 0 ? P = true : g = x) : P = true;
                 P ? a && a.error && a.error("Invalid srcset descriptor found in '" + t + "' at '" + E + "'.") : (l.url = f, C && (l.w = C), D && (l.d = D), g && (l.h = g), B.push(l));
               }
             };
@@ -10734,19 +10777,19 @@ var require_standalone = __commonJS({
             } } }), v = c.some((I) => {
               let { w: k } = I;
               return k;
-            }), m = c.some((I) => {
+            }), m2 = c.some((I) => {
               let { h: k } = I;
               return k;
             }), d = c.some((I) => {
               let { d: k } = I;
               return k;
             });
-            if (v + m + d > 1)
+            if (v + m2 + d > 1)
               throw new Error("Mixed descriptor in srcset is not supported");
-            let p = v ? "w" : m ? "h" : "d", f = v ? "w" : m ? "h" : "x", h = (I) => Math.max(...I), w = c.map((I) => I.url), T = h(w.map((I) => I.length)), A = c.map((I) => I[p]).map((I) => I ? I.toString() : ""), S = A.map((I) => {
+            let p2 = v ? "w" : m2 ? "h" : "d", f = v ? "w" : m2 ? "h" : "x", h3 = (I) => Math.max(...I), w = c.map((I) => I.url), T = h3(w.map((I) => I.length)), A = c.map((I) => I[p2]).map((I) => I ? I.toString() : ""), S = A.map((I) => {
               let k = I.indexOf(".");
               return k === -1 ? I.length : k;
-            }), B = h(S);
+            }), B = h3(S);
             return a([",", r], w.map((I, k) => {
               let P = [I], C = A[k];
               if (C) {
@@ -10765,21 +10808,21 @@ var require_standalone = __commonJS({
           re();
           var { builders: { group: t } } = Oe();
           function s(i, o) {
-            let { left: c, operator: v, right: m } = a(i);
-            return [t(o("function _(".concat(c, ") {}"), { parser: "babel", __isVueForBindingLeft: true })), " ", v, " ", o(m, { parser: "__js_expression" }, { stripTrailingHardline: true })];
+            let { left: c, operator: v, right: m2 } = a(i);
+            return [t(o("function _(".concat(c, ") {}"), { parser: "babel", __isVueForBindingLeft: true })), " ", v, " ", o(m2, { parser: "__js_expression" }, { stripTrailingHardline: true })];
           }
           function a(i) {
-            let o = /(.*?)\s+(in|of)\s+(.*)/s, c = /,([^,\]}]*)(?:,([^,\]}]*))?$/, v = /^\(|\)$/g, m = i.match(o);
-            if (!m)
+            let o = /(.*?)\s+(in|of)\s+(.*)/s, c = /,([^,\]}]*)(?:,([^,\]}]*))?$/, v = /^\(|\)$/g, m2 = i.match(o);
+            if (!m2)
               return;
             let d = {};
-            if (d.for = m[3].trim(), !d.for)
+            if (d.for = m2[3].trim(), !d.for)
               return;
-            let p = m[1].trim().replace(v, ""), f = p.match(c);
-            f ? (d.alias = p.replace(c, ""), d.iterator1 = f[1].trim(), f[2] && (d.iterator2 = f[2].trim())) : d.alias = p;
-            let h = [d.alias, d.iterator1, d.iterator2];
-            if (!h.some((w, T) => !w && (T === 0 || h.slice(T + 1).some(Boolean))))
-              return { left: h.filter(Boolean).join(","), operator: m[2], right: d.for };
+            let p2 = m2[1].trim().replace(v, ""), f = p2.match(c);
+            f ? (d.alias = p2.replace(c, ""), d.iterator1 = f[1].trim(), f[2] && (d.iterator2 = f[2].trim())) : d.alias = p2;
+            let h3 = [d.alias, d.iterator1, d.iterator2];
+            if (!h3.some((w, T) => !w && (T === 0 || h3.slice(T + 1).some(Boolean))))
+              return { left: h3.filter(Boolean).join(","), operator: m2[2], right: d.for };
           }
           function r(i, o) {
             return o("function _(".concat(i, ") {}"), { parser: "babel", __isVueBindings: true });
@@ -10794,18 +10837,18 @@ var require_standalone = __commonJS({
           re();
           var { needsToBorrowParentClosingTagStartMarker: t, printClosingTagStartMarker: s, needsToBorrowLastChildClosingTagEndMarker: a, printClosingTagEndMarker: r, needsToBorrowParentOpeningTagEndMarker: u, printOpeningTagEndMarker: i } = er();
           function o(c, v) {
-            let m = c.startSourceSpan.end.offset;
-            c.firstChild && u(c.firstChild) && (m -= i(c).length);
+            let m2 = c.startSourceSpan.end.offset;
+            c.firstChild && u(c.firstChild) && (m2 -= i(c).length);
             let d = c.endSourceSpan.start.offset;
-            return c.lastChild && t(c.lastChild) ? d += s(c, v).length : a(c) && (d -= r(c.lastChild, v).length), v.originalText.slice(m, d);
+            return c.lastChild && t(c.lastChild) ? d += s(c, v).length : a(c) && (d -= r(c.lastChild, v).length), v.originalText.slice(m2, d);
           }
           n.exports = o;
         } }), ag = Z({ "src/language-html/embed.js"(e, n) {
           "use strict";
           re();
-          var { builders: { breakParent: t, group: s, hardline: a, indent: r, line: u, fill: i, softline: o }, utils: { mapDoc: c, replaceTextEndOfLine: v } } = Oe(), m = Xn(), { printClosingTag: d, printClosingTagSuffix: p, needsToBorrowPrevClosingTagEndMarker: f, printOpeningTagPrefix: h, printOpeningTag: w } = er(), { printImgSrcset: T, printClassNames: A } = sg(), { printVueFor: S, printVueBindings: B, isVueEventBindingExpression: I } = ig(), { isScriptLikeTag: k, isVueNonHtmlBlock: P, inferScriptParser: C, htmlTrimPreserveIndentation: D, dedentString: g, unescapeQuoteEntities: F, isVueSlotAttribute: l, isVueSfcBindingsAttribute: E, getTextValueParts: y } = qt(), N = ho();
+          var { builders: { breakParent: t, group: s, hardline: a, indent: r, line: u, fill: i, softline: o }, utils: { mapDoc: c, replaceTextEndOfLine: v } } = Oe(), m2 = Xn(), { printClosingTag: d, printClosingTagSuffix: p2, needsToBorrowPrevClosingTagEndMarker: f, printOpeningTagPrefix: h3, printOpeningTag: w } = er(), { printImgSrcset: T, printClassNames: A } = sg(), { printVueFor: S, printVueBindings: B, isVueEventBindingExpression: I } = ig(), { isScriptLikeTag: k, isVueNonHtmlBlock: P, inferScriptParser: C, htmlTrimPreserveIndentation: D, dedentString: g, unescapeQuoteEntities: F, isVueSlotAttribute: l, isVueSfcBindingsAttribute: E, getTextValueParts: y } = qt(), N = ho();
           function x(L, M, j) {
-            let $ = (te) => new RegExp(te.join("|")).test(L.fullName), V = () => F(L.value), q = false, Y = (te, oe) => {
+            let $2 = (te) => new RegExp(te.join("|")).test(L.fullName), V = () => F(L.value), q = false, Y = (te, oe) => {
               let W = te.type === "NGRoot" ? te.node.type === "NGMicrosyntax" && te.node.body.length === 1 && te.node.body[0].type === "NGMicrosyntaxExpression" ? te.node.body[0].expression : te.node : te.type === "JsExpressionRoot" ? te.node : te;
               W && (W.type === "ObjectExpression" || W.type === "ArrayExpression" || oe.parser === "__vue_expression" && (W.type === "TemplateLiteral" || W.type === "StringLiteral")) && (q = true);
             }, H = (te) => s(te), R = function(te) {
@@ -10830,26 +10873,26 @@ var require_standalone = __commonJS({
               if (l(L) || E(L, j))
                 return B(V(), ee);
               let te = ["^@", "^v-on:"], oe = ["^:", "^v-bind:"], W = ["^v-"];
-              if ($(te)) {
+              if ($2(te)) {
                 let X = V(), ue = I(X) ? "__js_expression" : j.__should_parse_vue_template_with_ts ? "__vue_ts_event_binding" : "__vue_event_binding";
                 return Q(ee(X, { parser: ue }));
               }
-              if ($(oe))
+              if ($2(oe))
                 return Q(ee(V(), { parser: "__vue_expression" }));
-              if ($(W))
+              if ($2(W))
                 return Q(ee(V(), { parser: "__js_expression" }));
             }
             if (j.parser === "angular") {
               let te = (G, z) => ee(G, Object.assign(Object.assign({}, z), {}, { trailingComma: "none" })), oe = ["^\\*"], W = ["^\\(.+\\)$", "^on-"], X = ["^\\[.+\\]$", "^bind(on)?-", "^ng-(if|show|hide|class|style)$"], ue = ["^i18n(-.+)?$"];
-              if ($(W))
+              if ($2(W))
                 return Q(te(V(), { parser: "__ng_action" }));
-              if ($(X))
+              if ($2(X))
                 return Q(te(V(), { parser: "__ng_binding" }));
-              if ($(ue)) {
+              if ($2(ue)) {
                 let G = V().trim();
                 return R(i(y(L, G)), !G.includes("@@"));
               }
-              if ($(oe))
+              if ($2(oe))
                 return Q(te(V(), { parser: "__ng_directive" }));
               let De = /{{(.+?)}}/s, ie = V();
               if (De.test(ie)) {
@@ -10868,69 +10911,69 @@ var require_standalone = __commonJS({
             }
             return null;
           }
-          function b(L, M, j, $) {
+          function b(L, M, j, $2) {
             let V = L.getValue();
             switch (V.type) {
               case "element": {
                 if (k(V) || V.type === "interpolation")
                   return;
-                if (!V.isSelfClosing && P(V, $)) {
-                  let q = C(V, $);
+                if (!V.isSelfClosing && P(V, $2)) {
+                  let q = C(V, $2);
                   if (!q)
                     return;
-                  let Y = N(V, $), H = /^\s*$/.test(Y), R = "";
-                  return H || (R = j(D(Y), { parser: q, __embeddedInHtml: true }, { stripTrailingHardline: true }), H = R === ""), [h(V, $), s(w(L, $, M)), H ? "" : a, R, H ? "" : a, d(V, $), p(V, $)];
+                  let Y = N(V, $2), H = /^\s*$/.test(Y), R = "";
+                  return H || (R = j(D(Y), { parser: q, __embeddedInHtml: true }, { stripTrailingHardline: true }), H = R === ""), [h3(V, $2), s(w(L, $2, M)), H ? "" : a, R, H ? "" : a, d(V, $2), p2(V, $2)];
                 }
                 break;
               }
               case "text": {
                 if (k(V.parent)) {
-                  let q = C(V.parent, $);
+                  let q = C(V.parent, $2);
                   if (q) {
                     let Y = q === "markdown" ? g(V.value.replace(/^[^\S\n]*\n/, "")) : V.value, H = { parser: q, __embeddedInHtml: true };
-                    if ($.parser === "html" && q === "babel") {
+                    if ($2.parser === "html" && q === "babel") {
                       let R = "script", { attrMap: Q } = V.parent;
                       Q && (Q.type === "module" || Q.type === "text/babel" && Q["data-type"] === "module") && (R = "module"), H.__babelSourceType = R;
                     }
-                    return [t, h(V, $), j(Y, H, { stripTrailingHardline: true }), p(V, $)];
+                    return [t, h3(V, $2), j(Y, H, { stripTrailingHardline: true }), p2(V, $2)];
                   }
                 } else if (V.parent.type === "interpolation") {
                   let q = { __isInHtmlInterpolation: true, __embeddedInHtml: true };
-                  return $.parser === "angular" ? (q.parser = "__ng_interpolation", q.trailingComma = "none") : $.parser === "vue" ? q.parser = $.__should_parse_vue_template_with_ts ? "__vue_ts_expression" : "__vue_expression" : q.parser = "__js_expression", [r([u, j(V.value, q, { stripTrailingHardline: true })]), V.parent.next && f(V.parent.next) ? " " : u];
+                  return $2.parser === "angular" ? (q.parser = "__ng_interpolation", q.trailingComma = "none") : $2.parser === "vue" ? q.parser = $2.__should_parse_vue_template_with_ts ? "__vue_ts_expression" : "__vue_expression" : q.parser = "__js_expression", [r([u, j(V.value, q, { stripTrailingHardline: true })]), V.parent.next && f(V.parent.next) ? " " : u];
                 }
                 break;
               }
               case "attribute": {
                 if (!V.value)
                   break;
-                if (/^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test($.originalText.slice(V.valueSpan.start.offset, V.valueSpan.end.offset)))
+                if (/^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test($2.originalText.slice(V.valueSpan.start.offset, V.valueSpan.end.offset)))
                   return [V.rawName, "=", V.value];
-                if ($.parser === "lwc" && /^{.*}$/s.test($.originalText.slice(V.valueSpan.start.offset, V.valueSpan.end.offset)))
+                if ($2.parser === "lwc" && /^{.*}$/s.test($2.originalText.slice(V.valueSpan.start.offset, V.valueSpan.end.offset)))
                   return [V.rawName, "=", V.value];
-                let q = x(V, (Y, H) => j(Y, Object.assign({ __isInHtmlAttribute: true, __embeddedInHtml: true }, H), { stripTrailingHardline: true }), $);
+                let q = x(V, (Y, H) => j(Y, Object.assign({ __isInHtmlAttribute: true, __embeddedInHtml: true }, H), { stripTrailingHardline: true }), $2);
                 if (q)
                   return [V.rawName, '="', s(c(q, (Y) => typeof Y == "string" ? Y.replace(/"/g, "&quot;") : Y)), '"'];
                 break;
               }
               case "front-matter":
-                return m(V, j);
+                return m2(V, j);
             }
           }
           n.exports = b;
         } }), vo = Z({ "src/language-html/print/children.js"(e, n) {
           "use strict";
           re();
-          var { builders: { breakParent: t, group: s, ifBreak: a, line: r, softline: u, hardline: i }, utils: { replaceTextEndOfLine: o } } = Oe(), { locStart: c, locEnd: v } = Yn(), { forceBreakChildren: m, forceNextEmptyLine: d, isTextLikeNode: p, hasPrettierIgnore: f, preferHardlineAsLeadingSpaces: h } = qt(), { printOpeningTagPrefix: w, needsToBorrowNextOpeningTagStartMarker: T, printOpeningTagStartMarker: A, needsToBorrowPrevClosingTagEndMarker: S, printClosingTagEndMarker: B, printClosingTagSuffix: I, needsToBorrowParentClosingTagStartMarker: k } = er();
+          var { builders: { breakParent: t, group: s, ifBreak: a, line: r, softline: u, hardline: i }, utils: { replaceTextEndOfLine: o } } = Oe(), { locStart: c, locEnd: v } = Yn(), { forceBreakChildren: m2, forceNextEmptyLine: d, isTextLikeNode: p2, hasPrettierIgnore: f, preferHardlineAsLeadingSpaces: h3 } = qt(), { printOpeningTagPrefix: w, needsToBorrowNextOpeningTagStartMarker: T, printOpeningTagStartMarker: A, needsToBorrowPrevClosingTagEndMarker: S, printClosingTagEndMarker: B, printClosingTagSuffix: I, needsToBorrowParentClosingTagStartMarker: k } = er();
           function P(g, F, l) {
             let E = g.getValue();
             return f(E) ? [w(E, F), ...o(F.originalText.slice(c(E) + (E.prev && T(E.prev) ? A(E).length : 0), v(E) - (E.next && S(E.next) ? B(E, F).length : 0))), I(E, F)] : l();
           }
           function C(g, F) {
-            return p(g) && p(F) ? g.isTrailingSpaceSensitive ? g.hasTrailingSpaces ? h(F) ? i : r : "" : h(F) ? i : u : T(g) && (f(F) || F.firstChild || F.isSelfClosing || F.type === "element" && F.attrs.length > 0) || g.type === "element" && g.isSelfClosing && S(F) ? "" : !F.isLeadingSpaceSensitive || h(F) || S(F) && g.lastChild && k(g.lastChild) && g.lastChild.lastChild && k(g.lastChild.lastChild) ? i : F.hasLeadingSpaces ? r : u;
+            return p2(g) && p2(F) ? g.isTrailingSpaceSensitive ? g.hasTrailingSpaces ? h3(F) ? i : r : "" : h3(F) ? i : u : T(g) && (f(F) || F.firstChild || F.isSelfClosing || F.type === "element" && F.attrs.length > 0) || g.type === "element" && g.isSelfClosing && S(F) ? "" : !F.isLeadingSpaceSensitive || h3(F) || S(F) && g.lastChild && k(g.lastChild) && g.lastChild.lastChild && k(g.lastChild.lastChild) ? i : F.hasLeadingSpaces ? r : u;
           }
           function D(g, F, l) {
             let E = g.getValue();
-            if (m(E))
+            if (m2(E))
               return [t, ...g.map((N) => {
                 let x = N.getValue(), b = x.prev ? C(x.prev, x) : "";
                 return [b ? [b, d(x.prev) ? i : ""] : "", P(N, F, l)];
@@ -10938,35 +10981,35 @@ var require_standalone = __commonJS({
             let y = E.children.map(() => Symbol(""));
             return g.map((N, x) => {
               let b = N.getValue();
-              if (p(b)) {
-                if (b.prev && p(b.prev)) {
+              if (p2(b)) {
+                if (b.prev && p2(b.prev)) {
                   let Y = C(b.prev, b);
                   if (Y)
                     return d(b.prev) ? [i, i, P(N, F, l)] : [Y, P(N, F, l)];
                 }
                 return P(N, F, l);
               }
-              let L = [], M = [], j = [], $ = [], V = b.prev ? C(b.prev, b) : "", q = b.next ? C(b, b.next) : "";
-              return V && (d(b.prev) ? L.push(i, i) : V === i ? L.push(i) : p(b.prev) ? M.push(V) : M.push(a("", u, { groupId: y[x - 1] }))), q && (d(b) ? p(b.next) && $.push(i, i) : q === i ? p(b.next) && $.push(i) : j.push(q)), [...L, s([...M, s([P(N, F, l), ...j], { id: y[x] })]), ...$];
+              let L = [], M = [], j = [], $2 = [], V = b.prev ? C(b.prev, b) : "", q = b.next ? C(b, b.next) : "";
+              return V && (d(b.prev) ? L.push(i, i) : V === i ? L.push(i) : p2(b.prev) ? M.push(V) : M.push(a("", u, { groupId: y[x - 1] }))), q && (d(b) ? p2(b.next) && $2.push(i, i) : q === i ? p2(b.next) && $2.push(i) : j.push(q)), [...L, s([...M, s([P(N, F, l), ...j], { id: y[x] })]), ...$2];
             }, "children");
           }
           n.exports = { printChildren: D };
         } }), og = Z({ "src/language-html/print/element.js"(e, n) {
           "use strict";
           re();
-          var { builders: { breakParent: t, dedentToRoot: s, group: a, ifBreak: r, indentIfBreak: u, indent: i, line: o, softline: c }, utils: { replaceTextEndOfLine: v } } = Oe(), m = ho(), { shouldPreserveContent: d, isScriptLikeTag: p, isVueCustomBlock: f, countParents: h, forceBreakContent: w } = qt(), { printOpeningTagPrefix: T, printOpeningTag: A, printClosingTagSuffix: S, printClosingTag: B, needsToBorrowPrevClosingTagEndMarker: I, needsToBorrowLastChildClosingTagEndMarker: k } = er(), { printChildren: P } = vo();
+          var { builders: { breakParent: t, dedentToRoot: s, group: a, ifBreak: r, indentIfBreak: u, indent: i, line: o, softline: c }, utils: { replaceTextEndOfLine: v } } = Oe(), m2 = ho(), { shouldPreserveContent: d, isScriptLikeTag: p2, isVueCustomBlock: f, countParents: h3, forceBreakContent: w } = qt(), { printOpeningTagPrefix: T, printOpeningTag: A, printClosingTagSuffix: S, printClosingTag: B, needsToBorrowPrevClosingTagEndMarker: I, needsToBorrowLastChildClosingTagEndMarker: k } = er(), { printChildren: P } = vo();
           function C(D, g, F) {
             let l = D.getValue();
             if (d(l, g))
-              return [T(l, g), a(A(D, g, F)), ...v(m(l, g)), ...B(l, g), S(l, g)];
-            let E = l.children.length === 1 && l.firstChild.type === "interpolation" && l.firstChild.isLeadingSpaceSensitive && !l.firstChild.hasLeadingSpaces && l.lastChild.isTrailingSpaceSensitive && !l.lastChild.hasTrailingSpaces, y = Symbol("element-attr-group-id"), N = (M) => a([a(A(D, g, F), { id: y }), M, B(l, g)]), x = (M) => E ? u(M, { groupId: y }) : (p(l) || f(l, g)) && l.parent.type === "root" && g.parser === "vue" && !g.vueIndentScriptAndStyle ? M : i(M), b = () => E ? r(c, "", { groupId: y }) : l.firstChild.hasLeadingSpaces && l.firstChild.isLeadingSpaceSensitive ? o : l.firstChild.type === "text" && l.isWhitespaceSensitive && l.isIndentationSensitive ? s(c) : c, L = () => (l.next ? I(l.next) : k(l.parent)) ? l.lastChild.hasTrailingSpaces && l.lastChild.isTrailingSpaceSensitive ? " " : "" : E ? r(c, "", { groupId: y }) : l.lastChild.hasTrailingSpaces && l.lastChild.isTrailingSpaceSensitive ? o : (l.lastChild.type === "comment" || l.lastChild.type === "text" && l.isWhitespaceSensitive && l.isIndentationSensitive) && new RegExp("\\n[\\t ]{".concat(g.tabWidth * h(D, (j) => j.parent && j.parent.type !== "root"), "}$")).test(l.lastChild.value) ? "" : c;
+              return [T(l, g), a(A(D, g, F)), ...v(m2(l, g)), ...B(l, g), S(l, g)];
+            let E = l.children.length === 1 && l.firstChild.type === "interpolation" && l.firstChild.isLeadingSpaceSensitive && !l.firstChild.hasLeadingSpaces && l.lastChild.isTrailingSpaceSensitive && !l.lastChild.hasTrailingSpaces, y = Symbol("element-attr-group-id"), N = (M) => a([a(A(D, g, F), { id: y }), M, B(l, g)]), x = (M) => E ? u(M, { groupId: y }) : (p2(l) || f(l, g)) && l.parent.type === "root" && g.parser === "vue" && !g.vueIndentScriptAndStyle ? M : i(M), b = () => E ? r(c, "", { groupId: y }) : l.firstChild.hasLeadingSpaces && l.firstChild.isLeadingSpaceSensitive ? o : l.firstChild.type === "text" && l.isWhitespaceSensitive && l.isIndentationSensitive ? s(c) : c, L = () => (l.next ? I(l.next) : k(l.parent)) ? l.lastChild.hasTrailingSpaces && l.lastChild.isTrailingSpaceSensitive ? " " : "" : E ? r(c, "", { groupId: y }) : l.lastChild.hasTrailingSpaces && l.lastChild.isTrailingSpaceSensitive ? o : (l.lastChild.type === "comment" || l.lastChild.type === "text" && l.isWhitespaceSensitive && l.isIndentationSensitive) && new RegExp("\\n[\\t ]{".concat(g.tabWidth * h3(D, (j) => j.parent && j.parent.type !== "root"), "}$")).test(l.lastChild.value) ? "" : c;
             return l.children.length === 0 ? N(l.hasDanglingSpaces && l.isDanglingSpaceSensitive ? o : "") : N([w(l) ? t : "", x([b(), P(D, g, F)]), L()]);
           }
           n.exports = { printElement: C };
         } }), lg = Z({ "src/language-html/printer-html.js"(e, n) {
           "use strict";
           re();
-          var { builders: { fill: t, group: s, hardline: a, literalline: r }, utils: { cleanDoc: u, getDocParts: i, isConcat: o, replaceTextEndOfLine: c } } = Oe(), v = zd(), { countChars: m, unescapeQuoteEntities: d, getTextValueParts: p } = qt(), f = rg(), { insertPragma: h } = ng(), { locStart: w, locEnd: T } = Yn(), A = ag(), { printClosingTagSuffix: S, printClosingTagEnd: B, printOpeningTagPrefix: I, printOpeningTagStart: k } = er(), { printElement: P } = og(), { printChildren: C } = vo();
+          var { builders: { fill: t, group: s, hardline: a, literalline: r }, utils: { cleanDoc: u, getDocParts: i, isConcat: o, replaceTextEndOfLine: c } } = Oe(), v = zd(), { countChars: m2, unescapeQuoteEntities: d, getTextValueParts: p2 } = qt(), f = rg(), { insertPragma: h3 } = ng(), { locStart: w, locEnd: T } = Yn(), A = ag(), { printClosingTagSuffix: S, printClosingTagEnd: B, printOpeningTagPrefix: I, printOpeningTagStart: k } = er(), { printElement: P } = og(), { printChildren: C } = vo();
           function D(g, F, l) {
             let E = g.getValue();
             switch (E.type) {
@@ -10987,7 +11030,7 @@ var require_standalone = __commonJS({
                   let N = /\n[^\S\n]*$/, x = N.test(E.value), b = x ? E.value.replace(N, "") : E.value;
                   return [...c(b), x ? a : ""];
                 }
-                let y = u([I(E, F), ...p(E), S(E, F)]);
+                let y = u([I(E, F), ...p2(E), S(E, F)]);
                 return o(y) || y.type === "fill" ? t(i(y)) : y;
               }
               case "docType":
@@ -10997,14 +11040,14 @@ var require_standalone = __commonJS({
               case "attribute": {
                 if (E.value === null)
                   return E.rawName;
-                let y = d(E.value), N = m(y, "'"), x = m(y, '"'), b = N < x ? "'" : '"';
+                let y = d(E.value), N = m2(y, "'"), x = m2(y, '"'), b = N < x ? "'" : '"';
                 return [E.rawName, "=", b, ...c(b === '"' ? y.replace(/"/g, "&quot;") : y.replace(/'/g, "&apos;")), b];
               }
               default:
                 throw new Error("Unexpected node type ".concat(E.type));
             }
           }
-          n.exports = { preprocess: f, print: D, insertPragma: h, massageAstNode: v, embed: A };
+          n.exports = { preprocess: f, print: D, insertPragma: h3, massageAstNode: v, embed: A };
         } }), cg = Z({ "src/language-html/options.js"(e, n) {
           "use strict";
           re();
@@ -11105,24 +11148,24 @@ var require_standalone = __commonJS({
           function v(C) {
             return s(C.children) ? v(t(C.children)) : C;
           }
-          function m(C) {
+          function m2(C) {
             return C.value.trim() === "prettier-ignore";
           }
           function d(C) {
             let D = C.getValue();
             if (D.type === "documentBody") {
               let g = C.getParentNode();
-              return S(g.head) && m(t(g.head.endComments));
+              return S(g.head) && m2(t(g.head.endComments));
             }
-            return h(D) && m(t(D.leadingComments));
+            return h3(D) && m2(t(D.leadingComments));
           }
-          function p(C) {
+          function p2(C) {
             return !s(C.children) && !f(C);
           }
           function f(C) {
-            return h(C) || w(C) || T(C) || A(C) || S(C);
+            return h3(C) || w(C) || T(C) || A(C) || S(C);
           }
-          function h(C) {
+          function h3(C) {
             return s(C == null ? void 0 : C.leadingComments);
           }
           function w(C) {
@@ -11184,7 +11227,7 @@ var require_standalone = __commonJS({
                 return false;
             }
           }
-          n.exports = { getLast: t, getAncestorCount: a, isNode: r, isEmptyNode: p, isInlineNode: P, mapNode: u, defineShortcut: i, isNextLineEmpty: o, isLastDescendantNode: c, getBlockValueLineContents: k, getFlowScalarLineContents: I, getLastDescendantNode: v, hasPrettierIgnore: d, hasLeadingComments: h, hasMiddleComments: w, hasIndicatorComment: T, hasTrailingComment: A, hasEndComments: S };
+          n.exports = { getLast: t, getAncestorCount: a, isNode: r, isEmptyNode: p2, isInlineNode: P, mapNode: u, defineShortcut: i, isNextLineEmpty: o, isLastDescendantNode: c, getBlockValueLineContents: k, getFlowScalarLineContents: I, getLastDescendantNode: v, hasPrettierIgnore: d, hasLeadingComments: h3, hasMiddleComments: w, hasIndicatorComment: T, hasTrailingComment: A, hasEndComments: S };
         } }), yg = Z({ "src/language-yaml/print-preprocess.js"(e, n) {
           "use strict";
           re();
@@ -11216,54 +11259,54 @@ var require_standalone = __commonJS({
           "use strict";
           re();
           var { builders: { softline: t, align: s } } = Oe(), { hasEndComments: a, isNextLineEmpty: r, isNode: u } = Mt(), i = /* @__PURE__ */ new WeakMap();
-          function o(m, d) {
-            let p = m.getValue(), f = m.stack[0], h;
-            return i.has(f) ? h = i.get(f) : (h = /* @__PURE__ */ new Set(), i.set(f, h)), !h.has(p.position.end.line) && (h.add(p.position.end.line), r(p, d) && !c(m.getParentNode())) ? t : "";
+          function o(m2, d) {
+            let p2 = m2.getValue(), f = m2.stack[0], h3;
+            return i.has(f) ? h3 = i.get(f) : (h3 = /* @__PURE__ */ new Set(), i.set(f, h3)), !h3.has(p2.position.end.line) && (h3.add(p2.position.end.line), r(p2, d) && !c(m2.getParentNode())) ? t : "";
           }
-          function c(m) {
-            return a(m) && !u(m, ["documentHead", "documentBody", "flowMapping", "flowSequence"]);
+          function c(m2) {
+            return a(m2) && !u(m2, ["documentHead", "documentBody", "flowMapping", "flowSequence"]);
           }
-          function v(m, d) {
-            return s(" ".repeat(m), d);
+          function v(m2, d) {
+            return s(" ".repeat(m2), d);
           }
           n.exports = { alignWithSpaces: v, shouldPrintEndComments: c, printNextEmptyLine: o };
         } }), hg = Z({ "src/language-yaml/print/flow-mapping-sequence.js"(e, n) {
           "use strict";
           re();
-          var { builders: { ifBreak: t, line: s, softline: a, hardline: r, join: u } } = Oe(), { isEmptyNode: i, getLast: o, hasEndComments: c } = Mt(), { printNextEmptyLine: v, alignWithSpaces: m } = jr();
-          function d(f, h, w) {
+          var { builders: { ifBreak: t, line: s, softline: a, hardline: r, join: u } } = Oe(), { isEmptyNode: i, getLast: o, hasEndComments: c } = Mt(), { printNextEmptyLine: v, alignWithSpaces: m2 } = jr();
+          function d(f, h3, w) {
             let T = f.getValue(), A = T.type === "flowMapping", S = A ? "{" : "[", B = A ? "}" : "]", I = a;
             A && T.children.length > 0 && w.bracketSpacing && (I = s);
             let k = o(T.children), P = k && k.type === "flowMappingItem" && i(k.key) && i(k.value);
-            return [S, m(w.tabWidth, [I, p(f, h, w), w.trailingComma === "none" ? "" : t(","), c(T) ? [r, u(r, f.map(h, "endComments"))] : ""]), P ? "" : I, B];
+            return [S, m2(w.tabWidth, [I, p2(f, h3, w), w.trailingComma === "none" ? "" : t(","), c(T) ? [r, u(r, f.map(h3, "endComments"))] : ""]), P ? "" : I, B];
           }
-          function p(f, h, w) {
+          function p2(f, h3, w) {
             let T = f.getValue();
-            return f.map((S, B) => [h(), B === T.children.length - 1 ? "" : [",", s, T.children[B].position.start.line !== T.children[B + 1].position.start.line ? v(S, w.originalText) : ""]], "children");
+            return f.map((S, B) => [h3(), B === T.children.length - 1 ? "" : [",", s, T.children[B].position.start.line !== T.children[B + 1].position.start.line ? v(S, w.originalText) : ""]], "children");
           }
           n.exports = { printFlowMapping: d, printFlowSequence: d };
         } }), vg = Z({ "src/language-yaml/print/mapping-item.js"(e, n) {
           "use strict";
           re();
-          var { builders: { conditionalGroup: t, group: s, hardline: a, ifBreak: r, join: u, line: i } } = Oe(), { hasLeadingComments: o, hasMiddleComments: c, hasTrailingComment: v, hasEndComments: m, isNode: d, isEmptyNode: p, isInlineNode: f } = Mt(), { alignWithSpaces: h } = jr();
+          var { builders: { conditionalGroup: t, group: s, hardline: a, ifBreak: r, join: u, line: i } } = Oe(), { hasLeadingComments: o, hasMiddleComments: c, hasTrailingComment: v, hasEndComments: m2, isNode: d, isEmptyNode: p2, isInlineNode: f } = Mt(), { alignWithSpaces: h3 } = jr();
           function w(B, I, k, P, C) {
-            let { key: D, value: g } = B, F = p(D), l = p(g);
+            let { key: D, value: g } = B, F = p2(D), l = p2(g);
             if (F && l)
               return ": ";
             let E = P("key"), y = A(B) ? " " : "";
             if (l)
-              return B.type === "flowMappingItem" && I.type === "flowMapping" ? E : B.type === "mappingItem" && T(D.content, C) && !v(D.content) && (!I.tag || I.tag.value !== "tag:yaml.org,2002:set") ? [E, y, ":"] : ["? ", h(2, E)];
+              return B.type === "flowMappingItem" && I.type === "flowMapping" ? E : B.type === "mappingItem" && T(D.content, C) && !v(D.content) && (!I.tag || I.tag.value !== "tag:yaml.org,2002:set") ? [E, y, ":"] : ["? ", h3(2, E)];
             let N = P("value");
             if (F)
-              return [": ", h(2, N)];
+              return [": ", h3(2, N)];
             if (o(g) || !f(D.content))
-              return ["? ", h(2, E), a, u("", k.map(P, "value", "leadingComments").map(($) => [$, a])), ": ", h(2, N)];
-            if (S(D.content) && !o(D.content) && !c(D.content) && !v(D.content) && !m(D) && !o(g.content) && !c(g.content) && !m(g) && T(g.content, C))
+              return ["? ", h3(2, E), a, u("", k.map(P, "value", "leadingComments").map(($2) => [$2, a])), ": ", h3(2, N)];
+            if (S(D.content) && !o(D.content) && !c(D.content) && !v(D.content) && !m2(D) && !o(g.content) && !c(g.content) && !m2(g) && T(g.content, C))
               return [E, y, ": ", N];
-            let x = Symbol("mappingKey"), b = s([r("? "), s(h(2, E), { id: x })]), L = [a, ": ", h(2, N)], M = [y, ":"];
-            o(g.content) || m(g) && g.content && !d(g.content, ["mapping", "sequence"]) || I.type === "mapping" && v(D.content) && f(g.content) || d(g.content, ["mapping", "sequence"]) && g.content.tag === null && g.content.anchor === null ? M.push(a) : g.content && M.push(i), M.push(N);
-            let j = h(C.tabWidth, M);
-            return T(D.content, C) && !o(D.content) && !c(D.content) && !m(D) ? t([[E, j]]) : t([[b, r(L, j, { groupId: x })]]);
+            let x = Symbol("mappingKey"), b = s([r("? "), s(h3(2, E), { id: x })]), L = [a, ": ", h3(2, N)], M = [y, ":"];
+            o(g.content) || m2(g) && g.content && !d(g.content, ["mapping", "sequence"]) || I.type === "mapping" && v(D.content) && f(g.content) || d(g.content, ["mapping", "sequence"]) && g.content.tag === null && g.content.anchor === null ? M.push(a) : g.content && M.push(i), M.push(N);
+            let j = h3(C.tabWidth, M);
+            return T(D.content, C) && !o(D.content) && !c(D.content) && !m2(D) ? t([[E, j]]) : t([[b, r(L, j, { groupId: x })]]);
           }
           function T(B, I) {
             if (!B)
@@ -11313,10 +11356,10 @@ var require_standalone = __commonJS({
         } }), Cg = Z({ "src/language-yaml/print/block.js"(e, n) {
           "use strict";
           re();
-          var { builders: { dedent: t, dedentToRoot: s, fill: a, hardline: r, join: u, line: i, literalline: o, markAsRoot: c }, utils: { getDocParts: v } } = Oe(), { getAncestorCount: m, getBlockValueLineContents: d, hasIndicatorComment: p, isLastDescendantNode: f, isNode: h } = Mt(), { alignWithSpaces: w } = jr();
+          var { builders: { dedent: t, dedentToRoot: s, fill: a, hardline: r, join: u, line: i, literalline: o, markAsRoot: c }, utils: { getDocParts: v } } = Oe(), { getAncestorCount: m2, getBlockValueLineContents: d, hasIndicatorComment: p2, isLastDescendantNode: f, isNode: h3 } = Mt(), { alignWithSpaces: w } = jr();
           function T(A, S, B) {
-            let I = A.getValue(), k = m(A, (F) => h(F, ["sequence", "mapping"])), P = f(A), C = [I.type === "blockFolded" ? ">" : "|"];
-            I.indent !== null && C.push(I.indent.toString()), I.chomping !== "clip" && C.push(I.chomping === "keep" ? "+" : "-"), p(I) && C.push(" ", S("indicatorComment"));
+            let I = A.getValue(), k = m2(A, (F) => h3(F, ["sequence", "mapping"])), P = f(A), C = [I.type === "blockFolded" ? ">" : "|"];
+            I.indent !== null && C.push(I.indent.toString()), I.chomping !== "clip" && C.push(I.chomping === "keep" ? "+" : "-"), p2(I) && C.push(" ", S("indicatorComment"));
             let D = d(I, { parentIndent: k, isLastDescendant: P, options: B }), g = [];
             for (let [F, l] of D.entries())
               F === 0 && g.push(r), g.push(a(v(u(i, l)))), F !== D.length - 1 ? g.push(l.length === 0 ? r : c(o)) : I.chomping === "keep" && P && g.push(s(l.length === 0 ? r : o));
@@ -11326,7 +11369,7 @@ var require_standalone = __commonJS({
         } }), Eg = Z({ "src/language-yaml/printer-yaml.js"(e, n) {
           "use strict";
           re();
-          var { builders: { breakParent: t, fill: s, group: a, hardline: r, join: u, line: i, lineSuffix: o, literalline: c }, utils: { getDocParts: v, replaceTextEndOfLine: m } } = Oe(), { isPreviousLineEmpty: d } = Ue(), { insertPragma: p, isPragma: f } = mg(), { locStart: h } = dg(), w = gg(), { getFlowScalarLineContents: T, getLastDescendantNode: A, hasLeadingComments: S, hasMiddleComments: B, hasTrailingComment: I, hasEndComments: k, hasPrettierIgnore: P, isLastDescendantNode: C, isNode: D, isInlineNode: g } = Mt(), F = yg(), { alignWithSpaces: l, printNextEmptyLine: E, shouldPrintEndComments: y } = jr(), { printFlowMapping: N, printFlowSequence: x } = hg(), b = vg(), L = Cg();
+          var { builders: { breakParent: t, fill: s, group: a, hardline: r, join: u, line: i, lineSuffix: o, literalline: c }, utils: { getDocParts: v, replaceTextEndOfLine: m2 } } = Oe(), { isPreviousLineEmpty: d } = Ue(), { insertPragma: p2, isPragma: f } = mg(), { locStart: h3 } = dg(), w = gg(), { getFlowScalarLineContents: T, getLastDescendantNode: A, hasLeadingComments: S, hasMiddleComments: B, hasTrailingComment: I, hasEndComments: k, hasPrettierIgnore: P, isLastDescendantNode: C, isNode: D, isInlineNode: g } = Mt(), F = yg(), { alignWithSpaces: l, printNextEmptyLine: E, shouldPrintEndComments: y } = jr(), { printFlowMapping: N, printFlowSequence: x } = hg(), b = vg(), L = Cg();
           function M(R, Q, ee) {
             let te = R.getValue(), oe = [];
             te.type !== "mappingValue" && S(te) && oe.push([u(r, R.map(ee, "leadingComments")), r]);
@@ -11335,7 +11378,7 @@ var require_standalone = __commonJS({
             let ue = "";
             D(te, ["mapping", "sequence", "comment", "directive", "mappingItem", "sequenceItem"]) && !C(R) && (ue = E(R, Q.originalText)), (W || X) && (D(te, ["sequence", "mapping"]) && !B(te) ? oe.push(r) : oe.push(" ")), B(te) && oe.push([te.middleComments.length === 1 ? "" : r, u(r, R.map(ee, "middleComments")), r]);
             let De = R.getParentNode();
-            return P(R) ? oe.push(m(Q.originalText.slice(te.position.start.offset, te.position.end.offset).trimEnd(), c)) : oe.push(a(j(te, De, R, Q, ee))), I(te) && !D(te, ["document", "documentHead"]) && oe.push(o([te.type === "mappingValue" && !te.content ? "" : " ", De.type === "mappingKey" && R.getParentNode(2).type === "mapping" && g(te) ? "" : t, ee("trailingComment")])), y(te) && oe.push(l(te.type === "sequenceItem" ? 2 : 0, [r, u(r, R.map((ie) => [d(Q.originalText, ie.getValue(), h) ? r : "", ee()], "endComments"))])), oe.push(ue), oe;
+            return P(R) ? oe.push(m2(Q.originalText.slice(te.position.start.offset, te.position.end.offset).trimEnd(), c)) : oe.push(a(j(te, De, R, Q, ee))), I(te) && !D(te, ["document", "documentHead"]) && oe.push(o([te.type === "mappingValue" && !te.content ? "" : " ", De.type === "mappingKey" && R.getParentNode(2).type === "mapping" && g(te) ? "" : t, ee("trailingComment")])), y(te) && oe.push(l(te.type === "sequenceItem" ? 2 : 0, [r, u(r, R.map((ie) => [d(Q.originalText, ie.getValue(), h3) ? r : "", ee()], "endComments"))])), oe.push(ue), oe;
           }
           function j(R, Q, ee, te, oe) {
             switch (R.type) {
@@ -11350,7 +11393,7 @@ var require_standalone = __commonJS({
               }
               case "document": {
                 let W = Q.children[ee.getName() + 1], X = [];
-                return q(R, W, Q, te) === "head" && ((R.head.children.length > 0 || R.head.endComments.length > 0) && X.push(oe("head")), I(R.head) ? X.push(["---", " ", oe(["head", "trailingComment"])]) : X.push("---")), $(R) && X.push(oe("body")), u(r, X);
+                return q(R, W, Q, te) === "head" && ((R.head.children.length > 0 || R.head.endComments.length > 0) && X.push(oe("head")), I(R.head) ? X.push(["---", " ", oe(["head", "trailingComment"])]) : X.push("---")), $2(R) && X.push(oe("body")), u(r, X);
               }
               case "documentHead":
                 return u(r, [...ee.map(oe, "children"), ...ee.map(oe, "endComments")]);
@@ -11412,14 +11455,14 @@ var require_standalone = __commonJS({
                 throw new Error("Unexpected node type ".concat(R.type));
             }
           }
-          function $(R) {
+          function $2(R) {
             return R.body.children.length > 0 || k(R.body);
           }
           function V(R, Q) {
             return I(R) || Q && (Q.head.children.length > 0 || k(Q.head));
           }
           function q(R, Q, ee, te) {
-            return ee.children[0] === R && /---(?:\s|$)/.test(te.originalText.slice(h(R), h(R) + 4)) || R.head.children.length > 0 || k(R.head) || I(R.head) ? "head" : V(R, Q) ? false : Q ? "root" : false;
+            return ee.children[0] === R && /---(?:\s|$)/.test(te.originalText.slice(h3(R), h3(R) + 4)) || R.head.children.length > 0 || k(R.head) || I(R.head) ? "head" : V(R, Q) ? false : Q ? "root" : false;
           }
           function Y(R, Q, ee) {
             let te = T(R, Q, ee);
@@ -11438,7 +11481,7 @@ var require_standalone = __commonJS({
                   break;
               }
           }
-          n.exports = { preprocess: F, embed: w, print: M, massageAstNode: H, insertPragma: p };
+          n.exports = { preprocess: F, embed: w, print: M, massageAstNode: H, insertPragma: p2 };
         } }), Fg = Z({ "src/language-yaml/options.js"(e, n) {
           "use strict";
           re();
@@ -11453,12 +11496,12 @@ var require_standalone = __commonJS({
           re();
           var t = Bt(), s = Eg(), a = Fg(), r = Ag(), u = [t(Sg(), (i) => ({ since: "1.14.0", parsers: ["yaml"], vscodeLanguageIds: ["yaml", "ansible", "home-assistant"], filenames: [...i.filenames.filter((o) => o !== "yarn.lock"), ".prettierrc", ".stylelintrc"] }))];
           n.exports = { languages: u, printers: { yaml: s }, options: a, parsers: r };
-        } }), bg = Z({ "src/languages.js"(e, n) {
+        } }), bg2 = Z({ "src/languages.js"(e, n) {
           "use strict";
           re(), n.exports = [id(), Sd(), Pd(), Md(), Ud(), Dg(), xg()];
         } });
         re();
-        var { version: Tg } = ya(), kt = Sm(), { getSupportInfo: Bg } = Mn(), Ng = xm(), wg = bg(), _g = Oe();
+        var { version: Tg } = ya(), kt = Sm(), { getSupportInfo: Bg } = Mn(), Ng = xm(), wg = bg2(), _g = Oe();
         function bt(e) {
           let n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
           return function() {
@@ -11496,19 +11539,19 @@ var require_parser_babel = __commonJS({
       }
     })(function() {
       "use strict";
-      var b = (h, l) => () => (l || h((l = { exports: {} }).exports, l), l.exports);
+      var b = (h3, l) => () => (l || h3((l = { exports: {} }).exports, l), l.exports);
       var G = b((zf, Jr) => {
-        var Tt = function(h) {
-          return h && h.Math == Math && h;
+        var Tt = function(h3) {
+          return h3 && h3.Math == Math && h3;
         };
         Jr.exports = Tt(typeof globalThis == "object" && globalThis) || Tt(typeof window == "object" && window) || Tt(typeof self == "object" && self) || Tt(typeof globalThis == "object" && globalThis) || function() {
           return this;
         }() || Function("return this")();
       });
       var Ae = b((Kf, Yr) => {
-        Yr.exports = function(h) {
+        Yr.exports = function(h3) {
           try {
-            return !!h();
+            return !!h3();
           } catch {
             return true;
           }
@@ -11525,9 +11568,9 @@ var require_parser_babel = __commonJS({
       var Et = b((Hf, Qr) => {
         var ll = Ae();
         Qr.exports = !ll(function() {
-          var h = function() {
+          var h3 = function() {
           }.bind();
-          return typeof h != "function" || h.hasOwnProperty("prototype");
+          return typeof h3 != "function" || h3.hasOwnProperty("prototype");
         });
       });
       var bt = b((Wf, Zr) => {
@@ -11540,70 +11583,70 @@ var require_parser_babel = __commonJS({
         "use strict";
         var ei = {}.propertyIsEnumerable, ti = Object.getOwnPropertyDescriptor, cl = ti && !ei.call({ 1: 2 }, 1);
         si.f = cl ? function(l) {
-          var p = ti(this, l);
-          return !!p && p.enumerable;
+          var p2 = ti(this, l);
+          return !!p2 && p2.enumerable;
         } : ei;
       });
       var ms = b((Xf, ii) => {
-        ii.exports = function(h, l) {
-          return { enumerable: !(h & 1), configurable: !(h & 2), writable: !(h & 4), value: l };
+        ii.exports = function(h3, l) {
+          return { enumerable: !(h3 & 1), configurable: !(h3 & 2), writable: !(h3 & 4), value: l };
         };
       });
       var ie = b((Jf, oi) => {
         var ai = Et(), ni = Function.prototype, pl = ni.bind, ys = ni.call, fl = ai && pl.bind(ys, ys);
-        oi.exports = ai ? function(h) {
-          return h && fl(h);
-        } : function(h) {
-          return h && function() {
-            return ys.apply(h, arguments);
+        oi.exports = ai ? function(h3) {
+          return h3 && fl(h3);
+        } : function(h3) {
+          return h3 && function() {
+            return ys.apply(h3, arguments);
           };
         };
       });
       var vt = b((Yf, li) => {
         var hi = ie(), dl = hi({}.toString), ml = hi("".slice);
-        li.exports = function(h) {
-          return ml(dl(h), 8, -1);
+        li.exports = function(h3) {
+          return ml(dl(h3), 8, -1);
         };
       });
       var ci = b(($f, ui) => {
         var yl = G(), xl = ie(), gl = Ae(), Al = vt(), xs = yl.Object, Pl = xl("".split);
         ui.exports = gl(function() {
           return !xs("z").propertyIsEnumerable(0);
-        }) ? function(h) {
-          return Al(h) == "String" ? Pl(h, "") : xs(h);
+        }) ? function(h3) {
+          return Al(h3) == "String" ? Pl(h3, "") : xs(h3);
         } : xs;
       });
       var gs = b((Qf, pi) => {
         var Tl = G(), El = Tl.TypeError;
-        pi.exports = function(h) {
-          if (h == null)
-            throw El("Can't call method on " + h);
-          return h;
+        pi.exports = function(h3) {
+          if (h3 == null)
+            throw El("Can't call method on " + h3);
+          return h3;
         };
       });
       var St = b((Zf, fi) => {
         var Cl = ci(), bl = gs();
-        fi.exports = function(h) {
-          return Cl(bl(h));
+        fi.exports = function(h3) {
+          return Cl(bl(h3));
         };
       });
       var ae = b((ed, di) => {
-        di.exports = function(h) {
-          return typeof h == "function";
+        di.exports = function(h3) {
+          return typeof h3 == "function";
         };
       });
       var De = b((td, mi) => {
         var vl = ae();
-        mi.exports = function(h) {
-          return typeof h == "object" ? h !== null : vl(h);
+        mi.exports = function(h3) {
+          return typeof h3 == "object" ? h3 !== null : vl(h3);
         };
       });
       var Qe = b((sd, yi) => {
-        var As = G(), Sl = ae(), wl = function(h) {
-          return Sl(h) ? h : void 0;
+        var As = G(), Sl = ae(), wl = function(h3) {
+          return Sl(h3) ? h3 : void 0;
         };
-        yi.exports = function(h, l) {
-          return arguments.length < 2 ? wl(As[h]) : As[h] && As[h][l];
+        yi.exports = function(h3, l) {
+          return arguments.length < 2 ? wl(As[h3]) : As[h3] && As[h3][l];
         };
       });
       var gi = b((rd, xi) => {
@@ -11623,8 +11666,8 @@ var require_parser_babel = __commonJS({
       var Ts = b((nd, Ii) => {
         var Ni = wi(), kl = Ae();
         Ii.exports = !!Object.getOwnPropertySymbols && !kl(function() {
-          var h = Symbol();
-          return !String(h) || !(Object(h) instanceof Symbol) || !Symbol.sham && Ni && Ni < 41;
+          var h3 = Symbol();
+          return !String(h3) || !(Object(h3) instanceof Symbol) || !Symbol.sham && Ni && Ni < 41;
         });
       });
       var Es = b((od, ki) => {
@@ -11633,18 +11676,18 @@ var require_parser_babel = __commonJS({
       });
       var Cs = b((hd, Di) => {
         var Fl = G(), Ll = Qe(), Ol = ae(), Bl = gi(), Ml = Es(), Rl = Fl.Object;
-        Di.exports = Ml ? function(h) {
-          return typeof h == "symbol";
-        } : function(h) {
+        Di.exports = Ml ? function(h3) {
+          return typeof h3 == "symbol";
+        } : function(h3) {
           var l = Ll("Symbol");
-          return Ol(l) && Bl(l.prototype, Rl(h));
+          return Ol(l) && Bl(l.prototype, Rl(h3));
         };
       });
       var Li = b((ld, Fi) => {
         var jl = G(), ql = jl.String;
-        Fi.exports = function(h) {
+        Fi.exports = function(h3) {
           try {
-            return ql(h);
+            return ql(h3);
           } catch {
             return "Object";
           }
@@ -11652,24 +11695,24 @@ var require_parser_babel = __commonJS({
       });
       var Nt = b((ud, Oi) => {
         var Ul = G(), _l = ae(), zl = Li(), Kl = Ul.TypeError;
-        Oi.exports = function(h) {
-          if (_l(h))
-            return h;
-          throw Kl(zl(h) + " is not a function");
+        Oi.exports = function(h3) {
+          if (_l(h3))
+            return h3;
+          throw Kl(zl(h3) + " is not a function");
         };
       });
       var Mi = b((cd, Bi) => {
         var Vl = Nt();
-        Bi.exports = function(h, l) {
-          var p = h[l];
-          return p == null ? void 0 : Vl(p);
+        Bi.exports = function(h3, l) {
+          var p2 = h3[l];
+          return p2 == null ? void 0 : Vl(p2);
         };
       });
       var ji = b((pd, Ri) => {
         var Hl = G(), bs = bt(), vs = ae(), Ss = De(), Wl = Hl.TypeError;
-        Ri.exports = function(h, l) {
-          var p, d;
-          if (l === "string" && vs(p = h.toString) && !Ss(d = bs(p, h)) || vs(p = h.valueOf) && !Ss(d = bs(p, h)) || l !== "string" && vs(p = h.toString) && !Ss(d = bs(p, h)))
+        Ri.exports = function(h3, l) {
+          var p2, d;
+          if (l === "string" && vs(p2 = h3.toString) && !Ss(d = bs(p2, h3)) || vs(p2 = h3.valueOf) && !Ss(d = bs(p2, h3)) || l !== "string" && vs(p2 = h3.toString) && !Ss(d = bs(p2, h3)))
             return d;
           throw Wl("Can't convert object to primitive value");
         };
@@ -11679,11 +11722,11 @@ var require_parser_babel = __commonJS({
       });
       var It = b((dd, zi) => {
         var _i = G(), Gl = Object.defineProperty;
-        zi.exports = function(h, l) {
+        zi.exports = function(h3, l) {
           try {
-            Gl(_i, h, { value: l, configurable: true, writable: true });
+            Gl(_i, h3, { value: l, configurable: true, writable: true });
           } catch {
-            _i[h] = l;
+            _i[h3] = l;
           }
           return l;
         };
@@ -11692,65 +11735,65 @@ var require_parser_babel = __commonJS({
         var Xl = G(), Jl = It(), Ki = "__core-js_shared__", Yl = Xl[Ki] || Jl(Ki, {});
         Vi.exports = Yl;
       });
-      var ws = b((yd, Wi) => {
+      var ws2 = b((yd, Wi) => {
         var $l = Ui(), Hi = kt();
-        (Wi.exports = function(h, l) {
-          return Hi[h] || (Hi[h] = l !== void 0 ? l : {});
+        (Wi.exports = function(h3, l) {
+          return Hi[h3] || (Hi[h3] = l !== void 0 ? l : {});
         })("versions", []).push({ version: "3.22.2", mode: $l ? "pure" : "global", copyright: "\xA9 2014-2022 Denis Pushkarev (zloirock.ru)", license: "https://github.com/zloirock/core-js/blob/v3.22.2/LICENSE", source: "https://github.com/zloirock/core-js" });
       });
       var Ns = b((xd, Gi) => {
         var Ql = G(), Zl = gs(), eu = Ql.Object;
-        Gi.exports = function(h) {
-          return eu(Zl(h));
+        Gi.exports = function(h3) {
+          return eu(Zl(h3));
         };
       });
       var be = b((gd, Xi) => {
         var tu = ie(), su = Ns(), ru = tu({}.hasOwnProperty);
-        Xi.exports = Object.hasOwn || function(l, p) {
-          return ru(su(l), p);
+        Xi.exports = Object.hasOwn || function(l, p2) {
+          return ru(su(l), p2);
         };
       });
       var Is = b((Ad, Ji) => {
         var iu = ie(), au = 0, nu = Math.random(), ou = iu(1 .toString);
-        Ji.exports = function(h) {
-          return "Symbol(" + (h === void 0 ? "" : h) + ")_" + ou(++au + nu, 36);
+        Ji.exports = function(h3) {
+          return "Symbol(" + (h3 === void 0 ? "" : h3) + ")_" + ou(++au + nu, 36);
         };
       });
       var Ze = b((Pd, ea) => {
-        var hu = G(), lu = ws(), Yi = be(), uu = Is(), $i = Ts(), Zi = Es(), _e = lu("wks"), Fe = hu.Symbol, Qi = Fe && Fe.for, cu = Zi ? Fe : Fe && Fe.withoutSetter || uu;
-        ea.exports = function(h) {
-          if (!Yi(_e, h) || !($i || typeof _e[h] == "string")) {
-            var l = "Symbol." + h;
-            $i && Yi(Fe, h) ? _e[h] = Fe[h] : Zi && Qi ? _e[h] = Qi(l) : _e[h] = cu(l);
+        var hu = G(), lu = ws2(), Yi = be(), uu = Is(), $i = Ts(), Zi = Es(), _e = lu("wks"), Fe = hu.Symbol, Qi = Fe && Fe.for, cu = Zi ? Fe : Fe && Fe.withoutSetter || uu;
+        ea.exports = function(h3) {
+          if (!Yi(_e, h3) || !($i || typeof _e[h3] == "string")) {
+            var l = "Symbol." + h3;
+            $i && Yi(Fe, h3) ? _e[h3] = Fe[h3] : Zi && Qi ? _e[h3] = Qi(l) : _e[h3] = cu(l);
           }
-          return _e[h];
+          return _e[h3];
         };
       });
       var ia = b((Td, ra) => {
         var pu = G(), fu = bt(), ta = De(), sa = Cs(), du = Mi(), mu = ji(), yu = Ze(), xu = pu.TypeError, gu = yu("toPrimitive");
-        ra.exports = function(h, l) {
-          if (!ta(h) || sa(h))
-            return h;
-          var p = du(h, gu), d;
-          if (p) {
-            if (l === void 0 && (l = "default"), d = fu(p, h, l), !ta(d) || sa(d))
+        ra.exports = function(h3, l) {
+          if (!ta(h3) || sa(h3))
+            return h3;
+          var p2 = du(h3, gu), d;
+          if (p2) {
+            if (l === void 0 && (l = "default"), d = fu(p2, h3, l), !ta(d) || sa(d))
               return d;
             throw xu("Can't convert object to primitive value");
           }
-          return l === void 0 && (l = "number"), mu(h, l);
+          return l === void 0 && (l = "number"), mu(h3, l);
         };
       });
       var ks = b((Ed, aa) => {
         var Au = ia(), Pu = Cs();
-        aa.exports = function(h) {
-          var l = Au(h, "string");
+        aa.exports = function(h3) {
+          var l = Au(h3, "string");
           return Pu(l) ? l : l + "";
         };
       });
       var ha = b((Cd, oa) => {
         var Tu = G(), na = De(), Ds = Tu.document, Eu = na(Ds) && na(Ds.createElement);
-        oa.exports = function(h) {
-          return Eu ? Ds.createElement(h) : {};
+        oa.exports = function(h3) {
+          return Eu ? Ds.createElement(h3) : {};
         };
       });
       var Fs = b((bd, la) => {
@@ -11763,14 +11806,14 @@ var require_parser_babel = __commonJS({
       });
       var Ls = b((ca) => {
         var Su = ke(), wu = bt(), Nu = ri(), Iu = ms(), ku = St(), Du = ks(), Fu = be(), Lu = Fs(), ua = Object.getOwnPropertyDescriptor;
-        ca.f = Su ? ua : function(l, p) {
-          if (l = ku(l), p = Du(p), Lu)
+        ca.f = Su ? ua : function(l, p2) {
+          if (l = ku(l), p2 = Du(p2), Lu)
             try {
-              return ua(l, p);
+              return ua(l, p2);
             } catch {
             }
-          if (Fu(l, p))
-            return Iu(!wu(Nu.f, l, p), l[p]);
+          if (Fu(l, p2))
+            return Iu(!wu(Nu.f, l, p2), l[p2]);
         };
       });
       var fa = b((Sd, pa) => {
@@ -11782,43 +11825,43 @@ var require_parser_babel = __commonJS({
       });
       var Os = b((wd, ma) => {
         var da = G(), Mu = De(), Ru = da.String, ju = da.TypeError;
-        ma.exports = function(h) {
-          if (Mu(h))
-            return h;
-          throw ju(Ru(h) + " is not an object");
+        ma.exports = function(h3) {
+          if (Mu(h3))
+            return h3;
+          throw ju(Ru(h3) + " is not an object");
         };
       });
       var qs = b((xa) => {
         var qu = G(), Uu = ke(), _u = Fs(), zu = fa(), Dt = Os(), ya = ks(), Ku = qu.TypeError, Bs = Object.defineProperty, Vu = Object.getOwnPropertyDescriptor, Ms = "enumerable", Rs = "configurable", js = "writable";
-        xa.f = Uu ? zu ? function(l, p, d) {
-          if (Dt(l), p = ya(p), Dt(d), typeof l == "function" && p === "prototype" && "value" in d && js in d && !d[js]) {
-            var m = Vu(l, p);
-            m && m[js] && (l[p] = d.value, d = { configurable: Rs in d ? d[Rs] : m[Rs], enumerable: Ms in d ? d[Ms] : m[Ms], writable: false });
+        xa.f = Uu ? zu ? function(l, p2, d) {
+          if (Dt(l), p2 = ya(p2), Dt(d), typeof l == "function" && p2 === "prototype" && "value" in d && js in d && !d[js]) {
+            var m2 = Vu(l, p2);
+            m2 && m2[js] && (l[p2] = d.value, d = { configurable: Rs in d ? d[Rs] : m2[Rs], enumerable: Ms in d ? d[Ms] : m2[Ms], writable: false });
           }
-          return Bs(l, p, d);
-        } : Bs : function(l, p, d) {
-          if (Dt(l), p = ya(p), Dt(d), _u)
+          return Bs(l, p2, d);
+        } : Bs : function(l, p2, d) {
+          if (Dt(l), p2 = ya(p2), Dt(d), _u)
             try {
-              return Bs(l, p, d);
+              return Bs(l, p2, d);
             } catch {
             }
           if ("get" in d || "set" in d)
             throw Ku("Accessors not supported");
-          return "value" in d && (l[p] = d.value), l;
+          return "value" in d && (l[p2] = d.value), l;
         };
       });
       var Ft = b((Id, ga) => {
         var Hu = ke(), Wu = qs(), Gu = ms();
-        ga.exports = Hu ? function(h, l, p) {
-          return Wu.f(h, l, Gu(1, p));
-        } : function(h, l, p) {
-          return h[l] = p, h;
+        ga.exports = Hu ? function(h3, l, p2) {
+          return Wu.f(h3, l, Gu(1, p2));
+        } : function(h3, l, p2) {
+          return h3[l] = p2, h3;
         };
       });
       var Lt = b((kd, Aa) => {
         var Xu = ie(), Ju = ae(), Us = kt(), Yu = Xu(Function.toString);
-        Ju(Us.inspectSource) || (Us.inspectSource = function(h) {
-          return Yu(h);
+        Ju(Us.inspectSource) || (Us.inspectSource = function(h3) {
+          return Yu(h3);
         });
         Aa.exports = Us.inspectSource;
       });
@@ -11827,41 +11870,41 @@ var require_parser_babel = __commonJS({
         Ta.exports = Qu(Pa) && /native code/.test(Zu(Pa));
       });
       var va = b((Fd, ba) => {
-        var ec = ws(), tc = Is(), Ca = ec("keys");
-        ba.exports = function(h) {
-          return Ca[h] || (Ca[h] = tc(h));
+        var ec = ws2(), tc = Is(), Ca = ec("keys");
+        ba.exports = function(h3) {
+          return Ca[h3] || (Ca[h3] = tc(h3));
         };
       });
       var _s = b((Ld, Sa) => {
         Sa.exports = {};
       });
       var Fa = b((Od, Da) => {
-        var sc = Ea(), ka = G(), zs = ie(), rc = De(), ic = Ft(), Ks = be(), Vs = kt(), ac = va(), nc = _s(), wa = "Object already initialized", Ws = ka.TypeError, oc = ka.WeakMap, Ot, et, Bt, hc = function(h) {
-          return Bt(h) ? et(h) : Ot(h, {});
-        }, lc = function(h) {
+        var sc = Ea(), ka = G(), zs = ie(), rc = De(), ic = Ft(), Ks = be(), Vs = kt(), ac = va(), nc = _s(), wa = "Object already initialized", Ws = ka.TypeError, oc = ka.WeakMap, Ot, et, Bt, hc = function(h3) {
+          return Bt(h3) ? et(h3) : Ot(h3, {});
+        }, lc = function(h3) {
           return function(l) {
-            var p;
-            if (!rc(l) || (p = et(l)).type !== h)
-              throw Ws("Incompatible receiver, " + h + " required");
-            return p;
+            var p2;
+            if (!rc(l) || (p2 = et(l)).type !== h3)
+              throw Ws("Incompatible receiver, " + h3 + " required");
+            return p2;
           };
         };
-        sc || Vs.state ? (ve = Vs.state || (Vs.state = new oc()), Na = zs(ve.get), Hs = zs(ve.has), Ia = zs(ve.set), Ot = function(h, l) {
-          if (Hs(ve, h))
+        sc || Vs.state ? (ve = Vs.state || (Vs.state = new oc()), Na = zs(ve.get), Hs = zs(ve.has), Ia = zs(ve.set), Ot = function(h3, l) {
+          if (Hs(ve, h3))
             throw new Ws(wa);
-          return l.facade = h, Ia(ve, h, l), l;
-        }, et = function(h) {
-          return Na(ve, h) || {};
-        }, Bt = function(h) {
-          return Hs(ve, h);
-        }) : (Le = ac("state"), nc[Le] = true, Ot = function(h, l) {
-          if (Ks(h, Le))
+          return l.facade = h3, Ia(ve, h3, l), l;
+        }, et = function(h3) {
+          return Na(ve, h3) || {};
+        }, Bt = function(h3) {
+          return Hs(ve, h3);
+        }) : (Le = ac("state"), nc[Le] = true, Ot = function(h3, l) {
+          if (Ks(h3, Le))
             throw new Ws(wa);
-          return l.facade = h, ic(h, Le, l), l;
-        }, et = function(h) {
-          return Ks(h, Le) ? h[Le] : {};
-        }, Bt = function(h) {
-          return Ks(h, Le);
+          return l.facade = h3, ic(h3, Le, l), l;
+        }, et = function(h3) {
+          return Ks(h3, Le) ? h3[Le] : {};
+        }, Bt = function(h3) {
+          return Ks(h3, Le);
         });
         var ve, Na, Hs, Ia, Le;
         Da.exports = { set: Ot, get: et, has: Bt, enforce: hc, getterFor: lc };
@@ -11873,70 +11916,70 @@ var require_parser_babel = __commonJS({
       });
       var Ua = b((Md, qa) => {
         var dc = G(), Ma = ae(), mc = be(), Ra = Ft(), yc = It(), xc = Lt(), ja = Fa(), gc = Ba().CONFIGURABLE, Ac = ja.get, Pc = ja.enforce, Tc = String(String).split("String");
-        (qa.exports = function(h, l, p, d) {
-          var m = d ? !!d.unsafe : false, A = d ? !!d.enumerable : false, g = d ? !!d.noTargetGet : false, x = d && d.name !== void 0 ? d.name : l, T;
-          if (Ma(p) && (String(x).slice(0, 7) === "Symbol(" && (x = "[" + String(x).replace(/^Symbol\(([^)]*)\)/, "$1") + "]"), (!mc(p, "name") || gc && p.name !== x) && Ra(p, "name", x), T = Pc(p), T.source || (T.source = Tc.join(typeof x == "string" ? x : ""))), h === dc) {
-            A ? h[l] = p : yc(l, p);
+        (qa.exports = function(h3, l, p2, d) {
+          var m2 = d ? !!d.unsafe : false, A = d ? !!d.enumerable : false, g = d ? !!d.noTargetGet : false, x = d && d.name !== void 0 ? d.name : l, T;
+          if (Ma(p2) && (String(x).slice(0, 7) === "Symbol(" && (x = "[" + String(x).replace(/^Symbol\(([^)]*)\)/, "$1") + "]"), (!mc(p2, "name") || gc && p2.name !== x) && Ra(p2, "name", x), T = Pc(p2), T.source || (T.source = Tc.join(typeof x == "string" ? x : ""))), h3 === dc) {
+            A ? h3[l] = p2 : yc(l, p2);
             return;
           } else
-            m ? !g && h[l] && (A = true) : delete h[l];
-          A ? h[l] = p : Ra(h, l, p);
+            m2 ? !g && h3[l] && (A = true) : delete h3[l];
+          A ? h3[l] = p2 : Ra(h3, l, p2);
         })(Function.prototype, "toString", function() {
           return Ma(this) && Ac(this).source || xc(this);
         });
       });
       var Js = b((Rd, _a) => {
         var Ec = Math.ceil, Cc = Math.floor;
-        _a.exports = function(h) {
-          var l = +h;
+        _a.exports = function(h3) {
+          var l = +h3;
           return l !== l || l === 0 ? 0 : (l > 0 ? Cc : Ec)(l);
         };
       });
       var Ka = b((jd, za) => {
-        var bc = Js(), vc = Math.max, Sc = Math.min;
-        za.exports = function(h, l) {
-          var p = bc(h);
-          return p < 0 ? vc(p + l, 0) : Sc(p, l);
+        var bc2 = Js(), vc = Math.max, Sc = Math.min;
+        za.exports = function(h3, l) {
+          var p2 = bc2(h3);
+          return p2 < 0 ? vc(p2 + l, 0) : Sc(p2, l);
         };
       });
       var Ha = b((qd, Va) => {
         var wc = Js(), Nc = Math.min;
-        Va.exports = function(h) {
-          return h > 0 ? Nc(wc(h), 9007199254740991) : 0;
+        Va.exports = function(h3) {
+          return h3 > 0 ? Nc(wc(h3), 9007199254740991) : 0;
         };
       });
       var Mt = b((Ud, Wa) => {
         var Ic = Ha();
-        Wa.exports = function(h) {
-          return Ic(h.length);
+        Wa.exports = function(h3) {
+          return Ic(h3.length);
         };
       });
       var Ja = b((_d, Xa) => {
-        var kc = St(), Dc = Ka(), Fc = Mt(), Ga = function(h) {
-          return function(l, p, d) {
-            var m = kc(l), A = Fc(m), g = Dc(d, A), x;
-            if (h && p != p) {
+        var kc = St(), Dc = Ka(), Fc = Mt(), Ga = function(h3) {
+          return function(l, p2, d) {
+            var m2 = kc(l), A = Fc(m2), g = Dc(d, A), x;
+            if (h3 && p2 != p2) {
               for (; A > g; )
-                if (x = m[g++], x != x)
+                if (x = m2[g++], x != x)
                   return true;
             } else
               for (; A > g; g++)
-                if ((h || g in m) && m[g] === p)
-                  return h || g || 0;
-            return !h && -1;
+                if ((h3 || g in m2) && m2[g] === p2)
+                  return h3 || g || 0;
+            return !h3 && -1;
           };
         };
         Xa.exports = { includes: Ga(true), indexOf: Ga(false) };
       });
       var Qa = b((zd, $a) => {
         var Lc = ie(), Ys = be(), Oc = St(), Bc = Ja().indexOf, Mc = _s(), Ya = Lc([].push);
-        $a.exports = function(h, l) {
-          var p = Oc(h), d = 0, m = [], A;
-          for (A in p)
-            !Ys(Mc, A) && Ys(p, A) && Ya(m, A);
+        $a.exports = function(h3, l) {
+          var p2 = Oc(h3), d = 0, m2 = [], A;
+          for (A in p2)
+            !Ys(Mc, A) && Ys(p2, A) && Ya(m2, A);
           for (; l.length > d; )
-            Ys(p, A = l[d++]) && (~Bc(m, A) || Ya(m, A));
-          return m;
+            Ys(p2, A = l[d++]) && (~Bc(m2, A) || Ya(m2, A));
+          return m2;
         };
       });
       var en = b((Kd, Za) => {
@@ -11954,40 +11997,40 @@ var require_parser_babel = __commonJS({
       var on = b((Wd, nn) => {
         var Uc = Qe(), _c = ie(), zc = sn(), Kc = an(), Vc = Os(), Hc = _c([].concat);
         nn.exports = Uc("Reflect", "ownKeys") || function(l) {
-          var p = zc.f(Vc(l)), d = Kc.f;
-          return d ? Hc(p, d(l)) : p;
+          var p2 = zc.f(Vc(l)), d = Kc.f;
+          return d ? Hc(p2, d(l)) : p2;
         };
       });
       var un = b((Gd, ln) => {
         var hn = be(), Wc = on(), Gc = Ls(), Xc = qs();
-        ln.exports = function(h, l, p) {
-          for (var d = Wc(l), m = Xc.f, A = Gc.f, g = 0; g < d.length; g++) {
+        ln.exports = function(h3, l, p2) {
+          for (var d = Wc(l), m2 = Xc.f, A = Gc.f, g = 0; g < d.length; g++) {
             var x = d[g];
-            !hn(h, x) && !(p && hn(p, x)) && m(h, x, A(l, x));
+            !hn(h3, x) && !(p2 && hn(p2, x)) && m2(h3, x, A(l, x));
           }
         };
       });
       var pn = b((Xd, cn) => {
-        var Jc = Ae(), Yc = ae(), $c = /#|\.prototype\./, tt = function(h, l) {
-          var p = Zc[Qc(h)];
-          return p == tp ? true : p == ep ? false : Yc(l) ? Jc(l) : !!l;
-        }, Qc = tt.normalize = function(h) {
-          return String(h).replace($c, ".").toLowerCase();
+        var Jc = Ae(), Yc = ae(), $c = /#|\.prototype\./, tt = function(h3, l) {
+          var p2 = Zc[Qc(h3)];
+          return p2 == tp ? true : p2 == ep ? false : Yc(l) ? Jc(l) : !!l;
+        }, Qc = tt.normalize = function(h3) {
+          return String(h3).replace($c, ".").toLowerCase();
         }, Zc = tt.data = {}, ep = tt.NATIVE = "N", tp = tt.POLYFILL = "P";
         cn.exports = tt;
       });
       var Qs = b((Jd, fn) => {
         var $s = G(), sp = Ls().f, rp = Ft(), ip = Ua(), ap = It(), np = un(), op = pn();
-        fn.exports = function(h, l) {
-          var p = h.target, d = h.global, m = h.stat, A, g, x, T, k, D;
-          if (d ? g = $s : m ? g = $s[p] || ap(p, {}) : g = ($s[p] || {}).prototype, g)
+        fn.exports = function(h3, l) {
+          var p2 = h3.target, d = h3.global, m2 = h3.stat, A, g, x, T, k, D;
+          if (d ? g = $s : m2 ? g = $s[p2] || ap(p2, {}) : g = ($s[p2] || {}).prototype, g)
             for (x in l) {
-              if (k = l[x], h.noTargetGet ? (D = sp(g, x), T = D && D.value) : T = g[x], A = op(d ? x : p + (m ? "." : "#") + x, h.forced), !A && T !== void 0) {
+              if (k = l[x], h3.noTargetGet ? (D = sp(g, x), T = D && D.value) : T = g[x], A = op(d ? x : p2 + (m2 ? "." : "#") + x, h3.forced), !A && T !== void 0) {
                 if (typeof k == typeof T)
                   continue;
                 np(k, T);
               }
-              (h.sham || T && T.sham) && rp(k, "sham", true), ip(g, x, k, h);
+              (h3.sham || T && T.sham) && rp(k, "sham", true), ip(g, x, k, h3);
             }
         };
       });
@@ -12006,23 +12049,23 @@ var require_parser_babel = __commonJS({
       });
       var An = b((tm, gn) => {
         var xn = ie(), cp = Nt(), pp = Et(), fp = xn(xn.bind);
-        gn.exports = function(h, l) {
-          return cp(h), l === void 0 ? h : pp ? fp(h, l) : function() {
-            return h.apply(l, arguments);
+        gn.exports = function(h3, l) {
+          return cp(h3), l === void 0 ? h3 : pp ? fp(h3, l) : function() {
+            return h3.apply(l, arguments);
           };
         };
       });
       var En = b((sm, Tn) => {
         "use strict";
-        var dp = G(), mp = Zs(), yp = Mt(), xp = An(), gp = dp.TypeError, Pn = function(h, l, p, d, m, A, g, x) {
-          for (var T = m, k = 0, D = g ? xp(g, x) : false, E, L; k < d; ) {
-            if (k in p) {
-              if (E = D ? D(p[k], k, l) : p[k], A > 0 && mp(E))
-                L = yp(E), T = Pn(h, l, E, L, T, A - 1) - 1;
+        var dp = G(), mp = Zs(), yp = Mt(), xp = An(), gp = dp.TypeError, Pn = function(h3, l, p2, d, m2, A, g, x) {
+          for (var T = m2, k = 0, D = g ? xp(g, x) : false, E, L; k < d; ) {
+            if (k in p2) {
+              if (E = D ? D(p2[k], k, l) : p2[k], A > 0 && mp(E))
+                L = yp(E), T = Pn(h3, l, E, L, T, A - 1) - 1;
               else {
                 if (T >= 9007199254740991)
                   throw gp("Exceed the acceptable array length");
-                h[T] = E;
+                h3[T] = E;
               }
               T++;
             }
@@ -12040,15 +12083,15 @@ var require_parser_babel = __commonJS({
       var wn = b((im, Sn) => {
         var Tp = G(), Ep = vn(), Cp = ae(), Rt = vt(), bp = Ze(), vp = bp("toStringTag"), Sp = Tp.Object, wp = Rt(function() {
           return arguments;
-        }()) == "Arguments", Np = function(h, l) {
+        }()) == "Arguments", Np = function(h3, l) {
           try {
-            return h[l];
+            return h3[l];
           } catch {
           }
         };
-        Sn.exports = Ep ? Rt : function(h) {
-          var l, p, d;
-          return h === void 0 ? "Undefined" : h === null ? "Null" : typeof (p = Np(l = Sp(h), vp)) == "string" ? p : wp ? Rt(l) : (d = Rt(l)) == "Object" && Cp(l.callee) ? "Arguments" : d;
+        Sn.exports = Ep ? Rt : function(h3) {
+          var l, p2, d;
+          return h3 === void 0 ? "Undefined" : h3 === null ? "Null" : typeof (p2 = Np(l = Sp(h3), vp)) == "string" ? p2 : wp ? Rt(l) : (d = Rt(l)) == "Object" && Cp(l.callee) ? "Arguments" : d;
         };
       });
       var Ln = b((am, Fn) => {
@@ -12078,59 +12121,59 @@ var require_parser_babel = __commonJS({
         };
         Dn.sham = true;
         Fn.exports = !kn || kp(function() {
-          var h;
+          var h3;
           return st(st.call) || !st(Object) || !st(function() {
-            h = true;
-          }) || h;
+            h3 = true;
+          }) || h3;
         }) ? Dn : st;
       });
       var Rn = b((nm, Mn) => {
         var Rp = G(), On = Zs(), jp = Ln(), qp = De(), Up = Ze(), _p = Up("species"), Bn = Rp.Array;
-        Mn.exports = function(h) {
+        Mn.exports = function(h3) {
           var l;
-          return On(h) && (l = h.constructor, jp(l) && (l === Bn || On(l.prototype)) ? l = void 0 : qp(l) && (l = l[_p], l === null && (l = void 0))), l === void 0 ? Bn : l;
+          return On(h3) && (l = h3.constructor, jp(l) && (l === Bn || On(l.prototype)) ? l = void 0 : qp(l) && (l = l[_p], l === null && (l = void 0))), l === void 0 ? Bn : l;
         };
       });
       var qn = b((om, jn) => {
         var zp = Rn();
-        jn.exports = function(h, l) {
-          return new (zp(h))(l === 0 ? 0 : l);
+        jn.exports = function(h3, l) {
+          return new (zp(h3))(l === 0 ? 0 : l);
         };
       });
       var Un = b(() => {
         "use strict";
         var Kp = Qs(), Vp = En(), Hp = Nt(), Wp = Ns(), Gp = Mt(), Xp = qn();
         Kp({ target: "Array", proto: true }, { flatMap: function(l) {
-          var p = Wp(this), d = Gp(p), m;
-          return Hp(l), m = Xp(p, 0), m.length = Vp(m, p, p, d, 0, 1, l, arguments.length > 1 ? arguments[1] : void 0), m;
+          var p2 = Wp(this), d = Gp(p2), m2;
+          return Hp(l), m2 = Xp(p2, 0), m2.length = Vp(m2, p2, p2, d, 0, 1, l, arguments.length > 1 ? arguments[1] : void 0), m2;
         } });
       });
       var qf = b((um, Eo) => {
-        var _n, zn, Kn, Vn, Hn;
-        function rt(h, l) {
-          return l || (l = h.slice(0)), Object.freeze(Object.defineProperties(h, { raw: { value: Object.freeze(l) } }));
+        var _n2, zn, Kn, Vn, Hn;
+        function rt(h3, l) {
+          return l || (l = h3.slice(0)), Object.freeze(Object.defineProperties(h3, { raw: { value: Object.freeze(l) } }));
         }
         mn();
         Un();
-        var ir = Object.defineProperty, Jp = Object.getOwnPropertyDescriptor, ar = Object.getOwnPropertyNames, Yp = Object.prototype.hasOwnProperty, $n = (h, l) => function() {
-          return h && (l = (0, h[ar(h)[0]])(h = 0)), l;
-        }, H = (h, l) => function() {
-          return l || (0, h[ar(h)[0]])((l = { exports: {} }).exports, l), l.exports;
-        }, $p = (h, l) => {
-          for (var p in l)
-            ir(h, p, { get: l[p], enumerable: true });
-        }, Qp = (h, l, p, d) => {
+        var ir = Object.defineProperty, Jp = Object.getOwnPropertyDescriptor, ar = Object.getOwnPropertyNames, Yp = Object.prototype.hasOwnProperty, $n = (h3, l) => function() {
+          return h3 && (l = (0, h3[ar(h3)[0]])(h3 = 0)), l;
+        }, H = (h3, l) => function() {
+          return l || (0, h3[ar(h3)[0]])((l = { exports: {} }).exports, l), l.exports;
+        }, $p = (h3, l) => {
+          for (var p2 in l)
+            ir(h3, p2, { get: l[p2], enumerable: true });
+        }, Qp = (h3, l, p2, d) => {
           if (l && typeof l == "object" || typeof l == "function")
-            for (let m of ar(l))
-              !Yp.call(h, m) && m !== p && ir(h, m, { get: () => l[m], enumerable: !(d = Jp(l, m)) || d.enumerable });
-          return h;
-        }, Zp = (h) => Qp(ir({}, "__esModule", { value: true }), h), V = $n({ "<define:process>"() {
-        } }), ef = H({ "src/utils/try-combinations.js"(h, l) {
+            for (let m2 of ar(l))
+              !Yp.call(h3, m2) && m2 !== p2 && ir(h3, m2, { get: () => l[m2], enumerable: !(d = Jp(l, m2)) || d.enumerable });
+          return h3;
+        }, Zp = (h3) => Qp(ir({}, "__esModule", { value: true }), h3), V = $n({ "<define:process>"() {
+        } }), ef = H({ "src/utils/try-combinations.js"(h3, l) {
           "use strict";
           V();
-          function p() {
+          function p2() {
             let d;
-            for (var m = arguments.length, A = new Array(m), g = 0; g < m; g++)
+            for (var m2 = arguments.length, A = new Array(m2), g = 0; g < m2; g++)
               A[g] = arguments[g];
             for (let [x, T] of A.entries())
               try {
@@ -12140,62 +12183,62 @@ var require_parser_babel = __commonJS({
               }
             return { error: d };
           }
-          l.exports = p;
-        } }), Qn = H({ "src/language-js/utils/get-shebang.js"(h, l) {
+          l.exports = p2;
+        } }), Qn = H({ "src/language-js/utils/get-shebang.js"(h3, l) {
           "use strict";
           V();
-          function p(d) {
+          function p2(d) {
             if (!d.startsWith("#!"))
               return "";
-            let m = d.indexOf(`
+            let m2 = d.indexOf(`
 `);
-            return m === -1 ? d : d.slice(0, m);
+            return m2 === -1 ? d : d.slice(0, m2);
           }
-          l.exports = p;
-        } }), tf = H({ "src/utils/text/skip-inline-comment.js"(h, l) {
+          l.exports = p2;
+        } }), tf = H({ "src/utils/text/skip-inline-comment.js"(h3, l) {
           "use strict";
           V();
-          function p(d, m) {
-            if (m === false)
+          function p2(d, m2) {
+            if (m2 === false)
               return false;
-            if (d.charAt(m) === "/" && d.charAt(m + 1) === "*") {
-              for (let A = m + 2; A < d.length; ++A)
+            if (d.charAt(m2) === "/" && d.charAt(m2 + 1) === "*") {
+              for (let A = m2 + 2; A < d.length; ++A)
                 if (d.charAt(A) === "*" && d.charAt(A + 1) === "/")
                   return A + 2;
             }
-            return m;
+            return m2;
           }
-          l.exports = p;
-        } }), sf = H({ "src/utils/text/skip-newline.js"(h, l) {
+          l.exports = p2;
+        } }), sf = H({ "src/utils/text/skip-newline.js"(h3, l) {
           "use strict";
           V();
-          function p(d, m, A) {
+          function p2(d, m2, A) {
             let g = A && A.backwards;
-            if (m === false)
+            if (m2 === false)
               return false;
-            let x = d.charAt(m);
+            let x = d.charAt(m2);
             if (g) {
-              if (d.charAt(m - 1) === "\r" && x === `
+              if (d.charAt(m2 - 1) === "\r" && x === `
 `)
-                return m - 2;
+                return m2 - 2;
               if (x === `
 ` || x === "\r" || x === "\u2028" || x === "\u2029")
-                return m - 1;
+                return m2 - 1;
             } else {
-              if (x === "\r" && d.charAt(m + 1) === `
+              if (x === "\r" && d.charAt(m2 + 1) === `
 `)
-                return m + 2;
+                return m2 + 2;
               if (x === `
 ` || x === "\r" || x === "\u2028" || x === "\u2029")
-                return m + 1;
+                return m2 + 1;
             }
-            return m;
+            return m2;
           }
-          l.exports = p;
-        } }), Zn = H({ "src/utils/text/skip.js"(h, l) {
+          l.exports = p2;
+        } }), Zn = H({ "src/utils/text/skip.js"(h3, l) {
           "use strict";
           V();
-          function p(x) {
+          function p2(x) {
             return (T, k, D) => {
               let E = D && D.backwards;
               if (k === false)
@@ -12213,24 +12256,24 @@ var require_parser_babel = __commonJS({
               return R === -1 || R === L ? R : false;
             };
           }
-          var d = p(/\s/), m = p(" 	"), A = p(",; 	"), g = p(/[^\n\r]/);
-          l.exports = { skipWhitespace: d, skipSpaces: m, skipToLineEnd: A, skipEverythingButNewLine: g };
-        } }), rf = H({ "src/utils/text/skip-trailing-comment.js"(h, l) {
+          var d = p2(/\s/), m2 = p2(" 	"), A = p2(",; 	"), g = p2(/[^\n\r]/);
+          l.exports = { skipWhitespace: d, skipSpaces: m2, skipToLineEnd: A, skipEverythingButNewLine: g };
+        } }), rf = H({ "src/utils/text/skip-trailing-comment.js"(h3, l) {
           "use strict";
           V();
-          var { skipEverythingButNewLine: p } = Zn();
-          function d(m, A) {
-            return A === false ? false : m.charAt(A) === "/" && m.charAt(A + 1) === "/" ? p(m, A) : A;
+          var { skipEverythingButNewLine: p2 } = Zn();
+          function d(m2, A) {
+            return A === false ? false : m2.charAt(A) === "/" && m2.charAt(A + 1) === "/" ? p2(m2, A) : A;
           }
           l.exports = d;
-        } }), af = H({ "src/utils/text/get-next-non-space-non-comment-character-index-with-start-index.js"(h, l) {
+        } }), af = H({ "src/utils/text/get-next-non-space-non-comment-character-index-with-start-index.js"(h3, l) {
           "use strict";
           V();
-          var p = tf(), d = sf(), m = rf(), { skipSpaces: A } = Zn();
+          var p2 = tf(), d = sf(), m2 = rf(), { skipSpaces: A } = Zn();
           function g(x, T) {
             let k = null, D = T;
             for (; D !== k; )
-              k = D, D = A(x, D), D = p(x, D), D = m(x, D), D = d(x, D);
+              k = D, D = A(x, D), D = p2(x, D), D = m2(x, D), D = d(x, D);
             return D;
           }
           l.exports = g;
@@ -12238,10 +12281,10 @@ var require_parser_babel = __commonJS({
         $p(eo, { EOL: () => rr, arch: () => nf, cpus: () => oo, default: () => po, endianness: () => to, freemem: () => ao, getNetworkInterfaces: () => co, hostname: () => so, loadavg: () => ro, networkInterfaces: () => uo, platform: () => of, release: () => lo, tmpDir: () => tr, tmpdir: () => sr, totalmem: () => no, type: () => ho, uptime: () => io });
         function to() {
           if (typeof jt > "u") {
-            var h = new ArrayBuffer(2), l = new Uint8Array(h), p = new Uint16Array(h);
-            if (l[0] = 1, l[1] = 2, p[0] === 258)
+            var h3 = new ArrayBuffer(2), l = new Uint8Array(h3), p2 = new Uint16Array(h3);
+            if (l[0] = 1, l[1] = 2, p2[0] === 258)
               jt = "BE";
-            else if (p[0] === 513)
+            else if (p2[0] === 513)
               jt = "LE";
             else
               throw new Error("unable to figure out endianess");
@@ -12288,51 +12331,51 @@ var require_parser_babel = __commonJS({
         var jt, sr, rr, po, hf = $n({ "node-modules-polyfills:os"() {
           V(), sr = tr, rr = `
 `, po = { EOL: rr, tmpdir: sr, tmpDir: tr, networkInterfaces: uo, getNetworkInterfaces: co, release: lo, type: ho, cpus: oo, totalmem: no, freemem: ao, uptime: io, loadavg: ro, hostname: so, endianness: to };
-        } }), lf = H({ "node-modules-polyfills-commonjs:os"(h, l) {
+        } }), lf = H({ "node-modules-polyfills-commonjs:os"(h3, l) {
           V();
-          var p = (hf(), Zp(eo));
-          if (p && p.default) {
-            l.exports = p.default;
-            for (let d in p)
-              l.exports[d] = p[d];
+          var p2 = (hf(), Zp(eo));
+          if (p2 && p2.default) {
+            l.exports = p2.default;
+            for (let d in p2)
+              l.exports[d] = p2[d];
           } else
-            p && (l.exports = p);
-        } }), uf = H({ "node_modules/detect-newline/index.js"(h, l) {
+            p2 && (l.exports = p2);
+        } }), uf = H({ "node_modules/detect-newline/index.js"(h3, l) {
           "use strict";
           V();
-          var p = (d) => {
+          var p2 = (d) => {
             if (typeof d != "string")
               throw new TypeError("Expected a string");
-            let m = d.match(/(?:\r?\n)/g) || [];
-            if (m.length === 0)
+            let m2 = d.match(/(?:\r?\n)/g) || [];
+            if (m2.length === 0)
               return;
-            let A = m.filter((x) => x === `\r
-`).length, g = m.length - A;
+            let A = m2.filter((x) => x === `\r
+`).length, g = m2.length - A;
             return A > g ? `\r
 ` : `
 `;
           };
-          l.exports = p, l.exports.graceful = (d) => typeof d == "string" && p(d) || `
+          l.exports = p2, l.exports.graceful = (d) => typeof d == "string" && p2(d) || `
 `;
-        } }), cf = H({ "node_modules/jest-docblock/build/index.js"(h) {
+        } }), cf = H({ "node_modules/jest-docblock/build/index.js"(h3) {
           "use strict";
-          V(), Object.defineProperty(h, "__esModule", { value: true }), h.extract = R, h.parse = W, h.parseWithComments = Y, h.print = M, h.strip = F;
+          V(), Object.defineProperty(h3, "__esModule", { value: true }), h3.extract = R, h3.parse = W, h3.parseWithComments = Y, h3.print = M, h3.strip = F;
           function l() {
             let u = lf();
             return l = function() {
               return u;
             }, u;
           }
-          function p() {
+          function p2() {
             let u = d(uf());
-            return p = function() {
+            return p2 = function() {
               return u;
             }, u;
           }
           function d(u) {
             return u && u.__esModule ? u : { default: u };
           }
-          var m = /\*\/$/, A = /^\/\*\*/, g = /^\s*(\/\*\*?(.|\r?\n)*?\*\/)/, x = /(^|\s+)\/\/([^\r\n]*)/g, T = /^(\r?\n)+/, k = /(?:^|\r?\n) *(@[^\r\n]*?) *\r?\n *(?![^@\r\n]*\/\/[^]*)([^@\r\n\s][^@\r\n]+?) *\r?\n/g, D = /(?:^|\r?\n) *@(\S+) *([^\r\n]*)/g, E = /(\r?\n|^) *\* ?/g, L = [];
+          var m2 = /\*\/$/, A = /^\/\*\*/, g = /^\s*(\/\*\*?(.|\r?\n)*?\*\/)/, x = /(^|\s+)\/\/([^\r\n]*)/g, T = /^(\r?\n)+/, k = /(?:^|\r?\n) *(@[^\r\n]*?) *\r?\n *(?![^@\r\n]*\/\/[^]*)([^@\r\n\s][^@\r\n]+?) *\r?\n/g, D = /(?:^|\r?\n) *@(\S+) *([^\r\n]*)/g, E = /(\r?\n|^) *\* ?/g, L = [];
           function R(u) {
             let X = u.match(g);
             return X ? X[0].trimLeft() : "";
@@ -12345,21 +12388,21 @@ var require_parser_babel = __commonJS({
             return Y(u).pragmas;
           }
           function Y(u) {
-            let X = (0, p().default)(u) || l().EOL;
-            u = u.replace(A, "").replace(m, "").replace(E, "$1");
+            let X = (0, p2().default)(u) || l().EOL;
+            u = u.replace(A, "").replace(m2, "").replace(E, "$1");
             let se = "";
             for (; se !== u; )
               se = u, u = u.replace(k, "".concat(X, "$1 $2").concat(X));
             u = u.replace(T, "").trimRight();
-            let J = /* @__PURE__ */ Object.create(null), Oe = u.replace(D, "").replace(T, "").trimRight(), $;
-            for (; $ = D.exec(u); ) {
-              let z = $[2].replace(x, "");
-              typeof J[$[1]] == "string" || Array.isArray(J[$[1]]) ? J[$[1]] = L.concat(J[$[1]], z) : J[$[1]] = z;
+            let J = /* @__PURE__ */ Object.create(null), Oe = u.replace(D, "").replace(T, "").trimRight(), $2;
+            for (; $2 = D.exec(u); ) {
+              let z = $2[2].replace(x, "");
+              typeof J[$2[1]] == "string" || Array.isArray(J[$2[1]]) ? J[$2[1]] = L.concat(J[$2[1]], z) : J[$2[1]] = z;
             }
             return { comments: Oe, pragmas: J };
           }
           function M(u) {
-            let { comments: X = "", pragmas: se = {} } = u, J = (0, p().default)(X) || l().EOL, Oe = "/**", $ = " *", z = " */", O = Object.keys(se), C = O.map((Z) => j(Z, se[Z])).reduce((Z, he) => Z.concat(he), []).map((Z) => $ + " " + Z + J).join("");
+            let { comments: X = "", pragmas: se = {} } = u, J = (0, p2().default)(X) || l().EOL, Oe = "/**", $2 = " *", z = " */", O = Object.keys(se), C = O.map((Z) => j(Z, se[Z])).reduce((Z, he) => Z.concat(he), []).map((Z) => $2 + " " + Z + J).join("");
             if (!X) {
               if (O.length === 0)
                 return "";
@@ -12368,16 +12411,16 @@ var require_parser_babel = __commonJS({
                 return "".concat(Oe, " ").concat(j(O[0], Z)[0]).concat(z);
               }
             }
-            let Ve = X.split(J).map((Z) => "".concat($, " ").concat(Z)).join(J) + J;
-            return Oe + J + (X ? Ve : "") + (X && O.length ? $ + J : "") + C + z;
+            let Ve = X.split(J).map((Z) => "".concat($2, " ").concat(Z)).join(J) + J;
+            return Oe + J + (X ? Ve : "") + (X && O.length ? $2 + J : "") + C + z;
           }
           function j(u, X) {
             return L.concat(X).map((se) => "@".concat(u, " ").concat(se).trim());
           }
-        } }), pf = H({ "src/common/end-of-line.js"(h, l) {
+        } }), pf = H({ "src/common/end-of-line.js"(h3, l) {
           "use strict";
           V();
-          function p(g) {
+          function p2(g) {
             let x = g.indexOf("\r");
             return x >= 0 ? g.charAt(x + 1) === `
 ` ? "crlf" : "cr" : "lf";
@@ -12394,7 +12437,7 @@ var require_parser_babel = __commonJS({
 `;
             }
           }
-          function m(g, x) {
+          function m2(g, x) {
             let T;
             switch (x) {
               case `
@@ -12418,15 +12461,15 @@ var require_parser_babel = __commonJS({
             return g.replace(/\r\n?/g, `
 `);
           }
-          l.exports = { guessEndOfLine: p, convertEndOfLineToChars: d, countEndOfLineChars: m, normalizeEndOfLine: A };
-        } }), ff = H({ "src/language-js/pragma.js"(h, l) {
+          l.exports = { guessEndOfLine: p2, convertEndOfLineToChars: d, countEndOfLineChars: m2, normalizeEndOfLine: A };
+        } }), ff = H({ "src/language-js/pragma.js"(h3, l) {
           "use strict";
           V();
-          var { parseWithComments: p, strip: d, extract: m, print: A } = cf(), { normalizeEndOfLine: g } = pf(), x = Qn();
+          var { parseWithComments: p2, strip: d, extract: m2, print: A } = cf(), { normalizeEndOfLine: g } = pf(), x = Qn();
           function T(E) {
             let L = x(E);
             L && (E = E.slice(L.length + 1));
-            let R = m(E), { pragmas: F, comments: W } = p(R);
+            let R = m2(E), { pragmas: F, comments: W } = p2(R);
             return { shebang: L, text: E, pragmas: F, comments: W };
           }
           function k(E) {
@@ -12443,27 +12486,27 @@ var require_parser_babel = __commonJS({
 `) + Y;
           }
           l.exports = { hasPragma: k, insertPragma: D };
-        } }), fo = H({ "src/utils/is-non-empty-array.js"(h, l) {
+        } }), fo = H({ "src/utils/is-non-empty-array.js"(h3, l) {
           "use strict";
           V();
-          function p(d) {
+          function p2(d) {
             return Array.isArray(d) && d.length > 0;
           }
-          l.exports = p;
-        } }), mo = H({ "src/language-js/loc.js"(h, l) {
+          l.exports = p2;
+        } }), mo = H({ "src/language-js/loc.js"(h3, l) {
           "use strict";
           V();
-          var p = fo();
+          var p2 = fo();
           function d(T, k) {
             let { ignoreDecorators: D } = k || {};
             if (!D) {
               let E = T.declaration && T.declaration.decorators || T.decorators;
-              if (p(E))
+              if (p2(E))
                 return d(E[0]);
             }
             return T.range ? T.range[0] : T.start;
           }
-          function m(T) {
+          function m2(T) {
             return T.range ? T.range[1] : T.end;
           }
           function A(T, k) {
@@ -12471,96 +12514,96 @@ var require_parser_babel = __commonJS({
             return Number.isInteger(D) && D === d(k);
           }
           function g(T, k) {
-            let D = m(T);
-            return Number.isInteger(D) && D === m(k);
+            let D = m2(T);
+            return Number.isInteger(D) && D === m2(k);
           }
           function x(T, k) {
             return A(T, k) && g(T, k);
           }
-          l.exports = { locStart: d, locEnd: m, hasSameLocStart: A, hasSameLoc: x };
-        } }), yo = H({ "src/language-js/parse/utils/create-parser.js"(h, l) {
+          l.exports = { locStart: d, locEnd: m2, hasSameLocStart: A, hasSameLoc: x };
+        } }), yo = H({ "src/language-js/parse/utils/create-parser.js"(h3, l) {
           "use strict";
           V();
-          var { hasPragma: p } = ff(), { locStart: d, locEnd: m } = mo();
+          var { hasPragma: p2 } = ff(), { locStart: d, locEnd: m2 } = mo();
           function A(g) {
-            return g = typeof g == "function" ? { parse: g } : g, Object.assign({ astFormat: "estree", hasPragma: p, locStart: d, locEnd: m }, g);
+            return g = typeof g == "function" ? { parse: g } : g, Object.assign({ astFormat: "estree", hasPragma: p2, locStart: d, locEnd: m2 }, g);
           }
           l.exports = A;
-        } }), nr = H({ "src/common/parser-create-error.js"(h, l) {
+        } }), nr = H({ "src/common/parser-create-error.js"(h3, l) {
           "use strict";
           V();
-          function p(d, m) {
-            let A = new SyntaxError(d + " (" + m.start.line + ":" + m.start.column + ")");
-            return A.loc = m, A;
+          function p2(d, m2) {
+            let A = new SyntaxError(d + " (" + m2.start.line + ":" + m2.start.column + ")");
+            return A.loc = m2, A;
           }
-          l.exports = p;
-        } }), xo = H({ "src/language-js/parse/utils/create-babel-parse-error.js"(h, l) {
+          l.exports = p2;
+        } }), xo = H({ "src/language-js/parse/utils/create-babel-parse-error.js"(h3, l) {
           "use strict";
           V();
-          var p = nr();
-          function d(m) {
-            let { message: A, loc: g } = m;
-            return p(A.replace(/ \(.*\)/, ""), { start: { line: g ? g.line : 0, column: g ? g.column + 1 : 0 } });
-          }
-          l.exports = d;
-        } }), df = H({ "src/language-js/utils/is-ts-keyword-type.js"(h, l) {
-          "use strict";
-          V();
-          function p(d) {
-            let { type: m } = d;
-            return m.startsWith("TS") && m.endsWith("Keyword");
-          }
-          l.exports = p;
-        } }), mf = H({ "src/language-js/utils/is-block-comment.js"(h, l) {
-          "use strict";
-          V();
-          var p = /* @__PURE__ */ new Set(["Block", "CommentBlock", "MultiLine"]), d = (m) => p.has(m == null ? void 0 : m.type);
-          l.exports = d;
-        } }), yf = H({ "src/language-js/utils/is-type-cast-comment.js"(h, l) {
-          "use strict";
-          V();
-          var p = mf();
-          function d(m) {
-            return p(m) && m.value[0] === "*" && /@type\b/.test(m.value);
+          var p2 = nr();
+          function d(m2) {
+            let { message: A, loc: g } = m2;
+            return p2(A.replace(/ \(.*\)/, ""), { start: { line: g ? g.line : 0, column: g ? g.column + 1 : 0 } });
           }
           l.exports = d;
-        } }), xf = H({ "src/utils/get-last.js"(h, l) {
+        } }), df = H({ "src/language-js/utils/is-ts-keyword-type.js"(h3, l) {
           "use strict";
           V();
-          var p = (d) => d[d.length - 1];
-          l.exports = p;
-        } }), go = H({ "src/language-js/parse/postprocess/visit-node.js"(h, l) {
+          function p2(d) {
+            let { type: m2 } = d;
+            return m2.startsWith("TS") && m2.endsWith("Keyword");
+          }
+          l.exports = p2;
+        } }), mf = H({ "src/language-js/utils/is-block-comment.js"(h3, l) {
           "use strict";
           V();
-          function p(d, m) {
+          var p2 = /* @__PURE__ */ new Set(["Block", "CommentBlock", "MultiLine"]), d = (m2) => p2.has(m2 == null ? void 0 : m2.type);
+          l.exports = d;
+        } }), yf = H({ "src/language-js/utils/is-type-cast-comment.js"(h3, l) {
+          "use strict";
+          V();
+          var p2 = mf();
+          function d(m2) {
+            return p2(m2) && m2.value[0] === "*" && /@type\b/.test(m2.value);
+          }
+          l.exports = d;
+        } }), xf = H({ "src/utils/get-last.js"(h3, l) {
+          "use strict";
+          V();
+          var p2 = (d) => d[d.length - 1];
+          l.exports = p2;
+        } }), go = H({ "src/language-js/parse/postprocess/visit-node.js"(h3, l) {
+          "use strict";
+          V();
+          function p2(d, m2) {
             if (Array.isArray(d)) {
               for (let A = 0; A < d.length; A++)
-                d[A] = p(d[A], m);
+                d[A] = p2(d[A], m2);
               return d;
             }
             if (d && typeof d == "object" && typeof d.type == "string") {
               let A = Object.keys(d);
               for (let g = 0; g < A.length; g++)
-                d[A[g]] = p(d[A[g]], m);
-              return m(d) || d;
+                d[A[g]] = p2(d[A[g]], m2);
+              return m2(d) || d;
             }
             return d;
           }
-          l.exports = p;
-        } }), Ao = H({ "src/language-js/parse/postprocess/throw-syntax-error.js"(h, l) {
+          l.exports = p2;
+        } }), Ao = H({ "src/language-js/parse/postprocess/throw-syntax-error.js"(h3, l) {
           "use strict";
           V();
-          var p = nr();
-          function d(m, A) {
-            let { start: g, end: x } = m.loc;
-            throw p(A, { start: { line: g.line, column: g.column + 1 }, end: { line: x.line, column: x.column + 1 } });
+          var p2 = nr();
+          function d(m2, A) {
+            let { start: g, end: x } = m2.loc;
+            throw p2(A, { start: { line: g.line, column: g.column + 1 }, end: { line: x.line, column: x.column + 1 } });
           }
           l.exports = d;
-        } }), gf = H({ "src/language-js/parse/postprocess/typescript.js"(h, l) {
+        } }), gf = H({ "src/language-js/parse/postprocess/typescript.js"(h3, l) {
           "use strict";
           V();
-          var p = go(), d = Ao();
-          function m(x, T, k) {
+          var p2 = go(), d = Ao();
+          function m2(x, T, k) {
             let D = x.decorators;
             if (!Array.isArray(D))
               return;
@@ -12575,30 +12618,30 @@ var require_parser_babel = __commonJS({
           }
           function g(x, T) {
             let { esTreeNodeToTSNodeMap: k, tsNodeToESTreeNodeMap: D } = T.tsParseResult;
-            p(x, (E) => {
+            p2(x, (E) => {
               let L = k.get(E);
               if (!L)
                 return;
               let R = D.get(L);
-              R === E && (m(L, R, D), A(L, R));
+              R === E && (m2(L, R, D), A(L, R));
             });
           }
           l.exports = { throwErrorForInvalidNodes: g };
-        } }), Af = H({ "src/language-js/parse/postprocess/index.js"(h, l) {
+        } }), Af = H({ "src/language-js/parse/postprocess/index.js"(h3, l) {
           "use strict";
           V();
-          var { locStart: p, locEnd: d } = mo(), m = df(), A = yf(), g = xf(), x = go(), { throwErrorForInvalidNodes: T } = gf(), k = Ao();
+          var { locStart: p2, locEnd: d } = mo(), m2 = df(), A = yf(), g = xf(), x = go(), { throwErrorForInvalidNodes: T } = gf(), k = Ao();
           function D(F, W) {
             if (W.parser === "typescript" && /@|abstract/.test(W.originalText) && T(F, W), W.parser !== "typescript" && W.parser !== "flow" && W.parser !== "acorn" && W.parser !== "espree" && W.parser !== "meriyah") {
               let M = /* @__PURE__ */ new Set();
               F = x(F, (j) => {
-                j.leadingComments && j.leadingComments.some(A) && M.add(p(j));
+                j.leadingComments && j.leadingComments.some(A) && M.add(p2(j));
               }), F = x(F, (j) => {
                 if (j.type === "ParenthesizedExpression") {
                   let { expression: u } = j;
                   if (u.type === "TypeCastExpression")
                     return u.range = j.range, u;
-                  let X = p(j);
+                  let X = p2(j);
                   if (!M.has(X))
                     return u.extra = Object.assign(Object.assign({}, u.extra), {}, { parenthesized: true }), u;
                 }
@@ -12619,10 +12662,10 @@ var require_parser_babel = __commonJS({
                   break;
                 }
                 case "TSParenthesizedType":
-                  return m(M.typeAnnotation) || M.typeAnnotation.type === "TSThisType" || (M.typeAnnotation.range = [p(M), d(M)]), M.typeAnnotation;
+                  return m2(M.typeAnnotation) || M.typeAnnotation.type === "TSThisType" || (M.typeAnnotation.range = [p2(M), d(M)]), M.typeAnnotation;
                 case "TSTypeParameter":
                   if (typeof M.name == "string") {
-                    let j = p(M);
+                    let j = p2(M);
                     M.name = { type: "Identifier", name: M.name, range: [j, j + M.name.length] };
                   }
                   break;
@@ -12634,7 +12677,7 @@ var require_parser_babel = __commonJS({
                   break;
                 case "SequenceExpression": {
                   let j = g(M.expressions);
-                  M.range = [p(M), Math.min(d(j), d(M))];
+                  M.range = [p2(M), Math.min(d(j), d(M))];
                   break;
                 }
                 case "TopicReference":
@@ -12643,7 +12686,7 @@ var require_parser_babel = __commonJS({
                 case "ExportAllDeclaration": {
                   let { exported: j } = M;
                   if (W.parser === "meriyah" && j && j.type === "Identifier") {
-                    let u = W.originalText.slice(p(j), d(j));
+                    let u = W.originalText.slice(p2(j), d(j));
                     (u.startsWith('"') || u.startsWith("'")) && (M.exported = Object.assign(Object.assign({}, M.exported), {}, { type: "Literal", value: M.exported.name, raw: u }));
                   }
                   break;
@@ -12651,7 +12694,7 @@ var require_parser_babel = __commonJS({
               }
             }), F;
             function Y(M, j) {
-              W.originalText[d(j)] !== ";" && (M.range = [p(M), d(j)]);
+              W.originalText[d(j)] !== ";" && (M.range = [p2(M), d(j)]);
             }
           }
           function E(F) {
@@ -12672,12 +12715,12 @@ var require_parser_babel = __commonJS({
             return F.type === "LogicalExpression" && F.right.type === "LogicalExpression" && F.operator === F.right.operator;
           }
           function R(F) {
-            return L(F) ? R({ type: "LogicalExpression", operator: F.operator, left: R({ type: "LogicalExpression", operator: F.operator, left: F.left, right: F.right.left, range: [p(F.left), d(F.right.left)] }), right: F.right.right, range: [p(F), d(F)] }) : F;
+            return L(F) ? R({ type: "LogicalExpression", operator: F.operator, left: R({ type: "LogicalExpression", operator: F.operator, left: F.left, right: F.right.left, range: [p2(F.left), d(F.right.left)] }), right: F.right.right, range: [p2(F), d(F)] }) : F;
           }
           l.exports = D;
-        } }), Po = H({ "node_modules/@babel/parser/lib/index.js"(h) {
+        } }), Po = H({ "node_modules/@babel/parser/lib/index.js"(h3) {
           "use strict";
-          V(), Object.defineProperty(h, "__esModule", { value: true });
+          V(), Object.defineProperty(h3, "__esModule", { value: true });
           function l(t, e) {
             if (t == null)
               return {};
@@ -12686,7 +12729,7 @@ var require_parser_babel = __commonJS({
               i = r[a], !(e.indexOf(i) >= 0) && (s[i] = t[i]);
             return s;
           }
-          var p = class {
+          var p2 = class {
             constructor(t, e, s) {
               this.line = void 0, this.column = void 0, this.index = void 0, this.line = t, this.column = e, this.index = s;
             }
@@ -12695,9 +12738,9 @@ var require_parser_babel = __commonJS({
               this.start = void 0, this.end = void 0, this.filename = void 0, this.identifierName = void 0, this.start = t, this.end = e;
             }
           };
-          function m(t, e) {
+          function m2(t, e) {
             let { line: s, column: r, index: i } = t;
-            return new p(s, r + e, i + e);
+            return new p2(s, r + e, i + e);
           }
           var A = Object.freeze({ SyntaxError: "BABEL_PARSER_SYNTAX_ERROR", SourceTypeModuleError: "BABEL_PARSER_SOURCETYPE_MODULE_REQUIRED" }), g = function(t) {
             let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : t.length - 1;
@@ -12821,7 +12864,7 @@ var require_parser_babel = __commonJS({
               let { loc: a, details: n } = i;
               return x(SyntaxError, Object.assign({}, s, { loc: a }), { clone() {
                 let o = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, c = o.loc || {};
-                return r({ loc: new p("line" in c ? c.line : this.loc.line, "column" in c ? c.column : this.loc.column, "index" in c ? c.index : this.loc.index), details: Object.assign({}, this.details, o.details) });
+                return r({ loc: new p2("line" in c ? c.line : this.loc.line, "column" in c ? c.column : this.loc.column, "index" in c ? c.index : this.loc.index), details: Object.assign({}, this.details, o.details) });
               }, details: { value: n, enumerable: false }, message: { get() {
                 return "".concat(e(this.details), " (").concat(this.loc.line, ":").concat(this.loc.column, ")");
               }, set(o) {
@@ -12840,7 +12883,7 @@ var require_parser_babel = __commonJS({
               r[i] = Y(Object.assign({ code: A.SyntaxError, reasonCode: i }, e ? { syntaxPlugin: e } : {}, s[i]));
             return r;
           }
-          var u = Object.assign({}, j(T), j(E), j(L), j(_n || (_n = rt(["pipelineOperator"])))(F)), { defineProperty: X } = Object, se = (t, e) => X(t, e, { enumerable: false, value: t[e] });
+          var u = Object.assign({}, j(T), j(E), j(L), j(_n2 || (_n2 = rt(["pipelineOperator"])))(F)), { defineProperty: X } = Object, se = (t, e) => X(t, e, { enumerable: false, value: t[e] });
           function J(t) {
             return se(t.loc.start, "index"), se(t.loc.end, "index"), t;
           }
@@ -13029,12 +13072,12 @@ var require_parser_babel = __commonJS({
               let s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : this.state.lastTokEndLoc;
               super.resetEndLocation(e, s), J(e);
             }
-          }, $ = class {
+          }, $2 = class {
             constructor(t, e) {
               this.token = void 0, this.preserveSpace = void 0, this.token = t, this.preserveSpace = !!e;
             }
-          }, z = { brace: new $("{"), j_oTag: new $("<tag"), j_cTag: new $("</tag"), j_expr: new $("<tag>...</tag>", true) };
-          z.template = new $("`", true);
+          }, z = { brace: new $2("{"), j_oTag: new $2("<tag"), j_cTag: new $2("</tag"), j_expr: new $2("<tag>...</tag>", true) };
+          z.template = new $2("`", true);
           var O = true, C = true, Ve = true, Z = true, he = true, Co = true, or = class {
             constructor(t) {
               let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
@@ -13351,10 +13394,10 @@ var require_parser_babel = __commonJS({
             }
             init(t) {
               let { strictMode: e, sourceType: s, startLine: r, startColumn: i } = t;
-              this.strict = e === false ? false : e === true ? true : s === "module", this.curLine = r, this.lineStart = -i, this.startLoc = this.endLoc = new p(r, i, 0);
+              this.strict = e === false ? false : e === true ? true : s === "module", this.curLine = r, this.lineStart = -i, this.startLoc = this.endLoc = new p2(r, i, 0);
             }
             curPosition() {
-              return new p(this.curLine, this.pos - this.lineStart, this.pos);
+              return new p2(this.curLine, this.pos - this.lineStart, this.pos);
             }
             clone(t) {
               let e = new Sr(), s = Object.keys(this);
@@ -13795,10 +13838,10 @@ var require_parser_babel = __commonJS({
               let t = this.state.startLoc, e = this.state.start + 1, s, r, { pos: i } = this.state;
               for (; ; ++i) {
                 if (i >= this.length)
-                  throw this.raise(u.UnterminatedRegExp, { at: m(t, 1) });
+                  throw this.raise(u.UnterminatedRegExp, { at: m2(t, 1) });
                 let c = this.input.charCodeAt(i);
                 if (Ne(c))
-                  throw this.raise(u.UnterminatedRegExp, { at: m(t, 1) });
+                  throw this.raise(u.UnterminatedRegExp, { at: m2(t, 1) });
                 if (s)
                   s = false;
                 else {
@@ -13813,7 +13856,7 @@ var require_parser_babel = __commonJS({
               }
               let a = this.input.slice(e, i);
               ++i;
-              let n = "", o = () => m(t, i + 2 - e);
+              let n = "", o = () => m2(t, i + 2 - e);
               for (; i < this.length; ) {
                 let c = this.codePointAtPos(i), f = String.fromCharCode(c);
                 if (uh.has(c))
@@ -13850,7 +13893,7 @@ var require_parser_babel = __commonJS({
               let e = this.state.curPosition(), s = false;
               this.state.pos += 2;
               let r = this.readInt(t);
-              r == null && this.raise(u.InvalidDigit, { at: m(e, 2), radix: t });
+              r == null && this.raise(u.InvalidDigit, { at: m2(e, 2), radix: t });
               let i = this.input.charCodeAt(this.state.pos);
               if (i === 110)
                 ++this.state.pos, s = true;
@@ -13873,7 +13916,7 @@ var require_parser_babel = __commonJS({
                 let v = this.input.slice(e, this.state.pos);
                 if (this.recordStrictModeErrors(u.StrictOctalLiteral, { at: s }), !this.state.strict) {
                   let N = v.indexOf("_");
-                  N > 0 && this.raise(u.ZeroDigitNumericSeparator, { at: m(s, N) });
+                  N > 0 && this.raise(u.ZeroDigitNumericSeparator, { at: m2(s, N) });
                 }
                 o = c && !/[89]/.test(v);
               }
@@ -13931,7 +13974,7 @@ var require_parser_babel = __commonJS({
               let t = "", e = this.state.pos, s = false;
               for (++this.state.pos; ; ) {
                 if (this.state.pos >= this.length)
-                  throw this.raise(u.UnterminatedTemplate, { at: m(this.state.startLoc, 1) });
+                  throw this.raise(u.UnterminatedTemplate, { at: m2(this.state.startLoc, 1) });
                 let r = this.input.charCodeAt(this.state.pos);
                 if (r === 96) {
                   ++this.state.pos, t += this.input.slice(e, this.state.pos), this.finishToken(24, s ? null : t);
@@ -14001,10 +14044,10 @@ var require_parser_babel = __commonJS({
                 case 57:
                   if (t)
                     return null;
-                  this.recordStrictModeErrors(u.StrictNumericEscape, { at: m(this.state.curPosition(), -1) });
+                  this.recordStrictModeErrors(u.StrictNumericEscape, { at: m2(this.state.curPosition(), -1) });
                 default:
                   if (s >= 48 && s <= 55) {
-                    let r = m(this.state.curPosition(), -1), a = this.input.slice(this.state.pos - 1, this.state.pos + 2).match(/^[0-7]+/)[0], n = parseInt(a, 8);
+                    let r = m2(this.state.curPosition(), -1), a = this.input.slice(this.state.pos - 1, this.state.pos + 2).match(/^[0-7]+/)[0], n = parseInt(a, 8);
                     n > 255 && (a = a.slice(0, -1), n = parseInt(a, 8)), this.state.pos += a.length - 1;
                     let o = this.input.charCodeAt(this.state.pos);
                     if (a !== "0" || o === 56 || o === 57) {
@@ -14052,13 +14095,13 @@ var require_parser_babel = __commonJS({
               Ht(t) && this.state.containsEsc && this.raise(u.InvalidEscapedReservedWord, { at: this.state.startLoc, reservedWord: Pe(t) });
             }
             raise(t, e) {
-              let { at: s } = e, r = l(e, oh), i = s instanceof p ? s : s.loc.start, a = t({ loc: i, details: r });
+              let { at: s } = e, r = l(e, oh), i = s instanceof p2 ? s : s.loc.start, a = t({ loc: i, details: r });
               if (!this.options.errorRecovery)
                 throw a;
               return this.isLookahead || this.state.errors.push(a), a;
             }
             raiseOverwrite(t, e) {
-              let { at: s } = e, r = l(e, hh), i = s instanceof p ? s : s.loc.start, a = i.index, n = this.state.errors;
+              let { at: s } = e, r = l(e, hh), i = s instanceof p2 ? s : s.loc.start, a = i.index, n = this.state.errors;
               for (let o = n.length - 1; o >= 0; o--) {
                 let c = n[o];
                 if (c.loc.index === a)
@@ -18062,7 +18105,7 @@ var require_parser_babel = __commonJS({
             parseTopicReferenceThenEqualsSign(t, e) {
               let s = this.getPluginOption("pipelineOperator", "proposal");
               if (s)
-                return this.state.type = t, this.state.value = e, this.state.pos--, this.state.end--, this.state.endLoc = m(this.state.endLoc, -1), this.parseTopicReference(s);
+                return this.state.type = t, this.state.value = e, this.state.pos--, this.state.end--, this.state.endLoc = m2(this.state.endLoc, -1), this.parseTopicReference(s);
               throw this.unexpected();
             }
             parseTopicReference(t) {
@@ -18101,7 +18144,7 @@ var require_parser_babel = __commonJS({
               return this.next(), this.match(10) && !this.scope.allowDirectSuper && !this.options.allowSuperOutsideMethod ? this.raise(u.SuperNotAllowed, { at: t }) : !this.scope.allowSuper && !this.options.allowSuperOutsideMethod && this.raise(u.UnexpectedSuper, { at: t }), !this.match(10) && !this.match(0) && !this.match(16) && this.raise(u.UnsupportedSuper, { at: t }), this.finishNode(t, "Super");
             }
             parsePrivateName() {
-              let t = this.startNode(), e = this.startNodeAt(this.state.start + 1, new p(this.state.curLine, this.state.start + 1 - this.state.lineStart, this.state.start + 1)), s = this.state.value;
+              let t = this.startNode(), e = this.startNodeAt(this.state.start + 1, new p2(this.state.curLine, this.state.start + 1 - this.state.lineStart, this.state.start + 1)), s = this.state.value;
               return this.next(), t.id = this.createIdentifier(e, s), this.finishNode(t, "PrivateName");
             }
             parseFunctionOrFunctionSent() {
@@ -18215,11 +18258,11 @@ var require_parser_babel = __commonJS({
               t.callee = this.parseNoCallExpr(), t.callee.type === "Import" ? this.raise(u.ImportCallNotNewExpression, { at: t.callee }) : this.isOptionalChain(t.callee) ? this.raise(u.OptionalChainingNoNew, { at: this.state.lastTokEndLoc }) : this.eat(18) && this.raise(u.OptionalChainingNoNew, { at: this.state.startLoc });
             }
             parseTemplateElement(t) {
-              let { start: e, startLoc: s, end: r, value: i } = this.state, a = e + 1, n = this.startNodeAt(a, m(s, 1));
-              i === null && (t || this.raise(u.InvalidEscapeSequenceTemplate, { at: m(s, 2) }));
+              let { start: e, startLoc: s, end: r, value: i } = this.state, a = e + 1, n = this.startNodeAt(a, m2(s, 1));
+              i === null && (t || this.raise(u.InvalidEscapeSequenceTemplate, { at: m2(s, 2) }));
               let o = this.match(24), c = o ? -1 : -2, f = r + c;
               return n.value = { raw: this.input.slice(a, f).replace(/\r\n?/g, `
-`), cooked: i === null ? null : i.slice(1, c) }, n.tail = o, this.next(), this.finishNode(n, "TemplateElement"), this.resetEndLocation(n, m(this.state.lastTokEndLoc, c)), n;
+`), cooked: i === null ? null : i.slice(1, c) }, n.tail = o, this.next(), this.finishNode(n, "TemplateElement"), this.resetEndLocation(n, m2(this.state.lastTokEndLoc, c)), n;
             }
             parseTemplate(t) {
               let e = this.startNode();
@@ -18624,15 +18667,15 @@ var require_parser_babel = __commonJS({
               if (typeof i == "number") {
                 {
                   if (i === 134) {
-                    let { loc: a, start: n, value: o, end: c } = r, f = n + 1, y = m(a.start, 1);
+                    let { loc: a, start: n, value: o, end: c } = r, f = n + 1, y = m2(a.start, 1);
                     t.splice(s, 1, new Ee({ type: fe(27), value: "#", start: n, end: f, startLoc: a.start, endLoc: y }), new Ee({ type: fe(128), value: o, start: f, end: c, startLoc: y, endLoc: a.end })), s++;
                     continue;
                   }
                   if (nt(i)) {
-                    let { loc: a, start: n, value: o, end: c } = r, f = n + 1, y = m(a.start, 1), P;
+                    let { loc: a, start: n, value: o, end: c } = r, f = n + 1, y = m2(a.start, 1), P;
                     e.charCodeAt(n) === 96 ? P = new Ee({ type: fe(22), value: "`", start: n, end: f, startLoc: a.start, endLoc: y }) : P = new Ee({ type: fe(8), value: "}", start: n, end: f, startLoc: a.start, endLoc: y });
                     let v, N, B, _;
-                    i === 24 ? (N = c - 1, B = m(a.end, -1), v = o === null ? null : o.slice(1, -1), _ = new Ee({ type: fe(22), value: "`", start: N, end: c, startLoc: B, endLoc: a.end })) : (N = c - 2, B = m(a.end, -2), v = o === null ? null : o.slice(1, -2), _ = new Ee({ type: fe(23), value: "${", start: N, end: c, startLoc: B, endLoc: a.end })), t.splice(s, 1, P, new Ee({ type: fe(20), value: v, start: f, end: N, startLoc: y, endLoc: B }), _), s += 2;
+                    i === 24 ? (N = c - 1, B = m2(a.end, -1), v = o === null ? null : o.slice(1, -1), _ = new Ee({ type: fe(22), value: "`", start: N, end: c, startLoc: B, endLoc: a.end })) : (N = c - 2, B = m2(a.end, -2), v = o === null ? null : o.slice(1, -2), _ = new Ee({ type: fe(23), value: "${", start: N, end: c, startLoc: B, endLoc: a.end })), t.splice(s, 1, P, new Ee({ type: fe(20), value: v, start: f, end: N, startLoc: y, endLoc: B }), _), s += 2;
                     continue;
                   }
                 }
@@ -19481,11 +19524,11 @@ var require_parser_babel = __commonJS({
             }
             return r;
           }
-          h.parse = rl, h.parseExpression = il, h.tokTypes = nl;
-        } }), Pf = H({ "src/language-js/parse/json.js"(h, l) {
+          h3.parse = rl, h3.parseExpression = il, h3.tokTypes = nl;
+        } }), Pf = H({ "src/language-js/parse/json.js"(h3, l) {
           "use strict";
           V();
-          var p = fo(), d = nr(), m = yo(), A = xo();
+          var p2 = fo(), d = nr(), m2 = yo(), A = xo();
           function g() {
             let E = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, { allowComments: L = true } = E;
             return function(F) {
@@ -19495,7 +19538,7 @@ var require_parser_babel = __commonJS({
               } catch (M) {
                 throw A(M);
               }
-              if (!L && p(Y.comments))
+              if (!L && p2(Y.comments))
                 throw x(Y.comments[0], "Comment");
               return T(Y), Y;
             };
@@ -19537,7 +19580,7 @@ var require_parser_babel = __commonJS({
                   throw x(E, "Identifier '".concat(E.name, "'"));
                 return;
               case "TemplateLiteral":
-                if (p(E.expressions))
+                if (p2(E.expressions))
                   throw x(E.expressions[0], "'TemplateLiteral' with expression");
                 for (let L of E.quasis)
                   T(L);
@@ -19552,45 +19595,45 @@ var require_parser_babel = __commonJS({
                 throw x(E, "'".concat(E.type, "'"));
             }
           }
-          var k = g(), D = { json: m({ parse: k, hasPragma() {
+          var k = g(), D = { json: m2({ parse: k, hasPragma() {
             return true;
-          } }), json5: m(k), "json-stringify": m({ parse: g({ allowComments: false }), astFormat: "estree-json" }) };
+          } }), json5: m2(k), "json-stringify": m2({ parse: g({ allowComments: false }), astFormat: "estree-json" }) };
           l.exports = D;
         } });
         V();
-        var Tf = ef(), Ef = Qn(), Cf = af(), ze = yo(), bf = xo(), vf = Af(), Sf = Pf(), wf = { sourceType: "module", allowImportExportEverywhere: true, allowReturnOutsideFunction: true, allowSuperOutsideMethod: true, allowUndeclaredExports: true, errorRecovery: true, createParenthesizedExpressions: true, plugins: ["doExpressions", "exportDefaultFrom", "functionBind", "functionSent", "throwExpressions", "partialApplication", ["decorators", { decoratorsBeforeExport: false }], "importAssertions", "decimal", "moduleBlocks", "asyncDoExpressions", "regexpUnicodeSets", "destructuringPrivate", "decoratorAutoAccessors"], tokens: true, ranges: true }, Nf = ["recordAndTuple", { syntaxType: "hash" }], Wn = "v8intrinsic", Gn = [["pipelineOperator", { proposal: "hack", topicToken: "%" }], ["pipelineOperator", { proposal: "minimal" }], ["pipelineOperator", { proposal: "fsharp" }]], ue = function(h) {
+        var Tf = ef(), Ef = Qn(), Cf = af(), ze = yo(), bf = xo(), vf = Af(), Sf = Pf(), wf = { sourceType: "module", allowImportExportEverywhere: true, allowReturnOutsideFunction: true, allowSuperOutsideMethod: true, allowUndeclaredExports: true, errorRecovery: true, createParenthesizedExpressions: true, plugins: ["doExpressions", "exportDefaultFrom", "functionBind", "functionSent", "throwExpressions", "partialApplication", ["decorators", { decoratorsBeforeExport: false }], "importAssertions", "decimal", "moduleBlocks", "asyncDoExpressions", "regexpUnicodeSets", "destructuringPrivate", "decoratorAutoAccessors"], tokens: true, ranges: true }, Nf = ["recordAndTuple", { syntaxType: "hash" }], Wn = "v8intrinsic", Gn = [["pipelineOperator", { proposal: "hack", topicToken: "%" }], ["pipelineOperator", { proposal: "minimal" }], ["pipelineOperator", { proposal: "fsharp" }]], ue = function(h3) {
           let l = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : wf;
-          return Object.assign(Object.assign({}, l), {}, { plugins: [...l.plugins, ...h] });
+          return Object.assign(Object.assign({}, l), {}, { plugins: [...l.plugins, ...h3] });
         }, If = /@(?:no)?flow\b/;
-        function kf(h, l) {
+        function kf(h3, l) {
           if (l.filepath && l.filepath.endsWith(".js.flow"))
             return true;
-          let p = Ef(h);
-          p && (h = h.slice(p.length));
-          let d = Cf(h, 0);
-          return d !== false && (h = h.slice(0, d)), If.test(h);
+          let p2 = Ef(h3);
+          p2 && (h3 = h3.slice(p2.length));
+          let d = Cf(h3, 0);
+          return d !== false && (h3 = h3.slice(0, d)), If.test(h3);
         }
-        function Df(h, l, p) {
-          let m = Po()[h](l, p), A = m.errors.find((g) => !Rf.has(g.reasonCode));
+        function Df(h3, l, p2) {
+          let m2 = Po()[h3](l, p2), A = m2.errors.find((g) => !Rf.has(g.reasonCode));
           if (A)
             throw A;
-          return m;
+          return m2;
         }
-        function Ke(h) {
-          for (var l = arguments.length, p = new Array(l > 1 ? l - 1 : 0), d = 1; d < l; d++)
-            p[d - 1] = arguments[d];
-          return function(m, A) {
+        function Ke(h3) {
+          for (var l = arguments.length, p2 = new Array(l > 1 ? l - 1 : 0), d = 1; d < l; d++)
+            p2[d - 1] = arguments[d];
+          return function(m2, A) {
             let g = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-            if ((g.parser === "babel" || g.parser === "__babel_estree") && kf(m, g))
-              return g.parser = "babel-flow", To(m, A, g);
-            let x = p;
-            g.__babelSourceType === "script" && (x = x.map((E) => Object.assign(Object.assign({}, E), {}, { sourceType: "script" }))), /#[[{]/.test(m) && (x = x.map((E) => ue([Nf], E)));
-            let T = /%[A-Z]/.test(m);
-            m.includes("|>") ? x = (T ? [...Gn, Wn] : Gn).flatMap((L) => x.map((R) => ue([L], R))) : T && (x = x.map((E) => ue([Wn], E)));
-            let { result: k, error: D } = Tf(...x.map((E) => () => Df(h, m, E)));
+            if ((g.parser === "babel" || g.parser === "__babel_estree") && kf(m2, g))
+              return g.parser = "babel-flow", To(m2, A, g);
+            let x = p2;
+            g.__babelSourceType === "script" && (x = x.map((E) => Object.assign(Object.assign({}, E), {}, { sourceType: "script" }))), /#[[{]/.test(m2) && (x = x.map((E) => ue([Nf], E)));
+            let T = /%[A-Z]/.test(m2);
+            m2.includes("|>") ? x = (T ? [...Gn, Wn] : Gn).flatMap((L) => x.map((R) => ue([L], R))) : T && (x = x.map((E) => ue([Wn], E)));
+            let { result: k, error: D } = Tf(...x.map((E) => () => Df(h3, m2, E)));
             if (!k)
               throw bf(D);
-            return g.originalText = m, vf(k, g);
+            return g.originalText = m2, vf(k, g);
           };
         }
         var Ff = Ke("parse", ue(["jsx", "flow"])), To = Ke("parse", ue(["jsx", ["flow", { all: true, enums: true }]])), Lf = Ke("parse", ue(["jsx", "typescript"]), ue(["typescript"])), Of = Ke("parse", ue(["jsx", "flow", "estree"])), Bf = Ke("parseExpression", ue(["jsx"])), Mf = Ke("parseExpression", ue(["typescript"])), Rf = /* @__PURE__ */ new Set(["StrictNumericEscape", "StrictWith", "StrictOctalLiteral", "StrictDelete", "StrictEvalArguments", "StrictEvalArgumentsBinding", "StrictFunction", "EmptyTypeArguments", "EmptyTypeParameters", "ConstructorHasTypeParameters", "UnsupportedParameterPropertyKind", "UnexpectedParameterModifier", "MixedLabeledAndUnlabeledElements", "InvalidTupleMemberLabel", "NonClassMethodPropertyHasAbstractModifer", "ReadonlyForMethodSignature", "ClassMethodHasDeclare", "ClassMethodHasReadonly", "InvalidModifierOnTypeMember", "DuplicateAccessibilityModifier", "IndexSignatureHasDeclare", "DecoratorExportClass", "ParamDupe", "InvalidDecimal", "RestTrailingComma", "UnsupportedParameterDecorator", "UnterminatedJsxContent", "UnexpectedReservedWord", "ModuleAttributesWithDuplicateKeys", "LineTerminatorBeforeArrow", "InvalidEscapeSequenceTemplate", "NonAbstractClassHasAbstractMethod", "UnsupportedPropertyDecorator", "OptionalTypeBeforeRequired", "PatternIsOptional", "OptionalBindingPattern", "DeclareClassFieldHasInitializer", "TypeImportCannotSpecifyDefaultAndNamed", "DeclareFunctionHasImplementation", "ConstructorClassField", "VarRedeclaration", "InvalidPrivateFieldResolution", "DuplicateExport"]), Xn = ze(Ff), Jn = ze(Lf), Yn = ze(Bf), jf = ze(Mf);
@@ -19643,8 +19686,8 @@ var require_parser_html = __commonJS({
         });
       });
       var Ne = y((hl, Qr) => {
-        var ws = se();
-        Qr.exports = !ws(function() {
+        var ws2 = se();
+        Qr.exports = !ws2(function() {
           var e = function() {
           }.bind();
           return typeof e != "function" || e.hasOwnProperty("prototype");
@@ -19994,8 +20037,8 @@ var require_parser_html = __commonJS({
       var xu = y((u2, Ru) => {
         var Ri = G(), Ou = K(), xi = ae(), qu = Ge(), Pi = Le(), ki = Ve(), Iu = Bu(), Li = Nu().CONFIGURABLE, Mi = Iu.get, ji = Iu.enforce, $i = String(String).split("String");
         (Ru.exports = function(e, r, t, s) {
-          var c = s ? !!s.unsafe : false, n = s ? !!s.enumerable : false, a = s ? !!s.noTargetGet : false, p = s && s.name !== void 0 ? s.name : r, D;
-          if (Ou(t) && (String(p).slice(0, 7) === "Symbol(" && (p = "[" + String(p).replace(/^Symbol\(([^)]*)\)/, "$1") + "]"), (!xi(t, "name") || Li && t.name !== p) && qu(t, "name", p), D = ji(t), D.source || (D.source = $i.join(typeof p == "string" ? p : ""))), e === Ri) {
+          var c = s ? !!s.unsafe : false, n = s ? !!s.enumerable : false, a = s ? !!s.noTargetGet : false, p2 = s && s.name !== void 0 ? s.name : r, D;
+          if (Ou(t) && (String(p2).slice(0, 7) === "Symbol(" && (p2 = "[" + String(p2).replace(/^Symbol\(([^)]*)\)/, "$1") + "]"), (!xi(t, "name") || Li && t.name !== p2) && qu(t, "name", p2), D = ji(t), D.source || (D.source = $i.join(typeof p2 == "string" ? p2 : ""))), e === Ri) {
             n ? e[r] = t : Pi(r, t);
             return;
           } else
@@ -20034,10 +20077,10 @@ var require_parser_html = __commonJS({
       var Vu = y((o2, Gu) => {
         var Qi = Re(), Ki = Lu(), Ji = ve(), Uu = function(e) {
           return function(r, t, s) {
-            var c = Qi(r), n = Ji(c), a = Ki(s, n), p;
+            var c = Qi(r), n = Ji(c), a = Ki(s, n), p2;
             if (e && t != t) {
               for (; n > a; )
-                if (p = c[a++], p != p)
+                if (p2 = c[a++], p2 != p2)
                   return true;
             } else
               for (; n > a; a++)
@@ -20082,8 +20125,8 @@ var require_parser_html = __commonJS({
         var tn = ae(), ho = rn(), po = Cr(), fo = Ue();
         un.exports = function(e, r, t) {
           for (var s = ho(r), c = fo.f, n = po.f, a = 0; a < s.length; a++) {
-            var p = s[a];
-            !tn(e, p) && !(t && tn(t, p)) && c(e, p, n(r, p));
+            var p2 = s[a];
+            !tn(e, p2) && !(t && tn(t, p2)) && c(e, p2, n(r, p2));
           }
         };
       });
@@ -20099,15 +20142,15 @@ var require_parser_html = __commonJS({
       var ze = y((E2, on) => {
         var Ir = G(), _o = Cr().f, So = Ge(), yo = xu(), To = Le(), Bo = nn(), bo = an();
         on.exports = function(e, r) {
-          var t = e.target, s = e.global, c = e.stat, n, a, p, D, g, i;
+          var t = e.target, s = e.global, c = e.stat, n, a, p2, D, g, i;
           if (s ? a = Ir : c ? a = Ir[t] || To(t, {}) : a = (Ir[t] || {}).prototype, a)
-            for (p in r) {
-              if (g = r[p], e.noTargetGet ? (i = _o(a, p), D = i && i.value) : D = a[p], n = bo(s ? p : t + (c ? "." : "#") + p, e.forced), !n && D !== void 0) {
+            for (p2 in r) {
+              if (g = r[p2], e.noTargetGet ? (i = _o(a, p2), D = i && i.value) : D = a[p2], n = bo(s ? p2 : t + (c ? "." : "#") + p2, e.forced), !n && D !== void 0) {
                 if (typeof g == typeof D)
                   continue;
                 Bo(g, D);
               }
-              (e.sham || D && D.sham) && So(g, "sham", true), yo(a, p, g, e);
+              (e.sham || D && D.sham) && So(g, "sham", true), yo(a, p2, g, e);
             }
         };
       });
@@ -20134,11 +20177,11 @@ var require_parser_html = __commonJS({
       });
       var En = y((_2, dn) => {
         "use strict";
-        var xo = G(), Po = Rr(), ko = ve(), Lo = xr(), Mo = xo.TypeError, fn = function(e, r, t, s, c, n, a, p) {
-          for (var D = c, g = 0, i = a ? Lo(a, p) : false, l, h; g < s; ) {
+        var xo = G(), Po = Rr(), ko = ve(), Lo = xr(), Mo = xo.TypeError, fn = function(e, r, t, s, c, n, a, p2) {
+          for (var D = c, g = 0, i = a ? Lo(a, p2) : false, l, h3; g < s; ) {
             if (g in t) {
               if (l = i ? i(t[g], g, r) : t[g], n > 0 && Po(l))
-                h = ko(l), D = fn(e, r, l, h, D, n - 1) - 1;
+                h3 = ko(l), D = fn(e, r, l, h3, D, n - 1) - 1;
               else {
                 if (D >= 9007199254740991)
                   throw Mo("Exceed the acceptable array length");
@@ -20173,11 +20216,11 @@ var require_parser_html = __commonJS({
       });
       var Tn = y((T2, yn) => {
         var Qo = Q(), Ko = se(), An = K(), Jo = Pr(), Zo = ge(), ec = Ve(), vn = function() {
-        }, rc = [], _n = Zo("Reflect", "construct"), kr = /^\s*(?:class|function)\b/, tc = Qo(kr.exec), uc = !kr.exec(vn), Se = function(r) {
+        }, rc = [], _n2 = Zo("Reflect", "construct"), kr = /^\s*(?:class|function)\b/, tc = Qo(kr.exec), uc = !kr.exec(vn), Se = function(r) {
           if (!An(r))
             return false;
           try {
-            return _n(vn, rc, r), true;
+            return _n2(vn, rc, r), true;
           } catch {
             return false;
           }
@@ -20197,7 +20240,7 @@ var require_parser_html = __commonJS({
           }
         };
         Sn.sham = true;
-        yn.exports = !_n || Ko(function() {
+        yn.exports = !_n2 || Ko(function() {
           var e;
           return Se(Se.call) || !Se(Object) || !Se(function() {
             e = true;
@@ -20242,12 +20285,12 @@ var require_parser_html = __commonJS({
         };
       });
       var jn = y((R2, Mn) => {
-        var Sc = G(), yc = ce(), Tc = Fe(), Bc = de(), bc = Pe(), wc = Mr(), Nc = Sc.TypeError;
+        var Sc = G(), yc = ce(), Tc = Fe(), Bc = de(), bc2 = Pe(), wc = Mr(), Nc = Sc.TypeError;
         Mn.exports = function(e, r) {
           var t = arguments.length < 2 ? wc(e) : r;
           if (Tc(t))
             return Bc(yc(t, e));
-          throw Nc(bc(e) + " is not iterable");
+          throw Nc(bc2(e) + " is not iterable");
         };
       });
       var Gn = y((x2, Un) => {
@@ -20277,10 +20320,10 @@ var require_parser_html = __commonJS({
           this.stopped = e, this.result = r;
         }, Hn = Ye.prototype;
         zn.exports = function(e, r, t) {
-          var s = t && t.that, c = !!(t && t.AS_ENTRIES), n = !!(t && t.IS_ITERATOR), a = !!(t && t.INTERRUPTED), p = Rc(r, s), D, g, i, l, h, C, d, m = function(B) {
+          var s = t && t.that, c = !!(t && t.AS_ENTRIES), n = !!(t && t.IS_ITERATOR), a = !!(t && t.INTERRUPTED), p2 = Rc(r, s), D, g, i, l, h3, C, d, m2 = function(B) {
             return D && Xn(D, "normal", B), new Ye(true, B);
           }, T = function(B) {
-            return c ? (Pc(B), a ? p(B[0], B[1], m) : p(B[0], B[1])) : a ? p(B, m) : p(B);
+            return c ? (Pc(B), a ? p2(B[0], B[1], m2) : p2(B[0], B[1])) : a ? p2(B, m2) : p2(B);
           };
           if (n)
             D = e;
@@ -20289,20 +20332,20 @@ var require_parser_html = __commonJS({
               throw Uc(kc(e) + " is not iterable");
             if (Lc(g)) {
               for (i = 0, l = Mc(e); l > i; i++)
-                if (h = T(e[i]), h && Vn(Hn, h))
-                  return h;
+                if (h3 = T(e[i]), h3 && Vn(Hn, h3))
+                  return h3;
               return new Ye(false);
             }
             D = jc(e, g);
           }
           for (C = D.next; !(d = xc(C, D)).done; ) {
             try {
-              h = T(d.value);
+              h3 = T(d.value);
             } catch (B) {
               Xn(D, "throw", B);
             }
-            if (typeof h == "object" && h && Vn(Hn, h))
-              return h;
+            if (typeof h3 == "object" && h3 && Vn(Hn, h3))
+              return h3;
           }
           return new Ye(false);
         };
@@ -20368,28 +20411,28 @@ var require_parser_html = __commonJS({
         } }), hs = I({ "node_modules/angular-html-parser/lib/compiler/src/chars.js"(e) {
           "use strict";
           q(), Object.defineProperty(e, "__esModule", { value: true }), e.$EOF = 0, e.$BSPACE = 8, e.$TAB = 9, e.$LF = 10, e.$VTAB = 11, e.$FF = 12, e.$CR = 13, e.$SPACE = 32, e.$BANG = 33, e.$DQ = 34, e.$HASH = 35, e.$$ = 36, e.$PERCENT = 37, e.$AMPERSAND = 38, e.$SQ = 39, e.$LPAREN = 40, e.$RPAREN = 41, e.$STAR = 42, e.$PLUS = 43, e.$COMMA = 44, e.$MINUS = 45, e.$PERIOD = 46, e.$SLASH = 47, e.$COLON = 58, e.$SEMICOLON = 59, e.$LT = 60, e.$EQ = 61, e.$GT = 62, e.$QUESTION = 63, e.$0 = 48, e.$7 = 55, e.$9 = 57, e.$A = 65, e.$E = 69, e.$F = 70, e.$X = 88, e.$Z = 90, e.$LBRACKET = 91, e.$BACKSLASH = 92, e.$RBRACKET = 93, e.$CARET = 94, e.$_ = 95, e.$a = 97, e.$b = 98, e.$e = 101, e.$f = 102, e.$n = 110, e.$r = 114, e.$t = 116, e.$u = 117, e.$v = 118, e.$x = 120, e.$z = 122, e.$LBRACE = 123, e.$BAR = 124, e.$RBRACE = 125, e.$NBSP = 160, e.$PIPE = 124, e.$TILDA = 126, e.$AT = 64, e.$BT = 96;
-          function r(p) {
-            return p >= e.$TAB && p <= e.$SPACE || p == e.$NBSP;
+          function r(p2) {
+            return p2 >= e.$TAB && p2 <= e.$SPACE || p2 == e.$NBSP;
           }
           e.isWhitespace = r;
-          function t(p) {
-            return e.$0 <= p && p <= e.$9;
+          function t(p2) {
+            return e.$0 <= p2 && p2 <= e.$9;
           }
           e.isDigit = t;
-          function s(p) {
-            return p >= e.$a && p <= e.$z || p >= e.$A && p <= e.$Z;
+          function s(p2) {
+            return p2 >= e.$a && p2 <= e.$z || p2 >= e.$A && p2 <= e.$Z;
           }
           e.isAsciiLetter = s;
-          function c(p) {
-            return p >= e.$a && p <= e.$f || p >= e.$A && p <= e.$F || t(p);
+          function c(p2) {
+            return p2 >= e.$a && p2 <= e.$f || p2 >= e.$A && p2 <= e.$F || t(p2);
           }
           e.isAsciiHexDigit = c;
-          function n(p) {
-            return p === e.$LF || p === e.$CR;
+          function n(p2) {
+            return p2 === e.$LF || p2 === e.$CR;
           }
           e.isNewLine = n;
-          function a(p) {
-            return e.$0 <= p && p <= e.$7;
+          function a(p2) {
+            return e.$0 <= p2 && p2 <= e.$7;
           }
           e.isOctalDigit = a;
         } }), uD = I({ "node_modules/angular-html-parser/lib/compiler/src/aot/static_symbol.js"(e) {
@@ -20411,8 +20454,8 @@ var require_parser_html = __commonJS({
             }
             get(s, c, n) {
               n = n || [];
-              let a = n.length ? ".".concat(n.join(".")) : "", p = '"'.concat(s, '".').concat(c).concat(a), D = this.cache.get(p);
-              return D || (D = new r(s, c, n), this.cache.set(p, D)), D;
+              let a = n.length ? ".".concat(n.join(".")) : "", p2 = '"'.concat(s, '".').concat(c).concat(a), D = this.cache.get(p2);
+              return D || (D = new r(s, c, n), this.cache.set(p2, D)), D;
             }
           };
           e.StaticSymbolCache = t;
@@ -20444,10 +20487,10 @@ var require_parser_html = __commonJS({
             return Array.isArray(o) ? E.visitArray(o, f) : A(o) ? E.visitStringMap(o, f) : o == null || typeof o == "string" || typeof o == "number" || typeof o == "boolean" ? E.visitPrimitive(o, f) : E.visitOther(o, f);
           }
           e.visitValue = a;
-          function p(o) {
+          function p2(o) {
             return o != null;
           }
-          e.isDefined = p;
+          e.isDefined = p2;
           function D(o) {
             return o === void 0 ? null : o;
           }
@@ -20480,18 +20523,18 @@ var require_parser_html = __commonJS({
           e.error = i;
           function l(o, E) {
             let f = Error(o);
-            return f[h] = true, E && (f[C] = E), f;
+            return f[h3] = true, E && (f[C] = E), f;
           }
           e.syntaxError = l;
-          var h = "ngSyntaxError", C = "ngParseErrors";
+          var h3 = "ngSyntaxError", C = "ngParseErrors";
           function d(o) {
-            return o[h];
+            return o[h3];
           }
           e.isSyntaxError = d;
-          function m(o) {
+          function m2(o) {
             return o[C] || [];
           }
-          e.getParseErrors = m;
+          e.getParseErrors = m2;
           function T(o) {
             return o.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
           }
@@ -20534,10 +20577,10 @@ var require_parser_html = __commonJS({
             return f === -1 ? E : E.substring(0, f);
           }
           e.stringify = R;
-          function $(o) {
+          function $2(o) {
             return typeof o == "function" && o.hasOwnProperty("__forward_ref__") ? o() : o;
           }
-          e.resolveForwardRef = $;
+          e.resolveForwardRef = $2;
           function _(o) {
             return !!o && typeof o.then == "function";
           }
@@ -20573,11 +20616,11 @@ var require_parser_html = __commonJS({
             return P.indexOf("(") >= 0 ? (P = "anonymous_".concat(n++), F.__anonymousType = P) : P = c(P), P;
           }
           e.identifierName = a;
-          function p(f) {
+          function p2(f) {
             let F = f.reference;
             return F instanceof r.StaticSymbol ? F.filePath : "./".concat(t.stringify(F));
           }
-          e.identifierModuleUrl = p;
+          e.identifierModuleUrl = p2;
           function D(f, F) {
             return "View_".concat(a({ reference: f }), "_").concat(F);
           }
@@ -20594,10 +20637,10 @@ var require_parser_html = __commonJS({
             return "".concat(a({ reference: f }), "NgFactory");
           }
           e.componentFactoryName = l;
-          var h;
+          var h3;
           (function(f) {
             f[f.Pipe = 0] = "Pipe", f[f.Directive = 1] = "Directive", f[f.NgModule = 2] = "NgModule", f[f.Injectable = 3] = "Injectable";
-          })(h = e.CompileSummaryKind || (e.CompileSummaryKind = {}));
+          })(h3 = e.CompileSummaryKind || (e.CompileSummaryKind = {}));
           function C(f) {
             return f.value != null ? c(f.value) : a(f.identifier);
           }
@@ -20606,13 +20649,13 @@ var require_parser_html = __commonJS({
             return f.identifier != null ? f.identifier.reference : f.value;
           }
           e.tokenReference = d;
-          var m = class {
+          var m2 = class {
             constructor() {
               let { moduleUrl: f, styles: F, styleUrls: P } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
               this.moduleUrl = f || null, this.styles = _(F), this.styleUrls = _(P);
             }
           };
-          e.CompileStylesheetMetadata = m;
+          e.CompileStylesheetMetadata = m2;
           var T = class {
             constructor(f) {
               let { encapsulation: F, template: P, templateUrl: j, htmlAst: W, styles: X, styleUrls: H, externalStylesheets: z, animations: J, ngContentSelectors: Z, interpolation: ee, isInline: v, preserveWhitespaces: S } = f;
@@ -20648,7 +20691,7 @@ var require_parser_html = __commonJS({
               this.isHost = !!F, this.type = P, this.isComponent = j, this.selector = W, this.exportAs = X, this.changeDetection = H, this.inputs = z, this.outputs = J, this.hostListeners = Z, this.hostProperties = ee, this.hostAttributes = v, this.providers = _(S), this.viewProviders = _(b), this.queries = _(w), this.guards = L, this.viewQueries = _(U), this.entryComponents = _(V), this.template = Y, this.componentViewType = ue, this.rendererType = Be, this.componentFactory = be;
             }
             toSummary() {
-              return { summaryKind: h.Directive, type: this.type, isComponent: this.isComponent, selector: this.selector, exportAs: this.exportAs, inputs: this.inputs, outputs: this.outputs, hostListeners: this.hostListeners, hostProperties: this.hostProperties, hostAttributes: this.hostAttributes, providers: this.providers, viewProviders: this.viewProviders, queries: this.queries, guards: this.guards, viewQueries: this.viewQueries, entryComponents: this.entryComponents, changeDetection: this.changeDetection, template: this.template && this.template.toSummary(), componentViewType: this.componentViewType, rendererType: this.rendererType, componentFactory: this.componentFactory };
+              return { summaryKind: h3.Directive, type: this.type, isComponent: this.isComponent, selector: this.selector, exportAs: this.exportAs, inputs: this.inputs, outputs: this.outputs, hostListeners: this.hostListeners, hostProperties: this.hostProperties, hostAttributes: this.hostAttributes, providers: this.providers, viewProviders: this.viewProviders, queries: this.queries, guards: this.guards, viewQueries: this.viewQueries, entryComponents: this.entryComponents, changeDetection: this.changeDetection, template: this.template && this.template.toSummary(), componentViewType: this.componentViewType, rendererType: this.rendererType, componentFactory: this.componentFactory };
             }
           };
           e.CompileDirectiveMetadata = B;
@@ -20658,7 +20701,7 @@ var require_parser_html = __commonJS({
               this.type = F, this.name = P, this.pure = !!j;
             }
             toSummary() {
-              return { summaryKind: h.Pipe, type: this.type, name: this.name, pure: this.pure };
+              return { summaryKind: h3.Pipe, type: this.type, name: this.name, pure: this.pure };
             }
           };
           e.CompilePipeMetadata = A;
@@ -20672,11 +20715,11 @@ var require_parser_html = __commonJS({
             }
             toSummary() {
               let f = this.transitiveModule;
-              return { summaryKind: h.NgModule, type: this.type, entryComponents: f.entryComponents, providers: f.providers, modules: f.modules, exportedDirectives: f.exportedDirectives, exportedPipes: f.exportedPipes };
+              return { summaryKind: h3.NgModule, type: this.type, entryComponents: f.entryComponents, providers: f.providers, modules: f.modules, exportedDirectives: f.exportedDirectives, exportedPipes: f.exportedPipes };
             }
           };
           e.CompileNgModuleMetadata = R;
-          var $ = class {
+          var $2 = class {
             constructor() {
               this.directivesSet = /* @__PURE__ */ new Set(), this.directives = [], this.exportedDirectivesSet = /* @__PURE__ */ new Set(), this.exportedDirectives = [], this.pipesSet = /* @__PURE__ */ new Set(), this.pipes = [], this.exportedPipesSet = /* @__PURE__ */ new Set(), this.exportedPipes = [], this.modulesSet = /* @__PURE__ */ new Set(), this.modules = [], this.entryComponentsSet = /* @__PURE__ */ new Set(), this.entryComponents = [], this.providers = [];
             }
@@ -20702,7 +20745,7 @@ var require_parser_html = __commonJS({
               this.entryComponentsSet.has(f.componentType) || (this.entryComponentsSet.add(f.componentType), this.entryComponents.push(f));
             }
           };
-          e.TransitiveCompileNgModuleMetadata = $;
+          e.TransitiveCompileNgModuleMetadata = $2;
           function _(f) {
             return f || [];
           }
@@ -20745,39 +20788,39 @@ var require_parser_html = __commonJS({
           "use strict";
           q(), Object.defineProperty(e, "__esModule", { value: true });
           var r = hs(), t = sD(), s = class {
-            constructor(i, l, h, C) {
-              this.file = i, this.offset = l, this.line = h, this.col = C;
+            constructor(i, l, h3, C) {
+              this.file = i, this.offset = l, this.line = h3, this.col = C;
             }
             toString() {
               return this.offset != null ? "".concat(this.file.url, "@").concat(this.line, ":").concat(this.col) : this.file.url;
             }
             moveBy(i) {
-              let l = this.file.content, h = l.length, C = this.offset, d = this.line, m = this.col;
+              let l = this.file.content, h3 = l.length, C = this.offset, d = this.line, m2 = this.col;
               for (; C > 0 && i < 0; )
                 if (C--, i++, l.charCodeAt(C) == r.$LF) {
                   d--;
                   let B = l.substr(0, C - 1).lastIndexOf(String.fromCharCode(r.$LF));
-                  m = B > 0 ? C - B : C;
+                  m2 = B > 0 ? C - B : C;
                 } else
-                  m--;
-              for (; C < h && i > 0; ) {
+                  m2--;
+              for (; C < h3 && i > 0; ) {
                 let T = l.charCodeAt(C);
-                C++, i--, T == r.$LF ? (d++, m = 0) : m++;
+                C++, i--, T == r.$LF ? (d++, m2 = 0) : m2++;
               }
-              return new s(this.file, C, d, m);
+              return new s(this.file, C, d, m2);
             }
             getContext(i, l) {
-              let h = this.file.content, C = this.offset;
+              let h3 = this.file.content, C = this.offset;
               if (C != null) {
-                C > h.length - 1 && (C = h.length - 1);
-                let d = C, m = 0, T = 0;
-                for (; m < i && C > 0 && (C--, m++, !(h[C] == `
+                C > h3.length - 1 && (C = h3.length - 1);
+                let d = C, m2 = 0, T = 0;
+                for (; m2 < i && C > 0 && (C--, m2++, !(h3[C] == `
 ` && ++T == l)); )
                   ;
-                for (m = 0, T = 0; m < i && d < h.length - 1 && (d++, m++, !(h[d] == `
+                for (m2 = 0, T = 0; m2 < i && d < h3.length - 1 && (d++, m2++, !(h3[d] == `
 ` && ++T == l)); )
                   ;
-                return { before: h.substring(C, this.offset), after: h.substring(this.offset, d + 1) };
+                return { before: h3.substring(C, this.offset), after: h3.substring(this.offset, d + 1) };
               }
               return null;
             }
@@ -20791,8 +20834,8 @@ var require_parser_html = __commonJS({
           e.ParseSourceFile = c;
           var n = class {
             constructor(i, l) {
-              let h = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null;
-              this.start = i, this.end = l, this.details = h;
+              let h3 = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null;
+              this.start = i, this.end = l, this.details = h3;
             }
             toString() {
               return this.start.file.content.substring(this.start.offset, this.end.offset);
@@ -20803,10 +20846,10 @@ var require_parser_html = __commonJS({
           (function(i) {
             i[i.WARNING = 0] = "WARNING", i[i.ERROR = 1] = "ERROR";
           })(a = e.ParseErrorLevel || (e.ParseErrorLevel = {}));
-          var p = class {
+          var p2 = class {
             constructor(i, l) {
-              let h = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : a.ERROR;
-              this.span = i, this.msg = l, this.level = h;
+              let h3 = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : a.ERROR;
+              this.span = i, this.msg = l, this.level = h3;
             }
             contextualMessage() {
               let i = this.span.start.getContext(100, 3);
@@ -20817,14 +20860,14 @@ var require_parser_html = __commonJS({
               return "".concat(this.contextualMessage(), ": ").concat(this.span.start).concat(i);
             }
           };
-          e.ParseError = p;
+          e.ParseError = p2;
           function D(i, l) {
-            let h = t.identifierModuleUrl(l), C = h != null ? "in ".concat(i, " ").concat(t.identifierName(l), " in ").concat(h) : "in ".concat(i, " ").concat(t.identifierName(l)), d = new c("", C);
+            let h3 = t.identifierModuleUrl(l), C = h3 != null ? "in ".concat(i, " ").concat(t.identifierName(l), " in ").concat(h3) : "in ".concat(i, " ").concat(t.identifierName(l)), d = new c("", C);
             return new n(new s(d, -1, -1, -1), new s(d, -1, -1, -1));
           }
           e.typeSourceSpan = D;
-          function g(i, l, h) {
-            let C = "in ".concat(i, " ").concat(l, " in ").concat(h), d = new c("", C);
+          function g(i, l, h3) {
+            let C = "in ".concat(i, " ").concat(l, " in ").concat(h3), d = new c("", C);
             return new n(new s(d, -1, -1, -1), new s(d, -1, -1, -1));
           }
           e.r3JitTypeSourceSpan = g;
@@ -20836,7 +20879,7 @@ var require_parser_html = __commonJS({
             let n = c.match(t);
             if (!n)
               return { content: c };
-            let { startDelimiter: a, language: p, value: D = "", endDelimiter: g } = n.groups, i = p.trim() || "yaml";
+            let { startDelimiter: a, language: p2, value: D = "", endDelimiter: g } = n.groups, i = p2.trim() || "yaml";
             if (a === "+++" && (i = "toml"), i !== "yaml" && a !== g)
               return { content: c };
             let [l] = n;
@@ -20882,9 +20925,9 @@ var require_parser_html = __commonJS({
           q();
           var { MAX_SAFE_COMPONENT_LENGTH: t } = Es(), s = ds();
           e = r.exports = {};
-          var c = e.re = [], n = e.src = [], a = e.t = {}, p = 0, D = (g, i, l) => {
-            let h = p++;
-            s(g, h, i), a[g] = h, n[h] = i, c[h] = new RegExp(i, l ? "g" : void 0);
+          var c = e.re = [], n = e.src = [], a = e.t = {}, p2 = 0, D = (g, i, l) => {
+            let h3 = p2++;
+            s(g, h3, i), a[g] = h3, n[h3] = i, c[h3] = new RegExp(i, l ? "g" : void 0);
           };
           D("NUMERICIDENTIFIER", "0|[1-9]\\d*"), D("NUMERICIDENTIFIERLOOSE", "[0-9]+"), D("NONNUMERICIDENTIFIER", "\\d*[a-zA-Z-][a-zA-Z0-9-]*"), D("MAINVERSION", "(".concat(n[a.NUMERICIDENTIFIER], ")\\.(").concat(n[a.NUMERICIDENTIFIER], ")\\.(").concat(n[a.NUMERICIDENTIFIER], ")")), D("MAINVERSIONLOOSE", "(".concat(n[a.NUMERICIDENTIFIERLOOSE], ")\\.(").concat(n[a.NUMERICIDENTIFIERLOOSE], ")\\.(").concat(n[a.NUMERICIDENTIFIERLOOSE], ")")), D("PRERELEASEIDENTIFIER", "(?:".concat(n[a.NUMERICIDENTIFIER], "|").concat(n[a.NONNUMERICIDENTIFIER], ")")), D("PRERELEASEIDENTIFIERLOOSE", "(?:".concat(n[a.NUMERICIDENTIFIERLOOSE], "|").concat(n[a.NONNUMERICIDENTIFIER], ")")), D("PRERELEASE", "(?:-(".concat(n[a.PRERELEASEIDENTIFIER], "(?:\\.").concat(n[a.PRERELEASEIDENTIFIER], ")*))")), D("PRERELEASELOOSE", "(?:-?(".concat(n[a.PRERELEASEIDENTIFIERLOOSE], "(?:\\.").concat(n[a.PRERELEASEIDENTIFIERLOOSE], ")*))")), D("BUILDIDENTIFIER", "[0-9A-Za-z-]+"), D("BUILD", "(?:\\+(".concat(n[a.BUILDIDENTIFIER], "(?:\\.").concat(n[a.BUILDIDENTIFIER], ")*))")), D("FULLPLAIN", "v?".concat(n[a.MAINVERSION]).concat(n[a.PRERELEASE], "?").concat(n[a.BUILD], "?")), D("FULL", "^".concat(n[a.FULLPLAIN], "$")), D("LOOSEPLAIN", "[v=\\s]*".concat(n[a.MAINVERSIONLOOSE]).concat(n[a.PRERELEASELOOSE], "?").concat(n[a.BUILD], "?")), D("LOOSE", "^".concat(n[a.LOOSEPLAIN], "$")), D("GTLT", "((?:<|>)?=?)"), D("XRANGEIDENTIFIERLOOSE", "".concat(n[a.NUMERICIDENTIFIERLOOSE], "|x|X|\\*")), D("XRANGEIDENTIFIER", "".concat(n[a.NUMERICIDENTIFIER], "|x|X|\\*")), D("XRANGEPLAIN", "[v=\\s]*(".concat(n[a.XRANGEIDENTIFIER], ")(?:\\.(").concat(n[a.XRANGEIDENTIFIER], ")(?:\\.(").concat(n[a.XRANGEIDENTIFIER], ")(?:").concat(n[a.PRERELEASE], ")?").concat(n[a.BUILD], "?)?)?")), D("XRANGEPLAINLOOSE", "[v=\\s]*(".concat(n[a.XRANGEIDENTIFIERLOOSE], ")(?:\\.(").concat(n[a.XRANGEIDENTIFIERLOOSE], ")(?:\\.(").concat(n[a.XRANGEIDENTIFIERLOOSE], ")(?:").concat(n[a.PRERELEASELOOSE], ")?").concat(n[a.BUILD], "?)?)?")), D("XRANGE", "^".concat(n[a.GTLT], "\\s*").concat(n[a.XRANGEPLAIN], "$")), D("XRANGELOOSE", "^".concat(n[a.GTLT], "\\s*").concat(n[a.XRANGEPLAINLOOSE], "$")), D("COERCE", "(^|[^\\d])(\\d{1,".concat(t, "})(?:\\.(\\d{1,").concat(t, "}))?(?:\\.(\\d{1,").concat(t, "}))?(?:$|[^\\d])")), D("COERCERTL", n[a.COERCE], true), D("LONETILDE", "(?:~>?)"), D("TILDETRIM", "(\\s*)".concat(n[a.LONETILDE], "\\s+"), true), e.tildeTrimReplace = "$1~", D("TILDE", "^".concat(n[a.LONETILDE]).concat(n[a.XRANGEPLAIN], "$")), D("TILDELOOSE", "^".concat(n[a.LONETILDE]).concat(n[a.XRANGEPLAINLOOSE], "$")), D("LONECARET", "(?:\\^)"), D("CARETTRIM", "(\\s*)".concat(n[a.LONECARET], "\\s+"), true), e.caretTrimReplace = "$1^", D("CARET", "^".concat(n[a.LONECARET]).concat(n[a.XRANGEPLAIN], "$")), D("CARETLOOSE", "^".concat(n[a.LONECARET]).concat(n[a.XRANGEPLAINLOOSE], "$")), D("COMPARATORLOOSE", "^".concat(n[a.GTLT], "\\s*(").concat(n[a.LOOSEPLAIN], ")$|^$")), D("COMPARATOR", "^".concat(n[a.GTLT], "\\s*(").concat(n[a.FULLPLAIN], ")$|^$")), D("COMPARATORTRIM", "(\\s*)".concat(n[a.GTLT], "\\s*(").concat(n[a.LOOSEPLAIN], "|").concat(n[a.XRANGEPLAIN], ")"), true), e.comparatorTrimReplace = "$1$2$3", D("HYPHENRANGE", "^\\s*(".concat(n[a.XRANGEPLAIN], ")\\s+-\\s+(").concat(n[a.XRANGEPLAIN], ")\\s*$")), D("HYPHENRANGELOOSE", "^\\s*(".concat(n[a.XRANGEPLAINLOOSE], ")\\s+-\\s+(").concat(n[a.XRANGEPLAINLOOSE], ")\\s*$")), D("STAR", "(<|>)?=?\\s*\\*"), D("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$"), D("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
         } }), lD = I({ "node_modules/semver/internal/parse-options.js"(e, r) {
@@ -20894,15 +20937,15 @@ var require_parser_html = __commonJS({
         } }), hD = I({ "node_modules/semver/internal/identifiers.js"(e, r) {
           q();
           var t = /^[0-9]+$/, s = (n, a) => {
-            let p = t.test(n), D = t.test(a);
-            return p && D && (n = +n, a = +a), n === a ? 0 : p && !D ? -1 : D && !p ? 1 : n < a ? -1 : 1;
+            let p2 = t.test(n), D = t.test(a);
+            return p2 && D && (n = +n, a = +a), n === a ? 0 : p2 && !D ? -1 : D && !p2 ? 1 : n < a ? -1 : 1;
           }, c = (n, a) => s(a, n);
           r.exports = { compareIdentifiers: s, rcompareIdentifiers: c };
         } }), pD = I({ "node_modules/semver/classes/semver.js"(e, r) {
           q();
-          var t = ds(), { MAX_LENGTH: s, MAX_SAFE_INTEGER: c } = Es(), { re: n, t: a } = DD(), p = lD(), { compareIdentifiers: D } = hD(), g = class {
+          var t = ds(), { MAX_LENGTH: s, MAX_SAFE_INTEGER: c } = Es(), { re: n, t: a } = DD(), p2 = lD(), { compareIdentifiers: D } = hD(), g = class {
             constructor(i, l) {
-              if (l = p(l), i instanceof g) {
+              if (l = p2(l), i instanceof g) {
                 if (i.loose === !!l.loose && i.includePrerelease === !!l.includePrerelease)
                   return i;
                 i = i.version;
@@ -20911,23 +20954,23 @@ var require_parser_html = __commonJS({
               if (i.length > s)
                 throw new TypeError("version is longer than ".concat(s, " characters"));
               t("SemVer", i, l), this.options = l, this.loose = !!l.loose, this.includePrerelease = !!l.includePrerelease;
-              let h = i.trim().match(l.loose ? n[a.LOOSE] : n[a.FULL]);
-              if (!h)
+              let h3 = i.trim().match(l.loose ? n[a.LOOSE] : n[a.FULL]);
+              if (!h3)
                 throw new TypeError("Invalid Version: ".concat(i));
-              if (this.raw = i, this.major = +h[1], this.minor = +h[2], this.patch = +h[3], this.major > c || this.major < 0)
+              if (this.raw = i, this.major = +h3[1], this.minor = +h3[2], this.patch = +h3[3], this.major > c || this.major < 0)
                 throw new TypeError("Invalid major version");
               if (this.minor > c || this.minor < 0)
                 throw new TypeError("Invalid minor version");
               if (this.patch > c || this.patch < 0)
                 throw new TypeError("Invalid patch version");
-              h[4] ? this.prerelease = h[4].split(".").map((C) => {
+              h3[4] ? this.prerelease = h3[4].split(".").map((C) => {
                 if (/^[0-9]+$/.test(C)) {
                   let d = +C;
                   if (d >= 0 && d < c)
                     return d;
                 }
                 return C;
-              }) : this.prerelease = [], this.build = h[5] ? h[5].split(".") : [], this.format();
+              }) : this.prerelease = [], this.build = h3[5] ? h3[5].split(".") : [], this.format();
             }
             format() {
               return this.version = "".concat(this.major, ".").concat(this.minor, ".").concat(this.patch), this.prerelease.length && (this.version += "-".concat(this.prerelease.join("."))), this.version;
@@ -20955,32 +20998,32 @@ var require_parser_html = __commonJS({
                 return 0;
               let l = 0;
               do {
-                let h = this.prerelease[l], C = i.prerelease[l];
-                if (t("prerelease compare", l, h, C), h === void 0 && C === void 0)
+                let h3 = this.prerelease[l], C = i.prerelease[l];
+                if (t("prerelease compare", l, h3, C), h3 === void 0 && C === void 0)
                   return 0;
                 if (C === void 0)
                   return 1;
-                if (h === void 0)
+                if (h3 === void 0)
                   return -1;
-                if (h === C)
+                if (h3 === C)
                   continue;
-                return D(h, C);
+                return D(h3, C);
               } while (++l);
             }
             compareBuild(i) {
               i instanceof g || (i = new g(i, this.options));
               let l = 0;
               do {
-                let h = this.build[l], C = i.build[l];
-                if (t("prerelease compare", l, h, C), h === void 0 && C === void 0)
+                let h3 = this.build[l], C = i.build[l];
+                if (t("prerelease compare", l, h3, C), h3 === void 0 && C === void 0)
                   return 0;
                 if (C === void 0)
                   return 1;
-                if (h === void 0)
+                if (h3 === void 0)
                   return -1;
-                if (h === C)
+                if (h3 === C)
                   continue;
-                return D(h, C);
+                return D(h3, C);
               } while (++l);
             }
             inc(i, l) {
@@ -21010,10 +21053,10 @@ var require_parser_html = __commonJS({
                   if (this.prerelease.length === 0)
                     this.prerelease = [0];
                   else {
-                    let h = this.prerelease.length;
-                    for (; --h >= 0; )
-                      typeof this.prerelease[h] == "number" && (this.prerelease[h]++, h = -2);
-                    h === -1 && this.prerelease.push(0);
+                    let h3 = this.prerelease.length;
+                    for (; --h3 >= 0; )
+                      typeof this.prerelease[h3] == "number" && (this.prerelease[h3]++, h3 = -2);
+                    h3 === -1 && this.prerelease.push(0);
                   }
                   l && (D(this.prerelease[0], l) === 0 ? isNaN(this.prerelease[1]) && (this.prerelease = [l, 0]) : this.prerelease = [l, 0]);
                   break;
@@ -21062,16 +21105,16 @@ var require_parser_html = __commonJS({
           var n = Object.prototype.hasOwnProperty, a = function(A, N) {
             return n.call(A, N);
           };
-          function p(A, N) {
+          function p2(A, N) {
             for (var R in N)
               a(N, R) && (A[R] = N[R]);
             return A;
           }
-          var D = /^[ \t]*(?:\r\n|\r|\n)/, g = /(?:\r\n|\r|\n)[ \t]*$/, i = /^(?:[\r\n]|$)/, l = /(?:\r\n|\r|\n)([ \t]*)(?:[^ \t\r\n]|$)/, h = /^[ \t]*[\r\n][ \t\r\n]*$/;
+          var D = /^[ \t]*(?:\r\n|\r|\n)/, g = /(?:\r\n|\r|\n)[ \t]*$/, i = /^(?:[\r\n]|$)/, l = /(?:\r\n|\r|\n)([ \t]*)(?:[^ \t\r\n]|$)/, h3 = /^[ \t]*[\r\n][ \t\r\n]*$/;
           function C(A, N, R) {
-            var $ = 0, _ = A[0].match(l);
-            _ && ($ = _[1].length);
-            var O = "(\\r\\n|\\r|\\n).{0," + $ + "}", x = new RegExp(O, "g");
+            var $2 = 0, _ = A[0].match(l);
+            _ && ($2 = _[1].length);
+            var O = "(\\r\\n|\\r|\\n).{0," + $2 + "}", x = new RegExp(O, "g");
             N && (A = A.slice(1));
             var k = R.newline, M = R.trimLeadingNewline, u = R.trimTrailingNewline, o = typeof k == "string", E = A.length, f = A.map(function(F, P) {
               return F = F.replace(x, "$1"), P === 0 && M && (F = F.replace(D, "")), P === E - 1 && u && (F = F.replace(g, "")), o && (F = F.replace(/\r\n|\n|\r/g, function(j) {
@@ -21081,28 +21124,28 @@ var require_parser_html = __commonJS({
             return f;
           }
           function d(A, N) {
-            for (var R = "", $ = 0, _ = A.length; $ < _; $++)
-              R += A[$], $ < _ - 1 && (R += N[$]);
+            for (var R = "", $2 = 0, _ = A.length; $2 < _; $2++)
+              R += A[$2], $2 < _ - 1 && (R += N[$2]);
             return R;
           }
-          function m(A) {
+          function m2(A) {
             return a(A, "raw") && a(A, "length");
           }
           function T(A) {
             var N = s(), R = s();
-            function $(O) {
+            function $2(O) {
               for (var x = [], k = 1; k < arguments.length; k++)
                 x[k - 1] = arguments[k];
-              if (m(O)) {
-                var M = O, u = (x[0] === $ || x[0] === B) && h.test(M[0]) && i.test(M[1]), o = u ? R : N, E = o.get(M);
+              if (m2(O)) {
+                var M = O, u = (x[0] === $2 || x[0] === B) && h3.test(M[0]) && i.test(M[1]), o = u ? R : N, E = o.get(M);
                 if (E || (E = C(M, u, A), o.set(M, E)), x.length === 0)
                   return E[0];
                 var f = d(E, u ? x.slice(1) : x);
                 return f;
               } else
-                return T(p(p({}, A), O || {}));
+                return T(p2(p2({}, A), O || {}));
             }
-            var _ = p($, { string: function(O) {
+            var _ = p2($2, { string: function(O) {
               return C([O], false, A)[0];
             } });
             return _;
@@ -21116,7 +21159,7 @@ var require_parser_html = __commonJS({
         } }), gD = I({ "src/main/core-options.js"(e, r) {
           "use strict";
           q();
-          var { outdent: t } = mD(), s = "Config", c = "Editor", n = "Format", a = "Other", p = "Output", D = "Global", g = "Special", i = { cursorOffset: { since: "1.4.0", category: g, type: "int", default: -1, range: { start: -1, end: Number.POSITIVE_INFINITY, step: 1 }, description: t(Jn || (Jn = Ee([`
+          var { outdent: t } = mD(), s = "Config", c = "Editor", n = "Format", a = "Other", p2 = "Output", D = "Global", g = "Special", i = { cursorOffset: { since: "1.4.0", category: g, type: "int", default: -1, range: { start: -1, end: Number.POSITIVE_INFINITY, step: 1 }, description: t(Jn || (Jn = Ee([`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
     `]))), cliCategory: c }, endOfLine: { since: "1.15.0", category: D, type: "choice", default: [{ since: "1.15.0", value: "auto" }, { since: "2.0.0", value: "lf" }], description: "Which end of line characters to apply.", choices: [{ value: "lf", description: "Line Feed only (\\n), common on Linux and macOS as well as inside git repos" }, { value: "crlf", description: "Carriage Return + Line Feed characters (\\r\\n), common on Windows" }, { value: "cr", description: "Carriage Return character only (\\r), used very rarely" }, { value: "auto", description: t(Zn || (Zn = Ee([`
@@ -21138,43 +21181,43 @@ var require_parser_html = __commonJS({
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
     `]))), cliCategory: a }, tabWidth: { type: "int", category: D, default: 2, description: "Number of spaces per indentation level.", range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 } }, useTabs: { since: "1.0.0", category: D, type: "boolean", default: false, description: "Indent with tabs instead of spaces." }, embeddedLanguageFormatting: { since: "2.1.0", category: D, type: "choice", default: [{ since: "2.1.0", value: "auto" }], description: "Control how Prettier formats quoted code embedded in the file.", choices: [{ value: "auto", description: "Format embedded code if Prettier can automatically identify it." }, { value: "off", description: "Never automatically format embedded code." }] } };
-          r.exports = { CATEGORY_CONFIG: s, CATEGORY_EDITOR: c, CATEGORY_FORMAT: n, CATEGORY_OTHER: a, CATEGORY_OUTPUT: p, CATEGORY_GLOBAL: D, CATEGORY_SPECIAL: g, options: i };
+          r.exports = { CATEGORY_CONFIG: s, CATEGORY_EDITOR: c, CATEGORY_FORMAT: n, CATEGORY_OTHER: a, CATEGORY_OUTPUT: p2, CATEGORY_GLOBAL: D, CATEGORY_SPECIAL: g, options: i };
         } }), FD = I({ "src/main/support.js"(e, r) {
           "use strict";
           q();
           var t = { compare: Ur(), lt: fD(), gte: dD() }, s = ED(), c = CD().version, n = gD().options;
           function a() {
-            let { plugins: D = [], showUnreleased: g = false, showDeprecated: i = false, showInternal: l = false } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, h = c.split("-", 1)[0], C = D.flatMap((A) => A.languages || []).filter(m), d = s(Object.assign({}, ...D.map((A) => {
+            let { plugins: D = [], showUnreleased: g = false, showDeprecated: i = false, showInternal: l = false } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, h3 = c.split("-", 1)[0], C = D.flatMap((A) => A.languages || []).filter(m2), d = s(Object.assign({}, ...D.map((A) => {
               let { options: N } = A;
               return N;
-            }), n), "name").filter((A) => m(A) && T(A)).sort((A, N) => A.name === N.name ? 0 : A.name < N.name ? -1 : 1).map(B).map((A) => {
-              A = Object.assign({}, A), Array.isArray(A.default) && (A.default = A.default.length === 1 ? A.default[0].value : A.default.filter(m).sort((R, $) => t.compare($.since, R.since))[0].value), Array.isArray(A.choices) && (A.choices = A.choices.filter((R) => m(R) && T(R)), A.name === "parser" && p(A, C, D));
+            }), n), "name").filter((A) => m2(A) && T(A)).sort((A, N) => A.name === N.name ? 0 : A.name < N.name ? -1 : 1).map(B).map((A) => {
+              A = Object.assign({}, A), Array.isArray(A.default) && (A.default = A.default.length === 1 ? A.default[0].value : A.default.filter(m2).sort((R, $2) => t.compare($2.since, R.since))[0].value), Array.isArray(A.choices) && (A.choices = A.choices.filter((R) => m2(R) && T(R)), A.name === "parser" && p2(A, C, D));
               let N = Object.fromEntries(D.filter((R) => R.defaultOptions && R.defaultOptions[A.name] !== void 0).map((R) => [R.name, R.defaultOptions[A.name]]));
               return Object.assign(Object.assign({}, A), {}, { pluginDefaults: N });
             });
             return { languages: C, options: d };
-            function m(A) {
-              return g || !("since" in A) || A.since && t.gte(h, A.since);
+            function m2(A) {
+              return g || !("since" in A) || A.since && t.gte(h3, A.since);
             }
             function T(A) {
-              return i || !("deprecated" in A) || A.deprecated && t.lt(h, A.deprecated);
+              return i || !("deprecated" in A) || A.deprecated && t.lt(h3, A.deprecated);
             }
             function B(A) {
               if (l)
                 return A;
-              let { cliName: N, cliCategory: R, cliDescription: $ } = A;
+              let { cliName: N, cliCategory: R, cliDescription: $2 } = A;
               return Qc(A, Yc);
             }
           }
-          function p(D, g, i) {
-            let l = new Set(D.choices.map((h) => h.value));
-            for (let h of g)
-              if (h.parsers) {
-                for (let C of h.parsers)
+          function p2(D, g, i) {
+            let l = new Set(D.choices.map((h3) => h3.value));
+            for (let h3 of g)
+              if (h3.parsers) {
+                for (let C of h3.parsers)
                   if (!l.has(C)) {
                     l.add(C);
-                    let d = i.find((T) => T.parsers && T.parsers[C]), m = h.name;
-                    d && d.name && (m += " (plugin: ".concat(d.name, ")")), D.choices.push({ value: C, description: m });
+                    let d = i.find((T) => T.parsers && T.parsers[C]), m2 = h3.name;
+                    d && d.name && (m2 += " (plugin: ".concat(d.name, ")")), D.choices.push({ value: C, description: m2 });
                   }
               }
           }
@@ -21238,22 +21281,22 @@ var require_parser_html = __commonJS({
         } }), Gr = I({ "src/utils/text/skip.js"(e, r) {
           "use strict";
           q();
-          function t(p) {
+          function t(p2) {
             return (D, g, i) => {
               let l = i && i.backwards;
               if (g === false)
                 return false;
-              let { length: h } = D, C = g;
-              for (; C >= 0 && C < h; ) {
+              let { length: h3 } = D, C = g;
+              for (; C >= 0 && C < h3; ) {
                 let d = D.charAt(C);
-                if (p instanceof RegExp) {
-                  if (!p.test(d))
+                if (p2 instanceof RegExp) {
+                  if (!p2.test(d))
                     return C;
-                } else if (!p.includes(d))
+                } else if (!p2.includes(d))
                   return C;
                 l ? C-- : C++;
               }
-              return C === -1 || C === h ? C : false;
+              return C === -1 || C === h3 ? C : false;
             };
           }
           var s = t(/\s/), c = t(" 	"), n = t(",; 	"), a = t(/[^\n\r]/);
@@ -21287,20 +21330,20 @@ var require_parser_html = __commonJS({
             let a = n && n.backwards;
             if (c === false)
               return false;
-            let p = s.charAt(c);
+            let p2 = s.charAt(c);
             if (a) {
-              if (s.charAt(c - 1) === "\r" && p === `
+              if (s.charAt(c - 1) === "\r" && p2 === `
 `)
                 return c - 2;
-              if (p === `
-` || p === "\r" || p === "\u2028" || p === "\u2029")
+              if (p2 === `
+` || p2 === "\r" || p2 === "\u2028" || p2 === "\u2029")
                 return c - 1;
             } else {
-              if (p === "\r" && s.charAt(c + 1) === `
+              if (p2 === "\r" && s.charAt(c + 1) === `
 `)
                 return c + 2;
-              if (p === `
-` || p === "\r" || p === "\u2028" || p === "\u2029")
+              if (p2 === `
+` || p2 === "\r" || p2 === "\u2028" || p2 === "\u2029")
                 return c + 1;
             }
             return c;
@@ -21310,17 +21353,17 @@ var require_parser_html = __commonJS({
           "use strict";
           q();
           var t = gs(), s = As(), c = Fs(), { skipSpaces: n } = Gr();
-          function a(p, D) {
+          function a(p2, D) {
             let g = null, i = D;
             for (; i !== g; )
-              g = i, i = n(p, i), i = t(p, i), i = c(p, i), i = s(p, i);
+              g = i, i = n(p2, i), i = t(p2, i), i = c(p2, i), i = s(p2, i);
             return i;
           }
           r.exports = a;
         } }), ID = I({ "src/common/util.js"(e, r) {
           "use strict";
           q();
-          var { default: t } = (cD(), ls(fs)), s = ps(), { getSupportInfo: c } = FD(), n = AD(), a = OD(), { skipWhitespace: p, skipSpaces: D, skipToLineEnd: g, skipEverythingButNewLine: i } = Gr(), l = gs(), h = Fs(), C = As(), d = qD(), m = (v) => v[v.length - 2];
+          var { default: t } = (cD(), ls(fs)), s = ps(), { getSupportInfo: c } = FD(), n = AD(), a = OD(), { skipWhitespace: p2, skipSpaces: D, skipToLineEnd: g, skipEverythingButNewLine: i } = Gr(), l = gs(), h3 = Fs(), C = As(), d = qD(), m2 = (v) => v[v.length - 2];
           function T(v) {
             return (S, b, w) => {
               let L = w && w.backwards;
@@ -21360,9 +21403,9 @@ var require_parser_html = __commonJS({
             let b = null, w = S;
             for (; w !== b; )
               b = w, w = g(v, w), w = l(v, w), w = D(v, w);
-            return w = h(v, w), w = C(v, w), w !== false && B(v, w);
+            return w = h3(v, w), w = C(v, w), w !== false && B(v, w);
           }
-          function $(v, S, b) {
+          function $2(v, S, b) {
             return R(v, b(S));
           }
           function _(v, S, b) {
@@ -21461,7 +21504,7 @@ var require_parser_html = __commonJS({
             let S = v.type || v.kind || "(unknown type)", b = String(v.name || v.id && (typeof v.id == "object" ? v.id.name : v.id) || v.key && (typeof v.key == "object" ? v.key.name : v.key) || v.value && (typeof v.value == "object" ? "" : String(v.value)) || v.operator || "");
             return b.length > 20 && (b = b.slice(0, 19) + "\u2026"), S + (b ? " " + b : "");
           }
-          r.exports = { inferParserByLanguage: z, getStringWidth: a, getMaxContinuousCount: F, getMinNotPresentContinuousCount: P, getPenultimate: m, getLast: s, getNextNonSpaceNonCommentCharacterIndexWithStartIndex: d, getNextNonSpaceNonCommentCharacterIndex: _, getNextNonSpaceNonCommentCharacter: O, skip: T, skipWhitespace: p, skipSpaces: D, skipToLineEnd: g, skipEverythingButNewLine: i, skipInlineComment: l, skipTrailingComment: h, skipNewline: C, isNextLineEmptyAfterIndex: R, isNextLineEmpty: $, isPreviousLineEmpty: N, hasNewline: B, hasNewlineInRange: A, hasSpaces: x, getAlignmentSize: k, getIndentSize: M, getPreferredQuote: u, printString: o, printNumber: f, makeString: E, addLeadingComment: W, addDanglingComment: X, addTrailingComment: H, isFrontMatterNode: J, isNonEmptyArray: n, createGroupIdMapper: Z };
+          r.exports = { inferParserByLanguage: z, getStringWidth: a, getMaxContinuousCount: F, getMinNotPresentContinuousCount: P, getPenultimate: m2, getLast: s, getNextNonSpaceNonCommentCharacterIndexWithStartIndex: d, getNextNonSpaceNonCommentCharacterIndex: _, getNextNonSpaceNonCommentCharacter: O, skip: T, skipWhitespace: p2, skipSpaces: D, skipToLineEnd: g, skipEverythingButNewLine: i, skipInlineComment: l, skipTrailingComment: h3, skipNewline: C, isNextLineEmptyAfterIndex: R, isNextLineEmpty: $2, isPreviousLineEmpty: N, hasNewline: B, hasNewlineInRange: A, hasSpaces: x, getAlignmentSize: k, getIndentSize: M, getPreferredQuote: u, printString: o, printNumber: f, makeString: E, addLeadingComment: W, addDanglingComment: X, addTrailingComment: H, isFrontMatterNode: J, isNonEmptyArray: n, createGroupIdMapper: Z };
         } }), RD = I({ "vendors/html-tag-names.json"(e, r) {
           r.exports = { htmlTagNames: ["a", "abbr", "acronym", "address", "applet", "area", "article", "aside", "audio", "b", "base", "basefont", "bdi", "bdo", "bgsound", "big", "blink", "blockquote", "body", "br", "button", "canvas", "caption", "center", "cite", "code", "col", "colgroup", "command", "content", "data", "datalist", "dd", "del", "details", "dfn", "dialog", "dir", "div", "dl", "dt", "element", "em", "embed", "fieldset", "figcaption", "figure", "font", "footer", "form", "frame", "frameset", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "i", "iframe", "image", "img", "input", "ins", "isindex", "kbd", "keygen", "label", "legend", "li", "link", "listing", "main", "map", "mark", "marquee", "math", "menu", "menuitem", "meta", "meter", "multicol", "nav", "nextid", "nobr", "noembed", "noframes", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "picture", "plaintext", "pre", "progress", "q", "rb", "rbc", "rp", "rt", "rtc", "ruby", "s", "samp", "script", "section", "select", "shadow", "slot", "small", "source", "spacer", "span", "strike", "strong", "style", "sub", "summary", "sup", "svg", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "tt", "u", "ul", "var", "video", "wbr", "xmp"] };
         } }), vs = I({ "src/language-html/utils/array-to-map.js"(e, r) {
@@ -21486,8 +21529,8 @@ var require_parser_html = __commonJS({
           q();
           function t(s, c) {
             let n = /* @__PURE__ */ Object.create(null);
-            for (let [a, p] of Object.entries(s))
-              n[a] = c(p, a);
+            for (let [a, p2] of Object.entries(s))
+              n[a] = c(p2, a);
             return n;
           }
           r.exports = t;
@@ -21521,35 +21564,35 @@ var require_parser_html = __commonJS({
           var t = { attrs: true, children: true }, s = /* @__PURE__ */ new Set(["parent"]), c = class {
             constructor() {
               let a = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-              for (let p of /* @__PURE__ */ new Set([...s, ...Object.keys(a)]))
-                this.setProperty(p, a[p]);
+              for (let p2 of /* @__PURE__ */ new Set([...s, ...Object.keys(a)]))
+                this.setProperty(p2, a[p2]);
             }
-            setProperty(a, p) {
-              if (this[a] !== p) {
-                if (a in t && (p = p.map((D) => this.createChild(D))), !s.has(a)) {
-                  this[a] = p;
+            setProperty(a, p2) {
+              if (this[a] !== p2) {
+                if (a in t && (p2 = p2.map((D) => this.createChild(D))), !s.has(a)) {
+                  this[a] = p2;
                   return;
                 }
-                Object.defineProperty(this, a, { value: p, enumerable: false, configurable: true });
+                Object.defineProperty(this, a, { value: p2, enumerable: false, configurable: true });
               }
             }
             map(a) {
-              let p;
+              let p2;
               for (let D in t) {
                 let g = this[D];
                 if (g) {
                   let i = n(g, (l) => l.map(a));
-                  p !== g && (p || (p = new c({ parent: this.parent })), p.setProperty(D, i));
+                  p2 !== g && (p2 || (p2 = new c({ parent: this.parent })), p2.setProperty(D, i));
                 }
               }
-              if (p)
+              if (p2)
                 for (let D in this)
-                  D in t || (p[D] = this[D]);
-              return a(p || this);
+                  D in t || (p2[D] = this[D]);
+              return a(p2 || this);
             }
             walk(a) {
-              for (let p in t) {
-                let D = this[p];
+              for (let p2 in t) {
+                let D = this[p2];
                 if (D)
                   for (let g = 0; g < D.length; g++)
                     D[g].walk(a);
@@ -21557,17 +21600,17 @@ var require_parser_html = __commonJS({
               a(this);
             }
             createChild(a) {
-              let p = a instanceof c ? a.clone() : new c(a);
-              return p.setProperty("parent", this), p;
+              let p2 = a instanceof c ? a.clone() : new c(a);
+              return p2.setProperty("parent", this), p2;
             }
-            insertChildBefore(a, p) {
-              this.children.splice(this.children.indexOf(a), 0, this.createChild(p));
+            insertChildBefore(a, p2) {
+              this.children.splice(this.children.indexOf(a), 0, this.createChild(p2));
             }
             removeChild(a) {
               this.children.splice(this.children.indexOf(a), 1);
             }
-            replaceChild(a, p) {
-              this.children[this.children.indexOf(a)] = this.createChild(p);
+            replaceChild(a, p2) {
+              this.children[this.children.indexOf(a)] = this.createChild(p2);
             }
             clone() {
               return new c(this);
@@ -21598,40 +21641,40 @@ var require_parser_html = __commonJS({
               return Object.fromEntries(this.attrs.map((a) => [a.fullName, a.value]));
             }
           };
-          function n(a, p) {
-            let D = a.map(p);
+          function n(a, p2) {
+            let D = a.map(p2);
             return D.some((g, i) => g !== a[i]) ? D : a;
           }
           r.exports = { Node: c };
         } }), UD = I({ "src/language-html/conditional-comment.js"(e, r) {
           "use strict";
           q();
-          var { ParseSourceSpan: t } = Te(), s = [{ regex: /^(\[if([^\]]*)]>)(.*?)<!\s*\[endif]$/s, parse: n }, { regex: /^\[if([^\]]*)]><!$/, parse: a }, { regex: /^<!\s*\[endif]$/, parse: p }];
+          var { ParseSourceSpan: t } = Te(), s = [{ regex: /^(\[if([^\]]*)]>)(.*?)<!\s*\[endif]$/s, parse: n }, { regex: /^\[if([^\]]*)]><!$/, parse: a }, { regex: /^<!\s*\[endif]$/, parse: p2 }];
           function c(D, g) {
             if (D.value)
               for (let { regex: i, parse: l } of s) {
-                let h = D.value.match(i);
-                if (h)
-                  return l(D, g, h);
+                let h3 = D.value.match(i);
+                if (h3)
+                  return l(D, g, h3);
               }
             return null;
           }
           function n(D, g, i) {
-            let [, l, h, C] = i, d = 4 + l.length, m = D.sourceSpan.start.moveBy(d), T = m.moveBy(C.length), [B, A] = (() => {
+            let [, l, h3, C] = i, d = 4 + l.length, m2 = D.sourceSpan.start.moveBy(d), T = m2.moveBy(C.length), [B, A] = (() => {
               try {
-                return [true, g(C, m).children];
+                return [true, g(C, m2).children];
               } catch {
-                let N = { type: "text", value: C, sourceSpan: new t(m, T) };
+                let N = { type: "text", value: C, sourceSpan: new t(m2, T) };
                 return [false, [N]];
               }
             })();
-            return { type: "ieConditionalComment", complete: B, children: A, condition: h.trim().replace(/\s+/g, " "), sourceSpan: D.sourceSpan, startSourceSpan: new t(D.sourceSpan.start, m), endSourceSpan: new t(T, D.sourceSpan.end) };
+            return { type: "ieConditionalComment", complete: B, children: A, condition: h3.trim().replace(/\s+/g, " "), sourceSpan: D.sourceSpan, startSourceSpan: new t(D.sourceSpan.start, m2), endSourceSpan: new t(T, D.sourceSpan.end) };
           }
           function a(D, g, i) {
             let [, l] = i;
             return { type: "ieConditionalStartComment", condition: l.trim().replace(/\s+/g, " "), sourceSpan: D.sourceSpan };
           }
-          function p(D) {
+          function p2(D) {
             return { type: "ieConditionalEndComment", sourceSpan: D.sourceSpan };
           }
           r.exports = { parseIeConditionalComment: c };
@@ -21677,18 +21720,18 @@ var require_parser_html = __commonJS({
             return D === null ? null : t(D)[0];
           }
           e.getNsPrefix = a;
-          function p(D, g) {
+          function p2(D, g) {
             return D ? ":".concat(D, ":").concat(g) : g;
           }
-          e.mergeNsAndName = p, e.NAMED_ENTITIES = { Aacute: "\xC1", aacute: "\xE1", Abreve: "\u0102", abreve: "\u0103", ac: "\u223E", acd: "\u223F", acE: "\u223E\u0333", Acirc: "\xC2", acirc: "\xE2", acute: "\xB4", Acy: "\u0410", acy: "\u0430", AElig: "\xC6", aelig: "\xE6", af: "\u2061", Afr: "\u{1D504}", afr: "\u{1D51E}", Agrave: "\xC0", agrave: "\xE0", alefsym: "\u2135", aleph: "\u2135", Alpha: "\u0391", alpha: "\u03B1", Amacr: "\u0100", amacr: "\u0101", amalg: "\u2A3F", AMP: "&", amp: "&", And: "\u2A53", and: "\u2227", andand: "\u2A55", andd: "\u2A5C", andslope: "\u2A58", andv: "\u2A5A", ang: "\u2220", ange: "\u29A4", angle: "\u2220", angmsd: "\u2221", angmsdaa: "\u29A8", angmsdab: "\u29A9", angmsdac: "\u29AA", angmsdad: "\u29AB", angmsdae: "\u29AC", angmsdaf: "\u29AD", angmsdag: "\u29AE", angmsdah: "\u29AF", angrt: "\u221F", angrtvb: "\u22BE", angrtvbd: "\u299D", angsph: "\u2222", angst: "\xC5", angzarr: "\u237C", Aogon: "\u0104", aogon: "\u0105", Aopf: "\u{1D538}", aopf: "\u{1D552}", ap: "\u2248", apacir: "\u2A6F", apE: "\u2A70", ape: "\u224A", apid: "\u224B", apos: "'", ApplyFunction: "\u2061", approx: "\u2248", approxeq: "\u224A", Aring: "\xC5", aring: "\xE5", Ascr: "\u{1D49C}", ascr: "\u{1D4B6}", Assign: "\u2254", ast: "*", asymp: "\u2248", asympeq: "\u224D", Atilde: "\xC3", atilde: "\xE3", Auml: "\xC4", auml: "\xE4", awconint: "\u2233", awint: "\u2A11", backcong: "\u224C", backepsilon: "\u03F6", backprime: "\u2035", backsim: "\u223D", backsimeq: "\u22CD", Backslash: "\u2216", Barv: "\u2AE7", barvee: "\u22BD", Barwed: "\u2306", barwed: "\u2305", barwedge: "\u2305", bbrk: "\u23B5", bbrktbrk: "\u23B6", bcong: "\u224C", Bcy: "\u0411", bcy: "\u0431", bdquo: "\u201E", becaus: "\u2235", Because: "\u2235", because: "\u2235", bemptyv: "\u29B0", bepsi: "\u03F6", bernou: "\u212C", Bernoullis: "\u212C", Beta: "\u0392", beta: "\u03B2", beth: "\u2136", between: "\u226C", Bfr: "\u{1D505}", bfr: "\u{1D51F}", bigcap: "\u22C2", bigcirc: "\u25EF", bigcup: "\u22C3", bigodot: "\u2A00", bigoplus: "\u2A01", bigotimes: "\u2A02", bigsqcup: "\u2A06", bigstar: "\u2605", bigtriangledown: "\u25BD", bigtriangleup: "\u25B3", biguplus: "\u2A04", bigvee: "\u22C1", bigwedge: "\u22C0", bkarow: "\u290D", blacklozenge: "\u29EB", blacksquare: "\u25AA", blacktriangle: "\u25B4", blacktriangledown: "\u25BE", blacktriangleleft: "\u25C2", blacktriangleright: "\u25B8", blank: "\u2423", blk12: "\u2592", blk14: "\u2591", blk34: "\u2593", block: "\u2588", bne: "=\u20E5", bnequiv: "\u2261\u20E5", bNot: "\u2AED", bnot: "\u2310", Bopf: "\u{1D539}", bopf: "\u{1D553}", bot: "\u22A5", bottom: "\u22A5", bowtie: "\u22C8", boxbox: "\u29C9", boxDL: "\u2557", boxDl: "\u2556", boxdL: "\u2555", boxdl: "\u2510", boxDR: "\u2554", boxDr: "\u2553", boxdR: "\u2552", boxdr: "\u250C", boxH: "\u2550", boxh: "\u2500", boxHD: "\u2566", boxHd: "\u2564", boxhD: "\u2565", boxhd: "\u252C", boxHU: "\u2569", boxHu: "\u2567", boxhU: "\u2568", boxhu: "\u2534", boxminus: "\u229F", boxplus: "\u229E", boxtimes: "\u22A0", boxUL: "\u255D", boxUl: "\u255C", boxuL: "\u255B", boxul: "\u2518", boxUR: "\u255A", boxUr: "\u2559", boxuR: "\u2558", boxur: "\u2514", boxV: "\u2551", boxv: "\u2502", boxVH: "\u256C", boxVh: "\u256B", boxvH: "\u256A", boxvh: "\u253C", boxVL: "\u2563", boxVl: "\u2562", boxvL: "\u2561", boxvl: "\u2524", boxVR: "\u2560", boxVr: "\u255F", boxvR: "\u255E", boxvr: "\u251C", bprime: "\u2035", Breve: "\u02D8", breve: "\u02D8", brvbar: "\xA6", Bscr: "\u212C", bscr: "\u{1D4B7}", bsemi: "\u204F", bsim: "\u223D", bsime: "\u22CD", bsol: "\\", bsolb: "\u29C5", bsolhsub: "\u27C8", bull: "\u2022", bullet: "\u2022", bump: "\u224E", bumpE: "\u2AAE", bumpe: "\u224F", Bumpeq: "\u224E", bumpeq: "\u224F", Cacute: "\u0106", cacute: "\u0107", Cap: "\u22D2", cap: "\u2229", capand: "\u2A44", capbrcup: "\u2A49", capcap: "\u2A4B", capcup: "\u2A47", capdot: "\u2A40", CapitalDifferentialD: "\u2145", caps: "\u2229\uFE00", caret: "\u2041", caron: "\u02C7", Cayleys: "\u212D", ccaps: "\u2A4D", Ccaron: "\u010C", ccaron: "\u010D", Ccedil: "\xC7", ccedil: "\xE7", Ccirc: "\u0108", ccirc: "\u0109", Cconint: "\u2230", ccups: "\u2A4C", ccupssm: "\u2A50", Cdot: "\u010A", cdot: "\u010B", cedil: "\xB8", Cedilla: "\xB8", cemptyv: "\u29B2", cent: "\xA2", CenterDot: "\xB7", centerdot: "\xB7", Cfr: "\u212D", cfr: "\u{1D520}", CHcy: "\u0427", chcy: "\u0447", check: "\u2713", checkmark: "\u2713", Chi: "\u03A7", chi: "\u03C7", cir: "\u25CB", circ: "\u02C6", circeq: "\u2257", circlearrowleft: "\u21BA", circlearrowright: "\u21BB", circledast: "\u229B", circledcirc: "\u229A", circleddash: "\u229D", CircleDot: "\u2299", circledR: "\xAE", circledS: "\u24C8", CircleMinus: "\u2296", CirclePlus: "\u2295", CircleTimes: "\u2297", cirE: "\u29C3", cire: "\u2257", cirfnint: "\u2A10", cirmid: "\u2AEF", cirscir: "\u29C2", ClockwiseContourIntegral: "\u2232", CloseCurlyDoubleQuote: "\u201D", CloseCurlyQuote: "\u2019", clubs: "\u2663", clubsuit: "\u2663", Colon: "\u2237", colon: ":", Colone: "\u2A74", colone: "\u2254", coloneq: "\u2254", comma: ",", commat: "@", comp: "\u2201", compfn: "\u2218", complement: "\u2201", complexes: "\u2102", cong: "\u2245", congdot: "\u2A6D", Congruent: "\u2261", Conint: "\u222F", conint: "\u222E", ContourIntegral: "\u222E", Copf: "\u2102", copf: "\u{1D554}", coprod: "\u2210", Coproduct: "\u2210", COPY: "\xA9", copy: "\xA9", copysr: "\u2117", CounterClockwiseContourIntegral: "\u2233", crarr: "\u21B5", Cross: "\u2A2F", cross: "\u2717", Cscr: "\u{1D49E}", cscr: "\u{1D4B8}", csub: "\u2ACF", csube: "\u2AD1", csup: "\u2AD0", csupe: "\u2AD2", ctdot: "\u22EF", cudarrl: "\u2938", cudarrr: "\u2935", cuepr: "\u22DE", cuesc: "\u22DF", cularr: "\u21B6", cularrp: "\u293D", Cup: "\u22D3", cup: "\u222A", cupbrcap: "\u2A48", CupCap: "\u224D", cupcap: "\u2A46", cupcup: "\u2A4A", cupdot: "\u228D", cupor: "\u2A45", cups: "\u222A\uFE00", curarr: "\u21B7", curarrm: "\u293C", curlyeqprec: "\u22DE", curlyeqsucc: "\u22DF", curlyvee: "\u22CE", curlywedge: "\u22CF", curren: "\xA4", curvearrowleft: "\u21B6", curvearrowright: "\u21B7", cuvee: "\u22CE", cuwed: "\u22CF", cwconint: "\u2232", cwint: "\u2231", cylcty: "\u232D", Dagger: "\u2021", dagger: "\u2020", daleth: "\u2138", Darr: "\u21A1", dArr: "\u21D3", darr: "\u2193", dash: "\u2010", Dashv: "\u2AE4", dashv: "\u22A3", dbkarow: "\u290F", dblac: "\u02DD", Dcaron: "\u010E", dcaron: "\u010F", Dcy: "\u0414", dcy: "\u0434", DD: "\u2145", dd: "\u2146", ddagger: "\u2021", ddarr: "\u21CA", DDotrahd: "\u2911", ddotseq: "\u2A77", deg: "\xB0", Del: "\u2207", Delta: "\u0394", delta: "\u03B4", demptyv: "\u29B1", dfisht: "\u297F", Dfr: "\u{1D507}", dfr: "\u{1D521}", dHar: "\u2965", dharl: "\u21C3", dharr: "\u21C2", DiacriticalAcute: "\xB4", DiacriticalDot: "\u02D9", DiacriticalDoubleAcute: "\u02DD", DiacriticalGrave: "`", DiacriticalTilde: "\u02DC", diam: "\u22C4", Diamond: "\u22C4", diamond: "\u22C4", diamondsuit: "\u2666", diams: "\u2666", die: "\xA8", DifferentialD: "\u2146", digamma: "\u03DD", disin: "\u22F2", div: "\xF7", divide: "\xF7", divideontimes: "\u22C7", divonx: "\u22C7", DJcy: "\u0402", djcy: "\u0452", dlcorn: "\u231E", dlcrop: "\u230D", dollar: "$", Dopf: "\u{1D53B}", dopf: "\u{1D555}", Dot: "\xA8", dot: "\u02D9", DotDot: "\u20DC", doteq: "\u2250", doteqdot: "\u2251", DotEqual: "\u2250", dotminus: "\u2238", dotplus: "\u2214", dotsquare: "\u22A1", doublebarwedge: "\u2306", DoubleContourIntegral: "\u222F", DoubleDot: "\xA8", DoubleDownArrow: "\u21D3", DoubleLeftArrow: "\u21D0", DoubleLeftRightArrow: "\u21D4", DoubleLeftTee: "\u2AE4", DoubleLongLeftArrow: "\u27F8", DoubleLongLeftRightArrow: "\u27FA", DoubleLongRightArrow: "\u27F9", DoubleRightArrow: "\u21D2", DoubleRightTee: "\u22A8", DoubleUpArrow: "\u21D1", DoubleUpDownArrow: "\u21D5", DoubleVerticalBar: "\u2225", DownArrow: "\u2193", Downarrow: "\u21D3", downarrow: "\u2193", DownArrowBar: "\u2913", DownArrowUpArrow: "\u21F5", DownBreve: "\u0311", downdownarrows: "\u21CA", downharpoonleft: "\u21C3", downharpoonright: "\u21C2", DownLeftRightVector: "\u2950", DownLeftTeeVector: "\u295E", DownLeftVector: "\u21BD", DownLeftVectorBar: "\u2956", DownRightTeeVector: "\u295F", DownRightVector: "\u21C1", DownRightVectorBar: "\u2957", DownTee: "\u22A4", DownTeeArrow: "\u21A7", drbkarow: "\u2910", drcorn: "\u231F", drcrop: "\u230C", Dscr: "\u{1D49F}", dscr: "\u{1D4B9}", DScy: "\u0405", dscy: "\u0455", dsol: "\u29F6", Dstrok: "\u0110", dstrok: "\u0111", dtdot: "\u22F1", dtri: "\u25BF", dtrif: "\u25BE", duarr: "\u21F5", duhar: "\u296F", dwangle: "\u29A6", DZcy: "\u040F", dzcy: "\u045F", dzigrarr: "\u27FF", Eacute: "\xC9", eacute: "\xE9", easter: "\u2A6E", Ecaron: "\u011A", ecaron: "\u011B", ecir: "\u2256", Ecirc: "\xCA", ecirc: "\xEA", ecolon: "\u2255", Ecy: "\u042D", ecy: "\u044D", eDDot: "\u2A77", Edot: "\u0116", eDot: "\u2251", edot: "\u0117", ee: "\u2147", efDot: "\u2252", Efr: "\u{1D508}", efr: "\u{1D522}", eg: "\u2A9A", Egrave: "\xC8", egrave: "\xE8", egs: "\u2A96", egsdot: "\u2A98", el: "\u2A99", Element: "\u2208", elinters: "\u23E7", ell: "\u2113", els: "\u2A95", elsdot: "\u2A97", Emacr: "\u0112", emacr: "\u0113", empty: "\u2205", emptyset: "\u2205", EmptySmallSquare: "\u25FB", emptyv: "\u2205", EmptyVerySmallSquare: "\u25AB", emsp: "\u2003", emsp13: "\u2004", emsp14: "\u2005", ENG: "\u014A", eng: "\u014B", ensp: "\u2002", Eogon: "\u0118", eogon: "\u0119", Eopf: "\u{1D53C}", eopf: "\u{1D556}", epar: "\u22D5", eparsl: "\u29E3", eplus: "\u2A71", epsi: "\u03B5", Epsilon: "\u0395", epsilon: "\u03B5", epsiv: "\u03F5", eqcirc: "\u2256", eqcolon: "\u2255", eqsim: "\u2242", eqslantgtr: "\u2A96", eqslantless: "\u2A95", Equal: "\u2A75", equals: "=", EqualTilde: "\u2242", equest: "\u225F", Equilibrium: "\u21CC", equiv: "\u2261", equivDD: "\u2A78", eqvparsl: "\u29E5", erarr: "\u2971", erDot: "\u2253", Escr: "\u2130", escr: "\u212F", esdot: "\u2250", Esim: "\u2A73", esim: "\u2242", Eta: "\u0397", eta: "\u03B7", ETH: "\xD0", eth: "\xF0", Euml: "\xCB", euml: "\xEB", euro: "\u20AC", excl: "!", exist: "\u2203", Exists: "\u2203", expectation: "\u2130", ExponentialE: "\u2147", exponentiale: "\u2147", fallingdotseq: "\u2252", Fcy: "\u0424", fcy: "\u0444", female: "\u2640", ffilig: "\uFB03", fflig: "\uFB00", ffllig: "\uFB04", Ffr: "\u{1D509}", ffr: "\u{1D523}", filig: "\uFB01", FilledSmallSquare: "\u25FC", FilledVerySmallSquare: "\u25AA", fjlig: "fj", flat: "\u266D", fllig: "\uFB02", fltns: "\u25B1", fnof: "\u0192", Fopf: "\u{1D53D}", fopf: "\u{1D557}", ForAll: "\u2200", forall: "\u2200", fork: "\u22D4", forkv: "\u2AD9", Fouriertrf: "\u2131", fpartint: "\u2A0D", frac12: "\xBD", frac13: "\u2153", frac14: "\xBC", frac15: "\u2155", frac16: "\u2159", frac18: "\u215B", frac23: "\u2154", frac25: "\u2156", frac34: "\xBE", frac35: "\u2157", frac38: "\u215C", frac45: "\u2158", frac56: "\u215A", frac58: "\u215D", frac78: "\u215E", frasl: "\u2044", frown: "\u2322", Fscr: "\u2131", fscr: "\u{1D4BB}", gacute: "\u01F5", Gamma: "\u0393", gamma: "\u03B3", Gammad: "\u03DC", gammad: "\u03DD", gap: "\u2A86", Gbreve: "\u011E", gbreve: "\u011F", Gcedil: "\u0122", Gcirc: "\u011C", gcirc: "\u011D", Gcy: "\u0413", gcy: "\u0433", Gdot: "\u0120", gdot: "\u0121", gE: "\u2267", ge: "\u2265", gEl: "\u2A8C", gel: "\u22DB", geq: "\u2265", geqq: "\u2267", geqslant: "\u2A7E", ges: "\u2A7E", gescc: "\u2AA9", gesdot: "\u2A80", gesdoto: "\u2A82", gesdotol: "\u2A84", gesl: "\u22DB\uFE00", gesles: "\u2A94", Gfr: "\u{1D50A}", gfr: "\u{1D524}", Gg: "\u22D9", gg: "\u226B", ggg: "\u22D9", gimel: "\u2137", GJcy: "\u0403", gjcy: "\u0453", gl: "\u2277", gla: "\u2AA5", glE: "\u2A92", glj: "\u2AA4", gnap: "\u2A8A", gnapprox: "\u2A8A", gnE: "\u2269", gne: "\u2A88", gneq: "\u2A88", gneqq: "\u2269", gnsim: "\u22E7", Gopf: "\u{1D53E}", gopf: "\u{1D558}", grave: "`", GreaterEqual: "\u2265", GreaterEqualLess: "\u22DB", GreaterFullEqual: "\u2267", GreaterGreater: "\u2AA2", GreaterLess: "\u2277", GreaterSlantEqual: "\u2A7E", GreaterTilde: "\u2273", Gscr: "\u{1D4A2}", gscr: "\u210A", gsim: "\u2273", gsime: "\u2A8E", gsiml: "\u2A90", GT: ">", Gt: "\u226B", gt: ">", gtcc: "\u2AA7", gtcir: "\u2A7A", gtdot: "\u22D7", gtlPar: "\u2995", gtquest: "\u2A7C", gtrapprox: "\u2A86", gtrarr: "\u2978", gtrdot: "\u22D7", gtreqless: "\u22DB", gtreqqless: "\u2A8C", gtrless: "\u2277", gtrsim: "\u2273", gvertneqq: "\u2269\uFE00", gvnE: "\u2269\uFE00", Hacek: "\u02C7", hairsp: "\u200A", half: "\xBD", hamilt: "\u210B", HARDcy: "\u042A", hardcy: "\u044A", hArr: "\u21D4", harr: "\u2194", harrcir: "\u2948", harrw: "\u21AD", Hat: "^", hbar: "\u210F", Hcirc: "\u0124", hcirc: "\u0125", hearts: "\u2665", heartsuit: "\u2665", hellip: "\u2026", hercon: "\u22B9", Hfr: "\u210C", hfr: "\u{1D525}", HilbertSpace: "\u210B", hksearow: "\u2925", hkswarow: "\u2926", hoarr: "\u21FF", homtht: "\u223B", hookleftarrow: "\u21A9", hookrightarrow: "\u21AA", Hopf: "\u210D", hopf: "\u{1D559}", horbar: "\u2015", HorizontalLine: "\u2500", Hscr: "\u210B", hscr: "\u{1D4BD}", hslash: "\u210F", Hstrok: "\u0126", hstrok: "\u0127", HumpDownHump: "\u224E", HumpEqual: "\u224F", hybull: "\u2043", hyphen: "\u2010", Iacute: "\xCD", iacute: "\xED", ic: "\u2063", Icirc: "\xCE", icirc: "\xEE", Icy: "\u0418", icy: "\u0438", Idot: "\u0130", IEcy: "\u0415", iecy: "\u0435", iexcl: "\xA1", iff: "\u21D4", Ifr: "\u2111", ifr: "\u{1D526}", Igrave: "\xCC", igrave: "\xEC", ii: "\u2148", iiiint: "\u2A0C", iiint: "\u222D", iinfin: "\u29DC", iiota: "\u2129", IJlig: "\u0132", ijlig: "\u0133", Im: "\u2111", Imacr: "\u012A", imacr: "\u012B", image: "\u2111", ImaginaryI: "\u2148", imagline: "\u2110", imagpart: "\u2111", imath: "\u0131", imof: "\u22B7", imped: "\u01B5", Implies: "\u21D2", in: "\u2208", incare: "\u2105", infin: "\u221E", infintie: "\u29DD", inodot: "\u0131", Int: "\u222C", int: "\u222B", intcal: "\u22BA", integers: "\u2124", Integral: "\u222B", intercal: "\u22BA", Intersection: "\u22C2", intlarhk: "\u2A17", intprod: "\u2A3C", InvisibleComma: "\u2063", InvisibleTimes: "\u2062", IOcy: "\u0401", iocy: "\u0451", Iogon: "\u012E", iogon: "\u012F", Iopf: "\u{1D540}", iopf: "\u{1D55A}", Iota: "\u0399", iota: "\u03B9", iprod: "\u2A3C", iquest: "\xBF", Iscr: "\u2110", iscr: "\u{1D4BE}", isin: "\u2208", isindot: "\u22F5", isinE: "\u22F9", isins: "\u22F4", isinsv: "\u22F3", isinv: "\u2208", it: "\u2062", Itilde: "\u0128", itilde: "\u0129", Iukcy: "\u0406", iukcy: "\u0456", Iuml: "\xCF", iuml: "\xEF", Jcirc: "\u0134", jcirc: "\u0135", Jcy: "\u0419", jcy: "\u0439", Jfr: "\u{1D50D}", jfr: "\u{1D527}", jmath: "\u0237", Jopf: "\u{1D541}", jopf: "\u{1D55B}", Jscr: "\u{1D4A5}", jscr: "\u{1D4BF}", Jsercy: "\u0408", jsercy: "\u0458", Jukcy: "\u0404", jukcy: "\u0454", Kappa: "\u039A", kappa: "\u03BA", kappav: "\u03F0", Kcedil: "\u0136", kcedil: "\u0137", Kcy: "\u041A", kcy: "\u043A", Kfr: "\u{1D50E}", kfr: "\u{1D528}", kgreen: "\u0138", KHcy: "\u0425", khcy: "\u0445", KJcy: "\u040C", kjcy: "\u045C", Kopf: "\u{1D542}", kopf: "\u{1D55C}", Kscr: "\u{1D4A6}", kscr: "\u{1D4C0}", lAarr: "\u21DA", Lacute: "\u0139", lacute: "\u013A", laemptyv: "\u29B4", lagran: "\u2112", Lambda: "\u039B", lambda: "\u03BB", Lang: "\u27EA", lang: "\u27E8", langd: "\u2991", langle: "\u27E8", lap: "\u2A85", Laplacetrf: "\u2112", laquo: "\xAB", Larr: "\u219E", lArr: "\u21D0", larr: "\u2190", larrb: "\u21E4", larrbfs: "\u291F", larrfs: "\u291D", larrhk: "\u21A9", larrlp: "\u21AB", larrpl: "\u2939", larrsim: "\u2973", larrtl: "\u21A2", lat: "\u2AAB", lAtail: "\u291B", latail: "\u2919", late: "\u2AAD", lates: "\u2AAD\uFE00", lBarr: "\u290E", lbarr: "\u290C", lbbrk: "\u2772", lbrace: "{", lbrack: "[", lbrke: "\u298B", lbrksld: "\u298F", lbrkslu: "\u298D", Lcaron: "\u013D", lcaron: "\u013E", Lcedil: "\u013B", lcedil: "\u013C", lceil: "\u2308", lcub: "{", Lcy: "\u041B", lcy: "\u043B", ldca: "\u2936", ldquo: "\u201C", ldquor: "\u201E", ldrdhar: "\u2967", ldrushar: "\u294B", ldsh: "\u21B2", lE: "\u2266", le: "\u2264", LeftAngleBracket: "\u27E8", LeftArrow: "\u2190", Leftarrow: "\u21D0", leftarrow: "\u2190", LeftArrowBar: "\u21E4", LeftArrowRightArrow: "\u21C6", leftarrowtail: "\u21A2", LeftCeiling: "\u2308", LeftDoubleBracket: "\u27E6", LeftDownTeeVector: "\u2961", LeftDownVector: "\u21C3", LeftDownVectorBar: "\u2959", LeftFloor: "\u230A", leftharpoondown: "\u21BD", leftharpoonup: "\u21BC", leftleftarrows: "\u21C7", LeftRightArrow: "\u2194", Leftrightarrow: "\u21D4", leftrightarrow: "\u2194", leftrightarrows: "\u21C6", leftrightharpoons: "\u21CB", leftrightsquigarrow: "\u21AD", LeftRightVector: "\u294E", LeftTee: "\u22A3", LeftTeeArrow: "\u21A4", LeftTeeVector: "\u295A", leftthreetimes: "\u22CB", LeftTriangle: "\u22B2", LeftTriangleBar: "\u29CF", LeftTriangleEqual: "\u22B4", LeftUpDownVector: "\u2951", LeftUpTeeVector: "\u2960", LeftUpVector: "\u21BF", LeftUpVectorBar: "\u2958", LeftVector: "\u21BC", LeftVectorBar: "\u2952", lEg: "\u2A8B", leg: "\u22DA", leq: "\u2264", leqq: "\u2266", leqslant: "\u2A7D", les: "\u2A7D", lescc: "\u2AA8", lesdot: "\u2A7F", lesdoto: "\u2A81", lesdotor: "\u2A83", lesg: "\u22DA\uFE00", lesges: "\u2A93", lessapprox: "\u2A85", lessdot: "\u22D6", lesseqgtr: "\u22DA", lesseqqgtr: "\u2A8B", LessEqualGreater: "\u22DA", LessFullEqual: "\u2266", LessGreater: "\u2276", lessgtr: "\u2276", LessLess: "\u2AA1", lesssim: "\u2272", LessSlantEqual: "\u2A7D", LessTilde: "\u2272", lfisht: "\u297C", lfloor: "\u230A", Lfr: "\u{1D50F}", lfr: "\u{1D529}", lg: "\u2276", lgE: "\u2A91", lHar: "\u2962", lhard: "\u21BD", lharu: "\u21BC", lharul: "\u296A", lhblk: "\u2584", LJcy: "\u0409", ljcy: "\u0459", Ll: "\u22D8", ll: "\u226A", llarr: "\u21C7", llcorner: "\u231E", Lleftarrow: "\u21DA", llhard: "\u296B", lltri: "\u25FA", Lmidot: "\u013F", lmidot: "\u0140", lmoust: "\u23B0", lmoustache: "\u23B0", lnap: "\u2A89", lnapprox: "\u2A89", lnE: "\u2268", lne: "\u2A87", lneq: "\u2A87", lneqq: "\u2268", lnsim: "\u22E6", loang: "\u27EC", loarr: "\u21FD", lobrk: "\u27E6", LongLeftArrow: "\u27F5", Longleftarrow: "\u27F8", longleftarrow: "\u27F5", LongLeftRightArrow: "\u27F7", Longleftrightarrow: "\u27FA", longleftrightarrow: "\u27F7", longmapsto: "\u27FC", LongRightArrow: "\u27F6", Longrightarrow: "\u27F9", longrightarrow: "\u27F6", looparrowleft: "\u21AB", looparrowright: "\u21AC", lopar: "\u2985", Lopf: "\u{1D543}", lopf: "\u{1D55D}", loplus: "\u2A2D", lotimes: "\u2A34", lowast: "\u2217", lowbar: "_", LowerLeftArrow: "\u2199", LowerRightArrow: "\u2198", loz: "\u25CA", lozenge: "\u25CA", lozf: "\u29EB", lpar: "(", lparlt: "\u2993", lrarr: "\u21C6", lrcorner: "\u231F", lrhar: "\u21CB", lrhard: "\u296D", lrm: "\u200E", lrtri: "\u22BF", lsaquo: "\u2039", Lscr: "\u2112", lscr: "\u{1D4C1}", Lsh: "\u21B0", lsh: "\u21B0", lsim: "\u2272", lsime: "\u2A8D", lsimg: "\u2A8F", lsqb: "[", lsquo: "\u2018", lsquor: "\u201A", Lstrok: "\u0141", lstrok: "\u0142", LT: "<", Lt: "\u226A", lt: "<", ltcc: "\u2AA6", ltcir: "\u2A79", ltdot: "\u22D6", lthree: "\u22CB", ltimes: "\u22C9", ltlarr: "\u2976", ltquest: "\u2A7B", ltri: "\u25C3", ltrie: "\u22B4", ltrif: "\u25C2", ltrPar: "\u2996", lurdshar: "\u294A", luruhar: "\u2966", lvertneqq: "\u2268\uFE00", lvnE: "\u2268\uFE00", macr: "\xAF", male: "\u2642", malt: "\u2720", maltese: "\u2720", Map: "\u2905", map: "\u21A6", mapsto: "\u21A6", mapstodown: "\u21A7", mapstoleft: "\u21A4", mapstoup: "\u21A5", marker: "\u25AE", mcomma: "\u2A29", Mcy: "\u041C", mcy: "\u043C", mdash: "\u2014", mDDot: "\u223A", measuredangle: "\u2221", MediumSpace: "\u205F", Mellintrf: "\u2133", Mfr: "\u{1D510}", mfr: "\u{1D52A}", mho: "\u2127", micro: "\xB5", mid: "\u2223", midast: "*", midcir: "\u2AF0", middot: "\xB7", minus: "\u2212", minusb: "\u229F", minusd: "\u2238", minusdu: "\u2A2A", MinusPlus: "\u2213", mlcp: "\u2ADB", mldr: "\u2026", mnplus: "\u2213", models: "\u22A7", Mopf: "\u{1D544}", mopf: "\u{1D55E}", mp: "\u2213", Mscr: "\u2133", mscr: "\u{1D4C2}", mstpos: "\u223E", Mu: "\u039C", mu: "\u03BC", multimap: "\u22B8", mumap: "\u22B8", nabla: "\u2207", Nacute: "\u0143", nacute: "\u0144", nang: "\u2220\u20D2", nap: "\u2249", napE: "\u2A70\u0338", napid: "\u224B\u0338", napos: "\u0149", napprox: "\u2249", natur: "\u266E", natural: "\u266E", naturals: "\u2115", nbsp: "\xA0", nbump: "\u224E\u0338", nbumpe: "\u224F\u0338", ncap: "\u2A43", Ncaron: "\u0147", ncaron: "\u0148", Ncedil: "\u0145", ncedil: "\u0146", ncong: "\u2247", ncongdot: "\u2A6D\u0338", ncup: "\u2A42", Ncy: "\u041D", ncy: "\u043D", ndash: "\u2013", ne: "\u2260", nearhk: "\u2924", neArr: "\u21D7", nearr: "\u2197", nearrow: "\u2197", nedot: "\u2250\u0338", NegativeMediumSpace: "\u200B", NegativeThickSpace: "\u200B", NegativeThinSpace: "\u200B", NegativeVeryThinSpace: "\u200B", nequiv: "\u2262", nesear: "\u2928", nesim: "\u2242\u0338", NestedGreaterGreater: "\u226B", NestedLessLess: "\u226A", NewLine: `
+          e.mergeNsAndName = p2, e.NAMED_ENTITIES = { Aacute: "\xC1", aacute: "\xE1", Abreve: "\u0102", abreve: "\u0103", ac: "\u223E", acd: "\u223F", acE: "\u223E\u0333", Acirc: "\xC2", acirc: "\xE2", acute: "\xB4", Acy: "\u0410", acy: "\u0430", AElig: "\xC6", aelig: "\xE6", af: "\u2061", Afr: "\u{1D504}", afr: "\u{1D51E}", Agrave: "\xC0", agrave: "\xE0", alefsym: "\u2135", aleph: "\u2135", Alpha: "\u0391", alpha: "\u03B1", Amacr: "\u0100", amacr: "\u0101", amalg: "\u2A3F", AMP: "&", amp: "&", And: "\u2A53", and: "\u2227", andand: "\u2A55", andd: "\u2A5C", andslope: "\u2A58", andv: "\u2A5A", ang: "\u2220", ange: "\u29A4", angle: "\u2220", angmsd: "\u2221", angmsdaa: "\u29A8", angmsdab: "\u29A9", angmsdac: "\u29AA", angmsdad: "\u29AB", angmsdae: "\u29AC", angmsdaf: "\u29AD", angmsdag: "\u29AE", angmsdah: "\u29AF", angrt: "\u221F", angrtvb: "\u22BE", angrtvbd: "\u299D", angsph: "\u2222", angst: "\xC5", angzarr: "\u237C", Aogon: "\u0104", aogon: "\u0105", Aopf: "\u{1D538}", aopf: "\u{1D552}", ap: "\u2248", apacir: "\u2A6F", apE: "\u2A70", ape: "\u224A", apid: "\u224B", apos: "'", ApplyFunction: "\u2061", approx: "\u2248", approxeq: "\u224A", Aring: "\xC5", aring: "\xE5", Ascr: "\u{1D49C}", ascr: "\u{1D4B6}", Assign: "\u2254", ast: "*", asymp: "\u2248", asympeq: "\u224D", Atilde: "\xC3", atilde: "\xE3", Auml: "\xC4", auml: "\xE4", awconint: "\u2233", awint: "\u2A11", backcong: "\u224C", backepsilon: "\u03F6", backprime: "\u2035", backsim: "\u223D", backsimeq: "\u22CD", Backslash: "\u2216", Barv: "\u2AE7", barvee: "\u22BD", Barwed: "\u2306", barwed: "\u2305", barwedge: "\u2305", bbrk: "\u23B5", bbrktbrk: "\u23B6", bcong: "\u224C", Bcy: "\u0411", bcy: "\u0431", bdquo: "\u201E", becaus: "\u2235", Because: "\u2235", because: "\u2235", bemptyv: "\u29B0", bepsi: "\u03F6", bernou: "\u212C", Bernoullis: "\u212C", Beta: "\u0392", beta: "\u03B2", beth: "\u2136", between: "\u226C", Bfr: "\u{1D505}", bfr: "\u{1D51F}", bigcap: "\u22C2", bigcirc: "\u25EF", bigcup: "\u22C3", bigodot: "\u2A00", bigoplus: "\u2A01", bigotimes: "\u2A02", bigsqcup: "\u2A06", bigstar: "\u2605", bigtriangledown: "\u25BD", bigtriangleup: "\u25B3", biguplus: "\u2A04", bigvee: "\u22C1", bigwedge: "\u22C0", bkarow: "\u290D", blacklozenge: "\u29EB", blacksquare: "\u25AA", blacktriangle: "\u25B4", blacktriangledown: "\u25BE", blacktriangleleft: "\u25C2", blacktriangleright: "\u25B8", blank: "\u2423", blk12: "\u2592", blk14: "\u2591", blk34: "\u2593", block: "\u2588", bne: "=\u20E5", bnequiv: "\u2261\u20E5", bNot: "\u2AED", bnot: "\u2310", Bopf: "\u{1D539}", bopf: "\u{1D553}", bot: "\u22A5", bottom: "\u22A5", bowtie: "\u22C8", boxbox: "\u29C9", boxDL: "\u2557", boxDl: "\u2556", boxdL: "\u2555", boxdl: "\u2510", boxDR: "\u2554", boxDr: "\u2553", boxdR: "\u2552", boxdr: "\u250C", boxH: "\u2550", boxh: "\u2500", boxHD: "\u2566", boxHd: "\u2564", boxhD: "\u2565", boxhd: "\u252C", boxHU: "\u2569", boxHu: "\u2567", boxhU: "\u2568", boxhu: "\u2534", boxminus: "\u229F", boxplus: "\u229E", boxtimes: "\u22A0", boxUL: "\u255D", boxUl: "\u255C", boxuL: "\u255B", boxul: "\u2518", boxUR: "\u255A", boxUr: "\u2559", boxuR: "\u2558", boxur: "\u2514", boxV: "\u2551", boxv: "\u2502", boxVH: "\u256C", boxVh: "\u256B", boxvH: "\u256A", boxvh: "\u253C", boxVL: "\u2563", boxVl: "\u2562", boxvL: "\u2561", boxvl: "\u2524", boxVR: "\u2560", boxVr: "\u255F", boxvR: "\u255E", boxvr: "\u251C", bprime: "\u2035", Breve: "\u02D8", breve: "\u02D8", brvbar: "\xA6", Bscr: "\u212C", bscr: "\u{1D4B7}", bsemi: "\u204F", bsim: "\u223D", bsime: "\u22CD", bsol: "\\", bsolb: "\u29C5", bsolhsub: "\u27C8", bull: "\u2022", bullet: "\u2022", bump: "\u224E", bumpE: "\u2AAE", bumpe: "\u224F", Bumpeq: "\u224E", bumpeq: "\u224F", Cacute: "\u0106", cacute: "\u0107", Cap: "\u22D2", cap: "\u2229", capand: "\u2A44", capbrcup: "\u2A49", capcap: "\u2A4B", capcup: "\u2A47", capdot: "\u2A40", CapitalDifferentialD: "\u2145", caps: "\u2229\uFE00", caret: "\u2041", caron: "\u02C7", Cayleys: "\u212D", ccaps: "\u2A4D", Ccaron: "\u010C", ccaron: "\u010D", Ccedil: "\xC7", ccedil: "\xE7", Ccirc: "\u0108", ccirc: "\u0109", Cconint: "\u2230", ccups: "\u2A4C", ccupssm: "\u2A50", Cdot: "\u010A", cdot: "\u010B", cedil: "\xB8", Cedilla: "\xB8", cemptyv: "\u29B2", cent: "\xA2", CenterDot: "\xB7", centerdot: "\xB7", Cfr: "\u212D", cfr: "\u{1D520}", CHcy: "\u0427", chcy: "\u0447", check: "\u2713", checkmark: "\u2713", Chi: "\u03A7", chi: "\u03C7", cir: "\u25CB", circ: "\u02C6", circeq: "\u2257", circlearrowleft: "\u21BA", circlearrowright: "\u21BB", circledast: "\u229B", circledcirc: "\u229A", circleddash: "\u229D", CircleDot: "\u2299", circledR: "\xAE", circledS: "\u24C8", CircleMinus: "\u2296", CirclePlus: "\u2295", CircleTimes: "\u2297", cirE: "\u29C3", cire: "\u2257", cirfnint: "\u2A10", cirmid: "\u2AEF", cirscir: "\u29C2", ClockwiseContourIntegral: "\u2232", CloseCurlyDoubleQuote: "\u201D", CloseCurlyQuote: "\u2019", clubs: "\u2663", clubsuit: "\u2663", Colon: "\u2237", colon: ":", Colone: "\u2A74", colone: "\u2254", coloneq: "\u2254", comma: ",", commat: "@", comp: "\u2201", compfn: "\u2218", complement: "\u2201", complexes: "\u2102", cong: "\u2245", congdot: "\u2A6D", Congruent: "\u2261", Conint: "\u222F", conint: "\u222E", ContourIntegral: "\u222E", Copf: "\u2102", copf: "\u{1D554}", coprod: "\u2210", Coproduct: "\u2210", COPY: "\xA9", copy: "\xA9", copysr: "\u2117", CounterClockwiseContourIntegral: "\u2233", crarr: "\u21B5", Cross: "\u2A2F", cross: "\u2717", Cscr: "\u{1D49E}", cscr: "\u{1D4B8}", csub: "\u2ACF", csube: "\u2AD1", csup: "\u2AD0", csupe: "\u2AD2", ctdot: "\u22EF", cudarrl: "\u2938", cudarrr: "\u2935", cuepr: "\u22DE", cuesc: "\u22DF", cularr: "\u21B6", cularrp: "\u293D", Cup: "\u22D3", cup: "\u222A", cupbrcap: "\u2A48", CupCap: "\u224D", cupcap: "\u2A46", cupcup: "\u2A4A", cupdot: "\u228D", cupor: "\u2A45", cups: "\u222A\uFE00", curarr: "\u21B7", curarrm: "\u293C", curlyeqprec: "\u22DE", curlyeqsucc: "\u22DF", curlyvee: "\u22CE", curlywedge: "\u22CF", curren: "\xA4", curvearrowleft: "\u21B6", curvearrowright: "\u21B7", cuvee: "\u22CE", cuwed: "\u22CF", cwconint: "\u2232", cwint: "\u2231", cylcty: "\u232D", Dagger: "\u2021", dagger: "\u2020", daleth: "\u2138", Darr: "\u21A1", dArr: "\u21D3", darr: "\u2193", dash: "\u2010", Dashv: "\u2AE4", dashv: "\u22A3", dbkarow: "\u290F", dblac: "\u02DD", Dcaron: "\u010E", dcaron: "\u010F", Dcy: "\u0414", dcy: "\u0434", DD: "\u2145", dd: "\u2146", ddagger: "\u2021", ddarr: "\u21CA", DDotrahd: "\u2911", ddotseq: "\u2A77", deg: "\xB0", Del: "\u2207", Delta: "\u0394", delta: "\u03B4", demptyv: "\u29B1", dfisht: "\u297F", Dfr: "\u{1D507}", dfr: "\u{1D521}", dHar: "\u2965", dharl: "\u21C3", dharr: "\u21C2", DiacriticalAcute: "\xB4", DiacriticalDot: "\u02D9", DiacriticalDoubleAcute: "\u02DD", DiacriticalGrave: "`", DiacriticalTilde: "\u02DC", diam: "\u22C4", Diamond: "\u22C4", diamond: "\u22C4", diamondsuit: "\u2666", diams: "\u2666", die: "\xA8", DifferentialD: "\u2146", digamma: "\u03DD", disin: "\u22F2", div: "\xF7", divide: "\xF7", divideontimes: "\u22C7", divonx: "\u22C7", DJcy: "\u0402", djcy: "\u0452", dlcorn: "\u231E", dlcrop: "\u230D", dollar: "$", Dopf: "\u{1D53B}", dopf: "\u{1D555}", Dot: "\xA8", dot: "\u02D9", DotDot: "\u20DC", doteq: "\u2250", doteqdot: "\u2251", DotEqual: "\u2250", dotminus: "\u2238", dotplus: "\u2214", dotsquare: "\u22A1", doublebarwedge: "\u2306", DoubleContourIntegral: "\u222F", DoubleDot: "\xA8", DoubleDownArrow: "\u21D3", DoubleLeftArrow: "\u21D0", DoubleLeftRightArrow: "\u21D4", DoubleLeftTee: "\u2AE4", DoubleLongLeftArrow: "\u27F8", DoubleLongLeftRightArrow: "\u27FA", DoubleLongRightArrow: "\u27F9", DoubleRightArrow: "\u21D2", DoubleRightTee: "\u22A8", DoubleUpArrow: "\u21D1", DoubleUpDownArrow: "\u21D5", DoubleVerticalBar: "\u2225", DownArrow: "\u2193", Downarrow: "\u21D3", downarrow: "\u2193", DownArrowBar: "\u2913", DownArrowUpArrow: "\u21F5", DownBreve: "\u0311", downdownarrows: "\u21CA", downharpoonleft: "\u21C3", downharpoonright: "\u21C2", DownLeftRightVector: "\u2950", DownLeftTeeVector: "\u295E", DownLeftVector: "\u21BD", DownLeftVectorBar: "\u2956", DownRightTeeVector: "\u295F", DownRightVector: "\u21C1", DownRightVectorBar: "\u2957", DownTee: "\u22A4", DownTeeArrow: "\u21A7", drbkarow: "\u2910", drcorn: "\u231F", drcrop: "\u230C", Dscr: "\u{1D49F}", dscr: "\u{1D4B9}", DScy: "\u0405", dscy: "\u0455", dsol: "\u29F6", Dstrok: "\u0110", dstrok: "\u0111", dtdot: "\u22F1", dtri: "\u25BF", dtrif: "\u25BE", duarr: "\u21F5", duhar: "\u296F", dwangle: "\u29A6", DZcy: "\u040F", dzcy: "\u045F", dzigrarr: "\u27FF", Eacute: "\xC9", eacute: "\xE9", easter: "\u2A6E", Ecaron: "\u011A", ecaron: "\u011B", ecir: "\u2256", Ecirc: "\xCA", ecirc: "\xEA", ecolon: "\u2255", Ecy: "\u042D", ecy: "\u044D", eDDot: "\u2A77", Edot: "\u0116", eDot: "\u2251", edot: "\u0117", ee: "\u2147", efDot: "\u2252", Efr: "\u{1D508}", efr: "\u{1D522}", eg: "\u2A9A", Egrave: "\xC8", egrave: "\xE8", egs: "\u2A96", egsdot: "\u2A98", el: "\u2A99", Element: "\u2208", elinters: "\u23E7", ell: "\u2113", els: "\u2A95", elsdot: "\u2A97", Emacr: "\u0112", emacr: "\u0113", empty: "\u2205", emptyset: "\u2205", EmptySmallSquare: "\u25FB", emptyv: "\u2205", EmptyVerySmallSquare: "\u25AB", emsp: "\u2003", emsp13: "\u2004", emsp14: "\u2005", ENG: "\u014A", eng: "\u014B", ensp: "\u2002", Eogon: "\u0118", eogon: "\u0119", Eopf: "\u{1D53C}", eopf: "\u{1D556}", epar: "\u22D5", eparsl: "\u29E3", eplus: "\u2A71", epsi: "\u03B5", Epsilon: "\u0395", epsilon: "\u03B5", epsiv: "\u03F5", eqcirc: "\u2256", eqcolon: "\u2255", eqsim: "\u2242", eqslantgtr: "\u2A96", eqslantless: "\u2A95", Equal: "\u2A75", equals: "=", EqualTilde: "\u2242", equest: "\u225F", Equilibrium: "\u21CC", equiv: "\u2261", equivDD: "\u2A78", eqvparsl: "\u29E5", erarr: "\u2971", erDot: "\u2253", Escr: "\u2130", escr: "\u212F", esdot: "\u2250", Esim: "\u2A73", esim: "\u2242", Eta: "\u0397", eta: "\u03B7", ETH: "\xD0", eth: "\xF0", Euml: "\xCB", euml: "\xEB", euro: "\u20AC", excl: "!", exist: "\u2203", Exists: "\u2203", expectation: "\u2130", ExponentialE: "\u2147", exponentiale: "\u2147", fallingdotseq: "\u2252", Fcy: "\u0424", fcy: "\u0444", female: "\u2640", ffilig: "\uFB03", fflig: "\uFB00", ffllig: "\uFB04", Ffr: "\u{1D509}", ffr: "\u{1D523}", filig: "\uFB01", FilledSmallSquare: "\u25FC", FilledVerySmallSquare: "\u25AA", fjlig: "fj", flat: "\u266D", fllig: "\uFB02", fltns: "\u25B1", fnof: "\u0192", Fopf: "\u{1D53D}", fopf: "\u{1D557}", ForAll: "\u2200", forall: "\u2200", fork: "\u22D4", forkv: "\u2AD9", Fouriertrf: "\u2131", fpartint: "\u2A0D", frac12: "\xBD", frac13: "\u2153", frac14: "\xBC", frac15: "\u2155", frac16: "\u2159", frac18: "\u215B", frac23: "\u2154", frac25: "\u2156", frac34: "\xBE", frac35: "\u2157", frac38: "\u215C", frac45: "\u2158", frac56: "\u215A", frac58: "\u215D", frac78: "\u215E", frasl: "\u2044", frown: "\u2322", Fscr: "\u2131", fscr: "\u{1D4BB}", gacute: "\u01F5", Gamma: "\u0393", gamma: "\u03B3", Gammad: "\u03DC", gammad: "\u03DD", gap: "\u2A86", Gbreve: "\u011E", gbreve: "\u011F", Gcedil: "\u0122", Gcirc: "\u011C", gcirc: "\u011D", Gcy: "\u0413", gcy: "\u0433", Gdot: "\u0120", gdot: "\u0121", gE: "\u2267", ge: "\u2265", gEl: "\u2A8C", gel: "\u22DB", geq: "\u2265", geqq: "\u2267", geqslant: "\u2A7E", ges: "\u2A7E", gescc: "\u2AA9", gesdot: "\u2A80", gesdoto: "\u2A82", gesdotol: "\u2A84", gesl: "\u22DB\uFE00", gesles: "\u2A94", Gfr: "\u{1D50A}", gfr: "\u{1D524}", Gg: "\u22D9", gg: "\u226B", ggg: "\u22D9", gimel: "\u2137", GJcy: "\u0403", gjcy: "\u0453", gl: "\u2277", gla: "\u2AA5", glE: "\u2A92", glj: "\u2AA4", gnap: "\u2A8A", gnapprox: "\u2A8A", gnE: "\u2269", gne: "\u2A88", gneq: "\u2A88", gneqq: "\u2269", gnsim: "\u22E7", Gopf: "\u{1D53E}", gopf: "\u{1D558}", grave: "`", GreaterEqual: "\u2265", GreaterEqualLess: "\u22DB", GreaterFullEqual: "\u2267", GreaterGreater: "\u2AA2", GreaterLess: "\u2277", GreaterSlantEqual: "\u2A7E", GreaterTilde: "\u2273", Gscr: "\u{1D4A2}", gscr: "\u210A", gsim: "\u2273", gsime: "\u2A8E", gsiml: "\u2A90", GT: ">", Gt: "\u226B", gt: ">", gtcc: "\u2AA7", gtcir: "\u2A7A", gtdot: "\u22D7", gtlPar: "\u2995", gtquest: "\u2A7C", gtrapprox: "\u2A86", gtrarr: "\u2978", gtrdot: "\u22D7", gtreqless: "\u22DB", gtreqqless: "\u2A8C", gtrless: "\u2277", gtrsim: "\u2273", gvertneqq: "\u2269\uFE00", gvnE: "\u2269\uFE00", Hacek: "\u02C7", hairsp: "\u200A", half: "\xBD", hamilt: "\u210B", HARDcy: "\u042A", hardcy: "\u044A", hArr: "\u21D4", harr: "\u2194", harrcir: "\u2948", harrw: "\u21AD", Hat: "^", hbar: "\u210F", Hcirc: "\u0124", hcirc: "\u0125", hearts: "\u2665", heartsuit: "\u2665", hellip: "\u2026", hercon: "\u22B9", Hfr: "\u210C", hfr: "\u{1D525}", HilbertSpace: "\u210B", hksearow: "\u2925", hkswarow: "\u2926", hoarr: "\u21FF", homtht: "\u223B", hookleftarrow: "\u21A9", hookrightarrow: "\u21AA", Hopf: "\u210D", hopf: "\u{1D559}", horbar: "\u2015", HorizontalLine: "\u2500", Hscr: "\u210B", hscr: "\u{1D4BD}", hslash: "\u210F", Hstrok: "\u0126", hstrok: "\u0127", HumpDownHump: "\u224E", HumpEqual: "\u224F", hybull: "\u2043", hyphen: "\u2010", Iacute: "\xCD", iacute: "\xED", ic: "\u2063", Icirc: "\xCE", icirc: "\xEE", Icy: "\u0418", icy: "\u0438", Idot: "\u0130", IEcy: "\u0415", iecy: "\u0435", iexcl: "\xA1", iff: "\u21D4", Ifr: "\u2111", ifr: "\u{1D526}", Igrave: "\xCC", igrave: "\xEC", ii: "\u2148", iiiint: "\u2A0C", iiint: "\u222D", iinfin: "\u29DC", iiota: "\u2129", IJlig: "\u0132", ijlig: "\u0133", Im: "\u2111", Imacr: "\u012A", imacr: "\u012B", image: "\u2111", ImaginaryI: "\u2148", imagline: "\u2110", imagpart: "\u2111", imath: "\u0131", imof: "\u22B7", imped: "\u01B5", Implies: "\u21D2", in: "\u2208", incare: "\u2105", infin: "\u221E", infintie: "\u29DD", inodot: "\u0131", Int: "\u222C", int: "\u222B", intcal: "\u22BA", integers: "\u2124", Integral: "\u222B", intercal: "\u22BA", Intersection: "\u22C2", intlarhk: "\u2A17", intprod: "\u2A3C", InvisibleComma: "\u2063", InvisibleTimes: "\u2062", IOcy: "\u0401", iocy: "\u0451", Iogon: "\u012E", iogon: "\u012F", Iopf: "\u{1D540}", iopf: "\u{1D55A}", Iota: "\u0399", iota: "\u03B9", iprod: "\u2A3C", iquest: "\xBF", Iscr: "\u2110", iscr: "\u{1D4BE}", isin: "\u2208", isindot: "\u22F5", isinE: "\u22F9", isins: "\u22F4", isinsv: "\u22F3", isinv: "\u2208", it: "\u2062", Itilde: "\u0128", itilde: "\u0129", Iukcy: "\u0406", iukcy: "\u0456", Iuml: "\xCF", iuml: "\xEF", Jcirc: "\u0134", jcirc: "\u0135", Jcy: "\u0419", jcy: "\u0439", Jfr: "\u{1D50D}", jfr: "\u{1D527}", jmath: "\u0237", Jopf: "\u{1D541}", jopf: "\u{1D55B}", Jscr: "\u{1D4A5}", jscr: "\u{1D4BF}", Jsercy: "\u0408", jsercy: "\u0458", Jukcy: "\u0404", jukcy: "\u0454", Kappa: "\u039A", kappa: "\u03BA", kappav: "\u03F0", Kcedil: "\u0136", kcedil: "\u0137", Kcy: "\u041A", kcy: "\u043A", Kfr: "\u{1D50E}", kfr: "\u{1D528}", kgreen: "\u0138", KHcy: "\u0425", khcy: "\u0445", KJcy: "\u040C", kjcy: "\u045C", Kopf: "\u{1D542}", kopf: "\u{1D55C}", Kscr: "\u{1D4A6}", kscr: "\u{1D4C0}", lAarr: "\u21DA", Lacute: "\u0139", lacute: "\u013A", laemptyv: "\u29B4", lagran: "\u2112", Lambda: "\u039B", lambda: "\u03BB", Lang: "\u27EA", lang: "\u27E8", langd: "\u2991", langle: "\u27E8", lap: "\u2A85", Laplacetrf: "\u2112", laquo: "\xAB", Larr: "\u219E", lArr: "\u21D0", larr: "\u2190", larrb: "\u21E4", larrbfs: "\u291F", larrfs: "\u291D", larrhk: "\u21A9", larrlp: "\u21AB", larrpl: "\u2939", larrsim: "\u2973", larrtl: "\u21A2", lat: "\u2AAB", lAtail: "\u291B", latail: "\u2919", late: "\u2AAD", lates: "\u2AAD\uFE00", lBarr: "\u290E", lbarr: "\u290C", lbbrk: "\u2772", lbrace: "{", lbrack: "[", lbrke: "\u298B", lbrksld: "\u298F", lbrkslu: "\u298D", Lcaron: "\u013D", lcaron: "\u013E", Lcedil: "\u013B", lcedil: "\u013C", lceil: "\u2308", lcub: "{", Lcy: "\u041B", lcy: "\u043B", ldca: "\u2936", ldquo: "\u201C", ldquor: "\u201E", ldrdhar: "\u2967", ldrushar: "\u294B", ldsh: "\u21B2", lE: "\u2266", le: "\u2264", LeftAngleBracket: "\u27E8", LeftArrow: "\u2190", Leftarrow: "\u21D0", leftarrow: "\u2190", LeftArrowBar: "\u21E4", LeftArrowRightArrow: "\u21C6", leftarrowtail: "\u21A2", LeftCeiling: "\u2308", LeftDoubleBracket: "\u27E6", LeftDownTeeVector: "\u2961", LeftDownVector: "\u21C3", LeftDownVectorBar: "\u2959", LeftFloor: "\u230A", leftharpoondown: "\u21BD", leftharpoonup: "\u21BC", leftleftarrows: "\u21C7", LeftRightArrow: "\u2194", Leftrightarrow: "\u21D4", leftrightarrow: "\u2194", leftrightarrows: "\u21C6", leftrightharpoons: "\u21CB", leftrightsquigarrow: "\u21AD", LeftRightVector: "\u294E", LeftTee: "\u22A3", LeftTeeArrow: "\u21A4", LeftTeeVector: "\u295A", leftthreetimes: "\u22CB", LeftTriangle: "\u22B2", LeftTriangleBar: "\u29CF", LeftTriangleEqual: "\u22B4", LeftUpDownVector: "\u2951", LeftUpTeeVector: "\u2960", LeftUpVector: "\u21BF", LeftUpVectorBar: "\u2958", LeftVector: "\u21BC", LeftVectorBar: "\u2952", lEg: "\u2A8B", leg: "\u22DA", leq: "\u2264", leqq: "\u2266", leqslant: "\u2A7D", les: "\u2A7D", lescc: "\u2AA8", lesdot: "\u2A7F", lesdoto: "\u2A81", lesdotor: "\u2A83", lesg: "\u22DA\uFE00", lesges: "\u2A93", lessapprox: "\u2A85", lessdot: "\u22D6", lesseqgtr: "\u22DA", lesseqqgtr: "\u2A8B", LessEqualGreater: "\u22DA", LessFullEqual: "\u2266", LessGreater: "\u2276", lessgtr: "\u2276", LessLess: "\u2AA1", lesssim: "\u2272", LessSlantEqual: "\u2A7D", LessTilde: "\u2272", lfisht: "\u297C", lfloor: "\u230A", Lfr: "\u{1D50F}", lfr: "\u{1D529}", lg: "\u2276", lgE: "\u2A91", lHar: "\u2962", lhard: "\u21BD", lharu: "\u21BC", lharul: "\u296A", lhblk: "\u2584", LJcy: "\u0409", ljcy: "\u0459", Ll: "\u22D8", ll: "\u226A", llarr: "\u21C7", llcorner: "\u231E", Lleftarrow: "\u21DA", llhard: "\u296B", lltri: "\u25FA", Lmidot: "\u013F", lmidot: "\u0140", lmoust: "\u23B0", lmoustache: "\u23B0", lnap: "\u2A89", lnapprox: "\u2A89", lnE: "\u2268", lne: "\u2A87", lneq: "\u2A87", lneqq: "\u2268", lnsim: "\u22E6", loang: "\u27EC", loarr: "\u21FD", lobrk: "\u27E6", LongLeftArrow: "\u27F5", Longleftarrow: "\u27F8", longleftarrow: "\u27F5", LongLeftRightArrow: "\u27F7", Longleftrightarrow: "\u27FA", longleftrightarrow: "\u27F7", longmapsto: "\u27FC", LongRightArrow: "\u27F6", Longrightarrow: "\u27F9", longrightarrow: "\u27F6", looparrowleft: "\u21AB", looparrowright: "\u21AC", lopar: "\u2985", Lopf: "\u{1D543}", lopf: "\u{1D55D}", loplus: "\u2A2D", lotimes: "\u2A34", lowast: "\u2217", lowbar: "_", LowerLeftArrow: "\u2199", LowerRightArrow: "\u2198", loz: "\u25CA", lozenge: "\u25CA", lozf: "\u29EB", lpar: "(", lparlt: "\u2993", lrarr: "\u21C6", lrcorner: "\u231F", lrhar: "\u21CB", lrhard: "\u296D", lrm: "\u200E", lrtri: "\u22BF", lsaquo: "\u2039", Lscr: "\u2112", lscr: "\u{1D4C1}", Lsh: "\u21B0", lsh: "\u21B0", lsim: "\u2272", lsime: "\u2A8D", lsimg: "\u2A8F", lsqb: "[", lsquo: "\u2018", lsquor: "\u201A", Lstrok: "\u0141", lstrok: "\u0142", LT: "<", Lt: "\u226A", lt: "<", ltcc: "\u2AA6", ltcir: "\u2A79", ltdot: "\u22D6", lthree: "\u22CB", ltimes: "\u22C9", ltlarr: "\u2976", ltquest: "\u2A7B", ltri: "\u25C3", ltrie: "\u22B4", ltrif: "\u25C2", ltrPar: "\u2996", lurdshar: "\u294A", luruhar: "\u2966", lvertneqq: "\u2268\uFE00", lvnE: "\u2268\uFE00", macr: "\xAF", male: "\u2642", malt: "\u2720", maltese: "\u2720", Map: "\u2905", map: "\u21A6", mapsto: "\u21A6", mapstodown: "\u21A7", mapstoleft: "\u21A4", mapstoup: "\u21A5", marker: "\u25AE", mcomma: "\u2A29", Mcy: "\u041C", mcy: "\u043C", mdash: "\u2014", mDDot: "\u223A", measuredangle: "\u2221", MediumSpace: "\u205F", Mellintrf: "\u2133", Mfr: "\u{1D510}", mfr: "\u{1D52A}", mho: "\u2127", micro: "\xB5", mid: "\u2223", midast: "*", midcir: "\u2AF0", middot: "\xB7", minus: "\u2212", minusb: "\u229F", minusd: "\u2238", minusdu: "\u2A2A", MinusPlus: "\u2213", mlcp: "\u2ADB", mldr: "\u2026", mnplus: "\u2213", models: "\u22A7", Mopf: "\u{1D544}", mopf: "\u{1D55E}", mp: "\u2213", Mscr: "\u2133", mscr: "\u{1D4C2}", mstpos: "\u223E", Mu: "\u039C", mu: "\u03BC", multimap: "\u22B8", mumap: "\u22B8", nabla: "\u2207", Nacute: "\u0143", nacute: "\u0144", nang: "\u2220\u20D2", nap: "\u2249", napE: "\u2A70\u0338", napid: "\u224B\u0338", napos: "\u0149", napprox: "\u2249", natur: "\u266E", natural: "\u266E", naturals: "\u2115", nbsp: "\xA0", nbump: "\u224E\u0338", nbumpe: "\u224F\u0338", ncap: "\u2A43", Ncaron: "\u0147", ncaron: "\u0148", Ncedil: "\u0145", ncedil: "\u0146", ncong: "\u2247", ncongdot: "\u2A6D\u0338", ncup: "\u2A42", Ncy: "\u041D", ncy: "\u043D", ndash: "\u2013", ne: "\u2260", nearhk: "\u2924", neArr: "\u21D7", nearr: "\u2197", nearrow: "\u2197", nedot: "\u2250\u0338", NegativeMediumSpace: "\u200B", NegativeThickSpace: "\u200B", NegativeThinSpace: "\u200B", NegativeVeryThinSpace: "\u200B", nequiv: "\u2262", nesear: "\u2928", nesim: "\u2242\u0338", NestedGreaterGreater: "\u226B", NestedLessLess: "\u226A", NewLine: `
 `, nexist: "\u2204", nexists: "\u2204", Nfr: "\u{1D511}", nfr: "\u{1D52B}", ngE: "\u2267\u0338", nge: "\u2271", ngeq: "\u2271", ngeqq: "\u2267\u0338", ngeqslant: "\u2A7E\u0338", nges: "\u2A7E\u0338", nGg: "\u22D9\u0338", ngsim: "\u2275", nGt: "\u226B\u20D2", ngt: "\u226F", ngtr: "\u226F", nGtv: "\u226B\u0338", nhArr: "\u21CE", nharr: "\u21AE", nhpar: "\u2AF2", ni: "\u220B", nis: "\u22FC", nisd: "\u22FA", niv: "\u220B", NJcy: "\u040A", njcy: "\u045A", nlArr: "\u21CD", nlarr: "\u219A", nldr: "\u2025", nlE: "\u2266\u0338", nle: "\u2270", nLeftarrow: "\u21CD", nleftarrow: "\u219A", nLeftrightarrow: "\u21CE", nleftrightarrow: "\u21AE", nleq: "\u2270", nleqq: "\u2266\u0338", nleqslant: "\u2A7D\u0338", nles: "\u2A7D\u0338", nless: "\u226E", nLl: "\u22D8\u0338", nlsim: "\u2274", nLt: "\u226A\u20D2", nlt: "\u226E", nltri: "\u22EA", nltrie: "\u22EC", nLtv: "\u226A\u0338", nmid: "\u2224", NoBreak: "\u2060", NonBreakingSpace: "\xA0", Nopf: "\u2115", nopf: "\u{1D55F}", Not: "\u2AEC", not: "\xAC", NotCongruent: "\u2262", NotCupCap: "\u226D", NotDoubleVerticalBar: "\u2226", NotElement: "\u2209", NotEqual: "\u2260", NotEqualTilde: "\u2242\u0338", NotExists: "\u2204", NotGreater: "\u226F", NotGreaterEqual: "\u2271", NotGreaterFullEqual: "\u2267\u0338", NotGreaterGreater: "\u226B\u0338", NotGreaterLess: "\u2279", NotGreaterSlantEqual: "\u2A7E\u0338", NotGreaterTilde: "\u2275", NotHumpDownHump: "\u224E\u0338", NotHumpEqual: "\u224F\u0338", notin: "\u2209", notindot: "\u22F5\u0338", notinE: "\u22F9\u0338", notinva: "\u2209", notinvb: "\u22F7", notinvc: "\u22F6", NotLeftTriangle: "\u22EA", NotLeftTriangleBar: "\u29CF\u0338", NotLeftTriangleEqual: "\u22EC", NotLess: "\u226E", NotLessEqual: "\u2270", NotLessGreater: "\u2278", NotLessLess: "\u226A\u0338", NotLessSlantEqual: "\u2A7D\u0338", NotLessTilde: "\u2274", NotNestedGreaterGreater: "\u2AA2\u0338", NotNestedLessLess: "\u2AA1\u0338", notni: "\u220C", notniva: "\u220C", notnivb: "\u22FE", notnivc: "\u22FD", NotPrecedes: "\u2280", NotPrecedesEqual: "\u2AAF\u0338", NotPrecedesSlantEqual: "\u22E0", NotReverseElement: "\u220C", NotRightTriangle: "\u22EB", NotRightTriangleBar: "\u29D0\u0338", NotRightTriangleEqual: "\u22ED", NotSquareSubset: "\u228F\u0338", NotSquareSubsetEqual: "\u22E2", NotSquareSuperset: "\u2290\u0338", NotSquareSupersetEqual: "\u22E3", NotSubset: "\u2282\u20D2", NotSubsetEqual: "\u2288", NotSucceeds: "\u2281", NotSucceedsEqual: "\u2AB0\u0338", NotSucceedsSlantEqual: "\u22E1", NotSucceedsTilde: "\u227F\u0338", NotSuperset: "\u2283\u20D2", NotSupersetEqual: "\u2289", NotTilde: "\u2241", NotTildeEqual: "\u2244", NotTildeFullEqual: "\u2247", NotTildeTilde: "\u2249", NotVerticalBar: "\u2224", npar: "\u2226", nparallel: "\u2226", nparsl: "\u2AFD\u20E5", npart: "\u2202\u0338", npolint: "\u2A14", npr: "\u2280", nprcue: "\u22E0", npre: "\u2AAF\u0338", nprec: "\u2280", npreceq: "\u2AAF\u0338", nrArr: "\u21CF", nrarr: "\u219B", nrarrc: "\u2933\u0338", nrarrw: "\u219D\u0338", nRightarrow: "\u21CF", nrightarrow: "\u219B", nrtri: "\u22EB", nrtrie: "\u22ED", nsc: "\u2281", nsccue: "\u22E1", nsce: "\u2AB0\u0338", Nscr: "\u{1D4A9}", nscr: "\u{1D4C3}", nshortmid: "\u2224", nshortparallel: "\u2226", nsim: "\u2241", nsime: "\u2244", nsimeq: "\u2244", nsmid: "\u2224", nspar: "\u2226", nsqsube: "\u22E2", nsqsupe: "\u22E3", nsub: "\u2284", nsubE: "\u2AC5\u0338", nsube: "\u2288", nsubset: "\u2282\u20D2", nsubseteq: "\u2288", nsubseteqq: "\u2AC5\u0338", nsucc: "\u2281", nsucceq: "\u2AB0\u0338", nsup: "\u2285", nsupE: "\u2AC6\u0338", nsupe: "\u2289", nsupset: "\u2283\u20D2", nsupseteq: "\u2289", nsupseteqq: "\u2AC6\u0338", ntgl: "\u2279", Ntilde: "\xD1", ntilde: "\xF1", ntlg: "\u2278", ntriangleleft: "\u22EA", ntrianglelefteq: "\u22EC", ntriangleright: "\u22EB", ntrianglerighteq: "\u22ED", Nu: "\u039D", nu: "\u03BD", num: "#", numero: "\u2116", numsp: "\u2007", nvap: "\u224D\u20D2", nVDash: "\u22AF", nVdash: "\u22AE", nvDash: "\u22AD", nvdash: "\u22AC", nvge: "\u2265\u20D2", nvgt: ">\u20D2", nvHarr: "\u2904", nvinfin: "\u29DE", nvlArr: "\u2902", nvle: "\u2264\u20D2", nvlt: "<\u20D2", nvltrie: "\u22B4\u20D2", nvrArr: "\u2903", nvrtrie: "\u22B5\u20D2", nvsim: "\u223C\u20D2", nwarhk: "\u2923", nwArr: "\u21D6", nwarr: "\u2196", nwarrow: "\u2196", nwnear: "\u2927", Oacute: "\xD3", oacute: "\xF3", oast: "\u229B", ocir: "\u229A", Ocirc: "\xD4", ocirc: "\xF4", Ocy: "\u041E", ocy: "\u043E", odash: "\u229D", Odblac: "\u0150", odblac: "\u0151", odiv: "\u2A38", odot: "\u2299", odsold: "\u29BC", OElig: "\u0152", oelig: "\u0153", ofcir: "\u29BF", Ofr: "\u{1D512}", ofr: "\u{1D52C}", ogon: "\u02DB", Ograve: "\xD2", ograve: "\xF2", ogt: "\u29C1", ohbar: "\u29B5", ohm: "\u03A9", oint: "\u222E", olarr: "\u21BA", olcir: "\u29BE", olcross: "\u29BB", oline: "\u203E", olt: "\u29C0", Omacr: "\u014C", omacr: "\u014D", Omega: "\u03A9", omega: "\u03C9", Omicron: "\u039F", omicron: "\u03BF", omid: "\u29B6", ominus: "\u2296", Oopf: "\u{1D546}", oopf: "\u{1D560}", opar: "\u29B7", OpenCurlyDoubleQuote: "\u201C", OpenCurlyQuote: "\u2018", operp: "\u29B9", oplus: "\u2295", Or: "\u2A54", or: "\u2228", orarr: "\u21BB", ord: "\u2A5D", order: "\u2134", orderof: "\u2134", ordf: "\xAA", ordm: "\xBA", origof: "\u22B6", oror: "\u2A56", orslope: "\u2A57", orv: "\u2A5B", oS: "\u24C8", Oscr: "\u{1D4AA}", oscr: "\u2134", Oslash: "\xD8", oslash: "\xF8", osol: "\u2298", Otilde: "\xD5", otilde: "\xF5", Otimes: "\u2A37", otimes: "\u2297", otimesas: "\u2A36", Ouml: "\xD6", ouml: "\xF6", ovbar: "\u233D", OverBar: "\u203E", OverBrace: "\u23DE", OverBracket: "\u23B4", OverParenthesis: "\u23DC", par: "\u2225", para: "\xB6", parallel: "\u2225", parsim: "\u2AF3", parsl: "\u2AFD", part: "\u2202", PartialD: "\u2202", Pcy: "\u041F", pcy: "\u043F", percnt: "%", period: ".", permil: "\u2030", perp: "\u22A5", pertenk: "\u2031", Pfr: "\u{1D513}", pfr: "\u{1D52D}", Phi: "\u03A6", phi: "\u03C6", phiv: "\u03D5", phmmat: "\u2133", phone: "\u260E", Pi: "\u03A0", pi: "\u03C0", pitchfork: "\u22D4", piv: "\u03D6", planck: "\u210F", planckh: "\u210E", plankv: "\u210F", plus: "+", plusacir: "\u2A23", plusb: "\u229E", pluscir: "\u2A22", plusdo: "\u2214", plusdu: "\u2A25", pluse: "\u2A72", PlusMinus: "\xB1", plusmn: "\xB1", plussim: "\u2A26", plustwo: "\u2A27", pm: "\xB1", Poincareplane: "\u210C", pointint: "\u2A15", Popf: "\u2119", popf: "\u{1D561}", pound: "\xA3", Pr: "\u2ABB", pr: "\u227A", prap: "\u2AB7", prcue: "\u227C", prE: "\u2AB3", pre: "\u2AAF", prec: "\u227A", precapprox: "\u2AB7", preccurlyeq: "\u227C", Precedes: "\u227A", PrecedesEqual: "\u2AAF", PrecedesSlantEqual: "\u227C", PrecedesTilde: "\u227E", preceq: "\u2AAF", precnapprox: "\u2AB9", precneqq: "\u2AB5", precnsim: "\u22E8", precsim: "\u227E", Prime: "\u2033", prime: "\u2032", primes: "\u2119", prnap: "\u2AB9", prnE: "\u2AB5", prnsim: "\u22E8", prod: "\u220F", Product: "\u220F", profalar: "\u232E", profline: "\u2312", profsurf: "\u2313", prop: "\u221D", Proportion: "\u2237", Proportional: "\u221D", propto: "\u221D", prsim: "\u227E", prurel: "\u22B0", Pscr: "\u{1D4AB}", pscr: "\u{1D4C5}", Psi: "\u03A8", psi: "\u03C8", puncsp: "\u2008", Qfr: "\u{1D514}", qfr: "\u{1D52E}", qint: "\u2A0C", Qopf: "\u211A", qopf: "\u{1D562}", qprime: "\u2057", Qscr: "\u{1D4AC}", qscr: "\u{1D4C6}", quaternions: "\u210D", quatint: "\u2A16", quest: "?", questeq: "\u225F", QUOT: '"', quot: '"', rAarr: "\u21DB", race: "\u223D\u0331", Racute: "\u0154", racute: "\u0155", radic: "\u221A", raemptyv: "\u29B3", Rang: "\u27EB", rang: "\u27E9", rangd: "\u2992", range: "\u29A5", rangle: "\u27E9", raquo: "\xBB", Rarr: "\u21A0", rArr: "\u21D2", rarr: "\u2192", rarrap: "\u2975", rarrb: "\u21E5", rarrbfs: "\u2920", rarrc: "\u2933", rarrfs: "\u291E", rarrhk: "\u21AA", rarrlp: "\u21AC", rarrpl: "\u2945", rarrsim: "\u2974", Rarrtl: "\u2916", rarrtl: "\u21A3", rarrw: "\u219D", rAtail: "\u291C", ratail: "\u291A", ratio: "\u2236", rationals: "\u211A", RBarr: "\u2910", rBarr: "\u290F", rbarr: "\u290D", rbbrk: "\u2773", rbrace: "}", rbrack: "]", rbrke: "\u298C", rbrksld: "\u298E", rbrkslu: "\u2990", Rcaron: "\u0158", rcaron: "\u0159", Rcedil: "\u0156", rcedil: "\u0157", rceil: "\u2309", rcub: "}", Rcy: "\u0420", rcy: "\u0440", rdca: "\u2937", rdldhar: "\u2969", rdquo: "\u201D", rdquor: "\u201D", rdsh: "\u21B3", Re: "\u211C", real: "\u211C", realine: "\u211B", realpart: "\u211C", reals: "\u211D", rect: "\u25AD", REG: "\xAE", reg: "\xAE", ReverseElement: "\u220B", ReverseEquilibrium: "\u21CB", ReverseUpEquilibrium: "\u296F", rfisht: "\u297D", rfloor: "\u230B", Rfr: "\u211C", rfr: "\u{1D52F}", rHar: "\u2964", rhard: "\u21C1", rharu: "\u21C0", rharul: "\u296C", Rho: "\u03A1", rho: "\u03C1", rhov: "\u03F1", RightAngleBracket: "\u27E9", RightArrow: "\u2192", Rightarrow: "\u21D2", rightarrow: "\u2192", RightArrowBar: "\u21E5", RightArrowLeftArrow: "\u21C4", rightarrowtail: "\u21A3", RightCeiling: "\u2309", RightDoubleBracket: "\u27E7", RightDownTeeVector: "\u295D", RightDownVector: "\u21C2", RightDownVectorBar: "\u2955", RightFloor: "\u230B", rightharpoondown: "\u21C1", rightharpoonup: "\u21C0", rightleftarrows: "\u21C4", rightleftharpoons: "\u21CC", rightrightarrows: "\u21C9", rightsquigarrow: "\u219D", RightTee: "\u22A2", RightTeeArrow: "\u21A6", RightTeeVector: "\u295B", rightthreetimes: "\u22CC", RightTriangle: "\u22B3", RightTriangleBar: "\u29D0", RightTriangleEqual: "\u22B5", RightUpDownVector: "\u294F", RightUpTeeVector: "\u295C", RightUpVector: "\u21BE", RightUpVectorBar: "\u2954", RightVector: "\u21C0", RightVectorBar: "\u2953", ring: "\u02DA", risingdotseq: "\u2253", rlarr: "\u21C4", rlhar: "\u21CC", rlm: "\u200F", rmoust: "\u23B1", rmoustache: "\u23B1", rnmid: "\u2AEE", roang: "\u27ED", roarr: "\u21FE", robrk: "\u27E7", ropar: "\u2986", Ropf: "\u211D", ropf: "\u{1D563}", roplus: "\u2A2E", rotimes: "\u2A35", RoundImplies: "\u2970", rpar: ")", rpargt: "\u2994", rppolint: "\u2A12", rrarr: "\u21C9", Rrightarrow: "\u21DB", rsaquo: "\u203A", Rscr: "\u211B", rscr: "\u{1D4C7}", Rsh: "\u21B1", rsh: "\u21B1", rsqb: "]", rsquo: "\u2019", rsquor: "\u2019", rthree: "\u22CC", rtimes: "\u22CA", rtri: "\u25B9", rtrie: "\u22B5", rtrif: "\u25B8", rtriltri: "\u29CE", RuleDelayed: "\u29F4", ruluhar: "\u2968", rx: "\u211E", Sacute: "\u015A", sacute: "\u015B", sbquo: "\u201A", Sc: "\u2ABC", sc: "\u227B", scap: "\u2AB8", Scaron: "\u0160", scaron: "\u0161", sccue: "\u227D", scE: "\u2AB4", sce: "\u2AB0", Scedil: "\u015E", scedil: "\u015F", Scirc: "\u015C", scirc: "\u015D", scnap: "\u2ABA", scnE: "\u2AB6", scnsim: "\u22E9", scpolint: "\u2A13", scsim: "\u227F", Scy: "\u0421", scy: "\u0441", sdot: "\u22C5", sdotb: "\u22A1", sdote: "\u2A66", searhk: "\u2925", seArr: "\u21D8", searr: "\u2198", searrow: "\u2198", sect: "\xA7", semi: ";", seswar: "\u2929", setminus: "\u2216", setmn: "\u2216", sext: "\u2736", Sfr: "\u{1D516}", sfr: "\u{1D530}", sfrown: "\u2322", sharp: "\u266F", SHCHcy: "\u0429", shchcy: "\u0449", SHcy: "\u0428", shcy: "\u0448", ShortDownArrow: "\u2193", ShortLeftArrow: "\u2190", shortmid: "\u2223", shortparallel: "\u2225", ShortRightArrow: "\u2192", ShortUpArrow: "\u2191", shy: "\xAD", Sigma: "\u03A3", sigma: "\u03C3", sigmaf: "\u03C2", sigmav: "\u03C2", sim: "\u223C", simdot: "\u2A6A", sime: "\u2243", simeq: "\u2243", simg: "\u2A9E", simgE: "\u2AA0", siml: "\u2A9D", simlE: "\u2A9F", simne: "\u2246", simplus: "\u2A24", simrarr: "\u2972", slarr: "\u2190", SmallCircle: "\u2218", smallsetminus: "\u2216", smashp: "\u2A33", smeparsl: "\u29E4", smid: "\u2223", smile: "\u2323", smt: "\u2AAA", smte: "\u2AAC", smtes: "\u2AAC\uFE00", SOFTcy: "\u042C", softcy: "\u044C", sol: "/", solb: "\u29C4", solbar: "\u233F", Sopf: "\u{1D54A}", sopf: "\u{1D564}", spades: "\u2660", spadesuit: "\u2660", spar: "\u2225", sqcap: "\u2293", sqcaps: "\u2293\uFE00", sqcup: "\u2294", sqcups: "\u2294\uFE00", Sqrt: "\u221A", sqsub: "\u228F", sqsube: "\u2291", sqsubset: "\u228F", sqsubseteq: "\u2291", sqsup: "\u2290", sqsupe: "\u2292", sqsupset: "\u2290", sqsupseteq: "\u2292", squ: "\u25A1", Square: "\u25A1", square: "\u25A1", SquareIntersection: "\u2293", SquareSubset: "\u228F", SquareSubsetEqual: "\u2291", SquareSuperset: "\u2290", SquareSupersetEqual: "\u2292", SquareUnion: "\u2294", squarf: "\u25AA", squf: "\u25AA", srarr: "\u2192", Sscr: "\u{1D4AE}", sscr: "\u{1D4C8}", ssetmn: "\u2216", ssmile: "\u2323", sstarf: "\u22C6", Star: "\u22C6", star: "\u2606", starf: "\u2605", straightepsilon: "\u03F5", straightphi: "\u03D5", strns: "\xAF", Sub: "\u22D0", sub: "\u2282", subdot: "\u2ABD", subE: "\u2AC5", sube: "\u2286", subedot: "\u2AC3", submult: "\u2AC1", subnE: "\u2ACB", subne: "\u228A", subplus: "\u2ABF", subrarr: "\u2979", Subset: "\u22D0", subset: "\u2282", subseteq: "\u2286", subseteqq: "\u2AC5", SubsetEqual: "\u2286", subsetneq: "\u228A", subsetneqq: "\u2ACB", subsim: "\u2AC7", subsub: "\u2AD5", subsup: "\u2AD3", succ: "\u227B", succapprox: "\u2AB8", succcurlyeq: "\u227D", Succeeds: "\u227B", SucceedsEqual: "\u2AB0", SucceedsSlantEqual: "\u227D", SucceedsTilde: "\u227F", succeq: "\u2AB0", succnapprox: "\u2ABA", succneqq: "\u2AB6", succnsim: "\u22E9", succsim: "\u227F", SuchThat: "\u220B", Sum: "\u2211", sum: "\u2211", sung: "\u266A", Sup: "\u22D1", sup: "\u2283", sup1: "\xB9", sup2: "\xB2", sup3: "\xB3", supdot: "\u2ABE", supdsub: "\u2AD8", supE: "\u2AC6", supe: "\u2287", supedot: "\u2AC4", Superset: "\u2283", SupersetEqual: "\u2287", suphsol: "\u27C9", suphsub: "\u2AD7", suplarr: "\u297B", supmult: "\u2AC2", supnE: "\u2ACC", supne: "\u228B", supplus: "\u2AC0", Supset: "\u22D1", supset: "\u2283", supseteq: "\u2287", supseteqq: "\u2AC6", supsetneq: "\u228B", supsetneqq: "\u2ACC", supsim: "\u2AC8", supsub: "\u2AD4", supsup: "\u2AD6", swarhk: "\u2926", swArr: "\u21D9", swarr: "\u2199", swarrow: "\u2199", swnwar: "\u292A", szlig: "\xDF", Tab: "	", target: "\u2316", Tau: "\u03A4", tau: "\u03C4", tbrk: "\u23B4", Tcaron: "\u0164", tcaron: "\u0165", Tcedil: "\u0162", tcedil: "\u0163", Tcy: "\u0422", tcy: "\u0442", tdot: "\u20DB", telrec: "\u2315", Tfr: "\u{1D517}", tfr: "\u{1D531}", there4: "\u2234", Therefore: "\u2234", therefore: "\u2234", Theta: "\u0398", theta: "\u03B8", thetasym: "\u03D1", thetav: "\u03D1", thickapprox: "\u2248", thicksim: "\u223C", ThickSpace: "\u205F\u200A", thinsp: "\u2009", ThinSpace: "\u2009", thkap: "\u2248", thksim: "\u223C", THORN: "\xDE", thorn: "\xFE", Tilde: "\u223C", tilde: "\u02DC", TildeEqual: "\u2243", TildeFullEqual: "\u2245", TildeTilde: "\u2248", times: "\xD7", timesb: "\u22A0", timesbar: "\u2A31", timesd: "\u2A30", tint: "\u222D", toea: "\u2928", top: "\u22A4", topbot: "\u2336", topcir: "\u2AF1", Topf: "\u{1D54B}", topf: "\u{1D565}", topfork: "\u2ADA", tosa: "\u2929", tprime: "\u2034", TRADE: "\u2122", trade: "\u2122", triangle: "\u25B5", triangledown: "\u25BF", triangleleft: "\u25C3", trianglelefteq: "\u22B4", triangleq: "\u225C", triangleright: "\u25B9", trianglerighteq: "\u22B5", tridot: "\u25EC", trie: "\u225C", triminus: "\u2A3A", TripleDot: "\u20DB", triplus: "\u2A39", trisb: "\u29CD", tritime: "\u2A3B", trpezium: "\u23E2", Tscr: "\u{1D4AF}", tscr: "\u{1D4C9}", TScy: "\u0426", tscy: "\u0446", TSHcy: "\u040B", tshcy: "\u045B", Tstrok: "\u0166", tstrok: "\u0167", twixt: "\u226C", twoheadleftarrow: "\u219E", twoheadrightarrow: "\u21A0", Uacute: "\xDA", uacute: "\xFA", Uarr: "\u219F", uArr: "\u21D1", uarr: "\u2191", Uarrocir: "\u2949", Ubrcy: "\u040E", ubrcy: "\u045E", Ubreve: "\u016C", ubreve: "\u016D", Ucirc: "\xDB", ucirc: "\xFB", Ucy: "\u0423", ucy: "\u0443", udarr: "\u21C5", Udblac: "\u0170", udblac: "\u0171", udhar: "\u296E", ufisht: "\u297E", Ufr: "\u{1D518}", ufr: "\u{1D532}", Ugrave: "\xD9", ugrave: "\xF9", uHar: "\u2963", uharl: "\u21BF", uharr: "\u21BE", uhblk: "\u2580", ulcorn: "\u231C", ulcorner: "\u231C", ulcrop: "\u230F", ultri: "\u25F8", Umacr: "\u016A", umacr: "\u016B", uml: "\xA8", UnderBar: "_", UnderBrace: "\u23DF", UnderBracket: "\u23B5", UnderParenthesis: "\u23DD", Union: "\u22C3", UnionPlus: "\u228E", Uogon: "\u0172", uogon: "\u0173", Uopf: "\u{1D54C}", uopf: "\u{1D566}", UpArrow: "\u2191", Uparrow: "\u21D1", uparrow: "\u2191", UpArrowBar: "\u2912", UpArrowDownArrow: "\u21C5", UpDownArrow: "\u2195", Updownarrow: "\u21D5", updownarrow: "\u2195", UpEquilibrium: "\u296E", upharpoonleft: "\u21BF", upharpoonright: "\u21BE", uplus: "\u228E", UpperLeftArrow: "\u2196", UpperRightArrow: "\u2197", Upsi: "\u03D2", upsi: "\u03C5", upsih: "\u03D2", Upsilon: "\u03A5", upsilon: "\u03C5", UpTee: "\u22A5", UpTeeArrow: "\u21A5", upuparrows: "\u21C8", urcorn: "\u231D", urcorner: "\u231D", urcrop: "\u230E", Uring: "\u016E", uring: "\u016F", urtri: "\u25F9", Uscr: "\u{1D4B0}", uscr: "\u{1D4CA}", utdot: "\u22F0", Utilde: "\u0168", utilde: "\u0169", utri: "\u25B5", utrif: "\u25B4", uuarr: "\u21C8", Uuml: "\xDC", uuml: "\xFC", uwangle: "\u29A7", vangrt: "\u299C", varepsilon: "\u03F5", varkappa: "\u03F0", varnothing: "\u2205", varphi: "\u03D5", varpi: "\u03D6", varpropto: "\u221D", vArr: "\u21D5", varr: "\u2195", varrho: "\u03F1", varsigma: "\u03C2", varsubsetneq: "\u228A\uFE00", varsubsetneqq: "\u2ACB\uFE00", varsupsetneq: "\u228B\uFE00", varsupsetneqq: "\u2ACC\uFE00", vartheta: "\u03D1", vartriangleleft: "\u22B2", vartriangleright: "\u22B3", Vbar: "\u2AEB", vBar: "\u2AE8", vBarv: "\u2AE9", Vcy: "\u0412", vcy: "\u0432", VDash: "\u22AB", Vdash: "\u22A9", vDash: "\u22A8", vdash: "\u22A2", Vdashl: "\u2AE6", Vee: "\u22C1", vee: "\u2228", veebar: "\u22BB", veeeq: "\u225A", vellip: "\u22EE", Verbar: "\u2016", verbar: "|", Vert: "\u2016", vert: "|", VerticalBar: "\u2223", VerticalLine: "|", VerticalSeparator: "\u2758", VerticalTilde: "\u2240", VeryThinSpace: "\u200A", Vfr: "\u{1D519}", vfr: "\u{1D533}", vltri: "\u22B2", vnsub: "\u2282\u20D2", vnsup: "\u2283\u20D2", Vopf: "\u{1D54D}", vopf: "\u{1D567}", vprop: "\u221D", vrtri: "\u22B3", Vscr: "\u{1D4B1}", vscr: "\u{1D4CB}", vsubnE: "\u2ACB\uFE00", vsubne: "\u228A\uFE00", vsupnE: "\u2ACC\uFE00", vsupne: "\u228B\uFE00", Vvdash: "\u22AA", vzigzag: "\u299A", Wcirc: "\u0174", wcirc: "\u0175", wedbar: "\u2A5F", Wedge: "\u22C0", wedge: "\u2227", wedgeq: "\u2259", weierp: "\u2118", Wfr: "\u{1D51A}", wfr: "\u{1D534}", Wopf: "\u{1D54E}", wopf: "\u{1D568}", wp: "\u2118", wr: "\u2240", wreath: "\u2240", Wscr: "\u{1D4B2}", wscr: "\u{1D4CC}", xcap: "\u22C2", xcirc: "\u25EF", xcup: "\u22C3", xdtri: "\u25BD", Xfr: "\u{1D51B}", xfr: "\u{1D535}", xhArr: "\u27FA", xharr: "\u27F7", Xi: "\u039E", xi: "\u03BE", xlArr: "\u27F8", xlarr: "\u27F5", xmap: "\u27FC", xnis: "\u22FB", xodot: "\u2A00", Xopf: "\u{1D54F}", xopf: "\u{1D569}", xoplus: "\u2A01", xotime: "\u2A02", xrArr: "\u27F9", xrarr: "\u27F6", Xscr: "\u{1D4B3}", xscr: "\u{1D4CD}", xsqcup: "\u2A06", xuplus: "\u2A04", xutri: "\u25B3", xvee: "\u22C1", xwedge: "\u22C0", Yacute: "\xDD", yacute: "\xFD", YAcy: "\u042F", yacy: "\u044F", Ycirc: "\u0176", ycirc: "\u0177", Ycy: "\u042B", ycy: "\u044B", yen: "\xA5", Yfr: "\u{1D51C}", yfr: "\u{1D536}", YIcy: "\u0407", yicy: "\u0457", Yopf: "\u{1D550}", yopf: "\u{1D56A}", Yscr: "\u{1D4B4}", yscr: "\u{1D4CE}", YUcy: "\u042E", yucy: "\u044E", Yuml: "\u0178", yuml: "\xFF", Zacute: "\u0179", zacute: "\u017A", Zcaron: "\u017D", zcaron: "\u017E", Zcy: "\u0417", zcy: "\u0437", Zdot: "\u017B", zdot: "\u017C", zeetrf: "\u2128", ZeroWidthSpace: "\u200B", Zeta: "\u0396", zeta: "\u03B6", Zfr: "\u2128", zfr: "\u{1D537}", ZHcy: "\u0416", zhcy: "\u0436", zigrarr: "\u21DD", Zopf: "\u2124", zopf: "\u{1D56B}", Zscr: "\u{1D4B5}", zscr: "\u{1D4CF}", zwj: "\u200D", zwnj: "\u200C" }, e.NGSP_UNICODE = "\uE500", e.NAMED_ENTITIES.ngsp = e.NGSP_UNICODE;
         } }), _s = I({ "node_modules/angular-html-parser/lib/compiler/src/ml_parser/html_tags.js"(e) {
           "use strict";
           q(), Object.defineProperty(e, "__esModule", { value: true });
           var r = Ze(), t = class {
             constructor() {
-              let { closedByChildren: a, implicitNamespacePrefix: p, contentType: D = r.TagContentType.PARSABLE_DATA, closedByParent: g = false, isVoid: i = false, ignoreFirstLf: l = false } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-              this.closedByChildren = {}, this.closedByParent = false, this.canSelfClose = false, a && a.length > 0 && a.forEach((h) => this.closedByChildren[h] = true), this.isVoid = i, this.closedByParent = g || i, this.implicitNamespacePrefix = p || null, this.contentType = D, this.ignoreFirstLf = l;
+              let { closedByChildren: a, implicitNamespacePrefix: p2, contentType: D = r.TagContentType.PARSABLE_DATA, closedByParent: g = false, isVoid: i = false, ignoreFirstLf: l = false } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+              this.closedByChildren = {}, this.closedByParent = false, this.canSelfClose = false, a && a.length > 0 && a.forEach((h3) => this.closedByChildren[h3] = true), this.isVoid = i, this.closedByParent = g || i, this.implicitNamespacePrefix = p2 || null, this.contentType = D, this.ignoreFirstLf = l;
             }
             isClosedByChild(a) {
               return this.isVoid || a.toLowerCase() in this.closedByChildren;
@@ -21742,82 +21785,82 @@ var require_parser_html = __commonJS({
           "use strict";
           q(), Object.defineProperty(e, "__esModule", { value: true });
           var r = VD(), t = class {
-            constructor(d, m, T) {
-              this.value = d, this.sourceSpan = m, this.i18n = T, this.type = "text";
+            constructor(d, m2, T) {
+              this.value = d, this.sourceSpan = m2, this.i18n = T, this.type = "text";
             }
-            visit(d, m) {
-              return d.visitText(this, m);
+            visit(d, m2) {
+              return d.visitText(this, m2);
             }
           };
           e.Text = t;
           var s = class {
-            constructor(d, m) {
-              this.value = d, this.sourceSpan = m, this.type = "cdata";
+            constructor(d, m2) {
+              this.value = d, this.sourceSpan = m2, this.type = "cdata";
             }
-            visit(d, m) {
-              return d.visitCdata(this, m);
+            visit(d, m2) {
+              return d.visitCdata(this, m2);
             }
           };
           e.CDATA = s;
           var c = class {
-            constructor(d, m, T, B, A, N) {
-              this.switchValue = d, this.type = m, this.cases = T, this.sourceSpan = B, this.switchValueSourceSpan = A, this.i18n = N;
+            constructor(d, m2, T, B, A, N) {
+              this.switchValue = d, this.type = m2, this.cases = T, this.sourceSpan = B, this.switchValueSourceSpan = A, this.i18n = N;
             }
-            visit(d, m) {
-              return d.visitExpansion(this, m);
+            visit(d, m2) {
+              return d.visitExpansion(this, m2);
             }
           };
           e.Expansion = c;
           var n = class {
-            constructor(d, m, T, B, A) {
-              this.value = d, this.expression = m, this.sourceSpan = T, this.valueSourceSpan = B, this.expSourceSpan = A;
+            constructor(d, m2, T, B, A) {
+              this.value = d, this.expression = m2, this.sourceSpan = T, this.valueSourceSpan = B, this.expSourceSpan = A;
             }
-            visit(d, m) {
-              return d.visitExpansionCase(this, m);
+            visit(d, m2) {
+              return d.visitExpansionCase(this, m2);
             }
           };
           e.ExpansionCase = n;
           var a = class {
-            constructor(d, m, T) {
+            constructor(d, m2, T) {
               let B = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null, A = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : null, N = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : null;
-              this.name = d, this.value = m, this.sourceSpan = T, this.valueSpan = B, this.nameSpan = A, this.i18n = N, this.type = "attribute";
+              this.name = d, this.value = m2, this.sourceSpan = T, this.valueSpan = B, this.nameSpan = A, this.i18n = N, this.type = "attribute";
             }
-            visit(d, m) {
-              return d.visitAttribute(this, m);
+            visit(d, m2) {
+              return d.visitAttribute(this, m2);
             }
           };
           e.Attribute = a;
-          var p = class {
-            constructor(d, m, T, B) {
-              let A = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : null, N = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : null, R = arguments.length > 6 && arguments[6] !== void 0 ? arguments[6] : null, $ = arguments.length > 7 && arguments[7] !== void 0 ? arguments[7] : null;
-              this.name = d, this.attrs = m, this.children = T, this.sourceSpan = B, this.startSourceSpan = A, this.endSourceSpan = N, this.nameSpan = R, this.i18n = $, this.type = "element";
+          var p2 = class {
+            constructor(d, m2, T, B) {
+              let A = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : null, N = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : null, R = arguments.length > 6 && arguments[6] !== void 0 ? arguments[6] : null, $2 = arguments.length > 7 && arguments[7] !== void 0 ? arguments[7] : null;
+              this.name = d, this.attrs = m2, this.children = T, this.sourceSpan = B, this.startSourceSpan = A, this.endSourceSpan = N, this.nameSpan = R, this.i18n = $2, this.type = "element";
             }
-            visit(d, m) {
-              return d.visitElement(this, m);
+            visit(d, m2) {
+              return d.visitElement(this, m2);
             }
           };
-          e.Element = p;
+          e.Element = p2;
           var D = class {
-            constructor(d, m) {
-              this.value = d, this.sourceSpan = m, this.type = "comment";
+            constructor(d, m2) {
+              this.value = d, this.sourceSpan = m2, this.type = "comment";
             }
-            visit(d, m) {
-              return d.visitComment(this, m);
+            visit(d, m2) {
+              return d.visitComment(this, m2);
             }
           };
           e.Comment = D;
           var g = class {
-            constructor(d, m) {
-              this.value = d, this.sourceSpan = m, this.type = "docType";
+            constructor(d, m2) {
+              this.value = d, this.sourceSpan = m2, this.type = "docType";
             }
-            visit(d, m) {
-              return d.visitDocType(this, m);
+            visit(d, m2) {
+              return d.visitDocType(this, m2);
             }
           };
           e.DocType = g;
-          function i(d, m) {
+          function i(d, m2) {
             let T = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null, B = [], A = d.visit ? (N) => d.visit(N, T) || N.visit(d, T) : (N) => N.visit(d, T);
-            return m.forEach((N) => {
+            return m2.forEach((N) => {
               let R = A(N);
               R && B.push(R);
             }), B;
@@ -21826,52 +21869,52 @@ var require_parser_html = __commonJS({
           var l = class {
             constructor() {
             }
-            visitElement(d, m) {
-              this.visitChildren(m, (T) => {
+            visitElement(d, m2) {
+              this.visitChildren(m2, (T) => {
                 T(d.attrs), T(d.children);
               });
             }
-            visitAttribute(d, m) {
+            visitAttribute(d, m2) {
             }
-            visitText(d, m) {
+            visitText(d, m2) {
             }
-            visitCdata(d, m) {
+            visitCdata(d, m2) {
             }
-            visitComment(d, m) {
+            visitComment(d, m2) {
             }
-            visitDocType(d, m) {
+            visitDocType(d, m2) {
             }
-            visitExpansion(d, m) {
-              return this.visitChildren(m, (T) => {
+            visitExpansion(d, m2) {
+              return this.visitChildren(m2, (T) => {
                 T(d.cases);
               });
             }
-            visitExpansionCase(d, m) {
+            visitExpansionCase(d, m2) {
             }
-            visitChildren(d, m) {
+            visitChildren(d, m2) {
               let T = [], B = this;
               function A(N) {
                 N && T.push(i(B, N, d));
               }
-              return m(A), Array.prototype.concat.apply([], T);
+              return m2(A), Array.prototype.concat.apply([], T);
             }
           };
           e.RecursiveVisitor = l;
-          function h(d) {
-            let m = d.sourceSpan.start.offset, T = d.sourceSpan.end.offset;
-            return d instanceof p && (d.endSourceSpan ? T = d.endSourceSpan.end.offset : d.children && d.children.length && (T = h(d.children[d.children.length - 1]).end)), { start: m, end: T };
+          function h3(d) {
+            let m2 = d.sourceSpan.start.offset, T = d.sourceSpan.end.offset;
+            return d instanceof p2 && (d.endSourceSpan ? T = d.endSourceSpan.end.offset : d.children && d.children.length && (T = h3(d.children[d.children.length - 1]).end)), { start: m2, end: T };
           }
-          function C(d, m) {
+          function C(d, m2) {
             let T = [], B = new class extends l {
               visit(A, N) {
-                let R = h(A);
-                if (R.start <= m && m < R.end)
+                let R = h3(A);
+                if (R.start <= m2 && m2 < R.end)
                   T.push(A);
                 else
                   return true;
               }
             }();
-            return i(B, d), new r.AstPath(T, m);
+            return i(B, d), new r.AstPath(T, m2);
           }
           e.findNode = C;
         } }), XD = I({ "node_modules/angular-html-parser/lib/compiler/src/assertions.js"(e) {
@@ -21892,10 +21935,10 @@ var require_parser_html = __commonJS({
             if (n != null && !(Array.isArray(n) && n.length == 2))
               throw new Error("Expected '".concat(c, "' to be an array, [start, end]."));
             if (n != null) {
-              let a = n[0], p = n[1];
+              let a = n[0], p2 = n[1];
               t.forEach((D) => {
-                if (D.test(a) || D.test(p))
-                  throw new Error("['".concat(a, "', '").concat(p, "'] contains unusable interpolation symbol."));
+                if (D.test(a) || D.test(p2))
+                  throw new Error("['".concat(a, "', '").concat(p2, "'] contains unusable interpolation symbol."));
               });
             }
           }
@@ -21925,12 +21968,12 @@ var require_parser_html = __commonJS({
             }
           };
           e.Token = a;
-          var p = class extends t.ParseError {
+          var p2 = class extends t.ParseError {
             constructor(u, o, E) {
               super(E, u), this.tokenType = o;
             }
           };
-          e.TokenError = p;
+          e.TokenError = p2;
           var D = class {
             constructor(u, o) {
               this.tokens = u, this.errors = o;
@@ -21947,7 +21990,7 @@ var require_parser_html = __commonJS({
             let o = u === r.$EOF ? "EOF" : String.fromCharCode(u);
             return 'Unexpected character "'.concat(o, '"');
           }
-          function h(u) {
+          function h3(u) {
             return 'Unknown entity "'.concat(u, '" - use the "&#<decimal>;" or  "&#x<hex>;" syntax');
           }
           var C = class {
@@ -22010,15 +22053,15 @@ var require_parser_html = __commonJS({
             _endToken(u) {
               let o = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : this._cursor.clone();
               if (this._currentTokenStart === null)
-                throw new p("Programming error - attempted to end a token when there was no start to the token", this._currentTokenType, this._cursor.getSpan(o));
+                throw new p2("Programming error - attempted to end a token when there was no start to the token", this._currentTokenType, this._cursor.getSpan(o));
               if (this._currentTokenType === null)
-                throw new p("Programming error - attempted to end a token which has no token type", null, this._cursor.getSpan(this._currentTokenStart));
+                throw new p2("Programming error - attempted to end a token which has no token type", null, this._cursor.getSpan(this._currentTokenStart));
               let E = new a(this._currentTokenType, u, this._cursor.getSpan(this._currentTokenStart, this._leadingTriviaCodePoints));
               return this.tokens.push(E), this._currentTokenStart = null, this._currentTokenType = null, E;
             }
             _createError(u, o) {
               this._isInExpansionForm() && (u += ` (Do you have an unescaped "{" in your template? Use "{{ '{' }}") to escape it.)`);
-              let E = new p(u, this._currentTokenType, o);
+              let E = new p2(u, this._currentTokenType, o);
               return this._currentTokenStart = null, this._currentTokenType = null, new C(E);
             }
             handleError(u) {
@@ -22031,7 +22074,7 @@ var require_parser_html = __commonJS({
               return this._cursor.peek() === u ? (this._cursor.advance(), true) : false;
             }
             _attemptCharCodeCaseInsensitive(u) {
-              return $(this._cursor.peek(), u) ? (this._cursor.advance(), true) : false;
+              return $2(this._cursor.peek(), u) ? (this._cursor.advance(), true) : false;
             }
             _requireCharCode(u) {
               let o = this._cursor.clone();
@@ -22097,7 +22140,7 @@ var require_parser_html = __commonJS({
                   let F = parseInt(f, o ? 16 : 10);
                   return String.fromCharCode(F);
                 } catch {
-                  throw this._createError(h(this._cursor.getChars(u)), this._cursor.getSpan());
+                  throw this._createError(h3(this._cursor.getChars(u)), this._cursor.getSpan());
                 }
               } else {
                 let o = this._cursor.clone();
@@ -22107,7 +22150,7 @@ var require_parser_html = __commonJS({
                 this._cursor.advance();
                 let f = c.NAMED_ENTITIES[E];
                 if (!f)
-                  throw this._createError(h(E), this._cursor.getSpan(u));
+                  throw this._createError(h3(E), this._cursor.getSpan(u));
                 return f;
               }
             }
@@ -22148,15 +22191,15 @@ var require_parser_html = __commonJS({
               try {
                 if (!r.isAsciiLetter(this._cursor.peek()))
                   throw this._createError(l(this._cursor.peek()), this._cursor.getSpan(u));
-                for (f = this._consumeTagOpenStart(u), E = f.parts[0], o = f.parts[1], this._attemptCharCodeUntilFn(m); this._cursor.peek() !== r.$SLASH && this._cursor.peek() !== r.$GT; ) {
+                for (f = this._consumeTagOpenStart(u), E = f.parts[0], o = f.parts[1], this._attemptCharCodeUntilFn(m2); this._cursor.peek() !== r.$SLASH && this._cursor.peek() !== r.$GT; ) {
                   let [X, H] = this._consumeAttributeName();
-                  if (this._attemptCharCodeUntilFn(m), this._attemptCharCode(r.$EQ)) {
-                    this._attemptCharCodeUntilFn(m);
+                  if (this._attemptCharCodeUntilFn(m2), this._attemptCharCode(r.$EQ)) {
+                    this._attemptCharCodeUntilFn(m2);
                     let z = this._consumeAttributeValue();
                     j.push({ prefix: X, name: H, value: z });
                   } else
                     j.push({ prefix: X, name: H });
-                  this._attemptCharCodeUntilFn(m);
+                  this._attemptCharCodeUntilFn(m2);
                 }
                 this._consumeTagOpenEnd();
               } catch (X) {
@@ -22172,7 +22215,7 @@ var require_parser_html = __commonJS({
               this._handleFullNameStackForTagOpen(E, o), W === c.TagContentType.RAW_TEXT ? this._consumeRawTextWithTagClose(E, o, false) : W === c.TagContentType.ESCAPABLE_RAW_TEXT && this._consumeRawTextWithTagClose(E, o, true);
             }
             _consumeRawTextWithTagClose(u, o, E) {
-              let f = this._consumeRawText(E, () => !this._attemptCharCode(r.$LT) || !this._attemptCharCode(r.$SLASH) || (this._attemptCharCodeUntilFn(m), !this._attemptStrCaseInsensitive(u ? "".concat(u, ":").concat(o) : o)) ? false : (this._attemptCharCodeUntilFn(m), this._attemptCharCode(r.$GT)));
+              let f = this._consumeRawText(E, () => !this._attemptCharCode(r.$LT) || !this._attemptCharCode(r.$SLASH) || (this._attemptCharCodeUntilFn(m2), !this._attemptStrCaseInsensitive(u ? "".concat(u, ":").concat(o) : o)) ? false : (this._attemptCharCodeUntilFn(m2), this._attemptCharCode(r.$GT)));
               this._beginToken(n.TAG_CLOSE), this._requireCharCodeUntilFn((F) => F === r.$GT, 3), this._cursor.advance(), this._endToken([u, o]), this._handleFullNameStackForTagClose(u, o);
             }
             _consumeTagOpenStart(u) {
@@ -22210,27 +22253,27 @@ var require_parser_html = __commonJS({
               this._beginToken(u), this._requireCharCode(r.$GT), this._endToken([]);
             }
             _consumeTagClose(u) {
-              if (this._beginToken(n.TAG_CLOSE, u), this._attemptCharCodeUntilFn(m), this._allowHtmComponentClosingTags && this._attemptCharCode(r.$SLASH))
-                this._attemptCharCodeUntilFn(m), this._requireCharCode(r.$GT), this._endToken([]);
+              if (this._beginToken(n.TAG_CLOSE, u), this._attemptCharCodeUntilFn(m2), this._allowHtmComponentClosingTags && this._attemptCharCode(r.$SLASH))
+                this._attemptCharCodeUntilFn(m2), this._requireCharCode(r.$GT), this._endToken([]);
               else {
                 let [o, E] = this._consumePrefixAndName();
-                this._attemptCharCodeUntilFn(m), this._requireCharCode(r.$GT), this._endToken([o, E]), this._handleFullNameStackForTagClose(o, E);
+                this._attemptCharCodeUntilFn(m2), this._requireCharCode(r.$GT), this._endToken([o, E]), this._handleFullNameStackForTagClose(o, E);
               }
             }
             _consumeExpansionFormStart() {
               this._beginToken(n.EXPANSION_FORM_START), this._requireCharCode(r.$LBRACE), this._endToken([]), this._expansionCaseStack.push(n.EXPANSION_FORM_START), this._beginToken(n.RAW_TEXT);
               let u = this._readUntil(r.$COMMA);
-              this._endToken([u]), this._requireCharCode(r.$COMMA), this._attemptCharCodeUntilFn(m), this._beginToken(n.RAW_TEXT);
+              this._endToken([u]), this._requireCharCode(r.$COMMA), this._attemptCharCodeUntilFn(m2), this._beginToken(n.RAW_TEXT);
               let o = this._readUntil(r.$COMMA);
-              this._endToken([o]), this._requireCharCode(r.$COMMA), this._attemptCharCodeUntilFn(m);
+              this._endToken([o]), this._requireCharCode(r.$COMMA), this._attemptCharCodeUntilFn(m2);
             }
             _consumeExpansionCaseStart() {
               this._beginToken(n.EXPANSION_CASE_VALUE);
               let u = this._readUntil(r.$LBRACE).trim();
-              this._endToken([u]), this._attemptCharCodeUntilFn(m), this._beginToken(n.EXPANSION_CASE_EXP_START), this._requireCharCode(r.$LBRACE), this._endToken([]), this._attemptCharCodeUntilFn(m), this._expansionCaseStack.push(n.EXPANSION_CASE_EXP_START);
+              this._endToken([u]), this._attemptCharCodeUntilFn(m2), this._beginToken(n.EXPANSION_CASE_EXP_START), this._requireCharCode(r.$LBRACE), this._endToken([]), this._attemptCharCodeUntilFn(m2), this._expansionCaseStack.push(n.EXPANSION_CASE_EXP_START);
             }
             _consumeExpansionCaseEnd() {
-              this._beginToken(n.EXPANSION_CASE_EXP_END), this._requireCharCode(r.$RBRACE), this._endToken([]), this._attemptCharCodeUntilFn(m), this._expansionCaseStack.pop();
+              this._beginToken(n.EXPANSION_CASE_EXP_END), this._requireCharCode(r.$RBRACE), this._endToken([]), this._attemptCharCodeUntilFn(m2), this._expansionCaseStack.pop();
             }
             _consumeExpansionFormEnd() {
               this._beginToken(n.EXPANSION_FORM_END), this._requireCharCode(r.$RBRACE), this._endToken([]), this._expansionCaseStack.pop();
@@ -22275,7 +22318,7 @@ var require_parser_html = __commonJS({
               this._fullNameStack.length !== 0 && this._fullNameStack[this._fullNameStack.length - 1] === E && this._fullNameStack.pop();
             }
           };
-          function m(u) {
+          function m2(u) {
             return !r.isWhitespace(u) || u === r.$EOF;
           }
           function T(u) {
@@ -22293,7 +22336,7 @@ var require_parser_html = __commonJS({
           function R(u) {
             return u === r.$EQ || r.isAsciiLetter(u) || r.isDigit(u);
           }
-          function $(u, o) {
+          function $2(u, o) {
             return _(u) == _(o);
           }
           function _(u) {
@@ -22429,11 +22472,11 @@ var require_parser_html = __commonJS({
           "use strict";
           q(), Object.defineProperty(e, "__esModule", { value: true });
           var r = Te(), t = Ss(), s = zD(), c = Ze(), n = class extends r.ParseError {
-            constructor(i, l, h) {
-              super(l, h), this.elementName = i;
+            constructor(i, l, h3) {
+              super(l, h3), this.elementName = i;
             }
-            static create(i, l, h) {
-              return new n(i, l, h);
+            static create(i, l, h3) {
+              return new n(i, l, h3);
             }
           };
           e.TreeError = n;
@@ -22443,26 +22486,26 @@ var require_parser_html = __commonJS({
             }
           };
           e.ParseTreeResult = a;
-          var p = class {
+          var p2 = class {
             constructor(i) {
               this.getTagDefinition = i;
             }
-            parse(i, l, h) {
-              let C = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : false, d = arguments.length > 4 ? arguments[4] : void 0, m = (x) => function(k) {
+            parse(i, l, h3) {
+              let C = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : false, d = arguments.length > 4 ? arguments[4] : void 0, m2 = (x) => function(k) {
                 for (var M = arguments.length, u = new Array(M > 1 ? M - 1 : 0), o = 1; o < M; o++)
                   u[o - 1] = arguments[o];
                 return x(k.toLowerCase(), ...u);
-              }, T = C ? this.getTagDefinition : m(this.getTagDefinition), B = (x) => T(x).contentType, A = C ? d : m(d), N = d ? (x, k, M, u) => {
+              }, T = C ? this.getTagDefinition : m2(this.getTagDefinition), B = (x) => T(x).contentType, A = C ? d : m2(d), N = d ? (x, k, M, u) => {
                 let o = A(x, k, M, u);
                 return o !== void 0 ? o : B(x);
-              } : B, R = s.tokenize(i, l, N, h), $ = h && h.canSelfClose || false, _ = h && h.allowHtmComponentClosingTags || false, O = new D(R.tokens, T, $, _, C).build();
+              } : B, R = s.tokenize(i, l, N, h3), $2 = h3 && h3.canSelfClose || false, _ = h3 && h3.allowHtmComponentClosingTags || false, O = new D(R.tokens, T, $2, _, C).build();
               return new a(O.rootNodes, R.errors.concat(O.errors));
             }
           };
-          e.Parser = p;
+          e.Parser = p2;
           var D = class {
-            constructor(i, l, h, C, d) {
-              this.tokens = i, this.getTagDefinition = l, this.canSelfClose = h, this.allowHtmComponentClosingTags = C, this.isTagNameCaseSensitive = d, this._index = -1, this._rootNodes = [], this._errors = [], this._elementStack = [], this._advance();
+            constructor(i, l, h3, C, d) {
+              this.tokens = i, this.getTagDefinition = l, this.canSelfClose = h3, this.allowHtmComponentClosingTags = C, this.isTagNameCaseSensitive = d, this._index = -1, this._rootNodes = [], this._errors = [], this._elementStack = [], this._advance();
             }
             build() {
               for (; this._peek.type !== s.TokenType.EOF; )
@@ -22477,59 +22520,59 @@ var require_parser_html = __commonJS({
               return this._peek.type === i ? this._advance() : null;
             }
             _consumeCdata(i) {
-              let l = this._advance(), h = this._getText(l), C = this._advanceIf(s.TokenType.CDATA_END);
-              this._addToParent(new t.CDATA(h, new r.ParseSourceSpan(i.sourceSpan.start, (C || l).sourceSpan.end)));
+              let l = this._advance(), h3 = this._getText(l), C = this._advanceIf(s.TokenType.CDATA_END);
+              this._addToParent(new t.CDATA(h3, new r.ParseSourceSpan(i.sourceSpan.start, (C || l).sourceSpan.end)));
             }
             _consumeComment(i) {
-              let l = this._advanceIf(s.TokenType.RAW_TEXT), h = this._advanceIf(s.TokenType.COMMENT_END), C = l != null ? l.parts[0].trim() : null, d = new r.ParseSourceSpan(i.sourceSpan.start, (h || l || i).sourceSpan.end);
+              let l = this._advanceIf(s.TokenType.RAW_TEXT), h3 = this._advanceIf(s.TokenType.COMMENT_END), C = l != null ? l.parts[0].trim() : null, d = new r.ParseSourceSpan(i.sourceSpan.start, (h3 || l || i).sourceSpan.end);
               this._addToParent(new t.Comment(C, d));
             }
             _consumeDocType(i) {
-              let l = this._advanceIf(s.TokenType.RAW_TEXT), h = this._advanceIf(s.TokenType.DOC_TYPE_END), C = l != null ? l.parts[0].trim() : null, d = new r.ParseSourceSpan(i.sourceSpan.start, (h || l || i).sourceSpan.end);
+              let l = this._advanceIf(s.TokenType.RAW_TEXT), h3 = this._advanceIf(s.TokenType.DOC_TYPE_END), C = l != null ? l.parts[0].trim() : null, d = new r.ParseSourceSpan(i.sourceSpan.start, (h3 || l || i).sourceSpan.end);
               this._addToParent(new t.DocType(C, d));
             }
             _consumeExpansion(i) {
-              let l = this._advance(), h = this._advance(), C = [];
+              let l = this._advance(), h3 = this._advance(), C = [];
               for (; this._peek.type === s.TokenType.EXPANSION_CASE_VALUE; ) {
-                let m = this._parseExpansionCase();
-                if (!m)
+                let m2 = this._parseExpansionCase();
+                if (!m2)
                   return;
-                C.push(m);
+                C.push(m2);
               }
               if (this._peek.type !== s.TokenType.EXPANSION_FORM_END) {
                 this._errors.push(n.create(null, this._peek.sourceSpan, "Invalid ICU message. Missing '}'."));
                 return;
               }
               let d = new r.ParseSourceSpan(i.sourceSpan.start, this._peek.sourceSpan.end);
-              this._addToParent(new t.Expansion(l.parts[0], h.parts[0], C, d, l.sourceSpan)), this._advance();
+              this._addToParent(new t.Expansion(l.parts[0], h3.parts[0], C, d, l.sourceSpan)), this._advance();
             }
             _parseExpansionCase() {
               let i = this._advance();
               if (this._peek.type !== s.TokenType.EXPANSION_CASE_EXP_START)
                 return this._errors.push(n.create(null, this._peek.sourceSpan, "Invalid ICU message. Missing '{'.")), null;
-              let l = this._advance(), h = this._collectExpansionExpTokens(l);
-              if (!h)
+              let l = this._advance(), h3 = this._collectExpansionExpTokens(l);
+              if (!h3)
                 return null;
               let C = this._advance();
-              h.push(new s.Token(s.TokenType.EOF, [], C.sourceSpan));
-              let d = new D(h, this.getTagDefinition, this.canSelfClose, this.allowHtmComponentClosingTags, this.isTagNameCaseSensitive).build();
+              h3.push(new s.Token(s.TokenType.EOF, [], C.sourceSpan));
+              let d = new D(h3, this.getTagDefinition, this.canSelfClose, this.allowHtmComponentClosingTags, this.isTagNameCaseSensitive).build();
               if (d.errors.length > 0)
                 return this._errors = this._errors.concat(d.errors), null;
-              let m = new r.ParseSourceSpan(i.sourceSpan.start, C.sourceSpan.end), T = new r.ParseSourceSpan(l.sourceSpan.start, C.sourceSpan.end);
-              return new t.ExpansionCase(i.parts[0], d.rootNodes, m, i.sourceSpan, T);
+              let m2 = new r.ParseSourceSpan(i.sourceSpan.start, C.sourceSpan.end), T = new r.ParseSourceSpan(l.sourceSpan.start, C.sourceSpan.end);
+              return new t.ExpansionCase(i.parts[0], d.rootNodes, m2, i.sourceSpan, T);
             }
             _collectExpansionExpTokens(i) {
-              let l = [], h = [s.TokenType.EXPANSION_CASE_EXP_START];
+              let l = [], h3 = [s.TokenType.EXPANSION_CASE_EXP_START];
               for (; ; ) {
-                if ((this._peek.type === s.TokenType.EXPANSION_FORM_START || this._peek.type === s.TokenType.EXPANSION_CASE_EXP_START) && h.push(this._peek.type), this._peek.type === s.TokenType.EXPANSION_CASE_EXP_END)
-                  if (g(h, s.TokenType.EXPANSION_CASE_EXP_START)) {
-                    if (h.pop(), h.length == 0)
+                if ((this._peek.type === s.TokenType.EXPANSION_FORM_START || this._peek.type === s.TokenType.EXPANSION_CASE_EXP_START) && h3.push(this._peek.type), this._peek.type === s.TokenType.EXPANSION_CASE_EXP_END)
+                  if (g(h3, s.TokenType.EXPANSION_CASE_EXP_START)) {
+                    if (h3.pop(), h3.length == 0)
                       return l;
                   } else
                     return this._errors.push(n.create(null, i.sourceSpan, "Invalid ICU message. Missing '}'.")), null;
                 if (this._peek.type === s.TokenType.EXPANSION_FORM_END)
-                  if (g(h, s.TokenType.EXPANSION_FORM_START))
-                    h.pop();
+                  if (g(h3, s.TokenType.EXPANSION_FORM_START))
+                    h3.pop();
                   else
                     return this._errors.push(n.create(null, i.sourceSpan, "Invalid ICU message. Missing '}'.")), null;
                 if (this._peek.type === s.TokenType.EOF)
@@ -22541,8 +22584,8 @@ var require_parser_html = __commonJS({
               let l = i.parts[0];
               if (l.length > 0 && l[0] == `
 `) {
-                let h = this._getParentElement();
-                h != null && h.children.length == 0 && this.getTagDefinition(h.name).ignoreFirstLf && (l = l.substring(1));
+                let h3 = this._getParentElement();
+                h3 != null && h3.children.length == 0 && this.getTagDefinition(h3.name).ignoreFirstLf && (l = l.substring(1));
               }
               return l;
             }
@@ -22555,18 +22598,18 @@ var require_parser_html = __commonJS({
               i && this.getTagDefinition(i.name).isVoid && this._elementStack.pop();
             }
             _consumeStartTag(i) {
-              let l = i.parts[0], h = i.parts[1], C = [];
+              let l = i.parts[0], h3 = i.parts[1], C = [];
               for (; this._peek.type === s.TokenType.ATTR_NAME; )
                 C.push(this._consumeAttr(this._advance()));
-              let d = this._getElementFullName(l, h, this._getParentElement()), m = false;
+              let d = this._getElementFullName(l, h3, this._getParentElement()), m2 = false;
               if (this._peek.type === s.TokenType.TAG_OPEN_END_VOID) {
-                this._advance(), m = true;
+                this._advance(), m2 = true;
                 let R = this.getTagDefinition(d);
                 this.canSelfClose || R.canSelfClose || c.getNsPrefix(d) !== null || R.isVoid || this._errors.push(n.create(d, i.sourceSpan, 'Only void and foreign elements can be self closed "'.concat(i.parts[1], '"')));
               } else
-                this._peek.type === s.TokenType.TAG_OPEN_END && (this._advance(), m = false);
+                this._peek.type === s.TokenType.TAG_OPEN_END && (this._advance(), m2 = false);
               let T = this._peek.sourceSpan.start, B = new r.ParseSourceSpan(i.sourceSpan.start, T), A = new r.ParseSourceSpan(i.sourceSpan.start.moveBy(1), i.sourceSpan.end), N = new t.Element(d, C, [], B, B, void 0, A);
-              this._pushElement(N), m && (this._popElement(d), N.endSourceSpan = B);
+              this._pushElement(N), m2 && (this._popElement(d), N.endSourceSpan = B);
             }
             _pushElement(i) {
               let l = this._getParentElement();
@@ -22577,27 +22620,27 @@ var require_parser_html = __commonJS({
               if (this._getParentElement() && (this._getParentElement().endSourceSpan = i.sourceSpan), l && this.getTagDefinition(l).isVoid)
                 this._errors.push(n.create(l, i.sourceSpan, 'Void elements do not have end tags "'.concat(i.parts[1], '"')));
               else if (!this._popElement(l)) {
-                let h = 'Unexpected closing tag "'.concat(l, '". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags');
-                this._errors.push(n.create(l, i.sourceSpan, h));
+                let h3 = 'Unexpected closing tag "'.concat(l, '". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags');
+                this._errors.push(n.create(l, i.sourceSpan, h3));
               }
             }
             _popElement(i) {
               for (let l = this._elementStack.length - 1; l >= 0; l--) {
-                let h = this._elementStack[l];
-                if (!i || (c.getNsPrefix(h.name) ? h.name == i : h.name.toLowerCase() == i.toLowerCase()))
+                let h3 = this._elementStack[l];
+                if (!i || (c.getNsPrefix(h3.name) ? h3.name == i : h3.name.toLowerCase() == i.toLowerCase()))
                   return this._elementStack.splice(l, this._elementStack.length - l), true;
-                if (!this.getTagDefinition(h.name).closedByParent)
+                if (!this.getTagDefinition(h3.name).closedByParent)
                   return false;
               }
               return false;
             }
             _consumeAttr(i) {
-              let l = c.mergeNsAndName(i.parts[0], i.parts[1]), h = i.sourceSpan.end, C = "", d, m;
-              if (this._peek.type === s.TokenType.ATTR_QUOTE && (m = this._advance().sourceSpan.start), this._peek.type === s.TokenType.ATTR_VALUE) {
+              let l = c.mergeNsAndName(i.parts[0], i.parts[1]), h3 = i.sourceSpan.end, C = "", d, m2;
+              if (this._peek.type === s.TokenType.ATTR_QUOTE && (m2 = this._advance().sourceSpan.start), this._peek.type === s.TokenType.ATTR_VALUE) {
                 let T = this._advance();
-                C = T.parts[0], h = T.sourceSpan.end, d = T.sourceSpan;
+                C = T.parts[0], h3 = T.sourceSpan.end, d = T.sourceSpan;
               }
-              return this._peek.type === s.TokenType.ATTR_QUOTE && (h = this._advance().sourceSpan.end, d = new r.ParseSourceSpan(m, h)), new t.Attribute(l, C, new r.ParseSourceSpan(i.sourceSpan.start, h), d, i.sourceSpan);
+              return this._peek.type === s.TokenType.ATTR_QUOTE && (h3 = this._advance().sourceSpan.end, d = new r.ParseSourceSpan(m2, h3)), new t.Attribute(l, C, new r.ParseSourceSpan(i.sourceSpan.start, h3), d, i.sourceSpan);
             }
             _getParentElement() {
               return this._elementStack.length > 0 ? this._elementStack[this._elementStack.length - 1] : null;
@@ -22615,20 +22658,20 @@ var require_parser_html = __commonJS({
               let l = this._getParentElement();
               l != null ? l.children.push(i) : this._rootNodes.push(i);
             }
-            _insertBeforeContainer(i, l, h) {
+            _insertBeforeContainer(i, l, h3) {
               if (!l)
-                this._addToParent(h), this._elementStack.push(h);
+                this._addToParent(h3), this._elementStack.push(h3);
               else {
                 if (i) {
                   let C = i.children.indexOf(l);
-                  i.children[C] = h;
+                  i.children[C] = h3;
                 } else
-                  this._rootNodes.push(h);
-                h.children.push(l), this._elementStack.splice(this._elementStack.indexOf(l), 0, h);
+                  this._rootNodes.push(h3);
+                h3.children.push(l), this._elementStack.splice(this._elementStack.indexOf(l), 0, h3);
               }
             }
-            _getElementFullName(i, l, h) {
-              return i === "" && (i = this.getTagDefinition(l).implicitNamespacePrefix || "", i === "" && h != null && (i = c.getNsPrefix(h.name))), c.mergeNsAndName(i, l);
+            _getElementFullName(i, l, h3) {
+              return i === "" && (i = this.getTagDefinition(l).implicitNamespacePrefix || "", i === "" && h3 != null && (i = c.getNsPrefix(h3.name))), c.mergeNsAndName(i, l);
             }
           };
           function g(i, l) {
@@ -22643,9 +22686,9 @@ var require_parser_html = __commonJS({
             constructor() {
               super(r.getHtmlTagDefinition);
             }
-            parse(n, a, p) {
+            parse(n, a, p2) {
               let D = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : false, g = arguments.length > 4 ? arguments[4] : void 0;
-              return super.parse(n, a, p, D, g);
+              return super.parse(n, a, p2, D, g);
             }
           };
           e.HtmlParser = c;
@@ -22656,7 +22699,7 @@ var require_parser_html = __commonJS({
           e.TagContentType = t.TagContentType;
           var s = null, c = () => (s || (s = new r.HtmlParser()), s);
           function n(a) {
-            let p = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, { canSelfClose: D = false, allowHtmComponentClosingTags: g = false, isTagNameCaseSensitive: i = false, getTagContentType: l } = p;
+            let p2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, { canSelfClose: D = false, allowHtmComponentClosingTags: g = false, isTagNameCaseSensitive: i = false, getTagContentType: l } = p2;
             return c().parse(a, "angular-html-parser", { tokenizeExpansionForms: false, interpolationConfig: void 0, canSelfClose: D, allowHtmComponentClosingTags: g }, i, l);
           }
           e.parse = n;
@@ -22664,12 +22707,12 @@ var require_parser_html = __commonJS({
         q();
         var { ParseSourceSpan: Qe, ParseLocation: is, ParseSourceFile: YD } = Te(), QD = aD(), KD = ps(), JD = iD(), { inferParserByLanguage: ZD } = ID(), el = xD(), jr = LD(), os = MD(), { hasPragma: rl } = jD(), { Node: tl } = $D(), { parseIeConditionalComment: ul } = UD(), { locStart: nl, locEnd: sl } = GD();
         function al(e, r, t) {
-          let { recognizeSelfClosing: s, normalizeTagName: c, normalizeAttributeName: n, allowHtmComponentClosingTags: a, isTagNameCaseSensitive: p, getTagContentType: D } = r, g = ys(), { RecursiveVisitor: i, visitAll: l } = Ss(), { ParseSourceSpan: h } = Te(), { getHtmlTagDefinition: C } = _s(), { rootNodes: d, errors: m } = g.parse(e, { canSelfClose: s, allowHtmComponentClosingTags: a, isTagNameCaseSensitive: p, getTagContentType: D });
+          let { recognizeSelfClosing: s, normalizeTagName: c, normalizeAttributeName: n, allowHtmComponentClosingTags: a, isTagNameCaseSensitive: p2, getTagContentType: D } = r, g = ys(), { RecursiveVisitor: i, visitAll: l } = Ss(), { ParseSourceSpan: h3 } = Te(), { getHtmlTagDefinition: C } = _s(), { rootNodes: d, errors: m2 } = g.parse(e, { canSelfClose: s, allowHtmComponentClosingTags: a, isTagNameCaseSensitive: p2, getTagContentType: D });
           if (t.parser === "vue")
             if (d.some((O) => O.type === "docType" && O.value === "html" || O.type === "element" && O.name.toLowerCase() === "html")) {
-              s = true, c = true, n = true, a = true, p = false;
-              let O = g.parse(e, { canSelfClose: s, allowHtmComponentClosingTags: a, isTagNameCaseSensitive: p });
-              d = O.rootNodes, m = O.errors;
+              s = true, c = true, n = true, a = true, p2 = false;
+              let O = g.parse(e, { canSelfClose: s, allowHtmComponentClosingTags: a, isTagNameCaseSensitive: p2 });
+              d = O.rootNodes, m2 = O.errors;
             } else {
               let O = (x) => {
                 if (!x || x.type !== "element" || x.name !== "template")
@@ -22678,20 +22721,20 @@ var require_parser_html = __commonJS({
                 return !M || ZD(M, t) === "html";
               };
               if (d.some(O)) {
-                let x, k = () => g.parse(e, { canSelfClose: s, allowHtmComponentClosingTags: a, isTagNameCaseSensitive: p }), M = () => x || (x = k()), u = (o) => M().rootNodes.find((E) => {
+                let x, k = () => g.parse(e, { canSelfClose: s, allowHtmComponentClosingTags: a, isTagNameCaseSensitive: p2 }), M = () => x || (x = k()), u = (o) => M().rootNodes.find((E) => {
                   let { startSourceSpan: f } = E;
                   return f && f.start.offset === o.startSourceSpan.start.offset;
                 });
                 for (let o = 0; o < d.length; o++) {
                   let E = d[o], { endSourceSpan: f, startSourceSpan: F } = E;
                   if (f === null)
-                    m = M().errors, d[o] = u(E) || E;
+                    m2 = M().errors, d[o] = u(E) || E;
                   else if (O(E)) {
                     let j = M(), W = F.end.offset, X = f.start.offset;
                     for (let H of j.errors) {
                       let { offset: z } = H.span.start;
                       if (W < z && z < X) {
-                        m = [H];
+                        m2 = [H];
                         break;
                       }
                     }
@@ -22700,8 +22743,8 @@ var require_parser_html = __commonJS({
                 }
               }
             }
-          if (m.length > 0) {
-            let { msg: _, span: { start: O, end: x } } = m[0];
+          if (m2.length > 0) {
+            let { msg: _, span: { start: O, end: x } } = m2[0];
             throw JD(_, { start: { line: O.line + 1, column: O.col + 1 }, end: { line: x.line + 1, column: x.col + 1 } });
           }
           let T = (_) => {
@@ -22731,41 +22774,41 @@ var require_parser_html = __commonJS({
                 x.namespace || (x.name = A(x.name, (k) => _.name in jr && (k in jr["*"] || k in O)));
             }
           }, R = (_) => {
-            _.sourceSpan && _.endSourceSpan && (_.sourceSpan = new h(_.sourceSpan.start, _.endSourceSpan.end));
-          }, $ = (_) => {
+            _.sourceSpan && _.endSourceSpan && (_.sourceSpan = new h3(_.sourceSpan.start, _.endSourceSpan.end));
+          }, $2 = (_) => {
             if (_.type === "element") {
-              let O = C(p ? _.name : _.name.toLowerCase());
+              let O = C(p2 ? _.name : _.name.toLowerCase());
               !_.namespace || _.namespace === O.implicitNamespacePrefix || os(_) ? _.tagDefinition = O : _.tagDefinition = C("");
             }
           };
           return l(new class extends i {
             visit(_) {
-              B(_), $(_), N(_), R(_);
+              B(_), $2(_), N(_), R(_);
             }
           }(), d), d;
         }
         function Ts(e, r, t) {
-          let s = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true, { frontMatter: c, content: n } = s ? QD(e) : { frontMatter: null, content: e }, a = new YD(e, r.filepath), p = new is(a, 0, 0, 0), D = p.moveBy(e.length), g = { type: "root", sourceSpan: new Qe(p, D), children: al(n, t, r) };
+          let s = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : true, { frontMatter: c, content: n } = s ? QD(e) : { frontMatter: null, content: e }, a = new YD(e, r.filepath), p2 = new is(a, 0, 0, 0), D = p2.moveBy(e.length), g = { type: "root", sourceSpan: new Qe(p2, D), children: al(n, t, r) };
           if (c) {
-            let h = new is(a, 0, 0, 0), C = h.moveBy(c.raw.length);
-            c.sourceSpan = new Qe(h, C), g.children.unshift(c);
+            let h3 = new is(a, 0, 0, 0), C = h3.moveBy(c.raw.length);
+            c.sourceSpan = new Qe(h3, C), g.children.unshift(c);
           }
-          let i = new tl(g), l = (h, C) => {
-            let { offset: d } = C, m = e.slice(0, d).replace(/[^\n\r]/g, " "), B = Ts(m + h, r, t, false);
+          let i = new tl(g), l = (h3, C) => {
+            let { offset: d } = C, m2 = e.slice(0, d).replace(/[^\n\r]/g, " "), B = Ts(m2 + h3, r, t, false);
             B.sourceSpan = new Qe(C, KD(B.children).sourceSpan.end);
             let A = B.children[0];
             return A.length === d ? B.children.shift() : (A.sourceSpan = new Qe(A.sourceSpan.start.moveBy(d), A.sourceSpan.end), A.value = A.value.slice(d)), B;
           };
-          return i.walk((h) => {
-            if (h.type === "comment") {
-              let C = ul(h, l);
-              C && h.parent.replaceChild(h, C);
+          return i.walk((h3) => {
+            if (h3.type === "comment") {
+              let C = ul(h3, l);
+              C && h3.parent.replaceChild(h3, C);
             }
           }), i;
         }
         function Ke() {
           let { name: e, recognizeSelfClosing: r = false, normalizeTagName: t = false, normalizeAttributeName: s = false, allowHtmComponentClosingTags: c = false, isTagNameCaseSensitive: n = false, getTagContentType: a } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-          return { parse: (p, D, g) => Ts(p, Object.assign({ parser: e }, g), { recognizeSelfClosing: r, normalizeTagName: t, normalizeAttributeName: s, allowHtmComponentClosingTags: c, isTagNameCaseSensitive: n, getTagContentType: a }), hasPragma: rl, astFormat: "html", locStart: nl, locEnd: sl };
+          return { parse: (p2, D, g) => Ts(p2, Object.assign({ parser: e }, g), { recognizeSelfClosing: r, normalizeTagName: t, normalizeAttributeName: s, allowHtmComponentClosingTags: c, isTagNameCaseSensitive: n, getTagContentType: a }), hasPragma: rl, astFormat: "html", locStart: nl, locEnd: sl };
         }
         Bs.exports = { parsers: { html: Ke({ name: "html", recognizeSelfClosing: true, normalizeTagName: true, normalizeAttributeName: true, allowHtmComponentClosingTags: true }), angular: Ke({ name: "angular" }), vue: Ke({ name: "vue", recognizeSelfClosing: true, isTagNameCaseSensitive: true, getTagContentType: (e, r, t, s) => {
           if (e.toLowerCase() !== "html" && !t && (e !== "template" || s.some((c) => {
@@ -22914,7 +22957,7 @@ var require_parser_postcss = __commonJS({
         dn.exports = Ia("navigator", "userAgent") || "";
       });
       var xn = V((Ap, bn) => {
-        var _n = ee(), Pr = vn(), mn = _n.process, gn = _n.Deno, yn = mn && mn.versions || gn && gn.version, wn = yn && yn.v8, he, sr;
+        var _n2 = ee(), Pr = vn(), mn = _n2.process, gn = _n2.Deno, yn = mn && mn.versions || gn && gn.version, wn = yn && yn.v8, he, sr;
         wn && (he = wn.split("."), sr = he[0] > 0 && he[0] < 4 ? 1 : +(he[0] + he[1]));
         !sr && Pr && (he = Pr.match(/Edge\/(\d+)/), (!he || he[1] >= 74) && (he = Pr.match(/Chrome\/(\d+)/), he && (sr = +he[1])));
         bn.exports = sr;
@@ -23171,14 +23214,14 @@ var require_parser_postcss = __commonJS({
         Ii.exports = { EXISTS: it, PROPER: vc, CONFIGURABLE: mc };
       });
       var Li = V((oh, Di) => {
-        var gc = ee(), Ni = ve(), yc = Se(), ji = cr(), wc = or(), _c = Qr(), Mi = Pi(), bc = Ci().CONFIGURABLE, xc = Mi.get, kc = Mi.enforce, Sc = String(String).split("String");
+        var gc = ee(), Ni = ve(), yc = Se(), ji = cr(), wc = or(), _c = Qr(), Mi = Pi(), bc2 = Ci().CONFIGURABLE, xc = Mi.get, kc = Mi.enforce, Sc = String(String).split("String");
         (Di.exports = function(e, n, i, a) {
-          var o = a ? !!a.unsafe : false, f = a ? !!a.enumerable : false, p = a ? !!a.noTargetGet : false, h = a && a.name !== void 0 ? a.name : n, g;
-          if (Ni(i) && (String(h).slice(0, 7) === "Symbol(" && (h = "[" + String(h).replace(/^Symbol\(([^)]*)\)/, "$1") + "]"), (!yc(i, "name") || bc && i.name !== h) && ji(i, "name", h), g = kc(i), g.source || (g.source = Sc.join(typeof h == "string" ? h : ""))), e === gc) {
+          var o = a ? !!a.unsafe : false, f = a ? !!a.enumerable : false, p2 = a ? !!a.noTargetGet : false, h3 = a && a.name !== void 0 ? a.name : n, g;
+          if (Ni(i) && (String(h3).slice(0, 7) === "Symbol(" && (h3 = "[" + String(h3).replace(/^Symbol\(([^)]*)\)/, "$1") + "]"), (!yc(i, "name") || bc2 && i.name !== h3) && ji(i, "name", h3), g = kc(i), g.source || (g.source = Sc.join(typeof h3 == "string" ? h3 : ""))), e === gc) {
             f ? e[n] = i : wc(n, i);
             return;
           } else
-            o ? !p && e[n] && (f = true) : delete e[n];
+            o ? !p2 && e[n] && (f = true) : delete e[n];
           f ? e[n] = i : ji(e, n, i);
         })(Function.prototype, "toString", function() {
           return Ni(this) && xc(this).source || _c(this);
@@ -23213,15 +23256,15 @@ var require_parser_postcss = __commonJS({
       var Ji = V((fh, Hi) => {
         var Cc = nr(), Nc = Fi(), jc = Vi(), Gi = function(e) {
           return function(n, i, a) {
-            var o = Cc(n), f = jc(o), p = Nc(a, f), h;
+            var o = Cc(n), f = jc(o), p2 = Nc(a, f), h3;
             if (e && i != i) {
-              for (; f > p; )
-                if (h = o[p++], h != h)
+              for (; f > p2; )
+                if (h3 = o[p2++], h3 != h3)
                   return true;
             } else
-              for (; f > p; p++)
-                if ((e || p in o) && o[p] === i)
-                  return e || p || 0;
+              for (; f > p2; p2++)
+                if ((e || p2 in o) && o[p2] === i)
+                  return e || p2 || 0;
             return !e && -1;
           };
         };
@@ -23260,9 +23303,9 @@ var require_parser_postcss = __commonJS({
       var us = V((gh, as) => {
         var os = Se(), Kc = ss(), Qc = Ur(), Yc = Jr();
         as.exports = function(e, n, i) {
-          for (var a = Kc(n), o = Yc.f, f = Qc.f, p = 0; p < a.length; p++) {
-            var h = a[p];
-            !os(e, h) && !(i && os(i, h)) && o(e, h, f(n, h));
+          for (var a = Kc(n), o = Yc.f, f = Qc.f, p2 = 0; p2 < a.length; p2++) {
+            var h3 = a[p2];
+            !os(e, h3) && !(i && os(i, h3)) && o(e, h3, f(n, h3));
           }
         };
       });
@@ -23278,15 +23321,15 @@ var require_parser_postcss = __commonJS({
       var ps = V((wh, fs) => {
         var at = ee(), sl = Ur().f, ol = cr(), al = Li(), ul = or(), cl = us(), ll = ls();
         fs.exports = function(e, n) {
-          var i = e.target, a = e.global, o = e.stat, f, p, h, g, c, t;
-          if (a ? p = at : o ? p = at[i] || ul(i, {}) : p = (at[i] || {}).prototype, p)
-            for (h in n) {
-              if (c = n[h], e.noTargetGet ? (t = sl(p, h), g = t && t.value) : g = p[h], f = ll(a ? h : i + (o ? "." : "#") + h, e.forced), !f && g !== void 0) {
+          var i = e.target, a = e.global, o = e.stat, f, p2, h3, g, c, t;
+          if (a ? p2 = at : o ? p2 = at[i] || ul(i, {}) : p2 = (at[i] || {}).prototype, p2)
+            for (h3 in n) {
+              if (c = n[h3], e.noTargetGet ? (t = sl(p2, h3), g = t && t.value) : g = p2[h3], f = ll(a ? h3 : i + (o ? "." : "#") + h3, e.forced), !f && g !== void 0) {
                 if (typeof c == typeof g)
                   continue;
                 cl(c, g);
               }
-              (e.sham || g && g.sham) && ol(c, "sham", true), al(p, h, c, e);
+              (e.sham || g && g.sham) && ol(c, "sham", true), al(p2, h3, c, e);
             }
         };
       });
@@ -23333,11 +23376,11 @@ var require_parser_postcss = __commonJS({
             let f = o.match(i);
             if (!f)
               return { content: o };
-            let { startDelimiter: p, language: h, value: g = "", endDelimiter: c } = f.groups, t = h.trim() || "yaml";
-            if (p === "+++" && (t = "toml"), t !== "yaml" && p !== c)
+            let { startDelimiter: p2, language: h3, value: g = "", endDelimiter: c } = f.groups, t = h3.trim() || "yaml";
+            if (p2 === "+++" && (t = "toml"), t !== "yaml" && p2 !== c)
               return { content: o };
             let [r] = f;
-            return { frontMatter: { type: "front-matter", lang: t, value: g, startDelimiter: p, endDelimiter: c, raw: r.replace(/\n$/, "") }, content: r.replace(/[^\n]/g, " ") + o.slice(r.length) };
+            return { frontMatter: { type: "front-matter", lang: t, value: g, startDelimiter: p2, endDelimiter: c, raw: r.replace(/\n$/, "") }, content: r.replace(/[^\n]/g, " ") + o.slice(r.length) };
           }
           n.exports = a;
         } }), js = {};
@@ -23412,9 +23455,9 @@ var require_parser_postcss = __commonJS({
             let o = a.match(/(?:\r?\n)/g) || [];
             if (o.length === 0)
               return;
-            let f = o.filter((h) => h === `\r
-`).length, p = o.length - f;
-            return f > p ? `\r
+            let f = o.filter((h3) => h3 === `\r
+`).length, p2 = o.length - f;
+            return f > p2 ? `\r
 ` : `
 `;
           };
@@ -23422,7 +23465,7 @@ var require_parser_postcss = __commonJS({
 `;
         } }), xl = R({ "node_modules/jest-docblock/build/index.js"(e) {
           "use strict";
-          A(), Object.defineProperty(e, "__esModule", { value: true }), e.extract = s, e.parse = m, e.parseWithComments = v, e.print = y, e.strip = l;
+          A(), Object.defineProperty(e, "__esModule", { value: true }), e.extract = s, e.parse = m2, e.parseWithComments = v, e.print = y, e.strip = l;
           function n() {
             let d = _l();
             return n = function() {
@@ -23438,16 +23481,16 @@ var require_parser_postcss = __commonJS({
           function a(d) {
             return d && d.__esModule ? d : { default: d };
           }
-          var o = /\*\/$/, f = /^\/\*\*/, p = /^\s*(\/\*\*?(.|\r?\n)*?\*\/)/, h = /(^|\s+)\/\/([^\r\n]*)/g, g = /^(\r?\n)+/, c = /(?:^|\r?\n) *(@[^\r\n]*?) *\r?\n *(?![^@\r\n]*\/\/[^]*)([^@\r\n\s][^@\r\n]+?) *\r?\n/g, t = /(?:^|\r?\n) *@(\S+) *([^\r\n]*)/g, r = /(\r?\n|^) *\* ?/g, u = [];
+          var o = /\*\/$/, f = /^\/\*\*/, p2 = /^\s*(\/\*\*?(.|\r?\n)*?\*\/)/, h3 = /(^|\s+)\/\/([^\r\n]*)/g, g = /^(\r?\n)+/, c = /(?:^|\r?\n) *(@[^\r\n]*?) *\r?\n *(?![^@\r\n]*\/\/[^]*)([^@\r\n\s][^@\r\n]+?) *\r?\n/g, t = /(?:^|\r?\n) *@(\S+) *([^\r\n]*)/g, r = /(\r?\n|^) *\* ?/g, u = [];
           function s(d) {
-            let _ = d.match(p);
+            let _ = d.match(p2);
             return _ ? _[0].trimLeft() : "";
           }
           function l(d) {
-            let _ = d.match(p);
+            let _ = d.match(p2);
             return _ && _[0] ? d.substring(_[0].length) : d;
           }
-          function m(d) {
+          function m2(d) {
             return v(d).pragmas;
           }
           function v(d) {
@@ -23459,22 +23502,22 @@ var require_parser_postcss = __commonJS({
             d = d.replace(g, "").trimRight();
             let x = /* @__PURE__ */ Object.create(null), N = d.replace(t, "").replace(g, "").trimRight(), P;
             for (; P = t.exec(d); ) {
-              let W = P[2].replace(h, "");
+              let W = P[2].replace(h3, "");
               typeof x[P[1]] == "string" || Array.isArray(x[P[1]]) ? x[P[1]] = u.concat(x[P[1]], W) : x[P[1]] = W;
             }
             return { comments: N, pragmas: x };
           }
           function y(d) {
-            let { comments: _ = "", pragmas: S = {} } = d, x = (0, i().default)(_) || n().EOL, N = "/**", P = " *", W = " */", U = Object.keys(S), H = U.map(($) => w($, S[$])).reduce(($, B) => $.concat(B), []).map(($) => P + " " + $ + x).join("");
+            let { comments: _ = "", pragmas: S = {} } = d, x = (0, i().default)(_) || n().EOL, N = "/**", P = " *", W = " */", U = Object.keys(S), H = U.map(($2) => w($2, S[$2])).reduce(($2, B) => $2.concat(B), []).map(($2) => P + " " + $2 + x).join("");
             if (!_) {
               if (U.length === 0)
                 return "";
               if (U.length === 1 && !Array.isArray(S[U[0]])) {
-                let $ = S[U[0]];
-                return "".concat(N, " ").concat(w(U[0], $)[0]).concat(W);
+                let $2 = S[U[0]];
+                return "".concat(N, " ").concat(w(U[0], $2)[0]).concat(W);
               }
             }
-            let D = _.split(x).map(($) => "".concat(P, " ").concat($)).join(x) + x;
+            let D = _.split(x).map(($2) => "".concat(P, " ").concat($2)).join(x) + x;
             return N + x + (_ ? D : "") + (_ && U.length ? P + x : "") + H + W;
           }
           function w(d, _) {
@@ -23483,13 +23526,13 @@ var require_parser_postcss = __commonJS({
         } }), kl = R({ "src/common/end-of-line.js"(e, n) {
           "use strict";
           A();
-          function i(p) {
-            let h = p.indexOf("\r");
-            return h >= 0 ? p.charAt(h + 1) === `
+          function i(p2) {
+            let h3 = p2.indexOf("\r");
+            return h3 >= 0 ? p2.charAt(h3 + 1) === `
 ` ? "crlf" : "cr" : "lf";
           }
-          function a(p) {
-            switch (p) {
+          function a(p2) {
+            switch (p2) {
               case "cr":
                 return "\r";
               case "crlf":
@@ -23500,9 +23543,9 @@ var require_parser_postcss = __commonJS({
 `;
             }
           }
-          function o(p, h) {
+          function o(p2, h3) {
             let g;
-            switch (h) {
+            switch (h3) {
               case `
 `:
                 g = /\n/g;
@@ -23515,13 +23558,13 @@ var require_parser_postcss = __commonJS({
                 g = /\r\n/g;
                 break;
               default:
-                throw new Error('Unexpected "eol" '.concat(JSON.stringify(h), "."));
+                throw new Error('Unexpected "eol" '.concat(JSON.stringify(h3), "."));
             }
-            let c = p.match(g);
+            let c = p2.match(g);
             return c ? c.length : 0;
           }
-          function f(p) {
-            return p.replace(/\r\n?/g, `
+          function f(p2) {
+            return p2.replace(/\r\n?/g, `
 `);
           }
           n.exports = { guessEndOfLine: i, convertEndOfLineToChars: a, countEndOfLineChars: o, normalizeEndOfLine: f };
@@ -23539,21 +23582,21 @@ var require_parser_postcss = __commonJS({
         } }), Ol = R({ "src/language-js/pragma.js"(e, n) {
           "use strict";
           A();
-          var { parseWithComments: i, strip: a, extract: o, print: f } = xl(), { normalizeEndOfLine: p } = kl(), h = Sl();
+          var { parseWithComments: i, strip: a, extract: o, print: f } = xl(), { normalizeEndOfLine: p2 } = kl(), h3 = Sl();
           function g(r) {
-            let u = h(r);
+            let u = h3(r);
             u && (r = r.slice(u.length + 1));
-            let s = o(r), { pragmas: l, comments: m } = i(s);
-            return { shebang: u, text: r, pragmas: l, comments: m };
+            let s = o(r), { pragmas: l, comments: m2 } = i(s);
+            return { shebang: u, text: r, pragmas: l, comments: m2 };
           }
           function c(r) {
             let u = Object.keys(g(r).pragmas);
             return u.includes("prettier") || u.includes("format");
           }
           function t(r) {
-            let { shebang: u, text: s, pragmas: l, comments: m } = g(r), v = a(s), y = f({ pragmas: Object.assign({ format: "" }, l), comments: m.trimStart() });
+            let { shebang: u, text: s, pragmas: l, comments: m2 } = g(r), v = a(s), y = f({ pragmas: Object.assign({ format: "" }, l), comments: m2.trimStart() });
             return (u ? "".concat(u, `
-`) : "") + p(y) + (v.startsWith(`
+`) : "") + p2(y) + (v.startsWith(`
 `) ? `
 ` : `
 
@@ -23564,12 +23607,12 @@ var require_parser_postcss = __commonJS({
           "use strict";
           A();
           var i = Ol(), a = Ns();
-          function o(p) {
-            return i.hasPragma(a(p).content);
+          function o(p2) {
+            return i.hasPragma(a(p2).content);
           }
-          function f(p) {
-            let { frontMatter: h, content: g } = a(p);
-            return (h ? h.raw + `
+          function f(p2) {
+            let { frontMatter: h3, content: g } = a(p2);
+            return (h3 ? h3.raw + `
 
 ` : "") + i.insertPragma(g);
           }
@@ -23577,7 +23620,7 @@ var require_parser_postcss = __commonJS({
         } }), El = R({ "src/utils/text/skip.js"(e, n) {
           "use strict";
           A();
-          function i(h) {
+          function i(h3) {
             return (g, c, t) => {
               let r = t && t.backwards;
               if (c === false)
@@ -23585,18 +23628,18 @@ var require_parser_postcss = __commonJS({
               let { length: u } = g, s = c;
               for (; s >= 0 && s < u; ) {
                 let l = g.charAt(s);
-                if (h instanceof RegExp) {
-                  if (!h.test(l))
+                if (h3 instanceof RegExp) {
+                  if (!h3.test(l))
                     return s;
-                } else if (!h.includes(l))
+                } else if (!h3.includes(l))
                   return s;
                 r ? s-- : s++;
               }
               return s === -1 || s === u ? s : false;
             };
           }
-          var a = i(/\s/), o = i(" 	"), f = i(",; 	"), p = i(/[^\n\r]/);
-          n.exports = { skipWhitespace: a, skipSpaces: o, skipToLineEnd: f, skipEverythingButNewLine: p };
+          var a = i(/\s/), o = i(" 	"), f = i(",; 	"), p2 = i(/[^\n\r]/);
+          n.exports = { skipWhitespace: a, skipSpaces: o, skipToLineEnd: f, skipEverythingButNewLine: p2 };
         } }), ql = R({ "src/utils/line-column-to-index.js"(e, n) {
           "use strict";
           A(), n.exports = function(i, a) {
@@ -23613,24 +23656,24 @@ var require_parser_postcss = __commonJS({
           function f(s, l) {
             return typeof s.sourceIndex == "number" ? s.sourceIndex : s.source ? o(s.source.start, l) - 1 : null;
           }
-          function p(s, l) {
+          function p2(s, l) {
             if (s.type === "css-comment" && s.inline)
               return i(l, s.source.startOffset);
-            let m = s.nodes && a(s.nodes);
-            return m && s.source && !s.source.end && (s = m), s.source && s.source.end ? o(s.source.end, l) : null;
+            let m2 = s.nodes && a(s.nodes);
+            return m2 && s.source && !s.source.end && (s = m2), s.source && s.source.end ? o(s.source.end, l) : null;
           }
-          function h(s, l) {
-            s.source && (s.source.startOffset = f(s, l), s.source.endOffset = p(s, l));
-            for (let m in s) {
-              let v = s[m];
-              m === "source" || !v || typeof v != "object" || (v.type === "value-root" || v.type === "value-unknown" ? g(v, c(s), v.text || v.value) : h(v, l));
+          function h3(s, l) {
+            s.source && (s.source.startOffset = f(s, l), s.source.endOffset = p2(s, l));
+            for (let m2 in s) {
+              let v = s[m2];
+              m2 === "source" || !v || typeof v != "object" || (v.type === "value-root" || v.type === "value-unknown" ? g(v, c(s), v.text || v.value) : h3(v, l));
             }
           }
-          function g(s, l, m) {
-            s.source && (s.source.startOffset = f(s, m) + l, s.source.endOffset = p(s, m) + l);
+          function g(s, l, m2) {
+            s.source && (s.source.startOffset = f(s, m2) + l, s.source.endOffset = p2(s, m2) + l);
             for (let v in s) {
               let y = s[v];
-              v === "source" || !y || typeof y != "object" || g(y, l, m);
+              v === "source" || !y || typeof y != "object" || g(y, l, m2);
             }
           }
           function c(s) {
@@ -23638,7 +23681,7 @@ var require_parser_postcss = __commonJS({
             return typeof s.prop == "string" && (l += s.prop.length), s.type === "css-atrule" && typeof s.name == "string" && (l += 1 + s.name.length + s.raws.afterName.match(/^\s*:?\s*/)[0].length), s.type !== "css-atrule" && s.raws && typeof s.raws.between == "string" && (l += s.raws.between.length), l;
           }
           function t(s) {
-            let l = "initial", m = "initial", v, y = false, w = [];
+            let l = "initial", m2 = "initial", v, y = false, w = [];
             for (let d = 0; d < s.length; d++) {
               let _ = s[d];
               switch (l) {
@@ -23665,12 +23708,12 @@ var require_parser_postcss = __commonJS({
                   }
                   continue;
                 case "single-quotes":
-                  if (_ === "'" && s[d - 1] !== "\\" && (l = m, m = "initial"), _ === `
+                  if (_ === "'" && s[d - 1] !== "\\" && (l = m2, m2 = "initial"), _ === `
 ` || _ === "\r")
                     return s;
                   continue;
                 case "double-quotes":
-                  if (_ === '"' && s[d - 1] !== "\\" && (l = m, m = "initial"), _ === `
+                  if (_ === '"' && s[d - 1] !== "\\" && (l = m2, m2 = "initial"), _ === `
 ` || _ === "\r")
                     return s;
                   continue;
@@ -23679,11 +23722,11 @@ var require_parser_postcss = __commonJS({
 ` || _ === "\r")
                     return s;
                   if (_ === "'") {
-                    l = "single-quotes", m = "url";
+                    l = "single-quotes", m2 = "url";
                     continue;
                   }
                   if (_ === '"') {
-                    l = "double-quotes", m = "url";
+                    l = "double-quotes", m2 = "url";
                     continue;
                   }
                   continue;
@@ -23706,7 +23749,7 @@ var require_parser_postcss = __commonJS({
           function u(s) {
             return s.source.endOffset;
           }
-          n.exports = { locStart: r, locEnd: u, calculateLoc: h, replaceQuotesInInlineComments: t };
+          n.exports = { locStart: r, locEnd: u, calculateLoc: h3, replaceQuotesInInlineComments: t };
         } }), Al = R({ "src/utils/is-non-empty-array.js"(e, n) {
           "use strict";
           A();
@@ -23766,14 +23809,14 @@ var require_parser_postcss = __commonJS({
           "use strict";
           A();
           function i(a) {
-            var o, f, p;
+            var o, f, p2;
             if (a.groups) {
-              var h, g, c;
-              let y = ((h = a.open) === null || h === void 0 ? void 0 : h.value) || "", w = a.groups.map((_) => i(_)).join(((g = a.groups[0]) === null || g === void 0 ? void 0 : g.type) === "comma_group" ? "," : ""), d = ((c = a.close) === null || c === void 0 ? void 0 : c.value) || "";
+              var h3, g, c;
+              let y = ((h3 = a.open) === null || h3 === void 0 ? void 0 : h3.value) || "", w = a.groups.map((_) => i(_)).join(((g = a.groups[0]) === null || g === void 0 ? void 0 : g.type) === "comma_group" ? "," : ""), d = ((c = a.close) === null || c === void 0 ? void 0 : c.value) || "";
               return y + w + d;
             }
-            let t = ((o = a.raws) === null || o === void 0 ? void 0 : o.before) || "", r = ((f = a.raws) === null || f === void 0 ? void 0 : f.quote) || "", u = a.type === "atword" ? "@" : "", s = a.value || "", l = a.unit || "", m = a.group ? i(a.group) : "", v = ((p = a.raws) === null || p === void 0 ? void 0 : p.after) || "";
-            return t + r + u + s + r + l + m + v;
+            let t = ((o = a.raws) === null || o === void 0 ? void 0 : o.before) || "", r = ((f = a.raws) === null || f === void 0 ? void 0 : f.quote) || "", u = a.type === "atword" ? "@" : "", s = a.value || "", l = a.unit || "", m2 = a.group ? i(a.group) : "", v = ((p2 = a.raws) === null || p2 === void 0 ? void 0 : p2.after) || "";
+            return t + r + u + s + r + l + m2 + v;
           }
           n.exports = i;
         } }), Dl = R({ "src/language-css/utils/is-module-rule-name.js"(e, n) {
@@ -23789,11 +23832,11 @@ var require_parser_postcss = __commonJS({
           A();
           var i = function(a, o) {
             let f = new a.constructor();
-            for (let p in a) {
-              if (!a.hasOwnProperty(p))
+            for (let p2 in a) {
+              if (!a.hasOwnProperty(p2))
                 continue;
-              let h = a[p], g = typeof h;
-              p === "parent" && g === "object" ? o && (f[p] = o) : p === "source" ? f[p] = h : h instanceof Array ? f[p] = h.map((c) => i(c, f)) : p !== "before" && p !== "after" && p !== "between" && p !== "semicolon" && (g === "object" && h !== null && (h = i(h)), f[p] = h);
+              let h3 = a[p2], g = typeof h3;
+              p2 === "parent" && g === "object" ? o && (f[p2] = o) : p2 === "source" ? f[p2] = h3 : h3 instanceof Array ? f[p2] = h3.map((c) => i(c, f)) : p2 !== "before" && p2 !== "after" && p2 !== "between" && p2 !== "semicolon" && (g === "object" && h3 !== null && (h3 = i(h3)), f[p2] = h3);
             }
             return f;
           };
@@ -23812,8 +23855,8 @@ var require_parser_postcss = __commonJS({
             clone(o) {
               o = o || {};
               let f = i(this);
-              for (let p in o)
-                f[p] = o[p];
+              for (let p2 in o)
+                f[p2] = o[p2];
               return f;
             }
             cloneBefore(o) {
@@ -23857,8 +23900,8 @@ var require_parser_postcss = __commonJS({
               for (let f in this) {
                 if (!this.hasOwnProperty(f) || f === "parent")
                   continue;
-                let p = this[f];
-                p instanceof Array ? o[f] = p.map((h) => typeof h == "object" && h.toJSON ? h.toJSON() : h) : typeof p == "object" && p.toJSON ? o[f] = p.toJSON() : o[f] = p;
+                let p2 = this[f];
+                p2 instanceof Array ? o[f] = p2.map((h3) => typeof h3 == "object" && h3.toJSON ? h3.toJSON() : h3) : typeof p2 == "object" && p2.toJSON ? o[f] = p2.toJSON() : o[f] = p2;
               }
               return o;
             }
@@ -23872,19 +23915,19 @@ var require_parser_postcss = __commonJS({
               delete this.raws.before, delete this.raws.after, o || delete this.raws.between;
             }
             positionInside(o) {
-              let f = this.toString(), p = this.source.start.column, h = this.source.start.line;
+              let f = this.toString(), p2 = this.source.start.column, h3 = this.source.start.line;
               for (let g = 0; g < o; g++)
                 f[g] === `
-` ? (p = 1, h += 1) : p += 1;
-              return { line: h, column: p };
+` ? (p2 = 1, h3 += 1) : p2 += 1;
+              return { line: h3, column: p2 };
             }
             positionBy(o) {
               let f = this.source.start;
               if (Object(o).index)
                 f = this.positionInside(o.index);
               else if (Object(o).word) {
-                let p = this.toString().indexOf(o.word);
-                p !== -1 && (f = this.positionInside(p));
+                let p2 = this.toString().indexOf(o.word);
+                p2 !== -1 && (f = this.positionInside(p2));
               }
               return f;
             }
@@ -23901,26 +23944,26 @@ var require_parser_postcss = __commonJS({
             }
             each(o) {
               this.lastEach || (this.lastEach = 0), this.indexes || (this.indexes = {}), this.lastEach += 1;
-              let f = this.lastEach, p, h;
+              let f = this.lastEach, p2, h3;
               if (this.indexes[f] = 0, !!this.nodes) {
-                for (; this.indexes[f] < this.nodes.length && (p = this.indexes[f], h = o(this.nodes[p], p), h !== false); )
+                for (; this.indexes[f] < this.nodes.length && (p2 = this.indexes[f], h3 = o(this.nodes[p2], p2), h3 !== false); )
                   this.indexes[f] += 1;
-                return delete this.indexes[f], h;
+                return delete this.indexes[f], h3;
               }
             }
             walk(o) {
-              return this.each((f, p) => {
-                let h = o(f, p);
-                return h !== false && f.walk && (h = f.walk(o)), h;
+              return this.each((f, p2) => {
+                let h3 = o(f, p2);
+                return h3 !== false && f.walk && (h3 = f.walk(o)), h3;
               });
             }
             walkType(o, f) {
               if (!o || !f)
                 throw new Error("Parameters {type} and {callback} are required.");
-              let p = typeof o == "function";
-              return this.walk((h, g) => {
-                if (p && h instanceof o || !p && h.type === o)
-                  return f.call(this, h, g);
+              let p2 = typeof o == "function";
+              return this.walk((h3, g) => {
+                if (p2 && h3 instanceof o || !p2 && h3.type === o)
+                  return f.call(this, h3, g);
               });
             }
             append(o) {
@@ -23935,24 +23978,24 @@ var require_parser_postcss = __commonJS({
                   f.cleanRaws(o);
             }
             insertAfter(o, f) {
-              let p = this.index(o), h;
-              this.nodes.splice(p + 1, 0, f);
+              let p2 = this.index(o), h3;
+              this.nodes.splice(p2 + 1, 0, f);
               for (let g in this.indexes)
-                h = this.indexes[g], p <= h && (this.indexes[g] = h + this.nodes.length);
+                h3 = this.indexes[g], p2 <= h3 && (this.indexes[g] = h3 + this.nodes.length);
               return this;
             }
             insertBefore(o, f) {
-              let p = this.index(o), h;
-              this.nodes.splice(p, 0, f);
+              let p2 = this.index(o), h3;
+              this.nodes.splice(p2, 0, f);
               for (let g in this.indexes)
-                h = this.indexes[g], p <= h && (this.indexes[g] = h + this.nodes.length);
+                h3 = this.indexes[g], p2 <= h3 && (this.indexes[g] = h3 + this.nodes.length);
               return this;
             }
             removeChild(o) {
               o = this.index(o), this.nodes[o].parent = void 0, this.nodes.splice(o, 1);
               let f;
-              for (let p in this.indexes)
-                f = this.indexes[p], f >= o && (this.indexes[p] = f - 1);
+              for (let p2 in this.indexes)
+                f = this.indexes[p2], f >= o && (this.indexes[p2] = f - 1);
               return this;
             }
             removeAll() {
@@ -23984,8 +24027,8 @@ var require_parser_postcss = __commonJS({
           };
           a.registerWalker = (o) => {
             let f = "walk" + o.name;
-            f.lastIndexOf("s") !== f.length - 1 && (f += "s"), !a.prototype[f] && (a.prototype[f] = function(p) {
-              return this.walkType(o, p);
+            f.lastIndexOf("s") !== f.length - 1 && (f += "s"), !a.prototype[f] && (a.prototype[f] = function(p2) {
+              return this.walkType(o, p2);
             });
           }, n.exports = a;
         } }), Ll = R({ "node_modules/postcss-values-parser/lib/root.js"(e, n) {
@@ -24203,12 +24246,12 @@ var require_parser_postcss = __commonJS({
           var e = new Date(), n = e - ho;
           return n / 1e3;
         }
-        var be, xe, me, Ne, Ce, $e, vs, ms, gs, ys, ws, _s, bs, xs, ks, Ss, Os, Ts, Es, qs, As, Ps, Re, po, ho, Rs, Ve, Jl = Le({ "node-modules-polyfills:process"() {
+        var be, xe, me, Ne, Ce, $e, vs, ms, gs, ys, ws2, _s, bs, xs, ks, Ss, Os, Ts, Es, qs, As, Ps, Re, po, ho, Rs, Ve, Jl = Le({ "node-modules-polyfills:process"() {
           A(), be = ao, xe = uo, typeof globalThis.setTimeout == "function" && (be = setTimeout), typeof globalThis.clearTimeout == "function" && (xe = clearTimeout), me = [], Ne = false, $e = -1, fo.prototype.run = function() {
             this.fun.apply(null, this.array);
-          }, vs = "browser", ms = "browser", gs = true, ys = {}, ws = [], _s = "", bs = {}, xs = {}, ks = {}, Ss = Ae, Os = Ae, Ts = Ae, Es = Ae, qs = Ae, As = Ae, Ps = Ae, Re = globalThis.performance || {}, po = Re.now || Re.mozNow || Re.msNow || Re.oNow || Re.webkitNow || function() {
+          }, vs = "browser", ms = "browser", gs = true, ys = {}, ws2 = [], _s = "", bs = {}, xs = {}, ks = {}, Ss = Ae, Os = Ae, Ts = Ae, Es = Ae, qs = Ae, As = Ae, Ps = Ae, Re = globalThis.performance || {}, po = Re.now || Re.mozNow || Re.msNow || Re.oNow || Re.webkitNow || function() {
             return new Date().getTime();
-          }, ho = new Date(), Rs = { nextTick: Fl, title: vs, browser: gs, env: ys, argv: ws, version: _s, versions: bs, on: Ss, addListener: Os, once: Ts, off: Es, removeListener: qs, removeAllListeners: As, emit: Ps, binding: Ul, cwd: Wl, chdir: $l, umask: Vl, hrtime: Gl, platform: ms, release: xs, config: ks, uptime: Hl }, Ve = Rs;
+          }, ho = new Date(), Rs = { nextTick: Fl, title: vs, browser: gs, env: ys, argv: ws2, version: _s, versions: bs, on: Ss, addListener: Os, once: Ts, off: Es, removeListener: qs, removeAllListeners: As, emit: Ps, binding: Ul, cwd: Wl, chdir: $l, umask: Vl, hrtime: Gl, platform: ms, release: xs, config: ks, uptime: Hl }, Ve = Rs;
         } }), ut, Et, Kl = Le({ "node_modules/rollup-plugin-node-polyfills/polyfills/inherits.js"() {
           A(), typeof Object.create == "function" ? ut = function(n, i) {
             n.super_ = i, n.prototype = Object.create(i.prototype, { constructor: { value: n, enumerable: false, writable: true, configurable: true } });
@@ -24226,12 +24269,12 @@ var require_parser_postcss = __commonJS({
               n.push(ye(arguments[i]));
             return n.join(" ");
           }
-          for (var i = 1, a = arguments, o = a.length, f = String(e).replace(ko, function(h) {
-            if (h === "%%")
+          for (var i = 1, a = arguments, o = a.length, f = String(e).replace(ko, function(h3) {
+            if (h3 === "%%")
               return "%";
             if (i >= o)
-              return h;
-            switch (h) {
+              return h3;
+            switch (h3) {
               case "%s":
                 return String(a[i++]);
               case "%d":
@@ -24243,10 +24286,10 @@ var require_parser_postcss = __commonJS({
                   return "[Circular]";
                 }
               default:
-                return h;
+                return h3;
             }
-          }), p = a[i]; i < o; p = a[++i])
-            Ke(p) || !je(p) ? f += " " + p : f += " " + ye(p);
+          }), p2 = a[i]; i < o; p2 = a[++i])
+            Ke(p2) || !je(p2) ? f += " " + p2 : f += " " + ye(p2);
           return f;
         }
         function qt(e, n) {
@@ -24305,13 +24348,13 @@ var require_parser_postcss = __commonJS({
           var o = Zl(e, n);
           if (o)
             return o;
-          var f = Object.keys(n), p = Xl(f);
+          var f = Object.keys(n), p2 = Xl(f);
           if (e.showHidden && (f = Object.getOwnPropertyNames(n)), He(n) && (f.indexOf("message") >= 0 || f.indexOf("description") >= 0))
             return ct(n);
           if (f.length === 0) {
             if (Je(n)) {
-              var h = n.name ? ": " + n.name : "";
-              return e.stylize("[Function" + h + "]", "special");
+              var h3 = n.name ? ": " + n.name : "";
+              return e.stylize("[Function" + h3 + "]", "special");
             }
             if (Ge(n))
               return e.stylize(RegExp.prototype.toString.call(n), "regexp");
@@ -24331,8 +24374,8 @@ var require_parser_postcss = __commonJS({
             return Ge(n) ? e.stylize(RegExp.prototype.toString.call(n), "regexp") : e.stylize("[Object]", "special");
           e.seen.push(n);
           var u;
-          return c ? u = ef(e, n, i, p, f) : u = f.map(function(s) {
-            return yt(e, n, i, p, s, c);
+          return c ? u = ef(e, n, i, p2, f) : u = f.map(function(s) {
+            return yt(e, n, i, p2, s, c);
           }), e.seen.pop(), rf(u, g, t);
         }
         function Zl(e, n) {
@@ -24353,35 +24396,35 @@ var require_parser_postcss = __commonJS({
           return "[" + Error.prototype.toString.call(e) + "]";
         }
         function ef(e, n, i, a, o) {
-          for (var f = [], p = 0, h = n.length; p < h; ++p)
-            xo(n, String(p)) ? f.push(yt(e, n, i, a, String(p), true)) : f.push("");
+          for (var f = [], p2 = 0, h3 = n.length; p2 < h3; ++p2)
+            xo(n, String(p2)) ? f.push(yt(e, n, i, a, String(p2), true)) : f.push("");
           return o.forEach(function(g) {
             g.match(/^\d+$/) || f.push(yt(e, n, i, a, g, true));
           }), f;
         }
         function yt(e, n, i, a, o, f) {
-          var p, h, g;
-          if (g = Object.getOwnPropertyDescriptor(n, o) || { value: n[o] }, g.get ? g.set ? h = e.stylize("[Getter/Setter]", "special") : h = e.stylize("[Getter]", "special") : g.set && (h = e.stylize("[Setter]", "special")), xo(a, o) || (p = "[" + o + "]"), h || (e.seen.indexOf(g.value) < 0 ? (Ke(i) ? h = dr(e, g.value, null) : h = dr(e, g.value, i - 1), h.indexOf(`
-`) > -1 && (f ? h = h.split(`
+          var p2, h3, g;
+          if (g = Object.getOwnPropertyDescriptor(n, o) || { value: n[o] }, g.get ? g.set ? h3 = e.stylize("[Getter/Setter]", "special") : h3 = e.stylize("[Getter]", "special") : g.set && (h3 = e.stylize("[Setter]", "special")), xo(a, o) || (p2 = "[" + o + "]"), h3 || (e.seen.indexOf(g.value) < 0 ? (Ke(i) ? h3 = dr(e, g.value, null) : h3 = dr(e, g.value, i - 1), h3.indexOf(`
+`) > -1 && (f ? h3 = h3.split(`
 `).map(function(c) {
             return "  " + c;
           }).join(`
-`).substr(2) : h = `
-` + h.split(`
+`).substr(2) : h3 = `
+` + h3.split(`
 `).map(function(c) {
             return "   " + c;
           }).join(`
-`))) : h = e.stylize("[Circular]", "special")), ge(p)) {
+`))) : h3 = e.stylize("[Circular]", "special")), ge(p2)) {
             if (f && o.match(/^\d+$/))
-              return h;
-            p = JSON.stringify("" + o), p.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/) ? (p = p.substr(1, p.length - 2), p = e.stylize(p, "name")) : (p = p.replace(/'/g, "\\'").replace(/\\"/g, '"').replace(/(^"|"$)/g, "'"), p = e.stylize(p, "string"));
+              return h3;
+            p2 = JSON.stringify("" + o), p2.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/) ? (p2 = p2.substr(1, p2.length - 2), p2 = e.stylize(p2, "name")) : (p2 = p2.replace(/'/g, "\\'").replace(/\\"/g, '"').replace(/(^"|"$)/g, "'"), p2 = e.stylize(p2, "string"));
           }
-          return p + ": " + h;
+          return p2 + ": " + h3;
         }
         function rf(e, n, i) {
-          var a = 0, o = e.reduce(function(f, p) {
-            return a++, p.indexOf(`
-`) >= 0 && a++, f + p.replace(/\u001b\[\d\d?m/g, "").length + 1;
+          var a = 0, o = e.reduce(function(f, p2) {
+            return a++, p2.indexOf(`
+`) >= 0 && a++, f + p2.replace(/\u001b\[\d\d?m/g, "").length + 1;
           }, 0);
           return o > 60 ? i[0] + (n === "" ? "" : n + `
  `) + " " + e.join(`,
@@ -24478,8 +24521,8 @@ var require_parser_postcss = __commonJS({
         } }), af = R({ "node_modules/postcss-values-parser/lib/tokenize.js"(e, n) {
           "use strict";
           A();
-          var i = "{".charCodeAt(0), a = "}".charCodeAt(0), o = "(".charCodeAt(0), f = ")".charCodeAt(0), p = "'".charCodeAt(0), h = '"'.charCodeAt(0), g = "\\".charCodeAt(0), c = "/".charCodeAt(0), t = ".".charCodeAt(0), r = ",".charCodeAt(0), u = ":".charCodeAt(0), s = "*".charCodeAt(0), l = "-".charCodeAt(0), m = "+".charCodeAt(0), v = "#".charCodeAt(0), y = `
-`.charCodeAt(0), w = " ".charCodeAt(0), d = "\f".charCodeAt(0), _ = "	".charCodeAt(0), S = "\r".charCodeAt(0), x = "@".charCodeAt(0), N = "e".charCodeAt(0), P = "E".charCodeAt(0), W = "0".charCodeAt(0), U = "9".charCodeAt(0), H = "u".charCodeAt(0), D = "U".charCodeAt(0), $ = /[ \n\t\r\{\(\)'"\\;,/]/g, B = /[ \n\t\r\(\)\{\}\*:;@!&'"\+\|~>,\[\]\\]|\/(?=\*)/g, O = /[ \n\t\r\(\)\{\}\*:;@!&'"\-\+\|~>,\[\]\\]|\//g, j = /^[a-z0-9]/i, C = /^[a-f0-9?\-]/i, I = sf(), X = of();
+          var i = "{".charCodeAt(0), a = "}".charCodeAt(0), o = "(".charCodeAt(0), f = ")".charCodeAt(0), p2 = "'".charCodeAt(0), h3 = '"'.charCodeAt(0), g = "\\".charCodeAt(0), c = "/".charCodeAt(0), t = ".".charCodeAt(0), r = ",".charCodeAt(0), u = ":".charCodeAt(0), s = "*".charCodeAt(0), l = "-".charCodeAt(0), m2 = "+".charCodeAt(0), v = "#".charCodeAt(0), y = `
+`.charCodeAt(0), w = " ".charCodeAt(0), d = "\f".charCodeAt(0), _ = "	".charCodeAt(0), S = "\r".charCodeAt(0), x = "@".charCodeAt(0), N = "e".charCodeAt(0), P = "E".charCodeAt(0), W = "0".charCodeAt(0), U = "9".charCodeAt(0), H = "u".charCodeAt(0), D = "U".charCodeAt(0), $2 = /[ \n\t\r\{\(\)'"\\;,/]/g, B = /[ \n\t\r\(\)\{\}\*:;@!&'"\+\|~>,\[\]\\]|\/(?=\*)/g, O = /[ \n\t\r\(\)\{\}\*:;@!&'"\-\+\|~>,\[\]\\]|\//g, j = /^[a-z0-9]/i, C = /^[a-f0-9?\-]/i, I = sf(), X = of();
           n.exports = function(Q, K) {
             K = K || {};
             let J = [], M = Q.valueOf(), Y = M.length, G = -1, E = 1, k = 0, b = 0, L = null, q, T, F, z, re, ne, ce, fe, te, ie, ae, se;
@@ -24522,9 +24565,9 @@ var require_parser_postcss = __commonJS({
                 case f:
                   b--, L = L && b > 0, J.push([")", ")", E, k - G, E, T - G, k]);
                   break;
-                case p:
-                case h:
-                  F = q === p ? "'" : '"', T = k;
+                case p2:
+                case h3:
+                  F = q === p2 ? "'" : '"', T = k;
                   do
                     for (ie = false, T = M.indexOf(F, T + 1), T === -1 && le("quote", F), ae = T; M.charCodeAt(ae - 1) === g; )
                       ae -= 1, ie = !ie;
@@ -24532,12 +24575,12 @@ var require_parser_postcss = __commonJS({
                   J.push(["string", M.slice(k, T + 1), E, k - G, E, T - G, k]), k = T;
                   break;
                 case x:
-                  $.lastIndex = k + 1, $.test(M), $.lastIndex === 0 ? T = M.length - 1 : T = $.lastIndex - 2, J.push(["atword", M.slice(k, T + 1), E, k - G, E, T - G, k]), k = T;
+                  $2.lastIndex = k + 1, $2.test(M), $2.lastIndex === 0 ? T = M.length - 1 : T = $2.lastIndex - 2, J.push(["atword", M.slice(k, T + 1), E, k - G, E, T - G, k]), k = T;
                   break;
                 case g:
                   T = k, q = M.charCodeAt(T + 1), ce && q !== c && q !== w && q !== y && q !== _ && q !== S && q !== d && (T += 1), J.push(["word", M.slice(k, T + 1), E, k - G, E, T - G, k]), k = T;
                   break;
-                case m:
+                case m2:
                 case l:
                 case s:
                   T = k + 1, se = M.slice(k + 1, T + 1);
@@ -24561,7 +24604,7 @@ var require_parser_postcss = __commonJS({
 `), re = z.length - 1, re > 0 ? (fe = E + re, te = T - z[re].length) : (fe = E, te = G), J.push(["comment", ne, E, k - G, fe, T - te, k]), G = te, E = fe, k = T;
                   } else if (q === v && !j.test(M.slice(k + 1, k + 2)))
                     T = k + 1, J.push(["#", M.slice(k, T), E, k - G, E, T - G, k]), k = T - 1;
-                  else if ((q === H || q === D) && M.charCodeAt(k + 1) === m) {
+                  else if ((q === H || q === D) && M.charCodeAt(k + 1) === m2) {
                     T = k + 2;
                     do
                       T += 1, q = M.charCodeAt(T);
@@ -24573,7 +24616,7 @@ var require_parser_postcss = __commonJS({
                     let _e = B;
                     if (q >= W && q <= U && (_e = O), _e.lastIndex = k + 1, _e.test(M), _e.lastIndex === 0 ? T = M.length - 1 : T = _e.lastIndex - 2, _e === O || q === t) {
                       let Be = M.charCodeAt(T), Bt = M.charCodeAt(T + 1), Ft = M.charCodeAt(T + 2);
-                      (Be === N || Be === P) && (Bt === l || Bt === m) && Ft >= W && Ft <= U && (O.lastIndex = T + 2, O.test(M), O.lastIndex === 0 ? T = M.length - 1 : T = O.lastIndex - 2);
+                      (Be === N || Be === P) && (Bt === l || Bt === m2) && Ft >= W && Ft <= U && (O.lastIndex = T + 2, O.test(M), O.lastIndex === 0 ? T = M.length - 1 : T = O.lastIndex - 2);
                     }
                     J.push(["word", M.slice(k, T + 1), E, k - G, E, T - G, k]), k = T;
                   }
@@ -24586,13 +24629,13 @@ var require_parser_postcss = __commonJS({
         } }), To = R({ "node_modules/flatten/index.js"(e, n) {
           A(), n.exports = function(a, o) {
             if (o = typeof o == "number" ? o : 1 / 0, !o)
-              return Array.isArray(a) ? a.map(function(p) {
-                return p;
+              return Array.isArray(a) ? a.map(function(p2) {
+                return p2;
               }) : a;
             return f(a, 1);
-            function f(p, h) {
-              return p.reduce(function(g, c) {
-                return Array.isArray(c) && h < o ? g.concat(f(c, h + 1)) : g.concat(c);
+            function f(p2, h3) {
+              return p2.reduce(function(g, c) {
+                return Array.isArray(c) && h3 < o ? g.concat(f(c, h3 + 1)) : g.concat(c);
               }, []);
             }
           };
@@ -24605,30 +24648,30 @@ var require_parser_postcss = __commonJS({
         } }), qo = R({ "node_modules/uniq/uniq.js"(e, n) {
           "use strict";
           A();
-          function i(f, p) {
-            for (var h = 1, g = f.length, c = f[0], t = f[0], r = 1; r < g; ++r)
-              if (t = c, c = f[r], p(c, t)) {
-                if (r === h) {
-                  h++;
+          function i(f, p2) {
+            for (var h3 = 1, g = f.length, c = f[0], t = f[0], r = 1; r < g; ++r)
+              if (t = c, c = f[r], p2(c, t)) {
+                if (r === h3) {
+                  h3++;
                   continue;
                 }
-                f[h++] = c;
+                f[h3++] = c;
               }
-            return f.length = h, f;
+            return f.length = h3, f;
           }
           function a(f) {
-            for (var p = 1, h = f.length, g = f[0], c = f[0], t = 1; t < h; ++t, c = g)
+            for (var p2 = 1, h3 = f.length, g = f[0], c = f[0], t = 1; t < h3; ++t, c = g)
               if (c = g, g = f[t], g !== c) {
-                if (t === p) {
-                  p++;
+                if (t === p2) {
+                  p2++;
                   continue;
                 }
-                f[p++] = g;
+                f[p2++] = g;
               }
-            return f.length = p, f;
+            return f.length = p2, f;
           }
-          function o(f, p, h) {
-            return f.length === 0 ? f : p ? (h || f.sort(p), i(f, p)) : (h || f.sort(), a(f));
+          function o(f, p2, h3) {
+            return f.length === 0 ? f : p2 ? (h3 || f.sort(p2), i(f, p2)) : (h3 || f.sort(), a(f));
           }
           n.exports = o;
         } }), uf = R({ "node_modules/postcss-values-parser/lib/errors/ParserError.js"(e, n) {
@@ -24643,7 +24686,7 @@ var require_parser_postcss = __commonJS({
         } }), cf = R({ "node_modules/postcss-values-parser/lib/parser.js"(e, n) {
           "use strict";
           A();
-          var i = Ll(), a = Ks(), o = Qs(), f = Ys(), p = Xs(), h = Zs(), g = eo(), c = ro(), t = to(), r = no(), u = io(), s = so(), l = oo(), m = af(), v = To(), y = Eo(), w = qo(), d = uf();
+          var i = Ll(), a = Ks(), o = Qs(), f = Ys(), p2 = Xs(), h3 = Zs(), g = eo(), c = ro(), t = to(), r = no(), u = io(), s = so(), l = oo(), m2 = af(), v = To(), y = Eo(), w = qo(), d = uf();
           function _(S) {
             return S.sort((x, N) => x - N);
           }
@@ -24652,7 +24695,7 @@ var require_parser_postcss = __commonJS({
               let P = { loose: false };
               this.cache = [], this.input = x, this.options = Object.assign({}, P, N), this.position = 0, this.unbalanced = 0, this.root = new i();
               let W = new a();
-              this.root.append(W), this.current = W, this.tokens = m(x, this.options);
+              this.root.append(W), this.current = W, this.tokens = m2(x, this.options);
             }
             parse() {
               return this.loop();
@@ -24663,11 +24706,11 @@ var require_parser_postcss = __commonJS({
             }
             comma() {
               let x = this.currToken;
-              this.newNode(new p({ value: x[1], source: { start: { line: x[2], column: x[3] }, end: { line: x[4], column: x[5] } }, sourceIndex: x[6] })), this.position++;
+              this.newNode(new p2({ value: x[1], source: { start: { line: x[2], column: x[3] }, end: { line: x[4], column: x[5] } }, sourceIndex: x[6] })), this.position++;
             }
             comment() {
               let x = false, N = this.currToken[1].replace(/\/\*|\*\//g, ""), P;
-              this.options.loose && N.startsWith("//") && (N = N.substring(2), x = true), P = new h({ value: N, inline: x, source: { start: { line: this.currToken[2], column: this.currToken[3] }, end: { line: this.currToken[4], column: this.currToken[5] } }, sourceIndex: this.currToken[6] }), this.newNode(P), this.position++;
+              this.options.loose && N.startsWith("//") && (N = N.substring(2), x = true), P = new h3({ value: N, inline: x, source: { start: { line: this.currToken[2], column: this.currToken[3] }, end: { line: this.currToken[4], column: this.currToken[5] } }, sourceIndex: this.currToken[6] }), this.newNode(P), this.position++;
             }
             error(x, N) {
               throw new d(x + " at line: ".concat(N[2], ", column ").concat(N[3]));
@@ -24756,15 +24799,15 @@ var require_parser_postcss = __commonJS({
               if (!W.test(N))
                 for (; x && x[0] === "word"; )
                   this.position++, N += this.currToken[1], x = this.nextToken;
-              U = y(N, "@"), H = _(w(v([[0], U]))), H.forEach((D, $) => {
-                let B = H[$ + 1] || N.length, O = N.slice(D, B), j;
+              U = y(N, "@"), H = _(w(v([[0], U]))), H.forEach((D, $2) => {
+                let B = H[$2 + 1] || N.length, O = N.slice(D, B), j;
                 if (~U.indexOf(D))
-                  j = new o({ value: O.slice(1), source: { start: { line: this.currToken[2], column: this.currToken[3] + D }, end: { line: this.currToken[4], column: this.currToken[3] + (B - 1) } }, sourceIndex: this.currToken[6] + H[$] });
+                  j = new o({ value: O.slice(1), source: { start: { line: this.currToken[2], column: this.currToken[3] + D }, end: { line: this.currToken[4], column: this.currToken[3] + (B - 1) } }, sourceIndex: this.currToken[6] + H[$2] });
                 else if (P.test(this.currToken[1])) {
                   let C = O.replace(P, "");
-                  j = new c({ value: O.replace(C, ""), source: { start: { line: this.currToken[2], column: this.currToken[3] + D }, end: { line: this.currToken[4], column: this.currToken[3] + (B - 1) } }, sourceIndex: this.currToken[6] + H[$], unit: C });
+                  j = new c({ value: O.replace(C, ""), source: { start: { line: this.currToken[2], column: this.currToken[3] + D }, end: { line: this.currToken[4], column: this.currToken[3] + (B - 1) } }, sourceIndex: this.currToken[6] + H[$2], unit: C });
                 } else
-                  j = new (x && x[0] === "(" ? g : s)({ value: O, source: { start: { line: this.currToken[2], column: this.currToken[3] + D }, end: { line: this.currToken[4], column: this.currToken[3] + (B - 1) } }, sourceIndex: this.currToken[6] + H[$] }), j.type === "word" ? (j.isHex = /^#(.+)/.test(O), j.isColor = /^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(O)) : this.cache.push(this.current);
+                  j = new (x && x[0] === "(" ? g : s)({ value: O, source: { start: { line: this.currToken[2], column: this.currToken[3] + D }, end: { line: this.currToken[4], column: this.currToken[3] + (B - 1) } }, sourceIndex: this.currToken[6] + H[$2] }), j.type === "word" ? (j.isHex = /^#(.+)/.test(O), j.isColor = /^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(O)) : this.cache.push(this.current);
                 this.newNode(j);
               }), this.position++;
             }
@@ -24791,117 +24834,117 @@ var require_parser_postcss = __commonJS({
         } }), lf = R({ "node_modules/postcss-values-parser/lib/index.js"(e, n) {
           "use strict";
           A();
-          var i = cf(), a = Qs(), o = Ys(), f = Xs(), p = Zs(), h = eo(), g = ro(), c = to(), t = no(), r = io(), u = oo(), s = Ks(), l = so(), m = function(v, y) {
+          var i = cf(), a = Qs(), o = Ys(), f = Xs(), p2 = Zs(), h3 = eo(), g = ro(), c = to(), t = no(), r = io(), u = oo(), s = Ks(), l = so(), m2 = function(v, y) {
             return new i(v, y);
           };
-          m.atword = function(v) {
+          m2.atword = function(v) {
             return new a(v);
-          }, m.colon = function(v) {
+          }, m2.colon = function(v) {
             return new o(Object.assign({ value: ":" }, v));
-          }, m.comma = function(v) {
+          }, m2.comma = function(v) {
             return new f(Object.assign({ value: "," }, v));
-          }, m.comment = function(v) {
-            return new p(v);
-          }, m.func = function(v) {
-            return new h(v);
-          }, m.number = function(v) {
+          }, m2.comment = function(v) {
+            return new p2(v);
+          }, m2.func = function(v) {
+            return new h3(v);
+          }, m2.number = function(v) {
             return new g(v);
-          }, m.operator = function(v) {
+          }, m2.operator = function(v) {
             return new c(v);
-          }, m.paren = function(v) {
+          }, m2.paren = function(v) {
             return new t(Object.assign({ value: "(" }, v));
-          }, m.string = function(v) {
+          }, m2.string = function(v) {
             return new r(Object.assign({ quote: "'" }, v));
-          }, m.value = function(v) {
+          }, m2.value = function(v) {
             return new s(v);
-          }, m.word = function(v) {
+          }, m2.word = function(v) {
             return new l(v);
-          }, m.unicodeRange = function(v) {
+          }, m2.unicodeRange = function(v) {
             return new u(v);
-          }, n.exports = m;
+          }, n.exports = m2;
         } }), ze = R({ "node_modules/postcss-selector-parser/dist/selectors/node.js"(e, n) {
           "use strict";
           A(), e.__esModule = true;
-          var i = typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? function(p) {
-            return typeof p;
-          } : function(p) {
-            return p && typeof Symbol == "function" && p.constructor === Symbol && p !== Symbol.prototype ? "symbol" : typeof p;
+          var i = typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? function(p2) {
+            return typeof p2;
+          } : function(p2) {
+            return p2 && typeof Symbol == "function" && p2.constructor === Symbol && p2 !== Symbol.prototype ? "symbol" : typeof p2;
           };
-          function a(p, h) {
-            if (!(p instanceof h))
+          function a(p2, h3) {
+            if (!(p2 instanceof h3))
               throw new TypeError("Cannot call a class as a function");
           }
-          var o = function p(h, g) {
-            if ((typeof h > "u" ? "undefined" : i(h)) !== "object")
-              return h;
-            var c = new h.constructor();
-            for (var t in h)
-              if (!!h.hasOwnProperty(t)) {
-                var r = h[t], u = typeof r > "u" ? "undefined" : i(r);
+          var o = function p2(h3, g) {
+            if ((typeof h3 > "u" ? "undefined" : i(h3)) !== "object")
+              return h3;
+            var c = new h3.constructor();
+            for (var t in h3)
+              if (!!h3.hasOwnProperty(t)) {
+                var r = h3[t], u = typeof r > "u" ? "undefined" : i(r);
                 t === "parent" && u === "object" ? g && (c[t] = g) : r instanceof Array ? c[t] = r.map(function(s) {
-                  return p(s, c);
-                }) : c[t] = p(r, c);
+                  return p2(s, c);
+                }) : c[t] = p2(r, c);
               }
             return c;
           }, f = function() {
-            function p() {
-              var h = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-              a(this, p);
-              for (var g in h)
-                this[g] = h[g];
-              var c = h.spaces;
+            function p2() {
+              var h3 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+              a(this, p2);
+              for (var g in h3)
+                this[g] = h3[g];
+              var c = h3.spaces;
               c = c === void 0 ? {} : c;
               var t = c.before, r = t === void 0 ? "" : t, u = c.after, s = u === void 0 ? "" : u;
               this.spaces = { before: r, after: s };
             }
-            return p.prototype.remove = function() {
+            return p2.prototype.remove = function() {
               return this.parent && this.parent.removeChild(this), this.parent = void 0, this;
-            }, p.prototype.replaceWith = function() {
+            }, p2.prototype.replaceWith = function() {
               if (this.parent) {
                 for (var g in arguments)
                   this.parent.insertBefore(this, arguments[g]);
                 this.remove();
               }
               return this;
-            }, p.prototype.next = function() {
+            }, p2.prototype.next = function() {
               return this.parent.at(this.parent.index(this) + 1);
-            }, p.prototype.prev = function() {
+            }, p2.prototype.prev = function() {
               return this.parent.at(this.parent.index(this) - 1);
-            }, p.prototype.clone = function() {
+            }, p2.prototype.clone = function() {
               var g = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, c = o(this);
               for (var t in g)
                 c[t] = g[t];
               return c;
-            }, p.prototype.toString = function() {
+            }, p2.prototype.toString = function() {
               return [this.spaces.before, String(this.value), this.spaces.after].join("");
-            }, p;
+            }, p2;
           }();
           e.default = f, n.exports = e.default;
         } }), oe = R({ "node_modules/postcss-selector-parser/dist/selectors/types.js"(e) {
           "use strict";
           A(), e.__esModule = true;
-          var n = e.TAG = "tag", i = e.STRING = "string", a = e.SELECTOR = "selector", o = e.ROOT = "root", f = e.PSEUDO = "pseudo", p = e.NESTING = "nesting", h = e.ID = "id", g = e.COMMENT = "comment", c = e.COMBINATOR = "combinator", t = e.CLASS = "class", r = e.ATTRIBUTE = "attribute", u = e.UNIVERSAL = "universal";
+          var n = e.TAG = "tag", i = e.STRING = "string", a = e.SELECTOR = "selector", o = e.ROOT = "root", f = e.PSEUDO = "pseudo", p2 = e.NESTING = "nesting", h3 = e.ID = "id", g = e.COMMENT = "comment", c = e.COMBINATOR = "combinator", t = e.CLASS = "class", r = e.ATTRIBUTE = "attribute", u = e.UNIVERSAL = "universal";
         } }), Ct = R({ "node_modules/postcss-selector-parser/dist/selectors/container.js"(e, n) {
           "use strict";
           A(), e.__esModule = true;
           var i = function() {
-            function s(l, m) {
-              for (var v = 0; v < m.length; v++) {
-                var y = m[v];
+            function s(l, m2) {
+              for (var v = 0; v < m2.length; v++) {
+                var y = m2[v];
                 y.enumerable = y.enumerable || false, y.configurable = true, "value" in y && (y.writable = true), Object.defineProperty(l, y.key, y);
               }
             }
-            return function(l, m, v) {
-              return m && s(l.prototype, m), v && s(l, v), l;
+            return function(l, m2, v) {
+              return m2 && s(l.prototype, m2), v && s(l, v), l;
             };
-          }(), a = ze(), o = g(a), f = oe(), p = h(f);
-          function h(s) {
+          }(), a = ze(), o = g(a), f = oe(), p2 = h3(f);
+          function h3(s) {
             if (s && s.__esModule)
               return s;
             var l = {};
             if (s != null)
-              for (var m in s)
-                Object.prototype.hasOwnProperty.call(s, m) && (l[m] = s[m]);
+              for (var m2 in s)
+                Object.prototype.hasOwnProperty.call(s, m2) && (l[m2] = s[m2]);
             return l.default = s, l;
           }
           function g(s) {
@@ -24923,9 +24966,9 @@ var require_parser_postcss = __commonJS({
           }
           var u = function(s) {
             r(l, s);
-            function l(m) {
+            function l(m2) {
               c(this, l);
-              var v = t(this, s.call(this, m));
+              var v = t(this, s.call(this, m2));
               return v.nodes || (v.nodes = []), v;
             }
             return l.prototype.append = function(v) {
@@ -24992,55 +25035,55 @@ var require_parser_postcss = __commonJS({
             }, l.prototype.walkAttributes = function(v) {
               var y = this;
               return this.walk(function(w) {
-                if (w.type === p.ATTRIBUTE)
+                if (w.type === p2.ATTRIBUTE)
                   return v.call(y, w);
               });
             }, l.prototype.walkClasses = function(v) {
               var y = this;
               return this.walk(function(w) {
-                if (w.type === p.CLASS)
+                if (w.type === p2.CLASS)
                   return v.call(y, w);
               });
             }, l.prototype.walkCombinators = function(v) {
               var y = this;
               return this.walk(function(w) {
-                if (w.type === p.COMBINATOR)
+                if (w.type === p2.COMBINATOR)
                   return v.call(y, w);
               });
             }, l.prototype.walkComments = function(v) {
               var y = this;
               return this.walk(function(w) {
-                if (w.type === p.COMMENT)
+                if (w.type === p2.COMMENT)
                   return v.call(y, w);
               });
             }, l.prototype.walkIds = function(v) {
               var y = this;
               return this.walk(function(w) {
-                if (w.type === p.ID)
+                if (w.type === p2.ID)
                   return v.call(y, w);
               });
             }, l.prototype.walkNesting = function(v) {
               var y = this;
               return this.walk(function(w) {
-                if (w.type === p.NESTING)
+                if (w.type === p2.NESTING)
                   return v.call(y, w);
               });
             }, l.prototype.walkPseudos = function(v) {
               var y = this;
               return this.walk(function(w) {
-                if (w.type === p.PSEUDO)
+                if (w.type === p2.PSEUDO)
                   return v.call(y, w);
               });
             }, l.prototype.walkTags = function(v) {
               var y = this;
               return this.walk(function(w) {
-                if (w.type === p.TAG)
+                if (w.type === p2.TAG)
                   return v.call(y, w);
               });
             }, l.prototype.walkUniversals = function(v) {
               var y = this;
               return this.walk(function(w) {
-                if (w.type === p.UNIVERSAL)
+                if (w.type === p2.UNIVERSAL)
                   return v.call(y, w);
               });
             }, l.prototype.split = function(v) {
@@ -25079,11 +25122,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25096,13 +25139,13 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.ROOT, s;
             }
             return r.prototype.toString = function() {
-              var s = this.reduce(function(l, m) {
-                var v = String(m);
+              var s = this.reduce(function(l, m2) {
+                var v = String(m2);
                 return v ? l + v + "," : "";
               }, "").slice(0, -1);
               return this.trailingComma ? s + "," : s;
@@ -25116,11 +25159,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25133,8 +25176,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.SELECTOR, s;
             }
             return r;
@@ -25157,11 +25200,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25174,7 +25217,7 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r() {
-              return p(this, r), h(this, t.apply(this, arguments));
+              return p2(this, r), h3(this, t.apply(this, arguments));
             }
             return r.prototype.toString = function() {
               return [this.spaces.before, this.ns, String(this.value), this.spaces.after].join("");
@@ -25191,11 +25234,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25208,8 +25251,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.CLASS, s;
             }
             return r.prototype.toString = function() {
@@ -25224,11 +25267,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25241,8 +25284,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.COMMENT, s;
             }
             return r;
@@ -25255,11 +25298,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25272,8 +25315,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.ID, s;
             }
             return r.prototype.toString = function() {
@@ -25288,11 +25331,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25305,8 +25348,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.TAG, s;
             }
             return r;
@@ -25319,11 +25362,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25336,8 +25379,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.STRING, s;
             }
             return r;
@@ -25350,11 +25393,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25367,8 +25410,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.PSEUDO, s;
             }
             return r.prototype.toString = function() {
@@ -25384,11 +25427,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25401,8 +25444,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.ATTRIBUTE, s.raws = {}, s;
             }
             return r.prototype.toString = function() {
@@ -25418,11 +25461,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25435,8 +25478,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.UNIVERSAL, s.value = "*", s;
             }
             return r;
@@ -25449,11 +25492,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25466,8 +25509,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.COMBINATOR, s;
             }
             return r;
@@ -25480,11 +25523,11 @@ var require_parser_postcss = __commonJS({
           function f(t) {
             return t && t.__esModule ? t : { default: t };
           }
-          function p(t, r) {
+          function p2(t, r) {
             if (!(t instanceof r))
               throw new TypeError("Cannot call a class as a function");
           }
-          function h(t, r) {
+          function h3(t, r) {
             if (!t)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             return r && (typeof r == "object" || typeof r == "function") ? r : t;
@@ -25497,8 +25540,8 @@ var require_parser_postcss = __commonJS({
           var c = function(t) {
             g(r, t);
             function r(u) {
-              p(this, r);
-              var s = h(this, t.call(this, u));
+              p2(this, r);
+              var s = h3(this, t.call(this, u));
               return s.type = o.NESTING, s.value = "&", s;
             }
             return r;
@@ -25516,25 +25559,25 @@ var require_parser_postcss = __commonJS({
         } }), pf = R({ "node_modules/postcss-selector-parser/dist/tokenize.js"(e, n) {
           "use strict";
           A(), e.__esModule = true, e.default = H;
-          var i = 39, a = 34, o = 92, f = 47, p = 10, h = 32, g = 12, c = 9, t = 13, r = 43, u = 62, s = 126, l = 124, m = 44, v = 40, y = 41, w = 91, d = 93, _ = 59, S = 42, x = 58, N = 38, P = 64, W = /[ \n\t\r\{\(\)'"\\;/]/g, U = /[ \n\t\r\(\)\*:;@!&'"\+\|~>,\[\]\\]|\/(?=\*)/g;
+          var i = 39, a = 34, o = 92, f = 47, p2 = 10, h3 = 32, g = 12, c = 9, t = 13, r = 43, u = 62, s = 126, l = 124, m2 = 44, v = 40, y = 41, w = 91, d = 93, _ = 59, S = 42, x = 58, N = 38, P = 64, W = /[ \n\t\r\{\(\)'"\\;/]/g, U = /[ \n\t\r\(\)\*:;@!&'"\+\|~>,\[\]\\]|\/(?=\*)/g;
           function H(D) {
-            for (var $ = [], B = D.css.valueOf(), O = void 0, j = void 0, C = void 0, I = void 0, X = void 0, Z = void 0, Q = void 0, K = void 0, J = void 0, M = void 0, Y = void 0, G = B.length, E = -1, k = 1, b = 0, L = function(T, F) {
+            for (var $2 = [], B = D.css.valueOf(), O = void 0, j = void 0, C = void 0, I = void 0, X = void 0, Z = void 0, Q = void 0, K = void 0, J = void 0, M = void 0, Y = void 0, G = B.length, E = -1, k = 1, b = 0, L = function(T, F) {
               if (D.safe)
                 B += F, j = B.length - 1;
               else
                 throw D.error("Unclosed " + T, k, b - E, b);
             }; b < G; ) {
-              switch (O = B.charCodeAt(b), O === p && (E = b, k += 1), O) {
-                case p:
-                case h:
+              switch (O = B.charCodeAt(b), O === p2 && (E = b, k += 1), O) {
+                case p2:
+                case h3:
                 case c:
                 case t:
                 case g:
                   j = b;
                   do
-                    j += 1, O = B.charCodeAt(j), O === p && (E = j, k += 1);
-                  while (O === h || O === p || O === c || O === t || O === g);
-                  $.push(["space", B.slice(b, j), k, b - E, b]), b = j - 1;
+                    j += 1, O = B.charCodeAt(j), O === p2 && (E = j, k += 1);
+                  while (O === h3 || O === p2 || O === c || O === t || O === g);
+                  $2.push(["space", B.slice(b, j), k, b - E, b]), b = j - 1;
                   break;
                 case r:
                 case u:
@@ -25544,34 +25587,34 @@ var require_parser_postcss = __commonJS({
                   do
                     j += 1, O = B.charCodeAt(j);
                   while (O === r || O === u || O === s || O === l);
-                  $.push(["combinator", B.slice(b, j), k, b - E, b]), b = j - 1;
+                  $2.push(["combinator", B.slice(b, j), k, b - E, b]), b = j - 1;
                   break;
                 case S:
-                  $.push(["*", "*", k, b - E, b]);
+                  $2.push(["*", "*", k, b - E, b]);
                   break;
                 case N:
-                  $.push(["&", "&", k, b - E, b]);
+                  $2.push(["&", "&", k, b - E, b]);
                   break;
-                case m:
-                  $.push([",", ",", k, b - E, b]);
+                case m2:
+                  $2.push([",", ",", k, b - E, b]);
                   break;
                 case w:
-                  $.push(["[", "[", k, b - E, b]);
+                  $2.push(["[", "[", k, b - E, b]);
                   break;
                 case d:
-                  $.push(["]", "]", k, b - E, b]);
+                  $2.push(["]", "]", k, b - E, b]);
                   break;
                 case x:
-                  $.push([":", ":", k, b - E, b]);
+                  $2.push([":", ":", k, b - E, b]);
                   break;
                 case _:
-                  $.push([";", ";", k, b - E, b]);
+                  $2.push([";", ";", k, b - E, b]);
                   break;
                 case v:
-                  $.push(["(", "(", k, b - E, b]);
+                  $2.push(["(", "(", k, b - E, b]);
                   break;
                 case y:
-                  $.push([")", ")", k, b - E, b]);
+                  $2.push([")", ")", k, b - E, b]);
                   break;
                 case i:
                 case a:
@@ -25580,24 +25623,24 @@ var require_parser_postcss = __commonJS({
                     for (M = false, j = B.indexOf(C, j + 1), j === -1 && L("quote", C), Y = j; B.charCodeAt(Y - 1) === o; )
                       Y -= 1, M = !M;
                   while (M);
-                  $.push(["string", B.slice(b, j + 1), k, b - E, k, j - E, b]), b = j;
+                  $2.push(["string", B.slice(b, j + 1), k, b - E, k, j - E, b]), b = j;
                   break;
                 case P:
-                  W.lastIndex = b + 1, W.test(B), W.lastIndex === 0 ? j = B.length - 1 : j = W.lastIndex - 2, $.push(["at-word", B.slice(b, j + 1), k, b - E, k, j - E, b]), b = j;
+                  W.lastIndex = b + 1, W.test(B), W.lastIndex === 0 ? j = B.length - 1 : j = W.lastIndex - 2, $2.push(["at-word", B.slice(b, j + 1), k, b - E, k, j - E, b]), b = j;
                   break;
                 case o:
                   for (j = b, Q = true; B.charCodeAt(j + 1) === o; )
                     j += 1, Q = !Q;
-                  O = B.charCodeAt(j + 1), Q && O !== f && O !== h && O !== p && O !== c && O !== t && O !== g && (j += 1), $.push(["word", B.slice(b, j + 1), k, b - E, k, j - E, b]), b = j;
+                  O = B.charCodeAt(j + 1), Q && O !== f && O !== h3 && O !== p2 && O !== c && O !== t && O !== g && (j += 1), $2.push(["word", B.slice(b, j + 1), k, b - E, k, j - E, b]), b = j;
                   break;
                 default:
                   O === f && B.charCodeAt(b + 1) === S ? (j = B.indexOf("*/", b + 2) + 1, j === 0 && L("comment", "*/"), Z = B.slice(b, j + 1), I = Z.split(`
-`), X = I.length - 1, X > 0 ? (K = k + X, J = j - I[X].length) : (K = k, J = E), $.push(["comment", Z, k, b - E, K, j - J, b]), E = J, k = K, b = j) : (U.lastIndex = b + 1, U.test(B), U.lastIndex === 0 ? j = B.length - 1 : j = U.lastIndex - 2, $.push(["word", B.slice(b, j + 1), k, b - E, k, j - E, b]), b = j);
+`), X = I.length - 1, X > 0 ? (K = k + X, J = j - I[X].length) : (K = k, J = E), $2.push(["comment", Z, k, b - E, K, j - J, b]), E = J, k = K, b = j) : (U.lastIndex = b + 1, U.test(B), U.lastIndex === 0 ? j = B.length - 1 : j = U.lastIndex - 2, $2.push(["word", B.slice(b, j + 1), k, b - E, k, j - E, b]), b = j);
                   break;
               }
               b++;
             }
-            return $;
+            return $2;
           }
           n.exports = e.default;
         } }), hf = R({ "node_modules/postcss-selector-parser/dist/parser.js"(e, n) {
@@ -25613,7 +25656,7 @@ var require_parser_postcss = __commonJS({
             return function(k, b, L) {
               return b && E(k.prototype, b), L && E(k, L), k;
             };
-          }(), a = To(), o = M(a), f = Eo(), p = M(f), h = qo(), g = M(h), c = Ao(), t = M(c), r = Po(), u = M(r), s = Ro(), l = M(s), m = Io(), v = M(m), y = Co(), w = M(y), d = No(), _ = M(d), S = jo(), x = M(S), N = Mo(), P = M(N), W = Do(), U = M(W), H = Lo(), D = M(H), $ = zo(), B = M($), O = Bo(), j = M(O), C = ff(), I = M(C), X = pf(), Z = M(X), Q = oe(), K = J(Q);
+          }(), a = To(), o = M(a), f = Eo(), p2 = M(f), h3 = qo(), g = M(h3), c = Ao(), t = M(c), r = Po(), u = M(r), s = Ro(), l = M(s), m2 = Io(), v = M(m2), y = Co(), w = M(y), d = No(), _ = M(d), S = jo(), x = M(S), N = Mo(), P = M(N), W = Do(), U = M(W), H = Lo(), D = M(H), $2 = zo(), B = M($2), O = Bo(), j = M(O), C = ff(), I = M(C), X = pf(), Z = M(X), Q = oe(), K = J(Q);
           function J(E) {
             if (E && E.__esModule)
               return E;
@@ -25727,7 +25770,7 @@ var require_parser_postcss = __commonJS({
                 }
                 T = this.nextToken;
               }
-              var ne = (0, p.default)(F, "."), ce = (0, p.default)(F, "#"), fe = (0, p.default)(F, "#{");
+              var ne = (0, p2.default)(F, "."), ce = (0, p2.default)(F, "#"), fe = (0, p2.default)(F, "#{");
               fe.length && (ce = ce.filter(function(ie) {
                 return !~fe.indexOf(ie);
               }));
@@ -25832,13 +25875,13 @@ var require_parser_postcss = __commonJS({
           function f(g) {
             return g && g.__esModule ? g : { default: g };
           }
-          function p(g, c) {
+          function p2(g, c) {
             if (!(g instanceof c))
               throw new TypeError("Cannot call a class as a function");
           }
-          var h = function() {
+          var h3 = function() {
             function g(c) {
-              return p(this, g), this.func = c || function() {
+              return p2(this, g), this.func = c || function() {
               }, this;
             }
             return g.prototype.process = function(t) {
@@ -25850,11 +25893,11 @@ var require_parser_postcss = __commonJS({
               return String(this.res);
             } }]), g;
           }();
-          e.default = h, n.exports = e.default;
+          e.default = h3, n.exports = e.default;
         } }), vf = R({ "node_modules/postcss-selector-parser/dist/index.js"(e, n) {
           "use strict";
           A(), e.__esModule = true;
-          var i = df(), a = O(i), o = Do(), f = O(o), p = Ro(), h = O(p), g = zo(), c = O(g), t = Io(), r = O(t), u = Co(), s = O(u), l = Bo(), m = O(l), v = Mo(), y = O(v), w = Ao(), d = O(w), _ = Po(), S = O(_), x = jo(), N = O(x), P = No(), W = O(P), U = Lo(), H = O(U), D = oe(), $ = B(D);
+          var i = df(), a = O(i), o = Do(), f = O(o), p2 = Ro(), h3 = O(p2), g = zo(), c = O(g), t = Io(), r = O(t), u = Co(), s = O(u), l = Bo(), m2 = O(l), v = Mo(), y = O(v), w = Ao(), d = O(w), _ = Po(), S = O(_), x = jo(), N = O(x), P = No(), W = O(P), U = Lo(), H = O(U), D = oe(), $2 = B(D);
           function B(C) {
             if (C && C.__esModule)
               return C;
@@ -25873,7 +25916,7 @@ var require_parser_postcss = __commonJS({
           j.attribute = function(C) {
             return new f.default(C);
           }, j.className = function(C) {
-            return new h.default(C);
+            return new h3.default(C);
           }, j.combinator = function(C) {
             return new c.default(C);
           }, j.comment = function(C) {
@@ -25881,7 +25924,7 @@ var require_parser_postcss = __commonJS({
           }, j.id = function(C) {
             return new s.default(C);
           }, j.nesting = function(C) {
-            return new m.default(C);
+            return new m2.default(C);
           }, j.pseudo = function(C) {
             return new y.default(C);
           }, j.root = function(C) {
@@ -25894,8 +25937,8 @@ var require_parser_postcss = __commonJS({
             return new W.default(C);
           }, j.universal = function(C) {
             return new H.default(C);
-          }, Object.keys($).forEach(function(C) {
-            C !== "__esModule" && (j[C] = $[C]);
+          }, Object.keys($2).forEach(function(C) {
+            C !== "__esModule" && (j[C] = $2[C]);
           }), e.default = j, n.exports = e.default;
         } }), Fo = R({ "node_modules/postcss-media-query-parser/dist/nodes/Node.js"(e) {
           "use strict";
@@ -25912,57 +25955,57 @@ var require_parser_postcss = __commonJS({
             return f && f.__esModule ? f : { default: f };
           }
           function o(f) {
-            var p = this;
-            this.constructor(f), this.nodes = f.nodes, this.after === void 0 && (this.after = this.nodes.length > 0 ? this.nodes[this.nodes.length - 1].after : ""), this.before === void 0 && (this.before = this.nodes.length > 0 ? this.nodes[0].before : ""), this.sourceIndex === void 0 && (this.sourceIndex = this.before.length), this.nodes.forEach(function(h) {
-              h.parent = p;
+            var p2 = this;
+            this.constructor(f), this.nodes = f.nodes, this.after === void 0 && (this.after = this.nodes.length > 0 ? this.nodes[this.nodes.length - 1].after : ""), this.before === void 0 && (this.before = this.nodes.length > 0 ? this.nodes[0].before : ""), this.sourceIndex === void 0 && (this.sourceIndex = this.before.length), this.nodes.forEach(function(h3) {
+              h3.parent = p2;
             });
           }
-          o.prototype = Object.create(i.default.prototype), o.constructor = i.default, o.prototype.walk = function(p, h) {
-            for (var g = typeof p == "string" || p instanceof RegExp, c = g ? h : p, t = typeof p == "string" ? new RegExp(p) : p, r = 0; r < this.nodes.length; r++) {
+          o.prototype = Object.create(i.default.prototype), o.constructor = i.default, o.prototype.walk = function(p2, h3) {
+            for (var g = typeof p2 == "string" || p2 instanceof RegExp, c = g ? h3 : p2, t = typeof p2 == "string" ? new RegExp(p2) : p2, r = 0; r < this.nodes.length; r++) {
               var u = this.nodes[r], s = g ? t.test(u.type) : true;
-              if (s && c && c(u, r, this.nodes) === false || u.nodes && u.walk(p, h) === false)
+              if (s && c && c(u, r, this.nodes) === false || u.nodes && u.walk(p2, h3) === false)
                 return false;
             }
             return true;
           }, o.prototype.each = function() {
-            for (var p = arguments.length <= 0 || arguments[0] === void 0 ? function() {
-            } : arguments[0], h = 0; h < this.nodes.length; h++) {
-              var g = this.nodes[h];
-              if (p(g, h, this.nodes) === false)
+            for (var p2 = arguments.length <= 0 || arguments[0] === void 0 ? function() {
+            } : arguments[0], h3 = 0; h3 < this.nodes.length; h3++) {
+              var g = this.nodes[h3];
+              if (p2(g, h3, this.nodes) === false)
                 return false;
             }
             return true;
           }, e.default = o;
         } }), mf = R({ "node_modules/postcss-media-query-parser/dist/parsers.js"(e) {
           "use strict";
-          A(), Object.defineProperty(e, "__esModule", { value: true }), e.parseMediaFeature = p, e.parseMediaQuery = h, e.parseMediaList = g;
+          A(), Object.defineProperty(e, "__esModule", { value: true }), e.parseMediaFeature = p2, e.parseMediaQuery = h3, e.parseMediaList = g;
           var n = Fo(), i = f(n), a = Uo(), o = f(a);
           function f(c) {
             return c && c.__esModule ? c : { default: c };
           }
-          function p(c) {
-            var t = arguments.length <= 1 || arguments[1] === void 0 ? 0 : arguments[1], r = [{ mode: "normal", character: null }], u = [], s = 0, l = "", m = null, v = null, y = t, w = c;
+          function p2(c) {
+            var t = arguments.length <= 1 || arguments[1] === void 0 ? 0 : arguments[1], r = [{ mode: "normal", character: null }], u = [], s = 0, l = "", m2 = null, v = null, y = t, w = c;
             c[0] === "(" && c[c.length - 1] === ")" && (w = c.substring(1, c.length - 1), y++);
             for (var d = 0; d < w.length; d++) {
               var _ = w[d];
               if ((_ === "'" || _ === '"') && (r[s].isCalculationEnabled === true ? (r.push({ mode: "string", isCalculationEnabled: false, character: _ }), s++) : r[s].mode === "string" && r[s].character === _ && w[d - 1] !== "\\" && (r.pop(), s--)), _ === "{" ? (r.push({ mode: "interpolation", isCalculationEnabled: true }), s++) : _ === "}" && (r.pop(), s--), r[s].mode === "normal" && _ === ":") {
                 var S = w.substring(d + 1);
-                v = { type: "value", before: /^(\s*)/.exec(S)[1], after: /(\s*)$/.exec(S)[1], value: S.trim() }, v.sourceIndex = v.before.length + d + 1 + y, m = { type: "colon", sourceIndex: d + y, after: v.before, value: ":" };
+                v = { type: "value", before: /^(\s*)/.exec(S)[1], after: /(\s*)$/.exec(S)[1], value: S.trim() }, v.sourceIndex = v.before.length + d + 1 + y, m2 = { type: "colon", sourceIndex: d + y, after: v.before, value: ":" };
                 break;
               }
               l += _;
             }
-            return l = { type: "media-feature", before: /^(\s*)/.exec(l)[1], after: /(\s*)$/.exec(l)[1], value: l.trim() }, l.sourceIndex = l.before.length + y, u.push(l), m !== null && (m.before = l.after, u.push(m)), v !== null && u.push(v), u;
+            return l = { type: "media-feature", before: /^(\s*)/.exec(l)[1], after: /(\s*)$/.exec(l)[1], value: l.trim() }, l.sourceIndex = l.before.length + y, u.push(l), m2 !== null && (m2.before = l.after, u.push(m2)), v !== null && u.push(v), u;
           }
-          function h(c) {
+          function h3(c) {
             var t = arguments.length <= 1 || arguments[1] === void 0 ? 0 : arguments[1], r = [], u = 0, s = false, l = void 0;
-            function m() {
+            function m2() {
               return { before: "", after: "", value: "" };
             }
-            l = m();
+            l = m2();
             for (var v = 0; v < c.length; v++) {
               var y = c[v];
-              s ? (l.value += y, (y === "{" || y === "(") && u++, (y === ")" || y === "}") && u--) : y.search(/\s/) !== -1 ? l.before += y : (y === "(" && (l.type = "media-feature-expression", u++), l.value = y, l.sourceIndex = t + v, s = true), s && u === 0 && (y === ")" || v === c.length - 1 || c[v + 1].search(/\s/) !== -1) && (["not", "only", "and"].indexOf(l.value) !== -1 && (l.type = "keyword"), l.type === "media-feature-expression" && (l.nodes = p(l.value, l.sourceIndex)), r.push(Array.isArray(l.nodes) ? new o.default(l) : new i.default(l)), l = m(), s = false);
+              s ? (l.value += y, (y === "{" || y === "(") && u++, (y === ")" || y === "}") && u--) : y.search(/\s/) !== -1 ? l.before += y : (y === "(" && (l.type = "media-feature-expression", u++), l.value = y, l.sourceIndex = t + v, s = true), s && u === 0 && (y === ")" || v === c.length - 1 || c[v + 1].search(/\s/) !== -1) && (["not", "only", "and"].indexOf(l.value) !== -1 && (l.type = "keyword"), l.type === "media-feature-expression" && (l.nodes = p2(l.value, l.sourceIndex)), r.push(Array.isArray(l.nodes) ? new o.default(l) : new i.default(l)), l = m2(), s = false);
             }
             for (var w = 0; w < r.length; w++)
               if (l = r[w], w > 0 && (r[w - 1].after = l.before), l.type === void 0) {
@@ -26011,9 +26054,9 @@ var require_parser_postcss = __commonJS({
           function g(c) {
             var t = [], r = 0, u = 0, s = /^(\s*)url\s*\(/.exec(c);
             if (s !== null) {
-              for (var l = s[0].length, m = 1; m > 0; ) {
+              for (var l = s[0].length, m2 = 1; m2 > 0; ) {
                 var v = c[l];
-                v === "(" && m++, v === ")" && m--, l++;
+                v === "(" && m2++, v === ")" && m2--, l++;
               }
               t.unshift(new i.default({ type: "url", value: c.substring(0, l).trim(), sourceIndex: s[1].length, before: s[1], after: /^(\s*)/.exec(c.substring(l))[1] })), r = l;
             }
@@ -26021,21 +26064,21 @@ var require_parser_postcss = __commonJS({
               var w = c[y];
               if (w === "(" && u++, w === ")" && u--, u === 0 && w === ",") {
                 var d = c.substring(r, y), _ = /^(\s*)/.exec(d)[1];
-                t.push(new o.default({ type: "media-query", value: d.trim(), sourceIndex: r + _.length, nodes: h(d, r), before: _, after: /(\s*)$/.exec(d)[1] })), r = y + 1;
+                t.push(new o.default({ type: "media-query", value: d.trim(), sourceIndex: r + _.length, nodes: h3(d, r), before: _, after: /(\s*)$/.exec(d)[1] })), r = y + 1;
               }
             }
             var S = c.substring(r), x = /^(\s*)/.exec(S)[1];
-            return t.push(new o.default({ type: "media-query", value: S.trim(), sourceIndex: r + x.length, nodes: h(S, r), before: x, after: /(\s*)$/.exec(S)[1] })), t;
+            return t.push(new o.default({ type: "media-query", value: S.trim(), sourceIndex: r + x.length, nodes: h3(S, r), before: x, after: /(\s*)$/.exec(S)[1] })), t;
           }
         } }), gf = R({ "node_modules/postcss-media-query-parser/dist/index.js"(e) {
           "use strict";
           A(), Object.defineProperty(e, "__esModule", { value: true }), e.default = f;
           var n = Uo(), i = o(n), a = mf();
-          function o(p) {
-            return p && p.__esModule ? p : { default: p };
+          function o(p2) {
+            return p2 && p2.__esModule ? p2 : { default: p2 };
           }
-          function f(p) {
-            return new i.default({ nodes: (0, a.parseMediaList)(p), type: "media-query-list", value: p.trim() });
+          function f(p2) {
+            return new i.default({ nodes: (0, a.parseMediaList)(p2), type: "media-query-list", value: p2.trim() });
           }
         } }), Wo = {};
         Ot(Wo, { basename: () => Jo, default: () => Qo, delimiter: () => _t, dirname: () => Ho, extname: () => Ko, isAbsolute: () => jt, join: () => Vo, normalize: () => Nt, relative: () => Go, resolve: () => mr, sep: () => wt });
@@ -26088,14 +26131,14 @@ var require_parser_postcss = __commonJS({
               ;
             return t > r ? [] : c.slice(t, r - t + 1);
           }
-          for (var a = i(e.split("/")), o = i(n.split("/")), f = Math.min(a.length, o.length), p = f, h = 0; h < f; h++)
-            if (a[h] !== o[h]) {
-              p = h;
+          for (var a = i(e.split("/")), o = i(n.split("/")), f = Math.min(a.length, o.length), p2 = f, h3 = 0; h3 < f; h3++)
+            if (a[h3] !== o[h3]) {
+              p2 = h3;
               break;
             }
-          for (var g = [], h = p; h < a.length; h++)
+          for (var g = [], h3 = p2; h3 < a.length; h3++)
             g.push("..");
-          return g = g.concat(o.slice(p)), g.join("/");
+          return g = g.concat(o.slice(p2)), g.join("/");
         }
         function Ho(e) {
           var n = wr(e), i = n[0], a = n[1];
@@ -26144,20 +26187,20 @@ var require_parser_postcss = __commonJS({
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
           var i = o(_f()), a = o(bf());
-          function o(m) {
-            return m && m.__esModule ? m : { default: m };
+          function o(m2) {
+            return m2 && m2.__esModule ? m2 : { default: m2 };
           }
-          function f(m) {
-            if (m === void 0)
+          function f(m2) {
+            if (m2 === void 0)
               throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            return m;
+            return m2;
           }
-          function p(m, v) {
-            m.prototype = Object.create(v.prototype), m.prototype.constructor = m, m.__proto__ = v;
+          function p2(m2, v) {
+            m2.prototype = Object.create(v.prototype), m2.prototype.constructor = m2, m2.__proto__ = v;
           }
-          function h(m) {
+          function h3(m2) {
             var v = typeof Map == "function" ? /* @__PURE__ */ new Map() : void 0;
-            return h = function(w) {
+            return h3 = function(w) {
               if (w === null || !t(w))
                 return w;
               if (typeof w != "function")
@@ -26171,9 +26214,9 @@ var require_parser_postcss = __commonJS({
                 return g(w, arguments, u(this).constructor);
               }
               return d.prototype = Object.create(w.prototype, { constructor: { value: d, enumerable: false, writable: true, configurable: true } }), r(d, w);
-            }, h(m);
+            }, h3(m2);
           }
-          function g(m, v, y) {
+          function g(m2, v, y) {
             return c() ? g = Reflect.construct : g = function(d, _, S) {
               var x = [null];
               x.push.apply(x, _);
@@ -26193,24 +26236,24 @@ var require_parser_postcss = __commonJS({
               return false;
             }
           }
-          function t(m) {
-            return Function.toString.call(m).indexOf("[native code]") !== -1;
+          function t(m2) {
+            return Function.toString.call(m2).indexOf("[native code]") !== -1;
           }
-          function r(m, v) {
+          function r(m2, v) {
             return r = Object.setPrototypeOf || function(w, d) {
               return w.__proto__ = d, w;
-            }, r(m, v);
+            }, r(m2, v);
           }
-          function u(m) {
+          function u(m2) {
             return u = Object.setPrototypeOf ? Object.getPrototypeOf : function(y) {
               return y.__proto__ || Object.getPrototypeOf(y);
-            }, u(m);
+            }, u(m2);
           }
-          var s = function(m) {
-            p(v, m);
+          var s = function(m2) {
+            p2(v, m2);
             function v(w, d, _, S, x, N) {
               var P;
-              return P = m.call(this, w) || this, P.name = "CssSyntaxError", P.reason = w, x && (P.file = x), S && (P.source = S), N && (P.plugin = N), typeof d < "u" && typeof _ < "u" && (P.line = d, P.column = _), P.setMessage(), Error.captureStackTrace && Error.captureStackTrace(f(P), v), P;
+              return P = m2.call(this, w) || this, P.name = "CssSyntaxError", P.reason = w, x && (P.file = x), S && (P.source = S), N && (P.plugin = N), typeof d < "u" && typeof _ < "u" && (P.line = d, P.column = _), P.setMessage(), Error.captureStackTrace && Error.captureStackTrace(f(P), v), P;
             }
             var y = v.prototype;
             return y.setMessage = function() {
@@ -26228,8 +26271,8 @@ var require_parser_postcss = __commonJS({
               function H(D) {
                 return d && i.default.gray ? i.default.gray(D) : D;
               }
-              return x.slice(N, P).map(function(D, $) {
-                var B = N + 1 + $, O = " " + (" " + B).slice(-W) + " | ";
+              return x.slice(N, P).map(function(D, $2) {
+                var B = N + 1 + $2, O = " " + (" " + B).slice(-W) + " | ";
                 if (B === _.line) {
                   var j = H(O.replace(/\d/g, " ")) + D.slice(0, _.column - 1).replace(/[^\t]/g, " ");
                   return U(">") + H(O) + D + `
@@ -26245,7 +26288,7 @@ var require_parser_postcss = __commonJS({
 ` + d + `
 `), this.name + ": " + this.message + d;
             }, v;
-          }(h(Error)), l = s;
+          }(h3(Error)), l = s;
           e.default = l, n.exports = e.default;
         } }), xf = R({ "node_modules/postcss/lib/previous-map.js"(e, n) {
           A(), n.exports = class {
@@ -26257,44 +26300,44 @@ var require_parser_postcss = __commonJS({
           function f(r) {
             return r && r.__esModule ? r : { default: r };
           }
-          function p(r, u) {
+          function p2(r, u) {
             for (var s = 0; s < u.length; s++) {
               var l = u[s];
               l.enumerable = l.enumerable || false, l.configurable = true, "value" in l && (l.writable = true), Object.defineProperty(r, l.key, l);
             }
           }
-          function h(r, u, s) {
-            return u && p(r.prototype, u), s && p(r, s), r;
+          function h3(r, u, s) {
+            return u && p2(r.prototype, u), s && p2(r, s), r;
           }
           var g = 0, c = function() {
             function r(s, l) {
               if (l === void 0 && (l = {}), s === null || typeof s > "u" || typeof s == "object" && !s.toString)
                 throw new Error("PostCSS received " + s + " instead of CSS string");
               this.css = s.toString(), this.css[0] === "\uFEFF" || this.css[0] === "\uFFFE" ? (this.hasBOM = true, this.css = this.css.slice(1)) : this.hasBOM = false, l.from && (/^\w+:\/\//.test(l.from) || i.default.isAbsolute(l.from) ? this.file = l.from : this.file = i.default.resolve(l.from));
-              var m = new o.default(this.css, l);
-              if (m.text) {
-                this.map = m;
-                var v = m.consumer().file;
+              var m2 = new o.default(this.css, l);
+              if (m2.text) {
+                this.map = m2;
+                var v = m2.consumer().file;
                 !this.file && v && (this.file = this.mapResolve(v));
               }
               this.file || (g += 1, this.id = "<input css " + g + ">"), this.map && (this.map.file = this.from);
             }
             var u = r.prototype;
-            return u.error = function(l, m, v, y) {
+            return u.error = function(l, m2, v, y) {
               y === void 0 && (y = {});
-              var w, d = this.origin(m, v);
-              return d ? w = new a.default(l, d.line, d.column, d.source, d.file, y.plugin) : w = new a.default(l, m, v, this.css, this.file, y.plugin), w.input = { line: m, column: v, source: this.css }, this.file && (w.input.file = this.file), w;
-            }, u.origin = function(l, m) {
+              var w, d = this.origin(m2, v);
+              return d ? w = new a.default(l, d.line, d.column, d.source, d.file, y.plugin) : w = new a.default(l, m2, v, this.css, this.file, y.plugin), w.input = { line: m2, column: v, source: this.css }, this.file && (w.input.file = this.file), w;
+            }, u.origin = function(l, m2) {
               if (!this.map)
                 return false;
-              var v = this.map.consumer(), y = v.originalPositionFor({ line: l, column: m });
+              var v = this.map.consumer(), y = v.originalPositionFor({ line: l, column: m2 });
               if (!y.source)
                 return false;
               var w = { file: this.mapResolve(y.source), line: y.line, column: y.column }, d = v.sourceContentFor(y.source);
               return d && (w.source = d), w;
             }, u.mapResolve = function(l) {
               return /^\w+:\/\//.test(l) ? l : i.default.resolve(this.map.consumer().sourceRoot || ".", l);
-            }, h(r, [{ key: "from", get: function() {
+            }, h3(r, [{ key: "from", get: function() {
               return this.file || this.id;
             } }]), r;
           }(), t = c;
@@ -26308,27 +26351,27 @@ var require_parser_postcss = __commonJS({
 `, beforeComment: `
 `, after: `
 `, emptyBody: "", commentLeft: " ", commentRight: " ", semicolon: false };
-          function a(p) {
-            return p[0].toUpperCase() + p.slice(1);
+          function a(p2) {
+            return p2[0].toUpperCase() + p2.slice(1);
           }
           var o = function() {
-            function p(g) {
+            function p2(g) {
               this.builder = g;
             }
-            var h = p.prototype;
-            return h.stringify = function(c, t) {
+            var h3 = p2.prototype;
+            return h3.stringify = function(c, t) {
               this[c.type](c, t);
-            }, h.root = function(c) {
+            }, h3.root = function(c) {
               this.body(c), c.raws.after && this.builder(c.raws.after);
-            }, h.comment = function(c) {
+            }, h3.comment = function(c) {
               var t = this.raw(c, "left", "commentLeft"), r = this.raw(c, "right", "commentRight");
               this.builder("/*" + t + c.text + r + "*/", c);
-            }, h.decl = function(c, t) {
+            }, h3.decl = function(c, t) {
               var r = this.raw(c, "between", "colon"), u = c.prop + r + this.rawValue(c, "value");
               c.important && (u += c.raws.important || " !important"), t && (u += ";"), this.builder(u, c);
-            }, h.rule = function(c) {
+            }, h3.rule = function(c) {
               this.block(c, this.rawValue(c, "selector")), c.raws.ownSemicolon && this.builder(c.raws.ownSemicolon, c, "end");
-            }, h.atrule = function(c, t) {
+            }, h3.atrule = function(c, t) {
               var r = "@" + c.name, u = c.params ? this.rawValue(c, "params") : "";
               if (typeof c.raws.afterName < "u" ? r += c.raws.afterName : u && (r += " "), c.nodes)
                 this.block(c, r + u);
@@ -26336,19 +26379,19 @@ var require_parser_postcss = __commonJS({
                 var s = (c.raws.between || "") + (t ? ";" : "");
                 this.builder(r + u + s, c);
               }
-            }, h.body = function(c) {
+            }, h3.body = function(c) {
               for (var t = c.nodes.length - 1; t > 0 && c.nodes[t].type === "comment"; )
                 t -= 1;
               for (var r = this.raw(c, "semicolon"), u = 0; u < c.nodes.length; u++) {
                 var s = c.nodes[u], l = this.raw(s, "before");
                 l && this.builder(l), this.stringify(s, t !== u || r);
               }
-            }, h.block = function(c, t) {
+            }, h3.block = function(c, t) {
               var r = this.raw(c, "between", "beforeOpen");
               this.builder(t + r + "{", c, "start");
               var u;
               c.nodes && c.nodes.length ? (this.body(c), u = this.raw(c, "after")) : u = this.raw(c, "after", "emptyBody"), u && this.builder(u), this.builder("}", c, "end");
-            }, h.raw = function(c, t, r) {
+            }, h3.raw = function(c, t, r) {
               var u;
               if (r || (r = t), t && (u = c.raws[t], typeof u < "u"))
                 return u;
@@ -26362,24 +26405,24 @@ var require_parser_postcss = __commonJS({
                 return l.rawCache[r];
               if (r === "before" || r === "after")
                 return this.beforeAfter(c, r);
-              var m = "raw" + a(r);
-              return this[m] ? u = this[m](l, c) : l.walk(function(v) {
+              var m2 = "raw" + a(r);
+              return this[m2] ? u = this[m2](l, c) : l.walk(function(v) {
                 if (u = v.raws[t], typeof u < "u")
                   return false;
               }), typeof u > "u" && (u = i[r]), l.rawCache[r] = u, u;
-            }, h.rawSemicolon = function(c) {
+            }, h3.rawSemicolon = function(c) {
               var t;
               return c.walk(function(r) {
                 if (r.nodes && r.nodes.length && r.last.type === "decl" && (t = r.raws.semicolon, typeof t < "u"))
                   return false;
               }), t;
-            }, h.rawEmptyBody = function(c) {
+            }, h3.rawEmptyBody = function(c) {
               var t;
               return c.walk(function(r) {
                 if (r.nodes && r.nodes.length === 0 && (t = r.raws.after, typeof t < "u"))
                   return false;
               }), t;
-            }, h.rawIndent = function(c) {
+            }, h3.rawIndent = function(c) {
               if (c.raws.indent)
                 return c.raws.indent;
               var t;
@@ -26391,47 +26434,47 @@ var require_parser_postcss = __commonJS({
                   return t = s[s.length - 1], t = t.replace(/[^\s]/g, ""), false;
                 }
               }), t;
-            }, h.rawBeforeComment = function(c, t) {
+            }, h3.rawBeforeComment = function(c, t) {
               var r;
               return c.walkComments(function(u) {
                 if (typeof u.raws.before < "u")
                   return r = u.raws.before, r.indexOf(`
 `) !== -1 && (r = r.replace(/[^\n]+$/, "")), false;
               }), typeof r > "u" ? r = this.raw(t, null, "beforeDecl") : r && (r = r.replace(/[^\s]/g, "")), r;
-            }, h.rawBeforeDecl = function(c, t) {
+            }, h3.rawBeforeDecl = function(c, t) {
               var r;
               return c.walkDecls(function(u) {
                 if (typeof u.raws.before < "u")
                   return r = u.raws.before, r.indexOf(`
 `) !== -1 && (r = r.replace(/[^\n]+$/, "")), false;
               }), typeof r > "u" ? r = this.raw(t, null, "beforeRule") : r && (r = r.replace(/[^\s]/g, "")), r;
-            }, h.rawBeforeRule = function(c) {
+            }, h3.rawBeforeRule = function(c) {
               var t;
               return c.walk(function(r) {
                 if (r.nodes && (r.parent !== c || c.first !== r) && typeof r.raws.before < "u")
                   return t = r.raws.before, t.indexOf(`
 `) !== -1 && (t = t.replace(/[^\n]+$/, "")), false;
               }), t && (t = t.replace(/[^\s]/g, "")), t;
-            }, h.rawBeforeClose = function(c) {
+            }, h3.rawBeforeClose = function(c) {
               var t;
               return c.walk(function(r) {
                 if (r.nodes && r.nodes.length > 0 && typeof r.raws.after < "u")
                   return t = r.raws.after, t.indexOf(`
 `) !== -1 && (t = t.replace(/[^\n]+$/, "")), false;
               }), t && (t = t.replace(/[^\s]/g, "")), t;
-            }, h.rawBeforeOpen = function(c) {
+            }, h3.rawBeforeOpen = function(c) {
               var t;
               return c.walk(function(r) {
                 if (r.type !== "decl" && (t = r.raws.between, typeof t < "u"))
                   return false;
               }), t;
-            }, h.rawColon = function(c) {
+            }, h3.rawColon = function(c) {
               var t;
               return c.walkDecls(function(r) {
                 if (typeof r.raws.between < "u")
                   return t = r.raws.between.replace(/[^\s:]/g, ""), false;
               }), t;
-            }, h.beforeAfter = function(c, t) {
+            }, h3.beforeAfter = function(c, t) {
               var r;
               c.type === "decl" ? r = this.raw(c, null, "beforeDecl") : c.type === "comment" ? r = this.raw(c, null, "beforeComment") : t === "before" ? r = this.raw(c, null, "beforeRule") : r = this.raw(c, null, "beforeClose");
               for (var u = c.parent, s = 0; u && u.type !== "root"; )
@@ -26440,26 +26483,26 @@ var require_parser_postcss = __commonJS({
 `) !== -1) {
                 var l = this.raw(c, null, "indent");
                 if (l.length)
-                  for (var m = 0; m < s; m++)
+                  for (var m2 = 0; m2 < s; m2++)
                     r += l;
               }
               return r;
-            }, h.rawValue = function(c, t) {
+            }, h3.rawValue = function(c, t) {
               var r = c[t], u = c.raws[t];
               return u && u.value === r ? u.raw : r;
-            }, p;
+            }, p2;
           }(), f = o;
           e.default = f, n.exports = e.default;
         } }), Zo = R({ "node_modules/postcss/lib/stringify.js"(e, n) {
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
           var i = a(br());
-          function a(p) {
-            return p && p.__esModule ? p : { default: p };
+          function a(p2) {
+            return p2 && p2.__esModule ? p2 : { default: p2 };
           }
-          function o(p, h) {
-            var g = new i.default(h);
-            g.stringify(p);
+          function o(p2, h3) {
+            var g = new i.default(h3);
+            g.stringify(p2);
           }
           var f = o;
           e.default = f, n.exports = e.default;
@@ -26470,18 +26513,18 @@ var require_parser_postcss = __commonJS({
           function f(c) {
             return c && c.__esModule ? c : { default: c };
           }
-          function p(c, t) {
+          function p2(c, t) {
             var r = new c.constructor();
             for (var u in c)
               if (!!c.hasOwnProperty(u)) {
                 var s = c[u], l = typeof s;
-                u === "parent" && l === "object" ? t && (r[u] = t) : u === "source" ? r[u] = s : s instanceof Array ? r[u] = s.map(function(m) {
-                  return p(m, r);
-                }) : (l === "object" && s !== null && (s = p(s)), r[u] = s);
+                u === "parent" && l === "object" ? t && (r[u] = t) : u === "source" ? r[u] = s : s instanceof Array ? r[u] = s.map(function(m2) {
+                  return p2(m2, r);
+                }) : (l === "object" && s !== null && (s = p2(s)), r[u] = s);
               }
             return r;
           }
-          var h = function() {
+          var h3 = function() {
             function c(r) {
               r === void 0 && (r = {}), this.raws = {};
               for (var u in r)
@@ -26495,10 +26538,10 @@ var require_parser_postcss = __commonJS({
               }
               return new i.default(u);
             }, t.warn = function(u, s, l) {
-              var m = { node: this };
+              var m2 = { node: this };
               for (var v in l)
-                m[v] = l[v];
-              return u.warn(s, m);
+                m2[v] = l[v];
+              return u.warn(s, m2);
             }, t.remove = function() {
               return this.parent && this.parent.removeChild(this), this.parent = void 0, this;
             }, t.toString = function(u) {
@@ -26509,7 +26552,7 @@ var require_parser_postcss = __commonJS({
               }), s;
             }, t.clone = function(u) {
               u === void 0 && (u = {});
-              var s = p(this);
+              var s = p2(this);
               for (var l in u)
                 s[l] = u[l];
               return s;
@@ -26525,8 +26568,8 @@ var require_parser_postcss = __commonJS({
               if (this.parent) {
                 for (var u = arguments.length, s = new Array(u), l = 0; l < u; l++)
                   s[l] = arguments[l];
-                for (var m = 0, v = s; m < v.length; m++) {
-                  var y = v[m];
+                for (var m2 = 0, v = s; m2 < v.length; m2++) {
+                  var y = v[m2];
                   this.parent.insertBefore(this, y);
                 }
                 this.remove();
@@ -26551,8 +26594,8 @@ var require_parser_postcss = __commonJS({
               for (var s in this)
                 if (!!this.hasOwnProperty(s) && s !== "parent") {
                   var l = this[s];
-                  l instanceof Array ? u[s] = l.map(function(m) {
-                    return typeof m == "object" && m.toJSON ? m.toJSON() : m;
+                  l instanceof Array ? u[s] = l.map(function(m2) {
+                    return typeof m2 == "object" && m2.toJSON ? m2.toJSON() : m2;
                   }) : typeof l == "object" && l.toJSON ? u[s] = l.toJSON() : u[s] = l;
                 }
               return u;
@@ -26566,10 +26609,10 @@ var require_parser_postcss = __commonJS({
             }, t.cleanRaws = function(u) {
               delete this.raws.before, delete this.raws.after, u || delete this.raws.between;
             }, t.positionInside = function(u) {
-              for (var s = this.toString(), l = this.source.start.column, m = this.source.start.line, v = 0; v < u; v++)
+              for (var s = this.toString(), l = this.source.start.column, m2 = this.source.start.line, v = 0; v < u; v++)
                 s[v] === `
-` ? (l = 1, m += 1) : l += 1;
-              return { line: m, column: l };
+` ? (l = 1, m2 += 1) : l += 1;
+              return { line: m2, column: l };
             }, t.positionBy = function(u) {
               var s = this.source.start;
               if (u.index)
@@ -26580,54 +26623,54 @@ var require_parser_postcss = __commonJS({
               }
               return s;
             }, c;
-          }(), g = h;
+          }(), g = h3;
           e.default = g, n.exports = e.default;
         } }), xr = R({ "node_modules/postcss/lib/comment.js"(e, n) {
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
           var i = a(Dt());
-          function a(h) {
-            return h && h.__esModule ? h : { default: h };
+          function a(h3) {
+            return h3 && h3.__esModule ? h3 : { default: h3 };
           }
-          function o(h, g) {
-            h.prototype = Object.create(g.prototype), h.prototype.constructor = h, h.__proto__ = g;
+          function o(h3, g) {
+            h3.prototype = Object.create(g.prototype), h3.prototype.constructor = h3, h3.__proto__ = g;
           }
-          var f = function(h) {
-            o(g, h);
+          var f = function(h3) {
+            o(g, h3);
             function g(c) {
               var t;
-              return t = h.call(this, c) || this, t.type = "comment", t;
+              return t = h3.call(this, c) || this, t.type = "comment", t;
             }
             return g;
-          }(i.default), p = f;
-          e.default = p, n.exports = e.default;
+          }(i.default), p2 = f;
+          e.default = p2, n.exports = e.default;
         } }), ea = R({ "node_modules/postcss/lib/declaration.js"(e, n) {
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
           var i = a(Dt());
-          function a(h) {
-            return h && h.__esModule ? h : { default: h };
+          function a(h3) {
+            return h3 && h3.__esModule ? h3 : { default: h3 };
           }
-          function o(h, g) {
-            h.prototype = Object.create(g.prototype), h.prototype.constructor = h, h.__proto__ = g;
+          function o(h3, g) {
+            h3.prototype = Object.create(g.prototype), h3.prototype.constructor = h3, h3.__proto__ = g;
           }
-          var f = function(h) {
-            o(g, h);
+          var f = function(h3) {
+            o(g, h3);
             function g(c) {
               var t;
-              return t = h.call(this, c) || this, t.type = "decl", t;
+              return t = h3.call(this, c) || this, t.type = "decl", t;
             }
             return g;
-          }(i.default), p = f;
-          e.default = p, n.exports = e.default;
+          }(i.default), p2 = f;
+          e.default = p2, n.exports = e.default;
         } }), Lt = R({ "node_modules/postcss/lib/tokenize.js"(e, n) {
           "use strict";
           A(), e.__esModule = true, e.default = W;
-          var i = "'".charCodeAt(0), a = '"'.charCodeAt(0), o = "\\".charCodeAt(0), f = "/".charCodeAt(0), p = `
-`.charCodeAt(0), h = " ".charCodeAt(0), g = "\f".charCodeAt(0), c = "	".charCodeAt(0), t = "\r".charCodeAt(0), r = "[".charCodeAt(0), u = "]".charCodeAt(0), s = "(".charCodeAt(0), l = ")".charCodeAt(0), m = "{".charCodeAt(0), v = "}".charCodeAt(0), y = ";".charCodeAt(0), w = "*".charCodeAt(0), d = ":".charCodeAt(0), _ = "@".charCodeAt(0), S = /[ \n\t\r\f{}()'"\\;/[\]#]/g, x = /[ \n\t\r\f(){}:;@!'"\\\][#]|\/(?=\*)/g, N = /.[\\/("'\n]/, P = /[a-f0-9]/i;
+          var i = "'".charCodeAt(0), a = '"'.charCodeAt(0), o = "\\".charCodeAt(0), f = "/".charCodeAt(0), p2 = `
+`.charCodeAt(0), h3 = " ".charCodeAt(0), g = "\f".charCodeAt(0), c = "	".charCodeAt(0), t = "\r".charCodeAt(0), r = "[".charCodeAt(0), u = "]".charCodeAt(0), s = "(".charCodeAt(0), l = ")".charCodeAt(0), m2 = "{".charCodeAt(0), v = "}".charCodeAt(0), y = ";".charCodeAt(0), w = "*".charCodeAt(0), d = ":".charCodeAt(0), _ = "@".charCodeAt(0), S = /[ \n\t\r\f{}()'"\\;/[\]#]/g, x = /[ \n\t\r\f(){}:;@!'"\\\][#]|\/(?=\*)/g, N = /.[\\/("'\n]/, P = /[a-f0-9]/i;
           function W(U, H) {
             H === void 0 && (H = {});
-            var D = U.css.valueOf(), $ = H.ignoreErrors, B, O, j, C, I, X, Z, Q, K, J, M, Y, G, E, k = D.length, b = -1, L = 1, q = 0, T = [], F = [];
+            var D = U.css.valueOf(), $2 = H.ignoreErrors, B, O, j, C, I, X, Z, Q, K, J, M, Y, G, E, k = D.length, b = -1, L = 1, q = 0, T = [], F = [];
             function z() {
               return q;
             }
@@ -26642,21 +26685,21 @@ var require_parser_postcss = __commonJS({
                 return F.pop();
               if (!(q >= k)) {
                 var ie = te ? te.ignoreUnclosed : false;
-                switch (B = D.charCodeAt(q), (B === p || B === g || B === t && D.charCodeAt(q + 1) !== p) && (b = q, L += 1), B) {
-                  case p:
-                  case h:
+                switch (B = D.charCodeAt(q), (B === p2 || B === g || B === t && D.charCodeAt(q + 1) !== p2) && (b = q, L += 1), B) {
+                  case p2:
+                  case h3:
                   case c:
                   case t:
                   case g:
                     O = q;
                     do
-                      O += 1, B = D.charCodeAt(O), B === p && (b = O, L += 1);
-                    while (B === h || B === p || B === c || B === t || B === g);
+                      O += 1, B = D.charCodeAt(O), B === p2 && (b = O, L += 1);
+                    while (B === h3 || B === p2 || B === c || B === t || B === g);
                     E = ["space", D.slice(q, O)], q = O - 1;
                     break;
                   case r:
                   case u:
-                  case m:
+                  case m2:
                   case v:
                   case d:
                   case y:
@@ -26665,11 +26708,11 @@ var require_parser_postcss = __commonJS({
                     E = [ae, ae, L, q - b];
                     break;
                   case s:
-                    if (Y = T.length ? T.pop()[1] : "", G = D.charCodeAt(q + 1), Y === "url" && G !== i && G !== a && G !== h && G !== p && G !== c && G !== g && G !== t) {
+                    if (Y = T.length ? T.pop()[1] : "", G = D.charCodeAt(q + 1), Y === "url" && G !== i && G !== a && G !== h3 && G !== p2 && G !== c && G !== g && G !== t) {
                       O = q;
                       do {
                         if (J = false, O = D.indexOf(")", O + 1), O === -1)
-                          if ($ || ie) {
+                          if ($2 || ie) {
                             O = q;
                             break;
                           } else
@@ -26686,7 +26729,7 @@ var require_parser_postcss = __commonJS({
                     j = B === i ? "'" : '"', O = q;
                     do {
                       if (J = false, O = D.indexOf(j, O + 1), O === -1)
-                        if ($ || ie) {
+                        if ($2 || ie) {
                           O = q + 1;
                           break;
                         } else
@@ -26703,15 +26746,15 @@ var require_parser_postcss = __commonJS({
                   case o:
                     for (O = q, Z = true; D.charCodeAt(O + 1) === o; )
                       O += 1, Z = !Z;
-                    if (B = D.charCodeAt(O + 1), Z && B !== f && B !== h && B !== p && B !== c && B !== t && B !== g && (O += 1, P.test(D.charAt(O)))) {
+                    if (B = D.charCodeAt(O + 1), Z && B !== f && B !== h3 && B !== p2 && B !== c && B !== t && B !== g && (O += 1, P.test(D.charAt(O)))) {
                       for (; P.test(D.charAt(O + 1)); )
                         O += 1;
-                      D.charCodeAt(O + 1) === h && (O += 1);
+                      D.charCodeAt(O + 1) === h3 && (O += 1);
                     }
                     E = ["word", D.slice(q, O + 1), L, q - b, L, O - b], q = O;
                     break;
                   default:
-                    B === f && D.charCodeAt(q + 1) === w ? (O = D.indexOf("*/", q + 2) + 1, O === 0 && ($ || ie ? O = D.length : re("comment")), X = D.slice(q, O + 1), C = X.split(`
+                    B === f && D.charCodeAt(q + 1) === w ? (O = D.indexOf("*/", q + 2) + 1, O === 0 && ($2 || ie ? O = D.length : re("comment")), X = D.slice(q, O + 1), C = X.split(`
 `), I = C.length - 1, I > 0 ? (Q = L + I, K = O - C[I].length) : (Q = L, K = b), E = ["comment", X, L, q - b, Q, O - K], b = K, L = Q, q = O) : (x.lastIndex = q + 1, x.test(D), x.lastIndex === 0 ? O = D.length - 1 : O = x.lastIndex - 2, E = ["word", D.slice(q, O + 1), L, q - b, L, O - b], T.push(E), q = O);
                     break;
                 }
@@ -26728,11 +26771,11 @@ var require_parser_postcss = __commonJS({
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
           var i = o(zt()), a = o(_r());
-          function o(h) {
-            return h && h.__esModule ? h : { default: h };
+          function o(h3) {
+            return h3 && h3.__esModule ? h3 : { default: h3 };
           }
-          function f(h, g) {
-            var c = new a.default(h, g), t = new i.default(c);
+          function f(h3, g) {
+            var c = new a.default(h3, g), t = new i.default(c);
             try {
               t.parse();
             } catch (r) {
@@ -26740,21 +26783,21 @@ var require_parser_postcss = __commonJS({
             }
             return t.root;
           }
-          var p = f;
-          e.default = p, n.exports = e.default;
+          var p2 = f;
+          e.default = p2, n.exports = e.default;
         } }), kf = R({ "node_modules/postcss/lib/list.js"(e, n) {
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
-          var i = { split: function(f, p, h) {
+          var i = { split: function(f, p2, h3) {
             for (var g = [], c = "", t = false, r = 0, u = false, s = false, l = 0; l < f.length; l++) {
-              var m = f[l];
-              u ? s ? s = false : m === "\\" ? s = true : m === u && (u = false) : m === '"' || m === "'" ? u = m : m === "(" ? r += 1 : m === ")" ? r > 0 && (r -= 1) : r === 0 && p.indexOf(m) !== -1 && (t = true), t ? (c !== "" && g.push(c.trim()), c = "", t = false) : c += m;
+              var m2 = f[l];
+              u ? s ? s = false : m2 === "\\" ? s = true : m2 === u && (u = false) : m2 === '"' || m2 === "'" ? u = m2 : m2 === "(" ? r += 1 : m2 === ")" ? r > 0 && (r -= 1) : r === 0 && p2.indexOf(m2) !== -1 && (t = true), t ? (c !== "" && g.push(c.trim()), c = "", t = false) : c += m2;
             }
-            return (h || c !== "") && g.push(c.trim()), g;
+            return (h3 || c !== "") && g.push(c.trim()), g;
           }, space: function(f) {
-            var p = [" ", `
+            var p2 = [" ", `
 `, "	"];
-            return i.split(f, p);
+            return i.split(f, p2);
           }, comma: function(f) {
             return i.split(f, [","], true);
           } }, a = i;
@@ -26772,23 +26815,23 @@ var require_parser_postcss = __commonJS({
               s.enumerable = s.enumerable || false, s.configurable = true, "value" in s && (s.writable = true), Object.defineProperty(t, s.key, s);
             }
           }
-          function p(t, r, u) {
+          function p2(t, r, u) {
             return r && f(t.prototype, r), u && f(t, u), t;
           }
-          function h(t, r) {
+          function h3(t, r) {
             t.prototype = Object.create(r.prototype), t.prototype.constructor = t, t.__proto__ = r;
           }
           var g = function(t) {
-            h(r, t);
+            h3(r, t);
             function r(u) {
               var s;
               return s = t.call(this, u) || this, s.type = "rule", s.nodes || (s.nodes = []), s;
             }
-            return p(r, [{ key: "selectors", get: function() {
+            return p2(r, [{ key: "selectors", get: function() {
               return a.default.comma(this.selector);
             }, set: function(s) {
-              var l = this.selector ? this.selector.match(/,\s*/) : null, m = l ? l[0] : "," + this.raw("between", "beforeOpen");
-              this.selector = s.join(m);
+              var l = this.selector ? this.selector.match(/,\s*/) : null, m2 = l ? l[0] : "," + this.raw("between", "beforeOpen");
+              this.selector = s.join(m2);
             } }]), r;
           }(i.default), c = g;
           e.default = c, n.exports = e.default;
@@ -26796,62 +26839,62 @@ var require_parser_postcss = __commonJS({
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
           var i = f(ea()), a = f(xr()), o = f(Dt());
-          function f(m) {
-            return m && m.__esModule ? m : { default: m };
+          function f(m2) {
+            return m2 && m2.__esModule ? m2 : { default: m2 };
           }
-          function p(m, v) {
+          function p2(m2, v) {
             var y;
-            if (typeof Symbol > "u" || m[Symbol.iterator] == null) {
-              if (Array.isArray(m) || (y = h(m)) || v && m && typeof m.length == "number") {
-                y && (m = y);
+            if (typeof Symbol > "u" || m2[Symbol.iterator] == null) {
+              if (Array.isArray(m2) || (y = h3(m2)) || v && m2 && typeof m2.length == "number") {
+                y && (m2 = y);
                 var w = 0;
                 return function() {
-                  return w >= m.length ? { done: true } : { done: false, value: m[w++] };
+                  return w >= m2.length ? { done: true } : { done: false, value: m2[w++] };
                 };
               }
               throw new TypeError(`Invalid attempt to iterate non-iterable instance.
 In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
             }
-            return y = m[Symbol.iterator](), y.next.bind(y);
+            return y = m2[Symbol.iterator](), y.next.bind(y);
           }
-          function h(m, v) {
-            if (!!m) {
-              if (typeof m == "string")
-                return g(m, v);
-              var y = Object.prototype.toString.call(m).slice(8, -1);
-              if (y === "Object" && m.constructor && (y = m.constructor.name), y === "Map" || y === "Set")
-                return Array.from(m);
+          function h3(m2, v) {
+            if (!!m2) {
+              if (typeof m2 == "string")
+                return g(m2, v);
+              var y = Object.prototype.toString.call(m2).slice(8, -1);
+              if (y === "Object" && m2.constructor && (y = m2.constructor.name), y === "Map" || y === "Set")
+                return Array.from(m2);
               if (y === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(y))
-                return g(m, v);
+                return g(m2, v);
             }
           }
-          function g(m, v) {
-            (v == null || v > m.length) && (v = m.length);
+          function g(m2, v) {
+            (v == null || v > m2.length) && (v = m2.length);
             for (var y = 0, w = new Array(v); y < v; y++)
-              w[y] = m[y];
+              w[y] = m2[y];
             return w;
           }
-          function c(m, v) {
+          function c(m2, v) {
             for (var y = 0; y < v.length; y++) {
               var w = v[y];
-              w.enumerable = w.enumerable || false, w.configurable = true, "value" in w && (w.writable = true), Object.defineProperty(m, w.key, w);
+              w.enumerable = w.enumerable || false, w.configurable = true, "value" in w && (w.writable = true), Object.defineProperty(m2, w.key, w);
             }
           }
-          function t(m, v, y) {
-            return v && c(m.prototype, v), y && c(m, y), m;
+          function t(m2, v, y) {
+            return v && c(m2.prototype, v), y && c(m2, y), m2;
           }
-          function r(m, v) {
-            m.prototype = Object.create(v.prototype), m.prototype.constructor = m, m.__proto__ = v;
+          function r(m2, v) {
+            m2.prototype = Object.create(v.prototype), m2.prototype.constructor = m2, m2.__proto__ = v;
           }
-          function u(m) {
-            return m.map(function(v) {
+          function u(m2) {
+            return m2.map(function(v) {
               return v.nodes && (v.nodes = u(v.nodes)), delete v.source, v;
             });
           }
-          var s = function(m) {
-            r(v, m);
+          var s = function(m2) {
+            r(v, m2);
             function v() {
-              return m.apply(this, arguments) || this;
+              return m2.apply(this, arguments) || this;
             }
             var y = v.prototype;
             return y.push = function(d) {
@@ -26920,7 +26963,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               for (var d = arguments.length, _ = new Array(d), S = 0; S < d; S++)
                 _[S] = arguments[S];
               for (var x = 0, N = _; x < N.length; x++)
-                for (var P = N[x], W = this.normalize(P, this.last), U = p(W), H; !(H = U()).done; ) {
+                for (var P = N[x], W = this.normalize(P, this.last), U = p2(W), H; !(H = U()).done; ) {
                   var D = H.value;
                   this.nodes.push(D);
                 }
@@ -26929,24 +26972,24 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               for (var d = arguments.length, _ = new Array(d), S = 0; S < d; S++)
                 _[S] = arguments[S];
               _ = _.reverse();
-              for (var x = p(_), N; !(N = x()).done; ) {
-                for (var P = N.value, W = this.normalize(P, this.first, "prepend").reverse(), U = p(W), H; !(H = U()).done; ) {
+              for (var x = p2(_), N; !(N = x()).done; ) {
+                for (var P = N.value, W = this.normalize(P, this.first, "prepend").reverse(), U = p2(W), H; !(H = U()).done; ) {
                   var D = H.value;
                   this.nodes.unshift(D);
                 }
-                for (var $ in this.indexes)
-                  this.indexes[$] = this.indexes[$] + W.length;
+                for (var $2 in this.indexes)
+                  this.indexes[$2] = this.indexes[$2] + W.length;
               }
               return this;
             }, y.cleanRaws = function(d) {
-              if (m.prototype.cleanRaws.call(this, d), this.nodes)
-                for (var _ = p(this.nodes), S; !(S = _()).done; ) {
+              if (m2.prototype.cleanRaws.call(this, d), this.nodes)
+                for (var _ = p2(this.nodes), S; !(S = _()).done; ) {
                   var x = S.value;
                   x.cleanRaws(d);
                 }
             }, y.insertBefore = function(d, _) {
               d = this.index(d);
-              for (var S = d === 0 ? "prepend" : false, x = this.normalize(_, this.nodes[d], S).reverse(), N = p(x), P; !(P = N()).done; ) {
+              for (var S = d === 0 ? "prepend" : false, x = this.normalize(_, this.nodes[d], S).reverse(), N = p2(x), P; !(P = N()).done; ) {
                 var W = P.value;
                 this.nodes.splice(d, 0, W);
               }
@@ -26956,7 +26999,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               return this;
             }, y.insertAfter = function(d, _) {
               d = this.index(d);
-              for (var S = this.normalize(_, this.nodes[d]).reverse(), x = p(S), N; !(N = x()).done; ) {
+              for (var S = this.normalize(_, this.nodes[d]).reverse(), x = p2(S), N; !(N = x()).done; ) {
                 var P = N.value;
                 this.nodes.splice(d + 1, 0, P);
               }
@@ -26971,7 +27014,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 _ = this.indexes[S], _ >= d && (this.indexes[S] = _ - 1);
               return this;
             }, y.removeAll = function() {
-              for (var d = p(this.nodes), _; !(_ = d()).done; ) {
+              for (var d = p2(this.nodes), _; !(_ = d()).done; ) {
                 var S = _.value;
                 S.parent = void 0;
               }
@@ -26993,13 +27036,13 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 d = u(x(d).nodes);
               } else if (Array.isArray(d)) {
                 d = d.slice(0);
-                for (var N = p(d), P; !(P = N()).done; ) {
+                for (var N = p2(d), P; !(P = N()).done; ) {
                   var W = P.value;
                   W.parent && W.parent.removeChild(W, "ignore");
                 }
               } else if (d.type === "root") {
                 d = d.nodes.slice(0);
-                for (var U = p(d), H; !(H = U()).done; ) {
+                for (var U = p2(d), H; !(H = U()).done; ) {
                   var D = H.value;
                   D.parent && D.parent.removeChild(D, "ignore");
                 }
@@ -27010,8 +27053,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                   throw new Error("Value field is missed in node creation");
                 typeof d.value != "string" && (d.value = String(d.value)), d = [new i.default(d)];
               } else if (d.selector) {
-                var $ = ta();
-                d = [new $(d)];
+                var $2 = ta();
+                d = [new $2(d)];
               } else if (d.name) {
                 var B = na();
                 d = [new B(d)];
@@ -27036,17 +27079,17 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
           var i = a(kr());
-          function a(h) {
-            return h && h.__esModule ? h : { default: h };
+          function a(h3) {
+            return h3 && h3.__esModule ? h3 : { default: h3 };
           }
-          function o(h, g) {
-            h.prototype = Object.create(g.prototype), h.prototype.constructor = h, h.__proto__ = g;
+          function o(h3, g) {
+            h3.prototype = Object.create(g.prototype), h3.prototype.constructor = h3, h3.__proto__ = g;
           }
-          var f = function(h) {
-            o(g, h);
+          var f = function(h3) {
+            o(g, h3);
             function g(t) {
               var r;
-              return r = h.call(this, t) || this, r.type = "atrule", r;
+              return r = h3.call(this, t) || this, r.type = "atrule", r;
             }
             var c = g.prototype;
             return c.append = function() {
@@ -27054,16 +27097,16 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               this.nodes || (this.nodes = []);
               for (var u = arguments.length, s = new Array(u), l = 0; l < u; l++)
                 s[l] = arguments[l];
-              return (r = h.prototype.append).call.apply(r, [this].concat(s));
+              return (r = h3.prototype.append).call.apply(r, [this].concat(s));
             }, c.prepend = function() {
               var r;
               this.nodes || (this.nodes = []);
               for (var u = arguments.length, s = new Array(u), l = 0; l < u; l++)
                 s[l] = arguments[l];
-              return (r = h.prototype.prepend).call.apply(r, [this].concat(s));
+              return (r = h3.prototype.prepend).call.apply(r, [this].concat(s));
             }, g;
-          }(i.default), p = f;
-          e.default = p, n.exports = e.default;
+          }(i.default), p2 = f;
+          e.default = p2, n.exports = e.default;
         } }), Sf = R({ "node_modules/postcss/lib/map-generator.js"(e, n) {
           A(), n.exports = class {
             generate() {
@@ -27081,13 +27124,13 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
           var i = function() {
-            function o(p, h) {
-              if (h === void 0 && (h = {}), this.type = "warning", this.text = p, h.node && h.node.source) {
-                var g = h.node.positionBy(h);
+            function o(p2, h3) {
+              if (h3 === void 0 && (h3 = {}), this.type = "warning", this.text = p2, h3.node && h3.node.source) {
+                var g = h3.node.positionBy(h3);
                 this.line = g.line, this.column = g.column;
               }
-              for (var c in h)
-                this[c] = h[c];
+              for (var c in h3)
+                this[c] = h3[c];
             }
             var f = o.prototype;
             return f.toString = function() {
@@ -27111,7 +27154,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           function f(g, c, t) {
             return c && o(g.prototype, c), t && o(g, t), g;
           }
-          var p = function() {
+          var p2 = function() {
             function g(t, r, u) {
               this.processor = t, this.messages = [], this.root = r, this.opts = u, this.css = void 0, this.map = void 0;
             }
@@ -27129,13 +27172,13 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             }, f(g, [{ key: "content", get: function() {
               return this.css;
             } }]), g;
-          }(), h = p;
-          e.default = h, n.exports = e.default;
+          }(), h3 = p2;
+          e.default = h3, n.exports = e.default;
         } }), ia = R({ "node_modules/postcss/lib/lazy-result.js"(e, n) {
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
-          var i = h(Sf()), a = h(Zo()), o = h(Of()), f = h(Ef()), p = h(ra());
-          function h(v) {
+          var i = h3(Sf()), a = h3(Zo()), o = h3(Of()), f = h3(Ef()), p2 = h3(ra());
+          function h3(v) {
             return v && v.__esModule ? v : { default: v };
           }
           function g(v, y) {
@@ -27191,7 +27234,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               else if (d instanceof v || d instanceof f.default)
                 S = d.root, d.map && (typeof _.map > "u" && (_.map = {}), _.map.inline || (_.map.inline = false), _.map.prev = d.map);
               else {
-                var x = p.default;
+                var x = p2.default;
                 _.syntax && (x = _.syntax.parse), _.parser && (x = _.parser), x.parse && (x = x.parse);
                 try {
                   S = x(d, _);
@@ -27289,8 +27332,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             } }, { key: "messages", get: function() {
               return this.sync().messages;
             } }]), v;
-          }(), m = l;
-          e.default = m, n.exports = e.default;
+          }(), m2 = l;
+          e.default = m2, n.exports = e.default;
         } }), qf = R({ "node_modules/postcss/lib/processor.js"(e, n) {
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
@@ -27316,21 +27359,21 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           function f(c, t) {
             if (!!c) {
               if (typeof c == "string")
-                return p(c, t);
+                return p2(c, t);
               var r = Object.prototype.toString.call(c).slice(8, -1);
               if (r === "Object" && c.constructor && (r = c.constructor.name), r === "Map" || r === "Set")
                 return Array.from(c);
               if (r === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r))
-                return p(c, t);
+                return p2(c, t);
             }
           }
-          function p(c, t) {
+          function p2(c, t) {
             (t == null || t > c.length) && (t = c.length);
             for (var r = 0, u = new Array(t); r < t; r++)
               u[r] = c[r];
             return u;
           }
-          var h = function() {
+          var h3 = function() {
             function c(r) {
               r === void 0 && (r = []), this.version = "7.0.39", this.plugins = this.normalize(r);
             }
@@ -27347,8 +27390,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             }(function(r, u) {
               return u === void 0 && (u = {}), this.plugins.length === 0 && (u.parser, u.stringifier), new i.default(this, r, u);
             }), t.normalize = function(u) {
-              for (var s = [], l = o(u), m; !(m = l()).done; ) {
-                var v = m.value;
+              for (var s = [], l = o(u), m2; !(m2 = l()).done; ) {
+                var v = m2.value;
                 if (v.postcss === true) {
                   var y = v();
                   throw new Error("PostCSS plugin " + y.postcssPlugin + ` requires PostCSS 8.
@@ -27366,7 +27409,7 @@ https://github.com/postcss/postcss/wiki/PostCSS-8-for-end-users`) : new Error(v 
               }
               return s;
             }, c;
-          }(), g = h;
+          }(), g = h3;
           e.default = g, n.exports = e.default;
         } }), Af = R({ "node_modules/postcss/lib/root.js"(e, n) {
           "use strict";
@@ -27393,48 +27436,48 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           function f(t, r) {
             if (!!t) {
               if (typeof t == "string")
-                return p(t, r);
+                return p2(t, r);
               var u = Object.prototype.toString.call(t).slice(8, -1);
               if (u === "Object" && t.constructor && (u = t.constructor.name), u === "Map" || u === "Set")
                 return Array.from(t);
               if (u === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(u))
-                return p(t, r);
+                return p2(t, r);
             }
           }
-          function p(t, r) {
+          function p2(t, r) {
             (r == null || r > t.length) && (r = t.length);
             for (var u = 0, s = new Array(r); u < r; u++)
               s[u] = t[u];
             return s;
           }
-          function h(t, r) {
+          function h3(t, r) {
             t.prototype = Object.create(r.prototype), t.prototype.constructor = t, t.__proto__ = r;
           }
           var g = function(t) {
-            h(r, t);
+            h3(r, t);
             function r(s) {
               var l;
               return l = t.call(this, s) || this, l.type = "root", l.nodes || (l.nodes = []), l;
             }
             var u = r.prototype;
-            return u.removeChild = function(l, m) {
+            return u.removeChild = function(l, m2) {
               var v = this.index(l);
-              return !m && v === 0 && this.nodes.length > 1 && (this.nodes[1].raws.before = this.nodes[v].raws.before), t.prototype.removeChild.call(this, l);
-            }, u.normalize = function(l, m, v) {
+              return !m2 && v === 0 && this.nodes.length > 1 && (this.nodes[1].raws.before = this.nodes[v].raws.before), t.prototype.removeChild.call(this, l);
+            }, u.normalize = function(l, m2, v) {
               var y = t.prototype.normalize.call(this, l);
-              if (m) {
+              if (m2) {
                 if (v === "prepend")
-                  this.nodes.length > 1 ? m.raws.before = this.nodes[1].raws.before : delete m.raws.before;
-                else if (this.first !== m)
+                  this.nodes.length > 1 ? m2.raws.before = this.nodes[1].raws.before : delete m2.raws.before;
+                else if (this.first !== m2)
                   for (var w = o(y), d; !(d = w()).done; ) {
                     var _ = d.value;
-                    _.raws.before = m.raws.before;
+                    _.raws.before = m2.raws.before;
                   }
               }
               return y;
             }, u.toResult = function(l) {
               l === void 0 && (l = {});
-              var m = ia(), v = qf(), y = new m(new v(), this, l);
+              var m2 = ia(), v = qf(), y = new m2(new v(), this, l);
               return y.stringify();
             }, r;
           }(i.default), c = g;
@@ -27442,13 +27485,13 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         } }), zt = R({ "node_modules/postcss/lib/parser.js"(e, n) {
           "use strict";
           A(), e.__esModule = true, e.default = void 0;
-          var i = g(ea()), a = g(Lt()), o = g(xr()), f = g(na()), p = g(Af()), h = g(ta());
+          var i = g(ea()), a = g(Lt()), o = g(xr()), f = g(na()), p2 = g(Af()), h3 = g(ta());
           function g(t) {
             return t && t.__esModule ? t : { default: t };
           }
           var c = function() {
             function t(u) {
-              this.input = u, this.root = new p.default(), this.current = this.root, this.spaces = "", this.semicolon = false, this.createTokenizer(), this.root.source = { input: u, start: { line: 1, column: 1 } };
+              this.input = u, this.root = new p2.default(), this.current = this.root, this.spaces = "", this.semicolon = false, this.createTokenizer(), this.root.source = { input: u, start: { line: 1, column: 1 } };
             }
             var r = t.prototype;
             return r.createTokenizer = function() {
@@ -27482,37 +27525,37 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             }, r.comment = function(s) {
               var l = new o.default();
               this.init(l, s[2], s[3]), l.source.end = { line: s[4], column: s[5] };
-              var m = s[1].slice(2, -2);
-              if (/^\s*$/.test(m))
-                l.text = "", l.raws.left = m, l.raws.right = "";
+              var m2 = s[1].slice(2, -2);
+              if (/^\s*$/.test(m2))
+                l.text = "", l.raws.left = m2, l.raws.right = "";
               else {
-                var v = m.match(/^(\s*)([^]*[^\s])(\s*)$/);
+                var v = m2.match(/^(\s*)([^]*[^\s])(\s*)$/);
                 l.text = v[2], l.raws.left = v[1], l.raws.right = v[3];
               }
             }, r.emptyRule = function(s) {
-              var l = new h.default();
+              var l = new h3.default();
               this.init(l, s[2], s[3]), l.selector = "", l.raws.between = "", this.current = l;
             }, r.other = function(s) {
-              for (var l = false, m = null, v = false, y = null, w = [], d = [], _ = s; _; ) {
-                if (m = _[0], d.push(_), m === "(" || m === "[")
-                  y || (y = _), w.push(m === "(" ? ")" : "]");
+              for (var l = false, m2 = null, v = false, y = null, w = [], d = [], _ = s; _; ) {
+                if (m2 = _[0], d.push(_), m2 === "(" || m2 === "[")
+                  y || (y = _), w.push(m2 === "(" ? ")" : "]");
                 else if (w.length === 0)
-                  if (m === ";")
+                  if (m2 === ";")
                     if (v) {
                       this.decl(d);
                       return;
                     } else
                       break;
-                  else if (m === "{") {
+                  else if (m2 === "{") {
                     this.rule(d);
                     return;
-                  } else if (m === "}") {
+                  } else if (m2 === "}") {
                     this.tokenizer.back(d.pop()), l = true;
                     break;
                   } else
-                    m === ":" && (v = true);
+                    m2 === ":" && (v = true);
                 else
-                  m === w[w.length - 1] && (w.pop(), w.length === 0 && (y = null));
+                  m2 === w[w.length - 1] && (w.pop(), w.length === 0 && (y = null));
                 _ = this.tokenizer.nextToken();
               }
               if (this.tokenizer.endOfFile() && (l = true), w.length > 0 && this.unclosedBracket(y), l && v) {
@@ -27523,13 +27566,13 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 this.unknownWord(d);
             }, r.rule = function(s) {
               s.pop();
-              var l = new h.default();
+              var l = new h3.default();
               this.init(l, s[0][2], s[0][3]), l.raws.between = this.spacesAndCommentsFromEnd(s), this.raw(l, "selector", s), this.current = l;
             }, r.decl = function(s) {
               var l = new i.default();
               this.init(l);
-              var m = s[s.length - 1];
-              for (m[0] === ";" && (this.semicolon = true, s.pop()), m[4] ? l.source.end = { line: m[4], column: m[5] } : l.source.end = { line: m[2], column: m[3] }; s[0][0] !== "word"; )
+              var m2 = s[s.length - 1];
+              for (m2[0] === ";" && (this.semicolon = true, s.pop()), m2[4] ? l.source.end = { line: m2[4], column: m2[5] } : l.source.end = { line: m2[2], column: m2[3] }; s[0][0] !== "word"; )
                 s.length === 1 && this.unknownWord(s), l.raws.before += s.shift()[1];
               for (l.source.start = { line: s[0][2], column: s[0][3] }, l.prop = ""; s.length; ) {
                 var v = s[0][0];
@@ -27567,7 +27610,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             }, r.atrule = function(s) {
               var l = new f.default();
               l.name = s[1].slice(1), l.name === "" && this.unnamedAtrule(l, s), this.init(l, s[2], s[3]);
-              for (var m, v, y = false, w = false, d = []; !this.tokenizer.endOfFile(); ) {
+              for (var m2, v, y = false, w = false, d = []; !this.tokenizer.endOfFile(); ) {
                 if (s = this.tokenizer.nextToken(), s[0] === ";") {
                   l.source.end = { line: s[2], column: s[3] }, this.semicolon = true;
                   break;
@@ -27576,9 +27619,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                   break;
                 } else if (s[0] === "}") {
                   if (d.length > 0) {
-                    for (v = d.length - 1, m = d[v]; m && m[0] === "space"; )
-                      m = d[--v];
-                    m && (l.source.end = { line: m[4], column: m[5] });
+                    for (v = d.length - 1, m2 = d[v]; m2 && m2[0] === "space"; )
+                      m2 = d[--v];
+                    m2 && (l.source.end = { line: m2[4], column: m2[5] });
                   }
                   this.end(s);
                   break;
@@ -27599,50 +27642,50 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 var l = this.current.nodes[this.current.nodes.length - 1];
                 l && l.type === "rule" && !l.raws.ownSemicolon && (l.raws.ownSemicolon = this.spaces, this.spaces = "");
               }
-            }, r.init = function(s, l, m) {
-              this.current.push(s), s.source = { start: { line: l, column: m }, input: this.input }, s.raws.before = this.spaces, this.spaces = "", s.type !== "comment" && (this.semicolon = false);
-            }, r.raw = function(s, l, m) {
-              for (var v, y, w = m.length, d = "", _ = true, S, x, N = /^([.|#])?([\w])+/i, P = 0; P < w; P += 1) {
-                if (v = m[P], y = v[0], y === "comment" && s.type === "rule") {
-                  x = m[P - 1], S = m[P + 1], x[0] !== "space" && S[0] !== "space" && N.test(x[1]) && N.test(S[1]) ? d += v[1] : _ = false;
+            }, r.init = function(s, l, m2) {
+              this.current.push(s), s.source = { start: { line: l, column: m2 }, input: this.input }, s.raws.before = this.spaces, this.spaces = "", s.type !== "comment" && (this.semicolon = false);
+            }, r.raw = function(s, l, m2) {
+              for (var v, y, w = m2.length, d = "", _ = true, S, x, N = /^([.|#])?([\w])+/i, P = 0; P < w; P += 1) {
+                if (v = m2[P], y = v[0], y === "comment" && s.type === "rule") {
+                  x = m2[P - 1], S = m2[P + 1], x[0] !== "space" && S[0] !== "space" && N.test(x[1]) && N.test(S[1]) ? d += v[1] : _ = false;
                   continue;
                 }
                 y === "comment" || y === "space" && P === w - 1 ? _ = false : d += v[1];
               }
               if (!_) {
-                var W = m.reduce(function(U, H) {
+                var W = m2.reduce(function(U, H) {
                   return U + H[1];
                 }, "");
                 s.raws[l] = { value: d, raw: W };
               }
               s[l] = d;
             }, r.spacesAndCommentsFromEnd = function(s) {
-              for (var l, m = ""; s.length && (l = s[s.length - 1][0], !(l !== "space" && l !== "comment")); )
-                m = s.pop()[1] + m;
-              return m;
+              for (var l, m2 = ""; s.length && (l = s[s.length - 1][0], !(l !== "space" && l !== "comment")); )
+                m2 = s.pop()[1] + m2;
+              return m2;
             }, r.spacesAndCommentsFromStart = function(s) {
-              for (var l, m = ""; s.length && (l = s[0][0], !(l !== "space" && l !== "comment")); )
-                m += s.shift()[1];
-              return m;
+              for (var l, m2 = ""; s.length && (l = s[0][0], !(l !== "space" && l !== "comment")); )
+                m2 += s.shift()[1];
+              return m2;
             }, r.spacesFromEnd = function(s) {
-              for (var l, m = ""; s.length && (l = s[s.length - 1][0], l === "space"); )
-                m = s.pop()[1] + m;
-              return m;
+              for (var l, m2 = ""; s.length && (l = s[s.length - 1][0], l === "space"); )
+                m2 = s.pop()[1] + m2;
+              return m2;
             }, r.stringFrom = function(s, l) {
-              for (var m = "", v = l; v < s.length; v++)
-                m += s[v][1];
-              return s.splice(l, s.length - l), m;
+              for (var m2 = "", v = l; v < s.length; v++)
+                m2 += s[v][1];
+              return s.splice(l, s.length - l), m2;
             }, r.colon = function(s) {
-              for (var l = 0, m, v, y, w = 0; w < s.length; w++) {
-                if (m = s[w], v = m[0], v === "(" && (l += 1), v === ")" && (l -= 1), l === 0 && v === ":")
+              for (var l = 0, m2, v, y, w = 0; w < s.length; w++) {
+                if (m2 = s[w], v = m2[0], v === "(" && (l += 1), v === ")" && (l -= 1), l === 0 && v === ":")
                   if (!y)
-                    this.doubleColon(m);
+                    this.doubleColon(m2);
                   else {
                     if (y[0] === "word" && y[1] === "progid")
                       continue;
                     return w;
                   }
-                y = m;
+                y = m2;
               }
               return false;
             }, r.unclosedBracket = function(s) {
@@ -27662,7 +27705,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             }, r.checkMissedSemicolon = function(s) {
               var l = this.colon(s);
               if (l !== false) {
-                for (var m = 0, v, y = l - 1; y >= 0 && (v = s[y], !(v[0] !== "space" && (m += 1, m === 2))); y--)
+                for (var m2 = 0, v, y = l - 1; y >= 0 && (v = s[y], !(v[0] !== "space" && (m2 += 1, m2 === 2))); y--)
                   ;
                 throw this.input.error("Missed semicolon", v[2], v[3]);
               }
@@ -27674,11 +27717,11 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           var i = Lt(), a = _r();
           n.exports = { isInlineComment(o) {
             if (o[0] === "word" && o[1].slice(0, 2) === "//") {
-              let f = o, p = [], h;
+              let f = o, p2 = [], h3;
               for (; o; ) {
                 if (/\r?\n/.test(o[1])) {
                   if (/['"].*\r?\n/.test(o[1])) {
-                    p.push(o[1].substring(0, o[1].indexOf(`
+                    p2.push(o[1].substring(0, o[1].indexOf(`
 `)));
                     let c = o[1].substring(o[1].indexOf(`
 `));
@@ -27687,9 +27730,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                     this.tokenizer.back(o);
                   break;
                 }
-                p.push(o[1]), h = o, o = this.tokenizer.nextToken({ ignoreUnclosed: true });
+                p2.push(o[1]), h3 = o, o = this.tokenizer.nextToken({ ignoreUnclosed: true });
               }
-              let g = ["comment", p.join(""), f[2], f[3], h[2], h[3]];
+              let g = ["comment", p2.join(""), f[2], f[3], h3[2], h3[3]];
               return this.inlineComment(g), true;
             } else if (o[1] === "/") {
               let f = this.tokenizer.nextToken({ ignoreUnclosed: true });
@@ -27705,32 +27748,32 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               return this.tokenizer.back(i), false;
             for (; i && f.includes(i[0]); )
               o.push(i), i = this.tokenizer.nextToken();
-            let p = o.map((r) => r[1]);
+            let p2 = o.map((r) => r[1]);
             [a] = o;
-            let h = o.pop(), g = [a[2], a[3]], c = [h[4] || h[2], h[5] || h[3]], t = ["word", p.join("")].concat(g, c);
+            let h3 = o.pop(), g = [a[2], a[3]], c = [h3[4] || h3[2], h3[5] || h3[3]], t = ["word", p2.join("")].concat(g, c);
             return this.tokenizer.back(i), this.tokenizer.back(t), true;
           } };
         } }), If = R({ "node_modules/postcss-less/lib/nodes/mixin.js"(e, n) {
           A();
           var i = /^#[0-9a-fA-F]{6}$|^#[0-9a-fA-F]{3}$/, a = /\.[0-9]/, o = (f) => {
-            let [, p] = f, [h] = p;
-            return (h === "." || h === "#") && i.test(p) === false && a.test(p) === false;
+            let [, p2] = f, [h3] = p2;
+            return (h3 === "." || h3 === "#") && i.test(p2) === false && a.test(p2) === false;
           };
           n.exports = { isMixinToken: o };
         } }), Cf = R({ "node_modules/postcss-less/lib/nodes/import.js"(e, n) {
           A();
           var i = Lt(), a = /^url\((.+)\)/;
           n.exports = (o) => {
-            let { name: f, params: p = "" } = o;
-            if (f === "import" && p.length) {
+            let { name: f, params: p2 = "" } = o;
+            if (f === "import" && p2.length) {
               o.import = true;
-              let h = i({ css: p });
-              for (o.filename = p.replace(a, "$1"); !h.endOfFile(); ) {
-                let [g, c] = h.nextToken();
+              let h3 = i({ css: p2 });
+              for (o.filename = p2.replace(a, "$1"); !h3.endOfFile(); ) {
+                let [g, c] = h3.nextToken();
                 if (g === "word" && c === "url")
                   return;
                 if (g === "brackets") {
-                  o.options = c, o.filename = p.replace(c, "").trim();
+                  o.options = c, o.filename = p2.replace(c, "").trim();
                   break;
                 }
               }
@@ -27740,27 +27783,27 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           A();
           var i = /:$/, a = /^:(\s+)?/;
           n.exports = (o) => {
-            let { name: f, params: p = "" } = o;
+            let { name: f, params: p2 = "" } = o;
             if (o.name.slice(-1) === ":") {
               if (i.test(f)) {
-                let [h] = f.match(i);
-                o.name = f.replace(h, ""), o.raws.afterName = h + (o.raws.afterName || ""), o.variable = true, o.value = o.params;
+                let [h3] = f.match(i);
+                o.name = f.replace(h3, ""), o.raws.afterName = h3 + (o.raws.afterName || ""), o.variable = true, o.value = o.params;
               }
-              if (a.test(p)) {
-                let [h] = p.match(a);
-                o.value = p.replace(h, ""), o.raws.afterName = (o.raws.afterName || "") + h, o.variable = true;
+              if (a.test(p2)) {
+                let [h3] = p2.match(a);
+                o.value = p2.replace(h3, ""), o.raws.afterName = (o.raws.afterName || "") + h3, o.variable = true;
               }
             }
           };
         } }), jf = R({ "node_modules/postcss-less/lib/LessParser.js"(e, n) {
           A();
-          var i = xr(), a = zt(), { isInlineComment: o } = Pf(), { interpolation: f } = Rf(), { isMixinToken: p } = If(), h = Cf(), g = Nf(), c = /(!\s*important)$/i;
+          var i = xr(), a = zt(), { isInlineComment: o } = Pf(), { interpolation: f } = Rf(), { isMixinToken: p2 } = If(), h3 = Cf(), g = Nf(), c = /(!\s*important)$/i;
           n.exports = class extends a {
             constructor() {
               super(...arguments), this.lastNode = null;
             }
             atrule(r) {
-              f.bind(this)(r) || (super.atrule(r), h(this.lastNode), g(this.lastNode));
+              f.bind(this)(r) || (super.atrule(r), h3(this.lastNode), g(this.lastNode));
             }
             decl() {
               super.decl(...arguments), /extend\(.+\)/i.test(this.lastNode.value) && (this.lastNode.extend = true);
@@ -27785,9 +27828,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               }
             }
             mixin(r) {
-              let [u] = r, s = u[1].slice(0, 1), l = r.findIndex((d) => d[0] === "brackets"), m = r.findIndex((d) => d[0] === "("), v = "";
-              if ((l < 0 || l > 3) && m > 0) {
-                let d = r.reduce(($, B, O) => B[0] === ")" ? O : $), S = r.slice(m, d + m).map(($) => $[1]).join(""), [x] = r.slice(m), N = [x[2], x[3]], [P] = r.slice(d, d + 1), W = [P[2], P[3]], U = ["brackets", S].concat(N, W), H = r.slice(0, m), D = r.slice(d + 1);
+              let [u] = r, s = u[1].slice(0, 1), l = r.findIndex((d) => d[0] === "brackets"), m2 = r.findIndex((d) => d[0] === "("), v = "";
+              if ((l < 0 || l > 3) && m2 > 0) {
+                let d = r.reduce(($2, B, O) => B[0] === ")" ? O : $2), S = r.slice(m2, d + m2).map(($2) => $2[1]).join(""), [x] = r.slice(m2), N = [x[2], x[3]], [P] = r.slice(d, d + 1), W = [P[2], P[3]], U = ["brackets", S].concat(N, W), H = r.slice(0, m2), D = r.slice(d + 1);
                 r = H, r.push(U), r = r.concat(D);
               }
               let y = [];
@@ -27810,8 +27853,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             rule(r) {
               let u = r[r.length - 1], s = r[r.length - 2];
               if (s[0] === "at-word" && u[0] === "{" && (this.tokenizer.back(u), f.bind(this)(s))) {
-                let m = this.tokenizer.nextToken();
-                r = r.slice(0, r.length - 2).concat([m]);
+                let m2 = this.tokenizer.nextToken();
+                r = r.slice(0, r.length - 2).concat([m2]);
                 for (let v of r.reverse())
                   this.tokenizer.back(v);
                 return;
@@ -27824,7 +27867,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 this.each(r);
                 return;
               }
-              if (p(u)) {
+              if (p2(u)) {
                 this.mixin(r);
                 return;
               }
@@ -27840,18 +27883,18 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 super.atrule(o, f);
                 return;
               }
-              let p = o.function ? "" : o.raws.identifier || "@", h = "".concat(p).concat(o.name), g = o.params ? this.rawValue(o, "params") : "", c = o.raws.important || "";
-              if (o.variable && (g = o.value), typeof o.raws.afterName < "u" ? h += o.raws.afterName : g && (h += " "), o.nodes)
-                this.block(o, h + g + c);
+              let p2 = o.function ? "" : o.raws.identifier || "@", h3 = "".concat(p2).concat(o.name), g = o.params ? this.rawValue(o, "params") : "", c = o.raws.important || "";
+              if (o.variable && (g = o.value), typeof o.raws.afterName < "u" ? h3 += o.raws.afterName : g && (h3 += " "), o.nodes)
+                this.block(o, h3 + g + c);
               else {
                 let t = (o.raws.between || "") + c + (f ? ";" : "");
-                this.builder(h + g + t, o);
+                this.builder(h3 + g + t, o);
               }
             }
             comment(o) {
               if (o.inline) {
-                let f = this.raw(o, "left", "commentLeft"), p = this.raw(o, "right", "commentRight");
-                this.builder("//".concat(f).concat(o.text).concat(p), o);
+                let f = this.raw(o, "left", "commentLeft"), p2 = this.raw(o, "right", "commentRight");
+                this.builder("//".concat(f).concat(o.text).concat(p2), o);
               } else
                 super.comment(o);
             }
@@ -27859,37 +27902,37 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         } }), Df = R({ "node_modules/postcss-less/lib/index.js"(e, n) {
           A();
           var i = _r(), a = jf(), o = Mf();
-          n.exports = { parse(f, p) {
-            let h = new i(f, p), g = new a(h);
+          n.exports = { parse(f, p2) {
+            let h3 = new i(f, p2), g = new a(h3);
             return g.parse(), g.root;
-          }, stringify(f, p) {
-            new o(p).stringify(f);
+          }, stringify(f, p2) {
+            new o(p2).stringify(f);
           }, nodeToString(f) {
-            let p = "";
-            return n.exports.stringify(f, (h) => {
-              p += h;
-            }), p;
+            let p2 = "";
+            return n.exports.stringify(f, (h3) => {
+              p2 += h3;
+            }), p2;
           } };
         } }), Lf = R({ "node_modules/postcss-scss/lib/scss-stringifier.js"(e, n) {
           "use strict";
           A();
-          function i(f, p) {
-            f.prototype = Object.create(p.prototype), f.prototype.constructor = f, f.__proto__ = p;
+          function i(f, p2) {
+            f.prototype = Object.create(p2.prototype), f.prototype.constructor = f, f.__proto__ = p2;
           }
           var a = br(), o = function(f) {
-            i(p, f);
-            function p() {
+            i(p2, f);
+            function p2() {
               return f.apply(this, arguments) || this;
             }
-            var h = p.prototype;
-            return h.comment = function(c) {
+            var h3 = p2.prototype;
+            return h3.comment = function(c) {
               var t = this.raw(c, "left", "commentLeft"), r = this.raw(c, "right", "commentRight");
               if (c.raws.inline) {
                 var u = c.raws.text || c.text;
                 this.builder("//" + t + u + r, c);
               } else
                 this.builder("/*" + t + c.text + r + "*/", c);
-            }, h.decl = function(c, t) {
+            }, h3.decl = function(c, t) {
               if (!c.isNested)
                 f.prototype.decl.call(this, c, t);
               else {
@@ -27898,10 +27941,10 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 var s;
                 c.nodes && c.nodes.length ? (this.body(c), s = this.raw(c, "after")) : s = this.raw(c, "after", "emptyBody"), s && this.builder(s), this.builder("}", c, "end");
               }
-            }, h.rawValue = function(c, t) {
+            }, h3.rawValue = function(c, t) {
               var r = c[t], u = c.raws[t];
               return u && u.value === r ? u.scss ? u.scss : u.raw : r;
-            }, p;
+            }, p2;
           }(a);
           n.exports = o;
         } }), zf = R({ "node_modules/postcss-scss/lib/scss-stringify.js"(e, n) {
@@ -27909,56 +27952,56 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           A();
           var i = Lf();
           n.exports = function(o, f) {
-            var p = new i(f);
-            p.stringify(o);
+            var p2 = new i(f);
+            p2.stringify(o);
           };
         } }), Bf = R({ "node_modules/postcss-scss/lib/nested-declaration.js"(e, n) {
           "use strict";
           A();
-          function i(f, p) {
-            f.prototype = Object.create(p.prototype), f.prototype.constructor = f, f.__proto__ = p;
+          function i(f, p2) {
+            f.prototype = Object.create(p2.prototype), f.prototype.constructor = f, f.__proto__ = p2;
           }
           var a = kr(), o = function(f) {
-            i(p, f);
-            function p(h) {
+            i(p2, f);
+            function p2(h3) {
               var g;
-              return g = f.call(this, h) || this, g.type = "decl", g.isNested = true, g.nodes || (g.nodes = []), g;
+              return g = f.call(this, h3) || this, g.type = "decl", g.isNested = true, g.nodes || (g.nodes = []), g;
             }
-            return p;
+            return p2;
           }(a);
           n.exports = o;
         } }), Ff = R({ "node_modules/postcss-scss/lib/scss-tokenize.js"(e, n) {
           "use strict";
           A();
-          var i = "'".charCodeAt(0), a = '"'.charCodeAt(0), o = "\\".charCodeAt(0), f = "/".charCodeAt(0), p = `
-`.charCodeAt(0), h = " ".charCodeAt(0), g = "\f".charCodeAt(0), c = "	".charCodeAt(0), t = "\r".charCodeAt(0), r = "[".charCodeAt(0), u = "]".charCodeAt(0), s = "(".charCodeAt(0), l = ")".charCodeAt(0), m = "{".charCodeAt(0), v = "}".charCodeAt(0), y = ";".charCodeAt(0), w = "*".charCodeAt(0), d = ":".charCodeAt(0), _ = "@".charCodeAt(0), S = ",".charCodeAt(0), x = "#".charCodeAt(0), N = /[ \n\t\r\f{}()'"\\;/[\]#]/g, P = /[ \n\t\r\f(){}:;@!'"\\\][#]|\/(?=\*)/g, W = /.[\\/("'\n]/, U = /[a-f0-9]/i, H = /[\r\f\n]/g;
-          n.exports = function($, B) {
+          var i = "'".charCodeAt(0), a = '"'.charCodeAt(0), o = "\\".charCodeAt(0), f = "/".charCodeAt(0), p2 = `
+`.charCodeAt(0), h3 = " ".charCodeAt(0), g = "\f".charCodeAt(0), c = "	".charCodeAt(0), t = "\r".charCodeAt(0), r = "[".charCodeAt(0), u = "]".charCodeAt(0), s = "(".charCodeAt(0), l = ")".charCodeAt(0), m2 = "{".charCodeAt(0), v = "}".charCodeAt(0), y = ";".charCodeAt(0), w = "*".charCodeAt(0), d = ":".charCodeAt(0), _ = "@".charCodeAt(0), S = ",".charCodeAt(0), x = "#".charCodeAt(0), N = /[ \n\t\r\f{}()'"\\;/[\]#]/g, P = /[ \n\t\r\f(){}:;@!'"\\\][#]|\/(?=\*)/g, W = /.[\\/("'\n]/, U = /[a-f0-9]/i, H = /[\r\f\n]/g;
+          n.exports = function($2, B) {
             B === void 0 && (B = {});
-            var O = $.css.valueOf(), j = B.ignoreErrors, C, I, X, Z, Q, K, J, M, Y, G, E, k, b, L, q = O.length, T = -1, F = 1, z = 0, re = [], ne = [];
+            var O = $2.css.valueOf(), j = B.ignoreErrors, C, I, X, Z, Q, K, J, M, Y, G, E, k, b, L, q = O.length, T = -1, F = 1, z = 0, re = [], ne = [];
             function ce(se) {
-              throw $.error("Unclosed " + se, F, z - T);
+              throw $2.error("Unclosed " + se, F, z - T);
             }
             function fe() {
               return ne.length === 0 && z >= q;
             }
             function te() {
               for (var se = 1, le = false, pe = false; se > 0; )
-                I += 1, O.length <= I && ce("interpolation"), C = O.charCodeAt(I), k = O.charCodeAt(I + 1), le ? !pe && C === le ? (le = false, pe = false) : C === o ? pe = !G : pe && (pe = false) : C === i || C === a ? le = C : C === v ? se -= 1 : C === x && k === m && (se += 1);
+                I += 1, O.length <= I && ce("interpolation"), C = O.charCodeAt(I), k = O.charCodeAt(I + 1), le ? !pe && C === le ? (le = false, pe = false) : C === o ? pe = !G : pe && (pe = false) : C === i || C === a ? le = C : C === v ? se -= 1 : C === x && k === m2 && (se += 1);
             }
             function ie() {
               if (ne.length)
                 return ne.pop();
               if (!(z >= q)) {
-                switch (C = O.charCodeAt(z), (C === p || C === g || C === t && O.charCodeAt(z + 1) !== p) && (T = z, F += 1), C) {
-                  case p:
-                  case h:
+                switch (C = O.charCodeAt(z), (C === p2 || C === g || C === t && O.charCodeAt(z + 1) !== p2) && (T = z, F += 1), C) {
+                  case p2:
+                  case h3:
                   case c:
                   case t:
                   case g:
                     I = z;
                     do
-                      I += 1, C = O.charCodeAt(I), C === p && (T = I, F += 1);
-                    while (C === h || C === p || C === c || C === t || C === g);
+                      I += 1, C = O.charCodeAt(I), C === p2 && (T = I, F += 1);
+                    while (C === h3 || C === p2 || C === c || C === t || C === g);
                     b = ["space", O.slice(z, I)], z = I - 1;
                     break;
                   case r:
@@ -27967,7 +28010,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                   case u:
                     b = ["]", "]", F, z - T];
                     break;
-                  case m:
+                  case m2:
                     b = ["{", "{", F, z - T];
                     break;
                   case v:
@@ -28004,7 +28047,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                   case i:
                   case a:
                     for (X = C, I = z, G = false; I < q && (I++, I === q && ce("string"), C = O.charCodeAt(I), k = O.charCodeAt(I + 1), !(!G && C === X)); )
-                      C === o ? G = !G : G ? G = false : C === x && k === m && te();
+                      C === o ? G = !G : G ? G = false : C === x && k === m2 && te();
                     K = O.slice(z, I + 1), Z = K.split(`
 `), Q = Z.length - 1, Q > 0 ? (M = F + Q, Y = I - Z[Q].length) : (M = F, Y = T), b = ["string", O.slice(z, I + 1), F, z - T, M, I - Y], T = Y, F = M, z = I;
                     break;
@@ -28014,15 +28057,15 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                   case o:
                     for (I = z, J = true; O.charCodeAt(I + 1) === o; )
                       I += 1, J = !J;
-                    if (C = O.charCodeAt(I + 1), J && C !== f && C !== h && C !== p && C !== c && C !== t && C !== g && (I += 1, U.test(O.charAt(I)))) {
+                    if (C = O.charCodeAt(I + 1), J && C !== f && C !== h3 && C !== p2 && C !== c && C !== t && C !== g && (I += 1, U.test(O.charAt(I)))) {
                       for (; U.test(O.charAt(I + 1)); )
                         I += 1;
-                      O.charCodeAt(I + 1) === h && (I += 1);
+                      O.charCodeAt(I + 1) === h3 && (I += 1);
                     }
                     b = ["word", O.slice(z, I + 1), F, z - T, F, I - T], z = I;
                     break;
                   default:
-                    k = O.charCodeAt(z + 1), C === x && k === m ? (I = z, te(), K = O.slice(z, I + 1), Z = K.split(`
+                    k = O.charCodeAt(z + 1), C === x && k === m2 ? (I = z, te(), K = O.slice(z, I + 1), Z = K.split(`
 `), Q = Z.length - 1, Q > 0 ? (M = F + Q, Y = I - Z[Q].length) : (M = F, Y = T), b = ["word", K, F, z - T, M, I - Y], T = Y, F = M, z = I) : C === f && k === w ? (I = O.indexOf("*/", z + 2) + 1, I === 0 && (j ? I = O.length : ce("comment")), K = O.slice(z, I + 1), Z = K.split(`
 `), Q = Z.length - 1, Q > 0 ? (M = F + Q, Y = I - Z[Q].length) : (M = F, Y = T), b = ["comment", K, F, z - T, M, I - Y], T = Y, F = M, z = I) : C === f && k === f ? (H.lastIndex = z + 1, H.test(O), H.lastIndex === 0 ? I = O.length - 1 : I = H.lastIndex - 2, K = O.slice(z, I + 1), b = ["comment", K, F, z - T, F, I - T, "inline"], z = I) : (P.lastIndex = z + 1, P.test(O), P.lastIndex === 0 ? I = O.length - 1 : I = P.lastIndex - 2, b = ["word", O.slice(z, I + 1), F, z - T, F, I - T], re.push(b), z = I);
                     break;
@@ -28041,16 +28084,16 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           function i(g, c) {
             g.prototype = Object.create(c.prototype), g.prototype.constructor = g, g.__proto__ = c;
           }
-          var a = xr(), o = zt(), f = Bf(), p = Ff(), h = function(g) {
+          var a = xr(), o = zt(), f = Bf(), p2 = Ff(), h3 = function(g) {
             i(c, g);
             function c() {
               return g.apply(this, arguments) || this;
             }
             var t = c.prototype;
             return t.createTokenizer = function() {
-              this.tokenizer = p(this.input);
+              this.tokenizer = p2(this.input);
             }, t.rule = function(u) {
-              for (var s = false, l = 0, m = "", w = u, v = Array.isArray(w), y = 0, w = v ? w : w[Symbol.iterator](); ; ) {
+              for (var s = false, l = 0, m2 = "", w = u, v = Array.isArray(w), y = 0, w = v ? w : w[Symbol.iterator](); ; ) {
                 var d;
                 if (v) {
                   if (y >= w.length)
@@ -28063,7 +28106,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 }
                 var _ = d;
                 if (s)
-                  _[0] !== "comment" && _[0] !== "{" && (m += _[1]);
+                  _[0] !== "comment" && _[0] !== "{" && (m2 += _[1]);
                 else {
                   if (_[0] === "space" && _[1].indexOf(`
 `) !== -1)
@@ -28071,7 +28114,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                   _[0] === "(" ? l += 1 : _[0] === ")" ? l -= 1 : l === 0 && _[0] === ":" && (s = true);
                 }
               }
-              if (!s || m.trim() === "" || /^[a-zA-Z-:#]/.test(m))
+              if (!s || m2.trim() === "" || /^[a-zA-Z-:#]/.test(m2))
                 g.prototype.rule.call(this, u);
               else {
                 u.pop();
@@ -28101,8 +28144,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                     U = this.spacesFromEnd(u) + U, U !== " !important" && (S.raws.important = U);
                     break;
                   } else if (P[1] === "important") {
-                    for (var H = u.slice(0), D = "", $ = W; $ > 0; $--) {
-                      var B = H[$][0];
+                    for (var H = u.slice(0), D = "", $2 = W; $2 > 0; $2--) {
+                      var B = H[$2][0];
                       if (D.trim().indexOf("!") === 0 && B !== "space")
                         break;
                       D = H.pop()[1] + D;
@@ -28122,31 +28165,31 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 if (/^\s*$/.test(l))
                   s.text = "", s.raws.left = l, s.raws.right = "";
                 else {
-                  var m = l.match(/^(\s*)([^]*[^\s])(\s*)$/), v = m[2].replace(/(\*\/|\/\*)/g, "*//*");
-                  s.text = v, s.raws.left = m[1], s.raws.right = m[3], s.raws.text = m[2];
+                  var m2 = l.match(/^(\s*)([^]*[^\s])(\s*)$/), v = m2[2].replace(/(\*\/|\/\*)/g, "*//*");
+                  s.text = v, s.raws.left = m2[1], s.raws.right = m2[3], s.raws.text = m2[2];
                 }
               } else
                 g.prototype.comment.call(this, u);
             }, t.raw = function(u, s, l) {
               if (g.prototype.raw.call(this, u, s, l), u.raws[s]) {
-                var m = u.raws[s].raw;
+                var m2 = u.raws[s].raw;
                 u.raws[s].raw = l.reduce(function(v, y) {
                   if (y[0] === "comment" && y[6] === "inline") {
                     var w = y[1].slice(2).replace(/(\*\/|\/\*)/g, "*//*");
                     return v + "/*" + w + "*/";
                   } else
                     return v + y[1];
-                }, ""), m !== u.raws[s].raw && (u.raws[s].scss = m);
+                }, ""), m2 !== u.raws[s].raw && (u.raws[s].scss = m2);
               }
             }, c;
           }(o);
-          n.exports = h;
+          n.exports = h3;
         } }), Wf = R({ "node_modules/postcss-scss/lib/scss-parse.js"(e, n) {
           "use strict";
           A();
           var i = _r(), a = Uf();
-          n.exports = function(f, p) {
-            var h = new i(f, p), g = new a(h);
+          n.exports = function(f, p2) {
+            var h3 = new i(f, p2), g = new a(h3);
             return g.parse(), g.root;
           };
         } }), $f = R({ "node_modules/postcss-scss/lib/scss-syntax.js"(e, n) {
@@ -28162,7 +28205,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           return e;
         };
         function sp(e, n) {
-          let { nodes: i } = e, a = { open: null, close: null, groups: [], type: "paren_group" }, o = [a], f = a, p = { groups: [], type: "comma_group" }, h = [p];
+          let { nodes: i } = e, a = { open: null, close: null, groups: [], type: "paren_group" }, o = [a], f = a, p2 = { groups: [], type: "comma_group" }, h3 = [p2];
           for (let g = 0; g < i.length; ++g) {
             let c = i[g];
             if (sa(n.parser, c.value) && c.type === "number" && c.unit === ".." && pt(c.value) === "." && (c.value = c.value.slice(0, -1), c.unit = "..."), c.type === "func" && c.value === "selector" && (c.group.groups = [Ie(ip(e).text.slice(c.group.open.sourceIndex + 1, c.group.close.sourceIndex))]), c.type === "func" && c.value === "url") {
@@ -28177,15 +28220,15 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               }
             }
             if (c.type === "paren" && c.value === "(")
-              a = { open: c, close: null, groups: [], type: "paren_group" }, o.push(a), p = { groups: [], type: "comma_group" }, h.push(p);
+              a = { open: c, close: null, groups: [], type: "paren_group" }, o.push(a), p2 = { groups: [], type: "comma_group" }, h3.push(p2);
             else if (c.type === "paren" && c.value === ")") {
-              if (p.groups.length > 0 && a.groups.push(p), a.close = c, h.length === 1)
+              if (p2.groups.length > 0 && a.groups.push(p2), a.close = c, h3.length === 1)
                 throw new Error("Unbalanced parenthesis");
-              h.pop(), p = pt(h), p.groups.push(a), o.pop(), a = pt(o);
+              h3.pop(), p2 = pt(h3), p2.groups.push(a), o.pop(), a = pt(o);
             } else
-              c.type === "comma" ? (a.groups.push(p), p = { groups: [], type: "comma_group" }, h[h.length - 1] = p) : p.groups.push(c);
+              c.type === "comma" ? (a.groups.push(p2), p2 = { groups: [], type: "comma_group" }, h3[h3.length - 1] = p2) : p2.groups.push(c);
           }
-          return p.groups.length > 0 && a.groups.push(p), f;
+          return p2.groups.length > 0 && a.groups.push(p2), f;
         }
         function hr(e) {
           return e.type === "paren_group" && !e.open && !e.close && e.groups.length === 1 || e.type === "comma_group" && e.groups.length === 1 ? hr(e.groups[0]) : e.type === "paren_group" || e.type === "comma_group" ? Object.assign(Object.assign({}, e), {}, { groups: e.groups.map(hr) }) : e;
@@ -28267,8 +28310,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             if (a.length > 0) {
               let f = a.match(ap);
               f && (a = a.slice(0, f.index), e.scssDefault = true, f[0].trim() !== "!default" && (e.raws.scssDefault = f[0]));
-              let p = a.match(up);
-              if (p && (a = a.slice(0, p.index), e.scssGlobal = true, p[0].trim() !== "!global" && (e.raws.scssGlobal = p[0])), a.startsWith("progid:"))
+              let p2 = a.match(up);
+              if (p2 && (a = a.slice(0, p2.index), e.scssGlobal = true, p2[0].trim() !== "!global" && (e.raws.scssGlobal = p2[0])), a.startsWith("progid:"))
                 return { type: "value-unknown", value: a };
               e.value = Pe(a, n);
             }
@@ -28296,8 +28339,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               }
             }
             if (e.type === "css-atrule" && o.length > 0) {
-              let { name: f } = e, p = e.name.toLowerCase();
-              return f === "warn" || f === "error" ? (e.params = { type: "media-unknown", value: o }, e) : f === "extend" || f === "nest" ? (e.selector = Ie(o), delete e.params, e) : f === "at-root" ? (/^\(\s*(?:without|with)\s*:.+\)$/s.test(o) ? e.params = Pe(o, n) : (e.selector = Ie(o), delete e.params), e) : np(p) ? (e.import = true, delete e.filename, e.params = Pe(o, n), e) : ["namespace", "supports", "if", "else", "for", "each", "while", "debug", "mixin", "include", "function", "return", "define-mixin", "add-mixin"].includes(f) ? (o = o.replace(/(\$\S+?)(\s+)?\.{3}/, "$1...$2"), o = o.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2"), e.value = Pe(o, n), delete e.params, e) : ["media", "custom-media"].includes(p) ? o.includes("#{") ? { type: "media-unknown", value: o } : (e.params = op(o), e) : (e.params = o, e);
+              let { name: f } = e, p2 = e.name.toLowerCase();
+              return f === "warn" || f === "error" ? (e.params = { type: "media-unknown", value: o }, e) : f === "extend" || f === "nest" ? (e.selector = Ie(o), delete e.params, e) : f === "at-root" ? (/^\(\s*(?:without|with)\s*:.+\)$/s.test(o) ? e.params = Pe(o, n) : (e.selector = Ie(o), delete e.params), e) : np(p2) ? (e.import = true, delete e.filename, e.params = Pe(o, n), e) : ["namespace", "supports", "if", "else", "for", "each", "while", "debug", "mixin", "include", "function", "return", "define-mixin", "add-mixin"].includes(f) ? (o = o.replace(/(\$\S+?)(\s+)?\.{3}/, "$1...$2"), o = o.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2"), e.value = Pe(o, n), delete e.params, e) : ["media", "custom-media"].includes(p2) ? o.includes("#{") ? { type: "media-unknown", value: o } : (e.params = op(o), e) : (e.params = o, e);
             }
           }
           return e;
@@ -28308,19 +28351,19 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           let f;
           try {
             f = e(n);
-          } catch (p) {
-            let { name: h, reason: g, line: c, column: t } = p;
-            throw typeof c != "number" ? p : Vf("".concat(h, ": ").concat(g), { start: { line: c, column: t } });
+          } catch (p2) {
+            let { name: h3, reason: g, line: c, column: t } = p2;
+            throw typeof c != "number" ? p2 : Vf("".concat(h3, ": ").concat(g), { start: { line: c, column: t } });
           }
           return f = ua(Xe(f, "css-"), i), Qf(f, n), o && (o.source = { startOffset: 0, endOffset: o.raw.length }, f.nodes.unshift(o)), f;
         }
         function cp(e, n) {
           let i = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, o = sa(i.parser, e) ? [xt, bt] : [bt, xt], f;
-          for (let p of o)
+          for (let p2 of o)
             try {
-              return p(e, n, i);
-            } catch (h) {
-              f = f || h;
+              return p2(e, n, i);
+            } catch (h3) {
+              f = f || h3;
             }
           if (f)
             throw f;
@@ -28341,8 +28384,996 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   }
 });
 
-// js/prettierJs.ts
+// js/ws.ts
 init_define_process();
+var import_lodash = __toESM(require_lodash(), 1);
+
+// js/renderPreviewWindow.tsx
+init_define_process();
+init_react_preact();
+init_react_preact();
+
+// ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/4/Users/z/.yarn/berry/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
+init_define_process();
+init_react_preact();
+init_react_preact();
+var __extends = function() {
+  var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
+      d2.__proto__ = b2;
+    } || function(d2, b2) {
+      for (var p2 in b2)
+        if (b2.hasOwnProperty(p2))
+          d2[p2] = b2[p2];
+    };
+    return extendStatics(d, b);
+  };
+  return function(d, b) {
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var ELEMENT_TYPE_HTML = "html";
+var ELEMENT_TYPE_SVG = "svg";
+var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+var validateElementType = function(domElement, elementType) {
+  if (elementType === ELEMENT_TYPE_HTML) {
+    return domElement instanceof HTMLElement;
+  }
+  if (elementType === ELEMENT_TYPE_SVG) {
+    return domElement instanceof SVGElement;
+  }
+  throw new Error('Unrecognized element type "' + elementType + '" for validateElementType.');
+};
+var createPortalNode = function(elementType, options) {
+  var initialProps = {};
+  var parent;
+  var lastPlaceholder;
+  var element;
+  if (elementType === ELEMENT_TYPE_HTML) {
+    element = document.createElement("div");
+  } else if (elementType === ELEMENT_TYPE_SVG) {
+    element = document.createElementNS(SVG_NAMESPACE, "g");
+  } else {
+    throw new Error('Invalid element type "' + elementType + '" for createPortalNode: must be "html" or "svg".');
+  }
+  if (options && typeof options === "object") {
+    for (var _i = 0, _a = Object.entries(options.attributes); _i < _a.length; _i++) {
+      var _b = _a[_i], key = _b[0], value = _b[1];
+      element.setAttribute(key, value);
+    }
+  }
+  var portalNode = {
+    element,
+    elementType,
+    setPortalProps: function(props) {
+      initialProps = props;
+    },
+    getInitialPortalProps: function() {
+      return initialProps;
+    },
+    mount: function(newParent, newPlaceholder) {
+      if (newPlaceholder === lastPlaceholder) {
+        return;
+      }
+      portalNode.unmount();
+      if (newParent !== parent) {
+        if (!validateElementType(newParent, elementType)) {
+          throw new Error('Invalid element type for portal: "' + elementType + '" portalNodes must be used with ' + elementType + " elements, but OutPortal is within <" + newParent.tagName + ">.");
+        }
+      }
+      newParent.replaceChild(portalNode.element, newPlaceholder);
+      parent = newParent;
+      lastPlaceholder = newPlaceholder;
+    },
+    unmount: function(expectedPlaceholder) {
+      if (expectedPlaceholder && expectedPlaceholder !== lastPlaceholder) {
+        return;
+      }
+      if (parent && lastPlaceholder) {
+        parent.replaceChild(lastPlaceholder, portalNode.element);
+        parent = void 0;
+        lastPlaceholder = void 0;
+      }
+    }
+  };
+  return portalNode;
+};
+var InPortal = function(_super) {
+  __extends(InPortal2, _super);
+  function InPortal2(props) {
+    var _this = _super.call(this, props) || this;
+    _this.addPropsChannel = function() {
+      Object.assign(_this.props.node, {
+        setPortalProps: function(props2) {
+          _this.setState({ nodeProps: props2 });
+        }
+      });
+    };
+    _this.state = {
+      nodeProps: _this.props.node.getInitialPortalProps()
+    };
+    return _this;
+  }
+  InPortal2.prototype.componentDidMount = function() {
+    this.addPropsChannel();
+  };
+  InPortal2.prototype.componentDidUpdate = function() {
+    this.addPropsChannel();
+  };
+  InPortal2.prototype.render = function() {
+    var _this = this;
+    var _a = this.props, children = _a.children, node = _a.node;
+    return $(Children.map(children, function(child) {
+      if (!isValidElement(child))
+        return child;
+      return cloneElement(child, _this.state.nodeProps);
+    }), node.element);
+  };
+  return InPortal2;
+}(PureComponent);
+var OutPortal = function(_super) {
+  __extends(OutPortal2, _super);
+  function OutPortal2(props) {
+    var _this = _super.call(this, props) || this;
+    _this.placeholderNode = createRef();
+    _this.passPropsThroughPortal();
+    return _this;
+  }
+  OutPortal2.prototype.passPropsThroughPortal = function() {
+    var propsForTarget = Object.assign({}, this.props, { node: void 0 });
+    this.props.node.setPortalProps(propsForTarget);
+  };
+  OutPortal2.prototype.componentDidMount = function() {
+    var node = this.props.node;
+    this.currentPortalNode = node;
+    var placeholder = this.placeholderNode.current;
+    var parent = placeholder.parentNode;
+    node.mount(parent, placeholder);
+    this.passPropsThroughPortal();
+  };
+  OutPortal2.prototype.componentDidUpdate = function() {
+    var node = this.props.node;
+    if (this.currentPortalNode && node !== this.currentPortalNode) {
+      this.currentPortalNode.unmount(this.placeholderNode.current);
+      this.currentPortalNode.setPortalProps({});
+      this.currentPortalNode = node;
+    }
+    var placeholder = this.placeholderNode.current;
+    var parent = placeholder.parentNode;
+    node.mount(parent, placeholder);
+    this.passPropsThroughPortal();
+  };
+  OutPortal2.prototype.componentWillUnmount = function() {
+    var node = this.props.node;
+    node.unmount(this.placeholderNode.current);
+    node.setPortalProps({});
+  };
+  OutPortal2.prototype.render = function() {
+    return h("div", { ref: this.placeholderNode });
+  };
+  return OutPortal2;
+}(PureComponent);
+var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
+var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
+
+// js/renderPreviewWindow.tsx
+var import_react15 = __toESM(require_emotion_react_cjs(), 1);
+
+// js/starter.tsx
+init_define_process();
+var import_react2 = __toESM(require_emotion_react_cjs(), 1);
+init_react_preact();
+
+// js/ErrorBoundary.tsx
+init_define_process();
+init_react_preact();
+var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var ErrorBoundary = class extends _n.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: void 0, errorInfo: void 0 };
+  }
+  componentDidCatch(error, errorInfo) {
+    this.setState({
+      error,
+      errorInfo
+    });
+  }
+  render() {
+    if (this.state.errorInfo) {
+      return (0, import_jsx_runtime.jsxs)("div", {
+        children: [
+          (0, import_jsx_runtime.jsx)("h2", {
+            children: "Something went wrong."
+          }),
+          (0, import_jsx_runtime.jsxs)("details", {
+            style: { whiteSpace: "pre-wrap" },
+            children: [
+              this.state.error && this.state.error.toString(),
+              (0, import_jsx_runtime.jsx)("br", {}),
+              this.state.errorInfo.componentStack
+            ]
+          })
+        ]
+      });
+    }
+    return this.props.children || (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {});
+  }
+};
+var ErrorBoundary_default = ErrorBoundary;
+
+// js/md5.js
+init_define_process();
+function md5(inputString) {
+  const hc = "0123456789abcdef";
+  function rh(n) {
+    let j;
+    let s = "";
+    for (j = 0; j <= 3; j++) {
+      s += hc.charAt(n >> j * 8 + 4 & 15) + hc.charAt(n >> j * 8 & 15);
+    }
+    return s;
+  }
+  function ad(x2, y) {
+    const l = (x2 & 65535) + (y & 65535);
+    const m2 = (x2 >> 16) + (y >> 16) + (l >> 16);
+    return m2 << 16 | l & 65535;
+  }
+  function rl(n, c2) {
+    return n << c2 | n >>> 32 - c2;
+  }
+  function cm(q, a2, b2, x2, s, t) {
+    return ad(rl(ad(ad(a2, q), ad(x2, t)), s), b2);
+  }
+  function ff(a2, b2, c2, d2, x2, s, t) {
+    return cm(b2 & c2 | ~b2 & d2, a2, b2, x2, s, t);
+  }
+  function gg(a2, b2, c2, d2, x2, s, t) {
+    return cm(b2 & d2 | c2 & ~d2, a2, b2, x2, s, t);
+  }
+  function hh(a2, b2, c2, d2, x2, s, t) {
+    return cm(b2 ^ c2 ^ d2, a2, b2, x2, s, t);
+  }
+  function ii(a2, b2, c2, d2, x2, s, t) {
+    return cm(c2 ^ (b2 | ~d2), a2, b2, x2, s, t);
+  }
+  function sb(x2) {
+    let i2;
+    const nblk = (x2.length + 8 >> 6) + 1;
+    const blks = Array.from({ length: nblk * 16 });
+    for (i2 = 0; i2 < nblk * 16; i2++) {
+      blks[i2] = 0;
+    }
+    for (i2 = 0; i2 < x2.length; i2++) {
+      blks[i2 >> 2] |= x2.charCodeAt(i2) << i2 % 4 * 8;
+    }
+    blks[i2 >> 2] |= 128 << i2 % 4 * 8;
+    blks[nblk * 16 - 2] = x2.length * 8;
+    return blks;
+  }
+  let i;
+  const x = sb(inputString);
+  let a = 1732584193;
+  let b = -271733879;
+  let c = -1732584194;
+  let d = 271733878;
+  let olda;
+  let oldb;
+  let oldc;
+  let oldd;
+  for (i = 0; i < x.length; i += 16) {
+    olda = a;
+    oldb = b;
+    oldc = c;
+    oldd = d;
+    a = ff(a, b, c, d, x[i + 0], 7, -680876936);
+    d = ff(d, a, b, c, x[i + 1], 12, -389564586);
+    c = ff(c, d, a, b, x[i + 2], 17, 606105819);
+    b = ff(b, c, d, a, x[i + 3], 22, -1044525330);
+    a = ff(a, b, c, d, x[i + 4], 7, -176418897);
+    d = ff(d, a, b, c, x[i + 5], 12, 1200080426);
+    c = ff(c, d, a, b, x[i + 6], 17, -1473231341);
+    b = ff(b, c, d, a, x[i + 7], 22, -45705983);
+    a = ff(a, b, c, d, x[i + 8], 7, 1770035416);
+    d = ff(d, a, b, c, x[i + 9], 12, -1958414417);
+    c = ff(c, d, a, b, x[i + 10], 17, -42063);
+    b = ff(b, c, d, a, x[i + 11], 22, -1990404162);
+    a = ff(a, b, c, d, x[i + 12], 7, 1804603682);
+    d = ff(d, a, b, c, x[i + 13], 12, -40341101);
+    c = ff(c, d, a, b, x[i + 14], 17, -1502002290);
+    b = ff(b, c, d, a, x[i + 15], 22, 1236535329);
+    a = gg(a, b, c, d, x[i + 1], 5, -165796510);
+    d = gg(d, a, b, c, x[i + 6], 9, -1069501632);
+    c = gg(c, d, a, b, x[i + 11], 14, 643717713);
+    b = gg(b, c, d, a, x[i + 0], 20, -373897302);
+    a = gg(a, b, c, d, x[i + 5], 5, -701558691);
+    d = gg(d, a, b, c, x[i + 10], 9, 38016083);
+    c = gg(c, d, a, b, x[i + 15], 14, -660478335);
+    b = gg(b, c, d, a, x[i + 4], 20, -405537848);
+    a = gg(a, b, c, d, x[i + 9], 5, 568446438);
+    d = gg(d, a, b, c, x[i + 14], 9, -1019803690);
+    c = gg(c, d, a, b, x[i + 3], 14, -187363961);
+    b = gg(b, c, d, a, x[i + 8], 20, 1163531501);
+    a = gg(a, b, c, d, x[i + 13], 5, -1444681467);
+    d = gg(d, a, b, c, x[i + 2], 9, -51403784);
+    c = gg(c, d, a, b, x[i + 7], 14, 1735328473);
+    b = gg(b, c, d, a, x[i + 12], 20, -1926607734);
+    a = hh(a, b, c, d, x[i + 5], 4, -378558);
+    d = hh(d, a, b, c, x[i + 8], 11, -2022574463);
+    c = hh(c, d, a, b, x[i + 11], 16, 1839030562);
+    b = hh(b, c, d, a, x[i + 14], 23, -35309556);
+    a = hh(a, b, c, d, x[i + 1], 4, -1530992060);
+    d = hh(d, a, b, c, x[i + 4], 11, 1272893353);
+    c = hh(c, d, a, b, x[i + 7], 16, -155497632);
+    b = hh(b, c, d, a, x[i + 10], 23, -1094730640);
+    a = hh(a, b, c, d, x[i + 13], 4, 681279174);
+    d = hh(d, a, b, c, x[i + 0], 11, -358537222);
+    c = hh(c, d, a, b, x[i + 3], 16, -722521979);
+    b = hh(b, c, d, a, x[i + 6], 23, 76029189);
+    a = hh(a, b, c, d, x[i + 9], 4, -640364487);
+    d = hh(d, a, b, c, x[i + 12], 11, -421815835);
+    c = hh(c, d, a, b, x[i + 15], 16, 530742520);
+    b = hh(b, c, d, a, x[i + 2], 23, -995338651);
+    a = ii(a, b, c, d, x[i + 0], 6, -198630844);
+    d = ii(d, a, b, c, x[i + 7], 10, 1126891415);
+    c = ii(c, d, a, b, x[i + 14], 15, -1416354905);
+    b = ii(b, c, d, a, x[i + 5], 21, -57434055);
+    a = ii(a, b, c, d, x[i + 12], 6, 1700485571);
+    d = ii(d, a, b, c, x[i + 3], 10, -1894986606);
+    c = ii(c, d, a, b, x[i + 10], 15, -1051523);
+    b = ii(b, c, d, a, x[i + 1], 21, -2054922799);
+    a = ii(a, b, c, d, x[i + 8], 6, 1873313359);
+    d = ii(d, a, b, c, x[i + 15], 10, -30611744);
+    c = ii(c, d, a, b, x[i + 6], 15, -1560198380);
+    b = ii(b, c, d, a, x[i + 13], 21, 1309151649);
+    a = ii(a, b, c, d, x[i + 4], 6, -145523070);
+    d = ii(d, a, b, c, x[i + 11], 10, -1120210379);
+    c = ii(c, d, a, b, x[i + 2], 15, 718787259);
+    b = ii(b, c, d, a, x[i + 9], 21, -343485551);
+    a = ad(a, olda);
+    b = ad(b, oldb);
+    c = ad(c, oldc);
+    d = ad(d, oldd);
+  }
+  return rh(a) + rh(b) + rh(c) + rh(d);
+}
+
+// js/renderToString.tsx
+init_define_process();
+var renderFromString = (codeSpace2, hash) => {
+  const md5hash = md5(mST().transpiled).slice(0, 8);
+  if (hash !== hashCode()) {
+    return { html: null, css: null };
+  }
+  const html = document.getElementById(`${codeSpace2}-${md5hash}`)?.innerHTML;
+  const css7 = html ? extractCritical22(html) : "";
+  return {
+    html: `<div id="${codeSpace2}-${md5hash}" style="height:100%">${html}</div>`,
+    css: css7
+  };
+};
+var extractCritical22 = (html) => {
+  try {
+    const rules = {};
+    for (const i in document.styleSheets) {
+      let yesFromNow = false;
+      const styleSheet = document.styleSheets[i];
+      if (styleSheet?.cssRules) {
+        for (const rule of Array.from(styleSheet.cssRules)) {
+          if (yesFromNow || rule && rule.cssText && rule.cssText.startsWith(".css-")) {
+            const selector = rule.cssText.slice(1, 9);
+            const selectorText = selector;
+            if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".css-")) {
+              yesFromNow = true;
+              rules[selectorText] = rule.cssText;
+            }
+          }
+        }
+      }
+    }
+    return Object.keys(rules).map((r) => rules[r]).join(" ");
+  } catch {
+    console.error("no css");
+    return "";
+  }
+};
+
+// js/wait.ts
+init_define_process();
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}
+
+// js/starter.tsx
+var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+async function importShim(scr) {
+  if (!document.scripts) {
+    throw new Error("document.scripts");
+  }
+  const scripts = Array.from(document.scripts);
+  const imap = scripts.find((s) => s.type === "importmap");
+  if (!imap) {
+    throw new Error("no imap");
+  }
+  await import("./chunk-es-module-shims-V26B5OGY.mjs");
+  await window.importShim.addImportMap(
+    JSON.parse(
+      imap.innerText
+    )
+  );
+  importShim = window.importShim;
+  return importShim(scr);
+}
+var apps = {};
+var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
+  const md5Hash = md5(mST().transpiled).slice(0, 8);
+  useEffect(() => {
+    const { i } = mST();
+    (async () => {
+      await wait(100);
+      if (i !== mST().i)
+        return;
+      const { html, css: css7 } = renderFromString(codeSpace2, hash);
+      if (html && css7)
+        patchSync({ ...mST(), html, css: css7 });
+    })();
+  }, [hash]);
+  const ref = useRef(null);
+  const transpiled = mST().transpiled;
+  const App = apps[md5(transpiled)];
+  return (0, import_jsx_runtime2.jsx)(ErrorBoundary_default, {
+    ref,
+    children: (0, import_jsx_runtime2.jsx)("div", {
+      style: {
+        height: "100%"
+      },
+      id: `${codeSpace2}-${md5Hash}`,
+      children: (0, import_jsx_runtime2.jsx)(App, {})
+    }, hash)
+  });
+};
+async function appFactory(transpiled = "") {
+  const trp = transpiled.length > 0 ? transpiled : mST().transpiled;
+  const hash = md5(trp);
+  if (!apps[hash]) {
+    try {
+      apps[hash] = (await importShim(createJsBlob(trp))).default;
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        const name = error.name;
+        const message = error.message;
+        apps[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
+          css: import_react2.css`
+        background-color: orange;
+        `,
+          children: [
+            (0, import_jsx_runtime2.jsx)("h1", {
+              children: "Syntax Error"
+            }),
+            (0, import_jsx_runtime2.jsxs)("h2", {
+              children: [
+                name,
+                ": ",
+                message
+              ]
+            }),
+            (0, import_jsx_runtime2.jsx)("p", {
+              children: JSON.stringify({ err: error })
+            })
+          ]
+        });
+      } else if (error instanceof Error) {
+        const name = error.name;
+        const message = error.message;
+        apps[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
+          css: import_react2.css`
+        background-color: orange;
+        `,
+          children: [
+            (0, import_jsx_runtime2.jsx)("h1", {
+              children: "Syntax Error"
+            }),
+            (0, import_jsx_runtime2.jsxs)("h2", {
+              children: [
+                name,
+                ": ",
+                message
+              ]
+            }),
+            (0, import_jsx_runtime2.jsx)("p", {
+              children: JSON.stringify({ err: error })
+            })
+          ]
+        });
+      } else {
+        apps[hash] = () => (0, import_jsx_runtime2.jsx)("div", {
+          css: import_react2.css`
+        background-color: orange;
+      `,
+          children: (0, import_jsx_runtime2.jsxs)("h1", {
+            children: [
+              "Unknown Error: $",
+              hash
+            ]
+          })
+        });
+      }
+    }
+  }
+  return apps[hash];
+}
+function createJsBlob(code) {
+  const file = new File([code], "index.mjs", {
+    type: "application/javascript"
+  });
+  const blobUrl = URL.createObjectURL(file);
+  return blobUrl;
+}
+
+// js/DraggableWindow.tsx
+init_define_process();
+var import_react10 = __toESM(require_emotion_react_cjs(), 1);
+init_react_preact();
+
+// ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/md/index.esm.js
+init_define_process();
+
+// ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/lib/esm/index.js
+init_define_process();
+
+// ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/lib/esm/iconsManifest.js
+init_define_process();
+
+// ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/lib/esm/iconBase.js
+init_define_process();
+init_react_preact();
+
+// ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/lib/esm/iconContext.js
+init_define_process();
+init_react_preact();
+var DefaultContext = {
+  color: void 0,
+  size: void 0,
+  className: void 0,
+  style: void 0,
+  attr: void 0
+};
+var IconContext = _n.createContext && _n.createContext(DefaultContext);
+
+// ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/lib/esm/iconBase.js
+var __assign = function() {
+  __assign = Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+      for (var p2 in s)
+        if (Object.prototype.hasOwnProperty.call(s, p2))
+          t[p2] = s[p2];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
+};
+var __rest = function(s, e) {
+  var t = {};
+  for (var p2 in s)
+    if (Object.prototype.hasOwnProperty.call(s, p2) && e.indexOf(p2) < 0)
+      t[p2] = s[p2];
+  if (s != null && typeof Object.getOwnPropertySymbols === "function")
+    for (var i = 0, p2 = Object.getOwnPropertySymbols(s); i < p2.length; i++) {
+      if (e.indexOf(p2[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p2[i]))
+        t[p2[i]] = s[p2[i]];
+    }
+  return t;
+};
+function Tree2Element(tree) {
+  return tree && tree.map(function(node, i) {
+    return _n.createElement(node.tag, __assign({
+      key: i
+    }, node.attr), Tree2Element(node.child));
+  });
+}
+function GenIcon(data) {
+  return function(props) {
+    return _n.createElement(IconBase, __assign({
+      attr: __assign({}, data.attr)
+    }, props), Tree2Element(data.child));
+  };
+}
+function IconBase(props) {
+  var elem = function(conf) {
+    var attr = props.attr, size = props.size, title = props.title, svgProps = __rest(props, ["attr", "size", "title"]);
+    var computedSize = size || conf.size || "1em";
+    var className;
+    if (conf.className)
+      className = conf.className;
+    if (props.className)
+      className = (className ? className + " " : "") + props.className;
+    return _n.createElement("svg", __assign({
+      stroke: "currentColor",
+      fill: "currentColor",
+      strokeWidth: "0"
+    }, conf.attr, attr, svgProps, {
+      className,
+      style: __assign(__assign({
+        color: props.color || conf.color
+      }, conf.style), props.style),
+      height: computedSize,
+      width: computedSize,
+      xmlns: "http://www.w3.org/2000/svg"
+    }), title && _n.createElement("title", null, title), props.children);
+  };
+  return IconContext !== void 0 ? _n.createElement(IconContext.Consumer, null, function(conf) {
+    return elem(conf);
+  }) : elem(DefaultContext);
+}
+
+// ../../.yarn/__virtual__/react-icons-virtual-368142a91f/4/Users/z/.yarn/berry/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/md/index.esm.js
+function MdQrCode(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zM13 3v8h8V3h-8zm6 6h-4V5h4v4zM19 19h2v2h-2zM13 13h2v2h-2zM15 15h2v2h-2zM13 17h2v2h-2zM15 19h2v2h-2zM17 17h2v2h-2zM17 13h2v2h-2zM19 15h2v2h-2z" } }] })(props);
+}
+function MdPhoneAndroid(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z" } }] })(props);
+}
+function MdTabletAndroid(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z" } }] })(props);
+}
+function MdTv(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z" } }] })(props);
+}
+function MdFullscreen(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" } }] })(props);
+}
+function MdShare(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" } }] })(props);
+}
+
+// js/Qr.tsx
+init_define_process();
+var import_react8 = __toESM(require_emotion_react_cjs(), 1);
+init_react_preact();
+
+// js/icons.tsx
+init_define_process();
+var import_react6 = __toESM(require_emotion_react_cjs(), 1);
+var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var Wrap = ({ children }) => (0, import_jsx_runtime3.jsx)("span", {
+  css: import_react6.css`
+font-size:20pt;
+`,
+  children
+});
+var QrCodeIcon = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdQrCode, {})
+});
+var Phone = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdPhoneAndroid, {})
+});
+var Share = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdShare, {})
+});
+var Tablet = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdTabletAndroid, {})
+});
+var Tv = () => (0, import_jsx_runtime3.jsx)(Wrap, {
+  children: (0, import_jsx_runtime3.jsx)(MdTv, {})
+});
+
+// js/mui.tsx
+init_define_process();
+init_react_preact();
+var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var FabLazy = lazy(async () => import("./chunk-Fab-TRZJGXBG.mjs"));
+var Fab = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
+  children: (0, import_jsx_runtime4.jsx)(FabLazy, {
+    ...props
+  })
+});
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-4IOKXAHM.mjs"));
+var ToggleButton = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
+  children: (0, import_jsx_runtime4.jsx)(ToggleButtonLazy, {
+    ...props
+  })
+});
+var ToggleButtonGroupLazy = lazy(
+  async () => import("./chunk-ToggleButtonGroup-MLIYRB4Q.mjs")
+);
+var ToggleButtonGroup = (props) => (0, import_jsx_runtime4.jsx)(Suspense, {
+  children: (0, import_jsx_runtime4.jsx)(ToggleButtonGroupLazy, {
+    ...props
+  })
+});
+
+// js/Qr.tsx
+var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var QR = ({ url }) => (0, import_jsx_runtime5.jsx)(QRious, {
+  value: url
+});
+var QRiousLazy = _n.lazy(
+  async () => import("./chunk-lib-3NBL6X55.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
+);
+var QRious = ({ value }) => (0, import_jsx_runtime5.jsx)(Suspense, {
+  fallback: (0, import_jsx_runtime5.jsx)("p", {
+    children: ".."
+  }),
+  children: (0, import_jsx_runtime5.jsx)(QRiousLazy, {
+    value
+  })
+});
+var QRButton = ({ url }) => {
+  const [showQR, setQR] = useState(false);
+  return (0, import_jsx_runtime5.jsx)(motion.div, {
+    animate: {
+      width: showQR ? 200 : 56,
+      height: showQR ? 220 : 48
+    },
+    onClick: () => {
+      setQR(!showQR);
+    },
+    css: import_react8.css`
+          margin-top: 12px;
+          margin-bottom: 12px;
+              `,
+    children: showQR ? (0, import_jsx_runtime5.jsx)(QR, {
+      url: url || "/live/coder/public"
+    }, url || origin + url) : (0, import_jsx_runtime5.jsx)(Fab, {
+      children: (0, import_jsx_runtime5.jsx)(QrCodeIcon, {})
+    })
+  });
+};
+
+// js/DraggableWindow.tsx
+var import_jsx_runtime6 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var breakPoints = [680, 768, 1920];
+var breakPointHeights = [1137, 1024, 1080];
+var sizes = [10, 25, 50, 75, 100];
+var bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${!navigator.userAgent.includes("Firefox") ? 0.3 : 0.7})`;
+var DraggableWindow = ({
+  children,
+  room
+}) => {
+  const [scaleRange, changeScaleRange] = useState(100);
+  const startPositions = { bottom: 0, right: 0 };
+  const [{ bottom, right }, setPositions] = useState(startPositions);
+  const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
+  const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
+  const scale = scaleRange / 100;
+  useEffect(() => {
+    const reveal = async () => {
+      setPositions({
+        bottom: window.innerHeight * 0.2,
+        right: window.innerWidth * 0.2
+      });
+      if (window.innerWidth / devicePixelRatio < 600) {
+        changeScaleRange(50);
+        setWidth(breakPoints[0]);
+        setHeight(breakPointHeights[0]);
+      }
+      if (window.innerWidth / devicePixelRatio < 1200) {
+        changeScaleRange(100);
+        setWidth(breakPoints[0]);
+        setHeight(breakPointHeights[0]);
+      } else if (window.innerWidth / devicePixelRatio < 1800) {
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+        changeScaleRange(50);
+      } else if (window.innerWidth / devicePixelRatio < 2500) {
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+        changeScaleRange(75);
+      } else if (window.innerWidth / devicePixelRatio > 2500) {
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+        changeScaleRange(100);
+      }
+      setPositions({
+        bottom: 20,
+        right: 20
+      });
+    };
+    reveal();
+  }, []);
+  const bgCV = window.getComputedStyle(document.body, null).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map(
+    (x) => Number(x) || "0"
+  ).join(",");
+  return (0, import_jsx_runtime6.jsx)(LazyMotion, {
+    features: { ...domAnimation, ...domMax },
+    children: (0, import_jsx_runtime6.jsx)(m.div, {
+      transition: { delay: 0, duration: 0.4 },
+      initial: {
+        top: 0,
+        padding: 0,
+        right: 0,
+        borderRadius: 0
+      },
+      animate: {
+        top: bottom,
+        padding: 8,
+        right,
+        borderRadius: 16
+      },
+      css: import_react10.css`
+            touch-action: pinch-zoom;
+            background-color: ${bg};
+            backdrop-filter: blur(15px);
+            z-index: 10;
+
+            white-space: normal;
+            position: fixed;
+          `,
+      drag: true,
+      dragMomentum: false,
+      dragConstraints: {
+        left: 0,
+        right: width - 20 - width / 6,
+        bottom: innerHeight
+      },
+      dragElastic: 0.5,
+      children: (0, import_jsx_runtime6.jsxs)("div", {
+        css: import_react10.css` 
+              display: flex;
+              
+                `,
+        children: [
+          (0, import_jsx_runtime6.jsxs)("div", {
+            css: import_react10.css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          `,
+            children: [
+              (0, import_jsx_runtime6.jsx)(m.div, {
+                transition: { delay: 0, duration: 0.4 },
+                initial: { height: 0, width: 0 },
+                animate: { height: "auto", width: "auto" },
+                children: (0, import_jsx_runtime6.jsx)(ToggleButtonGroup, {
+                  value: scaleRange,
+                  size: "small",
+                  exclusive: true,
+                  onChange: (_e, newScale) => {
+                    newScale && changeScaleRange(newScale);
+                  },
+                  children: sizes.map((size, ind) => (0, import_jsx_runtime6.jsx)(ToggleButton, {
+                    value: size,
+                    children: (0, import_jsx_runtime6.jsxs)("span", {
+                      css: import_react10.css`
+                       color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
+                       `,
+                      children: [
+                        size,
+                        "%"
+                      ]
+                    })
+                  }, ind))
+                })
+              }),
+              (0, import_jsx_runtime6.jsx)(m.div, {
+                transition: { delay: 0, duration: 0.4 },
+                initial: {
+                  width: window.innerWidth,
+                  height: window.innerHeight,
+                  borderRadius: 0
+                },
+                animate: {
+                  width: width * scale / devicePixelRatio,
+                  height: height * scale / devicePixelRatio,
+                  borderRadius: 8
+                },
+                css: import_react10.css`
+
+                display: block;
+                overflow: hidden;
+                overflow-y: hidden;
+            `,
+                children: (0, import_jsx_runtime6.jsx)(m.div, {
+                  transition: { delay: 0, duration: 0.4 },
+                  initial: {
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    background: "rgba(0,0,0, 1)",
+                    scale: 1
+                  },
+                  animate: {
+                    background: "rgba(" + bgCV + ", 0.5)",
+                    transformOrigin: "0px 0px",
+                    width: width / devicePixelRatio,
+                    height: height / devicePixelRatio,
+                    scale: scaleRange / 100
+                  },
+                  "data-test-id": "z-body",
+                  css: import_react10.css`
+                  overflow:overlay;
+                  overflow-y: hidden;
+              `,
+                  children
+                })
+              }),
+              (0, import_jsx_runtime6.jsx)(m.div, {
+                transition: { delay: 0, duration: 0.4 },
+                children: (0, import_jsx_runtime6.jsx)(ToggleButtonGroup, {
+                  value: width,
+                  size: "small",
+                  exclusive: true,
+                  onChange: (_e, newSize) => {
+                    if (newSize) {
+                      setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
+                      setWidth(newSize);
+                    }
+                  },
+                  children: breakPoints.map((size, ind) => (0, import_jsx_runtime6.jsx)(ToggleButton, {
+                    value: size,
+                    children: size === 680 ? (0, import_jsx_runtime6.jsx)("span", {
+                      css: import_react10.css`
+                        color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
+                        `,
+                      children: (0, import_jsx_runtime6.jsx)(Phone, {})
+                    }) : size === 768 ? (0, import_jsx_runtime6.jsx)("span", {
+                      css: import_react10.css`
+                        color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
+                        `,
+                      children: (0, import_jsx_runtime6.jsx)(Tablet, {})
+                    }) : (0, import_jsx_runtime6.jsx)("span", {
+                      css: import_react10.css`
+                        color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
+                      `,
+                      children: (0, import_jsx_runtime6.jsx)(Tv, {})
+                    })
+                  }, ind))
+                })
+              })
+            ]
+          }),
+          (0, import_jsx_runtime6.jsx)(m.div, {
+            transition: { delay: 0, duration: 0.4 },
+            initial: { height: 0, width: 0 },
+            animate: { height: "100%", width: "auto" },
+            children: (0, import_jsx_runtime6.jsxs)("div", {
+              css: import_react10.css`
+              padding: 16px;
+              display: flex;
+              overflow: "hidden";
+              align-items: center;          
+              flex-direction: column;
+              `,
+              children: [
+                (0, import_jsx_runtime6.jsx)(Fab, {
+                  onClick: () => {
+                    document.querySelector("#root")?.requestFullscreen();
+                  },
+                  children: (0, import_jsx_runtime6.jsx)("span", {
+                    css: import_react10.css`
+                font-size: 20pt;
+              `,
+                    children: (0, import_jsx_runtime6.jsx)(MdFullscreen, {}, "fs")
+                  })
+                }, "fullscreen"),
+                (0, import_jsx_runtime6.jsx)(QRButton, {
+                  url: location.origin + `/live/${room}/public`
+                }),
+                (0, import_jsx_runtime6.jsx)(Fab, {
+                  onClick: () => open(`/live/${room}/public`),
+                  children: (0, import_jsx_runtime6.jsx)(Share, {})
+                }, "Share")
+              ]
+            })
+          })
+        ]
+      })
+    })
+  });
+};
+
+// js/Editor.tsx
+init_define_process();
+init_react_preact();
+var import_react13 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/prettierEsm.ts
 init_define_process();
@@ -28379,6 +29410,937 @@ var prettierJs = (code) => {
     return lastSuccessful || code;
   }
 };
+
+// js/isMobile.mjs
+init_define_process();
+function isMobile() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || navigator.platform === "MacIntel" && navigator.userAgent.indexOf("SAMSUNG") === -1;
+  let check = false;
+  (function(a) {
+    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[23]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(a.slice(0, 4))) {
+      check = true;
+    }
+  })(navigator.userAgent || navigator.vendor || window.opera);
+  return check && !isIOS;
+}
+
+// js/Editor.tsx
+var import_jsx_runtime7 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var mod = {
+  CH() {
+  },
+  code: ""
+};
+var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
+  const ref = useRef(null);
+  const [
+    mySession,
+    changeContent
+  ] = useState({
+    myCode: code,
+    counter: i,
+    started: false,
+    async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
+      const { runner: runner2 } = await import("./chunk-runner-6CSUREMM.mjs");
+      runner2({ code: prettierJs(code2), counter: counter2, codeSpace: codeSpace3 });
+      changeContent((x) => ({
+        ...x,
+        runner: runner2,
+        code: code2,
+        counter: counter2
+      }));
+    },
+    myId: "loading",
+    getValue: () => "",
+    setValue(_code) {
+    },
+    onChange(_cb) {
+    },
+    engine: isMobile() ? "ace" : "monaco"
+  });
+  mod.CH = () => changeContent;
+  const {
+    counter,
+    myCode,
+    started,
+    myId,
+    runner,
+    engine,
+    getValue,
+    setValue,
+    onChange
+  } = mySession;
+  mod.code = myCode;
+  useEffect(() => {
+    if (!ref?.current) {
+      return;
+    }
+    const setMonaco = async () => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "stylesheet");
+      link.href = location.origin + "/" + assets["ws.css"];
+      document.head.append(link);
+      const { startMonaco } = await import("./chunk-startMonaco-QRPKLESS.mjs");
+      const { model, getTypeScriptWorker, setValue: setValue2 } = await startMonaco(
+        {
+          container: ref.current,
+          name: codeSpace2,
+          code: mST().code
+        }
+      );
+      const getValue2 = () => {
+        try {
+          (async () => {
+            const tsWorker = await (await getTypeScriptWorker())(
+              model.uri
+            );
+            const diag = await tsWorker.getSemanticDiagnostics(
+              location.origin + "/live/" + codeSpace2 + ".tsx"
+            );
+            console.log({ diag });
+          })();
+        } catch {
+          console.error("ts diag error");
+        }
+        return prettierJs(model.getValue());
+      };
+      changeContent((x) => ({
+        ...x,
+        started: true,
+        setValue: (code2) => {
+          if (code2 === getValue2())
+            return;
+          setValue2(code2);
+        },
+        getValue: getValue2,
+        onChange: (cb2) => model.onDidChangeContent(cb2).dispose,
+        myId: "editor"
+      }));
+    };
+    const setAce = async () => {
+      const { startAce } = await import("./chunk-startAce-EPI3GJHC.mjs");
+      const editor = await startAce(mST().code);
+      const getValue2 = () => prettierJs(editor.session.getValue());
+      changeContent((x) => ({
+        ...x,
+        onChange(cb2) {
+          editor.session.on("change", cb2);
+          return () => {
+            editor.session.off("change", cb2);
+          };
+        },
+        started: true,
+        getValue: getValue2,
+        setValue(code2) {
+          if (code2 === getValue2())
+            return;
+          editor.session.setValue(code2);
+        },
+        myId: "editor"
+      }));
+    };
+    const loadEditors = async () => {
+      engine === "monaco" ? await setMonaco() : await setAce();
+    };
+    !started && loadEditors();
+  }, [started, ref]);
+  useEffect(() => {
+    if (!started) {
+      return;
+    }
+    const lastCode = mod.code;
+    let last = 0;
+    const handler = setInterval(() => {
+      const now = Date.now();
+      if (now - last < 5e3) {
+        return;
+      }
+      last = now;
+      if (getValue() !== lastCode) {
+        const code2 = getValue();
+        if (code2 === mST().code || code2 === mod.code) {
+          return;
+        }
+        changeContent((x) => ({ ...x, myCode: code2, i: i + 1 }));
+        runner({ code: code2, counter, codeSpace: codeSpace2 });
+      }
+    }, 5e3);
+    onSessionUpdate(() => {
+      const sess = mST();
+      setTimeout(() => {
+        if (mST().i <= counter) {
+          return;
+        }
+        if (mST().i > sess.i) {
+          return;
+        }
+        console.log("sessUP");
+        setValue(sess.code);
+        if (mod.CH() !== changeContent) {
+          const ch = mod.CH();
+          ch((x) => ({
+            ...x,
+            myCode: sess.code,
+            counter: sess.i
+          }));
+        }
+        changeContent((x) => ({
+          ...x,
+          myCode: sess.code,
+          counter: sess.i
+        }));
+      }, 300);
+    }, "editor");
+    return () => {
+      clearInterval(handler);
+    };
+  }, [changeContent, counter, myCode]);
+  useEffect(() => {
+    onChange(cb);
+  }, [onChange]);
+  useEffect(() => {
+    if (!started)
+      return;
+    setValue(myCode);
+    runner({ code: myCode, counter, codeSpace: codeSpace2 });
+  }, [setValue, myCode, counter, codeSpace2, started]);
+  return (0, import_jsx_runtime7.jsx)("div", {
+    "data-test-id": myId,
+    id: "editor",
+    css: import_react13.css`
+        
+            max-width: 640px;
+            height: 100%;
+            
+            
+        `,
+    ref
+  });
+  function cb() {
+    const code2 = getValue();
+    const newCode = prettierJs(code2);
+    if (newCode === mod.code) {
+      return;
+    }
+    if (newCode === mST().code) {
+      return;
+    }
+    try {
+      changeContent((x) => ({
+        ...x,
+        counter: mST().i + 1,
+        myCode: newCode
+      }));
+    } catch (error) {
+      console.error({ err: error });
+      console.error("restore editor");
+    }
+  }
+  ;
+};
+
+// js/renderPreviewWindow.tsx
+var import_jsx_runtime8 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var RainbowContainer = ({ children }) => (0, import_jsx_runtime8.jsx)("div", {
+  css: import_react15.css`
+height: 100%;
+width: 100%;
+background-blend-mode: overlay;
+background:  repeating-radial-gradient(circle at bottom left, 
+              #fedc00 0, #fedc00 5.5555555556%, 
+              #fcb712 0, #fcb712 11.1111111111%, 
+              #f7921e 0, #f7921e 16.6666666667%, 
+            #e87f24 0, #e87f24 22.2222222222%, 
+            #dd6227 0, #dd6227 27.7777777778%,
+             #dc4c27 0, #dc4c27 33.3333333333%, 
+            #ca3435 0, #ca3435 38.8888888889%, 
+            #b82841 0, #b82841 44.4444444444%, 
+            #953751 0, #953751 50%, #364c88 0, 
+            #364c88 55.5555555556%, #16599d 0, 
+            #16599d 61.1111111111%, #02609e 0, 
+            #02609e 66.6666666667%, #0073a9 0, 
+            #0073a9 72.2222222222%, #008aa4 0, 
+            #008aa4 77.7777777778%, #239a87 0, 
+            #239a87 83.3333333333%, #7cba6d 0, 
+            #7cba6d 88.8888888889%, #becc2f 0, 
+            #becc2f 94.4444444444%, #e0d81d 0, 
+            #e0d81d 100%), 
+            repeating-radial-gradient(circle at bottom right, 
+              #fedc00 0, #fedc00 5.5555555556%, 
+              #fcb712 0, #fcb712 11.1111111111%, 
+              #f7921e 0, #f7921e 16.6666666667%, 
+              #e87f24 0, #e87f24 22.2222222222%, 
+              #dd6227 0, #dd6227 27.7777777778%, 
+              #dc4c27 0, #dc4c27 33.3333333333%, 
+              #ca3435 0, #ca3435 38.8888888889%, 
+              #b82841 0, #b82841 44.4444444444%, 
+              #953751 0, #953751 50%,
+               #364c88 0, #364c88 55.5555555556%, 
+               #16599d 0, #16599d 61.1111111111%, 
+               #02609e 0, #02609e 66.6666666667%, 
+               #0073a9 0, #0073a9 72.2222222222%, 
+               #008aa4 0, #008aa4 77.7777777778%,
+                #239a87 0, #239a87 83.3333333333%, 
+                #7cba6d 0, #7cba6d 88.8888888889%, 
+                #becc2f 0, #becc2f 94.4444444444%, 
+                #e0d81d 0, #e0d81d 100%);
+`,
+  children
+});
+var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
+  const [hash, setHash] = useState(() => hashCode());
+  const [isStandalone, setIsStandalone] = useState(true);
+  useEffect(() => {
+    onSessionUpdate(async () => {
+      const newHash = hashCode();
+      if (hash !== newHash) {
+        try {
+          await appFactory();
+          setHash(newHash);
+        } catch (error) {
+          console.error({ e: error });
+        }
+      }
+    }, "myApp");
+  }, [hash, setHash]);
+  useEffect(() => {
+    setTimeout(() => {
+      const isStandalone2 = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
+      setIsStandalone(isStandalone2);
+    }, 800);
+  }, []);
+  const portalNode = useMemo(() => createHtmlPortalNode({
+    attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
+  }), []);
+  return (0, import_jsx_runtime8.jsxs)(p, {
+    children: [
+      (0, import_jsx_runtime8.jsx)(InPortal, {
+        node: portalNode,
+        children: (0, import_jsx_runtime8.jsx)(AutoUpdateApp, {
+          hash,
+          codeSpace: codeSpace2
+        })
+      }),
+      isStandalone ? (0, import_jsx_runtime8.jsx)(OutPortal, {
+        node: portalNode
+      }) : (0, import_jsx_runtime8.jsx)(RainbowContainer, {
+        children: (0, import_jsx_runtime8.jsxs)(p, {
+          children: [
+            (0, import_jsx_runtime8.jsx)(Editor, {
+              code: mST().code,
+              i: mST().i,
+              codeSpace: codeSpace2,
+              assets
+            }),
+            (0, import_jsx_runtime8.jsx)(DraggableWindow, {
+              hashCode: 0,
+              room: codeSpace2,
+              children: (0, import_jsx_runtime8.jsx)(OutPortal, {
+                node: portalNode
+              })
+            })
+          ]
+        })
+      })
+    ]
+  });
+};
+var renderPreviewWindow = ({ codeSpace: codeSpace2, assets }) => {
+  const div = document.querySelector("#root");
+  const root = createRoot(div);
+  root.render(
+    (0, import_jsx_runtime8.jsx)(p, {
+      children: (0, import_jsx_runtime8.jsx)(AppToRender, {
+        codeSpace: codeSpace2,
+        assets
+      })
+    })
+  );
+};
+
+// js/uidV4.mjs
+init_define_process();
+var getRandomValues;
+var rnds8 = new Uint8Array(16);
+function rng() {
+  if (!getRandomValues) {
+    getRandomValues = typeof crypto !== "undefined" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== "undefined" && typeof msCrypto.getRandomValues === "function" && msCrypto.getRandomValues.bind(msCrypto);
+    if (!getRandomValues) {
+      throw new Error(
+        "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported"
+      );
+    }
+  }
+  return getRandomValues(rnds8);
+}
+var __default = /^(?:[\da-f]{8}-[\da-f]{4}-[1-5][\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}|0{8}-(?:0{4}-){3}0{12})$/i;
+function validate(uuid) {
+  return typeof uuid === "string" && __default.test(uuid);
+}
+var byteToHex = [];
+for (let i = 0; i < 256; ++i) {
+  byteToHex.push((i + 256).toString(16).slice(1));
+}
+function stringify(array) {
+  const offset = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
+  const uuid = (byteToHex[array[offset + 0]] + byteToHex[array[offset + 1]] + byteToHex[array[offset + 2]] + byteToHex[array[offset + 3]] + "-" + byteToHex[array[offset + 4]] + byteToHex[array[offset + 5]] + "-" + byteToHex[array[offset + 6]] + byteToHex[array[offset + 7]] + "-" + byteToHex[array[offset + 8]] + byteToHex[array[offset + 9]] + "-" + byteToHex[array[offset + 10]] + byteToHex[array[offset + 11]] + byteToHex[array[offset + 12]] + byteToHex[array[offset + 13]] + byteToHex[array[offset + 14]] + byteToHex[array[offset + 15]]).toLowerCase();
+  if (!validate(uuid)) {
+    throw new TypeError("Stringified UUID is invalid");
+  }
+  return uuid;
+}
+function v4(options, buf, offset) {
+  options = options || {};
+  const rnds = options.random || (options.rng || rng)();
+  rnds[6] = rnds[6] & 15 | 64;
+  rnds[8] = rnds[8] & 63 | 128;
+  if (buf) {
+    offset = offset || 0;
+    for (let i1 = 0; i1 < 16; ++i1) {
+      buf[offset + i1] = rnds[i1];
+    }
+    return buf;
+  }
+  return stringify(rnds);
+}
+
+// js/ws.ts
+var webRtcArray = [];
+var user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || v4()).slice(
+  0,
+  8
+);
+var rtcConns = {};
+var bc;
+var codeSpace;
+var _hash = "";
+var address;
+var wsLastHashCode = 0;
+var webRTCLastSeenHashCode = 0;
+var lastSeenTimestamp = 0;
+var lastSeenNow = 0;
+var ws = null;
+var sendWS;
+var rejoined = false;
+var sendChannel = {
+  webRtcArray,
+  rtcConns,
+  send(data) {
+    const messageString = JSON.stringify({
+      ...data,
+      name: data.name || user
+    });
+    webRtcArray.map((ch) => {
+      try {
+        console.log("WebRtc send", data, ch);
+        if (ch.readyState !== "open") {
+          return;
+        }
+        if (!data.target || ch.target === data.target && !ignoreUsers.includes(ch.target)) {
+          ch.send(messageString);
+        }
+      } catch (error) {
+        console.error("Error in broadcasting event", { e: error });
+      }
+    });
+  }
+};
+var setWsLastHashCode = (hashCode2) => {
+  wsLastHashCode = Number(hashCode2);
+};
+var run = async (startState) => {
+  if (location.pathname.endsWith("dehydrated")) {
+    return;
+  }
+  codeSpace = startState.codeSpace;
+  address = startState.address;
+  startSession(codeSpace, {
+    name: user,
+    state: startState.mST
+  }, location.origin);
+  bc = new BroadcastChannel("spike.land");
+  bc.onmessage = async (event) => {
+    if (event.data.ignoreUser && event.data.ignoreUser === user) {
+      return;
+    }
+    console.log({ event });
+    if (event.data.codeSpace === codeSpace && event.data.address && !address) {
+      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+    }
+    if (event.data.ignoreUser) {
+      !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
+    }
+    if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
+      const messageData = await makePatch(event.data.sess, setWsLastHashCode);
+      await applyPatch(messageData);
+    }
+  };
+  onSessionUpdate(
+    () => {
+      const sess = mST();
+      const hash = md5(JSON.stringify(sess));
+      if (hash === _hash)
+        return;
+      _hash = hash;
+      bc.postMessage({
+        ignoreUser: user,
+        sess,
+        codeSpace,
+        address
+      });
+    },
+    "broadcast"
+  );
+  await appFactory(startState.mST.transpiled);
+  while (!mST().code) {
+    console.log("mst.code is empty, waiting");
+    await wait(100);
+  }
+  renderPreviewWindow(startState);
+  await join();
+};
+var intervalHandler = null;
+async function rejoin() {
+  if (!rejoined || ws === null) {
+    ws = null;
+    const newWs = await join();
+    return newWs;
+  }
+  return ws;
+}
+var ignoreUsers = [];
+function saveCode() {
+  debouncedSyncWs();
+  debouncedSyncRTC();
+}
+var debouncedSyncRTC = (0, import_lodash.default)(syncRTC, 100, {
+  trailing: true,
+  leading: true,
+  maxWait: 500
+});
+var debouncedSyncWs = (0, import_lodash.default)(syncWS, 1200, {
+  trailing: true,
+  leading: true,
+  maxWait: 2500
+});
+async function syncWS() {
+  try {
+    if (ws) {
+      if (wsLastHashCode === hashCode()) {
+        return;
+      }
+      const sess = mST();
+      console.log({ wsLastHashCode });
+      const message = await makePatchFrom(
+        wsLastHashCode,
+        sess
+      );
+      if (!message) {
+        return;
+      }
+      if (message.newHash !== hashCode()) {
+        console.error("NEW hash is not even hashCode", hashCode());
+        return;
+      }
+      const messageString = JSON.stringify({ ...message, name: user });
+      sendWS(messageString);
+    } else {
+      rejoined = false;
+      await rejoin();
+    }
+  } catch (error) {
+    console.error("error 2", { e: error });
+  }
+}
+async function syncRTC() {
+  try {
+    if (Object.keys(rtcConns).length > 0) {
+      if (webRTCLastSeenHashCode === hashCode()) {
+        return;
+      }
+      const sess = mST();
+      console.log({ wsLastHashCode });
+      const message = webRTCLastSeenHashCode ? await makePatchFrom(
+        webRTCLastSeenHashCode,
+        sess
+      ) : await makePatch(sess);
+      if (message && message.patch) {
+        console.log("sendRTC");
+        sendChannel.send(message);
+      }
+    }
+  } catch (error) {
+    console.error("Error sending RTC...", { e: error });
+  }
+}
+async function join() {
+  if (ws !== null) {
+    return ws;
+  }
+  rejoined = true;
+  console.log("WS connect!");
+  if (location.host.includes("localhost")) {
+    return;
+  }
+  const wsConnection = new WebSocket(
+    `wss://${location.host}/live/` + codeSpace + "/websocket"
+  );
+  rejoined = false;
+  wsConnection.addEventListener("open", () => {
+    console.log("NEW WS CONNECTION");
+    ws = wsConnection;
+    const mess = (data) => {
+      try {
+        ws && ws?.send && ws?.send(data);
+      } catch {
+        ws = null;
+        rejoined = false;
+        rejoin();
+      }
+    };
+    sendWS = mess;
+    ws.addEventListener(
+      "message",
+      async (message) => processWsMessage(message, "ws")
+    );
+    if (intervalHandler) {
+      clearInterval(intervalHandler);
+    }
+    intervalHandler = setInterval(() => {
+      const now = Date.now();
+      const diff = now - lastSeenNow;
+      if (diff > 4e4) {
+        try {
+          if (wsConnection.readyState === wsConnection.OPEN) {
+            wsConnection?.send(
+              JSON.stringify({
+                name: user,
+                timestamp: lastSeenTimestamp + diff
+              })
+            );
+            return;
+          }
+          rejoined = false;
+          rejoin();
+        } catch {
+          rejoined = false;
+          rejoin();
+        }
+      }
+    }, 3e4);
+    wsConnection.send(JSON.stringify({ name: user }));
+    return wsConnection;
+  });
+  return wsConnection;
+}
+var h2 = {};
+async function processWsMessage(event, source) {
+  if (ws == null) {
+    return;
+  }
+  lastSeenNow = Date.now();
+  const data = JSON.parse(event.data);
+  processData(data, source);
+}
+async function processData(data, source) {
+  console.log("ws", data.name, data.oldHash, data.newHash);
+  if (source === "ws" && data.timestamp) {
+    lastSeenNow = Date.now();
+    lastSeenTimestamp = data.timestamp;
+  }
+  if (source === "ws" && data.hashCode) {
+    wsLastHashCode = data.hashCode;
+  }
+  if (source === "ws" && data.hashCode) {
+    wsLastHashCode = data.hashCode;
+  }
+  if (source === "rtc" && data.hashCode || data.newHash) {
+    webRTCLastSeenHashCode = data.hashCode || data.newHash;
+  }
+  if (ignoreUsers.includes(data.name)) {
+    return;
+  }
+  if (data.newHash === hashCode()) {
+    return;
+  }
+  if (data.oldHash && data.newHash) {
+    if (h2[data.oldHash] && h2[data.oldHash] === data.newHash) {
+      return;
+    }
+    h2[data.oldHash] = data.newHash;
+  }
+  if (data.newHash === hashCode()) {
+    return;
+  }
+  (async () => {
+    try {
+      if (data.type === "new-ice-candidate") {
+        await handleNewICECandidateMessage(data.candidate, data.name);
+        return;
+      }
+      if (data.type === "offer") {
+        await handleChatOffer(data.offer, data.name);
+        return;
+      }
+      if (data.type === "answer") {
+        await handleChatAnswerMessage(data.answer, data.name);
+        return;
+      }
+      if (data.name && data.name !== user && !rtcConns[data.name]) {
+        await createPeerConnection(data.name);
+        return;
+      }
+    } catch (error) {
+      console.log({ e: error });
+      log_error("Error with p2p");
+    }
+  })();
+  if (data.patch && data.name !== user) {
+    if (data.newHash === hashCode()) {
+      return;
+    }
+    await applyPatch(data);
+    if (data.newHash === hashCode()) {
+      if (sendChannel) {
+        sendChannel.send({ hashCode: data.newHash });
+      }
+      return;
+    }
+    console.log("error -sending on sendChannel");
+    return;
+  }
+  if (data.patch && data.name === user) {
+    wsLastHashCode = data.newHash;
+    return;
+  }
+  if (data.name === user) {
+    return;
+  }
+  if (wsLastHashCode !== hashCode()) {
+  }
+  function createPeerConnection(target) {
+    log(`Setting up a connection with ${target}`);
+    if (rtcConns[target]) {
+      log(`Aborting, since we have connection with this ${target}`);
+      return;
+    }
+    rtcConns[target] = new RTCPeerConnection(
+      rcpOptions
+    );
+    rtcConns[target].onicecandidate = (event) => {
+      if (event.candidate) {
+        log("*** Outgoing ICE candidate: " + event.candidate);
+        ws?.send(JSON.stringify({
+          type: "new-ice-candidate",
+          target,
+          name: user,
+          candidate: event.candidate.toJSON()
+        }));
+      }
+    };
+    rtcConns[target].oniceconnectionstatechange = handleICEConnectionStateChangeEvent;
+    rtcConns[target].onicegatheringstatechange = handleICEGatheringStateChangeEvent;
+    rtcConns[target].onsignalingstatechange = () => {
+      log(
+        "*** rtcConns[target].signalingState  changed to: " + rtcConns[target].signalingState
+      );
+      switch (rtcConns[target].signalingState) {
+        case "closed":
+          break;
+      }
+    };
+    rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
+    rtcConns[target].ontrack = (ev) => {
+      console.log(ev);
+    };
+    rtcConns[target].ondatachannel = (event) => {
+      console.log("Receive Channel Callback");
+      const rtc2 = event.channel;
+      rtc2.binaryType = "arraybuffer";
+      rtc2.addEventListener("close", onReceiveChannelClosed);
+      rtc2.addEventListener(
+        "message",
+        async (message) => processWsMessage(message, "rtc")
+      );
+      const rtcWithTarget = Object.assign(rtc2, { target });
+      webRtcArray.push(rtcWithTarget);
+    };
+    const dataChannelOptions = {
+      ordered: true,
+      reliable: true,
+      maxPacketLifeTime: 3e3
+    };
+    const rtc = Object.assign(
+      rtcConns[target].createDataChannel(
+        target,
+        dataChannelOptions
+      ),
+      { target }
+    );
+    rtc.binaryType = "arraybuffer";
+    rtc.addEventListener("message", async (message) => {
+      console.log("***********RTC***", { msg: message });
+      const data2 = JSON.parse(message.data);
+      if (data2 && data2.hashCode) {
+        webRTCLastSeenHashCode = data2.hashCode;
+      }
+      if (data2 && data2.newHash) {
+        webRTCLastSeenHashCode = data2.newHash;
+      }
+      return processWsMessage(message, "rtc");
+    });
+    rtc.addEventListener("error", (error) => {
+      console.log("xxxxxx-  Data Channel Error:", error);
+    });
+    rtc.addEventListener("open", () => {
+      console.log("@@@@@@@@RTC IS OPEN&&&&&&&&");
+      webRtcArray.push(rtc);
+    });
+    rtc.addEventListener("close", () => {
+      console.log("xxxxxxxx- The Data Channel is Closed");
+    });
+    return rtcConns[target];
+    function onReceiveChannelClosed() {
+      console.log("Receive channel is closed");
+      rtcConns[target].close();
+      delete rtcConns[target];
+      console.log("Closed remote peer connection");
+    }
+    async function handleNegotiationNeededEvent() {
+      log("*** Negotiation needed");
+      try {
+        log("---> Creating offer");
+        const offer = await rtcConns[target].createOffer();
+        if (rtcConns[target].signalingState != "stable") {
+          log("The connection isn't stable yet; postponing...");
+          return;
+        }
+        log("---> Setting local description to the offer");
+        await rtcConns[target].setLocalDescription(offer);
+        log("---> Sending the offer to the remote peer");
+        ws?.send(JSON.stringify({
+          target,
+          name: user,
+          type: "offer",
+          offer: rtcConns[target].localDescription
+        }));
+      } catch {
+        log(
+          "*** The following error occurred while handling the negotiationneeded event:"
+        );
+      }
+    }
+    function handleICEConnectionStateChangeEvent() {
+      log(
+        "*** ICE connection state changed to " + rtcConns[target].iceConnectionState
+      );
+      switch (rtcConns[target].iceConnectionState) {
+        case "closed":
+        case "failed":
+        case "disconnected":
+          break;
+      }
+    }
+    function handleICEGatheringStateChangeEvent() {
+      log(
+        "*** rtcConns[target].iceGatheringState changed to: " + rtcConns[target].iceGatheringState
+      );
+    }
+  }
+  async function handleChatAnswerMessage(answer, target) {
+    log("*** Call recipient has accepted our call");
+    await rtcConns[target].setRemoteDescription(
+      new RTCSessionDescription(
+        answer
+      )
+    ).catch(console.error);
+  }
+  async function handleChatOffer(offer, target) {
+    if (!rtcConns[target]) {
+      createPeerConnection(target);
+    }
+    await rtcConns[target].setRemoteDescription(
+      new RTCSessionDescription(offer)
+    );
+    log("---> Creating and sending answer to caller");
+    const answer = await rtcConns[target].createAnswer();
+    await rtcConns[target].setLocalDescription(
+      answer
+    );
+    ws?.send(JSON.stringify({
+      target,
+      name: user,
+      type: "answer",
+      answer
+    }));
+  }
+}
+function log(text) {
+  const time = new Date();
+  console.log("[" + time.toLocaleTimeString() + "] " + text);
+}
+function log_error(text) {
+  const time = new Date();
+  console.trace("[" + time.toLocaleTimeString() + "] " + text);
+}
+var rcpOptions = {
+  iceServers: ["stun3.l.google.com:19302"].map((url) => ({
+    urls: `stun:${url}`
+  }))
+};
+rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
+  urls: "stun:stun.l.google.com:19302"
+}];
+async function handleNewICECandidateMessage(init, target) {
+  log(
+    "*** Adding received ICE candidate: " + JSON.stringify(init)
+  );
+  const candidate = new RTCIceCandidate(init);
+  console.log(rtcConns[target]);
+  await rtcConns[target].addIceCandidate(candidate);
+}
+async function sw() {
+  try {
+    navigator.serviceWorker.onmessage = async (event) => {
+      const serviceWorker = event.source;
+      if (serviceWorker == null) {
+        return;
+      }
+      switch (event.data.method) {
+        case "ipfs-message-port":
+          console.log("Message port request");
+          const channel = new MessageChannel();
+          {
+            serviceWorker.postMessage({
+              method: "ipfs-message-port",
+              id: event.data.id,
+              port: channel.port2
+            }, { transfer: [channel.port2] });
+          }
+      }
+    };
+    if (document.documentElement.dataset.viewer) {
+      const load = async (path) => {
+        const paths = path && path.split("/") || [];
+        const protocol = paths[0] || "";
+        switch (protocol) {
+          case "ipfs":
+          case "ipns": {
+            document.body.innerHTML = `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
+          }
+        }
+      };
+      await load(location.pathname);
+      return;
+    }
+  } catch {
+    console.log("ipfs load error");
+  }
+}
+
 export {
-  prettierJs
+  run,
+  saveCode,
+  join,
+  sw
 };

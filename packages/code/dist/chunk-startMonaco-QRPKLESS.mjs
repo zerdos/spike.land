@@ -42651,7 +42651,7 @@ var startMonaco = async ({ code, container, name }) => {
     });
     return {
       getTypeScriptWorker: async () => languages.typescript.getTypeScriptWorker(),
-      setValue(code3) {
+      setValue: (code3) => {
         let state = null;
         try {
           state = editor2.saveViewState();
