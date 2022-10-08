@@ -47,5 +47,5 @@
     "@types/react": "18.0.21",
     "playwright": "^1.27.0"
   },
-  "packageManager": "yarn@4.0.0-rc.22"
+  "packageManager": "yarn@4.0.0-rc.23"
 }

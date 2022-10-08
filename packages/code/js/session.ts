@@ -202,6 +202,12 @@ export class CodeSession implements ICodeSess {
 		}
 	};
 
+	// reverse = ({oldHash, 
+	// 	newHash, 
+	// 	patch}: CodePatch
+	// 	)=>{
+	// 		return 0;
+	// 	}
 	applyPatch = async ({
 		oldHash,
 		newHash,
