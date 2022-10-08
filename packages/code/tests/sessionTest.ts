@@ -8,7 +8,7 @@ const state2 = {code: 'dddd', transpiled: '', i: 33, css: '', html: ''};
 const state3 = {code: 'dddd', transpiled: '', i: 34, css: '', html: ''};
 
 let hash1 = 0;
-let hash2 = 0;
+let hash2;
 
 test('At start hashCode is 0', () => {
 	assert.is(hashCode(), 0);
@@ -47,7 +47,7 @@ let errMessage = ""
 	try{
 	await applyPatch(p);
 	} catch(err) {
-errMessage = err.message;
+		if (err instanceof Error) errMessage = err.message;
 	}
 
 	assert.equal(errMessage, "Code update without I update error");
