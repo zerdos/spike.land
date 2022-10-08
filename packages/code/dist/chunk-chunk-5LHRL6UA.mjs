@@ -28806,7 +28806,7 @@ async function importShim(scr) {
   if (!imap) {
     throw new Error("no imap");
   }
-  await import("./chunk-es-module-shims-V26B5OGY.mjs");
+  await import("./chunk-es-module-shims-6VZLLVK6.mjs");
   await window.importShim.addImportMap(
     JSON.parse(
       imap.innerText
@@ -29470,7 +29470,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     counter: i,
     started: false,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-Y4CDW6O4.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-OJ4ESX7N.mjs");
       runner2({ code: prettierJs(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,

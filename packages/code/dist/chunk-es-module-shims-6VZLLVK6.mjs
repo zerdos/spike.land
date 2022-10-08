@@ -3,7 +3,7 @@ import {
 } from "./chunk-chunk-QTIR5YHF.mjs";
 import "./chunk-chunk-477FBAEY.mjs";
 
-// ../../../../../Users/z/.yarn/berry/cache/es-module-shims-npm-1.6.0-8c03442723-9.zip/node_modules/es-module-shims/dist/es-module-shims.js
+// ../../../../../Users/z/.yarn/berry/cache/es-module-shims-npm-1.6.1-737a4e0e18-9.zip/node_modules/es-module-shims/dist/es-module-shims.js
 init_define_process();
 (function() {
   const hasWindow = typeof window !== "undefined";
@@ -45,7 +45,7 @@ init_define_process();
     skip = (s2) => l2.some((i2) => i2[i2.length - 1] === "/" && s2.startsWith(i2) || s2 === i2);
   } else if (typeof skip === "string") {
     const r2 = new RegExp(skip);
-    skip = (s2) => s2.test(r2);
+    skip = (s2) => r2.test(s2);
   }
   const eoop = (err) => setTimeout(() => {
     throw err;
@@ -2403,7 +2403,7 @@ init_define_process();
           load.n = true;
         if (d !== -1)
           return;
-        if (skip && skip.test(r2))
+        if (skip && skip(r2))
           return { b: r2 };
         if (childFetchOpts.integrity)
           childFetchOpts = Object.assign({}, childFetchOpts, { integrity: void 0 });
