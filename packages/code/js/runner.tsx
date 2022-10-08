@@ -5,6 +5,7 @@ import {mST, patchSync} from './session';
 // Import { cF } from "./renderToString";
 // import { toUmd } from "./toUmd";
 import {init} from './esbuildEsm';
+import { render } from './renderToString';
 // Import { appFactory } from "starter";
 // import { wait } from "wait";
 
@@ -45,7 +46,7 @@ const mod = {
 const esb
   = (async () => ({transform: await (await (mod.esbuild)).transform}))();
 
-export async function runner({code, counter}: {
+export async function runner({code, counter, codeSpace}: {
 	code: string;
 	codeSpace: string;
 	counter: number;
@@ -88,7 +89,12 @@ export async function runner({code, counter}: {
 			target: 'es2021',
 		} as unknown as TransformOptions);
 
-		patchSync({...mST(),code, i: counter, transpiled: transpiled.code});
+		const html = await render(transpiled.code, codeSpace);
+
+		if (!html) return;
+
+		patchSync({...mST(),code, i: counter, transpiled: transpiled.code, html});
+
 		
 		//   Try{
 		//     (async ()=>{

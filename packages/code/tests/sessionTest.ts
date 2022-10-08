@@ -3,9 +3,9 @@ import * as assert from 'uvu/assert';
 
 import {applyPatch, hashCode, makePatch, startSession} from '../js/session';
 
-const state1 = {code: '', transpiled: '', i: 33, css: '', html: ''};
-const state2 = {code: 'dddd', transpiled: '', i: 33, css: '', html: ''};
-const state3 = {code: 'dddd', transpiled: '', i: 34, css: '', html: ''};
+const state1 = {code: 'export default () => <h1>Hello</h1>', transpiled: '', i: 33, css: '', html: '<h1 id="d41d8cd9"></h1>'};
+const state2 = {code:  'export default () => <h1>World</h1>', transpiled: '', i: 33, css: '', html: '<h1 id="d41d8cd9"></h1>'};
+const state3 = {code: 'export default () => <h1>World</h1>', transpiled: '', i: 34, css: '', html: '<h1 id="d41d8cd9"></h1>'};
 
 let hash1 = 0;
 let hash2;
@@ -56,7 +56,7 @@ let errMessage = ""
 });
 
 
-test('applies a path', async () => {
+test('applies a patch', async () => {
 	const p = await makePatch(state3);
 	assert.is(hashCode(), hash1);
 	assert.is(p.oldHash, hash1);

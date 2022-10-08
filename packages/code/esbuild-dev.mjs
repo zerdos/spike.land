@@ -61,6 +61,7 @@ const buildOptions = {
 			react: resolve('./js/react-preact.ts'),
 			'react-dom': resolve('./js/react-preact.ts'),
 			'react-dom/client': resolve('./js/react-preact.ts'),
+			'react-dom/server': resolve('./js/react-preact.ts'),
 			'react/jsx-dev-runtime': resolve('./js/react-preact.ts'),
 			'react/jsx-runtime': resolve('./js/react-preact.ts'),
 		}),

@@ -1,5 +1,6 @@
 import {Record} from 'immutable';
 import debounce from 'lodash.debounce';
+import { md5 } from 'md5';
 
 import type {Delta} from './textDiff';
 import {applyPatch as aPatch, createDelta} from './textDiff';
@@ -254,6 +255,11 @@ export class CodeSession implements ICodeSess {
 
 		const newRecord = this.session.get('state').merge(newRec);
 		if (newRecord.code !== this.session.get('state').code && newRecord.i <= this.session.get('state').i ) throw new Error('Code update without I update error');;
+		const transHash = md5((newRecord.transpiled)).slice(0,8);
+		if (newRecord.html.indexOf(transHash)===-1) {
+			console.error(`missing: ${transHash}`)
+			throw new Error("render hack issue")
+		}
 
 		const newHashCheck = newRecord.hashCode();
 
