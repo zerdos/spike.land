@@ -28828,18 +28828,15 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
     }
   }, [hash]);
   useEffect(() => {
-    (async () => {
-      await wait(100);
-      const newHash = md5(mST().transpiled).slice(0, 8);
-      if (newHash !== md5Hash)
-        return;
-      render2[md5Hash] = render2[md5Hash] || renderFromString(codeSpace2, hash);
-      const { html, css: css7 } = render2[md5Hash];
-      if (html && css7)
-        patchSync({ ...mST(), html, css: css7 });
-      else
-        delete render2[md5Hash];
-    })();
+    const newHash = md5(mST().transpiled).slice(0, 8);
+    if (newHash !== md5Hash)
+      return;
+    render2[md5Hash] = render2[md5Hash] || renderFromString(codeSpace2, hash);
+    const { html, css: css7 } = render2[md5Hash];
+    if (html && css7)
+      patchSync({ ...mST(), html, css: css7 });
+    else
+      delete render2[md5Hash];
   }, [md5Hash]);
   const ref = useRef(null);
   const transpiled = mST().transpiled;
@@ -29472,7 +29469,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     counter: i,
     started: false,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-QN23SB5Q.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-RSIPXUXG.mjs");
       runner2({ code: prettierJs(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,

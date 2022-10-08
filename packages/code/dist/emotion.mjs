@@ -453,31 +453,31 @@ var getMixinFromCSSProperties = (properties) => (value) => {
   }
   return style2;
 };
-var getMixinFromCSSOption = (css3) => {
-  if (func(css3))
-    return css3;
-  return getMixinFromCSSProperties(css3);
+var getMixinFromCSSOption = (css2) => {
+  if (func(css2))
+    return css2;
+  return getMixinFromCSSProperties(css2);
 };
 var dasherize = (key) => key.replace(/[A-Z]/g, "-$&").toLowerCase();
 var style = ({
   prop,
-  css: css3,
+  css: css2,
   themeGet,
   key,
   transform: transform2,
   cssProps: cssPropsOption
 }) => {
   const getter = themeGet || (key || transform2 ? themeGetter({ key, transform: transform2 }) : void 0);
-  const cssProps = cssPropsOption || (string(css3) ? [css3] : Array.isArray(css3) ? css3 : string(prop) ? [prop] : Array.isArray(prop) ? prop : []);
+  const cssProps = cssPropsOption || (string(css2) ? [css2] : Array.isArray(css2) ? css2 : string(prop) ? [prop] : Array.isArray(prop) ? prop : []);
   if (Array.isArray(prop)) {
-    const mixin2 = css3 ? getMixinFromCSSOption(css3) : css3;
+    const mixin2 = css2 ? getMixinFromCSSOption(css2) : css2;
     const generators2 = prop.map(
       (prop2) => style({ prop: prop2, css: mixin2, cssProps, themeGet: getter })
     );
     return compose(...generators2);
   }
   const props = [prop];
-  const mixin = getMixinFromCSSOption(css3 || props);
+  const mixin = getMixinFromCSSOption(css2 || props);
   const generators = [];
   const getStyle = getStyleFactory(prop, mixin, getter);
   const cssGetters = getter ? cssProps.reduce((getters, cssProp) => {
@@ -2811,10 +2811,10 @@ var flattenArgs = (arg, props) => {
     return arg.map((arg2) => flattenArgs(arg2, props));
   return arg;
 };
-var getCreateStyle = (baseCreateStyle, css3, generator) => {
+var getCreateStyle = (baseCreateStyle, css2, generator) => {
   if (!generator) {
     return (strings, ...args) => baseCreateStyle(
-      (props) => css3(strings, ...flattenArgs(args, props))(props)
+      (props) => css2(strings, ...flattenArgs(args, props))(props)
     );
   }
   return (strings, ...args) => {
@@ -2823,7 +2823,7 @@ var getCreateStyle = (baseCreateStyle, css3, generator) => {
     }
     args = [...args, generator];
     return baseCreateStyle(
-      (props) => css3(strings, ...flattenArgs(args, props))(props)
+      (props) => css2(strings, ...flattenArgs(args, props))(props)
     );
   };
 };
@@ -2831,20 +2831,20 @@ var createShouldForwardProp = (generator) => {
   const propSet = new Set(generator.meta.props);
   return (prop) => prop !== "as" && !prop.startsWith("$") && !propSet.has(prop);
 };
-var createBaseStyled = (css3, generator) => {
+var createBaseStyled = (css2, generator) => {
   const defaultOptions = generator ? {
     shouldForwardProp: createShouldForwardProp(generator)
   } : {};
   return (component, options) => getCreateStyle(
     emStyled(component, __spreadValues$22(__spreadValues$22({}, defaultOptions), options)),
-    css3,
+    css2,
     generator
   );
 };
 var createStyled = (generator) => {
-  const css3 = createCssFunction(generator);
-  const styled2 = createBaseStyled(css3);
-  const xstyled = createBaseStyled(css3, generator);
+  const css2 = createCssFunction(generator);
+  const styled2 = createBaseStyled(css2);
+  const xstyled = createBaseStyled(css2, generator);
   styled2.box = xstyled("div");
   Object.keys(emStyled).forEach((key) => {
     styled2[key] = styled2(key);
@@ -2877,12 +2877,12 @@ var __spreadValues$12 = (a, b) => {
   return a;
 };
 var createCreateGlobalStyle = (generator) => {
-  const css3 = createCssFunction(generator);
+  const css2 = createCssFunction(generator);
   return (...styles) => {
     const GlobalStyle = (props) => {
       const theme = (0, import_react2.useTheme)();
       return h(import_react2.Global, {
-        styles: css3(...styles)(__spreadValues$12({ theme }, props))
+        styles: css2(...styles)(__spreadValues$12({ theme }, props))
       });
     };
     GlobalStyle.displayName = "GlobalStyle";
@@ -2890,7 +2890,7 @@ var createCreateGlobalStyle = (generator) => {
   };
 };
 var createCx = (generator) => {
-  const css3 = createCssFunction(generator);
+  const css2 = createCssFunction(generator);
   return (styles) => {
     if (string(styles))
       return styles;
@@ -2898,7 +2898,7 @@ var createCx = (generator) => {
       const p2 = { theme };
       const parseStyle = (style2) => {
         if (typeof style2 === "object") {
-          style2 = css3(style2);
+          style2 = css2(style2);
         }
         return cascade(style2, p2);
       };
@@ -2930,7 +2930,7 @@ var __spreadValues3 = (a, b) => {
 var __spreadProps3 = (a, b) => __defProps3(a, __getOwnPropDescs3(b));
 var createJsx = (generator) => {
   const cx2 = createCx(generator);
-  return function jsx3(type, props, ...children) {
+  return function jsx2(type, props, ...children) {
     if (props == null || !Object.prototype.hasOwnProperty.call(props, "css")) {
       return h.apply(void 0, arguments, ...children);
     }
@@ -2949,11 +2949,9 @@ var createCss = (generator) => {
 };
 var { css, styled, x, createGlobalStyle, cx, jsx } = createCss(system);
 var export_Global = import_react4.Global;
-var export_css = import_react4.css;
-var export_jsx = import_react4.jsx;
 export {
   export_Global as Global,
-  export_css as css,
-  export_jsx as jsx,
+  css,
+  jsx,
   x
 };
