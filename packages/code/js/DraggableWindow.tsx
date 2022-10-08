@@ -98,9 +98,33 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 		// SetTimeout(reveal, 200);
 	}, []);
 
+	const c = window.getComputedStyle( 
+		document.body ,null
+		).getPropertyValue('background-color')
+		.slice(4, -1).split(",")
+		.slice(0,3)
+		.map(x=>Number(x)||"0"
+		).join(",");
 
-	const bgCV=window.getComputedStyle( document.body ,null).getPropertyValue('background-color').slice(4, -1).split(",").slice(0,3).map(x=>Number(x)||"0"
-		).join(",");  
+	const [bgCV, setBG] = useState(c);  
+
+	useEffect(()=>{
+
+setInterval(()=> {	
+	const c = window.getComputedStyle( 
+	document.body ,null
+	).getPropertyValue('background-color')
+	.slice(4, -1).split(",")
+	.slice(0,3)
+	.map(x=>Number(x)||"0"
+	).join(",");
+
+
+	if (c !== bgCV) setBG(c);
+	}, 1000/2);
+}, []);
+
+	
 
 
 	return (

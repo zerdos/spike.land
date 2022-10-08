@@ -202,39 +202,7 @@ export const Editor: React.FC<
 			}
 		}, 5000);
 
-		onSessionUpdate(() => {
-			const sess = mST();
 	
-			setTimeout(() => {
-				
-				if (mST().i <= counter) {
-					return;
-				}
-	
-				if (mST().i > sess.i) {
-					return;
-				}
-	
-				console.log('sessUP');
-				// Console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-				setValue(sess.code);
-	
-				if (mod.CH() as unknown as typeof changeContent !== changeContent) {
-					const ch = mod.CH() as unknown as typeof changeContent;
-					ch(x => ({
-						...x,
-						myCode: sess.code,
-						counter: sess.i,
-					}));
-				}
-	
-				changeContent(x => ({
-					...x,
-					myCode: sess.code,
-					counter: sess.i,
-				}));
-			}, 300);
-		}, 'editor');
 		return () => {
 			clearInterval(handler);
 		};
@@ -274,7 +242,13 @@ export const Editor: React.FC<
 	// }, [setValue, getValue, counter, prettierJs, runner]);
 
 	
-
+	onSessionUpdate(() => {if (counter<mST().i) 
+		changeContent(
+			x=>
+			({...x, counter: mST().i,
+				 myCode: mST().code}));  
+		setValue(mST().code)
+	}, "editor");
 	return (
 		<div
 			data-test-id={myId}
