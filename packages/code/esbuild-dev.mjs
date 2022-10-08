@@ -7,7 +7,7 @@ import esbuild from 'esbuild';
 // Const { request } = require("http");
 // require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
-import aliasPlugin from '@chialab/esbuild-plugin-alias';
+import aliasPlugin from 'esbuild-plugin-alias';
 
 const environment = process.env.NODE_ENV === 'production'
 	? 'production'

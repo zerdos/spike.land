@@ -198,43 +198,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chialab/esbuild-plugin-alias@npm:^0.16.4":
-  version: 0.16.4
-  resolution: "@chialab/esbuild-plugin-alias@npm:0.16.4"
-  dependencies:
-    "@chialab/esbuild-rna": "npm:^0.16.3"
-    "@chialab/estransform": "npm:^0.16.0"
-    "@chialab/node-resolve": "npm:^0.16.0"
-  checksum: e94e0721359d09a0f48ee7cfa436a384c7a5e1c8faa7a9874cb2300e4974d16af80738ee7083a67608f277273095123a344e475bfd1447c2a6f1068117304d8a
-  languageName: node
-  linkType: hard
-
-"@chialab/esbuild-rna@npm:^0.16.3":
-  version: 0.16.5
-  resolution: "@chialab/esbuild-rna@npm:0.16.5"
-  dependencies:
-    "@chialab/estransform": "npm:^0.16.2"
-    "@chialab/node-resolve": "npm:^0.16.1"
-  checksum: 4b63a17383347a1310085dd84b3c7e24c2d4424010da2f776bf461854e2b15644a5b76932cf4256d18627c72d19d9e3a800a6aa7b77bc2a2b199f84d36d8c9ab
-  languageName: node
-  linkType: hard
-
-"@chialab/estransform@npm:^0.16.0, @chialab/estransform@npm:^0.16.2":
-  version: 0.16.2
-  resolution: "@chialab/estransform@npm:0.16.2"
-  dependencies:
-    "@parcel/source-map": "npm:^2.0.0"
-  checksum: 3b0e24b8ea6fb8d4c10e2ac0c8da20ef7565e44ffec0e7e78ddb74970f53a2e3b6239fa0941769befcf799d773806f5ef86ffbb1d0723e564ed5167946cc02e7
-  languageName: node
-  linkType: hard
-
-"@chialab/node-resolve@npm:^0.16.0, @chialab/node-resolve@npm:^0.16.1":
-  version: 0.16.1
-  resolution: "@chialab/node-resolve@npm:0.16.1"
-  checksum: 97b590c0492f7036b7d29faf01a1d745a4ccc2b379d1eb15cf7ec9de984a3c10a8a86a409f83a24fb011818d14246501525ef196e9553a715545044bafadb957
-  languageName: node
-  linkType: hard
-
 "@cloudflare/kv-asset-handler@npm:0.2.0, @cloudflare/kv-asset-handler@npm:^0.2.0":
   version: 0.2.0
   resolution: "@cloudflare/kv-asset-handler@npm:0.2.0"
@@ -3326,15 +3289,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parcel/source-map@npm:^2.0.0":
-  version: 2.1.1
-  resolution: "@parcel/source-map@npm:2.1.1"
-  dependencies:
-    detect-libc: "npm:^1.0.3"
-  checksum: 871a64ce9c8dfbc11de3506bd5538db91d1b6556db3964e231db26b3fe27e48eaaf24a071fa95aa63e1d290f0077b377b3857d015cc6296ae1808b640c528f13
-  languageName: node
-  linkType: hard
-
 "@parcel/watcher@npm:2.0.4":
   version: 2.0.4
   resolution: "@parcel/watcher@npm:2.0.4"
@@ -3546,7 +3500,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
-    "@chialab/esbuild-plugin-alias": "npm:^0.16.4"
     "@emotion/cache": "npm:^11.10.3"
     "@emotion/react": "npm:^11.10.4"
     "@emotion/styled": "npm:11.10.4"
@@ -3566,10 +3519,12 @@ __metadata:
     csstype: "npm:^3.1.1"
     es-module-shims: "npm:^1.6.0"
     esbuild: "npm:^0.15.10"
+    esbuild-plugin-alias: "npm:0.2.1"
     esbuild-plugin-import-map: "npm:2.1.0"
     esbuild-register: "npm:^3.3.3"
     esbuild-wasm: "npm:0.15.10"
     fast-diff: "npm:1.2.0"
+    fast-glob: "npm:^3.2.12"
     framer-motion: "npm:^7.5.3"
     immutable: "npm:4.1.0"
     ipfs: "npm:^0.64.2"
@@ -3589,6 +3544,8 @@ __metadata:
     typescript: "npm:^4.8.4"
     uvu: "npm:0.5.6"
     xo: "npm:^0.52.4"
+  peerDependencies:
+    fast-glob: "*"
   languageName: unknown
   linkType: soft
 
@@ -4004,14 +3961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0":
-  version: 18.8.2
-  resolution: "@types/node@npm:18.8.2"
-  checksum: 2a199f877777148eb536f92ca19543e2cff54cfbf966642325f10cffcbeb3ef0a0b456cc766287e1e560946c5c3024f0d310a6345d566d3918d4c9bfcede4c7d
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.8.3":
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0, @types/node@npm:^18.8.3":
   version: 18.8.3
   resolution: "@types/node@npm:18.8.3"
   checksum: 19e358e2b43e1ee466c2c665e1ae9185bdac0a27493ab8ae6c72876e585fdb250eafe052df7744da102f31b013a49de8930aee6938d36d18fdceecc8f049807b
@@ -4371,17 +4321,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^3.0.0-rc.18":
-  version: 3.0.0-rc.22
-  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.22"
-  dependencies:
-    js-yaml: "npm:^3.10.0"
-    tslib: "npm:^2.4.0"
-  checksum: 9796a7b65abc9b6c9b94606e6565487a66fe7972cb270f916e334a267445a3e7ec116fb100ff77d0b6bec631b95084c03d73af6c2e8f8ce3fe3162852d58ff87
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/parsers@npm:^3.0.0-rc.23":
+"@yarnpkg/parsers@npm:^3.0.0-rc.18, @yarnpkg/parsers@npm:^3.0.0-rc.23":
   version: 3.0.0-rc.23
   resolution: "@yarnpkg/parsers@npm:3.0.0-rc.23"
   dependencies:
@@ -6474,7 +6414,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-libc@npm:^1.0.2, detect-libc@npm:^1.0.3":
+"detect-libc@npm:^1.0.2":
   version: 1.0.3
   resolution: "detect-libc@npm:1.0.3"
   bin:
@@ -7139,6 +7079,13 @@ __metadata:
   version: 0.15.10
   resolution: "esbuild-openbsd-64@npm:0.15.10"
   conditions: os=openbsd & cpu=x64
+  languageName: node
+  linkType: hard
+
+"esbuild-plugin-alias@npm:0.2.1":
+  version: 0.2.1
+  resolution: "esbuild-plugin-alias@npm:0.2.1"
+  checksum: 4e544c4ed572e80a3c14123f32ed70a20a936519f5a750c6c072030379e7be6163a899db6f2ee1e58aa4aacb73652f1014381767d2bdc8336e054e50f52e0b2d
   languageName: node
   linkType: hard
 
@@ -7988,7 +7935,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.11, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.9":
+"fast-glob@npm:^3.2.11, fast-glob@npm:^3.2.12, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.9":
   version: 3.2.12
   resolution: "fast-glob@npm:3.2.12"
   dependencies:

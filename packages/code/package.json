@@ -94,7 +94,6 @@
     "react-reverse-portal": "^2.1.1"
   },
   "devDependencies": {
-    "@chialab/esbuild-plugin-alias": "^0.16.4",
     "@libp2p/interfaces": "^3.0.3",
     "@types/lodash.debounce": "^4.0.7",
     "@types/lodash.throttle": "^4.1.7",
@@ -104,8 +103,10 @@
     "@types/xo": "^0.39.3",
     "@yarnpkg/sdks": "^3.0.0-rc.23",
     "esbuild": "^0.15.10",
+    "esbuild-plugin-alias": "0.2.1",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-register": "^3.3.3",
+    "fast-glob": "^3.2.12",
     "ipfs": "^0.64.2",
     "ipfs-core-config": "^0.5.1",
     "tslib": "^2.4.0",
@@ -113,5 +114,8 @@
     "uvu": "0.5.6",
     "xo": "^0.52.4"
   },
-  "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
+  "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4",
+  "peerDependencies": {
+    "fast-glob": "*"
+  }
 }

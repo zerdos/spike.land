@@ -1057,7 +1057,7 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../code/dist/chunk-chunk-477FBAEY.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -1088,7 +1088,7 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 
-// ../code/dist/chunk-chunk-QTIR5YHF.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs
 var define_process_default;
 var init_define_process = __esm({
   "<define:process>"() {
@@ -1096,7 +1096,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-WIKV4S6D.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-WIKV4S6D.mjs
 var require_lodash = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();

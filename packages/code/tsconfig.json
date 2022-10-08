@@ -18,7 +18,7 @@
     "noEmit": true,
     "module": "ES2022",
     "jsx": "react-jsx",
-    "checkJs": true,
+    "checkJs": false,
 
     "jsxImportSource": "@emotion/react",
     "sourceMap": false,
@@ -68,5 +68,5 @@
     "baseUrl": "js"
   },
   "include": ["js", "package.json", "esbuild-dev.mjs"],
-  "exclude": [".yarn", "js/monaco-workers/", "dist"]
+  "exclude": [".yarn", "dist"]
 }
