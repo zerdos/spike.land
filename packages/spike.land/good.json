@@ -123,7 +123,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 21110,
+      "bytes": 21119,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -235,7 +235,7 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15602
+          "bytesInOutput": 15611
         },
         "../code/dist/chunk-chunk-477FBAEY.mjs": {
           "bytesInOutput": 1469
@@ -259,7 +259,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 266476
+      "bytes": 266485
     }
   }
 }

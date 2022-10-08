@@ -53,7 +53,7 @@ export async function runner({code, counter}: {
 
 	const mst = mST();
 	console.log(`${mst.i} => ${counter}`);
-	
+
 	if (counter<=mst.i) return;
 	
 	patchSync({...mST(), code, i: counter});
@@ -76,6 +76,7 @@ export async function runner({code, counter}: {
 			loader: 'tsx',
 			format: 'esm',
 			treeShaking: true,
+			minify: true,
 			tsconfigRaw: {
 				compilerOptions: {
 					jsx: 'react-jsx',
