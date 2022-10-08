@@ -6,6 +6,7 @@ import {mST, patchSync} from './session';
 // import { toUmd } from "./toUmd";
 import {init} from './esbuildEsm';
 import { render } from './renderToString';
+import { md5 } from 'md5';
 // Import { appFactory } from "starter";
 // import { wait } from "wait";
 
@@ -88,12 +89,14 @@ export async function runner({code, counter, codeSpace}: {
 			},
 			target: 'es2021',
 		} as unknown as TransformOptions);
+		const codeHash = md5(code).slice(0,8);
+		const transpiledCode = `${transpiled.code}//${codeHash}`;
 
-		const html = await render(transpiled.code, codeSpace);
+		const html = await render(transpiledCode, codeSpace);
 
 		if (!html) return;
 
-		patchSync({...mST(),code, i: counter, transpiled: transpiled.code, html});
+		patchSync({...mST(),code, i: counter, transpiled: transpiledCode, html});
 
 		
 		//   Try{

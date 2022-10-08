@@ -1,11 +1,12 @@
 import {
   render,
   saveCode
-} from "./chunk-chunk-FVDSIDRP.mjs";
+} from "./chunk-chunk-5AYO7CWD.mjs";
 import {
   mST,
+  md5,
   patchSync
-} from "./chunk-chunk-PP3GZSGZ.mjs";
+} from "./chunk-chunk-JWLIVWRD.mjs";
 import "./chunk-chunk-BATMFQUX.mjs";
 import "./chunk-chunk-ADLHIUHO.mjs";
 import "./chunk-chunk-NSZDJIAS.mjs";
@@ -2492,10 +2493,12 @@ async function runner({ code, counter, codeSpace }) {
       },
       target: "es2021"
     });
-    const html = await render(transpiled.code, codeSpace);
+    const codeHash = md5(code).slice(0, 8);
+    const transpiledCode = `${transpiled.code}//${codeHash}`;
+    const html = await render(transpiledCode, codeSpace);
     if (!html)
       return;
-    patchSync({ ...mST(), code, i: counter, transpiled: transpiled.code, html });
+    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html });
     if (transpiled.code.length > 0) {
       try {
         saveCode();

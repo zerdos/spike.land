@@ -9,7 +9,7 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-PP3GZSGZ.mjs";
+} from "./chunk-chunk-JWLIVWRD.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -29472,7 +29472,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     counter: i,
     started: false,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-FREL32AV.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-QN23SB5Q.mjs");
       runner2({ code: prettierJs(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
