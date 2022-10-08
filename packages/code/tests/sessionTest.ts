@@ -3,9 +3,9 @@ import * as assert from 'uvu/assert';
 
 import {applyPatch, hashCode, makePatch, startSession} from '../js/session';
 
-const state1 = {code: 'export default () => <h1>Hello</h1>', transpiled: '', i: 33, css: '', html: '<h1 id="d41d8cd9"></h1>'};
-const state2 = {code:  'export default () => <h1>World</h1>', transpiled: '', i: 33, css: '', html: '<h1 id="d41d8cd9"></h1>'};
-const state3 = {code: 'export default () => <h1>World</h1>', transpiled: '', i: 34, css: '', html: '<h1 id="d41d8cd9"></h1>'};
+const state1 = {code: 'export default () => <h1>Hello</h1>', transpiled: '//1ff420c5', i: 33, css: '', html: '<h1 id="1c86ccc0"></h1>'};
+const state2 = {code:  'export default () => <h1>World</h1>', transpiled: '//1ff420c5', i: 33, css: '', html: '<h1 id="1c86ccc0"></h1>'};
+const state3 = {code: 'export default () => <h1>World</h1>', transpiled: '//1ff420c5', i: 34, css: '', html: '<h1 id="1c86ccc0"></h1>'};
 
 let hash1 = 0;
 let hash2;

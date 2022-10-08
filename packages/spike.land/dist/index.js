@@ -1096,7 +1096,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-PP3GZSGZ.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JWLIVWRD.mjs
 var require_lodash = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6588,6 +6588,11 @@ var CodeSession = class {
       if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");
       ;
+      const codeHash = md5(newRecord.code).slice(0, 8);
+      if (newRecord.transpiled.indexOf(codeHash) === -1) {
+        console.error(`missing: ${codeHash}`);
+        throw new Error("transpiled	 hack issue");
+      }
       const transHash = md5(newRecord.transpiled).slice(0, 8);
       if (newRecord.html.indexOf(transHash) === -1) {
         console.error(`missing: ${transHash}`);
