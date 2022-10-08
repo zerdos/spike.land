@@ -56,7 +56,7 @@ export async function runner({code, counter}: {
 
 	if (counter<=mst.i) return;
 	
-	patchSync({...mST(), code, i: counter});
+	
 
 	// Console.log({ i, counter });
 
@@ -88,7 +88,8 @@ export async function runner({code, counter}: {
 			target: 'es2021',
 		} as unknown as TransformOptions);
 
-		patchSync({...mST(), transpiled: transpiled.code});
+		patchSync({...mST(),code, i: counter, transpiled: transpiled.code});
+		
 		//   Try{
 		//     (async ()=>{
 		//       const name = `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`;

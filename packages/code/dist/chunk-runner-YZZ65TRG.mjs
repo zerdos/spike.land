@@ -1,6 +1,6 @@
 import {
   saveCode
-} from "./chunk-chunk-QV5QKUFR.mjs";
+} from "./chunk-chunk-73BOBEKO.mjs";
 import {
   mST,
   patchSync
@@ -2474,7 +2474,6 @@ async function runner({ code, counter }) {
   console.log(`${mst.i} => ${counter}`);
   if (counter <= mst.i)
     return;
-  patchSync({ ...mST(), code, i: counter });
   try {
     const esbuild2 = await esb;
     const transpiled = await esbuild2.transform(code, {
@@ -2492,7 +2491,7 @@ async function runner({ code, counter }) {
       },
       target: "es2021"
     });
-    patchSync({ ...mST(), transpiled: transpiled.code });
+    patchSync({ ...mST(), code, i: counter, transpiled: transpiled.code });
     if (transpiled.code.length > 0) {
       try {
         saveCode();
