@@ -1,16 +1,16 @@
 import {
   saveCode
-} from "./chunk-chunk-3FDQMROK.mjs";
+} from "./chunk-chunk-QV5QKUFR.mjs";
 import {
   mST,
   patchSync
 } from "./chunk-chunk-WIKV4S6D.mjs";
-import "./chunk-chunk-HOIPHXDO.mjs";
+import "./chunk-chunk-RAK66SF4.mjs";
 import "./chunk-chunk-ADLHIUHO.mjs";
-import "./chunk-chunk-3K5FGABK.mjs";
-import "./chunk-chunk-C2ZKYUOB.mjs";
-import "./chunk-chunk-3MVZU2TF.mjs";
-import "./chunk-chunk-QVJ2UJAV.mjs";
+import "./chunk-chunk-Q7P6TRY3.mjs";
+import "./chunk-chunk-BVCMLDRQ.mjs";
+import "./chunk-chunk-VMDOMYJI.mjs";
+import "./chunk-chunk-4OMMVWMA.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";
@@ -2481,6 +2481,7 @@ async function runner({ code, counter }) {
       loader: "tsx",
       format: "esm",
       treeShaking: true,
+      minify: true,
       tsconfigRaw: {
         compilerOptions: {
           jsx: "react-jsx",

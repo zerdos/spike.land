@@ -13,6 +13,7 @@ import {md5} from './md5.js';
 
 import {renderFromString} from './renderToString';
 import { wait } from 'wait';
+import { useState } from 'preact/hooks';
 
 async function importShim(scr: string): Promise<any> {
 	if (!document.scripts) {
@@ -129,27 +130,45 @@ async function importShim(scr: string): Promise<any> {
 // };
 
 const apps: Record<string, React.FC> = {};
-
+const render: Record<string, {html: string; css: string}> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
 export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 	{hash, codeSpace},
 ) => {
-	const md5Hash = md5(mST().transpiled).slice(0, 8);
 
+	const [md5Hash, setMdHash] =  useState( md5(mST().transpiled).slice(0, 8))
+	
 	useEffect(() => {
 		//  SetTimeout(()=>{
-		const {i}= mST();
-		(async()=>{
-		await wait(100);
-		if (i!==mST().i) return
-		const {html, css} = renderFromString(codeSpace, hash);
-		if (html && css)
-			patchSync({...mST(), html, css});
 
-		})();
+		const newHash = md5(mST().transpiled).slice(0, 8)
+
+		if (newHash !== md5Hash) {
+			setMdHash(newHash);
+		}
+		
 		// }, 100);
 	}, [hash]);
+
+	useEffect(()=>{
+		
+		(async()=>{
+		await wait(100);
+		const newHash = md5(mST().transpiled).slice(0, 8)
+		if (newHash !== md5Hash) return;
+		
+	
+		render[md5Hash]  = render[md5Hash] || renderFromString(codeSpace, hash);
+	
+	 	const {html, css} = render[md5Hash];
+
+	  if (html && css)
+			patchSync({...mST(), html, css});
+	else delete render[md5Hash]
+
+		})();
+	}, [md5Hash])
 
 	const ref = useRef(null);
 	const transpiled = mST().transpiled;
@@ -158,7 +177,6 @@ export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 	return (
 		<ErrorBoundary ref={ref}>
 			<div
-				key={hash}
 				style={{
 					height: '100%',
 				}}

@@ -6797,7 +6797,7 @@ var Code = class {
         }
         ${mST().css}
         `
-          ).replace("favicon.ico", a3["favicon.ico"]).replace(
+          ).replace("favicon.ico", a3["favicons/favicon.ico"]).replace(
             `<script type="importmap"><\/script>`,
             `<script type="importmap">
             ${getImportMapStr(url.origin)}

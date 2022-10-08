@@ -372,7 +372,7 @@ export class Code {
         }
         ${mST().css}
         `,
-          ).replace("favicon.ico", a["favicon.ico"])
+          ).replace("favicon.ico", a["favicons/favicon.ico"])
             .replace(
               `<script type="importmap"></script>`,
               `<script type="importmap">

@@ -835,7 +835,7 @@ var init_preact_jsx_runtime = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/preact-render-to-string-virtual-591d3c5180/4/Users/z/.yarn/berry/cache/preact-render-to-string-npm-5.2.4-4147518239-9.zip/node_modules/preact-render-to-string/dist/index.mjs
+// ../../.yarn/__virtual__/preact-render-to-string-virtual-01d743af49/4/Users/z/.yarn/berry/cache/preact-render-to-string-npm-5.2.5-f4d2453001-9.zip/node_modules/preact-render-to-string/dist/index.mjs
 function s3(e3) {
   if (false === l3.test(e3 += ""))
     return e3;
@@ -882,13 +882,15 @@ function m3(r3, n3, l4, c4, _5, v4) {
   if (null == r3 || "boolean" == typeof r3)
     return "";
   if ("object" != typeof r3)
-    return s3(r3);
+    return "function" == typeof r3 ? "" : s3(r3);
   var b4 = l4.pretty, x5 = b4 && "string" == typeof b4 ? b4 : "	";
   if (Array.isArray(r3)) {
     for (var k5 = "", S3 = 0; S3 < r3.length; S3++)
       b4 && S3 > 0 && (k5 += "\n"), k5 += m3(r3[S3], n3, l4, c4, _5, v4);
     return k5;
   }
+  if (void 0 !== r3.constructor)
+    return "";
   var w5, C5 = r3.type, O4 = r3.props, j5 = false;
   if ("function" == typeof C5) {
     if (j5 = true, !l4.shallow || !c4 && false !== l4.renderRootComponent) {
@@ -1021,7 +1023,7 @@ function A4(r3, n3, a4, l4, f4) {
   if (null == r3 || true === r3 || false === r3 || "" === r3)
     return "";
   if ("object" != typeof r3)
-    return s3(r3);
+    return "function" == typeof r3 ? "" : s3(r3);
   if (O3(r3)) {
     var u4 = "";
     f4.__k = r3;
@@ -1029,6 +1031,8 @@ function A4(r3, n3, a4, l4, f4) {
       u4 += A4(r3[c4], n3, a4, l4, f4);
     return u4;
   }
+  if (void 0 !== r3.constructor)
+    return "";
   r3.__ = f4, l.__b && l.__b(r3);
   var _5 = r3.type, p4 = r3.props;
   if ("function" == typeof _5) {
@@ -1051,7 +1055,7 @@ function A4(r3, n3, a4, l4, f4) {
       var v4 = r3.__c;
       v4.getChildContext && (n3 = j4({}, n3, v4.getChildContext()));
     }
-    var y4 = A4(d4, n3, a4, l4, r3);
+    var y4 = A4(d4 = null != d4 && d4.type === p && null == d4.key ? d4.props.children : d4, n3, a4, l4, r3);
     return l.diffed && l.diffed(r3), r3.__ = void 0, l.unmount && l.unmount(r3), y4;
   }
   var m4, b4, x5 = "<";
@@ -1109,7 +1113,7 @@ function A4(r3, n3, a4, l4, f4) {
 }
 var n2, o4, i3, a3, l3, f3, u3, c3, _4, y3, b3, x4, k4, O3, j4;
 var init_dist = __esm({
-  "../../.yarn/__virtual__/preact-render-to-string-virtual-591d3c5180/4/Users/z/.yarn/berry/cache/preact-render-to-string-npm-5.2.4-4147518239-9.zip/node_modules/preact-render-to-string/dist/index.mjs"() {
+  "../../.yarn/__virtual__/preact-render-to-string-virtual-01d743af49/4/Users/z/.yarn/berry/cache/preact-render-to-string-npm-5.2.5-f4d2453001-9.zip/node_modules/preact-render-to-string/dist/index.mjs"() {
     init_define_process();
     init_preact_module();
     n2 = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|^--/i;
@@ -1251,7 +1255,9 @@ var init_react_preact = __esm({
 export {
   h,
   p,
+  y2 as y,
   V,
+  init_hooks_module,
   M2 as M,
   $2 as $,
   en,
