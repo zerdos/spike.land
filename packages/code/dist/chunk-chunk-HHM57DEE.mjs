@@ -404,14 +404,6 @@ function x2(n3) {
 function P2(t2, r3) {
   l.useDebugValue && l.useDebugValue(r3 ? r3(t2) : t2);
 }
-function V(n3) {
-  var t2 = p2(r2++, 10), i4 = y2();
-  return t2.__ = n3, u2.componentDidCatch || (u2.componentDidCatch = function(n4, r3) {
-    t2.__ && t2.__(n4, r3), i4[1](n4);
-  }), [i4[0], function() {
-    i4[1](void 0);
-  }];
-}
 function b2() {
   var n3 = p2(r2++, 11);
   return n3.__ || (n3.__ = "P" + function(n4) {
@@ -646,7 +638,7 @@ function yn(n3, t2) {
     });
   }, [n3]), e3;
 }
-var R, x3, k3, A3, O2, T3, V2, j3, z3, B3, H2, q3, Q, X, nn, tn, en, an, sn, hn, mn, _n;
+var R, x3, k3, A3, O2, T3, V, j3, z3, B3, H2, q3, Q, X, nn, tn, en, an, sn, hn, mn, _n;
 var init_compat_module = __esm({
   "../../../../../Users/z/.yarn/berry/cache/preact-npm-10.11.1-ce16a83033-9.zip/node_modules/preact/compat/dist/compat.module.js"() {
     init_define_process();
@@ -718,7 +710,7 @@ var init_compat_module = __esm({
       var i4 = e3.__a && h(p, null, n3.fallback);
       return i4 && (i4.__h = null), [h(p, null, e3.__a ? null : n3.children), i4];
     };
-    V2 = function(n3, t2, e3) {
+    V = function(n3, t2, e3) {
       if (++e3[1] === e3[0] && n3.o.delete(t2), n3.props.revealOrder && ("t" !== n3.props.revealOrder[0] || !n3.o.size))
         for (e3 = n3.u; e3; ) {
           for (; e3.length > 3; )
@@ -732,7 +724,7 @@ var init_compat_module = __esm({
       var t2 = this, e3 = D(t2.__v), r3 = t2.o.get(n3);
       return r3[0]++, function(u4) {
         var o5 = function() {
-          t2.props.revealOrder ? (r3.push(u4), V2(t2, n3, r3)) : u4();
+          t2.props.revealOrder ? (r3.push(u4), V(t2, n3, r3)) : u4();
         };
         e3 ? e3(o5) : o5();
       };
@@ -746,7 +738,7 @@ var init_compat_module = __esm({
     }, M2.prototype.componentDidUpdate = M2.prototype.componentDidMount = function() {
       var n3 = this;
       this.o.forEach(function(t2, e3) {
-        V2(n3, e3, t2);
+        V(n3, e3, t2);
       });
     };
     j3 = "undefined" != typeof Symbol && Symbol.for && Symbol.for("react.element") || 60103;
@@ -975,8 +967,8 @@ function m3(r3, n3, l4, c4, _5, v4) {
     }
   }
   if (b4) {
-    var V3 = N3.replace(/\n\s*/, " ");
-    V3 === N3 || ~V3.indexOf("\n") ? b4 && ~N3.indexOf("\n") && (N3 += "\n") : N3 = V3;
+    var V2 = N3.replace(/\n\s*/, " ");
+    V2 === N3 || ~V2.indexOf("\n") ? b4 && ~N3.indexOf("\n") && (N3 += "\n") : N3 = V2;
   }
   if (N3 += ">", i3.test(C5))
     throw new Error(C5 + " is not a valid HTML tag name in " + N3);
@@ -1152,7 +1144,6 @@ __export(react_preact_exports, {
   StrictMode: () => StrictMode,
   Suspense: () => Suspense,
   SuspenseList: () => M2,
-  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: () => en,
   cloneElement: () => cloneElement,
   createContext: () => createContext,
   createElement: () => h,
@@ -1180,9 +1171,7 @@ __export(react_preact_exports, {
   useCallback: () => useCallback,
   useContext: () => useContext,
   useDebugValue: () => useDebugValue,
-  useDeferredValue: () => dn,
   useEffect: () => useEffect,
-  useErrorBoundary: () => V,
   useId: () => useId,
   useImperativeHandle: () => useImperativeHandle,
   useInsertionEffect: () => useInsertionEffect,
@@ -1191,8 +1180,6 @@ __export(react_preact_exports, {
   useReducer: () => useReducer,
   useRef: () => useRef,
   useState: () => useState,
-  useSyncExternalStore: () => yn,
-  useTransition: () => pn,
   version: () => version
 });
 function createRoot(container) {
@@ -1256,18 +1243,13 @@ export {
   h,
   p,
   y2 as y,
-  V,
   init_hooks_module,
   M2 as M,
   $2 as $,
-  en,
   fn,
   an,
   sn,
   vn,
-  dn,
-  pn,
-  yn,
   _n,
   o3 as o,
   x4 as x,

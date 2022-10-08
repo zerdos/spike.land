@@ -7,7 +7,6 @@ import {
   S,
   StrictMode,
   Suspense,
-  V,
   _n,
   an,
   cloneElement,
@@ -15,8 +14,6 @@ import {
   createFactory,
   createRef,
   createRoot,
-  dn,
-  en,
   fn,
   forwardRef,
   h,
@@ -28,7 +25,6 @@ import {
   memo,
   o,
   p,
-  pn,
   render,
   sn,
   unmountComponentAtNode,
@@ -46,9 +42,8 @@ import {
   useState,
   version,
   vn,
-  x,
-  yn
-} from "./chunk-chunk-4OMMVWMA.mjs";
+  x
+} from "./chunk-chunk-HHM57DEE.mjs";
 import "./chunk-chunk-QTIR5YHF.mjs";
 import "./chunk-chunk-477FBAEY.mjs";
 init_react_preact();
@@ -60,7 +55,6 @@ export {
   StrictMode,
   Suspense,
   M as SuspenseList,
-  en as __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
   cloneElement,
   createContext,
   h as createElement,
@@ -88,9 +82,7 @@ export {
   useCallback,
   useContext,
   useDebugValue,
-  dn as useDeferredValue,
   useEffect,
-  V as useErrorBoundary,
   useId,
   useImperativeHandle,
   useInsertionEffect,
@@ -99,7 +91,5 @@ export {
   useReducer,
   useRef,
   useState,
-  yn as useSyncExternalStore,
-  pn as useTransition,
   version
 };

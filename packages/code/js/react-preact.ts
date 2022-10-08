@@ -1,11 +1,12 @@
-// @ts-expect-error
+
 // Import { createContext  } from "preact/compat"
 
 // export { createPortal, findDOMNode, SuspenseList } from "preact/compat";
 
 import PreactCompat from 'preact/compat';
 
-export * from 'preact/compat';
+export {createPortal, SuspenseList,findDOMNode,unstable_batchedUpdates, flushSync,
+	startTransition } from 'preact/compat';
 export {jsx, jsxs} from './preact-jsx-runtime';
 // Import compat from 'preact/compat'
 // export default compat
@@ -49,7 +50,6 @@ export const {createContext} = React;
 // window.renderToString = window.renderToString || renderToStr;
 
 // export const { hydrate, render, unmountComponentAtNode } = React;
-// @ts-expect-error
 
 // export const { toChildArray } = PreactCompat;
 
