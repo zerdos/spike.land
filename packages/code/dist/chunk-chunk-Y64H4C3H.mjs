@@ -29193,9 +29193,25 @@ var DraggableWindow = ({
     };
     reveal();
   }, []);
-  const bgCV = window.getComputedStyle(document.body, null).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map(
+  const c = window.getComputedStyle(
+    document.body,
+    null
+  ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map(
     (x) => Number(x) || "0"
   ).join(",");
+  const [bgCV, setBG] = useState(c);
+  useEffect(() => {
+    setInterval(() => {
+      const c2 = window.getComputedStyle(
+        document.body,
+        null
+      ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map(
+        (x) => Number(x) || "0"
+      ).join(",");
+      if (c2 !== bgCV)
+        setBG(c2);
+    }, 1e3 / 2);
+  }, []);
   return (0, import_jsx_runtime6.jsx)(LazyMotion, {
     features: { ...domAnimation, ...domMax },
     children: (0, import_jsx_runtime6.jsx)(m.div, {
@@ -29454,7 +29470,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     counter: i,
     started: false,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-LO6OA5HR.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-Y4CDW6O4.mjs");
       runner2({ code: prettierJs(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
@@ -29578,32 +29594,6 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
         runner({ code: code2, counter, codeSpace: codeSpace2 });
       }
     }, 5e3);
-    onSessionUpdate(() => {
-      const sess = mST();
-      setTimeout(() => {
-        if (mST().i <= counter) {
-          return;
-        }
-        if (mST().i > sess.i) {
-          return;
-        }
-        console.log("sessUP");
-        setValue(sess.code);
-        if (mod.CH() !== changeContent) {
-          const ch = mod.CH();
-          ch((x) => ({
-            ...x,
-            myCode: sess.code,
-            counter: sess.i
-          }));
-        }
-        changeContent((x) => ({
-          ...x,
-          myCode: sess.code,
-          counter: sess.i
-        }));
-      }, 300);
-    }, "editor");
     return () => {
       clearInterval(handler);
     };
@@ -29617,6 +29607,17 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     setValue(myCode);
     runner({ code: myCode, counter, codeSpace: codeSpace2 });
   }, [setValue, myCode, counter, codeSpace2, started]);
+  onSessionUpdate(() => {
+    if (counter < mST().i)
+      changeContent(
+        (x) => ({
+          ...x,
+          counter: mST().i,
+          myCode: mST().code
+        })
+      );
+    setValue(mST().code);
+  }, "editor");
   return (0, import_jsx_runtime7.jsx)("div", {
     "data-test-id": myId,
     id: "editor",
