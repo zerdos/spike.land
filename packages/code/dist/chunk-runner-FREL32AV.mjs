@@ -1,10 +1,11 @@
 import {
+  render,
   saveCode
-} from "./chunk-chunk-5LHRL6UA.mjs";
+} from "./chunk-chunk-FVDSIDRP.mjs";
 import {
   mST,
   patchSync
-} from "./chunk-chunk-WIKV4S6D.mjs";
+} from "./chunk-chunk-PP3GZSGZ.mjs";
 import "./chunk-chunk-BATMFQUX.mjs";
 import "./chunk-chunk-ADLHIUHO.mjs";
 import "./chunk-chunk-NSZDJIAS.mjs";
@@ -2469,7 +2470,7 @@ var mod = {
   esbuild: init()
 };
 var esb = (async () => ({ transform: await (await mod.esbuild).transform }))();
-async function runner({ code, counter }) {
+async function runner({ code, counter, codeSpace }) {
   const mst = mST();
   console.log(`${mst.i} => ${counter}`);
   if (counter <= mst.i)
@@ -2491,7 +2492,10 @@ async function runner({ code, counter }) {
       },
       target: "es2021"
     });
-    patchSync({ ...mST(), code, i: counter, transpiled: transpiled.code });
+    const html = await render(transpiled.code, codeSpace);
+    if (!html)
+      return;
+    patchSync({ ...mST(), code, i: counter, transpiled: transpiled.code, html });
     if (transpiled.code.length > 0) {
       try {
         saveCode();

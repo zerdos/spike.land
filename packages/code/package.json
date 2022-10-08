@@ -81,6 +81,7 @@
     "fast-diff": "1.2.0",
     "framer-motion": "^7.5.3",
     "immutable": "4.1.0",
+    "is-callable": "^1.2.7",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
     "monaco-editor": "0.34.0",
@@ -95,6 +96,7 @@
   },
   "devDependencies": {
     "@libp2p/interfaces": "^3.0.3",
+    "@types/is-callable": "^1",
     "@types/lodash.debounce": "^4.0.7",
     "@types/lodash.throttle": "^4.1.7",
     "@types/node": "^18.8.3",

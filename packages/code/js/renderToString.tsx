@@ -1,6 +1,22 @@
 import {hashCode, mST} from 'session';
 import {md5} from 'md5';
+import { appFactory } from 'starter';
+import { renderToString } from 'react-dom/server';
 
+import isCallable from "is-callable"
+
+export const render= async(transpiled:string, codeSpace: string)=>{
+const hash= 	md5(transpiled).slice(0, 8)
+const App = await appFactory(transpiled);
+if (isCallable(App))
+return renderToString(		<div
+	style={{
+		height: '100%',
+	}}
+	id={`${codeSpace}-${hash}`}
+><App/></div>);
+else return null;
+}
 // };
 export const renderFromString = (
 	// Code: string,
