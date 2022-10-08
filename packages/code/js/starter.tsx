@@ -153,8 +153,8 @@ export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 
 	useEffect(()=>{
 		
-		(async()=>{
-		await wait(100);
+
+
 		const newHash = md5(mST().transpiled).slice(0, 8)
 		if (newHash !== md5Hash) return;
 		
@@ -167,7 +167,7 @@ export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 			patchSync({...mST(), html, css});
 	else delete render[md5Hash]
 
-		})();
+
 	}, [md5Hash])
 
 	const ref = useRef(null);
