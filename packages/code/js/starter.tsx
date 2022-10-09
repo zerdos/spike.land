@@ -181,21 +181,19 @@ export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 
 	const ref = useRef(null);
 	const transpiled = mST().transpiled;
-	const App = apps[md5(transpiled)];
+	const App =apps[md5(transpiled)];
+
 	// Return <Root codeSpace={codeSpace}>
 
 
 
 	return (
-		<ErrorBoundary>
+		<ErrorBoundary ref={ref}>
 		
-			<div
-				css={css`
-					height: 100%;
-				`}
+			<div style="height: 100%;"
 				id={`${codeSpace}-${md5Hash}`}
 			>
-				<App />
+				<App/>
 			</div>
 		</ErrorBoundary>
 	);

@@ -188,6 +188,7 @@ increment=1;
 			const setValue = (code: string) => {
 				if (code.length< `export default ()=><></>`.length) return;
 				if (code===getValue()) return;
+				editor.session.setValue(code);
 			}
 
 			mod.getValue = getValue;
