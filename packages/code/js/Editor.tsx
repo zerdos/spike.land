@@ -1,4 +1,10 @@
-import {useEffect, useRef, useState, useCallback} from'react';
+import { useRef, useCallback} from'react';
+import {runner} from "./runner";
+import React from'react';
+
+
+
+
 // Import type FC from "react"
 import {css} from '@emotion/react';
 import { prettierJs } from 'prettierEsm';
@@ -7,6 +13,8 @@ import {isMobile} from './isMobile.mjs';
 
 const mod = {
 	CH() {},
+	getValue: ()=>"",
+	setValue:(code:string)=>undefined,
 	code: '',
 	lastKeyDown: 0,
 	codeToSet: ''
@@ -31,36 +39,18 @@ export const Editor: React.FC<
 	const [
 		mySession,
 		changeContent,
-	] = useState({
+	] =React.useState({
 		lastKeyDown: 0,
 		myCode: code,
 		counter: i,
 		started: false,
 
-		async runner(
-			{code, counter, codeSpace}: {
-				code: string;
-				counter: number;
-				codeSpace: string;
-			},
-		) {
-			// If (!mySession.x/) return;
-			const {runner} = await import('./runner');
-
-			runner({code: prettierJs(code), counter, codeSpace});
-			changeContent((x: typeof mySession) => ({
-				...x,
-				runner,
-				code,
-				counter,
-			}));
-		},
 		myId: 'loading',
-		getValue: () => '' as string,
-		setValue(_code: string) {},
 		onChange(_cb: () => void) {},
 		engine: isMobile() ? 'ace' : 'monaco',
 	});
+
+
 
 	const {
 		counter,
@@ -70,7 +60,6 @@ export const Editor: React.FC<
 		// runner,
 		engine,
 		// getValue,
-		setValue,
 		onChange,
 	} = mySession;
 
@@ -81,12 +70,13 @@ export const Editor: React.FC<
 		const lastKeydownHappened = Date.now()- mod.lastKeyDown;
 		console.log({lastKeydownHappened});
 		let increment = 0
-		if (lastKeydownHappened>1000) {
+		if (lastKeydownHappened<1000) {
 increment=1;
 			//console.log(`last keydown happened:   + ${lastKeydownHappened}, we already handled this event`);
 //		return;
 		}
-		const code = mySession.getValue();
+	
+		const code = mod.getValue();
 		const newCode = prettierJs(code);
 
 		if (newCode === myCode) {
@@ -107,6 +97,8 @@ increment=1;
 				counter: mST().i + increment,
 				myCode: newCode,
 			}));
+
+			runner({code: newCode, counter:  mST().i + increment, codeSpace });
 		
 
 			// Console.log("RUN THE RUNNER AGAIN");
@@ -116,8 +108,9 @@ increment=1;
 			// Model?.setValue(code);
 		}, [mod.lastKeyDown, myCode, counter, changeContent]);
 
-	useEffect(() => {
-		if (!ref?.current) {
+	React.useEffect(() => {
+
+		if (!(ref?.current)) {
 			return;
 		}
 
@@ -129,7 +122,7 @@ increment=1;
 
 			const {startMonaco} = await import('./startMonaco');
 
-			const {model, getTypeScriptWorker, setValue} = await startMonaco(
+			const {model, getTypeScriptWorker, setValue: setMonValue} = await startMonaco(
 				/**
          * @param {any} code
          */
@@ -159,21 +152,24 @@ increment=1;
 				return prettierJs(model.getValue());
 			}
 
-			changeContent(x => ({
-				...x,
+			const setValue = (code: string) => {
+				if (code.length< `export default ()=><></>`.length) return;
+				if (code===getValue()) return;
+				mod.codeToSet = code;
+
+	
+
+				setTimeout(()=> mod.codeToSet === code && setMonValue(code), 800);  //wait this time before overwriting the value					 
+				
+
+			};
+
+			mod.getValue = getValue;
+			mod.setValue = setValue;
+
+			changeContent(({
+				...mySession,
 				started: true,
-				setValue: (code: string)=>{
-					if (code.length< `export default ()=><></>`.length) return;
-					if (code===getValue()) return;
-					mod.codeToSet = code;
-
-		
-
-					setTimeout(()=> mod.codeToSet === code && setValue(code), 800);  //wait this time before overwriting the value					 
-					
-
-				},
-				getValue,
 				onChange: (cb: () => void) => model.onDidChangeContent(cb).dispose,
 				myId: 'editor',
 				// Model: editor.getModel(),
@@ -189,8 +185,16 @@ increment=1;
 			const editor = await startAce(mST().code);
 			const getValue = ()=>prettierJs(editor.session.getValue());
 
-			changeContent(x => ({
-				...x,
+			const setValue = (code: string) => {
+				if (code.length< `export default ()=><></>`.length) return;
+				if (code===getValue()) return;
+			}
+
+			mod.getValue = getValue;
+			mod.setValue = setValue;
+
+			changeContent({
+				...mySession,
 				onChange(cb: () => void) {
 					editor.session.on('change', cb);
 					return () => {
@@ -198,25 +202,11 @@ increment=1;
 					};
 				},
 				started: true,
-				getValue,
-				setValue(code: string) {
-					if (code.length< `export default ()=><></>`.length) return;
-					if (code===getValue()) return;
-		  		mod.codeToSet = code;
-				setTimeout(()=> mod.codeToSet === code &&  editor.session.setValue(code), 800);
-				},
 				myId: 'editor',
-			}));
-		};
+		});
+	}
 
-		const loadEditors = async () => {
-
-			(engine === 'monaco' ? await setMonaco() : await setAce());
-
-			// Console.log("RUN THE RUNNER");
-		
-			//runner({code, counter, codeSpace});
-		};
+		const loadEditors =  () => (engine === 'monaco')? setMonaco() : setAce();
 
 		!started && loadEditors();
 	}, [started, ref]);
@@ -225,7 +215,7 @@ increment=1;
 
 	// })
 
-	useEffect(() => {
+	React.useEffect(() => {
 		
 
 
@@ -237,7 +227,7 @@ increment=1;
 	}, [onChange]);
 
 
-	// useEffect(() => {
+	// React.useEffect(() => {
 	// 	if (!started) return;
 	// 	setValue(myCode);
 	
@@ -257,7 +247,7 @@ increment=1;
 	
 
 
-	// useEffect(() => {
+	// React.useEffect(() => {
 	// 	if (!started) {
 	// 		return;
 	// 	}
@@ -271,12 +261,10 @@ increment=1;
 
 	
 	onSessionUpdate(() => {
-		if (counter<mST().i) {changeContent(
-			x=>
-			({...x, counter: mST().i,
+		if (counter<mST().i) {changeContent(({...mySession, counter: mST().i,
 				 myCode: mST().code}));  
 			}
-				 setValue(mST().code);
+				 mod.setValue(mST().code);
 			
 		},
 		
