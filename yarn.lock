@@ -3499,7 +3499,7 @@ __metadata:
     "@emotion/utils": "npm:^1.2.0"
     "@libp2p/interfaces": "npm:^3.0.3"
     "@mui/material": "npm:5.10.8"
-    "@types/is-callable": "npm:^1"
+    "@types/is-callable": "npm:^1.1.0"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
     "@types/node": "npm:^18.8.3"
@@ -3877,7 +3877,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/is-callable@npm:^1":
+"@types/is-callable@npm:^1.1.0":
   version: 1.1.0
   resolution: "@types/is-callable@npm:1.1.0"
   checksum: aae2046957650f4b502519ca3e2b1f7c17f155ebb7d9ae726aa8e1f9a990384c4db46b6aec81039caf44369227a5713f8bb3ce0da58740743a0feb4c56bd3437

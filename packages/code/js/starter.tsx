@@ -15,6 +15,8 @@ import {renderFromString} from './renderToString';
 
 import { useState } from 'preact/hooks';
 
+import isCallable from 'is-callable';
+
 async function importShim(scr: string): Promise<any> {
 	if (!document.scripts) {
 		throw new Error('document.scripts');
@@ -174,6 +176,7 @@ export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 	const transpiled = mST().transpiled;
 	const App = apps[md5(transpiled)];
 	// Return <Root codeSpace={codeSpace}>
+
 	return (
 		<ErrorBoundary ref={ref}>
 			<div
@@ -197,8 +200,10 @@ export async function appFactory(transpiled = ''): Promise<React.FC> {
 
 	if (!apps[hash]) {
 		try {
-			apps[hash] = (await importShim(createJsBlob(trp)))
+			const App= (await importShim(createJsBlob(trp)))
 				.default as unknown as React.FC;
+			if (isCallable(App)) apps[hash] = App;
+			else throw new Error("the default export is not a function!")
 		} catch (error) {
 			// Try {
 			//   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
