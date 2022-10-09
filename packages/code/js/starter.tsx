@@ -12,7 +12,7 @@ import ErrorBoundary from './ErrorBoundary';
 import {md5} from './md5.js';
 
 import {renderFromString} from './renderToString';
-import { wait } from 'wait';
+
 import { useState } from 'preact/hooks';
 
 async function importShim(scr: string): Promise<any> {

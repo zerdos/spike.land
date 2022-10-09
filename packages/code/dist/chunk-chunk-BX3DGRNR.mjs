@@ -28786,16 +28786,6 @@ var extractCritical22 = (html) => {
   }
 };
 
-// js/wait.ts
-init_define_process();
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
-
 // js/starter.tsx
 init_hooks_module();
 var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
@@ -29457,7 +29447,8 @@ var import_jsx_runtime8 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod = {
   CH() {
   },
-  code: ""
+  code: "",
+  codeToSet: ""
 };
 var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
   const ref = useRef(null);
@@ -29469,7 +29460,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     counter: i,
     started: false,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-RSIPXUXG.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-3NE6KNBA.mjs");
       runner2({ code: prettierJs(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
@@ -29538,6 +29529,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
         setValue: (code2) => {
           if (code2 === getValue2())
             return;
+          setTimeout(() => mod.codeToSet === code2 && setValue2(code2), 500);
           setValue2(code2);
         },
         getValue: getValue2,
@@ -29546,7 +29538,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-EPI3GJHC.mjs");
+      const { startAce } = await import("./chunk-startAce-5AFL3JIP.mjs");
       const editor = await startAce(mST().code);
       const getValue2 = () => prettierJs(editor.session.getValue());
       changeContent((x) => ({
@@ -29560,9 +29552,10 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
         started: true,
         getValue: getValue2,
         setValue(code2) {
+          mod.codeToSet = code2;
           if (code2 === getValue2())
             return;
-          editor.session.setValue(code2);
+          setTimeout(() => mod.codeToSet === code2 && editor.session.setValue(code2), 500);
         },
         myId: "editor"
       }));
@@ -29815,6 +29808,16 @@ function v4(options, buf, offset) {
     return buf;
   }
   return stringify(rnds);
+}
+
+// js/wait.ts
+init_define_process();
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
 }
 
 // js/ws.ts

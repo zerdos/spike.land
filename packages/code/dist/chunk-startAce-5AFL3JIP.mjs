@@ -20131,6 +20131,7 @@ var import_mode_typescript = __toESM(require_mode_typescript(), 1);
 async function startAce(code) {
   const editor = (0, import_ace_builds.edit)("editor", {
     autoScrollEditorIntoView: true,
+    useWorker: true,
     scrollPastEnd: true,
     copyWithEmptySelection: true
   });

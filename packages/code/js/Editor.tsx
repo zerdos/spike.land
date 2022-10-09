@@ -8,6 +8,7 @@ import {isMobile} from './isMobile.mjs';
 const mod = {
 	CH() {},
 	code: '',
+	codeToSet: ''
 };
 
 // Export type IStandaloneCodeEditor = editor.Ist;
@@ -124,6 +125,7 @@ export const Editor: React.FC<
 				started: true,
 				setValue: (code: string)=>{
 					if (code===getValue()) return;
+						setTimeout(()=> mod.codeToSet === code &&  setValue(code), 500);
 					setValue(code);
 
 				},
@@ -154,8 +156,9 @@ export const Editor: React.FC<
 				started: true,
 				getValue,
 				setValue(code: string) {
-					if (code === getValue())	 return;
-					editor.session.setValue(code);
+					mod.codeToSet = code;
+					if (code === getValue()) return;
+				setTimeout(()=> mod.codeToSet === code &&  editor.session.setValue(code), 500);
 				},
 				myId: 'editor',
 			}));
