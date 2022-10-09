@@ -7,6 +7,7 @@ export async function startAce(code: string) {
 	// Const {ace} = window;
 	const editor = edit('editor', {    
 		autoScrollEditorIntoView: true,
+		useWorker: true,
 		scrollPastEnd:true,
 		copyWithEmptySelection: true,});
 	editor.setTheme('ace/theme/monokai');
