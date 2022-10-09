@@ -154,5 +154,5 @@ export const renderPreviewWindow = ({codeSpace, assets}: {
 	});
 
 
-	root.render(<CacheProvider value={myCache}><AppToRender codeSpace={codeSpace} assets={assets} /></CacheProvider>);
+	root.render(<Fragment><CacheProvider value={myCache}><AppToRender codeSpace={codeSpace} assets={assets} /></CacheProvider></Fragment>);
 };

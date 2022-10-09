@@ -95,7 +95,7 @@ export class Code {
 
       const session = await this.kv.get<ICodeSession>("session") ||
         backupSession;
-      if (!session.code) {
+    if (!session.code) {
         const s = backupSession;
         session.code = s.code;
         session.transpiled = s.transpiled;

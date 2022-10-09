@@ -111,7 +111,7 @@ export const run = async (startState: {
 		state: startState.mST,
 	}, location.origin);
 
-	bc = new BroadcastChannel('spike.land');
+	bc = new BroadcastChannel(location.origin);
 	bc.onmessage = async event => {
 		if (event.data.ignoreUser && event.data.ignoreUser === user) {
 			return;

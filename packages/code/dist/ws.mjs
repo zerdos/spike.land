@@ -31238,10 +31238,9 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled)];
   return (0, import_jsx_runtime3.jsx)(ErrorBoundary_default, {
+    ref,
     children: (0, import_jsx_runtime3.jsx)("div", {
-      css: import_react2.css`
-					height: 100%;
-				`,
+      style: "height: 100%;",
       id: `${codeSpace2}-${md5Hash}`,
       children: (0, import_jsx_runtime3.jsx)(App, {})
     })
@@ -32062,6 +32061,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
           return;
         if (code2 === getValue())
           return;
+        editor.session.setValue(code2);
       };
       mod2.getValue = getValue;
       mod2.setValue = setValue;
@@ -32224,11 +32224,13 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2, assets }) => {
   const myCache = createCache({
     key: "z"
   });
-  root.render((0, import_jsx_runtime9.jsx)(import_react17.CacheProvider, {
-    value: myCache,
-    children: (0, import_jsx_runtime9.jsx)(AppToRender, {
-      codeSpace: codeSpace2,
-      assets
+  root.render((0, import_jsx_runtime9.jsx)(p, {
+    children: (0, import_jsx_runtime9.jsx)(import_react17.CacheProvider, {
+      value: myCache,
+      children: (0, import_jsx_runtime9.jsx)(AppToRender, {
+        codeSpace: codeSpace2,
+        assets
+      })
     })
   }));
 };
@@ -32340,7 +32342,7 @@ var run = async (startState) => {
     name: user,
     state: startState.mST
   }, location.origin);
-  bc = new BroadcastChannel("spike.land");
+  bc = new BroadcastChannel(location.origin);
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
