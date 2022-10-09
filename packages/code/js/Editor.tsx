@@ -10,12 +10,14 @@ import {css} from '@emotion/react';
 import { prettierJs } from 'prettierEsm';
 import {mST, onSessionUpdate} from './session';
 import {isMobile} from './isMobile.mjs';
+import ms from 'ms';
 
 const mod = {
 	CH() {},
 	getValue: ()=>"",
 	setValue:(code:string)=>undefined,
 	code: '',
+	counter: 0,
 	lastKeyDown: 0,
 	codeToSet: ''
 };
@@ -50,6 +52,8 @@ export const Editor: React.FC<
 		engine: isMobile() ? 'ace' : 'monaco',
 	});
 
+	mod.counter = i;
+
 
 
 	const {
@@ -75,6 +79,8 @@ increment=1;
 			//console.log(`last keydown happened:   + ${lastKeydownHappened}, we already handled this event`);
 //		return;
 		}
+
+	
 	
 		const code = mod.getValue();
 		const newCode = prettierJs(code);
@@ -90,15 +96,16 @@ increment=1;
 		// if (mySession.counter  mST().i) return;
 
 
+		mod.counter = mST().i + increment;
 
 			changeContent(x => ({
 				...x,
 				lastKeyDown: 0,
-				counter: mST().i + increment,
+				counter: 	mod.counter,
 				myCode: newCode,
 			}));
 
-			runner({code: newCode, counter:  mST().i + increment, codeSpace });
+			runner({code: newCode, counter:  mod.counter, codeSpace });
 		
 
 			// Console.log("RUN THE RUNNER AGAIN");
@@ -156,6 +163,7 @@ increment=1;
 				mod.codeToSet = code;
 				if (code.length< `export default ()=><></>`.length) return;
 				if (code===getValue()) return;
+				if (mST().i === mod.counter) return;
 			
 				setTimeout(()=> mod.codeToSet === code && setMonValue(code), 800);  //wait this time before overwriting the value					 
 				
@@ -188,11 +196,13 @@ increment=1;
 			
 				if (code.length< `export default ()=><></>`.length) return;
 				if (code===getValue()) return;
+				if (mST().i === mod.counter) return;
 
 				setTimeout(()=>{
 					
 					if (mod.codeToSet === code) {
 					//	const before = editor.selection.toJSON();
+					
 						editor.session.setValue(code)
 					//	editor.selection.fromJSON(before)
 					

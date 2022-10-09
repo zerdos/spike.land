@@ -2861,11 +2861,11 @@ var require_standalone = __commonJS({
         });
       });
       var Zr = we((ds) => {
-        var Wl = Ct(), $l = Et(), Hl = cu(), Gl = sr(), Jl = ar(), Ul = mr(), zl = gt(), Xl = Qr(), ms = Object.getOwnPropertyDescriptor;
-        ds.f = Wl ? ms : function(n, t) {
+        var Wl = Ct(), $l = Et(), Hl = cu(), Gl = sr(), Jl = ar(), Ul = mr(), zl = gt(), Xl = Qr(), ms2 = Object.getOwnPropertyDescriptor;
+        ds.f = Wl ? ms2 : function(n, t) {
           if (n = Jl(n), t = Ul(t), Xl)
             try {
-              return ms(n, t);
+              return ms2(n, t);
             } catch {
             }
           if (zl(n, t))
@@ -14118,7 +14118,7 @@ var require_parser_babel = __commonJS({
           return !!p2 && p2.enumerable;
         } : ei;
       });
-      var ms = b((Xf, ii) => {
+      var ms2 = b((Xf, ii) => {
         ii.exports = function(h3, l) {
           return { enumerable: !(h3 & 1), configurable: !(h3 & 2), writable: !(h3 & 4), value: l };
         };
@@ -14336,7 +14336,7 @@ var require_parser_babel = __commonJS({
         });
       });
       var Ls = b((ca) => {
-        var Su = ke(), wu = bt(), Nu = ri(), Iu = ms(), ku = St(), Du = ks(), Fu = be(), Lu = Fs(), ua = Object.getOwnPropertyDescriptor;
+        var Su = ke(), wu = bt(), Nu = ri(), Iu = ms2(), ku = St(), Du = ks(), Fu = be(), Lu = Fs(), ua = Object.getOwnPropertyDescriptor;
         ca.f = Su ? ua : function(l, p2) {
           if (l = ku(l), p2 = Du(p2), Lu)
             try {
@@ -14382,7 +14382,7 @@ var require_parser_babel = __commonJS({
         };
       });
       var Ft = b((Id, ga) => {
-        var Hu = ke(), Wu = qs(), Gu = ms();
+        var Hu = ke(), Wu = qs(), Gu = ms2();
         ga.exports = Hu ? function(h3, l, p2) {
           return Wu.f(h3, l, Gu(1, p2));
         } : function(h3, l, p2) {
@@ -23791,7 +23791,7 @@ var require_parser_html = __commonJS({
         function wD(e) {
           if (typeof e != "string" || e.length === 0 || (e = SD(e), e.length === 0))
             return 0;
-          e = e.replace((0, ms.default)(), "  ");
+          e = e.replace((0, ms2.default)(), "  ");
           let r = 0;
           for (let t = 0; t < e.length; t++) {
             let s = e.codePointAt(t);
@@ -23799,8 +23799,8 @@ var require_parser_html = __commonJS({
           }
           return r;
         }
-        var ms, ND = Ce({ "node_modules/string-width/index.js"() {
-          q(), yD(), BD(), ms = tD(bD());
+        var ms2, ND = Ce({ "node_modules/string-width/index.js"() {
+          q(), yD(), BD(), ms2 = tD(bD());
         } }), OD = I({ "src/utils/get-string-width.js"(e, r) {
           "use strict";
           q();
@@ -26777,12 +26777,12 @@ var require_parser_postcss = __commonJS({
           var e = new Date(), n = e - ho;
           return n / 1e3;
         }
-        var be, xe, me, Ne, Ce, $e, vs, ms, gs, ys, ws2, _s, bs, xs, ks, Ss, Os, Ts, Es, qs, As, Ps, Re, po, ho, Rs, Ve, Jl = Le({ "node-modules-polyfills:process"() {
+        var be, xe, me, Ne, Ce, $e, vs, ms2, gs, ys, ws2, _s, bs, xs, ks, Ss, Os, Ts, Es, qs, As, Ps, Re, po, ho, Rs, Ve, Jl = Le({ "node-modules-polyfills:process"() {
           A(), be = ao, xe = uo, typeof globalThis.setTimeout == "function" && (be = setTimeout), typeof globalThis.clearTimeout == "function" && (xe = clearTimeout), me = [], Ne = false, $e = -1, fo.prototype.run = function() {
             this.fun.apply(null, this.array);
-          }, vs = "browser", ms = "browser", gs = true, ys = {}, ws2 = [], _s = "", bs = {}, xs = {}, ks = {}, Ss = Ae, Os = Ae, Ts = Ae, Es = Ae, qs = Ae, As = Ae, Ps = Ae, Re = globalThis.performance || {}, po = Re.now || Re.mozNow || Re.msNow || Re.oNow || Re.webkitNow || function() {
+          }, vs = "browser", ms2 = "browser", gs = true, ys = {}, ws2 = [], _s = "", bs = {}, xs = {}, ks = {}, Ss = Ae, Os = Ae, Ts = Ae, Es = Ae, qs = Ae, As = Ae, Ps = Ae, Re = globalThis.performance || {}, po = Re.now || Re.mozNow || Re.msNow || Re.oNow || Re.webkitNow || function() {
             return new Date().getTime();
-          }, ho = new Date(), Rs = { nextTick: Fl, title: vs, browser: gs, env: ys, argv: ws2, version: _s, versions: bs, on: Ss, addListener: Os, once: Ts, off: Es, removeListener: qs, removeAllListeners: As, emit: Ps, binding: Ul, cwd: Wl, chdir: $l, umask: Vl, hrtime: Gl, platform: ms, release: xs, config: ks, uptime: Hl }, Ve = Rs;
+          }, ho = new Date(), Rs = { nextTick: Fl, title: vs, browser: gs, env: ys, argv: ws2, version: _s, versions: bs, on: Ss, addListener: Os, once: Ts, off: Es, removeListener: qs, removeAllListeners: As, emit: Ps, binding: Ul, cwd: Wl, chdir: $l, umask: Vl, hrtime: Gl, platform: ms2, release: xs, config: ks, uptime: Hl }, Ve = Rs;
         } }), ut, Et, Kl = Le({ "node_modules/rollup-plugin-node-polyfills/polyfills/inherits.js"() {
           A(), typeof Object.create == "function" ? ut = function(n, i) {
             n.super_ = i, n.prototype = Object.create(i.prototype, { constructor: { value: n, enumerable: false, writable: true, configurable: true } });
@@ -30915,6 +30915,124 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   }
 });
 
+// js/ms.js
+var require_ms = __commonJS({
+  "js/ms.js"(exports, module) {
+    init_define_process();
+    var s = 1e3;
+    var m2 = s * 60;
+    var h3 = m2 * 60;
+    var d = h3 * 24;
+    var w = d * 7;
+    var y = d * 365.25;
+    module.exports = function(value, options) {
+      options = options || {};
+      const type = typeof value;
+      if (type === "string" && value.length > 0) {
+        return parse(value);
+      }
+      if (type === "number" && isFinite(value)) {
+        return options.long ? fmtLong(value) : fmtShort(value);
+      }
+      throw new Error(
+        "val is not a non-empty string or a valid number. val=" + JSON.stringify(value)
+      );
+    };
+    function parse(string_) {
+      string_ = String(string_);
+      if (string_.length > 100) {
+        return;
+      }
+      const match = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
+        string_
+      );
+      if (!match) {
+        return;
+      }
+      const n = Number.parseFloat(match[1]);
+      const type = (match[2] || "ms").toLowerCase();
+      switch (type) {
+        case "years":
+        case "year":
+        case "yrs":
+        case "yr":
+        case "y":
+          return n * y;
+        case "weeks":
+        case "week":
+        case "w":
+          return n * w;
+        case "days":
+        case "day":
+        case "d":
+          return n * d;
+        case "hours":
+        case "hour":
+        case "hrs":
+        case "hr":
+        case "h":
+          return n * h3;
+        case "minutes":
+        case "minute":
+        case "mins":
+        case "min":
+        case "m":
+          return n * m2;
+        case "seconds":
+        case "second":
+        case "secs":
+        case "sec":
+        case "s":
+          return n * s;
+        case "milliseconds":
+        case "millisecond":
+        case "msecs":
+        case "msec":
+        case "ms":
+          return n;
+        default:
+          return void 0;
+      }
+    }
+    function fmtShort(ms2) {
+      const msAbs = Math.abs(ms2);
+      if (msAbs >= d) {
+        return Math.round(ms2 / d) + "d";
+      }
+      if (msAbs >= h3) {
+        return Math.round(ms2 / h3) + "h";
+      }
+      if (msAbs >= m2) {
+        return Math.round(ms2 / m2) + "m";
+      }
+      if (msAbs >= s) {
+        return Math.round(ms2 / s) + "s";
+      }
+      return ms2 + "ms";
+    }
+    function fmtLong(ms2) {
+      const msAbs = Math.abs(ms2);
+      if (msAbs >= d) {
+        return plural(ms2, msAbs, d, "day");
+      }
+      if (msAbs >= h3) {
+        return plural(ms2, msAbs, h3, "hour");
+      }
+      if (msAbs >= m2) {
+        return plural(ms2, msAbs, m2, "minute");
+      }
+      if (msAbs >= s) {
+        return plural(ms2, msAbs, s, "second");
+      }
+      return ms2 + " ms";
+    }
+    function plural(ms2, msAbs, n, name) {
+      const isPlural = msAbs >= n * 1.5;
+      return Math.round(ms2 / n) + " " + name + (isPlural ? "s" : "");
+    }
+  }
+});
+
 // js/ws.ts
 init_define_process();
 var import_lodash = __toESM(require_lodash(), 1);
@@ -31700,6 +31818,7 @@ var DraggableWindow = ({
             `,
                 children: (0, import_jsx_runtime7.jsx)(m.div, {
                   transition: { delay: 0, duration: 0.4 },
+                  \u03C0: true,
                   initial: {
                     width: window.innerWidth,
                     height: window.innerHeight,
@@ -31944,6 +32063,7 @@ function isMobile() {
 }
 
 // js/Editor.tsx
+var import_ms = __toESM(require_ms(), 1);
 var import_jsx_runtime8 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod2 = {
   CH() {
@@ -31951,6 +32071,7 @@ var mod2 = {
   getValue: () => "",
   setValue: (code) => void 0,
   code: "",
+  counter: 0,
   lastKeyDown: 0,
   codeToSet: ""
 };
@@ -31970,6 +32091,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     },
     engine: isMobile() ? "ace" : "monaco"
   });
+  mod2.counter = i;
   const {
     counter,
     myCode,
@@ -31994,13 +32116,14 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     if (newCode === mST().code) {
       return;
     }
+    mod2.counter = mST().i + increment;
     changeContent((x) => ({
       ...x,
       lastKeyDown: 0,
-      counter: mST().i + increment,
+      counter: mod2.counter,
       myCode: newCode
     }));
-    runner({ code: newCode, counter: mST().i + increment, codeSpace: codeSpace2 });
+    runner({ code: newCode, counter: mod2.counter, codeSpace: codeSpace2 });
   }, [mod2.lastKeyDown, myCode, counter, changeContent]);
   _n.useEffect(() => {
     if (!ref?.current) {
@@ -32041,6 +32164,8 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
           return;
         if (code2 === getValue())
           return;
+        if (mST().i === mod2.counter)
+          return;
         setTimeout(() => mod2.codeToSet === code2 && setMonValue(code2), 800);
       };
       mod2.getValue = getValue;
@@ -32061,6 +32186,8 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
         if (code2.length < `export default ()=><></>`.length)
           return;
         if (code2 === getValue())
+          return;
+        if (mST().i === mod2.counter)
           return;
         setTimeout(() => {
           if (mod2.codeToSet === code2) {
