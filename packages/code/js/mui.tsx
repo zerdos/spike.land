@@ -2,8 +2,8 @@
 // export {default as ToggleButtonGroup} from "@mui/material/ToggleButtonGroup/ToggleButtonGroup"
 // export {default as ToggleButton} from "@mui/material/ToggleButton/ToggleButton"
 
-import type {FC} from 'react';
-import {lazy, Suspense} from 'react';
+import type {FC} from'react';
+import {lazy, Suspense} from'react';
 
 import type {
 	FabProps,

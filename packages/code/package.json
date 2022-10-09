@@ -90,6 +90,8 @@
     "preact-render-to-string": "^5.2.5",
     "prettier": "2.7.1",
     "qrious": "^4.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-qrious": "2.5.5",
     "react-reverse-portal": "^2.1.1"

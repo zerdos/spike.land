@@ -1,4 +1,4 @@
-import {css} from '@emotion/react';
+import {css} from'@emotion/react';
 import {motion} from 'framer-motion';
 
 export default () => (
