@@ -9,7 +9,7 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-JWLIVWRD.mjs";
+} from "./chunk-chunk-Z7BD3K3R.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -32036,11 +32036,11 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
         return prettierJs(model.getValue());
       };
       const setValue = (code2) => {
+        mod2.codeToSet = code2;
         if (code2.length < `export default ()=><></>`.length)
           return;
         if (code2 === getValue())
           return;
-        mod2.codeToSet = code2;
         setTimeout(() => mod2.codeToSet === code2 && setMonValue(code2), 800);
       };
       mod2.getValue = getValue;
@@ -32057,11 +32057,16 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       const editor = await startAce(mST().code);
       const getValue = () => prettierJs(editor.session.getValue());
       const setValue = (code2) => {
+        mod2.codeToSet = code2;
         if (code2.length < `export default ()=><></>`.length)
           return;
         if (code2 === getValue())
           return;
-        editor.session.setValue(code2);
+        setTimeout(() => {
+          if (mod2.codeToSet === code2) {
+            editor.session.setValue(code2);
+          }
+        }, 800);
       };
       mod2.getValue = getValue;
       mod2.setValue = setValue;

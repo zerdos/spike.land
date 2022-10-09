@@ -153,12 +153,10 @@ increment=1;
 			}
 
 			const setValue = (code: string) => {
+				mod.codeToSet = code;
 				if (code.length< `export default ()=><></>`.length) return;
 				if (code===getValue()) return;
-				mod.codeToSet = code;
-
-	
-
+			
 				setTimeout(()=> mod.codeToSet === code && setMonValue(code), 800);  //wait this time before overwriting the value					 
 				
 
@@ -186,9 +184,23 @@ increment=1;
 			const getValue = ()=>prettierJs(editor.session.getValue());
 
 			const setValue = (code: string) => {
+				mod.codeToSet = code;
+			
 				if (code.length< `export default ()=><></>`.length) return;
 				if (code===getValue()) return;
-				editor.session.setValue(code);
+
+				setTimeout(()=>{
+					
+					if (mod.codeToSet === code) {
+					//	const before = editor.selection.toJSON();
+						editor.session.setValue(code)
+					//	editor.selection.fromJSON(before)
+					
+					}
+				
+				}, 800);  //wait this time before overwriting the value					 
+			
+
 			}
 
 			mod.getValue = getValue;
