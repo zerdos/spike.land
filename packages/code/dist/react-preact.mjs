@@ -43,7 +43,7 @@ import {
   version,
   vn,
   x
-} from "./chunk-chunk-HHM57DEE.mjs";
+} from "./chunk-chunk-67JLPL3H.mjs";
 import "./chunk-chunk-QTIR5YHF.mjs";
 import "./chunk-chunk-477FBAEY.mjs";
 init_react_preact();

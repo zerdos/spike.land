@@ -1,6 +1,6 @@
-import {css} from '@emotion/react';
-import  type  {FC} from 'react';
-import {useEffect, useState} from 'react';
+import {css} from'@emotion/react';
+import  type {FC} from'react';
+import {useEffect, useState} from'react';
 import {domAnimation, domMax, LazyMotion, m} from 'framer-motion';
 import {MdFullscreen as FullscreenIcon} from 'react-icons/md';
 import {QRButton} from './Qr';

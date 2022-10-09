@@ -7,13 +7,19 @@
 // import {CacheProvider, createCache } from "@emotion/react"
 import {css} from '@emotion/react';
 import {useRef, useEffect} from 'react';
+
+import type {FC} from 'react';
+
 import {mST, patchSync} from './session';
 import ErrorBoundary from './ErrorBoundary';
 import {md5} from './md5.js';
 
+
+
+
 import {renderFromString} from './renderToString';
 
-import { useState } from 'preact/hooks';
+import { useState } from 'react';
 
 import isCallable from 'is-callable';
 
@@ -118,15 +124,15 @@ async function importShim(scr: string): Promise<any> {
 //       // ...imap,
 //       "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
 //       "@emotion/react": location.origin + "/" + assets["emotion.mjs"],
-//       "react": location.origin + "/npm:million/react",
-//       "react-dom": location.origin + "/npm:million/react",
+//       "react": location.origin + "million/react",
+//       "react-dom": location.origin + "million/react",
 //       "react-dom/client": location.origin + "/" + assets["react.mjs"],
 //       "react-dom/server": location.origin + "/" + assets["react.mjs"],
 //       "react/jsx-runtime": location.origin + "/" + assets["react.mjs"],
-//       // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
-//       // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-//       // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-//       // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+//       // "preact": "https://ga.jspm.iopreact@10.8.2/dist/preact.module.js",
+//       // "preact-render-to-string": "https://ga.jspm.iopreact-render-to-string@5.2.0/dist/index.mjs",
+//       // "preact/compat": "https://ga.jspm.iopreact@10.8.2/compat/dist/compat.module.js",
+//       // "preact/jsx-runtime": "https://ga.jspm.iopreact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
 //     },
 //   });
 // };
@@ -134,6 +140,7 @@ async function importShim(scr: string): Promise<any> {
 const apps: Record<string, React.FC> = {};
 const render: Record<string, {html: string; css: string}> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
+
 
 export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 	{hash, codeSpace},
@@ -177,12 +184,15 @@ export const AutoUpdateApp: React.FC<{hash: number; codeSpace: string}> = (
 	const App = apps[md5(transpiled)];
 	// Return <Root codeSpace={codeSpace}>
 
+
+
 	return (
-		<ErrorBoundary ref={ref}>
+		<ErrorBoundary>
+		
 			<div
-				style={{
-					height: '100%',
-				}}
+				css={css`
+					height: 100%;
+				`}
 				id={`${codeSpace}-${md5Hash}`}
 			>
 				<App />
@@ -201,7 +211,7 @@ export async function appFactory(transpiled = ''): Promise<React.FC> {
 	if (!apps[hash]) {
 		try {
 			const App= (await importShim(createJsBlob(trp)))
-				.default as unknown as React.FC;
+				.default as unknown as FC;
 			if (isCallable(App)) apps[hash] = App;
 			else throw new Error("the default export is not a function!")
 		} catch (error) {
@@ -232,9 +242,9 @@ export async function appFactory(transpiled = ''): Promise<React.FC> {
 				apps[hash] = () => (
 					<div
 						css={css`
-        background-color: orange;
-        `}
-					>
+						background-color: orange;
+						`}
+									>
 						<h1>Syntax Error</h1>
 						<h2>{name}: {message}</h2>
 						<p>{JSON.stringify({err: error})}</p>

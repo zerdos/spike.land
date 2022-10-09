@@ -1,20 +1,24 @@
-import {Fragment, useMemo, useEffect, useState} from 'react';
+import {Fragment, useMemo, useEffect, useState} from'react';
 import {createRoot} from 'react-dom/client';
 import {
 	createHtmlPortalNode,
 	InPortal,
 	OutPortal,
 } from 'react-reverse-portal';
-import {css} from '@emotion/react';
 import {appFactory, AutoUpdateApp} from './starter';
 import {DraggableWindow} from './DraggableWindow';
 
+import {css, CacheProvider} from '@emotion/react';
+import {default as createCacheDefault}  from '@emotion/cache'
+
 // Import { useSpring, a } from '@react-spring/web'
 
-import {hashCode, mST, onSessionUpdate} from './session';
+import {hashCode, onSessionUpdate} from './session';
 
 import {Editor} from './Editor';
 
+
+const {default: createCache} = createCacheDefault;
 const RainbowContainer: React.FC<{children: JSX.Element}> = (
 	{children},
 ) => (
@@ -79,8 +83,11 @@ const AppToRender: React.FC<
 	//   config: { mass: 5, tension: 500, friction: 80 },
 	// })
 
-	const [hash, setHash] = useState(() => hashCode());
-	const [isStandalone, setIsStandalone] = useState(true);
+	const currentHash = hashCode();
+
+	const [hash, setHash] = useState(currentHash);
+	
+	const isStandalone = location.pathname.endsWith('public') || location.pathname.endsWith('hydrated');
 
 	useEffect(() => {
 		onSessionUpdate(async () => {
@@ -95,15 +102,6 @@ const AppToRender: React.FC<
 			}
 		}, 'myApp');
 	}, [hash, setHash]);
-
-	useEffect(() => {
-		setTimeout(() => {
-			const isStandalone = location.pathname.endsWith('public')
-        || location.pathname.endsWith('hydrated');
-
-			setIsStandalone(isStandalone);
-		}, 800);
-	}, []);
 
 	const portalNode = useMemo(() =>
 		createHtmlPortalNode({
@@ -120,8 +118,6 @@ const AppToRender: React.FC<
 				<RainbowContainer>
 					<Fragment>
 						<Editor
-							code={mST().code}
-							i={mST().i}
 							codeSpace={codeSpace}
 							assets={assets}
 						/>
@@ -137,17 +133,26 @@ const AppToRender: React.FC<
 		</Fragment>
 	);
 };
+const singleton = {started: false};
+globalThis.singleton= globalThis.singleton || singleton;
 
 export const renderPreviewWindow = ({codeSpace, assets}: {
 	codeSpace: string;
 	assets: Record<string, string>;
 }) => {
+	if (singleton!== globalThis.singleton ) return;
+	if (singleton.started) return;
+	singleton.started=true;
+
 	const div = document.querySelector('#root')!;
 	// Div.style.height='100%';
 	const root = createRoot(div);
-	root.render(
-		<Fragment>
-			<AppToRender codeSpace={codeSpace} assets={assets} />
-		</Fragment>,
-	);
+
+
+	const myCache = createCache({
+		key: 'z'
+	});
+
+
+	root.render(<CacheProvider value={myCache}><AppToRender codeSpace={codeSpace} assets={assets} /></CacheProvider>);
 };

@@ -3532,6 +3532,8 @@ __metadata:
     preact-render-to-string: "npm:^5.2.5"
     prettier: "npm:2.7.1"
     qrious: "npm:^4.0.2"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
     react-icons: "npm:^4.4.0"
     react-qrious: "npm:2.5.5"
     react-reverse-portal: "npm:^2.1.1"
@@ -3607,12 +3609,14 @@ __metadata:
     "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:^1.27.0"
     "@types/node": "npm:^18.8.3"
-    "@types/react": "npm:18.0.21"
+    "@types/react": "npm:^18.0.21"
+    "@types/react-dom": "npm:^18.0.6"
     "@types/xo": "npm:^0.39.3"
     "@yarnpkg/sdks": "npm:3.0.0-rc.24"
     esbuild: "npm:^0.15.10"
     lerna: "npm:5.6.1"
     playwright: "npm:^1.27.0"
+    react-dom: "npm:^18.2.0"
     typescript: "npm:^4.8.4"
     xo: "npm:^0.52.4"
   languageName: unknown
@@ -4005,7 +4009,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.6":
+"@types/react-dom@npm:18.0.6, @types/react-dom@npm:^18.0.6":
   version: 18.0.6
   resolution: "@types/react-dom@npm:18.0.6"
   dependencies:
@@ -13997,7 +14001,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.2.0":
+"react-dom@npm:18.2.0, react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
@@ -14078,7 +14082,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0":
+"react@npm:18.2.0, react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:

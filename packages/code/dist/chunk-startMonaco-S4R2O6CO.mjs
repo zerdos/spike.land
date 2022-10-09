@@ -42321,18 +42321,18 @@ var monacoContribution = async (code) => {
     maxNodeModuleJsDepth: 10,
     rootDir: location.origin + "/live",
     paths: {
-      [location.origin + "/live/node_modules/"]: [location.origin + "/npm:/*"],
+      [location.origin + "/live/node_modules/"]: [location.origin + "/*"],
       [location.origin + "/live/*"]: [location.origin + "/live/*"],
-      [location.origin + "/npm:*"]: [location.origin + "/npm:/*"],
-      [location.origin + "/node_modules/*"]: [location.origin + "/npm:/*"],
-      [location.origin + "node_modules/*"]: [location.origin + "/npm:/*"],
-      [location.origin + "/npm:/*"]: [location.origin + "/npm:/*"],
-      [location.origin + "^/*"]: [location.origin + "/npm:/*"]
+      [location.origin + "*"]: [location.origin + "/*"],
+      [location.origin + "/node_modules/*"]: [location.origin + "/*"],
+      [location.origin + "node_modules/*"]: [location.origin + "/*"],
+      [location.origin + "/*"]: [location.origin + "/*"],
+      [location.origin + "^/*"]: [location.origin + "/*"]
     },
     typeRoots: [
-      location.origin + "/npm:/@types/",
+      location.origin + "/@types/",
       location.origin + "/unpkg/@types/",
-      location.origin + "/npm:/",
+      location.origin + "/",
       location.origin + "/unpkg:/"
     ],
     jsxImportSource: "@emotion/react",

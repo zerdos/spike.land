@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import type * as React$1 from 'react';
+import type * as React$1 from'react';
 import type {
 	CSSProperties,
 	DetailedHTMLFactory,
@@ -11,7 +11,7 @@ import type {
 	RefObject,
 	SVGAttributes,
 	useEffect,
-} from 'react';
+} from'react';
 import type {Easing as Easing$1, SpringOptions} from 'popmotion';
 import type {InViewOptions, ScrollOptions} from '@motionone/dom';
 
@@ -4610,7 +4610,7 @@ declare function animationControls(): AnimationControls;
  * These components can then be animated with the `start` method.
  *
  * ```jsx
- * import * as React from 'react'
+ * import * as React from'react@17.0.2'
  * import { motion, useAnimation } from 'framer-motion'
  *
  * export function MyComponent(props) {

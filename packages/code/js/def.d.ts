@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react';
+import type {ReactNode} from'react';
 
 declare module '/live/code-main/js' {
 	const returnFn: () => ReactNode;

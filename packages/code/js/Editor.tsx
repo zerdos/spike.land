@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState, useCallback} from'react';
 // Import type FC from "react"
 import {css} from '@emotion/react';
 import { prettierJs } from 'prettierEsm';
@@ -8,6 +8,7 @@ import {isMobile} from './isMobile.mjs';
 const mod = {
 	CH() {},
 	code: '',
+	lastKeyDown: 0,
 	codeToSet: ''
 };
 
@@ -15,26 +16,27 @@ const mod = {
 
 export const Editor: React.FC<
 {
-	code: string;
-	i: number;
 	codeSpace: string;
 	assets: Record<string, string>;
-}
-> = (
-	{code, i, codeSpace, assets},
+}>
+= (
+	{codeSpace, assets}
 ) => {
 	const ref = useRef<HTMLDivElement>(null) as undefined | {
 		current: HTMLDivElement;
 	};
 
-	// Const mst = mST();
+	const {i, code} = mST();
+
 	const [
 		mySession,
 		changeContent,
 	] = useState({
+		lastKeyDown: 0,
 		myCode: code,
 		counter: i,
 		started: false,
+
 		async runner(
 			{code, counter, codeSpace}: {
 				code: string;
@@ -60,22 +62,59 @@ export const Editor: React.FC<
 		engine: isMobile() ? 'ace' : 'monaco',
 	});
 
-	mod.CH = () => changeContent;
-
 	const {
 		counter,
 		myCode,
 		started,
-
 		myId,
-		runner,
+		// runner,
 		engine,
-		getValue,
+		// getValue,
 		setValue,
 		onChange,
 	} = mySession;
 
 	mod.code = myCode;
+
+	const cb = useCallback(()=> { 
+		
+		const lastKeydownHappened = Date.now()- mod.lastKeyDown;
+		console.log({lastKeydownHappened});
+		let increment = 0
+		if (lastKeydownHappened>1000) {
+increment=1;
+			//console.log(`last keydown happened:   + ${lastKeydownHappened}, we already handled this event`);
+//		return;
+		}
+		const code = mySession.getValue();
+		const newCode = prettierJs(code);
+
+		if (newCode === myCode) {
+			return;
+		}
+
+		if (newCode === mST().code) {
+			return;
+		}
+
+		// if (mySession.counter  mST().i) return;
+
+
+
+			changeContent(x => ({
+				...x,
+				lastKeyDown: 0,
+				counter: mST().i + increment,
+				myCode: newCode,
+			}));
+		
+
+			// Console.log("RUN THE RUNNER AGAIN");
+
+		
+
+			// Model?.setValue(code);
+		}, [mod.lastKeyDown, myCode, counter, changeContent]);
 
 	useEffect(() => {
 		if (!ref?.current) {
@@ -124,9 +163,14 @@ export const Editor: React.FC<
 				...x,
 				started: true,
 				setValue: (code: string)=>{
+					if (code.length< `export default ()=><></>`.length) return;
 					if (code===getValue()) return;
-						setTimeout(()=> mod.codeToSet === code &&  setValue(code), 500);
-					setValue(code);
+					mod.codeToSet = code;
+
+		
+
+					setTimeout(()=> mod.codeToSet === code && setValue(code), 800);  //wait this time before overwriting the value					 
+					
 
 				},
 				getValue,
@@ -156,9 +200,10 @@ export const Editor: React.FC<
 				started: true,
 				getValue,
 				setValue(code: string) {
-					mod.codeToSet = code;
-					if (code === getValue()) return;
-				setTimeout(()=> mod.codeToSet === code &&  editor.session.setValue(code), 500);
+					if (code.length< `export default ()=><></>`.length) return;
+					if (code===getValue()) return;
+		  		mod.codeToSet = code;
+				setTimeout(()=> mod.codeToSet === code &&  editor.session.setValue(code), 800);
 				},
 				myId: 'editor',
 			}));
@@ -181,38 +226,10 @@ export const Editor: React.FC<
 	// })
 
 	useEffect(() => {
-		if (!started) {
-			return;
-		}
-
-		const lastCode = mod.code;
-		let last = 0;
-		const handler = setInterval(() => {
-			const now = Date.now();
-			if (now - last < 5000) {
-				return;
-			}
-
-			last = now;
-			if (getValue() !== lastCode) {
-				const code = getValue();
-				if (code === mST().code || code === mod.code) {
-					return;
-				}
-
-				changeContent(x => ({...x, myCode: code, i: i + 1}));
-				runner({code, counter, codeSpace});
-			}
-		}, 5000);
-
-	
-		return () => {
-			clearInterval(handler);
-		};
-	}, [changeContent, counter, myCode]);
-
-	useEffect(() => {
 		
+
+
+
 		onChange(cb);
 
 
@@ -220,13 +237,21 @@ export const Editor: React.FC<
 	}, [onChange]);
 
 
-	useEffect(() => {
-		if (!started) return;
-		setValue(myCode);
-
-		runner({code: myCode, counter: counter, codeSpace});
+	// useEffect(() => {
+	// 	if (!started) return;
+	// 	setValue(myCode);
 	
-	}, [setValue, myCode, counter, codeSpace, started]);
+	// 	const lastKeydownHappened = (Date.now()-lastKeyDown;
+
+	// 	if (lastKeydownHappened>2000) {
+
+	// 		console.log('last keydown happened: '  + $lastKeydownHappened );
+			
+	// 	}
+	// 	runner({code: myCode, counter: counter, codeSpace}){
+	// 	};
+	
+	// }, [setValue, myCode, counter, codeSpace, started]);
 
 
 	
@@ -245,15 +270,21 @@ export const Editor: React.FC<
 	// }, [setValue, getValue, counter, prettierJs, runner]);
 
 	
-	onSessionUpdate(() => {if (counter<mST().i) 
-		changeContent(
+	onSessionUpdate(() => {
+		if (counter<mST().i) {changeContent(
 			x=>
 			({...x, counter: mST().i,
 				 myCode: mST().code}));  
-		setValue(mST().code)
-	}, "editor");
+			}
+				 setValue(mST().code);
+			
+		},
+		
+		'editor');
+
 	return (
 		<div
+			onKeyDown={()=>mod.lastKeyDown= Date.now()}
 			data-test-id={myId}
 			id='editor'
 			css={css`
@@ -267,35 +298,5 @@ export const Editor: React.FC<
 		/>
 	);
 
-	function cb() {
-		const code = getValue();
-		const newCode = prettierJs(code);
-
-		if (newCode === mod.code) {
-			return;
-		}
-
-		if (newCode === mST().code) {
-			return;
-		}
-		// If (i === mST().i) return;
-
-		try {
-			// Console.log("change content");
-
-			changeContent(x => ({
-				...x,
-				counter: mST().i + 1,
-				myCode: newCode,
-			}));
-		
-
-			// Console.log("RUN THE RUNNER AGAIN");
-		} catch (error) {
-			console.error({err: error});
-			console.error('restore editor');
-
-			// Model?.setValue(code);
-		}
-	};
+	
 };

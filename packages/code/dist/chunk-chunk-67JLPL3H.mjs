@@ -1242,8 +1242,6 @@ var init_react_preact = __esm({
 export {
   h,
   p,
-  y2 as y,
-  init_hooks_module,
   M2 as M,
   $2 as $,
   fn,
