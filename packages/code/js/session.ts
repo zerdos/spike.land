@@ -262,6 +262,12 @@ export class CodeSession implements ICodeSess {
 			throw new Error("transpiled	 hack issue")
 		}
 
+		if (newRecord.code.length<5) {
+		
+			throw new Error("code deleted?")
+		}
+
+
 
 		const transHash = md5((newRecord.transpiled)).slice(0,8);
 		if (newRecord.html.indexOf(transHash)===-1) {

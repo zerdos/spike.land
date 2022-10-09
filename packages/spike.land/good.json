@@ -88,8 +88,8 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JWLIVWRD.mjs": {
-      "bytes": 178652,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-Z7BD3K3R.mjs": {
+      "bytes": 178741,
       "imports": [
         {
           "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs",
@@ -105,7 +105,7 @@
       "bytes": 412,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JWLIVWRD.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-Z7BD3K3R.mjs",
           "kind": "import-statement"
         },
         {
@@ -243,8 +243,8 @@
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs": {
           "bytesInOutput": 194
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JWLIVWRD.mjs": {
-          "bytesInOutput": 177689
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-Z7BD3K3R.mjs": {
+          "bytesInOutput": 177778
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -259,7 +259,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 271972
+      "bytes": 272061
     }
   }
 }
