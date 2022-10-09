@@ -231,7 +231,7 @@ setInterval(()=> {
             `}
 						>
 							<m.div
-								transition={{delay: 0, duration: 0.4}}
+								transition={{delay: 0, duration: 0.4}}π
 								initial={{
 									width: window.innerWidth,
 									height: window.innerHeight,
