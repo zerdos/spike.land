@@ -129,7 +129,7 @@ var require_is_callable = __commonJS({
       }
     }
     var all;
-    module.exports = reflectApply ? function isCallable2(value) {
+    module.exports = reflectApply ? function isCallable3(value) {
       if (isDDA(value)) {
         return true;
       }
@@ -147,7 +147,7 @@ var require_is_callable = __commonJS({
         }
       }
       return !isES6ClassFn(value) && tryFunctionObject(value);
-    } : function isCallable2(value) {
+    } : function isCallable3(value) {
       if (isDDA(value)) {
         return true;
       }
@@ -28788,6 +28788,7 @@ var extractCritical22 = (html) => {
 
 // js/starter.tsx
 init_hooks_module();
+var import_is_callable2 = __toESM(require_is_callable(), 1);
 var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 async function importShim(scr) {
   if (!document.scripts) {
@@ -28847,7 +28848,11 @@ async function appFactory(transpiled = "") {
   const hash = md5(trp);
   if (!apps[hash]) {
     try {
-      apps[hash] = (await importShim(createJsBlob(trp))).default;
+      const App = (await importShim(createJsBlob(trp))).default;
+      if ((0, import_is_callable2.default)(App))
+        apps[hash] = App;
+      else
+        throw new Error("the default export is not a function!");
     } catch (error) {
       if (error instanceof SyntaxError) {
         const name = error.name;
@@ -29460,7 +29465,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     counter: i,
     started: false,
     async runner({ code: code2, counter: counter2, codeSpace: codeSpace3 }) {
-      const { runner: runner2 } = await import("./chunk-runner-3NE6KNBA.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-DWE2BNKG.mjs");
       runner2({ code: prettierJs(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
