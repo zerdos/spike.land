@@ -42342,7 +42342,10 @@ var monacoContribution = async (code) => {
   });
   const regex1 = / from '\.\./gi;
   const regex2 = / from '\./gi;
-  const search = new RegExp(` from '(${location.origin}/)?live/[a-zA-Z]+`, "gm");
+  const search = new RegExp(
+    ` from '(${location.origin}/)?live/[a-zA-Z]+`,
+    "gm"
+  );
   const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`).replaceAll(regex2, ` from '${location.origin}/live`);
   const models = replaced.matchAll(search);
   for (const match of models) {

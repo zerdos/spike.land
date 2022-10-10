@@ -9,7 +9,7 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-Z7BD3K3R.mjs";
+} from "./chunk-chunk-JGTVRAST.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -31260,15 +31260,17 @@ var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var render = async (transpiled, codeSpace2) => {
   const hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
-  if ((0, import_is_callable.default)(App))
-    return S((0, import_jsx_runtime2.jsx)("div", {
-      style: {
-        height: "100%"
-      },
-      id: `${codeSpace2}-${hash}`,
-      children: (0, import_jsx_runtime2.jsx)(App, {})
-    }));
-  else
+  if ((0, import_is_callable.default)(App)) {
+    return S(
+      (0, import_jsx_runtime2.jsx)("div", {
+        style: {
+          height: "100%"
+        },
+        id: `${codeSpace2}-${hash}`,
+        children: (0, import_jsx_runtime2.jsx)(App, {})
+      })
+    );
+  } else
     return null;
 };
 var renderFromString = (codeSpace2, hash) => {
@@ -31347,9 +31349,9 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
       return;
     render2[md5Hash] = render2[md5Hash] || renderFromString(codeSpace2, hash);
     const { html, css: css7 } = render2[md5Hash];
-    if (html && css7)
+    if (html && css7) {
       patchSync({ ...mST(), html, css: css7 });
-    else
+    } else
       delete render2[md5Hash];
   }, [md5Hash]);
   const ref = useRef(null);
@@ -31711,18 +31713,14 @@ var DraggableWindow = ({
   const c = window.getComputedStyle(
     document.body,
     null
-  ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map(
-    (x) => Number(x) || "0"
-  ).join(",");
+  ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map((x) => Number(x) || "0").join(",");
   const [bgCV, setBG] = useState(c);
   useEffect(() => {
     setInterval(() => {
       const c2 = window.getComputedStyle(
         document.body,
         null
-      ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map(
-        (x) => Number(x) || "0"
-      ).join(",");
+      ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map((x) => Number(x) || "0").join(",");
       if (c2 !== bgCV)
         setBG(c2);
     }, 1e3 / 2);
@@ -32134,7 +32132,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-S4R2O6CO.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-MK75AIYJ.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -32215,19 +32213,12 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
   _n.useEffect(() => {
     onChange(cb);
   }, [onChange]);
-  onSessionUpdate(
-    () => {
-      if (counter < mST().i) {
-        changeContent({
-          ...mySession,
-          counter: mST().i,
-          myCode: mST().code
-        });
-      }
-      mod2.setValue(mST().code);
-    },
-    "editor"
-  );
+  onSessionUpdate(() => {
+    if (counter < mST().i) {
+      changeContent({ ...mySession, counter: mST().i, myCode: mST().code });
+    }
+    mod2.setValue(mST().code);
+  }, "editor");
   return (0, import_jsx_runtime8.jsx)("div", {
     onKeyDown: () => mod2.lastKeyDown = Date.now(),
     "data-test-id": myId,
@@ -32356,15 +32347,17 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2, assets }) => {
   const myCache = createCache({
     key: "z"
   });
-  root.render((0, import_jsx_runtime9.jsx)(p, {
-    children: (0, import_jsx_runtime9.jsx)(import_react17.CacheProvider, {
-      value: myCache,
-      children: (0, import_jsx_runtime9.jsx)(AppToRender, {
-        codeSpace: codeSpace2,
-        assets
+  root.render(
+    (0, import_jsx_runtime9.jsx)(p, {
+      children: (0, import_jsx_runtime9.jsx)(import_react17.CacheProvider, {
+        value: myCache,
+        children: (0, import_jsx_runtime9.jsx)(AppToRender, {
+          codeSpace: codeSpace2,
+          assets
+        })
       })
     })
-  }));
+  );
 };
 
 // js/uidV4.mjs

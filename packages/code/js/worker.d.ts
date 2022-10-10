@@ -1,5 +1,5 @@
-declare module '*.workerJs.js' {
-	const workerUrl: string;
+declare module "*.workerJs.js" {
+  const workerUrl: string;
 
-	export default workerUrl;
+  export default workerUrl;
 }

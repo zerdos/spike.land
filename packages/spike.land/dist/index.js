@@ -1090,7 +1090,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-Z7BD3K3R.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JGTVRAST.mjs
 var require_lodash = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6531,7 +6531,6 @@ var CodeSession = class {
     __publicField(this, "patchSync", (sess) => {
       if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");
-      ;
       const oldHash = this.session.hashCode();
       this.session = this.session.set(
         "state",
@@ -6581,7 +6580,6 @@ var CodeSession = class {
       const newRecord = this.session.get("state").merge(newRec);
       if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");
-      ;
       const codeHash = md5(newRecord.code).slice(0, 8);
       if (newRecord.transpiled.indexOf(codeHash) === -1) {
         console.error(`missing: ${codeHash}`);
@@ -6611,7 +6609,11 @@ var CodeSession = class {
     })();
   }
   update() {
-    return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, { maxWait: 500, trailing: true, leading: false })();
+    return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, {
+      maxWait: 500,
+      trailing: true,
+      leading: false
+    })();
   }
   updateNonDebounced() {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
@@ -6672,7 +6674,10 @@ var applyPatch2 = async (x) => {
   await session?.applyPatch(x);
   session?.update();
 };
-var startSession = (room, u, originString) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originString) });
+var startSession = (room, u, originString) => session || new CodeSession(room, {
+  name: u.name,
+  state: addOrigin(u.state, originString)
+});
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }

@@ -1,5 +1,3 @@
-
-
 // deno-lint-ignore-file
 
 import { promises as fs } from "fs";

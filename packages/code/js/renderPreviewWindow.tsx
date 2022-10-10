@@ -1,29 +1,28 @@
-import {Fragment, useMemo, useEffect, useState} from'react';
-import {createRoot} from 'react-dom/client';
+import { Fragment, useEffect, useMemo, useState } from "react";
+import { createRoot } from "react-dom/client";
 import {
-	createHtmlPortalNode,
-	InPortal,
-	OutPortal,
-} from 'react-reverse-portal';
-import {appFactory, AutoUpdateApp} from './starter';
-import {DraggableWindow} from './DraggableWindow';
+  createHtmlPortalNode,
+  InPortal,
+  OutPortal,
+} from "react-reverse-portal";
+import { appFactory, AutoUpdateApp } from "./starter";
+import { DraggableWindow } from "./DraggableWindow";
 
-import {css, CacheProvider} from '@emotion/react';
-import {default as createCacheDefault}  from '@emotion/cache'
+import { CacheProvider, css } from "@emotion/react";
+import { default as createCacheDefault } from "@emotion/cache";
 
 // Import { useSpring, a } from '@react-spring/web'
 
-import {hashCode, onSessionUpdate} from './session';
+import { hashCode, onSessionUpdate } from "./session";
 
-import {Editor} from './Editor';
+import { Editor } from "./Editor";
 
-
-const {default: createCache} = createCacheDefault;
-const RainbowContainer: React.FC<{children: JSX.Element}> = (
-	{children},
+const { default: createCache } = createCacheDefault;
+const RainbowContainer: React.FC<{ children: JSX.Element }> = (
+  { children },
 ) => (
-	<div
-		css={css`
+  <div
+    css={css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -66,93 +65,98 @@ background:  repeating-radial-gradient(circle at bottom left,
                 #becc2f 0, #becc2f 94.4444444444%, 
                 #e0d81d 0, #e0d81d 100%);
 `}
-	>
-		{children}
-	</div>
+  >
+    {children}
+  </div>
 );
 
 const AppToRender: React.FC<
-{codeSpace: string; assets: Record<string, string>}
+  { codeSpace: string; assets: Record<string, string> }
 > = (
-	{codeSpace, assets},
+  { codeSpace, assets },
 ) => {
-	// Const [flipped, set] = useState(false)
-	// const { transform, opacity } = useSpring({
-	//   opacity: flipped ? 1 : 0,
-	//   transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
-	//   config: { mass: 5, tension: 500, friction: 80 },
-	// })
+  // Const [flipped, set] = useState(false)
+  // const { transform, opacity } = useSpring({
+  //   opacity: flipped ? 1 : 0,
+  //   transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
+  //   config: { mass: 5, tension: 500, friction: 80 },
+  // })
 
-	const currentHash = hashCode();
+  const currentHash = hashCode();
 
-	const [hash, setHash] = useState(currentHash);
-	
-	const isStandalone = location.pathname.endsWith('public') || location.pathname.endsWith('hydrated');
+  const [hash, setHash] = useState(currentHash);
 
-	useEffect(() => {
-		onSessionUpdate(async () => {
-			const newHash = hashCode();
-			if (hash !== newHash) {
-				try {
-					await appFactory();
-					setHash(newHash);
-				} catch (error) {
-					console.error({e: error});
-				}
-			}
-		}, 'myApp');
-	}, [hash, setHash]);
+  const isStandalone = location.pathname.endsWith("public") ||
+    location.pathname.endsWith("hydrated");
 
-	const portalNode = useMemo(() =>
-		createHtmlPortalNode({
-			attributes: {id: `root-${codeSpace}`, style: 'height: 100%'},
-		}), []);
+  useEffect(() => {
+    onSessionUpdate(async () => {
+      const newHash = hashCode();
+      if (hash !== newHash) {
+        try {
+          await appFactory();
+          setHash(newHash);
+        } catch (error) {
+          console.error({ e: error });
+        }
+      }
+    }, "myApp");
+  }, [hash, setHash]);
 
-	return (
-		<Fragment>
-			<InPortal node={portalNode}>
-				<AutoUpdateApp hash={hash} codeSpace={codeSpace} />
-			</InPortal>
+  const portalNode = useMemo(() =>
+    createHtmlPortalNode({
+      attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
+    }), []);
 
-			{isStandalone ? <OutPortal node={portalNode} /> : (
-				<RainbowContainer>
-					<Fragment>
-						<Editor
-							codeSpace={codeSpace}
-							assets={assets}
-						/>
-						<DraggableWindow
-							hashCode={0}
-							room={codeSpace}
-						>
-							<OutPortal node={portalNode} />
-						</DraggableWindow>
-					</Fragment>
-				</RainbowContainer>
-			)}
-		</Fragment>
-	);
+  return (
+    <Fragment>
+      <InPortal node={portalNode}>
+        <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
+      </InPortal>
+
+      {isStandalone ? <OutPortal node={portalNode} /> : (
+        <RainbowContainer>
+          <Fragment>
+            <Editor
+              codeSpace={codeSpace}
+              assets={assets}
+            />
+            <DraggableWindow
+              hashCode={0}
+              room={codeSpace}
+            >
+              <OutPortal node={portalNode} />
+            </DraggableWindow>
+          </Fragment>
+        </RainbowContainer>
+      )}
+    </Fragment>
+  );
 };
-const singleton = {started: false};
-globalThis.singleton= globalThis.singleton || singleton;
+const singleton = { started: false };
+globalThis.singleton = globalThis.singleton || singleton;
 
-export const renderPreviewWindow = ({codeSpace, assets}: {
-	codeSpace: string;
-	assets: Record<string, string>;
+export const renderPreviewWindow = ({ codeSpace, assets }: {
+  codeSpace: string;
+  assets: Record<string, string>;
 }) => {
-	if (singleton!== globalThis.singleton ) return;
-	if (singleton.started) return;
-	singleton.started=true;
+  if (singleton !== globalThis.singleton) return;
+  if (singleton.started) return;
+  singleton.started = true;
 
-	const div = document.querySelector('#root')!;
-	// Div.style.height='100%';
-	const root = createRoot(div);
+  const div = document.querySelector("#root")!;
+  // Div.style.height='100%';
+  const root = createRoot(div);
 
+  const myCache = createCache({
+    key: "z",
+  });
 
-	const myCache = createCache({
-		key: 'z'
-	});
-
-
-	root.render(<Fragment><CacheProvider value={myCache}><AppToRender codeSpace={codeSpace} assets={assets} /></CacheProvider></Fragment>);
+  root.render(
+    <Fragment>
+      <CacheProvider value={myCache}>
+        <AppToRender codeSpace={codeSpace} assets={assets} />
+      </CacheProvider>
+    </Fragment>,
+  );
 };

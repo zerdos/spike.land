@@ -1,313 +1,276 @@
-import { useRef, useCallback} from'react';
-import {runner} from "./runner";
-import React from'react';
-
-
-
+import { useCallback, useRef } from "react";
+import { runner } from "./runner";
+import React from "react";
 
 // Import type FC from "react"
-import {css} from '@emotion/react';
-import { prettierJs } from 'prettierEsm';
-import {mST, onSessionUpdate} from './session';
-import {isMobile} from './isMobile.mjs';
-import ms from 'ms';
+import { css } from "@emotion/react";
+import { prettierJs } from "prettierEsm";
+import { mST, onSessionUpdate } from "./session";
+import { isMobile } from "./isMobile.mjs";
+import ms from "ms";
 
 const mod = {
-	CH() {},
-	getValue: ()=>"",
-	setValue:(code:string)=>undefined,
-	code: '',
-	counter: 0,
-	lastKeyDown: 0,
-	codeToSet: ''
+  CH() {},
+  getValue: () => "",
+  setValue: (code: string) => undefined,
+  code: "",
+  counter: 0,
+  lastKeyDown: 0,
+  codeToSet: "",
 };
 
 // Export type IStandaloneCodeEditor = editor.Ist;
 
 export const Editor: React.FC<
-{
-	codeSpace: string;
-	assets: Record<string, string>;
-}>
-= (
-	{codeSpace, assets}
+  {
+    codeSpace: string;
+    assets: Record<string, string>;
+  }
+> = (
+  { codeSpace, assets },
 ) => {
-	const ref = useRef<HTMLDivElement>(null) as undefined | {
-		current: HTMLDivElement;
-	};
+  const ref = useRef<HTMLDivElement>(null) as undefined | {
+    current: HTMLDivElement;
+  };
 
-	const {i, code} = mST();
+  const { i, code } = mST();
 
-	const [
-		mySession,
-		changeContent,
-	] =React.useState({
-		lastKeyDown: 0,
-		myCode: code,
-		counter: i,
-		started: false,
+  const [
+    mySession,
+    changeContent,
+  ] = React.useState({
+    lastKeyDown: 0,
+    myCode: code,
+    counter: i,
+    started: false,
 
-		myId: 'loading',
-		onChange(_cb: () => void) {},
-		engine: isMobile() ? 'ace' : 'monaco',
-	});
+    myId: "loading",
+    onChange(_cb: () => void) {},
+    engine: isMobile() ? "ace" : "monaco",
+  });
 
-	mod.counter = i;
+  mod.counter = i;
 
+  const {
+    counter,
+    myCode,
+    started,
+    myId,
+    // runner,
+    engine,
+    // getValue,
+    onChange,
+  } = mySession;
 
+  mod.code = myCode;
 
-	const {
-		counter,
-		myCode,
-		started,
-		myId,
-		// runner,
-		engine,
-		// getValue,
-		onChange,
-	} = mySession;
+  const cb = useCallback(() => {
+    const lastKeydownHappened = Date.now() - mod.lastKeyDown;
+    console.log({ lastKeydownHappened });
+    let increment = 0;
+    if (lastKeydownHappened < 1000) {
+      increment = 1;
+      //console.log(`last keydown happened:   + ${lastKeydownHappened}, we already handled this event`);
+      //		return;
+    }
 
-	mod.code = myCode;
+    const code = mod.getValue();
+    const newCode = prettierJs(code);
 
-	const cb = useCallback(()=> { 
-		
-		const lastKeydownHappened = Date.now()- mod.lastKeyDown;
-		console.log({lastKeydownHappened});
-		let increment = 0
-		if (lastKeydownHappened<1000) {
-increment=1;
-			//console.log(`last keydown happened:   + ${lastKeydownHappened}, we already handled this event`);
-//		return;
-		}
+    if (newCode === myCode) {
+      return;
+    }
 
-	
-	
-		const code = mod.getValue();
-		const newCode = prettierJs(code);
+    if (newCode === mST().code) {
+      return;
+    }
 
-		if (newCode === myCode) {
-			return;
-		}
+    // if (mySession.counter  mST().i) return;
 
-		if (newCode === mST().code) {
-			return;
-		}
+    mod.counter = mST().i + increment;
 
-		// if (mySession.counter  mST().i) return;
+    changeContent((x) => ({
+      ...x,
+      lastKeyDown: 0,
+      counter: mod.counter,
+      myCode: newCode,
+    }));
 
+    runner({ code: newCode, counter: mod.counter, codeSpace });
 
-		mod.counter = mST().i + increment;
+    // Console.log("RUN THE RUNNER AGAIN");
 
-			changeContent(x => ({
-				...x,
-				lastKeyDown: 0,
-				counter: 	mod.counter,
-				myCode: newCode,
-			}));
+    // Model?.setValue(code);
+  }, [mod.lastKeyDown, myCode, counter, changeContent]);
 
-			runner({code: newCode, counter:  mod.counter, codeSpace });
-		
+  React.useEffect(() => {
+    if (!(ref?.current)) {
+      return;
+    }
 
-			// Console.log("RUN THE RUNNER AGAIN");
+    const setMonaco = async () => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "stylesheet");
+      link.href = location.origin + "/" + assets["ws.css"];
+      document.head.append(link);
 
-		
+      const { startMonaco } = await import("./startMonaco");
 
-			// Model?.setValue(code);
-		}, [mod.lastKeyDown, myCode, counter, changeContent]);
+      const { model, getTypeScriptWorker, setValue: setMonValue } =
+        await startMonaco(
+          /**
+           * @param {any} code
+           */
+          {
+            container: ref.current,
+            name: codeSpace,
+            code: mST().code,
+          },
+        );
 
-	React.useEffect(() => {
+      const getValue = () => {
+        try {
+          (async () => {
+            const tsWorker = await (await getTypeScriptWorker())(
+              model.uri,
+            );
 
-		if (!(ref?.current)) {
-			return;
-		}
+            const diag = await tsWorker.getSemanticDiagnostics(
+              location.origin + "/live/" + codeSpace + ".tsx",
+            );
+            console.log({ diag });
+          })();
+        } catch {
+          console.error("ts diag error");
+        }
 
-		const setMonaco = async () => {
-			const link = document.createElement('link');
-			link.setAttribute('rel', 'stylesheet');
-			link.href = location.origin + '/' + assets['ws.css'];
-			document.head.append(link);
+        return prettierJs(model.getValue());
+      };
 
-			const {startMonaco} = await import('./startMonaco');
+      const setValue = (code: string) => {
+        mod.codeToSet = code;
+        if (code.length < `export default ()=><></>`.length) return;
+        if (code === getValue()) return;
+        if (mST().i === mod.counter) return;
 
-			const {model, getTypeScriptWorker, setValue: setMonValue} = await startMonaco(
-				/**
-         * @param {any} code
-         */
-				{
-					container: ref.current,
-					name: codeSpace,
-					code: mST().code,
-				},
-			);
+        setTimeout(() => mod.codeToSet === code && setMonValue(code), 800); //wait this time before overwriting the value
+      };
 
-			const getValue =()=> {
-				try {
-					(async () => {
-						const tsWorker = await (await getTypeScriptWorker())(
-							model.uri,
-						);
+      mod.getValue = getValue;
+      mod.setValue = setValue;
 
-						const diag = await tsWorker.getSemanticDiagnostics(
-							location.origin + '/live/' + codeSpace + '.tsx',
-						);
-						console.log({diag});
-					})();
-				} catch {
-					console.error('ts diag error');
-				}
+      changeContent({
+        ...mySession,
+        started: true,
+        onChange: (cb: () => void) => model.onDidChangeContent(cb).dispose,
+        myId: "editor",
+        // Model: editor.getModel(),
+      });
 
-				return prettierJs(model.getValue());
-			}
+      // Object.assign(session, { monaco, editor, model });
 
-			const setValue = (code: string) => {
-				mod.codeToSet = code;
-				if (code.length< `export default ()=><></>`.length) return;
-				if (code===getValue()) return;
-				if (mST().i === mod.counter) return;
-			
-				setTimeout(()=> mod.codeToSet === code && setMonValue(code), 800);  //wait this time before overwriting the value					 
-				
+      // let inc = 0;
+    };
 
-			};
+    const setAce = async () => {
+      const { startAce } = await import("./startAce");
+      const editor = await startAce(mST().code);
+      const getValue = () => prettierJs(editor.session.getValue());
 
-			mod.getValue = getValue;
-			mod.setValue = setValue;
+      const setValue = (code: string) => {
+        mod.codeToSet = code;
 
-			changeContent(({
-				...mySession,
-				started: true,
-				onChange: (cb: () => void) => model.onDidChangeContent(cb).dispose,
-				myId: 'editor',
-				// Model: editor.getModel(),
-			}));
+        if (code.length < `export default ()=><></>`.length) return;
+        if (code === getValue()) return;
+        if (mST().i === mod.counter) return;
 
-			// Object.assign(session, { monaco, editor, model });
+        setTimeout(() => {
+          if (mod.codeToSet === code) {
+            //	const before = editor.selection.toJSON();
 
-			// let inc = 0;
-		};
+            editor.session.setValue(code);
+            //	editor.selection.fromJSON(before)
+          }
+        }, 800); //wait this time before overwriting the value
+      };
 
-		const setAce = async () => {
-			const {startAce} = await import('./startAce');
-			const editor = await startAce(mST().code);
-			const getValue = ()=>prettierJs(editor.session.getValue());
+      mod.getValue = getValue;
+      mod.setValue = setValue;
 
-			const setValue = (code: string) => {
-				mod.codeToSet = code;
-			
-				if (code.length< `export default ()=><></>`.length) return;
-				if (code===getValue()) return;
-				if (mST().i === mod.counter) return;
+      changeContent({
+        ...mySession,
+        onChange(cb: () => void) {
+          editor.session.on("change", cb);
+          return () => {
+            editor.session.off("change", cb);
+          };
+        },
+        started: true,
+        myId: "editor",
+      });
+    };
 
-				setTimeout(()=>{
-					
-					if (mod.codeToSet === code) {
-					//	const before = editor.selection.toJSON();
-					
-						editor.session.setValue(code)
-					//	editor.selection.fromJSON(before)
-					
-					}
-				
-				}, 800);  //wait this time before overwriting the value					 
-			
+    const loadEditors = () => (engine === "monaco") ? setMonaco() : setAce();
 
-			}
+    !started && loadEditors();
+  }, [started, ref]);
 
-			mod.getValue = getValue;
-			mod.setValue = setValue;
+  // UseInsertionEffect(()=>{
 
-			changeContent({
-				...mySession,
-				onChange(cb: () => void) {
-					editor.session.on('change', cb);
-					return () => {
-						editor.session.off('change', cb);
-					};
-				},
-				started: true,
-				myId: 'editor',
-		});
-	}
+  // })
 
-		const loadEditors =  () => (engine === 'monaco')? setMonaco() : setAce();
+  React.useEffect(() => {
+    onChange(cb);
+  }, [onChange]);
 
-		!started && loadEditors();
-	}, [started, ref]);
+  // React.useEffect(() => {
+  // 	if (!started) return;
+  // 	setValue(myCode);
 
-	// UseInsertionEffect(()=>{
+  // 	const lastKeydownHappened = (Date.now()-lastKeyDown;
 
-	// })
+  // 	if (lastKeydownHappened>2000) {
 
-	React.useEffect(() => {
-		
+  // 		console.log('last keydown happened: '  + $lastKeydownHappened );
 
+  // 	}
+  // 	runner({code: myCode, counter: counter, codeSpace}){
+  // 	};
 
+  // }, [setValue, myCode, counter, codeSpace, started]);
 
-		onChange(cb);
+  // React.useEffect(() => {
+  // 	if (!started) {
+  // 		return;
+  // 	}
 
+  // 	if (i > counter) {
+  // 		changeContent(x => ({...x, myCode: code, counter: i}));
+  // 		return;
+  // 	}
 
-	
-	}, [onChange]);
+  // }, [setValue, getValue, counter, prettierJs, runner]);
 
+  onSessionUpdate(() => {
+    if (counter < mST().i) {
+      changeContent({ ...mySession, counter: mST().i, myCode: mST().code });
+    }
+    mod.setValue(mST().code);
+  }, "editor");
 
-	// React.useEffect(() => {
-	// 	if (!started) return;
-	// 	setValue(myCode);
-	
-	// 	const lastKeydownHappened = (Date.now()-lastKeyDown;
-
-	// 	if (lastKeydownHappened>2000) {
-
-	// 		console.log('last keydown happened: '  + $lastKeydownHappened );
-			
-	// 	}
-	// 	runner({code: myCode, counter: counter, codeSpace}){
-	// 	};
-	
-	// }, [setValue, myCode, counter, codeSpace, started]);
-
-
-	
-
-
-	// React.useEffect(() => {
-	// 	if (!started) {
-	// 		return;
-	// 	}
-
-	// 	if (i > counter) {
-	// 		changeContent(x => ({...x, myCode: code, counter: i}));
-	// 		return;
-	// 	}
-
-	// }, [setValue, getValue, counter, prettierJs, runner]);
-
-	
-	onSessionUpdate(() => {
-		if (counter<mST().i) {changeContent(({...mySession, counter: mST().i,
-				 myCode: mST().code}));  
-			}
-				 mod.setValue(mST().code);
-			
-		},
-		
-		'editor');
-
-	return (
-		<div
-			onKeyDown={()=>mod.lastKeyDown= Date.now()}
-			data-test-id={myId}
-			id='editor'
-			css={css`
+  return (
+    <div
+      onKeyDown={() => mod.lastKeyDown = Date.now()}
+      data-test-id={myId}
+      id="editor"
+      css={css`
         
             max-width: 640px;
             height: 100%;
             
             
         `}
-			ref={ref}
-		/>
-	);
-
-	
+      ref={ref}
+    />
+  );
 };
