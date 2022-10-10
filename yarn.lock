@@ -2633,7 +2633,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@motionone/animation@npm:^10.13.1":
+"@motionone/animation@npm:^10.13.1, @motionone/animation@npm:^10.14.0":
   version: 10.14.0
   resolution: "@motionone/animation@npm:10.14.0"
   dependencies:
@@ -2659,6 +2659,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@motionone/dom@npm:^10.14.2":
+  version: 10.14.2
+  resolution: "@motionone/dom@npm:10.14.2"
+  dependencies:
+    "@motionone/animation": "npm:^10.14.0"
+    "@motionone/generators": "npm:^10.14.0"
+    "@motionone/types": "npm:^10.14.0"
+    "@motionone/utils": "npm:^10.14.0"
+    hey-listen: "npm:^1.0.8"
+    tslib: "npm:^2.3.1"
+  checksum: 62e86d845b12bd079e3039f3fcf18621679fc9d72719e70c767c71b1cbae89bf93d57a05e0360bb69dd02e1d2512a63c805611f90cd0d6b4d51c22022b31c4cd
+  languageName: node
+  linkType: hard
+
 "@motionone/easing@npm:^10.14.0":
   version: 10.14.0
   resolution: "@motionone/easing@npm:10.14.0"
@@ -2669,7 +2683,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@motionone/generators@npm:^10.13.1":
+"@motionone/generators@npm:^10.13.1, @motionone/generators@npm:^10.14.0":
   version: 10.14.0
   resolution: "@motionone/generators@npm:10.14.0"
   dependencies:
@@ -3497,6 +3511,7 @@ __metadata:
     "@emotion/styled": "npm:11.10.4"
     "@emotion/utils": "npm:^1.2.0"
     "@libp2p/interfaces": "npm:^3.0.3"
+    "@motionone/dom": "npm:^10.14.2"
     "@mui/material": "npm:5.10.8"
     "@types/is-callable": "npm:^1.1.0"
     "@types/lodash.debounce": "npm:^4.0.7"
@@ -3506,7 +3521,6 @@ __metadata:
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
     "@types/xo": "npm:^0.39.3"
-    "@xstyled/emotion": "npm:^3.7.0"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.24"
     ace-builds: "npm:1.11.2"
     csstype: "npm:^3.1.1"
@@ -3527,6 +3541,7 @@ __metadata:
     lodash.throttle: "npm:4.1.1"
     monaco-editor: "npm:0.34.0"
     p-map: "npm:5.5.0"
+    popmotion: "npm:^11.0.5"
     preact: "npm:10.11.1"
     preact-render-to-string: "npm:^5.2.5"
     prettier: "npm:2.7.1"
@@ -3541,7 +3556,9 @@ __metadata:
     uvu: "npm:0.5.6"
     xo: "npm:^0.52.4"
   peerDependencies:
+    "@motionone/dom": "*"
     fast-glob: "*"
+    popmotion: "*"
   languageName: unknown
   linkType: soft
 
@@ -4220,47 +4237,6 @@ __metadata:
   version: 1.1.0
   resolution: "@vascosantos/moving-average@npm:1.1.0"
   checksum: e75d888ec8b5568d9030cc9e0432b6d477fbe642d7025c0b57a0b8211ee978befbb6dcd47d212718819eb3610580f9f773f96daa615e1766b51312a53686c69d
-  languageName: node
-  linkType: hard
-
-"@xstyled/core@npm:^3.7.0":
-  version: 3.7.0
-  resolution: "@xstyled/core@npm:3.7.0"
-  dependencies:
-    "@xstyled/system": "npm:^3.7.0"
-    "@xstyled/util": "npm:^3.7.0"
-  checksum: b98aeff19bb3b1693e8ac244cfba82432ba64f493931011760873d3ab26b7bdeab220978852d39dbf18698ef1d5017f5d8cdca54dd8c49db646df941817f6022
-  languageName: node
-  linkType: hard
-
-"@xstyled/emotion@npm:^3.7.0":
-  version: 3.7.0
-  resolution: "@xstyled/emotion@npm:3.7.0"
-  dependencies:
-    "@xstyled/core": "npm:^3.7.0"
-    "@xstyled/system": "npm:^3.7.0"
-    "@xstyled/util": "npm:^3.7.0"
-  peerDependencies:
-    "@emotion/react": ^11.0.0
-    "@emotion/styled": ^11.0.0
-  checksum: 401759bc51e424b11a5a04560e69222b1db7ebfc6726ece96bab35f5f881a1655800f337f3150e3d75837050a6eacf45d2a3def638152df69bf095d9f7f42df5
-  languageName: node
-  linkType: hard
-
-"@xstyled/system@npm:^3.7.0":
-  version: 3.7.0
-  resolution: "@xstyled/system@npm:3.7.0"
-  dependencies:
-    "@xstyled/util": "npm:^3.7.0"
-    csstype: "npm:^3.1.1"
-  checksum: 4a0a295461d82eb53a55747cc1bb7cfcbaf80fb65836bdf687d421db4c9a75341edee23914a9787cd28ecce122ea196852b56654ff745022adb805f4a2c7c4ac
-  languageName: node
-  linkType: hard
-
-"@xstyled/util@npm:^3.7.0":
-  version: 3.7.0
-  resolution: "@xstyled/util@npm:3.7.0"
-  checksum: 54744f9bccb5a88e5b15da70ea938b06f66ee26685421f930342cc526bc3ad847d59c852ab7de8f6691b98c2443f5f83ccc9cc1475e71e5a0bc1de6679bf783e
   languageName: node
   linkType: hard
 
@@ -5513,9 +5489,9 @@ __metadata:
   linkType: hard
 
 "ci-info@npm:^3.2.0, ci-info@npm:^3.3.0":
-  version: 3.4.0
-  resolution: "ci-info@npm:3.4.0"
-  checksum: 32c2d7db3304f9222a653edc3850a6d43045e52be19611f069bc4fe05c30f0b99ef74a0459d544d112c390f2bcd4d72847607f6009d348187ad8aa7e6ca5e900
+  version: 3.5.0
+  resolution: "ci-info@npm:3.5.0"
+  checksum: d80d63d9c549c277a9feebb83cb300df5b8dbc2a799d35a413af4aaa31f6c1635216cdc52b3232846501d31eff0684c583cf24db3c770cdf2f0fcfcac4835d86
   languageName: node
   linkType: hard
 
@@ -6317,11 +6293,11 @@ __metadata:
   linkType: hard
 
 "defaults@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "defaults@npm:1.0.3"
+  version: 1.0.4
+  resolution: "defaults@npm:1.0.4"
   dependencies:
     clone: "npm:^1.0.2"
-  checksum: fc77e8da5f747a863b1162b2d6ad91f938601043a97b9141b6832906fd06df9f655589cb6102b552ede6db16fad586eef39589d5cbfa40025af1b616300598f6
+  checksum: e48b7520b3a37289a9e0b4dbcaae46eb8595a5a3cda266fc192009807fa2a345360ecbf0e23952d49571b2f1134ee111bb0860119b15b85c3538a71bf662db08
   languageName: node
   linkType: hard
 
@@ -13563,7 +13539,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"popmotion@npm:11.0.5":
+"popmotion@npm:11.0.5, popmotion@npm:^11.0.5":
   version: 11.0.5
   resolution: "popmotion@npm:11.0.5"
   dependencies:
@@ -15927,11 +15903,11 @@ __metadata:
   linkType: hard
 
 "uint8arrays@npm:^3.0.0, uint8arrays@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "uint8arrays@npm:3.1.0"
+  version: 3.1.1
+  resolution: "uint8arrays@npm:3.1.1"
   dependencies:
     multiformats: "npm:^9.4.2"
-  checksum: 5c43052984dfed08ed9e28bdc8a394ef9b7a554aa8c0a085480ba87791e9f32b2774a41981acf67db1fe1cb3af4da8c5c35e5935cd866455efcf7e0180be2371
+  checksum: 68b4fc8715e8577cbb03edc5cbae474b63e8f796b024ba9667f707e3842bfcf9ff702e53a19307c9ecf6a341b27d133c36f098ef304bd1d5664fa11d5185dcad
   languageName: node
   linkType: hard
 

@@ -9,7 +9,7 @@ import { appFactory, AutoUpdateApp } from "./starter";
 import { DraggableWindow } from "./DraggableWindow";
 
 import { CacheProvider, css } from "@emotion/react";
-import { default as createCacheDefault } from "@emotion/cache";
+import  createCache from "@emotion/cache";
 
 // Import { useSpring, a } from '@react-spring/web'
 
@@ -17,7 +17,6 @@ import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
 
-const { default: createCache } = createCacheDefault;
 const RainbowContainer: React.FC<{ children: JSX.Element }> = (
   { children },
 ) => (
@@ -134,13 +133,12 @@ const AppToRender: React.FC<
   );
 };
 const singleton = { started: false };
-globalThis.singleton = globalThis.singleton || singleton;
 
 export const renderPreviewWindow = ({ codeSpace, assets }: {
   codeSpace: string;
   assets: Record<string, string>;
 }) => {
-  if (singleton !== globalThis.singleton) return;
+
   if (singleton.started) return;
   singleton.started = true;
 
@@ -148,7 +146,9 @@ export const renderPreviewWindow = ({ codeSpace, assets }: {
   // Div.style.height='100%';
   const root = createRoot(div);
 
-  const myCache = createCache({
+  const createCacheDefault = (createCache as unknown as {default: typeof createCache} ).default
+
+  const myCache = createCacheDefault({
     key: "z",
   });
 
