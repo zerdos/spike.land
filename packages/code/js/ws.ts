@@ -46,7 +46,7 @@ let lastSeenNow = 0;
 let ws: WebSocket | null = null;
 let sendWS: (message: string) => void;
 let rejoined = false;
-const sendChannel = {
+export const sendChannel = {
   webRtcArray,
   rtcConns,
   send(data: any) {
@@ -286,7 +286,32 @@ async function syncWS() {
   } catch (error) {
     console.error("error 2", { e: error });
   }
+} 
+
+export const startVideo = async (vidElement: HTMLVideoElement) =>{
+const mediaConstraints = {
+  audio: true, // We want an audio track
+  video: true // And we want a video track
+};
+ 
+const localStream = await navigator.mediaDevices.getUserMedia(mediaConstraints)
+
+vidElement.srcObject = localStream;
+localStream.getTracks().forEach((track) => Object.keys(sendChannel.rtcConns).map(k=> {
+  const myStream =  new MediaStream()
+
+  sendChannel.rtcConns[k].ontrack = ({track}) =>  myStream.addTrack(track);
+  
+  (document.getElementById(`video-${k}`) as HTMLVideoElement).srcObject = myStream
+  sendChannel.rtcConns[k].addTrack(track);
+
+
 }
+  
+  ));
+}
+     
+
 
 async function syncRTC() {
   try {
@@ -462,12 +487,12 @@ async function processData(data: any, source: "ws" | "rtc") {
         return;
       }
 
-      if (data.type === "offer") {
+      if (data.type === "video-offer") {
         await handleChatOffer(data.offer, data.name);
         return;
       }
 
-      if (data.type === "answer") {
+      if (data.type === "video-answer") {
         await handleChatAnswerMessage(data.answer, data.name);
 
         return;
@@ -667,7 +692,7 @@ async function processData(data: any, source: "ws" | "rtc") {
         ws?.send(JSON.stringify({
           target,
           name: user,
-          type: "offer",
+          type: "video-offer",
           offer: rtcConns[target].localDescription,
         }));
       } catch {
@@ -706,7 +731,7 @@ async function processData(data: any, source: "ws" | "rtc") {
     log("*** Call recipient has accepted our call");
 
     // Configure the remote description, which is the SDP payload
-    // in our "answer" message.
+    // in our "video-answer" message.
     // const desc = new RTCSessionDescription(message);
 
     await rtcConns[target].setRemoteDescription(
@@ -753,7 +778,7 @@ async function processData(data: any, source: "ws" | "rtc") {
     ws?.send(JSON.stringify({
       target,
       name: user,
-      type: "answer",
+      type: "video-answer",
       answer,
     }));
   }

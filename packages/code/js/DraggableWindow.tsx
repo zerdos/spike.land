@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef} from "react";
 import { domAnimation, domMax, LazyMotion, m } from "framer-motion";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr";
@@ -10,6 +10,7 @@ import { QRButton } from "./Qr";
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
 import { Phone, Share, Tablet, Tv } from "./icons";
+import { startVideo, sendChannel } from "ws";
 
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
@@ -43,7 +44,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
-  // Const ref = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const scale = scaleRange / 100;
 
@@ -121,6 +122,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       if (c !== bgCV) setBG(c);
     }, 1000 / 2);
   }, []);
+
+
+  const [clients, setClients] = useState(Object.keys(sendChannel.rtcConns));
+
+
+  useEffect(()=>{
+
+    setClients([...Object.keys(sendChannel.rtcConns)])
+
+  }, [sendChannel.webRtcArray.length, setClients])
 
   return (
     <LazyMotion features={{ ...domAnimation, ...domMax }}>
@@ -227,7 +238,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             >
               <m.div
                 transition={{ delay: 0, duration: 0.4 }}
-                π
+
                 initial={{
                   width: window.innerWidth,
                   height: window.innerHeight,
@@ -349,7 +360,19 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 url={location.origin + `/live/${room}/public`}
               />
 
-              <Fab
+
+{/* <Fab
+                key="video"
+                onClick={() => open(`/live/${room}/public`)}
+              >
+                <Share />
+              </Fab> */}
+
+              <video ref={videoRef} css={css`display: none`} onClick={()=>startVideo(videoRef.current! )} playsInline={true} autoPlay={true} ></video>
+              {clients.map((k, index)=> <video id={`video-${k}`} key={index} ref={videoRef} playsInline={true} autoPlay={true} ></video>)}
+             
+             
+             <Fab
                 key="Share"
                 onClick={() => open(`/live/${room}/public`)}
               >

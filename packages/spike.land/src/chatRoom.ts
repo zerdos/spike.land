@@ -508,7 +508,7 @@ export class Code {
       timestamp?: number;
       codeSpace?: string;
       target?: string;
-      type?: "new-ice-candidate" | "offer" | "answer";
+      type?: "new-ice-candidate" | "video-offer" | "video-answer";
       patch?: Delta[];
       address?: string;
       hashCode?: number;
@@ -591,7 +591,7 @@ export class Code {
         if (
           data.target &&
           data.type &&
-          ["new-ice-candidate", "offer", "answer"].includes(data.type)
+          ["new-ice-candidate", "video-offer", "video-answer"].includes(data.type)
         ) {
           return this.user2user(data.target, { ...data, name });
         }
