@@ -184,7 +184,9 @@ export const run = async (startState: {
   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
   await join();
-  // Await startIpfs();
+
+  const {startIpfs} = await import("./startIpfs")
+  await startIpfs(codeSpace);
 };
 
 // (async (.) => {
