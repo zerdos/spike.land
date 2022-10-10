@@ -1,11 +1,17 @@
-import defaultConf from "ipfs-core-config/config";
-import { libp2pConfig } from "ipfs-core-config/libp2p";
-import { routers } from "ipfs-core-config/libp2p-pubsub-routers";
+//@ts-expect-error
+import defaultConf from "/npm:ipfs-core-config/config";
+
+//@ts-expect-error
+import * as libp2p from "/npm:ipfs-core-config/libp2p";
+
+//@ts-expect-error
+import { routers } from "/npm:ipfs-core-config/libp2p-pubsub-routers";
 
 export const startIpfs = async (codeSpace: string) => {
   const options = defaultConf();
+//@ts-expect-error
 
-  const { create } = await import("ipfs");
+  const { create } = await import("/npm:ipfs");
 
   const newOptions = {
     ...options,
@@ -18,7 +24,7 @@ export const startIpfs = async (codeSpace: string) => {
       "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
       "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt",
     ],
-    Swarm: { ...options.Swarm, ...libp2pConfig() },
+    Swarm: { ...options.Swarm, ...libp2p.libp2pConfig() },
     Pubsub: {
       Enabled: true,
       ...routers,
@@ -42,7 +48,7 @@ export const startIpfs = async (codeSpace: string) => {
 
   const topic = origin + "/live/" + codeSpace;
 
-  if (!(await ipfs.key.list()).map((x) => x.name).includes("coder")) {
+  if (!(await ipfs.key.list()).map((x: {name: string}) => x.name).includes("coder")) {
     await ipfs.key.import(
       "coder",
       "mWWiB7oiZ2ke5fQsg2fN8jAC6+WHhY/dYrwuhgI0zbAzE/lbIlHdATjwtgKAfmnhgaGdLOuk5pl0A2i4eDTCtw+dASlAHN3/dXGrdDhwq+l8OouPyq3NwDlC/l8D/CdpEG/K+SWWynbFbHgo9877XuA",

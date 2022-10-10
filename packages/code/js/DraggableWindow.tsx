@@ -368,7 +368,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 <Share />
               </Fab> */}
 
-              <video ref={videoRef} css={css`display: none`} onClick={()=>startVideo(videoRef.current! )} playsInline={true} autoPlay={true} ></video>
+              <video ref={videoRef}  onClick={()=>startVideo(videoRef.current! )} playsInline={true} autoPlay={true} ></video>
               {clients.map((k, index)=> <video id={`video-${k}`} key={index} ref={videoRef} playsInline={true} autoPlay={true} ></video>)}
              
              
