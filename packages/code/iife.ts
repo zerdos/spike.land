@@ -1,3 +1,3 @@
-import {run} from './js/ws';
+import { run } from "./js/ws";
 
 run();

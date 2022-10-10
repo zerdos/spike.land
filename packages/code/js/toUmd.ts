@@ -2,104 +2,100 @@
 // import {comlink} from "comlink"
 // import { hashCode } from "session";
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
-import type {TransformOptions} from 'esbuild-wasm';
+import type { TransformOptions } from "esbuild-wasm";
 // Import { string } from "prop-types";
-import {md5} from './md5.js';
+import { md5 } from "./md5.js";
 // Import { m } from "framer-motion";
 
 const mod = {
-	toJs(name: string): string {
-		const md5Name = mod.hashMap[name];
-		const data = mod.data[md5Name];
-		if (!data) {
-			console.error(`cant resolve ${name}`);
-			return '';
-		}
+  toJs(name: string): string {
+    const md5Name = mod.hashMap[name];
+    const data = mod.data[md5Name];
+    if (!data) {
+      console.error(`cant resolve ${name}`);
+      return "";
+    }
 
-		return (mod.data[md5Name].code
-      + mod.data[md5Name].deps.map(name => mod.toJs(name)).join(
-      	'\n',
+    return (mod.data[md5Name].code +
+      mod.data[md5Name].deps.map((name) => mod.toJs(name)).join(
+        "\n",
       ));
-	},
-	hashMap: {} as unknown as Record<string, string>,
-	// ToJs: (name: string)=>{
-	//   const md5Name = md5(name);
-	//   return mod.data[md5Name].code +  mod.data[md5Name].deps.map(dep=>mod.toJs(dep)).join() as unknown as string
-	// },
-	data: {} as unknown as Record<string, {
-		code: string;
-		deps: string[];
-	}>,
+  },
+  hashMap: {} as unknown as Record<string, string>,
+  // ToJs: (name: string)=>{
+  //   const md5Name = md5(name);
+  //   return mod.data[md5Name].code +  mod.data[md5Name].deps.map(dep=>mod.toJs(dep)).join() as unknown as string
+  // },
+  data: {} as unknown as Record<string, {
+    code: string;
+    deps: string[];
+  }>,
 };
 
 export const toUmd = async (source: string, name: string) => {
-	const esbuild = await (await import('./esbuildEsm')).init();
+  const esbuild = await (await import("./esbuildEsm")).init();
 
-	const hash = md5(source);
-	mod.hashMap = {...mod.hashMap, [hash]: name, [name]: hash};
+  const hash = md5(source);
+  mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
 
-	if (!mod.data[hash]) {
-		const transformed = await (await esbuild.transform)(source, {
-			...options,
-			loader: name.includes('.tsx')
-				? 'tsx'
-				: (name.includes('.ts')
-					? 'ts'
-					: name.includes('.jsx')
-						? 'jsx'
-						: 'js'),
-			globalName: hash.replace(/[^a-f]/g, ''),
-		});
-		if (!transformed || !transformed.code) {
-			console.log('transform result -code is empty');
-			return;
-		}
+  if (!mod.data[hash]) {
+    const transformed = await (await esbuild.transform)(source, {
+      ...options,
+      loader: name.includes(".tsx")
+        ? "tsx"
+        : (name.includes(".ts") ? "ts" : name.includes(".jsx") ? "jsx" : "js"),
+      globalName: hash.replace(/[^a-f]/g, ""),
+    });
+    if (!transformed || !transformed.code) {
+      console.log("transform result -code is empty");
+      return;
+    }
 
-		mod.data = {
-			...mod.data,
-			[hash]: {
-				...transformed,
-				deps: findDeps(transformed.code),
-			},
-		};
+    mod.data = {
+      ...mod.data,
+      [hash]: {
+        ...transformed,
+        deps: findDeps(transformed.code),
+      },
+    };
 
-		await Promise.all(mod.data[hash].deps.map(async dep => {
-			if (mod.hashMap[dep]) {
-				return;
-			}
+    await Promise.all(mod.data[hash].deps.map(async (dep) => {
+      if (mod.hashMap[dep]) {
+        return;
+      }
 
-			const importMap = importShim.getImportMap();
+      const importMap = importShim.getImportMap();
 
-			let url = '';
-			let urlHash = '';
-			if (importMap.imports[dep]) {
-				url = importMap.imports[dep];
-				urlHash = md5(dep);
-			} else if (dep.startsWith('./')) {
-				url = new URL(dep, location.origin).toString();
-				urlHash = md5(dep);
-			} else {
-				try {
-					url = await importShim.resolve!(dep, name);
-					urlHash = md5(dep);
-				} catch {
-					console.error(`failed to resolve: ${dep}`);
-					return;
-				}
-			}
+      let url = "";
+      let urlHash = "";
+      if (importMap.imports[dep]) {
+        url = importMap.imports[dep];
+        urlHash = md5(dep);
+      } else if (dep.startsWith("./")) {
+        url = new URL(dep, location.origin).toString();
+        urlHash = md5(dep);
+      } else {
+        try {
+          url = await importShim.resolve!(dep, name);
+          urlHash = md5(dep);
+        } catch {
+          console.error(`failed to resolve: ${dep}`);
+          return;
+        }
+      }
 
-			if (mod.hashMap[urlHash]) {
-				return;
-			}
+      if (mod.hashMap[urlHash]) {
+        return;
+      }
 
-			mod.hashMap[dep] = url;
-			const source = await (await fetch(url)).text();
+      mod.hashMap[dep] = url;
+      const source = await (await fetch(url)).text();
 
-			return toUmd(source, dep);
-		}));
-	}
+      return toUmd(source, dep);
+    }));
+  }
 
-	return mod;
+  return mod;
 };
 
 // `importScripts("${comlinkUmd}");
@@ -132,41 +128,41 @@ export const toUmd = async (source: string, name: string) => {
 // createJsBlob(
 
 const options = {
-	loader: 'tsx',
-	format: 'iife',
-	globalName: 'myApp',
-	treeShaking: true,
-	tsconfigRaw: {
-		compilerOptions: {
-			jsx: 'react-jsx',
-			jsxImportSource: '@emotion/react',
-		},
-	},
-	target: 'es2021',
+  loader: "tsx",
+  format: "iife",
+  globalName: "myApp",
+  treeShaking: true,
+  tsconfigRaw: {
+    compilerOptions: {
+      jsx: "react-jsx",
+      jsxImportSource: "@emotion/react",
+    },
+  },
+  target: "es2021",
 } as unknown as TransformOptions;
 
 const findDeps = (code: string) => {
-	// Alternative syntax using RegExp constructor
-	const regex = /require\("(.+?)"\)/gm;
+  // Alternative syntax using RegExp constructor
+  const regex = /require\("(.+?)"\)/gm;
 
-	let m;
-	const deps: string[] = [];
+  let m;
+  const deps: string[] = [];
 
-	while ((m = regex.exec(code)) !== null) {
-		// This is necessary to avoid infinite loops with zero-width matches
-		if (m.index === regex.lastIndex) {
-			regex.lastIndex++;
-		}
+  while ((m = regex.exec(code)) !== null) {
+    // This is necessary to avoid infinite loops with zero-width matches
+    if (m.index === regex.lastIndex) {
+      regex.lastIndex++;
+    }
 
-		// The result can be accessed through the `m`-variable.
-		for (const [groupIndex, match] of m.entries()) {
-			if (groupIndex == 1) {
-				deps.push(match);
-			}
+    // The result can be accessed through the `m`-variable.
+    for (const [groupIndex, match] of m.entries()) {
+      if (groupIndex == 1) {
+        deps.push(match);
+      }
 
-			console.log(`Found match, group ${groupIndex}: ${match}`);
-		}
-	}
+      console.log(`Found match, group ${groupIndex}: ${match}`);
+    }
+  }
 
-	return deps;
+  return deps;
 };

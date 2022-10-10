@@ -1,9 +1,5 @@
-import EmotionReact from '@emotion/react';
+import EmotionReact from "@emotion/react";
 
+export { CacheProvider, css, Global, jsx } from "@emotion/react";
 
-export { css, jsx, CacheProvider}   from '@emotion/react';
-
-
-
-
-export default EmotionReact
+export default EmotionReact;

@@ -95,7 +95,7 @@ export class Code {
 
       const session = await this.kv.get<ICodeSession>("session") ||
         backupSession;
-    if (!session.code) {
+      if (!session.code) {
         const s = backupSession;
         session.code = s.code;
         session.transpiled = s.transpiled;
@@ -608,10 +608,10 @@ export class Code {
           try {
             await applyPatch({ patch, newHash, oldHash });
           } catch (err) {
-            let errMessage = (err as unknown as {message: string}).message;
+            let errMessage = (err as unknown as { message: string }).message;
             return respondWith({
               message: errMessage,
-              err: JSON.stringify({err}),
+              err: JSON.stringify({ err }),
               stack: (err instanceof SyntaxError)
                 ? err.stack?.toString()
                 : "no stack",

@@ -1,7 +1,7 @@
-import type * as Emotion from '@emotion/react';
+import type * as Emotion from "@emotion/react";
 
 declare global {
-	interface Window {
-		emotionReact: typeof Emotion;
-	}
+  interface Window {
+    emotionReact: typeof Emotion;
+  }
 }

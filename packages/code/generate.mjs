@@ -1,42 +1,43 @@
-import {clearCache, Generator} from '@jspm/generator';
+import { clearCache, Generator } from "@jspm/generator";
 
 clearCache();
 
-const env = process.env.NODE_ENV === 'production'
-	? 'production'
-	: 'development';
-const isDev = env === 'development';
+const env = process.env.NODE_ENV === "production"
+  ? "production"
+  : "development";
+const isDev = env === "development";
 
 const generator = new Generator({
-	mapUrl: import.meta.url,
-	defaultProvider: 'jspm',
-	// ]//ne your target environment to get a working map
-	// it is advisable to pass the "module" condition as supported by Webpack
-	env: [
-		env,
-		'browser',
-		'module',
-	],
+  mapUrl: import.meta.url,
+  defaultProvider: "jspm",
+  // ]//ne your target environment to get a working map
+  // it is advisable to pass the "module" condition as supported by Webpack
+  env: [
+    env,
+    "browser",
+    "module",
+  ],
 });
 
 // Install a new package into the import map
 
 // await generator.install(");
 const list = [
-	'preact/compat',
-	'preact-render-to-string',
-	'preact/jsx-runtime',
-	'preact',
-	'react',
-	'react-dom',
-	'react-dom/client',
-	'react-dom/server',,
-	'react/jsx-runtime',
-	'react/jsx-dev-runtime',
-	'@emotion/react',
-	'@emotion/cache',
-	'@emotion/styled',
-	'framer-motion',
+  "preact/compat",
+  "preact-render-to-string",
+  "preact/jsx-runtime",
+  "preact",
+  "react",
+  "react-dom",
+  "react-dom/client",
+  "react-dom/server",
+  ,
+  "react/jsx-runtime",
+  "react/jsx-dev-runtime",
+  "@emotion/react",
+  "@emotion/cache",
+  "@emotion/styled",
+  "framer-motion",
 ];
 // Await Promise.all(list.map(async (name) => await generator.install(name)));
 
@@ -93,7 +94,7 @@ const list = [
 // await generator.install("react@18/jsx-runtime");
 // await generator.install("react-transition-group");
 
-const importMap = {...generator.getMap()};
+const importMap = { ...generator.getMap() };
 
 // ImportMap.imports["react"] = isDev
 //   ? "https://localhost:8000/monorepo/packages/code/js/public/react.mjs"
@@ -133,10 +134,10 @@ const importMap = {...generator.getMap()};
 //   "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
 
 importMap.imports = {
-	...importMap.imports,
-	// "preact": "https://unpkg.com/preact@10.6.6/public/preact.mjs",
-	// "preact/compat": "https://unpkg.com/preact@10.6.6/compat/public/compat.mjs",
-	// "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/public/hooks.mjs",
+  ...importMap.imports,
+  // "preact": "https://unpkg.com/preact@10.6.6/public/preact.mjs",
+  // "preact/compat": "https://unpkg.com/preact@10.6.6/compat/public/compat.mjs",
+  // "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/public/hooks.mjs",
 };
 console.log(JSON.stringify(importMap, null, 2));
 // Console.log(JSON.stringify(generator.getMap(), null, 2));

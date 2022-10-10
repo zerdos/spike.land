@@ -51,7 +51,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 15195,
+      "bytes": 15194,
       "imports": [
         {
           "path": "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -88,8 +88,8 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-Z7BD3K3R.mjs": {
-      "bytes": 178741,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JGTVRAST.mjs": {
+      "bytes": 178751,
       "imports": [
         {
           "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs",
@@ -105,7 +105,7 @@
       "bytes": 412,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-Z7BD3K3R.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JGTVRAST.mjs",
           "kind": "import-statement"
         },
         {
@@ -123,7 +123,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 21117,
+      "bytes": 21123,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -243,8 +243,8 @@
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs": {
           "bytesInOutput": 194
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-Z7BD3K3R.mjs": {
-          "bytesInOutput": 177778
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JGTVRAST.mjs": {
+          "bytesInOutput": 177788
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -259,7 +259,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 272061
+      "bytes": 272071
     }
   }
 }

@@ -21,8 +21,7 @@
     "./js/esbuildEsm": "./js/esbuildEsm.ts",
     "./js/binary": "./js/binary.ts",
     "./js/importmap.json": "./js/importmap.json",
-    "./js/mockedMap.json": "./js/mockedMap.json",
-    "./shasums": "./shasums.ts"
+    "./js/mockedMap.json": "./js/mockedMap.json"
   },
   "scripts": {
     "test": "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/ --format=esm --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
