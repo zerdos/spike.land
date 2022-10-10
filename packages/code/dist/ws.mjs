@@ -23663,7 +23663,7 @@ var run = async (startState) => {
   }
   renderPreviewWindow(startState);
   await join();
-  const { startIpfs } = await import("./chunk-startIpfs-GDAF77XT.mjs");
+  const { startIpfs } = await import("./chunk-startIpfs-HSRDXW6W.mjs");
   await startIpfs(codeSpace);
 };
 var intervalHandler = null;
@@ -23719,14 +23719,20 @@ async function syncWS() {
     console.error("error 2", { e: error });
   }
 }
+var localStream = null;
+var stopVideo = async (vidElement) => {
+  if (!localStream)
+    return;
+  localStream.getTracks().map((x) => x.stop());
+};
 var startVideo = async (vidElement) => {
   const mediaConstraints = {
     audio: true,
     video: true
   };
-  const localStream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
-  vidElement.srcObject = localStream;
-  localStream.getTracks().forEach((track) => Object.keys(sendChannel.rtcConns).map(
+  const localStream2 = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+  vidElement.srcObject = localStream2;
+  localStream2.getTracks().forEach((track) => Object.keys(sendChannel.rtcConns).map(
     (k) => {
       const myStream = new MediaStream();
       sendChannel.rtcConns[k].ontrack = ({ track: track2 }) => myStream.addTrack(track2);
@@ -24126,5 +24132,6 @@ export {
   saveCode,
   sendChannel,
   startVideo,
+  stopVideo,
   sw
 };

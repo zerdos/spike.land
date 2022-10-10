@@ -290,6 +290,15 @@ async function syncWS() {
   }
 } 
 
+
+let localStream : MediaStream | null = null;
+
+export const stopVideo = async (vidElement: HTMLVideoElement) =>{
+  if (!localStream ) return;
+  localStream.getTracks().map(x=>x.stop());
+
+} 
+
 export const startVideo = async (vidElement: HTMLVideoElement) =>{
 const mediaConstraints = {
   audio: true, // We want an audio track

@@ -76,7 +76,9 @@ const options =({
 
   const newOptions = {
     ...options,
-
+    init: {
+      emptyRepo: true
+    },
     Bootstrap: [
       "/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
       "/ip4/104.131.131.82/udp/4001/quic/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
@@ -85,12 +87,10 @@ const options =({
       "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
       "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt",
     ],
-    Swarm: { ...options.Swarm, ...libp2pConfig()
-    },
-    Pubsub: {
-      Enabled: true,
-      Router: routers()
-    },
+    
+    
+// Swarm: libp2pConfig(),
+    Pubsub: routers(),
     Discovery: {
       MDNS: {
         Enabled: true,
@@ -100,6 +100,7 @@ const options =({
         Enabled: true,
       }
     },
+
   };
 
 
