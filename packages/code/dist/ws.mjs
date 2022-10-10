@@ -23663,6 +23663,8 @@ var run = async (startState) => {
   }
   renderPreviewWindow(startState);
   await join();
+  const { startIpfs } = await import("./chunk-startIpfs-GDAF77XT.mjs");
+  await startIpfs(codeSpace);
 };
 var intervalHandler = null;
 async function rejoin() {

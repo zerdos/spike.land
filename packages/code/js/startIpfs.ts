@@ -1,17 +1,78 @@
-//@ts-expect-error
-import defaultConf from "/npm:ipfs-core-config/config";
+import importUmd from "iumd.mjs";
 
 //@ts-expect-error
-import * as libp2p from "/npm:ipfs-core-config/libp2p";
+import {libp2pConfig} from "/npm:ipfs-core-config/src/libp2p.browser.js";
 
 //@ts-expect-error
-import { routers } from "/npm:ipfs-core-config/libp2p-pubsub-routers";
+import { routers } from "/npm:ipfs-core-config/src/libp2p-pubsub-routers.browser.js";
 
 export const startIpfs = async (codeSpace: string) => {
-  const options = defaultConf();
-//@ts-expect-error
+  //@ts-expect-error
+const {create} = await importUmd('https://unpkg.com/ipfs-core@0.16.1/dist/index.min.js');
 
-  const { create } = await import("/npm:ipfs");
+
+
+
+
+
+const options =({
+  Addresses: {
+    Swarm: [
+    ],
+
+    Announce: [],
+    NoAnnounce: [],
+    API: '',
+    Gateway: '',
+    RPC: '',
+    Delegates: [
+      '/dns4/node0.delegate.ipfs.io/tcp/443/https',
+      '/dns4/node1.delegate.ipfs.io/tcp/443/https',
+      '/dns4/node2.delegate.ipfs.io/tcp/443/https',
+      '/dns4/node3.delegate.ipfs.io/tcp/443/https'
+    ]
+  },
+  Discovery: {
+    MDNS: {
+      Enabled: false,
+      Interval: 10
+    },
+    webRTCStar: {
+      Enabled: true
+    }
+  },
+  Bootstrap: [
+    "/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
+    "/ip4/104.131.131.82/udp/4001/quic/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
+ 
+    
+
+    '/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN',
+    '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
+    '/dnsaddr/bootstrap.libp2p.io/p2p/QmZa1sAxajnQjVM8WjWXoMbmPd7NsWhfKsPkErzpm9wGkp',
+    '/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
+    '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt',
+    '/dns4/node0.preload.ipfs.io/tcp/443/wss/p2p/QmZMxNdpMkewiVZLMRxaNxUeZpDUb34pWjZ1kZvsd16Zic',
+    '/dns4/node1.preload.ipfs.io/tcp/443/wss/p2p/Qmbut9Ywz9YEDrz8ySBSgWyJk41Uvm2QJPhwDJzJyGFsD6',
+    '/dns4/node2.preload.ipfs.io/tcp/443/wss/p2p/QmV7gnbW5VTcJ3oyM2Xk1rdFBJ3kTkvxc87UFGsun29STS',
+    '/dns4/node3.preload.ipfs.io/tcp/443/wss/p2p/QmY7JB6MQXhxHvq7dBDh4HpbH29v4yE9JRadAVpndvzySN'
+  ],
+  Pubsub: {
+    Enabled: true
+  },
+  Swarm: {
+    ConnMgr: {
+      LowWater: 5,
+      HighWater: 20
+    },
+    DisableNatPortMap: true
+  },
+  Routing: {
+    Type: 'dhtclient'
+  }
+})
+
+
 
   const newOptions = {
     ...options,
@@ -24,10 +85,11 @@ export const startIpfs = async (codeSpace: string) => {
       "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
       "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt",
     ],
-    Swarm: { ...options.Swarm, ...libp2p.libp2pConfig() },
+    Swarm: { ...options.Swarm, ...libp2pConfig()
+    },
     Pubsub: {
       Enabled: true,
-      ...routers,
+      Router: routers()
     },
     Discovery: {
       MDNS: {
@@ -36,11 +98,24 @@ export const startIpfs = async (codeSpace: string) => {
       },
       webRTCStar: {
         Enabled: true,
-      },
+      }
     },
   };
 
-  const ipfs = await create({ repo: codeSpace, ...newOptions });
+
+  const ipfs = await create( newOptions )  ;
+
+
+
+  const allConf = await ipfs.config.getAll();
+  
+  
+  
+  console.log({allConf})
+
+
+
+
 
   // Await ipfs.config.replace({ ...(await ipfs.config.getAll()), ...newOptions});
   // globalThis.newOptions = newOptions;
@@ -56,6 +131,7 @@ export const startIpfs = async (codeSpace: string) => {
     );
   }
 
+//  await ipfs.config.set("Pubsub", newOptions.Pubsub)
   //   Await ipfs.swarm.connect((await ipfs.id()).id.toCID().toString());
   await ipfs.pubsub.subscribe(
     topic,
@@ -82,6 +158,7 @@ export const startIpfs = async (codeSpace: string) => {
     console.log(data);
     return data;
   };
+  Object.assign(globalThis, {cat, send, ipfs, routers, newOptions})
   //  Const room =  new PubSubRoom(ipfs.libp2p, '12D3KooWQNWHF6o7jdEq6VQAYmE4tnYyJw7XTMHip49whBfdi7MJ')
 
   //  globalThis.room = room;

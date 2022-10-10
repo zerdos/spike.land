@@ -66,7 +66,7 @@ const buildOptions = {
       "react/jsx-runtime": resolve("./js/react-preact.ts"),
     }),
   ],
-  external: ["./mST"],
+  external: ["./mST", '/npm:*'],
   legalComments: "none",
 };
 
