@@ -3,7 +3,7 @@ import {
 } from "./chunk-chunk-QTIR5YHF.mjs";
 import "./chunk-chunk-477FBAEY.mjs";
 
-// ../../../../../Users/z/.yarn/berry/cache/es-module-shims-npm-1.6.1-737a4e0e18-9.zip/node_modules/es-module-shims/dist/es-module-shims.js
+// ../../.yarn/global/cache/es-module-shims-npm-1.6.1-737a4e0e18-9.zip/node_modules/es-module-shims/dist/es-module-shims.js
 init_define_process();
 (function() {
   const hasWindow = typeof window !== "undefined";

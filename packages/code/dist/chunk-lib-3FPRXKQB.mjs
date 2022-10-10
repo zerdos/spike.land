@@ -1,12 +1,12 @@
 import {
   __rest
-} from "./chunk-chunk-ADLHIUHO.mjs";
+} from "./chunk-chunk-OC5MYZKC.mjs";
 import {
   h,
   init_react_preact,
   useEffect,
   useState
-} from "./chunk-chunk-67JLPL3H.mjs";
+} from "./chunk-chunk-GFIMVG7F.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";
@@ -15,9 +15,9 @@ import {
   __toESM
 } from "./chunk-chunk-477FBAEY.mjs";
 
-// ../../../../../Users/z/.yarn/berry/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js
+// ../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js
 var require_qrious = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js"(exports, module) {
+  "../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js"(exports, module) {
     init_define_process();
     (function(global, factory) {
       typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : global.QRious = factory();
@@ -2348,14 +2348,14 @@ var require_qrious = __commonJS({
   }
 });
 
-// ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/4/Users/z/.yarn/berry/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/index.js
+// ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/0/global/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/index.js
 init_define_process();
 
-// ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/4/Users/z/.yarn/berry/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/QRious.js
+// ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/0/global/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/QRious.js
 init_define_process();
 init_react_preact();
 
-// ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/4/Users/z/.yarn/berry/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/use-qrious.js
+// ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/0/global/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/use-qrious.js
 init_define_process();
 var import_qrious = __toESM(require_qrious(), 1);
 init_react_preact();
@@ -2369,7 +2369,7 @@ var useQrious = (options) => {
   return [dataUrl, qrious];
 };
 
-// ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/4/Users/z/.yarn/berry/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/QRious.js
+// ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/0/global/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/QRious.js
 var QRious2 = (_a) => {
   var { background, backgroundAlpha, foreground, foregroundAlpha, level, mime, padding, value, size } = _a, props = __rest(_a, ["background", "backgroundAlpha", "foreground", "foregroundAlpha", "level", "mime", "padding", "value", "size"]);
   const [dataUrl] = useQrious({

@@ -1,12 +1,12 @@
 import {
   editor_api_exports
-} from "./chunk-chunk-TS7C2EE5.mjs";
+} from "./chunk-chunk-JI7QSXSC.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";
 import "./chunk-chunk-477FBAEY.mjs";
 
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.js
+// ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.js
 init_define_process();
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;

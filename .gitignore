@@ -4,6 +4,7 @@
 haters/
 .env
 .yarn/cache
+.yarn/global
 client_id§
 videos/
 screenshots/

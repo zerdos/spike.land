@@ -7,9 +7,9 @@ import {
   __toESM
 } from "./chunk-chunk-477FBAEY.mjs";
 
-// ../../../../../Users/z/.yarn/berry/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js
+// ../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js
 var require_lodash = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
+  "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
     var FUNC_ERROR_TEXT = "Expected a function";
     var NAN = 0 / 0;
@@ -141,9 +141,9 @@ var require_lodash = __commonJS({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js
+// ../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js
 var require_diff = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
+  "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
     var DIFF_DELETE = -1;
     var DIFF_INSERT = 1;
@@ -675,7 +675,7 @@ var require_diff = __commonJS({
 // js/session.ts
 init_define_process();
 
-// ../../../../../Users/z/.yarn/berry/cache/immutable-npm-4.1.0-f6635927b8-9.zip/node_modules/immutable/dist/immutable.es.js
+// ../../.yarn/global/cache/immutable-npm-4.1.0-f6635927b8-9.zip/node_modules/immutable/dist/immutable.es.js
 init_define_process();
 var DELETE = "delete";
 var SHIFT = 5;
