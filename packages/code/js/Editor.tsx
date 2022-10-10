@@ -7,12 +7,13 @@ import { css } from "@emotion/react";
 import { prettierJs } from "prettierEsm";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
-import ms from "ms";
 
 const mod = {
   CH() {},
   getValue: () => "",
-  setValue: (code: string) => undefined,
+  setValue: (code: string) => {
+    console.log(code)
+  },
   code: "",
   counter: 0,
   lastKeyDown: 0,
