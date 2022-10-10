@@ -5,7 +5,5 @@ declare module "/live/code-main/js" {
   export default returnFn;
 }
 
-declare module "*.wasm?url" {
-  const returnFn: () => WebAssembly;
-  export default returnFn;
-}
+declare module "/npm:*" ;
+

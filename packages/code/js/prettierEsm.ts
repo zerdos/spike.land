@@ -1,9 +1,9 @@
 import Prettier from "prettier/standalone";
 import parserBabel from "prettier/parser-babel";
-import parserHtml from "prettier/parser-html";
-import parserPostcss from "prettier/parser-postcss";
+// import parserHtml from "prettier/parser-html";
+// import parserPostcss from "prettier/parser-postcss";
 
-let lastSuccessful: string | undefined = null;
+let lastSuccessful: string | null = null;
 export const prettierJs = (code: string) => {
   try {
     const current = Prettier.format(code, {
@@ -24,7 +24,8 @@ export const prettierJs = (code: string) => {
       trailingComma: "all",
       useTabs: false,
       parser: "babel-ts",
-      plugins: [parserBabel, parserHtml, parserPostcss],
+      plugins: [parserBabel, ///parserHtml, parserPostcss
+      ],
     });
     return lastSuccessful = current;
   } catch (error) {
@@ -33,14 +34,14 @@ export const prettierJs = (code: string) => {
   }
 };
 
-export const prettierCss = (code: string) =>
-  Prettier.format(code, {
-    parser: "css",
-    plugins: [parserPostcss],
-  });
-export const prettierHtml = (code: string) =>
-  Prettier.format(code, {
-    htmlWhitespaceSensitivity: "css",
-    parser: "html",
-    plugins: [parserHtml, parserPostcss],
-  });
+// export const prettierCss = (code: string) =>
+//   Prettier.format(code, {
+//     parser: "css",
+//     plugins: [parserPostcss],
+//   });
+// export const prettierHtml = (code: string) =>
+//   Prettier.format(code, {
+//     htmlWhitespaceSensitivity: "css",
+//     parser: "html",
+//     plugins: [parserHtml, parserPostcss],
+//   });
