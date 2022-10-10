@@ -31556,6 +31556,7 @@ var DraggableWindow = ({
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
+  const videoRef = useRef(null);
   const scale = scaleRange / 100;
   useEffect(() => {
     const reveal = async () => {
@@ -31607,6 +31608,10 @@ var DraggableWindow = ({
         setBG(c2);
     }, 1e3 / 2);
   }, []);
+  const [clients, setClients] = useState(Object.keys(sendChannel.rtcConns));
+  useEffect(() => {
+    setClients([...Object.keys(sendChannel.rtcConns)]);
+  }, [sendChannel.webRtcArray.length, setClients]);
   return (0, import_jsx_runtime7.jsx)(LazyMotion, {
     features: { ...domAnimation, ...domMax },
     children: (0, import_jsx_runtime7.jsx)(m.div, {
@@ -31698,7 +31703,6 @@ var DraggableWindow = ({
             `,
                 children: (0, import_jsx_runtime7.jsx)(m.div, {
                   transition: { delay: 0, duration: 0.4 },
-                  \u03C0: true,
                   initial: {
                     width: window.innerWidth,
                     height: window.innerHeight,
@@ -31782,6 +31786,19 @@ var DraggableWindow = ({
                 (0, import_jsx_runtime7.jsx)(QRButton, {
                   url: location.origin + `/live/${room}/public`
                 }),
+                (0, import_jsx_runtime7.jsx)("video", {
+                  ref: videoRef,
+                  css: import_react11.css`display: none`,
+                  onClick: () => startVideo(videoRef.current),
+                  playsInline: true,
+                  autoPlay: true
+                }),
+                clients.map((k, index) => (0, import_jsx_runtime7.jsx)("video", {
+                  id: `video-${k}`,
+                  ref: videoRef,
+                  playsInline: true,
+                  autoPlay: true
+                }, index)),
                 (0, import_jsx_runtime7.jsx)(Fab, {
                   onClick: () => open(`/live/${room}/public`),
                   children: (0, import_jsx_runtime7.jsx)(Share, {})
@@ -32441,6 +32458,22 @@ async function syncWS() {
     console.error("error 2", { e: error });
   }
 }
+var startVideo = async (vidElement) => {
+  const mediaConstraints = {
+    audio: true,
+    video: true
+  };
+  const localStream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+  vidElement.srcObject = localStream;
+  localStream.getTracks().forEach((track) => Object.keys(sendChannel.rtcConns).map(
+    (k) => {
+      const myStream = new MediaStream();
+      sendChannel.rtcConns[k].ontrack = ({ track: track2 }) => myStream.addTrack(track2);
+      document.getElementById(`video-${k}`).srcObject = myStream;
+      sendChannel.rtcConns[k].addTrack(track);
+    }
+  ));
+};
 async function syncRTC() {
   try {
     if (Object.keys(rtcConns).length > 0) {
@@ -32567,11 +32600,11 @@ async function processData(data, source) {
         await handleNewICECandidateMessage(data.candidate, data.name);
         return;
       }
-      if (data.type === "offer") {
+      if (data.type === "video-offer") {
         await handleChatOffer(data.offer, data.name);
         return;
       }
-      if (data.type === "answer") {
+      if (data.type === "video-answer") {
         await handleChatAnswerMessage(data.answer, data.name);
         return;
       }
@@ -32710,7 +32743,7 @@ async function processData(data, source) {
         ws?.send(JSON.stringify({
           target,
           name: user,
-          type: "offer",
+          type: "video-offer",
           offer: rtcConns[target].localDescription
         }));
       } catch {
@@ -32759,7 +32792,7 @@ async function processData(data, source) {
     ws?.send(JSON.stringify({
       target,
       name: user,
-      type: "answer",
+      type: "video-answer",
       answer
     }));
   }
@@ -32830,5 +32863,7 @@ export {
   join,
   run,
   saveCode,
+  sendChannel,
+  startVideo,
   sw
 };

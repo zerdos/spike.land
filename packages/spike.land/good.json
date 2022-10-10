@@ -123,7 +123,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 21123,
+      "bytes": 21147,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -235,7 +235,7 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15611
+          "bytesInOutput": 15623
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs": {
           "bytesInOutput": 1469
@@ -259,7 +259,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 271847
+      "bytes": 271859
     }
   }
 }
