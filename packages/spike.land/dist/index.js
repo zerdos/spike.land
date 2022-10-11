@@ -403,6 +403,7 @@ var imap = {
     "@emotion/react": emotionReact,
     "@emotion/react/jsx-runtime": emotionJsxRuntime,
     "@mui/": "npm:@mui/",
+    "@use-gesture/react": "npm:@use-gesture/react?external=react",
     "live/": "live/",
     "react": preact,
     "framer-motion": motion,
@@ -3618,7 +3619,7 @@ var Map = function(KeyedCollection2) {
     }
     return emptyMap();
   };
-  Map2.prototype.sort = function sort2(comparator) {
+  Map2.prototype.sort = function sort22(comparator) {
     return OrderedMap(sortFactory(this, comparator));
   };
   Map2.prototype.sortBy = function sortBy2(mapper, comparator) {
@@ -5269,7 +5270,7 @@ var Set = function(SetCollection2) {
       });
     });
   };
-  Set2.prototype.sort = function sort2(comparator) {
+  Set2.prototype.sort = function sort22(comparator) {
     return OrderedSet(sortFactory(this, comparator));
   };
   Set2.prototype.sortBy = function sortBy2(mapper, comparator) {
@@ -6693,6 +6694,559 @@ function getBackupSession() {
   };
 }
 
+// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js
+function print(root, printNode = (n) => n.key) {
+  var out = [];
+  row(root, "", true, (v) => out.push(v), printNode);
+  return out.join("");
+}
+function row(root, prefix, isTail, out, printNode) {
+  if (root) {
+    out(`${prefix}${isTail ? "\u2514\u2500\u2500 " : "\u251C\u2500\u2500 "}${printNode(root)}
+`);
+    const indent = prefix + (isTail ? "    " : "\u2502   ");
+    if (root.left)
+      row(root.left, indent, false, out, printNode);
+    if (root.right)
+      row(root.right, indent, true, out, printNode);
+  }
+}
+function isBalanced(root) {
+  if (root === null)
+    return true;
+  var lh = height(root.left);
+  var rh = height(root.right);
+  if (Math.abs(lh - rh) <= 1 && isBalanced(root.left) && isBalanced(root.right))
+    return true;
+  return false;
+}
+function height(node) {
+  return node ? 1 + Math.max(height(node.left), height(node.right)) : 0;
+}
+function loadRecursive(parent, keys2, values2, start, end) {
+  const size = end - start;
+  if (size > 0) {
+    const middle = start + Math.floor(size / 2);
+    const key = keys2[middle];
+    const data = values2[middle];
+    const node = { key, data, parent };
+    node.left = loadRecursive(node, keys2, values2, start, middle);
+    node.right = loadRecursive(node, keys2, values2, middle + 1, end);
+    return node;
+  }
+  return null;
+}
+function markBalance(node) {
+  if (node === null)
+    return 0;
+  const lh = markBalance(node.left);
+  const rh = markBalance(node.right);
+  node.balanceFactor = lh - rh;
+  return Math.max(lh, rh) + 1;
+}
+function sort2(keys2, values2, left, right, compare) {
+  if (left >= right)
+    return;
+  const pivot = keys2[left + right >> 1];
+  let i = left - 1;
+  let j = right + 1;
+  while (true) {
+    do
+      i++;
+    while (compare(keys2[i], pivot) < 0);
+    do
+      j--;
+    while (compare(keys2[j], pivot) > 0);
+    if (i >= j)
+      break;
+    let tmp = keys2[i];
+    keys2[i] = keys2[j];
+    keys2[j] = tmp;
+    tmp = values2[i];
+    values2[i] = values2[j];
+    values2[j] = tmp;
+  }
+  sort2(keys2, values2, left, j, compare);
+  sort2(keys2, values2, j + 1, right, compare);
+}
+
+// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
+function DEFAULT_COMPARE(a2, b) {
+  return a2 > b ? 1 : a2 < b ? -1 : 0;
+}
+function rotateLeft(node) {
+  var rightNode = node.right;
+  node.right = rightNode.left;
+  if (rightNode.left)
+    rightNode.left.parent = node;
+  rightNode.parent = node.parent;
+  if (rightNode.parent) {
+    if (rightNode.parent.left === node) {
+      rightNode.parent.left = rightNode;
+    } else {
+      rightNode.parent.right = rightNode;
+    }
+  }
+  node.parent = rightNode;
+  rightNode.left = node;
+  node.balanceFactor += 1;
+  if (rightNode.balanceFactor < 0) {
+    node.balanceFactor -= rightNode.balanceFactor;
+  }
+  rightNode.balanceFactor += 1;
+  if (node.balanceFactor > 0) {
+    rightNode.balanceFactor += node.balanceFactor;
+  }
+  return rightNode;
+}
+function rotateRight(node) {
+  var leftNode = node.left;
+  node.left = leftNode.right;
+  if (node.left)
+    node.left.parent = node;
+  leftNode.parent = node.parent;
+  if (leftNode.parent) {
+    if (leftNode.parent.left === node) {
+      leftNode.parent.left = leftNode;
+    } else {
+      leftNode.parent.right = leftNode;
+    }
+  }
+  node.parent = leftNode;
+  leftNode.right = node;
+  node.balanceFactor -= 1;
+  if (leftNode.balanceFactor > 0) {
+    node.balanceFactor -= leftNode.balanceFactor;
+  }
+  leftNode.balanceFactor -= 1;
+  if (node.balanceFactor < 0) {
+    leftNode.balanceFactor += node.balanceFactor;
+  }
+  return leftNode;
+}
+var AVLTree = class {
+  constructor(comparator, noDuplicates = false) {
+    this._comparator = comparator || DEFAULT_COMPARE;
+    this._root = null;
+    this._size = 0;
+    this._noDuplicates = !!noDuplicates;
+  }
+  destroy() {
+    return this.clear();
+  }
+  clear() {
+    this._root = null;
+    this._size = 0;
+    return this;
+  }
+  get size() {
+    return this._size;
+  }
+  contains(key) {
+    if (this._root) {
+      var node = this._root;
+      var comparator = this._comparator;
+      while (node) {
+        var cmp = comparator(key, node.key);
+        if (cmp === 0)
+          return true;
+        else if (cmp < 0)
+          node = node.left;
+        else
+          node = node.right;
+      }
+    }
+    return false;
+  }
+  next(node) {
+    var successor = node;
+    if (successor) {
+      if (successor.right) {
+        successor = successor.right;
+        while (successor.left)
+          successor = successor.left;
+      } else {
+        successor = node.parent;
+        while (successor && successor.right === node) {
+          node = successor;
+          successor = successor.parent;
+        }
+      }
+    }
+    return successor;
+  }
+  prev(node) {
+    var predecessor = node;
+    if (predecessor) {
+      if (predecessor.left) {
+        predecessor = predecessor.left;
+        while (predecessor.right)
+          predecessor = predecessor.right;
+      } else {
+        predecessor = node.parent;
+        while (predecessor && predecessor.left === node) {
+          node = predecessor;
+          predecessor = predecessor.parent;
+        }
+      }
+    }
+    return predecessor;
+  }
+  forEach(callback) {
+    var current = this._root;
+    var s = [], done = false, i = 0;
+    while (!done) {
+      if (current) {
+        s.push(current);
+        current = current.left;
+      } else {
+        if (s.length > 0) {
+          current = s.pop();
+          callback(current, i++);
+          current = current.right;
+        } else
+          done = true;
+      }
+    }
+    return this;
+  }
+  range(low, high, fn, ctx) {
+    const Q = [];
+    const compare = this._comparator;
+    let node = this._root, cmp;
+    while (Q.length !== 0 || node) {
+      if (node) {
+        Q.push(node);
+        node = node.left;
+      } else {
+        node = Q.pop();
+        cmp = compare(node.key, high);
+        if (cmp > 0) {
+          break;
+        } else if (compare(node.key, low) >= 0) {
+          if (fn.call(ctx, node))
+            return this;
+        }
+        node = node.right;
+      }
+    }
+    return this;
+  }
+  keys() {
+    var current = this._root;
+    var s = [], r = [], done = false;
+    while (!done) {
+      if (current) {
+        s.push(current);
+        current = current.left;
+      } else {
+        if (s.length > 0) {
+          current = s.pop();
+          r.push(current.key);
+          current = current.right;
+        } else
+          done = true;
+      }
+    }
+    return r;
+  }
+  values() {
+    var current = this._root;
+    var s = [], r = [], done = false;
+    while (!done) {
+      if (current) {
+        s.push(current);
+        current = current.left;
+      } else {
+        if (s.length > 0) {
+          current = s.pop();
+          r.push(current.data);
+          current = current.right;
+        } else
+          done = true;
+      }
+    }
+    return r;
+  }
+  at(index) {
+    var current = this._root;
+    var s = [], done = false, i = 0;
+    while (!done) {
+      if (current) {
+        s.push(current);
+        current = current.left;
+      } else {
+        if (s.length > 0) {
+          current = s.pop();
+          if (i === index)
+            return current;
+          i++;
+          current = current.right;
+        } else
+          done = true;
+      }
+    }
+    return null;
+  }
+  minNode() {
+    var node = this._root;
+    if (!node)
+      return null;
+    while (node.left)
+      node = node.left;
+    return node;
+  }
+  maxNode() {
+    var node = this._root;
+    if (!node)
+      return null;
+    while (node.right)
+      node = node.right;
+    return node;
+  }
+  min() {
+    var node = this._root;
+    if (!node)
+      return null;
+    while (node.left)
+      node = node.left;
+    return node.key;
+  }
+  max() {
+    var node = this._root;
+    if (!node)
+      return null;
+    while (node.right)
+      node = node.right;
+    return node.key;
+  }
+  isEmpty() {
+    return !this._root;
+  }
+  pop() {
+    var node = this._root, returnValue = null;
+    if (node) {
+      while (node.left)
+        node = node.left;
+      returnValue = { key: node.key, data: node.data };
+      this.remove(node.key);
+    }
+    return returnValue;
+  }
+  popMax() {
+    var node = this._root, returnValue = null;
+    if (node) {
+      while (node.right)
+        node = node.right;
+      returnValue = { key: node.key, data: node.data };
+      this.remove(node.key);
+    }
+    return returnValue;
+  }
+  find(key) {
+    var root = this._root;
+    var subtree = root, cmp;
+    var compare = this._comparator;
+    while (subtree) {
+      cmp = compare(key, subtree.key);
+      if (cmp === 0)
+        return subtree;
+      else if (cmp < 0)
+        subtree = subtree.left;
+      else
+        subtree = subtree.right;
+    }
+    return null;
+  }
+  insert(key, data) {
+    if (!this._root) {
+      this._root = {
+        parent: null,
+        left: null,
+        right: null,
+        balanceFactor: 0,
+        key,
+        data
+      };
+      this._size++;
+      return this._root;
+    }
+    var compare = this._comparator;
+    var node = this._root;
+    var parent = null;
+    var cmp = 0;
+    if (this._noDuplicates) {
+      while (node) {
+        cmp = compare(key, node.key);
+        parent = node;
+        if (cmp === 0)
+          return null;
+        else if (cmp < 0)
+          node = node.left;
+        else
+          node = node.right;
+      }
+    } else {
+      while (node) {
+        cmp = compare(key, node.key);
+        parent = node;
+        if (cmp <= 0)
+          node = node.left;
+        else
+          node = node.right;
+      }
+    }
+    var newNode = {
+      left: null,
+      right: null,
+      balanceFactor: 0,
+      parent,
+      key,
+      data
+    };
+    var newRoot;
+    if (cmp <= 0)
+      parent.left = newNode;
+    else
+      parent.right = newNode;
+    while (parent) {
+      cmp = compare(parent.key, key);
+      if (cmp < 0)
+        parent.balanceFactor -= 1;
+      else
+        parent.balanceFactor += 1;
+      if (parent.balanceFactor === 0)
+        break;
+      else if (parent.balanceFactor < -1) {
+        if (parent.right.balanceFactor === 1)
+          rotateRight(parent.right);
+        newRoot = rotateLeft(parent);
+        if (parent === this._root)
+          this._root = newRoot;
+        break;
+      } else if (parent.balanceFactor > 1) {
+        if (parent.left.balanceFactor === -1)
+          rotateLeft(parent.left);
+        newRoot = rotateRight(parent);
+        if (parent === this._root)
+          this._root = newRoot;
+        break;
+      }
+      parent = parent.parent;
+    }
+    this._size++;
+    return newNode;
+  }
+  remove(key) {
+    if (!this._root)
+      return null;
+    var node = this._root;
+    var compare = this._comparator;
+    var cmp = 0;
+    while (node) {
+      cmp = compare(key, node.key);
+      if (cmp === 0)
+        break;
+      else if (cmp < 0)
+        node = node.left;
+      else
+        node = node.right;
+    }
+    if (!node)
+      return null;
+    var returnValue = node.key;
+    var max2, min2;
+    if (node.left) {
+      max2 = node.left;
+      while (max2.left || max2.right) {
+        while (max2.right)
+          max2 = max2.right;
+        node.key = max2.key;
+        node.data = max2.data;
+        if (max2.left) {
+          node = max2;
+          max2 = max2.left;
+        }
+      }
+      node.key = max2.key;
+      node.data = max2.data;
+      node = max2;
+    }
+    if (node.right) {
+      min2 = node.right;
+      while (min2.left || min2.right) {
+        while (min2.left)
+          min2 = min2.left;
+        node.key = min2.key;
+        node.data = min2.data;
+        if (min2.right) {
+          node = min2;
+          min2 = min2.right;
+        }
+      }
+      node.key = min2.key;
+      node.data = min2.data;
+      node = min2;
+    }
+    var parent = node.parent;
+    var pp = node;
+    var newRoot;
+    while (parent) {
+      if (parent.left === pp)
+        parent.balanceFactor -= 1;
+      else
+        parent.balanceFactor += 1;
+      if (parent.balanceFactor < -1) {
+        if (parent.right.balanceFactor === 1)
+          rotateRight(parent.right);
+        newRoot = rotateLeft(parent);
+        if (parent === this._root)
+          this._root = newRoot;
+        parent = newRoot;
+      } else if (parent.balanceFactor > 1) {
+        if (parent.left.balanceFactor === -1)
+          rotateLeft(parent.left);
+        newRoot = rotateRight(parent);
+        if (parent === this._root)
+          this._root = newRoot;
+        parent = newRoot;
+      }
+      if (parent.balanceFactor === -1 || parent.balanceFactor === 1)
+        break;
+      pp = parent;
+      parent = parent.parent;
+    }
+    if (node.parent) {
+      if (node.parent.left === node)
+        node.parent.left = null;
+      else
+        node.parent.right = null;
+    }
+    if (node === this._root)
+      this._root = null;
+    this._size--;
+    return returnValue;
+  }
+  load(keys2 = [], values2 = [], presort) {
+    if (this._size !== 0)
+      throw new Error("bulk-load: tree is not empty");
+    const size = keys2.length;
+    if (presort)
+      sort2(keys2, values2, 0, size - 1, this._comparator);
+    this._root = loadRecursive(null, keys2, values2, 0, size);
+    markBalance(this._root);
+    this._size = size;
+    return this;
+  }
+  isBalanced() {
+    return isBalanced(this._root);
+  }
+  toString(printNode) {
+    return print(this._root, printNode);
+  }
+};
+AVLTree.default = AVLTree;
+
 // src/chatRoom.ts
 var Code = class {
   constructor(state, env) {
@@ -6727,7 +7281,9 @@ var Code = class {
   codeSpace;
   sess;
   sessionStarted;
+  user = self.crypto.randomUUID().slice(0, 8);
   address;
+  users = new AVLTree((a2, b) => a2 === b ? 0 : a2 < b ? 1 : -1, true);
   sessions;
   async fetch(request, env, ctx) {
     const state = this.sess;
@@ -7032,12 +7588,14 @@ var Code = class {
     );
     let closeOrErrorHandler = () => {
       session2.quit = true;
+      this.users.remove(session2.name);
     };
     webSocket.addEventListener("close", closeOrErrorHandler);
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
   async processWsMessage(msg, session2) {
     if (session2.quit) {
+      this.users.remove(session2.name);
       session2.webSocket.close(1011, "WebSocket broken.");
       return;
     }
@@ -7070,8 +7628,13 @@ var Code = class {
         } catch (e) {
           respondWith({ error: "error while checked blocked messages" });
         }
+        const userNode = this.users.insert(data.name);
+        const usersNum = this.users.keys().length;
+        const rtcConnUser = usersNum > 2 ? userNode.parent?.key || userNode.left?.key || userNode.right?.key : null;
         return respondWith({
-          hashCode: hashCode3()
+          ...rtcConnUser ? { name: rtcConnUser } : {},
+          hashCode: hashCode3(),
+          users: this.users.keys()
         });
       }
       return respondWith({

@@ -245,26 +245,31 @@ const monacoContribution = async (
       {
         name: "@emotion/cache",
         url: emotionCache,
+
         depend: ["@emotion/utils"],
       },
       {
         name: "@emotion/react",
+        force: true,
         url: "/node_modules/@emotion/react/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-runtime",
+        force: true,
         url: emotionJSXRuntimeDTS,
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-dev-runtime",
         url: emotionJSXRuntimeDTS,
+        force: true,
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-namespace",
-        url: emotionJSXNameSpaceDTS,
+        url: emotionJSXNameSpaceDTS,     
+        force: true,
         depend: ["@emotion/utils", "type"],
       },
       {
@@ -274,7 +279,13 @@ const monacoContribution = async (
       },
       {
         name: "@emotion/react/css-prop",
+        force: true,
         url: "/node_modules/@emotion/react/types/css-prop.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@use-gesture/react",
+        url: "/node_modules/@use-gesture/react/dist/declarations/src/index.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
@@ -284,6 +295,7 @@ const monacoContribution = async (
       },
       {
         name: "@emotion/serialize",
+        force: true,
         url:
           "/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts",
 
@@ -291,6 +303,7 @@ const monacoContribution = async (
       },
       {
         name: "@emotion/utils",
+        force: true,
         url: "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
         depend: [],
       },
@@ -308,8 +321,8 @@ const monacoContribution = async (
     //   location.origin + `/node_modules/framer-motion/package.json`);
 
     try {
-      const mapper = async ({ name, url }: { name: string; url: string }) =>
-        languages.typescript.typescriptDefaults.addExtraLib(
+      
+      const mapper = async ({ name, url, force }: { name: string; url: string, force?: boolean }) => (code.indexOf(name)!==-1 || force) && languages.typescript.typescriptDefaults.addExtraLib(
           await (await fetch(
             url,
           )).text(),

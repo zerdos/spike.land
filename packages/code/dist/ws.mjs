@@ -1932,11 +1932,11 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
               });
             };
             let onmessage2;
-            let globalThis = {};
+            let globalThis2 = {};
             for (let o = self; o; o = Object.getPrototypeOf(o))
               for (let k of Object.getOwnPropertyNames(o))
-                if (!(k in globalThis))
-                  Object.defineProperty(globalThis, k, { get: () => self[k] });
+                if (!(k in globalThis2))
+                  Object.defineProperty(globalThis2, k, { get: () => self[k] });
             "use strict";
             (() => {
               const enosys = () => {
@@ -1944,9 +1944,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                 err.code = "ENOSYS";
                 return err;
               };
-              if (!globalThis.fs) {
+              if (!globalThis2.fs) {
                 let outputBuf = "";
-                globalThis.fs = {
+                globalThis2.fs = {
                   constants: { O_WRONLY: -1, O_RDWR: -1, O_CREAT: -1, O_TRUNC: -1, O_APPEND: -1, O_EXCL: -1 },
                   writeSync(fd, buf) {
                     outputBuf += decoder.decode(buf);
@@ -2036,8 +2036,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                   }
                 };
               }
-              if (!globalThis.process) {
-                globalThis.process = {
+              if (!globalThis2.process) {
+                globalThis2.process = {
                   getuid() {
                     return -1;
                   },
@@ -2066,21 +2066,21 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                   }
                 };
               }
-              if (!globalThis.crypto) {
+              if (!globalThis2.crypto) {
                 throw new Error("globalThis.crypto is not available, polyfill required (crypto.getRandomValues only)");
               }
-              if (!globalThis.performance) {
+              if (!globalThis2.performance) {
                 throw new Error("globalThis.performance is not available, polyfill required (performance.now only)");
               }
-              if (!globalThis.TextEncoder) {
+              if (!globalThis2.TextEncoder) {
                 throw new Error("globalThis.TextEncoder is not available, polyfill required");
               }
-              if (!globalThis.TextDecoder) {
+              if (!globalThis2.TextDecoder) {
                 throw new Error("globalThis.TextDecoder is not available, polyfill required");
               }
               const encoder = new TextEncoder("utf-8");
               const decoder = new TextDecoder("utf-8");
-              globalThis.Go = class {
+              globalThis2.Go = class {
                 constructor() {
                   this.argv = ["js"];
                   this.env = {};
@@ -2199,7 +2199,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                         const fd = getInt64(sp + 8);
                         const p2 = getInt64(sp + 16);
                         const n = this.mem.getInt32(sp + 24, true);
-                        globalThis.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p2, n));
+                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p2, n));
                       },
                       "runtime.resetMemoryDataView": (sp) => {
                         sp >>>= 0;
@@ -2388,7 +2388,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                       null,
                       true,
                       false,
-                      globalThis,
+                      globalThis2,
                       this
                     ];
                     this._goRefCounts = new Array(this._values.length).fill(Infinity);
@@ -2397,7 +2397,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                       [null, 2],
                       [true, 3],
                       [false, 4],
-                      [globalThis, 5],
+                      [globalThis2, 5],
                       [this, 6]
                     ]);
                     this._idPool = [];
@@ -2463,7 +2463,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
             })();
             onmessage2 = ({ data: wasm2 }) => {
               let decoder = new TextDecoder();
-              let fs = globalThis.fs;
+              let fs = globalThis2.fs;
               let stderr = "";
               fs.writeSync = (fd, buffer) => {
                 if (fd === 1) {
@@ -2507,7 +2507,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                 }
                 callback(null, count);
               };
-              let go = new globalThis.Go();
+              let go = new globalThis2.Go();
               go.argv = ["", `--service=${"0.15.10"}`];
               if (wasm2 instanceof WebAssembly.Module) {
                 WebAssembly.instantiate(wasm2, go.importObject).then((instance) => go.run(instance));
@@ -3558,11 +3558,9 @@ function isMobile() {
 init_define_process();
 var prettierJs = async (code) => {
   const prettier = init();
-  console.log(code);
   return prettier.prettierJs(code);
 };
 var _prettierJs = null;
-console.log("started");
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
@@ -3611,7 +3609,8 @@ var mod = {
   },
   getValue: async () => "",
   setValue: async (code) => {
-    console.log(code);
+    if (code.length < 10)
+      console.log(code);
   },
   code: "",
   counter: 0,
@@ -3679,7 +3678,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-LEW2YXWC.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-G5TFMIZC.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -3981,7 +3980,9 @@ var ws = null;
 var sendWS;
 var rejoined = false;
 var sendChannel = {
+  localStream: null,
   webRtcArray,
+  user,
   rtcConns,
   send(data) {
     const messageString = JSON.stringify({
@@ -4003,6 +4004,7 @@ var sendChannel = {
     });
   }
 };
+Object.assign(globalThis, { sendChannel });
 var run = async (startState) => {
   if (location.pathname.endsWith("dehydrated")) {
     return;
@@ -4107,22 +4109,21 @@ async function syncWS() {
     console.error("error 2", { e: error });
   }
 }
-var localStream = null;
 var stopVideo = async () => {
-  if (!localStream)
+  if (!sendChannel.localStream)
     return;
-  localStream.getTracks().map((x) => x.stop());
+  sendChannel.localStream.getTracks().map((x) => x.stop());
 };
 var startVideo2 = async (vidElement) => {
   const mediaConstraints = {
     audio: true,
     video: true
   };
-  const localStream2 = await navigator.mediaDevices.getUserMedia(
+  const localStream = await navigator.mediaDevices.getUserMedia(
     mediaConstraints
   );
-  vidElement.srcObject = localStream2;
-  localStream2.getTracks().forEach(
+  vidElement.srcObject = localStream;
+  localStream.getTracks().forEach(
     (track) => Object.keys(sendChannel.rtcConns).map((k) => {
       const myStream = new MediaStream();
       sendChannel.rtcConns[k].ontrack = ({ track: track2 }) => myStream.addTrack(track2);
@@ -4178,9 +4179,10 @@ async function join() {
       }
     };
     sendWS = mess;
+    const extendedWS = Object.assign(wsConnection, { hashCode: hashCode() });
     ws.addEventListener(
       "message",
-      async (message) => processWsMessage(message, "ws")
+      async (message) => processWsMessage(message, "ws", extendedWS)
     );
     if (intervalHandler) {
       clearInterval(intervalHandler);
@@ -4213,7 +4215,7 @@ async function join() {
   return wsConnection;
 }
 var h2 = {};
-async function processWsMessage(event, source) {
+async function processWsMessage(event, source, conn) {
   if (ws == null) {
     return;
   }
@@ -4221,12 +4223,14 @@ async function processWsMessage(event, source) {
   const data = JSON.parse(event.data);
   processData(data, source);
 }
-async function processData(data, source) {
+async function processData(data, source, conn) {
   console.log("ws", data.name, data.oldHash, data.newHash);
   if (source === "ws" && data.timestamp) {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
+  if (data.hashCode || data.newHash && conn)
+    conn.hashCode = data.hashCode || data.newHash;
   if (source === "ws" && data.hashCode) {
     wsLastHashCode = data.hashCode;
   }
@@ -4265,7 +4269,7 @@ async function processData(data, source) {
         await handleChatAnswerMessage(data.answer, data.name);
         return;
       }
-      if (data.name && data.name !== user && !rtcConns[data.name]) {
+      if (data.name && data.name !== user && !rtcConns[data.name] && !ignoreUsers.includes(data.name)) {
         await createPeerConnection(data.name);
         return;
       }
@@ -4366,7 +4370,8 @@ async function processData(data, source) {
       if (data2 && data2.newHash) {
         webRTCLastSeenHashCode = data2.newHash;
       }
-      return processWsMessage(message, "rtc");
+      const extendedRTC = Object.assign(rtc, { hashCode: hashCode() });
+      return processWsMessage(message, "rtc", extendedRTC);
     });
     rtc.addEventListener("error", (error) => {
       console.log("xxxxxx-  Data Channel Error:", error);

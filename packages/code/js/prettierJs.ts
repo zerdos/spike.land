@@ -9,7 +9,6 @@ type PrettierFN = {
 export const prettierJs = async (code: string) =>
 {
     const prettier=  init();
-    console.log(code)
     return  prettier.prettierJs(code);
 }
 
@@ -17,7 +16,8 @@ export const prettierJs = async (code: string) =>
 
 let _prettierJs: ((code: string)=>string) | null= null;
 
-console.log("started");
+
+
 
 
 const fallback = {
