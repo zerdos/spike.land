@@ -364,25 +364,27 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </Fab> */
               }
 
-             {false && <><video
-                ref={videoRef}
-                onClick={() => startVideo(videoRef.current!)}
-                playsInline={true}
-                autoPlay={true}
-              >
-              </video>
-              {clients.map((k, index) => (
-                <video
-                  id={`video-${k}`}
-                  key={index}
-                  ref={videoRef}
-                  playsInline={true}
-                  autoPlay={true}
-                >
-                </video>
-                
-              ))}
-</>}
+              {false && (
+                <>
+                  <video
+                    ref={videoRef}
+                    onClick={() => startVideo(videoRef.current!)}
+                    playsInline={true}
+                    autoPlay={true}
+                  >
+                  </video>
+                  {clients.map((k, index) => (
+                    <video
+                      id={`video-${k}`}
+                      key={index}
+                      ref={videoRef}
+                      playsInline={true}
+                      autoPlay={true}
+                    >
+                    </video>
+                  ))}
+                </>
+              )}
               <Fab
                 key="Share"
                 onClick={() => open(`/live/${room}/public`)}

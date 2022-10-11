@@ -40,8 +40,6 @@ import { md5 } from "md5";
 
 // export const runnerDebounced: typeof runner = (props) => debounced(props);
 
-
-
 export async function runner({ code, counter, codeSpace }: {
   code: string;
   codeSpace: string;
@@ -64,7 +62,6 @@ export async function runner({ code, counter, codeSpace }: {
   //   (await import("./esbuildEsm.ts")).transform;
 
   try {
-
     const transpiled = await transform(code, {
       loader: "tsx",
       format: "esm",

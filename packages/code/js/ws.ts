@@ -77,7 +77,7 @@ export const sendChannel = {
     });
   },
 };
-Object.assign(globalThis, {sendChannel});
+Object.assign(globalThis, { sendChannel });
 
 // Let createDelta;
 
@@ -380,10 +380,10 @@ export async function join() {
     };
 
     sendWS = mess;
-    const extendedWS = Object.assign(wsConnection, {hashCode: hashCode()});
+    const extendedWS = Object.assign(wsConnection, { hashCode: hashCode() });
     ws.addEventListener(
       "message",
-      async (message) => processWsMessage(message, "ws",  extendedWS),
+      (message) => processWsMessage(message, "ws", extendedWS),
     );
     // If (delta) {
     //   if (delta !== deltaSent) {
@@ -436,7 +436,7 @@ const h: Record<number, number> = {};
 async function processWsMessage(
   event: { data: string },
   source: "ws" | "rtc",
-  conn: {hashCode: number}
+  conn: { hashCode: number },
 ) {
   if (ws == null) {
     return;
@@ -446,10 +446,14 @@ async function processWsMessage(
 
   const data = JSON.parse(event.data);
 
-  processData(data, source);
+  processData(data, source, conn);
 }
 
-async function processData(data: any, source: "ws" | "rtc", conn: {hashCode: number}) {
+async function processData(
+  data: any,
+  source: "ws" | "rtc",
+  conn: { hashCode: number },
+) {
   console.log("ws", data.name, data.oldHash, data.newHash);
 
   // MySession.addEvent(data);
@@ -458,7 +462,9 @@ async function processData(data: any, source: "ws" | "rtc", conn: {hashCode: num
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
-  if (data.hashCode || data.newHash && conn) conn.hashCode =  data.hashCode || data.newHash;
+  if (data.hashCode || data.newHash && conn) {
+    conn.hashCode = data.hashCode || data.newHash;
+  }
 
   if (source === "ws" && data.hashCode) {
     wsLastHashCode = data.hashCode;
@@ -512,7 +518,7 @@ async function processData(data: any, source: "ws" | "rtc", conn: {hashCode: num
 
       if (
         data.name && data.name !== user &&
-        !rtcConns[data.name] &&  !ignoreUsers.includes(data.name)
+        !rtcConns[data.name] && !ignoreUsers.includes(data.name)
       ) {
         await createPeerConnection(data.name);
         return;
@@ -618,7 +624,12 @@ async function processData(data: any, source: "ws" | "rtc", conn: {hashCode: num
 
       rtc.addEventListener(
         "message",
-        async (message) => processWsMessage(message, "rtc"),
+        async (message) =>
+          processWsMessage(
+            message,
+            "rtc",
+            Object.assign(rtc, { hashCode: hashCode() }),
+          ),
       );
       const rtcWithTarget = Object.assign(rtc, { target });
       webRtcArray.push(rtcWithTarget);
@@ -640,20 +651,20 @@ async function processData(data: any, source: "ws" | "rtc", conn: {hashCode: num
 
     rtc.binaryType = "arraybuffer";
 
-    rtc.addEventListener("message", async (message) => {
-      console.log("***********RTC***", { msg: message });
+    // rtc.addEventListener("message", async (message) => {
+    //   console.log("***********RTC***", { msg: message });
 
-      const data = JSON.parse(message.data);
-      if (data && data.hashCode) {
-        webRTCLastSeenHashCode = data.hashCode;
-      }
+    //   const data = JSON.parse(message.data);
+    //   if (data && data.hashCode) {
+    //     webRTCLastSeenHashCode = data.hashCode;
+    //   }
 
-      if (data && data.newHash) {
-        webRTCLastSeenHashCode = data.newHash;
-      }
-      const extendedRTC = Object.assign(rtc, {hashCode: hashCode()})
-      return processWsMessage(message, "rtc", extendedRTC);
-    });
+    //   if (data && data.newHash) {
+    //     webRTCLastSeenHashCode = data.newHash;
+    //   }
+    //   const extendedRTC = Object.assign(rtc, {hashCode: hashCode()})
+    //   return processWsMessage(message, "rtc", extendedRTC);
+    // });
 
     rtc.addEventListener("error", (error) => {
       console.log("xxxxxx-  Data Channel Error:", error);

@@ -6,7 +6,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
-import {prettierJs} from "./prettierJs"; 
+import { prettierJs } from "./prettierJs";
 // /Volumes/devX/spike.land/packages/code/js/prettierJs.ts
 // import {wrkModuleImport} from "./moduleWorker.mjs"
 
@@ -16,14 +16,14 @@ import {prettierJs} from "./prettierJs";
 //   const prettied = await mod.prettierJs(code);
 //   console.log({prettied});
 //   return prettied
-  
+
 // }
 
 const mod = {
   CH() {},
-  getValue:  async () => "",
+  getValue: async () => "",
   setValue: async (code: string) => {
-    if (code.length<10) console.log(code);
+    if (code.length < 10) console.log(code);
   },
   code: "",
   counter: 0,
@@ -86,34 +86,30 @@ export const Editor: React.FC<
       //		return;
     }
 
-   
-    (async()=>{
-    const code = await mod.getValue();
-    const newCode = await prettierJs(code);
+    (async () => {
+      const code = await mod.getValue();
+      const newCode = await prettierJs(code);
 
-    if (newCode === myCode) {
-      return;
-    }
+      if (newCode === myCode) {
+        return;
+      }
 
-    if (newCode === mST().code) {
-      return;
-    }
+      if (newCode === mST().code) {
+        return;
+      }
 
-    // if (mySession.counter  mST().i) return;
+      // if (mySession.counter  mST().i) return;
 
-    mod.counter = mST().i + increment;
+      mod.counter = mST().i + increment;
 
-    changeContent((x) => ({
-      ...x,
-      lastKeyDown: 0,
-      counter: mod.counter,
-      myCode: newCode,
-    }));
-    runner({ code: newCode, counter: mod.counter, codeSpace });
-
-  })();
-    
-
+      changeContent((x) => ({
+        ...x,
+        lastKeyDown: 0,
+        counter: mod.counter,
+        myCode: newCode,
+      }));
+      runner({ code: newCode, counter: mod.counter, codeSpace });
+    })();
 
     // Console.log("RUN THE RUNNER AGAIN");
 
@@ -164,7 +160,7 @@ export const Editor: React.FC<
         return await prettierJs(model.getValue());
       };
 
-      const setValue = async(_code: string) => {
+      const setValue = async (_code: string) => {
         const code = await prettierJs(_code);
         mod.codeToSet = code;
         if (code.length < `export default ()=><></>`.length) return;
@@ -195,7 +191,7 @@ export const Editor: React.FC<
       const editor = await startAce(mST().code);
       const getValue = async () => await prettierJs(editor.session.getValue());
 
-      const setValue = async(_code: string) => {
+      const setValue = async (_code: string) => {
         const code = await prettierJs(_code);
         mod.codeToSet = code;
 

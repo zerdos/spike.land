@@ -7283,7 +7283,10 @@ var Code = class {
   sessionStarted;
   user = self.crypto.randomUUID().slice(0, 8);
   address;
-  users = new AVLTree((a2, b) => a2 === b ? 0 : a2 < b ? 1 : -1, true);
+  users = new AVLTree(
+    (a2, b) => a2 === b ? 0 : a2 < b ? 1 : -1,
+    true
+  );
   sessions;
   async fetch(request, env, ctx) {
     const state = this.sess;
