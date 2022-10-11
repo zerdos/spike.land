@@ -3710,7 +3710,7 @@ var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var FabLazy = lazy(async () => import("./chunk-Fab-KX4VNIGK.mjs"));
 var Fab = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
   fallback: (0, import_jsx_runtime5.jsx)("div", {
-    css: import_react9.css`width: 25px; height:25px`
+    css: import_react9.css`width: 28px; height:28px`
   }),
   children: (0, import_jsx_runtime5.jsx)(FabLazy, {
     ...props
@@ -3719,7 +3719,7 @@ var Fab = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
 var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-73KV3BJD.mjs"));
 var ToggleButton = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
   fallback: (0, import_jsx_runtime5.jsx)("div", {
-    css: import_react9.css`width: 25px; height:25px`
+    css: import_react9.css`width: 28px; height:28px`
   }),
   children: (0, import_jsx_runtime5.jsx)(ToggleButtonLazy, {
     ...props
@@ -3730,7 +3730,7 @@ var ToggleButtonGroupLazy = lazy(
 );
 var ToggleButtonGroup = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
   fallback: (0, import_jsx_runtime5.jsx)("div", {
-    css: import_react9.css`width: 25px; height:25px`
+    css: import_react9.css`width: 28px; height:28px`
   }),
   children: (0, import_jsx_runtime5.jsx)(ToggleButtonGroupLazy, {
     ...props
