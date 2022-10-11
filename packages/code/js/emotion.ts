@@ -1,5 +1,8 @@
-import EmotionReact from "@emotion/react";
+import { CacheProvider, css, Global, jsx }  from "@emotion/react";
 
-export { CacheProvider, css, Global, jsx } from "@emotion/react";
+export { CacheProvider, css, Global, jsx }
+// @ts-expect-error
+export {  jsxs, Fragment } from "@emotion/react/jsx-runtime"
 
-export default EmotionReact;
+const EmotionReact= { CacheProvider, css, Global, jsx } 
+export default  EmotionReact

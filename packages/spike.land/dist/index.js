@@ -401,13 +401,16 @@ var imap = {
   "imports": {
     ...mods,
     "@emotion/react": emotionReact,
-    "@emotion/react/jsx-runtime": emotionJsxRuntime,
+    "@emotion/react/jsx-runtime": emotionReact,
     "@mui/": "npm:@mui/",
     "@use-gesture/react": "npm:@use-gesture/react?external=react",
     "live/": "live/",
     "react": preact,
+    "react-dom": preact,
+    "react-dom/client": preact,
+    "react-dom/server": preact,
     "framer-motion": motion,
-    "react/jsx-runtime": `npm:react/jsx-runtime`,
+    "react/jsx-runtime": preact,
     "ws.mjs": ws
   }
 };

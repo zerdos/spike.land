@@ -51,7 +51,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 15263,
+      "bytes": 15330,
       "imports": [
         {
           "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -237,7 +237,7 @@
           "bytesInOutput": 8916
         },
         "src/chat.ts": {
-          "bytesInOutput": 13006
+          "bytesInOutput": 13073
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -282,7 +282,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 285886
+      "bytes": 285953
     }
   }
 }

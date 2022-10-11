@@ -2302,6 +2302,7 @@ __metadata:
     es-module-shims: "npm:^1.6.1"
     esbuild: "npm:^0.15.10"
     esbuild-plugin-alias: "npm:0.2.1"
+    esbuild-plugin-external-global: "npm:^1.0.1"
     esbuild-plugin-import-map: "npm:2.1.0"
     esbuild-register: "npm:^3.3.3"
     esbuild-wasm: "npm:0.15.10"
@@ -4858,6 +4859,13 @@ __metadata:
   version: 0.2.1
   resolution: "esbuild-plugin-alias@npm:0.2.1"
   checksum: 4e544c4ed572e80a3c14123f32ed70a20a936519f5a750c6c072030379e7be6163a899db6f2ee1e58aa4aacb73652f1014381767d2bdc8336e054e50f52e0b2d
+  languageName: node
+  linkType: hard
+
+"esbuild-plugin-external-global@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "esbuild-plugin-external-global@npm:1.0.1"
+  checksum: bc4ae93b1452ba498f378de31005517a7974420850b95495907e2dd95eea39130c342a8ecbb8d314174220ff525a5cc0add4bdc45ab7409c5588cd854ff6173c
   languageName: node
   linkType: hard
 
