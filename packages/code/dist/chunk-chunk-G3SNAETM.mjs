@@ -6659,8 +6659,32 @@ var AnimatePresence = ({ children, custom, initial = true, onExitComplete, exitB
   return h(p, null, exiting.size ? childrenToRender : childrenToRender.map((child) => cloneElement(child)));
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/dom/features-max.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
 init_define_process();
+init_react_preact();
+init_react_preact();
+function LazyMotion({ children, features, strict = false }) {
+  const [, setIsLoaded] = useState(!isLazyBundle(features));
+  const loadedRenderer = useRef(void 0);
+  if (!isLazyBundle(features)) {
+    const { renderer, ...loadedFeatures } = features;
+    loadedRenderer.current = renderer;
+    loadFeatures(loadedFeatures);
+  }
+  useEffect(() => {
+    if (isLazyBundle(features)) {
+      features().then(({ renderer, ...loadedFeatures }) => {
+        loadFeatures(loadedFeatures);
+        loadedRenderer.current = renderer;
+        setIsLoaded(true);
+      });
+    }
+  }, []);
+  return h(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
+}
+function isLazyBundle(features) {
+  return typeof features === "function";
+}
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/dom/features-animation.mjs
 init_define_process();
@@ -6671,6 +6695,7 @@ var domAnimation = {
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/dom/features-max.mjs
+init_define_process();
 var domMax = {
   ...domAnimation,
   ...drag,
@@ -6702,33 +6727,6 @@ init_define_process();
 init_define_process();
 init_react_preact();
 init_react_preact();
-
-// ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
-init_define_process();
-init_react_preact();
-init_react_preact();
-function LazyMotion({ children, features, strict = false }) {
-  const [, setIsLoaded] = useState(!isLazyBundle(features));
-  const loadedRenderer = useRef(void 0);
-  if (!isLazyBundle(features)) {
-    const { renderer, ...loadedFeatures } = features;
-    loadedRenderer.current = renderer;
-    loadFeatures(loadedFeatures);
-  }
-  useEffect(() => {
-    if (isLazyBundle(features)) {
-      features().then(({ renderer, ...loadedFeatures }) => {
-        loadFeatures(loadedFeatures);
-        loadedRenderer.current = renderer;
-        setIsLoaded(true);
-      });
-    }
-  }, []);
-  return h(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
-}
-function isLazyBundle(features) {
-  return typeof features === "function";
-}
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 init_define_process();

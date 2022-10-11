@@ -19,17 +19,15 @@ import {
   domMax,
   m,
   motion
-} from "./chunk-chunk-3HKALFUM.mjs";
+} from "./chunk-chunk-G3SNAETM.mjs";
 import "./chunk-chunk-OC5MYZKC.mjs";
 import {
-  require_emotion_react_cjs
-} from "./chunk-chunk-T2J62TW2.mjs";
-import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-HN37MOF2.mjs";
+} from "./chunk-chunk-EGIX2NBQ.mjs";
 import {
-  require_emotion_cache_cjs
-} from "./chunk-chunk-DZSNCJXW.mjs";
+  require_emotion_cache_cjs,
+  require_emotion_react_cjs
+} from "./chunk-chunk-MM7HEDRT.mjs";
 import {
   $,
   Children,
@@ -3386,10 +3384,10 @@ var renderFromString = (codeSpace2, hash) => {
     return { html: null, css: null };
   }
   const html = document.getElementById(`${codeSpace2}-${md5hash}`)?.innerHTML;
-  const css7 = html ? extractCritical22(html) : "";
+  const css8 = html ? extractCritical22(html) : "";
   return {
     html: `<div id="${codeSpace2}-${md5hash}" style="height:100%">${html}</div>`,
-    css: css7
+    css: css8
   };
 };
 var extractCritical22 = (html) => {
@@ -3455,9 +3453,9 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
     if (newHash !== md5Hash)
       return;
     render2[md5Hash] = render2[md5Hash] || renderFromString(codeSpace2, hash);
-    const { html, css: css7 } = render2[md5Hash];
-    if (html && css7) {
-      patchSync({ ...mST(), html, css: css7 });
+    const { html, css: css8 } = render2[md5Hash];
+    if (html && css8) {
+      patchSync({ ...mST(), html, css: css8 });
     } else
       delete render2[md5Hash];
   }, [md5Hash]);
@@ -3708,22 +3706,31 @@ var Tv = () => (0, import_jsx_runtime4.jsx)(Wrap, {
 init_define_process();
 init_react_preact();
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FabLazy = lazy(async () => import("./chunk-Fab-3AAVH5W2.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-KX4VNIGK.mjs"));
 var Fab = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
+  fallback: (0, import_jsx_runtime5.jsx)("div", {
+    css: css`width: 25px; height:25px`
+  }),
   children: (0, import_jsx_runtime5.jsx)(FabLazy, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-TYLZWDH3.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-73KV3BJD.mjs"));
 var ToggleButton = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
+  fallback: (0, import_jsx_runtime5.jsx)("div", {
+    css: css`width: 25px; height:25px`
+  }),
   children: (0, import_jsx_runtime5.jsx)(ToggleButtonLazy, {
     ...props
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-FYNI75XN.mjs")
+  async () => import("./chunk-ToggleButtonGroup-PYHSM3QH.mjs")
 );
 var ToggleButtonGroup = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
+  fallback: (0, import_jsx_runtime5.jsx)("div", {
+    css: css`width: 25px; height:25px`
+  }),
   children: (0, import_jsx_runtime5.jsx)(ToggleButtonGroupLazy, {
     ...props
   })
@@ -4241,7 +4248,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-G5TFMIZC.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-RXIFO4A5.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,

@@ -4,6 +4,7 @@
 
 import type { FC } from "react";
 import { lazy, Suspense } from "react";
+impor
 
 import type {
   FabProps,
@@ -17,14 +18,14 @@ import type {
 
 const FabLazy = lazy(async () => import("@mui/material/Fab"));
 export const Fab: FC<FabProps> = (props) => (
-  <Suspense>
+  <Suspense fallback={<div css={css`width: 25px; height:25px`}/>}>
     <FabLazy {...props}></FabLazy>
   </Suspense>
 );
 
 const ToggleButtonLazy = lazy(async () => import("@mui/material/ToggleButton"));
 export const ToggleButton: FC<ToggleButtonProps> = (props) => (
-  <Suspense>
+  <Suspense fallback={<div css={css`width: 25px; height:25px`}/>}>
     <ToggleButtonLazy {...props} />
   </Suspense>
 );
@@ -33,7 +34,7 @@ const ToggleButtonGroupLazy = lazy(async () =>
   import("@mui/material/ToggleButtonGroup")
 );
 export const ToggleButtonGroup: FC<ToggleButtonGroupProps> = (props) => (
-  <Suspense>
+  <Suspense fallback={<div css={css`width: 25px; height:25px`}/>}>
     <ToggleButtonGroupLazy {...props} />
   </Suspense>
 );

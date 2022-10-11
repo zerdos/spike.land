@@ -9,6 +9,7 @@ import esbuild from "esbuild";
 // const rmAsync = promisify(fs.rm);
 import aliasPlugin from "esbuild-plugin-alias";
 
+
 const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
@@ -17,6 +18,7 @@ const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
 const target = "es2020";
+
 
 console.log(`
 -------------------------------------------------
@@ -52,20 +54,7 @@ const buildOptions = {
   define,
   target,
   platform: "browser",
-  plugins: [
-    aliasPlugin({
-      buffer: resolve("./js/buffer/index.js"),
-      ms: resolve("./js/ms.js"),
-      debug: resolve("./js/debug.js"),
-      events: resolve("./js/events.js"),
-      react: resolve("./js/react-preact.ts"),
-      "react-dom": resolve("./js/react-preact.ts"),
-      "react-dom/client": resolve("./js/react-preact.ts"),
-      "react-dom/server": resolve("./js/react-preact.ts"),
-      "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
-      "react/jsx-runtime": resolve("./js/react-preact.ts"),
-    }),
-  ],
+ 
   external: ["./mST", "/npm:*"],
   legalComments: "none",
 };
@@ -78,17 +67,18 @@ const workerEntryPoints = [
   "vs/editor/editor.worker",
 ];
 
-const build = (/** @type {string[]} */ entryPoints) =>
+const build = ( entryPoints, extraExternal) =>
   esbuild.build({
     ...buildOptions,
     entryPoints,
+    external: [...buildOptions.external, ...extraExternal],
     outExtension: { ".js": ".mjs" },
     bundle: true,
     splitting: true,
     target,
     format: "esm",
     sourcemap: false,
-
+   
     minify: !isDevelopment,
     minifyWhitespace: !isDevelopment,
     minifyIdentifiers: !isDevelopment,
@@ -129,6 +119,7 @@ const build = (/** @type {string[]} */ entryPoints) =>
       ".webp": "file",
       ".tsx": "tsx",
       ".jsx": "tsx",
+      ".js": "tsx",
       ".css": "css",
       ".d.ts": "file",
       ".workerJs.js": "file",
@@ -161,15 +152,54 @@ const build = (/** @type {string[]} */ entryPoints) =>
     outdir: "./js/monaco-workers",
   });
 
+  // await build([
+  //   // "js/session.ts",
+  //   // "js/prettierWorker.mjs",
+  //   "js/react-preact.ts",
+  //   // "js/motion.ts",
+  //   // "js/emotion.ts",
+  //   // "js/emotionJsxRuntime.ts",
+  //   // "js/ws.ts",
+  // ], []);
+
+  buildOptions.plugins = [
+    aliasPlugin({
+      react: resolve("./js/react-preact.ts"),
+      "react-dom": resolve("./js/react-preact.ts"),
+      "react-dom/client": resolve("./js/react-preact.ts"),
+      "react-dom/server": resolve("./js/react-preact.ts"),
+      "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
+      "react/jsx-runtime": resolve("./js/react-preact.ts"),
+    }),
+  ],
+
+
+
+
+
+
+  // await build([
+  //   // "js/session.ts",
+  //   // "js/prettierWorker.mjs",
+  //   "js/react-preact.ts",
+  //   "js/motion.ts",
+    
+  //   "js/emotion.ts",
+  //   // "js/emotionJsxRuntime.ts",
+  //   // "js/ws.ts",
+  // ],[]);
+
+
   await build([
     "js/session.ts",
     "js/prettierWorker.mjs",
     "js/react-preact.ts",
     "js/motion.ts",
     "js/emotion.ts",
-    "js/emotionJsxRuntime.ts",
+    // "js/emotionJsxRuntime.ts",
     "js/ws.ts",
-  ]);
+  ],[ ]);
+
 })();
 
 // Await esbuild

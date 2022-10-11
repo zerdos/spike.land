@@ -4,9 +4,6 @@ import {
 import {
   init_define_process
 } from "./chunk-chunk-QTIR5YHF.mjs";
-import {
-  __publicField
-} from "./chunk-chunk-477FBAEY.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/monaco.contribution.js
 init_define_process();
@@ -71,16 +68,8 @@ var ModuleResolutionKind = ((ModuleResolutionKind2) => {
 })(ModuleResolutionKind || {});
 var LanguageServiceDefaultsImpl = class {
   constructor(compilerOptions, diagnosticsOptions, workerOptions, inlayHintsOptions) {
-    __publicField(this, "_onDidChange", new monaco_editor_core_exports.Emitter());
-    __publicField(this, "_onDidExtraLibsChange", new monaco_editor_core_exports.Emitter());
-    __publicField(this, "_extraLibs");
-    __publicField(this, "_removedExtraLibs");
-    __publicField(this, "_eagerModelSync");
-    __publicField(this, "_compilerOptions");
-    __publicField(this, "_diagnosticsOptions");
-    __publicField(this, "_workerOptions");
-    __publicField(this, "_onDidExtraLibsChangeTimeout");
-    __publicField(this, "_inlayHintsOptions");
+    this._onDidChange = new monaco_editor_core_exports.Emitter();
+    this._onDidExtraLibsChange = new monaco_editor_core_exports.Emitter();
     this._extraLibs = /* @__PURE__ */ Object.create(null);
     this._removedExtraLibs = /* @__PURE__ */ Object.create(null);
     this._eagerModelSync = false;
@@ -233,7 +222,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-tsMode-GABHFLJH.mjs");
+    return import("./chunk-tsMode-ZOWURP33.mjs");
   }
 }
 monaco_editor_core_exports.languages.onLanguage("typescript", () => {
