@@ -3486,7 +3486,10 @@ var import_esbuild_wasm = __toESM(require_browser(), 1);
 var initFinished = false;
 var transform = async (code, opts) => {
   initFinished = initFinished || (0, import_esbuild_wasm.initialize)({
-    wasmURL: new URL((await import("./chunk-esbuild-FLGZHBYI.mjs")).default, location.origin).toString()
+    wasmURL: new URL(
+      (await import("./chunk-esbuild-FLGZHBYI.mjs")).default,
+      location.origin
+    ).toString()
   }).then(() => true).catch(() => false);
   if (initFinished !== true)
     initFinished = await initFinished;
@@ -3580,7 +3583,10 @@ function init() {
   if (!supportsWorkerType())
     return _prettier = fallback;
   try {
-    const worker = new SharedWorker(new URL("prettierWorker.mjs", location.origin), { type: "module" });
+    const worker = new SharedWorker(
+      new URL("prettierWorker.mjs", location.origin),
+      { type: "module" }
+    );
     const wrapped = wrap(worker.port);
     return _prettier = wrapped;
   } catch {
@@ -4182,7 +4188,7 @@ async function join() {
     const extendedWS = Object.assign(wsConnection, { hashCode: hashCode() });
     ws.addEventListener(
       "message",
-      async (message) => processWsMessage(message, "ws", extendedWS)
+      (message) => processWsMessage(message, "ws", extendedWS)
     );
     if (intervalHandler) {
       clearInterval(intervalHandler);
@@ -4221,7 +4227,7 @@ async function processWsMessage(event, source, conn) {
   }
   lastSeenNow = Date.now();
   const data = JSON.parse(event.data);
-  processData(data, source);
+  processData(data, source, conn);
 }
 async function processData(data, source, conn) {
   console.log("ws", data.name, data.oldHash, data.newHash);
@@ -4229,8 +4235,9 @@ async function processData(data, source, conn) {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
-  if (data.hashCode || data.newHash && conn)
+  if (data.hashCode || data.newHash && conn) {
     conn.hashCode = data.hashCode || data.newHash;
+  }
   if (source === "ws" && data.hashCode) {
     wsLastHashCode = data.hashCode;
   }
@@ -4343,7 +4350,11 @@ async function processData(data, source, conn) {
       rtc2.addEventListener("close", onReceiveChannelClosed);
       rtc2.addEventListener(
         "message",
-        async (message) => processWsMessage(message, "rtc")
+        async (message) => processWsMessage(
+          message,
+          "rtc",
+          Object.assign(rtc2, { hashCode: hashCode() })
+        )
       );
       const rtcWithTarget = Object.assign(rtc2, { target });
       webRtcArray.push(rtcWithTarget);
@@ -4361,18 +4372,6 @@ async function processData(data, source, conn) {
       { target }
     );
     rtc.binaryType = "arraybuffer";
-    rtc.addEventListener("message", async (message) => {
-      console.log("***********RTC***", { msg: message });
-      const data2 = JSON.parse(message.data);
-      if (data2 && data2.hashCode) {
-        webRTCLastSeenHashCode = data2.hashCode;
-      }
-      if (data2 && data2.newHash) {
-        webRTCLastSeenHashCode = data2.newHash;
-      }
-      const extendedRTC = Object.assign(rtc, { hashCode: hashCode() });
-      return processWsMessage(message, "rtc", extendedRTC);
-    });
     rtc.addEventListener("error", (error) => {
       console.log("xxxxxx-  Data Channel Error:", error);
     });

@@ -262,10 +262,10 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
   return apps[hash];
 }
 
-export function createJsBlob(code: string, fileName='index.mjs') {
+export function createJsBlob(code: string, fileName = "index.mjs") {
   const file = new File([code], fileName, {
     type: "application/javascript",
-    lastModified: Date.now()
+    lastModified: Date.now(),
   });
   const blobUrl = URL.createObjectURL(file);
   return blobUrl;

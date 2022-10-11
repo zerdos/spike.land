@@ -51,7 +51,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 15261,
+      "bytes": 15263,
       "imports": [
         {
           "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -136,7 +136,7 @@
       ]
     },
     "src/chatRoom.ts": {
-      "bytes": 21721,
+      "bytes": 21761,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -252,7 +252,7 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 16156
+          "bytesInOutput": 16168
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs": {
           "bytesInOutput": 1469
@@ -282,7 +282,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 285874
+      "bytes": 285886
     }
   }
 }

@@ -268,7 +268,7 @@ const monacoContribution = async (
       },
       {
         name: "@emotion/react/jsx-namespace",
-        url: emotionJSXNameSpaceDTS,     
+        url: emotionJSXNameSpaceDTS,
         force: true,
         depend: ["@emotion/utils", "type"],
       },
@@ -285,7 +285,8 @@ const monacoContribution = async (
       },
       {
         name: "@use-gesture/react",
-        url: "/node_modules/@use-gesture/react/dist/declarations/src/index.d.ts",
+        url:
+          "/node_modules/@use-gesture/react/dist/declarations/src/index.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
@@ -321,8 +322,11 @@ const monacoContribution = async (
     //   location.origin + `/node_modules/framer-motion/package.json`);
 
     try {
-      
-      const mapper = async ({ name, url, force }: { name: string; url: string, force?: boolean }) => (code.indexOf(name)!==-1 || force) && languages.typescript.typescriptDefaults.addExtraLib(
+      const mapper = async (
+        { name, url, force }: { name: string; url: string; force?: boolean },
+      ) =>
+        (code.indexOf(name) !== -1 || force) &&
+        languages.typescript.typescriptDefaults.addExtraLib(
           await (await fetch(
             url,
           )).text(),
