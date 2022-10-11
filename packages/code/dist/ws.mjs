@@ -9,25 +9,25 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-ASBJLKVQ.mjs";
+} from "./chunk-chunk-M3GU2HHK.mjs";
 import {
   wrap
-} from "./chunk-chunk-YJRWAMRK.mjs";
+} from "./chunk-chunk-GTSXHT2G.mjs";
 import {
   LazyMotion,
   domAnimation,
   domMax,
   m,
   motion
-} from "./chunk-chunk-G3SNAETM.mjs";
-import "./chunk-chunk-OC5MYZKC.mjs";
+} from "./chunk-chunk-7YYSD3CH.mjs";
+import "./chunk-chunk-WHB64CZO.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-EGIX2NBQ.mjs";
+} from "./chunk-chunk-ETTLKM6X.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_react_cjs
-} from "./chunk-chunk-MM7HEDRT.mjs";
+} from "./chunk-chunk-L3A6WAGQ.mjs";
 import {
   $,
   Children,
@@ -48,14 +48,14 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-GFIMVG7F.mjs";
+} from "./chunk-chunk-LQG6EBI3.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-QTIR5YHF.mjs";
+} from "./chunk-chunk-VLW3JR2S.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-477FBAEY.mjs";
+} from "./chunk-chunk-Z35L655W.mjs";
 
 // ../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js
 var require_is_callable = __commonJS({
@@ -3429,7 +3429,7 @@ async function importShim(scr) {
   if (!imap) {
     throw new Error("no imap");
   }
-  await import("./chunk-es-module-shims-JFZR4TM4.mjs");
+  await import("./chunk-es-module-shims-A3LSDNPC.mjs");
   await window.importShim.addImportMap(
     JSON.parse(
       imap.innerText
@@ -3707,7 +3707,7 @@ init_define_process();
 init_react_preact();
 var import_react9 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FabLazy = lazy(async () => import("./chunk-Fab-KX4VNIGK.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-WSUWKEWA.mjs"));
 var Fab = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
   fallback: (0, import_jsx_runtime5.jsx)("div", {
     css: import_react9.css`width: 28px; height:28px`
@@ -3716,7 +3716,7 @@ var Fab = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-73KV3BJD.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-N3K2QPG6.mjs"));
 var ToggleButton = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
   fallback: (0, import_jsx_runtime5.jsx)("div", {
     css: import_react9.css`width: 28px; height:28px`
@@ -3726,7 +3726,7 @@ var ToggleButton = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-PYHSM3QH.mjs")
+  async () => import("./chunk-ToggleButtonGroup-GNUBA5U6.mjs")
 );
 var ToggleButtonGroup = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
   fallback: (0, import_jsx_runtime5.jsx)("div", {
@@ -3743,7 +3743,7 @@ var QR = ({ url }) => (0, import_jsx_runtime6.jsx)(QRious, {
   value: { url }
 });
 var QRiousLazy = _n.lazy(
-  () => import("./chunk-lib-3FPRXKQB.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
+  () => import("./chunk-lib-CX6XD4IC.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
 );
 var QRious = ({ value }) => (0, import_jsx_runtime6.jsx)(Suspense, {
   fallback: (0, import_jsx_runtime6.jsx)("p", {
@@ -4052,7 +4052,7 @@ var initFinished = false;
 var transform = async (code, opts) => {
   initFinished = initFinished || (0, import_esbuild_wasm.initialize)({
     wasmURL: new URL(
-      (await import("./chunk-esbuild-FLGZHBYI.mjs")).default,
+      (await import("./chunk-esbuild-YT4MIDMH.mjs")).default,
       location.origin
     ).toString()
   }).then(() => true).catch(() => false);
@@ -4132,7 +4132,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-EGCUTLLJ.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-RMGFEX43.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -4249,7 +4249,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-RXIFO4A5.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-JJPCGMFF.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -4294,7 +4294,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       });
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-EJMIYADZ.mjs");
+      const { startAce } = await import("./chunk-startAce-ALCJG56X.mjs");
       const editor = await startAce(mST().code);
       const getValue = async () => await prettierJs(editor.session.getValue());
       const setValue = async (_code) => {

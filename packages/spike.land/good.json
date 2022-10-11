@@ -75,28 +75,28 @@
       "bytes": 2244,
       "imports": []
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs": {
-      "bytes": 2483,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-6ON334WU.mjs": {
+      "bytes": 3941,
       "imports": []
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs": {
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-K4NXUJBX.mjs": {
       "bytes": 330,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-6ON334WU.mjs",
           "kind": "import-statement"
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-ASBJLKVQ.mjs": {
-      "bytes": 178671,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-XURZWTSB.mjs": {
+      "bytes": 178957,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-K4NXUJBX.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-6ON334WU.mjs",
           "kind": "import-statement"
         }
       ]
@@ -105,15 +105,15 @@
       "bytes": 412,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-ASBJLKVQ.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-XURZWTSB.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-K4NXUJBX.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-6ON334WU.mjs",
           "kind": "import-statement"
         }
       ]
@@ -136,7 +136,7 @@
       ]
     },
     "src/chatRoom.ts": {
-      "bytes": 21761,
+      "bytes": 21759,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -254,14 +254,14 @@
         "src/chatRoom.ts": {
           "bytesInOutput": 16168
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs": {
-          "bytesInOutput": 1469
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-6ON334WU.mjs": {
+          "bytesInOutput": 2467
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs": {
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-K4NXUJBX.mjs": {
           "bytesInOutput": 194
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-ASBJLKVQ.mjs": {
-          "bytesInOutput": 177758
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-XURZWTSB.mjs": {
+          "bytesInOutput": 177946
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -282,7 +282,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 285953
+      "bytes": 287515
     }
   }
 }

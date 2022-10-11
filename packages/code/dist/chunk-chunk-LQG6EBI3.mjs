@@ -1,10 +1,10 @@
 import {
   init_define_process
-} from "./chunk-chunk-QTIR5YHF.mjs";
+} from "./chunk-chunk-VLW3JR2S.mjs";
 import {
   __esm,
   __export
-} from "./chunk-chunk-477FBAEY.mjs";
+} from "./chunk-chunk-Z35L655W.mjs";
 
 // ../../.yarn/global/cache/preact-npm-10.11.1-ce16a83033-9.zip/node_modules/preact/dist/preact.module.js
 function s(n3, l4) {

@@ -1,9 +1,9 @@
 import {
   editor_api_exports
-} from "./chunk-chunk-JI7QSXSC.mjs";
+} from "./chunk-chunk-EW7V7NBT.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-QTIR5YHF.mjs";
+} from "./chunk-chunk-VLW3JR2S.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/monaco.contribution.js
 init_define_process();
@@ -67,9 +67,17 @@ var ModuleResolutionKind = ((ModuleResolutionKind2) => {
   return ModuleResolutionKind2;
 })(ModuleResolutionKind || {});
 var LanguageServiceDefaultsImpl = class {
+  _onDidChange = new monaco_editor_core_exports.Emitter();
+  _onDidExtraLibsChange = new monaco_editor_core_exports.Emitter();
+  _extraLibs;
+  _removedExtraLibs;
+  _eagerModelSync;
+  _compilerOptions;
+  _diagnosticsOptions;
+  _workerOptions;
+  _onDidExtraLibsChangeTimeout;
+  _inlayHintsOptions;
   constructor(compilerOptions, diagnosticsOptions, workerOptions, inlayHintsOptions) {
-    this._onDidChange = new monaco_editor_core_exports.Emitter();
-    this._onDidExtraLibsChange = new monaco_editor_core_exports.Emitter();
     this._extraLibs = /* @__PURE__ */ Object.create(null);
     this._removedExtraLibs = /* @__PURE__ */ Object.create(null);
     this._eagerModelSync = false;
@@ -222,7 +230,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-tsMode-ZOWURP33.mjs");
+    return import("./chunk-tsMode-TRPAO5B3.mjs");
   }
 }
 monaco_editor_core_exports.languages.onLanguage("typescript", () => {

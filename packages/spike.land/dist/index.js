@@ -4,7 +4,14 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) => function __require() {
+var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+  get: (a2, b) => (typeof require !== "undefined" ? require : a2)[b]
+}) : x)(function(x) {
+  if (typeof require !== "undefined")
+    return require.apply(this, arguments);
+  throw new Error('Dynamic require of "' + x + '" is not supported');
+});
+var __commonJS = (cb, mod) => function __require3() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __copyProps = (to, from, except, desc) => {
@@ -1055,18 +1062,41 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-6ON334WU.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
+var __defProps = Object.defineProperties;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames2 = Object.getOwnPropertyNames;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf2 = Object.getPrototypeOf;
 var __hasOwnProp2 = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a2, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp2.call(b, prop))
+      __defNormalProp(a2, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a2, prop, b[prop]);
+    }
+  return a2;
+};
+var __spreadProps = (a2, b) => __defProps(a2, __getOwnPropDescs(b));
+var __require2 = /* @__PURE__ */ ((x) => typeof __require !== "undefined" ? __require : typeof Proxy !== "undefined" ? new Proxy(x, {
+  get: (a2, b) => (typeof __require !== "undefined" ? __require : a2)[b]
+}) : x)(function(x) {
+  if (typeof __require !== "undefined")
+    return __require.apply(this, arguments);
+  throw new Error('Dynamic require of "' + x + '" is not supported');
+});
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
 };
-var __commonJS2 = (cb, mod) => function __require() {
+var __commonJS2 = (cb, mod) => function __require22() {
   return mod || (0, cb[__getOwnPropNames2(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __copyProps2 = (to, from, except, desc) => {
@@ -1086,7 +1116,7 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QTIR5YHF.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-K4NXUJBX.mjs
 var define_process_default;
 var init_define_process = __esm({
   "<define:process>"() {
@@ -1094,7 +1124,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-ASBJLKVQ.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-XURZWTSB.mjs
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6483,7 +6513,7 @@ function applyPatch(original, delta) {
   return result;
 }
 function initSession(room, u) {
-  return Record({ ...u, room, state: Record(u.state)() });
+  return Record(__spreadProps(__spreadValues({}, u), { room, state: Record(u.state)() }));
 }
 var session = null;
 var hashStore = {};
@@ -6568,7 +6598,7 @@ var CodeSession = class {
           );
           hashStore[serverRecord.hashCode()] = serverRecord;
         } else {
-          const { mST: mST2 } = await import(`/live/${this.room}/mst.mjs?${Date.now()}`);
+          const { mST: mST2 } = await Promise.resolve().then(() => __toESM2(__require2(`/live/${this.room}/mst.mjs?${Date.now()}`)));
           const latestRec = this.session.get("state").merge(
             JSON.parse(string_(mST2))
           );
@@ -6607,10 +6637,9 @@ var CodeSession = class {
     session = this;
     this.room = room;
     const savedState = null;
-    this.session = initSession(room, {
-      ...user,
+    this.session = initSession(room, __spreadProps(__spreadValues({}, user), {
       state: savedState ? savedState : JSON.parse(string_(user.state))
-    })();
+    }))();
   }
   update() {
     return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, {
@@ -6634,7 +6663,7 @@ var CodeSession = class {
   json() {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
-    return { ...user, state };
+    return __spreadProps(__spreadValues({}, user), { state });
   }
   setRoom(codeSpace) {
     const user = this.session.set("room", codeSpace);
@@ -6675,8 +6704,8 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 var applyPatch2 = async (x) => {
-  await session?.applyPatch(x);
-  session?.update();
+  await (session == null ? void 0 : session.applyPatch(x));
+  session == null ? void 0 : session.update();
 };
 var startSession = (room, u, originString) => session || new CodeSession(room, {
   name: u.name,

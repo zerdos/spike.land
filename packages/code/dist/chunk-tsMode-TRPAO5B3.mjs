@@ -1,13 +1,13 @@
 import {
   typescriptDefaults
-} from "./chunk-chunk-7KSMKT3S.mjs";
+} from "./chunk-chunk-XTZV6BHX.mjs";
 import {
   editor_api_exports
-} from "./chunk-chunk-JI7QSXSC.mjs";
+} from "./chunk-chunk-EW7V7NBT.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-QTIR5YHF.mjs";
-import "./chunk-chunk-477FBAEY.mjs";
+} from "./chunk-chunk-VLW3JR2S.mjs";
+import "./chunk-chunk-Z35L655W.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
 init_define_process();
@@ -41,6 +41,11 @@ var WorkerManager = class {
     this._updateExtraLibsToken = 0;
     this._extraLibsChangeListener = this._defaults.onDidExtraLibsChange(() => this._updateExtraLibs());
   }
+  _configChangeListener;
+  _updateExtraLibsToken;
+  _extraLibsChangeListener;
+  _worker;
+  _client;
   dispose() {
     this._configChangeListener.dispose();
     this._extraLibsChangeListener.dispose();
@@ -204,6 +209,9 @@ var LibFiles = class {
     this._hasFetchedLibFiles = false;
     this._fetchLibFilesPromise = null;
   }
+  _libFiles;
+  _hasFetchedLibFiles;
+  _fetchLibFilesPromise;
   isLibFile(uri) {
     if (!uri) {
       return false;
@@ -255,8 +263,6 @@ var LibFiles = class {
 var DiagnosticsAdapter = class extends Adapter {
   constructor(_libFiles, _defaults, _selector, worker) {
     super(worker);
-    this._disposables = [];
-    this._listener = /* @__PURE__ */ Object.create(null);
     this._libFiles = _libFiles;
     this._defaults = _defaults;
     this._selector = _selector;
@@ -329,6 +335,8 @@ var DiagnosticsAdapter = class extends Adapter {
     this._disposables.push(this._defaults.onDidExtraLibsChange(recomputeDiagostics));
     monaco_editor_core_exports.editor.getModels().forEach((model) => onModelAdd(model));
   }
+  _disposables = [];
+  _listener = /* @__PURE__ */ Object.create(null);
   dispose() {
     this._disposables.forEach((d) => d && d.dispose());
     this._disposables = [];
@@ -550,10 +558,7 @@ function tagToString(tag) {
   return tagLabel;
 }
 var SignatureHelpAdapter = class extends Adapter {
-  constructor() {
-    super(...arguments);
-    this.signatureHelpTriggerCharacters = ["(", ","];
-  }
+  signatureHelpTriggerCharacters = ["(", ","];
   static _toSignatureHelpTriggerReason(context) {
     switch (context.triggerKind) {
       case monaco_editor_core_exports.languages.SignatureHelpTriggerKind.TriggerCharacter:

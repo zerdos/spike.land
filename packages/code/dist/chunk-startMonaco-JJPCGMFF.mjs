@@ -1,4 +1,4 @@
-import "./chunk-chunk-7KSMKT3S.mjs";
+import "./chunk-chunk-XTZV6BHX.mjs";
 import {
   $,
   Action,
@@ -567,18 +567,15 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-JI7QSXSC.mjs";
+} from "./chunk-chunk-EW7V7NBT.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-QTIR5YHF.mjs";
+} from "./chunk-chunk-VLW3JR2S.mjs";
 import {
   __commonJS,
   __esm,
-  __privateAdd,
-  __privateGet,
-  __privateSet,
   __toESM
-} from "./chunk-chunk-477FBAEY.mjs";
+} from "./chunk-chunk-Z35L655W.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -41950,6 +41947,11 @@ var LazyLanguageLoader = class {
     }
     return lazyLanguageLoaders[languageId];
   }
+  _languageId;
+  _loadingTriggered;
+  _lazyLoadPromise;
+  _lazyLoadPromiseResolve;
+  _lazyLoadPromiseReject;
   constructor(languageId) {
     this._languageId = languageId;
     this._loadingTriggered = false;
@@ -41995,7 +41997,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-RYU57OBG.mjs");
+      return import("./chunk-typescript-GVNTFP4X.mjs");
     }
   }
 });
@@ -42085,8 +42087,9 @@ function cleanStack(stack, { pretty = false, basePath } = {}) {
 
 // ../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9.zip/node_modules/aggregate-error/index.js
 var cleanInternalStack = (stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, "");
-var _errors;
 var AggregateError = class extends Error {
+  #errors;
+  name = "AggregateError";
   constructor(errors) {
     if (!Array.isArray(errors)) {
       throw new TypeError(`Expected input to be an Array, got ${typeof errors}`);
@@ -42105,15 +42108,12 @@ var AggregateError = class extends Error {
     }).join("\n");
     message = "\n" + indentString(message, 4);
     super(message);
-    __privateAdd(this, _errors, void 0);
-    this.name = "AggregateError";
-    __privateSet(this, _errors, errors);
+    this.#errors = errors;
   }
   get errors() {
-    return __privateGet(this, _errors).slice();
+    return this.#errors.slice();
   }
 };
-_errors = new WeakMap();
 
 // ../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9.zip/node_modules/p-map/index.js
 var AbortError = class extends Error {
@@ -42353,7 +42353,7 @@ var monacoContribution = async (code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-FDRNG2UE.mjs");
+    const { dtsFiles } = await import("./chunk-types-ZRPDSB4N.mjs");
     const {
       reactDts,
       jsxRuntimeDts,

@@ -1,7 +1,7 @@
 import {
   init_define_process
-} from "./chunk-chunk-QTIR5YHF.mjs";
-import "./chunk-chunk-477FBAEY.mjs";
+} from "./chunk-chunk-VLW3JR2S.mjs";
+import "./chunk-chunk-Z35L655W.mjs";
 
 // js/types.mjs
 init_define_process();
