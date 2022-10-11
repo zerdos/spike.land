@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler publish --env=testing dist/index.js",
+    "deploy": "yarn deploy:dev",
+    "deploy:dev": "wrangler publish --env=testing src/index.ts",
     "prepublishOnly": "wrangler publish",
     "predeploy": "yarn c:build && yarn x:build",
     "c:build": "yarn workspace @spike.land/code build",

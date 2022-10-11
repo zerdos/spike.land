@@ -623,7 +623,7 @@ export class Code {
             return respondWith({ hashCode: hashCode() });
           }
 
-          try {
+        try {
             await applyPatch({ patch, newHash, oldHash });
           } catch (err) {
             let errMessage = (err as unknown as { message: string }).message;
