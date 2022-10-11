@@ -7,11 +7,10 @@ import PreactCompat from "preact/compat";
 export {
   createPortal,
   findDOMNode,
-  startTransition,
-  SuspenseList,
-
   //@ts-expect-error
   flushSync,
+  startTransition,
+  SuspenseList,
   unstable_batchedUpdates,
 } from "preact/compat";
 export { jsx, jsxs } from "./preact-jsx-runtime";

@@ -24,7 +24,7 @@ export const prettierJs = (code: string) => {
       trailingComma: "all",
       useTabs: false,
       parser: "babel-ts",
-      plugins: [parserBabel, ///parserHtml, parserPostcss
+      plugins: [parserBabel ///parserHtml, parserPostcss
       ],
     });
     return lastSuccessful = current;

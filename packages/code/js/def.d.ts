@@ -5,5 +5,4 @@ declare module "/live/code-main/js" {
   export default returnFn;
 }
 
-declare module "/npm:*" ;
-
+declare module "/npm:*";

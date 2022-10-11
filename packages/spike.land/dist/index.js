@@ -7098,7 +7098,9 @@ var Code = class {
     }
     try {
       try {
-        if (data.target && data.type && ["new-ice-candidate", "video-offer", "video-answer"].includes(data.type)) {
+        if (data.target && data.type && ["new-ice-candidate", "video-offer", "video-answer"].includes(
+          data.type
+        )) {
           return this.user2user(data.target, { ...data, name });
         }
         if (data.patch && data.oldHash && data.newHash) {

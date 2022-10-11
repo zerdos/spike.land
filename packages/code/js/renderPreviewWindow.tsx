@@ -9,7 +9,7 @@ import { appFactory, AutoUpdateApp } from "./starter";
 import { DraggableWindow } from "./DraggableWindow";
 
 import { CacheProvider, css } from "@emotion/react";
-import  createCache from "@emotion/cache";
+import createCache from "@emotion/cache";
 
 // Import { useSpring, a } from '@react-spring/web'
 
@@ -138,7 +138,6 @@ export const renderPreviewWindow = ({ codeSpace, assets }: {
   codeSpace: string;
   assets: Record<string, string>;
 }) => {
-
   if (singleton.started) return;
   singleton.started = true;
 
@@ -146,7 +145,8 @@ export const renderPreviewWindow = ({ codeSpace, assets }: {
   // Div.style.height='100%';
   const root = createRoot(div);
 
-  const createCacheDefault = (createCache as unknown as {default: typeof createCache} ).default
+  const createCacheDefault =
+    (createCache as unknown as { default: typeof createCache }).default;
 
   const myCache = createCacheDefault({
     key: "z",
