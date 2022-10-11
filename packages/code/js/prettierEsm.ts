@@ -4,6 +4,7 @@ import parserBabel from "prettier/parser-babel";
 // import parserPostcss from "prettier/parser-postcss";
 
 let lastSuccessful: string | null = null;
+
 export const prettierJs = (code: string) => {
   try {
     const current = Prettier.format(code, {

@@ -185,8 +185,8 @@ export const run = async (startState: {
 
   await join();
 
-  const { startIpfs } = await import("./startIpfs");
-  await startIpfs(codeSpace);
+  // const { startIpfs } = await import("./startIpfs");
+  // await startIpfs(codeSpace);
 };
 
 // (async (.) => {

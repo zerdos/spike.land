@@ -364,7 +364,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </Fab> */
               }
 
-              <video
+             {false && <><video
                 ref={videoRef}
                 onClick={() => startVideo(videoRef.current!)}
                 playsInline={true}
@@ -380,8 +380,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   autoPlay={true}
                 >
                 </video>
+                
               ))}
-
+</>}
               <Fab
                 key="Share"
                 onClick={() => open(`/live/${room}/public`)}
