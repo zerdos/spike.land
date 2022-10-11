@@ -163,6 +163,7 @@ const build = (/** @type {string[]} */ entryPoints) =>
 
   await build([
     "js/session.ts",
+    "js/prettierWorker.mjs",    
     "js/react-preact.ts",
     "js/motion.ts",
     "js/emotion.ts",

@@ -4,14 +4,25 @@ import React from "react";
 
 // Import type FC from "react"
 import { css } from "@emotion/react";
-import { prettierJs } from "prettierEsm";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
+import {prettierJs} from "./prettierJs"; 
+// /Volumes/devX/spike.land/packages/code/js/prettierJs.ts
+// import {wrkModuleImport} from "./moduleWorker.mjs"
+
+// const prettierJs = async (code: string) =>{
+// console.log({code});
+//   const mod = wrkModuleImport("/prettierJs.mjs",['prettierJs']) as unknown as {prettierJs: (code:string)=>Promise<string>};
+//   const prettied = await mod.prettierJs(code);
+//   console.log({prettied});
+//   return prettied
+  
+// }
 
 const mod = {
   CH() {},
-  getValue: () => "",
-  setValue: (code: string) => {
+  getValue:  async () => "",
+  setValue: async (code: string) => {
     console.log(code);
   },
   code: "",
@@ -75,8 +86,10 @@ export const Editor: React.FC<
       //		return;
     }
 
-    const code = mod.getValue();
-    const newCode = prettierJs(code);
+   
+    (async()=>{
+    const code = await mod.getValue();
+    const newCode = await prettierJs(code);
 
     if (newCode === myCode) {
       return;
@@ -96,8 +109,11 @@ export const Editor: React.FC<
       counter: mod.counter,
       myCode: newCode,
     }));
-
     runner({ code: newCode, counter: mod.counter, codeSpace });
+
+  })();
+    
+
 
     // Console.log("RUN THE RUNNER AGAIN");
 
@@ -129,7 +145,7 @@ export const Editor: React.FC<
           },
         );
 
-      const getValue = () => {
+      const getValue = async () => {
         try {
           (async () => {
             const tsWorker = await (await getTypeScriptWorker())(
@@ -145,13 +161,14 @@ export const Editor: React.FC<
           console.error("ts diag error");
         }
 
-        return prettierJs(model.getValue());
+        return await prettierJs(model.getValue());
       };
 
-      const setValue = (code: string) => {
+      const setValue = async(_code: string) => {
+        const code = await prettierJs(_code);
         mod.codeToSet = code;
         if (code.length < `export default ()=><></>`.length) return;
-        if (code === getValue()) return;
+        if (code === await getValue()) return;
         if (mST().i === mod.counter) return;
 
         setTimeout(() => mod.codeToSet === code && setMonValue(code), 800); //wait this time before overwriting the value
@@ -176,13 +193,14 @@ export const Editor: React.FC<
     const setAce = async () => {
       const { startAce } = await import("./startAce");
       const editor = await startAce(mST().code);
-      const getValue = () => prettierJs(editor.session.getValue());
+      const getValue = async () => await prettierJs(editor.session.getValue());
 
-      const setValue = (code: string) => {
+      const setValue = async(_code: string) => {
+        const code = await prettierJs(_code);
         mod.codeToSet = code;
 
         if (code.length < `export default ()=><></>`.length) return;
-        if (code === getValue()) return;
+        if (code === await getValue()) return;
         if (mST().i === mod.counter) return;
 
         setTimeout(() => {

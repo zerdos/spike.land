@@ -4,7 +4,7 @@ import { saveCode } from "./ws";
 import { mST, patchSync } from "./session";
 // Import { cF } from "./renderToString";
 // import { toUmd } from "./toUmd";
-import { init } from "./esbuildEsm";
+import { transform } from "./esbuildEsm";
 import { render } from "./renderToString";
 import { md5 } from "md5";
 // Import { appFactory } from "starter";
@@ -39,13 +39,8 @@ import { md5 } from "md5";
 // });
 
 // export const runnerDebounced: typeof runner = (props) => debounced(props);
-const mod = {
-  i: 0,
-  esbuild: init(),
-};
 
-const esb =
-  (async () => ({ transform: await (await (mod.esbuild)).transform }))();
+
 
 export async function runner({ code, counter, codeSpace }: {
   code: string;
@@ -69,9 +64,8 @@ export async function runner({ code, counter, codeSpace }: {
   //   (await import("./esbuildEsm.ts")).transform;
 
   try {
-    const esbuild = await esb;
 
-    const transpiled = await esbuild.transform(code, {
+    const transpiled = await transform(code, {
       loader: "tsx",
       format: "esm",
       treeShaking: true,

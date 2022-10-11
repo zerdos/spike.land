@@ -2,48 +2,26 @@
 
 // import "core-js/proposals/string-replace-all-stage-4";
 
-import { initialize, transform } from "esbuild-wasm";
+import {transform as esbTransform, initialize} from "esbuild-wasm";
 
 // Import type { transform } from "esbuild/lib/main";
 
 let initFinished: Promise<boolean> | boolean = false;
 // Const mutex = new Mutex();
-const esbuild = {
-  transform, // : mutex.runExclusive(() => transform),
-};
+export const transform: typeof esbTransform = async (code, opts) =>{
+  initFinished = initFinished || (initialize({
+     // @ts-expect-error
 
-export const init = async () => {
-  try {
-    if (initFinished === true) {
-      return esbuild;
-    }
+  
+    wasmURL:new URL((await import("esbuild-wasm/esbuild.wasm")).default, location.origin).toString()
+  }).then(()=>true).catch(()=>false));
+  if (initFinished!==true) initFinished = await(initFinished);
 
-    // @ts-expect-error
-    const wasmURL = (await import("esbuild-wasm/esbuild.wasm"))
-      .default as unknown as string;
-
-    initFinished = initFinished || new Promise<boolean>((resolve) => {
-      initialize(
-        {
-          wasmURL: new URL(wasmURL, location.origin).toString(),
-        },
-      ).then(() => {
-        resolve(true);
-      });
-    });
-
-    if (await initFinished) {
-      return esbuild;
-    }
-
-    throw new Error("esbuild couldn't initialize");
-  } catch {
-    throw new Error("esbuild couldn't initialize");
-  } finally {
-    if (await initFinished) {
-      return esbuild;
-    }
-
-    throw new Error("esbuild couldn't initialize");
+  if (initFinished !== true) {
+    throw new Error("esbuild init failed");
   }
-};
+
+
+    return esbTransform(code, opts);
+
+}
