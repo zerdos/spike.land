@@ -13,6 +13,7 @@ import {
   onSessionUpdate,
   startSession,
 } from "./session";
+import AVLTree from "avl";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
 
@@ -22,9 +23,18 @@ import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { appFactory } from "./starter";
 import { md5 } from "md5";
-import { wait } from "wait";
+// import { wait } from "wait";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
+
+
+
+const users = new AVLTree(
+  (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
+  true,
+);
+
+
 
 const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 
@@ -34,11 +44,12 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
     8,
   );
 
+users.insert(user);
 const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection
 let bc: BroadcastChannel;
 let codeSpace: string;
 let _hash = "";
-let address: string;
+// let address: string;
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
 let lastSeenTimestamp = 0;
@@ -96,7 +107,7 @@ Object.assign(globalThis, { sendChannel });
 
 // }
 
-export const run = async (startState: {
+export const run = async ({codeSpace, assets, mST: mst, address}: {
   mST: ICodeSession;
   codeSpace: string;
   address: string;
@@ -106,13 +117,27 @@ export const run = async (startState: {
     return;
   }
 
-  codeSpace = startState.codeSpace;
-  address = startState.address;
 
   startSession(codeSpace, {
     name: user,
-    state: startState.mST,
+    state: mst,
   }, location.origin);
+
+  await appFactory(mst.transpiled);
+
+  
+  renderPreviewWindow({codeSpace, assets});
+
+  // Const {join} = await import("./rtc");
+
+  // const conn = join(codeSpace, user, (message)=>{
+
+  //   processData(message, "rtc")
+  // })
+
+  // sendChannel.send = (message: object)=> conn.broadcast(message);
+
+  await join();
 
   bc = new BroadcastChannel(location.origin);
   bc.onmessage = async (event) => {
@@ -169,24 +194,6 @@ export const run = async (startState: {
     },
     "broadcast",
   );
-  await appFactory(startState.mST.transpiled);
-
-  while (!(mST().code)) {
-    console.log("mst.code is empty, waiting");
-    await wait(100);
-  }
-  renderPreviewWindow(startState);
-
-  // Const {join} = await import("./rtc");
-
-  // const conn = join(codeSpace, user, (message)=>{
-
-  //   processData(message, "rtc")
-  // })
-
-  // sendChannel.send = (message: object)=> conn.broadcast(message);
-
-  await join();
 
   // const { startIpfs } = await import("./startIpfs");
   // await startIpfs(codeSpace);

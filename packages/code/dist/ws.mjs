@@ -1334,7 +1334,7 @@ var require_browser = __commonJS({
         let host = getFlag(options, keys, "host", mustBeString);
         let servedir = getFlag(options, keys, "servedir", mustBeString);
         let onRequest = getFlag(options, keys, "onRequest", mustBeFunction);
-        let wait2 = new Promise((resolve, reject) => {
+        let wait = new Promise((resolve, reject) => {
           requestCallbacks["serve-wait"] = (id, request2) => {
             if (request2.error !== null)
               reject(new Error(request2.error));
@@ -1357,7 +1357,7 @@ var require_browser = __commonJS({
           sendResponse(id, {});
         };
         return {
-          wait: wait2,
+          wait,
           stop() {
             sendRequest(refs, { command: "serve-stop", key: buildKey }, () => {
             });
@@ -2587,6 +2587,563 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 init_define_process();
 var import_lodash = __toESM(require_lodash(), 1);
 
+// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
+init_define_process();
+
+// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js
+init_define_process();
+function print(root, printNode = (n) => n.key) {
+  var out = [];
+  row(root, "", true, (v) => out.push(v), printNode);
+  return out.join("");
+}
+function row(root, prefix, isTail, out, printNode) {
+  if (root) {
+    out(`${prefix}${isTail ? "\u2514\u2500\u2500 " : "\u251C\u2500\u2500 "}${printNode(root)}
+`);
+    const indent = prefix + (isTail ? "    " : "\u2502   ");
+    if (root.left)
+      row(root.left, indent, false, out, printNode);
+    if (root.right)
+      row(root.right, indent, true, out, printNode);
+  }
+}
+function isBalanced(root) {
+  if (root === null)
+    return true;
+  var lh = height(root.left);
+  var rh = height(root.right);
+  if (Math.abs(lh - rh) <= 1 && isBalanced(root.left) && isBalanced(root.right))
+    return true;
+  return false;
+}
+function height(node) {
+  return node ? 1 + Math.max(height(node.left), height(node.right)) : 0;
+}
+function loadRecursive(parent, keys, values, start, end) {
+  const size = end - start;
+  if (size > 0) {
+    const middle = start + Math.floor(size / 2);
+    const key = keys[middle];
+    const data = values[middle];
+    const node = { key, data, parent };
+    node.left = loadRecursive(node, keys, values, start, middle);
+    node.right = loadRecursive(node, keys, values, middle + 1, end);
+    return node;
+  }
+  return null;
+}
+function markBalance(node) {
+  if (node === null)
+    return 0;
+  const lh = markBalance(node.left);
+  const rh = markBalance(node.right);
+  node.balanceFactor = lh - rh;
+  return Math.max(lh, rh) + 1;
+}
+function sort(keys, values, left, right, compare) {
+  if (left >= right)
+    return;
+  const pivot = keys[left + right >> 1];
+  let i = left - 1;
+  let j = right + 1;
+  while (true) {
+    do
+      i++;
+    while (compare(keys[i], pivot) < 0);
+    do
+      j--;
+    while (compare(keys[j], pivot) > 0);
+    if (i >= j)
+      break;
+    let tmp = keys[i];
+    keys[i] = keys[j];
+    keys[j] = tmp;
+    tmp = values[i];
+    values[i] = values[j];
+    values[j] = tmp;
+  }
+  sort(keys, values, left, j, compare);
+  sort(keys, values, j + 1, right, compare);
+}
+
+// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
+function DEFAULT_COMPARE(a, b) {
+  return a > b ? 1 : a < b ? -1 : 0;
+}
+function rotateLeft(node) {
+  var rightNode = node.right;
+  node.right = rightNode.left;
+  if (rightNode.left)
+    rightNode.left.parent = node;
+  rightNode.parent = node.parent;
+  if (rightNode.parent) {
+    if (rightNode.parent.left === node) {
+      rightNode.parent.left = rightNode;
+    } else {
+      rightNode.parent.right = rightNode;
+    }
+  }
+  node.parent = rightNode;
+  rightNode.left = node;
+  node.balanceFactor += 1;
+  if (rightNode.balanceFactor < 0) {
+    node.balanceFactor -= rightNode.balanceFactor;
+  }
+  rightNode.balanceFactor += 1;
+  if (node.balanceFactor > 0) {
+    rightNode.balanceFactor += node.balanceFactor;
+  }
+  return rightNode;
+}
+function rotateRight(node) {
+  var leftNode = node.left;
+  node.left = leftNode.right;
+  if (node.left)
+    node.left.parent = node;
+  leftNode.parent = node.parent;
+  if (leftNode.parent) {
+    if (leftNode.parent.left === node) {
+      leftNode.parent.left = leftNode;
+    } else {
+      leftNode.parent.right = leftNode;
+    }
+  }
+  node.parent = leftNode;
+  leftNode.right = node;
+  node.balanceFactor -= 1;
+  if (leftNode.balanceFactor > 0) {
+    node.balanceFactor -= leftNode.balanceFactor;
+  }
+  leftNode.balanceFactor -= 1;
+  if (node.balanceFactor < 0) {
+    leftNode.balanceFactor += node.balanceFactor;
+  }
+  return leftNode;
+}
+var AVLTree = class {
+  constructor(comparator, noDuplicates = false) {
+    this._comparator = comparator || DEFAULT_COMPARE;
+    this._root = null;
+    this._size = 0;
+    this._noDuplicates = !!noDuplicates;
+  }
+  destroy() {
+    return this.clear();
+  }
+  clear() {
+    this._root = null;
+    this._size = 0;
+    return this;
+  }
+  get size() {
+    return this._size;
+  }
+  contains(key) {
+    if (this._root) {
+      var node = this._root;
+      var comparator = this._comparator;
+      while (node) {
+        var cmp = comparator(key, node.key);
+        if (cmp === 0)
+          return true;
+        else if (cmp < 0)
+          node = node.left;
+        else
+          node = node.right;
+      }
+    }
+    return false;
+  }
+  next(node) {
+    var successor = node;
+    if (successor) {
+      if (successor.right) {
+        successor = successor.right;
+        while (successor.left)
+          successor = successor.left;
+      } else {
+        successor = node.parent;
+        while (successor && successor.right === node) {
+          node = successor;
+          successor = successor.parent;
+        }
+      }
+    }
+    return successor;
+  }
+  prev(node) {
+    var predecessor = node;
+    if (predecessor) {
+      if (predecessor.left) {
+        predecessor = predecessor.left;
+        while (predecessor.right)
+          predecessor = predecessor.right;
+      } else {
+        predecessor = node.parent;
+        while (predecessor && predecessor.left === node) {
+          node = predecessor;
+          predecessor = predecessor.parent;
+        }
+      }
+    }
+    return predecessor;
+  }
+  forEach(callback) {
+    var current = this._root;
+    var s = [], done = false, i = 0;
+    while (!done) {
+      if (current) {
+        s.push(current);
+        current = current.left;
+      } else {
+        if (s.length > 0) {
+          current = s.pop();
+          callback(current, i++);
+          current = current.right;
+        } else
+          done = true;
+      }
+    }
+    return this;
+  }
+  range(low, high, fn, ctx) {
+    const Q = [];
+    const compare = this._comparator;
+    let node = this._root, cmp;
+    while (Q.length !== 0 || node) {
+      if (node) {
+        Q.push(node);
+        node = node.left;
+      } else {
+        node = Q.pop();
+        cmp = compare(node.key, high);
+        if (cmp > 0) {
+          break;
+        } else if (compare(node.key, low) >= 0) {
+          if (fn.call(ctx, node))
+            return this;
+        }
+        node = node.right;
+      }
+    }
+    return this;
+  }
+  keys() {
+    var current = this._root;
+    var s = [], r = [], done = false;
+    while (!done) {
+      if (current) {
+        s.push(current);
+        current = current.left;
+      } else {
+        if (s.length > 0) {
+          current = s.pop();
+          r.push(current.key);
+          current = current.right;
+        } else
+          done = true;
+      }
+    }
+    return r;
+  }
+  values() {
+    var current = this._root;
+    var s = [], r = [], done = false;
+    while (!done) {
+      if (current) {
+        s.push(current);
+        current = current.left;
+      } else {
+        if (s.length > 0) {
+          current = s.pop();
+          r.push(current.data);
+          current = current.right;
+        } else
+          done = true;
+      }
+    }
+    return r;
+  }
+  at(index) {
+    var current = this._root;
+    var s = [], done = false, i = 0;
+    while (!done) {
+      if (current) {
+        s.push(current);
+        current = current.left;
+      } else {
+        if (s.length > 0) {
+          current = s.pop();
+          if (i === index)
+            return current;
+          i++;
+          current = current.right;
+        } else
+          done = true;
+      }
+    }
+    return null;
+  }
+  minNode() {
+    var node = this._root;
+    if (!node)
+      return null;
+    while (node.left)
+      node = node.left;
+    return node;
+  }
+  maxNode() {
+    var node = this._root;
+    if (!node)
+      return null;
+    while (node.right)
+      node = node.right;
+    return node;
+  }
+  min() {
+    var node = this._root;
+    if (!node)
+      return null;
+    while (node.left)
+      node = node.left;
+    return node.key;
+  }
+  max() {
+    var node = this._root;
+    if (!node)
+      return null;
+    while (node.right)
+      node = node.right;
+    return node.key;
+  }
+  isEmpty() {
+    return !this._root;
+  }
+  pop() {
+    var node = this._root, returnValue = null;
+    if (node) {
+      while (node.left)
+        node = node.left;
+      returnValue = { key: node.key, data: node.data };
+      this.remove(node.key);
+    }
+    return returnValue;
+  }
+  popMax() {
+    var node = this._root, returnValue = null;
+    if (node) {
+      while (node.right)
+        node = node.right;
+      returnValue = { key: node.key, data: node.data };
+      this.remove(node.key);
+    }
+    return returnValue;
+  }
+  find(key) {
+    var root = this._root;
+    var subtree = root, cmp;
+    var compare = this._comparator;
+    while (subtree) {
+      cmp = compare(key, subtree.key);
+      if (cmp === 0)
+        return subtree;
+      else if (cmp < 0)
+        subtree = subtree.left;
+      else
+        subtree = subtree.right;
+    }
+    return null;
+  }
+  insert(key, data) {
+    if (!this._root) {
+      this._root = {
+        parent: null,
+        left: null,
+        right: null,
+        balanceFactor: 0,
+        key,
+        data
+      };
+      this._size++;
+      return this._root;
+    }
+    var compare = this._comparator;
+    var node = this._root;
+    var parent = null;
+    var cmp = 0;
+    if (this._noDuplicates) {
+      while (node) {
+        cmp = compare(key, node.key);
+        parent = node;
+        if (cmp === 0)
+          return null;
+        else if (cmp < 0)
+          node = node.left;
+        else
+          node = node.right;
+      }
+    } else {
+      while (node) {
+        cmp = compare(key, node.key);
+        parent = node;
+        if (cmp <= 0)
+          node = node.left;
+        else
+          node = node.right;
+      }
+    }
+    var newNode = {
+      left: null,
+      right: null,
+      balanceFactor: 0,
+      parent,
+      key,
+      data
+    };
+    var newRoot;
+    if (cmp <= 0)
+      parent.left = newNode;
+    else
+      parent.right = newNode;
+    while (parent) {
+      cmp = compare(parent.key, key);
+      if (cmp < 0)
+        parent.balanceFactor -= 1;
+      else
+        parent.balanceFactor += 1;
+      if (parent.balanceFactor === 0)
+        break;
+      else if (parent.balanceFactor < -1) {
+        if (parent.right.balanceFactor === 1)
+          rotateRight(parent.right);
+        newRoot = rotateLeft(parent);
+        if (parent === this._root)
+          this._root = newRoot;
+        break;
+      } else if (parent.balanceFactor > 1) {
+        if (parent.left.balanceFactor === -1)
+          rotateLeft(parent.left);
+        newRoot = rotateRight(parent);
+        if (parent === this._root)
+          this._root = newRoot;
+        break;
+      }
+      parent = parent.parent;
+    }
+    this._size++;
+    return newNode;
+  }
+  remove(key) {
+    if (!this._root)
+      return null;
+    var node = this._root;
+    var compare = this._comparator;
+    var cmp = 0;
+    while (node) {
+      cmp = compare(key, node.key);
+      if (cmp === 0)
+        break;
+      else if (cmp < 0)
+        node = node.left;
+      else
+        node = node.right;
+    }
+    if (!node)
+      return null;
+    var returnValue = node.key;
+    var max, min;
+    if (node.left) {
+      max = node.left;
+      while (max.left || max.right) {
+        while (max.right)
+          max = max.right;
+        node.key = max.key;
+        node.data = max.data;
+        if (max.left) {
+          node = max;
+          max = max.left;
+        }
+      }
+      node.key = max.key;
+      node.data = max.data;
+      node = max;
+    }
+    if (node.right) {
+      min = node.right;
+      while (min.left || min.right) {
+        while (min.left)
+          min = min.left;
+        node.key = min.key;
+        node.data = min.data;
+        if (min.right) {
+          node = min;
+          min = min.right;
+        }
+      }
+      node.key = min.key;
+      node.data = min.data;
+      node = min;
+    }
+    var parent = node.parent;
+    var pp = node;
+    var newRoot;
+    while (parent) {
+      if (parent.left === pp)
+        parent.balanceFactor -= 1;
+      else
+        parent.balanceFactor += 1;
+      if (parent.balanceFactor < -1) {
+        if (parent.right.balanceFactor === 1)
+          rotateRight(parent.right);
+        newRoot = rotateLeft(parent);
+        if (parent === this._root)
+          this._root = newRoot;
+        parent = newRoot;
+      } else if (parent.balanceFactor > 1) {
+        if (parent.left.balanceFactor === -1)
+          rotateLeft(parent.left);
+        newRoot = rotateRight(parent);
+        if (parent === this._root)
+          this._root = newRoot;
+        parent = newRoot;
+      }
+      if (parent.balanceFactor === -1 || parent.balanceFactor === 1)
+        break;
+      pp = parent;
+      parent = parent.parent;
+    }
+    if (node.parent) {
+      if (node.parent.left === node)
+        node.parent.left = null;
+      else
+        node.parent.right = null;
+    }
+    if (node === this._root)
+      this._root = null;
+    this._size--;
+    return returnValue;
+  }
+  load(keys = [], values = [], presort) {
+    if (this._size !== 0)
+      throw new Error("bulk-load: tree is not empty");
+    const size = keys.length;
+    if (presort)
+      sort(keys, values, 0, size - 1, this._comparator);
+    this._root = loadRecursive(null, keys, values, 0, size);
+    markBalance(this._root);
+    this._size = size;
+    return this;
+  }
+  isBalanced() {
+    return isBalanced(this._root);
+  }
+  toString(printNode) {
+    return print(this._root, printNode);
+  }
+};
+AVLTree.default = AVLTree;
+
 // js/renderPreviewWindow.tsx
 init_define_process();
 init_react_preact();
@@ -3224,7 +3781,7 @@ var DraggableWindow = ({
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
-  const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
+  const [height2, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const videoRef = useRef(null);
   const scale = scaleRange / 100;
   useEffect(() => {
@@ -3361,7 +3918,7 @@ var DraggableWindow = ({
                 },
                 animate: {
                   width: width * scale / devicePixelRatio,
-                  height: height * scale / devicePixelRatio,
+                  height: height2 * scale / devicePixelRatio,
                   borderRadius: 8
                 },
                 css: import_react11.css`
@@ -3382,7 +3939,7 @@ var DraggableWindow = ({
                     background: "rgba(" + bgCV + ", 0.5)",
                     transformOrigin: "0px 0px",
                     width: width / devicePixelRatio,
-                    height: height / devicePixelRatio,
+                    height: height2 / devicePixelRatio,
                     scale: scaleRange / 100
                   },
                   "data-test-id": "z-body",
@@ -3957,27 +4514,21 @@ function v4(options, buf, offset) {
   return stringify(rnds);
 }
 
-// js/wait.ts
-init_define_process();
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
-
 // js/ws.ts
+var users = new AVLTree(
+  (a, b) => a === b ? 0 : a < b ? 1 : -1,
+  true
+);
 var webRtcArray = [];
 var user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || v4()).slice(
   0,
   8
 );
+users.insert(user);
 var rtcConns = {};
 var bc;
 var codeSpace;
 var _hash = "";
-var address;
 var wsLastHashCode = 0;
 var webRTCLastSeenHashCode = 0;
 var lastSeenTimestamp = 0;
@@ -4011,29 +4562,30 @@ var sendChannel = {
   }
 };
 Object.assign(globalThis, { sendChannel });
-var run = async (startState) => {
+var run = async ({ codeSpace: codeSpace2, assets, mST: mst, address }) => {
   if (location.pathname.endsWith("dehydrated")) {
     return;
   }
-  codeSpace = startState.codeSpace;
-  address = startState.address;
-  startSession(codeSpace, {
+  startSession(codeSpace2, {
     name: user,
-    state: startState.mST
+    state: mst
   }, location.origin);
+  await appFactory(mst.transpiled);
+  renderPreviewWindow({ codeSpace: codeSpace2, assets });
+  await join();
   bc = new BroadcastChannel(location.origin);
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
     }
     console.log({ event });
-    if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+    if (event.data.codeSpace === codeSpace2 && event.data.address && !address) {
+      ws?.send(JSON.stringify({ codeSpace: codeSpace2, address: event.data.address }));
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
     }
-    if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
+    if (event.data.codeSpace === codeSpace2 && event.data.sess.code !== mST().code) {
       const messageData = await makePatch(event.data.sess);
       await applyPatch(messageData);
     }
@@ -4048,19 +4600,12 @@ var run = async (startState) => {
       bc.postMessage({
         ignoreUser: user,
         sess,
-        codeSpace,
+        codeSpace: codeSpace2,
         address
       });
     },
     "broadcast"
   );
-  await appFactory(startState.mST.transpiled);
-  while (!mST().code) {
-    console.log("mst.code is empty, waiting");
-    await wait(100);
-  }
-  renderPreviewWindow(startState);
-  await join();
 };
 var intervalHandler = null;
 async function rejoin() {
