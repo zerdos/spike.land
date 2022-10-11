@@ -176,7 +176,7 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 
   return (
     <ErrorBoundary ref={ref}>
-      <div style={{height: "100%"}} id={`${codeSpace}-${md5Hash}`}>
+      <div style={{ height: "100%" }} id={`${codeSpace}-${md5Hash}`}>
         <App />
       </div>
     </ErrorBoundary>

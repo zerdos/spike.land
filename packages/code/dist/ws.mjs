@@ -23663,7 +23663,7 @@ var run = async (startState) => {
   }
   renderPreviewWindow(startState);
   await join();
-  const { startIpfs } = await import("./chunk-startIpfs-HSRDXW6W.mjs");
+  const { startIpfs } = await import("./chunk-startIpfs-VXU6RNHC.mjs");
   await startIpfs(codeSpace);
 };
 var intervalHandler = null;
@@ -23720,7 +23720,7 @@ async function syncWS() {
   }
 }
 var localStream = null;
-var stopVideo = async (vidElement) => {
+var stopVideo = async () => {
   if (!localStream)
     return;
   localStream.getTracks().map((x) => x.stop());
@@ -23730,16 +23730,18 @@ var startVideo = async (vidElement) => {
     audio: true,
     video: true
   };
-  const localStream2 = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+  const localStream2 = await navigator.mediaDevices.getUserMedia(
+    mediaConstraints
+  );
   vidElement.srcObject = localStream2;
-  localStream2.getTracks().forEach((track) => Object.keys(sendChannel.rtcConns).map(
-    (k) => {
+  localStream2.getTracks().forEach(
+    (track) => Object.keys(sendChannel.rtcConns).map((k) => {
       const myStream = new MediaStream();
       sendChannel.rtcConns[k].ontrack = ({ track: track2 }) => myStream.addTrack(track2);
       document.getElementById(`video-${k}`).srcObject = myStream;
       sendChannel.rtcConns[k].addTrack(track);
-    }
-  ));
+    })
+  );
 };
 async function syncRTC() {
   try {

@@ -12,7 +12,7 @@ const mod = {
   CH() {},
   getValue: () => "",
   setValue: (code: string) => {
-    console.log(code)
+    console.log(code);
   },
   code: "",
   counter: 0,

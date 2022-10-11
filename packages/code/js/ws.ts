@@ -185,7 +185,7 @@ export const run = async (startState: {
 
   await join();
 
-  const {startIpfs} = await import("./startIpfs")
+  const { startIpfs } = await import("./startIpfs");
   await startIpfs(codeSpace);
 };
 
@@ -288,41 +288,38 @@ async function syncWS() {
   } catch (error) {
     console.error("error 2", { e: error });
   }
-} 
+}
 
+let localStream: MediaStream | null = null;
 
-let localStream : MediaStream | null = null;
-
-export const stopVideo = async (vidElement: HTMLVideoElement) =>{
-  if (!localStream ) return;
-  localStream.getTracks().map(x=>x.stop());
-
-} 
-
-export const startVideo = async (vidElement: HTMLVideoElement) =>{
-const mediaConstraints = {
-  audio: true, // We want an audio track
-  video: true // And we want a video track
+export const stopVideo = async () => {
+  if (!localStream) return;
+  localStream.getTracks().map((x) => x.stop());
 };
- 
-const localStream = await navigator.mediaDevices.getUserMedia(mediaConstraints)
 
-vidElement.srcObject = localStream;
-localStream.getTracks().forEach((track) => Object.keys(sendChannel.rtcConns).map(k=> {
-  const myStream =  new MediaStream()
+export const startVideo = async (vidElement: HTMLVideoElement) => {
+  const mediaConstraints = {
+    audio: true, // We want an audio track
+    video: true, // And we want a video track
+  };
 
-  sendChannel.rtcConns[k].ontrack = ({track}) =>  myStream.addTrack(track);
-  
-  (document.getElementById(`video-${k}`) as HTMLVideoElement).srcObject = myStream
-  sendChannel.rtcConns[k].addTrack(track);
+  const localStream = await navigator.mediaDevices.getUserMedia(
+    mediaConstraints,
+  );
 
+  vidElement.srcObject = localStream;
+  localStream.getTracks().forEach((track) =>
+    Object.keys(sendChannel.rtcConns).map((k) => {
+      const myStream = new MediaStream();
 
-}
-  
-  ));
-}
-     
+      sendChannel.rtcConns[k].ontrack = ({ track }) => myStream.addTrack(track);
 
+      (document.getElementById(`video-${k}`) as HTMLVideoElement).srcObject =
+        myStream;
+      sendChannel.rtcConns[k].addTrack(track);
+    })
+  );
+};
 
 async function syncRTC() {
   try {

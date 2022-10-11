@@ -8,13 +8,19 @@ init_define_process();
 
 // js/iumd.mjs
 init_define_process();
-var iumd_default = async (url, module = { exports: {} }) => (Function("module", "exports", await (await fetch(url)).text()).call(module, module, module.exports), module).exports;
+var iumd_default = async (url, module = { exports: {} }) => (Function("module", "exports", await (await fetch(url)).text()).call(
+  module,
+  module,
+  module.exports
+), module).exports;
 
 // js/startIpfs.ts
 import "/npm:ipfs-core-config/src/libp2p.browser.js";
 import { routers } from "/npm:ipfs-core-config/src/libp2p-pubsub-routers.browser.js";
 var startIpfs = async (codeSpace) => {
-  const { create } = await iumd_default("https://unpkg.com/ipfs-core@0.16.1/dist/index.min.js");
+  const { create } = await iumd_default(
+    "https://unpkg.com/ipfs-core@0.16.1/dist/index.min.js"
+  );
   const options = {
     Addresses: {
       Swarm: [],
@@ -94,7 +100,9 @@ var startIpfs = async (codeSpace) => {
   const allConf = await ipfs.config.getAll();
   console.log({ allConf });
   const topic = origin + "/live/" + codeSpace;
-  if (!(await ipfs.key.list()).map((x) => x.name).includes("coder")) {
+  if (!(await ipfs.key.list()).map((x) => x.name).includes(
+    "coder"
+  )) {
     await ipfs.key.import(
       "coder",
       "mWWiB7oiZ2ke5fQsg2fN8jAC6+WHhY/dYrwuhgI0zbAzE/lbIlHdATjwtgKAfmnhgaGdLOuk5pl0A2i4eDTCtw+dASlAHN3/dXGrdDhwq+l8OouPyq3NwDlC/l8D/CdpEG/K+SWWynbFbHgo9877XuA",
