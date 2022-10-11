@@ -51,7 +51,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 15194,
+      "bytes": 15261,
       "imports": [
         {
           "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -122,8 +122,21 @@
       "bytes": 2935,
       "imports": []
     },
+    "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js": {
+      "bytes": 3081,
+      "imports": []
+    },
+    "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js": {
+      "bytes": 15405,
+      "imports": [
+        {
+          "path": "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
     "src/chatRoom.ts": {
-      "bytes": 21172,
+      "bytes": 21721,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -151,6 +164,10 @@
         },
         {
           "path": "src/chat.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js",
           "kind": "import-statement"
         }
       ]
@@ -220,7 +237,7 @@
           "bytesInOutput": 8916
         },
         "src/chat.ts": {
-          "bytesInOutput": 12939
+          "bytesInOutput": 13006
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -235,7 +252,7 @@
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15643
+          "bytesInOutput": 16156
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-477FBAEY.mjs": {
           "bytesInOutput": 1469
@@ -244,10 +261,16 @@
           "bytesInOutput": 194
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-ASBJLKVQ.mjs": {
-          "bytesInOutput": 177756
+          "bytesInOutput": 177758
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
+        },
+        "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js": {
+          "bytesInOutput": 2081
+        },
+        "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js": {
+          "bytesInOutput": 11152
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -259,7 +282,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 271879
+      "bytes": 285874
     }
   }
 }

@@ -23,7 +23,7 @@ const mod = {
   CH() {},
   getValue:  async () => "",
   setValue: async (code: string) => {
-    console.log(code);
+    if (code.length<10) console.log(code);
   },
   code: "",
   counter: 0,

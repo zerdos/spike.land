@@ -47,7 +47,9 @@ let ws: WebSocket | null = null;
 let sendWS: (message: string) => void;
 let rejoined = false;
 export const sendChannel = {
+  localStream: null as MediaStream | null,
   webRtcArray,
+  user,
   rtcConns,
   send(data: any) {
     // const target = data.target;
@@ -75,6 +77,7 @@ export const sendChannel = {
     });
   },
 };
+Object.assign(globalThis, {sendChannel});
 
 // Let createDelta;
 
@@ -290,11 +293,9 @@ async function syncWS() {
   }
 }
 
-let localStream: MediaStream | null = null;
-
 export const stopVideo = async () => {
-  if (!localStream) return;
-  localStream.getTracks().map((x) => x.stop());
+  if (!sendChannel.localStream) return;
+  sendChannel.localStream.getTracks().map((x) => x.stop());
 };
 
 export const startVideo = async (vidElement: HTMLVideoElement) => {
@@ -379,9 +380,10 @@ export async function join() {
     };
 
     sendWS = mess;
+    const extendedWS = Object.assign(wsConnection, {hashCode: hashCode()});
     ws.addEventListener(
       "message",
-      async (message) => processWsMessage(message, "ws"),
+      async (message) => processWsMessage(message, "ws",  extendedWS),
     );
     // If (delta) {
     //   if (delta !== deltaSent) {
@@ -434,6 +436,7 @@ const h: Record<number, number> = {};
 async function processWsMessage(
   event: { data: string },
   source: "ws" | "rtc",
+  conn: {hashCode: number}
 ) {
   if (ws == null) {
     return;
@@ -446,7 +449,7 @@ async function processWsMessage(
   processData(data, source);
 }
 
-async function processData(data: any, source: "ws" | "rtc") {
+async function processData(data: any, source: "ws" | "rtc", conn: {hashCode: number}) {
   console.log("ws", data.name, data.oldHash, data.newHash);
 
   // MySession.addEvent(data);
@@ -455,6 +458,7 @@ async function processData(data: any, source: "ws" | "rtc") {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
+  if (data.hashCode || data.newHash && conn) conn.hashCode =  data.hashCode || data.newHash;
 
   if (source === "ws" && data.hashCode) {
     wsLastHashCode = data.hashCode;
@@ -508,7 +512,7 @@ async function processData(data: any, source: "ws" | "rtc") {
 
       if (
         data.name && data.name !== user &&
-        !rtcConns[data.name]
+        !rtcConns[data.name] &&  !ignoreUsers.includes(data.name)
       ) {
         await createPeerConnection(data.name);
         return;
@@ -647,8 +651,8 @@ async function processData(data: any, source: "ws" | "rtc") {
       if (data && data.newHash) {
         webRTCLastSeenHashCode = data.newHash;
       }
-
-      return processWsMessage(message, "rtc");
+      const extendedRTC = Object.assign(rtc, {hashCode: hashCode()})
+      return processWsMessage(message, "rtc", extendedRTC);
     });
 
     rtc.addEventListener("error", (error) => {

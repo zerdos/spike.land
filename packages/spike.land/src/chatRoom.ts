@@ -15,6 +15,7 @@ import { Delta } from "@spike.land/code/js/session";
 // import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
 import { getImportMapStr, imap } from "./chat";
+import AVLTree from "avl"
 // const imap = {
 //   "imports": {
 //     // ...imap,
@@ -78,7 +79,9 @@ export class Code {
   codeSpace: string;
   sess: ICodeSession | null;
   sessionStarted: boolean;
+  user = self.crypto.randomUUID().slice(0,8)
   address: string;
+  users = new AVLTree((a:string,b:string)=>a===b?0:a<b?1:-1,true)
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
@@ -484,6 +487,7 @@ export class Code {
 
     let closeOrErrorHandler = () => {
       session.quit = true;
+      this.users.remove(session.name);
     };
     webSocket.addEventListener("close", closeOrErrorHandler);
     webSocket.addEventListener("error", closeOrErrorHandler);
@@ -494,6 +498,8 @@ export class Code {
     session: WebsocketSession,
   ) {
     if (session.quit) {
+
+      this.users.remove(session.name);
       session.webSocket.close(1011, "WebSocket broken.");
       return;
     }
@@ -528,6 +534,7 @@ export class Code {
 
     if (!name) {
       if (data.name) {
+     
         session.name = data.name;
 
         try {
@@ -546,8 +553,15 @@ export class Code {
           respondWith({ error: "error while checked blocked messages" });
         }
 
+        
+        const userNode = this.users.insert(data.name);
+
+        const usersNum =  this.users.keys().length
+        const rtcConnUser = usersNum>2? (userNode.parent?.key || userNode.left?.key || userNode.right?.key):null
         return respondWith({
-          hashCode: hashCode(),
+              ...(rtcConnUser?{name: rtcConnUser}:{}),
+              hashCode: hashCode(),
+              users: this.users.keys()
         });
       }
 
