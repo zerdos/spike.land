@@ -2296,6 +2296,7 @@ __metadata:
     "@types/xo": "npm:^0.39.3"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.25"
     ace-builds: "npm:1.11.2"
+    avl: "npm:^1.5.3"
     comlink: "npm:^4.3.1"
     csstype: "npm:^3.1.1"
     es-module-shims: "npm:^1.6.1"
