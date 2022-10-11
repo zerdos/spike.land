@@ -7,8 +7,7 @@ import {
   md5,
   onSessionUpdate,
   patchSync,
-  require_lodash,
-  startSession
+  require_lodash
 } from "./chunk-chunk-M3GU2HHK.mjs";
 import {
   wrap
@@ -4570,16 +4569,18 @@ var sendChannel = {
   }
 };
 Object.assign(globalThis, { sendChannel });
-var run = async ({ codeSpace: codeSpace2, assets, mST: mst, address }) => {
+var run = async (startSession2) => {
+  const { assets, mST: mst, address } = startSession2;
+  codeSpace = startSession2.codeSpace;
   if (location.pathname.endsWith("dehydrated")) {
     return;
   }
-  startSession(codeSpace2, {
+  startSession2(codeSpace, {
     name: user,
     state: mst
   }, location.origin);
   await appFactory(mst.transpiled);
-  renderPreviewWindow({ codeSpace: codeSpace2, assets });
+  renderPreviewWindow({ codeSpace, assets });
   await join();
   bc = new BroadcastChannel(location.origin);
   bc.onmessage = async (event) => {
@@ -4587,13 +4588,13 @@ var run = async ({ codeSpace: codeSpace2, assets, mST: mst, address }) => {
       return;
     }
     console.log({ event });
-    if (event.data.codeSpace === codeSpace2 && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace: codeSpace2, address: event.data.address }));
+    if (event.data.codeSpace === codeSpace && event.data.address && !address) {
+      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
     }
-    if (event.data.codeSpace === codeSpace2 && event.data.sess.code !== mST().code) {
+    if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
       const messageData = await makePatch(event.data.sess);
       await applyPatch(messageData);
     }
@@ -4608,7 +4609,7 @@ var run = async ({ codeSpace: codeSpace2, assets, mST: mst, address }) => {
       bc.postMessage({
         ignoreUser: user,
         sess,
-        codeSpace: codeSpace2,
+        codeSpace,
         address
       });
     },

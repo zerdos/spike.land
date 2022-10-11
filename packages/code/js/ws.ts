@@ -107,12 +107,16 @@ Object.assign(globalThis, { sendChannel });
 
 // }
 
-export const run = async ({codeSpace, assets, mST: mst, address}: {
+export const run = async (startSession: {
   mST: ICodeSession;
   codeSpace: string;
   address: string;
   assets: Record<string, string>;
 }) => {
+
+  const { assets, mST: mst, address} = startSession;
+  codeSpace = startSession.codeSpace;
+
   if (location.pathname.endsWith("dehydrated")) {
     return;
   }
