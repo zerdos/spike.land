@@ -65,7 +65,7 @@ export async function runner({ code, counter, codeSpace }: {
   console.log("to UMD")!;
   const UMD = await toUmd(code, `${codeSpace}.tsx`);
   console.log({UMD})
-  download("coder.js", UMD?.toJs(`${codeSpace}.tsx`)!);
+  download("coder.js", UMD?.toJs(`${codeSpace}.tsx`));
 
   function download(filename: string, text: string) {
     var element = document.createElement('a');
