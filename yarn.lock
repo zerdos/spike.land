@@ -2567,14 +2567,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 18.8.3
-  resolution: "@types/node@npm:18.8.3"
-  checksum: 19e358e2b43e1ee466c2c665e1ae9185bdac0a27493ab8ae6c72876e585fdb250eafe052df7744da102f31b013a49de8930aee6938d36d18fdceecc8f049807b
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.8.4":
+"@types/node@npm:*, @types/node@npm:^18.8.4":
   version: 18.8.4
   resolution: "@types/node@npm:18.8.4"
   checksum: 55ef689f2c930e558768aef408e95edde71524995ed79fcac92ffb6a669552f66a5f1fc626593a5cdd41f8cf25c7cca2f149cffa5025b96196a09fa6dd9d2939
@@ -2872,17 +2865,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^3.0.0-rc.18":
-  version: 3.0.0-rc.24
-  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.24"
-  dependencies:
-    js-yaml: "npm:^3.10.0"
-    tslib: "npm:^2.4.0"
-  checksum: adb6c1690aa202e30a26736c8d1db52533d9c1c33746eae0b7371aa68f404c840b5511470497313fbc9943f41dfead430310f5cae5945b10e39c4e96e4ce76a8
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/parsers@npm:^3.0.0-rc.25":
+"@yarnpkg/parsers@npm:^3.0.0-rc.18, @yarnpkg/parsers@npm:^3.0.0-rc.25":
   version: 3.0.0-rc.25
   resolution: "@yarnpkg/parsers@npm:3.0.0-rc.25"
   dependencies:
