@@ -1650,18 +1650,16 @@ var mod = {
   printr(name) {
     const current = mod.data[mod.hashMap[name]];
     const currentCode = current.code;
-    current.code = "";
     const myDepts = [...current.deps];
-    current.deps = [];
     const depts = myDepts.map((n) => mod.printr(n)).join(" \n ");
     return depts + `
     
     ` + currentCode;
   },
-  toJs(name) {
+  async toJs(name) {
     const js = mod.printr(name);
     const modz = "var modz =  {" + Object.keys(mod.data).map((k) => [`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, "")]).map((x) => x[0] + ": " + x[1]).join(", \n ") + "}";
-    return ` 
+    const res = ` 
 
      ${js}
 
@@ -1676,9 +1674,20 @@ var mod = {
       return dep;
      }
   
-     require("${name}");
+     var mymod = require("${name}").default;
+
+     export default mymod;
     
     `;
+    const { transform: transform2 } = await import("./chunk-esbuildEsm-WSZ2EFBQ.mjs");
+    const t = await transform2(res, {
+      format: "esm",
+      minify: true,
+      keepNames: true,
+      platform: "browser",
+      treeShaking: true
+    });
+    return t.code;
   },
   hashMap: {},
   data: {}
@@ -1772,7 +1781,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     console.log("to UMD");
     const UMD = await toUmd(code, `${codeSpace2}.tsx`);
     console.log({ UMD });
-    download("coder.js", UMD?.toJs(`${codeSpace2}.tsx`));
+    download("coder.js", await UMD?.toJs(`${codeSpace2}.tsx`));
     function download(filename, text) {
       var element = document.createElement("a");
       element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
@@ -1963,7 +1972,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-L5NQUOPG.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-6PJYGCP5.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,

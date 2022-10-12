@@ -12,9 +12,9 @@ const mod = {
 
     const current = mod.data[mod.hashMap[name]] 
     const currentCode = current.code;
-    current.code = '';
+   // current.code = '';
     const myDepts = [...current.deps];
-    current.deps=[]
+   // current.deps=[]
     const depts  = myDepts.map(n=>mod.printr(n)).join(" \n ")
     
     return  depts + `
@@ -22,14 +22,15 @@ const mod = {
     ` +  currentCode;
 
   },
-      toJs(name: string): string { 
+    async toJs(name: string) { 
+
 
         const js = mod.printr(name);
 
         const modz = "var modz =  {"+ Object.keys(mod.data).map(k=>[`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, ""),]).map(x=>x[0] + ": "+ x[1]).join(", \n ") + "}";
 
     //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts + 
-     return ` 
+     const res =  ` 
 
      ${js}
 
@@ -44,10 +45,22 @@ const mod = {
       return dep;
      }
   
-     require("${name}");
+     var mymod = require("${name}").default;
+
+     export default mymod;
     
     `;
 
+
+    const {transform} = await import("./esbuildEsm")
+
+  const t = await  transform(res, {format: "esm", 
+  minify: true,
+  keepNames: true,
+  platform: "browser",
+  treeShaking: true});
+  
+  return t.code;
     
   },
   hashMap: {} as unknown as Record<string, string>,
