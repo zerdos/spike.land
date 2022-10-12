@@ -3,7 +3,7 @@
 // Object.assign(globalThis, require("stream-browserify"));
 
 // import 'css-paint-polyfill
-import debounce from "npm:lodash.debounce";
+import debounce from "lodash.debounce";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   mST,
   onSessionUpdate,
   startSession,
-} from "./session.";
+} from "./session";
 import AVLTree from "avl";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
@@ -22,7 +22,7 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { appFactory } from "./starter";
-import { md5 } from "md5";
+import { md5 } from "./md5";
 // import { wait } from "wait";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
