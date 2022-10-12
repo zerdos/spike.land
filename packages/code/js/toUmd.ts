@@ -17,9 +17,9 @@ const mod = {
     current.deps=[]
     const depts  = myDepts.map(n=>mod.printr(n)).join(" \n ")
     
-    return currentCode + `
+    return  depts + `
     
-    ` + depts;
+    ` +  currentCode;
 
   },
       toJs(name: string): string { 
