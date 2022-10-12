@@ -1,3 +1,4 @@
+
 import { run } from "./js/ws";
 
-run();
+import(location.href+"/mST").then(({mST})=>run({mST}));

@@ -2,24 +2,42 @@
 // import {comlink} from "comlink"
 // import { hashCode } from "session";
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
-import type { TransformOptions } from "esbuild-wasm";
 // Import { string } from "prop-types";
 import { md5 } from "./md5.js";
+import "es-module-shims"
 // Import { m } from "framer-motion";
 
 const mod = {
   toJs(name: string): string {
-    const md5Name = mod.hashMap[name];
-    const data = mod.data[md5Name];
-    if (!data) {
-      console.error(`cant resolve ${name}`);
-      return "";
-    }
+    
+    const debts = "var modZ =  {"+ Object.keys(mod.data).map(k=>[`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, ""),]).map(x=>x[0] + ": "+ x[1]).join(", \n ") + "}";
 
-    return (mod.data[md5Name].code +
-      mod.data[md5Name].deps.map((name) => mod.toJs(name)).join(
-        "\n",
-      ));
+
+
+    let js =   Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts + `
+    
+    function require(name) {
+      return modZ[name]()
+     }
+  
+     require("${name}");
+    
+    `;
+
+    console.log({js});
+    return js;
+    
+    // const md5Name = mod.hashMap[name];
+    // const data = mod.data[md5Name];
+    // if (!data) {
+    //   console.error(`cant resolve ${name}`);
+    //   return "";
+    // }
+
+    // return (mqmd5Name].code +
+    //   mod.data[md5Name].deps.map((name) => mod.toJs(name)).join(
+    //     "\n",
+    //   ));
   },
   hashMap: {} as unknown as Record<string, string>,
   // ToJs: (name: string)=>{
@@ -33,14 +51,23 @@ const mod = {
 };
 
 export const toUmd = async (source: string, name: string) => {
-  const esbuild = await (await import("./esbuildEsm")).init();
+  const {transform} = await import("./esbuildEsm")
 
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
 
   if (!mod.data[hash]) {
-    const transformed = await (await esbuild.transform)(source, {
-      ...options,
+    const transformed = await transform(source, {
+      format: "iife",
+      treeShaking: true,
+      tsconfigRaw: {
+        compilerOptions: {
+          jsx: "react-jsx",
+          jsxImportSource: "@emotion/react",
+        },
+      },
+      target: "es2021",
+
       loader: name.includes(".tsx")
         ? "tsx"
         : (name.includes(".ts") ? "ts" : name.includes(".jsx") ? "jsx" : "js"),
@@ -127,19 +154,6 @@ export const toUmd = async (source: string, name: string) => {
 //   new Worker(blobUrl)
 // createJsBlob(
 
-const options = {
-  loader: "tsx",
-  format: "iife",
-  globalName: "myApp",
-  treeShaking: true,
-  tsconfigRaw: {
-    compilerOptions: {
-      jsx: "react-jsx",
-      jsxImportSource: "@emotion/react",
-    },
-  },
-  target: "es2021",
-} as unknown as TransformOptions;
 
 const findDeps = (code: string) => {
   // Alternative syntax using RegExp constructor

@@ -1,7 +1,6 @@
 import {
   init_define_process
 } from "./chunk-chunk-VLW3JR2S.mjs";
-import "./chunk-chunk-Z35L655W.mjs";
 
 // ../../.yarn/global/cache/es-module-shims-npm-1.6.1-737a4e0e18-9.zip/node_modules/es-module-shims/dist/es-module-shims.js
 init_define_process();

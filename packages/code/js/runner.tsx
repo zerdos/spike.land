@@ -3,7 +3,7 @@ import type { TransformOptions } from "esbuild-wasm";
 import { saveCode } from "./ws";
 import { mST, patchSync } from "./session";
 // Import { cF } from "./renderToString";
-// import { toUmd } from "./toUmd";
+import { toUmd } from "./toUmd";
 import { transform } from "./esbuildEsm";
 import { render } from "./renderToString";
 import { md5 } from "md5";
@@ -60,6 +60,27 @@ export async function runner({ code, counter, codeSpace }: {
   // session.changes.push(changes);
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
+
+ const umdExp =  async ()=>{
+  console.log("to UMD")!;
+  const UMD = await toUmd(code, `${codeSpace}.tsx`);
+  console.log({UMD})
+  download("coder.js", UMD?.toJs(`${codeSpace}.tsx`)!);
+
+  function download(filename: string, text: string) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }
+  }
+  Object.assign(globalThis, {umdExp});
 
   try {
     const transpiled = await transform(code, {
