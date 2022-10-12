@@ -3,7 +3,7 @@ import "monaco-editor/esm/vs/editor/editor.all";
 import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
-import {setupTypeAcquisition} from "@typescript/ata"
+// import {setupTypeAcquisition} from "@typescript/ata"
 import pMap from "p-map";
 
 
@@ -16,7 +16,7 @@ const create = editor.create;
 const createModel = editor.createModel;
 // const Uri = monaco.Uri;
 
-Object.assign(globalThis, {setupTypeAcquisition});
+// Object.assign(globalThis, {setupTypeAcquisition});
 const lib = [
   // "dom",
   // "dom.iterable",
@@ -352,9 +352,9 @@ const monacoContribution = async (
 
  
   
-  languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
-    typescript: ts
-  })(code));
+  // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
+  //   typescript: ts
+  // })(code));
 
 
 
