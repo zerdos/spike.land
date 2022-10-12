@@ -17,8 +17,17 @@ import { md5 } from "./md5.js";
 import { renderFromString } from "./renderToString";
 
 import { useState } from "react";
-
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
 import isCallable from "is-callable";
+
+
+const myCache = createCache({
+key: "z",
+});
+
+Object.assign(globalThis, {myCache})
+
 
 async function importShim(scr: string): Promise<any> {
   if (!document.scripts) {
@@ -177,7 +186,11 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   return (
     <ErrorBoundary key={md5Hash} ref={ref}>
       <div style={{ height: "100%" }} id={`${codeSpace}-${md5Hash}`}>
+
+      <CacheProvider value={myCache}>
         <App />
+        </CacheProvider>
+
       </div>
     </ErrorBoundary>
   );
