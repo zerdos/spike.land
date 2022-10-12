@@ -3,7 +3,7 @@
 // Object.assign(globalThis, require("stream-browserify"));
 
 // import 'css-paint-polyfill
-import debounce from "lodash.debounce";
+import debounce from "npm:lodash.debounce";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   mST,
   onSessionUpdate,
   startSession,
-} from "./session";
+} from "./session.";
 import AVLTree from "avl";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
@@ -107,15 +107,15 @@ Object.assign(globalThis, { sendChannel });
 
 // }
 
-export const run = async (startSession: {
+export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;
   address: string;
   assets: Record<string, string>;
 }) => {
 
-  const { assets, mST: mst, address} = startSession;
-  codeSpace = startSession.codeSpace;
+  const { assets, mST: mst, address} = startState;
+  codeSpace = startState.codeSpace;
 
   if (location.pathname.endsWith("dehydrated")) {
     return;
