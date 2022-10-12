@@ -1647,19 +1647,38 @@ init_define_process();
 // js/toUmd.ts
 init_define_process();
 var mod = {
-  toJs(name) {
-    const debts = "var modZ =  {" + Object.keys(mod.data).map((k) => [`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, "")]).map((x) => x[0] + ": " + x[1]).join(", \n ") + "}";
-    let js = Object.keys(mod.data).map((key) => mod.data[key].code).join("\n") + debts + `
+  printr(name) {
+    const current = mod.data[mod.hashMap[name]];
+    const currentCode = current.code;
+    current.code = "";
+    const myDepts = [...current.deps];
+    current.deps = [];
+    const depts = myDepts.map((n) => mod.printr(n)).join(" \n ");
+    return currentCode + `
     
+    ` + depts;
+  },
+  toJs(name) {
+    const js = mod.printr(name);
+    const modz = "var modz =  {" + Object.keys(mod.data).map((k) => [`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, "")]).map((x) => x[0] + ": " + x[1]).join(", \n ") + "}";
+    return ` 
+
+     ${js}
+
+
+
+
     function require(name) {
-      return modZ[name]()
+      ${modz}
+      
+      var dep  = modz[name];
+
+      return dep;
      }
   
      require("${name}");
     
     `;
-    console.log({ js });
-    return js;
   },
   hashMap: {},
   data: {}

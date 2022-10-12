@@ -8,36 +8,47 @@ import "es-module-shims"
 // Import { m } from "framer-motion";
 
 const mod = {
-  toJs(name: string): string {
+  printr(name: string): string {
+
+    const current = mod.data[mod.hashMap[name]] 
+    const currentCode = current.code;
+    current.code = '';
+    const myDepts = [...current.deps];
+    current.deps=[]
+    const depts  = myDepts.map(n=>mod.printr(n)).join(" \n ")
     
-    const debts = "var modZ =  {"+ Object.keys(mod.data).map(k=>[`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, ""),]).map(x=>x[0] + ": "+ x[1]).join(", \n ") + "}";
-
-
-
-    let js =   Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts + `
+    return currentCode + `
     
+    ` + depts;
+
+  },
+      toJs(name: string): string { 
+
+        const js = mod.printr(name);
+
+        const modz = "var modz =  {"+ Object.keys(mod.data).map(k=>[`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, ""),]).map(x=>x[0] + ": "+ x[1]).join(", \n ") + "}";
+
+    //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts + 
+     return ` 
+
+     ${js}
+
+
+
+
     function require(name) {
-      return modZ[name]()
+      ${modz}
+      
+      var dep  = modz[name];
+
+      return dep;
      }
   
      require("${name}");
     
     `;
 
-    console.log({js});
-    return js;
     
-    // const md5Name = mod.hashMap[name];
-    // const data = mod.data[md5Name];
-    // if (!data) {
-    //   console.error(`cant resolve ${name}`);
-    //   return "";
-    // }
-
-    // return (mqmd5Name].code +
-    //   mod.data[md5Name].deps.map((name) => mod.toJs(name)).join(
-    //     "\n",
-    //   ));
   },
   hashMap: {} as unknown as Record<string, string>,
   // ToJs: (name: string)=>{
