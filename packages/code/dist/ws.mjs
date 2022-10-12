@@ -7,7 +7,8 @@ import {
   md5,
   onSessionUpdate,
   patchSync,
-  require_lodash
+  require_lodash,
+  startSession
 } from "./chunk-chunk-M3GU2HHK.mjs";
 import {
   wrap
@@ -4569,13 +4570,13 @@ var sendChannel = {
   }
 };
 Object.assign(globalThis, { sendChannel });
-var run = async (startSession2) => {
-  const { assets, mST: mst, address } = startSession2;
-  codeSpace = startSession2.codeSpace;
+var run = async (startState) => {
+  const { assets, mST: mst, address } = startState;
+  codeSpace = startState.codeSpace;
   if (location.pathname.endsWith("dehydrated")) {
     return;
   }
-  startSession2(codeSpace, {
+  startSession(codeSpace, {
     name: user,
     state: mst
   }, location.origin);
