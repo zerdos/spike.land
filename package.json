@@ -52,5 +52,5 @@
     "playwright": "^1.27.0",
     "react-dom": "^18.2.0"
   },
-  "packageManager": "yarn@4.0.0-rc.24"
+  "packageManager": "yarn@4.0.0-rc.25"
 }
