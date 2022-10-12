@@ -8,7 +8,7 @@ import {
   require_emotion_weak_memoize_cjs,
   require_extends,
   require_hoist_non_react_statics_cjs
-} from "./chunk-chunk-L3A6WAGQ.mjs";
+} from "./chunk-chunk-G3JDWL4E.mjs";
 import {
   init_react_preact,
   react_preact_exports
