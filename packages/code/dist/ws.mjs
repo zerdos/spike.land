@@ -1068,7 +1068,7 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
       id: `${codeSpace2}-${md5Hash}`,
       children: (0, import_jsx_runtime3.jsx)(App, {})
     })
-  });
+  }, md5Hash);
 };
 async function appFactory(transpiled = "") {
   const trp = transpiled.length > 0 ? transpiled : mST().transpiled;

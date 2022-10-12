@@ -110,11 +110,23 @@ body {
           src: url('/Wallpoet.ttf') format('ttf');
         }
    </style>
-   <script type="esms-options">
-    {
-      "shimMode": true
+   <script>
+    window.esmsInitOptions = {
+      shimMode: true,
+      resolve: function (id, parentUrl, defaultResolve) {
+        let resolved;
+        try{
+          resolved = defaultResolve(id, parentUrl);
+        } catch{
+          resolved = new URL('npm:'+id+"?bundle", location.origin).toString()
+        }
+///        console.table(id, parentUrl, resolved);
+  
+        // Default resolve will handle the typical URL and import map resolution
+        return resolved;
+      }
     }
-    </script>
+  </script>
 
    <script type="importmap"></script>
    </head>
