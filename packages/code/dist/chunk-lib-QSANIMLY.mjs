@@ -1,19 +1,13 @@
 import {
   __rest
-} from "./chunk-chunk-WHB64CZO.mjs";
-import {
-  h,
-  init_react_preact,
-  useEffect,
-  useState
-} from "./chunk-chunk-LQG6EBI3.mjs";
+} from "./chunk-chunk-ZUJ2BQID.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-VLW3JR2S.mjs";
+} from "./chunk-chunk-AXJDOV6Y.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-Z35L655W.mjs";
+} from "./chunk-chunk-X6R3MEIC.mjs";
 
 // ../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js
 var require_qrious = __commonJS({
@@ -1680,7 +1674,7 @@ var require_qrious = __commonJS({
           }
         },
         _checkBadness: function() {
-          var b, b1, h2, x, y;
+          var b, b1, h, x, y;
           var bad = 0;
           var badness = this._badness;
           var buffer = this.buffer;
@@ -1694,19 +1688,19 @@ var require_qrious = __commonJS({
           }
           var bw = 0;
           for (y = 0; y < width; y++) {
-            h2 = 0;
+            h = 0;
             badness[0] = 0;
             for (b = 0, x = 0; x < width; x++) {
               b1 = buffer[x + width * y];
               if (b === b1) {
-                badness[h2]++;
+                badness[h]++;
               } else {
-                badness[++h2] = 1;
+                badness[++h] = 1;
               }
               b = b1;
               bw += b ? 1 : -1;
             }
-            bad += this._getBadness(h2);
+            bad += this._getBadness(h);
           }
           if (bw < 0) {
             bw = -bw;
@@ -1721,18 +1715,18 @@ var require_qrious = __commonJS({
           }
           bad += count * Frame.N4;
           for (x = 0; x < width; x++) {
-            h2 = 0;
+            h = 0;
             badness[0] = 0;
             for (b = 0, y = 0; y < width; y++) {
               b1 = buffer[x + width * y];
               if (b === b1) {
-                badness[h2]++;
+                badness[h]++;
               } else {
-                badness[++h2] = 1;
+                badness[++h] = 1;
               }
               b = b1;
             }
-            bad += this._getBadness(h2);
+            bad += this._getBadness(h);
           }
           return bad;
         },
@@ -2353,12 +2347,12 @@ init_define_process();
 
 // ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/0/global/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/QRious.js
 init_define_process();
-init_react_preact();
+import { createElement } from "react";
 
 // ../../.yarn/__virtual__/react-qrious-virtual-3e5ca06847/0/global/cache/react-qrious-npm-2.5.5-32ba7f8833-9.zip/node_modules/react-qrious/lib/use-qrious.js
 init_define_process();
 var import_qrious = __toESM(require_qrious(), 1);
-init_react_preact();
+import { useEffect, useState } from "react";
 var useQrious = (options) => {
   const [qrious] = useState(() => new import_qrious.default(options));
   const [dataUrl, setDataUrl] = useState(() => qrious.toDataURL(options.mime));
@@ -2383,7 +2377,7 @@ var QRious2 = (_a) => {
     size,
     value
   });
-  return h("img", Object.assign(Object.assign({}, props), { src: dataUrl }));
+  return createElement("img", Object.assign(Object.assign({}, props), { src: dataUrl }));
 };
 export {
   QRious2 as QRious,

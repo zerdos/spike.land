@@ -1,6 +1,6 @@
 import {
   transform
-} from "./chunk-chunk-756WO7TV.mjs";
+} from "./chunk-chunk-PHRNSAH2.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,54 +12,29 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-M3GU2HHK.mjs";
+} from "./chunk-chunk-5SOELRIC.mjs";
 import {
   wrap
-} from "./chunk-chunk-GTSXHT2G.mjs";
+} from "./chunk-chunk-ZVRNBDGH.mjs";
 import {
   LazyMotion,
   domAnimation,
   domMax,
   m,
   motion
-} from "./chunk-chunk-7YYSD3CH.mjs";
-import "./chunk-chunk-WHB64CZO.mjs";
+} from "./chunk-chunk-L37Y7ZTP.mjs";
+import "./chunk-chunk-ZUJ2BQID.mjs";
+import "./chunk-chunk-MFQP7JEX.mjs";
 import {
-  require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-NBUB4JX2.mjs";
-import {
-  require_emotion_cache_cjs,
-  require_emotion_react_cjs
-} from "./chunk-chunk-G3JDWL4E.mjs";
-import {
-  $,
-  Children,
-  PureComponent,
-  S,
-  Suspense,
-  _n,
-  cloneElement,
-  createRef,
-  createRoot,
-  h,
-  init_react_preact,
-  isValidElement,
-  lazy,
-  p,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from "./chunk-chunk-LQG6EBI3.mjs";
-import "./chunk-chunk-6E5GKPCO.mjs";
+  emotionCache_default
+} from "./chunk-chunk-G4L2UCJB.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-VLW3JR2S.mjs";
+} from "./chunk-chunk-AXJDOV6Y.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-Z35L655W.mjs";
+} from "./chunk-chunk-X6R3MEIC.mjs";
 
 // ../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js
 var require_is_callable = __commonJS({
@@ -743,21 +718,21 @@ AVLTree.default = AVLTree;
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-init_react_preact();
-init_react_preact();
+import { Fragment as Fragment3, useEffect as useEffect3, useMemo, useState as useState4 } from "react";
+import { createRoot } from "react-dom/client";
 
 // ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
 init_define_process();
-init_react_preact();
-init_react_preact();
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 var __extends = function() {
   var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
       d2.__proto__ = b2;
     } || function(d2, b2) {
-      for (var p2 in b2)
-        if (b2.hasOwnProperty(p2))
-          d2[p2] = b2[p2];
+      for (var p in b2)
+        if (b2.hasOwnProperty(p))
+          d2[p] = b2[p];
     };
     return extendStatics(d, b);
   };
@@ -860,19 +835,19 @@ var InPortal = function(_super) {
   InPortal2.prototype.render = function() {
     var _this = this;
     var _a = this.props, children = _a.children, node = _a.node;
-    return $(Children.map(children, function(child) {
-      if (!isValidElement(child))
+    return ReactDOM.createPortal(React.Children.map(children, function(child) {
+      if (!React.isValidElement(child))
         return child;
-      return cloneElement(child, _this.state.nodeProps);
+      return React.cloneElement(child, _this.state.nodeProps);
     }), node.element);
   };
   return InPortal2;
-}(PureComponent);
+}(React.PureComponent);
 var OutPortal = function(_super) {
   __extends(OutPortal2, _super);
   function OutPortal2(props) {
     var _this = _super.call(this, props) || this;
-    _this.placeholderNode = createRef();
+    _this.placeholderNode = React.createRef();
     _this.passPropsThroughPortal();
     return _this;
   }
@@ -906,23 +881,23 @@ var OutPortal = function(_super) {
     node.setPortalProps({});
   };
   OutPortal2.prototype.render = function() {
-    return h("div", { ref: this.placeholderNode });
+    return React.createElement("div", { ref: this.placeholderNode });
   };
   return OutPortal2;
-}(PureComponent);
+}(React.PureComponent);
 var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/starter.tsx
 init_define_process();
-var import_react2 = __toESM(require_emotion_react_cjs(), 1);
-init_react_preact();
+import { css } from "@emotion/react";
+import { useEffect, useRef } from "react";
 
 // js/ErrorBoundary.tsx
 init_define_process();
-init_react_preact();
-var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var ErrorBoundary = class extends _n.Component {
+import React2 from "react";
+import { Fragment, jsx, jsxs } from "@emotion/react/jsx-runtime";
+var ErrorBoundary = class extends React2.Component {
   constructor(props) {
     super(props);
     this.state = { error: void 0, errorInfo: void 0 };
@@ -935,43 +910,43 @@ var ErrorBoundary = class extends _n.Component {
   }
   render() {
     if (this.state.errorInfo) {
-      return (0, import_jsx_runtime.jsxs)("div", {
+      return jsxs("div", {
         children: [
-          (0, import_jsx_runtime.jsx)("h2", {
+          jsx("h2", {
             children: "Something went wrong."
           }),
-          (0, import_jsx_runtime.jsxs)("details", {
+          jsxs("details", {
             style: { whiteSpace: "pre-wrap" },
             children: [
               this.state.error && this.state.error.toString(),
-              (0, import_jsx_runtime.jsx)("br", {}),
+              jsx("br", {}),
               this.state.errorInfo.componentStack
             ]
           })
         ]
       });
     }
-    return this.props.children || (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {});
+    return this.props.children || jsx(Fragment, {});
   }
 };
 var ErrorBoundary_default = ErrorBoundary;
 
 // js/renderToString.tsx
 init_define_process();
-init_react_preact();
 var import_is_callable = __toESM(require_is_callable(), 1);
-var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+import { renderToString } from "react-dom/server";
+import { jsx as jsx2 } from "@emotion/react/jsx-runtime";
 var render = async (transpiled, codeSpace2) => {
   const hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if ((0, import_is_callable.default)(App)) {
-    return S(
-      (0, import_jsx_runtime2.jsx)("div", {
+    return renderToString(
+      jsx2("div", {
         style: {
           height: "100%"
         },
         id: `${codeSpace2}-${hash}`,
-        children: (0, import_jsx_runtime2.jsx)(App, {})
+        children: jsx2(App, {})
       })
     );
   } else
@@ -1016,9 +991,14 @@ var extractCritical22 = (html) => {
 };
 
 // js/starter.tsx
-init_react_preact();
+import { useState } from "react";
+import { CacheProvider } from "@emotion/react";
 var import_is_callable2 = __toESM(require_is_callable(), 1);
-var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+import { jsx as jsx3, jsxs as jsxs2 } from "@emotion/react/jsx-runtime";
+var myCache = emotionCache_default({
+  key: "z"
+});
+Object.assign(globalThis, { myCache });
 async function importShim2(scr) {
   if (!document.scripts) {
     throw new Error("document.scripts");
@@ -1028,7 +1008,7 @@ async function importShim2(scr) {
   if (!imap) {
     throw new Error("no imap");
   }
-  await import("./chunk-es-module-shims-ML6I6F43.mjs");
+  await import("./chunk-es-module-shims-MBQ6CRVD.mjs");
   await window.importShim.addImportMap(
     JSON.parse(
       imap.innerText
@@ -1061,12 +1041,15 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled)];
-  return (0, import_jsx_runtime3.jsx)(ErrorBoundary_default, {
+  return jsx3(ErrorBoundary_default, {
     ref,
-    children: (0, import_jsx_runtime3.jsx)("div", {
+    children: jsx3("div", {
       style: { height: "100%" },
       id: `${codeSpace2}-${md5Hash}`,
-      children: (0, import_jsx_runtime3.jsx)(App, {})
+      children: jsx3(CacheProvider, {
+        value: myCache,
+        children: jsx3(App, {})
+      })
     })
   }, md5Hash);
 };
@@ -1084,22 +1067,22 @@ async function appFactory(transpiled = "") {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => (0, import_jsx_runtime3.jsxs)("div", {
-          css: import_react2.css`
+        apps[hash] = () => jsxs2("div", {
+          css: css`
         background-color: orange;
         `,
           children: [
-            (0, import_jsx_runtime3.jsx)("h1", {
+            jsx3("h1", {
               children: "Syntax Error"
             }),
-            (0, import_jsx_runtime3.jsxs)("h2", {
+            jsxs2("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            (0, import_jsx_runtime3.jsx)("p", {
+            jsx3("p", {
               children: JSON.stringify({ err: error })
             })
           ]
@@ -1107,32 +1090,32 @@ async function appFactory(transpiled = "") {
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => (0, import_jsx_runtime3.jsxs)("div", {
-          css: import_react2.css`
+        apps[hash] = () => jsxs2("div", {
+          css: css`
 						background-color: orange;
 						`,
           children: [
-            (0, import_jsx_runtime3.jsx)("h1", {
+            jsx3("h1", {
               children: "Syntax Error"
             }),
-            (0, import_jsx_runtime3.jsxs)("h2", {
+            jsxs2("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            (0, import_jsx_runtime3.jsx)("p", {
+            jsx3("p", {
               children: JSON.stringify({ err: error })
             })
           ]
         });
       } else {
-        apps[hash] = () => (0, import_jsx_runtime3.jsx)("div", {
-          css: import_react2.css`
+        apps[hash] = () => jsx3("div", {
+          css: css`
         background-color: orange;
       `,
-          children: (0, import_jsx_runtime3.jsxs)("h1", {
+          children: jsxs2("h1", {
             children: [
               "Unknown Error: $",
               hash
@@ -1155,8 +1138,8 @@ function createJsBlob(code, fileName = "index.mjs") {
 
 // js/DraggableWindow.tsx
 init_define_process();
-var import_react12 = __toESM(require_emotion_react_cjs(), 1);
-init_react_preact();
+import { css as css5 } from "@emotion/react";
+import { useEffect as useEffect2, useRef as useRef2, useState as useState3 } from "react";
 
 // ../../.yarn/__virtual__/react-icons-virtual-368142a91f/0/global/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/md/index.esm.js
 init_define_process();
@@ -1169,11 +1152,11 @@ init_define_process();
 
 // ../../.yarn/__virtual__/react-icons-virtual-368142a91f/0/global/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/lib/esm/iconBase.js
 init_define_process();
-init_react_preact();
+import React4 from "react";
 
 // ../../.yarn/__virtual__/react-icons-virtual-368142a91f/0/global/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/lib/esm/iconContext.js
 init_define_process();
-init_react_preact();
+import React3 from "react";
 var DefaultContext = {
   color: void 0,
   size: void 0,
@@ -1181,16 +1164,16 @@ var DefaultContext = {
   style: void 0,
   attr: void 0
 };
-var IconContext = _n.createContext && _n.createContext(DefaultContext);
+var IconContext = React3.createContext && React3.createContext(DefaultContext);
 
 // ../../.yarn/__virtual__/react-icons-virtual-368142a91f/0/global/cache/react-icons-npm-4.4.0-a6c91164a4-9.zip/node_modules/react-icons/lib/esm/iconBase.js
 var __assign = function() {
   __assign = Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
-      for (var p2 in s)
-        if (Object.prototype.hasOwnProperty.call(s, p2))
-          t[p2] = s[p2];
+      for (var p in s)
+        if (Object.prototype.hasOwnProperty.call(s, p))
+          t[p] = s[p];
     }
     return t;
   };
@@ -1198,26 +1181,26 @@ var __assign = function() {
 };
 var __rest = function(s, e) {
   var t = {};
-  for (var p2 in s)
-    if (Object.prototype.hasOwnProperty.call(s, p2) && e.indexOf(p2) < 0)
-      t[p2] = s[p2];
+  for (var p in s)
+    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+      t[p] = s[p];
   if (s != null && typeof Object.getOwnPropertySymbols === "function")
-    for (var i = 0, p2 = Object.getOwnPropertySymbols(s); i < p2.length; i++) {
-      if (e.indexOf(p2[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p2[i]))
-        t[p2[i]] = s[p2[i]];
+    for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+      if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+        t[p[i]] = s[p[i]];
     }
   return t;
 };
 function Tree2Element(tree) {
   return tree && tree.map(function(node, i) {
-    return _n.createElement(node.tag, __assign({
+    return React4.createElement(node.tag, __assign({
       key: i
     }, node.attr), Tree2Element(node.child));
   });
 }
 function GenIcon(data) {
   return function(props) {
-    return _n.createElement(IconBase, __assign({
+    return React4.createElement(IconBase, __assign({
       attr: __assign({}, data.attr)
     }, props), Tree2Element(data.child));
   };
@@ -1231,7 +1214,7 @@ function IconBase(props) {
       className = conf.className;
     if (props.className)
       className = (className ? className + " " : "") + props.className;
-    return _n.createElement("svg", __assign({
+    return React4.createElement("svg", __assign({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
@@ -1243,9 +1226,9 @@ function IconBase(props) {
       height: computedSize,
       width: computedSize,
       xmlns: "http://www.w3.org/2000/svg"
-    }), title && _n.createElement("title", null, title), props.children);
+    }), title && React4.createElement("title", null, title), props.children);
   };
-  return IconContext !== void 0 ? _n.createElement(IconContext.Consumer, null, function(conf) {
+  return IconContext !== void 0 ? React4.createElement(IconContext.Consumer, null, function(conf) {
     return elem(conf);
   }) : elem(DefaultContext);
 }
@@ -1272,89 +1255,89 @@ function MdShare(props) {
 
 // js/Qr.tsx
 init_define_process();
-var import_react10 = __toESM(require_emotion_react_cjs(), 1);
-init_react_preact();
+import { css as css4 } from "@emotion/react";
+import React5, { Suspense as Suspense2, useState as useState2 } from "react";
 
 // js/icons.tsx
 init_define_process();
-var import_react7 = __toESM(require_emotion_react_cjs(), 1);
-var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var Wrap = ({ children }) => (0, import_jsx_runtime4.jsx)("span", {
-  css: import_react7.css`
+import { css as css2 } from "@emotion/react";
+import { jsx as jsx4 } from "@emotion/react/jsx-runtime";
+var Wrap = ({ children }) => jsx4("span", {
+  css: css2`
 font-size:20pt;
 `,
   children
 });
-var QrCodeIcon = () => (0, import_jsx_runtime4.jsx)(Wrap, {
-  children: (0, import_jsx_runtime4.jsx)(MdQrCode, {})
+var QrCodeIcon = () => jsx4(Wrap, {
+  children: jsx4(MdQrCode, {})
 });
-var Phone = () => (0, import_jsx_runtime4.jsx)(Wrap, {
-  children: (0, import_jsx_runtime4.jsx)(MdPhoneAndroid, {})
+var Phone = () => jsx4(Wrap, {
+  children: jsx4(MdPhoneAndroid, {})
 });
-var Share = () => (0, import_jsx_runtime4.jsx)(Wrap, {
-  children: (0, import_jsx_runtime4.jsx)(MdShare, {})
+var Share = () => jsx4(Wrap, {
+  children: jsx4(MdShare, {})
 });
-var Tablet = () => (0, import_jsx_runtime4.jsx)(Wrap, {
-  children: (0, import_jsx_runtime4.jsx)(MdTabletAndroid, {})
+var Tablet = () => jsx4(Wrap, {
+  children: jsx4(MdTabletAndroid, {})
 });
-var Tv = () => (0, import_jsx_runtime4.jsx)(Wrap, {
-  children: (0, import_jsx_runtime4.jsx)(MdTv, {})
+var Tv = () => jsx4(Wrap, {
+  children: jsx4(MdTv, {})
 });
 
 // js/mui.tsx
 init_define_process();
-init_react_preact();
-var import_react9 = __toESM(require_emotion_react_cjs(), 1);
-var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FabLazy = lazy(async () => import("./chunk-Fab-GJHO2UZV.mjs"));
-var Fab = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
-  fallback: (0, import_jsx_runtime5.jsx)("div", {
-    css: import_react9.css`width: 28px; height:28px`
+import { lazy, Suspense } from "react";
+import { css as css3 } from "@emotion/react";
+import { jsx as jsx5 } from "@emotion/react/jsx-runtime";
+var FabLazy = lazy(async () => import("./chunk-Fab-GIOG52BI.mjs"));
+var Fab = (props) => jsx5(Suspense, {
+  fallback: jsx5("div", {
+    css: css3`width: 28px; height:28px`
   }),
-  children: (0, import_jsx_runtime5.jsx)(FabLazy, {
+  children: jsx5(FabLazy, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-PXI6EW7V.mjs"));
-var ToggleButton = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
-  fallback: (0, import_jsx_runtime5.jsx)("div", {
-    css: import_react9.css`width: 28px; height:28px`
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-U5OR7UFV.mjs"));
+var ToggleButton = (props) => jsx5(Suspense, {
+  fallback: jsx5("div", {
+    css: css3`width: 28px; height:28px`
   }),
-  children: (0, import_jsx_runtime5.jsx)(ToggleButtonLazy, {
+  children: jsx5(ToggleButtonLazy, {
     ...props
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-EOHM6VHA.mjs")
+  async () => import("./chunk-ToggleButtonGroup-OO2FREOD.mjs")
 );
-var ToggleButtonGroup = (props) => (0, import_jsx_runtime5.jsx)(Suspense, {
-  fallback: (0, import_jsx_runtime5.jsx)("div", {
-    css: import_react9.css`width: 28px; height:28px`
+var ToggleButtonGroup = (props) => jsx5(Suspense, {
+  fallback: jsx5("div", {
+    css: css3`width: 28px; height:28px`
   }),
-  children: (0, import_jsx_runtime5.jsx)(ToggleButtonGroupLazy, {
+  children: jsx5(ToggleButtonGroupLazy, {
     ...props
   })
 });
 
 // js/Qr.tsx
-var import_jsx_runtime6 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var QR = ({ url }) => (0, import_jsx_runtime6.jsx)(QRious, {
+import { jsx as jsx6 } from "@emotion/react/jsx-runtime";
+var QR = ({ url }) => jsx6(QRious, {
   value: { url }
 });
-var QRiousLazy = _n.lazy(
-  () => import("./chunk-lib-CX6XD4IC.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
+var QRiousLazy = React5.lazy(
+  () => import("./chunk-lib-QSANIMLY.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 }))
 );
-var QRious = ({ value }) => (0, import_jsx_runtime6.jsx)(Suspense, {
-  fallback: (0, import_jsx_runtime6.jsx)("p", {
+var QRious = ({ value }) => jsx6(Suspense2, {
+  fallback: jsx6("p", {
     children: ".."
   }),
-  children: (0, import_jsx_runtime6.jsx)(QRiousLazy, {
+  children: jsx6(QRiousLazy, {
     value
   })
 });
 var QRButton = ({ url }) => {
-  const [showQR, setQR] = useState(false);
-  return (0, import_jsx_runtime6.jsx)(motion.div, {
+  const [showQR, setQR] = useState2(false);
+  return jsx6(motion.div, {
     animate: {
       width: showQR ? 200 : 56,
       height: showQR ? 220 : 48
@@ -1362,20 +1345,20 @@ var QRButton = ({ url }) => {
     onClick: () => {
       setQR(!showQR);
     },
-    css: import_react10.css`
+    css: css4`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
-    children: showQR ? (0, import_jsx_runtime6.jsx)(QR, {
+    children: showQR ? jsx6(QR, {
       url: url || "/live/coder/public"
-    }, url || origin + url) : (0, import_jsx_runtime6.jsx)(Fab, {
-      children: (0, import_jsx_runtime6.jsx)(QrCodeIcon, {})
+    }, url || origin + url) : jsx6(Fab, {
+      children: jsx6(QrCodeIcon, {})
     })
   });
 };
 
 // js/DraggableWindow.tsx
-var import_jsx_runtime7 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+import { jsx as jsx7, jsxs as jsxs3 } from "@emotion/react/jsx-runtime";
 var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100];
@@ -1384,14 +1367,14 @@ var DraggableWindow = ({
   children,
   room
 }) => {
-  const [scaleRange, changeScaleRange] = useState(100);
+  const [scaleRange, changeScaleRange] = useState3(100);
   const startPositions = { bottom: 0, right: 0 };
-  const [{ bottom, right }, setPositions] = useState(startPositions);
-  const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
-  const [height2, setHeight] = useState(window.innerHeight * devicePixelRatio);
-  const videoRef = useRef(null);
+  const [{ bottom, right }, setPositions] = useState3(startPositions);
+  const [width, setWidth] = useState3(window.innerWidth * devicePixelRatio);
+  const [height2, setHeight] = useState3(window.innerHeight * devicePixelRatio);
+  const videoRef = useRef2(null);
   const scale = scaleRange / 100;
-  useEffect(() => {
+  useEffect2(() => {
     const reveal = async () => {
       setPositions({
         bottom: window.innerHeight * 0.2,
@@ -1430,8 +1413,8 @@ var DraggableWindow = ({
     document.body,
     null
   ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map((x) => Number(x) || "0").join(",");
-  const [bgCV, setBG] = useState(c);
-  useEffect(() => {
+  const [bgCV, setBG] = useState3(c);
+  useEffect2(() => {
     setInterval(() => {
       const c2 = window.getComputedStyle(
         document.body,
@@ -1441,13 +1424,13 @@ var DraggableWindow = ({
         setBG(c2);
     }, 1e3 / 2);
   }, []);
-  const [clients, setClients] = useState(Object.keys(sendChannel.rtcConns));
-  useEffect(() => {
+  const [clients, setClients] = useState3(Object.keys(sendChannel.rtcConns));
+  useEffect2(() => {
     setClients([...Object.keys(sendChannel.rtcConns)]);
   }, [sendChannel.webRtcArray.length, setClients]);
-  return (0, import_jsx_runtime7.jsx)(LazyMotion, {
+  return jsx7(LazyMotion, {
     features: { ...domAnimation, ...domMax },
-    children: (0, import_jsx_runtime7.jsx)(m.div, {
+    children: jsx7(m.div, {
       transition: { delay: 0, duration: 0.4 },
       initial: {
         top: 0,
@@ -1461,7 +1444,7 @@ var DraggableWindow = ({
         right,
         borderRadius: 16
       },
-      css: import_react12.css`
+      css: css5`
             touch-action: pinch-zoom;
             background-color: ${bg};
             backdrop-filter: blur(15px);
@@ -1478,34 +1461,34 @@ var DraggableWindow = ({
         bottom: innerHeight
       },
       dragElastic: 0.5,
-      children: (0, import_jsx_runtime7.jsxs)("div", {
-        css: import_react12.css` 
+      children: jsxs3("div", {
+        css: css5` 
               display: flex;
               
                 `,
         children: [
-          (0, import_jsx_runtime7.jsxs)("div", {
-            css: import_react12.css`
+          jsxs3("div", {
+            css: css5`
             display: flex;
             flex-direction: column;
             align-items: center;
           `,
             children: [
-              (0, import_jsx_runtime7.jsx)(m.div, {
+              jsx7(m.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: { height: 0, width: 0 },
                 animate: { height: "auto", width: "auto" },
-                children: (0, import_jsx_runtime7.jsx)(ToggleButtonGroup, {
+                children: jsx7(ToggleButtonGroup, {
                   value: scaleRange,
                   size: "small",
                   exclusive: true,
                   onChange: (_e, newScale) => {
                     newScale && changeScaleRange(newScale);
                   },
-                  children: sizes.map((size, ind) => (0, import_jsx_runtime7.jsx)(ToggleButton, {
+                  children: sizes.map((size, ind) => jsx7(ToggleButton, {
                     value: size,
-                    children: (0, import_jsx_runtime7.jsxs)("span", {
-                      css: import_react12.css`
+                    children: jsxs3("span", {
+                      css: css5`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
                       children: [
@@ -1516,7 +1499,7 @@ var DraggableWindow = ({
                   }, ind))
                 })
               }),
-              (0, import_jsx_runtime7.jsx)(m.div, {
+              jsx7(m.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: {
                   width: window.innerWidth,
@@ -1528,13 +1511,13 @@ var DraggableWindow = ({
                   height: height2 * scale / devicePixelRatio,
                   borderRadius: 8
                 },
-                css: import_react12.css`
+                css: css5`
 
                 display: block;
                 overflow: hidden;
                 overflow-y: hidden;
             `,
-                children: (0, import_jsx_runtime7.jsx)(m.div, {
+                children: jsx7(m.div, {
                   transition: { delay: 0, duration: 0.4 },
                   initial: {
                     width: window.innerWidth,
@@ -1550,16 +1533,16 @@ var DraggableWindow = ({
                     scale: scaleRange / 100
                   },
                   "data-test-id": "z-body",
-                  css: import_react12.css`
+                  css: css5`
                   overflow:overlay;
                   overflow-y: hidden;
               `,
                   children
                 })
               }),
-              (0, import_jsx_runtime7.jsx)(m.div, {
+              jsx7(m.div, {
                 transition: { delay: 0, duration: 0.4 },
-                children: (0, import_jsx_runtime7.jsx)(ToggleButtonGroup, {
+                children: jsx7(ToggleButtonGroup, {
                   value: width,
                   size: "small",
                   exclusive: true,
@@ -1569,35 +1552,35 @@ var DraggableWindow = ({
                       setWidth(newSize);
                     }
                   },
-                  children: breakPoints.map((size, ind) => (0, import_jsx_runtime7.jsx)(ToggleButton, {
+                  children: breakPoints.map((size, ind) => jsx7(ToggleButton, {
                     value: size,
-                    children: size === 680 ? (0, import_jsx_runtime7.jsx)("span", {
-                      css: import_react12.css`
+                    children: size === 680 ? jsx7("span", {
+                      css: css5`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                      children: (0, import_jsx_runtime7.jsx)(Phone, {})
-                    }) : size === 768 ? (0, import_jsx_runtime7.jsx)("span", {
-                      css: import_react12.css`
+                      children: jsx7(Phone, {})
+                    }) : size === 768 ? jsx7("span", {
+                      css: css5`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                      children: (0, import_jsx_runtime7.jsx)(Tablet, {})
-                    }) : (0, import_jsx_runtime7.jsx)("span", {
-                      css: import_react12.css`
+                      children: jsx7(Tablet, {})
+                    }) : jsx7("span", {
+                      css: css5`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
-                      children: (0, import_jsx_runtime7.jsx)(Tv, {})
+                      children: jsx7(Tv, {})
                     })
                   }, ind))
                 })
               })
             ]
           }),
-          (0, import_jsx_runtime7.jsx)(m.div, {
+          jsx7(m.div, {
             transition: { delay: 0, duration: 0.4 },
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
-            children: (0, import_jsx_runtime7.jsxs)("div", {
-              css: import_react12.css`
+            children: jsxs3("div", {
+              css: css5`
               padding: 16px;
               display: flex;
               overflow: "hidden";
@@ -1605,24 +1588,24 @@ var DraggableWindow = ({
               flex-direction: column;
               `,
               children: [
-                (0, import_jsx_runtime7.jsx)(Fab, {
+                jsx7(Fab, {
                   onClick: () => {
                     document.querySelector("#root")?.requestFullscreen();
                   },
-                  children: (0, import_jsx_runtime7.jsx)("span", {
-                    css: import_react12.css`
+                  children: jsx7("span", {
+                    css: css5`
                 font-size: 20pt;
               `,
-                    children: (0, import_jsx_runtime7.jsx)(MdFullscreen, {}, "fs")
+                    children: jsx7(MdFullscreen, {}, "fs")
                   })
                 }, "fullscreen"),
-                (0, import_jsx_runtime7.jsx)(QRButton, {
+                jsx7(QRButton, {
                   url: location.origin + `/live/${room}/public`
                 }),
                 false,
-                (0, import_jsx_runtime7.jsx)(Fab, {
+                jsx7(Fab, {
                   onClick: () => open(`/live/${room}/public`),
-                  children: (0, import_jsx_runtime7.jsx)(Share, {})
+                  children: jsx7(Share, {})
                 }, "Share")
               ]
             })
@@ -1634,12 +1617,11 @@ var DraggableWindow = ({
 };
 
 // js/renderPreviewWindow.tsx
-var import_react18 = __toESM(require_emotion_react_cjs(), 1);
-var import_cache = __toESM(require_emotion_cache_cjs(), 1);
+import { css as css7 } from "@emotion/react";
 
 // js/Editor.tsx
 init_define_process();
-init_react_preact();
+import { useCallback, useRef as useRef3 } from "react";
 
 // js/runner.tsx
 init_define_process();
@@ -1679,7 +1661,7 @@ var mod = {
      export default mymod;
     
     `;
-    const { transform: transform2 } = await import("./chunk-esbuildEsm-WSZ2EFBQ.mjs");
+    const { transform: transform2 } = await import("./chunk-esbuildEsm-ZKZR64XF.mjs");
     const t = await transform2(res, {
       format: "esm",
       minify: true,
@@ -1693,7 +1675,7 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform: transform2 } = await import("./chunk-esbuildEsm-WSZ2EFBQ.mjs");
+  const { transform: transform2 } = await import("./chunk-esbuildEsm-ZKZR64XF.mjs");
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
   if (!mod.data[hash]) {
@@ -1829,8 +1811,8 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
 }
 
 // js/Editor.tsx
-init_react_preact();
-var import_react16 = __toESM(require_emotion_react_cjs(), 1);
+import React6 from "react";
+import { css as css6 } from "@emotion/react";
 
 // js/isMobile.mjs
 init_define_process();
@@ -1855,7 +1837,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-RMGFEX43.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-QY74L6O7.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -1897,7 +1879,7 @@ function supportsWorkerType() {
 }
 
 // js/Editor.tsx
-var import_jsx_runtime8 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+import { jsx as jsx8 } from "@emotion/react/jsx-runtime";
 var mod2 = {
   CH() {
   },
@@ -1912,12 +1894,12 @@ var mod2 = {
   codeToSet: ""
 };
 var Editor = ({ codeSpace: codeSpace2, assets }) => {
-  const ref = useRef(null);
+  const ref = useRef3(null);
   const { i, code } = mST();
   const [
     mySession,
     changeContent
-  ] = _n.useState({
+  ] = React6.useState({
     lastKeyDown: 0,
     myCode: code,
     counter: i,
@@ -1963,7 +1945,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       runner({ code: newCode, counter: mod2.counter, codeSpace: codeSpace2 });
     })();
   }, [mod2.lastKeyDown, myCode, counter, changeContent]);
-  _n.useEffect(() => {
+  React6.useEffect(() => {
     if (!ref?.current) {
       return;
     }
@@ -1972,7 +1954,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-6PJYGCP5.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-N2K3M65V.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -2017,7 +1999,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       });
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-ALCJG56X.mjs");
+      const { startAce } = await import("./chunk-startAce-E34X4DTS.mjs");
       const editor = await startAce(mST().code);
       const getValue = async () => await prettierJs(editor.session.getValue());
       const setValue = async (_code) => {
@@ -2052,7 +2034,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     const loadEditors = () => engine === "monaco" ? setMonaco() : setAce();
     !started && loadEditors();
   }, [started, ref]);
-  _n.useEffect(() => {
+  React6.useEffect(() => {
     onChange(cb);
   }, [onChange]);
   onSessionUpdate(() => {
@@ -2061,11 +2043,11 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     }
     mod2.setValue(mST().code);
   }, "editor");
-  return (0, import_jsx_runtime8.jsx)("div", {
+  return jsx8("div", {
     onKeyDown: () => mod2.lastKeyDown = Date.now(),
     "data-test-id": myId,
     id: "editor",
-    css: import_react16.css`
+    css: css6`
         
             max-width: 640px;
             height: 100%;
@@ -2077,9 +2059,9 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
 };
 
 // js/renderPreviewWindow.tsx
-var import_jsx_runtime9 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var RainbowContainer = ({ children }) => (0, import_jsx_runtime9.jsx)("div", {
-  css: import_react18.css`
+import { jsx as jsx9, jsxs as jsxs4 } from "@emotion/react/jsx-runtime";
+var RainbowContainer = ({ children }) => jsx9("div", {
+  css: css7`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -2126,9 +2108,9 @@ background:  repeating-radial-gradient(circle at bottom left,
 });
 var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
   const currentHash = hashCode();
-  const [hash, setHash] = useState(currentHash);
+  const [hash, setHash] = useState4(currentHash);
   const isStandalone = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
-  useEffect(() => {
+  useEffect3(() => {
     onSessionUpdate(async () => {
       const newHash = hashCode();
       if (hash !== newHash) {
@@ -2144,28 +2126,28 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
   const portalNode = useMemo(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return (0, import_jsx_runtime9.jsxs)(p, {
+  return jsxs4(Fragment3, {
     children: [
-      (0, import_jsx_runtime9.jsx)(InPortal, {
+      jsx9(InPortal, {
         node: portalNode,
-        children: (0, import_jsx_runtime9.jsx)(AutoUpdateApp, {
+        children: jsx9(AutoUpdateApp, {
           hash,
           codeSpace: codeSpace2
         })
       }),
-      isStandalone ? (0, import_jsx_runtime9.jsx)(OutPortal, {
+      isStandalone ? jsx9(OutPortal, {
         node: portalNode
-      }) : (0, import_jsx_runtime9.jsx)(RainbowContainer, {
-        children: (0, import_jsx_runtime9.jsxs)(p, {
+      }) : jsx9(RainbowContainer, {
+        children: jsxs4(Fragment3, {
           children: [
-            (0, import_jsx_runtime9.jsx)(Editor, {
+            jsx9(Editor, {
               codeSpace: codeSpace2,
               assets
             }),
-            (0, import_jsx_runtime9.jsx)(DraggableWindow, {
+            jsx9(DraggableWindow, {
               hashCode: 0,
               room: codeSpace2,
-              children: (0, import_jsx_runtime9.jsx)(OutPortal, {
+              children: jsx9(OutPortal, {
                 node: portalNode
               })
             })
@@ -2182,18 +2164,11 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2, assets }) => {
   singleton.started = true;
   const div = document.querySelector("#root");
   const root = createRoot(div);
-  const createCacheDefault = import_cache.default.default;
-  const myCache = createCacheDefault({
-    key: "z"
-  });
   root.render(
-    (0, import_jsx_runtime9.jsx)(p, {
-      children: (0, import_jsx_runtime9.jsx)(import_react18.CacheProvider, {
-        value: myCache,
-        children: (0, import_jsx_runtime9.jsx)(AppToRender, {
-          codeSpace: codeSpace2,
-          assets
-        })
+    jsx9(Fragment3, {
+      children: jsx9(AppToRender, {
+        codeSpace: codeSpace2,
+        assets
       })
     })
   );
@@ -2498,7 +2473,7 @@ async function join() {
   });
   return wsConnection;
 }
-var h2 = {};
+var h = {};
 async function processWsMessage(event, source, conn) {
   if (ws == null) {
     return;
@@ -2532,10 +2507,10 @@ async function processData(data, source, conn) {
     return;
   }
   if (data.oldHash && data.newHash) {
-    if (h2[data.oldHash] && h2[data.oldHash] === data.newHash) {
+    if (h[data.oldHash] && h[data.oldHash] === data.newHash) {
       return;
     }
-    h2[data.oldHash] = data.newHash;
+    h[data.oldHash] = data.newHash;
   }
   if (data.newHash === hashCode()) {
     return;

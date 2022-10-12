@@ -1,4 +1,4 @@
-import "./chunk-chunk-Z35L655W.mjs";
+import "./chunk-chunk-X6R3MEIC.mjs";
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.10-dd9e214eea-9.zip/node_modules/esbuild-wasm/esbuild.wasm
 var esbuild_default = "./chunk-esbuild-OSX6GKJQ.wasm";
