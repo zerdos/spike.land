@@ -1654,9 +1654,9 @@ var mod = {
     const myDepts = [...current.deps];
     current.deps = [];
     const depts = myDepts.map((n) => mod.printr(n)).join(" \n ");
-    return currentCode + `
+    return depts + `
     
-    ` + depts;
+    ` + currentCode;
   },
   toJs(name) {
     const js = mod.printr(name);
