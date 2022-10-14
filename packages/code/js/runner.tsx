@@ -87,7 +87,7 @@ export async function runner({ code, counter, codeSpace }: {
           jsxImportSource: "@emotion/react",
         },
       },
-      target: "es2021",
+      target: "2018",
     } as unknown as TransformOptions);
 
     const umdExp = async () => {
