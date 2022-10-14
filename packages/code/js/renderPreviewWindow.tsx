@@ -93,7 +93,7 @@ const AppToRender: React.FC<
       const newHash = hashCode();
       if (hash !== newHash) {
         try {
-          await appFactory(codeSpace);
+          await appFactory();
           setHash(newHash);
         } catch (error) {
           console.error({ e: error });

@@ -112,7 +112,7 @@ export async function runner({ code, counter, codeSpace }: {
     
     let i=60;
 while (!mST().css) {
-  console.log("Oh, nooo! Can't extract css, wait:", i);
+  console.log("Oh, NO! Can't extract css, wait:", i);
 
     const {html, css} = renderFromString(codeSpace, hashCode());
 
