@@ -132,7 +132,7 @@ let Emotion  = null;
 
 let myCache: EmotionCache | null = null;
 export async function appFactory(codeSpace: string, transpiled = ""): Promise<React.FC> {
-  console.log('App fac', codeSpace, transpiled)
+  // console.log('App fac', codeSpace, transpiled)
   // Const hashC = hashCode();
 // @ts-expect-error
 

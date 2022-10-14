@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-NZ36SMII.mjs";
+} from "./chunk-chunk-6OBAXL4G.mjs";
 import {
   applyPatch,
   hashCode,

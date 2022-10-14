@@ -248,7 +248,6 @@ var AutoUpdateApp = ({ hash, codeSpace }) => {
 var Emotion = null;
 var myCache = null;
 async function appFactory(codeSpace, transpiled = "") {
-  console.log("App fac", codeSpace, transpiled);
   if (Emotion === null) {
     Emotion = await importShim("@emotion/react");
     renderFromString = (await importShim("/renderToString.mjs")).renderFromString;
