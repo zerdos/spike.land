@@ -1,22 +1,22 @@
 import {
   transform
-} from "./chunk-chunk-UVXPDPNJ.mjs";
+} from "./chunk-chunk-H7NZ6G3N.mjs";
+import {
+  wait
+} from "./chunk-chunk-3NACOFPW.mjs";
 import {
   wrap
-} from "./chunk-chunk-6BKRWB5T.mjs";
+} from "./chunk-chunk-466MU7CN.mjs";
 import {
-  LazyMotion,
-  domAnimation,
-  domMax,
-  m,
+  AnimateSharedLayout,
   motion
-} from "./chunk-chunk-EPKKRVZP.mjs";
+} from "./chunk-chunk-S6XJNGAQ.mjs";
 import {
   AutoUpdateApp,
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-FB2V5LSY.mjs";
+} from "./chunk-chunk-O4ILBTTG.mjs";
 import {
   applyPatch,
   hashCode,
@@ -28,13 +28,13 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-ZNH7OND3.mjs";
-import "./chunk-chunk-MGHNLDJN.mjs";
+} from "./chunk-chunk-YXQWNFHK.mjs";
+import "./chunk-chunk-CZQHXLQW.mjs";
 import {
   css,
   jsx,
   jsxs
-} from "./chunk-chunk-QHCMPGYH.mjs";
+} from "./chunk-chunk-GMLEY2ZM.mjs";
 import {
   $2,
   Children,
@@ -52,10 +52,10 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-QWKBSHSV.mjs";
+} from "./chunk-chunk-NCXKQ5D6.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-FEDA5CBH.mjs";
+} from "./chunk-chunk-VOIE2EHU.mjs";
 import {
   __commonJS,
   __toESM
@@ -3303,7 +3303,7 @@ var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level
 
 // js/mui.tsx
 init_define_process();
-var FabLazy = lazy(async () => import("./chunk-Fab-QRR62D5S.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-FG2Q6HRA.mjs"));
 var Fab = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
@@ -3312,7 +3312,7 @@ var Fab = (props) => jsx(Suspense, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-ELEZJX5K.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-AQUIANXE.mjs"));
 var ToggleButton = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
@@ -3322,7 +3322,7 @@ var ToggleButton = (props) => jsx(Suspense, {
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-EMSZ2TKJ.mjs")
+  async () => import("./chunk-ToggleButtonGroup-M6MA3EKM.mjs")
 );
 var ToggleButtonGroup = (props) => jsx(Suspense, {
   fallback: jsx("div", {
@@ -3426,9 +3426,8 @@ var DraggableWindow = ({
   useEffect(() => {
     setClients([...Object.keys(sendChannel.rtcConns)]);
   }, [sendChannel.webRtcArray.length, setClients]);
-  return jsx(LazyMotion, {
-    features: { ...domAnimation, ...domMax },
-    children: jsx(m.div, {
+  return jsx(AnimateSharedLayout, {
+    children: jsx(motion.div, {
       transition: { delay: 0, duration: 0.4 },
       initial: {
         top: 0,
@@ -3472,7 +3471,7 @@ var DraggableWindow = ({
             align-items: center;
           `,
             children: [
-              jsx(m.div, {
+              jsx(motion.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: { height: 0, width: 0 },
                 animate: { height: "auto", width: "auto" },
@@ -3497,7 +3496,7 @@ var DraggableWindow = ({
                   }, ind))
                 })
               }),
-              jsx(m.div, {
+              jsx(motion.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: {
                   width: window.innerWidth,
@@ -3515,7 +3514,7 @@ var DraggableWindow = ({
                 overflow: hidden;
                 overflow-y: hidden;
             `,
-                children: jsx(m.div, {
+                children: jsx(motion.div, {
                   transition: { delay: 0, duration: 0.4 },
                   initial: {
                     width: window.innerWidth,
@@ -3538,7 +3537,7 @@ var DraggableWindow = ({
                   children
                 })
               }),
-              jsx(m.div, {
+              jsx(motion.div, {
                 transition: { delay: 0, duration: 0.4 },
                 children: jsx(ToggleButtonGroup, {
                   value: width,
@@ -3573,7 +3572,7 @@ var DraggableWindow = ({
               })
             ]
           }),
-          jsx(m.div, {
+          jsx(motion.div, {
             transition: { delay: 0, duration: 0.4 },
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
@@ -3652,7 +3651,7 @@ var mod = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform: transform2 } = await import("./chunk-esbuildEsm-UONSJL4T.mjs");
+    const { transform: transform2 } = await import("./chunk-esbuildEsm-63GFNJJE.mjs");
     const t = await transform2(res, {
       format: "esm",
       minify: true,
@@ -3673,7 +3672,7 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform: transform2 } = await import("./chunk-esbuildEsm-UONSJL4T.mjs");
+  const { transform: transform2 } = await import("./chunk-esbuildEsm-63GFNJJE.mjs");
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
   if (!mod.data[hash]) {
@@ -3730,13 +3729,13 @@ var toUmd = async (source, name) => {
 };
 var findDeps = (code) => {
   const regex = /require\("(.+?)"\)/gm;
-  let m2;
+  let m;
   const deps = [];
-  while ((m2 = regex.exec(code)) !== null) {
-    if (m2.index === regex.lastIndex) {
+  while ((m = regex.exec(code)) !== null) {
+    if (m.index === regex.lastIndex) {
       regex.lastIndex++;
     }
-    for (const [groupIndex, match] of m2.entries()) {
+    for (const [groupIndex, match] of m.entries()) {
       if (groupIndex == 1) {
         deps.push(match);
       }
@@ -3745,16 +3744,6 @@ var findDeps = (code) => {
   }
   return deps;
 };
-
-// js/wait.ts
-init_define_process();
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
 
 // js/runner.tsx
 var mod2 = {
@@ -3768,8 +3757,9 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
   if (counter < mst.i)
     return;
   setTimeout(() => {
-    if (mod2.code === code && code !== mod2.olderCode)
+    if (mod2.code === code && code !== mod2.olderCode) {
       runner({ code, counter, codeSpace: codeSpace2 });
+    }
     mod2.olderCode = code;
   }, 1e3);
   try {
@@ -3859,7 +3849,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-Q35DQ3LC.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-T3HWBHNZ.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -3947,9 +3937,6 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     }
     const lastKeydownHappened = Date.now() - mod3.lastKeyDown;
     console.log({ lastKeydownHappened });
-    if (lastKeydownHappened < 1e3) {
-      mod3.counter++;
-    }
     (async () => {
       const code2 = await mod3.getValue();
       const newCode = await prettierJs(code2);
@@ -3962,6 +3949,9 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       if (mST().i < mod3.counter) {
         mod3.setValue(newCode);
         mod3.code = newCode;
+        if (lastKeydownHappened < 1e3) {
+          mod3.counter++;
+        }
         changeContent((x) => ({
           ...x,
           lastKeyDown: 0,
@@ -3981,7 +3971,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-ODY4GWEL.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-HYLBQI6C.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -4026,7 +4016,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       });
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-Y2P4HJTW.mjs");
+      const { startAce } = await import("./chunk-startAce-3F2XN4KM.mjs");
       const editor = await startAce(mST().code);
       const getValue = async () => await prettierJs(editor.session.getValue());
       const setValue = async (_code) => {

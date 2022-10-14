@@ -18,7 +18,7 @@ export const transform: typeof esbTransform = async (code, opts) => {
   if (initFinished !== true) initFinished = await (initFinished);
 
   if (initFinished !== true) {
-    throw new Error("esbuild init failed");
+  throw new Error("esbuild init failed");
   }
 
   return esbTransform(code, opts);
