@@ -127,7 +127,7 @@ export const run = async (startState: {
     state: mst,
   }, location.origin);
 
-  await appFactory(codeSpace,mst.transpiled);
+  await appFactory(mst.transpiled);
 
   
   renderPreviewWindow({codeSpace, assets});

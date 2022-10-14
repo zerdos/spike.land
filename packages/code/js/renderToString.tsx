@@ -8,7 +8,7 @@ import isCallable from "is-callable";
 
 export const render = async (transpiled: string, codeSpace: string) => {
   const hash = md5(transpiled).slice(0, 8);
-  const App = await appFactory(codeSpace, transpiled);
+  const App = await appFactory(transpiled);
   if (isCallable(App)) {
     const html = renderToString(
       <div

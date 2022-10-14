@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-6OBAXL4G.mjs";
+} from "./chunk-chunk-FQJVTMTP.mjs";
 import {
   applyPatch,
   hashCode,
@@ -3801,7 +3801,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     if (!html)
       return;
     patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html, css: css2 || "" });
-    let i = 20;
+    let i = 60;
     while (!mST().css) {
       console.log("Oh, nooo! Can't extract css, wait:", i);
       const { html: html2, css: css3 } = renderFromString(codeSpace2, hashCode());
