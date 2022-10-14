@@ -76,20 +76,16 @@ export const Editor: React.FC<
   mod.code = myCode;
 
   const cb = async () => {
-if(    mST().i>mod.counter) {
-      mod.setValue(mST().code)
+    if (mST().i > mod.counter) {
+      mod.setValue(mST().code);
       mod.counter = mST().i;
       return;
     }
 
     const lastKeydownHappened = Date.now() - mod.lastKeyDown;
     console.log({ lastKeydownHappened });
-    
-    if (lastKeydownHappened < 1000) {
-      mod.counter ++
-      //console.log(`last keydown happened:   + ${lastKeydownHappened}, we already handled this event`);
-      //		return;
-    } 
+
+  
 
     (async () => {
       const code = await mod.getValue();
@@ -105,20 +101,23 @@ if(    mST().i>mod.counter) {
 
       // if (mySession.counter  mST().i) return;
 
-  
-      if (mST().i<mod.counter) {
-
+      if (mST().i < mod.counter) {
         mod.setValue(newCode);
         mod.code = newCode;
-      
-      changeContent((x) => ({
-        ...x,
-        lastKeyDown: 0,
-        counter: mod.counter,
-        myCode: newCode,
-      }));
-      runner({ code: newCode, counter: mod.counter, codeSpace });
-    }
+        if (lastKeydownHappened < 1000) {
+          mod.counter++;
+          //console.log(`last keydown happened:   + ${lastKeydownHappened}, we already handled this event`);
+          //		return;
+        }
+
+        changeContent((x) => ({
+          ...x,
+          lastKeyDown: 0,
+          counter: mod.counter,
+          myCode: newCode,
+        }));
+        runner({ code: newCode, counter: mod.counter, codeSpace });
+      }
     })();
 
     // Console.log("RUN THE RUNNER AGAIN");
@@ -278,9 +277,9 @@ if(    mST().i>mod.counter) {
 
   onSessionUpdate(() => {
     if (mod.counter === mST().i) {
-     return;
+      return;
     }
-  mod.counter = mST().i;
+    mod.counter = mST().i;
     mod.setValue(mST().code);
   }, "editor");
 

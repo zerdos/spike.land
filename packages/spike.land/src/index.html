@@ -119,7 +119,7 @@ body {
         try{
           resolved = defaultResolve(id, parentUrl);
         } catch{
-          resolved = new URL('/npm:*'+id+"?bundle", location.origin).toString()
+          resolved = new URL('/npm:*'+id+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
         }
         // console.table(id, parentUrl, resolved);
   

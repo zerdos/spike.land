@@ -34,7 +34,7 @@ const define = {
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   process: JSON.stringify({
-    env: { NODE_ENV: "production" },
+    env: { NODE_ENV: "production", browser: true },
     version: "1.1.1",
     browser: true,
   }),
@@ -69,7 +69,7 @@ const workerEntryPoints = [
 const build = (entryPoints, extraExternal) =>
   esbuild.build({
     ...buildOptions,
-    entryPoints,
+    entryPoints,    
     external: [...buildOptions.external, ...extraExternal],
     outExtension: { ".js": ".mjs" },
     bundle: true,
@@ -134,7 +134,7 @@ const build = (entryPoints, extraExternal) =>
   await fs.rm("js/monaco-workers", { recursive: true, force: true });
 
   await esbuild.build({
-    entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
+    entryPoints: [ ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`)],
     bundle: true,
     define,
     treeShaking: true,

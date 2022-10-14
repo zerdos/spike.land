@@ -41,10 +41,10 @@ import { wait } from "wait";
 
 // export const runnerDebounced: typeof runner = (props) => debounced(props);
 
-const mod ={
-  code: '',
-  olderCode:""
-}
+const mod = {
+  code: "",
+  olderCode: "",
+};
 export async function runner({ code, counter, codeSpace }: {
   code: string;
   codeSpace: string;
@@ -56,10 +56,12 @@ export async function runner({ code, counter, codeSpace }: {
 
   if (counter < mst.i) return;
 
-  setTimeout(()=>{
-    if (mod.code === code && code!==mod.olderCode) runner({ code, counter, codeSpace });
+  setTimeout(() => {
+    if (mod.code === code && code !== mod.olderCode) {
+      runner({ code, counter, codeSpace });
+    }
     mod.olderCode = code;
-  }, 1000)
+  }, 1000);
 
   // Console.log({ i, counter });
 
