@@ -10,7 +10,7 @@ export const render = async (transpiled: string, codeSpace: string) => {
   const hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(codeSpace, transpiled);
   if (isCallable(App)) {
-    return renderToString(
+    const html = renderToString(
       <div
       style={{
         height: "100%",
@@ -20,7 +20,9 @@ export const render = async (transpiled: string, codeSpace: string) => {
       <App />
     </div>,
     );
-  } else return null;
+    const css = extractCritical22(html);
+    return {html, css};
+  } else return {html: null, css: null};
 };
 // };
 export const renderFromString = (

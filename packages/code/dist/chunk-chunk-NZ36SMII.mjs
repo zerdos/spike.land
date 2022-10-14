@@ -350,7 +350,7 @@ var render2 = async (transpiled, codeSpace) => {
   const hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(codeSpace, transpiled);
   if ((0, import_is_callable2.default)(App)) {
-    return S2(
+    const html = S2(
       jsx("div", {
         style: {
           height: "100%"
@@ -359,8 +359,10 @@ var render2 = async (transpiled, codeSpace) => {
         children: jsx(App, {})
       })
     );
+    const css2 = extractCritical22(html);
+    return { html, css: css2 };
   } else
-    return null;
+    return { html: null, css: null };
 };
 var renderFromString2 = (codeSpace, hash) => {
   const md5hash = md5(mST().transpiled).slice(0, 8);

@@ -102,71 +102,25 @@ export async function runner({ code, counter, codeSpace }: {
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
 
-    const rendered = await render(transpiledCode, codeSpace);
+    const {html, css} = await render(transpiledCode, codeSpace);
 
-    if (!rendered) return;
+    if (!html) return;
 
 
-    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html: rendered });
+    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode,  html, css: css|| "" });
 
     
+    let i=20;
+while (!mST().css) {
+  console.log("Oh, nooo! Can't extract css, wait:", i);
 
-const {html, css} =  renderFromString(codeSpace, hashCode());
+    const {html, css} = renderFromString(codeSpace, hashCode());
 
-if (html && css)  patchSync({ ...mST(), html, css });
-else {
-  await wait(100);
-  const {html, css} =  renderFromString(codeSpace, hashCode());
-  if (html && css)  patchSync({ ...mST(), html, css });
+    if (html && css)  patchSync({ ...mST(), html, css });
+    else    await wait(i++);
+
 }
-
-    //   Try{
-    //     (async ()=>{
-    //       const name = `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`;
-    //   const UMD = await toUmd(code,name);
-    //   console.log({ UMD });
-    // //  console.log(UMD?.toJs(name));
-    //     // const hashName = UMD?.hashMap[name];
-    //     // UMD?.data[hashName!].code +
-    //   // console.log(UMD.toJs(`${location.origin}/live/${codeSpace}-${md5(code)}.tsx`))
-    //     })();
-    //   }
-    //   catch(e){
-    //     console.error({e});
-    //   }
-    // if (transpiled.code === mST().transpiled) return;
-
-    // let restartError = false;
-    /// yellow
-    if (transpiled.code.length > 0) {
-      try {
-        // Console.log(transpiled);
-
-        // await appFactory();
-        // await wait(50);
-        // const res = renderFromString( App);
-
-        // if (res === null) {
-        //   console.error("COULD NOT RENDER:");
-        //   console.error({ code, transpiled: transpiled.code });
-        //   return;
-        // }
-        // const { html, css } = renderFromString(codeSpace);
-
-        // patchSync({...mST(), html, css});
-        // console.log({html, css});
-        // if (counter !== mod.i) return;
-        saveCode();
-
-        // Return;
-      } catch (error) {
-        console.error("EXCEPTION");
-        console.error(error);
-        // RestartError = true;
-        // console.error({ restartError });
-        // return;
-      }
-    }
+saveCode();
   } catch (error) {
     console.error({ error });
   }

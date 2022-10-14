@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-HXN7YCZX.mjs";
+} from "./chunk-chunk-NZ36SMII.mjs";
 import {
   applyPatch,
   hashCode,
@@ -3797,27 +3797,20 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
-    const rendered = await render(transpiledCode, codeSpace2);
-    if (!rendered)
+    const { html, css: css2 } = await render(transpiledCode, codeSpace2);
+    if (!html)
       return;
-    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html: rendered });
-    const { html, css: css2 } = renderFromString(codeSpace2, hashCode());
-    if (html && css2)
-      patchSync({ ...mST(), html, css: css2 });
-    else {
-      await wait(100);
+    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html, css: css2 || "" });
+    let i = 20;
+    while (!mST().css) {
+      console.log("Oh, nooo! Can't extract css, wait:", i);
       const { html: html2, css: css3 } = renderFromString(codeSpace2, hashCode());
       if (html2 && css3)
         patchSync({ ...mST(), html: html2, css: css3 });
+      else
+        await wait(i++);
     }
-    if (transpiled.code.length > 0) {
-      try {
-        saveCode();
-      } catch (error) {
-        console.error("EXCEPTION");
-        console.error(error);
-      }
-    }
+    saveCode();
   } catch (error) {
     console.error({ error });
   }

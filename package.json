@@ -20,7 +20,7 @@
     "serve": "nodemon ./http2-server/http2-server.mjs",
     "importmap": "yarn workspaces foreach --all run  importmap",
     "build:code": "yarn workspaces foreach --all run build:code",
-    "yarn:publish": "yarn workspaces foreach --all run  yarn workspaces foreach --all run  :publish",
+    "yarn:publish": "yarn workspaces foreach --all run  yarn workspaces foreach --all run publish",
     "push:prod": "NODE_ENV=production yarn build-and-push",
     "build-and-push": "yarn importmap && yarn re:build && yarn workspaces foreach --all run  push:prod",
     "re:build": "NODE_ENV=production yarn clean && yarn build",
