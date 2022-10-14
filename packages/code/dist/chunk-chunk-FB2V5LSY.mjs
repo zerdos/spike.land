@@ -3,27 +3,27 @@ import {
   mST,
   md5,
   patchSync
-} from "./chunk-chunk-L5EXXDXD.mjs";
+} from "./chunk-chunk-ZNH7OND3.mjs";
 import {
   Fragment,
   css,
   jsx,
   jsxs
-} from "./chunk-chunk-LHIFPO7W.mjs";
+} from "./chunk-chunk-QHCMPGYH.mjs";
 import {
   S2,
   _n,
   useEffect,
   useRef,
   useState
-} from "./chunk-chunk-BYALA4PV.mjs";
+} from "./chunk-chunk-QWKBSHSV.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-AXJDOV6Y.mjs";
+} from "./chunk-chunk-FEDA5CBH.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-X6R3MEIC.mjs";
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js
 var require_is_callable = __commonJS({
@@ -200,7 +200,7 @@ async function importShim(scr) {
   if (!imap) {
     throw new Error("no imap");
   }
-  await import("./chunk-es-module-shims-MBQ6CRVD.mjs");
+  await import("./chunk-es-module-shims-B37NTTE5.mjs");
   await window.importShim.addImportMap(
     JSON.parse(
       imap.innerText
@@ -347,25 +347,27 @@ function createJsBlob(code, fileName = "index.mjs") {
 // js/renderToString.tsx
 var import_is_callable2 = __toESM(require_is_callable(), 1);
 var render2 = async (transpiled, codeSpace) => {
+  var _a;
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if ((0, import_is_callable2.default)(App)) {
     const html = S2(jsx(App, {}));
     const css2 = extractCritical22(html);
-    const globalCss = document.querySelector("style[data-emotion=css-global]")?.innerHTML;
+    const globalCss = (_a = document.querySelector("style[data-emotion=css-global]")) == null ? void 0 : _a.innerHTML;
     return { html: `<div id="${codeSpace}-${md5hash}" style="height:100%">
     ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`, css: css2 };
   } else
     return { html: null, css: null };
 };
 var renderFromString2 = (codeSpace, hash) => {
+  var _a, _b;
   const md5hash = md5(mST().transpiled).slice(0, 8);
   if (hash !== hashCode()) {
     return { html: null, css: null };
   }
-  const html = document.getElementById(`${codeSpace}-${md5hash}`)?.innerHTML;
+  const html = (_a = document.getElementById(`${codeSpace}-${md5hash}`)) == null ? void 0 : _a.innerHTML;
   const css2 = html ? extractCritical22(html) : "";
-  const globalCss = document.querySelector("style[data-emotion=css-global]")?.innerHTML;
+  const globalCss = (_b = document.querySelector("style[data-emotion=css-global]")) == null ? void 0 : _b.innerHTML;
   return {
     html: `<div id="${codeSpace}-${md5hash}" style="height:100%">
       ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
@@ -378,7 +380,7 @@ var extractCritical22 = (html) => {
     for (const i in document.styleSheets) {
       let yesFromNow = false;
       const styleSheet = document.styleSheets[i];
-      if (styleSheet?.cssRules) {
+      if (styleSheet == null ? void 0 : styleSheet.cssRules) {
         for (const rule of Array.from(styleSheet.cssRules)) {
           if (yesFromNow || rule && rule.cssText && rule.cssText.startsWith(".css-")) {
             const selector = rule.cssText.slice(1, 9);
@@ -392,7 +394,7 @@ var extractCritical22 = (html) => {
       }
     }
     return Object.keys(rules).map((r) => rules[r]).join(" ");
-  } catch {
+  } catch (e) {
     console.error("no css");
     return "";
   }

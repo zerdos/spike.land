@@ -1,22 +1,22 @@
 import {
   transform
-} from "./chunk-chunk-UK6KUGPY.mjs";
+} from "./chunk-chunk-UVXPDPNJ.mjs";
 import {
   wrap
-} from "./chunk-chunk-ZVRNBDGH.mjs";
+} from "./chunk-chunk-6BKRWB5T.mjs";
 import {
   LazyMotion,
   domAnimation,
   domMax,
   m,
   motion
-} from "./chunk-chunk-YGRGXYQB.mjs";
+} from "./chunk-chunk-EPKKRVZP.mjs";
 import {
   AutoUpdateApp,
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-TWUJ4F7M.mjs";
+} from "./chunk-chunk-FB2V5LSY.mjs";
 import {
   applyPatch,
   hashCode,
@@ -28,13 +28,13 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-L5EXXDXD.mjs";
-import "./chunk-chunk-MFQP7JEX.mjs";
+} from "./chunk-chunk-ZNH7OND3.mjs";
+import "./chunk-chunk-MGHNLDJN.mjs";
 import {
   css,
   jsx,
   jsxs
-} from "./chunk-chunk-LHIFPO7W.mjs";
+} from "./chunk-chunk-QHCMPGYH.mjs";
 import {
   $2,
   Children,
@@ -52,14 +52,14 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-BYALA4PV.mjs";
+} from "./chunk-chunk-QWKBSHSV.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-AXJDOV6Y.mjs";
+} from "./chunk-chunk-FEDA5CBH.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-X6R3MEIC.mjs";
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js
 var require_qrious = __commonJS({
@@ -3303,7 +3303,7 @@ var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level
 
 // js/mui.tsx
 init_define_process();
-var FabLazy = lazy(async () => import("./chunk-Fab-NVPGTU4E.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-QRR62D5S.mjs"));
 var Fab = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
@@ -3312,7 +3312,7 @@ var Fab = (props) => jsx(Suspense, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-EQGNB3V4.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-ELEZJX5K.mjs"));
 var ToggleButton = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
@@ -3322,7 +3322,7 @@ var ToggleButton = (props) => jsx(Suspense, {
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-XDFRR6A7.mjs")
+  async () => import("./chunk-ToggleButtonGroup-EMSZ2TKJ.mjs")
 );
 var ToggleButtonGroup = (props) => jsx(Suspense, {
   fallback: jsx("div", {
@@ -3588,7 +3588,8 @@ var DraggableWindow = ({
               children: [
                 jsx(Fab, {
                   onClick: () => {
-                    document.querySelector("#root")?.requestFullscreen();
+                    var _a;
+                    (_a = document.querySelector("#root")) == null ? void 0 : _a.requestFullscreen();
                   },
                   children: jsx("span", {
                     css: css`
@@ -3651,7 +3652,7 @@ var mod = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform: transform2 } = await import("./chunk-esbuildEsm-YNMALNA3.mjs");
+    const { transform: transform2 } = await import("./chunk-esbuildEsm-UONSJL4T.mjs");
     const t = await transform2(res, {
       format: "esm",
       minify: true,
@@ -3672,7 +3673,7 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform: transform2 } = await import("./chunk-esbuildEsm-YNMALNA3.mjs");
+  const { transform: transform2 } = await import("./chunk-esbuildEsm-UONSJL4T.mjs");
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
   if (!mod.data[hash]) {
@@ -3712,7 +3713,7 @@ var toUmd = async (source, name) => {
         try {
           url = await importShim.resolve(dep, name);
           urlHash = md5(dep);
-        } catch {
+        } catch (e) {
           console.error(`failed to resolve: ${dep}`);
           return;
         }
@@ -3786,13 +3787,13 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
           jsxImportSource: "@emotion/react"
         }
       },
-      target: "2018"
+      target: "es2018"
     });
     const umdExp = async () => {
       console.log("to UMD");
       const UMD = await toUmd(transpiled.code, `${codeSpace2}.tsx`);
       console.log({ UMD });
-      download("coder.js", await UMD?.toJs(`${codeSpace2}.tsx`));
+      download("coder.js", await (UMD == null ? void 0 : UMD.toJs(`${codeSpace2}.tsx`)));
       function download(filename, text) {
         var element = document.createElement("a");
         element.setAttribute(
@@ -3858,7 +3859,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-QY74L6O7.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-Q35DQ3LC.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -3880,7 +3881,7 @@ function init() {
     );
     const wrapped = wrap(worker.port);
     return _prettier = wrapped;
-  } catch {
+  } catch (e) {
     return _prettier = fallback;
   }
 }
@@ -3972,7 +3973,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     })();
   };
   _n.useEffect(() => {
-    if (!ref?.current) {
+    if (!(ref == null ? void 0 : ref.current)) {
       return;
     }
     const setMonaco = async () => {
@@ -3980,7 +3981,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-N2K3M65V.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-ODY4GWEL.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -3999,7 +4000,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
             );
             console.log({ diag });
           })();
-        } catch {
+        } catch (e) {
           console.error("ts diag error");
         }
         return await prettierJs(model.getValue());
@@ -4025,7 +4026,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       });
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-E34X4DTS.mjs");
+      const { startAce } = await import("./chunk-startAce-Y2P4HJTW.mjs");
       const editor = await startAce(mST().code);
       const getValue = async () => await prettierJs(editor.session.getValue());
       const setValue = async (_code) => {
@@ -4322,7 +4323,7 @@ var run = async (startState) => {
       return;
     }
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      ws == null ? void 0 : ws.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
@@ -4456,8 +4457,8 @@ async function join() {
     ws = wsConnection;
     const mess = (data) => {
       try {
-        ws && ws?.send && ws?.send(data);
-      } catch {
+        ws && (ws == null ? void 0 : ws.send) && (ws == null ? void 0 : ws.send(data));
+      } catch (e) {
         ws = null;
         rejoined = false;
         rejoin();
@@ -4478,7 +4479,7 @@ async function join() {
       if (diff > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection?.send(
+            wsConnection == null ? void 0 : wsConnection.send(
               JSON.stringify({
                 name: user,
                 timestamp: lastSeenTimestamp + diff
@@ -4488,7 +4489,7 @@ async function join() {
           }
           rejoined = false;
           rejoin();
-        } catch {
+        } catch (e) {
           rejoined = false;
           rejoin();
         }
@@ -4592,7 +4593,7 @@ async function processData(data, source, conn) {
     );
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
@@ -4660,13 +4661,13 @@ async function processData(data, source, conn) {
           return;
         }
         await rtcConns[target].setLocalDescription(offer);
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           target,
           name: user,
           type: "video-offer",
           offer: rtcConns[target].localDescription
         }));
-      } catch {
+      } catch (e) {
       }
     }
     function handleICEConnectionStateChangeEvent() {
@@ -4698,7 +4699,7 @@ async function processData(data, source, conn) {
     await rtcConns[target].setLocalDescription(
       answer
     );
-    ws?.send(JSON.stringify({
+    ws == null ? void 0 : ws.send(JSON.stringify({
       target,
       name: user,
       type: "video-answer",
@@ -4751,7 +4752,7 @@ async function sw() {
       await load(location.pathname);
       return;
     }
-  } catch {
+  } catch (e) {
   }
 }
 export {

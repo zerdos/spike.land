@@ -1,10 +1,10 @@
 import {
   init_define_process
-} from "./chunk-chunk-AXJDOV6Y.mjs";
+} from "./chunk-chunk-FEDA5CBH.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-X6R3MEIC.mjs";
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/standalone.js
 var require_standalone = __commonJS({
@@ -34,7 +34,7 @@ var require_standalone = __commonJS({
         nu.exports = function(e) {
           try {
             return !!e();
-          } catch {
+          } catch (e2) {
             return true;
           }
         };
@@ -170,7 +170,7 @@ var require_standalone = __commonJS({
         qu.exports = function(e) {
           try {
             return tl(e);
-          } catch {
+          } catch (e2) {
             return "Object";
           }
         };
@@ -207,7 +207,7 @@ var require_standalone = __commonJS({
         Ju.exports = function(e, n) {
           try {
             ll(Gu, e, { value: n, configurable: true, writable: true });
-          } catch {
+          } catch (e2) {
             Gu[e] = n;
           }
           return n;
@@ -292,7 +292,7 @@ var require_standalone = __commonJS({
           if (n = Jl(n), t = Ul(t), Xl)
             try {
               return ms(n, t);
-            } catch {
+            } catch (e) {
             }
           if (zl(n, t))
             return Gl(!$l(Hl.f, n, t), n[t]);
@@ -325,7 +325,7 @@ var require_standalone = __commonJS({
           if (dr(n), t = Cs(t), dr(s), nc)
             try {
               return en(n, t, s);
-            } catch {
+            } catch (e) {
             }
           if ("get" in s || "set" in s)
             throw sc("Accessors not supported");
@@ -561,7 +561,7 @@ var require_standalone = __commonJS({
         }()) == "Arguments", Wp = function(e, n) {
           try {
             return e[n];
-          } catch {
+          } catch (e2) {
           }
         };
         xi.exports = jp ? Fr : function(e) {
@@ -576,7 +576,7 @@ var require_standalone = __commonJS({
             return false;
           try {
             return Bi(Ti, zp, n), true;
-          } catch {
+          } catch (e) {
             return false;
           }
         }, Ni = function(n) {
@@ -590,7 +590,7 @@ var require_standalone = __commonJS({
           }
           try {
             return Kp || !!Xp(Cn, Up(n));
-          } catch {
+          } catch (e) {
             return true;
           }
         };
@@ -1877,7 +1877,7 @@ var require_standalone = __commonJS({
           if (e.outdent = T, e.default = T, typeof n < "u")
             try {
               n.exports = T, Object.defineProperty(T, "__esModule", { value: true }), T.default = T, T.outdent = T;
-            } catch {
+            } catch (e2) {
             }
         } }), ND = Z({ "src/main/core-options.js"(e, n) {
           "use strict";
@@ -10860,7 +10860,7 @@ var require_standalone = __commonJS({
                   else
                     try {
                       G.push(s(["{{", r([u, te(U, { parser: "__ng_interpolation", __isInHtmlInterpolation: true })]), u, "}}"]));
-                    } catch {
+                    } catch (e2) {
                       G.push("{{", v(U), "}}");
                     }
                 return s(G);
@@ -11509,7 +11509,7 @@ var require_parser_babel = __commonJS({
         Yr.exports = function(h) {
           try {
             return !!h();
-          } catch {
+          } catch (e) {
             return true;
           }
         };
@@ -11645,7 +11645,7 @@ var require_parser_babel = __commonJS({
         Fi.exports = function(h) {
           try {
             return ql(h);
-          } catch {
+          } catch (e) {
             return "Object";
           }
         };
@@ -11682,7 +11682,7 @@ var require_parser_babel = __commonJS({
         zi.exports = function(h, l) {
           try {
             Gl(_i, h, { value: l, configurable: true, writable: true });
-          } catch {
+          } catch (e) {
             _i[h] = l;
           }
           return l;
@@ -11767,7 +11767,7 @@ var require_parser_babel = __commonJS({
           if (l = ku(l), p = Du(p), Lu)
             try {
               return ua(l, p);
-            } catch {
+            } catch (e) {
             }
           if (Fu(l, p))
             return Iu(!wu(Nu.f, l, p), l[p]);
@@ -11800,7 +11800,7 @@ var require_parser_babel = __commonJS({
           if (Dt(l), p = ya(p), Dt(d), _u)
             try {
               return Bs(l, p, d);
-            } catch {
+            } catch (e) {
             }
           if ("get" in d || "set" in d)
             throw Ku("Accessors not supported");
@@ -12043,7 +12043,7 @@ var require_parser_babel = __commonJS({
         }()) == "Arguments", Np = function(h, l) {
           try {
             return h[l];
-          } catch {
+          } catch (e) {
           }
         };
         Sn.exports = Ep ? Rt : function(h) {
@@ -12058,7 +12058,7 @@ var require_parser_babel = __commonJS({
             return false;
           try {
             return kn(In, Op, l), true;
-          } catch {
+          } catch (e) {
             return false;
           }
         }, Dn = function(l) {
@@ -12072,7 +12072,7 @@ var require_parser_babel = __commonJS({
           }
           try {
             return Mp || !!Bp(er, Lp(l));
-          } catch {
+          } catch (e) {
             return true;
           }
         };
@@ -12853,7 +12853,7 @@ var require_parser_babel = __commonJS({
               let { pattern: s, flags: r } = e, i = null;
               try {
                 i = new RegExp(s, r);
-              } catch {
+              } catch (e2) {
               }
               let a = this.estreeParseLiteral(i);
               return a.regex = { pattern: s, flags: r }, a;
@@ -12862,7 +12862,7 @@ var require_parser_babel = __commonJS({
               let s;
               try {
                 s = BigInt(e);
-              } catch {
+              } catch (e2) {
                 s = null;
               }
               let r = this.estreeParseLiteral(s);
@@ -16404,7 +16404,7 @@ var require_parser_babel = __commonJS({
                 let { errors: e } = this.state, s = e.length;
                 try {
                   return this.parseObjectLike(8, true), e.length === s;
-                } catch {
+                } catch (e2) {
                   return false;
                 }
               }
@@ -16413,7 +16413,7 @@ var require_parser_babel = __commonJS({
                 let { errors: e } = this.state, s = e.length;
                 try {
                   return this.parseBindingList(3, 93, true), e.length === s;
-                } catch {
+                } catch (e2) {
                   return false;
                 }
               }
@@ -19440,7 +19440,7 @@ var require_parser_babel = __commonJS({
                 if (r.ambiguousScriptDifferentAst)
                   try {
                     return e.sourceType = "script", Ye(e, t).parse();
-                  } catch {
+                  } catch (e2) {
                   }
                 else
                   i.program.sourceType = "script";
@@ -19448,7 +19448,7 @@ var require_parser_babel = __commonJS({
               } catch (r) {
                 try {
                   return e.sourceType = "script", Ye(e, t).parse();
-                } catch {
+                } catch (e2) {
                 }
                 throw r;
               }

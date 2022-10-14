@@ -1,10 +1,11 @@
 import {
   init_define_process
-} from "./chunk-chunk-AXJDOV6Y.mjs";
+} from "./chunk-chunk-FEDA5CBH.mjs";
 import {
   __commonJS,
+  __publicField,
   __toESM
-} from "./chunk-chunk-X6R3MEIC.mjs";
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js
 var require_lodash = __commonJS({
@@ -5414,7 +5415,133 @@ function initSession(room, u) {
 var session = null;
 var hashStore = {};
 var CodeSession = class {
-  session;
+  constructor(room, user) {
+    __publicField(this, "session");
+    __publicField(this, "cb", {});
+    __publicField(this, "hashCodeSession", 0);
+    __publicField(this, "room");
+    __publicField(this, "created", new Date().toISOString());
+    __publicField(this, "hashOfState", () => {
+      const state = this.session.get("state");
+      const hashCode4 = state.hashCode();
+      hashStore[hashCode4] = state;
+      return hashCode4;
+    });
+    __publicField(this, "createPatchFromHashCode", async (oldHash, state, updateHash) => {
+      const s = JSON.parse(string_(state));
+      let oldRec = hashStore[oldHash];
+      let usedOldHash = oldHash;
+      if (!oldRec) {
+        const resp = await fetch(
+          `/live/${this.room}/mST`
+        );
+        if (!resp.ok) {
+          console.error(location.origin + " is NOT OK", await resp.text());
+          throw new Error(location.origin + " is NOT OK");
+        }
+        const { mST: mST2, hashCode: hashCode4 } = await resp.json();
+        if (updateHash) {
+          updateHash(hashCode4);
+        }
+        hashStore[hashCode4] = this.session.get("state").merge(mST2);
+        usedOldHash = hashCode4;
+        oldRec = hashStore[hashCode4];
+      }
+      const oldString = string_(oldRec.toJSON());
+      const newRec = oldRec.merge(s);
+      const newString = string_(newRec.toJSON());
+      const newHash = newRec.hashCode();
+      hashStore[newHash] = newRec;
+      const patch = createPatch(oldString, newString);
+      return {
+        oldHash: usedOldHash,
+        newHash,
+        patch
+      };
+    });
+    __publicField(this, "patchSync", (sess) => {
+      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+        throw new Error("Code update without I update error");
+      const oldHash = this.session.hashCode();
+      this.session = this.session.set(
+        "state",
+        this.session.get("state").merge(sess)
+      );
+      const newHash = this.session.hashCode();
+      if (newHash !== oldHash) {
+        console.log({ sess });
+        (self.requestAnimationFrame || setTimeout)(
+          async () => this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
+        );
+      }
+    });
+    __publicField(this, "applyPatch", async ({
+      oldHash,
+      newHash,
+      patch
+    }) => {
+      const codeSpace = this.room || "";
+      if (!Object.keys(hashStore).map(Number).includes(
+        Number(oldHash)
+      ) && codeSpace) {
+        console.log(Object.keys(hashStore));
+        const resp = await fetch(
+          `/live/${codeSpace}/mST`
+        );
+        if (resp.ok) {
+          const s = await resp.json();
+          const serverRecord = this.session.get("state").merge(
+            JSON.parse(string_(s.mST))
+          );
+          hashStore[serverRecord.hashCode()] = serverRecord;
+        } else {
+          const { mST: mST2 } = await import(`/live/${this.room}/mst.mjs?${Date.now()}`);
+          const latestRec = this.session.get("state").merge(
+            JSON.parse(string_(mST2))
+          );
+          hashStore[latestRec.hashCode()] = latestRec;
+        }
+      }
+      const oldString = string_(hashStore[oldHash].toJSON());
+      const applied = applyPatch(oldString, patch);
+      const newState = JSON.parse(applied);
+      const newRec = this.session.get("state").merge(
+        newState
+      );
+      const newRecord = this.session.get("state").merge(newRec);
+      if (newRecord.i < this.session.get("state").i) {
+        throw new Error("never going back!");
+      }
+      if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
+        throw new Error("Code update without I update error");
+      const codeHash = md5(newRecord.code).slice(0, 8);
+      if (newRecord.transpiled.indexOf(codeHash) === -1) {
+        console.error(`missing: ${codeHash}`);
+        throw new Error("transpiled	 hack issue");
+      }
+      if (newRecord.code.length < 5) {
+        throw new Error("code deleted?");
+      }
+      const transHash = md5(newRecord.transpiled).slice(0, 8);
+      if (newRecord.html.indexOf(transHash) === -1) {
+        console.error(`missing: ${transHash}`);
+        throw new Error("render hack issue");
+      }
+      const newHashCheck = newRecord.hashCode();
+      if (newHashCheck === newHash) {
+        this.session = this.session.set("state", newRecord);
+      } else {
+        throw new Error("Wrong patch");
+      }
+    });
+    session = this;
+    this.room = room;
+    const savedState = null;
+    this.session = initSession(room, {
+      ...user,
+      state: savedState ? savedState : JSON.parse(string_(user.state))
+    })();
+  }
   update() {
     return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, {
       maxWait: 500,
@@ -5431,135 +5558,9 @@ var CodeSession = class {
       }
     });
   }
-  cb = {};
   onUpdate(fn, regId) {
     this.cb[regId] = fn;
   }
-  hashCodeSession = 0;
-  room;
-  created = new Date().toISOString();
-  constructor(room, user) {
-    session = this;
-    this.room = room;
-    const savedState = null;
-    this.session = initSession(room, {
-      ...user,
-      state: savedState ? savedState : JSON.parse(string_(user.state))
-    })();
-  }
-  hashOfState = () => {
-    const state = this.session.get("state");
-    const hashCode4 = state.hashCode();
-    hashStore[hashCode4] = state;
-    return hashCode4;
-  };
-  createPatchFromHashCode = async (oldHash, state, updateHash) => {
-    const s = JSON.parse(string_(state));
-    let oldRec = hashStore[oldHash];
-    let usedOldHash = oldHash;
-    if (!oldRec) {
-      const resp = await fetch(
-        `/live/${this.room}/mST`
-      );
-      if (!resp.ok) {
-        console.error(location.origin + " is NOT OK", await resp.text());
-        throw new Error(location.origin + " is NOT OK");
-      }
-      const { mST: mST2, hashCode: hashCode4 } = await resp.json();
-      if (updateHash) {
-        updateHash(hashCode4);
-      }
-      hashStore[hashCode4] = this.session.get("state").merge(mST2);
-      usedOldHash = hashCode4;
-      oldRec = hashStore[hashCode4];
-    }
-    const oldString = string_(oldRec.toJSON());
-    const newRec = oldRec.merge(s);
-    const newString = string_(newRec.toJSON());
-    const newHash = newRec.hashCode();
-    hashStore[newHash] = newRec;
-    const patch = createPatch(oldString, newString);
-    return {
-      oldHash: usedOldHash,
-      newHash,
-      patch
-    };
-  };
-  patchSync = (sess) => {
-    if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
-      throw new Error("Code update without I update error");
-    const oldHash = this.session.hashCode();
-    this.session = this.session.set(
-      "state",
-      this.session.get("state").merge(sess)
-    );
-    const newHash = this.session.hashCode();
-    if (newHash !== oldHash) {
-      console.log({ sess });
-      (self.requestAnimationFrame || setTimeout)(
-        async () => this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
-      );
-    }
-  };
-  applyPatch = async ({
-    oldHash,
-    newHash,
-    patch
-  }) => {
-    const codeSpace = this.room || "";
-    if (!Object.keys(hashStore).map(Number).includes(
-      Number(oldHash)
-    ) && codeSpace) {
-      console.log(Object.keys(hashStore));
-      const resp = await fetch(
-        `/live/${codeSpace}/mST`
-      );
-      if (resp.ok) {
-        const s = await resp.json();
-        const serverRecord = this.session.get("state").merge(
-          JSON.parse(string_(s.mST))
-        );
-        hashStore[serverRecord.hashCode()] = serverRecord;
-      } else {
-        const { mST: mST2 } = await import(`/live/${this.room}/mst.mjs?${Date.now()}`);
-        const latestRec = this.session.get("state").merge(
-          JSON.parse(string_(mST2))
-        );
-        hashStore[latestRec.hashCode()] = latestRec;
-      }
-    }
-    const oldString = string_(hashStore[oldHash].toJSON());
-    const applied = applyPatch(oldString, patch);
-    const newState = JSON.parse(applied);
-    const newRec = this.session.get("state").merge(
-      newState
-    );
-    const newRecord = this.session.get("state").merge(newRec);
-    if (newRecord.i < this.session.get("state").i) {
-      throw new Error("never going back!");
-    }
-    if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
-      throw new Error("Code update without I update error");
-    const codeHash = md5(newRecord.code).slice(0, 8);
-    if (newRecord.transpiled.indexOf(codeHash) === -1) {
-      console.error(`missing: ${codeHash}`);
-      throw new Error("transpiled	 hack issue");
-    }
-    if (newRecord.code.length < 5) {
-      throw new Error("code deleted?");
-    }
-    const transHash = md5(newRecord.transpiled).slice(0, 8);
-    if (newRecord.html.indexOf(transHash) === -1) {
-      console.error(`missing: ${transHash}`);
-      throw new Error("render hack issue");
-    }
-    const newHashCheck = newRecord.hashCode();
-    if (newHashCheck === newHash) {
-      this.session = this.session.set("state", newRecord);
-    } else {
-      throw new Error("Wrong patch");
-    }
-  };
   json() {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
@@ -5604,10 +5605,10 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 var applyPatch2 = async (x) => {
-  await session?.applyPatch(x);
-  session?.update();
+  await (session == null ? void 0 : session.applyPatch(x));
+  session == null ? void 0 : session.update();
 };
-var onSessionUpdate = (fn, regId = "default") => session?.onUpdate(fn, regId);
+var onSessionUpdate = (fn, regId = "default") => session == null ? void 0 : session.onUpdate(fn, regId);
 var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
 var makePatch = async (st, update8) => makePatchFrom(hashCode3(), st, update8);
 var startSession = (room, u, originString) => session || new CodeSession(room, {
@@ -5617,7 +5618,7 @@ var startSession = (room, u, originString) => session || new CodeSession(room, {
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
-var patchSync = (sess) => session?.patchSync(sess);
+var patchSync = (sess) => session == null ? void 0 : session.patchSync(sess);
 
 export {
   require_lodash,

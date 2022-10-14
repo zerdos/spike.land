@@ -1,13 +1,13 @@
 import {
   typescriptDefaults
-} from "./chunk-chunk-ZBEITQTG.mjs";
+} from "./chunk-chunk-SFVO6X6G.mjs";
 import {
   editor_api_exports
-} from "./chunk-chunk-47Q6TX5Q.mjs";
+} from "./chunk-chunk-FJRX5OZG.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-AXJDOV6Y.mjs";
-import "./chunk-chunk-X6R3MEIC.mjs";
+} from "./chunk-chunk-FEDA5CBH.mjs";
+import "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
 init_define_process();
@@ -41,11 +41,6 @@ var WorkerManager = class {
     this._updateExtraLibsToken = 0;
     this._extraLibsChangeListener = this._defaults.onDidExtraLibsChange(() => this._updateExtraLibs());
   }
-  _configChangeListener;
-  _updateExtraLibsToken;
-  _extraLibsChangeListener;
-  _worker;
-  _client;
   dispose() {
     this._configChangeListener.dispose();
     this._extraLibsChangeListener.dispose();
@@ -209,9 +204,6 @@ var LibFiles = class {
     this._hasFetchedLibFiles = false;
     this._fetchLibFilesPromise = null;
   }
-  _libFiles;
-  _hasFetchedLibFiles;
-  _fetchLibFilesPromise;
   isLibFile(uri) {
     if (!uri) {
       return false;
@@ -263,6 +255,8 @@ var LibFiles = class {
 var DiagnosticsAdapter = class extends Adapter {
   constructor(_libFiles, _defaults, _selector, worker) {
     super(worker);
+    this._disposables = [];
+    this._listener = /* @__PURE__ */ Object.create(null);
     this._libFiles = _libFiles;
     this._defaults = _defaults;
     this._selector = _selector;
@@ -335,8 +329,6 @@ var DiagnosticsAdapter = class extends Adapter {
     this._disposables.push(this._defaults.onDidExtraLibsChange(recomputeDiagostics));
     monaco_editor_core_exports.editor.getModels().forEach((model) => onModelAdd(model));
   }
-  _disposables = [];
-  _listener = /* @__PURE__ */ Object.create(null);
   dispose() {
     this._disposables.forEach((d) => d && d.dispose());
     this._disposables = [];
@@ -453,6 +445,7 @@ var SuggestAdapter = class extends Adapter {
       return;
     }
     const suggestions = info.entries.map((entry) => {
+      var _a;
       let range = wordRange;
       if (entry.replacementSpan) {
         const p1 = model.getPositionAt(entry.replacementSpan.start);
@@ -460,7 +453,7 @@ var SuggestAdapter = class extends Adapter {
         range = new monaco_editor_core_exports.Range(p1.lineNumber, p1.column, p2.lineNumber, p2.column);
       }
       const tags = [];
-      if (entry.kindModifiers?.indexOf("deprecated") !== -1) {
+      if (((_a = entry.kindModifiers) == null ? void 0 : _a.indexOf("deprecated")) !== -1) {
         tags.push(monaco_editor_core_exports.languages.CompletionItemTag.Deprecated);
       }
       return {
@@ -558,7 +551,10 @@ function tagToString(tag) {
   return tagLabel;
 }
 var SignatureHelpAdapter = class extends Adapter {
-  signatureHelpTriggerCharacters = ["(", ","];
+  constructor() {
+    super(...arguments);
+    this.signatureHelpTriggerCharacters = ["(", ","];
+  }
   static _toSignatureHelpTriggerReason(context) {
     switch (context.triggerKind) {
       case monaco_editor_core_exports.languages.SignatureHelpTriggerKind.TriggerCharacter:

@@ -1,10 +1,10 @@
 import {
   editor_api_exports
-} from "./chunk-chunk-47Q6TX5Q.mjs";
+} from "./chunk-chunk-FJRX5OZG.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-AXJDOV6Y.mjs";
-import "./chunk-chunk-X6R3MEIC.mjs";
+} from "./chunk-chunk-FEDA5CBH.mjs";
+import "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.js
 init_define_process();

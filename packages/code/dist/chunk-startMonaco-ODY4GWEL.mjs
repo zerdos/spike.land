@@ -1,4 +1,4 @@
-import "./chunk-chunk-ZBEITQTG.mjs";
+import "./chunk-chunk-SFVO6X6G.mjs";
 import {
   $,
   Action,
@@ -567,15 +567,18 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-47Q6TX5Q.mjs";
+} from "./chunk-chunk-FJRX5OZG.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-AXJDOV6Y.mjs";
+} from "./chunk-chunk-FEDA5CBH.mjs";
 import {
   __commonJS,
   __esm,
+  __privateAdd,
+  __privateGet,
+  __privateSet,
   __toESM
-} from "./chunk-chunk-X6R3MEIC.mjs";
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -41947,11 +41950,6 @@ var LazyLanguageLoader = class {
     }
     return lazyLanguageLoaders[languageId];
   }
-  _languageId;
-  _loadingTriggered;
-  _lazyLoadPromise;
-  _lazyLoadPromiseResolve;
-  _lazyLoadPromiseReject;
   constructor(languageId) {
     this._languageId = languageId;
     this._loadingTriggered = false;
@@ -41997,7 +41995,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-QOUPDPMN.mjs");
+      return import("./chunk-typescript-AM3HL7GW.mjs");
     }
   }
 });
@@ -42087,9 +42085,8 @@ function cleanStack(stack, { pretty = false, basePath } = {}) {
 
 // ../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9.zip/node_modules/aggregate-error/index.js
 var cleanInternalStack = (stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, "");
+var _errors;
 var AggregateError = class extends Error {
-  #errors;
-  name = "AggregateError";
   constructor(errors) {
     if (!Array.isArray(errors)) {
       throw new TypeError(`Expected input to be an Array, got ${typeof errors}`);
@@ -42108,12 +42105,15 @@ var AggregateError = class extends Error {
     }).join("\n");
     message = "\n" + indentString(message, 4);
     super(message);
-    this.#errors = errors;
+    __privateAdd(this, _errors, void 0);
+    this.name = "AggregateError";
+    __privateSet(this, _errors, errors);
   }
   get errors() {
-    return this.#errors.slice();
+    return __privateGet(this, _errors).slice();
   }
 };
+_errors = new WeakMap();
 
 // ../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9.zip/node_modules/p-map/index.js
 var AbortError = class extends Error {
@@ -42280,7 +42280,67 @@ var getWorkerUrl = (_moduleId, label) => {
 var create = editor.create;
 var createModel = editor.createModel;
 var lib = [
-  "esnext.full"
+  "dom",
+  "dom.iterable",
+  "es2015.collection",
+  "es2015.core",
+  "es2015",
+  "es2015.generator",
+  "es2015.iterable",
+  "es2015.promise",
+  "es2015.proxy",
+  "es2015.reflect",
+  "es2015.symbol",
+  "es2015.symbol.wellknown",
+  "es2016.array.include",
+  "es2016",
+  "es2016.full",
+  "es2017",
+  "es2017.full",
+  "es2017.intl",
+  "es2017.object",
+  "es2017.sharedmemory",
+  "es2017.string",
+  "es2017.typedarrays",
+  "es2018.asyncgenerator",
+  "es2018.asynciterator",
+  "es2018",
+  "es2018.full",
+  "es2018.intl",
+  "es2018.promise",
+  "es2018.regexp",
+  "es2019.array",
+  "es2019",
+  "es2019.full",
+  "es2019.object",
+  "es2019.string",
+  "es2019.symbol",
+  "es2020.bigint",
+  "es2020",
+  "es2020.full",
+  "es2020.intl",
+  "es2020.promise",
+  "es2020.sharedmemory",
+  "es2020.string",
+  "es2020.symbol.wellknown",
+  "es2021",
+  "es2021.full",
+  "es2021.intl",
+  "es2021.promise",
+  "es2021.string",
+  "es2021.weakref",
+  "es5",
+  "es6",
+  "esnext",
+  "esnext.full",
+  "esnext.intl",
+  "esnext.promise",
+  "esnext.string",
+  "esnext.weakref",
+  "scripthost",
+  "webworker",
+  "webworker.importscripts",
+  "webworker.iterable"
 ];
 var monacoContribution = async (code) => {
   languages.typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -42353,7 +42413,7 @@ var monacoContribution = async (code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-SAYVGQWO.mjs");
+    const { dtsFiles } = await import("./chunk-types-LOXAMUGI.mjs");
     const {
       reactDts,
       jsxRuntimeDts,
@@ -42487,7 +42547,7 @@ var monacoContribution = async (code) => {
         location.origin + `/node_modules/${name}/index.d.ts`
       );
       await pMap(importHelper, mapper, { concurrency: 2 });
-    } catch {
+    } catch (e) {
       console.error("Error in loading d.ts");
     }
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
@@ -42576,7 +42636,7 @@ var startMonaco = async ({ code, container, name }) => {
         let state = null;
         try {
           state = editor2.saveViewState();
-        } catch {
+        } catch (e) {
           console.error("error while saving the state");
         }
         model.setValue(code3);

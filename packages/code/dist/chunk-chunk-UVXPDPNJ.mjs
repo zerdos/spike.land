@@ -1,10 +1,10 @@
 import {
   init_define_process
-} from "./chunk-chunk-AXJDOV6Y.mjs";
+} from "./chunk-chunk-FEDA5CBH.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-X6R3MEIC.mjs";
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.11-c85526b9c1-9.zip/node_modules/esbuild-wasm/lib/browser.js
 var require_browser = __commonJS({
@@ -2418,7 +2418,7 @@ var initFinished = false;
 var transform = async (code, opts) => {
   initFinished = initFinished || (0, import_esbuild_wasm.initialize)({
     wasmURL: new URL(
-      (await import("./chunk-esbuild-3RNY6O2X.mjs")).default,
+      (await import("./chunk-esbuild-URI6BEBY.mjs")).default,
       location.origin
     ).toString()
   }).then(() => true).catch(() => false);
