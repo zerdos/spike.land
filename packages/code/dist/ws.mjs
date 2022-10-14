@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-FQJVTMTP.mjs";
+} from "./chunk-chunk-FEMS3DSM.mjs";
 import {
   applyPatch,
   hashCode,
@@ -3803,7 +3803,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html, css: css2 || "" });
     let i = 60;
     while (!mST().css) {
-      console.log("Oh, nooo! Can't extract css, wait:", i);
+      console.log("Oh, NO! Can't extract css, wait:", i);
       const { html: html2, css: css3 } = renderFromString(codeSpace2, hashCode());
       if (html2 && css3)
         patchSync({ ...mST(), html: html2, css: css3 });
@@ -4115,7 +4115,7 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
       const newHash = hashCode();
       if (hash !== newHash) {
         try {
-          await appFactory(codeSpace2);
+          await appFactory();
           setHash(newHash);
         } catch (error) {
           console.error({ e: error });
@@ -4278,7 +4278,7 @@ var run = async (startState) => {
     name: user,
     state: mst
   }, location.origin);
-  await appFactory(codeSpace, mst.transpiled);
+  await appFactory(mst.transpiled);
   renderPreviewWindow({ codeSpace, assets });
   await join();
   bc = new BroadcastChannel(location.origin);

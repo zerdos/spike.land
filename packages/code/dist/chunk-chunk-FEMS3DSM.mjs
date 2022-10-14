@@ -347,7 +347,7 @@ function createJsBlob(code, fileName = "index.mjs") {
 var import_is_callable2 = __toESM(require_is_callable(), 1);
 var render2 = async (transpiled, codeSpace) => {
   const hash = md5(transpiled).slice(0, 8);
-  const App = await appFactory(codeSpace, transpiled);
+  const App = await appFactory(transpiled);
   if ((0, import_is_callable2.default)(App)) {
     const html = S2(
       jsx("div", {
