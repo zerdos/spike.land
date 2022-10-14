@@ -851,7 +851,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/bookworm-devcontainer@workspace:packages/bookworm-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:0.9.1"
+    "@spike.land/devcontainer-generator": "workspace:packages/devcontainer-generator"
   languageName: unknown
   linkType: soft
 
@@ -938,7 +938,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/cypress@workspace:packages/cypress"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:0.9.1"
+    "@spike.land/devcontainer-generator": "workspace:packages/devcontainer-generator"
   languageName: unknown
   linkType: soft
 
@@ -950,18 +950,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike.land/devcontainer-generator@npm:0.9.1":
-  version: 0.9.1
-  resolution: "@spike.land/devcontainer-generator@npm:0.9.1"
-  checksum: 9ea797d914e9a72f180e648c2c914026e31e75c1cb7c9f8acfb37b1225d7d608bd81212ba9f8b58f63a8baa8f842350b66f0e8ee0e09efe859e0db6e74bbc942
-  languageName: node
-  linkType: hard
-
 "@spike.land/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc":
   version: 0.0.0-use.local
   resolution: "@spike.land/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:0.9.1"
+    "@spike.land/devcontainer-generator": "workspace:packages/devcontainer-generator"
   languageName: unknown
   linkType: soft
 
@@ -981,7 +974,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/jammy-devcontainer@workspace:packages/jammy-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:0.9.1"
+    "@spike.land/devcontainer-generator": "workspace:packages/devcontainer-generator"
   languageName: unknown
   linkType: soft
 
