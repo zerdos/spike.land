@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import { runner } from "./runner";
 import React from "react";
 
@@ -76,7 +76,7 @@ export const Editor: React.FC<
 
   mod.code = myCode;
 
-  const cb = useCallback(() => {
+  const cb = async () => {
     const lastKeydownHappened = Date.now() - mod.lastKeyDown;
     console.log({ lastKeydownHappened });
     let increment = 0;
@@ -114,7 +114,7 @@ export const Editor: React.FC<
     // Console.log("RUN THE RUNNER AGAIN");
 
     // Model?.setValue(code);
-  }, [mod.lastKeyDown, myCode, counter, changeContent]);
+  }
 
   React.useEffect(() => {
     if (!(ref?.current)) {

@@ -5,7 +5,7 @@
 // import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
-import { css } from "@emotion/react";
+import {css } from "@emotion/react";
 import { useEffect, useRef } from "react";
 
 import type { FC } from "react";
@@ -14,19 +14,24 @@ import { mST, patchSync } from "./session";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "./md5.js";
 
-import { renderFromString } from "./renderToString";
+import  type {renderFromString as RFS} from "./renderToString";
 
 import { useState } from "react";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
+import type { CacheProvider as EmotionCacheProvider } from "@emotion/react";
+import type CreateCache from "@emotion/cache";
+import type { EmotionCache}from "@emotion/cache";
+
 import isCallable from "is-callable";
 
+let renderFromString: typeof RFS | null = null;
+;
+let createCache: typeof CreateCache | null = null;
+let CacheProvider: typeof EmotionCacheProvider  | null = null;
+// const myCache = createCache({
+// key: "z",
+// });
 
-const myCache = createCache({
-key: "z",
-});
-
-Object.assign(globalThis, {myCache})
+// Object.assign(globalThis, {myCache})
 
 
 async function importShim(scr: string): Promise<any> {
@@ -54,96 +59,13 @@ async function importShim(scr: string): Promise<any> {
   importShim = window.importShim;
 
   return importShim(scr);
-}
+}// @ts-expect-error
 
-// (async()=>{
-// Array.from( document.scripts).find(s=>s.type==="importmap")
-// const res = await fetch(location.origin + '/importmap.json')
-// const importMap = await res.json();
+globalThis.apps = globalThis.apps  || {};
+// @ts-expect-error
 
-// importShim.addImportMap(importMap);
-// })();
-// Object.assign(window, {});
+const apps: Record<string, React.FC> = globalThis.apps || {};
 
-// const modalRoot = document.getElementById("root")!;
-
-// export class Root extends React.Component<{children: ReactNode, codeSpace: string}> {
-//   #el: HTMLDivElement;
-//   #codeSpace: string;
-//   children: ReactNode
-//   constructor(props: {children: ReactNode, codeSpace: string}) {
-//      super(props);
-//     this.#codeSpace=props.codeSpace;
-//      this.#el=document.createElement("div");
-//      this.#el.id=`root-${this.#codeSpace}`;
-//      this.#el.style.height='100%';
-
-//   }
-
-//   componentDidMount() {
-//     // The portal element is inserted in the DOM tree after
-//     // the Modal's children are mounted, meaning that children
-//     // will be mounted on a detached DOM node. If a child
-//     // component requires to be attached to the DOM tree
-//     // immediately when mounted, for example to measure a
-//     // DOM node, or uses 'autoFocus' in a descendant, add
-//     // state to Modal and only render the children when Modal
-//     // is inserted in the DOM tree.
-//     modalRoot.innerHTML ="";
-//     modalRoot.append(this.#el);
-//   }
-
-//   componentWillUnmount() {
-//     modalRoot.appendChild(this.#el);
-//   }
-
-//   render() {
-//     return createPortal(
-//       this.props.children,
-//       this.#el,
-//     );
-//   }
-// }
-
-// const orig = location.origin.includes("localhost") ? "." : location.origin;
-// let isEsModuleShimsLoaded = false;
-// export const initShims = async (assets: { [key: string]: string }) => {
-// if (isEsModuleShimsLoaded) return;
-// isEsModuleShimsLoaded = true;
-// const {importShim} = await import("es-module-shims");
-
-// location.origin.includes("localhost")
-//   ? importShim.addImportMap({
-//     "imports": {
-//       "@emotion/react":
-//         "https://esm.sh/@emotion/react@11.10.0?alias=react:/react.mjs",
-//       "framer-motion": "./framer-motion",
-//       "react": orig + "/" + assets["react.mjs"],
-//       "react-dom": orig + "/" + assets["react.mjs"],
-//       "react-dom/client": orig + "/" + assets["react.mjs"],
-//       "react-dom/server": orig + "/" + assets["react.mjs"],
-//       "react/jsx-runtime": orig + "/" + assets["react.mjs"],
-//     },
-//   })
-//   : importShim.addImportMap({
-//     "imports": {
-//       // ...imap,
-//       "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
-//       "@emotion/react": location.origin + "/" + assets["emotion.mjs"],
-//       "react": location.origin + "million/react",
-//       "react-dom": location.origin + "million/react",
-//       "react-dom/client": location.origin + "/" + assets["react.mjs"],
-//       "react-dom/server": location.origin + "/" + assets["react.mjs"],
-//       "react/jsx-runtime": location.origin + "/" + assets["react.mjs"],
-//       // "preact": "https://ga.jspm.iopreact@10.8.2/dist/preact.module.js",
-//       // "preact-render-to-string": "https://ga.jspm.iopreact-render-to-string@5.2.0/dist/index.mjs",
-//       // "preact/compat": "https://ga.jspm.iopreact@10.8.2/compat/dist/compat.module.js",
-//       // "preact/jsx-runtime": "https://ga.jspm.iopreact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-//     },
-//   });
-// };
-
-const apps: Record<string, React.FC> = {};
 const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
@@ -167,6 +89,9 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   useEffect(() => {
     const newHash = md5(mST().transpiled).slice(0, 8);
     if (newHash !== md5Hash) return;
+    
+
+    if (!renderFromString) return;
 
     render[md5Hash] = render[md5Hash] || renderFromString(codeSpace, hash);
 
@@ -179,35 +104,68 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 
   const ref = useRef(null);
   const transpiled = mST().transpiled;
-  const App = apps[md5(transpiled)];
+  const App = apps[md5(transpiled).slice(0,8)];
 
   // Return <Root codeSpace={codeSpace}>
 
+//   if (!createCache || !CacheProvider) return null;
+
+//   const myCache = createCache({
+//     key: "z",
+//     });
+
+// Object.assign(globalThis, {myCache})
+
   return (
     <ErrorBoundary key={md5Hash} ref={ref}>
-      <div style={{ height: "100%" }} id={`${codeSpace}-${md5Hash}`}>
+        <div style={{ height: "100%" }} id={`${codeSpace}-${md5Hash}`}>
 
-      <CacheProvider value={myCache}>
         <App />
-        </CacheProvider>
-
-      </div>
+        
+        </div>
     </ErrorBoundary>
   );
 };
+// @ts-expect-error
 
-export async function appFactory(transpiled = ""): Promise<React.FC> {
+let Emotion  = null;
+
+let myCache: EmotionCache | null = null;
+export async function appFactory(codeSpace: string, transpiled = ""): Promise<React.FC> {
+  console.log('App fac', codeSpace, transpiled)
   // Const hashC = hashCode();
+// @ts-expect-error
 
+   if (Emotion === null) {
+     Emotion = await importShim("@emotion/react");
+
+
+    renderFromString = (await importShim("/renderToString.mjs")).renderFromString as unknown as typeof RFS;
+    createCache = Emotion.cache.default as unknown as typeof CreateCache;
+    CacheProvider = Emotion.CacheProvider as unknown as typeof EmotionCacheProvider;
+    myCache = createCache({
+      key: "z",
+      });
+
+  }
   const trp = transpiled.length > 0 ? transpiled : mST().transpiled;
 
-  const hash = md5(trp);
+  const hash = md5(trp).slice(0, 8);
 
   if (!apps[hash]) {
     try {
       const App = (await importShim(createJsBlob(trp)))
         .default as unknown as FC;
-      if (isCallable(App)) apps[hash] = App;
+      if (CacheProvider ===null || myCache ===null) return ()=><h1>error</h1>;
+      if (isCallable(App)) {
+   
+       
+    
+        // const ECacheProvider  = CacheProvider as typeof EmotionCacheProvider;
+        // @ts-expect-error
+
+        apps[hash] = Emotion.withEmotionCache(App)
+        }
       else throw new Error("the default export is not a function!");
     } catch (error) {
       // Try {

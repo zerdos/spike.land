@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-A6LKUG24.mjs";
+} from "./chunk-chunk-LN3ON2IY.mjs";
 import {
   _extends,
   _objectWithoutPropertiesLoose,
@@ -13,8 +13,12 @@ import {
   rootShouldForwardProp,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-WASIAEHY.mjs";
-import "./chunk-chunk-G4L2UCJB.mjs";
+} from "./chunk-chunk-XWU2GVXV.mjs";
+import "./chunk-chunk-GGEAJ4VZ.mjs";
+import {
+  forwardRef,
+  o3
+} from "./chunk-chunk-BYALA4PV.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-AXJDOV6Y.mjs";
@@ -28,7 +32,6 @@ init_define_process();
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
 init_define_process();
 var import_prop_types = __toESM(require_prop_types());
-import * as React from "react";
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/fabClasses.js
 init_define_process();
@@ -39,7 +42,6 @@ var fabClasses = generateUtilityClasses("MuiFab", ["root", "primary", "secondary
 var fabClasses_default = fabClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
-import { jsx as _jsx } from "react/jsx-runtime";
 var _excluded = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
 var useUtilityClasses = (ownerState) => {
   const {
@@ -142,7 +144,7 @@ var FabRoot = styled_default(ButtonBase_default, {
     }
   }
 }));
-var Fab = React.forwardRef(function Fab2(inProps, ref) {
+var Fab = forwardRef(function Fab2(inProps, ref) {
   const props = useThemeProps({
     props: inProps,
     name: "MuiFab"
@@ -167,7 +169,7 @@ var Fab = React.forwardRef(function Fab2(inProps, ref) {
     variant
   });
   const classes = useUtilityClasses(ownerState);
-  return _jsx(FabRoot, _extends({
+  return o3(FabRoot, _extends({
     className: clsx_m_default(classes.root, className),
     component,
     disabled,
