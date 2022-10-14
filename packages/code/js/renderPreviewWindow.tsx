@@ -8,14 +8,13 @@ import {
 import { appFactory, AutoUpdateApp } from "./starter";
 import { DraggableWindow } from "./DraggableWindow";
 
-import {  css } from "@emotion/react";
+import { css } from "@emotion/react";
 
 // Import { useSpring, a } from '@react-spring/web'
 
 import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
-
 
 const RainbowContainer: React.FC<{ children: JSX.Element }> = (
   { children },
@@ -145,14 +144,9 @@ export const renderPreviewWindow = ({ codeSpace, assets }: {
   // Div.style.height='100%';
   const root = createRoot(div);
 
-
-
   root.render(
     <Fragment>
- 
-        <AppToRender codeSpace={codeSpace} assets={assets} />
-
-
+      <AppToRender codeSpace={codeSpace} assets={assets} />
     </Fragment>,
   );
 };

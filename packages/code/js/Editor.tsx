@@ -114,7 +114,7 @@ export const Editor: React.FC<
     // Console.log("RUN THE RUNNER AGAIN");
 
     // Model?.setValue(code);
-  }
+  };
 
   React.useEffect(() => {
     if (!(ref?.current)) {

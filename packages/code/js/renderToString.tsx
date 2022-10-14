@@ -3,7 +3,6 @@ import { md5 } from "md5";
 import { appFactory } from "starter";
 import { renderToString } from "react-dom/server";
 
-
 import isCallable from "is-callable";
 
 export const render = async (transpiled: string, codeSpace: string) => {
@@ -12,17 +11,17 @@ export const render = async (transpiled: string, codeSpace: string) => {
   if (isCallable(App)) {
     const html = renderToString(
       <div
-      style={{
-        height: "100%",
-      }}
-      id={`${codeSpace}-${hash}`}
-    >
-      <App />
-    </div>,
+        style={{
+          height: "100%",
+        }}
+        id={`${codeSpace}-${hash}`}
+      >
+        <App />
+      </div>,
     );
     const css = extractCritical22(html);
-    return {html, css};
-  } else return {html: null, css: null};
+    return { html, css };
+  } else return { html: null, css: null };
 };
 // };
 export const renderFromString = (
@@ -39,11 +38,12 @@ export const renderFromString = (
   const html = document.getElementById(`${codeSpace}-${md5hash}`)?.innerHTML!;
 
   const css = html ? extractCritical22(html) : "";
-const globalCss = document.querySelector("style[data-emotion=css-global]")?.innerHTML;
-
+  const globalCss = document.querySelector("style[data-emotion=css-global]")
+    ?.innerHTML;
 
   return {
-    html:(globalCss?`<style>${globalCss}</style>`: ``)+`<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`,
+    html: (globalCss ? `<style>${globalCss}</style>` : ``) +
+      `<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`,
     css,
   };
 };
