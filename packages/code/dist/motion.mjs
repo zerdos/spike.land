@@ -5,8 +5,7 @@ import {
   domMax,
   m,
   motion
-} from "./chunk-chunk-4PNSYL62.mjs";
-import "./chunk-chunk-ZUJ2BQID.mjs";
+} from "./chunk-chunk-YGRGXYQB.mjs";
 import "./chunk-chunk-BYALA4PV.mjs";
 import {
   init_define_process

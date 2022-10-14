@@ -2,27 +2,28 @@ import { css } from "@emotion/react";
 import { motion as m } from "framer-motion";
 
 import type { FC } from "react";
-import React, { Suspense, useState } from "react";
+import { useState } from "react";
 
 import { QrCodeIcon } from "./icons";
+import {QRious} from "react-qrious"
 
 import { Fab } from "./mui";
 
-type QrProps = {
-  url: string;
-};
 
-const QR = ({ url }: QrProps) => <QRious value={{ url }} />;
+// const QRiousLazy = (props) =>lazy(async () => {
+// const {QRious} = await import("react-qrious");
+// return {default: (()=>QRious(props))}
+// })
 
-const QRiousLazy = React.lazy(() =>
-  import("react-qrious").then(({ QRious }) => ({ default: QRious }))
-) as FC<{ value: Record<string, unknown> }>;
 
-const QRious: FC<{ value: Record<string, unknown> }> = ({ value }) => (
-  <Suspense fallback={<p>..</p>}>
-    <QRiousLazy value={value} />
-  </Suspense>
-);
+// const QRious: FC<{ value: Record<string, unknown> }> = ({ value }) => (
+//   <Suspense fallback={<p>..</p>}>
+//     {QRiousLazy(value)}
+//   </Suspense>
+// );
+
+
+
 
 export const QRButton: FC<{ url: string }> = ({ url }) => {
   const [showQR, setQR] = useState(false);
@@ -42,9 +43,9 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
     >
       {showQR
         ? (
-          <QR
+          <QRious
             key={url || origin + url}
-            url={url || "/live/coder/public"}
+            value={url || "/live/coder/public"}
           />
         )
         : (
