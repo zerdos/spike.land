@@ -3,7 +3,7 @@ import {
   mST,
   md5,
   patchSync
-} from "./chunk-chunk-5SOELRIC.mjs";
+} from "./chunk-chunk-L5EXXDXD.mjs";
 import {
   Fragment,
   css,
@@ -347,20 +347,14 @@ function createJsBlob(code, fileName = "index.mjs") {
 // js/renderToString.tsx
 var import_is_callable2 = __toESM(require_is_callable(), 1);
 var render2 = async (transpiled, codeSpace) => {
-  const hash = md5(transpiled).slice(0, 8);
+  const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if ((0, import_is_callable2.default)(App)) {
-    const html = S2(
-      jsx("div", {
-        style: {
-          height: "100%"
-        },
-        id: `${codeSpace}-${hash}`,
-        children: jsx(App, {})
-      })
-    );
+    const html = S2(jsx(App, {}));
     const css2 = extractCritical22(html);
-    return { html, css: css2 };
+    const globalCss = document.querySelector("style[data-emotion=css-global]")?.innerHTML;
+    return { html: `<div id="${codeSpace}-${md5hash}" style="height:100%">
+    ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`, css: css2 };
   } else
     return { html: null, css: null };
 };
@@ -373,7 +367,8 @@ var renderFromString2 = (codeSpace, hash) => {
   const css2 = html ? extractCritical22(html) : "";
   const globalCss = document.querySelector("style[data-emotion=css-global]")?.innerHTML;
   return {
-    html: (globalCss ? `<style>${globalCss}</style>` : ``) + `<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`,
+    html: `<div id="${codeSpace}-${md5hash}" style="height:100%">
+      ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
     css: css2
   };
 };

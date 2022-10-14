@@ -41,15 +41,25 @@ import { wait } from "wait";
 
 // export const runnerDebounced: typeof runner = (props) => debounced(props);
 
+const mod ={
+  code: '',
+  olderCode:""
+}
 export async function runner({ code, counter, codeSpace }: {
   code: string;
   codeSpace: string;
   counter: number;
 }) {
+  mod.code = code;
   const mst = mST();
   console.log(`${mst.i} => ${counter}`);
 
-  if (counter <= mst.i) return;
+  if (counter < mst.i) return;
+
+  setTimeout(()=>{
+    if (mod.code === code && code!==mod.olderCode) runner({ code, counter, codeSpace });
+    mod.olderCode = code;
+  }, 1000)
 
   // Console.log({ i, counter });
 

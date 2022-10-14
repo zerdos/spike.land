@@ -6,21 +6,17 @@ import { renderToString } from "react-dom/server";
 import isCallable from "is-callable";
 
 export const render = async (transpiled: string, codeSpace: string) => {
-  const hash = md5(transpiled).slice(0, 8);
+
+  const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if (isCallable(App)) {
-    const html = renderToString(
-      <div
-        style={{
-          height: "100%",
-        }}
-        id={`${codeSpace}-${hash}`}
-      >
-        <App />
-      </div>,
-    );
+    const html = renderToString(<App />);
     const css = extractCritical22(html);
-    return { html, css };
+    const globalCss = document.querySelector("style[data-emotion=css-global]")
+    ?.innerHTML;
+
+    return { html: `<div id="${codeSpace}-${md5hash}" style="height:100%">
+    ${(globalCss ? `<style>${globalCss}</style>` : ``)+ html}</div>`, css };
   } else return { html: null, css: null };
 };
 // };
@@ -42,8 +38,8 @@ export const renderFromString = (
     ?.innerHTML;
 
   return {
-    html: (globalCss ? `<style>${globalCss}</style>` : ``) +
-      `<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`,
+    html: `<div id="${codeSpace}-${md5hash}" style="height:100%">
+      ${(globalCss ? `<style>${globalCss}</style>` : ``)+ html}</div>`,
     css,
   };
 };

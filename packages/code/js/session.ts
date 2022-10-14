@@ -259,7 +259,9 @@ export class CodeSession implements ICodeSess {
     );
 
     const newRecord = this.session.get("state").merge(newRec);
-
+if (   newRecord.i < this.session.get("state").i) {
+  throw new Error("never going back!")
+}
     if (
       newRecord.code !== this.session.get("state").code &&
       newRecord.i <= this.session.get("state").i

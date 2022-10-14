@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-2UQ5H6UI.mjs";
+} from "./chunk-chunk-IJ54S6NH.mjs";
 import {
   applyPatch,
   hashCode,
@@ -28,7 +28,7 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-5SOELRIC.mjs";
+} from "./chunk-chunk-L5EXXDXD.mjs";
 import "./chunk-chunk-MFQP7JEX.mjs";
 import {
   css,
@@ -3756,11 +3756,21 @@ async function wait(delay) {
 }
 
 // js/runner.tsx
+var mod2 = {
+  code: "",
+  olderCode: ""
+};
 async function runner({ code, counter, codeSpace: codeSpace2 }) {
+  mod2.code = code;
   const mst = mST();
   console.log(`${mst.i} => ${counter}`);
-  if (counter <= mst.i)
+  if (counter < mst.i)
     return;
+  setTimeout(() => {
+    if (mod2.code === code && code !== mod2.olderCode)
+      runner({ code, counter, codeSpace: codeSpace2 });
+    mod2.olderCode = code;
+  }, 1e3);
   try {
     const transpiled = await transform(code, {
       loader: "tsx",
@@ -3890,7 +3900,7 @@ function supportsWorkerType() {
 }
 
 // js/Editor.tsx
-var mod2 = {
+var mod3 = {
   CH() {
   },
   getValue: async () => "",
@@ -3919,25 +3929,28 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     },
     engine: isMobile() ? "ace" : "monaco"
   });
-  mod2.counter = i;
+  mod3.counter = mST().i;
   const {
-    counter,
     myCode,
     started,
     myId,
     engine,
     onChange
   } = mySession;
-  mod2.code = myCode;
+  mod3.code = myCode;
   const cb = async () => {
-    const lastKeydownHappened = Date.now() - mod2.lastKeyDown;
+    if (mST().i > mod3.counter) {
+      mod3.setValue(mST().code);
+      mod3.counter = mST().i;
+      return;
+    }
+    const lastKeydownHappened = Date.now() - mod3.lastKeyDown;
     console.log({ lastKeydownHappened });
-    let increment = 0;
     if (lastKeydownHappened < 1e3) {
-      increment = 1;
+      mod3.counter++;
     }
     (async () => {
-      const code2 = await mod2.getValue();
+      const code2 = await mod3.getValue();
       const newCode = await prettierJs(code2);
       if (newCode === myCode) {
         return;
@@ -3945,14 +3958,17 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       if (newCode === mST().code) {
         return;
       }
-      mod2.counter = mST().i + increment;
-      changeContent((x) => ({
-        ...x,
-        lastKeyDown: 0,
-        counter: mod2.counter,
-        myCode: newCode
-      }));
-      runner({ code: newCode, counter: mod2.counter, codeSpace: codeSpace2 });
+      if (mST().i < mod3.counter) {
+        mod3.setValue(newCode);
+        mod3.code = newCode;
+        changeContent((x) => ({
+          ...x,
+          lastKeyDown: 0,
+          counter: mod3.counter,
+          myCode: newCode
+        }));
+        runner({ code: newCode, counter: mod3.counter, codeSpace: codeSpace2 });
+      }
     })();
   };
   _n.useEffect(() => {
@@ -3990,17 +4006,17 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       };
       const setValue = async (_code) => {
         const code2 = await prettierJs(_code);
-        mod2.codeToSet = code2;
+        mod3.codeToSet = code2;
         if (code2.length < `export default ()=><></>`.length)
           return;
         if (code2 === await getValue())
           return;
-        if (mST().i === mod2.counter)
+        if (mST().i === mod3.counter)
           return;
-        setTimeout(() => mod2.codeToSet === code2 && setMonValue(code2), 800);
+        setTimeout(() => mod3.codeToSet === code2 && setMonValue(code2), 800);
       };
-      mod2.getValue = getValue;
-      mod2.setValue = setValue;
+      mod3.getValue = getValue;
+      mod3.setValue = setValue;
       changeContent({
         ...mySession,
         started: true,
@@ -4014,21 +4030,21 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       const getValue = async () => await prettierJs(editor.session.getValue());
       const setValue = async (_code) => {
         const code2 = await prettierJs(_code);
-        mod2.codeToSet = code2;
+        mod3.codeToSet = code2;
         if (code2.length < `export default ()=><></>`.length)
           return;
         if (code2 === await getValue())
           return;
-        if (mST().i === mod2.counter)
+        if (mST().i === mod3.counter)
           return;
         setTimeout(() => {
-          if (mod2.codeToSet === code2) {
+          if (mod3.codeToSet === code2) {
             editor.session.setValue(code2);
           }
         }, 800);
       };
-      mod2.getValue = getValue;
-      mod2.setValue = setValue;
+      mod3.getValue = getValue;
+      mod3.setValue = setValue;
       changeContent({
         ...mySession,
         onChange(cb2) {
@@ -4048,13 +4064,14 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     onChange(cb);
   }, [onChange]);
   onSessionUpdate(() => {
-    if (counter < mST().i) {
-      changeContent({ ...mySession, counter: mST().i, myCode: mST().code });
+    if (mod3.counter === mST().i) {
+      return;
     }
-    mod2.setValue(mST().code);
+    mod3.counter = mST().i;
+    mod3.setValue(mST().code);
   }, "editor");
   return jsx("div", {
-    onKeyDown: () => mod2.lastKeyDown = Date.now(),
+    onKeyDown: () => mod3.lastKeyDown = Date.now(),
     "data-test-id": myId,
     id: "editor",
     css: css`

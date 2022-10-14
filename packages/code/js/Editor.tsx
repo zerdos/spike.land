@@ -61,10 +61,9 @@ export const Editor: React.FC<
     engine: isMobile() ? "ace" : "monaco",
   });
 
-  mod.counter = i;
+  mod.counter = mST().i;
 
   const {
-    counter,
     myCode,
     started,
     myId,
@@ -77,14 +76,20 @@ export const Editor: React.FC<
   mod.code = myCode;
 
   const cb = async () => {
+if(    mST().i>mod.counter) {
+      mod.setValue(mST().code)
+      mod.counter = mST().i;
+      return;
+    }
+
     const lastKeydownHappened = Date.now() - mod.lastKeyDown;
     console.log({ lastKeydownHappened });
-    let increment = 0;
+    
     if (lastKeydownHappened < 1000) {
-      increment = 1;
+      mod.counter ++
       //console.log(`last keydown happened:   + ${lastKeydownHappened}, we already handled this event`);
       //		return;
-    }
+    } 
 
     (async () => {
       const code = await mod.getValue();
@@ -100,8 +105,12 @@ export const Editor: React.FC<
 
       // if (mySession.counter  mST().i) return;
 
-      mod.counter = mST().i + increment;
+  
+      if (mST().i<mod.counter) {
 
+        mod.setValue(newCode);
+        mod.code = newCode;
+      
       changeContent((x) => ({
         ...x,
         lastKeyDown: 0,
@@ -109,6 +118,7 @@ export const Editor: React.FC<
         myCode: newCode,
       }));
       runner({ code: newCode, counter: mod.counter, codeSpace });
+    }
     })();
 
     // Console.log("RUN THE RUNNER AGAIN");
@@ -267,9 +277,10 @@ export const Editor: React.FC<
   // }, [setValue, getValue, counter, prettierJs, runner]);
 
   onSessionUpdate(() => {
-    if (counter < mST().i) {
-      changeContent({ ...mySession, counter: mST().i, myCode: mST().code });
+    if (mod.counter === mST().i) {
+     return;
     }
+  mod.counter = mST().i;
     mod.setValue(mST().code);
   }, "editor");
 
