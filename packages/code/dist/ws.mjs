@@ -3623,18 +3623,24 @@ init_define_process();
 // js/toUmd.ts
 init_define_process();
 var mod = {
-  printr(name) {
+  printR(name, included) {
+    if (included[name])
+      return "";
+    included[name] = true;
     const current = mod.data[mod.hashMap[name]];
     const currentCode = current.code;
+    if (!current.deps || !current.deps.length) {
+      return currentCode;
+    }
     const myDepts = [...current.deps];
-    const depts = myDepts.map((n) => mod.printr(n)).join(" \n ");
+    const depts = myDepts.map((n) => mod.printR(n, included)).join(" \n ");
     return depts + `
     
     ` + currentCode;
   },
   async toJs(name) {
-    const js = mod.printr(name);
-    const modz = Object.keys(mod.data).map(
+    const js = mod.printR(name, {});
+    const modZ = Object.keys(mod.data).map(
       (k) => [
         `"${mod.hashMap[k]}"`,
         k.replace(/[^a-f]/g, "")
@@ -3643,7 +3649,7 @@ var mod = {
     const res = `
      ${js}
   function require(name){
-    return ({${modz}})[name];
+    return ({${modZ}})[name];
   }
   globalThis.UMD_require = require;
   
@@ -3652,14 +3658,14 @@ var mod = {
     const t = await transform2(res, {
       format: "esm",
       minify: true,
-      keepNames: false,
+      keepNames: true,
       platform: "browser",
       treeShaking: true
     });
     const c = await transform2(t.code, {
       format: "iife",
       minify: true,
-      keepNames: false,
+      keepNames: true,
       platform: "browser",
       treeShaking: true
     });
@@ -3675,14 +3681,9 @@ var toUmd = async (source, name) => {
   if (!mod.data[hash]) {
     const transformed = await transform2(source, {
       format: "iife",
+      keepNames: true,
       treeShaking: true,
-      tsconfigRaw: {
-        compilerOptions: {
-          jsx: "react-jsx",
-          jsxImportSource: "@emotion/react"
-        }
-      },
-      target: "es2021",
+      target: "es2018",
       loader: name.includes(".tsx") ? "tsx" : name.includes(".ts") ? "ts" : name.includes(".jsx") ? "jsx" : "js",
       globalName: hash.replace(/[^a-f]/g, "")
     });
@@ -3763,28 +3764,13 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
   console.log(`${mst.i} => ${counter}`);
   if (counter <= mst.i)
     return;
-  const umdExp = async () => {
-    console.log("to UMD");
-    const UMD = await toUmd(code, `${codeSpace2}.tsx`);
-    console.log({ UMD });
-    download("coder.js", await UMD?.toJs(`${codeSpace2}.tsx`));
-    function download(filename, text) {
-      var element = document.createElement("a");
-      element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
-      element.setAttribute("download", filename);
-      element.style.display = "none";
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
-    }
-  };
-  Object.assign(globalThis, { umdExp });
   try {
     const transpiled = await transform(code, {
       loader: "tsx",
       format: "esm",
       treeShaking: true,
       minify: true,
+      keepNames: true,
       tsconfigRaw: {
         compilerOptions: {
           jsx: "react-jsx",
@@ -3795,6 +3781,22 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       },
       target: "es2021"
     });
+    const umdExp = async () => {
+      console.log("to UMD");
+      const UMD = await toUmd(transpiled.code, `${codeSpace2}.tsx`);
+      console.log({ UMD });
+      download("coder.js", await UMD?.toJs(`${codeSpace2}.tsx`));
+      function download(filename, text) {
+        var element = document.createElement("a");
+        element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+        element.setAttribute("download", filename);
+        element.style.display = "none";
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      }
+    };
+    Object.assign(globalThis, { umdExp });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
     const { html: html2, css: css3 } = await render(transpiledCode, codeSpace2);

@@ -62,26 +62,7 @@ export async function runner({ code, counter, codeSpace }: {
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
 
- const umdExp =  async ()=>{
-  console.log("to UMD")!;
-  const UMD = await toUmd(code, `${codeSpace}.tsx`);
-  console.log({UMD})
-  download("coder.js", await UMD?.toJs(`${codeSpace}.tsx`)!);
 
-  function download(filename: string, text: string) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-  
-    element.style.display = 'none';
-    document.body.appendChild(element);
-  
-    element.click();
-  
-    document.body.removeChild(element);
-  }
-  }
-  Object.assign(globalThis, {umdExp});
 
   try {
     const transpiled = await transform(code, {
@@ -89,6 +70,7 @@ export async function runner({ code, counter, codeSpace }: {
       format: "esm",
       treeShaking: true,
       minify: true,
+      keepNames: true,
       tsconfigRaw: {
         compilerOptions: {
           jsx: "react-jsx",
@@ -99,6 +81,27 @@ export async function runner({ code, counter, codeSpace }: {
       },
       target: "es2021",
     } as unknown as TransformOptions);
+
+    const umdExp =  async ()=>{
+      console.log("to UMD")!;
+      const UMD = await toUmd(transpiled.code, `${codeSpace}.tsx`);
+      console.log({UMD})
+      download("coder.js", await UMD?.toJs(`${codeSpace}.tsx`)!);
+    
+      function download(filename: string, text: string) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+      
+        element.style.display = 'none';
+        document.body.appendChild(element);
+      
+        element.click();
+      
+        document.body.removeChild(element);
+      }
+      }
+      Object.assign(globalThis, {umdExp});
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
 

@@ -8,14 +8,26 @@ import "es-module-shims"
 // Import { m } from "framer-motion";
 
 const mod = {
-  printr(name: string): string {
+  printR(name: string, included: {[key: string]: boolean}): string {
+
+    if (included[name]) return "";
+    included[name] = true;
+
 
     const current = mod.data[mod.hashMap[name]] 
+    
     const currentCode = current.code;
+    if (!current.deps || !current.deps.length) {
+
+    return currentCode;
+    }
+
    // current.code = '';
     const myDepts = [...current.deps];
    // current.deps=[]
-    const depts  = myDepts.map(n=>mod.printr(n)).join(" \n ")
+
+
+    const depts  = myDepts.map(n=>mod.printR(n, included)).join(" \n ")
     
     return  depts + `
     
@@ -25,9 +37,9 @@ const mod = {
     async toJs(name: string) { 
 
 
-        const js = mod.printr(name);
+        const js = mod.printR(name, {});
 
-        const modz = Object.keys(mod.data).map(
+        const modZ = Object.keys(mod.data).map(
           k=>[`"${mod.hashMap[k]}"`, 
           k.replace(/[^a-f]/g, ""),]).map(x=>x[0] + ": "+ x[1]).join(", \n ") 
          
@@ -36,7 +48,7 @@ const mod = {
      const res =  `
      ${js}
   function require(name){
-    return ({${modz}})[name];
+    return ({${modZ}})[name];
   }
   globalThis.UMD_require = require;
   
@@ -47,14 +59,14 @@ const mod = {
 
   const t = await  transform(res, {format: "esm", 
   minify: true,
-  keepNames: false,
+  keepNames: true,
   platform: "browser",
   treeShaking: true});
   
 
   const c = await  transform(t.code, {format: "iife", 
   minify: true,
-  keepNames: false,
+  keepNames: true,
   platform: "browser",
   treeShaking: true});
   
@@ -81,14 +93,10 @@ export const toUmd = async (source: string, name: string) => {
   if (!mod.data[hash]) {
     const transformed = await transform(source, {
       format: "iife",
+      keepNames: true,
       treeShaking: true,
-      tsconfigRaw: {
-        compilerOptions: {
-          jsx: "react-jsx",
-          jsxImportSource: "@emotion/react",
-        },
-      },
-      target: "es2021",
+
+      target: "es2018",
 
       loader: name.includes(".tsx")
         ? "tsx"
