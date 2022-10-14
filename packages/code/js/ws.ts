@@ -22,8 +22,7 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { appFactory } from "./starter";
-import { md5 } from "./md5";
-//import { wait } from "wait";
+import { md5 } from "./md5";//import { wait } from "wait";
 
 //Import PubSubRoom from 'ipfs-pubsub-room'
 
@@ -49,6 +48,8 @@ const rtcConns: Record<string, RTCPeerConnection> = {}; //To st/ RTCPeerConnecti
 let bc: BroadcastChannel;
 let codeSpace: string;
 let _hash = "";
+let html= ""
+let css= ""
 //let address: string;
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
@@ -116,8 +117,20 @@ export const run = async (startState: {
 
   const { assets, mST: mst, address} = startState;
   codeSpace = startState.codeSpace;
+  bc = new BroadcastChannel(location.origin);
 
   if (location.pathname.endsWith("dehydrated")) {
+    html = mst.html;
+    css = mst.css;
+
+    if (
+      bc.onmessage = (event)=>{
+      if (event.data.codeSpace === codeSpace) {
+         console.log(event.data);
+      }
+      
+    }
+    )
     return;
   }
 
@@ -142,7 +155,6 @@ export const run = async (startState: {
   //sendChannel.send = (message: object)=> conn.broadcast(message);
 
   await join();
-
   bc = new BroadcastChannel(location.origin);
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {

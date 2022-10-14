@@ -36,13 +36,14 @@ export const renderFromString = (
     return { html: null, css: null };
   }
 
-  const html = document.getElementById(`${codeSpace}-${md5hash}`)
-    ?.innerHTML!;
+  const html = document.getElementById(`${codeSpace}-${md5hash}`)?.innerHTML!;
 
   const css = html ? extractCritical22(html) : "";
+const globalCss = document.querySelector("style[data-emotion=css-global]")?.innerHTML;
+
 
   return {
-    html: `<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`,
+    html:(globalCss?`<style>${globalCss}</style>`: ``)+`<div id="${codeSpace}-${md5hash}" style="height:100%">${html}</div>`,
     css,
   };
 };

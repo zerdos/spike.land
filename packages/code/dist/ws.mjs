@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-FEMS3DSM.mjs";
+} from "./chunk-chunk-XQTUWEMF.mjs";
 import {
   applyPatch,
   hashCode,
@@ -3634,36 +3634,36 @@ var mod = {
   },
   async toJs(name) {
     const js = mod.printr(name);
-    const modz = "var modz =  {" + Object.keys(mod.data).map((k) => [`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, "")]).map((x) => x[0] + ": " + x[1]).join(", \n ") + "}";
-    const res = ` 
-
+    const modz = Object.keys(mod.data).map(
+      (k) => [
+        `"${mod.hashMap[k]}"`,
+        k.replace(/[^a-f]/g, "")
+      ]
+    ).map((x) => x[0] + ": " + x[1]).join(", \n ");
+    const res = `
      ${js}
-
-
-
-
-    function require(name) {
-      ${modz}
-      
-      var dep  = modz[name];
-
-      return dep;
-     }
+  function require(name){
+    return ({${modz}})[name];
+  }
+  globalThis.UMD_require = require;
   
-     var mymod = require("${name}").default;
-
-     export default mymod;
-    
-    `;
+     `;
     const { transform: transform2 } = await import("./chunk-esbuildEsm-ZKZR64XF.mjs");
     const t = await transform2(res, {
       format: "esm",
       minify: true,
-      keepNames: true,
+      keepNames: false,
       platform: "browser",
       treeShaking: true
     });
-    return t.code;
+    const c = await transform2(t.code, {
+      format: "iife",
+      minify: true,
+      keepNames: false,
+      platform: "browser",
+      treeShaking: true
+    });
+    return c.code;
   },
   hashMap: {},
   data: {}
@@ -3797,16 +3797,16 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
-    const { html, css: css2 } = await render(transpiledCode, codeSpace2);
-    if (!html)
+    const { html: html2, css: css3 } = await render(transpiledCode, codeSpace2);
+    if (!html2)
       return;
-    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html, css: css2 || "" });
+    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html: html2, css: css3 || "" });
     let i = 60;
     while (!mST().css) {
       console.log("Oh, NO! Can't extract css, wait:", i);
-      const { html: html2, css: css3 } = renderFromString(codeSpace2, hashCode());
-      if (html2 && css3)
-        patchSync({ ...mST(), html: html2, css: css3 });
+      const { html: html3, css: css4 } = renderFromString(codeSpace2, hashCode());
+      if (html3 && css4)
+        patchSync({ ...mST(), html: html3, css: css4 });
       else
         await wait(i++);
     }
@@ -4235,6 +4235,8 @@ var rtcConns = {};
 var bc;
 var codeSpace;
 var _hash = "";
+var html = "";
+var css2 = "";
 var wsLastHashCode = 0;
 var webRTCLastSeenHashCode = 0;
 var lastSeenTimestamp = 0;
@@ -4269,8 +4271,16 @@ Object.assign(globalThis, { sendChannel });
 var run = async (startState) => {
   const { assets, mST: mst, address } = startState;
   codeSpace = startState.codeSpace;
+  bc = new BroadcastChannel(location.origin);
   if (location.pathname.endsWith("dehydrated")) {
-    return;
+    html = mst.html;
+    css2 = mst.css;
+    if (bc.onmessage = (event) => {
+      if (event.data.codeSpace === codeSpace) {
+        console.log(event.data);
+      }
+    })
+      return;
   }
   startSession(codeSpace, {
     name: user,

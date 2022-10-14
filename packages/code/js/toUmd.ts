@@ -27,40 +27,38 @@ const mod = {
 
         const js = mod.printr(name);
 
-        const modz = "var modz =  {"+ Object.keys(mod.data).map(k=>[`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, ""),]).map(x=>x[0] + ": "+ x[1]).join(", \n ") + "}";
+        const modz = Object.keys(mod.data).map(
+          k=>[`"${mod.hashMap[k]}"`, 
+          k.replace(/[^a-f]/g, ""),]).map(x=>x[0] + ": "+ x[1]).join(", \n ") 
+         
 
     //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts + 
-     const res =  ` 
-
+     const res =  `
      ${js}
-
-
-
-
-    function require(name) {
-      ${modz}
-      
-      var dep  = modz[name];
-
-      return dep;
-     }
+  function require(name){
+    return ({${modz}})[name];
+  }
+  globalThis.UMD_require = require;
   
-     var mymod = require("${name}").default;
-
-     export default mymod;
-    
-    `;
+     `;
 
 
     const {transform} = await import("./esbuildEsm")
 
   const t = await  transform(res, {format: "esm", 
   minify: true,
-  keepNames: true,
+  keepNames: false,
   platform: "browser",
   treeShaking: true});
   
-  return t.code;
+
+  const c = await  transform(t.code, {format: "iife", 
+  minify: true,
+  keepNames: false,
+  platform: "browser",
+  treeShaking: true});
+  
+  return c.code;
     
   },
   hashMap: {} as unknown as Record<string, string>,
