@@ -1,12 +1,13 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 import type { TransformOptions } from "esbuild-wasm";
 import { saveCode } from "./ws";
-import { mST, patchSync } from "./session";
+import { hashCode, mST, patchSync } from "./session";
 // Import { cF } from "./renderToString";
 import { toUmd } from "./toUmd";
 import { transform } from "./esbuildEsm";
-import { render } from "./renderToString";
+import { render, renderFromString } from "./renderToString";
 import { md5 } from "md5";
+import { wait } from "wait";
 // Import { appFactory } from "starter";
 // import { wait } from "wait";
 
@@ -101,11 +102,23 @@ export async function runner({ code, counter, codeSpace }: {
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
 
-    const html = await render(transpiledCode, codeSpace);
+    const rendered = await render(transpiledCode, codeSpace);
 
-    if (!html) return;
+    if (!rendered) return;
 
-    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html });
+
+    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html: rendered });
+
+    
+
+const {html, css} =  renderFromString(codeSpace, hashCode());
+
+if (html && css)  patchSync({ ...mST(), html, css });
+else {
+  await wait(100);
+  const {html, css} =  renderFromString(codeSpace, hashCode());
+  if (html && css)  patchSync({ ...mST(), html, css });
+}
 
     //   Try{
     //     (async ()=>{
