@@ -9,20 +9,15 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "yarn workspaces foreach --all run   build && yarn open && yarn serve",
-    "__hard__reformat": "rm -rf node_modules monorepo &&  git reset --hard HEAD && deno fmt . && yarn && yarn build:prod",
-    "open": "open-cli https://localhost:8000/monorepo/packages/code/js/index.html",
     "clean": "yarn workspaces foreach --all run  clean",
     "build": "yarn workspaces foreach --all run  build",
     "c:build": "yarn workspace @spike.land/code build",
     "c:deploy": "yarn workspace @spike.land/code-worker deploy",
     "deploy": "yarn c:build && yarn c:deploy",
-    "serve": "nodemon ./http2-server/http2-server.mjs",
     "importmap": "yarn workspaces foreach --all run  importmap",
     "build:code": "yarn workspaces foreach --all run build:code",
     "yarn:publish": "yarn workspaces foreach --all run  yarn workspaces foreach --all run publish",
     "push:prod": "NODE_ENV=production yarn build-and-push",
-    "build-and-push": "yarn importmap && yarn re:build && yarn workspaces foreach --all run  push:prod",
     "re:build": "NODE_ENV=production yarn clean && yarn build",
     "build:all": "yarn workspaces foreach --all run   run re:build",
     "build:prod": "NODE_ENV=production yarn build:all",
@@ -33,24 +28,20 @@
     "p:test": "playwright test tests/*.spec.ts"
   },
   "devDependencies": {
-    "@playwright/test": "^1.27.1",
-    "@types/node": "^18.8.5",
-    "@types/xo": "^0.39.3",
+    "@emotion/react": "11.10.4",
+    "@playwright/test": "1.27.1",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
     "@yarnpkg/sdks": "3.0.0-rc.25",
-    "esbuild": "^0.15.10",
-    "typescript": "^4.8.4",
-    "xo": "^0.52.4"
+    "typescript": "4.8.4"
   },
   "resolutions": {
-    "wrangler/esbuild": "0.15.10"
+    "wrangler/esbuild": "0.15.11"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
-    "module": "^1.2.5",
-    "playwright": "^1.27.1",
-    "react-dom": "^18.2.0"
+    "playwright": "1.27.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "packageManager": "yarn@4.0.0-rc.25"
 }
