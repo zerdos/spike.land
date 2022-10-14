@@ -4254,7 +4254,6 @@ var sendChannel = {
     });
     webRtcArray.map((ch) => {
       try {
-        console.log("WebRtc send", data, ch);
         if (ch.readyState !== "open") {
           return;
         }
@@ -4262,7 +4261,6 @@ var sendChannel = {
           ch.send(messageString);
         }
       } catch (error) {
-        console.error("Error in broadcasting event", { e: error });
       }
     });
   }
@@ -4286,7 +4284,6 @@ var run = async (startState) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
     }
-    console.log({ event });
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
       ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
@@ -4346,7 +4343,6 @@ async function syncWS() {
         return;
       }
       const sess = mST();
-      console.log({ wsLastHashCode });
       const message = await makePatchFrom(
         wsLastHashCode,
         sess
@@ -4355,7 +4351,6 @@ async function syncWS() {
         return;
       }
       if (message.newHash !== hashCode()) {
-        console.error("NEW hash is not even hashCode", hashCode());
         return;
       }
       const messageString = JSON.stringify({ ...message, name: user });
@@ -4365,7 +4360,6 @@ async function syncWS() {
       await rejoin();
     }
   } catch (error) {
-    console.error("error 2", { e: error });
   }
 }
 var stopVideo = async () => {
@@ -4398,18 +4392,15 @@ async function syncRTC() {
         return;
       }
       const sess = mST();
-      console.log({ wsLastHashCode });
       const message = webRTCLastSeenHashCode ? await makePatchFrom(
         webRTCLastSeenHashCode,
         sess
       ) : await makePatch(sess);
       if (message && message.patch) {
-        console.log("sendRTC");
         sendChannel.send(message);
       }
     }
   } catch (error) {
-    console.error("Error sending RTC...", { e: error });
   }
 }
 async function join() {
@@ -4417,7 +4408,6 @@ async function join() {
     return ws;
   }
   rejoined = true;
-  console.log("WS connect!");
   if (location.host.includes("localhost")) {
     return;
   }
@@ -4426,7 +4416,6 @@ async function join() {
   );
   rejoined = false;
   wsConnection.addEventListener("open", () => {
-    console.log("NEW WS CONNECTION");
     ws = wsConnection;
     const mess = (data) => {
       try {
@@ -4483,7 +4472,6 @@ async function processWsMessage(event, source, conn) {
   processData(data, source, conn);
 }
 async function processData(data, source, conn) {
-  console.log("ws", data.name, data.oldHash, data.newHash);
   if (source === "ws" && data.timestamp) {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
@@ -4534,8 +4522,6 @@ async function processData(data, source, conn) {
         return;
       }
     } catch (error) {
-      console.log({ e: error });
-      log_error("Error with p2p");
     }
   })();
   if (data.patch && data.name !== user) {
@@ -4549,7 +4535,6 @@ async function processData(data, source, conn) {
       }
       return;
     }
-    console.log("error -sending on sendChannel");
     return;
   }
   if (data.patch && data.name === user) {
@@ -4562,9 +4547,7 @@ async function processData(data, source, conn) {
   if (wsLastHashCode !== hashCode()) {
   }
   function createPeerConnection(target) {
-    log(`Setting up a connection with ${target}`);
     if (rtcConns[target]) {
-      log(`Aborting, since we have connection with this ${target}`);
       return;
     }
     rtcConns[target] = new RTCPeerConnection(
@@ -4572,7 +4555,6 @@ async function processData(data, source, conn) {
     );
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
-        log("*** Outgoing ICE candidate: " + event.candidate);
         ws?.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
@@ -4584,9 +4566,6 @@ async function processData(data, source, conn) {
     rtcConns[target].oniceconnectionstatechange = handleICEConnectionStateChangeEvent;
     rtcConns[target].onicegatheringstatechange = handleICEGatheringStateChangeEvent;
     rtcConns[target].onsignalingstatechange = () => {
-      log(
-        "*** rtcConns[target].signalingState  changed to: " + rtcConns[target].signalingState
-      );
       switch (rtcConns[target].signalingState) {
         case "closed":
           break;
@@ -4597,7 +4576,6 @@ async function processData(data, source, conn) {
       console.log(ev);
     };
     rtcConns[target].ondatachannel = (event) => {
-      console.log("Receive Channel Callback");
       const rtc2 = event.channel;
       rtc2.binaryType = "arraybuffer";
       rtc2.addEventListener("close", onReceiveChannelClosed);
@@ -4629,31 +4607,22 @@ async function processData(data, source, conn) {
       console.log("xxxxxx-  Data Channel Error:", error);
     });
     rtc.addEventListener("open", () => {
-      console.log("@@@@@@@@RTC IS OPEN&&&&&&&&");
       webRtcArray.push(rtc);
     });
     rtc.addEventListener("close", () => {
-      console.log("xxxxxxxx- The Data Channel is Closed");
     });
     return rtcConns[target];
     function onReceiveChannelClosed() {
-      console.log("Receive channel is closed");
       rtcConns[target].close();
       delete rtcConns[target];
-      console.log("Closed remote peer connection");
     }
     async function handleNegotiationNeededEvent() {
-      log("*** Negotiation needed");
       try {
-        log("---> Creating offer");
         const offer = await rtcConns[target].createOffer();
         if (rtcConns[target].signalingState != "stable") {
-          log("The connection isn't stable yet; postponing...");
           return;
         }
-        log("---> Setting local description to the offer");
         await rtcConns[target].setLocalDescription(offer);
-        log("---> Sending the offer to the remote peer");
         ws?.send(JSON.stringify({
           target,
           name: user,
@@ -4661,15 +4630,9 @@ async function processData(data, source, conn) {
           offer: rtcConns[target].localDescription
         }));
       } catch {
-        log(
-          "*** The following error occurred while handling the negotiationneeded event:"
-        );
       }
     }
     function handleICEConnectionStateChangeEvent() {
-      log(
-        "*** ICE connection state changed to " + rtcConns[target].iceConnectionState
-      );
       switch (rtcConns[target].iceConnectionState) {
         case "closed":
         case "failed":
@@ -4678,13 +4641,9 @@ async function processData(data, source, conn) {
       }
     }
     function handleICEGatheringStateChangeEvent() {
-      log(
-        "*** rtcConns[target].iceGatheringState changed to: " + rtcConns[target].iceGatheringState
-      );
     }
   }
   async function handleChatAnswerMessage(answer, target) {
-    log("*** Call recipient has accepted our call");
     await rtcConns[target].setRemoteDescription(
       new RTCSessionDescription(
         answer
@@ -4698,7 +4657,6 @@ async function processData(data, source, conn) {
     await rtcConns[target].setRemoteDescription(
       new RTCSessionDescription(offer)
     );
-    log("---> Creating and sending answer to caller");
     const answer = await rtcConns[target].createAnswer();
     await rtcConns[target].setLocalDescription(
       answer
@@ -4711,14 +4669,6 @@ async function processData(data, source, conn) {
     }));
   }
 }
-function log(text) {
-  const time = new Date();
-  console.log("[" + time.toLocaleTimeString() + "] " + text);
-}
-function log_error(text) {
-  const time = new Date();
-  console.trace("[" + time.toLocaleTimeString() + "] " + text);
-}
 var rcpOptions = {
   iceServers: ["stun3.l.google.com:19302"].map((url) => ({
     urls: `stun:${url}`
@@ -4728,11 +4678,7 @@ rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
   urls: "stun:stun.l.google.com:19302"
 }];
 async function handleNewICECandidateMessage(init2, target) {
-  log(
-    "*** Adding received ICE candidate: " + JSON.stringify(init2)
-  );
   const candidate = new RTCIceCandidate(init2);
-  console.log(rtcConns[target]);
   await rtcConns[target].addIceCandidate(candidate);
 }
 async function sw() {
@@ -4744,7 +4690,6 @@ async function sw() {
       }
       switch (event.data.method) {
         case "ipfs-message-port":
-          console.log("Message port request");
           const channel = new MessageChannel();
           {
             serviceWorker.postMessage({
@@ -4770,7 +4715,6 @@ async function sw() {
       return;
     }
   } catch {
-    console.log("ipfs load error");
   }
 }
 export {
