@@ -104,10 +104,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:3.16.0, @cloudflare/workers-types@npm:^3.16.0":
-  version: 3.16.0
-  resolution: "@cloudflare/workers-types@npm:3.16.0"
-  checksum: bf954ef9ab2f6d1ec1b06e36c89f155111fd8482d0143aa3798c97e9251072e4ef0291894b483df6e2ddcee7355594b8d91f0e70197ee03ef2c3b3caff080822
+"@cloudflare/workers-types@npm:3.17.0, @cloudflare/workers-types@npm:^3.17.0":
+  version: 3.17.0
+  resolution: "@cloudflare/workers-types@npm:3.17.0"
+  checksum: f4a785065ffd9c4e9e6358ada4465a1586c26574b88cc547ac60d6cb455b3a5a1ce218e9608739b8fcef02fbf6fe71223ff0af854976ee1c3759e3dab1a666eb
   languageName: node
   linkType: hard
 
@@ -1121,7 +1121,7 @@ __metadata:
   resolution: "@spike.land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.2.0"
-    "@cloudflare/workers-types": "npm:^3.16.0"
+    "@cloudflare/workers-types": "npm:^3.17.0"
     "@spike.land/code": "npm:^0.9.2"
     avl: "npm:^1.5.3"
     esbuild: "npm:0.15.10"
@@ -1145,7 +1145,7 @@ __metadata:
     "@types/is-callable": "npm:^1.1.0"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
-    "@types/node": "npm:^18.8.4"
+    "@types/node": "npm:^18.8.5"
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
@@ -1180,7 +1180,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-icons: "npm:^4.4.0"
-    react-qrious: "npm:2.5.5"
+    react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:^2.1.1"
     tslib: "npm:^2.4.0"
     typescript: "npm:^4.8.4"
@@ -1255,7 +1255,7 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:^1.27.1"
-    "@types/node": "npm:^18.8.4"
+    "@types/node": "npm:^18.8.5"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:^18.0.6"
     "@types/xo": "npm:^0.39.3"
@@ -1417,10 +1417,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.8.4":
+"@types/node@npm:*":
   version: 18.8.4
   resolution: "@types/node@npm:18.8.4"
   checksum: 55ef689f2c930e558768aef408e95edde71524995ed79fcac92ffb6a669552f66a5f1fc626593a5cdd41f8cf25c7cca2f149cffa5025b96196a09fa6dd9d2939
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.8.5":
+  version: 18.8.5
+  resolution: "@types/node@npm:18.8.5"
+  checksum: 22c3658e4872f752e108c0af89038d2412b551edfb5c60fe515eace134a87ef8ab5b18aeb22f3e308aa7cd883778c3a42ecf757d387673764d43cea7e6369220
   languageName: node
   linkType: hard
 
@@ -3295,7 +3302,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "esbuild-worker@workspace:packages/esbuild-worker"
   dependencies:
-    "@cloudflare/workers-types": "npm:3.16.0"
+    "@cloudflare/workers-types": "npm:3.17.0"
     "@types/react": "npm:18.0.21"
     "@types/react-dom": "npm:18.0.6"
     esbuild: "npm:0.15.10"
@@ -7011,15 +7018,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-qrious@npm:2.5.5":
-  version: 2.5.5
-  resolution: "react-qrious@npm:2.5.5"
-  dependencies:
-    tslib: "npm:^2.4.0"
+"react-qrious@npm:2.5.6":
+  version: 2.5.6
+  resolution: "react-qrious@npm:2.5.6"
   peerDependencies:
     qrious: ">=4.0.0"
     react: ">=16.8.0"
-  checksum: 0e37440177eac3bc8fdc3f324cf88dbc30bb673e0598e925b687061a0f3a8a5c062b3e05ae6e3c626a428c9036e2b6e5f4f03ba54807864d40ddeff91cc318ed
+  checksum: 3e51eb028b338a976e4166a56c6ffabe7e37c752878c83914715e5b8f772826d68925c61d1ca3d011faa93072ee345266a60e78a085003eb6ed03c0abc56b7fc
   languageName: node
   linkType: hard
 
