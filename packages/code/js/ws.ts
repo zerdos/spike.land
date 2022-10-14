@@ -22,18 +22,14 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { appFactory } from "./starter";
-import { md5 } from "./md5";//import { wait } from "wait";
+import { md5 } from "./md5"; //import { wait } from "wait";
 
 //Import PubSubRoom from 'ipfs-pubsub-room'
-
-
 
 const users = new AVLTree(
   (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
   true,
 );
-
-
 
 const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 
@@ -48,8 +44,8 @@ const rtcConns: Record<string, RTCPeerConnection> = {}; //To st/ RTCPeerConnecti
 let bc: BroadcastChannel;
 let codeSpace: string;
 let _hash = "";
-let html= ""
-let css= ""
+let html = "";
+let css = "";
 //let address: string;
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
@@ -71,7 +67,7 @@ export const sendChannel = {
     });
     webRtcArray.map((ch) => {
       try {
-     //console.//log("WebRtc send", data, ch);
+        //console.//log("WebRtc send", data, ch);
 
         if (ch.readyState !== "open") {
           return;
@@ -84,7 +80,7 @@ export const sendChannel = {
           ch.send(messageString);
         }
       } catch (error) {
-    //console.error("Error in broadcasting event", { e: error });
+        //console.error("Error in broadcasting event", { e: error });
       }
     });
   },
@@ -114,8 +110,7 @@ export const run = async (startState: {
   address: string;
   assets: Record<string, string>;
 }) => {
-
-  const { assets, mST: mst, address} = startState;
+  const { assets, mST: mst, address } = startState;
   codeSpace = startState.codeSpace;
   bc = new BroadcastChannel(location.origin);
 
@@ -124,16 +119,15 @@ export const run = async (startState: {
     css = mst.css;
 
     if (
-      bc.onmessage = (event)=>{
-      if (event.data.codeSpace === codeSpace) {
-         console.log(event.data);
+      bc.onmessage = (event) => {
+        if (event.data.codeSpace === codeSpace) {
+          console.log(event.data);
+        }
       }
-      
+    ) {
+      return;
     }
-    )
-    return;
   }
-
 
   startSession(codeSpace, {
     name: user,
@@ -142,8 +136,7 @@ export const run = async (startState: {
 
   await appFactory(mst.transpiled);
 
-  
-  renderPreviewWindow({codeSpace, assets});
+  renderPreviewWindow({ codeSpace, assets });
 
   //Const {join} = await import("./rtc");
 
@@ -161,7 +154,7 @@ export const run = async (startState: {
       return;
     }
 
-   //console.//log({ event });
+    //console.//log({ event });
 
     if (
       event.data.codeSpace === codeSpace && event.data.address && !address
@@ -230,8 +223,6 @@ export const run = async (startState: {
 //})();
 let intervalHandler: NodeJS.Timer | null = null;
 
-
-
 async function rejoin() {
   if (!rejoined || ws === null) {
     ws = null;
@@ -271,7 +262,7 @@ async function syncWS() {
       }
 
       const sess = mST();
-   //console.//log({ wsLastHashCode });
+      //console.//log({ wsLastHashCode });
 
       const message = await makePatchFrom(
         wsLastHashCode,
@@ -283,7 +274,7 @@ async function syncWS() {
       }
 
       if (message.newHash !== hashCode()) {
-       //console.error("NEW hash is not even hashCode", hashCode());
+        //console.error("NEW hash is not even hashCode", hashCode());
         return;
       }
 
@@ -294,7 +285,7 @@ async function syncWS() {
       await rejoin();
     }
   } catch (error) {
-  //console.error("error 2", { e: error });
+    //console.error("error 2", { e: error });
   }
 }
 
@@ -335,7 +326,7 @@ async function syncRTC() {
       }
 
       const sess = mST();
-   //console.//log({ wsLastHashCode });
+      //console.//log({ wsLastHashCode });
 
       const message = webRTCLastSeenHashCode
         ? await makePatchFrom(
@@ -344,12 +335,12 @@ async function syncRTC() {
         )
         : await makePatch(sess);
       if (message && message.patch) {
-   //console.//log("sendRTC");
+        //console.//log("sendRTC");
         sendChannel.send(message);
       }
     }
   } catch (error) {
-   //console.error("Error sending RTC...", { e: error });
+    //console.error("Error sending RTC...", { e: error });
   }
 }
 
@@ -360,7 +351,7 @@ export async function join() {
 
   rejoined = true;
 
- //console.//log("WS connect!");
+  //console.//log("WS connect!");
   if (location.host.includes("localhost")) {
     return;
   }
@@ -371,7 +362,7 @@ export async function join() {
   rejoined = false;
 
   wsConnection.addEventListener("open", () => {
-   //console.//log("NEW WS CONNECTION");
+    //console.//log("NEW WS CONNECTION");
     ws = wsConnection;
     const mess = (data: string) => {
       try {
@@ -459,7 +450,7 @@ async function processData(
   source: "ws" | "rtc",
   conn: { hashCode: number },
 ) {
- //console.//log("ws", data.name, data.oldHash, data.newHash);
+  //console.//log("ws", data.name, data.oldHash, data.newHash);
 
   //MySession.addEvent(data);
 
@@ -529,8 +520,8 @@ async function processData(
         return;
       }
     } catch (error) {
-     //console.//log({ e: error });
-//      log_error("Error with p2p");
+      //console.//log({ e: error });
+      //      log_error("Error with p2p");
     }
   })();
 
@@ -549,7 +540,7 @@ async function processData(
       return;
     }
 
-   //console.//log("error -sending on sendChannel");
+    //console.//log("error -sending on sendChannel");
 
     return;
   }
@@ -618,11 +609,11 @@ async function processData(
 
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
     rtcConns[target].ontrack = (ev) => {
-     console.log(ev);
+      console.log(ev);
     };
 
     rtcConns[target].ondatachannel = (event) => {
-     //console.//log("Receive Channel Callback");
+      //console.//log("Receive Channel Callback");
       const rtc = event.channel;
       rtc.binaryType = "arraybuffer";
       rtc.addEventListener("close", onReceiveChannelClosed);
@@ -672,28 +663,28 @@ async function processData(
     //});
 
     rtc.addEventListener("error", (error) => {
-     console.log("xxxxxx-  Data Channel Error:", error);
+      console.log("xxxxxx-  Data Channel Error:", error);
     });
 
     //Rtc.onmessage = (msg) => processWsMessage(msg, "rtc");
 
     rtc.addEventListener("open", () => {
-     //console.//log("@@@@@@@@RTC IS OPEN&&&&&&&&");
+      //console.//log("@@@@@@@@RTC IS OPEN&&&&&&&&");
       webRtcArray.push(rtc);
       //RtcConns[target].sendChannel = rtc;
     });
 
     rtc.addEventListener("close", () => {
-     //console.//log("xxxxxxxx- The Data Channel is Closed");
+      //console.//log("xxxxxxxx- The Data Channel is Closed");
     });
 
     return rtcConns[target];
 
     function onReceiveChannelClosed() {
-     //console.//log("Receive channel is closed");
+      //console.//log("Receive channel is closed");
       rtcConns[target].close();
       delete rtcConns[target];
-     //console.//log("Closed remote peer connection");
+      //console.//log("Closed remote peer connection");
     }
 
     async function handleNegotiationNeededEvent() {
@@ -836,7 +827,6 @@ async function processData(
 //var transceiver = null;         //RTCRtpTransceiver
 //var webcamStream = null;        //MediaStream from webcam
 
-
 const rcpOptions = {
   iceServers: ["stun3.l.google.com:19302"].map((url) => ({
     urls: `stun:${url}`,
@@ -851,7 +841,6 @@ async function handleNewICECandidateMessage(
   init: RTCIceCandidateInit,
   target: string,
 ) {
-
   const candidate = new RTCIceCandidate(init);
   //Const candidate = new RTCIceCandidate(message);
 
@@ -870,7 +859,7 @@ export async function sw() {
 
       switch (event.data.method) {
         case "ipfs-message-port":
-     //console.//log("Message port request");
+          //console.//log("Message port request");
           //Const { connect } = await import("./ipfs.mjs");
 
           //console.//log("can connect trough", { connect });
@@ -917,6 +906,6 @@ export async function sw() {
       return;
     }
   } catch {
-  //console.//log("ipfs load error");
+    //console.//log("ipfs load error");
   }
 }

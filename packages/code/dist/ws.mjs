@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-XQTUWEMF.mjs";
+} from "./chunk-chunk-2UQ5H6UI.mjs";
 import {
   applyPatch,
   hashCode,
@@ -34,7 +34,7 @@ import {
   css,
   jsx,
   jsxs
-} from "./chunk-chunk-GGEAJ4VZ.mjs";
+} from "./chunk-chunk-B3NATLXC.mjs";
 import {
   $2,
   Children,
@@ -3303,7 +3303,7 @@ var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level
 
 // js/mui.tsx
 init_define_process();
-var FabLazy = lazy(async () => import("./chunk-Fab-NDYBCGBS.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-GG7PXO4V.mjs"));
 var Fab = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
@@ -3312,7 +3312,7 @@ var Fab = (props) => jsx(Suspense, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-DZ7KVOR6.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-GYOSSVLL.mjs"));
 var ToggleButton = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
@@ -3322,7 +3322,7 @@ var ToggleButton = (props) => jsx(Suspense, {
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-6523OSTC.mjs")
+  async () => import("./chunk-ToggleButtonGroup-BHAKCJ5W.mjs")
 );
 var ToggleButtonGroup = (props) => jsx(Suspense, {
   fallback: jsx("div", {
@@ -3641,10 +3641,7 @@ var mod = {
   async toJs(name) {
     const js = mod.printR(name, {});
     const modZ = Object.keys(mod.data).map(
-      (k) => [
-        `"${mod.hashMap[k]}"`,
-        k.replace(/[^a-f]/g, "")
-      ]
+      (k) => [`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, "")]
     ).map((x) => x[0] + ": " + x[1]).join(", \n ");
     const res = `
      ${js}
@@ -3788,7 +3785,10 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       download("coder.js", await UMD?.toJs(`${codeSpace2}.tsx`));
       function download(filename, text) {
         var element = document.createElement("a");
-        element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+        element.setAttribute(
+          "href",
+          "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+        );
         element.setAttribute("download", filename);
         element.style.display = "none";
         document.body.appendChild(element);
@@ -3802,7 +3802,14 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     const { html: html2, css: css3 } = await render(transpiledCode, codeSpace2);
     if (!html2)
       return;
-    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode, html: html2, css: css3 || "" });
+    patchSync({
+      ...mST(),
+      code,
+      i: counter,
+      transpiled: transpiledCode,
+      html: html2,
+      css: css3 || ""
+    });
     let i = 60;
     while (!mST().css) {
       console.log("Oh, NO! Can't extract css, wait:", i);
@@ -4281,8 +4288,9 @@ var run = async (startState) => {
       if (event.data.codeSpace === codeSpace) {
         console.log(event.data);
       }
-    })
+    }) {
       return;
+    }
   }
   startSession(codeSpace, {
     name: user,

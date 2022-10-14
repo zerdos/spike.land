@@ -1,5 +1,5 @@
-import {styled} from "@emotion/react";
+import { styled } from "@emotion/react";
 
-const emotionStyled  = styled.default
+const emotionStyled = styled.default;
 
 export default emotionStyled;

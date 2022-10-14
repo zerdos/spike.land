@@ -9,7 +9,7 @@ import {
   css,
   jsx,
   jsxs
-} from "./chunk-chunk-GGEAJ4VZ.mjs";
+} from "./chunk-chunk-B3NATLXC.mjs";
 import {
   S2,
   _n,
@@ -262,10 +262,11 @@ async function appFactory(transpiled = "") {
   if (!apps[hash]) {
     try {
       const App = (await importShim(createJsBlob(trp))).default;
-      if (CacheProvider === null || myCache === null)
+      if (CacheProvider === null || myCache === null) {
         return () => jsx("h1", {
           children: "error"
         });
+      }
       if ((0, import_is_callable.default)(App)) {
         apps[hash] = Emotion.withEmotionCache(App);
       } else

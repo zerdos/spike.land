@@ -2916,7 +2916,18 @@ globalThis.EmotionGlob = globalThis.EmotionGlob || { JSX, Emotion, styled: impor
 var EmotionGlob = globalThis.EmotionGlob;
 var { styled, cache } = EmotionGlob;
 var { jsx, jsxs, Fragment } = EmotionGlob.JSX;
-var { CacheProvider, ClassNames, Global, ThemeContext, ThemeProvider, css, keyframes, useTheme, withEmotionCache, withTheme } = EmotionGlob.Emotion;
+var {
+  CacheProvider,
+  ClassNames,
+  Global,
+  ThemeContext,
+  ThemeProvider,
+  css,
+  keyframes,
+  useTheme,
+  withEmotionCache,
+  withTheme
+} = EmotionGlob.Emotion;
 var emotion_default = EmotionGlob.Emotion;
 
 export {

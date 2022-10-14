@@ -1,1 +1,8 @@
-export { AnimatePresence, domMax, m, motion, LazyMotion, domAnimation } from "framer-motion";
+export {
+  AnimatePresence,
+  domAnimation,
+  domMax,
+  LazyMotion,
+  m,
+  motion,
+} from "framer-motion";

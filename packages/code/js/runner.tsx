@@ -62,8 +62,6 @@ export async function runner({ code, counter, codeSpace }: {
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
 
-
-
   try {
     const transpiled = await transform(code, {
       loader: "tsx",
@@ -82,48 +80,55 @@ export async function runner({ code, counter, codeSpace }: {
       target: "es2021",
     } as unknown as TransformOptions);
 
-    const umdExp =  async ()=>{
+    const umdExp = async () => {
       console.log("to UMD")!;
       const UMD = await toUmd(transpiled.code, `${codeSpace}.tsx`);
-      console.log({UMD})
+      console.log({ UMD });
       download("coder.js", await UMD?.toJs(`${codeSpace}.tsx`)!);
-    
+
       function download(filename: string, text: string) {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
-      
-        element.style.display = 'none';
+        var element = document.createElement("a");
+        element.setAttribute(
+          "href",
+          "data:text/plain;charset=utf-8," + encodeURIComponent(text),
+        );
+        element.setAttribute("download", filename);
+
+        element.style.display = "none";
         document.body.appendChild(element);
-      
+
         element.click();
-      
+
         document.body.removeChild(element);
       }
-      }
-      Object.assign(globalThis, {umdExp});
+    };
+    Object.assign(globalThis, { umdExp });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
 
-    const {html, css} = await render(transpiledCode, codeSpace);
+    const { html, css } = await render(transpiledCode, codeSpace);
 
     if (!html) return;
 
+    patchSync({
+      ...mST(),
+      code,
+      i: counter,
+      transpiled: transpiledCode,
+      html,
+      css: css || "",
+    });
 
-    patchSync({ ...mST(), code, i: counter, transpiled: transpiledCode,  html, css: css|| "" });
+    let i = 60;
+    while (!mST().css) {
+      console.log("Oh, NO! Can't extract css, wait:", i);
 
-    
-    let i=60;
-while (!mST().css) {
-  console.log("Oh, NO! Can't extract css, wait:", i);
+      const { html, css } = renderFromString(codeSpace, hashCode());
 
-    const {html, css} = renderFromString(codeSpace, hashCode());
-
-    if (html && css)  patchSync({ ...mST(), html, css });
-    else    await wait(i++);
-
-}
-saveCode();
+      if (html && css) patchSync({ ...mST(), html, css });
+      else await wait(i++);
+    }
+    saveCode();
   } catch (error) {
     console.error({ error });
   }

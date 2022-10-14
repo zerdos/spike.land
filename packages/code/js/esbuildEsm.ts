@@ -10,7 +10,8 @@ let initFinished: Promise<boolean> | boolean = false;
 // Const mutex = new Mutex();
 export const transform: typeof esbTransform = async (code, opts) => {
   initFinished = initFinished || (initialize({
-    wasmURL: new URL((await import("esbuild-wasm/esbuild.wasm")).default,
+    wasmURL: new URL(
+      (await import("esbuild-wasm/esbuild.wasm")).default,
       location.origin,
     ).toString(),
   }).then(() => true).catch(() => false));

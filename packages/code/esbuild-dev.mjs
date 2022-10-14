@@ -9,7 +9,6 @@ import esbuild from "esbuild";
 // const rmAsync = promisify(fs.rm);
 import aliasPlugin from "esbuild-plugin-alias";
 
-
 const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
@@ -18,7 +17,6 @@ const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
 const target = "es2022";
-
 
 console.log(`
 -------------------------------------------------
@@ -55,7 +53,7 @@ const buildOptions = {
   define,
   target,
   platform: "browser",
- 
+
   external: ["./mST", "/npm:*"],
   legalComments: "none",
 };
@@ -68,7 +66,7 @@ const workerEntryPoints = [
   "vs/editor/editor.worker",
 ];
 
-const build = ( entryPoints, extraExternal) =>
+const build = (entryPoints, extraExternal) =>
   esbuild.build({
     ...buildOptions,
     entryPoints,
@@ -79,7 +77,7 @@ const build = ( entryPoints, extraExternal) =>
     target,
     format: "esm",
     sourcemap: false,
-   
+
     minify: !isDevelopment,
     minifyWhitespace: !isDevelopment,
     minifyIdentifiers: !isDevelopment,
@@ -173,13 +171,7 @@ const build = ( entryPoints, extraExternal) =>
       "react/jsx-runtime": resolve("./js/react-preact.ts"),
     }),
   ],
-
-
-
-
-
-
-  // await build([
+    // await build([
     // "js/session.ts",
     // "js/prettierWorker.mjs",
     // "js/react-preact.ts",
@@ -187,21 +179,19 @@ const build = ( entryPoints, extraExternal) =>
     // "js/emotion.ts",
     // "js/emotionJsxRuntime.ts",
     // "js/ws.ts",
-  // ],[]);
+    // ],[]);
 
-
-  await build([
-    // "js/session.ts",
-    // "js/prettierWorker.mjs",
-    // "js/react-preact.ts",
-    // "js/motion.ts",
-    "js/react-preact.ts",
-    "js/emotion.ts",
-    // "js/mui.tsx",
-    // "js/emotionJsxRuntime.ts",
-    // "js/ws.ts",
-  ],['react', 'react/', "react-dom", "react-dom/"]);
-
+    await build([
+      // "js/session.ts",
+      // "js/prettierWorker.mjs",
+      // "js/react-preact.ts",
+      // "js/motion.ts",
+      "js/react-preact.ts",
+      "js/emotion.ts",
+      // "js/mui.tsx",
+      // "js/emotionJsxRuntime.ts",
+      // "js/ws.ts",
+    ], ["react", "react/", "react-dom", "react-dom/"]);
 
   buildOptions.plugins = [
     aliasPlugin({
@@ -217,18 +207,23 @@ const build = ( entryPoints, extraExternal) =>
       "react/jsx-runtime": resolve("./dist/react-preact.mjs"),
     }),
   ],
-
-  await build([
-    "js/session.ts",
-    "js/prettierWorker.mjs",
-    // "js/react-preact.ts",
-    "js/motion.ts",
-    "js/renderToString.tsx",
-    // "js/emotion.ts",
-    // "js/emotionJsxRuntime.ts",
-    "js/ws.ts",
-  ],['react', 'react/', "react-dom", "react-dom/", "@emotion/react", "@emotion/react/"]);
-
+    await build([
+      "js/session.ts",
+      "js/prettierWorker.mjs",
+      // "js/react-preact.ts",
+      "js/motion.ts",
+      "js/renderToString.tsx",
+      // "js/emotion.ts",
+      // "js/emotionJsxRuntime.ts",
+      "js/ws.ts",
+    ], [
+      "react",
+      "react/",
+      "react-dom",
+      "react-dom/",
+      "@emotion/react",
+      "@emotion/react/",
+    ]);
 })();
 
 // Await esbuild

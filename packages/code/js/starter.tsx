@@ -5,7 +5,7 @@
 // import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
-import {css } from "@emotion/react";
+import { css } from "@emotion/react";
 import { useEffect, useRef } from "react";
 
 import type { FC } from "react";
@@ -14,25 +14,24 @@ import { mST, patchSync } from "./session";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "./md5.js";
 
-import  type {renderFromString as RFS} from "./renderToString";
+import type { renderFromString as RFS } from "./renderToString";
 
 import { useState } from "react";
 import type { CacheProvider as EmotionCacheProvider } from "@emotion/react";
 import type CreateCache from "@emotion/cache";
-import type { EmotionCache}from "@emotion/cache";
+import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
 
 let renderFromString: typeof RFS | null = null;
-;
+
 let createCache: typeof CreateCache | null = null;
-let CacheProvider: typeof EmotionCacheProvider  | null = null;
+let CacheProvider: typeof EmotionCacheProvider | null = null;
 // const myCache = createCache({
 // key: "z",
 // });
 
 // Object.assign(globalThis, {myCache})
-
 
 async function importShim(scr: string): Promise<any> {
   if (!document.scripts) {
@@ -59,9 +58,9 @@ async function importShim(scr: string): Promise<any> {
   importShim = window.importShim;
 
   return importShim(scr);
-}// @ts-expect-error
+} // @ts-expect-error
 
-globalThis.apps = globalThis.apps  || {};
+globalThis.apps = globalThis.apps || {};
 // @ts-expect-error
 
 const apps: Record<string, React.FC> = globalThis.apps || {};
@@ -89,7 +88,6 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   useEffect(() => {
     const newHash = md5(mST().transpiled).slice(0, 8);
     if (newHash !== md5Hash) return;
-    
 
     if (!renderFromString) return;
 
@@ -104,49 +102,47 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 
   const ref = useRef(null);
   const transpiled = mST().transpiled;
-  const App = apps[md5(transpiled).slice(0,8)];
+  const App = apps[md5(transpiled).slice(0, 8)];
 
   // Return <Root codeSpace={codeSpace}>
 
-//   if (!createCache || !CacheProvider) return null;
+  //   if (!createCache || !CacheProvider) return null;
 
-//   const myCache = createCache({
-//     key: "z",
-//     });
+  //   const myCache = createCache({
+  //     key: "z",
+  //     });
 
-// Object.assign(globalThis, {myCache})
+  // Object.assign(globalThis, {myCache})
 
   return (
     <ErrorBoundary key={md5Hash} ref={ref}>
-        <div style={{ height: "100%" }} id={`${codeSpace}-${md5Hash}`}>
-
+      <div style={{ height: "100%" }} id={`${codeSpace}-${md5Hash}`}>
         <App />
-        
-        </div>
+      </div>
     </ErrorBoundary>
   );
 };
 // @ts-expect-error
 
-let Emotion  = null;
+let Emotion = null;
 
 let myCache: EmotionCache | null = null;
-export async function appFactory( transpiled = ""): Promise<React.FC> {
+export async function appFactory(transpiled = ""): Promise<React.FC> {
   // console.log('App fac', codeSpace, transpiled)
   // Const hashC = hashCode();
-// @ts-expect-error
+  // @ts-expect-error
 
-   if (Emotion === null) {
-     Emotion = await importShim("@emotion/react");
+  if (Emotion === null) {
+    Emotion = await importShim("@emotion/react");
 
-
-    renderFromString = (await importShim("/renderToString.mjs")).renderFromString as unknown as typeof RFS;
+    renderFromString = (await importShim("/renderToString.mjs"))
+      .renderFromString as unknown as typeof RFS;
     createCache = Emotion.cache.default as unknown as typeof CreateCache;
-    CacheProvider = Emotion.CacheProvider as unknown as typeof EmotionCacheProvider;
+    CacheProvider = Emotion
+      .CacheProvider as unknown as typeof EmotionCacheProvider;
     myCache = createCache({
       key: "z",
-      });
-
+    });
   }
   const trp = transpiled.length > 0 ? transpiled : mST().transpiled;
 
@@ -156,17 +152,15 @@ export async function appFactory( transpiled = ""): Promise<React.FC> {
     try {
       const App = (await importShim(createJsBlob(trp)))
         .default as unknown as FC;
-      if (CacheProvider ===null || myCache ===null) return ()=><h1>error</h1>;
+      if (CacheProvider === null || myCache === null) {
+        return () => <h1>error</h1>;
+      }
       if (isCallable(App)) {
-   
-       
-    
         // const ECacheProvider  = CacheProvider as typeof EmotionCacheProvider;
         // @ts-expect-error
 
-        apps[hash] = Emotion.withEmotionCache(App)
-        }
-      else throw new Error("the default export is not a function!");
+        apps[hash] = Emotion.withEmotionCache(App);
+      } else throw new Error("the default export is not a function!");
     } catch (error) {
       // Try {
       //   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;

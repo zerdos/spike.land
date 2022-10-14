@@ -4,48 +4,40 @@
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
 // Import { string } from "prop-types";
 import { md5 } from "./md5.js";
-import "es-module-shims"
+import "es-module-shims";
 // Import { m } from "framer-motion";
 
 const mod = {
-  printR(name: string, included: {[key: string]: boolean}): string {
-
+  printR(name: string, included: { [key: string]: boolean }): string {
     if (included[name]) return "";
     included[name] = true;
 
+    const current = mod.data[mod.hashMap[name]];
 
-    const current = mod.data[mod.hashMap[name]] 
-    
     const currentCode = current.code;
     if (!current.deps || !current.deps.length) {
-
-    return currentCode;
+      return currentCode;
     }
 
-   // current.code = '';
+    // current.code = '';
     const myDepts = [...current.deps];
-   // current.deps=[]
+    // current.deps=[]
 
+    const depts = myDepts.map((n) => mod.printR(n, included)).join(" \n ");
 
-    const depts  = myDepts.map(n=>mod.printR(n, included)).join(" \n ")
+    return depts + `
     
-    return  depts + `
-    
-    ` +  currentCode;
-
+    ` + currentCode;
   },
-    async toJs(name: string) { 
+  async toJs(name: string) {
+    const js = mod.printR(name, {});
 
+    const modZ = Object.keys(mod.data).map(
+      (k) => [`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, "")],
+    ).map((x) => x[0] + ": " + x[1]).join(", \n ");
 
-        const js = mod.printR(name, {});
-
-        const modZ = Object.keys(mod.data).map(
-          k=>[`"${mod.hashMap[k]}"`, 
-          k.replace(/[^a-f]/g, ""),]).map(x=>x[0] + ": "+ x[1]).join(", \n ") 
-         
-
-    //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts + 
-     const res =  `
+    //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts +
+    const res = `
      ${js}
   function require(name){
     return ({${modZ}})[name];
@@ -54,24 +46,25 @@ const mod = {
   
      `;
 
+    const { transform } = await import("./esbuildEsm");
 
-    const {transform} = await import("./esbuildEsm")
+    const t = await transform(res, {
+      format: "esm",
+      minify: true,
+      keepNames: true,
+      platform: "browser",
+      treeShaking: true,
+    });
 
-  const t = await  transform(res, {format: "esm", 
-  minify: true,
-  keepNames: true,
-  platform: "browser",
-  treeShaking: true});
-  
+    const c = await transform(t.code, {
+      format: "iife",
+      minify: true,
+      keepNames: true,
+      platform: "browser",
+      treeShaking: true,
+    });
 
-  const c = await  transform(t.code, {format: "iife", 
-  minify: true,
-  keepNames: true,
-  platform: "browser",
-  treeShaking: true});
-  
-  return c.code;
-    
+    return c.code;
   },
   hashMap: {} as unknown as Record<string, string>,
   // ToJs: (name: string)=>{
@@ -85,7 +78,7 @@ const mod = {
 };
 
 export const toUmd = async (source: string, name: string) => {
-  const {transform} = await import("./esbuildEsm")
+  const { transform } = await import("./esbuildEsm");
 
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
@@ -183,7 +176,6 @@ export const toUmd = async (source: string, name: string) => {
 
 //   new Worker(blobUrl)
 // createJsBlob(
-
 
 const findDeps = (code: string) => {
   // Alternative syntax using RegExp constructor
