@@ -3786,7 +3786,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
           jsxImportSource: "@emotion/react"
         }
       },
-      target: "es2021"
+      target: "2018"
     });
     const umdExp = async () => {
       console.log("to UMD");
