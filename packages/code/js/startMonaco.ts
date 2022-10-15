@@ -63,8 +63,6 @@ const lib = [
   "webworker.iterable",
 ];
 
-
-
 self.MonacoEnvironment = {
   baseUrl: location.origin,
   getWorkerUrl,
@@ -78,21 +76,21 @@ export const startMonaco = async (
     container: HTMLDivElement;
     name: string;
   },
-
-
-) => { 
-  const tsD = await Promise.all([    import( "monaco-editor/esm/vs/editor/editor.api"),
+) => {
+  const tsD = await Promise.all([
+    import("monaco-editor/esm/vs/editor/editor.api"),
     import("monaco-editor/esm/vs/editor/editor.all"),
-    import("monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"),
-  import("monaco-editor/esm/vs/language/typescript/monaco.contribution")
+    import(
+      "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
+    ),
+    import("monaco-editor/esm/vs/language/typescript/monaco.contribution"),
   ]);
 
-  const { editor, languages, Uri } = tsD[0] ;
-
+  const { editor, languages, Uri } = tsD[0];
 
   const create = editor.create;
-// const languages = monaco.languages;
-const createModel = editor.createModel;
+  // const languages = monaco.languages;
+  const createModel = editor.createModel;
 
   if (mod[name]) {
     return mod[name] as unknown as typeof returnValue;
@@ -112,17 +110,14 @@ const createModel = editor.createModel;
     // If (mod[name]) return mod[name];
     const codeSpace = name;
 
-
     const replaced = await monacoContribution(
       code,
     );
-
 
     // Const innerStyle = document.createElement("style");
     // monacoCss
     // innerStyle.innerText = `@import url(${location.origin}/npm:/monaco-editor@${version}/?css);`;
     // container.appendChild(innerStyle);
-      
 
     // Editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${location.origin}/package.json`))
     // languages.typescript.typescriptDefaults.inlayHintsOptions
@@ -261,37 +256,32 @@ const createModel = editor.createModel;
     //   sourceCache: new LocalStorageCache(), // Cache loaded sources in localStorage. May be omitted
     //   // Other options...
     // });
-  requestAnimationFrame( async() => {
+    requestAnimationFrame(async () => {
+      const { wait } = await import("./wait");
 
+      while (!globalThis.ts) {
+        await wait(1000);
+      }
 
+      console.log("globalThis.ts is defined, whoooo");
 
-  const {wait} = await import("./wait");
+      const { setupTypeAcquisition } = await import("@typescript/ata");
+      setupTypeAcquisition({
+        //@ts-expect-error
+        typescript: globalThis.ts,
+        fetcher: async (...args) => {
+          console.log("YEAH IT WANTS TO FETCH", { ...args });
+          return new Response("OK");
+        },
+        projectName: codeSpace,
+        delegate: {
+          started: () => console.log("ATA Started"),
+          progress: (downloaded: number, estimatedTotal: number) =>
+            console.log({ downloaded, estimatedTotal }),
+        },
+      })(code);
+    });
 
-
-while(!globalThis.ts) {
-  await wait(1000);
-}
-
-console.log("globalThis.ts is defined, whoooo");
-
-const {setupTypeAcquisition} = await import( "@typescript/ata");
-  setupTypeAcquisition({
-    //@ts-expect-error 
-    typescript: globalThis.ts,
-    fetcher: async (...args)=>{
-    console.log("YEAH IT WANTS TO FETCH", {...args});
-    return new Response("OK");
-    },
-    projectName: codeSpace,
-    delegate: {
-      started: () => console.log("ATA Started"),
-      progress: (downloaded: number, estimatedTotal: number) => console.log({downloaded, estimatedTotal})
-   }
-   })(code);
-
-  });
-
-    
     return {
       getTypeScriptWorker: async () =>
         languages.typescript.getTypeScriptWorker(),
@@ -313,10 +303,9 @@ const {setupTypeAcquisition} = await import( "@typescript/ata");
     };
   }
 
-
-  async function monacoContribution (
+  async function monacoContribution(
     code: string,
-  ){
+  ) {
     // Const {typescript} = languages;
     languages.typescript.typescriptDefaults
       .setDiagnosticsOptions({
@@ -324,15 +313,15 @@ const {setupTypeAcquisition} = await import( "@typescript/ata");
         noSemanticValidation: true,
         noSyntaxValidation: true,
       });
-  
+
     languages.typescript.typescriptDefaults.setCompilerOptions({
       baseUrl: location.origin + "/",
       target: languages.typescript.ScriptTarget.ESNext,
-  
+
       importHelpers: true,
-  
+
       lib,
-  
+
       allowJs: true,
       skipLibCheck: true,
       esModuleInterop: true,
@@ -369,30 +358,30 @@ const {setupTypeAcquisition} = await import( "@typescript/ata");
         location.origin + "/",
         location.origin + "/unpkg:/",
       ],
-  
+
       jsxImportSource: "@emotion/react",
       jsx: languages.typescript.JsxEmit.ReactJSX,
       allowUmdGlobalAccess: false,
       include: [location.origin + "/node_modules"],
     });
-  
+
     const regex1 = / from '\.\./gi;
-  
+
     const regex2 = / from '\./gi;
-  
+
     const search = new RegExp(
       ` from '(${location.origin}/)?live/[a-zA-Z]+`,
       "gm",
     );
     const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`)
       .replaceAll(regex2, ` from '${location.origin}/live`);
-  
+
     const models = replaced.matchAll(search);
     // Console.log("load more models", replaced, models);
-  
+
     for (const match of models) {
       console.log("***** EXTRA MODELS *****");
-  
+
       const extraModel = new URL(match[0].slice(7) + ".tsx", location.origin)
         .toString();
       console.log(extraModel);
@@ -401,13 +390,12 @@ const {setupTypeAcquisition} = await import( "@typescript/ata");
         "typescript",
         Uri.parse(extraModel),
       );
-  
-   
+
       // Editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
       // editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
       return replaced;
     }
-  
+
     (async () => {
       const { dtsFiles } = await import("./types.mjs");
       const {
@@ -483,7 +471,7 @@ const {setupTypeAcquisition} = await import( "@typescript/ata");
         {
           name: "@emotion/cache",
           url: emotionCache,
-  
+
           depend: ["@emotion/utils"],
         },
         {
@@ -537,13 +525,14 @@ const {setupTypeAcquisition} = await import( "@typescript/ata");
           force: true,
           url:
             "/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts",
-  
+
           depend: ["@emotion/utils", "csstype"],
         },
         {
           name: "@emotion/utils",
           force: true,
-          url: "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
+          url:
+            "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
           depend: [],
         },
         {
@@ -552,13 +541,13 @@ const {setupTypeAcquisition} = await import( "@typescript/ata");
           depend: ["popmotion"],
         },
       ];
-  
+
       // Typescript.typescriptDefaults.addExtraLib(
       //   await (await fetch(
       //   '/node_modules/framer-motion/package.json',
       //   )).text(),
       //   location.origin + `/node_modules/framer-motion/package.json`);
-  
+
       try {
         const mapper = async (
           { name, url, force }: { name: string; url: string; force?: boolean },
@@ -569,14 +558,14 @@ const {setupTypeAcquisition} = await import( "@typescript/ata");
               url,
             )).text(),
             location.origin + `/node_modules/${name}/index.d.ts`,
-            );
-       const pMap = (await (import ("p-map"))).default
-  
+          );
+        const pMap = (await (import("p-map"))).default;
+
         await pMap(importHelper, mapper, { concurrency: 2 });
       } catch {
         console.error("Error in loading d.ts");
       }
-  
+
       languages.typescript.typescriptDefaults.setEagerModelSync(true);
       languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: false,
@@ -584,11 +573,11 @@ const {setupTypeAcquisition} = await import( "@typescript/ata");
         noSyntaxValidation: false,
       });
     })();
-  
+
     // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
     //   typescript: ts
     // })(code));
-  
+
     return code;
-  };
+  }
 };

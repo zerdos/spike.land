@@ -61,13 +61,12 @@ async function importShim(scr: string): Promise<any> {
 } // @ts-expect-error
 
 globalThis.apps = globalThis.apps || {};
-globalThis.eCaches = globalThis.eCaches as unknown|| {};
+globalThis.eCaches = globalThis.eCaches as unknown || {};
 
-
-const {apps, eCaches} = globalThis as unknown as {
-  apps: Record<string, React.FC<{appId: string}>>;
-  eCaches: Record<string, EmotionCache> 
-}
+const { apps, eCaches } = globalThis as unknown as {
+  apps: Record<string, React.FC<{ appId: string }>>;
+  eCaches: Record<string, EmotionCache>;
+};
 
 const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
@@ -120,7 +119,7 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 
   return (
     <ErrorBoundary key={md5Hash} ref={ref}>
-        <App appId={`${codeSpace}-${md5Hash}`} />
+      <App appId={`${codeSpace}-${md5Hash}`} />
     </ErrorBoundary>
   );
 };
@@ -130,7 +129,9 @@ let Emotion = null;
 
 let myCache: EmotionCache | null = null;
 
-export async function appFactory(transpiled = ""): Promise<React.FC<{appId: string}>> {
+export async function appFactory(
+  transpiled = "",
+): Promise<React.FC<{ appId: string }>> {
   // console.log('App fac', codeSpace, transpiled)
   // Const hashC = hashCode();
   // @ts-expect-error
@@ -147,29 +148,38 @@ export async function appFactory(transpiled = ""): Promise<React.FC<{appId: stri
       key: "z",
     });
   }
-  const {transpiled: mstTranspiled, i: mstI} = mST();
+  const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
 
   const hash = md5(trp).slice(0, 8);
 
   if (!apps[hash]) {
     try {
-     if(globalThis.terminal && globalThis.terminal.clear)  globalThis.terminal.clear();
-     console.log(`i: ${mstI}: `);
+      if (globalThis.terminal && globalThis.terminal.clear) {
+        globalThis.terminal.clear();
+      }
+      console.log(`i: ${mstI}: `);
       const App = (await importShim(createJsBlob(trp)))
         .default as unknown as FC;
       if (CacheProvider === null || myCache === null) {
         return () => <h1>error</h1>;
       }
       if (isCallable(App)) {
-        const {CacheProvider, css}  = Emotion;
-        eCaches[hash] = Emotion.cache.default({key: 'z', isSpeedy: true}) as unknown as EmotionCache;
-        apps[hash] = ({appId}) => appId.includes(hash)? <CacheProvider value={eCaches[hash]}>
-          <div css={css`height: 100%;`} id={appId}>
-            <App />
-          </div>
-          </CacheProvider>:null;
-
+        const { CacheProvider, css } = Emotion;
+        eCaches[hash] = Emotion.cache.default({
+          key: "z",
+          isSpeedy: true,
+        }) as unknown as EmotionCache;
+        apps[hash] = ({ appId }) =>
+          appId.includes(hash)
+            ? (
+              <CacheProvider value={eCaches[hash]}>
+                <div css={css`height: 100%;`} id={appId}>
+                  <App />
+                </div>
+              </CacheProvider>
+            )
+            : null;
       } else throw new Error("the default export is not a function!");
     } catch (error) {
       // Try {

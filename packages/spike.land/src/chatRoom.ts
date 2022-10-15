@@ -122,7 +122,7 @@ export class Code {
     if (!this.sessionStarted) {
       startSession(
         this.codeSpace,
-        {state, name: this.room },
+        { state, name: this.room },
         url.origin,
       );
       this.sessionStarted = true;

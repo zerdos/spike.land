@@ -22,7 +22,7 @@ import { prettierJs } from "./prettierJs";
 const mod = {
   CH() {},
   getValue: async () => "",
-  
+
   setValue: async (code: string) => {
     if (code.length < 10) console.log(code);
   },
@@ -58,7 +58,7 @@ export const Editor: React.FC<
     started: false,
 
     myId: "loading",
-    onChange(_cb: () => void){},
+    onChange(_cb: () => void) {},
     engine: isMobile() ? "ace" : "monaco",
   });
 
@@ -102,11 +102,11 @@ export const Editor: React.FC<
         );
 
       const getValue = async () => {
-       const code = await prettierJs(model.getValue());
-       if (code === mod.code) return code;
-       const counter = ++mod.counter;
-       mod.code = code;
-       runner({ code, counter, codeSpace});
+        const code = await prettierJs(model.getValue());
+        if (code === mod.code) return code;
+        const counter = ++mod.counter;
+        mod.code = code;
+        runner({ code, counter, codeSpace });
         try {
           (async () => {
             const tsWorker = await (await getTypeScriptWorker())(
@@ -116,8 +116,9 @@ export const Editor: React.FC<
             const diag = await tsWorker.getSemanticDiagnostics(
               location.origin + "/live/" + codeSpace + ".tsx",
             );
-            if (diag.length)
-            console.log( diag.map(d=>d.messageText) );
+            if (diag.length) {
+              console.log(diag.map((d) => d.messageText));
+            }
           })();
         } catch {
           console.error("ts diag error");
@@ -129,22 +130,20 @@ export const Editor: React.FC<
       const setValue = async (_code: string) => {
         const i = mST().i;
         const code = await prettierJs(_code);
-         if (code.length < 10) return;
+        if (code.length < 10) return;
         if (code === await getValue()) return;
         if (i <= mod.counter) return;
 
         // console.log("timeout-start");
         // setTimeout(() => {
-          
-          // mod.codeToSet === code  &&     
-          mod.code = code;
-          mod.counter = i;
-          setMonValue(code) 
-          changeContent((ct)=>({...ct, myCode: mod.code, counter: i}));
-          //  console.log("timeout-end");
-          
-      
-        
+
+        // mod.codeToSet === code  &&
+        mod.code = code;
+        mod.counter = i;
+        setMonValue(code);
+        changeContent((ct) => ({ ...ct, myCode: mod.code, counter: i }));
+        //  console.log("timeout-end");
+
         // }, 800); //wait this time before overwriting the value
       };
 
@@ -168,21 +167,20 @@ export const Editor: React.FC<
       const { startAce } = await import("./startAce");
       const editor = await startAce(mST().code);
       const getValue = async () => {
-        const code = await prettierJs(editor.session.getValue())
+        const code = await prettierJs(editor.session.getValue());
         if (code === mod.code) return mod.code;
-        const counter =  ++mod.counter;
+        const counter = ++mod.counter;
         mod.code = code;
 
-        runner({ code, counter, codeSpace});
+        runner({ code, counter, codeSpace });
 
         return mod.code;
-      
       };
 
       const setValue = async (_code: string) => {
         const i = mST().i;
         const code = await prettierJs(_code);
-        
+
         mod.codeToSet = code;
 
         if (code.length < `export default ()=><></>`.length) return;
@@ -190,17 +188,16 @@ export const Editor: React.FC<
         if (i == mod.counter) return;
 
         // setTimeout(() => {
-          // if (mod.codeToSet === code) {
-            //	const before = editor.selection.toJSON();
+        // if (mod.codeToSet === code) {
+        //	const before = editor.selection.toJSON();
 
+        mod.code = code;
+        mod.counter = i;
+        editor.session.setValue(code);
+        changeContent((ct) => ({ ...ct, myCode: mod.code, counter: i }));
 
-            mod.code = code;
-            mod.counter = i;
-            editor.session.setValue(code);
-            changeContent((ct)=>({...ct, myCode: mod.code, counter: i}));
-  
-            //	editor.selection.fromJSON(before)
-          // }
+        //	editor.selection.fromJSON(before)
+        // }
         // }, 800); //wait this time before overwriting the value
       };
 
@@ -229,13 +226,19 @@ export const Editor: React.FC<
 
   // })
 
-
-  React.useEffect(() => onChange(() => mod.getValue().then(()=>changeContent((x) => ({
-      ...x,
-      counter: mod.counter,
-      myCode: mod.code,
-    })))), [onChange, myCode, changeContent]);
-
+  React.useEffect(
+    () =>
+      onChange(() =>
+        mod.getValue().then(() =>
+          changeContent((x) => ({
+            ...x,
+            counter: mod.counter,
+            myCode: mod.code,
+          }))
+        )
+      ),
+    [onChange, myCode, changeContent],
+  );
 
   onSessionUpdate(() => {
     if (mod.counter > mST().i) {
