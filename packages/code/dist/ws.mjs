@@ -10753,6 +10753,10 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
         }
       );
       const getValue = async () => {
+        const code2 = await prettierJs(model.getValue());
+        if (code2 === mod3.code)
+          return;
+        mod3.code = code2;
         try {
           (async () => {
             const tsWorker = await (await getTypeScriptWorker())(
@@ -10766,7 +10770,9 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
         } catch (e) {
           console.error("ts diag error");
         }
-        return await prettierJs(model.getValue());
+        if (mod3.code !== code2)
+          throw new Error("code just changed");
+        return code2;
       };
       const setValue = async (_code) => {
         const code2 = await prettierJs(_code);

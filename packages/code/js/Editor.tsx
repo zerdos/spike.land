@@ -151,6 +151,9 @@ export const Editor: React.FC<
         );
 
       const getValue = async () => {
+       const code = await prettierJs(model.getValue());
+       if (code === mod.code) return;
+       mod.code = code;
         try {
           (async () => {
             const tsWorker = await (await getTypeScriptWorker())(
@@ -160,13 +163,14 @@ export const Editor: React.FC<
             const diag = await tsWorker.getSemanticDiagnostics(
               location.origin + "/live/" + codeSpace + ".tsx",
             );
-            console.log({ diag });
+            if (diag.length)
+            console.log();
           })();
         } catch {
           console.error("ts diag error");
         }
-
-        return await prettierJs(model.getValue());
+        if (mod.code !== code) throw new Error("code just changed");
+        return code;
       };
 
       const setValue = async (_code: string) => {
