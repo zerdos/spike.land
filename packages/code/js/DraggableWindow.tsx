@@ -297,7 +297,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               >
                 {children}
               </motion.div>
-              <div ref={terminalRef} css={css`
+              <div css={css`   
+              position: relative;
+              
+              `}>
+              <div css={css`
               height: 300px;
               width: ${width/devicePixelRatio}px;
               display: block;
@@ -306,7 +310,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               opacity: 0.5;
               background: rgba(84,24,24,.8);
               position: absolute;
-              `} />
+              `} ><div  ref={terminalRef} /></div></div>
             </motion.div>
             <motion.div
               transition={{ delay: 0, duration: 0.4 }}

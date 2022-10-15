@@ -10286,8 +10286,12 @@ var DraggableWindow = ({
                     children
                   }),
                   jsx("div", {
-                    ref: terminalRef,
-                    css: css`
+                    css: css`   
+              position: relative;
+              
+              `,
+                    children: jsx("div", {
+                      css: css`
               height: 300px;
               width: ${width / devicePixelRatio}px;
               display: block;
@@ -10296,7 +10300,11 @@ var DraggableWindow = ({
               opacity: 0.5;
               background: rgba(84,24,24,.8);
               position: absolute;
-              `
+              `,
+                      children: jsx("div", {
+                        ref: terminalRef
+                      })
+                    })
                   })
                 ]
               }),
