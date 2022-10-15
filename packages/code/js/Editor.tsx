@@ -22,6 +22,7 @@ import { prettierJs } from "./prettierJs";
 const mod = {
   CH() {},
   getValue: async () => "",
+  
   setValue: async (code: string) => {
     if (code.length < 10) console.log(code);
   },
@@ -75,56 +76,6 @@ export const Editor: React.FC<
 
   mod.code = myCode;
 
-  const cb = async () => {
-    if (mST().i > mod.counter) {
-      mod.setValue(mST().code);
-      mod.counter = mST().i;
-      return;
-    }
-
-    const lastKeydownHappened = Date.now() - mod.lastKeyDown;
-    console.log({ lastKeydownHappened });
-
-  
-
-    (async () => {
-      const code = await mod.getValue();
-      const newCode = await prettierJs(code);
-
-      if (newCode === myCode) {
-        return;
-      }
-
-      if (newCode === mST().code) {
-        return;
-      }
-
-      // if (mySession.counter  mST().i) return;
-
-      if (mST().i <= mod.counter) {
-        mod.setValue(newCode);
-        mod.code = newCode;
-        if (lastKeydownHappened < 1000) {
-          mod.counter++;
-          //console.log(`last keydown happened:   + ${lastKeydownHappened}, we already handled this event`);
-          //		return;
-        }
-
-        changeContent((x) => ({
-          ...x,
-          lastKeyDown: 0,
-          counter: mod.counter,
-          myCode: newCode,
-        }));
-        runner({ code: newCode, counter: mod.counter, codeSpace });
-      }
-    })();
-
-    // Console.log("RUN THE RUNNER AGAIN");
-
-    // Model?.setValue(code);
-  };
-
   React.useEffect(() => {
     if (!(ref?.current)) {
       return;
@@ -154,6 +105,7 @@ export const Editor: React.FC<
        const code = await prettierJs(model.getValue());
        if (code === mod.code) return;
        mod.code = code;
+       mod.counter++;
         try {
           (async () => {
             const tsWorker = await (await getTypeScriptWorker())(
@@ -174,21 +126,25 @@ export const Editor: React.FC<
       };
 
       const setValue = async (_code: string) => {
+        const i = mST().i;
         const code = await prettierJs(_code);
-        mod.codeToSet = code;
-        if (code.length < `export default ()=><></>`.length) return;
+         if (code.length < 10) return;
         if (code === await getValue()) return;
-        if (mST().i === mod.counter) return;
+        if (i <= mod.counter) return;
 
-        console.log("timeout-start");
-        setTimeout(() => {
+        // console.log("timeout-start");
+        // setTimeout(() => {
           
-          mod.codeToSet === code  &&     setMonValue(code) 
-           console.log("timeout-end");
+          // mod.codeToSet === code  &&     
+          mod.code = code;
+          mod.counter = i;
+          setMonValue(code) 
+          changeContent((ct)=>({...ct, myCode: mod.code, counter: i}));
+          //  console.log("timeout-end");
           
       
         
-        }, 800); //wait this time before overwriting the value
+        // }, 800); //wait this time before overwriting the value
       };
 
       mod.getValue = getValue;
@@ -210,24 +166,40 @@ export const Editor: React.FC<
     const setAce = async () => {
       const { startAce } = await import("./startAce");
       const editor = await startAce(mST().code);
-      const getValue = async () => await prettierJs(editor.session.getValue());
+      const getValue = async () => {
+        const code = await prettierJs(editor.session.getValue())
+        if (code === mod.code) return mod.code;
+        mod.code = code;
+        mod.counter++;
+
+
+        return mod.code;
+      
+      };
 
       const setValue = async (_code: string) => {
+        const i = mST().i;
         const code = await prettierJs(_code);
+        
         mod.codeToSet = code;
 
         if (code.length < `export default ()=><></>`.length) return;
         if (code === await getValue()) return;
-        if (mST().i === mod.counter) return;
+        if (i == mod.counter) return;
 
-        setTimeout(() => {
-          if (mod.codeToSet === code) {
+        // setTimeout(() => {
+          // if (mod.codeToSet === code) {
             //	const before = editor.selection.toJSON();
 
+
+            mod.code = code;
+            mod.counter = i;
             editor.session.setValue(code);
+            changeContent((ct)=>({...ct, myCode: mod.code, counter: i}));
+  
             //	editor.selection.fromJSON(before)
-          }
-        }, 800); //wait this time before overwriting the value
+          // }
+        // }, 800); //wait this time before overwriting the value
       };
 
       mod.getValue = getValue;
@@ -255,44 +227,39 @@ export const Editor: React.FC<
 
   // })
 
-  React.useEffect(() => {
-    onChange(cb);
-  }, [onChange]);
+  React.useEffect(() => onChange(async () => {
+    if (mST().i <= mod.counter) return;
+    
+    mod.code = mST().code;
+    mod.counter = mST().i;
+    mod.setValue(mod.code);
+    changeContent((x) => ({
+      ...x,
+      counter: mod.counter,
+      myCode: mod.code,
+    }));
+    runner({ code: mod.code, counter: mod.counter, codeSpace });
+      
 
-  // React.useEffect(() => {
-  // 	if (!started) return;
-  // 	setValue(myCode);
+    // Console.log("RUN THE RUNNER AGAIN");
 
-  // 	const lastKeydownHappened = (Date.now()-lastKeyDown;
+    // Model?.setValue(code);
+  }), [onChange]);
 
-  // 	if (lastKeydownHappened>2000) {
-
-  // 		console.log('last keydown happened: '  + $lastKeydownHappened );
-
-  // 	}
-  // 	runner({code: myCode, counter: counter, codeSpace}){
-  // 	};
-
-  // }, [setValue, myCode, counter, codeSpace, started]);
-
-  // React.useEffect(() => {
-  // 	if (!started) {
-  // 		return;
-  // 	}
-
-  // 	if (i > counter) {
-  // 		changeContent(x => ({...x, myCode: code, counter: i}));
-  // 		return;
-  // 	}
-
-  // }, [setValue, getValue, counter, prettierJs, runner]);
 
   onSessionUpdate(() => {
-    if (mod.counter === mST().i) {
+    if (mod.counter > mST().i) {
       return;
     }
+
     mod.counter = mST().i;
-    mod.setValue(mST().code);
+    mod.code = mST().code;
+    mod.setValue(mod.code);
+    changeContent((x) => ({
+      ...x,
+      counter: mod.counter,
+      myCode: mod.code,
+    }));
   }, "editor");
 
   return (
