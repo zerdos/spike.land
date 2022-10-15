@@ -13,7 +13,7 @@ const serializeAddon = new SerializeAddon();
 const fitAddon = new FitAddon();
 const origConsole = console.log;
 
-var terminal = new Terminal();
+var terminal = new Terminal({allowProposedApi: true, allowTransparency; tr});
 
 terminal.loadAddon(serializeAddon);
 
@@ -297,15 +297,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               >
                 {children}
               </motion.div>
-              <div css={css`
-              height: 200px;
+              <div ref={terminalRef} css={css`
+              height: 300px;
+              width: ${width/devicePixelRatio}px;
+              display: block;
               border-radius: 0 0 8px 8px;
-              width: ${width / devicePixelRatio}px;
-              bottom: 70px;
-            opacity: 0.5;
-    background: rgba(84,24,24,.8);
-    position: absolute;
-              `} ><div ref={terminalRef} /></div>
+              bottom: 120px;
+              opacity: 0.5;
+              background: rgba(84,24,24,.8);
+              position: absolute;
+              `} />
             </motion.div>
             <motion.div
               transition={{ delay: 0, duration: 0.4 }}
