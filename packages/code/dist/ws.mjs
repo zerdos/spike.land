@@ -10296,7 +10296,7 @@ var DraggableWindow = ({
               width: ${width / devicePixelRatio}px;
               display: block;
               border-radius: 0 0 8px 8px;
-              bottom: 120px;
+              top: -600px;
               opacity: 0.5;
               background: rgba(84,24,24,.8);
               position: absolute;
