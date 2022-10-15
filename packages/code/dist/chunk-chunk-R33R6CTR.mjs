@@ -1906,14 +1906,14 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
     var __unsafe_useEmotionCache = function useEmotionCache() {
       return React.useContext(EmotionCacheContext);
     };
-    exports.withEmotionCache = function withEmotionCache2(func) {
+    exports.withEmotionCache = function withEmotionCache(func) {
       return React.forwardRef(function(props, ref) {
         var cache2 = React.useContext(EmotionCacheContext);
         return func(props, cache2, ref);
       });
     };
     if (!isBrowser) {
-      exports.withEmotionCache = function withEmotionCache2(func) {
+      exports.withEmotionCache = function withEmotionCache(func) {
         return function(props) {
           var cache2 = React.useContext(EmotionCacheContext);
           if (cache2 === null) {
@@ -1929,12 +1929,12 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
         };
       };
     }
-    var ThemeContext2 = React.createContext({});
+    var ThemeContext = React.createContext({});
     if (true) {
-      ThemeContext2.displayName = "EmotionThemeContext";
+      ThemeContext.displayName = "EmotionThemeContext";
     }
-    var useTheme2 = function useTheme3() {
-      return React.useContext(ThemeContext2);
+    var useTheme = function useTheme2() {
+      return React.useContext(ThemeContext);
     };
     var getTheme = function getTheme2(outerTheme, theme) {
       if (typeof theme === "function") {
@@ -1954,19 +1954,19 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
         return getTheme(outerTheme, theme);
       });
     });
-    var ThemeProvider2 = function ThemeProvider3(props) {
-      var theme = React.useContext(ThemeContext2);
+    var ThemeProvider = function ThemeProvider2(props) {
+      var theme = React.useContext(ThemeContext);
       if (props.theme !== theme) {
         theme = createCacheWithTheme(theme)(props.theme);
       }
-      return React.createElement(ThemeContext2.Provider, {
+      return React.createElement(ThemeContext.Provider, {
         value: theme
       }, props.children);
     };
-    function withTheme2(Component) {
+    function withTheme(Component) {
       var componentName = Component.displayName || Component.name || "Component";
       var render = function render2(props, ref) {
-        var theme = React.useContext(ThemeContext2);
+        var theme = React.useContext(ThemeContext);
         return React.createElement(Component, _extends({
           theme,
           ref
@@ -2061,7 +2061,7 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
       } else if (props.className != null) {
         className = props.className + " ";
       }
-      var serialized = serialize.serializeStyles(registeredStyles, void 0, React.useContext(ThemeContext2));
+      var serialized = serialize.serializeStyles(registeredStyles, void 0, React.useContext(ThemeContext));
       if (serialized.name.indexOf("-") === -1) {
         var labelFromStack = props[labelPropName];
         if (labelFromStack) {
@@ -2088,14 +2088,14 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
     }
     exports.CacheProvider = CacheProvider2;
     exports.Emotion = Emotion2;
-    exports.ThemeContext = ThemeContext2;
-    exports.ThemeProvider = ThemeProvider2;
+    exports.ThemeContext = ThemeContext;
+    exports.ThemeProvider = ThemeProvider;
     exports.__unsafe_useEmotionCache = __unsafe_useEmotionCache;
     exports.createEmotionProps = createEmotionProps;
     exports.hasOwnProperty = hasOwnProperty;
     exports.isBrowser = isBrowser;
-    exports.useTheme = useTheme2;
-    exports.withTheme = withTheme2;
+    exports.useTheme = useTheme;
+    exports.withTheme = withTheme;
   }
 });
 var require_emotion_react_cjs_dev = __commonJS({
@@ -2415,7 +2415,7 @@ var require_emotion_react_cjs_dev = __commonJS({
       }
       return null;
     };
-    var ClassNames2 = emotionElement.withEmotionCache(function(props, cache2) {
+    var ClassNames = emotionElement.withEmotionCache(function(props, cache2) {
       var hasRendered = false;
       var serializedArr = [];
       var css3 = function css4() {
@@ -2452,7 +2452,7 @@ var require_emotion_react_cjs_dev = __commonJS({
       }), ele);
     });
     if (true) {
-      ClassNames2.displayName = "EmotionClassNames";
+      ClassNames.displayName = "EmotionClassNames";
     }
     if (true) {
       isBrowser = typeof document !== "undefined";
@@ -2482,7 +2482,7 @@ var require_emotion_react_cjs_dev = __commonJS({
       }
     });
     exports.withTheme = emotionElement.withTheme;
-    exports.ClassNames = ClassNames2;
+    exports.ClassNames = ClassNames;
     exports.Global = Global2;
     exports.createElement = jsx2;
     exports.css = css2;
@@ -2908,26 +2908,15 @@ var require_emotion_react_jsx_runtime_cjs = __commonJS({
   }
 });
 init_define_process2();
-var Emotion = __toESM(require_emotion_react_cjs(), 1);
+var import_react = __toESM(require_emotion_react_cjs(), 1);
 var import_styled = __toESM(require_emotion_styled_cjs(), 1);
 var import_cache = __toESM(require_emotion_cache_cjs(), 1);
 var JSX = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-globalThis.EmotionGlob = globalThis.EmotionGlob || { JSX, Emotion, styled: import_styled.default, cache: import_cache.default, jsx, jsxs, Fragment };
+globalThis.EmotionGlob = globalThis.EmotionGlob || { JSX, Emotion: import_react.default, styled: import_styled.default, cache: import_cache.default };
 var EmotionGlob = globalThis.EmotionGlob;
 var { styled, cache } = EmotionGlob;
 var { jsx, jsxs, Fragment } = EmotionGlob.JSX;
-var {
-  CacheProvider,
-  ClassNames,
-  Global,
-  ThemeContext,
-  ThemeProvider,
-  css,
-  keyframes,
-  useTheme,
-  withEmotionCache,
-  withTheme
-} = EmotionGlob.Emotion;
+var { css, Global, CacheProvider, keyframes } = EmotionGlob.Emotion;
 var emotion_default = EmotionGlob.Emotion;
 
 export {
@@ -2936,9 +2925,8 @@ export {
   jsx,
   jsxs,
   Fragment,
-  CacheProvider,
-  Global,
-  ThemeContext,
   css,
+  Global,
+  CacheProvider,
   keyframes
 };

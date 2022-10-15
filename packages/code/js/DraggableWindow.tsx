@@ -16,8 +16,9 @@ const origConsole = console.log;
 var terminal = new Terminal({allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true, scrollback: 0, convertEol: true,windowsMode: true});
 
 terminal.loadAddon(serializeAddon);
-terminal.termOff= () => console.log = origConsole;
 
+const termOff = () => console.log = origConsole;
+Object.assign(terminal, {termOff});
 
 // terminal.loadAddon(new WebLinksAddon());
 terminal.loadAddon(fitAddon);
@@ -311,6 +312,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               opacity: 0.5;
               background: rgba(84,24,24,.8);
               position: absolute;
+              .xterm-helpers{
+              }
               `} ><div  ref={terminalRef} /></div></div>
             </motion.div>
             <motion.div

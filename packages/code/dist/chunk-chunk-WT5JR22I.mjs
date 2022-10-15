@@ -9,7 +9,7 @@ import {
   css,
   jsx,
   jsxs
-} from "./chunk-chunk-GMLEY2ZM.mjs";
+} from "./chunk-chunk-R33R6CTR.mjs";
 import {
   S2,
   _n,
@@ -210,7 +210,8 @@ async function importShim(scr) {
   return importShim(scr);
 }
 globalThis.apps = globalThis.apps || {};
-var apps = globalThis.apps || {};
+globalThis.eCaches = globalThis.eCaches || {};
+var { apps, eCaches } = globalThis;
 var render = {};
 var AutoUpdateApp = ({ hash, codeSpace }) => {
   const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
@@ -238,10 +239,8 @@ var AutoUpdateApp = ({ hash, codeSpace }) => {
   const App = apps[md5(transpiled).slice(0, 8)];
   return jsx(ErrorBoundary_default, {
     ref,
-    children: jsx("div", {
-      style: { height: "100%" },
-      id: `${codeSpace}-${md5Hash}`,
-      children: jsx(App, {})
+    children: jsx(App, {
+      appId: `${codeSpace}-${md5Hash}`
     })
   }, md5Hash);
 };
@@ -258,7 +257,7 @@ async function appFactory(transpiled = "") {
     });
   }
   const { transpiled: mstTranspiled, i: mstI } = mST();
-  const trp = transpiled.length > 0 ? transpiled : transpiled;
+  const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp).slice(0, 8);
   if (!apps[hash]) {
     try {
@@ -272,7 +271,16 @@ async function appFactory(transpiled = "") {
         });
       }
       if ((0, import_is_callable.default)(App)) {
-        apps[hash] = Emotion.withEmotionCache(App);
+        const { CacheProvider: CacheProvider2, css: css2 } = Emotion;
+        eCaches[hash] = Emotion.cache.default({ key: "z", isSpeedy: true });
+        apps[hash] = ({ appId }) => appId.includes(hash) ? jsx(CacheProvider2, {
+          value: eCaches[hash],
+          children: jsx("div", {
+            css: css2`height: 100%;`,
+            id: appId,
+            children: jsx(App, {})
+          })
+        }) : null;
       } else
         throw new Error("the default export is not a function!");
     } catch (error) {
@@ -355,12 +363,13 @@ var render2 = async (transpiled, codeSpace) => {
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if ((0, import_is_callable2.default)(App)) {
-    const html = S2(jsx(App, {}));
-    const css2 = extractCritical22(html);
-    const globalCss = (_a = document.querySelector("style[data-emotion=css-global]")) == null ? void 0 : _a.innerHTML;
+    const html = S2(jsx(App, {
+      appId: `${codeSpace}-${md5hash}`
+    }));
+    const css2 = mineFromCaches(md5hash, html);
+    const globalCss = (_a = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _a.innerHTML;
     return {
-      html: `<div id="${codeSpace}-${md5hash}" style="height:100%">
-    ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
+      html: `<style>${globalCss}</style>${html}`,
       css: css2
     };
   } else
@@ -374,13 +383,17 @@ var renderFromString2 = (codeSpace, hash) => {
   }
   const html = (_a = document.getElementById(`${codeSpace}-${md5hash}`)) == null ? void 0 : _a.innerHTML;
   const css2 = html ? extractCritical22(html) : "";
-  const globalCss = (_b = document.querySelector("style[data-emotion=css-global]")) == null ? void 0 : _b.innerHTML;
+  const globalCss = (_b = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _b.innerHTML;
   return {
     html: `<div id="${codeSpace}-${md5hash}" style="height:100%">
       ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
     css: css2
   };
 };
+function mineFromCaches(md5Hash, html) {
+  const keys = Object.keys(globalThis.eCaches[md5Hash].inserted);
+  return Array.from(document.styleSheets).map((x) => x.cssRules).filter((x) => x[0] && x[0].cssText).map((x) => x[0].cssText).filter((x) => keys.find((k) => x.includes(k))).filter((x) => html.includes(x.slice(0, 11))).join(" ");
+}
 var extractCritical22 = (html) => {
   try {
     const rules = {};
@@ -389,10 +402,10 @@ var extractCritical22 = (html) => {
       const styleSheet = document.styleSheets[i];
       if (styleSheet == null ? void 0 : styleSheet.cssRules) {
         for (const rule of Array.from(styleSheet.cssRules)) {
-          if (yesFromNow || rule && rule.cssText && rule.cssText.startsWith(".css-")) {
+          if (yesFromNow || rule && rule.cssText && rule.cssText.startsWith(".z-")) {
             const selector = rule.cssText.slice(1, 9);
             const selectorText = selector;
-            if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".css-")) {
+            if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".z-")) {
               yesFromNow = true;
               rules[selectorText] = rule.cssText;
             }

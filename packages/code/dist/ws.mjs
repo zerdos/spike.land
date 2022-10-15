@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-OPG7IZBA.mjs";
+} from "./chunk-chunk-WT5JR22I.mjs";
 import {
   applyPatch,
   hashCode,
@@ -34,7 +34,7 @@ import {
   css,
   jsx,
   jsxs
-} from "./chunk-chunk-GMLEY2ZM.mjs";
+} from "./chunk-chunk-R33R6CTR.mjs";
 import {
   $2,
   Children,
@@ -10026,7 +10026,7 @@ var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level
 
 // js/mui.tsx
 init_define_process();
-var FabLazy = lazy(async () => import("./chunk-Fab-FG2Q6HRA.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-BMG6PDJ4.mjs"));
 var Fab = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
@@ -10035,7 +10035,7 @@ var Fab = (props) => jsx(Suspense, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-AQUIANXE.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-2F6RPGIZ.mjs"));
 var ToggleButton = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
@@ -10045,7 +10045,7 @@ var ToggleButton = (props) => jsx(Suspense, {
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-M6MA3EKM.mjs")
+  async () => import("./chunk-ToggleButtonGroup-POASM2PO.mjs")
 );
 var ToggleButtonGroup = (props) => jsx(Suspense, {
   fallback: jsx("div", {
@@ -10088,7 +10088,8 @@ var fitAddon = new import_xterm_addon_fit.FitAddon();
 var origConsole = console.log;
 var terminal = new import_xterm.Terminal({ allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true, scrollback: 0, convertEol: true, windowsMode: true });
 terminal.loadAddon(serializeAddon);
-terminal.termOff = () => console.log = origConsole;
+var termOff = () => console.log = origConsole;
+Object.assign(terminal, { termOff });
 terminal.loadAddon(fitAddon);
 Object.assign(globalThis, { terminal });
 var breakPoints = [680, 768, 1920];
@@ -10299,6 +10300,8 @@ var DraggableWindow = ({
               opacity: 0.5;
               background: rgba(84,24,24,.8);
               position: absolute;
+              .xterm-helpers{
+              }
               `,
                       children: jsx("div", {
                         ref: terminalRef
@@ -10581,16 +10584,17 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       i: counter,
       transpiled: transpiledCode,
       html: html2,
-      css: css3 || ""
+      css: css3
     });
     let i = 60;
-    while (!mST().css) {
+    while (!mST().css && counter === mST().i) {
       console.log("Oh, NO! Can't extract css, wait:", i);
       const { html: html3, css: css4 } = renderFromString(codeSpace2, hashCode());
       if (html3 && css4)
         patchSync({ ...mST(), html: html3, css: css4 });
       else
-        await wait(i++);
+        await wait(i);
+      i = i * 2;
     }
     saveCode();
   } catch (error) {
@@ -10722,9 +10726,10 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       const getValue = async () => {
         const code2 = await prettierJs(model.getValue());
         if (code2 === mod3.code)
-          return;
+          return code2;
+        const counter = ++mod3.counter;
         mod3.code = code2;
-        mod3.counter++;
+        runner({ code: code2, counter, codeSpace: codeSpace2 });
         try {
           (async () => {
             const tsWorker = await (await getTypeScriptWorker())(
@@ -10734,7 +10739,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
               location.origin + "/live/" + codeSpace2 + ".tsx"
             );
             if (diag.length)
-              console.log({ diag });
+              console.log(diag.map((d) => d.messageText));
           })();
         } catch (e) {
           console.error("ts diag error");
@@ -10773,8 +10778,9 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
         const code2 = await prettierJs(editor.session.getValue());
         if (code2 === mod3.code)
           return mod3.code;
+        const counter = ++mod3.counter;
         mod3.code = code2;
-        mod3.counter++;
+        runner({ code: code2, counter, codeSpace: codeSpace2 });
         return mod3.code;
       };
       const setValue = async (_code) => {
@@ -10809,19 +10815,11 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     const loadEditors = () => engine === "monaco" ? setMonaco() : setAce();
     !started && loadEditors();
   }, [started, ref]);
-  _n.useEffect(() => onChange(async () => {
-    if (mST().i <= mod3.counter)
-      return;
-    mod3.code = mST().code;
-    mod3.counter = mST().i;
-    mod3.setValue(mod3.code);
-    changeContent((x) => ({
-      ...x,
-      counter: mod3.counter,
-      myCode: mod3.code
-    }));
-    runner({ code: mod3.code, counter: mod3.counter, codeSpace: codeSpace2 });
-  }), [onChange]);
+  _n.useEffect(() => onChange(() => mod3.getValue().then(() => changeContent((x) => ({
+    ...x,
+    counter: mod3.counter,
+    myCode: mod3.code
+  })))), [onChange, myCode, changeContent]);
   onSessionUpdate(() => {
     if (mod3.counter > mST().i) {
       return;

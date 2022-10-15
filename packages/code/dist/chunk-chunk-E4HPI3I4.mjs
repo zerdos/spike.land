@@ -1,10 +1,9 @@
 import {
   CacheProvider,
   Global,
-  ThemeContext,
   cache,
   styled
-} from "./chunk-chunk-GMLEY2ZM.mjs";
+} from "./chunk-chunk-R33R6CTR.mjs";
 import {
   $2,
   Children,
@@ -11686,7 +11685,7 @@ init_define_process();
 var import_prop_types36 = __toESM(require_prop_types());
 function InnerThemeProvider(props) {
   const theme = useTheme_default();
-  return o3(ThemeContext.Provider, {
+  return o3(StyledEngineThemeContext.Provider, {
     value: typeof theme === "object" ? theme : {},
     children: props.children
   });
