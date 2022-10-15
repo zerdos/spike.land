@@ -11209,7 +11209,7 @@ async function join() {
     return;
   }
   const wsConnection = new WebSocket(
-    `wss://${location.origin}/live/` + codeSpace + "/websocket"
+    `wss://${location.host}/live/` + codeSpace + "/websocket"
   );
   rejoined = false;
   wsConnection.addEventListener("open", () => {
