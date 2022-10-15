@@ -10286,18 +10286,17 @@ var DraggableWindow = ({
                     children
                   }),
                   jsx("div", {
+                    ref: terminalRef,
                     css: css`
-              height: 200px;
-              border-radius: 0 0 8px 8px;
+              height: 300px;
               width: ${width / devicePixelRatio}px;
-              bottom: 70px;
-            opacity: 0.5;
-    background: rgba(84,24,24,.8);
-    position: absolute;
-              `,
-                    children: jsx("div", {
-                      ref: terminalRef
-                    })
+              display: block;
+              border-radius: 0 0 8px 8px;
+              bottom: 120px;
+              opacity: 0.5;
+              background: rgba(84,24,24,.8);
+              position: absolute;
+              `
                   })
                 ]
               }),
