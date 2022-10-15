@@ -201,7 +201,7 @@ export class CodeSession implements ICodeSess {
     );
     const newHash = this.session.hashCode();
     if (newHash !== oldHash) {
-      console.log({ sess });
+      // console.log({ sess });
       (self.requestAnimationFrame || setTimeout)(async () =>
         this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
       );
@@ -227,7 +227,7 @@ export class CodeSession implements ICodeSess {
       )) &&
       codeSpace
     ) {
-      console.log(Object.keys(hashStore));
+      // console.log(Object.keys(hashStore));
       const resp = await fetch(
         `/live/${codeSpace}/mST`,
       );

@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-O4ILBTTG.mjs";
+} from "./chunk-chunk-IXT343DR.mjs";
 import {
   applyPatch,
   hashCode,
@@ -28,7 +28,7 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-YXQWNFHK.mjs";
+} from "./chunk-chunk-4XUGA6BB.mjs";
 import "./chunk-chunk-CZQHXLQW.mjs";
 import {
   css,

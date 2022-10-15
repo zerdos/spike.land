@@ -5469,7 +5469,6 @@ var CodeSession = class {
       );
       const newHash = this.session.hashCode();
       if (newHash !== oldHash) {
-        console.log({ sess });
         (self.requestAnimationFrame || setTimeout)(
           async () => this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
         );
@@ -5484,7 +5483,6 @@ var CodeSession = class {
       if (!Object.keys(hashStore).map(Number).includes(
         Number(oldHash)
       ) && codeSpace) {
-        console.log(Object.keys(hashStore));
         const resp = await fetch(
           `/live/${codeSpace}/mST`
         );
