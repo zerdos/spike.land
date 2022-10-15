@@ -1,6 +1,6 @@
 // deno-lint-ignore-file
 
-import { promises as fs } from "fs";
+import {readFile} from "fs/promises";
 
 type Base =
   | "stretch"
@@ -26,7 +26,7 @@ const getDistro = (b: Base) =>
     ? "debian"
     : "ubuntu";
 
-import * as softwareVersions from "../versions.json" assert { type: "json" };
+import * as softwareVersions from "../versions.json" 
 
 export class DevcontainerGenerator {
   private _dockerfile = "";
@@ -233,22 +233,14 @@ export class DevcontainerGenerator {
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
             "{amd_dotnet_sha512}",
-            softwareVersions.sha
-              .dotnet_sha512[
-                softwareVersions
-                  .dotnet3 as keyof typeof softwareVersions.sha.dotnet_sha512
-              ],
+            softwareVersions.sha.dotnet_sha512[softwareVersions.dotnet3],
           );
       } else {
         this._dockerfile += dockerTemplates["dotnet5"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet5)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha
-              .dotnet_sha512[
-                softwareVersions
-                  .dotnet5 as keyof typeof softwareVersions.sha.dotnet_sha512
-              ],
+            softwareVersions.sha.dotnet_sha512[softwareVersions.dotnet5],
           );
       }
     }
@@ -366,8 +358,7 @@ export class DevcontainerGenerator {
     filename: string,
     extension: "Dockerfile" | "README",
   ) =>
-    await fs
-      .readFile(
+    await readFile(
         `../devcontainer-generator/templates/${filename}.${extension}`,
       )
       .catch((e) => {

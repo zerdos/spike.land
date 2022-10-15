@@ -31,7 +31,7 @@ import {
 } from "./chunk-chunk-4XUGA6BB.mjs";
 import "./chunk-chunk-CZQHXLQW.mjs";
 import {
-  css as css2,
+  css,
   jsx,
   jsxs
 } from "./chunk-chunk-UX7PM3SQ.mjs";
@@ -9965,7 +9965,7 @@ init_define_process();
 // js/icons.tsx
 init_define_process();
 var Wrap = ({ children }) => jsx("span", {
-  css: css2`
+  css: css`
 font-size:20pt;
 `,
   children
@@ -10029,7 +10029,7 @@ init_define_process();
 var FabLazy = lazy(async () => import("./chunk-Fab-BO5DWZOQ.mjs"));
 var Fab = (props) => jsx(Suspense, {
   fallback: jsx("div", {
-    css: css2`width: 28px; height:28px`
+    css: css`width: 28px; height:28px`
   }),
   children: jsx(FabLazy, {
     ...props
@@ -10038,7 +10038,7 @@ var Fab = (props) => jsx(Suspense, {
 var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-KMJRYDBP.mjs"));
 var ToggleButton = (props) => jsx(Suspense, {
   fallback: jsx("div", {
-    css: css2`width: 28px; height:28px`
+    css: css`width: 28px; height:28px`
   }),
   children: jsx(ToggleButtonLazy, {
     ...props
@@ -10049,7 +10049,7 @@ var ToggleButtonGroupLazy = lazy(
 );
 var ToggleButtonGroup = (props) => jsx(Suspense, {
   fallback: jsx("div", {
-    css: css2`width: 28px; height:28px`
+    css: css`width: 28px; height:28px`
   }),
   children: jsx(ToggleButtonGroupLazy, {
     ...props
@@ -10067,7 +10067,7 @@ var QRButton = ({ url }) => {
     onClick: () => {
       setQR(!showQR);
     },
-    css: css2`
+    css: css`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
@@ -10189,7 +10189,7 @@ var DraggableWindow = ({
         right,
         borderRadius: 16
       },
-      css: css2`
+      css: css`
             touch-action: pinch-zoom;
             background-color: ${bg};
             backdrop-filter: blur(15px);
@@ -10207,13 +10207,13 @@ var DraggableWindow = ({
       },
       dragElastic: 0.5,
       children: jsxs("div", {
-        css: css2` 
+        css: css` 
               display: flex;
               
                 `,
         children: [
           jsxs("div", {
-            css: css2`
+            css: css`
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -10233,7 +10233,7 @@ var DraggableWindow = ({
                   children: sizes.map((size, ind) => jsx(ToggleButton, {
                     value: size,
                     children: jsxs("span", {
-                      css: css2`
+                      css: css`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
                       children: [
@@ -10256,7 +10256,7 @@ var DraggableWindow = ({
                   height: height2 * scale / devicePixelRatio,
                   borderRadius: 8
                 },
-                css: css2`
+                css: css`
 
                 display: block;
                 overflow: hidden;
@@ -10279,19 +10279,19 @@ var DraggableWindow = ({
                       scale: scaleRange / 100
                     },
                     "data-test-id": "z-body",
-                    css: css2`
+                    css: css`
                   overflow:overlay;
                   overflow-y: hidden;
               `,
                     children
                   }),
                   jsx("div", {
-                    css: css2`   
+                    css: css`   
               position: relative;
               
               `,
                     children: jsx("div", {
-                      css: css2`
+                      css: css`
               height: 240px;
               width: ${width / devicePixelRatio}px;
               display: block;
@@ -10325,17 +10325,17 @@ var DraggableWindow = ({
                   children: breakPoints.map((size, ind) => jsx(ToggleButton, {
                     value: size,
                     children: size === 680 ? jsx("span", {
-                      css: css2`
+                      css: css`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
                       children: jsx(Phone, {})
                     }) : size === 768 ? jsx("span", {
-                      css: css2`
+                      css: css`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
                       children: jsx(Tablet, {})
                     }) : jsx("span", {
-                      css: css2`
+                      css: css`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
                       children: jsx(Tv, {})
@@ -10350,7 +10350,7 @@ var DraggableWindow = ({
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
             children: jsxs("div", {
-              css: css2`
+              css: css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
@@ -10364,7 +10364,7 @@ var DraggableWindow = ({
                     (_a = document.querySelector("#root")) == null ? void 0 : _a.requestFullscreen();
                   },
                   children: jsx("span", {
-                    css: css2`
+                    css: css`
                 font-size: 20pt;
               `,
                     children: jsx(MdFullscreen, {}, "fs")
@@ -10574,8 +10574,8 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     Object.assign(globalThis, { umdExp });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
-    const { html: html2, css: css3 } = await render(transpiledCode, codeSpace2);
-    if (!html2) {
+    const { html, css: css2 } = await render(transpiledCode, codeSpace2);
+    if (!html) {
       return;
     }
     patchSync({
@@ -10583,15 +10583,15 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       code,
       i: counter,
       transpiled: transpiledCode,
-      html: html2,
-      css: css3
+      html,
+      css: css2
     });
     let i = 60;
     while (!mST().css && counter === mST().i) {
       console.log("Oh, NO! Can't extract css, wait:", i);
-      const { html: html3, css: css4 } = renderFromString(codeSpace2, hashCode());
-      if (html3 && css4)
-        patchSync({ ...mST(), html: html3, css: css4 });
+      const { html: html2, css: css3 } = renderFromString(codeSpace2, hashCode());
+      if (html2 && css3)
+        patchSync({ ...mST(), html: html2, css: css3 });
       else
         await wait(i);
       i = i * 2;
@@ -10837,7 +10837,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     onKeyDown: () => mod3.lastKeyDown = Date.now(),
     "data-test-id": myId,
     id: "editor",
-    css: css2`
+    css: css`
         
             max-width: 640px;
             height: 100%;
@@ -10850,7 +10850,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
 
 // js/renderPreviewWindow.tsx
 var RainbowContainer = ({ children }) => jsx("div", {
-  css: css2`
+  css: css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -11062,8 +11062,6 @@ var run = async (startState) => {
   codeSpace = startState.codeSpace;
   bc = new BroadcastChannel(location.origin);
   if (location.pathname.endsWith("dehydrated")) {
-    html = mst.html;
-    css = mst.css;
     if (bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {
         console.log(event.data);
@@ -11207,11 +11205,11 @@ async function join() {
     return ws;
   }
   rejoined = true;
-  if (location.host.includes("localhost")) {
+  if (location.origin.includes("localhost")) {
     return;
   }
   const wsConnection = new WebSocket(
-    `wss://${location.host}/live/` + codeSpace + "/websocket"
+    `wss://${location.origin}/live/` + codeSpace + "/websocket"
   );
   rejoined = false;
   wsConnection.addEventListener("open", () => {

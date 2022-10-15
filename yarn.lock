@@ -951,6 +951,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
+    "@types/node": "npm:^18.11.0"
     esbuild: "npm:0.15.11"
   languageName: unknown
   linkType: soft
@@ -1115,6 +1116,13 @@ __metadata:
   version: 18.8.4
   resolution: "@types/node@npm:18.8.4"
   checksum: 55ef689f2c930e558768aef408e95edde71524995ed79fcac92ffb6a669552f66a5f1fc626593a5cdd41f8cf25c7cca2f149cffa5025b96196a09fa6dd9d2939
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.11.0":
+  version: 18.11.0
+  resolution: "@types/node@npm:18.11.0"
+  checksum: 29cddf70ce75ff9c39849a1d92111031be8614220b4bb7c0ee02ce83c14138f4b067557d8654fa32941111e02664366b007017ef35a6cb6926842270369deaae
   languageName: node
   linkType: hard
 
