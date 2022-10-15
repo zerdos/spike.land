@@ -29,6 +29,8 @@ const define = {
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.browser": JSON.stringify(true),
   "process.env.DEBUG": JSON.stringify(false),
+  'isBrowser': JSON.stringify(true),
+  'isJest': JSON.stringify(false),
   "process.env.version": '"1.1.1"',
   global: "globalThis",
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),

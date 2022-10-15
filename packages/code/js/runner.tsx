@@ -61,7 +61,8 @@ export async function runner({ code, counter, codeSpace }: {
   if (counter < mst.i) {
     
     
-    return;}
+    return;
+  }
 
   setTimeout(() => {
     if (mod.code === code && code !== mod.olderCode) {
@@ -137,17 +138,18 @@ export async function runner({ code, counter, codeSpace }: {
       i: counter,
       transpiled: transpiledCode,
       html,
-      css: css || "",
+      css
     });
 
     let i = 60;
-    while (!mST().css) {
+    while (!mST().css && counter===mST().i) {
       console.log("Oh, NO! Can't extract css, wait:", i);
 
       const { html, css } = renderFromString(codeSpace, hashCode());
 
       if (html && css) patchSync({ ...mST(), html, css });
-      else await wait(i++);
+      else await wait(i);
+      i = i*2;
     }
   
     saveCode();

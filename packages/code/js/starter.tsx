@@ -61,9 +61,13 @@ async function importShim(scr: string): Promise<any> {
 } // @ts-expect-error
 
 globalThis.apps = globalThis.apps || {};
-// @ts-expect-error
+globalThis.eCaches = globalThis.eCaches as unknown|| {};
 
-const apps: Record<string, React.FC> = globalThis.apps || {};
+
+const {apps, eCaches} = globalThis as unknown as {
+  apps: Record<string, React.FC<{appId: string}>>;
+  eCaches: Record<string, EmotionCache> 
+}
 
 const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
@@ -116,9 +120,7 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 
   return (
     <ErrorBoundary key={md5Hash} ref={ref}>
-      <div style={{ height: "100%" }} id={`${codeSpace}-${md5Hash}`}>
-        <App />
-      </div>
+        <App appId={`${codeSpace}-${md5Hash}`} />
     </ErrorBoundary>
   );
 };
@@ -127,7 +129,8 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 let Emotion = null;
 
 let myCache: EmotionCache | null = null;
-export async function appFactory(transpiled = ""): Promise<React.FC> {
+
+export async function appFactory(transpiled = ""): Promise<React.FC<{appId: string}>> {
   // console.log('App fac', codeSpace, transpiled)
   // Const hashC = hashCode();
   // @ts-expect-error
@@ -145,7 +148,7 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
     });
   }
   const {transpiled: mstTranspiled, i: mstI} = mST();
-  const trp = transpiled.length > 0 ? transpiled : transpiled;
+  const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
 
   const hash = md5(trp).slice(0, 8);
 
@@ -159,10 +162,14 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
         return () => <h1>error</h1>;
       }
       if (isCallable(App)) {
-        // const ECacheProvider  = CacheProvider as typeof EmotionCacheProvider;
-        // @ts-expect-error
+        const {CacheProvider, css}  = Emotion;
+        eCaches[hash] = Emotion.cache.default({key: 'z', isSpeedy: true}) as unknown as EmotionCache;
+        apps[hash] = ({appId}) => appId.includes(hash)? <CacheProvider value={eCaches[hash]}>
+          <div css={css`height: 100%;`} id={appId}>
+            <App />
+          </div>
+          </CacheProvider>:null;
 
-        apps[hash] = Emotion.withEmotionCache(App);
       } else throw new Error("the default export is not a function!");
     } catch (error) {
       // Try {

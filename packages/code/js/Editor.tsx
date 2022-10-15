@@ -58,7 +58,7 @@ export const Editor: React.FC<
     started: false,
 
     myId: "loading",
-    onChange(_cb: () => void) {},
+    onChange(_cb: () => void){},
     engine: isMobile() ? "ace" : "monaco",
   });
 
@@ -103,9 +103,10 @@ export const Editor: React.FC<
 
       const getValue = async () => {
        const code = await prettierJs(model.getValue());
-       if (code === mod.code) return;
+       if (code === mod.code) return code;
+       const counter = ++mod.counter;
        mod.code = code;
-       mod.counter++;
+       runner({ code, counter, codeSpace});
         try {
           (async () => {
             const tsWorker = await (await getTypeScriptWorker())(
@@ -116,7 +117,7 @@ export const Editor: React.FC<
               location.origin + "/live/" + codeSpace + ".tsx",
             );
             if (diag.length)
-            console.log({ diag });
+            console.log( diag.map(d=>d.messageText) );
           })();
         } catch {
           console.error("ts diag error");
@@ -169,9 +170,10 @@ export const Editor: React.FC<
       const getValue = async () => {
         const code = await prettierJs(editor.session.getValue())
         if (code === mod.code) return mod.code;
+        const counter =  ++mod.counter;
         mod.code = code;
-        mod.counter++;
 
+        runner({ code, counter, codeSpace});
 
         return mod.code;
       
@@ -227,24 +229,12 @@ export const Editor: React.FC<
 
   // })
 
-  React.useEffect(() => onChange(async () => {
-    if (mST().i <= mod.counter) return;
-    
-    mod.code = mST().code;
-    mod.counter = mST().i;
-    mod.setValue(mod.code);
-    changeContent((x) => ({
+
+  React.useEffect(() => onChange(() => mod.getValue().then(()=>changeContent((x) => ({
       ...x,
       counter: mod.counter,
       myCode: mod.code,
-    }));
-    runner({ code: mod.code, counter: mod.counter, codeSpace });
-      
-
-    // Console.log("RUN THE RUNNER AGAIN");
-
-    // Model?.setValue(code);
-  }), [onChange]);
+    })))), [onChange, myCode, changeContent]);
 
 
   onSessionUpdate(() => {
