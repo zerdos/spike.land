@@ -10088,6 +10088,7 @@ var fitAddon = new import_xterm_addon_fit.FitAddon();
 var origConsole = console.log;
 var terminal = new import_xterm.Terminal({ allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true });
 terminal.loadAddon(serializeAddon);
+terminal.termOff = () => console.log = origConsole;
 terminal.loadAddon(fitAddon);
 Object.assign(globalThis, { terminal });
 var breakPoints = [680, 768, 1920];
@@ -10521,6 +10522,7 @@ var mod2 = {
   code: "",
   olderCode: "",
   termOff: () => {
+    globalThis.terminal.termOff();
   }
 };
 async function runner({ code, counter, codeSpace: codeSpace2 }) {

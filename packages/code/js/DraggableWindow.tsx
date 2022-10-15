@@ -16,6 +16,7 @@ const origConsole = console.log;
 var terminal = new Terminal({allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true});
 
 terminal.loadAddon(serializeAddon);
+terminal.termOff= () => console.log = origConsole;
 
 
 // terminal.loadAddon(new WebLinksAddon());
