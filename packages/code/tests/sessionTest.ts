@@ -33,7 +33,7 @@ test("At start hashCode is 0", () => {
 });
 
 test("Then we can start it", () => {
-  startSession("z", [],{ name: "z", state: state1 }, "");
+  startSession("z", { name: "z", state: state1 }, "");
   hash1 = hashCode();
   assert.is(Number(hashCode()), hash1);
 });
@@ -50,7 +50,7 @@ test("It remembers", () => {
 test("wont start a new session", () => {
   const hash1 = hashCode();
 
-  startSession("z", [], { name: "z", state: state2 }, "");
+  startSession("z", { name: "z", state: state2 }, "");
 
   assert.is(Number(hashCode()), hash1);
 });

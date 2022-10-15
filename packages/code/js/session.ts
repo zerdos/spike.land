@@ -6,16 +6,7 @@ import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
 // Import * as Immutable from "immutable"
 
-
 type IUsername = string;
-
-type User= {
-  name: string,
-  type: "RTC" | "WS",
-  lastSeen: number,
-  hashCode: number,
-  conns: string[]
-}
 
 export type ICodeSession = {
   code: string;
@@ -24,7 +15,6 @@ export type ICodeSession = {
   html: string;
   css: string;
 };
-
 
 export type INewWSConnection = {
   uuid: string;
@@ -61,13 +51,12 @@ export type IUserJSON = {
 export type IUser = Record<
   IUserJSON & {
     room: string;
-    users: User[];
     state: Record<ICodeSession>;
   }
 >;
 
-export function initSession(room: string, users: User[], u: IUserJSON) {
-  return Record({ ...u, room, users, state: Record(u.state)() });
+export function initSession(room: string, u: IUserJSON) {
+  return Record({ ...u, room, state: Record(u.state)() });
 }
 
 type CodePatch = { oldHash: number; newHash: number; patch: Delta[] };
@@ -117,12 +106,10 @@ export class CodeSession implements ICodeSess {
 
   hashCodeSession = 0;
   room: string;
-  users: User[];
   created: string = new Date().toISOString();
-  constructor(room: string, users: User[], user: IUserJSON) {
+  constructor(room: string, user: IUserJSON) {
     session = this;
     this.room = room;
-    this.users = users;
     const savedState: ICodeSession | null = null;
 
     // If (user.state.code === "" && room) {
@@ -143,7 +130,7 @@ export class CodeSession implements ICodeSess {
     // }
     // }
 
-    this.session = initSession(room, users, {
+    this.session = initSession(room, {
       ...user,
       state: savedState ? savedState : JSON.parse(string_(user.state)),
     })();
@@ -382,12 +369,11 @@ export const makePatch = async (
 
 export const startSession = (
   room: string,
-  users: User[],
   u: IUserJSON,
   originString: string,
 ): CodeSession =>
   session ||
-  new CodeSession(room, users, {
+  new CodeSession(room, {
     name: u.name,
     state: addOrigin(u.state, originString),
   });
