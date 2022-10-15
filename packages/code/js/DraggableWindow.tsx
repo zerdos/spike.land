@@ -13,7 +13,7 @@ const serializeAddon = new SerializeAddon();
 const fitAddon = new FitAddon();
 const origConsole = console.log;
 
-var terminal = new Terminal({allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true});
+var terminal = new Terminal({allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true, scrollback: 0, convertEol: true,windowsMode: true});
 
 terminal.loadAddon(serializeAddon);
 terminal.termOff= () => console.log = origConsole;
