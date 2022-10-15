@@ -101,7 +101,7 @@ export const Editor: React.FC<
 
       // if (mySession.counter  mST().i) return;
 
-      if (mST().i < mod.counter) {
+      if (mST().i <= mod.counter) {
         mod.setValue(newCode);
         mod.code = newCode;
         if (lastKeydownHappened < 1000) {

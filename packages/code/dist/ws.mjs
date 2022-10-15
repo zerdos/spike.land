@@ -3946,7 +3946,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       if (newCode === mST().code) {
         return;
       }
-      if (mST().i < mod3.counter) {
+      if (mST().i <= mod3.counter) {
         mod3.setValue(newCode);
         mod3.code = newCode;
         if (lastKeydownHappened < 1e3) {
