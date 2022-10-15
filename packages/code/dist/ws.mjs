@@ -10702,39 +10702,6 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     onChange
   } = mySession;
   mod3.code = myCode;
-  const cb = async () => {
-    if (mST().i > mod3.counter) {
-      mod3.setValue(mST().code);
-      mod3.counter = mST().i;
-      return;
-    }
-    const lastKeydownHappened = Date.now() - mod3.lastKeyDown;
-    console.log({ lastKeydownHappened });
-    (async () => {
-      const code2 = await mod3.getValue();
-      const newCode = await prettierJs(code2);
-      if (newCode === myCode) {
-        return;
-      }
-      if (newCode === mST().code) {
-        return;
-      }
-      if (mST().i <= mod3.counter) {
-        mod3.setValue(newCode);
-        mod3.code = newCode;
-        if (lastKeydownHappened < 1e3) {
-          mod3.counter++;
-        }
-        changeContent((x) => ({
-          ...x,
-          lastKeyDown: 0,
-          counter: mod3.counter,
-          myCode: newCode
-        }));
-        runner({ code: newCode, counter: mod3.counter, codeSpace: codeSpace2 });
-      }
-    })();
-  };
   _n.useEffect(() => {
     if (!(ref == null ? void 0 : ref.current)) {
       return;
@@ -10757,6 +10724,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
         if (code2 === mod3.code)
           return;
         mod3.code = code2;
+        mod3.counter++;
         try {
           (async () => {
             const tsWorker = await (await getTypeScriptWorker())(
@@ -10776,56 +10744,62 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
         return code2;
       };
       const setValue = async (_code) => {
+        const i2 = mST().i;
         const code2 = await prettierJs(_code);
-        mod3.codeToSet = code2;
-        if (code2.length < `export default ()=><></>`.length)
+        if (code2.length < 10)
           return;
         if (code2 === await getValue())
           return;
-        if (mST().i === mod3.counter)
+        if (i2 <= mod3.counter)
           return;
-        console.log("timeout-start");
-        setTimeout(() => {
-          mod3.codeToSet === code2 && setMonValue(code2);
-          console.log("timeout-end");
-        }, 800);
+        mod3.code = code2;
+        mod3.counter = i2;
+        setMonValue(code2);
+        changeContent((ct) => ({ ...ct, myCode: mod3.code, counter: i2 }));
       };
       mod3.getValue = getValue;
       mod3.setValue = setValue;
       changeContent({
         ...mySession,
         started: true,
-        onChange: (cb2) => model.onDidChangeContent(cb2).dispose,
+        onChange: (cb) => model.onDidChangeContent(cb).dispose,
         myId: "editor"
       });
     };
     const setAce = async () => {
       const { startAce } = await import("./chunk-startAce-3F2XN4KM.mjs");
       const editor = await startAce(mST().code);
-      const getValue = async () => await prettierJs(editor.session.getValue());
+      const getValue = async () => {
+        const code2 = await prettierJs(editor.session.getValue());
+        if (code2 === mod3.code)
+          return mod3.code;
+        mod3.code = code2;
+        mod3.counter++;
+        return mod3.code;
+      };
       const setValue = async (_code) => {
+        const i2 = mST().i;
         const code2 = await prettierJs(_code);
         mod3.codeToSet = code2;
         if (code2.length < `export default ()=><></>`.length)
           return;
         if (code2 === await getValue())
           return;
-        if (mST().i === mod3.counter)
+        if (i2 == mod3.counter)
           return;
-        setTimeout(() => {
-          if (mod3.codeToSet === code2) {
-            editor.session.setValue(code2);
-          }
-        }, 800);
+        mod3.code = code2;
+        mod3.counter = i2;
+        editor.session.setValue(code2);
+        changeContent((ct) => ({ ...ct, myCode: mod3.code, counter: i2 }));
       };
       mod3.getValue = getValue;
       mod3.setValue = setValue;
       changeContent({
         ...mySession,
-        onChange(cb2) {
-          editor.session.on("change", cb2);
+        onChange(cb) {
+          editor.session.on("change", cb);
           return () => {
-            editor.session.off("change", cb2);
+            editor.session.off("change", cb);
           };
         },
         started: true,
@@ -10835,15 +10809,31 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     const loadEditors = () => engine === "monaco" ? setMonaco() : setAce();
     !started && loadEditors();
   }, [started, ref]);
-  _n.useEffect(() => {
-    onChange(cb);
-  }, [onChange]);
+  _n.useEffect(() => onChange(async () => {
+    if (mST().i <= mod3.counter)
+      return;
+    mod3.code = mST().code;
+    mod3.counter = mST().i;
+    mod3.setValue(mod3.code);
+    changeContent((x) => ({
+      ...x,
+      counter: mod3.counter,
+      myCode: mod3.code
+    }));
+    runner({ code: mod3.code, counter: mod3.counter, codeSpace: codeSpace2 });
+  }), [onChange]);
   onSessionUpdate(() => {
-    if (mod3.counter === mST().i) {
+    if (mod3.counter > mST().i) {
       return;
     }
     mod3.counter = mST().i;
-    mod3.setValue(mST().code);
+    mod3.code = mST().code;
+    mod3.setValue(mod3.code);
+    changeContent((x) => ({
+      ...x,
+      counter: mod3.counter,
+      myCode: mod3.code
+    }));
   }, "editor");
   return jsx("div", {
     onKeyDown: () => mod3.lastKeyDown = Date.now(),
