@@ -261,6 +261,8 @@ async function appFactory(transpiled = "") {
   const hash = md5(trp).slice(0, 8);
   if (!apps[hash]) {
     try {
+      if (globalThis.terminal && globalThis.terminal.clear)
+        globalThis.terminal.clear();
       const App = (await importShim(createJsBlob(trp))).default;
       if (CacheProvider === null || myCache === null) {
         return () => jsx("h1", {

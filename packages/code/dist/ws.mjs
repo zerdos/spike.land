@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-IXT343DR.mjs";
+} from "./chunk-chunk-SB6G6FQW.mjs";
 import {
   applyPatch,
   hashCode,
@@ -10524,7 +10524,6 @@ var mod2 = {
   }
 };
 async function runner({ code, counter, codeSpace: codeSpace2 }) {
-  globalThis.terminal.clear();
   mod2.termOff = globalThis.terminal.ON();
   mod2.code = code;
   const mst = mST();

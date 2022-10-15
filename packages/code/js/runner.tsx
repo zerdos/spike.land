@@ -44,7 +44,7 @@ import { wait } from "wait";
 const mod = {
   code: "",
   olderCode: "",
-  termOff: ()=>{}
+  termOff: ()=>{globalThis.terminal.termOff()}
 };
 
 export async function runner({ code, counter, codeSpace }: {
@@ -53,7 +53,7 @@ export async function runner({ code, counter, codeSpace }: {
   counter: number;
 }) {
 
-  globalThis.terminal.clear();
+
   mod.termOff = globalThis.terminal.ON()
 
   mod.code = code;

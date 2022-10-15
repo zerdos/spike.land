@@ -150,6 +150,7 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
 
   if (!apps[hash]) {
     try {
+     if(globalThis.terminal && globalThis.terminal.clear)  globalThis.terminal.clear();
       const App = (await importShim(createJsBlob(trp)))
         .default as unknown as FC;
       if (CacheProvider === null || myCache === null) {
