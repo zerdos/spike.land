@@ -11031,11 +11031,11 @@ var lastSeenNow = 0;
 var ws = null;
 var sendWS;
 var rejoined = false;
-var streams = {};
+var tracks = {};
 var sendChannel = {
   localStream: null,
   webRtcArray,
-  streams,
+  tracks,
   user,
   rtcConns,
   send(data) {
@@ -11180,9 +11180,7 @@ var startVideo2 = async (vidElement) => {
     (track) => Object.keys(sendChannel.rtcConns).map((k) => {
       const datachannel = sendChannel.rtcConns[k];
       datachannel.addTrack(track);
-      const myStream = new MediaStream();
-      datachannel.ontrack = ({ track: track2 }) => myStream.addTrack(track2);
-      streams[k] = myStream;
+      datachannel.ontrack = ({ track: track2, streams }) => tracks[k] = { track: track2, streams };
     })
   );
 };
@@ -11373,10 +11371,8 @@ async function processData(data, source, conn) {
       }
     };
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
-    rtcConns[target].ontrack = function(event) {
-      const localStream = new MediaStream();
-      localStream.addTrack(event.track);
-      streams[target] = localStream;
+    rtcConns[target].ontrack = function({ track, streams }) {
+      tracks[target] = { track, streams };
     };
     rtcConns[target].ondatachannel = (event) => {
       const rtc2 = event.channel;
@@ -11386,9 +11382,7 @@ async function processData(data, source, conn) {
         sendChannel.localStream.getTracks().forEach((track) => {
           const datachannel = rtcConns[target];
           datachannel.addTrack(track);
-          const myStream = new MediaStream();
-          datachannel.ontrack = ({ track: track2 }) => myStream.addTrack(track2);
-          streams[target] = myStream;
+          datachannel.ontrack = ({ track: track2, streams }) => tracks[target] = { track: track2, streams };
         });
       }
       rtc2.addEventListener(

@@ -54,11 +54,11 @@ let lastSeenNow = 0;
 let ws: WebSocket | null = null;
 let sendWS: (message: string) => void;
 let rejoined = false;
-const streams: {[key: string]: MediaStream} = {}
+const tracks: {[key: string]: MediaStream} = {}
 export const sendChannel = {
   localStream: null as MediaStream | null,
   webRtcArray,
-  streams,
+  tracks,
   user,
   rtcConns,
   send(data: any) {
@@ -311,9 +311,8 @@ export const startVideo = async (vidElement: HTMLVideoElement) => {
     Object.keys(sendChannel.rtcConns).map((k) => {
       const datachannel = sendChannel.rtcConns[k];
       datachannel.addTrack(track);
-      const myStream = new MediaStream();
-      datachannel.ontrack = ({ track }) => myStream.addTrack(track);
-     streams[k] = myStream;
+      datachannel.ontrack = ({track, streams}) =>
+     tracks[k] = {track, streams};
     })
   );
 };
@@ -609,12 +608,10 @@ async function processData(
 
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
   
-    rtcConns[target].ontrack = function(this: RTCPeerConnection, event:RTCTrackEvent){
-        const localStream = new MediaStream();
+    rtcConns[target].ontrack = function(this: RTCPeerConnection, {track, streams}:RTCTrackEvent){
+      
         
-        // localStream.
-        localStream.addTrack(event.track);
-        streams[target] = localStream;
+        tracks[target] = {track, streams};
       }
     
 
@@ -632,9 +629,9 @@ async function processData(
         sendChannel.localStream.getTracks().forEach((track)=> {
           const datachannel = rtcConns[target]
           datachannel.addTrack(track);
-          const myStream = new MediaStream();
-          datachannel.ontrack = ({ track }) => myStream.addTrack(track);
-          streams[target] = myStream;
+     
+          datachannel.ontrack = ({ track, streams }) => tracks[target] = ({track, streams})
+        
         })
       }
    
