@@ -11031,9 +11031,11 @@ var lastSeenNow = 0;
 var ws = null;
 var sendWS;
 var rejoined = false;
+var streams = {};
 var sendChannel = {
   localStream: null,
   webRtcArray,
+  streams,
   user,
   rtcConns,
   send(data) {
@@ -11371,8 +11373,10 @@ async function processData(data, source, conn) {
       }
     };
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
-    rtcConns[target].ontrack = (ev) => {
-      console.log(ev);
+    rtcConns[target].ontrack = function(event) {
+      const localStream = new MediaStream();
+      localStream.addTrack(event.track);
+      sendChannel.streams[target] = localStream;
     };
     rtcConns[target].ondatachannel = (event) => {
       const rtc2 = event.channel;
@@ -11384,7 +11388,7 @@ async function processData(data, source, conn) {
           datachannel.addTrack(track);
           const myStream = new MediaStream();
           datachannel.ontrack = ({ track: track2 }) => myStream.addTrack(track2);
-          Object.assign(datachannel, { "localStream": myStream });
+          streams[target] = myStream;
         });
       }
       rtc2.addEventListener(

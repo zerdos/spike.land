@@ -54,9 +54,11 @@ let lastSeenNow = 0;
 let ws: WebSocket | null = null;
 let sendWS: (message: string) => void;
 let rejoined = false;
+const streams: {[key: string]: MediaStream} = {}
 export const sendChannel = {
   localStream: null as MediaStream | null,
   webRtcArray,
+  streams,
   user,
   rtcConns,
   send(data: any) {
@@ -606,9 +608,18 @@ async function processData(
     };
 
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
-    rtcConns[target].ontrack = (ev) => {
-      console.log(ev);
-    };
+  
+    rtcConns[target].ontrack = function(this: RTCPeerConnection, event:RTCTrackEvent){
+        const localStream = new MediaStream();
+        
+        // localStream.
+        localStream.addTrack(event.track);
+        sendChannel.streams[target] = localStream;
+      }
+    
+
+  
+
 
 
     rtcConns[target].ondatachannel = (event) => {
@@ -623,7 +634,7 @@ async function processData(
           datachannel.addTrack(track);
           const myStream = new MediaStream();
           datachannel.ontrack = ({ track }) => myStream.addTrack(track);
-          Object.assign(datachannel, {"localStream": myStream});
+          streams[target] = myStream;
         })
       }
    
