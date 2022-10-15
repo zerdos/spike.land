@@ -927,6 +927,11 @@ __metadata:
     tslib: "npm:2.4.0"
     typescript: "npm:4.8.4"
     uvu: "npm:0.5.6"
+    xterm: "npm:^5.0.0"
+    xterm-addon-fit: "npm:^0.6.0"
+    xterm-addon-search: "npm:^0.10.0"
+    xterm-addon-serialize: "npm:^0.8.0"
+    xterm-addon-web-links: "npm:^0.7.0"
   peerDependencies:
     "@motionone/dom": "*"
     fast-glob: "*"
@@ -4853,6 +4858,49 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 681a378593686892f4472f5367c0a607482e77d52e4d9ef99fa1137451662639d249ebc55997983829499dadd34dbc28c4e047da6d5fd443f7ad49517d5077b0
+  languageName: node
+  linkType: hard
+
+"xterm-addon-fit@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "xterm-addon-fit@npm:0.6.0"
+  peerDependencies:
+    xterm: ^5.0.0
+  checksum: 8335a615c8244e981c0457133ca7ce6589a10acfaf4159d745d863b3917412410454fd646205ff414b87d2878dbce099a2b2a27b062f8cf5f0293bb409bf575f
+  languageName: node
+  linkType: hard
+
+"xterm-addon-search@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "xterm-addon-search@npm:0.10.0"
+  peerDependencies:
+    xterm: ^5.0.0
+  checksum: 470e44d11d2238ca03a0eac2a59b259517ef0bd61860b646cd5b27c8c6a491cfc7b74dfe2ffde1606bcebd0452b51c16ae21854698430b4770fa435c4ba244dc
+  languageName: node
+  linkType: hard
+
+"xterm-addon-serialize@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "xterm-addon-serialize@npm:0.8.0"
+  peerDependencies:
+    xterm: ^5.0.0
+  checksum: 0fe7d5f6698e33661a63820051c6a0f76d9262839d27b8ed3d7f19d66af48c7cef2fce624b68be7692dd7e40d852edc0bf7269195ba4f53913878e2f48d97609
+  languageName: node
+  linkType: hard
+
+"xterm-addon-web-links@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "xterm-addon-web-links@npm:0.7.0"
+  peerDependencies:
+    xterm: ^5.0.0
+  checksum: 1572d62e1fb926f2ebc2e588dc3daad3880fbba2558b570d9461de4140fb62d6e789d33a059d058e4fea972b97296ecfd28f1de838f5648efbd2e1e618d2a80f
+  languageName: node
+  linkType: hard
+
+"xterm@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "xterm@npm:5.0.0"
+  checksum: 30c83cfa05c3c1ad731176abd5d39931ecaa5439618c2d5d51a7de0ebd34988d138f7c38483c87486cc3167a48de1d5b8b8ae0f81c2bdd456b60322dbb0922a1
   languageName: node
   linkType: hard
 

@@ -44,12 +44,18 @@ import { wait } from "wait";
 const mod = {
   code: "",
   olderCode: "",
+  termOff: ()=>{}
 };
+
 export async function runner({ code, counter, codeSpace }: {
   code: string;
   codeSpace: string;
   counter: number;
 }) {
+
+  globalThis.terminal.clear();
+const termOff = globalThis.terminal.ON()
+mod.termOff = termOff;
   mod.code = code;
   const mst = mST();
   console.log(`${mst.i} => ${counter}`);
@@ -140,6 +146,8 @@ export async function runner({ code, counter, codeSpace }: {
       if (html && css) patchSync({ ...mST(), html, css });
       else await wait(i++);
     }
+    mod.termOff();
+  
     saveCode();
   } catch (error) {
     console.error({ error });
