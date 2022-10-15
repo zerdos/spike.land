@@ -10113,13 +10113,10 @@ var DraggableWindow = ({
     terminal.open(terminalRef.current);
     fitAddon.activate(terminal);
     fitAddon.fit();
-    globalThis.terminal.ON = () => {
-      console.log = (...data) => {
-        const params = data.map((d) => typeof d === "object" ? JSON.stringify(d, null, 2) : d);
-        terminal.write(params.join(" - ") + "\r\n");
-        origConsole.apply(console, data);
-      };
-      return () => console.log = origConsole;
+    console.log = (...data) => {
+      const params = data.map((d) => typeof d === "object" ? JSON.stringify(d, null, 2) : d);
+      terminal.write(params.join(" - ") + "\r\n");
+      origConsole.apply(console, data);
     };
   }, [terminalRef]);
   useEffect(() => {
