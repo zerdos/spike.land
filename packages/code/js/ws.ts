@@ -313,7 +313,7 @@ export const startVideo = async (vidElement: HTMLVideoElement) => {
       datachannel.addTrack(track);
       const myStream = new MediaStream();
       datachannel.ontrack = ({ track }) => myStream.addTrack(track);
-      Object.assign(datachannel, {"localStream": myStream});
+     streams[k] = myStream;
     })
   );
 };
@@ -614,7 +614,7 @@ async function processData(
         
         // localStream.
         localStream.addTrack(event.track);
-        sendChannel.streams[target] = localStream;
+        streams[target] = localStream;
       }
     
 

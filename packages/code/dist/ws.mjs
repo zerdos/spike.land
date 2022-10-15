@@ -11182,7 +11182,7 @@ var startVideo2 = async (vidElement) => {
       datachannel.addTrack(track);
       const myStream = new MediaStream();
       datachannel.ontrack = ({ track: track2 }) => myStream.addTrack(track2);
-      Object.assign(datachannel, { "localStream": myStream });
+      streams[k] = myStream;
     })
   );
 };
@@ -11376,7 +11376,7 @@ async function processData(data, source, conn) {
     rtcConns[target].ontrack = function(event) {
       const localStream = new MediaStream();
       localStream.addTrack(event.track);
-      sendChannel.streams[target] = localStream;
+      streams[target] = localStream;
     };
     rtcConns[target].ondatachannel = (event) => {
       const rtc2 = event.channel;
