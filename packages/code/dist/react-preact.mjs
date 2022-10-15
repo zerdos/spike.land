@@ -43,7 +43,7 @@ import {
   version,
   vn,
   x
-} from "./chunk-chunk-G27IKOI7.mjs";
+} from "./chunk-chunk-I7VRKITQ.mjs";
 init_react_preact();
 export {
   Children,

@@ -5,7 +5,7 @@ import {
   init_define_process,
   init_react_preact,
   react_preact_exports
-} from "./chunk-chunk-G27IKOI7.mjs";
+} from "./chunk-chunk-I7VRKITQ.mjs";
 
 // ../../.yarn/global/cache/@emotion-sheet-npm-1.2.0-3bb8dd5fba-9.zip/node_modules/@emotion/sheet/dist/emotion-sheet.cjs.dev.js
 var require_emotion_sheet_cjs_dev = __commonJS({

@@ -6,9 +6,9 @@ import {
   __toESM
 } from "./chunk-chunk-VTSDAELY.mjs";
 
-// ../../.yarn/global/cache/ace-builds-npm-1.11.2-b2a52aa11c-9.zip/node_modules/ace-builds/src-noconflict/ace.js
+// ../../.yarn/global/cache/ace-builds-npm-1.12.0-bb7629a1fa-9.zip/node_modules/ace-builds/src-noconflict/ace.js
 var require_ace = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.11.2-b2a52aa11c-9.zip/node_modules/ace-builds/src-noconflict/ace.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.12.0-bb7629a1fa-9.zip/node_modules/ace-builds/src-noconflict/ace.js"(exports, module) {
     init_define_process();
     (function() {
       var ACE_NAMESPACE = "ace";
@@ -1086,7 +1086,7 @@ var require_ace = __commonJS({
           };
         }
       };
-      exports2.version = "1.11.2";
+      exports2.version = "1.12.0";
     });
     ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(require2, exports2, module2) {
       "use strict";
@@ -8056,11 +8056,11 @@ var require_ace = __commonJS({
             if (dir != 1) {
               do {
                 token = iterator.stepBackward();
-              } while (token && re.test(token.type));
-              iterator.stepForward();
+              } while (token && re.test(token.type) && !/^comment.end/.test(token.type));
+              token = iterator.stepForward();
             }
             range.start.row = iterator.getCurrentTokenRow();
-            range.start.column = iterator.getCurrentTokenColumn() + 2;
+            range.start.column = iterator.getCurrentTokenColumn() + (/^comment.start/.test(token.type) ? token.value.length : 2);
             iterator = new TokenIterator(this, row, column);
             if (dir != -1) {
               var lastRow = -1;
@@ -8073,12 +8073,15 @@ var require_ace = __commonJS({
                 } else if (iterator.$row > lastRow) {
                   break;
                 }
-              } while (token && re.test(token.type));
+              } while (token && re.test(token.type) && !/^comment.start/.test(token.type));
               token = iterator.stepBackward();
             } else
               token = iterator.getCurrentToken();
             range.end.row = iterator.getCurrentTokenRow();
-            range.end.column = iterator.getCurrentTokenColumn() + token.value.length - 2;
+            range.end.column = iterator.getCurrentTokenColumn();
+            if (!/^comment.end/.test(token.type)) {
+              range.end.column += token.value.length - 2;
+            }
             return range;
           }
         };
@@ -8440,6 +8443,164 @@ var require_ace = __commonJS({
             valueIndex = 0;
           }
           return null;
+        };
+        this.getMatchingTags = function(pos) {
+          var iterator = new TokenIterator(this, pos.row, pos.column);
+          var token = this.$findTagName(iterator);
+          if (!token)
+            return;
+          var prevToken = iterator.stepBackward();
+          if (prevToken.value === "<") {
+            return this.$findClosingTag(iterator, token);
+          } else {
+            return this.$findOpeningTag(iterator, token);
+          }
+        };
+        this.$findTagName = function(iterator) {
+          var token = iterator.getCurrentToken();
+          var found = false;
+          var backward = false;
+          if (token && token.type.indexOf("tag-name") === -1) {
+            do {
+              if (backward)
+                token = iterator.stepBackward();
+              else
+                token = iterator.stepForward();
+              if (token) {
+                if (token.value === "/>") {
+                  backward = true;
+                } else if (token.type.indexOf("tag-name") !== -1) {
+                  found = true;
+                }
+              }
+            } while (token && !found);
+          }
+          return token;
+        };
+        this.$findClosingTag = function(iterator, token) {
+          var prevToken;
+          var currentTag = token.value;
+          var tag = token.value;
+          var depth = 0;
+          var openTagStart = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1);
+          token = iterator.stepForward();
+          var openTagName = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + token.value.length);
+          var foundOpenTagEnd = false;
+          do {
+            prevToken = token;
+            token = iterator.stepForward();
+            if (token) {
+              if (token.value === ">" && !foundOpenTagEnd) {
+                var openTagEnd = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1);
+                foundOpenTagEnd = true;
+              }
+              if (token.type.indexOf("tag-name") !== -1) {
+                currentTag = token.value;
+                if (tag === currentTag) {
+                  if (prevToken.value === "<") {
+                    depth++;
+                  } else if (prevToken.value === "</") {
+                    depth--;
+                    if (depth < 0) {
+                      iterator.stepBackward();
+                      var closeTagStart = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 2);
+                      token = iterator.stepForward();
+                      var closeTagName = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + token.value.length);
+                      token = iterator.stepForward();
+                      if (token && token.value === ">") {
+                        var closeTagEnd = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1);
+                      } else {
+                        return;
+                      }
+                    }
+                  }
+                }
+              } else if (tag === currentTag && token.value === "/>") {
+                depth--;
+                if (depth < 0) {
+                  var closeTagStart = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 2);
+                  var closeTagName = closeTagStart;
+                  var closeTagEnd = closeTagName;
+                  var openTagEnd = new Range(openTagName.end.row, openTagName.end.column, openTagName.end.row, openTagName.end.column + 1);
+                }
+              }
+            }
+          } while (token && depth >= 0);
+          if (openTagStart && openTagEnd && closeTagStart && closeTagEnd && openTagName && closeTagName) {
+            return {
+              openTag: new Range(openTagStart.start.row, openTagStart.start.column, openTagEnd.end.row, openTagEnd.end.column),
+              closeTag: new Range(closeTagStart.start.row, closeTagStart.start.column, closeTagEnd.end.row, closeTagEnd.end.column),
+              openTagName,
+              closeTagName
+            };
+          }
+        };
+        this.$findOpeningTag = function(iterator, token) {
+          var prevToken = iterator.getCurrentToken();
+          var tag = token.value;
+          var depth = 0;
+          var startRow = iterator.getCurrentTokenRow();
+          var startColumn = iterator.getCurrentTokenColumn();
+          var endColumn = startColumn + 2;
+          var closeTagStart = new Range(startRow, startColumn, startRow, endColumn);
+          iterator.stepForward();
+          var closeTagName = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + token.value.length);
+          token = iterator.stepForward();
+          if (!token || token.value !== ">")
+            return;
+          var closeTagEnd = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1);
+          iterator.stepBackward();
+          iterator.stepBackward();
+          do {
+            token = prevToken;
+            startRow = iterator.getCurrentTokenRow();
+            startColumn = iterator.getCurrentTokenColumn();
+            endColumn = startColumn + token.value.length;
+            prevToken = iterator.stepBackward();
+            if (token) {
+              if (token.type.indexOf("tag-name") !== -1) {
+                if (tag === token.value) {
+                  if (prevToken.value === "<") {
+                    depth++;
+                    if (depth > 0) {
+                      var openTagName = new Range(startRow, startColumn, startRow, endColumn);
+                      var openTagStart = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1);
+                      do {
+                        token = iterator.stepForward();
+                      } while (token && token.value !== ">");
+                      var openTagEnd = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1);
+                    }
+                  } else if (prevToken.value === "</") {
+                    depth--;
+                  }
+                }
+              } else if (token.value === "/>") {
+                var stepCount = 0;
+                var tmpToken = prevToken;
+                while (tmpToken) {
+                  if (tmpToken.type.indexOf("tag-name") !== -1 && tmpToken.value === tag) {
+                    depth--;
+                    break;
+                  } else if (tmpToken.value === "<") {
+                    break;
+                  }
+                  tmpToken = iterator.stepBackward();
+                  stepCount++;
+                }
+                for (var i = 0; i < stepCount; i++) {
+                  iterator.stepForward();
+                }
+              }
+            }
+          } while (prevToken && depth <= 0);
+          if (openTagStart && openTagEnd && closeTagStart && closeTagEnd && openTagName && closeTagName) {
+            return {
+              openTag: new Range(openTagStart.start.row, openTagStart.start.column, openTagEnd.end.row, openTagEnd.end.column),
+              closeTag: new Range(closeTagStart.start.row, closeTagStart.start.column, closeTagEnd.end.row, closeTagEnd.end.column),
+              openTagName,
+              closeTagName
+            };
+          }
         };
       }
       exports2.BracketMatch = BracketMatch;
@@ -11962,7 +12123,17 @@ var require_ace = __commonJS({
               });
               session.$bracketHighlight = null;
             }
-            var ranges = session.getMatchingBracketRanges(self.getCursorPosition());
+            var pos = self.getCursorPosition();
+            var ranges = session.getMatchingBracketRanges(pos);
+            if (!ranges) {
+              var iterator = new TokenIterator(session, pos.row, pos.column);
+              var token = iterator.getCurrentToken();
+              if (token && /\b(?:tag-open|tag-name)/.test(token.type)) {
+                var tagNamesRanges = session.getMatchingTags(pos);
+                if (tagNamesRanges)
+                  ranges = [tagNamesRanges.openTagName, tagNamesRanges.closeTagName];
+              }
+            }
             if (!ranges && session.$mode.getMatching)
               ranges = session.$mode.getMatching(self.session);
             if (!ranges) {
@@ -11990,103 +12161,6 @@ var require_ace = __commonJS({
             };
             if (self.getHighlightIndentGuides())
               self.renderer.$textLayer.$highlightIndentGuide();
-          }, 50);
-        };
-        this.$highlightTags = function() {
-          if (this.$highlightTagPending)
-            return;
-          var self = this;
-          this.$highlightTagPending = true;
-          setTimeout(function() {
-            self.$highlightTagPending = false;
-            var session = self.session;
-            if (!session || session.destroyed)
-              return;
-            var pos = self.getCursorPosition();
-            var iterator = new TokenIterator(self.session, pos.row, pos.column);
-            var token = iterator.getCurrentToken();
-            if (!token || !/\b(?:tag-open|tag-name)/.test(token.type)) {
-              session.removeMarker(session.$tagHighlight);
-              session.$tagHighlight = null;
-              return;
-            }
-            if (token.type.indexOf("tag-open") !== -1) {
-              token = iterator.stepForward();
-              if (!token)
-                return;
-            }
-            var tag = token.value;
-            var currentTag = token.value;
-            var depth = 0;
-            var prevToken = iterator.stepBackward();
-            if (prevToken.value === "<") {
-              do {
-                prevToken = token;
-                token = iterator.stepForward();
-                if (token) {
-                  if (token.type.indexOf("tag-name") !== -1) {
-                    currentTag = token.value;
-                    if (tag === currentTag) {
-                      if (prevToken.value === "<") {
-                        depth++;
-                      } else if (prevToken.value === "</") {
-                        depth--;
-                      }
-                    }
-                  } else if (tag === currentTag && token.value === "/>") {
-                    depth--;
-                  }
-                }
-              } while (token && depth >= 0);
-            } else {
-              do {
-                token = prevToken;
-                prevToken = iterator.stepBackward();
-                if (token) {
-                  if (token.type.indexOf("tag-name") !== -1) {
-                    if (tag === token.value) {
-                      if (prevToken.value === "<") {
-                        depth++;
-                      } else if (prevToken.value === "</") {
-                        depth--;
-                      }
-                    }
-                  } else if (token.value === "/>") {
-                    var stepCount = 0;
-                    var tmpToken = prevToken;
-                    while (tmpToken) {
-                      if (tmpToken.type.indexOf("tag-name") !== -1 && tmpToken.value === tag) {
-                        depth--;
-                        break;
-                      } else if (tmpToken.value === "<") {
-                        break;
-                      }
-                      tmpToken = iterator.stepBackward();
-                      stepCount++;
-                    }
-                    for (var i = 0; i < stepCount; i++) {
-                      iterator.stepForward();
-                    }
-                  }
-                }
-              } while (prevToken && depth <= 0);
-              iterator.stepForward();
-            }
-            if (!token) {
-              session.removeMarker(session.$tagHighlight);
-              session.$tagHighlight = null;
-              return;
-            }
-            var row = iterator.getCurrentTokenRow();
-            var column = iterator.getCurrentTokenColumn();
-            var range = new Range(row, column, row, column + token.value.length);
-            var sbm = session.$backMarkers[session.$tagHighlight];
-            if (session.$tagHighlight && sbm != void 0 && range.compareRange(sbm.range) !== 0) {
-              session.removeMarker(session.$tagHighlight);
-              session.$tagHighlight = null;
-            }
-            if (!session.$tagHighlight)
-              session.$tagHighlight = session.addMarker(range, "ace_bracket", "text");
           }, 50);
         };
         this.focus = function() {
@@ -12117,7 +12191,6 @@ var require_ace = __commonJS({
         this.$cursorChange = function() {
           this.renderer.updateCursor();
           this.$highlightBrackets();
-          this.$highlightTags();
           this.$updateHighlightActiveLine();
         };
         this.onDocumentChange = function(delta) {
@@ -13029,6 +13102,10 @@ var require_ace = __commonJS({
           var cursor = this.getCursorPosition();
           var iterator = new TokenIterator(this.session, cursor.row, cursor.column);
           var prevToken = iterator.getCurrentToken();
+          var tokenCount = 0;
+          if (prevToken && prevToken.type.indexOf("tag-name") !== -1) {
+            prevToken = iterator.stepBackward();
+          }
           var token = prevToken || iterator.stepForward();
           if (!token)
             return;
@@ -13076,7 +13153,7 @@ var require_ace = __commonJS({
               if (isNaN(depth[token.value])) {
                 depth[token.value] = 0;
               }
-              if (prevToken.value === "<") {
+              if (prevToken.value === "<" && tokenCount > 1) {
                 depth[token.value]++;
               } else if (prevToken.value === "</") {
                 depth[token.value]--;
@@ -13088,6 +13165,7 @@ var require_ace = __commonJS({
             }
             if (!found) {
               prevToken = token;
+              tokenCount++;
               token = iterator.stepForward();
               i = 0;
             }
@@ -13104,37 +13182,25 @@ var require_ace = __commonJS({
                 range = this.session.getBracketRange(pos);
             }
           } else if (matchType === "tag") {
-            if (token && token.type.indexOf("tag-name") !== -1)
-              var tag = token.value;
-            else
+            if (!token || token.type.indexOf("tag-name") === -1)
               return;
             range = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() - 2, iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() - 2);
             if (range.compare(cursor.row, cursor.column) === 0) {
-              found = false;
-              do {
-                token = prevToken;
-                prevToken = iterator.stepBackward();
-                if (prevToken) {
-                  if (prevToken.type.indexOf("tag-close") !== -1) {
-                    range.setEnd(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1);
-                  }
-                  if (token.value === tag && token.type.indexOf("tag-name") !== -1) {
-                    if (prevToken.value === "<") {
-                      depth[tag]++;
-                    } else if (prevToken.value === "</") {
-                      depth[tag]--;
-                    }
-                    if (depth[tag] === 0)
-                      found = true;
-                  }
+              var tagsRanges = this.session.getMatchingTags(cursor);
+              if (tagsRanges) {
+                if (tagsRanges.openTag.contains(cursor.row, cursor.column)) {
+                  range = tagsRanges.closeTag;
+                  pos = range.start;
+                } else {
+                  range = tagsRanges.openTag;
+                  if (tagsRanges.closeTag.start.row === cursor.row && tagsRanges.closeTag.start.column === cursor.column)
+                    pos = range.end;
+                  else
+                    pos = range.start;
                 }
-              } while (prevToken && !found);
+              }
             }
-            if (token && token.type.indexOf("tag-name")) {
-              pos = range.start;
-              if (pos.row == cursor.row && Math.abs(pos.column - cursor.column) < 2)
-                pos = range.end;
-            }
+            pos = pos || range.start;
           }
           pos = range && range.cursor || pos;
           if (pos) {
@@ -15052,8 +15118,10 @@ var require_ace = __commonJS({
           var line = this.session.doc.getLine(cell.row);
           if (line !== "") {
             var childNodes = cell.element.childNodes;
-            if (childNodes && childNodes[indentLevel - 1] && childNodes[indentLevel - 1].classList) {
-              childNodes[indentLevel - 1].classList.add("ace_indent-guide-active");
+            if (childNodes) {
+              var node = childNodes[indentLevel - 1];
+              if (node && node.classList && node.classList.contains("ace_indent-guide"))
+                node.classList.add("ace_indent-guide-active");
             }
           }
         };
@@ -19894,9 +19962,9 @@ styles.join("\\n")
   }
 });
 
-// ../../.yarn/global/cache/ace-builds-npm-1.11.2-b2a52aa11c-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js
+// ../../.yarn/global/cache/ace-builds-npm-1.12.0-bb7629a1fa-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js
 var require_theme_monokai = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.11.2-b2a52aa11c-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.12.0-bb7629a1fa-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js"(exports, module) {
     init_define_process();
     ace.define("ace/theme/monokai.css", ["require", "exports", "module"], function(e, t, n) {
       n.exports = '.ace-monokai .ace_gutter {\n  background: #2F3129;\n  color: #8F908A\n}\n\n.ace-monokai .ace_print-margin {\n  width: 1px;\n  background: #555651\n}\n\n.ace-monokai {\n  background-color: #272822;\n  color: #F8F8F2\n}\n\n.ace-monokai .ace_cursor {\n  color: #F8F8F0\n}\n\n.ace-monokai .ace_marker-layer .ace_selection {\n  background: #49483E\n}\n\n.ace-monokai.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px #272822;\n}\n\n.ace-monokai .ace_marker-layer .ace_step {\n  background: rgb(102, 82, 0)\n}\n\n.ace-monokai .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_marker-layer .ace_active-line {\n  background: #202020\n}\n\n.ace-monokai .ace_gutter-active-line {\n  background-color: #272727\n}\n\n.ace-monokai .ace_marker-layer .ace_selected-word {\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_invisible {\n  color: #52524d\n}\n\n.ace-monokai .ace_entity.ace_name.ace_tag,\n.ace-monokai .ace_keyword,\n.ace-monokai .ace_meta.ace_tag,\n.ace-monokai .ace_storage {\n  color: #F92672\n}\n\n.ace-monokai .ace_punctuation,\n.ace-monokai .ace_punctuation.ace_tag {\n  color: #fff\n}\n\n.ace-monokai .ace_constant.ace_character,\n.ace-monokai .ace_constant.ace_language,\n.ace-monokai .ace_constant.ace_numeric,\n.ace-monokai .ace_constant.ace_other {\n  color: #AE81FF\n}\n\n.ace-monokai .ace_invalid {\n  color: #F8F8F0;\n  background-color: #F92672\n}\n\n.ace-monokai .ace_invalid.ace_deprecated {\n  color: #F8F8F0;\n  background-color: #AE81FF\n}\n\n.ace-monokai .ace_support.ace_constant,\n.ace-monokai .ace_support.ace_function {\n  color: #66D9EF\n}\n\n.ace-monokai .ace_fold {\n  background-color: #A6E22E;\n  border-color: #F8F8F2\n}\n\n.ace-monokai .ace_storage.ace_type,\n.ace-monokai .ace_support.ace_class,\n.ace-monokai .ace_support.ace_type {\n  font-style: italic;\n  color: #66D9EF\n}\n\n.ace-monokai .ace_entity.ace_name.ace_function,\n.ace-monokai .ace_entity.ace_other,\n.ace-monokai .ace_entity.ace_other.ace_attribute-name,\n.ace-monokai .ace_variable {\n  color: #A6E22E\n}\n\n.ace-monokai .ace_variable.ace_parameter {\n  font-style: italic;\n  color: #FD971F\n}\n\n.ace-monokai .ace_string {\n  color: #E6DB74\n}\n\n.ace-monokai .ace_comment {\n  color: #75715E\n}\n\n.ace-monokai .ace_indent-guide {\n  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWPQ0FD0ZXBzd/wPAAjVAoxeSgNeAAAAAElFTkSuQmCC) right repeat-y\n}\n\n.ace-monokai .ace_indent-guide-active {\n  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;\n}\n';
@@ -19915,9 +19983,9 @@ var require_theme_monokai = __commonJS({
   }
 });
 
-// ../../.yarn/global/cache/ace-builds-npm-1.11.2-b2a52aa11c-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js
+// ../../.yarn/global/cache/ace-builds-npm-1.12.0-bb7629a1fa-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js
 var require_mode_typescript = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.11.2-b2a52aa11c-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.12.0-bb7629a1fa-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js"(exports, module) {
     init_define_process();
     ace.define("ace/mode/doc_comment_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text_highlight_rules"], function(e, t, n) {
       "use strict";

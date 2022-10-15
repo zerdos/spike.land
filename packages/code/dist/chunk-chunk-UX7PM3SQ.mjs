@@ -5,7 +5,7 @@ import {
   init_define_process as init_define_process2,
   init_react_preact,
   react_preact_exports
-} from "./chunk-chunk-NCXKQ5D6.mjs";
+} from "./chunk-chunk-B7LIRUG3.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-VOIE2EHU.mjs";

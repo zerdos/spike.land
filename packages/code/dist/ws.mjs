@@ -10,13 +10,13 @@ import {
 import {
   LayoutGroup,
   motion
-} from "./chunk-chunk-S6XJNGAQ.mjs";
+} from "./chunk-chunk-WBMYEBGJ.mjs";
 import {
   AutoUpdateApp,
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-WT5JR22I.mjs";
+} from "./chunk-chunk-MACMOKPE.mjs";
 import {
   applyPatch,
   hashCode,
@@ -31,10 +31,10 @@ import {
 } from "./chunk-chunk-4XUGA6BB.mjs";
 import "./chunk-chunk-CZQHXLQW.mjs";
 import {
-  css,
+  css as css2,
   jsx,
   jsxs
-} from "./chunk-chunk-R33R6CTR.mjs";
+} from "./chunk-chunk-UX7PM3SQ.mjs";
 import {
   $2,
   Children,
@@ -52,7 +52,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-NCXKQ5D6.mjs";
+} from "./chunk-chunk-B7LIRUG3.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-VOIE2EHU.mjs";
@@ -9965,7 +9965,7 @@ init_define_process();
 // js/icons.tsx
 init_define_process();
 var Wrap = ({ children }) => jsx("span", {
-  css: css`
+  css: css2`
 font-size:20pt;
 `,
   children
@@ -10026,30 +10026,30 @@ var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level
 
 // js/mui.tsx
 init_define_process();
-var FabLazy = lazy(async () => import("./chunk-Fab-BMG6PDJ4.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-BO5DWZOQ.mjs"));
 var Fab = (props) => jsx(Suspense, {
   fallback: jsx("div", {
-    css: css`width: 28px; height:28px`
+    css: css2`width: 28px; height:28px`
   }),
   children: jsx(FabLazy, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-2F6RPGIZ.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-KMJRYDBP.mjs"));
 var ToggleButton = (props) => jsx(Suspense, {
   fallback: jsx("div", {
-    css: css`width: 28px; height:28px`
+    css: css2`width: 28px; height:28px`
   }),
   children: jsx(ToggleButtonLazy, {
     ...props
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-POASM2PO.mjs")
+  async () => import("./chunk-ToggleButtonGroup-WZ22AJFS.mjs")
 );
 var ToggleButtonGroup = (props) => jsx(Suspense, {
   fallback: jsx("div", {
-    css: css`width: 28px; height:28px`
+    css: css2`width: 28px; height:28px`
   }),
   children: jsx(ToggleButtonGroupLazy, {
     ...props
@@ -10067,7 +10067,7 @@ var QRButton = ({ url }) => {
     onClick: () => {
       setQR(!showQR);
     },
-    css: css`
+    css: css2`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
@@ -10189,7 +10189,7 @@ var DraggableWindow = ({
         right,
         borderRadius: 16
       },
-      css: css`
+      css: css2`
             touch-action: pinch-zoom;
             background-color: ${bg};
             backdrop-filter: blur(15px);
@@ -10207,13 +10207,13 @@ var DraggableWindow = ({
       },
       dragElastic: 0.5,
       children: jsxs("div", {
-        css: css` 
+        css: css2` 
               display: flex;
               
                 `,
         children: [
           jsxs("div", {
-            css: css`
+            css: css2`
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -10233,7 +10233,7 @@ var DraggableWindow = ({
                   children: sizes.map((size, ind) => jsx(ToggleButton, {
                     value: size,
                     children: jsxs("span", {
-                      css: css`
+                      css: css2`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
                       children: [
@@ -10256,7 +10256,7 @@ var DraggableWindow = ({
                   height: height2 * scale / devicePixelRatio,
                   borderRadius: 8
                 },
-                css: css`
+                css: css2`
 
                 display: block;
                 overflow: hidden;
@@ -10279,19 +10279,19 @@ var DraggableWindow = ({
                       scale: scaleRange / 100
                     },
                     "data-test-id": "z-body",
-                    css: css`
+                    css: css2`
                   overflow:overlay;
                   overflow-y: hidden;
               `,
                     children
                   }),
                   jsx("div", {
-                    css: css`   
+                    css: css2`   
               position: relative;
               
               `,
                     children: jsx("div", {
-                      css: css`
+                      css: css2`
               height: 240px;
               width: ${width / devicePixelRatio}px;
               display: block;
@@ -10325,17 +10325,17 @@ var DraggableWindow = ({
                   children: breakPoints.map((size, ind) => jsx(ToggleButton, {
                     value: size,
                     children: size === 680 ? jsx("span", {
-                      css: css`
+                      css: css2`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
                       children: jsx(Phone, {})
                     }) : size === 768 ? jsx("span", {
-                      css: css`
+                      css: css2`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
                       children: jsx(Tablet, {})
                     }) : jsx("span", {
-                      css: css`
+                      css: css2`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
                       children: jsx(Tv, {})
@@ -10350,7 +10350,7 @@ var DraggableWindow = ({
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
             children: jsxs("div", {
-              css: css`
+              css: css2`
               padding: 16px;
               display: flex;
               overflow: "hidden";
@@ -10364,7 +10364,7 @@ var DraggableWindow = ({
                     (_a = document.querySelector("#root")) == null ? void 0 : _a.requestFullscreen();
                   },
                   children: jsx("span", {
-                    css: css`
+                    css: css2`
                 font-size: 20pt;
               `,
                     children: jsx(MdFullscreen, {}, "fs")
@@ -10772,7 +10772,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       });
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-3F2XN4KM.mjs");
+      const { startAce } = await import("./chunk-startAce-4GC2UUEH.mjs");
       const editor = await startAce(mST().code);
       const getValue = async () => {
         const code2 = await prettierJs(editor.session.getValue());
@@ -10837,7 +10837,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     onKeyDown: () => mod3.lastKeyDown = Date.now(),
     "data-test-id": myId,
     id: "editor",
-    css: css`
+    css: css2`
         
             max-width: 640px;
             height: 100%;
@@ -10850,7 +10850,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
 
 // js/renderPreviewWindow.tsx
 var RainbowContainer = ({ children }) => jsx("div", {
-  css: css`
+  css: css2`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -11024,8 +11024,6 @@ var rtcConns = {};
 var bc;
 var codeSpace;
 var _hash = "";
-var html = "";
-var css2 = "";
 var wsLastHashCode = 0;
 var webRTCLastSeenHashCode = 0;
 var lastSeenTimestamp = 0;
@@ -11063,7 +11061,7 @@ var run = async (startState) => {
   bc = new BroadcastChannel(location.origin);
   if (location.pathname.endsWith("dehydrated")) {
     html = mst.html;
-    css2 = mst.css;
+    css = mst.css;
     if (bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {
         console.log(event.data);
@@ -11178,10 +11176,11 @@ var startVideo2 = async (vidElement) => {
   vidElement.srcObject = localStream;
   localStream.getTracks().forEach(
     (track) => Object.keys(sendChannel.rtcConns).map((k) => {
+      const datachannel = sendChannel.rtcConns[k];
+      datachannel.addTrack(track);
       const myStream = new MediaStream();
-      sendChannel.rtcConns[k].ontrack = ({ track: track2 }) => myStream.addTrack(track2);
-      document.getElementById(`video-${k}`).srcObject = myStream;
-      sendChannel.rtcConns[k].addTrack(track);
+      datachannel.ontrack = ({ track: track2 }) => myStream.addTrack(track2);
+      Object.assign(datachannel, { "localStream": myStream });
     })
   );
 };
@@ -11379,6 +11378,15 @@ async function processData(data, source, conn) {
       const rtc2 = event.channel;
       rtc2.binaryType = "arraybuffer";
       rtc2.addEventListener("close", onReceiveChannelClosed);
+      if (sendChannel && sendChannel.localStream && sendChannel.localStream.active) {
+        sendChannel.localStream.getTracks().forEach((track) => {
+          const datachannel = rtcConns[target];
+          datachannel.addTrack(track);
+          const myStream = new MediaStream();
+          datachannel.ontrack = ({ track: track2 }) => myStream.addTrack(track2);
+          Object.assign(datachannel, { "localStream": myStream });
+        });
+      }
       rtc2.addEventListener(
         "message",
         async (message) => processWsMessage(

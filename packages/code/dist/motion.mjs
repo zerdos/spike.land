@@ -10,8 +10,8 @@ import {
   useAnimation,
   useScroll,
   useSpring
-} from "./chunk-chunk-S6XJNGAQ.mjs";
-import "./chunk-chunk-NCXKQ5D6.mjs";
+} from "./chunk-chunk-WBMYEBGJ.mjs";
+import "./chunk-chunk-B7LIRUG3.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-VOIE2EHU.mjs";
