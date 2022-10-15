@@ -44,8 +44,7 @@ const rtcConns: Record<string, RTCPeerConnection> = {}; //To st/ RTCPeerConnecti
 let bc: BroadcastChannel;
 let codeSpace: string;
 let _hash = "";
-// let html = "";
-// let css = "";
+
 //let address: string;
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
@@ -54,7 +53,7 @@ let lastSeenNow = 0;
 let ws: WebSocket | null = null;
 let sendWS: (message: string) => void;
 let rejoined = false;
-const tracks: {[key: string]: MediaStream} = {}
+const tracks: {[key: string]: {track: MediaStreamTrack, streams:readonly MediaStream[]}} = {}
 export const sendChannel = {
   localStream: null as MediaStream | null,
   webRtcArray,
@@ -117,8 +116,8 @@ export const run = async (startState: {
   bc = new BroadcastChannel(location.origin);
 
   if (location.pathname.endsWith("dehydrated")) {
-    html = mst.html;
-    css = mst.css;
+
+
 
     if (
       bc.onmessage = (event) => {
@@ -210,6 +209,8 @@ export const run = async (startState: {
   //await startIpfs(codeSpace);
 };
 
+type NodeTimer = number;
+
 //(async (.) => {
 //if (navigator && navigator?.serviceWorker) {
 //navigator.serviceWorker.register("/sw.js", {
@@ -223,7 +224,7 @@ export const run = async (startState: {
 //}));
 //}
 //})();
-let intervalHandler: NodeJS.Timer | null = null;
+let intervalHandler: NodeTimer | null = null;
 
 async function rejoin() {
   if (!rejoined || ws === null) {
@@ -351,12 +352,12 @@ export async function join() {
   rejoined = true;
 
   //console.//log("WS connect!");
-  if (location.host.includes("localhost")) {
+  if (location.origin.includes("localhost")) {
     return;
   }
 
   const wsConnection = new WebSocket(
-    `wss://${location.host}/live/` + codeSpace + "/websocket",
+    `wss://${location.origin}/live/` + codeSpace + "/websocket",
   );
   rejoined = false;
 
