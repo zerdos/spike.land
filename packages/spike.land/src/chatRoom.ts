@@ -121,8 +121,8 @@ export class Code {
 
     if (!this.sessionStarted) {
       startSession(
-        this.codeSpace,
-        { name: this.codeSpace, state },
+        this.codeSpace, [{name: this.user, type: "WS", lastSeen: Date.now(), hashCode: hashCode(), conns: []}],
+        {state, name: this.room },
         url.origin,
       );
       this.sessionStarted = true;
