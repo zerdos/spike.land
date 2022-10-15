@@ -7,10 +7,9 @@ import { QRButton } from "./Qr";
 import { Terminal } from 'xterm';
 // import { WebLinksAddon } from 'xterm-addon-web-links';
 import { FitAddon } from 'xterm-addon-fit';
-import { SearchAddon } from 'xterm-addon-search';
+// import { SearchAddon } from 'xterm-addon-search';
 import { SerializeAddon } from "xterm-addon-serialize";
 const serializeAddon = new SerializeAddon();
-const searchAddon = new SearchAddon();
 const fitAddon = new FitAddon();
 const origConsole = console.log;
 
@@ -18,7 +17,6 @@ var terminal = new Terminal();
 
 terminal.loadAddon(serializeAddon);
 
-terminal.loadAddon(searchAddon);
 
 // terminal.loadAddon(new WebLinksAddon());
 terminal.loadAddon(fitAddon);
@@ -80,18 +78,22 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
  useEffect(() => {
   if (!terminalRef?.current) return;
 
+
+
+
+  terminal.open(terminalRef.current)
+  fitAddon.activate(terminal)
+  fitAddon.fit();
+
   globalThis.terminal.ON = ()=>{
 
 
-  console.log = (...data) => {
-    terminal.writeln(JSON.stringify(data, null, 2))
-    origConsole(...data);
+    console.log = (...data) => {
+      terminal.writeln(JSON.stringify(data, null, 2))
+      origConsole(...data);
+    }
+   return ()=> console.log = origConsole;
   }
- return ()=> console.log = origConsole;
-}
-
-  terminal.open(terminalRef.current)
-  fitAddon.fit();
  }, [terminalRef]);
 
   useEffect(() => {
@@ -295,14 +297,15 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               >
                 {children}
               </motion.div>
-              <div  ref={terminalRef} css={css`
+              <div css={css`
               height: 200px;
+              border-radius: 0 0 8px 8px;
               width: ${width / devicePixelRatio}px;
               bottom: 70px;
             opacity: 0.5;
     background: rgba(84,24,24,.8);
     position: absolute;
-              `} id="terminal" />
+              `} ><div ref={terminalRef} /></div>
             </motion.div>
             <motion.div
               transition={{ delay: 0, duration: 0.4 }}

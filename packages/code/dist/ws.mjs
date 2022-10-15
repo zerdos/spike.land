@@ -8886,298 +8886,6 @@ var require_xterm_addon_fit = __commonJS({
   }
 });
 
-// ../../.yarn/__virtual__/xterm-addon-search-virtual-07d2c044c7/0/global/cache/xterm-addon-search-npm-0.10.0-e8e1757105-9.zip/node_modules/xterm-addon-search/lib/xterm-addon-search.js
-var require_xterm_addon_search = __commonJS({
-  "../../.yarn/__virtual__/xterm-addon-search-virtual-07d2c044c7/0/global/cache/xterm-addon-search-npm-0.10.0-e8e1757105-9.zip/node_modules/xterm-addon-search/lib/xterm-addon-search.js"(exports, module) {
-    init_define_process();
-    !function(e, t) {
-      "object" == typeof exports && "object" == typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define([], t) : "object" == typeof exports ? exports.SearchAddon = t() : e.SearchAddon = t();
-    }(self, function() {
-      return (() => {
-        "use strict";
-        var e = { 345: (e2, t2) => {
-          Object.defineProperty(t2, "__esModule", { value: true }), t2.forwardEvent = t2.EventEmitter = void 0, t2.EventEmitter = class {
-            constructor() {
-              this._listeners = [], this._disposed = false;
-            }
-            get event() {
-              return this._event || (this._event = (e3) => (this._listeners.push(e3), { dispose: () => {
-                if (!this._disposed) {
-                  for (let t3 = 0; t3 < this._listeners.length; t3++)
-                    if (this._listeners[t3] === e3)
-                      return void this._listeners.splice(t3, 1);
-                }
-              } })), this._event;
-            }
-            fire(e3, t3) {
-              const i2 = [];
-              for (let e4 = 0; e4 < this._listeners.length; e4++)
-                i2.push(this._listeners[e4]);
-              for (let s2 = 0; s2 < i2.length; s2++)
-                i2[s2].call(void 0, e3, t3);
-            }
-            dispose() {
-              this._listeners && (this._listeners.length = 0), this._disposed = true;
-            }
-          }, t2.forwardEvent = function(e3, t3) {
-            return e3((e4) => t3.fire(e4));
-          };
-        } }, t = {};
-        function i(s2) {
-          var r = t[s2];
-          if (void 0 !== r)
-            return r.exports;
-          var n = t[s2] = { exports: {} };
-          return e[s2](n, n.exports, i), n.exports;
-        }
-        var s = {};
-        return (() => {
-          var e2 = s;
-          Object.defineProperty(e2, "__esModule", { value: true }), e2.SearchAddon = void 0;
-          const t2 = i(345), r = " ~!@#$%^&*()+`-=[]{}|\\;:\"',./<>?";
-          e2.SearchAddon = class {
-            constructor() {
-              this._linesCacheTimeoutId = 0, this._onDidChangeResults = new t2.EventEmitter(), this.onDidChangeResults = this._onDidChangeResults.event;
-            }
-            activate(e3) {
-              this._terminal = e3, this._onDataDisposable = this._terminal.onWriteParsed(() => this._updateMatches()), this._onResizeDisposable = this._terminal.onResize(() => this._updateMatches());
-            }
-            _updateMatches() {
-              var e3;
-              this._highlightTimeout && window.clearTimeout(this._highlightTimeout), this._cachedSearchTerm && (null === (e3 = this._lastSearchOptions) || void 0 === e3 ? void 0 : e3.decorations) && (this._highlightTimeout = setTimeout(() => {
-                var e4, t3;
-                this.findPrevious(this._cachedSearchTerm, Object.assign(Object.assign({}, this._lastSearchOptions), { incremental: true, noScroll: true })), this._resultIndex = this._searchResults ? this._searchResults.size - 1 : -1, this._onDidChangeResults.fire({ resultIndex: this._resultIndex, resultCount: null !== (t3 = null === (e4 = this._searchResults) || void 0 === e4 ? void 0 : e4.size) && void 0 !== t3 ? t3 : -1 });
-              }, 200));
-            }
-            dispose() {
-              var e3, t3;
-              this.clearDecorations(), null === (e3 = this._onDataDisposable) || void 0 === e3 || e3.dispose(), null === (t3 = this._onResizeDisposable) || void 0 === t3 || t3.dispose();
-            }
-            clearDecorations(e3) {
-              var t3, i2, s2, r2;
-              null === (t3 = this._selectedDecoration) || void 0 === t3 || t3.dispose(), null === (i2 = this._searchResults) || void 0 === i2 || i2.clear(), null === (s2 = this._resultDecorations) || void 0 === s2 || s2.forEach((e4) => {
-                for (const t4 of e4)
-                  t4.dispose();
-              }), null === (r2 = this._resultDecorations) || void 0 === r2 || r2.clear(), this._searchResults = void 0, this._resultDecorations = void 0, e3 || (this._cachedSearchTerm = void 0);
-            }
-            clearActiveDecoration() {
-              var e3;
-              null === (e3 = this._selectedDecoration) || void 0 === e3 || e3.dispose(), this._selectedDecoration = void 0;
-            }
-            findNext(e3, t3) {
-              if (!this._terminal)
-                throw new Error("Cannot use addon until it has been loaded");
-              return this._lastSearchOptions = t3, (null == t3 ? void 0 : t3.decorations) && (void 0 === this._resultIndex && void 0 !== this._cachedSearchTerm && e3 === this._cachedSearchTerm || this._highlightAllMatches(e3, t3)), this._fireResults(e3, this._findNextAndSelect(e3, t3), t3);
-            }
-            _highlightAllMatches(e3, t3) {
-              if (!this._terminal)
-                throw new Error("Cannot use addon until it has been loaded");
-              if (!e3 || 0 === e3.length)
-                return void this.clearDecorations();
-              t3 = t3 || {}, this.clearDecorations(true), this._searchResults = /* @__PURE__ */ new Map(), this._resultDecorations = /* @__PURE__ */ new Map();
-              const i2 = this._resultDecorations;
-              let s2 = this._find(e3, 0, 0, t3);
-              for (; s2 && !this._searchResults.get(`${s2.row}-${s2.col}`); )
-                if (this._searchResults.set(`${s2.row}-${s2.col}`, s2), s2 = this._find(e3, s2.col + s2.term.length >= this._terminal.cols ? s2.row + 1 : s2.row, s2.col + s2.term.length >= this._terminal.cols ? 0 : s2.col + 1, t3), this._searchResults.size > 1e3)
-                  return this.clearDecorations(), void (this._resultIndex = void 0);
-              this._searchResults.forEach((e4) => {
-                const s3 = this._createResultDecoration(e4, t3.decorations);
-                if (s3) {
-                  const e5 = i2.get(s3.marker.line) || [];
-                  e5.push(s3), i2.set(s3.marker.line, e5);
-                }
-              });
-            }
-            _find(e3, t3, i2, s2) {
-              var r2;
-              if (!this._terminal || !e3 || 0 === e3.length)
-                return null === (r2 = this._terminal) || void 0 === r2 || r2.clearSelection(), void this.clearDecorations();
-              if (i2 > this._terminal.cols)
-                throw new Error(`Invalid col: ${i2} to search in terminal of ${this._terminal.cols} cols`);
-              let n;
-              this._initLinesCache();
-              const o = { startRow: t3, startCol: i2 };
-              if (n = this._findInLine(e3, o, s2), !n)
-                for (let i3 = t3 + 1; i3 < this._terminal.buffer.active.baseY + this._terminal.rows && (o.startRow = i3, o.startCol = 0, n = this._findInLine(e3, o, s2), !n); i3++)
-                  ;
-              return n;
-            }
-            _findNextAndSelect(e3, t3) {
-              var i2;
-              if (!this._terminal || !e3 || 0 === e3.length)
-                return null === (i2 = this._terminal) || void 0 === i2 || i2.clearSelection(), this.clearDecorations(), this._cachedSearchTerm = void 0, this._resultIndex = -1, false;
-              this._cachedSearchTerm !== e3 && (this._resultIndex = void 0, this._terminal.clearSelection());
-              let s2, r2 = 0, n = 0;
-              if (this._terminal.hasSelection()) {
-                const e4 = !!t3 && t3.incremental;
-                s2 = this._terminal.getSelectionPosition(), n = e4 ? s2.start.y : s2.end.y, r2 = e4 ? s2.start.x : s2.end.x;
-              }
-              this._initLinesCache();
-              const o = { startRow: n, startCol: r2 };
-              let l = this._findInLine(e3, o, t3);
-              if (!l)
-                for (let i3 = n + 1; i3 < this._terminal.buffer.active.baseY + this._terminal.rows && (o.startRow = i3, o.startCol = 0, l = this._findInLine(e3, o, t3), !l); i3++)
-                  ;
-              if (!l && 0 !== n)
-                for (let i3 = 0; i3 < n && (o.startRow = i3, o.startCol = 0, l = this._findInLine(e3, o, t3), !l); i3++)
-                  ;
-              return !l && s2 && (o.startRow = s2.start.y, o.startCol = 0, l = this._findInLine(e3, o, t3)), this._searchResults && (0 === this._searchResults.size ? this._resultIndex = -1 : void 0 === this._resultIndex ? this._resultIndex = 0 : (this._resultIndex++, this._resultIndex >= this._searchResults.size && (this._resultIndex = 0))), this._selectResult(l, null == t3 ? void 0 : t3.decorations, null == t3 ? void 0 : t3.noScroll);
-            }
-            findPrevious(e3, t3) {
-              if (!this._terminal)
-                throw new Error("Cannot use addon until it has been loaded");
-              return this._lastSearchOptions = t3, (null == t3 ? void 0 : t3.decorations) && (void 0 === this._resultIndex && void 0 !== this._cachedSearchTerm && e3 === this._cachedSearchTerm || this._highlightAllMatches(e3, t3)), this._fireResults(e3, this._findPreviousAndSelect(e3, t3), t3);
-            }
-            _fireResults(e3, t3, i2) {
-              var s2;
-              return (null == i2 ? void 0 : i2.decorations) && (void 0 !== this._resultIndex && void 0 !== (null === (s2 = this._searchResults) || void 0 === s2 ? void 0 : s2.size) ? this._onDidChangeResults.fire({ resultIndex: this._resultIndex, resultCount: this._searchResults.size }) : this._onDidChangeResults.fire(void 0)), this._cachedSearchTerm = e3, t3;
-            }
-            _findPreviousAndSelect(e3, t3) {
-              var i2;
-              if (!this._terminal)
-                throw new Error("Cannot use addon until it has been loaded");
-              let s2;
-              if (!this._terminal || !e3 || 0 === e3.length)
-                return s2 = void 0, null === (i2 = this._terminal) || void 0 === i2 || i2.clearSelection(), this.clearDecorations(), this._resultIndex = -1, false;
-              this._cachedSearchTerm !== e3 && (this._resultIndex = void 0, this._terminal.clearSelection());
-              let r2 = this._terminal.buffer.active.baseY + this._terminal.rows, n = this._terminal.cols;
-              const o = true, l = !!t3 && t3.incremental;
-              let h3;
-              this._terminal.hasSelection() && (h3 = this._terminal.getSelectionPosition(), r2 = h3.start.y, n = h3.start.x), this._initLinesCache();
-              const a = { startRow: r2, startCol: n };
-              if (l ? (s2 = this._findInLine(e3, a, t3, false), s2 && s2.row === r2 && s2.col === n || (h3 && (a.startRow = h3.end.y, a.startCol = h3.end.x), s2 = this._findInLine(e3, a, t3, true))) : s2 = this._findInLine(e3, a, t3, o), !s2) {
-                a.startCol = Math.max(a.startCol, this._terminal.cols);
-                for (let i3 = r2 - 1; i3 >= 0 && (a.startRow = i3, s2 = this._findInLine(e3, a, t3, o), !s2); i3--)
-                  ;
-              }
-              if (!s2 && r2 !== this._terminal.buffer.active.baseY + this._terminal.rows)
-                for (let i3 = this._terminal.buffer.active.baseY + this._terminal.rows; i3 >= r2 && (a.startRow = i3, s2 = this._findInLine(e3, a, t3, o), !s2); i3--)
-                  ;
-              return this._searchResults && (0 === this._searchResults.size ? this._resultIndex = -1 : void 0 === this._resultIndex || this._resultIndex < 0 ? this._resultIndex = this._searchResults.size - 1 : (this._resultIndex--, -1 === this._resultIndex && (this._resultIndex = this._searchResults.size - 1))), !(s2 || !h3) || this._selectResult(s2, null == t3 ? void 0 : t3.decorations, null == t3 ? void 0 : t3.noScroll);
-            }
-            _initLinesCache() {
-              const e3 = this._terminal;
-              this._linesCache || (this._linesCache = new Array(e3.buffer.active.length), this._cursorMoveListener = e3.onCursorMove(() => this._destroyLinesCache()), this._resizeListener = e3.onResize(() => this._destroyLinesCache())), window.clearTimeout(this._linesCacheTimeoutId), this._linesCacheTimeoutId = window.setTimeout(() => this._destroyLinesCache(), 15e3);
-            }
-            _destroyLinesCache() {
-              this._linesCache = void 0, this._cursorMoveListener && (this._cursorMoveListener.dispose(), this._cursorMoveListener = void 0), this._resizeListener && (this._resizeListener.dispose(), this._resizeListener = void 0), this._linesCacheTimeoutId && (window.clearTimeout(this._linesCacheTimeoutId), this._linesCacheTimeoutId = 0);
-            }
-            _isWholeWord(e3, t3, i2) {
-              return (0 === e3 || r.includes(t3[e3 - 1])) && (e3 + i2.length === t3.length || r.includes(t3[e3 + i2.length]));
-            }
-            _findInLine(e3, t3, i2 = {}, s2 = false) {
-              var r2;
-              const n = this._terminal, o = t3.startRow, l = t3.startCol, h3 = n.buffer.active.getLine(o);
-              if (null == h3 ? void 0 : h3.isWrapped)
-                return s2 ? void (t3.startCol += n.cols) : (t3.startRow--, t3.startCol += n.cols, this._findInLine(e3, t3, i2));
-              let a = null === (r2 = this._linesCache) || void 0 === r2 ? void 0 : r2[o];
-              a || (a = this._translateBufferLineToStringWithWrap(o, true), this._linesCache && (this._linesCache[o] = a));
-              const [c, d] = a, u = this._bufferColsToStringOffset(o, l), _ = i2.caseSensitive ? e3 : e3.toLowerCase(), f = i2.caseSensitive ? c : c.toLowerCase();
-              let v = -1;
-              if (i2.regex) {
-                const t4 = RegExp(_, "g");
-                let i3;
-                if (s2)
-                  for (; i3 = t4.exec(f.slice(0, u)); )
-                    v = t4.lastIndex - i3[0].length, e3 = i3[0], t4.lastIndex -= e3.length - 1;
-                else
-                  i3 = t4.exec(f.slice(u)), i3 && i3[0].length > 0 && (v = u + (t4.lastIndex - i3[0].length), e3 = i3[0]);
-              } else
-                s2 ? u - _.length >= 0 && (v = f.lastIndexOf(_, u - _.length)) : v = f.indexOf(_, u);
-              if (v >= 0) {
-                if (i2.wholeWord && !this._isWholeWord(v, f, e3))
-                  return;
-                let t4 = 0;
-                for (; t4 < d.length - 1 && v >= d[t4 + 1]; )
-                  t4++;
-                let s3 = t4;
-                for (; s3 < d.length - 1 && v + e3.length >= d[s3 + 1]; )
-                  s3++;
-                const r3 = v - d[t4], l2 = v + e3.length - d[s3], h4 = this._stringLengthToBufferSize(o + t4, r3);
-                return { term: e3, col: h4, row: o + t4, size: this._stringLengthToBufferSize(o + s3, l2) - h4 + n.cols * (s3 - t4) };
-              }
-            }
-            _stringLengthToBufferSize(e3, t3) {
-              const i2 = this._terminal.buffer.active.getLine(e3);
-              if (!i2)
-                return 0;
-              for (let e4 = 0; e4 < t3; e4++) {
-                const s2 = i2.getCell(e4);
-                if (!s2)
-                  break;
-                const r2 = s2.getChars();
-                r2.length > 1 && (t3 -= r2.length - 1);
-                const n = i2.getCell(e4 + 1);
-                n && 0 === n.getWidth() && t3++;
-              }
-              return t3;
-            }
-            _bufferColsToStringOffset(e3, t3) {
-              const i2 = this._terminal;
-              let s2 = e3, r2 = 0, n = i2.buffer.active.getLine(s2);
-              for (; t3 > 0 && n; ) {
-                for (let e4 = 0; e4 < t3 && e4 < i2.cols; e4++) {
-                  const t4 = n.getCell(e4);
-                  if (!t4)
-                    break;
-                  t4.getWidth() && (r2 += 0 === t4.getCode() ? 1 : t4.getChars().length);
-                }
-                if (s2++, n = i2.buffer.active.getLine(s2), n && !n.isWrapped)
-                  break;
-                t3 -= i2.cols;
-              }
-              return r2;
-            }
-            _translateBufferLineToStringWithWrap(e3, t3) {
-              var i2;
-              const s2 = this._terminal, r2 = [], n = [0];
-              let o = s2.buffer.active.getLine(e3);
-              for (; o; ) {
-                const l = s2.buffer.active.getLine(e3 + 1), h3 = !!l && l.isWrapped;
-                let a = o.translateToString(!h3 && t3);
-                if (h3 && l) {
-                  const e4 = o.getCell(o.length - 1);
-                  e4 && 0 === e4.getCode() && 1 === e4.getWidth() && 2 === (null === (i2 = l.getCell(0)) || void 0 === i2 ? void 0 : i2.getWidth()) && (a = a.slice(0, -1));
-                }
-                if (r2.push(a), !h3)
-                  break;
-                n.push(n[n.length - 1] + a.length), e3++, o = l;
-              }
-              return [r2.join(""), n];
-            }
-            _selectResult(e3, t3, i2) {
-              var s2, r2;
-              const n = this._terminal;
-              if (this.clearActiveDecoration(), !e3)
-                return n.clearSelection(), false;
-              if (n.select(e3.col, e3.row, e3.size), t3) {
-                const i3 = n.registerMarker(-n.buffer.active.baseY - n.buffer.active.cursorY + e3.row);
-                i3 && (this._selectedDecoration = n.registerDecoration({ marker: i3, x: e3.col, width: e3.size, backgroundColor: t3.activeMatchBackground, layer: "top", overviewRulerOptions: { color: t3.activeMatchColorOverviewRuler } }), null === (s2 = this._selectedDecoration) || void 0 === s2 || s2.onRender((e4) => this._applyStyles(e4, t3.activeMatchBorder, true)), null === (r2 = this._selectedDecoration) || void 0 === r2 || r2.onDispose(() => i3.dispose()));
-              }
-              if (!i2 && (e3.row >= n.buffer.active.viewportY + n.rows || e3.row < n.buffer.active.viewportY)) {
-                let t4 = e3.row - n.buffer.active.viewportY;
-                t4 -= Math.floor(n.rows / 2), n.scrollLines(t4);
-              }
-              return true;
-            }
-            _applyStyles(e3, t3, i2) {
-              e3.clientWidth <= 0 || (e3.classList.contains("xterm-find-result-decoration") || (e3.classList.add("xterm-find-result-decoration"), t3 && (e3.style.outline = `1px solid ${t3}`)), i2 && e3.classList.add("xterm-find-active-result-decoration"));
-            }
-            _createResultDecoration(e3, t3) {
-              var i2;
-              const s2 = this._terminal, r2 = s2.registerMarker(-s2.buffer.active.baseY - s2.buffer.active.cursorY + e3.row);
-              if (!r2)
-                return;
-              const n = s2.registerDecoration({ marker: r2, x: e3.col, width: e3.size, backgroundColor: t3.matchBackground, overviewRulerOptions: (null === (i2 = this._resultDecorations) || void 0 === i2 ? void 0 : i2.get(r2.line)) ? void 0 : { color: t3.matchOverviewRuler, position: "center" } });
-              return null == n || n.onRender((e4) => this._applyStyles(e4, t3.matchBorder, false)), null == n || n.onDispose(() => r2.dispose()), n;
-            }
-          };
-        })(), s;
-      })();
-    });
-  }
-});
-
 // ../../.yarn/__virtual__/xterm-addon-serialize-virtual-f44aac55fb/0/global/cache/xterm-addon-serialize-npm-0.8.0-06e54c9bc9-9.zip/node_modules/xterm-addon-serialize/lib/xterm-addon-serialize.js
 var require_xterm_addon_serialize = __commonJS({
   "../../.yarn/__virtual__/xterm-addon-serialize-virtual-f44aac55fb/0/global/cache/xterm-addon-serialize-npm-0.8.0-06e54c9bc9-9.zip/node_modules/xterm-addon-serialize/lib/xterm-addon-serialize.js"(exports, module) {
@@ -10374,15 +10082,12 @@ var QRButton = ({ url }) => {
 // js/DraggableWindow.tsx
 var import_xterm = __toESM(require_xterm(), 1);
 var import_xterm_addon_fit = __toESM(require_xterm_addon_fit(), 1);
-var import_xterm_addon_search = __toESM(require_xterm_addon_search(), 1);
 var import_xterm_addon_serialize = __toESM(require_xterm_addon_serialize(), 1);
 var serializeAddon = new import_xterm_addon_serialize.SerializeAddon();
-var searchAddon = new import_xterm_addon_search.SearchAddon();
 var fitAddon = new import_xterm_addon_fit.FitAddon();
 var origConsole = console.log;
 var terminal = new import_xterm.Terminal();
 terminal.loadAddon(serializeAddon);
-terminal.loadAddon(searchAddon);
 terminal.loadAddon(fitAddon);
 Object.assign(globalThis, { terminal });
 var breakPoints = [680, 768, 1920];
@@ -10404,6 +10109,9 @@ var DraggableWindow = ({
   useEffect(() => {
     if (!(terminalRef == null ? void 0 : terminalRef.current))
       return;
+    terminal.open(terminalRef.current);
+    fitAddon.activate(terminal);
+    fitAddon.fit();
     globalThis.terminal.ON = () => {
       console.log = (...data) => {
         terminal.writeln(JSON.stringify(data, null, 2));
@@ -10411,8 +10119,6 @@ var DraggableWindow = ({
       };
       return () => console.log = origConsole;
     };
-    terminal.open(terminalRef.current);
-    fitAddon.fit();
   }, [terminalRef]);
   useEffect(() => {
     const reveal = async () => {
@@ -10580,16 +10286,18 @@ var DraggableWindow = ({
                     children
                   }),
                   jsx("div", {
-                    ref: terminalRef,
                     css: css`
               height: 200px;
+              border-radius: 0 0 8px 8px;
               width: ${width / devicePixelRatio}px;
               bottom: 70px;
             opacity: 0.5;
     background: rgba(84,24,24,.8);
     position: absolute;
               `,
-                    id: "terminal"
+                    children: jsx("div", {
+                      ref: terminalRef
+                    })
                   })
                 ]
               }),
