@@ -304,11 +304,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               
               `}>
               <div css={css`
-              height: 300px;
+              height: 240px;
               width: ${width/devicePixelRatio}px;
               display: block;
               border-radius: 0 0 8px 8px;
-              top: -600px;
+              top: -240px;
               opacity: 0.5;
               background: rgba(84,24,24,.8);
               position: absolute;
