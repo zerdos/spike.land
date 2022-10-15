@@ -896,7 +896,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.6"
     "@typescript/ata": "npm:0.9.3"
     "@yarnpkg/sdks": "npm:3.0.0-rc.25"
-    ace-builds: "npm:1.11.2"
+    ace-builds: "npm:1.12.0"
     avl: "npm:1.5.3"
     comlink: "npm:4.3.1"
     csstype: "npm:3.1.1"
@@ -915,7 +915,7 @@ __metadata:
     monaco-editor: "npm:0.34.0"
     p-map: "npm:5.5.0"
     popmotion: "npm:11.0.5"
-    preact: "npm:10.11.1"
+    preact: "npm:10.11.2"
     preact-render-to-string: "npm:5.2.5"
     prettier: "npm:2.7.1"
     qrious: "npm:4.0.2"
@@ -1348,10 +1348,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.11.2":
-  version: 1.11.2
-  resolution: "ace-builds@npm:1.11.2"
-  checksum: 5f32a3db42be8cd166f1f8829046e91ff21925fc134d3cb9b5c60c29f65fb57a3c01c9cbdca16b61f2f728fafa05e447a121c47c941922d5fb63102706668dc4
+"ace-builds@npm:1.12.0":
+  version: 1.12.0
+  resolution: "ace-builds@npm:1.12.0"
+  checksum: f83b782051db12d319907b1dbda51f2ba1689945e57b203ed11882135bd1e151fa520be30b2a9bcbf9e93968595919a22c985107f494917ff0410142e50eb316
   languageName: node
   linkType: hard
 
@@ -3866,10 +3866,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:10.11.1":
-  version: 10.11.1
-  resolution: "preact@npm:10.11.1"
-  checksum: c47b09a78df0237bbfcb41b744685909db157d502db65f8c5a44de2efd6f0248dfa794792499e848685aea7ec470c7c590f8dbc2309245c6b783f5f440d3a63c
+"preact@npm:10.11.2":
+  version: 10.11.2
+  resolution: "preact@npm:10.11.2"
+  checksum: e2aacf760fea4647b761ec7b187fc94377acf9d573d27325cac90b091f608cc9b0214e8c8296e46a6780f0b2ab1ea18d9763a63299c1a4dd7a1f766f4a59c03f
   languageName: node
   linkType: hard
 

@@ -44,8 +44,8 @@ const rtcConns: Record<string, RTCPeerConnection> = {}; //To st/ RTCPeerConnecti
 let bc: BroadcastChannel;
 let codeSpace: string;
 let _hash = "";
-let html = "";
-let css = "";
+// let html = "";
+// let css = "";
 //let address: string;
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
@@ -307,13 +307,11 @@ export const startVideo = async (vidElement: HTMLVideoElement) => {
   vidElement.srcObject = localStream;
   localStream.getTracks().forEach((track) =>
     Object.keys(sendChannel.rtcConns).map((k) => {
+      const datachannel = sendChannel.rtcConns[k];
+      datachannel.addTrack(track);
       const myStream = new MediaStream();
-
-      sendChannel.rtcConns[k].ontrack = ({ track }) => myStream.addTrack(track);
-
-      (document.getElementById(`video-${k}`) as HTMLVideoElement).srcObject =
-        myStream;
-      sendChannel.rtcConns[k].addTrack(track);
+      datachannel.ontrack = ({ track }) => myStream.addTrack(track);
+      Object.assign(datachannel, {"localStream": myStream});
     })
   );
 };
@@ -612,12 +610,23 @@ async function processData(
       console.log(ev);
     };
 
+
     rtcConns[target].ondatachannel = (event) => {
       //console.//log("Receive Channel Callback");
       const rtc = event.channel;
       rtc.binaryType = "arraybuffer";
       rtc.addEventListener("close", onReceiveChannelClosed);
 
+      if (sendChannel && sendChannel.localStream && sendChannel.localStream.active) {
+        sendChannel.localStream.getTracks().forEach((track)=> {
+          const datachannel = rtcConns[target]
+          datachannel.addTrack(track);
+          const myStream = new MediaStream();
+          datachannel.ontrack = ({ track }) => myStream.addTrack(track);
+          Object.assign(datachannel, {"localStream": myStream});
+        })
+      }
+   
       rtc.addEventListener(
         "message",
         async (message) =>
