@@ -10115,8 +10115,9 @@ var DraggableWindow = ({
     fitAddon.fit();
     globalThis.terminal.ON = () => {
       console.log = (...data) => {
-        terminal.writeln(JSON.stringify(data, null, 2));
-        origConsole(...data);
+        const params = data.map((d) => typeof d === "object" ? JSON.stringify(d, null, 2) : d);
+        terminal.write(params.join(" - ") + "\r\n");
+        origConsole.apply(console, data);
       };
       return () => console.log = origConsole;
     };
