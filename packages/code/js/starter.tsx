@@ -144,13 +144,15 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
       key: "z",
     });
   }
-  const trp = transpiled.length > 0 ? transpiled : mST().transpiled;
+  const {transpiled: mstTranspiled, i: mstI} = mST();
+  const trp = transpiled.length > 0 ? transpiled : transpiled;
 
   const hash = md5(trp).slice(0, 8);
 
   if (!apps[hash]) {
     try {
      if(globalThis.terminal && globalThis.terminal.clear)  globalThis.terminal.clear();
+     console.log(`i: ${mstI}: `);
       const App = (await importShim(createJsBlob(trp)))
         .default as unknown as FC;
       if (CacheProvider === null || myCache === null) {
