@@ -261,8 +261,9 @@ async function appFactory(transpiled = "") {
   const hash = md5(trp).slice(0, 8);
   if (!apps[hash]) {
     try {
-      if (globalThis.terminal && globalThis.terminal.clear)
+      if (globalThis.terminal && globalThis.terminal.clear) {
         globalThis.terminal.clear();
+      }
       console.log(`i: ${mstI}: `);
       const App = (await importShim(createJsBlob(trp))).default;
       if (CacheProvider === null || myCache === null) {
@@ -272,7 +273,10 @@ async function appFactory(transpiled = "") {
       }
       if ((0, import_is_callable.default)(App)) {
         const { CacheProvider: CacheProvider2, css: css2 } = Emotion;
-        eCaches[hash] = Emotion.cache.default({ key: "z", isSpeedy: true });
+        eCaches[hash] = Emotion.cache.default({
+          key: "z",
+          isSpeedy: true
+        });
         apps[hash] = ({ appId }) => appId.includes(hash) ? jsx(CacheProvider2, {
           value: eCaches[hash],
           children: jsx("div", {
@@ -392,7 +396,11 @@ var renderFromString2 = (codeSpace, hash) => {
 };
 function mineFromCaches(md5Hash, html) {
   const keys = Object.keys(globalThis.eCaches[md5Hash].inserted);
-  return Array.from(document.styleSheets).map((x) => x.cssRules).filter((x) => x[0] && x[0].cssText).map((x) => x[0].cssText).filter((x) => keys.find((k) => x.includes(k))).filter((x) => html.includes(x.slice(0, 11))).join(" ");
+  return Array.from(document.styleSheets).map((x) => x.cssRules).filter(
+    (x) => x[0] && x[0].cssText
+  ).map((x) => x[0].cssText).filter(
+    (x) => keys.find((k) => x.includes(k))
+  ).filter((x) => html.includes(x.slice(0, 11))).join(" ");
 }
 var extractCritical22 = (html) => {
   try {

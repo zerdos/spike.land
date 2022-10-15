@@ -29,8 +29,8 @@ const define = {
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.browser": JSON.stringify(true),
   "process.env.DEBUG": JSON.stringify(false),
-  'isBrowser': JSON.stringify(true),
-  'isJest': JSON.stringify(false),
+  "isBrowser": JSON.stringify(true),
+  "isJest": JSON.stringify(false),
   "process.env.version": '"1.1.1"',
   global: "globalThis",
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
@@ -71,7 +71,7 @@ const workerEntryPoints = [
 const build = (entryPoints, extraExternal) =>
   esbuild.build({
     ...buildOptions,
-    entryPoints,    
+    entryPoints,
     external: [...buildOptions.external, ...extraExternal],
     outExtension: { ".js": ".mjs" },
     bundle: true,
@@ -136,7 +136,9 @@ const build = (entryPoints, extraExternal) =>
   await fs.rm("js/monaco-workers", { recursive: true, force: true });
 
   await esbuild.build({
-    entryPoints: [ ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`)],
+    entryPoints: [
+      ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
+    ],
     bundle: true,
     define,
     treeShaking: true,

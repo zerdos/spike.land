@@ -1,13 +1,13 @@
 export {
   AnimatePresence,
-AnimateSharedLayout,
+  AnimateSharedLayout,
   domAnimation,
   domMax,
-  useSpring,
-  useScroll, 
-  useAnimation, 
-  LazyMotion,
   LayoutGroup,
+  LazyMotion,
   m,
   motion,
+  useAnimation,
+  useScroll,
+  useSpring,
 } from "framer-motion";

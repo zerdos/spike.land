@@ -12,8 +12,7 @@ globalThis.EmotionGlob = globalThis.EmotionGlob ||
 // @ts-expect-error
 const EmotionGlob = globalThis.EmotionGlob;
 
-
-export const { styled, cache} = EmotionGlob;
+export const { styled, cache } = EmotionGlob;
 export const { jsx, jsxs, Fragment } = EmotionGlob.JSX;
-export const {css, Global, CacheProvider, keyframes } =  EmotionGlob.Emotion;
+export const { css, Global, CacheProvider, keyframes } = EmotionGlob.Emotion;
 export default EmotionGlob.Emotion;

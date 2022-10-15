@@ -1,6 +1,6 @@
 // deno-lint-ignore-file
 
-import {readFile} from "fs/promises";
+import { readFile } from "fs/promises";
 
 type Base =
   | "stretch"
@@ -26,7 +26,7 @@ const getDistro = (b: Base) =>
     ? "debian"
     : "ubuntu";
 
-import * as softwareVersions from "../versions.json" 
+import * as softwareVersions from "../versions.json";
 
 export class DevcontainerGenerator {
   private _dockerfile = "";
@@ -359,8 +359,8 @@ export class DevcontainerGenerator {
     extension: "Dockerfile" | "README",
   ) =>
     await readFile(
-        `../devcontainer-generator/templates/${filename}.${extension}`,
-      )
+      `../devcontainer-generator/templates/${filename}.${extension}`,
+    )
       .catch((e) => {
         console.error({ e });
         return "";

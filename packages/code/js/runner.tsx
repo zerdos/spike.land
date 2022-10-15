@@ -43,7 +43,7 @@ import { wait } from "wait";
 
 const mod = {
   code: "",
-  olderCode: ""
+  olderCode: "",
 };
 
 export async function runner({ code, counter, codeSpace }: {
@@ -51,16 +51,11 @@ export async function runner({ code, counter, codeSpace }: {
   codeSpace: string;
   counter: number;
 }) {
-
-
-
   mod.code = code;
   const mst = mST();
   console.log(`${mst.i} => ${counter}`);
 
   if (counter < mst.i) {
-    
-    
     return;
   }
 
@@ -129,8 +124,8 @@ export async function runner({ code, counter, codeSpace }: {
     const { html, css } = await render(transpiledCode, codeSpace);
 
     if (!html) {
-
-      return;}
+      return;
+    }
 
     patchSync({
       ...mST(),
@@ -138,24 +133,23 @@ export async function runner({ code, counter, codeSpace }: {
       i: counter,
       transpiled: transpiledCode,
       html,
-      css
+      css,
     });
 
     let i = 60;
-    while (!mST().css && counter===mST().i) {
+    while (!mST().css && counter === mST().i) {
       console.log("Oh, NO! Can't extract css, wait:", i);
 
       const { html, css } = renderFromString(codeSpace, hashCode());
 
       if (html && css) patchSync({ ...mST(), html, css });
       else await wait(i);
-      i = i*2;
+      i = i * 2;
     }
-  
+
     saveCode();
   } catch (error) {
-
     console.error({ error });
-  } finally{
+  } finally {
   }
 }

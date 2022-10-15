@@ -45,9 +45,13 @@ export const renderFromString = (
   };
 };
 
-function mineFromCaches(md5Hash, html){
-const keys = Object.keys(globalThis.eCaches[md5Hash].inserted);
-return Array.from(document.styleSheets).map(x=>x.cssRules).filter(x=>x[0]&&x[0].cssText).map(x=>x[0].cssText).filter(x=>keys.find((k: string)=>x.includes(k))).filter(x=>html.includes(x.slice(0,11))).join(" ")
+function mineFromCaches(md5Hash, html) {
+  const keys = Object.keys(globalThis.eCaches[md5Hash].inserted);
+  return Array.from(document.styleSheets).map((x) => x.cssRules).filter((x) =>
+    x[0] && x[0].cssText
+  ).map((x) => x[0].cssText).filter((x) =>
+    keys.find((k: string) => x.includes(k))
+  ).filter((x) => html.includes(x.slice(0, 11))).join(" ");
 }
 
 const extractCritical22 = (html: string) => {

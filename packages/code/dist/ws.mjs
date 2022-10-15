@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-MACMOKPE.mjs";
+} from "./chunk-chunk-WOMJUWJL.mjs";
 import {
   applyPatch,
   hashCode,
@@ -10086,7 +10086,14 @@ var import_xterm_addon_serialize = __toESM(require_xterm_addon_serialize(), 1);
 var serializeAddon = new import_xterm_addon_serialize.SerializeAddon();
 var fitAddon = new import_xterm_addon_fit.FitAddon();
 var origConsole = console.log;
-var terminal = new import_xterm.Terminal({ allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true, scrollback: 0, convertEol: true, windowsMode: true });
+var terminal = new import_xterm.Terminal({
+  allowProposedApi: true,
+  allowTransparency: true,
+  altClickMovesCursor: true,
+  scrollback: 0,
+  convertEol: true,
+  windowsMode: true
+});
 terminal.loadAddon(serializeAddon);
 var termOff = () => console.log = origConsole;
 Object.assign(terminal, { termOff });
@@ -10115,7 +10122,9 @@ var DraggableWindow = ({
     fitAddon.activate(terminal);
     fitAddon.fit();
     console.log = (...data) => {
-      const params = data.map((d) => typeof d === "object" ? JSON.stringify(d, null, 2) : d);
+      const params = data.map(
+        (d) => typeof d === "object" ? JSON.stringify(d, null, 2) : d
+      );
       terminal.write(params.join(" - ") + "\r\n");
       origConsole.apply(console, data);
     };
@@ -10715,7 +10724,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-HYLBQI6C.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-PPS535JX.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -10738,8 +10747,9 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
             const diag = await tsWorker.getSemanticDiagnostics(
               location.origin + "/live/" + codeSpace2 + ".tsx"
             );
-            if (diag.length)
+            if (diag.length) {
               console.log(diag.map((d) => d.messageText));
+            }
           })();
         } catch (e) {
           console.error("ts diag error");
@@ -10815,11 +10825,18 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
     const loadEditors = () => engine === "monaco" ? setMonaco() : setAce();
     !started && loadEditors();
   }, [started, ref]);
-  _n.useEffect(() => onChange(() => mod3.getValue().then(() => changeContent((x) => ({
-    ...x,
-    counter: mod3.counter,
-    myCode: mod3.code
-  })))), [onChange, myCode, changeContent]);
+  _n.useEffect(
+    () => onChange(
+      () => mod3.getValue().then(
+        () => changeContent((x) => ({
+          ...x,
+          counter: mod3.counter,
+          myCode: mod3.code
+        }))
+      )
+    ),
+    [onChange, myCode, changeContent]
+  );
   onSessionUpdate(() => {
     if (mod3.counter > mST().i) {
       return;

@@ -442,7 +442,6 @@ var startMonaco = async ({ code, container, name }) => {
     })();
     return code2;
   }
-  ;
 };
 export {
   startMonaco

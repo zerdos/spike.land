@@ -53,7 +53,9 @@ let lastSeenNow = 0;
 let ws: WebSocket | null = null;
 let sendWS: (message: string) => void;
 let rejoined = false;
-const tracks: {[key: string]: {track: MediaStreamTrack, streams:readonly MediaStream[]}} = {}
+const tracks: {
+  [key: string]: { track: MediaStreamTrack; streams: readonly MediaStream[] };
+} = {};
 export const sendChannel = {
   localStream: null as MediaStream | null,
   webRtcArray,
@@ -116,9 +118,6 @@ export const run = async (startState: {
   bc = new BroadcastChannel(location.origin);
 
   if (location.pathname.endsWith("dehydrated")) {
-
-
-
     if (
       bc.onmessage = (event) => {
         if (event.data.codeSpace === codeSpace) {
@@ -312,8 +311,8 @@ export const startVideo = async (vidElement: HTMLVideoElement) => {
     Object.keys(sendChannel.rtcConns).map((k) => {
       const datachannel = sendChannel.rtcConns[k];
       datachannel.addTrack(track);
-      datachannel.ontrack = ({track, streams}) =>
-     tracks[k] = {track, streams};
+      datachannel.ontrack = ({ track, streams }) =>
+        tracks[k] = { track, streams };
     })
   );
 };
@@ -608,17 +607,13 @@ async function processData(
     };
 
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
-  
-    rtcConns[target].ontrack = function(this: RTCPeerConnection, {track, streams}:RTCTrackEvent){
-      
-        
-        tracks[target] = {track, streams};
-      }
-    
 
-  
-
-
+    rtcConns[target].ontrack = function (
+      this: RTCPeerConnection,
+      { track, streams }: RTCTrackEvent,
+    ) {
+      tracks[target] = { track, streams };
+    };
 
     rtcConns[target].ondatachannel = (event) => {
       //console.//log("Receive Channel Callback");
@@ -626,16 +621,18 @@ async function processData(
       rtc.binaryType = "arraybuffer";
       rtc.addEventListener("close", onReceiveChannelClosed);
 
-      if (sendChannel && sendChannel.localStream && sendChannel.localStream.active) {
-        sendChannel.localStream.getTracks().forEach((track)=> {
-          const datachannel = rtcConns[target]
+      if (
+        sendChannel && sendChannel.localStream && sendChannel.localStream.active
+      ) {
+        sendChannel.localStream.getTracks().forEach((track) => {
+          const datachannel = rtcConns[target];
           datachannel.addTrack(track);
-     
-          datachannel.ontrack = ({ track, streams }) => tracks[target] = ({track, streams})
-        
-        })
+
+          datachannel.ontrack = ({ track, streams }) =>
+            tracks[target] = { track, streams };
+        });
       }
-   
+
       rtc.addEventListener(
         "message",
         async (message) =>
