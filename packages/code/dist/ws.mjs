@@ -10765,7 +10765,8 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
             const diag = await tsWorker.getSemanticDiagnostics(
               location.origin + "/live/" + codeSpace2 + ".tsx"
             );
-            console.log({ diag });
+            if (diag.length)
+              console.log({ diag });
           })();
         } catch (e) {
           console.error("ts diag error");
