@@ -43,8 +43,7 @@ import { wait } from "wait";
 
 const mod = {
   code: "",
-  olderCode: "",
-  termOff: ()=>{globalThis.terminal.termOff()}
+  olderCode: ""
 };
 
 export async function runner({ code, counter, codeSpace }: {
@@ -54,7 +53,6 @@ export async function runner({ code, counter, codeSpace }: {
 }) {
 
 
-  mod.termOff = globalThis.terminal.ON()
 
   mod.code = code;
   const mst = mST();
@@ -62,7 +60,6 @@ export async function runner({ code, counter, codeSpace }: {
 
   if (counter < mst.i) {
     
-    mod.termOff();
     
     return;}
 
@@ -131,7 +128,6 @@ export async function runner({ code, counter, codeSpace }: {
     const { html, css } = await render(transpiledCode, codeSpace);
 
     if (!html) {
-      mod.termOff();
 
       return;}
 
@@ -153,13 +149,11 @@ export async function runner({ code, counter, codeSpace }: {
       if (html && css) patchSync({ ...mST(), html, css });
       else await wait(i++);
     }
-    mod.termOff();
   
     saveCode();
   } catch (error) {
-    mod.termOff();
+
     console.error({ error });
   } finally{
-    mod.termOff();
   }
 }

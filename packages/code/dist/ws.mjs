@@ -10521,18 +10521,13 @@ var findDeps = (code) => {
 // js/runner.tsx
 var mod2 = {
   code: "",
-  olderCode: "",
-  termOff: () => {
-    globalThis.terminal.termOff();
-  }
+  olderCode: ""
 };
 async function runner({ code, counter, codeSpace: codeSpace2 }) {
-  mod2.termOff = globalThis.terminal.ON();
   mod2.code = code;
   const mst = mST();
   console.log(`${mst.i} => ${counter}`);
   if (counter < mst.i) {
-    mod2.termOff();
     return;
   }
   setTimeout(() => {
@@ -10581,7 +10576,6 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     const transpiledCode = `${transpiled.code}//${codeHash}`;
     const { html: html2, css: css3 } = await render(transpiledCode, codeSpace2);
     if (!html2) {
-      mod2.termOff();
       return;
     }
     patchSync({
@@ -10601,13 +10595,10 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       else
         await wait(i++);
     }
-    mod2.termOff();
     saveCode();
   } catch (error) {
-    mod2.termOff();
     console.error({ error });
   } finally {
-    mod2.termOff();
   }
 }
 
