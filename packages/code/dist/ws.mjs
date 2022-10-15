@@ -16,7 +16,7 @@ import {
   appFactory,
   render,
   renderFromString
-} from "./chunk-chunk-OHCIWCEK.mjs";
+} from "./chunk-chunk-O4ILBTTG.mjs";
 import {
   applyPatch,
   hashCode,
@@ -28,7 +28,7 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-EVROK5AB.mjs";
+} from "./chunk-chunk-YXQWNFHK.mjs";
 import "./chunk-chunk-CZQHXLQW.mjs";
 import {
   css,
@@ -10406,9 +10406,8 @@ var DraggableWindow = ({
       return;
     globalThis.terminal.ON = () => {
       console.log = (...data) => {
-        const prData = data.map((d) => JSONstringify(d));
-        terminal.writeln(prData.join(", ").slice(0, 360));
-        origConsole(...prData);
+        terminal.writeln(JSON.stringify(data, null, 2));
+        origConsole(...data);
       };
       return () => console.log = origConsole;
     };
@@ -10670,13 +10669,6 @@ var DraggableWindow = ({
     })
   });
 };
-function JSONstringify(json) {
-  if (typeof json != "string") {
-    json = JSON.stringify(json, void 0, "	");
-  }
-  return json;
-}
-Object.defineProperty(Date.prototype, "toPrunedJSON", { value: Date.prototype.toJSON });
 
 // js/Editor.tsx
 init_define_process();
@@ -10817,14 +10809,15 @@ var mod2 = {
   }
 };
 async function runner({ code, counter, codeSpace: codeSpace2 }) {
-  glbalThis.terminal.clear();
-  const termOff = globalThis.terminal.ON();
-  mod2.termOff = termOff;
+  globalThis.terminal.clear();
+  mod2.termOff = globalThis.terminal.ON();
   mod2.code = code;
   const mst = mST();
   console.log(`${mst.i} => ${counter}`);
-  if (counter < mst.i)
+  if (counter < mst.i) {
+    mod2.termOff();
     return;
+  }
   setTimeout(() => {
     if (mod2.code === code && code !== mod2.olderCode) {
       runner({ code, counter, codeSpace: codeSpace2 });
@@ -10870,8 +10863,10 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
     const { html: html2, css: css3 } = await render(transpiledCode, codeSpace2);
-    if (!html2)
+    if (!html2) {
+      mod2.termOff();
       return;
+    }
     patchSync({
       ...mST(),
       code,
@@ -10892,7 +10887,10 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     mod2.termOff();
     saveCode();
   } catch (error) {
+    mod2.termOff();
     console.error({ error });
+  } finally {
+    mod2.termOff();
   }
 }
 

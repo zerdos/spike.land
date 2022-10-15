@@ -5409,18 +5409,17 @@ function applyPatch(original, delta) {
 }
 
 // js/session.ts
-function initSession(room, users, u) {
-  return Record({ ...u, room, users, state: Record(u.state)() });
+function initSession(room, u) {
+  return Record({ ...u, room, state: Record(u.state)() });
 }
 var session = null;
 var hashStore = {};
 var CodeSession = class {
-  constructor(room, users, user) {
+  constructor(room, user) {
     __publicField(this, "session");
     __publicField(this, "cb", {});
     __publicField(this, "hashCodeSession", 0);
     __publicField(this, "room");
-    __publicField(this, "users");
     __publicField(this, "created", new Date().toISOString());
     __publicField(this, "hashOfState", () => {
       const state = this.session.get("state");
@@ -5537,9 +5536,8 @@ var CodeSession = class {
     });
     session = this;
     this.room = room;
-    this.users = users;
     const savedState = null;
-    this.session = initSession(room, users, {
+    this.session = initSession(room, {
       ...user,
       state: savedState ? savedState : JSON.parse(string_(user.state))
     })();
@@ -5613,7 +5611,7 @@ var applyPatch2 = async (x) => {
 var onSessionUpdate = (fn, regId = "default") => session == null ? void 0 : session.onUpdate(fn, regId);
 var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
 var makePatch = async (st, update8) => makePatchFrom(hashCode3(), st, update8);
-var startSession = (room, users, u, originString) => session || new CodeSession(room, users, {
+var startSession = (room, u, originString) => session || new CodeSession(room, {
   name: u.name,
   state: addOrigin(u.state, originString)
 });

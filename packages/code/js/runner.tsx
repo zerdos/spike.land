@@ -54,13 +54,17 @@ export async function runner({ code, counter, codeSpace }: {
 }) {
 
   globalThis.terminal.clear();
-const termOff = globalThis.terminal.ON()
-mod.termOff = termOff;
+  mod.termOff = globalThis.terminal.ON()
+
   mod.code = code;
   const mst = mST();
   console.log(`${mst.i} => ${counter}`);
 
-  if (counter < mst.i) return;
+  if (counter < mst.i) {
+    
+    mod.termOff();
+    
+    return;}
 
   setTimeout(() => {
     if (mod.code === code && code !== mod.olderCode) {
@@ -126,7 +130,10 @@ mod.termOff = termOff;
 
     const { html, css } = await render(transpiledCode, codeSpace);
 
-    if (!html) return;
+    if (!html) {
+      mod.termOff();
+
+      return;}
 
     patchSync({
       ...mST(),
@@ -150,6 +157,9 @@ mod.termOff = termOff;
   
     saveCode();
   } catch (error) {
+    mod.termOff();
     console.error({ error });
+  } finally{
+    mod.termOff();
   }
 }
