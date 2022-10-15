@@ -164,7 +164,7 @@ export const Editor: React.FC<
               location.origin + "/live/" + codeSpace + ".tsx",
             );
             if (diag.length)
-            console.log();
+            console.log({ diag });
           })();
         } catch {
           console.error("ts diag error");
