@@ -10086,7 +10086,7 @@ var import_xterm_addon_serialize = __toESM(require_xterm_addon_serialize(), 1);
 var serializeAddon = new import_xterm_addon_serialize.SerializeAddon();
 var fitAddon = new import_xterm_addon_fit.FitAddon();
 var origConsole = console.log;
-var terminal = new import_xterm.Terminal();
+var terminal = new import_xterm.Terminal({ allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true });
 terminal.loadAddon(serializeAddon);
 terminal.loadAddon(fitAddon);
 Object.assign(globalThis, { terminal });
