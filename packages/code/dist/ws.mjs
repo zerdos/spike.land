@@ -10784,7 +10784,11 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
           return;
         if (mST().i === mod3.counter)
           return;
-        setTimeout(() => mod3.codeToSet === code2 && setMonValue(code2), 800);
+        console.log("timeout-start");
+        setTimeout(() => {
+          mod3.codeToSet === code2 && setMonValue(code2);
+          console.log("timeout-end");
+        }, 800);
       };
       mod3.getValue = getValue;
       mod3.setValue = setValue;

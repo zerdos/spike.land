@@ -180,7 +180,15 @@ export const Editor: React.FC<
         if (code === await getValue()) return;
         if (mST().i === mod.counter) return;
 
-        setTimeout(() => mod.codeToSet === code && setMonValue(code), 800); //wait this time before overwriting the value
+        console.log("timeout-start");
+        setTimeout(() => {
+          
+          mod.codeToSet === code  &&     setMonValue(code) 
+           console.log("timeout-end");
+          
+      
+        
+        }, 800); //wait this time before overwriting the value
       };
 
       mod.getValue = getValue;
