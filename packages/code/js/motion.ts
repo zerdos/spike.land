@@ -1,5 +1,6 @@
 export {
   domMax,
+  AnimateSharedLayout,
   LazyMotion,
   m,
   motion,

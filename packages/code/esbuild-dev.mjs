@@ -16,7 +16,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
-const target = "es2017";
+const target = "es2022";
 
 console.log(`
 -------------------------------------------------
@@ -158,28 +158,28 @@ const build = (entryPoints, extraExternal) =>
 
 
 
-  buildOptions.plugins = [
-    aliasPlugin({
-      react: resolve("./js/react-preact.ts"),
-      "react-dom": resolve("./js/react-preact.ts"),
-      "react-dom/client": resolve("./js/react-preact.ts"),
-      "react-dom/server": resolve("./js/react-preact.ts"),
-      "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
-      "react/jsx-runtime": resolve("./js/react-preact.ts"),
-    })];
+  // buildOptions.plugins = [
+  //   aliasPlugin({
+  //     react: resolve("./js/react-preact.ts"),
+  //     "react-dom": resolve("./js/react-preact.ts"),
+  //     "react-dom/client": resolve("./js/react-preact.ts"),
+  //     "react-dom/server": resolve("./js/react-preact.ts"),
+  //     "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
+  //     "react/jsx-runtime": resolve("./js/react-preact.ts"),
+  //   })];
 
 
-    await build([
-      // "js/session.ts",
-      // "js/prettierWorker.mjs",
-      // "js/react-preact.ts",
-      "js/motion.ts",
-      "js/react-preact.ts",
-      "js/emotion.ts",
-      // "js/mui.tsx",
-      "js/emotionJsxRuntime.ts",
-      // "js/ws.ts"], 
-     ],["react", "react/", "react-dom", "react-dom/"]);
+  //   await build([
+  //     // "js/session.ts",
+  //     // "js/prettierWorker.mjs",
+  //     // "js/react-preact.ts",
+  //     "js/motion.ts",
+  //     "js/react-preact.ts",
+  //     "js/emotion.ts",
+  //     // "js/mui.tsx",
+  //     "js/emotionJsxRuntime.ts",
+  //     // "js/ws.ts"], 
+  //    ],["react", "react/", "react-dom", "react-dom/"]);
 
   buildOptions.plugins = [
     aliasPlugin({
@@ -199,21 +199,15 @@ const build = (entryPoints, extraExternal) =>
     await build([
       "js/session.ts",
       "js/prettierWorker.mjs",
-      // "js/react-preact.ts",
-      // "js/motion.ts",
+      "js/react-preact.ts",
+      "js/motion.ts",
       "js/renderToString.tsx",
       "js/renderPreviewWindow.tsx",
-      // "js/emotion.ts",
-      // "js/emotionJsxRuntime.ts",  
+      "js/emotion.ts",
+      "js/emotionJsxRuntime.ts",  
       "js/ws.ts",
     ], [
-      "react",
-      "react/",
-      "react-dom",
-      "react-dom/",
-      'framer-motion',
-      "@emotion/react",
-      "@emotion/react/"
+
     ]);
 
 })();

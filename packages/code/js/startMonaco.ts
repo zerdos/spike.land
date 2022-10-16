@@ -1,4 +1,6 @@
 import { getWorkerUrl } from "./monacoWorkers.mjs";
+import "monaco-editor/esm/vs/editor/editor.all"
+
 const lib = [
   "dom",
   "dom.iterable",
@@ -62,6 +64,9 @@ const lib = [
   "webworker.importscripts",
   "webworker.iterable",
 ];
+import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
+import"monaco-editor/esm/vs/language/typescript/monaco.contribution"
+
 
 self.MonacoEnvironment = {
   baseUrl: location.origin,
@@ -77,16 +82,8 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
-  const tsD = await Promise.all([
-    import("monaco-editor/esm/vs/editor/editor.api"),
-    import("monaco-editor/esm/vs/editor/editor.all"),
-    import(
-      "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
-    ),
-    import("monaco-editor/esm/vs/language/typescript/monaco.contribution"),
-  ]);
 
-  const { editor, languages, Uri } = tsD[0];
+  const { editor, languages, Uri } = await  import("monaco-editor/esm/vs/editor/editor.api");
 
   const create = editor.create;
   // const languages = monaco.languages;
