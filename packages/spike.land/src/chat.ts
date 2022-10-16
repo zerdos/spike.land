@@ -13,6 +13,7 @@ const ws = a["ws.mjs"];
 const preact = a["react-preact.mjs"];
 const emotionReact = a["emotion.mjs"];
 const emotionJsxRuntime = a["emotionJsxRuntime.mjs"];
+
 const motion = a["motion.mjs"];
 
 const esbuildExternal = [
@@ -30,7 +31,7 @@ export const imap = {
   "imports": {
     ...mods,
     "@emotion/react": emotionReact,
-    "@emotion/react/jsx-runtime": emotionReact,
+    "@emotion/react/jsx-runtime": emotionJsxRuntime,
     "@mui/": "npm:@mui/",
     "@use-gesture/react": "npm:@use-gesture/react?external=react",
     "live/": "live/",
