@@ -1,7 +1,2 @@
-export {
-  domMax,
-  AnimateSharedLayout,
-  LazyMotion,
-  m,
-  motion,
-} from "framer-motion";
+export * from "framer-motion";
+export {default} from "framer-motion"
