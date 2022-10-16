@@ -5,7 +5,7 @@ import {
   init_define_process,
   init_react_preact,
   react_preact_exports
-} from "./chunk-chunk-I7VRKITQ.mjs";
+} from "./chunk-chunk-PYNOA6HJ.mjs";
 
 // ../../.yarn/global/cache/@emotion-sheet-npm-1.2.0-3bb8dd5fba-9.zip/node_modules/@emotion/sheet/dist/emotion-sheet.cjs.dev.js
 var require_emotion_sheet_cjs_dev = __commonJS({
@@ -1950,14 +1950,14 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
     var __unsafe_useEmotionCache = function useEmotionCache() {
       return React.useContext(EmotionCacheContext);
     };
-    exports.withEmotionCache = function withEmotionCache(func) {
+    exports.withEmotionCache = function withEmotionCache2(func) {
       return React.forwardRef(function(props, ref) {
         var cache2 = React.useContext(EmotionCacheContext);
         return func(props, cache2, ref);
       });
     };
     if (!isBrowser) {
-      exports.withEmotionCache = function withEmotionCache(func) {
+      exports.withEmotionCache = function withEmotionCache2(func) {
         return function(props) {
           var cache2 = React.useContext(EmotionCacheContext);
           if (cache2 === null) {
@@ -2973,12 +2973,13 @@ var require_emotion_react_jsx_runtime_cjs = __commonJS({
 // js/emotion.ts
 init_define_process();
 var import_react = __toESM(require_emotion_react_cjs(), 1);
+var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_styled = __toESM(require_emotion_styled_cjs(), 1);
 var import_cache = __toESM(require_emotion_cache_cjs(), 1);
 var JSX = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-globalThis.EmotionGlob = globalThis.EmotionGlob || { JSX, Emotion: import_react.default, styled: import_styled.default, cache: import_cache.default };
+globalThis.EmotionGlob = globalThis.EmotionGlob || { JSX, Emotion: import_react.default, styled: import_styled.default, cache: import_cache.default, withEmotionCache: import_react2.withEmotionCache };
 var EmotionGlob = globalThis.EmotionGlob;
-var { styled, cache } = EmotionGlob;
+var { styled, cache, withEmotionCache } = EmotionGlob;
 var { jsx, jsxs, Fragment } = EmotionGlob.JSX;
 var { css, Global, CacheProvider, keyframes } = EmotionGlob.Emotion;
 var emotion_default = EmotionGlob.Emotion;
@@ -2992,5 +2993,6 @@ export {
   jsx,
   jsxs,
   keyframes,
-  styled
+  styled,
+  withEmotionCache
 };

@@ -7,7 +7,9 @@
 // import {CacheProvider, createCache } from "@emotion/react"
 import { css } from "@emotion/react";
 import { useEffect, useRef } from "react";
+import {terminal} from "./DraggableWindow"
 
+import type iEmotion from "@emotion/react"
 import type { FC } from "react";
 
 import { mST, patchSync } from "./session";
@@ -23,6 +25,17 @@ import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
 
+if (!globalThis["apps"] || !globalThis["eCaches"]) {
+  Object.assign(globalThis, {apps:{}, eCaches:{}});
+}
+const { apps, eCaches } = (globalThis as unknown as {
+  apps: Record<string, React.FC<{ appId: string }>>;
+  eCaches: Record<string, EmotionCache>;
+})  || (globalThis as unknown as {
+  apps: Record<string, React.FC<{ appId: string }>>;
+  eCaches: Record<string, EmotionCache>;
+}).apps;
+
 let renderFromString: typeof RFS | null = null;
 
 let createCache: typeof CreateCache | null = null;
@@ -32,8 +45,9 @@ let CacheProvider: typeof EmotionCacheProvider | null = null;
 // });
 
 // Object.assign(globalThis, {myCache})
-
-async function importShim(scr: string): Promise<any> {
+let ishim: typeof importShim;
+async function importShim(str: string): Promise<any> {
+  if (ishim) return ishim(str);
   if (!document.scripts) {
     throw new Error("document.scripts");
   }
@@ -54,19 +68,13 @@ async function importShim(scr: string): Promise<any> {
     ),
   );
 
-  // @ts-expect-error
-  importShim = window.importShim;
+  ishim = window.importShim;
 
-  return importShim(scr);
-} // @ts-expect-error
+  return ishim(str);
+}
 
-globalThis.apps = globalThis.apps || {};
-globalThis.eCaches = globalThis.eCaches as unknown || {};
 
-const { apps, eCaches } = globalThis as unknown as {
-  apps: Record<string, React.FC<{ appId: string }>>;
-  eCaches: Record<string, EmotionCache>;
-};
+
 
 const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
@@ -123,30 +131,22 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
     </ErrorBoundary>
   );
 };
-// @ts-expect-error
 
-let Emotion = null;
-
-let myCache: EmotionCache | null = null;
+let Emotion: typeof iEmotion;
 
 export async function appFactory(
   transpiled = "",
 ): Promise<React.FC<{ appId: string }>> {
-  // console.log('App fac', codeSpace, transpiled)
-  // Const hashC = hashCode();
-  // @ts-expect-error
 
   if (Emotion === null) {
-    Emotion = await importShim("@emotion/react");
+    Emotion = await import("@emotion/react") as typeof iEmotion;
 
-    renderFromString = (await importShim("/renderToString.mjs"))
-      .renderFromString as unknown as typeof RFS;
-    createCache = Emotion.cache.default as unknown as typeof CreateCache;
+    renderFromString = (await import("./renderToString"))
+      .renderFromString
+    createCache = (Emotion as unknown as {cache: {default: typeof CreateCache}}).cache.default;
     CacheProvider = Emotion
       .CacheProvider as unknown as typeof EmotionCacheProvider;
-    myCache = createCache({
-      key: "z",
-    });
+    
   }
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
@@ -155,20 +155,20 @@ export async function appFactory(
 
   if (!apps[hash]) {
     try {
-      if (globalThis.terminal && globalThis.terminal.clear) {
-        globalThis.terminal.clear();
+      if (terminal && terminal.clear) {
+        terminal.clear();
       }
       console.log(`i: ${mstI}: `);
       const App = (await importShim(createJsBlob(trp)))
         .default as unknown as FC;
-      if (CacheProvider === null || myCache === null) {
+      if (CacheProvider === null || createCache === null ) {
         return () => <h1>error</h1>;
       }
       if (isCallable(App)) {
         const { CacheProvider, css } = Emotion;
-        eCaches[hash] = Emotion.cache.default({
+        eCaches[hash] = createCache({
           key: "z",
-          isSpeedy: true,
+          speedy: true,
         }) as unknown as EmotionCache;
         apps[hash] = ({ appId }) =>
           appId.includes(hash)

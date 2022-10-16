@@ -16,7 +16,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
-const target = "es2018";
+const target = "es2017";
 
 console.log(`
 -------------------------------------------------
@@ -121,6 +121,7 @@ const build = (entryPoints, extraExternal) =>
       ".tsx": "tsx",
       ".jsx": "tsx",
       ".js": "tsx",
+      ".mjs": 'tsx',
       ".css": "css",
       ".d.ts": "file",
       ".workerJs.js": "file",
@@ -189,7 +190,7 @@ const build = (entryPoints, extraExternal) =>
       // "js/session.ts",
       // "js/prettierWorker.mjs",
       // "js/react-preact.ts",
-      // "js/motion.ts",
+      "js/motion.ts",
       "js/react-preact.ts",
       "js/emotion.ts",
       // "js/mui.tsx",
@@ -215,7 +216,7 @@ const build = (entryPoints, extraExternal) =>
       "js/session.ts",
       "js/prettierWorker.mjs",
       // "js/react-preact.ts",
-      "js/motion.ts",
+      // "js/motion.ts",
       "js/renderToString.tsx",
       // "js/emotion.ts",
       // "js/emotionJsxRuntime.ts",
@@ -225,6 +226,7 @@ const build = (entryPoints, extraExternal) =>
       "react/",
       "react-dom",
       "react-dom/",
+      'framer-motion',
       "@emotion/react",
       "@emotion/react/",
     ]);

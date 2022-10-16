@@ -1,51 +1,38 @@
-// Import { createContext  } from "preact/compat"
+export { renderToString } from "preact-render-to-string";
 
-// export { createPortal, findDOMNode, SuspenseList } from "preact/compat";
+export { jsx, jsxs } from "./preact/compat/jsx-runtime.mjs";
 
-import PreactCompat from "preact/compat";
+export { createContext } from "./preact/src/create-context";
 
-export {
-  createPortal,
-  findDOMNode,
-  //@ts-expect-error
-  flushSync,
-  startTransition,
-  SuspenseList,
-  unstable_batchedUpdates,
-} from "preact/compat";
-export { jsx, jsxs } from "./preact-jsx-runtime";
-// Import compat from 'preact/compat'
-// export default compat
+export { createRoot, hydrateRoot } from "./preact/compat/client.mjs";
 
-// import * as  PreactSignals from "@preact/signals";
+import { Component } from "./preact/src/component";
 
-// import { createClass  as crc  } from 'preact-compat/dist/preact-compat.min'
 
-export { createElement, Fragment } from "preact";
 
-export { renderToString, shallowRender } from "preact-render-to-string";
 
-export const { render, hydrate, unmountComponentAtNode } = PreactCompat;
+// export const { render, hydrate } = c;
 
-export function createRoot(container: HTMLDivElement) {
-  return {
-    render(children: JSX.Element) {
-      render(children, container);
-    },
-    unmount() {
-      unmountComponentAtNode(container);
-    },
-  };
-}
+// export function createRoot(container: HTMLDivElement) {
+//   return {
+//     render(children: JSX.Element) {
+//       Ptract.render(children, container);
+//     },
+//     unmount() {
+//       unmountComponentAtNode(container);
+//     },
+//   };
+// }
 
-export function hydrateRoot(container: HTMLDivElement, children: JSX.Element) {
-  hydrate(children, container);
-  return createRoot(container);
-}
+// export function hydrateRoot(container: HTMLDivElement, children: JSX.Element) {
+//   hydrate(children, container);
+//   return createRoot(container);
+// }
+import * as Preact from "./preact/src";
+import * as PreactCompat from "./preact/compat";
 
-const React = window.React = window.React ||
-  { ...PreactCompat };
-export const { createContext } = React;
+export const React = { ...Preact, ...PreactCompat, Component};
+Object.assign(React, {default: React})
 // Export const {signal} = PreactSignals;
 // export const {effect} = PreactSignals;
 // export const {computed} = PreactSignals;
@@ -61,11 +48,22 @@ export const { createContext } = React;
 
 // export { createPortal, findDOMNode, SuspenseList };
 
+
+
 export const {
+  createPortal,
+  findDOMNode,
+  //@ts-expect-error
+  flushSync,
+  startTransition,
+  SuspenseList,
+  unstable_batchedUpdates,
   cloneElement,
+  createElement,
   createFactory,
   useInsertionEffect,
   createRef,
+  Fragment,
   useCallback,
   useContext,
   useDebugValue,
@@ -86,8 +84,7 @@ export const {
   memo,
   Children,
   PureComponent,
-  Component,
   version,
 } = React;
 
-export { default } from "preact/compat";
+export default React

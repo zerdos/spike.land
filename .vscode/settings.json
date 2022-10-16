@@ -16,7 +16,7 @@
     "**/.yarn": true
   },
   "search.useIgnoreFiles": true,
-  "files.autoSave": "afterDelay",
+  "files.autoSave": "off",
   "files.autoSaveDelay": 1,
   "git.autorefresh": true,
   "git.autofetch": true,
