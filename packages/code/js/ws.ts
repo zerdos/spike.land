@@ -23,6 +23,7 @@ import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { appFactory } from "./starter";
 import { md5 } from "./md5"; //import { wait } from "wait";
+import { wait } from "wait";
 
 //Import PubSubRoom from 'ipfs-pubsub-room'
 
@@ -514,7 +515,15 @@ async function processData(
         data.name && data.name !== user &&
         !rtcConns[data.name] && !ignoreUsers.includes(data.name)
       ) {
+
         await createPeerConnection(data.name);
+        const users = data.users as string[];
+        while (users.length) {
+          await wait(2000);
+          const nextToConnect = users.pop()
+          if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) await createPeerConnection(nextToConnect);
+        }
+      
         return;
       }
     } catch (error) {
