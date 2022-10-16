@@ -5,6 +5,8 @@ import { renderToString } from "react-dom/server";
 
 import isCallable from "is-callable";
 
+// const rootDiv = document.createElement("div");
+
 export const render = async (transpiled: string, codeSpace: string) => {
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
@@ -45,7 +47,7 @@ export const renderFromString = (
   };
 };
 
-function mineFromCaches(md5Hash, html) {
+function mineFromCaches(md5Hash: string, html: string) {
   const keys = Object.keys(globalThis.eCaches[md5Hash].inserted);
   return Array.from(document.styleSheets).map((x) => x.cssRules).filter((x) =>
     x[0] && x[0].cssText
