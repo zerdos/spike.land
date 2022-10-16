@@ -5,7 +5,12 @@ import "./chunk-chunk-GWMK2HKB.mjs";
 
 // js/emotionJsxRuntime.ts
 init_define_process();
-import { Fragment, jsx, jsxs } from "@emotion/react/jsx-runtime";
+import { Fragment as __, jsx as ___ } from "@emotion/react/jsx-runtime";
+globalThis._____ = globalThis._____ || { __, ___, ___ };
+var { ____ } = globalThis;
+var Fragment = ____.___;
+var jsx = ____.___;
+var jsxs = ____.____;
 export {
   Fragment,
   jsx,
