@@ -37,10 +37,10 @@ const mod = {
 export const Editor: React.FC<
   {
     codeSpace: string;
-    assets: Record<string, string>;
+    
   }
 > = (
-  { codeSpace, assets },
+  { codeSpace },
 ) => {
   const ref = useRef<HTMLDivElement>(null) as undefined | {
     current: HTMLDivElement;
@@ -84,7 +84,7 @@ export const Editor: React.FC<
     const setMonaco = async () => {
       const link = document.createElement("link");
       link.setAttribute("rel", "stylesheet");
-      link.href = location.origin + "/" + assets["ws.css"];
+      link.href = location.origin + "/startMonaco.css";
       document.head.append(link);
 
       const { startMonaco } = await import("./startMonaco");

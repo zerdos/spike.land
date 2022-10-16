@@ -8,26 +8,22 @@ import {
 import { appFactory, AutoUpdateApp } from "./starter";
 import { DraggableWindow } from "./DraggableWindow";
 
-import {default as createCache} from "@emotion/cache";
-
-import { css } from "@emotion/react";
 
 // Import { useSpring, a } from '@react-spring/web'
 
 import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
-import { CacheProvider } from "@emotion/react";
 
-const RainbowContainer: React.FC<{ children: JSX.Element }> = (
-  { children },
+const RainbowContainer: React.FC<{ css: any, children: JSX.Element}> = (
+  { css, children },
 ) => (
   <div
     css={css`
-height: 100%;
-width: 100%;
-background-blend-mode: overlay;
-background:  repeating-radial-gradient(circle at bottom left, 
+              height: 100%;
+              width: 100%;
+              background-blend-mode: overlay;
+              background:  repeating-radial-gradient(circle at bottom left, 
               #fedc00 0, #fedc00 5.5555555556%, 
               #fcb712 0, #fcb712 11.1111111111%, 
               #f7921e 0, #f7921e 16.6666666667%, 
@@ -72,9 +68,9 @@ background:  repeating-radial-gradient(circle at bottom left,
 );
 
 const AppToRender: React.FC<
-  { codeSpace: string; assets: Record<string, string> }
+  { codeSpace: string }
 > = (
-  { codeSpace, assets },
+  { codeSpace },
 ) => {
   // Const [flipped, set] = useState(false)
   // const { transform, opacity } = useSpring({
@@ -116,11 +112,11 @@ const AppToRender: React.FC<
       </InPortal>
 
       {isStandalone ? <OutPortal node={portalNode} /> : (
-        <RainbowContainer>
+     
           <Fragment>
             <Editor
               codeSpace={codeSpace}
-              assets={assets}
+          
             />
             <DraggableWindow
               hashCode={0}
@@ -129,16 +125,15 @@ const AppToRender: React.FC<
               <OutPortal node={portalNode} />
             </DraggableWindow>
           </Fragment>
-        </RainbowContainer>
+   
       )}
     </Fragment>
   );
 };
 const singleton = { started: false };
 
-export const renderPreviewWindow = ({ codeSpace, assets }: {
-  codeSpace: string;
-  assets: Record<string, string>;
+export const renderPreviewWindow = ({ codeSpace, CacheProvider, createCache, css}: {
+  codeSpace: string
 }) => {
   if (singleton.started) return;
   singleton.started = true;
@@ -147,14 +142,16 @@ export const renderPreviewWindow = ({ codeSpace, assets }: {
   // Div.style.height='100%';
   const root = createRoot(div);
 
-  const cache = createCache({key: "win"});
+  const cache = createCache({key: "w"});
   console.log({cache});
 
   root.render(
-    <Fragment>
+    
     <CacheProvider value={cache}>
-      <AppToRender codeSpace={codeSpace} assets={assets} />
+      <RainbowContainer css={css}>
+      <AppToRender codeSpace={codeSpace} />
+      </RainbowContainer>
     </CacheProvider>
-    </Fragment>,
+  ,
   );
 };

@@ -202,6 +202,7 @@ const build = (entryPoints, extraExternal) =>
       // "js/react-preact.ts",
       // "js/motion.ts",
       "js/renderToString.tsx",
+      "js/renderPreviewWindow.tsx",
       // "js/emotion.ts",
       // "js/emotionJsxRuntime.ts",  
       "js/ws.ts",

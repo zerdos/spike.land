@@ -5,9 +5,9 @@ import {
   createElement2,
   createPortal,
   createRef2,
-  emotionCache_default,
   export_CacheProvider,
   export_Global,
+  export_cache,
   export_styled,
   flushSync,
   forwardRef,
@@ -26,7 +26,7 @@ import {
   useReducer,
   useRef,
   useState
-} from "./chunk-chunk-7DZNTTAW.mjs";
+} from "./chunk-chunk-4VV4U3W2.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-5VN25EFX.mjs";
@@ -10179,6 +10179,12 @@ init_define_process();
 // ../../.yarn/__virtual__/@mui-styled-engine-virtual-1d634a8533/0/global/cache/@mui-styled-engine-npm-5.10.8-a0cbfa59bc-9.zip/node_modules/@mui/styled-engine/StyledEngineProvider/StyledEngineProvider.js
 init_define_process();
 var import_prop_types30 = __toESM(require_prop_types());
+
+// js/emotionCache.mjs
+init_define_process();
+var emotionCache_default = export_cache.default;
+
+// ../../.yarn/__virtual__/@mui-styled-engine-virtual-1d634a8533/0/global/cache/@mui-styled-engine-npm-5.10.8-a0cbfa59bc-9.zip/node_modules/@mui/styled-engine/StyledEngineProvider/StyledEngineProvider.js
 var cache = emotionCache_default({
   key: "css",
   prepend: true

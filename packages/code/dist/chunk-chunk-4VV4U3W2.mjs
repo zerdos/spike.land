@@ -5323,10 +5323,6 @@ var export_jsx = import_react.jsx;
 var export_keyframes = import_react.keyframes;
 var export_styled = import_styled.default;
 
-// js/emotionCache.mjs
-init_define_process();
-var emotionCache_default = export_cache.default;
-
 export {
   __commonJS,
   __toESM,
@@ -5373,8 +5369,8 @@ export {
   require_emotion_element_b63ca7c6_cjs_dev,
   export_CacheProvider,
   export_Global,
+  export_cache,
   export_css,
   export_keyframes,
-  export_styled,
-  emotionCache_default
+  export_styled
 };
