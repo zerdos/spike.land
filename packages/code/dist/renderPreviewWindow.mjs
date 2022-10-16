@@ -17,7 +17,7 @@ import {
   render,
   renderFromString,
   saveCode
-} from "./chunk-chunk-DF4VVS6U.mjs";
+} from "./chunk-chunk-BVPQIUCW.mjs";
 import {
   hashCode,
   mST,
@@ -41,7 +41,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-4VV4U3W2.mjs";
+} from "./chunk-chunk-ZJB52ZGH.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-5VN25EFX.mjs";
@@ -681,7 +681,7 @@ var Editor = ({ codeSpace }) => {
 };
 
 // js/renderPreviewWindow.tsx
-var RainbowContainer = ({ css, children }) => export_jsx("div", {
+var RainbowContainer = ({ cSs: css, children }) => export_jsx("div", {
   css: css`
               height: 100%;
               width: 100%;
@@ -788,7 +788,7 @@ var renderPreviewWindow = ({ codeSpace, CacheProvider, createCache, css }) => {
     export_jsx(CacheProvider, {
       value: cache,
       children: export_jsx(RainbowContainer, {
-        css,
+        cSs: css,
         children: export_jsx(AppToRender, {
           codeSpace
         })

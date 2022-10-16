@@ -15,8 +15,8 @@ import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
 
-const RainbowContainer: React.FC<{ css: any, children: JSX.Element}> = (
-  { css, children },
+const RainbowContainer: React.FC<{ cSs: any, children: JSX.Element}> = (
+  { cSs: css, children },
 ) => (
   <div
     css={css`
@@ -148,7 +148,7 @@ export const renderPreviewWindow = ({ codeSpace, CacheProvider, createCache, css
   root.render(
     
     <CacheProvider value={cache}>
-      <RainbowContainer css={css}>
+      <RainbowContainer cSs={css}>
       <AppToRender codeSpace={codeSpace} />
       </RainbowContainer>
     </CacheProvider>
