@@ -185,7 +185,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:11.10.4":
+"@emotion/react@npm:11.10.4, @emotion/react@npm:^11.10.4":
   version: 11.10.4
   resolution: "@emotion/react@npm:11.10.4"
   dependencies:
@@ -891,7 +891,7 @@ __metadata:
     "@libp2p/interfaces": "npm:3.0.3"
     "@motionone/dom": "npm:10.14.2"
     "@mui/material": "npm:5.10.9"
-    "@types/hoist-non-react-statics": "npm:^3"
+    "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/is-callable": "npm:1.1.0"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
@@ -1005,7 +1005,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/monorepo@workspace:."
   dependencies:
-    "@emotion/react": "npm:11.10.4"
+    "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:1.27.1"
     "@types/react": "npm:18.0.21"
     "@types/react-dom": "npm:18.0.6"
@@ -1069,7 +1069,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hoist-non-react-statics@npm:^3":
+"@types/hoist-non-react-statics@npm:^3.3.1":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
   dependencies:

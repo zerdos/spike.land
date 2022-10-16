@@ -8,15 +8,17 @@ import {
 import { appFactory, AutoUpdateApp } from "./starter";
 import { DraggableWindow } from "./DraggableWindow";
 
-
+import type {EmotionCache} from "@emotion/cache"
+import { CacheProvider, css } from "@emotion/react";
+import createCache from "@emotion/cache";
 // Import { useSpring, a } from '@react-spring/web'
 
 import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
 
-const RainbowContainer: React.FC<{ cSs: any, children: JSX.Element}> = (
-  { cSs: css, children },
+const RainbowContainer: React.FC<{ children: JSX.Element}> = (
+  {children },
 ) => (
   <div
     css={css`
@@ -132,9 +134,8 @@ const AppToRender: React.FC<
 };
 const singleton = { started: false };
 
-export const renderPreviewWindow = ({ codeSpace, CacheProvider, createCache, css}: {
-  codeSpace: string
-}) => {
+export const renderPreviewWindow = ({ codeSpace } :
+ { codeSpace: string}) => {
   if (singleton.started) return;
   singleton.started = true;
 
@@ -142,14 +143,14 @@ export const renderPreviewWindow = ({ codeSpace, CacheProvider, createCache, css
   // Div.style.height='100%';
   const root = createRoot(div);
 
-  const cache = createCache({key: "w"});
-  console.log({cache});
+  const renderPrevWindowCashe = createCache({key: "w"});
+  console.log({renderPrevWindowCashe});
 
   root.render(
     
-    <CacheProvider value={cache}>
-      <RainbowContainer cSs={css}>
-      <AppToRender codeSpace={codeSpace} />
+    <CacheProvider value={renderPrevWindowCashe}>
+      <RainbowContainer>
+      <AppToRender codeSpace={renderPrevWindowCashe} />
       </RainbowContainer>
     </CacheProvider>
   ,

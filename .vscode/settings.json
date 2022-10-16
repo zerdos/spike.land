@@ -1,5 +1,6 @@
 {
-  "files.refactoring.autoSave": true, 
+  "testing.alwaysRevealTestOnStateChange": false,
+  "files.refactoring.autoSave": true,
   "files.exclude": {
     "**/node_modules": true,
     "**/.git": true,
