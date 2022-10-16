@@ -123,11 +123,11 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 
 
   return (
-    <ErrorBoundary key={md5Hash} ref={ref}>
-      <CacheProvider value={createCache({key:"x"})} >
-      <App appId={`${codeSpace}-${md5Hash}`} />
-      </CacheProvider>
-    </ErrorBoundary>
+    <CacheProvider value={createCache({key:"x"})} >
+      <ErrorBoundary key={md5Hash} ref={ref}>
+        <App appId={`${codeSpace}-${md5Hash}`} />
+      </ErrorBoundary>
+    </CacheProvider>
   );
 };
 // 

@@ -10733,15 +10733,15 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
-  return export_jsx(ErrorBoundary_default, {
-    ref,
-    children: export_jsx(export_CacheProvider, {
-      value: emotionCache_default({ key: "x" }),
+  return export_jsx(export_CacheProvider, {
+    value: emotionCache_default({ key: "x" }),
+    children: export_jsx(ErrorBoundary_default, {
+      ref,
       children: export_jsx(App, {
         appId: `${codeSpace2}-${md5Hash}`
       })
-    })
-  }, md5Hash);
+    }, md5Hash)
+  });
 };
 async function appFactory(transpiled = "") {
   const { transpiled: mstTranspiled, i: mstI } = mST();
