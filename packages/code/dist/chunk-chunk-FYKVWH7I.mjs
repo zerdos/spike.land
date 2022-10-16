@@ -14237,6 +14237,13 @@ async function processData(data, source, conn) {
       }
       if (data.name && data.name !== user && !rtcConns[data.name] && !ignoreUsers.includes(data.name)) {
         await createPeerConnection(data.name);
+        const users2 = data.users;
+        while (users2.length) {
+          await wait(2e3);
+          const nextToConnect = users2.pop();
+          if (nextToConnect && !sendChannel.rtcConns[nextToConnect])
+            await createPeerConnection(nextToConnect);
+        }
         return;
       }
     } catch (error) {
