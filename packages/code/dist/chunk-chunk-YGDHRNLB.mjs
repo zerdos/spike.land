@@ -10775,9 +10775,9 @@ async function appFactory(transpiled = "") {
         const name = error.name;
         const message = error.message;
         apps[hash] = () => export_jsxs("div", {
-          css: export_css`
-        background-color: orange;
-        `,
+          style: {
+            backgroundColor: "orange"
+          },
           children: [
             export_jsx("h1", {
               children: "Syntax Error"
@@ -10798,9 +10798,9 @@ async function appFactory(transpiled = "") {
         const name = error.name;
         const message = error.message;
         apps[hash] = () => export_jsxs("div", {
-          css: export_css`
-						background-color: orange;
-						`,
+          css: {
+            backgroundColor: "orange"
+          },
           children: [
             export_jsx("h1", {
               children: "Syntax Error"
@@ -10819,9 +10819,9 @@ async function appFactory(transpiled = "") {
         });
       } else {
         apps[hash] = () => export_jsx("div", {
-          css: export_css`
-        background-color: orange;
-      `,
+          css: {
+            backgroundColor: "orange"
+          },
           children: export_jsxs("h1", {
             children: [
               "Unknown Error: $",
