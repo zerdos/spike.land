@@ -17,7 +17,7 @@ import AVLTree from "avl";
 
 //Import * as FS from '@isomorphic-git/lightning-fs';
 
-import { renderPreviewWindow } from "./renderPreviewWindow";
+// import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
@@ -111,9 +111,8 @@ export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;
   address: string;
-  assets: Record<string, string>;
 }) => {
-  const { assets, mST: mst, address } = startState;
+  const {  mST: mst, address } = startState;
   codeSpace = startState.codeSpace;
   bc = new BroadcastChannel(location.origin);
 
@@ -134,9 +133,9 @@ export const run = async (startState: {
     state: mst,
   }, location.origin);
 
-  await appFactory(mst.transpiled);
+  await appFactory(mst.transpiled, codeSpace);
 
-  renderPreviewWindow({ codeSpace, assets });
+
 
   //Const {join} = await import("./rtc");
 

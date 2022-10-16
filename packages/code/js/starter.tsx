@@ -5,7 +5,7 @@
 // import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
-import { css } from "@emotion/react";
+// import { css } from "@emotion/react";
 import { useEffect, useRef } from "react";
 import {terminal} from "./DraggableWindow"
 
@@ -18,11 +18,18 @@ import { md5 } from "./md5.js";
 import  { renderFromString } from "./renderToString";
 
 import { useState } from "react";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import type { EmotionCache } from "@emotion/cache";
+// import { CacheProvider } from "@emotion/react";
+// import createCache from "@emotion/cache";
+// import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
+
+
+let CacheProvider
+let createCache
+let css
+let createRoot
+
 
 if (!globalThis["apps"] || !globalThis["eCaches"]) {
   Object.assign(globalThis, {apps:{}, eCaches:{}});
@@ -132,10 +139,22 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 };
 // 
 // let Emotion: typeof iEmotion;
+let started = false;
+
 
 export async function appFactory(
-  transpiled = "",
+  transpiled = "", codeSpace?: string
 ): Promise<React.FC<{ appId: string }>> {
+
+
+   
+   const Emotion = await importShim("@emotion/react")
+
+   CacheProvider = Emotion.CacheProvider
+   createCache = Emotion.cache.default
+   css = Emotion.css
+
+       
 
   // if (Emotion === null) {
     // Emotion = await import("@emotion/react") as typeof iEmotion;
@@ -165,7 +184,6 @@ export async function appFactory(
       // }
       if (isCallable(App)) {
 
-        const {CacheProvider, cache: createCache} = await importShim("@emotion/react")
         eCaches[hash] = createCache({
           key: "z",
           speedy: true,
@@ -175,7 +193,7 @@ export async function appFactory(
           appId.includes(hash)
             ? (
               <CacheProvider value={eCaches[hash]}>
-                <div css={css`height: 100%;`} id={appId}>
+                <div style="height: 100%;" id={appId}>
                   <App />
                 </div>
               </CacheProvider>
@@ -193,11 +211,7 @@ export async function appFactory(
         const name = error.name;
         const message = error.message;
         apps[hash] = () => (
-          <div
-            style={{
-        backgroundColor: "orange"
-            }}
-          >
+          <div style="background-color: orange;">
             <h1>Syntax Error</h1>
             <h2>{name}: {message}</h2>
             <p>{JSON.stringify({ err: error })}</p>
@@ -208,11 +222,7 @@ export async function appFactory(
         const message = error.message;
 
         apps[hash] = () => (
-          <div
-            css={{
-              backgroundColor: "orange"
-                  }}
-          >
+          <div style="background-color: orange;">
             <h1>Syntax Error</h1>
             <h2>{name}: {message}</h2>
             <p>{JSON.stringify({ err: error })}</p>
@@ -220,11 +230,7 @@ export async function appFactory(
         );
       } else {
         apps[hash] = () => (
-          <div
-            css={{
-              backgroundColor: "orange"
-                  }}
-          >
+          <div style="background-color: orange;">
             <h1>Unknown Error: ${hash}</h1>
           </div>
         );
@@ -232,6 +238,12 @@ export async function appFactory(
     }
   }
 
+  if(!started){
+started = true;
+  
+const {renderPreviewWindow} = await importShim("/renderPreviewWindow.mjs");
+ await renderPreviewWindow({ codeSpace, createCache, CacheProvider, css });
+  }
   // If ( mST().transpiled !== trp) {
   //   if (hashC===hashCode()){
   //     apps[hashC]=apps[hash];
