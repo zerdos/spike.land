@@ -194,9 +194,9 @@ export async function appFactory(
         const message = error.message;
         apps[hash] = () => (
           <div
-            css={css`
-        background-color: orange;
-        `}
+            style={{
+        backgroundColor: "orange"
+            }}
           >
             <h1>Syntax Error</h1>
             <h2>{name}: {message}</h2>
@@ -209,9 +209,9 @@ export async function appFactory(
 
         apps[hash] = () => (
           <div
-            css={css`
-						background-color: orange;
-						`}
+            css={{
+              backgroundColor: "orange"
+                  }}
           >
             <h1>Syntax Error</h1>
             <h2>{name}: {message}</h2>
@@ -221,9 +221,9 @@ export async function appFactory(
       } else {
         apps[hash] = () => (
           <div
-            css={css`
-        background-color: orange;
-      `}
+            css={{
+              backgroundColor: "orange"
+                  }}
           >
             <h1>Unknown Error: ${hash}</h1>
           </div>
