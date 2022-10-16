@@ -84,7 +84,7 @@ export const Editor: React.FC<
     const setMonaco = async () => {
       const link = document.createElement("link");
       link.setAttribute("rel", "stylesheet");
-      link.href = location.origin + "/startMonaco.css";
+      link.href = location.origin + "/renderPreviewWindow.css";
       document.head.append(link);
 
       const { startMonaco } = await import("./startMonaco");

@@ -8,7 +8,6 @@ import {
 import { appFactory, AutoUpdateApp } from "./starter";
 import { DraggableWindow } from "./DraggableWindow";
 
-import type {EmotionCache} from "@emotion/cache"
 import { CacheProvider, css } from "@emotion/react";
 import createCache from "@emotion/cache";
 // Import { useSpring, a } from '@react-spring/web'
@@ -17,11 +16,19 @@ import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
 
-const RainbowContainer: React.FC<{ children}> = (
+const RainbowContainer: React.FC<{ children: JSX.Element}> = (
   {children },
-) => (  <div css={css`
-              height: 100%;
-              width: 100%;
+) => (<div css={css`position: relative;`}>
+  {children}
+  
+ <div css={css`
+            position: absolute;
+
+              height: 100vh;
+              width: 100hw;
+              top:0;
+              left:0;
+              z-index: -23;
               background-blend-mode: overlay;
               background:  repeating-radial-gradient(circle at bottom left, 
               #fedc00 0, #fedc00 5.5555555556%, 
@@ -61,8 +68,7 @@ const RainbowContainer: React.FC<{ children}> = (
                 #7cba6d 0, #7cba6d 88.8888888889%, 
                 #becc2f 0, #becc2f 94.4444444444%, 
                 #e0d81d 0, #e0d81d 100%);
-`}>
-    {children}
+`}/> 
   </div>
 );
 
@@ -140,15 +146,14 @@ export const renderPreviewWindow = ({ codeSpace } :
   // Div.style.height='100%';
   const root = createRoot(div);
 
-  const renderPrevWindowCashe = createCache({key: "w"});
-  console.log({renderPrevWindowCashe});
+  const x= createCache({key: "root", container: div});
 
   root.render(
     
-    <CacheProvider value={renderPrevWindowCashe}>
-      <RainbowContainer>
-      <AppToRender codeSpace={renderPrevWindowCashe} />
-      </RainbowContainer>
+    <CacheProvider value={x}>
+      {/* <RainbowContainer> */}
+      <AppToRender codeSpace={codeSpace} />
+      {/* </RainbowContainer> */}
     </CacheProvider>
   ,
   );
