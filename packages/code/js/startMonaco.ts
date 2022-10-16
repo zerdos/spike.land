@@ -157,11 +157,11 @@ const monacoContribution = async (
   // Console.log("load more models", replaced, models);
 
   for (const match of models) {
-    console.log("***** EXTRA MODELS *****");
+//    console.log("***** EXTRA MODELS *****");
 
     const extraModel = new URL(match[0].slice(7) + ".tsx", location.origin)
       .toString();
-    console.log(extraModel);
+ //   console.log(extraModel);
     createModel(
       await fetch(extraModel).then(async (res) => res.text()),
       "typescript",
@@ -368,7 +368,7 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
-  console.log({code, container, name});
+//  console.log({code, container, name});
   if (mod[name]) {
     return mod[name] as unknown as typeof returnValue;
   }

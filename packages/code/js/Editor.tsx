@@ -92,7 +92,7 @@ export const Editor: React.FC<
            * @param {any} code
            */
           {
-            container: ref.current,
+            container: ref.current!,
             name: codeSpace,
             code: mST().code,
           },

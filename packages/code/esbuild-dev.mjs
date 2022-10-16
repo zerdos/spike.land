@@ -183,17 +183,17 @@ const build = (entryPoints, extraExternal) =>
 
   buildOptions.plugins = [
     aliasPlugin({
-      react:  resolve("./js/react-preact.ts"),
+      // react:  resolve("./js/react-preact.ts"),
       // "@emotion/react": resolve("./js/emotion.ts"),
       // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
       // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
       //"@emotion/styled": resolve("./js/emotionStyled.mjs"),
-      // "./mui": resolve("./dist/mui.mjs"),
-      "react-dom":  resolve("./js/react-preact.ts"),
-      "react-dom/client":  resolve("./js/react-preact.ts"),
-      "react-dom/server": resolve("./js/react-preact.ts"),
-      "react/jsx-runtime": resolve("./js/react-preact.ts"),
-      "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
+      // // "./mui": resolve("./dist/mui.mjs"),
+      // "react-dom":  resolve("./js/react-preact.ts"),
+      // "react-dom/client":  resolve("./js/react-preact.ts"),
+      // "react-dom/server": resolve("./js/react-preact.ts"),
+      // "react/jsx-runtime": resolve("./js/react-preact.ts"),
+      // "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
     })
   ];
   
