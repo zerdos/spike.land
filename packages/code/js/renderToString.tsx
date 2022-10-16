@@ -11,7 +11,9 @@ export const render = async (transpiled: string, codeSpace: string) => {
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if (isCallable(App)) {
-    const html = renderToString(<App appId={`${codeSpace}-${md5hash}`} />);
+    const html = renderToString(
+      <App appId={`${codeSpace}-${md5hash}`} />
+      );
     const css = mineFromCaches(md5hash, html);
     const globalCss = document.querySelector("style[data-emotion=z-global]")
       ?.innerHTML;

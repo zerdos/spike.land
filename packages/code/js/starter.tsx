@@ -7,6 +7,7 @@ import { mST, patchSync } from "./session";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "./md5.js";
 import { CacheProvider, css } from "@emotion/react";
+import type {EmotionCache} from "@emotion/cache";
 import {default as emotionCache} from "@emotion/cache";
 import { renderPreviewWindow } from "renderPreviewWindow";
 
@@ -139,7 +140,7 @@ export async function appFactory(
           appId.includes(hash)
             ? (
               <CacheProvider value={eCaches[hash]}>
-                <div css="height: 100%;" id={appId}>
+                <div css={css`height: 100%;`} id={appId}>
                   <App />
                 </div>
               </CacheProvider>

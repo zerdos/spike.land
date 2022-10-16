@@ -16,7 +16,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
-const target = "es2021";
+const target = "es2018";
 
 console.log(`
 -------------------------------------------------
@@ -184,9 +184,9 @@ const build = (entryPoints, extraExternal) =>
   buildOptions.plugins = [
     aliasPlugin({
       react:  resolve("./js/react-preact.ts"),
-      //"@emotion/react": resolve("./js/emotion.ts"),
-      "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
-      "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
+      // "@emotion/react": resolve("./js/emotion.ts"),
+      // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
+      // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
       //"@emotion/styled": resolve("./js/emotionStyled.mjs"),
       // "./mui": resolve("./dist/mui.mjs"),
       "react-dom":  resolve("./js/react-preact.ts"),
@@ -210,6 +210,7 @@ const build = (entryPoints, extraExternal) =>
     ], [
 
     ]);
+    
 
 })();
 
