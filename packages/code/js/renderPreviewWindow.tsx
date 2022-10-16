@@ -8,6 +8,8 @@ import {
 import { appFactory, AutoUpdateApp } from "./starter";
 import { DraggableWindow } from "./DraggableWindow";
 
+import {default as createCache} from "@emotion/cache";
+
 import { css } from "@emotion/react";
 
 // Import { useSpring, a } from '@react-spring/web'
@@ -15,6 +17,7 @@ import { css } from "@emotion/react";
 import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
+import { CacheProvider } from "emotion";
 
 const RainbowContainer: React.FC<{ children: JSX.Element }> = (
   { children },
@@ -144,9 +147,14 @@ export const renderPreviewWindow = ({ codeSpace, assets }: {
   // Div.style.height='100%';
   const root = createRoot(div);
 
+  const cache = createCache({key: "win"});
+  console.log({cache});
+
   root.render(
     <Fragment>
+    <CacheProvider value={cache}>
       <AppToRender codeSpace={codeSpace} assets={assets} />
+    </CacheProvider>
     </Fragment>,
   );
 };
