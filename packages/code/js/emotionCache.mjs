@@ -1,3 +1,1 @@
-import { cache } from "@emotion/react";
-
-export default cache.default;
+export {default} from "/npm:@emotion/cache?bundle&external=react,react-dom*,@emotion/react*"

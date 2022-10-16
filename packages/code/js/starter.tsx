@@ -6,9 +6,8 @@ import {terminal} from "./DraggableWindow"
 import { mST, patchSync } from "./session";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "./md5.js";
-import type {EmotionCache} from "@emotion/cache"
 import { CacheProvider, css } from "@emotion/react";
-import createCache from "@emotion/cache";
+import {default as emotionCache} from "@emotion/cache";
 import { renderPreviewWindow } from "renderPreviewWindow";
 
 
@@ -21,6 +20,8 @@ import  { renderFromString } from "./renderToString";
 
 import isCallable from "is-callable";
 
+// const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache}; 
+const createCache = emotionCache.default || emotionCache
 
 
 if (!globalThis.apps || !globalThis.eCaches) {

@@ -1,6 +1,21 @@
-import { getWorkerUrl } from "./monacoWorkers.mjs";
-import "monaco-editor/esm/vs/editor/editor.all"
+// Import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
+import "monaco-editor/esm/vs/editor/editor.all";
+import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
+import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
+import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
+// import {setupTypeAcquisition} from "@typescript/ata"
+import pMap from "p-map";
 
+import { getWorkerUrl } from "./monacoWorkers.mjs";
+// Import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
+// import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
+// const {createModel} = editor
+const create = editor.create;
+// const languages = monaco.languages;
+const createModel = editor.createModel;
+// const Uri = monaco.Uri;
+
+// Object.assign(globalThis, {setupTypeAcquisition});
 const lib = [
   "dom",
   "dom.iterable",
@@ -64,9 +79,280 @@ const lib = [
   "webworker.importscripts",
   "webworker.iterable",
 ];
-import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
-import"monaco-editor/esm/vs/language/typescript/monaco.contribution"
 
+const monacoContribution = async (
+  code: string,
+) => {
+  // Const {typescript} = languages;
+  languages.typescript.typescriptDefaults
+    .setDiagnosticsOptions({
+      noSuggestionDiagnostics: true,
+      noSemanticValidation: true,
+      noSyntaxValidation: true,
+    });
+
+  languages.typescript.typescriptDefaults.setCompilerOptions({
+    baseUrl: location.origin + "/",
+    target: languages.typescript.ScriptTarget.ESNext,
+
+    importHelpers: true,
+
+    lib,
+
+    allowJs: true,
+    skipLibCheck: true,
+    esModuleInterop: true,
+    allowSyntheticDefaultImports: true,
+    strict: true,
+    forceConsistentCasingInFileNames: true,
+    noFallthroughCasesInSwitch: true,
+    resolveJsonModule: true,
+    isolatedModules: true,
+    noEmit: true,
+    allowNonTsExtensions: true,
+    traceResolution: true,
+    moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
+    moduleSpecifierCompletion: 2,
+    declaration: true,
+    module: languages.typescript.ModuleKind.CommonJS,
+    noEmitOnError: true,
+    sourceMap: true,
+    mapRoot: location.origin + "/src/sourcemaps",
+    maxNodeModuleJsDepth: 10,
+    rootDir: location.origin + "/live",
+    paths: {
+      [location.origin + "/live/node_modules/"]: [location.origin + "/*"],
+      [location.origin + "/live/*"]: [location.origin + "/live/*"],
+      [location.origin + "*"]: [location.origin + "/*"],
+      [location.origin + "/node_modules/*"]: [location.origin + "/*"],
+      [location.origin + "node_modules/*"]: [location.origin + "/*"],
+      [location.origin + "/*"]: [location.origin + "/*"],
+      [location.origin + "^/*"]: [location.origin + "/*"],
+    },
+    typeRoots: [
+      location.origin + "/@types/",
+      location.origin + "/unpkg/@types/",
+      location.origin + "/",
+      location.origin + "/unpkg:/",
+    ],
+
+    jsxImportSource: "@emotion/react",
+    jsx: languages.typescript.JsxEmit.ReactJSX,
+    allowUmdGlobalAccess: false,
+    include: [location.origin + "/node_modules"],
+  });
+
+  const regex1 = / from '\.\./gi;
+
+  const regex2 = / from '\./gi;
+
+  const search = new RegExp(
+    ` from '(${location.origin}/)?live/[a-zA-Z]+`,
+    "gm",
+  );
+  const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`)
+    .replaceAll(regex2, ` from '${location.origin}/live`);
+
+  const models = replaced.matchAll(search);
+  // Console.log("load more models", replaced, models);
+
+  for (const match of models) {
+    console.log("***** EXTRA MODELS *****");
+
+    const extraModel = new URL(match[0].slice(7) + ".tsx", location.origin)
+      .toString();
+    console.log(extraModel);
+    createModel(
+      await fetch(extraModel).then(async (res) => res.text()),
+      "typescript",
+      Uri.parse(extraModel),
+    );
+    // Editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
+    // editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
+  }
+
+  (async () => {
+    const { dtsFiles } = await import("./types.mjs");
+    const {
+      reactDts,
+      // JsxDevRuntimeDts,
+      jsxRuntimeDts,
+      // ReactExpDts,
+      // globalDts,
+      propTypesDts,
+      cssTypeDts,
+      framerDts,
+      emotionStyled,
+      emotionStyleBase,
+      emotionCache,
+      emotionJSXNameSpaceDTS,
+      emotionJSXRuntimeDTS,
+      emotionThemingDts,
+    } = dtsFiles;
+    const importHelper = [
+      {
+        name: "react",
+        url: reactDts,
+        depend: ["global", "csstype", "prop-types"],
+      },
+      {
+        name: "react/jsx-runtime",
+        url: jsxRuntimeDts,
+        depend: ["global", "csstype", "prop-types"],
+      },
+      {
+        name: "react/jsx-dev-runtime",
+        url: jsxRuntimeDts,
+        depend: ["global", "csstype", "prop-types"],
+      },
+      // {
+      // name: "react-exp",
+      // url: reactExpDts,
+      // depend: [],
+      // },
+      // {
+      // name: "global",
+      // url: globalDts,
+      // depend: [],
+      // },
+      {
+        name: "prop-types",
+        url: propTypesDts,
+        depend: [],
+      },
+      {
+        name: "csstype",
+        url: cssTypeDts,
+        depend: [],
+      },
+      {
+        name: "@emotion/base",
+        url: emotionStyleBase,
+        depend: [
+          "@emotion/react",
+          "@emotion/serialize",
+          "react",
+        ],
+      },
+      {
+        name: "@emotion/styled",
+        url: emotionStyled,
+        depend: [
+          "@emotion/react",
+          "@emotion/serialize",
+          "react",
+        ],
+      },
+      {
+        name: "@emotion/cache",
+        url: emotionCache,
+
+        depend: ["@emotion/utils"],
+      },
+      {
+        name: "@emotion/react",
+        force: true,
+        url: "/node_modules/@emotion/react/types/index.d.ts",
+        depend: ["@emotion/cache"],
+      },
+      {
+        name: "@emotion/react/jsx-runtime",
+        force: true,
+        url: emotionJSXRuntimeDTS,
+        depend: ["@emotion/cache"],
+      },
+      {
+        name: "@emotion/react/jsx-dev-runtime",
+        url: emotionJSXRuntimeDTS,
+        force: true,
+        depend: ["@emotion/cache"],
+      },
+      {
+        name: "@emotion/react/jsx-namespace",
+        url: emotionJSXNameSpaceDTS,
+        force: true,
+        depend: ["@emotion/utils", "type"],
+      },
+      {
+        name: "@emotion/react/theming",
+        url: emotionThemingDts,
+        depend: ["@emotion/utils", "type"],
+      },
+      {
+        name: "@emotion/react/css-prop",
+        force: true,
+        url: "/node_modules/@emotion/react/types/css-prop.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@use-gesture/react",
+        url:
+          "/node_modules/@use-gesture/react/dist/declarations/src/index.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@emotion/react/helper",
+        url: "/node_modules/@emotion/react/types/helper.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@emotion/serialize",
+        force: true,
+        url:
+          "/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts",
+
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@emotion/utils",
+        force: true,
+        url: "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
+        depend: [],
+      },
+      {
+        name: "framer-motion",
+        url: framerDts,
+        depend: ["popmotion"],
+      },
+    ];
+
+    // Typescript.typescriptDefaults.addExtraLib(
+    //   await (await fetch(
+    //   '/node_modules/framer-motion/package.json',
+    //   )).text(),
+    //   location.origin + `/node_modules/framer-motion/package.json`);
+
+    try {
+      const mapper = async (
+        { name, url, force }: { name: string; url: string; force?: boolean },
+      ) =>
+        (code.indexOf(name) !== -1 || force) &&
+        languages.typescript.typescriptDefaults.addExtraLib(
+          await (await fetch(
+            url,
+          )).text(),
+          location.origin + `/node_modules/${name}/index.d.ts`,
+        );
+
+      await pMap(importHelper, mapper, { concurrency: 2 });
+    } catch {
+      console.error("Error in loading d.ts");
+    }
+
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSuggestionDiagnostics: false,
+      noSemanticValidation: false,
+      noSyntaxValidation: false,
+    });
+  })();
+
+  // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
+  //   typescript: ts
+  // })(code));
+
+  return code;
+};
 
 self.MonacoEnvironment = {
   baseUrl: location.origin,
@@ -82,13 +368,6 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
-
-  const { editor, languages, Uri } = await  import("monaco-editor/esm/vs/editor/editor.api");
-
-  const create = editor.create;
-  // const languages = monaco.languages;
-  const createModel = editor.createModel;
-
   if (mod[name]) {
     return mod[name] as unknown as typeof returnValue;
   }
@@ -107,14 +386,14 @@ export const startMonaco = async (
     // If (mod[name]) return mod[name];
     const codeSpace = name;
 
-    const replaced = await monacoContribution(
-      code,
-    );
-
     // Const innerStyle = document.createElement("style");
     // monacoCss
     // innerStyle.innerText = `@import url(${location.origin}/npm:/monaco-editor@${version}/?css);`;
     // container.appendChild(innerStyle);
+
+    const replaced = await monacoContribution(
+      code,
+    );
 
     // Editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${location.origin}/package.json`))
     // languages.typescript.typescriptDefaults.inlayHintsOptions
@@ -249,35 +528,6 @@ export const startMonaco = async (
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace",
     });
-    // const autoTypings = await AutoTypings.create(editor, {
-    //   sourceCache: new LocalStorageCache(), // Cache loaded sources in localStorage. May be omitted
-    //   // Other options...
-    // });
-    requestAnimationFrame(async () => {
-      const { wait } = await import("./wait");
-
-      while (!globalThis.ts) {
-        await wait(1000);
-      }
-
-      console.log("globalThis.ts is defined, whoooo");
-
-      const { setupTypeAcquisition } = await import("@typescript/ata");
-      setupTypeAcquisition({
-        //@ts-expect-error
-        typescript: globalThis.ts,
-        fetcher: async (...args) => {
-          console.log("YEAH IT WANTS TO FETCH", { ...args });
-          return new Response("OK");
-        },
-        projectName: codeSpace,
-        delegate: {
-          started: () => console.log("ATA Started"),
-          progress: (downloaded: number, estimatedTotal: number) =>
-            console.log({ downloaded, estimatedTotal }),
-        },
-      })(code);
-    });
 
     return {
       getTypeScriptWorker: async () =>
@@ -298,283 +548,5 @@ export const startMonaco = async (
       },
       model,
     };
-  }
-
-  async function monacoContribution(
-    code: string,
-  ) {
-    // Const {typescript} = languages;
-    languages.typescript.typescriptDefaults
-      .setDiagnosticsOptions({
-        noSuggestionDiagnostics: true,
-        noSemanticValidation: true,
-        noSyntaxValidation: true,
-      });
-
-    languages.typescript.typescriptDefaults.setCompilerOptions({
-      baseUrl: location.origin + "/",
-      target: languages.typescript.ScriptTarget.ESNext,
-
-      importHelpers: true,
-
-      lib,
-
-      allowJs: true,
-      skipLibCheck: true,
-      esModuleInterop: true,
-      allowSyntheticDefaultImports: true,
-      strict: true,
-      forceConsistentCasingInFileNames: true,
-      noFallthroughCasesInSwitch: true,
-      resolveJsonModule: true,
-      isolatedModules: true,
-      noEmit: true,
-      allowNonTsExtensions: true,
-      traceResolution: true,
-      moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
-      moduleSpecifierCompletion: 2,
-      declaration: true,
-      module: languages.typescript.ModuleKind.CommonJS,
-      noEmitOnError: true,
-      sourceMap: true,
-      mapRoot: location.origin + "/src/sourcemaps",
-      maxNodeModuleJsDepth: 10,
-      rootDir: location.origin + "/live",
-      paths: {
-        [location.origin + "/live/node_modules/"]: [location.origin + "/*"],
-        [location.origin + "/live/*"]: [location.origin + "/live/*"],
-        [location.origin + "*"]: [location.origin + "/*"],
-        [location.origin + "/node_modules/*"]: [location.origin + "/*"],
-        [location.origin + "node_modules/*"]: [location.origin + "/*"],
-        [location.origin + "/*"]: [location.origin + "/*"],
-        [location.origin + "^/*"]: [location.origin + "/*"],
-      },
-      typeRoots: [
-        location.origin + "/@types/",
-        location.origin + "/unpkg/@types/",
-        location.origin + "/",
-        location.origin + "/unpkg:/",
-      ],
-
-      jsxImportSource: "@emotion/react",
-      jsx: languages.typescript.JsxEmit.ReactJSX,
-      allowUmdGlobalAccess: false,
-      include: [location.origin + "/node_modules"],
-    });
-
-    const regex1 = / from '\.\./gi;
-
-    const regex2 = / from '\./gi;
-
-    const search = new RegExp(
-      ` from '(${location.origin}/)?live/[a-zA-Z]+`,
-      "gm",
-    );
-    const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`)
-      .replaceAll(regex2, ` from '${location.origin}/live`);
-
-    const models = replaced.matchAll(search);
-    // Console.log("load more models", replaced, models);
-
-    for (const match of models) {
-      console.log("***** EXTRA MODELS *****");
-
-      const extraModel = new URL(match[0].slice(7) + ".tsx", location.origin)
-        .toString();
-      console.log(extraModel);
-      createModel(
-        await fetch(extraModel).then(async (res) => res.text()),
-        "typescript",
-        Uri.parse(extraModel),
-      );
-
-      // Editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
-      // editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
-      return replaced;
-    }
-
-    (async () => {
-      const { dtsFiles } = await import("./types.mjs");
-      const {
-        reactDts,
-        // JsxDevRuntimeDts,
-        jsxRuntimeDts,
-        emotionReactDts,
-        // globalDts,
-        propTypesDts,
-        cssTypeDts,
-        framerDts,
-        emotionStyled,
-        emotionStyleBase,
-        emotionCache,
-        emotionJSXNameSpaceDTS,
-        emotionJSXRuntimeDTS,
-        emotionThemingDts,
-      } = dtsFiles;
-      const importHelper = [
-        {
-          name: "react",
-          url: reactDts,
-          depend: ["global", "csstype", "prop-types"],
-        },
-        {
-          name: "react/jsx-runtime",
-          url: jsxRuntimeDts,
-          depend: ["global", "csstype", "prop-types"],
-        },
-        {
-          name: "react/jsx-dev-runtime",
-          url: jsxRuntimeDts,
-          depend: ["global", "csstype", "prop-types"],
-        },
-        // {
-        // name: "react-exp",
-        // url: reactExpDts,
-        // depend: [],
-        // },
-        // {
-        // name: "global",
-        // url: globalDts,
-        // depend: [],
-        // },
-        {
-          name: "prop-types",
-          url: propTypesDts,
-          depend: [],
-        },
-        {
-          name: "csstype",
-          url: cssTypeDts,
-          depend: [],
-        },
-        {
-          name: "@emotion/base",
-          url: emotionStyleBase,
-          depend: [
-            "@emotion/react",
-            "@emotion/serialize",
-            "react",
-          ],
-        },
-        {
-          name: "@emotion/styled",
-          url: emotionStyled,
-          depend: [
-            "@emotion/react",
-            "@emotion/serialize",
-            "react",
-          ],
-        },
-        {
-          name: "@emotion/cache",
-          url: emotionCache,
-
-          depend: ["@emotion/utils"],
-        },
-        {
-          name: "@emotion/react",
-          force: true,
-          url: emotionReactDts,
-          depend: ["@emotion/cache"],
-        },
-        {
-          name: "@emotion/react/jsx-runtime",
-          force: true,
-          url: emotionJSXRuntimeDTS,
-          depend: ["@emotion/cache"],
-        },
-        {
-          name: "@emotion/react/jsx-dev-runtime",
-          url: emotionJSXRuntimeDTS,
-          force: true,
-          depend: ["@emotion/cache"],
-        },
-        {
-          name: "@emotion/react/jsx-namespace",
-          url: emotionJSXNameSpaceDTS,
-          force: true,
-          depend: ["@emotion/utils", "type"],
-        },
-        {
-          name: "@emotion/react/theming",
-          url: emotionThemingDts,
-          depend: ["@emotion/utils", "type"],
-        },
-        {
-          name: "@emotion/react/css-prop",
-          force: true,
-          url: "/node_modules/@emotion/react/types/css-prop.d.ts",
-          depend: ["@emotion/utils", "csstype"],
-        },
-        {
-          name: "@use-gesture/react",
-          url:
-            "/node_modules/@use-gesture/react/dist/declarations/src/index.d.ts",
-          depend: ["@emotion/utils", "csstype"],
-        },
-        {
-          name: "@emotion/react/helper",
-          url: "/node_modules/@emotion/react/types/helper.d.ts",
-          depend: ["@emotion/utils", "csstype"],
-        },
-        {
-          name: "@emotion/serialize",
-          force: true,
-          url:
-            "/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts",
-
-          depend: ["@emotion/utils", "csstype"],
-        },
-        {
-          name: "@emotion/utils",
-          force: true,
-          url:
-            "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
-          depend: [],
-        },
-        {
-          name: "framer-motion",
-          url: framerDts,
-          depend: ["popmotion"],
-        },
-      ];
-
-      // Typescript.typescriptDefaults.addExtraLib(
-      //   await (await fetch(
-      //   '/node_modules/framer-motion/package.json',
-      //   )).text(),
-      //   location.origin + `/node_modules/framer-motion/package.json`);
-
-      try {
-        const mapper = async (
-          { name, url, force }: { name: string; url: string; force?: boolean },
-        ) =>
-          (code.indexOf(name) !== -1 || force) &&
-          languages.typescript.typescriptDefaults.addExtraLib(
-            await (await fetch(
-              url,
-            )).text(),
-            location.origin + `/node_modules/${name}/index.d.ts`,
-          );
-        const pMap = (await (import("p-map"))).default;
-
-        await pMap(importHelper, mapper, { concurrency: 2 });
-      } catch {
-        console.error("Error in loading d.ts");
-      }
-
-      languages.typescript.typescriptDefaults.setEagerModelSync(true);
-      languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-        noSuggestionDiagnostics: false,
-        noSemanticValidation: false,
-        noSyntaxValidation: false,
-      });
-    })();
-
-    // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
-    //   typescript: ts
-    // })(code));
-
-    return code;
   }
 };
