@@ -17,7 +17,7 @@ import { css } from "@emotion/react";
 import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
-import { CacheProvider } from "emotion";
+import { CacheProvider } from "@emotion/react";
 
 const RainbowContainer: React.FC<{ children: JSX.Element }> = (
   { children },

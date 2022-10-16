@@ -9,18 +9,17 @@ import { css } from "@emotion/react";
 import { useEffect, useRef } from "react";
 import {terminal} from "./DraggableWindow"
 
-import type iEmotion from "@emotion/react"
 import type { FC } from "react";
 
 import { mST, patchSync } from "./session";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "./md5.js";
 
-import type { renderFromString as RFS } from "./renderToString";
+import  { renderFromString } from "./renderToString";
 
 import { useState } from "react";
-import type { CacheProvider as EmotionCacheProvider } from "@emotion/react";
-import type CreateCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
 import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
@@ -36,10 +35,6 @@ const { apps, eCaches } = (globalThis as unknown as {
   eCaches: Record<string, EmotionCache>;
 }).apps;
 
-let renderFromString: typeof RFS | null = null;
-
-let createCache: typeof CreateCache | null = null;
-let CacheProvider: typeof EmotionCacheProvider | null = null;
 // const myCache = createCache({
 // key: "z",
 // });
@@ -125,29 +120,33 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 
   // Object.assign(globalThis, {myCache})
 
+
+
   return (
     <ErrorBoundary key={md5Hash} ref={ref}>
+      <CacheProvider value={createCache({key:"x"})} >
       <App appId={`${codeSpace}-${md5Hash}`} />
+      </CacheProvider>
     </ErrorBoundary>
   );
 };
-
-let Emotion: typeof iEmotion;
+// 
+// let Emotion: typeof iEmotion;
 
 export async function appFactory(
   transpiled = "",
 ): Promise<React.FC<{ appId: string }>> {
 
-  if (Emotion === null) {
-    Emotion = await import("@emotion/react") as typeof iEmotion;
+  // if (Emotion === null) {
+    // Emotion = await import("@emotion/react") as typeof iEmotion;
 
-    renderFromString = (await import("./renderToString"))
-      .renderFromString
-    createCache = (Emotion as unknown as {cache: {default: typeof CreateCache}}).cache.default;
-    CacheProvider = Emotion
-      .CacheProvider as unknown as typeof EmotionCacheProvider;
+    // renderFromString = (await import("./renderToString"))
+      // .renderFromString
+    // createCache = (Emotion as unknown as {cache: {default: typeof CreateCache}}).cache.default;
+    // CacheProvider = Emotion
+      // .CacheProvider as unknown as typeof EmotionCacheProvider;
     
-  }
+  //}
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
 
@@ -161,15 +160,17 @@ export async function appFactory(
       console.log(`i: ${mstI}: `);
       const App = (await importShim(createJsBlob(trp)))
         .default as unknown as FC;
-      if (CacheProvider === null || createCache === null ) {
-        return () => <h1>error</h1>;
-      }
+      // if (CacheProvider === null || createCache === null ) {
+      //   return () => <h1>error</h1>;
+      // }
       if (isCallable(App)) {
-        const { CacheProvider, css } = Emotion;
+
+        const {CacheProvider, cache: createCache} = await importShim("@emotion/react")
         eCaches[hash] = createCache({
           key: "z",
           speedy: true,
-        }) as unknown as EmotionCache;
+        });
+
         apps[hash] = ({ appId }) =>
           appId.includes(hash)
             ? (

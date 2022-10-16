@@ -19,7 +19,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-PYNOA6HJ.mjs";
+} from "./chunk-chunk-DY2JGBEQ.mjs";
 
 // ../../.yarn/global/cache/@emotion-memoize-npm-0.7.4-5648cf11b8-9.zip/node_modules/@emotion/memoize/dist/memoize.browser.cjs.js
 var require_memoize_browser_cjs = __commonJS({
@@ -115,9 +115,9 @@ var require_tslib = __commonJS({
       var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, b2) {
         d.__proto__ = b2;
       } || function(d, b2) {
-        for (var p in b2)
-          if (Object.prototype.hasOwnProperty.call(b2, p))
-            d[p] = b2[p];
+        for (var p2 in b2)
+          if (Object.prototype.hasOwnProperty.call(b2, p2))
+            d[p2] = b2[p2];
       };
       __extends2 = function(d, b2) {
         if (typeof b2 !== "function" && b2 !== null)
@@ -131,21 +131,21 @@ var require_tslib = __commonJS({
       __assign2 = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
           s = arguments[i];
-          for (var p in s)
-            if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
+          for (var p2 in s)
+            if (Object.prototype.hasOwnProperty.call(s, p2))
+              t[p2] = s[p2];
         }
         return t;
       };
       __rest2 = function(s, e) {
         var t = {};
-        for (var p in s)
-          if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
+        for (var p2 in s)
+          if (Object.prototype.hasOwnProperty.call(s, p2) && e.indexOf(p2) < 0)
+            t[p2] = s[p2];
         if (s != null && typeof Object.getOwnPropertySymbols === "function")
-          for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-              t[p[i]] = s[p[i]];
+          for (var i = 0, p2 = Object.getOwnPropertySymbols(s); i < p2.length; i++) {
+            if (e.indexOf(p2[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p2[i]))
+              t[p2[i]] = s[p2[i]];
           }
         return t;
       };
@@ -272,9 +272,9 @@ var require_tslib = __commonJS({
         }
       };
       __exportStar2 = function(m2, o) {
-        for (var p in m2)
-          if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
-            __createBinding2(o, m2, p);
+        for (var p2 in m2)
+          if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(o, p2))
+            __createBinding2(o, m2, p2);
       };
       __createBinding2 = Object.create ? function(o, m2, k, k2) {
         if (k2 === void 0)
@@ -390,7 +390,7 @@ var require_tslib = __commonJS({
         }
       };
       __asyncDelegator2 = function(o) {
-        var i, p;
+        var i, p2;
         return i = {}, verb("next"), verb("throw", function(e) {
           throw e;
         }), verb("return"), i[Symbol.iterator] = function() {
@@ -398,7 +398,7 @@ var require_tslib = __commonJS({
         }, i;
         function verb(n, f) {
           i[n] = o[n] ? function(v) {
-            return (p = !p) ? { value: __await2(o[n](v)), done: n === "return" } : f ? f(v) : v;
+            return (p2 = !p2) ? { value: __await2(o[n](v)), done: n === "return" } : f ? f(v) : v;
           } : f;
         }
       };
@@ -518,7 +518,7 @@ init_react_preact();
 init_define_process();
 init_react_preact();
 var MotionConfigContext = createContext({
-  transformPagePoint: (p) => p,
+  transformPagePoint: (p2) => p2,
   isStatic: false,
   reducedMotion: "never"
 });
@@ -2256,18 +2256,18 @@ init_define_process();
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/utils/hsla-to-rgba.mjs
 init_define_process();
-function hueToRgb(p, q, t) {
+function hueToRgb(p2, q, t) {
   if (t < 0)
     t += 1;
   if (t > 1)
     t -= 1;
   if (t < 1 / 6)
-    return p + (q - p) * 6 * t;
+    return p2 + (q - p2) * 6 * t;
   if (t < 1 / 2)
     return q;
   if (t < 2 / 3)
-    return p + (q - p) * (2 / 3 - t) * 6;
-  return p;
+    return p2 + (q - p2) * (2 / 3 - t) * 6;
+  return p2;
 }
 function hslaToRgba({ hue, saturation, lightness, alpha: alpha2 }) {
   hue /= 360;
@@ -2280,10 +2280,10 @@ function hslaToRgba({ hue, saturation, lightness, alpha: alpha2 }) {
     red = green = blue = lightness;
   } else {
     const q = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation;
-    const p = 2 * lightness - q;
-    red = hueToRgb(p, q, hue + 1 / 3);
-    green = hueToRgb(p, q, hue);
-    blue = hueToRgb(p, q, hue - 1 / 3);
+    const p2 = 2 * lightness - q;
+    red = hueToRgb(p2, q, hue + 1 / 3);
+    green = hueToRgb(p2, q, hue);
+    blue = hueToRgb(p2, q, hue - 1 / 3);
   }
   return {
     red: Math.round(red * 255),
@@ -2405,12 +2405,12 @@ var mixComplex = (origin, target) => {
     return pipe(mixArray(originStats.parsed, targetStats.parsed), template);
   } else {
     warning(true, `Complex values '${origin}' and '${target}' too different to mix. Ensure all colors are of the same type, and that each contains the same quantity of number and color values. Falling back to instant transition.`);
-    return (p) => `${p > 0 ? target : origin}`;
+    return (p2) => `${p2 > 0 ? target : origin}`;
   }
 };
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/utils/interpolate.mjs
-var mixNumber = (from, to) => (p) => mix(from, to, p);
+var mixNumber = (from, to) => (p2) => mix(from, to, p2);
 function detectMixerFactory(v) {
   if (typeof v === "number") {
     return mixNumber;
@@ -2488,13 +2488,13 @@ init_define_process();
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/easing/utils.mjs
 init_define_process();
-var reverseEasing = (easing) => (p) => 1 - easing(1 - p);
-var mirrorEasing = (easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
-var createExpoIn = (power) => (p) => Math.pow(p, power);
-var createBackIn = (power) => (p) => p * p * ((power + 1) * p - power);
+var reverseEasing = (easing) => (p2) => 1 - easing(1 - p2);
+var mirrorEasing = (easing) => (p2) => p2 <= 0.5 ? easing(2 * p2) / 2 : (2 - easing(2 * (1 - p2))) / 2;
+var createExpoIn = (power) => (p2) => Math.pow(p2, power);
+var createBackIn = (power) => (p2) => p2 * p2 * ((power + 1) * p2 - power);
 var createAnticipate = (power) => {
   const backEasing = createBackIn(power);
-  return (p) => (p *= 2) < 1 ? 0.5 * backEasing(p) : 0.5 * (2 - Math.pow(2, -10 * (p - 1)));
+  return (p2) => (p2 *= 2) < 1 ? 0.5 * backEasing(p2) : 0.5 * (2 - Math.pow(2, -10 * (p2 - 1)));
 };
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/easing/index.mjs
@@ -2502,11 +2502,11 @@ var DEFAULT_OVERSHOOT_STRENGTH = 1.525;
 var BOUNCE_FIRST_THRESHOLD = 4 / 11;
 var BOUNCE_SECOND_THRESHOLD = 8 / 11;
 var BOUNCE_THIRD_THRESHOLD = 9 / 10;
-var linear = (p) => p;
+var linear = (p2) => p2;
 var easeIn = createExpoIn(2);
 var easeOut = reverseEasing(easeIn);
 var easeInOut = mirrorEasing(easeIn);
-var circIn = (p) => 1 - Math.sin(Math.acos(p));
+var circIn = (p2) => 1 - Math.sin(Math.acos(p2));
 var circOut = reverseEasing(circIn);
 var circInOut = mirrorEasing(circOut);
 var backIn = createBackIn(DEFAULT_OVERSHOOT_STRENGTH);
@@ -2516,14 +2516,14 @@ var anticipate = createAnticipate(DEFAULT_OVERSHOOT_STRENGTH);
 var ca = 4356 / 361;
 var cb = 35442 / 1805;
 var cc = 16061 / 1805;
-var bounceOut = (p) => {
-  if (p === 1 || p === 0)
-    return p;
-  const p2 = p * p;
-  return p < BOUNCE_FIRST_THRESHOLD ? 7.5625 * p2 : p < BOUNCE_SECOND_THRESHOLD ? 9.075 * p2 - 9.9 * p + 3.4 : p < BOUNCE_THIRD_THRESHOLD ? ca * p2 - cb * p + cc : 10.8 * p * p - 20.52 * p + 10.72;
+var bounceOut = (p2) => {
+  if (p2 === 1 || p2 === 0)
+    return p2;
+  const p22 = p2 * p2;
+  return p2 < BOUNCE_FIRST_THRESHOLD ? 7.5625 * p22 : p2 < BOUNCE_SECOND_THRESHOLD ? 9.075 * p22 - 9.9 * p2 + 3.4 : p2 < BOUNCE_THIRD_THRESHOLD ? ca * p22 - cb * p2 + cc : 10.8 * p2 * p2 - 20.52 * p2 + 10.72;
 };
 var bounceIn = reverseEasing(bounceOut);
-var bounceInOut = (p) => p < 0.5 ? 0.5 * (1 - bounceOut(1 - p * 2)) : 0.5 * bounceOut(p * 2 - 1) + 0.5;
+var bounceInOut = (p2) => p2 < 0.5 ? 0.5 * (1 - bounceOut(1 - p2 * 2)) : 0.5 * bounceOut(p2 * 2 - 1) + 0.5;
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/animations/generators/keyframes.mjs
 function defaultEasing(values, easing) {
@@ -5765,12 +5765,12 @@ function getRadius(values, radiusName) {
 var easeCrossfadeIn = compress(0, 0.5, circOut);
 var easeCrossfadeOut = compress(0.5, 0.95, linear);
 function compress(min, max, easing) {
-  return (p) => {
-    if (p < min)
+  return (p2) => {
+    if (p2 < min)
       return 0;
-    if (p > max)
+    if (p2 > max)
       return 1;
-    return easing(progress(min, max, p));
+    return easing(progress(min, max, p2));
   };
 }
 
@@ -6788,19 +6788,19 @@ function resetRotation(node) {
 function removeLeadSnapshots(stack) {
   stack.removeLeadSnapshot();
 }
-function mixAxisDelta(output, delta, p) {
-  output.translate = mix(delta.translate, 0, p);
-  output.scale = mix(delta.scale, 1, p);
+function mixAxisDelta(output, delta, p2) {
+  output.translate = mix(delta.translate, 0, p2);
+  output.scale = mix(delta.scale, 1, p2);
   output.origin = delta.origin;
   output.originPoint = delta.originPoint;
 }
-function mixAxis(output, from, to, p) {
-  output.min = mix(from.min, to.min, p);
-  output.max = mix(from.max, to.max, p);
+function mixAxis(output, from, to, p2) {
+  output.min = mix(from.min, to.min, p2);
+  output.max = mix(from.max, to.max, p2);
 }
-function mixBox(output, from, to, p) {
-  mixAxis(output.x, from.x, to.x, p);
-  mixAxis(output.y, from.y, to.y, p);
+function mixBox(output, from, to, p2) {
+  mixAxis(output.x, from.x, to.x, p2);
+  mixAxis(output.y, from.y, to.y, p2);
 }
 function hasOpacityCrossfade(node) {
   return node.animationValues && node.animationValues.opacityExit !== void 0;

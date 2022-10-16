@@ -1,4 +1,5 @@
 {
+  "files.refactoring.autoSave": true, 
   "files.exclude": {
     "**/node_modules": true,
     "**/.git": true,

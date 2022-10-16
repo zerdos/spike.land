@@ -1,10 +1,12 @@
-export { renderToString } from "preact-render-to-string";
+import 'preact/compat';
 
-export { jsx, jsxs } from "./preact/compat/jsx-runtime.mjs";
+export {renderToString} from "preact-render-to-string";
 
-export { createContext } from "./preact/src/create-context";
+export {jsx, jsxs, Fragment}  from "./preact/compat/jsx-runtime.mjs";
 
-export { createRoot, hydrateRoot } from "./preact/compat/client.mjs";
+export {createContext} from "./preact/src/create-context";
+
+export { createRoot, hydrateRoot  } from "./preact/compat/client.mjs";
 
 import { Component } from "./preact/src/component";
 
@@ -63,7 +65,6 @@ export const {
   createFactory,
   useInsertionEffect,
   createRef,
-  Fragment,
   useCallback,
   useContext,
   useDebugValue,

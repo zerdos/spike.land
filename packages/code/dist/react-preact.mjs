@@ -1,6 +1,5 @@
 import {
   Children,
-  Fragment,
   PureComponent,
   React,
   S,
@@ -23,6 +22,7 @@ import {
   lazy,
   memo,
   o,
+  p,
   react_preact_default,
   startTransition,
   unstable_batchedUpdates,
@@ -39,11 +39,11 @@ import {
   useRef,
   useState,
   version
-} from "./chunk-chunk-PYNOA6HJ.mjs";
+} from "./chunk-chunk-DY2JGBEQ.mjs";
 init_react_preact();
 export {
   Children,
-  Fragment,
+  p as Fragment,
   PureComponent,
   React,
   StrictMode,

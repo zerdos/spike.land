@@ -156,15 +156,7 @@ const build = (entryPoints, extraExternal) =>
     outdir: "./js/monaco-workers",
   });
 
-  // await build([
-  //   // "js/session.ts",
-  //   // "js/prettierWorker.mjs",
-  //   "js/react-preact.ts",
-  //   // "js/motion.ts",
-  //   // "js/emotion.ts",
-  //   // "js/emotionJsxRuntime.ts",
-  //   // "js/ws.ts",
-  // ], []);
+
 
   buildOptions.plugins = [
     aliasPlugin({
@@ -174,17 +166,8 @@ const build = (entryPoints, extraExternal) =>
       "react-dom/server": resolve("./js/react-preact.ts"),
       "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
       "react/jsx-runtime": resolve("./js/react-preact.ts"),
-    }),
-  ],
-    // await build([
-    // "js/session.ts",
-    // "js/prettierWorker.mjs",
-    // "js/react-preact.ts",
-    // "js/motion.ts",
-    // "js/emotion.ts",
-    // "js/emotionJsxRuntime.ts",
-    // "js/ws.ts",
-    // ],[]);
+    })];
+
 
     await build([
       // "js/session.ts",
@@ -194,15 +177,15 @@ const build = (entryPoints, extraExternal) =>
       "js/react-preact.ts",
       "js/emotion.ts",
       // "js/mui.tsx",
-      // "js/emotionJsxRuntime.ts",
-      // "js/ws.ts",
-    ], ["react", "react/", "react-dom", "react-dom/"]);
+      "js/emotionJsxRuntime.ts",
+      // "js/ws.ts"], 
+     ],["react", "react/", "react-dom", "react-dom/"]);
 
   buildOptions.plugins = [
     aliasPlugin({
       react: resolve("./dist/react-preact.mjs"),
       "@emotion/react": resolve("./dist/emotion.mjs"),
-      "@emotion/react/jsx-runtime": resolve("./dist/emotion.mjs"),
+      "@emotion/react/jsx-runtime": resolve("./dist/emotionJsxRuntime.mjs"),
       "@emotion/styled": resolve("./js/emotionStyled.mjs"),
       "@emotion/cache": resolve("./js/emotionCache.mjs"),
       // "./mui": resolve("./dist/mui.mjs"),
@@ -210,8 +193,9 @@ const build = (entryPoints, extraExternal) =>
       "react-dom/client": resolve("./dist/react-preact.mjs"),
       "react-dom/server": resolve("./dist/react-preact.mjs"),
       "react/jsx-runtime": resolve("./dist/react-preact.mjs"),
-    }),
-  ],
+    })
+  ];
+  
     await build([
       "js/session.ts",
       "js/prettierWorker.mjs",
@@ -219,7 +203,7 @@ const build = (entryPoints, extraExternal) =>
       // "js/motion.ts",
       "js/renderToString.tsx",
       // "js/emotion.ts",
-      // "js/emotionJsxRuntime.ts",
+      // "js/emotionJsxRuntime.ts",  
       "js/ws.ts",
     ], [
       "react",
@@ -228,8 +212,9 @@ const build = (entryPoints, extraExternal) =>
       "react-dom/",
       'framer-motion',
       "@emotion/react",
-      "@emotion/react/",
+      "@emotion/react/"
     ]);
+
 })();
 
 // Await esbuild

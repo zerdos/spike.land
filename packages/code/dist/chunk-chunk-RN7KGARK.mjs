@@ -20,35 +20,42 @@ import {
   wrap
 } from "./chunk-chunk-47JOSZAC.mjs";
 import {
-  emotionCache_default,
-  emotionStyled_default
-} from "./chunk-chunk-UR6BP2TW.mjs";
-import {
   Children,
-  Fragment,
-  Fragment2,
   PureComponent,
   S2,
   Suspense,
+  __commonJS as __commonJS2,
+  __toCommonJS,
+  __toESM as __toESM2,
   cloneElement2,
   createElement2,
   createPortal,
   createRef2,
   createRoot,
-  css,
-  emotion_default,
-  emotion_exports,
+  emotionCache_default,
+  export_CacheProvider,
+  export_css,
+  init_define_process as init_define_process2,
+  init_react_preact,
   isValidElement2,
-  jsx,
-  jsxs,
   lazy,
+  p,
   react_preact_default,
+  react_preact_exports,
+  require_emotion_cache_cjs,
+  require_emotion_element_b63ca7c6_cjs_dev,
+  require_emotion_react_isolated_hnrs_cjs_dev,
+  require_emotion_serialize_cjs,
+  require_emotion_use_insertion_effect_with_fallbacks_cjs,
+  require_emotion_utils_cjs,
+  require_emotion_weak_memoize_cjs,
+  require_extends,
+  require_hoist_non_react_statics_cjs,
   useEffect,
   useMemo,
   useRef,
-  useState,
-  withEmotionCache
-} from "./chunk-chunk-3RBQZ4LE.mjs";
+  useState
+} from "./chunk-chunk-7DZNTTAW.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-5VN25EFX.mjs";
@@ -2944,7 +2951,7 @@ var require_xterm = __commonJS({
           t2.ScreenDprMonitor = r;
         }, 3236: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.Terminal = void 0;
-          const s2 = i2(2950), r = i2(1680), n = i2(3614), o = i2(2584), a = i2(5435), h2 = i2(9312), c = i2(6114), l = i2(3656), d = i2(9042), _ = i2(4567), u = i2(1296), f = i2(7399), v = i2(8460), g = i2(8437), p = i2(5680), S = i2(3230), m3 = i2(4725), C = i2(428), b = i2(8934), y = i2(6465), w = i2(5114), E = i2(8969), L = i2(8055), R = i2(4269), k = i2(5941), D = i2(3107), A = i2(5744), x = i2(9074), B = i2(2585), T = i2(2962), M = "undefined" != typeof window ? window.document : null;
+          const s2 = i2(2950), r = i2(1680), n = i2(3614), o = i2(2584), a = i2(5435), h2 = i2(9312), c = i2(6114), l = i2(3656), d = i2(9042), _ = i2(4567), u = i2(1296), f = i2(7399), v = i2(8460), g = i2(8437), p2 = i2(5680), S = i2(3230), m3 = i2(4725), C = i2(428), b = i2(8934), y = i2(6465), w = i2(5114), E = i2(8969), L = i2(8055), R = i2(4269), k = i2(5941), D = i2(3107), A = i2(5744), x = i2(9074), B = i2(2585), T = i2(2962), M = "undefined" != typeof window ? window.document : null;
           class O extends E.CoreTerminal {
             constructor(e3 = {}) {
               super(e3), this.browser = c, this._keyDownHandled = false, this._keyDownSeen = false, this._keyPressHandled = false, this._unprocessedDeadKey = false, this._onCursorMove = new v.EventEmitter(), this._onKey = new v.EventEmitter(), this._onRender = new v.EventEmitter(), this._onSelectionChange = new v.EventEmitter(), this._onTitleChange = new v.EventEmitter(), this._onBell = new v.EventEmitter(), this._onFocus = new v.EventEmitter(), this._onBlur = new v.EventEmitter(), this._onA11yCharEmitter = new v.EventEmitter(), this._onA11yTabEmitter = new v.EventEmitter(), this._setup(), this.linkifier2 = this.register(this._instantiationService.createInstance(y.Linkifier2)), this.linkifier2.registerLinkProvider(this._instantiationService.createInstance(T.OscLinkProvider)), this._decorationService = this._instantiationService.createInstance(x.DecorationService), this._instantiationService.setService(B.IDecorationService, this._decorationService), this.register(this._inputHandler.onRequestBell(() => this._onBell.fire())), this.register(this._inputHandler.onRequestRefreshRows((e4, t3) => this.refresh(e4, t3))), this.register(this._inputHandler.onRequestSendFocus(() => this._reportFocus())), this.register(this._inputHandler.onRequestReset(() => this.reset())), this.register(this._inputHandler.onRequestWindowsOptionsReport((e4) => this._reportWindowsOptions(e4))), this.register(this._inputHandler.onColor((e4) => this._handleColorEvent(e4))), this.register((0, v.forwardEvent)(this._inputHandler.onCursorMove, this._onCursorMove)), this.register((0, v.forwardEvent)(this._inputHandler.onTitleChange, this._onTitleChange)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yChar, this._onA11yCharEmitter)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yTab, this._onA11yTabEmitter)), this.register(this._bufferService.onResize((e4) => this._afterResize(e4.cols, e4.rows)));
@@ -3100,7 +3107,7 @@ var require_xterm = __commonJS({
                 throw new Error("Terminal requires a parent element.");
               e3.isConnected || this._logService.debug("Terminal.open was called on an element that was not attached to the DOM"), this._document = e3.ownerDocument, this.element = this._document.createElement("div"), this.element.dir = "ltr", this.element.classList.add("terminal"), this.element.classList.add("xterm"), this.element.setAttribute("tabindex", "0"), e3.appendChild(this.element);
               const i3 = M.createDocumentFragment();
-              this._viewportElement = M.createElement("div"), this._viewportElement.classList.add("xterm-viewport"), i3.appendChild(this._viewportElement), this._viewportScrollArea = M.createElement("div"), this._viewportScrollArea.classList.add("xterm-scroll-area"), this._viewportElement.appendChild(this._viewportScrollArea), this.screenElement = M.createElement("div"), this.screenElement.classList.add("xterm-screen"), this._helperContainer = M.createElement("div"), this._helperContainer.classList.add("xterm-helpers"), this.screenElement.appendChild(this._helperContainer), i3.appendChild(this.screenElement), this.textarea = M.createElement("textarea"), this.textarea.classList.add("xterm-helper-textarea"), this.textarea.setAttribute("aria-label", d.promptLabel), this.textarea.setAttribute("aria-multiline", "false"), this.textarea.setAttribute("autocorrect", "off"), this.textarea.setAttribute("autocapitalize", "off"), this.textarea.setAttribute("spellcheck", "false"), this.textarea.tabIndex = 0, this.register((0, l.addDisposableDomListener)(this.textarea, "focus", (e4) => this._onTextAreaFocus(e4))), this.register((0, l.addDisposableDomListener)(this.textarea, "blur", () => this._onTextAreaBlur())), this._helperContainer.appendChild(this.textarea), this._coreBrowserService = this._instantiationService.createInstance(w.CoreBrowserService, this.textarea, null !== (t3 = this._document.defaultView) && void 0 !== t3 ? t3 : window), this._instantiationService.setService(m3.ICoreBrowserService, this._coreBrowserService), this._charSizeService = this._instantiationService.createInstance(C.CharSizeService, this._document, this._helperContainer), this._instantiationService.setService(m3.ICharSizeService, this._charSizeService), this._theme = this.options.theme || this._theme, this._colorManager = new p.ColorManager(M, this.options.allowTransparency), this.register(this.optionsService.onOptionChange((e4) => this._colorManager.onOptionsChange(e4, this.optionsService.rawOptions[e4]))), this._colorManager.setTheme(this._theme), this._characterJoinerService = this._instantiationService.createInstance(R.CharacterJoinerService), this._instantiationService.setService(m3.ICharacterJoinerService, this._characterJoinerService);
+              this._viewportElement = M.createElement("div"), this._viewportElement.classList.add("xterm-viewport"), i3.appendChild(this._viewportElement), this._viewportScrollArea = M.createElement("div"), this._viewportScrollArea.classList.add("xterm-scroll-area"), this._viewportElement.appendChild(this._viewportScrollArea), this.screenElement = M.createElement("div"), this.screenElement.classList.add("xterm-screen"), this._helperContainer = M.createElement("div"), this._helperContainer.classList.add("xterm-helpers"), this.screenElement.appendChild(this._helperContainer), i3.appendChild(this.screenElement), this.textarea = M.createElement("textarea"), this.textarea.classList.add("xterm-helper-textarea"), this.textarea.setAttribute("aria-label", d.promptLabel), this.textarea.setAttribute("aria-multiline", "false"), this.textarea.setAttribute("autocorrect", "off"), this.textarea.setAttribute("autocapitalize", "off"), this.textarea.setAttribute("spellcheck", "false"), this.textarea.tabIndex = 0, this.register((0, l.addDisposableDomListener)(this.textarea, "focus", (e4) => this._onTextAreaFocus(e4))), this.register((0, l.addDisposableDomListener)(this.textarea, "blur", () => this._onTextAreaBlur())), this._helperContainer.appendChild(this.textarea), this._coreBrowserService = this._instantiationService.createInstance(w.CoreBrowserService, this.textarea, null !== (t3 = this._document.defaultView) && void 0 !== t3 ? t3 : window), this._instantiationService.setService(m3.ICoreBrowserService, this._coreBrowserService), this._charSizeService = this._instantiationService.createInstance(C.CharSizeService, this._document, this._helperContainer), this._instantiationService.setService(m3.ICharSizeService, this._charSizeService), this._theme = this.options.theme || this._theme, this._colorManager = new p2.ColorManager(M, this.options.allowTransparency), this.register(this.optionsService.onOptionChange((e4) => this._colorManager.onOptionsChange(e4, this.optionsService.rawOptions[e4]))), this._colorManager.setTheme(this._theme), this._characterJoinerService = this._instantiationService.createInstance(R.CharacterJoinerService), this._instantiationService.setService(m3.ICharacterJoinerService, this._characterJoinerService);
               const n2 = this._createRenderer();
               this._renderService = this.register(this._instantiationService.createInstance(S.RenderService, n2, this.rows, this.screenElement)), this._instantiationService.setService(m3.IRenderService, this._renderService), this.register(this._renderService.onRenderedViewportChange((e4) => this._onRender.fire(e4))), this.onResize((e4) => this._renderService.resize(e4.cols, e4.rows)), this._compositionView = M.createElement("div"), this._compositionView.classList.add("composition-view"), this._compositionHelper = this._instantiationService.createInstance(s2.CompositionHelper, this.textarea, this._compositionView), this._helperContainer.appendChild(this._compositionView), this.element.appendChild(i3), this._mouseService = this._instantiationService.createInstance(b.MouseService), this._instantiationService.setService(m3.IMouseService, this._mouseService), this.viewport = this._instantiationService.createInstance(r.Viewport, (e4) => this.scrollLines(e4, true, 1), this._viewportElement, this._viewportScrollArea, this.element), this.viewport.onThemeChange(this._colorManager.colors), this.register(this._inputHandler.onRequestSyncScrollBar(() => this.viewport.syncScrollArea())), this.register(this.viewport), this.register(this.onCursorMove(() => {
                 this._renderService.onCursorMove(), this._syncTextArea();
@@ -3997,25 +4004,25 @@ var require_xterm = __commonJS({
             }
             createRow(e3, i3, s3, r2, a2, h3, l2, _2) {
               const f2 = this._document.createDocumentFragment(), g = this._characterJoinerService.getJoinedCharacters(i3);
-              let p = 0;
+              let p2 = 0;
               for (let t3 = Math.min(e3.length, _2) - 1; t3 >= 0; t3--)
                 if (e3.loadCell(t3, this._workCell).getCode() !== o.NULL_CELL_CODE || s3 && t3 === a2) {
-                  p = t3 + 1;
+                  p2 = t3 + 1;
                   break;
                 }
-              for (let _3 = 0; _3 < p; _3++) {
+              for (let _3 = 0; _3 < p2; _3++) {
                 e3.loadCell(_3, this._workCell);
-                let p2 = this._workCell.getWidth();
-                if (0 === p2)
+                let p3 = this._workCell.getWidth();
+                if (0 === p3)
                   continue;
                 let S = false, m3 = _3, C = this._workCell;
                 if (g.length > 0 && _3 === g[0][0]) {
                   S = true;
                   const t3 = g.shift();
-                  C = new d.JoinedCellData(this._workCell, e3.translateToString(true, t3[0], t3[1]), t3[1] - t3[0]), m3 = t3[1] - 1, p2 = C.getWidth();
+                  C = new d.JoinedCellData(this._workCell, e3.translateToString(true, t3[0], t3[1]), t3[1] - t3[0]), m3 = t3[1] - 1, p3 = C.getWidth();
                 }
                 const b = this._document.createElement("span");
-                if (p2 > 1 && (b.style.width = l2 * p2 + "px"), S && (b.style.display = "inline", a2 >= _3 && a2 <= m3 && (a2 = _3)), !this._coreService.isCursorHidden && s3 && _3 === a2)
+                if (p3 > 1 && (b.style.width = l2 * p3 + "px"), S && (b.style.display = "inline", a2 >= _3 && a2 <= m3 && (a2 = _3)), !this._coreService.isCursorHidden && s3 && _3 === a2)
                   switch (b.classList.add(t2.CURSOR_CLASS), h3 && b.classList.add(t2.CURSOR_BLINK_CLASS), r2) {
                     case "bar":
                       b.classList.add(t2.CURSOR_STYLE_BAR_CLASS);
@@ -4471,7 +4478,7 @@ var require_xterm = __commonJS({
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.SelectionService = void 0;
           const n = i2(6114), o = i2(456), a = i2(511), h2 = i2(8460), c = i2(4725), l = i2(2585), d = i2(9806), _ = i2(9504), u = i2(844), f = i2(4841), v = String.fromCharCode(160), g = new RegExp(v, "g");
-          let p = class extends u.Disposable {
+          let p2 = class extends u.Disposable {
             constructor(e3, t3, i3, s3, r2, n2, c2, l2, d2) {
               super(), this._element = e3, this._screenElement = t3, this._linkifier = i3, this._bufferService = s3, this._coreService = r2, this._mouseService = n2, this._optionsService = c2, this._renderService = l2, this._coreBrowserService = d2, this._dragScrollAmount = 0, this._enabled = true, this._workCell = new a.CellData(), this._mouseDownTimeStamp = 0, this._oldHasSelection = false, this._oldSelectionStart = void 0, this._oldSelectionEnd = void 0, this._onLinuxMouseSelection = this.register(new h2.EventEmitter()), this._onRedrawRequest = this.register(new h2.EventEmitter()), this._onSelectionChange = this.register(new h2.EventEmitter()), this._onRequestScrollLines = this.register(new h2.EventEmitter()), this._mouseMoveListener = (e4) => this._onMouseMove(e4), this._mouseUpListener = (e4) => this._onMouseUp(e4), this._coreService.onUserInput(() => {
                 this.hasSelection && this.clearSelection();
@@ -4763,7 +4770,7 @@ var require_xterm = __commonJS({
               this._model.selectionStart = [0, t3.first], this._model.selectionEnd = void 0, this._model.selectionStartLength = (0, f.getRangeLength)(i3, this._bufferService.cols);
             }
           };
-          p = s2([r(3, l.IBufferService), r(4, l.ICoreService), r(5, c.IMouseService), r(6, l.IOptionsService), r(7, c.IRenderService), r(8, c.ICoreBrowserService)], p), t2.SelectionService = p;
+          p2 = s2([r(3, l.IBufferService), r(4, l.ICoreService), r(5, c.IMouseService), r(6, l.IOptionsService), r(7, c.IRenderService), r(8, c.ICoreBrowserService)], p2), t2.SelectionService = p2;
         }, 4725: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.ICharacterJoinerService = t2.ISelectionService = t2.IRenderService = t2.IMouseService = t2.ICoreBrowserService = t2.ICharSizeService = void 0;
           const s2 = i2(8343);
@@ -4985,7 +4992,7 @@ var require_xterm = __commonJS({
           }(r = t2.rgba || (t2.rgba = {})), t2.toPaddedHex = n, t2.contrastRatio = o;
         }, 8969: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.CoreTerminal = void 0;
-          const s2 = i2(844), r = i2(2585), n = i2(4348), o = i2(7866), a = i2(744), h2 = i2(7302), c = i2(6975), l = i2(8460), d = i2(1753), _ = i2(3730), u = i2(1480), f = i2(7994), v = i2(9282), g = i2(5435), p = i2(5981), S = i2(2660);
+          const s2 = i2(844), r = i2(2585), n = i2(4348), o = i2(7866), a = i2(744), h2 = i2(7302), c = i2(6975), l = i2(8460), d = i2(1753), _ = i2(3730), u = i2(1480), f = i2(7994), v = i2(9282), g = i2(5435), p2 = i2(5981), S = i2(2660);
           let m3 = false;
           class C extends s2.Disposable {
             constructor(e3) {
@@ -4993,7 +5000,7 @@ var require_xterm = __commonJS({
                 this._onScroll.fire({ position: this._bufferService.buffer.ydisp, source: 0 }), this._dirtyRowService.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom);
               })), this.register(this._inputHandler.onScroll((e4) => {
                 this._onScroll.fire({ position: this._bufferService.buffer.ydisp, source: 0 }), this._dirtyRowService.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom);
-              })), this._writeBuffer = new p.WriteBuffer((e4, t3) => this._inputHandler.parse(e4, t3)), this.register((0, l.forwardEvent)(this._writeBuffer.onWriteParsed, this._onWriteParsed));
+              })), this._writeBuffer = new p2.WriteBuffer((e4, t3) => this._inputHandler.parse(e4, t3)), this.register((0, l.forwardEvent)(this._writeBuffer.onWriteParsed, this._onWriteParsed));
             }
             get onBinary() {
               return this._onBinary.event;
@@ -5131,7 +5138,7 @@ var require_xterm = __commonJS({
           };
         }, 5435: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.InputHandler = t2.WindowsOptionsReportType = void 0;
-          const s2 = i2(2584), r = i2(7116), n = i2(2015), o = i2(844), a = i2(482), h2 = i2(8437), c = i2(8460), l = i2(643), d = i2(511), _ = i2(3734), u = i2(2585), f = i2(6242), v = i2(6351), g = i2(5941), p = { "(": 0, ")": 1, "*": 2, "+": 3, "-": 1, ".": 2 }, S = 131072;
+          const s2 = i2(2584), r = i2(7116), n = i2(2015), o = i2(844), a = i2(482), h2 = i2(8437), c = i2(8460), l = i2(643), d = i2(511), _ = i2(3734), u = i2(2585), f = i2(6242), v = i2(6351), g = i2(5941), p2 = { "(": 0, ")": 1, "*": 2, "+": 3, "-": 1, ".": 2 }, S = 131072;
           function m3(e3, t3) {
             if (e3 > 24)
               return t3.setWinLines || false;
@@ -5188,8 +5195,8 @@ var require_xterm = __commonJS({
             e3[e3.GET_WIN_SIZE_PIXELS = 0] = "GET_WIN_SIZE_PIXELS", e3[e3.GET_CELL_SIZE_PIXELS = 1] = "GET_CELL_SIZE_PIXELS";
           }(C = t2.WindowsOptionsReportType || (t2.WindowsOptionsReportType = {}));
           class b extends o.Disposable {
-            constructor(e3, t3, i3, o2, l2, _2, u2, g2, p2, S3 = new n.EscapeSequenceParser()) {
-              super(), this._bufferService = e3, this._charsetService = t3, this._coreService = i3, this._dirtyRowService = o2, this._logService = l2, this._optionsService = _2, this._oscLinkService = u2, this._coreMouseService = g2, this._unicodeService = p2, this._parser = S3, this._parseBuffer = new Uint32Array(4096), this._stringDecoder = new a.StringToUtf32(), this._utf8Decoder = new a.Utf8ToUtf32(), this._workCell = new d.CellData(), this._windowTitle = "", this._iconName = "", this._windowTitleStack = [], this._iconNameStack = [], this._curAttrData = h2.DEFAULT_ATTR_DATA.clone(), this._eraseAttrDataInternal = h2.DEFAULT_ATTR_DATA.clone(), this._onRequestBell = new c.EventEmitter(), this._onRequestRefreshRows = new c.EventEmitter(), this._onRequestReset = new c.EventEmitter(), this._onRequestSendFocus = new c.EventEmitter(), this._onRequestSyncScrollBar = new c.EventEmitter(), this._onRequestWindowsOptionsReport = new c.EventEmitter(), this._onA11yChar = new c.EventEmitter(), this._onA11yTab = new c.EventEmitter(), this._onCursorMove = new c.EventEmitter(), this._onLineFeed = new c.EventEmitter(), this._onScroll = new c.EventEmitter(), this._onTitleChange = new c.EventEmitter(), this._onColor = new c.EventEmitter(), this._parseStack = { paused: false, cursorStartX: 0, cursorStartY: 0, decodedLength: 0, position: 0 }, this._specialColors = [256, 257, 258], this.register(this._parser), this._activeBuffer = this._bufferService.buffer, this.register(this._bufferService.buffers.onBufferActivate((e4) => this._activeBuffer = e4.activeBuffer)), this._parser.setCsiHandlerFallback((e4, t4) => {
+            constructor(e3, t3, i3, o2, l2, _2, u2, g2, p3, S3 = new n.EscapeSequenceParser()) {
+              super(), this._bufferService = e3, this._charsetService = t3, this._coreService = i3, this._dirtyRowService = o2, this._logService = l2, this._optionsService = _2, this._oscLinkService = u2, this._coreMouseService = g2, this._unicodeService = p3, this._parser = S3, this._parseBuffer = new Uint32Array(4096), this._stringDecoder = new a.StringToUtf32(), this._utf8Decoder = new a.Utf8ToUtf32(), this._workCell = new d.CellData(), this._windowTitle = "", this._iconName = "", this._windowTitleStack = [], this._iconNameStack = [], this._curAttrData = h2.DEFAULT_ATTR_DATA.clone(), this._eraseAttrDataInternal = h2.DEFAULT_ATTR_DATA.clone(), this._onRequestBell = new c.EventEmitter(), this._onRequestRefreshRows = new c.EventEmitter(), this._onRequestReset = new c.EventEmitter(), this._onRequestSendFocus = new c.EventEmitter(), this._onRequestSyncScrollBar = new c.EventEmitter(), this._onRequestWindowsOptionsReport = new c.EventEmitter(), this._onA11yChar = new c.EventEmitter(), this._onA11yTab = new c.EventEmitter(), this._onCursorMove = new c.EventEmitter(), this._onLineFeed = new c.EventEmitter(), this._onScroll = new c.EventEmitter(), this._onTitleChange = new c.EventEmitter(), this._onColor = new c.EventEmitter(), this._parseStack = { paused: false, cursorStartX: 0, cursorStartY: 0, decodedLength: 0, position: 0 }, this._specialColors = [256, 257, 258], this.register(this._parser), this._activeBuffer = this._bufferService.buffer, this.register(this._bufferService.buffers.onBufferActivate((e4) => this._activeBuffer = e4.activeBuffer)), this._parser.setCsiHandlerFallback((e4, t4) => {
                 this._logService.debug("Unknown CSI code: ", { identifier: this._parser.identToString(e4), params: t4.toArray() });
               }), this._parser.setEscHandlerFallback((e4) => {
                 this._logService.debug("Unknown ESC code: ", { identifier: this._parser.identToString(e4) });
@@ -5942,7 +5949,7 @@ var require_xterm = __commonJS({
               return this._charsetService.setgLevel(0), this._charsetService.setgCharset(0, r.DEFAULT_CHARSET), true;
             }
             selectCharset(e3) {
-              return 2 !== e3.length ? (this.selectDefaultCharset(), true) : ("/" === e3[0] || this._charsetService.setgCharset(p[e3[0]], r.CHARSETS[e3[1]] || r.DEFAULT_CHARSET), true);
+              return 2 !== e3.length ? (this.selectDefaultCharset(), true) : ("/" === e3[0] || this._charsetService.setgCharset(p2[e3[0]], r.CHARSETS[e3[1]] || r.DEFAULT_CHARSET), true);
             }
             index() {
               return this._restrictCursor(), this._activeBuffer.y++, this._activeBuffer.y === this._activeBuffer.scrollBottom + 1 ? (this._activeBuffer.y--, this._bufferService.scroll(this._eraseAttrData())) : this._activeBuffer.y >= this._bufferService.rows && (this._activeBuffer.y = this._bufferService.rows - 1), this._restrictCursor(), true;
@@ -6398,14 +6405,14 @@ var require_xterm = __commonJS({
                   v.push(e5);
                 }
                 v.length > 0 && (s3.push({ start: o2 + c2.length + n2, newLines: v }), n2 += v.length), c2.push(...v);
-                let g = _.length - 1, p = _[g];
-                0 === p && (g--, p = _[g]);
+                let g = _.length - 1, p2 = _[g];
+                0 === p2 && (g--, p2 = _[g]);
                 let S = c2.length - u - 1, m3 = d2;
                 for (; S >= 0; ) {
-                  const e4 = Math.min(m3, p);
+                  const e4 = Math.min(m3, p2);
                   if (void 0 === c2[g])
                     break;
-                  if (c2[g].copyCellsFrom(c2[S], m3 - e4, p - e4, e4, true), p -= e4, 0 === p && (g--, p = _[g]), m3 -= e4, 0 === m3) {
+                  if (c2[g].copyCellsFrom(c2[S], m3 - e4, p2 - e4, e4, true), p2 -= e4, 0 === p2 && (g--, p2 = _[g]), m3 -= e4, 0 === m3) {
                     S--;
                     const e5 = Math.max(S, 0);
                     m3 = (0, a.getWrappedLineTrimmedLength)(c2, e5, this._cols);
@@ -9806,9 +9813,9 @@ var __extends = function() {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
       d2.__proto__ = b2;
     } || function(d2, b2) {
-      for (var p in b2)
-        if (b2.hasOwnProperty(p))
-          d2[p] = b2[p];
+      for (var p2 in b2)
+        if (b2.hasOwnProperty(p2))
+          d2[p2] = b2[p2];
     };
     return extendStatics(d, b);
   };
@@ -9999,9 +10006,9 @@ var __assign = function() {
   __assign = Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
-      for (var p in s)
-        if (Object.prototype.hasOwnProperty.call(s, p))
-          t[p] = s[p];
+      for (var p2 in s)
+        if (Object.prototype.hasOwnProperty.call(s, p2))
+          t[p2] = s[p2];
     }
     return t;
   };
@@ -10009,13 +10016,13 @@ var __assign = function() {
 };
 var __rest = function(s, e) {
   var t = {};
-  for (var p in s)
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-      t[p] = s[p];
+  for (var p2 in s)
+    if (Object.prototype.hasOwnProperty.call(s, p2) && e.indexOf(p2) < 0)
+      t[p2] = s[p2];
   if (s != null && typeof Object.getOwnPropertySymbols === "function")
-    for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-      if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-        t[p[i]] = s[p[i]];
+    for (var i = 0, p2 = Object.getOwnPropertySymbols(s); i < p2.length; i++) {
+      if (e.indexOf(p2[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p2[i]))
+        t[p2[i]] = s[p2[i]];
     }
   return t;
 };
@@ -10087,26 +10094,81 @@ import { motion as m } from "framer-motion";
 
 // js/icons.tsx
 init_define_process();
-var Wrap = ({ children }) => jsx("span", {
-  css: css`
+
+// dist/emotionJsxRuntime.mjs
+init_define_process();
+var require_emotion_react_jsx_runtime_cjs_dev = __commonJS2({
+  "../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.dev.js"(exports) {
+    "use strict";
+    init_define_process2();
+    Object.defineProperty(exports, "__esModule", { value: true });
+    init_react_preact();
+    require_emotion_cache_cjs();
+    var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
+    require_extends();
+    require_emotion_weak_memoize_cjs();
+    require_hoist_non_react_statics_cjs();
+    require_emotion_react_isolated_hnrs_cjs_dev();
+    require_emotion_utils_cjs();
+    require_emotion_serialize_cjs();
+    require_emotion_use_insertion_effect_with_fallbacks_cjs();
+    var ReactJSXRuntime = (init_react_preact(), __toCommonJS(react_preact_exports));
+    var Fragment2 = ReactJSXRuntime.Fragment;
+    function jsx2(type, props, key) {
+      if (!emotionElement.hasOwnProperty.call(props, "css")) {
+        return ReactJSXRuntime.jsx(type, props, key);
+      }
+      return ReactJSXRuntime.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+    }
+    function jsxs2(type, props, key) {
+      if (!emotionElement.hasOwnProperty.call(props, "css")) {
+        return ReactJSXRuntime.jsxs(type, props, key);
+      }
+      return ReactJSXRuntime.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+    }
+    exports.Fragment = Fragment2;
+    exports.jsx = jsx2;
+    exports.jsxs = jsxs2;
+  }
+});
+var require_emotion_react_jsx_runtime_cjs = __commonJS2({
+  "../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js"(exports, module) {
+    "use strict";
+    init_define_process2();
+    if (false) {
+      module.exports = null;
+    } else {
+      module.exports = require_emotion_react_jsx_runtime_cjs_dev();
+    }
+  }
+});
+init_define_process2();
+var import_jsx_runtime = __toESM2(require_emotion_react_jsx_runtime_cjs(), 1);
+var export_Fragment = import_jsx_runtime.Fragment;
+var export_jsx = import_jsx_runtime.jsx;
+var export_jsxs = import_jsx_runtime.jsxs;
+
+// js/icons.tsx
+var Wrap = ({ children }) => export_jsx("span", {
+  css: export_css`
 font-size:20pt;
 `,
   children
 });
-var QrCodeIcon = () => jsx(Wrap, {
-  children: jsx(MdQrCode, {})
+var QrCodeIcon = () => export_jsx(Wrap, {
+  children: export_jsx(MdQrCode, {})
 });
-var Phone = () => jsx(Wrap, {
-  children: jsx(MdPhoneAndroid, {})
+var Phone = () => export_jsx(Wrap, {
+  children: export_jsx(MdPhoneAndroid, {})
 });
-var Share = () => jsx(Wrap, {
-  children: jsx(MdShare, {})
+var Share = () => export_jsx(Wrap, {
+  children: export_jsx(MdShare, {})
 });
-var Tablet = () => jsx(Wrap, {
-  children: jsx(MdTabletAndroid, {})
+var Tablet = () => export_jsx(Wrap, {
+  children: export_jsx(MdTabletAndroid, {})
 });
-var Tv = () => jsx(Wrap, {
-  children: jsx(MdTv, {})
+var Tv = () => export_jsx(Wrap, {
+  children: export_jsx(MdTv, {})
 });
 
 // ../../.yarn/__virtual__/react-qrious-virtual-b90ac76f79/0/global/cache/react-qrious-npm-2.5.6-421c990834-9.zip/node_modules/react-qrious/lib/index.js
@@ -10149,34 +10211,34 @@ var QRious2 = (_a) => {
 
 // js/mui.tsx
 init_define_process();
-var FabLazy = lazy(async () => import("./chunk-Fab-AZ6RH642.mjs"));
-var Fab = (props) => jsx(Suspense, {
-  fallback: jsx("div", {
-    css: css`width: 28px; height:28px`
+var FabLazy = lazy(async () => import("./chunk-Fab-WCNHET7B.mjs"));
+var Fab = (props) => export_jsx(Suspense, {
+  fallback: export_jsx("div", {
+    css: export_css`width: 28px; height:28px`
   }),
-  children: jsx(FabLazy, __spreadValues({}, props))
+  children: export_jsx(FabLazy, __spreadValues({}, props))
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-D6HRKQJQ.mjs"));
-var ToggleButton = (props) => jsx(Suspense, {
-  fallback: jsx("div", {
-    css: css`width: 28px; height:28px`
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-5PLX42D6.mjs"));
+var ToggleButton = (props) => export_jsx(Suspense, {
+  fallback: export_jsx("div", {
+    css: export_css`width: 28px; height:28px`
   }),
-  children: jsx(ToggleButtonLazy, __spreadValues({}, props))
+  children: export_jsx(ToggleButtonLazy, __spreadValues({}, props))
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-QXI2V5SK.mjs")
+  async () => import("./chunk-ToggleButtonGroup-MWLW72OL.mjs")
 );
-var ToggleButtonGroup = (props) => jsx(Suspense, {
-  fallback: jsx("div", {
-    css: css`width: 28px; height:28px`
+var ToggleButtonGroup = (props) => export_jsx(Suspense, {
+  fallback: export_jsx("div", {
+    css: export_css`width: 28px; height:28px`
   }),
-  children: jsx(ToggleButtonGroupLazy, __spreadValues({}, props))
+  children: export_jsx(ToggleButtonGroupLazy, __spreadValues({}, props))
 });
 
 // js/Qr.tsx
 var QRButton = ({ url }) => {
   const [showQR, setQR] = useState(false);
-  return jsx(m.div, {
+  return export_jsx(m.div, {
     animate: {
       width: showQR ? 200 : 56,
       height: showQR ? 220 : 48
@@ -10184,14 +10246,14 @@ var QRButton = ({ url }) => {
     onClick: () => {
       setQR(!showQR);
     },
-    css: css`
+    css: export_css`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
-    children: showQR ? jsx(QRious2, {
+    children: showQR ? export_jsx(QRious2, {
       value: url || "/live/coder/public"
-    }, url || origin + url) : jsx(Fab, {
-      children: jsx(QrCodeIcon, {})
+    }, url || origin + url) : export_jsx(Fab, {
+      children: export_jsx(QrCodeIcon, {})
     })
   });
 };
@@ -10300,9 +10362,9 @@ var DraggableWindow = ({
   useEffect(() => {
     setClients([...Object.keys(sendChannel.rtcConns)]);
   }, [sendChannel.webRtcArray.length, setClients]);
-  return jsx(LazyMotion, {
+  return export_jsx(LazyMotion, {
     features: domMax,
-    children: jsx(m2.div, {
+    children: export_jsx(m2.div, {
       transition: { delay: 0, duration: 0.4 },
       initial: {
         top: 0,
@@ -10316,7 +10378,7 @@ var DraggableWindow = ({
         right,
         borderRadius: 16
       },
-      css: css`
+      css: export_css`
             touch-action: pinch-zoom;
             background-color: ${bg};
             backdrop-filter: blur(15px);
@@ -10333,34 +10395,34 @@ var DraggableWindow = ({
         bottom: innerHeight
       },
       dragElastic: 0.5,
-      children: jsxs("div", {
-        css: css` 
+      children: export_jsxs("div", {
+        css: export_css` 
               display: flex;
               
                 `,
         children: [
-          jsxs("div", {
-            css: css`
+          export_jsxs("div", {
+            css: export_css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `,
             children: [
-              jsx(m2.div, {
+              export_jsx(m2.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: { height: 0, width: 0 },
                 animate: { height: "auto", width: "auto" },
-                children: jsx(ToggleButtonGroup, {
+                children: export_jsx(ToggleButtonGroup, {
                   value: scaleRange,
                   size: "small",
                   exclusive: true,
                   onChange: (_e, newScale) => {
                     newScale && changeScaleRange(newScale);
                   },
-                  children: sizes.map((size, ind) => jsx(ToggleButton, {
+                  children: sizes.map((size, ind) => export_jsx(ToggleButton, {
                     value: size,
-                    children: jsxs("span", {
-                      css: css`
+                    children: export_jsxs("span", {
+                      css: export_css`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
                       children: [
@@ -10371,7 +10433,7 @@ var DraggableWindow = ({
                   }, ind))
                 })
               }),
-              jsxs(m2.div, {
+              export_jsxs(m2.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: {
                   width: window.innerWidth,
@@ -10383,14 +10445,14 @@ var DraggableWindow = ({
                   height: height2 * scale / devicePixelRatio,
                   borderRadius: 8
                 },
-                css: css`
+                css: export_css`
 
                 display: block;
                 overflow: hidden;
                 overflow-y: hidden;
             `,
                 children: [
-                  jsx(m2.div, {
+                  export_jsx(m2.div, {
                     transition: { delay: 0, duration: 0.4 },
                     initial: {
                       width: window.innerWidth,
@@ -10406,19 +10468,19 @@ var DraggableWindow = ({
                       scale: scaleRange / 100
                     },
                     "data-test-id": "z-body",
-                    css: css`
+                    css: export_css`
                   overflow:overlay;
                   overflow-y: hidden;
               `,
                     children
                   }),
-                  jsx("div", {
-                    css: css`   
+                  export_jsx("div", {
+                    css: export_css`   
               position: relative;
               
               `,
-                    children: jsx("div", {
-                      css: css`
+                    children: export_jsx("div", {
+                      css: export_css`
               height: 240px;
               width: ${width / devicePixelRatio}px;
               display: block;
@@ -10430,16 +10492,16 @@ var DraggableWindow = ({
               .xterm-helpers{
               }
               `,
-                      children: jsx("div", {
+                      children: export_jsx("div", {
                         ref: terminalRef
                       })
                     })
                   })
                 ]
               }),
-              jsx(m2.div, {
+              export_jsx(m2.div, {
                 transition: { delay: 0, duration: 0.4 },
-                children: jsx(ToggleButtonGroup, {
+                children: export_jsx(ToggleButtonGroup, {
                   value: width,
                   size: "small",
                   exclusive: true,
@@ -10449,35 +10511,35 @@ var DraggableWindow = ({
                       setWidth(newSize);
                     }
                   },
-                  children: breakPoints.map((size, ind) => jsx(ToggleButton, {
+                  children: breakPoints.map((size, ind) => export_jsx(ToggleButton, {
                     value: size,
-                    children: size === 680 ? jsx("span", {
-                      css: css`
+                    children: size === 680 ? export_jsx("span", {
+                      css: export_css`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                      children: jsx(Phone, {})
-                    }) : size === 768 ? jsx("span", {
-                      css: css`
+                      children: export_jsx(Phone, {})
+                    }) : size === 768 ? export_jsx("span", {
+                      css: export_css`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                      children: jsx(Tablet, {})
-                    }) : jsx("span", {
-                      css: css`
+                      children: export_jsx(Tablet, {})
+                    }) : export_jsx("span", {
+                      css: export_css`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
-                      children: jsx(Tv, {})
+                      children: export_jsx(Tv, {})
                     })
                   }, ind))
                 })
               })
             ]
           }),
-          jsx(m2.div, {
+          export_jsx(m2.div, {
             transition: { delay: 0, duration: 0.4 },
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
-            children: jsxs("div", {
-              css: css`
+            children: export_jsxs("div", {
+              css: export_css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
@@ -10485,25 +10547,25 @@ var DraggableWindow = ({
               flex-direction: column;
               `,
               children: [
-                jsx(Fab, {
+                export_jsx(Fab, {
                   onClick: () => {
                     var _a;
                     (_a = document.querySelector("#root")) == null ? void 0 : _a.requestFullscreen();
                   },
-                  children: jsx("span", {
-                    css: css`
+                  children: export_jsx("span", {
+                    css: export_css`
                 font-size: 20pt;
               `,
-                    children: jsx(MdFullscreen, {}, "fs")
+                    children: export_jsx(MdFullscreen, {}, "fs")
                   })
                 }, "fullscreen"),
-                jsx(QRButton, {
+                export_jsx(QRButton, {
                   url: location.origin + `/live/${room}/public`
                 }),
                 false,
-                jsx(Fab, {
+                export_jsx(Fab, {
                   onClick: () => open(`/live/${room}/public`),
-                  children: jsx(Share, {})
+                  children: export_jsx(Share, {})
                 }, "Share")
               ]
             })
@@ -10529,36 +10591,102 @@ var ErrorBoundary = class extends react_preact_default.Component {
   }
   render() {
     if (this.state.errorInfo) {
-      return jsxs("div", {
+      return export_jsxs("div", {
         children: [
-          jsx("h2", {
+          export_jsx("h2", {
             children: "Something went wrong."
           }),
-          jsxs("details", {
+          export_jsxs("details", {
             style: { whiteSpace: "pre-wrap" },
             children: [
               this.state.error && this.state.error.toString(),
-              jsx("br", {}),
+              export_jsx("br", {}),
               this.state.errorInfo.componentStack
             ]
           })
         ]
       });
     }
-    return this.props.children || jsx(Fragment, {});
+    return this.props.children || export_jsx(export_Fragment, {});
   }
 };
 var ErrorBoundary_default = ErrorBoundary;
 
-// js/starter.tsx
+// js/renderToString.tsx
+init_define_process();
 var import_is_callable = __toESM(require_is_callable(), 1);
+var render = async (transpiled, codeSpace2) => {
+  var _a;
+  const md5hash = md5(transpiled).slice(0, 8);
+  const App = await appFactory(transpiled);
+  if ((0, import_is_callable.default)(App)) {
+    const html = S2(export_jsx(App, {
+      appId: `${codeSpace2}-${md5hash}`
+    }));
+    const css = mineFromCaches(md5hash, html);
+    const globalCss = (_a = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _a.innerHTML;
+    return {
+      html: `<style>${globalCss}</style>${html}`,
+      css
+    };
+  } else
+    return { html: null, css: null };
+};
+var renderFromString = (codeSpace2, hash) => {
+  var _a, _b;
+  const md5hash = md5(mST().transpiled).slice(0, 8);
+  if (hash !== hashCode()) {
+    return { html: null, css: null };
+  }
+  const html = (_a = document.getElementById(`${codeSpace2}-${md5hash}`)) == null ? void 0 : _a.innerHTML;
+  const css = html ? extractCritical22(html) : "";
+  const globalCss = (_b = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _b.innerHTML;
+  return {
+    html: `<div id="${codeSpace2}-${md5hash}" style="height:100%">
+      ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
+    css
+  };
+};
+function mineFromCaches(md5Hash, html) {
+  const keys = Object.keys(globalThis.eCaches[md5Hash].inserted);
+  return Array.from(document.styleSheets).map((x) => x.cssRules).filter(
+    (x) => x[0] && x[0].cssText
+  ).map((x) => x[0].cssText).filter(
+    (x) => keys.find((k) => x.includes(k))
+  ).filter((x) => html.includes(x.slice(0, 11))).join(" ");
+}
+var extractCritical22 = (html) => {
+  try {
+    const rules = {};
+    for (const i in document.styleSheets) {
+      let yesFromNow = false;
+      const styleSheet = document.styleSheets[i];
+      if (styleSheet == null ? void 0 : styleSheet.cssRules) {
+        for (const rule of Array.from(styleSheet.cssRules)) {
+          if (yesFromNow || rule && rule.cssText && rule.cssText.startsWith(".z-")) {
+            const selector = rule.cssText.slice(1, 9);
+            const selectorText = selector;
+            if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".z-")) {
+              yesFromNow = true;
+              rules[selectorText] = rule.cssText;
+            }
+          }
+        }
+      }
+    }
+    return Object.keys(rules).map((r) => rules[r]).join(" ");
+  } catch (e) {
+    console.error("no css");
+    return "";
+  }
+};
+
+// js/starter.tsx
+var import_is_callable2 = __toESM(require_is_callable(), 1);
 if (!globalThis["apps"] || !globalThis["eCaches"]) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
 }
 var { apps, eCaches } = globalThis || globalThis.apps;
-var renderFromString = null;
-var createCache = null;
-var CacheProvider = null;
 var ishim;
 async function importShim2(str) {
   if (ishim)
@@ -10580,7 +10708,7 @@ async function importShim2(str) {
   ishim = window.importShim;
   return ishim(str);
 }
-var render = {};
+var render2 = {};
 var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
   useEffect(() => {
@@ -10595,31 +10723,27 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
       return;
     if (!renderFromString)
       return;
-    render[md5Hash] = render[md5Hash] || renderFromString(codeSpace2, hash);
-    const { html, css: css3 } = render[md5Hash];
-    if (html && css3) {
-      patchSync(__spreadProps(__spreadValues({}, mST()), { html, css: css3 }));
+    render2[md5Hash] = render2[md5Hash] || renderFromString(codeSpace2, hash);
+    const { html, css } = render2[md5Hash];
+    if (html && css) {
+      patchSync(__spreadProps(__spreadValues({}, mST()), { html, css }));
     } else
-      delete render[md5Hash];
+      delete render2[md5Hash];
   }, [md5Hash]);
   const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
-  return jsx(ErrorBoundary_default, {
+  return export_jsx(ErrorBoundary_default, {
     ref,
-    children: jsx(App, {
-      appId: `${codeSpace2}-${md5Hash}`
+    children: export_jsx(export_CacheProvider, {
+      value: emotionCache_default({ key: "x" }),
+      children: export_jsx(App, {
+        appId: `${codeSpace2}-${md5Hash}`
+      })
     })
   }, md5Hash);
 };
-var Emotion;
 async function appFactory(transpiled = "") {
-  if (Emotion === null) {
-    Emotion = await import("./chunk-emotion-ZKBWUFSP.mjs");
-    renderFromString = (await import("./renderToString.mjs")).renderFromString;
-    createCache = Emotion.cache.default;
-    CacheProvider = Emotion.CacheProvider;
-  }
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp).slice(0, 8);
@@ -10630,23 +10754,18 @@ async function appFactory(transpiled = "") {
       }
       console.log(`i: ${mstI}: `);
       const App = (await importShim2(createJsBlob(trp))).default;
-      if (CacheProvider === null || createCache === null) {
-        return () => jsx("h1", {
-          children: "error"
-        });
-      }
-      if ((0, import_is_callable.default)(App)) {
-        const { CacheProvider: CacheProvider3, css: css3 } = Emotion;
+      if ((0, import_is_callable2.default)(App)) {
+        const { CacheProvider, cache: createCache } = await importShim2("@emotion/react");
         eCaches[hash] = createCache({
           key: "z",
           speedy: true
         });
-        apps[hash] = ({ appId }) => appId.includes(hash) ? jsx(CacheProvider3, {
+        apps[hash] = ({ appId }) => appId.includes(hash) ? export_jsx(CacheProvider, {
           value: eCaches[hash],
-          children: jsx("div", {
-            css: css3`height: 100%;`,
+          children: export_jsx("div", {
+            css: export_css`height: 100%;`,
             id: appId,
-            children: jsx(App, {})
+            children: export_jsx(App, {})
           })
         }) : null;
       } else
@@ -10655,22 +10774,22 @@ async function appFactory(transpiled = "") {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsxs("div", {
-          css: css`
+        apps[hash] = () => export_jsxs("div", {
+          css: export_css`
         background-color: orange;
         `,
           children: [
-            jsx("h1", {
+            export_jsx("h1", {
               children: "Syntax Error"
             }),
-            jsxs("h2", {
+            export_jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx("p", {
+            export_jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
@@ -10678,32 +10797,32 @@ async function appFactory(transpiled = "") {
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsxs("div", {
-          css: css`
+        apps[hash] = () => export_jsxs("div", {
+          css: export_css`
 						background-color: orange;
 						`,
           children: [
-            jsx("h1", {
+            export_jsx("h1", {
               children: "Syntax Error"
             }),
-            jsxs("h2", {
+            export_jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx("p", {
+            export_jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
         });
       } else {
-        apps[hash] = () => jsx("div", {
-          css: css`
+        apps[hash] = () => export_jsx("div", {
+          css: export_css`
         background-color: orange;
       `,
-          children: jsxs("h1", {
+          children: export_jsxs("h1", {
             children: [
               "Unknown Error: $",
               hash
@@ -10853,75 +10972,6 @@ var findDeps = (code) => {
   return deps;
 };
 
-// js/renderToString.tsx
-init_define_process();
-var import_is_callable2 = __toESM(require_is_callable(), 1);
-var render2 = async (transpiled, codeSpace2) => {
-  var _a;
-  const md5hash = md5(transpiled).slice(0, 8);
-  const App = await appFactory(transpiled);
-  if ((0, import_is_callable2.default)(App)) {
-    const html = S2(jsx(App, {
-      appId: `${codeSpace2}-${md5hash}`
-    }));
-    const css3 = mineFromCaches(md5hash, html);
-    const globalCss = (_a = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _a.innerHTML;
-    return {
-      html: `<style>${globalCss}</style>${html}`,
-      css: css3
-    };
-  } else
-    return { html: null, css: null };
-};
-var renderFromString2 = (codeSpace2, hash) => {
-  var _a, _b;
-  const md5hash = md5(mST().transpiled).slice(0, 8);
-  if (hash !== hashCode()) {
-    return { html: null, css: null };
-  }
-  const html = (_a = document.getElementById(`${codeSpace2}-${md5hash}`)) == null ? void 0 : _a.innerHTML;
-  const css3 = html ? extractCritical22(html) : "";
-  const globalCss = (_b = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _b.innerHTML;
-  return {
-    html: `<div id="${codeSpace2}-${md5hash}" style="height:100%">
-      ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
-    css: css3
-  };
-};
-function mineFromCaches(md5Hash, html) {
-  const keys = Object.keys(globalThis.eCaches[md5Hash].inserted);
-  return Array.from(document.styleSheets).map((x) => x.cssRules).filter(
-    (x) => x[0] && x[0].cssText
-  ).map((x) => x[0].cssText).filter(
-    (x) => keys.find((k) => x.includes(k))
-  ).filter((x) => html.includes(x.slice(0, 11))).join(" ");
-}
-var extractCritical22 = (html) => {
-  try {
-    const rules = {};
-    for (const i in document.styleSheets) {
-      let yesFromNow = false;
-      const styleSheet = document.styleSheets[i];
-      if (styleSheet == null ? void 0 : styleSheet.cssRules) {
-        for (const rule of Array.from(styleSheet.cssRules)) {
-          if (yesFromNow || rule && rule.cssText && rule.cssText.startsWith(".z-")) {
-            const selector = rule.cssText.slice(1, 9);
-            const selectorText = selector;
-            if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".z-")) {
-              yesFromNow = true;
-              rules[selectorText] = rule.cssText;
-            }
-          }
-        }
-      }
-    }
-    return Object.keys(rules).map((r) => rules[r]).join(" ");
-  } catch (e) {
-    console.error("no css");
-    return "";
-  }
-};
-
 // js/runner.tsx
 var mod2 = {
   code: "",
@@ -10978,7 +11028,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     Object.assign(globalThis, { umdExp });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
-    const { html, css: css3 } = await render2(transpiledCode, codeSpace2);
+    const { html, css } = await render(transpiledCode, codeSpace2);
     if (!html) {
       return;
     }
@@ -10987,14 +11037,14 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       i: counter,
       transpiled: transpiledCode,
       html,
-      css: css3
+      css
     }));
     let i = 60;
     while (!mST().css && counter === mST().i) {
       console.log("Oh, NO! Can't extract css, wait:", i);
-      const { html: html2, css: css4 } = renderFromString2(codeSpace2, hashCode());
-      if (html2 && css4)
-        patchSync(__spreadProps(__spreadValues({}, mST()), { html: html2, css: css4 }));
+      const { html: html2, css: css2 } = renderFromString(codeSpace2, hashCode());
+      if (html2 && css2)
+        patchSync(__spreadProps(__spreadValues({}, mST()), { html: html2, css: css2 }));
       else
         await wait(i);
       i = i * 2;
@@ -11118,7 +11168,7 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/" + assets["ws.css"];
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-NJWEVMHO.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-UROPGN5J.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -11240,11 +11290,11 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
       myCode: mod3.code
     }));
   }, "editor");
-  return jsx("div", {
+  return export_jsx("div", {
     onKeyDown: () => mod3.lastKeyDown = Date.now(),
     "data-test-id": myId,
     id: "editor",
-    css: css`
+    css: export_css`
         
             max-width: 640px;
             height: 100%;
@@ -11255,18 +11305,9 @@ var Editor = ({ codeSpace: codeSpace2, assets }) => {
   });
 };
 
-// js/emotion.ts
-init_define_process();
-globalThis.EmotionGlob = globalThis.EmotionGlob || { JSX: emotion_exports, Emotion: emotion_default, styled: emotionStyled_default, cache: emotionCache_default, withEmotionCache };
-var EmotionGlob = globalThis.EmotionGlob;
-var { styled, cache, withEmotionCache: withEmotionCache2 } = EmotionGlob;
-var { jsx: jsx2, jsxs: jsxs2, Fragment: Fragment3 } = EmotionGlob.JSX;
-var { css: css2, Global, CacheProvider: CacheProvider2, keyframes } = EmotionGlob.Emotion;
-var emotion_default2 = EmotionGlob.Emotion;
-
 // js/renderPreviewWindow.tsx
-var RainbowContainer = ({ children }) => jsx("div", {
-  css: css`
+var RainbowContainer = ({ children }) => export_jsx("div", {
+  css: export_css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -11331,28 +11372,28 @@ var AppToRender = ({ codeSpace: codeSpace2, assets }) => {
   const portalNode = useMemo(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return jsxs(Fragment2, {
+  return export_jsxs(p, {
     children: [
-      jsx(InPortal, {
+      export_jsx(InPortal, {
         node: portalNode,
-        children: jsx(AutoUpdateApp, {
+        children: export_jsx(AutoUpdateApp, {
           hash,
           codeSpace: codeSpace2
         })
       }),
-      isStandalone ? jsx(OutPortal, {
+      isStandalone ? export_jsx(OutPortal, {
         node: portalNode
-      }) : jsx(RainbowContainer, {
-        children: jsxs(Fragment2, {
+      }) : export_jsx(RainbowContainer, {
+        children: export_jsxs(p, {
           children: [
-            jsx(Editor, {
+            export_jsx(Editor, {
               codeSpace: codeSpace2,
               assets
             }),
-            jsx(DraggableWindow, {
+            export_jsx(DraggableWindow, {
               hashCode: 0,
               room: codeSpace2,
-              children: jsx(OutPortal, {
+              children: export_jsx(OutPortal, {
                 node: portalNode
               })
             })
@@ -11369,13 +11410,13 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2, assets }) => {
   singleton.started = true;
   const div = document.querySelector("#root");
   const root = createRoot(div);
-  const cache2 = emotionCache_default({ key: "win" });
-  console.log({ cache: cache2 });
+  const cache = emotionCache_default({ key: "win" });
+  console.log({ cache });
   root.render(
-    jsx(Fragment2, {
-      children: jsx(CacheProvider2, {
-        value: cache2,
-        children: jsx(AppToRender, {
+    export_jsx(p, {
+      children: export_jsx(export_CacheProvider, {
+        value: cache,
+        children: export_jsx(AppToRender, {
           codeSpace: codeSpace2,
           assets
         })
@@ -11950,6 +11991,6 @@ export {
   startVideo2 as startVideo,
   join,
   sw,
-  render2 as render,
-  renderFromString2 as renderFromString
+  render,
+  renderFromString
 };
