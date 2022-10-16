@@ -16,7 +16,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
-const target = "es2017";
+const target = "es2021";
 
 console.log(`
 -------------------------------------------------
@@ -158,40 +158,40 @@ const build = (entryPoints, extraExternal) =>
 
 
 
-  // buildOptions.plugins = [
-  //   aliasPlugin({
-  //     react: resolve("./js/react-preact.ts"),
-  //     "react-dom": resolve("./js/react-preact.ts"),
-  //     "react-dom/client": resolve("./js/react-preact.ts"),
-  //     "react-dom/server": resolve("./js/react-preact.ts"),
-  //     "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
-  //     "react/jsx-runtime": resolve("./js/react-preact.ts"),
-  //   })];
+  buildOptions.plugins = [
+    aliasPlugin({
+      react: resolve("./js/react-preact.ts"),
+      "react-dom": resolve("./js/react-preact.ts"),
+      "react-dom/client": resolve("./js/react-preact.ts"),
+      "react-dom/server": resolve("./js/react-preact.ts"),
+      // "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
+      "react/jsx-runtime": resolve("./js/react-preact.ts"),
+    })];
 
 
-  //   await build([
-  //     // "js/session.ts",
-  //     // "js/prettierWorker.mjs",
-  //     // "js/react-preact.ts",
-  //     "js/motion.ts",
-  //     "js/react-preact.ts",
-  //     "js/emotion.ts",
-  //     // "js/mui.tsx",
-  //     "js/emotionJsxRuntime.ts",
-  //     // "js/ws.ts"], 
-  //    ],["react", "react/", "react-dom", "react-dom/"]);
+    await build([
+      // "js/session.ts",
+      // "js/prettierWorker.mjs",
+      "js/react-preact.ts",
+      // "js/motion.ts",
+      // "js/react-preact.ts",
+      "js/emotion.ts",
+      // "js/mui.tsx",
+      "js/emotionJsxRuntime.ts",
+      // "js/ws.ts"], 
+     ],[]);
 
   buildOptions.plugins = [
     aliasPlugin({
-      react:  resolve("./js/react-preact.ts"),
+      // react:  resolve("./js/react-preact.ts"),
       //"@emotion/react": resolve("./js/emotion.ts"),
     //  "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
       //"@emotion/styled": resolve("./js/emotionStyled.mjs"),
       // "./mui": resolve("./dist/mui.mjs"),
-      "react-dom":  resolve("./js/react-preact.ts"),
-      "react-dom/client":  resolve("./js/react-preact.ts"),
-      "react-dom/server": resolve("./js/react-preact.ts"),
-      "react/jsx-runtime": resolve("./js/react-preact.ts"),
+      // "react-dom":  resolve("./js/react-preact.ts"),
+      // "react-dom/client":  resolve("./js/react-preact.ts"),
+      // "react-dom/server": resolve("./js/react-preact.ts"),
+      // "react/jsx-runtime": resolve("./js/react-preact.ts"),
     })
   ];
   
@@ -205,7 +205,7 @@ const build = (entryPoints, extraExternal) =>
       "js/emotion.ts",
       "js/emotionJsxRuntime.ts",  
       "js/ws.ts",
-    ], [
+    ], ["react", "react/", "react-dom", "react-dom/", "@emotion/react/jsx-runtime", "@emotion/react/jsx-runtime"
 
     ]);
 

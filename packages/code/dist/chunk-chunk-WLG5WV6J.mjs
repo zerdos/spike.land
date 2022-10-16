@@ -1,13 +1,11 @@
 import {
   init_define_process
-} from "./chunk-chunk-3B7BB7RQ.mjs";
+} from "./chunk-chunk-XCQU54VZ.mjs";
 import {
   __commonJS,
   __publicField,
-  __spreadProps,
-  __spreadValues,
   __toESM
-} from "./chunk-chunk-J5KS4AN4.mjs";
+} from "./chunk-chunk-GWMK2HKB.mjs";
 
 // ../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js
 var require_lodash = __commonJS({
@@ -5412,7 +5410,7 @@ function applyPatch(original, delta) {
 
 // js/session.ts
 function initSession(room, u) {
-  return Record(__spreadProps(__spreadValues({}, u), { room, state: Record(u.state)() }));
+  return Record({ ...u, room, state: Record(u.state)() });
 }
 var session = null;
 var hashStore = {};
@@ -5537,9 +5535,10 @@ var CodeSession = class {
     session = this;
     this.room = room;
     const savedState = null;
-    this.session = initSession(room, __spreadProps(__spreadValues({}, user), {
+    this.session = initSession(room, {
+      ...user,
       state: savedState ? savedState : JSON.parse(string_(user.state))
-    }))();
+    })();
   }
   update() {
     return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, {
@@ -5563,7 +5562,7 @@ var CodeSession = class {
   json() {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
-    return __spreadProps(__spreadValues({}, user), { state });
+    return { ...user, state };
   }
   setRoom(codeSpace) {
     const user = this.session.set("room", codeSpace);
@@ -5604,10 +5603,10 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 var applyPatch2 = async (x) => {
-  await (session == null ? void 0 : session.applyPatch(x));
-  session == null ? void 0 : session.update();
+  await session?.applyPatch(x);
+  session?.update();
 };
-var onSessionUpdate = (fn, regId = "default") => session == null ? void 0 : session.onUpdate(fn, regId);
+var onSessionUpdate = (fn, regId = "default") => session?.onUpdate(fn, regId);
 var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
 var makePatch = async (st, update8) => makePatchFrom(hashCode3(), st, update8);
 var startSession = (room, u, originString) => session || new CodeSession(room, {
@@ -5617,7 +5616,7 @@ var startSession = (room, u, originString) => session || new CodeSession(room, {
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
-var patchSync = (sess) => session == null ? void 0 : session.patchSync(sess);
+var patchSync = (sess) => session?.patchSync(sess);
 
 export {
   require_lodash,

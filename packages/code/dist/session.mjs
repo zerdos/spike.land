@@ -9,9 +9,9 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-42NXTPCP.mjs";
-import "./chunk-chunk-3B7BB7RQ.mjs";
-import "./chunk-chunk-J5KS4AN4.mjs";
+} from "./chunk-chunk-WLG5WV6J.mjs";
+import "./chunk-chunk-XCQU54VZ.mjs";
+import "./chunk-chunk-GWMK2HKB.mjs";
 export {
   CodeSession,
   applyPatch,

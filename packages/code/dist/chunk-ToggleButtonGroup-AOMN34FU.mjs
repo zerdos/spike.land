@@ -10,32 +10,23 @@ import {
   require_react_is,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-GZJJYXYW.mjs";
-import "./chunk-chunk-GZYUETVI.mjs";
-import "./chunk-chunk-AUHA67G6.mjs";
-import {
-  Children,
-  cloneElement,
-  forwardRef,
-  init_react_preact,
-  isValidElement,
-  o
-} from "./chunk-chunk-OYTEPJEP.mjs";
+} from "./chunk-chunk-S3ZVMF7S.mjs";
+import "./chunk-chunk-ZAZZGRCD.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-3B7BB7RQ.mjs";
+} from "./chunk-chunk-XCQU54VZ.mjs";
 import {
   __toESM
-} from "./chunk-chunk-J5KS4AN4.mjs";
+} from "./chunk-chunk-GWMK2HKB.mjs";
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/index.js
 init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/ToggleButtonGroup.js
 init_define_process();
-init_react_preact();
 var import_react_is = __toESM(require_react_is());
 var import_prop_types = __toESM(require_prop_types());
+import * as React from "react";
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/isValueSelected.js
 init_define_process();
@@ -58,7 +49,7 @@ var toggleButtonGroupClasses = generateUtilityClasses("MuiToggleButtonGroup", ["
 var toggleButtonGroupClasses_default = toggleButtonGroupClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/ToggleButtonGroup.js
-init_react_preact();
+import { jsx as _jsx } from "react/jsx-runtime";
 var _excluded = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
 var useUtilityClasses = (ownerState) => {
   const {
@@ -129,7 +120,7 @@ var ToggleButtonGroupRoot = styled_default("div", {
     }
   })
 }));
-var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
+var ToggleButtonGroup = React.forwardRef(function ToggleButtonGroup2(inProps, ref) {
   const props = useThemeProps({
     props: inProps,
     name: "MuiToggleButtonGroup"
@@ -173,14 +164,14 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
     }
     onChange(event, value === buttonValue ? null : buttonValue);
   };
-  return o(ToggleButtonGroupRoot, _extends({
+  return _jsx(ToggleButtonGroupRoot, _extends({
     role: "group",
     className: clsx_m_default(classes.root, className),
     ref,
     ownerState
   }, other, {
-    children: Children.map(children, (child) => {
-      if (!isValidElement(child)) {
+    children: React.Children.map(children, (child) => {
+      if (!React.isValidElement(child)) {
         return null;
       }
       if (true) {
@@ -188,7 +179,7 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
           console.error(["MUI: The ToggleButtonGroup component doesn't accept a Fragment as a child.", "Consider providing an array instead."].join("\n"));
         }
       }
-      return cloneElement(child, {
+      return React.cloneElement(child, {
         className: clsx_m_default(classes.grouped, child.props.className),
         onChange: exclusive ? handleExclusiveChange : handleChange,
         selected: child.props.selected === void 0 ? isValueSelected(child.props.value, value) : child.props.selected,

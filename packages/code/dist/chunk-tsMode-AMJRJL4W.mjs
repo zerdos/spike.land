@@ -1,16 +1,13 @@
 import {
   typescriptDefaults
-} from "./chunk-chunk-KRP52I2Q.mjs";
+} from "./chunk-chunk-IZCFXLTU.mjs";
 import {
   editor_api_exports
-} from "./chunk-chunk-AG2KDNT5.mjs";
+} from "./chunk-chunk-KEOADYSG.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-3B7BB7RQ.mjs";
-import {
-  __spreadProps,
-  __spreadValues
-} from "./chunk-chunk-J5KS4AN4.mjs";
+} from "./chunk-chunk-XCQU54VZ.mjs";
+import "./chunk-chunk-GWMK2HKB.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
 init_define_process();
@@ -448,7 +445,6 @@ var SuggestAdapter = class extends Adapter {
       return;
     }
     const suggestions = info.entries.map((entry) => {
-      var _a;
       let range = wordRange;
       if (entry.replacementSpan) {
         const p1 = model.getPositionAt(entry.replacementSpan.start);
@@ -456,7 +452,7 @@ var SuggestAdapter = class extends Adapter {
         range = new monaco_editor_core_exports.Range(p1.lineNumber, p1.column, p2.lineNumber, p2.column);
       }
       const tags = [];
-      if (((_a = entry.kindModifiers) == null ? void 0 : _a.indexOf("deprecated")) !== -1) {
+      if (entry.kindModifiers?.indexOf("deprecated") !== -1) {
         tags.push(monaco_editor_core_exports.languages.CompletionItemTag.Deprecated);
       }
       return {
@@ -1010,11 +1006,12 @@ var InlayHintsAdapter = class extends Adapter {
     }
     const tsHints = await worker.provideInlayHints(fileName, start, end);
     const hints = tsHints.map((hint) => {
-      return __spreadProps(__spreadValues({}, hint), {
+      return {
+        ...hint,
         label: hint.text,
         position: model.getPositionAt(hint.position),
         kind: this._convertHintKind(hint.kind)
-      });
+      };
     });
     return { hints, dispose: () => {
     } };

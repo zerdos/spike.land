@@ -118,21 +118,21 @@ const AppToRender: React.FC<
         <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
       </InPortal>
 
-      {isStandalone ? <OutPortal node={portalNode} /> : (
-     
-          <Fragment>
+      {isStandalone ? <OutPortal node={portalNode} /> : (    <Fragment>
+    <RainbowContainer>
+    <Fragment>
             <Editor
               codeSpace={codeSpace}
           
             />
-            <DraggableWindow
+           
+            </Fragment>
+</RainbowContainer>  <DraggableWindow
               hashCode={0}
               room={codeSpace}
             >
               <OutPortal node={portalNode} />
-            </DraggableWindow>
-          </Fragment>
-   
+            </DraggableWindow>   </Fragment>
       )}
     </Fragment>
   );
@@ -156,7 +156,7 @@ export const renderPreviewWindow = ({ codeSpace } :
   root.render(
     
     <CacheProvider value={x}>
-      {/* <RainbowContainer> */}
+      
       <AppToRender codeSpace={codeSpace} />
       {/* </RainbowContainer> */}
     </CacheProvider>

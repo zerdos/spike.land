@@ -1,10 +1,10 @@
 import {
   init_define_process
-} from "./chunk-chunk-3B7BB7RQ.mjs";
+} from "./chunk-chunk-XCQU54VZ.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-J5KS4AN4.mjs";
+} from "./chunk-chunk-GWMK2HKB.mjs";
 
 // ../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/standalone.js
 var require_standalone = __commonJS({
@@ -34,7 +34,7 @@ var require_standalone = __commonJS({
         nu.exports = function(e) {
           try {
             return !!e();
-          } catch (e2) {
+          } catch {
             return true;
           }
         };
@@ -170,7 +170,7 @@ var require_standalone = __commonJS({
         qu.exports = function(e) {
           try {
             return tl(e);
-          } catch (e2) {
+          } catch {
             return "Object";
           }
         };
@@ -207,7 +207,7 @@ var require_standalone = __commonJS({
         Ju.exports = function(e, n) {
           try {
             ll(Gu, e, { value: n, configurable: true, writable: true });
-          } catch (e2) {
+          } catch {
             Gu[e] = n;
           }
           return n;
@@ -292,7 +292,7 @@ var require_standalone = __commonJS({
           if (n = Jl(n), t = Ul(t), Xl)
             try {
               return ms(n, t);
-            } catch (e) {
+            } catch {
             }
           if (zl(n, t))
             return Gl(!$l(Hl.f, n, t), n[t]);
@@ -325,7 +325,7 @@ var require_standalone = __commonJS({
           if (dr(n), t = Cs(t), dr(s), nc)
             try {
               return en(n, t, s);
-            } catch (e) {
+            } catch {
             }
           if ("get" in s || "set" in s)
             throw sc("Accessors not supported");
@@ -561,7 +561,7 @@ var require_standalone = __commonJS({
         }()) == "Arguments", Wp = function(e, n) {
           try {
             return e[n];
-          } catch (e2) {
+          } catch {
           }
         };
         xi.exports = jp ? Fr : function(e) {
@@ -576,7 +576,7 @@ var require_standalone = __commonJS({
             return false;
           try {
             return Bi(Ti, zp, n), true;
-          } catch (e) {
+          } catch {
             return false;
           }
         }, Ni = function(n) {
@@ -590,7 +590,7 @@ var require_standalone = __commonJS({
           }
           try {
             return Kp || !!Xp(Cn, Up(n));
-          } catch (e) {
+          } catch {
             return true;
           }
         };
@@ -1877,7 +1877,7 @@ var require_standalone = __commonJS({
           if (e.outdent = T, e.default = T, typeof n < "u")
             try {
               n.exports = T, Object.defineProperty(T, "__esModule", { value: true }), T.default = T, T.outdent = T;
-            } catch (e2) {
+            } catch {
             }
         } }), ND = Z({ "src/main/core-options.js"(e, n) {
           "use strict";
@@ -2116,7 +2116,7 @@ var require_standalone = __commonJS({
             return E(Q, ee, !(R.parser === "css" || R.parser === "less" || R.parser === "scss" || R.__embeddedInHtml));
           }
           function E(H, R, Q) {
-            let ee = R === '"' ? "'" : '"', te = new RegExp(`\\\\(.)|(["'])`, "gs"), oe = H.replace(te, (W, X, ue) => X === ee ? X : ue === R ? "\\" + ue : ue || (Q && /^[^\n\r"'0-7\\bfnrt-vx\u2028\u2029]$/.test(X) ? X : "\\" + X));
+            let ee = R === '"' ? "'" : '"', te = /\\(.)|(["'])/gs, oe = H.replace(te, (W, X, ue) => X === ee ? X : ue === R ? "\\" + ue : ue || (Q && /^[^\n\r"'0-7\\bfnrt-vx\u2028\u2029]$/.test(X) ? X : "\\" + X));
             return R + oe + R;
           }
           function y(H) {
@@ -8510,7 +8510,7 @@ var require_standalone = __commonJS({
               Me !== ze.length - 1 && (ze[Me + 1].type === "css-comment" && !r(Le.originalText, Ie(ze[Me + 1]), { backwards: true }) && !u(ze[Me]) || ze[Me + 1].type === "css-atrule" && ze[Me + 1].name === "else" && ze[Me].type !== "css-comment" ? se.push(" ") : (se.push(Le.__isHTMLStyleAttribute ? v : m), i(Le.originalText, He.getValue(), Fe) && !u(ze[Me]) && se.push(m)));
             }, "nodes"), se;
           }
-          var Be = new RegExp(`(["'])(?:(?!\\1)[^\\\\]|\\\\.)*\\1`, "gs"), Pe = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g, Se = /[A-Za-z]+/g, Qe = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g, xe = new RegExp(Be.source + "|(".concat(Qe.source, ")?(").concat(Pe.source, ")(").concat(Se.source, ")?"), "g");
+          var Be = /(["'])(?:(?!\1)[^\\]|\\.)*\1/gs, Pe = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g, Se = /[A-Za-z]+/g, Qe = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g, xe = new RegExp(Be.source + "|(".concat(Qe.source, ")?(").concat(Pe.source, ")(").concat(Se.source, ")?"), "g");
           function Xe(be, Le) {
             return be.replace(Be, (qe) => a(qe, Le));
           }
@@ -9228,7 +9228,7 @@ var require_standalone = __commonJS({
         } }), Wd = Z({ "src/language-markdown/print-preprocess.js"(e, n) {
           "use strict";
           re();
-          var t = it(), { getOrderedListItemInfo: s, mapAst: a, splitText: r } = Kn(), u = new RegExp("^.$", "su");
+          var t = it(), { getOrderedListItemInfo: s, mapAst: a, splitText: r } = Kn(), u = /^.$/su;
           function i(T, A) {
             return T = v(T, A), T = p(T), T = c(T), T = h(T, A), T = w(T, A), T = f(T, A), T = o(T), T = m(T), T;
           }
@@ -9397,7 +9397,7 @@ var require_standalone = __commonJS({
                 return [K, ae.lang || "", ae.meta ? " " + ae.meta : "", d, ...I(E(ae, pe.originalText), d), d, K];
               }
               case "html": {
-                let ve = ce.getParentNode(), K = ve.type === "root" && t(ve.children) === ae ? ae.value.trimEnd() : ae.value, he = new RegExp("^<!--.*-->$", "s").test(K);
+                let ve = ce.getParentNode(), K = ve.type === "root" && t(ve.children) === ae ? ae.value.trimEnd() : ae.value, he = /^<!--.*-->$/s.test(K);
                 return I(K, he ? d : m(v));
               }
               case "list": {
@@ -9672,7 +9672,7 @@ var require_standalone = __commonJS({
           re();
           var { inferParserByLanguage: t, isFrontMatterNode: s } = Ue(), { builders: { line: a, hardline: r, join: u }, utils: { getDocParts: i, replaceTextEndOfLine: o } } = Oe(), { CSS_DISPLAY_TAGS: c, CSS_DISPLAY_DEFAULT: v, CSS_WHITE_SPACE_TAGS: m, CSS_WHITE_SPACE_DEFAULT: d } = Xd(), p = Kd(), f = /* @__PURE__ */ new Set(["	", `
 `, "\f", "\r", " "]), h = (_) => _.replace(/^[\t\n\f\r ]+/, ""), w = (_) => _.replace(/[\t\n\f\r ]+$/, ""), T = (_) => h(w(_)), A = (_) => _.replace(/^[\t\f\r ]*\n/g, ""), S = (_) => A(w(_)), B = (_) => _.split(/[\t\n\f\r ]+/), I = (_) => _.match(/^[\t\n\f\r ]*/)[0], k = (_) => {
-            let [, J, ne, Ee] = _.match(new RegExp("^([\\t\\n\\f\\r ]*)(.*?)([\\t\\n\\f\\r ]*)$", "s"));
+            let [, J, ne, Ee] = _.match(/^([\t\n\f\r ]*)(.*?)([\t\n\f\r ]*)$/s);
             return { leadingWhitespace: J, trailingWhitespace: Ee, text: ne };
           }, P = (_) => /[\t\n\f\r ]/.test(_);
           function C(_, J) {
@@ -10436,7 +10436,7 @@ var require_standalone = __commonJS({
           function I(l, E) {
             if (E.parser === "html")
               return;
-            let y = new RegExp("{{(.+?)}}", "s");
+            let y = /{{(.+?)}}/s;
             l.walk((N) => {
               if (!!u(N))
                 for (let x of N.children) {
@@ -10605,7 +10605,7 @@ var require_standalone = __commonJS({
             return q.next && !d(q.next) && d(q) && q.isTrailingSpaceSensitive && !q.hasTrailingSpaces;
           }
           function y(q) {
-            let Y = q.trim().match(new RegExp("^prettier-ignore-attribute(?:\\s+(.+))?$", "s"));
+            let Y = q.trim().match(/^prettier-ignore-attribute(?:\s+(.+))?$/s);
             return Y ? Y[1] ? Y[1].split(/\s+/) : true : false;
           }
           function N(q) {
@@ -10769,7 +10769,7 @@ var require_standalone = __commonJS({
             return [t(o("function _(".concat(c, ") {}"), { parser: "babel", __isVueForBindingLeft: true })), " ", v, " ", o(m, { parser: "__js_expression" }, { stripTrailingHardline: true })];
           }
           function a(i) {
-            let o = new RegExp("(.*?)\\s+(in|of)\\s+(.*)", "s"), c = /,([^,\]}]*)(?:,([^,\]}]*))?$/, v = /^\(|\)$/g, m = i.match(o);
+            let o = /(.*?)\s+(in|of)\s+(.*)/s, c = /,([^,\]}]*)(?:,([^,\]}]*))?$/, v = /^\(|\)$/g, m = i.match(o);
             if (!m)
               return;
             let d = {};
@@ -10851,7 +10851,7 @@ var require_standalone = __commonJS({
               }
               if ($(oe))
                 return Q(te(V(), { parser: "__ng_directive" }));
-              let De = new RegExp("{{(.+?)}}", "s"), ie = V();
+              let De = /{{(.+?)}}/s, ie = V();
               if (De.test(ie)) {
                 let G = [];
                 for (let [z, U] of ie.split(De).entries())
@@ -10860,7 +10860,7 @@ var require_standalone = __commonJS({
                   else
                     try {
                       G.push(s(["{{", r([u, te(U, { parser: "__ng_interpolation", __isInHtmlInterpolation: true })]), u, "}}"]));
-                    } catch (e2) {
+                    } catch {
                       G.push("{{", v(U), "}}");
                     }
                 return s(G);
@@ -10905,7 +10905,7 @@ var require_standalone = __commonJS({
                   break;
                 if (/^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test($.originalText.slice(V.valueSpan.start.offset, V.valueSpan.end.offset)))
                   return [V.rawName, "=", V.value];
-                if ($.parser === "lwc" && new RegExp("^{.*}$", "s").test($.originalText.slice(V.valueSpan.start.offset, V.valueSpan.end.offset)))
+                if ($.parser === "lwc" && /^{.*}$/s.test($.originalText.slice(V.valueSpan.start.offset, V.valueSpan.end.offset)))
                   return [V.rawName, "=", V.value];
                 let q = x(V, (Y, H) => j(Y, Object.assign({ __isInHtmlAttribute: true, __embeddedInHtml: true }, H), { stripTrailingHardline: true }), $);
                 if (q)
@@ -11149,9 +11149,9 @@ var require_standalone = __commonJS({
             return g.proseWrap === "preserve" ? F.map((l) => l.length === 0 ? [] : [l]) : F.map((l) => l.length === 0 ? [] : B(l)).reduce((l, E, y) => y !== 0 && F[y - 1].length > 0 && E.length > 0 && !(C === "quoteDouble" && t(t(l)).endsWith("\\")) ? [...l.slice(0, -1), [...t(l), ...E]] : [...l, E], []).map((l) => g.proseWrap === "never" ? [l.join(" ")] : l);
           }
           function k(C, D) {
-            let { parentIndent: g, isLastDescendant: F, options: l } = D, E = C.position.start.line === C.position.end.line ? "" : l.originalText.slice(C.position.start.offset, C.position.end.offset).match(new RegExp("^[^\\n]*\\n(.*)$", "s"))[1], y;
+            let { parentIndent: g, isLastDescendant: F, options: l } = D, E = C.position.start.line === C.position.end.line ? "" : l.originalText.slice(C.position.start.offset, C.position.end.offset).match(/^[^\n]*\n(.*)$/s)[1], y;
             if (C.indent === null) {
-              let b = E.match(new RegExp("^(?<leadingSpace> *)[^\\n\\r ]", "m"));
+              let b = E.match(/^(?<leadingSpace> *)[^\n\r ]/m);
               y = b ? b.groups.leadingSpace.length : Number.POSITIVE_INFINITY;
             } else
               y = C.indent - 1 + g;
@@ -11509,7 +11509,7 @@ var require_parser_babel = __commonJS({
         Yr.exports = function(h) {
           try {
             return !!h();
-          } catch (e) {
+          } catch {
             return true;
           }
         };
@@ -11645,7 +11645,7 @@ var require_parser_babel = __commonJS({
         Fi.exports = function(h) {
           try {
             return ql(h);
-          } catch (e) {
+          } catch {
             return "Object";
           }
         };
@@ -11682,7 +11682,7 @@ var require_parser_babel = __commonJS({
         zi.exports = function(h, l) {
           try {
             Gl(_i, h, { value: l, configurable: true, writable: true });
-          } catch (e) {
+          } catch {
             _i[h] = l;
           }
           return l;
@@ -11767,7 +11767,7 @@ var require_parser_babel = __commonJS({
           if (l = ku(l), p = Du(p), Lu)
             try {
               return ua(l, p);
-            } catch (e) {
+            } catch {
             }
           if (Fu(l, p))
             return Iu(!wu(Nu.f, l, p), l[p]);
@@ -11800,7 +11800,7 @@ var require_parser_babel = __commonJS({
           if (Dt(l), p = ya(p), Dt(d), _u)
             try {
               return Bs(l, p, d);
-            } catch (e) {
+            } catch {
             }
           if ("get" in d || "set" in d)
             throw Ku("Accessors not supported");
@@ -12043,7 +12043,7 @@ var require_parser_babel = __commonJS({
         }()) == "Arguments", Np = function(h, l) {
           try {
             return h[l];
-          } catch (e) {
+          } catch {
           }
         };
         Sn.exports = Ep ? Rt : function(h) {
@@ -12058,7 +12058,7 @@ var require_parser_babel = __commonJS({
             return false;
           try {
             return kn(In, Op, l), true;
-          } catch (e) {
+          } catch {
             return false;
           }
         }, Dn = function(l) {
@@ -12072,7 +12072,7 @@ var require_parser_babel = __commonJS({
           }
           try {
             return Mp || !!Bp(er, Lp(l));
-          } catch (e) {
+          } catch {
             return true;
           }
         };
@@ -12853,7 +12853,7 @@ var require_parser_babel = __commonJS({
               let { pattern: s, flags: r } = e, i = null;
               try {
                 i = new RegExp(s, r);
-              } catch (e2) {
+              } catch {
               }
               let a = this.estreeParseLiteral(i);
               return a.regex = { pattern: s, flags: r }, a;
@@ -12862,7 +12862,7 @@ var require_parser_babel = __commonJS({
               let s;
               try {
                 s = BigInt(e);
-              } catch (e2) {
+              } catch {
                 s = null;
               }
               let r = this.estreeParseLiteral(s);
@@ -16404,7 +16404,7 @@ var require_parser_babel = __commonJS({
                 let { errors: e } = this.state, s = e.length;
                 try {
                   return this.parseObjectLike(8, true), e.length === s;
-                } catch (e2) {
+                } catch {
                   return false;
                 }
               }
@@ -16413,7 +16413,7 @@ var require_parser_babel = __commonJS({
                 let { errors: e } = this.state, s = e.length;
                 try {
                   return this.parseBindingList(3, 93, true), e.length === s;
-                } catch (e2) {
+                } catch {
                   return false;
                 }
               }
@@ -19440,7 +19440,7 @@ var require_parser_babel = __commonJS({
                 if (r.ambiguousScriptDifferentAst)
                   try {
                     return e.sourceType = "script", Ye(e, t).parse();
-                  } catch (e2) {
+                  } catch {
                   }
                 else
                   i.program.sourceType = "script";
@@ -19448,7 +19448,7 @@ var require_parser_babel = __commonJS({
               } catch (r) {
                 try {
                   return e.sourceType = "script", Ye(e, t).parse();
-                } catch (e2) {
+                } catch {
                 }
                 throw r;
               }
