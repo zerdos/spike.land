@@ -12,42 +12,43 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-7SOSA46I.mjs";
+} from "./chunk-chunk-BJSBYYKY.mjs";
 import {
   wrap
 } from "./chunk-chunk-5LK2L52Q.mjs";
 import {
-  AnimateSharedLayout,
+  LayoutGroup,
   motion
-} from "./chunk-chunk-X26TTXRD.mjs";
+} from "./chunk-chunk-7F6OUUSQ.mjs";
 import {
-  jsx,
-  jsxs
-} from "./chunk-chunk-YPSEWOKR.mjs";
-import {
-  require_emotion_cache_cjs,
   require_emotion_react_cjs
-} from "./chunk-chunk-ZK3UI4DF.mjs";
+} from "./chunk-chunk-RF2W4KC3.mjs";
 import {
-  Children,
+  require_emotion_react_jsx_runtime_cjs
+} from "./chunk-chunk-HILCNLOQ.mjs";
+import {
+  require_emotion_cache_cjs
+} from "./chunk-chunk-PQTEBQRP.mjs";
+import {
+  $,
+  A2 as A,
+  E,
   F,
-  PureComponent,
+  F2,
   S,
-  Suspense,
+  U,
   _,
-  cloneElement,
-  createPortal,
+  _n,
   createRoot,
   h,
   h2,
   init_react_preact,
-  isValidElement,
-  lazy,
+  ln,
+  on,
   p,
   p2,
-  src_default,
   y
-} from "./chunk-chunk-L3IDHZ4W.mjs";
+} from "./chunk-chunk-ZXJLJGC4.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-WK2SDDIY.mjs";
@@ -2940,8 +2941,8 @@ var require_xterm = __commonJS({
           t2.ScreenDprMonitor = r;
         }, 3236: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.Terminal = void 0;
-          const s2 = i2(2950), r = i2(1680), n = i2(3614), o = i2(2584), a = i2(5435), h4 = i2(9312), c = i2(6114), l = i2(3656), d = i2(9042), _2 = i2(4567), u = i2(1296), f = i2(7399), v = i2(8460), g = i2(8437), p3 = i2(5680), S2 = i2(3230), m = i2(4725), C = i2(428), b = i2(8934), y2 = i2(6465), w = i2(5114), E = i2(8969), L = i2(8055), R = i2(4269), k = i2(5941), D = i2(3107), A = i2(5744), x = i2(9074), B = i2(2585), T = i2(2962), M = "undefined" != typeof window ? window.document : null;
-          class O extends E.CoreTerminal {
+          const s2 = i2(2950), r = i2(1680), n = i2(3614), o = i2(2584), a = i2(5435), h4 = i2(9312), c = i2(6114), l = i2(3656), d = i2(9042), _2 = i2(4567), u = i2(1296), f = i2(7399), v = i2(8460), g = i2(8437), p3 = i2(5680), S2 = i2(3230), m = i2(4725), C = i2(428), b = i2(8934), y2 = i2(6465), w = i2(5114), E2 = i2(8969), L = i2(8055), R = i2(4269), k = i2(5941), D = i2(3107), A2 = i2(5744), x = i2(9074), B = i2(2585), T = i2(2962), M = "undefined" != typeof window ? window.document : null;
+          class O extends E2.CoreTerminal {
             constructor(e3 = {}) {
               super(e3), this.browser = c, this._keyDownHandled = false, this._keyDownSeen = false, this._keyPressHandled = false, this._unprocessedDeadKey = false, this._onCursorMove = new v.EventEmitter(), this._onKey = new v.EventEmitter(), this._onRender = new v.EventEmitter(), this._onSelectionChange = new v.EventEmitter(), this._onTitleChange = new v.EventEmitter(), this._onBell = new v.EventEmitter(), this._onFocus = new v.EventEmitter(), this._onBlur = new v.EventEmitter(), this._onA11yCharEmitter = new v.EventEmitter(), this._onA11yTabEmitter = new v.EventEmitter(), this._setup(), this.linkifier2 = this.register(this._instantiationService.createInstance(y2.Linkifier2)), this.linkifier2.registerLinkProvider(this._instantiationService.createInstance(T.OscLinkProvider)), this._decorationService = this._instantiationService.createInstance(x.DecorationService), this._instantiationService.setService(B.IDecorationService, this._decorationService), this.register(this._inputHandler.onRequestBell(() => this._onBell.fire())), this.register(this._inputHandler.onRequestRefreshRows((e4, t3) => this.refresh(e4, t3))), this.register(this._inputHandler.onRequestSendFocus(() => this._reportFocus())), this.register(this._inputHandler.onRequestReset(() => this.reset())), this.register(this._inputHandler.onRequestWindowsOptionsReport((e4) => this._reportWindowsOptions(e4))), this.register(this._inputHandler.onColor((e4) => this._handleColorEvent(e4))), this.register((0, v.forwardEvent)(this._inputHandler.onCursorMove, this._onCursorMove)), this.register((0, v.forwardEvent)(this._inputHandler.onTitleChange, this._onTitleChange)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yChar, this._onA11yCharEmitter)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yTab, this._onA11yTabEmitter)), this.register(this._bufferService.onResize((e4) => this._afterResize(e4.cols, e4.rows)));
             }
@@ -3104,8 +3105,8 @@ var require_xterm = __commonJS({
                 this.textarea.value = e4, this.textarea.focus(), this.textarea.select();
               })), this.register(this._onScroll.event((e4) => {
                 this.viewport.syncScrollArea(), this._selectionService.refresh();
-              })), this.register((0, l.addDisposableDomListener)(this._viewportElement, "scroll", () => this._selectionService.refresh())), this.linkifier2.attachToDom(this.screenElement, this._mouseService, this._renderService), this.register(this._instantiationService.createInstance(D.BufferDecorationRenderer, this.screenElement)), this.register((0, l.addDisposableDomListener)(this.element, "mousedown", (e4) => this._selectionService.onMouseDown(e4))), this.coreMouseService.areMouseEventsActive ? (this._selectionService.disable(), this.element.classList.add("enable-mouse-events")) : this._selectionService.enable(), this.options.screenReaderMode && (this._accessibilityManager = new _2.AccessibilityManager(this, this._renderService)), this.options.overviewRulerWidth && (this._overviewRulerRenderer = this.register(this._instantiationService.createInstance(A.OverviewRulerRenderer, this._viewportElement, this.screenElement))), this.optionsService.onOptionChange(() => {
-                !this._overviewRulerRenderer && this.options.overviewRulerWidth && this._viewportElement && this.screenElement && (this._overviewRulerRenderer = this.register(this._instantiationService.createInstance(A.OverviewRulerRenderer, this._viewportElement, this.screenElement)));
+              })), this.register((0, l.addDisposableDomListener)(this._viewportElement, "scroll", () => this._selectionService.refresh())), this.linkifier2.attachToDom(this.screenElement, this._mouseService, this._renderService), this.register(this._instantiationService.createInstance(D.BufferDecorationRenderer, this.screenElement)), this.register((0, l.addDisposableDomListener)(this.element, "mousedown", (e4) => this._selectionService.onMouseDown(e4))), this.coreMouseService.areMouseEventsActive ? (this._selectionService.disable(), this.element.classList.add("enable-mouse-events")) : this._selectionService.enable(), this.options.screenReaderMode && (this._accessibilityManager = new _2.AccessibilityManager(this, this._renderService)), this.options.overviewRulerWidth && (this._overviewRulerRenderer = this.register(this._instantiationService.createInstance(A2.OverviewRulerRenderer, this._viewportElement, this.screenElement))), this.optionsService.onOptionChange(() => {
+                !this._overviewRulerRenderer && this.options.overviewRulerWidth && this._viewportElement && this.screenElement && (this._overviewRulerRenderer = this.register(this._instantiationService.createInstance(A2.OverviewRulerRenderer, this._viewportElement, this.screenElement)));
               }), this._charSizeService.measure(), this.refresh(0, this.rows - 1), this._initGlobal(), this.bindMouse();
             }
             _createRenderer() {
@@ -4030,27 +4031,27 @@ var require_xterm = __commonJS({
                     this._optionsService.rawOptions.drawBoldTextInBrightColors && C.isBold() && e4 < 8 && (e4 += 8), b.style.textDecorationColor = this._colors.ansi[e4].css;
                   }
                 C.isStrikethrough() && b.classList.add(t2.STRIKETHROUGH_CLASS);
-                let y2 = C.getFgColor(), w = C.getFgColorMode(), E = C.getBgColor(), L = C.getBgColorMode();
+                let y2 = C.getFgColor(), w = C.getFgColorMode(), E2 = C.getBgColor(), L = C.getBgColorMode();
                 const R = !!C.isInverse();
                 if (R) {
                   const e4 = y2;
-                  y2 = E, E = e4;
+                  y2 = E2, E2 = e4;
                   const t3 = w;
                   w = L, L = t3;
                 }
-                let k, D, A = false;
+                let k, D, A2 = false;
                 this._decorationService.forEachDecorationAtCell(_4, i3, void 0, (e4) => {
-                  "top" !== e4.options.layer && A || (e4.backgroundColorRGB && (L = 50331648, E = e4.backgroundColorRGB.rgba >> 8 & 16777215, k = e4.backgroundColorRGB), e4.foregroundColorRGB && (w = 50331648, y2 = e4.foregroundColorRGB.rgba >> 8 & 16777215, D = e4.foregroundColorRGB), A = "top" === e4.options.layer);
+                  "top" !== e4.options.layer && A2 || (e4.backgroundColorRGB && (L = 50331648, E2 = e4.backgroundColorRGB.rgba >> 8 & 16777215, k = e4.backgroundColorRGB), e4.foregroundColorRGB && (w = 50331648, y2 = e4.foregroundColorRGB.rgba >> 8 & 16777215, D = e4.foregroundColorRGB), A2 = "top" === e4.options.layer);
                 });
                 const x = this._isCellInSelection(_4, i3);
                 let B;
-                switch (A || this._colors.selectionForeground && x && (w = 50331648, y2 = this._colors.selectionForeground.rgba >> 8 & 16777215, D = this._colors.selectionForeground), x && (k = this._coreBrowserService.isFocused ? this._colors.selectionBackgroundOpaque : this._colors.selectionInactiveBackgroundOpaque, A = true), A && b.classList.add("xterm-decoration-top"), L) {
+                switch (A2 || this._colors.selectionForeground && x && (w = 50331648, y2 = this._colors.selectionForeground.rgba >> 8 & 16777215, D = this._colors.selectionForeground), x && (k = this._coreBrowserService.isFocused ? this._colors.selectionBackgroundOpaque : this._colors.selectionInactiveBackgroundOpaque, A2 = true), A2 && b.classList.add("xterm-decoration-top"), L) {
                   case 16777216:
                   case 33554432:
-                    B = this._colors.ansi[E], b.classList.add(`xterm-bg-${E}`);
+                    B = this._colors.ansi[E2], b.classList.add(`xterm-bg-${E2}`);
                     break;
                   case 50331648:
-                    B = c.rgba.toColor(E >> 16, E >> 8 & 255, 255 & E), this._addStyle(b, `background-color:#${v((E >>> 0).toString(16), "0", 6)}`);
+                    B = c.rgba.toColor(E2 >> 16, E2 >> 8 & 255, 255 & E2), this._addStyle(b, `background-color:#${v((E2 >>> 0).toString(16), "0", 6)}`);
                     break;
                   default:
                     R ? (B = this._colors.foreground, b.classList.add(`xterm-bg-${n.INVERTED_DEFAULT_COLOR}`)) : B = this._colors.background;
@@ -9870,7 +9871,7 @@ var DefaultContext = {
   style: void 0,
   attr: void 0
 };
-var IconContext = src_default.createContext && src_default.createContext(DefaultContext);
+var IconContext = _n.createContext && _n.createContext(DefaultContext);
 
 // ../../.yarn/__virtual__/react-icons-virtual-03002b44ac/0/global/cache/react-icons-npm-4.6.0-85b1c2c9bc-9.zip/node_modules/react-icons/lib/esm/iconBase.js
 var __assign = function() {
@@ -9899,14 +9900,14 @@ var __rest = function(s, e) {
 };
 function Tree2Element(tree) {
   return tree && tree.map(function(node, i) {
-    return src_default.createElement(node.tag, __assign({
+    return _n.createElement(node.tag, __assign({
       key: i
     }, node.attr), Tree2Element(node.child));
   });
 }
 function GenIcon(data) {
   return function(props) {
-    return src_default.createElement(IconBase, __assign({
+    return _n.createElement(IconBase, __assign({
       attr: __assign({}, data.attr)
     }, props), Tree2Element(data.child));
   };
@@ -9920,7 +9921,7 @@ function IconBase(props) {
       className = conf.className;
     if (props.className)
       className = (className ? className + " " : "") + props.className;
-    return src_default.createElement("svg", __assign({
+    return _n.createElement("svg", __assign({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
@@ -9932,9 +9933,9 @@ function IconBase(props) {
       height: computedSize,
       width: computedSize,
       xmlns: "http://www.w3.org/2000/svg"
-    }), title && src_default.createElement("title", null, title), props.children);
+    }), title && _n.createElement("title", null, title), props.children);
   };
-  return IconContext !== void 0 ? src_default.createElement(IconContext.Consumer, null, function(conf) {
+  return IconContext !== void 0 ? _n.createElement(IconContext.Consumer, null, function(conf) {
     return elem(conf);
   }) : elem(DefaultContext);
 }
@@ -9967,26 +9968,27 @@ init_react_preact();
 // js/icons.tsx
 init_define_process();
 var import_react3 = __toESM(require_emotion_react_cjs(), 1);
-var Wrap = ({ children }) => jsx("span", {
+var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var Wrap = ({ children }) => (0, import_jsx_runtime.jsx)("span", {
   css: import_react3.css`
 font-size:20pt;
 `,
   children
 });
-var QrCodeIcon = () => jsx(Wrap, {
-  children: jsx(MdQrCode, {})
+var QrCodeIcon = () => (0, import_jsx_runtime.jsx)(Wrap, {
+  children: (0, import_jsx_runtime.jsx)(MdQrCode, {})
 });
-var Phone = () => jsx(Wrap, {
-  children: jsx(MdPhoneAndroid, {})
+var Phone = () => (0, import_jsx_runtime.jsx)(Wrap, {
+  children: (0, import_jsx_runtime.jsx)(MdPhoneAndroid, {})
 });
-var Share = () => jsx(Wrap, {
-  children: jsx(MdShare, {})
+var Share = () => (0, import_jsx_runtime.jsx)(Wrap, {
+  children: (0, import_jsx_runtime.jsx)(MdShare, {})
 });
-var Tablet = () => jsx(Wrap, {
-  children: jsx(MdTabletAndroid, {})
+var Tablet = () => (0, import_jsx_runtime.jsx)(Wrap, {
+  children: (0, import_jsx_runtime.jsx)(MdTabletAndroid, {})
 });
-var Tv = () => jsx(Wrap, {
-  children: jsx(MdTv, {})
+var Tv = () => (0, import_jsx_runtime.jsx)(Wrap, {
+  children: (0, import_jsx_runtime.jsx)(MdTv, {})
 });
 
 // ../../.yarn/__virtual__/react-qrious-virtual-b90ac76f79/0/global/cache/react-qrious-npm-2.5.6-421c990834-9.zip/node_modules/react-qrious/lib/index.js
@@ -10033,40 +10035,42 @@ var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level
 init_define_process();
 init_react_preact();
 var import_react7 = __toESM(require_emotion_react_cjs(), 1);
-var FabLazy = lazy(async () => import("./chunk-Fab-BIZJMSE6.mjs"));
-var Fab = (props) => jsx(Suspense, {
-  fallback: jsx("div", {
+var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var FabLazy = F2(async () => import("./chunk-Fab-MLKKF27Z.mjs"));
+var Fab = (props) => (0, import_jsx_runtime2.jsx)(U, {
+  fallback: (0, import_jsx_runtime2.jsx)("div", {
     css: import_react7.css`width: 28px; height:28px`
   }),
-  children: jsx(FabLazy, {
+  children: (0, import_jsx_runtime2.jsx)(FabLazy, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-4PVNBGZB.mjs"));
-var ToggleButton = (props) => jsx(Suspense, {
-  fallback: jsx("div", {
+var ToggleButtonLazy = F2(async () => import("./chunk-ToggleButton-J6S2V6MO.mjs"));
+var ToggleButton = (props) => (0, import_jsx_runtime2.jsx)(U, {
+  fallback: (0, import_jsx_runtime2.jsx)("div", {
     css: import_react7.css`width: 28px; height:28px`
   }),
-  children: jsx(ToggleButtonLazy, {
+  children: (0, import_jsx_runtime2.jsx)(ToggleButtonLazy, {
     ...props
   })
 });
-var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-FH5YZX47.mjs")
+var ToggleButtonGroupLazy = F2(
+  async () => import("./chunk-ToggleButtonGroup-ZKZDDBEI.mjs")
 );
-var ToggleButtonGroup = (props) => jsx(Suspense, {
-  fallback: jsx("div", {
+var ToggleButtonGroup = (props) => (0, import_jsx_runtime2.jsx)(U, {
+  fallback: (0, import_jsx_runtime2.jsx)("div", {
     css: import_react7.css`width: 28px; height:28px`
   }),
-  children: jsx(ToggleButtonGroupLazy, {
+  children: (0, import_jsx_runtime2.jsx)(ToggleButtonGroupLazy, {
     ...props
   })
 });
 
 // js/Qr.tsx
+var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var QRButton = ({ url }) => {
   const [showQR, setQR] = p2(false);
-  return jsx(motion.div, {
+  return (0, import_jsx_runtime3.jsx)(motion.div, {
     animate: {
       width: showQR ? 200 : 56,
       height: showQR ? 220 : 48
@@ -10078,10 +10082,10 @@ var QRButton = ({ url }) => {
           margin-top: 12px;
           margin-bottom: 12px;
               `,
-    children: showQR ? jsx(QRious2, {
+    children: showQR ? (0, import_jsx_runtime3.jsx)(QRious2, {
       value: url || "/live/coder/public"
-    }, url || origin + url) : jsx(Fab, {
-      children: jsx(QrCodeIcon, {})
+    }, url || origin + url) : (0, import_jsx_runtime3.jsx)(Fab, {
+      children: (0, import_jsx_runtime3.jsx)(QrCodeIcon, {})
     })
   });
 };
@@ -10090,17 +10094,11 @@ var QRButton = ({ url }) => {
 var import_xterm = __toESM(require_xterm(), 1);
 var import_xterm_addon_fit = __toESM(require_xterm_addon_fit(), 1);
 var import_xterm_addon_serialize = __toESM(require_xterm_addon_serialize(), 1);
+var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var serializeAddon = new import_xterm_addon_serialize.SerializeAddon();
 var fitAddon = new import_xterm_addon_fit.FitAddon();
 var origConsole = console.log;
-var terminal = new import_xterm.Terminal({
-  allowProposedApi: true,
-  allowTransparency: true,
-  altClickMovesCursor: true,
-  scrollback: 0,
-  convertEol: true,
-  windowsMode: true
-});
+var terminal = new import_xterm.Terminal({ allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true, scrollback: 0, convertEol: true, windowsMode: true });
 terminal.loadAddon(serializeAddon);
 var termOff = () => console.log = origConsole;
 Object.assign(terminal, { termOff });
@@ -10123,15 +10121,13 @@ var DraggableWindow = ({
   const scale = scaleRange / 100;
   const terminalRef = _(null);
   h2(() => {
-    if (!terminalRef?.current)
+    if (!(terminalRef == null ? void 0 : terminalRef.current))
       return;
     terminal.open(terminalRef.current);
     fitAddon.activate(terminal);
     fitAddon.fit();
     console.log = (...data) => {
-      const params = data.map(
-        (d) => typeof d === "object" ? JSON.stringify(d, null, 2) : d
-      );
+      const params = data.map((d) => typeof d === "object" ? JSON.stringify(d, null, 2) : d);
       terminal.write(params.join(" - ") + "\r\n");
       origConsole.apply(console, data);
     };
@@ -10190,8 +10186,8 @@ var DraggableWindow = ({
   h2(() => {
     setClients([...Object.keys(sendChannel.rtcConns)]);
   }, [sendChannel.webRtcArray.length, setClients]);
-  return jsx(AnimateSharedLayout, {
-    children: jsx(motion.div, {
+  return (0, import_jsx_runtime4.jsx)(LayoutGroup, {
+    children: (0, import_jsx_runtime4.jsx)(motion.div, {
       transition: { delay: 0, duration: 0.4 },
       initial: {
         top: 0,
@@ -10222,33 +10218,33 @@ var DraggableWindow = ({
         bottom: innerHeight
       },
       dragElastic: 0.5,
-      children: jsxs("div", {
+      children: (0, import_jsx_runtime4.jsxs)("div", {
         css: import_react10.css` 
               display: flex;
               
                 `,
         children: [
-          jsxs("div", {
+          (0, import_jsx_runtime4.jsxs)("div", {
             css: import_react10.css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `,
             children: [
-              jsx(motion.div, {
+              (0, import_jsx_runtime4.jsx)(motion.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: { height: 0, width: 0 },
                 animate: { height: "auto", width: "auto" },
-                children: jsx(ToggleButtonGroup, {
+                children: (0, import_jsx_runtime4.jsx)(ToggleButtonGroup, {
                   value: scaleRange,
                   size: "small",
                   exclusive: true,
                   onChange: (_e, newScale) => {
                     newScale && changeScaleRange(newScale);
                   },
-                  children: sizes.map((size, ind) => jsx(ToggleButton, {
+                  children: sizes.map((size, ind) => (0, import_jsx_runtime4.jsx)(ToggleButton, {
                     value: size,
-                    children: jsxs("span", {
+                    children: (0, import_jsx_runtime4.jsxs)("span", {
                       css: import_react10.css`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
@@ -10260,7 +10256,7 @@ var DraggableWindow = ({
                   }, ind))
                 })
               }),
-              jsxs(motion.div, {
+              (0, import_jsx_runtime4.jsxs)(motion.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: {
                   width: window.innerWidth,
@@ -10279,7 +10275,7 @@ var DraggableWindow = ({
                 overflow-y: hidden;
             `,
                 children: [
-                  jsx(motion.div, {
+                  (0, import_jsx_runtime4.jsx)(motion.div, {
                     transition: { delay: 0, duration: 0.4 },
                     initial: {
                       width: window.innerWidth,
@@ -10301,12 +10297,12 @@ var DraggableWindow = ({
               `,
                     children
                   }),
-                  jsx("div", {
+                  (0, import_jsx_runtime4.jsx)("div", {
                     css: import_react10.css`   
               position: relative;
               
               `,
-                    children: jsx("div", {
+                    children: (0, import_jsx_runtime4.jsx)("div", {
                       css: import_react10.css`
               height: 240px;
               width: ${width / devicePixelRatio}px;
@@ -10319,16 +10315,16 @@ var DraggableWindow = ({
               .xterm-helpers{
               }
               `,
-                      children: jsx("div", {
+                      children: (0, import_jsx_runtime4.jsx)("div", {
                         ref: terminalRef
                       })
                     })
                   })
                 ]
               }),
-              jsx(motion.div, {
+              (0, import_jsx_runtime4.jsx)(motion.div, {
                 transition: { delay: 0, duration: 0.4 },
-                children: jsx(ToggleButtonGroup, {
+                children: (0, import_jsx_runtime4.jsx)(ToggleButtonGroup, {
                   value: width,
                   size: "small",
                   exclusive: true,
@@ -10338,34 +10334,34 @@ var DraggableWindow = ({
                       setWidth(newSize);
                     }
                   },
-                  children: breakPoints.map((size, ind) => jsx(ToggleButton, {
+                  children: breakPoints.map((size, ind) => (0, import_jsx_runtime4.jsx)(ToggleButton, {
                     value: size,
-                    children: size === 680 ? jsx("span", {
+                    children: size === 680 ? (0, import_jsx_runtime4.jsx)("span", {
                       css: import_react10.css`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                      children: jsx(Phone, {})
-                    }) : size === 768 ? jsx("span", {
+                      children: (0, import_jsx_runtime4.jsx)(Phone, {})
+                    }) : size === 768 ? (0, import_jsx_runtime4.jsx)("span", {
                       css: import_react10.css`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                      children: jsx(Tablet, {})
-                    }) : jsx("span", {
+                      children: (0, import_jsx_runtime4.jsx)(Tablet, {})
+                    }) : (0, import_jsx_runtime4.jsx)("span", {
                       css: import_react10.css`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
-                      children: jsx(Tv, {})
+                      children: (0, import_jsx_runtime4.jsx)(Tv, {})
                     })
                   }, ind))
                 })
               })
             ]
           }),
-          jsx(motion.div, {
+          (0, import_jsx_runtime4.jsx)(motion.div, {
             transition: { delay: 0, duration: 0.4 },
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
-            children: jsxs("div", {
+            children: (0, import_jsx_runtime4.jsxs)("div", {
               css: import_react10.css`
               padding: 16px;
               display: flex;
@@ -10374,24 +10370,25 @@ var DraggableWindow = ({
               flex-direction: column;
               `,
               children: [
-                jsx(Fab, {
+                (0, import_jsx_runtime4.jsx)(Fab, {
                   onClick: () => {
-                    document.querySelector("#root")?.requestFullscreen();
+                    var _a;
+                    (_a = document.querySelector("#root")) == null ? void 0 : _a.requestFullscreen();
                   },
-                  children: jsx("span", {
+                  children: (0, import_jsx_runtime4.jsx)("span", {
                     css: import_react10.css`
                 font-size: 20pt;
               `,
-                    children: jsx(MdFullscreen, {}, "fs")
+                    children: (0, import_jsx_runtime4.jsx)(MdFullscreen, {}, "fs")
                   })
                 }, "fullscreen"),
-                jsx(QRButton, {
+                (0, import_jsx_runtime4.jsx)(QRButton, {
                   url: location.origin + `/live/${room}/public`
                 }),
                 false,
-                jsx(Fab, {
+                (0, import_jsx_runtime4.jsx)(Fab, {
                   onClick: () => open(`/live/${room}/public`),
-                  children: jsx(Share, {})
+                  children: (0, import_jsx_runtime4.jsx)(Share, {})
                 }, "Share")
               ]
             })
@@ -10405,7 +10402,8 @@ var DraggableWindow = ({
 // js/ErrorBoundary.tsx
 init_define_process();
 init_react_preact();
-var ErrorBoundary = class extends src_default.Component {
+var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var ErrorBoundary = class extends _n.Component {
   constructor(props) {
     super(props);
     this.state = { error: void 0, errorInfo: void 0 };
@@ -10418,16 +10416,16 @@ var ErrorBoundary = class extends src_default.Component {
   }
   render() {
     if (this.state.errorInfo) {
-      return jsxs("div", {
+      return (0, import_jsx_runtime5.jsxs)("div", {
         children: [
-          jsx("h2", {
+          (0, import_jsx_runtime5.jsx)("h2", {
             children: "Something went wrong."
           }),
-          jsxs("details", {
+          (0, import_jsx_runtime5.jsxs)("details", {
             style: { whiteSpace: "pre-wrap" },
             children: [
               this.state.error && this.state.error.toString(),
-              jsx("br", {}),
+              (0, import_jsx_runtime5.jsx)("br", {}),
               this.state.errorInfo.componentStack
             ]
           })
@@ -10562,14 +10560,14 @@ var InPortal = function(_super) {
   InPortal2.prototype.render = function() {
     var _this = this;
     var _a = this.props, children = _a.children, node = _a.node;
-    return createPortal(Children.map(children, function(child) {
-      if (!isValidElement(child))
+    return $(A.map(children, function(child) {
+      if (!on(child))
         return child;
-      return cloneElement(child, _this.state.nodeProps);
+      return ln(child, _this.state.nodeProps);
     }), node.element);
   };
   return InPortal2;
-}(PureComponent);
+}(E);
 var OutPortal = function(_super) {
   __extends(OutPortal2, _super);
   function OutPortal2(props) {
@@ -10611,7 +10609,7 @@ var OutPortal = function(_super) {
     return h("div", { ref: this.placeholderNode });
   };
   return OutPortal2;
-}(PureComponent);
+}(E);
 var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
@@ -10977,7 +10975,7 @@ init_define_process();
                     case 32:
                       break;
                     case 101: {
-                      if ((((s2[386] | 0) == 0 ? F2(r3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) ? (l3(), (i2[775] | 0) == 0) : 0) {
+                      if ((((s2[386] | 0) == 0 ? F3(r3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) ? (l3(), (i2[775] | 0) == 0) : 0) {
                         b3 = 9;
                         break e;
                       } else
@@ -10985,7 +10983,7 @@ init_define_process();
                       break;
                     }
                     case 105: {
-                      if (F2(r3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                      if (F3(r3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
                         k3();
                         b3 = 17;
                       } else
@@ -10999,7 +10997,7 @@ init_define_process();
                     case 47:
                       switch (s2[e3 + 4 >> 1] | 0) {
                         case 47: {
-                          E();
+                          E2();
                           break a;
                         }
                         case 42: {
@@ -11060,7 +11058,7 @@ init_define_process();
                         case 32:
                           break;
                         case 101: {
-                          if (((s2[386] | 0) == 0 ? F2(a3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) {
+                          if (((s2[386] | 0) == 0 ? F3(a3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) {
                             l3();
                             b3 = 81;
                           } else
@@ -11068,7 +11066,7 @@ init_define_process();
                           break;
                         }
                         case 105: {
-                          if (F2(a3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                          if (F3(a3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
                             k3();
                             b3 = 81;
                           } else
@@ -11076,7 +11074,7 @@ init_define_process();
                           break;
                         }
                         case 99: {
-                          if ((F2(a3) | 0 ? (m(e3 + 4 | 0, 36, 8) | 0) == 0 : 0) ? R(s2[e3 + 12 >> 1] | 0) | 0 : 0) {
+                          if ((F3(a3) | 0 ? (m(e3 + 4 | 0, 36, 8) | 0) == 0 : 0) ? R(s2[e3 + 12 >> 1] | 0) | 0 : 0) {
                             i2[777] = 1;
                             b3 = 81;
                           } else
@@ -11170,7 +11168,7 @@ init_define_process();
                         case 47:
                           switch (s2[e3 + 4 >> 1] | 0) {
                             case 47: {
-                              E();
+                              E2();
                               break a;
                             }
                             case 42: {
@@ -11182,7 +11180,7 @@ init_define_process();
                               c3 = s2[e3 >> 1] | 0;
                               r:
                                 do {
-                                  if (!(U(c3) | 0)) {
+                                  if (!(U2(c3) | 0)) {
                                     switch (c3 << 16 >> 16) {
                                       case 41:
                                         if (z(t2[(t2[63] | 0) + (f2[386] << 3) + 4 >> 2] | 0) | 0) {
@@ -11273,7 +11271,7 @@ init_define_process();
                                           e3 = e3 + -2 | 0;
                                           t2[62] = e3;
                                         } while (D(s2[e3 >> 1] | 0) | 0);
-                                        if ($(e3) | 0) {
+                                        if ($2(e3) | 0) {
                                           g();
                                           i2[776] = 0;
                                           b3 = 81;
@@ -11522,7 +11520,7 @@ init_define_process();
                   if ((s2[t2[62] >> 1] | 0) != 46) {
                     t2[65] = e3 + 2;
                     n3 = w2(1) | 0;
-                    A(f3, t2[65] | 0, 0, e3);
+                    A2(f3, t2[65] | 0, 0, e3);
                     a3 = t2[56] | 0;
                     r3 = t2[64] | 0;
                     f3 = s2[385] | 0;
@@ -11576,7 +11574,7 @@ init_define_process();
                 case 46: {
                   t2[65] = (t2[65] | 0) + 2;
                   if (((w2(1) | 0) << 16 >> 16 == 109 ? (e3 = t2[65] | 0, (m(e3 + 2 | 0, 44, 6) | 0) == 0) : 0) ? (s2[t2[62] >> 1] | 0) != 46 : 0)
-                    A(f3, f3, e3 + 8 | 0, 2);
+                    A2(f3, f3, e3 + 8 | 0, 2);
                   break;
                 }
                 case 42:
@@ -11799,7 +11797,7 @@ init_define_process();
           }
           do {
             if ((i3 | 0) == 5) {
-              A(e3, r3, t2[65] | 0, 1);
+              A2(e3, r3, t2[65] | 0, 1);
               t2[65] = (t2[65] | 0) + 2;
               i3 = (w2(0) | 0) << 16 >> 16 == 97;
               a3 = t2[65] | 0;
@@ -11967,7 +11965,7 @@ init_define_process();
                   else
                     switch (s2[r3 + 2 >> 1] | 0) {
                       case 47: {
-                        E();
+                        E2();
                         break a;
                       }
                       case 42: {
@@ -12050,7 +12048,7 @@ init_define_process();
             O(e3, a3, c3, f3);
           return i3 | 0;
         }
-        function A(e3, a3, r3, s3) {
+        function A2(e3, a3, r3, s3) {
           e3 = e3 | 0;
           a3 = a3 | 0;
           r3 = r3 | 0;
@@ -12266,7 +12264,7 @@ init_define_process();
             } while (0);
           return e3 | 0;
         }
-        function U(e3) {
+        function U2(e3) {
           e3 = e3 | 0;
           e:
             do {
@@ -12348,7 +12346,7 @@ init_define_process();
           t2[s3 + 16 >> 2] = 0;
           return;
         }
-        function $(e3) {
+        function $2(e3) {
           e3 = e3 | 0;
           switch (s2[e3 >> 1] | 0) {
             case 107: {
@@ -12402,7 +12400,7 @@ init_define_process();
             } while (0);
           return e3 | 0;
         }
-        function E() {
+        function E2() {
           var e3 = 0, a3 = 0, r3 = 0;
           e3 = t2[66] | 0;
           r3 = t2[65] | 0;
@@ -12480,7 +12478,7 @@ init_define_process();
           }
           return e3 | 0;
         }
-        function F2(e3) {
+        function F3(e3) {
           e3 = e3 | 0;
           if ((t2[3] | 0) == (e3 | 0))
             e3 = 1;
@@ -12914,7 +12912,7 @@ init_define_process();
       }
       if (load.s)
         resolvedSource += `
-;import{u$_}from'${load.s}';try{u$_({${exports.filter((e2) => e2.ln).map(({ s: s2, e: e2, ln }) => `${source.slice(s2, e2)}: ${ln}`).join(",")}})}catch(_){};
+;import{u$_}from'${load.s}';try{u$_({${exports.filter((e2) => e2.ln).map(({ s: s2, e: e2, ln: ln2 }) => `${source.slice(s2, e2)}: ${ln2}`).join(",")}})}catch(_){};
 `;
       pushStringTo(source.length);
     }
@@ -13220,7 +13218,7 @@ var toUmd = async (source, name) => {
         try {
           url = await importShim.resolve(dep, name);
           urlHash = md5(dep);
-        } catch {
+        } catch (e) {
           console.error(`failed to resolve: ${dep}`);
           return;
         }
@@ -13257,15 +13255,19 @@ var findDeps = (code) => {
 init_define_process();
 init_react_preact();
 var import_is_callable = __toESM(require_is_callable(), 1);
+var import_jsx_runtime6 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var render = async (transpiled, codeSpace2) => {
+  var _a;
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if ((0, import_is_callable.default)(App)) {
-    const html = S(jsx(App, {
-      appId: `${codeSpace2}-${md5hash}`
-    }));
+    const html = S(
+      (0, import_jsx_runtime6.jsx)(App, {
+        appId: `${codeSpace2}-${md5hash}`
+      })
+    );
     const css8 = mineFromCaches(md5hash, html);
-    const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
+    const globalCss = (_a = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _a.innerHTML;
     return {
       html: `<style>${globalCss}</style>${html}`,
       css: css8
@@ -13274,13 +13276,14 @@ var render = async (transpiled, codeSpace2) => {
     return { html: null, css: null };
 };
 var renderFromString = (codeSpace2, hash) => {
+  var _a, _b;
   const md5hash = md5(mST().transpiled).slice(0, 8);
   if (hash !== hashCode()) {
     return { html: null, css: null };
   }
-  const html = document.getElementById(`${codeSpace2}-${md5hash}`)?.innerHTML;
+  const html = (_a = document.getElementById(`${codeSpace2}-${md5hash}`)) == null ? void 0 : _a.innerHTML;
   const css8 = html ? extractCritical22(html) : "";
-  const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
+  const globalCss = (_b = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _b.innerHTML;
   return {
     html: `<div id="${codeSpace2}-${md5hash}" style="height:100%">
       ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
@@ -13301,7 +13304,7 @@ var extractCritical22 = (html) => {
     for (const i in document.styleSheets) {
       let yesFromNow = false;
       const styleSheet = document.styleSheets[i];
-      if (styleSheet?.cssRules) {
+      if (styleSheet == null ? void 0 : styleSheet.cssRules) {
         for (const rule of Array.from(styleSheet.cssRules)) {
           if (yesFromNow || rule && rule.cssText && rule.cssText.startsWith(".z-")) {
             const selector = rule.cssText.slice(1, 9);
@@ -13315,7 +13318,7 @@ var extractCritical22 = (html) => {
       }
     }
     return Object.keys(rules).map((r) => rules[r]).join(" ");
-  } catch {
+  } catch (e) {
     console.error("no css");
     return "";
   }
@@ -13370,7 +13373,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       console.log("to UMD");
       const UMD = await toUmd(transpiled.code, `${codeSpace2}.tsx`);
       console.log({ UMD });
-      download("coder.js", await UMD?.toJs(`${codeSpace2}.tsx`));
+      download("coder.js", await (UMD == null ? void 0 : UMD.toJs(`${codeSpace2}.tsx`)));
       function download(filename, text) {
         var element = document.createElement("a");
         element.setAttribute(
@@ -13443,7 +13446,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-YTMXUBAS.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-K262VEQ4.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -13465,7 +13468,7 @@ function init() {
     );
     const wrapped = wrap(worker.port);
     return _prettier = wrapped;
-  } catch {
+  } catch (e) {
     return _prettier = fallback;
   }
 }
@@ -13485,6 +13488,7 @@ function supportsWorkerType() {
 }
 
 // js/Editor.tsx
+var import_jsx_runtime7 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod3 = {
   CH() {
   },
@@ -13504,7 +13508,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
   const [
     mySession,
     changeContent
-  ] = src_default.useState({
+  ] = _n.useState({
     lastKeyDown: 0,
     myCode: code,
     counter: i,
@@ -13523,7 +13527,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     onChange
   } = mySession;
   mod3.code = myCode;
-  src_default.useEffect(() => {
+  _n.useEffect(() => {
     if (ref.current === null)
       return;
     const setMonaco = async () => {
@@ -13531,7 +13535,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/renderPreviewWindow.css";
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-KMOWIA6O.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-EJZ3JAFR.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -13558,7 +13562,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
               console.log(diag.map((d) => d.messageText));
             }
           })();
-        } catch {
+        } catch (e) {
           console.error("ts diag error");
         }
         if (mod3.code !== code2)
@@ -13632,7 +13636,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     const loadEditors = () => engine === "monaco" ? setMonaco() : setAce();
     !started2 && loadEditors();
   }, [started2, ref]);
-  src_default.useEffect(
+  _n.useEffect(
     () => onChange(
       () => mod3.getValue().then(
         () => changeContent((x) => ({
@@ -13657,7 +13661,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       myCode: mod3.code
     }));
   }, "editor");
-  return jsx("div", {
+  return (0, import_jsx_runtime7.jsx)("div", {
     onKeyDown: () => mod3.lastKeyDown = Date.now(),
     "data-test-id": myId,
     id: "editor",
@@ -13670,22 +13674,14 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
 };
 
 // js/renderPreviewWindow.tsx
+var import_jsx_runtime8 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var createCache = import_cache.default.default || import_cache.default;
-var RainbowContainer = ({ children }) => jsxs("div", {
-  css: import_react17.css`position: relative;`,
-  children: [
-    children,
-    jsx("div", {
-      css: import_react17.css`
-            position: absolute;
-
-              height: 100vh;
-              width: 100hw;
-              top:0;
-              left:0;
-              z-index: -23;
-              background-blend-mode: overlay;
-              background:  repeating-radial-gradient(circle at bottom left, 
+var RainbowContainer = ({ children }) => (0, import_jsx_runtime8.jsx)("div", {
+  css: import_react17.css`
+height: 100%;
+width: 100%;
+background-blend-mode: overlay;
+background:  repeating-radial-gradient(circle at bottom left, 
               #fedc00 0, #fedc00 5.5555555556%, 
               #fcb712 0, #fcb712 11.1111111111%, 
               #f7921e 0, #f7921e 16.6666666667%, 
@@ -13723,9 +13719,8 @@ var RainbowContainer = ({ children }) => jsxs("div", {
                 #7cba6d 0, #7cba6d 88.8888888889%, 
                 #becc2f 0, #becc2f 94.4444444444%, 
                 #e0d81d 0, #e0d81d 100%);
-`
-    })
-  ]
+`,
+  children
 });
 var AppToRender = ({ codeSpace: codeSpace2 }) => {
   const currentHash = hashCode();
@@ -13747,36 +13742,32 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
   const portalNode = F(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return jsxs(p, {
+  return (0, import_jsx_runtime8.jsxs)(p, {
     children: [
-      jsx(InPortal, {
+      (0, import_jsx_runtime8.jsx)(InPortal, {
         node: portalNode,
-        children: jsx(AutoUpdateApp, {
+        children: (0, import_jsx_runtime8.jsx)(AutoUpdateApp, {
           hash,
           codeSpace: codeSpace2
         })
       }),
-      isStandalone ? jsx(OutPortal, {
+      isStandalone ? (0, import_jsx_runtime8.jsx)(OutPortal, {
         node: portalNode
-      }) : jsxs(p, {
-        children: [
-          jsx(RainbowContainer, {
-            children: jsx(p, {
-              children: jsx(Editor, {
-                codeSpace: codeSpace2
+      }) : (0, import_jsx_runtime8.jsx)(RainbowContainer, {
+        children: (0, import_jsx_runtime8.jsxs)(p, {
+          children: [
+            (0, import_jsx_runtime8.jsx)(Editor, {
+              codeSpace: codeSpace2
+            }),
+            (0, import_jsx_runtime8.jsx)(DraggableWindow, {
+              hashCode: 0,
+              room: codeSpace2,
+              children: (0, import_jsx_runtime8.jsx)(OutPortal, {
+                node: portalNode
               })
             })
-          }),
-          "  ",
-          jsx(DraggableWindow, {
-            hashCode: 0,
-            room: codeSpace2,
-            children: jsx(OutPortal, {
-              node: portalNode
-            })
-          }),
-          "   "
-        ]
+          ]
+        })
       })
     ]
   });
@@ -13790,9 +13781,9 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   const root = createRoot(div);
   const x = createCache({ key: "root" });
   root.render(
-    jsx(import_react17.CacheProvider, {
+    (0, import_jsx_runtime8.jsx)(import_react17.CacheProvider, {
       value: x,
-      children: jsx(AppToRender, {
+      children: (0, import_jsx_runtime8.jsx)(AppToRender, {
         codeSpace: codeSpace2
       })
     })
@@ -13801,6 +13792,7 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
 
 // js/starter.tsx
 var import_is_callable2 = __toESM(require_is_callable(), 1);
+var import_jsx_runtime9 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var createCache2 = import_cache2.default.default || import_cache2.default;
 if (!globalThis.apps || !globalThis.eCaches) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
@@ -13831,11 +13823,11 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const ref = _(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
-  return jsx(import_react19.CacheProvider, {
+  return (0, import_jsx_runtime9.jsx)(import_react19.CacheProvider, {
     value: createCache2({ key: "x" }),
-    children: jsx(ErrorBoundary_default, {
+    children: (0, import_jsx_runtime9.jsx)(ErrorBoundary_default, {
       ref,
-      children: jsx(App, {
+      children: (0, import_jsx_runtime9.jsx)(App, {
         appId: `${codeSpace2}-${md5Hash}`
       })
     }, md5Hash)
@@ -13858,12 +13850,12 @@ async function appFactory(transpiled = "", codeSpace2) {
           key: "z",
           speedy: true
         });
-        apps[hash] = ({ appId }) => appId.includes(hash) ? jsx(import_react19.CacheProvider, {
+        apps[hash] = ({ appId }) => appId.includes(hash) ? (0, import_jsx_runtime9.jsx)(import_react19.CacheProvider, {
           value: eCaches[hash],
-          children: jsx("div", {
-            css: "height: 100%;",
+          children: (0, import_jsx_runtime9.jsx)("div", {
+            css: import_react19.css`height: 100%;`,
             id: appId,
-            children: jsx(App, {})
+            children: (0, import_jsx_runtime9.jsx)(App, {})
           })
         }) : null;
       } else
@@ -13872,20 +13864,20 @@ async function appFactory(transpiled = "", codeSpace2) {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsxs("div", {
+        apps[hash] = () => (0, import_jsx_runtime9.jsxs)("div", {
           css: import_react19.css`background-color: orange;`,
           children: [
-            jsx("h1", {
+            (0, import_jsx_runtime9.jsx)("h1", {
               children: "Syntax Error"
             }),
-            jsxs("h2", {
+            (0, import_jsx_runtime9.jsxs)("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx("p", {
+            (0, import_jsx_runtime9.jsx)("p", {
               children: JSON.stringify({ err: error })
             })
           ]
@@ -13893,28 +13885,28 @@ async function appFactory(transpiled = "", codeSpace2) {
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsxs("div", {
+        apps[hash] = () => (0, import_jsx_runtime9.jsxs)("div", {
           css: import_react19.css`background-color: orange;`,
           children: [
-            jsx("h1", {
+            (0, import_jsx_runtime9.jsx)("h1", {
               children: "Syntax Error"
             }),
-            jsxs("h2", {
+            (0, import_jsx_runtime9.jsxs)("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx("p", {
+            (0, import_jsx_runtime9.jsx)("p", {
               children: JSON.stringify({ err: error })
             })
           ]
         });
       } else {
-        apps[hash] = () => jsx("div", {
+        apps[hash] = () => (0, import_jsx_runtime9.jsx)("div", {
           css: import_react19.css`background-color: orange;`,
-          children: jsxs("h1", {
+          children: (0, import_jsx_runtime9.jsxs)("h1", {
             children: [
               "Unknown Error: $",
               hash
@@ -14012,7 +14004,7 @@ var run = async (startState) => {
       return;
     }
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      ws == null ? void 0 : ws.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
@@ -14145,8 +14137,8 @@ async function join() {
     ws = wsConnection;
     const mess = (data) => {
       try {
-        ws && ws?.send && ws?.send(data);
-      } catch {
+        ws && (ws == null ? void 0 : ws.send) && (ws == null ? void 0 : ws.send(data));
+      } catch (e) {
         ws = null;
         rejoined = false;
         rejoin();
@@ -14167,7 +14159,7 @@ async function join() {
       if (diff > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection?.send(
+            wsConnection == null ? void 0 : wsConnection.send(
               JSON.stringify({
                 name: user,
                 timestamp: lastSeenTimestamp + diff
@@ -14177,7 +14169,7 @@ async function join() {
           }
           rejoined = false;
           rejoin();
-        } catch {
+        } catch (e) {
           rejoined = false;
           rejoin();
         }
@@ -14281,7 +14273,7 @@ async function processData(data, source, conn) {
     );
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
@@ -14356,13 +14348,13 @@ async function processData(data, source, conn) {
           return;
         }
         await rtcConns[target].setLocalDescription(offer);
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           target,
           name: user,
           type: "video-offer",
           offer: rtcConns[target].localDescription
         }));
-      } catch {
+      } catch (e) {
       }
     }
     function handleICEConnectionStateChangeEvent() {
@@ -14394,7 +14386,7 @@ async function processData(data, source, conn) {
     await rtcConns[target].setLocalDescription(
       answer
     );
-    ws?.send(JSON.stringify({
+    ws == null ? void 0 : ws.send(JSON.stringify({
       target,
       name: user,
       type: "video-answer",
@@ -14447,7 +14439,7 @@ async function sw() {
       await load(location.pathname);
       return;
     }
-  } catch {
+  } catch (e) {
   }
 }
 

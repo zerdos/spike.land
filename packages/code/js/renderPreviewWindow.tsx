@@ -18,21 +18,15 @@ import { Editor } from "./Editor";
 
 const createCache = emotionCache.default || emotionCache
 
-const RainbowContainer: React.FC<{ children: JSX.Element}> = (
-  {children },
-) => (<div css={css`position: relative;`}>
-  {children}
-  
- <div css={css`
-            position: absolute;
-
-              height: 100vh;
-              width: 100hw;
-              top:0;
-              left:0;
-              z-index: -23;
-              background-blend-mode: overlay;
-              background:  repeating-radial-gradient(circle at bottom left, 
+const RainbowContainer: React.FC<{children: JSX.Element}> = (
+	{children},
+) => (
+	<div
+		css={css`
+height: 100%;
+width: 100%;
+background-blend-mode: overlay;
+background:  repeating-radial-gradient(circle at bottom left, 
               #fedc00 0, #fedc00 5.5555555556%, 
               #fcb712 0, #fcb712 11.1111111111%, 
               #f7921e 0, #f7921e 16.6666666667%, 
@@ -70,9 +64,12 @@ const RainbowContainer: React.FC<{ children: JSX.Element}> = (
                 #7cba6d 0, #7cba6d 88.8888888889%, 
                 #becc2f 0, #becc2f 94.4444444444%, 
                 #e0d81d 0, #e0d81d 100%);
-`}/> 
-  </div>
+`}
+	>
+		{children}
+	</div>
 );
+
 
 const AppToRender: React.FC<
   { codeSpace: string }
@@ -114,27 +111,28 @@ const AppToRender: React.FC<
 
   return (
     <Fragment>
-      <InPortal node={portalNode}>
-        <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
-      </InPortal>
+    <InPortal node={portalNode}>
+      <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
+    </InPortal>
 
-      {isStandalone ? <OutPortal node={portalNode} /> : (    <Fragment>
-    <RainbowContainer>
-    <Fragment>
+    {isStandalone
+      ? <OutPortal node={portalNode} />
+      : (
+        <RainbowContainer>
+          <Fragment>
             <Editor
               codeSpace={codeSpace}
-          
             />
-           
-            </Fragment>
-</RainbowContainer>  <DraggableWindow
+            <DraggableWindow
               hashCode={0}
               room={codeSpace}
             >
               <OutPortal node={portalNode} />
-            </DraggableWindow>   </Fragment>
+            </DraggableWindow>
+          </Fragment>
+        </RainbowContainer>
       )}
-    </Fragment>
+  </Fragment>
   );
 };
 const singleton = { started: false };
@@ -156,6 +154,7 @@ export const renderPreviewWindow = ({ codeSpace } :
   root.render(
     
     <CacheProvider value={x}>
+      
       <AppToRender codeSpace={codeSpace} />
     </CacheProvider>
   ,

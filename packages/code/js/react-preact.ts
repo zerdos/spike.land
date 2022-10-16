@@ -1,11 +1,28 @@
-export {renderToString} from "preact-render-to-string";
+export {renderToString} from "./preact/compat/server.browser"
+
+import { render, hydrate, unmountComponentAtNode } from "./preact/compat/dist/compat.mjs"
+
+export function createRoot(container) {
+	return {
+		render(children) {
+			render(children, container)
+		},
+		unmount() {
+			unmountComponentAtNode(container)
+		}
+	}
+}
+
+export function hydrateRoot(container, children) {
+	hydrate(children, container)
+	return createRoot(container)
+}
+
 
 export {jsx, jsxs, Fragment}  from "./preact/compat/jsx-runtime.mjs";
 
-export { createRoot, hydrateRoot  } from "./preact/compat/client.mjs";
-
-export * from "./preact/compat/src/index"
-export {default} from "./preact/compat/src/index"
+export * from "./preact/compat/dist/compat.mjs"
+export {default} from  "./preact/compat/dist/compat.mjs"
 
 // export const React = { ...Preact, ...PreactCompat, Component};
 // Object.assign(React, {default: React})

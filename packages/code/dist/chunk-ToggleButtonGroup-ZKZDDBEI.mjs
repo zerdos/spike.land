@@ -10,16 +10,17 @@ import {
   require_react_is,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-F5DZEUPB.mjs";
-import "./chunk-chunk-ZK3UI4DF.mjs";
+} from "./chunk-chunk-APGZAPU5.mjs";
+import "./chunk-chunk-RF2W4KC3.mjs";
+import "./chunk-chunk-PQTEBQRP.mjs";
 import {
-  Children,
-  cloneElement,
-  forwardRef,
+  A2 as A,
+  N,
   init_react_preact,
-  isValidElement,
-  o
-} from "./chunk-chunk-L3IDHZ4W.mjs";
+  ln,
+  o,
+  on
+} from "./chunk-chunk-ZXJLJGC4.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-WK2SDDIY.mjs";
@@ -128,7 +129,7 @@ var ToggleButtonGroupRoot = styled_default("div", {
     }
   })
 }));
-var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
+var ToggleButtonGroup = N(function ToggleButtonGroup2(inProps, ref) {
   const props = useThemeProps({
     props: inProps,
     name: "MuiToggleButtonGroup"
@@ -178,8 +179,8 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
     ref,
     ownerState
   }, other, {
-    children: Children.map(children, (child) => {
-      if (!isValidElement(child)) {
+    children: A.map(children, (child) => {
+      if (!on(child)) {
         return null;
       }
       if (true) {
@@ -187,7 +188,7 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
           console.error(["MUI: The ToggleButtonGroup component doesn't accept a Fragment as a child.", "Consider providing an array instead."].join("\n"));
         }
       }
-      return cloneElement(child, {
+      return ln(child, {
         className: clsx_m_default(classes.grouped, child.props.className),
         onChange: exclusive ? handleExclusiveChange : handleChange,
         selected: child.props.selected === void 0 ? isValueSelected(child.props.value, value) : child.props.selected,

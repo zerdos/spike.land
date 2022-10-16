@@ -1,24 +1,24 @@
 import {
+  A2 as A,
   B,
-  Children,
   F,
+  N,
   T,
   V,
   _,
-  cloneElement,
+  _n,
   d,
-  forwardRef,
   h,
   h2,
   init_react_preact,
-  isValidElement,
+  ln,
+  mn,
+  on,
   p,
   p2,
   q,
-  s,
-  src_default,
-  useInsertionEffect
-} from "./chunk-chunk-L3IDHZ4W.mjs";
+  s
+} from "./chunk-chunk-ZXJLJGC4.mjs";
 import {
   define_process_default,
   init_define_process
@@ -765,7 +765,7 @@ function useProjectionId() {
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.mjs
 init_define_process();
 init_react_preact();
-var VisualElementHandler = class extends src_default.Component {
+var VisualElementHandler = class extends _n.Component {
   getSnapshotBeforeUpdate() {
     const { visualElement: visualElement2, props } = this.props;
     if (visualElement2)
@@ -819,7 +819,7 @@ function createMotionComponent({ preloadedFeatures, createVisualElement, project
       h(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic, context.visualElement))
     );
   }
-  const ForwardRefComponent = forwardRef(MotionComponent);
+  const ForwardRefComponent = N(MotionComponent);
   ForwardRefComponent[motionComponentSymbol] = Component;
   return ForwardRefComponent;
 }
@@ -3552,11 +3552,11 @@ function createLifecycles() {
     updatePropListeners: (props) => {
       names.forEach((name) => {
         var _a;
-        const on = "on" + name;
-        const propListener = props[on];
+        const on2 = "on" + name;
+        const propListener = props[on2];
         (_a = propSubscriptions[name]) === null || _a === void 0 ? void 0 : _a.call(propSubscriptions);
         if (propListener) {
-          propSubscriptions[name] = lifecycles[on](propListener);
+          propSubscriptions[name] = lifecycles[on2](propListener);
         }
       });
     }
@@ -5681,7 +5681,7 @@ var correctBoxShadow = {
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
-var MeasureLayoutWithContext = class extends src_default.Component {
+var MeasureLayoutWithContext = class extends _n.Component {
   componentDidMount() {
     const { visualElement: visualElement2, layoutGroup, switchLayoutGroup, layoutId } = this.props;
     const { projection } = visualElement2;
@@ -5759,7 +5759,7 @@ var MeasureLayoutWithContext = class extends src_default.Component {
 function MeasureLayout(props) {
   const [isPresent2, safeToRemove] = usePresence();
   const layoutGroup = q(LayoutGroupContext);
-  return src_default.createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: q(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove });
+  return _n.createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: q(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove });
 }
 var defaultScaleCorrectors = {
   borderRadius: {
@@ -7002,7 +7002,7 @@ function PopChild({ children, isPresent: isPresent2 }) {
     top: 0,
     left: 0
   });
-  useInsertionEffect(() => {
+  mn(() => {
     const { width, height, top, left } = size.current;
     if (isPresent2 || !ref.current || !width || !height)
       return;
@@ -7024,7 +7024,7 @@ function PopChild({ children, isPresent: isPresent2 }) {
       document.head.removeChild(style2);
     };
   }, [isPresent2]);
-  return h(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, cloneElement(children, { ref }));
+  return h(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, ln(children, { ref }));
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
@@ -7077,8 +7077,8 @@ function updateChildLookup(children, allChildren) {
 }
 function onlyElements(children) {
   const filtered = [];
-  Children.forEach(children, (child) => {
-    if (isValidElement(child))
+  A.forEach(children, (child) => {
+    if (on(child))
       filtered.push(child);
   });
   return filtered;
@@ -7154,7 +7154,7 @@ var AnimatePresence = ({ children, custom, initial = true, onExitComplete, exitB
   if (env !== "production" && mode === "wait" && childrenToRender.length > 1) {
     console.warn(`You're attempting to animate multiple children within AnimatePresence, but its mode is set to "wait". This will lead to odd visual behaviour.`);
   }
-  return h(p, null, exiting.size ? childrenToRender : childrenToRender.map((child) => cloneElement(child)));
+  return h(p, null, exiting.size ? childrenToRender : childrenToRender.map((child) => ln(child)));
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.mjs
@@ -7414,7 +7414,7 @@ function ReorderGroup({ children, as = "ul", axis = "y", onReorder, values, ...p
     h(ReorderContext.Provider, { value: context }, children)
   );
 }
-var Group = forwardRef(ReorderGroup);
+var Group = N(ReorderGroup);
 function getValue(item) {
   return item.value;
 }
@@ -7451,7 +7451,7 @@ function ReorderItem({ children, style: style2 = {}, value, as = "li", onDrag, l
     measuredLayout.current = measured;
   }, ref: externalRef }, children);
 }
-var Item = forwardRef(ReorderItem);
+var Item = N(ReorderItem);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 var Reorder = {

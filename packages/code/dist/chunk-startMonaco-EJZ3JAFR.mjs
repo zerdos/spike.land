@@ -1,4 +1,4 @@
-import "./chunk-chunk-HVPJWHV6.mjs";
+import "./chunk-chunk-7FW3UPTI.mjs";
 import {
   $,
   Action,
@@ -42547,7 +42547,7 @@ var monacoContribution = async (code) => {
         location.origin + `/node_modules/${name}/index.d.ts`
       );
       await pMap(importHelper, mapper, { concurrency: 2 });
-    } catch {
+    } catch (e) {
       console.error("Error in loading d.ts");
     }
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
@@ -42637,7 +42637,7 @@ var startMonaco = async ({ code, container, name }) => {
         let state = null;
         try {
           state = editor2.saveViewState();
-        } catch {
+        } catch (e) {
           console.error("error while saving the state");
         }
         model.setValue(code3);

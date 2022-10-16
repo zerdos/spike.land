@@ -1,35 +1,28 @@
 import { css } from "@emotion/react";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
-import { AnimateSharedLayout, motion} from "framer-motion";
+import { motion, LayoutGroup } from "framer-motion";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr";
-import { Terminal } from "xterm";
+import { Terminal } from 'xterm';
 // import { WebLinksAddon } from 'xterm-addon-web-links';
-import { FitAddon } from "xterm-addon-fit";
+import { FitAddon } from 'xterm-addon-fit';
 // import { SearchAddon } from 'xterm-addon-search';
 import { SerializeAddon } from "xterm-addon-serialize";
 const serializeAddon = new SerializeAddon();
 const fitAddon = new FitAddon();
 const origConsole = console.log;
 
-export const terminal = new Terminal({
-  allowProposedApi: true,
-  allowTransparency: true,
-  altClickMovesCursor: true,
-  scrollback: 0,
-  convertEol: true,
-  windowsMode: true,
-});
+export const terminal = new Terminal({allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true, scrollback: 0, convertEol: true,windowsMode: true});
 
 terminal.loadAddon(serializeAddon);
 
 const termOff = () => console.log = origConsole;
-Object.assign(terminal, { termOff });
+Object.assign(terminal, {termOff});
 
 // terminal.loadAddon(new WebLinksAddon());
 terminal.loadAddon(fitAddon);
-Object.assign(globalThis, { terminal });
+Object.assign(globalThis, {terminal})
 // Import { useSpring, a } from '@react-spring/web'
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
@@ -80,23 +73,30 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   // }
   //   , [ref]);
 
-  const terminalRef = useRef(null);
+ const terminalRef =  useRef(null);
 
-  useEffect(() => {
-    if (!terminalRef?.current) return;
 
-    terminal.open(terminalRef.current);
-    fitAddon.activate(terminal);
-    fitAddon.fit();
+
+ useEffect(() => {
+  if (!terminalRef?.current) return;
+
+
+
+
+  terminal.open(terminalRef.current)
+  fitAddon.activate(terminal)
+  fitAddon.fit();
+
+
+
 
     console.log = (...data) => {
-      const params = data.map((d) =>
-        typeof d === "object" ? JSON.stringify(d, null, 2) : d
-      );
+     const params = data.map (d=> typeof d === "object"? JSON.stringify(d, null, 2): d);
       terminal.write(params.join(" - ") + "\r\n");
       origConsole.apply(console, data);
-    };
-  }, [terminalRef]);
+  }
+  
+ }, [terminalRef]);
 
   useEffect(() => {
     const reveal = async () => {
@@ -161,7 +161,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         .slice(4, -1).split(",")
         .slice(0, 3)
         .map((x) => Number(x) || "0").join(",");
-
+ 
       if (c !== bgCV) setBG(c);
     }, 1000 / 2);
   }, []);
@@ -173,7 +173,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   }, [sendChannel.webRtcArray.length, setClients]);
 
   return (
-    <AnimateSharedLayout>
+    <LayoutGroup>
+    
       <motion.div
         transition={{ delay: 0, duration: 0.4 }}
         initial={{
@@ -298,16 +299,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               >
                 {children}
               </motion.div>
-              <div
-                css={css`   
+              <div css={css`   
               position: relative;
               
-              `}
-              >
-                <div
-                  css={css`
+              `}>
+              <div css={css`
               height: 240px;
-              width: ${width / devicePixelRatio}px;
+              width: ${width/devicePixelRatio}px;
               display: block;
               border-radius: 0 0 8px 8px;
               top: -240px;
@@ -316,11 +314,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               position: absolute;
               .xterm-helpers{
               }
-              `}
-                >
-                  <div ref={terminalRef} />
-                </div>
-              </div>
+              `} ><div  ref={terminalRef} /></div></div>
             </motion.div>
             <motion.div
               transition={{ delay: 0, duration: 0.4 }}
@@ -461,8 +455,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </motion.div>
         </div>
       </motion.div>
-    </AnimateSharedLayout>
+    </LayoutGroup>
   );
 };
 
 export default DraggableWindow;
+
+  
