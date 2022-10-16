@@ -1,9 +1,9 @@
 import {
   editor_api_exports
-} from "./chunk-chunk-P3GYAQLL.mjs";
+} from "./chunk-chunk-ODWPMOKA.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-WK2SDDIY.mjs";
+} from "./chunk-chunk-VOIE2EHU.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/monaco.contribution.js
 init_define_process();
@@ -222,7 +222,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-tsMode-6LDLMMI3.mjs");
+    return import("./chunk-tsMode-665A5IJT.mjs");
   }
 }
 monaco_editor_core_exports.languages.onLanguage("typescript", () => {

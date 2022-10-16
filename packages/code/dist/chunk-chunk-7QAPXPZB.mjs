@@ -1,32 +1,14 @@
 import {
-  A2 as A,
-  B,
-  F,
-  N,
-  T,
-  V,
-  _,
-  _n,
-  d,
-  h,
-  h2,
-  init_react_preact,
-  ln,
-  mn,
-  on,
-  p,
-  p2,
-  q,
-  s
-} from "./chunk-chunk-ZXJLJGC4.mjs";
+  require_react
+} from "./chunk-chunk-3UE53YJF.mjs";
 import {
   define_process_default,
   init_define_process
-} from "./chunk-chunk-WK2SDDIY.mjs";
+} from "./chunk-chunk-VOIE2EHU.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-477FBAEY.mjs";
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/@emotion-memoize-npm-0.7.4-5648cf11b8-9.zip/node_modules/@emotion/memoize/dist/memoize.browser.cjs.js
 var require_memoize_browser_cjs = __commonJS({
@@ -119,51 +101,51 @@ var require_tslib = __commonJS({
         };
       }
     })(function(exporter) {
-      var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-        d2.__proto__ = b2;
-      } || function(d2, b2) {
-        for (var p3 in b2)
-          if (Object.prototype.hasOwnProperty.call(b2, p3))
-            d2[p3] = b2[p3];
+      var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, b2) {
+        d.__proto__ = b2;
+      } || function(d, b2) {
+        for (var p in b2)
+          if (Object.prototype.hasOwnProperty.call(b2, p))
+            d[p] = b2[p];
       };
-      __extends2 = function(d2, b2) {
+      __extends2 = function(d, b2) {
         if (typeof b2 !== "function" && b2 !== null)
           throw new TypeError("Class extends value " + String(b2) + " is not a constructor or null");
-        extendStatics(d2, b2);
+        extendStatics(d, b2);
         function __() {
-          this.constructor = d2;
+          this.constructor = d;
         }
-        d2.prototype = b2 === null ? Object.create(b2) : (__.prototype = b2.prototype, new __());
+        d.prototype = b2 === null ? Object.create(b2) : (__.prototype = b2.prototype, new __());
       };
       __assign2 = Object.assign || function(t) {
-        for (var s2, i = 1, n = arguments.length; i < n; i++) {
-          s2 = arguments[i];
-          for (var p3 in s2)
-            if (Object.prototype.hasOwnProperty.call(s2, p3))
-              t[p3] = s2[p3];
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+          s = arguments[i];
+          for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p))
+              t[p] = s[p];
         }
         return t;
       };
-      __rest2 = function(s2, e) {
+      __rest2 = function(s, e) {
         var t = {};
-        for (var p3 in s2)
-          if (Object.prototype.hasOwnProperty.call(s2, p3) && e.indexOf(p3) < 0)
-            t[p3] = s2[p3];
-        if (s2 != null && typeof Object.getOwnPropertySymbols === "function")
-          for (var i = 0, p3 = Object.getOwnPropertySymbols(s2); i < p3.length; i++) {
-            if (e.indexOf(p3[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p3[i]))
-              t[p3[i]] = s2[p3[i]];
+        for (var p in s)
+          if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+          for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+              t[p[i]] = s[p[i]];
           }
         return t;
       };
       __decorate2 = function(decorators, target, key, desc) {
-        var c2 = arguments.length, r = c2 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+        var c2 = arguments.length, r = c2 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
           r = Reflect.decorate(decorators, target, key, desc);
         else
           for (var i = decorators.length - 1; i >= 0; i--)
-            if (d2 = decorators[i])
-              r = (c2 < 3 ? d2(r) : c2 > 3 ? d2(target, key, r) : d2(target, key)) || r;
+            if (d = decorators[i])
+              r = (c2 < 3 ? d(r) : c2 > 3 ? d(target, key, r) : d(target, key)) || r;
         return c2 > 3 && r && Object.defineProperty(target, key, r), r;
       };
       __param2 = function(paramIndex, decorator) {
@@ -203,7 +185,7 @@ var require_tslib = __commonJS({
         });
       };
       __generator2 = function(thisArg, body) {
-        var _2 = { label: 0, sent: function() {
+        var _ = { label: 0, sent: function() {
           if (t[0] & 1)
             throw t[1];
           return t[1];
@@ -219,7 +201,7 @@ var require_tslib = __commonJS({
         function step(op) {
           if (f)
             throw new TypeError("Generator is already executing.");
-          while (_2)
+          while (_)
             try {
               if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
                 return t;
@@ -231,42 +213,42 @@ var require_tslib = __commonJS({
                   t = op;
                   break;
                 case 4:
-                  _2.label++;
+                  _.label++;
                   return { value: op[1], done: false };
                 case 5:
-                  _2.label++;
+                  _.label++;
                   y = op[1];
                   op = [0];
                   continue;
                 case 7:
-                  op = _2.ops.pop();
-                  _2.trys.pop();
+                  op = _.ops.pop();
+                  _.trys.pop();
                   continue;
                 default:
-                  if (!(t = _2.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-                    _2 = 0;
+                  if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                    _ = 0;
                     continue;
                   }
                   if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-                    _2.label = op[1];
+                    _.label = op[1];
                     break;
                   }
-                  if (op[0] === 6 && _2.label < t[1]) {
-                    _2.label = t[1];
+                  if (op[0] === 6 && _.label < t[1]) {
+                    _.label = t[1];
                     t = op;
                     break;
                   }
-                  if (t && _2.label < t[2]) {
-                    _2.label = t[2];
-                    _2.ops.push(op);
+                  if (t && _.label < t[2]) {
+                    _.label = t[2];
+                    _.ops.push(op);
                     break;
                   }
                   if (t[2])
-                    _2.ops.pop();
-                  _2.trys.pop();
+                    _.ops.pop();
+                  _.trys.pop();
                   continue;
               }
-              op = body.call(thisArg, _2);
+              op = body.call(thisArg, _);
             } catch (e) {
               op = [6, e];
               y = 0;
@@ -279,9 +261,9 @@ var require_tslib = __commonJS({
         }
       };
       __exportStar2 = function(m2, o) {
-        for (var p3 in m2)
-          if (p3 !== "default" && !Object.prototype.hasOwnProperty.call(o, p3))
-            __createBinding2(o, m2, p3);
+        for (var p in m2)
+          if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+            __createBinding2(o, m2, p);
       };
       __createBinding2 = Object.create ? function(o, m2, k, k2) {
         if (k2 === void 0)
@@ -299,7 +281,7 @@ var require_tslib = __commonJS({
         o[k2] = m2[k];
       };
       __values2 = function(o) {
-        var s2 = typeof Symbol === "function" && Symbol.iterator, m2 = s2 && o[s2], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m2 = s && o[s], i = 0;
         if (m2)
           return m2.call(o);
         if (o && typeof o.length === "number")
@@ -310,7 +292,7 @@ var require_tslib = __commonJS({
               return { value: o && o[i++], done: !o };
             }
           };
-        throw new TypeError(s2 ? "Object is not iterable." : "Symbol.iterator is not defined.");
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
       };
       __read2 = function(o, n) {
         var m2 = typeof Symbol === "function" && o[Symbol.iterator];
@@ -339,9 +321,9 @@ var require_tslib = __commonJS({
         return ar;
       };
       __spreadArrays2 = function() {
-        for (var s2 = 0, i = 0, il = arguments.length; i < il; i++)
-          s2 += arguments[i].length;
-        for (var r = Array(s2), k = 0, i = 0; i < il; i++)
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+          s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
           for (var a2 = arguments[i], j = 0, jl = a2.length; j < jl; j++, k++)
             r[k] = a2[j];
         return r;
@@ -363,7 +345,7 @@ var require_tslib = __commonJS({
       __asyncGenerator2 = function(thisArg, _arguments, generator) {
         if (!Symbol.asyncIterator)
           throw new TypeError("Symbol.asyncIterator is not defined.");
-        var g = generator.apply(thisArg, _arguments || []), i, q2 = [];
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
         return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
           return this;
         }, i;
@@ -371,7 +353,7 @@ var require_tslib = __commonJS({
           if (g[n])
             i[n] = function(v) {
               return new Promise(function(a2, b2) {
-                q2.push([n, v, a2, b2]) > 1 || resume(n, v);
+                q.push([n, v, a2, b2]) > 1 || resume(n, v);
               });
             };
         }
@@ -379,11 +361,11 @@ var require_tslib = __commonJS({
           try {
             step(g[n](v));
           } catch (e) {
-            settle(q2[0][3], e);
+            settle(q[0][3], e);
           }
         }
         function step(r) {
-          r.value instanceof __await2 ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q2[0][2], r);
+          r.value instanceof __await2 ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
         }
         function fulfill(value) {
           resume("next", value);
@@ -392,12 +374,12 @@ var require_tslib = __commonJS({
           resume("throw", value);
         }
         function settle(f, v) {
-          if (f(v), q2.shift(), q2.length)
-            resume(q2[0][0], q2[0][1]);
+          if (f(v), q.shift(), q.length)
+            resume(q[0][0], q[0][1]);
         }
       };
       __asyncDelegator2 = function(o) {
-        var i, p3;
+        var i, p;
         return i = {}, verb("next"), verb("throw", function(e) {
           throw e;
         }), verb("return"), i[Symbol.iterator] = function() {
@@ -405,7 +387,7 @@ var require_tslib = __commonJS({
         }, i;
         function verb(n, f) {
           i[n] = o[n] ? function(v) {
-            return (p3 = !p3) ? { value: __await2(o[n](v)), done: n === "return" } : f ? f(v) : v;
+            return (p = !p) ? { value: __await2(o[n](v)), done: n === "return" } : f ? f(v) : v;
           } : f;
         }
       };
@@ -423,9 +405,9 @@ var require_tslib = __commonJS({
             });
           };
         }
-        function settle(resolve, reject, d2, v) {
+        function settle(resolve, reject, d, v) {
           Promise.resolve(v).then(function(v2) {
-            resolve({ value: v2, done: d2 });
+            resolve({ value: v2, done: d });
           }, reject);
         }
       };
@@ -509,25 +491,25 @@ var require_tslib = __commonJS({
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/MotionConfigContext.mjs
 init_define_process();
-init_react_preact();
-var MotionConfigContext = B({
-  transformPagePoint: (p3) => p3,
+var import_react = __toESM(require_react(), 1);
+var MotionConfigContext = (0, import_react.createContext)({
+  transformPagePoint: (p) => p,
   isStatic: false,
   reducedMotion: "never"
 });
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/index.mjs
 init_define_process();
-init_react_preact();
-var MotionContext = B({});
+var import_react2 = __toESM(require_react(), 1);
+var MotionContext = (0, import_react2.createContext)({});
 function useVisualElementContext() {
-  return q(MotionContext).visualElement;
+  return (0, import_react2.useContext)(MotionContext).visualElement;
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/PresenceContext.mjs
 init_define_process();
-init_react_preact();
-var PresenceContext = B(null);
+var import_react3 = __toESM(require_react(), 1);
+var PresenceContext = (0, import_react3.createContext)(null);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/is-browser.mjs
 init_define_process();
@@ -535,43 +517,43 @@ var isBrowser = typeof document !== "undefined";
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.mjs
 init_define_process();
-init_react_preact();
-var useIsomorphicLayoutEffect = isBrowser ? s : h2;
+var import_react4 = __toESM(require_react(), 1);
+var useIsomorphicLayoutEffect = isBrowser ? import_react4.useLayoutEffect : import_react4.useEffect;
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs
 init_define_process();
-init_react_preact();
-var LayoutGroupContext = B({});
+var import_react5 = __toESM(require_react(), 1);
+var LayoutGroupContext = (0, import_react5.createContext)({});
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/SwitchLayoutGroupContext.mjs
 init_define_process();
-init_react_preact();
-var SwitchLayoutGroupContext = B({});
+var import_react6 = __toESM(require_react(), 1);
+var SwitchLayoutGroupContext = (0, import_react6.createContext)({});
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
 init_define_process();
-init_react_preact();
-init_react_preact();
+var React = __toESM(require_react(), 1);
+var import_react13 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
 init_define_process();
-init_react_preact();
+var import_react8 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/LazyContext.mjs
 init_define_process();
-init_react_preact();
-var LazyContext = B({ strict: false });
+var import_react7 = __toESM(require_react(), 1);
+var LazyContext = (0, import_react7.createContext)({ strict: false });
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
-function useVisualElement(Component, visualState, props, createVisualElement) {
+function useVisualElement(Component2, visualState, props, createVisualElement) {
   const parent = useVisualElementContext();
-  const lazyContext = q(LazyContext);
-  const presenceContext = q(PresenceContext);
-  const reducedMotionConfig = q(MotionConfigContext).reducedMotion;
-  const visualElementRef = _(void 0);
+  const lazyContext = (0, import_react8.useContext)(LazyContext);
+  const presenceContext = (0, import_react8.useContext)(PresenceContext);
+  const reducedMotionConfig = (0, import_react8.useContext)(MotionConfigContext).reducedMotion;
+  const visualElementRef = (0, import_react8.useRef)(void 0);
   createVisualElement = createVisualElement || lazyContext.renderer;
   if (!visualElementRef.current && createVisualElement) {
-    visualElementRef.current = createVisualElement(Component, {
+    visualElementRef.current = createVisualElement(Component2, {
       visualState,
       parent,
       props,
@@ -584,7 +566,7 @@ function useVisualElement(Component, visualState, props, createVisualElement) {
   useIsomorphicLayoutEffect(() => {
     visualElement2 && visualElement2.syncRender();
   });
-  h2(() => {
+  (0, import_react8.useEffect)(() => {
     if (visualElement2 && visualElement2.animationState) {
       visualElement2.animationState.animateChanges();
     }
@@ -595,7 +577,7 @@ function useVisualElement(Component, visualState, props, createVisualElement) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
 init_define_process();
-init_react_preact();
+var import_react9 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/is-ref-object.mjs
 init_define_process();
@@ -605,7 +587,7 @@ function isRefObject(ref) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
 function useMotionRef(visualState, visualElement2, externalRef) {
-  return T(
+  return (0, import_react9.useCallback)(
     (instance) => {
       instance && visualState.mount && visualState.mount(instance);
       if (visualElement2) {
@@ -625,7 +607,7 @@ function useMotionRef(visualState, visualElement2, externalRef) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
 init_define_process();
-init_react_preact();
+var import_react10 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
 init_define_process();
@@ -677,8 +659,8 @@ function getCurrentTreeVariants(props, context) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
 function useCreateMotionContext(props) {
-  const { initial, animate: animate4 } = getCurrentTreeVariants(props, q(MotionContext));
-  return F(() => ({ initial, animate: animate4 }), [variantLabelsAsDependency(initial), variantLabelsAsDependency(animate4)]);
+  const { initial, animate: animate4 } = getCurrentTreeVariants(props, (0, import_react10.useContext)(MotionContext));
+  return (0, import_react10.useMemo)(() => ({ initial, animate: animate4 }), [variantLabelsAsDependency(initial), variantLabelsAsDependency(animate4)]);
 }
 function variantLabelsAsDependency(prop) {
   return Array.isArray(prop) ? prop.join(" ") : prop;
@@ -736,9 +718,9 @@ init_define_process();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-constant.mjs
 init_define_process();
-init_react_preact();
+var import_react11 = __toESM(require_react(), 1);
 function useConstant(init) {
-  const ref = _(null);
+  const ref = (0, import_react11.useRef)(null);
   if (ref.current === null) {
     ref.current = init();
   }
@@ -764,8 +746,8 @@ function useProjectionId() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.mjs
 init_define_process();
-init_react_preact();
-var VisualElementHandler = class extends _n.Component {
+var import_react12 = __toESM(require_react(), 1);
+var VisualElementHandler = class extends import_react12.default.Component {
   getSnapshotBeforeUpdate() {
     const { visualElement: visualElement2, props } = this.props;
     if (visualElement2)
@@ -784,11 +766,11 @@ init_define_process();
 var motionComponentSymbol = Symbol.for("motionComponentSymbol");
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
-function createMotionComponent({ preloadedFeatures, createVisualElement, projectionNodeConstructor, useRender, useVisualState: useVisualState2, Component }) {
+function createMotionComponent({ preloadedFeatures, createVisualElement, projectionNodeConstructor, useRender, useVisualState: useVisualState2, Component: Component2 }) {
   preloadedFeatures && loadFeatures(preloadedFeatures);
   function MotionComponent(props, externalRef) {
     const configAndProps = {
-      ...q(MotionConfigContext),
+      ...(0, import_react13.useContext)(MotionConfigContext),
       ...props,
       layoutId: useLayoutId(props)
     };
@@ -798,9 +780,9 @@ function createMotionComponent({ preloadedFeatures, createVisualElement, project
     const projectionId = isStatic ? void 0 : useProjectionId();
     const visualState = useVisualState2(props, isStatic);
     if (!isStatic && isBrowser) {
-      context.visualElement = useVisualElement(Component, visualState, configAndProps, createVisualElement);
-      const lazyStrictMode = q(LazyContext).strict;
-      const initialLayoutGroupConfig = q(SwitchLayoutGroupContext);
+      context.visualElement = useVisualElement(Component2, visualState, configAndProps, createVisualElement);
+      const lazyStrictMode = (0, import_react13.useContext)(LazyContext).strict;
+      const initialLayoutGroupConfig = (0, import_react13.useContext)(SwitchLayoutGroupContext);
       if (context.visualElement) {
         features = context.visualElement.loadFeatures(
           configAndProps,
@@ -812,19 +794,19 @@ function createMotionComponent({ preloadedFeatures, createVisualElement, project
         );
       }
     }
-    return h(
+    return React.createElement(
       VisualElementHandler,
       { visualElement: context.visualElement, props: configAndProps },
       features,
-      h(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic, context.visualElement))
+      React.createElement(MotionContext.Provider, { value: context }, useRender(Component2, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic, context.visualElement))
     );
   }
-  const ForwardRefComponent = N(MotionComponent);
-  ForwardRefComponent[motionComponentSymbol] = Component;
+  const ForwardRefComponent = (0, import_react13.forwardRef)(MotionComponent);
+  ForwardRefComponent[motionComponentSymbol] = Component2;
   return ForwardRefComponent;
 }
 function useLayoutId({ layoutId }) {
-  const layoutGroupId = q(LayoutGroupContext).id;
+  const layoutGroupId = (0, import_react13.useContext)(LayoutGroupContext).id;
   return layoutGroupId && layoutId !== void 0 ? layoutGroupId + "-" + layoutId : layoutId;
 }
 
@@ -959,7 +941,7 @@ function resolveMotionValue(value) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
 init_define_process();
-init_react_preact();
+var import_react14 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/utils/resolve-variants.mjs
 init_define_process();
@@ -988,8 +970,8 @@ function makeState({ scrapeMotionValuesFromProps: scrapeMotionValuesFromProps3, 
   return state;
 }
 var makeUseVisualState = (config) => (props, isStatic) => {
-  const context = q(MotionContext);
-  const presenceContext = q(PresenceContext);
+  const context = (0, import_react14.useContext)(MotionContext);
+  const presenceContext = (0, import_react14.useContext)(PresenceContext);
   const make = () => makeState(config, props, context, presenceContext);
   return isStatic ? make() : useConstant(make);
 };
@@ -1050,13 +1032,13 @@ var AnimationType;
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/events/use-dom-event.mjs
 init_define_process();
-init_react_preact();
+var import_react15 = __toESM(require_react(), 1);
 function addDomEvent(target, eventName, handler, options = { passive: true }) {
   target.addEventListener(eventName, handler, options);
   return () => target.removeEventListener(eventName, handler);
 }
 function useDomEvent(ref, eventName, handler, options) {
-  h2(() => {
+  (0, import_react15.useEffect)(() => {
     const element = ref.current;
     if (handler && element) {
       return addDomEvent(element, eventName, handler, options);
@@ -1208,26 +1190,26 @@ function isDragActive() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-unmount-effect.mjs
 init_define_process();
-init_react_preact();
+var import_react16 = __toESM(require_react(), 1);
 function useUnmountEffect(callback) {
-  return h2(() => () => callback(), []);
+  return (0, import_react16.useEffect)(() => () => callback(), []);
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.mjs
 init_define_process();
-init_react_preact();
+var import_react17 = __toESM(require_react(), 1);
 function usePresence() {
-  const context = q(PresenceContext);
+  const context = (0, import_react17.useContext)(PresenceContext);
   if (context === null)
     return [true, null];
   const { isPresent: isPresent2, onExitComplete, register } = context;
-  const id3 = V();
-  h2(() => register(id3), []);
+  const id3 = (0, import_react17.useId)();
+  (0, import_react17.useEffect)(() => register(id3), []);
   const safeToRemove = () => onExitComplete && onExitComplete(id3);
   return !isPresent2 && onExitComplete ? [false, safeToRemove] : [true];
 }
 function useIsPresent() {
-  return isPresent(q(PresenceContext));
+  return isPresent((0, import_react17.useContext)(PresenceContext));
 }
 function isPresent(context) {
   return context === null ? true : context.isPresent;
@@ -1455,12 +1437,12 @@ function findSpring({ duration = 800, bounce = 0.25, velocity = 0, mass = 1 }) {
     derivative = (undampedFreq2) => {
       const exponentialDecay = undampedFreq2 * dampingRatio;
       const delta = exponentialDecay * duration;
-      const d2 = delta * velocity + velocity;
+      const d = delta * velocity + velocity;
       const e = Math.pow(dampingRatio, 2) * Math.pow(undampedFreq2, 2) * duration;
       const f = Math.exp(-delta);
       const g = calcAngularFreq(Math.pow(undampedFreq2, 2), dampingRatio);
       const factor = -envelope(undampedFreq2) + safeMin > 0 ? -1 : 1;
-      return factor * ((d2 - e) * f) / g;
+      return factor * ((d - e) * f) / g;
     };
   } else {
     envelope = (undampedFreq2) => {
@@ -1803,18 +1785,18 @@ var filter = Object.assign(Object.assign({}, complex), { getAnimatableNone: (v) 
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/utils/hsla-to-rgba.mjs
 init_define_process();
-function hueToRgb(p3, q2, t) {
+function hueToRgb(p, q, t) {
   if (t < 0)
     t += 1;
   if (t > 1)
     t -= 1;
   if (t < 1 / 6)
-    return p3 + (q2 - p3) * 6 * t;
+    return p + (q - p) * 6 * t;
   if (t < 1 / 2)
-    return q2;
+    return q;
   if (t < 2 / 3)
-    return p3 + (q2 - p3) * (2 / 3 - t) * 6;
-  return p3;
+    return p + (q - p) * (2 / 3 - t) * 6;
+  return p;
 }
 function hslaToRgba({ hue, saturation, lightness, alpha: alpha2 }) {
   hue /= 360;
@@ -1826,11 +1808,11 @@ function hslaToRgba({ hue, saturation, lightness, alpha: alpha2 }) {
   if (!saturation) {
     red = green = blue = lightness;
   } else {
-    const q2 = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation;
-    const p3 = 2 * lightness - q2;
-    red = hueToRgb(p3, q2, hue + 1 / 3);
-    green = hueToRgb(p3, q2, hue);
-    blue = hueToRgb(p3, q2, hue - 1 / 3);
+    const q = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation;
+    const p = 2 * lightness - q;
+    red = hueToRgb(p, q, hue + 1 / 3);
+    green = hueToRgb(p, q, hue);
+    blue = hueToRgb(p, q, hue - 1 / 3);
   }
   return {
     red: Math.round(red * 255),
@@ -1952,12 +1934,12 @@ var mixComplex = (origin, target) => {
     return pipe(mixArray(originStats.parsed, targetStats.parsed), template);
   } else {
     warning(true, `Complex values '${origin}' and '${target}' too different to mix. Ensure all colors are of the same type, and that each contains the same quantity of number and color values. Falling back to instant transition.`);
-    return (p3) => `${p3 > 0 ? target : origin}`;
+    return (p) => `${p > 0 ? target : origin}`;
   }
 };
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/utils/interpolate.mjs
-var mixNumber = (from, to) => (p3) => mix(from, to, p3);
+var mixNumber = (from, to) => (p) => mix(from, to, p);
 function detectMixerFactory(v) {
   if (typeof v === "number") {
     return mixNumber;
@@ -2035,13 +2017,13 @@ init_define_process();
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/easing/utils.mjs
 init_define_process();
-var reverseEasing = (easing) => (p3) => 1 - easing(1 - p3);
-var mirrorEasing = (easing) => (p3) => p3 <= 0.5 ? easing(2 * p3) / 2 : (2 - easing(2 * (1 - p3))) / 2;
-var createExpoIn = (power) => (p3) => Math.pow(p3, power);
-var createBackIn = (power) => (p3) => p3 * p3 * ((power + 1) * p3 - power);
+var reverseEasing = (easing) => (p) => 1 - easing(1 - p);
+var mirrorEasing = (easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
+var createExpoIn = (power) => (p) => Math.pow(p, power);
+var createBackIn = (power) => (p) => p * p * ((power + 1) * p - power);
 var createAnticipate = (power) => {
   const backEasing = createBackIn(power);
-  return (p3) => (p3 *= 2) < 1 ? 0.5 * backEasing(p3) : 0.5 * (2 - Math.pow(2, -10 * (p3 - 1)));
+  return (p) => (p *= 2) < 1 ? 0.5 * backEasing(p) : 0.5 * (2 - Math.pow(2, -10 * (p - 1)));
 };
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/easing/index.mjs
@@ -2049,11 +2031,11 @@ var DEFAULT_OVERSHOOT_STRENGTH = 1.525;
 var BOUNCE_FIRST_THRESHOLD = 4 / 11;
 var BOUNCE_SECOND_THRESHOLD = 8 / 11;
 var BOUNCE_THIRD_THRESHOLD = 9 / 10;
-var linear = (p3) => p3;
+var linear = (p) => p;
 var easeIn = createExpoIn(2);
 var easeOut = reverseEasing(easeIn);
 var easeInOut = mirrorEasing(easeIn);
-var circIn = (p3) => 1 - Math.sin(Math.acos(p3));
+var circIn = (p) => 1 - Math.sin(Math.acos(p));
 var circOut = reverseEasing(circIn);
 var circInOut = mirrorEasing(circOut);
 var backIn = createBackIn(DEFAULT_OVERSHOOT_STRENGTH);
@@ -2063,14 +2045,14 @@ var anticipate = createAnticipate(DEFAULT_OVERSHOOT_STRENGTH);
 var ca = 4356 / 361;
 var cb = 35442 / 1805;
 var cc = 16061 / 1805;
-var bounceOut = (p3) => {
-  if (p3 === 1 || p3 === 0)
-    return p3;
-  const p22 = p3 * p3;
-  return p3 < BOUNCE_FIRST_THRESHOLD ? 7.5625 * p22 : p3 < BOUNCE_SECOND_THRESHOLD ? 9.075 * p22 - 9.9 * p3 + 3.4 : p3 < BOUNCE_THIRD_THRESHOLD ? ca * p22 - cb * p3 + cc : 10.8 * p3 * p3 - 20.52 * p3 + 10.72;
+var bounceOut = (p) => {
+  if (p === 1 || p === 0)
+    return p;
+  const p2 = p * p;
+  return p < BOUNCE_FIRST_THRESHOLD ? 7.5625 * p2 : p < BOUNCE_SECOND_THRESHOLD ? 9.075 * p2 - 9.9 * p + 3.4 : p < BOUNCE_THIRD_THRESHOLD ? ca * p2 - cb * p + cc : 10.8 * p * p - 20.52 * p + 10.72;
 };
 var bounceIn = reverseEasing(bounceOut);
-var bounceInOut = (p3) => p3 < 0.5 ? 0.5 * (1 - bounceOut(1 - p3 * 2)) : 0.5 * bounceOut(p3 * 2 - 1) + 0.5;
+var bounceInOut = (p) => p < 0.5 ? 0.5 * (1 - bounceOut(1 - p * 2)) : 0.5 * bounceOut(p * 2 - 1) + 0.5;
 
 // ../../.yarn/global/cache/popmotion-npm-11.0.5-3c551ada08-9.zip/node_modules/popmotion/dist/es/animations/generators/keyframes.mjs
 function defaultEasing(values, easing) {
@@ -3219,7 +3201,7 @@ function shouldBlockAnimation({ protectedKeys, needsAnimating }, key) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
 init_define_process();
-init_react_preact();
+var import_react18 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
 init_define_process();
@@ -3426,14 +3408,14 @@ var animations = {
   animation: makeRenderlessComponent(({ visualElement: visualElement2, animate: animate4 }) => {
     visualElement2.animationState || (visualElement2.animationState = createAnimationState(visualElement2));
     if (isAnimationControls(animate4)) {
-      h2(() => animate4.subscribe(visualElement2), [animate4]);
+      (0, import_react18.useEffect)(() => animate4.subscribe(visualElement2), [animate4]);
     }
   }),
   exit: makeRenderlessComponent((props) => {
     const { custom, visualElement: visualElement2 } = props;
     const [isPresent2, safeToRemove] = usePresence();
-    const presenceContext = q(PresenceContext);
-    h2(() => {
+    const presenceContext = (0, import_react18.useContext)(PresenceContext);
+    (0, import_react18.useEffect)(() => {
       visualElement2.isPresent = isPresent2;
       const animation = visualElement2.animationState && visualElement2.animationState.setActive(AnimationType.Exit, !isPresent2, {
         custom: presenceContext && presenceContext.custom || custom
@@ -3552,11 +3534,11 @@ function createLifecycles() {
     updatePropListeners: (props) => {
       names.forEach((name) => {
         var _a;
-        const on2 = "on" + name;
-        const propListener = props[on2];
+        const on = "on" + name;
+        const propListener = props[on];
         (_a = propSubscriptions[name]) === null || _a === void 0 ? void 0 : _a.call(propSubscriptions);
         if (propListener) {
-          propSubscriptions[name] = lifecycles[on2](propListener);
+          propSubscriptions[name] = lifecycles[on](propListener);
         }
       });
     }
@@ -3625,7 +3607,7 @@ var defaultEnvironment = "production";
 var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "development";
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/index.mjs
-init_react_preact();
+var import_react19 = __toESM(require_react(), 1);
 var featureNames = Object.keys(featureDefinitions);
 var numFeatures = featureNames.length;
 var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable, measureViewportBox: measureViewportBox2, render: renderInstance, readValueFromInstance, removeValueFromRenderState, sortNodePosition, scrapeMotionValuesFromProps: scrapeMotionValuesFromProps3 }) => ({ parent, props, presenceId, blockInitialAnimation, visualState, reducedMotionConfig }, options = {}) => {
@@ -3733,9 +3715,9 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
       }
       for (let i = 0; i < numFeatures; i++) {
         const name = featureNames[i];
-        const { isEnabled, Component } = featureDefinitions[name];
-        if (isEnabled(renderedProps) && Component) {
-          features.push(h(Component, {
+        const { isEnabled, Component: Component2 } = featureDefinitions[name];
+        if (isEnabled(renderedProps) && Component2) {
+          features.push((0, import_react19.createElement)(Component2, {
             key: name,
             ...renderedProps,
             visualElement: element
@@ -3932,8 +3914,8 @@ init_define_process();
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-proxy.mjs
 init_define_process();
 function createMotionProxy(createConfig) {
-  function custom(Component, customMotionComponentConfig = {}) {
-    return createMotionComponent(createConfig(Component, customMotionComponentConfig));
+  function custom(Component2, customMotionComponentConfig = {}) {
+    return createMotionComponent(createConfig(Component2, customMotionComponentConfig));
   }
   if (typeof Proxy === "undefined") {
     return custom;
@@ -3986,10 +3968,10 @@ var lowercaseSVGElements = [
 ];
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.mjs
-function isSVGComponent(Component) {
-  if (typeof Component !== "string" || Component.includes("-")) {
+function isSVGComponent(Component2) {
+  if (typeof Component2 !== "string" || Component2.includes("-")) {
     return false;
-  } else if (lowercaseSVGElements.indexOf(Component) > -1 || /[A-Z]/.test(Component)) {
+  } else if (lowercaseSVGElements.indexOf(Component2) > -1 || /[A-Z]/.test(Component2)) {
     return true;
   }
   return false;
@@ -3997,11 +3979,11 @@ function isSVGComponent(Component) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
 init_define_process();
-init_react_preact();
+var import_react22 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
 init_define_process();
-init_react_preact();
+var import_react20 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.mjs
 init_define_process();
@@ -4113,7 +4095,7 @@ function copyRawValuesOnly(target, source, props) {
   }
 }
 function useInitialMotionValues({ transformTemplate }, visualState, isStatic) {
-  return F(() => {
+  return (0, import_react20.useMemo)(() => {
     const state = createHtmlRenderState();
     buildHTMLStyles(state, visualState, { enableHardwareAcceleration: !isStatic }, transformTemplate);
     return Object.assign({}, state.vars, state.style);
@@ -4140,7 +4122,7 @@ function useHTMLProps(props, visualState, isStatic) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
 init_define_process();
-init_react_preact();
+var import_react21 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
 init_define_process();
@@ -4216,7 +4198,7 @@ var createSvgRenderState = () => ({
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
 function useSVGProps(props, visualState) {
-  const visualProps = F(() => {
+  const visualProps = (0, import_react21.useMemo)(() => {
     const state = createSvgRenderState();
     buildSVGAttrs(state, visualState, { enableHardwareAcceleration: false }, props.transformTemplate);
     return {
@@ -4234,10 +4216,10 @@ function useSVGProps(props, visualState) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
 function createUseRender(forwardMotionProps = false) {
-  const useRender = (Component, props, projectionId, ref, { latestValues }, isStatic) => {
-    const useVisualProps = isSVGComponent(Component) ? useSVGProps : useHTMLProps;
+  const useRender = (Component2, props, projectionId, ref, { latestValues }, isStatic) => {
+    const useVisualProps = isSVGComponent(Component2) ? useSVGProps : useHTMLProps;
     const visualProps = useVisualProps(props, latestValues, isStatic);
-    const filteredProps = filterProps(props, typeof Component === "string", forwardMotionProps);
+    const filteredProps = filterProps(props, typeof Component2 === "string", forwardMotionProps);
     const elementProps = {
       ...filteredProps,
       ...visualProps,
@@ -4246,7 +4228,7 @@ function createUseRender(forwardMotionProps = false) {
     if (projectionId) {
       elementProps["data-projection-id"] = projectionId;
     }
-    return h(Component, elementProps);
+    return (0, import_react22.createElement)(Component2, elementProps);
   };
   return useRender;
 }
@@ -4363,15 +4345,15 @@ var htmlMotionConfig = {
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
-function createDomMotionConfig(Component, { forwardMotionProps = false }, preloadedFeatures, createVisualElement, projectionNodeConstructor) {
-  const baseConfig = isSVGComponent(Component) ? svgMotionConfig : htmlMotionConfig;
+function createDomMotionConfig(Component2, { forwardMotionProps = false }, preloadedFeatures, createVisualElement, projectionNodeConstructor) {
+  const baseConfig = isSVGComponent(Component2) ? svgMotionConfig : htmlMotionConfig;
   return {
     ...baseConfig,
     preloadedFeatures,
     useRender: createUseRender(forwardMotionProps),
     createVisualElement,
     projectionNodeConstructor,
-    Component
+    Component: Component2
   };
 }
 
@@ -4411,7 +4393,7 @@ function useHoverGesture({ onHoverStart, onHoverEnd, whileHover, visualElement: 
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
 init_define_process();
-init_react_preact();
+var import_react23 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.mjs
 init_define_process();
@@ -4428,8 +4410,8 @@ var isNodeOrChild = (parent, child) => {
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
 function useTapGesture({ onTap, onTapStart, onTapCancel, whileTap, visualElement: visualElement2 }) {
   const hasPressListeners = onTap || onTapStart || onTapCancel || whileTap;
-  const isPressing = _(false);
-  const cancelPointerEndListeners = _(null);
+  const isPressing = (0, import_react23.useRef)(false);
+  const cancelPointerEndListeners = (0, import_react23.useRef)(null);
   const eventOptions = {
     passive: !(onTapStart || onTap || onTapCancel || onPointerDown)
   };
@@ -4468,7 +4450,7 @@ function useTapGesture({ onTap, onTapStart, onTapCancel, whileTap, visualElement
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 init_define_process();
-init_react_preact();
+var import_react24 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/observers.mjs
 init_define_process();
@@ -4505,7 +4487,7 @@ function observeIntersection(element, options, callback) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 function useViewport({ visualElement: visualElement2, whileInView, onViewportEnter, onViewportLeave, viewport = {} }) {
-  const state = _({
+  const state = (0, import_react24.useRef)({
     hasEnteredView: false,
     isInView: false
   });
@@ -4520,7 +4502,7 @@ var thresholdNames = {
   all: 1
 };
 function useIntersectionObserver(shouldObserve, state, visualElement2, { root, margin: rootMargin, amount = "some", once }) {
-  h2(() => {
+  (0, import_react24.useEffect)(() => {
     if (!shouldObserve)
       return;
     const options = {
@@ -4549,7 +4531,7 @@ function useIntersectionObserver(shouldObserve, state, visualElement2, { root, m
   }, [shouldObserve, root, rootMargin, amount]);
 }
 function useMissingIntersectionObserver(shouldObserve, state, visualElement2, { fallback = true }) {
-  h2(() => {
+  (0, import_react24.useEffect)(() => {
     if (!shouldObserve || !fallback)
       return;
     if (env !== "production") {
@@ -4579,7 +4561,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
 init_define_process();
-init_react_preact();
+var import_react25 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
 init_define_process();
@@ -5223,17 +5205,17 @@ function getCurrentDirection(offset, lockThreshold = 10) {
 function useDrag(props) {
   const { dragControls: groupDragControls, visualElement: visualElement2 } = props;
   const dragControls = useConstant(() => new VisualElementDragControls(visualElement2));
-  h2(() => groupDragControls && groupDragControls.subscribe(dragControls), [dragControls, groupDragControls]);
-  h2(() => dragControls.addListeners(), [dragControls]);
+  (0, import_react25.useEffect)(() => groupDragControls && groupDragControls.subscribe(dragControls), [dragControls, groupDragControls]);
+  (0, import_react25.useEffect)(() => dragControls.addListeners(), [dragControls]);
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/gestures/use-pan-gesture.mjs
 init_define_process();
-init_react_preact();
+var import_react26 = __toESM(require_react(), 1);
 function usePanGesture({ onPan, onPanStart, onPanEnd, onPanSessionStart, visualElement: visualElement2 }) {
   const hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
-  const panSession = _(null);
-  const { transformPagePoint } = q(MotionConfigContext);
+  const panSession = (0, import_react26.useRef)(null);
+  const { transformPagePoint } = (0, import_react26.useContext)(MotionConfigContext);
   const handlers = {
     onSessionStart: onPanSessionStart,
     onStart: onPanStart,
@@ -5243,7 +5225,7 @@ function usePanGesture({ onPan, onPanStart, onPanEnd, onPanSessionStart, visualE
       onPanEnd && onPanEnd(event, info);
     }
   };
-  h2(() => {
+  (0, import_react26.useEffect)(() => {
     if (panSession.current !== null) {
       panSession.current.updateHandlers(handlers);
     }
@@ -5604,8 +5586,8 @@ var svgVisualElement = visualElement({
 });
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
-var createDomVisualElement = (Component, options) => {
-  return isSVGComponent(Component) ? svgVisualElement(options, { enableHardwareAcceleration: false }) : htmlVisualElement(options, { enableHardwareAcceleration: true });
+var createDomVisualElement = (Component2, options) => {
+  return isSVGComponent(Component2) ? svgVisualElement(options, { enableHardwareAcceleration: false }) : htmlVisualElement(options, { enableHardwareAcceleration: true });
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/index.mjs
@@ -5613,7 +5595,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
 init_define_process();
-init_react_preact();
+var import_react27 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.mjs
 init_define_process();
@@ -5681,7 +5663,7 @@ var correctBoxShadow = {
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
-var MeasureLayoutWithContext = class extends _n.Component {
+var MeasureLayoutWithContext = class extends import_react27.default.Component {
   componentDidMount() {
     const { visualElement: visualElement2, layoutGroup, switchLayoutGroup, layoutId } = this.props;
     const { projection } = visualElement2;
@@ -5758,8 +5740,8 @@ var MeasureLayoutWithContext = class extends _n.Component {
 };
 function MeasureLayout(props) {
   const [isPresent2, safeToRemove] = usePresence();
-  const layoutGroup = q(LayoutGroupContext);
-  return _n.createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: q(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove });
+  const layoutGroup = (0, import_react27.useContext)(LayoutGroupContext);
+  return import_react27.default.createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: (0, import_react27.useContext)(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove });
 }
 var defaultScaleCorrectors = {
   borderRadius: {
@@ -5836,12 +5818,12 @@ function getRadius(values, radiusName) {
 var easeCrossfadeIn = compress(0, 0.5, circOut);
 var easeCrossfadeOut = compress(0.5, 0.95, linear);
 function compress(min, max, easing) {
-  return (p3) => {
-    if (p3 < min)
+  return (p) => {
+    if (p < min)
       return 0;
-    if (p3 > max)
+    if (p > max)
       return 1;
-    return easing(progress(min, max, p3));
+    return easing(progress(min, max, p));
   };
 }
 
@@ -6835,19 +6817,19 @@ function resetRotation(node) {
 function removeLeadSnapshots(stack) {
   stack.removeLeadSnapshot();
 }
-function mixAxisDelta(output, delta, p3) {
-  output.translate = mix(delta.translate, 0, p3);
-  output.scale = mix(delta.scale, 1, p3);
+function mixAxisDelta(output, delta, p) {
+  output.translate = mix(delta.translate, 0, p);
+  output.scale = mix(delta.scale, 1, p);
   output.origin = delta.origin;
   output.originPoint = delta.originPoint;
 }
-function mixAxis(output, from, to, p3) {
-  output.min = mix(from.min, to.min, p3);
-  output.max = mix(from.max, to.max, p3);
+function mixAxis(output, from, to, p) {
+  output.min = mix(from.min, to.min, p);
+  output.max = mix(from.max, to.max, p);
 }
-function mixBox(output, from, to, p3) {
-  mixAxis(output.x, from.x, to.x, p3);
-  mixAxis(output.y, from.y, to.y, p3);
+function mixBox(output, from, to, p) {
+  mixAxis(output.x, from.x, to.x, p);
+  mixAxis(output.y, from.y, to.y, p);
 }
 function hasOpacityCrossfade(node) {
   return node.animationValues && node.animationValues.opacityExit !== void 0;
@@ -6923,7 +6905,7 @@ var featureBundle = {
   ...drag,
   ...layoutFeatures
 };
-var motion = createMotionProxy((Component, config) => createDomMotionConfig(Component, config, featureBundle, createDomVisualElement, HTMLProjectionNode));
+var motion = createMotionProxy((Component2, config) => createDomMotionConfig(Component2, config, featureBundle, createDomVisualElement, HTMLProjectionNode));
 function createDomMotionComponent(key) {
   return createMotionComponent(createDomMotionConfig(key, { forwardMotionProps: false }, featureBundle, createDomVisualElement, HTMLProjectionNode));
 }
@@ -6934,13 +6916,13 @@ var m = createMotionProxy(createDomMotionConfig);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
 init_define_process();
-init_react_preact();
+var import_react29 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
 init_define_process();
-init_react_preact();
+var import_react28 = __toESM(require_react(), 1);
 function useIsMounted() {
-  const isMounted = _(false);
+  const isMounted = (0, import_react28.useRef)(false);
   useIsomorphicLayoutEffect(() => {
     isMounted.current = true;
     return () => {
@@ -6953,29 +6935,29 @@ function useIsMounted() {
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
 function useForceUpdate() {
   const isMounted = useIsMounted();
-  const [forcedRenderCount, setForcedRenderCount] = p2(0);
-  const forceRender = T(() => {
+  const [forcedRenderCount, setForcedRenderCount] = (0, import_react29.useState)(0);
+  const forceRender = (0, import_react29.useCallback)(() => {
     isMounted.current && setForcedRenderCount(forcedRenderCount + 1);
   }, [forcedRenderCount]);
-  const deferredForceRender = T(() => es_default.postRender(forceRender), [forceRender]);
+  const deferredForceRender = (0, import_react29.useCallback)(() => es_default.postRender(forceRender), [forceRender]);
   return [deferredForceRender, forcedRenderCount];
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
 init_define_process();
-init_react_preact();
-init_react_preact();
+var React4 = __toESM(require_react(), 1);
+var import_react32 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
 init_define_process();
-init_react_preact();
-init_react_preact();
+var React3 = __toESM(require_react(), 1);
+var import_react31 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PopChild.mjs
 init_define_process();
-init_react_preact();
-init_react_preact();
-var PopChildMeasure = class extends d {
+var React2 = __toESM(require_react(), 1);
+var import_react30 = __toESM(require_react(), 1);
+var PopChildMeasure = class extends React2.Component {
   getSnapshotBeforeUpdate(prevProps) {
     const element = this.props.childRef.current;
     if (element && prevProps.isPresent && !this.props.isPresent) {
@@ -6994,15 +6976,15 @@ var PopChildMeasure = class extends d {
   }
 };
 function PopChild({ children, isPresent: isPresent2 }) {
-  const id3 = V();
-  const ref = _(null);
-  const size = _({
+  const id3 = (0, import_react30.useId)();
+  const ref = (0, import_react30.useRef)(null);
+  const size = (0, import_react30.useRef)({
     width: 0,
     height: 0,
     top: 0,
     left: 0
   });
-  mn(() => {
+  (0, import_react30.useInsertionEffect)(() => {
     const { width, height, top, left } = size.current;
     if (isPresent2 || !ref.current || !width || !height)
       return;
@@ -7024,14 +7006,14 @@ function PopChild({ children, isPresent: isPresent2 }) {
       document.head.removeChild(style2);
     };
   }, [isPresent2]);
-  return h(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, ln(children, { ref }));
+  return React2.createElement(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, React2.cloneElement(children, { ref }));
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
 var PresenceChild = ({ children, initial, isPresent: isPresent2, onExitComplete, custom, presenceAffectsLayout, mode }) => {
   const presenceChildren = useConstant(newChildrenMap);
-  const id3 = V();
-  const context = F(
+  const id3 = (0, import_react31.useId)();
+  const context = (0, import_react31.useMemo)(
     () => ({
       id: id3,
       initial,
@@ -7052,16 +7034,16 @@ var PresenceChild = ({ children, initial, isPresent: isPresent2, onExitComplete,
     }),
     presenceAffectsLayout ? void 0 : [isPresent2]
   );
-  F(() => {
-    presenceChildren.forEach((_2, key) => presenceChildren.set(key, false));
+  (0, import_react31.useMemo)(() => {
+    presenceChildren.forEach((_, key) => presenceChildren.set(key, false));
   }, [isPresent2]);
-  h2(() => {
+  React3.useEffect(() => {
     !isPresent2 && !presenceChildren.size && onExitComplete && onExitComplete();
   }, [isPresent2]);
   if (mode === "popLayout") {
-    children = h(PopChild, { isPresent: isPresent2 }, children);
+    children = React3.createElement(PopChild, { isPresent: isPresent2 }, children);
   }
-  return h(PresenceContext.Provider, { value: context }, children);
+  return React3.createElement(PresenceContext.Provider, { value: context }, children);
 };
 function newChildrenMap() {
   return /* @__PURE__ */ new Map();
@@ -7077,8 +7059,8 @@ function updateChildLookup(children, allChildren) {
 }
 function onlyElements(children) {
   const filtered = [];
-  A.forEach(children, (child) => {
-    if (on(child))
+  import_react32.Children.forEach(children, (child) => {
+    if ((0, import_react32.isValidElement)(child))
       filtered.push(child);
   });
   return filtered;
@@ -7089,16 +7071,16 @@ var AnimatePresence = ({ children, custom, initial = true, onExitComplete, exitB
     warnOnce(false, "Replace exitBeforeEnter with mode='wait'");
   }
   let [forceRender] = useForceUpdate();
-  const forceRenderLayoutGroup = q(LayoutGroupContext).forceRender;
+  const forceRenderLayoutGroup = (0, import_react32.useContext)(LayoutGroupContext).forceRender;
   if (forceRenderLayoutGroup)
     forceRender = forceRenderLayoutGroup;
   const isMounted = useIsMounted();
   const filteredChildren = onlyElements(children);
   let childrenToRender = filteredChildren;
   const exiting = /* @__PURE__ */ new Set();
-  const presentChildren = _(childrenToRender);
-  const allChildren = _(/* @__PURE__ */ new Map()).current;
-  const isInitialRender = _(true);
+  const presentChildren = (0, import_react32.useRef)(childrenToRender);
+  const allChildren = (0, import_react32.useRef)(/* @__PURE__ */ new Map()).current;
+  const isInitialRender = (0, import_react32.useRef)(true);
   useIsomorphicLayoutEffect(() => {
     isInitialRender.current = false;
     updateChildLookup(filteredChildren, allChildren);
@@ -7110,7 +7092,7 @@ var AnimatePresence = ({ children, custom, initial = true, onExitComplete, exitB
     exiting.clear();
   });
   if (isInitialRender.current) {
-    return h(p, null, childrenToRender.map((child) => h(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? void 0 : false, presenceAffectsLayout, mode }, child)));
+    return React4.createElement(React4.Fragment, null, childrenToRender.map((child) => React4.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? void 0 : false, presenceAffectsLayout, mode }, child)));
   }
   childrenToRender = [...childrenToRender];
   const presentKeys = presentChildren.current.map(getChildKey);
@@ -7145,27 +7127,27 @@ var AnimatePresence = ({ children, custom, initial = true, onExitComplete, exitB
         onExitComplete && onExitComplete();
       }
     };
-    childrenToRender.splice(insertionIndex, 0, h(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom, presenceAffectsLayout, mode }, child));
+    childrenToRender.splice(insertionIndex, 0, React4.createElement(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom, presenceAffectsLayout, mode }, child));
   });
   childrenToRender = childrenToRender.map((child) => {
     const key = child.key;
-    return exiting.has(key) ? child : h(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout, mode }, child);
+    return exiting.has(key) ? child : React4.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout, mode }, child);
   });
   if (env !== "production" && mode === "wait" && childrenToRender.length > 1) {
     console.warn(`You're attempting to animate multiple children within AnimatePresence, but its mode is set to "wait". This will lead to odd visual behaviour.`);
   }
-  return h(p, null, exiting.size ? childrenToRender : childrenToRender.map((child) => ln(child)));
+  return React4.createElement(React4.Fragment, null, exiting.size ? childrenToRender : childrenToRender.map((child) => (0, import_react32.cloneElement)(child)));
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.mjs
 init_define_process();
-init_react_preact();
-var DeprecatedLayoutGroupContext = B(null);
+var import_react33 = __toESM(require_react(), 1);
+var DeprecatedLayoutGroupContext = (0, import_react33.createContext)(null);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
 init_define_process();
-init_react_preact();
-init_react_preact();
+var React5 = __toESM(require_react(), 1);
+var import_react34 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/projection/node/group.mjs
 init_define_process();
@@ -7196,10 +7178,10 @@ var shouldInheritId = (inherit) => shouldInheritGroup(inherit === true) || inher
 var LayoutGroup = ({ children, id: id3, inheritId, inherit = true }) => {
   if (inheritId !== void 0)
     inherit = inheritId;
-  const layoutGroupContext = q(LayoutGroupContext);
-  const deprecatedLayoutGroupContext = q(DeprecatedLayoutGroupContext);
+  const layoutGroupContext = (0, import_react34.useContext)(LayoutGroupContext);
+  const deprecatedLayoutGroupContext = (0, import_react34.useContext)(DeprecatedLayoutGroupContext);
   const [forceRender, key] = useForceUpdate();
-  const context = _(null);
+  const context = (0, import_react34.useRef)(null);
   const upstreamId = layoutGroupContext.id || deprecatedLayoutGroupContext;
   if (context.current === null) {
     if (shouldInheritId(inherit) && upstreamId) {
@@ -7210,46 +7192,46 @@ var LayoutGroup = ({ children, id: id3, inheritId, inherit = true }) => {
       group: shouldInheritGroup(inherit) ? layoutGroupContext.group || nodeGroup() : nodeGroup()
     };
   }
-  const memoizedContext = F(() => ({ ...context.current, forceRender }), [key]);
-  return h(LayoutGroupContext.Provider, { value: memoizedContext }, children);
+  const memoizedContext = (0, import_react34.useMemo)(() => ({ ...context.current, forceRender }), [key]);
+  return React5.createElement(LayoutGroupContext.Provider, { value: memoizedContext }, children);
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
 init_define_process();
-init_react_preact();
+var React6 = __toESM(require_react(), 1);
 var id2 = 0;
 var AnimateSharedLayout = ({ children }) => {
-  h2(() => {
+  React6.useEffect(() => {
     warning(false, "AnimateSharedLayout is deprecated: https://www.framer.com/docs/guide-upgrade/##shared-layout-animations");
   }, []);
-  return h(LayoutGroup, { id: useConstant(() => `asl-${id2++}`) }, children);
+  return React6.createElement(LayoutGroup, { id: useConstant(() => `asl-${id2++}`) }, children);
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/MotionConfig/index.mjs
 init_define_process();
-init_react_preact();
-init_react_preact();
+var React7 = __toESM(require_react(), 1);
+var import_react35 = __toESM(require_react(), 1);
 function MotionConfig({ children, isValidProp, ...config }) {
   isValidProp && loadExternalIsValidProp(isValidProp);
-  config = { ...q(MotionConfigContext), ...config };
+  config = { ...(0, import_react35.useContext)(MotionConfigContext), ...config };
   config.isStatic = useConstant(() => config.isStatic);
-  const context = F(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
-  return h(MotionConfigContext.Provider, { value: context }, children);
+  const context = (0, import_react35.useMemo)(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
+  return React7.createElement(MotionConfigContext.Provider, { value: context }, children);
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
 init_define_process();
-init_react_preact();
-init_react_preact();
+var React8 = __toESM(require_react(), 1);
+var import_react36 = __toESM(require_react(), 1);
 function LazyMotion({ children, features, strict = false }) {
-  const [, setIsLoaded] = p2(!isLazyBundle(features));
-  const loadedRenderer = _(void 0);
+  const [, setIsLoaded] = (0, import_react36.useState)(!isLazyBundle(features));
+  const loadedRenderer = (0, import_react36.useRef)(void 0);
   if (!isLazyBundle(features)) {
     const { renderer, ...loadedFeatures } = features;
     loadedRenderer.current = renderer;
     loadFeatures(loadedFeatures);
   }
-  h2(() => {
+  (0, import_react36.useEffect)(() => {
     if (isLazyBundle(features)) {
       features().then(({ renderer, ...loadedFeatures }) => {
         loadFeatures(loadedFeatures);
@@ -7258,7 +7240,7 @@ function LazyMotion({ children, features, strict = false }) {
       });
     }
   }, []);
-  return h(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
+  return React8.createElement(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
 }
 function isLazyBundle(features) {
   return typeof features === "function";
@@ -7266,13 +7248,13 @@ function isLazyBundle(features) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/value/use-motion-value.mjs
 init_define_process();
-init_react_preact();
+var import_react37 = __toESM(require_react(), 1);
 function useMotionValue(initial) {
   const value = useConstant(() => motionValue(initial));
-  const { isStatic } = q(MotionConfigContext);
+  const { isStatic } = (0, import_react37.useContext)(MotionConfigContext);
   if (isStatic) {
-    const [, setLatest] = p2(initial);
-    h2(() => value.onChange(setLatest), []);
+    const [, setLatest] = (0, import_react37.useState)(initial);
+    (0, import_react37.useEffect)(() => value.onChange(setLatest), []);
   }
   return value;
 }
@@ -7352,13 +7334,13 @@ init_define_process();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
 init_define_process();
-init_react_preact();
-init_react_preact();
+var React9 = __toESM(require_react(), 1);
+var import_react39 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/context/ReorderContext.mjs
 init_define_process();
-init_react_preact();
-var ReorderContext = B(null);
+var import_react38 = __toESM(require_react(), 1);
+var ReorderContext = (0, import_react38.createContext)(null);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/Reorder/utils/check-reorder.mjs
 init_define_process();
@@ -7383,9 +7365,9 @@ function checkReorder(order2, value, offset, velocity) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
 function ReorderGroup({ children, as = "ul", axis = "y", onReorder, values, ...props }, externalRef) {
-  const Component = useConstant(() => motion(as));
+  const Component2 = useConstant(() => motion(as));
   const order2 = [];
-  const isReordering = _(false);
+  const isReordering = (0, import_react39.useRef)(false);
   invariant(Boolean(values), "Reorder.Group must be provided a values prop");
   const context = {
     axis,
@@ -7405,16 +7387,16 @@ function ReorderGroup({ children, as = "ul", axis = "y", onReorder, values, ...p
       }
     }
   };
-  h2(() => {
+  (0, import_react39.useEffect)(() => {
     isReordering.current = false;
   });
-  return h(
-    Component,
+  return React9.createElement(
+    Component2,
     { ...props, ref: externalRef },
-    h(ReorderContext.Provider, { value: context }, children)
+    React9.createElement(ReorderContext.Provider, { value: context }, children)
   );
 }
-var Group = N(ReorderGroup);
+var Group = (0, import_react39.forwardRef)(ReorderGroup);
 function getValue(item) {
   return item.value;
 }
@@ -7424,26 +7406,26 @@ function compareMin(a2, b2) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Item.mjs
 init_define_process();
-init_react_preact();
-init_react_preact();
+var React10 = __toESM(require_react(), 1);
+var import_react40 = __toESM(require_react(), 1);
 function useDefaultMotionValue(value, defaultValue = 0) {
   return isMotionValue(value) ? value : useMotionValue(defaultValue);
 }
 function ReorderItem({ children, style: style2 = {}, value, as = "li", onDrag, layout = true, ...props }, externalRef) {
-  const Component = useConstant(() => motion(as));
-  const context = q(ReorderContext);
+  const Component2 = useConstant(() => motion(as));
+  const context = (0, import_react40.useContext)(ReorderContext);
   const point2 = {
     x: useDefaultMotionValue(style2.x),
     y: useDefaultMotionValue(style2.y)
   };
   const zIndex = useTransform([point2.x, point2.y], ([latestX, latestY]) => latestX || latestY ? 1 : "unset");
-  const measuredLayout = _(null);
+  const measuredLayout = (0, import_react40.useRef)(null);
   invariant(Boolean(context), "Reorder.Item must be a child of Reorder.Group");
   const { axis, registerItem, updateOrder } = context;
-  h2(() => {
+  (0, import_react40.useEffect)(() => {
     registerItem(value, measuredLayout.current);
   }, [context]);
-  return h(Component, { drag: axis, ...props, dragSnapToOrigin: true, style: { ...style2, x: point2.x, y: point2.y, zIndex }, layout, onDrag: (event, gesturePoint) => {
+  return React10.createElement(Component2, { drag: axis, ...props, dragSnapToOrigin: true, style: { ...style2, x: point2.x, y: point2.y, zIndex }, layout, onDrag: (event, gesturePoint) => {
     const { velocity } = gesturePoint;
     velocity[axis] && updateOrder(value, point2[axis].get(), velocity[axis]);
     onDrag && onDrag(event, gesturePoint);
@@ -7451,7 +7433,7 @@ function ReorderItem({ children, style: style2 = {}, value, as = "li", onDrag, l
     measuredLayout.current = measured;
   }, ref: externalRef }, children);
 }
-var Item = N(ReorderItem);
+var Item = (0, import_react40.forwardRef)(ReorderItem);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 var Reorder = {
@@ -7495,12 +7477,12 @@ function useMotionTemplate(fragments, ...values) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/value/use-spring.mjs
 init_define_process();
-init_react_preact();
+var import_react41 = __toESM(require_react(), 1);
 function useSpring(source, config = {}) {
-  const { isStatic } = q(MotionConfigContext);
-  const activeSpringAnimation = _(null);
+  const { isStatic } = (0, import_react41.useContext)(MotionConfigContext);
+  const activeSpringAnimation = (0, import_react41.useRef)(null);
   const value = useMotionValue(isMotionValue(source) ? source.get() : source);
-  F(() => {
+  (0, import_react41.useMemo)(() => {
     return value.attach((v, set) => {
       if (isStatic)
         return set(v);
@@ -7523,10 +7505,10 @@ function useSpring(source, config = {}) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/value/use-velocity.mjs
 init_define_process();
-init_react_preact();
+var import_react42 = __toESM(require_react(), 1);
 function useVelocity(value) {
   const velocity = useMotionValue(value.getVelocity());
-  h2(() => {
+  (0, import_react42.useEffect)(() => {
     return value.velocityUpdateSubscribers.add((newVelocity) => {
       velocity.set(newVelocity);
     });
@@ -8657,11 +8639,11 @@ function useViewportScroll() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
 init_define_process();
-init_react_preact();
+var import_react43 = __toESM(require_react(), 1);
 function useAnimationFrame(callback) {
-  const initialTimestamp = _(0);
-  const { isStatic } = q(MotionConfigContext);
-  h2(() => {
+  const initialTimestamp = (0, import_react43.useRef)(0);
+  const { isStatic } = (0, import_react43.useContext)(MotionConfigContext);
+  (0, import_react43.useEffect)(() => {
     if (isStatic)
       return;
     const provideTimeSinceStart = ({ timestamp, delta }) => {
@@ -8724,19 +8706,19 @@ function useWillChange() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion.mjs
 init_define_process();
-init_react_preact();
+var import_react44 = __toESM(require_react(), 1);
 function useReducedMotion() {
   !hasReducedMotionListener.current && initPrefersReducedMotion();
-  const [shouldReduceMotion] = p2(prefersReducedMotion.current);
+  const [shouldReduceMotion] = (0, import_react44.useState)(prefersReducedMotion.current);
   return shouldReduceMotion;
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion-config.mjs
 init_define_process();
-init_react_preact();
+var import_react45 = __toESM(require_react(), 1);
 function useReducedMotionConfig() {
   const reducedMotionPreference = useReducedMotion();
-  const { reducedMotion } = q(MotionConfigContext);
+  const { reducedMotion } = (0, import_react45.useContext)(MotionConfigContext);
   if (reducedMotion === "never") {
     return false;
   } else if (reducedMotion === "always") {
@@ -8802,21 +8784,21 @@ function animationControls() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/animation/use-animation.mjs
 init_define_process();
-init_react_preact();
+var import_react46 = __toESM(require_react(), 1);
 function useAnimationControls() {
   const controls = useConstant(animationControls);
-  h2(controls.mount, []);
+  (0, import_react46.useEffect)(controls.mount, []);
   return controls;
 }
 var useAnimation = useAnimationControls;
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-cycle.mjs
 init_define_process();
-init_react_preact();
+var import_react47 = __toESM(require_react(), 1);
 function useCycle(...items) {
-  const index = _(0);
-  const [item, setItem] = p2(items[index.current]);
-  const runCycle = T(
+  const index = (0, import_react47.useRef)(0);
+  const [item, setItem] = (0, import_react47.useState)(items[index.current]);
+  const runCycle = (0, import_react47.useCallback)(
     (next) => {
       index.current = typeof next !== "number" ? wrap(0, items.length, index.current + 1) : next;
       setItem(items[index.current]);
@@ -8828,10 +8810,10 @@ function useCycle(...items) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-in-view.mjs
 init_define_process();
-init_react_preact();
+var import_react48 = __toESM(require_react(), 1);
 function useInView(ref, { root, margin, amount, once = false } = {}) {
-  const [isInView, setInView] = p2(false);
-  h2(() => {
+  const [isInView, setInView] = (0, import_react48.useState)(false);
+  (0, import_react48.useEffect)(() => {
     if (!ref.current || once && isInView)
       return;
     const onEnter = () => {
@@ -8899,11 +8881,11 @@ function startTransition(callback) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition.mjs
 init_define_process();
-init_react_preact();
+var import_react49 = __toESM(require_react(), 1);
 function useInstantTransition() {
   const [forceUpdate, forcedRenderCount] = useForceUpdate();
   const startInstantLayoutTransition = useInstantLayoutTransition();
-  h2(() => {
+  (0, import_react49.useEffect)(() => {
     es_default.postRender(() => es_default.postRender(() => instantAnimationState.current = false));
   }, [forcedRenderCount]);
   return (callback) => {
@@ -8917,9 +8899,9 @@ function useInstantTransition() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/projection/use-reset-projection.mjs
 init_define_process();
-init_react_preact();
+var React11 = __toESM(require_react(), 1);
 function useResetProjection() {
-  const reset = T(() => {
+  const reset = React11.useCallback(() => {
     const root = rootProjectionNode.current;
     if (!root)
       return;
@@ -8930,7 +8912,7 @@ function useResetProjection() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-eaad4c48a9/0/global/cache/framer-motion-npm-7.5.3-3b17e389c6-9.zip/node_modules/framer-motion/dist/es/animation/use-animated-state.mjs
 init_define_process();
-init_react_preact();
+var import_react50 = __toESM(require_react(), 1);
 var createObject = () => ({});
 var stateVisualElement = visualElement({
   build() {
@@ -8959,14 +8941,14 @@ var useVisualState = makeUseVisualState({
   createRenderState: createObject
 });
 function useAnimatedState(initialState) {
-  const [animationState, setAnimationState] = p2(initialState);
+  const [animationState, setAnimationState] = (0, import_react50.useState)(initialState);
   const visualState = useVisualState({}, false);
   const element = useConstant(() => stateVisualElement({ props: {}, visualState }, { initialState }));
-  h2(() => {
+  (0, import_react50.useEffect)(() => {
     element.mount({});
     return element.unmount;
   }, [element]);
-  h2(() => {
+  (0, import_react50.useEffect)(() => {
     element.setProps({
       onUpdate: (v) => {
         setAnimationState({ ...v });

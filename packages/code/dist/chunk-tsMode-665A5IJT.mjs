@@ -1,13 +1,13 @@
 import {
   typescriptDefaults
-} from "./chunk-chunk-7FW3UPTI.mjs";
+} from "./chunk-chunk-MONSOE3Z.mjs";
 import {
   editor_api_exports
-} from "./chunk-chunk-P3GYAQLL.mjs";
+} from "./chunk-chunk-ODWPMOKA.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-WK2SDDIY.mjs";
-import "./chunk-chunk-477FBAEY.mjs";
+} from "./chunk-chunk-VOIE2EHU.mjs";
+import "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
 init_define_process();

@@ -8,18 +8,16 @@ import {
   require_emotion_weak_memoize_cjs,
   require_extends,
   require_hoist_non_react_statics_cjs
-} from "./chunk-chunk-PQTEBQRP.mjs";
+} from "./chunk-chunk-PGMP5G6J.mjs";
 import {
-  init_react_preact,
-  react_preact_exports
-} from "./chunk-chunk-ZXJLJGC4.mjs";
+  require_react
+} from "./chunk-chunk-3UE53YJF.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-WK2SDDIY.mjs";
+} from "./chunk-chunk-VOIE2EHU.mjs";
 import {
-  __commonJS,
-  __toCommonJS
-} from "./chunk-chunk-477FBAEY.mjs";
+  __commonJS
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/dist/emotion-react.cjs.dev.js
 var require_emotion_react_cjs_dev = __commonJS({
@@ -27,7 +25,7 @@ var require_emotion_react_cjs_dev = __commonJS({
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
-    var React = (init_react_preact(), __toCommonJS(react_preact_exports));
+    var React = require_react();
     require_emotion_cache_cjs();
     var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
     require_extends();

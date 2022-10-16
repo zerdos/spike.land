@@ -1,28 +1,82 @@
-export {renderToString} from "./preact/compat/server.browser"
+//export {renderToString} from "./preact/compa
+// import { render, hydrate, unmountComponentAtNode } from "./preact/compat/dist/compat.mjs"
 
-import { render, hydrate, unmountComponentAtNode } from "./preact/compat/dist/compat.mjs"
+// export function createRoot(container) {
+// 	return {
+// 		render(children) {
+// 			render(children, container)
+// 		},
+// 		unmount() {
+// 			unmountComponentAtNode(container)
+// 		}
+// 	}
+// }
 
-export function createRoot(container) {
-	return {
-		render(children) {
-			render(children, container)
-		},
-		unmount() {
-			unmountComponentAtNode(container)
-		}
-	}
-}
-
-export function hydrateRoot(container, children) {
-	hydrate(children, container)
-	return createRoot(container)
-}
+// export function hydrateRoot(container, children) {
+// 	hydrate(children, container)
+// 	return createRoot(contain
 
 
-export {jsx, jsxs, Fragment}  from "./preact/compat/jsx-runtime.mjs";
+// import { render, hydrate, unmountComponentAtNode } from "./preact/compat/dist/compat.mjs"
 
-export * from "./preact/compat/dist/compat.mjs"
-export {default} from  "./preact/compat/dist/compat.mjs"
+// export function createRoot(container) {
+// 	return {
+// 		render(children) {
+// 			render(children, container)
+// 		},
+// 		unmount() {
+// 			unmountComponentAtNode(container)
+// 		}
+// 	}
+// }
+
+// export function hydrateRoot(container, children) {
+// 	hydrate(children, container)
+// 	return createRoot(container)
+// }
+
+
+// export {jsx, jsxs, Fragment}  from "./preact/compat/jsx-runtime.mjs";
+
+import * as React from "react"
+
+export const {
+ Children,
+Component,
+Fragment,
+PureComponent,
+ StrictMode,
+Suspense,
+ cloneElement,
+createContext,
+createElement,
+ createFactory,
+createRef,
+ forwardRef,
+ isValidElement,
+
+ lazy,
+ memo,
+ startTransition,
+ useCallback,
+ useContext,
+ useDebugValue,
+ useDeferredValue,
+ useEffect,
+useId,
+ useImperativeHandle,
+ useInsertionEffect,
+ useLayoutEffect,
+useMemo,
+ useReducer,
+ useRef,
+ useState,
+ useSyncExternalStore,
+ useTransition,
+ version} = React;
+
+
+ export {default} from  "react"
 
 // export const React = { ...Preact, ...PreactCompat, Component};
 // Object.assign(React, {default: React})

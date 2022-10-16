@@ -1,7 +1,7 @@
 
 import type { FC } from "react";
 import { useState, useEffect, useRef } from "react";
-import {terminal} from "./DraggableWindow"
+// import {terminal} from "./DraggableWindow"
 
 import { mST, patchSync } from "./session";
 import ErrorBoundary from "./ErrorBoundary";
@@ -122,9 +122,9 @@ export async function appFactory(
 
   if (!apps[hash]) {
     try {
-      if (terminal && terminal.clear) {
-        terminal.clear();
-      }
+      // if (terminal && terminal.clear) {
+      //   terminal.clear();
+      // }
       console.log(`i: ${mstI}: `);
       const App = (await import(createJsBlob(trp)))
         .default as unknown as FC;

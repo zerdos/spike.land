@@ -1,4 +1,4 @@
-import "./chunk-chunk-7FW3UPTI.mjs";
+import "./chunk-chunk-MONSOE3Z.mjs";
 import {
   $,
   Action,
@@ -567,10 +567,10 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-P3GYAQLL.mjs";
+} from "./chunk-chunk-ODWPMOKA.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-WK2SDDIY.mjs";
+} from "./chunk-chunk-VOIE2EHU.mjs";
 import {
   __commonJS,
   __esm,
@@ -578,7 +578,7 @@ import {
   __privateGet,
   __privateSet,
   __toESM
-} from "./chunk-chunk-477FBAEY.mjs";
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -41995,7 +41995,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-C7H6VGQB.mjs");
+      return import("./chunk-typescript-FH7LOR4H.mjs");
     }
   }
 });
@@ -42403,9 +42403,7 @@ var monacoContribution = async (code) => {
   const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`).replaceAll(regex2, ` from '${location.origin}/live`);
   const models = replaced.matchAll(search);
   for (const match of models) {
-    console.log("***** EXTRA MODELS *****");
     const extraModel = new URL(match[0].slice(7) + ".tsx", location.origin).toString();
-    console.log(extraModel);
     createModel(
       await fetch(extraModel).then(async (res) => res.text()),
       "typescript",
@@ -42413,7 +42411,7 @@ var monacoContribution = async (code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-X7ZTACRX.mjs");
+    const { dtsFiles } = await import("./chunk-types-33OV3KAV.mjs");
     const {
       reactDts,
       jsxRuntimeDts,
@@ -42565,7 +42563,6 @@ self.MonacoEnvironment = {
 };
 var mod = {};
 var startMonaco = async ({ code, container, name }) => {
-  console.log({ code, container, name });
   if (mod[name]) {
     return mod[name];
   }

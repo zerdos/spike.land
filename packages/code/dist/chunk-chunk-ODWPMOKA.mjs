@@ -1,11 +1,11 @@
 import {
   define_process_default,
   init_define_process
-} from "./chunk-chunk-WK2SDDIY.mjs";
+} from "./chunk-chunk-VOIE2EHU.mjs";
 import {
   __esm,
   __export
-} from "./chunk-chunk-477FBAEY.mjs";
+} from "./chunk-chunk-VTSDAELY.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/esm/vs/nls.js
 function _format(message, args) {
