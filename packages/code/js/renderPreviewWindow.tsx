@@ -17,11 +17,9 @@ import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
 
-const RainbowContainer: React.FC<{ children: JSX.Element}> = (
+const RainbowContainer: React.FC<{ children}> = (
   {children },
-) => (
-  <div
-    css={css`
+) => (  <div css={css`
               height: 100%;
               width: 100%;
               background-blend-mode: overlay;
@@ -63,8 +61,7 @@ const RainbowContainer: React.FC<{ children: JSX.Element}> = (
                 #7cba6d 0, #7cba6d 88.8888888889%, 
                 #becc2f 0, #becc2f 94.4444444444%, 
                 #e0d81d 0, #e0d81d 100%);
-`}
-  >
+`}>
     {children}
   </div>
 );
