@@ -5,10 +5,10 @@ import "ace-builds/src-min-noconflict/mode-typescript";
 export async function startAce(code: string) {
   // Const {ace} = window;
   const editor = edit("editor", {
-    autoScrollEditorIntoView: true,
-    useWorker: true,
+    autoScrollEditorIntoView: false,
+    useWorker: false,
     scrollPastEnd: true,
-    copyWithEmptySelection: true,
+    copyWithEmptySelection: false,
   });
   editor.setTheme("ace/theme/monokai");
 

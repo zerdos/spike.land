@@ -1,4 +1,10 @@
 import {
+  transform
+} from "./chunk-chunk-KVSVLQ6C.mjs";
+import {
+  wait
+} from "./chunk-chunk-XKQSAEYU.mjs";
+import {
   applyPatch,
   hashCode,
   mST,
@@ -11,16 +17,29 @@ import {
   startSession
 } from "./chunk-chunk-FN4A4NOQ.mjs";
 import {
+  wrap
+} from "./chunk-chunk-47JOSZAC.mjs";
+import {
+  Children,
+  PureComponent,
   S2,
   Suspense,
   __commonJS as __commonJS2,
   __toCommonJS,
   __toESM as __toESM2,
+  cloneElement2,
   createElement2,
+  createPortal,
+  createRef2,
+  createRoot,
+  emotionCache_default,
+  export_CacheProvider,
   export_css,
   init_define_process as init_define_process2,
   init_react_preact,
+  isValidElement2,
   lazy,
+  p,
   react_preact_default,
   react_preact_exports,
   require_emotion_cache_cjs,
@@ -33,9 +52,10 @@ import {
   require_extends,
   require_hoist_non_react_statics_cjs,
   useEffect,
+  useMemo,
   useRef,
   useState
-} from "./chunk-chunk-ZJB52ZGH.mjs";
+} from "./chunk-chunk-XNTQLKH6.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-5VN25EFX.mjs";
@@ -51,8 +71,8 @@ import {
 var require_qrious = __commonJS({
   "../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js"(exports, module) {
     init_define_process();
-    (function(global, factory) {
-      typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : global.QRious = factory();
+    (function(global2, factory) {
+      typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : global2.QRious = factory();
     })(exports, function() {
       "use strict";
       var Constructor = function() {
@@ -2931,7 +2951,7 @@ var require_xterm = __commonJS({
           t2.ScreenDprMonitor = r;
         }, 3236: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.Terminal = void 0;
-          const s2 = i2(2950), r = i2(1680), n = i2(3614), o = i2(2584), a = i2(5435), h2 = i2(9312), c = i2(6114), l = i2(3656), d = i2(9042), _ = i2(4567), u = i2(1296), f = i2(7399), v = i2(8460), g = i2(8437), p = i2(5680), S = i2(3230), m3 = i2(4725), C = i2(428), b = i2(8934), y = i2(6465), w = i2(5114), E = i2(8969), L = i2(8055), R = i2(4269), k = i2(5941), D = i2(3107), A = i2(5744), x = i2(9074), B = i2(2585), T = i2(2962), M = "undefined" != typeof window ? window.document : null;
+          const s2 = i2(2950), r = i2(1680), n = i2(3614), o = i2(2584), a = i2(5435), h2 = i2(9312), c = i2(6114), l = i2(3656), d = i2(9042), _ = i2(4567), u = i2(1296), f = i2(7399), v = i2(8460), g = i2(8437), p2 = i2(5680), S = i2(3230), m3 = i2(4725), C = i2(428), b = i2(8934), y = i2(6465), w = i2(5114), E = i2(8969), L = i2(8055), R = i2(4269), k = i2(5941), D = i2(3107), A = i2(5744), x = i2(9074), B = i2(2585), T = i2(2962), M = "undefined" != typeof window ? window.document : null;
           class O extends E.CoreTerminal {
             constructor(e3 = {}) {
               super(e3), this.browser = c, this._keyDownHandled = false, this._keyDownSeen = false, this._keyPressHandled = false, this._unprocessedDeadKey = false, this._onCursorMove = new v.EventEmitter(), this._onKey = new v.EventEmitter(), this._onRender = new v.EventEmitter(), this._onSelectionChange = new v.EventEmitter(), this._onTitleChange = new v.EventEmitter(), this._onBell = new v.EventEmitter(), this._onFocus = new v.EventEmitter(), this._onBlur = new v.EventEmitter(), this._onA11yCharEmitter = new v.EventEmitter(), this._onA11yTabEmitter = new v.EventEmitter(), this._setup(), this.linkifier2 = this.register(this._instantiationService.createInstance(y.Linkifier2)), this.linkifier2.registerLinkProvider(this._instantiationService.createInstance(T.OscLinkProvider)), this._decorationService = this._instantiationService.createInstance(x.DecorationService), this._instantiationService.setService(B.IDecorationService, this._decorationService), this.register(this._inputHandler.onRequestBell(() => this._onBell.fire())), this.register(this._inputHandler.onRequestRefreshRows((e4, t3) => this.refresh(e4, t3))), this.register(this._inputHandler.onRequestSendFocus(() => this._reportFocus())), this.register(this._inputHandler.onRequestReset(() => this.reset())), this.register(this._inputHandler.onRequestWindowsOptionsReport((e4) => this._reportWindowsOptions(e4))), this.register(this._inputHandler.onColor((e4) => this._handleColorEvent(e4))), this.register((0, v.forwardEvent)(this._inputHandler.onCursorMove, this._onCursorMove)), this.register((0, v.forwardEvent)(this._inputHandler.onTitleChange, this._onTitleChange)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yChar, this._onA11yCharEmitter)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yTab, this._onA11yTabEmitter)), this.register(this._bufferService.onResize((e4) => this._afterResize(e4.cols, e4.rows)));
@@ -3087,7 +3107,7 @@ var require_xterm = __commonJS({
                 throw new Error("Terminal requires a parent element.");
               e3.isConnected || this._logService.debug("Terminal.open was called on an element that was not attached to the DOM"), this._document = e3.ownerDocument, this.element = this._document.createElement("div"), this.element.dir = "ltr", this.element.classList.add("terminal"), this.element.classList.add("xterm"), this.element.setAttribute("tabindex", "0"), e3.appendChild(this.element);
               const i3 = M.createDocumentFragment();
-              this._viewportElement = M.createElement("div"), this._viewportElement.classList.add("xterm-viewport"), i3.appendChild(this._viewportElement), this._viewportScrollArea = M.createElement("div"), this._viewportScrollArea.classList.add("xterm-scroll-area"), this._viewportElement.appendChild(this._viewportScrollArea), this.screenElement = M.createElement("div"), this.screenElement.classList.add("xterm-screen"), this._helperContainer = M.createElement("div"), this._helperContainer.classList.add("xterm-helpers"), this.screenElement.appendChild(this._helperContainer), i3.appendChild(this.screenElement), this.textarea = M.createElement("textarea"), this.textarea.classList.add("xterm-helper-textarea"), this.textarea.setAttribute("aria-label", d.promptLabel), this.textarea.setAttribute("aria-multiline", "false"), this.textarea.setAttribute("autocorrect", "off"), this.textarea.setAttribute("autocapitalize", "off"), this.textarea.setAttribute("spellcheck", "false"), this.textarea.tabIndex = 0, this.register((0, l.addDisposableDomListener)(this.textarea, "focus", (e4) => this._onTextAreaFocus(e4))), this.register((0, l.addDisposableDomListener)(this.textarea, "blur", () => this._onTextAreaBlur())), this._helperContainer.appendChild(this.textarea), this._coreBrowserService = this._instantiationService.createInstance(w.CoreBrowserService, this.textarea, null !== (t3 = this._document.defaultView) && void 0 !== t3 ? t3 : window), this._instantiationService.setService(m3.ICoreBrowserService, this._coreBrowserService), this._charSizeService = this._instantiationService.createInstance(C.CharSizeService, this._document, this._helperContainer), this._instantiationService.setService(m3.ICharSizeService, this._charSizeService), this._theme = this.options.theme || this._theme, this._colorManager = new p.ColorManager(M, this.options.allowTransparency), this.register(this.optionsService.onOptionChange((e4) => this._colorManager.onOptionsChange(e4, this.optionsService.rawOptions[e4]))), this._colorManager.setTheme(this._theme), this._characterJoinerService = this._instantiationService.createInstance(R.CharacterJoinerService), this._instantiationService.setService(m3.ICharacterJoinerService, this._characterJoinerService);
+              this._viewportElement = M.createElement("div"), this._viewportElement.classList.add("xterm-viewport"), i3.appendChild(this._viewportElement), this._viewportScrollArea = M.createElement("div"), this._viewportScrollArea.classList.add("xterm-scroll-area"), this._viewportElement.appendChild(this._viewportScrollArea), this.screenElement = M.createElement("div"), this.screenElement.classList.add("xterm-screen"), this._helperContainer = M.createElement("div"), this._helperContainer.classList.add("xterm-helpers"), this.screenElement.appendChild(this._helperContainer), i3.appendChild(this.screenElement), this.textarea = M.createElement("textarea"), this.textarea.classList.add("xterm-helper-textarea"), this.textarea.setAttribute("aria-label", d.promptLabel), this.textarea.setAttribute("aria-multiline", "false"), this.textarea.setAttribute("autocorrect", "off"), this.textarea.setAttribute("autocapitalize", "off"), this.textarea.setAttribute("spellcheck", "false"), this.textarea.tabIndex = 0, this.register((0, l.addDisposableDomListener)(this.textarea, "focus", (e4) => this._onTextAreaFocus(e4))), this.register((0, l.addDisposableDomListener)(this.textarea, "blur", () => this._onTextAreaBlur())), this._helperContainer.appendChild(this.textarea), this._coreBrowserService = this._instantiationService.createInstance(w.CoreBrowserService, this.textarea, null !== (t3 = this._document.defaultView) && void 0 !== t3 ? t3 : window), this._instantiationService.setService(m3.ICoreBrowserService, this._coreBrowserService), this._charSizeService = this._instantiationService.createInstance(C.CharSizeService, this._document, this._helperContainer), this._instantiationService.setService(m3.ICharSizeService, this._charSizeService), this._theme = this.options.theme || this._theme, this._colorManager = new p2.ColorManager(M, this.options.allowTransparency), this.register(this.optionsService.onOptionChange((e4) => this._colorManager.onOptionsChange(e4, this.optionsService.rawOptions[e4]))), this._colorManager.setTheme(this._theme), this._characterJoinerService = this._instantiationService.createInstance(R.CharacterJoinerService), this._instantiationService.setService(m3.ICharacterJoinerService, this._characterJoinerService);
               const n2 = this._createRenderer();
               this._renderService = this.register(this._instantiationService.createInstance(S.RenderService, n2, this.rows, this.screenElement)), this._instantiationService.setService(m3.IRenderService, this._renderService), this.register(this._renderService.onRenderedViewportChange((e4) => this._onRender.fire(e4))), this.onResize((e4) => this._renderService.resize(e4.cols, e4.rows)), this._compositionView = M.createElement("div"), this._compositionView.classList.add("composition-view"), this._compositionHelper = this._instantiationService.createInstance(s2.CompositionHelper, this.textarea, this._compositionView), this._helperContainer.appendChild(this._compositionView), this.element.appendChild(i3), this._mouseService = this._instantiationService.createInstance(b.MouseService), this._instantiationService.setService(m3.IMouseService, this._mouseService), this.viewport = this._instantiationService.createInstance(r.Viewport, (e4) => this.scrollLines(e4, true, 1), this._viewportElement, this._viewportScrollArea, this.element), this.viewport.onThemeChange(this._colorManager.colors), this.register(this._inputHandler.onRequestSyncScrollBar(() => this.viewport.syncScrollArea())), this.register(this.viewport), this.register(this.onCursorMove(() => {
                 this._renderService.onCursorMove(), this._syncTextArea();
@@ -3984,25 +4004,25 @@ var require_xterm = __commonJS({
             }
             createRow(e3, i3, s3, r2, a2, h3, l2, _2) {
               const f2 = this._document.createDocumentFragment(), g = this._characterJoinerService.getJoinedCharacters(i3);
-              let p = 0;
+              let p2 = 0;
               for (let t3 = Math.min(e3.length, _2) - 1; t3 >= 0; t3--)
                 if (e3.loadCell(t3, this._workCell).getCode() !== o.NULL_CELL_CODE || s3 && t3 === a2) {
-                  p = t3 + 1;
+                  p2 = t3 + 1;
                   break;
                 }
-              for (let _3 = 0; _3 < p; _3++) {
+              for (let _3 = 0; _3 < p2; _3++) {
                 e3.loadCell(_3, this._workCell);
-                let p2 = this._workCell.getWidth();
-                if (0 === p2)
+                let p3 = this._workCell.getWidth();
+                if (0 === p3)
                   continue;
                 let S = false, m3 = _3, C = this._workCell;
                 if (g.length > 0 && _3 === g[0][0]) {
                   S = true;
                   const t3 = g.shift();
-                  C = new d.JoinedCellData(this._workCell, e3.translateToString(true, t3[0], t3[1]), t3[1] - t3[0]), m3 = t3[1] - 1, p2 = C.getWidth();
+                  C = new d.JoinedCellData(this._workCell, e3.translateToString(true, t3[0], t3[1]), t3[1] - t3[0]), m3 = t3[1] - 1, p3 = C.getWidth();
                 }
                 const b = this._document.createElement("span");
-                if (p2 > 1 && (b.style.width = l2 * p2 + "px"), S && (b.style.display = "inline", a2 >= _3 && a2 <= m3 && (a2 = _3)), !this._coreService.isCursorHidden && s3 && _3 === a2)
+                if (p3 > 1 && (b.style.width = l2 * p3 + "px"), S && (b.style.display = "inline", a2 >= _3 && a2 <= m3 && (a2 = _3)), !this._coreService.isCursorHidden && s3 && _3 === a2)
                   switch (b.classList.add(t2.CURSOR_CLASS), h3 && b.classList.add(t2.CURSOR_BLINK_CLASS), r2) {
                     case "bar":
                       b.classList.add(t2.CURSOR_STYLE_BAR_CLASS);
@@ -4458,7 +4478,7 @@ var require_xterm = __commonJS({
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.SelectionService = void 0;
           const n = i2(6114), o = i2(456), a = i2(511), h2 = i2(8460), c = i2(4725), l = i2(2585), d = i2(9806), _ = i2(9504), u = i2(844), f = i2(4841), v = String.fromCharCode(160), g = new RegExp(v, "g");
-          let p = class extends u.Disposable {
+          let p2 = class extends u.Disposable {
             constructor(e3, t3, i3, s3, r2, n2, c2, l2, d2) {
               super(), this._element = e3, this._screenElement = t3, this._linkifier = i3, this._bufferService = s3, this._coreService = r2, this._mouseService = n2, this._optionsService = c2, this._renderService = l2, this._coreBrowserService = d2, this._dragScrollAmount = 0, this._enabled = true, this._workCell = new a.CellData(), this._mouseDownTimeStamp = 0, this._oldHasSelection = false, this._oldSelectionStart = void 0, this._oldSelectionEnd = void 0, this._onLinuxMouseSelection = this.register(new h2.EventEmitter()), this._onRedrawRequest = this.register(new h2.EventEmitter()), this._onSelectionChange = this.register(new h2.EventEmitter()), this._onRequestScrollLines = this.register(new h2.EventEmitter()), this._mouseMoveListener = (e4) => this._onMouseMove(e4), this._mouseUpListener = (e4) => this._onMouseUp(e4), this._coreService.onUserInput(() => {
                 this.hasSelection && this.clearSelection();
@@ -4750,7 +4770,7 @@ var require_xterm = __commonJS({
               this._model.selectionStart = [0, t3.first], this._model.selectionEnd = void 0, this._model.selectionStartLength = (0, f.getRangeLength)(i3, this._bufferService.cols);
             }
           };
-          p = s2([r(3, l.IBufferService), r(4, l.ICoreService), r(5, c.IMouseService), r(6, l.IOptionsService), r(7, c.IRenderService), r(8, c.ICoreBrowserService)], p), t2.SelectionService = p;
+          p2 = s2([r(3, l.IBufferService), r(4, l.ICoreService), r(5, c.IMouseService), r(6, l.IOptionsService), r(7, c.IRenderService), r(8, c.ICoreBrowserService)], p2), t2.SelectionService = p2;
         }, 4725: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.ICharacterJoinerService = t2.ISelectionService = t2.IRenderService = t2.IMouseService = t2.ICoreBrowserService = t2.ICharSizeService = void 0;
           const s2 = i2(8343);
@@ -4972,7 +4992,7 @@ var require_xterm = __commonJS({
           }(r = t2.rgba || (t2.rgba = {})), t2.toPaddedHex = n, t2.contrastRatio = o;
         }, 8969: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.CoreTerminal = void 0;
-          const s2 = i2(844), r = i2(2585), n = i2(4348), o = i2(7866), a = i2(744), h2 = i2(7302), c = i2(6975), l = i2(8460), d = i2(1753), _ = i2(3730), u = i2(1480), f = i2(7994), v = i2(9282), g = i2(5435), p = i2(5981), S = i2(2660);
+          const s2 = i2(844), r = i2(2585), n = i2(4348), o = i2(7866), a = i2(744), h2 = i2(7302), c = i2(6975), l = i2(8460), d = i2(1753), _ = i2(3730), u = i2(1480), f = i2(7994), v = i2(9282), g = i2(5435), p2 = i2(5981), S = i2(2660);
           let m3 = false;
           class C extends s2.Disposable {
             constructor(e3) {
@@ -4980,7 +5000,7 @@ var require_xterm = __commonJS({
                 this._onScroll.fire({ position: this._bufferService.buffer.ydisp, source: 0 }), this._dirtyRowService.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom);
               })), this.register(this._inputHandler.onScroll((e4) => {
                 this._onScroll.fire({ position: this._bufferService.buffer.ydisp, source: 0 }), this._dirtyRowService.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom);
-              })), this._writeBuffer = new p.WriteBuffer((e4, t3) => this._inputHandler.parse(e4, t3)), this.register((0, l.forwardEvent)(this._writeBuffer.onWriteParsed, this._onWriteParsed));
+              })), this._writeBuffer = new p2.WriteBuffer((e4, t3) => this._inputHandler.parse(e4, t3)), this.register((0, l.forwardEvent)(this._writeBuffer.onWriteParsed, this._onWriteParsed));
             }
             get onBinary() {
               return this._onBinary.event;
@@ -5118,7 +5138,7 @@ var require_xterm = __commonJS({
           };
         }, 5435: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.InputHandler = t2.WindowsOptionsReportType = void 0;
-          const s2 = i2(2584), r = i2(7116), n = i2(2015), o = i2(844), a = i2(482), h2 = i2(8437), c = i2(8460), l = i2(643), d = i2(511), _ = i2(3734), u = i2(2585), f = i2(6242), v = i2(6351), g = i2(5941), p = { "(": 0, ")": 1, "*": 2, "+": 3, "-": 1, ".": 2 }, S = 131072;
+          const s2 = i2(2584), r = i2(7116), n = i2(2015), o = i2(844), a = i2(482), h2 = i2(8437), c = i2(8460), l = i2(643), d = i2(511), _ = i2(3734), u = i2(2585), f = i2(6242), v = i2(6351), g = i2(5941), p2 = { "(": 0, ")": 1, "*": 2, "+": 3, "-": 1, ".": 2 }, S = 131072;
           function m3(e3, t3) {
             if (e3 > 24)
               return t3.setWinLines || false;
@@ -5175,8 +5195,8 @@ var require_xterm = __commonJS({
             e3[e3.GET_WIN_SIZE_PIXELS = 0] = "GET_WIN_SIZE_PIXELS", e3[e3.GET_CELL_SIZE_PIXELS = 1] = "GET_CELL_SIZE_PIXELS";
           }(C = t2.WindowsOptionsReportType || (t2.WindowsOptionsReportType = {}));
           class b extends o.Disposable {
-            constructor(e3, t3, i3, o2, l2, _2, u2, g2, p2, S3 = new n.EscapeSequenceParser()) {
-              super(), this._bufferService = e3, this._charsetService = t3, this._coreService = i3, this._dirtyRowService = o2, this._logService = l2, this._optionsService = _2, this._oscLinkService = u2, this._coreMouseService = g2, this._unicodeService = p2, this._parser = S3, this._parseBuffer = new Uint32Array(4096), this._stringDecoder = new a.StringToUtf32(), this._utf8Decoder = new a.Utf8ToUtf32(), this._workCell = new d.CellData(), this._windowTitle = "", this._iconName = "", this._windowTitleStack = [], this._iconNameStack = [], this._curAttrData = h2.DEFAULT_ATTR_DATA.clone(), this._eraseAttrDataInternal = h2.DEFAULT_ATTR_DATA.clone(), this._onRequestBell = new c.EventEmitter(), this._onRequestRefreshRows = new c.EventEmitter(), this._onRequestReset = new c.EventEmitter(), this._onRequestSendFocus = new c.EventEmitter(), this._onRequestSyncScrollBar = new c.EventEmitter(), this._onRequestWindowsOptionsReport = new c.EventEmitter(), this._onA11yChar = new c.EventEmitter(), this._onA11yTab = new c.EventEmitter(), this._onCursorMove = new c.EventEmitter(), this._onLineFeed = new c.EventEmitter(), this._onScroll = new c.EventEmitter(), this._onTitleChange = new c.EventEmitter(), this._onColor = new c.EventEmitter(), this._parseStack = { paused: false, cursorStartX: 0, cursorStartY: 0, decodedLength: 0, position: 0 }, this._specialColors = [256, 257, 258], this.register(this._parser), this._activeBuffer = this._bufferService.buffer, this.register(this._bufferService.buffers.onBufferActivate((e4) => this._activeBuffer = e4.activeBuffer)), this._parser.setCsiHandlerFallback((e4, t4) => {
+            constructor(e3, t3, i3, o2, l2, _2, u2, g2, p3, S3 = new n.EscapeSequenceParser()) {
+              super(), this._bufferService = e3, this._charsetService = t3, this._coreService = i3, this._dirtyRowService = o2, this._logService = l2, this._optionsService = _2, this._oscLinkService = u2, this._coreMouseService = g2, this._unicodeService = p3, this._parser = S3, this._parseBuffer = new Uint32Array(4096), this._stringDecoder = new a.StringToUtf32(), this._utf8Decoder = new a.Utf8ToUtf32(), this._workCell = new d.CellData(), this._windowTitle = "", this._iconName = "", this._windowTitleStack = [], this._iconNameStack = [], this._curAttrData = h2.DEFAULT_ATTR_DATA.clone(), this._eraseAttrDataInternal = h2.DEFAULT_ATTR_DATA.clone(), this._onRequestBell = new c.EventEmitter(), this._onRequestRefreshRows = new c.EventEmitter(), this._onRequestReset = new c.EventEmitter(), this._onRequestSendFocus = new c.EventEmitter(), this._onRequestSyncScrollBar = new c.EventEmitter(), this._onRequestWindowsOptionsReport = new c.EventEmitter(), this._onA11yChar = new c.EventEmitter(), this._onA11yTab = new c.EventEmitter(), this._onCursorMove = new c.EventEmitter(), this._onLineFeed = new c.EventEmitter(), this._onScroll = new c.EventEmitter(), this._onTitleChange = new c.EventEmitter(), this._onColor = new c.EventEmitter(), this._parseStack = { paused: false, cursorStartX: 0, cursorStartY: 0, decodedLength: 0, position: 0 }, this._specialColors = [256, 257, 258], this.register(this._parser), this._activeBuffer = this._bufferService.buffer, this.register(this._bufferService.buffers.onBufferActivate((e4) => this._activeBuffer = e4.activeBuffer)), this._parser.setCsiHandlerFallback((e4, t4) => {
                 this._logService.debug("Unknown CSI code: ", { identifier: this._parser.identToString(e4), params: t4.toArray() });
               }), this._parser.setEscHandlerFallback((e4) => {
                 this._logService.debug("Unknown ESC code: ", { identifier: this._parser.identToString(e4) });
@@ -5929,7 +5949,7 @@ var require_xterm = __commonJS({
               return this._charsetService.setgLevel(0), this._charsetService.setgCharset(0, r.DEFAULT_CHARSET), true;
             }
             selectCharset(e3) {
-              return 2 !== e3.length ? (this.selectDefaultCharset(), true) : ("/" === e3[0] || this._charsetService.setgCharset(p[e3[0]], r.CHARSETS[e3[1]] || r.DEFAULT_CHARSET), true);
+              return 2 !== e3.length ? (this.selectDefaultCharset(), true) : ("/" === e3[0] || this._charsetService.setgCharset(p2[e3[0]], r.CHARSETS[e3[1]] || r.DEFAULT_CHARSET), true);
             }
             index() {
               return this._restrictCursor(), this._activeBuffer.y++, this._activeBuffer.y === this._activeBuffer.scrollBottom + 1 ? (this._activeBuffer.y--, this._bufferService.scroll(this._eraseAttrData())) : this._activeBuffer.y >= this._bufferService.rows && (this._activeBuffer.y = this._bufferService.rows - 1), this._restrictCursor(), true;
@@ -6385,14 +6405,14 @@ var require_xterm = __commonJS({
                   v.push(e5);
                 }
                 v.length > 0 && (s3.push({ start: o2 + c2.length + n2, newLines: v }), n2 += v.length), c2.push(...v);
-                let g = _.length - 1, p = _[g];
-                0 === p && (g--, p = _[g]);
+                let g = _.length - 1, p2 = _[g];
+                0 === p2 && (g--, p2 = _[g]);
                 let S = c2.length - u - 1, m3 = d2;
                 for (; S >= 0; ) {
-                  const e4 = Math.min(m3, p);
+                  const e4 = Math.min(m3, p2);
                   if (void 0 === c2[g])
                     break;
-                  if (c2[g].copyCellsFrom(c2[S], m3 - e4, p - e4, e4, true), p -= e4, 0 === p && (g--, p = _[g]), m3 -= e4, 0 === m3) {
+                  if (c2[g].copyCellsFrom(c2[S], m3 - e4, p2 - e4, e4, true), p2 -= e4, 0 === p2 && (g--, p2 = _[g]), m3 -= e4, 0 === m3) {
                     S--;
                     const e5 = Math.max(S, 0);
                     m3 = (0, a.getWrappedLineTrimmedLength)(c2, e5, this._cols);
@@ -9864,9 +9884,9 @@ var __assign = function() {
   __assign = Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
-      for (var p in s)
-        if (Object.prototype.hasOwnProperty.call(s, p))
-          t[p] = s[p];
+      for (var p2 in s)
+        if (Object.prototype.hasOwnProperty.call(s, p2))
+          t[p2] = s[p2];
     }
     return t;
   };
@@ -9874,13 +9894,13 @@ var __assign = function() {
 };
 var __rest = function(s, e) {
   var t = {};
-  for (var p in s)
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-      t[p] = s[p];
+  for (var p2 in s)
+    if (Object.prototype.hasOwnProperty.call(s, p2) && e.indexOf(p2) < 0)
+      t[p2] = s[p2];
   if (s != null && typeof Object.getOwnPropertySymbols === "function")
-    for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-      if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-        t[p[i]] = s[p[i]];
+    for (var i = 0, p2 = Object.getOwnPropertySymbols(s); i < p2.length; i++) {
+      if (e.indexOf(p2[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p2[i]))
+        t[p2[i]] = s[p2[i]];
     }
   return t;
 };
@@ -10069,14 +10089,14 @@ var QRious2 = (_a) => {
 
 // js/mui.tsx
 init_define_process();
-var FabLazy = lazy(async () => import("./chunk-Fab-M6BGF6K6.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-64ET7A6E.mjs"));
 var Fab = (props) => export_jsx(Suspense, {
   fallback: export_jsx("div", {
     css: export_css`width: 28px; height:28px`
   }),
   children: export_jsx(FabLazy, __spreadValues({}, props))
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-4ZYBUX5B.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-U6DW2G3R.mjs"));
 var ToggleButton = (props) => export_jsx(Suspense, {
   fallback: export_jsx("div", {
     css: export_css`width: 28px; height:28px`
@@ -10084,7 +10104,7 @@ var ToggleButton = (props) => export_jsx(Suspense, {
   children: export_jsx(ToggleButtonLazy, __spreadValues({}, props))
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-H6HYQLY6.mjs")
+  async () => import("./chunk-ToggleButtonGroup-HTJELWBH.mjs")
 );
 var ToggleButtonGroup = (props) => export_jsx(Suspense, {
   fallback: export_jsx("div", {
@@ -10470,6 +10490,2805 @@ var ErrorBoundary = class extends react_preact_default.Component {
 };
 var ErrorBoundary_default = ErrorBoundary;
 
+// js/renderPreviewWindow.tsx
+init_define_process();
+
+// ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
+init_define_process();
+var __extends = function() {
+  var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
+      d2.__proto__ = b2;
+    } || function(d2, b2) {
+      for (var p2 in b2)
+        if (b2.hasOwnProperty(p2))
+          d2[p2] = b2[p2];
+    };
+    return extendStatics(d, b);
+  };
+  return function(d, b) {
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var ELEMENT_TYPE_HTML = "html";
+var ELEMENT_TYPE_SVG = "svg";
+var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+var validateElementType = function(domElement, elementType) {
+  if (elementType === ELEMENT_TYPE_HTML) {
+    return domElement instanceof HTMLElement;
+  }
+  if (elementType === ELEMENT_TYPE_SVG) {
+    return domElement instanceof SVGElement;
+  }
+  throw new Error('Unrecognized element type "' + elementType + '" for validateElementType.');
+};
+var createPortalNode = function(elementType, options) {
+  var initialProps = {};
+  var parent;
+  var lastPlaceholder;
+  var element;
+  if (elementType === ELEMENT_TYPE_HTML) {
+    element = document.createElement("div");
+  } else if (elementType === ELEMENT_TYPE_SVG) {
+    element = document.createElementNS(SVG_NAMESPACE, "g");
+  } else {
+    throw new Error('Invalid element type "' + elementType + '" for createPortalNode: must be "html" or "svg".');
+  }
+  if (options && typeof options === "object") {
+    for (var _i = 0, _a = Object.entries(options.attributes); _i < _a.length; _i++) {
+      var _b = _a[_i], key = _b[0], value = _b[1];
+      element.setAttribute(key, value);
+    }
+  }
+  var portalNode = {
+    element,
+    elementType,
+    setPortalProps: function(props) {
+      initialProps = props;
+    },
+    getInitialPortalProps: function() {
+      return initialProps;
+    },
+    mount: function(newParent, newPlaceholder) {
+      if (newPlaceholder === lastPlaceholder) {
+        return;
+      }
+      portalNode.unmount();
+      if (newParent !== parent) {
+        if (!validateElementType(newParent, elementType)) {
+          throw new Error('Invalid element type for portal: "' + elementType + '" portalNodes must be used with ' + elementType + " elements, but OutPortal is within <" + newParent.tagName + ">.");
+        }
+      }
+      newParent.replaceChild(portalNode.element, newPlaceholder);
+      parent = newParent;
+      lastPlaceholder = newPlaceholder;
+    },
+    unmount: function(expectedPlaceholder) {
+      if (expectedPlaceholder && expectedPlaceholder !== lastPlaceholder) {
+        return;
+      }
+      if (parent && lastPlaceholder) {
+        parent.replaceChild(lastPlaceholder, portalNode.element);
+        parent = void 0;
+        lastPlaceholder = void 0;
+      }
+    }
+  };
+  return portalNode;
+};
+var InPortal = function(_super) {
+  __extends(InPortal2, _super);
+  function InPortal2(props) {
+    var _this = _super.call(this, props) || this;
+    _this.addPropsChannel = function() {
+      Object.assign(_this.props.node, {
+        setPortalProps: function(props2) {
+          _this.setState({ nodeProps: props2 });
+        }
+      });
+    };
+    _this.state = {
+      nodeProps: _this.props.node.getInitialPortalProps()
+    };
+    return _this;
+  }
+  InPortal2.prototype.componentDidMount = function() {
+    this.addPropsChannel();
+  };
+  InPortal2.prototype.componentDidUpdate = function() {
+    this.addPropsChannel();
+  };
+  InPortal2.prototype.render = function() {
+    var _this = this;
+    var _a = this.props, children = _a.children, node = _a.node;
+    return createPortal(Children.map(children, function(child) {
+      if (!isValidElement2(child))
+        return child;
+      return cloneElement2(child, _this.state.nodeProps);
+    }), node.element);
+  };
+  return InPortal2;
+}(PureComponent);
+var OutPortal = function(_super) {
+  __extends(OutPortal2, _super);
+  function OutPortal2(props) {
+    var _this = _super.call(this, props) || this;
+    _this.placeholderNode = createRef2();
+    _this.passPropsThroughPortal();
+    return _this;
+  }
+  OutPortal2.prototype.passPropsThroughPortal = function() {
+    var propsForTarget = Object.assign({}, this.props, { node: void 0 });
+    this.props.node.setPortalProps(propsForTarget);
+  };
+  OutPortal2.prototype.componentDidMount = function() {
+    var node = this.props.node;
+    this.currentPortalNode = node;
+    var placeholder = this.placeholderNode.current;
+    var parent = placeholder.parentNode;
+    node.mount(parent, placeholder);
+    this.passPropsThroughPortal();
+  };
+  OutPortal2.prototype.componentDidUpdate = function() {
+    var node = this.props.node;
+    if (this.currentPortalNode && node !== this.currentPortalNode) {
+      this.currentPortalNode.unmount(this.placeholderNode.current);
+      this.currentPortalNode.setPortalProps({});
+      this.currentPortalNode = node;
+    }
+    var placeholder = this.placeholderNode.current;
+    var parent = placeholder.parentNode;
+    node.mount(parent, placeholder);
+    this.passPropsThroughPortal();
+  };
+  OutPortal2.prototype.componentWillUnmount = function() {
+    var node = this.props.node;
+    node.unmount(this.placeholderNode.current);
+    node.setPortalProps({});
+  };
+  OutPortal2.prototype.render = function() {
+    return createElement2("div", { ref: this.placeholderNode });
+  };
+  return OutPortal2;
+}(PureComponent);
+var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
+var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
+
+// js/Editor.tsx
+init_define_process();
+
+// js/runner.tsx
+init_define_process();
+
+// js/toUmd.ts
+init_define_process();
+
+// ../../.yarn/global/cache/es-module-shims-npm-1.6.1-737a4e0e18-9.zip/node_modules/es-module-shims/dist/es-module-shims.js
+init_define_process();
+(function() {
+  const hasWindow = typeof window !== "undefined";
+  const hasDocument = typeof document !== "undefined";
+  const noop = () => {
+  };
+  const optionsScript = hasDocument ? document.querySelector("script[type=esms-options]") : void 0;
+  const esmsInitOptions = optionsScript ? JSON.parse(optionsScript.innerHTML) : {};
+  Object.assign(esmsInitOptions, self.esmsInitOptions || {});
+  let shimMode = hasDocument ? !!esmsInitOptions.shimMode : true;
+  const importHook = globalHook(shimMode && esmsInitOptions.onimport);
+  const resolveHook = globalHook(shimMode && esmsInitOptions.resolve);
+  let fetchHook = esmsInitOptions.fetch ? globalHook(esmsInitOptions.fetch) : fetch;
+  const metaHook = esmsInitOptions.meta ? globalHook(shimMode && esmsInitOptions.meta) : noop;
+  const mapOverrides = esmsInitOptions.mapOverrides;
+  let nonce = esmsInitOptions.nonce;
+  if (!nonce && hasDocument) {
+    const nonceElement = document.querySelector("script[nonce]");
+    if (nonceElement)
+      nonce = nonceElement.nonce || nonceElement.getAttribute("nonce");
+  }
+  const onerror = globalHook(esmsInitOptions.onerror || noop);
+  const onpolyfill = esmsInitOptions.onpolyfill ? globalHook(esmsInitOptions.onpolyfill) : () => {
+    console.log("%c^^ Module TypeError above is polyfilled and can be ignored ^^", "font-weight:900;color:#391");
+  };
+  const { revokeBlobURLs, noLoadEventRetriggers, enforceIntegrity } = esmsInitOptions;
+  function globalHook(name) {
+    return typeof name === "string" ? self[name] : name;
+  }
+  const enable = Array.isArray(esmsInitOptions.polyfillEnable) ? esmsInitOptions.polyfillEnable : [];
+  const cssModulesEnabled = enable.includes("css-modules");
+  const jsonModulesEnabled = enable.includes("json-modules");
+  const edge = !navigator.userAgentData && !!navigator.userAgent.match(/Edge\/\d+\.\d+/);
+  const baseUrl = hasDocument ? document.baseURI : `${location.protocol}//${location.host}${location.pathname.includes("/") ? location.pathname.slice(0, location.pathname.lastIndexOf("/") + 1) : location.pathname}`;
+  const createBlob = (source, type = "text/javascript") => URL.createObjectURL(new Blob([source], { type }));
+  let { skip } = esmsInitOptions;
+  if (Array.isArray(skip)) {
+    const l2 = skip.map((s2) => new URL(s2, baseUrl).href);
+    skip = (s2) => l2.some((i2) => i2[i2.length - 1] === "/" && s2.startsWith(i2) || s2 === i2);
+  } else if (typeof skip === "string") {
+    const r2 = new RegExp(skip);
+    skip = (s2) => r2.test(s2);
+  }
+  const eoop = (err) => setTimeout(() => {
+    throw err;
+  });
+  const throwError = (err) => {
+    (self.reportError || hasWindow && window.safari && console.error || eoop)(err), void onerror(err);
+  };
+  function fromParent(parent) {
+    return parent ? ` imported from ${parent}` : "";
+  }
+  let importMapSrcOrLazy = false;
+  function setImportMapSrcOrLazy() {
+    importMapSrcOrLazy = true;
+  }
+  if (!shimMode) {
+    if (document.querySelectorAll("script[type=module-shim],script[type=importmap-shim],link[rel=modulepreload-shim]").length) {
+      shimMode = true;
+    } else {
+      let seenScript = false;
+      for (const script of document.querySelectorAll("script[type=module],script[type=importmap]")) {
+        if (!seenScript) {
+          if (script.type === "module" && !script.ep)
+            seenScript = true;
+        } else if (script.type === "importmap" && seenScript) {
+          importMapSrcOrLazy = true;
+          break;
+        }
+      }
+    }
+  }
+  const backslashRegEx = /\\/g;
+  function isURL(url) {
+    if (url.indexOf(":") === -1)
+      return false;
+    try {
+      new URL(url);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+  function resolveUrl(relUrl, parentUrl) {
+    return resolveIfNotPlainOrUrl(relUrl, parentUrl) || (isURL(relUrl) ? relUrl : resolveIfNotPlainOrUrl("./" + relUrl, parentUrl));
+  }
+  function resolveIfNotPlainOrUrl(relUrl, parentUrl) {
+    const hIdx = parentUrl.indexOf("#"), qIdx = parentUrl.indexOf("?");
+    if (hIdx + qIdx > -2)
+      parentUrl = parentUrl.slice(0, hIdx === -1 ? qIdx : qIdx === -1 || qIdx > hIdx ? hIdx : qIdx);
+    if (relUrl.indexOf("\\") !== -1)
+      relUrl = relUrl.replace(backslashRegEx, "/");
+    if (relUrl[0] === "/" && relUrl[1] === "/") {
+      return parentUrl.slice(0, parentUrl.indexOf(":") + 1) + relUrl;
+    } else if (relUrl[0] === "." && (relUrl[1] === "/" || relUrl[1] === "." && (relUrl[2] === "/" || relUrl.length === 2 && (relUrl += "/")) || relUrl.length === 1 && (relUrl += "/")) || relUrl[0] === "/") {
+      const parentProtocol = parentUrl.slice(0, parentUrl.indexOf(":") + 1);
+      let pathname;
+      if (parentUrl[parentProtocol.length + 1] === "/") {
+        if (parentProtocol !== "file:") {
+          pathname = parentUrl.slice(parentProtocol.length + 2);
+          pathname = pathname.slice(pathname.indexOf("/") + 1);
+        } else {
+          pathname = parentUrl.slice(8);
+        }
+      } else {
+        pathname = parentUrl.slice(parentProtocol.length + (parentUrl[parentProtocol.length] === "/"));
+      }
+      if (relUrl[0] === "/")
+        return parentUrl.slice(0, parentUrl.length - pathname.length - 1) + relUrl;
+      const segmented = pathname.slice(0, pathname.lastIndexOf("/") + 1) + relUrl;
+      const output = [];
+      let segmentIndex = -1;
+      for (let i2 = 0; i2 < segmented.length; i2++) {
+        if (segmentIndex !== -1) {
+          if (segmented[i2] === "/") {
+            output.push(segmented.slice(segmentIndex, i2 + 1));
+            segmentIndex = -1;
+          }
+          continue;
+        } else if (segmented[i2] === ".") {
+          if (segmented[i2 + 1] === "." && (segmented[i2 + 2] === "/" || i2 + 2 === segmented.length)) {
+            output.pop();
+            i2 += 2;
+            continue;
+          } else if (segmented[i2 + 1] === "/" || i2 + 1 === segmented.length) {
+            i2 += 1;
+            continue;
+          }
+        }
+        while (segmented[i2] === "/")
+          i2++;
+        segmentIndex = i2;
+      }
+      if (segmentIndex !== -1)
+        output.push(segmented.slice(segmentIndex));
+      return parentUrl.slice(0, parentUrl.length - pathname.length) + output.join("");
+    }
+  }
+  function resolveAndComposeImportMap(json, baseUrl2, parentMap) {
+    const outMap = { imports: Object.assign({}, parentMap.imports), scopes: Object.assign({}, parentMap.scopes) };
+    if (json.imports)
+      resolveAndComposePackages(json.imports, outMap.imports, baseUrl2, parentMap);
+    if (json.scopes)
+      for (let s2 in json.scopes) {
+        const resolvedScope = resolveUrl(s2, baseUrl2);
+        resolveAndComposePackages(json.scopes[s2], outMap.scopes[resolvedScope] || (outMap.scopes[resolvedScope] = {}), baseUrl2, parentMap);
+      }
+    return outMap;
+  }
+  function getMatch(path, matchObj) {
+    if (matchObj[path])
+      return path;
+    let sepIndex = path.length;
+    do {
+      const segment = path.slice(0, sepIndex + 1);
+      if (segment in matchObj)
+        return segment;
+    } while ((sepIndex = path.lastIndexOf("/", sepIndex - 1)) !== -1);
+  }
+  function applyPackages(id, packages) {
+    const pkgName = getMatch(id, packages);
+    if (pkgName) {
+      const pkg = packages[pkgName];
+      if (pkg === null)
+        return;
+      return pkg + id.slice(pkgName.length);
+    }
+  }
+  function resolveImportMap(importMap2, resolvedOrPlain, parentUrl) {
+    let scopeUrl = parentUrl && getMatch(parentUrl, importMap2.scopes);
+    while (scopeUrl) {
+      const packageResolution = applyPackages(resolvedOrPlain, importMap2.scopes[scopeUrl]);
+      if (packageResolution)
+        return packageResolution;
+      scopeUrl = getMatch(scopeUrl.slice(0, scopeUrl.lastIndexOf("/")), importMap2.scopes);
+    }
+    return applyPackages(resolvedOrPlain, importMap2.imports) || resolvedOrPlain.indexOf(":") !== -1 && resolvedOrPlain;
+  }
+  function resolveAndComposePackages(packages, outPackages, baseUrl2, parentMap) {
+    for (let p3 in packages) {
+      const resolvedLhs = resolveIfNotPlainOrUrl(p3, baseUrl2) || p3;
+      if ((!shimMode || !mapOverrides) && outPackages[resolvedLhs] && outPackages[resolvedLhs] !== packages[resolvedLhs]) {
+        throw Error(`Rejected map override "${resolvedLhs}" from ${outPackages[resolvedLhs]} to ${packages[resolvedLhs]}.`);
+      }
+      let target = packages[p3];
+      if (typeof target !== "string")
+        continue;
+      const mapped = resolveImportMap(parentMap, resolveIfNotPlainOrUrl(target, baseUrl2) || target, baseUrl2);
+      if (mapped) {
+        outPackages[resolvedLhs] = mapped;
+        continue;
+      }
+      console.warn(`Mapping "${p3}" -> "${packages[p3]}" does not resolve`);
+    }
+  }
+  let dynamicImport = !hasDocument && (0, eval)("u=>import(u)");
+  let supportsDynamicImport;
+  const dynamicImportCheck = hasDocument && new Promise((resolve2) => {
+    const s2 = Object.assign(document.createElement("script"), {
+      src: createBlob("self._d=u=>import(u)"),
+      ep: true
+    });
+    s2.setAttribute("nonce", nonce);
+    s2.addEventListener("load", () => {
+      if (!(supportsDynamicImport = !!(dynamicImport = self._d))) {
+        let err;
+        window.addEventListener("error", (_err) => err = _err);
+        dynamicImport = (url, opts) => new Promise((resolve3, reject) => {
+          const s3 = Object.assign(document.createElement("script"), {
+            type: "module",
+            src: createBlob(`import*as m from'${url}';self._esmsi=m`)
+          });
+          err = void 0;
+          s3.ep = true;
+          if (nonce)
+            s3.setAttribute("nonce", nonce);
+          s3.addEventListener("error", cb);
+          s3.addEventListener("load", cb);
+          function cb(_err) {
+            document.head.removeChild(s3);
+            if (self._esmsi) {
+              resolve3(self._esmsi, baseUrl);
+              self._esmsi = void 0;
+            } else {
+              reject(!(_err instanceof Event) && _err || err && err.error || new Error(`Error loading ${opts && opts.errUrl || url} (${s3.src}).`));
+              err = void 0;
+            }
+          }
+          document.head.appendChild(s3);
+        });
+      }
+      document.head.removeChild(s2);
+      delete self._d;
+      resolve2();
+    });
+    document.head.appendChild(s2);
+  });
+  let supportsJsonAssertions = false;
+  let supportsCssAssertions = false;
+  let supportsImportMaps = hasDocument && HTMLScriptElement.supports ? HTMLScriptElement.supports("importmap") : false;
+  let supportsImportMeta = supportsImportMaps;
+  const importMetaCheck = "import.meta";
+  const cssModulesCheck = `import"x"assert{type:"css"}`;
+  const jsonModulesCheck = `import"x"assert{type:"json"}`;
+  const featureDetectionPromise = Promise.resolve(dynamicImportCheck).then(() => {
+    if (!supportsDynamicImport || supportsImportMaps && !cssModulesEnabled && !jsonModulesEnabled)
+      return;
+    if (!hasDocument)
+      return Promise.all([
+        supportsImportMaps || dynamicImport(createBlob(importMetaCheck)).then(() => supportsImportMeta = true, noop),
+        cssModulesEnabled && dynamicImport(createBlob(cssModulesCheck.replace("x", createBlob("", "text/css")))).then(() => supportsCssAssertions = true, noop),
+        jsonModulesEnabled && dynamicImport(createBlob(jsonModulescheck.replace("x", createBlob("{}", "text/json")))).then(() => supportsJsonAssertions = true, noop)
+      ]);
+    return new Promise((resolve2) => {
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.setAttribute("nonce", nonce);
+      function cb({ data: [a2, b2, c2, d] }) {
+        supportsImportMaps = a2;
+        supportsImportMeta = b2;
+        supportsCssAssertions = c2;
+        supportsJsonAssertions = d;
+        resolve2();
+        document.head.removeChild(iframe);
+        window.removeEventListener("message", cb, false);
+      }
+      window.addEventListener("message", cb, false);
+      const importMapTest = `<script nonce=${nonce || ""}>b=(s,type='text/javascript')=>URL.createObjectURL(new Blob([s],{type}));document.head.appendChild(Object.assign(document.createElement('script'),{type:'importmap',nonce:"${nonce}",innerText:\`{"imports":{"x":"\${b('')}"}}\`}));Promise.all([${supportsImportMaps ? "true,true" : `'x',b('${importMetaCheck}')`}, ${cssModulesEnabled ? `b('${cssModulesCheck}'.replace('x',b('','text/css')))` : "false"}, ${jsonModulesEnabled ? `b('${jsonModulesCheck}'.replace('x',b('{}','text/json')))` : "false"}].map(x =>typeof x==='string'?import(x).then(x =>!!x,()=>false):x)).then(a=>parent.postMessage(a,'*'))<${""}/script>`;
+      iframe.onload = () => {
+        const doc = iframe.contentDocument;
+        if (doc && doc.head.childNodes.length === 0) {
+          const s2 = doc.createElement("script");
+          if (nonce)
+            s2.setAttribute("nonce", nonce);
+          s2.innerHTML = importMapTest.slice(15 + (nonce ? nonce.length : 0), -9);
+          doc.head.appendChild(s2);
+        }
+      };
+      document.head.appendChild(iframe);
+      if ("srcdoc" in iframe)
+        iframe.srcdoc = importMapTest;
+      else
+        iframe.contentDocument.write(importMapTest);
+    });
+  });
+  let e, a, r, i = 2 << 19;
+  const s = 1 === new Uint8Array(new Uint16Array([1]).buffer)[0] ? function(e2, a2) {
+    const r2 = e2.length;
+    let i2 = 0;
+    for (; i2 < r2; )
+      a2[i2] = e2.charCodeAt(i2++);
+  } : function(e2, a2) {
+    const r2 = e2.length;
+    let i2 = 0;
+    for (; i2 < r2; ) {
+      const r3 = e2.charCodeAt(i2);
+      a2[i2++] = (255 & r3) << 8 | r3 >>> 8;
+    }
+  }, t = "xportmportlassetafromssertvoyiedelecontininstantybreareturdebuggeawaithrwhileforifcatcfinallels";
+  let c$1, f, n;
+  function parse(l2, k2 = "@") {
+    c$1 = l2, f = k2;
+    const u2 = 2 * c$1.length + (2 << 18);
+    if (u2 > i || !e) {
+      for (; u2 > i; )
+        i *= 2;
+      a = new ArrayBuffer(i), s(t, new Uint16Array(a, 16, 95)), e = function(e2, a2, r2) {
+        ;
+        var i2 = new e2.Int8Array(r2), s2 = new e2.Int16Array(r2), t2 = new e2.Int32Array(r2), c2 = new e2.Uint8Array(r2), f2 = new e2.Uint16Array(r2), n2 = 1008;
+        function b2(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r3 = 0, c3 = 0, b3 = 0, o3 = 0, w3 = 0;
+          w3 = n2;
+          n2 = n2 + 10240 | 0;
+          i2[775] = 1;
+          s2[385] = 0;
+          s2[386] = 0;
+          t2[62] = t2[2];
+          i2[776] = 0;
+          t2[61] = 0;
+          i2[774] = 0;
+          t2[63] = w3 + 2048;
+          t2[64] = w3;
+          i2[777] = 0;
+          e3 = (t2[3] | 0) + -2 | 0;
+          t2[65] = e3;
+          a3 = e3 + (t2[59] << 1) | 0;
+          t2[66] = a3;
+          e:
+            while (1) {
+              r3 = e3 + 2 | 0;
+              t2[65] = r3;
+              if (e3 >>> 0 >= a3 >>> 0) {
+                b3 = 18;
+                break;
+              }
+              a:
+                do {
+                  switch (s2[r3 >> 1] | 0) {
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 32:
+                      break;
+                    case 101: {
+                      if ((((s2[386] | 0) == 0 ? F(r3) | 0 : 0) ? (m3(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) ? (l3(), (i2[775] | 0) == 0) : 0) {
+                        b3 = 9;
+                        break e;
+                      } else
+                        b3 = 17;
+                      break;
+                    }
+                    case 105: {
+                      if (F(r3) | 0 ? (m3(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                        k3();
+                        b3 = 17;
+                      } else
+                        b3 = 17;
+                      break;
+                    }
+                    case 59: {
+                      b3 = 17;
+                      break;
+                    }
+                    case 47:
+                      switch (s2[e3 + 4 >> 1] | 0) {
+                        case 47: {
+                          E();
+                          break a;
+                        }
+                        case 42: {
+                          y(1);
+                          break a;
+                        }
+                        default: {
+                          b3 = 16;
+                          break e;
+                        }
+                      }
+                    default: {
+                      b3 = 16;
+                      break e;
+                    }
+                  }
+                } while (0);
+              if ((b3 | 0) == 17) {
+                b3 = 0;
+                t2[62] = t2[65];
+              }
+              e3 = t2[65] | 0;
+              a3 = t2[66] | 0;
+            }
+          if ((b3 | 0) == 9) {
+            e3 = t2[65] | 0;
+            t2[62] = e3;
+            b3 = 19;
+          } else if ((b3 | 0) == 16) {
+            i2[775] = 0;
+            t2[65] = e3;
+            b3 = 19;
+          } else if ((b3 | 0) == 18)
+            if (!(i2[774] | 0)) {
+              e3 = r3;
+              b3 = 19;
+            } else
+              e3 = 0;
+          do {
+            if ((b3 | 0) == 19) {
+              e:
+                while (1) {
+                  a3 = e3 + 2 | 0;
+                  t2[65] = a3;
+                  c3 = a3;
+                  if (e3 >>> 0 >= (t2[66] | 0) >>> 0) {
+                    b3 = 82;
+                    break;
+                  }
+                  a:
+                    do {
+                      switch (s2[a3 >> 1] | 0) {
+                        case 9:
+                        case 10:
+                        case 11:
+                        case 12:
+                        case 13:
+                        case 32:
+                          break;
+                        case 101: {
+                          if (((s2[386] | 0) == 0 ? F(a3) | 0 : 0) ? (m3(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) {
+                            l3();
+                            b3 = 81;
+                          } else
+                            b3 = 81;
+                          break;
+                        }
+                        case 105: {
+                          if (F(a3) | 0 ? (m3(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                            k3();
+                            b3 = 81;
+                          } else
+                            b3 = 81;
+                          break;
+                        }
+                        case 99: {
+                          if ((F(a3) | 0 ? (m3(e3 + 4 | 0, 36, 8) | 0) == 0 : 0) ? R(s2[e3 + 12 >> 1] | 0) | 0 : 0) {
+                            i2[777] = 1;
+                            b3 = 81;
+                          } else
+                            b3 = 81;
+                          break;
+                        }
+                        case 40: {
+                          c3 = t2[63] | 0;
+                          a3 = s2[386] | 0;
+                          b3 = a3 & 65535;
+                          t2[c3 + (b3 << 3) >> 2] = 1;
+                          r3 = t2[62] | 0;
+                          s2[386] = a3 + 1 << 16 >> 16;
+                          t2[c3 + (b3 << 3) + 4 >> 2] = r3;
+                          b3 = 81;
+                          break;
+                        }
+                        case 41: {
+                          a3 = s2[386] | 0;
+                          if (!(a3 << 16 >> 16)) {
+                            b3 = 36;
+                            break e;
+                          }
+                          a3 = a3 + -1 << 16 >> 16;
+                          s2[386] = a3;
+                          r3 = s2[385] | 0;
+                          if (r3 << 16 >> 16 != 0 ? (o3 = t2[(t2[64] | 0) + ((r3 & 65535) + -1 << 2) >> 2] | 0, (t2[o3 + 20 >> 2] | 0) == (t2[(t2[63] | 0) + ((a3 & 65535) << 3) + 4 >> 2] | 0)) : 0) {
+                            a3 = o3 + 4 | 0;
+                            if (!(t2[a3 >> 2] | 0))
+                              t2[a3 >> 2] = c3;
+                            t2[o3 + 12 >> 2] = e3 + 4;
+                            s2[385] = r3 + -1 << 16 >> 16;
+                            b3 = 81;
+                          } else
+                            b3 = 81;
+                          break;
+                        }
+                        case 123: {
+                          b3 = t2[62] | 0;
+                          c3 = t2[56] | 0;
+                          e3 = b3;
+                          do {
+                            if ((s2[b3 >> 1] | 0) == 41 & (c3 | 0) != 0 ? (t2[c3 + 4 >> 2] | 0) == (b3 | 0) : 0) {
+                              a3 = t2[57] | 0;
+                              t2[56] = a3;
+                              if (!a3) {
+                                t2[52] = 0;
+                                break;
+                              } else {
+                                t2[a3 + 28 >> 2] = 0;
+                                break;
+                              }
+                            }
+                          } while (0);
+                          c3 = t2[63] | 0;
+                          r3 = s2[386] | 0;
+                          b3 = r3 & 65535;
+                          t2[c3 + (b3 << 3) >> 2] = (i2[777] | 0) == 0 ? 2 : 6;
+                          s2[386] = r3 + 1 << 16 >> 16;
+                          t2[c3 + (b3 << 3) + 4 >> 2] = e3;
+                          i2[777] = 0;
+                          b3 = 81;
+                          break;
+                        }
+                        case 125: {
+                          e3 = s2[386] | 0;
+                          if (!(e3 << 16 >> 16)) {
+                            b3 = 49;
+                            break e;
+                          }
+                          c3 = t2[63] | 0;
+                          b3 = e3 + -1 << 16 >> 16;
+                          s2[386] = b3;
+                          if ((t2[c3 + ((b3 & 65535) << 3) >> 2] | 0) == 4) {
+                            h3();
+                            b3 = 81;
+                          } else
+                            b3 = 81;
+                          break;
+                        }
+                        case 39: {
+                          d2(39);
+                          b3 = 81;
+                          break;
+                        }
+                        case 34: {
+                          d2(34);
+                          b3 = 81;
+                          break;
+                        }
+                        case 47:
+                          switch (s2[e3 + 4 >> 1] | 0) {
+                            case 47: {
+                              E();
+                              break a;
+                            }
+                            case 42: {
+                              y(1);
+                              break a;
+                            }
+                            default: {
+                              e3 = t2[62] | 0;
+                              c3 = s2[e3 >> 1] | 0;
+                              r:
+                                do {
+                                  if (!(U(c3) | 0)) {
+                                    switch (c3 << 16 >> 16) {
+                                      case 41:
+                                        if (z(t2[(t2[63] | 0) + (f2[386] << 3) + 4 >> 2] | 0) | 0) {
+                                          b3 = 69;
+                                          break r;
+                                        } else {
+                                          b3 = 66;
+                                          break r;
+                                        }
+                                      case 125:
+                                        break;
+                                      default: {
+                                        b3 = 66;
+                                        break r;
+                                      }
+                                    }
+                                    a3 = t2[63] | 0;
+                                    r3 = f2[386] | 0;
+                                    if (!(p3(t2[a3 + (r3 << 3) + 4 >> 2] | 0) | 0) ? (t2[a3 + (r3 << 3) >> 2] | 0) != 6 : 0)
+                                      b3 = 66;
+                                    else
+                                      b3 = 69;
+                                  } else
+                                    switch (c3 << 16 >> 16) {
+                                      case 46:
+                                        if (((s2[e3 + -2 >> 1] | 0) + -48 & 65535) < 10) {
+                                          b3 = 66;
+                                          break r;
+                                        } else {
+                                          b3 = 69;
+                                          break r;
+                                        }
+                                      case 43:
+                                        if ((s2[e3 + -2 >> 1] | 0) == 43) {
+                                          b3 = 66;
+                                          break r;
+                                        } else {
+                                          b3 = 69;
+                                          break r;
+                                        }
+                                      case 45:
+                                        if ((s2[e3 + -2 >> 1] | 0) == 45) {
+                                          b3 = 66;
+                                          break r;
+                                        } else {
+                                          b3 = 69;
+                                          break r;
+                                        }
+                                      default: {
+                                        b3 = 69;
+                                        break r;
+                                      }
+                                    }
+                                } while (0);
+                              r:
+                                do {
+                                  if ((b3 | 0) == 66) {
+                                    b3 = 0;
+                                    if (!(u3(e3) | 0)) {
+                                      switch (c3 << 16 >> 16) {
+                                        case 0: {
+                                          b3 = 69;
+                                          break r;
+                                        }
+                                        case 47: {
+                                          if (i2[776] | 0) {
+                                            b3 = 69;
+                                            break r;
+                                          }
+                                          break;
+                                        }
+                                        default: {
+                                        }
+                                      }
+                                      r3 = t2[3] | 0;
+                                      a3 = c3;
+                                      do {
+                                        if (e3 >>> 0 <= r3 >>> 0)
+                                          break;
+                                        e3 = e3 + -2 | 0;
+                                        t2[62] = e3;
+                                        a3 = s2[e3 >> 1] | 0;
+                                      } while (!(B(a3) | 0));
+                                      if (D(a3) | 0) {
+                                        do {
+                                          if (e3 >>> 0 <= r3 >>> 0)
+                                            break;
+                                          e3 = e3 + -2 | 0;
+                                          t2[62] = e3;
+                                        } while (D(s2[e3 >> 1] | 0) | 0);
+                                        if ($(e3) | 0) {
+                                          g();
+                                          i2[776] = 0;
+                                          b3 = 81;
+                                          break a;
+                                        } else
+                                          e3 = 1;
+                                      } else
+                                        e3 = 1;
+                                    } else
+                                      b3 = 69;
+                                  }
+                                } while (0);
+                              if ((b3 | 0) == 69) {
+                                g();
+                                e3 = 0;
+                              }
+                              i2[776] = e3;
+                              b3 = 81;
+                              break a;
+                            }
+                          }
+                        case 96: {
+                          c3 = t2[63] | 0;
+                          r3 = s2[386] | 0;
+                          b3 = r3 & 65535;
+                          t2[c3 + (b3 << 3) + 4 >> 2] = t2[62];
+                          s2[386] = r3 + 1 << 16 >> 16;
+                          t2[c3 + (b3 << 3) >> 2] = 3;
+                          h3();
+                          b3 = 81;
+                          break;
+                        }
+                        default:
+                          b3 = 81;
+                      }
+                    } while (0);
+                  if ((b3 | 0) == 81) {
+                    b3 = 0;
+                    t2[62] = t2[65];
+                  }
+                  e3 = t2[65] | 0;
+                }
+              if ((b3 | 0) == 36) {
+                Q();
+                e3 = 0;
+                break;
+              } else if ((b3 | 0) == 49) {
+                Q();
+                e3 = 0;
+                break;
+              } else if ((b3 | 0) == 82) {
+                e3 = (i2[774] | 0) == 0 ? (s2[385] | s2[386]) << 16 >> 16 == 0 : 0;
+                break;
+              }
+            }
+          } while (0);
+          n2 = w3;
+          return e3 | 0;
+        }
+        function l3() {
+          var e3 = 0, a3 = 0, r3 = 0, c3 = 0, f3 = 0, n3 = 0, b3 = 0;
+          f3 = t2[65] | 0;
+          n3 = t2[58] | 0;
+          b3 = f3 + 12 | 0;
+          t2[65] = b3;
+          r3 = w2(1) | 0;
+          e3 = t2[65] | 0;
+          if (!((e3 | 0) == (b3 | 0) ? !(I(r3) | 0) : 0))
+            c3 = 3;
+          e:
+            do {
+              if ((c3 | 0) == 3) {
+                a:
+                  do {
+                    switch (r3 << 16 >> 16) {
+                      case 123: {
+                        t2[65] = e3 + 2;
+                        e3 = w2(1) | 0;
+                        r3 = t2[65] | 0;
+                        while (1) {
+                          if (T(e3) | 0) {
+                            d2(e3);
+                            e3 = (t2[65] | 0) + 2 | 0;
+                            t2[65] = e3;
+                          } else {
+                            P(e3) | 0;
+                            e3 = t2[65] | 0;
+                          }
+                          w2(1) | 0;
+                          e3 = v(r3, e3) | 0;
+                          if (e3 << 16 >> 16 == 44) {
+                            t2[65] = (t2[65] | 0) + 2;
+                            e3 = w2(1) | 0;
+                          }
+                          a3 = r3;
+                          r3 = t2[65] | 0;
+                          if (e3 << 16 >> 16 == 125) {
+                            c3 = 15;
+                            break;
+                          }
+                          if ((r3 | 0) == (a3 | 0)) {
+                            c3 = 12;
+                            break;
+                          }
+                          if (r3 >>> 0 > (t2[66] | 0) >>> 0) {
+                            c3 = 14;
+                            break;
+                          }
+                        }
+                        if ((c3 | 0) == 12) {
+                          Q();
+                          break e;
+                        } else if ((c3 | 0) == 14) {
+                          Q();
+                          break e;
+                        } else if ((c3 | 0) == 15) {
+                          t2[65] = r3 + 2;
+                          break a;
+                        }
+                        break;
+                      }
+                      case 42: {
+                        t2[65] = e3 + 2;
+                        w2(1) | 0;
+                        b3 = t2[65] | 0;
+                        v(b3, b3) | 0;
+                        break;
+                      }
+                      default: {
+                        i2[775] = 0;
+                        switch (r3 << 16 >> 16) {
+                          case 100: {
+                            O(e3, e3 + 14 | 0, 0, 0);
+                            break e;
+                          }
+                          case 97: {
+                            t2[65] = e3 + 10;
+                            w2(1) | 0;
+                            e3 = t2[65] | 0;
+                            c3 = 20;
+                            break;
+                          }
+                          case 102: {
+                            c3 = 20;
+                            break;
+                          }
+                          case 99: {
+                            if ((m3(e3 + 2 | 0, 36, 8) | 0) == 0 ? (a3 = e3 + 10 | 0, B(s2[a3 >> 1] | 0) | 0) : 0) {
+                              t2[65] = a3;
+                              b3 = w2(1) | 0;
+                              n3 = t2[65] | 0;
+                              P(b3) | 0;
+                              b3 = t2[65] | 0;
+                              O(n3, b3, n3, b3);
+                              t2[65] = (t2[65] | 0) + -2;
+                              break e;
+                            }
+                            e3 = e3 + 4 | 0;
+                            t2[65] = e3;
+                            break;
+                          }
+                          case 108:
+                          case 118:
+                            break;
+                          default:
+                            break e;
+                        }
+                        if ((c3 | 0) == 20) {
+                          t2[65] = e3 + 16;
+                          e3 = w2(1) | 0;
+                          if (e3 << 16 >> 16 == 42) {
+                            t2[65] = (t2[65] | 0) + 2;
+                            e3 = w2(1) | 0;
+                          }
+                          n3 = t2[65] | 0;
+                          P(e3) | 0;
+                          b3 = t2[65] | 0;
+                          O(n3, b3, n3, b3);
+                          t2[65] = (t2[65] | 0) + -2;
+                          break e;
+                        }
+                        e3 = e3 + 4 | 0;
+                        t2[65] = e3;
+                        i2[775] = 0;
+                        r:
+                          while (1) {
+                            t2[65] = e3 + 2;
+                            b3 = w2(1) | 0;
+                            e3 = t2[65] | 0;
+                            switch ((P(b3) | 0) << 16 >> 16) {
+                              case 91:
+                              case 123:
+                                break r;
+                              default: {
+                              }
+                            }
+                            a3 = t2[65] | 0;
+                            if ((a3 | 0) == (e3 | 0))
+                              break e;
+                            O(e3, a3, e3, a3);
+                            if ((w2(1) | 0) << 16 >> 16 != 44)
+                              break;
+                            e3 = t2[65] | 0;
+                          }
+                        t2[65] = (t2[65] | 0) + -2;
+                        break e;
+                      }
+                    }
+                  } while (0);
+                b3 = (w2(1) | 0) << 16 >> 16 == 102;
+                e3 = t2[65] | 0;
+                if (b3 ? (m3(e3 + 2 | 0, 52, 6) | 0) == 0 : 0) {
+                  t2[65] = e3 + 8;
+                  o2(f3, w2(1) | 0);
+                  e3 = (n3 | 0) == 0 ? 212 : n3 + 16 | 0;
+                  while (1) {
+                    e3 = t2[e3 >> 2] | 0;
+                    if (!e3)
+                      break e;
+                    t2[e3 + 12 >> 2] = 0;
+                    t2[e3 + 8 >> 2] = 0;
+                    e3 = e3 + 16 | 0;
+                  }
+                }
+                t2[65] = e3 + -2;
+              }
+            } while (0);
+          return;
+        }
+        function k3() {
+          var e3 = 0, a3 = 0, r3 = 0, c3 = 0, f3 = 0, n3 = 0;
+          f3 = t2[65] | 0;
+          a3 = f3 + 12 | 0;
+          t2[65] = a3;
+          e:
+            do {
+              switch ((w2(1) | 0) << 16 >> 16) {
+                case 40: {
+                  a3 = t2[63] | 0;
+                  n3 = s2[386] | 0;
+                  r3 = n3 & 65535;
+                  t2[a3 + (r3 << 3) >> 2] = 5;
+                  e3 = t2[65] | 0;
+                  s2[386] = n3 + 1 << 16 >> 16;
+                  t2[a3 + (r3 << 3) + 4 >> 2] = e3;
+                  if ((s2[t2[62] >> 1] | 0) != 46) {
+                    t2[65] = e3 + 2;
+                    n3 = w2(1) | 0;
+                    A(f3, t2[65] | 0, 0, e3);
+                    a3 = t2[56] | 0;
+                    r3 = t2[64] | 0;
+                    f3 = s2[385] | 0;
+                    s2[385] = f3 + 1 << 16 >> 16;
+                    t2[r3 + ((f3 & 65535) << 2) >> 2] = a3;
+                    switch (n3 << 16 >> 16) {
+                      case 39: {
+                        d2(39);
+                        break;
+                      }
+                      case 34: {
+                        d2(34);
+                        break;
+                      }
+                      default: {
+                        t2[65] = (t2[65] | 0) + -2;
+                        break e;
+                      }
+                    }
+                    e3 = (t2[65] | 0) + 2 | 0;
+                    t2[65] = e3;
+                    switch ((w2(1) | 0) << 16 >> 16) {
+                      case 44: {
+                        t2[65] = (t2[65] | 0) + 2;
+                        w2(1) | 0;
+                        f3 = t2[56] | 0;
+                        t2[f3 + 4 >> 2] = e3;
+                        n3 = t2[65] | 0;
+                        t2[f3 + 16 >> 2] = n3;
+                        i2[f3 + 24 >> 0] = 1;
+                        t2[65] = n3 + -2;
+                        break e;
+                      }
+                      case 41: {
+                        s2[386] = (s2[386] | 0) + -1 << 16 >> 16;
+                        n3 = t2[56] | 0;
+                        t2[n3 + 4 >> 2] = e3;
+                        t2[n3 + 12 >> 2] = (t2[65] | 0) + 2;
+                        i2[n3 + 24 >> 0] = 1;
+                        s2[385] = (s2[385] | 0) + -1 << 16 >> 16;
+                        break e;
+                      }
+                      default: {
+                        t2[65] = (t2[65] | 0) + -2;
+                        break e;
+                      }
+                    }
+                  }
+                  break;
+                }
+                case 46: {
+                  t2[65] = (t2[65] | 0) + 2;
+                  if (((w2(1) | 0) << 16 >> 16 == 109 ? (e3 = t2[65] | 0, (m3(e3 + 2 | 0, 44, 6) | 0) == 0) : 0) ? (s2[t2[62] >> 1] | 0) != 46 : 0)
+                    A(f3, f3, e3 + 8 | 0, 2);
+                  break;
+                }
+                case 42:
+                case 39:
+                case 34: {
+                  c3 = 17;
+                  break;
+                }
+                case 123: {
+                  e3 = t2[65] | 0;
+                  if (s2[386] | 0) {
+                    t2[65] = e3 + -2;
+                    break e;
+                  }
+                  while (1) {
+                    if (e3 >>> 0 >= (t2[66] | 0) >>> 0)
+                      break;
+                    e3 = w2(1) | 0;
+                    if (!(T(e3) | 0)) {
+                      if (e3 << 16 >> 16 == 125) {
+                        c3 = 32;
+                        break;
+                      }
+                    } else
+                      d2(e3);
+                    e3 = (t2[65] | 0) + 2 | 0;
+                    t2[65] = e3;
+                  }
+                  if ((c3 | 0) == 32)
+                    t2[65] = (t2[65] | 0) + 2;
+                  w2(1) | 0;
+                  e3 = t2[65] | 0;
+                  if (m3(e3, 50, 8) | 0) {
+                    Q();
+                    break e;
+                  }
+                  t2[65] = e3 + 8;
+                  e3 = w2(1) | 0;
+                  if (T(e3) | 0) {
+                    o2(f3, e3);
+                    break e;
+                  } else {
+                    Q();
+                    break e;
+                  }
+                }
+                default:
+                  if ((t2[65] | 0) == (a3 | 0))
+                    t2[65] = f3 + 10;
+                  else
+                    c3 = 17;
+              }
+            } while (0);
+          do {
+            if ((c3 | 0) == 17) {
+              if (s2[386] | 0) {
+                t2[65] = (t2[65] | 0) + -2;
+                break;
+              }
+              e3 = t2[66] | 0;
+              a3 = t2[65] | 0;
+              while (1) {
+                if (a3 >>> 0 >= e3 >>> 0) {
+                  c3 = 24;
+                  break;
+                }
+                r3 = s2[a3 >> 1] | 0;
+                if (T(r3) | 0) {
+                  c3 = 22;
+                  break;
+                }
+                n3 = a3 + 2 | 0;
+                t2[65] = n3;
+                a3 = n3;
+              }
+              if ((c3 | 0) == 22) {
+                o2(f3, r3);
+                break;
+              } else if ((c3 | 0) == 24) {
+                Q();
+                break;
+              }
+            }
+          } while (0);
+          return;
+        }
+        function u3(e3) {
+          e3 = e3 | 0;
+          e:
+            do {
+              switch (s2[e3 >> 1] | 0) {
+                case 100:
+                  switch (s2[e3 + -2 >> 1] | 0) {
+                    case 105: {
+                      e3 = S(e3 + -4 | 0, 68, 2) | 0;
+                      break e;
+                    }
+                    case 108: {
+                      e3 = S(e3 + -4 | 0, 72, 3) | 0;
+                      break e;
+                    }
+                    default: {
+                      e3 = 0;
+                      break e;
+                    }
+                  }
+                case 101:
+                  switch (s2[e3 + -2 >> 1] | 0) {
+                    case 115:
+                      switch (s2[e3 + -4 >> 1] | 0) {
+                        case 108: {
+                          e3 = j(e3 + -6 | 0, 101) | 0;
+                          break e;
+                        }
+                        case 97: {
+                          e3 = j(e3 + -6 | 0, 99) | 0;
+                          break e;
+                        }
+                        default: {
+                          e3 = 0;
+                          break e;
+                        }
+                      }
+                    case 116: {
+                      e3 = S(e3 + -4 | 0, 78, 4) | 0;
+                      break e;
+                    }
+                    case 117: {
+                      e3 = S(e3 + -4 | 0, 86, 6) | 0;
+                      break e;
+                    }
+                    default: {
+                      e3 = 0;
+                      break e;
+                    }
+                  }
+                case 102: {
+                  if ((s2[e3 + -2 >> 1] | 0) == 111 ? (s2[e3 + -4 >> 1] | 0) == 101 : 0)
+                    switch (s2[e3 + -6 >> 1] | 0) {
+                      case 99: {
+                        e3 = S(e3 + -8 | 0, 98, 6) | 0;
+                        break e;
+                      }
+                      case 112: {
+                        e3 = S(e3 + -8 | 0, 110, 2) | 0;
+                        break e;
+                      }
+                      default: {
+                        e3 = 0;
+                        break e;
+                      }
+                    }
+                  else
+                    e3 = 0;
+                  break;
+                }
+                case 107: {
+                  e3 = S(e3 + -2 | 0, 114, 4) | 0;
+                  break;
+                }
+                case 110: {
+                  e3 = e3 + -2 | 0;
+                  if (j(e3, 105) | 0)
+                    e3 = 1;
+                  else
+                    e3 = S(e3, 122, 5) | 0;
+                  break;
+                }
+                case 111: {
+                  e3 = j(e3 + -2 | 0, 100) | 0;
+                  break;
+                }
+                case 114: {
+                  e3 = S(e3 + -2 | 0, 132, 7) | 0;
+                  break;
+                }
+                case 116: {
+                  e3 = S(e3 + -2 | 0, 146, 4) | 0;
+                  break;
+                }
+                case 119:
+                  switch (s2[e3 + -2 >> 1] | 0) {
+                    case 101: {
+                      e3 = j(e3 + -4 | 0, 110) | 0;
+                      break e;
+                    }
+                    case 111: {
+                      e3 = S(e3 + -4 | 0, 154, 3) | 0;
+                      break e;
+                    }
+                    default: {
+                      e3 = 0;
+                      break e;
+                    }
+                  }
+                default:
+                  e3 = 0;
+              }
+            } while (0);
+          return e3 | 0;
+        }
+        function o2(e3, a3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          var r3 = 0, i3 = 0;
+          r3 = (t2[65] | 0) + 2 | 0;
+          switch (a3 << 16 >> 16) {
+            case 39: {
+              d2(39);
+              i3 = 5;
+              break;
+            }
+            case 34: {
+              d2(34);
+              i3 = 5;
+              break;
+            }
+            default:
+              Q();
+          }
+          do {
+            if ((i3 | 0) == 5) {
+              A(e3, r3, t2[65] | 0, 1);
+              t2[65] = (t2[65] | 0) + 2;
+              i3 = (w2(0) | 0) << 16 >> 16 == 97;
+              a3 = t2[65] | 0;
+              if (i3 ? (m3(a3 + 2 | 0, 58, 10) | 0) == 0 : 0) {
+                t2[65] = a3 + 12;
+                if ((w2(1) | 0) << 16 >> 16 != 123) {
+                  t2[65] = a3;
+                  break;
+                }
+                e3 = t2[65] | 0;
+                r3 = e3;
+                e:
+                  while (1) {
+                    t2[65] = r3 + 2;
+                    r3 = w2(1) | 0;
+                    switch (r3 << 16 >> 16) {
+                      case 39: {
+                        d2(39);
+                        t2[65] = (t2[65] | 0) + 2;
+                        r3 = w2(1) | 0;
+                        break;
+                      }
+                      case 34: {
+                        d2(34);
+                        t2[65] = (t2[65] | 0) + 2;
+                        r3 = w2(1) | 0;
+                        break;
+                      }
+                      default:
+                        r3 = P(r3) | 0;
+                    }
+                    if (r3 << 16 >> 16 != 58) {
+                      i3 = 16;
+                      break;
+                    }
+                    t2[65] = (t2[65] | 0) + 2;
+                    switch ((w2(1) | 0) << 16 >> 16) {
+                      case 39: {
+                        d2(39);
+                        break;
+                      }
+                      case 34: {
+                        d2(34);
+                        break;
+                      }
+                      default: {
+                        i3 = 20;
+                        break e;
+                      }
+                    }
+                    t2[65] = (t2[65] | 0) + 2;
+                    switch ((w2(1) | 0) << 16 >> 16) {
+                      case 125: {
+                        i3 = 25;
+                        break e;
+                      }
+                      case 44:
+                        break;
+                      default: {
+                        i3 = 24;
+                        break e;
+                      }
+                    }
+                    t2[65] = (t2[65] | 0) + 2;
+                    if ((w2(1) | 0) << 16 >> 16 == 125) {
+                      i3 = 25;
+                      break;
+                    }
+                    r3 = t2[65] | 0;
+                  }
+                if ((i3 | 0) == 16) {
+                  t2[65] = a3;
+                  break;
+                } else if ((i3 | 0) == 20) {
+                  t2[65] = a3;
+                  break;
+                } else if ((i3 | 0) == 24) {
+                  t2[65] = a3;
+                  break;
+                } else if ((i3 | 0) == 25) {
+                  i3 = t2[56] | 0;
+                  t2[i3 + 16 >> 2] = e3;
+                  t2[i3 + 12 >> 2] = (t2[65] | 0) + 2;
+                  break;
+                }
+              }
+              t2[65] = a3 + -2;
+            }
+          } while (0);
+          return;
+        }
+        function h3() {
+          var e3 = 0, a3 = 0, r3 = 0, i3 = 0;
+          a3 = t2[66] | 0;
+          r3 = t2[65] | 0;
+          e:
+            while (1) {
+              e3 = r3 + 2 | 0;
+              if (r3 >>> 0 >= a3 >>> 0) {
+                a3 = 10;
+                break;
+              }
+              switch (s2[e3 >> 1] | 0) {
+                case 96: {
+                  a3 = 7;
+                  break e;
+                }
+                case 36: {
+                  if ((s2[r3 + 4 >> 1] | 0) == 123) {
+                    a3 = 6;
+                    break e;
+                  }
+                  break;
+                }
+                case 92: {
+                  e3 = r3 + 4 | 0;
+                  break;
+                }
+                default: {
+                }
+              }
+              r3 = e3;
+            }
+          if ((a3 | 0) == 6) {
+            e3 = r3 + 4 | 0;
+            t2[65] = e3;
+            a3 = t2[63] | 0;
+            i3 = s2[386] | 0;
+            r3 = i3 & 65535;
+            t2[a3 + (r3 << 3) >> 2] = 4;
+            s2[386] = i3 + 1 << 16 >> 16;
+            t2[a3 + (r3 << 3) + 4 >> 2] = e3;
+          } else if ((a3 | 0) == 7) {
+            t2[65] = e3;
+            r3 = t2[63] | 0;
+            i3 = (s2[386] | 0) + -1 << 16 >> 16;
+            s2[386] = i3;
+            if ((t2[r3 + ((i3 & 65535) << 3) >> 2] | 0) != 3)
+              Q();
+          } else if ((a3 | 0) == 10) {
+            t2[65] = e3;
+            Q();
+          }
+          return;
+        }
+        function w2(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r3 = 0, i3 = 0;
+          r3 = t2[65] | 0;
+          e:
+            do {
+              a3 = s2[r3 >> 1] | 0;
+              a:
+                do {
+                  if (a3 << 16 >> 16 != 47)
+                    if (e3)
+                      if (R(a3) | 0)
+                        break;
+                      else
+                        break e;
+                    else if (D(a3) | 0)
+                      break;
+                    else
+                      break e;
+                  else
+                    switch (s2[r3 + 2 >> 1] | 0) {
+                      case 47: {
+                        E();
+                        break a;
+                      }
+                      case 42: {
+                        y(e3);
+                        break a;
+                      }
+                      default: {
+                        a3 = 47;
+                        break e;
+                      }
+                    }
+                } while (0);
+              i3 = t2[65] | 0;
+              r3 = i3 + 2 | 0;
+              t2[65] = r3;
+            } while (i3 >>> 0 < (t2[66] | 0) >>> 0);
+          return a3 | 0;
+        }
+        function d2(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r3 = 0, i3 = 0, c3 = 0;
+          c3 = t2[66] | 0;
+          a3 = t2[65] | 0;
+          while (1) {
+            i3 = a3 + 2 | 0;
+            if (a3 >>> 0 >= c3 >>> 0) {
+              a3 = 9;
+              break;
+            }
+            r3 = s2[i3 >> 1] | 0;
+            if (r3 << 16 >> 16 == e3 << 16 >> 16) {
+              a3 = 10;
+              break;
+            }
+            if (r3 << 16 >> 16 == 92) {
+              r3 = a3 + 4 | 0;
+              if ((s2[r3 >> 1] | 0) == 13) {
+                a3 = a3 + 6 | 0;
+                a3 = (s2[a3 >> 1] | 0) == 10 ? a3 : r3;
+              } else
+                a3 = r3;
+            } else if (X(r3) | 0) {
+              a3 = 9;
+              break;
+            } else
+              a3 = i3;
+          }
+          if ((a3 | 0) == 9) {
+            t2[65] = i3;
+            Q();
+          } else if ((a3 | 0) == 10)
+            t2[65] = i3;
+          return;
+        }
+        function v(e3, a3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          var r3 = 0, i3 = 0, c3 = 0, f3 = 0;
+          r3 = t2[65] | 0;
+          i3 = s2[r3 >> 1] | 0;
+          f3 = (e3 | 0) == (a3 | 0);
+          c3 = f3 ? 0 : e3;
+          f3 = f3 ? 0 : a3;
+          if (i3 << 16 >> 16 == 97) {
+            t2[65] = r3 + 4;
+            r3 = w2(1) | 0;
+            e3 = t2[65] | 0;
+            if (T(r3) | 0) {
+              d2(r3);
+              a3 = (t2[65] | 0) + 2 | 0;
+              t2[65] = a3;
+            } else {
+              P(r3) | 0;
+              a3 = t2[65] | 0;
+            }
+            i3 = w2(1) | 0;
+            r3 = t2[65] | 0;
+          }
+          if ((r3 | 0) != (e3 | 0))
+            O(e3, a3, c3, f3);
+          return i3 | 0;
+        }
+        function A(e3, a3, r3, s3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          r3 = r3 | 0;
+          s3 = s3 | 0;
+          var c3 = 0, f3 = 0;
+          c3 = t2[60] | 0;
+          t2[60] = c3 + 32;
+          f3 = t2[56] | 0;
+          t2[((f3 | 0) == 0 ? 208 : f3 + 28 | 0) >> 2] = c3;
+          t2[57] = f3;
+          t2[56] = c3;
+          t2[c3 + 8 >> 2] = e3;
+          if (2 == (s3 | 0))
+            e3 = r3;
+          else
+            e3 = 1 == (s3 | 0) ? r3 + 2 | 0 : 0;
+          t2[c3 + 12 >> 2] = e3;
+          t2[c3 >> 2] = a3;
+          t2[c3 + 4 >> 2] = r3;
+          t2[c3 + 16 >> 2] = 0;
+          t2[c3 + 20 >> 2] = s3;
+          i2[c3 + 24 >> 0] = 1 == (s3 | 0) & 1;
+          t2[c3 + 28 >> 2] = 0;
+          return;
+        }
+        function C() {
+          var e3 = 0, a3 = 0, r3 = 0;
+          r3 = t2[66] | 0;
+          a3 = t2[65] | 0;
+          e:
+            while (1) {
+              e3 = a3 + 2 | 0;
+              if (a3 >>> 0 >= r3 >>> 0) {
+                a3 = 6;
+                break;
+              }
+              switch (s2[e3 >> 1] | 0) {
+                case 13:
+                case 10: {
+                  a3 = 6;
+                  break e;
+                }
+                case 93: {
+                  a3 = 7;
+                  break e;
+                }
+                case 92: {
+                  e3 = a3 + 4 | 0;
+                  break;
+                }
+                default: {
+                }
+              }
+              a3 = e3;
+            }
+          if ((a3 | 0) == 6) {
+            t2[65] = e3;
+            Q();
+            e3 = 0;
+          } else if ((a3 | 0) == 7) {
+            t2[65] = e3;
+            e3 = 93;
+          }
+          return e3 | 0;
+        }
+        function g() {
+          var e3 = 0, a3 = 0, r3 = 0;
+          e:
+            while (1) {
+              e3 = t2[65] | 0;
+              a3 = e3 + 2 | 0;
+              t2[65] = a3;
+              if (e3 >>> 0 >= (t2[66] | 0) >>> 0) {
+                r3 = 7;
+                break;
+              }
+              switch (s2[a3 >> 1] | 0) {
+                case 13:
+                case 10: {
+                  r3 = 7;
+                  break e;
+                }
+                case 47:
+                  break e;
+                case 91: {
+                  C() | 0;
+                  break;
+                }
+                case 92: {
+                  t2[65] = e3 + 4;
+                  break;
+                }
+                default: {
+                }
+              }
+            }
+          if ((r3 | 0) == 7)
+            Q();
+          return;
+        }
+        function p3(e3) {
+          e3 = e3 | 0;
+          switch (s2[e3 >> 1] | 0) {
+            case 62: {
+              e3 = (s2[e3 + -2 >> 1] | 0) == 61;
+              break;
+            }
+            case 41:
+            case 59: {
+              e3 = 1;
+              break;
+            }
+            case 104: {
+              e3 = S(e3 + -2 | 0, 180, 4) | 0;
+              break;
+            }
+            case 121: {
+              e3 = S(e3 + -2 | 0, 188, 6) | 0;
+              break;
+            }
+            case 101: {
+              e3 = S(e3 + -2 | 0, 200, 3) | 0;
+              break;
+            }
+            default:
+              e3 = 0;
+          }
+          return e3 | 0;
+        }
+        function y(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r3 = 0, i3 = 0, c3 = 0, f3 = 0;
+          c3 = (t2[65] | 0) + 2 | 0;
+          t2[65] = c3;
+          r3 = t2[66] | 0;
+          while (1) {
+            a3 = c3 + 2 | 0;
+            if (c3 >>> 0 >= r3 >>> 0)
+              break;
+            i3 = s2[a3 >> 1] | 0;
+            if (!e3 ? X(i3) | 0 : 0)
+              break;
+            if (i3 << 16 >> 16 == 42 ? (s2[c3 + 4 >> 1] | 0) == 47 : 0) {
+              f3 = 8;
+              break;
+            }
+            c3 = a3;
+          }
+          if ((f3 | 0) == 8) {
+            t2[65] = a3;
+            a3 = c3 + 4 | 0;
+          }
+          t2[65] = a3;
+          return;
+        }
+        function m3(e3, a3, r3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          r3 = r3 | 0;
+          var s3 = 0, t3 = 0;
+          e:
+            do {
+              if (!r3)
+                e3 = 0;
+              else {
+                while (1) {
+                  s3 = i2[e3 >> 0] | 0;
+                  t3 = i2[a3 >> 0] | 0;
+                  if (s3 << 24 >> 24 != t3 << 24 >> 24)
+                    break;
+                  r3 = r3 + -1 | 0;
+                  if (!r3) {
+                    e3 = 0;
+                    break e;
+                  } else {
+                    e3 = e3 + 1 | 0;
+                    a3 = a3 + 1 | 0;
+                  }
+                }
+                e3 = (s3 & 255) - (t3 & 255) | 0;
+              }
+            } while (0);
+          return e3 | 0;
+        }
+        function I(e3) {
+          e3 = e3 | 0;
+          e:
+            do {
+              switch (e3 << 16 >> 16) {
+                case 38:
+                case 37:
+                case 33: {
+                  e3 = 1;
+                  break;
+                }
+                default:
+                  if ((e3 & -8) << 16 >> 16 == 40 | (e3 + -58 & 65535) < 6)
+                    e3 = 1;
+                  else {
+                    switch (e3 << 16 >> 16) {
+                      case 91:
+                      case 93:
+                      case 94: {
+                        e3 = 1;
+                        break e;
+                      }
+                      default: {
+                      }
+                    }
+                    e3 = (e3 + -123 & 65535) < 4;
+                  }
+              }
+            } while (0);
+          return e3 | 0;
+        }
+        function U(e3) {
+          e3 = e3 | 0;
+          e:
+            do {
+              switch (e3 << 16 >> 16) {
+                case 38:
+                case 37:
+                case 33:
+                  break;
+                default:
+                  if (!((e3 + -58 & 65535) < 6 | (e3 + -40 & 65535) < 7 & e3 << 16 >> 16 != 41)) {
+                    switch (e3 << 16 >> 16) {
+                      case 91:
+                      case 94:
+                        break e;
+                      default: {
+                      }
+                    }
+                    return e3 << 16 >> 16 != 125 & (e3 + -123 & 65535) < 4 | 0;
+                  }
+              }
+            } while (0);
+          return 1;
+        }
+        function x(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r3 = 0, i3 = 0, c3 = 0;
+          r3 = n2;
+          n2 = n2 + 16 | 0;
+          i3 = r3;
+          t2[i3 >> 2] = 0;
+          t2[59] = e3;
+          a3 = t2[3] | 0;
+          c3 = a3 + (e3 << 1) | 0;
+          e3 = c3 + 2 | 0;
+          s2[c3 >> 1] = 0;
+          t2[i3 >> 2] = e3;
+          t2[60] = e3;
+          t2[52] = 0;
+          t2[56] = 0;
+          t2[54] = 0;
+          t2[53] = 0;
+          t2[58] = 0;
+          t2[55] = 0;
+          n2 = r3;
+          return a3 | 0;
+        }
+        function S(e3, a3, r3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          r3 = r3 | 0;
+          var i3 = 0, c3 = 0;
+          i3 = e3 + (0 - r3 << 1) | 0;
+          c3 = i3 + 2 | 0;
+          e3 = t2[3] | 0;
+          if (c3 >>> 0 >= e3 >>> 0 ? (m3(c3, a3, r3 << 1) | 0) == 0 : 0)
+            if ((c3 | 0) == (e3 | 0))
+              e3 = 1;
+            else
+              e3 = B(s2[i3 >> 1] | 0) | 0;
+          else
+            e3 = 0;
+          return e3 | 0;
+        }
+        function O(e3, a3, r3, i3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          r3 = r3 | 0;
+          i3 = i3 | 0;
+          var s3 = 0, c3 = 0;
+          s3 = t2[60] | 0;
+          t2[60] = s3 + 20;
+          c3 = t2[58] | 0;
+          t2[((c3 | 0) == 0 ? 212 : c3 + 16 | 0) >> 2] = s3;
+          t2[58] = s3;
+          t2[s3 >> 2] = e3;
+          t2[s3 + 4 >> 2] = a3;
+          t2[s3 + 8 >> 2] = r3;
+          t2[s3 + 12 >> 2] = i3;
+          t2[s3 + 16 >> 2] = 0;
+          return;
+        }
+        function $(e3) {
+          e3 = e3 | 0;
+          switch (s2[e3 >> 1] | 0) {
+            case 107: {
+              e3 = S(e3 + -2 | 0, 114, 4) | 0;
+              break;
+            }
+            case 101: {
+              if ((s2[e3 + -2 >> 1] | 0) == 117)
+                e3 = S(e3 + -4 | 0, 86, 6) | 0;
+              else
+                e3 = 0;
+              break;
+            }
+            default:
+              e3 = 0;
+          }
+          return e3 | 0;
+        }
+        function j(e3, a3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          var r3 = 0;
+          r3 = t2[3] | 0;
+          if (r3 >>> 0 <= e3 >>> 0 ? (s2[e3 >> 1] | 0) == a3 << 16 >> 16 : 0)
+            if ((r3 | 0) == (e3 | 0))
+              r3 = 1;
+            else
+              r3 = B(s2[e3 + -2 >> 1] | 0) | 0;
+          else
+            r3 = 0;
+          return r3 | 0;
+        }
+        function B(e3) {
+          e3 = e3 | 0;
+          e:
+            do {
+              if ((e3 + -9 & 65535) < 5)
+                e3 = 1;
+              else {
+                switch (e3 << 16 >> 16) {
+                  case 32:
+                  case 160: {
+                    e3 = 1;
+                    break e;
+                  }
+                  default: {
+                  }
+                }
+                e3 = e3 << 16 >> 16 != 46 & (I(e3) | 0);
+              }
+            } while (0);
+          return e3 | 0;
+        }
+        function E() {
+          var e3 = 0, a3 = 0, r3 = 0;
+          e3 = t2[66] | 0;
+          r3 = t2[65] | 0;
+          e:
+            while (1) {
+              a3 = r3 + 2 | 0;
+              if (r3 >>> 0 >= e3 >>> 0)
+                break;
+              switch (s2[a3 >> 1] | 0) {
+                case 13:
+                case 10:
+                  break e;
+                default:
+                  r3 = a3;
+              }
+            }
+          t2[65] = a3;
+          return;
+        }
+        function P(e3) {
+          e3 = e3 | 0;
+          while (1) {
+            if (R(e3) | 0)
+              break;
+            if (I(e3) | 0)
+              break;
+            e3 = (t2[65] | 0) + 2 | 0;
+            t2[65] = e3;
+            e3 = s2[e3 >> 1] | 0;
+            if (!(e3 << 16 >> 16)) {
+              e3 = 0;
+              break;
+            }
+          }
+          return e3 | 0;
+        }
+        function q() {
+          var e3 = 0;
+          e3 = t2[(t2[54] | 0) + 20 >> 2] | 0;
+          switch (e3 | 0) {
+            case 1: {
+              e3 = -1;
+              break;
+            }
+            case 2: {
+              e3 = -2;
+              break;
+            }
+            default:
+              e3 = e3 - (t2[3] | 0) >> 1;
+          }
+          return e3 | 0;
+        }
+        function z(e3) {
+          e3 = e3 | 0;
+          if (!(S(e3, 160, 5) | 0) ? !(S(e3, 170, 3) | 0) : 0)
+            e3 = S(e3, 176, 2) | 0;
+          else
+            e3 = 1;
+          return e3 | 0;
+        }
+        function D(e3) {
+          e3 = e3 | 0;
+          switch (e3 << 16 >> 16) {
+            case 160:
+            case 32:
+            case 12:
+            case 11:
+            case 9: {
+              e3 = 1;
+              break;
+            }
+            default:
+              e3 = 0;
+          }
+          return e3 | 0;
+        }
+        function F(e3) {
+          e3 = e3 | 0;
+          if ((t2[3] | 0) == (e3 | 0))
+            e3 = 1;
+          else
+            e3 = B(s2[e3 + -2 >> 1] | 0) | 0;
+          return e3 | 0;
+        }
+        function G() {
+          var e3 = 0;
+          e3 = t2[(t2[55] | 0) + 12 >> 2] | 0;
+          if (!e3)
+            e3 = -1;
+          else
+            e3 = e3 - (t2[3] | 0) >> 1;
+          return e3 | 0;
+        }
+        function H() {
+          var e3 = 0;
+          e3 = t2[(t2[54] | 0) + 12 >> 2] | 0;
+          if (!e3)
+            e3 = -1;
+          else
+            e3 = e3 - (t2[3] | 0) >> 1;
+          return e3 | 0;
+        }
+        function J() {
+          var e3 = 0;
+          e3 = t2[(t2[55] | 0) + 8 >> 2] | 0;
+          if (!e3)
+            e3 = -1;
+          else
+            e3 = e3 - (t2[3] | 0) >> 1;
+          return e3 | 0;
+        }
+        function K() {
+          var e3 = 0;
+          e3 = t2[(t2[54] | 0) + 16 >> 2] | 0;
+          if (!e3)
+            e3 = -1;
+          else
+            e3 = e3 - (t2[3] | 0) >> 1;
+          return e3 | 0;
+        }
+        function L() {
+          var e3 = 0;
+          e3 = t2[(t2[54] | 0) + 4 >> 2] | 0;
+          if (!e3)
+            e3 = -1;
+          else
+            e3 = e3 - (t2[3] | 0) >> 1;
+          return e3 | 0;
+        }
+        function M() {
+          var e3 = 0;
+          e3 = t2[54] | 0;
+          e3 = t2[((e3 | 0) == 0 ? 208 : e3 + 28 | 0) >> 2] | 0;
+          t2[54] = e3;
+          return (e3 | 0) != 0 | 0;
+        }
+        function N() {
+          var e3 = 0;
+          e3 = t2[55] | 0;
+          e3 = t2[((e3 | 0) == 0 ? 212 : e3 + 16 | 0) >> 2] | 0;
+          t2[55] = e3;
+          return (e3 | 0) != 0 | 0;
+        }
+        function Q() {
+          i2[774] = 1;
+          t2[61] = (t2[65] | 0) - (t2[3] | 0) >> 1;
+          t2[65] = (t2[66] | 0) + 2;
+          return;
+        }
+        function R(e3) {
+          e3 = e3 | 0;
+          return (e3 | 128) << 16 >> 16 == 160 | (e3 + -9 & 65535) < 5 | 0;
+        }
+        function T(e3) {
+          e3 = e3 | 0;
+          return e3 << 16 >> 16 == 39 | e3 << 16 >> 16 == 34 | 0;
+        }
+        function V() {
+          return (t2[(t2[54] | 0) + 8 >> 2] | 0) - (t2[3] | 0) >> 1 | 0;
+        }
+        function W() {
+          return (t2[(t2[55] | 0) + 4 >> 2] | 0) - (t2[3] | 0) >> 1 | 0;
+        }
+        function X(e3) {
+          e3 = e3 | 0;
+          return e3 << 16 >> 16 == 13 | e3 << 16 >> 16 == 10 | 0;
+        }
+        function Y() {
+          return (t2[t2[54] >> 2] | 0) - (t2[3] | 0) >> 1 | 0;
+        }
+        function Z() {
+          return (t2[t2[55] >> 2] | 0) - (t2[3] | 0) >> 1 | 0;
+        }
+        function _() {
+          return c2[(t2[54] | 0) + 24 >> 0] | 0 | 0;
+        }
+        function ee(e3) {
+          e3 = e3 | 0;
+          t2[3] = e3;
+          return;
+        }
+        function ae() {
+          return (i2[775] | 0) != 0 | 0;
+        }
+        function re() {
+          return t2[61] | 0;
+        }
+        function ie(e3) {
+          e3 = e3 | 0;
+          n2 = e3 + 992 + 15 & -16;
+          return 992;
+        }
+        return { su: ie, ai: K, e: re, ee: W, ele: G, els: J, es: Z, f: ae, id: q, ie: L, ip: _, is: Y, p: b2, re: N, ri: M, sa: x, se: H, ses: ee, ss: V };
+      }("undefined" != typeof self ? self : globalThis, {}, a), r = e.su(i - (2 << 17));
+    }
+    const h2 = c$1.length + 1;
+    e.ses(r), e.sa(h2 - 1), s(c$1, new Uint16Array(a, r, h2)), e.p() || (n = e.e(), o());
+    const w = [], d = [];
+    for (; e.ri(); ) {
+      const a2 = e.is(), r2 = e.ie(), i2 = e.ai(), s2 = e.id(), t2 = e.ss(), f2 = e.se();
+      let n2;
+      e.ip() && (n2 = b(-1 === s2 ? a2 : a2 + 1, c$1.charCodeAt(-1 === s2 ? a2 - 1 : a2))), w.push({ n: n2, s: a2, e: r2, ss: t2, se: f2, d: s2, a: i2 });
+    }
+    for (; e.re(); ) {
+      const a2 = e.es(), r2 = e.ee(), i2 = e.els(), s2 = e.ele(), t2 = c$1.charCodeAt(a2), f2 = i2 >= 0 ? c$1.charCodeAt(i2) : -1;
+      d.push({ s: a2, e: r2, ls: i2, le: s2, n: 34 === t2 || 39 === t2 ? b(a2 + 1, t2) : c$1.slice(a2, r2), ln: i2 < 0 ? void 0 : 34 === f2 || 39 === f2 ? b(i2 + 1, f2) : c$1.slice(i2, s2) });
+    }
+    return [w, d, !!e.f()];
+  }
+  function b(e2, a2) {
+    n = e2;
+    let r2 = "", i2 = n;
+    for (; ; ) {
+      n >= c$1.length && o();
+      const e3 = c$1.charCodeAt(n);
+      if (e3 === a2)
+        break;
+      92 === e3 ? (r2 += c$1.slice(i2, n), r2 += l(), i2 = n) : (8232 === e3 || 8233 === e3 || u(e3) && o(), ++n);
+    }
+    return r2 += c$1.slice(i2, n++), r2;
+  }
+  function l() {
+    let e2 = c$1.charCodeAt(++n);
+    switch (++n, e2) {
+      case 110:
+        return "\n";
+      case 114:
+        return "\r";
+      case 120:
+        return String.fromCharCode(k(2));
+      case 117:
+        return function() {
+          let e3;
+          123 === c$1.charCodeAt(n) ? (++n, e3 = k(c$1.indexOf("}", n) - n), ++n, e3 > 1114111 && o()) : e3 = k(4);
+          return e3 <= 65535 ? String.fromCharCode(e3) : (e3 -= 65536, String.fromCharCode(55296 + (e3 >> 10), 56320 + (1023 & e3)));
+        }();
+      case 116:
+        return "	";
+      case 98:
+        return "\b";
+      case 118:
+        return "\v";
+      case 102:
+        return "\f";
+      case 13:
+        10 === c$1.charCodeAt(n) && ++n;
+      case 10:
+        return "";
+      case 56:
+      case 57:
+        o();
+      default:
+        if (e2 >= 48 && e2 <= 55) {
+          let a2 = c$1.substr(n - 1, 3).match(/^[0-7]+/)[0], r2 = parseInt(a2, 8);
+          return r2 > 255 && (a2 = a2.slice(0, -1), r2 = parseInt(a2, 8)), n += a2.length - 1, e2 = c$1.charCodeAt(n), "0" === a2 && 56 !== e2 && 57 !== e2 || o(), String.fromCharCode(r2);
+        }
+        return u(e2) ? "" : String.fromCharCode(e2);
+    }
+  }
+  function k(e2) {
+    const a2 = n;
+    let r2 = 0, i2 = 0;
+    for (let a3 = 0; a3 < e2; ++a3, ++n) {
+      let e3, s2 = c$1.charCodeAt(n);
+      if (95 !== s2) {
+        if (s2 >= 97)
+          e3 = s2 - 97 + 10;
+        else if (s2 >= 65)
+          e3 = s2 - 65 + 10;
+        else {
+          if (!(s2 >= 48 && s2 <= 57))
+            break;
+          e3 = s2 - 48;
+        }
+        if (e3 >= 16)
+          break;
+        i2 = s2, r2 = 16 * r2 + e3;
+      } else
+        95 !== i2 && 0 !== a3 || o(), i2 = s2;
+    }
+    return 95 !== i2 && n - a2 === e2 || o(), r2;
+  }
+  function u(e2) {
+    return 13 === e2 || 10 === e2;
+  }
+  function o() {
+    throw Object.assign(Error(`Parse error ${f}:${c$1.slice(0, n).split("\n").length}:${n - c$1.lastIndexOf("\n", n - 1)}`), { idx: n });
+  }
+  async function _resolve(id, parentUrl) {
+    const urlResolved = resolveIfNotPlainOrUrl(id, parentUrl);
+    return {
+      r: resolveImportMap(importMap, urlResolved || id, parentUrl) || throwUnresolved(id, parentUrl),
+      b: !urlResolved && !isURL(id)
+    };
+  }
+  const resolve = resolveHook ? async (id, parentUrl) => {
+    let result = resolveHook(id, parentUrl, defaultResolve);
+    if (result && result.then)
+      result = await result;
+    return result ? { r: result, b: !resolveIfNotPlainOrUrl(id, parentUrl) && !isURL(id) } : _resolve(id, parentUrl);
+  } : _resolve;
+  async function importShim2(id, ...args) {
+    let parentUrl = args[args.length - 1];
+    if (typeof parentUrl !== "string")
+      parentUrl = baseUrl;
+    await initPromise;
+    if (importHook)
+      await importHook(id, typeof args[1] !== "string" ? args[1] : {}, parentUrl);
+    if (acceptingImportMaps || shimMode || !baselinePassthrough) {
+      if (hasDocument)
+        processScriptsAndPreloads(true);
+      if (!shimMode)
+        acceptingImportMaps = false;
+    }
+    await importMapPromise;
+    return topLevelLoad((await resolve(id, parentUrl)).r, { credentials: "same-origin" });
+  }
+  self.importShim = importShim2;
+  function defaultResolve(id, parentUrl) {
+    return resolveImportMap(importMap, resolveIfNotPlainOrUrl(id, parentUrl) || id, parentUrl) || throwUnresolved(id, parentUrl);
+  }
+  function throwUnresolved(id, parentUrl) {
+    throw Error(`Unable to resolve specifier '${id}'${fromParent(parentUrl)}`);
+  }
+  const resolveSync = (id, parentUrl = baseUrl) => {
+    parentUrl = `${parentUrl}`;
+    const result = resolveHook && resolveHook(id, parentUrl, defaultResolve);
+    return result && !result.then ? result : defaultResolve(id, parentUrl);
+  };
+  function metaResolve(id, parentUrl = this.url) {
+    return resolveSync(id, parentUrl);
+  }
+  importShim2.resolve = resolveSync;
+  importShim2.getImportMap = () => JSON.parse(JSON.stringify(importMap));
+  importShim2.addImportMap = (importMapIn) => {
+    if (!shimMode)
+      throw new Error("Unsupported in polyfill mode.");
+    importMap = resolveAndComposeImportMap(importMapIn, baseUrl, importMap);
+  };
+  const registry = importShim2._r = {};
+  async function loadAll(load, seen) {
+    if (load.b || seen[load.u])
+      return;
+    seen[load.u] = 1;
+    await load.L;
+    await Promise.all(load.d.map((dep) => loadAll(dep, seen)));
+    if (!load.n)
+      load.n = load.d.some((dep) => dep.n);
+  }
+  let importMap = { imports: {}, scopes: {} };
+  let baselinePassthrough;
+  const initPromise = featureDetectionPromise.then(() => {
+    baselinePassthrough = esmsInitOptions.polyfillEnable !== true && supportsDynamicImport && supportsImportMeta && supportsImportMaps && (!jsonModulesEnabled || supportsJsonAssertions) && (!cssModulesEnabled || supportsCssAssertions) && !importMapSrcOrLazy && true;
+    if (hasDocument) {
+      if (!supportsImportMaps) {
+        const supports = HTMLScriptElement.supports || ((type) => type === "classic" || type === "module");
+        HTMLScriptElement.supports = (type) => type === "importmap" || supports(type);
+      }
+      if (shimMode || !baselinePassthrough) {
+        new MutationObserver((mutations) => {
+          for (const mutation of mutations) {
+            if (mutation.type !== "childList")
+              continue;
+            for (const node of mutation.addedNodes) {
+              if (node.tagName === "SCRIPT") {
+                if (node.type === (shimMode ? "module-shim" : "module"))
+                  processScript(node, true);
+                if (node.type === (shimMode ? "importmap-shim" : "importmap"))
+                  processImportMap(node, true);
+              } else if (node.tagName === "LINK" && node.rel === (shimMode ? "modulepreload-shim" : "modulepreload")) {
+                processPreload(node);
+              }
+            }
+          }
+        }).observe(document, { childList: true, subtree: true });
+        processScriptsAndPreloads();
+        if (document.readyState === "complete") {
+          readyStateCompleteCheck();
+        } else {
+          async function readyListener() {
+            await initPromise;
+            processScriptsAndPreloads();
+            if (document.readyState === "complete") {
+              readyStateCompleteCheck();
+              document.removeEventListener("readystatechange", readyListener);
+            }
+          }
+          document.addEventListener("readystatechange", readyListener);
+        }
+      }
+    }
+    return void 0;
+  });
+  let importMapPromise = initPromise;
+  let firstPolyfillLoad = true;
+  let acceptingImportMaps = true;
+  async function topLevelLoad(url, fetchOpts, source, nativelyLoaded, lastStaticLoadPromise2) {
+    if (!shimMode)
+      acceptingImportMaps = false;
+    await initPromise;
+    await importMapPromise;
+    if (importHook)
+      await importHook(url, typeof fetchOpts !== "string" ? fetchOpts : {}, "");
+    if (!shimMode && baselinePassthrough) {
+      if (nativelyLoaded)
+        return null;
+      await lastStaticLoadPromise2;
+      return dynamicImport(source ? createBlob(source) : url, { errUrl: url || source });
+    }
+    const load = getOrCreateLoad(url, fetchOpts, null, source);
+    const seen = {};
+    await loadAll(load, seen);
+    lastLoad = void 0;
+    resolveDeps(load, seen);
+    await lastStaticLoadPromise2;
+    if (source && !shimMode && !load.n && true) {
+      const module2 = await dynamicImport(createBlob(source), { errUrl: source });
+      if (revokeBlobURLs)
+        revokeObjectURLs(Object.keys(seen));
+      return module2;
+    }
+    if (firstPolyfillLoad && !shimMode && load.n && nativelyLoaded) {
+      onpolyfill();
+      firstPolyfillLoad = false;
+    }
+    const module = await dynamicImport(!shimMode && !load.n && nativelyLoaded ? load.u : load.b, { errUrl: load.u });
+    if (load.s)
+      (await dynamicImport(load.s)).u$_(module);
+    if (revokeBlobURLs)
+      revokeObjectURLs(Object.keys(seen));
+    return module;
+  }
+  function revokeObjectURLs(registryKeys) {
+    let batch = 0;
+    const keysLength = registryKeys.length;
+    const schedule = self.requestIdleCallback ? self.requestIdleCallback : self.requestAnimationFrame;
+    schedule(cleanup);
+    function cleanup() {
+      const batchStartIndex = batch * 100;
+      if (batchStartIndex > keysLength)
+        return;
+      for (const key of registryKeys.slice(batchStartIndex, batchStartIndex + 100)) {
+        const load = registry[key];
+        if (load)
+          URL.revokeObjectURL(load.b);
+      }
+      batch++;
+      schedule(cleanup);
+    }
+  }
+  function urlJsString(url) {
+    return `'${url.replace(/'/g, "\\'")}'`;
+  }
+  let lastLoad;
+  function resolveDeps(load, seen) {
+    if (load.b || !seen[load.u])
+      return;
+    seen[load.u] = 0;
+    for (const dep of load.d)
+      resolveDeps(dep, seen);
+    const [imports, exports] = load.a;
+    const source = load.S;
+    let resolvedSource = edge && lastLoad ? `import '${lastLoad}';` : "";
+    if (!imports.length) {
+      resolvedSource += source;
+    } else {
+      let pushStringTo = function(originalIndex) {
+        while (dynamicImportEndStack[dynamicImportEndStack.length - 1] < originalIndex) {
+          const dynamicImportEnd = dynamicImportEndStack.pop();
+          resolvedSource += `${source.slice(lastIndex, dynamicImportEnd)}, ${urlJsString(load.r)}`;
+          lastIndex = dynamicImportEnd;
+        }
+        resolvedSource += source.slice(lastIndex, originalIndex);
+        lastIndex = originalIndex;
+      };
+      let lastIndex = 0, depIndex = 0, dynamicImportEndStack = [];
+      for (const { s: start, ss: statementStart, se: statementEnd, d: dynamicImportIndex } of imports) {
+        if (dynamicImportIndex === -1) {
+          let depLoad = load.d[depIndex++], blobUrl = depLoad.b, cycleShell = !blobUrl;
+          if (cycleShell) {
+            if (!(blobUrl = depLoad.s)) {
+              blobUrl = depLoad.s = createBlob(`export function u$_(m){${depLoad.a[1].map(({ s: s2, e: e2 }, i2) => {
+                const q = depLoad.S[s2] === '"' || depLoad.S[s2] === "'";
+                return `e$_${i2}=m${q ? `[` : "."}${depLoad.S.slice(s2, e2)}${q ? `]` : ""}`;
+              }).join(",")}}${depLoad.a[1].length ? `let ${depLoad.a[1].map((_, i2) => `e$_${i2}`).join(",")};` : ""}export {${depLoad.a[1].map(({ s: s2, e: e2 }, i2) => `e$_${i2} as ${depLoad.S.slice(s2, e2)}`).join(",")}}
+//# sourceURL=${depLoad.r}?cycle`);
+            }
+          }
+          pushStringTo(start - 1);
+          resolvedSource += `/*${source.slice(start - 1, statementEnd)}*/${urlJsString(blobUrl)}`;
+          if (!cycleShell && depLoad.s) {
+            resolvedSource += `;import*as m$_${depIndex} from'${depLoad.b}';import{u$_ as u$_${depIndex}}from'${depLoad.s}';u$_${depIndex}(m$_${depIndex})`;
+            depLoad.s = void 0;
+          }
+          lastIndex = statementEnd;
+        } else if (dynamicImportIndex === -2) {
+          load.m = { url: load.r, resolve: metaResolve };
+          metaHook(load.m, load.u);
+          pushStringTo(start);
+          resolvedSource += `importShim._r[${urlJsString(load.u)}].m`;
+          lastIndex = statementEnd;
+        } else {
+          pushStringTo(statementStart + 6);
+          resolvedSource += `Shim(`;
+          dynamicImportEndStack.push(statementEnd - 1);
+          lastIndex = start;
+        }
+      }
+      if (load.s)
+        resolvedSource += `
+;import{u$_}from'${load.s}';try{u$_({${exports.filter((e2) => e2.ln).map(({ s: s2, e: e2, ln }) => `${source.slice(s2, e2)}: ${ln}`).join(",")}})}catch(_){};
+`;
+      pushStringTo(source.length);
+    }
+    let hasSourceURL = false;
+    resolvedSource = resolvedSource.replace(sourceMapURLRegEx, (match, isMapping, url) => (hasSourceURL = !isMapping, match.replace(url, () => new URL(url, load.r))));
+    if (!hasSourceURL)
+      resolvedSource += "\n//# sourceURL=" + load.r;
+    load.b = lastLoad = createBlob(resolvedSource);
+    load.S = void 0;
+  }
+  const sourceMapURLRegEx = /\n\/\/# source(Mapping)?URL=([^\n]+)\s*((;|\/\/[^#][^\n]*)\s*)*$/;
+  const jsContentType = /^(text|application)\/(x-)?javascript(;|$)/;
+  const jsonContentType = /^(text|application)\/json(;|$)/;
+  const cssContentType = /^(text|application)\/css(;|$)/;
+  const cssUrlRegEx = /url\(\s*(?:(["'])((?:\\.|[^\n\\"'])+)\1|((?:\\.|[^\s,"'()\\])+))\s*\)/g;
+  let p2 = [];
+  let c = 0;
+  function pushFetchPool() {
+    if (++c > 100)
+      return new Promise((r2) => p2.push(r2));
+  }
+  function popFetchPool() {
+    c--;
+    if (p2.length)
+      p2.shift()();
+  }
+  async function doFetch(url, fetchOpts, parent) {
+    if (enforceIntegrity && !fetchOpts.integrity)
+      throw Error(`No integrity for ${url}${fromParent(parent)}.`);
+    const poolQueue = pushFetchPool();
+    if (poolQueue)
+      await poolQueue;
+    try {
+      var res = await fetchHook(url, fetchOpts);
+    } catch (e2) {
+      e2.message = `Unable to fetch ${url}${fromParent(parent)} - see network log for details.
+` + e2.message;
+      throw e2;
+    } finally {
+      popFetchPool();
+    }
+    if (!res.ok)
+      throw Error(`${res.status} ${res.statusText} ${res.url}${fromParent(parent)}`);
+    return res;
+  }
+  async function fetchModule(url, fetchOpts, parent) {
+    const res = await doFetch(url, fetchOpts, parent);
+    const contentType = res.headers.get("content-type");
+    if (jsContentType.test(contentType))
+      return { r: res.url, s: await res.text(), t: "js" };
+    else if (jsonContentType.test(contentType))
+      return { r: res.url, s: `export default ${await res.text()}`, t: "json" };
+    else if (cssContentType.test(contentType)) {
+      return { r: res.url, s: `var s=new CSSStyleSheet();s.replaceSync(${JSON.stringify((await res.text()).replace(cssUrlRegEx, (_match, quotes = "", relUrl1, relUrl2) => `url(${quotes}${resolveUrl(relUrl1 || relUrl2, url)}${quotes})`))});export default s;`, t: "css" };
+    } else
+      throw Error(`Unsupported Content-Type "${contentType}" loading ${url}${fromParent(parent)}. Modules must be served with a valid MIME type like application/javascript.`);
+  }
+  function getOrCreateLoad(url, fetchOpts, parent, source) {
+    let load = registry[url];
+    if (load && !source)
+      return load;
+    load = {
+      u: url,
+      r: source ? url : void 0,
+      f: void 0,
+      S: void 0,
+      L: void 0,
+      a: void 0,
+      d: void 0,
+      b: void 0,
+      s: void 0,
+      n: false,
+      t: null,
+      m: null
+    };
+    if (registry[url]) {
+      let i2 = 0;
+      while (registry[load.u + ++i2])
+        ;
+      load.u += i2;
+    }
+    registry[load.u] = load;
+    load.f = (async () => {
+      if (!source) {
+        let t2;
+        ({ r: load.r, s: source, t: t2 } = await (fetchCache[url] || fetchModule(url, fetchOpts, parent)));
+        if (t2 && !shimMode) {
+          if (t2 === "css" && !cssModulesEnabled || t2 === "json" && !jsonModulesEnabled)
+            throw Error(`${t2}-modules require <script type="esms-options">{ "polyfillEnable": ["${t2}-modules"] }<${""}/script>`);
+          if (t2 === "css" && !supportsCssAssertions || t2 === "json" && !supportsJsonAssertions)
+            load.n = true;
+        }
+      }
+      try {
+        load.a = parse(source, load.u);
+      } catch (e2) {
+        throwError(e2);
+        load.a = [[], [], false];
+      }
+      load.S = source;
+      return load;
+    })();
+    load.L = load.f.then(async () => {
+      let childFetchOpts = fetchOpts;
+      load.d = (await Promise.all(load.a[0].map(async ({ n: n2, d }) => {
+        if (d >= 0 && !supportsDynamicImport || d === -2 && !supportsImportMeta)
+          load.n = true;
+        if (d !== -1 || !n2)
+          return;
+        const { r: r2, b: b2 } = await resolve(n2, load.r || load.u);
+        if (b2 && (!supportsImportMaps || importMapSrcOrLazy))
+          load.n = true;
+        if (d !== -1)
+          return;
+        if (skip && skip(r2))
+          return { b: r2 };
+        if (childFetchOpts.integrity)
+          childFetchOpts = Object.assign({}, childFetchOpts, { integrity: void 0 });
+        return getOrCreateLoad(r2, childFetchOpts, load.r).f;
+      }))).filter((l2) => l2);
+    });
+    return load;
+  }
+  function processScriptsAndPreloads(mapsOnly = false) {
+    if (!mapsOnly)
+      for (const link of document.querySelectorAll(shimMode ? "link[rel=modulepreload-shim]" : "link[rel=modulepreload]"))
+        processPreload(link);
+    for (const script of document.querySelectorAll(shimMode ? "script[type=importmap-shim]" : "script[type=importmap]"))
+      processImportMap(script);
+    if (!mapsOnly)
+      for (const script of document.querySelectorAll(shimMode ? "script[type=module-shim]" : "script[type=module]"))
+        processScript(script);
+  }
+  function getFetchOpts(script) {
+    const fetchOpts = {};
+    if (script.integrity)
+      fetchOpts.integrity = script.integrity;
+    if (script.referrerpolicy)
+      fetchOpts.referrerPolicy = script.referrerpolicy;
+    if (script.crossorigin === "use-credentials")
+      fetchOpts.credentials = "include";
+    else if (script.crossorigin === "anonymous")
+      fetchOpts.credentials = "omit";
+    else
+      fetchOpts.credentials = "same-origin";
+    return fetchOpts;
+  }
+  let lastStaticLoadPromise = Promise.resolve();
+  let domContentLoadedCnt = 1;
+  function domContentLoadedCheck() {
+    if (--domContentLoadedCnt === 0 && !noLoadEventRetriggers)
+      document.dispatchEvent(new Event("DOMContentLoaded"));
+  }
+  if (hasDocument) {
+    document.addEventListener("DOMContentLoaded", async () => {
+      await initPromise;
+      if (shimMode || !baselinePassthrough)
+        domContentLoadedCheck();
+    });
+  }
+  let readyStateCompleteCnt = 1;
+  function readyStateCompleteCheck() {
+    if (--readyStateCompleteCnt === 0 && !noLoadEventRetriggers)
+      document.dispatchEvent(new Event("readystatechange"));
+  }
+  const hasNext = (script) => script.nextSibling || script.parentNode && hasNext(script.parentNode);
+  const epCheck = (script, ready) => script.ep || !ready && (!script.src && !script.innerHTML || !hasNext(script)) || script.getAttribute("noshim") !== null || !(script.ep = true);
+  function processImportMap(script, ready = readyStateCompleteCnt > 0) {
+    if (epCheck(script, ready))
+      return;
+    if (script.src) {
+      if (!shimMode)
+        return;
+      setImportMapSrcOrLazy();
+    }
+    if (acceptingImportMaps) {
+      importMapPromise = importMapPromise.then(async () => {
+        importMap = resolveAndComposeImportMap(script.src ? await (await doFetch(script.src, getFetchOpts(script))).json() : JSON.parse(script.innerHTML), script.src || baseUrl, importMap);
+      }).catch((e2) => {
+        console.log(e2);
+        if (e2 instanceof SyntaxError)
+          e2 = new Error(`Unable to parse import map ${e2.message} in: ${script.src || script.innerHTML}`);
+        throwError(e2);
+      });
+      if (!shimMode)
+        acceptingImportMaps = false;
+    }
+  }
+  function processScript(script, ready = readyStateCompleteCnt > 0) {
+    if (epCheck(script, ready))
+      return;
+    const isBlockingReadyScript = script.getAttribute("async") === null && readyStateCompleteCnt > 0;
+    const isDomContentLoadedScript = domContentLoadedCnt > 0;
+    if (isBlockingReadyScript)
+      readyStateCompleteCnt++;
+    if (isDomContentLoadedScript)
+      domContentLoadedCnt++;
+    const loadPromise = topLevelLoad(script.src || baseUrl, getFetchOpts(script), !script.src && script.innerHTML, !shimMode, isBlockingReadyScript && lastStaticLoadPromise).catch(throwError);
+    if (isBlockingReadyScript)
+      lastStaticLoadPromise = loadPromise.then(readyStateCompleteCheck);
+    if (isDomContentLoadedScript)
+      loadPromise.then(domContentLoadedCheck);
+  }
+  const fetchCache = {};
+  function processPreload(link) {
+    if (link.ep)
+      return;
+    link.ep = true;
+    if (fetchCache[link.href])
+      return;
+    fetchCache[link.href] = fetchModule(link.href, getFetchOpts(link));
+  }
+})();
+
+// js/toUmd.ts
+var mod = {
+  printR(name, included) {
+    if (included[name])
+      return "";
+    included[name] = true;
+    const current = mod.data[mod.hashMap[name]];
+    const currentCode = current.code;
+    if (!current.deps || !current.deps.length) {
+      return currentCode;
+    }
+    const myDepts = [...current.deps];
+    const depts = myDepts.map((n) => mod.printR(n, included)).join(" \n ");
+    return depts + `
+    
+    ` + currentCode;
+  },
+  async toJs(name) {
+    const js = mod.printR(name, {});
+    const modZ = Object.keys(mod.data).map(
+      (k) => [`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, "")]
+    ).map((x) => x[0] + ": " + x[1]).join(", \n ");
+    const res = `
+     ${js}
+  function require(name){
+    return ({${modZ}})[name];
+  }
+  globalThis.UMD_require = require;
+  
+     `;
+    const { transform: transform2 } = await import("./chunk-esbuildEsm-DKBQXEW2.mjs");
+    const t = await transform2(res, {
+      format: "esm",
+      minify: true,
+      keepNames: true,
+      platform: "browser",
+      treeShaking: true
+    });
+    const c = await transform2(t.code, {
+      format: "iife",
+      minify: true,
+      keepNames: true,
+      platform: "browser",
+      treeShaking: true
+    });
+    return c.code;
+  },
+  hashMap: {},
+  data: {}
+};
+var toUmd = async (source, name) => {
+  const { transform: transform2 } = await import("./chunk-esbuildEsm-DKBQXEW2.mjs");
+  const hash = md5(source);
+  mod.hashMap = __spreadProps(__spreadValues({}, mod.hashMap), { [hash]: name, [name]: hash });
+  if (!mod.data[hash]) {
+    const transformed = await transform2(source, {
+      format: "iife",
+      keepNames: true,
+      treeShaking: true,
+      target: "es2018",
+      loader: name.includes(".tsx") ? "tsx" : name.includes(".ts") ? "ts" : name.includes(".jsx") ? "jsx" : "js",
+      globalName: hash.replace(/[^a-f]/g, "")
+    });
+    if (!transformed || !transformed.code) {
+      console.log("transform result -code is empty");
+      return;
+    }
+    mod.data = __spreadProps(__spreadValues({}, mod.data), {
+      [hash]: __spreadProps(__spreadValues({}, transformed), {
+        deps: findDeps(transformed.code)
+      })
+    });
+    await Promise.all(mod.data[hash].deps.map(async (dep) => {
+      if (mod.hashMap[dep]) {
+        return;
+      }
+      const importMap = importShim.getImportMap();
+      let url = "";
+      let urlHash = "";
+      if (importMap.imports[dep]) {
+        url = importMap.imports[dep];
+        urlHash = md5(dep);
+      } else if (dep.startsWith("./")) {
+        url = new URL(dep, location.origin).toString();
+        urlHash = md5(dep);
+      } else {
+        try {
+          url = await importShim.resolve(dep, name);
+          urlHash = md5(dep);
+        } catch (e) {
+          console.error(`failed to resolve: ${dep}`);
+          return;
+        }
+      }
+      if (mod.hashMap[urlHash]) {
+        return;
+      }
+      mod.hashMap[dep] = url;
+      const source2 = await (await fetch(url)).text();
+      return toUmd(source2, dep);
+    }));
+  }
+  return mod;
+};
+var findDeps = (code) => {
+  const regex = /require\("(.+?)"\)/gm;
+  let m3;
+  const deps = [];
+  while ((m3 = regex.exec(code)) !== null) {
+    if (m3.index === regex.lastIndex) {
+      regex.lastIndex++;
+    }
+    for (const [groupIndex, match] of m3.entries()) {
+      if (groupIndex == 1) {
+        deps.push(match);
+      }
+      console.log(`Found match, group ${groupIndex}: ${match}`);
+    }
+  }
+  return deps;
+};
+
 // js/renderToString.tsx
 init_define_process();
 var import_is_callable = __toESM(require_is_callable(), 1);
@@ -10481,11 +13300,11 @@ var render = async (transpiled, codeSpace2) => {
     const html = S2(export_jsx(App, {
       appId: `${codeSpace2}-${md5hash}`
     }));
-    const css2 = mineFromCaches(md5hash, html);
+    const css = mineFromCaches(md5hash, html);
     const globalCss = (_a = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _a.innerHTML;
     return {
       html: `<style>${globalCss}</style>${html}`,
-      css: css2
+      css
     };
   } else
     return { html: null, css: null };
@@ -10497,12 +13316,12 @@ var renderFromString = (codeSpace2, hash) => {
     return { html: null, css: null };
   }
   const html = (_a = document.getElementById(`${codeSpace2}-${md5hash}`)) == null ? void 0 : _a.innerHTML;
-  const css2 = html ? extractCritical22(html) : "";
+  const css = html ? extractCritical22(html) : "";
   const globalCss = (_b = document.querySelector("style[data-emotion=z-global]")) == null ? void 0 : _b.innerHTML;
   return {
     html: `<div id="${codeSpace2}-${md5hash}" style="height:100%">
       ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
-    css: css2
+    css
   };
 };
 function mineFromCaches(md5Hash, html) {
@@ -10539,36 +13358,461 @@ var extractCritical22 = (html) => {
   }
 };
 
+// js/runner.tsx
+var mod2 = {
+  code: "",
+  olderCode: ""
+};
+async function runner({ code, counter, codeSpace: codeSpace2 }) {
+  mod2.code = code;
+  const mst = mST();
+  console.log(`${mst.i} => ${counter}`);
+  if (counter < mst.i) {
+    return;
+  }
+  setTimeout(() => {
+    if (mod2.code === code && code !== mod2.olderCode) {
+      runner({ code, counter, codeSpace: codeSpace2 });
+    }
+    mod2.olderCode = code;
+  }, 1e3);
+  try {
+    const transpiled = await transform(code, {
+      loader: "tsx",
+      format: "esm",
+      treeShaking: true,
+      minify: true,
+      keepNames: true,
+      tsconfigRaw: {
+        compilerOptions: {
+          jsx: "react-jsx",
+          module: "ESNext",
+          jsxFragmentFactory: "Fragment",
+          jsxImportSource: "@emotion/react"
+        }
+      },
+      target: "es2018"
+    });
+    const umdExp = async () => {
+      console.log("to UMD");
+      const UMD = await toUmd(transpiled.code, `${codeSpace2}.tsx`);
+      console.log({ UMD });
+      download("coder.js", await (UMD == null ? void 0 : UMD.toJs(`${codeSpace2}.tsx`)));
+      function download(filename, text) {
+        var element = document.createElement("a");
+        element.setAttribute(
+          "href",
+          "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+        );
+        element.setAttribute("download", filename);
+        element.style.display = "none";
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      }
+    };
+    Object.assign(globalThis, { umdExp });
+    const codeHash = md5(code).slice(0, 8);
+    const transpiledCode = `${transpiled.code}//${codeHash}`;
+    const { html, css } = await render(transpiledCode, codeSpace2);
+    if (!html) {
+      return;
+    }
+    patchSync(__spreadProps(__spreadValues({}, mST()), {
+      code,
+      i: counter,
+      transpiled: transpiledCode,
+      html,
+      css
+    }));
+    let i = 60;
+    while (!mST().css && counter === mST().i) {
+      console.log("Oh, NO! Can't extract css, wait:", i);
+      const { html: html2, css: css2 } = renderFromString(codeSpace2, hashCode());
+      if (html2 && css2)
+        patchSync(__spreadProps(__spreadValues({}, mST()), { html: html2, css: css2 }));
+      else
+        await wait(i);
+      i = i * 2;
+    }
+    saveCode();
+  } catch (error) {
+    console.error({ error });
+  } finally {
+  }
+}
+
+// js/isMobile.mjs
+init_define_process();
+function isMobile() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || navigator.platform === "MacIntel" && navigator.userAgent.indexOf("SAMSUNG") === -1;
+  let check = false;
+  (function(a) {
+    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[23]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(a.slice(0, 4))) {
+      check = true;
+    }
+  })(navigator.userAgent || navigator.vendor || window.opera);
+  return check && !isIOS;
+}
+
+// js/prettierJs.ts
+init_define_process();
+var prettierJs = async (code) => {
+  const prettier = init();
+  return prettier.prettierJs(code);
+};
+var _prettierJs = null;
+var fallback = {
+  prettierJs: async (code) => {
+    const t0 = performance.now();
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-L6G35TMS.mjs")).prettierJs;
+    const t1 = performance.now();
+    console.log(`importing took ${t1 - t0} milliseconds.`);
+    const res = _prettierJs(code);
+    const t2 = performance.now();
+    console.log(`prettier took ${t2 - t1} milliseconds.`);
+    return res;
+  }
+};
+var _prettier = null;
+function init() {
+  if (_prettier)
+    return _prettier;
+  if (!supportsWorkerType())
+    return _prettier = fallback;
+  try {
+    const worker = new SharedWorker(
+      new URL("prettierWorker.mjs", location.origin),
+      { type: "module" }
+    );
+    const wrapped = wrap(worker.port);
+    return _prettier = wrapped;
+  } catch (e) {
+    return _prettier = fallback;
+  }
+}
+function supportsWorkerType() {
+  let supports = false;
+  const tester = {
+    get type() {
+      supports = true;
+      return "module";
+    }
+  };
+  try {
+    new Worker("blob://", tester);
+  } finally {
+    return supports;
+  }
+}
+
+// js/Editor.tsx
+var mod3 = {
+  CH() {
+  },
+  getValue: async () => "",
+  setValue: async (code) => {
+    if (code.length < 10)
+      console.log(code);
+  },
+  code: "",
+  counter: 0,
+  lastKeyDown: 0,
+  codeToSet: ""
+};
+var Editor = ({ codeSpace: codeSpace2 }) => {
+  const ref = useRef(null);
+  const { i, code } = mST();
+  const [
+    mySession,
+    changeContent
+  ] = react_preact_default.useState({
+    lastKeyDown: 0,
+    myCode: code,
+    counter: i,
+    started: false,
+    myId: "loading",
+    onChange(_cb) {
+    },
+    engine: isMobile() ? "ace" : "monaco"
+  });
+  mod3.counter = mST().i;
+  const {
+    myCode,
+    started: started2,
+    myId,
+    engine,
+    onChange
+  } = mySession;
+  mod3.code = myCode;
+  react_preact_default.useEffect(() => {
+    if (!(ref == null ? void 0 : ref.current)) {
+      return;
+    }
+    const setMonaco = async () => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "stylesheet");
+      link.href = location.origin + "/startMonaco.css";
+      document.head.append(link);
+      const { startMonaco } = await import("./chunk-startMonaco-UROPGN5J.mjs");
+      const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
+        {
+          container: ref.current,
+          name: codeSpace2,
+          code: mST().code
+        }
+      );
+      const getValue = async () => {
+        const code2 = await prettierJs(model.getValue());
+        if (code2 === mod3.code)
+          return code2;
+        const counter = ++mod3.counter;
+        mod3.code = code2;
+        runner({ code: code2, counter, codeSpace: codeSpace2 });
+        try {
+          (async () => {
+            const tsWorker = await (await getTypeScriptWorker())(
+              model.uri
+            );
+            const diag = await tsWorker.getSemanticDiagnostics(
+              location.origin + "/live/" + codeSpace2 + ".tsx"
+            );
+            if (diag.length) {
+              console.log(diag.map((d) => d.messageText));
+            }
+          })();
+        } catch (e) {
+          console.error("ts diag error");
+        }
+        if (mod3.code !== code2)
+          throw new Error("code just changed");
+        return code2;
+      };
+      const setValue = async (_code) => {
+        const i2 = mST().i;
+        const code2 = await prettierJs(_code);
+        if (code2.length < 10)
+          return;
+        if (code2 === await getValue())
+          return;
+        if (i2 <= mod3.counter)
+          return;
+        mod3.code = code2;
+        mod3.counter = i2;
+        setMonValue(code2);
+        changeContent((ct) => __spreadProps(__spreadValues({}, ct), { myCode: mod3.code, counter: i2 }));
+      };
+      mod3.getValue = getValue;
+      mod3.setValue = setValue;
+      changeContent(__spreadProps(__spreadValues({}, mySession), {
+        started: true,
+        onChange: (cb) => model.onDidChangeContent(cb).dispose,
+        myId: "editor"
+      }));
+    };
+    const setAce = async () => {
+      const { startAce } = await import("./chunk-startAce-SBZ5BJLZ.mjs");
+      const editor = await startAce(mST().code);
+      const getValue = async () => {
+        const code2 = await prettierJs(editor.session.getValue());
+        if (code2 === mod3.code)
+          return mod3.code;
+        const counter = ++mod3.counter;
+        mod3.code = code2;
+        runner({ code: code2, counter, codeSpace: codeSpace2 });
+        return mod3.code;
+      };
+      const setValue = async (_code) => {
+        const i2 = mST().i;
+        const code2 = await prettierJs(_code);
+        mod3.codeToSet = code2;
+        if (code2.length < `export default ()=><></>`.length)
+          return;
+        if (code2 === await getValue())
+          return;
+        if (i2 == mod3.counter)
+          return;
+        mod3.code = code2;
+        mod3.counter = i2;
+        editor.session.setValue(code2);
+        changeContent((ct) => __spreadProps(__spreadValues({}, ct), { myCode: mod3.code, counter: i2 }));
+      };
+      mod3.getValue = getValue;
+      mod3.setValue = setValue;
+      changeContent(__spreadProps(__spreadValues({}, mySession), {
+        onChange(cb) {
+          editor.session.on("change", cb);
+          return () => {
+            editor.session.off("change", cb);
+          };
+        },
+        started: true,
+        myId: "editor"
+      }));
+    };
+    const loadEditors = () => engine === "monaco" ? setMonaco() : setAce();
+    !started2 && loadEditors();
+  }, [started2, ref]);
+  react_preact_default.useEffect(
+    () => onChange(
+      () => mod3.getValue().then(
+        () => changeContent((x) => __spreadProps(__spreadValues({}, x), {
+          counter: mod3.counter,
+          myCode: mod3.code
+        }))
+      )
+    ),
+    [onChange, myCode, changeContent]
+  );
+  onSessionUpdate(() => {
+    if (mod3.counter > mST().i) {
+      return;
+    }
+    mod3.counter = mST().i;
+    mod3.code = mST().code;
+    mod3.setValue(mod3.code);
+    changeContent((x) => __spreadProps(__spreadValues({}, x), {
+      counter: mod3.counter,
+      myCode: mod3.code
+    }));
+  }, "editor");
+  return export_jsx("div", {
+    onKeyDown: () => mod3.lastKeyDown = Date.now(),
+    "data-test-id": myId,
+    id: "editor",
+    css: export_css`
+        
+            max-width: 640px;
+            height: 100%;
+            
+            
+        `,
+    ref
+  });
+};
+
+// js/renderPreviewWindow.tsx
+var RainbowContainer = ({ children }) => export_jsx("div", {
+  css: export_css`
+              height: 100%;
+              width: 100%;
+              background-blend-mode: overlay;
+              background:  repeating-radial-gradient(circle at bottom left, 
+              #fedc00 0, #fedc00 5.5555555556%, 
+              #fcb712 0, #fcb712 11.1111111111%, 
+              #f7921e 0, #f7921e 16.6666666667%, 
+            #e87f24 0, #e87f24 22.2222222222%, 
+            #dd6227 0, #dd6227 27.7777777778%,
+             #dc4c27 0, #dc4c27 33.3333333333%, 
+            #ca3435 0, #ca3435 38.8888888889%, 
+            #b82841 0, #b82841 44.4444444444%, 
+            #953751 0, #953751 50%, #364c88 0, 
+            #364c88 55.5555555556%, #16599d 0, 
+            #16599d 61.1111111111%, #02609e 0, 
+            #02609e 66.6666666667%, #0073a9 0, 
+            #0073a9 72.2222222222%, #008aa4 0, 
+            #008aa4 77.7777777778%, #239a87 0, 
+            #239a87 83.3333333333%, #7cba6d 0, 
+            #7cba6d 88.8888888889%, #becc2f 0, 
+            #becc2f 94.4444444444%, #e0d81d 0, 
+            #e0d81d 100%), 
+            repeating-radial-gradient(circle at bottom right, 
+              #fedc00 0, #fedc00 5.5555555556%, 
+              #fcb712 0, #fcb712 11.1111111111%, 
+              #f7921e 0, #f7921e 16.6666666667%, 
+              #e87f24 0, #e87f24 22.2222222222%, 
+              #dd6227 0, #dd6227 27.7777777778%, 
+              #dc4c27 0, #dc4c27 33.3333333333%, 
+              #ca3435 0, #ca3435 38.8888888889%, 
+              #b82841 0, #b82841 44.4444444444%, 
+              #953751 0, #953751 50%,
+               #364c88 0, #364c88 55.5555555556%, 
+               #16599d 0, #16599d 61.1111111111%, 
+               #02609e 0, #02609e 66.6666666667%, 
+               #0073a9 0, #0073a9 72.2222222222%, 
+               #008aa4 0, #008aa4 77.7777777778%,
+                #239a87 0, #239a87 83.3333333333%, 
+                #7cba6d 0, #7cba6d 88.8888888889%, 
+                #becc2f 0, #becc2f 94.4444444444%, 
+                #e0d81d 0, #e0d81d 100%);
+`,
+  children
+});
+var AppToRender = ({ codeSpace: codeSpace2 }) => {
+  const currentHash = hashCode();
+  const [hash, setHash] = useState(currentHash);
+  const isStandalone = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
+  useEffect(() => {
+    onSessionUpdate(async () => {
+      const newHash = hashCode();
+      if (hash !== newHash) {
+        try {
+          await appFactory();
+          setHash(newHash);
+        } catch (error) {
+          console.error({ e: error });
+        }
+      }
+    }, "myApp");
+  }, [hash, setHash]);
+  const portalNode = useMemo(() => createHtmlPortalNode({
+    attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
+  }), []);
+  return export_jsxs(p, {
+    children: [
+      export_jsx(InPortal, {
+        node: portalNode,
+        children: export_jsx(AutoUpdateApp, {
+          hash,
+          codeSpace: codeSpace2
+        })
+      }),
+      isStandalone ? export_jsx(OutPortal, {
+        node: portalNode
+      }) : export_jsxs(p, {
+        children: [
+          export_jsx(Editor, {
+            codeSpace: codeSpace2
+          }),
+          export_jsx(DraggableWindow, {
+            hashCode: 0,
+            room: codeSpace2,
+            children: export_jsx(OutPortal, {
+              node: portalNode
+            })
+          })
+        ]
+      })
+    ]
+  });
+};
+var singleton = { started: false };
+var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
+  if (singleton.started)
+    return;
+  singleton.started = true;
+  const div = document.querySelector("#root");
+  const root = createRoot(div);
+  const renderPrevWindowCashe = emotionCache_default({ key: "w" });
+  console.log({ renderPrevWindowCashe });
+  root.render(
+    export_jsx(export_CacheProvider, {
+      value: renderPrevWindowCashe,
+      children: export_jsx(RainbowContainer, {
+        children: export_jsx(AppToRender, {
+          codeSpace: renderPrevWindowCashe
+        })
+      })
+    })
+  );
+};
+
 // js/starter.tsx
 var import_is_callable2 = __toESM(require_is_callable(), 1);
-var CacheProvider;
-var createCache;
-var css;
-if (!globalThis["apps"] || !globalThis["eCaches"]) {
+if (!globalThis.apps || !globalThis.eCaches) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
 }
 var { apps, eCaches } = globalThis || globalThis.apps;
-var ishim;
-async function importShim(str) {
-  if (ishim)
-    return ishim(str);
-  if (!document.scripts) {
-    throw new Error("document.scripts");
-  }
-  const scripts = Array.from(document.scripts);
-  const imap = scripts.find((s) => s.type === "importmap");
-  if (!imap) {
-    throw new Error("no imap");
-  }
-  await import("./chunk-es-module-shims-L6LQUUWN.mjs");
-  await window.importShim.addImportMap(
-    JSON.parse(
-      imap.innerText
-    )
-  );
-  ishim = window.importShim;
-  return ishim(str);
-}
 var render2 = {};
 var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
@@ -10585,17 +13829,17 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
     if (!renderFromString)
       return;
     render2[md5Hash] = render2[md5Hash] || renderFromString(codeSpace2, hash);
-    const { html, css: css2 } = render2[md5Hash];
-    if (html && css2) {
-      patchSync(__spreadProps(__spreadValues({}, mST()), { html, css: css2 }));
+    const { html, css } = render2[md5Hash];
+    if (html && css) {
+      patchSync(__spreadProps(__spreadValues({}, mST()), { html, css }));
     } else
       delete render2[md5Hash];
   }, [md5Hash]);
   const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
-  return export_jsx(CacheProvider, {
-    value: createCache({ key: "x" }),
+  return export_jsx(export_CacheProvider, {
+    value: emotionCache_default({ key: "x" }),
     children: export_jsx(ErrorBoundary_default, {
       ref,
       children: export_jsx(App, {
@@ -10606,10 +13850,6 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
 };
 var started = false;
 async function appFactory(transpiled = "", codeSpace2) {
-  const Emotion = await importShim("@emotion/react");
-  CacheProvider = Emotion.CacheProvider;
-  createCache = Emotion.cache.default;
-  css = Emotion.css;
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp).slice(0, 8);
@@ -10619,16 +13859,16 @@ async function appFactory(transpiled = "", codeSpace2) {
         terminal.clear();
       }
       console.log(`i: ${mstI}: `);
-      const App = (await importShim(createJsBlob(trp))).default;
+      const App = (await import(createJsBlob(trp))).default;
       if ((0, import_is_callable2.default)(App)) {
-        eCaches[hash] = createCache({
+        eCaches[hash] = emotionCache_default({
           key: "z",
           speedy: true
         });
-        apps[hash] = ({ appId }) => appId.includes(hash) ? export_jsx(CacheProvider, {
+        apps[hash] = ({ appId }) => appId.includes(hash) ? export_jsx(export_CacheProvider, {
           value: eCaches[hash],
           children: export_jsx("div", {
-            style: "height: 100%;",
+            css: "height: 100%;",
             id: appId,
             children: export_jsx(App, {})
           })
@@ -10640,7 +13880,7 @@ async function appFactory(transpiled = "", codeSpace2) {
         const name = error.name;
         const message = error.message;
         apps[hash] = () => export_jsxs("div", {
-          style: "background-color: orange;",
+          css: export_css`background-color: orange;`,
           children: [
             export_jsx("h1", {
               children: "Syntax Error"
@@ -10661,7 +13901,7 @@ async function appFactory(transpiled = "", codeSpace2) {
         const name = error.name;
         const message = error.message;
         apps[hash] = () => export_jsxs("div", {
-          style: "background-color: orange;",
+          css: export_css`background-color: orange;`,
           children: [
             export_jsx("h1", {
               children: "Syntax Error"
@@ -10680,7 +13920,7 @@ async function appFactory(transpiled = "", codeSpace2) {
         });
       } else {
         apps[hash] = () => export_jsx("div", {
-          style: "background-color: orange;",
+          css: export_css`background-color: orange;`,
           children: export_jsxs("h1", {
             children: [
               "Unknown Error: $",
@@ -10691,10 +13931,9 @@ async function appFactory(transpiled = "", codeSpace2) {
       }
     }
   }
-  if (!started) {
+  if (!started && codeSpace2) {
     started = true;
-    const { renderPreviewWindow } = await importShim("/renderPreviewWindow.mjs");
-    await renderPreviewWindow({ codeSpace: codeSpace2, createCache, CacheProvider, css });
+    await renderPreviewWindow({ codeSpace: codeSpace2 });
   }
   return apps[hash];
 }
@@ -11177,8 +14416,8 @@ var rcpOptions = {
 rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
   urls: "stun:stun.l.google.com:19302"
 }];
-async function handleNewICECandidateMessage(init, target) {
-  const candidate = new RTCIceCandidate(init);
+async function handleNewICECandidateMessage(init2, target) {
+  const candidate = new RTCIceCandidate(init2);
   await rtcConns[target].addIceCandidate(candidate);
 }
 async function sw() {
@@ -11219,8 +14458,6 @@ async function sw() {
 }
 
 export {
-  export_jsx,
-  export_jsxs,
   sendChannel,
   run,
   saveCode,
@@ -11228,9 +14465,7 @@ export {
   startVideo2 as startVideo,
   join,
   sw,
-  DraggableWindow,
-  AutoUpdateApp,
-  appFactory,
+  renderPreviewWindow,
   render,
   renderFromString
 };

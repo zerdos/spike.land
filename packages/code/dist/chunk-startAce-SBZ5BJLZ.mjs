@@ -20198,10 +20198,10 @@ var import_theme_monokai = __toESM(require_theme_monokai(), 1);
 var import_mode_typescript = __toESM(require_mode_typescript(), 1);
 async function startAce(code) {
   const editor = (0, import_ace_builds.edit)("editor", {
-    autoScrollEditorIntoView: true,
-    useWorker: true,
+    autoScrollEditorIntoView: false,
+    useWorker: false,
     scrollPastEnd: true,
-    copyWithEmptySelection: true
+    copyWithEmptySelection: false
   });
   editor.setTheme("ace/theme/monokai");
   editor.session.setMode("ace/mode/typescript", () => ({ jsx: true }));
