@@ -148,7 +148,7 @@ export const renderPreviewWindow = ({ codeSpace } :
   // Div.style.height='100%';
   const root = createRoot(div);
 
-  const x=   createCache({key: "root", container: div});
+  const x= createCache({key: "root"});
 
  // (createCache as unknown as {default: typeof createCache}).default
   
@@ -156,9 +156,7 @@ export const renderPreviewWindow = ({ codeSpace } :
   root.render(
     
     <CacheProvider value={x}>
-      
       <AppToRender codeSpace={codeSpace} />
-      {/* </RainbowContainer> */}
     </CacheProvider>
   ,
   );

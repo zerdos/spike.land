@@ -42,10 +42,7 @@ export const Editor: React.FC<
 > = (
   { codeSpace },
 ) => {
-  const ref = useRef<HTMLDivElement>(null) as undefined | {
-    current: HTMLDivElement;
-  };
-
+  const ref = useRef<HTMLDivElement>(null) 
   const { i, code } = mST();
 
   const [
@@ -77,9 +74,9 @@ export const Editor: React.FC<
   mod.code = myCode;
 
   React.useEffect(() => {
-    if (!(ref?.current)) {
+    if (ref.current === null) 
       return;
-    }
+    
 
     const setMonaco = async () => {
       const link = document.createElement("link");
@@ -257,16 +254,14 @@ export const Editor: React.FC<
 
   return (
     <div
+
       onKeyDown={() => mod.lastKeyDown = Date.now()}
       data-test-id={myId}
       id="editor"
-      css={css`
-        
-            max-width: 640px;
-            height: 100%;
-            
-            
-        `}
+      css={css`          
+      max-width: 640px;
+      height: 100%; 
+      `}
       ref={ref}
     />
   );
