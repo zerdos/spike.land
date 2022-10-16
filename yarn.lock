@@ -75,7 +75,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.19.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.19.0, @babel/runtime@npm:^7.19.4, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.19.4
   resolution: "@babel/runtime@npm:7.19.4"
   dependencies:
@@ -881,13 +881,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
+    "@babel/runtime": "npm:^7.19.4"
     "@emotion/cache": "npm:11.10.3"
     "@emotion/react": "npm:11.10.4"
+    "@emotion/serialize": "npm:^1.1.0"
     "@emotion/styled": "npm:11.10.4"
     "@emotion/utils": "npm:1.2.0"
+    "@emotion/weak-memoize": "npm:^0.3.0"
     "@libp2p/interfaces": "npm:3.0.3"
     "@motionone/dom": "npm:10.14.2"
     "@mui/material": "npm:5.10.9"
+    "@types/hoist-non-react-statics": "npm:^3"
     "@types/is-callable": "npm:1.1.0"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
@@ -908,6 +912,7 @@ __metadata:
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
     framer-motion: "npm:7.5.3"
+    hoist-non-react-statics: "npm:^3.3.2"
     immutable: "npm:4.1.0"
     is-callable: "npm:1.2.7"
     lodash.debounce: "npm:4.0.8"
@@ -1061,6 +1066,16 @@ __metadata:
   version: 1.39.6
   resolution: "@types/emscripten@npm:1.39.6"
   checksum: 0b2219f4c4a5126433135c331047be50bdfabac1cc39b37a8a2d8aec9cdfa62148bc80a485956924751d5007254f82ad8fc56f001999d79bdeea298a4ec4c712
+  languageName: node
+  linkType: hard
+
+"@types/hoist-non-react-statics@npm:^3":
+  version: 3.3.1
+  resolution: "@types/hoist-non-react-statics@npm:3.3.1"
+  dependencies:
+    "@types/react": "npm:*"
+    hoist-non-react-statics: "npm:^3.3.0"
+  checksum: 6e252131d90ced0948b559b187bac10185040dbb0e2dcfb5c40d065003ea94c79d483e82b5961100e2e021057be3b1087fbbe34d55a302ca7aba6d059470fb33
   languageName: node
   linkType: hard
 
@@ -2805,7 +2820,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.1":
+"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
