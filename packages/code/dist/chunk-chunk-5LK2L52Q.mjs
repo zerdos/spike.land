@@ -1,6 +1,6 @@
 import {
   init_define_process
-} from "./chunk-chunk-XCQU54VZ.mjs";
+} from "./chunk-chunk-WK2SDDIY.mjs";
 
 // ../../.yarn/global/cache/comlink-npm-4.3.1-45efe1dd36-9.zip/node_modules/comlink/dist/esm/comlink.mjs
 init_define_process();

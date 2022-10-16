@@ -1,10 +1,10 @@
 import {
   expose
-} from "./chunk-chunk-JDE6XKYB.mjs";
+} from "./chunk-chunk-5LK2L52Q.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-XCQU54VZ.mjs";
-import "./chunk-chunk-GWMK2HKB.mjs";
+} from "./chunk-chunk-WK2SDDIY.mjs";
+import "./chunk-chunk-477FBAEY.mjs";
 
 // js/prettierWorker.mjs
 init_define_process();
@@ -12,7 +12,7 @@ self._prettierJs = self._prettierJs || null;
 var prettier = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-YLUGYCOH.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-YTMXUBAS.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);

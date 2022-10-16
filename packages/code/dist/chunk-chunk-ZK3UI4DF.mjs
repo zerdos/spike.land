@@ -1,10 +1,14 @@
 import {
+  init_react_preact,
+  react_preact_exports
+} from "./chunk-chunk-L3IDHZ4W.mjs";
+import {
   init_define_process
-} from "./chunk-chunk-XCQU54VZ.mjs";
+} from "./chunk-chunk-WK2SDDIY.mjs";
 import {
   __commonJS,
-  __require
-} from "./chunk-chunk-GWMK2HKB.mjs";
+  __toCommonJS
+} from "./chunk-chunk-477FBAEY.mjs";
 
 // ../../.yarn/global/cache/@emotion-sheet-npm-1.2.0-3bb8dd5fba-9.zip/node_modules/@emotion/sheet/dist/emotion-sheet.cjs.dev.js
 var require_emotion_sheet_cjs_dev = __commonJS({
@@ -1870,7 +1874,7 @@ var require_emotion_use_insertion_effect_with_fallbacks_cjs_dev = __commonJS({
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
-    var React = __require("react");
+    var React = (init_react_preact(), __toCommonJS(react_preact_exports));
     function _interopNamespace(e) {
       if (e && e.__esModule)
         return e;
@@ -1922,7 +1926,7 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
   "../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/dist/emotion-element-b63ca7c6.cjs.dev.js"(exports) {
     "use strict";
     init_define_process();
-    var React = __require("react");
+    var React = (init_react_preact(), __toCommonJS(react_preact_exports));
     var createCache = require_emotion_cache_cjs();
     var _extends = require_extends();
     var weakMemoize = require_emotion_weak_memoize_cjs();
@@ -2148,7 +2152,7 @@ var require_emotion_react_cjs_dev = __commonJS({
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
-    var React = __require("react");
+    var React = (init_react_preact(), __toCommonJS(react_preact_exports));
     require_emotion_cache_cjs();
     var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
     require_extends();

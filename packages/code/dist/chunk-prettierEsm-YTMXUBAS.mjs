@@ -1,10 +1,10 @@
 import {
   init_define_process
-} from "./chunk-chunk-XCQU54VZ.mjs";
+} from "./chunk-chunk-WK2SDDIY.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-GWMK2HKB.mjs";
+} from "./chunk-chunk-477FBAEY.mjs";
 
 // ../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/standalone.js
 var require_standalone = __commonJS({

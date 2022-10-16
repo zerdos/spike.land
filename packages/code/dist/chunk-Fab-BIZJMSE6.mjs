@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-BTTUJYC7.mjs";
+} from "./chunk-chunk-67YXXI35.mjs";
 import {
   _extends,
   _objectWithoutPropertiesLoose,
@@ -13,22 +13,27 @@ import {
   rootShouldForwardProp,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-S3ZVMF7S.mjs";
-import "./chunk-chunk-ZAZZGRCD.mjs";
+} from "./chunk-chunk-F5DZEUPB.mjs";
+import "./chunk-chunk-ZK3UI4DF.mjs";
+import {
+  forwardRef,
+  init_react_preact,
+  o
+} from "./chunk-chunk-L3IDHZ4W.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-XCQU54VZ.mjs";
+} from "./chunk-chunk-WK2SDDIY.mjs";
 import {
   __toESM
-} from "./chunk-chunk-GWMK2HKB.mjs";
+} from "./chunk-chunk-477FBAEY.mjs";
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/index.js
 init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
 init_define_process();
+init_react_preact();
 var import_prop_types = __toESM(require_prop_types());
-import * as React from "react";
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/fabClasses.js
 init_define_process();
@@ -39,7 +44,7 @@ var fabClasses = generateUtilityClasses("MuiFab", ["root", "primary", "secondary
 var fabClasses_default = fabClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
-import { jsx as _jsx } from "react/jsx-runtime";
+init_react_preact();
 var _excluded = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
 var useUtilityClasses = (ownerState) => {
   const {
@@ -142,7 +147,7 @@ var FabRoot = styled_default(ButtonBase_default, {
     }
   }
 }));
-var Fab = React.forwardRef(function Fab2(inProps, ref) {
+var Fab = forwardRef(function Fab2(inProps, ref) {
   const props = useThemeProps({
     props: inProps,
     name: "MuiFab"
@@ -167,7 +172,7 @@ var Fab = React.forwardRef(function Fab2(inProps, ref) {
     variant
   });
   const classes = useUtilityClasses(ownerState);
-  return _jsx(FabRoot, _extends({
+  return o(FabRoot, _extends({
     className: clsx_m_default(classes.root, className),
     component,
     disabled,

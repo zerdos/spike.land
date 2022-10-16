@@ -368,6 +368,7 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
+  console.log({code, container, name});
   if (mod[name]) {
     return mod[name] as unknown as typeof returnValue;
   }

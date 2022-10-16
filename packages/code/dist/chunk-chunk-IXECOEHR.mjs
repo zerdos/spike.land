@@ -1,6 +1,6 @@
 import {
   transform
-} from "./chunk-chunk-IZH3YQ3P.mjs";
+} from "./chunk-chunk-27WZLJ5L.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,25 +12,49 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-WLG5WV6J.mjs";
+} from "./chunk-chunk-7SOSA46I.mjs";
 import {
   wrap
-} from "./chunk-chunk-JDE6XKYB.mjs";
+} from "./chunk-chunk-5LK2L52Q.mjs";
 import {
   AnimateSharedLayout,
   motion
-} from "./chunk-chunk-TTSF4TEG.mjs";
+} from "./chunk-chunk-X26TTXRD.mjs";
+import {
+  jsx,
+  jsxs
+} from "./chunk-chunk-YPSEWOKR.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_react_cjs
-} from "./chunk-chunk-ZAZZGRCD.mjs";
+} from "./chunk-chunk-ZK3UI4DF.mjs";
+import {
+  Children,
+  F,
+  PureComponent,
+  S,
+  Suspense,
+  _,
+  cloneElement,
+  createPortal,
+  createRoot,
+  h,
+  h2,
+  init_react_preact,
+  isValidElement,
+  lazy,
+  p,
+  p2,
+  src_default,
+  y
+} from "./chunk-chunk-L3IDHZ4W.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-XCQU54VZ.mjs";
+} from "./chunk-chunk-WK2SDDIY.mjs";
 import {
   __commonJS,
   __toESM
-} from "./chunk-chunk-GWMK2HKB.mjs";
+} from "./chunk-chunk-477FBAEY.mjs";
 
 // ../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js
 var require_qrious = __commonJS({
@@ -1511,22 +1535,22 @@ var require_qrious = __commonJS({
         this._pack();
         this._finish();
       }, {
-        _addAlignment: function(x, y) {
+        _addAlignment: function(x, y2) {
           var i;
           var buffer = this.buffer;
           var width = this.width;
-          buffer[x + width * y] = 1;
+          buffer[x + width * y2] = 1;
           for (i = -2; i < 2; i++) {
-            buffer[x + i + width * (y - 2)] = 1;
-            buffer[x - 2 + width * (y + i + 1)] = 1;
-            buffer[x + 2 + width * (y + i)] = 1;
-            buffer[x + i + 1 + width * (y + 2)] = 1;
+            buffer[x + i + width * (y2 - 2)] = 1;
+            buffer[x - 2 + width * (y2 + i + 1)] = 1;
+            buffer[x + 2 + width * (y2 + i)] = 1;
+            buffer[x + i + 1 + width * (y2 + 2)] = 1;
           }
           for (i = 0; i < 2; i++) {
-            this._setMask(x - 1, y + i);
-            this._setMask(x + 1, y - i);
-            this._setMask(x - i, y - 1);
-            this._setMask(x + i, y + 1);
+            this._setMask(x - 1, y2 + i);
+            this._setMask(x + 1, y2 - i);
+            this._setMask(x - i, y2 - 1);
+            this._setMask(x + i, y2 + 1);
           }
         },
         _appendData: function(data, dataLength, ecc, eccLength) {
@@ -1568,42 +1592,42 @@ var require_qrious = __commonJS({
           }
         },
         _applyMask: function(mask) {
-          var r3x, r3y, x, y;
+          var r3x, r3y, x, y2;
           var buffer = this.buffer;
           var width = this.width;
           switch (mask) {
             case 0:
-              for (y = 0; y < width; y++) {
+              for (y2 = 0; y2 < width; y2++) {
                 for (x = 0; x < width; x++) {
-                  if (!(x + y & 1) && !this._isMasked(x, y)) {
-                    buffer[x + y * width] ^= 1;
+                  if (!(x + y2 & 1) && !this._isMasked(x, y2)) {
+                    buffer[x + y2 * width] ^= 1;
                   }
                 }
               }
               break;
             case 1:
-              for (y = 0; y < width; y++) {
+              for (y2 = 0; y2 < width; y2++) {
                 for (x = 0; x < width; x++) {
-                  if (!(y & 1) && !this._isMasked(x, y)) {
-                    buffer[x + y * width] ^= 1;
+                  if (!(y2 & 1) && !this._isMasked(x, y2)) {
+                    buffer[x + y2 * width] ^= 1;
                   }
                 }
               }
               break;
             case 2:
-              for (y = 0; y < width; y++) {
+              for (y2 = 0; y2 < width; y2++) {
                 for (r3x = 0, x = 0; x < width; x++, r3x++) {
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!r3x && !this._isMasked(x, y)) {
-                    buffer[x + y * width] ^= 1;
+                  if (!r3x && !this._isMasked(x, y2)) {
+                    buffer[x + y2 * width] ^= 1;
                   }
                 }
               }
               break;
             case 3:
-              for (r3y = 0, y = 0; y < width; y++, r3y++) {
+              for (r3y = 0, y2 = 0; y2 < width; y2++, r3y++) {
                 if (r3y === 3) {
                   r3y = 0;
                 }
@@ -1611,27 +1635,27 @@ var require_qrious = __commonJS({
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!r3x && !this._isMasked(x, y)) {
-                    buffer[x + y * width] ^= 1;
+                  if (!r3x && !this._isMasked(x, y2)) {
+                    buffer[x + y2 * width] ^= 1;
                   }
                 }
               }
               break;
             case 4:
-              for (y = 0; y < width; y++) {
-                for (r3x = 0, r3y = y >> 1 & 1, x = 0; x < width; x++, r3x++) {
+              for (y2 = 0; y2 < width; y2++) {
+                for (r3x = 0, r3y = y2 >> 1 & 1, x = 0; x < width; x++, r3x++) {
                   if (r3x === 3) {
                     r3x = 0;
                     r3y = !r3y;
                   }
-                  if (!r3y && !this._isMasked(x, y)) {
-                    buffer[x + y * width] ^= 1;
+                  if (!r3y && !this._isMasked(x, y2)) {
+                    buffer[x + y2 * width] ^= 1;
                   }
                 }
               }
               break;
             case 5:
-              for (r3y = 0, y = 0; y < width; y++, r3y++) {
+              for (r3y = 0, y2 = 0; y2 < width; y2++, r3y++) {
                 if (r3y === 3) {
                   r3y = 0;
                 }
@@ -1639,14 +1663,14 @@ var require_qrious = __commonJS({
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!((x & y & 1) + !(!r3x | !r3y)) && !this._isMasked(x, y)) {
-                    buffer[x + y * width] ^= 1;
+                  if (!((x & y2 & 1) + !(!r3x | !r3y)) && !this._isMasked(x, y2)) {
+                    buffer[x + y2 * width] ^= 1;
                   }
                 }
               }
               break;
             case 6:
-              for (r3y = 0, y = 0; y < width; y++, r3y++) {
+              for (r3y = 0, y2 = 0; y2 < width; y2++, r3y++) {
                 if (r3y === 3) {
                   r3y = 0;
                 }
@@ -1654,14 +1678,14 @@ var require_qrious = __commonJS({
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!((x & y & 1) + (r3x && r3x === r3y) & 1) && !this._isMasked(x, y)) {
-                    buffer[x + y * width] ^= 1;
+                  if (!((x & y2 & 1) + (r3x && r3x === r3y) & 1) && !this._isMasked(x, y2)) {
+                    buffer[x + y2 * width] ^= 1;
                   }
                 }
               }
               break;
             case 7:
-              for (r3y = 0, y = 0; y < width; y++, r3y++) {
+              for (r3y = 0, y2 = 0; y2 < width; y2++, r3y++) {
                 if (r3y === 3) {
                   r3y = 0;
                 }
@@ -1669,8 +1693,8 @@ var require_qrious = __commonJS({
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!((r3x && r3x === r3y) + (x + y & 1) & 1) && !this._isMasked(x, y)) {
-                    buffer[x + y * width] ^= 1;
+                  if (!((r3x && r3x === r3y) + (x + y2 & 1) & 1) && !this._isMasked(x, y2)) {
+                    buffer[x + y2 * width] ^= 1;
                   }
                 }
               }
@@ -1697,33 +1721,33 @@ var require_qrious = __commonJS({
           }
         },
         _checkBadness: function() {
-          var b, b1, h2, x, y;
+          var b, b1, h4, x, y2;
           var bad = 0;
           var badness = this._badness;
           var buffer = this.buffer;
           var width = this.width;
-          for (y = 0; y < width - 1; y++) {
+          for (y2 = 0; y2 < width - 1; y2++) {
             for (x = 0; x < width - 1; x++) {
-              if (buffer[x + width * y] && buffer[x + 1 + width * y] && buffer[x + width * (y + 1)] && buffer[x + 1 + width * (y + 1)] || !(buffer[x + width * y] || buffer[x + 1 + width * y] || buffer[x + width * (y + 1)] || buffer[x + 1 + width * (y + 1)])) {
+              if (buffer[x + width * y2] && buffer[x + 1 + width * y2] && buffer[x + width * (y2 + 1)] && buffer[x + 1 + width * (y2 + 1)] || !(buffer[x + width * y2] || buffer[x + 1 + width * y2] || buffer[x + width * (y2 + 1)] || buffer[x + 1 + width * (y2 + 1)])) {
                 bad += Frame.N2;
               }
             }
           }
           var bw = 0;
-          for (y = 0; y < width; y++) {
-            h2 = 0;
+          for (y2 = 0; y2 < width; y2++) {
+            h4 = 0;
             badness[0] = 0;
             for (b = 0, x = 0; x < width; x++) {
-              b1 = buffer[x + width * y];
+              b1 = buffer[x + width * y2];
               if (b === b1) {
-                badness[h2]++;
+                badness[h4]++;
               } else {
-                badness[++h2] = 1;
+                badness[++h4] = 1;
               }
               b = b1;
               bw += b ? 1 : -1;
             }
-            bad += this._getBadness(h2);
+            bad += this._getBadness(h4);
           }
           if (bw < 0) {
             bw = -bw;
@@ -1738,18 +1762,18 @@ var require_qrious = __commonJS({
           }
           bad += count * Frame.N4;
           for (x = 0; x < width; x++) {
-            h2 = 0;
+            h4 = 0;
             badness[0] = 0;
-            for (b = 0, y = 0; y < width; y++) {
-              b1 = buffer[x + width * y];
+            for (b = 0, y2 = 0; y2 < width; y2++) {
+              b1 = buffer[x + width * y2];
               if (b === b1) {
-                badness[h2]++;
+                badness[h4]++;
               } else {
-                badness[++h2] = 1;
+                badness[++h4] = 1;
               }
               b = b1;
             }
-            bad += this._getBadness(h2);
+            bad += this._getBadness(h4);
           }
           return bad;
         },
@@ -1886,71 +1910,71 @@ var require_qrious = __commonJS({
           this._stringBuffer = ecc;
         },
         _insertAlignments: function() {
-          var i, x, y;
+          var i, x, y2;
           var version = this._version;
           var width = this.width;
           if (version > 1) {
             i = Alignment_1.BLOCK[version];
-            y = width - 7;
+            y2 = width - 7;
             for (; ; ) {
               x = width - 7;
               while (x > i - 3) {
-                this._addAlignment(x, y);
+                this._addAlignment(x, y2);
                 if (x < i) {
                   break;
                 }
                 x -= i;
               }
-              if (y <= i + 9) {
+              if (y2 <= i + 9) {
                 break;
               }
-              y -= i;
-              this._addAlignment(6, y);
-              this._addAlignment(y, 6);
+              y2 -= i;
+              this._addAlignment(6, y2);
+              this._addAlignment(y2, 6);
             }
           }
         },
         _insertFinders: function() {
-          var i, j, x, y;
+          var i, j, x, y2;
           var buffer = this.buffer;
           var width = this.width;
           for (i = 0; i < 3; i++) {
             j = 0;
-            y = 0;
+            y2 = 0;
             if (i === 1) {
               j = width - 7;
             }
             if (i === 2) {
-              y = width - 7;
+              y2 = width - 7;
             }
-            buffer[y + 3 + width * (j + 3)] = 1;
+            buffer[y2 + 3 + width * (j + 3)] = 1;
             for (x = 0; x < 6; x++) {
-              buffer[y + x + width * j] = 1;
-              buffer[y + width * (j + x + 1)] = 1;
-              buffer[y + 6 + width * (j + x)] = 1;
-              buffer[y + x + 1 + width * (j + 6)] = 1;
+              buffer[y2 + x + width * j] = 1;
+              buffer[y2 + width * (j + x + 1)] = 1;
+              buffer[y2 + 6 + width * (j + x)] = 1;
+              buffer[y2 + x + 1 + width * (j + 6)] = 1;
             }
             for (x = 1; x < 5; x++) {
-              this._setMask(y + x, j + 1);
-              this._setMask(y + 1, j + x + 1);
-              this._setMask(y + 5, j + x);
-              this._setMask(y + x + 1, j + 5);
+              this._setMask(y2 + x, j + 1);
+              this._setMask(y2 + 1, j + x + 1);
+              this._setMask(y2 + 5, j + x);
+              this._setMask(y2 + x + 1, j + 5);
             }
             for (x = 2; x < 4; x++) {
-              buffer[y + x + width * (j + 2)] = 1;
-              buffer[y + 2 + width * (j + x + 1)] = 1;
-              buffer[y + 4 + width * (j + x)] = 1;
-              buffer[y + x + 1 + width * (j + 4)] = 1;
+              buffer[y2 + x + width * (j + 2)] = 1;
+              buffer[y2 + 2 + width * (j + x + 1)] = 1;
+              buffer[y2 + 4 + width * (j + x)] = 1;
+              buffer[y2 + x + 1 + width * (j + 4)] = 1;
             }
           }
         },
         _insertTimingGap: function() {
-          var x, y;
+          var x, y2;
           var width = this.width;
-          for (y = 0; y < 7; y++) {
-            this._setMask(7, y);
-            this._setMask(width - 8, y);
-            this._setMask(7, y + width - 7);
+          for (y2 = 0; y2 < 7; y2++) {
+            this._setMask(7, y2);
+            this._setMask(width - 8, y2);
+            this._setMask(7, y2 + width - 7);
           }
           for (x = 0; x < 8; x++) {
             this._setMask(x, 7);
@@ -1973,7 +1997,7 @@ var require_qrious = __commonJS({
           }
         },
         _insertVersion: function() {
-          var i, j, x, y;
+          var i, j, x, y2;
           var buffer = this.buffer;
           var version = this._version;
           var width = this.width;
@@ -1981,20 +2005,20 @@ var require_qrious = __commonJS({
             i = Version_1.BLOCK[version - 7];
             j = 17;
             for (x = 0; x < 6; x++) {
-              for (y = 0; y < 3; y++, j--) {
+              for (y2 = 0; y2 < 3; y2++, j--) {
                 if (1 & (j > 11 ? version >> j - 12 : i >> j)) {
-                  buffer[5 - x + width * (2 - y + width - 11)] = 1;
-                  buffer[2 - y + width - 11 + width * (5 - x)] = 1;
+                  buffer[5 - x + width * (2 - y2 + width - 11)] = 1;
+                  buffer[2 - y2 + width - 11 + width * (5 - x)] = 1;
                 } else {
-                  this._setMask(5 - x, 2 - y + width - 11);
-                  this._setMask(2 - y + width - 11, 5 - x);
+                  this._setMask(5 - x, 2 - y2 + width - 11);
+                  this._setMask(2 - y2 + width - 11, 5 - x);
                 }
               }
             }
           }
         },
-        _isMasked: function(x, y) {
-          var bit = Frame._getMaskBit(x, y);
+        _isMasked: function(x, y2) {
+          var bit = Frame._getMaskBit(x, y2);
           return this._mask[bit] === 1;
         },
         _pack: function() {
@@ -2003,13 +2027,13 @@ var require_qrious = __commonJS({
           var v = 1;
           var width = this.width;
           var x = width - 1;
-          var y = width - 1;
+          var y2 = width - 1;
           var length = (this._dataBlock + this._eccBlock) * (this._neccBlock1 + this._neccBlock2) + this._neccBlock2;
           for (i = 0; i < length; i++) {
             bit = this._stringBuffer[i];
             for (j = 0; j < 8; j++, bit <<= 1) {
               if (128 & bit) {
-                this.buffer[x + width * y] = 1;
+                this.buffer[x + width * y2] = 1;
               }
               do {
                 if (v) {
@@ -2017,34 +2041,34 @@ var require_qrious = __commonJS({
                 } else {
                   x++;
                   if (k) {
-                    if (y !== 0) {
-                      y--;
+                    if (y2 !== 0) {
+                      y2--;
                     } else {
                       x -= 2;
                       k = !k;
                       if (x === 6) {
                         x--;
-                        y = 9;
+                        y2 = 9;
                       }
                     }
-                  } else if (y !== width - 1) {
-                    y++;
+                  } else if (y2 !== width - 1) {
+                    y2++;
                   } else {
                     x -= 2;
                     k = !k;
                     if (x === 6) {
                       x--;
-                      y -= 8;
+                      y2 -= 8;
                     }
                   }
                 }
                 v = !v;
-              } while (this._isMasked(x, y));
+              } while (this._isMasked(x, y2));
             }
           }
         },
         _reverseMask: function() {
-          var x, y;
+          var x, y2;
           var width = this.width;
           for (x = 0; x < 9; x++) {
             this._setMask(x, 8);
@@ -2053,21 +2077,21 @@ var require_qrious = __commonJS({
             this._setMask(x + width - 8, 8);
             this._setMask(8, x);
           }
-          for (y = 0; y < 7; y++) {
-            this._setMask(8, y + width - 7);
+          for (y2 = 0; y2 < 7; y2++) {
+            this._setMask(8, y2 + width - 7);
           }
         },
-        _setMask: function(x, y) {
-          var bit = Frame._getMaskBit(x, y);
+        _setMask: function(x, y2) {
+          var bit = Frame._getMaskBit(x, y2);
           this._mask[bit] = 1;
         },
         _syncMask: function() {
-          var x, y;
+          var x, y2;
           var width = this.width;
-          for (y = 0; y < width; y++) {
-            for (x = 0; x <= y; x++) {
-              if (this.buffer[x + width * y]) {
-                this._setMask(x, y);
+          for (y2 = 0; y2 < width; y2++) {
+            for (x = 0; x <= y2; x++) {
+              if (this.buffer[x + width * y2]) {
+                this._setMask(x, y2);
               }
             }
           }
@@ -2081,15 +2105,15 @@ var require_qrious = __commonJS({
           }
           return array;
         },
-        _getMaskBit: function(x, y) {
+        _getMaskBit: function(x, y2) {
           var bit;
-          if (x > y) {
+          if (x > y2) {
             bit = x;
-            x = y;
-            y = bit;
+            x = y2;
+            y2 = bit;
           }
-          bit = y;
-          bit += y * y;
+          bit = y2;
+          bit += y2 * y2;
           bit >>= 1;
           bit += x;
           return bit;
@@ -2384,7 +2408,7 @@ var require_xterm = __commonJS({
         "use strict";
         var e = { 4567: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.AccessibilityManager = void 0;
-          const s2 = i2(9042), r = i2(6114), n = i2(9924), o = i2(3656), a = i2(844), h2 = i2(5596), c = i2(9631);
+          const s2 = i2(9042), r = i2(6114), n = i2(9924), o = i2(3656), a = i2(844), h4 = i2(5596), c = i2(9631);
           class l extends a.Disposable {
             constructor(e3, t3) {
               super(), this._terminal = e3, this._renderService = t3, this._liveRegionLineCount = 0, this._charsToConsume = [], this._charsToAnnounce = "", this._accessibilityTreeRoot = document.createElement("div"), this._accessibilityTreeRoot.classList.add("xterm-accessibility"), this._accessibilityTreeRoot.tabIndex = 0, this._rowContainer = document.createElement("div"), this._rowContainer.setAttribute("role", "list"), this._rowContainer.classList.add("xterm-accessibility-tree"), this._rowElements = [];
@@ -2392,7 +2416,7 @@ var require_xterm = __commonJS({
                 this._rowElements[e4] = this._createAccessibilityTreeNode(), this._rowContainer.appendChild(this._rowElements[e4]);
               if (this._topBoundaryFocusListener = (e4) => this._onBoundaryFocus(e4, 0), this._bottomBoundaryFocusListener = (e4) => this._onBoundaryFocus(e4, 1), this._rowElements[0].addEventListener("focus", this._topBoundaryFocusListener), this._rowElements[this._rowElements.length - 1].addEventListener("focus", this._bottomBoundaryFocusListener), this._refreshRowsDimensions(), this._accessibilityTreeRoot.appendChild(this._rowContainer), this._renderRowsDebouncer = new n.TimeBasedDebouncer(this._renderRows.bind(this)), this._refreshRows(), this._liveRegion = document.createElement("div"), this._liveRegion.classList.add("live-region"), this._liveRegion.setAttribute("aria-live", "assertive"), this._accessibilityTreeRoot.appendChild(this._liveRegion), !this._terminal.element)
                 throw new Error("Cannot enable accessibility before Terminal.open");
-              this._terminal.element.insertAdjacentElement("afterbegin", this._accessibilityTreeRoot), this.register(this._renderRowsDebouncer), this.register(this._terminal.onResize((e4) => this._onResize(e4.rows))), this.register(this._terminal.onRender((e4) => this._refreshRows(e4.start, e4.end))), this.register(this._terminal.onScroll(() => this._refreshRows())), this.register(this._terminal.onA11yChar((e4) => this._onChar(e4))), this.register(this._terminal.onLineFeed(() => this._onChar("\n"))), this.register(this._terminal.onA11yTab((e4) => this._onTab(e4))), this.register(this._terminal.onKey((e4) => this._onKey(e4.key))), this.register(this._terminal.onBlur(() => this._clearLiveRegion())), this.register(this._renderService.onDimensionsChange(() => this._refreshRowsDimensions())), this._screenDprMonitor = new h2.ScreenDprMonitor(window), this.register(this._screenDprMonitor), this._screenDprMonitor.setListener(() => this._refreshRowsDimensions()), this.register((0, o.addDisposableDomListener)(window, "resize", () => this._refreshRowsDimensions()));
+              this._terminal.element.insertAdjacentElement("afterbegin", this._accessibilityTreeRoot), this.register(this._renderRowsDebouncer), this.register(this._terminal.onResize((e4) => this._onResize(e4.rows))), this.register(this._terminal.onRender((e4) => this._refreshRows(e4.start, e4.end))), this.register(this._terminal.onScroll(() => this._refreshRows())), this.register(this._terminal.onA11yChar((e4) => this._onChar(e4))), this.register(this._terminal.onLineFeed(() => this._onChar("\n"))), this.register(this._terminal.onA11yTab((e4) => this._onTab(e4))), this.register(this._terminal.onKey((e4) => this._onKey(e4.key))), this.register(this._terminal.onBlur(() => this._clearLiveRegion())), this.register(this._renderService.onDimensionsChange(() => this._refreshRowsDimensions())), this._screenDprMonitor = new h4.ScreenDprMonitor(window), this.register(this._screenDprMonitor), this._screenDprMonitor.setListener(() => this._refreshRowsDimensions()), this.register((0, o.addDisposableDomListener)(window, "resize", () => this._refreshRowsDimensions()));
             }
             dispose() {
               super.dispose(), (0, c.removeElementFromParent)(this._accessibilityTreeRoot), this._rowElements.length = 0;
@@ -2512,7 +2536,7 @@ var require_xterm = __commonJS({
           };
         }, 5680: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.ColorManager = t2.DEFAULT_ANSI_COLORS = void 0;
-          const s2 = i2(8055), r = i2(7239), n = s2.css.toColor("#ffffff"), o = s2.css.toColor("#000000"), a = s2.css.toColor("#ffffff"), h2 = s2.css.toColor("#000000"), c = { css: "rgba(255, 255, 255, 0.3)", rgba: 4294967117 };
+          const s2 = i2(8055), r = i2(7239), n = s2.css.toColor("#ffffff"), o = s2.css.toColor("#000000"), a = s2.css.toColor("#ffffff"), h4 = s2.css.toColor("#000000"), c = { css: "rgba(255, 255, 255, 0.3)", rgba: 4294967117 };
           t2.DEFAULT_ANSI_COLORS = Object.freeze((() => {
             const e3 = [s2.css.toColor("#2e3436"), s2.css.toColor("#cc0000"), s2.css.toColor("#4e9a06"), s2.css.toColor("#c4a000"), s2.css.toColor("#3465a4"), s2.css.toColor("#75507b"), s2.css.toColor("#06989a"), s2.css.toColor("#d3d7cf"), s2.css.toColor("#555753"), s2.css.toColor("#ef2929"), s2.css.toColor("#8ae234"), s2.css.toColor("#fce94f"), s2.css.toColor("#729fcf"), s2.css.toColor("#ad7fa8"), s2.css.toColor("#34e2e2"), s2.css.toColor("#eeeeec")], t3 = [0, 95, 135, 175, 215, 255];
             for (let i3 = 0; i3 < 216; i3++) {
@@ -2532,7 +2556,7 @@ var require_xterm = __commonJS({
               const d = l.getContext("2d");
               if (!d)
                 throw new Error("Could not get rendering context");
-              this._ctx = d, this._ctx.globalCompositeOperation = "copy", this._litmusColor = this._ctx.createLinearGradient(0, 0, 1, 1), this._contrastCache = new r.ColorContrastCache(), this.colors = { foreground: n, background: o, cursor: a, cursorAccent: h2, selectionForeground: void 0, selectionBackgroundTransparent: c, selectionBackgroundOpaque: s2.color.blend(o, c), selectionInactiveBackgroundTransparent: c, selectionInactiveBackgroundOpaque: s2.color.blend(o, c), ansi: t2.DEFAULT_ANSI_COLORS.slice(), contrastCache: this._contrastCache }, this._updateRestoreColors();
+              this._ctx = d, this._ctx.globalCompositeOperation = "copy", this._litmusColor = this._ctx.createLinearGradient(0, 0, 1, 1), this._contrastCache = new r.ColorContrastCache(), this.colors = { foreground: n, background: o, cursor: a, cursorAccent: h4, selectionForeground: void 0, selectionBackgroundTransparent: c, selectionBackgroundOpaque: s2.color.blend(o, c), selectionInactiveBackgroundTransparent: c, selectionInactiveBackgroundOpaque: s2.color.blend(o, c), ansi: t2.DEFAULT_ANSI_COLORS.slice(), contrastCache: this._contrastCache }, this._updateRestoreColors();
             }
             onOptionsChange(e3, t3) {
               switch (e3) {
@@ -2544,7 +2568,7 @@ var require_xterm = __commonJS({
               }
             }
             setTheme(e3 = {}) {
-              this.colors.foreground = this._parseColor(e3.foreground, n), this.colors.background = this._parseColor(e3.background, o), this.colors.cursor = this._parseColor(e3.cursor, a, true), this.colors.cursorAccent = this._parseColor(e3.cursorAccent, h2, true), this.colors.selectionBackgroundTransparent = this._parseColor(e3.selectionBackground, c, true), this.colors.selectionBackgroundOpaque = s2.color.blend(this.colors.background, this.colors.selectionBackgroundTransparent), this.colors.selectionInactiveBackgroundTransparent = this._parseColor(e3.selectionInactiveBackground, this.colors.selectionBackgroundTransparent, true), this.colors.selectionInactiveBackgroundOpaque = s2.color.blend(this.colors.background, this.colors.selectionInactiveBackgroundTransparent);
+              this.colors.foreground = this._parseColor(e3.foreground, n), this.colors.background = this._parseColor(e3.background, o), this.colors.cursor = this._parseColor(e3.cursor, a, true), this.colors.cursorAccent = this._parseColor(e3.cursorAccent, h4, true), this.colors.selectionBackgroundTransparent = this._parseColor(e3.selectionBackground, c, true), this.colors.selectionBackgroundOpaque = s2.color.blend(this.colors.background, this.colors.selectionBackgroundTransparent), this.colors.selectionInactiveBackgroundTransparent = this._parseColor(e3.selectionInactiveBackground, this.colors.selectionBackgroundTransparent, true), this.colors.selectionInactiveBackgroundOpaque = s2.color.blend(this.colors.background, this.colors.selectionInactiveBackgroundTransparent);
               const i3 = { css: "", rgba: 0 };
               if (this.colors.selectionForeground = e3.selectionForeground ? this._parseColor(e3.selectionForeground, i3) : void 0, this.colors.selectionForeground === i3 && (this.colors.selectionForeground = void 0), s2.color.isOpaque(this.colors.selectionBackgroundTransparent)) {
                 const e4 = 0.3;
@@ -2593,8 +2617,8 @@ var require_xterm = __commonJS({
               if (255 !== r2[3]) {
                 if (!i3)
                   return console.warn(`Color: ${e3} is using transparency, but allowTransparency is false. Using fallback ${t3.css}.`), t3;
-                const [r3, n2, o2, a2] = this._ctx.fillStyle.substring(5, this._ctx.fillStyle.length - 1).split(",").map((e4) => Number(e4)), h3 = Math.round(255 * a2);
-                return { rgba: s2.channels.toRgba(r3, n2, o2, h3), css: e3 };
+                const [r3, n2, o2, a2] = this._ctx.fillStyle.substring(5, this._ctx.fillStyle.length - 1).split(",").map((e4) => Number(e4)), h5 = Math.round(255 * a2);
+                return { rgba: s2.channels.toRgba(r3, n2, o2, h5), css: e3 };
               }
               return { css: this._ctx.fillStyle, rgba: s2.channels.toRgba(r2[0], r2[1], r2[2], r2[3]) };
             }
@@ -2628,7 +2652,7 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.Linkifier2 = void 0;
-          const n = i2(2585), o = i2(8460), a = i2(844), h2 = i2(3656);
+          const n = i2(2585), o = i2(8460), a = i2(844), h4 = i2(3656);
           let c = class extends a.Disposable {
             constructor(e3) {
               super(), this._bufferService = e3, this._linkProviders = [], this._linkCacheDisposables = [], this._isMouseOut = true, this._activeLine = -1, this._onShowLinkUnderline = this.register(new o.EventEmitter()), this._onHideLinkUnderline = this.register(new o.EventEmitter()), this.register((0, a.getDisposeArrayDisposable)(this._linkCacheDisposables));
@@ -2652,9 +2676,9 @@ var require_xterm = __commonJS({
               } };
             }
             attachToDom(e3, t3, i3) {
-              this._element = e3, this._mouseService = t3, this._renderService = i3, this.register((0, h2.addDisposableDomListener)(this._element, "mouseleave", () => {
+              this._element = e3, this._mouseService = t3, this._renderService = i3, this.register((0, h4.addDisposableDomListener)(this._element, "mouseleave", () => {
                 this._isMouseOut = true, this._clearCurrentLink();
-              })), this.register((0, h2.addDisposableDomListener)(this._element, "mousemove", this._onMouseMove.bind(this))), this.register((0, h2.addDisposableDomListener)(this._element, "mousedown", this._handleMouseDown.bind(this))), this.register((0, h2.addDisposableDomListener)(this._element, "mouseup", this._handleMouseUp.bind(this)));
+              })), this.register((0, h4.addDisposableDomListener)(this._element, "mousemove", this._onMouseMove.bind(this))), this.register((0, h4.addDisposableDomListener)(this._element, "mousedown", this._handleMouseDown.bind(this))), this.register((0, h4.addDisposableDomListener)(this._element, "mouseup", this._handleMouseUp.bind(this)));
             }
             _onMouseMove(e3) {
               if (this._lastMouseEvent = e3, !this._element || !this._mouseService)
@@ -2821,7 +2845,7 @@ var require_xterm = __commonJS({
               if (!s3)
                 return void t3(void 0);
               const r2 = [], o2 = this._optionsService.rawOptions.linkHandler, a2 = new n.CellData(), c = s3.getTrimmedLength();
-              let l = -1, d = -1, _ = false;
+              let l = -1, d = -1, _2 = false;
               for (let t4 = 0; t4 < c; t4++)
                 if (-1 !== d || s3.hasContent(t4)) {
                   if (s3.loadCell(t4, a2), a2.hasExtendedAttrs() && a2.extended.urlId) {
@@ -2829,14 +2853,14 @@ var require_xterm = __commonJS({
                       d = t4, l = a2.extended.urlId;
                       continue;
                     }
-                    _ = a2.extended.urlId !== l;
+                    _2 = a2.extended.urlId !== l;
                   } else
-                    -1 !== d && (_ = true);
-                  if (_ || -1 !== d && t4 === c - 1) {
+                    -1 !== d && (_2 = true);
+                  if (_2 || -1 !== d && t4 === c - 1) {
                     const s4 = null === (i3 = this._oscLinkService.getLinkData(l)) || void 0 === i3 ? void 0 : i3.uri;
                     if (s4) {
-                      const i4 = { start: { x: d + 1, y: e3 }, end: { x: t4 + (_ || t4 !== c - 1 ? 0 : 1), y: e3 } };
-                      r2.push({ text: s4, range: i4, activate: (e4, t5) => o2 ? o2.activate(e4, t5, i4) : h2(0, t5), hover: (e4, t5) => {
+                      const i4 = { start: { x: d + 1, y: e3 }, end: { x: t4 + (_2 || t4 !== c - 1 ? 0 : 1), y: e3 } };
+                      r2.push({ text: s4, range: i4, activate: (e4, t5) => o2 ? o2.activate(e4, t5, i4) : h4(0, t5), hover: (e4, t5) => {
                         var s5;
                         return null === (s5 = null == o2 ? void 0 : o2.hover) || void 0 === s5 ? void 0 : s5.call(o2, e4, t5, i4);
                       }, leave: (e4, t5) => {
@@ -2844,13 +2868,13 @@ var require_xterm = __commonJS({
                         return null === (s5 = null == o2 ? void 0 : o2.leave) || void 0 === s5 ? void 0 : s5.call(o2, e4, t5, i4);
                       } });
                     }
-                    _ = false, a2.hasExtendedAttrs() && a2.extended.urlId ? (d = t4, l = a2.extended.urlId) : (d = -1, l = -1);
+                    _2 = false, a2.hasExtendedAttrs() && a2.extended.urlId ? (d = t4, l = a2.extended.urlId) : (d = -1, l = -1);
                   }
                 }
               t3(r2);
             }
           };
-          function h2(e3, t3) {
+          function h4(e3, t3) {
             if (confirm(`Do you want to navigate to ${t3}?`)) {
               const e4 = window.open();
               if (e4) {
@@ -2916,10 +2940,10 @@ var require_xterm = __commonJS({
           t2.ScreenDprMonitor = r;
         }, 3236: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.Terminal = void 0;
-          const s2 = i2(2950), r = i2(1680), n = i2(3614), o = i2(2584), a = i2(5435), h2 = i2(9312), c = i2(6114), l = i2(3656), d = i2(9042), _ = i2(4567), u = i2(1296), f = i2(7399), v = i2(8460), g = i2(8437), p = i2(5680), S = i2(3230), m = i2(4725), C = i2(428), b = i2(8934), y = i2(6465), w = i2(5114), E = i2(8969), L = i2(8055), R = i2(4269), k = i2(5941), D = i2(3107), A = i2(5744), x = i2(9074), B = i2(2585), T = i2(2962), M = "undefined" != typeof window ? window.document : null;
+          const s2 = i2(2950), r = i2(1680), n = i2(3614), o = i2(2584), a = i2(5435), h4 = i2(9312), c = i2(6114), l = i2(3656), d = i2(9042), _2 = i2(4567), u = i2(1296), f = i2(7399), v = i2(8460), g = i2(8437), p3 = i2(5680), S2 = i2(3230), m = i2(4725), C = i2(428), b = i2(8934), y2 = i2(6465), w = i2(5114), E = i2(8969), L = i2(8055), R = i2(4269), k = i2(5941), D = i2(3107), A = i2(5744), x = i2(9074), B = i2(2585), T = i2(2962), M = "undefined" != typeof window ? window.document : null;
           class O extends E.CoreTerminal {
             constructor(e3 = {}) {
-              super(e3), this.browser = c, this._keyDownHandled = false, this._keyDownSeen = false, this._keyPressHandled = false, this._unprocessedDeadKey = false, this._onCursorMove = new v.EventEmitter(), this._onKey = new v.EventEmitter(), this._onRender = new v.EventEmitter(), this._onSelectionChange = new v.EventEmitter(), this._onTitleChange = new v.EventEmitter(), this._onBell = new v.EventEmitter(), this._onFocus = new v.EventEmitter(), this._onBlur = new v.EventEmitter(), this._onA11yCharEmitter = new v.EventEmitter(), this._onA11yTabEmitter = new v.EventEmitter(), this._setup(), this.linkifier2 = this.register(this._instantiationService.createInstance(y.Linkifier2)), this.linkifier2.registerLinkProvider(this._instantiationService.createInstance(T.OscLinkProvider)), this._decorationService = this._instantiationService.createInstance(x.DecorationService), this._instantiationService.setService(B.IDecorationService, this._decorationService), this.register(this._inputHandler.onRequestBell(() => this._onBell.fire())), this.register(this._inputHandler.onRequestRefreshRows((e4, t3) => this.refresh(e4, t3))), this.register(this._inputHandler.onRequestSendFocus(() => this._reportFocus())), this.register(this._inputHandler.onRequestReset(() => this.reset())), this.register(this._inputHandler.onRequestWindowsOptionsReport((e4) => this._reportWindowsOptions(e4))), this.register(this._inputHandler.onColor((e4) => this._handleColorEvent(e4))), this.register((0, v.forwardEvent)(this._inputHandler.onCursorMove, this._onCursorMove)), this.register((0, v.forwardEvent)(this._inputHandler.onTitleChange, this._onTitleChange)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yChar, this._onA11yCharEmitter)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yTab, this._onA11yTabEmitter)), this.register(this._bufferService.onResize((e4) => this._afterResize(e4.cols, e4.rows)));
+              super(e3), this.browser = c, this._keyDownHandled = false, this._keyDownSeen = false, this._keyPressHandled = false, this._unprocessedDeadKey = false, this._onCursorMove = new v.EventEmitter(), this._onKey = new v.EventEmitter(), this._onRender = new v.EventEmitter(), this._onSelectionChange = new v.EventEmitter(), this._onTitleChange = new v.EventEmitter(), this._onBell = new v.EventEmitter(), this._onFocus = new v.EventEmitter(), this._onBlur = new v.EventEmitter(), this._onA11yCharEmitter = new v.EventEmitter(), this._onA11yTabEmitter = new v.EventEmitter(), this._setup(), this.linkifier2 = this.register(this._instantiationService.createInstance(y2.Linkifier2)), this.linkifier2.registerLinkProvider(this._instantiationService.createInstance(T.OscLinkProvider)), this._decorationService = this._instantiationService.createInstance(x.DecorationService), this._instantiationService.setService(B.IDecorationService, this._decorationService), this.register(this._inputHandler.onRequestBell(() => this._onBell.fire())), this.register(this._inputHandler.onRequestRefreshRows((e4, t3) => this.refresh(e4, t3))), this.register(this._inputHandler.onRequestSendFocus(() => this._reportFocus())), this.register(this._inputHandler.onRequestReset(() => this.reset())), this.register(this._inputHandler.onRequestWindowsOptionsReport((e4) => this._reportWindowsOptions(e4))), this.register(this._inputHandler.onColor((e4) => this._handleColorEvent(e4))), this.register((0, v.forwardEvent)(this._inputHandler.onCursorMove, this._onCursorMove)), this.register((0, v.forwardEvent)(this._inputHandler.onTitleChange, this._onTitleChange)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yChar, this._onA11yCharEmitter)), this.register((0, v.forwardEvent)(this._inputHandler.onA11yTab, this._onA11yTabEmitter)), this.register(this._bufferService.onResize((e4) => this._afterResize(e4.cols, e4.rows)));
             }
             get onCursorMove() {
               return this._onCursorMove.event;
@@ -3022,7 +3046,7 @@ var require_xterm = __commonJS({
                   null === (s3 = this.viewport) || void 0 === s3 || s3.syncScrollArea();
                   break;
                 case "screenReaderMode":
-                  this.optionsService.rawOptions.screenReaderMode ? !this._accessibilityManager && this._renderService && (this._accessibilityManager = new _.AccessibilityManager(this, this._renderService)) : (null === (r2 = this._accessibilityManager) || void 0 === r2 || r2.dispose(), this._accessibilityManager = void 0);
+                  this.optionsService.rawOptions.screenReaderMode ? !this._accessibilityManager && this._renderService && (this._accessibilityManager = new _2.AccessibilityManager(this, this._renderService)) : (null === (r2 = this._accessibilityManager) || void 0 === r2 || r2.dispose(), this._accessibilityManager = void 0);
                   break;
                 case "tabStopWidth":
                   this.buffers.setupTabStops();
@@ -3072,15 +3096,15 @@ var require_xterm = __commonJS({
                 throw new Error("Terminal requires a parent element.");
               e3.isConnected || this._logService.debug("Terminal.open was called on an element that was not attached to the DOM"), this._document = e3.ownerDocument, this.element = this._document.createElement("div"), this.element.dir = "ltr", this.element.classList.add("terminal"), this.element.classList.add("xterm"), this.element.setAttribute("tabindex", "0"), e3.appendChild(this.element);
               const i3 = M.createDocumentFragment();
-              this._viewportElement = M.createElement("div"), this._viewportElement.classList.add("xterm-viewport"), i3.appendChild(this._viewportElement), this._viewportScrollArea = M.createElement("div"), this._viewportScrollArea.classList.add("xterm-scroll-area"), this._viewportElement.appendChild(this._viewportScrollArea), this.screenElement = M.createElement("div"), this.screenElement.classList.add("xterm-screen"), this._helperContainer = M.createElement("div"), this._helperContainer.classList.add("xterm-helpers"), this.screenElement.appendChild(this._helperContainer), i3.appendChild(this.screenElement), this.textarea = M.createElement("textarea"), this.textarea.classList.add("xterm-helper-textarea"), this.textarea.setAttribute("aria-label", d.promptLabel), this.textarea.setAttribute("aria-multiline", "false"), this.textarea.setAttribute("autocorrect", "off"), this.textarea.setAttribute("autocapitalize", "off"), this.textarea.setAttribute("spellcheck", "false"), this.textarea.tabIndex = 0, this.register((0, l.addDisposableDomListener)(this.textarea, "focus", (e4) => this._onTextAreaFocus(e4))), this.register((0, l.addDisposableDomListener)(this.textarea, "blur", () => this._onTextAreaBlur())), this._helperContainer.appendChild(this.textarea), this._coreBrowserService = this._instantiationService.createInstance(w.CoreBrowserService, this.textarea, null !== (t3 = this._document.defaultView) && void 0 !== t3 ? t3 : window), this._instantiationService.setService(m.ICoreBrowserService, this._coreBrowserService), this._charSizeService = this._instantiationService.createInstance(C.CharSizeService, this._document, this._helperContainer), this._instantiationService.setService(m.ICharSizeService, this._charSizeService), this._theme = this.options.theme || this._theme, this._colorManager = new p.ColorManager(M, this.options.allowTransparency), this.register(this.optionsService.onOptionChange((e4) => this._colorManager.onOptionsChange(e4, this.optionsService.rawOptions[e4]))), this._colorManager.setTheme(this._theme), this._characterJoinerService = this._instantiationService.createInstance(R.CharacterJoinerService), this._instantiationService.setService(m.ICharacterJoinerService, this._characterJoinerService);
+              this._viewportElement = M.createElement("div"), this._viewportElement.classList.add("xterm-viewport"), i3.appendChild(this._viewportElement), this._viewportScrollArea = M.createElement("div"), this._viewportScrollArea.classList.add("xterm-scroll-area"), this._viewportElement.appendChild(this._viewportScrollArea), this.screenElement = M.createElement("div"), this.screenElement.classList.add("xterm-screen"), this._helperContainer = M.createElement("div"), this._helperContainer.classList.add("xterm-helpers"), this.screenElement.appendChild(this._helperContainer), i3.appendChild(this.screenElement), this.textarea = M.createElement("textarea"), this.textarea.classList.add("xterm-helper-textarea"), this.textarea.setAttribute("aria-label", d.promptLabel), this.textarea.setAttribute("aria-multiline", "false"), this.textarea.setAttribute("autocorrect", "off"), this.textarea.setAttribute("autocapitalize", "off"), this.textarea.setAttribute("spellcheck", "false"), this.textarea.tabIndex = 0, this.register((0, l.addDisposableDomListener)(this.textarea, "focus", (e4) => this._onTextAreaFocus(e4))), this.register((0, l.addDisposableDomListener)(this.textarea, "blur", () => this._onTextAreaBlur())), this._helperContainer.appendChild(this.textarea), this._coreBrowserService = this._instantiationService.createInstance(w.CoreBrowserService, this.textarea, null !== (t3 = this._document.defaultView) && void 0 !== t3 ? t3 : window), this._instantiationService.setService(m.ICoreBrowserService, this._coreBrowserService), this._charSizeService = this._instantiationService.createInstance(C.CharSizeService, this._document, this._helperContainer), this._instantiationService.setService(m.ICharSizeService, this._charSizeService), this._theme = this.options.theme || this._theme, this._colorManager = new p3.ColorManager(M, this.options.allowTransparency), this.register(this.optionsService.onOptionChange((e4) => this._colorManager.onOptionsChange(e4, this.optionsService.rawOptions[e4]))), this._colorManager.setTheme(this._theme), this._characterJoinerService = this._instantiationService.createInstance(R.CharacterJoinerService), this._instantiationService.setService(m.ICharacterJoinerService, this._characterJoinerService);
               const n2 = this._createRenderer();
-              this._renderService = this.register(this._instantiationService.createInstance(S.RenderService, n2, this.rows, this.screenElement)), this._instantiationService.setService(m.IRenderService, this._renderService), this.register(this._renderService.onRenderedViewportChange((e4) => this._onRender.fire(e4))), this.onResize((e4) => this._renderService.resize(e4.cols, e4.rows)), this._compositionView = M.createElement("div"), this._compositionView.classList.add("composition-view"), this._compositionHelper = this._instantiationService.createInstance(s2.CompositionHelper, this.textarea, this._compositionView), this._helperContainer.appendChild(this._compositionView), this.element.appendChild(i3), this._mouseService = this._instantiationService.createInstance(b.MouseService), this._instantiationService.setService(m.IMouseService, this._mouseService), this.viewport = this._instantiationService.createInstance(r.Viewport, (e4) => this.scrollLines(e4, true, 1), this._viewportElement, this._viewportScrollArea, this.element), this.viewport.onThemeChange(this._colorManager.colors), this.register(this._inputHandler.onRequestSyncScrollBar(() => this.viewport.syncScrollArea())), this.register(this.viewport), this.register(this.onCursorMove(() => {
+              this._renderService = this.register(this._instantiationService.createInstance(S2.RenderService, n2, this.rows, this.screenElement)), this._instantiationService.setService(m.IRenderService, this._renderService), this.register(this._renderService.onRenderedViewportChange((e4) => this._onRender.fire(e4))), this.onResize((e4) => this._renderService.resize(e4.cols, e4.rows)), this._compositionView = M.createElement("div"), this._compositionView.classList.add("composition-view"), this._compositionHelper = this._instantiationService.createInstance(s2.CompositionHelper, this.textarea, this._compositionView), this._helperContainer.appendChild(this._compositionView), this.element.appendChild(i3), this._mouseService = this._instantiationService.createInstance(b.MouseService), this._instantiationService.setService(m.IMouseService, this._mouseService), this.viewport = this._instantiationService.createInstance(r.Viewport, (e4) => this.scrollLines(e4, true, 1), this._viewportElement, this._viewportScrollArea, this.element), this.viewport.onThemeChange(this._colorManager.colors), this.register(this._inputHandler.onRequestSyncScrollBar(() => this.viewport.syncScrollArea())), this.register(this.viewport), this.register(this.onCursorMove(() => {
                 this._renderService.onCursorMove(), this._syncTextArea();
-              })), this.register(this.onResize(() => this._renderService.onResize(this.cols, this.rows))), this.register(this.onBlur(() => this._renderService.onBlur())), this.register(this.onFocus(() => this._renderService.onFocus())), this.register(this._renderService.onDimensionsChange(() => this.viewport.syncScrollArea())), this._selectionService = this.register(this._instantiationService.createInstance(h2.SelectionService, this.element, this.screenElement, this.linkifier2)), this._instantiationService.setService(m.ISelectionService, this._selectionService), this.register(this._selectionService.onRequestScrollLines((e4) => this.scrollLines(e4.amount, e4.suppressScrollEvent))), this.register(this._selectionService.onSelectionChange(() => this._onSelectionChange.fire())), this.register(this._selectionService.onRequestRedraw((e4) => this._renderService.onSelectionChanged(e4.start, e4.end, e4.columnSelectMode))), this.register(this._selectionService.onLinuxMouseSelection((e4) => {
+              })), this.register(this.onResize(() => this._renderService.onResize(this.cols, this.rows))), this.register(this.onBlur(() => this._renderService.onBlur())), this.register(this.onFocus(() => this._renderService.onFocus())), this.register(this._renderService.onDimensionsChange(() => this.viewport.syncScrollArea())), this._selectionService = this.register(this._instantiationService.createInstance(h4.SelectionService, this.element, this.screenElement, this.linkifier2)), this._instantiationService.setService(m.ISelectionService, this._selectionService), this.register(this._selectionService.onRequestScrollLines((e4) => this.scrollLines(e4.amount, e4.suppressScrollEvent))), this.register(this._selectionService.onSelectionChange(() => this._onSelectionChange.fire())), this.register(this._selectionService.onRequestRedraw((e4) => this._renderService.onSelectionChanged(e4.start, e4.end, e4.columnSelectMode))), this.register(this._selectionService.onLinuxMouseSelection((e4) => {
                 this.textarea.value = e4, this.textarea.focus(), this.textarea.select();
               })), this.register(this._onScroll.event((e4) => {
                 this.viewport.syncScrollArea(), this._selectionService.refresh();
-              })), this.register((0, l.addDisposableDomListener)(this._viewportElement, "scroll", () => this._selectionService.refresh())), this.linkifier2.attachToDom(this.screenElement, this._mouseService, this._renderService), this.register(this._instantiationService.createInstance(D.BufferDecorationRenderer, this.screenElement)), this.register((0, l.addDisposableDomListener)(this.element, "mousedown", (e4) => this._selectionService.onMouseDown(e4))), this.coreMouseService.areMouseEventsActive ? (this._selectionService.disable(), this.element.classList.add("enable-mouse-events")) : this._selectionService.enable(), this.options.screenReaderMode && (this._accessibilityManager = new _.AccessibilityManager(this, this._renderService)), this.options.overviewRulerWidth && (this._overviewRulerRenderer = this.register(this._instantiationService.createInstance(A.OverviewRulerRenderer, this._viewportElement, this.screenElement))), this.optionsService.onOptionChange(() => {
+              })), this.register((0, l.addDisposableDomListener)(this._viewportElement, "scroll", () => this._selectionService.refresh())), this.linkifier2.attachToDom(this.screenElement, this._mouseService, this._renderService), this.register(this._instantiationService.createInstance(D.BufferDecorationRenderer, this.screenElement)), this.register((0, l.addDisposableDomListener)(this.element, "mousedown", (e4) => this._selectionService.onMouseDown(e4))), this.coreMouseService.areMouseEventsActive ? (this._selectionService.disable(), this.element.classList.add("enable-mouse-events")) : this._selectionService.enable(), this.options.screenReaderMode && (this._accessibilityManager = new _2.AccessibilityManager(this, this._renderService)), this.options.overviewRulerWidth && (this._overviewRulerRenderer = this.register(this._instantiationService.createInstance(A.OverviewRulerRenderer, this._viewportElement, this.screenElement))), this.optionsService.onOptionChange(() => {
                 !this._overviewRulerRenderer && this.options.overviewRulerWidth && this._viewportElement && this.screenElement && (this._overviewRulerRenderer = this.register(this._instantiationService.createInstance(A.OverviewRulerRenderer, this._viewportElement, this.screenElement)));
               }), this._charSizeService.measure(), this.refresh(0, this.rows - 1), this._initGlobal(), this.bindMouse();
             }
@@ -3357,10 +3381,10 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.Viewport = void 0;
-          const n = i2(844), o = i2(3656), a = i2(4725), h2 = i2(2585);
+          const n = i2(844), o = i2(3656), a = i2(4725), h4 = i2(2585);
           let c = class extends n.Disposable {
-            constructor(e3, t3, i3, s3, r2, n2, a2, h3, c2) {
-              super(), this._scrollLines = e3, this._viewportElement = t3, this._scrollArea = i3, this._element = s3, this._bufferService = r2, this._optionsService = n2, this._charSizeService = a2, this._renderService = h3, this._coreBrowserService = c2, this.scrollBarWidth = 0, this._currentRowHeight = 0, this._currentScaledCellHeight = 0, this._lastRecordedBufferLength = 0, this._lastRecordedViewportHeight = 0, this._lastRecordedBufferHeight = 0, this._lastTouchY = 0, this._lastScrollTop = 0, this._wheelPartialScroll = 0, this._refreshAnimationFrame = null, this._ignoreNextScrollEvent = false, this._smoothScrollState = { startTime: 0, origin: -1, target: -1 }, this.scrollBarWidth = this._viewportElement.offsetWidth - this._scrollArea.offsetWidth || 15, this.register((0, o.addDisposableDomListener)(this._viewportElement, "scroll", this._onScroll.bind(this))), this._activeBuffer = this._bufferService.buffer, this.register(this._bufferService.buffers.onBufferActivate((e4) => this._activeBuffer = e4.activeBuffer)), this._renderDimensions = this._renderService.dimensions, this.register(this._renderService.onDimensionsChange((e4) => this._renderDimensions = e4)), setTimeout(() => this.syncScrollArea(), 0);
+            constructor(e3, t3, i3, s3, r2, n2, a2, h5, c2) {
+              super(), this._scrollLines = e3, this._viewportElement = t3, this._scrollArea = i3, this._element = s3, this._bufferService = r2, this._optionsService = n2, this._charSizeService = a2, this._renderService = h5, this._coreBrowserService = c2, this.scrollBarWidth = 0, this._currentRowHeight = 0, this._currentScaledCellHeight = 0, this._lastRecordedBufferLength = 0, this._lastRecordedViewportHeight = 0, this._lastRecordedBufferHeight = 0, this._lastTouchY = 0, this._lastScrollTop = 0, this._wheelPartialScroll = 0, this._refreshAnimationFrame = null, this._ignoreNextScrollEvent = false, this._smoothScrollState = { startTime: 0, origin: -1, target: -1 }, this.scrollBarWidth = this._viewportElement.offsetWidth - this._scrollArea.offsetWidth || 15, this.register((0, o.addDisposableDomListener)(this._viewportElement, "scroll", this._onScroll.bind(this))), this._activeBuffer = this._bufferService.buffer, this.register(this._bufferService.buffers.onBufferActivate((e4) => this._activeBuffer = e4.activeBuffer)), this._renderDimensions = this._renderService.dimensions, this.register(this._renderService.onDimensionsChange((e4) => this._renderDimensions = e4)), setTimeout(() => this.syncScrollArea(), 0);
             }
             onThemeChange(e3) {
               this._viewportElement.style.backgroundColor = e3.background.css;
@@ -3436,7 +3460,7 @@ var require_xterm = __commonJS({
               return this._lastTouchY = e3.touches[0].pageY, 0 !== t3 && (this._viewportElement.scrollTop += t3, this._bubbleScroll(e3, t3));
             }
           };
-          c = s2([r(4, h2.IBufferService), r(5, h2.IOptionsService), r(6, a.ICharSizeService), r(7, a.IRenderService), r(8, a.ICoreBrowserService)], c), t2.Viewport = c;
+          c = s2([r(4, h4.IBufferService), r(5, h4.IOptionsService), r(6, a.ICharSizeService), r(7, a.IRenderService), r(8, a.ICoreBrowserService)], c), t2.Viewport = c;
         }, 3107: function(e2, t2, i2) {
           var s2 = this && this.__decorate || function(e3, t3, i3, s3) {
             var r2, n2 = arguments.length, o2 = n2 < 3 ? t3 : null === s3 ? s3 = Object.getOwnPropertyDescriptor(t3, i3) : s3;
@@ -3452,7 +3476,7 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.BufferDecorationRenderer = void 0;
-          const n = i2(3656), o = i2(4725), a = i2(844), h2 = i2(2585);
+          const n = i2(3656), o = i2(4725), a = i2(844), h4 = i2(2585);
           let c = class extends a.Disposable {
             constructor(e3, t3, i3, s3) {
               super(), this._screenElement = e3, this._bufferService = t3, this._decorationService = i3, this._renderService = s3, this._decorationElements = /* @__PURE__ */ new Map(), this._altBufferIsActive = false, this._dimensionsChanged = false, this._container = document.createElement("div"), this._container.classList.add("xterm-decoration-container"), this._screenElement.appendChild(this._container), this.register(this._renderService.onRenderedViewportChange(() => this._queueRefresh())), this.register(this._renderService.onDimensionsChange(() => {
@@ -3505,7 +3529,7 @@ var require_xterm = __commonJS({
               null === (t3 = this._decorationElements.get(e3)) || void 0 === t3 || t3.remove(), this._decorationElements.delete(e3);
             }
           };
-          c = s2([r(1, h2.IBufferService), r(2, h2.IDecorationService), r(3, o.IRenderService)], c), t2.BufferDecorationRenderer = c;
+          c = s2([r(1, h4.IBufferService), r(2, h4.IDecorationService), r(3, o.IRenderService)], c), t2.BufferDecorationRenderer = c;
         }, 5871: (e2, t2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.ColorZoneStore = void 0, t2.ColorZoneStore = class {
             constructor() {
@@ -3559,11 +3583,11 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.OverviewRulerRenderer = void 0;
-          const n = i2(5871), o = i2(3656), a = i2(4725), h2 = i2(844), c = i2(2585), l = { full: 0, left: 0, center: 0, right: 0 }, d = { full: 0, left: 0, center: 0, right: 0 }, _ = { full: 0, left: 0, center: 0, right: 0 };
-          let u = class extends h2.Disposable {
+          const n = i2(5871), o = i2(3656), a = i2(4725), h4 = i2(844), c = i2(2585), l = { full: 0, left: 0, center: 0, right: 0 }, d = { full: 0, left: 0, center: 0, right: 0 }, _2 = { full: 0, left: 0, center: 0, right: 0 };
+          let u = class extends h4.Disposable {
             constructor(e3, t3, i3, s3, r2, o2, a2) {
-              var h3;
-              super(), this._viewportElement = e3, this._screenElement = t3, this._bufferService = i3, this._decorationService = s3, this._renderService = r2, this._optionsService = o2, this._coreBrowseService = a2, this._colorZoneStore = new n.ColorZoneStore(), this._shouldUpdateDimensions = true, this._shouldUpdateAnchor = true, this._lastKnownBufferLength = 0, this._canvas = document.createElement("canvas"), this._canvas.classList.add("xterm-decoration-overview-ruler"), this._refreshCanvasDimensions(), null === (h3 = this._viewportElement.parentElement) || void 0 === h3 || h3.insertBefore(this._canvas, this._viewportElement);
+              var h5;
+              super(), this._viewportElement = e3, this._screenElement = t3, this._bufferService = i3, this._decorationService = s3, this._renderService = r2, this._optionsService = o2, this._coreBrowseService = a2, this._colorZoneStore = new n.ColorZoneStore(), this._shouldUpdateDimensions = true, this._shouldUpdateAnchor = true, this._lastKnownBufferLength = 0, this._canvas = document.createElement("canvas"), this._canvas.classList.add("xterm-decoration-overview-ruler"), this._refreshCanvasDimensions(), null === (h5 = this._viewportElement.parentElement) || void 0 === h5 || h5.insertBefore(this._canvas, this._viewportElement);
               const c2 = this._canvas.getContext("2d");
               if (!c2)
                 throw new Error("Ctx cannot be null");
@@ -3597,7 +3621,7 @@ var require_xterm = __commonJS({
             }
             _refreshDrawConstants() {
               const e3 = Math.floor(this._canvas.width / 3), t3 = Math.ceil(this._canvas.width / 3);
-              d.full = this._canvas.width, d.left = e3, d.center = t3, d.right = e3, this._refreshDrawHeightConstants(), _.full = 0, _.left = 0, _.center = d.left, _.right = d.left + d.center;
+              d.full = this._canvas.width, d.left = e3, d.center = t3, d.right = e3, this._refreshDrawHeightConstants(), _2.full = 0, _2.left = 0, _2.center = d.left, _2.right = d.left + d.center;
             }
             _refreshDrawHeightConstants() {
               l.full = Math.round(2 * this._coreBrowseService.dpr);
@@ -3623,7 +3647,7 @@ var require_xterm = __commonJS({
               this._shouldUpdateDimensions = false, this._shouldUpdateAnchor = false;
             }
             _renderColorZone(e3) {
-              this._ctx.fillStyle = e3.color, this._ctx.fillRect(_[e3.position || "full"], Math.round((this._canvas.height - 1) * (e3.startBufferLine / this._bufferService.buffers.active.lines.length) - l[e3.position || "full"] / 2), d[e3.position || "full"], Math.round((this._canvas.height - 1) * ((e3.endBufferLine - e3.startBufferLine) / this._bufferService.buffers.active.lines.length) + l[e3.position || "full"]));
+              this._ctx.fillStyle = e3.color, this._ctx.fillRect(_2[e3.position || "full"], Math.round((this._canvas.height - 1) * (e3.startBufferLine / this._bufferService.buffers.active.lines.length) - l[e3.position || "full"] / 2), d[e3.position || "full"], Math.round((this._canvas.height - 1) * ((e3.endBufferLine - e3.startBufferLine) / this._bufferService.buffers.active.lines.length) + l[e3.position || "full"]));
             }
             _queueRefresh(e3, t3) {
               this._shouldUpdateDimensions = e3 || this._shouldUpdateDimensions, this._shouldUpdateAnchor = t3 || this._shouldUpdateAnchor, void 0 === this._animationFrame && (this._animationFrame = this._coreBrowseService.window.requestAnimationFrame(() => {
@@ -3648,7 +3672,7 @@ var require_xterm = __commonJS({
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.CompositionHelper = void 0;
           const n = i2(4725), o = i2(2585), a = i2(2584);
-          let h2 = class {
+          let h4 = class {
             constructor(e3, t3, i3, s3, r2, n2) {
               this._textarea = e3, this._compositionView = t3, this._bufferService = i3, this._optionsService = s3, this._coreService = r2, this._renderService = n2, this._isComposing = false, this._isSendingComposition = false, this._compositionPosition = { start: 0, end: 0 }, this._dataAlreadySent = "";
             }
@@ -3712,17 +3736,17 @@ var require_xterm = __commonJS({
               }
             }
           };
-          h2 = s2([r(2, o.IBufferService), r(3, o.IOptionsService), r(4, o.ICoreService), r(5, n.IRenderService)], h2), t2.CompositionHelper = h2;
+          h4 = s2([r(2, o.IBufferService), r(3, o.IOptionsService), r(4, o.ICoreService), r(5, n.IRenderService)], h4), t2.CompositionHelper = h4;
         }, 9806: (e2, t2) => {
           function i2(e3, t3, i3) {
             const s2 = i3.getBoundingClientRect(), r = e3.getComputedStyle(i3), n = parseInt(r.getPropertyValue("padding-left")), o = parseInt(r.getPropertyValue("padding-top"));
             return [t3.clientX - s2.left - n, t3.clientY - s2.top - o];
           }
-          Object.defineProperty(t2, "__esModule", { value: true }), t2.getCoords = t2.getCoordsRelativeToElement = void 0, t2.getCoordsRelativeToElement = i2, t2.getCoords = function(e3, t3, s2, r, n, o, a, h2, c) {
+          Object.defineProperty(t2, "__esModule", { value: true }), t2.getCoords = t2.getCoordsRelativeToElement = void 0, t2.getCoordsRelativeToElement = i2, t2.getCoords = function(e3, t3, s2, r, n, o, a, h4, c) {
             if (!o)
               return;
             const l = i2(e3, t3, s2);
-            return l ? (l[0] = Math.ceil((l[0] + (c ? a / 2 : 0)) / a), l[1] = Math.ceil(l[1] / h2), l[0] = Math.min(Math.max(l[0], 1), r + (c ? 1 : 0)), l[1] = Math.min(Math.max(l[1], 1), n), l) : void 0;
+            return l ? (l[0] = Math.ceil((l[0] + (c ? a / 2 : 0)) / a), l[1] = Math.ceil(l[1] / h4), l[0] = Math.min(Math.max(l[0], 1), r + (c ? 1 : 0)), l[1] = Math.min(Math.max(l[1], 1), n), l) : void 0;
           };
         }, 9504: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.moveToCellSequence = void 0;
@@ -3732,12 +3756,12 @@ var require_xterm = __commonJS({
               let s4 = 0;
               const r3 = e4 - n(i4, e4), a3 = t4 - n(i4, t4);
               for (let n2 = 0; n2 < Math.abs(r3 - a3); n2++) {
-                const a4 = "A" === o(e4, t4) ? -1 : 1, h3 = i4.buffer.lines.get(r3 + a4 * n2);
-                (null == h3 ? void 0 : h3.isWrapped) && s4++;
+                const a4 = "A" === o(e4, t4) ? -1 : 1, h5 = i4.buffer.lines.get(r3 + a4 * n2);
+                (null == h5 ? void 0 : h5.isWrapped) && s4++;
               }
               return s4;
             }(e3, t3, i3);
-            return c(l, h2(o(e3, t3), s3));
+            return c(l, h4(o(e3, t3), s3));
           }
           function n(e3, t3) {
             let i3 = 0, s3 = e3.buffer.lines.get(t3), r2 = null == s3 ? void 0 : s3.isWrapped;
@@ -3749,12 +3773,12 @@ var require_xterm = __commonJS({
             return e3 > t3 ? "A" : "B";
           }
           function a(e3, t3, i3, s3, r2, n2) {
-            let o2 = e3, a2 = t3, h3 = "";
+            let o2 = e3, a2 = t3, h5 = "";
             for (; o2 !== i3 || a2 !== s3; )
-              o2 += r2 ? 1 : -1, r2 && o2 > n2.cols - 1 ? (h3 += n2.buffer.translateBufferLineToString(a2, false, e3, o2), o2 = 0, e3 = 0, a2++) : !r2 && o2 < 0 && (h3 += n2.buffer.translateBufferLineToString(a2, false, 0, e3 + 1), o2 = n2.cols - 1, e3 = o2, a2--);
-            return h3 + n2.buffer.translateBufferLineToString(a2, false, e3, o2);
+              o2 += r2 ? 1 : -1, r2 && o2 > n2.cols - 1 ? (h5 += n2.buffer.translateBufferLineToString(a2, false, e3, o2), o2 = 0, e3 = 0, a2++) : !r2 && o2 < 0 && (h5 += n2.buffer.translateBufferLineToString(a2, false, 0, e3 + 1), o2 = n2.cols - 1, e3 = o2, a2--);
+            return h5 + n2.buffer.translateBufferLineToString(a2, false, e3, o2);
           }
-          function h2(e3, t3) {
+          function h4(e3, t3) {
             const i3 = t3 ? "O" : "[";
             return s2.C0.ESC + i3 + e3;
           }
@@ -3769,24 +3793,24 @@ var require_xterm = __commonJS({
             const o2 = i3.buffer.x, l = i3.buffer.y;
             if (!i3.buffer.hasScrollback)
               return function(e4, t4, i4, s4, o3, l2) {
-                return 0 === r(t4, s4, o3, l2).length ? "" : c(a(e4, t4, e4, t4 - n(o3, t4), false, o3).length, h2("D", l2));
+                return 0 === r(t4, s4, o3, l2).length ? "" : c(a(e4, t4, e4, t4 - n(o3, t4), false, o3).length, h4("D", l2));
               }(o2, l, 0, t3, i3, s3) + r(l, t3, i3, s3) + function(e4, t4, i4, s4, o3, l2) {
                 let d2;
                 d2 = r(t4, s4, o3, l2).length > 0 ? s4 - n(o3, s4) : t4;
-                const _2 = s4, u = function(e5, t5, i5, s5, o4, a2) {
-                  let h3;
-                  return h3 = r(i5, s5, o4, a2).length > 0 ? s5 - n(o4, s5) : t5, e5 < i5 && h3 <= s5 || e5 >= i5 && h3 < s5 ? "C" : "D";
+                const _3 = s4, u = function(e5, t5, i5, s5, o4, a2) {
+                  let h5;
+                  return h5 = r(i5, s5, o4, a2).length > 0 ? s5 - n(o4, s5) : t5, e5 < i5 && h5 <= s5 || e5 >= i5 && h5 < s5 ? "C" : "D";
                 }(e4, t4, i4, s4, o3, l2);
-                return c(a(e4, d2, i4, _2, "C" === u, o3).length, h2(u, l2));
+                return c(a(e4, d2, i4, _3, "C" === u, o3).length, h4(u, l2));
               }(o2, l, e3, t3, i3, s3);
             let d;
             if (l === t3)
-              return d = o2 > e3 ? "D" : "C", c(Math.abs(o2 - e3), h2(d, s3));
+              return d = o2 > e3 ? "D" : "C", c(Math.abs(o2 - e3), h4(d, s3));
             d = l > t3 ? "D" : "C";
-            const _ = Math.abs(l - t3);
+            const _2 = Math.abs(l - t3);
             return c(function(e4, t4) {
               return t4.cols - e4;
-            }(l > t3 ? e3 : o2, i3) + (_ - 1) * i3.cols + 1 + ((l > t3 ? o2 : e3) - 1), h2(d, s3));
+            }(l > t3 ? e3 : o2, i3) + (_2 - 1) * i3.cols + 1 + ((l > t3 ? o2 : e3) - 1), h4(d, s3));
           };
         }, 8036: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.TEXT_BASELINE = t2.DIM_OPACITY = t2.INVERTED_DEFAULT_COLOR = void 0;
@@ -3822,16 +3846,16 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.DomRenderer = void 0;
-          const n = i2(3787), o = i2(8036), a = i2(844), h2 = i2(4725), c = i2(2585), l = i2(8460), d = i2(8055), _ = i2(9631), u = "xterm-dom-renderer-owner-", f = "xterm-focus";
+          const n = i2(3787), o = i2(8036), a = i2(844), h4 = i2(4725), c = i2(2585), l = i2(8460), d = i2(8055), _2 = i2(9631), u = "xterm-dom-renderer-owner-", f = "xterm-focus";
           let v = 1, g = class extends a.Disposable {
-            constructor(e3, t3, i3, s3, r2, o2, a2, h3, c2, l2) {
-              super(), this._colors = e3, this._element = t3, this._screenElement = i3, this._viewportElement = s3, this._linkifier2 = r2, this._charSizeService = a2, this._optionsService = h3, this._bufferService = c2, this._coreBrowserService = l2, this._terminalClass = v++, this._rowElements = [], this._rowContainer = document.createElement("div"), this._rowContainer.classList.add("xterm-rows"), this._rowContainer.style.lineHeight = "normal", this._rowContainer.setAttribute("aria-hidden", "true"), this._refreshRowElements(this._bufferService.cols, this._bufferService.rows), this._selectionContainer = document.createElement("div"), this._selectionContainer.classList.add("xterm-selection"), this._selectionContainer.setAttribute("aria-hidden", "true"), this.dimensions = { scaledCharWidth: 0, scaledCharHeight: 0, scaledCellWidth: 0, scaledCellHeight: 0, scaledCharLeft: 0, scaledCharTop: 0, scaledCanvasWidth: 0, scaledCanvasHeight: 0, canvasWidth: 0, canvasHeight: 0, actualCellWidth: 0, actualCellHeight: 0 }, this._updateDimensions(), this._injectCss(), this._rowFactory = o2.createInstance(n.DomRendererRowFactory, document, this._colors), this._element.classList.add(u + this._terminalClass), this._screenElement.appendChild(this._rowContainer), this._screenElement.appendChild(this._selectionContainer), this.register(this._linkifier2.onShowLinkUnderline((e4) => this._onLinkHover(e4))), this.register(this._linkifier2.onHideLinkUnderline((e4) => this._onLinkLeave(e4)));
+            constructor(e3, t3, i3, s3, r2, o2, a2, h5, c2, l2) {
+              super(), this._colors = e3, this._element = t3, this._screenElement = i3, this._viewportElement = s3, this._linkifier2 = r2, this._charSizeService = a2, this._optionsService = h5, this._bufferService = c2, this._coreBrowserService = l2, this._terminalClass = v++, this._rowElements = [], this._rowContainer = document.createElement("div"), this._rowContainer.classList.add("xterm-rows"), this._rowContainer.style.lineHeight = "normal", this._rowContainer.setAttribute("aria-hidden", "true"), this._refreshRowElements(this._bufferService.cols, this._bufferService.rows), this._selectionContainer = document.createElement("div"), this._selectionContainer.classList.add("xterm-selection"), this._selectionContainer.setAttribute("aria-hidden", "true"), this.dimensions = { scaledCharWidth: 0, scaledCharHeight: 0, scaledCellWidth: 0, scaledCellHeight: 0, scaledCharLeft: 0, scaledCharTop: 0, scaledCanvasWidth: 0, scaledCanvasHeight: 0, canvasWidth: 0, canvasHeight: 0, actualCellWidth: 0, actualCellHeight: 0 }, this._updateDimensions(), this._injectCss(), this._rowFactory = o2.createInstance(n.DomRendererRowFactory, document, this._colors), this._element.classList.add(u + this._terminalClass), this._screenElement.appendChild(this._rowContainer), this._screenElement.appendChild(this._selectionContainer), this.register(this._linkifier2.onShowLinkUnderline((e4) => this._onLinkHover(e4))), this.register(this._linkifier2.onHideLinkUnderline((e4) => this._onLinkLeave(e4)));
             }
             get onRequestRedraw() {
               return new l.EventEmitter().event;
             }
             dispose() {
-              this._element.classList.remove(u + this._terminalClass), (0, _.removeElementFromParent)(this._rowContainer, this._selectionContainer, this._themeStyleElement, this._dimensionsStyleElement), super.dispose();
+              this._element.classList.remove(u + this._terminalClass), (0, _2.removeElementFromParent)(this._rowContainer, this._selectionContainer, this._themeStyleElement, this._dimensionsStyleElement), super.dispose();
             }
             _updateDimensions() {
               const e3 = this._coreBrowserService.dpr;
@@ -3888,8 +3912,8 @@ var require_xterm = __commonJS({
                 const i4 = e3[0] > t3[0];
                 a2.appendChild(this._createSelectionElement(n2, i4 ? t3[0] : e3[0], i4 ? e3[0] : t3[0], o2 - n2 + 1));
               } else {
-                const i4 = s3 === n2 ? e3[0] : 0, h3 = n2 === r2 ? t3[0] : this._bufferService.cols;
-                a2.appendChild(this._createSelectionElement(n2, i4, h3));
+                const i4 = s3 === n2 ? e3[0] : 0, h5 = n2 === r2 ? t3[0] : this._bufferService.cols;
+                a2.appendChild(this._createSelectionElement(n2, i4, h5));
                 const c2 = o2 - n2 - 1;
                 if (a2.appendChild(this._createSelectionElement(n2 + 1, 0, this._bufferService.cols, c2)), n2 !== o2) {
                   const e4 = r2 === o2 ? t3[0] : this._bufferService.cols;
@@ -3939,7 +3963,7 @@ var require_xterm = __commonJS({
               }
             }
           };
-          g = s2([r(5, c.IInstantiationService), r(6, h2.ICharSizeService), r(7, c.IOptionsService), r(8, c.IBufferService), r(9, h2.ICoreBrowserService)], g), t2.DomRenderer = g;
+          g = s2([r(5, c.IInstantiationService), r(6, h4.ICharSizeService), r(7, c.IOptionsService), r(8, c.IBufferService), r(9, h4.ICoreBrowserService)], g), t2.DomRenderer = g;
         }, 3787: function(e2, t2, i2) {
           var s2 = this && this.__decorate || function(e3, t3, i3, s3) {
             var r2, n2 = arguments.length, o2 = n2 < 3 ? t3 : null === s3 ? s3 = Object.getOwnPropertyDescriptor(t3, i3) : s3;
@@ -3955,7 +3979,7 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.DomRendererRowFactory = t2.CURSOR_STYLE_UNDERLINE_CLASS = t2.CURSOR_STYLE_BAR_CLASS = t2.CURSOR_STYLE_BLOCK_CLASS = t2.CURSOR_BLINK_CLASS = t2.CURSOR_CLASS = t2.STRIKETHROUGH_CLASS = t2.UNDERLINE_CLASS = t2.ITALIC_CLASS = t2.DIM_CLASS = t2.BOLD_CLASS = void 0;
-          const n = i2(8036), o = i2(643), a = i2(511), h2 = i2(2585), c = i2(8055), l = i2(4725), d = i2(4269), _ = i2(1752), u = i2(3734);
+          const n = i2(8036), o = i2(643), a = i2(511), h4 = i2(2585), c = i2(8055), l = i2(4725), d = i2(4269), _2 = i2(1752), u = i2(3734);
           t2.BOLD_CLASS = "xterm-bold", t2.DIM_CLASS = "xterm-dim", t2.ITALIC_CLASS = "xterm-italic", t2.UNDERLINE_CLASS = "xterm-underline", t2.STRIKETHROUGH_CLASS = "xterm-strikethrough", t2.CURSOR_CLASS = "xterm-cursor", t2.CURSOR_BLINK_CLASS = "xterm-cursor-blink", t2.CURSOR_STYLE_BLOCK_CLASS = "xterm-cursor-block", t2.CURSOR_STYLE_BAR_CLASS = "xterm-cursor-bar", t2.CURSOR_STYLE_UNDERLINE_CLASS = "xterm-cursor-underline";
           let f = class {
             constructor(e3, t3, i3, s3, r2, n2, o2) {
@@ -3967,28 +3991,28 @@ var require_xterm = __commonJS({
             onSelectionChanged(e3, t3, i3) {
               this._selectionStart = e3, this._selectionEnd = t3, this._columnSelectMode = i3;
             }
-            createRow(e3, i3, s3, r2, a2, h3, l2, _2) {
+            createRow(e3, i3, s3, r2, a2, h5, l2, _3) {
               const f2 = this._document.createDocumentFragment(), g = this._characterJoinerService.getJoinedCharacters(i3);
-              let p = 0;
-              for (let t3 = Math.min(e3.length, _2) - 1; t3 >= 0; t3--)
+              let p3 = 0;
+              for (let t3 = Math.min(e3.length, _3) - 1; t3 >= 0; t3--)
                 if (e3.loadCell(t3, this._workCell).getCode() !== o.NULL_CELL_CODE || s3 && t3 === a2) {
-                  p = t3 + 1;
+                  p3 = t3 + 1;
                   break;
                 }
-              for (let _3 = 0; _3 < p; _3++) {
-                e3.loadCell(_3, this._workCell);
-                let p2 = this._workCell.getWidth();
-                if (0 === p2)
+              for (let _4 = 0; _4 < p3; _4++) {
+                e3.loadCell(_4, this._workCell);
+                let p4 = this._workCell.getWidth();
+                if (0 === p4)
                   continue;
-                let S = false, m = _3, C = this._workCell;
-                if (g.length > 0 && _3 === g[0][0]) {
-                  S = true;
+                let S2 = false, m = _4, C = this._workCell;
+                if (g.length > 0 && _4 === g[0][0]) {
+                  S2 = true;
                   const t3 = g.shift();
-                  C = new d.JoinedCellData(this._workCell, e3.translateToString(true, t3[0], t3[1]), t3[1] - t3[0]), m = t3[1] - 1, p2 = C.getWidth();
+                  C = new d.JoinedCellData(this._workCell, e3.translateToString(true, t3[0], t3[1]), t3[1] - t3[0]), m = t3[1] - 1, p4 = C.getWidth();
                 }
                 const b = this._document.createElement("span");
-                if (p2 > 1 && (b.style.width = l2 * p2 + "px"), S && (b.style.display = "inline", a2 >= _3 && a2 <= m && (a2 = _3)), !this._coreService.isCursorHidden && s3 && _3 === a2)
-                  switch (b.classList.add(t2.CURSOR_CLASS), h3 && b.classList.add(t2.CURSOR_BLINK_CLASS), r2) {
+                if (p4 > 1 && (b.style.width = l2 * p4 + "px"), S2 && (b.style.display = "inline", a2 >= _4 && a2 <= m && (a2 = _4)), !this._coreService.isCursorHidden && s3 && _4 === a2)
+                  switch (b.classList.add(t2.CURSOR_CLASS), h5 && b.classList.add(t2.CURSOR_BLINK_CLASS), r2) {
                     case "bar":
                       b.classList.add(t2.CURSOR_STYLE_BAR_CLASS);
                       break;
@@ -4006,21 +4030,21 @@ var require_xterm = __commonJS({
                     this._optionsService.rawOptions.drawBoldTextInBrightColors && C.isBold() && e4 < 8 && (e4 += 8), b.style.textDecorationColor = this._colors.ansi[e4].css;
                   }
                 C.isStrikethrough() && b.classList.add(t2.STRIKETHROUGH_CLASS);
-                let y = C.getFgColor(), w = C.getFgColorMode(), E = C.getBgColor(), L = C.getBgColorMode();
+                let y2 = C.getFgColor(), w = C.getFgColorMode(), E = C.getBgColor(), L = C.getBgColorMode();
                 const R = !!C.isInverse();
                 if (R) {
-                  const e4 = y;
-                  y = E, E = e4;
+                  const e4 = y2;
+                  y2 = E, E = e4;
                   const t3 = w;
                   w = L, L = t3;
                 }
                 let k, D, A = false;
-                this._decorationService.forEachDecorationAtCell(_3, i3, void 0, (e4) => {
-                  "top" !== e4.options.layer && A || (e4.backgroundColorRGB && (L = 50331648, E = e4.backgroundColorRGB.rgba >> 8 & 16777215, k = e4.backgroundColorRGB), e4.foregroundColorRGB && (w = 50331648, y = e4.foregroundColorRGB.rgba >> 8 & 16777215, D = e4.foregroundColorRGB), A = "top" === e4.options.layer);
+                this._decorationService.forEachDecorationAtCell(_4, i3, void 0, (e4) => {
+                  "top" !== e4.options.layer && A || (e4.backgroundColorRGB && (L = 50331648, E = e4.backgroundColorRGB.rgba >> 8 & 16777215, k = e4.backgroundColorRGB), e4.foregroundColorRGB && (w = 50331648, y2 = e4.foregroundColorRGB.rgba >> 8 & 16777215, D = e4.foregroundColorRGB), A = "top" === e4.options.layer);
                 });
-                const x = this._isCellInSelection(_3, i3);
+                const x = this._isCellInSelection(_4, i3);
                 let B;
-                switch (A || this._colors.selectionForeground && x && (w = 50331648, y = this._colors.selectionForeground.rgba >> 8 & 16777215, D = this._colors.selectionForeground), x && (k = this._coreBrowserService.isFocused ? this._colors.selectionBackgroundOpaque : this._colors.selectionInactiveBackgroundOpaque, A = true), A && b.classList.add("xterm-decoration-top"), L) {
+                switch (A || this._colors.selectionForeground && x && (w = 50331648, y2 = this._colors.selectionForeground.rgba >> 8 & 16777215, D = this._colors.selectionForeground), x && (k = this._coreBrowserService.isFocused ? this._colors.selectionBackgroundOpaque : this._colors.selectionInactiveBackgroundOpaque, A = true), A && b.classList.add("xterm-decoration-top"), L) {
                   case 16777216:
                   case 33554432:
                     B = this._colors.ansi[E], b.classList.add(`xterm-bg-${E}`);
@@ -4034,21 +4058,21 @@ var require_xterm = __commonJS({
                 switch (k || C.isDim() && (k = c.color.multiplyOpacity(B, 0.5)), w) {
                   case 16777216:
                   case 33554432:
-                    C.isBold() && y < 8 && this._optionsService.rawOptions.drawBoldTextInBrightColors && (y += 8), this._applyMinimumContrast(b, B, this._colors.ansi[y], C, k, void 0) || b.classList.add(`xterm-fg-${y}`);
+                    C.isBold() && y2 < 8 && this._optionsService.rawOptions.drawBoldTextInBrightColors && (y2 += 8), this._applyMinimumContrast(b, B, this._colors.ansi[y2], C, k, void 0) || b.classList.add(`xterm-fg-${y2}`);
                     break;
                   case 50331648:
-                    const e4 = c.rgba.toColor(y >> 16 & 255, y >> 8 & 255, 255 & y);
-                    this._applyMinimumContrast(b, B, e4, C, k, D) || this._addStyle(b, `color:#${v(y.toString(16), "0", 6)}`);
+                    const e4 = c.rgba.toColor(y2 >> 16 & 255, y2 >> 8 & 255, 255 & y2);
+                    this._applyMinimumContrast(b, B, e4, C, k, D) || this._addStyle(b, `color:#${v(y2.toString(16), "0", 6)}`);
                     break;
                   default:
                     this._applyMinimumContrast(b, B, this._colors.foreground, C, k, void 0) || R && b.classList.add(`xterm-fg-${n.INVERTED_DEFAULT_COLOR}`);
                 }
-                f2.appendChild(b), _3 = m;
+                f2.appendChild(b), _4 = m;
               }
               return f2;
             }
             _applyMinimumContrast(e3, t3, i3, s3, r2, n2) {
-              if (1 === this._optionsService.rawOptions.minimumContrastRatio || (0, _.excludeFromContrastRatioDemands)(s3.getCode()))
+              if (1 === this._optionsService.rawOptions.minimumContrastRatio || (0, _2.excludeFromContrastRatioDemands)(s3.getCode()))
                 return false;
               let o2;
               return r2 || n2 || (o2 = this._colors.contrastCache.getColor(t3.rgba, i3.rgba)), void 0 === o2 && (o2 = c.color.ensureContrastRatio(r2 || t3, n2 || i3, this._optionsService.rawOptions.minimumContrastRatio), this._colors.contrastCache.setColor((r2 || t3).rgba, (n2 || i3).rgba, null != o2 ? o2 : null)), !!o2 && (this._addStyle(e3, `color:${o2.css}`), true);
@@ -4066,7 +4090,7 @@ var require_xterm = __commonJS({
               e3 = t3 + e3;
             return e3;
           }
-          f = s2([r(2, l.ICharacterJoinerService), r(3, h2.IOptionsService), r(4, l.ICoreBrowserService), r(5, h2.ICoreService), r(6, h2.IDecorationService)], f), t2.DomRendererRowFactory = f;
+          f = s2([r(2, l.ICharacterJoinerService), r(3, h4.IOptionsService), r(4, l.ICoreBrowserService), r(5, h4.ICoreService), r(6, h4.IDecorationService)], f), t2.DomRendererRowFactory = f;
         }, 456: (e2, t2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.SelectionModel = void 0, t2.SelectionModel = class {
             constructor(e3) {
@@ -4119,7 +4143,7 @@ var require_xterm = __commonJS({
           const n = i2(2585), o = i2(8460);
           let a = class {
             constructor(e3, t3, i3) {
-              this._optionsService = i3, this.width = 0, this.height = 0, this._onCharSizeChange = new o.EventEmitter(), this._measureStrategy = new h2(e3, t3, this._optionsService);
+              this._optionsService = i3, this.width = 0, this.height = 0, this._onCharSizeChange = new o.EventEmitter(), this._measureStrategy = new h4(e3, t3, this._optionsService);
             }
             get hasValidSize() {
               return this.width > 0 && this.height > 0;
@@ -4133,7 +4157,7 @@ var require_xterm = __commonJS({
             }
           };
           a = s2([r(2, n.IOptionsService)], a), t2.CharSizeService = a;
-          class h2 {
+          class h4 {
             constructor(e3, t3, i3) {
               this._document = e3, this._parentElement = t3, this._optionsService = i3, this._result = { width: 0, height: 0 }, this._measureElement = this._document.createElement("span"), this._measureElement.classList.add("xterm-char-measure-element"), this._measureElement.textContent = "W", this._measureElement.setAttribute("aria-hidden", "true"), this._parentElement.appendChild(this._measureElement);
             }
@@ -4158,7 +4182,7 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.CharacterJoinerService = t2.JoinedCellData = void 0;
-          const n = i2(3734), o = i2(643), a = i2(511), h2 = i2(2585);
+          const n = i2(3734), o = i2(643), a = i2(511), h4 = i2(2585);
           class c extends n.AttributeData {
             constructor(e3, t3, i3) {
               super(), this.content = 0, this.combinedData = "", this.fg = e3.fg, this.bg = e3.bg, this.combinedData = t3, this._width = i3;
@@ -4204,16 +4228,16 @@ var require_xterm = __commonJS({
               if (!t3 || 0 === t3.length)
                 return [];
               const i3 = [], s3 = t3.translateToString(true);
-              let r2 = 0, n2 = 0, a2 = 0, h3 = t3.getFg(0), c2 = t3.getBg(0);
+              let r2 = 0, n2 = 0, a2 = 0, h5 = t3.getFg(0), c2 = t3.getBg(0);
               for (let e5 = 0; e5 < t3.getTrimmedLength(); e5++)
                 if (t3.loadCell(e5, this._workCell), 0 !== this._workCell.getWidth()) {
-                  if (this._workCell.fg !== h3 || this._workCell.bg !== c2) {
+                  if (this._workCell.fg !== h5 || this._workCell.bg !== c2) {
                     if (e5 - r2 > 1) {
                       const e6 = this._getJoinedRanges(s3, a2, n2, t3, r2);
                       for (let t4 = 0; t4 < e6.length; t4++)
                         i3.push(e6[t4]);
                     }
-                    r2 = e5, a2 = n2, h3 = this._workCell.fg, c2 = this._workCell.bg;
+                    r2 = e5, a2 = n2, h5 = this._workCell.fg, c2 = this._workCell.bg;
                   }
                   n2 += this._workCell.getChars().length || o.WHITESPACE_CELL_CHAR.length;
                 }
@@ -4245,13 +4269,13 @@ var require_xterm = __commonJS({
             _stringRangesToCellRanges(e4, t3, i3) {
               let s3 = 0, r2 = false, n2 = 0, a2 = e4[s3];
               if (a2) {
-                for (let h3 = i3; h3 < this._bufferService.cols; h3++) {
-                  const i4 = t3.getWidth(h3), c2 = t3.getString(h3).length || o.WHITESPACE_CELL_CHAR.length;
+                for (let h5 = i3; h5 < this._bufferService.cols; h5++) {
+                  const i4 = t3.getWidth(h5), c2 = t3.getString(h5).length || o.WHITESPACE_CELL_CHAR.length;
                   if (0 !== i4) {
-                    if (!r2 && a2[0] <= n2 && (a2[0] = h3, r2 = true), a2[1] <= n2) {
-                      if (a2[1] = h3, a2 = e4[++s3], !a2)
+                    if (!r2 && a2[0] <= n2 && (a2[0] = h5, r2 = true), a2[1] <= n2) {
+                      if (a2[1] = h5, a2 = e4[++s3], !a2)
                         break;
-                      a2[0] <= n2 ? (a2[0] = h3, r2 = true) : r2 = false;
+                      a2[0] <= n2 ? (a2[0] = h5, r2 = true) : r2 = false;
                     }
                     n2 += c2;
                   }
@@ -4280,7 +4304,7 @@ var require_xterm = __commonJS({
               return i3 ? e4[e4.length - 1][1] = t3[1] : e4.push(t3), e4;
             }
           };
-          l = s2([r(0, h2.IBufferService)], l), t2.CharacterJoinerService = l;
+          l = s2([r(0, h4.IBufferService)], l), t2.CharacterJoinerService = l;
         }, 5114: (e2, t2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.CoreBrowserService = void 0, t2.CoreBrowserService = class {
             constructor(e3, t3) {
@@ -4338,10 +4362,10 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.RenderService = void 0;
-          const n = i2(6193), o = i2(8460), a = i2(844), h2 = i2(5596), c = i2(3656), l = i2(2585), d = i2(4725);
-          let _ = class extends a.Disposable {
+          const n = i2(6193), o = i2(8460), a = i2(844), h4 = i2(5596), c = i2(3656), l = i2(2585), d = i2(4725);
+          let _2 = class extends a.Disposable {
             constructor(e3, t3, i3, s3, r2, a2, l2, d2) {
-              if (super(), this._renderer = e3, this._rowCount = t3, this._charSizeService = r2, this._isPaused = false, this._needsFullRefresh = false, this._isNextRenderRedrawOnly = true, this._needsSelectionRefresh = false, this._canvasWidth = 0, this._canvasHeight = 0, this._selectionState = { start: void 0, end: void 0, columnSelectMode: false }, this._onDimensionsChange = new o.EventEmitter(), this._onRenderedViewportChange = new o.EventEmitter(), this._onRender = new o.EventEmitter(), this._onRefreshRequest = new o.EventEmitter(), this.register({ dispose: () => this._renderer.dispose() }), this._renderDebouncer = new n.RenderDebouncer(d2.window, (e4, t4) => this._renderRows(e4, t4)), this.register(this._renderDebouncer), this._screenDprMonitor = new h2.ScreenDprMonitor(d2.window), this._screenDprMonitor.setListener(() => this.onDevicePixelRatioChange()), this.register(this._screenDprMonitor), this.register(l2.onResize(() => this._fullRefresh())), this.register(l2.buffers.onBufferActivate(() => {
+              if (super(), this._renderer = e3, this._rowCount = t3, this._charSizeService = r2, this._isPaused = false, this._needsFullRefresh = false, this._isNextRenderRedrawOnly = true, this._needsSelectionRefresh = false, this._canvasWidth = 0, this._canvasHeight = 0, this._selectionState = { start: void 0, end: void 0, columnSelectMode: false }, this._onDimensionsChange = new o.EventEmitter(), this._onRenderedViewportChange = new o.EventEmitter(), this._onRender = new o.EventEmitter(), this._onRefreshRequest = new o.EventEmitter(), this.register({ dispose: () => this._renderer.dispose() }), this._renderDebouncer = new n.RenderDebouncer(d2.window, (e4, t4) => this._renderRows(e4, t4)), this.register(this._renderDebouncer), this._screenDprMonitor = new h4.ScreenDprMonitor(d2.window), this._screenDprMonitor.setListener(() => this.onDevicePixelRatioChange()), this.register(this._screenDprMonitor), this.register(l2.onResize(() => this._fullRefresh())), this.register(l2.buffers.onBufferActivate(() => {
                 var e4;
                 return null === (e4 = this._renderer) || void 0 === e4 ? void 0 : e4.clear();
               })), this.register(s3.onOptionChange(() => this._handleOptionsChanged())), this.register(this._charSizeService.onCharSizeChange(() => this.onCharSizeChanged())), this.register(a2.onDecorationRegistered(() => this._fullRefresh())), this.register(a2.onDecorationRemoved(() => this._fullRefresh())), this._renderer.onRequestRedraw((e4) => this.refreshRows(e4.start, e4.end, true)), this.register((0, c.addDisposableDomListener)(d2.window, "resize", () => this.onDevicePixelRatioChange())), "IntersectionObserver" in d2.window) {
@@ -4426,7 +4450,7 @@ var require_xterm = __commonJS({
               this._renderer.clear();
             }
           };
-          _ = s2([r(3, l.IOptionsService), r(4, d.ICharSizeService), r(5, l.IDecorationService), r(6, l.IBufferService), r(7, d.ICoreBrowserService)], _), t2.RenderService = _;
+          _2 = s2([r(3, l.IOptionsService), r(4, d.ICharSizeService), r(5, l.IDecorationService), r(6, l.IBufferService), r(7, d.ICoreBrowserService)], _2), t2.RenderService = _2;
         }, 9312: function(e2, t2, i2) {
           var s2 = this && this.__decorate || function(e3, t3, i3, s3) {
             var r2, n2 = arguments.length, o2 = n2 < 3 ? t3 : null === s3 ? s3 = Object.getOwnPropertyDescriptor(t3, i3) : s3;
@@ -4442,10 +4466,10 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.SelectionService = void 0;
-          const n = i2(6114), o = i2(456), a = i2(511), h2 = i2(8460), c = i2(4725), l = i2(2585), d = i2(9806), _ = i2(9504), u = i2(844), f = i2(4841), v = String.fromCharCode(160), g = new RegExp(v, "g");
-          let p = class extends u.Disposable {
+          const n = i2(6114), o = i2(456), a = i2(511), h4 = i2(8460), c = i2(4725), l = i2(2585), d = i2(9806), _2 = i2(9504), u = i2(844), f = i2(4841), v = String.fromCharCode(160), g = new RegExp(v, "g");
+          let p3 = class extends u.Disposable {
             constructor(e3, t3, i3, s3, r2, n2, c2, l2, d2) {
-              super(), this._element = e3, this._screenElement = t3, this._linkifier = i3, this._bufferService = s3, this._coreService = r2, this._mouseService = n2, this._optionsService = c2, this._renderService = l2, this._coreBrowserService = d2, this._dragScrollAmount = 0, this._enabled = true, this._workCell = new a.CellData(), this._mouseDownTimeStamp = 0, this._oldHasSelection = false, this._oldSelectionStart = void 0, this._oldSelectionEnd = void 0, this._onLinuxMouseSelection = this.register(new h2.EventEmitter()), this._onRedrawRequest = this.register(new h2.EventEmitter()), this._onSelectionChange = this.register(new h2.EventEmitter()), this._onRequestScrollLines = this.register(new h2.EventEmitter()), this._mouseMoveListener = (e4) => this._onMouseMove(e4), this._mouseUpListener = (e4) => this._onMouseUp(e4), this._coreService.onUserInput(() => {
+              super(), this._element = e3, this._screenElement = t3, this._linkifier = i3, this._bufferService = s3, this._coreService = r2, this._mouseService = n2, this._optionsService = c2, this._renderService = l2, this._coreBrowserService = d2, this._dragScrollAmount = 0, this._enabled = true, this._workCell = new a.CellData(), this._mouseDownTimeStamp = 0, this._oldHasSelection = false, this._oldSelectionStart = void 0, this._oldSelectionEnd = void 0, this._onLinuxMouseSelection = this.register(new h4.EventEmitter()), this._onRedrawRequest = this.register(new h4.EventEmitter()), this._onSelectionChange = this.register(new h4.EventEmitter()), this._onRequestScrollLines = this.register(new h4.EventEmitter()), this._mouseMoveListener = (e4) => this._onMouseMove(e4), this._mouseUpListener = (e4) => this._onMouseUp(e4), this._coreService.onUserInput(() => {
                 this.hasSelection && this.clearSelection();
               }), this._trimListener = this._bufferService.buffer.lines.onTrim((e4) => this._onTrim(e4)), this.register(this._bufferService.buffers.onBufferActivate((e4) => this._onBufferActivate(e4))), this.enable(), this._model = new o.SelectionModel(this._bufferService), this._activeSelectionMode = 0;
             }
@@ -4623,7 +4647,7 @@ var require_xterm = __commonJS({
                 if (this._bufferService.buffer.ybase === this._bufferService.buffer.ydisp) {
                   const t4 = this._mouseService.getCoords(e3, this._element, this._bufferService.cols, this._bufferService.rows, false);
                   if (t4 && void 0 !== t4[0] && void 0 !== t4[1]) {
-                    const e4 = (0, _.moveToCellSequence)(t4[0] - 1, t4[1] - 1, this._bufferService, this._coreService.decPrivateModes.applicationCursorKeys);
+                    const e4 = (0, _2.moveToCellSequence)(t4[0] - 1, t4[1] - 1, this._bufferService, this._coreService.decPrivateModes.applicationCursorKeys);
                     this._coreService.triggerDataEvent(e4, true);
                   }
                 }
@@ -4661,32 +4685,32 @@ var require_xterm = __commonJS({
               if (!n2)
                 return;
               const o2 = r2.translateBufferLineToString(e3[1], false);
-              let a2 = this._convertViewportColToCharacterIndex(n2, e3), h3 = a2;
+              let a2 = this._convertViewportColToCharacterIndex(n2, e3), h5 = a2;
               const c2 = e3[0] - a2;
-              let l2 = 0, d2 = 0, _2 = 0, u2 = 0;
+              let l2 = 0, d2 = 0, _3 = 0, u2 = 0;
               if (" " === o2.charAt(a2)) {
                 for (; a2 > 0 && " " === o2.charAt(a2 - 1); )
                   a2--;
-                for (; h3 < o2.length && " " === o2.charAt(h3 + 1); )
-                  h3++;
+                for (; h5 < o2.length && " " === o2.charAt(h5 + 1); )
+                  h5++;
               } else {
                 let t4 = e3[0], i4 = e3[0];
                 0 === n2.getWidth(t4) && (l2++, t4--), 2 === n2.getWidth(i4) && (d2++, i4++);
                 const s4 = n2.getString(i4).length;
-                for (s4 > 1 && (u2 += s4 - 1, h3 += s4 - 1); t4 > 0 && a2 > 0 && !this._isCharWordSeparator(n2.loadCell(t4 - 1, this._workCell)); ) {
+                for (s4 > 1 && (u2 += s4 - 1, h5 += s4 - 1); t4 > 0 && a2 > 0 && !this._isCharWordSeparator(n2.loadCell(t4 - 1, this._workCell)); ) {
                   n2.loadCell(t4 - 1, this._workCell);
                   const e4 = this._workCell.getChars().length;
-                  0 === this._workCell.getWidth() ? (l2++, t4--) : e4 > 1 && (_2 += e4 - 1, a2 -= e4 - 1), a2--, t4--;
+                  0 === this._workCell.getWidth() ? (l2++, t4--) : e4 > 1 && (_3 += e4 - 1, a2 -= e4 - 1), a2--, t4--;
                 }
-                for (; i4 < n2.length && h3 + 1 < o2.length && !this._isCharWordSeparator(n2.loadCell(i4 + 1, this._workCell)); ) {
+                for (; i4 < n2.length && h5 + 1 < o2.length && !this._isCharWordSeparator(n2.loadCell(i4 + 1, this._workCell)); ) {
                   n2.loadCell(i4 + 1, this._workCell);
                   const e4 = this._workCell.getChars().length;
-                  2 === this._workCell.getWidth() ? (d2++, i4++) : e4 > 1 && (u2 += e4 - 1, h3 += e4 - 1), h3++, i4++;
+                  2 === this._workCell.getWidth() ? (d2++, i4++) : e4 > 1 && (u2 += e4 - 1, h5 += e4 - 1), h5++, i4++;
                 }
               }
-              h3++;
-              let f2 = a2 + c2 - l2 + _2, v2 = Math.min(this._bufferService.cols, h3 - a2 + l2 + d2 - _2 - u2);
-              if (t3 || "" !== o2.slice(a2, h3).trim()) {
+              h5++;
+              let f2 = a2 + c2 - l2 + _3, v2 = Math.min(this._bufferService.cols, h5 - a2 + l2 + d2 - _3 - u2);
+              if (t3 || "" !== o2.slice(a2, h5).trim()) {
                 if (i3 && 0 === f2 && 32 !== n2.getCodePoint(0)) {
                   const t4 = r2.lines.get(e3[1] - 1);
                   if (t4 && n2.isWrapped && 32 !== t4.getCodePoint(this._bufferService.cols - 1)) {
@@ -4735,7 +4759,7 @@ var require_xterm = __commonJS({
               this._model.selectionStart = [0, t3.first], this._model.selectionEnd = void 0, this._model.selectionStartLength = (0, f.getRangeLength)(i3, this._bufferService.cols);
             }
           };
-          p = s2([r(3, l.IBufferService), r(4, l.ICoreService), r(5, c.IMouseService), r(6, l.IOptionsService), r(7, c.IRenderService), r(8, c.ICoreBrowserService)], p), t2.SelectionService = p;
+          p3 = s2([r(3, l.IBufferService), r(4, l.ICoreService), r(5, c.IMouseService), r(6, l.IOptionsService), r(7, c.IRenderService), r(8, c.ICoreBrowserService)], p3), t2.SelectionService = p3;
         }, 4725: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.ICharacterJoinerService = t2.ISelectionService = t2.IRenderService = t2.IMouseService = t2.ICoreBrowserService = t2.ICharSizeService = void 0;
           const s2 = i2(8343);
@@ -4870,8 +4894,8 @@ var require_xterm = __commonJS({
               const s3 = (255 & t4.rgba) / 255;
               if (1 === s3)
                 return { css: t4.css, rgba: t4.rgba };
-              const r2 = t4.rgba >> 24 & 255, n2 = t4.rgba >> 16 & 255, o2 = t4.rgba >> 8 & 255, a = e4.rgba >> 24 & 255, h2 = e4.rgba >> 16 & 255, c = e4.rgba >> 8 & 255, l = a + Math.round((r2 - a) * s3), d = h2 + Math.round((n2 - h2) * s3), _ = c + Math.round((o2 - c) * s3);
-              return { css: i2.toCss(l, d, _), rgba: i2.toRgba(l, d, _) };
+              const r2 = t4.rgba >> 24 & 255, n2 = t4.rgba >> 16 & 255, o2 = t4.rgba >> 8 & 255, a = e4.rgba >> 24 & 255, h4 = e4.rgba >> 16 & 255, c = e4.rgba >> 8 & 255, l = a + Math.round((r2 - a) * s3), d = h4 + Math.round((n2 - h4) * s3), _2 = c + Math.round((o2 - c) * s3);
+              return { css: i2.toCss(l, d, _2), rgba: i2.toRgba(l, d, _2) };
             }, e3.isOpaque = function(e4) {
               return 255 == (255 & e4.rgba);
             }, e3.ensureContrastRatio = function(e4, t4, i3) {
@@ -4919,28 +4943,28 @@ var require_xterm = __commonJS({
           }(s2 = t2.rgb || (t2.rgb = {})), function(e3) {
             function t3(e4, t4, i3) {
               const r3 = e4 >> 24 & 255, n2 = e4 >> 16 & 255, a = e4 >> 8 & 255;
-              let h2 = t4 >> 24 & 255, c = t4 >> 16 & 255, l = t4 >> 8 & 255, d = o(s2.relativeLuminance2(h2, c, l), s2.relativeLuminance2(r3, n2, a));
-              for (; d < i3 && (h2 > 0 || c > 0 || l > 0); )
-                h2 -= Math.max(0, Math.ceil(0.1 * h2)), c -= Math.max(0, Math.ceil(0.1 * c)), l -= Math.max(0, Math.ceil(0.1 * l)), d = o(s2.relativeLuminance2(h2, c, l), s2.relativeLuminance2(r3, n2, a));
-              return (h2 << 24 | c << 16 | l << 8 | 255) >>> 0;
+              let h4 = t4 >> 24 & 255, c = t4 >> 16 & 255, l = t4 >> 8 & 255, d = o(s2.relativeLuminance2(h4, c, l), s2.relativeLuminance2(r3, n2, a));
+              for (; d < i3 && (h4 > 0 || c > 0 || l > 0); )
+                h4 -= Math.max(0, Math.ceil(0.1 * h4)), c -= Math.max(0, Math.ceil(0.1 * c)), l -= Math.max(0, Math.ceil(0.1 * l)), d = o(s2.relativeLuminance2(h4, c, l), s2.relativeLuminance2(r3, n2, a));
+              return (h4 << 24 | c << 16 | l << 8 | 255) >>> 0;
             }
             function r2(e4, t4, i3) {
               const r3 = e4 >> 24 & 255, n2 = e4 >> 16 & 255, a = e4 >> 8 & 255;
-              let h2 = t4 >> 24 & 255, c = t4 >> 16 & 255, l = t4 >> 8 & 255, d = o(s2.relativeLuminance2(h2, c, l), s2.relativeLuminance2(r3, n2, a));
-              for (; d < i3 && (h2 < 255 || c < 255 || l < 255); )
-                h2 = Math.min(255, h2 + Math.ceil(0.1 * (255 - h2))), c = Math.min(255, c + Math.ceil(0.1 * (255 - c))), l = Math.min(255, l + Math.ceil(0.1 * (255 - l))), d = o(s2.relativeLuminance2(h2, c, l), s2.relativeLuminance2(r3, n2, a));
-              return (h2 << 24 | c << 16 | l << 8 | 255) >>> 0;
+              let h4 = t4 >> 24 & 255, c = t4 >> 16 & 255, l = t4 >> 8 & 255, d = o(s2.relativeLuminance2(h4, c, l), s2.relativeLuminance2(r3, n2, a));
+              for (; d < i3 && (h4 < 255 || c < 255 || l < 255); )
+                h4 = Math.min(255, h4 + Math.ceil(0.1 * (255 - h4))), c = Math.min(255, c + Math.ceil(0.1 * (255 - c))), l = Math.min(255, l + Math.ceil(0.1 * (255 - l))), d = o(s2.relativeLuminance2(h4, c, l), s2.relativeLuminance2(r3, n2, a));
+              return (h4 << 24 | c << 16 | l << 8 | 255) >>> 0;
             }
             e3.ensureContrastRatio = function(e4, i3, n2) {
-              const a = s2.relativeLuminance(e4 >> 8), h2 = s2.relativeLuminance(i3 >> 8);
-              if (o(a, h2) < n2) {
-                if (h2 < a) {
-                  const h3 = t3(e4, i3, n2), c2 = o(a, s2.relativeLuminance(h3 >> 8));
+              const a = s2.relativeLuminance(e4 >> 8), h4 = s2.relativeLuminance(i3 >> 8);
+              if (o(a, h4) < n2) {
+                if (h4 < a) {
+                  const h5 = t3(e4, i3, n2), c2 = o(a, s2.relativeLuminance(h5 >> 8));
                   if (c2 < n2) {
                     const t4 = r2(e4, i3, n2);
-                    return c2 > o(a, s2.relativeLuminance(t4 >> 8)) ? h3 : t4;
+                    return c2 > o(a, s2.relativeLuminance(t4 >> 8)) ? h5 : t4;
                   }
-                  return h3;
+                  return h5;
                 }
                 const c = r2(e4, i3, n2), l = o(a, s2.relativeLuminance(c >> 8));
                 if (l < n2) {
@@ -4957,15 +4981,15 @@ var require_xterm = __commonJS({
           }(r = t2.rgba || (t2.rgba = {})), t2.toPaddedHex = n, t2.contrastRatio = o;
         }, 8969: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.CoreTerminal = void 0;
-          const s2 = i2(844), r = i2(2585), n = i2(4348), o = i2(7866), a = i2(744), h2 = i2(7302), c = i2(6975), l = i2(8460), d = i2(1753), _ = i2(3730), u = i2(1480), f = i2(7994), v = i2(9282), g = i2(5435), p = i2(5981), S = i2(2660);
+          const s2 = i2(844), r = i2(2585), n = i2(4348), o = i2(7866), a = i2(744), h4 = i2(7302), c = i2(6975), l = i2(8460), d = i2(1753), _2 = i2(3730), u = i2(1480), f = i2(7994), v = i2(9282), g = i2(5435), p3 = i2(5981), S2 = i2(2660);
           let m = false;
           class C extends s2.Disposable {
             constructor(e3) {
-              super(), this._onBinary = new l.EventEmitter(), this._onData = new l.EventEmitter(), this._onLineFeed = new l.EventEmitter(), this._onResize = new l.EventEmitter(), this._onScroll = new l.EventEmitter(), this._onWriteParsed = new l.EventEmitter(), this._instantiationService = new n.InstantiationService(), this.optionsService = new h2.OptionsService(e3), this._instantiationService.setService(r.IOptionsService, this.optionsService), this._bufferService = this.register(this._instantiationService.createInstance(a.BufferService)), this._instantiationService.setService(r.IBufferService, this._bufferService), this._logService = this._instantiationService.createInstance(o.LogService), this._instantiationService.setService(r.ILogService, this._logService), this.coreService = this.register(this._instantiationService.createInstance(c.CoreService, () => this.scrollToBottom())), this._instantiationService.setService(r.ICoreService, this.coreService), this.coreMouseService = this._instantiationService.createInstance(d.CoreMouseService), this._instantiationService.setService(r.ICoreMouseService, this.coreMouseService), this._dirtyRowService = this._instantiationService.createInstance(_.DirtyRowService), this._instantiationService.setService(r.IDirtyRowService, this._dirtyRowService), this.unicodeService = this._instantiationService.createInstance(u.UnicodeService), this._instantiationService.setService(r.IUnicodeService, this.unicodeService), this._charsetService = this._instantiationService.createInstance(f.CharsetService), this._instantiationService.setService(r.ICharsetService, this._charsetService), this._oscLinkService = this._instantiationService.createInstance(S.OscLinkService), this._instantiationService.setService(r.IOscLinkService, this._oscLinkService), this._inputHandler = new g.InputHandler(this._bufferService, this._charsetService, this.coreService, this._dirtyRowService, this._logService, this.optionsService, this._oscLinkService, this.coreMouseService, this.unicodeService), this.register((0, l.forwardEvent)(this._inputHandler.onLineFeed, this._onLineFeed)), this.register(this._inputHandler), this.register((0, l.forwardEvent)(this._bufferService.onResize, this._onResize)), this.register((0, l.forwardEvent)(this.coreService.onData, this._onData)), this.register((0, l.forwardEvent)(this.coreService.onBinary, this._onBinary)), this.register(this.optionsService.onOptionChange((e4) => this._updateOptions(e4))), this.register(this._bufferService.onScroll((e4) => {
+              super(), this._onBinary = new l.EventEmitter(), this._onData = new l.EventEmitter(), this._onLineFeed = new l.EventEmitter(), this._onResize = new l.EventEmitter(), this._onScroll = new l.EventEmitter(), this._onWriteParsed = new l.EventEmitter(), this._instantiationService = new n.InstantiationService(), this.optionsService = new h4.OptionsService(e3), this._instantiationService.setService(r.IOptionsService, this.optionsService), this._bufferService = this.register(this._instantiationService.createInstance(a.BufferService)), this._instantiationService.setService(r.IBufferService, this._bufferService), this._logService = this._instantiationService.createInstance(o.LogService), this._instantiationService.setService(r.ILogService, this._logService), this.coreService = this.register(this._instantiationService.createInstance(c.CoreService, () => this.scrollToBottom())), this._instantiationService.setService(r.ICoreService, this.coreService), this.coreMouseService = this._instantiationService.createInstance(d.CoreMouseService), this._instantiationService.setService(r.ICoreMouseService, this.coreMouseService), this._dirtyRowService = this._instantiationService.createInstance(_2.DirtyRowService), this._instantiationService.setService(r.IDirtyRowService, this._dirtyRowService), this.unicodeService = this._instantiationService.createInstance(u.UnicodeService), this._instantiationService.setService(r.IUnicodeService, this.unicodeService), this._charsetService = this._instantiationService.createInstance(f.CharsetService), this._instantiationService.setService(r.ICharsetService, this._charsetService), this._oscLinkService = this._instantiationService.createInstance(S2.OscLinkService), this._instantiationService.setService(r.IOscLinkService, this._oscLinkService), this._inputHandler = new g.InputHandler(this._bufferService, this._charsetService, this.coreService, this._dirtyRowService, this._logService, this.optionsService, this._oscLinkService, this.coreMouseService, this.unicodeService), this.register((0, l.forwardEvent)(this._inputHandler.onLineFeed, this._onLineFeed)), this.register(this._inputHandler), this.register((0, l.forwardEvent)(this._bufferService.onResize, this._onResize)), this.register((0, l.forwardEvent)(this.coreService.onData, this._onData)), this.register((0, l.forwardEvent)(this.coreService.onBinary, this._onBinary)), this.register(this.optionsService.onOptionChange((e4) => this._updateOptions(e4))), this.register(this._bufferService.onScroll((e4) => {
                 this._onScroll.fire({ position: this._bufferService.buffer.ydisp, source: 0 }), this._dirtyRowService.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom);
               })), this.register(this._inputHandler.onScroll((e4) => {
                 this._onScroll.fire({ position: this._bufferService.buffer.ydisp, source: 0 }), this._dirtyRowService.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom);
-              })), this._writeBuffer = new p.WriteBuffer((e4, t3) => this._inputHandler.parse(e4, t3)), this.register((0, l.forwardEvent)(this._writeBuffer.onWriteParsed, this._onWriteParsed));
+              })), this._writeBuffer = new p3.WriteBuffer((e4, t3) => this._inputHandler.parse(e4, t3)), this.register((0, l.forwardEvent)(this._writeBuffer.onWriteParsed, this._onWriteParsed));
             }
             get onBinary() {
               return this._onBinary.event;
@@ -5103,7 +5127,7 @@ var require_xterm = __commonJS({
           };
         }, 5435: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.InputHandler = t2.WindowsOptionsReportType = void 0;
-          const s2 = i2(2584), r = i2(7116), n = i2(2015), o = i2(844), a = i2(482), h2 = i2(8437), c = i2(8460), l = i2(643), d = i2(511), _ = i2(3734), u = i2(2585), f = i2(6242), v = i2(6351), g = i2(5941), p = { "(": 0, ")": 1, "*": 2, "+": 3, "-": 1, ".": 2 }, S = 131072;
+          const s2 = i2(2584), r = i2(7116), n = i2(2015), o = i2(844), a = i2(482), h4 = i2(8437), c = i2(8460), l = i2(643), d = i2(511), _2 = i2(3734), u = i2(2585), f = i2(6242), v = i2(6351), g = i2(5941), p3 = { "(": 0, ")": 1, "*": 2, "+": 3, "-": 1, ".": 2 }, S2 = 131072;
           function m(e3, t3) {
             if (e3 > 24)
               return t3.setWinLines || false;
@@ -5160,8 +5184,8 @@ var require_xterm = __commonJS({
             e3[e3.GET_WIN_SIZE_PIXELS = 0] = "GET_WIN_SIZE_PIXELS", e3[e3.GET_CELL_SIZE_PIXELS = 1] = "GET_CELL_SIZE_PIXELS";
           }(C = t2.WindowsOptionsReportType || (t2.WindowsOptionsReportType = {}));
           class b extends o.Disposable {
-            constructor(e3, t3, i3, o2, l2, _2, u2, g2, p2, S2 = new n.EscapeSequenceParser()) {
-              super(), this._bufferService = e3, this._charsetService = t3, this._coreService = i3, this._dirtyRowService = o2, this._logService = l2, this._optionsService = _2, this._oscLinkService = u2, this._coreMouseService = g2, this._unicodeService = p2, this._parser = S2, this._parseBuffer = new Uint32Array(4096), this._stringDecoder = new a.StringToUtf32(), this._utf8Decoder = new a.Utf8ToUtf32(), this._workCell = new d.CellData(), this._windowTitle = "", this._iconName = "", this._windowTitleStack = [], this._iconNameStack = [], this._curAttrData = h2.DEFAULT_ATTR_DATA.clone(), this._eraseAttrDataInternal = h2.DEFAULT_ATTR_DATA.clone(), this._onRequestBell = new c.EventEmitter(), this._onRequestRefreshRows = new c.EventEmitter(), this._onRequestReset = new c.EventEmitter(), this._onRequestSendFocus = new c.EventEmitter(), this._onRequestSyncScrollBar = new c.EventEmitter(), this._onRequestWindowsOptionsReport = new c.EventEmitter(), this._onA11yChar = new c.EventEmitter(), this._onA11yTab = new c.EventEmitter(), this._onCursorMove = new c.EventEmitter(), this._onLineFeed = new c.EventEmitter(), this._onScroll = new c.EventEmitter(), this._onTitleChange = new c.EventEmitter(), this._onColor = new c.EventEmitter(), this._parseStack = { paused: false, cursorStartX: 0, cursorStartY: 0, decodedLength: 0, position: 0 }, this._specialColors = [256, 257, 258], this.register(this._parser), this._activeBuffer = this._bufferService.buffer, this.register(this._bufferService.buffers.onBufferActivate((e4) => this._activeBuffer = e4.activeBuffer)), this._parser.setCsiHandlerFallback((e4, t4) => {
+            constructor(e3, t3, i3, o2, l2, _3, u2, g2, p4, S3 = new n.EscapeSequenceParser()) {
+              super(), this._bufferService = e3, this._charsetService = t3, this._coreService = i3, this._dirtyRowService = o2, this._logService = l2, this._optionsService = _3, this._oscLinkService = u2, this._coreMouseService = g2, this._unicodeService = p4, this._parser = S3, this._parseBuffer = new Uint32Array(4096), this._stringDecoder = new a.StringToUtf32(), this._utf8Decoder = new a.Utf8ToUtf32(), this._workCell = new d.CellData(), this._windowTitle = "", this._iconName = "", this._windowTitleStack = [], this._iconNameStack = [], this._curAttrData = h4.DEFAULT_ATTR_DATA.clone(), this._eraseAttrDataInternal = h4.DEFAULT_ATTR_DATA.clone(), this._onRequestBell = new c.EventEmitter(), this._onRequestRefreshRows = new c.EventEmitter(), this._onRequestReset = new c.EventEmitter(), this._onRequestSendFocus = new c.EventEmitter(), this._onRequestSyncScrollBar = new c.EventEmitter(), this._onRequestWindowsOptionsReport = new c.EventEmitter(), this._onA11yChar = new c.EventEmitter(), this._onA11yTab = new c.EventEmitter(), this._onCursorMove = new c.EventEmitter(), this._onLineFeed = new c.EventEmitter(), this._onScroll = new c.EventEmitter(), this._onTitleChange = new c.EventEmitter(), this._onColor = new c.EventEmitter(), this._parseStack = { paused: false, cursorStartX: 0, cursorStartY: 0, decodedLength: 0, position: 0 }, this._specialColors = [256, 257, 258], this.register(this._parser), this._activeBuffer = this._bufferService.buffer, this.register(this._bufferService.buffers.onBufferActivate((e4) => this._activeBuffer = e4.activeBuffer)), this._parser.setCsiHandlerFallback((e4, t4) => {
                 this._logService.debug("Unknown CSI code: ", { identifier: this._parser.identToString(e4), params: t4.toArray() });
               }), this._parser.setEscHandlerFallback((e4) => {
                 this._logService.debug("Unknown ESC code: ", { identifier: this._parser.identToString(e4) });
@@ -5237,11 +5261,11 @@ var require_xterm = __commonJS({
               if (o2) {
                 if (i3 = this._parser.parse(this._parseBuffer, this._parseStack.decodedLength, t3))
                   return this._logSlowResolvingAsync(i3), i3;
-                s3 = this._parseStack.cursorStartX, r2 = this._parseStack.cursorStartY, this._parseStack.paused = false, e3.length > S && (n2 = this._parseStack.position + S);
+                s3 = this._parseStack.cursorStartX, r2 = this._parseStack.cursorStartY, this._parseStack.paused = false, e3.length > S2 && (n2 = this._parseStack.position + S2);
               }
-              if (this._logService.logLevel <= u.LogLevelEnum.DEBUG && this._logService.debug("parsing data" + ("string" == typeof e3 ? ` "${e3}"` : ` "${Array.prototype.map.call(e3, (e4) => String.fromCharCode(e4)).join("")}"`), "string" == typeof e3 ? e3.split("").map((e4) => e4.charCodeAt(0)) : e3), this._parseBuffer.length < e3.length && this._parseBuffer.length < S && (this._parseBuffer = new Uint32Array(Math.min(e3.length, S))), o2 || this._dirtyRowService.clearRange(), e3.length > S)
-                for (let t4 = n2; t4 < e3.length; t4 += S) {
-                  const n3 = t4 + S < e3.length ? t4 + S : e3.length, o3 = "string" == typeof e3 ? this._stringDecoder.decode(e3.substring(t4, n3), this._parseBuffer) : this._utf8Decoder.decode(e3.subarray(t4, n3), this._parseBuffer);
+              if (this._logService.logLevel <= u.LogLevelEnum.DEBUG && this._logService.debug("parsing data" + ("string" == typeof e3 ? ` "${e3}"` : ` "${Array.prototype.map.call(e3, (e4) => String.fromCharCode(e4)).join("")}"`), "string" == typeof e3 ? e3.split("").map((e4) => e4.charCodeAt(0)) : e3), this._parseBuffer.length < e3.length && this._parseBuffer.length < S2 && (this._parseBuffer = new Uint32Array(Math.min(e3.length, S2))), o2 || this._dirtyRowService.clearRange(), e3.length > S2)
+                for (let t4 = n2; t4 < e3.length; t4 += S2) {
+                  const n3 = t4 + S2 < e3.length ? t4 + S2 : e3.length, o3 = "string" == typeof e3 ? this._stringDecoder.decode(e3.substring(t4, n3), this._parseBuffer) : this._utf8Decoder.decode(e3.subarray(t4, n3), this._parseBuffer);
                   if (i3 = this._parser.parse(this._parseBuffer, o3))
                     return this._preserveStack(s3, r2, o3, t4), this._logSlowResolvingAsync(i3), i3;
                 }
@@ -5254,30 +5278,30 @@ var require_xterm = __commonJS({
             }
             print(e3, t3, i3) {
               let s3, r2;
-              const n2 = this._charsetService.charset, o2 = this._optionsService.rawOptions.screenReaderMode, h3 = this._bufferService.cols, c2 = this._coreService.decPrivateModes.wraparound, d2 = this._coreService.modes.insertMode, _2 = this._curAttrData;
+              const n2 = this._charsetService.charset, o2 = this._optionsService.rawOptions.screenReaderMode, h5 = this._bufferService.cols, c2 = this._coreService.decPrivateModes.wraparound, d2 = this._coreService.modes.insertMode, _3 = this._curAttrData;
               let u2 = this._activeBuffer.lines.get(this._activeBuffer.ybase + this._activeBuffer.y);
-              this._dirtyRowService.markDirty(this._activeBuffer.y), this._activeBuffer.x && i3 - t3 > 0 && 2 === u2.getWidth(this._activeBuffer.x - 1) && u2.setCellFromCodePoint(this._activeBuffer.x - 1, 0, 1, _2.fg, _2.bg, _2.extended);
+              this._dirtyRowService.markDirty(this._activeBuffer.y), this._activeBuffer.x && i3 - t3 > 0 && 2 === u2.getWidth(this._activeBuffer.x - 1) && u2.setCellFromCodePoint(this._activeBuffer.x - 1, 0, 1, _3.fg, _3.bg, _3.extended);
               for (let f2 = t3; f2 < i3; ++f2) {
                 if (s3 = e3[f2], r2 = this._unicodeService.wcwidth(s3), s3 < 127 && n2) {
                   const e4 = n2[String.fromCharCode(s3)];
                   e4 && (s3 = e4.charCodeAt(0));
                 }
                 if (o2 && this._onA11yChar.fire((0, a.stringFromCodePoint)(s3)), void 0 !== this._currentLinkId && this._oscLinkService.addLineToLink(this._currentLinkId, this._activeBuffer.ybase + this._activeBuffer.y), r2 || !this._activeBuffer.x) {
-                  if (this._activeBuffer.x + r2 - 1 >= h3) {
+                  if (this._activeBuffer.x + r2 - 1 >= h5) {
                     if (c2) {
-                      for (; this._activeBuffer.x < h3; )
-                        u2.setCellFromCodePoint(this._activeBuffer.x++, 0, 1, _2.fg, _2.bg, _2.extended);
+                      for (; this._activeBuffer.x < h5; )
+                        u2.setCellFromCodePoint(this._activeBuffer.x++, 0, 1, _3.fg, _3.bg, _3.extended);
                       this._activeBuffer.x = 0, this._activeBuffer.y++, this._activeBuffer.y === this._activeBuffer.scrollBottom + 1 ? (this._activeBuffer.y--, this._bufferService.scroll(this._eraseAttrData(), true)) : (this._activeBuffer.y >= this._bufferService.rows && (this._activeBuffer.y = this._bufferService.rows - 1), this._activeBuffer.lines.get(this._activeBuffer.ybase + this._activeBuffer.y).isWrapped = true), u2 = this._activeBuffer.lines.get(this._activeBuffer.ybase + this._activeBuffer.y);
-                    } else if (this._activeBuffer.x = h3 - 1, 2 === r2)
+                    } else if (this._activeBuffer.x = h5 - 1, 2 === r2)
                       continue;
                   }
-                  if (d2 && (u2.insertCells(this._activeBuffer.x, r2, this._activeBuffer.getNullCell(_2), _2), 2 === u2.getWidth(h3 - 1) && u2.setCellFromCodePoint(h3 - 1, l.NULL_CELL_CODE, l.NULL_CELL_WIDTH, _2.fg, _2.bg, _2.extended)), u2.setCellFromCodePoint(this._activeBuffer.x++, s3, r2, _2.fg, _2.bg, _2.extended), r2 > 0)
+                  if (d2 && (u2.insertCells(this._activeBuffer.x, r2, this._activeBuffer.getNullCell(_3), _3), 2 === u2.getWidth(h5 - 1) && u2.setCellFromCodePoint(h5 - 1, l.NULL_CELL_CODE, l.NULL_CELL_WIDTH, _3.fg, _3.bg, _3.extended)), u2.setCellFromCodePoint(this._activeBuffer.x++, s3, r2, _3.fg, _3.bg, _3.extended), r2 > 0)
                     for (; --r2; )
-                      u2.setCellFromCodePoint(this._activeBuffer.x++, 0, 0, _2.fg, _2.bg, _2.extended);
+                      u2.setCellFromCodePoint(this._activeBuffer.x++, 0, 0, _3.fg, _3.bg, _3.extended);
                 } else
                   u2.getWidth(this._activeBuffer.x - 1) ? u2.addCodepointToCell(this._activeBuffer.x - 1, s3) : u2.addCodepointToCell(this._activeBuffer.x - 2, s3);
               }
-              i3 - t3 > 0 && (u2.loadCell(this._activeBuffer.x - 1, this._workCell), 2 === this._workCell.getWidth() || this._workCell.getCode() > 65535 ? this._parser.precedingCodepoint = 0 : this._workCell.isCombined() ? this._parser.precedingCodepoint = this._workCell.getChars().charCodeAt(0) : this._parser.precedingCodepoint = this._workCell.content), this._activeBuffer.x < h3 && i3 - t3 > 0 && 0 === u2.getWidth(this._activeBuffer.x) && !u2.hasContent(this._activeBuffer.x) && u2.setCellFromCodePoint(this._activeBuffer.x, 0, 1, _2.fg, _2.bg, _2.extended), this._dirtyRowService.markDirty(this._activeBuffer.y);
+              i3 - t3 > 0 && (u2.loadCell(this._activeBuffer.x - 1, this._workCell), 2 === this._workCell.getWidth() || this._workCell.getCode() > 65535 ? this._parser.precedingCodepoint = 0 : this._workCell.isCombined() ? this._parser.precedingCodepoint = this._workCell.getChars().charCodeAt(0) : this._parser.precedingCodepoint = this._workCell.content), this._activeBuffer.x < h5 && i3 - t3 > 0 && 0 === u2.getWidth(this._activeBuffer.x) && !u2.hasContent(this._activeBuffer.x) && u2.setCellFromCodePoint(this._activeBuffer.x, 0, 1, _3.fg, _3.bg, _3.extended), this._dirtyRowService.markDirty(this._activeBuffer.y);
             }
             registerCsiHandler(e3, t3) {
               return "t" !== e3.final || e3.prefix || e3.intermediates ? this._parser.registerCsiHandler(e3, t3) : this._parser.registerCsiHandler(e3, (e4) => !m(e4.params[0], this._optionsService.rawOptions.windowOptions) || t3(e4));
@@ -5484,7 +5508,7 @@ var require_xterm = __commonJS({
             scrollDown(e3) {
               let t3 = e3.params[0] || 1;
               for (; t3--; )
-                this._activeBuffer.lines.splice(this._activeBuffer.ybase + this._activeBuffer.scrollBottom, 1), this._activeBuffer.lines.splice(this._activeBuffer.ybase + this._activeBuffer.scrollTop, 0, this._activeBuffer.getBlankLine(h2.DEFAULT_ATTR_DATA));
+                this._activeBuffer.lines.splice(this._activeBuffer.ybase + this._activeBuffer.scrollBottom, 1), this._activeBuffer.lines.splice(this._activeBuffer.ybase + this._activeBuffer.scrollTop, 0, this._activeBuffer.getBlankLine(h4.DEFAULT_ATTR_DATA));
               return this._dirtyRowService.markRangeDirty(this._activeBuffer.scrollTop, this._activeBuffer.scrollBottom), true;
             }
             scrollLeft(e3) {
@@ -5702,12 +5726,12 @@ var require_xterm = __commonJS({
               return true;
             }
             requestMode(e3, t3) {
-              const i3 = this._coreService.decPrivateModes, { activeProtocol: r2, activeEncoding: n2 } = this._coreMouseService, o2 = this._coreService, { buffers: a2, cols: h3 } = this._bufferService, { active: c2, alt: l2 } = a2, d2 = this._optionsService.rawOptions, _2 = (e4) => e4 ? 1 : 2, u2 = e3.params[0];
-              return f2 = u2, v2 = t3 ? 2 === u2 ? 3 : 4 === u2 ? _2(o2.modes.insertMode) : 12 === u2 ? 4 : 20 === u2 ? _2(d2.convertEol) : 0 : 1 === u2 ? _2(i3.applicationCursorKeys) : 3 === u2 ? d2.windowOptions.setWinLines ? 80 === h3 ? 2 : 132 === h3 ? 1 : 0 : 0 : 6 === u2 ? _2(i3.origin) : 7 === u2 ? _2(i3.wraparound) : 8 === u2 ? 3 : 9 === u2 ? _2("X10" === r2) : 12 === u2 ? _2(d2.cursorBlink) : 25 === u2 ? _2(!o2.isCursorHidden) : 45 === u2 ? _2(i3.reverseWraparound) : 66 === u2 ? _2(i3.applicationKeypad) : 1e3 === u2 ? _2("VT200" === r2) : 1002 === u2 ? _2("DRAG" === r2) : 1003 === u2 ? _2("ANY" === r2) : 1004 === u2 ? _2(i3.sendFocus) : 1005 === u2 ? 4 : 1006 === u2 ? _2("SGR" === n2) : 1015 === u2 ? 4 : 1016 === u2 ? _2("SGR_PIXELS" === n2) : 1048 === u2 ? 1 : 47 === u2 || 1047 === u2 || 1049 === u2 ? _2(c2 === l2) : 2004 === u2 ? _2(i3.bracketedPasteMode) : 0, o2.triggerDataEvent(`${s2.C0.ESC}[${t3 ? "" : "?"}${f2};${v2}$y`), true;
+              const i3 = this._coreService.decPrivateModes, { activeProtocol: r2, activeEncoding: n2 } = this._coreMouseService, o2 = this._coreService, { buffers: a2, cols: h5 } = this._bufferService, { active: c2, alt: l2 } = a2, d2 = this._optionsService.rawOptions, _3 = (e4) => e4 ? 1 : 2, u2 = e3.params[0];
+              return f2 = u2, v2 = t3 ? 2 === u2 ? 3 : 4 === u2 ? _3(o2.modes.insertMode) : 12 === u2 ? 4 : 20 === u2 ? _3(d2.convertEol) : 0 : 1 === u2 ? _3(i3.applicationCursorKeys) : 3 === u2 ? d2.windowOptions.setWinLines ? 80 === h5 ? 2 : 132 === h5 ? 1 : 0 : 0 : 6 === u2 ? _3(i3.origin) : 7 === u2 ? _3(i3.wraparound) : 8 === u2 ? 3 : 9 === u2 ? _3("X10" === r2) : 12 === u2 ? _3(d2.cursorBlink) : 25 === u2 ? _3(!o2.isCursorHidden) : 45 === u2 ? _3(i3.reverseWraparound) : 66 === u2 ? _3(i3.applicationKeypad) : 1e3 === u2 ? _3("VT200" === r2) : 1002 === u2 ? _3("DRAG" === r2) : 1003 === u2 ? _3("ANY" === r2) : 1004 === u2 ? _3(i3.sendFocus) : 1005 === u2 ? 4 : 1006 === u2 ? _3("SGR" === n2) : 1015 === u2 ? 4 : 1016 === u2 ? _3("SGR_PIXELS" === n2) : 1048 === u2 ? 1 : 47 === u2 || 1047 === u2 || 1049 === u2 ? _3(c2 === l2) : 2004 === u2 ? _3(i3.bracketedPasteMode) : 0, o2.triggerDataEvent(`${s2.C0.ESC}[${t3 ? "" : "?"}${f2};${v2}$y`), true;
               var f2, v2;
             }
             _updateAttrColor(e3, t3, i3, s3, r2) {
-              return 2 === t3 ? (e3 |= 50331648, e3 &= -16777216, e3 |= _.AttributeData.fromColorRGB([i3, s3, r2])) : 5 === t3 && (e3 &= -50331904, e3 |= 33554432 | 255 & i3), e3;
+              return 2 === t3 ? (e3 |= 50331648, e3 &= -16777216, e3 |= _2.AttributeData.fromColorRGB([i3, s3, r2])) : 5 === t3 && (e3 &= -50331904, e3 |= 33554432 | 255 & i3), e3;
             }
             _extractColor(e3, t3, i3) {
               const s3 = [0, 0, -1, 0, 0, 0];
@@ -5744,12 +5768,12 @@ var require_xterm = __commonJS({
             }
             charAttributes(e3) {
               if (1 === e3.length && 0 === e3.params[0])
-                return this._curAttrData.fg = h2.DEFAULT_ATTR_DATA.fg, this._curAttrData.bg = h2.DEFAULT_ATTR_DATA.bg, true;
+                return this._curAttrData.fg = h4.DEFAULT_ATTR_DATA.fg, this._curAttrData.bg = h4.DEFAULT_ATTR_DATA.bg, true;
               const t3 = e3.length;
               let i3;
               const s3 = this._curAttrData;
               for (let r2 = 0; r2 < t3; r2++)
-                i3 = e3.params[r2], i3 >= 30 && i3 <= 37 ? (s3.fg &= -50331904, s3.fg |= 16777216 | i3 - 30) : i3 >= 40 && i3 <= 47 ? (s3.bg &= -50331904, s3.bg |= 16777216 | i3 - 40) : i3 >= 90 && i3 <= 97 ? (s3.fg &= -50331904, s3.fg |= 16777224 | i3 - 90) : i3 >= 100 && i3 <= 107 ? (s3.bg &= -50331904, s3.bg |= 16777224 | i3 - 100) : 0 === i3 ? (s3.fg = h2.DEFAULT_ATTR_DATA.fg, s3.bg = h2.DEFAULT_ATTR_DATA.bg) : 1 === i3 ? s3.fg |= 134217728 : 3 === i3 ? s3.bg |= 67108864 : 4 === i3 ? (s3.fg |= 268435456, this._processUnderline(e3.hasSubParams(r2) ? e3.getSubParams(r2)[0] : 1, s3)) : 5 === i3 ? s3.fg |= 536870912 : 7 === i3 ? s3.fg |= 67108864 : 8 === i3 ? s3.fg |= 1073741824 : 9 === i3 ? s3.fg |= 2147483648 : 2 === i3 ? s3.bg |= 134217728 : 21 === i3 ? this._processUnderline(2, s3) : 22 === i3 ? (s3.fg &= -134217729, s3.bg &= -134217729) : 23 === i3 ? s3.bg &= -67108865 : 24 === i3 ? (s3.fg &= -268435457, this._processUnderline(0, s3)) : 25 === i3 ? s3.fg &= -536870913 : 27 === i3 ? s3.fg &= -67108865 : 28 === i3 ? s3.fg &= -1073741825 : 29 === i3 ? s3.fg &= 2147483647 : 39 === i3 ? (s3.fg &= -67108864, s3.fg |= 16777215 & h2.DEFAULT_ATTR_DATA.fg) : 49 === i3 ? (s3.bg &= -67108864, s3.bg |= 16777215 & h2.DEFAULT_ATTR_DATA.bg) : 38 === i3 || 48 === i3 || 58 === i3 ? r2 += this._extractColor(e3, r2, s3) : 59 === i3 ? (s3.extended = s3.extended.clone(), s3.extended.underlineColor = -1, s3.updateExtended()) : 100 === i3 ? (s3.fg &= -67108864, s3.fg |= 16777215 & h2.DEFAULT_ATTR_DATA.fg, s3.bg &= -67108864, s3.bg |= 16777215 & h2.DEFAULT_ATTR_DATA.bg) : this._logService.debug("Unknown SGR attribute: %d.", i3);
+                i3 = e3.params[r2], i3 >= 30 && i3 <= 37 ? (s3.fg &= -50331904, s3.fg |= 16777216 | i3 - 30) : i3 >= 40 && i3 <= 47 ? (s3.bg &= -50331904, s3.bg |= 16777216 | i3 - 40) : i3 >= 90 && i3 <= 97 ? (s3.fg &= -50331904, s3.fg |= 16777224 | i3 - 90) : i3 >= 100 && i3 <= 107 ? (s3.bg &= -50331904, s3.bg |= 16777224 | i3 - 100) : 0 === i3 ? (s3.fg = h4.DEFAULT_ATTR_DATA.fg, s3.bg = h4.DEFAULT_ATTR_DATA.bg) : 1 === i3 ? s3.fg |= 134217728 : 3 === i3 ? s3.bg |= 67108864 : 4 === i3 ? (s3.fg |= 268435456, this._processUnderline(e3.hasSubParams(r2) ? e3.getSubParams(r2)[0] : 1, s3)) : 5 === i3 ? s3.fg |= 536870912 : 7 === i3 ? s3.fg |= 67108864 : 8 === i3 ? s3.fg |= 1073741824 : 9 === i3 ? s3.fg |= 2147483648 : 2 === i3 ? s3.bg |= 134217728 : 21 === i3 ? this._processUnderline(2, s3) : 22 === i3 ? (s3.fg &= -134217729, s3.bg &= -134217729) : 23 === i3 ? s3.bg &= -67108865 : 24 === i3 ? (s3.fg &= -268435457, this._processUnderline(0, s3)) : 25 === i3 ? s3.fg &= -536870913 : 27 === i3 ? s3.fg &= -67108865 : 28 === i3 ? s3.fg &= -1073741825 : 29 === i3 ? s3.fg &= 2147483647 : 39 === i3 ? (s3.fg &= -67108864, s3.fg |= 16777215 & h4.DEFAULT_ATTR_DATA.fg) : 49 === i3 ? (s3.bg &= -67108864, s3.bg |= 16777215 & h4.DEFAULT_ATTR_DATA.bg) : 38 === i3 || 48 === i3 || 58 === i3 ? r2 += this._extractColor(e3, r2, s3) : 59 === i3 ? (s3.extended = s3.extended.clone(), s3.extended.underlineColor = -1, s3.updateExtended()) : 100 === i3 ? (s3.fg &= -67108864, s3.fg |= 16777215 & h4.DEFAULT_ATTR_DATA.fg, s3.bg &= -67108864, s3.bg |= 16777215 & h4.DEFAULT_ATTR_DATA.bg) : this._logService.debug("Unknown SGR attribute: %d.", i3);
               return true;
             }
             deviceStatus(e3) {
@@ -5771,7 +5795,7 @@ var require_xterm = __commonJS({
               return true;
             }
             softReset(e3) {
-              return this._coreService.isCursorHidden = false, this._onRequestSyncScrollBar.fire(), this._activeBuffer.scrollTop = 0, this._activeBuffer.scrollBottom = this._bufferService.rows - 1, this._curAttrData = h2.DEFAULT_ATTR_DATA.clone(), this._coreService.reset(), this._charsetService.reset(), this._activeBuffer.savedX = 0, this._activeBuffer.savedY = this._activeBuffer.ybase, this._activeBuffer.savedCurAttrData.fg = this._curAttrData.fg, this._activeBuffer.savedCurAttrData.bg = this._curAttrData.bg, this._activeBuffer.savedCharset = this._charsetService.charset, this._coreService.decPrivateModes.origin = false, true;
+              return this._coreService.isCursorHidden = false, this._onRequestSyncScrollBar.fire(), this._activeBuffer.scrollTop = 0, this._activeBuffer.scrollBottom = this._bufferService.rows - 1, this._curAttrData = h4.DEFAULT_ATTR_DATA.clone(), this._coreService.reset(), this._charsetService.reset(), this._activeBuffer.savedX = 0, this._activeBuffer.savedY = this._activeBuffer.ybase, this._activeBuffer.savedCurAttrData.fg = this._curAttrData.fg, this._activeBuffer.savedCurAttrData.bg = this._curAttrData.bg, this._activeBuffer.savedCharset = this._charsetService.charset, this._coreService.decPrivateModes.origin = false, true;
             }
             setCursorStyle(e3) {
               const t3 = e3.params[0] || 1;
@@ -5914,7 +5938,7 @@ var require_xterm = __commonJS({
               return this._charsetService.setgLevel(0), this._charsetService.setgCharset(0, r.DEFAULT_CHARSET), true;
             }
             selectCharset(e3) {
-              return 2 !== e3.length ? (this.selectDefaultCharset(), true) : ("/" === e3[0] || this._charsetService.setgCharset(p[e3[0]], r.CHARSETS[e3[1]] || r.DEFAULT_CHARSET), true);
+              return 2 !== e3.length ? (this.selectDefaultCharset(), true) : ("/" === e3[0] || this._charsetService.setgCharset(p3[e3[0]], r.CHARSETS[e3[1]] || r.DEFAULT_CHARSET), true);
             }
             index() {
               return this._restrictCursor(), this._activeBuffer.y++, this._activeBuffer.y === this._activeBuffer.scrollBottom + 1 ? (this._activeBuffer.y--, this._bufferService.scroll(this._eraseAttrData())) : this._activeBuffer.y >= this._bufferService.rows && (this._activeBuffer.y = this._bufferService.rows - 1), this._restrictCursor(), true;
@@ -5934,7 +5958,7 @@ var require_xterm = __commonJS({
               return this._parser.reset(), this._onRequestReset.fire(), true;
             }
             reset() {
-              this._curAttrData = h2.DEFAULT_ATTR_DATA.clone(), this._eraseAttrDataInternal = h2.DEFAULT_ATTR_DATA.clone();
+              this._curAttrData = h4.DEFAULT_ATTR_DATA.clone(), this._eraseAttrDataInternal = h4.DEFAULT_ATTR_DATA.clone();
             }
             _eraseAttrData() {
               return this._eraseAttrDataInternal.bg &= -67108864, this._eraseAttrDataInternal.bg |= 67108863 & this._curAttrData.bg, this._eraseAttrDataInternal;
@@ -6266,7 +6290,7 @@ var require_xterm = __commonJS({
           t2.ExtendedAttrs = s2;
         }, 9092: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.BufferStringIterator = t2.Buffer = t2.MAX_BUFFER_SIZE = void 0;
-          const s2 = i2(6349), r = i2(8437), n = i2(511), o = i2(643), a = i2(4634), h2 = i2(4863), c = i2(7116), l = i2(3734);
+          const s2 = i2(6349), r = i2(8437), n = i2(511), o = i2(643), a = i2(4634), h4 = i2(4863), c = i2(7116), l = i2(3734);
           t2.MAX_BUFFER_SIZE = 4294967295, t2.Buffer = class {
             constructor(e3, t3, i3) {
               this._hasScrollback = e3, this._optionsService = t3, this._bufferService = i3, this.ydisp = 0, this.ybase = 0, this.y = 0, this.x = 0, this.savedY = 0, this.savedX = 0, this.savedCurAttrData = r.DEFAULT_ATTR_DATA.clone(), this.savedCharset = c.DEFAULT_CHARSET, this.markers = [], this._nullCell = n.CellData.fromCharData([0, o.NULL_CELL_CHAR, o.NULL_CELL_WIDTH, o.NULL_CELL_CODE]), this._whitespaceCell = n.CellData.fromCharData([0, o.WHITESPACE_CELL_CHAR, o.WHITESPACE_CELL_WIDTH, o.WHITESPACE_CELL_CODE]), this._isClearing = false, this._cols = this._bufferService.cols, this._rows = this._bufferService.rows, this.lines = new s2.CircularList(this._getCorrectBufferLength(this._rows)), this.scrollTop = 0, this.scrollBottom = this._rows - 1, this.setupTabStops();
@@ -6352,16 +6376,16 @@ var require_xterm = __commonJS({
               const i3 = this.getNullCell(r.DEFAULT_ATTR_DATA), s3 = [];
               let n2 = 0;
               for (let o2 = this.lines.length - 1; o2 >= 0; o2--) {
-                let h3 = this.lines.get(o2);
-                if (!h3 || !h3.isWrapped && h3.getTrimmedLength() <= e3)
+                let h5 = this.lines.get(o2);
+                if (!h5 || !h5.isWrapped && h5.getTrimmedLength() <= e3)
                   continue;
-                const c2 = [h3];
-                for (; h3.isWrapped && o2 > 0; )
-                  h3 = this.lines.get(--o2), c2.unshift(h3);
+                const c2 = [h5];
+                for (; h5.isWrapped && o2 > 0; )
+                  h5 = this.lines.get(--o2), c2.unshift(h5);
                 const l2 = this.ybase + this.y;
                 if (l2 >= o2 && l2 < o2 + c2.length)
                   continue;
-                const d2 = c2[c2.length - 1].getTrimmedLength(), _ = (0, a.reflowSmallerGetNewLineLengths)(c2, this._cols, e3), u = _.length - c2.length;
+                const d2 = c2[c2.length - 1].getTrimmedLength(), _2 = (0, a.reflowSmallerGetNewLineLengths)(c2, this._cols, e3), u = _2.length - c2.length;
                 let f;
                 f = 0 === this.ybase && this.y !== this.lines.length - 1 ? Math.max(0, this.y - this.lines.maxLength + u) : Math.max(0, this.lines.length - this.lines.maxLength + u);
                 const v = [];
@@ -6370,21 +6394,21 @@ var require_xterm = __commonJS({
                   v.push(e5);
                 }
                 v.length > 0 && (s3.push({ start: o2 + c2.length + n2, newLines: v }), n2 += v.length), c2.push(...v);
-                let g = _.length - 1, p = _[g];
-                0 === p && (g--, p = _[g]);
-                let S = c2.length - u - 1, m = d2;
-                for (; S >= 0; ) {
-                  const e4 = Math.min(m, p);
+                let g = _2.length - 1, p3 = _2[g];
+                0 === p3 && (g--, p3 = _2[g]);
+                let S2 = c2.length - u - 1, m = d2;
+                for (; S2 >= 0; ) {
+                  const e4 = Math.min(m, p3);
                   if (void 0 === c2[g])
                     break;
-                  if (c2[g].copyCellsFrom(c2[S], m - e4, p - e4, e4, true), p -= e4, 0 === p && (g--, p = _[g]), m -= e4, 0 === m) {
-                    S--;
-                    const e5 = Math.max(S, 0);
+                  if (c2[g].copyCellsFrom(c2[S2], m - e4, p3 - e4, e4, true), p3 -= e4, 0 === p3 && (g--, p3 = _2[g]), m -= e4, 0 === m) {
+                    S2--;
+                    const e5 = Math.max(S2, 0);
                     m = (0, a.getWrappedLineTrimmedLength)(c2, e5, this._cols);
                   }
                 }
                 for (let t4 = 0; t4 < c2.length; t4++)
-                  _[t4] < e3 && c2[t4].setCell(_[t4], i3);
+                  _2[t4] < e3 && c2[t4].setCell(_2[t4], i3);
                 let C = u - f;
                 for (; C-- > 0; )
                   0 === this.ybase ? this.y < t3 - 1 ? (this.y++, this.lines.pop()) : (this.ybase++, this.ydisp++) : this.ybase < Math.min(this.lines.maxLength, this.lines.length + n2) - t3 && (this.ybase === this.ydisp && this.ydisp++, this.ybase++);
@@ -6397,12 +6421,12 @@ var require_xterm = __commonJS({
                 const i4 = this.lines.length;
                 let r2 = i4 - 1, o2 = 0, a2 = s3[o2];
                 this.lines.length = Math.min(this.lines.maxLength, this.lines.length + n2);
-                let h3 = 0;
+                let h5 = 0;
                 for (let c3 = Math.min(this.lines.maxLength - 1, i4 + n2 - 1); c3 >= 0; c3--)
-                  if (a2 && a2.start > r2 + h3) {
+                  if (a2 && a2.start > r2 + h5) {
                     for (let e5 = a2.newLines.length - 1; e5 >= 0; e5--)
                       this.lines.set(c3--, a2.newLines[e5]);
-                    c3++, e4.push({ index: r2 + 1, amount: a2.newLines.length }), h3 += a2.newLines.length, a2 = s3[++o2];
+                    c3++, e4.push({ index: r2 + 1, amount: a2.newLines.length }), h5 += a2.newLines.length, a2 = s3[++o2];
                   } else
                     this.lines.set(c3, t4[r2--]);
                 let c2 = 0;
@@ -6464,7 +6488,7 @@ var require_xterm = __commonJS({
               this._isClearing = false;
             }
             addMarker(e3) {
-              const t3 = new h2.Marker(e3);
+              const t3 = new h4.Marker(e3);
               return this.markers.push(t3), t3.register(this.lines.onTrim((e4) => {
                 t3.line -= e4, t3.line < 0 && t3.dispose();
               })), t3.register(this.lines.onInsert((e4) => {
@@ -6502,7 +6526,7 @@ var require_xterm = __commonJS({
           const s2 = i2(482), r = i2(643), n = i2(511), o = i2(3734);
           t2.DEFAULT_ATTR_DATA = Object.freeze(new o.AttributeData());
           const a = { startIndex: 0 };
-          class h2 {
+          class h4 {
             constructor(e3, t3, i3 = false) {
               this.isWrapped = i3, this._combined = {}, this._extendedAttrs = {}, this._data = new Uint32Array(3 * e3);
               const s3 = t3 || n.CellData.fromCharData([0, r.NULL_CELL_CHAR, r.NULL_CELL_WIDTH, r.NULL_CELL_CODE]);
@@ -6631,7 +6655,7 @@ var require_xterm = __commonJS({
               this.isWrapped = e3.isWrapped;
             }
             clone() {
-              const e3 = new h2(0);
+              const e3 = new h4(0);
               e3._data = new Uint32Array(this._data), e3.length = this.length;
               for (const t3 in this._combined)
                 e3._combined[t3] = this._combined[t3];
@@ -6675,7 +6699,7 @@ var require_xterm = __commonJS({
               return n2;
             }
           }
-          t2.BufferLine = h2;
+          t2.BufferLine = h4;
         }, 4841: (e2, t2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.getRangeLength = void 0, t2.getRangeLength = function(e3, t3) {
             if (e3.start.y > e3.end.y)
@@ -6692,22 +6716,22 @@ var require_xterm = __commonJS({
           Object.defineProperty(t2, "__esModule", { value: true }), t2.getWrappedLineTrimmedLength = t2.reflowSmallerGetNewLineLengths = t2.reflowLargerApplyNewLayout = t2.reflowLargerCreateNewLayout = t2.reflowLargerGetLinesToRemove = void 0, t2.reflowLargerGetLinesToRemove = function(e3, t3, s2, r, n) {
             const o = [];
             for (let a = 0; a < e3.length - 1; a++) {
-              let h2 = a, c = e3.get(++h2);
+              let h4 = a, c = e3.get(++h4);
               if (!c.isWrapped)
                 continue;
               const l = [e3.get(a)];
-              for (; h2 < e3.length && c.isWrapped; )
-                l.push(c), c = e3.get(++h2);
-              if (r >= a && r < h2) {
+              for (; h4 < e3.length && c.isWrapped; )
+                l.push(c), c = e3.get(++h4);
+              if (r >= a && r < h4) {
                 a += l.length - 1;
                 continue;
               }
-              let d = 0, _ = i2(l, d, t3), u = 1, f = 0;
+              let d = 0, _2 = i2(l, d, t3), u = 1, f = 0;
               for (; u < l.length; ) {
-                const e4 = i2(l, u, t3), r2 = e4 - f, o2 = s2 - _, a2 = Math.min(r2, o2);
-                l[d].copyCellsFrom(l[u], f, _, a2, false), _ += a2, _ === s2 && (d++, _ = 0), f += a2, f === e4 && (u++, f = 0), 0 === _ && 0 !== d && 2 === l[d - 1].getWidth(s2 - 1) && (l[d].copyCellsFrom(l[d - 1], s2 - 1, _++, 1, false), l[d - 1].setCell(s2 - 1, n));
+                const e4 = i2(l, u, t3), r2 = e4 - f, o2 = s2 - _2, a2 = Math.min(r2, o2);
+                l[d].copyCellsFrom(l[u], f, _2, a2, false), _2 += a2, _2 === s2 && (d++, _2 = 0), f += a2, f === e4 && (u++, f = 0), 0 === _2 && 0 !== d && 2 === l[d - 1].getWidth(s2 - 1) && (l[d].copyCellsFrom(l[d - 1], s2 - 1, _2++, 1, false), l[d - 1].setCell(s2 - 1, n));
               }
-              l[d].replaceCells(_, s2, n);
+              l[d].replaceCells(_2, s2, n);
               let v = 0;
               for (let e4 = l.length - 1; e4 > 0 && (e4 > d || 0 === l[e4].getTrimmedLength()); e4--)
                 v++;
@@ -6733,10 +6757,10 @@ var require_xterm = __commonJS({
             e3.length = t3.length;
           }, t2.reflowSmallerGetNewLineLengths = function(e3, t3, s2) {
             const r = [], n = e3.map((s3, r2) => i2(e3, r2, t3)).reduce((e4, t4) => e4 + t4);
-            let o = 0, a = 0, h2 = 0;
-            for (; h2 < n; ) {
-              if (n - h2 < s2) {
-                r.push(n - h2);
+            let o = 0, a = 0, h4 = 0;
+            for (; h4 < n; ) {
+              if (n - h4 < s2) {
+                r.push(n - h4);
                 break;
               }
               o += s2;
@@ -6745,7 +6769,7 @@ var require_xterm = __commonJS({
               const l = 2 === e3[a].getWidth(o - 1);
               l && o--;
               const d = l ? s2 - 1 : s2;
-              r.push(d), h2 += d;
+              r.push(d), h4 += d;
             }
             return r;
           }, t2.getWrappedLineTrimmedLength = i2;
@@ -7030,14 +7054,14 @@ var require_xterm = __commonJS({
               const i2 = e3.length;
               if (!i2)
                 return 0;
-              let s2, r, n, o, a = 0, h2 = 0, c = 0;
+              let s2, r, n, o, a = 0, h4 = 0, c = 0;
               if (this.interim[0]) {
                 let s3 = false, r2 = this.interim[0];
                 r2 &= 192 == (224 & r2) ? 31 : 224 == (240 & r2) ? 15 : 7;
                 let n2, o2 = 0;
                 for (; (n2 = 63 & this.interim[++o2]) && o2 < 4; )
                   r2 <<= 6, r2 |= n2;
-                const h3 = 192 == (224 & this.interim[0]) ? 2 : 224 == (240 & this.interim[0]) ? 3 : 4, l2 = h3 - o2;
+                const h5 = 192 == (224 & this.interim[0]) ? 2 : 224 == (240 & this.interim[0]) ? 3 : 4, l2 = h5 - o2;
                 for (; c < l2; ) {
                   if (c >= i2)
                     return 0;
@@ -7047,7 +7071,7 @@ var require_xterm = __commonJS({
                   }
                   this.interim[o2++] = n2, r2 <<= 6, r2 |= 63 & n2;
                 }
-                s3 || (2 === h3 ? r2 < 128 ? c-- : t3[a++] = r2 : 3 === h3 ? r2 < 2048 || r2 >= 55296 && r2 <= 57343 || 65279 === r2 || (t3[a++] = r2) : r2 < 65536 || r2 > 1114111 || (t3[a++] = r2)), this.interim.fill(0);
+                s3 || (2 === h5 ? r2 < 128 ? c-- : t3[a++] = r2 : 3 === h5 ? r2 < 2048 || r2 >= 55296 && r2 <= 57343 || 65279 === r2 || (t3[a++] = r2) : r2 < 65536 || r2 > 1114111 || (t3[a++] = r2)), this.interim.fill(0);
               }
               const l = i2 - 4;
               let d = c;
@@ -7063,11 +7087,11 @@ var require_xterm = __commonJS({
                     d--;
                     continue;
                   }
-                  if (h2 = (31 & s2) << 6 | 63 & r, h2 < 128) {
+                  if (h4 = (31 & s2) << 6 | 63 & r, h4 < 128) {
                     d--;
                     continue;
                   }
-                  t3[a++] = h2;
+                  t3[a++] = h4;
                 } else if (224 == (240 & s2)) {
                   if (d >= i2)
                     return this.interim[0] = s2, a;
@@ -7081,9 +7105,9 @@ var require_xterm = __commonJS({
                     d--;
                     continue;
                   }
-                  if (h2 = (15 & s2) << 12 | (63 & r) << 6 | 63 & n, h2 < 2048 || h2 >= 55296 && h2 <= 57343 || 65279 === h2)
+                  if (h4 = (15 & s2) << 12 | (63 & r) << 6 | 63 & n, h4 < 2048 || h4 >= 55296 && h4 <= 57343 || 65279 === h4)
                     continue;
-                  t3[a++] = h2;
+                  t3[a++] = h4;
                 } else if (240 == (248 & s2)) {
                   if (d >= i2)
                     return this.interim[0] = s2, a;
@@ -7103,9 +7127,9 @@ var require_xterm = __commonJS({
                     d--;
                     continue;
                   }
-                  if (h2 = (7 & s2) << 18 | (63 & r) << 12 | (63 & n) << 6 | 63 & o, h2 < 65536 || h2 > 1114111)
+                  if (h4 = (7 & s2) << 18 | (63 & r) << 12 | (63 & n) << 6 | 63 & o, h4 < 65536 || h4 > 1114111)
                     continue;
-                  t3[a++] = h2;
+                  t3[a++] = h4;
                 }
               }
               return a;
@@ -7314,7 +7338,7 @@ var require_xterm = __commonJS({
         }, 2015: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.EscapeSequenceParser = t2.VT500_TRANSITION_TABLE = t2.TransitionTable = void 0;
           const s2 = i2(844), r = i2(8273), n = i2(8742), o = i2(6242), a = i2(6351);
-          class h2 {
+          class h4 {
             constructor(e3) {
               this.table = new Uint8Array(e3);
             }
@@ -7329,10 +7353,10 @@ var require_xterm = __commonJS({
                 this.table[t3 << 8 | e3[r2]] = i3 << 4 | s3;
             }
           }
-          t2.TransitionTable = h2;
+          t2.TransitionTable = h4;
           const c = 160;
           t2.VT500_TRANSITION_TABLE = function() {
-            const e3 = new h2(4095), t3 = Array.apply(null, Array(256)).map((e4, t4) => t4), i3 = (e4, i4) => t3.slice(e4, i4), s3 = i3(32, 127), r2 = i3(0, 24);
+            const e3 = new h4(4095), t3 = Array.apply(null, Array(256)).map((e4, t4) => t4), i3 = (e4, i4) => t3.slice(e4, i4), s3 = i3(32, 127), r2 = i3(0, 24);
             r2.push(25), r2.push.apply(r2, i3(28, 32));
             const n2 = i3(0, 14);
             let o2;
@@ -7554,11 +7578,11 @@ var require_xterm = __commonJS({
                     this._collect <<= 8, this._collect |= r2;
                     break;
                   case 10:
-                    const h3 = this._escHandlers[this._collect << 8 | r2];
-                    let l2 = h3 ? h3.length - 1 : -1;
-                    for (; l2 >= 0 && (s3 = h3[l2](), true !== s3); l2--)
+                    const h5 = this._escHandlers[this._collect << 8 | r2];
+                    let l2 = h5 ? h5.length - 1 : -1;
+                    for (; l2 >= 0 && (s3 = h5[l2](), true !== s3); l2--)
                       if (s3 instanceof Promise)
-                        return this._preserveStack(4, h3, l2, n2, i4), s3;
+                        return this._preserveStack(4, h5, l2, n2, i4), s3;
                     l2 < 0 && this._escHandlerFb(this._collect << 8 | r2), this.precedingCodepoint = 0;
                     break;
                   case 11:
@@ -7953,9 +7977,9 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.BufferService = t2.MINIMUM_ROWS = t2.MINIMUM_COLS = void 0;
-          const n = i2(2585), o = i2(5295), a = i2(8460), h2 = i2(844);
+          const n = i2(2585), o = i2(5295), a = i2(8460), h4 = i2(844);
           t2.MINIMUM_COLS = 2, t2.MINIMUM_ROWS = 1;
-          let c = class extends h2.Disposable {
+          let c = class extends h4.Disposable {
             constructor(e3) {
               super(), this.isUserScrolling = false, this._onResize = new a.EventEmitter(), this._onScroll = new a.EventEmitter(), this.cols = Math.max(e3.rawOptions.cols || 0, t2.MINIMUM_COLS), this.rows = Math.max(e3.rawOptions.rows || 0, t2.MINIMUM_ROWS), this.buffers = new o.BufferSet(e3, this);
             }
@@ -8048,19 +8072,19 @@ var require_xterm = __commonJS({
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.CoreMouseService = void 0;
           const n = i2(2585), o = i2(8460), a = { NONE: { events: 0, restrict: () => false }, X10: { events: 1, restrict: (e3) => 4 !== e3.button && 1 === e3.action && (e3.ctrl = false, e3.alt = false, e3.shift = false, true) }, VT200: { events: 19, restrict: (e3) => 32 !== e3.action }, DRAG: { events: 23, restrict: (e3) => 32 !== e3.action || 3 !== e3.button }, ANY: { events: 31, restrict: (e3) => true } };
-          function h2(e3, t3) {
+          function h4(e3, t3) {
             let i3 = (e3.ctrl ? 16 : 0) | (e3.shift ? 4 : 0) | (e3.alt ? 8 : 0);
             return 4 === e3.button ? (i3 |= 64, i3 |= e3.action) : (i3 |= 3 & e3.button, 4 & e3.button && (i3 |= 64), 8 & e3.button && (i3 |= 128), 32 === e3.action ? i3 |= 32 : 0 !== e3.action || t3 || (i3 |= 3)), i3;
           }
           const c = String.fromCharCode, l = { DEFAULT: (e3) => {
-            const t3 = [h2(e3, false) + 32, e3.col + 32, e3.row + 32];
+            const t3 = [h4(e3, false) + 32, e3.col + 32, e3.row + 32];
             return t3[0] > 255 || t3[1] > 255 || t3[2] > 255 ? "" : `\x1B[M${c(t3[0])}${c(t3[1])}${c(t3[2])}`;
           }, SGR: (e3) => {
             const t3 = 0 === e3.action && 4 !== e3.button ? "m" : "M";
-            return `\x1B[<${h2(e3, true)};${e3.col};${e3.row}${t3}`;
+            return `\x1B[<${h4(e3, true)};${e3.col};${e3.row}${t3}`;
           }, SGR_PIXELS: (e3) => {
             const t3 = 0 === e3.action && 4 !== e3.button ? "m" : "M";
-            return `\x1B[<${h2(e3, true)};${e3.x};${e3.y}${t3}`;
+            return `\x1B[<${h4(e3, true)};${e3.x};${e3.y}${t3}`;
           } };
           let d = class {
             constructor(e3, t3) {
@@ -8152,8 +8176,8 @@ var require_xterm = __commonJS({
             };
           };
           Object.defineProperty(t2, "__esModule", { value: true }), t2.CoreService = void 0;
-          const n = i2(2585), o = i2(8460), a = i2(1439), h2 = i2(844), c = Object.freeze({ insertMode: false }), l = Object.freeze({ applicationCursorKeys: false, applicationKeypad: false, bracketedPasteMode: false, origin: false, reverseWraparound: false, sendFocus: false, wraparound: true });
-          let d = class extends h2.Disposable {
+          const n = i2(2585), o = i2(8460), a = i2(1439), h4 = i2(844), c = Object.freeze({ insertMode: false }), l = Object.freeze({ applicationCursorKeys: false, applicationKeypad: false, bracketedPasteMode: false, origin: false, reverseWraparound: false, sendFocus: false, wraparound: true });
+          let d = class extends h4.Disposable {
             constructor(e3, t3, i3, s3) {
               super(), this._bufferService = t3, this._logService = i3, this._optionsService = s3, this.isCursorInitialized = false, this.isCursorHidden = false, this._onData = this.register(new o.EventEmitter()), this._onUserInput = this.register(new o.EventEmitter()), this._onBinary = this.register(new o.EventEmitter()), this._scrollToBottom = e3, this.register({ dispose: () => this._scrollToBottom = void 0 }), this.modes = (0, a.clone)(c), this.decPrivateModes = (0, a.clone)(l);
             }
@@ -8183,7 +8207,7 @@ var require_xterm = __commonJS({
         }, 9074: (e2, t2, i2) => {
           Object.defineProperty(t2, "__esModule", { value: true }), t2.DecorationService = void 0;
           const s2 = i2(8055), r = i2(8460), n = i2(844), o = i2(6106), a = { xmin: 0, xmax: 0 };
-          class h2 extends n.Disposable {
+          class h4 extends n.Disposable {
             constructor() {
               super(...arguments), this._decorations = new o.SortedList((e3) => null == e3 ? void 0 : e3.marker.line), this._onDecorationRegistered = this.register(new r.EventEmitter()), this._onDecorationRemoved = this.register(new r.EventEmitter());
             }
@@ -8216,8 +8240,8 @@ var require_xterm = __commonJS({
             *getDecorationsAtCell(e3, t3, i3) {
               var s3, r2, n2;
               let o2 = 0, a2 = 0;
-              for (const h3 of this._decorations.getKeyIterator(t3))
-                o2 = null !== (s3 = h3.options.x) && void 0 !== s3 ? s3 : 0, a2 = o2 + (null !== (r2 = h3.options.width) && void 0 !== r2 ? r2 : 1), e3 >= o2 && e3 < a2 && (!i3 || (null !== (n2 = h3.options.layer) && void 0 !== n2 ? n2 : "bottom") === i3) && (yield h3);
+              for (const h5 of this._decorations.getKeyIterator(t3))
+                o2 = null !== (s3 = h5.options.x) && void 0 !== s3 ? s3 : 0, a2 = o2 + (null !== (r2 = h5.options.width) && void 0 !== r2 ? r2 : 1), e3 >= o2 && e3 < a2 && (!i3 || (null !== (n2 = h5.options.layer) && void 0 !== n2 ? n2 : "bottom") === i3) && (yield h5);
             }
             forEachDecorationAtCell(e3, t3, i3, s3) {
               this._decorations.forEachByKey(t3, (t4) => {
@@ -8231,7 +8255,7 @@ var require_xterm = __commonJS({
               this.reset();
             }
           }
-          t2.DecorationService = h2;
+          t2.DecorationService = h4;
           class c extends n.Disposable {
             constructor(e3) {
               super(), this.options = e3, this.isDisposed = false, this.onRenderEmitter = this.register(new r.EventEmitter()), this.onRender = this.onRenderEmitter.event, this._onDispose = this.register(new r.EventEmitter()), this.onDispose = this._onDispose.event, this._cachedBg = null, this._cachedFg = null, this.marker = e3.marker, this.options.overviewRulerOptions && !this.options.overviewRulerOptions.position && (this.options.overviewRulerOptions.position = "full");
@@ -8593,7 +8617,7 @@ var require_xterm = __commonJS({
         return (() => {
           var e2 = s;
           Object.defineProperty(e2, "__esModule", { value: true }), e2.Terminal = void 0;
-          const t2 = i(3236), r = i(9042), n = i(7975), o = i(7090), a = i(5741), h2 = i(8285), c = ["cols", "rows"];
+          const t2 = i(3236), r = i(9042), n = i(7975), o = i(7090), a = i(5741), h4 = i(8285), c = ["cols", "rows"];
           e2.Terminal = class {
             constructor(e3) {
               this._core = new t2.Terminal(e3), this._addonManager = new a.AddonManager(), this._publicOptions = Object.assign({}, this._core.options);
@@ -8668,7 +8692,7 @@ var require_xterm = __commonJS({
               return this._core.cols;
             }
             get buffer() {
-              return this._checkProposedApi(), this._buffer || (this._buffer = new h2.BufferNamespaceApi(this._core)), this._buffer;
+              return this._checkProposedApi(), this._buffer || (this._buffer = new h4.BufferNamespaceApi(this._core)), this._buffer;
             }
             get markers() {
               return this._checkProposedApi(), this._core.markers;
@@ -8882,16 +8906,16 @@ var require_xterm_addon_serialize = __commonJS({
               let i2 = e2;
               const r2 = t2.start.x, l2 = t2.end.x, o2 = t2.start.y, n2 = t2.end.y;
               this._beforeSerialize(l2 - r2, r2, l2);
-              for (let h3 = r2; h3 <= l2; h3++) {
-                const r3 = this._buffer.getLine(h3);
+              for (let h5 = r2; h5 <= l2; h5++) {
+                const r3 = this._buffer.getLine(h5);
                 if (r3) {
-                  const l3 = h3 !== t2.start.x ? 0 : o2, u = h3 !== t2.end.x ? r3.length : n2;
+                  const l3 = h5 !== t2.start.x ? 0 : o2, u = h5 !== t2.end.x ? r3.length : n2;
                   for (let t3 = l3; t3 < u; t3++) {
                     const l4 = r3.getCell(t3, i2 === e2 ? s2 : e2);
-                    l4 ? (this._nextCell(l4, i2, h3, t3), i2 = l4) : console.warn(`Can't get cell at row=${h3}, col=${t3}`);
+                    l4 ? (this._nextCell(l4, i2, h5, t3), i2 = l4) : console.warn(`Can't get cell at row=${h5}, col=${t3}`);
                   }
                 }
-                this._rowEnd(h3, h3 === l2);
+                this._rowEnd(h5, h5 === l2);
               }
               return this._afterSerialize(), this._serializeString();
             }
@@ -8932,17 +8956,17 @@ var require_xterm_addon_serialize = __commonJS({
                 const e3 = this._buffer.getLine(t2), r2 = this._buffer.getLine(t2 + 1);
                 if (r2.isWrapped) {
                   i2 = "";
-                  const s3 = e3.getCell(e3.length - 1, this._thisRowLastChar), o2 = e3.getCell(e3.length - 2, this._thisRowLastSecondChar), n2 = r2.getCell(0, this._nextRowFirstChar), h3 = n2.getWidth() > 1;
+                  const s3 = e3.getCell(e3.length - 1, this._thisRowLastChar), o2 = e3.getCell(e3.length - 2, this._thisRowLastSecondChar), n2 = r2.getCell(0, this._nextRowFirstChar), h5 = n2.getWidth() > 1;
                   let u = false;
-                  (n2.getChars() && h3 ? this._nullCellCount <= 1 : this._nullCellCount <= 0) && ((s3.getChars() || 0 === s3.getWidth()) && l(s3, n2) && (u = true), h3 && (o2.getChars() || 0 === o2.getWidth()) && l(s3, n2) && l(o2, n2) && (u = true)), u || (i2 = "-".repeat(this._nullCellCount + 1), i2 += "\x1B[1D\x1B[1X", this._nullCellCount > 0 && (i2 += "\x1B[A", i2 += `\x1B[${e3.length - this._nullCellCount}C`, i2 += `\x1B[${this._nullCellCount}X`, i2 += `\x1B[${e3.length - this._nullCellCount}D`, i2 += "\x1B[B"), this._lastContentCursorRow = t2 + 1, this._lastContentCursorCol = 0, this._lastCursorRow = t2 + 1, this._lastCursorCol = 0);
+                  (n2.getChars() && h5 ? this._nullCellCount <= 1 : this._nullCellCount <= 0) && ((s3.getChars() || 0 === s3.getWidth()) && l(s3, n2) && (u = true), h5 && (o2.getChars() || 0 === o2.getWidth()) && l(s3, n2) && l(o2, n2) && (u = true)), u || (i2 = "-".repeat(this._nullCellCount + 1), i2 += "\x1B[1D\x1B[1X", this._nullCellCount > 0 && (i2 += "\x1B[A", i2 += `\x1B[${e3.length - this._nullCellCount}C`, i2 += `\x1B[${this._nullCellCount}X`, i2 += `\x1B[${e3.length - this._nullCellCount}D`, i2 += "\x1B[B"), this._lastContentCursorRow = t2 + 1, this._lastContentCursorCol = 0, this._lastCursorRow = t2 + 1, this._lastCursorCol = 0);
                 } else
                   i2 = "\r\n", this._lastCursorRow = t2 + 1, this._lastCursorCol = 0;
               }
               this._allRows[this._rowIndex] = this._currentRow, this._allRowSeparators[this._rowIndex++] = i2, this._currentRow = "", this._nullCellCount = 0;
             }
             _diffStyle(t2, e2) {
-              const s2 = [], i2 = !r(t2, e2), n2 = !l(t2, e2), h3 = !o(t2, e2);
-              if (i2 || n2 || h3)
+              const s2 = [], i2 = !r(t2, e2), n2 = !l(t2, e2), h5 = !o(t2, e2);
+              if (i2 || n2 || h5)
                 if (t2.isAttributeDefault())
                   e2.isAttributeDefault() || s2.push(0);
                 else {
@@ -8954,7 +8978,7 @@ var require_xterm_addon_serialize = __commonJS({
                     const e3 = t2.getBgColor();
                     t2.isBgRGB() ? s2.push(48, 2, e3 >>> 16 & 255, e3 >>> 8 & 255, 255 & e3) : t2.isBgPalette() ? e3 >= 16 ? s2.push(48, 5, e3) : s2.push(8 & e3 ? 100 + (7 & e3) : 40 + (7 & e3)) : s2.push(49);
                   }
-                  h3 && (t2.isInverse() !== e2.isInverse() && s2.push(t2.isInverse() ? 7 : 27), t2.isBold() !== e2.isBold() && s2.push(t2.isBold() ? 1 : 22), t2.isUnderline() !== e2.isUnderline() && s2.push(t2.isUnderline() ? 4 : 24), t2.isBlink() !== e2.isBlink() && s2.push(t2.isBlink() ? 5 : 25), t2.isInvisible() !== e2.isInvisible() && s2.push(t2.isInvisible() ? 8 : 28), t2.isItalic() !== e2.isItalic() && s2.push(t2.isItalic() ? 3 : 23), t2.isDim() !== e2.isDim() && s2.push(t2.isDim() ? 2 : 22), t2.isStrikethrough() !== e2.isStrikethrough() && s2.push(t2.isStrikethrough() ? 9 : 29));
+                  h5 && (t2.isInverse() !== e2.isInverse() && s2.push(t2.isInverse() ? 7 : 27), t2.isBold() !== e2.isBold() && s2.push(t2.isBold() ? 1 : 22), t2.isUnderline() !== e2.isUnderline() && s2.push(t2.isUnderline() ? 4 : 24), t2.isBlink() !== e2.isBlink() && s2.push(t2.isBlink() ? 5 : 25), t2.isInvisible() !== e2.isInvisible() && s2.push(t2.isInvisible() ? 8 : 28), t2.isItalic() !== e2.isItalic() && s2.push(t2.isItalic() ? 3 : 23), t2.isDim() !== e2.isDim() && s2.push(t2.isDim() ? 2 : 22), t2.isStrikethrough() !== e2.isStrikethrough() && s2.push(t2.isStrikethrough() ? 9 : 29));
                 }
               return s2;
             }
@@ -8996,7 +9020,7 @@ var require_xterm_addon_serialize = __commonJS({
             }
             _serializeBufferAsHTML(t2, e2) {
               var i2, r2;
-              const l2 = t2.buffer.active, o2 = new h2(l2, t2, e2);
+              const l2 = t2.buffer.active, o2 = new h4(l2, t2, e2);
               if (null === (i2 = e2.onlySelection) || void 0 === i2 || !i2) {
                 const i3 = l2.length, r3 = e2.scrollback, n3 = void 0 === r3 ? i3 : s(r3 + t2.rows, 0, i3);
                 return o2.serialize({ start: { x: i3 - n3, y: 0 }, end: { x: i3 - 1, y: t2.cols } });
@@ -9037,7 +9061,7 @@ var require_xterm_addon_serialize = __commonJS({
             dispose() {
             }
           };
-          class h2 extends i {
+          class h4 extends i {
             constructor(t2, e2, s2) {
               super(t2), this._terminal = e2, this._options = s2, this._currentRow = "", this._htmlContent = "", this._colors = e2._core._colorManager.colors;
             }
@@ -9047,10 +9071,10 @@ var require_xterm_addon_serialize = __commonJS({
             _beforeSerialize(t2, e2, s2) {
               var i2, r2, l2, o2, n2;
               this._htmlContent += "<html><body><!--StartFragment--><pre>";
-              let h3 = "#000000", u = "#ffffff";
-              null !== (i2 = this._options.includeGlobalBackground) && void 0 !== i2 && i2 && (h3 = null !== (l2 = null === (r2 = this._terminal.options.theme) || void 0 === r2 ? void 0 : r2.foreground) && void 0 !== l2 ? l2 : "#ffffff", u = null !== (n2 = null === (o2 = this._terminal.options.theme) || void 0 === o2 ? void 0 : o2.background) && void 0 !== n2 ? n2 : "#000000");
+              let h5 = "#000000", u = "#ffffff";
+              null !== (i2 = this._options.includeGlobalBackground) && void 0 !== i2 && i2 && (h5 = null !== (l2 = null === (r2 = this._terminal.options.theme) || void 0 === r2 ? void 0 : r2.foreground) && void 0 !== l2 ? l2 : "#ffffff", u = null !== (n2 = null === (o2 = this._terminal.options.theme) || void 0 === o2 ? void 0 : o2.background) && void 0 !== n2 ? n2 : "#000000");
               const a = [];
-              a.push("color: " + h3 + ";"), a.push("background-color: " + u + ";"), a.push("font-family: " + this._terminal.options.fontFamily + ";"), a.push("font-size: " + this._terminal.options.fontSize + "px;"), this._htmlContent += "<div style='" + a.join(" ") + "'>";
+              a.push("color: " + h5 + ";"), a.push("background-color: " + u + ";"), a.push("font-family: " + this._terminal.options.fontFamily + ";"), a.push("font-size: " + this._terminal.options.fontSize + "px;"), this._htmlContent += "<div style='" + a.join(" ") + "'>";
             }
             _afterSerialize() {
               this._htmlContent += "</div>", this._htmlContent += "</pre><!--EndFragment--></body></html>";
@@ -9063,8 +9087,8 @@ var require_xterm_addon_serialize = __commonJS({
               return (e2 ? t2.isFgRGB() : t2.isBgRGB()) ? [s2 >> 16 & 255, s2 >> 8 & 255, 255 & s2].map((t3) => this._padStart(t3.toString(16), 2, "0")).join("") : (e2 ? t2.isFgPalette() : t2.isBgPalette()) ? this._colors.ansi[s2].css : void 0;
             }
             _diffStyle(t2, e2) {
-              const s2 = [], i2 = !r(t2, e2), n2 = !l(t2, e2), h3 = !o(t2, e2);
-              if (i2 || n2 || h3) {
+              const s2 = [], i2 = !r(t2, e2), n2 = !l(t2, e2), h5 = !o(t2, e2);
+              if (i2 || n2 || h5) {
                 const e3 = this._getHexColor(t2, true);
                 e3 && s2.push("color: " + e3 + ";");
                 const i3 = this._getHexColor(t2, false);
@@ -9081,7 +9105,7 @@ var require_xterm_addon_serialize = __commonJS({
               return this._htmlContent;
             }
           }
-          e.HTMLSerializeHandler = h2;
+          e.HTMLSerializeHandler = h4;
         })(), t;
       })();
     });
@@ -9108,8 +9132,8 @@ var require_is_callable = __commonJS({
         reflectApply(function() {
           throw 42;
         }, null, badArrayLike);
-      } catch (_) {
-        if (_ !== isCallableMarker) {
+      } catch (_2) {
+        if (_2 !== isCallableMarker) {
           reflectApply = null;
         }
       }
@@ -9816,12 +9840,12 @@ function v4(options, buf, offset) {
 
 // js/starter.tsx
 init_define_process();
-import { useState as useState5, useEffect as useEffect4, useRef as useRef3 } from "react";
+init_react_preact();
 
 // js/DraggableWindow.tsx
 init_define_process();
 var import_react10 = __toESM(require_emotion_react_cjs(), 1);
-import { useEffect as useEffect2, useRef, useState as useState3 } from "react";
+init_react_preact();
 
 // ../../.yarn/__virtual__/react-icons-virtual-03002b44ac/0/global/cache/react-icons-npm-4.6.0-85b1c2c9bc-9.zip/node_modules/react-icons/md/index.esm.js
 init_define_process();
@@ -9834,11 +9858,11 @@ init_define_process();
 
 // ../../.yarn/__virtual__/react-icons-virtual-03002b44ac/0/global/cache/react-icons-npm-4.6.0-85b1c2c9bc-9.zip/node_modules/react-icons/lib/esm/iconBase.js
 init_define_process();
-import React2 from "react";
+init_react_preact();
 
 // ../../.yarn/__virtual__/react-icons-virtual-03002b44ac/0/global/cache/react-icons-npm-4.6.0-85b1c2c9bc-9.zip/node_modules/react-icons/lib/esm/iconContext.js
 init_define_process();
-import React from "react";
+init_react_preact();
 var DefaultContext = {
   color: void 0,
   size: void 0,
@@ -9846,16 +9870,16 @@ var DefaultContext = {
   style: void 0,
   attr: void 0
 };
-var IconContext = React.createContext && React.createContext(DefaultContext);
+var IconContext = src_default.createContext && src_default.createContext(DefaultContext);
 
 // ../../.yarn/__virtual__/react-icons-virtual-03002b44ac/0/global/cache/react-icons-npm-4.6.0-85b1c2c9bc-9.zip/node_modules/react-icons/lib/esm/iconBase.js
 var __assign = function() {
   __assign = Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
-      for (var p in s)
-        if (Object.prototype.hasOwnProperty.call(s, p))
-          t[p] = s[p];
+      for (var p3 in s)
+        if (Object.prototype.hasOwnProperty.call(s, p3))
+          t[p3] = s[p3];
     }
     return t;
   };
@@ -9863,26 +9887,26 @@ var __assign = function() {
 };
 var __rest = function(s, e) {
   var t = {};
-  for (var p in s)
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-      t[p] = s[p];
+  for (var p3 in s)
+    if (Object.prototype.hasOwnProperty.call(s, p3) && e.indexOf(p3) < 0)
+      t[p3] = s[p3];
   if (s != null && typeof Object.getOwnPropertySymbols === "function")
-    for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-      if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-        t[p[i]] = s[p[i]];
+    for (var i = 0, p3 = Object.getOwnPropertySymbols(s); i < p3.length; i++) {
+      if (e.indexOf(p3[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p3[i]))
+        t[p3[i]] = s[p3[i]];
     }
   return t;
 };
 function Tree2Element(tree) {
   return tree && tree.map(function(node, i) {
-    return React2.createElement(node.tag, __assign({
+    return src_default.createElement(node.tag, __assign({
       key: i
     }, node.attr), Tree2Element(node.child));
   });
 }
 function GenIcon(data) {
   return function(props) {
-    return React2.createElement(IconBase, __assign({
+    return src_default.createElement(IconBase, __assign({
       attr: __assign({}, data.attr)
     }, props), Tree2Element(data.child));
   };
@@ -9896,7 +9920,7 @@ function IconBase(props) {
       className = conf.className;
     if (props.className)
       className = (className ? className + " " : "") + props.className;
-    return React2.createElement("svg", __assign({
+    return src_default.createElement("svg", __assign({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
@@ -9908,9 +9932,9 @@ function IconBase(props) {
       height: computedSize,
       width: computedSize,
       xmlns: "http://www.w3.org/2000/svg"
-    }), title && React2.createElement("title", null, title), props.children);
+    }), title && src_default.createElement("title", null, title), props.children);
   };
-  return IconContext !== void 0 ? React2.createElement(IconContext.Consumer, null, function(conf) {
+  return IconContext !== void 0 ? src_default.createElement(IconContext.Consumer, null, function(conf) {
     return elem(conf);
   }) : elem(DefaultContext);
 }
@@ -9938,12 +9962,11 @@ function MdShare(props) {
 // js/Qr.tsx
 init_define_process();
 var import_react8 = __toESM(require_emotion_react_cjs(), 1);
-import { useState as useState2 } from "react";
+init_react_preact();
 
 // js/icons.tsx
 init_define_process();
 var import_react3 = __toESM(require_emotion_react_cjs(), 1);
-import { jsx } from "@emotion/react/jsx-runtime";
 var Wrap = ({ children }) => jsx("span", {
   css: import_react3.css`
 font-size:20pt;
@@ -9971,16 +9994,16 @@ init_define_process();
 
 // ../../.yarn/__virtual__/react-qrious-virtual-b90ac76f79/0/global/cache/react-qrious-npm-2.5.6-421c990834-9.zip/node_modules/react-qrious/lib/QRious.js
 init_define_process();
-import { createElement } from "react";
+init_react_preact();
 
 // ../../.yarn/__virtual__/react-qrious-virtual-b90ac76f79/0/global/cache/react-qrious-npm-2.5.6-421c990834-9.zip/node_modules/react-qrious/lib/use-qrious.js
 init_define_process();
 var import_qrious = __toESM(require_qrious(), 1);
-import { useEffect, useState } from "react";
+init_react_preact();
 var useQrious = (options) => {
-  const [qrious] = useState(() => new import_qrious.default(options));
-  const [dataUrl, setDataUrl] = useState(() => qrious.toDataURL(options.mime));
-  useEffect(() => {
+  const [qrious] = p2(() => new import_qrious.default(options));
+  const [dataUrl, setDataUrl] = p2(() => qrious.toDataURL(options.mime));
+  h2(() => {
     qrious.set(options);
     setDataUrl(qrious.toDataURL(options.mime));
   }, [options, qrious]);
@@ -10000,7 +10023,7 @@ var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level
     size,
     value
   });
-  return createElement("img", {
+  return h("img", {
     ...props,
     src: dataUrl
   });
@@ -10008,44 +10031,42 @@ var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level
 
 // js/mui.tsx
 init_define_process();
+init_react_preact();
 var import_react7 = __toESM(require_emotion_react_cjs(), 1);
-import { lazy, Suspense } from "react";
-import { jsx as jsx2 } from "@emotion/react/jsx-runtime";
-var FabLazy = lazy(async () => import("./chunk-Fab-FUHUQUO5.mjs"));
-var Fab = (props) => jsx2(Suspense, {
-  fallback: jsx2("div", {
+var FabLazy = lazy(async () => import("./chunk-Fab-BIZJMSE6.mjs"));
+var Fab = (props) => jsx(Suspense, {
+  fallback: jsx("div", {
     css: import_react7.css`width: 28px; height:28px`
   }),
-  children: jsx2(FabLazy, {
+  children: jsx(FabLazy, {
     ...props
   })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-OI6KAD5N.mjs"));
-var ToggleButton = (props) => jsx2(Suspense, {
-  fallback: jsx2("div", {
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-4PVNBGZB.mjs"));
+var ToggleButton = (props) => jsx(Suspense, {
+  fallback: jsx("div", {
     css: import_react7.css`width: 28px; height:28px`
   }),
-  children: jsx2(ToggleButtonLazy, {
+  children: jsx(ToggleButtonLazy, {
     ...props
   })
 });
 var ToggleButtonGroupLazy = lazy(
-  async () => import("./chunk-ToggleButtonGroup-AOMN34FU.mjs")
+  async () => import("./chunk-ToggleButtonGroup-FH5YZX47.mjs")
 );
-var ToggleButtonGroup = (props) => jsx2(Suspense, {
-  fallback: jsx2("div", {
+var ToggleButtonGroup = (props) => jsx(Suspense, {
+  fallback: jsx("div", {
     css: import_react7.css`width: 28px; height:28px`
   }),
-  children: jsx2(ToggleButtonGroupLazy, {
+  children: jsx(ToggleButtonGroupLazy, {
     ...props
   })
 });
 
 // js/Qr.tsx
-import { jsx as jsx3 } from "@emotion/react/jsx-runtime";
 var QRButton = ({ url }) => {
-  const [showQR, setQR] = useState2(false);
-  return jsx3(motion.div, {
+  const [showQR, setQR] = p2(false);
+  return jsx(motion.div, {
     animate: {
       width: showQR ? 200 : 56,
       height: showQR ? 220 : 48
@@ -10057,10 +10078,10 @@ var QRButton = ({ url }) => {
           margin-top: 12px;
           margin-bottom: 12px;
               `,
-    children: showQR ? jsx3(QRious2, {
+    children: showQR ? jsx(QRious2, {
       value: url || "/live/coder/public"
-    }, url || origin + url) : jsx3(Fab, {
-      children: jsx3(QrCodeIcon, {})
+    }, url || origin + url) : jsx(Fab, {
+      children: jsx(QrCodeIcon, {})
     })
   });
 };
@@ -10069,7 +10090,6 @@ var QRButton = ({ url }) => {
 var import_xterm = __toESM(require_xterm(), 1);
 var import_xterm_addon_fit = __toESM(require_xterm_addon_fit(), 1);
 var import_xterm_addon_serialize = __toESM(require_xterm_addon_serialize(), 1);
-import { jsx as jsx4, jsxs } from "@emotion/react/jsx-runtime";
 var serializeAddon = new import_xterm_addon_serialize.SerializeAddon();
 var fitAddon = new import_xterm_addon_fit.FitAddon();
 var origConsole = console.log;
@@ -10094,15 +10114,15 @@ var DraggableWindow = ({
   children,
   room
 }) => {
-  const [scaleRange, changeScaleRange] = useState3(100);
+  const [scaleRange, changeScaleRange] = p2(100);
   const startPositions = { bottom: 0, right: 0 };
-  const [{ bottom, right }, setPositions] = useState3(startPositions);
-  const [width, setWidth] = useState3(window.innerWidth * devicePixelRatio);
-  const [height2, setHeight] = useState3(window.innerHeight * devicePixelRatio);
-  const videoRef = useRef(null);
+  const [{ bottom, right }, setPositions] = p2(startPositions);
+  const [width, setWidth] = p2(window.innerWidth * devicePixelRatio);
+  const [height2, setHeight] = p2(window.innerHeight * devicePixelRatio);
+  const videoRef = _(null);
   const scale = scaleRange / 100;
-  const terminalRef = useRef(null);
-  useEffect2(() => {
+  const terminalRef = _(null);
+  h2(() => {
     if (!terminalRef?.current)
       return;
     terminal.open(terminalRef.current);
@@ -10116,7 +10136,7 @@ var DraggableWindow = ({
       origConsole.apply(console, data);
     };
   }, [terminalRef]);
-  useEffect2(() => {
+  h2(() => {
     const reveal = async () => {
       setPositions({
         bottom: window.innerHeight * 0.2,
@@ -10155,8 +10175,8 @@ var DraggableWindow = ({
     document.body,
     null
   ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map((x) => Number(x) || "0").join(",");
-  const [bgCV, setBG] = useState3(c);
-  useEffect2(() => {
+  const [bgCV, setBG] = p2(c);
+  h2(() => {
     setInterval(() => {
       const c2 = window.getComputedStyle(
         document.body,
@@ -10166,12 +10186,12 @@ var DraggableWindow = ({
         setBG(c2);
     }, 1e3 / 2);
   }, []);
-  const [clients, setClients] = useState3(Object.keys(sendChannel.rtcConns));
-  useEffect2(() => {
+  const [clients, setClients] = p2(Object.keys(sendChannel.rtcConns));
+  h2(() => {
     setClients([...Object.keys(sendChannel.rtcConns)]);
   }, [sendChannel.webRtcArray.length, setClients]);
-  return jsx4(AnimateSharedLayout, {
-    children: jsx4(motion.div, {
+  return jsx(AnimateSharedLayout, {
+    children: jsx(motion.div, {
       transition: { delay: 0, duration: 0.4 },
       initial: {
         top: 0,
@@ -10215,18 +10235,18 @@ var DraggableWindow = ({
             align-items: center;
           `,
             children: [
-              jsx4(motion.div, {
+              jsx(motion.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: { height: 0, width: 0 },
                 animate: { height: "auto", width: "auto" },
-                children: jsx4(ToggleButtonGroup, {
+                children: jsx(ToggleButtonGroup, {
                   value: scaleRange,
                   size: "small",
                   exclusive: true,
                   onChange: (_e, newScale) => {
                     newScale && changeScaleRange(newScale);
                   },
-                  children: sizes.map((size, ind) => jsx4(ToggleButton, {
+                  children: sizes.map((size, ind) => jsx(ToggleButton, {
                     value: size,
                     children: jsxs("span", {
                       css: import_react10.css`
@@ -10259,7 +10279,7 @@ var DraggableWindow = ({
                 overflow-y: hidden;
             `,
                 children: [
-                  jsx4(motion.div, {
+                  jsx(motion.div, {
                     transition: { delay: 0, duration: 0.4 },
                     initial: {
                       width: window.innerWidth,
@@ -10281,12 +10301,12 @@ var DraggableWindow = ({
               `,
                     children
                   }),
-                  jsx4("div", {
+                  jsx("div", {
                     css: import_react10.css`   
               position: relative;
               
               `,
-                    children: jsx4("div", {
+                    children: jsx("div", {
                       css: import_react10.css`
               height: 240px;
               width: ${width / devicePixelRatio}px;
@@ -10299,16 +10319,16 @@ var DraggableWindow = ({
               .xterm-helpers{
               }
               `,
-                      children: jsx4("div", {
+                      children: jsx("div", {
                         ref: terminalRef
                       })
                     })
                   })
                 ]
               }),
-              jsx4(motion.div, {
+              jsx(motion.div, {
                 transition: { delay: 0, duration: 0.4 },
-                children: jsx4(ToggleButtonGroup, {
+                children: jsx(ToggleButtonGroup, {
                   value: width,
                   size: "small",
                   exclusive: true,
@@ -10318,30 +10338,30 @@ var DraggableWindow = ({
                       setWidth(newSize);
                     }
                   },
-                  children: breakPoints.map((size, ind) => jsx4(ToggleButton, {
+                  children: breakPoints.map((size, ind) => jsx(ToggleButton, {
                     value: size,
-                    children: size === 680 ? jsx4("span", {
+                    children: size === 680 ? jsx("span", {
                       css: import_react10.css`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                      children: jsx4(Phone, {})
-                    }) : size === 768 ? jsx4("span", {
+                      children: jsx(Phone, {})
+                    }) : size === 768 ? jsx("span", {
                       css: import_react10.css`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                      children: jsx4(Tablet, {})
-                    }) : jsx4("span", {
+                      children: jsx(Tablet, {})
+                    }) : jsx("span", {
                       css: import_react10.css`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
-                      children: jsx4(Tv, {})
+                      children: jsx(Tv, {})
                     })
                   }, ind))
                 })
               })
             ]
           }),
-          jsx4(motion.div, {
+          jsx(motion.div, {
             transition: { delay: 0, duration: 0.4 },
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
@@ -10354,24 +10374,24 @@ var DraggableWindow = ({
               flex-direction: column;
               `,
               children: [
-                jsx4(Fab, {
+                jsx(Fab, {
                   onClick: () => {
                     document.querySelector("#root")?.requestFullscreen();
                   },
-                  children: jsx4("span", {
+                  children: jsx("span", {
                     css: import_react10.css`
                 font-size: 20pt;
               `,
-                    children: jsx4(MdFullscreen, {}, "fs")
+                    children: jsx(MdFullscreen, {}, "fs")
                   })
                 }, "fullscreen"),
-                jsx4(QRButton, {
+                jsx(QRButton, {
                   url: location.origin + `/live/${room}/public`
                 }),
                 false,
-                jsx4(Fab, {
+                jsx(Fab, {
                   onClick: () => open(`/live/${room}/public`),
-                  children: jsx4(Share, {})
+                  children: jsx(Share, {})
                 }, "Share")
               ]
             })
@@ -10384,9 +10404,8 @@ var DraggableWindow = ({
 
 // js/ErrorBoundary.tsx
 init_define_process();
-import React3 from "react";
-import { jsx as jsx5, jsxs as jsxs2 } from "@emotion/react/jsx-runtime";
-var ErrorBoundary = class extends React3.Component {
+init_react_preact();
+var ErrorBoundary = class extends src_default.Component {
   constructor(props) {
     super(props);
     this.state = { error: void 0, errorInfo: void 0 };
@@ -10399,16 +10418,16 @@ var ErrorBoundary = class extends React3.Component {
   }
   render() {
     if (this.state.errorInfo) {
-      return jsxs2("div", {
+      return jsxs("div", {
         children: [
-          jsx5("h2", {
+          jsx("h2", {
             children: "Something went wrong."
           }),
-          jsxs2("details", {
+          jsxs("details", {
             style: { whiteSpace: "pre-wrap" },
             children: [
               this.state.error && this.state.error.toString(),
-              jsx5("br", {}),
+              jsx("br", {}),
               this.state.errorInfo.componentStack
             ]
           })
@@ -10426,21 +10445,21 @@ var import_cache2 = __toESM(require_emotion_cache_cjs(), 1);
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-import { Fragment as Fragment2, useEffect as useEffect3, useMemo, useState as useState4 } from "react";
-import { createRoot } from "react-dom/client";
+init_react_preact();
+init_react_preact();
 
 // ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
 init_define_process();
-import * as React4 from "react";
-import * as ReactDOM from "react-dom";
+init_react_preact();
+init_react_preact();
 var __extends = function() {
   var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
       d2.__proto__ = b2;
     } || function(d2, b2) {
-      for (var p in b2)
-        if (b2.hasOwnProperty(p))
-          d2[p] = b2[p];
+      for (var p3 in b2)
+        if (b2.hasOwnProperty(p3))
+          d2[p3] = b2[p3];
     };
     return extendStatics(d, b);
   };
@@ -10543,19 +10562,19 @@ var InPortal = function(_super) {
   InPortal2.prototype.render = function() {
     var _this = this;
     var _a = this.props, children = _a.children, node = _a.node;
-    return ReactDOM.createPortal(React4.Children.map(children, function(child) {
-      if (!React4.isValidElement(child))
+    return createPortal(Children.map(children, function(child) {
+      if (!isValidElement(child))
         return child;
-      return React4.cloneElement(child, _this.state.nodeProps);
+      return cloneElement(child, _this.state.nodeProps);
     }), node.element);
   };
   return InPortal2;
-}(React4.PureComponent);
+}(PureComponent);
 var OutPortal = function(_super) {
   __extends(OutPortal2, _super);
   function OutPortal2(props) {
     var _this = _super.call(this, props) || this;
-    _this.placeholderNode = React4.createRef();
+    _this.placeholderNode = y();
     _this.passPropsThroughPortal();
     return _this;
   }
@@ -10589,10 +10608,10 @@ var OutPortal = function(_super) {
     node.setPortalProps({});
   };
   OutPortal2.prototype.render = function() {
-    return React4.createElement("div", { ref: this.placeholderNode });
+    return h("div", { ref: this.placeholderNode });
   };
   return OutPortal2;
-}(React4.PureComponent);
+}(PureComponent);
 var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
@@ -10602,7 +10621,7 @@ var import_cache = __toESM(require_emotion_cache_cjs(), 1);
 
 // js/Editor.tsx
 init_define_process();
-import { useRef as useRef2 } from "react";
+init_react_preact();
 
 // js/runner.tsx
 init_define_process();
@@ -10690,7 +10709,7 @@ init_define_process();
     try {
       new URL(url);
       return true;
-    } catch (_) {
+    } catch (_2) {
       return false;
     }
   }
@@ -10790,12 +10809,12 @@ init_define_process();
     return applyPackages(resolvedOrPlain, importMap2.imports) || resolvedOrPlain.indexOf(":") !== -1 && resolvedOrPlain;
   }
   function resolveAndComposePackages(packages, outPackages, baseUrl2, parentMap) {
-    for (let p2 in packages) {
-      const resolvedLhs = resolveIfNotPlainOrUrl(p2, baseUrl2) || p2;
+    for (let p4 in packages) {
+      const resolvedLhs = resolveIfNotPlainOrUrl(p4, baseUrl2) || p4;
       if ((!shimMode || !mapOverrides) && outPackages[resolvedLhs] && outPackages[resolvedLhs] !== packages[resolvedLhs]) {
         throw Error(`Rejected map override "${resolvedLhs}" from ${outPackages[resolvedLhs]} to ${packages[resolvedLhs]}.`);
       }
-      let target = packages[p2];
+      let target = packages[p4];
       if (typeof target !== "string")
         continue;
       const mapped = resolveImportMap(parentMap, resolveIfNotPlainOrUrl(target, baseUrl2) || target, baseUrl2);
@@ -10803,7 +10822,7 @@ init_define_process();
         outPackages[resolvedLhs] = mapped;
         continue;
       }
-      console.warn(`Mapping "${p2}" -> "${packages[p2]}" does not resolve`);
+      console.warn(`Mapping "${p4}" -> "${packages[p4]}" does not resolve`);
     }
   }
   let dynamicImport = !hasDocument && (0, eval)("u=>import(u)");
@@ -10958,7 +10977,7 @@ init_define_process();
                     case 32:
                       break;
                     case 101: {
-                      if ((((s2[386] | 0) == 0 ? F(r3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) ? (l3(), (i2[775] | 0) == 0) : 0) {
+                      if ((((s2[386] | 0) == 0 ? F2(r3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) ? (l3(), (i2[775] | 0) == 0) : 0) {
                         b3 = 9;
                         break e;
                       } else
@@ -10966,7 +10985,7 @@ init_define_process();
                       break;
                     }
                     case 105: {
-                      if (F(r3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                      if (F2(r3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
                         k3();
                         b3 = 17;
                       } else
@@ -10984,7 +11003,7 @@ init_define_process();
                           break a;
                         }
                         case 42: {
-                          y(1);
+                          y2(1);
                           break a;
                         }
                         default: {
@@ -11041,7 +11060,7 @@ init_define_process();
                         case 32:
                           break;
                         case 101: {
-                          if (((s2[386] | 0) == 0 ? F(a3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) {
+                          if (((s2[386] | 0) == 0 ? F2(a3) | 0 : 0) ? (m(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) {
                             l3();
                             b3 = 81;
                           } else
@@ -11049,7 +11068,7 @@ init_define_process();
                           break;
                         }
                         case 105: {
-                          if (F(a3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                          if (F2(a3) | 0 ? (m(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
                             k3();
                             b3 = 81;
                           } else
@@ -11057,7 +11076,7 @@ init_define_process();
                           break;
                         }
                         case 99: {
-                          if ((F(a3) | 0 ? (m(e3 + 4 | 0, 36, 8) | 0) == 0 : 0) ? R(s2[e3 + 12 >> 1] | 0) | 0 : 0) {
+                          if ((F2(a3) | 0 ? (m(e3 + 4 | 0, 36, 8) | 0) == 0 : 0) ? R(s2[e3 + 12 >> 1] | 0) | 0 : 0) {
                             i2[777] = 1;
                             b3 = 81;
                           } else
@@ -11132,7 +11151,7 @@ init_define_process();
                           b3 = e3 + -1 << 16 >> 16;
                           s2[386] = b3;
                           if ((t2[c3 + ((b3 & 65535) << 3) >> 2] | 0) == 4) {
-                            h3();
+                            h5();
                             b3 = 81;
                           } else
                             b3 = 81;
@@ -11155,7 +11174,7 @@ init_define_process();
                               break a;
                             }
                             case 42: {
-                              y(1);
+                              y2(1);
                               break a;
                             }
                             default: {
@@ -11182,7 +11201,7 @@ init_define_process();
                                     }
                                     a3 = t2[63] | 0;
                                     r3 = f2[386] | 0;
-                                    if (!(p2(t2[a3 + (r3 << 3) + 4 >> 2] | 0) | 0) ? (t2[a3 + (r3 << 3) >> 2] | 0) != 6 : 0)
+                                    if (!(p4(t2[a3 + (r3 << 3) + 4 >> 2] | 0) | 0) ? (t2[a3 + (r3 << 3) >> 2] | 0) != 6 : 0)
                                       b3 = 66;
                                     else
                                       b3 = 69;
@@ -11283,7 +11302,7 @@ init_define_process();
                           t2[c3 + (b3 << 3) + 4 >> 2] = t2[62];
                           s2[386] = r3 + 1 << 16 >> 16;
                           t2[c3 + (b3 << 3) >> 2] = 3;
-                          h3();
+                          h5();
                           b3 = 81;
                           break;
                         }
@@ -11652,11 +11671,11 @@ init_define_process();
                 case 100:
                   switch (s2[e3 + -2 >> 1] | 0) {
                     case 105: {
-                      e3 = S(e3 + -4 | 0, 68, 2) | 0;
+                      e3 = S2(e3 + -4 | 0, 68, 2) | 0;
                       break e;
                     }
                     case 108: {
-                      e3 = S(e3 + -4 | 0, 72, 3) | 0;
+                      e3 = S2(e3 + -4 | 0, 72, 3) | 0;
                       break e;
                     }
                     default: {
@@ -11682,11 +11701,11 @@ init_define_process();
                         }
                       }
                     case 116: {
-                      e3 = S(e3 + -4 | 0, 78, 4) | 0;
+                      e3 = S2(e3 + -4 | 0, 78, 4) | 0;
                       break e;
                     }
                     case 117: {
-                      e3 = S(e3 + -4 | 0, 86, 6) | 0;
+                      e3 = S2(e3 + -4 | 0, 86, 6) | 0;
                       break e;
                     }
                     default: {
@@ -11698,11 +11717,11 @@ init_define_process();
                   if ((s2[e3 + -2 >> 1] | 0) == 111 ? (s2[e3 + -4 >> 1] | 0) == 101 : 0)
                     switch (s2[e3 + -6 >> 1] | 0) {
                       case 99: {
-                        e3 = S(e3 + -8 | 0, 98, 6) | 0;
+                        e3 = S2(e3 + -8 | 0, 98, 6) | 0;
                         break e;
                       }
                       case 112: {
-                        e3 = S(e3 + -8 | 0, 110, 2) | 0;
+                        e3 = S2(e3 + -8 | 0, 110, 2) | 0;
                         break e;
                       }
                       default: {
@@ -11715,7 +11734,7 @@ init_define_process();
                   break;
                 }
                 case 107: {
-                  e3 = S(e3 + -2 | 0, 114, 4) | 0;
+                  e3 = S2(e3 + -2 | 0, 114, 4) | 0;
                   break;
                 }
                 case 110: {
@@ -11723,7 +11742,7 @@ init_define_process();
                   if (j(e3, 105) | 0)
                     e3 = 1;
                   else
-                    e3 = S(e3, 122, 5) | 0;
+                    e3 = S2(e3, 122, 5) | 0;
                   break;
                 }
                 case 111: {
@@ -11731,11 +11750,11 @@ init_define_process();
                   break;
                 }
                 case 114: {
-                  e3 = S(e3 + -2 | 0, 132, 7) | 0;
+                  e3 = S2(e3 + -2 | 0, 132, 7) | 0;
                   break;
                 }
                 case 116: {
-                  e3 = S(e3 + -2 | 0, 146, 4) | 0;
+                  e3 = S2(e3 + -2 | 0, 146, 4) | 0;
                   break;
                 }
                 case 119:
@@ -11745,7 +11764,7 @@ init_define_process();
                       break e;
                     }
                     case 111: {
-                      e3 = S(e3 + -4 | 0, 154, 3) | 0;
+                      e3 = S2(e3 + -4 | 0, 154, 3) | 0;
                       break e;
                     }
                     default: {
@@ -11872,7 +11891,7 @@ init_define_process();
           } while (0);
           return;
         }
-        function h3() {
+        function h5() {
           var e3 = 0, a3 = 0, r3 = 0, i3 = 0;
           a3 = t2[66] | 0;
           r3 = t2[65] | 0;
@@ -11952,7 +11971,7 @@ init_define_process();
                         break a;
                       }
                       case 42: {
-                        y(e3);
+                        y2(e3);
                         break a;
                       }
                       default: {
@@ -12132,7 +12151,7 @@ init_define_process();
             Q();
           return;
         }
-        function p2(e3) {
+        function p4(e3) {
           e3 = e3 | 0;
           switch (s2[e3 >> 1] | 0) {
             case 62: {
@@ -12145,15 +12164,15 @@ init_define_process();
               break;
             }
             case 104: {
-              e3 = S(e3 + -2 | 0, 180, 4) | 0;
+              e3 = S2(e3 + -2 | 0, 180, 4) | 0;
               break;
             }
             case 121: {
-              e3 = S(e3 + -2 | 0, 188, 6) | 0;
+              e3 = S2(e3 + -2 | 0, 188, 6) | 0;
               break;
             }
             case 101: {
-              e3 = S(e3 + -2 | 0, 200, 3) | 0;
+              e3 = S2(e3 + -2 | 0, 200, 3) | 0;
               break;
             }
             default:
@@ -12161,7 +12180,7 @@ init_define_process();
           }
           return e3 | 0;
         }
-        function y(e3) {
+        function y2(e3) {
           e3 = e3 | 0;
           var a3 = 0, r3 = 0, i3 = 0, c3 = 0, f3 = 0;
           c3 = (t2[65] | 0) + 2 | 0;
@@ -12294,7 +12313,7 @@ init_define_process();
           n2 = r3;
           return a3 | 0;
         }
-        function S(e3, a3, r3) {
+        function S2(e3, a3, r3) {
           e3 = e3 | 0;
           a3 = a3 | 0;
           r3 = r3 | 0;
@@ -12333,12 +12352,12 @@ init_define_process();
           e3 = e3 | 0;
           switch (s2[e3 >> 1] | 0) {
             case 107: {
-              e3 = S(e3 + -2 | 0, 114, 4) | 0;
+              e3 = S2(e3 + -2 | 0, 114, 4) | 0;
               break;
             }
             case 101: {
               if ((s2[e3 + -2 >> 1] | 0) == 117)
-                e3 = S(e3 + -4 | 0, 86, 6) | 0;
+                e3 = S2(e3 + -4 | 0, 86, 6) | 0;
               else
                 e3 = 0;
               break;
@@ -12439,8 +12458,8 @@ init_define_process();
         }
         function z(e3) {
           e3 = e3 | 0;
-          if (!(S(e3, 160, 5) | 0) ? !(S(e3, 170, 3) | 0) : 0)
-            e3 = S(e3, 176, 2) | 0;
+          if (!(S2(e3, 160, 5) | 0) ? !(S2(e3, 170, 3) | 0) : 0)
+            e3 = S2(e3, 176, 2) | 0;
           else
             e3 = 1;
           return e3 | 0;
@@ -12461,7 +12480,7 @@ init_define_process();
           }
           return e3 | 0;
         }
-        function F(e3) {
+        function F2(e3) {
           e3 = e3 | 0;
           if ((t2[3] | 0) == (e3 | 0))
             e3 = 1;
@@ -12558,7 +12577,7 @@ init_define_process();
         function Z() {
           return (t2[t2[55] >> 2] | 0) - (t2[3] | 0) >> 1 | 0;
         }
-        function _() {
+        function _2() {
           return c2[(t2[54] | 0) + 24 >> 0] | 0 | 0;
         }
         function ee(e3) {
@@ -12577,11 +12596,11 @@ init_define_process();
           n2 = e3 + 992 + 15 & -16;
           return 992;
         }
-        return { su: ie, ai: K, e: re, ee: W, ele: G, els: J, es: Z, f: ae, id: q, ie: L, ip: _, is: Y, p: b2, re: N, ri: M, sa: x, se: H, ses: ee, ss: V };
+        return { su: ie, ai: K, e: re, ee: W, ele: G, els: J, es: Z, f: ae, id: q, ie: L, ip: _2, is: Y, p: b2, re: N, ri: M, sa: x, se: H, ses: ee, ss: V };
       }("undefined" != typeof self ? self : globalThis, {}, a), r = e.su(i - (2 << 17));
     }
-    const h2 = c$1.length + 1;
-    e.ses(r), e.sa(h2 - 1), s(c$1, new Uint16Array(a, r, h2)), e.p() || (n = e.e(), o());
+    const h4 = c$1.length + 1;
+    e.ses(r), e.sa(h4 - 1), s(c$1, new Uint16Array(a, r, h4)), e.p() || (n = e.e(), o());
     const w = [], d = [];
     for (; e.ri(); ) {
       const a2 = e.is(), r2 = e.ie(), i2 = e.ai(), s2 = e.id(), t2 = e.ss(), f2 = e.se();
@@ -12869,7 +12888,7 @@ init_define_process();
               blobUrl = depLoad.s = createBlob(`export function u$_(m){${depLoad.a[1].map(({ s: s2, e: e2 }, i2) => {
                 const q = depLoad.S[s2] === '"' || depLoad.S[s2] === "'";
                 return `e$_${i2}=m${q ? `[` : "."}${depLoad.S.slice(s2, e2)}${q ? `]` : ""}`;
-              }).join(",")}}${depLoad.a[1].length ? `let ${depLoad.a[1].map((_, i2) => `e$_${i2}`).join(",")};` : ""}export {${depLoad.a[1].map(({ s: s2, e: e2 }, i2) => `e$_${i2} as ${depLoad.S.slice(s2, e2)}`).join(",")}}
+              }).join(",")}}${depLoad.a[1].length ? `let ${depLoad.a[1].map((_2, i2) => `e$_${i2}`).join(",")};` : ""}export {${depLoad.a[1].map(({ s: s2, e: e2 }, i2) => `e$_${i2} as ${depLoad.S.slice(s2, e2)}`).join(",")}}
 //# sourceURL=${depLoad.r}?cycle`);
             }
           }
@@ -12911,16 +12930,16 @@ init_define_process();
   const jsonContentType = /^(text|application)\/json(;|$)/;
   const cssContentType = /^(text|application)\/css(;|$)/;
   const cssUrlRegEx = /url\(\s*(?:(["'])((?:\\.|[^\n\\"'])+)\1|((?:\\.|[^\s,"'()\\])+))\s*\)/g;
-  let p = [];
+  let p3 = [];
   let c = 0;
   function pushFetchPool() {
     if (++c > 100)
-      return new Promise((r2) => p.push(r2));
+      return new Promise((r2) => p3.push(r2));
   }
   function popFetchPool() {
     c--;
-    if (p.length)
-      p.shift()();
+    if (p3.length)
+      p3.shift()();
   }
   async function doFetch(url, fetchOpts, parent) {
     if (enforceIntegrity && !fetchOpts.integrity)
@@ -13140,7 +13159,7 @@ var mod = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform: transform2 } = await import("./chunk-esbuildEsm-46BQDLOL.mjs");
+    const { transform: transform2 } = await import("./chunk-esbuildEsm-SUNII4FC.mjs");
     const t = await transform2(res, {
       format: "esm",
       minify: true,
@@ -13161,7 +13180,7 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform: transform2 } = await import("./chunk-esbuildEsm-46BQDLOL.mjs");
+  const { transform: transform2 } = await import("./chunk-esbuildEsm-SUNII4FC.mjs");
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
   if (!mod.data[hash]) {
@@ -13236,14 +13255,13 @@ var findDeps = (code) => {
 
 // js/renderToString.tsx
 init_define_process();
+init_react_preact();
 var import_is_callable = __toESM(require_is_callable(), 1);
-import { renderToString } from "react-dom/server";
-import { jsx as jsx6 } from "@emotion/react/jsx-runtime";
 var render = async (transpiled, codeSpace2) => {
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if ((0, import_is_callable.default)(App)) {
-    const html = renderToString(jsx6(App, {
+    const html = S(jsx(App, {
       appId: `${codeSpace2}-${md5hash}`
     }));
     const css8 = mineFromCaches(md5hash, html);
@@ -13399,8 +13417,8 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
 }
 
 // js/Editor.tsx
+init_react_preact();
 var import_react15 = __toESM(require_emotion_react_cjs(), 1);
-import React5 from "react";
 
 // js/isMobile.mjs
 init_define_process();
@@ -13425,7 +13443,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-YLUGYCOH.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-YTMXUBAS.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -13467,7 +13485,6 @@ function supportsWorkerType() {
 }
 
 // js/Editor.tsx
-import { jsx as jsx7 } from "@emotion/react/jsx-runtime";
 var mod3 = {
   CH() {
   },
@@ -13482,12 +13499,12 @@ var mod3 = {
   codeToSet: ""
 };
 var Editor = ({ codeSpace: codeSpace2 }) => {
-  const ref = useRef2(null);
+  const ref = _(null);
   const { i, code } = mST();
   const [
     mySession,
     changeContent
-  ] = React5.useState({
+  ] = src_default.useState({
     lastKeyDown: 0,
     myCode: code,
     counter: i,
@@ -13506,16 +13523,15 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     onChange
   } = mySession;
   mod3.code = myCode;
-  React5.useEffect(() => {
-    if (!ref?.current) {
+  src_default.useEffect(() => {
+    if (ref.current === null)
       return;
-    }
     const setMonaco = async () => {
       const link = document.createElement("link");
       link.setAttribute("rel", "stylesheet");
       link.href = location.origin + "/renderPreviewWindow.css";
       document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-JXI7NJFU.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-KMOWIA6O.mjs");
       const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
         {
           container: ref.current,
@@ -13573,7 +13589,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       });
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-K5ZENO7Q.mjs");
+      const { startAce } = await import("./chunk-startAce-RJY7GM6L.mjs");
       const editor = await startAce(mST().code);
       const getValue = async () => {
         const code2 = await prettierJs(editor.session.getValue());
@@ -13616,7 +13632,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     const loadEditors = () => engine === "monaco" ? setMonaco() : setAce();
     !started2 && loadEditors();
   }, [started2, ref]);
-  React5.useEffect(
+  src_default.useEffect(
     () => onChange(
       () => mod3.getValue().then(
         () => changeContent((x) => ({
@@ -13641,29 +13657,25 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       myCode: mod3.code
     }));
   }, "editor");
-  return jsx7("div", {
+  return jsx("div", {
     onKeyDown: () => mod3.lastKeyDown = Date.now(),
     "data-test-id": myId,
     id: "editor",
-    css: import_react15.css`
-        
-            max-width: 640px;
-            height: 100%;
-            
-            
-        `,
+    css: import_react15.css`          
+      max-width: 640px;
+      height: 100%; 
+      `,
     ref
   });
 };
 
 // js/renderPreviewWindow.tsx
-import { jsx as jsx8, jsxs as jsxs3 } from "@emotion/react/jsx-runtime";
 var createCache = import_cache.default.default || import_cache.default;
-var RainbowContainer = ({ children }) => jsxs3("div", {
+var RainbowContainer = ({ children }) => jsxs("div", {
   css: import_react17.css`position: relative;`,
   children: [
     children,
-    jsx8("div", {
+    jsx("div", {
       css: import_react17.css`
             position: absolute;
 
@@ -13717,9 +13729,9 @@ var RainbowContainer = ({ children }) => jsxs3("div", {
 });
 var AppToRender = ({ codeSpace: codeSpace2 }) => {
   const currentHash = hashCode();
-  const [hash, setHash] = useState4(currentHash);
+  const [hash, setHash] = p2(currentHash);
   const isStandalone = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
-  useEffect3(() => {
+  h2(() => {
     onSessionUpdate(async () => {
       const newHash = hashCode();
       if (hash !== newHash) {
@@ -13732,34 +13744,34 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
       }
     }, "myApp");
   }, [hash, setHash]);
-  const portalNode = useMemo(() => createHtmlPortalNode({
+  const portalNode = F(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return jsxs3(Fragment2, {
+  return jsxs(p, {
     children: [
-      jsx8(InPortal, {
+      jsx(InPortal, {
         node: portalNode,
-        children: jsx8(AutoUpdateApp, {
+        children: jsx(AutoUpdateApp, {
           hash,
           codeSpace: codeSpace2
         })
       }),
-      isStandalone ? jsx8(OutPortal, {
+      isStandalone ? jsx(OutPortal, {
         node: portalNode
-      }) : jsxs3(Fragment2, {
+      }) : jsxs(p, {
         children: [
-          jsx8(RainbowContainer, {
-            children: jsx8(Fragment2, {
-              children: jsx8(Editor, {
+          jsx(RainbowContainer, {
+            children: jsx(p, {
+              children: jsx(Editor, {
                 codeSpace: codeSpace2
               })
             })
           }),
           "  ",
-          jsx8(DraggableWindow, {
+          jsx(DraggableWindow, {
             hashCode: 0,
             room: codeSpace2,
-            children: jsx8(OutPortal, {
+            children: jsx(OutPortal, {
               node: portalNode
             })
           }),
@@ -13776,11 +13788,11 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   singleton.started = true;
   const div = document.querySelector("#root");
   const root = createRoot(div);
-  const x = createCache({ key: "root", container: div });
+  const x = createCache({ key: "root" });
   root.render(
-    jsx8(import_react17.CacheProvider, {
+    jsx(import_react17.CacheProvider, {
       value: x,
-      children: jsx8(AppToRender, {
+      children: jsx(AppToRender, {
         codeSpace: codeSpace2
       })
     })
@@ -13789,7 +13801,6 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
 
 // js/starter.tsx
 var import_is_callable2 = __toESM(require_is_callable(), 1);
-import { jsx as jsx9, jsxs as jsxs4 } from "@emotion/react/jsx-runtime";
 var createCache2 = import_cache2.default.default || import_cache2.default;
 if (!globalThis.apps || !globalThis.eCaches) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
@@ -13797,14 +13808,14 @@ if (!globalThis.apps || !globalThis.eCaches) {
 var { apps, eCaches } = globalThis || globalThis.apps;
 var render2 = {};
 var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
-  const [md5Hash, setMdHash] = useState5(md5(mST().transpiled).slice(0, 8));
-  useEffect4(() => {
+  const [md5Hash, setMdHash] = p2(md5(mST().transpiled).slice(0, 8));
+  h2(() => {
     const newHash = md5(mST().transpiled).slice(0, 8);
     if (newHash !== md5Hash) {
       setMdHash(newHash);
     }
   }, [hash]);
-  useEffect4(() => {
+  h2(() => {
     const newHash = md5(mST().transpiled).slice(0, 8);
     if (newHash !== md5Hash)
       return;
@@ -13817,14 +13828,14 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
     } else
       delete render2[md5Hash];
   }, [md5Hash]);
-  const ref = useRef3(null);
+  const ref = _(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
-  return jsx9(import_react19.CacheProvider, {
+  return jsx(import_react19.CacheProvider, {
     value: createCache2({ key: "x" }),
-    children: jsx9(ErrorBoundary_default, {
+    children: jsx(ErrorBoundary_default, {
       ref,
-      children: jsx9(App, {
+      children: jsx(App, {
         appId: `${codeSpace2}-${md5Hash}`
       })
     }, md5Hash)
@@ -13847,12 +13858,12 @@ async function appFactory(transpiled = "", codeSpace2) {
           key: "z",
           speedy: true
         });
-        apps[hash] = ({ appId }) => appId.includes(hash) ? jsx9(import_react19.CacheProvider, {
+        apps[hash] = ({ appId }) => appId.includes(hash) ? jsx(import_react19.CacheProvider, {
           value: eCaches[hash],
-          children: jsx9("div", {
+          children: jsx("div", {
             css: "height: 100%;",
             id: appId,
-            children: jsx9(App, {})
+            children: jsx(App, {})
           })
         }) : null;
       } else
@@ -13861,20 +13872,20 @@ async function appFactory(transpiled = "", codeSpace2) {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsxs4("div", {
+        apps[hash] = () => jsxs("div", {
           css: import_react19.css`background-color: orange;`,
           children: [
-            jsx9("h1", {
+            jsx("h1", {
               children: "Syntax Error"
             }),
-            jsxs4("h2", {
+            jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx9("p", {
+            jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
@@ -13882,28 +13893,28 @@ async function appFactory(transpiled = "", codeSpace2) {
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsxs4("div", {
+        apps[hash] = () => jsxs("div", {
           css: import_react19.css`background-color: orange;`,
           children: [
-            jsx9("h1", {
+            jsx("h1", {
               children: "Syntax Error"
             }),
-            jsxs4("h2", {
+            jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx9("p", {
+            jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
         });
       } else {
-        apps[hash] = () => jsx9("div", {
+        apps[hash] = () => jsx("div", {
           css: import_react19.css`background-color: orange;`,
-          children: jsxs4("h1", {
+          children: jsxs("h1", {
             children: [
               "Unknown Error: $",
               hash
@@ -14177,7 +14188,7 @@ async function join() {
   });
   return wsConnection;
 }
-var h = {};
+var h3 = {};
 async function processWsMessage(event, source, conn) {
   if (ws == null) {
     return;
@@ -14210,10 +14221,10 @@ async function processData(data, source, conn) {
     return;
   }
   if (data.oldHash && data.newHash) {
-    if (h[data.oldHash] && h[data.oldHash] === data.newHash) {
+    if (h3[data.oldHash] && h3[data.oldHash] === data.newHash) {
       return;
     }
-    h[data.oldHash] = data.newHash;
+    h3[data.oldHash] = data.newHash;
   }
   if (data.newHash === hashCode()) {
     return;
