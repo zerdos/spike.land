@@ -1,12 +1,10 @@
 import {
   require_react
-} from "./chunk-chunk-3UE53YJF.mjs";
+} from "./chunk-chunk-QCM7DYZQ.mjs";
 import {
+  __toESM,
   init_define_process
-} from "./chunk-chunk-VOIE2EHU.mjs";
-import {
-  __toESM
-} from "./chunk-chunk-VTSDAELY.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // js/react-preact.ts
 init_define_process();

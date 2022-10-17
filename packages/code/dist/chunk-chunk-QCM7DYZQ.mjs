@@ -1,9 +1,7 @@
 import {
+  __commonJS,
   init_define_process
-} from "./chunk-chunk-VOIE2EHU.mjs";
-import {
-  __commonJS
-} from "./chunk-chunk-VTSDAELY.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/react-npm-18.2.0-1eae08fee2-9.zip/node_modules/react/cjs/react.development.js
 var require_react_development = __commonJS({

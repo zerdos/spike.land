@@ -1,9 +1,9 @@
 import {
   require_react_dom
-} from "./chunk-chunk-LXV4T7BN.mjs";
+} from "./chunk-chunk-PFY3UC77.mjs";
 import {
   transform
-} from "./chunk-chunk-H7NZ6G3N.mjs";
+} from "./chunk-chunk-SXJRRIH7.mjs";
 import {
   applyPatch,
   hashCode,
@@ -15,33 +15,31 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-W6KMB7RU.mjs";
+} from "./chunk-chunk-WBSKVTIU.mjs";
 import {
   wrap
-} from "./chunk-chunk-466MU7CN.mjs";
+} from "./chunk-chunk-IACUZN5G.mjs";
 import {
   LayoutGroup,
   motion
-} from "./chunk-chunk-7BTR7SMV.mjs";
+} from "./chunk-chunk-RYAAHFCI.mjs";
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-BP4NDMON.mjs";
+} from "./chunk-chunk-CR7O327K.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-UIEBAOWX.mjs";
+} from "./chunk-chunk-CI3CHR6X.mjs";
 import {
   require_emotion_cache_cjs
-} from "./chunk-chunk-PGMP5G6J.mjs";
+} from "./chunk-chunk-XCNCOID3.mjs";
 import {
   require_react
-} from "./chunk-chunk-3UE53YJF.mjs";
-import {
-  init_define_process
-} from "./chunk-chunk-VOIE2EHU.mjs";
+} from "./chunk-chunk-QCM7DYZQ.mjs";
 import {
   __commonJS,
-  __toESM
-} from "./chunk-chunk-VTSDAELY.mjs";
+  __toESM,
+  init_define_process
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/__virtual__/react-dom-virtual-b968d4cfd6/0/global/cache/react-dom-npm-18.2.0-dd675bca1c-9.zip/node_modules/react-dom/client.js
 var require_client = __commonJS({
@@ -14024,7 +14022,7 @@ init_define_process();
 var import_react7 = __toESM(require_react(), 1);
 var import_react8 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FabLazy = (0, import_react7.lazy)(async () => import("./chunk-Fab-BUZBCZNX.mjs"));
+var FabLazy = (0, import_react7.lazy)(async () => import("./chunk-Fab-FGTUWE4H.mjs"));
 var Fab = (props) => (0, import_jsx_runtime3.jsx)(import_react7.Suspense, {
   fallback: (0, import_jsx_runtime3.jsx)("div", {
     css: import_react8.css`width: 28px; height:28px`
@@ -14033,7 +14031,7 @@ var Fab = (props) => (0, import_jsx_runtime3.jsx)(import_react7.Suspense, {
     ...props
   })
 });
-var ToggleButtonLazy = (0, import_react7.lazy)(async () => import("./chunk-ToggleButton-JD2L2AK7.mjs"));
+var ToggleButtonLazy = (0, import_react7.lazy)(async () => import("./chunk-ToggleButton-3WM7AKRT.mjs"));
 var ToggleButton = (props) => (0, import_jsx_runtime3.jsx)(import_react7.Suspense, {
   fallback: (0, import_jsx_runtime3.jsx)("div", {
     css: import_react8.css`width: 28px; height:28px`
@@ -14043,7 +14041,7 @@ var ToggleButton = (props) => (0, import_jsx_runtime3.jsx)(import_react7.Suspens
   })
 });
 var ToggleButtonGroupLazy = (0, import_react7.lazy)(
-  async () => import("./chunk-ToggleButtonGroup-P2W7PUML.mjs")
+  async () => import("./chunk-ToggleButtonGroup-E5UUYBSD.mjs")
 );
 var ToggleButtonGroup = (props) => (0, import_jsx_runtime3.jsx)(import_react7.Suspense, {
   fallback: (0, import_jsx_runtime3.jsx)("div", {
@@ -14377,7 +14375,7 @@ var mod = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform: transform2 } = await import("./chunk-esbuildEsm-63GFNJJE.mjs");
+    const { transform: transform2 } = await import("./chunk-esbuildEsm-HEMYEE74.mjs");
     const t = await transform2(res, {
       format: "esm",
       minify: true,
@@ -14398,7 +14396,7 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform: transform2 } = await import("./chunk-esbuildEsm-63GFNJJE.mjs");
+  const { transform: transform2 } = await import("./chunk-esbuildEsm-HEMYEE74.mjs");
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
   if (!mod.data[hash]) {
@@ -14668,7 +14666,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-EP2UXCAA.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-YEBMSAMH.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -14719,8 +14717,10 @@ var mod3 = {
     if (code.length < 10)
       console.log(code);
   },
+  getErrors: async () => [],
   code: "",
   counter: 0,
+  codeSpace: "",
   lastKeyDown: 0,
   codeToSet: ""
 };
@@ -14735,112 +14735,39 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     started: false,
-    myId: "loading",
     onChange(_cb) {
     },
     engine: isMobile() ? "ace" : "monaco"
   });
   mod3.counter = mST().i;
+  mod3.codeSpace = codeSpace2;
   const {
     myCode,
     started: started2,
-    myId,
     engine,
     onChange
   } = mySession;
   mod3.code = myCode;
   import_react14.default.useEffect(() => {
-    if (ref.current === null) {
+    if (ref.current === null && started2) {
       return;
     }
-    const setMonaco = async () => {
-      const link = document.createElement("link");
-      link.setAttribute("rel", "stylesheet");
-      link.href = location.origin + "/renderPreviewWindow.css";
-      document.head.append(link);
-      const { startMonaco } = await import("./chunk-startMonaco-FYZ35N3D.mjs");
-      const { model, getTypeScriptWorker, setValue: setMonValue } = await startMonaco(
-        {
-          container: ref.current,
-          name: codeSpace2,
-          code: mST().code
-        }
-      );
-      const getValue = async () => {
-        const code2 = await prettierJs(model.getValue());
-        if (code2 === mod3.code)
-          return code2;
-        const counter = ++mod3.counter;
-        mod3.code = code2;
-        runner({ code: code2, counter, codeSpace: codeSpace2 });
-        try {
-          (async () => {
-            const tsWorker = await (await getTypeScriptWorker())(
-              model.uri
-            );
-            const diag = await tsWorker.getSemanticDiagnostics(
-              location.origin + "/live/" + codeSpace2 + ".tsx"
-            );
-            if (diag.length) {
-              console.log(diag.map((d) => d.messageText));
-            }
-          })();
-        } catch {
-          console.error("ts diag error");
-        }
-        if (mod3.code !== code2)
-          throw new Error("code just changed");
-        return code2;
-      };
-      mod3.getValue = getValue;
-      mod3.setValue = async (_code) => {
-        const code2 = await prettierJs(_code);
-        if (await mod3.getValue() !== code2)
-          setMonValue(code2);
-      };
-      changeContent({
-        ...mySession,
-        started: true,
-        onChange: (cb) => model.onDidChangeContent(cb).dispose,
-        myId: "editor"
-      });
-    };
-    const setAce = async () => {
-      async function onXHA(_code) {
-        const code2 = await prettierJs(_code);
-        if (code2 === mod3.code)
-          return;
-        const counter = ++mod3.counter;
-        mod3.code = code2;
-        runner({ code: code2, counter, codeSpace: codeSpace2 });
-      }
-      const { startAce } = await import("./chunk-startAce-PXTQVBFU.mjs");
-      const { setValue, getValue } = await startAce(mST().code, onXHA);
-      mod3.getValue = () => prettierJs(getValue());
-      mod3.setValue = async (_code) => {
-        const code2 = await prettierJs(_code);
-        if (await mod3.getValue() !== code2)
-          setValue(code2);
-      };
-      changeContent({
-        ...mySession,
-        started: true,
-        myId: "editor"
-      });
-    };
-    const loadEditors = () => engine === "monaco" ? setMonaco() : setAce();
-    !started2 && loadEditors();
+    (engine === "monaco" ? setMonaco(ref.current) : setAce()).then((res) => Object.assign(mod3, res)).then(() => changeContent((x) => ({ ...x, started: true })));
+    ;
   }, [started2, ref]);
   import_react14.default.useEffect(
-    () => onChange(
-      () => mod3.getValue().then(
-        () => changeContent((x) => ({
-          ...x,
-          counter: mod3.counter,
-          myCode: mod3.code
-        }))
-      )
-    ),
+    () => {
+      mod3.getErrors().then(console.log);
+      onChange(
+        () => mod3.getValue().then(
+          () => changeContent((x) => ({
+            ...x,
+            counter: mod3.counter,
+            myCode: mod3.code
+          }))
+        )
+      );
+    },
     [onChange, myCode, changeContent]
   );
   onSessionUpdate(() => {
@@ -14858,7 +14785,6 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
   }, "editor");
   return (0, import_jsx_runtime7.jsx)("div", {
     onKeyDown: () => mod3.lastKeyDown = Date.now(),
-    "data-test-id": myId,
     id: "editor",
     css: import_react15.css`          
       max-width: 640px;
@@ -14867,6 +14793,33 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     ref
   });
 };
+async function onModChange(_code) {
+  const code = await prettierJs(_code);
+  if (code === mod3.code)
+    return;
+  const counter = ++mod3.counter;
+  mod3.code = code;
+  runner({ code, counter, codeSpace: mod3.codeSpace });
+}
+async function setMonaco(container) {
+  const link = document.createElement("link");
+  link.setAttribute("rel", "stylesheet");
+  link.href = location.origin + "/renderPreviewWindow.css";
+  document.head.append(link);
+  const { startMonaco } = await import("./chunk-startMonaco-26O4BNT6.mjs");
+  return startMonaco(
+    {
+      container,
+      name: mod3.codeSpace,
+      code: mST().code,
+      onChange: onModChange
+    }
+  );
+}
+async function setAce() {
+  const { startAce } = await import("./chunk-startAce-PAJE7BY2.mjs");
+  return await startAce(mST().code, onModChange);
+}
 
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime8 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);

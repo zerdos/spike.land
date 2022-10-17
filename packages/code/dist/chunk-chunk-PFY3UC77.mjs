@@ -1,12 +1,10 @@
 import {
   require_react
-} from "./chunk-chunk-3UE53YJF.mjs";
+} from "./chunk-chunk-QCM7DYZQ.mjs";
 import {
+  __commonJS,
   init_define_process
-} from "./chunk-chunk-VOIE2EHU.mjs";
-import {
-  __commonJS
-} from "./chunk-chunk-VTSDAELY.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/scheduler-npm-0.23.0-a379a6bc3b-9.zip/node_modules/scheduler/cjs/scheduler.development.js
 var require_scheduler_development = __commonJS({

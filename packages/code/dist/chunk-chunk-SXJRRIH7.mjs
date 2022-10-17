@@ -1,10 +1,8 @@
 import {
-  init_define_process
-} from "./chunk-chunk-VOIE2EHU.mjs";
-import {
   __commonJS,
-  __toESM
-} from "./chunk-chunk-VTSDAELY.mjs";
+  __toESM,
+  init_define_process
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.11-c85526b9c1-9.zip/node_modules/esbuild-wasm/lib/browser.js
 var require_browser = __commonJS({
@@ -28,7 +26,7 @@ var require_browser = __commonJS({
         }
         return to;
       };
-      var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+      var __toCommonJS = (mod2) => __copyProps(__defProp({}, "__esModule", { value: true }), mod2);
       var __async = (__this, __arguments, generator) => {
         return new Promise((resolve, reject) => {
           var fulfilled = (value) => {
@@ -1503,9 +1501,9 @@ var require_browser = __commonJS({
           try {
             let lines = (e.stack + "").split("\n");
             lines.splice(1, 1);
-            let location2 = parseStackLinesV8(streamIn, lines, ident);
-            if (location2) {
-              note = { text: e.message, location: location2 };
+            let location = parseStackLinesV8(streamIn, lines, ident);
+            if (location) {
+              note = { text: e.message, location };
               return note;
             }
           } catch (e2) {
@@ -1514,16 +1512,16 @@ var require_browser = __commonJS({
       }
       function extractErrorMessageV8(e, streamIn, stash, note, pluginName) {
         let text = "Internal error";
-        let location2 = null;
+        let location = null;
         try {
           text = (e && e.message || e) + "";
         } catch (e2) {
         }
         try {
-          location2 = parseStackLinesV8(streamIn, (e.stack + "").split("\n"), "");
+          location = parseStackLinesV8(streamIn, (e.stack + "").split("\n"), "");
         } catch (e2) {
         }
-        return { id: "", pluginName, text, location: location2, notes: note ? [note] : [], detail: stash ? stash.store(e) : -1 };
+        return { id: "", pluginName, text, location, notes: note ? [note] : [], detail: stash ? stash.store(e) : -1 };
       }
       function parseStackLinesV8(streamIn, lines, ident) {
         let at = "    at ";
@@ -1595,18 +1593,18 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
         }
         return messages;
       }
-      function sanitizeLocation(location2, where) {
-        if (location2 == null)
+      function sanitizeLocation(location, where) {
+        if (location == null)
           return null;
         let keys = {};
-        let file = getFlag(location2, keys, "file", mustBeString);
-        let namespace = getFlag(location2, keys, "namespace", mustBeString);
-        let line = getFlag(location2, keys, "line", mustBeInteger);
-        let column = getFlag(location2, keys, "column", mustBeInteger);
-        let length = getFlag(location2, keys, "length", mustBeInteger);
-        let lineText = getFlag(location2, keys, "lineText", mustBeString);
-        let suggestion = getFlag(location2, keys, "suggestion", mustBeString);
-        checkForInvalidFlags(location2, keys, where);
+        let file = getFlag(location, keys, "file", mustBeString);
+        let namespace = getFlag(location, keys, "namespace", mustBeString);
+        let line = getFlag(location, keys, "line", mustBeInteger);
+        let column = getFlag(location, keys, "column", mustBeInteger);
+        let length = getFlag(location, keys, "length", mustBeInteger);
+        let lineText = getFlag(location, keys, "lineText", mustBeString);
+        let suggestion = getFlag(location, keys, "suggestion", mustBeString);
+        checkForInvalidFlags(location, keys, where);
         return {
           file: file || "",
           namespace: namespace || "",
@@ -1625,7 +1623,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
           let id = getFlag(message, keys, "id", mustBeString);
           let pluginName = getFlag(message, keys, "pluginName", mustBeString);
           let text = getFlag(message, keys, "text", mustBeString);
-          let location2 = getFlag(message, keys, "location", mustBeObjectOrNull);
+          let location = getFlag(message, keys, "location", mustBeObjectOrNull);
           let notes = getFlag(message, keys, "notes", mustBeArray);
           let detail = getFlag(message, keys, "detail", canBeAnything);
           let where = `in element ${index} of "${property}"`;
@@ -1647,7 +1645,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
             id: id || "",
             pluginName: pluginName || fallbackPluginName,
             text: text || "",
-            location: sanitizeLocation(location2, where),
+            location: sanitizeLocation(location, where),
             notes: notesClone,
             detail: stash ? stash.store(detail) : -1
           });
@@ -2414,19 +2412,26 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 // js/esbuildEsm.ts
 init_define_process();
 var import_esbuild_wasm = __toESM(require_browser(), 1);
-var initFinished = false;
-var transform = async (code, opts) => {
-  initFinished = initFinished || (0, import_esbuild_wasm.initialize)({
-    wasmURL: new URL(
-      (await import("./chunk-esbuild-URI6BEBY.mjs")).default,
-      location.origin
-    ).toString()
-  }).then(() => true).catch(() => false);
-  if (initFinished !== true)
-    initFinished = await initFinished;
-  if (initFinished !== true) {
-    throw new Error("esbuild init failed");
+
+// ../../.yarn/global/cache/esbuild-wasm-npm-0.15.11-c85526b9c1-9.zip/node_modules/esbuild-wasm/esbuild.wasm
+var esbuild_default = "./chunk-esbuild-AGEQ2DRT.wasm";
+
+// js/esbuildEsm.ts
+var mod = {
+  init: false,
+  initialize: () => {
+    if (mod.init !== false)
+      return mod.init;
+    mod.init = (0, import_esbuild_wasm.initialize)({
+      wasmURL: esbuild_default
+    }).then(() => mod.init = true);
+    return mod.init;
   }
+};
+var transform = async (code, opts) => {
+  const initFinished = mod.initialize();
+  if (initFinished !== true)
+    await initFinished;
   return (0, import_esbuild_wasm.transform)(code, opts);
 };
 

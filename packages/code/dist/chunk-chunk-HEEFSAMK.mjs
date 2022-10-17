@@ -1,11 +1,9 @@
 import {
+  __esm,
+  __export,
   define_process_default,
   init_define_process
-} from "./chunk-chunk-VOIE2EHU.mjs";
-import {
-  __esm,
-  __export
-} from "./chunk-chunk-VTSDAELY.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/nls.js
 function _format(message, args) {

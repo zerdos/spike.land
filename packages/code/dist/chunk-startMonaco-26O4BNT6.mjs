@@ -1,4 +1,4 @@
-import "./chunk-chunk-G5OMZBFN.mjs";
+import "./chunk-chunk-MU63UBJS.mjs";
 import {
   $,
   Action,
@@ -567,18 +567,16 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-NPCIP67Q.mjs";
-import {
-  init_define_process
-} from "./chunk-chunk-VOIE2EHU.mjs";
+} from "./chunk-chunk-HEEFSAMK.mjs";
 import {
   __commonJS,
   __esm,
   __privateAdd,
   __privateGet,
   __privateSet,
-  __toESM
-} from "./chunk-chunk-VTSDAELY.mjs";
+  __toESM,
+  init_define_process
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -41995,7 +41993,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-5T5NMC62.mjs");
+      return import("./chunk-typescript-LJ57MFXZ.mjs");
     }
   }
 });
@@ -42411,7 +42409,7 @@ var monacoContribution = async (code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-33OV3KAV.mjs");
+    const { dtsFiles } = await import("./chunk-types-UZJU2AI2.mjs");
     const {
       reactDts,
       jsxRuntimeDts,
@@ -42562,7 +42560,7 @@ self.MonacoEnvironment = {
   getWorkerUrl
 };
 var mod = {};
-var startMonaco = async ({ code, container, name }) => {
+var startMonaco = async ({ code, container, name, onChange }) => {
   if (mod[name]) {
     return mod[name];
   }
@@ -42635,9 +42633,25 @@ var startMonaco = async ({ code, container, name }) => {
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace"
     });
+    const mod2 = {
+      silent: false,
+      code: code2,
+      tsWorker: languages.typescript.getTypeScriptWorker().then((ts) => ts(model.uri))
+    };
+    model.onDidChangeContent(() => {
+      if (mod2.silent)
+        return;
+      const code3 = model.getValue();
+      if (mod2.code === code3)
+        return;
+      mod2.code = code3;
+      onChange(code3);
+    });
     return {
-      getTypeScriptWorker: async () => languages.typescript.getTypeScriptWorker(),
+      getValue: () => mod2.code,
+      getErrors: () => mod2.tsWorker.then((ts) => ts.getSemanticDiagnostics(location.origin + "/live/" + codeSpace + ".tsx").then((diag) => diag.map((d) => d.messageText.toString()))),
       setValue: (code3) => {
+        mod2.silent = true;
         let state = null;
         try {
           state = editor2.saveViewState();
@@ -42648,8 +42662,8 @@ var startMonaco = async ({ code, container, name }) => {
         if (state) {
           editor2.restoreViewState(state);
         }
-      },
-      model
+        mod2.silent = false;
+      }
     };
   }
 };

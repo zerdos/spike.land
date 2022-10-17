@@ -1,10 +1,8 @@
 import {
-  init_define_process
-} from "./chunk-chunk-VOIE2EHU.mjs";
-import {
   __commonJS,
-  __toESM
-} from "./chunk-chunk-VTSDAELY.mjs";
+  __toESM,
+  init_define_process
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/ace-builds-npm-1.12.1-05a403fa4f-9.zip/node_modules/ace-builds/src-noconflict/ace.js
 var require_ace = __commonJS({
@@ -20211,10 +20209,11 @@ async function startAce(code, cb) {
   editor.session.setMode("ace/mode/typescript", () => ({ jsx: true }));
   editor.session.setValue(code);
   mod.value = code;
-  editor.session.on("change", function(delta) {
+  editor.session.on("change", () => {
     if (mod.silent)
       return;
-    const value = editor.session.getValue(code);
+    console.log();
+    const value = editor.session.getValue();
     if (mod.value !== value) {
       mod.value = value;
       cb(value);
@@ -20222,6 +20221,7 @@ async function startAce(code, cb) {
   });
   return {
     getValue: () => mod.value,
+    getErrors: () => Promise.resolve([]),
     setValue: (code2) => {
       if (mod.value !== code2) {
         mod.silent = true;
