@@ -2,7 +2,8 @@ import { hashCode, mST } from "session";
 import { md5 } from "md5";
 import { appFactory, eCaches } from "starter";
 
-import { createRoot } from "react-dom/client";
+import { createRoot,  } from "react-dom/client";
+import {flushSync} from "react-dom"
 import isCallable from "is-callable";
 
 const rootDiv = document.createElement("div");
@@ -19,6 +20,10 @@ export const render = async (transpiled: string, codeSpace: string) => {
     root.render(
       <App appId={`${codeSpace}-${md5hash}`} />
     );
+    let flushed: (_v: unknown)=>void;
+    const rendered = new Promise((resolve)=>flushed = resolve);
+    flushSync(()=>flushed(true));
+    await rendered;
     const html = rootDiv.innerHTML;
     let css = mineFromCaches(md5hash, html);
     const globalCss = document.querySelector("style[data-emotion=z-global]")
