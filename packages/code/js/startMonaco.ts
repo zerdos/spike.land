@@ -513,20 +513,21 @@ export const startMonaco = async (
          */
         showSnippets: true,
       },
+    
       automaticLayout: true,
 
-      useShadowDOM: false,
+      useShadowDOM: true,
       bracketPairColorization: {
         independentColorPoolPerBracketType: true,
         enabled: true,
       },
-      bracketPairGuides: {
-        bracketPairs: true,
-        bracketPairsHorizontal : true,
-        highlightActiveBracketPair: true,
-        indentation: true,
-        highlightActiveIndentation:  'always'
-      },
+      // bracketPairGuides: {
+      //   bracketPairs: true,
+      //   bracketPairsHorizontal : true,
+      //   highlightActiveBracketPair: true,
+      //   indentation: true,
+      //   highlightActiveIndentation:  'always'
+      // },
       codeLens: true,
       "semanticHighlighting.enabled": true,
       dragAndDrop: true,
