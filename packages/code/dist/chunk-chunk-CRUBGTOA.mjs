@@ -4014,11 +4014,13 @@ var render = async (transpiled, codeSpace2) => {
       })
     );
     const html = rootDiv.innerHTML;
-    const css8 = mineFromCaches(md5hash, html);
+    let css8 = mineFromCaches(md5hash, html);
     const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
     root.unmount();
+    if (css8 && globalCss)
+      css8 = css8 + globalCss;
     return {
-      html: `<style>${globalCss}</style>${html}`,
+      html,
       css: css8
     };
   } else
@@ -4030,11 +4032,12 @@ var renderFromString = (codeSpace2, hash) => {
     return { html: null, css: null };
   }
   const html = document.getElementById(`${codeSpace2}-${md5hash}`)?.innerHTML;
-  const css8 = html ? extractCritical22(html) : "";
+  let css8 = html ? extractCritical22(html) : "";
   const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
+  if (css8 && globalCss)
+    css8 = css8 + globalCss;
   return {
-    html: `<div id="${codeSpace2}-${md5hash}" style="height:100%">
-      ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
+    html,
     css: css8
   };
 };
