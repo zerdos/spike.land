@@ -4031,11 +4031,7 @@ var mod2 = {
       await waitForAnimation();
     }
     if (!mod2.res?.innerHTML.includes(md5Hash)) {
-      console.log("waiting");
-      await wait(mod2.wait);
-    }
-    if (!mod2.res?.innerHTML.includes(md5Hash)) {
-      await waitForAnimation();
+      console.log(`waiting ${mod2.wait} for ${mod2.md5Hash} `), await wait(mod2.wait);
     }
     if (mod2.res?.innerHTML.includes(md5Hash))
       return mod2.res.innerHTML;
