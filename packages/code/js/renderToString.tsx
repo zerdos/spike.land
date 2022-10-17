@@ -23,8 +23,8 @@ const mod = {
     }
 
     if (!mod.res?.innerHTML.includes(md5Hash)) {
-      console.log("waiting", mod.wait);
-      await wait(mod.wait);
+      console.log(`waiting ${mod.wait} for ${mod.md5Hash} `),
+        await wait(mod.wait);
     }
 
     if (mod.res?.innerHTML.includes(md5Hash)) return mod.res.innerHTML;
