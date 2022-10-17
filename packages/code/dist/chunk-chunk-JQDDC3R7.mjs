@@ -14793,7 +14793,11 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
         return code2;
       };
       mod3.getValue = getValue;
-      mod3.setValue = setMonValue;
+      mod3.setValue = async (_code) => {
+        const code2 = await prettierJs(_code);
+        if (await mod3.getValue() !== code2)
+          setMonValue(code2);
+      };
       changeContent({
         ...mySession,
         started: true,
@@ -14812,12 +14816,14 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       }
       const { startAce } = await import("./chunk-startAce-PXTQVBFU.mjs");
       const { setValue, getValue } = await startAce(mST().code, onXHA);
-      mod3.getValue = getValue;
-      mod3.setValue = setValue;
+      mod3.getValue = () => prettierJs(getValue());
+      mod3.setValue = async (_code) => {
+        const code2 = await prettierJs(_code);
+        if (await mod3.getValue() !== code2)
+          setValue(code2);
+      };
       changeContent({
         ...mySession,
-        setValue,
-        getValue,
         started: true,
         myId: "editor"
       });
