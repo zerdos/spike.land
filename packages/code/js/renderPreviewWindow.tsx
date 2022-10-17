@@ -16,13 +16,11 @@ import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
 
-
-
-const RainbowContainer: React.FC<{children: JSX.Element}> = (
-	{children},
+const RainbowContainer: React.FC<{ children: JSX.Element }> = (
+  { children },
 ) => (
-	<div
-		css={css`
+  <div
+    css={css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -65,11 +63,10 @@ background:  repeating-radial-gradient(circle at bottom left,
                 #becc2f 0, #becc2f 94.4444444444%, 
                 #e0d81d 0, #e0d81d 100%);
 `}
-	>
-		{children}
-	</div>
+  >
+    {children}
+  </div>
 );
-
 
 const AppToRender: React.FC<
   { codeSpace: string }
@@ -111,13 +108,11 @@ const AppToRender: React.FC<
 
   return (
     <Fragment>
-    <InPortal node={portalNode}>
-      <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
-    </InPortal>
+      <InPortal node={portalNode}>
+        <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
+      </InPortal>
 
-    {isStandalone
-      ? <OutPortal node={portalNode} />
-      : (
+      {isStandalone ? <OutPortal node={portalNode} /> : (
         <RainbowContainer>
           <Fragment>
             <Editor
@@ -132,13 +127,12 @@ const AppToRender: React.FC<
           </Fragment>
         </RainbowContainer>
       )}
-  </Fragment>
+    </Fragment>
   );
 };
 const singleton = { started: false };
 
-export const renderPreviewWindow = ({ codeSpace } :
- { codeSpace: string}) => {
+export const renderPreviewWindow = ({ codeSpace }: { codeSpace: string }) => {
   if (singleton.started) return;
   singleton.started = true;
 
@@ -146,17 +140,13 @@ export const renderPreviewWindow = ({ codeSpace } :
   // Div.style.height='100%';
   const root = createRoot(div);
 
-  const x= createCache({key: "root"});
+  const x = createCache({ key: "root" });
 
- // (createCache as unknown as {default: typeof createCache}).default
-  
+  // (createCache as unknown as {default: typeof createCache}).default
 
   root.render(
-    
     <CacheProvider value={x}>
-      
       <AppToRender codeSpace={codeSpace} />
-    </CacheProvider>
-  ,
+    </CacheProvider>,
   );
 };

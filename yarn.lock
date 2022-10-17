@@ -1128,14 +1128,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 18.8.4
-  resolution: "@types/node@npm:18.8.4"
-  checksum: 55ef689f2c930e558768aef408e95edde71524995ed79fcac92ffb6a669552f66a5f1fc626593a5cdd41f8cf25c7cca2f149cffa5025b96196a09fa6dd9d2939
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.11.0":
+"@types/node@npm:*, @types/node@npm:^18.11.0":
   version: 18.11.0
   resolution: "@types/node@npm:18.11.0"
   checksum: 29cddf70ce75ff9c39849a1d92111031be8614220b4bb7c0ee02ce83c14138f4b067557d8654fa32941111e02664366b007017ef35a6cb6926842270369deaae
@@ -3756,14 +3749,14 @@ __metadata:
   linkType: hard
 
 "npx-import@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "npx-import@npm:1.1.3"
+  version: 1.1.4
+  resolution: "npx-import@npm:1.1.4"
   dependencies:
     execa: "npm:^6.1.0"
     parse-package-name: "npm:^1.0.0"
     semver: "npm:^7.3.7"
     validate-npm-package-name: "npm:^4.0.0"
-  checksum: d49e2a284b357d95e67e1150a771fed8b7906ed45913061bd5a8d072d10a5c4d5dbbb9ad1c2e491aa2b7da8c4348519160ba33623747811f7cf769058a0c6a05
+  checksum: f5d87113725c1c521d417c2c7b8b4787638fa6f5e6709c4dd59150416ca83e316f2a7ff7cb9d56653cb37ba7f71066ff9ca827b34fd74c78ae152589731e15a8
   languageName: node
   linkType: hard
 
@@ -4209,9 +4202,9 @@ __metadata:
   linkType: hard
 
 "regenerator-runtime@npm:^0.13.4":
-  version: 0.13.9
-  resolution: "regenerator-runtime@npm:0.13.9"
-  checksum: db060af0b2ca8bb7f12aea9dcf7416ff80259b39c2ddd38e0bd705b0a7acd9f07be133e543bbf54af1e86253b6fd553e3050fd6b30c3282731dd27560427f065
+  version: 0.13.10
+  resolution: "regenerator-runtime@npm:0.13.10"
+  checksum: ac83ab4691a061519703e622ee817a0a517a80235d0c76a49ef32848c0d0946d97797d244806490f8f94e05a4b180a295869299b2e44c6f1c625b835703666a6
   languageName: node
   linkType: hard
 

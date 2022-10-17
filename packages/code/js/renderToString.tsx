@@ -11,8 +11,8 @@ export const render = async (transpiled: string, codeSpace: string) => {
   const App = await appFactory(transpiled);
   if (isCallable(App)) {
     const html = renderToString(
-      <App appId={`${codeSpace}-${md5hash}`} />
-      );
+      <App appId={`${codeSpace}-${md5hash}`} />,
+    );
     const css = mineFromCaches(md5hash, html);
     const globalCss = document.querySelector("style[data-emotion=z-global]")
       ?.innerHTML;
@@ -49,7 +49,7 @@ export const renderFromString = (
 };
 
 function mineFromCaches(md5Hash: string, html: string) {
-  if (! (eCaches[md5Hash]?.inserted)) return "";
+  if (!(eCaches[md5Hash]?.inserted)) return "";
   const keys = Object.keys(eCaches[md5Hash].inserted);
   return Array.from(document.styleSheets).map((x) => x.cssRules).filter((x) =>
     x[0] && x[0].cssText

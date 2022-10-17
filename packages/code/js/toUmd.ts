@@ -114,7 +114,9 @@ export const toUmd = async (source: string, name: string) => {
         return;
       }
 
-      const importMap = JSON.parse(document.querySelector("script[type=importmap]").innerHTML);
+      const importMap = JSON.parse(
+        document.querySelector("script[type=importmap]").innerHTML,
+      );
 
       let url = "";
       let urlHash = "";

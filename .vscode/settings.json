@@ -18,8 +18,8 @@
     "**/.yarn": true
   },
   "search.useIgnoreFiles": true,
-  "files.autoSave": "off",
-  "files.autoSaveDelay": 1,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 300,
   "git.autorefresh": true,
   "git.autofetch": true,
   "npm.packageManager": "yarn",

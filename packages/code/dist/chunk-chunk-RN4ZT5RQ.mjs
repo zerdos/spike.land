@@ -14425,7 +14425,9 @@ var toUmd = async (source, name) => {
       if (mod.hashMap[dep]) {
         return;
       }
-      const importMap = JSON.parse(document.querySelector("script[type=importmap]").innerHTML);
+      const importMap = JSON.parse(
+        document.querySelector("script[type=importmap]").innerHTML
+      );
       let url = "";
       let urlHash = "";
       if (importMap.imports[dep]) {
@@ -14748,8 +14750,9 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
   } = mySession;
   mod3.code = myCode;
   import_react14.default.useEffect(() => {
-    if (ref.current === null)
+    if (ref.current === null) {
       return;
+    }
     const setMonaco = async () => {
       const link = document.createElement("link");
       link.setAttribute("rel", "stylesheet");
@@ -15455,8 +15458,9 @@ async function processData(data, source, conn) {
         while (users2.length) {
           await wait(2e3);
           const nextToConnect = users2.pop();
-          if (nextToConnect && !sendChannel.rtcConns[nextToConnect])
+          if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
             await createPeerConnection(nextToConnect);
+          }
         }
         return;
       }

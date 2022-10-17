@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
-import { motion, LayoutGroup } from "framer-motion";
+import { LayoutGroup, motion } from "framer-motion";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr";
 // import { Terminal } from 'xterm';
@@ -73,30 +73,22 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   // }
   //   , [ref]);
 
-//  const terminalRef =  useRef(null);
+  //  const terminalRef =  useRef(null);
 
-
-
-//  useEffect(() => {
-//   if (!terminalRef?.current) return;
-
-
-
+  //  useEffect(() => {
+  //   if (!terminalRef?.current) return;
 
   // terminal.open(terminalRef.current)
   // fitAddon.activate(terminal)
   // fitAddon.fit();
-
-
-
 
   //   console.log = (...data) => {
   //    const params = data.map (d=> typeof d === "object"? JSON.stringify(d, null, 2): d);
   //     terminal.write(params.join(" - ") + "\r\n");
   //     origConsole.apply(console, data);
   // }
-  
-//  }, [terminalRef]);
+
+  //  }, [terminalRef]);
 
   useEffect(() => {
     const reveal = async () => {
@@ -161,7 +153,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         .slice(4, -1).split(",")
         .slice(0, 3)
         .map((x) => Number(x) || "0").join(",");
- 
+
       if (c !== bgCV) setBG(c);
     }, 1000 / 2);
   }, []);
@@ -174,7 +166,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   return (
     <LayoutGroup>
-    
       <motion.div
         transition={{ delay: 0, duration: 0.4 }}
         initial={{
@@ -444,5 +435,3 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 };
 
 export default DraggableWindow;
-
-  

@@ -2574,7 +2574,9 @@ init_define_process();
 })();
 
 // js/load.ts
-importShim.addImportMap(JSON.parse(document.querySelector("script[type=importmap]").innerHTML));
+importShim.addImportMap(
+  JSON.parse(document.querySelector("script[type=importmap]").innerHTML)
+);
 var codeSpace = location.pathname.slice(1).split("/")[1];
 (async () => {
   const mod = await Promise.all([
