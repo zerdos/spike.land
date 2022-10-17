@@ -17,15 +17,16 @@ export const render = async (transpiled: string, codeSpace: string) => {
       <App appId={`${codeSpace}-${md5hash}`} />,
     );
     const html = rootDiv.innerHTML;
-    const css = mineFromCaches(md5hash, html);
+    let css = mineFromCaches(md5hash, html);
     const globalCss = document.querySelector("style[data-emotion=z-global]")
       ?.innerHTML;
 
     root.unmount()
 
+    if (css && globalCss) css=css + globalCss 
 
     return {
-      html: `<style>${globalCss}</style>${html}`,
+      html: html,
       css,
     };
   } else return { html: null, css: null };
@@ -44,13 +45,15 @@ export const renderFromString = (
 
   const html = document.getElementById(`${codeSpace}-${md5hash}`)?.innerHTML!;
 
-  const css = html ? extractCritical22(html) : "";
+  let css = html ? extractCritical22(html) : "";
   const globalCss = document.querySelector("style[data-emotion=z-global]")
     ?.innerHTML;
 
+
+  if (css && globalCss) css=css + globalCss 
+
   return {
-    html: `<div id="${codeSpace}-${md5hash}" style="height:100%">
-      ${(globalCss ? `<style>${globalCss}</style>` : ``) + html}</div>`,
+    html,
     css,
   };
 };
