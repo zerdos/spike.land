@@ -7,13 +7,12 @@ import isCallable from "is-callable";
 
 const rootDiv = document.createElement("div");
 
-const root = createRoot(rootDiv);
-
 export const render = async (transpiled: string, codeSpace: string) => {
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if (isCallable(App)) {
     
+    const root = createRoot(rootDiv);
      root.render(
       <App appId={`${codeSpace}-${md5hash}`} />,
     );
