@@ -4000,6 +4000,7 @@ var findDeps = (code) => {
 // js/renderToString.tsx
 init_define_process();
 var import_client = __toESM(require_client(), 1);
+var import_react_dom = __toESM(require_react_dom(), 1);
 var import_is_callable = __toESM(require_is_callable(), 1);
 var import_jsx_runtime6 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var rootDiv = document.createElement("div");
@@ -4016,6 +4017,10 @@ var render = async (transpiled, codeSpace2) => {
         appId: `${codeSpace2}-${md5hash}`
       })
     );
+    let flushed;
+    const rendered = new Promise((resolve) => flushed = resolve);
+    (0, import_react_dom.flushSync)(() => flushed(true));
+    await rendered;
     const html = rootDiv.innerHTML;
     let css8 = mineFromCaches(md5hash, html);
     const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
