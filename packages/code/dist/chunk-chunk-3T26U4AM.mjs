@@ -14509,7 +14509,9 @@ var renderFromString = (codeSpace2, hash) => {
   };
 };
 function mineFromCaches(md5Hash, html) {
-  const keys = Object.keys(globalThis.eCaches[md5Hash].inserted);
+  if (!eCaches[md5Hash]?.inserted)
+    return "";
+  const keys = Object.keys(eCaches[md5Hash].inserted);
   return Array.from(document.styleSheets).map((x) => x.cssRules).filter(
     (x) => x[0] && x[0].cssText
   ).map((x) => x[0].cssText).filter(

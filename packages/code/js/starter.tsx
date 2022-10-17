@@ -29,7 +29,7 @@ const dynamicImport = (src: string) => window.importShim?window.importShim(src) 
 Object.assign(globalThis, {apps:{}, eCaches:{}});
 
 
-const { apps, eCaches } = (globalThis as unknown as {
+export const { apps, eCaches } = (globalThis as unknown as {
   apps: Record<string, React.FC<{ appId: string }>>;
   eCaches: Record<string, EmotionCache>;
 })  || (globalThis as unknown as {

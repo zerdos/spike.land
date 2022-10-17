@@ -1,8 +1,7 @@
 import { hashCode, mST } from "session";
 import { md5 } from "md5";
-import { appFactory } from "starter";
+import { appFactory, eCaches } from "starter";
 import { renderToString } from "react-dom/server";
-
 import isCallable from "is-callable";
 
 // const rootDiv = document.createElement("div");
@@ -50,7 +49,8 @@ export const renderFromString = (
 };
 
 function mineFromCaches(md5Hash: string, html: string) {
-  const keys = Object.keys(globalThis.eCaches[md5Hash].inserted);
+  if (! (eCaches[md5Hash]?.inserted)) return "";
+  const keys = Object.keys(eCaches[md5Hash].inserted);
   return Array.from(document.styleSheets).map((x) => x.cssRules).filter((x) =>
     x[0] && x[0].cssText
   ).map((x) => x[0].cssText).filter((x) =>
