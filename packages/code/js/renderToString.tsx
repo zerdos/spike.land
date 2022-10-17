@@ -63,7 +63,7 @@ export const render = async (transpiled: string, codeSpace: string) => {
 
     const html = await mod.waitForDiv();
 
-    if (!html) return;
+    if (!html) return { html: null, css: null };
 
     //  const html = mod.res.innerHTML;
     let css = mineFromCaches(md5hash, html);
@@ -164,8 +164,8 @@ const Helper: React.FC<{ md5Hash: string }> = ({ md5Hash }) => {
   const App = apps[hash];
 
   return (
-    <div ref={ref} key={md5Hash}>
-      <App appId={`${mod.codeSpace}-${md5Hash}`} />
+    <div ref={ref} key={hash}>
+      <App appId={`${mod.codeSpace}-${hash}`} />
     </div>
   );
 };
