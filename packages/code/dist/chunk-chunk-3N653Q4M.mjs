@@ -2482,7 +2482,7 @@ var require_is_callable = __commonJS({
       }
     }
     var all;
-    module.exports = reflectApply ? function isCallable3(value) {
+    module.exports = reflectApply ? function isCallable2(value) {
       if (isDDA(value)) {
         return true;
       }
@@ -2500,7 +2500,7 @@ var require_is_callable = __commonJS({
         }
       }
       return !isES6ClassFn(value) && tryFunctionObject(value);
-    } : function isCallable3(value) {
+    } : function isCallable2(value) {
       if (isDDA(value)) {
         return true;
       }
@@ -4001,7 +4001,6 @@ var findDeps = (code) => {
 init_define_process();
 var import_client = __toESM(require_client(), 1);
 var import_react_dom = __toESM(require_react_dom(), 1);
-var import_is_callable = __toESM(require_is_callable(), 1);
 var import_react13 = __toESM(require_react(), 1);
 
 // js/wait.ts
@@ -4038,7 +4037,7 @@ var mod2 = {
     mod2.wait = mod2.wait * 2;
     return await mod2.waitForDiv();
   },
-  setHash: (_hash2) => void 0,
+  setHash: null,
   setApp: (md5hash) => {
     const rootDiv = document.createElement("div");
     rootDiv.style.visibility = "hidden";
@@ -4055,29 +4054,27 @@ var mod2 = {
 var render = async (transpiled, codeSpace2) => {
   mod2.codeSpace = codeSpace2;
   const md5hash = md5(transpiled).slice(0, 8);
-  const App = await appFactory(transpiled);
-  if ((0, import_is_callable.default)(App)) {
-    mod2.wait = 1;
-    if (!mod2.md5Hash) {
-      mod2.setApp(
-        md5hash
-      );
-    } else {
-      mod2.setHash(md5hash);
-    }
-    const html = await mod2.waitForDiv();
-    if (!html)
-      return { html: null, css: null };
-    let css8 = mineFromCaches(md5hash, html);
-    const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
-    if (css8 && globalCss)
-      css8 = css8 + globalCss;
-    return {
-      html,
-      css: css8
-    };
-  } else
+  if (!apps[md5hash])
+    await appFactory(transpiled);
+  mod2.wait = 1;
+  if (!mod2.setHash) {
+    mod2.setApp(
+      md5hash
+    );
+  } else {
+    mod2.setHash(md5hash);
+  }
+  const html = await mod2.waitForDiv();
+  if (!html)
     return { html: null, css: null };
+  let css8 = mineFromCaches(md5hash, html);
+  const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
+  if (css8 && globalCss)
+    css8 = css8 + globalCss;
+  return {
+    html,
+    css: css8
+  };
 };
 var renderFromString = (codeSpace2, hash) => {
   const md5hash = md5(mST().transpiled).slice(0, 8);
@@ -4135,15 +4132,15 @@ var Helper = ({ md5Hash }) => {
   (0, import_react13.useEffect)(() => {
     if (ref.current)
       mod2.res = ref.current;
-    mod2.md5Hash = hash, mod2.setHash = setHash;
-  }, [ref, mod2.md5Hash, setHash]);
+    mod2.md5Hash = hash, mod2.setHash = (hash2) => setHash(hash2);
+  }, [ref, hash, setHash]);
   const App = apps[hash];
   return (0, import_jsx_runtime6.jsx)("div", {
     ref,
     children: (0, import_jsx_runtime6.jsx)(App, {
       appId: `${mod2.codeSpace}-${hash}`
-    })
-  }, hash);
+    }, hash)
+  });
 };
 var waitForAnimation = () => {
   let animationFrame;
@@ -4544,7 +4541,7 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
 };
 
 // js/starter.tsx
-var import_is_callable2 = __toESM(require_is_callable(), 1);
+var import_is_callable = __toESM(require_is_callable(), 1);
 var import_jsx_runtime9 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
@@ -4593,7 +4590,7 @@ async function appFactory(transpiled = "", codeSpace2) {
     try {
       console.log(`i: ${mstI}: `);
       const App = (await dynamicImport(createJsBlob(trp))).default;
-      if ((0, import_is_callable2.default)(App)) {
+      if ((0, import_is_callable.default)(App)) {
         eCaches[hash] = emotionCache_default({
           key: "z",
           speedy: true
