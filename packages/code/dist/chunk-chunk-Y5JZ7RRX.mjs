@@ -3134,7 +3134,7 @@ function v4(options, buf, offset) {
 
 // js/starter.tsx
 init_define_process();
-var import_react18 = __toESM(require_react(), 1);
+var import_react19 = __toESM(require_react(), 1);
 
 // js/ErrorBoundary.tsx
 init_define_process();
@@ -3175,7 +3175,7 @@ var ErrorBoundary = class extends import_react.default.Component {
 var ErrorBoundary_default = ErrorBoundary;
 
 // js/starter.tsx
-var import_react19 = __toESM(require_emotion_react_cjs(), 1);
+var import_react20 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/emotionCache.ts
 init_define_process();
@@ -3185,7 +3185,7 @@ var emotionCache_default = createCache;
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-var import_react16 = __toESM(require_react(), 1);
+var import_react17 = __toESM(require_react(), 1);
 var import_client2 = __toESM(require_client(), 1);
 
 // ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
@@ -3861,11 +3861,11 @@ var DraggableWindow = ({
 };
 
 // js/renderPreviewWindow.tsx
-var import_react17 = __toESM(require_emotion_react_cjs(), 1);
+var import_react18 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/Editor.tsx
 init_define_process();
-var import_react13 = __toESM(require_react(), 1);
+var import_react14 = __toESM(require_react(), 1);
 
 // js/runner.tsx
 init_define_process();
@@ -4002,29 +4002,78 @@ init_define_process();
 var import_client = __toESM(require_client(), 1);
 var import_react_dom = __toESM(require_react_dom(), 1);
 var import_is_callable = __toESM(require_is_callable(), 1);
+var import_react13 = __toESM(require_react(), 1);
+
+// js/wait.ts
+init_define_process();
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}
+
+// js/renderToString.tsx
 var import_jsx_runtime6 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var rootDiv = document.createElement("div");
-rootDiv.style.visibility = "hidden";
-rootDiv.style.position = "absolute";
-document.body.appendChild(rootDiv);
+var mod2 = {
+  md5Hash: "",
+  wait: 1,
+  res: null,
+  codeSpace: "",
+  waitForDiv: async () => {
+    const md5Hash = mod2.md5Hash;
+    if (!mod2.res?.innerHTML)
+      await waitForFlush();
+    if (!mod2.res?.innerHTML)
+      await waitForAnimation();
+    if (!mod2.res?.innerHTML.includes(md5Hash)) {
+      await waitForAnimation();
+    }
+    if (!mod2.res?.innerHTML.includes(md5Hash)) {
+      console.log("waiting");
+      await wait(mod2.wait);
+    }
+    if (!mod2.res?.innerHTML.includes(md5Hash)) {
+      await waitForAnimation();
+    }
+    if (mod2.res?.innerHTML.includes(md5Hash))
+      return mod2.res.innerHTML;
+    mod2.wait = mod2.wait * 2;
+    return await mod2.waitForDiv();
+  },
+  setHash: (_hash2) => void 0,
+  setApp: (md5hash) => {
+    const rootDiv = document.createElement("div");
+    rootDiv.style.visibility = "hidden";
+    rootDiv.style.position = "absolute";
+    document.body.appendChild(rootDiv);
+    const root = (0, import_client.createRoot)(rootDiv);
+    root.render(
+      (0, import_jsx_runtime6.jsx)(Helper, {
+        md5Hash: md5hash
+      })
+    );
+  }
+};
 var render = async (transpiled, codeSpace2) => {
+  mod2.codeSpace = codeSpace2;
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if ((0, import_is_callable.default)(App)) {
-    const root = (0, import_client.createRoot)(rootDiv);
-    root.render(
-      (0, import_jsx_runtime6.jsx)(App, {
-        appId: `${codeSpace2}-${md5hash}`
-      })
-    );
-    let flushed;
-    const rendered = new Promise((resolve) => flushed = resolve);
-    (0, import_react_dom.flushSync)(() => flushed(true));
-    await rendered;
-    const html = rootDiv.innerHTML;
+    mod2.wait = 1;
+    if (!mod2.md5Hash) {
+      mod2.setApp(
+        md5hash
+      );
+    } else {
+      mod2.setHash(md5hash);
+    }
+    const html = await mod2.waitForDiv();
+    if (!html)
+      return;
     let css8 = mineFromCaches(md5hash, html);
     const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
-    root.unmount();
     if (css8 && globalCss)
       css8 = css8 + globalCss;
     return {
@@ -4084,34 +4133,54 @@ var extractCritical22 = (html) => {
     return "";
   }
 };
-
-// js/wait.ts
-init_define_process();
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
+var Helper = ({ md5Hash }) => {
+  const ref = (0, import_react13.useRef)(null);
+  const [hash, setHash] = (0, import_react13.useState)(md5Hash);
+  (0, import_react13.useEffect)(() => {
+    if (ref.current)
+      mod2.res = ref.current;
+    mod2.md5Hash = hash, mod2.setHash = setHash;
+  }, [ref, mod2.md5Hash, setHash]);
+  const App = apps[hash];
+  return (0, import_jsx_runtime6.jsx)("div", {
+    ref,
+    children: (0, import_jsx_runtime6.jsx)(App, {
+      appId: `${mod2.codeSpace}-${md5Hash}`
+    })
+  }, md5Hash);
+};
+var waitForAnimation = () => {
+  let animationFrame;
+  console.log("wait for animation");
+  const animated = new Promise((resolve) => animationFrame = resolve);
+  requestAnimationFrame(() => animationFrame(true));
+  return animated;
+};
+var waitForFlush = () => {
+  let flushed;
+  console.log("wait for flush");
+  const rendered = new Promise((resolve) => flushed = resolve);
+  (0, import_react_dom.flushSync)(() => flushed(true));
+  rendered;
+};
 
 // js/runner.tsx
-var mod2 = {
+var mod3 = {
   code: "",
   olderCode: ""
 };
 async function runner({ code, counter, codeSpace: codeSpace2 }) {
-  mod2.code = code;
+  mod3.code = code;
   const mst = mST();
   console.log(`${mst.i} => ${counter}`);
   if (counter < mst.i) {
     return;
   }
   setTimeout(() => {
-    if (mod2.code === code && code !== mod2.olderCode) {
+    if (mod3.code === code && code !== mod3.olderCode) {
       runner({ code, counter, codeSpace: codeSpace2 });
     }
-    mod2.olderCode = code;
+    mod3.olderCode = code;
   }, 1e3);
   try {
     const transpiled = await initAndTransform(code, {
@@ -4182,8 +4251,8 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
 }
 
 // js/Editor.tsx
-var import_react14 = __toESM(require_react(), 1);
-var import_react15 = __toESM(require_emotion_react_cjs(), 1);
+var import_react15 = __toESM(require_react(), 1);
+var import_react16 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/isMobile.mjs
 init_define_process();
@@ -4251,7 +4320,7 @@ function supportsWorkerType() {
 
 // js/Editor.tsx
 var import_jsx_runtime7 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var mod3 = {
+var mod4 = {
   CH() {
   },
   getValue: async () => "",
@@ -4267,12 +4336,12 @@ var mod3 = {
   codeToSet: ""
 };
 var Editor = ({ codeSpace: codeSpace2 }) => {
-  const ref = (0, import_react13.useRef)(null);
+  const ref = (0, import_react14.useRef)(null);
   const { i, code } = mST();
   const [
     mySession,
     changeContent
-  ] = import_react14.default.useState({
+  ] = import_react15.default.useState({
     lastKeyDown: 0,
     myCode: code,
     counter: i,
@@ -4281,31 +4350,32 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     },
     engine: isMobile() ? "ace" : "monaco"
   });
-  mod3.counter = mST().i;
-  mod3.codeSpace = codeSpace2;
+  mod4.counter = mST().i;
+  mod4.codeSpace = codeSpace2;
   const {
     myCode,
     started: started2,
     engine,
     onChange
   } = mySession;
-  mod3.code = myCode;
-  import_react14.default.useEffect(() => {
+  mod4.code = myCode;
+  import_react15.default.useEffect(() => {
     if (ref.current === null && started2) {
       return;
     }
-    (engine === "monaco" ? setMonaco(ref.current) : setAce()).then((res) => Object.assign(mod3, res)).then(() => changeContent((x) => ({ ...x, started: true })));
-    ;
+    (engine === "monaco" ? setMonaco(ref.current) : setAce()).then(
+      (res) => Object.assign(mod4, res)
+    ).then(() => changeContent((x) => ({ ...x, started: true })));
   }, [started2, ref]);
-  import_react14.default.useEffect(
+  import_react15.default.useEffect(
     () => {
-      mod3.getErrors().then(console.log);
+      mod4.getErrors().then(console.log);
       onChange(
-        () => mod3.getValue().then(
+        () => mod4.getValue().then(
           () => changeContent((x) => ({
             ...x,
-            counter: mod3.counter,
-            myCode: mod3.code
+            counter: mod4.counter,
+            myCode: mod4.code
           }))
         )
       );
@@ -4313,22 +4383,22 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     [onChange, myCode, changeContent]
   );
   onSessionUpdate(() => {
-    if (mod3.counter >= mST().i) {
+    if (mod4.counter >= mST().i) {
       return;
     }
-    mod3.counter = mST().i;
-    mod3.code = mST().code;
-    mod3.setValue(mod3.code);
+    mod4.counter = mST().i;
+    mod4.code = mST().code;
+    mod4.setValue(mod4.code);
     changeContent((x) => ({
       ...x,
-      counter: mod3.counter,
-      myCode: mod3.code
+      counter: mod4.counter,
+      myCode: mod4.code
     }));
   }, "editor");
   return (0, import_jsx_runtime7.jsx)("div", {
-    onKeyDown: () => mod3.lastKeyDown = Date.now(),
+    onKeyDown: () => mod4.lastKeyDown = Date.now(),
     id: "editor",
-    css: import_react15.css`          
+    css: import_react16.css`          
       max-width: 640px;
       height: 100%; 
       `,
@@ -4337,26 +4407,24 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
 };
 async function onModChange(_code) {
   const code = await prettierJs(_code);
-  if (code === mod3.code)
+  if (code === mod4.code)
     return;
-  const counter = ++mod3.counter;
-  mod3.code = code;
-  runner({ code, counter, codeSpace: mod3.codeSpace });
+  const counter = ++mod4.counter;
+  mod4.code = code;
+  runner({ code, counter, codeSpace: mod4.codeSpace });
 }
 async function setMonaco(container) {
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/renderPreviewWindow.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-FMA2MTPG.mjs");
-  return startMonaco(
-    {
-      container,
-      name: mod3.codeSpace,
-      code: mST().code,
-      onChange: onModChange
-    }
-  );
+  const { startMonaco } = await import("./chunk-startMonaco-ATEQ2U66.mjs");
+  return startMonaco({
+    container,
+    name: mod4.codeSpace,
+    code: mST().code,
+    onChange: onModChange
+  });
 }
 async function setAce() {
   const { startAce } = await import("./chunk-startAce-PAJE7BY2.mjs");
@@ -4366,7 +4434,7 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime8 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime8.jsx)("div", {
-  css: import_react17.css`
+  css: import_react18.css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -4413,9 +4481,9 @@ background:  repeating-radial-gradient(circle at bottom left,
 });
 var AppToRender = ({ codeSpace: codeSpace2 }) => {
   const currentHash = hashCode();
-  const [hash, setHash] = (0, import_react16.useState)(currentHash);
+  const [hash, setHash] = (0, import_react17.useState)(currentHash);
   const isStandalone = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
-  (0, import_react16.useEffect)(() => {
+  (0, import_react17.useEffect)(() => {
     onSessionUpdate(async () => {
       const newHash = hashCode();
       if (hash !== newHash) {
@@ -4428,10 +4496,10 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
       }
     }, "myApp");
   }, [hash, setHash]);
-  const portalNode = (0, import_react16.useMemo)(() => createHtmlPortalNode({
+  const portalNode = (0, import_react17.useMemo)(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return (0, import_jsx_runtime8.jsxs)(import_react16.Fragment, {
+  return (0, import_jsx_runtime8.jsxs)(import_react17.Fragment, {
     children: [
       (0, import_jsx_runtime8.jsx)(InPortal, {
         node: portalNode,
@@ -4443,7 +4511,7 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
       isStandalone ? (0, import_jsx_runtime8.jsx)(OutPortal, {
         node: portalNode
       }) : (0, import_jsx_runtime8.jsx)(RainbowContainer, {
-        children: (0, import_jsx_runtime8.jsxs)(import_react16.Fragment, {
+        children: (0, import_jsx_runtime8.jsxs)(import_react17.Fragment, {
           children: [
             (0, import_jsx_runtime8.jsx)(Editor, {
               codeSpace: codeSpace2
@@ -4470,7 +4538,7 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   const root = (0, import_client2.createRoot)(div);
   const x = emotionCache_default({ key: "root" });
   root.render(
-    (0, import_jsx_runtime8.jsx)(import_react17.CacheProvider, {
+    (0, import_jsx_runtime8.jsx)(import_react18.CacheProvider, {
       value: x,
       children: (0, import_jsx_runtime8.jsx)(AppToRender, {
         codeSpace: codeSpace2
@@ -4487,14 +4555,14 @@ Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps, eCaches } = globalThis || globalThis.apps;
 var render2 = {};
 var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
-  const [md5Hash, setMdHash] = (0, import_react18.useState)(md5(mST().transpiled).slice(0, 8));
-  (0, import_react18.useEffect)(() => {
+  const [md5Hash, setMdHash] = (0, import_react19.useState)(md5(mST().transpiled).slice(0, 8));
+  (0, import_react19.useEffect)(() => {
     const newHash = md5(mST().transpiled).slice(0, 8);
     if (newHash !== md5Hash) {
       setMdHash(newHash);
     }
   }, [hash]);
-  (0, import_react18.useEffect)(() => {
+  (0, import_react19.useEffect)(() => {
     const newHash = md5(mST().transpiled).slice(0, 8);
     if (newHash !== md5Hash)
       return;
@@ -4507,10 +4575,10 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
     } else
       delete render2[md5Hash];
   }, [md5Hash]);
-  const ref = (0, import_react18.useRef)(null);
+  const ref = (0, import_react19.useRef)(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
-  return (0, import_jsx_runtime9.jsx)(import_react19.CacheProvider, {
+  return (0, import_jsx_runtime9.jsx)(import_react20.CacheProvider, {
     value: emotionCache_default({ key: "x" }),
     children: (0, import_jsx_runtime9.jsx)(ErrorBoundary_default, {
       ref,
@@ -4534,10 +4602,10 @@ async function appFactory(transpiled = "", codeSpace2) {
           key: "z",
           speedy: true
         });
-        apps[hash] = ({ appId }) => appId.includes(hash) ? (0, import_jsx_runtime9.jsx)(import_react19.CacheProvider, {
+        apps[hash] = ({ appId }) => appId.includes(hash) ? (0, import_jsx_runtime9.jsx)(import_react20.CacheProvider, {
           value: eCaches[hash],
           children: (0, import_jsx_runtime9.jsx)("div", {
-            css: import_react19.css`height: 100%;`,
+            css: import_react20.css`height: 100%;`,
             id: appId,
             children: (0, import_jsx_runtime9.jsx)(App, {})
           })
@@ -4549,7 +4617,7 @@ async function appFactory(transpiled = "", codeSpace2) {
         const name = error.name;
         const message = error.message;
         apps[hash] = () => (0, import_jsx_runtime9.jsxs)("div", {
-          css: import_react19.css`background-color: orange;`,
+          css: import_react20.css`background-color: orange;`,
           children: [
             (0, import_jsx_runtime9.jsx)("h1", {
               children: "Syntax Error"
@@ -4570,7 +4638,7 @@ async function appFactory(transpiled = "", codeSpace2) {
         const name = error.name;
         const message = error.message;
         apps[hash] = () => (0, import_jsx_runtime9.jsxs)("div", {
-          css: import_react19.css`background-color: orange;`,
+          css: import_react20.css`background-color: orange;`,
           children: [
             (0, import_jsx_runtime9.jsx)("h1", {
               children: "Syntax Error"
@@ -4589,7 +4657,7 @@ async function appFactory(transpiled = "", codeSpace2) {
         });
       } else {
         apps[hash] = () => (0, import_jsx_runtime9.jsx)("div", {
-          css: import_react19.css`background-color: orange;`,
+          css: import_react20.css`background-color: orange;`,
           children: (0, import_jsx_runtime9.jsxs)("h1", {
             children: [
               "Unknown Error: $",

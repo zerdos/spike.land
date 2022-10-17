@@ -26,14 +26,13 @@ const mod = {
   setValue: async (code: string) => {
     if (code.length < 10) console.log(code);
   },
-  getErrors: async()=>[] as string[],
+  getErrors: async () => [] as string[],
   code: "",
   counter: 0,
-  codeSpace: '',
+  codeSpace: "",
   lastKeyDown: 0,
   codeToSet: "",
 };
-
 
 // Export type IStandaloneCodeEditor = editor.Ist;
 
@@ -42,7 +41,7 @@ export const Editor: React.FC<
     codeSpace: string;
   }
 > = (
-  { codeSpace }
+  { codeSpace },
 ) => {
   const ref = useRef<HTMLDivElement>(null);
   const { i, code } = mST();
@@ -78,11 +77,10 @@ export const Editor: React.FC<
     if (ref.current === null && started) {
       return;
     }
-    
 
-    (engine === "monaco" ? setMonaco(ref.current!) : setAce()).then(res=> Object.assign(mod, res)).then(()=>changeContent(x=>({...x, started: true})));;
-
-
+    (engine === "monaco" ? setMonaco(ref.current!) : setAce()).then((res) =>
+      Object.assign(mod, res)
+    ).then(() => changeContent((x) => ({ ...x, started: true })));
   }, [started, ref]);
 
   // UseInsertionEffect(()=>{
@@ -90,18 +88,17 @@ export const Editor: React.FC<
   // })
 
   React.useEffect(
-    () =>{
-    mod.getErrors().then(console.log);
+    () => {
+      mod.getErrors().then(console.log);
       onChange(() =>
         mod.getValue().then(() =>
-
           changeContent((x) => ({
             ...x,
             counter: mod.counter,
             myCode: mod.code,
           }))
         )
-      )
+      );
     },
     [onChange, myCode, changeContent],
   );
@@ -135,24 +132,17 @@ export const Editor: React.FC<
   );
 };
 
+async function onModChange(_code: string) {
+  const code = await prettierJs(_code);
 
+  if (code === mod.code) return;
 
-async function onModChange(_code: string){
-     
-
-  const code =  await prettierJs(_code);
-   
-   if (code === mod.code) return;
-
-
-   const counter = ++mod.counter;
-   mod.code = code;
-   runner({ code, counter,codeSpace: mod.codeSpace });
-       
+  const counter = ++mod.counter;
+  mod.code = code;
+  runner({ code, counter, codeSpace: mod.codeSpace });
 }
 
-
-async function setMonaco(container: HTMLDivElement){
+async function setMonaco(container: HTMLDivElement) {
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/renderPreviewWindow.css";
@@ -160,16 +150,15 @@ async function setMonaco(container: HTMLDivElement){
 
   const { startMonaco } = await import("./startMonaco");
 
- return  startMonaco( {
-        container,
-        name: mod.codeSpace,
-        code: mST().code,
-        onChange: onModChange
-      },
-    );
-};
+  return startMonaco({
+    container,
+    name: mod.codeSpace,
+    code: mST().code,
+    onChange: onModChange,
+  });
+}
 
-async function setAce(){
+async function setAce() {
   const { startAce } = await import("./startAce");
-  return await startAce(mST().code, onModChange); 
-};
+  return await startAce(mST().code, onModChange);
+}

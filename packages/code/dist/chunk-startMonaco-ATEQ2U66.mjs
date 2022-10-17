@@ -42629,7 +42629,9 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     const mod2 = {
       silent: false,
       code: code2,
-      tsWorker: languages.typescript.getTypeScriptWorker().then((ts) => ts(model.uri))
+      tsWorker: languages.typescript.getTypeScriptWorker().then(
+        (ts) => ts(model.uri)
+      )
     };
     model.onDidChangeContent(() => {
       if (mod2.silent)
@@ -42642,7 +42644,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     });
     return {
       getValue: () => mod2.code,
-      getErrors: () => mod2.tsWorker.then((ts) => ts.getSemanticDiagnostics(location.origin + "/live/" + codeSpace + ".tsx").then((diag) => diag.map((d) => d.messageText.toString()))),
+      getErrors: () => mod2.tsWorker.then(
+        (ts) => ts.getSemanticDiagnostics(
+          location.origin + "/live/" + codeSpace + ".tsx"
+        ).then((diag) => diag.map((d) => d.messageText.toString()))
+      ),
       setValue: (code3) => {
         mod2.silent = true;
         let state = null;
