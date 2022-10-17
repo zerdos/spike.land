@@ -123,28 +123,10 @@ export const Editor: React.FC<
         return code;
       };
 
-      const setValue = async (_code: string) => {
-        const i = mST().i;
-        const code = await prettierJs(_code);
-        if (code.length < 10) return;
-        if (code === await getValue()) return;
-        if (i <= mod.counter) return;
 
-        // console.log("timeout-start");
-        // setTimeout(() => {
-
-        // mod.codeToSet === code  &&
-        mod.code = code;
-        mod.counter = i;
-        setMonValue(code);
-        changeContent((ct) => ({ ...ct, myCode: mod.code, counter: i }));
-        //  console.log("timeout-end");
-
-        // }, 800); //wait this time before overwriting the value
-      };
-
+      
       mod.getValue = getValue;
-      mod.setValue = setValue;
+      mod.setValue = setMonValue;
 
       changeContent({
         ...mySession,
@@ -163,8 +145,8 @@ export const Editor: React.FC<
       const { startAce } = await import("./startAce");
       const editor = await startAce(mST().code);
       const getValue = async () => {
-        const code = await prettierJs(editor.session.getValue());
-        if (code === mod.code) return mod.code;
+        const code =await prettierJs(editor.session.getValue());
+        if (code === mod.code) return code;
         const counter = ++mod.counter;
         mod.code = code;
 
@@ -173,28 +155,14 @@ export const Editor: React.FC<
         return mod.code;
       };
 
-      const setValue = async (_code: string) => {
-        const i = mST().i;
-        const code = await prettierJs(_code);
+      const setValue = (code: string) => {
+    
+    
+        	const before = editor.selection.toJSON();
 
-        mod.codeToSet = code;
-
-        if (code.length < `export default ()=><></>`.length) return;
-        if (code === await getValue()) return;
-        if (i == mod.counter) return;
-
-        // setTimeout(() => {
-        // if (mod.codeToSet === code) {
-        //	const before = editor.selection.toJSON();
-
-        mod.code = code;
-        mod.counter = i;
         editor.session.setValue(code);
-        changeContent((ct) => ({ ...ct, myCode: mod.code, counter: i }));
 
-        //	editor.selection.fromJSON(before)
-        // }
-        // }, 800); //wait this time before overwriting the value
+        	editor.selection.fromJSON(before);
       };
 
       mod.getValue = getValue;
@@ -237,12 +205,13 @@ export const Editor: React.FC<
   );
 
   onSessionUpdate(() => {
-    if (mod.counter > mST().i) {
+    if (mod.counter >= mST().i) {
       return;
     }
 
     mod.counter = mST().i;
     mod.code = mST().code;
+
     mod.setValue(mod.code);
     changeContent((x) => ({
       ...x,

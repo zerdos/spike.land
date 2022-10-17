@@ -80,7 +80,7 @@ export default {
       if (!path[0]) {
         // Serve our HTML at the root path.
         return new Response(
-          `<meta http-equiv="refresh" content="0; URL=${u.origin}/live/coder/" />`,
+          `<meta http-equiv="refresh" content="0; URL=${u.origin}/live/coder" />`,
           {
             headers: {
               "Location": `${u.origin}/live/coder`,
@@ -330,17 +330,14 @@ export default {
               // const assets: typeof assetManifest = {}
               // Object.keys(assetManifest).map(x=>{assets[`/live/${paths[0]}/${x}`]=assetManifest[x]})
 
-              return Promise.any([
-                handleApiRequest(
+              return handleApiRequest(
                   ["room", ...paths, "public"],
                   request,
                   env,
-                ),
-
                 path.length > 2
                   ? handleFetchApi([...path.slice(2)])
                   : Promise.reject(),
-              ]).catch(() => new Response("Error"));
+              ).catch(() => new Response("Error"));
 
             default:
               const kvResp = await getAssetFromKV(
