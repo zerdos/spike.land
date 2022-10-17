@@ -4,7 +4,6 @@ import { appFactory, apps, eCaches } from "starter";
 
 import { createRoot } from "react-dom/client";
 import { flushSync } from "react-dom";
-import isCallable from "is-callable";
 import { useEffect, useRef, useState } from "react";
 import { wait } from "wait";
 
@@ -32,7 +31,7 @@ const mod = {
     mod.wait = mod.wait * 2;
     return await (mod.waitForDiv as unknown as () => Promise<string>)();
   },
-  setHash: (_hash: string) => undefined,
+  setHash: null as (null | ((_hash: string) => void)),
   setApp: (md5hash: string) => {
     const rootDiv = document.createElement("div");
     rootDiv.style.visibility = "hidden";
@@ -49,36 +48,35 @@ const mod = {
 export const render = async (transpiled: string, codeSpace: string) => {
   mod.codeSpace = codeSpace;
   const md5hash = md5(transpiled).slice(0, 8);
-  const App = await appFactory(transpiled);
-  if (isCallable(App)) {
-    mod.wait = 1;
+  if (!apps[md5hash]) await appFactory(transpiled);
 
-    if (!mod.md5Hash) {
-      mod.setApp(
-        md5hash,
-      );
-    } else {
-      mod.setHash(md5hash);
-    }
+  mod.wait = 1;
 
-    const html = await mod.waitForDiv();
+  if (!mod.setHash) {
+    mod.setApp(
+      md5hash,
+    );
+  } else {
+    mod.setHash(md5hash);
+  }
 
-    if (!html) return { html: null, css: null };
+  const html = await mod.waitForDiv();
 
-    //  const html = mod.res.innerHTML;
-    let css = mineFromCaches(md5hash, html);
-    const globalCss = document.querySelector("style[data-emotion=z-global]")
-      ?.innerHTML;
+  if (!html) return { html: null, css: null };
 
-    //    root.unmount()
+  //  const html = mod.res.innerHTML;
+  let css = mineFromCaches(md5hash, html);
+  const globalCss = document.querySelector("style[data-emotion=z-global]")
+    ?.innerHTML;
 
-    if (css && globalCss) css = css + globalCss;
+  //    root.unmount()
 
-    return {
-      html,
-      css,
-    };
-  } else return { html: null, css: null };
+  if (css && globalCss) css = css + globalCss;
+
+  return {
+    html,
+    css,
+  };
 };
 // };
 export const renderFromString = (
@@ -157,15 +155,14 @@ const Helper: React.FC<{ md5Hash: string }> = ({ md5Hash }) => {
 
   useEffect(() => {
     if (ref.current) mod.res = ref.current;
-    mod.md5Hash = hash,
-      mod.setHash = setHash as unknown as (_: string) => undefined;
-  }, [ref, mod.md5Hash, setHash]);
+    mod.md5Hash = hash, mod.setHash = (hash: string) => setHash(hash);
+  }, [ref, hash, setHash]);
 
   const App = apps[hash];
 
   return (
-    <div ref={ref} key={hash}>
-      <App appId={`${mod.codeSpace}-${hash}`} />
+    <div ref={ref}>
+      <App key={hash} appId={`${mod.codeSpace}-${hash}`} />
     </div>
   );
 };
