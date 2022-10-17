@@ -4144,6 +4144,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
     const { html, css: css8 } = await render(transpiledCode, codeSpace2);
+    console.log({ html, css: css8 });
     if (!html) {
       return;
     }
