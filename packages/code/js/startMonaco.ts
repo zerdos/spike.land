@@ -366,10 +366,9 @@ export const startMonaco = async (
     code: string;
     container: HTMLDivElement;
     name: string;
-    onChange: (_code: string)=>void
+    onChange: (_code: string) => void;
   },
 ) => {
-
   //  console.log({code, container, name});
   if (mod[name]) {
     return mod[name] as unknown as typeof returnValue;
@@ -513,7 +512,7 @@ export const startMonaco = async (
          */
         showSnippets: true,
       },
-    
+
       automaticLayout: true,
 
       useShadowDOM: true,
@@ -542,22 +541,28 @@ export const startMonaco = async (
 
     const mod = {
       silent: false,
-      code, 
-      tsWorker: languages.typescript.getTypeScriptWorker().then(ts=>ts(model.uri)),
+      code,
+      tsWorker: languages.typescript.getTypeScriptWorker().then((ts) =>
+        ts(model.uri)
+      ),
+    };
 
-    }
-
-    model.onDidChangeContent(()=>{
-      if (mod.silent) return ;
+    model.onDidChangeContent(() => {
+      if (mod.silent) return;
       const code = model.getValue();
       if (mod.code === code) return;
       mod.code = code;
       onChange(code);
-    })
+    });
 
     return {
-      getValue: ()=>mod.code,
-      getErrors: ()=>mod.tsWorker.then(ts=>ts.getSemanticDiagnostics( location.origin + "/live/" + codeSpace + ".tsx").then(diag=>diag.map(d=>d.messageText.toString()))),
+      getValue: () => mod.code,
+      getErrors: () =>
+        mod.tsWorker.then((ts) =>
+          ts.getSemanticDiagnostics(
+            location.origin + "/live/" + codeSpace + ".tsx",
+          ).then((diag) => diag.map((d) => d.messageText.toString()))
+        ),
       setValue: (code: string) => {
         mod.silent = true;
         let state = null;
@@ -573,7 +578,7 @@ export const startMonaco = async (
           editor.restoreViewState(state);
         }
         mod.silent = false;
-      }
+      },
     };
   }
 };

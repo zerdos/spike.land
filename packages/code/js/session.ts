@@ -251,8 +251,8 @@ export class CodeSession implements ICodeSess {
       }
     }
 
-    const maybeOldRec =  hashStore[oldHash];
-    if (!maybeOldRec) throw new Error (`cant find old record: ${oldHash}`);
+    const maybeOldRec = hashStore[oldHash];
+    if (!maybeOldRec) throw new Error(`cant find old record: ${oldHash}`);
     const oldString = string_(maybeOldRec.toJSON());
 
     const applied = aPatch(oldString, patch);
