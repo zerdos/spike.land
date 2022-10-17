@@ -15,7 +15,7 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-7LQODE4K.mjs";
+} from "./chunk-chunk-W6KMB7RU.mjs";
 import {
   wrap
 } from "./chunk-chunk-466MU7CN.mjs";
@@ -14806,27 +14806,29 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       const editor = await startAce(mST().code);
       const getValue = async () => {
         const code2 = await prettierJs(editor.session.getValue());
-        if (code2 === mod3.code)
-          return code2;
-        const counter = ++mod3.counter;
-        mod3.code = code2;
-        runner({ code: code2, counter, codeSpace: codeSpace2 });
-        return mod3.code;
+        return code2;
       };
       const setValue = (code2) => {
         const before = editor.selection.toJSON();
         editor.session.setValue(code2);
         editor.selection.fromJSON(before);
       };
+      editor.session.onChange = (delta) => {
+        console.log({ delta });
+        prettierJs(editor.session.getValue()).then((code2) => {
+          if (code2 === mod3.code)
+            return code2;
+          const counter = ++mod3.counter;
+          mod3.code = code2;
+          runner({ code: code2, counter, codeSpace: codeSpace2 });
+        });
+        return mod3.code;
+      };
       mod3.getValue = getValue;
       mod3.setValue = setValue;
       changeContent({
         ...mySession,
-        onChange(cb) {
-          editor.session.on("change", cb);
-          return () => {
-            editor.session.off("change", cb);
-          };
+        onChange: (cb) => {
         },
         started: true,
         myId: "editor"

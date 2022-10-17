@@ -5500,7 +5500,10 @@ var CodeSession = class {
           hashStore[latestRec.hashCode()] = latestRec;
         }
       }
-      const oldString = string_(hashStore[oldHash].toJSON());
+      const maybeOldRec = hashStore[oldHash];
+      if (!maybeOldRec)
+        throw new Error(`cant find old record: ${oldHash}`);
+      const oldString = string_(maybeOldRec.toJSON());
       const applied = applyPatch(oldString, patch);
       const newState = JSON.parse(applied);
       const newRec = this.session.get("state").merge(

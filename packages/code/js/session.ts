@@ -251,7 +251,10 @@ export class CodeSession implements ICodeSess {
       }
     }
 
-    const oldString = string_(hashStore[oldHash].toJSON());
+    const maybeOldRec =  hashStore[oldHash];
+    if (!maybeOldRec) throw new Error (`cant find old record: ${oldHash}`);
+    const oldString = string_(maybeOldRec.toJSON());
+
     const applied = aPatch(oldString, patch);
     const newState = JSON.parse(applied);
     const newRec: Record<ICodeSession> = this.session.get("state").merge(
