@@ -4003,6 +4003,9 @@ var import_client = __toESM(require_client(), 1);
 var import_is_callable = __toESM(require_is_callable(), 1);
 var import_jsx_runtime6 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var rootDiv = document.createElement("div");
+rootDiv.style.visibility = "hidden";
+rootDiv.style.position = "absolute";
+document.body.appendChild(rootDiv);
 var render = async (transpiled, codeSpace2) => {
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);

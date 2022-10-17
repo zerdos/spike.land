@@ -6,6 +6,9 @@ import { createRoot } from "react-dom/client";
 import isCallable from "is-callable";
 
 const rootDiv = document.createElement("div");
+rootDiv.style.visibility = "hidden";
+rootDiv.style.position = "absolute";
+document.body.appendChild(rootDiv);
 
 export const render = async (transpiled: string, codeSpace: string) => {
   const md5hash = md5(transpiled).slice(0, 8);
@@ -13,8 +16,8 @@ export const render = async (transpiled: string, codeSpace: string) => {
   if (isCallable(App)) {
     
     const root = createRoot(rootDiv);
-     root.render(
-      <App appId={`${codeSpace}-${md5hash}`} />,
+    root.render(
+      <App appId={`${codeSpace}-${md5hash}`} />
     );
     const html = rootDiv.innerHTML;
     let css = mineFromCaches(md5hash, html);
@@ -26,7 +29,7 @@ export const render = async (transpiled: string, codeSpace: string) => {
     if (css && globalCss) css=css + globalCss 
 
     return {
-      html: html,
+      html,
       css,
     };
   } else return { html: null, css: null };
