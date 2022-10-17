@@ -146,13 +146,8 @@ export const Editor: React.FC<
       const editor = await startAce(mST().code);
       const getValue = async () => {
         const code =await prettierJs(editor.session.getValue());
-        if (code === mod.code) return code;
-        const counter = ++mod.counter;
-        mod.code = code;
 
-        runner({ code, counter, codeSpace });
-
-        return mod.code;
+        return code;
       };
 
       const setValue = (code: string) => {
@@ -164,17 +159,31 @@ export const Editor: React.FC<
 
         	editor.selection.fromJSON(before);
       };
+      editor.session.onChange = (delta)=> {
+        console.log({delta});
+        // const code =await prettierJs(editor.session.getValue());
+
+        prettierJs(editor.session.getValue()).then((code)=>{
+
+
+          if (code === mod.code) return code;
+          const counter = ++mod.counter;
+          mod.code = code;
+  
+          runner({ code, counter, codeSpace });
+          
+        })
+       
+
+        return mod.code;
+      }
 
       mod.getValue = getValue;
       mod.setValue = setValue;
 
       changeContent({
         ...mySession,
-        onChange(cb: () => void) {
-          editor.session.on("change", cb);
-          return () => {
-            editor.session.off("change", cb);
-          };
+        onChange: (cb: () => void) => {
         },
         started: true,
         myId: "editor",
