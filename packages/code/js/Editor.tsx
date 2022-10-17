@@ -142,49 +142,35 @@ export const Editor: React.FC<
     };
 
     const setAce = async () => {
+
+     async function onXHA(_code: string){
+     
+
+        const code =  await prettierJs(_code);
+         
+         if (code === mod.code) return;
+   
+   
+         const counter = ++mod.counter;
+         mod.code = code;
+         runner({ code, counter, codeSpace });
+             
+         }
+
       const { startAce } = await import("./startAce");
-      const editor = await startAce(mST().code);
-      const getValue = async () => {
-        const code =await prettierJs(editor.session.getValue());
-
-        return code;
-      };
-
-      const setValue = (code: string) => {
+      const { setValue, getValue} = await startAce(mST().code, onXHA);
     
-    
-        	const before = editor.selection.toJSON();
 
-        editor.session.setValue(code);
-
-        	editor.selection.fromJSON(before);
-      };
-      editor.session.onChange = (delta)=> {
-        console.log({delta});
-        // const code =await prettierJs(editor.session.getValue());
-
-        prettierJs(editor.session.getValue()).then((code)=>{
-
-
-          if (code === mod.code) return code;
-          const counter = ++mod.counter;
-          mod.code = code;
-  
-          runner({ code, counter, codeSpace });
-          
-        })
-       
-
-        return mod.code;
-      }
 
       mod.getValue = getValue;
       mod.setValue = setValue;
 
+      
+      
       changeContent({
         ...mySession,
-        onChange: (cb: () => void) => {
-        },
+        setValue, 
+        getValue,
         started: true,
         myId: "editor",
       });

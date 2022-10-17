@@ -911,13 +911,13 @@ __metadata:
     esbuild-wasm: "npm:0.15.11"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:7.5.3"
+    framer-motion: "npm:7.5.4"
     hoist-non-react-statics: "npm:^3.3.2"
     immutable: "npm:4.1.0"
     is-callable: "npm:1.2.7"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.34.0"
+    monaco-editor: "npm:0.34.1"
     p-map: "npm:5.5.0"
     popmotion: "npm:11.0.5"
     preact: "npm:10.11.2"
@@ -2664,9 +2664,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.5.3":
-  version: 7.5.3
-  resolution: "framer-motion@npm:7.5.3"
+"framer-motion@npm:7.5.4":
+  version: 7.5.4
+  resolution: "framer-motion@npm:7.5.4"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
@@ -2681,7 +2681,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: b561aa5260447a44ea1d6da740c2cffd953c7457d4f0cdb3e3c41539abf55c31b7025944c0ac1d08edd203498955f72ab7e9c315870b871ee5e8502186701681
+  checksum: 31dbf7c52fd30efe181f277c260605de084f1a7a09bf6c036af81a2488ae24b56f7d3333cb68231ad449a43f3f09e159ba71392fa4fcc50643e3b140eed09d6f
   languageName: node
   linkType: hard
 
@@ -3590,10 +3590,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.34.0":
-  version: 0.34.0
-  resolution: "monaco-editor@npm:0.34.0"
-  checksum: c88399a1b1e86eca6818719c08ec70cd76e133b949a22712ec42a0183f0566ce7887c63d8bab6cca08fbbf7723ad16092e46e331f3b15fcf288cca6aa64e9ab2
+"monaco-editor@npm:0.34.1":
+  version: 0.34.1
+  resolution: "monaco-editor@npm:0.34.1"
+  checksum: 97e36072f880b61113919eb02b155a7895dc6db0dc6da8953a5f2ecc6f50795f10aff87ebf8c3bc59c0927604aa66ccb93bb90a3ea2695b79736639f91adde23
   languageName: node
   linkType: hard
 
@@ -3658,7 +3658,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.6"
     esbuild: "npm:0.15.11"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:7.5.3"
+    framer-motion: "npm:7.5.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.0.1"
