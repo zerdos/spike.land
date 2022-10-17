@@ -42618,6 +42618,13 @@ var startMonaco = async ({ code, container, name }) => {
         independentColorPoolPerBracketType: true,
         enabled: true
       },
+      bracketPairGuides: {
+        bracketPairs: true,
+        bracketPairsHorizontal: true,
+        highlightActiveBracketPair: true,
+        indentation: true,
+        highlightActiveIndentation: "always"
+      },
       codeLens: true,
       "semanticHighlighting.enabled": true,
       dragAndDrop: true,
