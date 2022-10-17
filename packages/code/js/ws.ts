@@ -113,7 +113,7 @@ export const run = async (startState: {
   codeSpace: string;
   address: string;
 }) => {
-  const {  mST: mst, address } = startState;
+  const { mST: mst, address } = startState;
   codeSpace = startState.codeSpace;
   bc = new BroadcastChannel(location.origin);
 
@@ -135,8 +135,6 @@ export const run = async (startState: {
   }, location.origin);
 
   await appFactory(mst.transpiled, codeSpace);
-
-
 
   //Const {join} = await import("./rtc");
 
@@ -515,15 +513,16 @@ async function processData(
         data.name && data.name !== user &&
         !rtcConns[data.name] && !ignoreUsers.includes(data.name)
       ) {
-
         await createPeerConnection(data.name);
         const users = data.users as string[];
         while (users.length) {
           await wait(2000);
-          const nextToConnect = users.pop()
-          if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) await createPeerConnection(nextToConnect);
+          const nextToConnect = users.pop();
+          if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
+            await createPeerConnection(nextToConnect);
+          }
         }
-      
+
         return;
       }
     } catch (error) {

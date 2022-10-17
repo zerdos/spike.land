@@ -121,11 +121,11 @@ const build = (entryPoints, extraExternal) =>
       ".tsx": "tsx",
       ".jsx": "tsx",
       ".js": "tsx",
-      ".mjs": 'tsx',
+      ".mjs": "tsx",
       ".css": "css",
       ".d.ts": "file",
       ".workerJs.js": "file",
-      ".wasm": "file"
+      ".wasm": "file",
     },
     outdir,
   }).catch((error) => {
@@ -156,8 +156,6 @@ const build = (entryPoints, extraExternal) =>
     outdir: "./js/monaco-workers",
   });
 
-
-
   // buildOptions.plugins = [
   //   aliasPlugin({
   //     react: resolve("./js/react-preact.ts"),
@@ -168,7 +166,6 @@ const build = (entryPoints, extraExternal) =>
   //     "react/jsx-runtime": resolve("./js/react-preact.ts"),
   //   })];
 
-
   //   await build([
   //     // "js/session.ts",
   //     // "js/prettierWorker.mjs",
@@ -178,7 +175,7 @@ const build = (entryPoints, extraExternal) =>
   //     "js/emotion.ts",
   //     // "js/mui.tsx",
   //     "js/emotionJsxRuntime.ts",
-  //     // "js/ws.ts"], 
+  //     // "js/ws.ts"],
   //    ],[]);
 
   buildOptions.plugins = [
@@ -194,25 +191,21 @@ const build = (entryPoints, extraExternal) =>
       // "react-dom/server": resolve("./js/react-preact.ts"),
       // "react/jsx-runtime": resolve("./js/react-preact.ts"),
       // "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
-    })
+    }),
   ];
-  
-    await build([
-      "js/session.ts",
-      "js/prettierWorker.mjs",
-      "js/react-preact.ts",
-      "js/motion.ts",
-      "js/renderToString.tsx",
-      "js/renderPreviewWindow.tsx",
-      "js/emotion.ts",
-      "js/emotionJsxRuntime.ts",  
-      "js/ws.ts",
-      "js/load.ts"
-    ], [
 
-    ]);
-    
-
+  await build([
+    "js/session.ts",
+    "js/prettierWorker.mjs",
+    "js/react-preact.ts",
+    "js/motion.ts",
+    "js/renderToString.tsx",
+    "js/renderPreviewWindow.tsx",
+    "js/emotion.ts",
+    "js/emotionJsxRuntime.ts",
+    "js/ws.ts",
+    "js/load.ts",
+  ], []);
 })();
 
 // Await esbuild

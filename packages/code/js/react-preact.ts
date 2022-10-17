@@ -16,7 +16,6 @@
 // 	hydrate(children, container)
 // 	return createRoot(contain
 
-
 // import { render, hydrate, unmountComponentAtNode } from "./preact/compat/dist/compat.mjs"
 
 // export function createRoot(container) {
@@ -35,50 +34,49 @@
 // 	return createRoot(container)
 // }
 
-
 // export {jsx, jsxs, Fragment}  from "./preact/compat/jsx-runtime.mjs";
 
-import * as ReactM from "react"
+import * as ReactM from "react";
 
 const React = window.React || ReactM;
 
 export const {
- Children,
-Component,
-Fragment,
-PureComponent,
- StrictMode,
-Suspense,
- cloneElement,
-createContext,
-createElement,
- createFactory,
-createRef,
- forwardRef,
- isValidElement,
+  Children,
+  Component,
+  Fragment,
+  PureComponent,
+  StrictMode,
+  Suspense,
+  cloneElement,
+  createContext,
+  createElement,
+  createFactory,
+  createRef,
+  forwardRef,
+  isValidElement,
 
- lazy,
- memo,
- startTransition,
- useCallback,
- useContext,
- useDebugValue,
- useDeferredValue,
- useEffect,
-useId,
- useImperativeHandle,
- useInsertionEffect,
- useLayoutEffect,
-useMemo,
- useReducer,
- useRef,
- useState,
- useSyncExternalStore,
- useTransition,
- version} = React
+  lazy,
+  memo,
+  startTransition,
+  useCallback,
+  useContext,
+  useDebugValue,
+  useDeferredValue,
+  useEffect,
+  useId,
+  useImperativeHandle,
+  useInsertionEffect,
+  useLayoutEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  useTransition,
+  version,
+} = React;
 
-
- export default React  
+export default React;
 
 // export const React = { ...Preact, ...PreactCompat, Component};
 // Object.assign(React, {default: React})
@@ -96,8 +94,6 @@ useMemo,
 // export const { toChildArray } = PreactCompat;
 
 // export { createPortal, findDOMNode, SuspenseList };
-
-
 
 // export const {
 //   createPortal,

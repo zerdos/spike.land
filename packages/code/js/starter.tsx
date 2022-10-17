@@ -1,38 +1,33 @@
-
 import type { FC } from "react";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 // import {terminal} from "./DraggableWindow"
 
 import { mST, patchSync } from "./session";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "./md5.js";
 import { CacheProvider, css } from "@emotion/react";
-import type {EmotionCache} from "@emotion/cache";
+import type { EmotionCache } from "@emotion/cache";
 import createCache from "./emotionCache";
 import { renderPreviewWindow } from "renderPreviewWindow";
 
-
-import  { renderFromString } from "./renderToString";
-
-
+import { renderFromString } from "./renderToString";
 
 // import { CacheProvider } from "@emotion/react// import createCache from "@emotion/cache";
 // import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
 
-const dynamicImport = (src: string) => window.importShim?window.importShim(src) : import(src);
+const dynamicImport = (src: string) =>
+  window.importShim ? window.importShim(src) : import(src);
 
+// const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache};
 
-// const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache}; 
-
-Object.assign(globalThis, {apps:{}, eCaches:{}});
-
+Object.assign(globalThis, { apps: {}, eCaches: {} });
 
 export const { apps, eCaches } = (globalThis as unknown as {
   apps: Record<string, React.FC<{ appId: string }>>;
   eCaches: Record<string, EmotionCache>;
-})  || (globalThis as unknown as {
+}) || (globalThis as unknown as {
   apps: Record<string, React.FC<{ appId: string }>>;
   eCaches: Record<string, EmotionCache>;
 }).apps;
@@ -40,10 +35,6 @@ export const { apps, eCaches } = (globalThis as unknown as {
 // const myCache = createCache({
 // key: "z",
 // });
-
-
-
-
 
 const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
@@ -94,27 +85,22 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
 
   // Object.assign(globalThis, {myCache})
 
-
-
   return (
-    <CacheProvider value={createCache({key:"x"})} >
+    <CacheProvider value={createCache({ key: "x" })}>
       <ErrorBoundary key={md5Hash} ref={ref}>
         <App appId={`${codeSpace}-${md5Hash}`} />
       </ErrorBoundary>
     </CacheProvider>
   );
 };
-// 
+//
 // let Emotion: typeof iEmotion;
 let started = false;
 
-
 export async function appFactory(
-  transpiled = "", codeSpace?: string
+  transpiled = "",
+  codeSpace?: string,
 ): Promise<React.FC<{ appId: string }>> {
-
-
-
   //}
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
@@ -131,7 +117,6 @@ export async function appFactory(
         .default as unknown as FC;
 
       if (isCallable(App)) {
-
         eCaches[hash] = createCache({
           key: "z",
           speedy: true,
@@ -186,9 +171,9 @@ export async function appFactory(
     }
   }
 
-  if(!started && codeSpace){
-started = true;
-  await renderPreviewWindow({codeSpace});
+  if (!started && codeSpace) {
+    started = true;
+    await renderPreviewWindow({ codeSpace });
   }
   // If ( mST().transpiled !== trp) {
   //   if (hashC===hashCode()){

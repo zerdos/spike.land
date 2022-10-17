@@ -30,5 +30,6 @@
   "exclude": ["node_modules", ".yarn", "dist", "monaco-workers"],
   "include": [
     "packages/code",
-    "packages/spike.land/src" ]
+    "packages/spike.land/src"
+  ]
 }
