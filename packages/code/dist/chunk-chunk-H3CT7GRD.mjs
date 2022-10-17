@@ -2,8 +2,8 @@ import {
   require_react_dom
 } from "./chunk-chunk-PFY3UC77.mjs";
 import {
-  transform
-} from "./chunk-chunk-SXJRRIH7.mjs";
+  initAndTransform
+} from "./chunk-chunk-ZNHWUEVT.mjs";
 import {
   applyPatch,
   hashCode,
@@ -14375,15 +14375,15 @@ var mod = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform: transform2 } = await import("./chunk-esbuildEsm-HEMYEE74.mjs");
-    const t = await transform2(res, {
+    const { transform } = await import("./chunk-esbuildEsm-QJZ74HR2.mjs");
+    const t = await transform(res, {
       format: "esm",
       minify: true,
       keepNames: true,
       platform: "browser",
       treeShaking: true
     });
-    const c = await transform2(t.code, {
+    const c = await transform(t.code, {
       format: "iife",
       minify: true,
       keepNames: true,
@@ -14396,11 +14396,11 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform: transform2 } = await import("./chunk-esbuildEsm-HEMYEE74.mjs");
+  const { transform } = await import("./chunk-esbuildEsm-QJZ74HR2.mjs");
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
   if (!mod.data[hash]) {
-    const transformed = await transform2(source, {
+    const transformed = await transform(source, {
       format: "iife",
       keepNames: true,
       treeShaking: true,
@@ -14573,7 +14573,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     mod2.olderCode = code;
   }, 1e3);
   try {
-    const transpiled = await transform(code, {
+    const transpiled = await initAndTransform(code, {
       loader: "tsx",
       format: "esm",
       treeShaking: true,

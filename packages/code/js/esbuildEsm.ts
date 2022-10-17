@@ -1,27 +1,27 @@
-// Import { Mutex } from "async-mutex";
+import { initialize, transform } from "esbuild-wasm";
+import wasmFile from "esbuild-wasm/esbuild.wasm"
 
-// import "core-js/proposals/string-replace-all-stage-4";
-
-import { initialize, transform as esbTransform } from "esbuild-wasm";
-import wasmURL from "esbuild-wasm/esbuild.wasm"
-// Import type { transform } from "esbuild/lib/main";
 
 const mod = {
   init: false as (boolean | Promise<void>),
   initialize: () => {
     if (mod.init!==false) return mod.init;
+    const wasmURL = new URL(wasmFile, location.origin).toString()
     mod.init = initialize({
       wasmURL
     }).then(()=>mod.init=true) as Promise<void>;
     return mod.init;
-  }
+  },
 }
 
-// Const mutex = new Mutex();
-export const transform: typeof esbTransform = async (code, opts) => {
+export const initAndTransform: typeof transform = async (code, opts) => {
   const initFinished = mod.initialize();
 
   if (initFinished !== true)  await (initFinished);
 
-  return esbTransform(code, opts);
+  return transform(code, opts);
 };
+
+export {
+  initAndTransform as transform
+}

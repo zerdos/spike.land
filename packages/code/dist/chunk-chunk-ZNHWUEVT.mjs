@@ -1501,9 +1501,9 @@ var require_browser = __commonJS({
           try {
             let lines = (e.stack + "").split("\n");
             lines.splice(1, 1);
-            let location = parseStackLinesV8(streamIn, lines, ident);
-            if (location) {
-              note = { text: e.message, location };
+            let location2 = parseStackLinesV8(streamIn, lines, ident);
+            if (location2) {
+              note = { text: e.message, location: location2 };
               return note;
             }
           } catch (e2) {
@@ -1512,16 +1512,16 @@ var require_browser = __commonJS({
       }
       function extractErrorMessageV8(e, streamIn, stash, note, pluginName) {
         let text = "Internal error";
-        let location = null;
+        let location2 = null;
         try {
           text = (e && e.message || e) + "";
         } catch (e2) {
         }
         try {
-          location = parseStackLinesV8(streamIn, (e.stack + "").split("\n"), "");
+          location2 = parseStackLinesV8(streamIn, (e.stack + "").split("\n"), "");
         } catch (e2) {
         }
-        return { id: "", pluginName, text, location, notes: note ? [note] : [], detail: stash ? stash.store(e) : -1 };
+        return { id: "", pluginName, text, location: location2, notes: note ? [note] : [], detail: stash ? stash.store(e) : -1 };
       }
       function parseStackLinesV8(streamIn, lines, ident) {
         let at = "    at ";
@@ -1593,18 +1593,18 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
         }
         return messages;
       }
-      function sanitizeLocation(location, where) {
-        if (location == null)
+      function sanitizeLocation(location2, where) {
+        if (location2 == null)
           return null;
         let keys = {};
-        let file = getFlag(location, keys, "file", mustBeString);
-        let namespace = getFlag(location, keys, "namespace", mustBeString);
-        let line = getFlag(location, keys, "line", mustBeInteger);
-        let column = getFlag(location, keys, "column", mustBeInteger);
-        let length = getFlag(location, keys, "length", mustBeInteger);
-        let lineText = getFlag(location, keys, "lineText", mustBeString);
-        let suggestion = getFlag(location, keys, "suggestion", mustBeString);
-        checkForInvalidFlags(location, keys, where);
+        let file = getFlag(location2, keys, "file", mustBeString);
+        let namespace = getFlag(location2, keys, "namespace", mustBeString);
+        let line = getFlag(location2, keys, "line", mustBeInteger);
+        let column = getFlag(location2, keys, "column", mustBeInteger);
+        let length = getFlag(location2, keys, "length", mustBeInteger);
+        let lineText = getFlag(location2, keys, "lineText", mustBeString);
+        let suggestion = getFlag(location2, keys, "suggestion", mustBeString);
+        checkForInvalidFlags(location2, keys, where);
         return {
           file: file || "",
           namespace: namespace || "",
@@ -1623,7 +1623,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
           let id = getFlag(message, keys, "id", mustBeString);
           let pluginName = getFlag(message, keys, "pluginName", mustBeString);
           let text = getFlag(message, keys, "text", mustBeString);
-          let location = getFlag(message, keys, "location", mustBeObjectOrNull);
+          let location2 = getFlag(message, keys, "location", mustBeObjectOrNull);
           let notes = getFlag(message, keys, "notes", mustBeArray);
           let detail = getFlag(message, keys, "detail", canBeAnything);
           let where = `in element ${index} of "${property}"`;
@@ -1645,7 +1645,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
             id: id || "",
             pluginName: pluginName || fallbackPluginName,
             text: text || "",
-            location: sanitizeLocation(location, where),
+            location: sanitizeLocation(location2, where),
             notes: notesClone,
             detail: stash ? stash.store(detail) : -1
           });
@@ -2422,13 +2422,14 @@ var mod = {
   initialize: () => {
     if (mod.init !== false)
       return mod.init;
+    const wasmURL = new URL(esbuild_default, location.origin).toString();
     mod.init = (0, import_esbuild_wasm.initialize)({
-      wasmURL: esbuild_default
+      wasmURL
     }).then(() => mod.init = true);
     return mod.init;
   }
 };
-var transform = async (code, opts) => {
+var initAndTransform = async (code, opts) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -2436,5 +2437,5 @@ var transform = async (code, opts) => {
 };
 
 export {
-  transform
+  initAndTransform
 };
