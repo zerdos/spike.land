@@ -1,21 +1,29 @@
 import { hashCode, mST } from "session";
 import { md5 } from "md5";
 import { appFactory, eCaches } from "starter";
-import { renderToString } from "react-dom/server";
+
+import { createRoot } from "react-dom/client";
 import isCallable from "is-callable";
 
-// const rootDiv = document.createElement("div");
+const rootDiv = document.createElement("div");
+
+const root = createRoot(rootDiv);
 
 export const render = async (transpiled: string, codeSpace: string) => {
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if (isCallable(App)) {
-    const html = renderToString(
+    
+     root.render(
       <App appId={`${codeSpace}-${md5hash}`} />,
     );
+    const html = rootDiv.innerHTML;
     const css = mineFromCaches(md5hash, html);
     const globalCss = document.querySelector("style[data-emotion=z-global]")
       ?.innerHTML;
+
+    root.unmount()
+
 
     return {
       html: `<style>${globalCss}</style>${html}`,
