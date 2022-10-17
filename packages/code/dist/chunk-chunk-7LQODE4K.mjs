@@ -5603,10 +5603,10 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 var applyPatch2 = async (x) => {
-  await (session == null ? void 0 : session.applyPatch(x));
-  session == null ? void 0 : session.update();
+  await session?.applyPatch(x);
+  session?.update();
 };
-var onSessionUpdate = (fn, regId = "default") => session == null ? void 0 : session.onUpdate(fn, regId);
+var onSessionUpdate = (fn, regId = "default") => session?.onUpdate(fn, regId);
 var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
 var makePatch = async (st, update8) => makePatchFrom(hashCode3(), st, update8);
 var startSession = (room, u, originString) => session || new CodeSession(room, {
@@ -5616,7 +5616,7 @@ var startSession = (room, u, originString) => session || new CodeSession(room, {
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
-var patchSync = (sess) => session == null ? void 0 : session.patchSync(sess);
+var patchSync = (sess) => session?.patchSync(sess);
 
 export {
   require_lodash,

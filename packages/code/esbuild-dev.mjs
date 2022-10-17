@@ -16,7 +16,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
-const target = "es2018";
+const target = "es2021";
 
 console.log(`
 -------------------------------------------------
@@ -207,6 +207,7 @@ const build = (entryPoints, extraExternal) =>
       "js/emotion.ts",
       "js/emotionJsxRuntime.ts",  
       "js/ws.ts",
+      "js/load.ts"
     ], [
 
     ]);

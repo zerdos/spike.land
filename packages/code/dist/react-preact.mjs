@@ -10,8 +10,8 @@ import {
 
 // js/react-preact.ts
 init_define_process();
-var React = __toESM(require_react(), 1);
-var import_react = __toESM(require_react(), 1);
+var ReactM = __toESM(require_react(), 1);
+var React = window.React || ReactM;
 var {
   Children,
   Component,
@@ -46,7 +46,7 @@ var {
   useTransition,
   version
 } = React;
-var export_default = import_react.default;
+var react_preact_default = React;
 export {
   Children,
   Component,
@@ -59,7 +59,7 @@ export {
   createElement,
   createFactory,
   createRef,
-  export_default as default,
+  react_preact_default as default,
   forwardRef,
   isValidElement,
   lazy,

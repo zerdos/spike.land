@@ -1,1 +1,1 @@
-export {default} from "/npm:@emotion/cache?bundle&external=react,react-dom*,@emotion/react*"
+export {default} from "@emotion/cache"

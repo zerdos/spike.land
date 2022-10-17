@@ -222,7 +222,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-tsMode-665A5IJT.mjs");
+    return import("./chunk-tsMode-PDNSMDV4.mjs");
   }
 }
 monaco_editor_core_exports.languages.onLanguage("typescript", () => {
