@@ -4069,6 +4069,8 @@ var render = async (transpiled, codeSpace2) => {
     return { html: null, css: null };
   let css8 = mineFromCaches(md5hash, html);
   const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
+  if (!css8)
+    css8 = extractCritical22(html);
   if (css8 && globalCss)
     css8 = css8 + globalCss;
   return {
@@ -4095,6 +4097,7 @@ function mineFromCaches(md5Hash, html) {
   if (!eCaches[md5Hash]?.inserted)
     return "";
   const keys = Object.keys(eCaches[md5Hash].inserted);
+  console.log(`css keys:`, { keys });
   return Array.from(document.styleSheets).map((x) => x.cssRules).filter(
     (x) => x[0] && x[0].cssText
   ).map((x) => x[0].cssText).filter(

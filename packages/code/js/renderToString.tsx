@@ -68,7 +68,7 @@ export const render = async (transpiled: string, codeSpace: string) => {
   let css = mineFromCaches(md5hash, html);
   const globalCss = document.querySelector("style[data-emotion=z-global]")
     ?.innerHTML;
-
+  if (!css) css = extractCritical22(html);
   //    root.unmount()
 
   if (css && globalCss) css = css + globalCss;
@@ -107,6 +107,7 @@ export const renderFromString = (
 function mineFromCaches(md5Hash: string, html: string) {
   if (!(eCaches[md5Hash]?.inserted)) return "";
   const keys = Object.keys(eCaches[md5Hash].inserted);
+  console.log(`css keys:`, { keys });
   return Array.from(document.styleSheets).map((x) => x.cssRules).filter((x) =>
     x[0] && x[0].cssText
   ).map((x) => x[0].cssText).filter((x) =>
