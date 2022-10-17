@@ -13652,7 +13652,12 @@ var ErrorBoundary_default = ErrorBoundary;
 
 // js/starter.tsx
 var import_react19 = __toESM(require_emotion_react_cjs(), 1);
-var import_cache2 = __toESM(require_emotion_cache_cjs(), 1);
+
+// js/emotionCache.ts
+init_define_process();
+var import_cache = __toESM(require_emotion_cache_cjs(), 1);
+var createCache = import_cache.default.default || import_cache.default;
+var emotionCache_default = createCache;
 
 // js/renderPreviewWindow.tsx
 init_define_process();
@@ -14333,7 +14338,6 @@ var DraggableWindow = ({
 
 // js/renderPreviewWindow.tsx
 var import_react17 = __toESM(require_emotion_react_cjs(), 1);
-var import_cache = __toESM(require_emotion_cache_cjs(), 1);
 
 // js/Editor.tsx
 init_define_process();
@@ -14807,7 +14811,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       });
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-6XITI2OJ.mjs");
+      const { startAce } = await import("./chunk-startAce-N6NP2NM4.mjs");
       const editor = await startAce(mST().code);
       const getValue = async () => {
         const code2 = await prettierJs(editor.session.getValue());
@@ -14889,7 +14893,6 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
 
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime8 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var createCache = import_cache.default.default || import_cache.default;
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime8.jsx)("div", {
   css: import_react17.css`
 height: 100%;
@@ -14993,7 +14996,7 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   singleton.started = true;
   const div = document.querySelector("#root");
   const root = (0, import_client.createRoot)(div);
-  const x = createCache({ key: "root" });
+  const x = emotionCache_default({ key: "root" });
   root.render(
     (0, import_jsx_runtime8.jsx)(import_react17.CacheProvider, {
       value: x,
@@ -15008,10 +15011,7 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
 var import_is_callable2 = __toESM(require_is_callable(), 1);
 var import_jsx_runtime9 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
-var createCache2 = import_cache2.default.default || import_cache2.default;
-if (!globalThis.apps || !globalThis.eCaches) {
-  Object.assign(globalThis, { apps: {}, eCaches: {} });
-}
+Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps, eCaches } = globalThis || globalThis.apps;
 var render2 = {};
 var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
@@ -15039,7 +15039,7 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
   return (0, import_jsx_runtime9.jsx)(import_react19.CacheProvider, {
-    value: createCache2({ key: "x" }),
+    value: emotionCache_default({ key: "x" }),
     children: (0, import_jsx_runtime9.jsx)(ErrorBoundary_default, {
       ref,
       children: (0, import_jsx_runtime9.jsx)(App, {
@@ -15058,7 +15058,7 @@ async function appFactory(transpiled = "", codeSpace2) {
       console.log(`i: ${mstI}: `);
       const App = (await dynamicImport(createJsBlob(trp))).default;
       if ((0, import_is_callable2.default)(App)) {
-        eCaches[hash] = createCache2({
+        eCaches[hash] = emotionCache_default({
           key: "z",
           speedy: true
         });

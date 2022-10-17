@@ -900,11 +900,11 @@ __metadata:
     "@types/react-dom": "npm:18.0.6"
     "@typescript/ata": "npm:0.9.3"
     "@yarnpkg/sdks": "npm:3.0.0-rc.25"
-    ace-builds: "npm:1.12.0"
+    ace-builds: "npm:1.12.1"
     avl: "npm:1.5.3"
     comlink: "npm:4.3.1"
     csstype: "npm:3.1.1"
-    es-module-shims: "npm:1.6.1"
+    es-module-shims: "npm:1.6.2"
     esbuild: "npm:0.15.11"
     esbuild-plugin-alias: "npm:0.2.1"
     esbuild-plugin-external-global: "npm:1.0.1"
@@ -1372,10 +1372,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.12.0":
-  version: 1.12.0
-  resolution: "ace-builds@npm:1.12.0"
-  checksum: f83b782051db12d319907b1dbda51f2ba1689945e57b203ed11882135bd1e151fa520be30b2a9bcbf9e93968595919a22c985107f494917ff0410142e50eb316
+"ace-builds@npm:1.12.1":
+  version: 1.12.1
+  resolution: "ace-builds@npm:1.12.1"
+  checksum: 0df6f1e120508cdc8a8afbc1277f355e5e50a2312d8d87e89ee81f74b219757dbc63587ec7f303509444e7cb0c2d4ee10f51c351ce7151fc6a565020d8730ac9
   languageName: node
   linkType: hard
 
@@ -2273,10 +2273,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-shims@npm:1.6.1":
-  version: 1.6.1
-  resolution: "es-module-shims@npm:1.6.1"
-  checksum: aca7761428f688e13b6fd151436d73d183c3b5be6d0096d31caecb8ff56194c56f80679bbc94b50b135fabf39d1e30c2287b1a408128f2459b2159fc556f160c
+"es-module-shims@npm:1.6.2":
+  version: 1.6.2
+  resolution: "es-module-shims@npm:1.6.2"
+  checksum: 5a27bb134e43580e14a9e8feaae745818f2778ed9af26d396f91c2093aa046e8da59bb174d63d0fc7d3e0be199f19adb253153125b4494e3c02070353413f5f2
   languageName: node
   linkType: hard
 
