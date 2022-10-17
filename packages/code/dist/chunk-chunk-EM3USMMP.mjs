@@ -4067,7 +4067,7 @@ var render = async (transpiled, codeSpace2) => {
     }
     const html = await mod2.waitForDiv();
     if (!html)
-      return;
+      return { html: null, css: null };
     let css8 = mineFromCaches(md5hash, html);
     const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
     if (css8 && globalCss)
@@ -4141,9 +4141,9 @@ var Helper = ({ md5Hash }) => {
   return (0, import_jsx_runtime6.jsx)("div", {
     ref,
     children: (0, import_jsx_runtime6.jsx)(App, {
-      appId: `${mod2.codeSpace}-${md5Hash}`
+      appId: `${mod2.codeSpace}-${hash}`
     })
-  }, md5Hash);
+  }, hash);
 };
 var waitForAnimation = () => {
   let animationFrame;
