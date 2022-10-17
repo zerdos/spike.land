@@ -9,14 +9,14 @@ import { appFactory, AutoUpdateApp } from "./starter";
 import { DraggableWindow } from "./DraggableWindow";
 
 import { CacheProvider, css } from "@emotion/react";
-import {default as emotionCache} from "@emotion/cache";
+import createCache from "./emotionCache";
 // Import { useSpring, a } from '@react-spring/web'
 
 import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
 
-const createCache = emotionCache.default || emotionCache
+
 
 const RainbowContainer: React.FC<{children: JSX.Element}> = (
 	{children},

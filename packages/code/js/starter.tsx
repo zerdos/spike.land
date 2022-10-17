@@ -8,7 +8,7 @@ import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "./md5.js";
 import { CacheProvider, css } from "@emotion/react";
 import type {EmotionCache} from "@emotion/cache";
-import {default as emotionCache} from "@emotion/cache";
+import createCache from "./emotionCache";
 import { renderPreviewWindow } from "renderPreviewWindow";
 
 
@@ -21,16 +21,14 @@ import  { renderFromString } from "./renderToString";
 
 import isCallable from "is-callable";
 
-const dynamicImport = (src) => window.importShim?window.importShim(src) : import(src);
+const dynamicImport = (src: string) => window.importShim?window.importShim(src) : import(src);
 
 
 // const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache}; 
-const createCache = emotionCache.default || emotionCache
+
+Object.assign(globalThis, {apps:{}, eCaches:{}});
 
 
-if (!globalThis.apps || !globalThis.eCaches) {
-  Object.assign(globalThis, {apps:{}, eCaches:{}});
-}
 const { apps, eCaches } = (globalThis as unknown as {
   apps: Record<string, React.FC<{ appId: string }>>;
   eCaches: Record<string, EmotionCache>;
