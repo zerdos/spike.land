@@ -3,23 +3,25 @@
 // import "core-js/proposals/string-replace-all-stage-4";
 
 import { initialize, transform as esbTransform } from "esbuild-wasm";
-
+import wasmURL from "esbuild-wasm/esbuild.wasm"
 // Import type { transform } from "esbuild/lib/main";
 
-let initFinished: Promise<boolean> | boolean = false;
+const mod = {
+  init: false as (boolean | Promise<void>),
+  initialize: () => {
+    if (mod.init!==false) return mod.init;
+    mod.init = initialize({
+      wasmURL
+    }).then(()=>mod.init=true) as Promise<void>;
+    return mod.init;
+  }
+}
+
 // Const mutex = new Mutex();
 export const transform: typeof esbTransform = async (code, opts) => {
-  initFinished = initFinished || (initialize({
-    wasmURL: new URL(
-      (await import("esbuild-wasm/esbuild.wasm")).default,
-      location.origin,
-    ).toString(),
-  }).then(() => true).catch(() => false));
-  if (initFinished !== true) initFinished = await (initFinished);
+  const initFinished = mod.initialize();
 
-  if (initFinished !== true) {
-    throw new Error("esbuild init failed");
-  }
+  if (initFinished !== true)  await (initFinished);
 
   return esbTransform(code, opts);
 };
