@@ -2534,28 +2534,28 @@ init_define_process();
 
 // ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js
 init_define_process();
-function print(root2, printNode = (n) => n.key) {
+function print(root, printNode = (n) => n.key) {
   var out = [];
-  row(root2, "", true, (v) => out.push(v), printNode);
+  row(root, "", true, (v) => out.push(v), printNode);
   return out.join("");
 }
-function row(root2, prefix, isTail, out, printNode) {
-  if (root2) {
-    out(`${prefix}${isTail ? "\u2514\u2500\u2500 " : "\u251C\u2500\u2500 "}${printNode(root2)}
+function row(root, prefix, isTail, out, printNode) {
+  if (root) {
+    out(`${prefix}${isTail ? "\u2514\u2500\u2500 " : "\u251C\u2500\u2500 "}${printNode(root)}
 `);
     const indent = prefix + (isTail ? "    " : "\u2502   ");
-    if (root2.left)
-      row(root2.left, indent, false, out, printNode);
-    if (root2.right)
-      row(root2.right, indent, true, out, printNode);
+    if (root.left)
+      row(root.left, indent, false, out, printNode);
+    if (root.right)
+      row(root.right, indent, true, out, printNode);
   }
 }
-function isBalanced(root2) {
-  if (root2 === null)
+function isBalanced(root) {
+  if (root === null)
     return true;
-  var lh = height(root2.left);
-  var rh = height(root2.right);
-  if (Math.abs(lh - rh) <= 1 && isBalanced(root2.left) && isBalanced(root2.right))
+  var lh = height(root.left);
+  var rh = height(root.right);
+  if (Math.abs(lh - rh) <= 1 && isBalanced(root.left) && isBalanced(root.right))
     return true;
   return false;
 }
@@ -2883,8 +2883,8 @@ var AVLTree = class {
     return returnValue;
   }
   find(key) {
-    var root2 = this._root;
-    var subtree = root2, cmp;
+    var root = this._root;
+    var subtree = root, cmp;
     var compare = this._comparator;
     while (subtree) {
       cmp = compare(key, subtree.key);
@@ -4003,11 +4003,11 @@ var import_client = __toESM(require_client(), 1);
 var import_is_callable = __toESM(require_is_callable(), 1);
 var import_jsx_runtime6 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var rootDiv = document.createElement("div");
-var root = (0, import_client.createRoot)(rootDiv);
 var render = async (transpiled, codeSpace2) => {
   const md5hash = md5(transpiled).slice(0, 8);
   const App = await appFactory(transpiled);
   if ((0, import_is_callable.default)(App)) {
+    const root = (0, import_client.createRoot)(rootDiv);
     root.render(
       (0, import_jsx_runtime6.jsx)(App, {
         appId: `${codeSpace2}-${md5hash}`
@@ -4455,9 +4455,9 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
     return;
   singleton.started = true;
   const div = document.querySelector("#root");
-  const root2 = (0, import_client2.createRoot)(div);
+  const root = (0, import_client2.createRoot)(div);
   const x = emotionCache_default({ key: "root" });
-  root2.render(
+  root.render(
     (0, import_jsx_runtime8.jsx)(import_react17.CacheProvider, {
       value: x,
       children: (0, import_jsx_runtime8.jsx)(AppToRender, {
