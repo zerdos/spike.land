@@ -14792,22 +14792,8 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
           throw new Error("code just changed");
         return code2;
       };
-      const setValue = async (_code) => {
-        const i2 = mST().i;
-        const code2 = await prettierJs(_code);
-        if (code2.length < 10)
-          return;
-        if (code2 === await getValue())
-          return;
-        if (i2 <= mod3.counter)
-          return;
-        mod3.code = code2;
-        mod3.counter = i2;
-        setMonValue(code2);
-        changeContent((ct) => ({ ...ct, myCode: mod3.code, counter: i2 }));
-      };
       mod3.getValue = getValue;
-      mod3.setValue = setValue;
+      mod3.setValue = setMonValue;
       changeContent({
         ...mySession,
         started: true,
@@ -14821,26 +14807,16 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       const getValue = async () => {
         const code2 = await prettierJs(editor.session.getValue());
         if (code2 === mod3.code)
-          return mod3.code;
+          return code2;
         const counter = ++mod3.counter;
         mod3.code = code2;
         runner({ code: code2, counter, codeSpace: codeSpace2 });
         return mod3.code;
       };
-      const setValue = async (_code) => {
-        const i2 = mST().i;
-        const code2 = await prettierJs(_code);
-        mod3.codeToSet = code2;
-        if (code2.length < `export default ()=><></>`.length)
-          return;
-        if (code2 === await getValue())
-          return;
-        if (i2 == mod3.counter)
-          return;
-        mod3.code = code2;
-        mod3.counter = i2;
+      const setValue = (code2) => {
+        const before = editor.selection.toJSON();
         editor.session.setValue(code2);
-        changeContent((ct) => ({ ...ct, myCode: mod3.code, counter: i2 }));
+        editor.selection.fromJSON(before);
       };
       mod3.getValue = getValue;
       mod3.setValue = setValue;
@@ -14872,7 +14848,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     [onChange, myCode, changeContent]
   );
   onSessionUpdate(() => {
-    if (mod3.counter > mST().i) {
+    if (mod3.counter >= mST().i) {
       return;
     }
     mod3.counter = mST().i;

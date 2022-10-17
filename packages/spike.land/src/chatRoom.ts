@@ -371,7 +371,8 @@ export class Code {
           }
 
           headers.set("Content-Type", "text/html; charset=UTF-8");
-
+          headers.set("Etag", newEtag)
+          headers.set("x-content-digest", `SHA-256=${newEtag}`);
           return new Response(respText, {
             status: 200,
             headers,
@@ -680,5 +681,9 @@ async function sha256(myText: string) {
     myY, // The data you want to hash as an ArrayBuffer
   );
 
-  return new TextDecoder("utf-8").decode(new Uint8Array(myDigest));
+  const hexString = [...new Uint8Array(myDigest)]
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('')
+
+  return hexString;
 }
