@@ -32,8 +32,6 @@ export const imap = {
     ...mods,
     "@emotion/react": emotionReact,
     "@emotion/react/jsx-runtime": emotionJsxRuntime,
-    "@mui/": "npm:@mui/",
-    "@use-gesture/react": "npm:@use-gesture/react?external=react",
     "live/": "live/",
     "react": preact,
     "react-dom": preact,

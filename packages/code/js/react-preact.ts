@@ -38,7 +38,9 @@
 
 // export {jsx, jsxs, Fragment}  from "./preact/compat/jsx-runtime.mjs";
 
-import * as React from "react"
+import * as ReactM from "react"
+
+const React = window.React || ReactM;
 
 export const {
  Children,
@@ -73,10 +75,10 @@ useMemo,
  useState,
  useSyncExternalStore,
  useTransition,
- version} = React;
+ version} = React
 
 
- export {default} from  "react"
+ export default React  
 
 // export const React = { ...Preact, ...PreactCompat, Component};
 // Object.assign(React, {default: React})

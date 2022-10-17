@@ -16,50 +16,6 @@ import { Delta } from "@spike.land/code/js/session";
 import { getBackupSession } from "./getBackupSession";
 import { getImportMapStr, imap } from "./chat";
 import AVLTree from "avl";
-// const imap = {
-//   "imports": {
-//     // ...imap,
-//     "framer-motion": "/npm:framer-motion?target=es2021&external=react",
-//     "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
-//     "@emotion/react/jsx-runtime":
-//       "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
-//     "react": "/npm:@preact/compat",
-//     "react-dom": "/npm:@preact/compat",
-//     "react-dom/client": "/npm:@preact/compat",
-//     "react-dom/server": "/npm:@preact/compat",
-//     "react/jsx-runtime": "/npm:@preact/compat",
-//     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
-//     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-//     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-//     // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-//   },
-// };
-
-// // const importMap = {
-// //   imports: {
-// //     ...imap.imports,
-// //     // "@emotion/react": "/emotion.mjs",
-// //     // "@emotion/cache": "/emotion.mjs"
-// //   },
-
-// // }
-
-// const importMap = {
-//   "imports": {
-//     // ...imap,
-//     "framer-motion": "/framer-motion.mjs",
-//     "@emotion/react": "/emotion.mjs",
-//     "react": "/react.mjs",
-//     "react-dom": "/react.mjs",
-//     "react-dom/client": "/react.mjs",
-//     "react-dom/server": "/react.mjs",
-//     "react/jsx-runtime": "/react.mjs",
-//     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
-//     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-//     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-//     // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-//   },
-// };
 
 interface IState extends DurableObjectState {
 }

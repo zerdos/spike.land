@@ -21,6 +21,9 @@ import  { renderFromString } from "./renderToString";
 
 import isCallable from "is-callable";
 
+const dynamicImport = (src) => window.importShim?window.importShim(src) : import(src);
+
+
 // const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache}; 
 const createCache = emotionCache.default || emotionCache
 
@@ -126,7 +129,7 @@ export async function appFactory(
       //   terminal.clear();
       // }
       console.log(`i: ${mstI}: `);
-      const App = (await import(createJsBlob(trp)))
+      const App = (await dynamicImport(createJsBlob(trp)))
         .default as unknown as FC;
 
       if (isCallable(App)) {

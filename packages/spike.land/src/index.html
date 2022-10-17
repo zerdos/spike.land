@@ -174,14 +174,18 @@ window.addEventListener('pageshow', (event) => {
 <script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
    
-    const ws = location.origin + "/" + assets["ws.mjs"];
-    console.log({ws});
-import(ws).then(WS=>WS.run({
-      mST,
+//    const ws = location.origin + "/" + assets["ws.mjs"];
+
+
+    import("react").then(
+      (m)=>window.React=m.default).then(()=>import("ws.mjs")).then(
+        ({run})=>run({mST,
       codeSpace,
       address,
       assets
-    }));
+    })
+    ).catch(()=>import("/load.mjs")
+    ).finally(()=>window.React || import("/load"));
 </script>
 
   <!-- Cloudflare Web Analytics -->

@@ -4,7 +4,7 @@
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
 // Import { string } from "prop-types";
 import { md5 } from "./md5.js";
-import "es-module-shims";
+//import "es-module-shims";
 // Import { m } from "framer-motion";
 
 const mod = {
@@ -114,7 +114,7 @@ export const toUmd = async (source: string, name: string) => {
         return;
       }
 
-      const importMap = importShim.getImportMap();
+      const importMap = JSON.parse(document.querySelector("script[type=importmap]").innerHTML);
 
       let url = "";
       let urlHash = "";
@@ -126,7 +126,7 @@ export const toUmd = async (source: string, name: string) => {
         urlHash = md5(dep);
       } else {
         try {
-          url = await importShim.resolve!(dep, name);
+          url = await import.meta.resolve!(dep, name);
           urlHash = md5(dep);
         } catch {
           console.error(`failed to resolve: ${dep}`);
