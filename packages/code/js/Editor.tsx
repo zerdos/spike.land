@@ -126,7 +126,12 @@ export const Editor: React.FC<
 
       
       mod.getValue = getValue;
-      mod.setValue = setMonValue;
+
+      mod.setValue = async (_code)=> {
+        const code = await prettierJs(_code);
+        if (await mod.getValue() !== code)
+        setMonValue(code);
+      }
 
       changeContent({
         ...mySession,
@@ -162,15 +167,17 @@ export const Editor: React.FC<
     
 
 
-      mod.getValue = getValue;
-      mod.setValue = setValue;
+      mod.getValue = () => prettierJs( getValue());
+      mod.setValue = async (_code)=> {
+        const code = await prettierJs(_code);
+        if (await mod.getValue() !== code)
+        setValue(code);
+      }
 
       
       
       changeContent({
-        ...mySession,
-        setValue, 
-        getValue,
+        ...mySession, 
         started: true,
         myId: "editor",
       });
