@@ -4,7 +4,7 @@ import {
 } from "./chunk-chunk-RYAAHFCI.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-AHFYYS3T.mjs";
+} from "./chunk-chunk-RY5TB2UX.mjs";
 import "./chunk-chunk-PFY3UC77.mjs";
 import "./chunk-chunk-ZNHWUEVT.mjs";
 import "./chunk-chunk-WBSKVTIU.mjs";
@@ -2611,7 +2611,6 @@ var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100];
-var bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${!navigator.userAgent.includes("Firefox") ? 0.7 : 0.7})`;
 var DraggableWindow = ({
   children,
   room
@@ -2663,15 +2662,15 @@ var DraggableWindow = ({
     null
   ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
   const rgba = (r2, g2, b2, a2) => `rgba(${r2},${g2},${b2},${a2})`;
-  const [bg2, setBG] = (0, import_react11.useState)(bgColor);
-  const [r, g, b, a, ..._rest] = bg2;
+  const [bg, setBG] = (0, import_react11.useState)(bgColor);
+  const [r, g, b, a, ..._rest] = bg;
   (0, import_react11.useEffect)(() => {
     const intervalHandler = setInterval(() => {
       const bgColor2 = window.getComputedStyle(
         document.body,
         null
       ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
-      if (JSON.stringify(bg2) !== JSON.stringify(bgColor2))
+      if (JSON.stringify(bg) !== JSON.stringify(bgColor2))
         setBG(bgColor2);
     }, 1e3 / 2);
     return () => clearInterval(intervalHandler);
@@ -2699,7 +2698,7 @@ var DraggableWindow = ({
       },
       css: import_react10.css`
             touch-action: pinch-zoom;
-            background-color: ${rgba(r, g, b, a)};
+            background-color: ${rgba(r, g, b, 0.3)};
             backdrop-filter: blur(15px);
             z-index: 10;
 
