@@ -1518,9 +1518,11 @@ async function setAce() {
 
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react6.lazy)(() => import("./chunk-DraggableWindow-6HXW5GIQ.mjs"));
+var DraggableWindowLazy = (0, import_react6.lazy)(() => import("./chunk-DraggableWindow-NW5OCBBR.mjs"));
 var DraggableWindow = ({ children, room }) => (0, import_jsx_runtime4.jsx)(import_react6.Suspense, {
-  fallback: children,
+  fallback: (0, import_jsx_runtime4.jsx)(import_jsx_runtime4.Fragment, {
+    children
+  }),
   children: (0, import_jsx_runtime4.jsx)(DraggableWindowLazy, {
     room,
     children
