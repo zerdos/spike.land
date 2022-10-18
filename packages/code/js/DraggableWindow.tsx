@@ -37,7 +37,7 @@ const sizes = [10, 25, 50, 75, 100];
 
 const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
   Math.random() * 128 + 64
-}, ${!navigator.userAgent.includes("Firefox") ? 0.3 : 0.7})`;
+}, ${!navigator.userAgent.includes("Firefox") ? 0.7 : 0.7})`;
 
 type DraggableWindowProps = {
   // OnRestore: (() => void);
@@ -132,27 +132,32 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     // SetTimeout(reveal, 200);
   }, []);
 
-  const c = window.getComputedStyle(
+  const bgColor = window.getComputedStyle(
     document.body,
     null,
   ).getPropertyValue("background-color")
     .slice(4, -1).split(",")
-    .slice(0, 3)
-    .map((x) => Number(x) || "0").join(",");
+    .slice(0, 4)
+    .map((x) => Number(x) || 0);
 
-  const [bgCV, setBG] = useState(c);
+  const rgba = (r: number, g: number, b: number, a: number) =>
+    `rgba(${r},${g},${b},${a})`;
+
+  const [bg, setBG] = useState(bgColor);
+
+  const [r, b, g, a, ..._rest] = bg;
 
   useEffect(() => {
     const intervalHandler = setInterval(() => {
-      const c = window.getComputedStyle(
+      const bgColor = window.getComputedStyle(
         document.body,
         null,
       ).getPropertyValue("background-color")
         .slice(4, -1).split(",")
         .slice(0, 4)
-        .map((x) => x === "0" ? 0 : Number(x) || "0").join(",");
+        .map((x) => Number(x) || 0);
 
-      if (c !== bgCV) setBG(c);
+      if (JSON.stringify(bg) !== JSON.stringify(bgColor)) setBG(bgColor);
     }, 1000 / 2);
     return () => clearInterval(intervalHandler);
   }, []);
@@ -186,7 +191,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         }}
         css={css`
             touch-action: pinch-zoom;
-            background-color: ${bg};
+            background-color: ${rgba(r, g, b, a)};
             backdrop-filter: blur(15px);
             z-index: 10;
 
@@ -283,13 +288,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 initial={{
                   width: window.innerWidth,
                   height: window.innerHeight,
-                  backgroundColor: "rgba(" +
-                    [...(bgCV.split(",").slice(0, 3)), 1].join(",") + ")",
+                  backgroundColor: rgba(r, g, b, 1),
                   scale: 1,
                 }}
                 animate={{
-                  backgroundColor: "rgba(" +
-                    [...(bgCV.split(",").slice(0, 3)), 0.5].join(",") + ")",
+                  backgroundColor: rgba(r, g, b, 0.7),
                   transformOrigin: "0px 0px",
                   width: width / devicePixelRatio,
                   height: height / devicePixelRatio,
