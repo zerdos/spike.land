@@ -3660,14 +3660,15 @@ var DraggableWindow = ({
   ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map((x) => Number(x) || "0").join(",");
   const [bgCV, setBG] = (0, import_react12.useState)(c);
   (0, import_react12.useEffect)(() => {
-    setInterval(() => {
+    const intervalHandler2 = setInterval(() => {
       const c2 = window.getComputedStyle(
         document.body,
         null
-      ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map((x) => Number(x) || "0").join(",");
+      ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => x === "0" ? 0 : Number(x) || "0").join(",");
       if (c2 !== bgCV)
         setBG(c2);
     }, 1e3 / 2);
+    return () => clearInterval(intervalHandler2);
   }, []);
   const [clients, setClients] = (0, import_react12.useState)(Object.keys(sendChannel.rtcConns));
   (0, import_react12.useEffect)(() => {
@@ -3722,8 +3723,12 @@ var DraggableWindow = ({
             children: [
               (0, import_jsx_runtime5.jsx)(motion.div, {
                 transition: { delay, duration },
-                initial: { height: 0, width: 0 },
-                animate: { height: "auto", width: "auto" },
+                initial: { height: "0px", width: "0", opacity: 0 },
+                animate: {
+                  height: "42px",
+                  width: width / 2 / devicePixelRatio,
+                  opacity: 1
+                },
                 children: (0, import_jsx_runtime5.jsx)(ToggleButtonGroup, {
                   value: scaleRange,
                   size: "small",
@@ -3758,7 +3763,6 @@ var DraggableWindow = ({
                   borderRadius: 8
                 },
                 css: import_react11.css`
-
                 display: block;
                 overflow: hidden;
                 overflow-y: hidden;
@@ -3768,11 +3772,11 @@ var DraggableWindow = ({
                   initial: {
                     width: window.innerWidth,
                     height: window.innerHeight,
-                    background: "rgba(0,0,0, 1)",
+                    backgroundColor: "rgba(" + [...bgCV.split(",").slice(0, 3), 1].join(",") + ")",
                     scale: 1
                   },
                   animate: {
-                    background: "rgba(" + bgCV + ", 0.5)",
+                    backgroundColor: "rgba(" + [...bgCV.split(",").slice(0, 3), 0.5].join(",") + ")",
                     transformOrigin: "0px 0px",
                     width: width / devicePixelRatio,
                     height: height2 / devicePixelRatio,
@@ -3780,7 +3784,7 @@ var DraggableWindow = ({
                   },
                   "data-test-id": "z-body",
                   css: import_react11.css`
-                  overflow:overlay;
+                  overflow: overlay;
                   overflow-y: hidden;
               `,
                   children
@@ -3788,6 +3792,13 @@ var DraggableWindow = ({
               }),
               (0, import_jsx_runtime5.jsx)(motion.div, {
                 transition: { delay, duration },
+                css: import_react11.css`overflow: hidden`,
+                initial: { height: "0px", width: "0", opacity: 0 },
+                animate: {
+                  height: "42px",
+                  width: width / 2 / devicePixelRatio,
+                  opacity: 1
+                },
                 children: (0, import_jsx_runtime5.jsx)(ToggleButtonGroup, {
                   value: width,
                   size: "small",
@@ -3824,7 +3835,7 @@ var DraggableWindow = ({
           (0, import_jsx_runtime5.jsx)(motion.div, {
             transition: { delay, duration },
             initial: { height: 0, width: 0 },
-            animate: { height: "100%", width: "auto" },
+            animate: { height: "100%", width: "88px" },
             children: (0, import_jsx_runtime5.jsxs)("div", {
               css: import_react11.css`
               padding: 16px;

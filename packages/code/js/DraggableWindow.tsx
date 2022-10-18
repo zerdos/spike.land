@@ -145,17 +145,18 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [bgCV, setBG] = useState(c);
 
   useEffect(() => {
-    setInterval(() => {
+    const intervalHandler = setInterval(() => {
       const c = window.getComputedStyle(
         document.body,
         null,
       ).getPropertyValue("background-color")
         .slice(4, -1).split(",")
-        .slice(0, 3)
-        .map((x) => Number(x) || "0").join(",");
+        .slice(0, 4)
+        .map((x) => x === "0" ? 0 : Number(x) || "0").join(",");
 
       if (c !== bgCV) setBG(c);
     }, 1000 / 2);
+    return () => clearInterval(intervalHandler);
   }, []);
 
   const [clients, setClients] = useState(Object.keys(sendChannel.rtcConns));
@@ -218,8 +219,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           >
             <motion.div
               transition={{ delay, duration }}
-              initial={{ height: 0, width: 0 }}
-              animate={{ height: "auto", width: "auto" }}
+              initial={{ height: "0px", width: "0", opacity: 0 }}
+              animate={{
+                height: "42px",
+                width: width / 2 / devicePixelRatio,
+                opacity: 1,
+              }}
             >
               <ToggleButtonGroup
                 value={scaleRange}
@@ -266,7 +271,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 // Opacity: isFullScreen ? 1 : 0.7,
               }}
               css={css`
-
                 display: block;
                 overflow: hidden;
                 overflow-y: hidden;
@@ -277,11 +281,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 initial={{
                   width: window.innerWidth,
                   height: window.innerHeight,
-                  background: "rgba(0,0,0, 1)",
+                  backgroundColor: "rgba(" +
+                    [...(bgCV.split(",").slice(0, 3)), 1].join(",") + ")",
                   scale: 1,
                 }}
                 animate={{
-                  background: "rgba(" + bgCV + ", 0.5)",
+                  backgroundColor: "rgba(" +
+                    [...(bgCV.split(",").slice(0, 3)), 0.5].join(",") + ")",
                   transformOrigin: "0px 0px",
                   width: width / devicePixelRatio,
                   height: height / devicePixelRatio,
@@ -289,7 +295,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 }}
                 data-test-id="z-body"
                 css={css`
-                  overflow:overlay;
+                  overflow: overlay;
                   overflow-y: hidden;
               `}
               >
@@ -298,6 +304,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             </motion.div>
             <motion.div
               transition={{ delay, duration }}
+              css={css`overflow: hidden`}
+              initial={{ height: "0px", width: "0", opacity: 0 }}
+              animate={{
+                height: "42px",
+                width: width / 2 / devicePixelRatio,
+                opacity: 1,
+              }}
             >
               <ToggleButtonGroup
                 value={width}
@@ -365,7 +378,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           <motion.div
             transition={{ delay, duration }}
             initial={{ height: 0, width: 0 }}
-            animate={{ height: "100%", width: "auto" }}
+            animate={{ height: "100%", width: "88px" }}
           >
             <div
               css={css`
