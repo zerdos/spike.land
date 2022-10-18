@@ -1518,16 +1518,9 @@ async function setAce() {
 
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react6.lazy)(() => import("./chunk-DraggableWindow-NW5OCBBR.mjs"));
-var DraggableWindow = ({ children, room }) => (0, import_jsx_runtime4.jsx)(import_react6.Suspense, {
-  fallback: (0, import_jsx_runtime4.jsx)(import_jsx_runtime4.Fragment, {
-    children
-  }),
-  children: (0, import_jsx_runtime4.jsx)(DraggableWindowLazy, {
-    room,
-    children
-  })
-});
+var DraggableWindowLazy = (0, import_react6.lazy)(
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-SOY2NW2T.mjs"))
+);
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime4.jsx)("div", {
   css: import_react7.css`
 height: 100%;
@@ -1605,19 +1598,24 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
       }),
       isStandalone ? (0, import_jsx_runtime4.jsx)(OutPortal, {
         node: portalNode
-      }) : (0, import_jsx_runtime4.jsx)(RainbowContainer, {
-        children: (0, import_jsx_runtime4.jsxs)(import_react6.Fragment, {
-          children: [
-            (0, import_jsx_runtime4.jsx)(Editor, {
-              codeSpace: codeSpace2
-            }),
-            (0, import_jsx_runtime4.jsx)(DraggableWindow, {
-              room: codeSpace2,
-              children: (0, import_jsx_runtime4.jsx)(OutPortal, {
-                node: portalNode
+      }) : (0, import_jsx_runtime4.jsx)(import_react6.Suspense, {
+        fallback: (0, import_jsx_runtime4.jsx)(OutPortal, {
+          node: portalNode
+        }),
+        children: (0, import_jsx_runtime4.jsx)(RainbowContainer, {
+          children: (0, import_jsx_runtime4.jsxs)(import_react6.Fragment, {
+            children: [
+              (0, import_jsx_runtime4.jsx)(Editor, {
+                codeSpace: codeSpace2
+              }),
+              (0, import_jsx_runtime4.jsx)(DraggableWindowLazy, {
+                room: codeSpace2,
+                children: (0, import_jsx_runtime4.jsx)(OutPortal, {
+                  node: portalNode
+                })
               })
-            })
-          ]
+            ]
+          })
         })
       })
     ]

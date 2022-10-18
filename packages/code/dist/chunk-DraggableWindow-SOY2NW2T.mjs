@@ -4,7 +4,7 @@ import {
 } from "./chunk-chunk-RYAAHFCI.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-WAXBR4XF.mjs";
+} from "./chunk-chunk-QARXGODY.mjs";
 import "./chunk-chunk-PFY3UC77.mjs";
 import "./chunk-chunk-ZNHWUEVT.mjs";
 import "./chunk-chunk-WBSKVTIU.mjs";
@@ -2845,8 +2845,8 @@ var DraggableWindow = ({
           }),
           (0, import_jsx_runtime4.jsx)(motion.div, {
             transition: { delay, duration },
-            initial: { height: 0, width: 0 },
-            animate: { height: "100%", width: "88px" },
+            initial: { height: 0, width: 0, opacity: 0 },
+            animate: { height: "100%", width: "88px", opacity: 1 },
             children: (0, import_jsx_runtime4.jsxs)("div", {
               css: import_react10.css`
               padding: 16px;

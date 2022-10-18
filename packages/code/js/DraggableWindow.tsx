@@ -382,8 +382,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
           <motion.div
             transition={{ delay, duration }}
-            initial={{ height: 0, width: 0 }}
-            animate={{ height: "100%", width: "88px" }}
+            initial={{ height: 0, width: 0, opacity: 0 }}
+            animate={{ height: "100%", width: "88px", opacity: 1 }}
           >
             <div
               css={css`

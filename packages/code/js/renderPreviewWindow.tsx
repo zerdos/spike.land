@@ -16,15 +16,10 @@ import createCache from "./emotionCache";
 import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
+import { wait } from "wait";
 
-const DraggableWindowLazy = lazy(() => import("./DraggableWindow"));
-
-const DraggableWindow: FC<{ children: JSX.Element; room: string }> = (
-  { children, room },
-) => (
-  <Suspense fallback={<>{children}</>}>
-    <DraggableWindowLazy room={room}>{children}</DraggableWindowLazy>
-  </Suspense>
+const DraggableWindowLazy = lazy(() =>
+  wait(1000).then(() => import("./DraggableWindow"))
 );
 
 const RainbowContainer: React.FC<{ children: JSX.Element }> = (
@@ -123,18 +118,22 @@ const AppToRender: React.FC<
         <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
       </InPortal>
 
-      {isStandalone ? <OutPortal node={portalNode} /> : (
-        <RainbowContainer>
-          <Fragment>
-            <Editor
-              codeSpace={codeSpace}
-            />
-            <DraggableWindow room={codeSpace}>
-              <OutPortal node={portalNode} />
-            </DraggableWindow>
-          </Fragment>
-        </RainbowContainer>
-      )}
+      {isStandalone
+        ? <OutPortal node={portalNode} />
+        : (
+          <Suspense fallback={<OutPortal node={portalNode} />}>
+            <RainbowContainer>
+              <Fragment>
+                <Editor
+                  codeSpace={codeSpace}
+                />
+                <DraggableWindowLazy room={codeSpace}>
+                  <OutPortal node={portalNode} />
+                </DraggableWindowLazy>
+              </Fragment>
+            </RainbowContainer>
+          </Suspense>
+        )}
     </Fragment>
   );
 };
