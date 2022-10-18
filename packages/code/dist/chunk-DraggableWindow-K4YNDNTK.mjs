@@ -4,7 +4,7 @@ import {
 } from "./chunk-chunk-RYAAHFCI.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-QARXGODY.mjs";
+} from "./chunk-chunk-IDR3OBPG.mjs";
 import "./chunk-chunk-PFY3UC77.mjs";
 import "./chunk-chunk-ZNHWUEVT.mjs";
 import "./chunk-chunk-WBSKVTIU.mjs";
@@ -2611,7 +2611,7 @@ var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100];
-var bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${!navigator.userAgent.includes("Firefox") ? 0.3 : 0.7})`;
+var bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${!navigator.userAgent.includes("Firefox") ? 0.7 : 0.7})`;
 var DraggableWindow = ({
   children,
   room
@@ -2658,19 +2658,21 @@ var DraggableWindow = ({
     };
     reveal();
   }, []);
-  const c = window.getComputedStyle(
+  const bgColor = window.getComputedStyle(
     document.body,
     null
-  ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 3).map((x) => Number(x) || "0").join(",");
-  const [bgCV, setBG] = (0, import_react11.useState)(c);
+  ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
+  const rgba = (r2, g2, b2, a2) => `rgba(${r2},${g2},${b2},${a2})`;
+  const [bg2, setBG] = (0, import_react11.useState)(bgColor);
+  const [r, b, g, a, ..._rest] = bg2;
   (0, import_react11.useEffect)(() => {
     const intervalHandler = setInterval(() => {
-      const c2 = window.getComputedStyle(
+      const bgColor2 = window.getComputedStyle(
         document.body,
         null
-      ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => x === "0" ? 0 : Number(x) || "0").join(",");
-      if (c2 !== bgCV)
-        setBG(c2);
+      ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
+      if (JSON.stringify(bg2) !== JSON.stringify(bgColor2))
+        setBG(bgColor2);
     }, 1e3 / 2);
     return () => clearInterval(intervalHandler);
   }, []);
@@ -2697,7 +2699,7 @@ var DraggableWindow = ({
       },
       css: import_react10.css`
             touch-action: pinch-zoom;
-            background-color: ${bg};
+            background-color: ${rgba(r, g, b, a)};
             backdrop-filter: blur(15px);
             z-index: 10;
 
@@ -2780,11 +2782,11 @@ var DraggableWindow = ({
                   initial: {
                     width: window.innerWidth,
                     height: window.innerHeight,
-                    backgroundColor: "rgba(" + [...bgCV.split(",").slice(0, 3), 1].join(",") + ")",
+                    backgroundColor: rgba(r, g, b, 1),
                     scale: 1
                   },
                   animate: {
-                    backgroundColor: "rgba(" + [...bgCV.split(",").slice(0, 3), 0.5].join(",") + ")",
+                    backgroundColor: rgba(r, g, b, 0.7),
                     transformOrigin: "0px 0px",
                     width: width / devicePixelRatio,
                     height: height / devicePixelRatio,
