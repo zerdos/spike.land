@@ -2,15 +2,13 @@ import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 // import {terminal} from "./DraggableWindow"
 
-import { mST, patchSync } from "./session";
+import { mST } from "./session";
 import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "./md5.js";
 import { CacheProvider, css } from "@emotion/react";
 import type { EmotionCache } from "@emotion/cache";
 import createCache from "./emotionCache";
 import { renderPreviewWindow } from "renderPreviewWindow";
-
-import { renderFromString } from "./renderToString";
 
 // import { CacheProvider } from "@emotion/react// import createCache from "@emotion/cache";
 // import type { EmotionCache } from "@emotion/cache";
@@ -36,7 +34,7 @@ export const { apps, eCaches } = (globalThis as unknown as {
 // key: "z",
 // });
 
-const render: Record<string, { html: string; css: string }> = {};
+//const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
 export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
@@ -56,21 +54,6 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
     // }, 100);
   }, [hash]);
 
-  useEffect(() => {
-    const newHash = md5(mST().transpiled).slice(0, 8);
-    if (newHash !== md5Hash) return;
-
-    if (!renderFromString) return;
-
-    render[md5Hash] = render[md5Hash] || renderFromString(codeSpace, hash);
-
-    const { html, css } = render[md5Hash];
-
-    if (html && css) {
-      patchSync({ ...mST(), html, css });
-    } else delete render[md5Hash];
-  }, [md5Hash]);
-
   const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
@@ -86,11 +69,9 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   // Object.assign(globalThis, {myCache})
 
   return (
-    <CacheProvider value={createCache({ key: "x" })}>
-      <ErrorBoundary key={md5Hash} ref={ref}>
-        <App appId={`${codeSpace}-${md5Hash}`} />
-      </ErrorBoundary>
-    </CacheProvider>
+    <ErrorBoundary key={md5Hash} ref={ref}>
+      <App appId={`${codeSpace}-${md5Hash}`} />
+    </ErrorBoundary>
   );
 };
 //
@@ -119,9 +100,11 @@ export async function appFactory(
       if (isCallable(App)) {
         eCaches[hash] = createCache({
           key: "z",
-          speedy: true,
+
+          speedy: false,
         });
 
+        eCaches[hash].compat = undefined;
         apps[hash] = ({ appId }) =>
           appId.includes(hash)
             ? (

@@ -3673,9 +3673,11 @@ var DraggableWindow = ({
   (0, import_react12.useEffect)(() => {
     setClients([...Object.keys(sendChannel.rtcConns)]);
   }, [sendChannel.webRtcArray.length, setClients]);
+  const delay = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
+  const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.4;
   return (0, import_jsx_runtime5.jsx)(LayoutGroup, {
     children: (0, import_jsx_runtime5.jsx)(motion.div, {
-      transition: { delay: 0, duration: 0.4 },
+      transition: { delay, duration },
       initial: {
         top: 0,
         padding: 0,
@@ -3719,7 +3721,7 @@ var DraggableWindow = ({
           `,
             children: [
               (0, import_jsx_runtime5.jsx)(motion.div, {
-                transition: { delay: 0, duration: 0.4 },
+                transition: { delay, duration },
                 initial: { height: 0, width: 0 },
                 animate: { height: "auto", width: "auto" },
                 children: (0, import_jsx_runtime5.jsx)(ToggleButtonGroup, {
@@ -3744,7 +3746,7 @@ var DraggableWindow = ({
                 })
               }),
               (0, import_jsx_runtime5.jsx)(motion.div, {
-                transition: { delay: 0, duration: 0.4 },
+                transition: { delay, duration },
                 initial: {
                   width: window.innerWidth,
                   height: window.innerHeight,
@@ -3762,7 +3764,7 @@ var DraggableWindow = ({
                 overflow-y: hidden;
             `,
                 children: (0, import_jsx_runtime5.jsx)(motion.div, {
-                  transition: { delay: 0, duration: 0.4 },
+                  transition: { delay, duration },
                   initial: {
                     width: window.innerWidth,
                     height: window.innerHeight,
@@ -3785,7 +3787,7 @@ var DraggableWindow = ({
                 })
               }),
               (0, import_jsx_runtime5.jsx)(motion.div, {
-                transition: { delay: 0, duration: 0.4 },
+                transition: { delay, duration },
                 children: (0, import_jsx_runtime5.jsx)(ToggleButtonGroup, {
                   value: width,
                   size: "small",
@@ -3820,7 +3822,7 @@ var DraggableWindow = ({
             ]
           }),
           (0, import_jsx_runtime5.jsx)(motion.div, {
-            transition: { delay: 0, duration: 0.4 },
+            transition: { delay, duration },
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
             children: (0, import_jsx_runtime5.jsxs)("div", {
@@ -4000,7 +4002,6 @@ var findDeps = (code) => {
 // js/renderToString.tsx
 init_define_process();
 var import_client = __toESM(require_client(), 1);
-var import_react_dom = __toESM(require_react_dom(), 1);
 var import_react13 = __toESM(require_react(), 1);
 
 // js/wait.ts
@@ -4022,8 +4023,6 @@ var mod2 = {
   codeSpace: "",
   waitForDiv: async () => {
     const md5Hash = mod2.md5Hash;
-    if (!mod2.res?.innerHTML)
-      await waitForFlush();
     if (!mod2.res?.innerHTML)
       await waitForAnimation();
     if (!mod2.res?.innerHTML.includes(md5Hash)) {
@@ -4067,68 +4066,19 @@ var render = async (transpiled, codeSpace2) => {
   const html = await mod2.waitForDiv();
   if (!html)
     return { html: null, css: null };
-  let css8 = mineFromCaches(md5hash, html);
+  const css8 = mineFromCaches(eCaches[md5hash]);
   const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
-  if (!css8)
-    css8 = extractCritical22(html);
-  if (css8 && globalCss)
-    css8 = css8 + globalCss;
   return {
     html,
-    css: css8
+    css: globalCss + " " + css8
   };
 };
-var renderFromString = (codeSpace2, hash) => {
-  const md5hash = md5(mST().transpiled).slice(0, 8);
-  if (hash !== hashCode()) {
-    return { html: null, css: null };
-  }
-  const html = document.getElementById(`${codeSpace2}-${md5hash}`)?.innerHTML;
-  let css8 = html ? extractCritical22(html) : "";
-  const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
-  if (css8 && globalCss)
-    css8 = css8 + globalCss;
-  return {
-    html,
-    css: css8
-  };
-};
-function mineFromCaches(md5Hash, html) {
-  if (!eCaches[md5Hash]?.inserted)
-    return "";
-  const keys = Object.keys(eCaches[md5Hash].inserted);
-  console.log(`css keys:`, { keys });
-  return Array.from(document.styleSheets).map((x) => x.cssRules).filter(
-    (x) => x[0] && x[0].cssText
-  ).map((x) => x[0].cssText).filter(
-    (x) => keys.find((k) => x.includes(k))
-  ).filter((x) => html.includes(x.slice(0, 11))).join(" ");
+function mineFromCaches(cache2) {
+  const keys = Object.keys(cache2.inserted).map((x) => `.${cache2.key}-${x}`);
+  return Array.from(document.styleSheets).map(
+    (x) => x.cssRules[0]
+  ).filter((x) => x && keys.includes(x.selectorText)).map((x) => x.cssText).join("\n");
 }
-var extractCritical22 = (html) => {
-  try {
-    const rules = {};
-    for (const i in document.styleSheets) {
-      let yesFromNow = false;
-      const styleSheet = document.styleSheets[i];
-      if (styleSheet?.cssRules) {
-        for (const rule of Array.from(styleSheet.cssRules)) {
-          if (yesFromNow || rule && rule.cssText && rule.cssText.startsWith(".z-")) {
-            const selector = rule.cssText.slice(1, 9);
-            const selectorText = selector;
-            if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".z-")) {
-              yesFromNow = true;
-              rules[selectorText] = rule.cssText;
-            }
-          }
-        }
-      }
-    }
-    return Object.keys(rules).map((r) => rules[r]).join(" ");
-  } catch {
-    console.error("no css");
-    return "";
-  }
-};
 var Helper = ({ md5Hash }) => {
   const ref = (0, import_react13.useRef)(null);
   const [hash, setHash] = (0, import_react13.useState)(md5Hash);
@@ -4151,13 +4101,6 @@ var waitForAnimation = () => {
   const animated = new Promise((resolve) => animationFrame = resolve);
   requestAnimationFrame(() => animationFrame(true));
   return animated;
-};
-var waitForFlush = () => {
-  let flushed;
-  console.log("wait for flush");
-  const rendered = new Promise((resolve) => flushed = resolve);
-  (0, import_react_dom.flushSync)(() => flushed(true));
-  rendered;
 };
 
 // js/runner.tsx
@@ -4229,16 +4172,6 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       html,
       css: css8
     });
-    let i = 60;
-    while (!mST().css && counter === mST().i) {
-      console.log("Oh, NO! Can't extract css, wait:", i);
-      const { html: html2, css: css9 } = renderFromString(codeSpace2, hashCode());
-      if (html2 && css9)
-        patchSync({ ...mST(), html: html2, css: css9 });
-      else
-        await wait(i);
-      i = i * 2;
-    }
     saveCode();
   } catch (error) {
     console.error({ error });
@@ -4549,7 +4482,6 @@ var import_jsx_runtime9 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps, eCaches } = globalThis || globalThis.apps;
-var render2 = {};
 var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const [md5Hash, setMdHash] = (0, import_react19.useState)(md5(mST().transpiled).slice(0, 8));
   (0, import_react19.useEffect)(() => {
@@ -4558,31 +4490,15 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
       setMdHash(newHash);
     }
   }, [hash]);
-  (0, import_react19.useEffect)(() => {
-    const newHash = md5(mST().transpiled).slice(0, 8);
-    if (newHash !== md5Hash)
-      return;
-    if (!renderFromString)
-      return;
-    render2[md5Hash] = render2[md5Hash] || renderFromString(codeSpace2, hash);
-    const { html, css: css8 } = render2[md5Hash];
-    if (html && css8) {
-      patchSync({ ...mST(), html, css: css8 });
-    } else
-      delete render2[md5Hash];
-  }, [md5Hash]);
   const ref = (0, import_react19.useRef)(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
-  return (0, import_jsx_runtime9.jsx)(import_react20.CacheProvider, {
-    value: emotionCache_default({ key: "x" }),
-    children: (0, import_jsx_runtime9.jsx)(ErrorBoundary_default, {
-      ref,
-      children: (0, import_jsx_runtime9.jsx)(App, {
-        appId: `${codeSpace2}-${md5Hash}`
-      })
-    }, md5Hash)
-  });
+  return (0, import_jsx_runtime9.jsx)(ErrorBoundary_default, {
+    ref,
+    children: (0, import_jsx_runtime9.jsx)(App, {
+      appId: `${codeSpace2}-${md5Hash}`
+    })
+  }, md5Hash);
 };
 var started = false;
 async function appFactory(transpiled = "", codeSpace2) {
@@ -4596,8 +4512,9 @@ async function appFactory(transpiled = "", codeSpace2) {
       if ((0, import_is_callable.default)(App)) {
         eCaches[hash] = emotionCache_default({
           key: "z",
-          speedy: true
+          speedy: false
         });
+        eCaches[hash].compat = void 0;
         apps[hash] = ({ appId }) => appId.includes(hash) ? (0, import_jsx_runtime9.jsx)(import_react20.CacheProvider, {
           value: eCaches[hash],
           children: (0, import_jsx_runtime9.jsx)("div", {
@@ -5208,6 +5125,5 @@ export {
   join,
   sw,
   renderPreviewWindow,
-  render,
-  renderFromString
+  render
 };

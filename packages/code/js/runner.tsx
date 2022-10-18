@@ -1,13 +1,12 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 import type { TransformOptions } from "esbuild-wasm";
 import { saveCode } from "./ws";
-import { hashCode, mST, patchSync } from "./session";
+import { mST, patchSync } from "./session";
 // Import { cF } from "./renderToString";
 import { toUmd } from "./toUmd";
 import { transform } from "./esbuildEsm";
-import { render, renderFromString } from "./renderToString";
+import { render } from "./renderToString";
 import { md5 } from "md5";
-import { wait } from "wait";
 // Import { appFactory } from "starter";
 // import { wait } from "wait";
 
@@ -137,16 +136,16 @@ export async function runner({ code, counter, codeSpace }: {
       css,
     });
 
-    let i = 60;
-    while (!mST().css && counter === mST().i) {
-      console.log("Oh, NO! Can't extract css, wait:", i);
+    // let i = 60;
+    // while (!mST().css && counter === mST().i) {
+    //   console.log("Oh, NO! Can't extract css, wait:", i);
 
-      const { html, css } = renderFromString(codeSpace, hashCode());
+    //   const { html, css } = renderFromString(codeSpace, hashCode());
 
-      if (html && css) patchSync({ ...mST(), html, css });
-      else await wait(i);
-      i = i * 2;
-    }
+    //   if (html && css) patchSync({ ...mST(), html, css });
+    //   else await wait(i);
+    //   i = i * 2;
+    // }
 
     saveCode();
   } catch (error) {

@@ -164,10 +164,15 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     setClients([...Object.keys(sendChannel.rtcConns)]);
   }, [sendChannel.webRtcArray.length, setClients]);
 
+  const delay: number =
+    sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
+  const duration =
+    sessionStorage && Number(sessionStorage.getItem("duration")) || 0.4;
+
   return (
     <LayoutGroup>
       <motion.div
-        transition={{ delay: 0, duration: 0.4 }}
+        transition={{ delay, duration }}
         initial={{
           top: 0,
           padding: 0,
@@ -212,7 +217,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           `}
           >
             <motion.div
-              transition={{ delay: 0, duration: 0.4 }}
+              transition={{ delay, duration }}
               initial={{ height: 0, width: 0 }}
               animate={{ height: "auto", width: "auto" }}
             >
@@ -247,7 +252,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             {/* <span>{width}*{height}</span> */}
 
             <motion.div
-              transition={{ delay: 0, duration: 0.4 }}
+              transition={{ delay, duration }}
               initial={{
                 width: window.innerWidth,
                 height: window.innerHeight,
@@ -268,7 +273,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             `}
             >
               <motion.div
-                transition={{ delay: 0, duration: 0.4 }}
+                transition={{ delay, duration }}
                 initial={{
                   width: window.innerWidth,
                   height: window.innerHeight,
@@ -292,7 +297,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </motion.div>
             </motion.div>
             <motion.div
-              transition={{ delay: 0, duration: 0.4 }}
+              transition={{ delay, duration }}
             >
               <ToggleButtonGroup
                 value={width}
@@ -358,7 +363,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </div>
 
           <motion.div
-            transition={{ delay: 0, duration: 0.4 }}
+            transition={{ delay, duration }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "100%", width: "auto" }}
           >

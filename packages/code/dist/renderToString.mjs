@@ -1,7 +1,6 @@
 import {
-  render,
-  renderFromString
-} from "./chunk-chunk-BV5NIGLL.mjs";
+  render
+} from "./chunk-chunk-KBPRLLBF.mjs";
 import "./chunk-chunk-PFY3UC77.mjs";
 import "./chunk-chunk-ZNHWUEVT.mjs";
 import "./chunk-chunk-WBSKVTIU.mjs";
@@ -14,6 +13,5 @@ import "./chunk-chunk-XCNCOID3.mjs";
 import "./chunk-chunk-QCM7DYZQ.mjs";
 import "./chunk-chunk-3CLHXR2V.mjs";
 export {
-  render,
-  renderFromString
+  render
 };
