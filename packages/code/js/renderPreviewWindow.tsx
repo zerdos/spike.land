@@ -19,9 +19,11 @@ import { Editor } from "./Editor";
 
 const DraggableWindowLazy = lazy(() => import("./DraggableWindow"));
 
-const DraggableWindow: FC<{ children: JSX.Element }> = ({ children }) => (
+const DraggableWindow: FC<{ children: JSX.Element; room: string }> = (
+  { children, room },
+) => (
   <Suspense fallback={children}>
-    <DraggableWindowLazy>{children}</DraggableWindowLazy>
+    <DraggableWindowLazy room={room}>{children}</DraggableWindowLazy>
   </Suspense>
 );
 
@@ -127,7 +129,7 @@ const AppToRender: React.FC<
             <Editor
               codeSpace={codeSpace}
             />
-            <DraggableWindow>
+            <DraggableWindow room={codeSpace}>
               <OutPortal node={portalNode} />
             </DraggableWindow>
           </Fragment>

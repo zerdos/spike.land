@@ -4,7 +4,7 @@ import {
 } from "./chunk-chunk-RYAAHFCI.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-LGMEYHBQ.mjs";
+} from "./chunk-chunk-AIDS5JUW.mjs";
 import "./chunk-chunk-PFY3UC77.mjs";
 import "./chunk-chunk-ZNHWUEVT.mjs";
 import "./chunk-chunk-WBSKVTIU.mjs";
@@ -2613,7 +2613,8 @@ var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100];
 var bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${!navigator.userAgent.includes("Firefox") ? 0.3 : 0.7})`;
 var DraggableWindow = ({
-  children
+  children,
+  room
 }) => {
   const [scaleRange, changeScaleRange] = (0, import_react11.useState)(100);
   const startPositions = { bottom: 0, right: 0 };
