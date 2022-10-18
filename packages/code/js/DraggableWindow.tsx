@@ -35,10 +35,6 @@ const breakPointHeights = [1137, 1024, 1080];
 
 const sizes = [10, 25, 50, 75, 100];
 
-const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
-  Math.random() * 128 + 64
-}, ${!navigator.userAgent.includes("Firefox") ? 0.7 : 0.7})`;
-
 type DraggableWindowProps = {
   // OnRestore: (() => void);
   children: JSX.Element;
@@ -191,7 +187,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         }}
         css={css`
             touch-action: pinch-zoom;
-            background-color: ${rgba(r, g, b, a)};
+            background-color: ${rgba(r, g, b, .3)};
             backdrop-filter: blur(15px);
             z-index: 10;
 
