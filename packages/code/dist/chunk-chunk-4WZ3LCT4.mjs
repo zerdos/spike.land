@@ -3723,10 +3723,14 @@ var DraggableWindow = ({
             children: [
               (0, import_jsx_runtime5.jsx)(motion.div, {
                 transition: { delay, duration },
+                css: import_react11.css`
+              overflow: hidden;
+              display:flex;
+              justify-content: space-evenly;`,
                 initial: { height: "0px", width: "0", opacity: 0 },
                 animate: {
                   height: "42px",
-                  width: width / 2 / devicePixelRatio,
+                  width: "100%",
                   opacity: 1
                 },
                 children: (0, import_jsx_runtime5.jsx)(ToggleButtonGroup, {
@@ -3792,11 +3796,14 @@ var DraggableWindow = ({
               }),
               (0, import_jsx_runtime5.jsx)(motion.div, {
                 transition: { delay, duration },
-                css: import_react11.css`overflow: hidden`,
-                initial: { height: "0px", width: "0", opacity: 0 },
+                css: import_react11.css`
+              overflow: hidden;
+              display:flex;
+              justify-content: space-evenly;`,
+                initial: { height: "0", width: "0", opacity: 0 },
                 animate: {
                   height: "42px",
-                  width: width / 2 / devicePixelRatio,
+                  width: "100%",
                   opacity: 1
                 },
                 children: (0, import_jsx_runtime5.jsx)(ToggleButtonGroup, {

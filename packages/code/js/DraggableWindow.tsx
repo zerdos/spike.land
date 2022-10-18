@@ -219,10 +219,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           >
             <motion.div
               transition={{ delay, duration }}
+              css={css`
+              overflow: hidden;
+              display:flex;
+              justify-content: space-evenly;`}
               initial={{ height: "0px", width: "0", opacity: 0 }}
               animate={{
                 height: "42px",
-                width: width / 2 / devicePixelRatio,
+                width: "100%",
                 opacity: 1,
               }}
             >
@@ -304,11 +308,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             </motion.div>
             <motion.div
               transition={{ delay, duration }}
-              css={css`overflow: hidden`}
-              initial={{ height: "0px", width: "0", opacity: 0 }}
+              css={css`
+              overflow: hidden;
+              display:flex;
+              justify-content: space-evenly;`}
+              initial={{ height: "0", width: "0", opacity: 0 }}
               animate={{
                 height: "42px",
-                width: width / 2 / devicePixelRatio,
+                width: "100%",
                 opacity: 1,
               }}
             >
