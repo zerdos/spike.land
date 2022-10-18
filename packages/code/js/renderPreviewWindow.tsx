@@ -1,4 +1,6 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, lazy, Suspense, useEffect, useMemo, useState } from "react";
+import type { FC } from "react";
+
 import { createRoot } from "react-dom/client";
 import {
   createHtmlPortalNode,
@@ -6,7 +8,6 @@ import {
   OutPortal,
 } from "react-reverse-portal";
 import { appFactory, AutoUpdateApp } from "./starter";
-import { DraggableWindow } from "./DraggableWindow";
 
 import { CacheProvider, css } from "@emotion/react";
 import createCache from "./emotionCache";
@@ -15,6 +16,14 @@ import createCache from "./emotionCache";
 import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
+
+const DraggableWindowLazy = lazy(() => import("./DraggableWindow"));
+
+const DraggableWindow: FC<{ children: JSX.Element }> = ({ children }) => (
+  <Suspense fallback={children}>
+    <DraggableWindowLazy>{children}</DraggableWindowLazy>
+  </Suspense>
+);
 
 const RainbowContainer: React.FC<{ children: JSX.Element }> = (
   { children },
@@ -118,10 +127,7 @@ const AppToRender: React.FC<
             <Editor
               codeSpace={codeSpace}
             />
-            <DraggableWindow
-              hashCode={0}
-              room={codeSpace}
-            >
+            <DraggableWindow>
               <OutPortal node={portalNode} />
             </DraggableWindow>
           </Fragment>
