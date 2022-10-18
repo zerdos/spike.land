@@ -33,12 +33,9 @@
       --text-color-light: #8cabd9;
     }
   }
-  
-  
-   /* #root{} */
-  
-  
-   *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+
+
+  *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
      all: unset;
      display: revert;
     }
@@ -60,55 +57,10 @@
      white-space: revert;
    }
    
- 
-   
-#root{
-  min-height: 100%;
-}
-
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-body {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  background: fixed;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: top;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-height: -webkit-fill-available;
-  height: 100%;
-  position: fixed;
-  /* prevent overscroll bounce*/
-  overflow-y: scroll;
-  --webkit-overflow-scrolling: touch;
-  padding-bottom: 0 !important;
-
-  overflow-x: hidden;
-  overflow-y: overlay;
-}
-
-
-
-.hidden {
-  display: none;
-}
-
-@font-face {
-          font-family: 'Futura Bold';
-          src: url('https://cdn.jsdelivr.net/npm/futura-font@1.0.0/FuturaBT-Medium.woff') format('woff');
-        }
-@font-face {
-          font-family: 'Wallpoet';
-          src: url('/Wallpoet.ttf') format('ttf');
-        }
+  
+  
+   /* #root{} */
+  
    </style>
    <script>
     window.esmsInitOptions = {

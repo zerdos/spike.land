@@ -120,7 +120,8 @@ const build = (entryPoints, extraExternal) =>
       ".webp": "file",
       ".tsx": "tsx",
       ".jsx": "tsx",
-      ".js": "tsx",
+      ".js": "ts",
+      ".cjs": "ts",
       ".mjs": "tsx",
       ".css": "css",
       ".d.ts": "file",
@@ -180,7 +181,8 @@ const build = (entryPoints, extraExternal) =>
 
   buildOptions.plugins = [
     aliasPlugin({
-      // react:  resolve("./js/react-preact.ts"),
+      //    "stream": resolve("./js/stream.mjs"),
+      //  "buffer": resolve("./js/buffer/index.ts"),
       // "@emotion/react": resolve("./js/emotion.ts"),
       // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
       // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
