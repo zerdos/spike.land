@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-YC4XPMZS.mjs";
+} from "./chunk-chunk-PYIU7XQI.mjs";
 import {
   _extends,
   _objectWithoutPropertiesLoose,
@@ -13,7 +13,7 @@ import {
   rootShouldForwardProp,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-J7ISZIWH.mjs";
+} from "./chunk-chunk-GGWYSFW5.mjs";
 import "./chunk-chunk-PFY3UC77.mjs";
 import "./chunk-chunk-CR7O327K.mjs";
 import {
@@ -28,15 +28,15 @@ import {
   init_define_process
 } from "./chunk-chunk-3CLHXR2V.mjs";
 
-// ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/index.js
+// ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/index.js
 init_define_process();
 
-// ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
+// ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
 init_define_process();
 var React = __toESM(require_react());
 var import_prop_types = __toESM(require_prop_types());
 
-// ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/fabClasses.js
+// ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/fabClasses.js
 init_define_process();
 function getFabUtilityClass(slot) {
   return generateUtilityClass("MuiFab", slot);
@@ -44,7 +44,7 @@ function getFabUtilityClass(slot) {
 var fabClasses = generateUtilityClasses("MuiFab", ["root", "primary", "secondary", "extended", "circular", "focusVisible", "disabled", "colorInherit", "sizeSmall", "sizeMedium", "sizeLarge", "info", "error", "warning", "success"]);
 var fabClasses_default = fabClasses;
 
-// ../../.yarn/__virtual__/@mui-material-virtual-b8e4a4d02c/0/global/cache/@mui-material-npm-5.10.9-4d5d8f9187-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
+// ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
 var import_jsx_runtime = __toESM(require_jsx_runtime());
 var _excluded = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
 var useUtilityClasses = (ownerState) => {

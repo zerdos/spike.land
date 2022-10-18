@@ -1519,7 +1519,7 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = (0, import_react6.lazy)(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-W2JLXWAU.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-LSMZUNBO.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime4.jsx)("div", {
   css: import_react7.css`

@@ -26,6 +26,7 @@ import {
   createBox,
   createDomMotionComponent,
   createMotionComponent,
+  delay,
   domAnimation,
   domMax,
   filterProps,
@@ -73,7 +74,7 @@ import {
   useWillChange,
   visualElement,
   wrapHandler
-} from "./chunk-chunk-RYAAHFCI.mjs";
+} from "./chunk-chunk-R2I7YQXG.mjs";
 import "./chunk-chunk-QCM7DYZQ.mjs";
 import {
   init_define_process
@@ -109,6 +110,7 @@ export {
   createBox,
   createDomMotionComponent,
   createMotionComponent,
+  delay,
   domAnimation,
   domMax,
   filterProps,

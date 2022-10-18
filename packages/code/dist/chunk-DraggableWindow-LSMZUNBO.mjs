@@ -1,10 +1,10 @@
 import {
   LayoutGroup,
   motion
-} from "./chunk-chunk-RYAAHFCI.mjs";
+} from "./chunk-chunk-R2I7YQXG.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-RY5TB2UX.mjs";
+} from "./chunk-chunk-KCPTDVQU.mjs";
 import "./chunk-chunk-PFY3UC77.mjs";
 import "./chunk-chunk-ZNHWUEVT.mjs";
 import "./chunk-chunk-WBSKVTIU.mjs";
@@ -2552,7 +2552,7 @@ init_define_process();
 var import_react6 = __toESM(require_react(), 1);
 var import_react7 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var FabLazy = (0, import_react6.lazy)(async () => import("./chunk-Fab-FGTUWE4H.mjs"));
+var FabLazy = (0, import_react6.lazy)(async () => import("./chunk-Fab-5FV5732X.mjs"));
 var Fab = (props) => (0, import_jsx_runtime2.jsx)(import_react6.Suspense, {
   fallback: (0, import_jsx_runtime2.jsx)("div", {
     css: import_react7.css`width: 28px; height:28px`
@@ -2561,7 +2561,7 @@ var Fab = (props) => (0, import_jsx_runtime2.jsx)(import_react6.Suspense, {
     ...props
   })
 });
-var ToggleButtonLazy = (0, import_react6.lazy)(async () => import("./chunk-ToggleButton-3WM7AKRT.mjs"));
+var ToggleButtonLazy = (0, import_react6.lazy)(async () => import("./chunk-ToggleButton-ATYMVKUS.mjs"));
 var ToggleButton = (props) => (0, import_jsx_runtime2.jsx)(import_react6.Suspense, {
   fallback: (0, import_jsx_runtime2.jsx)("div", {
     css: import_react7.css`width: 28px; height:28px`
@@ -2571,7 +2571,7 @@ var ToggleButton = (props) => (0, import_jsx_runtime2.jsx)(import_react6.Suspens
   })
 });
 var ToggleButtonGroupLazy = (0, import_react6.lazy)(
-  async () => import("./chunk-ToggleButtonGroup-E5UUYBSD.mjs")
+  async () => import("./chunk-ToggleButtonGroup-CCD353DU.mjs")
 );
 var ToggleButtonGroup = (props) => (0, import_jsx_runtime2.jsx)(import_react6.Suspense, {
   fallback: (0, import_jsx_runtime2.jsx)("div", {
@@ -2680,10 +2680,11 @@ var DraggableWindow = ({
     setClients([...Object.keys(sendChannel.rtcConns)]);
   }, [sendChannel.webRtcArray.length, setClients]);
   const delay = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
-  const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.4;
+  const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
+  const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return (0, import_jsx_runtime4.jsx)(LayoutGroup, {
     children: (0, import_jsx_runtime4.jsx)(motion.div, {
-      transition: { delay, duration },
+      transition: { delay, type, duration },
       initial: {
         top: 0,
         padding: 0,
@@ -2727,7 +2728,7 @@ var DraggableWindow = ({
           `,
             children: [
               (0, import_jsx_runtime4.jsx)(motion.div, {
-                transition: { delay, duration },
+                transition: { delay, type, duration },
                 css: import_react10.css`
               overflow: hidden;
               display:flex;
@@ -2760,7 +2761,7 @@ var DraggableWindow = ({
                 })
               }),
               (0, import_jsx_runtime4.jsx)(motion.div, {
-                transition: { delay, duration },
+                transition: { delay, type, duration },
                 initial: {
                   width: window.innerWidth,
                   height: window.innerHeight,
@@ -2777,7 +2778,7 @@ var DraggableWindow = ({
                 overflow-y: hidden;
             `,
                 children: (0, import_jsx_runtime4.jsx)(motion.div, {
-                  transition: { delay, duration },
+                  transition: { delay, type, duration },
                   initial: {
                     width: window.innerWidth,
                     height: window.innerHeight,
@@ -2800,7 +2801,7 @@ var DraggableWindow = ({
                 })
               }),
               (0, import_jsx_runtime4.jsx)(motion.div, {
-                transition: { delay, duration },
+                transition: { delay, type, duration },
                 css: import_react10.css`
               overflow: hidden;
               display:flex;
@@ -2845,7 +2846,7 @@ var DraggableWindow = ({
             ]
           }),
           (0, import_jsx_runtime4.jsx)(motion.div, {
-            transition: { delay, duration },
+            transition: { delay, type, duration },
             initial: { height: 0, width: 0, opacity: 0 },
             animate: { height: "100%", width: "88px", opacity: 1 },
             children: (0, import_jsx_runtime4.jsxs)("div", {
