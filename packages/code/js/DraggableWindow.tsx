@@ -41,9 +41,6 @@ const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
 
 type DraggableWindowProps = {
   // OnRestore: (() => void);
-  hashCode: number;
-  position?: string;
-  room: string;
   children: JSX.Element;
 };
 
@@ -51,7 +48,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     children,
     // OnRestore,
-    room,
+    // room,
     // HashCode,
   },
 ) => {
