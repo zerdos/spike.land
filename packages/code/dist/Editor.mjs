@@ -1,5 +1,5 @@
 import {
-  renderPreviewWindow
+  Editor
 } from "./chunk-chunk-RVHCJ5KT.mjs";
 import "./chunk-chunk-KXIJZFRU.mjs";
 import "./chunk-chunk-UWK2P5AV.mjs";
@@ -10,5 +10,5 @@ import "./chunk-chunk-VRYMSF5W.mjs";
 import "./chunk-chunk-UCYDREHN.mjs";
 import "./chunk-chunk-JS5E2TTE.mjs";
 export {
-  renderPreviewWindow
+  Editor
 };

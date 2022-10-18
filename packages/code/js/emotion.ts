@@ -7,6 +7,7 @@ export {
   jsx,
   jsx as createElement,
   keyframes,
+  withEmotionCache,
 } from "@emotion/react";
 export { default } from "@emotion/react";
 // export {default as styled} from "@emotion/styled";

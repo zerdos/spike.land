@@ -1,49 +1,18 @@
-//export {renderToString} from "./preact/compa
-// import { render, hydrate, unmountComponentAtNode } from "./preact/compat/dist/compat.mjs"
-
-// export function createRoot(container) {
-// 	return {
-// 		render(children) {
-// 			render(children, container)
-// 		},
-// 		unmount() {
-// 			unmountComponentAtNode(container)
-// 		}
-// 	}
-// }
-
-// export function hydrateRoot(container, children) {
-// 	hydrate(children, container)
-// 	return createRoot(contain
-
-// import { render, hydrate, unmountComponentAtNode } from "./preact/compat/dist/compat.mjs"
-
-// export function createRoot(container) {
-// 	return {
-// 		render(children) {
-// 			render(children, container)
-// 		},
-// 		unmount() {
-// 			unmountComponentAtNode(container)
-// 		}
-// 	}
-// }
-
-// export function hydrateRoot(container, children) {
-// 	hydrate(children, container)
-// 	return createRoot(container)
-// }
-
-// export {jsx, jsxs, Fragment}  from "./preact/compat/jsx-runtime.mjs";
-
-import * as ReactM from "react";
-
-const React = window.React || ReactM;
+//@ts-ignore
+export { jsx, jsxs } from "preact/compat/jsx-runtime";
+// export { flushSync } from "preact/compat";
+import * as PR from "preact/compat";
 
 export const {
+  render,
+  unmountComponentAtNode,
+  Fragment,
+  createPortal,
+  //@ts-ignore
+  flushSync,
+  hydrate,
   Children,
   Component,
-  Fragment,
   PureComponent,
   StrictMode,
   Suspense,
@@ -74,61 +43,20 @@ export const {
   useSyncExternalStore,
   useTransition,
   version,
-} = React;
+  ...props
+} = PR;
 
-export default React;
+export function createRoot(container: HTMLDivElement) {
+  return {
+    render(children: JSX.Element) {
+      render(children, container);
+    },
+    unmount() {
+      unmountComponentAtNode(container);
+    },
+  };
+}
 
-// export const React = { ...Preact, ...PreactCompat, Component};
-// Object.assign(React, {default: React})
-// Export const {signal} = PreactSignals;
-// export const {effect} = PreactSignals;
-// export const {computed} = PreactSignals;
-
-// export { jsx, jsxs } from "./preact-jsx-runtime";
-
-// window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
-// window.renderToString = window.renderToString || renderToStr;
-
-// export const { hydrate, render, unmountComponentAtNode } = React;
-
-// export const { toChildArray } = PreactCompat;
-
-// export { createPortal, findDOMNode, SuspenseList };
-
-// export const {
-//   createPortal,
-//   findDOMNode,
-//   //@ts-expect-error
-//   flushSync,
-//   startTransition,
-//   SuspenseList,
-//   unstable_batchedUpdates,
-//   cloneElement,
-//   createElement,
-//   createFactory,
-//   useInsertionEffect,
-//   createRef,
-//   useCallback,
-//   useContext,
-//   useDebugValue,
-//   isValidElement,
-//   useEffect,
-//   useImperativeHandle,
-//   useLayoutEffect,
-//   useMemo,
-//   useReducer,
-//   useRef,
-//   useState,
-//   lazy,
-//   Suspense,
-//   StrictMode,
-//   useId,
-//   // CreateClass,
-//   forwardRef,
-//   memo,
-//   Children,
-//   PureComponent,
-//   version,
-// } = React;
+export { default } from "preact/compat";
 
 // export default React

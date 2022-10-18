@@ -4,10 +4,13 @@
 import fs from "node:fs/promises";
 import { resolve } from "node:path";
 import esbuild from "esbuild";
+//import open from "open";
+//import fetch from "node-fetch";
 // Const { request } = require("http");
 // require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
 import aliasPlugin from "esbuild-plugin-alias";
+//import { wait } from "./js/wait.mjs";
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -67,6 +70,12 @@ const workerEntryPoints = [
   "vs/language/typescript/ts.worker",
   "vs/editor/editor.worker",
 ];
+
+console.log(`
+-------------------------------------------------
+--------------${environment}---------------------
+----------------------b1--------------------------
+-------------------------------------------------`);
 
 const build = (entryPoints, extraExternal) =>
   esbuild.build({
@@ -188,11 +197,53 @@ const build = (entryPoints, extraExternal) =>
       // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
       //"@emotion/styled": resolve("./js/emotionStyled.mjs"),
       // // "./mui": resolve("./dist/mui.mjs"),
-      // "react-dom":  resolve("./js/react-preact.ts"),
-      // "react-dom/client":  resolve("./js/react-preact.ts"),
-      // "react-dom/server": resolve("./js/react-preact.ts"),
-      // "react/jsx-runtime": resolve("./js/react-preact.ts"),
-      // "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
+      "react": resolve("./js/react-preact.ts"),
+      "react-dom": resolve("./js/react-preact.ts"),
+      "react-dom/client": resolve("./js/react-preact.ts"),
+      "react-dom/server": resolve("./js/react-preact.ts"),
+      "react/jsx-runtime": resolve("./js/react-preact.ts"),
+      "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
+    }),
+  ];
+
+  // await fs.cp("./index.html", "./dist/index.html");
+
+  await build([
+    // "js/session.ts",
+    // "js/prettierWorker.mjs",
+    "js/react-preact.ts",
+    // "js/react.ts",
+    // "js/Editor.tsx",
+    // "js/motion.ts",
+    // "js/renderToString.tsx",
+    // "js/renderPreviewWindow.tsx",
+    "js/emotionStyled.mjs",
+
+    "js/emotionCache.ts",
+
+    "js/emotion.ts",
+    "js/emotionJsxRuntime.ts",
+    // "js/ws.ts",
+    // "js/load.ts",
+  ], [ //"react", "react-dom*"
+  ]);
+
+  buildOptions.plugins = [
+    aliasPlugin({
+      //    "stream": resolve("./js/stream.mjs"),
+      //  "buffer": resolve("./js/buffer/index.ts"),
+      // "@emotion/react": resolve("./dist/emotion.mjs"),
+      // "@emotion/react/jsx-runtime": resolve("./dist/emotionJsxRuntime.mjs"),
+      // "@emotion/react/jsx-dev-runtime": resolve("./dist/emotionJsxRuntime.mjs"),
+      // "@emotion/cache": resolve("./dist/emotionCache.mjs"),
+      // "@emotion/styled": resolve("./dist/emotionStyled.mjs"),
+      // // "./mui": resolve("./dist/mui.mjs"),
+      "react": resolve("./dist/react-preact.mjs"),
+      "react-dom": resolve("./dist/react-preact.mjs"),
+      "react-dom/client": resolve("./dist/react-preact.mjs"),
+      "react-dom/server": resolve("./dist/react-preact.mjs"),
+      "react/jsx-runtime": resolve("./dist/react-preact.mjs"),
+      "react/jsx-dev-runtime": resolve("./dist/react-preact.mjs"),
     }),
   ];
 
@@ -200,6 +251,8 @@ const build = (entryPoints, extraExternal) =>
     "js/session.ts",
     "js/prettierWorker.mjs",
     "js/react-preact.ts",
+    // "js/react.ts",
+    "js/Editor.tsx",
     "js/motion.ts",
     "js/renderToString.tsx",
     "js/renderPreviewWindow.tsx",
@@ -208,17 +261,39 @@ const build = (entryPoints, extraExternal) =>
     "js/ws.ts",
     "js/load.ts",
   ], []);
-})();
+  console.log("done");
 
-// Await esbuild
-//   .build({
-//     entryPoints: ['dist/startMonaco.css'],
-//     bundle: true,
-//     outdir: 'dist',
-//     allowOverwrite: true,
-//     loader: {
-//       ".ttf": "file",
-//     },
-//     plugins,
-//   })
-//   .catch(() => process.exit(1));
+  // const {host, port} = serveRES;
+  // const url = `http://[${host}]:${port}`;
+  // open(url);
+  // console.log(url)
+  // await wait(100000);
+
+  // Await esbuild
+  //   .build({
+  //     entryPoints: ['dist/startMonaco.css'],
+  //     bundle: true,
+  //     outdir: 'dist',
+  //     allowOverwrite: true,
+  //     loader: {
+  //       ".ttf": "file",
+  //     },
+  //     plugins,
+  //   })
+  //   .catch(() => process.exit(1))
+})();
+// (opts)=>esbuild.serve(
+// {
+//   host: "::1",
+//   port: 8372,
+//   onRequest: async (args)=>{
+//       if(args.path.startsWith("/node_modules")) {
+//         const res = await  fetch (`https://testing.spike.land/${args.path}`);
+//         if (res.ok) {
+//           return res.text()
+//         }
+//       }
+//   },
+//   servedir: "./dist"
+// },
+// opts),

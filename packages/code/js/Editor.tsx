@@ -145,7 +145,7 @@ async function onModChange(_code: string) {
 async function setMonaco(container: HTMLDivElement) {
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
-  link.href = location.origin + "/renderPreviewWindow.css";
+  link.href = location.origin + "/Editor.css";
   document.head.append(link);
 
   const { startMonaco } = await import("./startMonaco");

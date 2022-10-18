@@ -1,12 +1,12 @@
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-CR7O327K.mjs";
-import "./chunk-chunk-XCNCOID3.mjs";
-import "./chunk-chunk-QCM7DYZQ.mjs";
+} from "./chunk-chunk-NI5ROW2P.mjs";
+import "./chunk-chunk-VRYMSF5W.mjs";
+import "./chunk-chunk-UCYDREHN.mjs";
 import {
   __toESM,
   init_define_process
-} from "./chunk-chunk-3CLHXR2V.mjs";
+} from "./chunk-chunk-JS5E2TTE.mjs";
 
 // js/emotion.ts
 init_define_process();
@@ -20,6 +20,7 @@ var export_css = import_react.css;
 var export_default = import_react2.default;
 var export_jsx = import_react.jsx;
 var export_keyframes = import_react.keyframes;
+var export_withEmotionCache = import_react.withEmotionCache;
 export {
   export_CacheProvider as CacheProvider,
   export_ClassNames as ClassNames,
@@ -28,5 +29,6 @@ export {
   export_css as css,
   export_default as default,
   export_jsx as jsx,
-  export_keyframes as keyframes
+  export_keyframes as keyframes,
+  export_withEmotionCache as withEmotionCache
 };
