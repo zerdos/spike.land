@@ -4,7 +4,7 @@ import {
 } from "./chunk-chunk-RYAAHFCI.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-IDR3OBPG.mjs";
+} from "./chunk-chunk-AHFYYS3T.mjs";
 import "./chunk-chunk-PFY3UC77.mjs";
 import "./chunk-chunk-ZNHWUEVT.mjs";
 import "./chunk-chunk-WBSKVTIU.mjs";
@@ -2664,7 +2664,7 @@ var DraggableWindow = ({
   ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
   const rgba = (r2, g2, b2, a2) => `rgba(${r2},${g2},${b2},${a2})`;
   const [bg2, setBG] = (0, import_react11.useState)(bgColor);
-  const [r, b, g, a, ..._rest] = bg2;
+  const [r, g, b, a, ..._rest] = bg2;
   (0, import_react11.useEffect)(() => {
     const intervalHandler = setInterval(() => {
       const bgColor2 = window.getComputedStyle(

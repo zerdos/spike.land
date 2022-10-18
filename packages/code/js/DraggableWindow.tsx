@@ -145,7 +145,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [bg, setBG] = useState(bgColor);
 
-  const [r, b, g, a, ..._rest] = bg;
+  const [r, g, b, a, ..._rest] = bg;
 
   useEffect(() => {
     const intervalHandler = setInterval(() => {
