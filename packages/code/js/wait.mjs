@@ -1,4 +1,4 @@
-export async function wait(delay: number): Promise<void> {
+export async function wait(delay) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();

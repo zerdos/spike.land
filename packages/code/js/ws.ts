@@ -23,7 +23,7 @@ import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { appFactory } from "./starter";
 import { md5 } from "./md5"; //import { wait } from "wait";
-import { wait } from "wait";
+import { wait } from "wait.mjs";
 
 //Import PubSubRoom from 'ipfs-pubsub-room'
 

@@ -1,3 +1,16 @@
 {
-  "imports": {}
+  "imports": {
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
+    "@emotion/cache": "/emotionCache.mjs",
+    "@emotion/styled": "/emotionStyled.mjs",
+    "react": "/react-preact.mjs",
+    "framer-motion": "/motion.mjs",
+    "react-dom": "/react-preact.mjs",
+    "react-dom/client": "/react-preact.mjs",
+    "react-dom/server": "/react-preact.mjs",
+    "react/jsx-runtime": "/react-preact.mjs",
+    "react/jsx-dev-runtime": "/react-preact.mjs"
+  }
 }

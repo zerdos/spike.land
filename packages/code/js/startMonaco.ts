@@ -15,6 +15,10 @@ const create = editor.create;
 const createModel = editor.createModel;
 // const Uri = monaco.Uri;
 
+const originToUse = location.origin.includes("spike")
+  ? location.origin
+  : "https://testing.spike.land/";
+
 // Object.assign(globalThis, {setupTypeAcquisition});
 const lib = [
   "dom",
@@ -92,7 +96,7 @@ const monacoContribution = async (
     });
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
-    baseUrl: location.origin + "/",
+    baseUrl: originToUse + "/",
     target: languages.typescript.ScriptTarget.ESNext,
 
     importHelpers: true,
@@ -117,29 +121,29 @@ const monacoContribution = async (
     module: languages.typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
     sourceMap: true,
-    mapRoot: location.origin + "/src/sourcemaps",
+    mapRoot: originToUse + "/src/sourcemaps",
     maxNodeModuleJsDepth: 10,
-    rootDir: location.origin + "/live",
+    rootDir: originToUse + "/live",
     paths: {
-      [location.origin + "/live/node_modules/"]: [location.origin + "/*"],
-      [location.origin + "/live/*"]: [location.origin + "/live/*"],
-      [location.origin + "*"]: [location.origin + "/*"],
-      [location.origin + "/node_modules/*"]: [location.origin + "/*"],
-      [location.origin + "node_modules/*"]: [location.origin + "/*"],
-      [location.origin + "/*"]: [location.origin + "/*"],
-      [location.origin + "^/*"]: [location.origin + "/*"],
+      [originToUse + "/live/node_modules/"]: [originToUse + "/*"],
+      [originToUse + "/live/*"]: [originToUse + "/live/*"],
+      [originToUse + "*"]: [originToUse + "/*"],
+      [originToUse + "/node_modules/*"]: [originToUse + "/*"],
+      [originToUse + "node_modules/*"]: [originToUse + "/*"],
+      [originToUse + "/*"]: [originToUse + "/*"],
+      [originToUse + "^/*"]: [originToUse + "/*"],
     },
     typeRoots: [
-      location.origin + "/@types/",
-      location.origin + "/unpkg/@types/",
-      location.origin + "/",
-      location.origin + "/unpkg:/",
+      originToUse + "/@types/",
+      originToUse + "/unpkg/@types/",
+      originToUse + "/",
+      originToUse + "/unpkg:/",
     ],
 
     jsxImportSource: "@emotion/react",
     jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
-    include: [location.origin + "/node_modules"],
+    include: [originToUse + "/node_modules"],
   });
 
   const regex1 = / from '\.\./gi;
@@ -147,11 +151,11 @@ const monacoContribution = async (
   const regex2 = / from '\./gi;
 
   const search = new RegExp(
-    ` from '(${location.origin}/)?live/[a-zA-Z]+`,
+    ` from '(${originToUse}/)?live/[a-zA-Z]+`,
     "gm",
   );
-  const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`)
-    .replaceAll(regex2, ` from '${location.origin}/live`);
+  const replaced = code.replaceAll(regex1, ` from '${originToUse}/live`)
+    .replaceAll(regex2, ` from '${originToUse}/live`);
 
   const models = replaced.matchAll(search);
   // Console.log("load more models", replaced, models);
@@ -159,7 +163,7 @@ const monacoContribution = async (
   for (const match of models) {
     //    console.log("***** EXTRA MODELS *****");
 
-    const extraModel = new URL(match[0].slice(7) + ".tsx", location.origin)
+    const extraModel = new URL(match[0].slice(7) + ".tsx", originToUse)
       .toString();
     //   console.log(extraModel);
     createModel(
@@ -167,8 +171,8 @@ const monacoContribution = async (
       "typescript",
       Uri.parse(extraModel),
     );
-    // Editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
-    // editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
+    // Editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(originToUse+"/node_modules/framer-motion/index.js"));
+    // editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(originToUse+"/node_modules/framer-motion/index.js"));
   }
 
   (async () => {
@@ -320,7 +324,7 @@ const monacoContribution = async (
     //   await (await fetch(
     //   '/node_modules/framer-motion/package.json',
     //   )).text(),
-    //   location.origin + `/node_modules/framer-motion/package.json`);
+    //   originToUse + `/node_modules/framer-motion/package.json`);
 
     try {
       const mapper = async (
@@ -331,7 +335,7 @@ const monacoContribution = async (
           await (await fetch(
             url,
           )).text(),
-          location.origin + `/node_modules/${name}/index.d.ts`,
+          originToUse + `/node_modules/${name}/index.d.ts`,
         );
 
       await pMap(importHelper, mapper, { concurrency: 2 });
@@ -355,7 +359,7 @@ const monacoContribution = async (
 };
 
 self.MonacoEnvironment = {
-  baseUrl: location.origin,
+  baseUrl: originToUse,
   getWorkerUrl,
 };
 
@@ -390,20 +394,20 @@ export const startMonaco = async (
 
     // Const innerStyle = document.createElement("style");
     // monacoCss
-    // innerStyle.innerText = `@import url(${location.origin}/npm:/monaco-editor@${version}/?css);`;
+    // innerStyle.innerText = `@import url(${originToUse}/npm:/monaco-editor@${version}/?css);`;
     // container.appendChild(innerStyle);
 
     const replaced = await monacoContribution(
       code,
     );
 
-    // Editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${location.origin}/package.json`))
+    // Editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${originToUse}/package.json`))
     // languages.typescript.typescriptDefaults.inlayHintsOptions
 
     const model = createModel(
       replaced,
       "typescript",
-      Uri.parse(`${location.origin}/live/${codeSpace}.tsx`),
+      Uri.parse(`${originToUse}/live/${codeSpace}.tsx`),
     );
 
     const editor = create(container, {
@@ -560,7 +564,7 @@ export const startMonaco = async (
       getErrors: () =>
         mod.tsWorker.then((ts) =>
           ts.getSemanticDiagnostics(
-            location.origin + "/live/" + codeSpace + ".tsx",
+            originToUse + "/live/" + codeSpace + ".tsx",
           ).then((diag) => diag.map((d) => d.messageText.toString()))
         ),
       setValue: (code: string) => {

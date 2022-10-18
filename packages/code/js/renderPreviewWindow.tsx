@@ -16,7 +16,7 @@ import createCache from "./emotionCache";
 import { hashCode, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
-import { wait } from "wait";
+import { wait } from "wait.mjs";
 
 const DraggableWindowLazy = lazy(() =>
   wait(1000).then(() => import("./DraggableWindow"))

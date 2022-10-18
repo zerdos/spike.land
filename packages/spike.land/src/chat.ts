@@ -13,6 +13,9 @@ const ws = a["ws.mjs"];
 const preact = a["react-preact.mjs"];
 const emotionReact = a["emotion.mjs"];
 const emotionJsxRuntime = a["emotionJsxRuntime.mjs"];
+const emotionCache = a["emotionCache.mjs"];
+
+const emotionStyled = a["emotionStyled.mjs"];
 
 const motion = a["motion.mjs"];
 
@@ -32,6 +35,8 @@ export const imap = {
     ...mods,
     "@emotion/react": emotionReact,
     "@emotion/react/jsx-runtime": emotionJsxRuntime,
+    "@emotion/styled": emotionStyled,
+    "@emotion/cache": emotionCache,
     "live/": "live/",
     "react": preact,
     "react-dom": preact,
