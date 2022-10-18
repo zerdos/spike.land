@@ -22,7 +22,7 @@ const DraggableWindowLazy = lazy(() => import("./DraggableWindow"));
 const DraggableWindow: FC<{ children: JSX.Element; room: string }> = (
   { children, room },
 ) => (
-  <Suspense fallback={children}>
+  <Suspense fallback={<>{children}</>}>
     <DraggableWindowLazy room={room}>{children}</DraggableWindowLazy>
   </Suspense>
 );
