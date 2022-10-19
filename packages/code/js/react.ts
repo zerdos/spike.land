@@ -43,6 +43,7 @@ export const {
 export const {
   createRoot,
   flushSync,
+  render,
   hydrateRoot,
   createPortal,
 } = ReactDOM;
