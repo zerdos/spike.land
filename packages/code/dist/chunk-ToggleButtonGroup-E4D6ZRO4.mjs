@@ -10,10 +10,11 @@ import {
   require_react_is,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-HMQINWQD.mjs";
+} from "./chunk-chunk-ZZ53JHLM.mjs";
 import {
-  require_react_jsx_runtime_production_min
-} from "./chunk-chunk-WHRXO4Z6.mjs";
+  init_jsx,
+  jsx
+} from "./chunk-chunk-GW7UBMNK.mjs";
 import "./chunk-chunk-L7BA6KDY.mjs";
 import {
   Children,
@@ -57,7 +58,7 @@ var toggleButtonGroupClasses = generateUtilityClasses("MuiToggleButtonGroup", ["
 var toggleButtonGroupClasses_default = toggleButtonGroupClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/ToggleButtonGroup.js
-var import_jsx_runtime = __toESM(require_react_jsx_runtime_production_min());
+init_jsx();
 var _excluded = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
 var useUtilityClasses = (ownerState) => {
   const {
@@ -172,7 +173,7 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
     }
     onChange(event, value === buttonValue ? null : buttonValue);
   };
-  return (void 0)(ToggleButtonGroupRoot, _extends({
+  return jsx(ToggleButtonGroupRoot, _extends({
     role: "group",
     className: clsx_m_default(classes.root, className),
     ref,

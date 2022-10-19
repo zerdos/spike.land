@@ -4,6 +4,8 @@ import {
 } from "./chunk-chunk-75MUKHYA.mjs";
 import {
   __commonJS,
+  __esm,
+  __export,
   __toCommonJS,
   init_define_process
 } from "./chunk-chunk-JS5E2TTE.mjs";
@@ -1111,154 +1113,18 @@ var require_emotion_cache_cjs = __commonJS({
   }
 });
 
-// dist/react-jsx-runtime.production.min.js
-var require_react_jsx_runtime_production_min = __commonJS({
-  "dist/react-jsx-runtime.production.min.js"() {
-    "use strict";
+// js/jsx.mjs
+var jsx_exports = {};
+__export(jsx_exports, {
+  Fragment: () => Fragment,
+  jsx: () => jsx,
+  jsxs: () => jsxs
+});
+var jsx, jsxs, Fragment;
+var init_jsx = __esm({
+  "js/jsx.mjs"() {
     init_define_process();
-    var ReactJSXRuntime = (() => {
-      var __defProp = Object.defineProperty;
-      var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-      var __getOwnPropNames = Object.getOwnPropertyNames;
-      var __hasOwnProp = Object.prototype.hasOwnProperty;
-      var __esm = (fn, res) => function __init() {
-        return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-      };
-      var __commonJS2 = (cb, mod) => function __require() {
-        return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-      };
-      var __export = (target, all) => {
-        for (var name in all)
-          __defProp(target, name, { get: all[name], enumerable: true });
-      };
-      var __copyProps = (to, from, except, desc) => {
-        if (from && typeof from === "object" || typeof from === "function") {
-          for (let key of __getOwnPropNames(from))
-            if (!__hasOwnProp.call(to, key) && key !== except)
-              __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-        }
-        return to;
-      };
-      var __toCommonJS2 = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-      var react_exports2 = {};
-      __export(react_exports2, {
-        Children: () => Children,
-        Component: () => Component,
-        Fragment: () => Fragment,
-        PureComponent: () => PureComponent,
-        StrictMode: () => StrictMode,
-        Suspense: () => Suspense,
-        __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: () => __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
-        cloneElement: () => cloneElement,
-        createContext: () => createContext,
-        createElement: () => createElement,
-        createFactory: () => createFactory,
-        createPortal: () => createPortal,
-        createRef: () => createRef,
-        createRoot: () => createRoot,
-        default: () => react_default,
-        flushSync: () => flushSync,
-        forwardRef: () => forwardRef,
-        hydrateRoot: () => hydrateRoot,
-        isValidElement: () => isValidElement,
-        lazy: () => lazy,
-        memo: () => memo,
-        startTransition: () => startTransition,
-        useCallback: () => useCallback,
-        useContext: () => useContext,
-        useDebugValue: () => useDebugValue,
-        useDeferredValue: () => useDeferredValue,
-        useEffect: () => useEffect,
-        useId: () => useId,
-        useImperativeHandle: () => useImperativeHandle,
-        useInsertionEffect: () => useInsertionEffect,
-        useLayoutEffect: () => useLayoutEffect,
-        useMemo: () => useMemo,
-        useReducer: () => useReducer,
-        useRef: () => useRef,
-        useState: () => useState,
-        useSyncExternalStore: () => useSyncExternalStore,
-        useTransition: () => useTransition,
-        version: () => version
-      });
-      var React, ReactDOM, Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, version, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, createRoot, flushSync, hydrateRoot, createPortal, react_default;
-      var init_react2 = __esm({
-        "js/react.ts"() {
-          "use strict";
-          React = window.React = window.React || {};
-          ReactDOM = window.ReactDOM = window.ReactDOM || {};
-          ({
-            Children,
-            Component,
-            Fragment,
-            PureComponent,
-            StrictMode,
-            Suspense,
-            cloneElement,
-            createContext,
-            createElement,
-            createFactory,
-            createRef,
-            forwardRef,
-            isValidElement,
-            lazy,
-            memo,
-            startTransition,
-            useCallback,
-            useContext,
-            useDebugValue,
-            useDeferredValue,
-            useEffect,
-            useId,
-            useImperativeHandle,
-            useInsertionEffect,
-            useLayoutEffect,
-            useMemo,
-            useReducer,
-            useRef,
-            useState,
-            useSyncExternalStore,
-            useTransition,
-            version,
-            __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
-          } = React);
-          ({
-            createRoot,
-            flushSync,
-            hydrateRoot,
-            createPortal
-          } = ReactDOM);
-          react_default = React;
-        }
-      });
-      var require_react_jsx_runtime_production_min2 = __commonJS2({
-        "js/react-jsx-runtime.production.min.cjs"(exports2) {
-          var f = (init_react2(), __toCommonJS2(react_exports2));
-          var k = Symbol.for("react.element");
-          var l = Symbol.for("react.fragment");
-          var m = Object.prototype.hasOwnProperty;
-          var n = f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner;
-          var p = { key: true, ref: true, __self: true, __source: true };
-          function q(c, a, g) {
-            var b, d = {}, e = null, h = null;
-            void 0 !== g && (e = "" + g);
-            void 0 !== a.key && (e = "" + a.key);
-            void 0 !== a.ref && (h = a.ref);
-            for (b in a)
-              m.call(a, b) && !p.hasOwnProperty(b) && (d[b] = a[b]);
-            if (c && c.defaultProps) {
-              for (b in a = c.defaultProps, a)
-                void 0 === d[b] && (d[b] = a[b]);
-            }
-            return { $$typeof: k, type: c, key: e, ref: h, props: d, _owner: n.current };
-          }
-          exports2.Fragment = l;
-          exports2.jsx = q;
-          exports2.jsxs = q;
-        }
-      });
-      return require_react_jsx_runtime_production_min2();
-    })();
+    ({ jsx, jsxs, Fragment } = globalThis.ReactJSXRuntime);
   }
 });
 
@@ -1353,7 +1219,7 @@ var require_react_is_development = __commonJS({
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element = REACT_ELEMENT_TYPE;
         var ForwardRef = REACT_FORWARD_REF_TYPE;
-        var Fragment = REACT_FRAGMENT_TYPE;
+        var Fragment2 = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
         var Memo = REACT_MEMO_TYPE;
         var Portal = REACT_PORTAL_TYPE;
@@ -1412,7 +1278,7 @@ var require_react_is_development = __commonJS({
         exports.ContextProvider = ContextProvider;
         exports.Element = Element;
         exports.ForwardRef = ForwardRef;
-        exports.Fragment = Fragment;
+        exports.Fragment = Fragment2;
         exports.Lazy = Lazy;
         exports.Memo = Memo;
         exports.Portal = Portal;
@@ -1972,5 +1838,8 @@ export {
   require_emotion_utils_cjs,
   require_emotion_serialize_cjs,
   require_emotion_use_insertion_effect_with_fallbacks_cjs,
-  require_react_jsx_runtime_production_min
+  jsx,
+  jsxs,
+  jsx_exports,
+  init_jsx
 };

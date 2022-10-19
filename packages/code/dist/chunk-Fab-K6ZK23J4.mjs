@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-BO4AVRX7.mjs";
+} from "./chunk-chunk-YOUYE6CC.mjs";
 import {
   _extends,
   _objectWithoutPropertiesLoose,
@@ -13,10 +13,11 @@ import {
   rootShouldForwardProp,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-HMQINWQD.mjs";
+} from "./chunk-chunk-ZZ53JHLM.mjs";
 import {
-  require_react_jsx_runtime_production_min
-} from "./chunk-chunk-WHRXO4Z6.mjs";
+  init_jsx,
+  jsx
+} from "./chunk-chunk-GW7UBMNK.mjs";
 import "./chunk-chunk-L7BA6KDY.mjs";
 import {
   forwardRef,
@@ -44,7 +45,7 @@ var fabClasses = generateUtilityClasses("MuiFab", ["root", "primary", "secondary
 var fabClasses_default = fabClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
-var import_jsx_runtime = __toESM(require_react_jsx_runtime_production_min());
+init_jsx();
 var _excluded = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
 var useUtilityClasses = (ownerState) => {
   const {
@@ -172,7 +173,7 @@ var Fab = forwardRef(function Fab2(inProps, ref) {
     variant
   });
   const classes = useUtilityClasses(ownerState);
-  return (void 0)(FabRoot, _extends({
+  return jsx(FabRoot, _extends({
     className: clsx_m_default(classes.root, className),
     component,
     disabled,
