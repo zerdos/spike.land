@@ -1,6 +1,6 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
-// import  {  join } from "@spike.land/code/js/rtc.ts";
+import  __STATIC_CONTENT_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
@@ -8,7 +8,7 @@ import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
 const a = JSON.parse(__STATIC_CONTENT_MANIFEST);
-const ws = a["ws.mjs"];
+// const ws = a["ws.mjs"];
 const preact = a["react.mjs"];
 const emotionReact = a["emotion.mjs"];
 const emotionJsxRuntime = a["emotionJsxRuntime.mjs"];
@@ -32,18 +32,17 @@ esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
 export const imap = {
   "imports": {
     ...mods,
-    "@emotion/react": emotionReact,
-    "@emotion/react/jsx-runtime": '/node_modules/@emotion/react@11.10.4/jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm.js',
-    "@emotion/styled": emotionStyled,
-    "@emotion/cache": emotionCache,
+    // "@emotion/react": emotionReact,
+    "@emotion/react/jsx-runtime": emotionJsxRuntime,
+    // "@emotion/styled": emotionStyled,
+    // "@emotion/cache": emotionCache,
     "live/": "live/",
-    "react": preact,
-    "react-dom": preact,
-    "react-dom/client": preact,
-    "react-dom/server": preact,
+    // "react": preact,
+    // "react-dom": preact,
+    // "react-dom/client": preact,
+    // "react-dom/server": preact,
     "framer-motion": motion,
-    "react/jsx -runtime": a["react-jsx-runtime.production.min.js:"],
-    "ws.mjs": ws,
+    // "ws.mjs": ws,
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.jchs",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
@@ -101,12 +100,14 @@ export default {
 
         const cacheKey = new Request(_request.url);
         const cache = caches.default;
-        let cachedResponse = await cache.match(cacheKey);
+
+        if(!url.pathname.includes('ws.mjs')){
+        const cachedResponse = await cache.match(cacheKey);
         if (cachedResponse && cachedResponse.ok) {
           return cachedResponse;
-        }
+        }}
 
-        cachedResponse = await (async (request) => {
+        const cachedResponse2 = await (async (request) => {
           const cacheKey = new Request(request.url);
 
           const cache = caches.default;
@@ -369,12 +370,12 @@ export default {
                       bypassCache: true,
                     }),
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                  ASSET_MANIFEST: __STATIC_CONTENT_MANIFEST,
+                  ASSET_MANIFEST: a,
                 },
               );
               
               if (!kvResp.ok) throw new Error("no kv, try something else")
-                return kvResp;
+                return kvResp.clone();
               }catch{
                 const resp = await fetch(new URL(url.pathname.slice(1), url.origin +  '/node_modules/').toString())
                 if (resp.ok) return resp;
@@ -383,11 +384,11 @@ export default {
           }
        
         })(_request);
-        if (! cachedResponse) throw new Error("! cached response")
+        if (!cachedResponse2) throw new Error("!cached response")
 
-        if(cachedResponse?.ok) await cache.put(cacheKey, cachedResponse.clone());
+        if(cachedResponse2?.ok) await cache.put(cacheKey, cachedResponse2.clone());
 
-        return cachedResponse;; 
+        return cachedResponse2;
       };
 
       return handleFetchApi(path);

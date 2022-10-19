@@ -1,5 +1,4 @@
-import { Fragment, lazy, Suspense, useEffect, useMemo, useState } from "react";
-import type { FC } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 import { createRoot } from "react-dom/client";
 import {
@@ -113,7 +112,7 @@ const AppToRender: React.FC<
     }), []);
 
   return (
-    <Fragment>
+    <>
       <InPortal node={portalNode}>
         <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
       </InPortal>
@@ -123,18 +122,18 @@ const AppToRender: React.FC<
         : (
           <Suspense fallback={<OutPortal node={portalNode} />}>
             <RainbowContainer>
-              <Fragment>
+              <>
                 <Editor
                   codeSpace={codeSpace}
                 />
                 <DraggableWindowLazy room={codeSpace}>
                   <OutPortal node={portalNode} />
                 </DraggableWindowLazy>
-              </Fragment>
+              </>
             </RainbowContainer>
           </Suspense>
         )}
-    </Fragment>
+    </>
   );
 };
 const singleton = { started: false };
@@ -152,8 +151,8 @@ export const renderPreviewWindow = ({ codeSpace }: { codeSpace: string }) => {
   // (createCache as unknown as {default: typeof createCache}).default
 
   root.render(
-    <CacheProvider value={x}>
-      <AppToRender codeSpace={codeSpace} />
+    <CacheProvider value={x} cj>
+      {AppToRender}
     </CacheProvider>,
   );
 };

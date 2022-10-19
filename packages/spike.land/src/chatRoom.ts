@@ -215,11 +215,9 @@ export class Code {
         case "mST.mjs":
           const a = JSON.parse(manifestJSON);
           const assets = {
-            "ws.mjs": a["ws.mjs"],
             "react.mjs": a["react.mjs"],
             "emotion.mjs": a["emotion.mjs"],
-            "framer-motion.mjs": a["framer-motion.mjs"],
-            "ws.css": a["ws.css"],
+            "framer-motion.mjs": a["framer-motion.mjs"]
           };
           return new Response(
             `

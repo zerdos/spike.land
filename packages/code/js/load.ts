@@ -7,9 +7,9 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 (async () => {
   const mod = await Promise.all([
-    importShim(`/live/${codeSpace}/mST.mjs`),
-    importShim("ws.mjs"),
-    importShim(`/live/${codeSpace}/index.js`),
+    importShim(`${location.origin}/live/${codeSpace}/mST.mjs`),
+    importShim(`${location.origin}/ws.mjs`),
+    importShim(`${location.origin}/live/${codeSpace}/index.js`),
   ]);
 
   const { mST, assets, address } = mod[0];
