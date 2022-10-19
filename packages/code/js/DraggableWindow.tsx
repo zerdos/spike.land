@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import type { FC } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { LayoutGroup, motion } from "framer-motion";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr";
@@ -56,8 +56,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
+  const videoRef = useRef(null);
   const scale = scaleRange / 100;
 
   // UseEffect(()=> {
@@ -426,7 +425,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 <>
                   <video
                     ref={videoRef}
-                    onClick={() => startVideo(videoRef.current!)}
+                    onClick={() => startVideo(videoRef?.current!)}
                     playsInline={true}
                     autoPlay={true}
                   >
@@ -435,7 +434,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     <video
                       id={`video-${k}`}
                       key={index}
-                      ref={videoRef}
+                      // ref={videoRef}
                       playsInline={true}
                       autoPlay={true}
                     >

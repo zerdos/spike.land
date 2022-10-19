@@ -899,8 +899,8 @@ __metadata:
     "@types/react": "npm:18.0.21"
     "@types/react-dom": "npm:18.0.6"
     "@typescript/ata": "npm:0.9.3"
-    "@yarnpkg/sdks": "npm:3.0.0-rc.25"
-    ace-builds: "npm:1.12.1"
+    "@yarnpkg/sdks": "npm:3.0.0-rc.26"
+    ace-builds: "npm:1.12.3"
     avl: "npm:1.5.3"
     comlink: "npm:4.3.1"
     csstype: "npm:3.1.1"
@@ -956,7 +956,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:^18.11.0"
+    "@types/node": "npm:^18.11.2"
     esbuild: "npm:0.15.11"
   languageName: unknown
   linkType: soft
@@ -1009,7 +1009,7 @@ __metadata:
     "@playwright/test": "npm:1.27.1"
     "@types/react": "npm:18.0.21"
     "@types/react-dom": "npm:18.0.6"
-    "@yarnpkg/sdks": "npm:3.0.0-rc.25"
+    "@yarnpkg/sdks": "npm:3.0.0-rc.26"
     playwright: "npm:1.27.1"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -1128,10 +1128,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.11.0":
+"@types/node@npm:*":
   version: 18.11.0
   resolution: "@types/node@npm:18.11.0"
   checksum: 29cddf70ce75ff9c39849a1d92111031be8614220b4bb7c0ee02ce83c14138f4b067557d8654fa32941111e02664366b007017ef35a6cb6926842270369deaae
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.11.2":
+  version: 18.11.2
+  resolution: "@types/node@npm:18.11.2"
+  checksum: 15bc10c85db33a12142e9d76c464dbd45ba341d928e29ffc007c9319526483ff03e538618dbdc35456d556e92176cc07241dbd90a87c72eaeea74fe240755890
   languageName: node
   linkType: hard
 
@@ -1240,17 +1247,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.0.0-rc.25":
-  version: 4.0.0-rc.25
-  resolution: "@yarnpkg/core@npm:4.0.0-rc.25"
+"@yarnpkg/core@npm:^4.0.0-rc.26":
+  version: 4.0.0-rc.26
+  resolution: "@yarnpkg/core@npm:4.0.0-rc.26"
   dependencies:
     "@arcanis/slice-ansi": "npm:^1.1.1"
     "@types/semver": "npm:^7.1.0"
     "@types/treeify": "npm:^1.0.0"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.25"
-    "@yarnpkg/libzip": "npm:^3.0.0-rc.25"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.25"
-    "@yarnpkg/shell": "npm:^4.0.0-rc.25"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.26"
+    "@yarnpkg/libzip": "npm:^3.0.0-rc.26"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.26"
+    "@yarnpkg/shell": "npm:^4.0.0-rc.26"
     camelcase: "npm:^5.3.1"
     chalk: "npm:^3.0.0"
     ci-info: "npm:^3.2.0"
@@ -1269,49 +1276,49 @@ __metadata:
     treeify: "npm:^1.1.0"
     tslib: "npm:^2.4.0"
     tunnel: "npm:^0.0.6"
-  checksum: 6395cc90e4f2a47b045dc31f819d2845d9039daa438346ed587776b4a88ba2bbd2cf80e3678a29bf2e976f8e393044c0ae24c7cbc4c6e2140d477cd1f1fa8b2b
+  checksum: 7115456019562af32299dc8a9cc8ac0de84a2820c98541a7c90443d2bddb9ad7087cdc2913879cd027746248827720d2c0514d0bd0f68d2867edccbfc89c1597
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.0.0-rc.25":
-  version: 3.0.0-rc.25
-  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.25"
+"@yarnpkg/fslib@npm:^3.0.0-rc.26":
+  version: 3.0.0-rc.26
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.26"
   dependencies:
     tslib: "npm:^2.4.0"
-  checksum: 0132c76a34c1a98834f57fb0503253205a4ae6786d6ec3be45549b4e6614832d7a714388059fe6649a05c42b6dbc6ee88a82d913eca4c4c81a3ce028a4d5bbcb
+  checksum: 73cf8d79be86321dfd8395b3602d3e03e3b99f542718512bb2e0e6a01d4a79be01734f98a9c63b0b41371b3e288fb9372261a0817448868c4bfdf055d6309508
   languageName: node
   linkType: hard
 
-"@yarnpkg/libzip@npm:^3.0.0-rc.25":
-  version: 3.0.0-rc.25
-  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.25"
+"@yarnpkg/libzip@npm:^3.0.0-rc.26":
+  version: 3.0.0-rc.26
+  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.26"
   dependencies:
     "@types/emscripten": "npm:^1.39.6"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.25"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.26"
     tslib: "npm:^2.4.0"
   peerDependencies:
-    "@yarnpkg/fslib": ^3.0.0-rc.25
-  checksum: c437a9c231357691e90ec02328e8b145894f9168af622ff21b7bd64bc757da25b6ff419b5559825704fbbde3c93b903e03f47f2c31aa9b3aaf33bf0ab433eafa
+    "@yarnpkg/fslib": ^3.0.0-rc.26
+  checksum: a113035cf9967cbed7d6429dbab49d37ab16d4e5371265d23538276336bff92b708c4e1119f4ed02312aec744dbee073572da5330404eaf8309d0216c2984de6
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^3.0.0-rc.25":
-  version: 3.0.0-rc.25
-  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.25"
+"@yarnpkg/parsers@npm:^3.0.0-rc.26":
+  version: 3.0.0-rc.26
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.26"
   dependencies:
     js-yaml: "npm:^3.10.0"
     tslib: "npm:^2.4.0"
-  checksum: 973289cf0e78c271212bbb35d15e4246f9d7a04415fdcdde452a44d0358f7b03389d7d923e4fbde35109735c3a3fb9770c435da6f061181da7a669d6b5f5570f
+  checksum: f3ae04560f0cb38d4b26a407130a2593b2aa24d077508b7a3b172a40e493b70de620d30531009b957e6c4a3c66b61a5ec7f805333dffc08a7c7ef88371f94f40
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:3.0.0-rc.25":
-  version: 3.0.0-rc.25
-  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.25"
+"@yarnpkg/sdks@npm:3.0.0-rc.26":
+  version: 3.0.0-rc.26
+  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.26"
   dependencies:
-    "@yarnpkg/core": "npm:^4.0.0-rc.25"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.25"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.25"
+    "@yarnpkg/core": "npm:^4.0.0-rc.26"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.26"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.26"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^3.2.0-rc.10"
     comment-json: "npm:^2.2.0"
@@ -1319,16 +1326,16 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     sdks: ./lib/cli.js
-  checksum: c3550550e0c2f5d36956d6488e50c249d66cd3e41e0f4ffe6fb14240deb20bf0514104fe004f9ec37b1343ac3e89038f75965a8e85709f1fc668373cc23863bc
+  checksum: e04e6470267c6680284bae4aa2edd096760db55759b84b48b2c88cd73eb8a1a60a3ce735ca521f4886bd7433a48dd05455474cdf41360a396dff40d0263abf9e
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:^4.0.0-rc.25":
-  version: 4.0.0-rc.25
-  resolution: "@yarnpkg/shell@npm:4.0.0-rc.25"
+"@yarnpkg/shell@npm:^4.0.0-rc.26":
+  version: 4.0.0-rc.26
+  resolution: "@yarnpkg/shell@npm:4.0.0-rc.26"
   dependencies:
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.25"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.25"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.26"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.26"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^3.2.0-rc.10"
     cross-spawn: "npm:7.0.3"
@@ -1337,7 +1344,7 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     shell: ./lib/cli.js
-  checksum: 3f6be68e235c999c881e9333d6812f7672a9bc9c3ac200444d8374b7614ce8e484b76de5a214204368c057692375d6a1052c6a0cab5197d66872aab733eb6c96
+  checksum: 3a92e384561dfcb18bb98ca17a6fa5718133c976e9a63d3e428615f66ca592f4a2f3824087096fed44778b4acf3f14de8498e63e5ffcb65111e73e89e54ebc44
   languageName: node
   linkType: hard
 
@@ -1365,10 +1372,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.12.1":
-  version: 1.12.1
-  resolution: "ace-builds@npm:1.12.1"
-  checksum: 0df6f1e120508cdc8a8afbc1277f355e5e50a2312d8d87e89ee81f74b219757dbc63587ec7f303509444e7cb0c2d4ee10f51c351ce7151fc6a565020d8730ac9
+"ace-builds@npm:1.12.3":
+  version: 1.12.3
+  resolution: "ace-builds@npm:1.12.3"
+  checksum: fafc22bf536680785413b556d7fad308c75bd0b36754a33a2b9b206c4ead50154c53a3ef4872ed42d00b47f805b45c88cfcb040a40b8e4c7f65c1c92ed4af976
   languageName: node
   linkType: hard
 
