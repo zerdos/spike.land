@@ -10,17 +10,17 @@ import {
   require_react_is,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-SIOY7HE2.mjs";
-import "./chunk-chunk-NI5ROW2P.mjs";
-import "./chunk-chunk-VRYMSF5W.mjs";
+} from "./chunk-chunk-7GADEGZX.mjs";
+import "./chunk-chunk-ABHFWPU5.mjs";
+import "./chunk-chunk-VV57WXRL.mjs";
 import {
   Children,
   cloneElement,
   forwardRef,
   init_react_preact,
   isValidElement,
-  o3
-} from "./chunk-chunk-UCYDREHN.mjs";
+  o
+} from "./chunk-chunk-ZO2RDFSP.mjs";
 import {
   __toESM,
   init_define_process
@@ -171,7 +171,7 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
     }
     onChange(event, value === buttonValue ? null : buttonValue);
   };
-  return o3(ToggleButtonGroupRoot, _extends({
+  return o(ToggleButtonGroupRoot, _extends({
     role: "group",
     className: clsx_m_default(classes.root, className),
     ref,

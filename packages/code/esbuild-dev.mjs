@@ -188,45 +188,45 @@ const build = (entryPoints, extraExternal) =>
   //     // "js/ws.ts"],
   //    ],[]);
 
-  buildOptions.plugins = [
-    aliasPlugin({
-      //    "stream": resolve("./js/stream.mjs"),
-      //  "buffer": resolve("./js/buffer/index.ts"),
-      // "@emotion/react": resolve("./js/emotion.ts"),
-      // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
-      // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
-      //"@emotion/styled": resolve("./js/emotionStyled.mjs"),
-      // // "./mui": resolve("./dist/mui.mjs"),
-      "react": resolve("./js/react-preact.ts"),
-      "react-dom": resolve("./js/react-preact.ts"),
-      "react-dom/client": resolve("./js/react-preact.ts"),
-      "react-dom/server": resolve("./js/react-preact.ts"),
-      "react/jsx-runtime": resolve("./js/react-preact.ts"),
-      "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
-    }),
-  ];
+  // buildOptions.plugins = [
+  //   aliasPlugin({
+  //     //    "stream": resolve("./js/stream.mjs"),
+  //     //  "buffer": resolve("./js/buffer/index.ts"),
+  //     // "@emotion/react": resolve("./js/emotion.ts"),
+  //     // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
+  //     // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
+  //     //"@emotion/styled": resolve("./js/emotionStyled.mjs"),
+  //     // // "./mui": resolve("./dist/mui.mjs"),
+  //     "react": resolve("./js/react-preact.ts"),
+  //     "react-dom": resolve("./js/react-preact.ts"),
+  //     "react-dom/client": resolve("./js/react-preact.ts"),
+  //     "react-dom/server": resolve("./js/react-preact.ts"),
+  //     "react/jsx-runtime": resolve("./js/react-preact.ts"),
+  //     "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
+  //   }),
+  // ];
 
-  // await fs.cp("./index.html", "./dist/index.html");
+  // // await fs.cp("./index.html", "./dist/index.html");
 
-  await build([
-    // "js/session.ts",
-    // "js/prettierWorker.mjs",
-    "js/react-preact.ts",
-    // "js/react.ts",
-    // "js/Editor.tsx",
-    // "js/motion.ts",
-    // "js/renderToString.tsx",
-    // "js/renderPreviewWindow.tsx",
-    "js/emotionStyled.mjs",
+  // await build([
+  //   // "js/session.ts",
+  //   // "js/prettierWorker.mjs",
+  //   "js/react-preact.ts",
+  //   // "js/react.ts",
+  //   // "js/Editor.tsx",
+  //   // "js/motion.ts",
+  //   // "js/renderToString.tsx",
+  //   // "js/renderPreviewWindow.tsx",
+  //   "js/emotionStyled.mjs",
 
-    "js/emotionCache.ts",
+  //   "js/emotionCache.ts",
 
-    "js/emotion.ts",
-    "js/emotionJsxRuntime.ts",
-    // "js/ws.ts",
-    // "js/load.ts",
-  ], [ //"react", "react-dom*"
-  ]);
+  //   "js/emotion.ts",
+  //   "js/emotionJsxRuntime.ts",
+  //   // "js/ws.ts",
+  //   // "js/load.ts",
+  // ], [ //"react", "react-dom*"
+  // ]);
 
   buildOptions.plugins = [
     aliasPlugin({
@@ -238,12 +238,12 @@ const build = (entryPoints, extraExternal) =>
       // "@emotion/cache": resolve("./dist/emotionCache.mjs"),
       // "@emotion/styled": resolve("./dist/emotionStyled.mjs"),
       // // "./mui": resolve("./dist/mui.mjs"),
-      "react": resolve("./dist/react-preact.mjs"),
-      "react-dom": resolve("./dist/react-preact.mjs"),
-      "react-dom/client": resolve("./dist/react-preact.mjs"),
-      "react-dom/server": resolve("./dist/react-preact.mjs"),
-      "react/jsx-runtime": resolve("./dist/react-preact.mjs"),
-      "react/jsx-dev-runtime": resolve("./dist/react-preact.mjs"),
+      "react": resolve("./js/react-preact.ts"),
+      "react-dom": resolve("./js/react-preact.ts"),
+      "react-dom/client": resolve("./js/react-preact.ts"),
+      "react-dom/server": resolve("./js/react-preact.ts"),
+      "react/jsx-runtime": resolve("./js/react-preact.ts"),
+      "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
     }),
   ];
 

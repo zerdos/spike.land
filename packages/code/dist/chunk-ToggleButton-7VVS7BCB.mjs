@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-KP6KMVHS.mjs";
+} from "./chunk-chunk-KNLOTDZ7.mjs";
 import {
   _extends,
   _objectWithoutPropertiesLoose,
@@ -26,15 +26,15 @@ import {
   styled_default,
   useThemeProps,
   useTheme_default
-} from "./chunk-chunk-SIOY7HE2.mjs";
-import "./chunk-chunk-NI5ROW2P.mjs";
-import "./chunk-chunk-VRYMSF5W.mjs";
+} from "./chunk-chunk-7GADEGZX.mjs";
+import "./chunk-chunk-ABHFWPU5.mjs";
+import "./chunk-chunk-VV57WXRL.mjs";
 import {
   forwardRef,
   init_react_preact,
-  o3,
+  o,
   useDebugValue
-} from "./chunk-chunk-UCYDREHN.mjs";
+} from "./chunk-chunk-ZO2RDFSP.mjs";
 import {
   __toESM,
   init_define_process
@@ -186,7 +186,7 @@ var Paper = forwardRef(function Paper2(inProps, ref) {
       console.error([`MUI: The elevation provided <Paper elevation={${elevation}}> is not available in the theme.`, `Please make sure that \`theme.shadows[${elevation}]\` is defined.`].join("\n"));
     }
   }
-  return o3(PaperRoot, _extends({
+  return o(PaperRoot, _extends({
     as: component,
     ownerState,
     className: clsx_m_default(classes.root, className),
@@ -595,7 +595,7 @@ var ToggleButton = forwardRef(function ToggleButton2(inProps, ref) {
       onChange(event, value);
     }
   };
-  return o3(ToggleButtonRoot, _extends({
+  return o(ToggleButtonRoot, _extends({
     className: clsx_m_default(classes.root, className),
     disabled,
     focusRipple: !disableFocusRipple,

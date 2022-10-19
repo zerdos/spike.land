@@ -44,6 +44,13 @@ const mod = {
     root.render(
       <Helper md5Hash={md5hash} />,
     );
+    return () => {
+      root.unmount;
+      document.body.removeChild(rootDiv);
+      rootDiv.remove();
+      delete apps[md5hash];
+      mod.setHash = null;
+    };
   },
 };
 
@@ -54,35 +61,35 @@ export const render = async (transpiled: string, codeSpace: string) => {
 
   mod.wait = 1;
 
-  if (!mod.setHash) {
-    mod.setApp(
-      md5hash,
-    );
-  } else {
-    mod.setHash(md5hash);
+  const cleanup = mod.setApp(
+    md5hash,
+  );
+
+  try {
+    const html = await mod.waitForDiv();
+
+    if (!html) return { html: null, css: null };
+
+    //  const html = mod.res.innerHTML;``
+    const css = mineFromCaches(eCaches[md5hash]);
+    // const extractCritical = createExtractCritical(eCaches[md5hash]);
+    // let critical = extractCritical(html);
+    // let css3 = extractCritical22(html);
+
+    // console.log(css, critical, css3);
+
+    const globalCss = document.querySelector("style[data-emotion=z-global]")
+      ?.innerHTML;
+    // if (!css) css = extractCritical22(html);
+    //    root.unmount()
+
+    return {
+      html,
+      css: globalCss + " " + css,
+    };
+  } finally {
+    cleanup();
   }
-
-  const html = await mod.waitForDiv();
-
-  if (!html) return { html: null, css: null };
-
-  //  const html = mod.res.innerHTML;``
-  const css = mineFromCaches(eCaches[md5hash]);
-  // const extractCritical = createExtractCritical(eCaches[md5hash]);
-  // let critical = extractCritical(html);
-  // let css3 = extractCritical22(html);
-
-  // console.log(css, critical, css3);
-
-  const globalCss = document.querySelector("style[data-emotion=z-global]")
-    ?.innerHTML;
-  // if (!css) css = extractCritical22(html);
-  //    root.unmount()
-
-  return {
-    html,
-    css: globalCss + " " + css,
-  };
 };
 // };
 // export const renderFromString = (

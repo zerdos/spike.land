@@ -1,6 +1,6 @@
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-NI5ROW2P.mjs";
+} from "./chunk-chunk-ABHFWPU5.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_memoize_cjs,
@@ -9,7 +9,7 @@ import {
   require_emotion_utils_cjs,
   require_extends,
   require_react_is
-} from "./chunk-chunk-VRYMSF5W.mjs";
+} from "./chunk-chunk-VV57WXRL.mjs";
 import {
   Children,
   Fragment,
@@ -23,7 +23,7 @@ import {
   forwardRef,
   init_react_preact,
   isValidElement,
-  o3,
+  o,
   react_preact_exports,
   useCallback,
   useContext,
@@ -36,7 +36,7 @@ import {
   useReducer,
   useRef,
   useState
-} from "./chunk-chunk-UCYDREHN.mjs";
+} from "./chunk-chunk-ZO2RDFSP.mjs";
 import {
   __commonJS,
   __toCommonJS,
@@ -2212,8 +2212,8 @@ var BadgeUnstyled = forwardRef(function BadgeUnstyled2(props, ref) {
     ownerState,
     className: classes.badge
   });
-  return o3(Root, _extends({}, rootProps, {
-    children: [children, o3(Badge, _extends({}, badgeProps, {
+  return o(Root, _extends({}, rootProps, {
+    children: [children, o(Badge, _extends({}, badgeProps, {
       children: displayValue
     }))]
   }));
@@ -2470,7 +2470,7 @@ var ButtonUnstyled = forwardRef(function ButtonUnstyled2(props, forwardedRef) {
     ownerState,
     className: classes.root
   });
-  return o3(Root, _extends({}, rootProps, {
+  return o(Root, _extends({}, rootProps, {
     children
   }));
 });
@@ -2611,7 +2611,7 @@ function ClickAwayListener(props) {
     }
     return void 0;
   }, [handleClickAway, mouseEvent]);
-  return o3(Fragment, {
+  return o(Fragment, {
     children: cloneElement(children, childrenProps)
   });
 }
@@ -2825,8 +2825,8 @@ function FocusTrap(props) {
     }
     activated.current = true;
   };
-  return o3(Fragment, {
-    children: [o3("div", {
+  return o(Fragment, {
+    children: [o("div", {
       tabIndex: open ? 0 : -1,
       onFocus: handleFocusSentinel,
       ref: sentinelStart,
@@ -2834,7 +2834,7 @@ function FocusTrap(props) {
     }), cloneElement(children, {
       ref: handleRef,
       onFocus
-    }), o3("div", {
+    }), o("div", {
       tabIndex: open ? 0 : -1,
       onFocus: handleFocusSentinel,
       ref: sentinelEnd,
@@ -2969,9 +2969,9 @@ var FormControlUnstyled = forwardRef(function FormControlUnstyled2(props, ref) {
     ownerState,
     className: classes.root
   });
-  return o3(FormControlUnstyledContext_default.Provider, {
+  return o(FormControlUnstyledContext_default.Provider, {
     value: childContext,
-    children: o3(Root, _extends({}, rootProps))
+    children: o(Root, _extends({}, rootProps))
   });
 });
 true ? FormControlUnstyled.propTypes = {
@@ -3279,8 +3279,8 @@ var InputUnstyled = forwardRef(function InputUnstyled2(props, forwardedRef) {
       }
     }
   }
-  return o3(Root, _extends({}, rootProps, {
-    children: [startAdornment, o3(Input, _extends({}, inputProps)), endAdornment]
+  return o(Root, _extends({}, rootProps, {
+    children: [startAdornment, o(Input, _extends({}, inputProps)), endAdornment]
   }));
 });
 true ? InputUnstyled.propTypes = {
@@ -3357,7 +3357,7 @@ var ActionTypes;
 init_define_process();
 var pageSize = 5;
 function findValidOptionToHighlight(index, lookupDirection, options, focusDisabled, isOptionDisabled, wrapAround) {
-  if (options.length === 0 || options.every((o, i) => isOptionDisabled(o, i))) {
+  if (options.length === 0 || options.every((o2, i) => isOptionDisabled(o2, i))) {
     return -1;
   }
   let nextFocus = index;
@@ -3414,13 +3414,13 @@ function getNewHighlightedOption(options, previouslyHighlightedOption, diff, loo
 function handleOptionSelection(option, state, props) {
   const {
     multiple,
-    optionComparer = (o, v) => o === v,
+    optionComparer = (o2, v) => o2 === v,
     isOptionDisabled = () => false
   } = props;
   const {
     selectedValue
   } = state;
-  const optionIndex = props.options.findIndex((o) => props.optionComparer(option, o));
+  const optionIndex = props.options.findIndex((o2) => props.optionComparer(option, o2));
   if (isOptionDisabled(option, optionIndex)) {
     return state;
   }
@@ -5780,7 +5780,7 @@ var Portal = forwardRef(function Portal2(props, ref) {
     }
     return children;
   }
-  return o3(Fragment, {
+  return o(Fragment, {
     children: mountNode ? createPortal(children, mountNode) : mountNode
   });
 });
@@ -5938,7 +5938,7 @@ var PopperTooltip = forwardRef(function PopperTooltip2(props, ref) {
     ownerState: _extends({}, props, ownerState),
     className: classes.root
   });
-  return o3(Root, _extends({}, rootProps, {
+  return o(Root, _extends({}, rootProps, {
     children: typeof children === "function" ? children(childProps) : children
   }));
 });
@@ -5969,10 +5969,10 @@ var PopperUnstyled = forwardRef(function PopperUnstyled2(props, ref) {
     return null;
   }
   const container = containerProp || (anchorEl ? ownerDocument(resolveAnchorEl(anchorEl)).body : void 0);
-  return o3(Portal_default, {
+  return o(Portal_default, {
     disablePortal,
     container,
-    children: o3(PopperTooltip, _extends({
+    children: o(PopperTooltip, _extends({
       anchorEl,
       direction,
       disablePortal,
@@ -6127,9 +6127,9 @@ var MenuUnstyled = forwardRef(function MenuUnstyled2(props, forwardedRef) {
     getItemProps,
     open
   };
-  return o3(Root, _extends({}, rootProps, {
-    children: o3(Listbox, _extends({}, listboxProps, {
-      children: o3(MenuUnstyledContext_default.Provider, {
+  return o(Root, _extends({}, rootProps, {
+    children: o(Listbox, _extends({}, listboxProps, {
+      children: o(MenuUnstyledContext_default.Provider, {
         value: contextValue,
         children
       })
@@ -6311,7 +6311,7 @@ var MenuItemUnstyled = forwardRef(function MenuItemUnstyled2(props, ref) {
     className: classes.root,
     ownerState
   });
-  return o3(Root, _extends({}, rootProps, {
+  return o(Root, _extends({}, rootProps, {
     children
   }));
 });
@@ -6724,12 +6724,12 @@ var ModalUnstyled = forwardRef(function ModalUnstyled2(props, ref) {
   if (!keepMounted && !open && (!hasTransition || exited)) {
     return null;
   }
-  return o3(Portal_default, {
+  return o(Portal_default, {
     ref: handlePortalRef,
     container,
     disablePortal,
-    children: o3(Root, _extends({}, rootProps, {
-      children: [!hideBackdrop && BackdropComponent ? o3(BackdropComponent, _extends({}, backdropProps)) : null, o3(FocusTrap_default, {
+    children: o(Root, _extends({}, rootProps, {
+      children: [!hideBackdrop && BackdropComponent ? o(BackdropComponent, _extends({}, backdropProps)) : null, o(FocusTrap_default, {
         disableEnforceFocus,
         disableAutoFocus,
         disableRestoreFocus,
@@ -6977,22 +6977,22 @@ function useSelect(props) {
   });
   const selectedOption = useMemo(() => {
     var _props$options$find;
-    return props.multiple ? props.options.filter((o) => value.includes(o.value)) : (_props$options$find = props.options.find((o) => o.value === value)) != null ? _props$options$find : null;
+    return props.multiple ? props.options.filter((o2) => value.includes(o2.value)) : (_props$options$find = props.options.find((o2) => o2.value === value)) != null ? _props$options$find : null;
   }, [props.multiple, props.options, value]);
   let useListboxParameters;
   if (props.multiple) {
     const onChangeMultiple = onChange;
     useListboxParameters = {
       id: listboxId,
-      isOptionDisabled: (o) => {
+      isOptionDisabled: (o2) => {
         var _o$disabled;
-        return (_o$disabled = o == null ? void 0 : o.disabled) != null ? _o$disabled : false;
+        return (_o$disabled = o2 == null ? void 0 : o2.disabled) != null ? _o$disabled : false;
       },
-      optionComparer: (o, v) => (o == null ? void 0 : o.value) === (v == null ? void 0 : v.value),
+      optionComparer: (o2, v) => (o2 == null ? void 0 : o2.value) === (v == null ? void 0 : v.value),
       listboxRef: handleListboxRef,
       multiple: true,
       onChange: (e, newOptions) => {
-        const newValues = newOptions.map((o) => o.value);
+        const newValues = newOptions.map((o2) => o2.value);
         setValue(newValues);
         onChangeMultiple == null ? void 0 : onChangeMultiple(e, newValues);
       },
@@ -7004,11 +7004,11 @@ function useSelect(props) {
     const onChangeSingle = onChange;
     useListboxParameters = {
       id: listboxId,
-      isOptionDisabled: (o) => {
+      isOptionDisabled: (o2) => {
         var _o$disabled2;
-        return (_o$disabled2 = o == null ? void 0 : o.disabled) != null ? _o$disabled2 : false;
+        return (_o$disabled2 = o2 == null ? void 0 : o2.disabled) != null ? _o$disabled2 : false;
       },
-      optionComparer: (o, v) => (o == null ? void 0 : o.value) === (v == null ? void 0 : v.value),
+      optionComparer: (o2, v) => (o2 == null ? void 0 : o2.value) === (v == null ? void 0 : v.value),
       listboxRef: handleListboxRef,
       multiple: false,
       onChange: (e, option) => {
@@ -7084,18 +7084,18 @@ init_react_preact();
 init_react_preact();
 var _excluded10 = ["autoFocus", "children", "component", "components", "componentsProps", "defaultListboxOpen", "defaultValue", "disabled", "getSerializedValue", "listboxId", "listboxOpen", "name", "onChange", "onListboxOpenChange", "optionStringifier", "renderValue", "value"];
 function defaultRenderMultipleValues(selectedOptions) {
-  return o3(Fragment, {
-    children: selectedOptions.map((o) => o.label).join(", ")
+  return o(Fragment, {
+    children: selectedOptions.map((o2) => o2.label).join(", ")
   });
 }
 function defaultFormValueProvider(selectedOptions) {
   if (selectedOptions.length === 0) {
     return "";
   }
-  if (selectedOptions.every((o) => typeof o.value === "string" || typeof o.value === "number" || typeof o.value === "boolean")) {
-    return selectedOptions.map((o) => String(o.value));
+  if (selectedOptions.every((o2) => typeof o2.value === "string" || typeof o2.value === "number" || typeof o2.value === "boolean")) {
+    return selectedOptions.map((o2) => String(o2.value));
   }
-  return JSON.stringify(selectedOptions.map((o) => o.value));
+  return JSON.stringify(selectedOptions.map((o2) => o2.value));
 }
 function useUtilityClasses6(ownerState) {
   const {
@@ -7199,7 +7199,7 @@ var MultiSelectUnstyled = forwardRef(function MultiSelectUnstyled2(props, forwar
     if (value == null) {
       return [];
     }
-    return options.filter((o) => value.includes(o.value));
+    return options.filter((o2) => value.includes(o2.value));
   }, [options, value]);
   const buttonProps = useSlotProps({
     elementType: Button,
@@ -7237,17 +7237,17 @@ var MultiSelectUnstyled = forwardRef(function MultiSelectUnstyled2(props, forwar
     getOptionState,
     listboxRef
   };
-  return o3(Fragment, {
-    children: [o3(Button, _extends({}, buttonProps, {
+  return o(Fragment, {
+    children: [o(Button, _extends({}, buttonProps, {
       children: renderValue(selectedOptions)
-    })), buttonDefined && o3(Popper, _extends({}, popperProps, {
-      children: o3(ListboxRoot, _extends({}, listboxProps, {
-        children: o3(SelectUnstyledContext.Provider, {
+    })), buttonDefined && o(Popper, _extends({}, popperProps, {
+      children: o(ListboxRoot, _extends({}, listboxProps, {
+        children: o(SelectUnstyledContext.Provider, {
           value: context,
           children
         })
       }))
-    })), name && o3("input", {
+    })), name && o("input", {
       type: "hidden",
       name,
       value: getSerializedValue(selectedOptions)
@@ -7310,7 +7310,7 @@ function NoSsr(props) {
       setMountedState(true);
     }
   }, [defer]);
-  return o3(Fragment, {
+  return o(Fragment, {
     children: mountedState ? children : fallback
   });
 }
@@ -7386,10 +7386,10 @@ var OptionGroupUnstyled = _n.forwardRef(function OptionGroupUnstyled2(props, ref
     ownerState: props,
     className: classes.list
   });
-  return o3(Root, _extends({}, rootProps, {
-    children: [o3(Label, _extends({}, labelProps, {
+  return o(Root, _extends({}, rootProps, {
+    children: [o(Label, _extends({}, labelProps, {
       children: props.label
-    })), o3(List, _extends({}, listProps, {
+    })), o(List, _extends({}, listProps, {
       children: props.children
     }))]
   }));
@@ -7494,7 +7494,7 @@ var OptionUnstyled = _n.forwardRef(function OptionUnstyled2(props, ref) {
     className: classes.root,
     ownerState
   });
-  return o3(Root, _extends({}, rootProps, {
+  return o(Root, _extends({}, rootProps, {
     children
   }));
 });
@@ -7639,7 +7639,7 @@ var SelectUnstyled = forwardRef(function SelectUnstyled2(props, forwardedRef) {
   const classes = useUtilityClasses9(ownerState);
   const selectedOption = useMemo(() => {
     var _options$find;
-    return (_options$find = options.find((o) => value === o.value)) != null ? _options$find : null;
+    return (_options$find = options.find((o2) => value === o2.value)) != null ? _options$find : null;
   }, [options, value]);
   const buttonProps = useSlotProps({
     elementType: Button,
@@ -7677,17 +7677,17 @@ var SelectUnstyled = forwardRef(function SelectUnstyled2(props, forwardedRef) {
     getOptionState,
     listboxRef
   };
-  return o3(Fragment, {
-    children: [o3(Button, _extends({}, buttonProps, {
+  return o(Fragment, {
+    children: [o(Button, _extends({}, buttonProps, {
       children: renderValue(selectedOption)
-    })), buttonDefined && o3(Popper, _extends({}, popperProps, {
-      children: o3(ListboxRoot, _extends({}, listboxProps, {
-        children: o3(SelectUnstyledContext.Provider, {
+    })), buttonDefined && o(Popper, _extends({}, popperProps, {
+      children: o(ListboxRoot, _extends({}, listboxProps, {
+        children: o(SelectUnstyledContext.Provider, {
           value: context,
           children
         })
       }))
-    })), name && o3("input", {
+    })), name && o("input", {
       type: "hidden",
       name,
       value: getSerializedValue(selectedOption)
@@ -7767,13 +7767,13 @@ function SliderValueLabelUnstyled(props) {
   const classes = useValueLabelClasses(props);
   return cloneElement(children, {
     className: clsx_m_default(children.props.className)
-  }, o3(Fragment, {
-    children: [children.props.children, o3("span", {
+  }, o(Fragment, {
+    children: [children.props.children, o("span", {
       className: clsx_m_default(classes.offset, className),
       "aria-hidden": true,
-      children: o3("span", {
+      children: o("span", {
         className: classes.circle,
-        children: o3("span", {
+        children: o("span", {
           className: classes.label,
           children: value
         })
@@ -8489,8 +8489,8 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
     externalSlotProps: componentsProps.input,
     ownerState
   });
-  return o3(Root, _extends({}, rootProps, {
-    children: [o3(Rail, _extends({}, railProps)), o3(Track, _extends({}, trackProps)), marks.filter((mark) => mark.value >= min2 && mark.value <= max2).map((mark, index) => {
+  return o(Root, _extends({}, rootProps, {
+    children: [o(Rail, _extends({}, railProps)), o(Track, _extends({}, trackProps)), marks.filter((mark) => mark.value >= min2 && mark.value <= max2).map((mark, index) => {
       const percent = valueToPercent(mark.value, min2, max2);
       const style4 = axisProps2[axis].offset(percent);
       let markActive;
@@ -8499,15 +8499,15 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
       } else {
         markActive = track === "normal" && (range ? mark.value >= values2[0] && mark.value <= values2[values2.length - 1] : mark.value <= values2[0]) || track === "inverted" && (range ? mark.value <= values2[0] || mark.value >= values2[values2.length - 1] : mark.value >= values2[0]);
       }
-      return o3(Fragment, {
-        children: [o3(Mark, _extends({
+      return o(Fragment, {
+        children: [o(Mark, _extends({
           "data-index": index
         }, markProps, !isHostComponent_default(Mark) && {
           markActive
         }, {
           style: _extends({}, style4, markProps.style),
           className: clsx_m_default(markProps.className, markActive && classes.markActive)
-        })), mark.label != null ? o3(MarkLabel, _extends({
+        })), mark.label != null ? o(MarkLabel, _extends({
           "aria-hidden": true,
           "data-index": index
         }, markLabelProps, !isHostComponent_default(MarkLabel) && {
@@ -8522,8 +8522,8 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
       const percent = valueToPercent(value, min2, max2);
       const style4 = axisProps2[axis].offset(percent);
       const ValueLabelComponent = valueLabelDisplay === "off" ? Forward : ValueLabel;
-      return o3(Fragment, {
-        children: o3(ValueLabelComponent, _extends({}, !isHostComponent_default(ValueLabelComponent) && {
+      return o(Fragment, {
+        children: o(ValueLabelComponent, _extends({}, !isHostComponent_default(ValueLabelComponent) && {
           valueLabelFormat,
           valueLabelDisplay,
           value: typeof valueLabelFormat === "function" ? valueLabelFormat(scale(value), index) : valueLabelFormat,
@@ -8532,7 +8532,7 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
           disabled
         }, valueLabelProps, {
           className: clsx_m_default(classes.valueLabel, valueLabelProps.className),
-          children: o3(Thumb, _extends({
+          children: o(Thumb, _extends({
             "data-index": index,
             "data-focusvisible": focusedThumbIndex === index
           }, thumbProps, {
@@ -8540,7 +8540,7 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
             style: _extends({}, style4, {
               pointerEvents: disableSwap && active !== index ? "none" : void 0
             }, thumbProps.style),
-            children: o3(Input, _extends({
+            children: o(Input, _extends({
               "data-index": index,
               "aria-label": getAriaLabel ? getAriaLabel(index) : ariaLabel,
               "aria-valuenow": scale(value),
@@ -8813,8 +8813,8 @@ var SnackbarUnstyled = forwardRef(function SnackbarUnstyled2(props, ref) {
   if (!open && exited) {
     return null;
   }
-  return o3(ClickAwayListener_default, _extends({}, clickAwayListenerProps, {
-    children: o3(Root, _extends({}, rootProps, {
+  return o(ClickAwayListener_default, _extends({}, clickAwayListenerProps, {
+    children: o(Root, _extends({}, rootProps, {
       children
     }))
   }));
@@ -9048,8 +9048,8 @@ var SwitchUnstyled = forwardRef(function SwitchUnstyled2(props, ref) {
     ownerState,
     className: classes.track
   });
-  return o3(Root, _extends({}, rootProps, {
-    children: [o3(Track, _extends({}, trackProps)), o3(Thumb, _extends({}, thumbProps)), o3(Input, _extends({}, inputProps))]
+  return o(Root, _extends({}, rootProps, {
+    children: [o(Track, _extends({}, trackProps)), o(Thumb, _extends({}, thumbProps)), o(Input, _extends({}, inputProps))]
   }));
 });
 true ? SwitchUnstyled.propTypes = {
@@ -9103,22 +9103,22 @@ var _span2;
 var _span3;
 var _span4;
 function LastPageIconDefault() {
-  return _span || (_span = o3("span", {
+  return _span || (_span = o("span", {
     children: "\u21FE|"
   }));
 }
 function FirstPageIconDefault() {
-  return _span2 || (_span2 = o3("span", {
+  return _span2 || (_span2 = o("span", {
     children: "|\u21FD"
   }));
 }
 function NextPageIconDefault() {
-  return _span3 || (_span3 = o3("span", {
+  return _span3 || (_span3 = o("span", {
     children: "\u21FE"
   }));
 }
 function BackPageIconDefault() {
-  return _span4 || (_span4 = o3("span", {
+  return _span4 || (_span4 = o("span", {
     children: "\u21FD"
   }));
 }
@@ -9215,15 +9215,15 @@ var TablePaginationActionsUnstyled = forwardRef(function TablePaginationActionsU
   const FirstPageIcon = (_components$FirstPage = components.FirstPageIcon) != null ? _components$FirstPage : FirstPageIconDefault;
   const NextPageIcon = (_components$NextPageI = components.NextPageIcon) != null ? _components$NextPageI : NextPageIconDefault;
   const BackPageIcon = (_components$BackPageI = components.BackPageIcon) != null ? _components$BackPageI : BackPageIconDefault;
-  return o3(Root, _extends({}, rootProps, {
-    children: [showFirstButton && o3(FirstButton, _extends({}, firstButtonProps, {
-      children: direction === "rtl" ? o3(LastPageIcon, {}) : o3(FirstPageIcon, {})
-    })), o3(BackButton, _extends({}, backButtonProps, {
-      children: direction === "rtl" ? o3(NextPageIcon, {}) : o3(BackPageIcon, {})
-    })), o3(NextButton, _extends({}, nextButtonProps, {
-      children: direction === "rtl" ? o3(BackPageIcon, {}) : o3(NextPageIcon, {})
-    })), showLastButton && o3(LastButton, _extends({}, lastButtonProps, {
-      children: direction === "rtl" ? o3(FirstPageIcon, {}) : o3(LastPageIcon, {})
+  return o(Root, _extends({}, rootProps, {
+    children: [showFirstButton && o(FirstButton, _extends({}, firstButtonProps, {
+      children: direction === "rtl" ? o(LastPageIcon, {}) : o(FirstPageIcon, {})
+    })), o(BackButton, _extends({}, backButtonProps, {
+      children: direction === "rtl" ? o(NextPageIcon, {}) : o(BackPageIcon, {})
+    })), o(NextButton, _extends({}, nextButtonProps, {
+      children: direction === "rtl" ? o(BackPageIcon, {}) : o(NextPageIcon, {})
+    })), showLastButton && o(LastButton, _extends({}, lastButtonProps, {
+      children: direction === "rtl" ? o(FirstPageIcon, {}) : o(LastPageIcon, {})
     }))]
   }));
 });
@@ -9380,23 +9380,23 @@ var TablePaginationUnstyled = forwardRef(function TablePaginationUnstyled2(props
     ownerState,
     className: classes.spacer
   });
-  return o3(Root, _extends({}, rootProps, {
-    children: o3(Toolbar, _extends({}, toolbarProps, {
-      children: [o3(Spacer, _extends({}, spacerProps)), rowsPerPageOptions.length > 1 && o3(SelectLabel, _extends({}, selectLabelProps, {
+  return o(Root, _extends({}, rootProps, {
+    children: o(Toolbar, _extends({}, toolbarProps, {
+      children: [o(Spacer, _extends({}, spacerProps)), rowsPerPageOptions.length > 1 && o(SelectLabel, _extends({}, selectLabelProps, {
         children: labelRowsPerPage
-      })), rowsPerPageOptions.length > 1 && o3(Select, _extends({}, selectProps, {
+      })), rowsPerPageOptions.length > 1 && o(Select, _extends({}, selectProps, {
         children: rowsPerPageOptions.map((rowsPerPageOption) => createElement(MenuItem, _extends({}, menuItemProps, {
           key: typeof rowsPerPageOption !== "number" && rowsPerPageOption.label ? rowsPerPageOption.label : rowsPerPageOption,
           value: typeof rowsPerPageOption !== "number" && rowsPerPageOption.value ? rowsPerPageOption.value : rowsPerPageOption
         }), typeof rowsPerPageOption !== "number" && rowsPerPageOption.label ? rowsPerPageOption.label : rowsPerPageOption))
-      })), o3(DisplayedRows, _extends({}, displayedRowsProps, {
+      })), o(DisplayedRows, _extends({}, displayedRowsProps, {
         children: labelDisplayedRows({
           from: count === 0 ? 0 : page * rowsPerPage + 1,
           to: getLabelDisplayedRowsTo(),
           count: count === -1 ? -1 : count,
           page
         })
-      })), o3(Actions, _extends({}, actionsProps))]
+      })), o(Actions, _extends({}, actionsProps))]
     }))
   }));
 });
@@ -9605,8 +9605,8 @@ var TabsUnstyled = forwardRef((props, ref) => {
     ownerState,
     className: classes.root
   });
-  return o3(TabsRoot, _extends({}, tabsRootProps, {
-    children: o3(TabsContext_default.Provider, {
+  return o(TabsRoot, _extends({}, tabsRootProps, {
+    children: o(TabsContext_default.Provider, {
       value: tabsContextValue,
       children
     })
@@ -9699,7 +9699,7 @@ var TabPanelUnstyled = forwardRef(function TabPanelUnstyled2(props, ref) {
     ownerState,
     className: classes.root
   });
-  return o3(TabPanelRoot, _extends({}, tabPanelRootProps, {
+  return o(TabPanelRoot, _extends({}, tabPanelRootProps, {
     children: !hidden && children
   }));
 });
@@ -9930,7 +9930,7 @@ var TabsListUnstyled = forwardRef((props, ref) => {
     className: classes.root
   });
   const processedChildren = processChildren();
-  return o3(TabsListRoot, _extends({}, tabsListRootProps, {
+  return o(TabsListRoot, _extends({}, tabsListRootProps, {
     children: processedChildren
   }));
 });
@@ -10100,7 +10100,7 @@ var TabUnstyled = forwardRef(function TabUnstyled2(props, ref) {
     ownerState,
     className: classes.root
   });
-  return o3(TabRoot, _extends({}, tabRootProps, {
+  return o(TabRoot, _extends({}, tabRootProps, {
     children
   }));
 });
@@ -10285,8 +10285,8 @@ var TextareaAutosize = forwardRef(function TextareaAutosize2(props, ref) {
       onChange(event);
     }
   };
-  return o3(Fragment, {
-    children: [o3("textarea", _extends({
+  return o(Fragment, {
+    children: [o("textarea", _extends({
       value,
       onChange: handleChange,
       ref: handleRef,
@@ -10295,7 +10295,7 @@ var TextareaAutosize = forwardRef(function TextareaAutosize2(props, ref) {
         height: state.outerHeightStyle,
         overflow: state.overflow ? "hidden" : null
       }, style4)
-    }, other)), o3("textarea", {
+    }, other)), o("textarea", {
       "aria-hidden": true,
       className: props.className,
       readOnly: true,
@@ -10509,7 +10509,7 @@ function StyledEngineProvider(props) {
     injectFirst,
     children
   } = props;
-  return injectFirst ? o3(import_react5.CacheProvider, {
+  return injectFirst ? o(import_react5.CacheProvider, {
     value: cache,
     children
   }) : children;
@@ -10536,7 +10536,7 @@ function GlobalStyles(props) {
     defaultTheme: defaultTheme5 = {}
   } = props;
   const globalStyles = typeof styles2 === "function" ? (themeInput) => styles2(isEmpty2(themeInput) ? defaultTheme5 : themeInput) : styles2;
-  return o3(import_react6.Global, {
+  return o(import_react6.Global, {
     styles: globalStyles
   });
 }
@@ -11703,7 +11703,7 @@ function ThemeProvider(props) {
     }
     return output;
   }, [localTheme, outerTheme]);
-  return o3(ThemeContext_default.Provider, {
+  return o(ThemeContext_default.Provider, {
     value: theme,
     children
   });
@@ -11753,7 +11753,7 @@ function createBox(options = {}) {
       className,
       component = "div"
     } = _extendSxProp, other = _objectWithoutPropertiesLoose(_extendSxProp, _excluded29);
-    return o3(BoxRoot, _extends({
+    return o(BoxRoot, _extends({
       as: component,
       ref,
       className: clsx_m_default(className, generateClassName ? generateClassName(defaultClassName) : defaultClassName),
@@ -12016,7 +12016,7 @@ var import_prop_types36 = __toESM(require_prop_types());
 init_react_preact();
 function InnerThemeProvider(props) {
   const theme = useTheme_default();
-  return o3(import_react7.ThemeContext.Provider, {
+  return o(import_react7.ThemeContext.Provider, {
     value: typeof theme === "object" ? theme : {},
     children: props.children
   });
@@ -12029,9 +12029,9 @@ function ThemeProvider2(props) {
     children,
     theme: localTheme
   } = props;
-  return o3(ThemeProvider_default, {
+  return o(ThemeProvider_default, {
     theme: localTheme,
-    children: o3(InnerThemeProvider, {
+    children: o(InnerThemeProvider, {
       children
     })
   });
@@ -12145,7 +12145,7 @@ function getInitColorSchemeScript(options) {
     attribute = DEFAULT_ATTRIBUTE,
     colorSchemeNode = "document.documentElement"
   } = options || {};
-  return o3("script", {
+  return o("script", {
     dangerouslySetInnerHTML: {
       __html: `(function() { try {
         var mode = localStorage.getItem('${modeStorageKey}') || '${defaultMode}';
@@ -12545,7 +12545,7 @@ function createCssVarsProvider(options) {
         hasMounted.current = false;
       };
     }, []);
-    return o3(ColorSchemeContext.Provider, {
+    return o(ColorSchemeContext.Provider, {
       value: {
         mode,
         systemMode,
@@ -12556,15 +12556,15 @@ function createCssVarsProvider(options) {
         setColorScheme,
         allColorSchemes
       },
-      children: [o3(GlobalStyles, {
+      children: [o(GlobalStyles, {
         styles: {
           [colorSchemeSelector]: rootCss
         }
-      }), o3(GlobalStyles, {
+      }), o(GlobalStyles, {
         styles: defaultColorSchemeStyleSheet
-      }), o3(GlobalStyles, {
+      }), o(GlobalStyles, {
         styles: otherColorSchemesStyleSheet
-      }), o3(ThemeProvider_default2, {
+      }), o(ThemeProvider_default2, {
         theme: resolveTheme ? resolveTheme(theme) : theme,
         children
       })]
@@ -12720,7 +12720,7 @@ function createContainer(options = {}) {
       maxWidth: maxWidth2
     });
     const classes = useUtilityClasses18(ownerState, componentName);
-    return o3(ContainerRoot, _extends({
+    return o(ContainerRoot, _extends({
       as: component,
       ownerState,
       className: clsx_m_default(classes.root, className),
@@ -13087,20 +13087,20 @@ function createGrid(options = {}) {
       parentDisableEqualOverflow: overflow2
     });
     const classes = useUtilityClasses19(ownerState, theme);
-    let result = o3(GridRoot, _extends({
+    let result = o(GridRoot, _extends({
       ref,
       as: component,
       ownerState,
       className: clsx_m_default(classes.root, className)
     }, other));
     if (!nested) {
-      result = o3(NestedContext.Provider, {
+      result = o(NestedContext.Provider, {
         value: true,
         children: result
       });
     }
     if (disableEqualOverflow !== void 0 && disableEqualOverflow !== (overflow2 != null ? overflow2 : false)) {
-      result = o3(OverflowContext.Provider, {
+      result = o(OverflowContext.Provider, {
         value: disableEqualOverflow,
         children: result
       });
@@ -13312,7 +13312,7 @@ function createStack(options = {}) {
       spacing: spacing2
     };
     const classes = useUtilityClasses19();
-    return o3(StackRoot, _extends({
+    return o(StackRoot, _extends({
       as: component,
       ownerState,
       ref,

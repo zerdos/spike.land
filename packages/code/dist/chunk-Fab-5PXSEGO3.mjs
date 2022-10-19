@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-KP6KMVHS.mjs";
+} from "./chunk-chunk-KNLOTDZ7.mjs";
 import {
   _extends,
   _objectWithoutPropertiesLoose,
@@ -13,14 +13,14 @@ import {
   rootShouldForwardProp,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-SIOY7HE2.mjs";
-import "./chunk-chunk-NI5ROW2P.mjs";
-import "./chunk-chunk-VRYMSF5W.mjs";
+} from "./chunk-chunk-7GADEGZX.mjs";
+import "./chunk-chunk-ABHFWPU5.mjs";
+import "./chunk-chunk-VV57WXRL.mjs";
 import {
   forwardRef,
   init_react_preact,
-  o3
-} from "./chunk-chunk-UCYDREHN.mjs";
+  o
+} from "./chunk-chunk-ZO2RDFSP.mjs";
 import {
   __toESM,
   init_define_process
@@ -171,7 +171,7 @@ var Fab = forwardRef(function Fab2(inProps, ref) {
     variant
   });
   const classes = useUtilityClasses(ownerState);
-  return o3(FabRoot, _extends({
+  return o(FabRoot, _extends({
     className: clsx_m_default(classes.root, className),
     component,
     disabled,

@@ -3,7 +3,7 @@ import {
 } from "./chunk-chunk-KXIJZFRU.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-UWK2P5AV.mjs";
+} from "./chunk-chunk-6MNFJECF.mjs";
 import {
   applyPatch,
   hashCode,
@@ -21,10 +21,10 @@ import {
 } from "./chunk-chunk-3DTRDS5R.mjs";
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-NI5ROW2P.mjs";
+} from "./chunk-chunk-ABHFWPU5.mjs";
 import {
   require_emotion_cache_cjs
-} from "./chunk-chunk-VRYMSF5W.mjs";
+} from "./chunk-chunk-VV57WXRL.mjs";
 import {
   Children,
   Fragment,
@@ -43,7 +43,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-UCYDREHN.mjs";
+} from "./chunk-chunk-ZO2RDFSP.mjs";
 import {
   __commonJS,
   __toESM,
@@ -1823,6 +1823,13 @@ var mod2 = {
         md5Hash: md5hash
       })
     );
+    return () => {
+      root.unmount;
+      document.body.removeChild(rootDiv);
+      rootDiv.remove();
+      delete apps[md5hash];
+      mod2.setHash = null;
+    };
   }
 };
 var render = async (transpiled, codeSpace2) => {
@@ -1831,22 +1838,22 @@ var render = async (transpiled, codeSpace2) => {
   if (!apps[md5hash])
     await appFactory(transpiled);
   mod2.wait = 1;
-  if (!mod2.setHash) {
-    mod2.setApp(
-      md5hash
-    );
-  } else {
-    mod2.setHash(md5hash);
+  const cleanup = mod2.setApp(
+    md5hash
+  );
+  try {
+    const html = await mod2.waitForDiv();
+    if (!html)
+      return { html: null, css: null };
+    const css4 = mineFromCaches(eCaches[md5hash]);
+    const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
+    return {
+      html,
+      css: globalCss + " " + css4
+    };
+  } finally {
+    cleanup();
   }
-  const html = await mod2.waitForDiv();
-  if (!html)
-    return { html: null, css: null };
-  const css4 = mineFromCaches(eCaches[md5hash]);
-  const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
-  return {
-    html,
-    css: globalCss + " " + css4
-  };
 };
 function mineFromCaches(cache2) {
   const keys = Object.keys(cache2.inserted).map((x) => `.${cache2.key}-${x}`);
@@ -2131,14 +2138,14 @@ async function setMonaco(container) {
   });
 }
 async function setAce() {
-  const { startAce } = await import("./chunk-startAce-NKEWPUB4.mjs");
+  const { startAce } = await import("./chunk-startAce-XC26OPE7.mjs");
   return await startAce(mST().code, onModChange);
 }
 
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-OVX74HYW.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-E2UQPIFE.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
   css: import_react9.css`

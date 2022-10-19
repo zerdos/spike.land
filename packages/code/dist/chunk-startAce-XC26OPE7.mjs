@@ -4,9 +4,9 @@ import {
   init_define_process
 } from "./chunk-chunk-JS5E2TTE.mjs";
 
-// ../../.yarn/global/cache/ace-builds-npm-1.12.1-05a403fa4f-9.zip/node_modules/ace-builds/src-noconflict/ace.js
+// ../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-noconflict/ace.js
 var require_ace = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.12.1-05a403fa4f-9.zip/node_modules/ace-builds/src-noconflict/ace.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-noconflict/ace.js"(exports, module) {
     init_define_process();
     (function() {
       var ACE_NAMESPACE = "ace";
@@ -1084,7 +1084,7 @@ var require_ace = __commonJS({
           };
         }
       };
-      exports2.version = "1.12.1";
+      exports2.version = "1.12.3";
     });
     ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(require2, exports2, module2) {
       "use strict";
@@ -10219,11 +10219,12 @@ var require_ace = __commonJS({
           }
           if (range) {
             var startColumn = range.start.column;
-            var endColumn = range.start.column;
+            var endColumn = range.end.column;
             var i = 0, j = ranges.length - 1;
-            while (i < j && ranges[i].start.column < startColumn && ranges[i].start.row == range.start.row)
+            while (i < j && ranges[i].start.column < startColumn && ranges[i].start.row == 0)
               i++;
-            while (i < j && ranges[j].end.column > endColumn && ranges[j].end.row == range.end.row)
+            var endRow = range.end.row - range.start.row;
+            while (i < j && ranges[j].end.column > endColumn && ranges[j].end.row == endRow)
               j--;
             ranges = ranges.slice(i, j + 1);
             for (i = 0, j = ranges.length; i < j; i++) {
@@ -15623,7 +15624,7 @@ var require_ace = __commonJS({
       var dom = require2("./lib/dom");
       var event = require2("./lib/event");
       var EventEmitter = require2("./lib/event_emitter").EventEmitter;
-      dom.importCssString(".ace_editor>.ace_sb-v div, .ace_editor>.ace_sb-h div{\n  position: absolute;\n  background: rgba(128, 128, 128, 0.6);\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  border: 1px solid #bbb;\n  border-radius: 2px;\n  z-index: 8;\n}\n.ace_editor>.ace_sb-v, .ace_editor>.ace_sb-h {\n  position: absolute;\n  z-index: 6;\n  background: none;  overflow: hidden!important;\n}\n.ace_editor>.ace_sb-v {\n  z-index: 6;\n  right: 0;\n  top: 0;\n  width: 12px;\n}.ace_editor>.ace_sb-v div {\n  z-index: 8;\n  right: 0;\n  width: 100%;\n}.ace_editor>.ace_sb-h {\n  bottom: 0;\n  left: 0;\n  height: 12px;\n}.ace_editor>.ace_sb-h div {\n  bottom: 0;\n  height: 100%;\n}.ace_editor>.ace_sb_grabbed {\n  z-index: 8;\n  background: #000;\n}");
+      dom.importCssString(".ace_editor>.ace_sb-v div, .ace_editor>.ace_sb-h div{\n  position: absolute;\n  background: rgba(128, 128, 128, 0.6);\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  border: 1px solid #bbb;\n  border-radius: 2px;\n  z-index: 8;\n}\n.ace_editor>.ace_sb-v, .ace_editor>.ace_sb-h {\n  position: absolute;\n  z-index: 6;\n  background: none;\n  overflow: hidden!important;\n}\n.ace_editor>.ace_sb-v {\n  z-index: 6;\n  right: 0;\n  top: 0;\n  width: 12px;\n}\n.ace_editor>.ace_sb-v div {\n  z-index: 8;\n  right: 0;\n  width: 100%;\n}\n.ace_editor>.ace_sb-h {\n  bottom: 0;\n  left: 0;\n  height: 12px;\n}\n.ace_editor>.ace_sb-h div {\n  bottom: 0;\n  height: 100%;\n}\n.ace_editor>.ace_sb_grabbed {\n  z-index: 8;\n  background: #000;\n}", "ace_scrollbar.css", false);
       var ScrollBar = function(parent) {
         this.element = dom.createElement("div");
         this.element.className = "ace_sb" + this.classSuffix;
@@ -19960,9 +19961,9 @@ styles.join("\\n")
   }
 });
 
-// ../../.yarn/global/cache/ace-builds-npm-1.12.1-05a403fa4f-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js
+// ../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js
 var require_theme_monokai = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.12.1-05a403fa4f-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js"(exports, module) {
     init_define_process();
     ace.define("ace/theme/monokai.css", ["require", "exports", "module"], function(e, t, n) {
       n.exports = '.ace-monokai .ace_gutter {\n  background: #2F3129;\n  color: #8F908A\n}\n\n.ace-monokai .ace_print-margin {\n  width: 1px;\n  background: #555651\n}\n\n.ace-monokai {\n  background-color: #272822;\n  color: #F8F8F2\n}\n\n.ace-monokai .ace_cursor {\n  color: #F8F8F0\n}\n\n.ace-monokai .ace_marker-layer .ace_selection {\n  background: #49483E\n}\n\n.ace-monokai.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px #272822;\n}\n\n.ace-monokai .ace_marker-layer .ace_step {\n  background: rgb(102, 82, 0)\n}\n\n.ace-monokai .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_marker-layer .ace_active-line {\n  background: #202020\n}\n\n.ace-monokai .ace_gutter-active-line {\n  background-color: #272727\n}\n\n.ace-monokai .ace_marker-layer .ace_selected-word {\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_invisible {\n  color: #52524d\n}\n\n.ace-monokai .ace_entity.ace_name.ace_tag,\n.ace-monokai .ace_keyword,\n.ace-monokai .ace_meta.ace_tag,\n.ace-monokai .ace_storage {\n  color: #F92672\n}\n\n.ace-monokai .ace_punctuation,\n.ace-monokai .ace_punctuation.ace_tag {\n  color: #fff\n}\n\n.ace-monokai .ace_constant.ace_character,\n.ace-monokai .ace_constant.ace_language,\n.ace-monokai .ace_constant.ace_numeric,\n.ace-monokai .ace_constant.ace_other {\n  color: #AE81FF\n}\n\n.ace-monokai .ace_invalid {\n  color: #F8F8F0;\n  background-color: #F92672\n}\n\n.ace-monokai .ace_invalid.ace_deprecated {\n  color: #F8F8F0;\n  background-color: #AE81FF\n}\n\n.ace-monokai .ace_support.ace_constant,\n.ace-monokai .ace_support.ace_function {\n  color: #66D9EF\n}\n\n.ace-monokai .ace_fold {\n  background-color: #A6E22E;\n  border-color: #F8F8F2\n}\n\n.ace-monokai .ace_storage.ace_type,\n.ace-monokai .ace_support.ace_class,\n.ace-monokai .ace_support.ace_type {\n  font-style: italic;\n  color: #66D9EF\n}\n\n.ace-monokai .ace_entity.ace_name.ace_function,\n.ace-monokai .ace_entity.ace_other,\n.ace-monokai .ace_entity.ace_other.ace_attribute-name,\n.ace-monokai .ace_variable {\n  color: #A6E22E\n}\n\n.ace-monokai .ace_variable.ace_parameter {\n  font-style: italic;\n  color: #FD971F\n}\n\n.ace-monokai .ace_string {\n  color: #E6DB74\n}\n\n.ace-monokai .ace_comment {\n  color: #75715E\n}\n\n.ace-monokai .ace_indent-guide {\n  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWPQ0FD0ZXBzd/wPAAjVAoxeSgNeAAAAAElFTkSuQmCC) right repeat-y\n}\n\n.ace-monokai .ace_indent-guide-active {\n  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;\n}\n';
@@ -19981,9 +19982,9 @@ var require_theme_monokai = __commonJS({
   }
 });
 
-// ../../.yarn/global/cache/ace-builds-npm-1.12.1-05a403fa4f-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js
+// ../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js
 var require_mode_typescript = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.12.1-05a403fa4f-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js"(exports, module) {
     init_define_process();
     ace.define("ace/mode/doc_comment_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text_highlight_rules"], function(e, t, n) {
       "use strict";
