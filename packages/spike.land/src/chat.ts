@@ -1,5 +1,4 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 // import {join} from "./rtc.mjs"
 // import  {  join } from "@spike.land/code/js/rtc.ts";
 
@@ -8,7 +7,7 @@ import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
-const a = JSON.parse(manifestJSON);
+const a = JSON.parse(__STATIC_CONTENT_MANIFEST);
 const ws = a["ws.mjs"];
 const preact = a["react.mjs"];
 const emotionReact = a["emotion.mjs"];
@@ -34,7 +33,7 @@ export const imap = {
   "imports": {
     ...mods,
     "@emotion/react": emotionReact,
-    "@emotion/react/jsx-runtime": emotionJsxRuntime,
+    "@emotion/react/jsx-runtime": '/node_modules/@emotion/react@11.10.4/jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm.js',
     "@emotion/styled": emotionStyled,
     "@emotion/cache": emotionCache,
     "live/": "live/",
@@ -306,7 +305,7 @@ export default {
                 },
               });
             case "files.json":
-              return new Response(manifestJSON, {
+              return new Response(__STATIC_CONTENT_MANIFEST, {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache",
@@ -370,22 +369,25 @@ export default {
                       bypassCache: true,
                     }),
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                  ASSET_MANIFEST: manifestJSON,
+                  ASSET_MANIFEST: __STATIC_CONTENT_MANIFEST,
                 },
               );
               
               if (!kvResp.ok) throw new Error("no kv, try something else")
                 return kvResp;
               }catch{
-                return fetch(new URL(url.pathname.slice(1), url.origin +  '/node_modules/').toString())
+                const resp = await fetch(new URL(url.pathname.slice(1), url.origin +  '/node_modules/').toString())
+                if (resp.ok) return resp;
+
               }
           }
        
         })(_request);
+        if (! cachedResponse) throw new Error("! cached response")
 
-        if(cachedResponse.ok) cache.put(cacheKey, cachedResponse.clone());
+        if(cachedResponse?.ok) await cache.put(cacheKey, cachedResponse.clone());
 
-        return cachedResponse;
+        return cachedResponse;; 
       };
 
       return handleFetchApi(path);
