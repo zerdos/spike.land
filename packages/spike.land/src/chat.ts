@@ -43,7 +43,7 @@ export const imap = {
     "react-dom/client": preact,
     "react-dom/server": preact,
     "framer-motion": motion,
-    // "react/jsx-runtime": preact,
+    "react/jsx -runtime": a["react-jsx-runtime.production.min.js:"],
     "ws.mjs": ws,
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.jchs",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
@@ -63,8 +63,8 @@ export default {
       // We have received an HTTP request! Parse the URL and route the request.
 
       const u = new URL(request.url);
-      let url = u;
-
+      let url = u
+      
       const accept = request.headers.get("accept");
 
       const serveJs = !(accept && accept.includes("html"));
@@ -100,7 +100,14 @@ export default {
         const newUrl = new URL(path.join("/"), url.origin).toString();
         const _request = new Request(newUrl, { ...request, url: newUrl });
 
-        return (async (request) => {
+        const cacheKey = new Request(_request.url);
+        const cache = caches.default;
+        let cachedResponse = await cache.match(cacheKey);
+        if (cachedResponse && cachedResponse.ok) {
+          return cachedResponse;
+        }
+
+        cachedResponse = await (async (request) => {
           const cacheKey = new Request(request.url);
 
           const cache = caches.default;
@@ -338,13 +345,11 @@ export default {
               return handleApiRequest(
                   ["room", ...paths, "public"],
                   request,
-                  env,
-                path.length > 2
-                  ? handleFetchApi([...path.slice(2)])
-                  : Promise.reject(),
+                  env
               ).catch(() => new Response("Error"));
 
             default:
+              try{
               const kvResp = await getAssetFromKV(
                 {
                   request,
@@ -368,20 +373,19 @@ export default {
                   ASSET_MANIFEST: manifestJSON,
                 },
               );
-
-              const cacheKV = kvResp.clone();
-
-              if (isChunk(url.href)) {
-                cacheKV.headers.append(
-                  "Cache-Control",
-                  "public, max-age=604800, immutable",
-                );
+              
+              if (!kvResp.ok) throw new Error("no kv, try something else")
+                return kvResp;
+              }catch{
+                return fetch(new URL(url.pathname.slice(1), url.origin +  '/node_modules/').toString())
               }
-              await cache.put(cacheKey, cacheKV.clone());
-
-              return cacheKV.clone();
           }
+       
         })(_request);
+
+        if(cachedResponse.ok) cache.put(cacheKey, cachedResponse.clone());
+
+        return cachedResponse;
       };
 
       return handleFetchApi(path);

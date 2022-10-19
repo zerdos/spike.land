@@ -241,7 +241,9 @@ const build = (entryPoints, extraExternal) =>
       "react": resolve("./js/react.ts"),
       "react-dom": resolve("./js/react.ts"),
       "react-dom/client": resolve("./js/react.ts"),
-      // "react/jsx-runtime": resolve("./js/react.ts"),
+      "react/jsx-runtime": resolve(
+        "./dist/react-jsx-runtime.production.min.js",
+      ),
       // "react/jsx-dev-runtime": resolve("./js/react.ts"),
     }),
   ];
