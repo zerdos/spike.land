@@ -1,8 +1,10 @@
 const JSX = globalThis.emotionReactJSXRuntime ||
   window.emotionReactJSXRuntime || {
   jsxs: (...args) => JSX.jsxs(...args),
-  jsx: (...args) => JSX.jsx(...args),
-  Fragment: JSX.Fragment || "",
+  jsx: (...args) =>
+    (globalThis.emotionReactJSXRuntime || window.emotionReactJSXRuntime ||
+      window.emotionReact).jsx(...args),
+  Fragment: JSX.Fragment || React.Fragment,
 };
 
 export const { jsx, jsxs, Fragment } = JSX;
