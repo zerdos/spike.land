@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 import { prettierJs } from "./prettierJs";
+import { wait } from "wait.mjs";
 // /Volumes/devX/spike.land/packages/code/js/prettierJs.ts
 // import {wrkModuleImport} from "./moduleWorker.mjs"
 
@@ -74,11 +75,11 @@ export const Editor: React.FC<
   mod.code = myCode;
 
   React.useEffect(() => {
-    if (ref.current === null && started) {
+    if (!ref?.current || started) {
       return;
     }
 
-    (engine === "monaco" ? setMonaco(ref.current!) : setAce()).then((res) =>
+    (engine === "monaco" ? setMonaco() : setAce()).then((res) =>
       Object.assign(mod, res)
     ).then(() => changeContent((x) => ({ ...x, started: true })));
   }, [started, ref]);
@@ -142,14 +143,14 @@ async function onModChange(_code: string) {
   runner({ code, counter, codeSpace: mod.codeSpace });
 }
 
-async function setMonaco(container: HTMLDivElement) {
+async function setMonaco() {
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
 
   const { startMonaco } = await import("./startMonaco");
-
+  const container = window.document.getElementById("editor") as HTMLDivElement;
   return startMonaco({
     container,
     name: mod.codeSpace,
@@ -160,5 +161,7 @@ async function setMonaco(container: HTMLDivElement) {
 
 async function setAce() {
   const { startAce } = await import("./startAce");
+  await wait(100);
+
   return await startAce(mST().code, onModChange);
 }

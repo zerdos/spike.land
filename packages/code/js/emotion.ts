@@ -4,11 +4,16 @@ const { emotionReact } = window as unknown as { emotionReact: typeof Emotion };
 export const {
   CacheProvider,
   ClassNames,
-  css,
   Global,
+  ThemeContext,
+  ThemeProvider,
+  __unsafe_useEmotionCache,
+  createElement,
+  css,
   jsx,
-  jsx: createElement,
   keyframes,
+  useTheme,
   withEmotionCache,
+  withTheme,
 } = emotionReact;
 export default emotionReact;

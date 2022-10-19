@@ -55,6 +55,7 @@ export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
   }, [hash]);
 
   const ref = useRef(null);
+
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
 

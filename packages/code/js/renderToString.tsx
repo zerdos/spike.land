@@ -166,7 +166,7 @@ const Helper: React.FC<{ md5Hash: string }> = ({ md5Hash }) => {
   const [hash, setHash] = useState(md5Hash);
 
   useEffect(() => {
-    if (ref.current) mod.res = ref.current;
+    if (ref?.current) mod.res = ref.current;
     mod.md5Hash = hash, mod.setHash = (hash: string) => setHash(hash);
   }, [ref, hash, setHash]);
 
