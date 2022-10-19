@@ -234,7 +234,7 @@ const build = (entryPoints, extraExternal) =>
       //  "buffer": resolve("./js/buffer/index.ts"),
       "@emotion/react": resolve("./js/emotion.ts"),
       "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
-      // "@emotion/react/jsx-dev-runtime": resolve("./dist/emotionJsxRuntime.mjs"),
+      "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
       // "@emotion/cache": resolve("./dist/emotionCache.mjs"),
       // "@emotion/styled": resolve("./dist/emotionStyled.mjs"),
       // // "./mui": resolve("./dist/mui.mjs"),
@@ -242,9 +242,9 @@ const build = (entryPoints, extraExternal) =>
       "react-dom": resolve("./js/react.ts"),
       "react-dom/client": resolve("./js/react.ts"),
       "react/jsx-runtime": resolve(
-        "js/jsx.mjs",
+        "./js/jsx.mjs",
       ),
-      // "react/jsx-dev-runtime": resolve("./js/react.ts"),
+      "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
     }),
   ];
 
@@ -258,8 +258,9 @@ const build = (entryPoints, extraExternal) =>
     "js/renderToString.tsx",
     "js/renderPreviewWindow.tsx",
     "js/emotion.ts",
-    // "js/emotionJsxRuntime.ts",
+    "js/emotionJsxRuntime.ts",
     "js/ws.ts",
+    "js/jsx.mjs",
     "js/load.ts",
   ], []);
   console.log("done");
