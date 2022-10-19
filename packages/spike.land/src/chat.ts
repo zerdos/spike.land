@@ -10,7 +10,7 @@ import { CodeEnv } from "./env";
 
 const a = JSON.parse(manifestJSON);
 const ws = a["ws.mjs"];
-const preact = a["react-preact.mjs"];
+const preact = a["react.mjs"];
 const emotionReact = a["emotion.mjs"];
 const emotionJsxRuntime = a["emotionJsxRuntime.mjs"];
 const emotionCache = a["emotionCache.mjs"];
@@ -21,8 +21,8 @@ const motion = a["motion.mjs"];
 
 const esbuildExternal = [
   "monaco-editor",
-  "react/jsx-runtime",
-  "react/jsx-dev-runtime",
+  // "react/jsx-runtime",
+  // "react/jsx-dev-runtime",
   "@mui/material",
   "framer-motion",
   "tslib",
@@ -43,7 +43,7 @@ export const imap = {
     "react-dom/client": preact,
     "react-dom/server": preact,
     "framer-motion": motion,
-    "react/jsx-runtime": preact,
+    // "react/jsx-runtime": preact,
     "ws.mjs": ws,
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.jchs",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",

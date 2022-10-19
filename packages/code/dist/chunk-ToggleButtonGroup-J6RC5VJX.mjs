@@ -10,17 +10,18 @@ import {
   require_react_is,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-7GADEGZX.mjs";
-import "./chunk-chunk-ABHFWPU5.mjs";
-import "./chunk-chunk-VV57WXRL.mjs";
+} from "./chunk-chunk-2RFWSJCX.mjs";
+import {
+  require_jsx_runtime
+} from "./chunk-chunk-5UQV52TI.mjs";
+import "./chunk-chunk-5Y5YWTQ7.mjs";
 import {
   Children,
   cloneElement,
   forwardRef,
-  init_react_preact,
-  isValidElement,
-  o
-} from "./chunk-chunk-ZO2RDFSP.mjs";
+  init_react,
+  isValidElement
+} from "./chunk-chunk-25QIMTX6.mjs";
 import {
   __toESM,
   init_define_process
@@ -31,7 +32,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/ToggleButtonGroup.js
 init_define_process();
-init_react_preact();
+init_react();
 var import_react_is = __toESM(require_react_is());
 var import_prop_types = __toESM(require_prop_types());
 
@@ -56,7 +57,7 @@ var toggleButtonGroupClasses = generateUtilityClasses("MuiToggleButtonGroup", ["
 var toggleButtonGroupClasses_default = toggleButtonGroupClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/ToggleButtonGroup.js
-init_react_preact();
+var import_jsx_runtime = __toESM(require_jsx_runtime());
 var _excluded = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
 var useUtilityClasses = (ownerState) => {
   const {
@@ -171,7 +172,7 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
     }
     onChange(event, value === buttonValue ? null : buttonValue);
   };
-  return o(ToggleButtonGroupRoot, _extends({
+  return (0, import_jsx_runtime.jsx)(ToggleButtonGroupRoot, _extends({
     role: "group",
     className: clsx_m_default(classes.root, className),
     ref,

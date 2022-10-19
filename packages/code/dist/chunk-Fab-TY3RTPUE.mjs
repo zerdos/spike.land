@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-KNLOTDZ7.mjs";
+} from "./chunk-chunk-F7ZSNU2C.mjs";
 import {
   _extends,
   _objectWithoutPropertiesLoose,
@@ -13,14 +13,15 @@ import {
   rootShouldForwardProp,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-7GADEGZX.mjs";
-import "./chunk-chunk-ABHFWPU5.mjs";
-import "./chunk-chunk-VV57WXRL.mjs";
+} from "./chunk-chunk-2RFWSJCX.mjs";
+import {
+  require_jsx_runtime
+} from "./chunk-chunk-5UQV52TI.mjs";
+import "./chunk-chunk-5Y5YWTQ7.mjs";
 import {
   forwardRef,
-  init_react_preact,
-  o
-} from "./chunk-chunk-ZO2RDFSP.mjs";
+  init_react
+} from "./chunk-chunk-25QIMTX6.mjs";
 import {
   __toESM,
   init_define_process
@@ -31,7 +32,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
 init_define_process();
-init_react_preact();
+init_react();
 var import_prop_types = __toESM(require_prop_types());
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/fabClasses.js
@@ -43,7 +44,7 @@ var fabClasses = generateUtilityClasses("MuiFab", ["root", "primary", "secondary
 var fabClasses_default = fabClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
-init_react_preact();
+var import_jsx_runtime = __toESM(require_jsx_runtime());
 var _excluded = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
 var useUtilityClasses = (ownerState) => {
   const {
@@ -171,7 +172,7 @@ var Fab = forwardRef(function Fab2(inProps, ref) {
     variant
   });
   const classes = useUtilityClasses(ownerState);
-  return o(FabRoot, _extends({
+  return (0, import_jsx_runtime.jsx)(FabRoot, _extends({
     className: clsx_m_default(classes.root, className),
     component,
     disabled,

@@ -38,7 +38,7 @@
     "build": "rm -rf dist js/monaco-workers && deno fmt . && yarn favicons && yarn es:build",
     "es:build": "yarn test && node esbuild-dev.mjs",
     "favicons": "cp -af js/assets/ ./dist && mkdir -p  ./dist/assets && cp js/assets/synthwave.webp   ./dist/assets/",
-    "workbox-cli": "workbox-cli",
+    "workbox-c  li": "workbox-cli",
     "sw": "echo ok",
     "xsw": "yarn workbox injectManifest workbox-config.json"
   },

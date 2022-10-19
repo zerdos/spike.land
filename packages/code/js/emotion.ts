@@ -1,14 +1,14 @@
-// import { Global as G, css as C, CacheProvider as CP } from "@emotion/react";
-export {
+import type Emotion from "@emotion/react";
+
+const { emotionReact } = window as unknown as { emotionReact: typeof Emotion };
+export const {
   CacheProvider,
   ClassNames,
   css,
   Global,
   jsx,
-  jsx as createElement,
+  jsx: createElement,
   keyframes,
   withEmotionCache,
-} from "@emotion/react";
-export { default } from "@emotion/react";
-// export {default as styled} from "@emotion/styled";
-// export {default as cache} from "@emotion/cache";
+} = emotionReact;
+export default emotionReact;

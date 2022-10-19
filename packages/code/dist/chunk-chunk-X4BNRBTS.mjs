@@ -1,9 +1,21 @@
 import {
   initAndTransform
-} from "./chunk-chunk-KXIJZFRU.mjs";
+} from "./chunk-chunk-N6SA756X.mjs";
 import {
-  require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-6MNFJECF.mjs";
+  require_emotion_cache_cjs,
+  require_emotion_serialize_cjs,
+  require_emotion_use_insertion_effect_with_fallbacks_cjs,
+  require_emotion_utils_cjs,
+  require_emotion_weak_memoize_cjs,
+  require_extends,
+  require_jsx_runtime,
+  require_react_is
+} from "./chunk-chunk-5UQV52TI.mjs";
+import {
+  CacheProvider,
+  css,
+  init_emotion
+} from "./chunk-chunk-5Y5YWTQ7.mjs";
 import {
   applyPatch,
   hashCode,
@@ -20,35 +32,412 @@ import {
   wrap
 } from "./chunk-chunk-3DTRDS5R.mjs";
 import {
-  require_emotion_react_cjs
-} from "./chunk-chunk-ABHFWPU5.mjs";
-import {
-  require_emotion_cache_cjs
-} from "./chunk-chunk-VV57WXRL.mjs";
-import {
   Children,
   Fragment,
   PureComponent,
   Suspense,
-  _n,
   cloneElement,
   createElement,
   createPortal,
   createRef,
   createRoot,
-  init_react_preact,
+  init_react,
   isValidElement,
   lazy,
+  react_default,
+  react_exports,
   useEffect,
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-ZO2RDFSP.mjs";
+} from "./chunk-chunk-25QIMTX6.mjs";
 import {
   __commonJS,
+  __toCommonJS,
   __toESM,
   init_define_process
 } from "./chunk-chunk-JS5E2TTE.mjs";
+
+// ../../.yarn/global/cache/hoist-non-react-statics-npm-3.3.2-e7b709e6c1-9.zip/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js
+var require_hoist_non_react_statics_cjs = __commonJS({
+  "../../.yarn/global/cache/hoist-non-react-statics-npm-3.3.2-e7b709e6c1-9.zip/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js"(exports, module) {
+    "use strict";
+    init_define_process();
+    var reactIs = require_react_is();
+    var REACT_STATICS = {
+      childContextTypes: true,
+      contextType: true,
+      contextTypes: true,
+      defaultProps: true,
+      displayName: true,
+      getDefaultProps: true,
+      getDerivedStateFromError: true,
+      getDerivedStateFromProps: true,
+      mixins: true,
+      propTypes: true,
+      type: true
+    };
+    var KNOWN_STATICS = {
+      name: true,
+      length: true,
+      prototype: true,
+      caller: true,
+      callee: true,
+      arguments: true,
+      arity: true
+    };
+    var FORWARD_REF_STATICS = {
+      "$$typeof": true,
+      render: true,
+      defaultProps: true,
+      displayName: true,
+      propTypes: true
+    };
+    var MEMO_STATICS = {
+      "$$typeof": true,
+      compare: true,
+      defaultProps: true,
+      displayName: true,
+      propTypes: true,
+      type: true
+    };
+    var TYPE_STATICS = {};
+    TYPE_STATICS[reactIs.ForwardRef] = FORWARD_REF_STATICS;
+    TYPE_STATICS[reactIs.Memo] = MEMO_STATICS;
+    function getStatics(component) {
+      if (reactIs.isMemo(component)) {
+        return MEMO_STATICS;
+      }
+      return TYPE_STATICS[component["$$typeof"]] || REACT_STATICS;
+    }
+    var defineProperty = Object.defineProperty;
+    var getOwnPropertyNames = Object.getOwnPropertyNames;
+    var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+    var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+    var getPrototypeOf = Object.getPrototypeOf;
+    var objectPrototype = Object.prototype;
+    function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+      if (typeof sourceComponent !== "string") {
+        if (objectPrototype) {
+          var inheritedComponent = getPrototypeOf(sourceComponent);
+          if (inheritedComponent && inheritedComponent !== objectPrototype) {
+            hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+          }
+        }
+        var keys = getOwnPropertyNames(sourceComponent);
+        if (getOwnPropertySymbols) {
+          keys = keys.concat(getOwnPropertySymbols(sourceComponent));
+        }
+        var targetStatics = getStatics(targetComponent);
+        var sourceStatics = getStatics(sourceComponent);
+        for (var i = 0; i < keys.length; ++i) {
+          var key = keys[i];
+          if (!KNOWN_STATICS[key] && !(blacklist && blacklist[key]) && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
+            var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+            try {
+              defineProperty(targetComponent, key, descriptor);
+            } catch (e) {
+            }
+          }
+        }
+      }
+      return targetComponent;
+    }
+    module.exports = hoistNonReactStatics;
+  }
+});
+
+// ../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.dev.js
+var require_emotion_react_isolated_hnrs_cjs_dev = __commonJS({
+  "../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.dev.js"(exports) {
+    "use strict";
+    init_define_process();
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var hoistNonReactStatics$1 = require_hoist_non_react_statics_cjs();
+    function _interopDefault(e) {
+      return e && e.__esModule ? e : { "default": e };
+    }
+    var hoistNonReactStatics__default = _interopDefault(hoistNonReactStatics$1);
+    var hoistNonReactStatics = function(targetComponent, sourceComponent) {
+      return hoistNonReactStatics__default["default"](targetComponent, sourceComponent);
+    };
+    exports.default = hoistNonReactStatics;
+  }
+});
+
+// ../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/dist/emotion-element-b63ca7c6.cjs.dev.js
+var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
+  "../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/dist/emotion-element-b63ca7c6.cjs.dev.js"(exports) {
+    "use strict";
+    init_define_process();
+    var React = (init_react(), __toCommonJS(react_exports));
+    var createCache2 = require_emotion_cache_cjs();
+    var _extends = require_extends();
+    var weakMemoize = require_emotion_weak_memoize_cjs();
+    var _isolatedHnrs_dist_emotionReact_isolatedHnrs = require_emotion_react_isolated_hnrs_cjs_dev();
+    var utils = require_emotion_utils_cjs();
+    var serialize = require_emotion_serialize_cjs();
+    var useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs();
+    function _interopDefault(e) {
+      return e && e.__esModule ? e : { "default": e };
+    }
+    var createCache__default = _interopDefault(createCache2);
+    var weakMemoize__default = _interopDefault(weakMemoize);
+    var isBrowser = typeof document !== "undefined";
+    var hasOwnProperty = {}.hasOwnProperty;
+    var EmotionCacheContext = React.createContext(
+      typeof HTMLElement !== "undefined" ? createCache__default["default"]({
+        key: "css"
+      }) : null
+    );
+    if (true) {
+      EmotionCacheContext.displayName = "EmotionCacheContext";
+    }
+    var CacheProvider2 = EmotionCacheContext.Provider;
+    var __unsafe_useEmotionCache = function useEmotionCache() {
+      return React.useContext(EmotionCacheContext);
+    };
+    exports.withEmotionCache = function withEmotionCache(func) {
+      return React.forwardRef(function(props, ref) {
+        var cache2 = React.useContext(EmotionCacheContext);
+        return func(props, cache2, ref);
+      });
+    };
+    if (!isBrowser) {
+      exports.withEmotionCache = function withEmotionCache(func) {
+        return function(props) {
+          var cache2 = React.useContext(EmotionCacheContext);
+          if (cache2 === null) {
+            cache2 = createCache__default["default"]({
+              key: "css"
+            });
+            return React.createElement(EmotionCacheContext.Provider, {
+              value: cache2
+            }, func(props, cache2));
+          } else {
+            return func(props, cache2);
+          }
+        };
+      };
+    }
+    var ThemeContext = React.createContext({});
+    if (true) {
+      ThemeContext.displayName = "EmotionThemeContext";
+    }
+    var useTheme = function useTheme2() {
+      return React.useContext(ThemeContext);
+    };
+    var getTheme = function getTheme2(outerTheme, theme) {
+      if (typeof theme === "function") {
+        var mergedTheme = theme(outerTheme);
+        if (mergedTheme == null || typeof mergedTheme !== "object" || Array.isArray(mergedTheme)) {
+          throw new Error("[ThemeProvider] Please return an object from your theme function, i.e. theme={() => ({})}!");
+        }
+        return mergedTheme;
+      }
+      if (theme == null || typeof theme !== "object" || Array.isArray(theme)) {
+        throw new Error("[ThemeProvider] Please make your theme prop a plain object");
+      }
+      return _extends({}, outerTheme, theme);
+    };
+    var createCacheWithTheme = weakMemoize__default["default"](function(outerTheme) {
+      return weakMemoize__default["default"](function(theme) {
+        return getTheme(outerTheme, theme);
+      });
+    });
+    var ThemeProvider = function ThemeProvider2(props) {
+      var theme = React.useContext(ThemeContext);
+      if (props.theme !== theme) {
+        theme = createCacheWithTheme(theme)(props.theme);
+      }
+      return React.createElement(ThemeContext.Provider, {
+        value: theme
+      }, props.children);
+    };
+    function withTheme(Component) {
+      var componentName = Component.displayName || Component.name || "Component";
+      var render2 = function render3(props, ref) {
+        var theme = React.useContext(ThemeContext);
+        return React.createElement(Component, _extends({
+          theme,
+          ref
+        }, props));
+      };
+      var WithTheme = React.forwardRef(render2);
+      WithTheme.displayName = "WithTheme(" + componentName + ")";
+      return _isolatedHnrs_dist_emotionReact_isolatedHnrs["default"](WithTheme, Component);
+    }
+    var getLastPart = function getLastPart2(functionName) {
+      var parts = functionName.split(".");
+      return parts[parts.length - 1];
+    };
+    var getFunctionNameFromStackTraceLine = function getFunctionNameFromStackTraceLine2(line) {
+      var match = /^\s+at\s+([A-Za-z0-9$.]+)\s/.exec(line);
+      if (match)
+        return getLastPart(match[1]);
+      match = /^([A-Za-z0-9$.]+)@/.exec(line);
+      if (match)
+        return getLastPart(match[1]);
+      return void 0;
+    };
+    var internalReactFunctionNames = /* @__PURE__ */ new Set(["renderWithHooks", "processChild", "finishClassComponent", "renderToString"]);
+    var sanitizeIdentifier = function sanitizeIdentifier2(identifier) {
+      return identifier.replace(/\$/g, "-");
+    };
+    var getLabelFromStackTrace = function getLabelFromStackTrace2(stackTrace) {
+      if (!stackTrace)
+        return void 0;
+      var lines = stackTrace.split("\n");
+      for (var i = 0; i < lines.length; i++) {
+        var functionName = getFunctionNameFromStackTraceLine(lines[i]);
+        if (!functionName)
+          continue;
+        if (internalReactFunctionNames.has(functionName))
+          break;
+        if (/^[A-Z]/.test(functionName))
+          return sanitizeIdentifier(functionName);
+      }
+      return void 0;
+    };
+    var typePropName = "__EMOTION_TYPE_PLEASE_DO_NOT_USE__";
+    var labelPropName = "__EMOTION_LABEL_PLEASE_DO_NOT_USE__";
+    var createEmotionProps = function createEmotionProps2(type, props) {
+      if (typeof props.css === "string" && props.css.indexOf(":") !== -1) {
+        throw new Error("Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/react' like this: css`" + props.css + "`");
+      }
+      var newProps = {};
+      for (var key in props) {
+        if (hasOwnProperty.call(props, key)) {
+          newProps[key] = props[key];
+        }
+      }
+      newProps[typePropName] = type;
+      if (!!props.css && (typeof props.css !== "object" || typeof props.css.name !== "string" || props.css.name.indexOf("-") === -1)) {
+        var label = getLabelFromStackTrace(new Error().stack);
+        if (label)
+          newProps[labelPropName] = label;
+      }
+      return newProps;
+    };
+    var Insertion = function Insertion2(_ref) {
+      var cache2 = _ref.cache, serialized = _ref.serialized, isStringTag = _ref.isStringTag;
+      utils.registerStyles(cache2, serialized, isStringTag);
+      var rules = useInsertionEffectWithFallbacks.useInsertionEffectAlwaysWithSyncFallback(function() {
+        return utils.insertStyles(cache2, serialized, isStringTag);
+      });
+      if (!isBrowser && rules !== void 0) {
+        var _ref2;
+        var serializedNames = serialized.name;
+        var next = serialized.next;
+        while (next !== void 0) {
+          serializedNames += " " + next.name;
+          next = next.next;
+        }
+        return React.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache2.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+          __html: rules
+        }, _ref2.nonce = cache2.sheet.nonce, _ref2));
+      }
+      return null;
+    };
+    var Emotion = exports.withEmotionCache(function(props, cache2, ref) {
+      var cssProp = props.css;
+      if (typeof cssProp === "string" && cache2.registered[cssProp] !== void 0) {
+        cssProp = cache2.registered[cssProp];
+      }
+      var WrappedComponent = props[typePropName];
+      var registeredStyles = [cssProp];
+      var className = "";
+      if (typeof props.className === "string") {
+        className = utils.getRegisteredStyles(cache2.registered, registeredStyles, props.className);
+      } else if (props.className != null) {
+        className = props.className + " ";
+      }
+      var serialized = serialize.serializeStyles(registeredStyles, void 0, React.useContext(ThemeContext));
+      if (serialized.name.indexOf("-") === -1) {
+        var labelFromStack = props[labelPropName];
+        if (labelFromStack) {
+          serialized = serialize.serializeStyles([serialized, "label:" + labelFromStack + ";"]);
+        }
+      }
+      className += cache2.key + "-" + serialized.name;
+      var newProps = {};
+      for (var key in props) {
+        if (hasOwnProperty.call(props, key) && key !== "css" && key !== typePropName && key !== labelPropName) {
+          newProps[key] = props[key];
+        }
+      }
+      newProps.ref = ref;
+      newProps.className = className;
+      return React.createElement(React.Fragment, null, React.createElement(Insertion, {
+        cache: cache2,
+        serialized,
+        isStringTag: typeof WrappedComponent === "string"
+      }), React.createElement(WrappedComponent, newProps));
+    });
+    if (true) {
+      Emotion.displayName = "EmotionCssPropInternal";
+    }
+    exports.CacheProvider = CacheProvider2;
+    exports.Emotion = Emotion;
+    exports.ThemeContext = ThemeContext;
+    exports.ThemeProvider = ThemeProvider;
+    exports.__unsafe_useEmotionCache = __unsafe_useEmotionCache;
+    exports.createEmotionProps = createEmotionProps;
+    exports.hasOwnProperty = hasOwnProperty;
+    exports.isBrowser = isBrowser;
+    exports.useTheme = useTheme;
+    exports.withTheme = withTheme;
+  }
+});
+
+// ../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.dev.js
+var require_emotion_react_jsx_runtime_cjs_dev = __commonJS({
+  "../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.dev.js"(exports) {
+    "use strict";
+    init_define_process();
+    Object.defineProperty(exports, "__esModule", { value: true });
+    init_react();
+    require_emotion_cache_cjs();
+    var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
+    require_extends();
+    require_emotion_weak_memoize_cjs();
+    require_hoist_non_react_statics_cjs();
+    require_emotion_react_isolated_hnrs_cjs_dev();
+    require_emotion_utils_cjs();
+    require_emotion_serialize_cjs();
+    require_emotion_use_insertion_effect_with_fallbacks_cjs();
+    var ReactJSXRuntime = require_jsx_runtime();
+    var Fragment2 = ReactJSXRuntime.Fragment;
+    function jsx6(type, props, key) {
+      if (!emotionElement.hasOwnProperty.call(props, "css")) {
+        return ReactJSXRuntime.jsx(type, props, key);
+      }
+      return ReactJSXRuntime.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+    }
+    function jsxs4(type, props, key) {
+      if (!emotionElement.hasOwnProperty.call(props, "css")) {
+        return ReactJSXRuntime.jsxs(type, props, key);
+      }
+      return ReactJSXRuntime.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+    }
+    exports.Fragment = Fragment2;
+    exports.jsx = jsx6;
+    exports.jsxs = jsxs4;
+  }
+});
+
+// ../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js
+var require_emotion_react_jsx_runtime_cjs = __commonJS({
+  "../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js"(exports, module) {
+    "use strict";
+    init_define_process();
+    if (false) {
+      module.exports = null;
+    } else {
+      module.exports = require_emotion_react_jsx_runtime_cjs_dev();
+    }
+  }
+});
 
 // ../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js
 var require_is_callable = __commonJS({
@@ -171,13 +560,13 @@ var require_is_callable = __commonJS({
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-init_react_preact();
-init_react_preact();
+init_react();
+init_react();
 
 // ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
 init_define_process();
-init_react_preact();
-init_react_preact();
+init_react();
+init_react();
 var __extends = function() {
   var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
@@ -343,13 +732,13 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/starter.tsx
 init_define_process();
-init_react_preact();
+init_react();
 
 // js/ErrorBoundary.tsx
 init_define_process();
-init_react_preact();
+init_react();
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var ErrorBoundary = class extends _n.Component {
+var ErrorBoundary = class extends react_default.Component {
   constructor(props) {
     super(props);
     this.state = { error: void 0, errorInfo: void 0 };
@@ -384,7 +773,7 @@ var ErrorBoundary = class extends _n.Component {
 var ErrorBoundary_default = ErrorBoundary;
 
 // js/starter.tsx
-var import_react3 = __toESM(require_emotion_react_cjs(), 1);
+init_emotion();
 
 // js/emotionCache.ts
 init_define_process();
@@ -431,10 +820,10 @@ async function appFactory(transpiled = "", codeSpace2) {
           speedy: false
         });
         eCaches[hash].compat = void 0;
-        apps[hash] = ({ appId }) => appId.includes(hash) ? (0, import_jsx_runtime2.jsx)(import_react3.CacheProvider, {
+        apps[hash] = ({ appId }) => appId.includes(hash) ? (0, import_jsx_runtime2.jsx)(CacheProvider, {
           value: eCaches[hash],
           children: (0, import_jsx_runtime2.jsx)("div", {
-            css: import_react3.css`height: 100%;`,
+            css: css`height: 100%;`,
             id: appId,
             children: (0, import_jsx_runtime2.jsx)(App, {})
           })
@@ -446,7 +835,7 @@ async function appFactory(transpiled = "", codeSpace2) {
         const name = error.name;
         const message = error.message;
         apps[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
-          css: import_react3.css`background-color: orange;`,
+          css: css`background-color: orange;`,
           children: [
             (0, import_jsx_runtime2.jsx)("h1", {
               children: "Syntax Error"
@@ -467,7 +856,7 @@ async function appFactory(transpiled = "", codeSpace2) {
         const name = error.name;
         const message = error.message;
         apps[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
-          css: import_react3.css`background-color: orange;`,
+          css: css`background-color: orange;`,
           children: [
             (0, import_jsx_runtime2.jsx)("h1", {
               children: "Syntax Error"
@@ -486,7 +875,7 @@ async function appFactory(transpiled = "", codeSpace2) {
         });
       } else {
         apps[hash] = () => (0, import_jsx_runtime2.jsx)("div", {
-          css: import_react3.css`background-color: orange;`,
+          css: css`background-color: orange;`,
           children: (0, import_jsx_runtime2.jsxs)("h1", {
             children: [
               "Unknown Error: $",
@@ -513,11 +902,11 @@ function createJsBlob(code, fileName = "index.mjs") {
 }
 
 // js/renderPreviewWindow.tsx
-var import_react9 = __toESM(require_emotion_react_cjs(), 1);
+init_emotion();
 
 // js/Editor.tsx
 init_define_process();
-init_react_preact();
+init_react();
 
 // js/runner.tsx
 init_define_process();
@@ -1690,7 +2079,7 @@ var mod = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform } = await import("./chunk-esbuildEsm-TPV2I25D.mjs");
+    const { transform } = await import("./chunk-esbuildEsm-NBTRYIVE.mjs");
     const t = await transform(res, {
       format: "esm",
       minify: true,
@@ -1711,7 +2100,7 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform } = await import("./chunk-esbuildEsm-TPV2I25D.mjs");
+  const { transform } = await import("./chunk-esbuildEsm-NBTRYIVE.mjs");
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
   if (!mod.data[hash]) {
@@ -1788,8 +2177,8 @@ var findDeps = (code) => {
 
 // js/renderToString.tsx
 init_define_process();
-init_react_preact();
-init_react_preact();
+init_react();
+init_react();
 var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod2 = {
   md5Hash: "",
@@ -1845,11 +2234,11 @@ var render = async (transpiled, codeSpace2) => {
     const html = await mod2.waitForDiv();
     if (!html)
       return { html: null, css: null };
-    const css4 = mineFromCaches(eCaches[md5hash]);
+    const css2 = mineFromCaches(eCaches[md5hash]);
     const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
     return {
       html,
-      css: globalCss + " " + css4
+      css: globalCss + " " + css2
     };
   } finally {
     cleanup();
@@ -1941,8 +2330,8 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     Object.assign(globalThis, { umdExp });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
-    const { html, css: css4 } = await render(transpiledCode, codeSpace2);
-    console.log({ html, css: css4 });
+    const { html, css: css2 } = await render(transpiledCode, codeSpace2);
+    console.log({ html, css: css2 });
     if (!html) {
       return;
     }
@@ -1952,7 +2341,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       i: counter,
       transpiled: transpiledCode,
       html,
-      css: css4
+      css: css2
     });
     saveCode();
   } catch (error) {
@@ -1962,8 +2351,8 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
 }
 
 // js/Editor.tsx
-init_react_preact();
-var import_react7 = __toESM(require_emotion_react_cjs(), 1);
+init_react();
+init_emotion();
 
 // js/isMobile.mjs
 init_define_process();
@@ -2052,7 +2441,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
   const [
     mySession,
     changeContent
-  ] = _n.useState({
+  ] = react_default.useState({
     lastKeyDown: 0,
     myCode: code,
     counter: i,
@@ -2070,7 +2459,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     onChange
   } = mySession;
   mod4.code = myCode;
-  _n.useEffect(() => {
+  react_default.useEffect(() => {
     if (ref.current === null && started2) {
       return;
     }
@@ -2078,7 +2467,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       (res) => Object.assign(mod4, res)
     ).then(() => changeContent((x) => ({ ...x, started: true })));
   }, [started2, ref]);
-  _n.useEffect(
+  react_default.useEffect(
     () => {
       mod4.getErrors().then(console.log);
       onChange(
@@ -2109,7 +2498,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
   return (0, import_jsx_runtime4.jsx)("div", {
     onKeyDown: () => mod4.lastKeyDown = Date.now(),
     id: "editor",
-    css: import_react7.css`          
+    css: css`          
       max-width: 640px;
       height: 100%; 
       `,
@@ -2138,17 +2527,17 @@ async function setMonaco(container) {
   });
 }
 async function setAce() {
-  const { startAce } = await import("./chunk-startAce-XC26OPE7.mjs");
+  const { startAce } = await import("./chunk-startAce-NKEWPUB4.mjs");
   return await startAce(mST().code, onModChange);
 }
 
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-E2UQPIFE.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-2U7L6MOP.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
-  css: import_react9.css`
+  css: css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -2256,7 +2645,7 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   const root = createRoot(div);
   const x = emotionCache_default({ key: "root" });
   root.render(
-    (0, import_jsx_runtime5.jsx)(import_react9.CacheProvider, {
+    (0, import_jsx_runtime5.jsx)(CacheProvider, {
       value: x,
       children: (0, import_jsx_runtime5.jsx)(AppToRender, {
         codeSpace: codeSpace2
@@ -2266,6 +2655,7 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
 };
 
 export {
+  require_emotion_react_jsx_runtime_cjs,
   renderPreviewWindow,
   sendChannel,
   run,

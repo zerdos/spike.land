@@ -80,6 +80,9 @@
       }
     }
   </script>
+  <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/@emotion/react@11.10.0/dist/emotion-react.umd.min.js"></script>
 
    <script type="importmap"></script>
    </head>
@@ -125,19 +128,17 @@ window.addEventListener('pageshow', (event) => {
   
 <script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
+  
    
 //    const ws = location.origin + "/" + assets["ws.mjs"];
 
-
-    import("react").then(
-      (m)=>window.React=m.default).then(()=>import("ws.mjs")).then(
+    import("/ws.mjs").then(
         ({run})=>run({mST,
       codeSpace,
       address,
       assets
     })
-    ).catch(()=>import("/load.mjs")
-    ).finally(()=>window.React || import("/load"));
+    ).catch(()=>import("/load.mjs"))
 </script>
 
   <!-- Cloudflare Web Analytics -->

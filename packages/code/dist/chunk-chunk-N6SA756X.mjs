@@ -2433,7 +2433,7 @@ var initAndTransform = async (code, opts) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
-  return (0, import_esbuild_wasm.transform)(code, opts);
+  return transform(code, opts);
 };
 
 export {

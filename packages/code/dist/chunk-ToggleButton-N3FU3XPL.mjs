@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-KNLOTDZ7.mjs";
+} from "./chunk-chunk-F7ZSNU2C.mjs";
 import {
   _extends,
   _objectWithoutPropertiesLoose,
@@ -26,15 +26,16 @@ import {
   styled_default,
   useThemeProps,
   useTheme_default
-} from "./chunk-chunk-7GADEGZX.mjs";
-import "./chunk-chunk-ABHFWPU5.mjs";
-import "./chunk-chunk-VV57WXRL.mjs";
+} from "./chunk-chunk-2RFWSJCX.mjs";
+import {
+  require_jsx_runtime
+} from "./chunk-chunk-5UQV52TI.mjs";
+import "./chunk-chunk-5Y5YWTQ7.mjs";
 import {
   forwardRef,
-  init_react_preact,
-  o,
+  init_react,
   useDebugValue
-} from "./chunk-chunk-ZO2RDFSP.mjs";
+} from "./chunk-chunk-25QIMTX6.mjs";
 import {
   __toESM,
   init_define_process
@@ -45,7 +46,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/ToggleButton/ToggleButton.js
 init_define_process();
-init_react_preact();
+init_react();
 var import_prop_types2 = __toESM(require_prop_types());
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/styles/index.js
@@ -68,7 +69,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/styles/useTheme.js
 init_define_process();
-init_react_preact();
+init_react();
 function useTheme() {
   const theme = useTheme_default(defaultTheme_default);
   if (true) {
@@ -97,7 +98,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Paper/Paper.js
 init_define_process();
-init_react_preact();
+init_react();
 var import_prop_types = __toESM(require_prop_types());
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Paper/paperClasses.js
@@ -108,7 +109,7 @@ function getPaperUtilityClass(slot) {
 var paperClasses = generateUtilityClasses("MuiPaper", ["root", "rounded", "outlined", "elevation", "elevation0", "elevation1", "elevation2", "elevation3", "elevation4", "elevation5", "elevation6", "elevation7", "elevation8", "elevation9", "elevation10", "elevation11", "elevation12", "elevation13", "elevation14", "elevation15", "elevation16", "elevation17", "elevation18", "elevation19", "elevation20", "elevation21", "elevation22", "elevation23", "elevation24"]);
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Paper/Paper.js
-init_react_preact();
+var import_jsx_runtime = __toESM(require_jsx_runtime());
 var _excluded = ["className", "component", "elevation", "square", "variant"];
 var getOverlayAlpha = (elevation) => {
   let alphaValue;
@@ -186,7 +187,7 @@ var Paper = forwardRef(function Paper2(inProps, ref) {
       console.error([`MUI: The elevation provided <Paper elevation={${elevation}}> is not available in the theme.`, `Please make sure that \`theme.shadows[${elevation}]\` is defined.`].join("\n"));
     }
   }
-  return o(PaperRoot, _extends({
+  return (0, import_jsx_runtime.jsx)(PaperRoot, _extends({
     as: component,
     ownerState,
     className: clsx_m_default(classes.root, className),
@@ -486,7 +487,7 @@ var toggleButtonClasses = generateUtilityClasses("MuiToggleButton", ["root", "di
 var toggleButtonClasses_default = toggleButtonClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/ToggleButton/ToggleButton.js
-init_react_preact();
+var import_jsx_runtime2 = __toESM(require_jsx_runtime());
 var _excluded3 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
 var useUtilityClasses2 = (ownerState) => {
   const {
@@ -595,7 +596,7 @@ var ToggleButton = forwardRef(function ToggleButton2(inProps, ref) {
       onChange(event, value);
     }
   };
-  return o(ToggleButtonRoot, _extends({
+  return (0, import_jsx_runtime2.jsx)(ToggleButtonRoot, _extends({
     className: clsx_m_default(classes.root, className),
     disabled,
     focusRipple: !disableFocusRipple,
