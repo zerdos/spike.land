@@ -1,4 +1,4 @@
-import { initialize, transform } from "esbuild-wasm";
+import { initialize, tranesform } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 
 const mod = {

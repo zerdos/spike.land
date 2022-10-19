@@ -9,7 +9,6 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
   const mod = await Promise.all([
     importShim(`/live/${codeSpace}/mST.mjs`),
     importShim("ws.mjs"),
-    importShim("react").then((m) => window.React = m.default),
     importShim(`/live/${codeSpace}/index.js`),
   ]);
 
