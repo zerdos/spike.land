@@ -8,6 +8,7 @@ import { createRoot } from "react-dom/client";
 // import createEmotionServer from "@emotion/server/dist/emotion-server.browser.esm.js";
 import { useEffect, useRef, useState } from "react";
 import { wait } from "wait.mjs";
+import type { EmotionCache } from "@emotion/utils";
 
 const mod = {
   md5Hash: "",
@@ -118,7 +119,7 @@ export const render = async (transpiled: string, codeSpace: string) => {
 //   };
 //};
 
-function mineFromCaches(cache) {
+function mineFromCaches(cache: EmotionCache) {
   const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
   return Array.from(document.styleSheets).map((x) =>
     x.cssRules[0] as CSSPageRule
