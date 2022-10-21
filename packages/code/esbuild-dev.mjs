@@ -232,7 +232,7 @@ const build = (entryPoints, extraExternal) =>
     aliasPlugin({
       //    "stream": resolve("./js/stream.mjs"),
       //  "buffer": resolve("./js/buffer/index.ts"),
-      // "@emotion/react": resolve("./js/emotion.ts"),
+      "@emotion/react": resolve("./js/emotion.ts"),
       "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
       // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
       // "@emotion/cache": resolve("./dist/emotionCache.mjs"),
