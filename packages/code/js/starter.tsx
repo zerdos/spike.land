@@ -56,18 +56,7 @@ export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
 
   const ref = useRef(null);
 
-  const transpiled = mST().transpiled;
-  const App = apps[md5(transpiled).slice(0, 8)];
-
-  // Return <Root codeSpace={codeSpace}>
-
-  //   if (!createCache || !CacheProvider) return null;
-
-  //   const myCache = createCache({
-  //     key: "z",
-  //     });
-
-  // Object.assign(globalThis, {myCache})
+  const App = apps[md5Hash];
 
   return (
     <ErrorBoundary key={md5Hash} ref={ref}>
@@ -106,7 +95,7 @@ export async function appFactory(
         });
 
         eCaches[hash].compat = undefined;
-        apps[hash] = ({ appId }) =>
+        apps[hash] = ({ appId }: { appId: string }) =>
           appId.includes(hash)
             ? (
               <CacheProvider value={eCaches[hash]}>
