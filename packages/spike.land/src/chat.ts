@@ -382,7 +382,7 @@ export default {
                       bypassCache: true,
                     }),
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                  ASSET_MANIFEST: a,
+                  ASSET_MANIFEST: __STATIC_CONTENT_MANIFEST,
                 },
               );
               
