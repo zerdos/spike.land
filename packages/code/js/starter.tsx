@@ -14,7 +14,6 @@ import { renderPreviewWindow } from "renderPreviewWindow";
 // import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
-import { has } from "immutable";
 
 const dynamicImport = (src: string) =>
   window.importShim ? window.importShim(src) : import(src);
@@ -24,10 +23,10 @@ const dynamicImport = (src: string) =>
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 
 export const { apps, eCaches } = (globalThis as unknown as {
-  apps: Record<string, React.FC<{ appId: string }>>;
+  apps: Record<string, FC<{ appId: string }>>;
   eCaches: Record<string, EmotionCache>;
 }) || (globalThis as unknown as {
-  apps: Record<string, React.FC<{ appId: string }>>;
+  apps: Record<string, FC<{ appId: string }>>;
   eCaches: Record<string, EmotionCache>;
 }).apps;
 
@@ -38,7 +37,7 @@ export const { apps, eCaches } = (globalThis as unknown as {
 //const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: React.FC<{ hash: number; codeSpace: string }> = (
+export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
   { hash, codeSpace },
 ) => {
   const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
@@ -83,7 +82,7 @@ let started = false;
 export async function appFactory(
   transpiled = "",
   codeSpace?: string,
-): Promise<React.FC<{ appId: string }>> {
+): Promise<FC<{ appId: string }>> {
   //}
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
@@ -120,7 +119,7 @@ export async function appFactory(
       } else throw new Error("the default export is not a function!");
     } catch (error) {
       // Try {
-      //   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as React.FC;
+      //   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as FC;
       // } catch {
       //   console.error("not even importShim");
       // }
