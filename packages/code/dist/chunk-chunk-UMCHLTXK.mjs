@@ -2894,7 +2894,7 @@ async function appFactory(transpiled = "", codeSpace2) {
           children: (0, import_jsx_runtime2.jsx)("div", {
             css: import_react3.css`height: 100%;`,
             id: appId,
-            children: (0, import_jsx_runtime2.jsx)(App, {})
+            children: App()
           }, hash)
         }, hash) : null);
       } else
@@ -4427,7 +4427,7 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-4RYZHD4Z.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-PU2K5LNS.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
   css: import_react9.css`
