@@ -2885,7 +2885,7 @@ async function appFactory(transpiled = "", codeSpace2) {
       const App = (await dynamicImport(createJsBlob(trp))).default;
       if ((0, import_is_callable.default)(App)) {
         eCaches2[hash] = emotionCache_default({
-          key: hash.replace(/\d+/g, ""),
+          key: "z",
           speedy: false
         });
         eCaches2[hash].compat = void 0;
@@ -4482,7 +4482,7 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-X67XBICS.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-MBLLHKC5.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
   css: import_react9.css`
