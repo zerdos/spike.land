@@ -14,6 +14,7 @@ import { renderPreviewWindow } from "renderPreviewWindow";
 // import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
+import { has } from "immutable";
 
 const dynamicImport = (src: string) =>
   window.importShim ? window.importShim(src) : import(src);
@@ -100,9 +101,9 @@ export async function appFactory(
 
       if (isCallable(App)) {
         eCaches[hash] = createCache({
-          key: "z",
+          key: hash,
 
-          speedy: true,
+          speedy: false,
         });
 
         eCaches[hash].compat = undefined;
