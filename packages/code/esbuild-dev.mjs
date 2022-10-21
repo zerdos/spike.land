@@ -239,7 +239,6 @@ const build = (entryPoints, extraExternal) =>
       // "@emotion/styled": resolve("./dist/emotionStyled.mjs"),
       // // "./mui": resolve("./dist/mui.mjs"),
       "react": resolve("./js/react.ts"),
-      "babel/runtime/helpers/extends": resolve("./js/babel.ts"),
       "react-dom": resolve("./js/react.ts"),
       "react-dom/client": resolve("./js/react.ts"),
       "react/jsx-runtime": resolve("./js/jsx.mjs"),
@@ -264,7 +263,7 @@ const build = (entryPoints, extraExternal) =>
     "js/load.ts",
   ], [
     "react",
-    "babel/runtime/helpers/extends",
+    "@babel/runtime/helpers/extends",
     "react-dom",
     "react-dom/client",
     "react/jsx-runtime",

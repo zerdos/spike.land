@@ -217,7 +217,7 @@ export class Code {
           const assets = {
             "react.mjs": a["react.mjs"],
             "emotion.mjs": a["emotion.mjs"],
-            "framer-motion.mjs": a["framer-motion.mjs"]
+          "framer-motion.mjs": a["framer-motion.mjs"]
           };
           return new Response(
             `
