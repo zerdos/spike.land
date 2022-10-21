@@ -1,11 +1,12 @@
 import type Emotion from "@emotion/react";
 
-const { emotionReact } = window as unknown as { emotionReact: typeof Emotion };
 export const {
   CacheProvider,
   ClassNames,
   Global,
   ThemeContext,
+  __unsafe_useEmotionCache,
+  createElement,
   ThemeProvider,
   css,
   jsx,
@@ -13,5 +14,5 @@ export const {
   useTheme,
   withEmotionCache,
   withTheme,
-} = emotionReact;
+} = (window as unknown as { emotionReact: typeof Emotion }).emotionReact;
 export default emotionReact;
