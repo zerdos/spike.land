@@ -1,7 +1,7 @@
 import type { FC } from "react";
 // import { hashCode, mST } from "session";
 import { md5 } from "md5";
-import { appFactory, apps, eCaches } from "starter";
+import { appFactory } from "starter";
 
 import { createRoot } from "react-dom/client";
 
@@ -44,7 +44,6 @@ const mod = {
       root.unmount;
       document.body.removeChild(rootDiv);
       rootDiv.remove();
-      delete apps[md5hash];
       mod.setHash = null;
     };
   },
