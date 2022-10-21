@@ -95,13 +95,14 @@ export async function appFactory(
         });
 
         eCaches[hash].compat = undefined;
+
         apps[hash] = apps[hash] ||
           (({ appId }: { appId: string }) =>
             appId.includes(hash)
               ? (
                 <CacheProvider key={hash} value={eCaches[hash]}>
-                  <div css={css`height: 100%;`} id={appId}>
-                    <App />
+                  <div key={hash} css={css`height: 100%;`} id={appId}>
+                  App />
                   </div>
                 </CacheProvider>
               )
