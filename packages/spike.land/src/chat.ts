@@ -10,6 +10,7 @@ import { CodeEnv } from "./env";
 const a = JSON.parse(__STATIC_CONTENT_MANIFEST);
 // const ws = a["ws.mjs"];
 const preact = a["react.mjs"];
+const babel = a["babel.mjs"];
 const emotionReact = a["emotion.mjs"];
 const emotionJsxRuntime = a["emotionJsxRuntime.mjs"];
 const emotionCache = a["emotionCache.mjs"];
@@ -40,6 +41,7 @@ export const imap = {
     "react": preact,
     "react-dom": preact,
     "react-dom/client": preact,
+    "@babel/runtime/helpers/extends": babel,
     // "react-dom/server": preact,
     "framer-motion": motion,
     // "ws.mjs": ws,
