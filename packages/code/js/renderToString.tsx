@@ -73,14 +73,16 @@ export const render = async (transpiled: string, codeSpace: string) => {
 
     // console.log(css, critical, css3);
 
-    const globalCss = document.querySelector("style[data-emotion=z-global]")
+    const globalCss = document.querySelector(
+      `style[data-emotion=${eCaches[md5hash].key}-global]`,
+    )
       ?.innerHTML;
     // if (!css) css = extractCritical22(html);
     //    root.unmount()
 
     return {
       html,
-      css: globalCss + " " + css,
+      css: globalCss ? globalCss + " " + css : css,
     };
   } finally {
     cleanup();

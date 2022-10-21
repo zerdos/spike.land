@@ -4200,10 +4200,12 @@ var render = async (transpiled, codeSpace2) => {
     if (!html)
       return { html: null, css: null };
     const css4 = mineFromCaches(eCaches[md5hash]);
-    const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
+    const globalCss = document.querySelector(
+      `style[data-emotion=${eCaches[md5hash].key}-global]`
+    )?.innerHTML;
     return {
       html,
-      css: globalCss + " " + css4
+      css: globalCss ? globalCss + " " + css4 : css4
     };
   } finally {
     cleanup();
@@ -4480,7 +4482,7 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-2H5OV23K.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-X67XBICS.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
   css: import_react9.css`
