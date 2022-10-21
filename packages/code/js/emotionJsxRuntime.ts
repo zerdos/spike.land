@@ -1,5 +1,5 @@
 const JSX = {
-  jsxs: (...args) => ReactJSXRuntime.jsxs(...args),
+  jsxs: (...args) => ReactJSXRuntime.jsx(...args),
   jsx: (...args) => emotionReact.jsx(...args),
   Fragment: React.Fragment || "",
 };
