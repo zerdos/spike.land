@@ -102,7 +102,7 @@ export async function appFactory(
         eCaches[hash] = createCache({
           key: "z",
 
-          speedy: false,
+          speedy: true,
         });
 
         eCaches[hash].compat = undefined;
