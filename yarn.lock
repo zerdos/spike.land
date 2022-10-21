@@ -1142,14 +1142,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 18.11.2
-  resolution: "@types/node@npm:18.11.2"
-  checksum: 15bc10c85db33a12142e9d76c464dbd45ba341d928e29ffc007c9319526483ff03e538618dbdc35456d556e92176cc07241dbd90a87c72eaeea74fe240755890
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.11.3":
+"@types/node@npm:*, @types/node@npm:^18.11.3":
   version: 18.11.3
   resolution: "@types/node@npm:18.11.3"
   checksum: a5764e83c872478f994bbc93807640db0d1ed6da7e9d55d18a9610691a89f169722414d480c44388550945b3c16a838f5e3e94de28207cc0616f12dba70edb96
@@ -1852,13 +1845,13 @@ __metadata:
   linkType: hard
 
 "clipanion@npm:^3.2.0-rc.10":
-  version: 3.2.0-rc.12
-  resolution: "clipanion@npm:3.2.0-rc.12"
+  version: 3.2.0-rc.13
+  resolution: "clipanion@npm:3.2.0-rc.13"
   dependencies:
     typanion: "npm:^3.8.0"
   peerDependencies:
     typanion: "*"
-  checksum: 4150283ddec7d8d17d0045c986cc07c4cee07ef9d86cfd1015270b4624d22fd546d47d15c3b11b1569e914cb3be28e2a4bc54469e9991aa749ccf14975749a64
+  checksum: 46660d2fc75b5b2ecc642fb4ca5371c95984c6e0730b6df9a42cf9a5f0066653cde33014a488296c106aa66c7387e18d1c578d61daa6ca29646aacd41965d219
   languageName: node
   linkType: hard
 
@@ -3338,11 +3331,11 @@ __metadata:
   linkType: hard
 
 "is-core-module@npm:^2.9.0":
-  version: 2.10.0
-  resolution: "is-core-module@npm:2.10.0"
+  version: 2.11.0
+  resolution: "is-core-module@npm:2.11.0"
   dependencies:
     has: "npm:^1.0.3"
-  checksum: 38234107db3b4e014feec8af26297260091061a264259af8a20cd76da4fe39d444ce295f5f31d99422bfd9339cb564d4718bb8d3f56245ab392cc73c8e8c8869
+  checksum: c1bf6feab8bba140f691b853db3032d33ce1bc883ecd1b7ddb4e33f2443b4da2bcbba671b6290c34f45c27a8fc02c0bf5e01c68192671f9133029d21a48f25b0
   languageName: node
   linkType: hard
 
@@ -5018,9 +5011,9 @@ __metadata:
   linkType: hard
 
 "typanion@npm:^3.8.0":
-  version: 3.12.0
-  resolution: "typanion@npm:3.12.0"
-  checksum: 02a2b2ae4bdd4141d116395f2aca20d13bf841e60f0679e48af13f328017a38d4fd1257daa93718950843c61c61341d843804254246b34afdfb731d5007c5cd3
+  version: 3.12.1
+  resolution: "typanion@npm:3.12.1"
+  checksum: 492540c6ac09c20b1693dd4ca4278f95d3771892c551aad26844faec0bbbdafc28c72b0c0df60ac68252b1fade7e0e664df517d6f0be702c32929368814373c2
   languageName: node
   linkType: hard
 
