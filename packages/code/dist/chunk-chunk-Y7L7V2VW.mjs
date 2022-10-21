@@ -2833,7 +2833,7 @@ async function appFactory(transpiled = "", codeSpace2) {
       if ((0, import_is_callable.default)(App)) {
         eCaches[hash] = emotionCache_default({
           key: "z",
-          speedy: false
+          speedy: true
         });
         eCaches[hash].compat = void 0;
         apps[hash] = ({ appId }) => appId.includes(hash) ? jsx(CacheProvider, {
@@ -4427,7 +4427,7 @@ async function setAce() {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-KILIIP7D.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-4XELG664.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
