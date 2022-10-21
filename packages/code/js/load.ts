@@ -1,23 +1,20 @@
+import { run } from "./ws";
 import "es-module-shims";
 
 importShim.addImportMap(
   JSON.parse(document.querySelector("script[type=importmap]").innerHTML),
 );
+
 const codeSpace = location.pathname.slice(1).split("/")[1];
-
 (async () => {
-  const mod = await Promise.all([
-    importShim(`${location.origin}/live/${codeSpace}/mST.mjs`),
-    importShim(`${location.origin}/ws.mjs`),
-    importShim(`${location.origin}/live/${codeSpace}/index.js`),
-  ]);
+  const {
+    mST,
+    address,
+  } = await import(`${location.origin}/live/${codeSpace}/mST.mjs`);
 
-  const { mST, assets, address } = mod[0];
-  const { run } = mod[1];
-  run({
+  await run({
     mST,
     codeSpace,
     address,
-    assets,
   });
 })();
