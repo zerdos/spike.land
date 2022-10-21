@@ -1,7 +1,7 @@
 const JSXM = {
-  jsxs: (...args) => (JSXM.jsxs || ReactJSXRuntime.jsxs)(...args),
+  jsxs: (...args) => ReactJSXRuntime.jsxs(...args),
   jsx: (...args) => window.emotionReact.jsx(...args),
-  Fragment: JSXM?.Fragment || React.Fragment,
+  Fragment: React.Fragment,
 };
 
 export const { jsx, jsxs, Fragment } = JSXM;
