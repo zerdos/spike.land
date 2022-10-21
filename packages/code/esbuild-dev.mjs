@@ -233,7 +233,7 @@ const build = (entryPoints, extraExternal) =>
       //    "stream": resolve("./js/stream.mjs"),
       //  "buffer": resolve("./js/buffer/index.ts"),
       // "@emotion/react": resolve("./js/emotion.ts"),
-      // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
+      "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
       // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
       // "@emotion/cache": resolve("./dist/emotionCache.mjs"),
       // "@emotion/styled": resolve("./dist/emotionStyled.mjs"),
