@@ -104,10 +104,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:3.17.0":
-  version: 3.17.0
-  resolution: "@cloudflare/workers-types@npm:3.17.0"
-  checksum: f4a785065ffd9c4e9e6358ada4465a1586c26574b88cc547ac60d6cb455b3a5a1ce218e9608739b8fcef02fbf6fe71223ff0af854976ee1c3759e3dab1a666eb
+"@cloudflare/workers-types@npm:3.18.0":
+  version: 3.18.0
+  resolution: "@cloudflare/workers-types@npm:3.18.0"
+  checksum: 9b29e52531b0465ef76e640d89c589dd179bb2904ed7a3aadb66164cc2025b74bcf074ee128d98b2b21ec4c675c1e1d04c669b79102ef1db394c169debcc383c
   languageName: node
   linkType: hard
 
@@ -882,7 +882,7 @@ __metadata:
   resolution: "@spike.land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.2.0"
-    "@cloudflare/workers-types": "npm:3.17.0"
+    "@cloudflare/workers-types": "npm:3.18.0"
     "@spike.land/code": "npm:*"
     avl: "npm:1.5.3"
     esbuild: "npm:0.15.12"
@@ -2601,7 +2601,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "esbuild-worker@workspace:packages/esbuild-worker"
   dependencies:
-    "@cloudflare/workers-types": "npm:3.17.0"
+    "@cloudflare/workers-types": "npm:3.18.0"
     "@types/react": "npm:18.0.21"
     "@types/react-dom": "npm:18.0.6"
     esbuild: "npm:0.15.12"
