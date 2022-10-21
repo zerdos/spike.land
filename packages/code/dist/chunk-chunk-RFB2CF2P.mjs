@@ -22,14 +22,19 @@ __export(reactMod_exports, {
   createRef: () => createRef,
   createRoot: () => createRoot,
   default: () => reactMod_default,
+  findDOMNode: () => findDOMNode,
   flushSync: () => flushSync,
   forwardRef: () => forwardRef,
+  hydrate: () => hydrate,
   hydrateRoot: () => hydrateRoot,
   isValidElement: () => isValidElement,
   lazy: () => lazy,
   memo: () => memo,
   render: () => render,
   startTransition: () => startTransition,
+  unmountComponentAtNode: () => unmountComponentAtNode,
+  unstable_batchedUpdates: () => unstable_batchedUpdates,
+  unstable_renderSubtreeIntoContainer: () => unstable_renderSubtreeIntoContainer,
   useCallback: () => useCallback,
   useContext: () => useContext,
   useDebugValue: () => useDebugValue,
@@ -47,12 +52,11 @@ __export(reactMod_exports, {
   useTransition: () => useTransition,
   version: () => version
 });
-var React, ReactDOM, Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, version, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, createRoot, flushSync, render, hydrateRoot, createPortal, reactMod_default;
+var React, Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, createRoot, hydrateRoot, createPortal, flushSync, render, findDOMNode, hydrate, unmountComponentAtNode, unstable_batchedUpdates, unstable_renderSubtreeIntoContainer, version, all, reactMod_default;
 var init_reactMod = __esm({
   "js/reactMod.ts"() {
     init_define_process();
-    React = window.React = window.React || {};
-    ReactDOM = window.ReactDOM = window.ReactDOM || {};
+    React = globalThis.React;
     ({
       Children,
       Component,
@@ -85,17 +89,29 @@ var init_reactMod = __esm({
       useState,
       useSyncExternalStore,
       useTransition,
-      version,
       __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
     } = React);
     ({
       createRoot,
+      hydrateRoot
+    } = globalThis.ReactDOMClient);
+    ({
+      createPortal,
       flushSync,
       render,
-      hydrateRoot,
-      createPortal
-    } = ReactDOM);
-    reactMod_default = React;
+      findDOMNode,
+      hydrate,
+      unmountComponentAtNode,
+      unstable_batchedUpdates,
+      unstable_renderSubtreeIntoContainer,
+      version
+    } = globalThis.ReactDOM);
+    all = {
+      ...globalThis.React,
+      ...globalThis.ReactDOM,
+      ...globalThis.ReactDOMClient
+    };
+    reactMod_default = all;
   }
 });
 
@@ -131,13 +147,18 @@ export {
   useState,
   useSyncExternalStore,
   useTransition,
-  version,
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
   createRoot,
-  flushSync,
-  render,
   hydrateRoot,
   createPortal,
+  flushSync,
+  render,
+  findDOMNode,
+  hydrate,
+  unmountComponentAtNode,
+  unstable_batchedUpdates,
+  unstable_renderSubtreeIntoContainer,
+  version,
   reactMod_default,
   reactMod_exports,
   init_reactMod

@@ -13,8 +13,10 @@ import {
   createPortal,
   createRef,
   createRoot,
+  findDOMNode,
   flushSync,
   forwardRef,
+  hydrate,
   hydrateRoot,
   init_reactMod,
   isValidElement,
@@ -23,6 +25,9 @@ import {
   reactMod_default,
   render,
   startTransition,
+  unmountComponentAtNode,
+  unstable_batchedUpdates,
+  unstable_renderSubtreeIntoContainer,
   useCallback,
   useContext,
   useDebugValue,
@@ -39,7 +44,7 @@ import {
   useSyncExternalStore,
   useTransition,
   version
-} from "./chunk-chunk-UYHLZPZT.mjs";
+} from "./chunk-chunk-RFB2CF2P.mjs";
 import "./chunk-chunk-JS5E2TTE.mjs";
 init_reactMod();
 export {
@@ -58,14 +63,19 @@ export {
   createRef,
   createRoot,
   reactMod_default as default,
+  findDOMNode,
   flushSync,
   forwardRef,
+  hydrate,
   hydrateRoot,
   isValidElement,
   lazy,
   memo,
   render,
   startTransition,
+  unmountComponentAtNode,
+  unstable_batchedUpdates,
+  unstable_renderSubtreeIntoContainer,
   useCallback,
   useContext,
   useDebugValue,
