@@ -2832,7 +2832,7 @@ async function appFactory(transpiled = "", codeSpace2) {
       const App = (await dynamicImport(createJsBlob(trp))).default;
       if ((0, import_is_callable.default)(App)) {
         eCaches[hash] = emotionCache_default({
-          key: hash,
+          key: hash.replace(/\d+/g, ""),
           speedy: false
         });
         eCaches[hash].compat = void 0;
@@ -4427,7 +4427,7 @@ async function setAce() {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-2ZQEKY5X.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-C6DOMQN6.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`

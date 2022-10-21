@@ -101,7 +101,7 @@ export async function appFactory(
 
       if (isCallable(App)) {
         eCaches[hash] = createCache({
-          key: hash,
+          key: hash.replace(/\d+/g, ""),
 
           speedy: false,
         });

@@ -4,7 +4,7 @@ import {
 } from "./chunk-chunk-DNNQDMC6.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-6EK6SFFS.mjs";
+} from "./chunk-chunk-CK5SLG45.mjs";
 import {
   jsx,
   jsxs
