@@ -9,7 +9,7 @@ import { CodeEnv } from "./env";
 
 const a = JSON.parse(__STATIC_CONTENT_MANIFEST);
 // const ws = a["ws.mjs"];
-const preact ="/react.mjs";
+const preact ="/reactMod.mjs";
 const babel = "/babel.mjs";
 const emotionReact = "/emotion.mjs";
 const emotionJsxRuntime = "/emotionJsxRuntime.mjs";

@@ -1,6 +1,6 @@
 import { Record } from "immutable";
 import debounce from "lodash.debounce";
-import { md5 } from "md5";
+import { md5 } from "./md5";
 
 import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
