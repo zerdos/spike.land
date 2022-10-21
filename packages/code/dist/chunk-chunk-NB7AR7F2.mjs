@@ -2837,7 +2837,10 @@ var ErrorBoundary = class extends reactMod_default.Component {
         ]
       });
     }
-    return this.props.children;
+    return (0, import_jsx_runtime.jsx)("div", {
+      style: "height:100%;",
+      children: this.props.children
+    });
   }
 };
 var ErrorBoundary_default = ErrorBoundary;
@@ -2868,7 +2871,6 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const ref = useRef(null);
   const App = apps2[md5Hash];
   return (0, import_jsx_runtime2.jsx)(ErrorBoundary_default, {
-    ref,
     children: (0, import_jsx_runtime2.jsx)(App, {
       appId: `${codeSpace2}-${md5Hash}`
     }, md5Hash)
@@ -2894,7 +2896,7 @@ async function appFactory(transpiled = "", codeSpace2) {
           children: (0, import_jsx_runtime2.jsx)("div", {
             css: import_react3.css`height: 100%;`,
             id: appId,
-            children: App()
+            children: (0, import_jsx_runtime2.jsx)(App, {})
           }, hash)
         }, hash) : null);
       } else
@@ -4427,7 +4429,7 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-PU2K5LNS.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-E53V2LJ4.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
   css: import_react9.css`

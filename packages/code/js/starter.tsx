@@ -59,7 +59,7 @@ export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
   const App = apps[md5Hash];
 
   return (
-    <ErrorBoundary key={`${codeSpace}-${md5Hash}`} ref={ref}>
+    <ErrorBoundary key={`${codeSpace}-${md5Hash}`}>
       <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
     </ErrorBoundary>
   );
@@ -102,7 +102,7 @@ export async function appFactory(
               ? (
                 <CacheProvider key={hash} value={eCaches[hash]}>
                   <div key={hash} css={css`height: 100%;`} id={appId}>
-                    {App()}
+                    <App></App>
                   </div>
                 </CacheProvider>
               )
