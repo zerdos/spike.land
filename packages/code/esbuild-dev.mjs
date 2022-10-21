@@ -261,7 +261,14 @@ const build = (entryPoints, extraExternal) =>
     "js/ws.ts",
     "js/jsx.mjs",
     "js/load.ts",
-  ], []);
+  ], [
+    "react",
+    "react-dom",
+    "react/",
+    "react-dom/",
+    "@emotion/react",
+    "@emotion/react/",
+  ]);
   console.log("done");
 
   // const {host, port} = serveRES;
