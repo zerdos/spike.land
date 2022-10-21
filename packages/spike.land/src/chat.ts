@@ -1,13 +1,13 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
-import  __STATIC_CONTENT_MANIFEST from "__STATIC_CONTENT_MANIFEST";
+import a from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
-const a = JSON.parse(__STATIC_CONTENT_MANIFEST);
+
 // const ws = a["ws.mjs"];
 const preact ="/reactMod.mjs";
 const babel = "/babel.mjs";
@@ -318,7 +318,7 @@ export default {
                 },
               });
             case "files.json":
-              return new Response(__STATIC_CONTENT_MANIFEST, {
+              return new Response(a, {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache",
@@ -382,7 +382,7 @@ export default {
                       bypassCache: true,
                     }),
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                  ASSET_MANIFEST: __STATIC_CONTENT_MANIFEST,
+                  ASSET_MANIFEST: a,
                 },
               );
               

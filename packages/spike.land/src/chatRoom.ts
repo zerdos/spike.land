@@ -2,7 +2,7 @@ import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
 import IIFE from "./iife.html";
-import manifestJSON from "__STATIC_CONTENT_MANIFEST";
+import a from "./staticContent.mjs"
 import { CodeEnv } from "./env";
 import type { ICodeSession } from "@spike.land/code/js/session";
 import {
@@ -213,15 +213,9 @@ export class Code {
             },
           });
         case "mST.mjs":
-          const a = JSON.parse(manifestJSON);
-          const assets = {
-            "react.mjs": a["react.mjs"],
-            "emotion.mjs": a["emotion.mjs"],
-          "framer-motion.mjs": a["framer-motion.mjs"]
-          };
+        
           return new Response(
             `
-              export const assets=${JSON.stringify(assets)};
               export const mST=${JSON.stringify(mST())};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
