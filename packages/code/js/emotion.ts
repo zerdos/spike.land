@@ -1,4 +1,4 @@
-export {
+export const {
   //@ts-ignore
   __unsafe_useEmotionCache,
   CacheProvider,
@@ -14,5 +14,4 @@ export {
   useTheme,
   withEmotionCache,
   withTheme,
-} from "@emotion/react";
-export { default } from "@emotion/react";
+} = globalThis.emotionReact;

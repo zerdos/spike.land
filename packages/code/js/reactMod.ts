@@ -1,6 +1,4 @@
-const React = window.React = window.React || {};
-//@ts-ignore
-const ReactDOM = window.ReactDOM = window.ReactDOM || {};
+const React = globalThis.React;
 
 export const {
   Children,
@@ -27,6 +25,7 @@ export const {
   useId,
   useImperativeHandle,
   useInsertionEffect,
+
   useLayoutEffect,
   useMemo,
   useReducer,
@@ -34,17 +33,30 @@ export const {
   useState,
   useSyncExternalStore,
   useTransition,
-  version,
   //@ts-ignore
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
 } = React;
 
 export const {
   createRoot,
+  hydrateRoot,
+} = globalThis.ReactDOMClient;
+
+export const {
+  createPortal,
   flushSync,
   render,
-  hydrateRoot,
-  createPortal,
-} = ReactDOM;
+  findDOMNode,
+  hydrate,
+  unmountComponentAtNode,
+  unstable_batchedUpdates,
+  unstable_renderSubtreeIntoContainer,
+  version,
+} = globalThis.ReactDOM;
 
-export default React;
+const all = {
+  ...globalThis.React,
+  ...globalThis.ReactDOM,
+  ...globalThis.ReactDOMClient,
+};
+export default all;
