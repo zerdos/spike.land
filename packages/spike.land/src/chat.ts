@@ -318,7 +318,7 @@ export default {
                 },
               });
             case "files.json":
-              return new Response(a, {
+              return new Response(JSON.stringify(a), {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache",

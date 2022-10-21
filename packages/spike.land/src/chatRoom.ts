@@ -314,7 +314,6 @@ export class Code {
         case "hydrated":
         case "dehydrated":
         case "public": {
-          const a = JSON.parse(manifestJSON);
           const respText = HTML.replaceAll(
             "/live/coder/",
             `/live/${this.codeSpace}/`,

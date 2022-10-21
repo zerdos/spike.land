@@ -60,7 +60,7 @@ export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
 
   return (
     <ErrorBoundary key={`${codeSpace}-${md5Hash}`} ref={ref}>
-      <App appId={`${codeSpace}-${md5Hash}`} />
+      <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
     </ErrorBoundary>
   );
 };
@@ -76,7 +76,7 @@ export async function appFactory(
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
 
-  const hash = md5(trp).slice(0, 8);
+  const hash = md5(trp);
 
   if (!apps[hash]) {
     try {
@@ -88,23 +88,24 @@ export async function appFactory(
         .default as unknown as FC;
 
       if (isCallable(App)) {
-        eCaches[hash] = createCache({
-          key: "z", //hash.replace(/\d+/g, ""),
+        eCaches[hash] = eCaches[hash] || createCache({
+          key: hash,
 
           speedy: false,
         });
 
         eCaches[hash].compat = undefined;
-        apps[hash] = ({ appId }: { appId: string }) =>
-          appId.includes(hash)
-            ? (
-              <CacheProvider value={eCaches[hash]}>
-                <div css={css`height: 100%;`} id={appId}>
-                  <App />
-                </div>
-              </CacheProvider>
-            )
-            : null;
+        apps[hash] = apps[hash] ||
+          (({ appId }: { appId: string }) =>
+            appId.includes(hash)
+              ? (
+                <CacheProvider key={hash} value={eCaches[hash]}>
+                  <div css={css`height: 100%;`} id={appId}>
+                    <App />
+                  </div>
+                </CacheProvider>
+              )
+              : null);
       } else throw new Error("the default export is not a function!");
     } catch (error) {
       // Try {
@@ -119,6 +120,8 @@ export async function appFactory(
         apps[hash] = () => (
           <div css={css`background-color: orange;`}>
             <h1>Syntax Error</h1>
+
+            <h2>{hash}</h2>
             <h2>{name}: {message}</h2>
             <p>{JSON.stringify({ err: error })}</p>
           </div>
