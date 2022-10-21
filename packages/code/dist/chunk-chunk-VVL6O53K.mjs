@@ -1,15 +1,17 @@
 import {
+  jsx,
+  jsxs
+} from "./chunk-chunk-622RASEH.mjs";
+import {
   require_emotion_cache_cjs
 } from "./chunk-chunk-FHQ7KILY.mjs";
 import {
   CacheProvider,
   css,
-  init_emotion,
-  jsx as jsx2
+  init_emotion
 } from "./chunk-chunk-L7BA6KDY.mjs";
 import {
-  Fragment,
-  jsx
+  Fragment
 } from "./chunk-chunk-LXQDOYGD.mjs";
 import {
   applyPatch,
@@ -487,7 +489,7 @@ var require_browser = __commonJS({
         let charset = getFlag(options, keys, "charset", mustBeString);
         let treeShaking = getFlag(options, keys, "treeShaking", mustBeBoolean);
         let ignoreAnnotations = getFlag(options, keys, "ignoreAnnotations", mustBeBoolean);
-        let jsx3 = getFlag(options, keys, "jsx", mustBeString);
+        let jsx2 = getFlag(options, keys, "jsx", mustBeString);
         let jsxFactory = getFlag(options, keys, "jsxFactory", mustBeString);
         let jsxFragment = getFlag(options, keys, "jsxFragment", mustBeString);
         let jsxImportSource = getFlag(options, keys, "jsxImportSource", mustBeString);
@@ -540,8 +542,8 @@ var require_browser = __commonJS({
           flags.push(`--reserve-props=${reserveProps.source}`);
         if (mangleQuoted !== void 0)
           flags.push(`--mangle-quoted=${mangleQuoted}`);
-        if (jsx3)
-          flags.push(`--jsx=${jsx3}`);
+        if (jsx2)
+          flags.push(`--jsx=${jsx2}`);
         if (jsxFactory)
           flags.push(`--jsx-factory=${jsxFactory}`);
         if (jsxFragment)
@@ -2766,16 +2768,16 @@ var ErrorBoundary = class extends react_default.Component {
   }
   render() {
     if (this.state.errorInfo) {
-      return jsx("div", {
+      return jsxs("div", {
         children: [
-          jsx2("h2", {
+          jsx("h2", {
             children: "Something went wrong."
           }),
-          jsx("details", {
+          jsxs("details", {
             style: { whiteSpace: "pre-wrap" },
             children: [
               this.state.error && this.state.error.toString(),
-              jsx2("br", {}),
+              jsx("br", {}),
               this.state.errorInfo.componentStack
             ]
           })
@@ -2812,9 +2814,9 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
-  return jsx2(ErrorBoundary_default, {
+  return jsx(ErrorBoundary_default, {
     ref,
-    children: jsx2(App, {
+    children: jsx(App, {
       appId: `${codeSpace2}-${md5Hash}`
     })
   }, md5Hash);
@@ -2834,12 +2836,12 @@ async function appFactory(transpiled = "", codeSpace2) {
           speedy: false
         });
         eCaches[hash].compat = void 0;
-        apps[hash] = ({ appId }) => appId.includes(hash) ? jsx2(CacheProvider, {
+        apps[hash] = ({ appId }) => appId.includes(hash) ? jsx(CacheProvider, {
           value: eCaches[hash],
-          children: jsx2("div", {
+          children: jsx("div", {
             css: css`height: 100%;`,
             id: appId,
-            children: jsx2(App, {})
+            children: jsx(App, {})
           })
         }) : null;
       } else
@@ -2848,20 +2850,20 @@ async function appFactory(transpiled = "", codeSpace2) {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsx("div", {
+        apps[hash] = () => jsxs("div", {
           css: css`background-color: orange;`,
           children: [
-            jsx2("h1", {
+            jsx("h1", {
               children: "Syntax Error"
             }),
-            jsx("h2", {
+            jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx2("p", {
+            jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
@@ -2869,28 +2871,28 @@ async function appFactory(transpiled = "", codeSpace2) {
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsx("div", {
+        apps[hash] = () => jsxs("div", {
           css: css`background-color: orange;`,
           children: [
-            jsx2("h1", {
+            jsx("h1", {
               children: "Syntax Error"
             }),
-            jsx("h2", {
+            jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx2("p", {
+            jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
         });
       } else {
-        apps[hash] = () => jsx2("div", {
+        apps[hash] = () => jsx("div", {
           css: css`background-color: orange;`,
-          children: jsx("h1", {
+          children: jsxs("h1", {
             children: [
               "Unknown Error: $",
               hash
@@ -4121,7 +4123,7 @@ var mod2 = {
     document.body.appendChild(rootDiv);
     const root = createRoot(rootDiv);
     root.render(
-      jsx2(Helper, {
+      jsx(Helper, {
         md5Hash: md5hash
       })
     );
@@ -4172,9 +4174,9 @@ var Helper = ({ md5Hash }) => {
     mod2.md5Hash = hash, mod2.setHash = (hash2) => setHash(hash2);
   }, [ref, hash, setHash]);
   const App = apps[hash];
-  return jsx2("div", {
+  return jsx("div", {
     ref,
-    children: jsx2(App, {
+    children: jsx(App, {
       appId: `${mod2.codeSpace}-${hash}`
     }, hash)
   });
@@ -4388,7 +4390,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       myCode: mod4.code
     }));
   }, "editor");
-  return jsx2("div", {
+  return jsx("div", {
     onKeyDown: () => mod4.lastKeyDown = Date.now(),
     id: "editor",
     css: css`          
@@ -4428,9 +4430,9 @@ async function setAce() {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-PYDEOWKZ.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-6OUJHM2H.mjs"))
 );
-var RainbowContainer = ({ children }) => jsx2("div", {
+var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
 height: 100%;
 width: 100%;
@@ -4496,30 +4498,30 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
   const portalNode = useMemo(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return jsx(Fragment, {
+  return jsxs(Fragment, {
     children: [
-      jsx2(InPortal, {
+      jsx(InPortal, {
         node: portalNode,
-        children: jsx2(AutoUpdateApp, {
+        children: jsx(AutoUpdateApp, {
           hash,
           codeSpace: codeSpace2
         })
       }),
-      isStandalone ? jsx2(OutPortal, {
+      isStandalone ? jsx(OutPortal, {
         node: portalNode
-      }) : jsx2(Suspense, {
-        fallback: jsx2(OutPortal, {
+      }) : jsx(Suspense, {
+        fallback: jsx(OutPortal, {
           node: portalNode
         }),
-        children: jsx2(RainbowContainer, {
-          children: jsx(Fragment, {
+        children: jsx(RainbowContainer, {
+          children: jsxs(Fragment, {
             children: [
-              jsx2(Editor, {
+              jsx(Editor, {
                 codeSpace: codeSpace2
               }),
-              jsx2(DraggableWindowLazy, {
+              jsx(DraggableWindowLazy, {
                 room: codeSpace2,
-                children: jsx2(OutPortal, {
+                children: jsx(OutPortal, {
                   node: portalNode
                 })
               })
@@ -4539,10 +4541,10 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   const root = createRoot(div);
   const x = emotionCache_default({ key: "root" });
   root.render(
-    jsx2(CacheProvider, {
+    jsx(CacheProvider, {
       value: x,
       cj: true,
-      children: jsx2(AppToRender, {
+      children: jsx(AppToRender, {
         codeSpace: codeSpace2
       })
     })
