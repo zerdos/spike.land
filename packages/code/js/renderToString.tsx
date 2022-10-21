@@ -7,6 +7,7 @@ import { createRoot } from "react-dom/client";
 
 // import { flushSync } from "react-dom";
 // import createEmotionServer from "@emotion/server/dist/emotion-server.browser.esm.js";
+import { useEffect, useRef, useState } from "react";
 import type { EmotionCache } from "@emotion/utils";
 
 const mod = {
@@ -157,11 +158,17 @@ function mineFromCaches(cache: EmotionCache) {
 // };
 
 const Helper: FC<{ md5Hash: string }> = ({ md5Hash }) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (ref?.current) mod.res = ref.current;
+  }, [ref?.current]);
+
   const App = apps[md5Hash];
 
   return (
-    <div key={md5Hash}>
-      <App appId={`${mod.codeSpace}-${md5Hash}`} />
+    <div ref={ref}>
+      <App key={md5Hash} appId={`${mod.codeSpace}-${md5Hash}`} />
     </div>
   );
 };
