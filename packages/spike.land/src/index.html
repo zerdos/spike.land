@@ -128,20 +128,7 @@ window.addEventListener('pageshow', (event) => {
 
 <div id="root"></div>
   
-<script type="module">
-    import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
-  
-   
-//    const ws = location.origin + "/" + assets["ws.mjs"];
-
-    import("/ws.mjs").then(
-        ({run})=>run({mST,
-      codeSpace,
-      address,
-      assets
-    })
-    ).catch(()=>import("/load.mjs"))
-</script>
+<script type="module" src="/load.mjs"></script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>
