@@ -59,7 +59,7 @@ export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
   const App = apps[md5Hash];
 
   return (
-    <ErrorBoundary key={md5Hash} ref={ref}>
+    <ErrorBoundary key={`${codeSpace}-${md5Hash}`} ref={ref}>
       <App appId={`${codeSpace}-${md5Hash}`} />
     </ErrorBoundary>
   );
