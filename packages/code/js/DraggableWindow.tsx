@@ -1,29 +1,9 @@
 import { css } from "@emotion/react";
 import type { FC } from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LayoutGroup, motion } from "framer-motion";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr";
-// import { Terminal } from 'xterm';
-// import { WebLinksAddon } from 'xterm-addon-web-links';
-// import { FitAddon } from 'xterm-addon-fit';
-// import { SearchAddon } from 'xterm-addon-search';
-// import { SerializeAddon } from "xterm-addon-serialize";
-// const serializeAddon = new SerializeAddon();
-// const fitAddon = new FitAddon();
-// const origConsole = console.log;
-
-// export const terminal = new Terminal({allowProposedApi: true, allowTransparency: true, altClickMovesCursor: true, scrollback: 0, convertEol: true,windowsMode: true});
-
-// terminal.loadAddon(serializeAddon);
-
-// const termOff = () => console.log = origConsole;
-// Object.assign(terminal, {termOff});
-
-// // terminal.loadAddon(new WebLinksAddon());
-// terminal.loadAddon(fitAddon);
-// Object.assign(globalThis, {terminal})
-// Import { useSpring, a } from '@react-spring/web'
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
@@ -140,7 +120,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [bg, setBG] = useState(bgColor);
 
-  const [r, g, b, a, ..._rest] = bg;
+  const [r, g, b, _a, ..._rest] = bg;
 
   useEffect(() => {
     const intervalHandler = setInterval(() => {

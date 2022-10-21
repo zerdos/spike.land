@@ -910,7 +910,7 @@ __metadata:
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
     "@types/prettier": "npm:2.7.1"
-    "@types/react": "npm:18.0.21"
+    "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:18.0.6"
     "@typescript/ata": "npm:0.9.3"
     "@yarnpkg/sdks": "npm:3.0.0-rc.26"
@@ -1197,7 +1197,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.21":
+"@types/react@npm:*, @types/react@npm:18.0.21, @types/react@npm:^18.0.21":
   version: 18.0.21
   resolution: "@types/react@npm:18.0.21"
   dependencies:

@@ -152,7 +152,7 @@ export const renderPreviewWindow = ({ codeSpace }: { codeSpace: string }) => {
   // (createCache as unknown as {default: typeof createCache}).default
 
   root.render(
-    <CacheProvider value={x} cj>
+    <CacheProvider value={x}>
       <AppToRender codeSpace={codeSpace} />
     </CacheProvider>,
   );

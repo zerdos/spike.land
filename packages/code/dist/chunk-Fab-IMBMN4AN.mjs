@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-LFFTILDF.mjs";
+} from "./chunk-chunk-OBJUJ2GH.mjs";
 import {
   _objectWithoutPropertiesLoose,
   capitalize_default,
@@ -12,19 +12,19 @@ import {
   rootShouldForwardProp,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-EKUEYX4X.mjs";
+} from "./chunk-chunk-GZKVXVRY.mjs";
 import {
   _extends
 } from "./chunk-chunk-SWFTZAWX.mjs";
-import "./chunk-chunk-IXUCE36R.mjs";
+import "./chunk-chunk-TQY24JKY.mjs";
 import {
   init_jsx,
   jsx
 } from "./chunk-chunk-KWYVV2BK.mjs";
 import {
   forwardRef,
-  init_react
-} from "./chunk-chunk-CFF2OAWW.mjs";
+  init_reactMod
+} from "./chunk-chunk-UYHLZPZT.mjs";
 import {
   __toESM,
   init_define_process
@@ -35,7 +35,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
 init_define_process();
-init_react();
+init_reactMod();
 var import_prop_types = __toESM(require_prop_types());
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/fabClasses.js

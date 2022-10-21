@@ -9,11 +9,11 @@ import {
   require_react_is,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-EKUEYX4X.mjs";
+} from "./chunk-chunk-GZKVXVRY.mjs";
 import {
   _extends
 } from "./chunk-chunk-SWFTZAWX.mjs";
-import "./chunk-chunk-IXUCE36R.mjs";
+import "./chunk-chunk-TQY24JKY.mjs";
 import {
   init_jsx,
   jsx
@@ -22,9 +22,9 @@ import {
   Children,
   cloneElement,
   forwardRef,
-  init_react,
+  init_reactMod,
   isValidElement
-} from "./chunk-chunk-CFF2OAWW.mjs";
+} from "./chunk-chunk-UYHLZPZT.mjs";
 import {
   __toESM,
   init_define_process
@@ -35,7 +35,7 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/ToggleButtonGroup.js
 init_define_process();
-init_react();
+init_reactMod();
 var import_react_is = __toESM(require_react_is());
 var import_prop_types = __toESM(require_prop_types());
 

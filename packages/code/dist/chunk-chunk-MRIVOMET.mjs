@@ -9,7 +9,7 @@ import {
   require_emotion_weak_memoize_cjs,
   require_extends,
   require_hoist_non_react_statics_cjs
-} from "./chunk-chunk-IXUCE36R.mjs";
+} from "./chunk-chunk-TQY24JKY.mjs";
 import {
   init_jsx,
   jsx_exports
@@ -38,16 +38,16 @@ import {
   createPortal,
   createRef,
   createRoot,
-  init_react,
+  init_reactMod,
   isValidElement,
   lazy,
-  react_default,
-  react_exports,
+  reactMod_default,
+  reactMod_exports,
   useEffect,
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-CFF2OAWW.mjs";
+} from "./chunk-chunk-UYHLZPZT.mjs";
 import {
   __commonJS,
   __toCommonJS,
@@ -61,7 +61,7 @@ var require_emotion_react_jsx_runtime_cjs_dev = __commonJS({
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
-    init_react();
+    init_reactMod();
     require_emotion_cache_cjs();
     var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
     require_extends();
@@ -2630,13 +2630,13 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-init_react();
-init_react();
+init_reactMod();
+init_reactMod();
 
 // ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
 init_define_process();
-init_react();
-init_react();
+init_reactMod();
+init_reactMod();
 var __extends = function() {
   var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
@@ -2802,13 +2802,13 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/starter.tsx
 init_define_process();
-init_react();
+init_reactMod();
 
 // js/ErrorBoundary.tsx
 init_define_process();
-init_react();
+init_reactMod();
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var ErrorBoundary = class extends react_default.Component {
+var ErrorBoundary = class extends reactMod_default.Component {
   constructor(props) {
     super(props);
     this.state = { error: void 0, errorInfo: void 0 };
@@ -2975,7 +2975,7 @@ var import_react9 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/Editor.tsx
 init_define_process();
-init_react();
+init_reactMod();
 
 // js/runner.tsx
 init_define_process();
@@ -3747,28 +3747,6 @@ async function syncWS() {
   } catch (error) {
   }
 }
-var stopVideo = async () => {
-  if (!sendChannel.localStream)
-    return;
-  sendChannel.localStream.getTracks().map((x) => x.stop());
-};
-var startVideo = async (vidElement) => {
-  const mediaConstraints = {
-    audio: true,
-    video: true
-  };
-  const localStream = await navigator.mediaDevices.getUserMedia(
-    mediaConstraints
-  );
-  vidElement.srcObject = localStream;
-  localStream.getTracks().forEach(
-    (track) => Object.keys(sendChannel.rtcConns).map((k) => {
-      const datachannel = sendChannel.rtcConns[k];
-      datachannel.addTrack(track);
-      datachannel.ontrack = ({ track: track2, streams }) => tracks[k] = { track: track2, streams };
-    })
-  );
-};
 async function syncRTC() {
   try {
     if (Object.keys(rtcConns).length > 0) {
@@ -4080,42 +4058,6 @@ async function handleNewICECandidateMessage(init2, target) {
   const candidate = new RTCIceCandidate(init2);
   await rtcConns[target].addIceCandidate(candidate);
 }
-async function sw() {
-  try {
-    navigator.serviceWorker.onmessage = async (event) => {
-      const serviceWorker = event.source;
-      if (serviceWorker == null) {
-        return;
-      }
-      switch (event.data.method) {
-        case "ipfs-message-port":
-          const channel = new MessageChannel();
-          {
-            serviceWorker.postMessage({
-              method: "ipfs-message-port",
-              id: event.data.id,
-              port: channel.port2
-            }, { transfer: [channel.port2] });
-          }
-      }
-    };
-    if (document.documentElement.dataset.viewer) {
-      const load = async (path) => {
-        const paths = path && path.split("/") || [];
-        const protocol = paths[0] || "";
-        switch (protocol) {
-          case "ipfs":
-          case "ipns": {
-            document.body.innerHTML = `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
-          }
-        }
-      };
-      await load(location.pathname);
-      return;
-    }
-  } catch {
-  }
-}
 
 // js/esbuildEsm.ts
 init_define_process();
@@ -4146,8 +4088,8 @@ var initAndTransform = async (code, opts) => {
 
 // js/renderToString.tsx
 init_define_process();
-init_react();
-init_react();
+init_reactMod();
+init_reactMod();
 var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod2 = {
   md5Hash: "",
@@ -4297,7 +4239,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
 }
 
 // js/Editor.tsx
-init_react();
+init_reactMod();
 var import_react7 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/isMobile.mjs
@@ -4387,7 +4329,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
   const [
     mySession,
     changeContent
-  ] = react_default.useState({
+  ] = reactMod_default.useState({
     lastKeyDown: 0,
     myCode: code,
     counter: i,
@@ -4405,7 +4347,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     onChange
   } = mySession;
   mod4.code = myCode;
-  react_default.useEffect(() => {
+  reactMod_default.useEffect(() => {
     if (!ref?.current || started2) {
       return;
     }
@@ -4413,7 +4355,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       (res) => Object.assign(mod4, res)
     ).then(() => changeContent((x) => ({ ...x, started: true })));
   }, [started2, ref]);
-  react_default.useEffect(
+  reactMod_default.useEffect(
     () => {
       mod4.getErrors().then(console.log);
       onChange(
@@ -4482,7 +4424,7 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-MBLLHKC5.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-YQR6QDSG.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
   css: import_react9.css`
@@ -4595,7 +4537,6 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   root.render(
     (0, import_jsx_runtime5.jsx)(import_react9.CacheProvider, {
       value: x,
-      cj: true,
       children: (0, import_jsx_runtime5.jsx)(AppToRender, {
         codeSpace: codeSpace2
       })
@@ -4608,11 +4549,6 @@ export {
   renderPreviewWindow,
   sendChannel,
   run,
-  saveCode,
-  stopVideo,
-  startVideo,
-  join,
-  sw,
   render,
   Editor
 };

@@ -4,9 +4,9 @@ import {
   init_define_process
 } from "./chunk-chunk-JS5E2TTE.mjs";
 
-// js/react.ts
-var react_exports = {};
-__export(react_exports, {
+// js/reactMod.ts
+var reactMod_exports = {};
+__export(reactMod_exports, {
   Children: () => Children,
   Component: () => Component,
   Fragment: () => Fragment,
@@ -21,7 +21,7 @@ __export(react_exports, {
   createPortal: () => createPortal,
   createRef: () => createRef,
   createRoot: () => createRoot,
-  default: () => react_default,
+  default: () => reactMod_default,
   flushSync: () => flushSync,
   forwardRef: () => forwardRef,
   hydrateRoot: () => hydrateRoot,
@@ -47,9 +47,9 @@ __export(react_exports, {
   useTransition: () => useTransition,
   version: () => version
 });
-var React, ReactDOM, Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, version, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, createRoot, flushSync, render, hydrateRoot, createPortal, react_default;
-var init_react = __esm({
-  "js/react.ts"() {
+var React, ReactDOM, Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, version, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, createRoot, flushSync, render, hydrateRoot, createPortal, reactMod_default;
+var init_reactMod = __esm({
+  "js/reactMod.ts"() {
     init_define_process();
     React = window.React = window.React || {};
     ReactDOM = window.ReactDOM = window.ReactDOM || {};
@@ -95,7 +95,7 @@ var init_react = __esm({
       hydrateRoot,
       createPortal
     } = ReactDOM);
-    react_default = React;
+    reactMod_default = React;
   }
 });
 
@@ -138,7 +138,7 @@ export {
   render,
   hydrateRoot,
   createPortal,
-  react_default,
-  react_exports,
-  init_react
+  reactMod_default,
+  reactMod_exports,
+  init_reactMod
 };

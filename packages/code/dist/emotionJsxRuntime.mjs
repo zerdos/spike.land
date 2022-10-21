@@ -1,10 +1,10 @@
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-IXUCE36R.mjs";
+} from "./chunk-chunk-TQY24JKY.mjs";
 import {
-  init_react,
-  react_default
-} from "./chunk-chunk-CFF2OAWW.mjs";
+  init_reactMod,
+  reactMod_default
+} from "./chunk-chunk-UYHLZPZT.mjs";
 import {
   __toESM,
   init_define_process
@@ -12,9 +12,9 @@ import {
 
 // js/emotionJsxRuntime.ts
 init_define_process();
-init_react();
+init_reactMod();
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
-var Fragment = react_default.Fragment;
+var Fragment = reactMod_default.Fragment;
 var jsx = import_react2.jsx;
 var jsxs = import_react2.jsx;
 export {

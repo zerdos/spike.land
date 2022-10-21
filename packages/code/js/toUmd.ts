@@ -115,7 +115,7 @@ export const toUmd = async (source: string, name: string) => {
       }
 
       const importMap = JSON.parse(
-        document.querySelector("script[type=importmap]").innerHTML,
+        document.querySelector("script[type=importmap]")!.innerHTML,
       );
 
       let url = "";
@@ -128,7 +128,8 @@ export const toUmd = async (source: string, name: string) => {
         urlHash = md5(dep);
       } else {
         try {
-          url = await import.meta.resolve!(dep, name);
+          //@ts-ignore
+          url = await (import.meta.resolve || importShim.resolve)(dep, name);
           urlHash = md5(dep);
         } catch {
           console.error(`failed to resolve: ${dep}`);

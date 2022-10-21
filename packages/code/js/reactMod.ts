@@ -1,7 +1,5 @@
-//import * as ReactM from "react";
-//import * as ReactdoMCli from "react-dom/client";
-
 const React = window.React = window.React || {};
+//@ts-ignore
 const ReactDOM = window.ReactDOM = window.ReactDOM || {};
 
 export const {
@@ -37,6 +35,7 @@ export const {
   useSyncExternalStore,
   useTransition,
   version,
+  //@ts-ignore
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
 } = React;
 

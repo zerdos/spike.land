@@ -16,11 +16,11 @@ import {
   flushSync,
   forwardRef,
   hydrateRoot,
-  init_react,
+  init_reactMod,
   isValidElement,
   lazy,
   memo,
-  react_default,
+  reactMod_default,
   render,
   startTransition,
   useCallback,
@@ -39,9 +39,9 @@ import {
   useSyncExternalStore,
   useTransition,
   version
-} from "./chunk-chunk-CFF2OAWW.mjs";
+} from "./chunk-chunk-UYHLZPZT.mjs";
 import "./chunk-chunk-JS5E2TTE.mjs";
-init_react();
+init_reactMod();
 export {
   Children,
   Component,
@@ -57,7 +57,7 @@ export {
   createPortal,
   createRef,
   createRoot,
-  react_default as default,
+  reactMod_default as default,
   flushSync,
   forwardRef,
   hydrateRoot,
