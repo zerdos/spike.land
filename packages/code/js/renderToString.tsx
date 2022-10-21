@@ -24,11 +24,6 @@ const mod = {
       await waitForAnimation();
     }
 
-    if (!mod.res?.innerHTML.includes(md5Hash)) {
-      console.log(`waiting ${mod.wait} for ${mod.md5Hash} `),
-        await wait(mod.wait);
-    }
-
     if (mod.res?.innerHTML.includes(md5Hash)) return mod.res.innerHTML;
 
     mod.wait = mod.wait * 2;

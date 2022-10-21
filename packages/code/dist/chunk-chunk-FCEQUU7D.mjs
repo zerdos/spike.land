@@ -1327,7 +1327,7 @@ var require_browser = __commonJS({
         let host = getFlag(options, keys, "host", mustBeString);
         let servedir = getFlag(options, keys, "servedir", mustBeString);
         let onRequest = getFlag(options, keys, "onRequest", mustBeFunction);
-        let wait2 = new Promise((resolve, reject) => {
+        let wait3 = new Promise((resolve, reject) => {
           requestCallbacks["serve-wait"] = (id, request2) => {
             if (request2.error !== null)
               reject(new Error(request2.error));
@@ -1350,7 +1350,7 @@ var require_browser = __commonJS({
           sendResponse(id, {});
         };
         return {
-          wait: wait2,
+          wait: wait3,
           stop() {
             sendRequest(refs, { command: "serve-stop", key: buildKey }, () => {
             });
@@ -4107,9 +4107,6 @@ var mod2 = {
     if (!mod2.res?.innerHTML.includes(md5Hash)) {
       await waitForAnimation();
     }
-    if (!mod2.res?.innerHTML.includes(md5Hash)) {
-      console.log(`waiting ${mod2.wait} for ${mod2.md5Hash} `), await wait(mod2.wait);
-    }
     if (mod2.res?.innerHTML.includes(md5Hash))
       return mod2.res.innerHTML;
     mod2.wait = mod2.wait * 2;
@@ -4430,7 +4427,7 @@ async function setAce() {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-QSH74WEN.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-KILIIP7D.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
