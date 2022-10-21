@@ -2856,7 +2856,7 @@ var import_is_callable = __toESM(require_is_callable(), 1);
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
-var { apps, eCaches } = globalThis || globalThis.apps;
+var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
 var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
   useEffect(() => {
@@ -2866,7 +2866,7 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
     }
   }, [hash]);
   const ref = useRef(null);
-  const App = apps[md5Hash];
+  const App = apps2[md5Hash];
   return (0, import_jsx_runtime2.jsx)(ErrorBoundary_default, {
     ref,
     children: (0, import_jsx_runtime2.jsx)(App, {
@@ -2879,18 +2879,18 @@ async function appFactory(transpiled = "", codeSpace2) {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp).slice(0, 8);
-  if (!apps[hash]) {
+  if (!apps2[hash]) {
     try {
       console.log(`i: ${mstI}: `);
       const App = (await dynamicImport(createJsBlob(trp))).default;
       if ((0, import_is_callable.default)(App)) {
-        eCaches[hash] = emotionCache_default({
+        eCaches2[hash] = emotionCache_default({
           key: hash.replace(/\d+/g, ""),
           speedy: false
         });
-        eCaches[hash].compat = void 0;
-        apps[hash] = ({ appId }) => appId.includes(hash) ? (0, import_jsx_runtime2.jsx)(import_react3.CacheProvider, {
-          value: eCaches[hash],
+        eCaches2[hash].compat = void 0;
+        apps2[hash] = ({ appId }) => appId.includes(hash) ? (0, import_jsx_runtime2.jsx)(import_react3.CacheProvider, {
+          value: eCaches2[hash],
           children: (0, import_jsx_runtime2.jsx)("div", {
             css: import_react3.css`height: 100%;`,
             id: appId,
@@ -2903,7 +2903,7 @@ async function appFactory(transpiled = "", codeSpace2) {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
+        apps2[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
           css: import_react3.css`background-color: orange;`,
           children: [
             (0, import_jsx_runtime2.jsx)("h1", {
@@ -2924,7 +2924,7 @@ async function appFactory(transpiled = "", codeSpace2) {
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
+        apps2[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
           css: import_react3.css`background-color: orange;`,
           children: [
             (0, import_jsx_runtime2.jsx)("h1", {
@@ -2943,7 +2943,7 @@ async function appFactory(transpiled = "", codeSpace2) {
           ]
         });
       } else {
-        apps[hash] = () => (0, import_jsx_runtime2.jsx)("div", {
+        apps2[hash] = () => (0, import_jsx_runtime2.jsx)("div", {
           css: import_react3.css`background-color: orange;`,
           children: (0, import_jsx_runtime2.jsxs)("h1", {
             children: [
@@ -2959,7 +2959,7 @@ async function appFactory(transpiled = "", codeSpace2) {
     started = true;
     await renderPreviewWindow({ codeSpace: codeSpace2 });
   }
-  return apps[hash];
+  return apps2[hash];
 }
 function createJsBlob(code, fileName = "index.mjs") {
   const file = new File([code], fileName, {
@@ -4182,7 +4182,6 @@ var mod2 = {
       root.unmount;
       document.body.removeChild(rootDiv);
       rootDiv.remove();
-      delete apps[md5hash];
       mod2.setHash = null;
     };
   }
@@ -4481,7 +4480,7 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-L542UCCH.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-2H5OV23K.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
   css: import_react9.css`
