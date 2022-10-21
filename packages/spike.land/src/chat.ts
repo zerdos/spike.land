@@ -9,15 +9,15 @@ import { CodeEnv } from "./env";
 
 const a = JSON.parse(__STATIC_CONTENT_MANIFEST);
 // const ws = a["ws.mjs"];
-const preact = a["react.mjs"];
-const babel = a["babel.mjs"];
-const emotionReact = a["emotion.mjs"];
-const emotionJsxRuntime = a["emotionJsxRuntime.mjs"];
-const emotionCache = a["emotionCache.mjs"];
+const preact ="react.mjs";
+const babel = "babel.mjs";
+const emotionReact = "emotion.mjs";
+const emotionJsxRuntime = "emotionJsxRuntime.mjs";
+const emotionCache = "emotionCache.mjs";
 
-const emotionStyled = a["emotionStyled.mjs"];
+const emotionStyled = "emotionStyled.mjs";
 
-const motion = a["motion.mjs"];
+const motion = "motion.mjs";
 
 const esbuildExternal = [
   "monaco-editor",
