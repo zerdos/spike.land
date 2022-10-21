@@ -152,7 +152,7 @@ export const renderPreviewWindow = ({ codeSpace }: { codeSpace: string }) => {
 
   root.render(
     <CacheProvider value={x} cj>
-      {AppToRender}
+      <AppToRender codeSpace={codeSpace} />
     </CacheProvider>,
   );
 };
