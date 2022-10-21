@@ -2872,7 +2872,7 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
     children: (0, import_jsx_runtime2.jsx)(App, {
       appId: `${codeSpace2}-${md5Hash}`
     })
-  }, md5Hash);
+  }, `${codeSpace2}-${md5Hash}`);
 };
 var started = false;
 async function appFactory(transpiled = "", codeSpace2) {
@@ -4483,7 +4483,7 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-2NEBNHXX.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-TW7IVVZJ.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
   css: import_react9.css`
