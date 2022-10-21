@@ -1,3 +1,5 @@
+import type { FC } from "react";
+
 import { useRef } from "react";
 import { runner } from "./runner";
 import React from "react";
@@ -37,7 +39,7 @@ const mod = {
 
 // Export type IStandaloneCodeEditor = editor.Ist;
 
-export const Editor: React.FC<
+export const Editor: FC<
   {
     codeSpace: string;
   }

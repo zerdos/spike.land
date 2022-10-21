@@ -1,7 +1,8 @@
 import {
+  Fragment,
   jsx,
   jsxs
-} from "./chunk-chunk-XDZEJ6YN.mjs";
+} from "./chunk-chunk-EQH2R3AY.mjs";
 import {
   require_emotion_cache_cjs
 } from "./chunk-chunk-FHQ7KILY.mjs";
@@ -9,10 +10,7 @@ import {
   CacheProvider,
   css,
   init_emotion
-} from "./chunk-chunk-L7BA6KDY.mjs";
-import {
-  Fragment
-} from "./chunk-chunk-LXQDOYGD.mjs";
+} from "./chunk-chunk-BB6QYXFC.mjs";
 import {
   applyPatch,
   hashCode,
@@ -1327,7 +1325,7 @@ var require_browser = __commonJS({
         let host = getFlag(options, keys, "host", mustBeString);
         let servedir = getFlag(options, keys, "servedir", mustBeString);
         let onRequest = getFlag(options, keys, "onRequest", mustBeFunction);
-        let wait3 = new Promise((resolve, reject) => {
+        let wait2 = new Promise((resolve, reject) => {
           requestCallbacks["serve-wait"] = (id, request2) => {
             if (request2.error !== null)
               reject(new Error(request2.error));
@@ -1350,7 +1348,7 @@ var require_browser = __commonJS({
           sendResponse(id, {});
         };
         return {
-          wait: wait3,
+          wait: wait2,
           stop() {
             sendRequest(refs, { command: "serve-stop", key: buildKey }, () => {
             });
@@ -4427,7 +4425,7 @@ async function setAce() {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-C6DOMQN6.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-WKFAA5CU.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`

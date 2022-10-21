@@ -1,3 +1,4 @@
+import type { FC } from "react";
 // import { hashCode, mST } from "session";
 import { md5 } from "md5";
 import { appFactory, apps, eCaches } from "starter";
@@ -7,7 +8,6 @@ import { createRoot } from "react-dom/client";
 // import { flushSync } from "react-dom";
 // import createEmotionServer from "@emotion/server/dist/emotion-server.browser.esm.js";
 import { useEffect, useRef, useState } from "react";
-import { wait } from "wait.mjs";
 import type { EmotionCache } from "@emotion/utils";
 
 const mod = {
@@ -157,7 +157,7 @@ function mineFromCaches(cache: EmotionCache) {
 //   }
 // };
 
-const Helper: React.FC<{ md5Hash: string }> = ({ md5Hash }) => {
+const Helper: FC<{ md5Hash: string }> = ({ md5Hash }) => {
   const ref = useRef(null);
   const [hash, setHash] = useState(md5Hash);
 

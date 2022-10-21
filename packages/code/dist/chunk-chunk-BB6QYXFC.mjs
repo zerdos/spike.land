@@ -12,8 +12,6 @@ __export(emotion_exports, {
   Global: () => Global,
   ThemeContext: () => ThemeContext,
   ThemeProvider: () => ThemeProvider,
-  __unsafe_useEmotionCache: () => __unsafe_useEmotionCache,
-  createElement: () => createElement,
   css: () => css,
   default: () => emotion_default,
   jsx: () => jsx,
@@ -22,7 +20,7 @@ __export(emotion_exports, {
   withEmotionCache: () => withEmotionCache,
   withTheme: () => withTheme
 });
-var emotionReact, CacheProvider, ClassNames, Global, ThemeContext, ThemeProvider, __unsafe_useEmotionCache, createElement, css, jsx, keyframes, useTheme, withEmotionCache, withTheme, emotion_default;
+var emotionReact, CacheProvider, ClassNames, Global, ThemeContext, ThemeProvider, css, jsx, keyframes, useTheme, withEmotionCache, withTheme, emotion_default;
 var init_emotion = __esm({
   "js/emotion.ts"() {
     init_define_process();
@@ -33,8 +31,6 @@ var init_emotion = __esm({
       Global,
       ThemeContext,
       ThemeProvider,
-      __unsafe_useEmotionCache,
-      createElement,
       css,
       jsx,
       keyframes,
@@ -52,8 +48,6 @@ export {
   Global,
   ThemeContext,
   ThemeProvider,
-  __unsafe_useEmotionCache,
-  createElement,
   css,
   jsx,
   keyframes,

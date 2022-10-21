@@ -1,10 +1,8 @@
 import {
+  Fragment,
   jsx,
   jsxs
-} from "./chunk-chunk-XDZEJ6YN.mjs";
-import {
-  Fragment
-} from "./chunk-chunk-LXQDOYGD.mjs";
+} from "./chunk-chunk-EQH2R3AY.mjs";
 import "./chunk-chunk-JS5E2TTE.mjs";
 export {
   Fragment,

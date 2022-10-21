@@ -7,8 +7,6 @@ export const {
   Global,
   ThemeContext,
   ThemeProvider,
-  __unsafe_useEmotionCache,
-  createElement,
   css,
   jsx,
   keyframes,

@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 import { createRoot } from "react-dom/client";
@@ -21,7 +22,7 @@ const DraggableWindowLazy = lazy(() =>
   wait(1000).then(() => import("./DraggableWindow"))
 );
 
-const RainbowContainer: React.FC<{ children: JSX.Element }> = (
+const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
 ) => (
   <div
@@ -73,7 +74,7 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const AppToRender: React.FC<
+const AppToRender: FC<
   { codeSpace: string }
 > = (
   { codeSpace },
