@@ -1,6 +1,6 @@
 import {
   init_define_process
-} from "./chunk-chunk-XJTQM4M7.mjs";
+} from "./chunk-chunk-JS5E2TTE.mjs";
 
 // ../../.yarn/global/cache/@babel-runtime-npm-7.19.4-9f106cb4dd-9.zip/node_modules/@babel/runtime/helpers/esm/extends.js
 init_define_process();

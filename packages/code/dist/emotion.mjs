@@ -1,11 +1,4 @@
 import {
-  init_define_process
-} from "./chunk-chunk-XJTQM4M7.mjs";
-
-// js/emotion.ts
-init_define_process();
-var { emotionReact } = window;
-var {
   CacheProvider,
   ClassNames,
   Global,
@@ -14,13 +7,16 @@ var {
   __unsafe_useEmotionCache,
   createElement,
   css,
+  emotion_default,
+  init_emotion,
   jsx,
   keyframes,
   useTheme,
   withEmotionCache,
   withTheme
-} = emotionReact;
-var emotion_default = emotionReact;
+} from "./chunk-chunk-L7BA6KDY.mjs";
+import "./chunk-chunk-JS5E2TTE.mjs";
+init_emotion();
 export {
   CacheProvider,
   ClassNames,

@@ -1,20 +1,20 @@
 import {
   init_define_process
-} from "./chunk-chunk-XJTQM4M7.mjs";
+} from "./chunk-chunk-JS5E2TTE.mjs";
 
-// js/jsx.mjs
+// js/emotionJsxRuntime.ts
 init_define_process();
-var JSX = globalThis.ReactJSXRuntime || window.ReactJSXRuntime || {
+var JSX = globalThis.emotionReactJSXRuntime || window.emotionReactJSXRuntime || {
   jsxs: (...args) => JSX.jsxs(...args),
   jsx: (...args) => JSX.jsx(...args),
   Fragment: JSX.Fragment || ""
 };
 var { jsx, jsxs, Fragment } = JSX;
-var jsx_default = jsx;
+var emotionJsxRuntime_default = jsx;
 
 export {
   jsx,
   jsxs,
   Fragment,
-  jsx_default
+  emotionJsxRuntime_default
 };

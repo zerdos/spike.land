@@ -1,6 +1,16 @@
 import {
+  Fragment,
+  jsx,
+  jsxs
+} from "./chunk-chunk-WV63GWU7.mjs";
+import {
   require_emotion_cache_cjs
-} from "./chunk-chunk-GFVCZNZU.mjs";
+} from "./chunk-chunk-FHQ7KILY.mjs";
+import {
+  CacheProvider,
+  css,
+  init_emotion
+} from "./chunk-chunk-L7BA6KDY.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,10 +22,10 @@ import {
   patchSync,
   require_lodash,
   startSession
-} from "./chunk-chunk-SZ4CDUSD.mjs";
+} from "./chunk-chunk-HGVBTGH6.mjs";
 import {
   wrap
-} from "./chunk-chunk-TSABGSYW.mjs";
+} from "./chunk-chunk-3DTRDS5R.mjs";
 import {
   Children,
   PureComponent,
@@ -33,12 +43,12 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-ZGTUEQVL.mjs";
+} from "./chunk-chunk-CFF2OAWW.mjs";
 import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-XJTQM4M7.mjs";
+} from "./chunk-chunk-JS5E2TTE.mjs";
 
 // ../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js
 var require_is_callable = __commonJS({
@@ -477,7 +487,7 @@ var require_browser = __commonJS({
         let charset = getFlag(options, keys, "charset", mustBeString);
         let treeShaking = getFlag(options, keys, "treeShaking", mustBeBoolean);
         let ignoreAnnotations = getFlag(options, keys, "ignoreAnnotations", mustBeBoolean);
-        let jsx6 = getFlag(options, keys, "jsx", mustBeString);
+        let jsx2 = getFlag(options, keys, "jsx", mustBeString);
         let jsxFactory = getFlag(options, keys, "jsxFactory", mustBeString);
         let jsxFragment = getFlag(options, keys, "jsxFragment", mustBeString);
         let jsxImportSource = getFlag(options, keys, "jsxImportSource", mustBeString);
@@ -530,8 +540,8 @@ var require_browser = __commonJS({
           flags.push(`--reserve-props=${reserveProps.source}`);
         if (mangleQuoted !== void 0)
           flags.push(`--mangle-quoted=${mangleQuoted}`);
-        if (jsx6)
-          flags.push(`--jsx=${jsx6}`);
+        if (jsx2)
+          flags.push(`--jsx=${jsx2}`);
         if (jsxFactory)
           flags.push(`--jsx-factory=${jsxFactory}`);
         if (jsxFragment)
@@ -2743,7 +2753,6 @@ init_react();
 // js/ErrorBoundary.tsx
 init_define_process();
 init_react();
-import { jsx, jsxs } from "@emotion/react/jsx-runtime";
 var ErrorBoundary = class extends react_default.Component {
   constructor(props) {
     super(props);
@@ -2779,7 +2788,7 @@ var ErrorBoundary = class extends react_default.Component {
 var ErrorBoundary_default = ErrorBoundary;
 
 // js/starter.tsx
-import { CacheProvider, css } from "@emotion/react";
+init_emotion();
 
 // js/emotionCache.ts
 init_define_process();
@@ -2789,7 +2798,6 @@ var emotionCache_default = createCache;
 
 // js/starter.tsx
 var import_is_callable = __toESM(require_is_callable(), 1);
-import { jsx as jsx2, jsxs as jsxs2 } from "@emotion/react/jsx-runtime";
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps, eCaches } = globalThis || globalThis.apps;
@@ -2804,9 +2812,9 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   const ref = useRef(null);
   const transpiled = mST().transpiled;
   const App = apps[md5(transpiled).slice(0, 8)];
-  return jsx2(ErrorBoundary_default, {
+  return jsx(ErrorBoundary_default, {
     ref,
-    children: jsx2(App, {
+    children: jsx(App, {
       appId: `${codeSpace2}-${md5Hash}`
     })
   }, md5Hash);
@@ -2826,12 +2834,12 @@ async function appFactory(transpiled = "", codeSpace2) {
           speedy: false
         });
         eCaches[hash].compat = void 0;
-        apps[hash] = ({ appId }) => appId.includes(hash) ? jsx2(CacheProvider, {
+        apps[hash] = ({ appId }) => appId.includes(hash) ? jsx(CacheProvider, {
           value: eCaches[hash],
-          children: jsx2("div", {
+          children: jsx("div", {
             css: css`height: 100%;`,
             id: appId,
-            children: jsx2(App, {})
+            children: jsx(App, {})
           })
         }) : null;
       } else
@@ -2840,20 +2848,20 @@ async function appFactory(transpiled = "", codeSpace2) {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsxs2("div", {
+        apps[hash] = () => jsxs("div", {
           css: css`background-color: orange;`,
           children: [
-            jsx2("h1", {
+            jsx("h1", {
               children: "Syntax Error"
             }),
-            jsxs2("h2", {
+            jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx2("p", {
+            jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
@@ -2861,28 +2869,28 @@ async function appFactory(transpiled = "", codeSpace2) {
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps[hash] = () => jsxs2("div", {
+        apps[hash] = () => jsxs("div", {
           css: css`background-color: orange;`,
           children: [
-            jsx2("h1", {
+            jsx("h1", {
               children: "Syntax Error"
             }),
-            jsxs2("h2", {
+            jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            jsx2("p", {
+            jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
         });
       } else {
-        apps[hash] = () => jsx2("div", {
+        apps[hash] = () => jsx("div", {
           css: css`background-color: orange;`,
-          children: jsxs2("h1", {
+          children: jsxs("h1", {
             children: [
               "Unknown Error: $",
               hash
@@ -2908,7 +2916,7 @@ function createJsBlob(code, fileName = "index.mjs") {
 }
 
 // js/renderPreviewWindow.tsx
-import { CacheProvider as CacheProvider2, css as css3 } from "@emotion/react";
+init_emotion();
 
 // js/Editor.tsx
 init_define_process();
@@ -4085,7 +4093,6 @@ var initAndTransform = async (code, opts) => {
 init_define_process();
 init_react();
 init_react();
-import { jsx as jsx3 } from "@emotion/react/jsx-runtime";
 var mod2 = {
   md5Hash: "",
   wait: 1,
@@ -4114,7 +4121,7 @@ var mod2 = {
     document.body.appendChild(rootDiv);
     const root = createRoot(rootDiv);
     root.render(
-      jsx3(Helper, {
+      jsx(Helper, {
         md5Hash: md5hash
       })
     );
@@ -4140,11 +4147,11 @@ var render = async (transpiled, codeSpace2) => {
     const html = await mod2.waitForDiv();
     if (!html)
       return { html: null, css: null };
-    const css4 = mineFromCaches(eCaches[md5hash]);
+    const css2 = mineFromCaches(eCaches[md5hash]);
     const globalCss = document.querySelector("style[data-emotion=z-global]")?.innerHTML;
     return {
       html,
-      css: globalCss + " " + css4
+      css: globalCss + " " + css2
     };
   } finally {
     cleanup();
@@ -4165,9 +4172,9 @@ var Helper = ({ md5Hash }) => {
     mod2.md5Hash = hash, mod2.setHash = (hash2) => setHash(hash2);
   }, [ref, hash, setHash]);
   const App = apps[hash];
-  return jsx3("div", {
+  return jsx("div", {
     ref,
-    children: jsx3(App, {
+    children: jsx(App, {
       appId: `${mod2.codeSpace}-${hash}`
     }, hash)
   });
@@ -4217,8 +4224,8 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
-    const { html, css: css4 } = await render(transpiledCode, codeSpace2);
-    console.log({ html, css: css4 });
+    const { html, css: css2 } = await render(transpiledCode, codeSpace2);
+    console.log({ html, css: css2 });
     if (!html) {
       return;
     }
@@ -4228,7 +4235,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       i: counter,
       transpiled: transpiledCode,
       html,
-      css: css4
+      css: css2
     });
     saveCode();
   } catch (error) {
@@ -4239,7 +4246,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
 
 // js/Editor.tsx
 init_react();
-import { css as css2 } from "@emotion/react";
+init_emotion();
 
 // js/isMobile.mjs
 init_define_process();
@@ -4264,7 +4271,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-GGR6FN2Y.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-BZD4AVUI.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -4306,7 +4313,6 @@ function supportsWorkerType() {
 }
 
 // js/Editor.tsx
-import { jsx as jsx4 } from "@emotion/react/jsx-runtime";
 var mod4 = {
   CH() {
   },
@@ -4382,10 +4388,10 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
       myCode: mod4.code
     }));
   }, "editor");
-  return jsx4("div", {
+  return jsx("div", {
     onKeyDown: () => mod4.lastKeyDown = Date.now(),
     id: "editor",
-    css: css2`          
+    css: css`          
       max-width: 640px;
       height: 100%; 
       `,
@@ -4405,7 +4411,7 @@ async function setMonaco() {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-KYAP5L2L.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-NBUQQZV5.mjs");
   const container = window.document.getElementById("editor");
   return startMonaco({
     container,
@@ -4415,18 +4421,17 @@ async function setMonaco() {
   });
 }
 async function setAce() {
-  const { startAce } = await import("./chunk-startAce-YWAJBV3Y.mjs");
+  const { startAce } = await import("./chunk-startAce-XC26OPE7.mjs");
   await wait(100);
   return await startAce(mST().code, onModChange);
 }
 
 // js/renderPreviewWindow.tsx
-import { Fragment, jsx as jsx5, jsxs as jsxs3 } from "@emotion/react/jsx-runtime";
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-KMDNGR4L.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-SZCSNCFA.mjs"))
 );
-var RainbowContainer = ({ children }) => jsx5("div", {
-  css: css3`
+var RainbowContainer = ({ children }) => jsx("div", {
+  css: css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -4491,30 +4496,30 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
   const portalNode = useMemo(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return jsxs3(Fragment, {
+  return jsxs(Fragment, {
     children: [
-      jsx5(InPortal, {
+      jsx(InPortal, {
         node: portalNode,
-        children: jsx5(AutoUpdateApp, {
+        children: jsx(AutoUpdateApp, {
           hash,
           codeSpace: codeSpace2
         })
       }),
-      isStandalone ? jsx5(OutPortal, {
+      isStandalone ? jsx(OutPortal, {
         node: portalNode
-      }) : jsx5(Suspense, {
-        fallback: jsx5(OutPortal, {
+      }) : jsx(Suspense, {
+        fallback: jsx(OutPortal, {
           node: portalNode
         }),
-        children: jsx5(RainbowContainer, {
-          children: jsxs3(Fragment, {
+        children: jsx(RainbowContainer, {
+          children: jsxs(Fragment, {
             children: [
-              jsx5(Editor, {
+              jsx(Editor, {
                 codeSpace: codeSpace2
               }),
-              jsx5(DraggableWindowLazy, {
+              jsx(DraggableWindowLazy, {
                 room: codeSpace2,
-                children: jsx5(OutPortal, {
+                children: jsx(OutPortal, {
                   node: portalNode
                 })
               })
@@ -4534,10 +4539,10 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   const root = createRoot(div);
   const x = emotionCache_default({ key: "root" });
   root.render(
-    jsx5(CacheProvider2, {
+    jsx(CacheProvider, {
       value: x,
       cj: true,
-      children: jsx5(AppToRender, {
+      children: jsx(AppToRender, {
         codeSpace: codeSpace2
       })
     })
