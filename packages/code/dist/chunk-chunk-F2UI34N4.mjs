@@ -4425,7 +4425,7 @@ async function setAce() {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-WKFAA5CU.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-3CLYAP6Z.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`

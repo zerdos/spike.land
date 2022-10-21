@@ -7,7 +7,7 @@ init_define_process();
 var JSX = globalThis.ReactJSXRuntime || window.ReactJSXRuntime || {
   jsxs: (...args) => JSX.jsxs(...args),
   jsx: (...args) => JSX.jsx(...args),
-  Fragment: JSX.Fragment || ""
+  Fragment: React.Fragment || ""
 };
 var { jsx, jsxs, Fragment } = JSX;
 var jsx_default = jsx;
