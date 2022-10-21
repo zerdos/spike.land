@@ -1,14 +1,11 @@
-const JSX = globalThis.emotionReactJSXRuntime ||
-  window.emotionReactJSXRuntime || {
-  jsxs: (...args) => JSX.jsxs(...args),
-  jsx: (...args) =>
-    (globalThis.emotionReactJSXRuntime || window.emotionReactJSXRuntime ||
-      window.emotionReact).jsx(...args),
-  Fragment: JSX.Fragment || React.Fragment,
+const JSXM = {
+  jsxs: (...args) => (JSXM.jsxs || ReactJSXRuntime.jsxs)(...args),
+  jsx: (...args) => window.emotionReact.jsx(...args),
+  Fragment: JSXM?.Fragment || React.Fragment,
 };
 
-export const { jsx, jsxs, Fragment } = JSX;
-export default JSX;
+export const { jsx, jsxs, Fragment } = JSXM;
+export default JSXM;
 // //@ts-expect-error
 // export { Fragment } from "react/jsx-runtime";
 // import { jsx as jsxEmotion } from "@emotion/react";

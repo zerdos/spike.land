@@ -239,17 +239,17 @@ const build = (entryPoints, extraExternal) =>
       // "@emotion/styled": resolve("./dist/emotionStyled.mjs"),
       // // "./mui": resolve("./dist/mui.mjs"),
       "react": resolve("./js/react.ts"),
+      "babel/runtime/helpers/extends": resolve("./js/babel.ts"),
       "react-dom": resolve("./js/react.ts"),
       "react-dom/client": resolve("./js/react.ts"),
-      "react/jsx-runtime": resolve(
-        "./js/jsx.mjs",
-      ),
+      "react/jsx-runtime": resolve("./js/jsx.mjs"),
       "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
     }),
   ];
 
   await build([
     "js/session.ts",
+    "js/babel.ts",
     "js/prettierWorker.mjs",
     "js/react-preact.ts",
     "js/react.ts",
@@ -262,7 +262,15 @@ const build = (entryPoints, extraExternal) =>
     "js/ws.ts",
     "js/jsx.mjs",
     "js/load.ts",
-  ], []);
+  ], [
+    "react",
+    "babel/runtime/helpers/extends",
+    "react-dom",
+    "react-dom/client",
+    "react/jsx-runtime",
+    "@emotion/react",
+    "@emotion/react/jsx-runtime",
+  ]);
   console.log("done");
 
   // const {host, port} = serveRES;
