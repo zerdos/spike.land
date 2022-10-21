@@ -4,10 +4,10 @@ import {
 
 // js/emotionJsxRuntime.ts
 init_define_process();
-var JSX = globalThis.emotionReactJSXRuntime || window.emotionReactJSXRuntime || {
-  jsxs: (...args) => JSX.jsxs(...args),
-  jsx: (...args) => JSX.jsx(...args),
-  Fragment: JSX.Fragment || ""
+var JSX = {
+  jsxs: (...args) => emotionReactJSXRuntime.jsxs(...args),
+  jsx: (...args) => emotionReactJSXRuntime.jsx(...args),
+  Fragment: React.Fragment || ""
 };
 var { jsx, jsxs, Fragment } = JSX;
 var emotionJsxRuntime_default = jsx;
