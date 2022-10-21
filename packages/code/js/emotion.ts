@@ -1,18 +1,16 @@
-import type Emotion from "@emotion/react";
-
-export const {
+export {
+  __unsafe_useEmotionCache,
   CacheProvider,
   ClassNames,
-  Global,
-  ThemeContext,
-  __unsafe_useEmotionCache,
   createElement,
-  ThemeProvider,
   css,
+  Global,
   jsx,
   keyframes,
+  ThemeContext,
+  ThemeProvider,
   useTheme,
   withEmotionCache,
   withTheme,
-} = (window as unknown as { emotionReact: typeof Emotion }).emotionReact;
-export default emotionReact;
+} from "@emotion/react";
+export { default } from "@emotion/react";

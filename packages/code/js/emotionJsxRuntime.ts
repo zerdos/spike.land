@@ -1,3 +1,6 @@
-export const Fragment = window.React.Fragment;
-export const jsx = (el, props) => window.emotionReact.jsx(el, props);
-export const jsxs = (el, props) => window.emotionReact.jsx(el, props);
+import React from "react";
+import { jsx as jsx_ } from "@emotion/react";
+
+export const Fragment = React.Fragment;
+export const jsx = jsx_;
+export const jsxs = jsx_;
