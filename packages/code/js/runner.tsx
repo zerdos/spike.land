@@ -3,7 +3,7 @@ import type { TransformOptions } from "esbuild-wasm";
 import { saveCode } from "./ws";
 import { mST, patchSync } from "./session";
 // Import { cF } from "./renderToString";
-import { toUmd } from "./toUmd";
+// import { toUmd } from "./toUmd";
 import { transform } from "./esbuildEsm";
 import { render } from "./renderToString";
 import { md5 } from "md5";
@@ -94,29 +94,29 @@ export async function runner({ code, counter, codeSpace }: {
       target: "es2018",
     } as unknown as TransformOptions);
 
-    const umdExp = async () => {
-      console.log("to UMD")!;
-      const UMD = await toUmd(transpiled.code, `${codeSpace}.tsx`);
-      console.log({ UMD });
-      download("coder.js", await UMD?.toJs(`${codeSpace}.tsx`)!);
+    // const umdExp = async () => {
+    //   console.log("to UMD")!;
+    //   const UMD = await toUmd(transpiled.code, `${codeSpace}.tsx`);
+    //   console.log({ UMD });
+    //   download("coder.js", await UMD?.toJs(`${codeSpace}.tsx`)!);
 
-      function download(filename: string, text: string) {
-        var element = document.createElement("a");
-        element.setAttribute(
-          "href",
-          "data:text/plain;charset=utf-8," + encodeURIComponent(text),
-        );
-        element.setAttribute("download", filename);
+    //   function download(filename: string, text: string) {
+    //     var element = document.createElement("a");
+    //     element.setAttribute(
+    //       "href",
+    //       "data:text/plain;charset=utf-8," + encodeURIComponent(text),
+    //     );
+    //     element.setAttribute("download", filename);
 
-        element.style.display = "none";
-        document.body.appendChild(element);
+    //     element.style.display = "none";
+    //     document.body.appendChild(element);
 
-        element.click();
+    //     element.click();
 
-        document.body.removeChild(element);
-      }
-    };
-    Object.assign(globalThis, { umdExp });
+    //     document.body.removeChild(element);
+    //   }
+    // };
+    //    Object.assign(globalThis, { umdExp });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
 
