@@ -2971,7 +2971,7 @@ function createJsBlob(code, fileName = "index.mjs") {
 }
 
 // js/renderPreviewWindow.tsx
-var import_react8 = __toESM(require_emotion_react_cjs(), 1);
+var import_react9 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/Editor.tsx
 init_define_process();
@@ -4147,6 +4147,7 @@ var initAndTransform = async (code, opts) => {
 // js/renderToString.tsx
 init_define_process();
 init_react();
+init_react();
 var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod2 = {
   md5Hash: "",
@@ -4216,12 +4217,18 @@ function mineFromCaches(cache2) {
   ).filter((x) => x && keys.includes(x.selectorText)).map((x) => x.cssText).join("\n");
 }
 var Helper = ({ md5Hash }) => {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (ref?.current)
+      mod2.res = ref.current;
+  }, [ref?.current]);
   const App = apps[md5Hash];
   return (0, import_jsx_runtime3.jsx)("div", {
+    ref,
     children: (0, import_jsx_runtime3.jsx)(App, {
       appId: `${mod2.codeSpace}-${md5Hash}`
-    })
-  }, md5Hash);
+    }, md5Hash)
+  });
 };
 var waitForAnimation = () => {
   let animationFrame;
@@ -4290,7 +4297,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
 
 // js/Editor.tsx
 init_react();
-var import_react6 = __toESM(require_emotion_react_cjs(), 1);
+var import_react7 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/isMobile.mjs
 init_define_process();
@@ -4436,7 +4443,7 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
   return (0, import_jsx_runtime4.jsx)("div", {
     onKeyDown: () => mod4.lastKeyDown = Date.now(),
     id: "editor",
-    css: import_react6.css`          
+    css: import_react7.css`          
       max-width: 640px;
       height: 100%; 
       `,
@@ -4474,10 +4481,10 @@ async function setAce() {
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-7YLOQYKP.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-L542UCCH.mjs"))
 );
 var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
-  css: import_react8.css`
+  css: import_react9.css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -4585,7 +4592,7 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   const root = createRoot(div);
   const x = emotionCache_default({ key: "root" });
   root.render(
-    (0, import_jsx_runtime5.jsx)(import_react8.CacheProvider, {
+    (0, import_jsx_runtime5.jsx)(import_react9.CacheProvider, {
       value: x,
       cj: true,
       children: (0, import_jsx_runtime5.jsx)(AppToRender, {
