@@ -102,7 +102,7 @@ export async function appFactory(
               ? (
                 <CacheProvider key={hash} value={eCaches[hash]}>
                   <div key={hash} css={css`height: 100%;`} id={appId}>
-                  App />
+                    {App()}
                   </div>
                 </CacheProvider>
               )
