@@ -1,18 +1,13 @@
 import {
-  init_emotion,
-  jsx
-} from "./chunk-chunk-L7BA6KDY.mjs";
-import {
   init_define_process
 } from "./chunk-chunk-JS5E2TTE.mjs";
 
 // js/emotionJsxRuntime.ts
 init_define_process();
-init_emotion();
-var jsx2 = jsx;
-var jsxs = jsx;
+var jsx = (el, props) => window.emotionReact.jsx(el, props);
+var jsxs = (el, props) => window.emotionReact.jsx(el, props);
 
 export {
-  jsx2 as jsx,
+  jsx,
   jsxs
 };

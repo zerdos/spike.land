@@ -1,6 +1,4 @@
 export { Fragment } from "react/jsx-runtime";
 
-import { jsx as _jsx } from "@emotion/react";
-
-export const jsx = _jsx;
-export const jsxs = _jsx;
+export const jsx = (el, props) => window.emotionReact.jsx(el, props);
+export const jsxs = (el, props) => window.emotionReact.jsx(el, props);
