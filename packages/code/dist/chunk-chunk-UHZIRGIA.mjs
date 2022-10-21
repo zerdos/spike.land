@@ -5,8 +5,8 @@ import {
 // js/emotionJsxRuntime.ts
 init_define_process();
 var JSX = {
-  jsxs: (...args) => emotionReactJSXRuntime.jsxs(...args),
-  jsx: (...args) => emotionReactJSXRuntime.jsx(...args),
+  jsxs: (...args) => ReactJSXRuntime.jsxs(...args),
+  jsx: (...args) => emotionReact.jsx(...args),
   Fragment: React.Fragment || ""
 };
 var { jsx, jsxs, Fragment } = JSX;
