@@ -11,7 +11,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-SKDQOHWW.mjs";
+} from "./chunk-chunk-5OABH5YX.mjs";
 import {
   Children,
   Fragment,
@@ -2746,7 +2746,7 @@ var initAndTransform = async (code, opts) => {
   if (initFinished !== true)
     await initFinished;
   const transformed = await (0, import_esbuild_wasm.transform)(code, opts);
-  return { ...transformed, code: transformed.code + "//" + md5(code) };
+  return { ...transformed, code: `/*${md5(code)}*/` + transformed.code };
 };
 
 // js/renderToString.tsx
@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-2B4YVLBD.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-6ZELNFTV.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
