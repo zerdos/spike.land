@@ -68,6 +68,7 @@ export default {
     env: CodeEnv,
     ctx: ExecutionContext,
   ) {
+    console.log(JSON.stringify({...request.cf}, null, 2));
     return handleErrors(request, async () => {
       console.log(`handling request: ${request.url}`);
       // We have received an HTTP request! Parse the URL and route the request.
