@@ -119,12 +119,15 @@ const AppToRender: FC<
       attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
     }), []);
 
+  const MemoedApp = useMemo(
+    () => <AutoUpdateApp hash={hash} codeSpace={codeSpace} />,
+    [hash, codeSpace],
+  );
+
   return (
     <div style={{ height: 100 + "%" }}>
       <InPortal node={portalNode}>
-        <Fragment>
-          <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
-        </Fragment>
+        {MemoedApp}
       </InPortal>
 
       <Suspense fallback={<OutPortal node={portalNode} />}>
