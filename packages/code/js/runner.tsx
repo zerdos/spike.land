@@ -4,7 +4,6 @@ import { mST, patchSync } from "./session";
 
 import { transform } from "./esbuildEsm";
 import { render } from "./renderToString";
-import { md5 } from "./md5";
 import debounce from "lodash.debounce";
 
 const debouncedSync = debounce(patchSync, 200, {

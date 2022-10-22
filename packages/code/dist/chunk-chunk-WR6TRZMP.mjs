@@ -2600,7 +2600,8 @@ var initAndTransform = async (code, opts) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
-  return (0, import_esbuild_wasm.transform)(code, opts) + "//" + md5(code);
+  const transformed = await (0, import_esbuild_wasm.transform)(code, opts);
+  return { ...transformed, code: transformed.code + "//" + md5(code) };
 };
 
 // js/renderToString.tsx
@@ -2831,7 +2832,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-EK37GLXL.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-6V5VA4UZ.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`

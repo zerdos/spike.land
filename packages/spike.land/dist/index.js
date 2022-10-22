@@ -195,7 +195,7 @@ var require_dist = __commonJS({
       options = assignOptions(options);
       const request = event.request;
       const ASSET_NAMESPACE = options.ASSET_NAMESPACE;
-      const ASSET_MANIFEST = parseStringAsObject(options.ASSET_MANIFEST);
+      const ASSET_MANIFEST2 = parseStringAsObject(options.ASSET_MANIFEST);
       if (typeof ASSET_NAMESPACE === "undefined") {
         throw new types_1.InternalError(`there is no KV namespace bound to the script`);
       }
@@ -204,15 +204,15 @@ var require_dist = __commonJS({
       let requestKey;
       if (options.mapRequestToAsset) {
         requestKey = options.mapRequestToAsset(request);
-      } else if (ASSET_MANIFEST[rawPathKey]) {
+      } else if (ASSET_MANIFEST2[rawPathKey]) {
         requestKey = request;
-      } else if (ASSET_MANIFEST[decodeURIComponent(rawPathKey)]) {
+      } else if (ASSET_MANIFEST2[decodeURIComponent(rawPathKey)]) {
         pathIsEncoded = true;
         requestKey = request;
       } else {
         const mappedRequest = mapRequestToAsset(request);
         const mappedRawPathKey = new URL(mappedRequest.url).pathname.replace(/^\/+/, "");
-        if (ASSET_MANIFEST[decodeURIComponent(mappedRawPathKey)]) {
+        if (ASSET_MANIFEST2[decodeURIComponent(mappedRawPathKey)]) {
           pathIsEncoded = true;
           requestKey = mappedRequest;
         } else {
@@ -232,9 +232,9 @@ var require_dist = __commonJS({
         mimeType += "; charset=utf-8";
       }
       let shouldEdgeCache = false;
-      if (typeof ASSET_MANIFEST !== "undefined") {
-        if (ASSET_MANIFEST[pathKey]) {
-          pathKey = ASSET_MANIFEST[pathKey];
+      if (typeof ASSET_MANIFEST2 !== "undefined") {
+        if (ASSET_MANIFEST2[pathKey]) {
+          pathKey = ASSET_MANIFEST2[pathKey];
           shouldEdgeCache = true;
         }
       }
@@ -350,7 +350,10 @@ var require_dist = __commonJS({
 
 // src/chat.ts
 var import_kv_asset_handler = __toESM(require_dist(), 1);
-import __STATIC_CONTENT_MANIFEST2 from "__STATIC_CONTENT_MANIFEST";
+
+// src/staticContent.mjs
+import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
+var a = JSON.parse(ASSET_MANIFEST);
 
 // src/handleErrors.ts
 async function handleErrors(request, func) {
@@ -380,7 +383,6 @@ async function handleErrors(request, func) {
 }
 
 // src/chat.ts
-var a = JSON.parse(__STATIC_CONTENT_MANIFEST2);
 var preact = "/reactMod.mjs";
 var babel = "/babel.mjs";
 var emotionReact = "/emotion.mjs";
@@ -401,7 +403,6 @@ var imap = {
     "@emotion/react": emotionReact,
     "@emotion/react/jsx-runtime": emotionJsxRuntime,
     "react": preact,
-    "react/jsx-runtime": "/jsx.mjs",
     "react-dom": preact,
     "react-dom/client": preact,
     "@babel/runtime/helpers/extends": babel,
@@ -416,7 +417,7 @@ var chat_default = {
       let url = u;
       const accept = request.headers.get("accept");
       const serveJs = !(accept && accept.includes("html"));
-      if (serveJs && u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) {
+      if (serveJs && u.pathname.endsWith(".tsx") && !u.pathname.endsWith("index.tsx")) {
         url = new URL(request.url.replace(".tsx", "/index.tsx"));
       }
       if (serveJs && !url.pathname.includes(".")) {
@@ -438,20 +439,18 @@ var chat_default = {
       const handleFetchApi = async (path2) => {
         const newUrl = new URL(path2.join("/"), url.origin).toString();
         const _request = new Request(newUrl, { ...request, url: newUrl });
-        const cacheKey = new Request(_request.url);
+        let cacheKey = new Request(_request.url);
         const cache = caches.default;
-        if (!url.pathname.includes("ws.mjs")) {
-          const cachedResponse = await cache.match(cacheKey);
-          if (cachedResponse && cachedResponse.ok) {
-            return cachedResponse;
-          }
+        const cachedResponse = await cache.match(cacheKey);
+        if (cachedResponse && cachedResponse.ok) {
+          return cachedResponse;
         }
         const cachedResponse2 = await (async (request2) => {
           const cacheKey2 = new Request(request2.url);
           const cache2 = caches.default;
-          const cachedResponse = await cache2.match(cacheKey2);
-          if (cachedResponse) {
-            return cachedResponse;
+          const cachedResponse3 = await cache2.match(cacheKey2);
+          if (cachedResponse3?.ok) {
+            return cachedResponse3;
           }
           if (path2[0].startsWith("npm:") || path2[0].startsWith("node_modules/")) {
             const isJs = u.toString().includes(".js") || u.toString().includes(".mjs");
@@ -500,7 +499,8 @@ var chat_default = {
                 }
               }
             );
-            await cache2.put(cacheKey2, responseToCache.clone());
+            if (responseToCache.ok)
+              await cache2.put(cacheKey2, responseToCache.clone());
             return responseToCache;
           }
           if (path2[0].startsWith("unpkg:")) {
@@ -541,7 +541,8 @@ var chat_default = {
                 }
               }
             );
-            await cache2.put(cacheKey2, responseToCache.clone());
+            if (responseToCache.ok)
+              await cache2.put(cacheKey2, responseToCache.clone());
             return responseToCache;
           }
           if (path2[0].startsWith("node_modules")) {
@@ -585,7 +586,8 @@ var chat_default = {
                 }
               }
             );
-            await cache2.put(cacheKey2, responseToCache.clone());
+            if (responseToCache.ok)
+              await cache2.put(cacheKey2, responseToCache.clone());
             return responseToCache;
           }
           switch (path2[0]) {
@@ -604,7 +606,7 @@ var chat_default = {
                 }
               });
             case "files.json":
-              return new Response(__STATIC_CONTENT_MANIFEST2, {
+              return new Response(ASSET_MANIFEST, {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache"
@@ -638,7 +640,7 @@ var chat_default = {
               ).catch(() => new Response("Error"));
             default:
               try {
-                const kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
+                let kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
                   {
                     request: request2,
                     waitUntil(promise) {
@@ -656,7 +658,7 @@ var chat_default = {
                       bypassCache: true
                     },
                     ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                    ASSET_MANIFEST: __STATIC_CONTENT_MANIFEST2
+                    ASSET_MANIFEST
                   }
                 );
                 if (!kvResp.ok)
@@ -780,7 +782,7 @@ var src_default = `<!DOCTYPE html>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <base href="./">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/favicons/favicon.ico" type="image/x-icon" />
   <title>Instant React Editor</title>
 <style>
   html,
@@ -856,9 +858,8 @@ var src_default = `<!DOCTYPE html>
       }
     }
   <\/script>
-  <script src="/node_modules/react@18.2.0/umd/react.development.js"><\/script>
-  <script src="/react-jsx-runtime.production.min.js"><\/script>
-  <script src="/node_modules/react-dom@18.2.0/umd/react-dom.development.js"><\/script>
+ 
+
   
    <script type="importmap"><\/script>
    </head>
@@ -922,8 +923,7 @@ var iife_default = `
   <style>
     html,
 body,
-#root,
-#zbody {
+#root {
   box-sizing: border-box;
   width: 100%;
   height: 100%; 
@@ -1013,9 +1013,6 @@ window.addEventListener('pageshow', (event) => {
 </body>
 </html>`;
 
-// src/chatRoom.ts
-import manifestJSON from "__STATIC_CONTENT_MANIFEST";
-
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JS5E2TTE.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
@@ -1053,7 +1050,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-HGVBTGH6.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-FS45JEB7.mjs
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -2207,12 +2204,12 @@ function is(valueA, valueB) {
   }
   return !!(isValueObject(valueA) && isValueObject(valueB) && valueA.equals(valueB));
 }
-var imul = typeof Math.imul === "function" && Math.imul(4294967295, 2) === -2 ? Math.imul : function imul2(a2, b) {
-  a2 |= 0;
+var imul = typeof Math.imul === "function" && Math.imul(4294967295, 2) === -2 ? Math.imul : function imul2(a3, b) {
+  a3 |= 0;
   b |= 0;
-  var c = a2 & 65535;
+  var c = a3 & 65535;
   var d = b & 65535;
-  return c * d + ((a2 >>> 16) * d + c * (b >>> 16) << 16 >>> 0) | 0;
+  return c * d + ((a3 >>> 16) * d + c * (b >>> 16) << 16 >>> 0) | 0;
 };
 function smi(i32) {
   return i32 >>> 1 & 1073741824 | i32 & 3221225471;
@@ -2745,8 +2742,8 @@ function filterFactory(collection, predicate, context, useKeys) {
 function countByFactory(collection, grouper, context) {
   var groups = Map().asMutable();
   collection.__iterate(function(v, k) {
-    groups.update(grouper.call(context, v, k, collection), 0, function(a2) {
-      return a2 + 1;
+    groups.update(grouper.call(context, v, k, collection), 0, function(a3) {
+      return a3 + 1;
     });
   });
   return groups.asImmutable();
@@ -2757,8 +2754,8 @@ function groupByFactory(collection, grouper, context) {
   collection.__iterate(function(v, k) {
     groups.update(
       grouper.call(context, v, k, collection),
-      function(a2) {
-        return a2 = a2 || [], a2.push(isKeyedIter ? [k, v] : v), a2;
+      function(a3) {
+        return a3 = a3 || [], a3.push(isKeyedIter ? [k, v] : v), a3;
       }
     );
   });
@@ -3067,8 +3064,8 @@ function sortFactory(collection, comparator, mapper) {
   var entries3 = collection.toSeq().map(function(v, k) {
     return [k, v, index++, mapper ? mapper(v, k, collection) : v];
   }).valueSeq().toArray();
-  entries3.sort(function(a2, b) {
-    return comparator(a2[3], b[3]) || a2[2] - b[2];
+  entries3.sort(function(a3, b) {
+    return comparator(a3[3], b[3]) || a3[2] - b[2];
   }).forEach(
     isKeyedCollection ? function(v, i) {
       entries3[i].length = 2;
@@ -3085,18 +3082,18 @@ function maxFactory(collection, comparator, mapper) {
   if (mapper) {
     var entry = collection.toSeq().map(function(v, k) {
       return [v, mapper(v, k, collection)];
-    }).reduce(function(a2, b) {
-      return maxCompare(comparator, a2[1], b[1]) ? b : a2;
+    }).reduce(function(a3, b) {
+      return maxCompare(comparator, a3[1], b[1]) ? b : a3;
     });
     return entry && entry[0];
   }
-  return collection.reduce(function(a2, b) {
-    return maxCompare(comparator, a2, b) ? b : a2;
+  return collection.reduce(function(a3, b) {
+    return maxCompare(comparator, a3, b) ? b : a3;
   });
 }
-function maxCompare(comparator, a2, b) {
-  var comp = comparator(b, a2);
-  return comp === 0 && b !== a2 && (b === void 0 || b === null || b !== b) || comp > 0;
+function maxCompare(comparator, a3, b) {
+  var comp = comparator(b, a3);
+  return comp === 0 && b !== a3 && (b === void 0 || b === null || b !== b) || comp > 0;
 }
 function zipWithFactory(keyIter, zipper, iters, zipAll2) {
   var zipSequence = makeSequence(keyIter);
@@ -3176,17 +3173,17 @@ function cacheResultThrough() {
   }
   return Seq.prototype.cacheResult.call(this);
 }
-function defaultComparator(a2, b) {
-  if (a2 === void 0 && b === void 0) {
+function defaultComparator(a3, b) {
+  if (a3 === void 0 && b === void 0) {
     return 0;
   }
-  if (a2 === void 0) {
+  if (a3 === void 0) {
     return 1;
   }
   if (b === void 0) {
     return -1;
   }
-  return a2 > b ? 1 : a2 < b ? -1 : 0;
+  return a3 > b ? 1 : a3 < b ? -1 : 0;
 }
 function arrCopy(arr, offset) {
   offset = offset || 0;
@@ -5033,45 +5030,45 @@ function isSet(maybeSet) {
 function isOrderedSet(maybeOrderedSet) {
   return isSet(maybeOrderedSet) && isOrdered(maybeOrderedSet);
 }
-function deepEqual(a2, b) {
-  if (a2 === b) {
+function deepEqual(a3, b) {
+  if (a3 === b) {
     return true;
   }
-  if (!isCollection(b) || a2.size !== void 0 && b.size !== void 0 && a2.size !== b.size || a2.__hash !== void 0 && b.__hash !== void 0 && a2.__hash !== b.__hash || isKeyed(a2) !== isKeyed(b) || isIndexed(a2) !== isIndexed(b) || isOrdered(a2) !== isOrdered(b)) {
+  if (!isCollection(b) || a3.size !== void 0 && b.size !== void 0 && a3.size !== b.size || a3.__hash !== void 0 && b.__hash !== void 0 && a3.__hash !== b.__hash || isKeyed(a3) !== isKeyed(b) || isIndexed(a3) !== isIndexed(b) || isOrdered(a3) !== isOrdered(b)) {
     return false;
   }
-  if (a2.size === 0 && b.size === 0) {
+  if (a3.size === 0 && b.size === 0) {
     return true;
   }
-  var notAssociative = !isAssociative(a2);
-  if (isOrdered(a2)) {
-    var entries3 = a2.entries();
+  var notAssociative = !isAssociative(a3);
+  if (isOrdered(a3)) {
+    var entries3 = a3.entries();
     return b.every(function(v, k) {
       var entry = entries3.next().value;
       return entry && is(entry[1], v) && (notAssociative || is(entry[0], k));
     }) && entries3.next().done;
   }
   var flipped = false;
-  if (a2.size === void 0) {
+  if (a3.size === void 0) {
     if (b.size === void 0) {
-      if (typeof a2.cacheResult === "function") {
-        a2.cacheResult();
+      if (typeof a3.cacheResult === "function") {
+        a3.cacheResult();
       }
     } else {
       flipped = true;
-      var _ = a2;
-      a2 = b;
+      var _ = a3;
+      a3 = b;
       b = _;
     }
   }
   var allEqual = true;
   var bSize = b.__iterate(function(v, k) {
-    if (notAssociative ? !a2.has(v) : flipped ? !is(v, a2.get(k, NOT_SET)) : !is(a2.get(k, NOT_SET), v)) {
+    if (notAssociative ? !a3.has(v) : flipped ? !is(v, a3.get(k, NOT_SET)) : !is(a3.get(k, NOT_SET), v)) {
       allEqual = false;
       return false;
     }
   });
-  return allEqual && a2.size === bSize;
+  return allEqual && a3.size === bSize;
 }
 function mixin(ctor, methods) {
   var keyCopier = function(key) {
@@ -5931,8 +5928,8 @@ function neg(predicate) {
 function defaultZipper() {
   return arrCopy(arguments);
 }
-function defaultNegComparator(a2, b) {
-  return a2 < b ? 1 : a2 > b ? -1 : 0;
+function defaultNegComparator(a3, b) {
+  return a3 < b ? 1 : a3 > b ? -1 : 0;
 }
 function hashCollection(collection) {
   if (collection.size === Infinity) {
@@ -5964,8 +5961,8 @@ function murmurHashOfSize(size, h) {
   h = smi(h ^ h >>> 16);
   return h;
 }
-function hashMerge(a2, b) {
-  return a2 ^ b + 2654435769 + (a2 << 6) + (a2 >> 2) | 0;
+function hashMerge(a3, b) {
+  return a3 ^ b + 2654435769 + (a3 << 6) + (a3 >> 2) | 0;
 }
 var OrderedSet = function(Set2) {
   function OrderedSet2(value) {
@@ -6283,7 +6280,8 @@ var Repeat = function(IndexedSeq2) {
 var EMPTY_REPEAT;
 var import_lodash = __toESM2(require_lodash(), 1);
 init_define_process();
-function md5(inputString) {
+var md5 = (code) => md5FULL(code).replace(/\d+/g, "");
+function md5FULL(inputString) {
   const hc = "0123456789abcdef";
   function rh(n) {
     let j;
@@ -6332,7 +6330,7 @@ function md5(inputString) {
   }
   let i;
   const x = sb(inputString);
-  let a2 = 1732584193;
+  let a3 = 1732584193;
   let b = -271733879;
   let c = -1732584194;
   let d = 271733878;
@@ -6341,80 +6339,80 @@ function md5(inputString) {
   let oldc;
   let oldd;
   for (i = 0; i < x.length; i += 16) {
-    olda = a2;
+    olda = a3;
     oldb = b;
     oldc = c;
     oldd = d;
-    a2 = ff(a2, b, c, d, x[i + 0], 7, -680876936);
-    d = ff(d, a2, b, c, x[i + 1], 12, -389564586);
-    c = ff(c, d, a2, b, x[i + 2], 17, 606105819);
-    b = ff(b, c, d, a2, x[i + 3], 22, -1044525330);
-    a2 = ff(a2, b, c, d, x[i + 4], 7, -176418897);
-    d = ff(d, a2, b, c, x[i + 5], 12, 1200080426);
-    c = ff(c, d, a2, b, x[i + 6], 17, -1473231341);
-    b = ff(b, c, d, a2, x[i + 7], 22, -45705983);
-    a2 = ff(a2, b, c, d, x[i + 8], 7, 1770035416);
-    d = ff(d, a2, b, c, x[i + 9], 12, -1958414417);
-    c = ff(c, d, a2, b, x[i + 10], 17, -42063);
-    b = ff(b, c, d, a2, x[i + 11], 22, -1990404162);
-    a2 = ff(a2, b, c, d, x[i + 12], 7, 1804603682);
-    d = ff(d, a2, b, c, x[i + 13], 12, -40341101);
-    c = ff(c, d, a2, b, x[i + 14], 17, -1502002290);
-    b = ff(b, c, d, a2, x[i + 15], 22, 1236535329);
-    a2 = gg(a2, b, c, d, x[i + 1], 5, -165796510);
-    d = gg(d, a2, b, c, x[i + 6], 9, -1069501632);
-    c = gg(c, d, a2, b, x[i + 11], 14, 643717713);
-    b = gg(b, c, d, a2, x[i + 0], 20, -373897302);
-    a2 = gg(a2, b, c, d, x[i + 5], 5, -701558691);
-    d = gg(d, a2, b, c, x[i + 10], 9, 38016083);
-    c = gg(c, d, a2, b, x[i + 15], 14, -660478335);
-    b = gg(b, c, d, a2, x[i + 4], 20, -405537848);
-    a2 = gg(a2, b, c, d, x[i + 9], 5, 568446438);
-    d = gg(d, a2, b, c, x[i + 14], 9, -1019803690);
-    c = gg(c, d, a2, b, x[i + 3], 14, -187363961);
-    b = gg(b, c, d, a2, x[i + 8], 20, 1163531501);
-    a2 = gg(a2, b, c, d, x[i + 13], 5, -1444681467);
-    d = gg(d, a2, b, c, x[i + 2], 9, -51403784);
-    c = gg(c, d, a2, b, x[i + 7], 14, 1735328473);
-    b = gg(b, c, d, a2, x[i + 12], 20, -1926607734);
-    a2 = hh(a2, b, c, d, x[i + 5], 4, -378558);
-    d = hh(d, a2, b, c, x[i + 8], 11, -2022574463);
-    c = hh(c, d, a2, b, x[i + 11], 16, 1839030562);
-    b = hh(b, c, d, a2, x[i + 14], 23, -35309556);
-    a2 = hh(a2, b, c, d, x[i + 1], 4, -1530992060);
-    d = hh(d, a2, b, c, x[i + 4], 11, 1272893353);
-    c = hh(c, d, a2, b, x[i + 7], 16, -155497632);
-    b = hh(b, c, d, a2, x[i + 10], 23, -1094730640);
-    a2 = hh(a2, b, c, d, x[i + 13], 4, 681279174);
-    d = hh(d, a2, b, c, x[i + 0], 11, -358537222);
-    c = hh(c, d, a2, b, x[i + 3], 16, -722521979);
-    b = hh(b, c, d, a2, x[i + 6], 23, 76029189);
-    a2 = hh(a2, b, c, d, x[i + 9], 4, -640364487);
-    d = hh(d, a2, b, c, x[i + 12], 11, -421815835);
-    c = hh(c, d, a2, b, x[i + 15], 16, 530742520);
-    b = hh(b, c, d, a2, x[i + 2], 23, -995338651);
-    a2 = ii(a2, b, c, d, x[i + 0], 6, -198630844);
-    d = ii(d, a2, b, c, x[i + 7], 10, 1126891415);
-    c = ii(c, d, a2, b, x[i + 14], 15, -1416354905);
-    b = ii(b, c, d, a2, x[i + 5], 21, -57434055);
-    a2 = ii(a2, b, c, d, x[i + 12], 6, 1700485571);
-    d = ii(d, a2, b, c, x[i + 3], 10, -1894986606);
-    c = ii(c, d, a2, b, x[i + 10], 15, -1051523);
-    b = ii(b, c, d, a2, x[i + 1], 21, -2054922799);
-    a2 = ii(a2, b, c, d, x[i + 8], 6, 1873313359);
-    d = ii(d, a2, b, c, x[i + 15], 10, -30611744);
-    c = ii(c, d, a2, b, x[i + 6], 15, -1560198380);
-    b = ii(b, c, d, a2, x[i + 13], 21, 1309151649);
-    a2 = ii(a2, b, c, d, x[i + 4], 6, -145523070);
-    d = ii(d, a2, b, c, x[i + 11], 10, -1120210379);
-    c = ii(c, d, a2, b, x[i + 2], 15, 718787259);
-    b = ii(b, c, d, a2, x[i + 9], 21, -343485551);
-    a2 = ad(a2, olda);
+    a3 = ff(a3, b, c, d, x[i + 0], 7, -680876936);
+    d = ff(d, a3, b, c, x[i + 1], 12, -389564586);
+    c = ff(c, d, a3, b, x[i + 2], 17, 606105819);
+    b = ff(b, c, d, a3, x[i + 3], 22, -1044525330);
+    a3 = ff(a3, b, c, d, x[i + 4], 7, -176418897);
+    d = ff(d, a3, b, c, x[i + 5], 12, 1200080426);
+    c = ff(c, d, a3, b, x[i + 6], 17, -1473231341);
+    b = ff(b, c, d, a3, x[i + 7], 22, -45705983);
+    a3 = ff(a3, b, c, d, x[i + 8], 7, 1770035416);
+    d = ff(d, a3, b, c, x[i + 9], 12, -1958414417);
+    c = ff(c, d, a3, b, x[i + 10], 17, -42063);
+    b = ff(b, c, d, a3, x[i + 11], 22, -1990404162);
+    a3 = ff(a3, b, c, d, x[i + 12], 7, 1804603682);
+    d = ff(d, a3, b, c, x[i + 13], 12, -40341101);
+    c = ff(c, d, a3, b, x[i + 14], 17, -1502002290);
+    b = ff(b, c, d, a3, x[i + 15], 22, 1236535329);
+    a3 = gg(a3, b, c, d, x[i + 1], 5, -165796510);
+    d = gg(d, a3, b, c, x[i + 6], 9, -1069501632);
+    c = gg(c, d, a3, b, x[i + 11], 14, 643717713);
+    b = gg(b, c, d, a3, x[i + 0], 20, -373897302);
+    a3 = gg(a3, b, c, d, x[i + 5], 5, -701558691);
+    d = gg(d, a3, b, c, x[i + 10], 9, 38016083);
+    c = gg(c, d, a3, b, x[i + 15], 14, -660478335);
+    b = gg(b, c, d, a3, x[i + 4], 20, -405537848);
+    a3 = gg(a3, b, c, d, x[i + 9], 5, 568446438);
+    d = gg(d, a3, b, c, x[i + 14], 9, -1019803690);
+    c = gg(c, d, a3, b, x[i + 3], 14, -187363961);
+    b = gg(b, c, d, a3, x[i + 8], 20, 1163531501);
+    a3 = gg(a3, b, c, d, x[i + 13], 5, -1444681467);
+    d = gg(d, a3, b, c, x[i + 2], 9, -51403784);
+    c = gg(c, d, a3, b, x[i + 7], 14, 1735328473);
+    b = gg(b, c, d, a3, x[i + 12], 20, -1926607734);
+    a3 = hh(a3, b, c, d, x[i + 5], 4, -378558);
+    d = hh(d, a3, b, c, x[i + 8], 11, -2022574463);
+    c = hh(c, d, a3, b, x[i + 11], 16, 1839030562);
+    b = hh(b, c, d, a3, x[i + 14], 23, -35309556);
+    a3 = hh(a3, b, c, d, x[i + 1], 4, -1530992060);
+    d = hh(d, a3, b, c, x[i + 4], 11, 1272893353);
+    c = hh(c, d, a3, b, x[i + 7], 16, -155497632);
+    b = hh(b, c, d, a3, x[i + 10], 23, -1094730640);
+    a3 = hh(a3, b, c, d, x[i + 13], 4, 681279174);
+    d = hh(d, a3, b, c, x[i + 0], 11, -358537222);
+    c = hh(c, d, a3, b, x[i + 3], 16, -722521979);
+    b = hh(b, c, d, a3, x[i + 6], 23, 76029189);
+    a3 = hh(a3, b, c, d, x[i + 9], 4, -640364487);
+    d = hh(d, a3, b, c, x[i + 12], 11, -421815835);
+    c = hh(c, d, a3, b, x[i + 15], 16, 530742520);
+    b = hh(b, c, d, a3, x[i + 2], 23, -995338651);
+    a3 = ii(a3, b, c, d, x[i + 0], 6, -198630844);
+    d = ii(d, a3, b, c, x[i + 7], 10, 1126891415);
+    c = ii(c, d, a3, b, x[i + 14], 15, -1416354905);
+    b = ii(b, c, d, a3, x[i + 5], 21, -57434055);
+    a3 = ii(a3, b, c, d, x[i + 12], 6, 1700485571);
+    d = ii(d, a3, b, c, x[i + 3], 10, -1894986606);
+    c = ii(c, d, a3, b, x[i + 10], 15, -1051523);
+    b = ii(b, c, d, a3, x[i + 1], 21, -2054922799);
+    a3 = ii(a3, b, c, d, x[i + 8], 6, 1873313359);
+    d = ii(d, a3, b, c, x[i + 15], 10, -30611744);
+    c = ii(c, d, a3, b, x[i + 6], 15, -1560198380);
+    b = ii(b, c, d, a3, x[i + 13], 21, 1309151649);
+    a3 = ii(a3, b, c, d, x[i + 4], 6, -145523070);
+    d = ii(d, a3, b, c, x[i + 11], 10, -1120210379);
+    c = ii(c, d, a3, b, x[i + 2], 15, 718787259);
+    b = ii(b, c, d, a3, x[i + 9], 21, -343485551);
+    a3 = ad(a3, olda);
     b = ad(b, oldb);
     c = ad(c, oldc);
     d = ad(d, oldd);
   }
-  return rh(a2) + rh(b) + rh(c) + rh(d);
+  return rh(a3) + rh(b) + rh(c) + rh(d);
 }
 init_define_process();
 var import_fast_diff = __toESM2(require_diff(), 1);
@@ -6547,7 +6545,7 @@ var CodeSession = class {
       }
       if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");
-      const codeHash = md5(newRecord.code).slice(0, 8);
+      const codeHash = md5(newRecord.code);
       if (newRecord.transpiled.indexOf(codeHash) === -1) {
         console.error(`missing: ${codeHash}`);
         throw new Error("transpiled	 hack issue");
@@ -6555,7 +6553,7 @@ var CodeSession = class {
       if (newRecord.code.length < 5) {
         throw new Error("code deleted?");
       }
-      const transHash = md5(newRecord.transpiled).slice(0, 8);
+      const transHash = md5(newRecord.transpiled);
       if (newRecord.html.indexOf(transHash) === -1) {
         console.error(`missing: ${transHash}`);
         throw new Error("render hack issue");
@@ -6641,6 +6639,7 @@ var applyPatch2 = async (x) => {
   await session?.applyPatch(x);
   session?.update();
 };
+var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
 var startSession = (room, u, originString) => session || new CodeSession(room, {
   name: u.name,
   state: addOrigin(u.state, originString)
@@ -6737,8 +6736,8 @@ function sort2(keys2, values2, left, right, compare) {
 }
 
 // ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
-function DEFAULT_COMPARE(a2, b) {
-  return a2 > b ? 1 : a2 < b ? -1 : 0;
+function DEFAULT_COMPARE(a3, b) {
+  return a3 > b ? 1 : a3 < b ? -1 : 0;
 }
 function rotateLeft(node) {
   var rightNode = node.right;
@@ -7247,10 +7246,10 @@ var Code = class {
   codeSpace;
   sess;
   sessionStarted;
-  user = self.crypto.randomUUID().slice(0, 8);
+  user = md52(self.crypto.randomUUID());
   address;
   users = new AVLTree(
-    (a2, b) => a2 === b ? 0 : a2 < b ? 1 : -1,
+    (a3, b) => a3 === b ? 0 : a3 < b ? 1 : -1,
     true
   );
   sessions;
@@ -7355,15 +7354,8 @@ var Code = class {
             }
           });
         case "mST.mjs":
-          const a2 = JSON.parse(manifestJSON);
-          const assets = {
-            "react.mjs": a2["react.mjs"],
-            "emotion.mjs": a2["emotion.mjs"],
-            "framer-motion.mjs": a2["framer-motion.mjs"]
-          };
           return new Response(
             `
-              export const assets=${JSON.stringify(assets)};
               export const mST=${JSON.stringify(mST())};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
@@ -7454,7 +7446,6 @@ var Code = class {
         case "hydrated":
         case "dehydrated":
         case "public": {
-          const a3 = JSON.parse(manifestJSON);
           const respText = src_default.replaceAll(
             "/live/coder/",
             `/live/${this.codeSpace}/`
@@ -7466,7 +7457,7 @@ var Code = class {
         }
         ${mST().css}
         `
-          ).replace("favicon.ico", a3["favicons/favicon.ico"]).replace(
+          ).replace(
             `<script type="importmap"><\/script>`,
             `<script type="importmap">
             ${getImportMapStr(url.origin)}
@@ -7594,6 +7585,13 @@ var Code = class {
               otherSession.blockedMessages = [];
             }
           });
+          if (data.hashCode) {
+            if (data?.hashCode !== hashCode3()) {
+              const patch = await makePatchFrom(data.hashCode, mST());
+              return respondWith({ ...patch });
+            }
+            ;
+          }
         } catch (e) {
           respondWith({ error: "error while checked blocked messages" });
         }
@@ -7726,6 +7724,9 @@ async function sha256(myText) {
   );
   const hexString = [...new Uint8Array(myDigest)].map((b) => b.toString(16).padStart(2, "0")).join("");
   return hexString;
+}
+function md52(arg0) {
+  throw new Error("Function not implemented.");
 }
 
 // src/users.ts
