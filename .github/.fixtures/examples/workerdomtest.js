@@ -25,5 +25,5 @@ fetch(
       "https://unpkg.com/@spike.land/emotion-react-renderer/public/bundle.js"
     );
 
-    renderEmotion(App(), document.getElementById("zbody"));
+    renderEmotion(App(), document.getElementById("z-body"));
   });

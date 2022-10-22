@@ -24,7 +24,7 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
 }) => {
   const st = (hashCode: number, html: string, css: string) => ({
     htmlContent:
-      `<div><style>${css}</style><div id="zbody">xxxxxxxx${html}</div></div>`,
+      `<div><style>${css}</style><div id="z-body">xxxxxxxx${html}</div></div>`,
     hashCode,
   });
 
