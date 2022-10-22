@@ -131,7 +131,7 @@ export default {
           // if not, you will need to fetch it from origin, and store it in the cache
           // for future access
           const cachedResponse = await cache.match(cacheKey);
-          if (cachedResponse) {
+          if (cachedResponse?.ok) {
             return cachedResponse;
           }
 
@@ -202,6 +202,8 @@ export default {
                 },
               },
             );
+            if (responseToCache.ok)
+
             await cache.put(cacheKey, responseToCache.clone());
             return responseToCache;
           }
@@ -250,6 +252,7 @@ export default {
                 },
               },
             );
+            if(responseToCache.ok)
             await cache.put(cacheKey, responseToCache.clone());
             return responseToCache;
           }
@@ -301,6 +304,7 @@ export default {
                 },
               },
             );
+            if (responseToCache.ok)
             await cache.put(cacheKey, responseToCache.clone());
             return responseToCache;
           }
