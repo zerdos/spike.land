@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-QOLMFQ6F.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-XTOZ5FXM.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -3224,15 +3224,16 @@ var mod2 = {
     return await mod2.waitForDiv(md5Hash);
   },
   setHash: null,
-  setApp: (md5hash) => {
+  setApp: (md5Hash) => {
     const rootDiv = document.createElement("div");
     rootDiv.style.visibility = "hidden";
     rootDiv.style.position = "absolute";
     document.body.appendChild(rootDiv);
+    mod2.md5Hash = md5Hash;
     const root = createRoot(rootDiv);
     root.render(
       jsx(Helper, {
-        md5Hash: md5hash
+        md5Hash
       })
     );
     return () => {
@@ -3285,8 +3286,8 @@ var Helper = ({ md5Hash }) => {
     ref,
     children: jsx(App, {
       appId: `${mod2.codeSpace}-${md5Hash}`
-    }, md5Hash)
-  });
+    })
+  }, md5Hash);
 };
 var waitForAnimation = () => {
   let animationFrame;
