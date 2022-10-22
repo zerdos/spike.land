@@ -344,27 +344,26 @@ export class Code {
          `,
             );
 
-          const Etag = request.headers.get("Etag");
-          const newEtag = await sha256(respText);
+          // const Etag = request.headers.get("Etag");
+          // const newEtag = await sha256(respText);
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
           headers.set(
-            "Cache-Control",
-            "max-age=604800, stale-while-revalidate=86400",
+            "Cache-Control", "no-cache"
           );
           // headers.set('Etag', newEtag);
 
-          if (Etag === newEtag) {
-            // headers.set('CF-Cache-Status', 'HIT');
-            return new Response(null, {
-              status: 304,
-              statusText: "Not modified",
-              headers,
-            });
-          }
+          // if (Etag === newEtag) {
+          //   // headers.set('CF-Cache-Status', 'HIT');
+          //   return new Response(null, {
+          //     status: 304,
+          //     statusText: "Not modified",
+          //     headers,
+          //   });
+          // }
 
           headers.set("Content-Type", "text/html; charset=UTF-8");
-          headers.set("Etag", newEtag)
+          // headers.set("Etag", newEtag)
           headers.set("x-content-digest", `SHA-256=${newEtag}`);
           return new Response(respText, {
             status: 200,
