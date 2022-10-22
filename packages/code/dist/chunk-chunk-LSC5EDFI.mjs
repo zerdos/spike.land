@@ -5408,6 +5408,7 @@ function applyPatch(original, delta) {
 }
 
 // js/session.ts
+mST();
 function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
@@ -5576,7 +5577,7 @@ var CodeSession = class {
   }
 };
 var hashCode3 = () => session ? session.hashOfState() : 0;
-function mST() {
+function mST(p) {
   if (!session) {
     return {
       i: 0,
@@ -5586,7 +5587,14 @@ function mST() {
       css: ""
     };
   }
-  const { i, transpiled, code, html, css } = session.session.toJSON().state;
+  const { i, transpiled, code, html, css } = p ? JSON.parse(
+    applyPatch(
+      string_(
+        session.session.toJSON()
+      ),
+      p
+    )
+  ) : session.session.toJSON();
   return { i, transpiled, code, html, css };
 }
 function addOrigin(s, originString) {
