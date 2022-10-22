@@ -1,5 +1,6 @@
 import { run } from "./ws";
 import "es-module-shims";
+import "./react-jsx-runtime.production.min.cjs";
 
 importShim.addImportMap(
   JSON.parse(document.querySelector("script[type=importmap]")?.innerHTML!),
