@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-WLYJFYD7.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-L4XZGEYX.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -3020,7 +3020,7 @@ var AppToRender = ({ codeSpace }) => {
         })
       }),
       jsx(Suspense, {
-        fallback: () => jsx(OutPortal, {
+        fallback: jsx(OutPortal, {
           node: portalNode
         }),
         children: onlyApp ? jsx(RainbowContainer, {
