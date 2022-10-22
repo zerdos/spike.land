@@ -20,7 +20,7 @@ import { AutoUpdateApp } from "./starter";
 import { css } from "@emotion/react";
 // Import { useSpring, a } from '@react-spring/web'
 
-import { hashCode, onSessionUpdate } from "./session";
+import { hashCode, md5, mST, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
 import { wait } from "wait.mjs";
@@ -86,11 +86,6 @@ const AppToRender: FC<
 > = (
   { codeSpace },
 ) => {
-  const portalNode = useMemo(() =>
-    createHtmlPortalNode({
-      attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
-    }), []);
-
   // Const [flipped, set] = useState(false)
   // const { transform, opacity } = useSpring({
   //   opacity: flipped ? 1 : 0,
@@ -99,6 +94,14 @@ const AppToRender: FC<
   // })
 
   const [hash, setHash] = useState(hashCode());
+  const portalNode = useMemo(() =>
+    createHtmlPortalNode({
+      attributes: {
+        id: `root-${codeSpace}`,
+        className: md5(mST().code),
+        style: "height: 100%",
+      },
+    }), [hash]);
 
   const onlyApp = location.pathname.endsWith("public") ||
     location.pathname.endsWith("hydrated");
