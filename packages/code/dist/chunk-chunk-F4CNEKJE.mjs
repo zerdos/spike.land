@@ -5587,14 +5587,15 @@ function mST(p) {
       css: ""
     };
   }
+  const sessAsJs = session.session.get("state").toJSON();
   const { i, transpiled, code, html, css } = p ? JSON.parse(
     applyPatch(
       string_(
-        session.session.toJSON()
+        sessAsJs
       ),
       p
     )
-  ) : session.session.toJSON();
+  ) : sessAsJs;
   return { i, transpiled, code, html, css };
 }
 function addOrigin(s, originString) {
