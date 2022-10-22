@@ -1,34 +1,26 @@
 import {
-  require_emotion_cache_cjs,
-  require_emotion_element_b63ca7c6_cjs_dev,
-  require_emotion_react_cjs,
-  require_emotion_react_isolated_hnrs_cjs_dev,
-  require_emotion_serialize_cjs,
-  require_emotion_use_insertion_effect_with_fallbacks_cjs,
-  require_emotion_utils_cjs,
-  require_emotion_weak_memoize_cjs,
-  require_extends,
-  require_hoist_non_react_statics_cjs
-} from "./chunk-chunk-JSQI5B5S.mjs";
+  Fragment,
+  jsx,
+  jsxs
+} from "./chunk-chunk-GWKJ3TTA.mjs";
 import {
-  init_jsx,
-  jsx_exports
-} from "./chunk-chunk-KWYVV2BK.mjs";
+  emotionCache_default
+} from "./chunk-chunk-QV7C7CXZ.mjs";
 import {
-  applyPatch,
+  CacheProvider,
+  css
+} from "./chunk-chunk-J6YUWJTB.mjs";
+import {
   hashCode,
   mST,
-  makePatch,
-  makePatchFrom,
   md5,
   onSessionUpdate,
   patchSync,
-  require_lodash,
-  startSession
-} from "./chunk-chunk-L2ATYMQ3.mjs";
+  require_lodash
+} from "./chunk-chunk-BVAPYIFQ.mjs";
 import {
   wrap
-} from "./chunk-chunk-3DTRDS5R.mjs";
+} from "./chunk-chunk-IACUZN5G.mjs";
 import {
   Children,
   PureComponent,
@@ -38,71 +30,19 @@ import {
   createPortal,
   createRef,
   createRoot,
-  init_reactMod,
   isValidElement,
   lazy,
   reactMod_default,
-  reactMod_exports,
   useEffect,
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-RFB2CF2P.mjs";
+} from "./chunk-chunk-2XZMPWG3.mjs";
 import {
   __commonJS,
-  __toCommonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
-
-// ../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.dev.js
-var require_emotion_react_jsx_runtime_cjs_dev = __commonJS({
-  "../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.dev.js"(exports) {
-    "use strict";
-    init_define_process();
-    Object.defineProperty(exports, "__esModule", { value: true });
-    init_reactMod();
-    require_emotion_cache_cjs();
-    var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
-    require_extends();
-    require_emotion_weak_memoize_cjs();
-    require_hoist_non_react_statics_cjs();
-    require_emotion_react_isolated_hnrs_cjs_dev();
-    require_emotion_utils_cjs();
-    require_emotion_serialize_cjs();
-    require_emotion_use_insertion_effect_with_fallbacks_cjs();
-    var ReactJSXRuntime = (init_jsx(), __toCommonJS(jsx_exports));
-    var Fragment2 = ReactJSXRuntime.Fragment;
-    function jsx6(type, props, key) {
-      if (!emotionElement.hasOwnProperty.call(props, "css")) {
-        return ReactJSXRuntime.jsx(type, props, key);
-      }
-      return ReactJSXRuntime.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
-    }
-    function jsxs4(type, props, key) {
-      if (!emotionElement.hasOwnProperty.call(props, "css")) {
-        return ReactJSXRuntime.jsxs(type, props, key);
-      }
-      return ReactJSXRuntime.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
-    }
-    exports.Fragment = Fragment2;
-    exports.jsx = jsx6;
-    exports.jsxs = jsxs4;
-  }
-});
-
-// ../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js
-var require_emotion_react_jsx_runtime_cjs = __commonJS({
-  "../../.yarn/__virtual__/@emotion-react-virtual-8e1a93edd4/0/global/cache/@emotion-react-npm-11.10.4-00a955a9fe-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js"(exports, module) {
-    "use strict";
-    init_define_process();
-    if (false) {
-      module.exports = null;
-    } else {
-      module.exports = require_emotion_react_jsx_runtime_cjs_dev();
-    }
-  }
-});
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js
 var require_is_callable = __commonJS({
@@ -245,7 +185,7 @@ var require_browser = __commonJS({
         }
         return to;
       };
-      var __toCommonJS2 = (mod5) => __copyProps(__defProp({}, "__esModule", { value: true }), mod5);
+      var __toCommonJS = (mod4) => __copyProps(__defProp({}, "__esModule", { value: true }), mod4);
       var __async = (__this, __arguments, generator) => {
         return new Promise((resolve, reject) => {
           var fulfilled = (value) => {
@@ -281,7 +221,7 @@ var require_browser = __commonJS({
         transformSync: () => transformSync,
         version: () => version
       });
-      module2.exports = __toCommonJS2(browser_exports);
+      module2.exports = __toCommonJS(browser_exports);
       function encodePacket(packet) {
         let visit = (value) => {
           if (value === null) {
@@ -541,7 +481,7 @@ var require_browser = __commonJS({
         let charset = getFlag(options, keys, "charset", mustBeString);
         let treeShaking = getFlag(options, keys, "treeShaking", mustBeBoolean);
         let ignoreAnnotations = getFlag(options, keys, "ignoreAnnotations", mustBeBoolean);
-        let jsx6 = getFlag(options, keys, "jsx", mustBeString);
+        let jsx2 = getFlag(options, keys, "jsx", mustBeString);
         let jsxFactory = getFlag(options, keys, "jsxFactory", mustBeString);
         let jsxFragment = getFlag(options, keys, "jsxFragment", mustBeString);
         let jsxImportSource = getFlag(options, keys, "jsxImportSource", mustBeString);
@@ -594,8 +534,8 @@ var require_browser = __commonJS({
           flags.push(`--reserve-props=${reserveProps.source}`);
         if (mangleQuoted !== void 0)
           flags.push(`--mangle-quoted=${mangleQuoted}`);
-        if (jsx6)
-          flags.push(`--jsx=${jsx6}`);
+        if (jsx2)
+          flags.push(`--jsx=${jsx2}`);
         if (jsxFactory)
           flags.push(`--jsx-factory=${jsxFactory}`);
         if (jsxFragment)
@@ -2630,13 +2570,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-init_reactMod();
-init_reactMod();
 
 // ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
 init_define_process();
-init_reactMod();
-init_reactMod();
 var __extends = function() {
   var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
@@ -2802,12 +2738,9 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/starter.tsx
 init_define_process();
-init_reactMod();
 
 // js/ErrorBoundary.tsx
 init_define_process();
-init_reactMod();
-var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var ErrorBoundary = class extends reactMod_default.Component {
   constructor(props) {
     super(props);
@@ -2821,16 +2754,16 @@ var ErrorBoundary = class extends reactMod_default.Component {
   }
   render() {
     if (this.state.errorInfo) {
-      return (0, import_jsx_runtime.jsxs)("div", {
+      return jsxs("div", {
         children: [
-          (0, import_jsx_runtime.jsx)("h2", {
+          jsx("h2", {
             children: "Something went wrong."
           }),
-          (0, import_jsx_runtime.jsxs)("details", {
+          jsxs("details", {
             style: { whiteSpace: "pre-wrap" },
             children: [
               this.state.error && this.state.error.toString(),
-              (0, import_jsx_runtime.jsx)("br", {}),
+              jsx("br", {}),
               this.state.errorInfo.componentStack
             ]
           })
@@ -2843,21 +2776,11 @@ var ErrorBoundary = class extends reactMod_default.Component {
 var ErrorBoundary_default = ErrorBoundary;
 
 // js/starter.tsx
-var import_react3 = __toESM(require_emotion_react_cjs(), 1);
-
-// js/emotionCache.ts
-init_define_process();
-var import_cache = __toESM(require_emotion_cache_cjs(), 1);
-var createCache = import_cache.default.default || import_cache.default;
-var emotionCache_default = createCache;
-
-// js/starter.tsx
 var import_is_callable = __toESM(require_is_callable(), 1);
-var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
-var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
+var AutoUpdateApp = ({ hash, codeSpace }) => {
   const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
   useEffect(() => {
     const newHash = md5(mST().transpiled).slice(0, 8);
@@ -2867,15 +2790,18 @@ var AutoUpdateApp = ({ hash, codeSpace: codeSpace2 }) => {
   }, [hash]);
   const ref = useRef(null);
   const App = apps2[md5Hash];
-  return (0, import_jsx_runtime2.jsx)(ErrorBoundary_default, {
+  return jsx("div", {
+    style: { height: 100 + "%" },
     ref,
-    children: (0, import_jsx_runtime2.jsx)(App, {
-      appId: `${codeSpace2}-${md5Hash}`
-    }, md5Hash)
-  });
+    children: jsx(ErrorBoundary_default, {
+      children: jsx(App, {
+        appId: `${codeSpace}-${md5Hash}`
+      }, md5Hash)
+    })
+  }, md5Hash);
 };
 var started = false;
-async function appFactory(transpiled = "", codeSpace2) {
+async function appFactory(transpiled = "", codeSpace) {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);
@@ -2889,12 +2815,12 @@ async function appFactory(transpiled = "", codeSpace2) {
           speedy: false
         });
         eCaches2[hash].compat = void 0;
-        apps2[hash] = apps2[hash] || (({ appId }) => appId.includes(hash) ? (0, import_jsx_runtime2.jsx)(import_react3.CacheProvider, {
+        apps2[hash] = apps2[hash] || (({ appId }) => appId.includes(hash) ? jsx(CacheProvider, {
           value: eCaches2[hash],
-          children: (0, import_jsx_runtime2.jsx)("div", {
-            css: import_react3.css`height: 100%;`,
+          children: jsx("div", {
+            css: css`height: 100%;`,
             id: appId,
-            children: (0, import_jsx_runtime2.jsx)(App, {})
+            children: jsx(App, {})
           }, hash)
         }, hash) : null);
       } else
@@ -2903,23 +2829,23 @@ async function appFactory(transpiled = "", codeSpace2) {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps2[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
-          css: import_react3.css`background-color: orange;`,
+        apps2[hash] = () => jsxs("div", {
+          css: css`background-color: orange;`,
           children: [
-            (0, import_jsx_runtime2.jsx)("h1", {
+            jsx("h1", {
               children: "Syntax Error"
             }),
-            (0, import_jsx_runtime2.jsx)("h2", {
+            jsx("h2", {
               children: hash
             }),
-            (0, import_jsx_runtime2.jsxs)("h2", {
+            jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            (0, import_jsx_runtime2.jsx)("p", {
+            jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
@@ -2927,28 +2853,28 @@ async function appFactory(transpiled = "", codeSpace2) {
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps2[hash] = () => (0, import_jsx_runtime2.jsxs)("div", {
-          css: import_react3.css`background-color: orange;`,
+        apps2[hash] = () => jsxs("div", {
+          css: css`background-color: orange;`,
           children: [
-            (0, import_jsx_runtime2.jsx)("h1", {
+            jsx("h1", {
               children: "Syntax Error"
             }),
-            (0, import_jsx_runtime2.jsxs)("h2", {
+            jsxs("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            (0, import_jsx_runtime2.jsx)("p", {
+            jsx("p", {
               children: JSON.stringify({ err: error })
             })
           ]
         });
       } else {
-        apps2[hash] = () => (0, import_jsx_runtime2.jsx)("div", {
-          css: import_react3.css`background-color: orange;`,
-          children: (0, import_jsx_runtime2.jsxs)("h1", {
+        apps2[hash] = () => jsx("div", {
+          css: css`background-color: orange;`,
+          children: jsxs("h1", {
             children: [
               "Unknown Error: $",
               hash
@@ -2958,9 +2884,9 @@ async function appFactory(transpiled = "", codeSpace2) {
       }
     }
   }
-  if (!started && codeSpace2) {
+  if (!started && codeSpace) {
     started = true;
-    await renderPreviewWindow({ codeSpace: codeSpace2 });
+    await renderPreviewWindow({ codeSpace });
   }
   return apps2[hash];
 }
@@ -2973,1094 +2899,11 @@ function createJsBlob(code, fileName = "index.mjs") {
   return blobUrl;
 }
 
-// js/renderPreviewWindow.tsx
-var import_react9 = __toESM(require_emotion_react_cjs(), 1);
-
 // js/Editor.tsx
 init_define_process();
-init_reactMod();
 
 // js/runner.tsx
 init_define_process();
-
-// js/ws.ts
-init_define_process();
-var import_lodash = __toESM(require_lodash(), 1);
-
-// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
-init_define_process();
-
-// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js
-init_define_process();
-function print(root, printNode = (n) => n.key) {
-  var out = [];
-  row(root, "", true, (v) => out.push(v), printNode);
-  return out.join("");
-}
-function row(root, prefix, isTail, out, printNode) {
-  if (root) {
-    out(`${prefix}${isTail ? "\u2514\u2500\u2500 " : "\u251C\u2500\u2500 "}${printNode(root)}
-`);
-    const indent = prefix + (isTail ? "    " : "\u2502   ");
-    if (root.left)
-      row(root.left, indent, false, out, printNode);
-    if (root.right)
-      row(root.right, indent, true, out, printNode);
-  }
-}
-function isBalanced(root) {
-  if (root === null)
-    return true;
-  var lh = height(root.left);
-  var rh = height(root.right);
-  if (Math.abs(lh - rh) <= 1 && isBalanced(root.left) && isBalanced(root.right))
-    return true;
-  return false;
-}
-function height(node) {
-  return node ? 1 + Math.max(height(node.left), height(node.right)) : 0;
-}
-function loadRecursive(parent, keys, values, start, end) {
-  const size = end - start;
-  if (size > 0) {
-    const middle = start + Math.floor(size / 2);
-    const key = keys[middle];
-    const data = values[middle];
-    const node = { key, data, parent };
-    node.left = loadRecursive(node, keys, values, start, middle);
-    node.right = loadRecursive(node, keys, values, middle + 1, end);
-    return node;
-  }
-  return null;
-}
-function markBalance(node) {
-  if (node === null)
-    return 0;
-  const lh = markBalance(node.left);
-  const rh = markBalance(node.right);
-  node.balanceFactor = lh - rh;
-  return Math.max(lh, rh) + 1;
-}
-function sort(keys, values, left, right, compare) {
-  if (left >= right)
-    return;
-  const pivot = keys[left + right >> 1];
-  let i = left - 1;
-  let j = right + 1;
-  while (true) {
-    do
-      i++;
-    while (compare(keys[i], pivot) < 0);
-    do
-      j--;
-    while (compare(keys[j], pivot) > 0);
-    if (i >= j)
-      break;
-    let tmp = keys[i];
-    keys[i] = keys[j];
-    keys[j] = tmp;
-    tmp = values[i];
-    values[i] = values[j];
-    values[j] = tmp;
-  }
-  sort(keys, values, left, j, compare);
-  sort(keys, values, j + 1, right, compare);
-}
-
-// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
-function DEFAULT_COMPARE(a, b) {
-  return a > b ? 1 : a < b ? -1 : 0;
-}
-function rotateLeft(node) {
-  var rightNode = node.right;
-  node.right = rightNode.left;
-  if (rightNode.left)
-    rightNode.left.parent = node;
-  rightNode.parent = node.parent;
-  if (rightNode.parent) {
-    if (rightNode.parent.left === node) {
-      rightNode.parent.left = rightNode;
-    } else {
-      rightNode.parent.right = rightNode;
-    }
-  }
-  node.parent = rightNode;
-  rightNode.left = node;
-  node.balanceFactor += 1;
-  if (rightNode.balanceFactor < 0) {
-    node.balanceFactor -= rightNode.balanceFactor;
-  }
-  rightNode.balanceFactor += 1;
-  if (node.balanceFactor > 0) {
-    rightNode.balanceFactor += node.balanceFactor;
-  }
-  return rightNode;
-}
-function rotateRight(node) {
-  var leftNode = node.left;
-  node.left = leftNode.right;
-  if (node.left)
-    node.left.parent = node;
-  leftNode.parent = node.parent;
-  if (leftNode.parent) {
-    if (leftNode.parent.left === node) {
-      leftNode.parent.left = leftNode;
-    } else {
-      leftNode.parent.right = leftNode;
-    }
-  }
-  node.parent = leftNode;
-  leftNode.right = node;
-  node.balanceFactor -= 1;
-  if (leftNode.balanceFactor > 0) {
-    node.balanceFactor -= leftNode.balanceFactor;
-  }
-  leftNode.balanceFactor -= 1;
-  if (node.balanceFactor < 0) {
-    leftNode.balanceFactor += node.balanceFactor;
-  }
-  return leftNode;
-}
-var AVLTree = class {
-  constructor(comparator, noDuplicates = false) {
-    this._comparator = comparator || DEFAULT_COMPARE;
-    this._root = null;
-    this._size = 0;
-    this._noDuplicates = !!noDuplicates;
-  }
-  destroy() {
-    return this.clear();
-  }
-  clear() {
-    this._root = null;
-    this._size = 0;
-    return this;
-  }
-  get size() {
-    return this._size;
-  }
-  contains(key) {
-    if (this._root) {
-      var node = this._root;
-      var comparator = this._comparator;
-      while (node) {
-        var cmp = comparator(key, node.key);
-        if (cmp === 0)
-          return true;
-        else if (cmp < 0)
-          node = node.left;
-        else
-          node = node.right;
-      }
-    }
-    return false;
-  }
-  next(node) {
-    var successor = node;
-    if (successor) {
-      if (successor.right) {
-        successor = successor.right;
-        while (successor.left)
-          successor = successor.left;
-      } else {
-        successor = node.parent;
-        while (successor && successor.right === node) {
-          node = successor;
-          successor = successor.parent;
-        }
-      }
-    }
-    return successor;
-  }
-  prev(node) {
-    var predecessor = node;
-    if (predecessor) {
-      if (predecessor.left) {
-        predecessor = predecessor.left;
-        while (predecessor.right)
-          predecessor = predecessor.right;
-      } else {
-        predecessor = node.parent;
-        while (predecessor && predecessor.left === node) {
-          node = predecessor;
-          predecessor = predecessor.parent;
-        }
-      }
-    }
-    return predecessor;
-  }
-  forEach(callback) {
-    var current = this._root;
-    var s = [], done = false, i = 0;
-    while (!done) {
-      if (current) {
-        s.push(current);
-        current = current.left;
-      } else {
-        if (s.length > 0) {
-          current = s.pop();
-          callback(current, i++);
-          current = current.right;
-        } else
-          done = true;
-      }
-    }
-    return this;
-  }
-  range(low, high, fn, ctx) {
-    const Q = [];
-    const compare = this._comparator;
-    let node = this._root, cmp;
-    while (Q.length !== 0 || node) {
-      if (node) {
-        Q.push(node);
-        node = node.left;
-      } else {
-        node = Q.pop();
-        cmp = compare(node.key, high);
-        if (cmp > 0) {
-          break;
-        } else if (compare(node.key, low) >= 0) {
-          if (fn.call(ctx, node))
-            return this;
-        }
-        node = node.right;
-      }
-    }
-    return this;
-  }
-  keys() {
-    var current = this._root;
-    var s = [], r = [], done = false;
-    while (!done) {
-      if (current) {
-        s.push(current);
-        current = current.left;
-      } else {
-        if (s.length > 0) {
-          current = s.pop();
-          r.push(current.key);
-          current = current.right;
-        } else
-          done = true;
-      }
-    }
-    return r;
-  }
-  values() {
-    var current = this._root;
-    var s = [], r = [], done = false;
-    while (!done) {
-      if (current) {
-        s.push(current);
-        current = current.left;
-      } else {
-        if (s.length > 0) {
-          current = s.pop();
-          r.push(current.data);
-          current = current.right;
-        } else
-          done = true;
-      }
-    }
-    return r;
-  }
-  at(index) {
-    var current = this._root;
-    var s = [], done = false, i = 0;
-    while (!done) {
-      if (current) {
-        s.push(current);
-        current = current.left;
-      } else {
-        if (s.length > 0) {
-          current = s.pop();
-          if (i === index)
-            return current;
-          i++;
-          current = current.right;
-        } else
-          done = true;
-      }
-    }
-    return null;
-  }
-  minNode() {
-    var node = this._root;
-    if (!node)
-      return null;
-    while (node.left)
-      node = node.left;
-    return node;
-  }
-  maxNode() {
-    var node = this._root;
-    if (!node)
-      return null;
-    while (node.right)
-      node = node.right;
-    return node;
-  }
-  min() {
-    var node = this._root;
-    if (!node)
-      return null;
-    while (node.left)
-      node = node.left;
-    return node.key;
-  }
-  max() {
-    var node = this._root;
-    if (!node)
-      return null;
-    while (node.right)
-      node = node.right;
-    return node.key;
-  }
-  isEmpty() {
-    return !this._root;
-  }
-  pop() {
-    var node = this._root, returnValue = null;
-    if (node) {
-      while (node.left)
-        node = node.left;
-      returnValue = { key: node.key, data: node.data };
-      this.remove(node.key);
-    }
-    return returnValue;
-  }
-  popMax() {
-    var node = this._root, returnValue = null;
-    if (node) {
-      while (node.right)
-        node = node.right;
-      returnValue = { key: node.key, data: node.data };
-      this.remove(node.key);
-    }
-    return returnValue;
-  }
-  find(key) {
-    var root = this._root;
-    var subtree = root, cmp;
-    var compare = this._comparator;
-    while (subtree) {
-      cmp = compare(key, subtree.key);
-      if (cmp === 0)
-        return subtree;
-      else if (cmp < 0)
-        subtree = subtree.left;
-      else
-        subtree = subtree.right;
-    }
-    return null;
-  }
-  insert(key, data) {
-    if (!this._root) {
-      this._root = {
-        parent: null,
-        left: null,
-        right: null,
-        balanceFactor: 0,
-        key,
-        data
-      };
-      this._size++;
-      return this._root;
-    }
-    var compare = this._comparator;
-    var node = this._root;
-    var parent = null;
-    var cmp = 0;
-    if (this._noDuplicates) {
-      while (node) {
-        cmp = compare(key, node.key);
-        parent = node;
-        if (cmp === 0)
-          return null;
-        else if (cmp < 0)
-          node = node.left;
-        else
-          node = node.right;
-      }
-    } else {
-      while (node) {
-        cmp = compare(key, node.key);
-        parent = node;
-        if (cmp <= 0)
-          node = node.left;
-        else
-          node = node.right;
-      }
-    }
-    var newNode = {
-      left: null,
-      right: null,
-      balanceFactor: 0,
-      parent,
-      key,
-      data
-    };
-    var newRoot;
-    if (cmp <= 0)
-      parent.left = newNode;
-    else
-      parent.right = newNode;
-    while (parent) {
-      cmp = compare(parent.key, key);
-      if (cmp < 0)
-        parent.balanceFactor -= 1;
-      else
-        parent.balanceFactor += 1;
-      if (parent.balanceFactor === 0)
-        break;
-      else if (parent.balanceFactor < -1) {
-        if (parent.right.balanceFactor === 1)
-          rotateRight(parent.right);
-        newRoot = rotateLeft(parent);
-        if (parent === this._root)
-          this._root = newRoot;
-        break;
-      } else if (parent.balanceFactor > 1) {
-        if (parent.left.balanceFactor === -1)
-          rotateLeft(parent.left);
-        newRoot = rotateRight(parent);
-        if (parent === this._root)
-          this._root = newRoot;
-        break;
-      }
-      parent = parent.parent;
-    }
-    this._size++;
-    return newNode;
-  }
-  remove(key) {
-    if (!this._root)
-      return null;
-    var node = this._root;
-    var compare = this._comparator;
-    var cmp = 0;
-    while (node) {
-      cmp = compare(key, node.key);
-      if (cmp === 0)
-        break;
-      else if (cmp < 0)
-        node = node.left;
-      else
-        node = node.right;
-    }
-    if (!node)
-      return null;
-    var returnValue = node.key;
-    var max, min;
-    if (node.left) {
-      max = node.left;
-      while (max.left || max.right) {
-        while (max.right)
-          max = max.right;
-        node.key = max.key;
-        node.data = max.data;
-        if (max.left) {
-          node = max;
-          max = max.left;
-        }
-      }
-      node.key = max.key;
-      node.data = max.data;
-      node = max;
-    }
-    if (node.right) {
-      min = node.right;
-      while (min.left || min.right) {
-        while (min.left)
-          min = min.left;
-        node.key = min.key;
-        node.data = min.data;
-        if (min.right) {
-          node = min;
-          min = min.right;
-        }
-      }
-      node.key = min.key;
-      node.data = min.data;
-      node = min;
-    }
-    var parent = node.parent;
-    var pp = node;
-    var newRoot;
-    while (parent) {
-      if (parent.left === pp)
-        parent.balanceFactor -= 1;
-      else
-        parent.balanceFactor += 1;
-      if (parent.balanceFactor < -1) {
-        if (parent.right.balanceFactor === 1)
-          rotateRight(parent.right);
-        newRoot = rotateLeft(parent);
-        if (parent === this._root)
-          this._root = newRoot;
-        parent = newRoot;
-      } else if (parent.balanceFactor > 1) {
-        if (parent.left.balanceFactor === -1)
-          rotateLeft(parent.left);
-        newRoot = rotateRight(parent);
-        if (parent === this._root)
-          this._root = newRoot;
-        parent = newRoot;
-      }
-      if (parent.balanceFactor === -1 || parent.balanceFactor === 1)
-        break;
-      pp = parent;
-      parent = parent.parent;
-    }
-    if (node.parent) {
-      if (node.parent.left === node)
-        node.parent.left = null;
-      else
-        node.parent.right = null;
-    }
-    if (node === this._root)
-      this._root = null;
-    this._size--;
-    return returnValue;
-  }
-  load(keys = [], values = [], presort) {
-    if (this._size !== 0)
-      throw new Error("bulk-load: tree is not empty");
-    const size = keys.length;
-    if (presort)
-      sort(keys, values, 0, size - 1, this._comparator);
-    this._root = loadRecursive(null, keys, values, 0, size);
-    markBalance(this._root);
-    this._size = size;
-    return this;
-  }
-  isBalanced() {
-    return isBalanced(this._root);
-  }
-  toString(printNode) {
-    return print(this._root, printNode);
-  }
-};
-AVLTree.default = AVLTree;
-
-// js/uidV4.mjs
-init_define_process();
-var getRandomValues;
-var rnds8 = new Uint8Array(16);
-function rng() {
-  if (!getRandomValues) {
-    getRandomValues = typeof crypto !== "undefined" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== "undefined" && typeof msCrypto.getRandomValues === "function" && msCrypto.getRandomValues.bind(msCrypto);
-    if (!getRandomValues) {
-      throw new Error(
-        "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported"
-      );
-    }
-  }
-  return getRandomValues(rnds8);
-}
-var __default = /^(?:[\da-f]{8}-[\da-f]{4}-[1-5][\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}|0{8}-(?:0{4}-){3}0{12})$/i;
-function validate(uuid) {
-  return typeof uuid === "string" && __default.test(uuid);
-}
-var byteToHex = [];
-for (let i = 0; i < 256; ++i) {
-  byteToHex.push((i + 256).toString(16).slice(1));
-}
-function stringify(array) {
-  const offset = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
-  const uuid = (byteToHex[array[offset + 0]] + byteToHex[array[offset + 1]] + byteToHex[array[offset + 2]] + byteToHex[array[offset + 3]] + "-" + byteToHex[array[offset + 4]] + byteToHex[array[offset + 5]] + "-" + byteToHex[array[offset + 6]] + byteToHex[array[offset + 7]] + "-" + byteToHex[array[offset + 8]] + byteToHex[array[offset + 9]] + "-" + byteToHex[array[offset + 10]] + byteToHex[array[offset + 11]] + byteToHex[array[offset + 12]] + byteToHex[array[offset + 13]] + byteToHex[array[offset + 14]] + byteToHex[array[offset + 15]]).toLowerCase();
-  if (!validate(uuid)) {
-    throw new TypeError("Stringified UUID is invalid");
-  }
-  return uuid;
-}
-function v4(options, buf, offset) {
-  options = options || {};
-  const rnds = options.random || (options.rng || rng)();
-  rnds[6] = rnds[6] & 15 | 64;
-  rnds[8] = rnds[8] & 63 | 128;
-  if (buf) {
-    offset = offset || 0;
-    for (let i1 = 0; i1 < 16; ++i1) {
-      buf[offset + i1] = rnds[i1];
-    }
-    return buf;
-  }
-  return stringify(rnds);
-}
-
-// js/wait.mjs
-init_define_process();
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
-
-// js/ws.ts
-var users = new AVLTree(
-  (a, b) => a === b ? 0 : a < b ? 1 : -1,
-  true
-);
-var webRtcArray = [];
-var user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || v4()).slice(
-  0,
-  8
-);
-users.insert(user);
-var rtcConns = {};
-var bc;
-var codeSpace;
-var _hash = "";
-var wsLastHashCode = 0;
-var webRTCLastSeenHashCode = 0;
-var lastSeenTimestamp = 0;
-var lastSeenNow = 0;
-var ws = null;
-var sendWS;
-var rejoined = false;
-var tracks = {};
-var sendChannel = {
-  localStream: null,
-  webRtcArray,
-  tracks,
-  user,
-  rtcConns,
-  send(data) {
-    const messageString = JSON.stringify({
-      ...data,
-      name: data.name || user
-    });
-    webRtcArray.map((ch) => {
-      try {
-        if (ch.readyState !== "open") {
-          return;
-        }
-        if (!data.target || ch.target === data.target && !ignoreUsers.includes(ch.target)) {
-          ch.send(messageString);
-        }
-      } catch (error) {
-      }
-    });
-  }
-};
-Object.assign(globalThis, { sendChannel });
-var run = async (startState) => {
-  const { mST: mst, address } = startState;
-  codeSpace = startState.codeSpace;
-  bc = new BroadcastChannel(location.origin);
-  if (location.pathname.endsWith("dehydrated")) {
-    if (bc.onmessage = (event) => {
-      if (event.data.codeSpace === codeSpace) {
-        console.log(event.data);
-      }
-    }) {
-      return;
-    }
-  }
-  startSession(codeSpace, {
-    name: user,
-    state: mst
-  }, location.origin);
-  await appFactory(mst.transpiled, codeSpace);
-  await join();
-  bc = new BroadcastChannel(location.origin);
-  bc.onmessage = async (event) => {
-    if (event.data.ignoreUser && event.data.ignoreUser === user) {
-      return;
-    }
-    if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
-    }
-    if (event.data.ignoreUser) {
-      !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
-    }
-    if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
-      const messageData = await makePatch(event.data.sess);
-      await applyPatch(messageData);
-    }
-  };
-  onSessionUpdate(
-    () => {
-      const sess = mST();
-      const hash = md5(JSON.stringify(sess));
-      if (hash === _hash)
-        return;
-      _hash = hash;
-      bc.postMessage({
-        ignoreUser: user,
-        sess,
-        codeSpace,
-        address
-      });
-    },
-    "broadcast"
-  );
-};
-var intervalHandler = null;
-async function rejoin() {
-  if (!rejoined || ws === null) {
-    ws = null;
-    const newWs = await join();
-    return newWs;
-  }
-  return ws;
-}
-var ignoreUsers = [];
-function saveCode() {
-  debouncedSyncWs();
-  debouncedSyncRTC();
-}
-var debouncedSyncRTC = (0, import_lodash.default)(syncRTC, 100, {
-  trailing: true,
-  leading: true,
-  maxWait: 500
-});
-var debouncedSyncWs = (0, import_lodash.default)(syncWS, 1200, {
-  trailing: true,
-  leading: true,
-  maxWait: 2500
-});
-async function syncWS() {
-  try {
-    if (ws) {
-      if (wsLastHashCode === hashCode()) {
-        return;
-      }
-      const sess = mST();
-      const message = await makePatchFrom(
-        wsLastHashCode,
-        sess
-      );
-      if (!message) {
-        return;
-      }
-      if (message.newHash !== hashCode()) {
-        return;
-      }
-      const messageString = JSON.stringify({ ...message, name: user });
-      sendWS(messageString);
-    } else {
-      rejoined = false;
-      await rejoin();
-    }
-  } catch (error) {
-  }
-}
-async function syncRTC() {
-  try {
-    if (Object.keys(rtcConns).length > 0) {
-      if (webRTCLastSeenHashCode === hashCode()) {
-        return;
-      }
-      const sess = mST();
-      const message = webRTCLastSeenHashCode ? await makePatchFrom(
-        webRTCLastSeenHashCode,
-        sess
-      ) : await makePatch(sess);
-      if (message && message.patch) {
-        sendChannel.send(message);
-      }
-    }
-  } catch (error) {
-  }
-}
-async function join() {
-  if (ws !== null) {
-    return ws;
-  }
-  rejoined = true;
-  if (location.origin.includes("localhost")) {
-    return;
-  }
-  const wsConnection = new WebSocket(
-    `wss://${location.host}/live/` + codeSpace + "/websocket"
-  );
-  rejoined = false;
-  wsConnection.addEventListener("open", () => {
-    ws = wsConnection;
-    const mess = (data) => {
-      try {
-        ws && ws?.send && ws?.send(data);
-      } catch {
-        ws = null;
-        rejoined = false;
-        rejoin();
-      }
-    };
-    sendWS = mess;
-    const extendedWS = Object.assign(wsConnection, { hashCode: hashCode() });
-    ws.addEventListener(
-      "message",
-      (message) => processWsMessage(message, "ws", extendedWS)
-    );
-    if (intervalHandler) {
-      clearInterval(intervalHandler);
-    }
-    intervalHandler = setInterval(() => {
-      const now = Date.now();
-      const diff = now - lastSeenNow;
-      if (diff > 4e4) {
-        try {
-          if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection?.send(
-              JSON.stringify({
-                name: user,
-                timestamp: lastSeenTimestamp + diff
-              })
-            );
-            return;
-          }
-          rejoined = false;
-          rejoin();
-        } catch {
-          rejoined = false;
-          rejoin();
-        }
-      }
-    }, 3e4);
-    wsConnection.send(JSON.stringify({ name: user }));
-    return wsConnection;
-  });
-  return wsConnection;
-}
-var h = {};
-async function processWsMessage(event, source, conn) {
-  if (ws == null) {
-    return;
-  }
-  lastSeenNow = Date.now();
-  const data = JSON.parse(event.data);
-  processData(data, source, conn);
-}
-async function processData(data, source, conn) {
-  if (source === "ws" && data.timestamp) {
-    lastSeenNow = Date.now();
-    lastSeenTimestamp = data.timestamp;
-  }
-  if (data.hashCode || data.newHash && conn) {
-    conn.hashCode = data.hashCode || data.newHash;
-  }
-  if (source === "ws" && data.hashCode) {
-    wsLastHashCode = data.hashCode;
-  }
-  if (source === "ws" && data.hashCode) {
-    wsLastHashCode = data.hashCode;
-  }
-  if (source === "rtc" && data.hashCode || data.newHash) {
-    webRTCLastSeenHashCode = data.hashCode || data.newHash;
-  }
-  if (ignoreUsers.includes(data.name)) {
-    return;
-  }
-  if (data.newHash === hashCode()) {
-    return;
-  }
-  if (data.oldHash && data.newHash) {
-    if (h[data.oldHash] && h[data.oldHash] === data.newHash) {
-      return;
-    }
-    h[data.oldHash] = data.newHash;
-  }
-  if (data.newHash === hashCode()) {
-    return;
-  }
-  (async () => {
-    try {
-      if (data.type === "new-ice-candidate") {
-        await handleNewICECandidateMessage(data.candidate, data.name);
-        return;
-      }
-      if (data.type === "video-offer") {
-        await handleChatOffer(data.offer, data.name);
-        return;
-      }
-      if (data.type === "video-answer") {
-        await handleChatAnswerMessage(data.answer, data.name);
-        return;
-      }
-      if (data.name && data.name !== user && !rtcConns[data.name] && !ignoreUsers.includes(data.name)) {
-        await createPeerConnection(data.name);
-        const users2 = data.users;
-        while (users2.length) {
-          await wait(2e3);
-          const nextToConnect = users2.pop();
-          if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
-            await createPeerConnection(nextToConnect);
-          }
-        }
-        return;
-      }
-    } catch (error) {
-    }
-  })();
-  if (data.patch && data.name !== user) {
-    if (data.newHash === hashCode()) {
-      return;
-    }
-    await applyPatch(data);
-    if (data.newHash === hashCode()) {
-      if (sendChannel) {
-        sendChannel.send({ hashCode: data.newHash });
-      }
-      return;
-    }
-    return;
-  }
-  if (data.patch && data.name === user) {
-    wsLastHashCode = data.newHash;
-    return;
-  }
-  if (data.name === user) {
-    return;
-  }
-  if (wsLastHashCode !== hashCode()) {
-  }
-  function createPeerConnection(target) {
-    if (rtcConns[target]) {
-      return;
-    }
-    rtcConns[target] = new RTCPeerConnection(
-      rcpOptions
-    );
-    rtcConns[target].onicecandidate = (event) => {
-      if (event.candidate) {
-        ws?.send(JSON.stringify({
-          type: "new-ice-candidate",
-          target,
-          name: user,
-          candidate: event.candidate.toJSON()
-        }));
-      }
-    };
-    rtcConns[target].oniceconnectionstatechange = handleICEConnectionStateChangeEvent;
-    rtcConns[target].onicegatheringstatechange = handleICEGatheringStateChangeEvent;
-    rtcConns[target].onsignalingstatechange = () => {
-      switch (rtcConns[target].signalingState) {
-        case "closed":
-          break;
-      }
-    };
-    rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
-    rtcConns[target].ontrack = function({ track, streams }) {
-      tracks[target] = { track, streams };
-    };
-    rtcConns[target].ondatachannel = (event) => {
-      const rtc2 = event.channel;
-      rtc2.binaryType = "arraybuffer";
-      rtc2.addEventListener("close", onReceiveChannelClosed);
-      if (sendChannel && sendChannel.localStream && sendChannel.localStream.active) {
-        sendChannel.localStream.getTracks().forEach((track) => {
-          const datachannel = rtcConns[target];
-          datachannel.addTrack(track);
-          datachannel.ontrack = ({ track: track2, streams }) => tracks[target] = { track: track2, streams };
-        });
-      }
-      rtc2.addEventListener(
-        "message",
-        async (message) => processWsMessage(
-          message,
-          "rtc",
-          Object.assign(rtc2, { hashCode: hashCode() })
-        )
-      );
-      const rtcWithTarget = Object.assign(rtc2, { target });
-      webRtcArray.push(rtcWithTarget);
-    };
-    const dataChannelOptions = {
-      ordered: true,
-      reliable: true,
-      maxPacketLifeTime: 3e3
-    };
-    const rtc = Object.assign(
-      rtcConns[target].createDataChannel(
-        target,
-        dataChannelOptions
-      ),
-      { target }
-    );
-    rtc.binaryType = "arraybuffer";
-    rtc.addEventListener("error", (error) => {
-      console.log("xxxxxx-  Data Channel Error:", error);
-    });
-    rtc.addEventListener("open", () => {
-      webRtcArray.push(rtc);
-    });
-    rtc.addEventListener("close", () => {
-    });
-    return rtcConns[target];
-    function onReceiveChannelClosed() {
-      rtcConns[target].close();
-      delete rtcConns[target];
-    }
-    async function handleNegotiationNeededEvent() {
-      try {
-        const offer = await rtcConns[target].createOffer();
-        if (rtcConns[target].signalingState != "stable") {
-          return;
-        }
-        await rtcConns[target].setLocalDescription(offer);
-        ws?.send(JSON.stringify({
-          target,
-          name: user,
-          type: "video-offer",
-          offer: rtcConns[target].localDescription
-        }));
-      } catch {
-      }
-    }
-    function handleICEConnectionStateChangeEvent() {
-      switch (rtcConns[target].iceConnectionState) {
-        case "closed":
-        case "failed":
-        case "disconnected":
-          break;
-      }
-    }
-    function handleICEGatheringStateChangeEvent() {
-    }
-  }
-  async function handleChatAnswerMessage(answer, target) {
-    await rtcConns[target].setRemoteDescription(
-      new RTCSessionDescription(
-        answer
-      )
-    ).catch(console.error);
-  }
-  async function handleChatOffer(offer, target) {
-    if (!rtcConns[target]) {
-      createPeerConnection(target);
-    }
-    await rtcConns[target].setRemoteDescription(
-      new RTCSessionDescription(offer)
-    );
-    const answer = await rtcConns[target].createAnswer();
-    await rtcConns[target].setLocalDescription(
-      answer
-    );
-    ws?.send(JSON.stringify({
-      target,
-      name: user,
-      type: "video-answer",
-      answer
-    }));
-  }
-}
-var rcpOptions = {
-  iceServers: ["stun3.l.google.com:19302"].map((url) => ({
-    urls: `stun:${url}`
-  }))
-};
-rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
-  urls: "stun:stun.l.google.com:19302"
-}];
-async function handleNewICECandidateMessage(init2, target) {
-  const candidate = new RTCIceCandidate(init2);
-  await rtcConns[target].addIceCandidate(candidate);
-}
 
 // js/esbuildEsm.ts
 init_define_process();
@@ -4091,9 +2934,6 @@ var initAndTransform = async (code, opts) => {
 
 // js/renderToString.tsx
 init_define_process();
-init_reactMod();
-init_reactMod();
-var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod2 = {
   md5Hash: "",
   wait: 1,
@@ -4119,7 +2959,7 @@ var mod2 = {
     document.body.appendChild(rootDiv);
     const root = createRoot(rootDiv);
     root.render(
-      (0, import_jsx_runtime3.jsx)(Helper, {
+      jsx(Helper, {
         md5Hash: md5hash
       })
     );
@@ -4131,8 +2971,8 @@ var mod2 = {
     };
   }
 };
-var render = async (transpiled, codeSpace2) => {
-  mod2.codeSpace = codeSpace2;
+var render = async (transpiled, codeSpace) => {
+  mod2.codeSpace = codeSpace;
   const md5hash = md5(transpiled).slice(0, 8);
   if (!apps[md5hash])
     await appFactory(transpiled);
@@ -4144,20 +2984,20 @@ var render = async (transpiled, codeSpace2) => {
     const html = await mod2.waitForDiv();
     if (!html)
       return { html: null, css: null };
-    const css4 = mineFromCaches(eCaches[md5hash]);
+    const css2 = mineFromCaches(eCaches[md5hash]);
     const globalCss = document.querySelector(
       `style[data-emotion=${eCaches[md5hash].key}-global]`
     )?.innerHTML;
     return {
       html,
-      css: globalCss ? globalCss + " " + css4 : css4
+      css: globalCss ? globalCss + " " + css2 : css2
     };
   } finally {
     cleanup();
   }
 };
-function mineFromCaches(cache2) {
-  const keys = Object.keys(cache2.inserted).map((x) => `.${cache2.key}-${x}`);
+function mineFromCaches(cache) {
+  const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
   return Array.from(document.styleSheets).map(
     (x) => x.cssRules[0]
   ).filter((x) => x && keys.includes(x.selectorText)).map((x) => x.cssText).join("\n");
@@ -4169,9 +3009,9 @@ var Helper = ({ md5Hash }) => {
       mod2.res = ref.current;
   }, [ref?.current]);
   const App = apps[md5Hash];
-  return (0, import_jsx_runtime3.jsx)("div", {
+  return jsx("div", {
     ref,
-    children: (0, import_jsx_runtime3.jsx)(App, {
+    children: jsx(App, {
       appId: `${mod2.codeSpace}-${md5Hash}`
     }, md5Hash)
   });
@@ -4185,23 +3025,17 @@ var waitForAnimation = () => {
 };
 
 // js/runner.tsx
-var mod3 = {
-  code: "",
-  olderCode: ""
-};
-async function runner({ code, counter, codeSpace: codeSpace2 }) {
-  mod3.code = code;
-  const mst = mST();
-  console.log(`${mst.i} => ${counter}`);
-  if (counter < mst.i) {
+var import_lodash = __toESM(require_lodash(), 1);
+var debouncedSync = (0, import_lodash.default)(patchSync, 200, {
+  leading: true,
+  trailing: true,
+  maxWait: 800
+});
+var counterMax = mST().i;
+async function runner({ code, counter, codeSpace }) {
+  if (counter <= counterMax)
     return;
-  }
-  setTimeout(() => {
-    if (mod3.code === code && code !== mod3.olderCode) {
-      runner({ code, counter, codeSpace: codeSpace2 });
-    }
-    mod3.olderCode = code;
-  }, 1e3);
+  counterMax = counter;
   try {
     const transpiled = await initAndTransform(code, {
       loader: "tsx",
@@ -4221,29 +3055,23 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
     });
     const codeHash = md5(code).slice(0, 8);
     const transpiledCode = `${transpiled.code}//${codeHash}`;
-    const { html, css: css4 } = await render(transpiledCode, codeSpace2);
-    console.log({ html, css: css4 });
+    const { html, css: css2 } = await render(transpiledCode, codeSpace);
     if (!html) {
       return;
     }
-    patchSync({
+    debouncedSync({
       ...mST(),
       code,
       i: counter,
       transpiled: transpiledCode,
       html,
-      css: css4
+      css: css2
     });
-    saveCode();
   } catch (error) {
     console.error({ error });
   } finally {
   }
 }
-
-// js/Editor.tsx
-init_reactMod();
-var import_react7 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/isMobile.mjs
 init_define_process();
@@ -4268,7 +3096,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-BZD4AVUI.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-YEBMSAMH.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -4310,8 +3138,7 @@ function supportsWorkerType() {
 }
 
 // js/Editor.tsx
-var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var mod4 = {
+var mod3 = {
   CH() {
   },
   getValue: async () => "",
@@ -4326,7 +3153,7 @@ var mod4 = {
   lastKeyDown: 0,
   codeToSet: ""
 };
-var Editor = ({ codeSpace: codeSpace2 }) => {
+var Editor = ({ codeSpace }) => {
   const ref = useRef(null);
   const { i, code } = mST();
   const [
@@ -4341,55 +3168,57 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
     },
     engine: isMobile() ? "ace" : "monaco"
   });
-  mod4.counter = mST().i;
-  mod4.codeSpace = codeSpace2;
+  mod3.counter = mST().i;
+  mod3.codeSpace = codeSpace;
   const {
     myCode,
     started: started2,
     engine,
     onChange
   } = mySession;
-  mod4.code = myCode;
+  mod3.code = myCode;
   reactMod_default.useEffect(() => {
     if (!ref?.current || started2) {
       return;
     }
     (engine === "monaco" ? setMonaco() : setAce()).then(
-      (res) => Object.assign(mod4, res)
-    ).then(() => changeContent((x) => ({ ...x, started: true })));
+      (res) => Object.assign(mod3, res)
+    ).then(
+      () => changeContent((x) => ({ ...x, started: true }))
+    );
   }, [started2, ref]);
   reactMod_default.useEffect(
     () => {
-      mod4.getErrors().then(console.log);
+      mod3.getErrors().then(console.log);
       onChange(
-        () => mod4.getValue().then(
+        () => mod3.getValue().then(
           () => changeContent((x) => ({
             ...x,
-            counter: mod4.counter,
-            myCode: mod4.code
+            counter: mod3.counter,
+            myCode: mod3.code
           }))
         )
       );
     },
     [onChange, myCode, changeContent]
   );
-  onSessionUpdate(() => {
-    if (mod4.counter >= mST().i) {
+  onSessionUpdate(async () => {
+    if (mod3.counter >= mST().i) {
       return;
     }
-    mod4.counter = mST().i;
-    mod4.code = mST().code;
-    mod4.setValue(mod4.code);
+    mod3.counter = mST().i;
+    mod3.code = await prettierJs(mST().code);
+    await mod3.setValue(mod3.code);
     changeContent((x) => ({
       ...x,
-      counter: mod4.counter,
-      myCode: mod4.code
+      counter: mod3.counter,
+      myCode: mod3.code
     }));
   }, "editor");
-  return (0, import_jsx_runtime4.jsx)("div", {
-    onKeyDown: () => mod4.lastKeyDown = Date.now(),
+  return jsx("div", {
+    onKeyDown: () => mod3.lastKeyDown = Date.now(),
     id: "editor",
-    css: import_react7.css`          
+    css: css`          
       max-width: 640px;
       height: 100%; 
       `,
@@ -4398,39 +3227,47 @@ var Editor = ({ codeSpace: codeSpace2 }) => {
 };
 async function onModChange(_code) {
   const code = await prettierJs(_code);
-  if (code === mod4.code)
+  if (code === mod3.code)
     return;
-  const counter = ++mod4.counter;
-  mod4.code = code;
-  runner({ code, counter, codeSpace: mod4.codeSpace });
+  const counter = ++mod3.counter;
+  mod3.code = code;
+  runner({ code, counter, codeSpace: mod3.codeSpace });
 }
 async function setMonaco() {
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-NBUQQZV5.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-WWL6JC3I.mjs");
   const container = window.document.getElementById("editor");
   return startMonaco({
     container,
-    name: mod4.codeSpace,
+    name: mod3.codeSpace,
     code: mST().code,
     onChange: onModChange
   });
 }
 async function setAce() {
-  const { startAce } = await import("./chunk-startAce-XC26OPE7.mjs");
-  await wait(100);
+  const { startAce } = await import("./chunk-startAce-LBZOEWLE.mjs");
   return await startAce(mST().code, onModChange);
 }
 
+// js/wait.mjs
+init_define_process();
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}
+
 // js/renderPreviewWindow.tsx
-var import_jsx_runtime5 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-KN773ETV.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-3YXAPLHS.mjs"))
 );
-var RainbowContainer = ({ children }) => (0, import_jsx_runtime5.jsx)("div", {
-  css: import_react9.css`
+var RainbowContainer = ({ children }) => jsx("div", {
+  css: css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -4475,7 +3312,7 @@ background:  repeating-radial-gradient(circle at bottom left,
 `,
   children
 });
-var AppToRender = ({ codeSpace: codeSpace2 }) => {
+var AppToRender = ({ codeSpace }) => {
   const currentHash = hashCode();
   const [hash, setHash] = useState(currentHash);
   const isStandalone = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
@@ -4493,32 +3330,32 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
     }, "myApp");
   }, [hash, setHash]);
   const portalNode = useMemo(() => createHtmlPortalNode({
-    attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
+    attributes: { id: `root-${codeSpace}`, style: "height: 100%" }
   }), []);
-  return (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, {
+  return jsxs(Fragment, {
     children: [
-      (0, import_jsx_runtime5.jsx)(InPortal, {
+      jsx(InPortal, {
         node: portalNode,
-        children: (0, import_jsx_runtime5.jsx)(AutoUpdateApp, {
+        children: jsx(AutoUpdateApp, {
           hash,
-          codeSpace: codeSpace2
+          codeSpace
         })
       }),
-      isStandalone ? (0, import_jsx_runtime5.jsx)(OutPortal, {
+      isStandalone ? jsx(OutPortal, {
         node: portalNode
-      }) : (0, import_jsx_runtime5.jsx)(Suspense, {
-        fallback: (0, import_jsx_runtime5.jsx)(OutPortal, {
+      }) : jsx(Suspense, {
+        fallback: jsx(OutPortal, {
           node: portalNode
         }),
-        children: (0, import_jsx_runtime5.jsx)(RainbowContainer, {
-          children: (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, {
+        children: jsx(RainbowContainer, {
+          children: jsxs(Fragment, {
             children: [
-              (0, import_jsx_runtime5.jsx)(Editor, {
-                codeSpace: codeSpace2
+              jsx(Editor, {
+                codeSpace
               }),
-              (0, import_jsx_runtime5.jsx)(DraggableWindowLazy, {
-                room: codeSpace2,
-                children: (0, import_jsx_runtime5.jsx)(OutPortal, {
+              jsx(DraggableWindowLazy, {
+                room: codeSpace,
+                children: jsx(OutPortal, {
                   node: portalNode
                 })
               })
@@ -4530,7 +3367,7 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
   });
 };
 var singleton = { started: false };
-var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
+var renderPreviewWindow = ({ codeSpace }) => {
   if (singleton.started)
     return;
   singleton.started = true;
@@ -4538,20 +3375,19 @@ var renderPreviewWindow = ({ codeSpace: codeSpace2 }) => {
   const root = createRoot(div);
   const x = emotionCache_default({ key: "root" });
   root.render(
-    (0, import_jsx_runtime5.jsx)(import_react9.CacheProvider, {
+    jsx(CacheProvider, {
       value: x,
-      children: (0, import_jsx_runtime5.jsx)(AppToRender, {
-        codeSpace: codeSpace2
+      children: jsx(AppToRender, {
+        codeSpace
       })
     })
   );
 };
 
 export {
-  require_emotion_react_jsx_runtime_cjs,
+  wait,
   renderPreviewWindow,
-  sendChannel,
-  run,
+  appFactory,
   render,
   Editor
 };

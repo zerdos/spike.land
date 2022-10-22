@@ -1,12 +1,11 @@
 import {
-  _extends
-} from "./chunk-chunk-PZ7S3NJT.mjs";
-import {
   init_define_process
 } from "./chunk-chunk-3CLHXR2V.mjs";
 
-// js/babel.ts
+// js/emotionCache.ts
 init_define_process();
+var emotionCache_default = globalThis.createEmotionCache;
+
 export {
-  _extends as default
+  emotionCache_default
 };

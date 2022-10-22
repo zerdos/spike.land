@@ -6,7 +6,6 @@ import {
   createContext,
   createElement,
   forwardRef,
-  init_reactMod,
   isValidElement,
   reactMod_default,
   useCallback,
@@ -18,13 +17,13 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-RFB2CF2P.mjs";
+} from "./chunk-chunk-2XZMPWG3.mjs";
 import {
   __commonJS,
   __toESM,
   define_process_default,
   init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/@emotion-memoize-npm-0.7.4-5648cf11b8-9.zip/node_modules/@emotion/memoize/dist/memoize.browser.cjs.js
 var require_memoize_browser_cjs = __commonJS({
@@ -507,7 +506,6 @@ var require_tslib = __commonJS({
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/MotionConfigContext.mjs
 init_define_process();
-init_reactMod();
 var MotionConfigContext = createContext({
   transformPagePoint: (p) => p,
   isStatic: false,
@@ -516,7 +514,6 @@ var MotionConfigContext = createContext({
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/index.mjs
 init_define_process();
-init_reactMod();
 var MotionContext = createContext({});
 function useVisualElementContext() {
   return useContext(MotionContext).visualElement;
@@ -524,7 +521,6 @@ function useVisualElementContext() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/PresenceContext.mjs
 init_define_process();
-init_reactMod();
 var PresenceContext = createContext(null);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/is-browser.mjs
@@ -533,31 +529,24 @@ var isBrowser = typeof document !== "undefined";
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.mjs
 init_define_process();
-init_reactMod();
 var useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs
 init_define_process();
-init_reactMod();
 var LayoutGroupContext = createContext({});
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/SwitchLayoutGroupContext.mjs
 init_define_process();
-init_reactMod();
 var SwitchLayoutGroupContext = createContext({});
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
 init_define_process();
-init_reactMod();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/LazyContext.mjs
 init_define_process();
-init_reactMod();
 var LazyContext = createContext({ strict: false });
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
@@ -593,7 +582,6 @@ function useVisualElement(Component2, visualState, props, createVisualElement) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/is-ref-object.mjs
 init_define_process();
@@ -623,7 +611,6 @@ function useMotionRef(visualState, visualElement2, externalRef) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
 init_define_process();
@@ -734,7 +721,6 @@ init_define_process();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/use-constant.mjs
 init_define_process();
-init_reactMod();
 function useConstant(init) {
   const ref = useRef(null);
   if (ref.current === null) {
@@ -762,7 +748,6 @@ function useProjectionId() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.mjs
 init_define_process();
-init_reactMod();
 var VisualElementHandler = class extends reactMod_default.Component {
   getSnapshotBeforeUpdate() {
     const { visualElement: visualElement2, props } = this.props;
@@ -957,7 +942,6 @@ function resolveMotionValue(value) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/render/utils/resolve-variants.mjs
 init_define_process();
@@ -1048,7 +1032,6 @@ var AnimationType;
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/events/use-dom-event.mjs
 init_define_process();
-init_reactMod();
 function addDomEvent(target, eventName, handler, options = { passive: true }) {
   target.addEventListener(eventName, handler, options);
   return () => target.removeEventListener(eventName, handler);
@@ -1206,14 +1189,12 @@ function isDragActive() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/use-unmount-effect.mjs
 init_define_process();
-init_reactMod();
 function useUnmountEffect(callback) {
   return useEffect(() => () => callback(), []);
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.mjs
 init_define_process();
-init_reactMod();
 function usePresence() {
   const context = useContext(PresenceContext);
   if (context === null)
@@ -3234,7 +3215,6 @@ function shouldBlockAnimation({ protectedKeys, needsAnimating }, key) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
 init_define_process();
@@ -3640,7 +3620,6 @@ var defaultEnvironment = "production";
 var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "development";
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/render/index.mjs
-init_reactMod();
 var featureNames = Object.keys(featureDefinitions);
 var numFeatures = featureNames.length;
 var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable, measureViewportBox: measureViewportBox2, render: renderInstance, readValueFromInstance, removeValueFromRenderState, sortNodePosition, scrapeMotionValuesFromProps: scrapeMotionValuesFromProps3 }) => ({ parent, props, presenceId, blockInitialAnimation, visualState, reducedMotionConfig }, options = {}) => {
@@ -4012,11 +3991,9 @@ function isSVGComponent(Component2) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.mjs
 init_define_process();
@@ -4155,7 +4132,6 @@ function useHTMLProps(props, visualState, isStatic) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
 init_define_process();
@@ -4426,7 +4402,6 @@ function useHoverGesture({ onHoverStart, onHoverEnd, whileHover, visualElement: 
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.mjs
 init_define_process();
@@ -4483,7 +4458,6 @@ function useTapGesture({ onTap, onTapStart, onTapCancel, whileTap, visualElement
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/observers.mjs
 init_define_process();
@@ -4594,7 +4568,6 @@ init_define_process();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
 init_define_process();
@@ -5247,7 +5220,6 @@ function useDrag(props) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/gestures/use-pan-gesture.mjs
 init_define_process();
-init_reactMod();
 function usePanGesture({ onPan, onPanStart, onPanEnd, onPanSessionStart, visualElement: visualElement2 }) {
   const hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
   const panSession = useRef(null);
@@ -5631,7 +5603,6 @@ init_define_process();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.mjs
 init_define_process();
@@ -6952,11 +6923,9 @@ var m = createMotionProxy(createDomMotionConfig);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
 init_define_process();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
 init_define_process();
-init_reactMod();
 function useIsMounted() {
   const isMounted = useRef(false);
   useIsomorphicLayoutEffect(() => {
@@ -6981,18 +6950,12 @@ function useForceUpdate() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
 init_define_process();
-init_reactMod();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
 init_define_process();
-init_reactMod();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PopChild.mjs
 init_define_process();
-init_reactMod();
-init_reactMod();
 var PopChildMeasure = class extends Component {
   getSnapshotBeforeUpdate(prevProps) {
     const element = this.props.childRef.current;
@@ -7177,13 +7140,10 @@ var AnimatePresence = ({ children, custom, initial = true, onExitComplete, exitB
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.mjs
 init_define_process();
-init_reactMod();
 var DeprecatedLayoutGroupContext = createContext(null);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
 init_define_process();
-init_reactMod();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/projection/node/group.mjs
 init_define_process();
@@ -7234,7 +7194,6 @@ var LayoutGroup = ({ children, id: id3, inheritId, inherit = true }) => {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
 init_define_process();
-init_reactMod();
 var id2 = 0;
 var AnimateSharedLayout = ({ children }) => {
   useEffect(() => {
@@ -7245,8 +7204,6 @@ var AnimateSharedLayout = ({ children }) => {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/MotionConfig/index.mjs
 init_define_process();
-init_reactMod();
-init_reactMod();
 function MotionConfig({ children, isValidProp, ...config }) {
   isValidProp && loadExternalIsValidProp(isValidProp);
   config = { ...useContext(MotionConfigContext), ...config };
@@ -7257,8 +7214,6 @@ function MotionConfig({ children, isValidProp, ...config }) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
 init_define_process();
-init_reactMod();
-init_reactMod();
 function LazyMotion({ children, features, strict = false }) {
   const [, setIsLoaded] = useState(!isLazyBundle(features));
   const loadedRenderer = useRef(void 0);
@@ -7284,7 +7239,6 @@ function isLazyBundle(features) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/value/use-motion-value.mjs
 init_define_process();
-init_reactMod();
 function useMotionValue(initial) {
   const value = useConstant(() => motionValue(initial));
   const { isStatic } = useContext(MotionConfigContext);
@@ -7370,12 +7324,9 @@ init_define_process();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
 init_define_process();
-init_reactMod();
-init_reactMod();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/context/ReorderContext.mjs
 init_define_process();
-init_reactMod();
 var ReorderContext = createContext(null);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/Reorder/utils/check-reorder.mjs
@@ -7442,8 +7393,6 @@ function compareMin(a2, b2) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Item.mjs
 init_define_process();
-init_reactMod();
-init_reactMod();
 function useDefaultMotionValue(value, defaultValue = 0) {
   return isMotionValue(value) ? value : useMotionValue(defaultValue);
 }
@@ -7513,7 +7462,6 @@ function useMotionTemplate(fragments, ...values) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/value/use-spring.mjs
 init_define_process();
-init_reactMod();
 function useSpring(source, config = {}) {
   const { isStatic } = useContext(MotionConfigContext);
   const activeSpringAnimation = useRef(null);
@@ -7541,7 +7489,6 @@ function useSpring(source, config = {}) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/value/use-velocity.mjs
 init_define_process();
-init_reactMod();
 function useVelocity(value) {
   const velocity = useMotionValue(value.getVelocity());
   useEffect(() => {
@@ -8675,7 +8622,6 @@ function useViewportScroll() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
 init_define_process();
-init_reactMod();
 function useAnimationFrame(callback) {
   const initialTimestamp = useRef(0);
   const { isStatic } = useContext(MotionConfigContext);
@@ -8742,7 +8688,6 @@ function useWillChange() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion.mjs
 init_define_process();
-init_reactMod();
 function useReducedMotion() {
   !hasReducedMotionListener.current && initPrefersReducedMotion();
   const [shouldReduceMotion] = useState(prefersReducedMotion.current);
@@ -8751,7 +8696,6 @@ function useReducedMotion() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion-config.mjs
 init_define_process();
-init_reactMod();
 function useReducedMotionConfig() {
   const reducedMotionPreference = useReducedMotion();
   const { reducedMotion } = useContext(MotionConfigContext);
@@ -8820,7 +8764,6 @@ function animationControls() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/animation/use-animation.mjs
 init_define_process();
-init_reactMod();
 function useAnimationControls() {
   const controls = useConstant(animationControls);
   useEffect(controls.mount, []);
@@ -8830,7 +8773,6 @@ var useAnimation = useAnimationControls;
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/use-cycle.mjs
 init_define_process();
-init_reactMod();
 function useCycle(...items) {
   const index = useRef(0);
   const [item, setItem] = useState(items[index.current]);
@@ -8846,7 +8788,6 @@ function useCycle(...items) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/use-in-view.mjs
 init_define_process();
-init_reactMod();
 function useInView(ref, { root, margin, amount, once = false } = {}) {
   const [isInView, setInView] = useState(false);
   useEffect(() => {
@@ -8917,7 +8858,6 @@ function startTransition(callback) {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition.mjs
 init_define_process();
-init_reactMod();
 function useInstantTransition() {
   const [forceUpdate, forcedRenderCount] = useForceUpdate();
   const startInstantLayoutTransition = useInstantLayoutTransition();
@@ -8935,7 +8875,6 @@ function useInstantTransition() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/projection/use-reset-projection.mjs
 init_define_process();
-init_reactMod();
 function useResetProjection() {
   const reset = useCallback(() => {
     const root = rootProjectionNode.current;
@@ -8948,7 +8887,6 @@ function useResetProjection() {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-ee41f25927/0/global/cache/framer-motion-npm-7.6.1-9cc9664c35-9.zip/node_modules/framer-motion/dist/es/animation/use-animated-state.mjs
 init_define_process();
-init_reactMod();
 var createObject = () => ({});
 var stateVisualElement = visualElement({
   build() {

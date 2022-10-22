@@ -1,24 +1,19 @@
 import {
-  init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
-
-// js/emotion.ts
-init_define_process();
-var {
-  __unsafe_useEmotionCache,
   CacheProvider,
   ClassNames,
-  createElement,
-  css,
   Global,
-  jsx,
-  keyframes,
   ThemeContext,
   ThemeProvider,
+  __unsafe_useEmotionCache,
+  createElement,
+  css,
+  jsx,
+  keyframes,
   useTheme,
   withEmotionCache,
   withTheme
-} = globalThis.emotionReact;
+} from "./chunk-chunk-J6YUWJTB.mjs";
+import "./chunk-chunk-3CLHXR2V.mjs";
 export {
   CacheProvider,
   ClassNames,

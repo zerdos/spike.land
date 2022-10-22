@@ -1,5 +1,4 @@
 import type { FC } from "react";
-
 import { useRef } from "react";
 import { runner } from "./runner";
 import React from "react";
@@ -9,7 +8,6 @@ import { css } from "@emotion/react";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 import { prettierJs } from "./prettierJs";
-import { wait } from "wait.mjs";
 // /Volumes/devX/spike.land/packages/code/js/prettierJs.ts
 // import {wrkModuleImport} from "./moduleWorker.mjs"
 
@@ -32,6 +30,7 @@ const mod = {
   getErrors: async () => [] as string[],
   code: "",
   counter: 0,
+
   codeSpace: "",
   lastKeyDown: 0,
   codeToSet: "",
@@ -83,7 +82,9 @@ export const Editor: FC<
 
     (engine === "monaco" ? setMonaco() : setAce()).then((res) =>
       Object.assign(mod, res)
-    ).then(() => changeContent((x) => ({ ...x, started: true })));
+    ).then(() =>
+      changeContent((x: typeof mySession) => ({ ...x, started: true }))
+    );
   }, [started, ref]);
 
   // UseInsertionEffect(()=>{
@@ -95,7 +96,7 @@ export const Editor: FC<
       mod.getErrors().then(console.log);
       onChange(() =>
         mod.getValue().then(() =>
-          changeContent((x) => ({
+          changeContent((x: typeof mySession) => ({
             ...x,
             counter: mod.counter,
             myCode: mod.code,
@@ -106,16 +107,16 @@ export const Editor: FC<
     [onChange, myCode, changeContent],
   );
 
-  onSessionUpdate(() => {
+  onSessionUpdate(async () => {
     if (mod.counter >= mST().i) {
       return;
     }
 
     mod.counter = mST().i;
-    mod.code = mST().code;
+    mod.code = await prettierJs(mST().code);
+    await mod.setValue(mod.code);
 
-    mod.setValue(mod.code);
-    changeContent((x) => ({
+    changeContent((x: typeof mySession) => ({
       ...x,
       counter: mod.counter,
       myCode: mod.code,
@@ -163,7 +164,6 @@ async function setMonaco() {
 
 async function setAce() {
   const { startAce } = await import("./startAce");
-  await wait(100);
 
   return await startAce(mST().code, onModChange);
 }

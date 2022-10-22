@@ -9,33 +9,31 @@ import {
   require_react_is,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-FQOFV6CB.mjs";
+} from "./chunk-chunk-77AOVCOC.mjs";
+import {
+  jsx
+} from "./chunk-chunk-FJSEIK4O.mjs";
 import {
   _extends
-} from "./chunk-chunk-SWFTZAWX.mjs";
-import "./chunk-chunk-JSQI5B5S.mjs";
-import {
-  init_jsx,
-  jsx
-} from "./chunk-chunk-KWYVV2BK.mjs";
+} from "./chunk-chunk-PZ7S3NJT.mjs";
+import "./chunk-chunk-QV7C7CXZ.mjs";
+import "./chunk-chunk-J6YUWJTB.mjs";
 import {
   Children,
   cloneElement,
   forwardRef,
-  init_reactMod,
   isValidElement
-} from "./chunk-chunk-RFB2CF2P.mjs";
+} from "./chunk-chunk-2XZMPWG3.mjs";
 import {
   __toESM,
   init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/index.js
 init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/ToggleButtonGroup.js
 init_define_process();
-init_reactMod();
 var import_react_is = __toESM(require_react_is());
 var import_prop_types = __toESM(require_prop_types());
 
@@ -60,7 +58,6 @@ var toggleButtonGroupClasses = generateUtilityClasses("MuiToggleButtonGroup", ["
 var toggleButtonGroupClasses_default = toggleButtonGroupClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/ToggleButtonGroup.js
-init_jsx();
 var _excluded = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
 var useUtilityClasses = (ownerState) => {
   const {

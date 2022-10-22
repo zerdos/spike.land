@@ -1,4 +1,4 @@
-import "./chunk-chunk-WZFBJXM4.mjs";
+import "./chunk-chunk-MU63UBJS.mjs";
 import {
   $,
   Action,
@@ -567,7 +567,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-VUESZGQL.mjs";
+} from "./chunk-chunk-HEEFSAMK.mjs";
 import {
   __commonJS,
   __esm,
@@ -576,7 +576,7 @@ import {
   __privateSet,
   __toESM,
   init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -41993,7 +41993,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-MBSBIDRO.mjs");
+      return import("./chunk-typescript-LJ57MFXZ.mjs");
     }
   }
 });
@@ -42410,7 +42410,7 @@ var monacoContribution = async (code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-TJKL6VK4.mjs");
+    const { dtsFiles } = await import("./chunk-types-UZJU2AI2.mjs");
     const {
       reactDts,
       jsxRuntimeDts,

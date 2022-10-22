@@ -74,11 +74,11 @@ import {
   useWillChange,
   visualElement,
   wrapHandler
-} from "./chunk-chunk-I5CCKZLE.mjs";
-import "./chunk-chunk-RFB2CF2P.mjs";
+} from "./chunk-chunk-3KJWU42U.mjs";
+import "./chunk-chunk-2XZMPWG3.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // js/motion.ts
 init_define_process();

@@ -1,6 +1,6 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-HTJJGRPJ.mjs";
+} from "./chunk-chunk-T3EYLKUN.mjs";
 import {
   _objectWithoutPropertiesLoose,
   capitalize_default,
@@ -12,30 +12,28 @@ import {
   rootShouldForwardProp,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-FQOFV6CB.mjs";
+} from "./chunk-chunk-77AOVCOC.mjs";
+import {
+  jsx
+} from "./chunk-chunk-FJSEIK4O.mjs";
 import {
   _extends
-} from "./chunk-chunk-SWFTZAWX.mjs";
-import "./chunk-chunk-JSQI5B5S.mjs";
+} from "./chunk-chunk-PZ7S3NJT.mjs";
+import "./chunk-chunk-QV7C7CXZ.mjs";
+import "./chunk-chunk-J6YUWJTB.mjs";
 import {
-  init_jsx,
-  jsx
-} from "./chunk-chunk-KWYVV2BK.mjs";
-import {
-  forwardRef,
-  init_reactMod
-} from "./chunk-chunk-RFB2CF2P.mjs";
+  forwardRef
+} from "./chunk-chunk-2XZMPWG3.mjs";
 import {
   __toESM,
   init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/index.js
 init_define_process();
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
 init_define_process();
-init_reactMod();
 var import_prop_types = __toESM(require_prop_types());
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/fabClasses.js
@@ -47,7 +45,6 @@ var fabClasses = generateUtilityClasses("MuiFab", ["root", "primary", "secondary
 var fabClasses_default = fabClasses;
 
 // ../../.yarn/__virtual__/@mui-material-virtual-4b7f49800f/0/global/cache/@mui-material-npm-5.10.10-cdf27a4b5b-9.zip/node_modules/@mui/material/esm/Fab/Fab.js
-init_jsx();
 var _excluded = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
 var useUtilityClasses = (ownerState) => {
   const {

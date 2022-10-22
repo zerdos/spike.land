@@ -1,32 +1,27 @@
 import {
+  init_define_process
+} from "./chunk-chunk-3CLHXR2V.mjs";
+
+// js/reactMod.ts
+init_define_process();
+var React = globalThis.React;
+var {
   Children,
   Component,
   Fragment,
   PureComponent,
   StrictMode,
   Suspense,
-  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
   cloneElement,
   createContext,
   createElement,
   createFactory,
-  createPortal,
   createRef,
-  createRoot,
-  findDOMNode,
-  flushSync,
   forwardRef,
-  hydrate,
-  hydrateRoot,
   isValidElement,
   lazy,
   memo,
-  reactMod_default,
-  render,
   startTransition,
-  unmountComponentAtNode,
-  unstable_batchedUpdates,
-  unstable_renderSubtreeIntoContainer,
   useCallback,
   useContext,
   useDebugValue,
@@ -42,9 +37,30 @@ import {
   useState,
   useSyncExternalStore,
   useTransition,
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+} = React;
+var {
+  createRoot,
+  hydrateRoot
+} = globalThis.ReactDOMClient;
+var {
+  createPortal,
+  flushSync,
+  render,
+  findDOMNode,
+  hydrate,
+  unmountComponentAtNode,
+  unstable_batchedUpdates,
+  unstable_renderSubtreeIntoContainer,
   version
-} from "./chunk-chunk-2XZMPWG3.mjs";
-import "./chunk-chunk-3CLHXR2V.mjs";
+} = globalThis.ReactDOM;
+var all = {
+  ...globalThis.React,
+  ...globalThis.ReactDOM,
+  ...globalThis.ReactDOMClient
+};
+var reactMod_default = all;
+
 export {
   Children,
   Component,
@@ -52,28 +68,16 @@ export {
   PureComponent,
   StrictMode,
   Suspense,
-  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
   cloneElement,
   createContext,
   createElement,
   createFactory,
-  createPortal,
   createRef,
-  createRoot,
-  reactMod_default as default,
-  findDOMNode,
-  flushSync,
   forwardRef,
-  hydrate,
-  hydrateRoot,
   isValidElement,
   lazy,
   memo,
-  render,
   startTransition,
-  unmountComponentAtNode,
-  unstable_batchedUpdates,
-  unstable_renderSubtreeIntoContainer,
   useCallback,
   useContext,
   useDebugValue,
@@ -89,5 +93,17 @@ export {
   useState,
   useSyncExternalStore,
   useTransition,
-  version
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
+  createRoot,
+  hydrateRoot,
+  createPortal,
+  flushSync,
+  render,
+  findDOMNode,
+  hydrate,
+  unmountComponentAtNode,
+  unstable_batchedUpdates,
+  unstable_renderSubtreeIntoContainer,
+  version,
+  reactMod_default
 };

@@ -23,7 +23,6 @@ export async function startAce(code: string, cb: (_code: string) => void) {
 
   editor.session.on("change", () => {
     if (mod.silent) return;
-    console.log();
 
     const value = editor.session.getValue();
     if (mod.value !== value) {

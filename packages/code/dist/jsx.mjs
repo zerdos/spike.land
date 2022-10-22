@@ -1,12 +1,10 @@
 import {
   Fragment,
-  init_jsx,
   jsx,
   jsx_default,
   jsxs
-} from "./chunk-chunk-KWYVV2BK.mjs";
-import "./chunk-chunk-JS5E2TTE.mjs";
-init_jsx();
+} from "./chunk-chunk-FJSEIK4O.mjs";
+import "./chunk-chunk-3CLHXR2V.mjs";
 export {
   Fragment,
   jsx_default as default,

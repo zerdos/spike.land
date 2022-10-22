@@ -2,7 +2,7 @@ import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
+} from "./chunk-chunk-3CLHXR2V.mjs";
 
 // ../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-noconflict/ace.js
 var require_ace = __commonJS({
@@ -20213,7 +20213,6 @@ async function startAce(code, cb) {
   editor.session.on("change", () => {
     if (mod.silent)
       return;
-    console.log();
     const value = editor.session.getValue();
     if (mod.value !== value) {
       mod.value = value;
