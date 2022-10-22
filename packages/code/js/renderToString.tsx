@@ -15,8 +15,9 @@ const mod = {
   wait: 1,
   res: null as null | HTMLDivElement,
   codeSpace: "",
-  waitForDiv: async () => {
-    const md5Hash = mod.md5Hash;
+  waitForDiv: async (md5Hash: string) => {
+    if (mod.md5Hash !== md5Hash) return "";
+
     // if (!mod.res?.innerHTML) await waitForFlush();
     if (!mod.res?.innerHTML) await waitForAnimation();
 
@@ -24,10 +25,14 @@ const mod = {
       await waitForAnimation();
     }
 
-    if (mod.res?.innerHTML.includes(md5Hash)) return mod.res.innerHTML;
+    const html = mod.res?.innerHTML;
+
+    if (html?.includes(md5Hash)) return html;
 
     mod.wait = mod.wait * 2;
-    return await (mod.waitForDiv as unknown as () => Promise<string>)();
+    return await (mod.waitForDiv as unknown as (
+      md5Hash: string,
+    ) => Promise<string>)(md5Hash);
   },
   setHash: null as (null | ((_hash: string) => void)),
   setApp: (md5hash: string) => {
@@ -61,7 +66,7 @@ export const render = async (transpiled: string, codeSpace: string) => {
   );
 
   try {
-    const html = await mod.waitForDiv();
+    const html = await mod.waitForDiv(md5hash);
 
     if (!html) return { html: null, css: null };
 
