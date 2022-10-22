@@ -12,7 +12,7 @@ import {
   mST,
   startSession,
 } from "@spike.land/code/js/session";
-import { Delta } from "@spike.land/code/js/session";
+import { Delta } from "@spike.land/code/js/sessionx   ";
 // import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
 import { getImportMapStr, imap } from "./chat";
@@ -500,16 +500,18 @@ export class Code {
             }
           });
 
+          if (data.hashCode) {
+            if (data?.hashCode !==hashCode()){
+              const patch =  await makePatchFrom(data.hashCode, mST());
+              return respondWith({...patch})
+            };
+          }
+  
+
         } catch (e) {
           respondWith({ error: "error while checked blocked messages" });
         }
-        if (data.hashCode) {
-          if (data.hashCode!==hashCode()){
-            const patch =    makePatchFrom(data.hashCode, mST());
-            return respondWith (patch)
-          };
-        }
-
+       
         const userNode = this.users.insert(data.name);
 
         const usersNum = this.users.keys().length;

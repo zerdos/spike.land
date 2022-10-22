@@ -19,7 +19,8 @@ export const initAndTransform: typeof transform = async (code, opts) => {
 
   if (initFinished !== true) await (initFinished);
 
-  return transform(code, opts) + "//" + md5(code);
+  const transformed = await transform(code, opts);
+  return { ...transformed, code: transformed.code + "//" + md5(code) };
 };
 
 export { initAndTransform as transform };

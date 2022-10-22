@@ -113,9 +113,9 @@ export default {
         let cacheKey = new Request(_request.url);
         const cache = caches.default;
 
-        if(url.pathname.includes('ws.mjs') || url.pathname.includes("/live")){
-          cacheKey = new Request(_request.url+ Date.now());
-        }
+        // if(url.pathname.includes('ws.mjs') || url.pathname.includes("/live")){
+        //   cacheKey = new Request(_request.url+ Date.now());
+        // }
 
         const cachedResponse = await cache.match(cacheKey);
         if (cachedResponse && cachedResponse.ok) {
