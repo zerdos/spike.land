@@ -591,9 +591,11 @@ export class Code {
             if (md5(patched.transpiled)==newHash){
 
             const myNewPatch =  await makePatch(patched)!;
-          await applyPatch(myNewPatch);
+            respondWith(myNewPatch);
+            this.broadcast({...myNewPatch});
+           
   
-          return this.broadcast(myNewPatch);
+          await applyPatch(myNewPatch);
             }
           }}
 
