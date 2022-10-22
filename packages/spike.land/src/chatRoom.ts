@@ -10,6 +10,7 @@ import {
   applyPatch,
   hashCode,
   md5,
+  makePatch,
   makePatchFrom,
   mST,
   startSession,
@@ -364,7 +365,7 @@ export class Code {
 
           headers.set("Content-Type", "text/html; charset=UTF-8");
           // headers.set("Etag", newEtag)
-          headers.set("x-content-digest", `SHA-256=${newEtag}`);
+          // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
           return new Response(respText, {
             status: 200,
             headers,
@@ -583,18 +584,14 @@ export class Code {
           }
 
           try {
-            await applyPatch({ patch, newHash, oldHash });
+            await applyPatch({newHash, oldHash, patch});
           } catch (err) {
-            let errMessage = (err as unknown as { message: string }).message;
-            return respondWith({
-              message: errMessage,
-              err: JSON.stringify({ err }),
-              stack: (err instanceof SyntaxError)
-                ? err.stack?.toString()
-                : "no stack",
-              hash: hashCode(),
-            });
-          }
+            const patched = mST(patch);
+            if (md5(patched.code) === patched.transpiled.slice(-8)) {
+          const myPatch =   await makePatch(patched);
+         await applyPatch(myPatch);
+          this.broadcast(myPatch);
+          }}
 
           if (newHash === hashCode()) {
             try {

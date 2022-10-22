@@ -6,6 +6,8 @@ import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
 // Import * as Immutable from "immutable"
 
+mST();
+
 type IUsername = string;
 
 export { md5 };
@@ -317,7 +319,7 @@ export class CodeSession implements ICodeSess {
 
 export const hashCode = () => session ? session.hashOfState() : 0;
 
-export function mST() {
+export function mST(p?: Delta[]) {
   if (!session) {
     return {
       i: 0,
@@ -330,7 +332,16 @@ export function mST() {
 
   // If (originStr) return addOrigin(session.json().state, originStr);
 
-  const { i, transpiled, code, html, css } = session.session.toJSON().state;
+  const { i, transpiled, code, html, css } = (p
+    ? JSON.parse(
+      aPatch(
+        string_(
+          session.session.toJSON(),
+        ),
+        p,
+      ),
+    )
+    : session.session.toJSON());
   return { i, transpiled, code, html, css };
 }
 
