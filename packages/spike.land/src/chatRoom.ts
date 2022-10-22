@@ -1,6 +1,7 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
+
 import IIFE from "./iife.html";
 // import {a} from "./staticContent.mjs"
 import { CodeEnv } from "./env";
@@ -8,6 +9,7 @@ import type { ICodeSession } from "@spike.land/code/js/session";
 import {
   applyPatch,
   hashCode,
+  md5,
   makePatchFrom,
   mST,
   startSession,
@@ -687,8 +689,5 @@ async function sha256(myText: string) {
       .join('')
 
   return hexString;
-}
-function md5(arg0: string) {
-  throw new Error("Function not implemented.");
 }
 

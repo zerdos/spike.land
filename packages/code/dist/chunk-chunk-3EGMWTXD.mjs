@@ -8,7 +8,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-FS45JEB7.mjs";
+} from "./chunk-chunk-P2P7E3WT.mjs";
 import {
   wrap
 } from "./chunk-chunk-3DTRDS5R.mjs";
@@ -2832,7 +2832,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-6V5VA4UZ.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-73MVEZAZ.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -2967,15 +2967,15 @@ var AutoUpdateApp = ({ hash, codeSpace }) => {
   }, [hash]);
   const ref = useRef(null);
   const App = apps2[md5Hash];
-  return jsx("div", {
-    style: { height: 100 + "%" },
-    ref,
-    children: jsx(ErrorBoundary_default, {
+  return jsx(ErrorBoundary_default, {
+    children: jsx("div", {
+      style: { height: 100 + "%" },
+      ref,
       children: jsx(App, {
         appId: `${codeSpace}-${md5Hash}`
       }, md5Hash)
-    })
-  }, md5Hash);
+    }, md5Hash)
+  });
 };
 var started = false;
 async function appFactory(transpiled = "", codeSpace) {

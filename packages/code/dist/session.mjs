@@ -6,10 +6,11 @@ import {
   mST,
   makePatch,
   makePatchFrom,
+  md5,
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-FS45JEB7.mjs";
+} from "./chunk-chunk-P2P7E3WT.mjs";
 import "./chunk-chunk-JS5E2TTE.mjs";
 export {
   CodeSession,
@@ -19,6 +20,7 @@ export {
   mST,
   makePatch,
   makePatchFrom,
+  md5,
   onSessionUpdate,
   patchSync,
   startSession
