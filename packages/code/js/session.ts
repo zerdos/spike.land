@@ -278,7 +278,9 @@ export class CodeSession implements ICodeSess {
 
     if (newRecord.transpiled.slice(0, 12) !== `/*${md5(codeHash)}*/`) {
       console.error(
-        `missing: ${codeHash}, transpiled: ${newRecord.transpiled.slice(0.16)}`,
+        `missing: ${codeHash}, transpiled: ${
+          newRecord.transpiled.slice(0, 12)
+        }`,
       );
       throw new Error("transpiled	hack issue");
     }
