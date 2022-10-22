@@ -97,7 +97,7 @@ const AppToRender: FC<
 
   const [hash, setHash] = useState(currentHash);
 
-  const isStandalone = location.pathname.endsWith("public") ||
+  const onlyApp = location.pathname.endsWith("public") ||
     location.pathname.endsWith("hydrated");
 
   useEffect(() => {
@@ -125,8 +125,8 @@ const AppToRender: FC<
         <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
       </InPortal>
 
-      <Suspense fallback={<OutPortal node={portalNode} />}>
-        {isStandalone
+      <Suspense fallback={() => <OutPortal node={portalNode} />}>
+        {onlyApp
           ? (
             <RainbowContainer>
               <Fragment>
