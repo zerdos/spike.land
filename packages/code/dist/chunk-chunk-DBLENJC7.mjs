@@ -15,6 +15,7 @@ import {
 import {
   Children,
   PureComponent,
+  StrictMode,
   Suspense,
   cloneElement,
   createElement,
@@ -2832,7 +2833,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-LVWVO2OS.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-SZPAU3HM.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -2941,10 +2942,8 @@ var renderPreviewWindow = ({ codeSpace }) => {
   singleton.started = true;
   const div = document.querySelector("#root");
   const root = createRoot(div);
-  const x = emotionCache_default({ key: "root" });
   root.render(
-    jsx(CacheProvider, {
-      value: x,
+    jsx(StrictMode, {
       children: jsx(AppToRender, {
         codeSpace
       })
