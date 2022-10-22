@@ -89,7 +89,7 @@ export const sendChannel = {
     });
   },
 };
-Object.assign(globalThis, { sendChannel });
+Object.assign(globalThis, { sendChannel, mST });
 
 //Let createDelta;
 

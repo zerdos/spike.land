@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-6L5L67L3.mjs";
+} from "./chunk-chunk-UAQO5EFW.mjs";
 import {
   applyPatch,
   hashCode,
@@ -672,7 +672,7 @@ var sendChannel = {
     });
   }
 };
-Object.assign(globalThis, { sendChannel });
+Object.assign(globalThis, { sendChannel, mST });
 var run = async (startState) => {
   const { mST: mst, address } = startState;
   codeSpace = startState.codeSpace;
