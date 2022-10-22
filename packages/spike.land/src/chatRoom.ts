@@ -2,7 +2,7 @@ import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
 import IIFE from "./iife.html";
-import a from "./staticContent.mjs"
+// import {a} from "./staticContent.mjs"
 import { CodeEnv } from "./env";
 import type { ICodeSession } from "@spike.land/code/js/session";
 import {
@@ -325,8 +325,7 @@ export class Code {
         }
         ${mST().css}
         `,
-          ).replace("favicon.ico", a["favicons/favicon.ico"])
-            .replace(
+          ) .replace(
               `<script type="importmap"></script>`,
               `<script type="importmap">
             ${getImportMapStr(url.origin)}
