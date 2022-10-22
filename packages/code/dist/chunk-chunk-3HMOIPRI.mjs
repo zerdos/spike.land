@@ -5245,7 +5245,7 @@ var import_lodash = __toESM(require_lodash(), 1);
 
 // js/md5.js
 init_define_process();
-var md5 = (code) => md5FULL(code).replace(/\d+/g, "");
+var md5 = (code) => (md5FULL(code).replace(/\d+/g, "") + "ffffff").slice(0, 8);
 function md5FULL(inputString) {
   const hc = "0123456789abcdef";
   function rh(n) {

@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-UY7Q3QZ2.mjs";
+} from "./chunk-chunk-ANNBOPYC.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-XZMEAFSZ.mjs";
+} from "./chunk-chunk-3HMOIPRI.mjs";
 import {
   __toESM,
   init_define_process
