@@ -1,4 +1,7 @@
 import {
+  prettierJs
+} from "./chunk-chunk-BSFYDSWI.mjs";
+import {
   emotionCache_default
 } from "./chunk-chunk-557QR4O5.mjs";
 import {
@@ -9,9 +12,6 @@ import {
   patchSync,
   require_lodash
 } from "./chunk-chunk-HA6AMOKJ.mjs";
-import {
-  wrap
-} from "./chunk-chunk-3P7SPVPZ.mjs";
 import {
   Children,
   Fragment,
@@ -2551,14 +2551,14 @@ var require_react_error_boundary_umd = __commonJS({
         };
         _proto.render = function render2() {
           var error = this.state.error;
-          var _this$props4 = this.props, fallbackRender = _this$props4.fallbackRender, FallbackComponent = _this$props4.FallbackComponent, fallback2 = _this$props4.fallback;
+          var _this$props4 = this.props, fallbackRender = _this$props4.fallbackRender, FallbackComponent = _this$props4.FallbackComponent, fallback = _this$props4.fallback;
           if (error !== null) {
             var _props = {
               error,
               resetErrorBoundary: this.resetErrorBoundary
             };
-            if (React__namespace.isValidElement(fallback2)) {
-              return fallback2;
+            if (React__namespace.isValidElement(fallback)) {
+              return fallback;
             } else if (typeof fallbackRender === "function") {
               return fallbackRender(_props);
             } else if (FallbackComponent) {
@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-7G5YO3S5.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-WUC7YWEZ.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -3357,57 +3357,6 @@ function isMobile() {
   return check && !isIOS;
 }
 
-// js/prettierJs.ts
-init_define_process();
-var prettierJs = async (code) => {
-  const prettier = init();
-  return prettier.prettierJs(code);
-};
-var _prettierJs = null;
-var fallback = {
-  prettierJs: async (code) => {
-    const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-5MWBQ57E.mjs")).prettierJs;
-    const t1 = performance.now();
-    console.log(`importing took ${t1 - t0} milliseconds.`);
-    const res = _prettierJs(code);
-    const t2 = performance.now();
-    console.log(`prettier took ${t2 - t1} milliseconds.`);
-    return res;
-  }
-};
-var _prettier = null;
-function init() {
-  if (_prettier)
-    return _prettier;
-  if (!supportsWorkerType())
-    return _prettier = fallback;
-  try {
-    const worker = new SharedWorker(
-      new URL("prettierWorker.mjs", location.origin),
-      { type: "module" }
-    );
-    const wrapped = wrap(worker.port);
-    return _prettier = wrapped;
-  } catch {
-    return _prettier = fallback;
-  }
-}
-function supportsWorkerType() {
-  let supports = false;
-  const tester = {
-    get type() {
-      supports = true;
-      return "module";
-    }
-  };
-  try {
-    new Worker("blob://", tester);
-  } finally {
-    return supports;
-  }
-}
-
 // js/Editor.tsx
 var mod3 = {
   CH() {
@@ -3478,7 +3427,7 @@ var Editor = ({ codeSpace }) => {
       return;
     }
     mod3.counter = mST().i;
-    mod3.code = await prettierJs(mST().code);
+    mod3.code = prettierJs(mST().code);
     await mod3.setValue(mod3.code);
     changeContent((x) => ({
       ...x,
@@ -3497,8 +3446,8 @@ var Editor = ({ codeSpace }) => {
   });
 };
 async function onModChange(_code) {
-  const code = await prettierJs(_code);
-  if (code === mod3.code)
+  const code = prettierJs(_code);
+  if (code === prettierJs(mod3.code))
     return;
   const counter = ++mod3.counter;
   mod3.code = code;

@@ -19634,6 +19634,7 @@ var prettierJs = (code) => {
     return lastSuccessful || code;
   }
 };
+
 export {
   prettierJs
 };
