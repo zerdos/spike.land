@@ -47,8 +47,8 @@ let codeSpace: string;
 let _hash = "";
 
 //let address: string;
-let wsLastHashCode = 0;
-let webRTCLastSeenHashCode = 0;
+let wsLastHashCode = "";
+let webRTCLastSeenHashCode = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws: WebSocket | null = null;
@@ -417,7 +417,7 @@ const h: Record<number, number> = {};
 async function processWsMessage(
   event: { data: string },
   source: "ws" | "rtc",
-  conn: { hashCode: number },
+  conn: { hashCode: string },
 ) {
   if (ws == null) {
     return;
@@ -433,7 +433,7 @@ async function processWsMessage(
 async function processData(
   data: any,
   source: "ws" | "rtc",
-  conn: { hashCode: number },
+  conn: { hashCode: string },
 ) {
   //console.//log("ws", data.name, data.oldHash, data.newHash);
 

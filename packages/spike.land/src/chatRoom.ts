@@ -469,9 +469,9 @@ export class Code {
       type?: "new-ice-candidate" | "video-offer" | "video-answer";
       patch?: Delta[];
       address?: string;
-      hashCode?: number;
-      newHash?: number;
-      oldHash?: number;
+      hashCode?: string;
+      newHash?: string;
+      oldHash?: string;
     };
     try {
       data = typeof msg.data === "string"
@@ -576,8 +576,8 @@ export class Code {
 
         if (data.patch && data.oldHash && data.newHash) {
           const patch = data.patch;
-          const newHash = Number(data.newHash);
-          const oldHash = Number(data.oldHash);
+          const newHash = data.newHash;
+          const oldHash = data.oldHash;
 
           if (oldHash !== hashCode()) {
             return respondWith({ hashCode: hashCode() });
@@ -588,9 +588,13 @@ export class Code {
           } catch (err) {
             const patched = mST(patch);
             if (md5(patched.code) === patched.transpiled.slice(-8)) {
-          const myPatch =   await makePatch(patched);
-         await applyPatch(myPatch);
-          this.broadcast(myPatch);
+            if (md5(patched.transpiled)==newHash){
+
+            const myNewPatch =  await makePatch(patched)!;
+          await applyPatch(myNewPatch);
+  
+          return this.broadcast(myNewPatch);
+            }
           }}
 
           if (newHash === hashCode()) {

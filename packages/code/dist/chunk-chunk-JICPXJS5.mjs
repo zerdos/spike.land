@@ -5423,7 +5423,7 @@ var CodeSession = class {
     __publicField(this, "created", new Date().toISOString());
     __publicField(this, "hashOfState", () => {
       const state = this.session.get("state");
-      const hashCode4 = state.hashCode();
+      const hashCode4 = md5(state.transpiled);
       hashStore[hashCode4] = state;
       return hashCode4;
     });
@@ -5450,7 +5450,7 @@ var CodeSession = class {
       const oldString = string_(oldRec.toJSON());
       const newRec = oldRec.merge(s);
       const newString = string_(newRec.toJSON());
-      const newHash = newRec.hashCode();
+      const newHash = md5(newRec.toJS().transpiled);
       hashStore[newHash] = newRec;
       const patch = createPatch(oldString, newString);
       return {
@@ -5462,12 +5462,12 @@ var CodeSession = class {
     __publicField(this, "patchSync", (sess) => {
       if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");
-      const oldHash = this.session.hashCode();
+      const oldHash = md5(this.session.get("state").transpiled);
       this.session = this.session.set(
         "state",
         this.session.get("state").merge(sess)
       );
-      const newHash = this.session.hashCode();
+      const newHash = md5(this.session.get("state").transpiled);
       if (newHash !== oldHash) {
         (self.requestAnimationFrame || setTimeout)(
           async () => this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
@@ -5480,8 +5480,8 @@ var CodeSession = class {
       patch
     }) => {
       const codeSpace = this.room || "";
-      if (!Object.keys(hashStore).map(Number).includes(
-        Number(oldHash)
+      if (!Object.keys(hashStore).includes(
+        oldHash
       ) && codeSpace) {
         const resp = await fetch(
           `/live/${codeSpace}/mST`
@@ -5532,7 +5532,7 @@ var CodeSession = class {
         console.error(`missing from css: ${transHash}`);
         throw new Error(`render hack issue missing: ${transHash}.`);
       }
-      const newHashCheck = newRecord.hashCode();
+      const newHashCheck = md5(newRecord.get("transpiled"));
       if (newHashCheck === newHash) {
         this.session = this.session.set("state", newRecord);
       } else {
@@ -5576,7 +5576,7 @@ var CodeSession = class {
     this.session = user;
   }
 };
-var hashCode3 = () => session ? session.hashOfState() : 0;
+var hashCode3 = () => md5(mST().transpiled);
 function mST(p) {
   if (!session) {
     return {
@@ -5623,7 +5623,7 @@ var applyPatch2 = async (x) => {
 };
 var onSessionUpdate = (fn, regId = "default") => session?.onUpdate(fn, regId);
 var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
-var makePatch = async (st, update8) => makePatchFrom(hashCode3(), st, update8);
+var makePatch = async (st, update8) => makePatchFrom(md5(mST().transpiled), st, update8);
 var startSession = (room, u, originString) => session || new CodeSession(room, {
   name: u.name,
   state: addOrigin(u.state, originString)

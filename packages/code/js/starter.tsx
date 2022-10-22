@@ -37,7 +37,7 @@ export const { apps, eCaches } = (globalThis as unknown as {
 //const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 export function AutoUpdateApp(
-  { hash, codeSpace }: { hash: number; codeSpace: string },
+  { hash, codeSpace }: { hash: string; codeSpace: string },
 ) {
   const [{ md5Hash, resetErrorBoundary }, setMdHash] = useState({
     md5Hash: md5(mST().transpiled),

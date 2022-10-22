@@ -23,7 +23,7 @@ export type ICodeSession = {
 export type INewWSConnection = {
   uuid: string;
   timestamp: number;
-  hashCode: number;
+  hashCode: string;
   type: "new-ws-connection";
 };
 
@@ -63,16 +63,16 @@ export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 
-type CodePatch = { oldHash: number; newHash: number; patch: Delta[] };
+type CodePatch = { oldHash: string; newHash: string; patch: Delta[] };
 type IApplyPatch = (
   prop: CodePatch,
 ) => Promise<void>;
 
 type ICodeSess = {
-  hashOfState: () => number;
+  hashOfState: () => string;
   applyPatch: IApplyPatch;
   createPatchFromHashCode: (
-    c: number,
+    c: string,
     st: ICodeSession,
     updateHash?: (h: string) => void,
   ) => Promise<CodePatch>;
@@ -81,7 +81,7 @@ type ICodeSess = {
 
 let session: CodeSession | null = null;
 
-const hashStore: { [key: number]: Record<ICodeSession> } = {};
+const hashStore: { [key: string]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
   update() {
@@ -142,13 +142,13 @@ export class CodeSession implements ICodeSess {
 
   hashOfState = () => {
     const state = this.session.get("state");
-    const hashCode = state.hashCode();
+    const hashCode = md5(state.transpiled);
     hashStore[hashCode] = state;
     return hashCode;
   };
 
   createPatchFromHashCode = async (
-    oldHash: number,
+    oldHash: string,
     state: ICodeSession,
     updateHash?: (h: string) => void,
   ) => {
@@ -181,7 +181,7 @@ export class CodeSession implements ICodeSess {
 
     const newRec = oldRec.merge(s);
     const newString = string_(newRec.toJSON());
-    const newHash = newRec.hashCode();
+    const newHash = md5(newRec.toJS().transpiled);
     hashStore[newHash] = newRec;
 
     const patch = createPatch(oldString, newString);
@@ -198,12 +198,12 @@ export class CodeSession implements ICodeSess {
       sess.i <= this.session.get("state").i
     ) throw new Error("Code update without I update error");
 
-    const oldHash = this.session.hashCode();
+    const oldHash = md5(this.session.get("state").transpiled);
     this.session = this.session.set(
       "state",
       this.session.get("state").merge(sess),
     );
-    const newHash = this.session.hashCode();
+    const newHash = md5(this.session.get("state").transpiled);
     if (newHash !== oldHash) {
       // console.log({ sess });
       (self.requestAnimationFrame || setTimeout)(async () =>
@@ -226,8 +226,8 @@ export class CodeSession implements ICodeSess {
     const codeSpace = this.room || "";
 
     if (
-      !(Object.keys(hashStore).map(Number).includes(
-        Number(oldHash),
+      !(Object.keys(hashStore).includes(
+        oldHash,
       )) &&
       codeSpace
     ) {
@@ -295,7 +295,7 @@ export class CodeSession implements ICodeSess {
       throw new Error(`render hack issue missing: ${transHash}.`);
     }
 
-    const newHashCheck = newRecord.hashCode();
+    const newHashCheck = md5(newRecord.get("transpiled"));
 
     if (newHashCheck === newHash) {
       this.session = this.session.set("state", newRecord);
@@ -317,8 +317,7 @@ export class CodeSession implements ICodeSess {
   }
 }
 
-export const hashCode = () => session ? session.hashOfState() : 0;
-
+export const hashCode = () => md5(mST().transpiled);
 export function mST(p?: Delta[]) {
   if (!session) {
     return {
@@ -381,14 +380,14 @@ export const onSessionUpdate = (
   regId = "default",
 ) => session?.onUpdate(fn, regId);
 export const makePatchFrom = async (
-  n: number,
+  n: string,
   st: ICodeSession,
   update?: (h: string) => void,
 ) => (session!).createPatchFromHashCode(n, st, update);
 export const makePatch = async (
   st: ICodeSession,
   update?: (h: string) => void,
-) => makePatchFrom(hashCode(), st, update);
+) => makePatchFrom(md5(mST().transpiled), st, update);
 
 export const startSession = (
   room: string,

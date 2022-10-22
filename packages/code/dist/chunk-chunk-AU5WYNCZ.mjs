@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-ZQG3K6AH.mjs";
+} from "./chunk-chunk-3YHJODTM.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-F4CNEKJE.mjs";
+} from "./chunk-chunk-JICPXJS5.mjs";
 import {
   __toESM,
   init_define_process
@@ -640,8 +640,8 @@ var rtcConns = {};
 var bc;
 var codeSpace;
 var _hash = "";
-var wsLastHashCode = 0;
-var webRTCLastSeenHashCode = 0;
+var wsLastHashCode = "";
+var webRTCLastSeenHashCode = "";
 var lastSeenTimestamp = 0;
 var lastSeenNow = 0;
 var ws = null;

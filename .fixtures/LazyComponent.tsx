@@ -22,7 +22,7 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   startApp,
   children,
 }) => {
-  const st = (hashCode: number, html: string, css: string) => ({
+  const st = ( hashCode: string, html: string, css: string) => ({
     htmlContent:
       `<div><style>${css}</style><div id="z-body">xxxxxxxx${html}</div></div>`,
     hashCode,
