@@ -1,7 +1,7 @@
 import "es-module-shims";
 import { runtime } from "./react-jsx-runtime.production.min.cjs";
 
-let assets;
+let assets: Record<string, string>;
 const assetsProm = fetch(`https://testing.spike.land/files.json`).then((r) =>
   r.json()
 ).then((x) => assets = x);
@@ -13,7 +13,7 @@ importShim.addImportMap(
 importShim.prototype = {
   ...importShim.prototype,
   shimMode: true,
-  fetch: async (target, options) => {
+  fetch: async (target: string, options: RequestInit) => {
     const url = new URL(target);
     assets = assets || await assetsProm;
     let asset = "";
@@ -22,7 +22,11 @@ importShim.prototype = {
     }
     return fetch(url, options);
   },
-  resolve: function (originalId, parentUrl, defaultResolve) {
+  resolve: function (
+    originalId: string,
+    parentUrl: string,
+    defaultResolve: (id: string, parentURL: string) => string,
+  ) {
     let resolved;
     const id = (assets && assets[originalId]) || originalId;
 

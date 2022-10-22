@@ -940,6 +940,7 @@ __metadata:
     qrious: "npm:4.0.2"
     react: "npm:18.2.0"
     react-dom: "npm:^18.2.0"
+    react-error-boundary: "npm:^3.1.4"
     react-icons: "npm:4.6.0"
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
@@ -4337,6 +4338,17 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7c5b915fb793d63563cec1f721e059e6ff0e2855ac116ab5cb7450b6c59398f5e25f95c960ce5cb93504cc58ab724a75a78e99282354e702a0e667d0d787d028
+  languageName: node
+  linkType: hard
+
+"react-error-boundary@npm:^3.1.4":
+  version: 3.1.4
+  resolution: "react-error-boundary@npm:3.1.4"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.5"
+  peerDependencies:
+    react: ">=16.13.1"
+  checksum: 7dbf53e15f0fd208b23521b96743c70166ca3a16aad8bcad7632b1da80f19035dfe91813fa65ee7ff7b7c826a15071e08b8e9270dc96392262ea8b1ab0ceedfa
   languageName: node
   linkType: hard
 

@@ -1,9 +1,9 @@
 import type { FC } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 // import {terminal} from "./DraggableWindow"
+import { ErrorBoundary } from "react-error-boundary";
 
 import { mST } from "./session";
-import ErrorBoundary from "./ErrorBoundary";
 import { md5 } from "./md5.js";
 import { CacheProvider, css } from "@emotion/react";
 import type { EmotionCache } from "@emotion/cache";
@@ -36,7 +36,7 @@ export const { apps, eCaches } = (globalThis as unknown as {
 
 //const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
-
+let resetErrorBoundary: (() => void) | null;
 export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
   { hash, codeSpace },
 ) => {
@@ -50,22 +50,41 @@ export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
     if (newHash !== md5Hash) {
       setMdHash(newHash);
     }
+    if (resetErrorBoundary && isCallable(resetErrorBoundary)) {
+      resetErrorBoundary();
+      resetErrorBoundary = null;
+    }
 
     // }, 100);
   }, [hash]);
 
-  const ref = useRef(null);
-
   const App = apps[md5Hash];
 
   return (
-    <>
-      <ErrorBoundary>
-        <div key={md5Hash} style={{ height: 100 + "%" }} ref={ref}>
-          <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
+    <ErrorBoundary
+      key={md5Hash}
+      fallbackRender={({ error, resetErrorBoundary }) => (
+        <div role="alert">
+          <div>Oh no</div>
+          <pre>{error.message}</pre>
+          <button
+            onClick={() => {
+              // this next line is why the fallbackRender is useful
+
+              // though you could accomplish this with a combination
+              // of the FallbackCallback and onReset props as well.
+              resetErrorBoundary();
+            }}
+          >
+            Try again
+          </button>
         </div>
-      </ErrorBoundary>
-    </>
+      )}
+    >
+      <div key={md5Hash} style={{ height: 100 + "%" }}>
+        <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
+      </div>
+    </ErrorBoundary>
   );
 };
 //
