@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-H7YED7I7.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-3ZHLMTO2.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -3067,17 +3067,18 @@ var import_is_callable = __toESM(require_is_callable(), 1);
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
-var resetErrorBoundary;
-var AutoUpdateApp = ({ hash, codeSpace }) => {
-  const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
+function AutoUpdateApp({ hash, codeSpace }) {
+  const [{ md5Hash, resetErrorBoundary }, setMdHash] = useState({
+    md5Hash: md5(mST().transpiled),
+    resetErrorBoundary: null
+  });
   useEffect(() => {
     const newHash = md5(mST().transpiled);
     if (newHash !== md5Hash) {
-      setMdHash(newHash);
-    }
-    if (resetErrorBoundary && (0, import_is_callable.default)(resetErrorBoundary)) {
-      resetErrorBoundary();
-      resetErrorBoundary = null;
+      if (resetErrorBoundary !== null && (0, import_is_callable.default)(resetErrorBoundary)) {
+        resetErrorBoundary();
+      }
+      setMdHash({ md5Hash, resetErrorBoundary: null });
     }
   }, [hash]);
   const App = apps2[md5Hash];
@@ -3093,7 +3094,9 @@ var AutoUpdateApp = ({ hash, codeSpace }) => {
         }),
         jsx("button", {
           onClick: () => {
-            resetErrorBoundary2();
+            if (resetErrorBoundary2 !== null && (0, import_is_callable.default)(resetErrorBoundary2))
+              resetErrorBoundary2();
+            setMdHash((x) => ({ ...x, resetErrorBoundary: null }));
           },
           children: "Try again"
         })
@@ -3106,7 +3109,7 @@ var AutoUpdateApp = ({ hash, codeSpace }) => {
       }, md5Hash)
     }, md5Hash)
   }, md5Hash);
-};
+}
 var started = false;
 async function appFactory(transpiled = "", codeSpace) {
   const { transpiled: mstTranspiled, i: mstI } = mST();

@@ -36,26 +36,23 @@ export const { apps, eCaches } = (globalThis as unknown as {
 
 //const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
-let resetErrorBoundary: (() => void) | null;
-export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
-  { hash, codeSpace },
-) => {
-  const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
+export function AutoUpdateApp(
+  { hash, codeSpace }: { hash: number; codeSpace: string },
+) {
+  const [{ md5Hash, resetErrorBoundary }, setMdHash] = useState({
+    md5Hash: md5(mST().transpiled),
+    resetErrorBoundary: null as null | (() => void),
+  });
 
   useEffect(() => {
-    //  SetTimeout(()=>{
-
     const newHash = md5(mST().transpiled);
 
     if (newHash !== md5Hash) {
-      setMdHash(newHash);
+      if (resetErrorBoundary !== null && isCallable(resetErrorBoundary)) {
+        resetErrorBoundary();
+      }
+      setMdHash({ md5Hash, resetErrorBoundary: null });
     }
-    if (resetErrorBoundary && isCallable(resetErrorBoundary)) {
-      resetErrorBoundary();
-      resetErrorBoundary = null;
-    }
-
-    // }, 100);
   }, [hash]);
 
   const App = apps[md5Hash];
@@ -69,11 +66,11 @@ export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
           <pre>{error.message}</pre>
           <button
             onClick={() => {
-              // this next line is why the fallbackRender is useful
+              if (
+                resetErrorBoundary !== null && isCallable(resetErrorBoundary)
+              ) resetErrorBoundary();
 
-              // though you could accomplish this with a combination
-              // of the FallbackCallback and onReset props as well.
-              resetErrorBoundary();
+              setMdHash((x) => ({ ...x, resetErrorBoundary: null }));
             }}
           >
             Try again
@@ -86,7 +83,7 @@ export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
       </div>
     </ErrorBoundary>
   );
-};
+}
 //
 // let Emotion: typeof iEmotion;
 let started = false;
