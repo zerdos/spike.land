@@ -5505,6 +5505,9 @@ var CodeSession = class {
       patch
     }) => {
       const codeSpace = this.room || "";
+      const now = mST();
+      const nowHash = md5(now.transpiled);
+      hashStore[nowHash] = hashStore[nowHash] || session?.session.get("state");
       if (!Object.keys(hashStore).includes(
         oldHash
       ) && codeSpace) {
