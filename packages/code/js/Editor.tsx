@@ -7,7 +7,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
-import { prettierJs } from "./prettierJs";
+import { prettierJs } from "./prettierEsm";
 // /Volumes/devX/spike.land/packages/code/js/prettierJs.ts
 // import {wrkModuleImport} from "./moduleWorker.mjs"
 
@@ -113,7 +113,7 @@ export const Editor: FC<
     }
 
     mod.counter = mST().i;
-    mod.code = await prettierJs(mST().code);
+    mod.code = prettierJs(mST().code);
     await mod.setValue(mod.code);
 
     changeContent((x: typeof mySession) => ({
@@ -137,9 +137,9 @@ export const Editor: FC<
 };
 
 async function onModChange(_code: string) {
-  const code = await prettierJs(_code);
+  const code = prettierJs(_code);
 
-  if (code === mod.code) return;
+  if (code === prettierJs(mod.code)) return;
 
   const counter = ++mod.counter;
   mod.code = code;
@@ -157,7 +157,7 @@ async function setMonaco() {
   return startMonaco({
     container,
     name: mod.codeSpace,
-    code: mST().code,
+    code: prettierJs(mST().code),
     onChange: onModChange,
   });
 }
@@ -165,5 +165,5 @@ async function setMonaco() {
 async function setAce() {
   const { startAce } = await import("./startAce");
 
-  return await startAce(mST().code, onModChange);
+  return await startAce(prettierJs*mST().code, onModChange);
 }
