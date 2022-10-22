@@ -228,6 +228,11 @@ const build = (entryPoints, extraExternal) =>
   // ], [ //"react", "react-dom*"
   // ]);
 
+  await build([
+    "js/load.ts",
+  ], []);
+  console.log("done");
+
   buildOptions.plugins = [
     aliasPlugin({
       //    "stream": resolve("./js/stream.mjs"),
@@ -237,28 +242,28 @@ const build = (entryPoints, extraExternal) =>
       "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
       "@emotion/cache": resolve("./js/emotionCache.ts"),
       "@emotion/styled": resolve("./js/emotionStyled.mjs"),
+
+      // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
       // // "./mui": resolve("./dist/mui.mjs"),
       "react": resolve("./js/reactMod.ts"),
       "react-dom": resolve("./js/reactMod.ts"),
       "react-dom/client": resolve("./js/reactMod.ts"),
-      "react/jsx-runtime": resolve("./js/jsx.mjs"),
-      "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
+      // "react/jsx-runtime": resolve("./js/jsx.mjs"),
+      // "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
     }),
   ];
 
   await build([
     "js/session.ts",
-    "js/babel.ts",
     "js/prettierWorker.mjs",
     "js/reactMod.ts",
     "js/Editor.tsx",
     "js/motion.ts",
-    "js/renderToString.tsx",
-    "js/renderPreviewWindow.tsx",
+
+    "js/ws.ts",
     "js/emotion.ts",
     "js/emotionJsxRuntime.ts",
-    "js/jsx.mjs",
-    "js/load.ts",
+    // "js/jsx.mjs",
   ], []);
   console.log("done");
 

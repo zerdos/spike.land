@@ -1,6 +1,6 @@
-import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import { getAssetFromKV,  } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
-import a from "./staticContent.mjs";
+import {a, ASSET_MANIFEST} from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
@@ -39,7 +39,7 @@ export const imap = {
   //  "@emotion/cache": emotionCache,
     // "live/": "live/",
     "react": preact,
-    "react/jsx-runtime": "/jsx.mjs",
+    //"react/jsx-runtime": "/jsx.mjs",
     "react-dom": preact,
     "react-dom/client": preact,
     "@babel/runtime/helpers/extends": babel,
@@ -81,7 +81,7 @@ export default {
 
       if (
         serveJs && u.pathname.endsWith(".tsx") &&
-        !u.pathname.endsWith(".index.tsx")
+        !u.pathname.endsWith("index.tsx")
       ) {
         url = new URL(request.url.replace(".tsx", "/index.tsx"));
       }
@@ -321,7 +321,7 @@ export default {
                 },
               });
             case "files.json":
-              return new Response(JSON.stringify(a), {
+              return new Response(ASSET_MANIFEST, {
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
                   "Cache-Control": "no-cache",
@@ -365,7 +365,7 @@ export default {
 
             default:
               try{
-              const kvResp = await getAssetFromKV(
+              let kvResp = await getAssetFromKV(
                 {
                   request,
                   waitUntil(promise) {
@@ -384,8 +384,8 @@ export default {
                       edgeTTL: 0,
                       bypassCache: true,
                     }),
-                  ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                  ASSET_MANIFEST: a,
+                    ASSET_NAMESPACE:env.__STATIC_CONTENT,
+                      ASSET_MANIFEST,
                 },
               );
               

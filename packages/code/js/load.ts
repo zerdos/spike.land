@@ -1,6 +1,5 @@
-import { run } from "./ws";
 import "es-module-shims";
-import "./react-jsx-runtime.production.min.cjs";
+import { runtime } from "./react-jsx-runtime.production.min.cjs";
 
 importShim.addImportMap(
   JSON.parse(document.querySelector("script[type=importmap]")?.innerHTML!),
@@ -8,14 +7,18 @@ importShim.addImportMap(
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
+runtime();
+
 import(`${location.origin}/live/${codeSpace}/mST.mjs`).then(({
   mST,
   codeSpace,
   address,
 }) =>
-  run({
-    mST,
-    codeSpace,
-    address,
-  })
+  import(`${location.origin}/ws.mjs`).then(({ run }) =>
+    run({
+      mST,
+      codeSpace,
+      address,
+    })
+  )
 );
