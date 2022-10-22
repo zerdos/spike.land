@@ -271,10 +271,11 @@ export class CodeSession implements ICodeSess {
       newRecord.code !== this.session.get("state").code &&
       newRecord.i <= this.session.get("state").i
     ) throw new Error("Code update without I update error");
+
     const codeHash = md5(newRecord.code);
-    if (newRecord.transpiled.indexOf(codeHash) === -1) {
+    if (newRecord.transpiled.slice(-8) !== codeHash) {
       console.error(`missing: ${codeHash}`);
-      throw new Error("transpiled	 hack issue");
+      throw new Error("transpiled	hack issue");
     }
 
     if (newRecord.code.length < 5) {
