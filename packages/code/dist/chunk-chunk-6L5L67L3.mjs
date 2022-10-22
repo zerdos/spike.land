@@ -11,7 +11,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-2MP6SGMW.mjs";
+} from "./chunk-chunk-VN6VP6LE.mjs";
 import {
   Children,
   Fragment,
@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-LWOS4AS6.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-YV4OJEQF.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
