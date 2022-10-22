@@ -284,11 +284,13 @@ export class CodeSession implements ICodeSess {
 
     const transHash = md5(newRecord.transpiled);
     if (newRecord.html.indexOf(transHash) === -1) {
-      console.error(`missing: ${transHash}`);
-      throw new Error(`render hack issue missing: ${transHash}.`, {
-        code: newRecord.code,
-        transpiled: newRecord.transpiled,
-      });
+      console.error(`missing from html: ${transHash}`);
+      throw new Error(`render hack issue missing: ${transHash}.`);
+    }
+
+    if (newRecord.css.indexOf(transHash) === -1) {
+      console.error(`missing from css: ${transHash}`);
+      throw new Error(`render hack issue missing: ${transHash}.`);
     }
 
     const newHashCheck = newRecord.hashCode();
