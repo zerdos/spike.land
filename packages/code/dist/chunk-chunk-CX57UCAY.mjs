@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-SVW7ABRB.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-FDCBIHVM.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -3009,7 +3009,8 @@ var AppToRender = ({ codeSpace }) => {
   const portalNode = useMemo(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace}`, style: "height: 100%" }
   }), []);
-  return jsxs(Fragment, {
+  return jsxs("div", {
+    style: { height: 100 + "%" },
     children: [
       jsx(InPortal, {
         node: portalNode,
