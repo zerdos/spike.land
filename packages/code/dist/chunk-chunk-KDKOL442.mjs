@@ -38,6 +38,7 @@ import {
   css
 } from "./chunk-chunk-SWVX2YHM.mjs";
 import {
+  Fragment as Fragment2,
   jsx,
   jsxs
 } from "./chunk-chunk-5I5R4H7O.mjs";
@@ -2941,7 +2942,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-VXWPPO4Q.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-XDYWRE7T.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -3010,8 +3011,10 @@ var AppToRender = ({ codeSpace }) => {
         })
       }),
       jsx(Suspense, {
-        fallback: jsx(OutPortal, {
-          node: portalNode
+        fallback: jsx(Fragment2, {
+          children: jsx(OutPortal, {
+            node: portalNode
+          })
         }),
         children: devTools ? jsx(RainbowContainer, {
           children: jsxs(Fragment, {
