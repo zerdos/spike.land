@@ -5462,6 +5462,31 @@ var CodeSession = class {
     __publicField(this, "patchSync", (sess) => {
       if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");
+      if (sess.i < this.session.get("state").i) {
+        throw new Error("never going back!");
+      }
+      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+        throw new Error("Code update without I update error");
+      if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
+        console.error(
+          `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`
+        );
+        throw new Error("transpiled	hack issue");
+      }
+      if (sess.code.length < 5) {
+        throw new Error("code deleted?");
+      }
+      if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
+        console.error(`missing md5trans from html: ${md5(sess.transpiled)}
+      ${sess.html.slice(0, 64)}
+      
+      `);
+        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+      }
+      if (sess.css.indexOf(md5(sess.transpiled)) === -1) {
+        console.error(`missing from css: ${md5(sess.transpiled)}`);
+        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+      }
       const oldHash = md5(this.session.get("state").transpiled);
       this.session = this.session.set(
         "state",
