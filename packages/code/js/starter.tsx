@@ -116,17 +116,13 @@ export async function appFactory(
 
         eCaches[hash].compat = undefined;
 
-        apps[hash] = apps[hash] ||
-          (({ appId }: { appId: string }) =>
-            appId.includes(hash)
-              ? (
-                <CacheProvider key={hash} value={eCaches[hash]}>
-                  <div key={hash} css={css`height: 100%;`} id={appId}>
-                    <App></App>
-                  </div>
-                </CacheProvider>
-              )
-              : null);
+        apps[hash] = ({ appId }: { appId: string }) => (
+          <div key={hash} style={{ height: 100 + "%" }} id={appId}>
+            <CacheProvider key={hash} value={eCaches[hash]}>
+              <App />
+            </CacheProvider>
+          </div>
+        );
       } else throw new Error("the default export is not a function!");
     } catch (error) {
       // Try {

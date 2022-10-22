@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-KXFYJXNN.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-NKL7BAAZ.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -3117,14 +3117,14 @@ async function appFactory(transpiled = "", codeSpace) {
           speedy: false
         });
         eCaches2[hash].compat = void 0;
-        apps2[hash] = apps2[hash] || (({ appId }) => appId.includes(hash) ? jsx(CacheProvider, {
-          value: eCaches2[hash],
-          children: jsx("div", {
-            css: css`height: 100%;`,
-            id: appId,
+        apps2[hash] = ({ appId }) => jsx("div", {
+          style: { height: 100 + "%" },
+          id: appId,
+          children: jsx(CacheProvider, {
+            value: eCaches2[hash],
             children: jsx(App, {})
           }, hash)
-        }, hash) : null);
+        }, hash);
       } else
         throw new Error("the default export is not a function!");
     } catch (error) {
