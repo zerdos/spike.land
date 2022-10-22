@@ -549,7 +549,7 @@ export const startMonaco = async (
       tsWorker: languages.typescript.getTypeScriptWorker().then((ts) =>
         ts(model.uri)
       ).catch((e) => {
-        console.log("ts error, will retry");
+        console.log("ts error, will retry", e);
       }),
     };
 
@@ -565,7 +565,7 @@ export const startMonaco = async (
       getValue: () => mod.code,
       getErrors: () =>
         mod.tsWorker.then((ts) =>
-          ts.getSemanticDiagnostics(
+          ts?.getSemanticDiagnostics(
             originToUse + "/live/" + codeSpace + ".tsx",
           ).then((diag) => diag.map((d) => d.messageText.toString()))
         ),

@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-66WDEXHR.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-VXWPPO4Q.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -2995,6 +2995,7 @@ var AppToRender = ({ codeSpace }) => {
   }), []);
   const [hash, setHash] = useState(hashCode());
   const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
+  const devTools = !onlyApp;
   useEffect(() => {
     onSessionUpdate(() => hashCode() !== hash && setHash(hashCode()), "myApp");
   }, [hash, setHash]);
@@ -3012,7 +3013,7 @@ var AppToRender = ({ codeSpace }) => {
         fallback: jsx(OutPortal, {
           node: portalNode
         }),
-        children: onlyApp ? jsx(RainbowContainer, {
+        children: devTools ? jsx(RainbowContainer, {
           children: jsxs(Fragment, {
             children: [
               jsx(Editor, {
@@ -3096,7 +3097,7 @@ function AutoUpdateApp({ hash, codeSpace }) {
   }, md5Hash);
 }
 var started = false;
-async function appFactory2(transpiled = "", codeSpace) {
+async function appFactory(transpiled = "", codeSpace) {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);
@@ -3238,7 +3239,7 @@ var render = async (transpiled, codeSpace) => {
   mod2.codeSpace = codeSpace;
   const md5hash = md5(transpiled);
   if (!apps[md5hash])
-    await appFactory2(transpiled);
+    await appFactory(transpiled);
   mod2.wait = 1;
   const cleanup = mod2.setApp(
     md5hash
@@ -3502,7 +3503,7 @@ async function setMonaco() {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-EVSZ6UGK.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-PELM7L52.mjs");
   const container = window.document.getElementById("editor");
   return startMonaco({
     container,
@@ -3518,6 +3519,6 @@ async function setAce() {
 
 export {
   wait,
-  appFactory2 as appFactory,
+  appFactory,
   Editor
 };

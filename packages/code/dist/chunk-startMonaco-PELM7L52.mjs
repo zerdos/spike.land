@@ -42633,7 +42633,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       tsWorker: languages.typescript.getTypeScriptWorker().then(
         (ts) => ts(model.uri)
       ).catch((e) => {
-        console.log("ts error, will retry");
+        console.log("ts error, will retry", e);
       })
     };
     model.onDidChangeContent(() => {
@@ -42648,7 +42648,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     return {
       getValue: () => mod2.code,
       getErrors: () => mod2.tsWorker.then(
-        (ts) => ts.getSemanticDiagnostics(
+        (ts) => ts?.getSemanticDiagnostics(
           originToUse + "/live/" + codeSpace + ".tsx"
         ).then((diag) => diag.map((d) => d.messageText.toString()))
       ),
