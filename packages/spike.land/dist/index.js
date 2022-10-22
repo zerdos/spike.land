@@ -411,6 +411,7 @@ var imap = {
 };
 var chat_default = {
   async fetch(request, env, ctx) {
+    console.log(JSON.stringify({ ...request.cf }, null, 2));
     return handleErrors(request, async () => {
       console.log(`handling request: ${request.url}`);
       const u = new URL(request.url);
