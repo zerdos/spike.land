@@ -5516,13 +5516,13 @@ var CodeSession = class {
           const serverRecord = this.session.get("state").merge(
             JSON.parse(string_(s.mST))
           );
-          hashStore[serverRecord.hashCode()] = serverRecord;
+          hashStore[md5(serverRecord.transpiled)] = serverRecord;
         } else {
           const { mST: mST2 } = await import(`/live/${this.room}/mst.mjs?${Date.now()}`);
           const latestRec = this.session.get("state").merge(
             JSON.parse(string_(mST2))
           );
-          hashStore[latestRec.hashCode()] = latestRec;
+          hashStore[md5(latestRec.transpiled)] = latestRec;
         }
       }
       const maybeOldRec = hashStore[oldHash];

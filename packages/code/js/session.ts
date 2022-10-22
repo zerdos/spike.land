@@ -277,7 +277,7 @@ export class CodeSession implements ICodeSess {
         const serverRecord = this.session.get("state").merge(
           JSON.parse(string_(s.mST)),
         );
-        hashStore[serverRecord.hashCode()] = serverRecord;
+        hashStore[md5(serverRecord.transpiled)] = serverRecord;
       } else {
         const { mST } = await import(
           `/live/${this.room}/mst.mjs?${Date.now()}`
@@ -285,7 +285,7 @@ export class CodeSession implements ICodeSess {
         const latestRec = this.session.get("state").merge(
           JSON.parse(string_(mST)),
         );
-        hashStore[latestRec.hashCode()] = latestRec;
+        hashStore[md5(latestRec.transpiled)] = latestRec;
       }
     }
 
