@@ -1,5 +1,6 @@
 import { initialize, transform } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
+import { md5 } from "md5";
 
 const mod = {
   init: false as (boolean | Promise<void>),
@@ -18,7 +19,7 @@ export const initAndTransform: typeof transform = async (code, opts) => {
 
   if (initFinished !== true) await (initFinished);
 
-  return transform(code, opts);
+  return transform(code, opts) + "//" + md5(code);
 };
 
 export { initAndTransform as transform };

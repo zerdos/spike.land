@@ -8,7 +8,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-L2ATYMQ3.mjs";
+} from "./chunk-chunk-FS45JEB7.mjs";
 import {
   wrap
 } from "./chunk-chunk-3DTRDS5R.mjs";
@@ -2600,7 +2600,7 @@ var initAndTransform = async (code, opts) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
-  return (0, import_esbuild_wasm.transform)(code, opts);
+  return (0, import_esbuild_wasm.transform)(code, opts) + "//" + md5(code);
 };
 
 // js/renderToString.tsx
@@ -2831,7 +2831,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-MRRBQRKJ.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-EK37GLXL.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -2959,7 +2959,7 @@ var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
 var AutoUpdateApp = ({ hash, codeSpace }) => {
   const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
   useEffect(() => {
-    const newHash = md5(mST().transpiled).slice(0, 8);
+    const newHash = md5(mST().transpiled);
     if (newHash !== md5Hash) {
       setMdHash(newHash);
     }
@@ -3117,7 +3117,7 @@ var mod2 = {
 };
 var render = async (transpiled, codeSpace) => {
   mod2.codeSpace = codeSpace;
-  const md5hash = md5(transpiled).slice(0, 8);
+  const md5hash = md5(transpiled);
   if (!apps[md5hash])
     await appFactory(transpiled);
   mod2.wait = 1;
@@ -3197,9 +3197,7 @@ async function runner({ code, counter, codeSpace }) {
       },
       target: "es2018"
     });
-    const codeHash = md5(code).slice(0, 8);
-    const transpiledCode = `${transpiled.code}//${codeHash}`;
-    const { html, css: css2 } = await render(transpiledCode, codeSpace);
+    const { html, css: css2 } = await render(transpiled.code, codeSpace);
     if (!html) {
       return;
     }
@@ -3207,7 +3205,7 @@ async function runner({ code, counter, codeSpace }) {
       ...mST(),
       code,
       i: counter,
-      transpiled: transpiledCode,
+      transpiled: transpiled.code,
       html,
       css: css2
     });

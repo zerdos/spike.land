@@ -53,10 +53,7 @@ export async function runner({ code, counter, codeSpace }: {
       target: "es2018",
     } as unknown as TransformOptions);
 
-    const codeHash = md5(code).slice(0, 8);
-    const transpiledCode = `${transpiled.code}//${codeHash}`;
-
-    const { html, css } = await render(transpiledCode, codeSpace);
+    const { html, css } = await render(transpiled.code, codeSpace);
 
     // console.log({ html, css });
     if (!html) {
@@ -67,7 +64,7 @@ export async function runner({ code, counter, codeSpace }: {
       ...mST(),
       code,
       i: counter,
-      transpiled: transpiledCode,
+      transpiled: transpiled.code,
       html,
       css,
     });
