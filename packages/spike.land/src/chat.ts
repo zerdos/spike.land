@@ -68,6 +68,7 @@ export default {
     env: CodeEnv,
     ctx: ExecutionContext,
   ) {
+    if (request.cf?.asOrganization?.startsWith("YANDEX") ) return null;
     console.log(JSON.stringify({...request.cf}, null, 2));
     return handleErrors(request, async () => {
       console.log(`handling request: ${request.url}`);
