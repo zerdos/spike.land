@@ -125,7 +125,7 @@ const AppToRender: FC<
         <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
       </InPortal>
 
-      <Suspense fallback={() => <OutPortal node={portalNode} />}>
+      <Suspense fallback={<OutPortal node={portalNode} />}>
         {onlyApp
           ? (
             <RainbowContainer>
