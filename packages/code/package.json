@@ -37,7 +37,6 @@
     "prebuild": "yarn test || echo FAILED",
     "build": "rm -rf dist js/monaco-workers && deno fmt . && yarn favicons && yarn es:build",
     "es:build": "yarn test && yarn jsx && node esbuild-dev.mjs",
-    "jsx": "esbuild --bundle --format=iife js/react-jsx-runtime.production.min.cjs --outdir=dist",
     "favicons": "cp -af js/assets/ ./dist && mkdir -p  ./dist/assets && cp js/assets/synthwave.webp   ./dist/assets/",
     "workbox-c  li": "workbox-cli",
     "sw": "echo ok",
