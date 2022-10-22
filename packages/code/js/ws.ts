@@ -176,15 +176,8 @@ export const run = async (startState: {
 
   onSessionUpdate(
     () => {
-      //If (globalThis.send) {
-      //globalThis.send(JSON.stringify({
-      //ignoreUser: user,
-      //sess: mST(),
-      //codeSpace,
-      //address,
-      //messageData,
-      //}));
-      //}
+      debouncedSyncWs();
+      debouncedSyncRTC();
 
       const sess = mST();
 
@@ -236,11 +229,6 @@ async function rejoin() {
 }
 
 const ignoreUsers: string[] = [];
-
-export function saveCode() {
-  debouncedSyncWs();
-  debouncedSyncRTC();
-}
 
 const debouncedSyncRTC = debounce(syncRTC, 100, {
   trailing: true,

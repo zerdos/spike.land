@@ -65,20 +65,12 @@ export const render = async (transpiled: string, codeSpace: string) => {
 
     if (!html) return { html: null, css: null };
 
-    //  const html = mod.res.innerHTML;``
     const css = mineFromCaches(eCaches[md5hash]);
-    // const extractCritical = createExtractCritical(eCaches[md5hash]);
-    // let critical = extractCritical(html);
-    // let css3 = extractCritical22(html);
-
-    // console.log(css, critical, css3);
 
     const globalCss = document.querySelector(
       `style[data-emotion=${eCaches[md5hash].key}-global]`,
     )
       ?.innerHTML;
-    // if (!css) css = extractCritical22(html);
-    //    root.unmount()
 
     return {
       html,
@@ -88,32 +80,6 @@ export const render = async (transpiled: string, codeSpace: string) => {
     cleanup();
   }
 };
-// };
-// export const renderFromString = (
-//   // Code: string,
-//   // App: FunctionComponent
-//   codeSpace: string,
-//   hash: number,
-// ) => {
-//   const md5hash = md5(mST().transpiled).slice(0, 8);
-//   if (hash !== hashCode()) {
-//     return { html: null, css: null };
-//   }
-
-//   const html = document.getElementById(`${codeSpace}-${md5hash}`)?.innerHTML!;
-
-//   let css = html ? extractCritical22(html) : "";
-
-//   const globalCss = document.querySelector("style[data-emotion=z-global]")
-//     ?.innerHTML;
-
-//   if (css && globalCss) css = css + globalCss;
-
-//   return {
-//     html,
-//     css,
-//   };
-//};
 
 function mineFromCaches(cache: EmotionCache) {
   const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
@@ -122,41 +88,6 @@ function mineFromCaches(cache: EmotionCache) {
   ).filter((x) => x && keys.includes(x.selectorText)).map((x) => x.cssText)
     .join("\n");
 }
-
-// const extractCritical22 = (html: string) => {
-//   try {
-//     const rules: Record<string, string> = {};
-//     for (const i in document.styleSheets) {
-//       let yesFromNow = false;
-//       const styleSheet = document.styleSheets[i];
-//       // For (let r in styleSheet.cssRules) {
-//       if (styleSheet?.cssRules) {
-//         for (const rule of Array.from(styleSheet.cssRules)) {
-//           if (
-//             yesFromNow ||
-//             rule && rule.cssText && rule.cssText.startsWith(".z-")
-//           ) {
-//             const selector = rule.cssText.slice(1, 9);
-//             const selectorText = selector; // Rule.selectorText ||
-//             //  selector;
-//             if (
-//               !rules[selector] && html.includes(selector) &&
-//               !rule.cssText.slice(10).includes(".z-")
-//             ) {
-//               yesFromNow = true;
-//               rules[selectorText] = rule.cssText;
-//             }
-//           }
-//         }
-//       }
-//     }
-
-//     return Object.keys(rules).map((r) => rules[r]).join(" ");
-//   } catch {
-//     console.error("no css");
-//     return "";
-//   }
-// };
 
 const Helper: FC<{ md5Hash: string }> = ({ md5Hash }) => {
   const ref = useRef(null);
@@ -181,45 +112,3 @@ const waitForAnimation = () => {
   requestAnimationFrame(() => animationFrame(true));
   return animated;
 };
-// const waitForFlush = () => {
-//   let flushed: (_v: unknown) => void;
-//   console.log("wait for flush");
-//   const rendered = new Promise((resolve) => flushed = resolve);
-//   flushSync(() => flushed(true));
-//   rendered;
-// };
-
-// var createExtractCritical = function createExtractCritical(cache) {
-//   return function (html) {
-//     // parse out ids from html
-//     // reconstruct css/rules/cache to pass
-//     var RGX = new RegExp(cache.key + "-([a-zA-Z0-9-_]+)", "gm");
-//     var o = {
-//       html: html,
-//       ids: [],
-//       css: "",
-//     };
-//     var match;
-//     var ids = {};
-
-//     while ((match = RGX.exec(html)) !== null) {
-//       // $FlowFixMe
-//       if (ids[match[1]] === undefined) {
-//         // $FlowFixMe
-//         ids[match[1]] = true;
-//       }
-//     }
-
-//     o.ids = Object.keys(cache.inserted).filter(function (id) {
-//       if (
-//         (ids[id] !== undefined ||
-//           cache.registered[cache.key + "-" + id] === undefined) &&
-//         cache.inserted[id] !== true
-//       ) {
-//         o.css += cache.inserted[id];
-//         return true;
-//       }
-//     });
-//     return o;
-//   };
-// };

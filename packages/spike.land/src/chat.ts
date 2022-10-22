@@ -110,14 +110,17 @@ export default {
         const newUrl = new URL(path.join("/"), url.origin).toString();
         const _request = new Request(newUrl, { ...request, url: newUrl });
 
-        const cacheKey = new Request(_request.url);
+        let cacheKey = new Request(_request.url);
         const cache = caches.default;
 
-        if(!url.pathname.includes('ws.mjs')){
+        if(url.pathname.includes('ws.mjs') || url.pathname.includes("/live")){
+          cacheKey = new Request(_request.url+ Date.now());
+        }
+
         const cachedResponse = await cache.match(cacheKey);
         if (cachedResponse && cachedResponse.ok) {
           return cachedResponse;
-        }}
+        }
 
         const cachedResponse2 = await (async (request) => {
           const cacheKey = new Request(request.url);

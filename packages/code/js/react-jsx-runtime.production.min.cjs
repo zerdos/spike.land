@@ -6,3 +6,5 @@ globalThis.ReactDOM = require("react-dom");
 globalThis.ReactJSXRuntime = require("react/jsx-runtime");
 globalThis.emotionReact = require("@emotion/react");
 globalThis.emotionReactJsxRuntime = require("@emotion/react/jsx-runtime");
+globalThis.createEmotionCache = require("@emotion/cache").default;
+globalThis.styled = require("@emotion/styled").default;
