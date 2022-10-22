@@ -5,7 +5,7 @@ import {
 // js/prettierWorker.mjs
 init_define_process();
 
-// ../../../../../Users/z/.yarn/berry/cache/comlink-npm-4.3.1-45efe1dd36-9.zip/node_modules/comlink/dist/esm/comlink.mjs
+// ../../.yarn/global/cache/comlink-npm-4.3.1-45efe1dd36-9.zip/node_modules/comlink/dist/esm/comlink.mjs
 init_define_process();
 var proxyMarker = Symbol("Comlink.proxy");
 var createEndpoint = Symbol("Comlink.endpoint");
@@ -273,7 +273,7 @@ self._prettierJs = self._prettierJs || null;
 var prettier = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-4A6VRNAJ.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-7I6G2KWV.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);

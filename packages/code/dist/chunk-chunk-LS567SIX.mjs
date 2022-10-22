@@ -4,9 +4,9 @@ import {
   init_define_process
 } from "./chunk-chunk-JS5E2TTE.mjs";
 
-// ../../../../../Users/z/.yarn/berry/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/standalone.js
+// ../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/standalone.js
 var require_standalone = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/standalone.js"(exports, module) {
+  "../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/standalone.js"(exports, module) {
     init_define_process();
     (function(e) {
       if (typeof exports == "object" && typeof module == "object")
@@ -11479,9 +11479,9 @@ var require_standalone = __commonJS({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/parser-babel.js
+// ../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/parser-babel.js
 var require_parser_babel = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/parser-babel.js"(exports, module) {
+  "../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/parser-babel.js"(exports, module) {
     init_define_process();
     (function(e) {
       if (typeof exports == "object" && typeof module == "object")

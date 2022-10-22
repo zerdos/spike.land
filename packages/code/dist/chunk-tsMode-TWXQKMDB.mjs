@@ -1,14 +1,14 @@
 import {
   typescriptDefaults
-} from "./chunk-chunk-MOIWVD32.mjs";
+} from "./chunk-chunk-WZFBJXM4.mjs";
 import {
   editor_api_exports
-} from "./chunk-chunk-ZVXH6DBB.mjs";
+} from "./chunk-chunk-VUESZGQL.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-JS5E2TTE.mjs";
 
-// ../../../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
+// ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
 init_define_process();
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;

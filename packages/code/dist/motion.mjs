@@ -74,7 +74,7 @@ import {
   useWillChange,
   visualElement,
   wrapHandler
-} from "./chunk-chunk-IQIK24NM.mjs";
+} from "./chunk-chunk-I5CCKZLE.mjs";
 import "./chunk-chunk-RFB2CF2P.mjs";
 import {
   init_define_process

@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-3YHJODTM.mjs";
+} from "./chunk-chunk-RJXA4LX4.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-JICPXJS5.mjs";
+} from "./chunk-chunk-SKDQOHWW.mjs";
 import {
   __toESM,
   init_define_process
@@ -22,10 +22,10 @@ import {
 init_define_process();
 var import_lodash = __toESM(require_lodash(), 1);
 
-// ../../../../../Users/z/.yarn/berry/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
+// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
 init_define_process();
 
-// ../../../../../Users/z/.yarn/berry/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js
+// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js
 init_define_process();
 function print(root, printNode = (n) => n.key) {
   var out = [];
@@ -102,7 +102,7 @@ function sort(keys, values, left, right, compare) {
   sort(keys, values, j + 1, right, compare);
 }
 
-// ../../../../../Users/z/.yarn/berry/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
+// ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
 function DEFAULT_COMPARE(a, b) {
   return a > b ? 1 : a < b ? -1 : 0;
 }
