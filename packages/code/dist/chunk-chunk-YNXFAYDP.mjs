@@ -5525,7 +5525,10 @@ var CodeSession = class {
       const transHash = md5(newRecord.transpiled);
       if (newRecord.html.indexOf(transHash) === -1) {
         console.error(`missing: ${transHash}`);
-        throw new Error("render hack issue");
+        throw new Error(`render hack issue missing: ${transHash}.`, {
+          code: newRecord.code,
+          transpiled: newRecord.transpiled
+        });
       }
       const newHashCheck = newRecord.hashCode();
       if (newHashCheck === newHash) {
