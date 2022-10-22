@@ -27,6 +27,7 @@ import {
   isValidElement,
   lazy,
   reactMod_default,
+  reactMod_exports,
   useEffect,
   useMemo,
   useRef,
@@ -37,12 +38,12 @@ import {
   css
 } from "./chunk-chunk-SWVX2YHM.mjs";
 import {
-  Fragment as Fragment2,
   jsx,
   jsxs
 } from "./chunk-chunk-5I5R4H7O.mjs";
 import {
   __commonJS,
+  __toCommonJS,
   __toESM,
   init_define_process
 } from "./chunk-chunk-JS5E2TTE.mjs";
@@ -69,7 +70,7 @@ var require_browser = __commonJS({
         }
         return to;
       };
-      var __toCommonJS = (mod4) => __copyProps(__defProp({}, "__esModule", { value: true }), mod4);
+      var __toCommonJS2 = (mod4) => __copyProps(__defProp({}, "__esModule", { value: true }), mod4);
       var __async = (__this, __arguments, generator) => {
         return new Promise((resolve, reject) => {
           var fulfilled = (value) => {
@@ -105,7 +106,7 @@ var require_browser = __commonJS({
         transformSync: () => transformSync,
         version: () => version
       });
-      module2.exports = __toCommonJS(browser_exports);
+      module2.exports = __toCommonJS2(browser_exports);
       function encodePacket(packet) {
         let visit = (value) => {
           if (value === null) {
@@ -371,7 +372,7 @@ var require_browser = __commonJS({
         let jsxImportSource = getFlag(options, keys, "jsxImportSource", mustBeString);
         let jsxDev = getFlag(options, keys, "jsxDev", mustBeBoolean);
         let jsxSideEffects = getFlag(options, keys, "jsxSideEffects", mustBeBoolean);
-        let define = getFlag(options, keys, "define", mustBeObject);
+        let define2 = getFlag(options, keys, "define", mustBeObject);
         let logOverride = getFlag(options, keys, "logOverride", mustBeObject);
         let supported = getFlag(options, keys, "supported", mustBeObject);
         let pure = getFlag(options, keys, "pure", mustBeArray);
@@ -430,11 +431,11 @@ var require_browser = __commonJS({
           flags.push(`--jsx-dev`);
         if (jsxSideEffects)
           flags.push(`--jsx-side-effects`);
-        if (define) {
-          for (let key in define) {
+        if (define2) {
+          for (let key in define2) {
             if (key.indexOf("=") >= 0)
               throw new Error(`Invalid define: ${key}`);
-            flags.push(`--define:${key}=${define[key]}`);
+            flags.push(`--define:${key}=${define2[key]}`);
           }
         }
         if (logOverride) {
@@ -2452,6 +2453,148 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
   }
 });
 
+// ../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/4/Users/z/.yarn/berry/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js
+var require_react_error_boundary_umd = __commonJS({
+  "../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/4/Users/z/.yarn/berry/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js"(exports, module) {
+    init_define_process();
+    (function(global, factory) {
+      typeof exports === "object" && typeof module !== "undefined" ? factory(exports, (init_reactMod(), __toCommonJS(reactMod_exports))) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.ReactErrorBoundary = {}, global.React));
+    })(exports, function(exports2, React) {
+      "use strict";
+      function _interopNamespace(e) {
+        if (e && e.__esModule)
+          return e;
+        var n = /* @__PURE__ */ Object.create(null);
+        if (e) {
+          Object.keys(e).forEach(function(k) {
+            if (k !== "default") {
+              var d = Object.getOwnPropertyDescriptor(e, k);
+              Object.defineProperty(n, k, d.get ? d : {
+                enumerable: true,
+                get: function() {
+                  return e[k];
+                }
+              });
+            }
+          });
+        }
+        n["default"] = e;
+        return Object.freeze(n);
+      }
+      var React__namespace = _interopNamespace(React);
+      function _setPrototypeOf(o, p) {
+        _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p2) {
+          o2.__proto__ = p2;
+          return o2;
+        };
+        return _setPrototypeOf(o, p);
+      }
+      function _inheritsLoose(subClass, superClass) {
+        subClass.prototype = Object.create(superClass.prototype);
+        subClass.prototype.constructor = subClass;
+        _setPrototypeOf(subClass, superClass);
+      }
+      var changedArray = function changedArray2(a, b) {
+        if (a === void 0) {
+          a = [];
+        }
+        if (b === void 0) {
+          b = [];
+        }
+        return a.length !== b.length || a.some(function(item, index) {
+          return !Object.is(item, b[index]);
+        });
+      };
+      var initialState = {
+        error: null
+      };
+      var ErrorBoundary2 = function(_React$Component) {
+        _inheritsLoose(ErrorBoundary3, _React$Component);
+        function ErrorBoundary3() {
+          var _this;
+          for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
+            _args[_key] = arguments[_key];
+          }
+          _this = _React$Component.call.apply(_React$Component, [this].concat(_args)) || this;
+          _this.state = initialState;
+          _this.resetErrorBoundary = function() {
+            var _this$props;
+            for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+              args[_key2] = arguments[_key2];
+            }
+            _this.props.onReset == null ? void 0 : (_this$props = _this.props).onReset.apply(_this$props, args);
+            _this.reset();
+          };
+          return _this;
+        }
+        ErrorBoundary3.getDerivedStateFromError = function getDerivedStateFromError(error) {
+          return {
+            error
+          };
+        };
+        var _proto = ErrorBoundary3.prototype;
+        _proto.reset = function reset() {
+          this.setState(initialState);
+        };
+        _proto.componentDidCatch = function componentDidCatch(error, info) {
+          var _this$props$onError, _this$props2;
+          (_this$props$onError = (_this$props2 = this.props).onError) == null ? void 0 : _this$props$onError.call(_this$props2, error, info);
+        };
+        _proto.componentDidUpdate = function componentDidUpdate(prevProps, prevState) {
+          var error = this.state.error;
+          var resetKeys = this.props.resetKeys;
+          if (error !== null && prevState.error !== null && changedArray(prevProps.resetKeys, resetKeys)) {
+            var _this$props$onResetKe, _this$props3;
+            (_this$props$onResetKe = (_this$props3 = this.props).onResetKeysChange) == null ? void 0 : _this$props$onResetKe.call(_this$props3, prevProps.resetKeys, resetKeys);
+            this.reset();
+          }
+        };
+        _proto.render = function render2() {
+          var error = this.state.error;
+          var _this$props4 = this.props, fallbackRender = _this$props4.fallbackRender, FallbackComponent = _this$props4.FallbackComponent, fallback2 = _this$props4.fallback;
+          if (error !== null) {
+            var _props = {
+              error,
+              resetErrorBoundary: this.resetErrorBoundary
+            };
+            if (React__namespace.isValidElement(fallback2)) {
+              return fallback2;
+            } else if (typeof fallbackRender === "function") {
+              return fallbackRender(_props);
+            } else if (FallbackComponent) {
+              return React__namespace.createElement(FallbackComponent, _props);
+            } else {
+              throw new Error("react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop");
+            }
+          }
+          return this.props.children;
+        };
+        return ErrorBoundary3;
+      }(React__namespace.Component);
+      function withErrorBoundary(Component, errorBoundaryProps) {
+        var Wrapped = function Wrapped2(props) {
+          return React__namespace.createElement(ErrorBoundary2, errorBoundaryProps, React__namespace.createElement(Component, props));
+        };
+        var name = Component.displayName || Component.name || "Unknown";
+        Wrapped.displayName = "withErrorBoundary(" + name + ")";
+        return Wrapped;
+      }
+      function useErrorHandler(givenError) {
+        var _React$useState = React__namespace.useState(null), error = _React$useState[0], setError = _React$useState[1];
+        if (givenError != null)
+          throw givenError;
+        if (error != null)
+          throw error;
+        return setError;
+      }
+      exports2.ErrorBoundary = ErrorBoundary2;
+      exports2.useErrorHandler = useErrorHandler;
+      exports2.withErrorBoundary = withErrorBoundary;
+      Object.defineProperty(exports2, "__esModule", { value: true });
+    });
+  }
+});
+
 // ../../../../../Users/z/.yarn/berry/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js
 var require_is_callable = __commonJS({
   "../../../../../Users/z/.yarn/berry/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js"(exports, module) {
@@ -2612,43 +2755,7 @@ init_define_process();
 // js/starter.tsx
 init_define_process();
 init_reactMod();
-
-// js/ErrorBoundary.tsx
-init_define_process();
-init_reactMod();
-var ErrorBoundary = class extends reactMod_default.Component {
-  constructor(props) {
-    super(props);
-    this.state = { error: void 0, errorInfo: void 0 };
-  }
-  componentDidCatch(error, errorInfo) {
-    this.setState({
-      error,
-      errorInfo
-    });
-  }
-  render() {
-    if (this.state.errorInfo) {
-      return jsxs("div", {
-        children: [
-          jsx("h2", {
-            children: "Something went wrong."
-          }),
-          jsxs("details", {
-            style: { whiteSpace: "pre-wrap" },
-            children: [
-              this.state.error && this.state.error.toString(),
-              jsx("br", {}),
-              this.state.errorInfo.componentStack
-            ]
-          })
-        ]
-      });
-    }
-    return this.props.children;
-  }
-};
-var ErrorBoundary_default = ErrorBoundary;
+var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
 
 // js/renderPreviewWindow.tsx
 init_define_process();
@@ -2834,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-IR4DIJEH.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-SVW7ABRB.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -2957,6 +3064,7 @@ var import_is_callable = __toESM(require_is_callable(), 1);
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
+var resetErrorBoundary;
 var AutoUpdateApp = ({ hash, codeSpace }) => {
   const [md5Hash, setMdHash] = useState(md5(mST().transpiled).slice(0, 8));
   useEffect(() => {
@@ -2964,20 +3072,37 @@ var AutoUpdateApp = ({ hash, codeSpace }) => {
     if (newHash !== md5Hash) {
       setMdHash(newHash);
     }
+    if (resetErrorBoundary && (0, import_is_callable.default)(resetErrorBoundary)) {
+      resetErrorBoundary();
+      resetErrorBoundary = null;
+    }
   }, [hash]);
-  const ref = useRef(null);
   const App = apps2[md5Hash];
-  return jsx(Fragment2, {
-    children: jsx(ErrorBoundary_default, {
-      children: jsx("div", {
-        style: { height: 100 + "%" },
-        ref,
-        children: jsx(App, {
-          appId: `${codeSpace}-${md5Hash}`
-        }, md5Hash)
+  return jsx(import_react_error_boundary.ErrorBoundary, {
+    fallbackRender: ({ error, resetErrorBoundary: resetErrorBoundary2 }) => jsxs("div", {
+      role: "alert",
+      children: [
+        jsx("div", {
+          children: "Oh no"
+        }),
+        jsx("pre", {
+          children: error.message
+        }),
+        jsx("button", {
+          onClick: () => {
+            resetErrorBoundary2();
+          },
+          children: "Try again"
+        })
+      ]
+    }),
+    children: jsx("div", {
+      style: { height: 100 + "%" },
+      children: jsx(App, {
+        appId: `${codeSpace}-${md5Hash}`
       }, md5Hash)
-    })
-  });
+    }, md5Hash)
+  }, md5Hash);
 };
 var started = false;
 async function appFactory(transpiled = "", codeSpace) {
