@@ -331,17 +331,18 @@ export function mST(p?: Delta[]) {
   }
 
   // If (originStr) return addOrigin(session.json().state, originStr);
+  const sessAsJs = session.session.get("state").toJSON();
 
-  const { i, transpiled, code, html, css } = (p
+  const { i, transpiled, code, html, css } = p
     ? JSON.parse(
       aPatch(
         string_(
-          session.session.toJSON(),
+          sessAsJs,
         ),
         p,
       ),
     )
-    : session.session.toJSON());
+    : sessAsJs;
   return { i, transpiled, code, html, css };
 }
 
