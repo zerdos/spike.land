@@ -8,6 +8,8 @@ import { applyPatch as aPatch, createDelta } from "./textDiff";
 
 type IUsername = string;
 
+export { md5 };
+
 export type ICodeSession = {
   code: string;
   i: number;

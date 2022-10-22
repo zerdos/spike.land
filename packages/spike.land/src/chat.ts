@@ -6,6 +6,7 @@ import {a, ASSET_MANIFEST} from "./staticContent.mjs";
 
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
+import favicon from "./favicon.ico.html"
 
 
 // const ws = a["ws.mjs"];
@@ -326,6 +327,14 @@ export default {
                   "Cache-Control": "no-cache",
                 },
               });
+            case "favicon.ico": {
+              return new Response(favicon, {
+                headers: {
+                  "content-type": "image/vnd.microsoft.icon",
+                "cache-control": "public,max-age=31536000"
+                }
+              })
+            }
             case "files.json":
               return new Response(ASSET_MANIFEST, {
                 headers: {
@@ -367,7 +376,7 @@ export default {
                   ["room", ...paths, "public"],
                   request,
                   env
-              ).catch(() => new Response("Error"));
+              ).catch((e) => new Response("Error,"+ e?.message, {status: 500, statusText: e?.message}));
 
             default:
               try{
