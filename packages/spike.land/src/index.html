@@ -63,22 +63,7 @@
   
    </style>
    <script>
-    window.esmsInitOptions = {
-      shimMode: true,
-      resolve: function (id, parentUrl, defaultResolve) {
-        let resolved;
-
-        try{
-          resolved = defaultResolve(id, parentUrl);
-        } catch{
-          resolved = new URL('/npm:*'+id+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
-        }
-        // console.table(id, parentUrl, resolved);
-  
-        // Default resolve will handle the typical URL and import map resolution
-        return resolved;
-      }
-    }
+    
   </script>
  
 
