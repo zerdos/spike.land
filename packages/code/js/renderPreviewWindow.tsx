@@ -86,6 +86,11 @@ const AppToRender: FC<
 > = (
   { codeSpace },
 ) => {
+  const portalNode = useMemo(() =>
+    createHtmlPortalNode({
+      attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
+    }), []);
+
   // Const [flipped, set] = useState(false)
   // const { transform, opacity } = useSpring({
   //   opacity: flipped ? 1 : 0,
@@ -93,31 +98,14 @@ const AppToRender: FC<
   //   config: { mass: 5, tension: 500, friction: 80 },
   // })
 
-  const currentHash = hashCode();
-
-  const [hash, setHash] = useState(currentHash);
+  const [hash, setHash] = useState(hashCode());
 
   const onlyApp = location.pathname.endsWith("public") ||
     location.pathname.endsWith("hydrated");
 
   useEffect(() => {
-    onSessionUpdate(async () => {
-      const newHash = hashCode();
-      if (hash !== newHash) {
-        try {
-          await appFactory();
-          setHash(newHash);
-        } catch (error) {
-          console.error({ e: error });
-        }
-      }
-    }, "myApp");
+    onSessionUpdate(() => hashCode() !== hash && setHash(hashCode()), "myApp");
   }, [hash, setHash]);
-
-  const portalNode = useMemo(() =>
-    createHtmlPortalNode({
-      attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
-    }), []);
 
   return (
     <div style={{ height: 100 + "%" }}>
