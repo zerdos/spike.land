@@ -12,7 +12,7 @@ import {
   mST,
   startSession,
 } from "@spike.land/code/js/session";
-import { Delta } from "@spike.land/code/js/sessionx   ";
+import type { Delta } from "@spike.land/code/js/session";
 // import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
 import { getImportMapStr, imap } from "./chat";
