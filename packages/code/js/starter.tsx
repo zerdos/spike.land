@@ -59,11 +59,13 @@ export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
   const App = apps[md5Hash];
 
   return (
-    <ErrorBoundary>
-      <div key={md5Hash} style={{ height: 100 + "%" }} ref={ref}>
-        <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
-      </div>
-    </ErrorBoundary>
+    <>
+      <ErrorBoundary>
+        <div key={md5Hash} style={{ height: 100 + "%" }} ref={ref}>
+          <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
+        </div>
+      </ErrorBoundary>
+    </>
   );
 };
 //

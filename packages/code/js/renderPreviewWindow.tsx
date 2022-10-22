@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import {
+  Fragment,
   lazy,
   StrictMode,
   Suspense,
@@ -119,28 +120,30 @@ const AppToRender: FC<
     }), []);
 
   return (
-    <>
+    <Fragment>
       <InPortal node={portalNode}>
-        <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
+        <Fragment>
+          <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
+        </Fragment>
       </InPortal>
 
-      {isStandalone
-        ? <OutPortal node={portalNode} />
-        : (
-          <Suspense fallback={<OutPortal node={portalNode} />}>
+      <Suspense fallback={<OutPortal node={portalNode} />}>
+        {isStandalone
+          ? (
             <RainbowContainer>
-              <>
+              <Fragment>
                 <Editor
                   codeSpace={codeSpace}
                 />
                 <DraggableWindowLazy room={codeSpace}>
                   <OutPortal node={portalNode} />
                 </DraggableWindowLazy>
-              </>
+              </Fragment>
             </RainbowContainer>
-          </Suspense>
-        )}
-    </>
+          )
+          : null}
+      </Suspense>
+    </Fragment>
   );
 };
 const singleton = { started: false };

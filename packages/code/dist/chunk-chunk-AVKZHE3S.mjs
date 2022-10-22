@@ -14,6 +14,7 @@ import {
 } from "./chunk-chunk-3P7SPVPZ.mjs";
 import {
   Children,
+  Fragment,
   PureComponent,
   StrictMode,
   Suspense,
@@ -36,7 +37,7 @@ import {
   css
 } from "./chunk-chunk-SWVX2YHM.mjs";
 import {
-  Fragment,
+  Fragment as Fragment2,
   jsx,
   jsxs
 } from "./chunk-chunk-5I5R4H7O.mjs";
@@ -2833,7 +2834,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-SZPAU3HM.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-IR4DIJEH.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -2905,18 +2906,18 @@ var AppToRender = ({ codeSpace }) => {
     children: [
       jsx(InPortal, {
         node: portalNode,
-        children: jsx(AutoUpdateApp, {
-          hash,
-          codeSpace
+        children: jsx(Fragment, {
+          children: jsx(AutoUpdateApp, {
+            hash,
+            codeSpace
+          })
         })
       }),
-      isStandalone ? jsx(OutPortal, {
-        node: portalNode
-      }) : jsx(Suspense, {
+      jsx(Suspense, {
         fallback: jsx(OutPortal, {
           node: portalNode
         }),
-        children: jsx(RainbowContainer, {
+        children: isStandalone ? jsx(RainbowContainer, {
           children: jsxs(Fragment, {
             children: [
               jsx(Editor, {
@@ -2930,7 +2931,7 @@ var AppToRender = ({ codeSpace }) => {
               })
             ]
           })
-        })
+        }) : null
       })
     ]
   });
@@ -2966,14 +2967,16 @@ var AutoUpdateApp = ({ hash, codeSpace }) => {
   }, [hash]);
   const ref = useRef(null);
   const App = apps2[md5Hash];
-  return jsx(ErrorBoundary_default, {
-    children: jsx("div", {
-      style: { height: 100 + "%" },
-      ref,
-      children: jsx(App, {
-        appId: `${codeSpace}-${md5Hash}`
+  return jsx(Fragment2, {
+    children: jsx(ErrorBoundary_default, {
+      children: jsx("div", {
+        style: { height: 100 + "%" },
+        ref,
+        children: jsx(App, {
+          appId: `${codeSpace}-${md5Hash}`
+        }, md5Hash)
       }, md5Hash)
-    }, md5Hash)
+    })
   });
 };
 var started = false;
