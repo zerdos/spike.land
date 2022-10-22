@@ -258,7 +258,9 @@ export class CodeSession implements ICodeSess {
     patch,
   }: CodePatch) => {
     const codeSpace = this.room || "";
-
+    const now = mST();
+    const nowHash = md5(now.transpiled);
+    hashStore[nowHash] = hashStore[nowHash] || session?.session.get("state");
     if (
       !(Object.keys(hashStore).includes(
         oldHash,
