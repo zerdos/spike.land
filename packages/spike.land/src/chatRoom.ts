@@ -36,7 +36,7 @@ export class Code {
   codeSpace: string;
   sess: ICodeSession | null;
   sessionStarted: boolean;
-  user = self.crypto.randomUUID().slice(0, 8);
+  user = md5(self.crypto.randomUUID());
   address: string;
   users = new AVLTree(
     (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
@@ -686,3 +686,7 @@ async function sha256(myText: string) {
 
   return hexString;
 }
+function md5(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

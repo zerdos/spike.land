@@ -269,7 +269,7 @@ export class CodeSession implements ICodeSess {
       newRecord.code !== this.session.get("state").code &&
       newRecord.i <= this.session.get("state").i
     ) throw new Error("Code update without I update error");
-    const codeHash = md5(newRecord.code).slice(0, 8);
+    const codeHash = md5(newRecord.code);
     if (newRecord.transpiled.indexOf(codeHash) === -1) {
       console.error(`missing: ${codeHash}`);
       throw new Error("transpiled	 hack issue");
@@ -279,7 +279,7 @@ export class CodeSession implements ICodeSess {
       throw new Error("code deleted?");
     }
 
-    const transHash = md5(newRecord.transpiled).slice(0, 8);
+    const transHash = md5(newRecord.transpiled);
     if (newRecord.html.indexOf(transHash) === -1) {
       console.error(`missing: ${transHash}`);
       throw new Error("render hack issue");

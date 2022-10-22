@@ -45,7 +45,7 @@ export const AutoUpdateApp: FC<{ hash: number; codeSpace: string }> = (
   useEffect(() => {
     //  SetTimeout(()=>{
 
-    const newHash = md5(mST().transpiled).slice(0, 8);
+    const newHash = md5(mST().transpiled);
 
     if (newHash !== md5Hash) {
       setMdHash(newHash);
