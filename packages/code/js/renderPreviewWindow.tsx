@@ -15,7 +15,7 @@ import {
   InPortal,
   OutPortal,
 } from "react-reverse-portal";
-import { appFactory, AutoUpdateApp } from "./starter";
+import { AutoUpdateApp } from "./starter";
 
 import { css } from "@emotion/react";
 // Import { useSpring, a } from '@react-spring/web'
@@ -102,6 +102,7 @@ const AppToRender: FC<
 
   const onlyApp = location.pathname.endsWith("public") ||
     location.pathname.endsWith("hydrated");
+  const devTools = !onlyApp;
 
   useEffect(() => {
     onSessionUpdate(() => hashCode() !== hash && setHash(hashCode()), "myApp");
@@ -114,7 +115,7 @@ const AppToRender: FC<
       </InPortal>
 
       <Suspense fallback={<OutPortal node={portalNode} />}>
-        {onlyApp
+        {devTools
           ? (
             <RainbowContainer>
               <Fragment>
