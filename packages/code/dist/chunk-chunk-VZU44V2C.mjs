@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-P4RPCH7L.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-YVGM43ID.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -2990,10 +2990,14 @@ background:  repeating-radial-gradient(circle at bottom left,
   children
 });
 var AppToRender = ({ codeSpace }) => {
-  const portalNode = useMemo(() => createHtmlPortalNode({
-    attributes: { id: `root-${codeSpace}`, style: "height: 100%" }
-  }), []);
   const [hash, setHash] = useState(hashCode());
+  const portalNode = useMemo(() => createHtmlPortalNode({
+    attributes: {
+      id: `root-${codeSpace}`,
+      className: md5(mST().code),
+      style: "height: 100%"
+    }
+  }), [hash]);
   const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
   const devTools = !onlyApp;
   useEffect(() => {
