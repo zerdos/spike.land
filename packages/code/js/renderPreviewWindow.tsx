@@ -1,5 +1,12 @@
 import type { FC } from "react";
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import {
+  lazy,
+  StrictMode,
+  Suspense,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { createRoot } from "react-dom/client";
 import {
@@ -9,8 +16,7 @@ import {
 } from "react-reverse-portal";
 import { appFactory, AutoUpdateApp } from "./starter";
 
-import { CacheProvider, css } from "@emotion/react";
-import createCache from "./emotionCache";
+import { css } from "@emotion/react";
 // Import { useSpring, a } from '@react-spring/web'
 
 import { hashCode, onSessionUpdate } from "./session";
@@ -147,13 +153,11 @@ export const renderPreviewWindow = ({ codeSpace }: { codeSpace: string }) => {
   // Div.style.height='100%';
   const root = createRoot(div);
 
-  const x = createCache({ key: "root" });
-
   // (createCache as unknown as {default: typeof createCache}).default
 
   root.render(
-    <CacheProvider value={x}>
+    <StrictMode>
       <AppToRender codeSpace={codeSpace} />
-    </CacheProvider>,
+    </StrictMode>,
   );
 };
