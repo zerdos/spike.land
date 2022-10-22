@@ -35,15 +35,16 @@ const mod = {
     ) => Promise<string>)(md5Hash);
   },
   setHash: null as (null | ((_hash: string) => void)),
-  setApp: (md5hash: string) => {
+  setApp: (md5Hash: string) => {
     const rootDiv = document.createElement("div");
     rootDiv.style.visibility = "hidden";
     rootDiv.style.position = "absolute";
     document.body.appendChild(rootDiv);
 
+    mod.md5Hash = md5Hash;
     const root = createRoot(rootDiv);
     root.render(
-      <Helper md5Hash={md5hash} />,
+      <Helper md5Hash={md5Hash} />,
     );
     return () => {
       root.unmount;
@@ -104,8 +105,8 @@ const Helper: FC<{ md5Hash: string }> = ({ md5Hash }) => {
   const App = apps[md5Hash];
 
   return (
-    <div ref={ref}>
-      <App key={md5Hash} appId={`${mod.codeSpace}-${md5Hash}`} />
+    <div ref={ref} key={md5Hash}>
+      <App appId={`${mod.codeSpace}-${md5Hash}`} />
     </div>
   );
 };
