@@ -405,7 +405,7 @@ export async function join() {
     }, 30_000);
 
     //Send user info message.
-    wsConnection.send(JSON.stringify({ name: user }));
+    wsConnection.send(JSON.stringify({ name: user, hashCode: hashCode() }));
     return wsConnection;
   });
 

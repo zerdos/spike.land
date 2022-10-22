@@ -8,6 +8,7 @@ import type { ICodeSession } from "@spike.land/code/js/session";
 import {
   applyPatch,
   hashCode,
+  makePatchFrom,
   mST,
   startSession,
 } from "@spike.land/code/js/session";
@@ -484,6 +485,7 @@ export class Code {
     if (!name) {
       if (data.name) {
         session.name = data.name;
+        
 
         try {
           this.sessions.map((otherSession) => {
@@ -497,8 +499,15 @@ export class Code {
               otherSession.blockedMessages = [];
             }
           });
+
         } catch (e) {
           respondWith({ error: "error while checked blocked messages" });
+        }
+        if (data.hashCode) {
+          if (data.hashCode!==hashCode()){
+            const patch =    makePatchFrom(data.hashCode, mST());
+            return respondWith (patch)
+          };
         }
 
         const userNode = this.users.insert(data.name);

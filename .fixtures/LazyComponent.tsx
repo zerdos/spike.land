@@ -126,8 +126,7 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
     const bc = new BroadcastChannel("spike.land");
 
     bc.onmessage = async (event) => {
-      console.log({ event });
-
+     
       if (
         event.data.roomName === room &&
         event.data.sess.transpiled !== transpiled
