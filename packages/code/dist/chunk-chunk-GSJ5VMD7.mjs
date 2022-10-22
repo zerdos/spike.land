@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-L4XZGEYX.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-66WDEXHR.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -2990,25 +2990,14 @@ background:  repeating-radial-gradient(circle at bottom left,
   children
 });
 var AppToRender = ({ codeSpace }) => {
-  const currentHash = hashCode();
-  const [hash, setHash] = useState(currentHash);
-  const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
-  useEffect(() => {
-    onSessionUpdate(async () => {
-      const newHash = hashCode();
-      if (hash !== newHash) {
-        try {
-          await appFactory();
-          setHash(newHash);
-        } catch (error) {
-          console.error({ e: error });
-        }
-      }
-    }, "myApp");
-  }, [hash, setHash]);
   const portalNode = useMemo(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace}`, style: "height: 100%" }
   }), []);
+  const [hash, setHash] = useState(hashCode());
+  const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
+  useEffect(() => {
+    onSessionUpdate(() => hashCode() !== hash && setHash(hashCode()), "myApp");
+  }, [hash, setHash]);
   return jsxs("div", {
     style: { height: 100 + "%" },
     children: [
@@ -3107,7 +3096,7 @@ function AutoUpdateApp({ hash, codeSpace }) {
   }, md5Hash);
 }
 var started = false;
-async function appFactory(transpiled = "", codeSpace) {
+async function appFactory2(transpiled = "", codeSpace) {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);
@@ -3249,7 +3238,7 @@ var render = async (transpiled, codeSpace) => {
   mod2.codeSpace = codeSpace;
   const md5hash = md5(transpiled);
   if (!apps[md5hash])
-    await appFactory(transpiled);
+    await appFactory2(transpiled);
   mod2.wait = 1;
   const cleanup = mod2.setApp(
     md5hash
@@ -3529,6 +3518,6 @@ async function setAce() {
 
 export {
   wait,
-  appFactory,
+  appFactory2 as appFactory,
   Editor
 };
