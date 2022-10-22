@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-T636FZUB.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-QOLMFQ6F.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -3209,17 +3209,19 @@ var mod2 = {
   wait: 1,
   res: null,
   codeSpace: "",
-  waitForDiv: async () => {
-    const md5Hash = mod2.md5Hash;
+  waitForDiv: async (md5Hash) => {
+    if (mod2.md5Hash !== md5Hash)
+      return "";
     if (!mod2.res?.innerHTML)
       await waitForAnimation();
     if (!mod2.res?.innerHTML.includes(md5Hash)) {
       await waitForAnimation();
     }
-    if (mod2.res?.innerHTML.includes(md5Hash))
-      return mod2.res.innerHTML;
+    const html = mod2.res?.innerHTML;
+    if (html?.includes(md5Hash))
+      return html;
     mod2.wait = mod2.wait * 2;
-    return await mod2.waitForDiv();
+    return await mod2.waitForDiv(md5Hash);
   },
   setHash: null,
   setApp: (md5hash) => {
@@ -3251,7 +3253,7 @@ var render = async (transpiled, codeSpace) => {
     md5hash
   );
   try {
-    const html = await mod2.waitForDiv();
+    const html = await mod2.waitForDiv(md5hash);
     if (!html)
       return { html: null, css: null };
     const css2 = mineFromCaches(eCaches[md5hash]);
