@@ -120,7 +120,7 @@ const AppToRender: FC<
     }), []);
 
   return (
-    <Fragment>
+    <div style={{ height: 100 + "%" }}>
       <InPortal node={portalNode}>
         <Fragment>
           <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
@@ -143,7 +143,7 @@ const AppToRender: FC<
           )
           : null}
       </Suspense>
-    </Fragment>
+    </div>
   );
 };
 const singleton = { started: false };
