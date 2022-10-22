@@ -115,11 +115,7 @@ const AppToRender: FC<
       </InPortal>
 
       <Suspense
-        fallback={
-          <>
-            <OutPortal node={portalNode} />
-          </>
-        }
+        fallback={<OutPortal node={portalNode} />}
       >
         {devTools
           ? (
@@ -134,7 +130,7 @@ const AppToRender: FC<
               </Fragment>
             </RainbowContainer>
           )
-          : null}
+          : <OutPortal node={portalNode} />}
       </Suspense>
     </div>
   );
