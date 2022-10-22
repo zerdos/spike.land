@@ -42632,7 +42632,9 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       code: code2,
       tsWorker: languages.typescript.getTypeScriptWorker().then(
         (ts) => ts(model.uri)
-      )
+      ).catch((e) => {
+        console.log("ts error, will retry");
+      })
     };
     model.onDidChangeContent(() => {
       if (mod2.silent)

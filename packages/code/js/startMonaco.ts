@@ -548,7 +548,9 @@ export const startMonaco = async (
       code,
       tsWorker: languages.typescript.getTypeScriptWorker().then((ts) =>
         ts(model.uri)
-      ),
+      ).catch((e) => {
+        console.log("ts error, will retry");
+      }),
     };
 
     model.onDidChangeContent(() => {

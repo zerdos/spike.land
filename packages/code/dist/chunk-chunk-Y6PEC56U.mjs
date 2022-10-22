@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-FDEZNDU2.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-WLYJFYD7.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -2992,7 +2992,7 @@ background:  repeating-radial-gradient(circle at bottom left,
 var AppToRender = ({ codeSpace }) => {
   const currentHash = hashCode();
   const [hash, setHash] = useState(currentHash);
-  const isStandalone = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
+  const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
   useEffect(() => {
     onSessionUpdate(async () => {
       const newHash = hashCode();
@@ -3020,10 +3020,10 @@ var AppToRender = ({ codeSpace }) => {
         })
       }),
       jsx(Suspense, {
-        fallback: jsx(OutPortal, {
+        fallback: () => jsx(OutPortal, {
           node: portalNode
         }),
-        children: isStandalone ? jsx(RainbowContainer, {
+        children: onlyApp ? jsx(RainbowContainer, {
           children: jsxs(Fragment, {
             children: [
               jsx(Editor, {
@@ -3513,7 +3513,7 @@ async function setMonaco() {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-VTD7DVH3.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-EVSZ6UGK.mjs");
   const container = window.document.getElementById("editor");
   return startMonaco({
     container,
