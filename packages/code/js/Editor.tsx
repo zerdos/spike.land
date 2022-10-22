@@ -165,5 +165,5 @@ async function setMonaco() {
 async function setAce() {
   const { startAce } = await import("./startAce");
 
-  return await startAce(prettierJs*mST().code, onModChange);
+  return await startAce(prettierJs(mST().code), onModChange);
 }

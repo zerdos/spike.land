@@ -2941,7 +2941,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-WUC7YWEZ.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-BNMHA2KA.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -3463,13 +3463,13 @@ async function setMonaco() {
   return startMonaco({
     container,
     name: mod3.codeSpace,
-    code: mST().code,
+    code: prettierJs(mST().code),
     onChange: onModChange
   });
 }
 async function setAce() {
   const { startAce } = await import("./chunk-startAce-NKJHRST2.mjs");
-  return await startAce(mST().code, onModChange);
+  return await startAce(prettierJs(mST().code), onModChange);
 }
 
 export {
