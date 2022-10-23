@@ -19,7 +19,7 @@
   }
   
   html[data-theme='dark'] {
-    background-color: #121212;
+    --background-color-dark: #121212;
    --text-color-normal: hsl(210, 10%, 62%);
     --text-color-light: hsl(210, 15%, 35%);
     --text-color-richer: hsl(210, 50%, 72%);
@@ -27,8 +27,8 @@
   }
   @media screen and (prefers-color-scheme: light) {
     body {
-      background-color: white;
-      color: black;
+      background-color: varwhite;
+      --color: black;
       --text-color-normal: #0a244d;
       --text-color-light: #8cabd9;
     }

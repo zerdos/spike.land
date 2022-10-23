@@ -17,14 +17,19 @@
     --webkit-overflow-scrolling: touch;
   
   }
-  
-  html[data-theme='dark'] {
-    background-color: #121212;
-   --text-color-normal: hsl(210, 10%, 62%);
+
+  @media screen and (prefers-color-scheme: dark) {
+    body {
+      background-color: #121212;;
+      color: hsl(210, 10%, 62%);
+      --text-color-normal: hsl(210, 10%, 62%);
     --text-color-light: hsl(210, 15%, 35%);
     --text-color-richer: hsl(210, 50%, 72%);
     --text-color-highlight: hsl(25, 70%, 45%);
+    }
   }
+
+
   @media screen and (prefers-color-scheme: light) {
     body {
       background-color: white;
