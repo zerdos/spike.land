@@ -93,7 +93,6 @@ const AppToRender: FC<
         style: "height: 100%",
       },
     }), []);
-
   const onlyApp = location.pathname.endsWith("public") ||
     location.pathname.endsWith("hydrated");
   const devTools = !onlyApp;

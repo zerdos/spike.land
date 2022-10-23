@@ -50,16 +50,16 @@
       "bytes": 123,
       "imports": []
     },
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
+      "bytes": 4182,
+      "imports": []
+    },
     "src/handleErrors.ts": {
       "bytes": 1109,
       "imports": []
     },
-    "src/favicon.ico.html": {
-      "bytes": 15406,
-      "imports": []
-    },
     "src/chat.ts": {
-      "bytes": 16515,
+      "bytes": 16850,
       "imports": [
         {
           "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -70,11 +70,11 @@
           "kind": "import-statement"
         },
         {
-          "path": "src/handleErrors.ts",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json",
           "kind": "import-statement"
         },
         {
-          "path": "src/favicon.ico.html",
+          "path": "src/handleErrors.ts",
           "kind": "import-statement"
         }
       ]
@@ -84,7 +84,7 @@
       "imports": []
     },
     "src/index.html": {
-      "bytes": 2704,
+      "bytes": 3209,
       "imports": []
     },
     "src/iife.html": {
@@ -95,8 +95,8 @@
       "bytes": 2762,
       "imports": []
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-FS45JEB7.mjs": {
-      "bytes": 178818,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-H2FPX7XE.mjs": {
+      "bytes": 180601,
       "imports": [
         {
           "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JS5E2TTE.mjs",
@@ -105,10 +105,10 @@
       ]
     },
     "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs": {
-      "bytes": 375,
+      "bytes": 389,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-FS45JEB7.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-H2FPX7XE.mjs",
           "kind": "import-statement"
         },
         {
@@ -135,7 +135,7 @@
       ]
     },
     "src/chatRoom.ts": {
-      "bytes": 19903,
+      "bytes": 19595,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -236,22 +236,22 @@
           "bytesInOutput": 8923
         },
         "src/chat.ts": {
-          "bytesInOutput": 13829
+          "bytesInOutput": 14133
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 92
         },
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
+          "bytesInOutput": 4105
+        },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
-        },
-        "src/favicon.ico.html": {
-          "bytesInOutput": 60695
         },
         "src/rateLimiterClient.ts": {
           "bytesInOutput": 1120
         },
         "src/index.html": {
-          "bytesInOutput": 2731
+          "bytesInOutput": 3238
         },
         "src/iife.html": {
           "bytesInOutput": 2264
@@ -259,8 +259,8 @@
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JS5E2TTE.mjs": {
           "bytesInOutput": 1678
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-FS45JEB7.mjs": {
-          "bytesInOutput": 178045
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-H2FPX7XE.mjs": {
+          "bytesInOutput": 179818
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -272,7 +272,7 @@
           "bytesInOutput": 11152
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 16110
+          "bytesInOutput": 15073
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -284,7 +284,7 @@
           "bytesInOutput": 497
         }
       },
-      "bytes": 347010
+      "bytes": 292035
     }
   }
 }

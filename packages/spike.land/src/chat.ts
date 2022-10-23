@@ -1,12 +1,12 @@
 import { getAssetFromKV,  } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
 import {a, ASSET_MANIFEST} from "./staticContent.mjs";
+import packages from "@spike.land/code/package.json"
 
 // import imap from "@spike.land/code/js/importmap.json";
 
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
-import favicon from "./favicon.ico.html"
 
 
 // const ws = a["ws.mjs"];
@@ -327,14 +327,6 @@ export default {
                   "Cache-Control": "no-cache",
                 },
               });
-            case "favicon.ico": {
-              return new Response(favicon, {
-                headers: {
-                  "content-type": "image/vnd.microsoft.icon",
-                "cache-control": "public,max-age=31536000"
-                }
-              })
-            }
             case "files.json":
               return new Response(ASSET_MANIFEST, {
                 headers: {
@@ -342,7 +334,13 @@ export default {
                   "Cache-Control": "no-cache",
                 },
               });
-
+              case "packages.json":
+                return new Response(JSON.stringify(packages), {
+                  headers: {
+                    "Content-Type": "application/json;charset=UTF-8",
+                    "Cache-Control": "no-cache",
+                  },
+                });
             case "importmap.json":
               return new Response(getImportMapStr(url.origin), {
                 headers: {
@@ -414,7 +412,7 @@ export default {
           }
        
         })(_request);
-        if (!cachedResponse2) throw new Error("!cached response")
+        if (!cachedResponse2) return new Response("404 :(", {status: 404, statusText: "not found"});
 
         if(cachedResponse2?.ok) await cache.put(cacheKey, cachedResponse2.clone());
 

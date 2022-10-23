@@ -410,7 +410,23 @@ export const startMonaco = async (
       Uri.parse(`${originToUse}/live/${codeSpace}.tsx`),
     );
 
-    const editor = create(container, {
+    // const shadowRoot = container.attachShadow({
+    //   mode: "closed",
+    // });
+
+    // const innerContainer = document.createElement("div");
+    // shadowRoot.appendChild(innerContainer);
+    // innerContainer.style.width = "100%";
+    // innerContainer.style.height = "100%";
+
+    // const innerStyle = document.createElement("style");
+    // innerStyle.innerText =
+    //   `@import "${location.origin}/node_modules/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
+    // shadowRoot.appendChild(innerStyle);
+
+    const innerContainer = container;
+
+    const editor = create(innerContainer, {
       model,
       scrollbar: {
         scrollByPage: false,
@@ -519,7 +535,14 @@ export const startMonaco = async (
 
       automaticLayout: true,
 
-      useShadowDOM: true,
+      useShadowDOM: false,
+      experimental: {
+        stickyScroll: {
+          enabled: true,
+        },
+      },
+      roundedSelection: true,
+      linkedEditing: true,
       bracketPairColorization: {
         independentColorPoolPerBracketType: true,
         enabled: true,

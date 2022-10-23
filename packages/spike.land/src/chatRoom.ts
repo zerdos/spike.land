@@ -586,18 +586,15 @@ export class Code {
           try {
             await applyPatch({newHash, oldHash, patch});
           } catch (err) {
-            const patched = mST(patch);
-            if (md5(patched.code) === patched.transpiled.slice(-8)) {
-            if (md5(patched.transpiled)==newHash){
-
-            const myNewPatch =  await makePatch(patched)!;
-            respondWith(myNewPatch);
-            this.broadcast({...myNewPatch});
+            console.error({ err });
+return            respondWith({err});
+      
+       
            
   
-          await applyPatch(myNewPatch);
-            }
-          }}
+         
+          
+          }
 
           if (newHash === hashCode()) {
             try {
