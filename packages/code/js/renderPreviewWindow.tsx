@@ -1,13 +1,5 @@
 import type { FC } from "react";
-import {
-  Fragment,
-  lazy,
-  StrictMode,
-  Suspense,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { Fragment, lazy, StrictMode, Suspense, useMemo } from "react";
 
 import { createRoot } from "react-dom/client";
 import {
@@ -20,7 +12,7 @@ import { AutoUpdateApp } from "./starter";
 import { css } from "@emotion/react";
 // Import { useSpring, a } from '@react-spring/web'
 
-import { hashCode, md5, mST, onSessionUpdate } from "./session";
+import { md5, mST } from "./session";
 
 import { Editor } from "./Editor";
 import { wait } from "wait.mjs";
@@ -93,7 +85,6 @@ const AppToRender: FC<
   //   config: { mass: 5, tension: 500, friction: 80 },
   // })
 
-  const [hash, setHash] = useState(hashCode());
   const portalNode = useMemo(() =>
     createHtmlPortalNode({
       attributes: {
@@ -101,20 +92,16 @@ const AppToRender: FC<
         className: md5(mST().code),
         style: "height: 100%",
       },
-    }), [hash]);
+    }), []);
 
   const onlyApp = location.pathname.endsWith("public") ||
     location.pathname.endsWith("hydrated");
   const devTools = !onlyApp;
 
-  useEffect(() => {
-    onSessionUpdate(() => hashCode() !== hash && setHash(hashCode()), "myApp");
-  }, [hash, setHash]);
-
   return (
-    <div style={{ height: 100 + "%" }}>
+    <>
       <InPortal node={portalNode}>
-        <AutoUpdateApp hash={hash} codeSpace={codeSpace} />
+        <AutoUpdateApp codeSpace={codeSpace} />
       </InPortal>
 
       <Suspense
@@ -133,9 +120,13 @@ const AppToRender: FC<
               </Fragment>
             </RainbowContainer>
           )
-          : <OutPortal node={portalNode} />}
+          : (
+            <div style={{ height: 100 + "%" }}>
+              <OutPortal node={portalNode} />
+            </div>
+          )}
       </Suspense>
-    </div>
+    </>
   );
 };
 const singleton = { started: false };

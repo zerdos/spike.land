@@ -8,7 +8,7 @@ import { createRoot } from "react-dom/client";
 // import { flushSync } from "react-dom";
 // import createEmotionServer from "@emotion/server/dist/emotion-server.browser.esm.js";
 import { useEffect, useRef } from "react";
-import type { EmotionCache } from "@emotion/utils";
+import type { EmotionCache } from "@emotion/cache";
 
 const mod = {
   md5Hash: "",
