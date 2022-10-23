@@ -255,7 +255,7 @@ const build = (entryPoints, extraExternal) =>
 
   await build([
     "js/session.ts",
-    "js/prettierWorker.mjs",
+    // "js/prettierWorker.mjs",
     "js/reactMod.ts",
     "js/Editor.tsx",
     "js/motion.ts",
