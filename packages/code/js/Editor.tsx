@@ -113,7 +113,9 @@ export const Editor: FC<
     }
 
     mod.counter = mST().i;
-    mod.code = prettierJs(mST().code);
+    const code = mST().code;
+    if (!code) return;
+    mod.code = code;
     await mod.setValue(mod.code);
 
     changeContent((x: typeof mySession) => ({
@@ -138,6 +140,7 @@ export const Editor: FC<
 
 async function onModChange(_code: string) {
   const code = prettierJs(_code);
+  if (!code) return;
 
   if (code === prettierJs(mod.code)) return;
 
@@ -157,7 +160,7 @@ async function setMonaco() {
   return startMonaco({
     container,
     name: mod.codeSpace,
-    code: prettierJs(mST().code),
+    code: (mST().code),
     onChange: onModChange,
   });
 }
@@ -165,5 +168,5 @@ async function setMonaco() {
 async function setAce() {
   const { startAce } = await import("./startAce");
 
-  return await startAce(prettierJs(mST().code), onModChange);
+  return await startAce(mST().code, onModChange);
 }

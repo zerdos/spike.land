@@ -61,13 +61,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/runtime": "^7.19.4",
     "@emotion/cache": "11.10.3",
     "@emotion/react": "11.10.4",
-    "@emotion/serialize": "^1.1.0",
     "@emotion/styled": "11.10.4",
-    "@emotion/utils": "1.2.0",
-    "@emotion/weak-memoize": "^0.3.0",
     "@mui/material": "5.10.10",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
@@ -81,7 +77,6 @@
     "esbuild-wasm": "0.15.12",
     "fast-diff": "1.2.0",
     "framer-motion": "7.6.1",
-    "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.1.0",
     "is-callable": "1.2.7",
     "lodash.debounce": "4.0.8",

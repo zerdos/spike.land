@@ -33,17 +33,11 @@
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@yarnpkg/sdks": "3.0.0-rc.26",
+    "playwright": "1.27.1",
     "typescript": "4.8.4"
   },
   "resolutions": {
-    "wrangler/esbuild": "0.15.11",
-    "buffer-from": "1.1.2"
-  },
-  "dependencies": {
-    "playwright": "1.27.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "renderkid": "^3.0.0"
+    "wrangler/esbuild": "0.15.11"
   },
   "packageManager": "yarn@4.0.0-rc.26"
 }

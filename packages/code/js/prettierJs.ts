@@ -1,6 +1,6 @@
 import { wrap } from "comlink";
 type PrettierFN = {
-  prettierJs: (code: string) => Promise<string>;
+  prettierJs: (code: string) => Promise<string | null>;
 };
 
 export const prettierJs = async (code: string) => {
@@ -8,7 +8,7 @@ export const prettierJs = async (code: string) => {
   return prettier.prettierJs(code);
 };
 
-let _prettierJs: ((code: string) => string) | null = null;
+let _prettierJs: ((code: string) => string | null) | null = null;
 
 const fallback = {
   prettierJs: async (code: string) => {
