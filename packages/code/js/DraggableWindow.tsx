@@ -259,7 +259,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 }}
                 css={css`
                 display: block;
+                scroll
                 overflow: hidden;
+                overflow-x: hidden;
                 overflow-y: hidden;
             `}
               >

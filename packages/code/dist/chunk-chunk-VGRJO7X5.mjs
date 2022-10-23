@@ -22533,7 +22533,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-WCH7XF5K.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-JDLTOKXY.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -23007,6 +23007,7 @@ var mod3 = {
 var Editor = ({ codeSpace }) => {
   const ref = useRef(null);
   const { i, code } = mST();
+  const engine = isMobile() ? "ace" : "monaco";
   const [
     mySession,
     changeContent
@@ -23016,15 +23017,13 @@ var Editor = ({ codeSpace }) => {
     counter: i,
     started: false,
     onChange(_cb) {
-    },
-    engine: isMobile() ? "ace" : "monaco"
+    }
   });
   mod3.counter = mST().i;
   mod3.codeSpace = codeSpace;
   const {
     myCode,
     started: started2,
-    engine,
     onChange
   } = mySession;
   mod3.code = myCode;
@@ -23075,7 +23074,7 @@ var Editor = ({ codeSpace }) => {
     css: css`          
       max-width: 640px;
       height: 100%; 
-      `,
+  `,
     ref
   });
 };
@@ -23094,7 +23093,7 @@ async function setMonaco() {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-UKC5Z4Z3.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-C3D3UWTB.mjs");
   const container = window.document.getElementById("editor");
   return startMonaco({
     container,

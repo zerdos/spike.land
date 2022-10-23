@@ -47,6 +47,7 @@ export const Editor: FC<
 ) => {
   const ref = useRef<HTMLDivElement>(null);
   const { i, code } = mST();
+  const engine = isMobile() ? "ace" : "monaco";
 
   const [
     mySession,
@@ -58,7 +59,6 @@ export const Editor: FC<
     started: false,
 
     onChange(_cb: () => void) {},
-    engine: isMobile() ? "ace" : "monaco",
   });
 
   mod.counter = mST().i;
@@ -67,8 +67,6 @@ export const Editor: FC<
   const {
     myCode,
     started,
-    // runner,
-    engine,
     // getValue,
     onChange,
   } = mySession;
@@ -132,7 +130,7 @@ export const Editor: FC<
       css={css`          
       max-width: 640px;
       height: 100%; 
-      `}
+  `}
       ref={ref}
     />
   );
@@ -154,7 +152,6 @@ async function setMonaco() {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-
   const { startMonaco } = await import("./startMonaco");
   const container = window.document.getElementById("editor") as HTMLDivElement;
   return startMonaco({

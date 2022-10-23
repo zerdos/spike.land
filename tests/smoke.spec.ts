@@ -8,7 +8,7 @@ test("basic test", async ({ page }) => {
     (res) => res.text(),
   );
 
-  await expect(page).toHaveURL("https://testing.spike.land/live/coder/ ");
+  await expect(page).toHaveURL("https://testing.spike.land/live/coder ");
 
   await page.screenshot({ path: `editor.png` });
 });
@@ -23,7 +23,7 @@ test("screens test", async ({ page }) => {
 
   await expect(page).toHaveURL("https://testing.spike.land/live/pwtest/ ");
 
-  const editor = page.locator("[data-test-id=editor]");
+  const editor = page.locator("[id=editor]");
 
   const message = "HELLO" + Math.random() + "Foo..." + Math.random();
   await editor.dblclick();

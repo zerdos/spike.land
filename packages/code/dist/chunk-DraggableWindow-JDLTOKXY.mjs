@@ -8,8 +8,8 @@ import {
 } from "./chunk-chunk-I5CCKZLE.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-SIAMZTFD.mjs";
-import "./chunk-chunk-VLPFD3HZ.mjs";
+} from "./chunk-chunk-P5JXBD4Q.mjs";
+import "./chunk-chunk-VGRJO7X5.mjs";
 import "./chunk-chunk-H2FPX7XE.mjs";
 import {
   jsx,
@@ -2775,7 +2775,9 @@ var DraggableWindow = ({
                   },
                   css: css`
                 display: block;
+                scroll
                 overflow: hidden;
+                overflow-x: hidden;
                 overflow-y: hidden;
             `,
                   children: jsx(m.div, {

@@ -42578,7 +42578,8 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       "typescript",
       Uri.parse(`${originToUse}/live/${codeSpace}.tsx`)
     );
-    const editor2 = create(container2, {
+    const innerContainer = container2;
+    const editor2 = create(innerContainer, {
       model,
       scrollbar: {
         scrollByPage: false,
@@ -42612,7 +42613,14 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         showSnippets: true
       },
       automaticLayout: true,
-      useShadowDOM: true,
+      useShadowDOM: false,
+      experimental: {
+        stickyScroll: {
+          enabled: true
+        }
+      },
+      roundedSelection: true,
+      linkedEditing: true,
       bracketPairColorization: {
         independentColorPoolPerBracketType: true,
         enabled: true
