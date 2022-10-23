@@ -1,7 +1,13 @@
 import { css } from "@emotion/react";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
-import { LayoutGroup, motion } from "framer-motion";
+import {
+  domAnimation,
+  domMax,
+  LazyMotion,
+  m,
+  MotionConfig,
+} from "framer-motion";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr";
 
@@ -150,22 +156,22 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return (
-    <LayoutGroup>
-      <motion.div
-        transition={{ delay, type, duration }}
-        initial={{
-          top: 0,
-          padding: 0,
-          right: 0,
-          borderRadius: 0,
-        }}
-        animate={{
-          top: bottom,
-          padding: 8,
-          right,
-          borderRadius: 16,
-        }}
-        css={css`
+    <MotionConfig transition={{ delay, type, duration }}>
+      <LazyMotion features={{ ...domAnimation, ...domMax }}>
+        <m.div
+          initial={{
+            top: 0,
+            padding: 0,
+            right: 0,
+            borderRadius: 0,
+          }}
+          animate={{
+            top: bottom,
+            padding: 8,
+            right,
+            borderRadius: 16,
+          }}
+          css={css`
             touch-action: pinch-zoom;
             background-color: ${rgba(r, g, b, .3)};
             backdrop-filter: blur(15px);
@@ -174,265 +180,263 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             white-space: normal;
             position: fixed;
           `}
-        drag={true}
-        dragMomentum={false}
-        dragConstraints={{
-          left: 0,
-          right: width - 20 - width / 6,
-          bottom: innerHeight,
-        }}
-        dragElastic={0.5}
-      >
-        <div
-          css={css` 
+          drag={true}
+          dragMomentum={false}
+          dragConstraints={{
+            left: 0,
+            right: width - 20 - width / 6,
+            bottom: innerHeight,
+          }}
+          dragElastic={0.5}
+        >
+          <div
+            css={css` 
               display: flex;
               
                 `}
-        >
-          <div
-            css={css`
+          >
+            <div
+              css={css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `}
-          >
-            <motion.div
-              transition={{ delay, type, duration }}
-              css={css`
+            >
+              <m.div
+                css={css`
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0px", width: "0", opacity: 0 }}
-              animate={{
-                height: "42px",
-                width: "100%",
-                opacity: 1,
-              }}
-            >
-              <ToggleButtonGroup
-                value={scaleRange}
-                size="small"
-                exclusive
-                onChange={(_e: unknown, newScale: number) => {
-                  newScale && changeScaleRange(newScale);
+                initial={{ height: "0px", width: "0", opacity: 0 }}
+                animate={{
+                  height: "42px",
+                  width: "100%",
+                  opacity: 1,
                 }}
               >
-                {sizes.map((size, ind) => (
-                  <ToggleButton
-                    key={ind}
-                    value={size}
-                  >
-                    <span
-                      css={css`
-                       color: ${
-                        size === scaleRange
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
-                       `}
+                <ToggleButtonGroup
+                  value={scaleRange}
+                  size="small"
+                  exclusive
+                  onChange={(_e: unknown, newScale: number) => {
+                    newScale && changeScaleRange(newScale);
+                  }}
+                >
+                  {sizes.map((size, ind) => (
+                    <ToggleButton
+                      key={ind}
+                      value={size}
                     >
-                      {size}%
-                    </span>
-                  </ToggleButton>
-                ))}
-              </ToggleButtonGroup>
-            </motion.div>
-            {/* <span>{width}*{height}</span> */}
+                      <span
+                        css={css`
+                       color: ${
+                          size === scaleRange
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
+                       `}
+                      >
+                        {size}%
+                      </span>
+                    </ToggleButton>
+                  ))}
+                </ToggleButtonGroup>
+              </m.div>
+              {/* <span>{width}*{height}</span> */}
 
-            <motion.div
-              transition={{ delay, type, duration }}
-              initial={{
-                width: window.innerWidth,
-                height: window.innerHeight,
-                borderRadius: 0,
-                // Opacity: isFullScreen ? 1 : 0.7,
-              }}
-              animate={{
-                width: width * scale / devicePixelRatio,
-                height: height * scale / devicePixelRatio,
-                borderRadius: 8,
-                // Opacity: isFullScreen ? 1 : 0.7,
-              }}
-              css={css`
+              <m.div
+                initial={{
+                  width: window.innerWidth,
+                  height: window.innerHeight,
+                  borderRadius: 0,
+                  // Opacity: isFullScreen ? 1 : 0.7,
+                }}
+                animate={{
+                  width: width * scale / devicePixelRatio,
+                  height: height * scale / devicePixelRatio,
+                  borderRadius: 8,
+                  // Opacity: isFullScreen ? 1 : 0.7,
+                }}
+                css={css`
                 display: block;
                 overflow: hidden;
                 overflow-y: hidden;
             `}
-            >
-              <motion.div
-                transition={{ delay, type, duration }}
-                initial={{
-                  width: window.innerWidth,
-                  height: window.innerHeight,
-                  backgroundColor: rgba(r, g, b, 1),
-                  scale: 1,
-                }}
-                animate={{
-                  backgroundColor: rgba(r, g, b, 0.7),
-                  transformOrigin: "0px 0px",
-                  width: width / devicePixelRatio,
-                  height: height / devicePixelRatio,
-                  scale: scaleRange / 100,
-                }}
-                data-test-id="z-body"
-                css={css`
+              >
+                <m.div
+                  initial={{
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    backgroundColor: rgba(r, g, b, 1),
+                    scale: 1,
+                  }}
+                  animate={{
+                    backgroundColor: rgba(r, g, b, 0.7),
+                    transformOrigin: "0px 0px",
+                    width: width / devicePixelRatio,
+                    height: height / devicePixelRatio,
+                    scale: scaleRange / 100,
+                  }}
+                  data-test-id="z-body"
+                  css={css`
                   overflow: overlay;
                   overflow-y: hidden;
               `}
-              >
-                {children}
-              </motion.div>
-            </motion.div>
-            <motion.div
-              transition={{ delay, type, duration }}
-              css={css`
+                >
+                  {children}
+                </m.div>
+              </m.div>
+              <m.div
+                css={css`
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0", width: "0", opacity: 0 }}
-              animate={{
-                height: "42px",
-                width: "100%",
-                opacity: 1,
-              }}
-            >
-              <ToggleButtonGroup
-                value={width}
-                size="small"
-                exclusive
-                onChange={(_e: unknown, newSize: number) => {
-                  if (newSize) {
-                    setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
-                    setWidth(newSize);
-                  }
+                initial={{ height: "0", width: "0", opacity: 0 }}
+                animate={{
+                  height: "42px",
+                  width: "100%",
+                  opacity: 1,
                 }}
               >
-                {breakPoints.map((size, ind) => (
-                  <ToggleButton
-                    key={ind}
-                    value={size}
-                  >
-                    {size === 680
-                      ? (
-                        <span
-                          css={css`
-                        color: ${
-                            width === 680
-                              ? "rgba(255,255,255,.8)"
-                              : "rgba(0,0,0,.3)"
-                          };
-                        `}
-                        >
-                          <Phone />
-                        </span>
-                      )
-                      : (size === 768
+                <ToggleButtonGroup
+                  value={width}
+                  size="small"
+                  exclusive
+                  onChange={(_e: unknown, newSize: number) => {
+                    if (newSize) {
+                      setHeight(
+                        breakPointHeights[breakPoints.indexOf(newSize)],
+                      );
+                      setWidth(newSize);
+                    }
+                  }}
+                >
+                  {breakPoints.map((size, ind) => (
+                    <ToggleButton
+                      key={ind}
+                      value={size}
+                    >
+                      {size === 680
                         ? (
                           <span
                             css={css`
                         color: ${
-                              width === 768
+                              width === 680
                                 ? "rgba(255,255,255,.8)"
                                 : "rgba(0,0,0,.3)"
                             };
                         `}
                           >
-                            <Tablet />
+                            <Phone />
                           </span>
                         )
-                        : (
-                          <span
-                            css={css`
+                        : (size === 768
+                          ? (
+                            <span
+                              css={css`
                         color: ${
-                              width === 1920
-                                ? "rgba(255,255,255,.8)"
-                                : "rgba(0,0,0,.3)"
-                            };
+                                width === 768
+                                  ? "rgba(255,255,255,.8)"
+                                  : "rgba(0,0,0,.3)"
+                              };
+                        `}
+                            >
+                              <Tablet />
+                            </span>
+                          )
+                          : (
+                            <span
+                              css={css`
+                        color: ${
+                                width === 1920
+                                  ? "rgba(255,255,255,.8)"
+                                  : "rgba(0,0,0,.3)"
+                              };
                       `}
-                          >
-                            <Tv />
-                          </span>
-                        ))}
-                  </ToggleButton>
-                ))}
-              </ToggleButtonGroup>
-            </motion.div>
-          </div>
+                            >
+                              <Tv />
+                            </span>
+                          ))}
+                    </ToggleButton>
+                  ))}
+                </ToggleButtonGroup>
+              </m.div>
+            </div>
 
-          <motion.div
-            transition={{ delay, type, duration }}
-            initial={{ height: 0, width: 0, opacity: 0 }}
-            animate={{ height: "100%", width: "88px", opacity: 1 }}
-          >
-            <div
-              css={css`
+            <m.div
+              initial={{ height: 0, width: 0, opacity: 0 }}
+              animate={{ height: "100%", width: "88px", opacity: 1 }}
+            >
+              <div
+                css={css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
               align-items: center;          
               flex-direction: column;
               `}
-            >
-              <Fab
-                key="fullscreen"
-                onClick={() => {
-                  document.querySelector("#root")?.requestFullscreen();
-                }}
               >
-                <span
-                  css={css`
+                <Fab
+                  key="fullscreen"
+                  onClick={() => {
+                    document.querySelector("#root")?.requestFullscreen();
+                  }}
+                >
+                  <span
+                    css={css`
                 font-size: 20pt;
               `}
-                >
-                  <FullscreenIcon key="fs" />
-                </span>
-              </Fab>
+                  >
+                    <FullscreenIcon key="fs" />
+                  </span>
+                </Fab>
 
-              <QRButton
-                url={location.origin + `/live/${room}/public`}
-              />
+                <QRButton
+                  url={location.origin + `/live/${room}/public`}
+                />
 
-              {
-                /* <Fab
+                {
+                  /* <Fab
                 key="video"
                 onClick={() => open(`/live/${room}/public`)}
               >
                 <Share />
               </Fab> */
-              }
+                }
 
-              {false && (
-                <>
-                  <video
-                    ref={videoRef}
-                    onClick={() => startVideo(videoRef?.current!)}
-                    playsInline={true}
-                    autoPlay={true}
-                  >
-                  </video>
-                  {clients.map((k, index) => (
+                {false && (
+                  <>
                     <video
-                      id={`video-${k}`}
-                      key={index}
-                      // ref={videoRef}
+                      ref={videoRef}
+                      onClick={() => startVideo(videoRef?.current!)}
                       playsInline={true}
                       autoPlay={true}
                     >
                     </video>
-                  ))}
-                </>
-              )}
-              <Fab
-                key="Share"
-                onClick={() => open(`/live/${room}/public`)}
-              >
-                <Share />
-              </Fab>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
-    </LayoutGroup>
+                    {clients.map((k, index) => (
+                      <video
+                        id={`video-${k}`}
+                        key={index}
+                        // ref={videoRef}
+                        playsInline={true}
+                        autoPlay={true}
+                      >
+                      </video>
+                    ))}
+                  </>
+                )}
+                <Fab
+                  key="Share"
+                  onClick={() => open(`/live/${room}/public`)}
+                >
+                  <Share />
+                </Fab>
+              </div>
+            </m.div>
+          </div>
+        </m.div>
+      </LazyMotion>
+    </MotionConfig>
   );
 };
 
