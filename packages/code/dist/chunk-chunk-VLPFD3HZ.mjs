@@ -1,5 +1,4 @@
 import {
-  hashCode,
   mST,
   md5,
   onSessionUpdate,
@@ -7,6 +6,7 @@ import {
   require_lodash
 } from "./chunk-chunk-H2FPX7XE.mjs";
 import {
+  Fragment as Fragment2,
   jsx,
   jsxs
 } from "./chunk-chunk-5I5R4H7O.mjs";
@@ -22533,7 +22533,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-ZHM6ASFA.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-WCH7XF5K.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -22582,26 +22582,20 @@ background:  repeating-radial-gradient(circle at bottom left,
   children
 });
 var AppToRender = ({ codeSpace }) => {
-  const [hash, setHash] = useState(hashCode());
   const portalNode = useMemo(() => createHtmlPortalNode({
     attributes: {
       id: `root-${codeSpace}`,
       className: md5(mST().code),
       style: "height: 100%"
     }
-  }), [hash]);
+  }), []);
   const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
   const devTools = !onlyApp;
-  useEffect(() => {
-    onSessionUpdate(() => hashCode() !== hash && setHash(hashCode()), "myApp");
-  }, [hash, setHash]);
-  return jsxs("div", {
-    style: { height: 100 + "%" },
+  return jsxs(Fragment2, {
     children: [
       jsx(InPortal, {
         node: portalNode,
         children: jsx(AutoUpdateApp, {
-          hash,
           codeSpace
         })
       }),
@@ -22623,8 +22617,11 @@ var AppToRender = ({ codeSpace }) => {
               })
             ]
           })
-        }) : jsx(OutPortal, {
-          node: portalNode
+        }) : jsx("div", {
+          style: { height: 100 + "%" },
+          children: jsx(OutPortal, {
+            node: portalNode
+          })
         })
       })
     ]
@@ -22651,20 +22648,23 @@ var import_is_callable = __toESM(require_is_callable(), 1);
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
-function AutoUpdateApp({ hash, codeSpace }) {
+function AutoUpdateApp({ codeSpace }) {
   const [{ md5Hash, resetErrorBoundary }, setMdHash] = useState({
     md5Hash: md5(mST().transpiled),
     resetErrorBoundary: null
   });
-  useEffect(() => {
-    const newHash = md5(mST().transpiled);
-    if (newHash !== md5Hash) {
-      if (resetErrorBoundary !== null && (0, import_is_callable.default)(resetErrorBoundary)) {
-        resetErrorBoundary();
-      }
-      setMdHash({ md5Hash, resetErrorBoundary: null });
+  useEffect(() => onSessionUpdate(async () => {
+    const transpiled = mST().transpiled;
+    await appFactory(transpiled);
+    resetErrorBoundary && resetErrorBoundary();
+    const md5Hash2 = md5(transpiled);
+    if (apps2[md5Hash2]) {
+      setMdHash({
+        md5Hash: md5(transpiled),
+        resetErrorBoundary: null
+      });
     }
-  }, [hash]);
+  }, "autoUpdate"), [setMdHash, resetErrorBoundary]);
   const App = apps2[md5Hash];
   return jsx(import_react_error_boundary.ErrorBoundary, {
     fallbackRender: ({ error, resetErrorBoundary: resetErrorBoundary2 }) => jsxs("div", {

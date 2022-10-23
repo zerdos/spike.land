@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // import {terminal} from "./DraggableWindow"
 import { ErrorBoundary } from "react-error-boundary";
 
-import { mST } from "./session";
+import { mST, onSessionUpdate } from "./session";
 import { md5 } from "./md5.js";
 import { CacheProvider, css } from "@emotion/react";
 import type { EmotionCache } from "@emotion/cache";
@@ -37,23 +37,26 @@ export const { apps, eCaches } = (globalThis as unknown as {
 //const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 export function AutoUpdateApp(
-  { hash, codeSpace }: { hash: string; codeSpace: string },
+  { codeSpace }: { codeSpace: string },
 ) {
   const [{ md5Hash, resetErrorBoundary }, setMdHash] = useState({
     md5Hash: md5(mST().transpiled),
     resetErrorBoundary: null as null | (() => void),
   });
 
-  useEffect(() => {
-    const newHash = md5(mST().transpiled);
-
-    if (newHash !== md5Hash) {
-      if (resetErrorBoundary !== null && isCallable(resetErrorBoundary)) {
-        resetErrorBoundary();
+  useEffect(() =>
+    onSessionUpdate(async () => {
+      const transpiled = mST().transpiled;
+      await appFactory(transpiled);
+      resetErrorBoundary && resetErrorBoundary();
+      const md5Hash = md5(transpiled);
+      if (apps[md5Hash]) {
+        setMdHash({
+          md5Hash: md5(transpiled),
+          resetErrorBoundary: null,
+        });
       }
-      setMdHash({ md5Hash, resetErrorBoundary: null });
-    }
-  }, [hash]);
+    }, "autoUpdate"), [setMdHash, resetErrorBoundary]);
 
   const App = apps[md5Hash];
 
