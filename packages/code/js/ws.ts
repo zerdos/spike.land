@@ -628,6 +628,8 @@ async function processData(
       const vidElement = document.createElement("video");
       vidElement.srcObject = streams[0];
 
+      sendChannel.localStream?.addTrack(track);
+
       sendChannel.tracks[target] = { track, streams, vidElement };
     };
 
