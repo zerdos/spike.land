@@ -582,10 +582,10 @@ export const startMonaco = async (
               return {
                 mod,
                 content: await (fetch("/npm:" + mod).then((x) =>
-                  x.headers.get("x-dts")
+                  x.headers.get("x-dts")?.replace("esm.sh")
                 )
                   .then((x) =>
-                    fetch(x!)
+                    fetch(x)
                   ).then((v) =>
                     v.arrayBuffer().then((x) => (new TextDecoder()).decode(x))
                   )),
