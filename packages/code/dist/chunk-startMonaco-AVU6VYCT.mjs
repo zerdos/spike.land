@@ -42829,11 +42829,6 @@ var monacoContribution = async (code) => {
       console.error("Error in loading d.ts");
     }
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
-    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-      noSuggestionDiagnostics: false,
-      noSemanticValidation: false,
-      noSyntaxValidation: false
-    });
   })();
   return code;
 };
@@ -42918,10 +42913,15 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     });
     const ATA = () => (async () => {
       try {
+        languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+          noSuggestionDiagnostics: false,
+          noSemanticValidation: false,
+          noSyntaxValidation: false
+        });
         console.log("ATA");
         (await Promise.all(
           (await (await (await languages.typescript.getTypeScriptWorker())(
-            Uri.parse("https://testing.spike.land/live/coder.tsx")
+            model.uri
           )).getSemanticDiagnostics(
             "https://testing.spike.land/live/coder.tsx"
           )).map((x) => {
@@ -42955,6 +42955,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         });
       } catch {
         console.log("Error while ATA");
+        languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+          noSuggestionDiagnostics: true,
+          noSemanticValidation: true,
+          noSyntaxValidation: true
+        });
       } finally {
         console.log("ATA is done");
       }
