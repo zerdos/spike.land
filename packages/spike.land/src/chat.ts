@@ -165,11 +165,13 @@ export default {
               
               const redirectUrl = resp.headers.get("location");
 
+         
               if (redirectUrl) {
 
-                const cloned =               resp.clone();
-cloned.headers.set('location', redirectUrl.replace('esm.sh', u.origin));
-return cloned;
+                const headers =  new Headers(resp.headers).set(
+                  'location', redirectUrl!.replace('esm.sh', u.origin
+                ))
+                return new Response(null, {headers: headers!})
 
 
                 // resp = await fetch(redirectUrl, {
