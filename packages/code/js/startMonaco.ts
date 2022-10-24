@@ -344,11 +344,6 @@ const monacoContribution = async (
     }
 
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
-    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-      noSuggestionDiagnostics: false,
-      noSemanticValidation: false,
-      noSyntaxValidation: false,
-    });
   })();
 
   // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
@@ -569,10 +564,15 @@ export const startMonaco = async (
     const ATA = () =>
       (async () => {
         try {
+          languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+            noSuggestionDiagnostics: false,
+            noSemanticValidation: false,
+            noSyntaxValidation: false,
+          });
           console.log("ATA");
           (await Promise.all(
             (await (await (await languages.typescript.getTypeScriptWorker())(
-              Uri.parse("https://testing.spike.land/live/coder.tsx"),
+              model.uri,
             )).getSemanticDiagnostics(
               "https://testing.spike.land/live/coder.tsx",
             ))
@@ -614,6 +614,11 @@ export const startMonaco = async (
           });
         } catch {
           console.log("Error while ATA");
+          languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+            noSuggestionDiagnostics: true,
+            noSemanticValidation: true,
+            noSyntaxValidation: true,
+          });
         } finally {
           console.log("ATA is done");
         }
