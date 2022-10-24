@@ -168,10 +168,15 @@ export default {
          
               if (redirectUrl) {
 
-                const headers =  new Headers(resp.headers).set(
-                  'location', redirectUrl!.replace('esm.sh', u.origin
-                ))
-                return new Response(null, {headers: headers!})
+                return new Response((await resp.text()).replace('esm.sh/', u.hostname + "/npm:" ), { 
+                  status: 307, 
+                  headers: {
+                  "location": redirectUrl.replace('esm.sh/', u.hostname + "/npm:")
+                
+                }
+              }
+              );
+                
 
 
                 // resp = await fetch(redirectUrl, {
@@ -183,6 +188,7 @@ export default {
                 return resp;
               }
             }
+const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
 
             const isText = !!resp?.headers?.get("Content-Type")?.includes(
               "charset",
@@ -212,6 +218,7 @@ export default {
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cache-Control": "public, max-age=604800, immutable",
+                  "x-DTS":  xTs.replace("esm.sh", u.host+"npm:"),
                   "Content-Type": resp.headers.get("Content-Type")!,
                 },
               },
