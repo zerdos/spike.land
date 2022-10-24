@@ -127,6 +127,7 @@ export const Editor: FC<
     <div
       onKeyDown={() => mod.lastKeyDown = Date.now()}
       id="editor"
+      data-test-id="editor"
       css={css`          
       max-width: 640px;
       height: 100%; 
