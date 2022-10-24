@@ -109,7 +109,7 @@
     "esbuild-plugin-alias": "0.2.1",
     "fast-glob": "3.2.12",
     "popmotion": "11.0.5",
-    "preact-render-to-string": "5.2.5",
+    "preact-render-to-string": "5.2.6",
     "uvu": "0.5.6"
   },
   "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4",

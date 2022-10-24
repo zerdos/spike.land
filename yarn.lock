@@ -930,7 +930,7 @@ __metadata:
     p-map: "npm:5.5.0"
     popmotion: "npm:11.0.5"
     preact: "npm:10.11.2"
-    preact-render-to-string: "npm:5.2.5"
+    preact-render-to-string: "npm:5.2.6"
     prettier: "npm:2.7.1"
     qrious: "npm:4.0.2"
     react: "npm:18.2.0"
@@ -961,7 +961,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:^18.11.3"
+    "@types/node": "npm:^18.11.4"
     esbuild: "npm:0.15.12"
   languageName: unknown
   linkType: soft
@@ -1130,10 +1130,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.11.3":
+"@types/node@npm:*":
   version: 18.11.3
   resolution: "@types/node@npm:18.11.3"
   checksum: a5764e83c872478f994bbc93807640db0d1ed6da7e9d55d18a9610691a89f169722414d480c44388550945b3c16a838f5e3e94de28207cc0616f12dba70edb96
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.11.4":
+  version: 18.11.4
+  resolution: "@types/node@npm:18.11.4"
+  checksum: 1fad36b7a820e2d7fab927ae9892c480d568e2ba1ed9295c6b05f8644a330442b2184865247ad415b774ff8439a5238c4d55d5cc6b786a5b9a97087917a2d84e
   languageName: node
   linkType: hard
 
@@ -4091,14 +4098,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact-render-to-string@npm:5.2.5":
-  version: 5.2.5
-  resolution: "preact-render-to-string@npm:5.2.5"
+"preact-render-to-string@npm:5.2.6":
+  version: 5.2.6
+  resolution: "preact-render-to-string@npm:5.2.6"
   dependencies:
     pretty-format: "npm:^3.8.0"
   peerDependencies:
     preact: ">=10"
-  checksum: 11f362483eb7d11a3d75394990841420eee9b18b66d6faad5acafc309f4d222de8b5112a8b9814c11d0bd4eb5897f285e63e3f73dc36da0f711bb01aebadab19
+  checksum: 4def6c1a11b61d5af91cc98a7568938848686715c33a884939fdd098a98770dcaa59c11642c44209f6952ca659554ce6462cfc1913b0cc4d5fa27aea92a9c1fd
   languageName: node
   linkType: hard
 
