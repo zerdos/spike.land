@@ -4,7 +4,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-E5NZVI4G.mjs";
+} from "./chunk-chunk-I6FDPVBA.mjs";
 import {
   Fragment as Fragment2,
   jsx,
@@ -22533,7 +22533,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-2K6FJYIT.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-UBR6QDST.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -23071,6 +23071,7 @@ var Editor = ({ codeSpace }) => {
   return jsx("div", {
     onKeyDown: () => mod3.lastKeyDown = Date.now(),
     id: "editor",
+    "data-test-id": "editor",
     css: css`          
       max-width: 640px;
       height: 100%; 

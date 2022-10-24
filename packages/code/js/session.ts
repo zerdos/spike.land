@@ -227,7 +227,7 @@ export class CodeSession implements ICodeSess {
       throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
     }
 
-    if (sess.css.indexOf(md5(sess.transpiled)) === -1) {
+    if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
       console.error(`missing from css: ${md5(sess.transpiled)}`);
       throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
     }
