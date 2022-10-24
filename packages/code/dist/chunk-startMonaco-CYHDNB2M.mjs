@@ -448,9 +448,9 @@ var lib = [
 ];
 var monacoContribution = async (code) => {
   languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-    noSuggestionDiagnostics: false,
-    noSemanticValidation: false,
-    noSyntaxValidation: false
+    noSuggestionDiagnostics: true,
+    noSemanticValidation: true,
+    noSyntaxValidation: true
   });
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
