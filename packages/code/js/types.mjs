@@ -4,7 +4,7 @@
 // const globalDts = "/node_modules/@types/react/global.d.ts";
 // const propTypesDts = "/node_modules/@types/prop-types/index.d.ts";
 const cssTypeDts = "/node_modules/csstype/index.d.ts";
-const framerDts = "/node_modules/framer-motion/dist/index.d.ts";
+// const framerDts = "/node_modules/framer-motion/dist/index.d.ts";
 const emotionStyleBase = "/node_modules/@emotion/styled/types/base.d.ts";
 const emotionStyled = "/node_modules/@emotion/styled/types/index.d.ts";
 const emotionCache = "/node_modules/@emotion/cache/types/index.d.ts";
