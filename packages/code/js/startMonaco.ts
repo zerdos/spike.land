@@ -1,12 +1,12 @@
 // Import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
-// import "monaco-editor/esm/vs/editor/browser/editorBrowser";
+import "monaco-editor/esm/vs/editor/editor.all";
 import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
 
 // import "monaco-editor/min/vs/basic-languages/typescript/typescript";
 // import "monaco-editor/min/vs/language/typescript/tsMode";
-// import {setupTypeAcquisition} from "@typescript/ata"
+import { setupTypeAcquisition } from "@typescript/ata";
 import pMap from "p-map";
 
 import { getWorkerUrl } from "./monacoWorkers.mjs";
@@ -22,7 +22,7 @@ const originToUse = location.origin.includes("spike")
   ? location.origin
   : "https://testing.spike.land/";
 
-// Object.assign(globalThis, {setupTypeAcquisition});
+Object.assign(globalThis, { setupTypeAcquisition });
 const lib = [
   "dom",
   "dom.iterable",
@@ -609,7 +609,7 @@ export const startMonaco = async (
             console.log(m.mod, m.url, m.content);
             languages.typescript.typescriptDefaults.addExtraLib(
               m.content,
-              originToUse + "/" + m.content + ".d.ts",
+              `${originToUse}/node_modules/${m.mod}/index.d.ts`,
             );
           });
         } catch {
@@ -633,7 +633,8 @@ export const startMonaco = async (
     };
 
     Object.assign(globalThis, { monaco: mod });
-    mod.ATA();
+    setTimeout(() => mod.ATA(), 2000);
+
     model.onDidChangeContent(() => {
       if (mod.silent) return;
       const code = model.getValue();
