@@ -617,7 +617,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
             return {
               mod: mod3,
               content: await fetch("/npm:" + mod3).then(
-                (x) => x.headers.get("x-dts")
+                (x) => x.headers.get("x-dts")?.replace("esm.sh")
               ).then(
                 (x) => fetch(x)
               ).then(
