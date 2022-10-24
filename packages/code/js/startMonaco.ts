@@ -568,7 +568,42 @@ export const startMonaco = async (
       autoClosingBrackets: "beforeWhitespace",
     });
 
+    try {
+      (await Promise.all(
+        (await (await (await languages.typescript.getTypeScriptWorker())(
+          Uri.parse("https://testing.spike.land/live/coder.tsx"),
+        )).getSemanticDiagnostics("https://testing.spike.land/live/coder.tsx"))
+          .map((x) => x.messageText).filter((x) =>
+            typeof x === "string" &&
+            x.includes(" or its corresponding type declarations.")
+          )
+          .map((x) => typeof x === "string" && x.split!("'")[1]).map(
+            async (mod) => {
+              return {
+                mod,
+                content: await (fetch("/npm:" + mod).then((x) =>
+                  x.headers.get("x-dts")
+                )
+                  .then((x) =>
+                    fetch(x!)
+                  ).then((v) =>
+                    v.arrayBuffer().then((x) => (new TextDecoder()).decode(x))
+                  )),
+              };
+            },
+          ),
+      )).filter((m) => m.mod && m.content).map((m) =>
+        languages.typescript.typescriptDefaults.addExtraLib(
+          m.content,
+          originToUse + `/node_modules/${m.mod}/index.d.ts`,
+        )
+      );
+    } catch {
+    }
+
     const mod = {
+      editor,
+      languages,
       silent: false,
       code,
       tsWorker: languages.typescript.getTypeScriptWorker().then((ts) =>
@@ -577,6 +612,8 @@ export const startMonaco = async (
         console.log("ts error, will retry", e);
       }),
     };
+
+    Object.assign(globalThis, { monaco: mod });
 
     model.onDidChangeContent(() => {
       if (mod.silent) return;
