@@ -5,7 +5,6 @@ import {
 // js/types.mjs
 init_define_process();
 var cssTypeDts = "/node_modules/csstype/index.d.ts";
-var framerDts = "/node_modules/framer-motion/dist/index.d.ts";
 var emotionStyleBase = "/node_modules/@emotion/styled/types/base.d.ts";
 var emotionStyled = "/node_modules/@emotion/styled/types/index.d.ts";
 var emotionCache = "/node_modules/@emotion/cache/types/index.d.ts";

@@ -219,6 +219,129 @@ var AggregateError = class extends Error {
 _errors = new WeakMap();
 
 // ../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9.zip/node_modules/p-map/index.js
+var AbortError = class extends Error {
+  constructor(message) {
+    super();
+    this.name = "AbortError";
+    this.message = message;
+  }
+};
+var getDOMException = (errorMessage) => globalThis.DOMException === void 0 ? new AbortError(errorMessage) : new DOMException(errorMessage);
+var getAbortedReason = (signal) => {
+  const reason = signal.reason === void 0 ? getDOMException("This operation was aborted.") : signal.reason;
+  return reason instanceof Error ? reason : getDOMException(reason);
+};
+async function pMap(iterable, mapper, {
+  concurrency = Number.POSITIVE_INFINITY,
+  stopOnError = true,
+  signal
+} = {}) {
+  return new Promise((resolve, reject_) => {
+    if (iterable[Symbol.iterator] === void 0 && iterable[Symbol.asyncIterator] === void 0) {
+      throw new TypeError(`Expected \`input\` to be either an \`Iterable\` or \`AsyncIterable\`, got (${typeof iterable})`);
+    }
+    if (typeof mapper !== "function") {
+      throw new TypeError("Mapper function is required");
+    }
+    if (!((Number.isSafeInteger(concurrency) || concurrency === Number.POSITIVE_INFINITY) && concurrency >= 1)) {
+      throw new TypeError(`Expected \`concurrency\` to be an integer from 1 and up or \`Infinity\`, got \`${concurrency}\` (${typeof concurrency})`);
+    }
+    const result = [];
+    const errors = [];
+    const skippedIndexesMap = /* @__PURE__ */ new Map();
+    let isRejected = false;
+    let isResolved = false;
+    let isIterableDone = false;
+    let resolvingCount = 0;
+    let currentIndex = 0;
+    const iterator = iterable[Symbol.iterator] === void 0 ? iterable[Symbol.asyncIterator]() : iterable[Symbol.iterator]();
+    const reject = (reason) => {
+      isRejected = true;
+      isResolved = true;
+      reject_(reason);
+    };
+    if (signal) {
+      if (signal.aborted) {
+        reject(getAbortedReason(signal));
+      }
+      signal.addEventListener("abort", () => {
+        reject(getAbortedReason(signal));
+      });
+    }
+    const next = async () => {
+      if (isResolved) {
+        return;
+      }
+      const nextItem = await iterator.next();
+      const index = currentIndex;
+      currentIndex++;
+      if (nextItem.done) {
+        isIterableDone = true;
+        if (resolvingCount === 0 && !isResolved) {
+          if (!stopOnError && errors.length > 0) {
+            reject(new AggregateError(errors));
+            return;
+          }
+          isResolved = true;
+          if (skippedIndexesMap.size === 0) {
+            resolve(result);
+            return;
+          }
+          const pureResult = [];
+          for (const [index2, value] of result.entries()) {
+            if (skippedIndexesMap.get(index2) === pMapSkip) {
+              continue;
+            }
+            pureResult.push(value);
+          }
+          resolve(pureResult);
+        }
+        return;
+      }
+      resolvingCount++;
+      (async () => {
+        try {
+          const element = await nextItem.value;
+          if (isResolved) {
+            return;
+          }
+          const value = await mapper(element, index);
+          if (value === pMapSkip) {
+            skippedIndexesMap.set(index, value);
+          }
+          result[index] = value;
+          resolvingCount--;
+          await next();
+        } catch (error) {
+          if (stopOnError) {
+            reject(error);
+          } else {
+            errors.push(error);
+            resolvingCount--;
+            try {
+              await next();
+            } catch (error2) {
+              reject(error2);
+            }
+          }
+        }
+      })();
+    };
+    (async () => {
+      for (let index = 0; index < concurrency; index++) {
+        try {
+          await next();
+        } catch (error) {
+          reject(error);
+          break;
+        }
+        if (isIterableDone || isRejected) {
+          break;
+        }
+      }
+    })();
+  });
+}
 var pMapSkip = Symbol("skip");
 
 // js/monacoWorkers.mjs
@@ -392,7 +515,7 @@ var monacoContribution = async (code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-TJKL6VK4.mjs");
+    const { dtsFiles } = await import("./chunk-types-Q6L5TYB7.mjs");
     const {
       reactDts,
       jsxRuntimeDts,
@@ -511,13 +634,19 @@ var monacoContribution = async (code) => {
         force: true,
         url: "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
         depend: []
-      },
-      {
-        name: "framer-motion",
-        url: framerDts,
-        depend: ["popmotion"]
       }
     ];
+    try {
+      const mapper = async ({ name, url, force }) => (code.indexOf(name) !== -1 || force) && languages.typescript.typescriptDefaults.addExtraLib(
+        await (await fetch(
+          url
+        )).text(),
+        originToUse + `/node_modules/${name}/index.d.ts`
+      );
+      await pMap(importHelper, mapper, { concurrency: 2 });
+    } catch {
+      console.error("Error in loading d.ts");
+    }
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
@@ -606,34 +735,6 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace"
     });
-    try {
-      (await Promise.all(
-        (await (await (await languages.typescript.getTypeScriptWorker())(
-          Uri.parse("https://testing.spike.land/live/coder.tsx")
-        )).getSemanticDiagnostics("https://testing.spike.land/live/coder.tsx")).map((x) => x.messageText).filter(
-          (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")
-        ).map((x) => typeof x === "string" && x.split("'")[1]).map(
-          async (mod3) => {
-            return {
-              mod: mod3,
-              content: await fetch("/npm:" + mod3).then(
-                (x) => x.headers.get("x-dts")?.replace("esm.sh")
-              ).then(
-                (x) => fetch(x)
-              ).then(
-                (v) => v.arrayBuffer().then((x) => new TextDecoder().decode(x))
-              )
-            };
-          }
-        )
-      )).filter((m) => m.mod && m.content).map(
-        (m) => languages.typescript.typescriptDefaults.addExtraLib(
-          m.content,
-          originToUse + `/node_modules/${m.mod}/index.d.ts`
-        )
-      );
-    } catch {
-    }
     const mod2 = {
       editor: editor2,
       languages,
@@ -655,13 +756,45 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       mod2.code = code3;
       onChange(code3);
     });
+    (async () => {
+      try {
+        (await Promise.all(
+          (await (await (await languages.typescript.getTypeScriptWorker())(
+            Uri.parse("https://testing.spike.land/live/coder.tsx")
+          )).getSemanticDiagnostics(
+            "https://testing.spike.land/live/coder.tsx"
+          )).map((x) => x.messageText).filter(
+            (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")
+          ).map((x) => typeof x === "string" && x.split("'")[1]).map(
+            async (mod3) => {
+              return {
+                mod: mod3,
+                content: await fetch("/npm:" + mod3).then(
+                  (x) => fetch(x.headers.get("x-dts")).then(
+                    (v) => v.arrayBuffer().then((x2) => new TextDecoder().decode(x2))
+                  )
+                ).catch(() => "")
+              };
+            }
+          )
+        )).filter((m) => m.mod && m.content).map(
+          (m) => languages.typescript.typescriptDefaults.addExtraLib(
+            m.content,
+            originToUse + `/node_modules/${m.mod}/index.d.ts`
+          )
+        );
+      } catch {
+      }
+    })();
     return {
       getValue: () => mod2.code,
-      getErrors: () => mod2.tsWorker.then(
-        (ts) => ts?.getSemanticDiagnostics(
-          originToUse + "/live/" + codeSpace + ".tsx"
-        ).then((diag) => diag.map((d) => d.messageText.toString()))
-      ),
+      getErrors: () => {
+        return mod2.tsWorker.then(
+          (ts) => ts?.getSemanticDiagnostics(
+            originToUse + "/live/" + codeSpace + ".tsx"
+          ).then((diag) => diag.map((d) => d.messageText.toString()))
+        );
+      },
       setValue: (code3) => {
         mod2.silent = true;
         let state = null;

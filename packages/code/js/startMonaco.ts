@@ -315,11 +315,11 @@ const monacoContribution = async (
         url: "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
         depend: [],
       },
-      {
-        name: "framer-motion",
-        url: framerDts,
-        depend: ["popmotion"],
-      },
+      // {
+      //   name: "framer-motion",
+      //   url: framerDts,
+      //   depend: ["popmotion"],
+      // },
     ];
 
     // Typescript.typescriptDefaults.addExtraLib(
@@ -328,22 +328,22 @@ const monacoContribution = async (
     //   )).text(),
     //   originToUse + `/node_modules/framer-motion/package.json`);
 
-    // try {
-    //   const mapper = async (
-    //     { name, url, force }: { name: string; url: string; force?: boolean },
-    //   ) =>
-    //     (code.indexOf(name) !== -1 || force) &&
-    //     languages.typescript.typescriptDefaults.addExtraLib(
-    //       await (await fetch(
-    //         url,
-    //       )).text(),
-    //       originToUse + `/node_modules/${name}/index.d.ts`,
-    //     );
+    try {
+      const mapper = async (
+        { name, url, force }: { name: string; url: string; force?: boolean },
+      ) =>
+        (code.indexOf(name) !== -1 || force) &&
+        languages.typescript.typescriptDefaults.addExtraLib(
+          await (await fetch(
+            url,
+          )).text(),
+          originToUse + `/node_modules/${name}/index.d.ts`,
+        );
 
-    //   //await pMap(importHelper, mapper, { concurrency: 2 });
-    // } catch {
-    //   console.error("Error in loading d.ts");
-    // }
+      await pMap(importHelper, mapper, { concurrency: 2 });
+    } catch {
+      console.error("Error in loading d.ts");
+    }
 
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -568,39 +568,6 @@ export const startMonaco = async (
       autoClosingBrackets: "beforeWhitespace",
     });
 
-    try {
-      (await Promise.all(
-        (await (await (await languages.typescript.getTypeScriptWorker())(
-          Uri.parse("https://testing.spike.land/live/coder.tsx"),
-        )).getSemanticDiagnostics("https://testing.spike.land/live/coder.tsx"))
-          .map((x) => x.messageText).filter((x) =>
-            typeof x === "string" &&
-            x.includes(" or its corresponding type declarations.")
-          )
-          .map((x) => typeof x === "string" && x.split!("'")[1]).map(
-            async (mod) => {
-              return {
-                mod,
-                content: await (fetch("/npm:" + mod).then((x) =>
-                  x.headers.get("x-dts")?.replace("esm.sh")
-                )
-                  .then((x) =>
-                    fetch(x)
-                  ).then((v) =>
-                    v.arrayBuffer().then((x) => (new TextDecoder()).decode(x))
-                  )),
-              };
-            },
-          ),
-      )).filter((m) => m.mod && m.content).map((m) =>
-        languages.typescript.typescriptDefaults.addExtraLib(
-          m.content,
-          originToUse + `/node_modules/${m.mod}/index.d.ts`,
-        )
-      );
-    } catch {
-    }
-
     const mod = {
       editor,
       languages,
@@ -623,14 +590,48 @@ export const startMonaco = async (
       onChange(code);
     });
 
+    (async () => {
+      try {
+        (await Promise.all(
+          (await (await (await languages.typescript.getTypeScriptWorker())(
+            Uri.parse("https://testing.spike.land/live/coder.tsx"),
+          )).getSemanticDiagnostics(
+            "https://testing.spike.land/live/coder.tsx",
+          ))
+            .map((x) => x.messageText).filter((x) =>
+              typeof x === "string" &&
+              x.includes(" or its corresponding type declarations.")
+            )
+            .map((x) => typeof x === "string" && x.split!("'")[1]).map(
+              async (mod) => {
+                return {
+                  mod,
+                  content: await fetch("/npm:" + mod).then((x) =>
+                    fetch(x.headers.get("x-dts")!).then((v) =>
+                      v.arrayBuffer().then((x) => (new TextDecoder()).decode(x))
+                    )
+                  ).catch(() => ""),
+                };
+              },
+            ),
+        )).filter((m) => m.mod && m.content).map((m) =>
+          languages.typescript.typescriptDefaults.addExtraLib(
+            m.content,
+            originToUse + `/node_modules/${m.mod}/index.d.ts`,
+          )
+        );
+      } catch {
+      }
+    })();
     return {
       getValue: () => mod.code,
-      getErrors: () =>
-        mod.tsWorker.then((ts) =>
+      getErrors: () => {
+        return mod.tsWorker.then((ts) =>
           ts?.getSemanticDiagnostics(
             originToUse + "/live/" + codeSpace + ".tsx",
           ).then((diag) => diag.map((d) => d.messageText.toString()))
-        ),
+        );
+      },
       setValue: (code: string) => {
         mod.silent = true;
         let state = null;
