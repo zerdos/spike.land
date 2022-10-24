@@ -906,8 +906,8 @@ __metadata:
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
     "@types/prettier": "npm:2.7.1"
-    "@types/react": "npm:^18.0.21"
-    "@types/react-dom": "npm:18.0.6"
+    "@types/react": "npm:^18.0.22"
+    "@types/react-dom": "npm:18.0.7"
     "@typescript/ata": "npm:0.9.3"
     "@yarnpkg/sdks": "npm:3.0.0-rc.26"
     ace-builds: "npm:1.12.3"
@@ -1011,8 +1011,8 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:1.27.1"
-    "@types/react": "npm:18.0.21"
-    "@types/react-dom": "npm:18.0.6"
+    "@types/react": "npm:18.0.22"
+    "@types/react-dom": "npm:18.0.7"
     "@yarnpkg/sdks": "npm:3.0.0-rc.26"
     playwright: "npm:1.27.1"
     typescript: "npm:4.8.4"
@@ -1157,12 +1157,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.6":
-  version: 18.0.6
-  resolution: "@types/react-dom@npm:18.0.6"
+"@types/react-dom@npm:18.0.7":
+  version: 18.0.7
+  resolution: "@types/react-dom@npm:18.0.7"
   dependencies:
     "@types/react": "npm:*"
-  checksum: aa49049d928c14bb0268bc7acca2ff5101d9191c73fcb748c0d8a546638bc8d2ce86b32ae57260b72ce5fe4bf2c64775208cf528db1e394768ed5755e261890a
+  checksum: d42a0d895fcf0a0eb649428a313543a73765013280dd1999fe97e236652bdd1ee778b1d57247ae6661397db70e9c7289b72147741fe2ce5ab9db3e82060e45d9
   languageName: node
   linkType: hard
 
@@ -1184,7 +1184,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.21, @types/react@npm:^18.0.21":
+"@types/react@npm:*":
   version: 18.0.21
   resolution: "@types/react@npm:18.0.21"
   dependencies:
@@ -1192,6 +1192,17 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 3880fd1a396920aedd195b7aefc9ee215e320f927697b072c8cf0e95a29c88736a4afcd2789630cffc15b5dbcf0cbf901f3bbf508fc6b7d188df32c076a95d1a
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.0.22, @types/react@npm:^18.0.22":
+  version: 18.0.22
+  resolution: "@types/react@npm:18.0.22"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: d3036ebb77afe9547e854064c360a93d1286746490c682506e168f0641782dd98c895f358fc74d0ac79acff802c24a45bd30d6200433cccb9f204b3207b7c14c
   languageName: node
   linkType: hard
 
@@ -2508,8 +2519,8 @@ __metadata:
   resolution: "esbuild-worker@workspace:packages/esbuild-worker"
   dependencies:
     "@cloudflare/workers-types": "npm:3.18.0"
-    "@types/react": "npm:18.0.21"
-    "@types/react-dom": "npm:18.0.6"
+    "@types/react": "npm:18.0.22"
+    "@types/react-dom": "npm:18.0.7"
     esbuild: "npm:0.15.12"
   languageName: unknown
   linkType: soft
@@ -3780,7 +3791,7 @@ __metadata:
   resolution: "new@workspace:packages/importmaps"
   dependencies:
     "@emotion/react": "npm:11.10.4"
-    "@types/react-dom": "npm:18.0.6"
+    "@types/react-dom": "npm:18.0.7"
     esbuild: "npm:0.15.12"
     esbuild-plugin-import-map: "npm:2.1.0"
     framer-motion: "npm:7.6.1"

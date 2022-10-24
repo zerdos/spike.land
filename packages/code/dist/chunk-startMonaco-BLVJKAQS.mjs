@@ -508,10 +508,9 @@ var monacoContribution = async (code) => {
   const models = replaced.matchAll(search);
   for (const match of models) {
     const extraModel = new URL(match[0].slice(7) + ".tsx", originToUse).toString();
-    createModel(
-      await fetch(extraModel).then(async (res) => res.text()),
-      "typescript",
-      Uri.parse(extraModel)
+    languages.typescript.typescriptDefaults.addExtraLib(
+      extraModel,
+      await fetch(extraModel).then(async (res) => res.text())
     );
   }
   (async () => {
@@ -734,8 +733,52 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace"
     });
+    const ATA = () => (async () => {
+      try {
+        console.log("ATA");
+        (await Promise.all(
+          (await (await (await languages.typescript.getTypeScriptWorker())(
+            Uri.parse("https://testing.spike.land/live/coder.tsx")
+          )).getSemanticDiagnostics(
+            "https://testing.spike.land/live/coder.tsx"
+          )).map((x) => {
+            console.log(x.messageText);
+            return x.messageText;
+          }).filter(
+            (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")
+          ).map((x) => typeof x === "string" && x.split("'")[1]).map(
+            async (mod3) => {
+              const retMod = { url: "", mod: mod3, content: "" };
+              retMod.content = await fetch("/npm:" + mod3).then(
+                (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
+              ).then((x) => {
+                retMod.url = x.headers.get("x-dts");
+                console.log(retMod.url);
+                fetch(retMod.url).then(
+                  (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
+                ).then((resp) => resp.text());
+              }).catch(
+                () => ""
+              ) || "";
+              return retMod;
+            }
+          )
+        )).filter((m) => m.mod && m.content).map((m) => {
+          console.log(m.mod, m.url, m.content);
+          languages.typescript.typescriptDefaults.addExtraLib(
+            m.content,
+            originToUse + "/" + m.content + ".d.ts"
+          );
+        });
+      } catch {
+        console.log("Error while ATA");
+      } finally {
+        console.log("ATA is done");
+      }
+    })();
     const mod2 = {
       editor: editor2,
+      ATA,
       languages,
       silent: false,
       code: code2,
@@ -746,6 +789,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       })
     };
     Object.assign(globalThis, { monaco: mod2 });
+    mod2.ATA();
     model.onDidChangeContent(() => {
       if (mod2.silent)
         return;
@@ -755,36 +799,6 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       mod2.code = code3;
       onChange(code3);
     });
-    (async () => {
-      try {
-        (await Promise.all(
-          (await (await (await languages.typescript.getTypeScriptWorker())(
-            Uri.parse("https://testing.spike.land/live/coder.tsx")
-          )).getSemanticDiagnostics(
-            "https://testing.spike.land/live/coder.tsx"
-          )).map((x) => x.messageText).filter(
-            (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")
-          ).map((x) => typeof x === "string" && x.split("'")[1]).map(
-            async (mod3) => {
-              return {
-                mod: mod3,
-                content: await fetch("/npm:" + mod3).then(
-                  (x) => fetch(x.headers.get("x-dts")).then(
-                    (v) => v.arrayBuffer().then((x2) => new TextDecoder().decode(x2))
-                  )
-                ).catch(() => "")
-              };
-            }
-          )
-        )).filter((m) => m.mod && m.content).map(
-          (m) => languages.typescript.typescriptDefaults.addExtraLib(
-            m.content,
-            originToUse + `/node_modules/${m.mod}/index.d.ts`
-          )
-        );
-      } catch {
-      }
-    })();
     return {
       getValue: () => mod2.code,
       getErrors: () => {

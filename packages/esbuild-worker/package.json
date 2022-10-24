@@ -14,8 +14,8 @@
   "license": "MIT",
   "devDependencies": {
     "@cloudflare/workers-types": "3.18.0",
-    "@types/react": "18.0.21",
-    "@types/react-dom": "18.0.6",
+    "@types/react": "18.0.22",
+    "@types/react-dom": "18.0.7",
     "esbuild": "0.15.12"
   },
   "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"

@@ -6,7 +6,7 @@
   "private": true,
   "license": "MIT",
   "devDependencies": {
-    "@types/react-dom": "18.0.6",
+    "@types/react-dom": "18.0.7",
     "esbuild": "0.15.12",
     "esbuild-plugin-import-map": "2.1.0",
     "serve": "14.0.1",
