@@ -93,9 +93,9 @@ const monacoContribution = async (
   // Const {typescript} = languages;
   languages.typescript.typescriptDefaults
     .setDiagnosticsOptions({
-      noSuggestionDiagnostics: false,
-      noSemanticValidation: false,
-      noSyntaxValidation: false,
+      noSuggestionDiagnostics: true,
+      noSemanticValidation: true,
+      noSyntaxValidation: true,
     });
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
