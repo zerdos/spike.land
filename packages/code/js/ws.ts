@@ -290,7 +290,7 @@ async function stopVideo() {
 
 async function startVideo() {
   const mediaConstraints = {
-    audio: true, //We want an audio track
+    audio: false, //We want an audio track
     video: true, //And we want a video track
   };
 
@@ -299,7 +299,18 @@ async function startVideo() {
   const localStream = await navigator.mediaDevices.getUserMedia(
     mediaConstraints,
   );
-  localStream.getTracks().forEach((track) =>
+
+  handleSuccess(localStream);
+  function handleSuccess(localStream: MediaStream) {
+    const video = sendChannel.vidElement;
+    const videoTracks = localStream.getVideoTracks();
+    console.log("Got stream with constraints:", mediaConstraints);
+    console.log(`Using video device: ${videoTracks[0].label}`);
+    sendChannel.localStream = localStream; // make variable available to browser console
+    video.srcObject = localStream;
+  }
+
+  localStream.getVideoTracks().forEach((track) =>
     Object.keys(sendChannel.rtcConns).map((k) => {
       const peerConnection = sendChannel.rtcConns[k];
 

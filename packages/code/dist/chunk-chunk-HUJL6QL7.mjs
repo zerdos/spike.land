@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-6GUC2SJY.mjs";
+} from "./chunk-chunk-I7OYUXKC.mjs";
 import {
   applyPatch,
   hashCode,
@@ -783,13 +783,22 @@ async function stopVideo() {
 }
 async function startVideo() {
   const mediaConstraints = {
-    audio: true,
+    audio: false,
     video: true
   };
   const localStream = await navigator.mediaDevices.getUserMedia(
     mediaConstraints
   );
-  localStream.getTracks().forEach(
+  handleSuccess(localStream);
+  function handleSuccess(localStream2) {
+    const video = sendChannel.vidElement;
+    const videoTracks = localStream2.getVideoTracks();
+    console.log("Got stream with constraints:", mediaConstraints);
+    console.log(`Using video device: ${videoTracks[0].label}`);
+    sendChannel.localStream = localStream2;
+    video.srcObject = localStream2;
+  }
+  localStream.getVideoTracks().forEach(
     (track) => Object.keys(sendChannel.rtcConns).map((k) => {
       const peerConnection = sendChannel.rtcConns[k];
       peerConnection.addTrack(track);
