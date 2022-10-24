@@ -21,7 +21,6 @@ var dtsFiles = {
   jsxRuntimeDts: "/node_modules/@types/react/jsx-runtime.d.ts",
   propTypesDts: "/node_modules/@types/prop-types/index.d.ts",
   cssTypeDts,
-  framerDts,
   emotionStyleBase,
   emotionStyled,
   emotionCache,

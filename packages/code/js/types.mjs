@@ -31,7 +31,7 @@ export const dtsFiles = {
   // globalDts,
   propTypesDts: "/node_modules/@types/prop-types/index.d.ts",
   cssTypeDts,
-  framerDts,
+  // framerDts,
   emotionStyleBase,
   emotionStyled,
   emotionCache,

@@ -515,7 +515,7 @@ var monacoContribution = async (code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-Q6L5TYB7.mjs");
+    const { dtsFiles } = await import("./chunk-types-OJF3UDV6.mjs");
     const {
       reactDts,
       jsxRuntimeDts,
