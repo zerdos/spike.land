@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-LMVQOI6C.mjs";
+} from "./chunk-chunk-6GUC2SJY.mjs";
 import {
   applyPatch,
   hashCode,
@@ -789,13 +789,13 @@ async function startVideo() {
   const localStream = await navigator.mediaDevices.getUserMedia(
     mediaConstraints
   );
-  sendChannel.vidElement.srcObject = localStream;
   localStream.getTracks().forEach(
     (track) => Object.keys(sendChannel.rtcConns).map((k) => {
       const peerConnection = sendChannel.rtcConns[k];
       peerConnection.addTrack(track);
     })
   );
+  sendChannel.vidElement.srcObject = localStream;
 }
 async function syncRTC() {
   try {

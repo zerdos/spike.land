@@ -299,7 +299,6 @@ async function startVideo() {
   const localStream = await navigator.mediaDevices.getUserMedia(
     mediaConstraints,
   );
-  sendChannel.vidElement.srcObject = localStream;
   localStream.getTracks().forEach((track) =>
     Object.keys(sendChannel.rtcConns).map((k) => {
       const peerConnection = sendChannel.rtcConns[k];
@@ -307,6 +306,8 @@ async function startVideo() {
       peerConnection.addTrack(track);
     })
   );
+
+  sendChannel.vidElement.srcObject = localStream;
 }
 
 async function syncRTC() {
