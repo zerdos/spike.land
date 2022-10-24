@@ -55,13 +55,20 @@ let ws: WebSocket | null = null;
 let sendWS: (message: string) => void;
 let rejoined = false;
 const tracks: {
-  [key: string]: { track: MediaStreamTrack; streams: readonly MediaStream[] };
+  [key: string]: {
+    track: MediaStreamTrack;
+    streams: readonly MediaStream[];
+    vidElement: HTMLVideoElement;
+  };
 } = {};
 export const sendChannel = {
   localStream: null as MediaStream | null,
   webRtcArray,
   tracks,
   user,
+  vidElement: document.createElement("video"),
+  stopVideo,
+  startVideo,
   rtcConns,
   send(data: any) {
     //const target = data.target;
@@ -276,32 +283,31 @@ async function syncWS() {
     //console.error("error 2", { e: error });
   }
 }
-
-export const stopVideo = async () => {
+async function stopVideo() {
   if (!sendChannel.localStream) return;
   sendChannel.localStream.getTracks().map((x) => x.stop());
-};
+}
 
-export const startVideo = async (vidElement: HTMLVideoElement) => {
+async function startVideo() {
   const mediaConstraints = {
     audio: true, //We want an audio track
     video: true, //And we want a video track
   };
 
+  // document.body.appendChild(sendChannel.vidElement);
+
   const localStream = await navigator.mediaDevices.getUserMedia(
     mediaConstraints,
   );
-
-  vidElement.srcObject = localStream;
+  sendChannel.vidElement.srcObject = localStream;
   localStream.getTracks().forEach((track) =>
     Object.keys(sendChannel.rtcConns).map((k) => {
-      const datachannel = sendChannel.rtcConns[k];
-      datachannel.addTrack(track);
-      datachannel.ontrack = ({ track, streams }) =>
-        tracks[k] = { track, streams };
+      const peerConnection = sendChannel.rtcConns[k];
+
+      peerConnection.addTrack(track);
     })
   );
-};
+}
 
 async function syncRTC() {
   try {
@@ -607,14 +613,17 @@ async function processData(
       this: RTCPeerConnection,
       { track, streams }: RTCTrackEvent,
     ) {
-      tracks[target] = { track, streams };
+      const vidElement = document.createElement("video");
+      vidElement.srcObject = streams[0];
+
+      sendChannel.tracks[target] = { track, streams, vidElement };
     };
 
     rtcConns[target].ondatachannel = (event) => {
       //console.//log("Receive Channel Callback");
-      const rtc = event.channel;
-      rtc.binaryType = "arraybuffer";
-      rtc.addEventListener("close", onReceiveChannelClosed);
+      const rtcChannel = event.channel;
+      rtcChannel.binaryType = "arraybuffer";
+      rtcChannel.addEventListener("close", onReceiveChannelClosed);
 
       if (
         sendChannel && sendChannel.localStream && sendChannel.localStream.active
@@ -622,13 +631,10 @@ async function processData(
         sendChannel.localStream.getTracks().forEach((track) => {
           const datachannel = rtcConns[target];
           datachannel.addTrack(track);
-
-          datachannel.ontrack = ({ track, streams }) =>
-            tracks[target] = { track, streams };
         });
       }
 
-      rtc.addEventListener(
+      rtcChannel.addEventListener(
         "message",
         async (message) =>
           processWsMessage(
@@ -762,7 +768,7 @@ async function processData(
     //Configure the remote description, which is the SDP payload
     //in our "video-answer" message.
     //const desc = new RTCSessionDescription(message);
-
+    if (rtcConns[target].signalingState === "stable") return;
     await rtcConns[target].setRemoteDescription(
       new RTCSessionDescription(
         answer,
