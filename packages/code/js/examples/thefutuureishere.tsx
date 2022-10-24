@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { css, Global } from "@emotion/react";
+import { useEffect, useState } from "react";
 
 const pageText = `The future is here, but not evenly distributed...`;
 
@@ -17,7 +17,7 @@ const FutureIsHere = () => {
   return (
     <>
       <code
-        css={`
+        css={css`
       color:navy;
     `}
       >
