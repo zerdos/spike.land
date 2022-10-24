@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-KE32LGTK.mjs";
+} from "./chunk-chunk-HYFKQ35U.mjs";
 import {
   applyPatch,
   hashCode,
@@ -805,7 +805,6 @@ async function startVideo() {
       peerConnection.addTrack(track);
     })
   );
-  sendChannel.vidElement.srcObject = localStream;
 }
 async function syncRTC() {
   try {

@@ -318,8 +318,6 @@ async function startVideo() {
       peerConnection.addTrack(track);
     })
   );
-
-  sendChannel.vidElement.srcObject = localStream;
 }
 
 async function syncRTC() {

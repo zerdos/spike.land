@@ -25,8 +25,7 @@ const esbuildExternal = [
   // "react/jsx-runtime",
   // "react/jsx-dev-runtime",
   "@mui/material",
-  "framer-motion",
-  "tslib",
+  "framer-motion"
 ];
 const externals = esbuildExternal.join(",");
 const mods: { [key: string]: string } = {};
