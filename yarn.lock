@@ -939,7 +939,6 @@ __metadata:
     react-icons: "npm:4.6.0"
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
-    tslib: "npm:2.4.0"
     typescript: "npm:4.8.4"
     uvu: "npm:0.5.6"
   peerDependencies:
@@ -1130,14 +1129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 18.11.3
-  resolution: "@types/node@npm:18.11.3"
-  checksum: a5764e83c872478f994bbc93807640db0d1ed6da7e9d55d18a9610691a89f169722414d480c44388550945b3c16a838f5e3e94de28207cc0616f12dba70edb96
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.11.4":
+"@types/node@npm:*, @types/node@npm:^18.11.4":
   version: 18.11.4
   resolution: "@types/node@npm:18.11.4"
   checksum: 1fad36b7a820e2d7fab927ae9892c480d568e2ba1ed9295c6b05f8644a330442b2184865247ad415b774ff8439a5238c4d55d5cc6b786a5b9a97087917a2d84e

@@ -1,8 +1,11 @@
 // Import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
-import "monaco-editor/esm/vs/editor/editor.all";
+// import "monaco-editor/esm/vs/editor/browser/editorBrowser";
 import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
+
+// import "monaco-editor/min/vs/basic-languages/typescript/typescript";
+// import "monaco-editor/min/vs/language/typescript/tsMode";
 // import {setupTypeAcquisition} from "@typescript/ata"
 import pMap from "p-map";
 
@@ -99,7 +102,7 @@ const monacoContribution = async (
     baseUrl: originToUse + "/",
     target: languages.typescript.ScriptTarget.ESNext,
 
-    importHelpers: true,
+    importHelpers: false,
 
     lib,
 
