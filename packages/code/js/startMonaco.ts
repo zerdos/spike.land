@@ -328,22 +328,22 @@ const monacoContribution = async (
     //   )).text(),
     //   originToUse + `/node_modules/framer-motion/package.json`);
 
-    try {
-      const mapper = async (
-        { name, url, force }: { name: string; url: string; force?: boolean },
-      ) =>
-        (code.indexOf(name) !== -1 || force) &&
-        languages.typescript.typescriptDefaults.addExtraLib(
-          await (await fetch(
-            url,
-          )).text(),
-          originToUse + `/node_modules/${name}/index.d.ts`,
-        );
+    // try {
+    //   const mapper = async (
+    //     { name, url, force }: { name: string; url: string; force?: boolean },
+    //   ) =>
+    //     (code.indexOf(name) !== -1 || force) &&
+    //     languages.typescript.typescriptDefaults.addExtraLib(
+    //       await (await fetch(
+    //         url,
+    //       )).text(),
+    //       originToUse + `/node_modules/${name}/index.d.ts`,
+    //     );
 
-      await pMap(importHelper, mapper, { concurrency: 2 });
-    } catch {
-      console.error("Error in loading d.ts");
-    }
+    //   //await pMap(importHelper, mapper, { concurrency: 2 });
+    // } catch {
+    //   console.error("Error in loading d.ts");
+    // }
 
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
