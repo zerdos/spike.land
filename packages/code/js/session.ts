@@ -260,39 +260,40 @@ export class CodeSession implements ICodeSess {
     const codeSpace = this.room || "";
     const now = mST();
     const nowHash = md5(now.transpiled);
-    hashStore[nowHash] = hashStore[nowHash] || session?.session.get("state");
-    if (
-      !(Object.keys(hashStore).includes(
-        oldHash,
-      )) &&
-      codeSpace
-    ) {
-      // console.log(Object.keys(hashStore));
-      const resp = await fetch(
-        `/live/${codeSpace}/mST`,
-      );
-      if (resp.ok) {
-        const s: { hashCode: string; mST: ICodeSession } = await resp.json();
+    const current = this.session.get("state");
+    hashStore[nowHash] = current;
+    let maybeOldRec = hashStore[oldHash];
+    try {
+      if (!maybeOldRec) {
+        // console.log(Object.keys(hashStore));
+        const resp = await fetch(
+          `/live/${codeSpace}/mST`,
+        );
+        if (resp.ok) {
+          const s: { hashCode: string; mST: ICodeSession } = await resp.json();
 
-        // HashStore[Number(s.hashCode)] =
+          // HashStore[Number(s.hashCode)] =
 
-        const serverRecord = this.session.get("state").merge(
-          JSON.parse(string_(s.mST)),
-        );
-        hashStore[md5(serverRecord.transpiled)] = serverRecord;
-      } else {
-        const { mST } = await import(
-          `/live/${this.room}/mst.mjs?${Date.now()}`
-        );
-        const latestRec = this.session.get("state").merge(
-          JSON.parse(string_(mST)),
-        );
-        hashStore[md5(latestRec.transpiled)] = latestRec;
+          const serverRecord = this.session.get("state").merge(
+            JSON.parse(string_(s.mST)),
+          );
+          hashStore[md5(serverRecord.transpiled)] = serverRecord;
+        } else {
+          const { mST } = await import(
+            `/live/${this.room}/mst.mjs?${Date.now()}`
+          );
+          const latestRec = this.session.get("state").merge(
+            JSON.parse(string_(mST)),
+          );
+          hashStore[md5(latestRec.transpiled)] = latestRec;
+        }
       }
-    }
 
-    const maybeOldRec = hashStore[oldHash];
-    if (!maybeOldRec) throw new Error(`cant find old record: ${oldHash}`);
+      maybeOldRec = hashStore[oldHash];
+      if (!maybeOldRec) throw new Error(`cant find old record: ${oldHash}`);
+    } catch (err) {
+      throw new Error("OldHash not found");
+    }
     const oldString = string_(maybeOldRec.toJSON());
 
     const applied = aPatch(oldString, patch);

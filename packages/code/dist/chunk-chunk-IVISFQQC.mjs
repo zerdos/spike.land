@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-VGRJO7X5.mjs";
+} from "./chunk-chunk-LMVQOI6C.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-H2FPX7XE.mjs";
+} from "./chunk-chunk-E5NZVI4G.mjs";
 import {
   __toESM,
   init_define_process
@@ -653,6 +653,9 @@ var sendChannel = {
   webRtcArray,
   tracks,
   user,
+  vidElement: document.createElement("video"),
+  stopVideo,
+  startVideo,
   rtcConns,
   send(data) {
     const messageString = JSON.stringify({
@@ -773,12 +776,12 @@ async function syncWS() {
   } catch (error) {
   }
 }
-var stopVideo = async () => {
+async function stopVideo() {
   if (!sendChannel.localStream)
     return;
   sendChannel.localStream.getTracks().map((x) => x.stop());
-};
-var startVideo = async (vidElement) => {
+}
+async function startVideo() {
   const mediaConstraints = {
     audio: true,
     video: true
@@ -786,15 +789,14 @@ var startVideo = async (vidElement) => {
   const localStream = await navigator.mediaDevices.getUserMedia(
     mediaConstraints
   );
-  vidElement.srcObject = localStream;
+  sendChannel.vidElement.srcObject = localStream;
   localStream.getTracks().forEach(
     (track) => Object.keys(sendChannel.rtcConns).map((k) => {
-      const datachannel = sendChannel.rtcConns[k];
-      datachannel.addTrack(track);
-      datachannel.ontrack = ({ track: track2, streams }) => tracks[k] = { track: track2, streams };
+      const peerConnection = sendChannel.rtcConns[k];
+      peerConnection.addTrack(track);
     })
   );
-};
+}
 async function syncRTC() {
   try {
     if (Object.keys(rtcConns).length > 0) {
@@ -991,28 +993,29 @@ async function processData(data, source, conn) {
     };
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
     rtcConns[target].ontrack = function({ track, streams }) {
-      tracks[target] = { track, streams };
+      const vidElement = document.createElement("video");
+      vidElement.srcObject = streams[0];
+      sendChannel.tracks[target] = { track, streams, vidElement };
     };
     rtcConns[target].ondatachannel = (event) => {
-      const rtc2 = event.channel;
-      rtc2.binaryType = "arraybuffer";
-      rtc2.addEventListener("close", onReceiveChannelClosed);
+      const rtcChannel = event.channel;
+      rtcChannel.binaryType = "arraybuffer";
+      rtcChannel.addEventListener("close", onReceiveChannelClosed);
       if (sendChannel && sendChannel.localStream && sendChannel.localStream.active) {
         sendChannel.localStream.getTracks().forEach((track) => {
           const datachannel = rtcConns[target];
           datachannel.addTrack(track);
-          datachannel.ontrack = ({ track: track2, streams }) => tracks[target] = { track: track2, streams };
         });
       }
-      rtc2.addEventListener(
+      rtcChannel.addEventListener(
         "message",
         async (message) => processWsMessage(
           message,
           "rtc",
-          Object.assign(rtc2, { hashCode: hashCode() })
+          Object.assign(rtc, { hashCode: hashCode() })
         )
       );
-      const rtcWithTarget = Object.assign(rtc2, { target });
+      const rtcWithTarget = Object.assign(rtc, { target });
       webRtcArray.push(rtcWithTarget);
     };
     const dataChannelOptions = {
@@ -1069,6 +1072,8 @@ async function processData(data, source, conn) {
     }
   }
   async function handleChatAnswerMessage(answer, target) {
+    if (rtcConns[target].signalingState === "stable")
+      return;
     await rtcConns[target].setRemoteDescription(
       new RTCSessionDescription(
         answer
@@ -1146,8 +1151,6 @@ async function sw() {
 export {
   sendChannel,
   run,
-  stopVideo,
-  startVideo,
   join,
   sw
 };

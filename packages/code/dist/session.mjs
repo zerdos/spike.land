@@ -10,7 +10,7 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-H2FPX7XE.mjs";
+} from "./chunk-chunk-E5NZVI4G.mjs";
 import "./chunk-chunk-JS5E2TTE.mjs";
 export {
   CodeSession,

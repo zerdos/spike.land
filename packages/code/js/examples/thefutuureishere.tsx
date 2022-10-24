@@ -18,7 +18,6 @@ const FutureIsHere = () => {
     <>
       <code
         css={css`
-      color:navy;
     `}
       >
         {pageText.substr(0, visibleChars)}
