@@ -168,10 +168,9 @@ const monacoContribution = async (
     const extraModel = new URL(match[0].slice(7) + ".tsx", originToUse)
       .toString();
     //   console.log(extraModel);
-    createModel(
+    languages.typescript.typescriptDefaults.addExtraLib(
+      extraModel,
       await fetch(extraModel).then(async (res) => res.text()),
-      "typescript",
-      Uri.parse(extraModel),
     );
     // Editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(originToUse+"/node_modules/framer-motion/index.js"));
     // editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(originToUse+"/node_modules/framer-motion/index.js"));
@@ -567,8 +566,62 @@ export const startMonaco = async (
       autoClosingBrackets: "beforeWhitespace",
     });
 
+    const ATA = () =>
+      (async () => {
+        try {
+          console.log("ATA");
+          (await Promise.all(
+            (await (await (await languages.typescript.getTypeScriptWorker())(
+              Uri.parse("https://testing.spike.land/live/coder.tsx"),
+            )).getSemanticDiagnostics(
+              "https://testing.spike.land/live/coder.tsx",
+            ))
+              .map((x) => {
+                console.log(x.messageText);
+                return x.messageText;
+              }).filter((x) =>
+                typeof x === "string" &&
+                x.includes(" or its corresponding type declarations.")
+              )
+              .map((x) => typeof x === "string" && x.split!("'")[1]).map(
+                async (mod) => {
+                  const retMod = { url: "", mod: mod, content: "" };
+                  retMod.content = (await fetch("/npm:" + mod).then((resp) =>
+                    resp.status === 307
+                      ? fetch(resp.headers.get("location")!)
+                      : resp
+                  ).then((x) => {
+                    retMod.url = x.headers.get("x-dts")!;
+                    console.log(retMod.url);
+                    fetch(retMod.url).then((resp) =>
+                      resp.status === 307
+                        ? fetch(resp.headers.get("location")!)
+                        : resp
+                    ).then((resp) => resp.text());
+                  }).catch(() =>
+                    ""
+                  )) || "";
+
+                  return retMod;
+                },
+              ),
+          )).filter((m) => m.mod && m.content).map((m) => {
+            console.log(m.mod, m.url, m.content);
+            languages.typescript.typescriptDefaults.addExtraLib(
+              m.content,
+              originToUse + "/" + m.content + ".d.ts",
+            );
+          });
+        } catch {
+          console.log("Error while ATA");
+        } finally {
+          console.log("ATA is done");
+        }
+      })();
+
     const mod = {
       editor,
+      ATA,
       languages,
       silent: false,
       code,
@@ -580,7 +633,7 @@ export const startMonaco = async (
     };
 
     Object.assign(globalThis, { monaco: mod });
-
+    mod.ATA();
     model.onDidChangeContent(() => {
       if (mod.silent) return;
       const code = model.getValue();
@@ -589,41 +642,9 @@ export const startMonaco = async (
       onChange(code);
     });
 
-    (async () => {
-      try {
-        (await Promise.all(
-          (await (await (await languages.typescript.getTypeScriptWorker())(
-            Uri.parse("https://testing.spike.land/live/coder.tsx"),
-          )).getSemanticDiagnostics(
-            "https://testing.spike.land/live/coder.tsx",
-          ))
-            .map((x) => x.messageText).filter((x) =>
-              typeof x === "string" &&
-              x.includes(" or its corresponding type declarations.")
-            )
-            .map((x) => typeof x === "string" && x.split!("'")[1]).map(
-              async (mod) => {
-                return {
-                  mod,
-                  content: await fetch("/npm:" + mod).then((x) =>
-                    fetch(x.headers.get("x-dts")!).then((v) =>
-                      v.arrayBuffer().then((x) => (new TextDecoder()).decode(x))
-                    )
-                  ).catch(() => ""),
-                };
-              },
-            ),
-        )).filter((m) => m.mod && m.content).map((m) =>
-          languages.typescript.typescriptDefaults.addExtraLib(
-            m.content,
-            originToUse + `/node_modules/${m.mod}/index.d.ts`,
-          )
-        );
-      } catch {
-      }
-    })();
     return {
       getValue: () => mod.code,
+
       getErrors: () => {
         return mod.tsWorker.then((ts) =>
           ts?.getSemanticDiagnostics(
