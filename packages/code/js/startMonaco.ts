@@ -187,7 +187,6 @@ const monacoContribution = async (
       // globalDts,
       propTypesDts,
       cssTypeDts,
-      framerDts,
       emotionStyled,
       emotionStyleBase,
       emotionCache,

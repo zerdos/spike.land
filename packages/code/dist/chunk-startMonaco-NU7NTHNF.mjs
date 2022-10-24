@@ -521,7 +521,6 @@ var monacoContribution = async (code) => {
       jsxRuntimeDts,
       propTypesDts,
       cssTypeDts,
-      framerDts,
       emotionStyled,
       emotionStyleBase,
       emotionCache,
