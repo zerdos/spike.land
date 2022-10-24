@@ -160,12 +160,22 @@ export default {
             let resp = await fetch(esmUrl, { ...request, url: esmUrl });
 
             if (resp !== null && !resp.ok || resp.status === 307) {
+
+
+              
               const redirectUrl = resp.headers.get("location");
+
               if (redirectUrl) {
-                resp = await fetch(redirectUrl, {
-                  ...request,
-                  url: redirectUrl,
-                });
+
+                const cloned =               resp.clone();
+cloned.headers.set('location', redirectUrl.replace('esm.sh', u.origin));
+return cloned;
+
+
+                // resp = await fetch(redirectUrl, {
+                //   ...request,
+                //   url: redirectUrl,
+                // });
               }
               if (resp !== null && !resp.ok) {
                 return resp;
