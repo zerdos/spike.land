@@ -308,6 +308,7 @@ async function startVideo() {
     console.log(`Using video device: ${videoTracks[0].label}`);
     sendChannel.localStream = localStream; // make variable available to browser console
     video.srcObject = localStream;
+    video.play();
   }
 
   localStream.getVideoTracks().forEach((track) =>

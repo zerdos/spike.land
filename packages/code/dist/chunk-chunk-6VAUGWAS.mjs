@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-YGZJLA7W.mjs";
+} from "./chunk-chunk-KE32LGTK.mjs";
 import {
   applyPatch,
   hashCode,
@@ -797,6 +797,7 @@ async function startVideo() {
     console.log(`Using video device: ${videoTracks[0].label}`);
     sendChannel.localStream = localStream2;
     video.srcObject = localStream2;
+    video.play();
   }
   localStream.getVideoTracks().forEach(
     (track) => Object.keys(sendChannel.rtcConns).map((k) => {
