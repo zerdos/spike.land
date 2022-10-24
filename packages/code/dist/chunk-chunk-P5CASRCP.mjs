@@ -22533,7 +22533,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var DraggableWindowLazy = lazy(
-  () => wait(1e3).then(() => import("./chunk-DraggableWindow-UBR6QDST.mjs"))
+  () => wait(1e3).then(() => import("./chunk-DraggableWindow-TJYPU7CS.mjs"))
 );
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
@@ -23094,7 +23094,7 @@ async function setMonaco() {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-2RHWAAGE.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-7GRA7NR2.mjs");
   const container = window.document.getElementById("editor");
   return startMonaco({
     container,
