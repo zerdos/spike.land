@@ -816,6 +816,6 @@ function removeComments(str: string) {
   /\/\*.*?\*\//gi;
   //Takes a string of code, not an actual function.
   return str.replaceAll(regex, ``).split(`\n`).filter((x) =>
-    x && x.trim() && !x.trim().startsWith("//")
+    x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
   ).join(`\n`);
 }
