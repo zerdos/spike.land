@@ -42550,9 +42550,17 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         const extraModel = new URL(match[0].slice(7).slice(0, -1)).toString();
         console.log(extraModel);
         extraModels[url].push(extraModel);
+        const extraModelContent = await fetch(extraModel).then(
+          async (res) => res.text()
+        );
         languages.typescript.typescriptDefaults.addExtraLib(
           extraModel,
           await fetch(extraModel).then(async (res) => res.text())
+        );
+        addExtraModels(extraModel, extraModelContent);
+        languages.typescript.typescriptDefaults.addExtraLib(
+          extraModel,
+          extraModelContent
         );
       }
     };
