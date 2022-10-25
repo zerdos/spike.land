@@ -101,13 +101,14 @@ const monacoContribution = async (
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
-    target: languages.typescript.ScriptTarget.ESNext,
+    target: languages.typescript.ScriptTarget.ES2020,
 
-    importHelpers: false,
+    downlevelIteration: true,
+    importHelpers: true,
 
     lib,
     allowJs: true,
-    skipLibCheck: true,
+    skipLibCheck: false,
     esModuleInterop: true,
     allowSyntheticDefaultImports: true,
     strict: true,
@@ -116,12 +117,14 @@ const monacoContribution = async (
     resolveJsonModule: true,
     isolatedModules: true,
     noEmit: true,
-    allowNonTsExtensions: true,
     traceResolution: true,
     moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
     moduleSpecifierCompletion: 2,
     declaration: true,
-    module: languages.typescript.ModuleKind.CommonJS,
+    useDefineForClassFields: true,
+    composite: true,
+
+    module: languages.typescript.ModuleKind.ESNext,
     noEmitOnError: true,
     sourceMap: true,
     mapRoot: originToUse + "/src/sourcemaps",
@@ -653,7 +656,15 @@ export const startMonaco = async (
           model.uri,
         )).getSemanticDiagnostics(
           model.uri.toString(),
-        ))
+        ).then((x) => {
+          languages.typescript.typescriptDefaults
+            .setDiagnosticsOptions({
+              noSuggestionDiagnostics: true,
+              noSemanticValidation: true,
+              noSyntaxValidation: true,
+            });
+          return x;
+        }))
           .map((x) => {
             //   console.log(x.messageText);
             return x.messageText;
@@ -705,6 +716,15 @@ export const startMonaco = async (
       maps.forEach((m) => Object.assign(replaceMaps, m));
 
       console.log({ replaceMaps });
+
+      setExtraLibs();
+
+      languages.typescript.typescriptDefaults
+        .setDiagnosticsOptions({
+          noSuggestionDiagnostics: false,
+          noSemanticValidation: false,
+          noSyntaxValidation: false,
+        });
     };
 
     const setExtraLibs = () => {
