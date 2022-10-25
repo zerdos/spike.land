@@ -638,7 +638,7 @@ export const startMonaco = async (
                   console.log(retMod.url);
                   return fetch(retMod.url).then((resp) =>
                     resp.status === 307 || resp.redirected
-                      ? fetch(resp.url)
+                      ? fetch(retMod.url = resp.url)
                       : resp
                   ).then((resp) => resp.text());
                 }).catch(() => "")) || "";
