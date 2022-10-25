@@ -42547,21 +42547,25 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
       const models = replaced2.matchAll(regex);
       for (const match of models) {
-        const extraModel = new URL(match[0].slice(7).slice(0, -1)).toString();
-        console.log(extraModel);
-        extraModels[url].push(extraModel);
-        const extraModelContent = await fetch(extraModel).then(
-          async (res) => res.text()
-        );
-        languages.typescript.typescriptDefaults.addExtraLib(
-          extraModel,
-          await fetch(extraModel).then(async (res) => res.text())
-        );
-        addExtraModels(extraModel, extraModelContent);
-        languages.typescript.typescriptDefaults.addExtraLib(
-          extraModel,
-          extraModelContent
-        );
+        try {
+          const extraModel = new URL(match[0].slice(7).slice(0, -1)).toString();
+          console.log(extraModel);
+          extraModels[url].push(extraModel);
+          const extraModelContent = await fetch(extraModel).then(
+            async (res) => res.text()
+          );
+          languages.typescript.typescriptDefaults.addExtraLib(
+            extraModel,
+            await fetch(extraModel).then(async (res) => res.text())
+          );
+          addExtraModels(extraModel, extraModelContent);
+          languages.typescript.typescriptDefaults.addExtraLib(
+            extraModel,
+            extraModelContent
+          );
+        } catch (err) {
+          console.error("Error in addextra models", { err });
+        }
       }
     };
     const ATA = async () => {
