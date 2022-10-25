@@ -578,7 +578,7 @@ export const startMonaco = async (
         const regex2 = / from '\./gi;
 
         const search = new RegExp(
-          ` from \'[a-zA-Z\-\.\_\/\:]+'`,
+          ` from \'[a-zA-Z\-\.\_\/\:]+\'`,
           "gm",
         );
 
@@ -593,7 +593,7 @@ export const startMonaco = async (
         for (const match of models) {
           //    console.log("***** EXTRA MODELS *****");
 
-          const extraModel = new URL(match[0].slice(7))
+          const extraModel = new URL(match[0].slice(7).slice(0, -1))
             .toString();
           //   console.log(extraModel);
           extraModels[url].push(extraModel);
@@ -609,7 +609,7 @@ export const startMonaco = async (
       const regex2 = / from "\./gi;
 
       const search = new RegExp(
-        ` from \'[a-zA-Z\-\.\_\/\:]+'`,
+        ` from \"[a-zA-Z\-\.\_\/\:]+\"`,
         "gm",
       );
 
@@ -624,7 +624,7 @@ export const startMonaco = async (
       for (const match of models) {
         //    console.log("***** EXTRA MODELS *****");
 
-        const extraModel = new URL(match[0].slice(7))
+        const extraModel = new URL(match[0].slice(7).slice(0, -1))
           .toString();
         //   console.log(extraModel);
         extraModels[url].push(extraModel);
