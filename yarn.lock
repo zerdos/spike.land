@@ -906,7 +906,7 @@ __metadata:
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
     "@types/prettier": "npm:2.7.1"
-    "@types/react": "npm:^18.0.22"
+    "@types/react": "npm:^18.0.23"
     "@types/react-dom": "npm:18.0.7"
     "@typescript/ata": "npm:0.9.3"
     "@yarnpkg/sdks": "npm:3.0.0-rc.26"
@@ -1011,7 +1011,7 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:1.27.1"
-    "@types/react": "npm:18.0.22"
+    "@types/react": "npm:18.0.23"
     "@types/react-dom": "npm:18.0.7"
     "@yarnpkg/sdks": "npm:3.0.0-rc.26"
     playwright: "npm:1.27.1"
@@ -1202,14 +1202,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.0.22, @types/react@npm:^18.0.22":
-  version: 18.0.22
-  resolution: "@types/react@npm:18.0.22"
+"@types/react@npm:18.0.23, @types/react@npm:^18.0.23":
+  version: 18.0.23
+  resolution: "@types/react@npm:18.0.23"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: d3036ebb77afe9547e854064c360a93d1286746490c682506e168f0641782dd98c895f358fc74d0ac79acff802c24a45bd30d6200433cccb9f204b3207b7c14c
+  checksum: 46367c34a7ae3531eb23b30e1878e24bbf477e9f8fa71d38d18310a37ac57fc2b04977eff76ce22edd5db1ce2b407b63161eb2edd730104270563835de06d3b8
   languageName: node
   linkType: hard
 
@@ -2526,7 +2526,7 @@ __metadata:
   resolution: "esbuild-worker@workspace:packages/esbuild-worker"
   dependencies:
     "@cloudflare/workers-types": "npm:3.18.0"
-    "@types/react": "npm:18.0.22"
+    "@types/react": "npm:18.0.23"
     "@types/react-dom": "npm:18.0.7"
     esbuild: "npm:0.15.12"
   languageName: unknown
