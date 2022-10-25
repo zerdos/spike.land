@@ -42439,7 +42439,7 @@ var monacoContribution = async (code) => {
   const replaced = code.replaceAll(regex1, ` from '${originToUse}/live`).replaceAll(regex2, ` from '${originToUse}/live`);
   const models = replaced.matchAll(search);
   for (const match of models) {
-    const extraModel = new URL(match[0].slice(7) + ".tsx", originToUse).toString();
+    const extraModel = match[0];
     languages.typescript.typescriptDefaults.addExtraLib(
       extraModel,
       await fetch(extraModel).then(async (res) => res.text())
