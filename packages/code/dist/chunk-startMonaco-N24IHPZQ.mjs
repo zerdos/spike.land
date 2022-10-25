@@ -42185,6 +42185,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       noSemanticValidation: false,
       noSyntaxValidation: false
     });
+    const extraModelCache = {};
     const extraModels = {};
     Object.assign(globalThis, { extraModels });
     const addExtraModels = async (code3, url) => {
@@ -42212,14 +42213,17 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           if (dts === -1)
             continue;
           const extraModel = match[0].slice(0, dts + 5);
-          console.log(extraModel);
+          if (extraModels[url].includes(extraModel))
+            continue;
           extraModels[url].push(extraModel);
           if (extraModels[extraModel])
             continue;
-          const extraModelContent = await fetch(extraModel).then(
+          if (extraModelCache[extraModel])
+            continue;
+          extraModelCache[extraModel] = await fetch(extraModel).then(
             (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
           ).then((res) => res.text());
-          addExtraModels(extraModelContent, extraModel);
+          addExtraModels(extraModelCache[extraModel], extraModel);
         } catch (err) {
           console.error("Error in addextra models", { err });
         }
