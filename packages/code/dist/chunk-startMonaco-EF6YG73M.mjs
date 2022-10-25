@@ -42187,15 +42187,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     });
     const extraModelCache = {};
     const extraModels = {};
-    Object.assign(globalThis, { extraModels });
+    Object.assign(globalThis, { extraModels, extraModelCache });
     const addExtraModels = async (code3, url) => {
       if (extraModels[url])
         return;
       extraModels[url] = [];
-      languages.typescript.typescriptDefaults.addExtraLib(
-        url,
-        code3
-      );
       const baSe = new URL(".", url).toString();
       const parent = new URL("..", url).toString();
       const regex1 = / from '\.\.\//gi;

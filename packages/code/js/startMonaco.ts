@@ -572,16 +572,16 @@ export const startMonaco = async (
     const extraModelCache: { [key: string]: string } = {};
     const extraModels: { [key: string]: string[] } = {};
 
-    Object.assign(globalThis, { extraModels });
+    Object.assign(globalThis, { extraModels, extraModelCache });
 
     const addExtraModels = async (code: string, url: string) => {
       if (extraModels[url]) return;
       extraModels[url] = [];
 
-      languages.typescript.typescriptDefaults.addExtraLib(
-        url,
-        code,
-      );
+      // languages.typescript.typescriptDefaults.addExtraLib(
+      //   url,
+      //   code,
+      // );
 
       const baSe = (new URL(".", url)).toString();
       const parent = (new URL("..", url)).toString();
