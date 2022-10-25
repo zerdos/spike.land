@@ -6,7 +6,7 @@ import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
 
 // import "monaco-editor/min/vs/basic-languages/typescript/typescript";
 // import "monaco-editor/min/vs/language/typescript/tsMode";
-import { setupTypeAcquisition } from "@typescript/ata";
+//import { setupTypeAcquisition } from "@typescript/ata";
 // import pMap from "p-map";
 
 import { getWorkerUrl } from "./monacoWorkers.mjs";
@@ -22,69 +22,69 @@ const originToUse = location.origin.includes("spike")
   ? location.origin
   : "https://testing.spike.land/";
 
-Object.assign(globalThis, { setupTypeAcquisition });
+// Object.assign(globalThis, { setupTypeAcquisition });
 const lib = [
   "dom",
   "dom.iterable",
-  "es2015.collection",
-  "es2015.core",
-  "es2015",
-  "es2015.generator",
-  "es2015.iterable",
-  "es2015.promise",
-  "es2015.proxy",
-  "es2015.reflect",
-  "es2015.symbol",
-  "es2015.symbol.wellknown",
-  "es2016.array.include",
-  "es2016",
-  "es2016.full",
-  "es2017",
-  "es2017.full",
-  "es2017.intl",
-  "es2017.object",
-  "es2017.sharedmemory",
-  "es2017.string",
-  "es2017.typedarrays",
-  "es2018.asyncgenerator",
-  "es2018.asynciterator",
-  "es2018",
-  "es2018.full",
-  "es2018.intl",
-  "es2018.promise",
-  "es2018.regexp",
-  "es2019.array",
-  "es2019",
-  "es2019.full",
-  "es2019.object",
-  "es2019.string",
-  "es2019.symbol",
-  "es2020.bigint",
-  "es2020",
-  "es2020.full",
-  "es2020.intl",
-  "es2020.promise",
-  "es2020.sharedmemory",
-  "es2020.string",
-  "es2020.symbol.wellknown",
-  "es2021",
+  // "es2015.collection",
+  // "es2015.core",
+  // "es2015",
+  // "es2015.generator",
+  // "es2015.iterable",
+  // "es2015.promise",
+  // "es2015.proxy",
+  // "es2015.reflect",
+  // "es2015.symbol",
+  // "es2015.symbol.wellknown",
+  // "es2016.array.include",
+  // "es2016",
+  // "es2016.full",
+  // "es2017",
+  // "es2017.full",
+  // "es2017.intl",
+  // "es2017.object",
+  // "es2017.sharedmemory",
+  // "es2017.string",
+  // "es2017.typedarrays",
+  // "es2018.asyncgenerator",
+  // "es2018.asynciterator",
+  // "es2018",
+  // "es2018.full",
+  // "es2018.intl",
+  // "es2018.promise",
+  // "es2018.regexp",
+  // "es2019.array",
+  // "es2019",
+  // "es2019.full",
+  // "es2019.object",
+  // "es2019.string",
+  // "es2019.symbol",
+  // "es2020.bigint",
+  // "es2020",
+  // "es2020.full",
+  // "es2020.intl",
+  // "es2020.promise",
+  // "es2020.sharedmemory",
+  // "es2020.string",
+  // "es2020.symbol.wellknown",
+  // "es2021",
   "es2021.full",
-  "es2021.intl",
-  "es2021.promise",
-  "es2021.string",
-  "es2021.weakref",
-  "es5",
-  "es6",
-  "esnext",
-  "esnext.full",
-  "esnext.intl",
-  "esnext.promise",
-  "esnext.string",
-  "esnext.weakref",
-  "scripthost",
-  "webworker",
-  "webworker.importscripts",
-  "webworker.iterable",
+  // "es2021.intl",
+  // "es2021.promise",
+  // "es2021.string",
+  // "es2021.weakref",
+  // "es5",
+  // "es6",
+  // "esnext",
+  // "esnext.full",
+  // "esnext.intl",
+  // "esnext.promise",
+  // "esnext.string",
+  // "esnext.weakref",
+  // "scripthost",
+  // "webworker",
+  // "webworker.importscripts",
+  // "webworker.iterable",
 ];
 
 const monacoContribution = async (
@@ -167,8 +167,8 @@ const monacoContribution = async (
   for (const match of models) {
     //    console.log("***** EXTRA MODELS *****");
 
-    const extraModel = match[0]; // URL(match[0].slice(7) + ".tsx", originToUse)
-    //   .toString();
+    const extraModel = new URL(match[0].slice(7) + ".tsx", originToUse)
+      .toString();
     //   console.log(extraModel);
     languages.typescript.typescriptDefaults.addExtraLib(
       extraModel,
@@ -179,38 +179,38 @@ const monacoContribution = async (
   }
 
   // (async () => {
-  //   // const { dtsFiles } = await import("./types.mjs");
-  //   // const {
-  //   //   reactDts,
-  //   //   // JsxDevRuntimeDts,
-  //   //   jsxRuntimeDts,
-  //   //   // ReactExpDts,
-  //   //   // globalDts,
-  //   //   propTypesDts,
-  //   //   cssTypeDts,
-  //   //   emotionStyled,
-  //   //   emotionStyleBase,
-  //   //   emotionCache,
-  //   //   emotionJSXNameSpaceDTS,
-  //   //   emotionJSXRuntimeDTS,
-  //   //   emotionThemingDts,
-  //   // } = dtsFiles;
+  //   const { dtsFiles } = await import("./types.mjs");
+  //   const {
+  //     // reactDts,
+  //     // JsxDevRuntimeDts,
+  //     // jsxRuntimeDts,
+  //     // ReactExpDts,
+  //     // globalDts,
+  //     propTypesDts,
+  //     cssTypeDts,
+  //     emotionStyled,
+  //     emotionStyleBase,
+  //     emotionCache,
+  //     emotionJSXNameSpaceDTS,
+  //     emotionJSXRuntimeDTS,
+  //     emotionThemingDts,
+  //   } = dtsFiles;
   //   const importHelper = [
-  //     {
-  //       name: "react",
-  //       url: reactDts,
-  //       depend: ["global", "csstype", "prop-types"],
-  //     },
-  //     {
-  //       name: "react/jsx-runtime",
-  //       url: jsxRuntimeDts,
-  //       depend: ["global", "csstype", "prop-types"],
-  //     },
-  //     {
-  //       name: "react/jsx-dev-runtime",
-  //       url: jsxRuntimeDts,
-  //       depend: ["global", "csstype", "prop-types"],
-  //     },
+  //     // {
+  //     //   name: "react",
+  //     //   url: reactDts,
+  //     //   depend: ["global", "csstype", "prop-types"],
+  //     // },
+  //     // {
+  //     //   name: "react/jsx-runtime",
+  //     //   url: jsxRuntimeDts,
+  //     //   depend: ["global", "csstype", "prop-types"],
+  //     // },
+  //     // {
+  //     //   name: "react/jsx-dev-runtime",
+  //     //   url: jsxRuntimeDts,
+  //     //   depend: ["global", "csstype", "prop-types"],
+  //     // },
   //     // {
   //     // name: "react-exp",
   //     // url: reactExpDts,
@@ -328,22 +328,22 @@ const monacoContribution = async (
   //   //   )).text(),
   //   //   originToUse + `/node_modules/framer-motion/package.json`);
 
-  //   try {
-  //     const mapper = async (
-  //       { name, url, force }: { name: string; url: string; force?: boolean },
-  //     ) =>
-  //       (code.indexOf(name) !== -1 || force) &&
-  //       languages.typescript.typescriptDefaults.addExtraLib(
-  //         await (await fetch(
-  //           url,
-  //         )).text(),
-  //         originToUse + `/node_modules/${name}/index.d.ts`,
-  //       );
+  //   // try {
+  //   //   const mapper = async (
+  //   //     { name, url, force }: { name: string; url: string; force?: boolean },
+  //   //   ) =>
+  //   //     (code.indexOf(name) !== -1 || force) &&
+  //   //     languages.typescript.typescriptDefaults.addExtraLib(
+  //   //       await (await fetch(
+  //   //         url,
+  //   //       )).text(),
+  //   //       originToUse + `/node_modules/${name}/index.d.ts`,
+  //   //     );
 
-  //     await pMap(importHelper, mapper, { concurrency: 2 });
-  //   } catch {
-  //     console.error("Error in loading d.ts");
-  //   }
+  //   //   await pMap(importHelper, mapper, { concurrency: 2 });
+  //   // } catch {
+  //   //   console.error("Error in loading d.ts");
+  //   // }
 
   //   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   // })();
@@ -576,6 +576,11 @@ export const startMonaco = async (
       if (extraModels[url]) return;
       extraModels[url] = [];
 
+      languages.typescript.typescriptDefaults.addExtraLib(
+        url,
+        code,
+      );
+
       const baSe = (new URL(".", url)).toString();
       const parent = (new URL("..", url)).toString();
 
@@ -600,25 +605,21 @@ export const startMonaco = async (
 
         //    console.log("***** EXTRA MODELS *****");
         try {
-          const extraModel = (new URL(match[0].slice(7).slice(0, -1)))
-            .toString();
+          const dts = match[0].indexOf(".d.ts");
+          if (!match[0].includes("spike.land")) continue;
+          if (dts === -1) continue;
+
+          const extraModel = match[0].slice(0, dts + 5); //(new URL(match[0].slice(7).slice(0, -1)))
+          //            .toString();
           console.log(extraModel);
           extraModels[url].push(extraModel);
+          if (extraModels[extraModel]) continue;
 
-          const extraModelContent = await fetch(extraModel).then(async (res) =>
-            res.text()
-          );
+          const extraModelContent = await fetch(extraModel).then((resp) =>
+            resp.status === 307 ? fetch(resp.headers.get("location")!) : resp
+          ).then((res) => res.text());
 
-          languages.typescript.typescriptDefaults.addExtraLib(
-            extraModel,
-            await fetch(extraModel).then(async (res) => res.text()),
-          );
-
-          addExtraModels(extraModel, extraModelContent);
-          languages.typescript.typescriptDefaults.addExtraLib(
-            extraModel,
-            extraModelContent,
-          );
+          addExtraModels(extraModelContent, extraModel);
         } catch (err) {
           console.error("Error in addextra models", { err });
         }
@@ -663,18 +664,14 @@ export const startMonaco = async (
           ),
       )).filter((m) => m.mod && m.content).map((m) => {
         console.log(`Aga-Insert: ${m.mod}`);
-        languages.typescript.typescriptDefaults.addExtraLib(
+
+        addExtraModels(
           `
-              export * from "${m.url}";
-              export {default} from "${m.url}";
-              `,
+        export * from "${m.url}";
+        export {default} from "${m.url}";
+        `,
           originToUse + `/node_modules/${m.mod}/index.d.ts`,
         );
-        languages.typescript.typescriptDefaults.addExtraLib(
-          m.content,
-          m.url,
-        );
-        addExtraModels(m.content, m.url);
       });
     };
 

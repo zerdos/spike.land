@@ -41988,293 +41988,6 @@ registerLanguage({
   }
 });
 
-// ../../.yarn/__virtual__/@typescript-ata-virtual-c410006eeb/0/global/cache/@typescript-ata-npm-0.9.3-cd778e0e59-9.zip/node_modules/@typescript/ata/dist/index.js
-init_define_process();
-var __defProp2 = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp2.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
-};
-var getNPMVersionsForModule = (config, moduleName) => {
-  const url = `https://data.jsdelivr.com/v1/package/npm/${moduleName}`;
-  return api(config, url, { cache: "no-store" });
-};
-var getNPMVersionForModuleReference = (config, moduleName, reference) => {
-  const url = `https://data.jsdelivr.com/v1/package/resolve/npm/${moduleName}@${reference}`;
-  return api(config, url);
-};
-var getFiletreeForModuleWithVersion = (config, moduleName, version) => __async(void 0, null, function* () {
-  const url = `https://data.jsdelivr.com/v1/package/npm/${moduleName}@${version}/flat`;
-  const res = yield api(config, url);
-  if (res instanceof Error) {
-    return res;
-  } else {
-    return __spreadProps(__spreadValues({}, res), {
-      moduleName,
-      version
-    });
-  }
-});
-var getDTSFileForModuleWithVersion = (config, moduleName, version, file) => __async(void 0, null, function* () {
-  const url = `https://cdn.jsdelivr.net/npm/${moduleName}@${version}${file}`;
-  const f = config.fetcher || fetch;
-  const res = yield f(url);
-  if (res.ok) {
-    return res.text();
-  } else {
-    return new Error("OK");
-  }
-});
-function api(config, url, init) {
-  const f = config.fetcher || fetch;
-  return f(url, init).then((res) => {
-    if (res.ok) {
-      return res.json().then((f2) => f2);
-    } else {
-      return new Error("OK");
-    }
-  });
-}
-var mapModuleNameToModule = (name) => {
-  const builtInNodeMods = [
-    "assert",
-    "assert/strict",
-    "async_hooks",
-    "buffer",
-    "child_process",
-    "cluster",
-    "console",
-    "constants",
-    "crypto",
-    "dgram",
-    "diagnostics_channel",
-    "dns",
-    "dns/promises",
-    "domain",
-    "events",
-    "fs",
-    "fs/promises",
-    "http",
-    "http2",
-    "https",
-    "inspector",
-    "module",
-    "net",
-    "os",
-    "path",
-    "path/posix",
-    "path/win32",
-    "perf_hooks",
-    "process",
-    "punycode",
-    "querystring",
-    "readline",
-    "repl",
-    "stream",
-    "stream/promises",
-    "stream/consumers",
-    "stream/web",
-    "string_decoder",
-    "sys",
-    "timers",
-    "timers/promises",
-    "tls",
-    "trace_events",
-    "tty",
-    "url",
-    "util",
-    "util/types",
-    "v8",
-    "vm",
-    "wasi",
-    "worker_threads",
-    "zlib"
-  ];
-  if (builtInNodeMods.includes(name.replace("node:", ""))) {
-    return "node";
-  }
-  return name;
-};
-var setupTypeAcquisition = (config) => {
-  const moduleMap = /* @__PURE__ */ new Map();
-  const fsMap = /* @__PURE__ */ new Map();
-  let estimatedToDownload = 0;
-  let estimatedDownloaded = 0;
-  return (initialSourceFile) => {
-    estimatedToDownload = 0;
-    estimatedDownloaded = 0;
-    resolveDeps(initialSourceFile, 0).then((t) => {
-      var _a5, _b2;
-      if (estimatedDownloaded > 0) {
-        (_b2 = (_a5 = config.delegate).finished) == null ? void 0 : _b2.call(_a5, fsMap);
-      }
-    });
-  };
-  function resolveDeps(initialSourceFile, depth) {
-    return __async(this, null, function* () {
-      var _a5, _b2, _c2, _d2, _e2;
-      const depsToGet = getNewDependencies(config, moduleMap, initialSourceFile);
-      depsToGet.forEach((dep) => moduleMap.set(dep.module, { state: "loading" }));
-      const trees = yield Promise.all(depsToGet.map((f) => getFileTreeForModuleWithTag(config, f.module, f.version)));
-      const treesOnly = trees.filter((t) => !("error" in t));
-      const hasDTS = treesOnly.filter((t) => t.files.find((f) => f.name.endsWith(".d.ts")));
-      const dtsFilesFromNPM = hasDTS.map((t) => treeToDTSFiles(t, `/node_modules/${t.moduleName}`));
-      const mightBeOnDT = treesOnly.filter((t) => !hasDTS.includes(t));
-      const dtTrees = yield Promise.all(mightBeOnDT.map((f) => getFileTreeForModuleWithTag(config, `@types/${getDTName(f.moduleName)}`, "latest")));
-      const dtTreesOnly = dtTrees.filter((t) => !("error" in t));
-      const dtsFilesFromDT = dtTreesOnly.map((t) => treeToDTSFiles(t, `/node_modules/@types/${getDTName(t.moduleName).replace("types__", "")}`));
-      const allDTSFiles = dtsFilesFromNPM.concat(dtsFilesFromDT).reduce((p, c) => p.concat(c), []);
-      estimatedToDownload += allDTSFiles.length;
-      if (allDTSFiles.length && depth === 0) {
-        (_b2 = (_a5 = config.delegate).started) == null ? void 0 : _b2.call(_a5);
-      }
-      for (const tree of treesOnly) {
-        let prefix = `/node_modules/${tree.moduleName}`;
-        if (dtTreesOnly.includes(tree))
-          prefix = `/node_modules/@types/${getDTName(tree.moduleName).replace("types__", "")}`;
-        const path = prefix + "/package.json";
-        const pkgJSON = yield getDTSFileForModuleWithVersion(config, tree.moduleName, tree.version, "/package.json");
-        if (typeof pkgJSON == "string") {
-          fsMap.set(path, pkgJSON);
-          (_d2 = (_c2 = config.delegate).receivedFile) == null ? void 0 : _d2.call(_c2, pkgJSON, path);
-        } else {
-          (_e2 = config.logger) == null ? void 0 : _e2.error(`Could not download package.json for ${tree.moduleName}`);
-        }
-      }
-      yield Promise.all(allDTSFiles.map((dts) => __async(this, null, function* () {
-        var _a22, _b22, _c22;
-        const dtsCode = yield getDTSFileForModuleWithVersion(config, dts.moduleName, dts.moduleVersion, dts.path);
-        estimatedDownloaded++;
-        if (dtsCode instanceof Error) {
-          (_a22 = config.logger) == null ? void 0 : _a22.error(`Had an issue getting ${dts.path} for ${dts.moduleName}`);
-        } else {
-          fsMap.set(dts.vfsPath, dtsCode);
-          (_c22 = (_b22 = config.delegate).receivedFile) == null ? void 0 : _c22.call(_b22, dtsCode, dts.vfsPath);
-          if (config.delegate.progress && estimatedDownloaded % 5 === 0) {
-            config.delegate.progress(estimatedDownloaded, estimatedToDownload);
-          }
-          yield resolveDeps(dtsCode, depth + 1);
-        }
-      })));
-    });
-  }
-};
-function treeToDTSFiles(tree, vfsPrefix) {
-  const dtsRefs = [];
-  for (const file of tree.files) {
-    if (file.name.endsWith(".d.ts")) {
-      dtsRefs.push({
-        moduleName: tree.moduleName,
-        moduleVersion: tree.version,
-        vfsPath: `${vfsPrefix}${file.name}`,
-        path: file.name
-      });
-    }
-  }
-  return dtsRefs;
-}
-var getReferencesForModule = (ts, code) => {
-  const meta = ts.preProcessFile(code);
-  const libMap = ts.libMap || /* @__PURE__ */ new Map();
-  const references = meta.referencedFiles.concat(meta.importedFiles).concat(meta.libReferenceDirectives).filter((f) => !f.fileName.endsWith(".d.ts")).filter((d) => !libMap.has(d.fileName));
-  return references.map((r) => {
-    let version = void 0;
-    if (!r.fileName.startsWith(".")) {
-      version = "latest";
-      const line = code.slice(r.end).split("\n")[0];
-      if (line.includes("// types:"))
-        version = line.split("// types: ")[1].trim();
-    }
-    return {
-      module: r.fileName,
-      version
-    };
-  });
-};
-function getNewDependencies(config, moduleMap, code) {
-  const refs = getReferencesForModule(config.typescript, code).map((ref) => __spreadProps(__spreadValues({}, ref), {
-    module: mapModuleNameToModule(ref.module)
-  }));
-  const modules = refs.filter((f) => !f.module.startsWith(".")).filter((m) => !moduleMap.has(m.module));
-  return modules;
-}
-var getFileTreeForModuleWithTag = (config, moduleName, tag) => __async(void 0, null, function* () {
-  let toDownload = tag || "latest";
-  if (toDownload.split(".").length < 2) {
-    const response = yield getNPMVersionForModuleReference(config, moduleName, toDownload);
-    if (response instanceof Error) {
-      return {
-        error: response,
-        userFacingMessage: `Could not go from a tag to version on npm for ${moduleName} - possible typo?`
-      };
-    }
-    const neededVersion = response.version;
-    if (!neededVersion) {
-      const versions = yield getNPMVersionsForModule(config, moduleName);
-      if (versions instanceof Error) {
-        return {
-          error: response,
-          userFacingMessage: `Could not get versions on npm for ${moduleName} - possible typo?`
-        };
-      }
-      const tags = Object.entries(versions.tags).join(", ");
-      return {
-        error: new Error("Could not find tag for module"),
-        userFacingMessage: `Could not find a tag for ${moduleName} called ${tag}. Did find ${tags}`
-      };
-    }
-    toDownload = neededVersion;
-  }
-  const res = yield getFiletreeForModuleWithVersion(config, moduleName, toDownload);
-  if (res instanceof Error) {
-    return {
-      error: res,
-      userFacingMessage: `Could not get the files for ${moduleName}@${toDownload}. Is it possibly a typo?`
-    };
-  }
-  return res;
-});
-function getDTName(s) {
-  if (s.indexOf("@") === 0 && s.indexOf("/") !== -1) {
-    s = s.substr(1).replace("/", "__");
-  }
-  return s;
-}
-
 // js/monacoWorkers.mjs
 init_define_process();
 
@@ -42314,69 +42027,10 @@ var getWorkerUrl = (_moduleId, label) => {
 var create = editor.create;
 var createModel = editor.createModel;
 var originToUse = location.origin.includes("spike") ? location.origin : "https://testing.spike.land/";
-Object.assign(globalThis, { setupTypeAcquisition });
 var lib = [
   "dom",
   "dom.iterable",
-  "es2015.collection",
-  "es2015.core",
-  "es2015",
-  "es2015.generator",
-  "es2015.iterable",
-  "es2015.promise",
-  "es2015.proxy",
-  "es2015.reflect",
-  "es2015.symbol",
-  "es2015.symbol.wellknown",
-  "es2016.array.include",
-  "es2016",
-  "es2016.full",
-  "es2017",
-  "es2017.full",
-  "es2017.intl",
-  "es2017.object",
-  "es2017.sharedmemory",
-  "es2017.string",
-  "es2017.typedarrays",
-  "es2018.asyncgenerator",
-  "es2018.asynciterator",
-  "es2018",
-  "es2018.full",
-  "es2018.intl",
-  "es2018.promise",
-  "es2018.regexp",
-  "es2019.array",
-  "es2019",
-  "es2019.full",
-  "es2019.object",
-  "es2019.string",
-  "es2019.symbol",
-  "es2020.bigint",
-  "es2020",
-  "es2020.full",
-  "es2020.intl",
-  "es2020.promise",
-  "es2020.sharedmemory",
-  "es2020.string",
-  "es2020.symbol.wellknown",
-  "es2021",
-  "es2021.full",
-  "es2021.intl",
-  "es2021.promise",
-  "es2021.string",
-  "es2021.weakref",
-  "es5",
-  "es6",
-  "esnext",
-  "esnext.full",
-  "esnext.intl",
-  "esnext.promise",
-  "esnext.string",
-  "esnext.weakref",
-  "scripthost",
-  "webworker",
-  "webworker.importscripts",
-  "webworker.iterable"
+  "es2021.full"
 ];
 var monacoContribution = async (code) => {
   languages.typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -42439,7 +42093,7 @@ var monacoContribution = async (code) => {
   const replaced = code.replaceAll(regex1, ` from '${originToUse}/live`).replaceAll(regex2, ` from '${originToUse}/live`);
   const models = replaced.matchAll(search);
   for (const match of models) {
-    const extraModel = match[0];
+    const extraModel = new URL(match[0].slice(7) + ".tsx", originToUse).toString();
     languages.typescript.typescriptDefaults.addExtraLib(
       extraModel,
       await fetch(extraModel).then(async (res) => res.text())
@@ -42537,6 +42191,10 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       if (extraModels[url])
         return;
       extraModels[url] = [];
+      languages.typescript.typescriptDefaults.addExtraLib(
+        url,
+        code3
+      );
       const baSe = new URL(".", url).toString();
       const parent = new URL("..", url).toString();
       const regex1 = / from '\.\.\//gi;
@@ -42548,21 +42206,20 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       const models = replaced2.matchAll(regex);
       for (const match of models) {
         try {
-          const extraModel = new URL(match[0].slice(7).slice(0, -1)).toString();
+          const dts = match[0].indexOf(".d.ts");
+          if (!match[0].includes("spike.land"))
+            continue;
+          if (dts === -1)
+            continue;
+          const extraModel = match[0].slice(0, dts + 5);
           console.log(extraModel);
           extraModels[url].push(extraModel);
+          if (extraModels[extraModel])
+            continue;
           const extraModelContent = await fetch(extraModel).then(
-            async (res) => res.text()
-          );
-          languages.typescript.typescriptDefaults.addExtraLib(
-            extraModel,
-            await fetch(extraModel).then(async (res) => res.text())
-          );
-          addExtraModels(extraModel, extraModelContent);
-          languages.typescript.typescriptDefaults.addExtraLib(
-            extraModel,
-            extraModelContent
-          );
+            (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
+          ).then((res) => res.text());
+          addExtraModels(extraModelContent, extraModel);
         } catch (err) {
           console.error("Error in addextra models", { err });
         }
@@ -42596,18 +42253,13 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         )
       )).filter((m) => m.mod && m.content).map((m) => {
         console.log(`Aga-Insert: ${m.mod}`);
-        languages.typescript.typescriptDefaults.addExtraLib(
+        addExtraModels(
           `
-              export * from "${m.url}";
-              export {default} from "${m.url}";
-              `,
+        export * from "${m.url}";
+        export {default} from "${m.url}";
+        `,
           originToUse + `/node_modules/${m.mod}/index.d.ts`
         );
-        languages.typescript.typescriptDefaults.addExtraLib(
-          m.content,
-          m.url
-        );
-        addExtraModels(m.content, m.url);
       });
     };
     const mod2 = {
