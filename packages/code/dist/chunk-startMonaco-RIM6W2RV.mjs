@@ -42370,7 +42370,7 @@ function removeComments(str) {
   /\/\*.*?\*\//gi;
   return str.replaceAll(regex, ``).split(`
 `).filter(
-    (x) => x && x.trim() && !x.trim().startsWith("//")
+    (x) => x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
   ).join(`
 `);
 }
