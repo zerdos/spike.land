@@ -582,9 +582,9 @@ export const startMonaco = async (
           "gm",
         );
 
-        const baSe = (new URL("/.", url)).toString();
+        const baSe = (new URL(".", url)).toString();
 
-        const replaced = code.replaceAll(regex1, ` from '${baSe}`)
+        const replaced = code.replaceAll(regex1, ` from '${baSe}/npm:/`)
           .replaceAll(regex2, ` from '${baSe}`);
 
         const models = replaced.matchAll(search);
@@ -615,8 +615,8 @@ export const startMonaco = async (
 
       const baSe = (new URL("/.", url)).toString();
 
-      const replaced = code.replaceAll(regex1, ` from "${baSe}`)
-        .replaceAll(regex2, ` from "${baSe}`);
+      const replaced = code.replaceAll(regex1, ` from "${baSe}/npm:/`)
+        .replaceAll(regex2, ` from "${baSe}/npm:/`);
 
       const models = replaced.matchAll(search);
       // Console.log("load more models", replaced, models);
