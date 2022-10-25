@@ -1,4 +1,4 @@
-import "./chunk-chunk-WZFBJXM4.mjs";
+import "./chunk-chunk-ZQZPIHNU.mjs";
 import {
   $,
   Action,
@@ -567,16 +567,13 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-VUESZGQL.mjs";
+} from "./chunk-chunk-PKLNAQGU.mjs";
 import {
   __commonJS,
   __esm,
-  __privateAdd,
-  __privateGet,
-  __privateSet,
   __toESM,
   init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
+} from "./chunk-chunk-6P62PNFK.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -1913,13 +1910,6 @@ var require_viewportSemanticTokens = __commonJS({
       __param70(5, ILanguageFeaturesService)
     ], ViewportSemanticTokensContribution);
     registerEditorContribution(ViewportSemanticTokensContribution.ID, ViewportSemanticTokensContribution);
-  }
-});
-
-// (disabled):os
-var require_os = __commonJS({
-  "(disabled):os"() {
-    init_define_process();
   }
 });
 
@@ -41993,7 +41983,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-MBSBIDRO.mjs");
+      return import("./chunk-typescript-J47VW4WG.mjs");
     }
   }
 });
@@ -42285,247 +42275,6 @@ function getDTName(s) {
   return s;
 }
 
-// ../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9.zip/node_modules/p-map/index.js
-init_define_process();
-
-// ../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9.zip/node_modules/aggregate-error/index.js
-init_define_process();
-
-// ../../.yarn/global/cache/indent-string-npm-5.0.0-35eaa3b052-9.zip/node_modules/indent-string/index.js
-init_define_process();
-function indentString(string, count = 1, options = {}) {
-  const {
-    indent = " ",
-    includeEmptyLines = false
-  } = options;
-  if (typeof string !== "string") {
-    throw new TypeError(
-      `Expected \`input\` to be a \`string\`, got \`${typeof string}\``
-    );
-  }
-  if (typeof count !== "number") {
-    throw new TypeError(
-      `Expected \`count\` to be a \`number\`, got \`${typeof count}\``
-    );
-  }
-  if (count < 0) {
-    throw new RangeError(
-      `Expected \`count\` to be at least 0, got \`${count}\``
-    );
-  }
-  if (typeof indent !== "string") {
-    throw new TypeError(
-      `Expected \`options.indent\` to be a \`string\`, got \`${typeof indent}\``
-    );
-  }
-  if (count === 0) {
-    return string;
-  }
-  const regex = includeEmptyLines ? /^/gm : /^(?!\s*$)/gm;
-  return string.replace(regex, indent.repeat(count));
-}
-
-// ../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-9.zip/node_modules/clean-stack/index.js
-init_define_process();
-var import_os = __toESM(require_os(), 1);
-
-// ../../.yarn/global/cache/escape-string-regexp-npm-5.0.0-a663e825ce-9.zip/node_modules/escape-string-regexp/index.js
-init_define_process();
-function escapeStringRegexp(string) {
-  if (typeof string !== "string") {
-    throw new TypeError("Expected a string");
-  }
-  return string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
-}
-
-// ../../.yarn/global/cache/clean-stack-npm-4.2.0-bb0dff47b2-9.zip/node_modules/clean-stack/index.js
-var extractPathRegex = /\s+at.*[(\s](.*)\)?/;
-var pathRegex = /^(?:(?:(?:node|node:[\w/]+|(?:(?:node:)?internal\/[\w/]*|.*node_modules\/(?:babel-polyfill|pirates)\/.*)?\w+)(?:\.js)?:\d+:\d+)|native)/;
-var homeDir = typeof import_os.default.homedir === "undefined" ? "" : import_os.default.homedir().replace(/\\/g, "/");
-function cleanStack(stack, { pretty = false, basePath } = {}) {
-  const basePathRegex = basePath && new RegExp(`(at | \\()${escapeStringRegexp(basePath.replace(/\\/g, "/"))}`, "g");
-  if (typeof stack !== "string") {
-    return void 0;
-  }
-  return stack.replace(/\\/g, "/").split("\n").filter((line) => {
-    const pathMatches = line.match(extractPathRegex);
-    if (pathMatches === null || !pathMatches[1]) {
-      return true;
-    }
-    const match = pathMatches[1];
-    if (match.includes(".app/Contents/Resources/electron.asar") || match.includes(".app/Contents/Resources/default_app.asar") || match.includes("node_modules/electron/dist/resources/electron.asar") || match.includes("node_modules/electron/dist/resources/default_app.asar")) {
-      return false;
-    }
-    return !pathRegex.test(match);
-  }).filter((line) => line.trim() !== "").map((line) => {
-    if (basePathRegex) {
-      line = line.replace(basePathRegex, "$1");
-    }
-    if (pretty) {
-      line = line.replace(extractPathRegex, (m, p1) => m.replace(p1, p1.replace(homeDir, "~")));
-    }
-    return line;
-  }).join("\n");
-}
-
-// ../../.yarn/global/cache/aggregate-error-npm-4.0.1-12d0501fb7-9.zip/node_modules/aggregate-error/index.js
-var cleanInternalStack = (stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, "");
-var _errors;
-var AggregateError = class extends Error {
-  constructor(errors) {
-    if (!Array.isArray(errors)) {
-      throw new TypeError(`Expected input to be an Array, got ${typeof errors}`);
-    }
-    errors = errors.map((error) => {
-      if (error instanceof Error) {
-        return error;
-      }
-      if (error !== null && typeof error === "object") {
-        return Object.assign(new Error(error.message), error);
-      }
-      return new Error(error);
-    });
-    let message = errors.map((error) => {
-      return typeof error.stack === "string" && error.stack.length > 0 ? cleanInternalStack(cleanStack(error.stack)) : String(error);
-    }).join("\n");
-    message = "\n" + indentString(message, 4);
-    super(message);
-    __privateAdd(this, _errors, void 0);
-    this.name = "AggregateError";
-    __privateSet(this, _errors, errors);
-  }
-  get errors() {
-    return __privateGet(this, _errors).slice();
-  }
-};
-_errors = new WeakMap();
-
-// ../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9.zip/node_modules/p-map/index.js
-var AbortError = class extends Error {
-  constructor(message) {
-    super();
-    this.name = "AbortError";
-    this.message = message;
-  }
-};
-var getDOMException = (errorMessage) => globalThis.DOMException === void 0 ? new AbortError(errorMessage) : new DOMException(errorMessage);
-var getAbortedReason = (signal) => {
-  const reason = signal.reason === void 0 ? getDOMException("This operation was aborted.") : signal.reason;
-  return reason instanceof Error ? reason : getDOMException(reason);
-};
-async function pMap(iterable, mapper, {
-  concurrency = Number.POSITIVE_INFINITY,
-  stopOnError = true,
-  signal
-} = {}) {
-  return new Promise((resolve, reject_) => {
-    if (iterable[Symbol.iterator] === void 0 && iterable[Symbol.asyncIterator] === void 0) {
-      throw new TypeError(`Expected \`input\` to be either an \`Iterable\` or \`AsyncIterable\`, got (${typeof iterable})`);
-    }
-    if (typeof mapper !== "function") {
-      throw new TypeError("Mapper function is required");
-    }
-    if (!((Number.isSafeInteger(concurrency) || concurrency === Number.POSITIVE_INFINITY) && concurrency >= 1)) {
-      throw new TypeError(`Expected \`concurrency\` to be an integer from 1 and up or \`Infinity\`, got \`${concurrency}\` (${typeof concurrency})`);
-    }
-    const result = [];
-    const errors = [];
-    const skippedIndexesMap = /* @__PURE__ */ new Map();
-    let isRejected = false;
-    let isResolved = false;
-    let isIterableDone = false;
-    let resolvingCount = 0;
-    let currentIndex = 0;
-    const iterator = iterable[Symbol.iterator] === void 0 ? iterable[Symbol.asyncIterator]() : iterable[Symbol.iterator]();
-    const reject = (reason) => {
-      isRejected = true;
-      isResolved = true;
-      reject_(reason);
-    };
-    if (signal) {
-      if (signal.aborted) {
-        reject(getAbortedReason(signal));
-      }
-      signal.addEventListener("abort", () => {
-        reject(getAbortedReason(signal));
-      });
-    }
-    const next = async () => {
-      if (isResolved) {
-        return;
-      }
-      const nextItem = await iterator.next();
-      const index = currentIndex;
-      currentIndex++;
-      if (nextItem.done) {
-        isIterableDone = true;
-        if (resolvingCount === 0 && !isResolved) {
-          if (!stopOnError && errors.length > 0) {
-            reject(new AggregateError(errors));
-            return;
-          }
-          isResolved = true;
-          if (skippedIndexesMap.size === 0) {
-            resolve(result);
-            return;
-          }
-          const pureResult = [];
-          for (const [index2, value] of result.entries()) {
-            if (skippedIndexesMap.get(index2) === pMapSkip) {
-              continue;
-            }
-            pureResult.push(value);
-          }
-          resolve(pureResult);
-        }
-        return;
-      }
-      resolvingCount++;
-      (async () => {
-        try {
-          const element = await nextItem.value;
-          if (isResolved) {
-            return;
-          }
-          const value = await mapper(element, index);
-          if (value === pMapSkip) {
-            skippedIndexesMap.set(index, value);
-          }
-          result[index] = value;
-          resolvingCount--;
-          await next();
-        } catch (error) {
-          if (stopOnError) {
-            reject(error);
-          } else {
-            errors.push(error);
-            resolvingCount--;
-            try {
-              await next();
-            } catch (error2) {
-              reject(error2);
-            }
-          }
-        }
-      })();
-    };
-    (async () => {
-      for (let index = 0; index < concurrency; index++) {
-        try {
-          await next();
-        } catch (error) {
-          reject(error);
-          break;
-        }
-        if (isIterableDone || isRejected) {
-          break;
-        }
-      }
-    })();
-  });
-}
-var pMapSkip = Symbol("skip");
-
 // js/monacoWorkers.mjs
 init_define_process();
 
@@ -42696,140 +42445,6 @@ var monacoContribution = async (code) => {
       await fetch(extraModel).then(async (res) => res.text())
     );
   }
-  (async () => {
-    const { dtsFiles } = await import("./chunk-types-OJF3UDV6.mjs");
-    const {
-      reactDts,
-      jsxRuntimeDts,
-      propTypesDts,
-      cssTypeDts,
-      emotionStyled,
-      emotionStyleBase,
-      emotionCache,
-      emotionJSXNameSpaceDTS,
-      emotionJSXRuntimeDTS,
-      emotionThemingDts
-    } = dtsFiles;
-    const importHelper = [
-      {
-        name: "react",
-        url: reactDts,
-        depend: ["global", "csstype", "prop-types"]
-      },
-      {
-        name: "react/jsx-runtime",
-        url: jsxRuntimeDts,
-        depend: ["global", "csstype", "prop-types"]
-      },
-      {
-        name: "react/jsx-dev-runtime",
-        url: jsxRuntimeDts,
-        depend: ["global", "csstype", "prop-types"]
-      },
-      {
-        name: "prop-types",
-        url: propTypesDts,
-        depend: []
-      },
-      {
-        name: "csstype",
-        url: cssTypeDts,
-        depend: []
-      },
-      {
-        name: "@emotion/base",
-        url: emotionStyleBase,
-        depend: [
-          "@emotion/react",
-          "@emotion/serialize",
-          "react"
-        ]
-      },
-      {
-        name: "@emotion/styled",
-        url: emotionStyled,
-        depend: [
-          "@emotion/react",
-          "@emotion/serialize",
-          "react"
-        ]
-      },
-      {
-        name: "@emotion/cache",
-        url: emotionCache,
-        depend: ["@emotion/utils"]
-      },
-      {
-        name: "@emotion/react",
-        force: true,
-        url: "/node_modules/@emotion/react/types/index.d.ts",
-        depend: ["@emotion/cache"]
-      },
-      {
-        name: "@emotion/react/jsx-runtime",
-        force: true,
-        url: emotionJSXRuntimeDTS,
-        depend: ["@emotion/cache"]
-      },
-      {
-        name: "@emotion/react/jsx-dev-runtime",
-        url: emotionJSXRuntimeDTS,
-        force: true,
-        depend: ["@emotion/cache"]
-      },
-      {
-        name: "@emotion/react/jsx-namespace",
-        url: emotionJSXNameSpaceDTS,
-        force: true,
-        depend: ["@emotion/utils", "type"]
-      },
-      {
-        name: "@emotion/react/theming",
-        url: emotionThemingDts,
-        depend: ["@emotion/utils", "type"]
-      },
-      {
-        name: "@emotion/react/css-prop",
-        force: true,
-        url: "/node_modules/@emotion/react/types/css-prop.d.ts",
-        depend: ["@emotion/utils", "csstype"]
-      },
-      {
-        name: "@use-gesture/react",
-        url: "/node_modules/@use-gesture/react/dist/declarations/src/index.d.ts",
-        depend: ["@emotion/utils", "csstype"]
-      },
-      {
-        name: "@emotion/react/helper",
-        url: "/node_modules/@emotion/react/types/helper.d.ts",
-        depend: ["@emotion/utils", "csstype"]
-      },
-      {
-        name: "@emotion/serialize",
-        force: true,
-        url: "/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts",
-        depend: ["@emotion/utils", "csstype"]
-      },
-      {
-        name: "@emotion/utils",
-        force: true,
-        url: "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
-        depend: []
-      }
-    ];
-    try {
-      const mapper = async ({ name, url, force }) => (code.indexOf(name) !== -1 || force) && languages.typescript.typescriptDefaults.addExtraLib(
-        await (await fetch(
-          url
-        )).text(),
-        originToUse + `/node_modules/${name}/index.d.ts`
-      );
-      await pMap(importHelper, mapper, { concurrency: 2 });
-    } catch {
-      console.error("Error in loading d.ts");
-    }
-    languages.typescript.typescriptDefaults.setEagerModelSync(true);
-  })();
   return code;
 };
 self.MonacoEnvironment = {
@@ -42911,28 +42526,70 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace"
     });
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSuggestionDiagnostics: false,
+      noSemanticValidation: false,
+      noSyntaxValidation: false
+    });
+    const addExtraModels = async (code3, url) => {
+      if (extraModels[url])
+        return;
+      extraModels[url] = [];
+      if (true) {
+        const regex12 = / from '\.\./gi;
+        const regex22 = / from '\./gi;
+        const search2 = new RegExp(
+          ` from '(${originToUse}/)[a-zA-Z-._]+`,
+          "gm"
+        );
+        const baSe2 = new URL("/.", url).toString();
+        const replaced3 = code3.replaceAll(regex12, ` from '${baSe2}`).replaceAll(regex22, ` from '${baSe2}`);
+        const models2 = replaced3.matchAll(search2);
+        for (const match of models2) {
+          const extraModel = new URL(match[0].slice(7) + ".d.ts", originToUse).toString();
+          extraModels[url].push(extraModel);
+          languages.typescript.typescriptDefaults.addExtraLib(
+            extraModel,
+            await fetch(extraModel).then(async (res) => res.text())
+          );
+        }
+      }
+      const regex1 = / from "\.\./gi;
+      const regex2 = / from "\./gi;
+      const search = new RegExp(
+        ` from "(${originToUse}/)?[a-zA-Z-._]+`,
+        "gm"
+      );
+      const baSe = new URL("/.", url).toString();
+      const replaced2 = code3.replaceAll(regex1, ` from "${baSe}`).replaceAll(regex2, ` from "${baSe}`);
+      const models = replaced2.matchAll(search);
+      for (const match of models) {
+        const extraModel = new URL(match[0].slice(7) + ".d.ts", originToUse).toString();
+        extraModels[url].push(extraModel);
+        languages.typescript.typescriptDefaults.addExtraLib(
+          extraModel,
+          await fetch(extraModel).then(async (res) => res.text())
+        );
+      }
+    };
+    const extraModels = {};
+    Object.assign(globalThis, { extraModels });
     const ATA = () => (async () => {
       try {
-        languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-          noSuggestionDiagnostics: false,
-          noSemanticValidation: false,
-          noSyntaxValidation: false
-        });
         console.log("ATA");
         (await Promise.all(
           (await (await (await languages.typescript.getTypeScriptWorker())(
             model.uri
           )).getSemanticDiagnostics(
-            "https://testing.spike.land/live/coder.tsx"
+            model.uri.toString()
           )).map((x) => {
-            console.log(x.messageText);
             return x.messageText;
           }).filter(
             (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")
           ).map((x) => typeof x === "string" && x.split("'")[1]).map(
             async (mod3) => {
               const retMod = { url: "", mod: mod3, content: "" };
-              retMod.content = await fetch("/npm:" + mod3).then(
+              retMod.content = await fetch("/npm:/" + mod3).then(
                 (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
               ).then((x) => {
                 retMod.url = x.headers.get("x-dts");
@@ -42947,19 +42604,22 @@ var startMonaco = async ({ code, container, name, onChange }) => {
             }
           )
         )).filter((m) => m.mod && m.content).map((m) => {
-          console.log(m.mod, m.url, m.content);
+          console.log(`Aga-Insert: ${m.mod}`);
+          languages.typescript.typescriptDefaults.addExtraLib(
+            `
+              export * from "${m.url}";
+              export {default} from "${m.url}";
+              `,
+            originToUse + `/node_modules/${m.mod}/index.d.ts`
+          );
           languages.typescript.typescriptDefaults.addExtraLib(
             m.content,
-            `${originToUse}/node_modules/${m.mod}/index.d.ts`
+            m.url
           );
+          addExtraModels(m.content, m.url);
         });
       } catch {
         console.log("Error while ATA");
-        languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-          noSuggestionDiagnostics: true,
-          noSemanticValidation: true,
-          noSyntaxValidation: true
-        });
       } finally {
         console.log("ATA is done");
       }

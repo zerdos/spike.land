@@ -3,7 +3,7 @@ import {
   __export,
   define_process_default,
   init_define_process
-} from "./chunk-chunk-JS5E2TTE.mjs";
+} from "./chunk-chunk-6P62PNFK.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/nls.js
 function _format(message, args) {
