@@ -42542,8 +42542,8 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           ` from '[a-zA-Z-._/:]+'`,
           "gm"
         );
-        const baSe2 = new URL("/.", url).toString();
-        const replaced3 = code3.replaceAll(regex12, ` from '${baSe2}`).replaceAll(regex22, ` from '${baSe2}`);
+        const baSe2 = new URL(".", url).toString();
+        const replaced3 = code3.replaceAll(regex12, ` from '${baSe2}/npm:/`).replaceAll(regex22, ` from '${baSe2}`);
         const models2 = replaced3.matchAll(search2);
         for (const match of models2) {
           const extraModel = new URL(match[0].slice(7).slice(0, -1)).toString();
@@ -42561,7 +42561,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         "gm"
       );
       const baSe = new URL("/.", url).toString();
-      const replaced2 = code3.replaceAll(regex1, ` from "${baSe}`).replaceAll(regex2, ` from "${baSe}`);
+      const replaced2 = code3.replaceAll(regex1, ` from "${baSe}/npm:/`).replaceAll(regex2, ` from "${baSe}/npm:/`);
       const models = replaced2.matchAll(search);
       for (const match of models) {
         const extraModel = new URL(match[0].slice(7).slice(0, -1)).toString();
