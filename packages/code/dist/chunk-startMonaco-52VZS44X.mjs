@@ -42192,6 +42192,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       if (extraModels[url])
         return;
       extraModels[url] = [];
+      extraModelCache[url] = code3;
       const baSe = new URL(".", url).toString();
       const parent = new URL("..", url).toString();
       const regex1 = / from '\.\.\//gi;
@@ -42216,9 +42217,22 @@ var startMonaco = async ({ code, container, name, onChange }) => {
             continue;
           if (extraModelCache[extraModel])
             continue;
-          extraModelCache[extraModel] = await fetch(extraModel).then(
+          let extraModelUrl = extraModel;
+          const extraModelContent = await fetch(extraModel).then(
             (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
-          ).then((res) => res.text());
+          ).then((res) => {
+            extraModelUrl = res.url;
+            return res.text();
+          });
+          if (extraModelUrl !== extraModel) {
+            while (extraModelCache[url] !== extraModelCache[url].replace(extraModel, extraModelUrl)) {
+              extraModelCache[url] = extraModelCache[url].replace(
+                extraModel,
+                extraModelUrl
+              );
+            }
+          }
+          extraModelCache[extraModelUrl] = extraModelContent;
           addExtraModels(extraModelCache[extraModel], extraModel);
         } catch (err) {
           console.error("Error in addextra models", { err });
@@ -42227,7 +42241,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     };
     const ATA = async () => {
       console.log("ATA");
-      (await Promise.all(
+      await (await Promise.all(
         (await (await (await languages.typescript.getTypeScriptWorker())(
           model.uri
         )).getSemanticDiagnostics(
@@ -42253,7 +42267,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         )
       )).filter((m) => m.mod && m.content).map((m) => {
         console.log(`Aga-Insert: ${m.mod}`);
-        addExtraModels(
+        return addExtraModels(
           `
         export * from "${m.url}";
         export {default} from "${m.url}";
@@ -42261,6 +42275,14 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           originToUse + `/node_modules/${m.mod}/index.d.ts`
         );
       });
+      const extralibs = Object.keys(extraModelCache).map((filePath) => ({
+        filePath,
+        content: extraModelCache[filePath]
+      }));
+      console.log({ extralibs });
+      languages.typescript.typescriptDefaults.setExtraLibs(
+        extralibs
+      );
     };
     const mod2 = {
       editor: editor2,
