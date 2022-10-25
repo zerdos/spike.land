@@ -1,0 +1,77 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Basic Options */
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "es2022",
+      "ESNext.Promise",
+      "esnext"
+    ],
+    "allowJs": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
+    "downlevelIteration": true,
+
+    "noEmit": true,
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "checkJs": true,
+
+    "jsxImportSource": "@emotion/react",
+    "sourceMap": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+
+    /* Strict Type-Checking Options */
+
+    /* Additional Checks */
+    // "noUnusedLocals": true,                /* Report errors on unused locals. */
+    // "noUnusedParameters": true,            /* Report errors on unused parameters. */
+    // "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
+    // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
+    // "noUncheckedIndexedAccess": true,      /* Include 'undefined' in index signature results */
+
+    /* Module Resolution Options */
+    // "rootDirs": [".", "../../../node_modules"],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
+    // "typeRoots": ["./comlink/public/esm"],                       /* List of folders to include type definitions from. */
+    "strict": true,
+    "types": [],
+    // "typeRoots": ["@types", "@types/monaco-editor", "node",  "@types/react", "@emotion/react", "es-module-shims"],
+    "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
+    "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "resolveJsonModule": true,
+    "importHelpers": false,
+
+    "moduleResolution": "node",
+    // "noEmit": true,
+
+    // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
+    // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
+
+    /* Source Map Options */
+    // "sourceRoot": "",                      /* Specify the location where debugger should locate TypeScript files instead of source locations. */
+    // "mapRoot": "",                         /* Specify the location where debugger should locate map files instead of generated locations. */
+    // "inlineSourceMap": true,               /* Emit a single file with source maps instead of having a separate file. */
+    // "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
+
+    /* Experimental Options */
+    // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
+    // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
+    "composite": true,
+
+    "removeComments": true,
+    "preserveValueImports": true,
+    "incremental": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": false, /* Skip type checking of declaration files. */
+    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
+    "baseUrl": "js"
+  },
+  "include": ["js", "package.json", "esbuild-dev.mjs"],
+  "exclude": [".yarn", "dist"]
+}
