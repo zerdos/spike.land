@@ -42576,7 +42576,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
               retMod.url = x.headers.get("x-dts");
               console.log(retMod.url);
               return fetch(retMod.url).then(
-                (resp) => resp.status === 307 || resp.redirected ? fetch(resp.url) : resp
+                (resp) => resp.status === 307 || resp.redirected ? fetch(retMod.url = resp.url) : resp
               ).then((resp) => resp.text());
             }).catch(() => "") || "";
             return retMod;
