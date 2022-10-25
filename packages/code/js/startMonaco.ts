@@ -569,64 +569,39 @@ export const startMonaco = async (
       noSyntaxValidation: false,
     });
 
+    const extraModels = {};
+    Object.assign(globalThis, { extraModels });
+
     const addExtraModels = async (code: string, url: string) => {
       if (extraModels[url]) return;
       extraModels[url] = [];
-      if (true) {
-        const regex1 = / from '\.\./gi;
-
-        const regex2 = / from '\./gi;
-
-        const search = new RegExp(
-          ` from \'[a-zA-Z\-\.\_\/\:]+\'`,
-          "gm",
-        );
-
-        const baSe = (new URL(".", url)).toString();
-
-        const replaced = code.replaceAll(regex1, ` from '${baSe}`)
-          .replaceAll(regex2, ` from '${baSe}`);
-
-        const models = replaced.matchAll(search);
-        // Console.log("load more models", replaced, models);
-
-        for (const match of models) {
-          //    console.log("***** EXTRA MODELS *****");
-
-          const extraModel = new URL(match[0].slice(7).slice(0, -1))
-            .toString();
-          //   console.log(extraModel);
-          extraModels[url].push(extraModel);
-
-          languages.typescript.typescriptDefaults.addExtraLib(
-            extraModel,
-            await fetch(extraModel).then(async (res) => res.text()),
-          );
-        }
-      }
-      const regex1 = / from "\.\./gi;
-
-      const regex2 = / from "\./gi;
-
-      const search = new RegExp(
-        ` from \"[a-zA-Z\-\.\_\/\:]+\"`,
-        "gm",
-      );
 
       const baSe = (new URL(".", url)).toString();
+      const parent = (new URL("..", url)).toString();
 
-      const replaced = code.replaceAll(regex1, ` from "${baSe}`)
-        .replaceAll(regex2, ` from "${baSe}`);
+      const regex1 = / from '\.\.\//gi;
+      const regex2 = / from '\.\//gi;
+      const regex3 = / from "\.\.\//gi;
+      const regex4 = / from "\./gi;
 
-      const models = replaced.matchAll(search);
+      const replaced = code
+        .replaceAll(regex1, ` from '${parent}`)
+        .replaceAll(regex2, ` from '${baSe}`)
+        .replaceAll(regex3, ` from "${parent}`)
+        .replaceAll(regex4, ` from "${baSe}`);
+
+      const regex = /((https:\/\/)?[^\s.]+\.[\w][^\s]+)/gm;
+
+      const models = replaced.matchAll(regex);
       // Console.log("load more models", replaced, models);
 
       for (const match of models) {
         //    console.log("***** EXTRA MODELS *****");
 
+        //    console.log("***** EXTRA MODELS *****");
         const extraModel = new URL(match[0].slice(7).slice(0, -1))
           .toString();
-        //   console.log(extraModel);
+        console.log(extraModel);
         extraModels[url].push(extraModel);
         languages.typescript.typescriptDefaults.addExtraLib(
           extraModel,
@@ -634,68 +609,59 @@ export const startMonaco = async (
         );
       }
     };
-    const extraModels = {};
-    Object.assign(globalThis, { extraModels });
-    const ATA = () =>
-      (async () => {
-        try {
-          console.log("ATA");
-          (await Promise.all(
-            (await (await (await languages.typescript.getTypeScriptWorker())(
-              model.uri,
-            )).getSemanticDiagnostics(
-              model.uri.toString(),
-            ))
-              .map((x) => {
-                //   console.log(x.messageText);
-                return x.messageText;
-              }).filter((x) =>
-                typeof x === "string" &&
-                x.includes(" or its corresponding type declarations.")
-              )
-              .map((x) => typeof x === "string" && x.split!("'")[1]).map(
-                async (mod) => {
-                  const retMod = { url: "", mod: mod, content: "" };
-                  retMod.content = (await fetch("/npm:/" + mod).then((resp) =>
-                    resp.status === 307
-                      ? fetch(resp.headers.get("location")!)
-                      : resp
-                  ).then((x) => {
-                    retMod.url = x.headers.get("x-dts")!;
-                    console.log(retMod.url);
-                    return fetch(retMod.url).then((resp) =>
-                      resp.status === 307 || resp.redirected
-                        ? fetch(resp.url)
-                        : resp
-                    ).then((resp) => resp.text());
-                  }).catch(() =>
-                    ""
-                  )) || "";
 
-                  return retMod;
-                },
-              ),
-          )).filter((m) => m.mod && m.content).map((m) => {
-            console.log(`Aga-Insert: ${m.mod}`);
-            languages.typescript.typescriptDefaults.addExtraLib(
-              `
+    const ATA = async () => {
+      console.log("ATA");
+      (await Promise.all(
+        (await (await (await languages.typescript.getTypeScriptWorker())(
+          model.uri,
+        )).getSemanticDiagnostics(
+          model.uri.toString(),
+        ))
+          .map((x) => {
+            //   console.log(x.messageText);
+            return x.messageText;
+          }).filter((x) =>
+            typeof x === "string" &&
+            x.includes(" or its corresponding type declarations.")
+          )
+          .map((x) => typeof x === "string" && x.split!("'")[1]).map(
+            async (mod) => {
+              const retMod = { url: "", mod: mod, content: "" };
+              retMod.content =
+                (await fetch("/npm:/" + mod).then((resp) =>
+                  resp.status === 307
+                    ? fetch(resp.headers.get("location")!)
+                    : resp
+                ).then((x) => {
+                  retMod.url = x.headers.get("x-dts")!;
+                  console.log(retMod.url);
+                  return fetch(retMod.url).then((resp) =>
+                    resp.status === 307 || resp.redirected
+                      ? fetch(resp.url)
+                      : resp
+                  ).then((resp) => resp.text());
+                }).catch(() => "")) || "";
+
+              return retMod;
+            },
+          ),
+      )).filter((m) => m.mod && m.content).map((m) => {
+        console.log(`Aga-Insert: ${m.mod}`);
+        languages.typescript.typescriptDefaults.addExtraLib(
+          `
               export * from "${m.url}";
               export {default} from "${m.url}";
               `,
-              originToUse + `/node_modules/${m.mod}/index.d.ts`,
-            );
-            languages.typescript.typescriptDefaults.addExtraLib(
-              m.content,
-              m.url,
-            );
-            addExtraModels(m.content, m.url);
-          });
-        } catch {
-          console.log("Error while ATA");
-        } finally {
-          console.log("ATA is done");
-        }
-      })();
+          originToUse + `/node_modules/${m.mod}/index.d.ts`,
+        );
+        languages.typescript.typescriptDefaults.addExtraLib(
+          m.content,
+          m.url,
+        );
+        addExtraModels(m.content, m.url);
+      });
+    };
 
     const mod = {
       editor,
