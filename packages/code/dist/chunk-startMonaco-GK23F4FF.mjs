@@ -42544,7 +42544,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       const regex3 = / from "\.\.\//gi;
       const regex4 = / from "\./gi;
       const replaced2 = code3.replaceAll(regex1, ` from '${parent}`).replaceAll(regex2, ` from '${baSe}`).replaceAll(regex3, ` from "${parent}`).replaceAll(regex4, ` from "${baSe}`);
-      const regex = /((https:\/\/)?[^\s.]+\.[\w][^\s]+)/gm;
+      const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
       const models = replaced2.matchAll(regex);
       for (const match of models) {
         const extraModel = new URL(match[0].slice(7).slice(0, -1)).toString();
