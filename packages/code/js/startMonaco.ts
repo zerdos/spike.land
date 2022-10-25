@@ -590,7 +590,7 @@ export const startMonaco = async (
         .replaceAll(regex3, ` from "${parent}`)
         .replaceAll(regex4, ` from "${baSe}`);
 
-      const regex = /((https:\/\/)?[^\s.]+\.[\w][^\s]+)/gm;
+      const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
 
       const models = replaced.matchAll(regex);
       // Console.log("load more models", replaced, models);
@@ -599,8 +599,7 @@ export const startMonaco = async (
         //    console.log("***** EXTRA MODELS *****");
 
         //    console.log("***** EXTRA MODELS *****");
-        const extraModel = new URL(match[0].slice(7).slice(0, -1))
-          .toString();
+        const extraModel = (new URL(match[0].slice(7).slice(0, -1))).toString();
         console.log(extraModel);
         extraModels[url].push(extraModel);
 
