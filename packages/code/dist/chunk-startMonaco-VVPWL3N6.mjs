@@ -42250,11 +42250,18 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         )).getSemanticDiagnostics(
           model.uri.toString()
         ).then((x) => {
-          languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-            noSuggestionDiagnostics: true,
-            noSemanticValidation: true,
-            noSyntaxValidation: true
-          });
+          const extraLibs = localStorage && localStorage.getItem(codeSpace);
+          if (extraLibs) {
+            languages.typescript.typescriptDefaults.setExtraLibs(
+              JSON.parse(extraLibs)
+            );
+          } else {
+            languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+              noSuggestionDiagnostics: true,
+              noSemanticValidation: true,
+              noSyntaxValidation: true
+            });
+          }
           return x;
         })).map((x) => {
           return x.messageText;
@@ -42288,18 +42295,19 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       const maps = await Promise.all(mappings);
       maps.forEach((m) => Object.assign(replaceMaps, m));
       console.log({ replaceMaps });
-      setExtraLibs();
+      const extraLib = setExtraLibs();
       languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: false,
         noSemanticValidation: false,
         noSyntaxValidation: false
       });
+      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
     };
     const setExtraLibs = () => {
       replaceMaps["/node_modules/"] = "/npm:/v96/";
       const versionNumbers = /@\d+.\d+.\d+/gm;
       const types = /\/types\//gm;
-      const extralibs = Object.keys(extraModelCache).map((filePath) => {
+      const extraLibs = Object.keys(extraModelCache).map((filePath) => {
         const url = replaceMappings(filePath, replaceMaps).replaceAll(
           versionNumbers,
           ``
@@ -42319,10 +42327,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           content: dtsRemoved
         };
       });
-      console.log({ extralibs });
+      console.log({ extraLibs });
       languages.typescript.typescriptDefaults.setExtraLibs(
-        extralibs
+        extraLibs
       );
+      return extraLibs;
     };
     const mod2 = {
       editor: editor2,
