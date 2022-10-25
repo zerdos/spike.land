@@ -657,12 +657,19 @@ export const startMonaco = async (
         )).getSemanticDiagnostics(
           model.uri.toString(),
         ).then((x) => {
-          languages.typescript.typescriptDefaults
-            .setDiagnosticsOptions({
-              noSuggestionDiagnostics: true,
-              noSemanticValidation: true,
-              noSyntaxValidation: true,
-            });
+          const extraLibs = localStorage && localStorage.getItem(codeSpace);
+          if (extraLibs) {
+            languages.typescript.typescriptDefaults.setExtraLibs(
+              JSON.parse(extraLibs),
+            );
+          } else {
+            languages.typescript.typescriptDefaults
+              .setDiagnosticsOptions({
+                noSuggestionDiagnostics: true,
+                noSemanticValidation: true,
+                noSyntaxValidation: true,
+              });
+          }
           return x;
         }))
           .map((x) => {
@@ -717,7 +724,7 @@ export const startMonaco = async (
 
       console.log({ replaceMaps });
 
-      setExtraLibs();
+      const extraLib = setExtraLibs();
 
       languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({
@@ -725,6 +732,8 @@ export const startMonaco = async (
           noSemanticValidation: false,
           noSyntaxValidation: false,
         });
+
+      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
     };
 
     const setExtraLibs = () => {
@@ -734,7 +743,7 @@ export const startMonaco = async (
 
       const types = /\/types\//gm;
 
-      const extralibs = Object.keys(extraModelCache).map((filePath) => {
+      const extraLibs = Object.keys(extraModelCache).map((filePath) => {
         const url = replaceMappings(filePath, replaceMaps).replaceAll(
           versionNumbers,
           ``,
@@ -759,11 +768,12 @@ export const startMonaco = async (
           content: dtsRemoved,
         };
       });
-      console.log({ extralibs });
+      console.log({ extraLibs });
 
       languages.typescript.typescriptDefaults.setExtraLibs(
-        extralibs,
+        extraLibs,
       );
+      return extraLibs;
     };
 
     const mod = {
