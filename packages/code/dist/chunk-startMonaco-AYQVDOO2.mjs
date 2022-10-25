@@ -42546,7 +42546,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         const replaced3 = code3.replaceAll(regex12, ` from '${baSe2}`).replaceAll(regex22, ` from '${baSe2}`);
         const models2 = replaced3.matchAll(search2);
         for (const match of models2) {
-          const extraModel = new URL(match[0].slice(7)).toString();
+          const extraModel = new URL(match[0].slice(7).slice(0, -1)).toString();
           extraModels[url].push(extraModel);
           languages.typescript.typescriptDefaults.addExtraLib(
             extraModel,
@@ -42557,14 +42557,14 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       const regex1 = / from "\.\./gi;
       const regex2 = / from "\./gi;
       const search = new RegExp(
-        ` from '[a-zA-Z-._/:]+'`,
+        ` from "[a-zA-Z-._/:]+"`,
         "gm"
       );
       const baSe = new URL("/.", url).toString();
       const replaced2 = code3.replaceAll(regex1, ` from "${baSe}`).replaceAll(regex2, ` from "${baSe}`);
       const models = replaced2.matchAll(search);
       for (const match of models) {
-        const extraModel = new URL(match[0].slice(7)).toString();
+        const extraModel = new URL(match[0].slice(7).slice(0, -1)).toString();
         extraModels[url].push(extraModel);
         languages.typescript.typescriptDefaults.addExtraLib(
           extraModel,
