@@ -42194,7 +42194,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       extraModels[url] = [];
       const baSe = new URL(".", url).toString();
       const parent = new URL("..", url).toString();
-      let replaced2 = code3;
+      let replaced2 = removeComments(code3);
       replaced2 = replaceAll(replaced2, ` from '../`, ` from '${parent}`);
       replaced2 = replaceAll(replaced2, ` from './`, ` from '${baSe}`);
       replaced2 = replaceAll(replaced2, ` from "../`, ` from "${parent}`);
@@ -42272,7 +42272,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           m.url
         );
         return {
-          [new URL(".", originToUse + `/node_modules/${m.mod}/index.d.ts`).toString()]: new URL(".", m.url).toString()
+          [originToUse + `/node_modules/${m.mod}/index.d.ts`]: m.url
         };
       });
       const maps = await Promise.all(mappings);
@@ -42281,10 +42281,28 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     };
     const setExtraLibs = () => {
       replaceMaps["/node_modules/"] = "/npm:/v96/";
-      const extralibs = Object.keys(extraModelCache).map((filePath) => ({
-        filePath: replaceMappings(filePath, replaceMaps),
-        content: replaceMappings(extraModelCache[filePath], replaceMaps)
-      }));
+      const versionNumbers = /@\d+.\d+.\d+/gm;
+      const types = /\/types\//gm;
+      const extralibs = Object.keys(extraModelCache).map((filePath) => {
+        const url = replaceMappings(filePath, replaceMaps).replaceAll(
+          versionNumbers,
+          ``
+        ).replaceAll(types, `/`);
+        const fileDir = new URL(".", url).toString();
+        const content = replaceMappings(extraModelCache[filePath], replaceMaps).replaceAll(versionNumbers, ``).replaceAll(types, `/`);
+        const fileDirRemoved = replaceAll(content, fileDir, "./");
+        const linksRemoved = replaceAll(
+          fileDirRemoved,
+          originToUse + "/node_modules/",
+          ""
+        );
+        const indexDtsRemoved = replaceAll(linksRemoved, "/index.d.ts", "");
+        const dtsRemoved = replaceAll(indexDtsRemoved, ".d.ts", "");
+        return {
+          filePath: url,
+          content: dtsRemoved
+        };
+      });
       console.log({ extralibs });
       languages.typescript.typescriptDefaults.setExtraLibs(
         extralibs
@@ -42346,6 +42364,15 @@ function replaceMappings(input, maps) {
   let result = input;
   Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
   return result;
+}
+function removeComments(str) {
+  const regex = /\/\*.*?\*\//gi;
+  /\/\*.*?\*\//gi;
+  return str.replaceAll(regex, ``).split(`
+`).filter(
+    (x) => x && x.trim() && !x.trim().startsWith("//")
+  ).join(`
+`);
 }
 export {
   startMonaco
