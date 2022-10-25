@@ -42030,7 +42030,22 @@ var originToUse = location.origin.includes("spike") ? location.origin : "https:/
 var lib = [
   "dom",
   "dom.iterable",
-  "es2021.full"
+  "es2017.object",
+  "es2017.sharedmemory",
+  "es2017.typedarrays",
+  "es2018.asyncgenerator",
+  "es2018.asynciterator",
+  "es2019.symbol",
+  "es2020.bigint",
+  "es2020",
+  "es2020.full",
+  "es2020.intl",
+  "es2020.promise",
+  "es2020.sharedmemory",
+  "es2020.string",
+  "es2020.symbol.wellknown",
+  "es5",
+  "es6"
 ];
 var monacoContribution = async (code) => {
   languages.typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -42252,18 +42267,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         )).getSemanticDiagnostics(
           model.uri.toString()
         ).then((x) => {
-          const extraLibs = localStorage && localStorage.getItem(codeSpace);
-          if (extraLibs) {
-            languages.typescript.typescriptDefaults.setExtraLibs(
-              JSON.parse(extraLibs)
-            );
-          } else {
-            languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-              noSuggestionDiagnostics: true,
-              noSemanticValidation: true,
-              noSyntaxValidation: true
-            });
-          }
+          languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+            noSuggestionDiagnostics: true,
+            noSemanticValidation: true,
+            noSyntaxValidation: true
+          });
           return x;
         })).map((x) => {
           return x.messageText;
@@ -42303,7 +42311,6 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         noSemanticValidation: false,
         noSyntaxValidation: false
       });
-      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
     };
     const setExtraLibs = () => {
       replaceMaps["/node_modules/"] = "/npm:/v96/";

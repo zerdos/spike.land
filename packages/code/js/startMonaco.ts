@@ -43,12 +43,12 @@ const lib = [
   // "es2017",
   // "es2017.full",
   // "es2017.intl",
-  // "es2017.object",
-  // "es2017.sharedmemory",
+  "es2017.object",
+  "es2017.sharedmemory",
   // "es2017.string",
-  // "es2017.typedarrays",
-  // "es2018.asyncgenerator",
-  // "es2018.asynciterator",
+  "es2017.typedarrays",
+  "es2018.asyncgenerator",
+  "es2018.asynciterator",
   // "es2018",
   // "es2018.full",
   // "es2018.intl",
@@ -59,23 +59,23 @@ const lib = [
   // "es2019.full",
   // "es2019.object",
   // "es2019.string",
-  // "es2019.symbol",
-  // "es2020.bigint",
-  // "es2020",
-  // "es2020.full",
-  // "es2020.intl",
-  // "es2020.promise",
-  // "es2020.sharedmemory",
-  // "es2020.string",
-  // "es2020.symbol.wellknown",
+  "es2019.symbol",
+  "es2020.bigint",
+  "es2020",
+  "es2020.full",
+  "es2020.intl",
+  "es2020.promise",
+  "es2020.sharedmemory",
+  "es2020.string",
+  "es2020.symbol.wellknown",
   // "es2021",
-  "es2021.full",
+  // "es2021.full",
   // "es2021.intl",
   // "es2021.promise",
   // "es2021.string",
   // "es2021.weakref",
-  // "es5",
-  // "es6",
+  "es5",
+  "es6",
   // "esnext",
   // "esnext.full",
   // "esnext.intl",
@@ -659,19 +659,19 @@ export const startMonaco = async (
         )).getSemanticDiagnostics(
           model.uri.toString(),
         ).then((x) => {
-          const extraLibs = localStorage && localStorage.getItem(codeSpace);
-          if (extraLibs) {
-            languages.typescript.typescriptDefaults.setExtraLibs(
-              JSON.parse(extraLibs),
-            );
-          } else {
-            languages.typescript.typescriptDefaults
-              .setDiagnosticsOptions({
-                noSuggestionDiagnostics: true,
-                noSemanticValidation: true,
-                noSyntaxValidation: true,
-              });
-          }
+          // const extraLibs = localStorage && localStorage.getItem(codeSpace);
+          // if (extraLibs) {
+          //   languages.typescript.typescriptDefaults.setExtraLibs(
+          //     JSON.parse(extraLibs),
+          //   );
+          // } else {
+          languages.typescript.typescriptDefaults
+            .setDiagnosticsOptions({
+              noSuggestionDiagnostics: true,
+              noSemanticValidation: true,
+              noSyntaxValidation: true,
+            });
+          // }
           return x;
         }))
           .map((x) => {
@@ -735,7 +735,7 @@ export const startMonaco = async (
           noSyntaxValidation: false,
         });
 
-      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
+      //localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
     };
 
     const setExtraLibs = () => {
