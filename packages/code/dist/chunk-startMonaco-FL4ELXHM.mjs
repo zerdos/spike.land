@@ -42196,10 +42196,12 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       extraModels[url] = [];
       const baSe = new URL(".", url).toString();
       const parent = new URL("..", url).toString();
+      const gParent = new URL("../..", url).toString();
       let replaced2 = removeComments(code3);
+      replaced2 = replaceAll(replaced2, ` from '../../`, ` from '${gParent}`);
+      replaced2 = replaceAll(replaced2, ` from "../../`, ` from "${gParent}`);
       replaced2 = replaceAll(replaced2, ` from '../`, ` from '${parent}`);
       replaced2 = replaceAll(replaced2, ` from './`, ` from '${baSe}`);
-      replaced2 = replaceAll(replaced2, ` from "../`, ` from "${parent}`);
       replaced2 = replaceAll(replaced2, ` from "../`, ` from "${parent}`);
       replaced2 = replaceAll(replaced2, ` from "./`, ` from "${baSe}`);
       extraModelCache[url] = replaced2;
@@ -42237,7 +42239,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           extraModelCache[extraModelUrl] = extraModelContent;
           await addExtraModels(extraModelCache[extraModel], extraModel);
         } catch (err) {
-          console.error("Error in addextra models", { err });
+          console.error("Error in addextra models", code3, url, { err });
         }
       }
     };

@@ -3736,7 +3736,7 @@ __metadata:
 "monaco-editor@npm:0.34.1":
   version: 0.34.1
   resolution: "monaco-editor@npm:0.34.1"
-  checksum: 7116f6db982e81965f5513cc7365de9f11f3ec771002c8c9cc57d316b127e06aa821f397b01ea2e1f8d9cbfca56f8d2a0def1022d26224c60b7fa937bc08dfad
+  checksum: 97e36072f880b61113919eb02b155a7895dc6db0dc6da8953a5f2ecc6f50795f10aff87ebf8c3bc59c0927604aa66ccb93bb90a3ea2695b79736639f91adde23
   languageName: node
   linkType: hard
 
