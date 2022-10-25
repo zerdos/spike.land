@@ -569,7 +569,7 @@ export const startMonaco = async (
       noSyntaxValidation: false,
     });
 
-    const extraModels = {};
+    const extraModels: { [key: string]: string[] } = {};
     Object.assign(globalThis, { extraModels });
 
     const addExtraModels = async (code: string, url: string) => {
@@ -603,9 +603,20 @@ export const startMonaco = async (
           .toString();
         console.log(extraModel);
         extraModels[url].push(extraModel);
+
+        const extraModelContent = await fetch(extraModel).then(async (res) =>
+          res.text()
+        );
+
         languages.typescript.typescriptDefaults.addExtraLib(
           extraModel,
           await fetch(extraModel).then(async (res) => res.text()),
+        );
+
+        addExtraModels(extraModel, extraModelContent);
+        languages.typescript.typescriptDefaults.addExtraLib(
+          extraModel,
+          extraModelContent,
         );
       }
     };
