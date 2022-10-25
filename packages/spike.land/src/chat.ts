@@ -168,10 +168,10 @@ export default {
          
               if (redirectUrl) {
 
-                return new Response((await resp.text()).replace('esm.sh/', u.hostname + "/npm:" ), { 
+                return new Response((await resp.text()).replace('esm.sh/', u.hostname + "/npm:/" ), { 
                   status: 307, 
                   headers: {
-                  "location": redirectUrl.replace('esm.sh/', u.hostname + "/npm:")
+                  "location": redirectUrl.replace('esm.sh/', u.hostname + "/npm:/")
                 
                 }
               }
@@ -218,7 +218,7 @@ const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cache-Control": "public, max-age=604800, immutable",
-                  "x-DTS":  xTs.replace("esm.sh/", u.host+"/npm:"),
+                  "x-DTS":  xTs.replace("esm.sh/", u.host+"/npm:/"),
                   "Content-Type": resp.headers.get("Content-Type")!,
                 },
               },
