@@ -42195,11 +42195,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       extraModelCache[url] = code3;
       const baSe = new URL(".", url).toString();
       const parent = new URL("..", url).toString();
-      const regex1 = / from '\.\.\//gi;
-      const regex2 = / from '\.\//gi;
-      const regex3 = / from "\.\.\//gi;
-      const regex4 = / from "\./gi;
-      const replaced2 = code3.replaceAll(regex1, ` from '${parent}`).replaceAll(regex2, ` from '${baSe}`).replaceAll(regex3, ` from "${parent}`).replaceAll(regex4, ` from "${baSe}`);
+      let replaced2 = removeComments(code3);
+      replaced2 = replaceAll(replaced2, ` from '../`, `from '${parent}`);
+      replaced2 = replaceAll(replaced2, ` from './`, `from '${baSe}`);
+      replaced2 = replaceAll(replaced2, ` from "../`, `from "${parent}`);
+      replaced2 = replaceAll(replaced2, ` from "./`, `from "${baSe}`);
       const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
       const models = replaced2.matchAll(regex);
       for (const match of models) {
@@ -42225,15 +42225,14 @@ var startMonaco = async ({ code, container, name, onChange }) => {
             return res.text();
           });
           if (extraModelUrl !== extraModel) {
-            while (extraModelCache[url] !== extraModelCache[url].replace(extraModel, extraModelUrl)) {
-              extraModelCache[url] = extraModelCache[url].replace(
-                extraModel,
-                extraModelUrl
-              );
-            }
+            extraModelCache[url] = replaceAll(
+              extraModelCache[url],
+              extraModel,
+              extraModelUrl
+            );
           }
           extraModelCache[extraModelUrl] = extraModelContent;
-          addExtraModels(extraModelCache[extraModel], extraModel);
+          await addExtraModels(extraModelCache[extraModel], extraModel);
         } catch (err) {
           console.error("Error in addextra models", { err });
         }
@@ -42241,7 +42240,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     };
     const ATA = async () => {
       console.log("ATA");
-      await (await Promise.all(
+      const mappings = await (await Promise.all(
         (await (await (await languages.typescript.getTypeScriptWorker())(
           model.uri
         )).getSemanticDiagnostics(
@@ -42265,16 +42264,20 @@ var startMonaco = async ({ code, container, name, onChange }) => {
             return retMod;
           }
         )
-      )).filter((m) => m.mod && m.content).map((m) => {
+      )).filter((m) => m.mod && m.content).map(async (m) => {
         console.log(`Aga-Insert: ${m.mod}`);
-        return addExtraModels(
-          `
-        export * from "${m.url}";
-        export {default} from "${m.url}";
-        `,
-          originToUse + `/node_modules/${m.mod}/index.d.ts`
+        await addExtraModels(
+          m.content,
+          m.url
         );
+        return {
+          [new URL(".", originToUse + `/node_modules/${m.mod}/index.d.ts`).toString()]: new URL(".", m.url).toString()
+        };
       });
+      const maps = await Promise.all(mappings);
+      console.log({ maps });
+    };
+    const setExtraLibs = () => {
       const extralibs = Object.keys(extraModelCache).map((filePath) => ({
         filePath,
         content: extraModelCache[filePath]
@@ -42296,7 +42299,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         console.log("ts error, will retry", e);
       })
     };
-    Object.assign(globalThis, { monaco: mod2 });
+    Object.assign(globalThis, { monaco: mod2, setExtraLibs });
     setTimeout(() => mod2.ATA(), 2e3);
     model.onDidChangeContent(() => {
       if (mod2.silent)
@@ -42333,6 +42336,12 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     };
   }
 };
+function replaceAll(input, search, replace) {
+  return input.split(search).join(replace);
+}
+function removeComments(str) {
+  return str.replace(/(\/\*[^*]*\*\/)|(\/\/[^*]*)/g, "").trim();
+}
 export {
   startMonaco
 };
