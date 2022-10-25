@@ -156,6 +156,8 @@ const monacoContribution = async (
     ` from '(${originToUse}/)?live/[a-zA-Z]+`,
     "gm",
   );
+
+  // 0123456
   const replaced = code.replaceAll(regex1, ` from '${originToUse}/live`)
     .replaceAll(regex2, ` from '${originToUse}/live`);
 
@@ -576,7 +578,7 @@ export const startMonaco = async (
         const regex2 = / from '\./gi;
 
         const search = new RegExp(
-          ` from '(${originToUse}/)[a-zA-Z\-\.\_]+`,
+          ` from '(${originToUse}/npm:/)[a-zA-Z\-\.\_]+`,
           "gm",
         );
 
@@ -591,7 +593,7 @@ export const startMonaco = async (
         for (const match of models) {
           //    console.log("***** EXTRA MODELS *****");
 
-          const extraModel = new URL(match[0].slice(7) + ".d.ts", originToUse)
+          const extraModel = new URL(match[0].slice(7))
             .toString();
           //   console.log(extraModel);
           extraModels[url].push(extraModel);
@@ -622,7 +624,7 @@ export const startMonaco = async (
       for (const match of models) {
         //    console.log("***** EXTRA MODELS *****");
 
-        const extraModel = new URL(match[0].slice(7) + ".d.ts", originToUse)
+        const extraModel = new URL(match[0].slice(7))
           .toString();
         //   console.log(extraModel);
         extraModels[url].push(extraModel);
