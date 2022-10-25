@@ -42557,7 +42557,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       const regex1 = / from "\.\./gi;
       const regex2 = / from "\./gi;
       const search = new RegExp(
-        ` from "(${originToUse}/)?[a-zA-Z-._]+`,
+        ` from '[a-zA-Z-._/:]+'`,
         "gm"
       );
       const baSe = new URL("/.", url).toString();

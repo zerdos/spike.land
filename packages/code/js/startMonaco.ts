@@ -609,7 +609,7 @@ export const startMonaco = async (
       const regex2 = / from "\./gi;
 
       const search = new RegExp(
-        ` from "(${originToUse}/)?[a-zA-Z\-\.\_]+`,
+        ` from \'[a-zA-Z\-\.\_\/\:]+\'`,
         "gm",
       );
 
