@@ -141,9 +141,8 @@ const monacoContribution = async (
       originToUse + "/",
       originToUse + "/unpkg:/",
     ],
-
     jsxImportSource: "@emotion/react",
-    jsx: languages.typescript.JsxEmit.ReactJSX,
+    jsx: languages.typescript.JsxEmit.ReactJSXDev,
     allowUmdGlobalAccess: false,
     include: [originToUse + "/node_modules"],
   });
@@ -578,7 +577,6 @@ export const startMonaco = async (
     const addExtraModels = async (code: string, url: string) => {
       if (extraModels[url]) return;
       extraModels[url] = [];
-      extraModelCache[url] = code;
 
       // languages.typescript.typescriptDefaults.addExtraLib(
       //   url,
@@ -588,11 +586,12 @@ export const startMonaco = async (
       const baSe = (new URL(".", url)).toString();
       const parent = (new URL("..", url)).toString();
 
-      let replaced = removeComments(code);
-      replaced = replaceAll(replaced, ` from '../`, `from '${parent}`);
-      replaced = replaceAll(replaced, ` from './`, `from '${baSe}`);
-      replaced = replaceAll(replaced, ` from "../`, `from "${parent}`);
-      replaced = replaceAll(replaced, ` from "./`, `from "${baSe}`);
+      let replaced = code;
+      replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
+      replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
+      replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
+      replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
+      extraModelCache[url] = replaced;
 
       const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
 
@@ -642,6 +641,8 @@ export const startMonaco = async (
         }
       }
     };
+
+    let replaceMaps: { [key: string]: string } = {};
 
     const ATA = async () => {
       console.log("ATA");
@@ -695,14 +696,16 @@ export const startMonaco = async (
       });
 
       const maps = await Promise.all(mappings);
+      maps.forEach((m) => Object.assign(replaceMaps, m));
 
-      console.log({ maps });
+      console.log({ replaceMaps });
     };
 
     const setExtraLibs = () => {
+      replaceMaps["/node_modules/"] = "/npm:/v96/";
       const extralibs = Object.keys(extraModelCache).map((filePath) => ({
-        filePath,
-        content: extraModelCache[filePath],
+        filePath: replaceMappings(filePath, replaceMaps),
+        content: replaceMappings(extraModelCache[filePath], replaceMaps),
       }));
       console.log({ extralibs });
 
@@ -767,6 +770,12 @@ export const startMonaco = async (
 
 function replaceAll(input: string, search: string, replace: string) {
   return input.split(search).join(replace);
+}
+
+function replaceMappings(input: string, maps: { [key: string]: string }) {
+  let result = input;
+  Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
+  return result;
 }
 
 function removeComments(str: string) {
