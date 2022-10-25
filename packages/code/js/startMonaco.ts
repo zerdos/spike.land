@@ -10,6 +10,7 @@ import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
 // import pMap from "p-map";
 
 import { getWorkerUrl } from "./monacoWorkers.mjs";
+
 // Import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
 // import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
 // const {createModel} = editor
@@ -586,7 +587,7 @@ export const startMonaco = async (
       const baSe = (new URL(".", url)).toString();
       const parent = (new URL("..", url)).toString();
 
-      let replaced = code;
+      let replaced = removeComments(code);
       replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
       replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
       replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
@@ -689,9 +690,13 @@ export const startMonaco = async (
         );
         return {
           [
-            new URL(".", originToUse + `/node_modules/${m.mod}/index.d.ts`)
-              .toString()
-          ]: new URL(".", m.url).toString(),
+            originToUse + `/node_modules/${m.mod}/index.d.ts`
+          ]: m.url,
+          // }
+          // [
+          //   new URL(".", originToUse + `/node_modules/${m.mod}/index.d.ts`)
+          //     .toString()
+          // ]: new URL(".", m.url).toString(),
         };
       });
 
@@ -703,10 +708,36 @@ export const startMonaco = async (
 
     const setExtraLibs = () => {
       replaceMaps["/node_modules/"] = "/npm:/v96/";
-      const extralibs = Object.keys(extraModelCache).map((filePath) => ({
-        filePath: replaceMappings(filePath, replaceMaps),
-        content: replaceMappings(extraModelCache[filePath], replaceMaps),
-      }));
+
+      const versionNumbers = /@\d+.\d+.\d+/gm;
+
+      const types = /\/types\//gm;
+
+      const extralibs = Object.keys(extraModelCache).map((filePath) => {
+        const url = replaceMappings(filePath, replaceMaps).replaceAll(
+          versionNumbers,
+          ``,
+        ).replaceAll(types, `/`);
+
+        const fileDir = (new URL(".", url)).toString();
+
+        const content = replaceMappings(extraModelCache[filePath], replaceMaps)
+          .replaceAll(versionNumbers, ``).replaceAll(types, `/`);
+
+        const fileDirRemoved = replaceAll(content, fileDir, "./");
+        const linksRemoved = replaceAll(
+          fileDirRemoved,
+          originToUse + "/node_modules/",
+          "",
+        );
+        const indexDtsRemoved = replaceAll(linksRemoved, "/index.d.ts", "");
+        const dtsRemoved = replaceAll(indexDtsRemoved, ".d.ts", "");
+
+        return {
+          filePath: url,
+          content: dtsRemoved,
+        };
+      });
       console.log({ extralibs });
 
       languages.typescript.typescriptDefaults.setExtraLibs(
@@ -779,6 +810,12 @@ function replaceMappings(input: string, maps: { [key: string]: string }) {
 }
 
 function removeComments(str: string) {
+  const regex = /\/\*.*?\*\//gi;
+
+  // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
+  /\/\*.*?\*\//gi;
   //Takes a string of code, not an actual function.
-  return str.replace(/(\/\*[^*]*\*\/)|(\/\/[^*]*)/g, "").trim();
+  return str.replaceAll(regex, ``).split(`\n`).filter((x) =>
+    x && x.trim() && !x.trim().startsWith("//")
+  ).join(`\n`);
 }
