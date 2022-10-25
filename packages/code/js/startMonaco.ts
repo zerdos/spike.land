@@ -591,6 +591,7 @@ export const startMonaco = async (
       replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
       replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
       replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
+      replaced = replaceAll(replaced, ` from \"../`, ` from \"${parent}`);
       replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
       extraModelCache[url] = replaced;
 
