@@ -42198,6 +42198,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       replaced2 = replaceAll(replaced2, ` from '../`, ` from '${parent}`);
       replaced2 = replaceAll(replaced2, ` from './`, ` from '${baSe}`);
       replaced2 = replaceAll(replaced2, ` from "../`, ` from "${parent}`);
+      replaced2 = replaceAll(replaced2, ` from "../`, ` from "${parent}`);
       replaced2 = replaceAll(replaced2, ` from "./`, ` from "${baSe}`);
       extraModelCache[url] = replaced2;
       const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
