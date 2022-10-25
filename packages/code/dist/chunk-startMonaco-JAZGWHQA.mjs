@@ -42060,7 +42060,7 @@ var monacoContribution = async (code) => {
     importHelpers: true,
     lib,
     allowJs: true,
-    skipLibCheck: false,
+    skipLibCheck: true,
     esModuleInterop: true,
     allowSyntheticDefaultImports: true,
     strict: true,
@@ -42305,7 +42305,6 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       const maps = await Promise.all(mappings);
       maps.forEach((m) => Object.assign(replaceMaps, m));
       console.log({ replaceMaps });
-      const extraLib = setExtraLibs();
       languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: false,
         noSemanticValidation: false,

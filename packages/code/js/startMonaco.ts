@@ -108,7 +108,7 @@ const monacoContribution = async (
 
     lib,
     allowJs: true,
-    skipLibCheck: false,
+    skipLibCheck: true,
     esModuleInterop: true,
     allowSyntheticDefaultImports: true,
     strict: true,
@@ -726,7 +726,7 @@ export const startMonaco = async (
 
       console.log({ replaceMaps });
 
-      const extraLib = setExtraLibs();
+      // const extraLib = setExtraLibs();
 
       languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({
