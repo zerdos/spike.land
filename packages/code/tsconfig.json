@@ -1,9 +1,6 @@
 {
-  "typeAcquisition": {
-    "enable": true
-  },
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES2020",
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
@@ -17,12 +14,12 @@
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
-    "downlevelIteration": false,
+    "downlevelIteration": true,
 
     "noEmit": true,
-    "module": "ES2022",
+    "module": "ESNext",
     "jsx": "react-jsx",
-    "checkJs": false,
+    "checkJs": true,
 
     "jsxImportSource": "@emotion/react",
     "sourceMap": false,

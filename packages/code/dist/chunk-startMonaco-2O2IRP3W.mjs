@@ -1,4 +1,4 @@
-import "./chunk-chunk-ZQZPIHNU.mjs";
+import "./chunk-chunk-PUTCJXOT.mjs";
 import {
   $,
   Action,
@@ -567,13 +567,13 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-PKLNAQGU.mjs";
+} from "./chunk-chunk-B36LW6WR.mjs";
 import {
   __commonJS,
   __esm,
   __toESM,
   init_define_process
-} from "./chunk-chunk-6P62PNFK.mjs";
+} from "./chunk-chunk-2DK73MPQ.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -41983,7 +41983,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-J47VW4WG.mjs");
+      return import("./chunk-typescript-7H4FKCAS.mjs");
     }
   }
 });

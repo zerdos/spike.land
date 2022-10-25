@@ -1,9 +1,8 @@
 import {
   __commonJS,
-  __publicField,
   __toESM,
   init_define_process
-} from "./chunk-chunk-6P62PNFK.mjs";
+} from "./chunk-chunk-2DK73MPQ.mjs";
 
 // ../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js
 var require_lodash = __commonJS({
@@ -5416,18 +5415,16 @@ var session = null;
 var hashStore = {};
 var CodeSession = class {
   constructor(room, user) {
-    __publicField(this, "session");
-    __publicField(this, "cb", {});
-    __publicField(this, "hashCodeSession", 0);
-    __publicField(this, "room");
-    __publicField(this, "created", new Date().toISOString());
-    __publicField(this, "hashOfState", () => {
+    this.cb = {};
+    this.hashCodeSession = 0;
+    this.created = new Date().toISOString();
+    this.hashOfState = () => {
       const state = this.session.get("state");
       const hashCode4 = md5(state.transpiled);
       hashStore[hashCode4] = state;
       return hashCode4;
-    });
-    __publicField(this, "createPatchFromHashCode", async (oldHash, state, updateHash) => {
+    };
+    this.createPatchFromHashCode = async (oldHash, state, updateHash) => {
       const s = JSON.parse(string_(state));
       let oldRec = hashStore[oldHash];
       let usedOldHash = oldHash;
@@ -5458,8 +5455,8 @@ var CodeSession = class {
         newHash,
         patch
       };
-    });
-    __publicField(this, "patchSync", (sess) => {
+    };
+    this.patchSync = (sess) => {
       if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");
       if (sess.i < this.session.get("state").i) {
@@ -5498,8 +5495,8 @@ var CodeSession = class {
           async () => this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
         );
       }
-    });
-    __publicField(this, "applyPatch", async ({
+    };
+    this.applyPatch = async ({
       oldHash,
       newHash,
       patch
@@ -5575,7 +5572,7 @@ var CodeSession = class {
       } else {
         throw new Error("Wrong patch");
       }
-    });
+    };
     session = this;
     this.room = room;
     const savedState = null;
