@@ -97,11 +97,7 @@ const onfetch = (event) => {
   const url = new URL(event.request.url);
   if (mocks[event.request.url]) {
     return event.respondWith(
-      new Response(mocks[event.request.url], {
-        headers: {
-          "Content-type:": "application/x-typescript",
-        },
-      }),
+      new Response(mocks[event.request.url]),
     );
   }
   mocks[event.request.url];
