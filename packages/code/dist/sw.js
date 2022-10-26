@@ -149,7 +149,7 @@
   }
   __name(md5FULL, "md5FULL");
 
-  // sw.mjs
+  // js/sw.ts
   var bc = new BroadcastChannel(location.origin);
   var mocks = {};
   bc.onmessage = (event) => {
@@ -160,13 +160,14 @@
   };
   var lastChecked = 0;
   var cache;
-  var cacheName;
-  var getCacheName = /* @__PURE__ */ __name(() => fetch(location.origin + "/files.json").then((files) => files.ok && files.text()).then((content) => md5(content)).then(
+  var cacheName = "";
+  var getCacheName = /* @__PURE__ */ __name(() => fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => md5(content)).then(
     (cn) => cn === cacheName || (cache = null) || (cacheName = cn)
-  ), "getCacheName");
-  self.addEventListener("fetch", async (event) => {
+  ).finally(() => cacheName), "getCacheName");
+  addEventListener("fetch", async (_event) => {
+    const event = _event;
     if (!cache)
-      cache = await caches.open(await getCacheName());
+      cache = await caches.open(await getCacheName() && cacheName);
     const url = new URL(event.request.url);
     if (url.href === "/mocks") {
       return event.respondWith(

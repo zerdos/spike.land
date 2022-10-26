@@ -10,8 +10,10 @@
       "DOM.Iterable",
       "es2022",
       "ESNext.Promise",
+      "WebWorker",
       "ESNext.String",
       "esnext"
+
     ],
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,

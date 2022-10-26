@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-6K2KYEHL.mjs";
+} from "./chunk-chunk-KVTAITEE.mjs";
 import {
   applyPatch,
   hashCode,
@@ -685,7 +685,8 @@ var run = async (startState) => {
   if (location.pathname.endsWith("dehydrated")) {
     bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {
-        console.log(event.data);
+        const { html, css } = event.data.sess;
+        document.getElementById(`root-${codeSpace}`).innerHTML = `<style>${css}</style>${html}`;
       }
     };
     return;
@@ -1146,14 +1147,6 @@ async function sw() {
       }
       switch (event.data.method) {
         case "ipfs-message-port":
-          const channel = new MessageChannel();
-          {
-            serviceWorker.postMessage({
-              method: "ipfs-message-port",
-              id: event.data.id,
-              port: channel.port2
-            }, { transfer: [channel.port2] });
-          }
       }
     };
     if (document.documentElement.dataset.viewer) {
