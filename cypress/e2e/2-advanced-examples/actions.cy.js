@@ -15,9 +15,9 @@ context("Actions", () => {
       .type("{leftarrow}{rightarrow}{uparrow}{downarrow}")
       .type("{del}{selectall}{backspace}")
       // .type() with key modifiers
-      .type("{alt}{option}") //these are equivalent
-      .type("{ctrl}{control}") //these are equivalent
-      .type("{meta}{command}{cmd}") //these are equivalent
+      .type("{alt}{option}") // these are equivalent
+      .type("{ctrl}{control}") // these are equivalent
+      .type("{meta}{command}{cmd}") // these are equivalent
       .type("{shift}")
       // Delay each keypress by 0.1 sec
       .type("slow.typing@email.com", { delay: 100 })
@@ -55,7 +55,7 @@ context("Actions", () => {
   it(".submit() - submit a form", () => {
     // https://on.cypress.io/submit
     cy.get(".action-form")
-      .find('[type="text"]').type("HALFOFF");
+      .find("[type=\"text\"]").type("HALFOFF");
 
     cy.get(".action-form").submit()
       .next().should("contain", "Your form has been submitted!");
@@ -132,25 +132,25 @@ context("Actions", () => {
 
     // By default, .check() will check all
     // matching checkbox or radio elements in succession, one after another
-    cy.get('.action-checkboxes [type="checkbox"]').not("[disabled]")
+    cy.get(".action-checkboxes [type=\"checkbox\"]").not("[disabled]")
       .check().should("be.checked");
 
-    cy.get('.action-radios [type="radio"]').not("[disabled]")
+    cy.get(".action-radios [type=\"radio\"]").not("[disabled]")
       .check().should("be.checked");
 
     // .check() accepts a value argument
-    cy.get('.action-radios [type="radio"]')
+    cy.get(".action-radios [type=\"radio\"]")
       .check("radio1").should("be.checked");
 
     // .check() accepts an array of values
-    cy.get('.action-multiple-checkboxes [type="checkbox"]')
+    cy.get(".action-multiple-checkboxes [type=\"checkbox\"]")
       .check(["checkbox1", "checkbox2"]).should("be.checked");
 
     // Ignore error checking prior to checking
     cy.get(".action-checkboxes [disabled]")
       .check({ force: true }).should("be.checked");
 
-    cy.get('.action-radios [type="radio"]')
+    cy.get(".action-radios [type=\"radio\"]")
       .check("radio3", { force: true }).should("be.checked");
   });
 
@@ -159,17 +159,17 @@ context("Actions", () => {
 
     // By default, .uncheck() will uncheck all matching
     // checkbox elements in succession, one after another
-    cy.get('.action-check [type="checkbox"]')
+    cy.get(".action-check [type=\"checkbox\"]")
       .not("[disabled]")
       .uncheck().should("not.be.checked");
 
     // .uncheck() accepts a value argument
-    cy.get('.action-check [type="checkbox"]')
+    cy.get(".action-check [type=\"checkbox\"]")
       .check("checkbox1")
       .uncheck("checkbox1").should("not.be.checked");
 
     // .uncheck() accepts an array of values
-    cy.get('.action-check [type="checkbox"]')
+    cy.get(".action-check [type=\"checkbox\"]")
       .check(["checkbox1", "checkbox3"])
       .uncheck(["checkbox1", "checkbox3"]).should("not.be.checked");
 

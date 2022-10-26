@@ -2,11 +2,7 @@ import type { FC } from "react";
 import { Fragment, lazy, StrictMode, Suspense, useMemo } from "react";
 
 import { createRoot } from "react-dom/client";
-import {
-  createHtmlPortalNode,
-  InPortal,
-  OutPortal,
-} from "react-reverse-portal";
+import { createHtmlPortalNode, InPortal, OutPortal } from "react-reverse-portal";
 import { AutoUpdateApp } from "./starter";
 
 import { css } from "@emotion/react";
@@ -14,12 +10,10 @@ import { css } from "@emotion/react";
 
 import { md5, mST } from "./session";
 
-import { Editor } from "./Editor";
 import { wait } from "wait.mjs";
+import { Editor } from "./Editor";
 
-const DraggableWindowLazy = lazy(() =>
-  wait(1000).then(() => import("./DraggableWindow"))
-);
+const DraggableWindowLazy = lazy(() => wait(1000).then(() => import("./DraggableWindow")));
 
 const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
@@ -93,8 +87,8 @@ const AppToRender: FC<
         style: "height: 100%",
       },
     }), []);
-  const onlyApp = location.pathname.endsWith("public") ||
-    location.pathname.endsWith("hydrated");
+  const onlyApp = location.pathname.endsWith("public")
+    || location.pathname.endsWith("hydrated");
   const devTools = !onlyApp;
 
   return (

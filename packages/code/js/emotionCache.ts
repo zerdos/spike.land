@@ -1,2 +1,2 @@
-//@ts-ignore
+// @ts-ignore
 export default globalThis.createEmotionCache;

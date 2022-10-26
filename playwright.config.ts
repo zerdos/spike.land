@@ -9,11 +9,11 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"]},
-    }
+      use: { ...devices["Desktop Chrome"] },
+    },
     // {
     //   name: "Mobile Chrome",
-    
+
     //   use: { ...devices["Pixel 6"] },
     // },
     // {

@@ -1,0 +1,15 @@
+{
+       "typescript": {
+    },
+    "includes": [
+      "**/*.{ts,tsx,js,jsx,mjs}"
+    ],
+    "excludes": [
+      "**/dist",
+      "**/monaco-workers",
+      "**/build"
+    ],
+    "plugins": [
+      "https://plugins.dprint.dev/typescript-0.76.0.wasm"
+    ]
+  }

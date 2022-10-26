@@ -1,4 +1,4 @@
-//@ts-ignore
+// @ts-ignore
 export { jsx, jsxs } from "preact/compat/jsx-runtime";
 // export { flushSync } from "preact/compat";
 import * as PR from "preact/compat";
@@ -8,7 +8,7 @@ export const {
   unmountComponentAtNode,
   Fragment,
   createPortal,
-  //@ts-ignore
+  // @ts-ignore
   flushSync,
   hydrate,
   Children,

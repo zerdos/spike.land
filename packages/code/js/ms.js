@@ -23,7 +23,7 @@ const y = d * 365.25;
  * @api public
  */
 
-module.exports = function (value, options) {
+module.exports = function(value, options) {
   options = options || {};
   const type = typeof value;
   if (type === "string" && value.length > 0) {
@@ -35,8 +35,8 @@ module.exports = function (value, options) {
   }
 
   throw new Error(
-    "val is not a non-empty string or a valid number. val=" +
-      JSON.stringify(value),
+    "val is not a non-empty string or a valid number. val="
+      + JSON.stringify(value),
   );
 };
 

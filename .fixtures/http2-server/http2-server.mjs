@@ -1,8 +1,8 @@
-import { createSecureServer } from "http2";
 import { readFileSync } from "fs";
+import { createSecureServer } from "http2";
 import { lookup } from "mime-types";
-import { brotliCompressSync, constants } from "zlib";
 import { ThrottleGroup } from "speed-limiter";
+import { brotliCompressSync, constants } from "zlib";
 
 const base = new URL("../", import.meta.url);
 

@@ -4,7 +4,7 @@
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
 // Import { string } from "prop-types";
 import { md5 } from "./md5.js";
-//import "es-module-shims";
+// import "es-module-shims";
 // Import { m } from "framer-motion";
 
 const mod = {
@@ -128,7 +128,7 @@ export const toUmd = async (source: string, name: string) => {
         urlHash = md5(dep);
       } else {
         try {
-          //@ts-ignore
+          // @ts-ignore
           url = await (import.meta.resolve || importShim.resolve)(dep, name);
           urlHash = md5(dep);
         } catch {

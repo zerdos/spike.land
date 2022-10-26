@@ -2,11 +2,11 @@ let getRandomValues;
 const rnds8 = new Uint8Array(16);
 function rng() {
   if (!getRandomValues) {
-    getRandomValues = typeof crypto !== "undefined" && crypto.getRandomValues &&
-        crypto.getRandomValues.bind(crypto) ||
-      typeof msCrypto !== "undefined" &&
-        typeof msCrypto.getRandomValues === "function" &&
-        msCrypto.getRandomValues.bind(msCrypto);
+    getRandomValues = typeof crypto !== "undefined" && crypto.getRandomValues
+        && crypto.getRandomValues.bind(crypto)
+      || typeof msCrypto !== "undefined"
+        && typeof msCrypto.getRandomValues === "function"
+        && msCrypto.getRandomValues.bind(msCrypto);
     if (!getRandomValues) {
       throw new Error(
         "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported",
@@ -17,8 +17,7 @@ function rng() {
   return getRandomValues(rnds8);
 }
 
-const __default =
-  /^(?:[\da-f]{8}-[\da-f]{4}-[1-5][\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}|0{8}-(?:0{4}-){3}0{12})$/i;
+const __default = /^(?:[\da-f]{8}-[\da-f]{4}-[1-5][\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}|0{8}-(?:0{4}-){3}0{12})$/i;
 function validate(uuid) {
   return typeof uuid === "string" && __default.test(uuid);
 }
@@ -32,14 +31,14 @@ function stringify(array) {
   const offset = arguments.length > 1 && arguments[1] !== undefined
     ? arguments[1]
     : 0;
-  const uuid = (byteToHex[array[offset + 0]] + byteToHex[array[offset + 1]] +
-    byteToHex[array[offset + 2]] + byteToHex[array[offset + 3]] + "-" +
-    byteToHex[array[offset + 4]] + byteToHex[array[offset + 5]] + "-" +
-    byteToHex[array[offset + 6]] + byteToHex[array[offset + 7]] + "-" +
-    byteToHex[array[offset + 8]] + byteToHex[array[offset + 9]] + "-" +
-    byteToHex[array[offset + 10]] + byteToHex[array[offset + 11]] +
-    byteToHex[array[offset + 12]] + byteToHex[array[offset + 13]] +
-    byteToHex[array[offset + 14]] + byteToHex[array[offset + 15]])
+  const uuid = (byteToHex[array[offset + 0]] + byteToHex[array[offset + 1]]
+    + byteToHex[array[offset + 2]] + byteToHex[array[offset + 3]] + "-"
+    + byteToHex[array[offset + 4]] + byteToHex[array[offset + 5]] + "-"
+    + byteToHex[array[offset + 6]] + byteToHex[array[offset + 7]] + "-"
+    + byteToHex[array[offset + 8]] + byteToHex[array[offset + 9]] + "-"
+    + byteToHex[array[offset + 10]] + byteToHex[array[offset + 11]]
+    + byteToHex[array[offset + 12]] + byteToHex[array[offset + 13]]
+    + byteToHex[array[offset + 14]] + byteToHex[array[offset + 15]])
     .toLowerCase();
   if (!validate(uuid)) {
     throw new TypeError("Stringified UUID is invalid");

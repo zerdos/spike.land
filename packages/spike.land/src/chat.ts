@@ -1,16 +1,15 @@
-import { getAssetFromKV,  } from "@cloudflare/kv-asset-handler";
+import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
-import {a, ASSET_MANIFEST} from "./staticContent.mjs";
-import packages from "@spike.land/code/package.json"
+import packages from "@spike.land/code/package.json";
+import { a, ASSET_MANIFEST } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
-import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
-
+import { handleErrors } from "./handleErrors";
 
 // const ws = a["ws.mjs"];
-const preact ="/reactMod.mjs";
+const preact = "/reactMod.mjs";
 const babel = "/babel.mjs";
 const emotionReact = "/emotion.mjs";
 const emotionJsxRuntime = "/emotionJsxRuntime.mjs";
@@ -25,7 +24,7 @@ const esbuildExternal = [
   // "react/jsx-runtime",
   // "react/jsx-dev-runtime",
   "@mui/material",
-  "framer-motion"
+  "framer-motion",
 ];
 const externals = esbuildExternal.join(",");
 const mods: { [key: string]: string } = {};
@@ -36,23 +35,15 @@ export const imap = {
     "@emotion/react": emotionReact,
     "@emotion/react/jsx-runtime": emotionJsxRuntime,
     // "@emotion/styled": emotionStyled,
-  //  "@emotion/cache": emotionCache,
+    //  "@emotion/cache": emotionCache,
     // "live/": "live/",
     "react": preact,
-    //"react/jsx-runtime": "/jsx.mjs",
+    // "react/jsx-runtime": "/jsx.mjs",
     "react-dom": preact,
     "react-dom/client": preact,
     "@babel/runtime/helpers/extends": babel,
     // "react-dom/server": preact,
 
-
-
-
-
-
-
-
-    
     "framer-motion": motion,
     // "ws.mjs": ws,
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.jchs",
@@ -68,22 +59,24 @@ export default {
     env: CodeEnv,
     ctx: ExecutionContext,
   ) {
-    if (request.cf?.asOrganization?.startsWith("YANDEX") ) return new Response(null,{status: 401, statusText: "no robots"});
-    console.log(JSON.stringify({...request.cf}, null, 2));
+    if (request.cf?.asOrganization?.startsWith("YANDEX")) {
+      return new Response(null, { status: 401, statusText: "no robots" });
+    }
+    console.log(JSON.stringify({ ...request.cf }, null, 2));
     return handleErrors(request, async () => {
       console.log(`handling request: ${request.url}`);
       // We have received an HTTP request! Parse the URL and route the request.
 
       const u = new URL(request.url);
-      let url = u
-      
+      let url = u;
+
       const accept = request.headers.get("accept");
 
       const serveJs = !(accept && accept.includes("html"));
 
       if (
-        serveJs && u.pathname.endsWith(".tsx") &&
-        !u.pathname.endsWith("index.tsx")
+        serveJs && u.pathname.endsWith(".tsx")
+        && !u.pathname.endsWith("index.tsx")
       ) {
         url = new URL(request.url.replace(".tsx", "/index.tsx"));
       }
@@ -140,8 +133,8 @@ export default {
           if (
             path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
           ) {
-            const isJs = u.toString().includes(".js") ||
-              u.toString().includes(".mjs");
+            const isJs = u.toString().includes(".js")
+              || u.toString().includes(".mjs");
 
             const packageName = u.toString().replace(
               u.origin + "/npm:",
@@ -151,33 +144,22 @@ export default {
               "",
             );
             const searchParams = (isJs
-              ? `?bundle&external=${
-                esbuildExternal.filter((p) => p !== packageName).join(",")
-              } `
+              ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} `
               : "");
             const esmUrl = "https://esm.sh/" + packageName + searchParams;
 
             let resp = await fetch(esmUrl, { ...request, url: esmUrl });
 
             if (resp !== null && !resp.ok || resp.status === 307) {
-
-
-              
               const redirectUrl = resp.headers.get("location");
 
-         
               if (redirectUrl) {
-
-                return new Response((await resp.text()).replace('esm.sh/', u.hostname + "/npm:/" ), { 
-                  status: 307, 
+                return new Response((await resp.text()).replace("esm.sh/", u.hostname + "/npm:/"), {
+                  status: 307,
                   headers: {
-                  "location": redirectUrl.replace('esm.sh/', u.hostname + "/npm:/")
-                
-                }
-              }
-              );
-                
-
+                    "location": redirectUrl.replace("esm.sh/", u.hostname + "/npm:/"),
+                  },
+                });
 
                 // resp = await fetch(redirectUrl, {
                 //   ...request,
@@ -188,7 +170,7 @@ export default {
                 return resp;
               }
             }
-const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
+            const xTs = resp.headers.get("x-typescript-types") || "NO_DTS";
 
             const isText = !!resp?.headers?.get("Content-Type")?.includes(
               "charset",
@@ -208,24 +190,24 @@ const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
             const responseToCache = new Response(
               isText
                 ? bodyStr.replaceAll(regex, u.origin + "/npm:/")
-                  .replaceAll(regex2, ' from "/npm:/')
-                  .replaceAll(regex3, 'import "/npm:/')
-                  .replaceAll(regex4, ' from "/npm:/')
-                  .replaceAll(regex5, 'import "/npm:/')
+                  .replaceAll(regex2, " from \"/npm:/")
+                  .replaceAll(regex3, "import \"/npm:/")
+                  .replaceAll(regex4, " from \"/npm:/")
+                  .replaceAll(regex5, "import \"/npm:/")
                 : await resp.blob(),
               {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cache-Control": "public, max-age=604800, immutable",
-                  "x-DTS":  xTs.replace("esm.sh/", u.host+"/npm:/"),
+                  "x-DTS": xTs.replace("esm.sh/", u.host + "/npm:/"),
                   "Content-Type": resp.headers.get("Content-Type")!,
                 },
               },
             );
-            if (responseToCache.ok)
-
-            await cache.put(cacheKey, responseToCache.clone());
+            if (responseToCache.ok) {
+              await cache.put(cacheKey, responseToCache.clone());
+            }
             return responseToCache;
           }
 
@@ -259,10 +241,10 @@ const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
             const responseToCache = new Response(
               `
               // ${request.url}
-              ` +
-                bodyStr
+              `
+                + bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
-                  .replaceAll(regex2, ' from "/unpkg:')
+                  .replaceAll(regex2, " from \"/unpkg:")
                 : await resp.blob(),
               {
                 status: 200,
@@ -273,8 +255,9 @@ const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
                 },
               },
             );
-            if(responseToCache.ok)
-            await cache.put(cacheKey, responseToCache.clone());
+            if (responseToCache.ok) {
+              await cache.put(cacheKey, responseToCache.clone());
+            }
             return responseToCache;
           }
 
@@ -311,10 +294,10 @@ const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
             const responseToCache = new Response(
               `
               // ${request.url}
-              ` +
-                bodyStr
+              `
+                + bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
-                  .replaceAll(regex2, ' from "/node_modules/')
+                  .replaceAll(regex2, " from \"/node_modules/")
                 : await resp.blob(),
               {
                 status: 200,
@@ -325,8 +308,9 @@ const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
                 },
               },
             );
-            if (responseToCache.ok)
-            await cache.put(cacheKey, responseToCache.clone());
+            if (responseToCache.ok) {
+              await cache.put(cacheKey, responseToCache.clone());
+            }
             return responseToCache;
           }
 
@@ -352,13 +336,13 @@ const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
                   "Cache-Control": "no-cache",
                 },
               });
-              case "packages.json":
-                return new Response(JSON.stringify(packages), {
-                  headers: {
-                    "Content-Type": "application/json;charset=UTF-8",
-                    "Cache-Control": "no-cache",
-                  },
-                });
+            case "packages.json":
+              return new Response(JSON.stringify(packages), {
+                headers: {
+                  "Content-Type": "application/json;charset=UTF-8",
+                  "Cache-Control": "no-cache",
+                },
+              });
             case "importmap.json":
               return new Response(getImportMapStr(url.origin), {
                 headers: {
@@ -389,50 +373,48 @@ const xTs = resp.headers.get('x-typescript-types') || 'NO_DTS';
               // Object.keys(assetManifest).map(x=>{assets[`/live/${paths[0]}/${x}`]=assetManifest[x]})
 
               return handleApiRequest(
-                  ["room", ...paths, "public"],
-                  request,
-                  env
-              ).catch((e) => new Response("Error,"+ e?.message, {status: 500, statusText: e?.message}));
+                ["room", ...paths, "public"],
+                request,
+                env,
+              ).catch((e) => new Response("Error," + e?.message, { status: 500, statusText: e?.message }));
 
             default:
-              try{
-              let kvResp = await getAssetFromKV(
-                {
-                  request,
-                  waitUntil(promise) {
-                    return ctx.waitUntil(promise);
+              try {
+                let kvResp = await getAssetFromKV(
+                  {
+                    request,
+                    waitUntil(promise) {
+                      return ctx.waitUntil(promise);
+                    },
                   },
-                },
-                {
-                  cacheControl: (isChunk(url.href)
-                    ? {
-                      browserTTL: 2 * 60 * 60 * 24,
-                      edgeTTL: 2 * 60 * 60 * 24,
-                      bypassCache: false,
-                    }
-                    : {
-                      browserTTL: 0,
-                      edgeTTL: 0,
-                      bypassCache: true,
-                    }),
-                    ASSET_NAMESPACE:env.__STATIC_CONTENT,
-                      ASSET_MANIFEST,
-                },
-              );
-              
-              if (!kvResp.ok) throw new Error("no kv, try something else")
-                return kvResp.clone();
-              }catch{
-                const resp = await fetch(new URL(url.pathname.slice(1), url.origin +  '/node_modules/').toString())
-                if (resp.ok) return resp;
+                  {
+                    cacheControl: (isChunk(url.href)
+                      ? {
+                        browserTTL: 2 * 60 * 60 * 24,
+                        edgeTTL: 2 * 60 * 60 * 24,
+                        bypassCache: false,
+                      }
+                      : {
+                        browserTTL: 0,
+                        edgeTTL: 0,
+                        bypassCache: true,
+                      }),
+                    ASSET_NAMESPACE: env.__STATIC_CONTENT,
+                    ASSET_MANIFEST,
+                  },
+                );
 
+                if (!kvResp.ok) throw new Error("no kv, try something else");
+                return kvResp.clone();
+              } catch {
+                const resp = await fetch(new URL(url.pathname.slice(1), url.origin + "/node_modules/").toString());
+                if (resp.ok) return resp;
               }
           }
-       
         })(_request);
-        if (!cachedResponse2) return new Response("404 :(", {status: 404, statusText: "not found"});
+        if (!cachedResponse2) return new Response("404 :(", { status: 404, statusText: "not found" });
 
-        if(cachedResponse2?.ok) await cache.put(cacheKey, cachedResponse2.clone());
+        if (cachedResponse2?.ok) await cache.put(cacheKey, cachedResponse2.clone());
 
         return cachedResponse2;
       };

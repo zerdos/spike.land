@@ -1,4 +1,6 @@
 /// <reference types="react" />
+import type { InViewOptions, ScrollOptions } from "@motionone/dom";
+import type { Easing as Easing$1, SpringOptions } from "popmotion";
 import type * as React$1 from "react";
 import type {
   CSSProperties,
@@ -12,8 +14,6 @@ import type {
   SVGAttributes,
   useEffect,
 } from "react";
-import type { Easing as Easing$1, SpringOptions } from "popmotion";
-import type { InViewOptions, ScrollOptions } from "@motionone/dom";
 
 /**
  * @public
@@ -3114,10 +3114,8 @@ declare type ForwardRefComponent<T, P> = ForwardRefExoticComponent<
 /**
  * Support for React component props
  */
-declare type UnwrapFactoryAttributes<F> = F extends
-  DetailedHTMLFactory<infer P, any> ? P : never;
-declare type UnwrapFactoryElement<F> = F extends
-  DetailedHTMLFactory<any, infer P> ? P : never;
+declare type UnwrapFactoryAttributes<F> = F extends DetailedHTMLFactory<infer P, any> ? P : never;
+declare type UnwrapFactoryElement<F> = F extends DetailedHTMLFactory<any, infer P> ? P : never;
 declare type HTMLAttributesWithoutMotionProps<
   Attributes extends HTMLAttributes<Element>,
   Element extends HTMLElement,

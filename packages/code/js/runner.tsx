@@ -2,9 +2,9 @@
 import type { TransformOptions } from "esbuild-wasm";
 import { mST, patchSync } from "./session";
 
+import debounce from "lodash.debounce";
 import { transform } from "./esbuildEsm";
 import { render } from "./renderToString";
-import debounce from "lodash.debounce";
 
 const debouncedSync = debounce(patchSync, 200, {
   leading: true,

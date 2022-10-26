@@ -25,17 +25,19 @@
     "docker:push": "yarn workspaces foreach --all run   docker:push",
     "push": "yarn deploy && git pull && yarn && git add . && git commit -m push && git push && cd packages/spike.land",
     "test": "NODE_OPTIONS=--experimental-fetch yarn p:test",
-    "p:test": "playwright test tests/*.spec.ts"
+    "p:test": "playwright test tests/*.spec.ts",
+    "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
   "devDependencies": {
     "@emotion/react": "^11.10.4",
     "@playwright/test": "1.27.1",
-    "@types/eslint": "^8",
+    "@types/eslint": "^8.4.8",
     "@types/react": "18.0.23",
     "@types/react-dom": "18.0.7",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "@yarnpkg/sdks": "3.0.0-rc.26",
+    "dprint": "^0.32.2",
     "eslint": "^8.26.0",
     "eslint-plugin-react": "^7.31.10",
     "playwright": "1.27.1",

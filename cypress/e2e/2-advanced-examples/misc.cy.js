@@ -33,8 +33,8 @@ context("Misc", () => {
     // on CircleCI Windows build machines we have a failure to run bash shell
     // https://github.com/cypress-io/cypress/issues/5169
     // so skip some of the tests by passing flag "--env circle=true"
-    const isCircleOnWindows = Cypress.platform === "win32" &&
-      Cypress.env("circle");
+    const isCircleOnWindows = Cypress.platform === "win32"
+      && Cypress.env("circle");
 
     if (isCircleOnWindows) {
       cy.log("Skipping test on CircleCI");
@@ -44,8 +44,8 @@ context("Misc", () => {
 
     // cy.exec problem on Shippable CI
     // https://github.com/cypress-io/cypress/issues/6718
-    const isShippable = Cypress.platform === "linux" &&
-      Cypress.env("shippable");
+    const isShippable = Cypress.platform === "linux"
+      && Cypress.env("shippable");
 
     if (isShippable) {
       cy.log("Skipping test on ShippableCI");
@@ -77,13 +77,13 @@ context("Misc", () => {
     cy.focused().should("have.id", "description");
   });
 
-  context("Cypress.Screenshot", function () {
+  context("Cypress.Screenshot", function() {
     it("cy.screenshot() - take a screenshot", () => {
       // https://on.cypress.io/screenshot
       cy.screenshot("my-image");
     });
 
-    it("Cypress.Screenshot.defaults() - change default config of screenshots", function () {
+    it("Cypress.Screenshot.defaults() - change default config of screenshots", function() {
       Cypress.Screenshot.defaults({
         blackout: [".foo"],
         capture: "viewport",

@@ -1,9 +1,9 @@
-export default function (
+export default function(
   packageName: string,
   version: string,
   serveDir: string = "",
 ) {
-  return async function (request: Request, env: EventInit) {
+  return async function(request: Request, env: EventInit) {
     return await tryToResp(request, env, 4);
 
     async function tryToResp(
@@ -91,8 +91,8 @@ export default function (
         // ich
 
         if (
-          pathname.endsWith(".mjs") || pathname.endsWith(".js") ||
-          pathname.endsWith(".ts") || pathname.endsWith(".tsx")
+          pathname.endsWith(".mjs") || pathname.endsWith(".js")
+          || pathname.endsWith(".ts") || pathname.endsWith(".tsx")
         ) {
           resp.headers.delete("content-type");
           resp.headers.set(

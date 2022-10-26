@@ -1,6 +1,6 @@
 // Import { IPFSClient } from "ipfs-message-port-client";
-import throttle from "lodash.throttle";
 import debounce from "lodash.debounce";
+import throttle from "lodash.throttle";
 import pMap from "p-map";
 import { defer, selectClient, toReadableStream } from "./service/util.js";
 // Import { setupWorker, rest } from 'msw'
@@ -137,8 +137,8 @@ const onfetch = (event) => {
             // for the content.
             case "view": {
               console.log(
-                "VIEW! Fetching the content: " +
-                  url.pathname.slice(protocol.length + 1),
+                "VIEW! Fetching the content: "
+                  + url.pathname.slice(protocol.length + 1),
               );
               return fetchContent({
                 event,
@@ -150,9 +150,7 @@ const onfetch = (event) => {
               // Anything else might be for scripts, source maps etc.. we just fetch
               // those from network
               return event.respondWith(
-                fetch(event.request).catch((error) =>
-                  console.log({ url, event })
-                ),
+                fetch(event.request).catch((error) => console.log({ url, event })),
               );
           }
         }
@@ -380,7 +378,7 @@ const fetchIPFSDirectory = async (ipfs, path) =>
  * @param {number} [limit=174]
  * @returns {AsyncIterable<Uint8Array>}
  */
-const renderDirectory = async function* (ipfs, path, limit = 64) {
+const renderDirectory = async function*(ipfs, path, limit = 64) {
   const encoder = new TextEncoder();
   yield encoder.encode(`<html><h3>Index of ${path}<h3><ul>`);
 

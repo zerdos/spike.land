@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2018",
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
@@ -9,6 +9,7 @@
       "DOM.Iterable",
       "es2022",
       "ESNext.Promise",
+      "ESNext.String",
       "esnext"
     ],
     "allowJs": true,
@@ -45,7 +46,7 @@
     "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     "resolveJsonModule": true,
-    "importHelpers": false,
+    "importHelpers": true,
 
     "moduleResolution": "node",
     // "noEmit": true,
