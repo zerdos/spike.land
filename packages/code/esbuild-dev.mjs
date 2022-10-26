@@ -255,7 +255,7 @@ const build = (entryPoints, extraExternal) =>
 
   await esbuild.build({
     entryPoints: [
-      "sw.mjs",
+      "js/sw.ts",
     ],
     bundle: true,
     define,

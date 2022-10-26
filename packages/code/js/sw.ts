@@ -1,4 +1,4 @@
-import { md5 } from "./js/md5";
+import { md5 } from "./md5";
 
 const bc = new BroadcastChannel(location.origin);
 const mocks = {};
@@ -6,6 +6,8 @@ const mocks = {};
 bc.onmessage = (event) => {
   console.log(event);
   if (event.data.type === "set-mock") {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     mocks[event.data.filePath] = event.data.content;
   }
 };
@@ -19,14 +21,18 @@ bc.onmessage = (event) => {
 // }
 
 let lastChecked = 0;
-let cache;
-let cacheName;
-let getCacheName = () =>
-  fetch(location.origin + "/files.json").then(files => files.ok && files.text()).then(content => md5(content)).then(
-    cn => (cn === cacheName || (cache = null) || (cacheName = cn)),
-  );
-self.addEventListener("fetch", async (event) => {
-  if (!cache) cache = await caches.open(await getCacheName());
+let cache: Cache | null;
+let cacheName = "";
+const getCacheName = () =>
+  fetch(location.origin + "/files.json").then(files => files.ok ? files.text() : null).then(content => md5(content))
+    .then(
+      cn => (cn === cacheName || (cache = null) || (cacheName = cn)),
+    ).finally(() => cacheName);
+
+addEventListener("fetch", async (_event) => {
+  const event = _event as unknown as FetchEvent;
+
+  if (!cache) cache = await caches.open(await getCacheName() && cacheName);
   const url = new URL(event.request.url);
   if (url.href === "/mocks") {
     return event.respondWith(

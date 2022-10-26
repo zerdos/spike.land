@@ -119,7 +119,8 @@ export const run = async (startState: {
   if (location.pathname.endsWith("dehydrated")) {
     bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {
-        console.log(event.data);
+        const { html, css } = event.data.sess;
+        document.getElementById(`root-${codeSpace}`)!.innerHTML = `<style>${css}</style>${html}`;
       }
     };
     return;
@@ -882,17 +883,17 @@ export async function sw() {
           // console.//log("can connect trough", { connect });
           // await ipfsWorker();
           //
-          const channel = new MessageChannel();
+          //          const channel = new MessageChannel();
           // Await connect(channel);
           // console.//log({ channel });
 
-          {
-            serviceWorker.postMessage({
-              method: "ipfs-message-port",
-              id: event.data.id,
-              port: channel.port2,
-            }, { transfer: [channel.port2] });
-          }
+          // {
+          //   serviceWorker.postMessage({
+          //     method: "ipfs-message-port",
+          //     id: event.data.id,
+          //     port: channel.port2,
+          //   }, { transfer: [channel.port2] });
+          // }
 
           // Receives request from service worker, creates a new shared worker and
           // responds back with the message port.
