@@ -42142,7 +42142,7 @@ var monacoContribution = async (code) => {
   console.log("Trying to deal with eta");
   const extraLibs = localStorage && localStorage.getItem(codeSpace);
   if (extraLibs) {
-    console.log("Extralibs loading");
+    console.log("Extra libs are loading");
     const extraLibMap = JSON.parse(
       extraLibs
     );
@@ -42181,7 +42181,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
   const returnValue = await startMonacoPristine({ code, container, name });
   mod[name] = returnValue;
   return returnValue;
-  async function startMonacoPristine({ code: code2, container: container2, name: name2 }) {
+  async function startMonacoPristine({ code: code2, container: container2 }) {
     const replaced = await monacoContribution(
       code2
     );
