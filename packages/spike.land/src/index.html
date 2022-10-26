@@ -147,7 +147,23 @@ window.addEventListener('pageshow', (event) => {
 
 <div id="root"></div>
   
-<script type="module" src="/load.mjs"></script>
+<script type="module">
+
+if (location.pathname.endsWith("dehydrated")) {
+  const paths = location.pathname.split("/");
+  paths.pop() //dehydrated;
+  const codeSpace = paths.pop();
+
+  const  bc =new BroadcastChannel(location.origin);
+
+    bc.onmessage = (event) => {
+      if (event.data.codeSpace === codeSpace) {
+        const { html, css } = event.data.sess;
+        document.getElementById(`root-${codeSpace}`).innerHTML = `<style>${css}</style>${html}`;
+      }
+    };
+  } else import(`${location.origin}/load.mjs`);
+</script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>
