@@ -22,7 +22,7 @@ bc.onmessage = (event) => {
 
 let lastChecked = 0;
 let cache: Cache | null;
-let cacheName = "";
+let cacheName = "default";
 const getCacheName = () =>
   fetch(location.origin + "/files.json").then(files => files.ok ? files.text() : null).then(content => md5(content))
     .then(
@@ -32,7 +32,7 @@ const getCacheName = () =>
 addEventListener("fetch", async (_event) => {
   const event = _event as unknown as FetchEvent;
 
-  if (!cache) cache = await caches.open(await getCacheName() && cacheName);
+  if (!cache) cache = await caches.open(cacheName || await getCacheName() && cacheName);
   const url = new URL(event.request.url);
   if (url.href === "/mocks") {
     return event.respondWith(
