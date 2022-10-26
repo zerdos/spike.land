@@ -6,6 +6,7 @@
     /* Basic Options */
     "lib": [
       "DOM",
+      "ES2015",
       "DOM.Iterable",
       "es2022",
       "ESNext.Promise",
