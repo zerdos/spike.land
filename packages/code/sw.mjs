@@ -53,8 +53,7 @@ self.addEventListener("fetch", async (event) => {
     );
   }
   const resp = await fetch(event.request);
-
-  await cache.put(cacheKey, resp.clone());
+  if (resp.ok)  await cache.put(cacheKey, resp.clone());
 
   return event.respondWith(resp);
 });
