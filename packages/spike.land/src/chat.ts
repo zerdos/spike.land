@@ -89,8 +89,13 @@ export default {
       const path = url.pathname.slice(1).split("/");
 
       if (!path[0]) {
+        const utcSecs = Math.floor(Math.floor(Date.now() / 1000 / 7200));
         console.log({ asOrganization: request.cf?.asOrganization });
-        const start = md5(request.cf?.asOrganization);
+        const start = md5(
+          request.cf?.asOrganization + utcSecs + `
+        and reset every 2 hours
+        time`,
+        );
         // Serve our HTML at the root path.
         return new Response(
           `<meta http-equiv="refresh" content="0; URL=${u.origin}/live/${start}" />`,
@@ -108,7 +113,7 @@ export default {
         const newUrl = new URL(path.join("/"), url.origin).toString();
         const _request = new Request(newUrl, { ...request, url: newUrl });
 
-        let cacheKey = new Request(_request.url);
+        const cacheKey = new Request(_request.url);
         const cache = caches.default;
 
         // if(url.pathname.includes('ws.mjs') || url.pathname.includes("/live")){
