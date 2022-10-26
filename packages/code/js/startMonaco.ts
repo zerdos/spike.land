@@ -1,8 +1,8 @@
 // Import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
 import "monaco-editor/esm/vs/editor/editor.all";
-import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
+import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 
 // import "monaco-editor/min/vs/basic-languages/typescript/typescript";
 // import "monaco-editor/min/vs/language/typescript/tsMode";
@@ -586,7 +586,7 @@ export const startMonaco = async (
 
           await addExtraModels(extraModelCache[extraModel], extraModel);
         } catch (err) {
-          console.error("Error in addextra models", code, url, { err });
+          console.error("Error in add extra models", code, url, { err });
         }
       }
     };

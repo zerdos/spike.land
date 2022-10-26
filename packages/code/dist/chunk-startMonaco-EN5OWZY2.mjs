@@ -42246,7 +42246,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           extraModelCache[extraModelUrl] = extraModelContent;
           await addExtraModels(extraModelCache[extraModel], extraModel);
         } catch (err) {
-          console.error("Error in addextra models", code3, url, { err });
+          console.error("Error in add extra models", code3, url, { err });
         }
       }
     };
