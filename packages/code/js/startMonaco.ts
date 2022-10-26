@@ -566,6 +566,12 @@ export const startMonaco = async (
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace",
     });
+    const extraLibs = localStorage && localStorage.getItem(codeSpace);
+
+    extraLibs &&
+      languages.typescript.typescriptDefaults.setExtraLibs(
+        JSON.parse(extraLibs),
+      );
 
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
@@ -726,7 +732,7 @@ export const startMonaco = async (
 
       console.log({ replaceMaps });
 
-      // const extraLib = setExtraLibs();
+      const extraLib = setExtraLibs();
 
       languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({
@@ -735,7 +741,7 @@ export const startMonaco = async (
           noSyntaxValidation: false,
         });
 
-      //localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
+      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
     };
 
     const setExtraLibs = () => {

@@ -42197,6 +42197,10 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace"
     });
+    const extraLibs = localStorage && localStorage.getItem(codeSpace);
+    extraLibs && languages.typescript.typescriptDefaults.setExtraLibs(
+      JSON.parse(extraLibs)
+    );
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
@@ -42305,17 +42309,19 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       const maps = await Promise.all(mappings);
       maps.forEach((m) => Object.assign(replaceMaps, m));
       console.log({ replaceMaps });
+      const extraLib = setExtraLibs();
       languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: false,
         noSemanticValidation: false,
         noSyntaxValidation: false
       });
+      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
     };
     const setExtraLibs = () => {
       replaceMaps["/node_modules/"] = "/npm:/v96/";
       const versionNumbers = /@\d+.\d+.\d+/gm;
       const types = /\/types\//gm;
-      const extraLibs = Object.keys(extraModelCache).map((filePath) => {
+      const extraLibs2 = Object.keys(extraModelCache).map((filePath) => {
         const url = replaceMappings(filePath, replaceMaps).replaceAll(
           versionNumbers,
           ``
@@ -42335,11 +42341,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           content: dtsRemoved
         };
       });
-      console.log({ extraLibs });
+      console.log({ extraLibs: extraLibs2 });
       languages.typescript.typescriptDefaults.setExtraLibs(
-        extraLibs
+        extraLibs2
       );
-      return extraLibs;
+      return extraLibs2;
     };
     const mod2 = {
       editor: editor2,
