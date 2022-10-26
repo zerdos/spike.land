@@ -10,7 +10,6 @@ import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
 // import pMap from "p-map";
 
 import { getWorkerUrl } from "./monacoWorkers.mjs";
-
 // Import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
 // import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
 // const {createModel} = editor
@@ -19,34 +18,92 @@ const create = editor.create;
 const createModel = editor.createModel;
 // const Uri = monaco.Uri;
 
+let codeSpace = "";
+
 const originToUse = location.origin.includes("spike")
   ? location.origin
   : "https://testing.spike.land/";
+
+// Object.assign(globalThis, { setupTypeAcquisition });
+const lib = [
+  "dom",
+  "dom.iterable",
+  "es2015.collection",
+  "es2015.core",
+  "es2015",
+  "es2015.generator",
+  "es2015.iterable",
+  "es2015.promise",
+  "es2015.proxy",
+  "es2015.reflect",
+  "es2015.symbol",
+  "es2015.symbol.wellknown",
+  "es2016.array.include",
+  "es2016",
+  "es2016.full",
+  "es2017",
+  "es2017.full",
+  "es2017.intl",
+  "es2017.object",
+  "es2017.sharedmemory",
+  "es2017.string",
+  "es2017.typedarrays",
+  "es2018.asyncgenerator",
+  "es2018.asynciterator",
+  "es2018",
+  "es2018.full",
+  "es2018.intl",
+  "es2018.promise",
+  "es2018.regexp",
+  "es2019.array",
+  "es2019",
+  "es2019.full",
+  "es2019.object",
+  "es2019.string",
+  "es2019.symbol",
+  "es2020.bigint",
+  "es2020",
+  "es2020.full",
+  "es2020.intl",
+  "es2020.promise",
+  "es2020.sharedmemory",
+  "es2020.string",
+  "es2020.symbol.wellknown",
+  "es2021",
+  "es2021.full",
+  "es2021.intl",
+  "es2021.promise",
+  "es2021.string",
+  "es2021.weakref",
+  "es5",
+  "es6",
+  "esnext",
+  "esnext.full",
+  "esnext.intl",
+  "esnext.promise",
+  "esnext.string",
+  "esnext.weakref",
+  "scripthost",
+  "webworker",
+  "webworker.importscripts",
+  "webworker.iterable",
+];
 
 const monacoContribution = async (
   code: string,
 ) => {
   // Const {typescript} = languages;
-  languages.typescript.typescriptDefaults;
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
     target: languages.typescript.ScriptTarget.ESNext,
 
-    downlevelIteration: true,
-    importHelpers: true,
-    lib: [
-      "DOM",
-      "DOM.Iterable",
-      "es5",
-      "es6",
-      "ESNext.String",
-      "esnext",
-    ],
+    importHelpers: false,
+
+    lib,
     allowJs: true,
     skipLibCheck: true,
     esModuleInterop: true,
-    checkJs: true,
     allowSyntheticDefaultImports: true,
     strict: true,
     forceConsistentCasingInFileNames: true,
@@ -54,13 +111,11 @@ const monacoContribution = async (
     resolveJsonModule: true,
     isolatedModules: true,
     noEmit: true,
+    allowNonTsExtensions: true,
     traceResolution: true,
     moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
     moduleSpecifierCompletion: 2,
     declaration: true,
-    useDefineForClassFields: true,
-    composite: true,
-
     module: languages.typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
     sourceMap: true,
@@ -82,11 +137,31 @@ const monacoContribution = async (
       originToUse + "/",
       originToUse + "/unpkg:/",
     ],
+
     jsxImportSource: "@emotion/react",
     jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     include: [originToUse + "/node_modules"],
   });
+
+  console.log("Trying to deal with eta");
+  const extraLibs = localStorage && localStorage.getItem(codeSpace);
+  if (extraLibs) {
+    console.log("Extralibs loading");
+    const extraLibMap: { filePath: string; content: string }[] = JSON.parse(
+      extraLibs,
+    );
+
+    console.log({ extraLibMap });
+    languages.typescript.typescriptDefaults.setExtraLibs(extraLibMap);
+    // extraLibMap.map((lib) =>
+    //   languages.typescript.typescriptDefaults.addExtraLib(
+    //     lib.content,
+    //     lib.filePath,
+    //   )
+    // );
+    // console.log("ata is done");
+  }
 
   const regex1 = / from '\.\./gi;
 
@@ -311,6 +386,7 @@ export const startMonaco = async (
     onChange: (_code: string) => void;
   },
 ) => {
+  codeSpace = name;
   //  console.log({code, container, name});
   if (mod[name]) {
     return mod[name] as unknown as typeof returnValue;
@@ -328,7 +404,6 @@ export const startMonaco = async (
     },
   ) {
     // If (mod[name]) return mod[name];
-    const codeSpace = name;
 
     // Const innerStyle = document.createElement("style");
     // monacoCss
@@ -510,30 +585,6 @@ export const startMonaco = async (
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace",
     });
-    console.log("Trying to deal with eta");
-    const extraLibs = localStorage && localStorage.getItem(codeSpace);
-    if (extraLibs) {
-      console.log("Extralibs loading");
-      const extraLibMap: { filePath: string; content: string }[] = JSON.parse(
-        extraLibs,
-      );
-
-      console.log({ extraLibMap });
-      extraLibMap.map((lib) =>
-        languages.typescript.typescriptDefaults.addExtraLib(
-          lib.content,
-          lib.filePath,
-        )
-      );
-      console.log("ata is done");
-    }
-
-    languages.typescript.typescriptDefaults
-      .setDiagnosticsOptions({
-        noSuggestionDiagnostics: false,
-        noSemanticValidation: false,
-        noSyntaxValidation: false,
-      });
 
     const extraModelCache: { [key: string]: string } = {};
     const extraModels: { [key: string]: string[] } = {};
