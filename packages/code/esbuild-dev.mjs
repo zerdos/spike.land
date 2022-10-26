@@ -253,6 +253,23 @@ const build = (entryPoints, extraExternal) =>
     }),
   ];
 
+  await esbuild.build({
+    entryPoints: [
+      "sw.mjs",
+    ],
+    bundle: true,
+    define,
+    treeShaking: true,
+    minify: true, // ! isDevelopment,
+    minifyWhitespace: true, // ! isDevelopment,
+    minifyIdentifiers: true, // ! isDevelopment,
+    minifySyntax: true, // ! isDevelopment,
+    ignoreAnnotations: true,
+    keepNames: false,
+    platform: "browser",
+    format: "iife",
+    outdir: "dist",
+  });
   await build([
     "js/session.ts",
     // "js/prettierWorker.mjs",

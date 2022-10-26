@@ -117,15 +117,12 @@ export const run = async (startState: {
   bc = new BroadcastChannel(location.origin);
 
   if (location.pathname.endsWith("dehydrated")) {
-    if (
-      bc.onmessage = (event) => {
-        if (event.data.codeSpace === codeSpace) {
-          console.log(event.data);
-        }
+    bc.onmessage = (event) => {
+      if (event.data.codeSpace === codeSpace) {
+        console.log(event.data);
       }
-    ) {
-      return;
-    }
+    };
+    return;
   }
 
   startSession(codeSpace, {
@@ -204,6 +201,7 @@ type NodeTimer = number;
   if (navigator && navigator?.serviceWorker) {
     navigator.serviceWorker.register("/sw.js", {
       scope: "/",
+      type: "classic",
     });
     const current = await navigator.serviceWorker.ready;
     await sw();

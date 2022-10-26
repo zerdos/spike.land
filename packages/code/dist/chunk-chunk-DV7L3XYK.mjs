@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-UQCJ7KMU.mjs";
+} from "./chunk-chunk-6K2KYEHL.mjs";
 import {
   applyPatch,
   hashCode,
@@ -683,13 +683,12 @@ var run = async (startState) => {
   codeSpace = startState.codeSpace;
   bc = new BroadcastChannel(location.origin);
   if (location.pathname.endsWith("dehydrated")) {
-    if (bc.onmessage = (event) => {
+    bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {
         console.log(event.data);
       }
-    }) {
-      return;
-    }
+    };
+    return;
   }
   startSession(codeSpace, {
     name: user,
@@ -735,7 +734,8 @@ var run = async (startState) => {
 (async () => {
   if (navigator && (navigator == null ? void 0 : navigator.serviceWorker)) {
     navigator.serviceWorker.register("/sw.js", {
-      scope: "/"
+      scope: "/",
+      type: "classic"
     });
     const current = await navigator.serviceWorker.ready;
     await sw();
