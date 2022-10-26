@@ -1,4 +1,3 @@
-// Import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
 import "monaco-editor/esm/vs/editor/editor.all";
 import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
@@ -148,7 +147,7 @@ const monacoContribution = async (
   console.log("Trying to deal with eta");
   const extraLibs = localStorage && localStorage.getItem(codeSpace);
   if (extraLibs) {
-    console.log("Extralibs loading");
+    console.log("Extra libs are loading");
     const extraLibMap: { filePath: string; content: string }[] = JSON.parse(
       extraLibs,
     );
@@ -393,7 +392,7 @@ export const startMonaco = async (
   return returnValue;
 
   async function startMonacoPristine(
-    { code, container, name }: {
+    { code, container }: {
       code: string;
       container: HTMLDivElement;
       name: string;
@@ -671,14 +670,7 @@ export const startMonaco = async (
           //   languages.typescript.typescriptDefaults.setExtraLibs(
           //     JSON.parse(extraLibs),
           //   );
-          // } else {
-          // languages.typescript.typescriptDefaults
-          //   .setDiagnosticsOptions({
-          //     noSuggestionDiagnostics: true,
-          //     noSemanticValidation: true,
-          //     seyntaxValidation: true,
-          //   });
-          // }
+
           return x;
         }))
           .map((x) => {
