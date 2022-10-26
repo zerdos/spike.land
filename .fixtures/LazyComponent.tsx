@@ -119,7 +119,7 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
   );
 
   useEffect(() => {
-    const bc = new BroadcastChannel("spike.land");
+    const bc = new BroadcastChannel(location.origin);
 
     bc.onmessage = async (event) => {
       if (

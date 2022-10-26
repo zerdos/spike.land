@@ -32,12 +32,17 @@ async function update() {
   }
 }
 
+const mocks = {};
+
 const updateCacheNOW = debounce(update, 500);
 
 const updateCache = throttle(update, 60_000);
 
 const onactivate = async (event) => {
   console.log("activated");
+  if (event.data.type === "set-mock") {
+    mocks[event.data.filePath] = event.data.content;
+  }
   bc = new BroadcastChannel(location.origin);
   bc.onmessage = (e) => {
     console.log(e);
@@ -88,7 +93,16 @@ export async function wait(delay) {
 const onfetch = (event) => {
   updateCache();
   const url = new URL(event.request.url);
-
+  if (mocks[event.request.url]) {
+    return event.respondWith(
+      new Response(mocks[event.request.url], {
+        headers: {
+          "Content-type:": "application/x-typescript",
+        },
+      }),
+    );
+  }
+  mocks[event.request.url];
   const loc = url.pathname.slice(1);
 
   if (cache[loc]) {
