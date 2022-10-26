@@ -1,7 +1,6 @@
-"use strict";
+import { md5 } from "./js/md5";
 
 const bc = new BroadcastChannel(location.origin);
-
 const mocks = {};
 
 bc.onmessage = (event) => {
@@ -18,7 +17,12 @@ bc.onmessage = (event) => {
 //     }, delay);
 //   });
 // }
-self.addEventListener("fetch", (event) => {
+
+let lastChecked = 0;
+let cache;
+let cacheName = "default";
+self.addEventListener("fetch", async (event) => {
+  if (!cache) cache = await caches.open(cacheName);
   const url = new URL(event.request.url);
   if (url.href === "/mocks") {
     return event.respondWith(
@@ -31,11 +35,26 @@ self.addEventListener("fetch", (event) => {
     );
   }
 
+  if (Date.now() - lastChecked > 10_000) {
+    lastChecked = Date.now();
+    fetch(location.origin + "/files.json").then(files => files.ok && files.text()).then(content => md5(content)).then(
+      cn => (cn === cacheName || (cache = null) || (cacheName = cn)),
+    );
+  }
+
+  const cacheKey = new Request(event.request.url);
+  const cachedResp = await cache.match(cacheKey);
+
+  if (cachedResp) return cachedResp;
+
   if (mocks[event.request.url]) {
     return event.respondWith(
       new Response(mocks[event.request.url]),
     );
   }
+  const resp = await fetch(event.request);
 
-  return event.respondWith(fetch(event.request));
+  await cache.put(cacheKey, resp.clone());
+
+  return event.respondWith(resp);
 });
