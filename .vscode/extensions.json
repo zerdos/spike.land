@@ -6,7 +6,8 @@
     "unifiedjs.vscode-mdx",
     "xyc.vscode-mdx-preview",
     "styled-components.vscode-styled-components",
-    "arcanis.vscode-zipfs"
+    "arcanis.vscode-zipfs",
+    "dbaeumer.vscode-eslint"
   ],
   "unwantedRecommendations": []
 }

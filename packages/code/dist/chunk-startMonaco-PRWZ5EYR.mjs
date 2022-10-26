@@ -42104,6 +42104,7 @@ var monacoContribution = async (code) => {
       await fetch(extraModel).then(async (res) => res.text())
     );
   }
+  languages.typescript.typescriptDefaults.setEagerModelSync(true);
   return code;
 };
 self.MonacoEnvironment = {
@@ -42189,11 +42190,6 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     extraLibs && languages.typescript.typescriptDefaults.setExtraLibs(
       JSON.parse(extraLibs)
     );
-    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-      noSuggestionDiagnostics: false,
-      noSemanticValidation: false,
-      noSyntaxValidation: false
-    });
     const extraModelCache = {};
     const extraModels = {};
     Object.assign(globalThis, { extraModels, extraModelCache });
@@ -42250,7 +42246,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         }
       }
     };
-    let replaceMaps = {};
+    const replaceMaps = {};
     const ATA = async () => {
       console.log("ATA");
       const mappings = await (await Promise.all(
@@ -42259,11 +42255,6 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         )).getSemanticDiagnostics(
           model.uri.toString()
         ).then((x) => {
-          languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-            noSuggestionDiagnostics: true,
-            noSemanticValidation: true,
-            noSyntaxValidation: true
-          });
           return x;
         })).map((x) => {
           return x.messageText;
@@ -42298,12 +42289,18 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       maps.forEach((m) => Object.assign(replaceMaps, m));
       console.log({ replaceMaps });
       const extraLib = setExtraLibs();
-      languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-        noSuggestionDiagnostics: false,
-        noSemanticValidation: false,
-        noSyntaxValidation: false
-      });
-      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
+      extraLib.map(
+        (lib) => languages.typescript.typescriptDefaults.addExtraLib(
+          lib.content,
+          lib.filePath
+        )
+      );
+      const libs = languages.typescript.typescriptDefaults.getExtraLibs();
+      const extraLibsForSave = Object.keys(libs).map((lib) => ({
+        filePath: lib,
+        content: libs[lib]
+      }));
+      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
     };
     const setExtraLibs = () => {
       replaceMaps["/node_modules/"] = "/npm:/v96/";
