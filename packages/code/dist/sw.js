@@ -191,8 +191,8 @@
       );
     }
     const resp = await fetch(event.request);
-    if (resp.ok)
-      await cache.put(cacheKey, resp.clone());
+    if (resp.ok && cache)
+      await (cache == null ? void 0 : cache.put(cacheKey, resp.clone()));
     return event.respondWith(resp);
   });
 })();

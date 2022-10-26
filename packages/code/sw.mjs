@@ -54,7 +54,7 @@ self.addEventListener("fetch", async (event) => {
     );
   }
   const resp = await fetch(event.request);
-  if (resp.ok) await cache.put(cacheKey, resp.clone());
+  if (resp.ok && cache) await cache?.put(cacheKey, resp.clone());
 
   return event.respondWith(resp);
 });
