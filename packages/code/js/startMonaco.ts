@@ -285,7 +285,7 @@ const monacoContribution = async (
   //   //   console.error("Error in loading d.ts");
   //   // }
 
-  //   languages.typescript.typescriptDefaults.setEagerModelSync(true);
+  languages.typescript.typescriptDefaults.setEagerModelSync(true);
   // })();
 
   // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
@@ -509,12 +509,6 @@ export const startMonaco = async (
         JSON.parse(extraLibs),
       );
 
-    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-      noSuggestionDiagnostics: false,
-      noSemanticValidation: false,
-      noSyntaxValidation: false,
-    });
-
     const extraModelCache: { [key: string]: string } = {};
     const extraModels: { [key: string]: string[] } = {};
 
@@ -590,9 +584,7 @@ export const startMonaco = async (
         }
       }
     };
-
-    let replaceMaps: { [key: string]: string } = {};
-
+    const replaceMaps: { [key: string]: string } = {};
     const ATA = async () => {
       console.log("ATA");
       const mappings = await (await Promise.all(
@@ -607,12 +599,12 @@ export const startMonaco = async (
           //     JSON.parse(extraLibs),
           //   );
           // } else {
-          languages.typescript.typescriptDefaults
-            .setDiagnosticsOptions({
-              noSuggestionDiagnostics: true,
-              noSemanticValidation: true,
-              noSyntaxValidation: true,
-            });
+          // languages.typescript.typescriptDefaults
+          //   .setDiagnosticsOptions({
+          //     noSuggestionDiagnostics: true,
+          //     noSemanticValidation: true,
+          //     seyntaxValidation: true,
+          //   });
           // }
           return x;
         }))
@@ -669,15 +661,29 @@ export const startMonaco = async (
       console.log({ replaceMaps });
 
       const extraLib = setExtraLibs();
+      extraLib.map((lib) =>
+        languages.typescript.typescriptDefaults.addExtraLib(
+          lib.content,
+          lib.filePath,
+        )
+      );
 
-      languages.typescript.typescriptDefaults
-        .setDiagnosticsOptions({
-          noSuggestionDiagnostics: false,
-          noSemanticValidation: false,
-          noSyntaxValidation: false,
-        });
+      // languages.typescript.typescriptDefaults
+      //   .setDiagnosticsOptions({
+      //     noSuggestionDiagnostics: false,
+      //     noSemanticValidation: false,
+      //     noSyntaxValidation: false,
+      //   });
 
-      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLib));
+      const libs = languages.typescript.typescriptDefaults.getExtraLibs();
+
+      const extraLibsForSave = Object.keys(libs).map((lib) => ({
+        filePath: lib,
+        content: libs[lib],
+      }));
+
+      localStorage &&
+        localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
     };
 
     const setExtraLibs = () => {

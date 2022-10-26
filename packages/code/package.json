@@ -97,6 +97,7 @@
   "devDependencies": {
     "@libp2p/interfaces": "3.0.3",
     "@motionone/dom": "10.14.2",
+    "@types/eslint": "^8",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/is-callable": "1.1.0",
     "@types/lodash.debounce": "4.0.7",
@@ -106,6 +107,7 @@
     "@yarnpkg/sdks": "3.0.0-rc.26",
     "esbuild": "0.15.12",
     "esbuild-plugin-alias": "0.2.1",
+    "eslint": "^8.26.0",
     "fast-glob": "3.2.12",
     "popmotion": "11.0.5",
     "preact-render-to-string": "5.2.6",
