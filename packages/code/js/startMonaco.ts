@@ -14,6 +14,7 @@ import { getWorkerUrl } from "./monacoWorkers.mjs";
 // import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
 // const {createModel} = editor
 const create = editor.create;
+const bc = new BroadcastChannel(location.origin);
 // const languages = monaco.languages;
 const createModel = editor.createModel;
 // const Uri = monaco.Uri;
@@ -154,12 +155,7 @@ const monacoContribution = async (
 
     console.log({ extraLibMap });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibMap);
-    // extraLibMap.map((lib) =>
-    //   languages.typescript.typescriptDefaults.addExtraLib(
-    //     lib.content,
-    //     lib.filePath,
-    //   )
-    // );
+    extraLibMap.map((lib) => bc.postMessage({ ...lib, type: "set-mock" }));
     // console.log("ata is done");
   }
 
@@ -737,13 +733,14 @@ export const startMonaco = async (
       console.log({ replaceMaps });
 
       const extraLib = setExtraLibs();
-      extraLib.map((lib) =>
+      extraLib.map((lib) => {
         languages.typescript.typescriptDefaults.addExtraLib(
           lib.content,
           lib.filePath,
-        )
-      );
-
+        );
+        bc.postMessage({ ...lib, type: "set-mock" });
+      });
+      
       const libs = languages.typescript.typescriptDefaults.getExtraLibs();
 
       const extraLibsForSave = Object.keys(libs).map((lib) => ({

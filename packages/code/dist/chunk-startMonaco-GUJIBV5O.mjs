@@ -42025,6 +42025,7 @@ var getWorkerUrl = (_moduleId, label) => {
 
 // js/startMonaco.ts
 var create = editor.create;
+var bc = new BroadcastChannel(location.origin);
 var createModel = editor.createModel;
 var codeSpace = "";
 var originToUse = location.origin.includes("spike") ? location.origin : "https://testing.spike.land/";
@@ -42147,6 +42148,7 @@ var monacoContribution = async (code) => {
     );
     console.log({ extraLibMap });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibMap);
+    extraLibMap.map((lib2) => bc.postMessage({ ...lib2, type: "set-mock" }));
   }
   const regex1 = / from '\.\./gi;
   const regex2 = / from '\./gi;
@@ -42349,12 +42351,13 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       maps.forEach((m) => Object.assign(replaceMaps, m));
       console.log({ replaceMaps });
       const extraLib = setExtraLibs();
-      extraLib.map(
-        (lib2) => languages.typescript.typescriptDefaults.addExtraLib(
+      extraLib.map((lib2) => {
+        languages.typescript.typescriptDefaults.addExtraLib(
           lib2.content,
           lib2.filePath
-        )
-      );
+        );
+        bc.postMessage({ ...lib2, type: "set-mock" });
+      });
       const libs = languages.typescript.typescriptDefaults.getExtraLibs();
       const extraLibsForSave = Object.keys(libs).map((lib2) => ({
         filePath: lib2,

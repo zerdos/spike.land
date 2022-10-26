@@ -200,19 +200,19 @@ export const run = async (startState: {
 
 type NodeTimer = number;
 
-// (async (.) => {
-// if (navigator && navigator?.serviceWorker) {
-// navigator.serviceWorker.register("/sw.js", {
-// scope: "/",
-// });
-// const current = await navigator.serviceWorker.ready;
-// await sw();
+(async () => {
+  if (navigator && navigator?.serviceWorker) {
+    navigator.serviceWorker.register("/sw.js", {
+      scope: "/",
+    });
+    const current = await navigator.serviceWorker.ready;
+    await sw();
 
-// Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
-// if (current !== sw) sw.unregister();
-// }));
-// }
-// })();
+    Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
+      if (current !== sw) sw.unregister();
+    }));
+  }
+})();
 let intervalHandler: NodeTimer | null = null;
 
 async function rejoin() {

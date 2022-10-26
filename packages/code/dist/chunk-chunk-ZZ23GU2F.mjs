@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-YTITR6E2.mjs";
+} from "./chunk-chunk-UQCJ7KMU.mjs";
 import {
   applyPatch,
   hashCode,
@@ -732,6 +732,19 @@ var run = async (startState) => {
     "broadcast"
   );
 };
+(async () => {
+  if (navigator && (navigator == null ? void 0 : navigator.serviceWorker)) {
+    navigator.serviceWorker.register("/sw.js", {
+      scope: "/"
+    });
+    const current = await navigator.serviceWorker.ready;
+    await sw();
+    Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw2) => {
+      if (current !== sw2)
+        sw2.unregister();
+    }));
+  }
+})();
 var intervalHandler = null;
 async function rejoin() {
   if (!rejoined || ws === null) {
