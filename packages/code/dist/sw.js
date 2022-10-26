@@ -160,10 +160,13 @@
   };
   var lastChecked = 0;
   var cache;
-  var cacheName = "default";
+  var cacheName;
+  var getCacheName = /* @__PURE__ */ __name(() => fetch(location.origin + "/files.json").then((files) => files.ok && files.text()).then((content) => md5(content)).then(
+    (cn) => cn === cacheName || (cache = null) || (cacheName = cn)
+  ), "getCacheName");
   self.addEventListener("fetch", async (event) => {
     if (!cache)
-      cache = await caches.open(cacheName);
+      cache = await caches.open(await getCacheName());
     const url = new URL(event.request.url);
     if (url.href === "/mocks") {
       return event.respondWith(
@@ -177,9 +180,6 @@
     }
     if (Date.now() - lastChecked > 1e4) {
       lastChecked = Date.now();
-      fetch(location.origin + "/files.json").then((files) => files.ok && files.text()).then((content) => md5(content)).then(
-        (cn) => cn === cacheName || (cache = null) || (cacheName = cn)
-      );
     }
     const cacheKey = new Request(event.request.url);
     const cachedResp = await cache.match(cacheKey);
@@ -191,7 +191,8 @@
       );
     }
     const resp = await fetch(event.request);
-    await cache.put(cacheKey, resp.clone());
+    if (resp.ok)
+      await cache.put(cacheKey, resp.clone());
     return event.respondWith(resp);
   });
 })();

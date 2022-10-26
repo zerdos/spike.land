@@ -20,9 +20,13 @@ bc.onmessage = (event) => {
 
 let lastChecked = 0;
 let cache;
-let cacheName = "default";
+let cacheName;
+let getCacheName = () =>
+  fetch(location.origin + "/files.json").then(files => files.ok && files.text()).then(content => md5(content)).then(
+    cn => (cn === cacheName || (cache = null) || (cacheName = cn)),
+  );
 self.addEventListener("fetch", async (event) => {
-  if (!cache) cache = await caches.open(cacheName);
+  if (!cache) cache = await caches.open(await getCacheName());
   const url = new URL(event.request.url);
   if (url.href === "/mocks") {
     return event.respondWith(
@@ -37,9 +41,6 @@ self.addEventListener("fetch", async (event) => {
 
   if (Date.now() - lastChecked > 10_000) {
     lastChecked = Date.now();
-    fetch(location.origin + "/files.json").then(files => files.ok && files.text()).then(content => md5(content)).then(
-      cn => (cn === cacheName || (cache = null) || (cacheName = cn)),
-    );
   }
 
   const cacheKey = new Request(event.request.url);
@@ -53,7 +54,7 @@ self.addEventListener("fetch", async (event) => {
     );
   }
   const resp = await fetch(event.request);
-  if (resp.ok)  await cache.put(cacheKey, resp.clone());
+  if (resp.ok) await cache.put(cacheKey, resp.clone());
 
   return event.respondWith(resp);
 });
