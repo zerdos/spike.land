@@ -42119,7 +42119,7 @@ var monacoContribution = async (code) => {
     declaration: true,
     useDefineForClassFields: true,
     composite: true,
-    module: languages.typescript.ModuleKind.ESNext,
+    module: languages.typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
     sourceMap: true,
     mapRoot: originToUse + "/src/sourcemaps",
@@ -42141,7 +42141,7 @@ var monacoContribution = async (code) => {
       originToUse + "/unpkg:/"
     ],
     jsxImportSource: "@emotion/react",
-    jsx: languages.typescript.JsxEmit.ReactJSXDev,
+    jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     include: [originToUse + "/node_modules"]
   });
