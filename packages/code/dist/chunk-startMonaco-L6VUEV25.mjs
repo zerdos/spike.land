@@ -42124,6 +42124,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     const replaced = await monacoContribution(
       code2
     );
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSuggestionDiagnostics: true,
+      noSemanticValidation: true,
+      noSyntaxValidation: true
+    });
     const model = createModel(
       replaced,
       "typescript",
@@ -42190,6 +42195,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     extraLibs && languages.typescript.typescriptDefaults.setExtraLibs(
       JSON.parse(extraLibs)
     );
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSuggestionDiagnostics: false,
+      noSemanticValidation: false,
+      noSyntaxValidation: false
+    });
     const extraModelCache = {};
     const extraModels = {};
     Object.assign(globalThis, { extraModels, extraModelCache });
