@@ -1,12 +1,12 @@
 // Import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
 import "monaco-editor/esm/vs/editor/editor.all";
+import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
-import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 
 // import "monaco-editor/min/vs/basic-languages/typescript/typescript";
 // import "monaco-editor/min/vs/language/typescript/tsMode";
-//import { setupTypeAcquisition } from "@typescript/ata";
+// import { setupTypeAcquisition } from "@typescript/ata";
 // import pMap from "p-map";
 
 import { getWorkerUrl } from "./monacoWorkers.mjs";
@@ -38,8 +38,9 @@ const monacoContribution = async (
     lib: [
       "DOM",
       "DOM.Iterable",
-      "es2022",
-      "ESNext.Promise",
+      "es5",
+      "es6",
+      "ESNext.String",
       "esnext",
     ],
     allowJs: true,
@@ -509,12 +510,23 @@ export const startMonaco = async (
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace",
     });
+    console.log("Trying to deal with eta");
     const extraLibs = localStorage && localStorage.getItem(codeSpace);
-
-    extraLibs &&
-      languages.typescript.typescriptDefaults.setExtraLibs(
-        JSON.parse(extraLibs),
+    if (extraLibs) {
+      console.log("Extralibs loading");
+      const extraLibMap: { filePath: string; content: string }[] = JSON.parse(
+        extraLibs,
       );
+
+      console.log({ extraLibMap });
+      extraLibMap.map((lib) =>
+        languages.typescript.typescriptDefaults.addExtraLib(
+          lib.content,
+          lib.filePath,
+        )
+      );
+      console.log("ata is done");
+    }
 
     languages.typescript.typescriptDefaults
       .setDiagnosticsOptions({
@@ -564,7 +576,7 @@ export const startMonaco = async (
           if (!match[0].includes("spike.land")) continue;
           if (dts === -1) continue;
 
-          const extraModel = match[0].slice(0, dts + 5); //(new URL(match[0].slice(7).slice(0, -1)))
+          const extraModel = match[0].slice(0, dts + 5); // (new URL(match[0].slice(7).slice(0, -1)))
           //            .toString();
           if (extraModels[url].includes(extraModel)) continue;
 
@@ -626,26 +638,25 @@ export const startMonaco = async (
             //   console.log(x.messageText);
             return x.messageText;
           }).filter((x) =>
-            typeof x === "string" &&
-            x.includes(" or its corresponding type declarations.")
+            typeof x === "string"
+            && x.includes(" or its corresponding type declarations.")
           )
           .map((x) => typeof x === "string" && x.split!("'")[1]).map(
             async (mod) => {
               const retMod = { url: "", mod: mod, content: "" };
-              retMod.content =
-                (await fetch("/npm:/" + mod).then((resp) =>
-                  resp.status === 307
-                    ? fetch(resp.headers.get("location")!)
+              retMod.content = (await fetch("/npm:/" + mod).then((resp) =>
+                resp.status === 307
+                  ? fetch(resp.headers.get("location")!)
+                  : resp
+              ).then((x) => {
+                retMod.url = x.headers.get("x-dts")!;
+                console.log(retMod.url);
+                return fetch(retMod.url).then((resp) =>
+                  resp.status === 307 || resp.redirected
+                    ? fetch(retMod.url = resp.url)
                     : resp
-                ).then((x) => {
-                  retMod.url = x.headers.get("x-dts")!;
-                  console.log(retMod.url);
-                  return fetch(retMod.url).then((resp) =>
-                    resp.status === 307 || resp.redirected
-                      ? fetch(retMod.url = resp.url)
-                      : resp
-                  ).then((resp) => resp.text());
-                }).catch(() => "")) || "";
+                ).then((resp) => resp.text());
+              }).catch(() => "")) || "";
 
               return retMod;
             },
@@ -686,11 +697,11 @@ export const startMonaco = async (
 
       const extraLibsForSave = Object.keys(libs).map((lib) => ({
         filePath: lib,
-        content: libs[lib],
+        content: libs[lib].content,
       }));
 
-      localStorage &&
-        localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
+      localStorage
+        && localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
     };
 
     const setExtraLibs = () => {
@@ -739,9 +750,7 @@ export const startMonaco = async (
       languages,
       silent: false,
       code,
-      tsWorker: languages.typescript.getTypeScriptWorker().then((ts) =>
-        ts(model.uri)
-      ).catch((e) => {
+      tsWorker: languages.typescript.getTypeScriptWorker().then((ts) => ts(model.uri)).catch((e) => {
         console.log("ts error, will retry", e);
       }),
     };
@@ -802,7 +811,7 @@ function removeComments(str: string) {
 
   // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
   /\/\*.*?\*\//gi;
-  //Takes a string of code, not an actual function.
+  // Takes a string of code, not an actual function.
   return str.replaceAll(regex, ``).split(`\n`).filter((x) =>
     x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
   ).join(`\n`);

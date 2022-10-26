@@ -1,13 +1,13 @@
 import importUmd from "iumd.mjs";
 
-//@ts-expect-error
+// @ts-expect-error
 import { libp2pConfig } from "/npm:ipfs-core-config/src/libp2p.browser.js";
 
-//@ts-expect-error
+// @ts-expect-error
 import { routers } from "/npm:ipfs-core-config/src/libp2p-pubsub-routers.browser.js";
 
 export const startIpfs = async (codeSpace: string) => {
-  //@ts-expect-error
+  // @ts-expect-error
   const { create } = await importUmd(
     "https://unpkg.com/ipfs-core@0.16.1/dist/index.min.js",
   );
@@ -128,8 +128,7 @@ export const startIpfs = async (codeSpace: string) => {
 
   console.log(`subscribed to ${topic}`);
 
-  const send = async (data: string) =>
-    ipfs.pubsub.publish(topic, new TextEncoder().encode(data));
+  const send = async (data: string) => ipfs.pubsub.publish(topic, new TextEncoder().encode(data));
   const cat = async (cid: string) => {
     const stream = ipfs.cat(cid);
     Object.assign(globalThis, { send, cat });

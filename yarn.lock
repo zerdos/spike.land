@@ -943,7 +943,7 @@ __metadata:
     "@libp2p/interfaces": "npm:3.0.3"
     "@motionone/dom": "npm:10.14.2"
     "@mui/material": "npm:5.10.11"
-    "@types/eslint": "npm:^8"
+    "@types/eslint": "npm:^8.4.8"
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/is-callable": "npm:1.1.0"
     "@types/lodash.debounce": "npm:4.0.7"
@@ -1055,12 +1055,13 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:^11.10.4"
     "@playwright/test": "npm:1.27.1"
-    "@types/eslint": "npm:^8"
+    "@types/eslint": "npm:^8.4.8"
     "@types/react": "npm:18.0.23"
     "@types/react-dom": "npm:18.0.7"
     "@typescript-eslint/eslint-plugin": "npm:^5.41.0"
     "@typescript-eslint/parser": "npm:^5.41.0"
     "@yarnpkg/sdks": "npm:3.0.0-rc.26"
+    dprint: "npm:^0.32.2"
     eslint: "npm:^8.26.0"
     eslint-plugin-react: "npm:^7.31.10"
     playwright: "npm:1.27.1"
@@ -1120,7 +1121,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^8":
+"@types/eslint@npm:^8.4.8":
   version: 8.4.8
   resolution: "@types/eslint@npm:8.4.8"
   dependencies:
@@ -1885,6 +1886,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"buffer-crc32@npm:~0.2.3":
+  version: 0.2.13
+  resolution: "buffer-crc32@npm:0.2.13"
+  checksum: 73cebf807d2cb038816676b12900f9c58ca29a4ab4c9ceedd40c0ced55c8da1f74d2b5ee526d5c2a1c17af72129350a2b6c427b420548dc779b3c88edf6829b6
+  languageName: node
+  linkType: hard
+
 "buffer-from@npm:^1.0.0":
   version: 1.1.2
   resolution: "buffer-from@npm:1.1.2"
@@ -2438,6 +2446,17 @@ __metadata:
   version: 10.0.0
   resolution: "dotenv@npm:10.0.0"
   checksum: b05c5dcae77bd3be9f08af019a4225c4a6b884bce1a6a2571a6883ed51c2f0d6a79ff92491013c63b01642aa703eeb6583c57ee88159c4d600708b9d251c0b78
+  languageName: node
+  linkType: hard
+
+"dprint@npm:^0.32.2":
+  version: 0.32.2
+  resolution: "dprint@npm:0.32.2"
+  dependencies:
+    yauzl: "npm:=2.10.0"
+  bin:
+    dprint: bin.js
+  checksum: cdc540be42687d5c4950ef314d023d49eb7770bd4c89753c1116ac3a9cb1194945acf5f54df962a7789860f8a70684ef99619297a97785a52b06734c84441d7b
   languageName: node
   linkType: hard
 
@@ -3333,6 +3352,15 @@ __metadata:
   dependencies:
     reusify: "npm:^1.0.4"
   checksum: 150b77dcf0d1e023aaed9bb5f9789f9c8828497fa44b050ba79b039798aeee6c4bcab7e533b5bacb6476811ca9c0eb7f1d021fd7ff8da54f67e3db9b35efd84c
+  languageName: node
+  linkType: hard
+
+"fd-slicer@npm:~1.1.0":
+  version: 1.1.0
+  resolution: "fd-slicer@npm:1.1.0"
+  dependencies:
+    pend: "npm:~1.2.0"
+  checksum: 5a21150eebc8a6fd2c9ef0627295b278710f5f837d183652727c913474baf4032971d0259098cb0696c3e62feacafa4d107f5ebd8db5a310dc1945e4bf25a157
   languageName: node
   linkType: hard
 
@@ -4571,7 +4599,7 @@ __metadata:
 "monaco-editor@npm:0.34.1":
   version: 0.34.1
   resolution: "monaco-editor@npm:0.34.1"
-  checksum: 7116f6db982e81965f5513cc7365de9f11f3ec771002c8c9cc57d316b127e06aa821f397b01ea2e1f8d9cbfca56f8d2a0def1022d26224c60b7fa937bc08dfad
+  checksum: 97e36072f880b61113919eb02b155a7895dc6db0dc6da8953a5f2ecc6f50795f10aff87ebf8c3bc59c0927604aa66ccb93bb90a3ea2695b79736639f91adde23
   languageName: node
   linkType: hard
 
@@ -5016,6 +5044,13 @@ __metadata:
   version: 4.0.0
   resolution: "path-type@npm:4.0.0"
   checksum: 6a9330ad8d96f31e929feb414cde2959078379ba5a48c9e3eab34f280d7850eec6a0fa3ed5be9150e9e4d7df5139c1ae92f891b18167528553a11382d8f54183
+  languageName: node
+  linkType: hard
+
+"pend@npm:~1.2.0":
+  version: 1.2.0
+  resolution: "pend@npm:1.2.0"
+  checksum: 623fcbe4b1536d3fe615723cef6e5d937787b44963ee0318efc77534de3224b3b8fa126785ae42dc01459f09ade3d42eac63f68850dd00a1105189493f2227f3
   languageName: node
   linkType: hard
 
@@ -6293,6 +6328,16 @@ __metadata:
   version: 1.10.2
   resolution: "yaml@npm:1.10.2"
   checksum: d6f04384bdf1105256581aef39991f825e358f3f48f081974b0e0f39ff5240c60ccafb5842cb79d1287517efa2b9ee172c702f2e4855ba6cc46948b40a43aa6e
+  languageName: node
+  linkType: hard
+
+"yauzl@npm:=2.10.0":
+  version: 2.10.0
+  resolution: "yauzl@npm:2.10.0"
+  dependencies:
+    buffer-crc32: "npm:~0.2.3"
+    fd-slicer: "npm:~1.1.0"
+  checksum: 760a176211c7380f1c62160406dc2b9e1273515c06adef9b52139bf8258b993fbd01dec121b7464204abc8b4735e2a82f746a28c486bf4847b61e39034bed512
   languageName: node
   linkType: hard
 

@@ -1,9 +1,9 @@
 export const {
-  //@ts-ignore
+  // @ts-ignore
   __unsafe_useEmotionCache,
   CacheProvider,
   ClassNames,
-  //@ts-ignore
+  // @ts-ignore
   createElement,
   css,
   Global,

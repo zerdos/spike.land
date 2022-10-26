@@ -1,20 +1,14 @@
 import { css } from "@emotion/react";
+import { domAnimation, domMax, LazyMotion, m, MotionConfig } from "framer-motion";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
-import {
-  domAnimation,
-  domMax,
-  LazyMotion,
-  m,
-  MotionConfig,
-} from "framer-motion";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr";
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
-import { Phone, Share, Tablet, Tv } from "./icons";
 import { sendChannel, startVideo } from "ws";
+import { Phone, Share, Tablet, Tv } from "./icons";
 
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
@@ -121,8 +115,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     .slice(0, 4)
     .map((x) => Number(x) || 0);
 
-  const rgba = (r: number, g: number, b: number, a: number) =>
-    `rgba(${r},${g},${b},${a})`;
+  const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r},${g},${b},${a})`;
 
   const [bg, setBG] = useState(bgColor);
 
@@ -149,10 +142,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     setClients([...Object.keys(sendChannel.rtcConns)]);
   }, [sendChannel.webRtcArray.length, setClients]);
 
-  const delay: number =
-    sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
-  const duration =
-    sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
+  const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
+  const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return (

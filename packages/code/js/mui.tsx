@@ -2,15 +2,11 @@
 // export {default as ToggleButtonGroup} from "@mui/material/ToggleButtonGroup/ToggleButtonGroup"
 // export {default as ToggleButton} from "@mui/material/ToggleButton/ToggleButton"
 
+import { css } from "@emotion/react";
 import type { FC } from "react";
 import { lazy, Suspense } from "react";
-import { css } from "@emotion/react";
 
-import type {
-  FabProps,
-  ToggleButtonGroupProps,
-  ToggleButtonProps,
-} from "@mui/material";
+import type { FabProps, ToggleButtonGroupProps, ToggleButtonProps } from "@mui/material";
 // Import type{ ReactNode } from "react";
 //
 //   const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
@@ -30,9 +26,7 @@ export const ToggleButton: FC<ToggleButtonProps> = (props) => (
   </Suspense>
 );
 
-const ToggleButtonGroupLazy = lazy(async () =>
-  import("@mui/material/ToggleButtonGroup")
-);
+const ToggleButtonGroupLazy = lazy(async () => import("@mui/material/ToggleButtonGroup"));
 export const ToggleButtonGroup: FC<ToggleButtonGroupProps> = (props) => (
   <Suspense fallback={<div css={css`width: 28px; height:28px`} />}>
     <ToggleButtonGroupLazy {...props} />

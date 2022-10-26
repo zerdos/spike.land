@@ -11,8 +11,7 @@ interface ILaztCom {
   startApp: FC<{ children: React.ReactNode }>;
 }
 
-const LazyComponentInit = (transpiled: string) =>
-  lazy(async () => import(createJsBlob(transpiled)));
+const LazyComponentInit = (transpiled: string) => lazy(async () => import(createJsBlob(transpiled)));
 
 export const LazySpikeLandComponent: FC<ILaztCom> = ({
   name,
@@ -22,9 +21,8 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   startApp,
   children,
 }) => {
-  const st = ( hashCode: string, html: string, css: string) => ({
-    htmlContent:
-      `<div><style>${css}</style><div id="z-body">xxxxxxxx${html}</div></div>`,
+  const st = (hashCode: string, html: string, css: string) => ({
+    htmlContent: `<div><style>${css}</style><div id="z-body">xxxxxxxx${html}</div></div>`,
     hashCode,
   });
 
@@ -54,9 +52,7 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   return (
     <Suspense
       key={hashCode}
-      fallback={
-        <div dangerouslySetInnerHTML={{ __html: "bpo" + htmlContent }}></div>
-      }
+      fallback={<div dangerouslySetInnerHTML={{ __html: "bpo" + htmlContent }}></div>}
     >
       <LazyComponent key={hashCode}>
         <>{children}</>
@@ -126,10 +122,9 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
     const bc = new BroadcastChannel("spike.land");
 
     bc.onmessage = async (event) => {
-     
       if (
-        event.data.roomName === room &&
-        event.data.sess.transpiled !== transpiled
+        event.data.roomName === room
+        && event.data.sess.transpiled !== transpiled
       ) {
         const { transpiled, css, html } = event.data.sess;
         const hashCode = event.data.hashCode as number;

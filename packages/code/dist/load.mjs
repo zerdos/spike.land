@@ -29324,8 +29324,9 @@ var runtime = () => {
 };
 
 // js/load.ts
+var _a;
 importShim.addImportMap(
-  JSON.parse(document.querySelector("script[type=importmap]")?.innerHTML)
+  JSON.parse((_a = document.querySelector("script[type=importmap]")) == null ? void 0 : _a.innerHTML)
 );
 var codeSpace = location.pathname.slice(1).split("/")[1];
 runtime();

@@ -34,7 +34,7 @@
     "build:orbit-db": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
     "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs",
     "prebuild": "yarn test || echo FAILED",
-    "build": "rm -rf dist js/monaco-workers && deno fmt . && yarn favicons && yarn es:build",
+    "build": "rm -rf dist js/monaco-workers && yarn favicons && yarn es:build",
     "es:build": "yarn test && node esbuild-dev.mjs",
     "favicons": "cp -af js/assets/ ./dist && mkdir -p  ./dist/assets && cp js/assets/synthwave.webp   ./dist/assets/",
     "sw": "echo ok"
@@ -97,7 +97,7 @@
   "devDependencies": {
     "@libp2p/interfaces": "3.0.3",
     "@motionone/dom": "10.14.2",
-    "@types/eslint": "^8",
+    "@types/eslint": "^8.4.8",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/is-callable": "1.1.0",
     "@types/lodash.debounce": "4.0.7",

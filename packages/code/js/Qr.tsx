@@ -4,8 +4,8 @@ import { motion as m } from "framer-motion";
 import type { FC } from "react";
 import { useState } from "react";
 
-import { QrCodeIcon } from "./icons";
 import { QRious } from "react-qrious";
+import { QrCodeIcon } from "./icons";
 
 import { Fab } from "./mui";
 

@@ -1,35 +1,28 @@
 import { test } from "uvu";
 import * as assert from "uvu/assert";
 
-import {
-  applyPatch,
-  hashCode,
-  makePatch,
-  md5,
-  mST,
-  startSession,
-} from "../js/session";
+import { applyPatch, hashCode, makePatch, md5, mST, startSession } from "../js/session";
 
 const state1 = {
   code: "export default () => <h1>Hello</h1>",
   transpiled: "//ffcbbaae",
   i: 33,
   css: "",
-  html: '<h1 id="1c86ccc0"></h1>',
+  html: "<h1 id=\"1c86ccc0\"></h1>",
 };
 const state2 = {
   code: "export default () => <h1>World</h1>",
   transpiled: "//ffcbbaae",
   i: 33,
   css: "",
-  html: '<h1 id="1c86ccc0"></h1>',
+  html: "<h1 id=\"1c86ccc0\"></h1>",
 };
 const state3 = {
   code: "export default () => <h1>World</h1>",
   transpiled: "//ffcbbaae",
   i: 34,
   css: "",
-  html: '<h1 id="1c86ccc0"></h1>',
+  html: "<h1 id=\"1c86ccc0\"></h1>",
 };
 
 let hash1 = "";

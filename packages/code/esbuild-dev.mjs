@@ -1,16 +1,16 @@
 // Import inlineWorkerPlugin from 'esbuild-plugin-inline-worker';
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
+import esbuild from "esbuild";
 import fs from "node:fs/promises";
 import { resolve } from "node:path";
-import esbuild from "esbuild";
-//import open from "open";
-//import fetch from "node-fetch";
+// import open from "open";
+// import fetch from "node-fetch";
 // Const { request } = require("http");
 // require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
 import aliasPlugin from "esbuild-plugin-alias";
-//import { wait } from "./js/wait.mjs";
+// import { wait } from "./js/wait.mjs";
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -19,7 +19,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
-const target = "esNext";
+const target = "es2018";
 
 console.log(`
 -------------------------------------------------
@@ -34,7 +34,7 @@ const define = {
   "process.env.DEBUG": JSON.stringify(false),
   "isBrowser": JSON.stringify(true),
   "isJest": JSON.stringify(false),
-  "process.env.version": '"1.1.1"',
+  "process.env.version": "\"1.1.1\"",
   global: "globalThis",
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
@@ -153,10 +153,10 @@ const build = (entryPoints, extraExternal) =>
     bundle: true,
     define,
     treeShaking: true,
-    minify: true, //! isDevelopment,
-    minifyWhitespace: true, //! isDevelopment,
-    minifyIdentifiers: true, //! isDevelopment,
-    minifySyntax: true, //! isDevelopment,
+    minify: true, // ! isDevelopment,
+    minifyWhitespace: true, // ! isDevelopment,
+    minifyIdentifiers: true, // ! isDevelopment,
+    minifySyntax: true, // ! isDevelopment,
     ignoreAnnotations: true,
     keepNames: false,
     platform: "browser",

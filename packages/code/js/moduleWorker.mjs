@@ -9,9 +9,7 @@ export const wrkModuleImport = (src, exp = ["default"]) => {
   const worker = new Worker(
     createJsBlob(
       `
-    import {Comlink} from "${
-        new URL("moduleWorker.mjs", location.origin).toString()
-      }"
+    import {Comlink} from "${new URL("moduleWorker.mjs", location.origin).toString()}"
     import {${exp.join(", ")}} from ${new URL(src, location.origin).toString()};
     const workerMods = { ${exp.join(",")} };
 console.log({workerMods})

@@ -1,4 +1,4 @@
-import "./chunk-chunk-X2OA645O.mjs";
+import "./chunk-chunk-QOLPC3OJ.mjs";
 import {
   $,
   Action,
@@ -41938,11 +41938,6 @@ var LazyLanguageLoader = class {
     }
     return lazyLanguageLoaders[languageId];
   }
-  _languageId;
-  _loadingTriggered;
-  _lazyLoadPromise;
-  _lazyLoadPromiseResolve;
-  _lazyLoadPromiseReject;
   constructor(languageId) {
     this._languageId = languageId;
     this._loadingTriggered = false;
@@ -41996,11 +41991,8 @@ registerLanguage({
 // js/monacoWorkers.mjs
 init_define_process();
 
-// js/monaco-workers/language/typescript/ts.workerJs.js
-var ts_workerJs_default = "./chunk-ts.workerJs-WHHQVOGL.js";
-
-// js/monaco-workers/language/json/json.workerJs.js
-var json_workerJs_default = "./chunk-json.workerJs-DWIESG6I.js";
+// js/monaco-workers/editor/editor.workerJs.js
+var editor_workerJs_default = "./chunk-editor.workerJs-MVUVYYMA.js";
 
 // js/monaco-workers/language/css/css.workerJs.js
 var css_workerJs_default = "./chunk-css.workerJs-BSFAE3OB.js";
@@ -42008,8 +42000,11 @@ var css_workerJs_default = "./chunk-css.workerJs-BSFAE3OB.js";
 // js/monaco-workers/language/html/html.workerJs.js
 var html_workerJs_default = "./chunk-html.workerJs-QQ4U5JMH.js";
 
-// js/monaco-workers/editor/editor.workerJs.js
-var editor_workerJs_default = "./chunk-editor.workerJs-MVUVYYMA.js";
+// js/monaco-workers/language/json/json.workerJs.js
+var json_workerJs_default = "./chunk-json.workerJs-DWIESG6I.js";
+
+// js/monaco-workers/language/typescript/ts.workerJs.js
+var ts_workerJs_default = "./chunk-ts.workerJs-WHHQVOGL.js";
 
 // js/monacoWorkers.mjs
 var getWorkerUrl = (_moduleId, label) => {
@@ -42042,8 +42037,9 @@ var monacoContribution = async (code) => {
     lib: [
       "DOM",
       "DOM.Iterable",
-      "es2022",
-      "ESNext.Promise",
+      "es5",
+      "es6",
+      "ESNext.String",
       "esnext"
     ],
     allowJs: true,
@@ -42191,10 +42187,22 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace"
     });
+    console.log("Trying to deal with eta");
     const extraLibs = localStorage && localStorage.getItem(codeSpace);
-    extraLibs && languages.typescript.typescriptDefaults.setExtraLibs(
-      JSON.parse(extraLibs)
-    );
+    if (extraLibs) {
+      console.log("Extralibs loading");
+      const extraLibMap = JSON.parse(
+        extraLibs
+      );
+      console.log({ extraLibMap });
+      extraLibMap.map(
+        (lib) => languages.typescript.typescriptDefaults.addExtraLib(
+          lib.content,
+          lib.filePath
+        )
+      );
+      console.log("ata is done");
+    }
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
@@ -42308,7 +42316,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       const libs = languages.typescript.typescriptDefaults.getExtraLibs();
       const extraLibsForSave = Object.keys(libs).map((lib) => ({
         filePath: lib,
-        content: libs[lib]
+        content: libs[lib].content
       }));
       localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
     };
@@ -42348,9 +42356,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       languages,
       silent: false,
       code: code2,
-      tsWorker: languages.typescript.getTypeScriptWorker().then(
-        (ts) => ts(model.uri)
-      ).catch((e) => {
+      tsWorker: languages.typescript.getTypeScriptWorker().then((ts) => ts(model.uri)).catch((e) => {
         console.log("ts error, will retry", e);
       })
     };
@@ -42369,7 +42375,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       getValue: () => mod2.code,
       getErrors: () => {
         return mod2.tsWorker.then(
-          (ts) => ts?.getSemanticDiagnostics(
+          (ts) => ts == null ? void 0 : ts.getSemanticDiagnostics(
             originToUse + "/live/" + codeSpace + ".tsx"
           ).then((diag) => diag.map((d) => d.messageText.toString()))
         );
@@ -42379,7 +42385,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         let state = null;
         try {
           state = editor2.saveViewState();
-        } catch {
+        } catch (e) {
           console.error("error while saving the state");
         }
         model.setValue(code3);

@@ -1,16 +1,12 @@
 import { expect, test } from "@playwright/test";
 
-
 const RCA = fetch("https://testing.spike.land/live/rca/index.tsx").then(
-    (res) => res.text(),
-  ).then(x=>x.split("\n").map((x) => x.trim()).join("\n "));
-
-
+  (res) => res.text(),
+).then(x => x.split("\n").map((x) => x.trim()).join("\n "));
 
 test("basic test", async ({ page }) => {
   await page.goto("https://testing.spike.land");
   await wait(5500);
-
 
   await expect(page).toHaveURL("https://testing.spike.land/live/coder ");
 
@@ -21,9 +17,7 @@ test("screens test", async ({ page }) => {
   await page.goto("https://testing.spike.land/live/pwtest1");
   await wait(500);
 
-  
   await expect(page).toHaveURL("https://testing.spike.land/live/pwtest1");
-
 
   const editor = page.locator("[data-test-id=editor]");
 
@@ -31,9 +25,9 @@ test("screens test", async ({ page }) => {
   await editor.dblclick();
   await page.keyboard.press("Control+A");
   await page.keyboard.press("Delete");
-  await wait(1000)
+  await wait(1000);
   await editor.type(`export default () => <header css=""> ${message} </header>;`);
-await wait(1500)
+  await wait(1500);
   await expect(page.locator("[data-test-id=z-body]")).toHaveText(message, {
     timeout: 1000,
   });
@@ -43,7 +37,6 @@ test("rca test", async ({ page }) => {
   await page.goto("https://testing.spike.land/live/pwtest2");
 
   await wait(500);
-
 
   await expect(page).toHaveURL("https://testing.spike.land/live/pwtest2");
 
@@ -60,7 +53,7 @@ test("rca test", async ({ page }) => {
   </div>
   `);
 
-  await wait(1500)
+  await wait(1500);
 
   await expect(page.locator("[data-test-id=z-body]")).toHaveText("Hello", {
     timeout: 1000,

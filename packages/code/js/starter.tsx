@@ -3,20 +3,19 @@ import { useEffect, useState } from "react";
 // import {terminal} from "./DraggableWindow"
 import { ErrorBoundary } from "react-error-boundary";
 
-import { mST, onSessionUpdate } from "./session";
-import { md5 } from "./md5.js";
-import { CacheProvider, css } from "@emotion/react";
 import type { EmotionCache } from "@emotion/cache";
-import createCache from "./emotionCache";
+import { CacheProvider, css } from "@emotion/react";
 import { renderPreviewWindow } from "renderPreviewWindow";
+import createCache from "./emotionCache";
+import { md5 } from "./md5.js";
+import { mST, onSessionUpdate } from "./session";
 
 // import { CacheProvider } from "@emotion/react// import createCache from "@emotion/cache";
 // import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
 
-const dynamicImport = (src: string) =>
-  window.importShim ? window.importShim(src) : import(src);
+const dynamicImport = (src: string) => window.importShim ? window.importShim(src) : import(src);
 
 // const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache};
 
@@ -34,7 +33,7 @@ export const { apps, eCaches } = (globalThis as unknown as {
 // key: "z",
 // });
 
-//const render: Record<string, { html: string; css: string }> = {};
+// const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
@@ -95,7 +94,7 @@ export async function appFactory(
   transpiled = "",
   codeSpace?: string,
 ): Promise<FC<{ appId: string }>> {
-  //}
+  // }
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
 

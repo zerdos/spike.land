@@ -1,13 +1,13 @@
 import type { FC } from "react";
 import { useRef } from "react";
-import { runner } from "./runner";
 import React from "react";
+import { runner } from "./runner";
 
 // Import type FC from "react"
 import { css } from "@emotion/react";
-import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 import { prettierJs } from "./prettierEsm";
+import { mST, onSessionUpdate } from "./session";
 // /Volumes/devX/spike.land/packages/code/js/prettierJs.ts
 // import {wrkModuleImport} from "./moduleWorker.mjs"
 
@@ -78,9 +78,7 @@ export const Editor: FC<
       return;
     }
 
-    (engine === "monaco" ? setMonaco() : setAce()).then((res) =>
-      Object.assign(mod, res)
-    ).then(() =>
+    (engine === "monaco" ? setMonaco() : setAce()).then((res) => Object.assign(mod, res)).then(() =>
       changeContent((x: typeof mySession) => ({ ...x, started: true }))
     );
   }, [started, ref]);

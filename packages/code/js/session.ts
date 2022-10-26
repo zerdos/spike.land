@@ -194,23 +194,21 @@ export class CodeSession implements ICodeSess {
 
   patchSync = (sess: ICodeSession) => {
     if (
-      sess.code !== this.session.get("state").code &&
-      sess.i <= this.session.get("state").i
+      sess.code !== this.session.get("state").code
+      && sess.i <= this.session.get("state").i
     ) throw new Error("Code update without I update error");
 
     if (sess.i < this.session.get("state").i) {
       throw new Error("never going back!");
     }
     if (
-      sess.code !== this.session.get("state").code &&
-      sess.i <= this.session.get("state").i
+      sess.code !== this.session.get("state").code
+      && sess.i <= this.session.get("state").i
     ) throw new Error("Code update without I update error");
 
     if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
       console.error(
-        `missing: /*${md5(sess.code)}*/, transpiled: ${
-          sess.transpiled.slice(0, 12)
-        }`,
+        `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`,
       );
       throw new Error("transpiled	hack issue");
     }
@@ -307,17 +305,15 @@ export class CodeSession implements ICodeSess {
       throw new Error("never going back!");
     }
     if (
-      newRecord.code !== this.session.get("state").code &&
-      newRecord.i <= this.session.get("state").i
+      newRecord.code !== this.session.get("state").code
+      && newRecord.i <= this.session.get("state").i
     ) throw new Error("Code update without I update error");
 
     const codeHash = md5(newRecord.code);
 
     if (newRecord.transpiled.slice(0, 12) !== `/*${codeHash}*/`) {
       console.error(
-        `missing: ${codeHash}, transpiled: ${
-          newRecord.transpiled.slice(0, 12)
-        }`,
+        `missing: ${codeHash}, transpiled: ${newRecord.transpiled.slice(0, 12)}`,
       );
       throw new Error("transpiled	hack issue");
     }
@@ -399,12 +395,12 @@ function addOrigin(s: ICodeSession, originString: string) {
   mst.code = mst.code.replace("from './", `from '${originString}/live/`);
 
   mst.transpiled = mst.transpiled.replace(
-    'from "/live',
+    "from \"/live",
     `from "${originString}/live`,
   );
 
   mst.transpiled = mst.transpiled.replace(
-    'from "./',
+    "from \"./",
     `from "${originString}/live/`,
   );
   return mst;
@@ -439,8 +435,8 @@ export const startSession = (
   u: IUserJSON,
   originString: string,
 ): CodeSession =>
-  session ||
-  new CodeSession(room, {
+  session
+  || new CodeSession(room, {
     name: u.name,
     state: addOrigin(u.state, originString),
   });

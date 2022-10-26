@@ -67,17 +67,9 @@ var ModuleResolutionKind = ((ModuleResolutionKind2) => {
   return ModuleResolutionKind2;
 })(ModuleResolutionKind || {});
 var LanguageServiceDefaultsImpl = class {
-  _onDidChange = new monaco_editor_core_exports.Emitter();
-  _onDidExtraLibsChange = new monaco_editor_core_exports.Emitter();
-  _extraLibs;
-  _removedExtraLibs;
-  _eagerModelSync;
-  _compilerOptions;
-  _diagnosticsOptions;
-  _workerOptions;
-  _onDidExtraLibsChangeTimeout;
-  _inlayHintsOptions;
   constructor(compilerOptions, diagnosticsOptions, workerOptions, inlayHintsOptions) {
+    this._onDidChange = new monaco_editor_core_exports.Emitter();
+    this._onDidExtraLibsChange = new monaco_editor_core_exports.Emitter();
     this._extraLibs = /* @__PURE__ */ Object.create(null);
     this._removedExtraLibs = /* @__PURE__ */ Object.create(null);
     this._eagerModelSync = false;
@@ -230,7 +222,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-tsMode-6MXEGL7P.mjs");
+    return import("./chunk-tsMode-G6LO55TF.mjs");
   }
 }
 monaco_editor_core_exports.languages.onLanguage("typescript", () => {

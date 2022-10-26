@@ -11,12 +11,9 @@ const emotionCache = "/node_modules/@emotion/cache/types/index.d.ts";
 const emotionReactDts = "/node_modules/@emotion/react/types/index.d.ts";
 
 const emotionJSXDts = "/node_modules/@emotion/react/types/jsx-runtime.d.ts";
-const emotionJSXRuntimeDTS =
-  "/node_modules/@emotion/react/types/jsx-runtime.d.ts";
-const emotionJSXNameSpaceDTS =
-  "/node_modules/@emotion/react/types/jsx-namespace.d.ts";
-const emotionReactCssPropDts =
-  "/node_modules/@emotion/react/types/css-prop.d.ts";
+const emotionJSXRuntimeDTS = "/node_modules/@emotion/react/types/jsx-runtime.d.ts";
+const emotionJSXNameSpaceDTS = "/node_modules/@emotion/react/types/jsx-namespace.d.ts";
+const emotionReactCssPropDts = "/node_modules/@emotion/react/types/css-prop.d.ts";
 const emotionReactHelperDts = "/node_modules/@emotion/react/types/helper.d.ts";
 const emotionThemingDts = "/node_modules/@emotion/react/types/theming.d.ts";
 const emotionSerializeDts = "/node_modules/@emotion/serialize/types/index.d.ts";

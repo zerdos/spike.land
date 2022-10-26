@@ -1,25 +1,17 @@
 import { handleErrors } from "./handleErrors";
-import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
+import { RateLimiterClient } from "./rateLimiterClient";
 
 import IIFE from "./iife.html";
 // import {a} from "./staticContent.mjs"
-import { CodeEnv } from "./env";
 import type { ICodeSession } from "@spike.land/code/js/session";
-import {
-  applyPatch,
-  hashCode,
-  md5,
-  makePatch,
-  makePatchFrom,
-  mST,
-  startSession,
-} from "@spike.land/code/js/session";
+import { applyPatch, hashCode, makePatch, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
+import { CodeEnv } from "./env";
 // import importMap from "@spike.land/code/js/importmap.json";
-import { getBackupSession } from "./getBackupSession";
-import { getImportMapStr, imap } from "./chat";
 import AVLTree from "avl";
+import { getImportMapStr, imap } from "./chat";
+import { getBackupSession } from "./getBackupSession";
 
 interface IState extends DurableObjectState {
 }
@@ -59,8 +51,8 @@ export class Code {
     this.state.blockConcurrencyWhile(async () => {
       const backupSession = getBackupSession();
 
-      const session = await this.kv.get<ICodeSession>("session") ||
-        backupSession;
+      const session = await this.kv.get<ICodeSession>("session")
+        || backupSession;
       if (!session.code) {
         const s = backupSession;
         session.code = s.code;
@@ -217,7 +209,6 @@ export class Code {
             },
           });
         case "mST.mjs":
-        
           return new Response(
             `
               export const mST=${JSON.stringify(mST())};
@@ -329,12 +320,12 @@ export class Code {
         }
         ${mST().css}
         `,
-          ) .replace(
-              `<script type="importmap"></script>`,
-              `<script type="importmap">
+          ).replace(
+            `<script type="importmap"></script>`,
+            `<script type="importmap">
             ${getImportMapStr(url.origin)}
             </script>`,
-            )
+          )
             .replace(
               `<div id="root"></div>`,
               `<div id="root">
@@ -350,7 +341,8 @@ export class Code {
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
           headers.set(
-            "Cache-Control", "no-cache"
+            "Cache-Control",
+            "no-cache",
           );
 
           // headers.set('Etag', newEtag);
@@ -435,8 +427,7 @@ export class Code {
 
     webSocket.addEventListener(
       "message",
-      (msg: { data: string | ArrayBuffer }) =>
-        this.processWsMessage(msg, session),
+      (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
     );
 
     let closeOrErrorHandler = () => {
@@ -459,8 +450,7 @@ export class Code {
 
     const { webSocket, limiter, name } = session;
 
-    const respondWith = (obj: Object) =>
-      session.webSocket.send(JSON.stringify(obj));
+    const respondWith = (obj: Object) => session.webSocket.send(JSON.stringify(obj));
 
     let data: {
       name?: string;
@@ -488,7 +478,6 @@ export class Code {
     if (!name) {
       if (data.name) {
         session.name = data.name;
-        
 
         try {
           this.sessions.map((otherSession) => {
@@ -496,25 +485,21 @@ export class Code {
 
             if (otherSession.name === data.name) {
               otherSession.name = "";
-              otherSession.blockedMessages.map((m) =>
-                session.webSocket.send(m)
-              );
+              otherSession.blockedMessages.map((m) => session.webSocket.send(m));
               otherSession.blockedMessages = [];
             }
           });
 
           if (data.hashCode) {
-            if (data?.hashCode !==hashCode()){
-              const patch =  await makePatchFrom(data.hashCode, mST());
-              return respondWith({...patch})
-            };
+            if (data?.hashCode !== hashCode()) {
+              const patch = await makePatchFrom(data.hashCode, mST());
+              return respondWith({ ...patch });
+            }
           }
-  
-
         } catch (e) {
           respondWith({ error: "error while checked blocked messages" });
         }
-       
+
         const userNode = this.users.insert(data.name);
 
         const usersNum = this.users.keys().length;
@@ -566,9 +551,9 @@ export class Code {
 
       try {
         if (
-          data.target &&
-          data.type &&
-          ["new-ice-candidate", "video-offer", "video-answer"].includes(
+          data.target
+          && data.type
+          && ["new-ice-candidate", "video-offer", "video-answer"].includes(
             data.type,
           )
         ) {
@@ -585,16 +570,10 @@ export class Code {
           }
 
           try {
-            await applyPatch({newHash, oldHash, patch});
+            await applyPatch({ newHash, oldHash, patch });
           } catch (err) {
             console.error({ err });
-return            respondWith({err});
-      
-       
-           
-  
-         
-          
+            return respondWith({ err });
           }
 
           if (newHash === hashCode()) {
@@ -685,9 +664,8 @@ async function sha256(myText: string) {
   );
 
   const hexString = [...new Uint8Array(myDigest)]
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('')
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
 
   return hexString;
 }
-

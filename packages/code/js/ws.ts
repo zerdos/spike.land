@@ -1,31 +1,23 @@
-//Import "core-js/full";
-//Object.assign(globalThis, require("buffer/"));
-//Object.assign(globalThis, require("stream-browserify"));
+// Import "core-js/full";
+// Object.assign(globalThis, require("buffer/"));
+// Object.assign(globalThis, require("stream-browserify"));
 
-//import 'css-paint-polyfill
-import debounce from "lodash.debounce";
-import {
-  applyPatch,
-  hashCode,
-  makePatch,
-  makePatchFrom,
-  mST,
-  onSessionUpdate,
-  startSession,
-} from "./session";
+// import 'css-paint-polyfill
 import AVLTree from "avl";
+import debounce from "lodash.debounce";
+import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
 
-//Import * as FS from '@isomorphic-git/lightning-fs';
+// Import * as FS from '@isomorphic-git/lightning-fs';
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
-import type { ICodeSession } from "./session";
-import uidV4 from "./uidV4.mjs";
-import { appFactory } from "./starter";
-import { md5 } from "./md5"; //import { wait } from "wait";
 import { wait } from "wait.mjs";
+import { md5 } from "./md5"; // import { wait } from "wait";
+import type { ICodeSession } from "./session";
+import { appFactory } from "./starter";
+import uidV4 from "./uidV4.mjs";
 
-//Import PubSubRoom from 'ipfs-pubsub-room'
+// Import PubSubRoom from 'ipfs-pubsub-room'
 
 const users = new AVLTree(
   (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
@@ -34,19 +26,19 @@ const users = new AVLTree(
 
 const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 
-const user = ((self && self.crypto && self.crypto.randomUUID &&
-  self.crypto.randomUUID()) || (uidV4())).slice(
+const user = ((self && self.crypto && self.crypto.randomUUID
+  && self.crypto.randomUUID()) || (uidV4())).slice(
     0,
     8,
   );
 
 users.insert(user);
-const rtcConns: Record<string, RTCPeerConnection> = {}; //To st/ RTCPeerConnection
+const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection
 let bc: BroadcastChannel;
 let codeSpace: string;
 let _hash = "";
 
-//let address: string;
+// let address: string;
 let wsLastHashCode = "";
 let webRTCLastSeenHashCode = "";
 let lastSeenTimestamp = 0;
@@ -71,49 +63,49 @@ export const sendChannel = {
   startVideo,
   rtcConns,
   send(data: any) {
-    //const target = data.target;
+    // const target = data.target;
     const messageString = JSON.stringify({
       ...data,
       name: data.name || user,
     });
     webRtcArray.map((ch) => {
       try {
-        //console.//log("WebRtc send", data, ch);
+        // console.//log("WebRtc send", data, ch);
 
         if (ch.readyState !== "open") {
           return;
         }
 
         if (
-          !data.target ||
-          ch.target === data.target && !ignoreUsers.includes(ch.target)
+          !data.target
+          || ch.target === data.target && !ignoreUsers.includes(ch.target)
         ) {
           ch.send(messageString);
         }
       } catch (error) {
-        //console.error("Error in broadcasting event", { e: error });
+        // console.error("Error in broadcasting event", { e: error });
       }
     });
   },
 };
 Object.assign(globalThis, { sendChannel, mST });
 
-//Let createDelta;
+// Let createDelta;
 
-//export const work = async (startState: {
-//mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
-//}) => {
-//codeSpace = startState.codeSpace;
-//address = startState.address;
-//const {assets}= startState;
-//const session = startSession(codeSpace, {
-//name: user,
-//state: startState.mST,
-//});
+// export const work = async (startState: {
+// mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
+// }) => {
+// codeSpace = startState.codeSpace;
+// address = startState.address;
+// const {assets}= startState;
+// const session = startSession(codeSpace, {
+// name: user,
+// state: startState.mST,
+// });
 
-//join()
+// join()
 
-//}
+// }
 
 export const run = async (startState: {
   mST: ICodeSession;
@@ -143,14 +135,14 @@ export const run = async (startState: {
 
   await appFactory(mst.transpiled, codeSpace);
 
-  //Const {join} = await import("./rtc");
+  // Const {join} = await import("./rtc");
 
-  //const conn = join(codeSpace, user, (message)=>{
+  // const conn = join(codeSpace, user, (message)=>{
 
-  //processData(message, "rtc")
-  //})
+  // processData(message, "rtc")
+  // })
 
-  //sendChannel.send = (message: object)=> conn.broadcast(message);
+  // sendChannel.send = (message: object)=> conn.broadcast(message);
 
   await join();
   bc = new BroadcastChannel(location.origin);
@@ -159,7 +151,7 @@ export const run = async (startState: {
       return;
     }
 
-    //console.//log({ event });
+    // console.//log({ event });
 
     if (
       event.data.codeSpace === codeSpace && event.data.address && !address
@@ -168,8 +160,8 @@ export const run = async (startState: {
     }
 
     if (event.data.ignoreUser) {
-      !ignoreUsers.includes(event.data.ignoreUser) &&
-        ignoreUsers.push(event.data.ignoreUser);
+      !ignoreUsers.includes(event.data.ignoreUser)
+        && ignoreUsers.push(event.data.ignoreUser);
     }
 
     if (
@@ -202,25 +194,25 @@ export const run = async (startState: {
     "broadcast",
   );
 
-  //const { startIpfs } = await import("./startIpfs");
-  //await startIpfs(codeSpace);
+  // const { startIpfs } = await import("./startIpfs");
+  // await startIpfs(codeSpace);
 };
 
 type NodeTimer = number;
 
-//(async (.) => {
-//if (navigator && navigator?.serviceWorker) {
-//navigator.serviceWorker.register("/sw.js", {
-//scope: "/",
-//});
-//const current = await navigator.serviceWorker.ready;
-//await sw();
+// (async (.) => {
+// if (navigator && navigator?.serviceWorker) {
+// navigator.serviceWorker.register("/sw.js", {
+// scope: "/",
+// });
+// const current = await navigator.serviceWorker.ready;
+// await sw();
 
-//Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
-//if (current !== sw) sw.unregister();
-//}));
-//}
-//})();
+// Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
+// if (current !== sw) sw.unregister();
+// }));
+// }
+// })();
 let intervalHandler: NodeTimer | null = null;
 
 async function rejoin() {
@@ -257,7 +249,7 @@ async function syncWS() {
       }
 
       const sess = mST();
-      //console.//log({ wsLastHashCode });
+      // console.//log({ wsLastHashCode });
 
       const message = await makePatchFrom(
         wsLastHashCode,
@@ -269,7 +261,7 @@ async function syncWS() {
       }
 
       if (message.newHash !== hashCode()) {
-        //console.error("NEW hash is not even hashCode", hashCode());
+        // console.error("NEW hash is not even hashCode", hashCode());
         return;
       }
 
@@ -280,7 +272,7 @@ async function syncWS() {
       await rejoin();
     }
   } catch (error) {
-    //console.error("error 2", { e: error });
+    // console.error("error 2", { e: error });
   }
 }
 async function stopVideo() {
@@ -290,8 +282,8 @@ async function stopVideo() {
 
 async function startVideo() {
   const mediaConstraints = {
-    audio: false, //We want an audio track
-    video: true, //And we want a video track
+    audio: false, // We want an audio track
+    video: true, // And we want a video track
   };
 
   // document.body.appendChild(sendChannel.vidElement);
@@ -328,7 +320,7 @@ async function syncRTC() {
       }
 
       const sess = mST();
-      //console.//log({ wsLastHashCode });
+      // console.//log({ wsLastHashCode });
 
       const message = webRTCLastSeenHashCode
         ? await makePatchFrom(
@@ -337,12 +329,12 @@ async function syncRTC() {
         )
         : await makePatch(sess);
       if (message && message.patch) {
-        //console.//log("sendRTC");
+        // console.//log("sendRTC");
         sendChannel.send(message);
       }
     }
   } catch (error) {
-    //console.error("Error sending RTC...", { e: error });
+    // console.error("Error sending RTC...", { e: error });
   }
 }
 
@@ -353,7 +345,7 @@ export async function join() {
 
   rejoined = true;
 
-  //console.//log("WS connect!");
+  // console.//log("WS connect!");
   if (location.origin.includes("localhost")) {
     return;
   }
@@ -364,7 +356,7 @@ export async function join() {
   rejoined = false;
 
   wsConnection.addEventListener("open", () => {
-    //console.//log("NEW WS CONNECTION");
+    // console.//log("NEW WS CONNECTION");
     ws = wsConnection;
     const mess = (data: string) => {
       try {
@@ -383,15 +375,15 @@ export async function join() {
       "message",
       (message) => processWsMessage(message, "ws", extendedWS),
     );
-    //If (delta) {
-    //if (delta !== deltaSent) {
-    //deltaSent = delta;
-    //ws?.send(JSON.stringify({
-    //type: "delta",
-    //}));
-    //}
-    //return;
-    //}
+    // If (delta) {
+    // if (delta !== deltaSent) {
+    // deltaSent = delta;
+    // ws?.send(JSON.stringify({
+    // type: "delta",
+    // }));
+    // }
+    // return;
+    // }
     if (intervalHandler) {
       clearInterval(intervalHandler);
     }
@@ -421,7 +413,7 @@ export async function join() {
       }
     }, 30_000);
 
-    //Send user info message.
+    // Send user info message.
     wsConnection.send(JSON.stringify({ name: user, hashCode: hashCode() }));
     return wsConnection;
   });
@@ -452,9 +444,9 @@ async function processData(
   source: "ws" | "rtc",
   conn: { hashCode: string },
 ) {
-  //console.//log("ws", data.name, data.oldHash, data.newHash);
+  // console.//log("ws", data.name, data.oldHash, data.newHash);
 
-  //MySession.addEvent(data);
+  // MySession.addEvent(data);
 
   if (source === "ws" && data.timestamp) {
     lastSeenNow = Date.now();
@@ -515,8 +507,8 @@ async function processData(
       }
 
       if (
-        data.name && data.name !== user &&
-        !rtcConns[data.name] && !ignoreUsers.includes(data.name)
+        data.name && data.name !== user
+        && !rtcConns[data.name] && !ignoreUsers.includes(data.name)
       ) {
         await createPeerConnection(data.name);
         const users = data.users as string[];
@@ -531,7 +523,7 @@ async function processData(
         return;
       }
     } catch (error) {
-      //console.//log({ e: error });
+      // console.//log({ e: error });
       //      log_error("Error with p2p");
     }
   })();
@@ -551,7 +543,7 @@ async function processData(
       return;
     }
 
-    //console.//log("error -sending on sendChannel");
+    // console.//log("error -sending on sendChannel");
 
     return;
   }
@@ -567,32 +559,32 @@ async function processData(
   }
 
   if (wsLastHashCode !== hashCode()) {
-    //Const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
-    //const state = await resp.json();
+    // Const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
+    // const state = await resp.json();
 
-    //const codePatch = await makePatch(state.mST);
-    //if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
+    // const codePatch = await makePatch(state.mST);
+    // if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
   }
 
   function createPeerConnection(target: string) {
-    //log(`Setting up a connection with ${target}`);
+    // log(`Setting up a connection with ${target}`);
     if (rtcConns[target]) {
-      //log(`Aborting, since we have connection with this ${target}`);
+      // log(`Aborting, since we have connection with this ${target}`);
       return;
     }
 
-    //Create an RTCPeerConnection which knows to use our chosen
-    //STUN server.
+    // Create an RTCPeerConnection which knows to use our chosen
+    // STUN server.
 
     rtcConns[target] = new RTCPeerConnection(
       rcpOptions,
     );
 
-    //Set up event handlers for the ICE negotiation process.
+    // Set up event handlers for the ICE negotiation process.
 
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
-        //log("*** Outgoing ICE candidate: " + event.candidate);
+        // log("*** Outgoing ICE candidate: " + event.candidate);
 
         ws?.send(JSON.stringify({
           type: "new-ice-candidate",
@@ -603,12 +595,10 @@ async function processData(
       }
     };
 
-    rtcConns[target].oniceconnectionstatechange =
-      handleICEConnectionStateChangeEvent;
-    rtcConns[target].onicegatheringstatechange =
-      handleICEGatheringStateChangeEvent;
+    rtcConns[target].oniceconnectionstatechange = handleICEConnectionStateChangeEvent;
+    rtcConns[target].onicegatheringstatechange = handleICEGatheringStateChangeEvent;
     rtcConns[target].onsignalingstatechange = () => {
-      //log(
+      // log(
       //   "*** rtcConns[target].signalingState  changed to: " +
       //     rtcConns[target].signalingState,
       // );
@@ -620,7 +610,7 @@ async function processData(
 
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
 
-    rtcConns[target].ontrack = function (
+    rtcConns[target].ontrack = function(
       this: RTCPeerConnection,
       { track, streams }: RTCTrackEvent,
     ) {
@@ -633,7 +623,7 @@ async function processData(
     };
 
     rtcConns[target].ondatachannel = (event) => {
-      //console.//log("Receive Channel Callback");
+      // console.//log("Receive Channel Callback");
       const rtcChannel = event.channel;
       rtcChannel.binaryType = "arraybuffer";
       rtcChannel.addEventListener("close", onReceiveChannelClosed);
@@ -661,9 +651,9 @@ async function processData(
     };
 
     const dataChannelOptions = {
-      ordered: true, //Do not guarantee order
+      ordered: true, // Do not guarantee order
       reliable: true,
-      maxPacketLifeTime: 3000, //In milliseconds
+      maxPacketLifeTime: 3000, // In milliseconds
     };
 
     const rtc = Object.assign(
@@ -676,67 +666,67 @@ async function processData(
 
     rtc.binaryType = "arraybuffer";
 
-    //rtc.addEventListener("message", async (message) => {
-    //console.//log("***********RTC***", { msg: message });
+    // rtc.addEventListener("message", async (message) => {
+    // console.//log("***********RTC***", { msg: message });
 
-    //const data = JSON.parse(message.data);
-    //if (data && data.hashCode) {
-    //webRTCLastSeenHashCode = data.hashCode;
-    //}
+    // const data = JSON.parse(message.data);
+    // if (data && data.hashCode) {
+    // webRTCLastSeenHashCode = data.hashCode;
+    // }
 
-    //if (data && data.newHash) {
-    //webRTCLastSeenHashCode = data.newHash;
-    //}
-    //const extendedRTC = Object.assign(rtc, {hashCode: hashCode()})
-    //return processWsMessage(message, "rtc", extendedRTC);
-    //});
+    // if (data && data.newHash) {
+    // webRTCLastSeenHashCode = data.newHash;
+    // }
+    // const extendedRTC = Object.assign(rtc, {hashCode: hashCode()})
+    // return processWsMessage(message, "rtc", extendedRTC);
+    // });
 
     rtc.addEventListener("error", (error) => {
       console.log("xxxxxx-  Data Channel Error:", error);
     });
 
-    //Rtc.onmessage = (msg) => processWsMessage(msg, "rtc");
+    // Rtc.onmessage = (msg) => processWsMessage(msg, "rtc");
 
     rtc.addEventListener("open", () => {
-      //console.//log("@@@@@@@@RTC IS OPEN&&&&&&&&");
+      // console.//log("@@@@@@@@RTC IS OPEN&&&&&&&&");
       webRtcArray.push(rtc);
-      //RtcConns[target].sendChannel = rtc;
+      // RtcConns[target].sendChannel = rtc;
     });
 
     rtc.addEventListener("close", () => {
-      //console.//log("xxxxxxxx- The Data Channel is Closed");
+      // console.//log("xxxxxxxx- The Data Channel is Closed");
     });
 
     return rtcConns[target];
 
     function onReceiveChannelClosed() {
-      //console.//log("Receive channel is closed");
+      // console.//log("Receive channel is closed");
       rtcConns[target].close();
       delete rtcConns[target];
-      //console.//log("Closed remote peer connection");
+      // console.//log("Closed remote peer connection");
     }
 
     async function handleNegotiationNeededEvent() {
-      //log("*** Negotiation needed");
+      // log("*** Negotiation needed");
 
       try {
-        //log("---> Creating offer");
+        // log("---> Creating offer");
         const offer = await rtcConns[target].createOffer();
 
         if (rtcConns[target].signalingState != "stable") {
-          //log("The connection isn't stable yet; postponing...");
+          // log("The connection isn't stable yet; postponing...");
           return;
         }
 
-        //Establish the offer as the local peer's current
-        //description.
+        // Establish the offer as the local peer's current
+        // description.
 
-        //log("---> Setting local description to the offer");
+        // log("---> Setting local description to the offer");
         await rtcConns[target].setLocalDescription(offer);
 
-        //Send the offer to the remote peer.
+        // Send the offer to the remote peer.
 
-        //log("---> Sending the offer to the remote peer");
+        // log("---> Sending the offer to the remote peer");
         ws?.send(JSON.stringify({
           target,
           name: user,
@@ -744,14 +734,14 @@ async function processData(
           offer: rtcConns[target].localDescription,
         }));
       } catch {
-        //log(
+        // log(
         //   "*** The following error occurred while handling the negotiationneeded event:",
         // );
       }
     }
 
     function handleICEConnectionStateChangeEvent() {
-      //log(
+      // log(
       //   "*** ICE connection state changed to " +
       //     rtcConns[target].iceConnectionState,
       // );
@@ -765,7 +755,7 @@ async function processData(
     }
 
     function handleICEGatheringStateChangeEvent() {
-      //log(
+      // log(
       //   "*** rtcConns[target].iceGatheringState changed to: " +
       //     rtcConns[target].iceGatheringState,
       // );
@@ -776,11 +766,11 @@ async function processData(
     answer: RTCSessionDescriptionInit,
     target: string,
   ) {
-    //log("*** Call recipient has accepted our call");
+    // log("*** Call recipient has accepted our call");
 
-    //Configure the remote description, which is the SDP payload
-    //in our "video-answer" message.
-    //const desc = new RTCSessionDescription(message);
+    // Configure the remote description, which is the SDP payload
+    // in our "video-answer" message.
+    // const desc = new RTCSessionDescription(message);
     if (rtcConns[target].signalingState === "stable") return;
     await rtcConns[target].setRemoteDescription(
       new RTCSessionDescription(
@@ -797,25 +787,25 @@ async function processData(
       createPeerConnection(target);
     }
 
-    //Const desc = new RTCSessionDescription(message);
+    // Const desc = new RTCSessionDescription(message);
 
     await rtcConns[target].setRemoteDescription(
       new RTCSessionDescription(offer),
     );
-    //If (rtcConns[target].signalingState != "stable") {
-    ////log("  - But the signaling state isn't stable, so triggering rollback");
+    // If (rtcConns[target].signalingState != "stable") {
+    //// log("  - But the signaling state isn't stable, so triggering rollback");
 
-    //await Promise.all([
-    //rtcConns[target].setLocalDescription({ type: "rollback" }),
-    //rtcConns[target].setRemoteDescription(new RTCSessionDescription(offer)),
-    //]);
-    //return;
-    //}
+    // await Promise.all([
+    // rtcConns[target].setLocalDescription({ type: "rollback" }),
+    // rtcConns[target].setRemoteDescription(new RTCSessionDescription(offer)),
+    // ]);
+    // return;
+    // }
 
-    ////log("  - Setting remote description");
-    //await rtcConns[target].setRemoteDescription(desc);
+    //// log("  - Setting remote description");
+    // await rtcConns[target].setRemoteDescription(desc);
 
-    //log("---> Creating and sending answer to caller");
+    // log("---> Creating and sending answer to caller");
 
     const answer = await rtcConns[target].createAnswer();
 
@@ -832,29 +822,29 @@ async function processData(
   }
 }
 
-//Create the RTCPeerConnection which knows how to talk to our
-//selected STUN/TURN server and then uses getUserMedia() to find
-//our camera and microphone and add that stream to the connection for
-//use in our video call. Then we configure event handlers to get
-//needed notifications on the call.
+// Create the RTCPeerConnection which knows how to talk to our
+// selected STUN/TURN server and then uses getUserMedia() to find
+// our camera and microphone and add that stream to the connection for
+// use in our video call. Then we configure event handlers to get
+// needed notifications on the call.
 
-//WebSocket chat/signaling channel variables.
+// WebSocket chat/signaling channel variables.
 
-//The media constraints object describes what sort of stream we want
-//to request from the local A/V hardware (typically a webcam and
-//microphone). Here, we specify only that we want both audio and
-//video; however, you can be more specific. It's possible to state
-//that you would prefer (or require) specific resolutions of video,
-//whether to prefer the user-facing or rear-facing camera (if available),
-//and so on.
+// The media constraints object describes what sort of stream we want
+// to request from the local A/V hardware (typically a webcam and
+// microphone). Here, we specify only that we want both audio and
+// video; however, you can be more specific. It's possible to state
+// that you would prefer (or require) specific resolutions of video,
+// whether to prefer the user-facing or rear-facing camera (if available),
+// and so on.
 //
-//See also:
-//https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints
-//https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+// See also:
+// https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints
+// https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 //
 
-//var transceiver = null;         //RTCRtpTransceiver
-//var webcamStream = null;        //MediaStream from webcam
+// var transceiver = null;         //RTCRtpTransceiver
+// var webcamStream = null;        //MediaStream from webcam
 
 const rcpOptions = {
   iceServers: ["stun3.l.google.com:19302"].map((url) => ({
@@ -871,9 +861,9 @@ async function handleNewICECandidateMessage(
   target: string,
 ) {
   const candidate = new RTCIceCandidate(init);
-  //Const candidate = new RTCIceCandidate(message);
+  // Const candidate = new RTCIceCandidate(message);
 
-  //console.//log(rtcConns[target]);
+  // console.//log(rtcConns[target]);
   await rtcConns[target].addIceCandidate(candidate);
 }
 
@@ -888,15 +878,15 @@ export async function sw() {
 
       switch (event.data.method) {
         case "ipfs-message-port":
-          //console.//log("Message port request");
-          //Const { connect } = await import("./ipfs.mjs");
+          // console.//log("Message port request");
+          // Const { connect } = await import("./ipfs.mjs");
 
-          //console.//log("can connect trough", { connect });
-          //await ipfsWorker();
+          // console.//log("can connect trough", { connect });
+          // await ipfsWorker();
           //
           const channel = new MessageChannel();
-          //Await connect(channel);
-          //console.//log({ channel });
+          // Await connect(channel);
+          // console.//log({ channel });
 
           {
             serviceWorker.postMessage({
@@ -906,18 +896,18 @@ export async function sw() {
             }, { transfer: [channel.port2] });
           }
 
-          //Receives request from service worker, creates a new shared worker and
-          //responds back with the message port.
-          //Note: MessagePort can be transferred only once which is why we need to
-          //create a SharedWorker each time. However a ServiceWorker is only created
-          //once (in main function) all other creations just create port to it.
+          // Receives request from service worker, creates a new shared worker and
+          // responds back with the message port.
+          // Note: MessagePort can be transferred only once which is why we need to
+          // create a SharedWorker each time. However a ServiceWorker is only created
+          // once (in main function) all other creations just create port to it.
       }
     };
 
-    //This is just for testing, lets us know when SW is ready.
+    // This is just for testing, lets us know when SW is ready.
 
-    //are loaded from service worker. However it could be that such a URL is loaded
-    //before the service worker was registered in which case our server just loads a blank
+    // are loaded from service worker. However it could be that such a URL is loaded
+    // before the service worker was registered in which case our server just loads a blank
     if (document.documentElement.dataset.viewer) {
       const load = async (path: string) => {
         const paths = path && path.split("/") || [];
@@ -935,6 +925,6 @@ export async function sw() {
       return;
     }
   } catch {
-    //console.//log("ipfs load error");
+    // console.//log("ipfs load error");
   }
 }

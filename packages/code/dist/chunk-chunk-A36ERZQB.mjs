@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-B55S4QFZ.mjs";
+} from "./chunk-chunk-GHEPYEDN.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-SHAC7S6E.mjs";
+} from "./chunk-chunk-2INAMIGF.mjs";
 import {
   __toESM,
   init_define_process
@@ -20,7 +20,6 @@ import {
 
 // js/ws.ts
 init_define_process();
-var import_lodash = __toESM(require_lodash(), 1);
 
 // ../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js
 init_define_process();
@@ -579,6 +578,9 @@ var AVLTree = class {
 };
 AVLTree.default = AVLTree;
 
+// js/ws.ts
+var import_lodash = __toESM(require_lodash(), 1);
+
 // js/uidV4.mjs
 init_define_process();
 var getRandomValues;
@@ -701,7 +703,7 @@ var run = async (startState) => {
       return;
     }
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      ws == null ? void 0 : ws.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
@@ -840,8 +842,8 @@ async function join() {
     ws = wsConnection;
     const mess = (data) => {
       try {
-        ws && ws?.send && ws?.send(data);
-      } catch {
+        ws && (ws == null ? void 0 : ws.send) && (ws == null ? void 0 : ws.send(data));
+      } catch (e) {
         ws = null;
         rejoined = false;
         rejoin();
@@ -862,7 +864,7 @@ async function join() {
       if (diff > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection?.send(
+            wsConnection == null ? void 0 : wsConnection.send(
               JSON.stringify({
                 name: user,
                 timestamp: lastSeenTimestamp + diff
@@ -872,7 +874,7 @@ async function join() {
           }
           rejoined = false;
           rejoin();
-        } catch {
+        } catch (e) {
           rejoined = false;
           rejoin();
         }
@@ -984,7 +986,7 @@ async function processData(data, source, conn) {
     );
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
@@ -1002,9 +1004,10 @@ async function processData(data, source, conn) {
     };
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
     rtcConns[target].ontrack = function({ track, streams }) {
+      var _a;
       const vidElement = document.createElement("video");
       vidElement.srcObject = streams[0];
-      sendChannel.localStream?.addTrack(track);
+      (_a = sendChannel.localStream) == null ? void 0 : _a.addTrack(track);
       sendChannel.tracks[target] = { track, streams, vidElement };
     };
     rtcConns[target].ondatachannel = (event) => {
@@ -1061,13 +1064,13 @@ async function processData(data, source, conn) {
           return;
         }
         await rtcConns[target].setLocalDescription(offer);
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           target,
           name: user,
           type: "video-offer",
           offer: rtcConns[target].localDescription
         }));
-      } catch {
+      } catch (e) {
       }
     }
     function handleICEConnectionStateChangeEvent() {
@@ -1101,7 +1104,7 @@ async function processData(data, source, conn) {
     await rtcConns[target].setLocalDescription(
       answer
     );
-    ws?.send(JSON.stringify({
+    ws == null ? void 0 : ws.send(JSON.stringify({
       target,
       name: user,
       type: "video-answer",
@@ -1154,7 +1157,7 @@ async function sw() {
       await load(location.pathname);
       return;
     }
-  } catch {
+  } catch (e) {
   }
 }
 
