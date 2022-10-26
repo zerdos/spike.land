@@ -166,6 +166,11 @@
   ).finally(() => cacheName), "getCacheName");
   addEventListener("fetch", async (_event) => {
     const event = _event;
+    if (mocks[event.request.url]) {
+      return event.respondWith(
+        new Response(mocks[event.request.url])
+      );
+    }
     if (!cache)
       cache = await caches.open(cacheName || await getCacheName() && cacheName);
     const url = new URL(event.request.url);
@@ -181,19 +186,15 @@
     }
     if (Date.now() - lastChecked > 1e4) {
       lastChecked = Date.now();
+      getCacheName();
     }
     const cacheKey = new Request(event.request.url);
     const cachedResp = await cache.match(cacheKey);
     if (cachedResp)
-      return cachedResp;
-    if (mocks[event.request.url]) {
-      return event.respondWith(
-        new Response(mocks[event.request.url])
-      );
-    }
+      return event.respondWith(cachedResp);
     const resp = await fetch(event.request);
-    if (resp.ok && cache)
-      await (cache == null ? void 0 : cache.put(cacheKey, resp.clone()));
+    if (resp.ok)
+      await cache.put(cacheKey, resp.clone());
     return event.respondWith(resp);
   });
 })();

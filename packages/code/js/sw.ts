@@ -32,6 +32,17 @@ const getCacheName = () =>
 addEventListener("fetch", async (_event) => {
   const event = _event as unknown as FetchEvent;
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  if (mocks[event.request.url]) {
+    return event.respondWith(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+
+      new Response(mocks[event.request.url]),
+    );
+  }
+
   if (!cache) cache = await caches.open(cacheName || await getCacheName() && cacheName);
   const url = new URL(event.request.url);
   if (url.href === "/mocks") {
@@ -47,20 +58,16 @@ addEventListener("fetch", async (_event) => {
 
   if (Date.now() - lastChecked > 10_000) {
     lastChecked = Date.now();
+    getCacheName();
   }
 
   const cacheKey = new Request(event.request.url);
   const cachedResp = await cache.match(cacheKey);
 
-  if (cachedResp) return cachedResp;
+  if (cachedResp) return event.respondWith(cachedResp);
 
-  if (mocks[event.request.url]) {
-    return event.respondWith(
-      new Response(mocks[event.request.url]),
-    );
-  }
   const resp = await fetch(event.request);
-  if (resp.ok && cache) await cache?.put(cacheKey, resp.clone());
 
+  if (resp.ok) await cache.put(cacheKey, resp.clone());
   return event.respondWith(resp);
 });

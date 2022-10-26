@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-KVTAITEE.mjs";
+} from "./chunk-chunk-RPHXJBAJ.mjs";
 import {
   applyPatch,
   hashCode,
@@ -681,16 +681,6 @@ Object.assign(globalThis, { sendChannel, mST });
 var run = async (startState) => {
   const { mST: mst, address } = startState;
   codeSpace = startState.codeSpace;
-  bc = new BroadcastChannel(location.origin);
-  if (location.pathname.endsWith("dehydrated")) {
-    bc.onmessage = (event) => {
-      if (event.data.codeSpace === codeSpace) {
-        const { html, css } = event.data.sess;
-        document.getElementById(`root-${codeSpace}`).innerHTML = `<style>${css}</style>${html}`;
-      }
-    };
-    return;
-  }
   startSession(codeSpace, {
     name: user,
     state: mst

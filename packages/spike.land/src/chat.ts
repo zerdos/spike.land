@@ -5,6 +5,7 @@ import { a, ASSET_MANIFEST } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
+import { md5 } from "@spike.land/code/js/session";
 import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
 
@@ -62,7 +63,7 @@ export default {
     if (request.cf?.asOrganization?.startsWith("YANDEX")) {
       return new Response(null, { status: 401, statusText: "no robots" });
     }
-    console.log(JSON.stringify({ ...request.cf }, null, 2));
+
     return handleErrors(request, async () => {
       console.log(`handling request: ${request.url}`);
       // We have received an HTTP request! Parse the URL and route the request.
@@ -88,9 +89,11 @@ export default {
       const path = url.pathname.slice(1).split("/");
 
       if (!path[0]) {
+        console.log({ asOrganization: request.cf?.asOrganization });
+        const start = md5(request.cf?.asOrganization);
         // Serve our HTML at the root path.
         return new Response(
-          `<meta http-equiv="refresh" content="0; URL=${u.origin}/live/coder" />`,
+          `<meta http-equiv="refresh" content="0; URL=${u.origin}/live/${start}" />`,
           {
             headers: {
               "Location": `${u.origin}/live/coder`,
