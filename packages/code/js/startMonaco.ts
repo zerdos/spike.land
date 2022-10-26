@@ -341,6 +341,13 @@ export const startMonaco = async (
     // Editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${originToUse}/package.json`))
     // languages.typescript.typescriptDefaults.inlayHintsOptions
 
+    languages.typescript.typescriptDefaults
+      .setDiagnosticsOptions({
+        noSuggestionDiagnostics: true,
+        noSemanticValidation: true,
+        noSyntaxValidation: true,
+      });
+
     const model = createModel(
       replaced,
       "typescript",
@@ -509,6 +516,13 @@ export const startMonaco = async (
         JSON.parse(extraLibs),
       );
 
+    languages.typescript.typescriptDefaults
+      .setDiagnosticsOptions({
+        noSuggestionDiagnostics: false,
+        noSemanticValidation: false,
+        noSyntaxValidation: false,
+      });
+
     const extraModelCache: { [key: string]: string } = {};
     const extraModels: { [key: string]: string[] } = {};
 
@@ -667,13 +681,6 @@ export const startMonaco = async (
           lib.filePath,
         )
       );
-
-      // languages.typescript.typescriptDefaults
-      //   .setDiagnosticsOptions({
-      //     noSuggestionDiagnostics: false,
-      //     noSemanticValidation: false,
-      //     noSyntaxValidation: false,
-      //   });
 
       const libs = languages.typescript.typescriptDefaults.getExtraLibs();
 
