@@ -40,12 +40,14 @@ const updateCache = throttle(update, 60_000);
 
 const onactivate = async (event) => {
   console.log("activated");
-  if (event.data.type === "set-mock") {
-    mocks[event.data.filePath] = event.data.content;
-  }
-  bc = new BroadcastChannel(location.origin);
-  bc.onmessage = (e) => {
-    console.log(e);
+
+  const bc = new BroadcastChannel(location.origin);
+
+  bc.onmessage = (event) => {
+    console.log(event);
+    if (event.data.type === "set-mock") {
+      mocks[event.data.filePath] = event.data.content;
+    }
   };
 
   // We want to start handling requests right away, so that requests from the

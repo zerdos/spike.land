@@ -740,7 +740,7 @@ export const startMonaco = async (
         );
         bc.postMessage({ ...lib, type: "set-mock" });
       });
-      
+
       const libs = languages.typescript.typescriptDefaults.getExtraLibs();
 
       const extraLibsForSave = Object.keys(libs).map((lib) => ({
