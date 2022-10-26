@@ -95,6 +95,17 @@ export async function wait(delay) {
 const onfetch = (event) => {
   updateCache();
   const url = new URL(event.request.url);
+  if (url.href === "/mocks") {
+    return event.respondWith(
+      new Response(JSON.stringify(mocks), {
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+          "Cache-Control": "no-cache",
+        },
+      }),
+    );
+  }
+
   if (mocks[event.request.url]) {
     return event.respondWith(
       new Response(mocks[event.request.url]),
