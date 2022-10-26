@@ -19,7 +19,6 @@ bc.onmessage = (event) => {
 //   });
 // }
 self.addEventListener("fetch", (event) => {
-self.onfetch = (event) => {
   const url = new URL(event.request.url);
   if (url.href === "/mocks") {
     return event.respondWith(
@@ -39,4 +38,4 @@ self.onfetch = (event) => {
   }
 
   return event.respondWith(fetch(event.request));
-};
+});
