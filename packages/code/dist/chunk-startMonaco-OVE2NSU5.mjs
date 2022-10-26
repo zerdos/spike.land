@@ -1,4 +1,4 @@
-import "./chunk-chunk-PUTCJXOT.mjs";
+import "./chunk-chunk-X2OA645O.mjs";
 import {
   $,
   Action,
@@ -41938,6 +41938,11 @@ var LazyLanguageLoader = class {
     }
     return lazyLanguageLoaders[languageId];
   }
+  _languageId;
+  _loadingTriggered;
+  _lazyLoadPromise;
+  _lazyLoadPromiseResolve;
+  _lazyLoadPromiseReject;
   constructor(languageId) {
     this._languageId = languageId;
     this._loadingTriggered = false;
@@ -42030,11 +42035,38 @@ var originToUse = location.origin.includes("spike") ? location.origin : "https:/
 var lib = [
   "dom",
   "dom.iterable",
+  "es2015.collection",
+  "es2015.core",
+  "es2015",
+  "es2015.generator",
+  "es2015.iterable",
+  "es2015.promise",
+  "es2015.proxy",
+  "es2015.reflect",
+  "es2015.symbol",
+  "es2015.symbol.wellknown",
+  "es2016.array.include",
+  "es2016",
+  "es2016.full",
+  "es2017",
+  "es2017.full",
+  "es2017.intl",
   "es2017.object",
   "es2017.sharedmemory",
+  "es2017.string",
   "es2017.typedarrays",
   "es2018.asyncgenerator",
   "es2018.asynciterator",
+  "es2018",
+  "es2018.full",
+  "es2018.intl",
+  "es2018.promise",
+  "es2018.regexp",
+  "es2019.array",
+  "es2019",
+  "es2019.full",
+  "es2019.object",
+  "es2019.string",
   "es2019.symbol",
   "es2020.bigint",
   "es2020",
@@ -42044,18 +42076,30 @@ var lib = [
   "es2020.sharedmemory",
   "es2020.string",
   "es2020.symbol.wellknown",
+  "es2021",
+  "es2021.full",
+  "es2021.intl",
+  "es2021.promise",
+  "es2021.string",
+  "es2021.weakref",
   "es5",
-  "es6"
+  "es6",
+  "esnext",
+  "esnext.full",
+  "esnext.intl",
+  "esnext.promise",
+  "esnext.string",
+  "esnext.weakref",
+  "scripthost",
+  "webworker",
+  "webworker.importscripts",
+  "webworker.iterable"
 ];
 var monacoContribution = async (code) => {
-  languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-    noSuggestionDiagnostics: true,
-    noSemanticValidation: true,
-    noSyntaxValidation: true
-  });
+  languages.typescript.typescriptDefaults;
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
-    target: languages.typescript.ScriptTarget.ES2020,
+    target: languages.typescript.ScriptTarget.ESNext,
     downlevelIteration: true,
     importHelpers: true,
     lib,

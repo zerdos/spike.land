@@ -5414,173 +5414,7 @@ function initSession(room, u) {
 var session = null;
 var hashStore = {};
 var CodeSession = class {
-  constructor(room, user) {
-    this.cb = {};
-    this.hashCodeSession = 0;
-    this.created = new Date().toISOString();
-    this.hashOfState = () => {
-      const state = this.session.get("state");
-      const hashCode4 = md5(state.transpiled);
-      hashStore[hashCode4] = state;
-      return hashCode4;
-    };
-    this.createPatchFromHashCode = async (oldHash, state, updateHash) => {
-      const s = JSON.parse(string_(state));
-      let oldRec = hashStore[oldHash];
-      let usedOldHash = oldHash;
-      if (!oldRec) {
-        const resp = await fetch(
-          `/live/${this.room}/mST`
-        );
-        if (!resp.ok) {
-          console.error(location.origin + " is NOT OK", await resp.text());
-          throw new Error(location.origin + " is NOT OK");
-        }
-        const { mST: mST2, hashCode: hashCode4 } = await resp.json();
-        if (updateHash) {
-          updateHash(hashCode4);
-        }
-        hashStore[hashCode4] = this.session.get("state").merge(mST2);
-        usedOldHash = hashCode4;
-        oldRec = hashStore[hashCode4];
-      }
-      const oldString = string_(oldRec.toJSON());
-      const newRec = oldRec.merge(s);
-      const newString = string_(newRec.toJSON());
-      const newHash = md5(newRec.toJS().transpiled);
-      hashStore[newHash] = newRec;
-      const patch = createPatch(oldString, newString);
-      return {
-        oldHash: usedOldHash,
-        newHash,
-        patch
-      };
-    };
-    this.patchSync = (sess) => {
-      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
-        throw new Error("Code update without I update error");
-      if (sess.i < this.session.get("state").i) {
-        throw new Error("never going back!");
-      }
-      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
-        throw new Error("Code update without I update error");
-      if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
-        console.error(
-          `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`
-        );
-        throw new Error("transpiled	hack issue");
-      }
-      if (sess.code.length < 5) {
-        throw new Error("code deleted?");
-      }
-      if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
-        console.error(`missing md5trans from html: ${md5(sess.transpiled)}
-      ${sess.html.slice(0, 64)}
-      
-      `);
-        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
-      }
-      if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
-        console.error(`missing from css: ${md5(sess.transpiled)}`);
-        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
-      }
-      const oldHash = md5(this.session.get("state").transpiled);
-      this.session = this.session.set(
-        "state",
-        this.session.get("state").merge(sess)
-      );
-      const newHash = md5(this.session.get("state").transpiled);
-      if (newHash !== oldHash) {
-        (self.requestAnimationFrame || setTimeout)(
-          async () => this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
-        );
-      }
-    };
-    this.applyPatch = async ({
-      oldHash,
-      newHash,
-      patch
-    }) => {
-      const codeSpace = this.room || "";
-      const now = mST();
-      const nowHash = md5(now.transpiled);
-      const current = this.session.get("state");
-      hashStore[nowHash] = current;
-      let maybeOldRec = hashStore[oldHash];
-      try {
-        if (!maybeOldRec) {
-          const resp = await fetch(
-            `/live/${codeSpace}/mST`
-          );
-          if (resp.ok) {
-            const s = await resp.json();
-            const serverRecord = this.session.get("state").merge(
-              JSON.parse(string_(s.mST))
-            );
-            hashStore[md5(serverRecord.transpiled)] = serverRecord;
-          } else {
-            const { mST: mST2 } = await import(`/live/${this.room}/mst.mjs?${Date.now()}`);
-            const latestRec = this.session.get("state").merge(
-              JSON.parse(string_(mST2))
-            );
-            hashStore[md5(latestRec.transpiled)] = latestRec;
-          }
-        }
-        maybeOldRec = hashStore[oldHash];
-        if (!maybeOldRec)
-          throw new Error(`cant find old record: ${oldHash}`);
-      } catch (err) {
-        throw new Error("OldHash not found");
-      }
-      const oldString = string_(maybeOldRec.toJSON());
-      const applied = applyPatch(oldString, patch);
-      const newState = JSON.parse(applied);
-      const newRec = this.session.get("state").merge(
-        newState
-      );
-      const newRecord = this.session.get("state").merge(newRec);
-      if (newRecord.i < this.session.get("state").i) {
-        throw new Error("never going back!");
-      }
-      if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
-        throw new Error("Code update without I update error");
-      const codeHash = md5(newRecord.code);
-      if (newRecord.transpiled.slice(0, 12) !== `/*${codeHash}*/`) {
-        console.error(
-          `missing: ${codeHash}, transpiled: ${newRecord.transpiled.slice(0, 12)}`
-        );
-        throw new Error("transpiled	hack issue");
-      }
-      if (newRecord.code.length < 5) {
-        throw new Error("code deleted?");
-      }
-      const transHash = md5(newRecord.transpiled);
-      if (newRecord.html.indexOf(transHash) === -1) {
-        console.error(`missing from html: ${transHash}
-      ${newRecord.html}
-      
-      `);
-        throw new Error(`render hack issue missing: ${transHash}.`);
-      }
-      if (newRecord.css.indexOf(transHash) === -1) {
-        console.error(`missing from css: ${transHash}`);
-        throw new Error(`render hack issue missing: ${transHash}.`);
-      }
-      const newHashCheck = md5(newRecord.get("transpiled"));
-      if (newHashCheck === newHash) {
-        this.session = this.session.set("state", newRecord);
-      } else {
-        throw new Error("Wrong patch");
-      }
-    };
-    session = this;
-    this.room = room;
-    const savedState = null;
-    this.session = initSession(room, {
-      ...user,
-      state: savedState ? savedState : JSON.parse(string_(user.state))
-    })();
-  }
+  session;
   update() {
     return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, {
       maxWait: 500,
@@ -5597,9 +5431,177 @@ var CodeSession = class {
       }
     });
   }
+  cb = {};
   onUpdate(fn, regId) {
     this.cb[regId] = fn;
   }
+  hashCodeSession = 0;
+  room;
+  created = new Date().toISOString();
+  constructor(room, user) {
+    session = this;
+    this.room = room;
+    const savedState = null;
+    this.session = initSession(room, {
+      ...user,
+      state: savedState ? savedState : JSON.parse(string_(user.state))
+    })();
+  }
+  hashOfState = () => {
+    const state = this.session.get("state");
+    const hashCode4 = md5(state.transpiled);
+    hashStore[hashCode4] = state;
+    return hashCode4;
+  };
+  createPatchFromHashCode = async (oldHash, state, updateHash) => {
+    const s = JSON.parse(string_(state));
+    let oldRec = hashStore[oldHash];
+    let usedOldHash = oldHash;
+    if (!oldRec) {
+      const resp = await fetch(
+        `/live/${this.room}/mST`
+      );
+      if (!resp.ok) {
+        console.error(location.origin + " is NOT OK", await resp.text());
+        throw new Error(location.origin + " is NOT OK");
+      }
+      const { mST: mST2, hashCode: hashCode4 } = await resp.json();
+      if (updateHash) {
+        updateHash(hashCode4);
+      }
+      hashStore[hashCode4] = this.session.get("state").merge(mST2);
+      usedOldHash = hashCode4;
+      oldRec = hashStore[hashCode4];
+    }
+    const oldString = string_(oldRec.toJSON());
+    const newRec = oldRec.merge(s);
+    const newString = string_(newRec.toJSON());
+    const newHash = md5(newRec.toJS().transpiled);
+    hashStore[newHash] = newRec;
+    const patch = createPatch(oldString, newString);
+    return {
+      oldHash: usedOldHash,
+      newHash,
+      patch
+    };
+  };
+  patchSync = (sess) => {
+    if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+      throw new Error("Code update without I update error");
+    if (sess.i < this.session.get("state").i) {
+      throw new Error("never going back!");
+    }
+    if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+      throw new Error("Code update without I update error");
+    if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
+      console.error(
+        `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`
+      );
+      throw new Error("transpiled	hack issue");
+    }
+    if (sess.code.length < 5) {
+      throw new Error("code deleted?");
+    }
+    if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
+      console.error(`missing md5trans from html: ${md5(sess.transpiled)}
+      ${sess.html.slice(0, 64)}
+      
+      `);
+      throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+    }
+    if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
+      console.error(`missing from css: ${md5(sess.transpiled)}`);
+      throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+    }
+    const oldHash = md5(this.session.get("state").transpiled);
+    this.session = this.session.set(
+      "state",
+      this.session.get("state").merge(sess)
+    );
+    const newHash = md5(this.session.get("state").transpiled);
+    if (newHash !== oldHash) {
+      (self.requestAnimationFrame || setTimeout)(
+        async () => this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
+      );
+    }
+  };
+  applyPatch = async ({
+    oldHash,
+    newHash,
+    patch
+  }) => {
+    const codeSpace = this.room || "";
+    const now = mST();
+    const nowHash = md5(now.transpiled);
+    const current = this.session.get("state");
+    hashStore[nowHash] = current;
+    let maybeOldRec = hashStore[oldHash];
+    try {
+      if (!maybeOldRec) {
+        const resp = await fetch(
+          `/live/${codeSpace}/mST`
+        );
+        if (resp.ok) {
+          const s = await resp.json();
+          const serverRecord = this.session.get("state").merge(
+            JSON.parse(string_(s.mST))
+          );
+          hashStore[md5(serverRecord.transpiled)] = serverRecord;
+        } else {
+          const { mST: mST2 } = await import(`/live/${this.room}/mst.mjs?${Date.now()}`);
+          const latestRec = this.session.get("state").merge(
+            JSON.parse(string_(mST2))
+          );
+          hashStore[md5(latestRec.transpiled)] = latestRec;
+        }
+      }
+      maybeOldRec = hashStore[oldHash];
+      if (!maybeOldRec)
+        throw new Error(`cant find old record: ${oldHash}`);
+    } catch (err) {
+      throw new Error("OldHash not found");
+    }
+    const oldString = string_(maybeOldRec.toJSON());
+    const applied = applyPatch(oldString, patch);
+    const newState = JSON.parse(applied);
+    const newRec = this.session.get("state").merge(
+      newState
+    );
+    const newRecord = this.session.get("state").merge(newRec);
+    if (newRecord.i < this.session.get("state").i) {
+      throw new Error("never going back!");
+    }
+    if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
+      throw new Error("Code update without I update error");
+    const codeHash = md5(newRecord.code);
+    if (newRecord.transpiled.slice(0, 12) !== `/*${codeHash}*/`) {
+      console.error(
+        `missing: ${codeHash}, transpiled: ${newRecord.transpiled.slice(0, 12)}`
+      );
+      throw new Error("transpiled	hack issue");
+    }
+    if (newRecord.code.length < 5) {
+      throw new Error("code deleted?");
+    }
+    const transHash = md5(newRecord.transpiled);
+    if (newRecord.html.indexOf(transHash) === -1) {
+      console.error(`missing from html: ${transHash}
+      ${newRecord.html}
+      
+      `);
+      throw new Error(`render hack issue missing: ${transHash}.`);
+    }
+    if (newRecord.css.indexOf(transHash) === -1) {
+      console.error(`missing from css: ${transHash}`);
+      throw new Error(`render hack issue missing: ${transHash}.`);
+    }
+    const newHashCheck = md5(newRecord.get("transpiled"));
+    if (newHashCheck === newHash) {
+      this.session = this.session.set("state", newRecord);
+    } else {
+      throw new Error("Wrong patch");
+    }
+  };
   json() {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
