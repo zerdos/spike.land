@@ -9,7 +9,7 @@
       mocks[event.data.filePath] = event.data.content;
     }
   };
-  (void 0).onfetch = (event) => {
+  self.onfetch = (event) => {
     const url = new URL(event.request.url);
     if (url.href === "/mocks") {
       return event.respondWith(

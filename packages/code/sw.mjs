@@ -18,8 +18,8 @@ bc.onmessage = (event) => {
 //     }, delay);
 //   });
 // }
-
-this.onfetch = (event) => {
+self.addEventListener("fetch", (event) => {
+self.onfetch = (event) => {
   const url = new URL(event.request.url);
   if (url.href === "/mocks") {
     return event.respondWith(
