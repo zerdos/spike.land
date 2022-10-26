@@ -37,6 +37,12 @@ const updateCacheNOW = debounce(update, 500);
 const updateCache = throttle(update, 60_000);
 
 const onactivate = async (event) => {
+  console.log("activated");
+  bc = new BroadcastChannel(location.origin);
+  bc.onmessage = (e) => {
+    console.log(e);
+  };
+
   // We want to start handling requests right away, so that requests from the
   // very first page will be handled by service worker. Which is why we claim
   // clients.
