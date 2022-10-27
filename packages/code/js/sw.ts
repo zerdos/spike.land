@@ -63,9 +63,11 @@ addEventListener("fetch", async (_event) => {
 
     if (cachedResp) return cachedResp;
 
-    const resp = await fetch(event.request);
+    const resp = await fetch(url);
 
-    if (resp.ok) await cache.put(cacheKey, resp.clone());
+    if (resp.ok && url.toString().includes(location.origin) && resp.headers.get("Cache-Control") !== "no-cache") {
+      await cache.put(cacheKey, resp.clone());
+    }
     return resp;
   })());
 });

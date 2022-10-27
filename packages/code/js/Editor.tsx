@@ -1,3 +1,4 @@
+import { Resizable } from "re-resizable";
 import type { FC } from "react";
 import { useRef } from "react";
 import React from "react";
@@ -19,6 +20,39 @@ import { mST, onSessionUpdate } from "./session";
 //   return prettied
 
 // }
+
+import styled from "@emotion/styled";
+import Highlight, { defaultProps } from "prism-react-renderer";
+import theme from "prism-react-renderer/themes/vsDark";
+
+const Pre = styled.pre`
+  text-align: left;
+  margin: 1em 0;
+  padding: 0.5em;
+  overflow: scroll;
+`;
+
+const Line = styled.div`
+  display: table-row;
+`;
+
+const LineNo = styled.span`
+  display: table-cell;
+  text-align: right;
+  padding-right: 1em;
+  user-select: none;
+  opacity: 0.5;
+`;
+
+const LineContent = styled.span`
+  display: table-cell;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: normal;
+
+  font-feature-settings: "liga" 0, "calt" 0;
+  font-family: Menlo, Monaco, "Courier New", monospace
+`;
 
 const mod = {
   CH() {},
@@ -122,16 +156,38 @@ export const Editor: FC<
   }, "editor");
 
   return (
-    <div
-      onKeyDown={() => mod.lastKeyDown = Date.now()}
-      id="editor"
-      data-test-id="editor"
-      css={css`          
-      max-width: 640px;
-      height: 100%; 
-  `}
-      ref={ref}
-    />
+    <Resizable
+      defaultSize={{
+        width: "640px",
+        height: "100vh",
+      }}
+    >
+      {engine === "monaco" && (
+        <Highlight Prism={defaultProps.Prism} theme={theme} code={myCode} language="tsx">
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <Pre className={className} style={style}>
+              {tokens.map((line, i) => (
+                <Line key={i} {...getLineProps({ line, key: i })}>
+                  <LineNo>{i + 1}</LineNo>
+                  <LineContent>
+                    {line.map((token, key) => <span key={key} {...getTokenProps({ token, key })} />)}
+                  </LineContent>
+                </Line>
+              ))}
+            </Pre>
+          )}
+        </Highlight>
+      )}
+      <div
+        id="editor"
+        data-test-id="editor"
+        css={css`    
+        width: 100%;
+        height: 100%; 
+     `}
+        ref={ref}
+      />
+    </Resizable>
   );
 };
 
