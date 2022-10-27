@@ -1,3 +1,4 @@
+import chat from "./chat";
 import { handleErrors } from "./handleErrors";
 import HTML from "./index.html";
 import { RateLimiterClient } from "./rateLimiterClient";
@@ -50,9 +51,8 @@ export class Code {
 
     this.state.blockConcurrencyWhile(async () => {
       // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
-
       const session = await this.kv.get<ICodeSession>("session")
-        || await fetch(origin + "/api/room/coder-main/session.json").then(x => x.json());
+        || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch("session.json").then(x => x.json());
       if (!session) throw Error("cant get the starter session");
       // if (!session.code) {
       //   const s = backupSession;
