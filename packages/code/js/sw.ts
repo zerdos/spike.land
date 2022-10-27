@@ -63,9 +63,11 @@ addEventListener("fetch", async (_event) => {
 
     if (cachedResp) return cachedResp;
 
+    if (url.toString().includes(location.origin)) return fetch(event.request);
+
     const resp = await fetch(event.request);
 
-    if (resp.ok && url.toString().includes(location.origin) && resp.headers.get("Cache-Control") !== "no-cache") {
+    if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
       await cache.put(cacheKey, resp.clone());
     }
     return resp;

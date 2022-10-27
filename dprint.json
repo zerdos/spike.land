@@ -5,7 +5,9 @@
       "**/*.{ts,tsx,js,jsx,mjs}"
     ],
     "excludes": [
+      "**/.yarn",
       "**/dist",
+      "**/public",
       "**/monaco-workers",
       "**/build"
     ],

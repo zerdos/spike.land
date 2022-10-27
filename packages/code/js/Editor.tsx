@@ -21,41 +21,40 @@ import { mST, onSessionUpdate } from "./session";
 
 // }
 
-import styled from "@emotion/styled";
-import Highlight, { defaultProps } from "prism-react-renderer";
-import theme from "prism-react-renderer/themes/vsDark";
+// import styled from "@emotion/styled";
+// import Highlight, { defaultProps } from "prism-react-renderer";
+// import theme from "prism-react-renderer/themes/vsDark";
 
-const Pre = styled.pre`
-  text-align: left;
-  margin: 1em 0;
-  padding: 0.5em;
-  overflow: scroll;
-`;
+// const Pre = styled.pre`
+//   text-align: left;
+//   margin: 1em 0;
+//   padding: 0.5em;
+//   overflow: scroll;
+// `;
 
-const Line = styled.div`
-  display: table-row;
-`;
+// const Line = styled.div`
+//   display: table-row;
+// `;
 
-const LineNo = styled.span`
-  display: table-cell;
-  text-align: right;
-  padding-right: 1em;
-  user-select: none;
-  opacity: 0.5;
-`;
+// const LineNo = styled.span`
+//   display: table-cell;
+//   text-align: right;
+//   padding-right: 1em;
+//   user-select: none;
+//   opacity: 0.5;
+// `;
 
-const LineContent = styled.span`
-  display: table-cell;
-  font-size: 12px;
-  line-height: 18px;
-  font-weight: normal;
+// const LineContent = styled.span`
+//   display: table-cell;
+//   font-size: 12px;
+//   line-height: 18px;
+//   font-weight: normal;
 
-  font-feature-settings: "liga" 0, "calt" 0;
-  font-family: Menlo, Monaco, "Courier New", monospace
-`;
+//   font-feature-settings: "liga" 0, "calt" 0;
+//   font-family: Menlo, Monaco, "Courier New", monospace
+// `;
 
 const mod = {
-  CH() {},
   getValue: async () => "",
 
   setValue: async (code: string) => {
@@ -162,7 +161,8 @@ export const Editor: FC<
         height: "100vh",
       }}
     >
-      {engine === "monaco" && (
+      {
+        /* {engine === "monaco" && (
         <Highlight Prism={defaultProps.Prism} theme={theme} code={myCode} language="tsx">
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <Pre className={className} style={style}>
@@ -177,7 +177,8 @@ export const Editor: FC<
             </Pre>
           )}
         </Highlight>
-      )}
+      )} */
+      }
       <div
         id="editor"
         data-test-id="editor"
