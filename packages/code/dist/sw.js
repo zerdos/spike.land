@@ -166,10 +166,11 @@
   ).finally(() => cacheName), "getCacheName");
   addEventListener("fetch", async (_event) => {
     const event = _event;
-    const url = new URL(event.request.url);
+    const request = event.request.clone();
+    const url = new URL(request.url);
     return event.respondWith((async () => {
-      if (mocks[event.request.url]) {
-        return new Response(mocks[event.request.url]);
+      if (mocks[request.url]) {
+        return new Response(mocks[request.url]);
       }
       if (!cache) {
         cache = await caches.open(cacheName || await getCacheName() && cacheName);
@@ -186,13 +187,13 @@
         lastChecked = Date.now();
         getCacheName();
       }
-      const cacheKey = new Request(event.request.url);
+      const cacheKey = new Request(request.url);
       const cachedResp = await cache.match(cacheKey);
       if (cachedResp)
         return cachedResp;
       if (!url.toString().includes(location.origin))
-        return fetch(event.request);
-      const resp = await fetch(event.request);
+        return fetch(request);
+      const resp = await fetch(request);
       if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
         await cache.put(cacheKey, resp.clone());
       }

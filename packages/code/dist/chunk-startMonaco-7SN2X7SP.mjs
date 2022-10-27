@@ -42190,13 +42190,14 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       noSemanticValidation: true,
       noSyntaxValidation: true
     });
-    const model = createModel(
+    const uri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
+    const model = editor.getModel(uri) || createModel(
       replaced,
       "typescript",
-      Uri.parse(`${originToUse}/live/${codeSpace}.tsx`)
+      uri
     );
     const innerContainer = container2;
-    const editor2 = create(innerContainer, {
+    const myEditor = create(innerContainer, {
       model,
       scrollbar: {
         scrollByPage: false,
@@ -42401,7 +42402,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       return extraLibs;
     };
     const mod2 = {
-      editor: editor2,
+      editor,
       ATA,
       languages,
       silent: false,
@@ -42434,13 +42435,13 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         mod2.silent = true;
         let state = null;
         try {
-          state = editor2.saveViewState();
+          state = myEditor.saveViewState();
         } catch (e) {
           console.error("error while saving the state");
         }
         model.setValue(code3);
         if (state) {
-          editor2.restoreViewState(state);
+          myEditor.restoreViewState(state);
         }
         mod2.silent = false;
       }
