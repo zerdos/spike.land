@@ -419,10 +419,12 @@ export const startMonaco = async (
         noSyntaxValidation: true,
       });
 
-    const model = createModel(
+    const uri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
+
+    const model = editor.getModel(uri) || createModel(
       replaced,
       "typescript",
-      Uri.parse(`${originToUse}/live/${codeSpace}.tsx`),
+      uri,
     );
 
     // const shadowRoot = container.attachShadow({
@@ -441,7 +443,7 @@ export const startMonaco = async (
 
     const innerContainer = container;
 
-    const editor = create(innerContainer, {
+    const myEditor = create(innerContainer, {
       model,
       scrollbar: {
         scrollByPage: false,
@@ -825,7 +827,7 @@ export const startMonaco = async (
         mod.silent = true;
         let state = null;
         try {
-          state = editor.saveViewState();
+          state = myEditor.saveViewState();
         } catch {
           console.error("error while saving the state");
         }
@@ -833,7 +835,7 @@ export const startMonaco = async (
         model.setValue(code);
 
         if (state) {
-          editor.restoreViewState(state);
+          myEditor.restoreViewState(state);
         }
         mod.silent = false;
       },

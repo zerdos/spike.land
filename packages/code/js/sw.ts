@@ -31,15 +31,17 @@ const getCacheName = () =>
 
 addEventListener("fetch", async (_event) => {
   const event = _event as unknown as FetchEvent;
-  const url = new URL(event.request.url);
+
+  const request = event.request.clone();
+  const url = new URL(request.url);
 
   return event.respondWith((async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    if (mocks[event.request.url]) {
+    if (mocks[request.url]) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      return new Response(mocks[event.request.url]);
+      return new Response(mocks[request.url]);
     }
 
     if (!cache) {
@@ -60,14 +62,14 @@ addEventListener("fetch", async (_event) => {
       getCacheName();
     }
 
-    const cacheKey = new Request(event.request.url);
+    const cacheKey = new Request(request.url);
     const cachedResp = await cache.match(cacheKey);
 
     if (cachedResp) return cachedResp;
 
-    if (!url.toString().includes(location.origin)) return fetch(event.request);
+    if (!url.toString().includes(location.origin)) return fetch(request);
 
-    const resp = await fetch(event.request);
+    const resp = await fetch(request);
 
     if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
       await cache.put(cacheKey, resp.clone());
