@@ -49,27 +49,28 @@ export class Code {
     this.address = "";
 
     this.state.blockConcurrencyWhile(async () => {
-      const backupSession = getBackupSession();
+      // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
 
       const session = await this.kv.get<ICodeSession>("session")
-        || backupSession;
-      if (!session.code) {
-        const s = backupSession;
-        session.code = s.code;
-        session.transpiled = s.transpiled;
-        session.i = s.i;
-        session.html = s.html;
-        session.css = s.css;
-      }
+        || await fetch(origin + "/api/room/coder-main/session.json").then(x => x.json());
+      if (!session) throw Error("cant get the starter session");
+      // if (!session.code) {
+      //   const s = backupSession;
+      //   session.code = s.code;
+      //   session.transpiled = s.transpiled;
+      //   session.i = s.i;
+      //   session.html = s.html;
+      //   session.css = s.css;
+      // }
       this.address = await this.kv.get<string>("address") || "";
       this.sess = session;
       this.sessionStarted = false;
     });
   }
 
-  async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {
+  async fetch(request: Request, _env: CodeEnv, _ctx: ExecutionContext) {
     const state = this.sess!;
-    let url = new URL(request.url);
+    const url = new URL(request.url);
 
     if (!this.sessionStarted) {
       startSession(
@@ -83,7 +84,7 @@ export class Code {
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
     return handleErrors(request, async () => {
-      let path = url.pathname.slice(1).split("/");
+      const path = url.pathname.slice(1).split("/");
 
       switch (path[0]) {
         case "":

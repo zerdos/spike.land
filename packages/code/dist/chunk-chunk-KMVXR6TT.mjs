@@ -1,7 +1,6 @@
 import {
-  emotionCache_default,
-  emotionStyled_default
-} from "./chunk-chunk-VQYSUR3P.mjs";
+  emotionCache_default
+} from "./chunk-chunk-5Z43ZKQQ.mjs";
 import {
   Children,
   Fragment,
@@ -11167,6 +11166,10 @@ init_define_process();
 
 // ../../.yarn/__virtual__/@mui-styled-engine-virtual-bbae692ecf/0/global/cache/@mui-styled-engine-npm-5.10.8-a0cbfa59bc-9.zip/node_modules/@mui/styled-engine/index.js
 init_define_process();
+
+// js/emotionStyled.mjs
+init_define_process();
+var emotionStyled_default = globalThis.styled;
 
 // ../../.yarn/__virtual__/@mui-styled-engine-virtual-bbae692ecf/0/global/cache/@mui-styled-engine-npm-5.10.8-a0cbfa59bc-9.zip/node_modules/@mui/styled-engine/StyledEngineProvider/index.js
 init_define_process();
