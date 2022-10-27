@@ -977,6 +977,7 @@ __metadata:
     preact-render-to-string: "npm:5.2.6"
     prettier: "npm:2.7.1"
     qrious: "npm:4.0.2"
+    re-resizable: "npm:^6.9.9"
     react: "npm:18.2.0"
     react-dom: "npm:^18.2.0"
     react-error-boundary: "npm:^3.1.4"
@@ -985,6 +986,7 @@ __metadata:
     react-reverse-portal: "npm:2.1.1"
     typescript: "npm:4.8.4"
     uvu: "npm:0.5.6"
+    webrtc-adapter: "npm:^8.2.0"
   peerDependencies:
     "@motionone/dom": "*"
     fast-glob: "*"
@@ -5228,6 +5230,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"re-resizable@npm:^6.9.9":
+  version: 6.9.9
+  resolution: "re-resizable@npm:6.9.9"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+  checksum: b63d0ce559b84bae85aa3457fc329f0cfdf9a1c68397d7bc173329915a00ca96d40a311f4e6c1cd49c697684de7263eef807750086555bfebd4ce3fdff616b91
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:18.2.0, react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -5581,6 +5593,13 @@ __metadata:
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: f4022b95cdc282668643da4850f55fe70c899aa956d11819f196e2ca892271bdb253613e53997852094f9351f7c72d057eea8b28d9b4bcb93bcb1c6d09985c82
+  languageName: node
+  linkType: hard
+
+"sdp@npm:^3.0.2":
+  version: 3.0.3
+  resolution: "sdp@npm:3.0.3"
+  checksum: a02ec104fa656cc8f8f79d1c68d03de47b28cd8d6baabcb98e322c553c2058ef3cdd3e0764dce6ecd27d3b8929c9bb18a81b646a689c06f17b69cd8ff200faf2
   languageName: node
   linkType: hard
 
@@ -6195,6 +6214,15 @@ __metadata:
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: b1db20d4be443aec48b8efab73386f83d947b7033b6b2f5a0c7ba4a1f9bc0200cb4cb396712468761f8edfe48dd68a6fdee7c65689b90937a2d767c714d25883
+  languageName: node
+  linkType: hard
+
+"webrtc-adapter@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "webrtc-adapter@npm:8.2.0"
+  dependencies:
+    sdp: "npm:^3.0.2"
+  checksum: 1231746e6a4d59a3d9fb1ac092bdaed2db8b7d3342ca36fdd15e26048a053e25d5f603e1bb42cab526ba114124c9951e143ce02e64bbce1f45385fc28f92e59c
   languageName: node
   linkType: hard
 

@@ -42256,56 +42256,61 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     const extraModels = {};
     Object.assign(globalThis, { extraModels, extraModelCache });
     const addExtraModels = async (code3, url) => {
-      if (extraModels[url])
-        return;
-      extraModels[url] = [];
-      const baSe = new URL(".", url).toString();
-      const parent = new URL("..", url).toString();
-      const gParent = new URL("../..", url).toString();
-      let replaced2 = removeComments(code3);
-      replaced2 = replaceAll(replaced2, ` from '../../`, ` from '${gParent}`);
-      replaced2 = replaceAll(replaced2, ` from "../../`, ` from "${gParent}`);
-      replaced2 = replaceAll(replaced2, ` from '../`, ` from '${parent}`);
-      replaced2 = replaceAll(replaced2, ` from './`, ` from '${baSe}`);
-      replaced2 = replaceAll(replaced2, ` from "../`, ` from "${parent}`);
-      replaced2 = replaceAll(replaced2, ` from "./`, ` from "${baSe}`);
-      extraModelCache[url] = replaced2;
-      const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
-      const models = replaced2.matchAll(regex);
-      for (const match of models) {
-        try {
-          const dts = match[0].indexOf(".d.ts");
-          if (!match[0].includes("spike.land"))
-            continue;
-          if (dts === -1)
-            continue;
-          const extraModel = match[0].slice(0, dts + 5);
-          if (extraModels[url].includes(extraModel))
-            continue;
-          extraModels[url].push(extraModel);
-          if (extraModels[extraModel])
-            continue;
-          if (extraModelCache[extraModel])
-            continue;
-          let extraModelUrl = extraModel;
-          const extraModelContent = await fetch(extraModel).then(
-            (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
-          ).then((res) => {
-            extraModelUrl = res.url;
-            return res.text();
-          });
-          if (extraModelUrl !== extraModel) {
-            extraModelCache[url] = replaceAll(
-              extraModelCache[url],
-              extraModel,
-              extraModelUrl
-            );
+      try {
+        if (extraModels[url])
+          return;
+        extraModels[url] = [];
+        const baSe = new URL(".", url).toString();
+        const parent = new URL("..", url).toString();
+        const gParent = new URL("../..", url).toString();
+        let replaced2 = removeComments(code3);
+        replaced2 = replaceAll(replaced2, ` from '../../`, ` from '${gParent}`);
+        replaced2 = replaceAll(replaced2, ` from "../../`, ` from "${gParent}`);
+        replaced2 = replaceAll(replaced2, ` from '../`, ` from '${parent}`);
+        replaced2 = replaceAll(replaced2, ` from './`, ` from '${baSe}`);
+        replaced2 = replaceAll(replaced2, ` from "../`, ` from "${parent}`);
+        replaced2 = replaceAll(replaced2, ` from "./`, ` from "${baSe}`);
+        extraModelCache[url] = replaced2;
+        const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
+        const models = replaced2.matchAll(regex);
+        for (const match of models) {
+          try {
+            const dts = match[0].indexOf(".d.ts");
+            if (!match[0].includes("spike.land"))
+              continue;
+            if (dts === -1)
+              continue;
+            const extraModel = match[0].slice(0, dts + 5);
+            if (extraModels[url].includes(extraModel))
+              continue;
+            extraModels[url].push(extraModel);
+            if (extraModels[extraModel])
+              continue;
+            if (extraModelCache[extraModel])
+              continue;
+            let extraModelUrl = extraModel;
+            const extraModelContent = await fetch(extraModel).then(
+              (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
+            ).then((res) => {
+              extraModelUrl = res.url;
+              return res.text();
+            });
+            if (extraModelUrl !== extraModel) {
+              extraModelCache[url] = replaceAll(
+                extraModelCache[url],
+                extraModel,
+                extraModelUrl
+              );
+            }
+            extraModelCache[extraModelUrl] = extraModelContent;
+            await addExtraModels(extraModelCache[extraModel], extraModel);
+          } catch (err) {
+            console.error("Error in add extra models", code3, url, { err });
           }
-          extraModelCache[extraModelUrl] = extraModelContent;
-          await addExtraModels(extraModelCache[extraModel], extraModel);
-        } catch (err) {
-          console.error("Error in add extra models", code3, url, { err });
         }
+      } catch (e) {
+        console.log("error in extra lib  mining", url);
+        return;
       }
     };
     const replaceMaps = {};

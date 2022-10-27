@@ -31,43 +31,41 @@ const getCacheName = () =>
 
 addEventListener("fetch", async (_event) => {
   const event = _event as unknown as FetchEvent;
+  const url = new URL(event.request.url);
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  if (mocks[event.request.url]) {
-    return event.respondWith(
+  return event.respondWith((async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (mocks[event.request.url]) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
+      return new Response(mocks[event.request.url]);
+    }
 
-      new Response(mocks[event.request.url]),
-    );
-  }
+    if (!cache) cache = await caches.open(cacheName || await getCacheName() && cacheName);
 
-  if (!cache) cache = await caches.open(cacheName || await getCacheName() && cacheName);
-  const url = new URL(event.request.url);
-  if (url.href === "/mocks") {
-    return event.respondWith(
-      new Response(JSON.stringify(mocks), {
+    if (url.href === "/mocks") {
+      return new Response(JSON.stringify(mocks), {
         headers: {
           "Content-Type": "application/json;charset=UTF-8",
           "Cache-Control": "no-cache",
         },
-      }),
-    );
-  }
+      });
+    }
 
-  if (Date.now() - lastChecked > 10_000) {
-    lastChecked = Date.now();
-    getCacheName();
-  }
+    if (Date.now() - lastChecked > 10_000) {
+      lastChecked = Date.now();
+      getCacheName();
+    }
 
-  const cacheKey = new Request(event.request.url);
-  const cachedResp = await cache.match(cacheKey);
+    const cacheKey = new Request(event.request.url);
+    const cachedResp = await cache.match(cacheKey);
 
-  if (cachedResp) return event.respondWith(cachedResp);
+    if (cachedResp) return cachedResp;
 
-  const resp = await fetch(event.request);
+    const resp = await fetch(event.request);
 
-  if (resp.ok) await cache.put(cacheKey, resp.clone());
-  return event.respondWith(resp);
+    if (resp.ok) await cache.put(cacheKey, resp.clone());
+    return resp;
+  })());
 });
