@@ -3,6 +3,8 @@
 // Object.assign(globalThis, require("stream-browserify"));
 
 // import 'css-paint-polyfill
+
+import "webrtc-adapter";
 import AVLTree from "avl";
 import debounce from "lodash.debounce";
 import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
