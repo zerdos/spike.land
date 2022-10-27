@@ -23342,7 +23342,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-WCPT7EKH.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-RL42DIGM.mjs")));
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
 height: 100%;
