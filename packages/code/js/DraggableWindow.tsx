@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { domAnimation, domMax, LazyMotion, m, MotionConfig } from "framer-motion";
+import React from "react";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
@@ -7,8 +8,8 @@ import { QRButton } from "./Qr";
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
-import { sendChannel, startVideo } from "ws";
 import { Phone, Share, Tablet, Tv } from "./icons";
+import { sendChannel } from "./ws";
 
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
@@ -180,18 +181,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           }}
           dragElastic={0.5}
         >
-          <div
-            css={css` 
-              display: flex;
-              
-                `}
-          >
+          <div style={{ display: "flex" }}>
             <div
-              css={css`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          `}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
             >
               <m.div
                 css={css`
@@ -250,7 +242,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 }}
                 css={css`
                 display: block;
-                scroll
+                
                 overflow: hidden;
                 overflow-x: hidden;
                 overflow-y: hidden;

@@ -2,7 +2,7 @@
        "typescript": {
     },
     "includes": [
-      "**/*.{ts,tsx,js,jsx,mjs}"
+      "**/*.{ts,tsx,js,jsx,mjs,json}"
     ],
     "excludes": [
       "**/.yarn",
