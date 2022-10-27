@@ -972,6 +972,8 @@ __metadata:
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.24"
     "@types/react-dom": "npm:18.0.8"
+    "@typescript-eslint/eslint-plugin": "npm:^5.41.0"
+    "@typescript-eslint/parser": "npm:^5.41.0"
     "@typescript/ata": "npm:0.9.3"
     "@yarnpkg/sdks": "npm:3.0.0-rc.26"
     ace-builds: "npm:1.12.3"
@@ -985,9 +987,10 @@ __metadata:
     esbuild-plugin-external-global: "npm:1.0.1"
     esbuild-wasm: "npm:0.15.12"
     eslint: "npm:^8.26.0"
+    eslint-plugin-react: "npm:^7.31.10"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:7.6.1"
+    framer-motion: "npm:7.6.2"
     immutable: "npm:^4.1.0"
     is-callable: "npm:1.2.7"
     lodash.debounce: "npm:4.0.8"
@@ -3448,9 +3451,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.6.1":
-  version: 7.6.1
-  resolution: "framer-motion@npm:7.6.1"
+"framer-motion@npm:7.6.2":
+  version: 7.6.2
+  resolution: "framer-motion@npm:7.6.2"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
@@ -3465,7 +3468,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 2c9867b866b6eff476d46d1fe7b8b560f4c6455c641b0f621f7f73548593be21b9cc8c774388ecc509ea4e9dfe2b40d949a3e2979fac9a7cb1595525f2090906
+  checksum: 0f25904bfe14cf11bb3e839c819b4b0f3545d56ef25b99819ed6f67f1cb623a3ccb5299e9f87f95b08455e23f58ca3e3cf7be53b080e786751e4aaf7ee30b3f0
   languageName: node
   linkType: hard
 
@@ -4703,7 +4706,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.8"
     esbuild: "npm:0.15.12"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:7.6.1"
+    framer-motion: "npm:7.6.2"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.0.1"
