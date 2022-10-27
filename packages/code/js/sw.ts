@@ -63,7 +63,7 @@ addEventListener("fetch", async (_event) => {
 
     if (cachedResp) return cachedResp;
 
-    if (url.toString().includes(location.origin)) return fetch(event.request);
+    if (!url.toString().includes(location.origin)) return fetch(event.request);
 
     const resp = await fetch(event.request);
 
