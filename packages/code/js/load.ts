@@ -11,18 +11,26 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 runtime();
 
-import(
-  `${location.origin}/live/${codeSpace}/mST.mjs`
-).then(({
-  mST,
-  codeSpace,
-  address,
-}) =>
-  import(`${location.origin}/ws.mjs`).then(({ run }) =>
-    run({
-      mST,
-      codeSpace,
-      address,
-    })
-  )
-);
+if (location.pathname.endsWith("/hydrated")) {
+  import(
+    `${location.origin}/live/${codeSpace}/index.js`
+  ).then((mod) => {
+    globalThis.ReactDOMClient.hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default());
+  });
+} else {
+  import(
+    `${location.origin}/live/${codeSpace}/mST.mjs`
+  ).then(({
+    mST,
+    codeSpace,
+    address,
+  }) =>
+    import(`${location.origin}/ws.mjs`).then(({ run }) =>
+      run({
+        mST,
+        codeSpace,
+        address,
+      })
+    )
+  );
+}
