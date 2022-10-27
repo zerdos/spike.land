@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-GJOUM45D.mjs";
+} from "./chunk-chunk-MWXDFHVD.mjs";
 import {
   applyPatch,
   hashCode,
