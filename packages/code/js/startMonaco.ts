@@ -689,8 +689,8 @@ export const startMonaco = async (
           )
           .map((x) => typeof x === "string" && x.split!("'")[1]).map(
             async (mod) => {
-              if (mod && mod.startsWith("https://")) return;  
               const retMod = { url: "", mod: mod, content: "" };
+              if (mod && mod.startsWith("https://")) return retMod;
 
               retMod.content = (await fetch("/npm:/" + mod).then((resp) =>
                 resp.status === 307

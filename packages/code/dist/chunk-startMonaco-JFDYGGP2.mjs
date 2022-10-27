@@ -42330,9 +42330,9 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")
         ).map((x) => typeof x === "string" && x.split("'")[1]).map(
           async (mod3) => {
-            if (mod3 && mod3.startsWith("https://"))
-              return;
             const retMod = { url: "", mod: mod3, content: "" };
+            if (mod3 && mod3.startsWith("https://"))
+              return retMod;
             retMod.content = await fetch("/npm:/" + mod3).then(
               (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
             ).then((x) => {
