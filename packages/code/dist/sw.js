@@ -189,7 +189,7 @@
       const cachedResp = await cache.match(cacheKey);
       if (cachedResp)
         return cachedResp;
-      const resp = await fetch(url);
+      const resp = await fetch(event.request);
       if (resp.ok && url.toString().includes(location.origin) && resp.headers.get("Cache-Control") !== "no-cache") {
         await cache.put(cacheKey, resp.clone());
       }
