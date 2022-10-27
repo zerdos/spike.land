@@ -171,8 +171,9 @@
       if (mocks[event.request.url]) {
         return new Response(mocks[event.request.url]);
       }
-      if (!cache)
+      if (!cache) {
         cache = await caches.open(cacheName || await getCacheName() && cacheName);
+      }
       if (url.href === "/mocks") {
         return new Response(JSON.stringify(mocks), {
           headers: {

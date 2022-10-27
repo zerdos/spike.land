@@ -1,4 +1,3 @@
-import chat from "./chat";
 import { handleErrors } from "./handleErrors";
 import HTML from "./index.html";
 import { RateLimiterClient } from "./rateLimiterClient";
@@ -6,16 +5,12 @@ import { RateLimiterClient } from "./rateLimiterClient";
 import IIFE from "./iife.html";
 // import {a} from "./staticContent.mjs"
 import type { ICodeSession } from "@spike.land/code/js/session";
-import { applyPatch, hashCode, makePatch, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
+import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { CodeEnv } from "./env";
 // import importMap from "@spike.land/code/js/importmap.json";
 import AVLTree from "avl";
 import { getImportMapStr, imap } from "./chat";
-import { getBackupSession } from "./getBackupSession";
-
-interface IState extends DurableObjectState {
-}
 
 interface WebsocketSession {
   name: string;
@@ -26,8 +21,7 @@ interface WebsocketSession {
 }
 
 export class Code {
-  state: IState;
-  room: string = "";
+  state: DurableObjectState;
   kv: DurableObjectStorage;
   codeSpace: string;
   sess: ICodeSession | null;
@@ -39,7 +33,7 @@ export class Code {
     true,
   );
   sessions: WebsocketSession[];
-  constructor(state: IState, private env: CodeEnv) {
+  constructor(state: DurableObjectState, private env: CodeEnv) {
     this.kv = state.storage;
     this.state = state;
     this.sessionStarted = false;
@@ -72,16 +66,16 @@ export class Code {
     const state = this.sess!;
     const url = new URL(request.url);
 
+    this.codeSpace = url.searchParams.get("room") || "code-main";
+
     if (!this.sessionStarted) {
       startSession(
         this.codeSpace,
-        { state, name: this.room },
+        { state, name: this.codeSpace },
         url.origin,
       );
       this.sessionStarted = true;
     }
-
-    this.codeSpace = url.searchParams.get("room") || "code-main";
 
     return handleErrors(request, async () => {
       const path = url.pathname.slice(1).split("/");
@@ -173,9 +167,6 @@ export class Code {
         //     },
         //   });
         case "lazy":
-          const { html, css, transpiled } = mST();
-          const hash = hashCode();
-
           return new Response(
             `import { jsx as jsX } from "@emotion/react";
            import {LoadRoom} from "/live/lazy/js";
@@ -391,9 +382,9 @@ export class Code {
             return new Response("expected websocket", { status: 400 });
           }
 
-          let ip = request.headers.get("CF-Connecting-IP") || "192.100.123.1";
+          const ip = request.headers.get("CF-Connecting-IP") || "192.100.123.1";
           // eslint-disable-next-line no-undef
-          let pair = new WebSocketPair();
+          const pair = new WebSocketPair();
 
           await this.handleSession(pair[1], ip);
 
@@ -409,14 +400,14 @@ export class Code {
   async handleSession(webSocket: WebSocket, ip: string) {
     webSocket.accept();
 
-    let limiterId = this.env.LIMITERS.idFromName(ip);
+    const limiterId = this.env.LIMITERS.idFromName(ip);
 
-    let limiter = new RateLimiterClient(
+    const limiter = new RateLimiterClient(
       () => this.env.LIMITERS.get(limiterId),
       (err: Error) => webSocket.close(1011, err.stack),
     );
 
-    let session = {
+    const session = {
       name: "",
       webSocket,
       limiter,
@@ -431,7 +422,7 @@ export class Code {
       (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
     );
 
-    let closeOrErrorHandler = () => {
+    const closeOrErrorHandler = () => {
       session.quit = true;
       this.users.remove(session.name);
     };
@@ -449,9 +440,9 @@ export class Code {
       return;
     }
 
-    const { webSocket, limiter, name } = session;
+    const { name } = session;
 
-    const respondWith = (obj: Object) => session.webSocket.send(JSON.stringify(obj));
+    const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
 
     let data: {
       name?: string;
@@ -615,7 +606,7 @@ export class Code {
     }
   }
 
-  user2user(to: string, msg: Object | string) {
+  user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
     // Iterate over all the sessions sending them messages.
@@ -624,7 +615,7 @@ export class Code {
       .map((s) => s.webSocket.send(message));
   }
 
-  broadcast(msg: Object) {
+  broadcast(msg: unknown) {
     const message = JSON.stringify(msg);
 
     this.sessions.filter((s) => s.name).map((s) => {
@@ -652,21 +643,4 @@ function importMapReplace(codeInp: string) {
   });
 
   return returnStr;
-}
-
-async function sha256(myText: string) {
-  const myY = new TextEncoder().encode(myText);
-
-  const myDigest = await crypto.subtle.digest(
-    {
-      name: "SHA-256",
-    },
-    myY, // The data you want to hash as an ArrayBuffer
-  );
-
-  const hexString = [...new Uint8Array(myDigest)]
-    .map(b => b.toString(16).padStart(2, "0"))
-    .join("");
-
-  return hexString;
 }

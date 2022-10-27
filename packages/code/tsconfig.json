@@ -44,7 +44,7 @@
     // "rootDirs": [".", "../../../node_modules"],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": ["./comlink/public/esm"],                       /* List of folders to include type definitions from. */
     "strict": true,
-    "types": [],
+    "types": ["node"],
     // "typeRoots": ["@types", "@types/monaco-editor", "node",  "@types/react", "@emotion/react", "es-module-shims"],
     "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */

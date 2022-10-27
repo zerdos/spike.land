@@ -23,7 +23,7 @@ export class CodeRateLimiter {
   // next action.
   async fetch(request: Request) {
     return await handleErrors(request, async () => {
-      let now = Date.now() / 1000;
+      const now = Date.now() / 1000;
 
       this.nextAllowedTime = Math.max(now, this.nextAllowedTime);
 
@@ -37,7 +37,7 @@ export class CodeRateLimiter {
       //
       // We provide a "grace" period of 20 seconds, meaning that the client can make 4-5 requests
       // in a quick burst before they start being limited.
-      let coolDown = Math.max(0, this.nextAllowedTime - now - 2);
+      const coolDown = Math.max(0, this.nextAllowedTime - now - 2);
       return new Response(`${coolDown}`);
     });
   }

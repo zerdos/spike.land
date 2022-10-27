@@ -5,20 +5,10 @@ import { a, ASSET_MANIFEST } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
+import importMap from "@spike.land/code/js/importmap.json";
 import { md5 } from "@spike.land/code/js/session";
 import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
-
-// const ws = a["ws.mjs"];
-const preact = "/reactMod.mjs";
-const babel = "/babel.mjs";
-const emotionReact = "/emotion.mjs";
-const emotionJsxRuntime = "/emotionJsxRuntime.mjs";
-const emotionCache = "/emotionCache.mjs";
-
-const emotionStyled = "/emotionStyled.mjs";
-
-const motion = "/motion.mjs";
 
 const esbuildExternal = [
   "monaco-editor",
@@ -27,32 +17,9 @@ const esbuildExternal = [
   "@mui/material",
   "framer-motion",
 ];
-const externals = esbuildExternal.join(",");
 const mods: { [key: string]: string } = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
-export const imap = {
-  "imports": {
-    ...mods,
-    "@emotion/react": emotionReact,
-    "@emotion/react/jsx-runtime": emotionJsxRuntime,
-    // "@emotion/styled": emotionStyled,
-    //  "@emotion/cache": emotionCache,
-    // "live/": "live/",
-    "react": preact,
-    // "react/jsx-runtime": "/jsx.mjs",
-    "react-dom": preact,
-    "react-dom/client": preact,
-    "@babel/runtime/helpers/extends": babel,
-    // "react-dom/server": preact,
-
-    "framer-motion": motion,
-    // "ws.mjs": ws,
-    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.jchs",
-    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-  },
-};
+export const imap = importMap;
 
 export default {
   async fetch(
@@ -92,7 +59,7 @@ export default {
         const utcSecs = Math.floor(Math.floor(Date.now() / 1000 / 7200));
         console.log({ asOrganization: request.cf?.asOrganization });
         const start = md5(
-          request.cf?.asOrganization + utcSecs + `
+          (request.cf?.asOrganization || "default") + utcSecs + `
         and reset every 2 hours
         time`,
         );
@@ -100,8 +67,9 @@ export default {
         return new Response(
           `<meta http-equiv="refresh" content="0; URL=${u.origin}/live/${start}" />`,
           {
+            status: 307,
             headers: {
-              "Location": `${u.origin}/live/coder`,
+              "Location": `${u.origin}/live/${start}/hydrated`,
               "Content-Type": "text/html;charset=UTF-8",
               "Cache-Control": "no-cache",
             },
@@ -156,7 +124,7 @@ export default {
               : "");
             const esmUrl = "https://esm.sh/" + packageName + searchParams;
 
-            let resp = await fetch(esmUrl, { ...request, url: esmUrl });
+            const resp = await fetch(esmUrl, { ...request, url: esmUrl });
 
             if (resp !== null && !resp.ok || resp.status === 307) {
               const redirectUrl = resp.headers.get("location");
@@ -363,7 +331,7 @@ export default {
               return handleApiRequest(path.slice(1), request, env);
 
             case "ipns":
-            case "ipfs":
+            case "ipfs": {
               const u = new URL(request.url, "https://cloudflare-ipfs.com");
               const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
               const resp = await fetch(new1.toString());
@@ -372,7 +340,8 @@ export default {
               const new2 = new URL(u.pathname, "https://ipfs.io");
               const resp2 = await fetch(new2.toString());
               return resp2;
-            case "live":
+            }
+            case "live": {
               const paths = [...path.slice(1)];
 
               // const newUrl =  new URL(paths.join("/"), url.origin);
@@ -385,10 +354,10 @@ export default {
                 request,
                 env,
               ).catch((e) => new Response("Error," + e?.message, { status: 500, statusText: e?.message }));
-
+            }
             default:
               try {
-                let kvResp = await getAssetFromKV(
+                const kvResp = await getAssetFromKV(
                   {
                     request,
                     waitUntil(promise) {
@@ -469,17 +438,6 @@ async function handleApiRequest(
       newUrl.searchParams.append("room", name);
       return roomObject.fetch(newUrl.toString(), request);
     }
-
-    case "rtc": {
-      const room = path[1];
-      const user = path[2];
-
-      // return join(room, user, (message: object )=>{
-
-      //   console.log({message})
-      // });
-    }
-
     default:
       return new Response("Not found", { status: 404 });
   }

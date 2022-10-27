@@ -24,9 +24,9 @@ let lastChecked = 0;
 let cache: Cache | null;
 let cacheName = "default";
 const getCacheName = () =>
-  fetch(location.origin + "/files.json").then(files => files.ok ? files.text() : null).then(content => md5(content))
+  fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => md5(content))
     .then(
-      cn => (cn === cacheName || (cache = null) || (cacheName = cn)),
+      (cn) => (cn === cacheName || (cache = null) || (cacheName = cn)),
     ).finally(() => cacheName);
 
 addEventListener("fetch", async (_event) => {
@@ -42,7 +42,9 @@ addEventListener("fetch", async (_event) => {
       return new Response(mocks[event.request.url]);
     }
 
-    if (!cache) cache = await caches.open(cacheName || await getCacheName() && cacheName);
+    if (!cache) {
+      cache = await caches.open(cacheName || await getCacheName() && cacheName);
+    }
 
     if (url.href === "/mocks") {
       return new Response(JSON.stringify(mocks), {

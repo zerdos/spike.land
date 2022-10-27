@@ -29492,6 +29492,18 @@ init_define_process();
   }
 })();
 
+// js/importmap.json
+var importmap_default = {
+  imports: {
+    "framer-motion": "/motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    react: "/reactMod.mjs",
+    "react-dom": "/reactMod.mjs",
+    "react-dom/client": "/reactMod.mjs"
+  }
+};
+
 // js/react-jsx-runtime.production.min.cjs
 init_define_process();
 var runtime = () => {
@@ -29506,9 +29518,8 @@ var runtime = () => {
 };
 
 // js/load.ts
-var _a;
 importShim.addImportMap(
-  JSON.parse((_a = document.querySelector("script[type=importmap]")) == null ? void 0 : _a.innerHTML)
+  importmap_default
 );
 var codeSpace = location.pathname.slice(1).split("/")[1];
 runtime();

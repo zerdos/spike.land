@@ -968,6 +968,7 @@ __metadata:
     "@types/is-callable": "npm:1.1.0"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
+    "@types/node": "npm:^18.11.7"
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.24"
     "@types/react-dom": "npm:18.0.8"
@@ -2588,7 +2589,7 @@ __metadata:
 "es-module-shims@npm:1.6.2":
   version: 1.6.2
   resolution: "es-module-shims@npm:1.6.2"
-  checksum: 5a27bb134e43580e14a9e8feaae745818f2778ed9af26d396f91c2093aa046e8da59bb174d63d0fc7d3e0be199f19adb253153125b4494e3c02070353413f5f2
+  checksum: 27af714e7f9a486db3ebbea911287c80368544bafaba512d7394cde3356af2bd1759f8c51aa5962295e6004fc0f2d7db3b0add9af6cd2fd587fbb966608a235a
   languageName: node
   linkType: hard
 

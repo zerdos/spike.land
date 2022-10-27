@@ -8,8 +8,8 @@ import {
 } from "./chunk-chunk-DLQWG2GE.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-FZOIQW6D.mjs";
-import "./chunk-chunk-SIXUWJ5F.mjs";
+} from "./chunk-chunk-NY7PXMDM.mjs";
+import "./chunk-chunk-KFAOD527.mjs";
 import "./chunk-chunk-2INAMIGF.mjs";
 import {
   jsx,
@@ -2371,6 +2371,7 @@ var require_qrious = __commonJS({
 // js/DraggableWindow.tsx
 init_define_process();
 init_reactMod();
+init_reactMod();
 
 // ../../.yarn/__virtual__/react-icons-virtual-03002b44ac/0/global/cache/react-icons-npm-4.6.0-85b1c2c9bc-9.zip/node_modules/react-icons/md/index.esm.js
 init_define_process();
@@ -2716,17 +2717,10 @@ var DraggableWindow = ({
         },
         dragElastic: 0.5,
         children: jsxs("div", {
-          css: css` 
-              display: flex;
-              
-                `,
+          style: { display: "flex" },
           children: [
             jsxs("div", {
-              css: css`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          `,
+              style: { display: "flex", flexDirection: "column", alignItems: "center" },
               children: [
                 jsx(m.div, {
                   css: css`
@@ -2773,7 +2767,7 @@ var DraggableWindow = ({
                   },
                   css: css`
                 display: block;
-                scroll
+                
                 overflow: hidden;
                 overflow-x: hidden;
                 overflow-y: hidden;

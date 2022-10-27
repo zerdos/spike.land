@@ -1,13 +1,13 @@
 import parserBabel from "prettier/parser-babel";
-import Prettier from "prettier/standalone";
+import { format } from "prettier/standalone";
 // import parserHtml from "prettier/parser-html";
 // import parserPostcss from "prettier/parser-postcss";
 
-let lastSuccessful: string | null = null;
+// let lastSuccessful: string | null = null;
 
 export const prettierJs = (code: string) => {
   try {
-    const current = Prettier.format(code, {
+    return format(code, {
       arrowParens: "always",
       bracketSpacing: true,
       embeddedLanguageFormatting: "auto",
@@ -29,7 +29,7 @@ export const prettierJs = (code: string) => {
       plugins: [parserBabel /// parserHtml, parserPostcss
       ],
     });
-    return lastSuccessful = current;
+    // return lastSuccessful = current;
   } catch (error) {
     console.error("prettier error"), console.error({ err: error });
     return null;

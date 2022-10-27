@@ -2,7 +2,8 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 import esbuild from "esbuild";
-import fs from "node:fs/promises";
+import { rm } from "node:fs/promises";
+
 import { resolve } from "node:path";
 // import open from "open";
 // import fetch from "node-fetch";
@@ -10,9 +11,10 @@ import { resolve } from "node:path";
 // require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
 import aliasPlugin from "esbuild-plugin-alias";
+import { env, exit } from "process";
 // import { wait } from "./js/wait.mjs";
 
-const environment = process.env.NODE_ENV === "production"
+const environment = env.NODE_ENV === "production"
   ? "production"
   : "development";
 
@@ -23,7 +25,7 @@ const target = "es2018";
 
 console.log(`
 -------------------------------------------------
---------------${environment}---------------------
+--------------${environment}---------------------   
 -------------------------------------------------
 -------------------------------------------------`);
 
@@ -140,11 +142,11 @@ const build = (entryPoints, extraExternal) =>
     outdir,
   }).catch((error) => {
     console.error(error);
-    process.exit(1);
+    exit(1);
   });
 
 (async () => {
-  await fs.rm("js/monaco-workers", { recursive: true, force: true });
+  await rm("js/monaco-workers", { recursive: true, force: true });
 
   await esbuild.build({
     entryPoints: [
@@ -273,6 +275,7 @@ const build = (entryPoints, extraExternal) =>
   await build([
     "js/session.ts",
     // "js/prettierWorker.mjs",
+    // "js/load.ts",
     "js/reactMod.ts",
     "js/Editor.tsx",
     "js/motion.ts",

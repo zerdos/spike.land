@@ -1,8 +1,10 @@
 import "es-module-shims";
+import importmap from "./importmap.json";
 import { runtime } from "./react-jsx-runtime.production.min.cjs";
 
+// importShim.addImportMap(importmap);
 importShim.addImportMap(
-  JSON.parse(document.querySelector("script[type=importmap]")?.innerHTML!),
+  importmap,
 );
 
 const codeSpace = location.pathname.slice(1).split("/")[1];

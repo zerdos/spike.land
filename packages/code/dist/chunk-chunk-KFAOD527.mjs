@@ -351,7 +351,7 @@ var require_browser = __commonJS({
         let sourceRoot = getFlag(options, keys, "sourceRoot", mustBeString);
         let sourcesContent = getFlag(options, keys, "sourcesContent", mustBeBoolean);
         let target = getFlag(options, keys, "target", mustBeStringOrArray);
-        let format = getFlag(options, keys, "format", mustBeString);
+        let format2 = getFlag(options, keys, "format", mustBeString);
         let globalName = getFlag(options, keys, "globalName", mustBeString);
         let mangleProps = getFlag(options, keys, "mangleProps", mustBeRegExp);
         let reserveProps = getFlag(options, keys, "reserveProps", mustBeRegExp);
@@ -388,8 +388,8 @@ var require_browser = __commonJS({
           else
             flags.push(`--target=${validateTarget(target)}`);
         }
-        if (format)
-          flags.push(`--format=${format}`);
+        if (format2)
+          flags.push(`--format=${format2}`);
         if (globalName)
           flags.push(`--global-name=${globalName}`);
         if (platform)
@@ -23342,7 +23342,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-T7MMGLRJ.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-GUM7BUEG.mjs")));
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
 height: 100%;
@@ -23762,10 +23762,9 @@ function isMobile() {
 init_define_process();
 var import_parser_babel = __toESM(require_parser_babel(), 1);
 var import_standalone = __toESM(require_standalone(), 1);
-var lastSuccessful = null;
 var prettierJs = (code) => {
   try {
-    const current = import_standalone.default.format(code, {
+    return (0, import_standalone.format)(code, {
       arrowParens: "always",
       bracketSpacing: true,
       embeddedLanguageFormatting: "auto",
@@ -23787,7 +23786,6 @@ var prettierJs = (code) => {
         import_parser_babel.default
       ]
     });
-    return lastSuccessful = current;
   } catch (error) {
     console.error("prettier error"), console.error({ err: error });
     return null;
