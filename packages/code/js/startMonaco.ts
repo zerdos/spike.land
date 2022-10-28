@@ -433,19 +433,25 @@ export const startMonaco = async (
     //   mode: "closed",
     // });
 
-    // const innerContainer = document.createElement("div");
-    // shadowRoot.appendChild(innerContainer);
-    // innerContainer.style.width = "100%";
-    // innerContainer.style.height = "100%";
+    const innerContainer = document.createElement("div");
+
+    innerContainer.style.width = "100%";
+    innerContainer.style.background = "red";
+    innerContainer.style.display = "block";
+    innerContainer.style.height = "100%";
+
+    const target = container.appendChild(innerContainer);
+
+    console.log(target === innerContainer);
 
     // const innerStyle = document.createElement("style");
     // innerStyle.innerText =
     //   `@import "${location.origin}/node_modules/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
     // shadowRoot.appendChild(innerStyle);
 
-    const innerContainer = container;
+    // const innerContainer = container;
 
-    const myEditor = create(innerContainer, {
+    const myEditor = create(target, {
       model,
       scrollbar: {
         scrollByPage: false,
@@ -561,7 +567,7 @@ export const startMonaco = async (
         },
       },
       roundedSelection: true,
-      linkedEditing: true,
+      //  Editing: true,
       bracketPairColorization: {
         independentColorPoolPerBracketType: true,
         enabled: true,
@@ -809,16 +815,14 @@ export const startMonaco = async (
     Object.assign(globalThis, { monaco: mod, setExtraLibs });
     setTimeout(() => mod.ATA(), 2000);
 
-    model.onDidChangeContent(() => {
+    model.onDidChangeContent((e) => {
       if (mod.silent) return;
-      const code = model.getValue();
-      if (mod.code === code) return;
-      mod.code = code;
-      onChange(code);
+
+      onChange(model.getValue());
     });
 
     return {
-      getValue: () => mod.code,
+      getValue: () => model.getValue(),
 
       getErrors: () => {
         return mod.tsWorker.then(ts =>
@@ -835,16 +839,16 @@ export const startMonaco = async (
         let state = null;
         try {
           state = myEditor.saveViewState();
+          model.setValue(code);
+
+          if (state) {
+            myEditor.restoreViewState(state);
+          }
         } catch {
           console.error("error while saving the state");
+        } finally {
+          mod.silent = false;
         }
-
-        model.setValue(code);
-
-        if (state) {
-          myEditor.restoreViewState(state);
-        }
-        mod.silent = false;
       },
     };
   }

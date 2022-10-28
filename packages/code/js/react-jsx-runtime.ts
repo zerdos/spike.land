@@ -24,6 +24,17 @@ const runtime = () => {
 
   const styled = require("@emotion/styled").default;
   Object.assign(globalThis, { styled });
+
+  emotionReactJsxRuntime.emotionJsx = emotionReactJsxRuntime.jsx;
+
+  emotionReactJsxRuntime.jsx = function() {
+    const props = arguments[1];
+    if (Object.hasOwn(props, "css") && typeof props.css === "string") {
+      props.css = emotionReact.css`${props.css}`;
+    }
+
+    return emotionReactJsxRuntime.emotionJsx.apply(emotionReactJsxRuntime, arguments);
+  };
 };
 runtime();
 

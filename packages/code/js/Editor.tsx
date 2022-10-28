@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { Resizable } from "re-resizable";
 import type { FC } from "react";
 import { useRef } from "react";
@@ -5,7 +6,7 @@ import React from "react";
 import { runner } from "./runner";
 
 // Import type FC from "react"
-import { css } from "@emotion/react";
+// import { css } from "@emotion/react";
 import { isMobile } from "./isMobile.mjs";
 import { prettierJs } from "./prettierEsm";
 import { mST, onSessionUpdate } from "./session";
@@ -107,14 +108,21 @@ export const Editor: FC<
   mod.code = myCode;
 
   React.useEffect(() => {
+    if (started) return;
+
     if (!ref?.current || started) {
       return;
     }
 
-    (engine === "monaco" ? setMonaco() : setAce()).then((res) => Object.assign(mod, res)).then(() =>
-      changeContent((x: typeof mySession) => ({ ...x, started: true }))
-    );
-  }, [started, ref]);
+    const container = ref?.current;
+    if (container === null) return;
+
+    engine === "monaco"
+      ? setMonaco(container)
+      : setAce(container).then((res) => Object.assign(mod, res)).then(() =>
+        changeContent((x: typeof mySession) => ({ ...x, started: true }))
+      );
+  }, [started, ref.current]);
 
   // UseInsertionEffect(()=>{
 
@@ -155,14 +163,8 @@ export const Editor: FC<
   }, "editor");
 
   return (
-    <Resizable
-      defaultSize={{
-        width: "640px",
-        height: "100vh",
-      }}
-    >
-      {
-        /* {engine === "monaco" && (
+    //    {
+    /* {engine === "monaco" && (
         <Highlight Prism={defaultProps.Prism} theme={theme} code={myCode} language="tsx">
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <Pre className={className} style={style}>
@@ -178,16 +180,28 @@ export const Editor: FC<
           )}
         </Highlight>
       )} */
-      }
+    // }
+    <Resizable
+      defaultSize={{
+        width: "640px",
+        height: "100vh",
+      }}
+    >
       <div
-        id="editor"
         data-test-id="editor"
-        css={css`    
-        width: 100%;
-        height: 100%; 
-     `}
         ref={ref}
-      />
+        css={css`
+          width: 100%;
+          height: 100%;
+          display: block;
+          position: absolute;
+          top:0;
+          bottom:0;
+          left:0;
+          right:0;
+          `}
+      >
+      </div>
     </Resizable>
   );
 };
@@ -202,14 +216,15 @@ async function onModChange(_code: string) {
   mod.code = code;
   runner({ code, counter, codeSpace: mod.codeSpace });
 }
-
-async function setMonaco() {
+let startedM = 0;
+async function setMonaco(container: HTMLDivElement) {
+  if (startedM) return;
+  startedM = 1;
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
   const { startMonaco } = await import("./startMonaco");
-  const container = window.document.getElementById("editor") as HTMLDivElement;
   return startMonaco({
     container,
     name: mod.codeSpace,
@@ -217,9 +232,11 @@ async function setMonaco() {
     onChange: onModChange,
   });
 }
-
-async function setAce() {
+let startedAce = 0;
+async function setAce(container: HTMLDivElement) {
+  if (startedAce) return;
+  startedAce = 1;
   const { startAce } = await import("./startAce");
 
-  return await startAce(mST().code, onModChange);
+  return await startAce(mST().code, onModChange, container);
 }
