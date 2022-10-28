@@ -1,16 +1,7 @@
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-};
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-
-// <define:process>
-var init_define_process = __esm({
-  "<define:process>"() {
-  }
-});
+import {
+  __commonJS,
+  init_define_process
+} from "./chunk-chunk-EW2WRIUD.mjs";
 
 // ../../.yarn/global/cache/react-npm-18.2.0-1eae08fee2-9.zip/node_modules/react/cjs/react.development.js
 var require_react_development = __commonJS({
@@ -29571,6 +29562,8 @@ if (location.pathname.endsWith("/hydrated")) {
     () => setTimeout(() => {
       const dry = true;
       start(dry);
+      import("./chunk-prettierJs-3FX5BQ3H.mjs").then((x) => x.prettierJs("dry"));
+      import("./chunk-esbuildEsm-JZ4D3HBV.mjs").then((x) => x.transform("dry"));
     }, 1e3)
   );
 } else {
