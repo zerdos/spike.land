@@ -1,4 +1,4 @@
-import { React, ReactDOM, ReactDOMClient } from "./react-jsx-runtime.production.min.cjs";
+import { React, ReactDOM, ReactDOMClient } from "./react-jsx-runtime.js";
 
 export const {
   Children,

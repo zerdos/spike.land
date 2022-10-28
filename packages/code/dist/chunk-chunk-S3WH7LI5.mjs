@@ -906,7 +906,7 @@ var emotionCache_default;
 var init_emotionCache = __esm({
   "js/emotionCache.ts"() {
     init_define_process();
-    init_react_jsx_runtime_production_min();
+    init_react_jsx_runtime();
     emotionCache_default = createEmotionCache;
   }
 });
@@ -924,10 +924,10 @@ var init_emotionStyled = __esm({
   }
 });
 
-// js/react-jsx-runtime.production.min.cjs
+// js/react-jsx-runtime.ts
 var runtime, ReactDOM, React, ReactJSXRuntime, emotionReact, emotionReactJsxRuntime, createEmotionCache, styled, ReactDOMClient;
-var init_react_jsx_runtime_production_min = __esm({
-  "js/react-jsx-runtime.production.min.cjs"() {
+var init_react_jsx_runtime = __esm({
+  "js/react-jsx-runtime.ts"() {
     "use strict";
     init_define_process();
     runtime = () => {
@@ -1016,7 +1016,7 @@ var Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneEle
 var init_reactMod = __esm({
   "js/reactMod.ts"() {
     init_define_process();
-    init_react_jsx_runtime_production_min();
+    init_react_jsx_runtime();
     ({
       Children,
       Component,

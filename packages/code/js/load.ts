@@ -1,6 +1,6 @@
 import "es-module-shims";
 import importmap from "./importmap.json";
-import { ReactDOMClient } from "./react-jsx-runtime.production.min.cjs";
+import { ReactDOMClient } from "./react-jsx-runtime.js";
 
 // importShim.addImportMap(importmap);
 importShim.addImportMap(

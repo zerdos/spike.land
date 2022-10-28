@@ -29504,7 +29504,7 @@ var importmap_default = {
   }
 };
 
-// js/react-jsx-runtime.production.min.cjs
+// js/react-jsx-runtime.ts
 init_define_process();
 var runtime = () => {
   if (globalThis.React)
