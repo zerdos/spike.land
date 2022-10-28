@@ -23350,7 +23350,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-QM2JV6M3.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-EDYNS5PU.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     jsx(Global, {

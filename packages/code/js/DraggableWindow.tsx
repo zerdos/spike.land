@@ -1,10 +1,10 @@
 import { css } from "@emotion/react";
 import { domAnimation, domMax, LazyMotion, m, MotionConfig } from "framer-motion";
-import React from "react";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr";
+import { mST } from "./session";
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
@@ -241,11 +241,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   // Opacity: isFullScreen ? 1 : 0.7,
                 }}
                 css={css`
-                display: block;
-                
-                overflow: hidden;
-                overflow-x: hidden;
-                overflow-y: hidden;
+                    display: block;
+                    
+                    overflow-x: hidden;
+                    overflow-y: hidden;
+                    
+                   ${mST()?.css?.split("body").join("div")}
             `}
               >
                 <m.div
@@ -266,6 +267,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   css={css`
                   overflow: overlay;
                   overflow-y: hidden;
+                
               `}
                 >
                   {children}

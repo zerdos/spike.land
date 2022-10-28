@@ -8,9 +8,11 @@ import {
 } from "./chunk-chunk-C5XJRETP.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-5FRGDQKT.mjs";
-import "./chunk-chunk-EEUMAPBP.mjs";
-import "./chunk-chunk-GHFDLTC6.mjs";
+} from "./chunk-chunk-2JFGBIT7.mjs";
+import "./chunk-chunk-OOOFRBZ4.mjs";
+import {
+  mST
+} from "./chunk-chunk-GHFDLTC6.mjs";
 import {
   Suspense,
   createElement,
@@ -2373,7 +2375,6 @@ var require_qrious = __commonJS({
 init_define_process();
 init_emotion();
 init_reactMod();
-init_reactMod();
 
 // ../../.yarn/__virtual__/react-icons-virtual-03002b44ac/0/global/cache/react-icons-npm-4.6.0-85b1c2c9bc-9.zip/node_modules/react-icons/md/index.esm.js
 init_define_process();
@@ -2775,11 +2776,12 @@ var DraggableWindow = ({
                     borderRadius: 8
                   },
                   css: css`
-                display: block;
-                
-                overflow: hidden;
-                overflow-x: hidden;
-                overflow-y: hidden;
+                    display: block;
+                    
+                    overflow-x: hidden;
+                    overflow-y: hidden;
+                    
+                   ${mST()?.css?.split("body").join("div")}
             `,
                   children: jsx(m.div, {
                     initial: {
@@ -2799,6 +2801,7 @@ var DraggableWindow = ({
                     css: css`
                   overflow: overlay;
                   overflow-y: hidden;
+                
               `,
                     children
                   })
