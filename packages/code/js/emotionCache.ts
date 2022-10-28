@@ -1,4 +1,4 @@
-import { createEmotionCache } from "./react-jsx-runtime.production.min.cjs";
+import { createEmotionCache } from "./react-jsx-runtime.js";
 // const { createEmotionCache } = globalThis;
 
 export default createEmotionCache;
