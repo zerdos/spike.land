@@ -6,12 +6,8 @@ import {
   require_lodash
 } from "./chunk-chunk-2INAMIGF.mjs";
 import {
-  emotionCache_default,
-  init_emotionCache
-} from "./chunk-chunk-OU24SX6H.mjs";
-import {
   Children,
-  Fragment,
+  Fragment as Fragment2,
   PureComponent,
   StrictMode,
   Suspense,
@@ -20,7 +16,9 @@ import {
   createPortal,
   createRef,
   createRoot,
+  emotionCache_default,
   flushSync,
+  init_emotionCache,
   init_reactMod,
   isValidElement,
   lazy,
@@ -30,14 +28,14 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-F6KD4MVO.mjs";
+} from "./chunk-chunk-JZWPPRDP.mjs";
 import {
   CacheProvider,
   css,
   init_emotion
 } from "./chunk-chunk-WIURWTZP.mjs";
 import {
-  Fragment as Fragment2,
+  Fragment,
   init_emotionJsxRuntime,
   jsx,
   jsxs
@@ -23350,7 +23348,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-4AH7NHC3.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-6K52NLUT.mjs")));
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
 height: 100%;
@@ -23407,7 +23405,7 @@ var AppToRender = ({ codeSpace }) => {
   }), []);
   const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
   const devTools = !onlyApp;
-  return jsxs(Fragment2, {
+  return jsxs(Fragment, {
     children: [
       jsx(InPortal, {
         node: portalNode,
@@ -23420,7 +23418,7 @@ var AppToRender = ({ codeSpace }) => {
           node: portalNode
         }),
         children: devTools ? jsx(RainbowContainer, {
-          children: jsxs(Fragment, {
+          children: jsxs(Fragment2, {
             children: [
               jsx(Editor, {
                 codeSpace
