@@ -7169,25 +7169,25 @@ var require_react_dom_development = __commonJS({
           if (fallbackText) {
             return fallbackText;
           }
-          var start;
+          var start2;
           var startValue = startText;
           var startLength = startValue.length;
           var end;
           var endValue = getText();
           var endLength = endValue.length;
-          for (start = 0; start < startLength; start++) {
-            if (startValue[start] !== endValue[start]) {
+          for (start2 = 0; start2 < startLength; start2++) {
+            if (startValue[start2] !== endValue[start2]) {
               break;
             }
           }
-          var minEnd = startLength - start;
+          var minEnd = startLength - start2;
           for (end = 1; end <= minEnd; end++) {
             if (startValue[startLength - end] !== endValue[endLength - end]) {
               break;
             }
           }
           var sliceTail = end > 1 ? 1 - end : void 0;
-          fallbackText = endValue.slice(start, sliceTail);
+          fallbackText = endValue.slice(start2, sliceTail);
           return fallbackText;
         }
         function getText() {
@@ -8023,7 +8023,7 @@ var require_react_dom_development = __commonJS({
         }
         function getModernOffsetsFromPoints(outerNode, anchorNode, anchorOffset, focusNode, focusOffset) {
           var length = 0;
-          var start = -1;
+          var start2 = -1;
           var end = -1;
           var indexWithinAnchor = 0;
           var indexWithinFocus = 0;
@@ -8034,7 +8034,7 @@ var require_react_dom_development = __commonJS({
               var next = null;
               while (true) {
                 if (node === anchorNode && (anchorOffset === 0 || node.nodeType === TEXT_NODE)) {
-                  start = length + anchorOffset;
+                  start2 = length + anchorOffset;
                 }
                 if (node === focusNode && (focusOffset === 0 || node.nodeType === TEXT_NODE)) {
                   end = length + focusOffset;
@@ -8053,7 +8053,7 @@ var require_react_dom_development = __commonJS({
                   break outer;
                 }
                 if (parentNode === anchorNode && ++indexWithinAnchor === anchorOffset) {
-                  start = length;
+                  start2 = length;
                 }
                 if (parentNode === focusNode && ++indexWithinFocus === focusOffset) {
                   end = length;
@@ -8066,11 +8066,11 @@ var require_react_dom_development = __commonJS({
               }
               node = next;
             }
-          if (start === -1 || end === -1) {
+          if (start2 === -1 || end === -1) {
             return null;
           }
           return {
-            start,
+            start: start2,
             end
           };
         }
@@ -8082,14 +8082,14 @@ var require_react_dom_development = __commonJS({
           }
           var selection = win.getSelection();
           var length = node.textContent.length;
-          var start = Math.min(offsets.start, length);
-          var end = offsets.end === void 0 ? start : Math.min(offsets.end, length);
-          if (!selection.extend && start > end) {
+          var start2 = Math.min(offsets.start, length);
+          var end = offsets.end === void 0 ? start2 : Math.min(offsets.end, length);
+          if (!selection.extend && start2 > end) {
             var temp = end;
-            end = start;
-            start = temp;
+            end = start2;
+            start2 = temp;
           }
-          var startMarker = getNodeForCharacterOffset(node, start);
+          var startMarker = getNodeForCharacterOffset(node, start2);
           var endMarker = getNodeForCharacterOffset(node, end);
           if (startMarker && endMarker) {
             if (selection.rangeCount === 1 && selection.anchorNode === startMarker.node && selection.anchorOffset === startMarker.offset && selection.focusNode === endMarker.node && selection.focusOffset === endMarker.offset) {
@@ -8098,7 +8098,7 @@ var require_react_dom_development = __commonJS({
             var range = doc.createRange();
             range.setStart(startMarker.node, startMarker.offset);
             selection.removeAllRanges();
-            if (start > end) {
+            if (start2 > end) {
               selection.addRange(range);
               selection.extend(endMarker.node, endMarker.offset);
             } else {
@@ -8206,13 +8206,13 @@ var require_react_dom_development = __commonJS({
           };
         }
         function setSelection(input, offsets) {
-          var start = offsets.start;
+          var start2 = offsets.start;
           var end = offsets.end;
           if (end === void 0) {
-            end = start;
+            end = start2;
           }
           if ("selectionStart" in input) {
-            input.selectionStart = start;
+            input.selectionStart = start2;
             input.selectionEnd = Math.min(end, input.value.length);
           } else {
             setOffsets(input, offsets);
@@ -14299,22 +14299,22 @@ var require_react_dom_development = __commonJS({
         }
         function mountTransition() {
           var _mountState = mountState(false), isPending = _mountState[0], setPending = _mountState[1];
-          var start = startTransition.bind(null, setPending);
+          var start2 = startTransition.bind(null, setPending);
           var hook = mountWorkInProgressHook();
-          hook.memoizedState = start;
-          return [isPending, start];
+          hook.memoizedState = start2;
+          return [isPending, start2];
         }
         function updateTransition() {
           var _updateState = updateState(), isPending = _updateState[0];
           var hook = updateWorkInProgressHook();
-          var start = hook.memoizedState;
-          return [isPending, start];
+          var start2 = hook.memoizedState;
+          return [isPending, start2];
         }
         function rerenderTransition() {
           var _rerenderState = rerenderState(), isPending = _rerenderState[0];
           var hook = updateWorkInProgressHook();
-          var start = hook.memoizedState;
-          return [isPending, start];
+          var start2 = hook.memoizedState;
+          return [isPending, start2];
         }
         var isUpdatingOpaqueValueInRenderPhase = false;
         function getIsUpdatingOpaqueValueInRenderPhaseInDEV() {
@@ -22483,7 +22483,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         ReactDOMHydrationRoot.prototype.unstable_scheduleHydration = scheduleHydration;
-        function hydrateRoot(container, initialChildren, options2) {
+        function hydrateRoot2(container, initialChildren, options2) {
           if (!isValidContainer(container)) {
             throw new Error("hydrateRoot(...): Target container is not a DOM element.");
           }
@@ -22802,7 +22802,7 @@ var require_react_dom_development = __commonJS({
               error('You are importing hydrateRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
             }
           }
-          return hydrateRoot(container, initialChildren, options2);
+          return hydrateRoot2(container, initialChildren, options2);
         }
         function flushSync$1(fn) {
           {
@@ -29243,7 +29243,7 @@ init_define_process();
         lastIndex = originalIndex;
       };
       let lastIndex = 0, depIndex = 0, dynamicImportEndStack = [];
-      for (const { s: start, ss: statementStart, se: statementEnd, d: dynamicImportIndex } of imports) {
+      for (const { s: start2, ss: statementStart, se: statementEnd, d: dynamicImportIndex } of imports) {
         if (dynamicImportIndex === -1) {
           let depLoad = load.d[depIndex++], blobUrl = depLoad.b, cycleShell = !blobUrl;
           if (cycleShell) {
@@ -29255,8 +29255,8 @@ init_define_process();
 //# sourceURL=${depLoad.r}?cycle`);
             }
           }
-          pushStringTo(start - 1);
-          resolvedSource += `/*${source.slice(start - 1, statementEnd)}*/${urlJsString(blobUrl)}`;
+          pushStringTo(start2 - 1);
+          resolvedSource += `/*${source.slice(start2 - 1, statementEnd)}*/${urlJsString(blobUrl)}`;
           if (!cycleShell && depLoad.s) {
             resolvedSource += `;import*as m$_${depIndex} from'${depLoad.b}';import{u$_ as u$_${depIndex}}from'${depLoad.s}';u$_${depIndex}(m$_${depIndex})`;
             depLoad.s = void 0;
@@ -29265,14 +29265,14 @@ init_define_process();
         } else if (dynamicImportIndex === -2) {
           load.m = { url: load.r, resolve: metaResolve };
           metaHook(load.m, load.u);
-          pushStringTo(start);
+          pushStringTo(start2);
           resolvedSource += `importShim._r[${urlJsString(load.u)}].m`;
           lastIndex = statementEnd;
         } else {
           pushStringTo(statementStart + 6);
           resolvedSource += `Shim(`;
           dynamicImportEndStack.push(statementEnd - 1);
-          lastIndex = start;
+          lastIndex = start2;
         }
       }
       if (load.s)
@@ -29545,29 +29545,35 @@ var {
   styled,
   ReactDOMClient
 } = globalThis;
+var { hydrateRoot } = ReactDOMClient;
 
 // js/load.ts
-importShim.addImportMap(
-  importmap_default
-);
+var imp = {};
+Object.keys(importmap_default.imports).map((k) => imp[k] = location.origin + importmap_default.imports[k]);
+importShim.addImportMap({ imports: imp });
 var codeSpace = location.pathname.slice(1).split("/")[1];
-if (location.pathname.endsWith("/hydrated")) {
-  import(`${location.origin}/live/${codeSpace}/index.js`).then((mod) => {
-    ReactDOMClient.hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default());
-    4;
-  });
-} else {
-  import(`${location.origin}/live/${codeSpace}/mST.mjs`).then(
-    ({
+var start = (dry = false) => import(`${location.origin}/live/${codeSpace}/mST.mjs`).then(
+  ({
+    mST,
+    codeSpace: codeSpace2,
+    address
+  }) => import(`${location.origin}/ws.mjs`).then(
+    ({ run }) => run({
       mST,
+      dry,
       codeSpace: codeSpace2,
       address
-    }) => import(`${location.origin}/ws.mjs`).then(
-      ({ run }) => run({
-        mST,
-        codeSpace: codeSpace2,
-        address
-      })
-    )
+    })
+  )
+);
+if (location.pathname.endsWith("/hydrated")) {
+  import(`${location.origin}/live/${codeSpace}/index.js`).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(
+    () => setTimeout(() => {
+      const dry = true;
+      start(dry);
+    }, 1e3)
   );
+} else {
+  const dry = false;
+  start(dry);
 }

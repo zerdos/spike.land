@@ -48,3 +48,5 @@ export const {
   styled,
   ReactDOMClient,
 } = globalThis;
+
+export const { hydrateRoot } = ReactDOMClient;

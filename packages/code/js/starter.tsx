@@ -36,10 +36,10 @@ export const { apps, eCaches } = (globalThis as unknown as {
 // const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 export function AutoUpdateApp(
-  { codeSpace }: { codeSpace: string },
+  { codeSpace, transpiled }: { codeSpace: string; transpiled?: string },
 ) {
   const [{ md5Hash, resetErrorBoundary }, setMdHash] = useState({
-    md5Hash: md5(mST().transpiled),
+    md5Hash: md5(transpiled || mST().transpiled),
     resetErrorBoundary: null as null | (() => void),
   });
 
@@ -93,6 +93,7 @@ let started = false;
 export async function appFactory(
   transpiled = "",
   codeSpace?: string,
+  dry?: boolean,
 ): Promise<FC<{ appId: string }>> {
   // }
   const { transpiled: mstTranspiled, i: mstI } = mST();
@@ -168,7 +169,7 @@ export async function appFactory(
 
   if (!started && codeSpace) {
     started = true;
-    await renderPreviewWindow({ codeSpace });
+    await renderPreviewWindow({ codeSpace, dry });
   }
   // If ( mST().transpiled !== trp) {
   //   if (hashC===hashCode()){

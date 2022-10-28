@@ -28,7 +28,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-4BDBJ5AV.mjs";
+} from "./chunk-chunk-2ZPUFYBE.mjs";
 import {
   CacheProvider,
   css,
@@ -23349,7 +23349,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-UCZ7Y22Q.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-B4SGATGN.mjs")));
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
 height: 100%;
@@ -23443,11 +23443,11 @@ var AppToRender = ({ codeSpace }) => {
   });
 };
 var singleton = { started: false };
-var renderPreviewWindow = ({ codeSpace }) => {
+var renderPreviewWindow = ({ codeSpace, dry }) => {
   if (singleton.started)
     return;
   singleton.started = true;
-  const div = document.querySelector("#root");
+  const div = dry ? document.createElement("div") : document.querySelector("#root");
   const root = createRoot(div);
   root.render(
     jsx(StrictMode, {
@@ -23465,19 +23465,19 @@ init_emotionJsxRuntime();
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
-function AutoUpdateApp({ codeSpace }) {
+function AutoUpdateApp({ codeSpace, transpiled }) {
   const [{ md5Hash, resetErrorBoundary }, setMdHash] = useState({
-    md5Hash: md5(mST().transpiled),
+    md5Hash: md5(transpiled || mST().transpiled),
     resetErrorBoundary: null
   });
   useEffect(() => onSessionUpdate(async () => {
-    const transpiled = mST().transpiled;
-    await appFactory(transpiled);
+    const transpiled2 = mST().transpiled;
+    await appFactory(transpiled2);
     resetErrorBoundary && resetErrorBoundary();
-    const md5Hash2 = md5(transpiled);
+    const md5Hash2 = md5(transpiled2);
     if (apps2[md5Hash2]) {
       setMdHash({
-        md5Hash: md5(transpiled),
+        md5Hash: md5(transpiled2),
         resetErrorBoundary: null
       });
     }
@@ -23512,7 +23512,7 @@ function AutoUpdateApp({ codeSpace }) {
   }, md5Hash);
 }
 var started = false;
-async function appFactory(transpiled = "", codeSpace) {
+async function appFactory(transpiled = "", codeSpace, dry) {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);
@@ -23597,7 +23597,7 @@ async function appFactory(transpiled = "", codeSpace) {
   }
   if (!started && codeSpace) {
     started = true;
-    await renderPreviewWindow({ codeSpace });
+    await renderPreviewWindow({ codeSpace, dry });
   }
   return apps2[hash];
 }

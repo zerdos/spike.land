@@ -6,6 +6,7 @@ import { createHtmlPortalNode, InPortal, OutPortal } from "react-reverse-portal"
 import { AutoUpdateApp } from "./starter";
 
 import { css } from "@emotion/react";
+
 // Import { useSpring, a } from '@react-spring/web'
 
 import { md5, mST } from "./session";
@@ -124,11 +125,11 @@ const AppToRender: FC<
 };
 const singleton = { started: false };
 
-export const renderPreviewWindow = ({ codeSpace }: { codeSpace: string }) => {
+export const renderPreviewWindow = ({ codeSpace, dry }: { codeSpace: string; dry: boolean }) => {
   if (singleton.started) return;
   singleton.started = true;
 
-  const div = document.querySelector("#root")!;
+  const div = dry ? document.createElement("div") : document.querySelector("#root")!;
   // Div.style.height='100%';
   const root = createRoot(div);
 

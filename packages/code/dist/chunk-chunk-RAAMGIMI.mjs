@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-VE7ESCEG.mjs";
+} from "./chunk-chunk-VZL6VZXJ.mjs";
 import {
   applyPatch,
   hashCode,
@@ -3356,13 +3356,13 @@ var sendChannel = {
 };
 Object.assign(globalThis, { sendChannel, mST });
 var run = async (startState) => {
-  const { mST: mst, address } = startState;
+  const { mST: mst, dry, address } = startState;
   codeSpace = startState.codeSpace;
   startSession(codeSpace, {
     name: user,
     state: mst
   }, location.origin);
-  await appFactory(mst.transpiled, codeSpace);
+  await appFactory(mst.transpiled, codeSpace, dry);
   await join();
   bc = new BroadcastChannel(location.origin);
   bc.onmessage = async (event) => {
@@ -3413,7 +3413,7 @@ var run = async (startState) => {
     }));
   }
 })();
-var intervalHandler = null;
+var intervalHandler;
 async function rejoin() {
   if (!rejoined || ws === null) {
     ws = null;
