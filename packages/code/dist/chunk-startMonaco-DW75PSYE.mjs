@@ -42192,7 +42192,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       noSemanticValidation: true,
       noSyntaxValidation: true
     });
-    const uri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
+    const uri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
     const model = editor.getModel(uri) || createModel(
       replaced,
       "typescript",
@@ -42411,9 +42411,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       languages,
       silent: false,
       code: code2,
-      tsWorker: languages.typescript.getTypeScriptWorker().then((ts) => ts(model.uri)).catch((e) => {
-        console.log("ts error, will retry", e);
-      })
+      tsWorker: languages.typescript.getTypeScriptWorker().then((x) => x(uri))
     };
     Object.assign(globalThis, { monaco: mod2, setExtraLibs });
     setTimeout(() => mod2.ATA(), 2e3);
@@ -42430,9 +42428,11 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       getValue: () => mod2.code,
       getErrors: () => {
         return mod2.tsWorker.then(
-          (ts) => ts == null ? void 0 : ts.getSemanticDiagnostics(
-            originToUse + "/live/" + codeSpace + ".tsx"
-          ).then((diag) => diag.map((d) => d.messageText.toString()))
+          (ts) => ts && ts.getSemanticDiagnostics(uri.toString()).then((diag) => diag.map((d) => d.messageText.toString())).catch(
+            (e) => {
+              console.log("ts error, will retry", e);
+            }
+          )
         );
       },
       setValue: (code3) => {
