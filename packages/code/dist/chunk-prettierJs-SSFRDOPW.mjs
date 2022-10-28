@@ -1,6 +1,6 @@
 import {
   init_define_process
-} from "./chunk-chunk-EW2WRIUD.mjs";
+} from "./chunk-chunk-PL63KNJS.mjs";
 
 // js/prettierJs.ts
 init_define_process();
@@ -277,7 +277,7 @@ var _prettierJs = null;
 var fallback = {
   prettierJs: async (code) => {
     const t0 = performance.now();
-    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-Y53HF2FJ.mjs")).prettierJs;
+    _prettierJs = _prettierJs || (await import("./chunk-prettierEsm-2KN4BAAL.mjs")).prettierJs;
     const t1 = performance.now();
     console.log(`importing took ${t1 - t0} milliseconds.`);
     const res = _prettierJs(code);
@@ -299,7 +299,7 @@ function init() {
     );
     const wrapped = wrap(worker.port);
     return _prettier = wrapped;
-  } catch {
+  } catch (e) {
     return _prettier = fallback;
   }
 }

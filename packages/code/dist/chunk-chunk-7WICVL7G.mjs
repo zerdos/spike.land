@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-OOOFRBZ4.mjs";
+} from "./chunk-chunk-YZBKKMPL.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,13 +12,15 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-GHFDLTC6.mjs";
+} from "./chunk-chunk-F5TEE6RK.mjs";
 import {
   __commonJS,
   __export,
+  __spreadProps,
+  __spreadValues,
   __toESM,
   init_define_process
-} from "./chunk-chunk-2DK73MPQ.mjs";
+} from "./chunk-chunk-DSXGUE46.mjs";
 
 // ../../.yarn/global/cache/sdp-npm-3.0.3-3ac42de16d-9.zip/node_modules/sdp/sdp.js
 var require_sdp = __commonJS({
@@ -3337,10 +3339,9 @@ var sendChannel = {
   startVideo,
   rtcConns,
   send(data) {
-    const messageString = JSON.stringify({
-      ...data,
+    const messageString = JSON.stringify(__spreadProps(__spreadValues({}, data), {
       name: data.name || user
-    });
+    }));
     webRtcArray.map((ch) => {
       try {
         if (ch.readyState !== "open") {
@@ -3370,7 +3371,7 @@ var run = async (startState) => {
       return;
     }
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      ws == null ? void 0 : ws.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
@@ -3400,7 +3401,7 @@ var run = async (startState) => {
   );
 };
 (async () => {
-  if (navigator && navigator?.serviceWorker) {
+  if (navigator && (navigator == null ? void 0 : navigator.serviceWorker)) {
     navigator.serviceWorker.register("/sw.js", {
       scope: "/",
       type: "classic"
@@ -3450,7 +3451,7 @@ async function syncWS() {
       if (message.newHash !== hashCode()) {
         return;
       }
-      const messageString = JSON.stringify({ ...message, name: user });
+      const messageString = JSON.stringify(__spreadProps(__spreadValues({}, message), { name: user }));
       sendWS(messageString);
     } else {
       rejoined = false;
@@ -3523,8 +3524,8 @@ async function join() {
     ws = wsConnection;
     const mess = (data) => {
       try {
-        ws && ws?.send && ws?.send(data);
-      } catch {
+        ws && (ws == null ? void 0 : ws.send) && (ws == null ? void 0 : ws.send(data));
+      } catch (e) {
         ws = null;
         rejoined = false;
         rejoin();
@@ -3545,7 +3546,7 @@ async function join() {
       if (diff > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection?.send(
+            wsConnection == null ? void 0 : wsConnection.send(
               JSON.stringify({
                 name: user,
                 timestamp: lastSeenTimestamp + diff
@@ -3555,7 +3556,7 @@ async function join() {
           }
           rejoined = false;
           rejoin();
-        } catch {
+        } catch (e) {
           rejoined = false;
           rejoin();
         }
@@ -3667,7 +3668,7 @@ async function processData(data, source, conn) {
     );
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
@@ -3685,9 +3686,10 @@ async function processData(data, source, conn) {
     };
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
     rtcConns[target].ontrack = function({ track, streams }) {
+      var _a;
       const vidElement = document.createElement("video");
       vidElement.srcObject = streams[0];
-      sendChannel.localStream?.addTrack(track);
+      (_a = sendChannel.localStream) == null ? void 0 : _a.addTrack(track);
       sendChannel.tracks[target] = { track, streams, vidElement };
     };
     rtcConns[target].ondatachannel = (event) => {
@@ -3744,13 +3746,13 @@ async function processData(data, source, conn) {
           return;
         }
         await rtcConns[target].setLocalDescription(offer);
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           target,
           name: user,
           type: "video-offer",
           offer: rtcConns[target].localDescription
         }));
-      } catch {
+      } catch (e) {
       }
     }
     function handleICEConnectionStateChangeEvent() {
@@ -3784,7 +3786,7 @@ async function processData(data, source, conn) {
     await rtcConns[target].setLocalDescription(
       answer
     );
-    ws?.send(JSON.stringify({
+    ws == null ? void 0 : ws.send(JSON.stringify({
       target,
       name: user,
       type: "video-answer",
@@ -3829,7 +3831,7 @@ async function sw() {
       await load(location.pathname);
       return;
     }
-  } catch {
+  } catch (e) {
   }
 }
 

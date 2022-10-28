@@ -1,18 +1,19 @@
 import {
   emotion_exports,
   init_emotion
-} from "./chunk-chunk-WIURWTZP.mjs";
+} from "./chunk-chunk-74QYOWVK.mjs";
 import {
   emotionJsxRuntime_exports,
   init_emotionJsxRuntime
-} from "./chunk-chunk-7HY2T2NQ.mjs";
+} from "./chunk-chunk-CU2UTUO2.mjs";
 import {
   __commonJS,
   __esm,
   __export,
+  __spreadValues,
   __toCommonJS,
   init_define_process
-} from "./chunk-chunk-2DK73MPQ.mjs";
+} from "./chunk-chunk-DSXGUE46.mjs";
 
 // ../../.yarn/global/cache/react-npm-18.2.0-1eae08fee2-9.zip/node_modules/react/cjs/react-jsx-runtime.development.js
 var require_react_jsx_runtime_development = __commonJS({
@@ -1075,11 +1076,7 @@ var init_reactMod = __esm({
       unstable_renderSubtreeIntoContainer,
       version
     } = globalThis.ReactDOM);
-    all = {
-      ...React,
-      ...ReactDOM,
-      ...ReactDOMClient
-    };
+    all = __spreadValues(__spreadValues(__spreadValues({}, React), ReactDOM), ReactDOMClient);
     reactMod_default = all;
   }
 });

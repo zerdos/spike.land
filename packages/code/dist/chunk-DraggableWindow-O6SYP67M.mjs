@@ -5,14 +5,14 @@ import {
   domMax,
   m,
   motion
-} from "./chunk-chunk-C5XJRETP.mjs";
+} from "./chunk-chunk-PEAS5NDR.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-2JFGBIT7.mjs";
-import "./chunk-chunk-OOOFRBZ4.mjs";
+} from "./chunk-chunk-7WICVL7G.mjs";
+import "./chunk-chunk-YZBKKMPL.mjs";
 import {
   mST
-} from "./chunk-chunk-GHFDLTC6.mjs";
+} from "./chunk-chunk-F5TEE6RK.mjs";
 import {
   Suspense,
   createElement,
@@ -22,21 +22,24 @@ import {
   useEffect,
   useRef,
   useState
-} from "./chunk-chunk-2ZPUFYBE.mjs";
+} from "./chunk-chunk-MKMFAPDQ.mjs";
 import {
   css,
   init_emotion
-} from "./chunk-chunk-WIURWTZP.mjs";
+} from "./chunk-chunk-74QYOWVK.mjs";
 import {
   init_emotionJsxRuntime,
   jsx,
   jsxs
-} from "./chunk-chunk-7HY2T2NQ.mjs";
+} from "./chunk-chunk-CU2UTUO2.mjs";
 import {
   __commonJS,
+  __objRest,
+  __spreadProps,
+  __spreadValues,
   __toESM,
   init_define_process
-} from "./chunk-chunk-2DK73MPQ.mjs";
+} from "./chunk-chunk-DSXGUE46.mjs";
 
 // ../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js
 var require_qrious = __commonJS({
@@ -2515,7 +2518,8 @@ var useQrious = (options) => {
 };
 
 // ../../.yarn/__virtual__/react-qrious-virtual-b90ac76f79/0/global/cache/react-qrious-npm-2.5.6-421c990834-9.zip/node_modules/react-qrious/lib/QRious.js
-var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level, mime, padding, value, size, ...props }) => {
+var QRious2 = (_a) => {
+  var _b = _a, { background, backgroundAlpha, foreground, foregroundAlpha, level, mime, padding, value, size } = _b, props = __objRest(_b, ["background", "backgroundAlpha", "foreground", "foregroundAlpha", "level", "mime", "padding", "value", "size"]);
   const [dataUrl] = useQrious({
     background,
     backgroundAlpha,
@@ -2527,10 +2531,9 @@ var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level
     size,
     value
   });
-  return createElement("img", {
-    ...props,
+  return createElement("img", __spreadProps(__spreadValues({}, props), {
     src: dataUrl
-  });
+  }));
 };
 
 // js/icons.tsx
@@ -2564,32 +2567,26 @@ init_define_process();
 init_emotion();
 init_reactMod();
 init_emotionJsxRuntime();
-var FabLazy = lazy(async () => import("./chunk-Fab-CNWNU7AQ.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-JOJ6WTOS.mjs"));
 var Fab = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
   }),
-  children: jsx(FabLazy, {
-    ...props
-  })
+  children: jsx(FabLazy, __spreadValues({}, props))
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-VI6X7BEC.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-QM2D4ANH.mjs"));
 var ToggleButton = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
   }),
-  children: jsx(ToggleButtonLazy, {
-    ...props
-  })
+  children: jsx(ToggleButtonLazy, __spreadValues({}, props))
 });
-var ToggleButtonGroupLazy = lazy(async () => import("./chunk-ToggleButtonGroup-5YBNWSQO.mjs"));
+var ToggleButtonGroupLazy = lazy(async () => import("./chunk-ToggleButtonGroup-LJOORWKA.mjs"));
 var ToggleButtonGroup = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
   }),
-  children: jsx(ToggleButtonGroupLazy, {
-    ...props
-  })
+  children: jsx(ToggleButtonGroupLazy, __spreadValues({}, props))
 });
 
 // js/Qr.tsx
@@ -2625,6 +2622,7 @@ var DraggableWindow = ({
   children,
   room
 }) => {
+  var _a2, _b;
   const [scaleRange, changeScaleRange] = useState(100);
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = useState(startPositions);
@@ -2695,7 +2693,7 @@ var DraggableWindow = ({
   return jsx(MotionConfig, {
     transition: { delay, type, duration },
     children: jsx(LazyMotion, {
-      features: { ...domAnimation, ...domMax },
+      features: __spreadValues(__spreadValues({}, domAnimation), domMax),
       children: jsx(m.div, {
         initial: {
           top: 0,
@@ -2781,7 +2779,7 @@ var DraggableWindow = ({
                     overflow-x: hidden;
                     overflow-y: hidden;
                     
-                   ${mST()?.css?.split("body").join("div")}
+                   ${(_b = (_a2 = mST()) == null ? void 0 : _a2.css) == null ? void 0 : _b.split("body").join("div:first-of-type")}
             `,
                   children: jsx(m.div, {
                     initial: {
@@ -2866,7 +2864,8 @@ var DraggableWindow = ({
                 children: [
                   jsx(Fab, {
                     onClick: () => {
-                      document.querySelector("#root")?.requestFullscreen();
+                      var _a3;
+                      (_a3 = document.querySelector("#root")) == null ? void 0 : _a3.requestFullscreen();
                     },
                     children: jsx("span", {
                       css: css`

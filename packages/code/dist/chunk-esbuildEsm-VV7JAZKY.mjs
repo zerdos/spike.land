@@ -1,8 +1,10 @@
 import {
   __commonJS,
+  __spreadProps,
+  __spreadValues,
   __toESM,
   init_define_process
-} from "./chunk-chunk-EW2WRIUD.mjs";
+} from "./chunk-chunk-PL63KNJS.mjs";
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.12-3f001d0ec2-9.zip/node_modules/esbuild-wasm/lib/browser.js
 var require_browser = __commonJS({
@@ -2571,7 +2573,7 @@ var initAndTransform = async (code, opts) => {
   if (initFinished !== true)
     await initFinished;
   const transformed = await (0, import_esbuild_wasm.transform)(code, opts);
-  return { ...transformed, code: `/*${md5(code)}*/` + transformed.code };
+  return __spreadProps(__spreadValues({}, transformed), { code: `/*${md5(code)}*/` + transformed.code });
 };
 export {
   initAndTransform,

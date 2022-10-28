@@ -18,13 +18,16 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-2ZPUFYBE.mjs";
+} from "./chunk-chunk-MKMFAPDQ.mjs";
 import {
   __commonJS,
+  __objRest,
+  __spreadProps,
+  __spreadValues,
   __toESM,
   define_process_default,
   init_define_process
-} from "./chunk-chunk-2DK73MPQ.mjs";
+} from "./chunk-chunk-DSXGUE46.mjs";
 
 // ../../.yarn/global/cache/@emotion-memoize-npm-0.7.4-5648cf11b8-9.zip/node_modules/@emotion/memoize/dist/memoize.browser.cjs.js
 var require_memoize_browser_cjs = __commonJS({
@@ -785,11 +788,9 @@ var motionComponentSymbol = Symbol.for("motionComponentSymbol");
 function createMotionComponent({ preloadedFeatures, createVisualElement, projectionNodeConstructor, useRender, useVisualState: useVisualState2, Component: Component2 }) {
   preloadedFeatures && loadFeatures(preloadedFeatures);
   function MotionComponent(props, externalRef) {
-    const configAndProps = {
-      ...useContext(MotionConfigContext),
-      ...props,
+    const configAndProps = __spreadProps(__spreadValues(__spreadValues({}, useContext(MotionConfigContext)), props), {
       layoutId: useLayoutId(props)
-    };
+    });
     const { isStatic } = configAndProps;
     let features = null;
     const context = useCreateMotionContext(props);
@@ -1015,7 +1016,7 @@ function makeLatestValues(props, context, presenceContext, scrapeMotionValues) {
       const resolved = resolveVariantFromProps(props, definition);
       if (!resolved)
         return;
-      const { transitionEnd, transition, ...target } = resolved;
+      const _a = resolved, { transitionEnd, transition } = _a, target = __objRest(_a, ["transitionEnd", "transition"]);
       for (const key in target) {
         let valueTarget = target[key];
         if (Array.isArray(valueTarget)) {
@@ -2643,10 +2644,9 @@ init_define_process();
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/type-int.mjs
 init_define_process();
-var int = {
-  ...number,
+var int = __spreadProps(__spreadValues({}, number), {
   transform: Math.round
-};
+});
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
 var numberValueTypes = {
@@ -2711,8 +2711,7 @@ var numberValueTypes = {
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/defaults.mjs
-var defaultValueTypes = {
-  ...numberValueTypes,
+var defaultValueTypes = __spreadProps(__spreadValues({}, numberValueTypes), {
   color,
   backgroundColor: color,
   outlineColor: color,
@@ -2725,7 +2724,7 @@ var defaultValueTypes = {
   borderLeftColor: color,
   filter,
   WebkitFilter: filter
-};
+});
 var getDefaultValueType = (key) => defaultValueTypes[key];
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.mjs
@@ -2789,8 +2788,8 @@ function setMotionValue(visualElement2, key, value) {
 }
 function setTarget(visualElement2, definition) {
   const resolved = resolveVariant(visualElement2, definition);
-  let { transitionEnd = {}, transition = {}, ...target } = resolved ? visualElement2.makeTargetAnimatable(resolved, false) : {};
-  target = { ...target, ...transitionEnd };
+  let _a = resolved ? visualElement2.makeTargetAnimatable(resolved, false) : {}, { transitionEnd = {}, transition = {} } = _a, target = __objRest(_a, ["transitionEnd", "transition"]);
+  target = __spreadValues(__spreadValues({}, target), transitionEnd);
   for (const key in target) {
     const value = resolveFinalValueInKeyframes(target[key]);
     setMotionValue(visualElement2, key, value);
@@ -2965,7 +2964,7 @@ var getDefaultTransition = (valueKey, to) => {
   } else {
     transitionFactory = defaultTransitions[valueKey] || defaultTransitions.default;
   }
-  return { to, ...transitionFactory(to) };
+  return __spreadValues({ to }, transitionFactory(to));
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition-state.mjs
@@ -2975,12 +2974,14 @@ var instantAnimationState = {
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
-function isTransitionDefined({ when, delay: _delay, delayChildren, staggerChildren, staggerDirection, repeat, repeatType, repeatDelay, from, ...transition }) {
+function isTransitionDefined(_a) {
+  var _b = _a, { when, delay: _delay, delayChildren, staggerChildren, staggerDirection, repeat, repeatType, repeatDelay, from } = _b, transition = __objRest(_b, ["when", "delay", "delayChildren", "staggerChildren", "staggerDirection", "repeat", "repeatType", "repeatDelay", "from"]);
   return !!Object.keys(transition).length;
 }
 var legacyRepeatWarning = false;
-function convertTransitionToAnimationOptions({ ease, times, yoyo, flip, loop, ...transition }) {
-  const options = { ...transition };
+function convertTransitionToAnimationOptions(_a) {
+  var _b = _a, { ease, times, yoyo, flip, loop } = _b, transition = __objRest(_b, ["ease", "times", "yoyo", "flip", "loop"]);
+  const options = __spreadValues({}, transition);
   if (times)
     options["offset"] = times;
   if (transition.duration)
@@ -3026,15 +3027,9 @@ function getPopmotionAnimationOptions(transition, options, key) {
   }
   hydrateKeyframes(options);
   if (!isTransitionDefined(transition)) {
-    transition = {
-      ...transition,
-      ...getDefaultTransition(key, options.to)
-    };
+    transition = __spreadValues(__spreadValues({}, transition), getDefaultTransition(key, options.to));
   }
-  return {
-    ...options,
-    ...convertTransitionToAnimationOptions(transition)
-  };
+  return __spreadValues(__spreadValues({}, options), convertTransitionToAnimationOptions(transition));
 }
 function getAnimation(key, value, target, transition, onComplete) {
   const valueTransition = getValueTransition(transition, key) || {};
@@ -3057,8 +3052,7 @@ function getAnimation(key, value, target, transition, onComplete) {
       onComplete,
       onUpdate: (v) => value.set(v)
     };
-    return valueTransition.type === "inertia" || valueTransition.type === "decay" ? inertia({ ...options, ...valueTransition }) : animate({
-      ...getPopmotionAnimationOptions(valueTransition, options, key),
+    return valueTransition.type === "inertia" || valueTransition.type === "decay" ? inertia(__spreadValues(__spreadValues({}, options), valueTransition)) : animate(__spreadProps(__spreadValues({}, getPopmotionAnimationOptions(valueTransition, options, key)), {
       onUpdate: (v) => {
         options.onUpdate(v);
         valueTransition.onUpdate && valueTransition.onUpdate(v);
@@ -3067,7 +3061,7 @@ function getAnimation(key, value, target, transition, onComplete) {
         options.onComplete();
         valueTransition.onComplete && valueTransition.onComplete();
       }
-    });
+    }));
   }
   function set() {
     const finalTarget = resolveFinalValueInKeyframes(target);
@@ -3177,7 +3171,7 @@ function animateVariant(visualElement2, variant, options = {}) {
 }
 function animateTarget(visualElement2, definition, { delay: delay2 = 0, transitionOverride, type } = {}) {
   var _a;
-  let { transition = visualElement2.getDefaultTransition(), transitionEnd, ...target } = visualElement2.makeTargetAnimatable(definition);
+  let _a2 = visualElement2.makeTargetAnimatable(definition), { transition = visualElement2.getDefaultTransition(), transitionEnd } = _a2, target = __objRest(_a2, ["transition", "transitionEnd"]);
   const willChange = visualElement2.getValue("willChange");
   if (transitionOverride)
     transition = transitionOverride;
@@ -3189,13 +3183,12 @@ function animateTarget(visualElement2, definition, { delay: delay2 = 0, transiti
     if (!value || valueTarget === void 0 || animationTypeState && shouldBlockAnimation(animationTypeState, key)) {
       continue;
     }
-    let valueTransition = { delay: delay2, ...transition };
+    let valueTransition = __spreadValues({ delay: delay2 }, transition);
     if (visualElement2.shouldReduceMotion && transformProps.has(key)) {
-      valueTransition = {
-        ...valueTransition,
+      valueTransition = __spreadProps(__spreadValues({}, valueTransition), {
         type: false,
         delay: 0
-      };
+      });
     }
     let animation = startAnimation(key, value, valueTarget, valueTransition);
     if (isWillChangeMotionValue(willChange)) {
@@ -3213,10 +3206,9 @@ function animateChildren(visualElement2, variant, delayChildren = 0, staggerChil
   const maxStaggerDuration = (visualElement2.variantChildren.size - 1) * staggerChildren;
   const generateStaggerDuration = staggerDirection === 1 ? (i = 0) => i * staggerChildren : (i = 0) => maxStaggerDuration - i * staggerChildren;
   Array.from(visualElement2.variantChildren).sort(sortByTreeOrder).forEach((child, i) => {
-    animations2.push(animateVariant(child, variant, {
-      ...options,
+    animations2.push(animateVariant(child, variant, __spreadProps(__spreadValues({}, options), {
       delay: delayChildren + generateStaggerDuration(i)
-    }).then(() => child.notifyAnimationComplete(variant)));
+    })).then(() => child.notifyAnimationComplete(variant)));
   });
   return Promise.all(animations2);
 }
@@ -3276,8 +3268,8 @@ function createAnimationState(visualElement2) {
   const buildResolvedTypeValues = (acc, definition) => {
     const resolved = resolveVariant(visualElement2, definition);
     if (resolved) {
-      const { transition, transitionEnd, ...target } = resolved;
-      acc = { ...acc, ...target, ...transitionEnd };
+      const _a = resolved, { transition, transitionEnd } = _a, target = __objRest(_a, ["transition", "transitionEnd"]);
+      acc = __spreadValues(__spreadValues(__spreadValues({}, acc), target), transitionEnd);
     }
     return acc;
   };
@@ -3304,7 +3296,7 @@ function createAnimationState(visualElement2) {
       if (isInherited && isInitialRender && visualElement2.manuallyAnimateOnMount) {
         isInherited = false;
       }
-      typeState.protectedKeys = { ...encounteredKeys };
+      typeState.protectedKeys = __spreadValues({}, encounteredKeys);
       if (!typeState.isActive && activeDelta === null || !prop && !typeState.prevProp || isAnimationControls(prop) || typeof prop === "boolean") {
         continue;
       }
@@ -3315,10 +3307,7 @@ function createAnimationState(visualElement2) {
       if (activeDelta === false)
         resolvedValues = {};
       const { prevResolvedValues = {} } = typeState;
-      const allKeys = {
-        ...prevResolvedValues,
-        ...resolvedValues
-      };
+      const allKeys = __spreadValues(__spreadValues({}, prevResolvedValues), resolvedValues);
       const markToAnimate = (key) => {
         shouldAnimateType = true;
         removedKeys.delete(key);
@@ -3350,7 +3339,7 @@ function createAnimationState(visualElement2) {
       typeState.prevProp = prop;
       typeState.prevResolvedValues = resolvedValues;
       if (typeState.isActive) {
-        encounteredKeys = { ...encounteredKeys, ...resolvedValues };
+        encounteredKeys = __spreadValues(__spreadValues({}, encounteredKeys), resolvedValues);
       }
       if (isInitialRender && visualElement2.blockInitialAnimation) {
         shouldAnimateType = false;
@@ -3358,7 +3347,7 @@ function createAnimationState(visualElement2) {
       if (shouldAnimateType && !isInherited) {
         animations2.push(...definitionList.map((animation) => ({
           animation,
-          options: { type, ...options }
+          options: __spreadValues({ type }, options)
         })));
       }
     }
@@ -3651,10 +3640,8 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
   const values = /* @__PURE__ */ new Map();
   const valueSubscriptions = /* @__PURE__ */ new Map();
   let prevMotionValues = {};
-  const baseTarget = {
-    ...latestValues
-  };
-  const initialValues = props.initial ? { ...latestValues } : {};
+  const baseTarget = __spreadValues({}, latestValues);
+  const initialValues = props.initial ? __spreadValues({}, latestValues) : {};
   let removeFromVariantTree;
   function render() {
     if (!instance || !isMounted)
@@ -3679,7 +3666,7 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
       removeOnRenderRequest();
     });
   }
-  const { willChange, ...initialMotionValues } = scrapeMotionValuesFromProps3(props);
+  const _a = scrapeMotionValuesFromProps3(props), { willChange } = _a, initialMotionValues = __objRest(_a, ["willChange"]);
   for (const key in initialMotionValues) {
     const value = initialMotionValues[key];
     if (latestValues[key] !== void 0 && isMotionValue(value)) {
@@ -3699,7 +3686,7 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
   }
   const isControllingVariants$1 = isControllingVariants(props);
   const isVariantNode$1 = isVariantNode(props);
-  const element = {
+  const element = __spreadProps(__spreadValues({
     treeType,
     current: null,
     depth: parent ? parent.depth + 1 : 0,
@@ -3730,8 +3717,8 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
       element.setProps(props);
     },
     unmount() {
-      var _a;
-      (_a = element.projection) === null || _a === void 0 ? void 0 : _a.unmount();
+      var _a2;
+      (_a2 = element.projection) === null || _a2 === void 0 ? void 0 : _a2.unmount();
       cancelSync.update(update);
       cancelSync.render(render);
       valueSubscriptions.forEach((remove) => remove());
@@ -3750,11 +3737,11 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
         const name = featureNames[i];
         const { isEnabled, Component: Component2 } = featureDefinitions[name];
         if (isEnabled(renderedProps) && Component2) {
-          features.push(createElement(Component2, {
-            key: name,
-            ...renderedProps,
+          features.push(createElement(Component2, __spreadProps(__spreadValues({
+            key: name
+          }, renderedProps), {
             visualElement: element
-          }));
+          })));
         }
       }
       if (!element.projection && ProjectionNodeConstructor) {
@@ -3774,10 +3761,10 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
       return features;
     },
     addVariantChild(child) {
-      var _a;
+      var _a2;
       const closestVariantNode = element.getClosestVariantNode();
       if (closestVariantNode) {
-        (_a = closestVariantNode.variantChildren) === null || _a === void 0 ? void 0 : _a.add(child);
+        (_a2 = closestVariantNode.variantChildren) === null || _a2 === void 0 ? void 0 : _a2.add(child);
         return () => closestVariantNode.variantChildren.delete(child);
       }
     },
@@ -3812,9 +3799,9 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
       bindToMotionValue(key, value);
     },
     removeValue(key) {
-      var _a;
+      var _a2;
       values.delete(key);
-      (_a = valueSubscriptions.get(key)) === null || _a === void 0 ? void 0 : _a();
+      (_a2 = valueSubscriptions.get(key)) === null || _a2 === void 0 ? void 0 : _a2();
       valueSubscriptions.delete(key);
       delete latestValues[key];
       removeValueFromRenderState(key, renderState);
@@ -3837,9 +3824,9 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
       baseTarget[key] = value;
     },
     getBaseTarget(key) {
-      var _a;
+      var _a2;
       const { initial } = props;
-      const valueFromInitial = typeof initial === "string" || typeof initial === "object" ? (_a = resolveVariantFromProps(props, initial)) === null || _a === void 0 ? void 0 : _a[key] : void 0;
+      const valueFromInitial = typeof initial === "string" || typeof initial === "object" ? (_a2 = resolveVariantFromProps(props, initial)) === null || _a2 === void 0 ? void 0 : _a2[key] : void 0;
       if (initial && valueFromInitial !== void 0) {
         return valueFromInitial;
       }
@@ -3849,8 +3836,8 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
           return target;
       }
       return initialValues[key] !== void 0 && valueFromInitial === void 0 ? void 0 : baseTarget[key];
-    },
-    ...lifecycles,
+    }
+  }, lifecycles), {
     build() {
       triggerBuild();
       return renderState;
@@ -3869,8 +3856,8 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
     },
     getProps: () => props,
     getVariant: (name) => {
-      var _a;
-      return (_a = props.variants) === null || _a === void 0 ? void 0 : _a[name];
+      var _a2;
+      return (_a2 = props.variants) === null || _a2 === void 0 ? void 0 : _a2[name];
     },
     getDefaultTransition: () => props.transition,
     getTransformPagePoint: () => {
@@ -3896,7 +3883,7 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
       }
       return context;
     }
-  };
+  });
   return element;
 };
 var variantProps2 = ["initial", ...variantPriorityOrder];
@@ -4191,16 +4178,24 @@ function buildSVGPath(attrs, length2, spacing = 1, offset = 0, useDashCase = tru
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
-function buildSVGAttrs(state, {
-  attrX,
-  attrY,
-  originX,
-  originY,
-  pathLength,
-  pathSpacing = 1,
-  pathOffset = 0,
-  ...latest
-}, options, transformTemplate) {
+function buildSVGAttrs(state, _a, options, transformTemplate) {
+  var _b = _a, {
+    attrX,
+    attrY,
+    originX,
+    originY,
+    pathLength,
+    pathSpacing = 1,
+    pathOffset = 0
+  } = _b, latest = __objRest(_b, [
+    "attrX",
+    "attrY",
+    "originX",
+    "originY",
+    "pathLength",
+    "pathSpacing",
+    "pathOffset"
+  ]);
   buildHTMLStyles(state, latest, options, transformTemplate);
   state.attrs = state.style;
   state.style = {};
@@ -4224,8 +4219,7 @@ function buildSVGAttrs(state, {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.mjs
 init_define_process();
-var createSvgRenderState = () => ({
-  ...createHtmlRenderState(),
+var createSvgRenderState = () => __spreadProps(__spreadValues({}, createHtmlRenderState()), {
   attrs: {}
 });
 
@@ -4234,15 +4228,14 @@ function useSVGProps(props, visualState) {
   const visualProps = useMemo(() => {
     const state = createSvgRenderState();
     buildSVGAttrs(state, visualState, { enableHardwareAcceleration: false }, props.transformTemplate);
-    return {
-      ...state.attrs,
-      style: { ...state.style }
-    };
+    return __spreadProps(__spreadValues({}, state.attrs), {
+      style: __spreadValues({}, state.style)
+    });
   }, [visualState]);
   if (props.style) {
     const rawStyles = {};
     copyRawValuesOnly(rawStyles, props.style, props);
-    visualProps.style = { ...rawStyles, ...visualProps.style };
+    visualProps.style = __spreadValues(__spreadValues({}, rawStyles), visualProps.style);
   }
   return visualProps;
 }
@@ -4253,11 +4246,9 @@ function createUseRender(forwardMotionProps = false) {
     const useVisualProps = isSVGComponent(Component2) ? useSVGProps : useHTMLProps;
     const visualProps = useVisualProps(props, latestValues, isStatic);
     const filteredProps = filterProps(props, typeof Component2 === "string", forwardMotionProps);
-    const elementProps = {
-      ...filteredProps,
-      ...visualProps,
+    const elementProps = __spreadProps(__spreadValues(__spreadValues({}, filteredProps), visualProps), {
       ref
-    };
+    });
     if (projectionId) {
       elementProps["data-projection-id"] = projectionId;
     }
@@ -4380,14 +4371,13 @@ var htmlMotionConfig = {
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
 function createDomMotionConfig(Component2, { forwardMotionProps = false }, preloadedFeatures, createVisualElement, projectionNodeConstructor) {
   const baseConfig = isSVGComponent(Component2) ? svgMotionConfig : htmlMotionConfig;
-  return {
-    ...baseConfig,
+  return __spreadProps(__spreadValues({}, baseConfig), {
     preloadedFeatures,
     useRender: createUseRender(forwardMotionProps),
     createVisualElement,
     projectionNodeConstructor,
     Component: Component2
-  };
+  });
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/motion/features/gestures.mjs
@@ -4496,7 +4486,8 @@ var fireObserverCallback = (entry) => {
 var fireAllObserverCallbacks = (entries) => {
   entries.forEach(fireObserverCallback);
 };
-function initIntersectionObserver({ root, ...options }) {
+function initIntersectionObserver(_a) {
+  var _b = _a, { root } = _b, options = __objRest(_b, ["root"]);
   const lookupRoot = root || document;
   if (!observers.has(lookupRoot)) {
     observers.set(lookupRoot, {});
@@ -4504,7 +4495,7 @@ function initIntersectionObserver({ root, ...options }) {
   const rootObservers = observers.get(lookupRoot);
   const key = JSON.stringify(options);
   if (!rootObservers[key]) {
-    rootObservers[key] = new IntersectionObserver(fireAllObserverCallbacks, { root, ...options });
+    rootObservers[key] = new IntersectionObserver(fireAllObserverCallbacks, __spreadValues({ root }, options));
   }
   return rootObservers[key];
 }
@@ -4617,7 +4608,7 @@ var PanSession = class {
         return;
       const { point: point3 } = info2;
       const { timestamp: timestamp2 } = getFrameData();
-      this.history.push({ ...point3, timestamp: timestamp2 });
+      this.history.push(__spreadProps(__spreadValues({}, point3), { timestamp: timestamp2 }));
       const { onStart, onMove } = this.handlers;
       if (!isPanStarted) {
         onStart && onStart(this.lastMoveEvent, info2);
@@ -4651,7 +4642,7 @@ var PanSession = class {
     const initialInfo = transformPoint(info, this.transformPagePoint);
     const { point: point2 } = initialInfo;
     const { timestamp } = getFrameData();
-    this.history = [{ ...point2, timestamp }];
+    this.history = [__spreadProps(__spreadValues({}, point2), { timestamp })];
     const { onSessionStart } = handlers;
     onSessionStart && onSessionStart(event, getPanInfo(initialInfo, this.history));
     this.removeListeners = pipe(addPointerEvent(window, "pointermove", this.handlePointerMove), addPointerEvent(window, "pointerup", this.handlePointerUp), addPointerEvent(window, "pointercancel", this.handlePointerUp));
@@ -5100,17 +5091,15 @@ var VisualElementDragControls = class {
         transition = { min: 0, max: 0 };
       const bounceStiffness = dragElastic ? 200 : 1e6;
       const bounceDamping = dragElastic ? 40 : 1e7;
-      const inertia2 = {
+      const inertia2 = __spreadValues(__spreadValues({
         type: "inertia",
         velocity: dragMomentum ? velocity[axis] : 0,
         bounceStiffness,
         bounceDamping,
         timeConstant: 750,
         restDelta: 1,
-        restSpeed: 10,
-        ...dragTransition,
-        ...transition
-      };
+        restSpeed: 10
+      }, dragTransition), transition);
       return this.startAxisValueAnimation(axis, inertia2);
     });
     return Promise.all(momentumAnimations).then(onDragTransitionEnd);
@@ -5213,15 +5202,14 @@ var VisualElementDragControls = class {
   getProps() {
     const props = this.visualElement.getProps();
     const { drag: drag2 = false, dragDirectionLock = false, dragPropagation = false, dragConstraints = false, dragElastic = defaultElastic, dragMomentum = true } = props;
-    return {
-      ...props,
+    return __spreadProps(__spreadValues({}, props), {
       drag: drag2,
       dragDirectionLock,
       dragPropagation,
       dragConstraints,
       dragElastic,
       dragMomentum
-    };
+    });
   }
 };
 function shouldDrag(direction, drag2, currentDirection) {
@@ -5318,12 +5306,13 @@ function getVariableValue(current, element, depth = 1) {
     return fallback;
   }
 }
-function resolveCSSVariables(visualElement2, { ...target }, transitionEnd) {
+function resolveCSSVariables(visualElement2, _a, transitionEnd) {
+  var target = __objRest(_a, []);
   const element = visualElement2.getInstance();
   if (!(element instanceof Element))
     return { target, transitionEnd };
   if (transitionEnd) {
-    transitionEnd = { ...transitionEnd };
+    transitionEnd = __spreadValues({}, transitionEnd);
   }
   visualElement2.forEachValue((value) => {
     const current = value.get();
@@ -5441,8 +5430,8 @@ var convertChangedValueTypes = (target, visualElement2, changedKeys) => {
   return target;
 };
 var checkAndConvertChangedValueTypes = (visualElement2, target, origin = {}, transitionEnd = {}) => {
-  target = { ...target };
-  transitionEnd = { ...transitionEnd };
+  target = __spreadValues({}, target);
+  transitionEnd = __spreadValues({}, transitionEnd);
   const targetPositionalKeys = Object.keys(target).filter(isPositionalKey);
   let removedTransformValues = [];
   let hasAttemptedToRemoveTransformValues = false;
@@ -5566,7 +5555,8 @@ var htmlConfig = {
     delete vars[key];
     delete style2[key];
   },
-  makeTargetAnimatable(element, { transition, transitionEnd, ...target }, { transformValues }, isMounted = true) {
+  makeTargetAnimatable(element, _a, { transformValues }, isMounted = true) {
+    var _b = _a, { transition, transitionEnd } = _b, target = __objRest(_b, ["transition", "transitionEnd"]);
     let origin = getOrigin(target, transition || {}, element);
     if (transformValues) {
       if (transitionEnd)
@@ -5582,11 +5572,10 @@ var htmlConfig = {
       transitionEnd = parsed.transitionEnd;
       target = parsed.target;
     }
-    return {
+    return __spreadValues({
       transition,
-      transitionEnd,
-      ...target
-    };
+      transitionEnd
+    }, target);
   },
   scrapeMotionValuesFromProps,
   build(element, renderState, latestValues, options, props) {
@@ -5601,8 +5590,7 @@ var htmlVisualElement = visualElement(htmlConfig);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/svg/visual-element.mjs
 init_define_process();
-var svgVisualElement = visualElement({
-  ...htmlConfig,
+var svgVisualElement = visualElement(__spreadProps(__spreadValues({}, htmlConfig), {
   getBaseTarget(props, key) {
     return props[key];
   },
@@ -5619,7 +5607,7 @@ var svgVisualElement = visualElement({
     buildSVGAttrs(renderState, latestValues, options, props.transformTemplate);
   },
   render: renderSVG
-});
+}));
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
 var createDomVisualElement = (Component2, options) => {
@@ -5714,10 +5702,9 @@ var MeasureLayoutWithContext = class extends reactMod_default.Component {
       projection.addEventListener("animationComplete", () => {
         this.safeToRemove();
       });
-      projection.setOptions({
-        ...projection.options,
+      projection.setOptions(__spreadProps(__spreadValues({}, projection.options), {
         onExitComplete: () => this.safeToRemove()
-      });
+      }));
     }
     globalProjectionState.hasEverUpdated = true;
   }
@@ -5777,18 +5764,17 @@ var MeasureLayoutWithContext = class extends reactMod_default.Component {
 function MeasureLayout(props) {
   const [isPresent2, safeToRemove] = usePresence();
   const layoutGroup = useContext(LayoutGroupContext);
-  return reactMod_default.createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: useContext(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove });
+  return reactMod_default.createElement(MeasureLayoutWithContext, __spreadProps(__spreadValues({}, props), { layoutGroup, switchLayoutGroup: useContext(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove }));
 }
 var defaultScaleCorrectors = {
-  borderRadius: {
-    ...correctBorderRadius,
+  borderRadius: __spreadProps(__spreadValues({}, correctBorderRadius), {
     applyTo: [
       "borderTopLeftRadius",
       "borderTopRightRadius",
       "borderBottomLeftRadius",
       "borderBottomRightRadius"
     ]
-  },
+  }),
   borderTopLeftRadius: correctBorderRadius,
   borderTopRightRadius: correctBorderRadius,
   borderBottomLeftRadius: correctBorderRadius,
@@ -6151,11 +6137,10 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
               this.resumingFrom.resumingFrom = void 0;
             }
             this.setAnimationOrigin(delta, hasOnlyRelativeTargetChanged);
-            const animationOptions = {
-              ...getValueTransition(layoutTransition, "layout"),
+            const animationOptions = __spreadProps(__spreadValues({}, getValueTransition(layoutTransition, "layout")), {
               onPlay: onLayoutAnimationStart,
               onComplete: onLayoutAnimationComplete
-            };
+            });
             if (visualElement2.shouldReduceMotion) {
               animationOptions.delay = 0;
               animationOptions.type = false;
@@ -6401,11 +6386,9 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       this.root.scheduleUpdateProjection();
     }
     setOptions(options) {
-      this.options = {
-        ...this.options,
-        ...options,
+      this.options = __spreadProps(__spreadValues(__spreadValues({}, this.options), options), {
         crossfade: options.crossfade !== void 0 ? options.crossfade : true
-      };
+      });
     }
     clearMeasurements() {
       this.scroll = void 0;
@@ -6516,7 +6499,7 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       var _a;
       const snapshot = this.snapshot;
       const snapshotLatestValues = (snapshot === null || snapshot === void 0 ? void 0 : snapshot.latestValues) || {};
-      const mixedValues = { ...this.latestValues };
+      const mixedValues = __spreadValues({}, this.latestValues);
       const targetDelta = createDelta();
       this.relativeTarget = this.relativeTargetOrigin = void 0;
       this.attemptToResolveRelativeTarget = !hasOnlyRelativeTargetChanged;
@@ -6558,8 +6541,7 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       }
       this.pendingAnimation = es_default.update(() => {
         globalProjectionState.hasAnimatedSinceResize = true;
-        this.currentAnimation = animate2(0, animationTarget, {
-          ...options,
+        this.currentAnimation = animate2(0, animationTarget, __spreadProps(__spreadValues({}, options), {
           onUpdate: (latest) => {
             var _a2;
             this.mixTargetDelta(latest);
@@ -6570,7 +6552,7 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
             (_a2 = options.onComplete) === null || _a2 === void 0 ? void 0 : _a2.call(options);
             this.completeAnimation();
           }
-        });
+        }));
         if (this.resumingFrom) {
           this.resumingFrom.currentAnimation = this.currentAnimation;
         }
@@ -6935,12 +6917,7 @@ var HTMLProjectionNode = createProjectionNode({
 });
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/dom/motion.mjs
-var featureBundle = {
-  ...animations,
-  ...gestureAnimations,
-  ...drag,
-  ...layoutFeatures
-};
+var featureBundle = __spreadValues(__spreadValues(__spreadValues(__spreadValues({}, animations), gestureAnimations), drag), layoutFeatures);
 var motion = createMotionProxy((Component2, config) => createDomMotionConfig(Component2, config, featureBundle, createDomVisualElement, HTMLProjectionNode));
 function createDomMotionComponent(key) {
   return createMotionComponent(createDomMotionConfig(key, { forwardMotionProps: false }, featureBundle, createDomVisualElement, HTMLProjectionNode));
@@ -7228,7 +7205,7 @@ var LayoutGroup = ({ children, id: id3, inheritId, inherit = true }) => {
       group: shouldInheritGroup(inherit) ? layoutGroupContext.group || nodeGroup() : nodeGroup()
     };
   }
-  const memoizedContext = useMemo(() => ({ ...context.current, forceRender }), [key]);
+  const memoizedContext = useMemo(() => __spreadProps(__spreadValues({}, context.current), { forceRender }), [key]);
   return createElement(LayoutGroupContext.Provider, { value: memoizedContext }, children);
 };
 
@@ -7247,9 +7224,10 @@ var AnimateSharedLayout = ({ children }) => {
 init_define_process();
 init_reactMod();
 init_reactMod();
-function MotionConfig({ children, isValidProp, ...config }) {
+function MotionConfig(_a) {
+  var _b = _a, { children, isValidProp } = _b, config = __objRest(_b, ["children", "isValidProp"]);
   isValidProp && loadExternalIsValidProp(isValidProp);
-  config = { ...useContext(MotionConfigContext), ...config };
+  config = __spreadValues(__spreadValues({}, useContext(MotionConfigContext)), config);
   config.isStatic = useConstant(() => config.isStatic);
   const context = useMemo(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
   return createElement(MotionConfigContext.Provider, { value: context }, children);
@@ -7263,13 +7241,14 @@ function LazyMotion({ children, features, strict = false }) {
   const [, setIsLoaded] = useState(!isLazyBundle(features));
   const loadedRenderer = useRef(void 0);
   if (!isLazyBundle(features)) {
-    const { renderer, ...loadedFeatures } = features;
+    const _a = features, { renderer } = _a, loadedFeatures = __objRest(_a, ["renderer"]);
     loadedRenderer.current = renderer;
     loadFeatures(loadedFeatures);
   }
   useEffect(() => {
     if (isLazyBundle(features)) {
-      features().then(({ renderer, ...loadedFeatures }) => {
+      features().then((_a2) => {
+        var _b = _a2, { renderer } = _b, loadedFeatures = __objRest(_b, ["renderer"]);
         loadFeatures(loadedFeatures);
         loadedRenderer.current = renderer;
         setIsLoaded(true);
@@ -7308,10 +7287,9 @@ function transform(...args) {
   const inputRange = args[1 + argOffset];
   const outputRange = args[2 + argOffset];
   const options = args[3 + argOffset];
-  const interpolator = interpolate(inputRange, outputRange, {
-    mixer: getMixer2(outputRange[0]),
-    ...options
-  });
+  const interpolator = interpolate(inputRange, outputRange, __spreadValues({
+    mixer: getMixer2(outputRange[0])
+  }, options));
   return useImmediate ? interpolator(inputValue) : interpolator;
 }
 
@@ -7400,7 +7378,8 @@ function checkReorder(order2, value, offset, velocity) {
 }
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
-function ReorderGroup({ children, as = "ul", axis = "y", onReorder, values, ...props }, externalRef) {
+function ReorderGroup(_a, externalRef) {
+  var _b = _a, { children, as = "ul", axis = "y", onReorder, values } = _b, props = __objRest(_b, ["children", "as", "axis", "onReorder", "values"]);
   const Component2 = useConstant(() => motion(as));
   const order2 = [];
   const isReordering = useRef(false);
@@ -7428,7 +7407,7 @@ function ReorderGroup({ children, as = "ul", axis = "y", onReorder, values, ...p
   });
   return createElement(
     Component2,
-    { ...props, ref: externalRef },
+    __spreadProps(__spreadValues({}, props), { ref: externalRef }),
     createElement(ReorderContext.Provider, { value: context }, children)
   );
 }
@@ -7447,7 +7426,8 @@ init_reactMod();
 function useDefaultMotionValue(value, defaultValue = 0) {
   return isMotionValue(value) ? value : useMotionValue(defaultValue);
 }
-function ReorderItem({ children, style: style2 = {}, value, as = "li", onDrag, layout = true, ...props }, externalRef) {
+function ReorderItem(_a, externalRef) {
+  var _b = _a, { children, style: style2 = {}, value, as = "li", onDrag, layout = true } = _b, props = __objRest(_b, ["children", "style", "value", "as", "onDrag", "layout"]);
   const Component2 = useConstant(() => motion(as));
   const context = useContext(ReorderContext);
   const point2 = {
@@ -7461,13 +7441,13 @@ function ReorderItem({ children, style: style2 = {}, value, as = "li", onDrag, l
   useEffect(() => {
     registerItem(value, measuredLayout.current);
   }, [context]);
-  return createElement(Component2, { drag: axis, ...props, dragSnapToOrigin: true, style: { ...style2, x: point2.x, y: point2.y, zIndex }, layout, onDrag: (event, gesturePoint) => {
+  return createElement(Component2, __spreadProps(__spreadValues({ drag: axis }, props), { dragSnapToOrigin: true, style: __spreadProps(__spreadValues({}, style2), { x: point2.x, y: point2.y, zIndex }), layout, onDrag: (event, gesturePoint) => {
     const { velocity } = gesturePoint;
     velocity[axis] && updateOrder(value, point2[axis].get(), velocity[axis]);
     onDrag && onDrag(event, gesturePoint);
   }, onLayoutMeasure: (measured) => {
     measuredLayout.current = measured;
-  }, ref: externalRef }, children);
+  }, ref: externalRef }), children);
 }
 var Item = forwardRef(ReorderItem);
 
@@ -7479,20 +7459,15 @@ var Reorder = {
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/dom/features-animation.mjs
 init_define_process();
-var domAnimation = {
-  renderer: createDomVisualElement,
-  ...animations,
-  ...gestureAnimations
-};
+var domAnimation = __spreadValues(__spreadValues({
+  renderer: createDomVisualElement
+}, animations), gestureAnimations);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/render/dom/features-max.mjs
 init_define_process();
-var domMax = {
-  ...domAnimation,
-  ...drag,
-  ...layoutFeatures,
+var domMax = __spreadProps(__spreadValues(__spreadValues(__spreadValues({}, domAnimation), drag), layoutFeatures), {
   projectionNodeConstructor: HTMLProjectionNode
-};
+});
 
 // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/es/value/use-motion-template.mjs
 init_define_process();
@@ -7525,13 +7500,13 @@ function useSpring(source, config = {}) {
       if (activeSpringAnimation.current) {
         activeSpringAnimation.current.stop();
       }
-      activeSpringAnimation.current = animate({
+      activeSpringAnimation.current = animate(__spreadProps(__spreadValues({
         from: value.get(),
         to: v,
-        velocity: value.getVelocity(),
-        ...config,
+        velocity: value.getVelocity()
+      }, config), {
         onUpdate: set
-      });
+      }));
       return value.get();
     });
   }, [JSON.stringify(config)]);
@@ -8643,7 +8618,8 @@ var createScrollMotionValues = () => ({
   scrollXProgress: motionValue(0),
   scrollYProgress: motionValue(0)
 });
-function useScroll({ container, target, layoutEffect = true, ...options } = {}) {
+function useScroll(_a = {}) {
+  var _b = _a, { container, target, layoutEffect = true } = _b, options = __objRest(_b, ["container", "target", "layoutEffect"]);
   const values = useConstant(createScrollMotionValues);
   const useLifecycleEffect = layoutEffect ? useIsomorphicLayoutEffect : useEffect;
   useLifecycleEffect(() => {
@@ -8652,11 +8628,10 @@ function useScroll({ container, target, layoutEffect = true, ...options } = {}) 
       values.scrollXProgress.set(x.progress);
       values.scrollY.set(y.current);
       values.scrollYProgress.set(y.progress);
-    }, {
-      ...options,
+    }, __spreadProps(__spreadValues({}, options), {
       container: (container === null || container === void 0 ? void 0 : container.current) || void 0,
       target: (target === null || target === void 0 ? void 0 : target.current) || void 0
-    });
+    }));
   }, []);
   return values;
 }
@@ -8968,10 +8943,11 @@ var stateVisualElement = visualElement({
   readValueFromInstance(_state, key, options) {
     return options.initialState[key] || 0;
   },
-  makeTargetAnimatable(element, { transition, transitionEnd, ...target }) {
+  makeTargetAnimatable(element, _a) {
+    var _b = _a, { transition, transitionEnd } = _b, target = __objRest(_b, ["transition", "transitionEnd"]);
     const origin = getOrigin(target, transition || {}, element);
     checkTargetForNewValues(element, target, origin);
-    return { transition, transitionEnd, ...target };
+    return __spreadValues({ transition, transitionEnd }, target);
   }
 });
 var useVisualState = makeUseVisualState({
@@ -8989,7 +8965,7 @@ function useAnimatedState(initialState) {
   useEffect(() => {
     element.setProps({
       onUpdate: (v) => {
-        setAnimationState({ ...v });
+        setAnimationState(__spreadValues({}, v));
       }
     });
   }, [setAnimationState, element]);

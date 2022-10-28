@@ -1,4 +1,4 @@
-import "./chunk-chunk-PUTCJXOT.mjs";
+import "./chunk-chunk-PEGHXP3H.mjs";
 import {
   $,
   Action,
@@ -567,13 +567,15 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-chunk-B36LW6WR.mjs";
+} from "./chunk-chunk-HKZ2MB76.mjs";
 import {
   __commonJS,
   __esm,
+  __spreadProps,
+  __spreadValues,
   __toESM,
   init_define_process
-} from "./chunk-chunk-2DK73MPQ.mjs";
+} from "./chunk-chunk-DSXGUE46.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -41983,7 +41985,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-7H4FKCAS.mjs");
+      return import("./chunk-typescript-5PLL76SZ.mjs");
     }
   }
 });
@@ -42148,7 +42150,7 @@ var monacoContribution = async (code) => {
     );
     console.log({ extraLibMap });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibMap);
-    extraLibMap.map((lib2) => bc.postMessage({ ...lib2, type: "set-mock" }));
+    extraLibMap.map((lib2) => bc.postMessage(__spreadProps(__spreadValues({}, lib2), { type: "set-mock" })));
   }
   const regex1 = / from '\.\./gi;
   const regex2 = / from '\./gi;
@@ -42315,7 +42317,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
             console.error("Error in add extra models", code3, url, { err });
           }
         }
-      } catch {
+      } catch (e) {
         console.log("error in extra lib  mining", url);
         return;
       }
@@ -42370,7 +42372,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           lib2.content,
           lib2.filePath
         );
-        bc.postMessage({ ...lib2, type: "set-mock" });
+        bc.postMessage(__spreadProps(__spreadValues({}, lib2), { type: "set-mock" }));
       });
       const libs = languages.typescript.typescriptDefaults.getExtraLibs();
       const extraLibsForSave = Object.keys(libs).map((lib2) => ({
@@ -42446,7 +42448,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
           if (state) {
             myEditor.restoreViewState(state);
           }
-        } catch {
+        } catch (e) {
           console.error("error while saving the state");
         } finally {
           mod2.silent = false;

@@ -246,7 +246,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     overflow-x: hidden;
                     overflow-y: hidden;
                     
-                   ${mST()?.css?.split("body").join("div")}
+                   ${mST()?.css?.split("body").join("div:first-of-type")}
             `}
               >
                 <m.div

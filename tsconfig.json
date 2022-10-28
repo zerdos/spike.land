@@ -22,7 +22,7 @@
     /* Advanced Options */
     "skipLibCheck": false, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "target": "ES2021",
+    "target": "ES2017",
     "module": "ESNext",
     "lib": ["ES2020", "ESNext"],
     "types": []
