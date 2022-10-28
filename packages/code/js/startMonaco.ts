@@ -8,6 +8,7 @@ import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
 // import { setupTypeAcquisition } from "@typescript/ata";
 // import pMap from "p-map";
 
+import { Editor } from "Editor.js";
 import { getWorkerUrl } from "./monacoWorkers.mjs";
 // Import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
 // import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
@@ -429,25 +430,21 @@ export const startMonaco = async (
       uri,
     );
 
-    // const shadowRoot = container.attachShadow({
-    //   mode: "closed",
-    // });
+    const shadowRoot = container.attachShadow({
+      mode: "closed",
+    });
 
     const innerContainer = document.createElement("div");
 
     innerContainer.style.width = "100%";
-    innerContainer.style.background = "red";
     innerContainer.style.display = "block";
     innerContainer.style.height = "100%";
 
-    const target = container.appendChild(innerContainer);
+    const target = shadowRoot.appendChild(innerContainer);
 
-    console.log(target === innerContainer);
-
-    // const innerStyle = document.createElement("style");
-    // innerStyle.innerText =
-    //   `@import "${location.origin}/node_modules/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
-    // shadowRoot.appendChild(innerStyle);
+    const innerStyle = document.createElement("style");
+    innerStyle.innerText = `@import "/Editor.css";`;
+    shadowRoot.appendChild(innerStyle);
 
     // const innerContainer = container;
 
