@@ -130,12 +130,18 @@ export default {
               const redirectUrl = resp.headers.get("location");
 
               if (redirectUrl) {
-                return new Response((await resp.text()).replace("esm.sh/", u.hostname + "/npm:/"), {
-                  status: 307,
-                  headers: {
-                    "location": redirectUrl.replace("esm.sh/", u.hostname + "/npm:/"),
+                return new Response(
+                  (await resp.text()).replace("esm.sh/", u.hostname + "/npm:/"),
+                  {
+                    status: 307,
+                    headers: {
+                      "location": redirectUrl.replace(
+                        "esm.sh/",
+                        u.hostname + "/npm:/",
+                      ),
+                    },
                   },
-                });
+                );
 
                 // resp = await fetch(redirectUrl, {
                 //   ...request,
@@ -353,7 +359,12 @@ export default {
                 ["room", ...paths, "public"],
                 request,
                 env,
-              ).catch((e) => new Response("Error," + e?.message, { status: 500, statusText: e?.message }));
+              ).catch((e) =>
+                new Response("Error," + e?.message, {
+                  status: 500,
+                  statusText: e?.message,
+                })
+              );
             }
             default:
               try {
@@ -384,14 +395,24 @@ export default {
                 if (!kvResp.ok) throw new Error("no kv, try something else");
                 return kvResp.clone();
               } catch {
-                const resp = await fetch(new URL(url.pathname.slice(1), url.origin + "/node_modules/").toString());
+                const resp = await fetch(
+                  new URL(url.pathname.slice(1), url.origin + "/node_modules/")
+                    .toString(),
+                );
                 if (resp.ok) return resp;
               }
           }
         })(_request);
-        if (!cachedResponse2) return new Response("404 :(", { status: 404, statusText: "not found" });
+        if (!cachedResponse2) {
+          return new Response("404 :(", {
+            status: 404,
+            statusText: "not found",
+          });
+        }
 
-        if (cachedResponse2?.ok) await cache.put(cacheKey, cachedResponse2.clone());
+        if (cachedResponse2?.ok) {
+          await cache.put(cacheKey, cachedResponse2.clone());
+        }
 
         return cachedResponse2;
       };

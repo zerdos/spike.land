@@ -382,7 +382,7 @@ export const startMonaco = async (
     onChange: (_code: string) => void;
   },
 ) => {
-  editor.getEditors().map(x => x.dispose());
+  editor.getEditors().map((x) => x.dispose());
   // editor.getModels().map(x => x.dispose());
   codeSpace = name;
   //  console.log({code, container, name});
@@ -804,9 +804,10 @@ export const startMonaco = async (
       languages,
       silent: false,
       code,
-      tsWorker: languages.typescript.getTypeScriptWorker().then(x => x(uri)).catch(e => ({
-        getSemanticDiagnostics: async () => [{ messageText: JSON.stringify({ e }) }],
-      })),
+      tsWorker: languages.typescript.getTypeScriptWorker().then((x) => x(uri))
+        .catch((e) => ({
+          getSemanticDiagnostics: async () => [{ messageText: JSON.stringify({ e }) }],
+        })),
     };
 
     Object.assign(globalThis, { monaco: mod, setExtraLibs });
@@ -822,7 +823,7 @@ export const startMonaco = async (
       getValue: () => model.getValue(),
 
       getErrors: () => {
-        return mod.tsWorker.then(ts =>
+        return mod.tsWorker.then((ts) =>
           ts.getSemanticDiagnostics(model.uri.toString()).then((diag) => diag.map((d) => d.messageText.toString()))
             .catch(
               (e) => {

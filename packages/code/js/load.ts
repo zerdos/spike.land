@@ -7,7 +7,7 @@ import { hydrateRoot } from "./react-jsx-runtime.js";
 
 const imp = {};
 
-Object.keys(importmap.imports).map(k => imp[k] = location.origin + importmap.imports[k]);
+Object.keys(importmap.imports).map((k) => imp[k] = location.origin + importmap.imports[k]);
 
 importShim.addImportMap({ imports: imp });
 
@@ -32,14 +32,14 @@ const start = (dry = false) =>
   );
 
 if (location.pathname.endsWith("/hydrated")) {
-  import(
-    `${location.origin}/live/${codeSpace}/index.js`
+  importShim(
+    `${location.origin}/live/${codeSpace}/index.js`,
   ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(() =>
     setTimeout(() => {
       const dry = true;
       start(dry);
-      import("./prettierJs").then(x => x.prettierJs("dry"));
-      import("./esbuildEsm").then(x => x.transform("dry"));
+      import("./prettierJs").then((x) => x.prettierJs("dry"));
+      import("./esbuildEsm").then((x) => x.transform("dry"));
     }, 1000)
   );
 } else {

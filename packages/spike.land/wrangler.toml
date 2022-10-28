@@ -2,8 +2,8 @@ name = "spike-land"
 # Add your account ID here
 account_id = "1f98921051196545ebe79a450d3c71ed"
 route = "https://spike.land/*"  
+usage_model = "unbound"
 compatibility_date = "2021-10-16"
-usage_model = "bundled"
 main = " dist/index.js"
 
 [durable_objects]

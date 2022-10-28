@@ -131,11 +131,15 @@ const AppToRender: FC<
 };
 const singleton = { started: false };
 
-export const renderPreviewWindow = ({ codeSpace, dry }: { codeSpace: string; dry: boolean }) => {
+export const renderPreviewWindow = (
+  { codeSpace, dry }: { codeSpace: string; dry: boolean },
+) => {
   if (singleton.started) return;
   singleton.started = true;
 
-  const div = dry ? document.createElement("div") : document.querySelector("#root")!;
+  const div = dry
+    ? document.createElement("div")
+    : document.querySelector("#root")!;
   // Div.style.height='100%';
   const root = createRoot(div);
 

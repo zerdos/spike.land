@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 const RCA = fetch("https://testing.spike.land/live/rca/index.tsx").then(
   (res) => res.text(),
-).then(x => x.split("\n").map((x) => x.trim()).join("\n "));
+).then((x) => x.split("\n").map((x) => x.trim()).join("\n "));
 
 test("basic test", async ({ page }) => {
   await page.goto("https://testing.spike.land");
@@ -26,7 +26,9 @@ test("screens test", async ({ page }) => {
   await page.keyboard.press("Control+A");
   await page.keyboard.press("Delete");
   await wait(1000);
-  await editor.type(`export default () => <header css=""> ${message} </header>;`);
+  await editor.type(
+    `export default () => <header css=""> ${message} </header>;`,
+  );
   await wait(1500);
   await expect(page.locator("[data-test-id=z-body]")).toHaveText(message, {
     timeout: 1000,
