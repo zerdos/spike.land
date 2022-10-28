@@ -381,6 +381,8 @@ export const startMonaco = async (
     onChange: (_code: string) => void;
   },
 ) => {
+  editor.getEditors().map(x => x.dispose());
+  editor.getModels().map(x => x.dispose());
   codeSpace = name;
   //  console.log({code, container, name});
   if (mod[name]) {

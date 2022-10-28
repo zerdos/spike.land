@@ -42174,6 +42174,8 @@ self.MonacoEnvironment = {
 };
 var mod = {};
 var startMonaco = async ({ code, container, name, onChange }) => {
+  editor.getEditors().map((x) => x.dispose());
+  editor.getModels().map((x) => x.dispose());
   codeSpace = name;
   if (mod[name]) {
     return mod[name];

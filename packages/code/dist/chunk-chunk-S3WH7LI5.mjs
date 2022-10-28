@@ -734,8 +734,8 @@ var require_react_jsx_runtime_development = __commonJS({
               return;
             }
             if (isArray(node)) {
-              for (var i2 = 0; i2 < node.length; i2++) {
-                var child = node[i2];
+              for (var i = 0; i < node.length; i++) {
+                var child = node[i];
                 if (isValidElement2(child)) {
                   validateExplicitKey(child, parentType);
                 }
@@ -790,8 +790,8 @@ var require_react_jsx_runtime_development = __commonJS({
         function validateFragmentProps(fragment) {
           {
             var keys = Object.keys(fragment.props);
-            for (var i2 = 0; i2 < keys.length; i2++) {
-              var key = keys[i2];
+            for (var i = 0; i < keys.length; i++) {
+              var key = keys[i];
               if (key !== "children" && key !== "key") {
                 setCurrentlyValidatingElement$1(fragment);
                 error("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key);
@@ -842,8 +842,8 @@ var require_react_jsx_runtime_development = __commonJS({
               if (children !== void 0) {
                 if (isStaticChildren) {
                   if (isArray(children)) {
-                    for (var i2 = 0; i2 < children.length; i2++) {
-                      validateChildKeys(children[i2], type);
+                    for (var i = 0; i < children.length; i++) {
+                      validateChildKeys(children[i], type);
                     }
                     if (Object.freeze) {
                       Object.freeze(children);
@@ -930,7 +930,6 @@ var init_react_jsx_runtime = __esm({
   "js/react-jsx-runtime.ts"() {
     "use strict";
     init_define_process();
-    i;
     runtime = () => {
       if (globalThis.React)
         return;

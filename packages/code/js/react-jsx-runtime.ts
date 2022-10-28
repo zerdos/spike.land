@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 "use strict";
-i;
 
 const runtime = () => {
   if (globalThis.React) return;
