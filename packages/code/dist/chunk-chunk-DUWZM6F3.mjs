@@ -6,13 +6,9 @@ import {
   require_lodash
 } from "./chunk-chunk-2INAMIGF.mjs";
 import {
-  Fragment as Fragment2,
-  jsx,
-  jsxs
-} from "./chunk-chunk-2RHEIFZB.mjs";
-import {
-  emotionCache_default
-} from "./chunk-chunk-SPNC3BA5.mjs";
+  emotionCache_default,
+  init_emotionCache
+} from "./chunk-chunk-OU24SX6H.mjs";
 import {
   Children,
   Fragment,
@@ -37,8 +33,15 @@ import {
 } from "./chunk-chunk-F6KD4MVO.mjs";
 import {
   CacheProvider,
-  css
-} from "./chunk-chunk-HS3IGWOP.mjs";
+  css,
+  init_emotion
+} from "./chunk-chunk-WIURWTZP.mjs";
+import {
+  Fragment as Fragment2,
+  init_emotionJsxRuntime,
+  jsx,
+  jsxs
+} from "./chunk-chunk-7HY2T2NQ.mjs";
 import {
   __commonJS,
   __toCommonJS,
@@ -23158,6 +23161,7 @@ init_define_process();
 init_define_process();
 init_reactMod();
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
+init_emotion();
 
 // js/renderPreviewWindow.tsx
 init_define_process();
@@ -23331,6 +23335,9 @@ var OutPortal = function(_super) {
 var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
+// js/renderPreviewWindow.tsx
+init_emotion();
+
 // js/wait.mjs
 init_define_process();
 async function wait(delay) {
@@ -23342,7 +23349,8 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-ILFFX7XH.mjs")));
+init_emotionJsxRuntime();
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-4AH7NHC3.mjs")));
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
 height: 100%;
@@ -23452,7 +23460,9 @@ var renderPreviewWindow = ({ codeSpace }) => {
 };
 
 // js/starter.tsx
+init_emotionCache();
 var import_is_callable = __toESM(require_is_callable(), 1);
+init_emotionJsxRuntime();
 var dynamicImport = (src) => window.importShim ? window.importShim(src) : import(src);
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
@@ -23604,6 +23614,7 @@ function createJsBlob(code, fileName = "index.mjs") {
 // js/renderToString.tsx
 init_reactMod();
 init_reactMod();
+init_emotionJsxRuntime();
 var mod2 = {
   md5Hash: "",
   wait: 1,
@@ -23745,6 +23756,9 @@ async function runner({ code, counter, codeSpace }) {
   }
 }
 
+// js/Editor.tsx
+init_emotion();
+
 // js/isMobile.mjs
 init_define_process();
 function isMobile() {
@@ -23793,6 +23807,7 @@ var prettierJs = (code) => {
 };
 
 // js/Editor.tsx
+init_emotionJsxRuntime();
 var mod3 = {
   getValue: async () => "",
   setValue: async (code) => {
