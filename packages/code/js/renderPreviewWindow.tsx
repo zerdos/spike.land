@@ -20,8 +20,10 @@ const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
 ) => (
   <div>
-    <Global
-      styles={css`
+    {!mST().css.includes("body{")
+      ? (
+        <Global
+          styles={css`
 body{
 height: 100%;
 width: 100%;
@@ -65,7 +67,9 @@ background:  repeating-radial-gradient(circle at bottom left,
                 #becc2f 0, #becc2f 94.4444444444%, 
                 #e0d81d 0, #e0d81d 100%);}
 `}
-    />
+        />
+      )
+      : null}
     {children}
   </div>
 );
