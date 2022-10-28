@@ -4,7 +4,7 @@ const bc = new BroadcastChannel(location.origin);
 const mocks = {};
 
 bc.onmessage = (event) => {
-  console.log(event);
+  // console.log(event);
   if (event.data.type === "set-mock") {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

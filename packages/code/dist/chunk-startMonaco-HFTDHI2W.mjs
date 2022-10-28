@@ -42197,8 +42197,14 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       "typescript",
       uri
     );
-    const innerContainer = container2;
-    const myEditor = create(innerContainer, {
+    const innerContainer = document.createElement("div");
+    innerContainer.style.width = "100%";
+    innerContainer.style.background = "red";
+    innerContainer.style.display = "block";
+    innerContainer.style.height = "100%";
+    const target = container2.appendChild(innerContainer);
+    console.log(target === innerContainer);
+    const myEditor = create(target, {
       model,
       scrollbar: {
         scrollByPage: false,
@@ -42239,7 +42245,6 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         }
       },
       roundedSelection: true,
-      linkedEditing: true,
       bracketPairColorization: {
         independentColorPoolPerBracketType: true,
         enabled: true
@@ -42416,17 +42421,13 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     };
     Object.assign(globalThis, { monaco: mod2, setExtraLibs });
     setTimeout(() => mod2.ATA(), 2e3);
-    model.onDidChangeContent(() => {
+    model.onDidChangeContent((e) => {
       if (mod2.silent)
         return;
-      const code3 = model.getValue();
-      if (mod2.code === code3)
-        return;
-      mod2.code = code3;
-      onChange(code3);
+      onChange(model.getValue());
     });
     return {
-      getValue: () => mod2.code,
+      getValue: () => model.getValue(),
       getErrors: () => {
         return mod2.tsWorker.then(
           (ts) => ts.getSemanticDiagnostics(model.uri.toString()).then((diag) => diag.map((d) => d.messageText.toString())).catch(
@@ -42441,14 +42442,15 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         let state = null;
         try {
           state = myEditor.saveViewState();
+          model.setValue(code3);
+          if (state) {
+            myEditor.restoreViewState(state);
+          }
         } catch {
           console.error("error while saving the state");
+        } finally {
+          mod2.silent = false;
         }
-        model.setValue(code3);
-        if (state) {
-          myEditor.restoreViewState(state);
-        }
-        mod2.silent = false;
       }
     };
   }

@@ -28,7 +28,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-S3WH7LI5.mjs";
+} from "./chunk-chunk-BDMJDDVA.mjs";
 import {
   CacheProvider,
   css,
@@ -22310,6 +22310,7 @@ var require_standalone = __commonJS({
 
 // js/Editor.tsx
 init_define_process();
+init_emotion();
 
 // ../../.yarn/__virtual__/re-resizable-virtual-24c16ab62b/0/global/cache/re-resizable-npm-6.9.9-2a772ae568-9.zip/node_modules/re-resizable/lib/index.js
 init_define_process();
@@ -23348,7 +23349,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-T6BHGQS4.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-75RED7UR.mjs")));
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
 height: 100%;
@@ -23752,9 +23753,6 @@ async function runner({ code, counter, codeSpace }) {
   }
 }
 
-// js/Editor.tsx
-init_emotion();
-
 // js/isMobile.mjs
 init_define_process();
 function isMobile() {
@@ -23841,13 +23839,18 @@ var Editor = ({ codeSpace }) => {
   } = mySession;
   mod3.code = myCode;
   reactMod_default.useEffect(() => {
+    if (started2)
+      return;
     if (!ref?.current || started2) {
       return;
     }
-    (engine === "monaco" ? setMonaco() : setAce()).then((res) => Object.assign(mod3, res)).then(
+    const container = ref?.current;
+    if (container === null)
+      return;
+    engine === "monaco" ? setMonaco(container) : setAce(container).then((res) => Object.assign(mod3, res)).then(
       () => changeContent((x) => ({ ...x, started: true }))
     );
-  }, [started2, ref]);
+  }, [started2, ref.current]);
   reactMod_default.useEffect(
     () => {
       mod3.getErrors().then(console.log);
@@ -23885,13 +23888,18 @@ var Editor = ({ codeSpace }) => {
       height: "100vh"
     },
     children: jsx("div", {
-      id: "editor",
       "data-test-id": "editor",
-      css: css`    
-        width: 100%;
-        height: 100%; 
-     `,
-      ref
+      ref,
+      css: css`
+          width: 100%;
+          height: 100%;
+          display: block;
+          position: absolute;
+          top:0;
+          bottom:0;
+          left:0;
+          right:0;
+          `
     })
   });
 };
@@ -23905,13 +23913,16 @@ async function onModChange(_code) {
   mod3.code = code;
   runner({ code, counter, codeSpace: mod3.codeSpace });
 }
-async function setMonaco() {
+var startedM = 0;
+async function setMonaco(container) {
+  if (startedM)
+    return;
+  startedM = 1;
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-FOLYQNKI.mjs");
-  const container = window.document.getElementById("editor");
+  const { startMonaco } = await import("./chunk-startMonaco-HFTDHI2W.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,
@@ -23919,9 +23930,13 @@ async function setMonaco() {
     onChange: onModChange
   });
 }
-async function setAce() {
-  const { startAce } = await import("./chunk-startAce-UQBTUREZ.mjs");
-  return await startAce(mST().code, onModChange);
+var startedAce = 0;
+async function setAce(container) {
+  if (startedAce)
+    return;
+  startedAce = 1;
+  const { startAce } = await import("./chunk-startAce-G24FPSIL.mjs");
+  return await startAce(mST().code, onModChange, container);
 }
 
 export {

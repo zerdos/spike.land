@@ -20199,8 +20199,8 @@ var mod = {
   value: "",
   silent: false
 };
-async function startAce(code, cb) {
-  const editor = (0, import_ace_builds.edit)("editor", {
+async function startAce(code, cb, container) {
+  const editor = (0, import_ace_builds.edit)(container, {
     autoScrollEditorIntoView: false,
     useWorker: true,
     scrollPastEnd: true,

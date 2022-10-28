@@ -153,7 +153,6 @@
   var bc = new BroadcastChannel(location.origin);
   var mocks = {};
   bc.onmessage = (event) => {
-    console.log(event);
     if (event.data.type === "set-mock") {
       mocks[event.data.filePath] = event.data.content;
     }

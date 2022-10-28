@@ -7,9 +7,9 @@ const mod = {
   silent: false,
 };
 
-export async function startAce(code: string, cb: (_code: string) => void) {
+export async function startAce(code: string, cb: (_code: string) => void, container: HTMLDivElement) {
   // Const {ace} = window;
-  const editor = edit("editor", {
+  const editor = edit(container, {
     autoScrollEditorIntoView: false,
     useWorker: true,
     scrollPastEnd: true,

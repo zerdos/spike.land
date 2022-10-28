@@ -1608,7 +1608,7 @@ __metadata:
 "ace-builds@npm:1.12.3":
   version: 1.12.3
   resolution: "ace-builds@npm:1.12.3"
-  checksum: 378394f4bad81c5917501915cbf5cf74b9fc7671024b27fe189f4fe62ba49e4cb9cffd2b1091af21403ba3b3356d2cb3ef9704c520a57c5db02b6afc6342cf5b
+  checksum: fafc22bf536680785413b556d7fad308c75bd0b36754a33a2b9b206c4ead50154c53a3ef4872ed42d00b47f805b45c88cfcb040a40b8e4c7f65c1c92ed4af976
   languageName: node
   linkType: hard
 
@@ -2592,7 +2592,7 @@ __metadata:
 "es-module-shims@npm:1.6.2":
   version: 1.6.2
   resolution: "es-module-shims@npm:1.6.2"
-  checksum: 27af714e7f9a486db3ebbea911287c80368544bafaba512d7394cde3356af2bd1759f8c51aa5962295e6004fc0f2d7db3b0add9af6cd2fd587fbb966608a235a
+  checksum: 5a27bb134e43580e14a9e8feaae745818f2778ed9af26d396f91c2093aa046e8da59bb174d63d0fc7d3e0be199f19adb253153125b4494e3c02070353413f5f2
   languageName: node
   linkType: hard
 

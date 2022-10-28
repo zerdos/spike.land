@@ -29525,6 +29525,14 @@ var runtime = () => {
   Object.assign(globalThis, { createEmotionCache: createEmotionCache2 });
   const styled2 = require_emotion_styled_cjs().default;
   Object.assign(globalThis, { styled: styled2 });
+  emotionReactJsxRuntime2.emotionJsx = emotionReactJsxRuntime2.jsx;
+  emotionReactJsxRuntime2.jsx = function() {
+    const props = arguments[1];
+    if (Object.hasOwn(props, "css") && typeof props.css === "string") {
+      props.css = emotionReact2.css`${props.css}`;
+    }
+    return emotionReactJsxRuntime2.emotionJsx.apply(emotionReactJsxRuntime2, arguments);
+  };
 };
 runtime();
 var {

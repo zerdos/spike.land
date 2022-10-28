@@ -540,13 +540,13 @@ export class Code {
     }
 
     try {
-      if (
-        limiter.checkLimit() && !data.type
-      ) {
-        return respondWith({
-          error: "Your IP is being rate-limited, please try again later.",
-        });
-      }
+      //   if (
+      //     !data.type &&  limiter.checkLimit()
+      //   ) {
+      //     return respondWith({
+      //       error: "Your IP is being rate-limited, please try again later.",
+      //     });
+      //   }
 
       try {
         if (
