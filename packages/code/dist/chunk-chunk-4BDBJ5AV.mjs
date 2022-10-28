@@ -905,6 +905,7 @@ __export(emotionCache_exports, {
 var emotionCache_default;
 var init_emotionCache = __esm({
   "js/emotionCache.ts"() {
+    "use strict";
     init_define_process();
     init_react_jsx_runtime();
     emotionCache_default = createEmotionCache;

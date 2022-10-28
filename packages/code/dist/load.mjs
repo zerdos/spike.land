@@ -29554,6 +29554,7 @@ var codeSpace = location.pathname.slice(1).split("/")[1];
 if (location.pathname.endsWith("/hydrated")) {
   import(`${location.origin}/live/${codeSpace}/index.js`).then((mod) => {
     ReactDOMClient.hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default());
+    4;
   });
 } else {
   import(`${location.origin}/live/${codeSpace}/mST.mjs`).then(
