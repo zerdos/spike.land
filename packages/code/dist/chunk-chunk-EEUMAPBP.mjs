@@ -31,6 +31,7 @@ import {
 } from "./chunk-chunk-2ZPUFYBE.mjs";
 import {
   CacheProvider,
+  Global,
   css,
   init_emotion
 } from "./chunk-chunk-WIURWTZP.mjs";
@@ -23349,9 +23350,12 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-B4SGATGN.mjs")));
-var RainbowContainer = ({ children }) => jsx("div", {
-  css: css`
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-QM2JV6M3.mjs")));
+var RainbowContainer = ({ children }) => jsxs("div", {
+  children: [
+    jsx(Global, {
+      styles: css`
+body{
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -23392,9 +23396,11 @@ background:  repeating-radial-gradient(circle at bottom left,
                 #239a87 0, #239a87 83.3333333333%, 
                 #7cba6d 0, #7cba6d 88.8888888889%, 
                 #becc2f 0, #becc2f 94.4444444444%, 
-                #e0d81d 0, #e0d81d 100%);
-`,
-  children
+                #e0d81d 0, #e0d81d 100%);}
+`
+    }),
+    children
+  ]
 });
 var AppToRender = ({ codeSpace }) => {
   const portalNode = useMemo(() => createHtmlPortalNode({

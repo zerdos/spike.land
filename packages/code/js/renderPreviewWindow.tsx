@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import { createHtmlPortalNode, InPortal, OutPortal } from "react-reverse-portal";
 import { AutoUpdateApp } from "./starter";
 
-import { css } from "@emotion/react";
+import { css, Global } from "@emotion/react";
 
 // Import { useSpring, a } from '@react-spring/web'
 
@@ -19,8 +19,10 @@ const DraggableWindowLazy = lazy(() => wait(1000).then(() => import("./Draggable
 const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
 ) => (
-  <div
-    css={css`
+  <div>
+    <Global
+      styles={css`
+body{
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -61,9 +63,9 @@ background:  repeating-radial-gradient(circle at bottom left,
                 #239a87 0, #239a87 83.3333333333%, 
                 #7cba6d 0, #7cba6d 88.8888888889%, 
                 #becc2f 0, #becc2f 94.4444444444%, 
-                #e0d81d 0, #e0d81d 100%);
+                #e0d81d 0, #e0d81d 100%);}
 `}
-  >
+    />
     {children}
   </div>
 );
