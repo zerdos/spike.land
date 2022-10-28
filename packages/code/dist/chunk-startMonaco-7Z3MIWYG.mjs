@@ -568,6 +568,11 @@ import {
   widgetShadow,
   withNullAsUndefined
 } from "./chunk-chunk-HKZ2MB76.mjs";
+import "./chunk-chunk-QAMHNB3N.mjs";
+import "./chunk-chunk-F5TEE6RK.mjs";
+import "./chunk-chunk-MKMFAPDQ.mjs";
+import "./chunk-chunk-74QYOWVK.mjs";
+import "./chunk-chunk-CU2UTUO2.mjs";
 import {
   __commonJS,
   __esm,
@@ -42199,13 +42204,17 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       "typescript",
       uri
     );
+    const shadowRoot = container2.attachShadow({
+      mode: "closed"
+    });
     const innerContainer = document.createElement("div");
     innerContainer.style.width = "100%";
-    innerContainer.style.background = "red";
     innerContainer.style.display = "block";
     innerContainer.style.height = "100%";
-    const target = container2.appendChild(innerContainer);
-    console.log(target === innerContainer);
+    const target = shadowRoot.appendChild(innerContainer);
+    const innerStyle = document.createElement("style");
+    innerStyle.innerText = `@import "/Editor.css";`;
+    shadowRoot.appendChild(innerStyle);
     const myEditor = create(target, {
       model,
       scrollbar: {

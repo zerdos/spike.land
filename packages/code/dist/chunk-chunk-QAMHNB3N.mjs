@@ -23352,7 +23352,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-O6SYP67M.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-5U7F7HTB.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     jsx(Global, {
@@ -23929,7 +23929,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-5PKOOZMU.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-7Z3MIWYG.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,
