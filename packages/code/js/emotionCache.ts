@@ -1,2 +1,4 @@
-// @ts-ignore
-export default globalThis.createEmotionCache;
+// import {createEmotionCache} from "./react-jsx-runtime.production.min.cjs"
+const { createEmotionCache } = globalThis;
+
+export default createEmotionCache;

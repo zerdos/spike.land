@@ -1,6 +1,6 @@
 import "es-module-shims";
 import importmap from "./importmap.json";
-import { runtime } from "./react-jsx-runtime.production.min.cjs";
+import { ReactDOMClient } from "./react-jsx-runtime.production.min.cjs";
 
 // importShim.addImportMap(importmap);
 importShim.addImportMap(
@@ -9,13 +9,11 @@ importShim.addImportMap(
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
-runtime();
-
 if (location.pathname.endsWith("/hydrated")) {
   import(
     `${location.origin}/live/${codeSpace}/index.js`
   ).then((mod) => {
-    globalThis.ReactDOMClient.hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default());
+    ReactDOMClient.hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default());
   });
 } else {
   import(
