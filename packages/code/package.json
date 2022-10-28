@@ -101,7 +101,7 @@
   "devDependencies": {
     "@libp2p/interfaces": "3.0.3",
     "@motionone/dom": "10.14.2",
-    "@types/eslint": "^8.4.8",
+    "@types/eslint": "^8.4.9",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/is-callable": "1.1.0",
     "@types/lodash.debounce": "4.0.7",
@@ -111,7 +111,7 @@
     "@types/react": "^18.0.24",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
-    "@yarnpkg/sdks": "3.0.0-rc.26",
+    "@yarnpkg/sdks": "3.0.0-rc.27",
     "esbuild": "0.15.12",
     "esbuild-plugin-alias": "0.2.1",
     "eslint": "^8.26.0",

@@ -31,12 +31,12 @@
   "devDependencies": {
     "@emotion/react": "^11.10.5",
     "@playwright/test": "1.27.1",
-    "@types/eslint": "^8.4.8",
+    "@types/eslint": "^8.4.9",
     "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
-    "@yarnpkg/sdks": "3.0.0-rc.26",
+    "@yarnpkg/sdks": "3.0.0-rc.27",
     "dprint": "^0.32.2",
     "eslint": "^8.26.0",
     "eslint-plugin-react": "^7.31.10",
@@ -46,5 +46,8 @@
   "resolutions": {
     "wrangler/esbuild": "0.15.11"
   },
-  "packageManager": "yarn@4.0.0-rc.26"
+  "packageManager": "yarn@4.0.0-rc.27",
+  "dependencies": {
+    "react": "^18.2.0"
+  }
 }
