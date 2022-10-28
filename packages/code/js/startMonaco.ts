@@ -819,13 +819,13 @@ export const startMonaco = async (
       getValue: () => mod.code,
 
       getErrors: () => {
-        return mod.tsWorker.then((ts) =>
-          ts
-          && ts.getSemanticDiagnostics(uri.toString()).then((diag) => diag.map((d) => d.messageText.toString())).catch(
-            (e) => {
-              console.log("ts error, will retry", e);
-            },
-          )
+        return mod.tsWorker.then(ts =>
+          ts.getSemanticDiagnostics(model.uri.toString()).then((diag) => diag.map((d) => d.messageText.toString()))
+            .catch(
+              (e) => {
+                console.log("ts error, will retry", e);
+              },
+            )
         );
       },
       setValue: (code: string) => {
