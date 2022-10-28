@@ -42428,7 +42428,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       getValue: () => mod2.code,
       getErrors: () => {
         return mod2.tsWorker.then(
-          (ts) => ts && ts.getSemanticDiagnostics(uri.toString()).then((diag) => diag.map((d) => d.messageText.toString())).catch(
+          (ts) => ts.getSemanticDiagnostics(model.uri.toString()).then((diag) => diag.map((d) => d.messageText.toString())).catch(
             (e) => {
               console.log("ts error, will retry", e);
             }
