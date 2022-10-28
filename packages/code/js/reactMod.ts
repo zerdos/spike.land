@@ -1,4 +1,4 @@
-const React = globalThis.React;
+import { React, ReactDOM, ReactDOMClient } from "./react-jsx-runtime.production.min.cjs";
 
 export const {
   Children,
@@ -40,7 +40,7 @@ export const {
 export const {
   createRoot,
   hydrateRoot,
-} = globalThis.ReactDOMClient;
+} = ReactDOMClient;
 
 export const {
   createPortal,
@@ -55,8 +55,8 @@ export const {
 } = globalThis.ReactDOM;
 
 const all = {
-  ...globalThis.React,
-  ...globalThis.ReactDOM,
-  ...globalThis.ReactDOMClient,
+  ...React,
+  ...ReactDOM,
+  ...ReactDOMClient,
 };
 export default all;
