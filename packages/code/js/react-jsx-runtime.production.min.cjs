@@ -1,12 +1,31 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 "use strict";
 
-export const runtime = () => {
-  globalThis.React = require("react");
-  globalThis.ReactDOMClient = require("react-dom/client");
-  globalThis.ReactDOM = require("react-dom");
-  globalThis.ReactJSXRuntime = require("react/jsx-runtime");
-  globalThis.emotionReact = require("@emotion/react");
-  globalThis.emotionReactJsxRuntime = require("@emotion/react/jsx-runtime");
-  globalThis.createEmotionCache = require("@emotion/cache").default;
-  globalThis.styled = require("@emotion/styled").default;
-};
+const runtime = ()=>{
+  if (globalThis.React) return;
+  const React = require("react");
+  Object.assign(globalThis, {React})
+  const ReactDOMClient = require("react-dom/client");
+  Object.assign(globalThis, {ReactDOMClient})
+  const ReactDOM = require("react-dom");
+  Object.assign(globalThis, {ReactDOM})
+ 
+  const ReactJSXRuntime = require("react/jsx-runtime");
+  Object.assign(globalThis, {ReactJSXRuntime})
+ 
+  const emotionReact = require("@emotion/react");
+  Object.assign(globalThis, {emotionReact})
+ 
+  const emotionReactJsxRuntime = require("@emotion/react/jsx-runtime");
+  Object.assign(globalThis, {emotionReactJsxRuntime})
+ 
+  const createEmotionCache = require("@emotion/cache").default;
+  Object.assign(globalThis, {createEmotionCache})
+ 
+  const styled = require("@emotion/styled").default;
+  Object.assign(globalThis, {styled})
+}
+runtime();
+
+export const {
+  ReactDOM, React, ReactJSXRuntime, emotionReact, emotionReactJsxRuntime, createEmotionCache, styled, ReactDOMClient} = globalThis;

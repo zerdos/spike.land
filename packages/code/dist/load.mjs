@@ -2292,9 +2292,9 @@ var require_react_dom_development = __commonJS({
         if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
           __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
         }
-        var React = require_react();
+        var React2 = require_react();
         var Scheduler = require_scheduler();
-        var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         var suppressWarning = false;
         function setSuppressWarning(newSuppressWarning) {
           {
@@ -3815,7 +3815,7 @@ var require_react_dom_development = __commonJS({
           {
             if (props.value == null) {
               if (typeof props.children === "object" && props.children !== null) {
-                React.Children.forEach(props.children, function(child) {
+                React2.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -11976,7 +11976,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         var fakeInternalInstance = {};
-        var emptyRefsObject = new React.Component().refs;
+        var emptyRefsObject = new React2.Component().refs;
         var didWarnAboutStateAssignmentForComponent;
         var didWarnAboutUninitializedState;
         var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -22902,7 +22902,7 @@ var require_react_jsx_runtime_development = __commonJS({
     if (true) {
       (function() {
         "use strict";
-        var React = require_react();
+        var React2 = require_react();
         var REACT_ELEMENT_TYPE = Symbol.for("react.element");
         var REACT_PORTAL_TYPE = Symbol.for("react.portal");
         var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -22928,7 +22928,7 @@ var require_react_jsx_runtime_development = __commonJS({
           }
           return null;
         }
-        var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         function error(format) {
           {
             {
@@ -25823,7 +25823,7 @@ var require_emotion_use_insertion_effect_with_fallbacks_cjs_dev = __commonJS({
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
-    var React = require_react();
+    var React2 = require_react();
     function _interopNamespace(e) {
       if (e && e.__esModule)
         return e;
@@ -25844,14 +25844,14 @@ var require_emotion_use_insertion_effect_with_fallbacks_cjs_dev = __commonJS({
       n["default"] = e;
       return Object.freeze(n);
     }
-    var React__namespace = _interopNamespace(React);
+    var React__namespace = _interopNamespace(React2);
     var isBrowser = typeof document !== "undefined";
     var syncFallback = function syncFallback2(create) {
       return create();
     };
     var useInsertionEffect = React__namespace["useInsertionEffect"] ? React__namespace["useInsertionEffect"] : false;
     var useInsertionEffectAlwaysWithSyncFallback = !isBrowser ? syncFallback : useInsertionEffect || syncFallback;
-    var useInsertionEffectWithLayoutFallback = useInsertionEffect || React.useLayoutEffect;
+    var useInsertionEffectWithLayoutFallback = useInsertionEffect || React2.useLayoutEffect;
     exports.useInsertionEffectAlwaysWithSyncFallback = useInsertionEffectAlwaysWithSyncFallback;
     exports.useInsertionEffectWithLayoutFallback = useInsertionEffectWithLayoutFallback;
   }
@@ -25875,7 +25875,7 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
   "../../.yarn/__virtual__/@emotion-react-virtual-904de19ce0/0/global/cache/@emotion-react-npm-11.10.5-98e2cdb553-9.zip/node_modules/@emotion/react/dist/emotion-element-b63ca7c6.cjs.dev.js"(exports) {
     "use strict";
     init_define_process();
-    var React = require_react();
+    var React2 = require_react();
     var createCache = require_emotion_cache_cjs();
     var _extends = require_extends();
     var weakMemoize = require_emotion_weak_memoize_cjs();
@@ -25890,7 +25890,7 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
     var weakMemoize__default = _interopDefault(weakMemoize);
     var isBrowser = typeof document !== "undefined";
     var hasOwnProperty = {}.hasOwnProperty;
-    var EmotionCacheContext = React.createContext(
+    var EmotionCacheContext = React2.createContext(
       typeof HTMLElement !== "undefined" ? createCache__default["default"]({
         key: "css"
       }) : null
@@ -25900,23 +25900,23 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
     }
     var CacheProvider = EmotionCacheContext.Provider;
     var __unsafe_useEmotionCache = function useEmotionCache() {
-      return React.useContext(EmotionCacheContext);
+      return React2.useContext(EmotionCacheContext);
     };
     exports.withEmotionCache = function withEmotionCache(func) {
-      return React.forwardRef(function(props, ref) {
-        var cache = React.useContext(EmotionCacheContext);
+      return React2.forwardRef(function(props, ref) {
+        var cache = React2.useContext(EmotionCacheContext);
         return func(props, cache, ref);
       });
     };
     if (!isBrowser) {
       exports.withEmotionCache = function withEmotionCache(func) {
         return function(props) {
-          var cache = React.useContext(EmotionCacheContext);
+          var cache = React2.useContext(EmotionCacheContext);
           if (cache === null) {
             cache = createCache__default["default"]({
               key: "css"
             });
-            return React.createElement(EmotionCacheContext.Provider, {
+            return React2.createElement(EmotionCacheContext.Provider, {
               value: cache
             }, func(props, cache));
           } else {
@@ -25925,12 +25925,12 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
         };
       };
     }
-    var ThemeContext = React.createContext({});
+    var ThemeContext = React2.createContext({});
     if (true) {
       ThemeContext.displayName = "EmotionThemeContext";
     }
     var useTheme = function useTheme2() {
-      return React.useContext(ThemeContext);
+      return React2.useContext(ThemeContext);
     };
     var getTheme = function getTheme2(outerTheme, theme) {
       if (typeof theme === "function") {
@@ -25951,24 +25951,24 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
       });
     });
     var ThemeProvider = function ThemeProvider2(props) {
-      var theme = React.useContext(ThemeContext);
+      var theme = React2.useContext(ThemeContext);
       if (props.theme !== theme) {
         theme = createCacheWithTheme(theme)(props.theme);
       }
-      return React.createElement(ThemeContext.Provider, {
+      return React2.createElement(ThemeContext.Provider, {
         value: theme
       }, props.children);
     };
     function withTheme(Component) {
       var componentName = Component.displayName || Component.name || "Component";
       var render = function render2(props, ref) {
-        var theme = React.useContext(ThemeContext);
-        return React.createElement(Component, _extends({
+        var theme = React2.useContext(ThemeContext);
+        return React2.createElement(Component, _extends({
           theme,
           ref
         }, props));
       };
-      var WithTheme = React.forwardRef(render);
+      var WithTheme = React2.forwardRef(render);
       WithTheme.displayName = "WithTheme(" + componentName + ")";
       return _isolatedHnrs_dist_emotionReact_isolatedHnrs["default"](WithTheme, Component);
     }
@@ -26038,7 +26038,7 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
           serializedNames += " " + next.name;
           next = next.next;
         }
-        return React.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+        return React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
           __html: rules
         }, _ref2.nonce = cache.sheet.nonce, _ref2));
       }
@@ -26057,7 +26057,7 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
       } else if (props.className != null) {
         className = props.className + " ";
       }
-      var serialized = serialize.serializeStyles(registeredStyles, void 0, React.useContext(ThemeContext));
+      var serialized = serialize.serializeStyles(registeredStyles, void 0, React2.useContext(ThemeContext));
       if (serialized.name.indexOf("-") === -1) {
         var labelFromStack = props[labelPropName];
         if (labelFromStack) {
@@ -26073,11 +26073,11 @@ var require_emotion_element_b63ca7c6_cjs_dev = __commonJS({
       }
       newProps.ref = ref;
       newProps.className = className;
-      return React.createElement(React.Fragment, null, React.createElement(Insertion, {
+      return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
         cache,
         serialized,
         isStringTag: typeof WrappedComponent === "string"
-      }), React.createElement(WrappedComponent, newProps));
+      }), React2.createElement(WrappedComponent, newProps));
     });
     if (true) {
       Emotion.displayName = "EmotionCssPropInternal";
@@ -26101,7 +26101,7 @@ var require_emotion_react_cjs_dev = __commonJS({
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
-    var React = require_react();
+    var React2 = require_react();
     require_emotion_cache_cjs();
     var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
     require_extends();
@@ -26236,7 +26236,7 @@ var require_emotion_react_cjs_dev = __commonJS({
     var jsx = function jsx2(type, props) {
       var args = arguments;
       if (props == null || !emotionElement.hasOwnProperty.call(props, "css")) {
-        return React.createElement.apply(void 0, args);
+        return React2.createElement.apply(void 0, args);
       }
       var argsLength = args.length;
       var createElementArgArray = new Array(argsLength);
@@ -26245,7 +26245,7 @@ var require_emotion_react_cjs_dev = __commonJS({
       for (var i = 2; i < argsLength; i++) {
         createElementArgArray[i] = args[i];
       }
-      return React.createElement.apply(null, createElementArgArray);
+      return React2.createElement.apply(null, createElementArgArray);
     };
     var warnedAboutCssPropForGlobal = false;
     var Global = emotionElement.withEmotionCache(function(props, cache) {
@@ -26254,7 +26254,7 @@ var require_emotion_react_cjs_dev = __commonJS({
         warnedAboutCssPropForGlobal = true;
       }
       var styles = props.styles;
-      var serialized = serialize.serializeStyles([styles], void 0, React.useContext(emotionElement.ThemeContext));
+      var serialized = serialize.serializeStyles([styles], void 0, React2.useContext(emotionElement.ThemeContext));
       if (!emotionElement.isBrowser) {
         var _ref;
         var serializedNames = serialized.name;
@@ -26273,11 +26273,11 @@ var require_emotion_react_cjs_dev = __commonJS({
         if (shouldCache) {
           return null;
         }
-        return React.createElement("style", (_ref = {}, _ref["data-emotion"] = cache.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
+        return React2.createElement("style", (_ref = {}, _ref["data-emotion"] = cache.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
           __html: rules
         }, _ref.nonce = cache.sheet.nonce, _ref));
       }
-      var sheetRef = React.useRef();
+      var sheetRef = React2.useRef();
       useInsertionEffectWithFallbacks.useInsertionEffectWithLayoutFallback(function() {
         var key = cache.key + "-global";
         var sheet = new cache.sheet.constructor({
@@ -26405,7 +26405,7 @@ var require_emotion_react_cjs_dev = __commonJS({
       });
       if (!emotionElement.isBrowser && rules.length !== 0) {
         var _ref2;
-        return React.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedArr.map(function(serialized) {
+        return React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedArr.map(function(serialized) {
           return serialized.name;
         }).join(" "), _ref2.dangerouslySetInnerHTML = {
           __html: rules
@@ -26440,11 +26440,11 @@ var require_emotion_react_cjs_dev = __commonJS({
       var content = {
         css: css2,
         cx,
-        theme: React.useContext(emotionElement.ThemeContext)
+        theme: React2.useContext(emotionElement.ThemeContext)
       };
       var ele = props.children(content);
       hasRendered = true;
-      return React.createElement(React.Fragment, null, React.createElement(Insertion, {
+      return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
         cache,
         serializedArr
       }), ele);
@@ -26518,19 +26518,19 @@ var require_emotion_react_jsx_runtime_cjs_dev = __commonJS({
     require_emotion_utils_cjs();
     require_emotion_serialize_cjs();
     require_emotion_use_insertion_effect_with_fallbacks_cjs();
-    var ReactJSXRuntime = require_jsx_runtime();
-    var Fragment = ReactJSXRuntime.Fragment;
+    var ReactJSXRuntime2 = require_jsx_runtime();
+    var Fragment = ReactJSXRuntime2.Fragment;
     function jsx(type, props, key) {
       if (!emotionElement.hasOwnProperty.call(props, "css")) {
-        return ReactJSXRuntime.jsx(type, props, key);
+        return ReactJSXRuntime2.jsx(type, props, key);
       }
-      return ReactJSXRuntime.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+      return ReactJSXRuntime2.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
     }
     function jsxs(type, props, key) {
       if (!emotionElement.hasOwnProperty.call(props, "css")) {
-        return ReactJSXRuntime.jsxs(type, props, key);
+        return ReactJSXRuntime2.jsxs(type, props, key);
       }
-      return ReactJSXRuntime.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+      return ReactJSXRuntime2.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
     }
     exports.Fragment = Fragment;
     exports.jsx = jsx;
@@ -26592,7 +26592,7 @@ var require_emotion_styled_base_cjs_dev = __commonJS({
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
     var _extends = require_extends();
-    var React = require_react();
+    var React2 = require_react();
     var isPropValid = require_emotion_is_prop_valid_cjs();
     var react = require_emotion_react_cjs();
     var utils = require_emotion_utils_cjs();
@@ -26641,7 +26641,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           serializedNames += " " + next.name;
           next = next.next;
         }
-        return React.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+        return React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
           __html: rules
         }, _ref2.nonce = cache.sheet.nonce, _ref2));
       }
@@ -26696,7 +26696,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             for (var key in props) {
               mergedProps[key] = props[key];
             }
-            mergedProps.theme = React.useContext(react.ThemeContext);
+            mergedProps.theme = React2.useContext(react.ThemeContext);
           }
           if (typeof props.className === "string") {
             className = utils.getRegisteredStyles(cache.registered, classInterpolations, props.className);
@@ -26719,11 +26719,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           newProps.className = className;
           newProps.ref = ref;
-          return React.createElement(React.Fragment, null, React.createElement(Insertion, {
+          return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
             cache,
             serialized,
             isStringTag: typeof FinalTag === "string"
-          }), React.createElement(FinalTag, newProps));
+          }), React2.createElement(FinalTag, newProps));
         });
         Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag === "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")";
         Styled.defaultProps = tag.defaultProps;
@@ -29507,25 +29507,45 @@ var importmap_default = {
 // js/react-jsx-runtime.production.min.cjs
 init_define_process();
 var runtime = () => {
-  globalThis.React = require_react();
-  globalThis.ReactDOMClient = require_client();
-  globalThis.ReactDOM = require_react_dom();
-  globalThis.ReactJSXRuntime = require_jsx_runtime();
-  globalThis.emotionReact = require_emotion_react_cjs();
-  globalThis.emotionReactJsxRuntime = require_emotion_react_jsx_runtime_cjs();
-  globalThis.createEmotionCache = require_emotion_cache_cjs().default;
-  globalThis.styled = require_emotion_styled_cjs().default;
+  if (globalThis.React)
+    return;
+  const React2 = require_react();
+  Object.assign(globalThis, { React: React2 });
+  const ReactDOMClient2 = require_client();
+  Object.assign(globalThis, { ReactDOMClient: ReactDOMClient2 });
+  const ReactDOM2 = require_react_dom();
+  Object.assign(globalThis, { ReactDOM: ReactDOM2 });
+  const ReactJSXRuntime2 = require_jsx_runtime();
+  Object.assign(globalThis, { ReactJSXRuntime: ReactJSXRuntime2 });
+  const emotionReact2 = require_emotion_react_cjs();
+  Object.assign(globalThis, { emotionReact: emotionReact2 });
+  const emotionReactJsxRuntime2 = require_emotion_react_jsx_runtime_cjs();
+  Object.assign(globalThis, { emotionReactJsxRuntime: emotionReactJsxRuntime2 });
+  const createEmotionCache2 = require_emotion_cache_cjs().default;
+  Object.assign(globalThis, { createEmotionCache: createEmotionCache2 });
+  const styled2 = require_emotion_styled_cjs().default;
+  Object.assign(globalThis, { styled: styled2 });
 };
+runtime();
+var {
+  ReactDOM,
+  React,
+  ReactJSXRuntime,
+  emotionReact,
+  emotionReactJsxRuntime,
+  createEmotionCache,
+  styled,
+  ReactDOMClient
+} = globalThis;
 
 // js/load.ts
 importShim.addImportMap(
   importmap_default
 );
 var codeSpace = location.pathname.slice(1).split("/")[1];
-runtime();
 if (location.pathname.endsWith("/hydrated")) {
   import(`${location.origin}/live/${codeSpace}/index.js`).then((mod) => {
-    globalThis.ReactDOMClient.hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default());
+    ReactDOMClient.hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default());
   });
 } else {
   import(`${location.origin}/live/${codeSpace}/mST.mjs`).then(

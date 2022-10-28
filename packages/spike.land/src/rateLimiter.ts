@@ -12,7 +12,7 @@ import { handleErrors } from "./handleErrors";
 // themselves rate limited in all other chat rooms simultaneously.
 export class CodeRateLimiter {
   nextAllowedTime: number;
-  constructor(_state: DurableObjectState, _env: CodeEnv) {
+  constructor() {
     // Timestamp at which this IP will next be allowed to send a message. Start in the distant
     // past, i.e. the IP can send a message now.
     this.nextAllowedTime = 0;
