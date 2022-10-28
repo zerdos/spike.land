@@ -151,6 +151,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     <MotionConfig transition={{ delay, type, duration }}>
       <LazyMotion features={{ ...domAnimation, ...domMax }}>
         <m.div
+          layout
           initial={{
             top: 0,
             padding: 0,
@@ -165,7 +166,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           }}
           css={css`
             touch-action: pinch-zoom;
-            background-color: ${rgba(r, g, b, .3)};
+            background-color: ${rgba(r | 96, g | 66, b || 160, .3)};
             backdrop-filter: blur(15px);
             z-index: 10;
 
@@ -246,7 +247,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     overflow-x: hidden;
                     overflow-y: hidden;
                     
-                   ${mST()?.css?.split("body").join("div:first-of-type")}
+                   ${mST()?.css?.split("body").join("& > div")}
             `}
               >
                 <m.div

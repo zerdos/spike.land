@@ -8,8 +8,8 @@ import {
 } from "./chunk-chunk-PEAS5NDR.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-VWA4FOMG.mjs";
-import "./chunk-chunk-QAMHNB3N.mjs";
+} from "./chunk-chunk-Y5QURBGQ.mjs";
+import "./chunk-chunk-7GLLASWW.mjs";
 import {
   mST
 } from "./chunk-chunk-F5TEE6RK.mjs";
@@ -2695,6 +2695,7 @@ var DraggableWindow = ({
     children: jsx(LazyMotion, {
       features: __spreadValues(__spreadValues({}, domAnimation), domMax),
       children: jsx(m.div, {
+        layout: true,
         initial: {
           top: 0,
           padding: 0,
@@ -2709,7 +2710,7 @@ var DraggableWindow = ({
         },
         css: css`
             touch-action: pinch-zoom;
-            background-color: ${rgba(r, g, b, 0.3)};
+            background-color: ${rgba(r | 96, g | 66, b || 160, 0.3)};
             backdrop-filter: blur(15px);
             z-index: 10;
 
@@ -2779,7 +2780,7 @@ var DraggableWindow = ({
                     overflow-x: hidden;
                     overflow-y: hidden;
                     
-                   ${(_b = (_a2 = mST()) == null ? void 0 : _a2.css) == null ? void 0 : _b.split("body").join("div:first-of-type")}
+                   ${(_b = (_a2 = mST()) == null ? void 0 : _a2.css) == null ? void 0 : _b.split("body").join("& > div")}
             `,
                   children: jsx(m.div, {
                     initial: {
