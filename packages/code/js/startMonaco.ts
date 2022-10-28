@@ -382,7 +382,7 @@ export const startMonaco = async (
   },
 ) => {
   editor.getEditors().map(x => x.dispose());
-  editor.getModels().map(x => x.dispose());
+  // editor.getModels().map(x => x.dispose());
   codeSpace = name;
   //  console.log({code, container, name});
   if (mod[name]) {
@@ -801,7 +801,9 @@ export const startMonaco = async (
       languages,
       silent: false,
       code,
-      tsWorker: languages.typescript.getTypeScriptWorker().then(x => x(uri)),
+      tsWorker: languages.typescript.getTypeScriptWorker().then(x => x(uri)).catch(e => ({
+        getSemanticDiagnostics: async () => [{ messageText: JSON.stringify({ e }) }],
+      })),
     };
 
     Object.assign(globalThis, { monaco: mod, setExtraLibs });

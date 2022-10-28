@@ -8,9 +8,9 @@ import {
 } from "./chunk-chunk-HCBYSLN4.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-TTP2F27T.mjs";
-import "./chunk-chunk-72LIE2E7.mjs";
-import "./chunk-chunk-2INAMIGF.mjs";
+} from "./chunk-chunk-L73ITGUI.mjs";
+import "./chunk-chunk-PNGVKRQP.mjs";
+import "./chunk-chunk-GHFDLTC6.mjs";
 import {
   Suspense,
   createElement,
@@ -2863,8 +2863,7 @@ var DraggableWindow = ({
                 children: [
                   jsx(Fab, {
                     onClick: () => {
-                      var _a2;
-                      (_a2 = document.querySelector("#root")) == null ? void 0 : _a2.requestFullscreen();
+                      document.querySelector("#root")?.requestFullscreen();
                     },
                     children: jsx("span", {
                       css: css`

@@ -1,4 +1,4 @@
-import "./chunk-chunk-QOLPC3OJ.mjs";
+import "./chunk-chunk-PUTCJXOT.mjs";
 import {
   $,
   Action,
@@ -42175,7 +42175,6 @@ self.MonacoEnvironment = {
 var mod = {};
 var startMonaco = async ({ code, container, name, onChange }) => {
   editor.getEditors().map((x) => x.dispose());
-  editor.getModels().map((x) => x.dispose());
   codeSpace = name;
   if (mod[name]) {
     return mod[name];
@@ -42311,7 +42310,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
             console.error("Error in add extra models", code3, url, { err });
           }
         }
-      } catch (e) {
+      } catch {
         console.log("error in extra lib  mining", url);
         return;
       }
@@ -42411,7 +42410,9 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       languages,
       silent: false,
       code: code2,
-      tsWorker: languages.typescript.getTypeScriptWorker().then((x) => x(uri))
+      tsWorker: languages.typescript.getTypeScriptWorker().then((x) => x(uri)).catch((e) => ({
+        getSemanticDiagnostics: async () => [{ messageText: JSON.stringify({ e }) }]
+      }))
     };
     Object.assign(globalThis, { monaco: mod2, setExtraLibs });
     setTimeout(() => mod2.ATA(), 2e3);
@@ -42440,7 +42441,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         let state = null;
         try {
           state = myEditor.saveViewState();
-        } catch (e) {
+        } catch {
           console.error("error while saving the state");
         }
         model.setValue(code3);

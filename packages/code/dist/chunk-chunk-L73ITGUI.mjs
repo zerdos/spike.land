@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-72LIE2E7.mjs";
+} from "./chunk-chunk-PNGVKRQP.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-2INAMIGF.mjs";
+} from "./chunk-chunk-GHFDLTC6.mjs";
 import {
   __commonJS,
   __export,
@@ -3370,7 +3370,7 @@ var run = async (startState) => {
       return;
     }
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws == null ? void 0 : ws.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
@@ -3400,7 +3400,7 @@ var run = async (startState) => {
   );
 };
 (async () => {
-  if (navigator && (navigator == null ? void 0 : navigator.serviceWorker)) {
+  if (navigator && navigator?.serviceWorker) {
     navigator.serviceWorker.register("/sw.js", {
       scope: "/",
       type: "classic"
@@ -3523,8 +3523,8 @@ async function join() {
     ws = wsConnection;
     const mess = (data) => {
       try {
-        ws && (ws == null ? void 0 : ws.send) && (ws == null ? void 0 : ws.send(data));
-      } catch (e) {
+        ws && ws?.send && ws?.send(data);
+      } catch {
         ws = null;
         rejoined = false;
         rejoin();
@@ -3545,7 +3545,7 @@ async function join() {
       if (diff > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection == null ? void 0 : wsConnection.send(
+            wsConnection?.send(
               JSON.stringify({
                 name: user,
                 timestamp: lastSeenTimestamp + diff
@@ -3555,7 +3555,7 @@ async function join() {
           }
           rejoined = false;
           rejoin();
-        } catch (e) {
+        } catch {
           rejoined = false;
           rejoin();
         }
@@ -3667,7 +3667,7 @@ async function processData(data, source, conn) {
     );
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
-        ws == null ? void 0 : ws.send(JSON.stringify({
+        ws?.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
@@ -3685,10 +3685,9 @@ async function processData(data, source, conn) {
     };
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
     rtcConns[target].ontrack = function({ track, streams }) {
-      var _a;
       const vidElement = document.createElement("video");
       vidElement.srcObject = streams[0];
-      (_a = sendChannel.localStream) == null ? void 0 : _a.addTrack(track);
+      sendChannel.localStream?.addTrack(track);
       sendChannel.tracks[target] = { track, streams, vidElement };
     };
     rtcConns[target].ondatachannel = (event) => {
@@ -3745,13 +3744,13 @@ async function processData(data, source, conn) {
           return;
         }
         await rtcConns[target].setLocalDescription(offer);
-        ws == null ? void 0 : ws.send(JSON.stringify({
+        ws?.send(JSON.stringify({
           target,
           name: user,
           type: "video-offer",
           offer: rtcConns[target].localDescription
         }));
-      } catch (e) {
+      } catch {
       }
     }
     function handleICEConnectionStateChangeEvent() {
@@ -3785,7 +3784,7 @@ async function processData(data, source, conn) {
     await rtcConns[target].setLocalDescription(
       answer
     );
-    ws == null ? void 0 : ws.send(JSON.stringify({
+    ws?.send(JSON.stringify({
       target,
       name: user,
       type: "video-answer",
@@ -3830,7 +3829,7 @@ async function sw() {
       await load(location.pathname);
       return;
     }
-  } catch (e) {
+  } catch {
   }
 }
 

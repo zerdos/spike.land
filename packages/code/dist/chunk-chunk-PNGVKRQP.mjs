@@ -4,7 +4,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-2INAMIGF.mjs";
+} from "./chunk-chunk-GHFDLTC6.mjs";
 import {
   Children,
   Fragment as Fragment2,
@@ -2741,7 +2741,7 @@ var require_parser_babel = __commonJS({
         Yr.exports = function(h) {
           try {
             return !!h();
-          } catch (e) {
+          } catch {
             return true;
           }
         };
@@ -2877,7 +2877,7 @@ var require_parser_babel = __commonJS({
         Fi.exports = function(h) {
           try {
             return ql(h);
-          } catch (e) {
+          } catch {
             return "Object";
           }
         };
@@ -2914,7 +2914,7 @@ var require_parser_babel = __commonJS({
         zi.exports = function(h, l) {
           try {
             Gl(_i, h, { value: l, configurable: true, writable: true });
-          } catch (e) {
+          } catch {
             _i[h] = l;
           }
           return l;
@@ -2999,7 +2999,7 @@ var require_parser_babel = __commonJS({
           if (l = ku(l), p = Du(p), Lu)
             try {
               return ua(l, p);
-            } catch (e) {
+            } catch {
             }
           if (Fu(l, p))
             return Iu(!wu(Nu.f, l, p), l[p]);
@@ -3032,7 +3032,7 @@ var require_parser_babel = __commonJS({
           if (Dt(l), p = ya(p), Dt(d), _u)
             try {
               return Bs(l, p, d);
-            } catch (e) {
+            } catch {
             }
           if ("get" in d || "set" in d)
             throw Ku("Accessors not supported");
@@ -3275,7 +3275,7 @@ var require_parser_babel = __commonJS({
         }()) == "Arguments", Np = function(h, l) {
           try {
             return h[l];
-          } catch (e) {
+          } catch {
           }
         };
         Sn.exports = Ep ? Rt : function(h) {
@@ -3290,7 +3290,7 @@ var require_parser_babel = __commonJS({
             return false;
           try {
             return kn(In, Op, l), true;
-          } catch (e) {
+          } catch {
             return false;
           }
         }, Dn = function(l) {
@@ -3304,7 +3304,7 @@ var require_parser_babel = __commonJS({
           }
           try {
             return Mp || !!Bp(er, Lp(l));
-          } catch (e) {
+          } catch {
             return true;
           }
         };
@@ -4085,7 +4085,7 @@ var require_parser_babel = __commonJS({
               let { pattern: s, flags: r } = e, i = null;
               try {
                 i = new RegExp(s, r);
-              } catch (e2) {
+              } catch {
               }
               let a = this.estreeParseLiteral(i);
               return a.regex = { pattern: s, flags: r }, a;
@@ -4094,7 +4094,7 @@ var require_parser_babel = __commonJS({
               let s;
               try {
                 s = BigInt(e);
-              } catch (e2) {
+              } catch {
                 s = null;
               }
               let r = this.estreeParseLiteral(s);
@@ -7636,7 +7636,7 @@ var require_parser_babel = __commonJS({
                 let { errors: e } = this.state, s = e.length;
                 try {
                   return this.parseObjectLike(8, true), e.length === s;
-                } catch (e2) {
+                } catch {
                   return false;
                 }
               }
@@ -7645,7 +7645,7 @@ var require_parser_babel = __commonJS({
                 let { errors: e } = this.state, s = e.length;
                 try {
                   return this.parseBindingList(3, 93, true), e.length === s;
-                } catch (e2) {
+                } catch {
                   return false;
                 }
               }
@@ -10672,7 +10672,7 @@ var require_parser_babel = __commonJS({
                 if (r.ambiguousScriptDifferentAst)
                   try {
                     return e.sourceType = "script", Ye(e, t).parse();
-                  } catch (e2) {
+                  } catch {
                   }
                 else
                   i.program.sourceType = "script";
@@ -10680,7 +10680,7 @@ var require_parser_babel = __commonJS({
               } catch (r) {
                 try {
                   return e.sourceType = "script", Ye(e, t).parse();
-                } catch (e2) {
+                } catch {
                 }
                 throw r;
               }
@@ -10861,7 +10861,7 @@ var require_standalone = __commonJS({
         nu.exports = function(e) {
           try {
             return !!e();
-          } catch (e2) {
+          } catch {
             return true;
           }
         };
@@ -10997,7 +10997,7 @@ var require_standalone = __commonJS({
         qu.exports = function(e) {
           try {
             return tl(e);
-          } catch (e2) {
+          } catch {
             return "Object";
           }
         };
@@ -11034,7 +11034,7 @@ var require_standalone = __commonJS({
         Ju.exports = function(e, n) {
           try {
             ll(Gu, e, { value: n, configurable: true, writable: true });
-          } catch (e2) {
+          } catch {
             Gu[e] = n;
           }
           return n;
@@ -11119,7 +11119,7 @@ var require_standalone = __commonJS({
           if (n = Jl(n), t = Ul(t), Xl)
             try {
               return ms(n, t);
-            } catch (e) {
+            } catch {
             }
           if (zl(n, t))
             return Gl(!$l(Hl.f, n, t), n[t]);
@@ -11152,7 +11152,7 @@ var require_standalone = __commonJS({
           if (dr(n), t = Cs(t), dr(s), nc)
             try {
               return en(n, t, s);
-            } catch (e) {
+            } catch {
             }
           if ("get" in s || "set" in s)
             throw sc("Accessors not supported");
@@ -11388,7 +11388,7 @@ var require_standalone = __commonJS({
         }()) == "Arguments", Wp = function(e, n) {
           try {
             return e[n];
-          } catch (e2) {
+          } catch {
           }
         };
         xi.exports = jp ? Fr : function(e) {
@@ -11403,7 +11403,7 @@ var require_standalone = __commonJS({
             return false;
           try {
             return Bi(Ti, zp, n), true;
-          } catch (e) {
+          } catch {
             return false;
           }
         }, Ni = function(n) {
@@ -11417,7 +11417,7 @@ var require_standalone = __commonJS({
           }
           try {
             return Kp || !!Xp(Cn, Up(n));
-          } catch (e) {
+          } catch {
             return true;
           }
         };
@@ -12704,7 +12704,7 @@ var require_standalone = __commonJS({
           if (e.outdent = T, e.default = T, typeof n < "u")
             try {
               n.exports = T, Object.defineProperty(T, "__esModule", { value: true }), T.default = T, T.outdent = T;
-            } catch (e2) {
+            } catch {
             }
         } }), ND = Z({ "src/main/core-options.js"(e, n) {
           "use strict";
@@ -21687,7 +21687,7 @@ var require_standalone = __commonJS({
                   else
                     try {
                       G.push(s(["{{", r([u, te(U, { parser: "__ng_interpolation", __isInHtmlInterpolation: true })]), u, "}}"]));
-                    } catch (e2) {
+                    } catch {
                       G.push("{{", v(U), "}}");
                     }
                 return s(G);
@@ -23348,7 +23348,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-RKASX7IM.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-T6BHGQS4.mjs")));
 var RainbowContainer = ({ children }) => jsx("div", {
   css: css`
 height: 100%;
@@ -23619,16 +23619,15 @@ var mod2 = {
   res: null,
   codeSpace: "",
   waitForDiv: async (md5Hash) => {
-    var _a, _b, _c;
     if (mod2.md5Hash !== md5Hash)
       return "";
-    if (!((_a = mod2.res) == null ? void 0 : _a.innerHTML))
+    if (!mod2.res?.innerHTML)
       await waitForAnimation();
-    if (!((_b = mod2.res) == null ? void 0 : _b.innerHTML.includes(md5Hash))) {
+    if (!mod2.res?.innerHTML.includes(md5Hash)) {
       await waitForAnimation();
     }
-    const html = (_c = mod2.res) == null ? void 0 : _c.innerHTML;
-    if (html == null ? void 0 : html.includes(md5Hash))
+    const html = mod2.res?.innerHTML;
+    if (html?.includes(md5Hash))
       return html;
     mod2.wait = mod2.wait * 2;
     return await mod2.waitForDiv(md5Hash);
@@ -23655,7 +23654,6 @@ var mod2 = {
   }
 };
 var render = async (transpiled, codeSpace) => {
-  var _a;
   mod2.codeSpace = codeSpace;
   const md5hash = md5(transpiled);
   if (!apps[md5hash])
@@ -23669,9 +23667,9 @@ var render = async (transpiled, codeSpace) => {
     if (!html)
       return { html: null, css: null };
     const css2 = mineFromCaches(eCaches[md5hash]);
-    const globalCss = (_a = document.querySelector(
+    const globalCss = document.querySelector(
       `style[data-emotion=${eCaches[md5hash].key}-global]`
-    )) == null ? void 0 : _a.innerHTML;
+    )?.innerHTML;
     return {
       html,
       css: globalCss ? globalCss + " " + css2 : css2
@@ -23689,9 +23687,9 @@ function mineFromCaches(cache) {
 var Helper = ({ md5Hash }) => {
   const ref = useRef(null);
   useEffect(() => {
-    if (ref == null ? void 0 : ref.current)
+    if (ref?.current)
       mod2.res = ref.current;
-  }, [ref == null ? void 0 : ref.current]);
+  }, [ref?.current]);
   const App = apps[md5Hash];
   return jsx("div", {
     ref,
@@ -23734,7 +23732,7 @@ async function runner({ code, counter, codeSpace }) {
           jsxImportSource: "@emotion/react"
         }
       },
-      target: "es2018"
+      target: "es2021"
     });
     const { html, css: css2 } = await render(transpiled.code, codeSpace);
     if (!html) {
@@ -23843,7 +23841,7 @@ var Editor = ({ codeSpace }) => {
   } = mySession;
   mod3.code = myCode;
   reactMod_default.useEffect(() => {
-    if (!(ref == null ? void 0 : ref.current) || started2) {
+    if (!ref?.current || started2) {
       return;
     }
     (engine === "monaco" ? setMonaco() : setAce()).then((res) => Object.assign(mod3, res)).then(
@@ -23912,7 +23910,7 @@ async function setMonaco() {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-DKKSIGQU.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-FOLYQNKI.mjs");
   const container = window.document.getElementById("editor");
   return startMonaco({
     container,
