@@ -49,7 +49,7 @@ export async function runner({ code, counter, codeSpace }: {
           jsxImportSource: "@emotion/react",
         },
       },
-      target: "es2018",
+      target: "es2021",
     } as unknown as TransformOptions);
 
     const { html, css } = await render(transpiled.code, codeSpace);
