@@ -1,4 +1,3 @@
-import type 
 module.exports = {
     "env": {
         "browser": true,
