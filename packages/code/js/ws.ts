@@ -4,6 +4,7 @@
 
 // import 'css-paint-polyfill
 
+import type { Timer } from "node";
 import "webrtc-adapter";
 import AVLTree from "avl";
 import debounce from "lodash.debounce";
@@ -112,9 +113,10 @@ Object.assign(globalThis, { sendChannel, mST });
 export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;
+  dry: boolean;
   address: string;
 }) => {
-  const { mST: mst, address } = startState;
+  const { mST: mst, dry, address } = startState;
   codeSpace = startState.codeSpace;
 
   startSession(codeSpace, {
@@ -122,7 +124,7 @@ export const run = async (startState: {
     state: mst,
   }, location.origin);
 
-  await appFactory(mst.transpiled, codeSpace);
+  await appFactory(mst.transpiled, codeSpace, dry);
 
   // Const {join} = await import("./rtc");
 
@@ -187,8 +189,6 @@ export const run = async (startState: {
   // await startIpfs(codeSpace);
 };
 
-type NodeTimer = number;
-
 (async () => {
   if (navigator && navigator?.serviceWorker) {
     navigator.serviceWorker.register("/sw.js", {
@@ -203,7 +203,7 @@ type NodeTimer = number;
     }));
   }
 })();
-let intervalHandler: NodeTimer | null = null;
+let intervalHandler: Timer;
 
 async function rejoin() {
   if (!rejoined || ws === null) {

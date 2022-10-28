@@ -323,7 +323,7 @@ export class Code {
                     </div>
               </div>
          `,
-            );
+            ).split(hashCode()).join("css");
 
           // const Etag = request.headers.get("Etag");
           // const newEtag = await sha256(respText);

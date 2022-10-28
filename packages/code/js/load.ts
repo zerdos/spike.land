@@ -1,24 +1,19 @@
 import "es-module-shims";
+
 import importmap from "./importmap.json";
-import { ReactDOMClient } from "./react-jsx-runtime.js";
+import { hydrateRoot } from "./react-jsx-runtime.js";
 
 // importShim.addImportMap(importmap);
-importShim.addImportMap(
-  importmap,
-);
+
+const imp = {};
+
+Object.keys(importmap.imports).map(k => imp[k] = location.origin + importmap.imports[k]);
+
+importShim.addImportMap({ imports: imp });
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
-if (location.pathname.endsWith("/hydrated")) {
-  import(
-    `${location.origin}/live/${codeSpace}/index.js`
-  ).then((mod) => {
-    ReactDOMClient.hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default());
-    setTimeout(() => {
-      imort
-    }, 1000));
-  });
-} else {
+const start = (dry = false) =>
   import(
     `${location.origin}/live/${codeSpace}/mST.mjs`
   ).then(({
@@ -29,9 +24,23 @@ if (location.pathname.endsWith("/hydrated")) {
     import(`${location.origin}/ws.mjs`).then(({ run }) =>
       run({
         mST,
+        dry,
         codeSpace,
         address,
       })
     )
   );
+
+if (location.pathname.endsWith("/hydrated")) {
+  import(
+    `${location.origin}/live/${codeSpace}/index.js`
+  ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(() =>
+    setTimeout(() => {
+      const dry = true;
+      start(dry);
+    }, 1000)
+  );
+} else {
+  const dry = false;
+  start(dry);
 }
