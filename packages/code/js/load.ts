@@ -14,6 +14,9 @@ if (location.pathname.endsWith("/hydrated")) {
     `${location.origin}/live/${codeSpace}/index.js`
   ).then((mod) => {
     ReactDOMClient.hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default());
+    setTimeout(() => {
+      imort
+    }, 1000));
   });
 } else {
   import(
