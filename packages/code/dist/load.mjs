@@ -29522,7 +29522,10 @@ var runtime = () => {
     if (Object.hasOwn(props, "css") && typeof props.css === "string") {
       props.css = emotionReact2.css`${props.css}`;
     }
-    return emotionReactJsxRuntime2.emotionJsx.apply(emotionReactJsxRuntime2, arguments);
+    return emotionReactJsxRuntime2.emotionJsx.apply(
+      emotionReactJsxRuntime2,
+      arguments
+    );
   };
 };
 runtime();
@@ -29558,7 +29561,9 @@ var start = (dry = false) => import(`${location.origin}/live/${codeSpace}/mST.mj
   )
 );
 if (location.pathname.endsWith("/hydrated")) {
-  import(`${location.origin}/live/${codeSpace}/index.js`).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(
+  importShim(
+    `${location.origin}/live/${codeSpace}/index.js`
+  ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(
     () => setTimeout(() => {
       const dry = true;
       start(dry);

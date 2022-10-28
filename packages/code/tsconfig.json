@@ -13,7 +13,6 @@
       "WebWorker",
       "ESNext.String",
       "esnext"
-
     ],
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,

@@ -27,7 +27,16 @@
     "lib": ["ES2020", "ESNext"],
     "types": []
   },
-  "exclude": [".git", "cypress","fixtures","node_modules", ".yarn", "dist","build", "monaco-workers", ],
+  "exclude": [
+    ".git",
+    "cypress",
+    "fixtures",
+    "node_modules",
+    ".yarn",
+    "dist",
+    "build",
+    "monaco-workers"
+  ],
   "include": [
     "packages/code",
     "packages/spike.land/src"

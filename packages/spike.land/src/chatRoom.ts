@@ -45,7 +45,9 @@ export class Code {
     this.state.blockConcurrencyWhile(async () => {
       // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
       const session = await this.kv.get<ICodeSession>("session")
-        || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch("session.json").then(x => x.json());
+        || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
+          "session.json",
+        ).then((x) => x.json());
       if (!session) throw Error("cant get the starter session");
       // if (!session.code) {
       //   const s = backupSession;
@@ -407,12 +409,19 @@ export class Code {
     // Create our session and add it to the sessions list.
     // We don't send any messages to the client until it has sent us the initial user info
     // message. Until then, we will queue messages in `session.blockedMessages`.
-    const session = { name: "", quit: false, webSocket, blockedMessages: [] as string[] };
+    const session = {
+      name: "",
+      quit: false,
+      webSocket,
+      blockedMessages: [] as string[],
+    };
     this.sessions.push(session);
 
-    this.sessions.forEach(otherSession => {
+    this.sessions.forEach((otherSession) => {
       if (otherSession.name) {
-        session.blockedMessages.push(JSON.stringify({ name: otherSession.name }));
+        session.blockedMessages.push(
+          JSON.stringify({ name: otherSession.name }),
+        );
       }
     });
 
@@ -420,7 +429,9 @@ export class Code {
     const backlog = [...storage.values()];
     backlog.reverse();
     backlog.forEach((value) => {
-      session.blockedMessages.push(typeof value === "string" ? value : JSON.stringify(value));
+      session.blockedMessages.push(
+        typeof value === "string" ? value : JSON.stringify(value),
+      );
     });
 
     webSocket.addEventListener(

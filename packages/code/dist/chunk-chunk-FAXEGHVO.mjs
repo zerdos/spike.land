@@ -956,7 +956,10 @@ var init_react_jsx_runtime = __esm({
         if (Object.hasOwn(props, "css") && typeof props.css === "string") {
           props.css = emotionReact2.css`${props.css}`;
         }
-        return emotionReactJsxRuntime2.emotionJsx.apply(emotionReactJsxRuntime2, arguments);
+        return emotionReactJsxRuntime2.emotionJsx.apply(
+          emotionReactJsxRuntime2,
+          arguments
+        );
       };
     };
     runtime();

@@ -184,7 +184,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         >
           <div style={{ display: "flex" }}>
             <div
-              style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
             >
               <m.div
                 css={css`

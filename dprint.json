@@ -1,17 +1,17 @@
 {
-       "typescript": {
-    },
-    "includes": [
-      "**/*.{ts,tsx,js,jsx,mjs,json}"
-    ],
-    "excludes": [
-      "**/.yarn",
-      "**/dist",
-      "**/public",
-      "**/monaco-workers",
-      "**/build"
-    ],
-    "plugins": [
-      "https://plugins.dprint.dev/typescript-0.76.0.wasm"
-    ]
-  }
+  "typescript": {
+  },
+  "includes": [
+    "**/*.{ts,tsx,js,jsx,mjs,json}"
+  ],
+  "excludes": [
+    "**/.yarn",
+    "**/dist",
+    "**/public",
+    "**/monaco-workers",
+    "**/build"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.76.0.wasm"
+  ]
+}

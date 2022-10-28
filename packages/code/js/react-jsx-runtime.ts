@@ -33,7 +33,10 @@ const runtime = () => {
       props.css = emotionReact.css`${props.css}`;
     }
 
-    return emotionReactJsxRuntime.emotionJsx.apply(emotionReactJsxRuntime, arguments);
+    return emotionReactJsxRuntime.emotionJsx.apply(
+      emotionReactJsxRuntime,
+      arguments,
+    );
   };
 };
 runtime();
