@@ -9,31 +9,25 @@ export class RateLimiterClient {
   //   lost.
   // * reportError(err) is called when something goes wrong and the rate limiter is broken. It
   //   should probably disconnect the client, so that they can reconnect and start over.
-
-  limiter: CodeRateLimiter;
-  inCoolDown: boolean;
-  constructor(
-    private getLimiterStub: () => CodeRateLimiter,
-    private reportError: any,
-  ) {
+  constructor(getLimiterStub, reportError) {
     this.getLimiterStub = getLimiterStub;
     this.reportError = reportError;
 
     // Call the callback to get the initial stub.
     this.limiter = getLimiterStub();
 
-    // When `inCoolDown` is true, the rate limit is currently applied and checkLimit() will return
+    // When `inCooldown` is true, the rate limit is currently applied and checkLimit() will return
     // false.
-    this.inCoolDown = false;
+    this.inCooldown = false;
   }
 
   // Call checkLimit() when a message is received to decide if it should be blocked due to the
   // rate limit. Returns `true` if the message should be accepted, `false` to reject.
   checkLimit() {
-    if (this.inCoolDown) {
+    if (this.inCooldown) {
       return false;
     }
-    this.inCoolDown = true;
+    this.inCooldown = true;
     this.callLimiter();
     return true;
   }
@@ -46,11 +40,7 @@ export class RateLimiterClient {
         // Currently, fetch() needs a valid URL even though it's not actually going to the
         // internet. We may loosen this in the future to accept an arbitrary string. But for now,
         // we have to provide a dummy URL that will be ignored at the other end anyway.
-        response = await this.limiter.fetch(
-          new Request("https://dummy-url", {
-            method: "POST",
-          }),
-        );
+        response = await this.limiter.fetch("https://dummy-url", { method: "POST" });
       } catch (err) {
         // `fetch()` threw an exception. This is probably because the limiter has been
         // disconnected. Stubs implement E-order semantics, meaning that calls to the same stub
@@ -62,19 +52,15 @@ export class RateLimiterClient {
         // Anyway, get a new limiter and try again. If it fails again, something else is probably
         // wrong.
         this.limiter = this.getLimiterStub();
-        response = await this.limiter.fetch(
-          new Request("https://dummy-url", {
-            method: "POST",
-          }),
-        );
+        response = await this.limiter.fetch("https://dummy-url", { method: "POST" });
       }
 
       // The response indicates how long we want to pause before accepting more requests.
-      let coolDown = +(await response.text()) * 100;
-      await new Promise((resolve) => setTimeout(() => resolve(true), coolDown));
+      let cooldown = +(await response.text());
+      await new Promise(resolve => setTimeout(resolve, cooldown * 1000));
 
       // Done waiting.
-      this.inCoolDown = false;
+      this.inCooldown = false;
     } catch (err) {
       this.reportError(err);
     }

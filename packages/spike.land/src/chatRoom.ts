@@ -14,7 +14,6 @@ import { getImportMapStr, imap } from "./chat";
 
 interface WebsocketSession {
   name: string;
-  limiter: RateLimiterClient;
   webSocket: WebSocket;
   quit?: boolean;
   blockedMessages: string[];
@@ -62,7 +61,7 @@ export class Code {
     });
   }
 
-  async fetch(request: Request, _env: CodeEnv, _ctx: ExecutionContext) {
+  async fetch(request: Request) {
     const state = this.sess!;
     const url = new URL(request.url);
 
@@ -82,9 +81,8 @@ export class Code {
 
       switch (path[0]) {
         case "":
-        case "index":
+        case "code":
         case "index.tsx":
-        case "code": {
           return new Response(mST().code, {
             status: 200,
             headers: {
@@ -93,7 +91,6 @@ export class Code {
               "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
-        }
         case "session.json":
         case "session": {
           if (path[1]) {
@@ -407,19 +404,28 @@ export class Code {
       (err: Error) => webSocket.close(1011, err.stack),
     );
 
-    const session = {
-      name: "",
-      webSocket,
-      limiter,
-      timestamp: Date.now(),
-      blockedMessages: [] as string[],
-    } as WebsocketSession;
-
+    // Create our session and add it to the sessions list.
+    // We don't send any messages to the client until it has sent us the initial user info
+    // message. Until then, we will queue messages in `session.blockedMessages`.
+    const session = { name: "", quit: false, webSocket, blockedMessages: [] as string[] };
     this.sessions.push(session);
+
+    this.sessions.forEach(otherSession => {
+      if (otherSession.name) {
+        session.blockedMessages.push(JSON.stringify({ name: otherSession.name }));
+      }
+    });
+
+    const storage = await this.kv.list({ reverse: true, limit: 100 });
+    const backlog = [...storage.values()];
+    backlog.reverse();
+    backlog.forEach((value) => {
+      session.blockedMessages.push(typeof value === "string" ? value : JSON.stringify(value));
+    });
 
     webSocket.addEventListener(
       "message",
-      (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
+      (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session, limiter),
     );
 
     const closeOrErrorHandler = () => {
@@ -433,6 +439,7 @@ export class Code {
   async processWsMessage(
     msg: { data: string | ArrayBuffer },
     session: WebsocketSession,
+    limiter: RateLimiterClient,
   ) {
     if (session.quit) {
       this.users.remove(session.name);
@@ -533,13 +540,13 @@ export class Code {
     }
 
     try {
-      // if (
-      //   limiter.checkLimit() &&  !data.type
-      // ) {
-      //   return respondWith({
-      //     error: "Your IP is being rate-limited, please try again later.",
-      //   });
-      // }
+      if (
+        limiter.checkLimit() && !data.type
+      ) {
+        return respondWith({
+          error: "Your IP is being rate-limited, please try again later.",
+        });
+      }
 
       try {
         if (
