@@ -275,10 +275,9 @@ export class Code {
 
                 res(
                   new Response(mST().transpiled, {
-                    status: 307,
+                    status: 200,
                     headers: {
                       "Access-Control-Allow-Origin": "*",
-                      "Location": ""
                       "Cache-Control": "public, max-age=604800, immutable",
                       "Content-Type": "application/javascript; charset=UTF-8",
                     },
@@ -291,9 +290,10 @@ export class Code {
           }
 
           return new Response(mST().transpiled, {
-            status: 200,
+            status: 307,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Location": `${url.origin}/live/${this.codeSpace}/${mST().i}`,
               "Cache-Control": "no-cache",
               "Content-Type": "application/javascript; charset=UTF-8",
             },
