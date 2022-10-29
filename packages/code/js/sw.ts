@@ -1,17 +1,5 @@
 import { md5 } from "./md5";
 
-const bc = new BroadcastChannel(location.origin);
-const mocks = {};
-
-bc.onmessage = (event) => {
-  // console.log(event);
-  if (event.data.type === "set-mock") {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    mocks[event.data.filePath] = event.data.content;
-  }
-};
-
 // async function wait(delay) {
 //   return new Promise((resolve) => {
 //     setTimeout(() => {
@@ -32,17 +20,11 @@ const getCacheName = () =>
 addEventListener("fetch", async (_event) => {
   const event = _event as unknown as FetchEvent;
 
-  const request = event.request.clone();
+  const request = event.request;
   const url = new URL(request.url);
 
   return event.respondWith((async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (mocks[request.url]) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return new Response(mocks[request.url]);
-    }
 
     if (!cache) {
       cache = await caches.open(cacheName || await getCacheName() && cacheName);
@@ -65,14 +47,14 @@ addEventListener("fetch", async (_event) => {
     const cacheKey = new Request(request.url);
     const cachedResp = await cache.match(cacheKey);
 
-    if (cachedResp) return cachedResp;
+    if (cachedResp) return cachedResp.clone();
 
     if (!url.toString().includes(location.origin)) return fetch(request);
 
     const resp = await fetch(request);
 
     if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
-      await cache.put(cacheKey, resp);
+      await cache.put(cacheKey, resp.clone());
     }
     return resp;
   })());
