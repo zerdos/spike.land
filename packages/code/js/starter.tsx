@@ -41,7 +41,6 @@ export function AutoUpdateApp(
 ) {
   const [{ md5Hash, resetErrorBoundary, App }, setMdHash] = useState({
     App: lazy(async () => {
-      await wait(1000);
       return {
         default: apps[md5(mST().transpiled)],
       };
@@ -61,7 +60,7 @@ export function AutoUpdateApp(
           md5Hash: md5(transpiled),
           resetErrorBoundary: null,
           App: lazy(async () => {
-            await wait(1000);
+            if (!location.href.endsWith("/public")) await wait(1000);
             return {
               default: apps[md5(mST().transpiled)],
             };
@@ -94,7 +93,7 @@ export function AutoUpdateApp(
       )}
     >
       <Suspense
-        fallback={<div dangerouslySetInnerHTML={{ __html: mST().html }} />}
+        fallback={<div style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: mST().html }} />}
       >
         <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
       </Suspense>

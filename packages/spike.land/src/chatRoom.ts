@@ -31,7 +31,9 @@ export class Code {
     (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
     true,
   );
+  waiting: (() => boolean)[] = [];
   sessions: WebsocketSession[];
+
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.kv = state.storage;
     this.state = state;
@@ -62,10 +64,21 @@ export class Code {
       this.sessionStarted = false;
     });
   }
+  wait = (x: () => boolean) => {
+    if (!x()) this.waiting.push(x);
+    setTimeout(() => {
+      this.waiting = this.waiting.filter(x => x());
+    }, 200);
+    setTimeout(() => {
+      this.waiting = this.waiting.filter(x => x());
+    }, 1200);
+  };
 
   async fetch(request: Request) {
     const state = this.sess!;
     const url = new URL(request.url);
+
+    this.waiting = this.waiting.filter(x => x());
 
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
@@ -80,9 +93,9 @@ export class Code {
 
     return handleErrors(request, async () => {
       const path = url.pathname.slice(1).split("/");
+      if (path.length === 0) path.push("");
 
       switch (path[0]) {
-        case "":
         case "code":
         case "index.tsx":
           return new Response(mST().code, {
@@ -243,26 +256,40 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
+        case "path":
+          return new Response(path.join("----"), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
 
         case "index.js":
         case "js": {
-          // if (codeSpace==="sanyi") {
-          //   'export default function(){};'
-          // }
-
           if (path[1]) {
-            const session = await this.kv.get<ICodeSession>(path[1]);
-            if (session && session.transpiled) {
-              return new Response(session.transpiled, {
-                status: 200,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "no-cache",
-                  "Content-Type": "application/javascript; charset=UTF-8",
-                },
-              });
-            }
+            return new Promise<Response>((res) =>
+              this.wait(() => {
+                if (mST().i < Number(path[1])) return false;
+
+                res(
+                  new Response(mST().transpiled, {
+                    status: 307,
+                    headers: {
+                      "Access-Control-Allow-Origin": "*",
+                      "Location": ""
+                      "Cache-Control": "public, max-age=604800, immutable",
+                      "Content-Type": "application/javascript; charset=UTF-8",
+                    },
+                  }),
+                );
+
+                return true;
+              })
+            );
           }
+
           return new Response(mST().transpiled, {
             status: 200,
             headers: {
@@ -297,6 +324,7 @@ export class Code {
             },
           });
         }
+        case "":
         case "hydrated":
         case "dehydrated":
         case "public": {
@@ -320,7 +348,7 @@ export class Code {
             .replace(
               `<div id="root"></div>`,
               `<div id="root">
-                    <div id="root-${this.codeSpace}" style="height: 100%">
+                    <div data-i="${mST().i}" id="root-${this.codeSpace}" style="height: 100%">
                       ${mST().html}
                     </div>
               </div>

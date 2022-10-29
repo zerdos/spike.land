@@ -44,7 +44,7 @@ import {
   useSyncExternalStore,
   useTransition,
   version
-} from "./chunk-chunk-FDCPUJB6.mjs";
+} from "./chunk-chunk-VC46YPFW.mjs";
 import "./chunk-chunk-74QYOWVK.mjs";
 import "./chunk-chunk-CU2UTUO2.mjs";
 import "./chunk-chunk-DSXGUE46.mjs";

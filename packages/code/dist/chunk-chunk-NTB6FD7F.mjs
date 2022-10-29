@@ -28,7 +28,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-FDCPUJB6.mjs";
+} from "./chunk-chunk-VC46YPFW.mjs";
 import {
   CacheProvider,
   Global,
@@ -23352,7 +23352,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-IMAFCZXJ.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-CIYPCMAH.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -23476,7 +23476,6 @@ var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
 function AutoUpdateApp({ codeSpace, transpiled }) {
   const [{ md5Hash, resetErrorBoundary, App }, setMdHash] = useState({
     App: lazy(async () => {
-      await wait(1e3);
       return {
         default: apps2[md5(mST().transpiled)]
       };
@@ -23494,7 +23493,8 @@ function AutoUpdateApp({ codeSpace, transpiled }) {
         md5Hash: md5(transpiled2),
         resetErrorBoundary: null,
         App: lazy(async () => {
-          await wait(1e3);
+          if (!location.href.endsWith("/public"))
+            await wait(1e3);
           return {
             default: apps2[md5(mST().transpiled)]
           };
@@ -23524,6 +23524,7 @@ function AutoUpdateApp({ codeSpace, transpiled }) {
     }),
     children: jsx(Suspense, {
       fallback: jsx("div", {
+        style: { height: "100%" },
         dangerouslySetInnerHTML: { __html: mST().html }
       }),
       children: jsx(App, {
@@ -23940,7 +23941,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-FYAUDDE3.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-X6QYBHXR.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

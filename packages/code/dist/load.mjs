@@ -22426,7 +22426,7 @@ var require_react_dom_development = __commonJS({
             unmarkContainerAsRoot(container);
           }
         };
-        function createRoot(container, options2) {
+        function createRoot2(container, options2) {
           if (!isValidContainer(container)) {
             throw new Error("createRoot(...): Target container is not a DOM element.");
           }
@@ -22785,7 +22785,7 @@ var require_react_dom_development = __commonJS({
               error('You are importing createRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
             }
           }
-          return createRoot(container, options2);
+          return createRoot2(container, options2);
         }
         function hydrateRoot$1(container, initialChildren, options2) {
           {
@@ -40016,7 +40016,7 @@ var {
   styled,
   ReactDOMClient
 } = globalThis;
-var { hydrateRoot } = ReactDOMClient;
+var { hydrateRoot, createRoot } = ReactDOMClient;
 
 // js/load.ts
 var imp = {};
@@ -40037,17 +40037,41 @@ var start = (dry = false) => import(`${location.origin}/live/${codeSpace}/mST.mj
     })
   )
 );
+var _a;
 if (location.pathname.endsWith("/hydrated")) {
+  let i = (_a = document.getElementById("root")) == null ? void 0 : _a.getAttribute("data-i");
+  let unmount = () => {
+  };
+  const bc = new BroadcastChannel(location.origin);
+  bc.onmessage = (event) => {
+    if (event.data.codeSpace === codeSpace) {
+      const rootDiv = document.createElement("div");
+      rootDiv.style.height = "100%";
+      i = event.data.sess.i;
+      const root = createRoot(rootDiv);
+      const current = i;
+      importShim(
+        `${location.origin}/live/${codeSpace}/index.js/${i}`
+      ).then((mod) => i === current && root.render(mod.default())).then(
+        () => document.querySelectorAll("#root>div>div")[0].replaceWith(rootDiv)
+      ).then(unmount).then(
+        () => unmount = () => {
+          root.unmount();
+          rootDiv.remove();
+        }
+      );
+    }
+  };
   importShim(
-    `${location.origin}/live/${codeSpace}/index.js`
-  ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(
-    () => setTimeout(() => {
+    `${location.origin}/live/${codeSpace}/index.js/${i}`
+  ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(() => {
+    setTimeout(() => {
       const dry = true;
       start(dry);
       import("./chunk-prettierEsm-2KN4BAAL.mjs").then((x) => x.prettierJs("dry"));
       import("./chunk-esbuildEsm-VV7JAZKY.mjs").then((x) => x.transform("dry"));
-    }, 1e3)
-  );
+    }, 1e3);
+  });
 } else {
   const dry = false;
   start(dry);

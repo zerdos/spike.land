@@ -11400,7 +11400,7 @@ var init_emotionStyled = __esm({
 });
 
 // js/react-jsx-runtime.ts
-var runtime, ReactDOM, React, ReactJSXRuntime, emotionReact, emotionReactJsxRuntime, ReactDOMServer, createEmotionCache, styled, ReactDOMClient, hydrateRoot;
+var runtime, ReactDOM, React, ReactJSXRuntime, emotionReact, emotionReactJsxRuntime, ReactDOMServer, createEmotionCache, styled, ReactDOMClient, hydrateRoot, createRoot;
 var init_react_jsx_runtime = __esm({
   "js/react-jsx-runtime.ts"() {
     "use strict";
@@ -11450,7 +11450,7 @@ var init_react_jsx_runtime = __esm({
       styled,
       ReactDOMClient
     } = globalThis);
-    ({ hydrateRoot } = ReactDOMClient);
+    ({ hydrateRoot, createRoot } = ReactDOMClient);
   }
 });
 
@@ -11470,7 +11470,7 @@ __export(reactMod_exports, {
   createFactory: () => createFactory,
   createPortal: () => createPortal,
   createRef: () => createRef,
-  createRoot: () => createRoot,
+  createRoot: () => createRoot2,
   default: () => reactMod_default,
   findDOMNode: () => findDOMNode,
   flushSync: () => flushSync,
@@ -11502,7 +11502,7 @@ __export(reactMod_exports, {
   useTransition: () => useTransition,
   version: () => version
 });
-var Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, createRoot, hydrateRoot2, createPortal, flushSync, render, findDOMNode, hydrate, unmountComponentAtNode, unstable_batchedUpdates, unstable_renderSubtreeIntoContainer, version, all, reactMod_default;
+var Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, createRoot2, hydrateRoot2, createPortal, flushSync, render, findDOMNode, hydrate, unmountComponentAtNode, unstable_batchedUpdates, unstable_renderSubtreeIntoContainer, version, all, reactMod_default;
 var init_reactMod = __esm({
   "js/reactMod.ts"() {
     init_define_process();
@@ -11542,7 +11542,7 @@ var init_reactMod = __esm({
       __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
     } = React);
     ({
-      createRoot,
+      createRoot: createRoot2,
       hydrateRoot: hydrateRoot2
     } = ReactDOMClient);
     ({
@@ -11599,7 +11599,7 @@ export {
   useSyncExternalStore,
   useTransition,
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
-  createRoot,
+  createRoot2 as createRoot,
   hydrateRoot2 as hydrateRoot,
   createPortal,
   flushSync,
