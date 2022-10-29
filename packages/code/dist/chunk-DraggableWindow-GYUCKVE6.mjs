@@ -8,11 +8,9 @@ import {
 } from "./chunk-chunk-U53ERXF6.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-645WEKBG.mjs";
-import "./chunk-chunk-LAXQZS4L.mjs";
-import {
-  mST
-} from "./chunk-chunk-F5TEE6RK.mjs";
+} from "./chunk-chunk-XEYCAP72.mjs";
+import "./chunk-chunk-6LSMW75W.mjs";
+import "./chunk-chunk-F5TEE6RK.mjs";
 import {
   Suspense,
   createElement,
@@ -2622,7 +2620,6 @@ var DraggableWindow = ({
   children,
   room
 }) => {
-  var _a2, _b;
   const [scaleRange, changeScaleRange] = useState(100);
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = useState(startPositions);
@@ -2779,12 +2776,10 @@ var DraggableWindow = ({
                     borderRadius: 8
                   },
                   css: css`
-                    display: block;
-                    
+                    display: block;                    
                     overflow-x: hidden;
                     overflow-y: hidden;
-                    
-                   ${(_b = (_a2 = mST()) == null ? void 0 : _a2.css) == null ? void 0 : _b.split("body").join("& > div")}
+
             `,
                   children: jsx(m.div, {
                     initial: {
@@ -2869,8 +2864,8 @@ var DraggableWindow = ({
                 children: [
                   jsx(Fab, {
                     onClick: () => {
-                      var _a3;
-                      (_a3 = document.querySelector("#root")) == null ? void 0 : _a3.requestFullscreen();
+                      var _a2;
+                      (_a2 = document.querySelector("#root")) == null ? void 0 : _a2.requestFullscreen();
                     },
                     children: jsx("span", {
                       css: css`

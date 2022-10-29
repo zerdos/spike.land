@@ -14,7 +14,7 @@ import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, s
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
-import { wait } from "wait.mjs";
+import { wait } from "wait.js";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import type { ICodeSession } from "./session";
 import { appFactory } from "./starter";

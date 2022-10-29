@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 // import {terminal} from "./DraggableWindow"
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -14,6 +14,7 @@ import { mST, onSessionUpdate } from "./session";
 // import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
+import { wait } from "./wait";
 
 const dynamicImport = (src: string) => window.importShim ? window.importShim(src) : import(src);
 
@@ -38,7 +39,13 @@ export const { apps, eCaches } = (globalThis as unknown as {
 export function AutoUpdateApp(
   { codeSpace, transpiled }: { codeSpace: string; transpiled?: string },
 ) {
-  const [{ md5Hash, resetErrorBoundary }, setMdHash] = useState({
+  const [{ md5Hash, resetErrorBoundary, App }, setMdHash] = useState({
+    App: lazy(async () => {
+      await wait(1000);
+      return {
+        default: apps[md5(mST().transpiled)],
+      };
+    }),
     md5Hash: md5(transpiled || mST().transpiled),
     resetErrorBoundary: null as null | (() => void),
   });
@@ -53,11 +60,17 @@ export function AutoUpdateApp(
         setMdHash({
           md5Hash: md5(transpiled),
           resetErrorBoundary: null,
+          App: lazy(async () => {
+            await wait(1000);
+            return {
+              default: apps[md5(mST().transpiled)],
+            };
+          }),
         });
       }
     }, "autoUpdate"), [setMdHash, resetErrorBoundary]);
 
-  const App = apps[md5Hash];
+  // const App = apps[md5Hash];
 
   return (
     <ErrorBoundary
@@ -80,9 +93,16 @@ export function AutoUpdateApp(
         </div>
       )}
     >
-      <div key={md5Hash} style={{ height: 100 + "%" }}>
+      <Suspense
+        fallback={
+          <div
+            css={css` height: 100%; ${mST()?.css?.split("body").join(`#${codeSpace}-${md5Hash}`)}`}
+            dangerouslySetInnerHTML={{ __html: mST().html }}
+          />
+        }
+      >
         <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
-      </div>
+      </Suspense>
     </ErrorBoundary>
   );
 }

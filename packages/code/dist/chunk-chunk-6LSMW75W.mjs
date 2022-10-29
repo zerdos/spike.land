@@ -23340,7 +23340,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 init_emotion();
 
-// js/wait.mjs
+// js/wait.ts
 init_define_process();
 async function wait(delay) {
   return new Promise((resolve) => {
@@ -23352,7 +23352,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-D726A4P7.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-GYUCKVE6.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -23474,7 +23474,14 @@ var dynamicImport = (src) => window.importShim ? window.importShim(src) : import
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
 function AutoUpdateApp({ codeSpace, transpiled }) {
-  const [{ md5Hash, resetErrorBoundary }, setMdHash] = useState({
+  var _a, _b;
+  const [{ md5Hash, resetErrorBoundary, App }, setMdHash] = useState({
+    App: lazy(async () => {
+      await wait(1e3);
+      return {
+        default: apps2[md5(mST().transpiled)]
+      };
+    }),
     md5Hash: md5(transpiled || mST().transpiled),
     resetErrorBoundary: null
   });
@@ -23486,11 +23493,16 @@ function AutoUpdateApp({ codeSpace, transpiled }) {
     if (apps2[md5Hash2]) {
       setMdHash({
         md5Hash: md5(transpiled2),
-        resetErrorBoundary: null
+        resetErrorBoundary: null,
+        App: lazy(async () => {
+          await wait(1e3);
+          return {
+            default: apps2[md5(mST().transpiled)]
+          };
+        })
       });
     }
   }, "autoUpdate"), [setMdHash, resetErrorBoundary]);
-  const App = apps2[md5Hash];
   return jsx(import_react_error_boundary.ErrorBoundary, {
     fallbackRender: ({ error, resetErrorBoundary: resetErrorBoundary2 }) => jsxs("div", {
       role: "alert",
@@ -23511,12 +23523,15 @@ function AutoUpdateApp({ codeSpace, transpiled }) {
         })
       ]
     }),
-    children: jsx("div", {
-      style: { height: 100 + "%" },
+    children: jsx(Suspense, {
+      fallback: jsx("div", {
+        css: css` height: 100%; ${(_b = (_a = mST()) == null ? void 0 : _a.css) == null ? void 0 : _b.split("body").join(`#${codeSpace}-${md5Hash}`)}`,
+        dangerouslySetInnerHTML: { __html: mST().html }
+      }),
       children: jsx(App, {
         appId: `${codeSpace}-${md5Hash}`
       }, md5Hash)
-    }, md5Hash)
+    })
   }, md5Hash);
 }
 var started = false;
@@ -23929,7 +23944,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-32PJ4UGC.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-VJEAZWWB.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

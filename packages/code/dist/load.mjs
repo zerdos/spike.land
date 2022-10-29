@@ -29567,7 +29567,7 @@ if (location.pathname.endsWith("/hydrated")) {
     () => setTimeout(() => {
       const dry = true;
       start(dry);
-      import("./chunk-prettierJs-SSFRDOPW.mjs").then((x) => x.prettierJs("dry"));
+      import("./chunk-prettierEsm-2KN4BAAL.mjs").then((x) => x.prettierJs("dry"));
       import("./chunk-esbuildEsm-VV7JAZKY.mjs").then((x) => x.transform("dry"));
     }, 1e3)
   );
