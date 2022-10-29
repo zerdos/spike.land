@@ -150,13 +150,6 @@
   __name(md5FULL, "md5FULL");
 
   // js/sw.ts
-  var bc = new BroadcastChannel(location.origin);
-  var mocks = {};
-  bc.onmessage = (event) => {
-    if (event.data.type === "set-mock") {
-      mocks[event.data.filePath] = event.data.content;
-    }
-  };
   var lastChecked = 0;
   var cache;
   var cacheName = "default";
@@ -165,12 +158,9 @@
   ).finally(() => cacheName), "getCacheName");
   addEventListener("fetch", async (_event) => {
     const event = _event;
-    const request = event.request.clone();
+    const request = event.request;
     const url = new URL(request.url);
     return event.respondWith((async () => {
-      if (mocks[request.url]) {
-        return new Response(mocks[request.url]);
-      }
       if (!cache) {
         cache = await caches.open(cacheName || await getCacheName() && cacheName);
       }
@@ -189,12 +179,12 @@
       const cacheKey = new Request(request.url);
       const cachedResp = await cache.match(cacheKey);
       if (cachedResp)
-        return cachedResp;
+        return cachedResp.clone();
       if (!url.toString().includes(location.origin))
         return fetch(request);
       const resp = await fetch(request);
       if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
-        await cache.put(cacheKey, resp);
+        await cache.put(cacheKey, resp.clone());
       }
       return resp;
     })());
