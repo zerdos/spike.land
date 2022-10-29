@@ -356,7 +356,7 @@ export default {
               // Object.keys(assetManifest).map(x=>{assets[`/live/${paths[0]}/${x}`]=assetManifest[x]})
 
               return handleApiRequest(
-                ["room", ...paths, "public"],
+                ["room", ...paths],
                 request,
                 env,
               ).catch((e) =>

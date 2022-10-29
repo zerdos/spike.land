@@ -1,7 +1,7 @@
 import "es-module-shims";
 
 import importmap from "./importmap.json";
-import { hydrateRoot } from "./react-jsx-runtime.js";
+import { createRoot, hydrateRoot } from "./react-jsx-runtime.js";
 
 // importShim.addImportMap(importmap);
 
@@ -32,16 +32,43 @@ const start = (dry = false) =>
   );
 
 if (location.pathname.endsWith("/hydrated")) {
+  let i = document.getElementById("root")?.getAttribute("data-i");
+  let unmount = () => {};
+  const bc = new BroadcastChannel(location.origin);
+  bc.onmessage = (event) => {
+    if (
+      event.data.codeSpace === codeSpace
+    ) {
+      const rootDiv = document.createElement("div");
+      rootDiv.style.height = "100%";
+
+      i = event.data.sess.i;
+
+      const root = createRoot(rootDiv);
+
+      const current = i;
+      importShim(
+        `${location.origin}/live/${codeSpace}/index.js/${i}`,
+      ).then((mod) => i === current && root.render(mod.default())).then(
+        () => document.querySelectorAll("#root>div>div")[0].replaceWith(rootDiv),
+      ).then(unmount).then(() =>
+        unmount = () => {
+          root.unmount();
+          rootDiv.remove();
+        }
+      );
+    }
+  };
   importShim(
-    `${location.origin}/live/${codeSpace}/index.js`,
-  ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(() =>
+    `${location.origin}/live/${codeSpace}/index.js/${i}`,
+  ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(() => {
     setTimeout(() => {
       const dry = true;
       start(dry);
       import("./prettierEsm").then((x) => x.prettierJs("dry"));
       import("./esbuildEsm").then((x) => x.transform("dry"));
-    }, 1000)
-  );
+    }, 1000);
+  });
 } else {
   const dry = false;
   start(dry);

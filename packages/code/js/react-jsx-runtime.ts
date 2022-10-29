@@ -56,4 +56,4 @@ export const {
   ReactDOMClient,
 } = globalThis;
 
-export const { hydrateRoot } = ReactDOMClient;
+export const { hydrateRoot, createRoot } = ReactDOMClient;
