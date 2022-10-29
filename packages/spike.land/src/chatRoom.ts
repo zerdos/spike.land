@@ -66,19 +66,19 @@ export class Code {
   }
   wait = (x: () => boolean) => {
     if (!x()) this.waiting.push(x);
-    setTimeout(() => {
-      this.waiting = this.waiting.filter(x => x());
-    }, 200);
-    setTimeout(() => {
-      this.waiting = this.waiting.filter(x => x());
-    }, 1200);
+
+    const reduce = () =>
+      setTimeout(() => {
+        this.waiting = this.waiting.filter(x => !x());
+        if (this.waiting.length) reduce();
+      }, 1000);
   };
 
   async fetch(request: Request) {
     const state = this.sess!;
     const url = new URL(request.url);
 
-    this.waiting = this.waiting.filter(x => x());
+    this.waiting = this.waiting.filter(x => !x());
 
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
@@ -269,10 +269,11 @@ export class Code {
         case "index.js":
         case "js": {
           if (path[1]) {
+            const i = path[1];
             return new Response(
               await new Promise<string>((res) =>
                 this.wait(() => {
-                  if (mST().i < Number(path[1])) return false;
+                  if (mST().i < Number(i)) return false;
                   res(mST().transpiled);
                   return true;
                 })
