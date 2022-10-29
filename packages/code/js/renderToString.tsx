@@ -39,7 +39,7 @@ const mod = {
     const rootDiv = document.createElement("div");
     rootDiv.style.visibility = "hidden";
     rootDiv.style.position = "absolute";
-    document.body.appendChild(rootDiv);
+    // document.body.appendChild(rootDiv);
 
     mod.md5Hash = md5Hash;
     const root = createRoot(rootDiv);
@@ -48,7 +48,7 @@ const mod = {
     );
     return () => {
       root.unmount;
-      document.body.removeChild(rootDiv);
+      // document.body.removeChild(rootDiv);
       rootDiv.remove();
       mod.setHash = null;
     };

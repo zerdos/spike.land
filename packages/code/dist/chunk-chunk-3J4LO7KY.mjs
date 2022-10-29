@@ -23352,7 +23352,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-GYUCKVE6.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-RB2EXWJP.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -23662,7 +23662,6 @@ var mod2 = {
     const rootDiv = document.createElement("div");
     rootDiv.style.visibility = "hidden";
     rootDiv.style.position = "absolute";
-    document.body.appendChild(rootDiv);
     mod2.md5Hash = md5Hash;
     const root = createRoot(rootDiv);
     root.render(
@@ -23672,7 +23671,6 @@ var mod2 = {
     );
     return () => {
       root.unmount;
-      document.body.removeChild(rootDiv);
       rootDiv.remove();
       mod2.setHash = null;
     };
@@ -23944,7 +23942,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-VJEAZWWB.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-5HOHB6HG.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,
