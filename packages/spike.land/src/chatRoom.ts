@@ -269,23 +269,22 @@ export class Code {
         case "index.js":
         case "js": {
           if (path[1]) {
-            return new Promise<Response>((res) =>
-              this.wait(() => {
-                if (mST().i < Number(path[1])) return false;
-
-                res(
-                  new Response(mST().transpiled, {
-                    status: 200,
-                    headers: {
-                      "Access-Control-Allow-Origin": "*",
-                      "Cache-Control": "public, max-age=604800, immutable",
-                      "Content-Type": "application/javascript; charset=UTF-8",
-                    },
-                  }),
-                );
-
-                return true;
-              })
+            return new Response(
+              await new Promise<string>((res) =>
+                this.wait(() => {
+                  if (mST().i < Number(path[1])) return false;
+                  res(mST().transpiled);
+                  return true;
+                })
+              ),
+              {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "public, max-age=604800, immutable",
+                  "Content-Type": "application/javascript; charset=UTF-8",
+                },
+              },
             );
           }
 
