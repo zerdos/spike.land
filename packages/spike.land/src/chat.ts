@@ -393,7 +393,7 @@ export default {
                 );
 
                 if (!kvResp.ok) throw new Error("no kv, try something else");
-                return kvResp.clone();
+                return kvResp;
               } catch {
                 const resp = await fetch(
                   new URL(url.pathname.slice(1), url.origin + "/node_modules/")

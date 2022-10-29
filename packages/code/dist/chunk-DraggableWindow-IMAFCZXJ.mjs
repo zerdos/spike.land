@@ -1,15 +1,16 @@
 import {
+  AnimatePresence,
   LazyMotion,
   MotionConfig,
   domAnimation,
   domMax,
   m,
   motion
-} from "./chunk-chunk-U53ERXF6.mjs";
+} from "./chunk-chunk-2PQ3UZ5Y.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-RVK5QLYP.mjs";
-import "./chunk-chunk-3J4LO7KY.mjs";
+} from "./chunk-chunk-EFORITAB.mjs";
+import "./chunk-chunk-3MO24TTB.mjs";
 import "./chunk-chunk-F5TEE6RK.mjs";
 import {
   Suspense,
@@ -20,7 +21,7 @@ import {
   useEffect,
   useRef,
   useState
-} from "./chunk-chunk-FAXEGHVO.mjs";
+} from "./chunk-chunk-FDCPUJB6.mjs";
 import {
   css,
   init_emotion
@@ -2565,21 +2566,21 @@ init_define_process();
 init_emotion();
 init_reactMod();
 init_emotionJsxRuntime();
-var FabLazy = lazy(async () => import("./chunk-Fab-ODQRMGYG.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-R6C527N4.mjs"));
 var Fab = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
   }),
   children: jsx(FabLazy, __spreadValues({}, props))
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-XID2VRW6.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-NXSQMEEF.mjs"));
 var ToggleButton = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
   }),
   children: jsx(ToggleButtonLazy, __spreadValues({}, props))
 });
-var ToggleButtonGroupLazy = lazy(async () => import("./chunk-ToggleButtonGroup-OMDYJMCQ.mjs"));
+var ToggleButtonGroupLazy = lazy(async () => import("./chunk-ToggleButtonGroup-EIPGPNLN.mjs"));
 var ToggleButtonGroup = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
@@ -2689,23 +2690,24 @@ var DraggableWindow = ({
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return jsx(MotionConfig, {
     transition: { delay, type, duration },
-    children: jsx(LazyMotion, {
-      features: __spreadValues(__spreadValues({}, domAnimation), domMax),
-      children: jsx(m.div, {
-        layout: true,
-        initial: {
-          top: 0,
-          padding: 0,
-          right: 0,
-          borderRadius: 0
-        },
-        animate: {
-          top: bottom,
-          padding: 8,
-          right,
-          borderRadius: 16
-        },
-        css: css`
+    children: jsx(AnimatePresence, {
+      children: jsx(LazyMotion, {
+        features: __spreadValues(__spreadValues({}, domAnimation), domMax),
+        children: jsx(m.div, {
+          layout: true,
+          initial: {
+            top: 0,
+            padding: 0,
+            right: 0,
+            borderRadius: 0
+          },
+          animate: {
+            top: bottom,
+            padding: 8,
+            right,
+            borderRadius: 16
+          },
+          css: css`
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, 0.3)};
             backdrop-filter: blur(15px);
@@ -2714,178 +2716,179 @@ var DraggableWindow = ({
             white-space: normal;
             position: fixed;
           `,
-        drag: true,
-        dragMomentum: false,
-        dragConstraints: {
-          left: 0,
-          right: width - 20 - width / 6,
-          bottom: innerHeight
-        },
-        dragElastic: 0.5,
-        children: jsxs("div", {
-          style: { display: "flex" },
-          children: [
-            jsxs("div", {
-              style: {
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-              },
-              children: [
-                jsx(m.div, {
-                  css: css`
+          drag: true,
+          dragMomentum: false,
+          dragConstraints: {
+            left: 0,
+            right: width - 20 - width / 6,
+            bottom: innerHeight
+          },
+          dragElastic: 0.5,
+          children: jsxs("div", {
+            style: { display: "flex" },
+            children: [
+              jsxs("div", {
+                style: {
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center"
+                },
+                children: [
+                  jsx(m.div, {
+                    css: css`
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`,
-                  initial: { height: "0px", width: "0", opacity: 0 },
-                  animate: {
-                    height: "42px",
-                    width: "100%",
-                    opacity: 1
-                  },
-                  children: jsx(ToggleButtonGroup, {
-                    value: scaleRange,
-                    size: "small",
-                    exclusive: true,
-                    onChange: (_e, newScale) => {
-                      newScale && changeScaleRange(newScale);
+                    initial: { height: "0px", width: "0", opacity: 0 },
+                    animate: {
+                      height: "42px",
+                      width: "100%",
+                      opacity: 1
                     },
-                    children: sizes.map((size, ind) => jsx(ToggleButton, {
-                      value: size,
-                      children: jsxs("span", {
-                        css: css`
+                    children: jsx(ToggleButtonGroup, {
+                      value: scaleRange,
+                      size: "small",
+                      exclusive: true,
+                      onChange: (_e, newScale) => {
+                        newScale && changeScaleRange(newScale);
+                      },
+                      children: sizes.map((size, ind) => jsx(ToggleButton, {
+                        value: size,
+                        children: jsxs("span", {
+                          css: css`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
-                        children: [
-                          size,
-                          "%"
-                        ]
-                      })
-                    }, ind))
-                  })
-                }),
-                jsx(m.div, {
-                  initial: {
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                    borderRadius: 0
-                  },
-                  animate: {
-                    width: width * scale / devicePixelRatio,
-                    height: height * scale / devicePixelRatio,
-                    borderRadius: 8
-                  },
-                  css: css`
+                          children: [
+                            size,
+                            "%"
+                          ]
+                        })
+                      }, ind))
+                    })
+                  }),
+                  jsx(m.div, {
+                    initial: {
+                      width: window.innerWidth,
+                      height: window.innerHeight,
+                      borderRadius: 0
+                    },
+                    animate: {
+                      width: width * scale / devicePixelRatio,
+                      height: height * scale / devicePixelRatio,
+                      borderRadius: 8
+                    },
+                    css: css`
                     display: block;                    
                     overflow-x: hidden;
                     overflow-y: hidden;
 
             `,
-                  children: jsx(m.div, {
-                    initial: {
-                      width: window.innerWidth,
-                      height: window.innerHeight,
-                      backgroundColor: rgba(r, g, b, 1),
-                      scale: 1
-                    },
-                    animate: {
-                      backgroundColor: rgba(r, g, b, 0.7),
-                      transformOrigin: "0px 0px",
-                      width: width / devicePixelRatio,
-                      height: height / devicePixelRatio,
-                      scale: scaleRange / 100
-                    },
-                    "data-test-id": "z-body",
-                    css: css`
+                    children: jsx(m.div, {
+                      initial: {
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                        backgroundColor: rgba(r, g, b, 1),
+                        scale: 1
+                      },
+                      animate: {
+                        backgroundColor: rgba(r, g, b, 0.7),
+                        transformOrigin: "0px 0px",
+                        width: width / devicePixelRatio,
+                        height: height / devicePixelRatio,
+                        scale: scaleRange / 100
+                      },
+                      "data-test-id": "z-body",
+                      css: css`
                   overflow: overlay;
                   overflow-y: hidden;
                 
               `,
-                    children
-                  })
-                }),
-                jsx(m.div, {
-                  css: css`
+                      children
+                    })
+                  }),
+                  jsx(m.div, {
+                    css: css`
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`,
-                  initial: { height: "0", width: "0", opacity: 0 },
-                  animate: {
-                    height: "42px",
-                    width: "100%",
-                    opacity: 1
-                  },
-                  children: jsx(ToggleButtonGroup, {
-                    value: width,
-                    size: "small",
-                    exclusive: true,
-                    onChange: (_e, newSize) => {
-                      if (newSize) {
-                        setHeight(
-                          breakPointHeights[breakPoints.indexOf(newSize)]
-                        );
-                        setWidth(newSize);
-                      }
+                    initial: { height: "0", width: "0", opacity: 0 },
+                    animate: {
+                      height: "42px",
+                      width: "100%",
+                      opacity: 1
                     },
-                    children: breakPoints.map((size, ind) => jsx(ToggleButton, {
-                      value: size,
-                      children: size === 680 ? jsx("span", {
-                        css: css`
+                    children: jsx(ToggleButtonGroup, {
+                      value: width,
+                      size: "small",
+                      exclusive: true,
+                      onChange: (_e, newSize) => {
+                        if (newSize) {
+                          setHeight(
+                            breakPointHeights[breakPoints.indexOf(newSize)]
+                          );
+                          setWidth(newSize);
+                        }
+                      },
+                      children: breakPoints.map((size, ind) => jsx(ToggleButton, {
+                        value: size,
+                        children: size === 680 ? jsx("span", {
+                          css: css`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                        children: jsx(Phone, {})
-                      }) : size === 768 ? jsx("span", {
-                        css: css`
+                          children: jsx(Phone, {})
+                        }) : size === 768 ? jsx("span", {
+                          css: css`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
-                        children: jsx(Tablet, {})
-                      }) : jsx("span", {
-                        css: css`
+                          children: jsx(Tablet, {})
+                        }) : jsx("span", {
+                          css: css`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
-                        children: jsx(Tv, {})
-                      })
-                    }, ind))
+                          children: jsx(Tv, {})
+                        })
+                      }, ind))
+                    })
                   })
-                })
-              ]
-            }),
-            jsx(m.div, {
-              initial: { height: 0, width: 0, opacity: 0 },
-              animate: { height: "100%", width: "88px", opacity: 1 },
-              children: jsxs("div", {
-                css: css`
+                ]
+              }),
+              jsx(m.div, {
+                initial: { height: 0, width: 0, opacity: 0 },
+                animate: { height: "100%", width: "88px", opacity: 1 },
+                children: jsxs("div", {
+                  css: css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
               align-items: center;          
               flex-direction: column;
               `,
-                children: [
-                  jsx(Fab, {
-                    onClick: () => {
-                      var _a2;
-                      (_a2 = document.querySelector("#root")) == null ? void 0 : _a2.requestFullscreen();
-                    },
-                    children: jsx("span", {
-                      css: css`
+                  children: [
+                    jsx(Fab, {
+                      onClick: () => {
+                        var _a2;
+                        (_a2 = document.querySelector("#root")) == null ? void 0 : _a2.requestFullscreen();
+                      },
+                      children: jsx("span", {
+                        css: css`
                 font-size: 20pt;
               `,
-                      children: jsx(MdFullscreen, {}, "fs")
-                    })
-                  }, "fullscreen"),
-                  jsx(QRButton, {
-                    url: location.origin + `/live/${room}/public`
-                  }),
-                  false,
-                  jsx(Fab, {
-                    onClick: () => open(`/live/${room}/public`),
-                    children: jsx(Share, {})
-                  }, "Share")
-                ]
+                        children: jsx(MdFullscreen, {}, "fs")
+                      })
+                    }, "fullscreen"),
+                    jsx(QRButton, {
+                      url: location.origin + `/live/${room}/public`
+                    }),
+                    false,
+                    jsx(Fab, {
+                      onClick: () => open(`/live/${room}/public`),
+                      children: jsx(Share, {})
+                    }, "Share")
+                  ]
+                })
               })
-            })
-          ]
+            ]
+          })
         })
       })
     })

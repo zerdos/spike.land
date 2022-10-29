@@ -28,7 +28,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-FAXEGHVO.mjs";
+} from "./chunk-chunk-FDCPUJB6.mjs";
 import {
   CacheProvider,
   Global,
@@ -23352,7 +23352,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 init_emotionJsxRuntime();
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-RB2EXWJP.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-IMAFCZXJ.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -23474,7 +23474,6 @@ var dynamicImport = (src) => window.importShim ? window.importShim(src) : import
 Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
 function AutoUpdateApp({ codeSpace, transpiled }) {
-  var _a, _b;
   const [{ md5Hash, resetErrorBoundary, App }, setMdHash] = useState({
     App: lazy(async () => {
       await wait(1e3);
@@ -23525,7 +23524,6 @@ function AutoUpdateApp({ codeSpace, transpiled }) {
     }),
     children: jsx(Suspense, {
       fallback: jsx("div", {
-        css: css` height: 100%; ${(_b = (_a = mST()) == null ? void 0 : _a.css) == null ? void 0 : _b.split("body").join(`#${codeSpace}-${md5Hash}`)}`,
         dangerouslySetInnerHTML: { __html: mST().html }
       }),
       children: jsx(App, {
@@ -23620,7 +23618,7 @@ async function appFactory(transpiled = "", codeSpace, dry) {
   }
   if (!started && codeSpace) {
     started = true;
-    await renderPreviewWindow({ codeSpace, dry });
+    await renderPreviewWindow({ codeSpace, dry: !!dry });
   }
   return apps2[hash];
 }
@@ -23759,7 +23757,7 @@ async function runner({ code, counter, codeSpace }) {
       target: "ES2017"
     });
     const { html, css: css2 } = await render(transpiled.code, codeSpace);
-    if (!html) {
+    if (!html || !css2) {
       return;
     }
     debouncedSync(__spreadProps(__spreadValues({}, mST()), {
@@ -23942,7 +23940,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-5HOHB6HG.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-FYAUDDE3.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

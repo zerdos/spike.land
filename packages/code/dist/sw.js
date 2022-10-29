@@ -194,7 +194,7 @@
         return fetch(request);
       const resp = await fetch(request);
       if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
-        await cache.put(cacheKey, resp.clone());
+        await cache.put(cacheKey, resp);
       }
       return resp;
     })());

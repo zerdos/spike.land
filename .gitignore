@@ -1,5 +1,4 @@
-.yarn/cache
-# ignore haters
+.yarn/cache 
 **.yarn/cache
 haters/
 .env
@@ -116,3 +115,4 @@ importmap.json5
 .yarn/install-state.gz
 .DS_Store
 **/.DS_Store
+packages/code/js/.DS_Store
