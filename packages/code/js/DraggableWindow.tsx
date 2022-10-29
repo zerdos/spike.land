@@ -271,6 +271,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     css={css`
                   overflow: overlay;
                   overflow-y: hidden;
+                  ${mST().css.split("body").join("#root-" + room)}
                 
               `}
                   >

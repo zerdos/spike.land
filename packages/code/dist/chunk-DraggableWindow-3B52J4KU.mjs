@@ -9,9 +9,11 @@ import {
 } from "./chunk-chunk-V7IH4FN4.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-7LAJCXRY.mjs";
-import "./chunk-chunk-NTB6FD7F.mjs";
-import "./chunk-chunk-F5TEE6RK.mjs";
+} from "./chunk-chunk-FXJEXG5Y.mjs";
+import "./chunk-chunk-25PLFEXI.mjs";
+import {
+  mST
+} from "./chunk-chunk-F5TEE6RK.mjs";
 import {
   Suspense,
   createElement,
@@ -2801,6 +2803,7 @@ var DraggableWindow = ({
                       css: css`
                   overflow: overlay;
                   overflow-y: hidden;
+                  ${mST().css.split("body").join("#root-" + room)}
                 
               `,
                       children
