@@ -119,11 +119,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r},${g},${b},${a})`;
 
   const [bg, setBG] = useState(bgColor);
-
+  const [css, setCSS] = useState(mST().css);
   const [r, g, b, _a, ..._rest] = bg;
 
   useEffect(() => {
     const intervalHandler = setInterval(() => {
+      setCSS(mST().css);
       const bgColor = window.getComputedStyle(
         document.body,
         null,
