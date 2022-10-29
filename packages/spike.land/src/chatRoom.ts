@@ -293,7 +293,7 @@ export class Code {
             status: 307,
             headers: {
               "Access-Control-Allow-Origin": "*",
-              "Location": `${url.origin}/live/${this.codeSpace}/${mST().i}`,
+              "Location": `${url.origin}/live/${this.codeSpace}/index.js/${mST().i}`,
               "Cache-Control": "no-cache",
               "Content-Type": "application/javascript; charset=UTF-8",
             },
