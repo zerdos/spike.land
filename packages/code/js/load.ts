@@ -38,7 +38,7 @@ if (location.pathname.endsWith("/hydrated")) {
     setTimeout(() => {
       const dry = true;
       start(dry);
-      import("./prettierJs").then((x) => x.prettierJs("dry"));
+      import("./prettierEsm").then((x) => x.prettierJs("dry"));
       import("./esbuildEsm").then((x) => x.transform("dry"));
     }, 1000)
   );

@@ -246,12 +246,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   // Opacity: isFullScreen ? 1 : 0.7,
                 }}
                 css={css`
-                    display: block;
-                    
+                    display: block;                    
                     overflow-x: hidden;
                     overflow-y: hidden;
-                    
-                   ${mST()?.css?.split("body").join("& > div")}
+
             `}
               >
                 <m.div

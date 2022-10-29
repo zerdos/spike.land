@@ -11,7 +11,7 @@ import { css, Global } from "@emotion/react";
 
 import { md5, mST } from "./session";
 
-import { wait } from "wait.mjs";
+import { wait } from "wait.js";
 import { Editor } from "./Editor";
 
 const DraggableWindowLazy = lazy(() => wait(1000).then(() => import("./DraggableWindow")));

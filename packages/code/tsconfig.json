@@ -75,6 +75,6 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "baseUrl": "js"
   },
-  "include": ["js", "js/importmap.json", "package.json", "esbuild-dev.mjs"],
+  "include": ["js", "js/importmap.json", "package.json", "esbuild-dev.mjs", "js/..prettierJs.ts"],
   "exclude": [".yarn", "dist"]
 }
