@@ -79,10 +79,11 @@ console.log(`
 ----------------------b1--------------------------
 -------------------------------------------------`);
 
-const build = (entryPoints, extraExternal) =>
+const build = (entryPoints, extraExternal, watch = false) =>
   esbuild.build({
     ...buildOptions,
     entryPoints,
+    watch,
     external: [...buildOptions.external, ...extraExternal],
     outExtension: { ".js": ".mjs" },
     bundle: true,
@@ -272,19 +273,23 @@ const build = (entryPoints, extraExternal) =>
     format: "iife",
     outdir: "dist",
   });
-  await build([
-    "js/session.ts",
-    // "js/prettierWorker.mjs",
-    // "js/load.ts",
-    "js/reactMod.ts",
-    "js/Editor.tsx",
-    "js/motion.ts",
+  await build(
+    [
+      "js/session.ts",
+      // "js/prettierWorker.mjs",
+      // "js/load.ts",
+      "js/reactMod.ts",
+      "js/Editor.tsx",
+      "js/motion.ts",
 
-    "js/ws.ts",
-    "js/emotion.ts",
-    "js/emotionJsxRuntime.ts",
-    // "js/jsx.mjs",
-  ], []);
+      "js/ws.ts",
+      "js/emotion.ts",
+      "js/emotionJsxRuntime.ts",
+      // "js/jsx.mjs",
+    ],
+    [],
+    false,
+  );
   console.log("done");
 
   // const {host, port} = serveRES;

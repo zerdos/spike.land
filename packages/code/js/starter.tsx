@@ -94,12 +94,7 @@ export function AutoUpdateApp(
       )}
     >
       <Suspense
-        fallback={
-          <div
-            css={css` height: 100%; ${mST()?.css?.split("body").join(`#${codeSpace}-${md5Hash}`)}`}
-            dangerouslySetInnerHTML={{ __html: mST().html }}
-          />
-        }
+        fallback={<div dangerouslySetInnerHTML={{ __html: mST().html }} />}
       >
         <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
       </Suspense>
@@ -133,7 +128,6 @@ export async function appFactory(
       if (isCallable(App)) {
         eCaches[hash] = eCaches[hash] || createCache({
           key: hash,
-
           speedy: false,
         });
 
@@ -189,7 +183,7 @@ export async function appFactory(
 
   if (!started && codeSpace) {
     started = true;
-    await renderPreviewWindow({ codeSpace, dry });
+    await renderPreviewWindow({ codeSpace, dry: !!dry });
   }
   // If ( mST().transpiled !== trp) {
   //   if (hashC===hashCode()){
