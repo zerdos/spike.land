@@ -54,21 +54,21 @@ if (location.pathname.endsWith("/hydrated")) {
       ).then(unmount).then(() =>
         unmount = () => {
           root.unmount();
-          rootDiv.remove();
         }
       );
     }
   };
   importShim(
     `${location.origin}/live/${codeSpace}/index.js/${i}`,
-  ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default())).then(() => {
-    setTimeout(() => {
-      const dry = true;
-      start(dry);
-      import("./prettierEsm").then((x) => x.prettierJs("dry"));
-      import("./esbuildEsm").then((x) => x.transform("dry"));
-    }, 1000);
-  });
+  ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default()));
+  // .then(() => {
+  //   setTimeout(() => {
+  //     const dry = true;
+  //     start(dry);
+  //     import("./prettierEsm").then((x) => x.prettierJs("dry"));
+  //     import("./esbuildEsm").then((x) => x.transform("dry"));
+  //   }, 1000);
+  // });
 } else {
   const dry = false;
   start(dry);
