@@ -9,8 +9,8 @@ import {
 } from "./chunk-chunk-V7IH4FN4.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-UM33J3VG.mjs";
-import "./chunk-chunk-R5LG6BXM.mjs";
+} from "./chunk-chunk-XN6LLH3D.mjs";
+import "./chunk-chunk-2SJARRPY.mjs";
 import {
   mST
 } from "./chunk-chunk-F5TEE6RK.mjs";
@@ -2671,7 +2671,7 @@ var DraggableWindow = ({
   ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
   const rgba = (r2, g2, b2, a) => `rgba(${r2},${g2},${b2},${a})`;
   const [bg, setBG] = useState(bgColor);
-  const [css3, setCSS] = useState(mST().css);
+  const [mstCss, setCSS] = useState(mST().css);
   const [r, g, b, _a, ..._rest] = bg;
   useEffect(() => {
     const intervalHandler = setInterval(() => {
@@ -2711,7 +2711,7 @@ var DraggableWindow = ({
             right,
             borderRadius: 16
           },
-          css: css3`
+          css: css`
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, 0.3)};
             backdrop-filter: blur(15px);
@@ -2739,7 +2739,7 @@ var DraggableWindow = ({
                 },
                 children: [
                   jsx(m.div, {
-                    css: css3`
+                    css: css`
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`,
@@ -2759,7 +2759,7 @@ var DraggableWindow = ({
                       children: sizes.map((size, ind) => jsx(ToggleButton, {
                         value: size,
                         children: jsxs("span", {
-                          css: css3`
+                          css: css`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
                           children: [
@@ -2781,7 +2781,7 @@ var DraggableWindow = ({
                       height: height * scale / devicePixelRatio,
                       borderRadius: 8
                     },
-                    css: css3`
+                    css: css`
                     display: block;                    
                     overflow-x: hidden;
                     overflow-y: hidden;
@@ -2802,17 +2802,17 @@ var DraggableWindow = ({
                         scale: scaleRange / 100
                       },
                       "data-test-id": "z-body",
-                      css: css3`
+                      css: css`
                   overflow: overlay;
                   overflow-y: hidden;
-                  ${mST().css.split("body").join("#root-" + room)}
+                  ${mstCss.split("body").join("#root-" + room)}
                 
               `,
                       children
                     })
                   }),
                   jsx(m.div, {
-                    css: css3`
+                    css: css`
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`,
@@ -2837,17 +2837,17 @@ var DraggableWindow = ({
                       children: breakPoints.map((size, ind) => jsx(ToggleButton, {
                         value: size,
                         children: size === 680 ? jsx("span", {
-                          css: css3`
+                          css: css`
                         color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
                           children: jsx(Phone, {})
                         }) : size === 768 ? jsx("span", {
-                          css: css3`
+                          css: css`
                         color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `,
                           children: jsx(Tablet, {})
                         }) : jsx("span", {
-                          css: css3`
+                          css: css`
                         color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `,
                           children: jsx(Tv, {})
@@ -2861,7 +2861,7 @@ var DraggableWindow = ({
                 initial: { height: 0, width: 0, opacity: 0 },
                 animate: { height: "100%", width: "88px", opacity: 1 },
                 children: jsxs("div", {
-                  css: css3`
+                  css: css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
@@ -2875,7 +2875,7 @@ var DraggableWindow = ({
                         (_a2 = document.querySelector("#root")) == null ? void 0 : _a2.requestFullscreen();
                       },
                       children: jsx("span", {
-                        css: css3`
+                        css: css`
                 font-size: 20pt;
               `,
                         children: jsx(MdFullscreen, {}, "fs")

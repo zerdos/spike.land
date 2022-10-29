@@ -119,7 +119,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r},${g},${b},${a})`;
 
   const [bg, setBG] = useState(bgColor);
-  const [css, setCSS] = useState(mST().css);
+  const [mstCss, setCSS] = useState(mST().css);
   const [r, g, b, _a, ..._rest] = bg;
 
   useEffect(() => {
@@ -272,7 +272,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     css={css`
                   overflow: overlay;
                   overflow-y: hidden;
-                  ${mST().css.split("body").join("#root-" + room)}
+                  ${mstCss.split("body").join("#root-" + room)}
                 
               `}
                   >
