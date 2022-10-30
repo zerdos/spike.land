@@ -88,7 +88,8 @@ const requireUmd = (pkg: string) => {
     const y = x.split("(");
     y.shift();
 
-    return new Function("return " + y.join("("))();
+    const ret = new Function("return " + y.join("("))();
+    return ret;
   }).then(x => mapTable[pkg] = x).then(() =>
     globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
   ).then(() => {
