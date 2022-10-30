@@ -87,9 +87,12 @@ const requireUmd = (pkg: string) => {
   fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
     const y = x.split("(");
     y.shift();
-    y.unshift("return ");
-    const src = y.join("(");
+    y.shift();
 
+    y.unshift("return ");
+    const k = y.join("(").split(")");
+    k.pop();
+    const src = k.join(")");
     const ret = new Function(src)();
     return ret;
   }).then(x => mapTable[pkg] = x).then(() =>
