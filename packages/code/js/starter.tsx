@@ -15,10 +15,7 @@ import { hashCode, mST } from "./session";
 // import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
-import { umdTransform } from "./runner";
 import { wait } from "./wait";
-
-globalThis.IIFE = globalThis.IIFE = {};
 
 globalThis.md5 = md5;
 
@@ -59,16 +56,16 @@ export const { apps, eCaches } = (globalThis as unknown as {
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 const starterI = 1 * document.getElementById("root")?.getAttribute("data-i");
 
-async function importIt(url) {
+async function importIt(url: string) {
+  let res;
   try {
-    const res = globalThis.require(url);
-    return res;
+    while (!(res = globalThis.require(url))) {
+      await wait(500);
+    }
   } catch {
-    console.log("error loading", url);
-
-    await wait(500);
-    return importIt(url);
+    return importIt(url) as unknown;
   }
+  return res as unknown;
 }
 
 export function AutoUpdateApp(
@@ -81,7 +78,7 @@ export function AutoUpdateApp(
     FutureApp: lazy(async () => {
       const bigI = (mST().i > i ? mST().i : i) + 1;
       const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${bigI}`);
-      setI(i => (bigI > i ? bigI : i) + 1);
+      setI(i => (bigI > x ? bigI : i) + 1);
 
       return {
         default: ret.default,
@@ -219,7 +216,7 @@ export async function appFactory(
       let App: FC;
       try {
         const fn = new Function("return " + trp)().default as unknown as FC;
-        App = fn.default;
+        App = fn;
       } catch {
         wait(300);
         App = new Function("return " + trp)().default as unknown as FC;
