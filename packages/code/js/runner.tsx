@@ -19,7 +19,7 @@ Object.assign(globalThis, {
     toUmd(mST().code, "app");
   },
 });
-
+globalThis.umdTransform = umdTransform;
 export const umdTransform = async (code: string) => {
   const transpiled = await transform(code, {
     loader: "tsx",

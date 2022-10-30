@@ -39503,7 +39503,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     if (mapTable[pkg])
       return mapTable[pkg];
     globalThis.requireLoading.push[pkg];
-    importShim(pkg).then((x) => mapTable[pkg] = x).then(
+    fetch(importShim.resolve(pkg)).then((resp) => resp.text()).then((code) => globalThis.umdTransform(code)).then(
+      (x) => new Function(x + "return " + x.slice(2, 10))()
+    ).then((x) => mapTable[pkg] = x).then(
       () => globalThis.requireLoading = globalThis.requireLoading.filter((x) => x !== pkg)
     ).then(() => {
       if (mapTable[pkg])

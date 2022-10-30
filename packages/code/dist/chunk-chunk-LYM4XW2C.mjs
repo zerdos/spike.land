@@ -20916,7 +20916,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-2R76C46N.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-KKPI6GDU.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -21438,6 +21438,7 @@ Object.assign(globalThis, {
     toUmd(mST().code, "app");
   }
 });
+globalThis.umdTransform = umdTransform;
 var umdTransform = async (code) => {
   const transpiled = await initAndTransform(code, {
     loader: "tsx",
@@ -21653,7 +21654,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-YGF5EZHR.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-Y6TCEXIG.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

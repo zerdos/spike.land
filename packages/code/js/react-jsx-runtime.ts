@@ -77,14 +77,16 @@ const mapTable = {
   "react/jsx-runtime": ReactJSXRuntime,
   "react-dom/server": ReactDOMServer,
   "framer-motion": FramerMotion,
-};
+} as { [key: string]: unknown };
 
-globalThis.requireLoading = [];
+globalThis.requireLoading = [] as string[];
 
-const requireUmd = (pkg) => {
+const requireUmd = (pkg: string) => {
   if (mapTable[pkg]) return mapTable[pkg];
   globalThis.requireLoading.push[pkg];
-  importShim(pkg).then(x => mapTable[pkg] = x).then(() =>
+  fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x =>
+    new Function(x + "return " + x.slice(2, 10))()
+  ).then(x => mapTable[pkg] = x).then(() =>
     globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
   ).then(() => {
     if (mapTable[pkg]) return mapTable[pkg];
