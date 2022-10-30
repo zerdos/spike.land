@@ -39,7 +39,6 @@ export const umdTransform = async (code: string) => {
     },
     target: "es2021",
   } as unknown as TransformOptions);
-  globalThis.umdTransform = umdTransform;
 
   globalThis.IIFE = globalThis.IIFE = {};
 
@@ -47,6 +46,8 @@ export const umdTransform = async (code: string) => {
 
   return transpiled.code;
 };
+
+globalThis.umdTransform = globalThis.umdTransform = umdTransform;
 
 export async function runner({ code, counter, codeSpace }: {
   code: string;
