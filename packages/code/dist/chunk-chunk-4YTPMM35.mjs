@@ -20916,7 +20916,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-H6ODSJA5.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-T44NWIAD.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -21033,6 +21033,7 @@ var renderPreviewWindow = ({ codeSpace, dry }) => {
 // js/starter.tsx
 var import_is_callable = __toESM(require_is_callable(), 1);
 globalThis.IIFE = globalThis.IIFE = {};
+globalThis.md5 = md5;
 var dynamicImport = (src) => fetch(src).then(async (resp) => {
   if (!resp.ok)
     throw new Error("Error while import ${src}");
@@ -21646,7 +21647,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-RXXDDIXN.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-RSF66CER.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

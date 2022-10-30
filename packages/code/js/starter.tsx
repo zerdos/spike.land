@@ -20,6 +20,8 @@ import { wait } from "./wait";
 
 globalThis.IIFE = globalThis.IIFE = {};
 
+globalThis.md5 = md5;
+
 const dynamicImport = (src: string) =>
   fetch(src).then(async (resp) => {
     if (!resp.ok) throw new Error("Error while import ${src}");
