@@ -39510,6 +39510,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       y.unshift("return ");
       const k = y.join("(").split(")");
       k.pop();
+      k.pop();
       const src = k.join(")");
       const ret = new Function(src)();
       return ret;
