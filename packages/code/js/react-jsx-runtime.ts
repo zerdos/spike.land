@@ -85,7 +85,7 @@ const requireUmd = (pkg: string) => {
   if (mapTable[pkg]) return mapTable[pkg];
   globalThis.requireLoading.push[pkg];
   fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x =>
-    new Function(x + "return " + x.slice(2, 10))()
+    new Function("return " + x)()
   ).then(x => mapTable[pkg] = x).then(() =>
     globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
   ).then(() => {

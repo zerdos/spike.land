@@ -218,10 +218,11 @@ export async function appFactory(
       console.log(`i: ${mstI}: `);
       let App: FC;
       try {
-        App = new Function(trp + "return " + globalThis.IIFE[hash])().default as unknown as FC;
+        const fn = new Function("return " + trp)().default as unknown as FC;
+        App = fn.default;
       } catch {
         wait(300);
-        App = new Function(trp + "return " + globalThis.IIFE[hash])().default as unknown as FC;
+        App = new Function("return " + trp)().default as unknown as FC;
       }
       console.log({ App });
 
