@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-J3DS3D4M.mjs";
+} from "./chunk-chunk-FSVBVERK.mjs";
 import {
   applyPatch,
   hashCode,
@@ -3523,9 +3523,14 @@ async function join() {
   rejoined = false;
   wsConnection.addEventListener("open", () => {
     ws = wsConnection;
+    wsConnection.onclose = () => rejoin();
     const mess = (data) => {
       try {
-        ws && ws?.send && ws?.send(data);
+        if (ws?.readyState === ws?.OPEN)
+          ws && ws?.send && ws?.send(data);
+        else {
+          rejoin();
+        }
       } catch {
         ws = null;
         rejoined = false;

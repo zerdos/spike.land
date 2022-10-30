@@ -9,6 +9,7 @@ import { createRoot } from "react-dom/client";
 // import createEmotionServer from "@emotion/server/dist/emotion-server.browser.esm.js";
 import type { EmotionCache } from "@emotion/cache";
 import { useEffect, useRef } from "react";
+import { wait } from "./wait";
 
 const mod = {
   md5Hash: "",
@@ -19,7 +20,10 @@ const mod = {
     if (mod.md5Hash !== md5Hash) return "";
 
     // if (!mod.res?.innerHTML) await waitForFlush();
+
     if (!mod.res?.innerHTML) await waitForAnimation();
+    mod.wait *= 2;
+    await wait(mod.wait);
 
     if (!mod.res?.innerHTML.includes(md5Hash)) {
       await waitForAnimation();

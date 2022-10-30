@@ -36914,6 +36914,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     "react-dom/server": ReactDOMServer,
     "framer-motion": FramerMotion
   };
-  globalThis.require = (pkg) => mapTable[pkg];
+  var loading = [];
+  globalThis.require = (pkg) => {
+    if (mapTable[pkg])
+      return;
+    loading.add[pkg];
+    window.importShim(pkg).then((x) => mapTable[pkg] = x).then(() => loading = loading.filter((x) => x !== pkg)).then(() => {
+      if (mapTable[pkg])
+        return;
+      console.error("Error - require: " + pkg + " not found");
+    });
+  };
   var { hydrateRoot, createRoot } = ReactDOMClient;
 })();

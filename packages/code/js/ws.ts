@@ -348,9 +348,13 @@ export async function join() {
   wsConnection.addEventListener("open", () => {
     // console.//log("NEW WS CONNECTION");
     ws = wsConnection;
+    wsConnection.onclose = () => rejoin();
     const mess = (data: string) => {
       try {
-        ws && ws?.send && ws?.send(data);
+        if (ws?.readyState === ws?.OPEN) ws && ws?.send && ws?.send(data);
+        else {
+          rejoin();
+        }
       } catch {
         ws = null;
         rejoined = false;
