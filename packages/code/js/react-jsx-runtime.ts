@@ -84,9 +84,12 @@ globalThis.requireLoading = [] as string[];
 const requireUmd = (pkg: string) => {
   if (mapTable[pkg]) return mapTable[pkg];
   globalThis.requireLoading.push[pkg];
-  fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x =>
-    new Function("return " + x)()
-  ).then(x => mapTable[pkg] = x).then(() =>
+  fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
+    const y = x.split("(");
+    y.shift();
+
+    return new Function("return " + y.join("("))();
+  }).then(x => mapTable[pkg] = x).then(() =>
     globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
   ).then(() => {
     if (mapTable[pkg]) return mapTable[pkg];
