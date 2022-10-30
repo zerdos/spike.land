@@ -118,11 +118,11 @@ export function AutoUpdateApp(
               />
             }
           >
-            <App />
+            <FutureApp />
           </Suspense>
         }
       >
-        <FutureApp />
+        <App />
       </Suspense>
     </ErrorBoundary>
   );
