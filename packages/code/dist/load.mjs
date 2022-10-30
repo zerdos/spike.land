@@ -2580,7 +2580,42 @@ var importmap_default = {
 };
 
 // js/load.ts
-var { hydrateRoot, createRoot } = globalThis.ReactDOMClient;
+var {
+  React,
+  ReactDOM,
+  ReactDOMClient,
+  ReactJSXRuntime,
+  emotionReact,
+  emotionReactJsxRuntime,
+  ReactDOMServer,
+  createEmotionCache,
+  styled,
+  FramerMotion
+} = globalThis;
+var mapTable = {
+  "react": React,
+  "react-dom": ReactDOM,
+  "react-dom/client": ReactDOMClient,
+  "@emotion/react": emotionReact,
+  "@emotion/styled": styled,
+  "@emotion/cache": createEmotionCache,
+  "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
+  "react/jsx-runtime": ReactJSXRuntime,
+  "react-dom/server": ReactDOMServer,
+  "framer-motion": FramerMotion
+};
+var loading = [];
+globalThis.require = (pkg) => {
+  if (mapTable[pkg])
+    return;
+  loading.add[pkg];
+  window.importShim(pkg).then((x) => mapTable[pkg] = x).then(() => loading = loading.filter((x) => x !== pkg)).then(() => {
+    if (mapTable[pkg])
+      return;
+    console.error("Error - require: " + pkg + " not found");
+  });
+};
+var { hydrateRoot, createRoot } = ReactDOMClient;
 var imp = {};
 Object.keys(importmap_default.imports).map((k) => imp[k] = location.origin + importmap_default.imports[k]);
 importShim.addImportMap({ imports: imp });

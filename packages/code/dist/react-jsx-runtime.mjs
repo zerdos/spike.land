@@ -2296,9 +2296,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React2 = require_react();
+          var React = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3819,7 +3819,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React2.Children.forEach(props.children, function(child) {
+                  React.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -11980,7 +11980,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React2.Component().refs;
+          var emptyRefsObject = new React.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -22439,7 +22439,7 @@
               unmarkContainerAsRoot(container);
             }
           };
-          function createRoot2(container, options2) {
+          function createRoot(container, options2) {
             if (!isValidContainer(container)) {
               throw new Error("createRoot(...): Target container is not a DOM element.");
             }
@@ -22487,7 +22487,7 @@
             }
           }
           ReactDOMHydrationRoot.prototype.unstable_scheduleHydration = scheduleHydration;
-          function hydrateRoot2(container, initialChildren, options2) {
+          function hydrateRoot(container, initialChildren, options2) {
             if (!isValidContainer(container)) {
               throw new Error("hydrateRoot(...): Target container is not a DOM element.");
             }
@@ -22798,7 +22798,7 @@
                 error('You are importing createRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
               }
             }
-            return createRoot2(container, options2);
+            return createRoot(container, options2);
           }
           function hydrateRoot$1(container, initialChildren, options2) {
             {
@@ -22806,7 +22806,7 @@
                 error('You are importing hydrateRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
               }
             }
-            return hydrateRoot2(container, initialChildren, options2);
+            return hydrateRoot(container, initialChildren, options2);
           }
           function flushSync$1(fn) {
             {
@@ -22906,7 +22906,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React2 = require_react();
+          var React = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -22932,7 +22932,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -25827,7 +25827,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var React2 = require_react();
+      var React = require_react();
       function _interopNamespace(e) {
         if (e && e.__esModule)
           return e;
@@ -25848,14 +25848,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         n["default"] = e;
         return Object.freeze(n);
       }
-      var React__namespace = _interopNamespace(React2);
+      var React__namespace = _interopNamespace(React);
       var isBrowser = typeof document !== "undefined";
       var syncFallback = function syncFallback2(create) {
         return create();
       };
       var useInsertionEffect = React__namespace["useInsertionEffect"] ? React__namespace["useInsertionEffect"] : false;
       var useInsertionEffectAlwaysWithSyncFallback = !isBrowser ? syncFallback : useInsertionEffect || syncFallback;
-      var useInsertionEffectWithLayoutFallback = useInsertionEffect || React2.useLayoutEffect;
+      var useInsertionEffectWithLayoutFallback = useInsertionEffect || React.useLayoutEffect;
       exports.useInsertionEffectAlwaysWithSyncFallback = useInsertionEffectAlwaysWithSyncFallback;
       exports.useInsertionEffectWithLayoutFallback = useInsertionEffectWithLayoutFallback;
     }
@@ -25879,7 +25879,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     "../../.yarn/__virtual__/@emotion-react-virtual-b7da756fd5/0/global/cache/@emotion-react-npm-11.10.5-98e2cdb553-9.zip/node_modules/@emotion/react/dist/emotion-element-b63ca7c6.cjs.dev.js"(exports) {
       "use strict";
       init_define_process();
-      var React2 = require_react();
+      var React = require_react();
       var createCache = require_emotion_cache_cjs();
       var _extends = require_extends();
       var weakMemoize = require_emotion_weak_memoize_cjs();
@@ -25894,7 +25894,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var weakMemoize__default = _interopDefault(weakMemoize);
       var isBrowser = typeof document !== "undefined";
       var hasOwnProperty = {}.hasOwnProperty;
-      var EmotionCacheContext = React2.createContext(
+      var EmotionCacheContext = React.createContext(
         typeof HTMLElement !== "undefined" ? createCache__default["default"]({
           key: "css"
         }) : null
@@ -25904,23 +25904,23 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       var CacheProvider = EmotionCacheContext.Provider;
       var __unsafe_useEmotionCache = function useEmotionCache() {
-        return React2.useContext(EmotionCacheContext);
+        return React.useContext(EmotionCacheContext);
       };
       exports.withEmotionCache = function withEmotionCache(func) {
-        return React2.forwardRef(function(props, ref) {
-          var cache = React2.useContext(EmotionCacheContext);
+        return React.forwardRef(function(props, ref) {
+          var cache = React.useContext(EmotionCacheContext);
           return func(props, cache, ref);
         });
       };
       if (!isBrowser) {
         exports.withEmotionCache = function withEmotionCache(func) {
           return function(props) {
-            var cache = React2.useContext(EmotionCacheContext);
+            var cache = React.useContext(EmotionCacheContext);
             if (cache === null) {
               cache = createCache__default["default"]({
                 key: "css"
               });
-              return React2.createElement(EmotionCacheContext.Provider, {
+              return React.createElement(EmotionCacheContext.Provider, {
                 value: cache
               }, func(props, cache));
             } else {
@@ -25929,12 +25929,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
         };
       }
-      var ThemeContext = React2.createContext({});
+      var ThemeContext = React.createContext({});
       if (true) {
         ThemeContext.displayName = "EmotionThemeContext";
       }
       var useTheme = function useTheme2() {
-        return React2.useContext(ThemeContext);
+        return React.useContext(ThemeContext);
       };
       var getTheme = function getTheme2(outerTheme, theme) {
         if (typeof theme === "function") {
@@ -25955,24 +25955,24 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
       });
       var ThemeProvider = function ThemeProvider2(props) {
-        var theme = React2.useContext(ThemeContext);
+        var theme = React.useContext(ThemeContext);
         if (props.theme !== theme) {
           theme = createCacheWithTheme(theme)(props.theme);
         }
-        return React2.createElement(ThemeContext.Provider, {
+        return React.createElement(ThemeContext.Provider, {
           value: theme
         }, props.children);
       };
       function withTheme(Component) {
         var componentName = Component.displayName || Component.name || "Component";
         var render = function render2(props, ref) {
-          var theme = React2.useContext(ThemeContext);
-          return React2.createElement(Component, _extends({
+          var theme = React.useContext(ThemeContext);
+          return React.createElement(Component, _extends({
             theme,
             ref
           }, props));
         };
-        var WithTheme = React2.forwardRef(render);
+        var WithTheme = React.forwardRef(render);
         WithTheme.displayName = "WithTheme(" + componentName + ")";
         return _isolatedHnrs_dist_emotionReact_isolatedHnrs["default"](WithTheme, Component);
       }
@@ -26042,7 +26042,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             serializedNames += " " + next.name;
             next = next.next;
           }
-          return React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+          return React.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
             __html: rules
           }, _ref2.nonce = cache.sheet.nonce, _ref2));
         }
@@ -26061,7 +26061,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         } else if (props.className != null) {
           className = props.className + " ";
         }
-        var serialized = serialize.serializeStyles(registeredStyles, void 0, React2.useContext(ThemeContext));
+        var serialized = serialize.serializeStyles(registeredStyles, void 0, React.useContext(ThemeContext));
         if (serialized.name.indexOf("-") === -1) {
           var labelFromStack = props[labelPropName];
           if (labelFromStack) {
@@ -26077,11 +26077,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         newProps.ref = ref;
         newProps.className = className;
-        return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
+        return React.createElement(React.Fragment, null, React.createElement(Insertion, {
           cache,
           serialized,
           isStringTag: typeof WrappedComponent === "string"
-        }), React2.createElement(WrappedComponent, newProps));
+        }), React.createElement(WrappedComponent, newProps));
       });
       if (true) {
         Emotion.displayName = "EmotionCssPropInternal";
@@ -26105,7 +26105,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var React2 = require_react();
+      var React = require_react();
       require_emotion_cache_cjs();
       var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
       require_extends();
@@ -26240,7 +26240,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var jsx = function jsx2(type, props) {
         var args = arguments;
         if (props == null || !emotionElement.hasOwnProperty.call(props, "css")) {
-          return React2.createElement.apply(void 0, args);
+          return React.createElement.apply(void 0, args);
         }
         var argsLength = args.length;
         var createElementArgArray = new Array(argsLength);
@@ -26249,7 +26249,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         for (var i = 2; i < argsLength; i++) {
           createElementArgArray[i] = args[i];
         }
-        return React2.createElement.apply(null, createElementArgArray);
+        return React.createElement.apply(null, createElementArgArray);
       };
       var warnedAboutCssPropForGlobal = false;
       var Global = emotionElement.withEmotionCache(function(props, cache) {
@@ -26258,7 +26258,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           warnedAboutCssPropForGlobal = true;
         }
         var styles = props.styles;
-        var serialized = serialize.serializeStyles([styles], void 0, React2.useContext(emotionElement.ThemeContext));
+        var serialized = serialize.serializeStyles([styles], void 0, React.useContext(emotionElement.ThemeContext));
         if (!emotionElement.isBrowser) {
           var _ref;
           var serializedNames = serialized.name;
@@ -26277,11 +26277,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           if (shouldCache) {
             return null;
           }
-          return React2.createElement("style", (_ref = {}, _ref["data-emotion"] = cache.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
+          return React.createElement("style", (_ref = {}, _ref["data-emotion"] = cache.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
             __html: rules
           }, _ref.nonce = cache.sheet.nonce, _ref));
         }
-        var sheetRef = React2.useRef();
+        var sheetRef = React.useRef();
         useInsertionEffectWithFallbacks.useInsertionEffectWithLayoutFallback(function() {
           var key = cache.key + "-global";
           var sheet = new cache.sheet.constructor({
@@ -26409,7 +26409,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
         if (!emotionElement.isBrowser && rules.length !== 0) {
           var _ref2;
-          return React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedArr.map(function(serialized) {
+          return React.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedArr.map(function(serialized) {
             return serialized.name;
           }).join(" "), _ref2.dangerouslySetInnerHTML = {
             __html: rules
@@ -26444,11 +26444,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         var content = {
           css: css2,
           cx,
-          theme: React2.useContext(emotionElement.ThemeContext)
+          theme: React.useContext(emotionElement.ThemeContext)
         };
         var ele = props.children(content);
         hasRendered = true;
-        return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
+        return React.createElement(React.Fragment, null, React.createElement(Insertion, {
           cache,
           serializedArr
         }), ele);
@@ -26522,19 +26522,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       require_emotion_utils_cjs();
       require_emotion_serialize_cjs();
       require_emotion_use_insertion_effect_with_fallbacks_cjs();
-      var ReactJSXRuntime2 = require_jsx_runtime();
-      var Fragment = ReactJSXRuntime2.Fragment;
+      var ReactJSXRuntime = require_jsx_runtime();
+      var Fragment = ReactJSXRuntime.Fragment;
       function jsx(type, props, key) {
         if (!emotionElement.hasOwnProperty.call(props, "css")) {
-          return ReactJSXRuntime2.jsx(type, props, key);
+          return ReactJSXRuntime.jsx(type, props, key);
         }
-        return ReactJSXRuntime2.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+        return ReactJSXRuntime.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
       }
       function jsxs(type, props, key) {
         if (!emotionElement.hasOwnProperty.call(props, "css")) {
-          return ReactJSXRuntime2.jsxs(type, props, key);
+          return ReactJSXRuntime.jsxs(type, props, key);
         }
-        return ReactJSXRuntime2.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+        return ReactJSXRuntime.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
       }
       exports.Fragment = Fragment;
       exports.jsx = jsx;
@@ -26596,7 +26596,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
       var _extends = require_extends();
-      var React2 = require_react();
+      var React = require_react();
       var isPropValid = require_emotion_is_prop_valid_cjs();
       var react = require_emotion_react_cjs();
       var utils = require_emotion_utils_cjs();
@@ -26645,7 +26645,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             serializedNames += " " + next.name;
             next = next.next;
           }
-          return React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+          return React.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
             __html: rules
           }, _ref2.nonce = cache.sheet.nonce, _ref2));
         }
@@ -26700,7 +26700,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               for (var key in props) {
                 mergedProps[key] = props[key];
               }
-              mergedProps.theme = React2.useContext(react.ThemeContext);
+              mergedProps.theme = React.useContext(react.ThemeContext);
             }
             if (typeof props.className === "string") {
               className = utils.getRegisteredStyles(cache.registered, classInterpolations, props.className);
@@ -26723,11 +26723,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             newProps.className = className;
             newProps.ref = ref;
-            return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
+            return React.createElement(React.Fragment, null, React.createElement(Insertion, {
               cache,
               serialized,
               isStringTag: typeof FinalTag === "string"
-            }), React2.createElement(FinalTag, newProps));
+            }), React.createElement(FinalTag, newProps));
           });
           Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag === "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")";
           Styled.defaultProps = tag.defaultProps;
@@ -31292,7 +31292,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var React2 = require_react();
+      var React = require_react();
       var styleValueTypes = require_valueTypes_cjs();
       var popmotion = require_popmotion_cjs();
       var heyListen = require_dist();
@@ -31321,28 +31321,28 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         n["default"] = e;
         return Object.freeze(n);
       }
-      var React__default = _interopDefaultLegacy(React2);
-      var React__namespace = _interopNamespace(React2);
+      var React__default = _interopDefaultLegacy(React);
+      var React__namespace = _interopNamespace(React);
       var sync__default = _interopDefaultLegacy(sync);
-      var MotionConfigContext = React2.createContext({
+      var MotionConfigContext = React.createContext({
         transformPagePoint: (p) => p,
         isStatic: false,
         reducedMotion: "never"
       });
-      var MotionContext = React2.createContext({});
+      var MotionContext = React.createContext({});
       function useVisualElementContext() {
-        return React2.useContext(MotionContext).visualElement;
+        return React.useContext(MotionContext).visualElement;
       }
-      var PresenceContext = React2.createContext(null);
+      var PresenceContext = React.createContext(null);
       var isBrowser = typeof document !== "undefined";
-      var useIsomorphicLayoutEffect = isBrowser ? React2.useLayoutEffect : React2.useEffect;
-      var LazyContext = React2.createContext({ strict: false });
+      var useIsomorphicLayoutEffect = isBrowser ? React.useLayoutEffect : React.useEffect;
+      var LazyContext = React.createContext({ strict: false });
       function useVisualElement(Component, visualState, props, createVisualElement) {
         const parent = useVisualElementContext();
-        const lazyContext = React2.useContext(LazyContext);
-        const presenceContext = React2.useContext(PresenceContext);
-        const reducedMotionConfig = React2.useContext(MotionConfigContext).reducedMotion;
-        const visualElementRef = React2.useRef(void 0);
+        const lazyContext = React.useContext(LazyContext);
+        const presenceContext = React.useContext(PresenceContext);
+        const reducedMotionConfig = React.useContext(MotionConfigContext).reducedMotion;
+        const visualElementRef = React.useRef(void 0);
         createVisualElement = createVisualElement || lazyContext.renderer;
         if (!visualElementRef.current && createVisualElement) {
           visualElementRef.current = createVisualElement(Component, {
@@ -31358,7 +31358,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         useIsomorphicLayoutEffect(() => {
           visualElement2 && visualElement2.syncRender();
         });
-        React2.useEffect(() => {
+        React.useEffect(() => {
           if (visualElement2 && visualElement2.animationState) {
             visualElement2.animationState.animateChanges();
           }
@@ -31370,7 +31370,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return typeof ref === "object" && Object.prototype.hasOwnProperty.call(ref, "current");
       }
       function useMotionRef(visualState, visualElement2, externalRef) {
-        return React2.useCallback(
+        return React.useCallback(
           (instance) => {
             instance && visualState.mount && visualState.mount(instance);
             if (visualElement2) {
@@ -31420,8 +31420,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return props.inherit !== false ? context : {};
       }
       function useCreateMotionContext(props) {
-        const { initial, animate: animate2 } = getCurrentTreeVariants(props, React2.useContext(MotionContext));
-        return React2.useMemo(() => ({ initial, animate: animate2 }), [variantLabelsAsDependency(initial), variantLabelsAsDependency(animate2)]);
+        const { initial, animate: animate2 } = getCurrentTreeVariants(props, React.useContext(MotionContext));
+        return React.useMemo(() => ({ initial, animate: animate2 }), [variantLabelsAsDependency(initial), variantLabelsAsDependency(animate2)]);
       }
       function variantLabelsAsDependency(prop) {
         return Array.isArray(prop) ? prop.join(" ") : prop;
@@ -31468,7 +31468,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       }
       function useConstant(init) {
-        const ref = React2.useRef(null);
+        const ref = React.useRef(null);
         if (ref.current === null) {
           ref.current = init();
         }
@@ -31486,7 +31486,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         });
       }
-      var LayoutGroupContext = React2.createContext({});
+      var LayoutGroupContext = React.createContext({});
       var VisualElementHandler = class extends React__default["default"].Component {
         getSnapshotBeforeUpdate() {
           const { visualElement: visualElement2, props } = this.props;
@@ -31500,13 +31500,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return this.props.children;
         }
       };
-      var SwitchLayoutGroupContext = React2.createContext({});
+      var SwitchLayoutGroupContext = React.createContext({});
       var motionComponentSymbol = Symbol.for("motionComponentSymbol");
       function createMotionComponent({ preloadedFeatures, createVisualElement, projectionNodeConstructor, useRender, useVisualState: useVisualState2, Component }) {
         preloadedFeatures && loadFeatures(preloadedFeatures);
         function MotionComponent(props, externalRef) {
           const configAndProps = {
-            ...React2.useContext(MotionConfigContext),
+            ...React.useContext(MotionConfigContext),
             ...props,
             layoutId: useLayoutId(props)
           };
@@ -31517,8 +31517,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           const visualState = useVisualState2(props, isStatic);
           if (!isStatic && isBrowser) {
             context.visualElement = useVisualElement(Component, visualState, configAndProps, createVisualElement);
-            const lazyStrictMode = React2.useContext(LazyContext).strict;
-            const initialLayoutGroupConfig = React2.useContext(SwitchLayoutGroupContext);
+            const lazyStrictMode = React.useContext(LazyContext).strict;
+            const initialLayoutGroupConfig = React.useContext(SwitchLayoutGroupContext);
             if (context.visualElement) {
               features = context.visualElement.loadFeatures(
                 configAndProps,
@@ -31537,12 +31537,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             React__namespace.createElement(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic, context.visualElement))
           );
         }
-        const ForwardRefComponent = React2.forwardRef(MotionComponent);
+        const ForwardRefComponent = React.forwardRef(MotionComponent);
         ForwardRefComponent[motionComponentSymbol] = Component;
         return ForwardRefComponent;
       }
       function useLayoutId({ layoutId }) {
-        const layoutGroupId = React2.useContext(LayoutGroupContext).id;
+        const layoutGroupId = React.useContext(LayoutGroupContext).id;
         return layoutGroupId && layoutId !== void 0 ? layoutGroupId + "-" + layoutId : layoutId;
       }
       function createMotionProxy(createConfig) {
@@ -31775,7 +31775,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       }
       function useInitialMotionValues({ transformTemplate }, visualState, isStatic) {
-        return React2.useMemo(() => {
+        return React.useMemo(() => {
           const state = createHtmlRenderState();
           buildHTMLStyles(state, visualState, { enableHardwareAcceleration: !isStatic }, transformTemplate);
           return Object.assign({}, state.vars, state.style);
@@ -31944,7 +31944,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         attrs: {}
       });
       function useSVGProps(props, visualState) {
-        const visualProps = React2.useMemo(() => {
+        const visualProps = React.useMemo(() => {
           const state = createSvgRenderState();
           buildSVGAttrs(state, visualState, { enableHardwareAcceleration: false }, props.transformTemplate);
           return {
@@ -31972,7 +31972,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           if (projectionId) {
             elementProps["data-projection-id"] = projectionId;
           }
-          return React2.createElement(Component, elementProps);
+          return React.createElement(Component, elementProps);
         };
         return useRender;
       }
@@ -32067,8 +32067,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return state;
       }
       var makeUseVisualState = (config) => (props, isStatic) => {
-        const context = React2.useContext(MotionContext);
-        const presenceContext = React2.useContext(PresenceContext);
+        const context = React.useContext(MotionContext);
+        const presenceContext = React.useContext(PresenceContext);
         const make = () => makeState(config, props, context, presenceContext);
         return isStatic ? make() : useConstant(make);
       };
@@ -32165,7 +32165,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return () => target.removeEventListener(eventName, handler);
       }
       function useDomEvent(ref, eventName, handler, options) {
-        React2.useEffect(() => {
+        React.useEffect(() => {
           const element = ref.current;
           if (handler && element) {
             return addDomEvent(element, eventName, handler, options);
@@ -32330,12 +32330,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       };
       function useUnmountEffect(callback) {
-        return React2.useEffect(() => () => callback(), []);
+        return React.useEffect(() => () => callback(), []);
       }
       function useTapGesture({ onTap, onTapStart, onTapCancel, whileTap, visualElement: visualElement2 }) {
         const hasPressListeners = onTap || onTapStart || onTapCancel || whileTap;
-        const isPressing = React2.useRef(false);
-        const cancelPointerEndListeners = React2.useRef(null);
+        const isPressing = React.useRef(false);
+        const cancelPointerEndListeners = React.useRef(null);
         const eventOptions = {
           passive: !(onTapStart || onTap || onTapCancel || onPointerDown)
         };
@@ -32413,7 +32413,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         };
       }
       function useViewport({ visualElement: visualElement2, whileInView, onViewportEnter, onViewportLeave, viewport = {} }) {
-        const state = React2.useRef({
+        const state = React.useRef({
           hasEnteredView: false,
           isInView: false
         });
@@ -32428,7 +32428,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         all: 1
       };
       function useIntersectionObserver(shouldObserve, state, visualElement2, { root, margin: rootMargin, amount = "some", once }) {
-        React2.useEffect(() => {
+        React.useEffect(() => {
           if (!shouldObserve)
             return;
           const options = {
@@ -32457,7 +32457,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, [shouldObserve, root, rootMargin, amount]);
       }
       function useMissingIntersectionObserver(shouldObserve, state, visualElement2, { fallback = true }) {
-        React2.useEffect(() => {
+        React.useEffect(() => {
           if (!shouldObserve || !fallback)
             return;
           if (env !== "production") {
@@ -32484,17 +32484,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         hover: makeRenderlessComponent(useHoverGesture)
       };
       function usePresence() {
-        const context = React2.useContext(PresenceContext);
+        const context = React.useContext(PresenceContext);
         if (context === null)
           return [true, null];
         const { isPresent: isPresent2, onExitComplete, register } = context;
-        const id2 = React2.useId();
-        React2.useEffect(() => register(id2), []);
+        const id2 = React.useId();
+        React.useEffect(() => register(id2), []);
         const safeToRemove = () => onExitComplete && onExitComplete(id2);
         return !isPresent2 && onExitComplete ? [false, safeToRemove] : [true];
       }
       function useIsPresent() {
-        return isPresent(React2.useContext(PresenceContext));
+        return isPresent(React.useContext(PresenceContext));
       }
       function isPresent(context) {
         return context === null ? true : context.isPresent;
@@ -33292,14 +33292,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         animation: makeRenderlessComponent(({ visualElement: visualElement2, animate: animate2 }) => {
           visualElement2.animationState || (visualElement2.animationState = createAnimationState(visualElement2));
           if (isAnimationControls(animate2)) {
-            React2.useEffect(() => animate2.subscribe(visualElement2), [animate2]);
+            React.useEffect(() => animate2.subscribe(visualElement2), [animate2]);
           }
         }),
         exit: makeRenderlessComponent((props) => {
           const { custom, visualElement: visualElement2 } = props;
           const [isPresent2, safeToRemove] = usePresence();
-          const presenceContext = React2.useContext(PresenceContext);
-          React2.useEffect(() => {
+          const presenceContext = React.useContext(PresenceContext);
+          React.useEffect(() => {
             visualElement2.isPresent = isPresent2;
             const animation = visualElement2.animationState && visualElement2.animationState.setActive(exports.AnimationType.Exit, !isPresent2, {
               custom: presenceContext && presenceContext.custom || custom
@@ -33975,13 +33975,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function useDrag(props) {
         const { dragControls: groupDragControls, visualElement: visualElement2 } = props;
         const dragControls = useConstant(() => new VisualElementDragControls(visualElement2));
-        React2.useEffect(() => groupDragControls && groupDragControls.subscribe(dragControls), [dragControls, groupDragControls]);
-        React2.useEffect(() => dragControls.addListeners(), [dragControls]);
+        React.useEffect(() => groupDragControls && groupDragControls.subscribe(dragControls), [dragControls, groupDragControls]);
+        React.useEffect(() => dragControls.addListeners(), [dragControls]);
       }
       function usePanGesture({ onPan, onPanStart, onPanEnd, onPanSessionStart, visualElement: visualElement2 }) {
         const hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
-        const panSession = React2.useRef(null);
-        const { transformPagePoint } = React2.useContext(MotionConfigContext);
+        const panSession = React.useRef(null);
+        const { transformPagePoint } = React.useContext(MotionConfigContext);
         const handlers = {
           onSessionStart: onPanSessionStart,
           onStart: onPanStart,
@@ -33991,7 +33991,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             onPanEnd && onPanEnd(event, info);
           }
         };
-        React2.useEffect(() => {
+        React.useEffect(() => {
           if (panSession.current !== null) {
             panSession.current.updateHandlers(handlers);
           }
@@ -34203,7 +34203,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               const name = featureNames[i];
               const { isEnabled, Component } = featureDefinitions[name];
               if (isEnabled(renderedProps) && Component) {
-                features.push(React2.createElement(Component, {
+                features.push(React.createElement(Component, {
                   key: name,
                   ...renderedProps,
                   visualElement: element
@@ -34811,8 +34811,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       };
       function MeasureLayout(props) {
         const [isPresent2, safeToRemove] = usePresence();
-        const layoutGroup = React2.useContext(LayoutGroupContext);
-        return React__default["default"].createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: React2.useContext(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove });
+        const layoutGroup = React.useContext(LayoutGroupContext);
+        return React__default["default"].createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: React.useContext(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove });
       }
       var defaultScaleCorrectors = {
         borderRadius: {
@@ -35975,7 +35975,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       var m = createMotionProxy(createDomMotionConfig);
       function useIsMounted() {
-        const isMounted = React2.useRef(false);
+        const isMounted = React.useRef(false);
         useIsomorphicLayoutEffect(() => {
           isMounted.current = true;
           return () => {
@@ -35986,11 +35986,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       function useForceUpdate() {
         const isMounted = useIsMounted();
-        const [forcedRenderCount, setForcedRenderCount] = React2.useState(0);
-        const forceRender = React2.useCallback(() => {
+        const [forcedRenderCount, setForcedRenderCount] = React.useState(0);
+        const forceRender = React.useCallback(() => {
           isMounted.current && setForcedRenderCount(forcedRenderCount + 1);
         }, [forcedRenderCount]);
-        const deferredForceRender = React2.useCallback(() => sync__default["default"].postRender(forceRender), [forceRender]);
+        const deferredForceRender = React.useCallback(() => sync__default["default"].postRender(forceRender), [forceRender]);
         return [deferredForceRender, forcedRenderCount];
       }
       var PopChildMeasure = class extends React__namespace.Component {
@@ -36012,15 +36012,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       };
       function PopChild({ children, isPresent: isPresent2 }) {
-        const id2 = React2.useId();
-        const ref = React2.useRef(null);
-        const size = React2.useRef({
+        const id2 = React.useId();
+        const ref = React.useRef(null);
+        const size = React.useRef({
           width: 0,
           height: 0,
           top: 0,
           left: 0
         });
-        React2.useInsertionEffect(() => {
+        React.useInsertionEffect(() => {
           const { width, height, top, left } = size.current;
           if (isPresent2 || !ref.current || !width || !height)
             return;
@@ -36046,8 +36046,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       var PresenceChild = ({ children, initial, isPresent: isPresent2, onExitComplete, custom, presenceAffectsLayout, mode }) => {
         const presenceChildren = useConstant(newChildrenMap);
-        const id2 = React2.useId();
-        const context = React2.useMemo(
+        const id2 = React.useId();
+        const context = React.useMemo(
           () => ({
             id: id2,
             initial,
@@ -36068,7 +36068,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }),
           presenceAffectsLayout ? void 0 : [isPresent2]
         );
-        React2.useMemo(() => {
+        React.useMemo(() => {
           presenceChildren.forEach((_, key) => presenceChildren.set(key, false));
         }, [isPresent2]);
         React__namespace.useEffect(() => {
@@ -36091,8 +36091,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       function onlyElements(children) {
         const filtered = [];
-        React2.Children.forEach(children, (child) => {
-          if (React2.isValidElement(child))
+        React.Children.forEach(children, (child) => {
+          if (React.isValidElement(child))
             filtered.push(child);
         });
         return filtered;
@@ -36103,16 +36103,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           warnOnce(false, "Replace exitBeforeEnter with mode='wait'");
         }
         let [forceRender] = useForceUpdate();
-        const forceRenderLayoutGroup = React2.useContext(LayoutGroupContext).forceRender;
+        const forceRenderLayoutGroup = React.useContext(LayoutGroupContext).forceRender;
         if (forceRenderLayoutGroup)
           forceRender = forceRenderLayoutGroup;
         const isMounted = useIsMounted();
         const filteredChildren = onlyElements(children);
         let childrenToRender = filteredChildren;
         const exiting = /* @__PURE__ */ new Set();
-        const presentChildren = React2.useRef(childrenToRender);
-        const allChildren = React2.useRef(/* @__PURE__ */ new Map()).current;
-        const isInitialRender = React2.useRef(true);
+        const presentChildren = React.useRef(childrenToRender);
+        const allChildren = React.useRef(/* @__PURE__ */ new Map()).current;
+        const isInitialRender = React.useRef(true);
         useIsomorphicLayoutEffect(() => {
           isInitialRender.current = false;
           updateChildLookup(filteredChildren, allChildren);
@@ -36168,9 +36168,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         if (env !== "production" && mode === "wait" && childrenToRender.length > 1) {
           console.warn(`You're attempting to animate multiple children within AnimatePresence, but its mode is set to "wait". This will lead to odd visual behaviour.`);
         }
-        return React__namespace.createElement(React__namespace.Fragment, null, exiting.size ? childrenToRender : childrenToRender.map((child) => React2.cloneElement(child)));
+        return React__namespace.createElement(React__namespace.Fragment, null, exiting.size ? childrenToRender : childrenToRender.map((child) => React.cloneElement(child)));
       };
-      var DeprecatedLayoutGroupContext = React2.createContext(null);
+      var DeprecatedLayoutGroupContext = React.createContext(null);
       var notify = (node) => !node.isLayoutDirty && node.willUpdate(false);
       function nodeGroup() {
         const nodes = /* @__PURE__ */ new Set();
@@ -36196,10 +36196,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var LayoutGroup = ({ children, id: id2, inheritId, inherit = true }) => {
         if (inheritId !== void 0)
           inherit = inheritId;
-        const layoutGroupContext = React2.useContext(LayoutGroupContext);
-        const deprecatedLayoutGroupContext = React2.useContext(DeprecatedLayoutGroupContext);
+        const layoutGroupContext = React.useContext(LayoutGroupContext);
+        const deprecatedLayoutGroupContext = React.useContext(DeprecatedLayoutGroupContext);
         const [forceRender, key] = useForceUpdate();
-        const context = React2.useRef(null);
+        const context = React.useRef(null);
         const upstreamId = layoutGroupContext.id || deprecatedLayoutGroupContext;
         if (context.current === null) {
           if (shouldInheritId(inherit) && upstreamId) {
@@ -36210,7 +36210,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             group: shouldInheritGroup(inherit) ? layoutGroupContext.group || nodeGroup() : nodeGroup()
           };
         }
-        const memoizedContext = React2.useMemo(() => ({ ...context.current, forceRender }), [key]);
+        const memoizedContext = React.useMemo(() => ({ ...context.current, forceRender }), [key]);
         return React__namespace.createElement(LayoutGroupContext.Provider, { value: memoizedContext }, children);
       };
       var id = 0;
@@ -36222,20 +36222,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       };
       function MotionConfig({ children, isValidProp, ...config }) {
         isValidProp && loadExternalIsValidProp(isValidProp);
-        config = { ...React2.useContext(MotionConfigContext), ...config };
+        config = { ...React.useContext(MotionConfigContext), ...config };
         config.isStatic = useConstant(() => config.isStatic);
-        const context = React2.useMemo(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
+        const context = React.useMemo(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
         return React__namespace.createElement(MotionConfigContext.Provider, { value: context }, children);
       }
       function LazyMotion({ children, features, strict = false }) {
-        const [, setIsLoaded] = React2.useState(!isLazyBundle(features));
-        const loadedRenderer = React2.useRef(void 0);
+        const [, setIsLoaded] = React.useState(!isLazyBundle(features));
+        const loadedRenderer = React.useRef(void 0);
         if (!isLazyBundle(features)) {
           const { renderer, ...loadedFeatures } = features;
           loadedRenderer.current = renderer;
           loadFeatures(loadedFeatures);
         }
-        React2.useEffect(() => {
+        React.useEffect(() => {
           if (isLazyBundle(features)) {
             features().then(({ renderer, ...loadedFeatures }) => {
               loadFeatures(loadedFeatures);
@@ -36249,7 +36249,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function isLazyBundle(features) {
         return typeof features === "function";
       }
-      var ReorderContext = React2.createContext(null);
+      var ReorderContext = React.createContext(null);
       function checkReorder(order, value, offset, velocity) {
         if (!velocity)
           return order;
@@ -36271,7 +36271,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function ReorderGroup({ children, as = "ul", axis = "y", onReorder, values, ...props }, externalRef) {
         const Component = useConstant(() => motion(as));
         const order = [];
-        const isReordering = React2.useRef(false);
+        const isReordering = React.useRef(false);
         heyListen.invariant(Boolean(values), "Reorder.Group must be provided a values prop");
         const context = {
           axis,
@@ -36291,7 +36291,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           }
         };
-        React2.useEffect(() => {
+        React.useEffect(() => {
           isReordering.current = false;
         });
         return React__namespace.createElement(
@@ -36300,7 +36300,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           React__namespace.createElement(ReorderContext.Provider, { value: context }, children)
         );
       }
-      var Group = React2.forwardRef(ReorderGroup);
+      var Group = React.forwardRef(ReorderGroup);
       function getValue(item) {
         return item.value;
       }
@@ -36309,10 +36309,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       function useMotionValue(initial) {
         const value = useConstant(() => motionValue(initial));
-        const { isStatic } = React2.useContext(MotionConfigContext);
+        const { isStatic } = React.useContext(MotionConfigContext);
         if (isStatic) {
-          const [, setLatest] = React2.useState(initial);
-          React2.useEffect(() => value.onChange(setLatest), []);
+          const [, setLatest] = React.useState(initial);
+          React.useEffect(() => value.onChange(setLatest), []);
         }
         return value;
       }
@@ -36375,16 +36375,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       function ReorderItem({ children, style = {}, value, as = "li", onDrag, layout = true, ...props }, externalRef) {
         const Component = useConstant(() => motion(as));
-        const context = React2.useContext(ReorderContext);
+        const context = React.useContext(ReorderContext);
         const point = {
           x: useDefaultMotionValue(style.x),
           y: useDefaultMotionValue(style.y)
         };
         const zIndex = useTransform([point.x, point.y], ([latestX, latestY]) => latestX || latestY ? 1 : "unset");
-        const measuredLayout = React2.useRef(null);
+        const measuredLayout = React.useRef(null);
         heyListen.invariant(Boolean(context), "Reorder.Item must be a child of Reorder.Group");
         const { axis, registerItem, updateOrder } = context;
-        React2.useEffect(() => {
+        React.useEffect(() => {
           registerItem(value, measuredLayout.current);
         }, [context]);
         return React__namespace.createElement(Component, { drag: axis, ...props, dragSnapToOrigin: true, style: { ...style, x: point.x, y: point.y, zIndex }, layout, onDrag: (event, gesturePoint) => {
@@ -36395,7 +36395,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           measuredLayout.current = measured;
         }, ref: externalRef }, children);
       }
-      var Item = React2.forwardRef(ReorderItem);
+      var Item = React.forwardRef(ReorderItem);
       var Reorder = {
         Group,
         Item
@@ -36426,10 +36426,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return useCombineMotionValues(values, buildValue);
       }
       function useSpring(source, config = {}) {
-        const { isStatic } = React2.useContext(MotionConfigContext);
-        const activeSpringAnimation = React2.useRef(null);
+        const { isStatic } = React.useContext(MotionConfigContext);
+        const activeSpringAnimation = React.useRef(null);
         const value = useMotionValue(isMotionValue(source) ? source.get() : source);
-        React2.useMemo(() => {
+        React.useMemo(() => {
           return value.attach((v, set) => {
             if (isStatic)
               return set(v);
@@ -36451,7 +36451,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       function useVelocity(value) {
         const velocity = useMotionValue(value.getVelocity());
-        React2.useEffect(() => {
+        React.useEffect(() => {
           return value.velocityUpdateSubscribers.add((newVelocity) => {
             velocity.set(newVelocity);
           });
@@ -36466,7 +36466,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       });
       function useScroll({ container, target, layoutEffect = true, ...options } = {}) {
         const values = useConstant(createScrollMotionValues);
-        const useLifecycleEffect = layoutEffect ? useIsomorphicLayoutEffect : React2.useEffect;
+        const useLifecycleEffect = layoutEffect ? useIsomorphicLayoutEffect : React.useEffect;
         useLifecycleEffect(() => {
           return dom.scroll(({ x, y }) => {
             values.scrollX.set(x.current);
@@ -36490,9 +36490,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return useScroll();
       }
       function useAnimationFrame(callback) {
-        const initialTimestamp = React2.useRef(0);
-        const { isStatic } = React2.useContext(MotionConfigContext);
-        React2.useEffect(() => {
+        const initialTimestamp = React.useRef(0);
+        const { isStatic } = React.useContext(MotionConfigContext);
+        React.useEffect(() => {
           if (isStatic)
             return;
           const provideTimeSinceStart = ({ timestamp, delta }) => {
@@ -36548,12 +36548,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       function useReducedMotion() {
         !hasReducedMotionListener.current && initPrefersReducedMotion();
-        const [shouldReduceMotion] = React2.useState(prefersReducedMotion.current);
+        const [shouldReduceMotion] = React.useState(prefersReducedMotion.current);
         return shouldReduceMotion;
       }
       function useReducedMotionConfig() {
         const reducedMotionPreference = useReducedMotion();
-        const { reducedMotion } = React2.useContext(MotionConfigContext);
+        const { reducedMotion } = React.useContext(MotionConfigContext);
         if (reducedMotion === "never") {
           return false;
         } else if (reducedMotion === "always") {
@@ -36615,14 +36615,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       function useAnimationControls() {
         const controls = useConstant(animationControls);
-        React2.useEffect(controls.mount, []);
+        React.useEffect(controls.mount, []);
         return controls;
       }
       var useAnimation = useAnimationControls;
       function useCycle(...items) {
-        const index = React2.useRef(0);
-        const [item, setItem] = React2.useState(items[index.current]);
-        const runCycle = React2.useCallback(
+        const index = React.useRef(0);
+        const [item, setItem] = React.useState(items[index.current]);
+        const runCycle = React.useCallback(
           (next) => {
             index.current = typeof next !== "number" ? popmotion.wrap(0, items.length, index.current + 1) : next;
             setItem(items[index.current]);
@@ -36632,8 +36632,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return [item, runCycle];
       }
       function useInView(ref, { root, margin, amount, once = false } = {}) {
-        const [isInView, setInView] = React2.useState(false);
-        React2.useEffect(() => {
+        const [isInView, setInView] = React.useState(false);
+        React.useEffect(() => {
           if (!ref.current || once && isInView)
             return;
           const onEnter = () => {
@@ -36689,7 +36689,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function useInstantTransition() {
         const [forceUpdate, forcedRenderCount] = useForceUpdate();
         const startInstantLayoutTransition = useInstantLayoutTransition();
-        React2.useEffect(() => {
+        React.useEffect(() => {
           sync__default["default"].postRender(() => sync__default["default"].postRender(() => instantAnimationState.current = false));
         }, [forcedRenderCount]);
         return (callback) => {
@@ -36737,14 +36737,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         createRenderState: createObject
       });
       function useAnimatedState(initialState) {
-        const [animationState, setAnimationState] = React2.useState(initialState);
+        const [animationState, setAnimationState] = React.useState(initialState);
         const visualState = useVisualState({}, false);
         const element = useConstant(() => stateVisualElement({ props: {}, visualState }, { initialState }));
-        React2.useEffect(() => {
+        React.useEffect(() => {
           element.mount({});
           return element.unmount;
         }, [element]);
-        React2.useEffect(() => {
+        React.useEffect(() => {
           element.setProps({
             onUpdate: (v) => {
               setAnimationState({ ...v });
@@ -36859,71 +36859,35 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   var runtime = () => {
     if (globalThis.React)
       return;
-    const React2 = require_react();
-    Object.assign(globalThis, { React: React2 });
-    const ReactDOM2 = require_react_dom();
-    Object.assign(globalThis, { ReactDOM: ReactDOM2 });
-    const ReactDOMClient2 = require_client();
-    Object.assign(globalThis, { ReactDOMClient: ReactDOMClient2 });
-    const ReactJSXRuntime2 = require_jsx_runtime();
-    Object.assign(globalThis, { ReactJSXRuntime: ReactJSXRuntime2 });
-    const emotionReact2 = require_emotion_react_cjs();
-    Object.assign(globalThis, { emotionReact: emotionReact2 });
-    const emotionReactJsxRuntime2 = require_emotion_react_jsx_runtime_cjs();
-    Object.assign(globalThis, { emotionReactJsxRuntime: emotionReactJsxRuntime2 });
-    emotionReactJsxRuntime2.emotionJsx = emotionReactJsxRuntime2.jsx;
-    const createEmotionCache2 = require_emotion_cache_cjs().default;
-    Object.assign(globalThis, { createEmotionCache: createEmotionCache2 });
-    const styled2 = require_emotion_styled_cjs().default;
-    Object.assign(globalThis, { styled: styled2 });
-    emotionReactJsxRuntime2.jsx = function() {
+    const React = require_react();
+    Object.assign(globalThis, { React });
+    const ReactDOM = require_react_dom();
+    Object.assign(globalThis, { ReactDOM });
+    const ReactDOMClient = require_client();
+    Object.assign(globalThis, { ReactDOMClient });
+    const ReactJSXRuntime = require_jsx_runtime();
+    Object.assign(globalThis, { ReactJSXRuntime });
+    const emotionReact = require_emotion_react_cjs();
+    Object.assign(globalThis, { emotionReact });
+    const emotionReactJsxRuntime = require_emotion_react_jsx_runtime_cjs();
+    Object.assign(globalThis, { emotionReactJsxRuntime });
+    emotionReactJsxRuntime.emotionJsx = emotionReactJsxRuntime.jsx;
+    const createEmotionCache = require_emotion_cache_cjs().default;
+    Object.assign(globalThis, { createEmotionCache });
+    const styled = require_emotion_styled_cjs().default;
+    Object.assign(globalThis, { styled });
+    emotionReactJsxRuntime.jsx = function() {
       const props = arguments[1];
       if (Object.hasOwn(props, "css") && typeof props.css === "string") {
-        props.css = emotionReact2.css`${props.css}`;
+        props.css = emotionReact.css`${props.css}`;
       }
-      return emotionReactJsxRuntime2.emotionJsx.apply(
-        emotionReactJsxRuntime2,
+      return emotionReactJsxRuntime.emotionJsx.apply(
+        emotionReactJsxRuntime,
         arguments
       );
     };
-    const FramerMotion2 = require_cjs();
-    Object.assign(globalThis, { FramerMotion: FramerMotion2 });
+    const FramerMotion = require_cjs();
+    Object.assign(globalThis, { FramerMotion });
   };
   runtime();
-  var {
-    React,
-    ReactDOM,
-    ReactDOMClient,
-    ReactJSXRuntime,
-    emotionReact,
-    emotionReactJsxRuntime,
-    ReactDOMServer,
-    createEmotionCache,
-    styled,
-    FramerMotion
-  } = globalThis;
-  var mapTable = {
-    "react": React,
-    "react-dom": ReactDOM,
-    "react-dom/client": ReactDOMClient,
-    "@emotion/react": emotionReact,
-    "@emotion/styled": styled,
-    "@emotion/cache": createEmotionCache,
-    "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
-    "react/jsx-runtime": ReactJSXRuntime,
-    "react-dom/server": ReactDOMServer,
-    "framer-motion": FramerMotion
-  };
-  var loading = [];
-  globalThis.require = (pkg) => {
-    if (mapTable[pkg])
-      return;
-    loading.add[pkg];
-    window.importShim(pkg).then((x) => mapTable[pkg] = x).then(() => loading = loading.filter((x) => x !== pkg)).then(() => {
-      if (mapTable[pkg])
-        return;
-      console.error("Error - require: " + pkg + " not found");
-    });
-  };
-  var { hydrateRoot, createRoot } = ReactDOMClient;
 })();
