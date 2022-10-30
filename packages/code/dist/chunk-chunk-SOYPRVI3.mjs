@@ -7,7 +7,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-XCTFYH32.mjs";
+} from "./chunk-chunk-JBRKSEQ7.mjs";
 import {
   Children,
   Fragment,
@@ -42,10 +42,10 @@ import {
 } from "./chunk-chunk-V6QE4D7F.mjs";
 import {
   initAndTransform
-} from "./chunk-chunk-QNIU5IGD.mjs";
+} from "./chunk-chunk-I2NJRUPV.mjs";
 import {
   md5
-} from "./chunk-chunk-LXXR4HN6.mjs";
+} from "./chunk-chunk-HW7RFPPN.mjs";
 import {
   __commonJS,
   __toCommonJS,
@@ -20916,7 +20916,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-T44NWIAD.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-XSZEKIKS.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -21324,7 +21324,7 @@ var mod2 = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform } = await import("./chunk-esbuildEsm-NQUGJY6O.mjs");
+    const { transform } = await import("./chunk-esbuildEsm-E4AQCKFW.mjs");
     const t = await transform(res, {
       format: "esm",
       minify: true,
@@ -21345,7 +21345,7 @@ var mod2 = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform } = await import("./chunk-esbuildEsm-NQUGJY6O.mjs");
+  const { transform } = await import("./chunk-esbuildEsm-E4AQCKFW.mjs");
   const hash = md5(source);
   mod2.hashMap = { ...mod2.hashMap, [hash]: name, [name]: hash };
   if (!mod2.data[hash]) {
@@ -21647,7 +21647,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-RSF66CER.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-3OWOOUWB.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

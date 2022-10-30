@@ -4,7 +4,7 @@
   var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
   // js/md5.js
-  var md5 = /* @__PURE__ */ __name((code) => (md5FULL(code).replace(/\d+/g, "") + "ffffff").slice(0, 8), "md5");
+  var md5 = /* @__PURE__ */ __name((code) => md5FULL(code).split("0").join("k").split("1").join("l").split("2").join("m").split("4").join("b").split("5").join("n").split("6").join("o").split("6").join("p").split("8").join("w").split("9").join("z").slice(0, 8), "md5");
   function md5FULL(inputString) {
     const hc = "0123456789abcdef";
     function rh(n) {
