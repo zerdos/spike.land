@@ -28,7 +28,7 @@ export const umdTransform = async (code: string) => {
     platform: "browser",
     minify: false,
     keepNames: true,
-    globalName: md5(code),
+    globalName: `apps["${md5(code)}"]`,
     tsconfigRaw: {
       compilerOptions: {
         jsx: "react-jsx",
@@ -43,6 +43,7 @@ export const umdTransform = async (code: string) => {
   globalThis.IIFE = globalThis.IIFE = {};
 
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
+  apps[md5(transpiled.code)] = apps[md5(code)];
 
   return transpiled.code;
 };

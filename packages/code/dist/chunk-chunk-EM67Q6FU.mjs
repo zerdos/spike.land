@@ -20916,7 +20916,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-SVOT263R.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-TA4PEWXX.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -21437,7 +21437,7 @@ var umdTransform = async (code) => {
     platform: "browser",
     minify: false,
     keepNames: true,
-    globalName: md5(code),
+    globalName: `apps["${md5(code)}"]`,
     tsconfigRaw: {
       compilerOptions: {
         jsx: "react-jsx",
@@ -21450,6 +21450,7 @@ var umdTransform = async (code) => {
   });
   globalThis.IIFE = globalThis.IIFE = {};
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
+  apps[md5(transpiled.code)] = apps[md5(code)];
   return transpiled.code;
 };
 globalThis.umdTransform = globalThis.umdTransform = umdTransform;
@@ -21645,7 +21646,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-K7ZZZMBD.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-5DRAM5UK.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

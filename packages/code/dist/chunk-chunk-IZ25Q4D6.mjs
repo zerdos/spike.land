@@ -26268,7 +26268,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => wait(1e3).then(() => import("./chunk-DraggableWindow-3RQK34Q2.mjs")));
+var DraggableWindowLazy = (0, import_react.lazy)(() => wait(1e3).then(() => import("./chunk-DraggableWindow-FNEPLKZM.mjs")));
 
 // js/emotionCache.ts
 init_define_process();
@@ -26435,7 +26435,7 @@ var umdTransform = async (code) => {
     platform: "browser",
     minify: false,
     keepNames: true,
-    globalName: md5(code),
+    globalName: `apps["${md5(code)}"]`,
     tsconfigRaw: {
       compilerOptions: {
         jsx: "react-jsx",
@@ -26448,6 +26448,7 @@ var umdTransform = async (code) => {
   });
   globalThis.IIFE = globalThis.IIFE = {};
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
+  apps[md5(transpiled.code)] = apps[md5(code)];
   return transpiled.code;
 };
 globalThis.umdTransform = globalThis.umdTransform = umdTransform;
