@@ -1,5 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-"use strict";
+import "es-module-shims";
+import importmap from "./importmap.json";
+const imp = {};
+Object.keys(importmap.imports).map((k) => imp[k] = location.origin + importmap.imports[k]);
+
+importShim.addImportMap({ imports: imp });
 
 const runtime = () => {
   if (globalThis.React) return;
@@ -42,7 +46,48 @@ const runtime = () => {
       arguments,
     );
   };
+
   const FramerMotion = require("framer-motion");
   Object.assign(globalThis, { FramerMotion });
 };
+
 runtime();
+
+const {
+  React,
+  ReactDOM,
+  ReactDOMClient,
+  ReactJSXRuntime,
+  emotionReact,
+  emotionReactJsxRuntime,
+  ReactDOMServer,
+  createEmotionCache,
+  styled,
+  FramerMotion,
+} = globalThis;
+
+const mapTable = {
+  "react": React,
+  "react-dom": ReactDOM,
+  "react-dom/client": ReactDOMClient,
+  "@emotion/react": emotionReact,
+  "@emotion/styled": styled,
+  "@emotion/cache": createEmotionCache,
+  "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
+  "react/jsx-runtime": ReactJSXRuntime,
+  "react-dom/server": ReactDOMServer,
+  "framer-motion": FramerMotion,
+};
+
+let loading = [];
+
+const requireUmd = (pkg) => {
+  if (mapTable[pkg]) return mapTable[pkg];
+  loading.push[pkg];
+  importShim(pkg).then(x => mapTable[pkg] = x).then(() => loading = loading.filter(x => x !== pkg)).then(() => {
+    if (mapTable[pkg]) return mapTable[pkg];
+    console.error("Error - require: " + pkg + " not found");
+  });
+};
+
+Object.assign(globalThis, { require: requireUmd });

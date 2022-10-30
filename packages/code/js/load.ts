@@ -1,54 +1,10 @@
-import "es-module-shims";
 import "./react-jsx-runtime.mjs";
 
-import importmap from "./importmap.json";
-
 // importShim.addImportMap(importmap);
-
-const {
-  React,
-  ReactDOM,
-  ReactDOMClient,
-  ReactJSXRuntime,
-  emotionReact,
-  emotionReactJsxRuntime,
-  ReactDOMServer,
-  createEmotionCache,
-  styled,
-  FramerMotion,
-} = globalThis;
-
-const mapTable = {
-  "react": React,
-  "react-dom": ReactDOM,
-  "react-dom/client": ReactDOMClient,
-  "@emotion/react": emotionReact,
-  "@emotion/styled": styled,
-  "@emotion/cache": createEmotionCache,
-  "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
-  "react/jsx-runtime": ReactJSXRuntime,
-  "react-dom/server": ReactDOMServer,
-  "framer-motion": FramerMotion,
-};
-
-let loading = [];
-
-globalThis.require = (pkg) => {
-  if (mapTable[pkg]) return;
-  loading.add[pkg];
-  window.importShim(pkg).then(x => mapTable[pkg] = x).then(() => loading = loading.filter(x => x !== pkg)).then(() => {
-    if (mapTable[pkg]) return;
-    console.error("Error - require: " + pkg + " not found");
-  });
-};
 
 const { hydrateRoot, createRoot } = ReactDOMClient;
 
 const imp = {};
-
-Object.keys(importmap.imports).map((k) => imp[k] = location.origin + importmap.imports[k]);
-
-importShim.addImportMap({ imports: imp });
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
