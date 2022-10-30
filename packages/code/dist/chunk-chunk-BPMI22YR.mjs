@@ -20916,7 +20916,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-XSZEKIKS.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-IW6D7P66.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -21113,7 +21113,13 @@ async function appFactory(transpiled = "", codeSpace, dry) {
   if (!apps2[hash]) {
     try {
       console.log(`i: ${mstI}: `);
-      const App = new Function(trp + "return " + globalThis.IIFE[hash])().default;
+      let App;
+      try {
+        App = new Function(trp + "return " + globalThis.IIFE[hash])().default;
+      } catch {
+        wait(300);
+        App = new Function(trp + "return " + globalThis.IIFE[hash])().default;
+      }
       console.log({ App });
       if ((0, import_is_callable.default)(App)) {
         eCaches2[hash] = eCaches2[hash] || emotionCache_default({
@@ -21647,7 +21653,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-3OWOOUWB.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-J6CB6SQK.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

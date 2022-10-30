@@ -39498,12 +39498,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     "react-dom/server": ReactDOMServer,
     "framer-motion": FramerMotion
   };
-  var loading = [];
+  globalThis.requireLoading = [];
   var requireUmd = (pkg) => {
     if (mapTable[pkg])
       return mapTable[pkg];
-    loading.push[pkg];
-    importShim(pkg).then((x) => mapTable[pkg] = x).then(() => loading = loading.filter((x) => x !== pkg)).then(() => {
+    globalThis.requireLoading.push[pkg];
+    importShim(pkg).then((x) => mapTable[pkg] = x).then(
+      () => globalThis.requireLoading = globalThis.requireLoading.filter((x) => x !== pkg)
+    ).then(() => {
       if (mapTable[pkg])
         return mapTable[pkg];
       console.error("Error - require: " + pkg + " not found");
