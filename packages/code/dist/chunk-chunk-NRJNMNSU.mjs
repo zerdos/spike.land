@@ -20916,7 +20916,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-MI6XQ65I.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-DXD3Q3Z7.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -21034,40 +21034,32 @@ var renderPreviewWindow = ({ codeSpace, dry }) => {
 var import_is_callable = __toESM(require_is_callable(), 1);
 globalThis.IIFE = globalThis.IIFE = {};
 globalThis.md5 = md5;
-var dynamicImport = (src) => fetch(src).then(async (resp) => {
-  if (!resp.ok)
-    throw new Error("Error while import ${src}");
-  const trp = await resp.text();
-  const hash = md5(trp);
-  const codeHash = trp.slice(2, 10);
-  globalThis.IIFE[hash] = codeHash;
-  try {
-    return new Function(trp + "return " + globalThis.IIFE[hash])();
-  } catch {
-    const umdTrp = await umdTransform(trp);
-    const umdHash = md5(umdTrp);
-    return new Function(umdTrp + "return " + globalThis.IIFE[umdHash])();
-  }
-});
 if (!globalThis.apps)
   Object.assign(globalThis, { apps: {}, eCaches: {} });
 var { apps: apps2, eCaches: eCaches2 } = globalThis;
 var starterI = 1 * document.getElementById("root")?.getAttribute("data-i");
 async function importIt(url) {
   try {
-    const res = await dynamicImport(url);
+    const res = globalThis.require(url);
     return res;
   } catch {
     console.log("error loading", url);
     await wait(500);
-    return await importIt(url);
+    return importIt(url);
   }
 }
 function AutoUpdateApp({ codeSpace, transpiled }) {
   const [i, setI] = useState(starterI);
   const [{ App, FutureApp }, setApps] = useState({
     App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`)),
-    FutureApp: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`))
+    FutureApp: lazy(async () => {
+      const bigI = (mST().i > i ? mST().i : i) + 1;
+      const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${bigI}`);
+      setI((i2) => (bigI > i2 ? bigI : i2) + 1);
+      return {
+        default: ret.default
+      };
+    })
   });
   useEffect(() => setApps({
     App: FutureApp,
@@ -21093,14 +21085,11 @@ function AutoUpdateApp({ codeSpace, transpiled }) {
       ]
     }),
     children: jsx(Suspense, {
-      fallback: jsx(Suspense, {
-        fallback: jsx("div", {
-          style: { height: "100%" },
-          dangerouslySetInnerHTML: {
-            __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
-          }
-        }),
-        children: jsx(FutureApp, {})
+      fallback: jsx("div", {
+        style: { height: "100%" },
+        dangerouslySetInnerHTML: {
+          __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
+        }
       }),
       children: jsx(App, {})
     })
@@ -21439,7 +21428,7 @@ Object.assign(globalThis, {
     toUmd(mST().code, "app");
   }
 });
-var umdTransform = async (code) => {
+var umdTransform2 = async (code) => {
   const transpiled = await initAndTransform(code, {
     loader: "tsx",
     format: "iife",
@@ -21458,7 +21447,7 @@ var umdTransform = async (code) => {
     },
     target: "es2021"
   });
-  globalThis.umdTransform = umdTransform;
+  globalThis.umdTransform = umdTransform2;
   globalThis.IIFE = globalThis.IIFE = {};
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
   return transpiled.code;
@@ -21468,7 +21457,7 @@ async function runner({ code, counter, codeSpace }) {
     return;
   counterMax = counter;
   try {
-    const transpiledCode = await umdTransform(code);
+    const transpiledCode = await umdTransform2(code);
     const { html, css: css2 } = await render(transpiledCode, codeSpace);
     if (!html || !css2) {
       return;
@@ -21655,7 +21644,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-WK6K53TF.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-R3WL3JRI.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

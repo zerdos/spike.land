@@ -22,22 +22,23 @@ globalThis.IIFE = globalThis.IIFE = {};
 
 globalThis.md5 = md5;
 
-const dynamicImport = (src: string) =>
-  fetch(src).then(async (resp) => {
-    if (!resp.ok) throw new Error("Error while import ${src}");
+// const dynamicImport = (src: string) =>
+//   return require(src)
+//   fetch(src).then(async (resp) => {
+//     if (!resp.ok) throw new Error("Error while import ${src}");
 
-    const trp = await resp.text();
-    const hash = md5(trp);
-    const codeHash = trp.slice(2, 10);
-    globalThis.IIFE[hash] = codeHash;
-    try {
-      return new Function(trp + "return " + globalThis.IIFE[hash])();
-    } catch {
-      const umdTrp = await umdTransform(trp);
-      const umdHash = md5(umdTrp);
-      return new Function(umdTrp + "return " + globalThis.IIFE[umdHash])();
-    }
-  });
+//     const trp = await resp.text();
+//     const hash = md5(trp);
+//     const codeHash = trp.slice(2, 10);
+//     globalThis.IIFE[hash] = codeHash;
+//     try {
+//       return new Function(trp + "return " + globalThis.IIFE[hash])();
+//     } catch {
+//       const umdTrp = await umdTransform(trp);
+//       const umdHash = md5(umdTrp);
+//       return new Function(umdTrp + "return " + globalThis.IIFE[umdHash])();
+//     }
+//   });
 
 // window.importShim ? window.importShim(src) : import(src);
 
@@ -60,13 +61,13 @@ const starterI = 1 * document.getElementById("root")?.getAttribute("data-i");
 
 async function importIt(url) {
   try {
-    const res = await dynamicImport(url);
+    const res = globalThis.require(url);
     return res;
   } catch {
     console.log("error loading", url);
 
     await wait(500);
-    return await importIt(url);
+    return importIt(url);
   }
 }
 
@@ -77,7 +78,15 @@ export function AutoUpdateApp(
 
   const [{ App, FutureApp }, setApps] = useState({
     App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`)),
-    FutureApp: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`)),
+    FutureApp: lazy(async () => {
+      const bigI = (mST().i > i ? mST().i : i) + 1;
+      const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${bigI}`);
+      setI(i => (bigI > i ? bigI : i) + 1);
+
+      return {
+        default: ret.default,
+      };
+    }),
   });
 
   useEffect(() =>
@@ -87,7 +96,6 @@ export function AutoUpdateApp(
         const bigI = (mST().i > i ? mST().i : i) + 1;
         const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${bigI}`);
         setI(i => (bigI > i ? bigI : i) + 1);
-
         return {
           default: ret.default,
         };
@@ -108,18 +116,12 @@ export function AutoUpdateApp(
     >
       <Suspense
         fallback={
-          <Suspense
-            fallback={
-              <div
-                style={{ height: "100%" }}
-                dangerouslySetInnerHTML={{
-                  __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`,
-                }}
-              />
-            }
-          >
-            <FutureApp />
-          </Suspense>
+          <div
+            style={{ height: "100%" }}
+            dangerouslySetInnerHTML={{
+              __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`,
+            }}
+          />
         }
       >
         <App />
