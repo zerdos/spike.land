@@ -15,7 +15,7 @@ import { hashCode, mST } from "./session";
 // import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
-import { umdTransform } from "runner";
+import { umdTransform } from "./runner";
 import { wait } from "./wait";
 
 globalThis.IIFE = globalThis.IIFE = {};
