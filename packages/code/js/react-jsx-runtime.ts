@@ -79,15 +79,16 @@ const mapTable = {
   "framer-motion": FramerMotion,
 };
 
-let loading = [];
+globalThis.requireLoading = [];
 
 const requireUmd = (pkg) => {
   if (mapTable[pkg]) return mapTable[pkg];
-  loading.push[pkg];
-  importShim(pkg).then(x => mapTable[pkg] = x).then(() => loading = loading.filter(x => x !== pkg)).then(() => {
+  globalThis.requireLoading.push[pkg];
+  importShim(pkg).then(x => mapTable[pkg] = x).then(() =>
+    globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
+  ).then(() => {
     if (mapTable[pkg]) return mapTable[pkg];
     console.error("Error - require: " + pkg + " not found");
   });
 };
-
 Object.assign(globalThis, { require: requireUmd });

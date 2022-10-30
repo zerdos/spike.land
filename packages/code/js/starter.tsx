@@ -217,8 +217,13 @@ export async function appFactory(
       //   terminal.clear();
       // }
       console.log(`i: ${mstI}: `);
-
-      const App = new Function(trp + "return " + globalThis.IIFE[hash])().default as unknown as FC;
+      let App;
+      try {
+        App = new Function(trp + "return " + globalThis.IIFE[hash])().default as unknown as FC;
+      } catch {
+        wait(300);
+        App = new Function(trp + "return " + globalThis.IIFE[hash])().default as unknown as FC;
+      }
       console.log({ App });
 
       if (isCallable(App)) {
