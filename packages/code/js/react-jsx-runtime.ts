@@ -73,6 +73,15 @@ const mapTable = {
   "framer-motion": FramerMotion,
 };
 
-globalThis.require = (pkg) => mapTable[pkg];
+let loading = [];
+
+globalThis.require = (pkg) => {
+  if (mapTable[pkg]) return;
+  loading.add[pkg];
+  window.importShim(pkg).then(x => mapTable[pkg] = x).then(() => loading = loading.filter(x => x !== pkg)).then(() => {
+    if (mapTable[pkg]) return;
+    console.error("Error - require: " + pkg + " not found");
+  });
+};
 
 export const { hydrateRoot, createRoot } = ReactDOMClient;

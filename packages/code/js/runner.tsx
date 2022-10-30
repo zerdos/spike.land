@@ -20,6 +20,33 @@ Object.assign(globalThis, {
   },
 });
 
+export const umdTransform = async (code: string) => {
+  const transpiled = await transform(code, {
+    loader: "tsx",
+    format: "iife",
+    treeShaking: false,
+    platform: "browser",
+    minify: false,
+    keepNames: true,
+    globalName: md5(code),
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        module: "ESNext",
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react",
+      },
+    },
+    target: "es2021",
+  } as unknown as TransformOptions);
+
+  globalThis.IIFE = globalThis.IIFE = {};
+
+  globalThis.IIFE[md5(transpiled.code)] = md5(code);
+
+  return transpiled.code;
+};
+
 export async function runner({ code, counter, codeSpace }: {
   code: string;
   codeSpace: string;
@@ -41,30 +68,9 @@ export async function runner({ code, counter, codeSpace }: {
   //   (await import("./esbuildEsm.ts")).transform;
 
   try {
-    const transpiled = await transform(code, {
-      loader: "tsx",
-      format: "iife",
-      treeShaking: false,
-      platform: "browser",
-      minify: false,
-      keepNames: true,
-      globalName: md5(code),
-      tsconfigRaw: {
-        compilerOptions: {
-          jsx: "react-jsx",
-          module: "ESNext",
-          jsxFragmentFactory: "Fragment",
-          jsxImportSource: "@emotion/react",
-        },
-      },
-      target: "es2021",
-    } as unknown as TransformOptions);
+    const transpiledCode = await umdTransform(code);
 
-    globalThis.IIFE = globalThis.IIFE = {};
-
-    globalThis.IIFE[md5(transpiled.code)] = md5(code);
-
-    const { html, css } = await render(transpiled.code, codeSpace);
+    const { html, css } = await render(transpiledCode, codeSpace);
 
     // console.log({ html, css });
     if (!html || !css) {
@@ -75,7 +81,7 @@ export async function runner({ code, counter, codeSpace }: {
       ...mST(),
       code,
       i: counter,
-      transpiled: transpiled.code,
+      transpiled: transpiledCode,
       html,
       css,
     });

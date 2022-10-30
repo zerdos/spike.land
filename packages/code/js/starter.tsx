@@ -4,17 +4,18 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import type { EmotionCache } from "@emotion/cache";
+
 import { CacheProvider, css } from "@emotion/react";
 import { renderPreviewWindow } from "renderPreviewWindow";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
-import { mST } from "./session";
+import { hashCode, mST } from "./session";
 
 // import { CacheProvider } from "@emotion/react// import createCache from "@emotion/cache";
 // import type { EmotionCache } from "@emotion/cache";
 
 import isCallable from "is-callable";
-import ms from "ms";
+import { umdTransform } from "runner";
 import { wait } from "./wait";
 
 globalThis.IIFE = globalThis.IIFE = {};
@@ -27,8 +28,13 @@ const dynamicImport = (src: string) =>
     const hash = md5(trp);
     const codeHash = trp.slice(2, 10);
     globalThis.IIFE[hash] = codeHash;
-
-    return new Function(trp + "return " + globalThis.IIFE[hash])();
+    try {
+      return new Function(trp + "return " + globalThis.IIFE[hash])();
+    } catch {
+      const umdTrp = await umdTransform(trp);
+      const umdHash = md5(umdTrp);
+      return new Function(umdTrp + "return " + globalThis.IIFE[umdHash])();
+    }
   });
 
 // window.importShim ? window.importShim(src) : import(src);
@@ -55,7 +61,8 @@ const starterI = 1 * document.getElementById("root")?.getAttribute("data-i");
 
 async function importIt(url) {
   try {
-    return await dynamicImport(url);
+    const res = await dynamicImport(url);
+    return res;
   } catch {
     console.log("error loading", url);
 
@@ -103,7 +110,14 @@ export function AutoUpdateApp(
       <Suspense
         fallback={
           <Suspense
-            fallback={<div style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: mST().html }} />}
+            fallback={
+              <div
+                style={{ height: "100%" }}
+                dangerouslySetInnerHTML={{
+                  __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`,
+                }}
+              />
+            }
           >
             <App />
           </Suspense>

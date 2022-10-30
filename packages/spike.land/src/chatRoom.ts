@@ -263,7 +263,7 @@ export class Code {
 
         case "index.js":
         case "js": {
-          if (path[1]) {
+          if (path[1] && Number(path[1]) >= mST().i) {
             const i = path[1];
             return new Response(
               await new Promise<string>((res) =>
