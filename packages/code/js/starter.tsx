@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 // import {terminal} from "./DraggableWindow"
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -13,10 +13,25 @@ import { mST, onSessionUpdate } from "./session";
 // import { CacheProvider } from "@emotion/react// import createCache from "@emotion/cache";
 // import type { EmotionCache } from "@emotion/cache";
 
+import { red } from "@mui/material/colors";
 import isCallable from "is-callable";
 import { wait } from "./wait";
 
-const dynamicImport = (src: string) => window.importShim ? window.importShim(src) : import(src);
+globalThis.IIFE = globalThis.IIFE = {};
+
+const dynamicImport = (src: string) =>
+  fetch(src).then(async (resp) => {
+    if (!resp.ok) throw new Error("Error while import ${src}");
+
+    const trp = await resp.text();
+    const hash = md5(trp);
+    const codeHash = trp.slice(2, 10);
+    globalThis.IIFE[hash] = codeHash;
+
+    return new Function(trp + "return " + globalThis.IIFE[hash])();
+  });
+
+// window.importShim ? window.importShim(src) : import(src);
 
 // const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache};
 
@@ -36,70 +51,134 @@ export const { apps, eCaches } = (globalThis as unknown as {
 
 // const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
+const starterI = 1 * document.getElementById("root")?.getAttribute("data-i");
+
+async function importIt(url) {
+  try {
+    return await dynamicImport(url);
+  } catch {
+    console.log("error loading", url);
+
+    await wait(500);
+    return await importIt(url);
+  }
+}
+
 export function AutoUpdateApp(
   { codeSpace, transpiled }: { codeSpace: string; transpiled?: string },
 ) {
-  const [{ md5Hash, resetErrorBoundary, App }, setMdHash] = useState({
-    App: lazy(async () => {
-      return {
-        default: apps[md5(mST().transpiled)],
-      };
-    }),
-    md5Hash: md5(transpiled || mST().transpiled),
-    resetErrorBoundary: null as null | (() => void),
+  const [i, setI] = useState(starterI);
+  const futureSuspenseRef = useRef(null);
+
+  const [{ App, FutureApp }, setApps] = useState({
+    App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`)),
+    FutureApp: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`)),
   });
 
   useEffect(() =>
-    onSessionUpdate(async () => {
-      const transpiled = mST().transpiled;
-      await appFactory(transpiled);
-      resetErrorBoundary && resetErrorBoundary();
-      const md5Hash = md5(transpiled);
-      if (apps[md5Hash]) {
-        setMdHash({
-          md5Hash: md5(transpiled),
-          resetErrorBoundary: null,
-          App: lazy(async () => {
-            if (!location.href.endsWith("/public")) await wait(1000);
-            return {
-              default: apps[md5(mST().transpiled)],
-            };
-          }),
-        });
-      }
-    }, "autoUpdate"), [setMdHash, resetErrorBoundary]);
+    setApps({
+      App: FutureApp,
+      FutureApp: lazy(async () => {
+        const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
+        setI(i => i + 1);
+        return {
+          default: ret.default,
+        };
+      }),
+    }), [i]);
 
   // const App = apps[md5Hash];
 
   return (
     <ErrorBoundary
-      key={md5Hash}
-      fallbackRender={({ error, resetErrorBoundary }) => (
+      key={i}
+      fallbackRender={({ error }) => (
         <div role="alert">
           <div>Oh no</div>
           <pre>{error.message}</pre>
-          <button
-            onClick={() => {
-              if (
-                resetErrorBoundary !== null && isCallable(resetErrorBoundary)
-              ) resetErrorBoundary();
-
-              setMdHash((x) => ({ ...x, resetErrorBoundary: null }));
-            }}
-          >
-            Try again
-          </button>
         </div>
       )}
     >
       <Suspense
-        fallback={<div style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: mST().html }} />}
+        fallback={
+          <Suspense
+            fallback={<div style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: mST().html }} />}
+          >
+            <App />
+          </Suspense>
+        }
       >
-        <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
+        <FutureApp ref={futureSuspenseRef} />
       </Suspense>
     </ErrorBoundary>
   );
 }
+
+// export function AutoUpdateApp(
+//   { codeSpace, transpiled }: { codeSpace: string; transpiled?: string },
+// ) {
+//   const [{ md5Hash, resetErrorBoundary, App }, setMdHash] = useState({
+//     App: lazy(async () => {
+//       return {
+//         default: apps[md5(mST().transpiled)],
+//       };
+//     }),
+//     md5Hash: md5(transpiled || mST().transpiled),
+//     resetErrorBoundary: null as null | (() => void),
+//   });
+
+//   useEffect(() =>
+//     onSessionUpdate(async () => {
+//       const transpiled = mST().transpiled;
+//       await appFactory(transpiled);
+//       resetErrorBoundary && resetErrorBoundary();
+//       const md5Hash = md5(transpiled);
+//       if (apps[md5Hash]) {
+//         setMdHash({
+//           md5Hash: md5(transpiled),
+//           resetErrorBoundary: null,
+//           App: lazy(async () => {
+//             if (!location.href.endsWith("/public")) await wait(1000);
+//             return {
+//               default: apps[md5(mST().transpiled)],
+//             };
+//           }),
+//         });
+//       }
+//     }, "autoUpdate"), [setMdHash, resetErrorBoundary]);
+
+//   // const App = apps[md5Hash];
+
+//   return (
+//     <ErrorBoundary
+//       key={md5Hash}
+//       fallbackRender={({ error, resetErrorBoundary }) => (
+//         <div role="alert">
+//           <div>Oh no</div>
+//           <pre>{error.message}</pre>
+//           <button
+//             onClick={() => {
+//               if (
+//                 resetErrorBoundary !== null && isCallable(resetErrorBoundary)
+//               ) resetErrorBoundary();
+
+//               setMdHash((x) => ({ ...x, resetErrorBoundary: null }));
+//             }}
+//           >
+//             Try again
+//           </button>
+//         </div>
+//       )}
+//     >
+//       <Suspense
+//         fallback={<div style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: mST().html }} />}
+//       >
+//         <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
+//       </Suspense>
+//     </ErrorBoundary>
+//   );
+// }
+
 //
 // let Emotion: typeof iEmotion;
 let started = false;
@@ -121,8 +200,9 @@ export async function appFactory(
       //   terminal.clear();
       // }
       console.log(`i: ${mstI}: `);
-      const App = (await dynamicImport(createJsBlob(trp)))
-        .default as unknown as FC;
+
+      const App = new Function(trp + "return " + globalThis.IIFE[hash])().default as unknown as FC;
+      console.log({ App });
 
       if (isCallable(App)) {
         eCaches[hash] = eCaches[hash] || createCache({

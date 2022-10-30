@@ -1,14 +1,12 @@
 import {
   typescriptDefaults
-} from "./chunk-chunk-PEGHXP3H.mjs";
+} from "./chunk-chunk-PUTCJXOT.mjs";
 import {
   editor_api_exports
-} from "./chunk-chunk-HKZ2MB76.mjs";
+} from "./chunk-chunk-B36LW6WR.mjs";
 import {
-  __spreadProps,
-  __spreadValues,
   init_define_process
-} from "./chunk-chunk-DSXGUE46.mjs";
+} from "./chunk-chunk-2DK73MPQ.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
 init_define_process();
@@ -446,7 +444,6 @@ var SuggestAdapter = class extends Adapter {
       return;
     }
     const suggestions = info.entries.map((entry) => {
-      var _a;
       let range = wordRange;
       if (entry.replacementSpan) {
         const p1 = model.getPositionAt(entry.replacementSpan.start);
@@ -454,7 +451,7 @@ var SuggestAdapter = class extends Adapter {
         range = new monaco_editor_core_exports.Range(p1.lineNumber, p1.column, p2.lineNumber, p2.column);
       }
       const tags = [];
-      if (((_a = entry.kindModifiers) == null ? void 0 : _a.indexOf("deprecated")) !== -1) {
+      if (entry.kindModifiers?.indexOf("deprecated") !== -1) {
         tags.push(monaco_editor_core_exports.languages.CompletionItemTag.Deprecated);
       }
       return {
@@ -1008,11 +1005,12 @@ var InlayHintsAdapter = class extends Adapter {
     }
     const tsHints = await worker.provideInlayHints(fileName, start, end);
     const hints = tsHints.map((hint) => {
-      return __spreadProps(__spreadValues({}, hint), {
+      return {
+        ...hint,
         label: hint.text,
         position: model.getPositionAt(hint.position),
         kind: this._convertHintKind(hint.kind)
-      });
+      };
     });
     return { hints, dispose: () => {
     } };

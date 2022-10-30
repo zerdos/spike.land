@@ -6,12 +6,14 @@ import {
   mST,
   makePatch,
   makePatchFrom,
-  md5,
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-F5TEE6RK.mjs";
-import "./chunk-chunk-DSXGUE46.mjs";
+} from "./chunk-chunk-XCTFYH32.mjs";
+import {
+  md5
+} from "./chunk-chunk-LXXR4HN6.mjs";
+import "./chunk-chunk-2DK73MPQ.mjs";
 export {
   CodeSession,
   applyPatch,

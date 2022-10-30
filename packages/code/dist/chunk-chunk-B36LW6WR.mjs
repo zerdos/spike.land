@@ -3,7 +3,7 @@ import {
   __export,
   define_process_default,
   init_define_process
-} from "./chunk-chunk-DSXGUE46.mjs";
+} from "./chunk-chunk-2DK73MPQ.mjs";
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/nls.js
 function _format(message, args) {
@@ -13008,7 +13008,7 @@ function hookDomPurifyHrefAndSrcSanitizer(allowedProtocols, allowDataImages = fa
     removeHook("afterSanitizeAttributes");
   });
 }
-var DomListener, addStandardDisposableListener, addStandardDisposableGenericMouseDownListener, _animationFrame, runAtThisOrScheduleAtNextAnimationFrame, scheduleAtNextAnimationFrame, AnimationFrameQueueItem, SizeUtils, Dimension, StandardWindow, _sharedStyleSheet, EventType, EventHelper, FocusTracker, SELECTOR_REGEX, Namespace, ModifierKeyEmitter, DragAndDropObserver, H_REGEX;
+var DomListener, addStandardDisposableListener, addStandardDisposableGenericMouseDownListener, _animationFrame, runAtThisOrScheduleAtNextAnimationFrame, scheduleAtNextAnimationFrame, AnimationFrameQueueItem, SizeUtils, Dimension, StandardWindow, _sharedStyleSheet, EventType, EventHelper, FocusTracker, SELECTOR_REGEX, Namespace, ModifierKeyEmitter, DragAndDropObserver;
 var init_dom = __esm({
   "../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/base/browser/dom.js"() {
     init_define_process();
@@ -13489,7 +13489,6 @@ var init_dom = __esm({
         }));
       }
     };
-    H_REGEX = new RegExp("(?<tag>[\\w\\-]+)?(?:#(?<id>[\\w\\-]+))?(?<class>(?:\\.(?:[\\w\\-]+))*)(?:@(?<name>(?:[\\w\\_])+))?");
   }
 });
 

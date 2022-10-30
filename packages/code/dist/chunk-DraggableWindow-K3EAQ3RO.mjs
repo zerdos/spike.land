@@ -6,14 +6,15 @@ import {
   domMax,
   m,
   motion
-} from "./chunk-chunk-V7IH4FN4.mjs";
+} from "./chunk-chunk-NQXE3QMF.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-XN6LLH3D.mjs";
-import "./chunk-chunk-2SJARRPY.mjs";
+} from "./chunk-chunk-IL7IMEZK.mjs";
+import "./chunk-chunk-AORUTXQS.mjs";
+import "./chunk-chunk-MJK7RYHY.mjs";
 import {
   mST
-} from "./chunk-chunk-F5TEE6RK.mjs";
+} from "./chunk-chunk-XCTFYH32.mjs";
 import {
   Suspense,
   createElement,
@@ -23,24 +24,21 @@ import {
   useEffect,
   useRef,
   useState
-} from "./chunk-chunk-VC46YPFW.mjs";
+} from "./chunk-chunk-ADALEOZA.mjs";
 import {
-  css,
-  init_emotion
-} from "./chunk-chunk-74QYOWVK.mjs";
+  css
+} from "./chunk-chunk-HS3IGWOP.mjs";
 import {
-  init_emotionJsxRuntime,
   jsx,
   jsxs
-} from "./chunk-chunk-CU2UTUO2.mjs";
+} from "./chunk-chunk-V6QE4D7F.mjs";
+import "./chunk-chunk-QNIU5IGD.mjs";
+import "./chunk-chunk-LXXR4HN6.mjs";
 import {
   __commonJS,
-  __objRest,
-  __spreadProps,
-  __spreadValues,
   __toESM,
   init_define_process
-} from "./chunk-chunk-DSXGUE46.mjs";
+} from "./chunk-chunk-2DK73MPQ.mjs";
 
 // ../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js
 var require_qrious = __commonJS({
@@ -2377,7 +2375,6 @@ var require_qrious = __commonJS({
 
 // js/DraggableWindow.tsx
 init_define_process();
-init_emotion();
 init_reactMod();
 
 // ../../.yarn/__virtual__/react-icons-virtual-03002b44ac/0/global/cache/react-icons-npm-4.6.0-85b1c2c9bc-9.zip/node_modules/react-icons/md/index.esm.js
@@ -2494,7 +2491,6 @@ function MdShare(props) {
 
 // js/Qr.tsx
 init_define_process();
-init_emotion();
 init_reactMod();
 
 // ../../.yarn/__virtual__/react-qrious-virtual-b90ac76f79/0/global/cache/react-qrious-npm-2.5.6-421c990834-9.zip/node_modules/react-qrious/lib/index.js
@@ -2519,8 +2515,7 @@ var useQrious = (options) => {
 };
 
 // ../../.yarn/__virtual__/react-qrious-virtual-b90ac76f79/0/global/cache/react-qrious-npm-2.5.6-421c990834-9.zip/node_modules/react-qrious/lib/QRious.js
-var QRious2 = (_a) => {
-  var _b = _a, { background, backgroundAlpha, foreground, foregroundAlpha, level, mime, padding, value, size } = _b, props = __objRest(_b, ["background", "backgroundAlpha", "foreground", "foregroundAlpha", "level", "mime", "padding", "value", "size"]);
+var QRious2 = ({ background, backgroundAlpha, foreground, foregroundAlpha, level, mime, padding, value, size, ...props }) => {
   const [dataUrl] = useQrious({
     background,
     backgroundAlpha,
@@ -2532,15 +2527,14 @@ var QRious2 = (_a) => {
     size,
     value
   });
-  return createElement("img", __spreadProps(__spreadValues({}, props), {
+  return createElement("img", {
+    ...props,
     src: dataUrl
-  }));
+  });
 };
 
 // js/icons.tsx
 init_define_process();
-init_emotion();
-init_emotionJsxRuntime();
 var Wrap = ({ children }) => jsx("span", {
   css: css`
 font-size:20pt;
@@ -2565,33 +2559,36 @@ var Tv = () => jsx(Wrap, {
 
 // js/mui.tsx
 init_define_process();
-init_emotion();
 init_reactMod();
-init_emotionJsxRuntime();
-var FabLazy = lazy(async () => import("./chunk-Fab-LN7W4WLQ.mjs"));
+var FabLazy = lazy(async () => import("./chunk-Fab-2MK7FCHR.mjs"));
 var Fab = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
   }),
-  children: jsx(FabLazy, __spreadValues({}, props))
+  children: jsx(FabLazy, {
+    ...props
+  })
 });
-var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-FEXL35WO.mjs"));
+var ToggleButtonLazy = lazy(async () => import("./chunk-ToggleButton-R3JTCE55.mjs"));
 var ToggleButton = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
   }),
-  children: jsx(ToggleButtonLazy, __spreadValues({}, props))
+  children: jsx(ToggleButtonLazy, {
+    ...props
+  })
 });
-var ToggleButtonGroupLazy = lazy(async () => import("./chunk-ToggleButtonGroup-UI7YYPKN.mjs"));
+var ToggleButtonGroupLazy = lazy(async () => import("./chunk-ToggleButtonGroup-25WTHWLR.mjs"));
 var ToggleButtonGroup = (props) => jsx(Suspense, {
   fallback: jsx("div", {
     css: css`width: 28px; height:28px`
   }),
-  children: jsx(ToggleButtonGroupLazy, __spreadValues({}, props))
+  children: jsx(ToggleButtonGroupLazy, {
+    ...props
+  })
 });
 
 // js/Qr.tsx
-init_emotionJsxRuntime();
 var QRButton = ({ url }) => {
   const [showQR, setQR] = useState(false);
   return jsx(motion.div, {
@@ -2615,7 +2612,6 @@ var QRButton = ({ url }) => {
 };
 
 // js/DraggableWindow.tsx
-init_emotionJsxRuntime();
 var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100];
@@ -2696,7 +2692,7 @@ var DraggableWindow = ({
     transition: { delay, type, duration },
     children: jsx(AnimatePresence, {
       children: jsx(LazyMotion, {
-        features: __spreadValues(__spreadValues({}, domAnimation), domMax),
+        features: { ...domAnimation, ...domMax },
         children: jsx(m.div, {
           layout: true,
           initial: {
@@ -2871,8 +2867,7 @@ var DraggableWindow = ({
                   children: [
                     jsx(Fab, {
                       onClick: () => {
-                        var _a2;
-                        (_a2 = document.querySelector("#root")) == null ? void 0 : _a2.requestFullscreen();
+                        document.querySelector("#root")?.requestFullscreen();
                       },
                       children: jsx("span", {
                         css: css`
