@@ -1,4 +1,4 @@
-import { React, ReactDOM, ReactDOMClient } from "./react-jsx-runtime.js";
+const { React, ReactDOM, ReactDOMClient } = globalThis;
 
 export const {
   Children,
@@ -52,11 +52,6 @@ export const {
   unstable_batchedUpdates,
   unstable_renderSubtreeIntoContainer,
   version,
-} = globalThis.ReactDOM;
+} = ReactDOM;
 
-const all = {
-  ...React,
-  ...ReactDOM,
-  ...ReactDOMClient,
-};
-export default all;
+export default React;

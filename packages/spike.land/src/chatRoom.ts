@@ -64,21 +64,16 @@ export class Code {
       this.sessionStarted = false;
     });
   }
-  wait = (x: () => boolean) => {
-    if (!x()) this.waiting.push(x);
-
-    const reduce = () =>
-      setTimeout(() => {
-        this.waiting = this.waiting.filter(x => !x());
-        if (this.waiting.length) reduce();
-      }, 1000);
+  wait = (x?: () => boolean) => {
+    this.waiting = this.waiting.filter(x => !x());
+    if (x && !x()) this.waiting.push(x);
   };
 
   async fetch(request: Request) {
     const state = this.sess!;
     const url = new URL(request.url);
 
-    this.waiting = this.waiting.filter(x => !x());
+    this.wait();
 
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
@@ -609,6 +604,7 @@ export class Code {
 
           try {
             await applyPatch({ newHash, oldHash, patch });
+            this.wait();
           } catch (err) {
             console.error({ err });
             return respondWith({ err });
@@ -616,6 +612,7 @@ export class Code {
 
           if (newHash === hashCode()) {
             try {
+              this.wait();
               this.broadcast(data);
             } catch {
               return respondWith({

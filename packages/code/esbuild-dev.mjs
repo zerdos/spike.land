@@ -21,7 +21,7 @@ const environment = env.NODE_ENV === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
-const target = "ES2017";
+const target = "es2021";
 
 console.log(`
 -------------------------------------------------
@@ -79,7 +79,7 @@ console.log(`
 ----------------------b1--------------------------
 -------------------------------------------------`);
 
-const build = (entryPoints, extraExternal, watch = false) =>
+const build = (entryPoints, extraExternal, watch = false, format = "esm") =>
   esbuild.build({
     ...buildOptions,
     entryPoints,
@@ -87,9 +87,9 @@ const build = (entryPoints, extraExternal, watch = false) =>
     external: [...buildOptions.external, ...extraExternal],
     outExtension: { ".js": ".mjs" },
     bundle: true,
-    splitting: true,
+    splitting: format === "esm",
     target,
-    format: "esm",
+    format,
     sourcemap: false,
 
     minify: !isDevelopment,
@@ -231,9 +231,11 @@ const build = (entryPoints, extraExternal, watch = false) =>
   // ], [ //"react", "react-dom*"
   // ]);
 
+  await build(["js/react-jsx-runtime.ts"], [], false, "iife");
+
   await build([
     "js/load.ts",
-  ], []);
+  ], ["./react-jsx-runtime.mjs"]);
   console.log("done");
 
   buildOptions.plugins = [
@@ -251,7 +253,7 @@ const build = (entryPoints, extraExternal, watch = false) =>
       "react": resolve("./js/reactMod.ts"),
       "react-dom": resolve("./js/reactMod.ts"),
       "react-dom/client": resolve("./js/reactMod.ts"),
-      // "react/jsx-runtime": resolve("./js/jsx.mjs"),
+      "framer-motion": resolve("./js/motion.ts"),
       // "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
     }),
   ];
@@ -281,7 +283,6 @@ const build = (entryPoints, extraExternal, watch = false) =>
       "js/reactMod.ts",
       "js/Editor.tsx",
       "js/motion.ts",
-
       "js/ws.ts",
       "js/emotion.ts",
       "js/emotionJsxRuntime.ts",

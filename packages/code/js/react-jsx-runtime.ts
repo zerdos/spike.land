@@ -5,14 +5,15 @@ const runtime = () => {
   if (globalThis.React) return;
   const React = require("react");
   Object.assign(globalThis, { React });
-  const ReactDOMClient = require("react-dom/client");
-  Object.assign(globalThis, { ReactDOMClient });
 
   const ReactDOM = require("react-dom");
   Object.assign(globalThis, { ReactDOM });
 
-  const ReactDOMServer = require("react-dom/server");
-  Object.assign(globalThis, { ReactDOMServer });
+  const ReactDOMClient = require("react-dom/client");
+  Object.assign(globalThis, { ReactDOMClient });
+
+  // const ReactDOMServer = require("react-dom/server");
+  // Object.assign(globalThis, { ReactDOMServer });
 
   const ReactJSXRuntime = require("react/jsx-runtime");
   Object.assign(globalThis, { ReactJSXRuntime });
@@ -41,19 +42,37 @@ const runtime = () => {
       arguments,
     );
   };
+  const FramerMotion = require("framer-motion");
+  Object.assign(globalThis, { FramerMotion });
 };
 runtime();
 
-export const {
-  ReactDOM,
+const {
   React,
+  ReactDOM,
+  ReactDOMClient,
   ReactJSXRuntime,
   emotionReact,
   emotionReactJsxRuntime,
   ReactDOMServer,
   createEmotionCache,
   styled,
-  ReactDOMClient,
+  FramerMotion,
 } = globalThis;
+
+const mapTable = {
+  "react": React,
+  "react-dom": ReactDOM,
+  "react-dom/client": ReactDOMClient,
+  "@emotion/react": emotionReact,
+  "@emotion/styled": styled,
+  "@emotion/cache": createEmotionCache,
+  "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
+  "react/jsx-runtime": ReactJSXRuntime,
+  "react-dom/server": ReactDOMServer,
+  "framer-motion": FramerMotion,
+};
+
+globalThis.require = (pkg) => mapTable[pkg];
 
 export const { hydrateRoot, createRoot } = ReactDOMClient;

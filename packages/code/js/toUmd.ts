@@ -89,7 +89,7 @@ export const toUmd = async (source: string, name: string) => {
       keepNames: true,
       treeShaking: true,
 
-      target: "es2018",
+      target: "es2021",
 
       loader: name.includes(".tsx")
         ? "tsx"

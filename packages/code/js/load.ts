@@ -1,9 +1,11 @@
 import "es-module-shims";
+import "./react-jsx-runtime.mjs";
 
 import importmap from "./importmap.json";
-import { createRoot, hydrateRoot } from "./react-jsx-runtime.js";
 
 // importShim.addImportMap(importmap);
+
+const { hydrateRoot, createRoot } = globalThis.ReactDOMClient;
 
 const imp = {};
 
