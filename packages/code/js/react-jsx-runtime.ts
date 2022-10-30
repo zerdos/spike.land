@@ -87,7 +87,13 @@ const requireUmd = (pkg: string) => {
   globalThis.requireLoading.push[pkg];
   fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
     const hash = md5(x);
-    new Function(x)();
+
+    let z = x.split("(");
+    z.shift();
+    z.unshift(`globalThis.apps.${hash} = `);
+    z = z.join("(");
+
+    new Function(z)();
     return apps[hash];
   }).then(x => mapTable[pkg] = x).then(() =>
     globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
