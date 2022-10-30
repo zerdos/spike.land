@@ -1,5 +1,6 @@
 import "es-module-shims";
 import importmap from "./importmap.json";
+import { md5 } from "./md5";
 const imp = {};
 Object.keys(importmap.imports).map((k) => imp[k] = location.origin + importmap.imports[k]);
 
@@ -86,7 +87,7 @@ const requireUmd = (pkg: string) => {
   globalThis.requireLoading.push[pkg];
   fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
     const hash = md5(x);
-    return new Function(x)();
+    new Function(x)();
     return apps[hash];
   }).then(x => mapTable[pkg] = x).then(() =>
     globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
