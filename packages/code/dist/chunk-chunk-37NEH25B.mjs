@@ -1,749 +1,65 @@
 import {
-  initAndTransform,
-  md5
-} from "./chunk-chunk-EXKZY7I4.mjs";
+  emotionCache_default
+} from "./chunk-chunk-SPNC3BA5.mjs";
 import {
-  require_emotion_cache_cjs,
-  require_emotion_element_b63ca7c6_cjs_dev,
-  require_emotion_react_cjs,
-  require_emotion_react_isolated_hnrs_cjs_dev,
-  require_emotion_serialize_cjs,
-  require_emotion_use_insertion_effect_with_fallbacks_cjs,
-  require_emotion_utils_cjs,
-  require_emotion_weak_memoize_cjs,
-  require_extends,
-  require_hoist_non_react_statics_cjs,
-  require_jsx_runtime,
-  require_react,
-  require_react_dom
-} from "./chunk-chunk-TZJXJSL2.mjs";
+  hashCode,
+  mST,
+  onSessionUpdate,
+  patchSync,
+  require_lodash
+} from "./chunk-chunk-DSTXGLQA.mjs";
+import {
+  Children,
+  Fragment,
+  PureComponent,
+  StrictMode,
+  Suspense,
+  cloneElement,
+  createElement,
+  createPortal,
+  createRef,
+  createRoot,
+  flushSync,
+  init_reactMod,
+  isValidElement,
+  lazy,
+  reactMod_default,
+  reactMod_exports,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "./chunk-chunk-ADALEOZA.mjs";
+import {
+  CacheProvider,
+  Global,
+  css
+} from "./chunk-chunk-HS3IGWOP.mjs";
+import {
+  Fragment as Fragment2,
+  jsx,
+  jsxs
+} from "./chunk-chunk-V6QE4D7F.mjs";
+import {
+  initAndTransform
+} from "./chunk-chunk-UJK7BO2G.mjs";
+import {
+  md5
+} from "./chunk-chunk-XT46MF77.mjs";
 import {
   __commonJS,
+  __toCommonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-AIJYQNQW.mjs";
-
-// ../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js
-var require_lodash = __commonJS({
-  "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
-    init_define_process();
-    var FUNC_ERROR_TEXT = "Expected a function";
-    var NAN = 0 / 0;
-    var symbolTag = "[object Symbol]";
-    var reTrim = /^\s+|\s+$/g;
-    var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-    var reIsBinary = /^0b[01]+$/i;
-    var reIsOctal = /^0o[0-7]+$/i;
-    var freeParseInt = parseInt;
-    var freeGlobal = typeof globalThis == "object" && globalThis && globalThis.Object === Object && globalThis;
-    var freeSelf = typeof self == "object" && self && self.Object === Object && self;
-    var root = freeGlobal || freeSelf || Function("return this")();
-    var objectProto = Object.prototype;
-    var objectToString = objectProto.toString;
-    var nativeMax = Math.max;
-    var nativeMin = Math.min;
-    var now = function() {
-      return root.Date.now();
-    };
-    function debounce3(func, wait2, options) {
-      var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
-      if (typeof func != "function") {
-        throw new TypeError(FUNC_ERROR_TEXT);
-      }
-      wait2 = toNumber(wait2) || 0;
-      if (isObject(options)) {
-        leading = !!options.leading;
-        maxing = "maxWait" in options;
-        maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait2) : maxWait;
-        trailing = "trailing" in options ? !!options.trailing : trailing;
-      }
-      function invokeFunc(time) {
-        var args = lastArgs, thisArg = lastThis;
-        lastArgs = lastThis = void 0;
-        lastInvokeTime = time;
-        result = func.apply(thisArg, args);
-        return result;
-      }
-      function leadingEdge(time) {
-        lastInvokeTime = time;
-        timerId = setTimeout(timerExpired, wait2);
-        return leading ? invokeFunc(time) : result;
-      }
-      function remainingWait(time) {
-        var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, result2 = wait2 - timeSinceLastCall;
-        return maxing ? nativeMin(result2, maxWait - timeSinceLastInvoke) : result2;
-      }
-      function shouldInvoke(time) {
-        var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime;
-        return lastCallTime === void 0 || timeSinceLastCall >= wait2 || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
-      }
-      function timerExpired() {
-        var time = now();
-        if (shouldInvoke(time)) {
-          return trailingEdge(time);
-        }
-        timerId = setTimeout(timerExpired, remainingWait(time));
-      }
-      function trailingEdge(time) {
-        timerId = void 0;
-        if (trailing && lastArgs) {
-          return invokeFunc(time);
-        }
-        lastArgs = lastThis = void 0;
-        return result;
-      }
-      function cancel() {
-        if (timerId !== void 0) {
-          clearTimeout(timerId);
-        }
-        lastInvokeTime = 0;
-        lastArgs = lastCallTime = lastThis = timerId = void 0;
-      }
-      function flush() {
-        return timerId === void 0 ? result : trailingEdge(now());
-      }
-      function debounced() {
-        var time = now(), isInvoking = shouldInvoke(time);
-        lastArgs = arguments;
-        lastThis = this;
-        lastCallTime = time;
-        if (isInvoking) {
-          if (timerId === void 0) {
-            return leadingEdge(lastCallTime);
-          }
-          if (maxing) {
-            timerId = setTimeout(timerExpired, wait2);
-            return invokeFunc(lastCallTime);
-          }
-        }
-        if (timerId === void 0) {
-          timerId = setTimeout(timerExpired, wait2);
-        }
-        return result;
-      }
-      debounced.cancel = cancel;
-      debounced.flush = flush;
-      return debounced;
-    }
-    function isObject(value) {
-      var type = typeof value;
-      return !!value && (type == "object" || type == "function");
-    }
-    function isObjectLike(value) {
-      return !!value && typeof value == "object";
-    }
-    function isSymbol(value) {
-      return typeof value == "symbol" || isObjectLike(value) && objectToString.call(value) == symbolTag;
-    }
-    function toNumber(value) {
-      if (typeof value == "number") {
-        return value;
-      }
-      if (isSymbol(value)) {
-        return NAN;
-      }
-      if (isObject(value)) {
-        var other = typeof value.valueOf == "function" ? value.valueOf() : value;
-        value = isObject(other) ? other + "" : other;
-      }
-      if (typeof value != "string") {
-        return value === 0 ? value : +value;
-      }
-      value = value.replace(reTrim, "");
-      var isBinary = reIsBinary.test(value);
-      return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
-    }
-    module.exports = debounce3;
-  }
-});
-
-// ../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js
-var require_diff = __commonJS({
-  "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
-    init_define_process();
-    var DIFF_DELETE = -1;
-    var DIFF_INSERT = 1;
-    var DIFF_EQUAL = 0;
-    function diff_main(text1, text2, cursor_pos, _fix_unicode) {
-      if (text1 === text2) {
-        if (text1) {
-          return [[DIFF_EQUAL, text1]];
-        }
-        return [];
-      }
-      if (cursor_pos != null) {
-        var editdiff = find_cursor_edit_diff(text1, text2, cursor_pos);
-        if (editdiff) {
-          return editdiff;
-        }
-      }
-      var commonlength = diff_commonPrefix(text1, text2);
-      var commonprefix = text1.substring(0, commonlength);
-      text1 = text1.substring(commonlength);
-      text2 = text2.substring(commonlength);
-      commonlength = diff_commonSuffix(text1, text2);
-      var commonsuffix = text1.substring(text1.length - commonlength);
-      text1 = text1.substring(0, text1.length - commonlength);
-      text2 = text2.substring(0, text2.length - commonlength);
-      var diffs = diff_compute_(text1, text2);
-      if (commonprefix) {
-        diffs.unshift([DIFF_EQUAL, commonprefix]);
-      }
-      if (commonsuffix) {
-        diffs.push([DIFF_EQUAL, commonsuffix]);
-      }
-      diff_cleanupMerge(diffs, _fix_unicode);
-      return diffs;
-    }
-    function diff_compute_(text1, text2) {
-      var diffs;
-      if (!text1) {
-        return [[DIFF_INSERT, text2]];
-      }
-      if (!text2) {
-        return [[DIFF_DELETE, text1]];
-      }
-      var longtext = text1.length > text2.length ? text1 : text2;
-      var shorttext = text1.length > text2.length ? text2 : text1;
-      var i = longtext.indexOf(shorttext);
-      if (i !== -1) {
-        diffs = [
-          [DIFF_INSERT, longtext.substring(0, i)],
-          [DIFF_EQUAL, shorttext],
-          [DIFF_INSERT, longtext.substring(i + shorttext.length)]
-        ];
-        if (text1.length > text2.length) {
-          diffs[0][0] = diffs[2][0] = DIFF_DELETE;
-        }
-        return diffs;
-      }
-      if (shorttext.length === 1) {
-        return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
-      }
-      var hm = diff_halfMatch_(text1, text2);
-      if (hm) {
-        var text1_a = hm[0];
-        var text1_b = hm[1];
-        var text2_a = hm[2];
-        var text2_b = hm[3];
-        var mid_common = hm[4];
-        var diffs_a = diff_main(text1_a, text2_a);
-        var diffs_b = diff_main(text1_b, text2_b);
-        return diffs_a.concat([[DIFF_EQUAL, mid_common]], diffs_b);
-      }
-      return diff_bisect_(text1, text2);
-    }
-    function diff_bisect_(text1, text2) {
-      var text1_length = text1.length;
-      var text2_length = text2.length;
-      var max_d = Math.ceil((text1_length + text2_length) / 2);
-      var v_offset = max_d;
-      var v_length = 2 * max_d;
-      var v1 = new Array(v_length);
-      var v2 = new Array(v_length);
-      for (var x = 0; x < v_length; x++) {
-        v1[x] = -1;
-        v2[x] = -1;
-      }
-      v1[v_offset + 1] = 0;
-      v2[v_offset + 1] = 0;
-      var delta = text1_length - text2_length;
-      var front = delta % 2 !== 0;
-      var k1start = 0;
-      var k1end = 0;
-      var k2start = 0;
-      var k2end = 0;
-      for (var d = 0; d < max_d; d++) {
-        for (var k1 = -d + k1start; k1 <= d - k1end; k1 += 2) {
-          var k1_offset = v_offset + k1;
-          var x1;
-          if (k1 === -d || k1 !== d && v1[k1_offset - 1] < v1[k1_offset + 1]) {
-            x1 = v1[k1_offset + 1];
-          } else {
-            x1 = v1[k1_offset - 1] + 1;
-          }
-          var y1 = x1 - k1;
-          while (x1 < text1_length && y1 < text2_length && text1.charAt(x1) === text2.charAt(y1)) {
-            x1++;
-            y1++;
-          }
-          v1[k1_offset] = x1;
-          if (x1 > text1_length) {
-            k1end += 2;
-          } else if (y1 > text2_length) {
-            k1start += 2;
-          } else if (front) {
-            var k2_offset = v_offset + delta - k1;
-            if (k2_offset >= 0 && k2_offset < v_length && v2[k2_offset] !== -1) {
-              var x2 = text1_length - v2[k2_offset];
-              if (x1 >= x2) {
-                return diff_bisectSplit_(text1, text2, x1, y1);
-              }
-            }
-          }
-        }
-        for (var k2 = -d + k2start; k2 <= d - k2end; k2 += 2) {
-          var k2_offset = v_offset + k2;
-          var x2;
-          if (k2 === -d || k2 !== d && v2[k2_offset - 1] < v2[k2_offset + 1]) {
-            x2 = v2[k2_offset + 1];
-          } else {
-            x2 = v2[k2_offset - 1] + 1;
-          }
-          var y2 = x2 - k2;
-          while (x2 < text1_length && y2 < text2_length && text1.charAt(text1_length - x2 - 1) === text2.charAt(text2_length - y2 - 1)) {
-            x2++;
-            y2++;
-          }
-          v2[k2_offset] = x2;
-          if (x2 > text1_length) {
-            k2end += 2;
-          } else if (y2 > text2_length) {
-            k2start += 2;
-          } else if (!front) {
-            var k1_offset = v_offset + delta - k2;
-            if (k1_offset >= 0 && k1_offset < v_length && v1[k1_offset] !== -1) {
-              var x1 = v1[k1_offset];
-              var y1 = v_offset + x1 - k1_offset;
-              x2 = text1_length - x2;
-              if (x1 >= x2) {
-                return diff_bisectSplit_(text1, text2, x1, y1);
-              }
-            }
-          }
-        }
-      }
-      return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
-    }
-    function diff_bisectSplit_(text1, text2, x, y) {
-      var text1a = text1.substring(0, x);
-      var text2a = text2.substring(0, y);
-      var text1b = text1.substring(x);
-      var text2b = text2.substring(y);
-      var diffs = diff_main(text1a, text2a);
-      var diffsb = diff_main(text1b, text2b);
-      return diffs.concat(diffsb);
-    }
-    function diff_commonPrefix(text1, text2) {
-      if (!text1 || !text2 || text1.charAt(0) !== text2.charAt(0)) {
-        return 0;
-      }
-      var pointermin = 0;
-      var pointermax = Math.min(text1.length, text2.length);
-      var pointermid = pointermax;
-      var pointerstart = 0;
-      while (pointermin < pointermid) {
-        if (text1.substring(pointerstart, pointermid) == text2.substring(pointerstart, pointermid)) {
-          pointermin = pointermid;
-          pointerstart = pointermin;
-        } else {
-          pointermax = pointermid;
-        }
-        pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
-      }
-      if (is_surrogate_pair_start(text1.charCodeAt(pointermid - 1))) {
-        pointermid--;
-      }
-      return pointermid;
-    }
-    function diff_commonSuffix(text1, text2) {
-      if (!text1 || !text2 || text1.slice(-1) !== text2.slice(-1)) {
-        return 0;
-      }
-      var pointermin = 0;
-      var pointermax = Math.min(text1.length, text2.length);
-      var pointermid = pointermax;
-      var pointerend = 0;
-      while (pointermin < pointermid) {
-        if (text1.substring(text1.length - pointermid, text1.length - pointerend) == text2.substring(text2.length - pointermid, text2.length - pointerend)) {
-          pointermin = pointermid;
-          pointerend = pointermin;
-        } else {
-          pointermax = pointermid;
-        }
-        pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
-      }
-      if (is_surrogate_pair_end(text1.charCodeAt(text1.length - pointermid))) {
-        pointermid--;
-      }
-      return pointermid;
-    }
-    function diff_halfMatch_(text1, text2) {
-      var longtext = text1.length > text2.length ? text1 : text2;
-      var shorttext = text1.length > text2.length ? text2 : text1;
-      if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
-        return null;
-      }
-      function diff_halfMatchI_(longtext2, shorttext2, i) {
-        var seed = longtext2.substring(i, i + Math.floor(longtext2.length / 4));
-        var j = -1;
-        var best_common = "";
-        var best_longtext_a, best_longtext_b, best_shorttext_a, best_shorttext_b;
-        while ((j = shorttext2.indexOf(seed, j + 1)) !== -1) {
-          var prefixLength = diff_commonPrefix(
-            longtext2.substring(i),
-            shorttext2.substring(j)
-          );
-          var suffixLength = diff_commonSuffix(
-            longtext2.substring(0, i),
-            shorttext2.substring(0, j)
-          );
-          if (best_common.length < suffixLength + prefixLength) {
-            best_common = shorttext2.substring(
-              j - suffixLength,
-              j
-            ) + shorttext2.substring(j, j + prefixLength);
-            best_longtext_a = longtext2.substring(0, i - suffixLength);
-            best_longtext_b = longtext2.substring(i + prefixLength);
-            best_shorttext_a = shorttext2.substring(0, j - suffixLength);
-            best_shorttext_b = shorttext2.substring(j + prefixLength);
-          }
-        }
-        if (best_common.length * 2 >= longtext2.length) {
-          return [
-            best_longtext_a,
-            best_longtext_b,
-            best_shorttext_a,
-            best_shorttext_b,
-            best_common
-          ];
-        } else {
-          return null;
-        }
-      }
-      var hm1 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
-      var hm2 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
-      var hm;
-      if (!hm1 && !hm2) {
-        return null;
-      } else if (!hm2) {
-        hm = hm1;
-      } else if (!hm1) {
-        hm = hm2;
-      } else {
-        hm = hm1[4].length > hm2[4].length ? hm1 : hm2;
-      }
-      var text1_a, text1_b, text2_a, text2_b;
-      if (text1.length > text2.length) {
-        text1_a = hm[0];
-        text1_b = hm[1];
-        text2_a = hm[2];
-        text2_b = hm[3];
-      } else {
-        text2_a = hm[0];
-        text2_b = hm[1];
-        text1_a = hm[2];
-        text1_b = hm[3];
-      }
-      var mid_common = hm[4];
-      return [text1_a, text1_b, text2_a, text2_b, mid_common];
-    }
-    function diff_cleanupMerge(diffs, fix_unicode) {
-      diffs.push([DIFF_EQUAL, ""]);
-      var pointer = 0;
-      var count_delete = 0;
-      var count_insert = 0;
-      var text_delete = "";
-      var text_insert = "";
-      var commonlength;
-      while (pointer < diffs.length) {
-        if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
-          diffs.splice(pointer, 1);
-          continue;
-        }
-        switch (diffs[pointer][0]) {
-          case DIFF_INSERT:
-            count_insert++;
-            text_insert += diffs[pointer][1];
-            pointer++;
-            break;
-          case DIFF_DELETE:
-            count_delete++;
-            text_delete += diffs[pointer][1];
-            pointer++;
-            break;
-          case DIFF_EQUAL:
-            var previous_equality = pointer - count_insert - count_delete - 1;
-            if (fix_unicode) {
-              if (previous_equality >= 0 && ends_with_pair_start(diffs[previous_equality][1])) {
-                var stray = diffs[previous_equality][1].slice(-1);
-                diffs[previous_equality][1] = diffs[previous_equality][1].slice(0, -1);
-                text_delete = stray + text_delete;
-                text_insert = stray + text_insert;
-                if (!diffs[previous_equality][1]) {
-                  diffs.splice(previous_equality, 1);
-                  pointer--;
-                  var k = previous_equality - 1;
-                  if (diffs[k] && diffs[k][0] === DIFF_INSERT) {
-                    count_insert++;
-                    text_insert = diffs[k][1] + text_insert;
-                    k--;
-                  }
-                  if (diffs[k] && diffs[k][0] === DIFF_DELETE) {
-                    count_delete++;
-                    text_delete = diffs[k][1] + text_delete;
-                    k--;
-                  }
-                  previous_equality = k;
-                }
-              }
-              if (starts_with_pair_end(diffs[pointer][1])) {
-                var stray = diffs[pointer][1].charAt(0);
-                diffs[pointer][1] = diffs[pointer][1].slice(1);
-                text_delete += stray;
-                text_insert += stray;
-              }
-            }
-            if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
-              diffs.splice(pointer, 1);
-              break;
-            }
-            if (text_delete.length > 0 || text_insert.length > 0) {
-              if (text_delete.length > 0 && text_insert.length > 0) {
-                commonlength = diff_commonPrefix(text_insert, text_delete);
-                if (commonlength !== 0) {
-                  if (previous_equality >= 0) {
-                    diffs[previous_equality][1] += text_insert.substring(0, commonlength);
-                  } else {
-                    diffs.splice(0, 0, [DIFF_EQUAL, text_insert.substring(0, commonlength)]);
-                    pointer++;
-                  }
-                  text_insert = text_insert.substring(commonlength);
-                  text_delete = text_delete.substring(commonlength);
-                }
-                commonlength = diff_commonSuffix(text_insert, text_delete);
-                if (commonlength !== 0) {
-                  diffs[pointer][1] = text_insert.substring(text_insert.length - commonlength) + diffs[pointer][1];
-                  text_insert = text_insert.substring(0, text_insert.length - commonlength);
-                  text_delete = text_delete.substring(0, text_delete.length - commonlength);
-                }
-              }
-              var n = count_insert + count_delete;
-              if (text_delete.length === 0 && text_insert.length === 0) {
-                diffs.splice(pointer - n, n);
-                pointer = pointer - n;
-              } else if (text_delete.length === 0) {
-                diffs.splice(pointer - n, n, [DIFF_INSERT, text_insert]);
-                pointer = pointer - n + 1;
-              } else if (text_insert.length === 0) {
-                diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete]);
-                pointer = pointer - n + 1;
-              } else {
-                diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete], [DIFF_INSERT, text_insert]);
-                pointer = pointer - n + 2;
-              }
-            }
-            if (pointer !== 0 && diffs[pointer - 1][0] === DIFF_EQUAL) {
-              diffs[pointer - 1][1] += diffs[pointer][1];
-              diffs.splice(pointer, 1);
-            } else {
-              pointer++;
-            }
-            count_insert = 0;
-            count_delete = 0;
-            text_delete = "";
-            text_insert = "";
-            break;
-        }
-      }
-      if (diffs[diffs.length - 1][1] === "") {
-        diffs.pop();
-      }
-      var changes = false;
-      pointer = 1;
-      while (pointer < diffs.length - 1) {
-        if (diffs[pointer - 1][0] === DIFF_EQUAL && diffs[pointer + 1][0] === DIFF_EQUAL) {
-          if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
-            diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
-            diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
-            diffs.splice(pointer - 1, 1);
-            changes = true;
-          } else if (diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) == diffs[pointer + 1][1]) {
-            diffs[pointer - 1][1] += diffs[pointer + 1][1];
-            diffs[pointer][1] = diffs[pointer][1].substring(diffs[pointer + 1][1].length) + diffs[pointer + 1][1];
-            diffs.splice(pointer + 1, 1);
-            changes = true;
-          }
-        }
-        pointer++;
-      }
-      if (changes) {
-        diff_cleanupMerge(diffs, fix_unicode);
-      }
-    }
-    function is_surrogate_pair_start(charCode) {
-      return charCode >= 55296 && charCode <= 56319;
-    }
-    function is_surrogate_pair_end(charCode) {
-      return charCode >= 56320 && charCode <= 57343;
-    }
-    function starts_with_pair_end(str) {
-      return is_surrogate_pair_end(str.charCodeAt(0));
-    }
-    function ends_with_pair_start(str) {
-      return is_surrogate_pair_start(str.charCodeAt(str.length - 1));
-    }
-    function remove_empty_tuples(tuples) {
-      var ret = [];
-      for (var i = 0; i < tuples.length; i++) {
-        if (tuples[i][1].length > 0) {
-          ret.push(tuples[i]);
-        }
-      }
-      return ret;
-    }
-    function make_edit_splice(before, oldMiddle, newMiddle, after) {
-      if (ends_with_pair_start(before) || starts_with_pair_end(after)) {
-        return null;
-      }
-      return remove_empty_tuples([
-        [DIFF_EQUAL, before],
-        [DIFF_DELETE, oldMiddle],
-        [DIFF_INSERT, newMiddle],
-        [DIFF_EQUAL, after]
-      ]);
-    }
-    function find_cursor_edit_diff(oldText, newText, cursor_pos) {
-      var oldRange = typeof cursor_pos === "number" ? { index: cursor_pos, length: 0 } : cursor_pos.oldRange;
-      var newRange = typeof cursor_pos === "number" ? null : cursor_pos.newRange;
-      var oldLength = oldText.length;
-      var newLength = newText.length;
-      if (oldRange.length === 0 && (newRange === null || newRange.length === 0)) {
-        var oldCursor = oldRange.index;
-        var oldBefore = oldText.slice(0, oldCursor);
-        var oldAfter = oldText.slice(oldCursor);
-        var maybeNewCursor = newRange ? newRange.index : null;
-        editBefore: {
-          var newCursor = oldCursor + newLength - oldLength;
-          if (maybeNewCursor !== null && maybeNewCursor !== newCursor) {
-            break editBefore;
-          }
-          if (newCursor < 0 || newCursor > newLength) {
-            break editBefore;
-          }
-          var newBefore = newText.slice(0, newCursor);
-          var newAfter = newText.slice(newCursor);
-          if (newAfter !== oldAfter) {
-            break editBefore;
-          }
-          var prefixLength = Math.min(oldCursor, newCursor);
-          var oldPrefix = oldBefore.slice(0, prefixLength);
-          var newPrefix = newBefore.slice(0, prefixLength);
-          if (oldPrefix !== newPrefix) {
-            break editBefore;
-          }
-          var oldMiddle = oldBefore.slice(prefixLength);
-          var newMiddle = newBefore.slice(prefixLength);
-          return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldAfter);
-        }
-        editAfter: {
-          if (maybeNewCursor !== null && maybeNewCursor !== oldCursor) {
-            break editAfter;
-          }
-          var cursor = oldCursor;
-          var newBefore = newText.slice(0, cursor);
-          var newAfter = newText.slice(cursor);
-          if (newBefore !== oldBefore) {
-            break editAfter;
-          }
-          var suffixLength = Math.min(oldLength - cursor, newLength - cursor);
-          var oldSuffix = oldAfter.slice(oldAfter.length - suffixLength);
-          var newSuffix = newAfter.slice(newAfter.length - suffixLength);
-          if (oldSuffix !== newSuffix) {
-            break editAfter;
-          }
-          var oldMiddle = oldAfter.slice(0, oldAfter.length - suffixLength);
-          var newMiddle = newAfter.slice(0, newAfter.length - suffixLength);
-          return make_edit_splice(oldBefore, oldMiddle, newMiddle, oldSuffix);
-        }
-      }
-      if (oldRange.length > 0 && newRange && newRange.length === 0) {
-        replaceRange: {
-          var oldPrefix = oldText.slice(0, oldRange.index);
-          var oldSuffix = oldText.slice(oldRange.index + oldRange.length);
-          var prefixLength = oldPrefix.length;
-          var suffixLength = oldSuffix.length;
-          if (newLength < prefixLength + suffixLength) {
-            break replaceRange;
-          }
-          var newPrefix = newText.slice(0, prefixLength);
-          var newSuffix = newText.slice(newLength - suffixLength);
-          if (oldPrefix !== newPrefix || oldSuffix !== newSuffix) {
-            break replaceRange;
-          }
-          var oldMiddle = oldText.slice(prefixLength, oldLength - suffixLength);
-          var newMiddle = newText.slice(prefixLength, newLength - suffixLength);
-          return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldSuffix);
-        }
-      }
-      return null;
-    }
-    function diff2(text1, text2, cursor_pos) {
-      return diff_main(text1, text2, cursor_pos, true);
-    }
-    diff2.INSERT = DIFF_INSERT;
-    diff2.DELETE = DIFF_DELETE;
-    diff2.EQUAL = DIFF_EQUAL;
-    module.exports = diff2;
-  }
-});
-
-// ../../.yarn/__virtual__/@emotion-react-virtual-b7da756fd5/0/global/cache/@emotion-react-npm-11.10.5-98e2cdb553-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.dev.js
-var require_emotion_react_jsx_runtime_cjs_dev = __commonJS({
-  "../../.yarn/__virtual__/@emotion-react-virtual-b7da756fd5/0/global/cache/@emotion-react-npm-11.10.5-98e2cdb553-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.dev.js"(exports) {
-    "use strict";
-    init_define_process();
-    Object.defineProperty(exports, "__esModule", { value: true });
-    require_react();
-    require_emotion_cache_cjs();
-    var emotionElement = require_emotion_element_b63ca7c6_cjs_dev();
-    require_extends();
-    require_emotion_weak_memoize_cjs();
-    require_hoist_non_react_statics_cjs();
-    require_emotion_react_isolated_hnrs_cjs_dev();
-    require_emotion_utils_cjs();
-    require_emotion_serialize_cjs();
-    require_emotion_use_insertion_effect_with_fallbacks_cjs();
-    var ReactJSXRuntime = require_jsx_runtime();
-    var Fragment3 = ReactJSXRuntime.Fragment;
-    function jsx5(type, props, key) {
-      if (!emotionElement.hasOwnProperty.call(props, "css")) {
-        return ReactJSXRuntime.jsx(type, props, key);
-      }
-      return ReactJSXRuntime.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
-    }
-    function jsxs3(type, props, key) {
-      if (!emotionElement.hasOwnProperty.call(props, "css")) {
-        return ReactJSXRuntime.jsxs(type, props, key);
-      }
-      return ReactJSXRuntime.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
-    }
-    exports.Fragment = Fragment3;
-    exports.jsx = jsx5;
-    exports.jsxs = jsxs3;
-  }
-});
-
-// ../../.yarn/__virtual__/@emotion-react-virtual-b7da756fd5/0/global/cache/@emotion-react-npm-11.10.5-98e2cdb553-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js
-var require_emotion_react_jsx_runtime_cjs = __commonJS({
-  "../../.yarn/__virtual__/@emotion-react-virtual-b7da756fd5/0/global/cache/@emotion-react-npm-11.10.5-98e2cdb553-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js"(exports, module) {
-    "use strict";
-    init_define_process();
-    if (false) {
-      module.exports = null;
-    } else {
-      module.exports = require_emotion_react_jsx_runtime_cjs_dev();
-    }
-  }
-});
+} from "./chunk-chunk-2DK73MPQ.mjs";
 
 // ../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js
 var require_react_error_boundary_umd = __commonJS({
   "../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js"(exports, module) {
     init_define_process();
     (function(global2, factory) {
-      typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require_react()) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.ReactErrorBoundary = {}, global2.React));
-    })(exports, function(exports2, React5) {
+      typeof exports === "object" && typeof module !== "undefined" ? factory(exports, (init_reactMod(), __toCommonJS(reactMod_exports))) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.ReactErrorBoundary = {}, global2.React));
+    })(exports, function(exports2, React) {
       "use strict";
       function _interopNamespace(e) {
         if (e && e.__esModule)
@@ -765,7 +81,7 @@ var require_react_error_boundary_umd = __commonJS({
         n["default"] = e;
         return Object.freeze(n);
       }
-      var React__namespace = _interopNamespace(React5);
+      var React__namespace = _interopNamespace(React);
       function _setPrototypeOf(o, p) {
         _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p2) {
           o2.__proto__ = p2;
@@ -876,38 +192,6 @@ var require_react_error_boundary_umd = __commonJS({
       exports2.withErrorBoundary = withErrorBoundary;
       Object.defineProperty(exports2, "__esModule", { value: true });
     });
-  }
-});
-
-// ../../.yarn/__virtual__/react-dom-virtual-fbce32c2b9/0/global/cache/react-dom-npm-18.2.0-dd675bca1c-9.zip/node_modules/react-dom/client.js
-var require_client = __commonJS({
-  "../../.yarn/__virtual__/react-dom-virtual-fbce32c2b9/0/global/cache/react-dom-npm-18.2.0-dd675bca1c-9.zip/node_modules/react-dom/client.js"(exports) {
-    "use strict";
-    init_define_process();
-    var m = require_react_dom();
-    if (false) {
-      exports.createRoot = m.createRoot;
-      exports.hydrateRoot = m.hydrateRoot;
-    } else {
-      i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-      exports.createRoot = function(c, o) {
-        i.usingClientEntryPoint = true;
-        try {
-          return m.createRoot(c, o);
-        } finally {
-          i.usingClientEntryPoint = false;
-        }
-      };
-      exports.hydrateRoot = function(c, h, o) {
-        i.usingClientEntryPoint = true;
-        try {
-          return m.hydrateRoot(c, h, o);
-        } finally {
-          i.usingClientEntryPoint = false;
-        }
-      };
-    }
-    var i;
   }
 });
 
@@ -2725,7 +2009,7 @@ var require_parser_babel = __commonJS({
           function Ho(t) {
             return Vo.has(t);
           }
-          var Me = 0, We = 1, me = 2, Jt = 4, yr = 8, ot = 16, xr = 32, Se = 64, Yt = 128, ht = 256, lt = We | me | ht, ye = 1, Re = 2, gr = 4, Te = 8, ut = 16, Ar = 64, ct = 128, $t = 256, Qt = 512, Zt = 1024, es = 2048, Pr = ye | Re | Te | ct, xe = ye | 0 | Te | 0, pt = ye | 0 | gr | 0, Tr = ye | 0 | ut | 0, Wo = 0 | Re | 0 | ct, Go = 0 | Re | 0 | 0, Er = ye | Re | Te | $t, Cr = 0 | Zt, we = 0 | Ar, Xo = ye | 0 | 0 | Ar, Jo = Er | Qt, Yo = 0 | Zt, $o = es, ft = 4, ts = 2, ss = 1, rs = ts | ss, Qo = ts | ft, Zo = ss | ft, eh = ts, th = ss, is2 = 0, sh = class {
+          var Me = 0, We = 1, me = 2, Jt = 4, yr = 8, ot = 16, xr = 32, Se = 64, Yt = 128, ht = 256, lt = We | me | ht, ye = 1, Re = 2, gr = 4, Te = 8, ut = 16, Ar = 64, ct = 128, $t = 256, Qt = 512, Zt = 1024, es = 2048, Pr = ye | Re | Te | ct, xe = ye | 0 | Te | 0, pt = ye | 0 | gr | 0, Tr = ye | 0 | ut | 0, Wo = 0 | Re | 0 | ct, Go = 0 | Re | 0 | 0, Er = ye | Re | Te | $t, Cr = 0 | Zt, we = 0 | Ar, Xo = ye | 0 | 0 | Ar, Jo = Er | Qt, Yo = 0 | Zt, $o = es, ft = 4, ts = 2, ss = 1, rs = ts | ss, Qo = ts | ft, Zo = ss | ft, eh = ts, th = ss, is = 0, sh = class {
             constructor() {
               this.sawUnambiguousESM = false, this.ambiguousScriptDifferentAst = false;
             }
@@ -8633,7 +7917,7 @@ var require_parser_babel = __commonJS({
             }
             pushClassPrivateProperty(t, e) {
               let s = this.parseClassPrivateProperty(e);
-              t.body.push(s), this.classScope.declarePrivateName(this.getPrivateNameSV(s.key), is2, s.key.loc.start);
+              t.body.push(s), this.classScope.declarePrivateName(this.getPrivateNameSV(s.key), is, s.key.loc.start);
             }
             pushClassAccessorProperty(t, e, s) {
               if (!s && !e.computed) {
@@ -8641,7 +7925,7 @@ var require_parser_babel = __commonJS({
                 (i.name === "constructor" || i.value === "constructor") && this.raise(u.ConstructorClassField, { at: i });
               }
               let r = this.parseClassAccessorProperty(e);
-              t.body.push(r), s && this.classScope.declarePrivateName(this.getPrivateNameSV(r.key), is2, r.key.loc.start);
+              t.body.push(r), s && this.classScope.declarePrivateName(this.getPrivateNameSV(r.key), is, r.key.loc.start);
             }
             pushClassMethod(t, e, s, r, i, a) {
               t.body.push(this.parseMethod(e, s, r, i, a, "ClassMethod", true));
@@ -8649,7 +7933,7 @@ var require_parser_babel = __commonJS({
             pushClassPrivateMethod(t, e, s, r) {
               let i = this.parseMethod(e, s, r, false, false, "ClassPrivateMethod", true);
               t.body.push(i);
-              let a = i.kind === "get" ? i.static ? Qo : eh : i.kind === "set" ? i.static ? Zo : th : is2;
+              let a = i.kind === "get" ? i.static ? Qo : eh : i.kind === "set" ? i.static ? Zo : th : is;
               this.declareClassPrivateMethodInScope(i, a);
             }
             declareClassPrivateMethodInScope(t, e) {
@@ -9396,13 +8680,13 @@ var require_standalone = __commonJS({
         };
       });
       var os = we((D0, as) => {
-        var Bl = Ye(), Nl = Et(), ss = Ft(), is2 = Gr(), wl = cr(), _l = Wu(), Pl = St(), kl = Bl.TypeError, Il = Pl("toPrimitive");
+        var Bl = Ye(), Nl = Et(), ss = Ft(), is = Gr(), wl = cr(), _l = Wu(), Pl = St(), kl = Bl.TypeError, Il = Pl("toPrimitive");
         as.exports = function(e, n) {
-          if (!ss(e) || is2(e))
+          if (!ss(e) || is(e))
             return e;
           var t = wl(e, Il), s;
           if (t) {
-            if (n === void 0 && (n = "default"), s = Nl(t, e, n), !ss(s) || is2(s))
+            if (n === void 0 && (n = "default"), s = Nl(t, e, n), !ss(s) || is(s))
               return s;
             throw kl("Can't convert object to primitive value");
           }
@@ -20625,4648 +19909,17 @@ var require_standalone = __commonJS({
   }
 });
 
-// js/session.ts
-init_define_process();
-
-// ../../.yarn/global/cache/immutable-npm-4.1.0-f6635927b8-9.zip/node_modules/immutable/dist/immutable.es.js
-init_define_process();
-var DELETE = "delete";
-var SHIFT = 5;
-var SIZE = 1 << SHIFT;
-var MASK = SIZE - 1;
-var NOT_SET = {};
-function MakeRef() {
-  return { value: false };
-}
-function SetRef(ref) {
-  if (ref) {
-    ref.value = true;
-  }
-}
-function OwnerID() {
-}
-function ensureSize(iter) {
-  if (iter.size === void 0) {
-    iter.size = iter.__iterate(returnTrue);
-  }
-  return iter.size;
-}
-function wrapIndex(iter, index) {
-  if (typeof index !== "number") {
-    var uint32Index = index >>> 0;
-    if ("" + uint32Index !== index || uint32Index === 4294967295) {
-      return NaN;
-    }
-    index = uint32Index;
-  }
-  return index < 0 ? ensureSize(iter) + index : index;
-}
-function returnTrue() {
-  return true;
-}
-function wholeSlice(begin, end, size) {
-  return (begin === 0 && !isNeg(begin) || size !== void 0 && begin <= -size) && (end === void 0 || size !== void 0 && end >= size);
-}
-function resolveBegin(begin, size) {
-  return resolveIndex(begin, size, 0);
-}
-function resolveEnd(end, size) {
-  return resolveIndex(end, size, size);
-}
-function resolveIndex(index, size, defaultIndex) {
-  return index === void 0 ? defaultIndex : isNeg(index) ? size === Infinity ? size : Math.max(0, size + index) | 0 : size === void 0 || size === index ? index : Math.min(size, index) | 0;
-}
-function isNeg(value) {
-  return value < 0 || value === 0 && 1 / value === -Infinity;
-}
-var IS_COLLECTION_SYMBOL = "@@__IMMUTABLE_ITERABLE__@@";
-function isCollection(maybeCollection) {
-  return Boolean(maybeCollection && maybeCollection[IS_COLLECTION_SYMBOL]);
-}
-var IS_KEYED_SYMBOL = "@@__IMMUTABLE_KEYED__@@";
-function isKeyed(maybeKeyed) {
-  return Boolean(maybeKeyed && maybeKeyed[IS_KEYED_SYMBOL]);
-}
-var IS_INDEXED_SYMBOL = "@@__IMMUTABLE_INDEXED__@@";
-function isIndexed(maybeIndexed) {
-  return Boolean(maybeIndexed && maybeIndexed[IS_INDEXED_SYMBOL]);
-}
-function isAssociative(maybeAssociative) {
-  return isKeyed(maybeAssociative) || isIndexed(maybeAssociative);
-}
-var Collection = function Collection2(value) {
-  return isCollection(value) ? value : Seq(value);
-};
-var KeyedCollection = function(Collection3) {
-  function KeyedCollection2(value) {
-    return isKeyed(value) ? value : KeyedSeq(value);
-  }
-  if (Collection3)
-    KeyedCollection2.__proto__ = Collection3;
-  KeyedCollection2.prototype = Object.create(Collection3 && Collection3.prototype);
-  KeyedCollection2.prototype.constructor = KeyedCollection2;
-  return KeyedCollection2;
-}(Collection);
-var IndexedCollection = function(Collection3) {
-  function IndexedCollection2(value) {
-    return isIndexed(value) ? value : IndexedSeq(value);
-  }
-  if (Collection3)
-    IndexedCollection2.__proto__ = Collection3;
-  IndexedCollection2.prototype = Object.create(Collection3 && Collection3.prototype);
-  IndexedCollection2.prototype.constructor = IndexedCollection2;
-  return IndexedCollection2;
-}(Collection);
-var SetCollection = function(Collection3) {
-  function SetCollection2(value) {
-    return isCollection(value) && !isAssociative(value) ? value : SetSeq(value);
-  }
-  if (Collection3)
-    SetCollection2.__proto__ = Collection3;
-  SetCollection2.prototype = Object.create(Collection3 && Collection3.prototype);
-  SetCollection2.prototype.constructor = SetCollection2;
-  return SetCollection2;
-}(Collection);
-Collection.Keyed = KeyedCollection;
-Collection.Indexed = IndexedCollection;
-Collection.Set = SetCollection;
-var IS_SEQ_SYMBOL = "@@__IMMUTABLE_SEQ__@@";
-function isSeq(maybeSeq) {
-  return Boolean(maybeSeq && maybeSeq[IS_SEQ_SYMBOL]);
-}
-var IS_RECORD_SYMBOL = "@@__IMMUTABLE_RECORD__@@";
-function isRecord(maybeRecord) {
-  return Boolean(maybeRecord && maybeRecord[IS_RECORD_SYMBOL]);
-}
-function isImmutable(maybeImmutable) {
-  return isCollection(maybeImmutable) || isRecord(maybeImmutable);
-}
-var IS_ORDERED_SYMBOL = "@@__IMMUTABLE_ORDERED__@@";
-function isOrdered(maybeOrdered) {
-  return Boolean(maybeOrdered && maybeOrdered[IS_ORDERED_SYMBOL]);
-}
-var ITERATE_KEYS = 0;
-var ITERATE_VALUES = 1;
-var ITERATE_ENTRIES = 2;
-var REAL_ITERATOR_SYMBOL = typeof Symbol === "function" && Symbol.iterator;
-var FAUX_ITERATOR_SYMBOL = "@@iterator";
-var ITERATOR_SYMBOL = REAL_ITERATOR_SYMBOL || FAUX_ITERATOR_SYMBOL;
-var Iterator = function Iterator2(next) {
-  this.next = next;
-};
-Iterator.prototype.toString = function toString() {
-  return "[Iterator]";
-};
-Iterator.KEYS = ITERATE_KEYS;
-Iterator.VALUES = ITERATE_VALUES;
-Iterator.ENTRIES = ITERATE_ENTRIES;
-Iterator.prototype.inspect = Iterator.prototype.toSource = function() {
-  return this.toString();
-};
-Iterator.prototype[ITERATOR_SYMBOL] = function() {
-  return this;
-};
-function iteratorValue(type, k, v, iteratorResult) {
-  var value = type === 0 ? k : type === 1 ? v : [k, v];
-  iteratorResult ? iteratorResult.value = value : iteratorResult = {
-    value,
-    done: false
-  };
-  return iteratorResult;
-}
-function iteratorDone() {
-  return { value: void 0, done: true };
-}
-function hasIterator(maybeIterable) {
-  if (Array.isArray(maybeIterable)) {
-    return true;
-  }
-  return !!getIteratorFn(maybeIterable);
-}
-function isIterator(maybeIterator) {
-  return maybeIterator && typeof maybeIterator.next === "function";
-}
-function getIterator(iterable) {
-  var iteratorFn = getIteratorFn(iterable);
-  return iteratorFn && iteratorFn.call(iterable);
-}
-function getIteratorFn(iterable) {
-  var iteratorFn = iterable && (REAL_ITERATOR_SYMBOL && iterable[REAL_ITERATOR_SYMBOL] || iterable[FAUX_ITERATOR_SYMBOL]);
-  if (typeof iteratorFn === "function") {
-    return iteratorFn;
-  }
-}
-function isEntriesIterable(maybeIterable) {
-  var iteratorFn = getIteratorFn(maybeIterable);
-  return iteratorFn && iteratorFn === maybeIterable.entries;
-}
-function isKeysIterable(maybeIterable) {
-  var iteratorFn = getIteratorFn(maybeIterable);
-  return iteratorFn && iteratorFn === maybeIterable.keys;
-}
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-function isArrayLike(value) {
-  if (Array.isArray(value) || typeof value === "string") {
-    return true;
-  }
-  return value && typeof value === "object" && Number.isInteger(value.length) && value.length >= 0 && (value.length === 0 ? Object.keys(value).length === 1 : value.hasOwnProperty(value.length - 1));
-}
-var Seq = function(Collection3) {
-  function Seq2(value) {
-    return value === void 0 || value === null ? emptySequence() : isImmutable(value) ? value.toSeq() : seqFromValue(value);
-  }
-  if (Collection3)
-    Seq2.__proto__ = Collection3;
-  Seq2.prototype = Object.create(Collection3 && Collection3.prototype);
-  Seq2.prototype.constructor = Seq2;
-  Seq2.prototype.toSeq = function toSeq3() {
-    return this;
-  };
-  Seq2.prototype.toString = function toString5() {
-    return this.__toString("Seq {", "}");
-  };
-  Seq2.prototype.cacheResult = function cacheResult() {
-    if (!this._cache && this.__iterateUncached) {
-      this._cache = this.entrySeq().toArray();
-      this.size = this._cache.length;
-    }
-    return this;
-  };
-  Seq2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var cache = this._cache;
-    if (cache) {
-      var size = cache.length;
-      var i = 0;
-      while (i !== size) {
-        var entry = cache[reverse3 ? size - ++i : i++];
-        if (fn(entry[1], entry[0], this) === false) {
-          break;
-        }
-      }
-      return i;
-    }
-    return this.__iterateUncached(fn, reverse3);
-  };
-  Seq2.prototype.__iterator = function __iterator2(type, reverse3) {
-    var cache = this._cache;
-    if (cache) {
-      var size = cache.length;
-      var i = 0;
-      return new Iterator(function() {
-        if (i === size) {
-          return iteratorDone();
-        }
-        var entry = cache[reverse3 ? size - ++i : i++];
-        return iteratorValue(type, entry[0], entry[1]);
-      });
-    }
-    return this.__iteratorUncached(type, reverse3);
-  };
-  return Seq2;
-}(Collection);
-var KeyedSeq = function(Seq2) {
-  function KeyedSeq2(value) {
-    return value === void 0 || value === null ? emptySequence().toKeyedSeq() : isCollection(value) ? isKeyed(value) ? value.toSeq() : value.fromEntrySeq() : isRecord(value) ? value.toSeq() : keyedSeqFromValue(value);
-  }
-  if (Seq2)
-    KeyedSeq2.__proto__ = Seq2;
-  KeyedSeq2.prototype = Object.create(Seq2 && Seq2.prototype);
-  KeyedSeq2.prototype.constructor = KeyedSeq2;
-  KeyedSeq2.prototype.toKeyedSeq = function toKeyedSeq3() {
-    return this;
-  };
-  return KeyedSeq2;
-}(Seq);
-var IndexedSeq = function(Seq2) {
-  function IndexedSeq2(value) {
-    return value === void 0 || value === null ? emptySequence() : isCollection(value) ? isKeyed(value) ? value.entrySeq() : value.toIndexedSeq() : isRecord(value) ? value.toSeq().entrySeq() : indexedSeqFromValue(value);
-  }
-  if (Seq2)
-    IndexedSeq2.__proto__ = Seq2;
-  IndexedSeq2.prototype = Object.create(Seq2 && Seq2.prototype);
-  IndexedSeq2.prototype.constructor = IndexedSeq2;
-  IndexedSeq2.of = function of() {
-    return IndexedSeq2(arguments);
-  };
-  IndexedSeq2.prototype.toIndexedSeq = function toIndexedSeq2() {
-    return this;
-  };
-  IndexedSeq2.prototype.toString = function toString5() {
-    return this.__toString("Seq [", "]");
-  };
-  return IndexedSeq2;
-}(Seq);
-var SetSeq = function(Seq2) {
-  function SetSeq2(value) {
-    return (isCollection(value) && !isAssociative(value) ? value : IndexedSeq(value)).toSetSeq();
-  }
-  if (Seq2)
-    SetSeq2.__proto__ = Seq2;
-  SetSeq2.prototype = Object.create(Seq2 && Seq2.prototype);
-  SetSeq2.prototype.constructor = SetSeq2;
-  SetSeq2.of = function of() {
-    return SetSeq2(arguments);
-  };
-  SetSeq2.prototype.toSetSeq = function toSetSeq2() {
-    return this;
-  };
-  return SetSeq2;
-}(Seq);
-Seq.isSeq = isSeq;
-Seq.Keyed = KeyedSeq;
-Seq.Set = SetSeq;
-Seq.Indexed = IndexedSeq;
-Seq.prototype[IS_SEQ_SYMBOL] = true;
-var ArraySeq = function(IndexedSeq2) {
-  function ArraySeq2(array) {
-    this._array = array;
-    this.size = array.length;
-  }
-  if (IndexedSeq2)
-    ArraySeq2.__proto__ = IndexedSeq2;
-  ArraySeq2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
-  ArraySeq2.prototype.constructor = ArraySeq2;
-  ArraySeq2.prototype.get = function get11(index, notSetValue) {
-    return this.has(index) ? this._array[wrapIndex(this, index)] : notSetValue;
-  };
-  ArraySeq2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var array = this._array;
-    var size = array.length;
-    var i = 0;
-    while (i !== size) {
-      var ii = reverse3 ? size - ++i : i++;
-      if (fn(array[ii], ii, this) === false) {
-        break;
-      }
-    }
-    return i;
-  };
-  ArraySeq2.prototype.__iterator = function __iterator2(type, reverse3) {
-    var array = this._array;
-    var size = array.length;
-    var i = 0;
-    return new Iterator(function() {
-      if (i === size) {
-        return iteratorDone();
-      }
-      var ii = reverse3 ? size - ++i : i++;
-      return iteratorValue(type, ii, array[ii]);
-    });
-  };
-  return ArraySeq2;
-}(IndexedSeq);
-var ObjectSeq = function(KeyedSeq2) {
-  function ObjectSeq2(object) {
-    var keys2 = Object.keys(object).concat(
-      Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : []
-    );
-    this._object = object;
-    this._keys = keys2;
-    this.size = keys2.length;
-  }
-  if (KeyedSeq2)
-    ObjectSeq2.__proto__ = KeyedSeq2;
-  ObjectSeq2.prototype = Object.create(KeyedSeq2 && KeyedSeq2.prototype);
-  ObjectSeq2.prototype.constructor = ObjectSeq2;
-  ObjectSeq2.prototype.get = function get11(key, notSetValue) {
-    if (notSetValue !== void 0 && !this.has(key)) {
-      return notSetValue;
-    }
-    return this._object[key];
-  };
-  ObjectSeq2.prototype.has = function has5(key) {
-    return hasOwnProperty.call(this._object, key);
-  };
-  ObjectSeq2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var object = this._object;
-    var keys2 = this._keys;
-    var size = keys2.length;
-    var i = 0;
-    while (i !== size) {
-      var key = keys2[reverse3 ? size - ++i : i++];
-      if (fn(object[key], key, this) === false) {
-        break;
-      }
-    }
-    return i;
-  };
-  ObjectSeq2.prototype.__iterator = function __iterator2(type, reverse3) {
-    var object = this._object;
-    var keys2 = this._keys;
-    var size = keys2.length;
-    var i = 0;
-    return new Iterator(function() {
-      if (i === size) {
-        return iteratorDone();
-      }
-      var key = keys2[reverse3 ? size - ++i : i++];
-      return iteratorValue(type, key, object[key]);
-    });
-  };
-  return ObjectSeq2;
-}(KeyedSeq);
-ObjectSeq.prototype[IS_ORDERED_SYMBOL] = true;
-var CollectionSeq = function(IndexedSeq2) {
-  function CollectionSeq2(collection) {
-    this._collection = collection;
-    this.size = collection.length || collection.size;
-  }
-  if (IndexedSeq2)
-    CollectionSeq2.__proto__ = IndexedSeq2;
-  CollectionSeq2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
-  CollectionSeq2.prototype.constructor = CollectionSeq2;
-  CollectionSeq2.prototype.__iterateUncached = function __iterateUncached(fn, reverse3) {
-    if (reverse3) {
-      return this.cacheResult().__iterate(fn, reverse3);
-    }
-    var collection = this._collection;
-    var iterator = getIterator(collection);
-    var iterations = 0;
-    if (isIterator(iterator)) {
-      var step;
-      while (!(step = iterator.next()).done) {
-        if (fn(step.value, iterations++, this) === false) {
-          break;
-        }
-      }
-    }
-    return iterations;
-  };
-  CollectionSeq2.prototype.__iteratorUncached = function __iteratorUncached(type, reverse3) {
-    if (reverse3) {
-      return this.cacheResult().__iterator(type, reverse3);
-    }
-    var collection = this._collection;
-    var iterator = getIterator(collection);
-    if (!isIterator(iterator)) {
-      return new Iterator(iteratorDone);
-    }
-    var iterations = 0;
-    return new Iterator(function() {
-      var step = iterator.next();
-      return step.done ? step : iteratorValue(type, iterations++, step.value);
-    });
-  };
-  return CollectionSeq2;
-}(IndexedSeq);
-var EMPTY_SEQ;
-function emptySequence() {
-  return EMPTY_SEQ || (EMPTY_SEQ = new ArraySeq([]));
-}
-function keyedSeqFromValue(value) {
-  var seq = maybeIndexedSeqFromValue(value);
-  if (seq) {
-    return seq.fromEntrySeq();
-  }
-  if (typeof value === "object") {
-    return new ObjectSeq(value);
-  }
-  throw new TypeError(
-    "Expected Array or collection object of [k, v] entries, or keyed object: " + value
-  );
-}
-function indexedSeqFromValue(value) {
-  var seq = maybeIndexedSeqFromValue(value);
-  if (seq) {
-    return seq;
-  }
-  throw new TypeError(
-    "Expected Array or collection object of values: " + value
-  );
-}
-function seqFromValue(value) {
-  var seq = maybeIndexedSeqFromValue(value);
-  if (seq) {
-    return isEntriesIterable(value) ? seq.fromEntrySeq() : isKeysIterable(value) ? seq.toSetSeq() : seq;
-  }
-  if (typeof value === "object") {
-    return new ObjectSeq(value);
-  }
-  throw new TypeError(
-    "Expected Array or collection object of values, or keyed object: " + value
-  );
-}
-function maybeIndexedSeqFromValue(value) {
-  return isArrayLike(value) ? new ArraySeq(value) : hasIterator(value) ? new CollectionSeq(value) : void 0;
-}
-var IS_MAP_SYMBOL = "@@__IMMUTABLE_MAP__@@";
-function isMap(maybeMap) {
-  return Boolean(maybeMap && maybeMap[IS_MAP_SYMBOL]);
-}
-function isOrderedMap(maybeOrderedMap) {
-  return isMap(maybeOrderedMap) && isOrdered(maybeOrderedMap);
-}
-function isValueObject(maybeValue) {
-  return Boolean(
-    maybeValue && typeof maybeValue.equals === "function" && typeof maybeValue.hashCode === "function"
-  );
-}
-function is(valueA, valueB) {
-  if (valueA === valueB || valueA !== valueA && valueB !== valueB) {
-    return true;
-  }
-  if (!valueA || !valueB) {
-    return false;
-  }
-  if (typeof valueA.valueOf === "function" && typeof valueB.valueOf === "function") {
-    valueA = valueA.valueOf();
-    valueB = valueB.valueOf();
-    if (valueA === valueB || valueA !== valueA && valueB !== valueB) {
-      return true;
-    }
-    if (!valueA || !valueB) {
-      return false;
-    }
-  }
-  return !!(isValueObject(valueA) && isValueObject(valueB) && valueA.equals(valueB));
-}
-var imul = typeof Math.imul === "function" && Math.imul(4294967295, 2) === -2 ? Math.imul : function imul2(a, b) {
-  a |= 0;
-  b |= 0;
-  var c = a & 65535;
-  var d = b & 65535;
-  return c * d + ((a >>> 16) * d + c * (b >>> 16) << 16 >>> 0) | 0;
-};
-function smi(i32) {
-  return i32 >>> 1 & 1073741824 | i32 & 3221225471;
-}
-var defaultValueOf = Object.prototype.valueOf;
-function hash(o) {
-  if (o == null) {
-    return hashNullish(o);
-  }
-  if (typeof o.hashCode === "function") {
-    return smi(o.hashCode(o));
-  }
-  var v = valueOf(o);
-  if (v == null) {
-    return hashNullish(v);
-  }
-  switch (typeof v) {
-    case "boolean":
-      return v ? 1108378657 : 1108378656;
-    case "number":
-      return hashNumber(v);
-    case "string":
-      return v.length > STRING_HASH_CACHE_MIN_STRLEN ? cachedHashString(v) : hashString(v);
-    case "object":
-    case "function":
-      return hashJSObj(v);
-    case "symbol":
-      return hashSymbol(v);
-    default:
-      if (typeof v.toString === "function") {
-        return hashString(v.toString());
-      }
-      throw new Error("Value type " + typeof v + " cannot be hashed.");
-  }
-}
-function hashNullish(nullish) {
-  return nullish === null ? 1108378658 : 1108378659;
-}
-function hashNumber(n) {
-  if (n !== n || n === Infinity) {
-    return 0;
-  }
-  var hash2 = n | 0;
-  if (hash2 !== n) {
-    hash2 ^= n * 4294967295;
-  }
-  while (n > 4294967295) {
-    n /= 4294967295;
-    hash2 ^= n;
-  }
-  return smi(hash2);
-}
-function cachedHashString(string) {
-  var hashed = stringHashCache[string];
-  if (hashed === void 0) {
-    hashed = hashString(string);
-    if (STRING_HASH_CACHE_SIZE === STRING_HASH_CACHE_MAX_SIZE) {
-      STRING_HASH_CACHE_SIZE = 0;
-      stringHashCache = {};
-    }
-    STRING_HASH_CACHE_SIZE++;
-    stringHashCache[string] = hashed;
-  }
-  return hashed;
-}
-function hashString(string) {
-  var hashed = 0;
-  for (var ii = 0; ii < string.length; ii++) {
-    hashed = 31 * hashed + string.charCodeAt(ii) | 0;
-  }
-  return smi(hashed);
-}
-function hashSymbol(sym) {
-  var hashed = symbolMap[sym];
-  if (hashed !== void 0) {
-    return hashed;
-  }
-  hashed = nextHash();
-  symbolMap[sym] = hashed;
-  return hashed;
-}
-function hashJSObj(obj) {
-  var hashed;
-  if (usingWeakMap) {
-    hashed = weakMap.get(obj);
-    if (hashed !== void 0) {
-      return hashed;
-    }
-  }
-  hashed = obj[UID_HASH_KEY];
-  if (hashed !== void 0) {
-    return hashed;
-  }
-  if (!canDefineProperty) {
-    hashed = obj.propertyIsEnumerable && obj.propertyIsEnumerable[UID_HASH_KEY];
-    if (hashed !== void 0) {
-      return hashed;
-    }
-    hashed = getIENodeHash(obj);
-    if (hashed !== void 0) {
-      return hashed;
-    }
-  }
-  hashed = nextHash();
-  if (usingWeakMap) {
-    weakMap.set(obj, hashed);
-  } else if (isExtensible !== void 0 && isExtensible(obj) === false) {
-    throw new Error("Non-extensible objects are not allowed as keys.");
-  } else if (canDefineProperty) {
-    Object.defineProperty(obj, UID_HASH_KEY, {
-      enumerable: false,
-      configurable: false,
-      writable: false,
-      value: hashed
-    });
-  } else if (obj.propertyIsEnumerable !== void 0 && obj.propertyIsEnumerable === obj.constructor.prototype.propertyIsEnumerable) {
-    obj.propertyIsEnumerable = function() {
-      return this.constructor.prototype.propertyIsEnumerable.apply(
-        this,
-        arguments
-      );
-    };
-    obj.propertyIsEnumerable[UID_HASH_KEY] = hashed;
-  } else if (obj.nodeType !== void 0) {
-    obj[UID_HASH_KEY] = hashed;
-  } else {
-    throw new Error("Unable to set a non-enumerable property on object.");
-  }
-  return hashed;
-}
-var isExtensible = Object.isExtensible;
-var canDefineProperty = function() {
-  try {
-    Object.defineProperty({}, "@", {});
-    return true;
-  } catch (e) {
-    return false;
-  }
-}();
-function getIENodeHash(node) {
-  if (node && node.nodeType > 0) {
-    switch (node.nodeType) {
-      case 1:
-        return node.uniqueID;
-      case 9:
-        return node.documentElement && node.documentElement.uniqueID;
-    }
-  }
-}
-function valueOf(obj) {
-  return obj.valueOf !== defaultValueOf && typeof obj.valueOf === "function" ? obj.valueOf(obj) : obj;
-}
-function nextHash() {
-  var nextHash2 = ++_objHashUID;
-  if (_objHashUID & 1073741824) {
-    _objHashUID = 0;
-  }
-  return nextHash2;
-}
-var usingWeakMap = typeof WeakMap === "function";
-var weakMap;
-if (usingWeakMap) {
-  weakMap = /* @__PURE__ */ new WeakMap();
-}
-var symbolMap = /* @__PURE__ */ Object.create(null);
-var _objHashUID = 0;
-var UID_HASH_KEY = "__immutablehash__";
-if (typeof Symbol === "function") {
-  UID_HASH_KEY = Symbol(UID_HASH_KEY);
-}
-var STRING_HASH_CACHE_MIN_STRLEN = 16;
-var STRING_HASH_CACHE_MAX_SIZE = 255;
-var STRING_HASH_CACHE_SIZE = 0;
-var stringHashCache = {};
-var ToKeyedSequence = function(KeyedSeq2) {
-  function ToKeyedSequence2(indexed, useKeys) {
-    this._iter = indexed;
-    this._useKeys = useKeys;
-    this.size = indexed.size;
-  }
-  if (KeyedSeq2)
-    ToKeyedSequence2.__proto__ = KeyedSeq2;
-  ToKeyedSequence2.prototype = Object.create(KeyedSeq2 && KeyedSeq2.prototype);
-  ToKeyedSequence2.prototype.constructor = ToKeyedSequence2;
-  ToKeyedSequence2.prototype.get = function get11(key, notSetValue) {
-    return this._iter.get(key, notSetValue);
-  };
-  ToKeyedSequence2.prototype.has = function has5(key) {
-    return this._iter.has(key);
-  };
-  ToKeyedSequence2.prototype.valueSeq = function valueSeq2() {
-    return this._iter.valueSeq();
-  };
-  ToKeyedSequence2.prototype.reverse = function reverse3() {
-    var this$1$1 = this;
-    var reversedSequence = reverseFactory(this, true);
-    if (!this._useKeys) {
-      reversedSequence.valueSeq = function() {
-        return this$1$1._iter.toSeq().reverse();
-      };
-    }
-    return reversedSequence;
-  };
-  ToKeyedSequence2.prototype.map = function map2(mapper, context) {
-    var this$1$1 = this;
-    var mappedSequence = mapFactory(this, mapper, context);
-    if (!this._useKeys) {
-      mappedSequence.valueSeq = function() {
-        return this$1$1._iter.toSeq().map(mapper, context);
-      };
-    }
-    return mappedSequence;
-  };
-  ToKeyedSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._iter.__iterate(function(v, k) {
-      return fn(v, k, this$1$1);
-    }, reverse3);
-  };
-  ToKeyedSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
-    return this._iter.__iterator(type, reverse3);
-  };
-  return ToKeyedSequence2;
-}(KeyedSeq);
-ToKeyedSequence.prototype[IS_ORDERED_SYMBOL] = true;
-var ToIndexedSequence = function(IndexedSeq2) {
-  function ToIndexedSequence2(iter) {
-    this._iter = iter;
-    this.size = iter.size;
-  }
-  if (IndexedSeq2)
-    ToIndexedSequence2.__proto__ = IndexedSeq2;
-  ToIndexedSequence2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
-  ToIndexedSequence2.prototype.constructor = ToIndexedSequence2;
-  ToIndexedSequence2.prototype.includes = function includes3(value) {
-    return this._iter.includes(value);
-  };
-  ToIndexedSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    var i = 0;
-    reverse3 && ensureSize(this);
-    return this._iter.__iterate(
-      function(v) {
-        return fn(v, reverse3 ? this$1$1.size - ++i : i++, this$1$1);
-      },
-      reverse3
-    );
-  };
-  ToIndexedSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
-    var this$1$1 = this;
-    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
-    var i = 0;
-    reverse3 && ensureSize(this);
-    return new Iterator(function() {
-      var step = iterator.next();
-      return step.done ? step : iteratorValue(
-        type,
-        reverse3 ? this$1$1.size - ++i : i++,
-        step.value,
-        step
-      );
-    });
-  };
-  return ToIndexedSequence2;
-}(IndexedSeq);
-var ToSetSequence = function(SetSeq2) {
-  function ToSetSequence2(iter) {
-    this._iter = iter;
-    this.size = iter.size;
-  }
-  if (SetSeq2)
-    ToSetSequence2.__proto__ = SetSeq2;
-  ToSetSequence2.prototype = Object.create(SetSeq2 && SetSeq2.prototype);
-  ToSetSequence2.prototype.constructor = ToSetSequence2;
-  ToSetSequence2.prototype.has = function has5(key) {
-    return this._iter.includes(key);
-  };
-  ToSetSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._iter.__iterate(function(v) {
-      return fn(v, v, this$1$1);
-    }, reverse3);
-  };
-  ToSetSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
-    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
-    return new Iterator(function() {
-      var step = iterator.next();
-      return step.done ? step : iteratorValue(type, step.value, step.value, step);
-    });
-  };
-  return ToSetSequence2;
-}(SetSeq);
-var FromEntriesSequence = function(KeyedSeq2) {
-  function FromEntriesSequence2(entries3) {
-    this._iter = entries3;
-    this.size = entries3.size;
-  }
-  if (KeyedSeq2)
-    FromEntriesSequence2.__proto__ = KeyedSeq2;
-  FromEntriesSequence2.prototype = Object.create(KeyedSeq2 && KeyedSeq2.prototype);
-  FromEntriesSequence2.prototype.constructor = FromEntriesSequence2;
-  FromEntriesSequence2.prototype.entrySeq = function entrySeq2() {
-    return this._iter.toSeq();
-  };
-  FromEntriesSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._iter.__iterate(function(entry) {
-      if (entry) {
-        validateEntry(entry);
-        var indexedCollection = isCollection(entry);
-        return fn(
-          indexedCollection ? entry.get(1) : entry[1],
-          indexedCollection ? entry.get(0) : entry[0],
-          this$1$1
-        );
-      }
-    }, reverse3);
-  };
-  FromEntriesSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
-    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
-    return new Iterator(function() {
-      while (true) {
-        var step = iterator.next();
-        if (step.done) {
-          return step;
-        }
-        var entry = step.value;
-        if (entry) {
-          validateEntry(entry);
-          var indexedCollection = isCollection(entry);
-          return iteratorValue(
-            type,
-            indexedCollection ? entry.get(0) : entry[0],
-            indexedCollection ? entry.get(1) : entry[1],
-            step
-          );
-        }
-      }
-    });
-  };
-  return FromEntriesSequence2;
-}(KeyedSeq);
-ToIndexedSequence.prototype.cacheResult = ToKeyedSequence.prototype.cacheResult = ToSetSequence.prototype.cacheResult = FromEntriesSequence.prototype.cacheResult = cacheResultThrough;
-function flipFactory(collection) {
-  var flipSequence = makeSequence(collection);
-  flipSequence._iter = collection;
-  flipSequence.size = collection.size;
-  flipSequence.flip = function() {
-    return collection;
-  };
-  flipSequence.reverse = function() {
-    var reversedSequence = collection.reverse.apply(this);
-    reversedSequence.flip = function() {
-      return collection.reverse();
-    };
-    return reversedSequence;
-  };
-  flipSequence.has = function(key) {
-    return collection.includes(key);
-  };
-  flipSequence.includes = function(key) {
-    return collection.has(key);
-  };
-  flipSequence.cacheResult = cacheResultThrough;
-  flipSequence.__iterateUncached = function(fn, reverse3) {
-    var this$1$1 = this;
-    return collection.__iterate(function(v, k) {
-      return fn(k, v, this$1$1) !== false;
-    }, reverse3);
-  };
-  flipSequence.__iteratorUncached = function(type, reverse3) {
-    if (type === ITERATE_ENTRIES) {
-      var iterator = collection.__iterator(type, reverse3);
-      return new Iterator(function() {
-        var step = iterator.next();
-        if (!step.done) {
-          var k = step.value[0];
-          step.value[0] = step.value[1];
-          step.value[1] = k;
-        }
-        return step;
-      });
-    }
-    return collection.__iterator(
-      type === ITERATE_VALUES ? ITERATE_KEYS : ITERATE_VALUES,
-      reverse3
-    );
-  };
-  return flipSequence;
-}
-function mapFactory(collection, mapper, context) {
-  var mappedSequence = makeSequence(collection);
-  mappedSequence.size = collection.size;
-  mappedSequence.has = function(key) {
-    return collection.has(key);
-  };
-  mappedSequence.get = function(key, notSetValue) {
-    var v = collection.get(key, NOT_SET);
-    return v === NOT_SET ? notSetValue : mapper.call(context, v, key, collection);
-  };
-  mappedSequence.__iterateUncached = function(fn, reverse3) {
-    var this$1$1 = this;
-    return collection.__iterate(
-      function(v, k, c) {
-        return fn(mapper.call(context, v, k, c), k, this$1$1) !== false;
-      },
-      reverse3
-    );
-  };
-  mappedSequence.__iteratorUncached = function(type, reverse3) {
-    var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
-    return new Iterator(function() {
-      var step = iterator.next();
-      if (step.done) {
-        return step;
-      }
-      var entry = step.value;
-      var key = entry[0];
-      return iteratorValue(
-        type,
-        key,
-        mapper.call(context, entry[1], key, collection),
-        step
-      );
-    });
-  };
-  return mappedSequence;
-}
-function reverseFactory(collection, useKeys) {
-  var this$1$1 = this;
-  var reversedSequence = makeSequence(collection);
-  reversedSequence._iter = collection;
-  reversedSequence.size = collection.size;
-  reversedSequence.reverse = function() {
-    return collection;
-  };
-  if (collection.flip) {
-    reversedSequence.flip = function() {
-      var flipSequence = flipFactory(collection);
-      flipSequence.reverse = function() {
-        return collection.flip();
-      };
-      return flipSequence;
-    };
-  }
-  reversedSequence.get = function(key, notSetValue) {
-    return collection.get(useKeys ? key : -1 - key, notSetValue);
-  };
-  reversedSequence.has = function(key) {
-    return collection.has(useKeys ? key : -1 - key);
-  };
-  reversedSequence.includes = function(value) {
-    return collection.includes(value);
-  };
-  reversedSequence.cacheResult = cacheResultThrough;
-  reversedSequence.__iterate = function(fn, reverse3) {
-    var this$1$12 = this;
-    var i = 0;
-    reverse3 && ensureSize(collection);
-    return collection.__iterate(
-      function(v, k) {
-        return fn(v, useKeys ? k : reverse3 ? this$1$12.size - ++i : i++, this$1$12);
-      },
-      !reverse3
-    );
-  };
-  reversedSequence.__iterator = function(type, reverse3) {
-    var i = 0;
-    reverse3 && ensureSize(collection);
-    var iterator = collection.__iterator(ITERATE_ENTRIES, !reverse3);
-    return new Iterator(function() {
-      var step = iterator.next();
-      if (step.done) {
-        return step;
-      }
-      var entry = step.value;
-      return iteratorValue(
-        type,
-        useKeys ? entry[0] : reverse3 ? this$1$1.size - ++i : i++,
-        entry[1],
-        step
-      );
-    });
-  };
-  return reversedSequence;
-}
-function filterFactory(collection, predicate, context, useKeys) {
-  var filterSequence = makeSequence(collection);
-  if (useKeys) {
-    filterSequence.has = function(key) {
-      var v = collection.get(key, NOT_SET);
-      return v !== NOT_SET && !!predicate.call(context, v, key, collection);
-    };
-    filterSequence.get = function(key, notSetValue) {
-      var v = collection.get(key, NOT_SET);
-      return v !== NOT_SET && predicate.call(context, v, key, collection) ? v : notSetValue;
-    };
-  }
-  filterSequence.__iterateUncached = function(fn, reverse3) {
-    var this$1$1 = this;
-    var iterations = 0;
-    collection.__iterate(function(v, k, c) {
-      if (predicate.call(context, v, k, c)) {
-        iterations++;
-        return fn(v, useKeys ? k : iterations - 1, this$1$1);
-      }
-    }, reverse3);
-    return iterations;
-  };
-  filterSequence.__iteratorUncached = function(type, reverse3) {
-    var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
-    var iterations = 0;
-    return new Iterator(function() {
-      while (true) {
-        var step = iterator.next();
-        if (step.done) {
-          return step;
-        }
-        var entry = step.value;
-        var key = entry[0];
-        var value = entry[1];
-        if (predicate.call(context, value, key, collection)) {
-          return iteratorValue(type, useKeys ? key : iterations++, value, step);
-        }
-      }
-    });
-  };
-  return filterSequence;
-}
-function countByFactory(collection, grouper, context) {
-  var groups = Map2().asMutable();
-  collection.__iterate(function(v, k) {
-    groups.update(grouper.call(context, v, k, collection), 0, function(a) {
-      return a + 1;
-    });
-  });
-  return groups.asImmutable();
-}
-function groupByFactory(collection, grouper, context) {
-  var isKeyedIter = isKeyed(collection);
-  var groups = (isOrdered(collection) ? OrderedMap() : Map2()).asMutable();
-  collection.__iterate(function(v, k) {
-    groups.update(
-      grouper.call(context, v, k, collection),
-      function(a) {
-        return a = a || [], a.push(isKeyedIter ? [k, v] : v), a;
-      }
-    );
-  });
-  var coerce = collectionClass(collection);
-  return groups.map(function(arr) {
-    return reify(collection, coerce(arr));
-  }).asImmutable();
-}
-function sliceFactory(collection, begin, end, useKeys) {
-  var originalSize = collection.size;
-  if (wholeSlice(begin, end, originalSize)) {
-    return collection;
-  }
-  var resolvedBegin = resolveBegin(begin, originalSize);
-  var resolvedEnd = resolveEnd(end, originalSize);
-  if (resolvedBegin !== resolvedBegin || resolvedEnd !== resolvedEnd) {
-    return sliceFactory(collection.toSeq().cacheResult(), begin, end, useKeys);
-  }
-  var resolvedSize = resolvedEnd - resolvedBegin;
-  var sliceSize;
-  if (resolvedSize === resolvedSize) {
-    sliceSize = resolvedSize < 0 ? 0 : resolvedSize;
-  }
-  var sliceSeq = makeSequence(collection);
-  sliceSeq.size = sliceSize === 0 ? sliceSize : collection.size && sliceSize || void 0;
-  if (!useKeys && isSeq(collection) && sliceSize >= 0) {
-    sliceSeq.get = function(index, notSetValue) {
-      index = wrapIndex(this, index);
-      return index >= 0 && index < sliceSize ? collection.get(index + resolvedBegin, notSetValue) : notSetValue;
-    };
-  }
-  sliceSeq.__iterateUncached = function(fn, reverse3) {
-    var this$1$1 = this;
-    if (sliceSize === 0) {
-      return 0;
-    }
-    if (reverse3) {
-      return this.cacheResult().__iterate(fn, reverse3);
-    }
-    var skipped = 0;
-    var isSkipping = true;
-    var iterations = 0;
-    collection.__iterate(function(v, k) {
-      if (!(isSkipping && (isSkipping = skipped++ < resolvedBegin))) {
-        iterations++;
-        return fn(v, useKeys ? k : iterations - 1, this$1$1) !== false && iterations !== sliceSize;
-      }
-    });
-    return iterations;
-  };
-  sliceSeq.__iteratorUncached = function(type, reverse3) {
-    if (sliceSize !== 0 && reverse3) {
-      return this.cacheResult().__iterator(type, reverse3);
-    }
-    if (sliceSize === 0) {
-      return new Iterator(iteratorDone);
-    }
-    var iterator = collection.__iterator(type, reverse3);
-    var skipped = 0;
-    var iterations = 0;
-    return new Iterator(function() {
-      while (skipped++ < resolvedBegin) {
-        iterator.next();
-      }
-      if (++iterations > sliceSize) {
-        return iteratorDone();
-      }
-      var step = iterator.next();
-      if (useKeys || type === ITERATE_VALUES || step.done) {
-        return step;
-      }
-      if (type === ITERATE_KEYS) {
-        return iteratorValue(type, iterations - 1, void 0, step);
-      }
-      return iteratorValue(type, iterations - 1, step.value[1], step);
-    });
-  };
-  return sliceSeq;
-}
-function takeWhileFactory(collection, predicate, context) {
-  var takeSequence = makeSequence(collection);
-  takeSequence.__iterateUncached = function(fn, reverse3) {
-    var this$1$1 = this;
-    if (reverse3) {
-      return this.cacheResult().__iterate(fn, reverse3);
-    }
-    var iterations = 0;
-    collection.__iterate(
-      function(v, k, c) {
-        return predicate.call(context, v, k, c) && ++iterations && fn(v, k, this$1$1);
-      }
-    );
-    return iterations;
-  };
-  takeSequence.__iteratorUncached = function(type, reverse3) {
-    var this$1$1 = this;
-    if (reverse3) {
-      return this.cacheResult().__iterator(type, reverse3);
-    }
-    var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
-    var iterating = true;
-    return new Iterator(function() {
-      if (!iterating) {
-        return iteratorDone();
-      }
-      var step = iterator.next();
-      if (step.done) {
-        return step;
-      }
-      var entry = step.value;
-      var k = entry[0];
-      var v = entry[1];
-      if (!predicate.call(context, v, k, this$1$1)) {
-        iterating = false;
-        return iteratorDone();
-      }
-      return type === ITERATE_ENTRIES ? step : iteratorValue(type, k, v, step);
-    });
-  };
-  return takeSequence;
-}
-function skipWhileFactory(collection, predicate, context, useKeys) {
-  var skipSequence = makeSequence(collection);
-  skipSequence.__iterateUncached = function(fn, reverse3) {
-    var this$1$1 = this;
-    if (reverse3) {
-      return this.cacheResult().__iterate(fn, reverse3);
-    }
-    var isSkipping = true;
-    var iterations = 0;
-    collection.__iterate(function(v, k, c) {
-      if (!(isSkipping && (isSkipping = predicate.call(context, v, k, c)))) {
-        iterations++;
-        return fn(v, useKeys ? k : iterations - 1, this$1$1);
-      }
-    });
-    return iterations;
-  };
-  skipSequence.__iteratorUncached = function(type, reverse3) {
-    var this$1$1 = this;
-    if (reverse3) {
-      return this.cacheResult().__iterator(type, reverse3);
-    }
-    var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
-    var skipping = true;
-    var iterations = 0;
-    return new Iterator(function() {
-      var step;
-      var k;
-      var v;
-      do {
-        step = iterator.next();
-        if (step.done) {
-          if (useKeys || type === ITERATE_VALUES) {
-            return step;
-          }
-          if (type === ITERATE_KEYS) {
-            return iteratorValue(type, iterations++, void 0, step);
-          }
-          return iteratorValue(type, iterations++, step.value[1], step);
-        }
-        var entry = step.value;
-        k = entry[0];
-        v = entry[1];
-        skipping && (skipping = predicate.call(context, v, k, this$1$1));
-      } while (skipping);
-      return type === ITERATE_ENTRIES ? step : iteratorValue(type, k, v, step);
-    });
-  };
-  return skipSequence;
-}
-function concatFactory(collection, values2) {
-  var isKeyedCollection = isKeyed(collection);
-  var iters = [collection].concat(values2).map(function(v) {
-    if (!isCollection(v)) {
-      v = isKeyedCollection ? keyedSeqFromValue(v) : indexedSeqFromValue(Array.isArray(v) ? v : [v]);
-    } else if (isKeyedCollection) {
-      v = KeyedCollection(v);
-    }
-    return v;
-  }).filter(function(v) {
-    return v.size !== 0;
-  });
-  if (iters.length === 0) {
-    return collection;
-  }
-  if (iters.length === 1) {
-    var singleton = iters[0];
-    if (singleton === collection || isKeyedCollection && isKeyed(singleton) || isIndexed(collection) && isIndexed(singleton)) {
-      return singleton;
-    }
-  }
-  var concatSeq = new ArraySeq(iters);
-  if (isKeyedCollection) {
-    concatSeq = concatSeq.toKeyedSeq();
-  } else if (!isIndexed(collection)) {
-    concatSeq = concatSeq.toSetSeq();
-  }
-  concatSeq = concatSeq.flatten(true);
-  concatSeq.size = iters.reduce(function(sum, seq) {
-    if (sum !== void 0) {
-      var size = seq.size;
-      if (size !== void 0) {
-        return sum + size;
-      }
-    }
-  }, 0);
-  return concatSeq;
-}
-function flattenFactory(collection, depth, useKeys) {
-  var flatSequence = makeSequence(collection);
-  flatSequence.__iterateUncached = function(fn, reverse3) {
-    if (reverse3) {
-      return this.cacheResult().__iterate(fn, reverse3);
-    }
-    var iterations = 0;
-    var stopped = false;
-    function flatDeep(iter, currentDepth) {
-      iter.__iterate(function(v, k) {
-        if ((!depth || currentDepth < depth) && isCollection(v)) {
-          flatDeep(v, currentDepth + 1);
-        } else {
-          iterations++;
-          if (fn(v, useKeys ? k : iterations - 1, flatSequence) === false) {
-            stopped = true;
-          }
-        }
-        return !stopped;
-      }, reverse3);
-    }
-    flatDeep(collection, 0);
-    return iterations;
-  };
-  flatSequence.__iteratorUncached = function(type, reverse3) {
-    if (reverse3) {
-      return this.cacheResult().__iterator(type, reverse3);
-    }
-    var iterator = collection.__iterator(type, reverse3);
-    var stack = [];
-    var iterations = 0;
-    return new Iterator(function() {
-      while (iterator) {
-        var step = iterator.next();
-        if (step.done !== false) {
-          iterator = stack.pop();
-          continue;
-        }
-        var v = step.value;
-        if (type === ITERATE_ENTRIES) {
-          v = v[1];
-        }
-        if ((!depth || stack.length < depth) && isCollection(v)) {
-          stack.push(iterator);
-          iterator = v.__iterator(type, reverse3);
-        } else {
-          return useKeys ? step : iteratorValue(type, iterations++, v, step);
-        }
-      }
-      return iteratorDone();
-    });
-  };
-  return flatSequence;
-}
-function flatMapFactory(collection, mapper, context) {
-  var coerce = collectionClass(collection);
-  return collection.toSeq().map(function(v, k) {
-    return coerce(mapper.call(context, v, k, collection));
-  }).flatten(true);
-}
-function interposeFactory(collection, separator) {
-  var interposedSequence = makeSequence(collection);
-  interposedSequence.size = collection.size && collection.size * 2 - 1;
-  interposedSequence.__iterateUncached = function(fn, reverse3) {
-    var this$1$1 = this;
-    var iterations = 0;
-    collection.__iterate(
-      function(v) {
-        return (!iterations || fn(separator, iterations++, this$1$1) !== false) && fn(v, iterations++, this$1$1) !== false;
-      },
-      reverse3
-    );
-    return iterations;
-  };
-  interposedSequence.__iteratorUncached = function(type, reverse3) {
-    var iterator = collection.__iterator(ITERATE_VALUES, reverse3);
-    var iterations = 0;
-    var step;
-    return new Iterator(function() {
-      if (!step || iterations % 2) {
-        step = iterator.next();
-        if (step.done) {
-          return step;
-        }
-      }
-      return iterations % 2 ? iteratorValue(type, iterations++, separator) : iteratorValue(type, iterations++, step.value, step);
-    });
-  };
-  return interposedSequence;
-}
-function sortFactory(collection, comparator, mapper) {
-  if (!comparator) {
-    comparator = defaultComparator;
-  }
-  var isKeyedCollection = isKeyed(collection);
-  var index = 0;
-  var entries3 = collection.toSeq().map(function(v, k) {
-    return [k, v, index++, mapper ? mapper(v, k, collection) : v];
-  }).valueSeq().toArray();
-  entries3.sort(function(a, b) {
-    return comparator(a[3], b[3]) || a[2] - b[2];
-  }).forEach(
-    isKeyedCollection ? function(v, i) {
-      entries3[i].length = 2;
-    } : function(v, i) {
-      entries3[i] = v[1];
-    }
-  );
-  return isKeyedCollection ? KeyedSeq(entries3) : isIndexed(collection) ? IndexedSeq(entries3) : SetSeq(entries3);
-}
-function maxFactory(collection, comparator, mapper) {
-  if (!comparator) {
-    comparator = defaultComparator;
-  }
-  if (mapper) {
-    var entry = collection.toSeq().map(function(v, k) {
-      return [v, mapper(v, k, collection)];
-    }).reduce(function(a, b) {
-      return maxCompare(comparator, a[1], b[1]) ? b : a;
-    });
-    return entry && entry[0];
-  }
-  return collection.reduce(function(a, b) {
-    return maxCompare(comparator, a, b) ? b : a;
-  });
-}
-function maxCompare(comparator, a, b) {
-  var comp = comparator(b, a);
-  return comp === 0 && b !== a && (b === void 0 || b === null || b !== b) || comp > 0;
-}
-function zipWithFactory(keyIter, zipper, iters, zipAll2) {
-  var zipSequence = makeSequence(keyIter);
-  var sizes = new ArraySeq(iters).map(function(i) {
-    return i.size;
-  });
-  zipSequence.size = zipAll2 ? sizes.max() : sizes.min();
-  zipSequence.__iterate = function(fn, reverse3) {
-    var iterator = this.__iterator(ITERATE_VALUES, reverse3);
-    var step;
-    var iterations = 0;
-    while (!(step = iterator.next()).done) {
-      if (fn(step.value, iterations++, this) === false) {
-        break;
-      }
-    }
-    return iterations;
-  };
-  zipSequence.__iteratorUncached = function(type, reverse3) {
-    var iterators = iters.map(
-      function(i) {
-        return i = Collection(i), getIterator(reverse3 ? i.reverse() : i);
-      }
-    );
-    var iterations = 0;
-    var isDone = false;
-    return new Iterator(function() {
-      var steps;
-      if (!isDone) {
-        steps = iterators.map(function(i) {
-          return i.next();
-        });
-        isDone = zipAll2 ? steps.every(function(s) {
-          return s.done;
-        }) : steps.some(function(s) {
-          return s.done;
-        });
-      }
-      if (isDone) {
-        return iteratorDone();
-      }
-      return iteratorValue(
-        type,
-        iterations++,
-        zipper.apply(
-          null,
-          steps.map(function(s) {
-            return s.value;
-          })
-        )
-      );
-    });
-  };
-  return zipSequence;
-}
-function reify(iter, seq) {
-  return iter === seq ? iter : isSeq(iter) ? seq : iter.constructor(seq);
-}
-function validateEntry(entry) {
-  if (entry !== Object(entry)) {
-    throw new TypeError("Expected [K, V] tuple: " + entry);
-  }
-}
-function collectionClass(collection) {
-  return isKeyed(collection) ? KeyedCollection : isIndexed(collection) ? IndexedCollection : SetCollection;
-}
-function makeSequence(collection) {
-  return Object.create(
-    (isKeyed(collection) ? KeyedSeq : isIndexed(collection) ? IndexedSeq : SetSeq).prototype
-  );
-}
-function cacheResultThrough() {
-  if (this._iter.cacheResult) {
-    this._iter.cacheResult();
-    this.size = this._iter.size;
-    return this;
-  }
-  return Seq.prototype.cacheResult.call(this);
-}
-function defaultComparator(a, b) {
-  if (a === void 0 && b === void 0) {
-    return 0;
-  }
-  if (a === void 0) {
-    return 1;
-  }
-  if (b === void 0) {
-    return -1;
-  }
-  return a > b ? 1 : a < b ? -1 : 0;
-}
-function arrCopy(arr, offset) {
-  offset = offset || 0;
-  var len = Math.max(0, arr.length - offset);
-  var newArr = new Array(len);
-  for (var ii = 0; ii < len; ii++) {
-    newArr[ii] = arr[ii + offset];
-  }
-  return newArr;
-}
-function invariant(condition, error) {
-  if (!condition) {
-    throw new Error(error);
-  }
-}
-function assertNotInfinite(size) {
-  invariant(
-    size !== Infinity,
-    "Cannot perform this action with an infinite size."
-  );
-}
-function coerceKeyPath(keyPath) {
-  if (isArrayLike(keyPath) && typeof keyPath !== "string") {
-    return keyPath;
-  }
-  if (isOrdered(keyPath)) {
-    return keyPath.toArray();
-  }
-  throw new TypeError(
-    "Invalid keyPath: expected Ordered Collection or Array: " + keyPath
-  );
-}
-var toString2 = Object.prototype.toString;
-function isPlainObject(value) {
-  if (!value || typeof value !== "object" || toString2.call(value) !== "[object Object]") {
-    return false;
-  }
-  var proto = Object.getPrototypeOf(value);
-  if (proto === null) {
-    return true;
-  }
-  var parentProto = proto;
-  var nextProto = Object.getPrototypeOf(proto);
-  while (nextProto !== null) {
-    parentProto = nextProto;
-    nextProto = Object.getPrototypeOf(parentProto);
-  }
-  return parentProto === proto;
-}
-function isDataStructure(value) {
-  return typeof value === "object" && (isImmutable(value) || Array.isArray(value) || isPlainObject(value));
-}
-function quoteString(value) {
-  try {
-    return typeof value === "string" ? JSON.stringify(value) : String(value);
-  } catch (_ignoreError) {
-    return JSON.stringify(value);
-  }
-}
-function has(collection, key) {
-  return isImmutable(collection) ? collection.has(key) : isDataStructure(collection) && hasOwnProperty.call(collection, key);
-}
-function get(collection, key, notSetValue) {
-  return isImmutable(collection) ? collection.get(key, notSetValue) : !has(collection, key) ? notSetValue : typeof collection.get === "function" ? collection.get(key) : collection[key];
-}
-function shallowCopy(from) {
-  if (Array.isArray(from)) {
-    return arrCopy(from);
-  }
-  var to = {};
-  for (var key in from) {
-    if (hasOwnProperty.call(from, key)) {
-      to[key] = from[key];
-    }
-  }
-  return to;
-}
-function remove(collection, key) {
-  if (!isDataStructure(collection)) {
-    throw new TypeError(
-      "Cannot update non-data-structure value: " + collection
-    );
-  }
-  if (isImmutable(collection)) {
-    if (!collection.remove) {
-      throw new TypeError(
-        "Cannot update immutable value without .remove() method: " + collection
-      );
-    }
-    return collection.remove(key);
-  }
-  if (!hasOwnProperty.call(collection, key)) {
-    return collection;
-  }
-  var collectionCopy = shallowCopy(collection);
-  if (Array.isArray(collectionCopy)) {
-    collectionCopy.splice(key, 1);
-  } else {
-    delete collectionCopy[key];
-  }
-  return collectionCopy;
-}
-function set(collection, key, value) {
-  if (!isDataStructure(collection)) {
-    throw new TypeError(
-      "Cannot update non-data-structure value: " + collection
-    );
-  }
-  if (isImmutable(collection)) {
-    if (!collection.set) {
-      throw new TypeError(
-        "Cannot update immutable value without .set() method: " + collection
-      );
-    }
-    return collection.set(key, value);
-  }
-  if (hasOwnProperty.call(collection, key) && value === collection[key]) {
-    return collection;
-  }
-  var collectionCopy = shallowCopy(collection);
-  collectionCopy[key] = value;
-  return collectionCopy;
-}
-function updateIn$1(collection, keyPath, notSetValue, updater) {
-  if (!updater) {
-    updater = notSetValue;
-    notSetValue = void 0;
-  }
-  var updatedValue = updateInDeeply(
-    isImmutable(collection),
-    collection,
-    coerceKeyPath(keyPath),
-    0,
-    notSetValue,
-    updater
-  );
-  return updatedValue === NOT_SET ? notSetValue : updatedValue;
-}
-function updateInDeeply(inImmutable, existing, keyPath, i, notSetValue, updater) {
-  var wasNotSet = existing === NOT_SET;
-  if (i === keyPath.length) {
-    var existingValue = wasNotSet ? notSetValue : existing;
-    var newValue = updater(existingValue);
-    return newValue === existingValue ? existing : newValue;
-  }
-  if (!wasNotSet && !isDataStructure(existing)) {
-    throw new TypeError(
-      "Cannot update within non-data-structure value in path [" + keyPath.slice(0, i).map(quoteString) + "]: " + existing
-    );
-  }
-  var key = keyPath[i];
-  var nextExisting = wasNotSet ? NOT_SET : get(existing, key, NOT_SET);
-  var nextUpdated = updateInDeeply(
-    nextExisting === NOT_SET ? inImmutable : isImmutable(nextExisting),
-    nextExisting,
-    keyPath,
-    i + 1,
-    notSetValue,
-    updater
-  );
-  return nextUpdated === nextExisting ? existing : nextUpdated === NOT_SET ? remove(existing, key) : set(
-    wasNotSet ? inImmutable ? emptyMap() : {} : existing,
-    key,
-    nextUpdated
-  );
-}
-function setIn$1(collection, keyPath, value) {
-  return updateIn$1(collection, keyPath, NOT_SET, function() {
-    return value;
-  });
-}
-function setIn(keyPath, v) {
-  return setIn$1(this, keyPath, v);
-}
-function removeIn(collection, keyPath) {
-  return updateIn$1(collection, keyPath, function() {
-    return NOT_SET;
-  });
-}
-function deleteIn(keyPath) {
-  return removeIn(this, keyPath);
-}
-function update$1(collection, key, notSetValue, updater) {
-  return updateIn$1(collection, [key], notSetValue, updater);
-}
-function update(key, notSetValue, updater) {
-  return arguments.length === 1 ? key(this) : update$1(this, key, notSetValue, updater);
-}
-function updateIn(keyPath, notSetValue, updater) {
-  return updateIn$1(this, keyPath, notSetValue, updater);
-}
-function merge$1() {
-  var iters = [], len = arguments.length;
-  while (len--)
-    iters[len] = arguments[len];
-  return mergeIntoKeyedWith(this, iters);
-}
-function mergeWith$1(merger) {
-  var iters = [], len = arguments.length - 1;
-  while (len-- > 0)
-    iters[len] = arguments[len + 1];
-  if (typeof merger !== "function") {
-    throw new TypeError("Invalid merger function: " + merger);
-  }
-  return mergeIntoKeyedWith(this, iters, merger);
-}
-function mergeIntoKeyedWith(collection, collections, merger) {
-  var iters = [];
-  for (var ii = 0; ii < collections.length; ii++) {
-    var collection$1 = KeyedCollection(collections[ii]);
-    if (collection$1.size !== 0) {
-      iters.push(collection$1);
-    }
-  }
-  if (iters.length === 0) {
-    return collection;
-  }
-  if (collection.toSeq().size === 0 && !collection.__ownerID && iters.length === 1) {
-    return collection.constructor(iters[0]);
-  }
-  return collection.withMutations(function(collection2) {
-    var mergeIntoCollection = merger ? function(value, key) {
-      update$1(
-        collection2,
-        key,
-        NOT_SET,
-        function(oldVal) {
-          return oldVal === NOT_SET ? value : merger(oldVal, value, key);
-        }
-      );
-    } : function(value, key) {
-      collection2.set(key, value);
-    };
-    for (var ii2 = 0; ii2 < iters.length; ii2++) {
-      iters[ii2].forEach(mergeIntoCollection);
-    }
-  });
-}
-function mergeDeepWithSources(collection, sources, merger) {
-  return mergeWithSources(collection, sources, deepMergerWith(merger));
-}
-function mergeWithSources(collection, sources, merger) {
-  if (!isDataStructure(collection)) {
-    throw new TypeError(
-      "Cannot merge into non-data-structure value: " + collection
-    );
-  }
-  if (isImmutable(collection)) {
-    return typeof merger === "function" && collection.mergeWith ? collection.mergeWith.apply(collection, [merger].concat(sources)) : collection.merge ? collection.merge.apply(collection, sources) : collection.concat.apply(collection, sources);
-  }
-  var isArray = Array.isArray(collection);
-  var merged = collection;
-  var Collection3 = isArray ? IndexedCollection : KeyedCollection;
-  var mergeItem = isArray ? function(value) {
-    if (merged === collection) {
-      merged = shallowCopy(merged);
-    }
-    merged.push(value);
-  } : function(value, key) {
-    var hasVal = hasOwnProperty.call(merged, key);
-    var nextVal = hasVal && merger ? merger(merged[key], value, key) : value;
-    if (!hasVal || nextVal !== merged[key]) {
-      if (merged === collection) {
-        merged = shallowCopy(merged);
-      }
-      merged[key] = nextVal;
-    }
-  };
-  for (var i = 0; i < sources.length; i++) {
-    Collection3(sources[i]).forEach(mergeItem);
-  }
-  return merged;
-}
-function deepMergerWith(merger) {
-  function deepMerger(oldValue, newValue, key) {
-    return isDataStructure(oldValue) && isDataStructure(newValue) && areMergeable(oldValue, newValue) ? mergeWithSources(oldValue, [newValue], deepMerger) : merger ? merger(oldValue, newValue, key) : newValue;
-  }
-  return deepMerger;
-}
-function areMergeable(oldDataStructure, newDataStructure) {
-  var oldSeq = Seq(oldDataStructure);
-  var newSeq = Seq(newDataStructure);
-  return isIndexed(oldSeq) === isIndexed(newSeq) && isKeyed(oldSeq) === isKeyed(newSeq);
-}
-function mergeDeep() {
-  var iters = [], len = arguments.length;
-  while (len--)
-    iters[len] = arguments[len];
-  return mergeDeepWithSources(this, iters);
-}
-function mergeDeepWith(merger) {
-  var iters = [], len = arguments.length - 1;
-  while (len-- > 0)
-    iters[len] = arguments[len + 1];
-  return mergeDeepWithSources(this, iters, merger);
-}
-function mergeIn(keyPath) {
-  var iters = [], len = arguments.length - 1;
-  while (len-- > 0)
-    iters[len] = arguments[len + 1];
-  return updateIn$1(this, keyPath, emptyMap(), function(m) {
-    return mergeWithSources(m, iters);
-  });
-}
-function mergeDeepIn(keyPath) {
-  var iters = [], len = arguments.length - 1;
-  while (len-- > 0)
-    iters[len] = arguments[len + 1];
-  return updateIn$1(
-    this,
-    keyPath,
-    emptyMap(),
-    function(m) {
-      return mergeDeepWithSources(m, iters);
-    }
-  );
-}
-function withMutations(fn) {
-  var mutable = this.asMutable();
-  fn(mutable);
-  return mutable.wasAltered() ? mutable.__ensureOwner(this.__ownerID) : this;
-}
-function asMutable() {
-  return this.__ownerID ? this : this.__ensureOwner(new OwnerID());
-}
-function asImmutable() {
-  return this.__ensureOwner();
-}
-function wasAltered() {
-  return this.__altered;
-}
-var Map2 = function(KeyedCollection2) {
-  function Map3(value) {
-    return value === void 0 || value === null ? emptyMap() : isMap(value) && !isOrdered(value) ? value : emptyMap().withMutations(function(map2) {
-      var iter = KeyedCollection2(value);
-      assertNotInfinite(iter.size);
-      iter.forEach(function(v, k) {
-        return map2.set(k, v);
-      });
-    });
-  }
-  if (KeyedCollection2)
-    Map3.__proto__ = KeyedCollection2;
-  Map3.prototype = Object.create(KeyedCollection2 && KeyedCollection2.prototype);
-  Map3.prototype.constructor = Map3;
-  Map3.of = function of() {
-    var keyValues = [], len = arguments.length;
-    while (len--)
-      keyValues[len] = arguments[len];
-    return emptyMap().withMutations(function(map2) {
-      for (var i = 0; i < keyValues.length; i += 2) {
-        if (i + 1 >= keyValues.length) {
-          throw new Error("Missing value for key: " + keyValues[i]);
-        }
-        map2.set(keyValues[i], keyValues[i + 1]);
-      }
-    });
-  };
-  Map3.prototype.toString = function toString5() {
-    return this.__toString("Map {", "}");
-  };
-  Map3.prototype.get = function get11(k, notSetValue) {
-    return this._root ? this._root.get(0, void 0, k, notSetValue) : notSetValue;
-  };
-  Map3.prototype.set = function set3(k, v) {
-    return updateMap(this, k, v);
-  };
-  Map3.prototype.remove = function remove3(k) {
-    return updateMap(this, k, NOT_SET);
-  };
-  Map3.prototype.deleteAll = function deleteAll(keys2) {
-    var collection = Collection(keys2);
-    if (collection.size === 0) {
-      return this;
-    }
-    return this.withMutations(function(map2) {
-      collection.forEach(function(key) {
-        return map2.remove(key);
-      });
-    });
-  };
-  Map3.prototype.clear = function clear2() {
-    if (this.size === 0) {
-      return this;
-    }
-    if (this.__ownerID) {
-      this.size = 0;
-      this._root = null;
-      this.__hash = void 0;
-      this.__altered = true;
-      return this;
-    }
-    return emptyMap();
-  };
-  Map3.prototype.sort = function sort2(comparator) {
-    return OrderedMap(sortFactory(this, comparator));
-  };
-  Map3.prototype.sortBy = function sortBy2(mapper, comparator) {
-    return OrderedMap(sortFactory(this, comparator, mapper));
-  };
-  Map3.prototype.map = function map2(mapper, context) {
-    var this$1$1 = this;
-    return this.withMutations(function(map3) {
-      map3.forEach(function(value, key) {
-        map3.set(key, mapper.call(context, value, key, this$1$1));
-      });
-    });
-  };
-  Map3.prototype.__iterator = function __iterator2(type, reverse3) {
-    return new MapIterator(this, type, reverse3);
-  };
-  Map3.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    var iterations = 0;
-    this._root && this._root.iterate(function(entry) {
-      iterations++;
-      return fn(entry[1], entry[0], this$1$1);
-    }, reverse3);
-    return iterations;
-  };
-  Map3.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    if (!ownerID) {
-      if (this.size === 0) {
-        return emptyMap();
-      }
-      this.__ownerID = ownerID;
-      this.__altered = false;
-      return this;
-    }
-    return makeMap(this.size, this._root, ownerID, this.__hash);
-  };
-  return Map3;
-}(KeyedCollection);
-Map2.isMap = isMap;
-var MapPrototype = Map2.prototype;
-MapPrototype[IS_MAP_SYMBOL] = true;
-MapPrototype[DELETE] = MapPrototype.remove;
-MapPrototype.removeAll = MapPrototype.deleteAll;
-MapPrototype.setIn = setIn;
-MapPrototype.removeIn = MapPrototype.deleteIn = deleteIn;
-MapPrototype.update = update;
-MapPrototype.updateIn = updateIn;
-MapPrototype.merge = MapPrototype.concat = merge$1;
-MapPrototype.mergeWith = mergeWith$1;
-MapPrototype.mergeDeep = mergeDeep;
-MapPrototype.mergeDeepWith = mergeDeepWith;
-MapPrototype.mergeIn = mergeIn;
-MapPrototype.mergeDeepIn = mergeDeepIn;
-MapPrototype.withMutations = withMutations;
-MapPrototype.wasAltered = wasAltered;
-MapPrototype.asImmutable = asImmutable;
-MapPrototype["@@transducer/init"] = MapPrototype.asMutable = asMutable;
-MapPrototype["@@transducer/step"] = function(result, arr) {
-  return result.set(arr[0], arr[1]);
-};
-MapPrototype["@@transducer/result"] = function(obj) {
-  return obj.asImmutable();
-};
-var ArrayMapNode = function ArrayMapNode2(ownerID, entries3) {
-  this.ownerID = ownerID;
-  this.entries = entries3;
-};
-ArrayMapNode.prototype.get = function get2(shift, keyHash, key, notSetValue) {
-  var entries3 = this.entries;
-  for (var ii = 0, len = entries3.length; ii < len; ii++) {
-    if (is(key, entries3[ii][0])) {
-      return entries3[ii][1];
-    }
-  }
-  return notSetValue;
-};
-ArrayMapNode.prototype.update = function update2(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  var removed = value === NOT_SET;
-  var entries3 = this.entries;
-  var idx = 0;
-  var len = entries3.length;
-  for (; idx < len; idx++) {
-    if (is(key, entries3[idx][0])) {
-      break;
-    }
-  }
-  var exists = idx < len;
-  if (exists ? entries3[idx][1] === value : removed) {
-    return this;
-  }
-  SetRef(didAlter);
-  (removed || !exists) && SetRef(didChangeSize);
-  if (removed && entries3.length === 1) {
-    return;
-  }
-  if (!exists && !removed && entries3.length >= MAX_ARRAY_MAP_SIZE) {
-    return createNodes(ownerID, entries3, key, value);
-  }
-  var isEditable = ownerID && ownerID === this.ownerID;
-  var newEntries = isEditable ? entries3 : arrCopy(entries3);
-  if (exists) {
-    if (removed) {
-      idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
-    } else {
-      newEntries[idx] = [key, value];
-    }
-  } else {
-    newEntries.push([key, value]);
-  }
-  if (isEditable) {
-    this.entries = newEntries;
-    return this;
-  }
-  return new ArrayMapNode(ownerID, newEntries);
-};
-var BitmapIndexedNode = function BitmapIndexedNode2(ownerID, bitmap, nodes) {
-  this.ownerID = ownerID;
-  this.bitmap = bitmap;
-  this.nodes = nodes;
-};
-BitmapIndexedNode.prototype.get = function get3(shift, keyHash, key, notSetValue) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var bit = 1 << ((shift === 0 ? keyHash : keyHash >>> shift) & MASK);
-  var bitmap = this.bitmap;
-  return (bitmap & bit) === 0 ? notSetValue : this.nodes[popCount(bitmap & bit - 1)].get(
-    shift + SHIFT,
-    keyHash,
-    key,
-    notSetValue
-  );
-};
-BitmapIndexedNode.prototype.update = function update3(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var keyHashFrag = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
-  var bit = 1 << keyHashFrag;
-  var bitmap = this.bitmap;
-  var exists = (bitmap & bit) !== 0;
-  if (!exists && value === NOT_SET) {
-    return this;
-  }
-  var idx = popCount(bitmap & bit - 1);
-  var nodes = this.nodes;
-  var node = exists ? nodes[idx] : void 0;
-  var newNode = updateNode(
-    node,
-    ownerID,
-    shift + SHIFT,
-    keyHash,
-    key,
-    value,
-    didChangeSize,
-    didAlter
-  );
-  if (newNode === node) {
-    return this;
-  }
-  if (!exists && newNode && nodes.length >= MAX_BITMAP_INDEXED_SIZE) {
-    return expandNodes(ownerID, nodes, bitmap, keyHashFrag, newNode);
-  }
-  if (exists && !newNode && nodes.length === 2 && isLeafNode(nodes[idx ^ 1])) {
-    return nodes[idx ^ 1];
-  }
-  if (exists && newNode && nodes.length === 1 && isLeafNode(newNode)) {
-    return newNode;
-  }
-  var isEditable = ownerID && ownerID === this.ownerID;
-  var newBitmap = exists ? newNode ? bitmap : bitmap ^ bit : bitmap | bit;
-  var newNodes = exists ? newNode ? setAt(nodes, idx, newNode, isEditable) : spliceOut(nodes, idx, isEditable) : spliceIn(nodes, idx, newNode, isEditable);
-  if (isEditable) {
-    this.bitmap = newBitmap;
-    this.nodes = newNodes;
-    return this;
-  }
-  return new BitmapIndexedNode(ownerID, newBitmap, newNodes);
-};
-var HashArrayMapNode = function HashArrayMapNode2(ownerID, count2, nodes) {
-  this.ownerID = ownerID;
-  this.count = count2;
-  this.nodes = nodes;
-};
-HashArrayMapNode.prototype.get = function get4(shift, keyHash, key, notSetValue) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
-  var node = this.nodes[idx];
-  return node ? node.get(shift + SHIFT, keyHash, key, notSetValue) : notSetValue;
-};
-HashArrayMapNode.prototype.update = function update4(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
-  var removed = value === NOT_SET;
-  var nodes = this.nodes;
-  var node = nodes[idx];
-  if (removed && !node) {
-    return this;
-  }
-  var newNode = updateNode(
-    node,
-    ownerID,
-    shift + SHIFT,
-    keyHash,
-    key,
-    value,
-    didChangeSize,
-    didAlter
-  );
-  if (newNode === node) {
-    return this;
-  }
-  var newCount = this.count;
-  if (!node) {
-    newCount++;
-  } else if (!newNode) {
-    newCount--;
-    if (newCount < MIN_HASH_ARRAY_MAP_SIZE) {
-      return packNodes(ownerID, nodes, newCount, idx);
-    }
-  }
-  var isEditable = ownerID && ownerID === this.ownerID;
-  var newNodes = setAt(nodes, idx, newNode, isEditable);
-  if (isEditable) {
-    this.count = newCount;
-    this.nodes = newNodes;
-    return this;
-  }
-  return new HashArrayMapNode(ownerID, newCount, newNodes);
-};
-var HashCollisionNode = function HashCollisionNode2(ownerID, keyHash, entries3) {
-  this.ownerID = ownerID;
-  this.keyHash = keyHash;
-  this.entries = entries3;
-};
-HashCollisionNode.prototype.get = function get5(shift, keyHash, key, notSetValue) {
-  var entries3 = this.entries;
-  for (var ii = 0, len = entries3.length; ii < len; ii++) {
-    if (is(key, entries3[ii][0])) {
-      return entries3[ii][1];
-    }
-  }
-  return notSetValue;
-};
-HashCollisionNode.prototype.update = function update5(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var removed = value === NOT_SET;
-  if (keyHash !== this.keyHash) {
-    if (removed) {
-      return this;
-    }
-    SetRef(didAlter);
-    SetRef(didChangeSize);
-    return mergeIntoNode(this, ownerID, shift, keyHash, [key, value]);
-  }
-  var entries3 = this.entries;
-  var idx = 0;
-  var len = entries3.length;
-  for (; idx < len; idx++) {
-    if (is(key, entries3[idx][0])) {
-      break;
-    }
-  }
-  var exists = idx < len;
-  if (exists ? entries3[idx][1] === value : removed) {
-    return this;
-  }
-  SetRef(didAlter);
-  (removed || !exists) && SetRef(didChangeSize);
-  if (removed && len === 2) {
-    return new ValueNode(ownerID, this.keyHash, entries3[idx ^ 1]);
-  }
-  var isEditable = ownerID && ownerID === this.ownerID;
-  var newEntries = isEditable ? entries3 : arrCopy(entries3);
-  if (exists) {
-    if (removed) {
-      idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
-    } else {
-      newEntries[idx] = [key, value];
-    }
-  } else {
-    newEntries.push([key, value]);
-  }
-  if (isEditable) {
-    this.entries = newEntries;
-    return this;
-  }
-  return new HashCollisionNode(ownerID, this.keyHash, newEntries);
-};
-var ValueNode = function ValueNode2(ownerID, keyHash, entry) {
-  this.ownerID = ownerID;
-  this.keyHash = keyHash;
-  this.entry = entry;
-};
-ValueNode.prototype.get = function get6(shift, keyHash, key, notSetValue) {
-  return is(key, this.entry[0]) ? this.entry[1] : notSetValue;
-};
-ValueNode.prototype.update = function update6(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  var removed = value === NOT_SET;
-  var keyMatch = is(key, this.entry[0]);
-  if (keyMatch ? value === this.entry[1] : removed) {
-    return this;
-  }
-  SetRef(didAlter);
-  if (removed) {
-    SetRef(didChangeSize);
-    return;
-  }
-  if (keyMatch) {
-    if (ownerID && ownerID === this.ownerID) {
-      this.entry[1] = value;
-      return this;
-    }
-    return new ValueNode(ownerID, this.keyHash, [key, value]);
-  }
-  SetRef(didChangeSize);
-  return mergeIntoNode(this, ownerID, shift, hash(key), [key, value]);
-};
-ArrayMapNode.prototype.iterate = HashCollisionNode.prototype.iterate = function(fn, reverse3) {
-  var entries3 = this.entries;
-  for (var ii = 0, maxIndex = entries3.length - 1; ii <= maxIndex; ii++) {
-    if (fn(entries3[reverse3 ? maxIndex - ii : ii]) === false) {
-      return false;
-    }
-  }
-};
-BitmapIndexedNode.prototype.iterate = HashArrayMapNode.prototype.iterate = function(fn, reverse3) {
-  var nodes = this.nodes;
-  for (var ii = 0, maxIndex = nodes.length - 1; ii <= maxIndex; ii++) {
-    var node = nodes[reverse3 ? maxIndex - ii : ii];
-    if (node && node.iterate(fn, reverse3) === false) {
-      return false;
-    }
-  }
-};
-ValueNode.prototype.iterate = function(fn, reverse3) {
-  return fn(this.entry);
-};
-var MapIterator = function(Iterator3) {
-  function MapIterator2(map2, type, reverse3) {
-    this._type = type;
-    this._reverse = reverse3;
-    this._stack = map2._root && mapIteratorFrame(map2._root);
-  }
-  if (Iterator3)
-    MapIterator2.__proto__ = Iterator3;
-  MapIterator2.prototype = Object.create(Iterator3 && Iterator3.prototype);
-  MapIterator2.prototype.constructor = MapIterator2;
-  MapIterator2.prototype.next = function next() {
-    var type = this._type;
-    var stack = this._stack;
-    while (stack) {
-      var node = stack.node;
-      var index = stack.index++;
-      var maxIndex = void 0;
-      if (node.entry) {
-        if (index === 0) {
-          return mapIteratorValue(type, node.entry);
-        }
-      } else if (node.entries) {
-        maxIndex = node.entries.length - 1;
-        if (index <= maxIndex) {
-          return mapIteratorValue(
-            type,
-            node.entries[this._reverse ? maxIndex - index : index]
-          );
-        }
-      } else {
-        maxIndex = node.nodes.length - 1;
-        if (index <= maxIndex) {
-          var subNode = node.nodes[this._reverse ? maxIndex - index : index];
-          if (subNode) {
-            if (subNode.entry) {
-              return mapIteratorValue(type, subNode.entry);
-            }
-            stack = this._stack = mapIteratorFrame(subNode, stack);
-          }
-          continue;
-        }
-      }
-      stack = this._stack = this._stack.__prev;
-    }
-    return iteratorDone();
-  };
-  return MapIterator2;
-}(Iterator);
-function mapIteratorValue(type, entry) {
-  return iteratorValue(type, entry[0], entry[1]);
-}
-function mapIteratorFrame(node, prev) {
-  return {
-    node,
-    index: 0,
-    __prev: prev
-  };
-}
-function makeMap(size, root, ownerID, hash2) {
-  var map2 = Object.create(MapPrototype);
-  map2.size = size;
-  map2._root = root;
-  map2.__ownerID = ownerID;
-  map2.__hash = hash2;
-  map2.__altered = false;
-  return map2;
-}
-var EMPTY_MAP;
-function emptyMap() {
-  return EMPTY_MAP || (EMPTY_MAP = makeMap(0));
-}
-function updateMap(map2, k, v) {
-  var newRoot;
-  var newSize;
-  if (!map2._root) {
-    if (v === NOT_SET) {
-      return map2;
-    }
-    newSize = 1;
-    newRoot = new ArrayMapNode(map2.__ownerID, [[k, v]]);
-  } else {
-    var didChangeSize = MakeRef();
-    var didAlter = MakeRef();
-    newRoot = updateNode(
-      map2._root,
-      map2.__ownerID,
-      0,
-      void 0,
-      k,
-      v,
-      didChangeSize,
-      didAlter
-    );
-    if (!didAlter.value) {
-      return map2;
-    }
-    newSize = map2.size + (didChangeSize.value ? v === NOT_SET ? -1 : 1 : 0);
-  }
-  if (map2.__ownerID) {
-    map2.size = newSize;
-    map2._root = newRoot;
-    map2.__hash = void 0;
-    map2.__altered = true;
-    return map2;
-  }
-  return newRoot ? makeMap(newSize, newRoot) : emptyMap();
-}
-function updateNode(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  if (!node) {
-    if (value === NOT_SET) {
-      return node;
-    }
-    SetRef(didAlter);
-    SetRef(didChangeSize);
-    return new ValueNode(ownerID, keyHash, [key, value]);
-  }
-  return node.update(
-    ownerID,
-    shift,
-    keyHash,
-    key,
-    value,
-    didChangeSize,
-    didAlter
-  );
-}
-function isLeafNode(node) {
-  return node.constructor === ValueNode || node.constructor === HashCollisionNode;
-}
-function mergeIntoNode(node, ownerID, shift, keyHash, entry) {
-  if (node.keyHash === keyHash) {
-    return new HashCollisionNode(ownerID, keyHash, [node.entry, entry]);
-  }
-  var idx1 = (shift === 0 ? node.keyHash : node.keyHash >>> shift) & MASK;
-  var idx2 = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
-  var newNode;
-  var nodes = idx1 === idx2 ? [mergeIntoNode(node, ownerID, shift + SHIFT, keyHash, entry)] : (newNode = new ValueNode(ownerID, keyHash, entry), idx1 < idx2 ? [node, newNode] : [newNode, node]);
-  return new BitmapIndexedNode(ownerID, 1 << idx1 | 1 << idx2, nodes);
-}
-function createNodes(ownerID, entries3, key, value) {
-  if (!ownerID) {
-    ownerID = new OwnerID();
-  }
-  var node = new ValueNode(ownerID, hash(key), [key, value]);
-  for (var ii = 0; ii < entries3.length; ii++) {
-    var entry = entries3[ii];
-    node = node.update(ownerID, 0, void 0, entry[0], entry[1]);
-  }
-  return node;
-}
-function packNodes(ownerID, nodes, count2, excluding) {
-  var bitmap = 0;
-  var packedII = 0;
-  var packedNodes = new Array(count2);
-  for (var ii = 0, bit = 1, len = nodes.length; ii < len; ii++, bit <<= 1) {
-    var node = nodes[ii];
-    if (node !== void 0 && ii !== excluding) {
-      bitmap |= bit;
-      packedNodes[packedII++] = node;
-    }
-  }
-  return new BitmapIndexedNode(ownerID, bitmap, packedNodes);
-}
-function expandNodes(ownerID, nodes, bitmap, including, node) {
-  var count2 = 0;
-  var expandedNodes = new Array(SIZE);
-  for (var ii = 0; bitmap !== 0; ii++, bitmap >>>= 1) {
-    expandedNodes[ii] = bitmap & 1 ? nodes[count2++] : void 0;
-  }
-  expandedNodes[including] = node;
-  return new HashArrayMapNode(ownerID, count2 + 1, expandedNodes);
-}
-function popCount(x) {
-  x -= x >> 1 & 1431655765;
-  x = (x & 858993459) + (x >> 2 & 858993459);
-  x = x + (x >> 4) & 252645135;
-  x += x >> 8;
-  x += x >> 16;
-  return x & 127;
-}
-function setAt(array, idx, val, canEdit) {
-  var newArray = canEdit ? array : arrCopy(array);
-  newArray[idx] = val;
-  return newArray;
-}
-function spliceIn(array, idx, val, canEdit) {
-  var newLen = array.length + 1;
-  if (canEdit && idx + 1 === newLen) {
-    array[idx] = val;
-    return array;
-  }
-  var newArray = new Array(newLen);
-  var after = 0;
-  for (var ii = 0; ii < newLen; ii++) {
-    if (ii === idx) {
-      newArray[ii] = val;
-      after = -1;
-    } else {
-      newArray[ii] = array[ii + after];
-    }
-  }
-  return newArray;
-}
-function spliceOut(array, idx, canEdit) {
-  var newLen = array.length - 1;
-  if (canEdit && idx === newLen) {
-    array.pop();
-    return array;
-  }
-  var newArray = new Array(newLen);
-  var after = 0;
-  for (var ii = 0; ii < newLen; ii++) {
-    if (ii === idx) {
-      after = 1;
-    }
-    newArray[ii] = array[ii + after];
-  }
-  return newArray;
-}
-var MAX_ARRAY_MAP_SIZE = SIZE / 4;
-var MAX_BITMAP_INDEXED_SIZE = SIZE / 2;
-var MIN_HASH_ARRAY_MAP_SIZE = SIZE / 4;
-var IS_LIST_SYMBOL = "@@__IMMUTABLE_LIST__@@";
-function isList(maybeList) {
-  return Boolean(maybeList && maybeList[IS_LIST_SYMBOL]);
-}
-var List = function(IndexedCollection2) {
-  function List2(value) {
-    var empty = emptyList();
-    if (value === void 0 || value === null) {
-      return empty;
-    }
-    if (isList(value)) {
-      return value;
-    }
-    var iter = IndexedCollection2(value);
-    var size = iter.size;
-    if (size === 0) {
-      return empty;
-    }
-    assertNotInfinite(size);
-    if (size > 0 && size < SIZE) {
-      return makeList(0, size, SHIFT, null, new VNode(iter.toArray()));
-    }
-    return empty.withMutations(function(list) {
-      list.setSize(size);
-      iter.forEach(function(v, i) {
-        return list.set(i, v);
-      });
-    });
-  }
-  if (IndexedCollection2)
-    List2.__proto__ = IndexedCollection2;
-  List2.prototype = Object.create(IndexedCollection2 && IndexedCollection2.prototype);
-  List2.prototype.constructor = List2;
-  List2.of = function of() {
-    return this(arguments);
-  };
-  List2.prototype.toString = function toString5() {
-    return this.__toString("List [", "]");
-  };
-  List2.prototype.get = function get11(index, notSetValue) {
-    index = wrapIndex(this, index);
-    if (index >= 0 && index < this.size) {
-      index += this._origin;
-      var node = listNodeFor(this, index);
-      return node && node.array[index & MASK];
-    }
-    return notSetValue;
-  };
-  List2.prototype.set = function set3(index, value) {
-    return updateList(this, index, value);
-  };
-  List2.prototype.remove = function remove3(index) {
-    return !this.has(index) ? this : index === 0 ? this.shift() : index === this.size - 1 ? this.pop() : this.splice(index, 1);
-  };
-  List2.prototype.insert = function insert(index, value) {
-    return this.splice(index, 0, value);
-  };
-  List2.prototype.clear = function clear2() {
-    if (this.size === 0) {
-      return this;
-    }
-    if (this.__ownerID) {
-      this.size = this._origin = this._capacity = 0;
-      this._level = SHIFT;
-      this._root = this._tail = this.__hash = void 0;
-      this.__altered = true;
-      return this;
-    }
-    return emptyList();
-  };
-  List2.prototype.push = function push() {
-    var values2 = arguments;
-    var oldSize = this.size;
-    return this.withMutations(function(list) {
-      setListBounds(list, 0, oldSize + values2.length);
-      for (var ii = 0; ii < values2.length; ii++) {
-        list.set(oldSize + ii, values2[ii]);
-      }
-    });
-  };
-  List2.prototype.pop = function pop() {
-    return setListBounds(this, 0, -1);
-  };
-  List2.prototype.unshift = function unshift() {
-    var values2 = arguments;
-    return this.withMutations(function(list) {
-      setListBounds(list, -values2.length);
-      for (var ii = 0; ii < values2.length; ii++) {
-        list.set(ii, values2[ii]);
-      }
-    });
-  };
-  List2.prototype.shift = function shift() {
-    return setListBounds(this, 1);
-  };
-  List2.prototype.concat = function concat2() {
-    var arguments$1 = arguments;
-    var seqs = [];
-    for (var i = 0; i < arguments.length; i++) {
-      var argument = arguments$1[i];
-      var seq = IndexedCollection2(
-        typeof argument !== "string" && hasIterator(argument) ? argument : [argument]
-      );
-      if (seq.size !== 0) {
-        seqs.push(seq);
-      }
-    }
-    if (seqs.length === 0) {
-      return this;
-    }
-    if (this.size === 0 && !this.__ownerID && seqs.length === 1) {
-      return this.constructor(seqs[0]);
-    }
-    return this.withMutations(function(list) {
-      seqs.forEach(function(seq2) {
-        return seq2.forEach(function(value) {
-          return list.push(value);
-        });
-      });
-    });
-  };
-  List2.prototype.setSize = function setSize(size) {
-    return setListBounds(this, 0, size);
-  };
-  List2.prototype.map = function map2(mapper, context) {
-    var this$1$1 = this;
-    return this.withMutations(function(list) {
-      for (var i = 0; i < this$1$1.size; i++) {
-        list.set(i, mapper.call(context, list.get(i), i, this$1$1));
-      }
-    });
-  };
-  List2.prototype.slice = function slice3(begin, end) {
-    var size = this.size;
-    if (wholeSlice(begin, end, size)) {
-      return this;
-    }
-    return setListBounds(
-      this,
-      resolveBegin(begin, size),
-      resolveEnd(end, size)
-    );
-  };
-  List2.prototype.__iterator = function __iterator2(type, reverse3) {
-    var index = reverse3 ? this.size : 0;
-    var values2 = iterateList(this, reverse3);
-    return new Iterator(function() {
-      var value = values2();
-      return value === DONE ? iteratorDone() : iteratorValue(type, reverse3 ? --index : index++, value);
-    });
-  };
-  List2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var index = reverse3 ? this.size : 0;
-    var values2 = iterateList(this, reverse3);
-    var value;
-    while ((value = values2()) !== DONE) {
-      if (fn(value, reverse3 ? --index : index++, this) === false) {
-        break;
-      }
-    }
-    return index;
-  };
-  List2.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    if (!ownerID) {
-      if (this.size === 0) {
-        return emptyList();
-      }
-      this.__ownerID = ownerID;
-      this.__altered = false;
-      return this;
-    }
-    return makeList(
-      this._origin,
-      this._capacity,
-      this._level,
-      this._root,
-      this._tail,
-      ownerID,
-      this.__hash
-    );
-  };
-  return List2;
-}(IndexedCollection);
-List.isList = isList;
-var ListPrototype = List.prototype;
-ListPrototype[IS_LIST_SYMBOL] = true;
-ListPrototype[DELETE] = ListPrototype.remove;
-ListPrototype.merge = ListPrototype.concat;
-ListPrototype.setIn = setIn;
-ListPrototype.deleteIn = ListPrototype.removeIn = deleteIn;
-ListPrototype.update = update;
-ListPrototype.updateIn = updateIn;
-ListPrototype.mergeIn = mergeIn;
-ListPrototype.mergeDeepIn = mergeDeepIn;
-ListPrototype.withMutations = withMutations;
-ListPrototype.wasAltered = wasAltered;
-ListPrototype.asImmutable = asImmutable;
-ListPrototype["@@transducer/init"] = ListPrototype.asMutable = asMutable;
-ListPrototype["@@transducer/step"] = function(result, arr) {
-  return result.push(arr);
-};
-ListPrototype["@@transducer/result"] = function(obj) {
-  return obj.asImmutable();
-};
-var VNode = function VNode2(array, ownerID) {
-  this.array = array;
-  this.ownerID = ownerID;
-};
-VNode.prototype.removeBefore = function removeBefore(ownerID, level, index) {
-  if (index === level ? 1 << level : this.array.length === 0) {
-    return this;
-  }
-  var originIndex = index >>> level & MASK;
-  if (originIndex >= this.array.length) {
-    return new VNode([], ownerID);
-  }
-  var removingFirst = originIndex === 0;
-  var newChild;
-  if (level > 0) {
-    var oldChild = this.array[originIndex];
-    newChild = oldChild && oldChild.removeBefore(ownerID, level - SHIFT, index);
-    if (newChild === oldChild && removingFirst) {
-      return this;
-    }
-  }
-  if (removingFirst && !newChild) {
-    return this;
-  }
-  var editable = editableVNode(this, ownerID);
-  if (!removingFirst) {
-    for (var ii = 0; ii < originIndex; ii++) {
-      editable.array[ii] = void 0;
-    }
-  }
-  if (newChild) {
-    editable.array[originIndex] = newChild;
-  }
-  return editable;
-};
-VNode.prototype.removeAfter = function removeAfter(ownerID, level, index) {
-  if (index === (level ? 1 << level : 0) || this.array.length === 0) {
-    return this;
-  }
-  var sizeIndex = index - 1 >>> level & MASK;
-  if (sizeIndex >= this.array.length) {
-    return this;
-  }
-  var newChild;
-  if (level > 0) {
-    var oldChild = this.array[sizeIndex];
-    newChild = oldChild && oldChild.removeAfter(ownerID, level - SHIFT, index);
-    if (newChild === oldChild && sizeIndex === this.array.length - 1) {
-      return this;
-    }
-  }
-  var editable = editableVNode(this, ownerID);
-  editable.array.splice(sizeIndex + 1);
-  if (newChild) {
-    editable.array[sizeIndex] = newChild;
-  }
-  return editable;
-};
-var DONE = {};
-function iterateList(list, reverse3) {
-  var left = list._origin;
-  var right = list._capacity;
-  var tailPos = getTailOffset(right);
-  var tail = list._tail;
-  return iterateNodeOrLeaf(list._root, list._level, 0);
-  function iterateNodeOrLeaf(node, level, offset) {
-    return level === 0 ? iterateLeaf(node, offset) : iterateNode(node, level, offset);
-  }
-  function iterateLeaf(node, offset) {
-    var array = offset === tailPos ? tail && tail.array : node && node.array;
-    var from = offset > left ? 0 : left - offset;
-    var to = right - offset;
-    if (to > SIZE) {
-      to = SIZE;
-    }
-    return function() {
-      if (from === to) {
-        return DONE;
-      }
-      var idx = reverse3 ? --to : from++;
-      return array && array[idx];
-    };
-  }
-  function iterateNode(node, level, offset) {
-    var values2;
-    var array = node && node.array;
-    var from = offset > left ? 0 : left - offset >> level;
-    var to = (right - offset >> level) + 1;
-    if (to > SIZE) {
-      to = SIZE;
-    }
-    return function() {
-      while (true) {
-        if (values2) {
-          var value = values2();
-          if (value !== DONE) {
-            return value;
-          }
-          values2 = null;
-        }
-        if (from === to) {
-          return DONE;
-        }
-        var idx = reverse3 ? --to : from++;
-        values2 = iterateNodeOrLeaf(
-          array && array[idx],
-          level - SHIFT,
-          offset + (idx << level)
-        );
-      }
-    };
-  }
-}
-function makeList(origin, capacity, level, root, tail, ownerID, hash2) {
-  var list = Object.create(ListPrototype);
-  list.size = capacity - origin;
-  list._origin = origin;
-  list._capacity = capacity;
-  list._level = level;
-  list._root = root;
-  list._tail = tail;
-  list.__ownerID = ownerID;
-  list.__hash = hash2;
-  list.__altered = false;
-  return list;
-}
-var EMPTY_LIST;
-function emptyList() {
-  return EMPTY_LIST || (EMPTY_LIST = makeList(0, 0, SHIFT));
-}
-function updateList(list, index, value) {
-  index = wrapIndex(list, index);
-  if (index !== index) {
-    return list;
-  }
-  if (index >= list.size || index < 0) {
-    return list.withMutations(function(list2) {
-      index < 0 ? setListBounds(list2, index).set(0, value) : setListBounds(list2, 0, index + 1).set(index, value);
-    });
-  }
-  index += list._origin;
-  var newTail = list._tail;
-  var newRoot = list._root;
-  var didAlter = MakeRef();
-  if (index >= getTailOffset(list._capacity)) {
-    newTail = updateVNode(newTail, list.__ownerID, 0, index, value, didAlter);
-  } else {
-    newRoot = updateVNode(
-      newRoot,
-      list.__ownerID,
-      list._level,
-      index,
-      value,
-      didAlter
-    );
-  }
-  if (!didAlter.value) {
-    return list;
-  }
-  if (list.__ownerID) {
-    list._root = newRoot;
-    list._tail = newTail;
-    list.__hash = void 0;
-    list.__altered = true;
-    return list;
-  }
-  return makeList(list._origin, list._capacity, list._level, newRoot, newTail);
-}
-function updateVNode(node, ownerID, level, index, value, didAlter) {
-  var idx = index >>> level & MASK;
-  var nodeHas = node && idx < node.array.length;
-  if (!nodeHas && value === void 0) {
-    return node;
-  }
-  var newNode;
-  if (level > 0) {
-    var lowerNode = node && node.array[idx];
-    var newLowerNode = updateVNode(
-      lowerNode,
-      ownerID,
-      level - SHIFT,
-      index,
-      value,
-      didAlter
-    );
-    if (newLowerNode === lowerNode) {
-      return node;
-    }
-    newNode = editableVNode(node, ownerID);
-    newNode.array[idx] = newLowerNode;
-    return newNode;
-  }
-  if (nodeHas && node.array[idx] === value) {
-    return node;
-  }
-  if (didAlter) {
-    SetRef(didAlter);
-  }
-  newNode = editableVNode(node, ownerID);
-  if (value === void 0 && idx === newNode.array.length - 1) {
-    newNode.array.pop();
-  } else {
-    newNode.array[idx] = value;
-  }
-  return newNode;
-}
-function editableVNode(node, ownerID) {
-  if (ownerID && node && ownerID === node.ownerID) {
-    return node;
-  }
-  return new VNode(node ? node.array.slice() : [], ownerID);
-}
-function listNodeFor(list, rawIndex) {
-  if (rawIndex >= getTailOffset(list._capacity)) {
-    return list._tail;
-  }
-  if (rawIndex < 1 << list._level + SHIFT) {
-    var node = list._root;
-    var level = list._level;
-    while (node && level > 0) {
-      node = node.array[rawIndex >>> level & MASK];
-      level -= SHIFT;
-    }
-    return node;
-  }
-}
-function setListBounds(list, begin, end) {
-  if (begin !== void 0) {
-    begin |= 0;
-  }
-  if (end !== void 0) {
-    end |= 0;
-  }
-  var owner = list.__ownerID || new OwnerID();
-  var oldOrigin = list._origin;
-  var oldCapacity = list._capacity;
-  var newOrigin = oldOrigin + begin;
-  var newCapacity = end === void 0 ? oldCapacity : end < 0 ? oldCapacity + end : oldOrigin + end;
-  if (newOrigin === oldOrigin && newCapacity === oldCapacity) {
-    return list;
-  }
-  if (newOrigin >= newCapacity) {
-    return list.clear();
-  }
-  var newLevel = list._level;
-  var newRoot = list._root;
-  var offsetShift = 0;
-  while (newOrigin + offsetShift < 0) {
-    newRoot = new VNode(
-      newRoot && newRoot.array.length ? [void 0, newRoot] : [],
-      owner
-    );
-    newLevel += SHIFT;
-    offsetShift += 1 << newLevel;
-  }
-  if (offsetShift) {
-    newOrigin += offsetShift;
-    oldOrigin += offsetShift;
-    newCapacity += offsetShift;
-    oldCapacity += offsetShift;
-  }
-  var oldTailOffset = getTailOffset(oldCapacity);
-  var newTailOffset = getTailOffset(newCapacity);
-  while (newTailOffset >= 1 << newLevel + SHIFT) {
-    newRoot = new VNode(
-      newRoot && newRoot.array.length ? [newRoot] : [],
-      owner
-    );
-    newLevel += SHIFT;
-  }
-  var oldTail = list._tail;
-  var newTail = newTailOffset < oldTailOffset ? listNodeFor(list, newCapacity - 1) : newTailOffset > oldTailOffset ? new VNode([], owner) : oldTail;
-  if (oldTail && newTailOffset > oldTailOffset && newOrigin < oldCapacity && oldTail.array.length) {
-    newRoot = editableVNode(newRoot, owner);
-    var node = newRoot;
-    for (var level = newLevel; level > SHIFT; level -= SHIFT) {
-      var idx = oldTailOffset >>> level & MASK;
-      node = node.array[idx] = editableVNode(node.array[idx], owner);
-    }
-    node.array[oldTailOffset >>> SHIFT & MASK] = oldTail;
-  }
-  if (newCapacity < oldCapacity) {
-    newTail = newTail && newTail.removeAfter(owner, 0, newCapacity);
-  }
-  if (newOrigin >= newTailOffset) {
-    newOrigin -= newTailOffset;
-    newCapacity -= newTailOffset;
-    newLevel = SHIFT;
-    newRoot = null;
-    newTail = newTail && newTail.removeBefore(owner, 0, newOrigin);
-  } else if (newOrigin > oldOrigin || newTailOffset < oldTailOffset) {
-    offsetShift = 0;
-    while (newRoot) {
-      var beginIndex = newOrigin >>> newLevel & MASK;
-      if (beginIndex !== newTailOffset >>> newLevel & MASK) {
-        break;
-      }
-      if (beginIndex) {
-        offsetShift += (1 << newLevel) * beginIndex;
-      }
-      newLevel -= SHIFT;
-      newRoot = newRoot.array[beginIndex];
-    }
-    if (newRoot && newOrigin > oldOrigin) {
-      newRoot = newRoot.removeBefore(owner, newLevel, newOrigin - offsetShift);
-    }
-    if (newRoot && newTailOffset < oldTailOffset) {
-      newRoot = newRoot.removeAfter(
-        owner,
-        newLevel,
-        newTailOffset - offsetShift
-      );
-    }
-    if (offsetShift) {
-      newOrigin -= offsetShift;
-      newCapacity -= offsetShift;
-    }
-  }
-  if (list.__ownerID) {
-    list.size = newCapacity - newOrigin;
-    list._origin = newOrigin;
-    list._capacity = newCapacity;
-    list._level = newLevel;
-    list._root = newRoot;
-    list._tail = newTail;
-    list.__hash = void 0;
-    list.__altered = true;
-    return list;
-  }
-  return makeList(newOrigin, newCapacity, newLevel, newRoot, newTail);
-}
-function getTailOffset(size) {
-  return size < SIZE ? 0 : size - 1 >>> SHIFT << SHIFT;
-}
-var OrderedMap = function(Map3) {
-  function OrderedMap2(value) {
-    return value === void 0 || value === null ? emptyOrderedMap() : isOrderedMap(value) ? value : emptyOrderedMap().withMutations(function(map2) {
-      var iter = KeyedCollection(value);
-      assertNotInfinite(iter.size);
-      iter.forEach(function(v, k) {
-        return map2.set(k, v);
-      });
-    });
-  }
-  if (Map3)
-    OrderedMap2.__proto__ = Map3;
-  OrderedMap2.prototype = Object.create(Map3 && Map3.prototype);
-  OrderedMap2.prototype.constructor = OrderedMap2;
-  OrderedMap2.of = function of() {
-    return this(arguments);
-  };
-  OrderedMap2.prototype.toString = function toString5() {
-    return this.__toString("OrderedMap {", "}");
-  };
-  OrderedMap2.prototype.get = function get11(k, notSetValue) {
-    var index = this._map.get(k);
-    return index !== void 0 ? this._list.get(index)[1] : notSetValue;
-  };
-  OrderedMap2.prototype.clear = function clear2() {
-    if (this.size === 0) {
-      return this;
-    }
-    if (this.__ownerID) {
-      this.size = 0;
-      this._map.clear();
-      this._list.clear();
-      this.__altered = true;
-      return this;
-    }
-    return emptyOrderedMap();
-  };
-  OrderedMap2.prototype.set = function set3(k, v) {
-    return updateOrderedMap(this, k, v);
-  };
-  OrderedMap2.prototype.remove = function remove3(k) {
-    return updateOrderedMap(this, k, NOT_SET);
-  };
-  OrderedMap2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._list.__iterate(
-      function(entry) {
-        return entry && fn(entry[1], entry[0], this$1$1);
-      },
-      reverse3
-    );
-  };
-  OrderedMap2.prototype.__iterator = function __iterator2(type, reverse3) {
-    return this._list.fromEntrySeq().__iterator(type, reverse3);
-  };
-  OrderedMap2.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    var newMap = this._map.__ensureOwner(ownerID);
-    var newList = this._list.__ensureOwner(ownerID);
-    if (!ownerID) {
-      if (this.size === 0) {
-        return emptyOrderedMap();
-      }
-      this.__ownerID = ownerID;
-      this.__altered = false;
-      this._map = newMap;
-      this._list = newList;
-      return this;
-    }
-    return makeOrderedMap(newMap, newList, ownerID, this.__hash);
-  };
-  return OrderedMap2;
-}(Map2);
-OrderedMap.isOrderedMap = isOrderedMap;
-OrderedMap.prototype[IS_ORDERED_SYMBOL] = true;
-OrderedMap.prototype[DELETE] = OrderedMap.prototype.remove;
-function makeOrderedMap(map2, list, ownerID, hash2) {
-  var omap = Object.create(OrderedMap.prototype);
-  omap.size = map2 ? map2.size : 0;
-  omap._map = map2;
-  omap._list = list;
-  omap.__ownerID = ownerID;
-  omap.__hash = hash2;
-  omap.__altered = false;
-  return omap;
-}
-var EMPTY_ORDERED_MAP;
-function emptyOrderedMap() {
-  return EMPTY_ORDERED_MAP || (EMPTY_ORDERED_MAP = makeOrderedMap(emptyMap(), emptyList()));
-}
-function updateOrderedMap(omap, k, v) {
-  var map2 = omap._map;
-  var list = omap._list;
-  var i = map2.get(k);
-  var has5 = i !== void 0;
-  var newMap;
-  var newList;
-  if (v === NOT_SET) {
-    if (!has5) {
-      return omap;
-    }
-    if (list.size >= SIZE && list.size >= map2.size * 2) {
-      newList = list.filter(function(entry, idx) {
-        return entry !== void 0 && i !== idx;
-      });
-      newMap = newList.toKeyedSeq().map(function(entry) {
-        return entry[0];
-      }).flip().toMap();
-      if (omap.__ownerID) {
-        newMap.__ownerID = newList.__ownerID = omap.__ownerID;
-      }
-    } else {
-      newMap = map2.remove(k);
-      newList = i === list.size - 1 ? list.pop() : list.set(i, void 0);
-    }
-  } else if (has5) {
-    if (v === list.get(i)[1]) {
-      return omap;
-    }
-    newMap = map2;
-    newList = list.set(i, [k, v]);
-  } else {
-    newMap = map2.set(k, list.size);
-    newList = list.set(list.size, [k, v]);
-  }
-  if (omap.__ownerID) {
-    omap.size = newMap.size;
-    omap._map = newMap;
-    omap._list = newList;
-    omap.__hash = void 0;
-    omap.__altered = true;
-    return omap;
-  }
-  return makeOrderedMap(newMap, newList);
-}
-var IS_STACK_SYMBOL = "@@__IMMUTABLE_STACK__@@";
-function isStack(maybeStack) {
-  return Boolean(maybeStack && maybeStack[IS_STACK_SYMBOL]);
-}
-var Stack = function(IndexedCollection2) {
-  function Stack2(value) {
-    return value === void 0 || value === null ? emptyStack() : isStack(value) ? value : emptyStack().pushAll(value);
-  }
-  if (IndexedCollection2)
-    Stack2.__proto__ = IndexedCollection2;
-  Stack2.prototype = Object.create(IndexedCollection2 && IndexedCollection2.prototype);
-  Stack2.prototype.constructor = Stack2;
-  Stack2.of = function of() {
-    return this(arguments);
-  };
-  Stack2.prototype.toString = function toString5() {
-    return this.__toString("Stack [", "]");
-  };
-  Stack2.prototype.get = function get11(index, notSetValue) {
-    var head = this._head;
-    index = wrapIndex(this, index);
-    while (head && index--) {
-      head = head.next;
-    }
-    return head ? head.value : notSetValue;
-  };
-  Stack2.prototype.peek = function peek() {
-    return this._head && this._head.value;
-  };
-  Stack2.prototype.push = function push() {
-    var arguments$1 = arguments;
-    if (arguments.length === 0) {
-      return this;
-    }
-    var newSize = this.size + arguments.length;
-    var head = this._head;
-    for (var ii = arguments.length - 1; ii >= 0; ii--) {
-      head = {
-        value: arguments$1[ii],
-        next: head
-      };
-    }
-    if (this.__ownerID) {
-      this.size = newSize;
-      this._head = head;
-      this.__hash = void 0;
-      this.__altered = true;
-      return this;
-    }
-    return makeStack(newSize, head);
-  };
-  Stack2.prototype.pushAll = function pushAll(iter) {
-    iter = IndexedCollection2(iter);
-    if (iter.size === 0) {
-      return this;
-    }
-    if (this.size === 0 && isStack(iter)) {
-      return iter;
-    }
-    assertNotInfinite(iter.size);
-    var newSize = this.size;
-    var head = this._head;
-    iter.__iterate(function(value) {
-      newSize++;
-      head = {
-        value,
-        next: head
-      };
-    }, true);
-    if (this.__ownerID) {
-      this.size = newSize;
-      this._head = head;
-      this.__hash = void 0;
-      this.__altered = true;
-      return this;
-    }
-    return makeStack(newSize, head);
-  };
-  Stack2.prototype.pop = function pop() {
-    return this.slice(1);
-  };
-  Stack2.prototype.clear = function clear2() {
-    if (this.size === 0) {
-      return this;
-    }
-    if (this.__ownerID) {
-      this.size = 0;
-      this._head = void 0;
-      this.__hash = void 0;
-      this.__altered = true;
-      return this;
-    }
-    return emptyStack();
-  };
-  Stack2.prototype.slice = function slice3(begin, end) {
-    if (wholeSlice(begin, end, this.size)) {
-      return this;
-    }
-    var resolvedBegin = resolveBegin(begin, this.size);
-    var resolvedEnd = resolveEnd(end, this.size);
-    if (resolvedEnd !== this.size) {
-      return IndexedCollection2.prototype.slice.call(this, begin, end);
-    }
-    var newSize = this.size - resolvedBegin;
-    var head = this._head;
-    while (resolvedBegin--) {
-      head = head.next;
-    }
-    if (this.__ownerID) {
-      this.size = newSize;
-      this._head = head;
-      this.__hash = void 0;
-      this.__altered = true;
-      return this;
-    }
-    return makeStack(newSize, head);
-  };
-  Stack2.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    if (!ownerID) {
-      if (this.size === 0) {
-        return emptyStack();
-      }
-      this.__ownerID = ownerID;
-      this.__altered = false;
-      return this;
-    }
-    return makeStack(this.size, this._head, ownerID, this.__hash);
-  };
-  Stack2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    if (reverse3) {
-      return new ArraySeq(this.toArray()).__iterate(
-        function(v, k) {
-          return fn(v, k, this$1$1);
-        },
-        reverse3
-      );
-    }
-    var iterations = 0;
-    var node = this._head;
-    while (node) {
-      if (fn(node.value, iterations++, this) === false) {
-        break;
-      }
-      node = node.next;
-    }
-    return iterations;
-  };
-  Stack2.prototype.__iterator = function __iterator2(type, reverse3) {
-    if (reverse3) {
-      return new ArraySeq(this.toArray()).__iterator(type, reverse3);
-    }
-    var iterations = 0;
-    var node = this._head;
-    return new Iterator(function() {
-      if (node) {
-        var value = node.value;
-        node = node.next;
-        return iteratorValue(type, iterations++, value);
-      }
-      return iteratorDone();
-    });
-  };
-  return Stack2;
-}(IndexedCollection);
-Stack.isStack = isStack;
-var StackPrototype = Stack.prototype;
-StackPrototype[IS_STACK_SYMBOL] = true;
-StackPrototype.shift = StackPrototype.pop;
-StackPrototype.unshift = StackPrototype.push;
-StackPrototype.unshiftAll = StackPrototype.pushAll;
-StackPrototype.withMutations = withMutations;
-StackPrototype.wasAltered = wasAltered;
-StackPrototype.asImmutable = asImmutable;
-StackPrototype["@@transducer/init"] = StackPrototype.asMutable = asMutable;
-StackPrototype["@@transducer/step"] = function(result, arr) {
-  return result.unshift(arr);
-};
-StackPrototype["@@transducer/result"] = function(obj) {
-  return obj.asImmutable();
-};
-function makeStack(size, head, ownerID, hash2) {
-  var map2 = Object.create(StackPrototype);
-  map2.size = size;
-  map2._head = head;
-  map2.__ownerID = ownerID;
-  map2.__hash = hash2;
-  map2.__altered = false;
-  return map2;
-}
-var EMPTY_STACK;
-function emptyStack() {
-  return EMPTY_STACK || (EMPTY_STACK = makeStack(0));
-}
-var IS_SET_SYMBOL = "@@__IMMUTABLE_SET__@@";
-function isSet(maybeSet) {
-  return Boolean(maybeSet && maybeSet[IS_SET_SYMBOL]);
-}
-function isOrderedSet(maybeOrderedSet) {
-  return isSet(maybeOrderedSet) && isOrdered(maybeOrderedSet);
-}
-function deepEqual(a, b) {
-  if (a === b) {
-    return true;
-  }
-  if (!isCollection(b) || a.size !== void 0 && b.size !== void 0 && a.size !== b.size || a.__hash !== void 0 && b.__hash !== void 0 && a.__hash !== b.__hash || isKeyed(a) !== isKeyed(b) || isIndexed(a) !== isIndexed(b) || isOrdered(a) !== isOrdered(b)) {
-    return false;
-  }
-  if (a.size === 0 && b.size === 0) {
-    return true;
-  }
-  var notAssociative = !isAssociative(a);
-  if (isOrdered(a)) {
-    var entries3 = a.entries();
-    return b.every(function(v, k) {
-      var entry = entries3.next().value;
-      return entry && is(entry[1], v) && (notAssociative || is(entry[0], k));
-    }) && entries3.next().done;
-  }
-  var flipped = false;
-  if (a.size === void 0) {
-    if (b.size === void 0) {
-      if (typeof a.cacheResult === "function") {
-        a.cacheResult();
-      }
-    } else {
-      flipped = true;
-      var _ = a;
-      a = b;
-      b = _;
-    }
-  }
-  var allEqual = true;
-  var bSize = b.__iterate(function(v, k) {
-    if (notAssociative ? !a.has(v) : flipped ? !is(v, a.get(k, NOT_SET)) : !is(a.get(k, NOT_SET), v)) {
-      allEqual = false;
-      return false;
-    }
-  });
-  return allEqual && a.size === bSize;
-}
-function mixin(ctor, methods) {
-  var keyCopier = function(key) {
-    ctor.prototype[key] = methods[key];
-  };
-  Object.keys(methods).forEach(keyCopier);
-  Object.getOwnPropertySymbols && Object.getOwnPropertySymbols(methods).forEach(keyCopier);
-  return ctor;
-}
-function toJS(value) {
-  if (!value || typeof value !== "object") {
-    return value;
-  }
-  if (!isCollection(value)) {
-    if (!isDataStructure(value)) {
-      return value;
-    }
-    value = Seq(value);
-  }
-  if (isKeyed(value)) {
-    var result$1 = {};
-    value.__iterate(function(v, k) {
-      result$1[k] = toJS(v);
-    });
-    return result$1;
-  }
-  var result = [];
-  value.__iterate(function(v) {
-    result.push(toJS(v));
-  });
-  return result;
-}
-var Set2 = function(SetCollection2) {
-  function Set3(value) {
-    return value === void 0 || value === null ? emptySet() : isSet(value) && !isOrdered(value) ? value : emptySet().withMutations(function(set3) {
-      var iter = SetCollection2(value);
-      assertNotInfinite(iter.size);
-      iter.forEach(function(v) {
-        return set3.add(v);
-      });
-    });
-  }
-  if (SetCollection2)
-    Set3.__proto__ = SetCollection2;
-  Set3.prototype = Object.create(SetCollection2 && SetCollection2.prototype);
-  Set3.prototype.constructor = Set3;
-  Set3.of = function of() {
-    return this(arguments);
-  };
-  Set3.fromKeys = function fromKeys(value) {
-    return this(KeyedCollection(value).keySeq());
-  };
-  Set3.intersect = function intersect(sets) {
-    sets = Collection(sets).toArray();
-    return sets.length ? SetPrototype.intersect.apply(Set3(sets.pop()), sets) : emptySet();
-  };
-  Set3.union = function union(sets) {
-    sets = Collection(sets).toArray();
-    return sets.length ? SetPrototype.union.apply(Set3(sets.pop()), sets) : emptySet();
-  };
-  Set3.prototype.toString = function toString5() {
-    return this.__toString("Set {", "}");
-  };
-  Set3.prototype.has = function has5(value) {
-    return this._map.has(value);
-  };
-  Set3.prototype.add = function add(value) {
-    return updateSet(this, this._map.set(value, value));
-  };
-  Set3.prototype.remove = function remove3(value) {
-    return updateSet(this, this._map.remove(value));
-  };
-  Set3.prototype.clear = function clear2() {
-    return updateSet(this, this._map.clear());
-  };
-  Set3.prototype.map = function map2(mapper, context) {
-    var this$1$1 = this;
-    var didChanges = false;
-    var newMap = updateSet(
-      this,
-      this._map.mapEntries(function(ref) {
-        var v = ref[1];
-        var mapped = mapper.call(context, v, v, this$1$1);
-        if (mapped !== v) {
-          didChanges = true;
-        }
-        return [mapped, mapped];
-      }, context)
-    );
-    return didChanges ? newMap : this;
-  };
-  Set3.prototype.union = function union() {
-    var iters = [], len = arguments.length;
-    while (len--)
-      iters[len] = arguments[len];
-    iters = iters.filter(function(x) {
-      return x.size !== 0;
-    });
-    if (iters.length === 0) {
-      return this;
-    }
-    if (this.size === 0 && !this.__ownerID && iters.length === 1) {
-      return this.constructor(iters[0]);
-    }
-    return this.withMutations(function(set3) {
-      for (var ii = 0; ii < iters.length; ii++) {
-        SetCollection2(iters[ii]).forEach(function(value) {
-          return set3.add(value);
-        });
-      }
-    });
-  };
-  Set3.prototype.intersect = function intersect() {
-    var iters = [], len = arguments.length;
-    while (len--)
-      iters[len] = arguments[len];
-    if (iters.length === 0) {
-      return this;
-    }
-    iters = iters.map(function(iter) {
-      return SetCollection2(iter);
-    });
-    var toRemove = [];
-    this.forEach(function(value) {
-      if (!iters.every(function(iter) {
-        return iter.includes(value);
-      })) {
-        toRemove.push(value);
-      }
-    });
-    return this.withMutations(function(set3) {
-      toRemove.forEach(function(value) {
-        set3.remove(value);
-      });
-    });
-  };
-  Set3.prototype.subtract = function subtract() {
-    var iters = [], len = arguments.length;
-    while (len--)
-      iters[len] = arguments[len];
-    if (iters.length === 0) {
-      return this;
-    }
-    iters = iters.map(function(iter) {
-      return SetCollection2(iter);
-    });
-    var toRemove = [];
-    this.forEach(function(value) {
-      if (iters.some(function(iter) {
-        return iter.includes(value);
-      })) {
-        toRemove.push(value);
-      }
-    });
-    return this.withMutations(function(set3) {
-      toRemove.forEach(function(value) {
-        set3.remove(value);
-      });
-    });
-  };
-  Set3.prototype.sort = function sort2(comparator) {
-    return OrderedSet(sortFactory(this, comparator));
-  };
-  Set3.prototype.sortBy = function sortBy2(mapper, comparator) {
-    return OrderedSet(sortFactory(this, comparator, mapper));
-  };
-  Set3.prototype.wasAltered = function wasAltered3() {
-    return this._map.wasAltered();
-  };
-  Set3.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._map.__iterate(function(k) {
-      return fn(k, k, this$1$1);
-    }, reverse3);
-  };
-  Set3.prototype.__iterator = function __iterator2(type, reverse3) {
-    return this._map.__iterator(type, reverse3);
-  };
-  Set3.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    var newMap = this._map.__ensureOwner(ownerID);
-    if (!ownerID) {
-      if (this.size === 0) {
-        return this.__empty();
-      }
-      this.__ownerID = ownerID;
-      this._map = newMap;
-      return this;
-    }
-    return this.__make(newMap, ownerID);
-  };
-  return Set3;
-}(SetCollection);
-Set2.isSet = isSet;
-var SetPrototype = Set2.prototype;
-SetPrototype[IS_SET_SYMBOL] = true;
-SetPrototype[DELETE] = SetPrototype.remove;
-SetPrototype.merge = SetPrototype.concat = SetPrototype.union;
-SetPrototype.withMutations = withMutations;
-SetPrototype.asImmutable = asImmutable;
-SetPrototype["@@transducer/init"] = SetPrototype.asMutable = asMutable;
-SetPrototype["@@transducer/step"] = function(result, arr) {
-  return result.add(arr);
-};
-SetPrototype["@@transducer/result"] = function(obj) {
-  return obj.asImmutable();
-};
-SetPrototype.__empty = emptySet;
-SetPrototype.__make = makeSet;
-function updateSet(set3, newMap) {
-  if (set3.__ownerID) {
-    set3.size = newMap.size;
-    set3._map = newMap;
-    return set3;
-  }
-  return newMap === set3._map ? set3 : newMap.size === 0 ? set3.__empty() : set3.__make(newMap);
-}
-function makeSet(map2, ownerID) {
-  var set3 = Object.create(SetPrototype);
-  set3.size = map2 ? map2.size : 0;
-  set3._map = map2;
-  set3.__ownerID = ownerID;
-  return set3;
-}
-var EMPTY_SET;
-function emptySet() {
-  return EMPTY_SET || (EMPTY_SET = makeSet(emptyMap()));
-}
-var Range = function(IndexedSeq2) {
-  function Range2(start, end, step) {
-    if (!(this instanceof Range2)) {
-      return new Range2(start, end, step);
-    }
-    invariant(step !== 0, "Cannot step a Range by 0");
-    start = start || 0;
-    if (end === void 0) {
-      end = Infinity;
-    }
-    step = step === void 0 ? 1 : Math.abs(step);
-    if (end < start) {
-      step = -step;
-    }
-    this._start = start;
-    this._end = end;
-    this._step = step;
-    this.size = Math.max(0, Math.ceil((end - start) / step - 1) + 1);
-    if (this.size === 0) {
-      if (EMPTY_RANGE) {
-        return EMPTY_RANGE;
-      }
-      EMPTY_RANGE = this;
-    }
-  }
-  if (IndexedSeq2)
-    Range2.__proto__ = IndexedSeq2;
-  Range2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
-  Range2.prototype.constructor = Range2;
-  Range2.prototype.toString = function toString5() {
-    if (this.size === 0) {
-      return "Range []";
-    }
-    return "Range [ " + this._start + "..." + this._end + (this._step !== 1 ? " by " + this._step : "") + " ]";
-  };
-  Range2.prototype.get = function get11(index, notSetValue) {
-    return this.has(index) ? this._start + wrapIndex(this, index) * this._step : notSetValue;
-  };
-  Range2.prototype.includes = function includes3(searchValue) {
-    var possibleIndex = (searchValue - this._start) / this._step;
-    return possibleIndex >= 0 && possibleIndex < this.size && possibleIndex === Math.floor(possibleIndex);
-  };
-  Range2.prototype.slice = function slice3(begin, end) {
-    if (wholeSlice(begin, end, this.size)) {
-      return this;
-    }
-    begin = resolveBegin(begin, this.size);
-    end = resolveEnd(end, this.size);
-    if (end <= begin) {
-      return new Range2(0, 0);
-    }
-    return new Range2(
-      this.get(begin, this._end),
-      this.get(end, this._end),
-      this._step
-    );
-  };
-  Range2.prototype.indexOf = function indexOf2(searchValue) {
-    var offsetValue = searchValue - this._start;
-    if (offsetValue % this._step === 0) {
-      var index = offsetValue / this._step;
-      if (index >= 0 && index < this.size) {
-        return index;
-      }
-    }
-    return -1;
-  };
-  Range2.prototype.lastIndexOf = function lastIndexOf2(searchValue) {
-    return this.indexOf(searchValue);
-  };
-  Range2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var size = this.size;
-    var step = this._step;
-    var value = reverse3 ? this._start + (size - 1) * step : this._start;
-    var i = 0;
-    while (i !== size) {
-      if (fn(value, reverse3 ? size - ++i : i++, this) === false) {
-        break;
-      }
-      value += reverse3 ? -step : step;
-    }
-    return i;
-  };
-  Range2.prototype.__iterator = function __iterator2(type, reverse3) {
-    var size = this.size;
-    var step = this._step;
-    var value = reverse3 ? this._start + (size - 1) * step : this._start;
-    var i = 0;
-    return new Iterator(function() {
-      if (i === size) {
-        return iteratorDone();
-      }
-      var v = value;
-      value += reverse3 ? -step : step;
-      return iteratorValue(type, reverse3 ? size - ++i : i++, v);
-    });
-  };
-  Range2.prototype.equals = function equals3(other) {
-    return other instanceof Range2 ? this._start === other._start && this._end === other._end && this._step === other._step : deepEqual(this, other);
-  };
-  return Range2;
-}(IndexedSeq);
-var EMPTY_RANGE;
-function getIn$1(collection, searchKeyPath, notSetValue) {
-  var keyPath = coerceKeyPath(searchKeyPath);
-  var i = 0;
-  while (i !== keyPath.length) {
-    collection = get(collection, keyPath[i++], NOT_SET);
-    if (collection === NOT_SET) {
-      return notSetValue;
-    }
-  }
-  return collection;
-}
-function getIn(searchKeyPath, notSetValue) {
-  return getIn$1(this, searchKeyPath, notSetValue);
-}
-function hasIn$1(collection, keyPath) {
-  return getIn$1(collection, keyPath, NOT_SET) !== NOT_SET;
-}
-function hasIn(searchKeyPath) {
-  return hasIn$1(this, searchKeyPath);
-}
-function toObject() {
-  assertNotInfinite(this.size);
-  var object = {};
-  this.__iterate(function(v, k) {
-    object[k] = v;
-  });
-  return object;
-}
-Collection.isIterable = isCollection;
-Collection.isKeyed = isKeyed;
-Collection.isIndexed = isIndexed;
-Collection.isAssociative = isAssociative;
-Collection.isOrdered = isOrdered;
-Collection.Iterator = Iterator;
-mixin(Collection, {
-  toArray: function toArray() {
-    assertNotInfinite(this.size);
-    var array = new Array(this.size || 0);
-    var useTuples = isKeyed(this);
-    var i = 0;
-    this.__iterate(function(v, k) {
-      array[i++] = useTuples ? [k, v] : v;
-    });
-    return array;
-  },
-  toIndexedSeq: function toIndexedSeq() {
-    return new ToIndexedSequence(this);
-  },
-  toJS: function toJS$1() {
-    return toJS(this);
-  },
-  toKeyedSeq: function toKeyedSeq() {
-    return new ToKeyedSequence(this, true);
-  },
-  toMap: function toMap() {
-    return Map2(this.toKeyedSeq());
-  },
-  toObject,
-  toOrderedMap: function toOrderedMap() {
-    return OrderedMap(this.toKeyedSeq());
-  },
-  toOrderedSet: function toOrderedSet() {
-    return OrderedSet(isKeyed(this) ? this.valueSeq() : this);
-  },
-  toSet: function toSet() {
-    return Set2(isKeyed(this) ? this.valueSeq() : this);
-  },
-  toSetSeq: function toSetSeq() {
-    return new ToSetSequence(this);
-  },
-  toSeq: function toSeq() {
-    return isIndexed(this) ? this.toIndexedSeq() : isKeyed(this) ? this.toKeyedSeq() : this.toSetSeq();
-  },
-  toStack: function toStack() {
-    return Stack(isKeyed(this) ? this.valueSeq() : this);
-  },
-  toList: function toList() {
-    return List(isKeyed(this) ? this.valueSeq() : this);
-  },
-  toString: function toString3() {
-    return "[Collection]";
-  },
-  __toString: function __toString(head, tail) {
-    if (this.size === 0) {
-      return head + tail;
-    }
-    return head + " " + this.toSeq().map(this.__toStringMapper).join(", ") + " " + tail;
-  },
-  concat: function concat() {
-    var values2 = [], len = arguments.length;
-    while (len--)
-      values2[len] = arguments[len];
-    return reify(this, concatFactory(this, values2));
-  },
-  includes: function includes(searchValue) {
-    return this.some(function(value) {
-      return is(value, searchValue);
-    });
-  },
-  entries: function entries() {
-    return this.__iterator(ITERATE_ENTRIES);
-  },
-  every: function every(predicate, context) {
-    assertNotInfinite(this.size);
-    var returnValue = true;
-    this.__iterate(function(v, k, c) {
-      if (!predicate.call(context, v, k, c)) {
-        returnValue = false;
-        return false;
-      }
-    });
-    return returnValue;
-  },
-  filter: function filter(predicate, context) {
-    return reify(this, filterFactory(this, predicate, context, true));
-  },
-  find: function find(predicate, context, notSetValue) {
-    var entry = this.findEntry(predicate, context);
-    return entry ? entry[1] : notSetValue;
-  },
-  forEach: function forEach(sideEffect, context) {
-    assertNotInfinite(this.size);
-    return this.__iterate(context ? sideEffect.bind(context) : sideEffect);
-  },
-  join: function join(separator) {
-    assertNotInfinite(this.size);
-    separator = separator !== void 0 ? "" + separator : ",";
-    var joined = "";
-    var isFirst = true;
-    this.__iterate(function(v) {
-      isFirst ? isFirst = false : joined += separator;
-      joined += v !== null && v !== void 0 ? v.toString() : "";
-    });
-    return joined;
-  },
-  keys: function keys() {
-    return this.__iterator(ITERATE_KEYS);
-  },
-  map: function map(mapper, context) {
-    return reify(this, mapFactory(this, mapper, context));
-  },
-  reduce: function reduce$1(reducer, initialReduction, context) {
-    return reduce(
-      this,
-      reducer,
-      initialReduction,
-      context,
-      arguments.length < 2,
-      false
-    );
-  },
-  reduceRight: function reduceRight(reducer, initialReduction, context) {
-    return reduce(
-      this,
-      reducer,
-      initialReduction,
-      context,
-      arguments.length < 2,
-      true
-    );
-  },
-  reverse: function reverse() {
-    return reify(this, reverseFactory(this, true));
-  },
-  slice: function slice(begin, end) {
-    return reify(this, sliceFactory(this, begin, end, true));
-  },
-  some: function some(predicate, context) {
-    return !this.every(not(predicate), context);
-  },
-  sort: function sort(comparator) {
-    return reify(this, sortFactory(this, comparator));
-  },
-  values: function values() {
-    return this.__iterator(ITERATE_VALUES);
-  },
-  butLast: function butLast() {
-    return this.slice(0, -1);
-  },
-  isEmpty: function isEmpty() {
-    return this.size !== void 0 ? this.size === 0 : !this.some(function() {
-      return true;
-    });
-  },
-  count: function count(predicate, context) {
-    return ensureSize(
-      predicate ? this.toSeq().filter(predicate, context) : this
-    );
-  },
-  countBy: function countBy(grouper, context) {
-    return countByFactory(this, grouper, context);
-  },
-  equals: function equals(other) {
-    return deepEqual(this, other);
-  },
-  entrySeq: function entrySeq() {
-    var collection = this;
-    if (collection._cache) {
-      return new ArraySeq(collection._cache);
-    }
-    var entriesSequence = collection.toSeq().map(entryMapper).toIndexedSeq();
-    entriesSequence.fromEntrySeq = function() {
-      return collection.toSeq();
-    };
-    return entriesSequence;
-  },
-  filterNot: function filterNot(predicate, context) {
-    return this.filter(not(predicate), context);
-  },
-  findEntry: function findEntry(predicate, context, notSetValue) {
-    var found = notSetValue;
-    this.__iterate(function(v, k, c) {
-      if (predicate.call(context, v, k, c)) {
-        found = [k, v];
-        return false;
-      }
-    });
-    return found;
-  },
-  findKey: function findKey(predicate, context) {
-    var entry = this.findEntry(predicate, context);
-    return entry && entry[0];
-  },
-  findLast: function findLast(predicate, context, notSetValue) {
-    return this.toKeyedSeq().reverse().find(predicate, context, notSetValue);
-  },
-  findLastEntry: function findLastEntry(predicate, context, notSetValue) {
-    return this.toKeyedSeq().reverse().findEntry(predicate, context, notSetValue);
-  },
-  findLastKey: function findLastKey(predicate, context) {
-    return this.toKeyedSeq().reverse().findKey(predicate, context);
-  },
-  first: function first(notSetValue) {
-    return this.find(returnTrue, null, notSetValue);
-  },
-  flatMap: function flatMap(mapper, context) {
-    return reify(this, flatMapFactory(this, mapper, context));
-  },
-  flatten: function flatten(depth) {
-    return reify(this, flattenFactory(this, depth, true));
-  },
-  fromEntrySeq: function fromEntrySeq() {
-    return new FromEntriesSequence(this);
-  },
-  get: function get7(searchKey, notSetValue) {
-    return this.find(function(_, key) {
-      return is(key, searchKey);
-    }, void 0, notSetValue);
-  },
-  getIn,
-  groupBy: function groupBy(grouper, context) {
-    return groupByFactory(this, grouper, context);
-  },
-  has: function has2(searchKey) {
-    return this.get(searchKey, NOT_SET) !== NOT_SET;
-  },
-  hasIn,
-  isSubset: function isSubset(iter) {
-    iter = typeof iter.includes === "function" ? iter : Collection(iter);
-    return this.every(function(value) {
-      return iter.includes(value);
-    });
-  },
-  isSuperset: function isSuperset(iter) {
-    iter = typeof iter.isSubset === "function" ? iter : Collection(iter);
-    return iter.isSubset(this);
-  },
-  keyOf: function keyOf(searchValue) {
-    return this.findKey(function(value) {
-      return is(value, searchValue);
-    });
-  },
-  keySeq: function keySeq() {
-    return this.toSeq().map(keyMapper).toIndexedSeq();
-  },
-  last: function last(notSetValue) {
-    return this.toSeq().reverse().first(notSetValue);
-  },
-  lastKeyOf: function lastKeyOf(searchValue) {
-    return this.toKeyedSeq().reverse().keyOf(searchValue);
-  },
-  max: function max(comparator) {
-    return maxFactory(this, comparator);
-  },
-  maxBy: function maxBy(mapper, comparator) {
-    return maxFactory(this, comparator, mapper);
-  },
-  min: function min(comparator) {
-    return maxFactory(
-      this,
-      comparator ? neg(comparator) : defaultNegComparator
-    );
-  },
-  minBy: function minBy(mapper, comparator) {
-    return maxFactory(
-      this,
-      comparator ? neg(comparator) : defaultNegComparator,
-      mapper
-    );
-  },
-  rest: function rest() {
-    return this.slice(1);
-  },
-  skip: function skip(amount) {
-    return amount === 0 ? this : this.slice(Math.max(0, amount));
-  },
-  skipLast: function skipLast(amount) {
-    return amount === 0 ? this : this.slice(0, -Math.max(0, amount));
-  },
-  skipWhile: function skipWhile(predicate, context) {
-    return reify(this, skipWhileFactory(this, predicate, context, true));
-  },
-  skipUntil: function skipUntil(predicate, context) {
-    return this.skipWhile(not(predicate), context);
-  },
-  sortBy: function sortBy(mapper, comparator) {
-    return reify(this, sortFactory(this, comparator, mapper));
-  },
-  take: function take(amount) {
-    return this.slice(0, Math.max(0, amount));
-  },
-  takeLast: function takeLast(amount) {
-    return this.slice(-Math.max(0, amount));
-  },
-  takeWhile: function takeWhile(predicate, context) {
-    return reify(this, takeWhileFactory(this, predicate, context));
-  },
-  takeUntil: function takeUntil(predicate, context) {
-    return this.takeWhile(not(predicate), context);
-  },
-  update: function update7(fn) {
-    return fn(this);
-  },
-  valueSeq: function valueSeq() {
-    return this.toIndexedSeq();
-  },
-  hashCode: function hashCode() {
-    return this.__hash || (this.__hash = hashCollection(this));
-  }
-});
-var CollectionPrototype = Collection.prototype;
-CollectionPrototype[IS_COLLECTION_SYMBOL] = true;
-CollectionPrototype[ITERATOR_SYMBOL] = CollectionPrototype.values;
-CollectionPrototype.toJSON = CollectionPrototype.toArray;
-CollectionPrototype.__toStringMapper = quoteString;
-CollectionPrototype.inspect = CollectionPrototype.toSource = function() {
-  return this.toString();
-};
-CollectionPrototype.chain = CollectionPrototype.flatMap;
-CollectionPrototype.contains = CollectionPrototype.includes;
-mixin(KeyedCollection, {
-  flip: function flip() {
-    return reify(this, flipFactory(this));
-  },
-  mapEntries: function mapEntries(mapper, context) {
-    var this$1$1 = this;
-    var iterations = 0;
-    return reify(
-      this,
-      this.toSeq().map(function(v, k) {
-        return mapper.call(context, [k, v], iterations++, this$1$1);
-      }).fromEntrySeq()
-    );
-  },
-  mapKeys: function mapKeys(mapper, context) {
-    var this$1$1 = this;
-    return reify(
-      this,
-      this.toSeq().flip().map(function(k, v) {
-        return mapper.call(context, k, v, this$1$1);
-      }).flip()
-    );
-  }
-});
-var KeyedCollectionPrototype = KeyedCollection.prototype;
-KeyedCollectionPrototype[IS_KEYED_SYMBOL] = true;
-KeyedCollectionPrototype[ITERATOR_SYMBOL] = CollectionPrototype.entries;
-KeyedCollectionPrototype.toJSON = toObject;
-KeyedCollectionPrototype.__toStringMapper = function(v, k) {
-  return quoteString(k) + ": " + quoteString(v);
-};
-mixin(IndexedCollection, {
-  toKeyedSeq: function toKeyedSeq2() {
-    return new ToKeyedSequence(this, false);
-  },
-  filter: function filter2(predicate, context) {
-    return reify(this, filterFactory(this, predicate, context, false));
-  },
-  findIndex: function findIndex(predicate, context) {
-    var entry = this.findEntry(predicate, context);
-    return entry ? entry[0] : -1;
-  },
-  indexOf: function indexOf(searchValue) {
-    var key = this.keyOf(searchValue);
-    return key === void 0 ? -1 : key;
-  },
-  lastIndexOf: function lastIndexOf(searchValue) {
-    var key = this.lastKeyOf(searchValue);
-    return key === void 0 ? -1 : key;
-  },
-  reverse: function reverse2() {
-    return reify(this, reverseFactory(this, false));
-  },
-  slice: function slice2(begin, end) {
-    return reify(this, sliceFactory(this, begin, end, false));
-  },
-  splice: function splice(index, removeNum) {
-    var numArgs = arguments.length;
-    removeNum = Math.max(removeNum || 0, 0);
-    if (numArgs === 0 || numArgs === 2 && !removeNum) {
-      return this;
-    }
-    index = resolveBegin(index, index < 0 ? this.count() : this.size);
-    var spliced = this.slice(0, index);
-    return reify(
-      this,
-      numArgs === 1 ? spliced : spliced.concat(arrCopy(arguments, 2), this.slice(index + removeNum))
-    );
-  },
-  findLastIndex: function findLastIndex(predicate, context) {
-    var entry = this.findLastEntry(predicate, context);
-    return entry ? entry[0] : -1;
-  },
-  first: function first2(notSetValue) {
-    return this.get(0, notSetValue);
-  },
-  flatten: function flatten2(depth) {
-    return reify(this, flattenFactory(this, depth, false));
-  },
-  get: function get8(index, notSetValue) {
-    index = wrapIndex(this, index);
-    return index < 0 || this.size === Infinity || this.size !== void 0 && index > this.size ? notSetValue : this.find(function(_, key) {
-      return key === index;
-    }, void 0, notSetValue);
-  },
-  has: function has3(index) {
-    index = wrapIndex(this, index);
-    return index >= 0 && (this.size !== void 0 ? this.size === Infinity || index < this.size : this.indexOf(index) !== -1);
-  },
-  interpose: function interpose(separator) {
-    return reify(this, interposeFactory(this, separator));
-  },
-  interleave: function interleave() {
-    var collections = [this].concat(arrCopy(arguments));
-    var zipped = zipWithFactory(this.toSeq(), IndexedSeq.of, collections);
-    var interleaved = zipped.flatten(true);
-    if (zipped.size) {
-      interleaved.size = zipped.size * collections.length;
-    }
-    return reify(this, interleaved);
-  },
-  keySeq: function keySeq2() {
-    return Range(0, this.size);
-  },
-  last: function last2(notSetValue) {
-    return this.get(-1, notSetValue);
-  },
-  skipWhile: function skipWhile2(predicate, context) {
-    return reify(this, skipWhileFactory(this, predicate, context, false));
-  },
-  zip: function zip() {
-    var collections = [this].concat(arrCopy(arguments));
-    return reify(this, zipWithFactory(this, defaultZipper, collections));
-  },
-  zipAll: function zipAll() {
-    var collections = [this].concat(arrCopy(arguments));
-    return reify(this, zipWithFactory(this, defaultZipper, collections, true));
-  },
-  zipWith: function zipWith(zipper) {
-    var collections = arrCopy(arguments);
-    collections[0] = this;
-    return reify(this, zipWithFactory(this, zipper, collections));
-  }
-});
-var IndexedCollectionPrototype = IndexedCollection.prototype;
-IndexedCollectionPrototype[IS_INDEXED_SYMBOL] = true;
-IndexedCollectionPrototype[IS_ORDERED_SYMBOL] = true;
-mixin(SetCollection, {
-  get: function get9(value, notSetValue) {
-    return this.has(value) ? value : notSetValue;
-  },
-  includes: function includes2(value) {
-    return this.has(value);
-  },
-  keySeq: function keySeq3() {
-    return this.valueSeq();
-  }
-});
-var SetCollectionPrototype = SetCollection.prototype;
-SetCollectionPrototype.has = CollectionPrototype.includes;
-SetCollectionPrototype.contains = SetCollectionPrototype.includes;
-SetCollectionPrototype.keys = SetCollectionPrototype.values;
-mixin(KeyedSeq, KeyedCollectionPrototype);
-mixin(IndexedSeq, IndexedCollectionPrototype);
-mixin(SetSeq, SetCollectionPrototype);
-function reduce(collection, reducer, reduction, context, useFirst, reverse3) {
-  assertNotInfinite(collection.size);
-  collection.__iterate(function(v, k, c) {
-    if (useFirst) {
-      useFirst = false;
-      reduction = v;
-    } else {
-      reduction = reducer.call(context, reduction, v, k, c);
-    }
-  }, reverse3);
-  return reduction;
-}
-function keyMapper(v, k) {
-  return k;
-}
-function entryMapper(v, k) {
-  return [k, v];
-}
-function not(predicate) {
-  return function() {
-    return !predicate.apply(this, arguments);
-  };
-}
-function neg(predicate) {
-  return function() {
-    return -predicate.apply(this, arguments);
-  };
-}
-function defaultZipper() {
-  return arrCopy(arguments);
-}
-function defaultNegComparator(a, b) {
-  return a < b ? 1 : a > b ? -1 : 0;
-}
-function hashCollection(collection) {
-  if (collection.size === Infinity) {
-    return 0;
-  }
-  var ordered = isOrdered(collection);
-  var keyed = isKeyed(collection);
-  var h = ordered ? 1 : 0;
-  var size = collection.__iterate(
-    keyed ? ordered ? function(v, k) {
-      h = 31 * h + hashMerge(hash(v), hash(k)) | 0;
-    } : function(v, k) {
-      h = h + hashMerge(hash(v), hash(k)) | 0;
-    } : ordered ? function(v) {
-      h = 31 * h + hash(v) | 0;
-    } : function(v) {
-      h = h + hash(v) | 0;
-    }
-  );
-  return murmurHashOfSize(size, h);
-}
-function murmurHashOfSize(size, h) {
-  h = imul(h, 3432918353);
-  h = imul(h << 15 | h >>> -15, 461845907);
-  h = imul(h << 13 | h >>> -13, 5);
-  h = (h + 3864292196 | 0) ^ size;
-  h = imul(h ^ h >>> 16, 2246822507);
-  h = imul(h ^ h >>> 13, 3266489909);
-  h = smi(h ^ h >>> 16);
-  return h;
-}
-function hashMerge(a, b) {
-  return a ^ b + 2654435769 + (a << 6) + (a >> 2) | 0;
-}
-var OrderedSet = function(Set3) {
-  function OrderedSet2(value) {
-    return value === void 0 || value === null ? emptyOrderedSet() : isOrderedSet(value) ? value : emptyOrderedSet().withMutations(function(set3) {
-      var iter = SetCollection(value);
-      assertNotInfinite(iter.size);
-      iter.forEach(function(v) {
-        return set3.add(v);
-      });
-    });
-  }
-  if (Set3)
-    OrderedSet2.__proto__ = Set3;
-  OrderedSet2.prototype = Object.create(Set3 && Set3.prototype);
-  OrderedSet2.prototype.constructor = OrderedSet2;
-  OrderedSet2.of = function of() {
-    return this(arguments);
-  };
-  OrderedSet2.fromKeys = function fromKeys(value) {
-    return this(KeyedCollection(value).keySeq());
-  };
-  OrderedSet2.prototype.toString = function toString5() {
-    return this.__toString("OrderedSet {", "}");
-  };
-  return OrderedSet2;
-}(Set2);
-OrderedSet.isOrderedSet = isOrderedSet;
-var OrderedSetPrototype = OrderedSet.prototype;
-OrderedSetPrototype[IS_ORDERED_SYMBOL] = true;
-OrderedSetPrototype.zip = IndexedCollectionPrototype.zip;
-OrderedSetPrototype.zipWith = IndexedCollectionPrototype.zipWith;
-OrderedSetPrototype.zipAll = IndexedCollectionPrototype.zipAll;
-OrderedSetPrototype.__empty = emptyOrderedSet;
-OrderedSetPrototype.__make = makeOrderedSet;
-function makeOrderedSet(map2, ownerID) {
-  var set3 = Object.create(OrderedSetPrototype);
-  set3.size = map2 ? map2.size : 0;
-  set3._map = map2;
-  set3.__ownerID = ownerID;
-  return set3;
-}
-var EMPTY_ORDERED_SET;
-function emptyOrderedSet() {
-  return EMPTY_ORDERED_SET || (EMPTY_ORDERED_SET = makeOrderedSet(emptyOrderedMap()));
-}
-function throwOnInvalidDefaultValues(defaultValues) {
-  if (isRecord(defaultValues)) {
-    throw new Error(
-      "Can not call `Record` with an immutable Record as default values. Use a plain javascript object instead."
-    );
-  }
-  if (isImmutable(defaultValues)) {
-    throw new Error(
-      "Can not call `Record` with an immutable Collection as default values. Use a plain javascript object instead."
-    );
-  }
-  if (defaultValues === null || typeof defaultValues !== "object") {
-    throw new Error(
-      "Can not call `Record` with a non-object as default values. Use a plain javascript object instead."
-    );
-  }
-}
-var Record = function Record2(defaultValues, name) {
-  var hasInitialized;
-  throwOnInvalidDefaultValues(defaultValues);
-  var RecordType = function Record3(values2) {
-    var this$1$1 = this;
-    if (values2 instanceof RecordType) {
-      return values2;
-    }
-    if (!(this instanceof RecordType)) {
-      return new RecordType(values2);
-    }
-    if (!hasInitialized) {
-      hasInitialized = true;
-      var keys2 = Object.keys(defaultValues);
-      var indices = RecordTypePrototype._indices = {};
-      RecordTypePrototype._name = name;
-      RecordTypePrototype._keys = keys2;
-      RecordTypePrototype._defaultValues = defaultValues;
-      for (var i = 0; i < keys2.length; i++) {
-        var propName = keys2[i];
-        indices[propName] = i;
-        if (RecordTypePrototype[propName]) {
-          typeof console === "object" && console.warn && console.warn(
-            "Cannot define " + recordName(this) + ' with property "' + propName + '" since that property name is part of the Record API.'
-          );
-        } else {
-          setProp(RecordTypePrototype, propName);
-        }
-      }
-    }
-    this.__ownerID = void 0;
-    this._values = List().withMutations(function(l) {
-      l.setSize(this$1$1._keys.length);
-      KeyedCollection(values2).forEach(function(v, k) {
-        l.set(this$1$1._indices[k], v === this$1$1._defaultValues[k] ? void 0 : v);
-      });
-    });
-    return this;
-  };
-  var RecordTypePrototype = RecordType.prototype = Object.create(RecordPrototype);
-  RecordTypePrototype.constructor = RecordType;
-  if (name) {
-    RecordType.displayName = name;
-  }
-  return RecordType;
-};
-Record.prototype.toString = function toString4() {
-  var str = recordName(this) + " { ";
-  var keys2 = this._keys;
-  var k;
-  for (var i = 0, l = keys2.length; i !== l; i++) {
-    k = keys2[i];
-    str += (i ? ", " : "") + k + ": " + quoteString(this.get(k));
-  }
-  return str + " }";
-};
-Record.prototype.equals = function equals2(other) {
-  return this === other || isRecord(other) && recordSeq(this).equals(recordSeq(other));
-};
-Record.prototype.hashCode = function hashCode2() {
-  return recordSeq(this).hashCode();
-};
-Record.prototype.has = function has4(k) {
-  return this._indices.hasOwnProperty(k);
-};
-Record.prototype.get = function get10(k, notSetValue) {
-  if (!this.has(k)) {
-    return notSetValue;
-  }
-  var index = this._indices[k];
-  var value = this._values.get(index);
-  return value === void 0 ? this._defaultValues[k] : value;
-};
-Record.prototype.set = function set2(k, v) {
-  if (this.has(k)) {
-    var newValues = this._values.set(
-      this._indices[k],
-      v === this._defaultValues[k] ? void 0 : v
-    );
-    if (newValues !== this._values && !this.__ownerID) {
-      return makeRecord(this, newValues);
-    }
-  }
-  return this;
-};
-Record.prototype.remove = function remove2(k) {
-  return this.set(k);
-};
-Record.prototype.clear = function clear() {
-  var newValues = this._values.clear().setSize(this._keys.length);
-  return this.__ownerID ? this : makeRecord(this, newValues);
-};
-Record.prototype.wasAltered = function wasAltered2() {
-  return this._values.wasAltered();
-};
-Record.prototype.toSeq = function toSeq2() {
-  return recordSeq(this);
-};
-Record.prototype.toJS = function toJS$12() {
-  return toJS(this);
-};
-Record.prototype.entries = function entries2() {
-  return this.__iterator(ITERATE_ENTRIES);
-};
-Record.prototype.__iterator = function __iterator(type, reverse3) {
-  return recordSeq(this).__iterator(type, reverse3);
-};
-Record.prototype.__iterate = function __iterate(fn, reverse3) {
-  return recordSeq(this).__iterate(fn, reverse3);
-};
-Record.prototype.__ensureOwner = function __ensureOwner(ownerID) {
-  if (ownerID === this.__ownerID) {
-    return this;
-  }
-  var newValues = this._values.__ensureOwner(ownerID);
-  if (!ownerID) {
-    this.__ownerID = ownerID;
-    this._values = newValues;
-    return this;
-  }
-  return makeRecord(this, newValues, ownerID);
-};
-Record.isRecord = isRecord;
-Record.getDescriptiveName = recordName;
-var RecordPrototype = Record.prototype;
-RecordPrototype[IS_RECORD_SYMBOL] = true;
-RecordPrototype[DELETE] = RecordPrototype.remove;
-RecordPrototype.deleteIn = RecordPrototype.removeIn = deleteIn;
-RecordPrototype.getIn = getIn;
-RecordPrototype.hasIn = CollectionPrototype.hasIn;
-RecordPrototype.merge = merge$1;
-RecordPrototype.mergeWith = mergeWith$1;
-RecordPrototype.mergeIn = mergeIn;
-RecordPrototype.mergeDeep = mergeDeep;
-RecordPrototype.mergeDeepWith = mergeDeepWith;
-RecordPrototype.mergeDeepIn = mergeDeepIn;
-RecordPrototype.setIn = setIn;
-RecordPrototype.update = update;
-RecordPrototype.updateIn = updateIn;
-RecordPrototype.withMutations = withMutations;
-RecordPrototype.asMutable = asMutable;
-RecordPrototype.asImmutable = asImmutable;
-RecordPrototype[ITERATOR_SYMBOL] = RecordPrototype.entries;
-RecordPrototype.toJSON = RecordPrototype.toObject = CollectionPrototype.toObject;
-RecordPrototype.inspect = RecordPrototype.toSource = function() {
-  return this.toString();
-};
-function makeRecord(likeRecord, values2, ownerID) {
-  var record = Object.create(Object.getPrototypeOf(likeRecord));
-  record._values = values2;
-  record.__ownerID = ownerID;
-  return record;
-}
-function recordName(record) {
-  return record.constructor.displayName || record.constructor.name || "Record";
-}
-function recordSeq(record) {
-  return keyedSeqFromValue(record._keys.map(function(k) {
-    return [k, record.get(k)];
-  }));
-}
-function setProp(prototype, name) {
-  try {
-    Object.defineProperty(prototype, name, {
-      get: function() {
-        return this.get(name);
-      },
-      set: function(value) {
-        invariant(this.__ownerID, "Cannot set on an immutable record.");
-        this.set(name, value);
-      }
-    });
-  } catch (error) {
-  }
-}
-var Repeat = function(IndexedSeq2) {
-  function Repeat2(value, times) {
-    if (!(this instanceof Repeat2)) {
-      return new Repeat2(value, times);
-    }
-    this._value = value;
-    this.size = times === void 0 ? Infinity : Math.max(0, times);
-    if (this.size === 0) {
-      if (EMPTY_REPEAT) {
-        return EMPTY_REPEAT;
-      }
-      EMPTY_REPEAT = this;
-    }
-  }
-  if (IndexedSeq2)
-    Repeat2.__proto__ = IndexedSeq2;
-  Repeat2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
-  Repeat2.prototype.constructor = Repeat2;
-  Repeat2.prototype.toString = function toString5() {
-    if (this.size === 0) {
-      return "Repeat []";
-    }
-    return "Repeat [ " + this._value + " " + this.size + " times ]";
-  };
-  Repeat2.prototype.get = function get11(index, notSetValue) {
-    return this.has(index) ? this._value : notSetValue;
-  };
-  Repeat2.prototype.includes = function includes3(searchValue) {
-    return is(this._value, searchValue);
-  };
-  Repeat2.prototype.slice = function slice3(begin, end) {
-    var size = this.size;
-    return wholeSlice(begin, end, size) ? this : new Repeat2(
-      this._value,
-      resolveEnd(end, size) - resolveBegin(begin, size)
-    );
-  };
-  Repeat2.prototype.reverse = function reverse3() {
-    return this;
-  };
-  Repeat2.prototype.indexOf = function indexOf2(searchValue) {
-    if (is(this._value, searchValue)) {
-      return 0;
-    }
-    return -1;
-  };
-  Repeat2.prototype.lastIndexOf = function lastIndexOf2(searchValue) {
-    if (is(this._value, searchValue)) {
-      return this.size;
-    }
-    return -1;
-  };
-  Repeat2.prototype.__iterate = function __iterate2(fn, reverse3) {
-    var size = this.size;
-    var i = 0;
-    while (i !== size) {
-      if (fn(this._value, reverse3 ? size - ++i : i++, this) === false) {
-        break;
-      }
-    }
-    return i;
-  };
-  Repeat2.prototype.__iterator = function __iterator2(type, reverse3) {
-    var this$1$1 = this;
-    var size = this.size;
-    var i = 0;
-    return new Iterator(
-      function() {
-        return i === size ? iteratorDone() : iteratorValue(type, reverse3 ? size - ++i : i++, this$1$1._value);
-      }
-    );
-  };
-  Repeat2.prototype.equals = function equals3(other) {
-    return other instanceof Repeat2 ? is(this._value, other._value) : deepEqual(other);
-  };
-  return Repeat2;
-}(IndexedSeq);
-var EMPTY_REPEAT;
-
-// js/session.ts
-var import_lodash = __toESM(require_lodash(), 1);
-
-// js/textDiff.ts
-init_define_process();
-var import_fast_diff = __toESM(require_diff(), 1);
-function applyPatch(original, delta) {
-  let result = "";
-  let index = 0;
-  for (const item of delta) {
-    const operation = item[0];
-    const value = item[1];
-    if (item[0] === -1 && typeof value === "number") {
-      index += value;
-    } else if (operation == 0 && typeof value === "number") {
-      result += original.slice(index, index += value);
-    } else {
-      result += value;
-    }
-  }
-  return result;
-}
-
-// js/session.ts
-mST();
-var session = null;
-var hashCode3 = () => md5(mST().transpiled);
-function mST(p) {
-  if (!session) {
-    return {
-      i: 0,
-      transpiled: "",
-      code: "",
-      html: "",
-      css: ""
-    };
-  }
-  const sessAsJs = session.session.get("state").toJSON();
-  const { i, transpiled, code, html, css: css4 } = p ? JSON.parse(
-    applyPatch(
-      string_(
-        sessAsJs
-      ),
-      p
-    )
-  ) : sessAsJs;
-  return { i, transpiled, code, html, css: css4 };
-}
-function string_(s) {
-  const { i, transpiled, code, html, css: css4 } = s;
-  return JSON.stringify({ i, transpiled, code, html, css: css4 });
-}
-var applyPatch2 = async (x) => {
-  await session?.applyPatch(x);
-  session?.update();
-};
-var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
-var makePatch = async (st, update8) => makePatchFrom(md5(mST().transpiled), st, update8);
-var patchSync = (sess) => session?.patchSync(sess);
-
 // js/Editor.tsx
 init_define_process();
-var import_react6 = __toESM(require_emotion_react_cjs(), 1);
 
 // ../../.yarn/__virtual__/re-resizable-virtual-24c16ab62b/0/global/cache/re-resizable-npm-6.9.9-2a772ae568-9.zip/node_modules/re-resizable/lib/index.js
 init_define_process();
-var React2 = __toESM(require_react());
-var import_react_dom = __toESM(require_react_dom());
+init_reactMod();
+init_reactMod();
 
 // ../../.yarn/__virtual__/re-resizable-virtual-24c16ab62b/0/global/cache/re-resizable-npm-6.9.9-2a772ae568-9.zip/node_modules/re-resizable/lib/resizer.js
 init_define_process();
-var React = __toESM(require_react());
+init_reactMod();
 var __extends = function() {
   var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
@@ -25340,10 +19993,10 @@ var Resizer = function(_super) {
     return _this;
   }
   Resizer2.prototype.render = function() {
-    return React.createElement("div", { className: this.props.className || "", style: __assign(__assign({ position: "absolute", userSelect: "none" }, styles[this.props.direction]), this.props.replaceStyles || {}), onMouseDown: this.onMouseDown, onTouchStart: this.onTouchStart }, this.props.children);
+    return createElement("div", { className: this.props.className || "", style: __assign(__assign({ position: "absolute", userSelect: "none" }, styles[this.props.direction]), this.props.replaceStyles || {}), onMouseDown: this.onMouseDown, onTouchStart: this.onTouchStart }, this.props.children);
   };
   return Resizer2;
-}(React.PureComponent);
+}(PureComponent);
 
 // ../../.yarn/__virtual__/re-resizable-virtual-24c16ab62b/0/global/cache/re-resizable-npm-6.9.9-2a772ae568-9.zip/node_modules/re-resizable/lib/index.js
 var __extends2 = function() {
@@ -25381,8 +20034,8 @@ var DEFAULT_SIZE = {
   width: "auto",
   height: "auto"
 };
-var clamp = function(n, min2, max2) {
-  return Math.max(Math.min(n, max2), min2);
+var clamp = function(n, min, max) {
+  return Math.max(Math.min(n, max), min);
 };
 var snap = function(n, size) {
   return Math.round(n / size) * size;
@@ -25787,12 +20440,12 @@ var Resizable = function(_super) {
     }
     return { newWidth, newHeight };
   };
-  Resizable2.prototype.calculateNewSizeFromAspectRatio = function(newWidth, newHeight, max2, min2) {
+  Resizable2.prototype.calculateNewSizeFromAspectRatio = function(newWidth, newHeight, max, min) {
     var _a = this.props, lockAspectRatio = _a.lockAspectRatio, lockAspectRatioExtraHeight = _a.lockAspectRatioExtraHeight, lockAspectRatioExtraWidth = _a.lockAspectRatioExtraWidth;
-    var computedMinWidth = typeof min2.width === "undefined" ? 10 : min2.width;
-    var computedMaxWidth = typeof max2.width === "undefined" || max2.width < 0 ? newWidth : max2.width;
-    var computedMinHeight = typeof min2.height === "undefined" ? 10 : min2.height;
-    var computedMaxHeight = typeof max2.height === "undefined" || max2.height < 0 ? newHeight : max2.height;
+    var computedMinWidth = typeof min.width === "undefined" ? 10 : min.width;
+    var computedMaxWidth = typeof max.width === "undefined" || max.width < 0 ? newWidth : max.width;
+    var computedMinHeight = typeof min.height === "undefined" ? 10 : min.height;
+    var computedMaxHeight = typeof max.height === "undefined" || max.height < 0 ? newHeight : max.height;
     var extraHeight = lockAspectRatioExtraHeight || 0;
     var extraWidth = lockAspectRatioExtraWidth || 0;
     if (lockAspectRatio) {
@@ -25907,11 +20560,11 @@ var Resizable = function(_super) {
     var clientY = isTouchEvent(event) ? event.touches[0].clientY : event.clientY;
     var _b = this.state, direction = _b.direction, original = _b.original, width = _b.width, height = _b.height;
     var parentSize = this.getParentSize();
-    var max2 = calculateNewMax(parentSize, this.window.innerWidth, this.window.innerHeight, maxWidth, maxHeight, minWidth, minHeight);
-    maxWidth = max2.maxWidth;
-    maxHeight = max2.maxHeight;
-    minWidth = max2.minWidth;
-    minHeight = max2.minHeight;
+    var max = calculateNewMax(parentSize, this.window.innerWidth, this.window.innerHeight, maxWidth, maxHeight, minWidth, minHeight);
+    maxWidth = max.maxWidth;
+    maxHeight = max.maxHeight;
+    minWidth = max.minWidth;
+    minHeight = max.minHeight;
     var _c = this.calculateNewSizeFromDirection(clientX, clientY), newHeight = _c.newHeight, newWidth = _c.newWidth;
     var boundaryMax = this.calculateNewMaxFromBoundary(maxWidth, maxHeight);
     if (this.props.snap && this.props.snap.x) {
@@ -25967,7 +20620,7 @@ var Resizable = function(_super) {
     } else if (this.flexDir === "column") {
       newState.flexBasis = newState.height;
     }
-    (0, import_react_dom.flushSync)(function() {
+    flushSync(function() {
       _this.setState(newState);
     });
     if (this.props.onResize) {
@@ -26006,11 +20659,11 @@ var Resizable = function(_super) {
     }
     var resizers = Object.keys(enable).map(function(dir) {
       if (enable[dir] !== false) {
-        return React2.createElement(Resizer, { key: dir, direction: dir, onResizeStart: _this.onResizeStart, replaceStyles: handleStyles && handleStyles[dir], className: handleClasses && handleClasses[dir] }, handleComponent && handleComponent[dir] ? handleComponent[dir] : null);
+        return createElement(Resizer, { key: dir, direction: dir, onResizeStart: _this.onResizeStart, replaceStyles: handleStyles && handleStyles[dir], className: handleClasses && handleClasses[dir] }, handleComponent && handleComponent[dir] ? handleComponent[dir] : null);
       }
       return null;
     });
-    return React2.createElement("div", { className: handleWrapperClass, style: handleWrapperStyle }, resizers);
+    return createElement("div", { className: handleWrapperClass, style: handleWrapperStyle }, resizers);
   };
   Resizable2.prototype.render = function() {
     var _this = this;
@@ -26026,10 +20679,10 @@ var Resizable = function(_super) {
       style.flexBasis = this.state.flexBasis;
     }
     var Wrapper = this.props.as || "div";
-    return React2.createElement(
+    return createElement(
       Wrapper,
       __assign2({ ref: this.ref, style, className: this.props.className }, extendsProps),
-      this.state.isResizing && React2.createElement("div", { style: this.state.backgroundStyle }),
+      this.state.isResizing && createElement("div", { style: this.state.backgroundStyle }),
       this.props.children,
       this.renderResizer()
     );
@@ -26062,34 +20715,33 @@ var Resizable = function(_super) {
     snapGap: 0
   };
   return Resizable2;
-}(React2.PureComponent);
+}(PureComponent);
 
 // js/Editor.tsx
-var import_react7 = __toESM(require_react(), 1);
-var import_react8 = __toESM(require_react(), 1);
+init_reactMod();
+init_reactMod();
 
 // js/runner.tsx
 init_define_process();
-var import_lodash2 = __toESM(require_lodash(), 1);
+var import_lodash = __toESM(require_lodash(), 1);
 
 // js/renderToString.tsx
 init_define_process();
 
 // js/starter.tsx
 init_define_process();
-var import_react3 = __toESM(require_react(), 1);
+init_reactMod();
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
-var import_react4 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-var import_react = __toESM(require_react(), 1);
-var import_client = __toESM(require_client(), 1);
+init_reactMod();
+init_reactMod();
 
 // ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
 init_define_process();
-var React3 = __toESM(require_react());
-var ReactDOM = __toESM(require_react_dom());
+init_reactMod();
+init_reactMod();
 var __extends3 = function() {
   var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
@@ -26200,19 +20852,19 @@ var InPortal = function(_super) {
   InPortal2.prototype.render = function() {
     var _this = this;
     var _a = this.props, children = _a.children, node = _a.node;
-    return ReactDOM.createPortal(React3.Children.map(children, function(child) {
-      if (!React3.isValidElement(child))
+    return createPortal(Children.map(children, function(child) {
+      if (!isValidElement(child))
         return child;
-      return React3.cloneElement(child, _this.state.nodeProps);
+      return cloneElement(child, _this.state.nodeProps);
     }), node.element);
   };
   return InPortal2;
-}(React3.PureComponent);
+}(PureComponent);
 var OutPortal = function(_super) {
   __extends3(OutPortal2, _super);
   function OutPortal2(props) {
     var _this = _super.call(this, props) || this;
-    _this.placeholderNode = React3.createRef();
+    _this.placeholderNode = createRef();
     _this.passPropsThroughPortal();
     return _this;
   }
@@ -26246,15 +20898,12 @@ var OutPortal = function(_super) {
     node.setPortalProps({});
   };
   OutPortal2.prototype.render = function() {
-    return React3.createElement("div", { ref: this.placeholderNode });
+    return createElement("div", { ref: this.placeholderNode });
   };
   return OutPortal2;
-}(React3.PureComponent);
+}(PureComponent);
 var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
-
-// js/renderPreviewWindow.tsx
-var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/wait.ts
 init_define_process();
@@ -26267,49 +20916,412 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => wait(1e3).then(() => import("./chunk-DraggableWindow-UX4GTNTH.mjs")));
-
-// js/emotionCache.ts
-init_define_process();
-var { createEmotionCache } = globalThis;
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-PFWIZOF4.mjs")));
+var RainbowContainer = ({ children }) => jsxs("div", {
+  children: [
+    !mST().css.includes("body{") ? jsx(Global, {
+      styles: css`
+body{
+height: 100%;
+width: 100%;
+background-blend-mode: overlay;
+background:  repeating-radial-gradient(circle at bottom left, 
+              #fedc00 0, #fedc00 5.5555555556%, 
+              #fcb712 0, #fcb712 11.1111111111%, 
+              #f7921e 0, #f7921e 16.6666666667%, 
+            #e87f24 0, #e87f24 22.2222222222%, 
+            #dd6227 0, #dd6227 27.7777777778%,
+             #dc4c27 0, #dc4c27 33.3333333333%, 
+            #ca3435 0, #ca3435 38.8888888889%, 
+            #b82841 0, #b82841 44.4444444444%, 
+            #953751 0, #953751 50%, #364c88 0, 
+            #364c88 55.5555555556%, #16599d 0, 
+            #16599d 61.1111111111%, #02609e 0, 
+            #02609e 66.6666666667%, #0073a9 0, 
+            #0073a9 72.2222222222%, #008aa4 0, 
+            #008aa4 77.7777777778%, #239a87 0, 
+            #239a87 83.3333333333%, #7cba6d 0, 
+            #7cba6d 88.8888888889%, #becc2f 0, 
+            #becc2f 94.4444444444%, #e0d81d 0, 
+            #e0d81d 100%), 
+            repeating-radial-gradient(circle at bottom right, 
+              #fedc00 0, #fedc00 5.5555555556%, 
+              #fcb712 0, #fcb712 11.1111111111%, 
+              #f7921e 0, #f7921e 16.6666666667%, 
+              #e87f24 0, #e87f24 22.2222222222%, 
+              #dd6227 0, #dd6227 27.7777777778%, 
+              #dc4c27 0, #dc4c27 33.3333333333%, 
+              #ca3435 0, #ca3435 38.8888888889%, 
+              #b82841 0, #b82841 44.4444444444%, 
+              #953751 0, #953751 50%,
+               #364c88 0, #364c88 55.5555555556%, 
+               #16599d 0, #16599d 61.1111111111%, 
+               #02609e 0, #02609e 66.6666666667%, 
+               #0073a9 0, #0073a9 72.2222222222%, 
+               #008aa4 0, #008aa4 77.7777777778%,
+                #239a87 0, #239a87 83.3333333333%, 
+                #7cba6d 0, #7cba6d 88.8888888889%, 
+                #becc2f 0, #becc2f 94.4444444444%, 
+                #e0d81d 0, #e0d81d 100%);}
+`
+    }) : null,
+    children
+  ]
+});
+var AppToRender = ({ codeSpace }) => {
+  const portalNode = useMemo(() => createHtmlPortalNode({
+    attributes: {
+      id: `root-${codeSpace}`,
+      className: md5(mST().code),
+      style: "height: 100%"
+    }
+  }), []);
+  const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
+  const devTools = !onlyApp;
+  return jsxs(Fragment2, {
+    children: [
+      jsx(InPortal, {
+        node: portalNode,
+        children: jsx(AutoUpdateApp, {
+          codeSpace
+        })
+      }),
+      jsx(Suspense, {
+        fallback: jsx(OutPortal, {
+          node: portalNode
+        }),
+        children: devTools ? jsx(RainbowContainer, {
+          children: jsxs(Fragment, {
+            children: [
+              jsx(Editor, {
+                codeSpace
+              }),
+              jsx(DraggableWindowLazy, {
+                room: codeSpace,
+                children: jsx(OutPortal, {
+                  node: portalNode
+                })
+              })
+            ]
+          })
+        }) : jsx("div", {
+          style: { height: 100 + "%" },
+          children: jsx(OutPortal, {
+            node: portalNode
+          })
+        })
+      })
+    ]
+  });
+};
+var singleton = { started: false };
+var renderPreviewWindow = ({ codeSpace, dry }) => {
+  if (singleton.started)
+    return;
+  singleton.started = true;
+  const div = dry ? document.createElement("div") : document.querySelector("#root");
+  const root = createRoot(div);
+  root.render(
+    jsx(StrictMode, {
+      children: jsx(AppToRender, {
+        codeSpace
+      })
+    })
+  );
+};
 
 // js/starter.tsx
 var import_is_callable = __toESM(require_is_callable(), 1);
-var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 globalThis.IIFE = globalThis.IIFE = {};
 globalThis.md5 = md5;
-Object.assign(globalThis, { apps: {}, eCaches: {} });
-var { apps: apps2, eCaches: eCaches2 } = globalThis || globalThis.apps;
+var dynamicImport = (src) => fetch(src).then(async (resp) => {
+  if (!resp.ok)
+    throw new Error("Error while import ${src}");
+  const trp = await resp.text();
+  const hash = md5(trp);
+  const codeHash = trp.slice(2, 10);
+  globalThis.IIFE[hash] = codeHash;
+  try {
+    return new Function(trp + "return " + globalThis.IIFE[hash])();
+  } catch {
+    const umdTrp = await umdTransform(trp);
+    const umdHash = md5(umdTrp);
+    return new Function(umdTrp + "return " + globalThis.IIFE[umdHash])();
+  }
+});
+if (!globalThis.apps)
+  Object.assign(globalThis, { apps: {}, eCaches: {} });
+var { apps: apps2, eCaches: eCaches2 } = globalThis;
 var starterI = 1 * document.getElementById("root")?.getAttribute("data-i");
+async function importIt(url) {
+  try {
+    const res = await dynamicImport(url);
+    return res;
+  } catch {
+    console.log("error loading", url);
+    await wait(500);
+    return await importIt(url);
+  }
+}
+function AutoUpdateApp({ codeSpace, transpiled }) {
+  const [i, setI] = useState(starterI);
+  const [{ App, FutureApp }, setApps] = useState({
+    App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`)),
+    FutureApp: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`))
+  });
+  useEffect(() => setApps({
+    App: FutureApp,
+    FutureApp: lazy(async () => {
+      const bigI = (mST().i > i ? mST().i : i) + 1;
+      const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${bigI}`);
+      setI((i2) => (bigI > i2 ? bigI : i2) + 1);
+      return {
+        default: ret.default
+      };
+    })
+  }), [i]);
+  return jsx(import_react_error_boundary.ErrorBoundary, {
+    fallbackRender: ({ error }) => jsxs("div", {
+      role: "alert",
+      children: [
+        jsx("div", {
+          children: "Oh no"
+        }),
+        jsx("pre", {
+          children: error.message
+        })
+      ]
+    }),
+    children: jsx(Suspense, {
+      fallback: jsx(Suspense, {
+        fallback: jsx("div", {
+          style: { height: "100%" },
+          dangerouslySetInnerHTML: {
+            __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
+          }
+        }),
+        children: jsx(App, {})
+      }),
+      children: jsx(FutureApp, {})
+    })
+  }, i);
+}
+var started = false;
+async function appFactory(transpiled = "", codeSpace, dry) {
+  const { transpiled: mstTranspiled, i: mstI } = mST();
+  const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
+  const hash = md5(trp);
+  if (!apps2[hash]) {
+    try {
+      console.log(`i: ${mstI}: `);
+      let App;
+      try {
+        App = new Function(trp + "return " + globalThis.IIFE[hash])().default;
+      } catch {
+        wait(300);
+        App = new Function(trp + "return " + globalThis.IIFE[hash])().default;
+      }
+      console.log({ App });
+      if ((0, import_is_callable.default)(App)) {
+        eCaches2[hash] = eCaches2[hash] || emotionCache_default({
+          key: hash,
+          speedy: false
+        });
+        eCaches2[hash].compat = void 0;
+        apps2[hash] = ({ appId }) => jsx("div", {
+          style: { height: 100 + "%" },
+          id: appId,
+          children: jsx(CacheProvider, {
+            value: eCaches2[hash],
+            children: jsx(App, {})
+          }, hash)
+        }, hash);
+      } else
+        throw new Error("the default export is not a function!");
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        const name = error.name;
+        const message = error.message;
+        apps2[hash] = () => jsxs("div", {
+          css: css`background-color: orange;`,
+          children: [
+            jsx("h1", {
+              children: "Syntax Error"
+            }),
+            jsx("h2", {
+              children: hash
+            }),
+            jsxs("h2", {
+              children: [
+                name,
+                ": ",
+                message
+              ]
+            }),
+            jsx("p", {
+              children: JSON.stringify({ err: error })
+            })
+          ]
+        });
+      } else if (error instanceof Error) {
+        const name = error.name;
+        const message = error.message;
+        apps2[hash] = () => jsxs("div", {
+          css: css`background-color: orange;`,
+          children: [
+            jsx("h1", {
+              children: "Syntax Error"
+            }),
+            jsxs("h2", {
+              children: [
+                name,
+                ": ",
+                message
+              ]
+            }),
+            jsx("p", {
+              children: JSON.stringify({ err: error })
+            })
+          ]
+        });
+      } else {
+        apps2[hash] = () => jsx("div", {
+          css: css`background-color: orange;`,
+          children: jsxs("h1", {
+            children: [
+              "Unknown Error: $",
+              hash
+            ]
+          })
+        });
+      }
+    }
+  }
+  if (!started && codeSpace) {
+    started = true;
+    await renderPreviewWindow({ codeSpace, dry: !!dry });
+  }
+  return apps2[hash];
+}
 
 // js/renderToString.tsx
-var import_client2 = __toESM(require_client(), 1);
-var import_react5 = __toESM(require_react(), 1);
-var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+init_reactMod();
+init_reactMod();
+var mod = {
+  md5Hash: "",
+  wait: 1,
+  res: null,
+  codeSpace: "",
+  waitForDiv: async (md5Hash) => {
+    if (mod.md5Hash !== md5Hash)
+      return "";
+    if (!mod.res?.innerHTML)
+      await waitForAnimation();
+    mod.wait *= 2;
+    await wait(mod.wait);
+    if (!mod.res?.innerHTML.includes(md5Hash)) {
+      await waitForAnimation();
+    }
+    const html = mod.res?.innerHTML;
+    if (html?.includes(md5Hash))
+      return html;
+    mod.wait = mod.wait * 2;
+    return await mod.waitForDiv(md5Hash);
+  },
+  setHash: null,
+  setApp: (md5Hash) => {
+    const rootDiv = document.createElement("div");
+    rootDiv.style.visibility = "hidden";
+    rootDiv.style.position = "absolute";
+    mod.md5Hash = md5Hash;
+    const root = createRoot(rootDiv);
+    root.render(
+      jsx(Helper, {
+        md5Hash
+      })
+    );
+    return () => {
+      root.unmount;
+      rootDiv.remove();
+      mod.setHash = null;
+    };
+  }
+};
+var render = async (transpiled, codeSpace) => {
+  mod.codeSpace = codeSpace;
+  const md5hash = md5(transpiled);
+  if (!apps[md5hash])
+    await appFactory(transpiled);
+  mod.wait = 1;
+  const cleanup = mod.setApp(
+    md5hash
+  );
+  try {
+    const html = await mod.waitForDiv(md5hash);
+    if (!html)
+      return { html: null, css: null };
+    const css2 = mineFromCaches(eCaches[md5hash]);
+    const globalCss = document.querySelector(
+      `style[data-emotion=${eCaches[md5hash].key}-global]`
+    )?.innerHTML;
+    return {
+      html,
+      css: globalCss ? globalCss + " " + css2 : css2
+    };
+  } finally {
+    cleanup();
+  }
+};
+function mineFromCaches(cache) {
+  const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
+  return Array.from(document.styleSheets).map((x) => x.cssRules[0]).filter(
+    (x) => x && keys.includes(x.selectorText)
+  ).map((x) => x.cssText).join("\n");
+}
+var Helper = ({ md5Hash }) => {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (ref?.current)
+      mod.res = ref.current;
+  }, [ref?.current]);
+  const App = apps[md5Hash];
+  return jsx("div", {
+    ref,
+    children: jsx(App, {
+      appId: `${mod.codeSpace}-${md5Hash}`
+    })
+  }, md5Hash);
+};
+var waitForAnimation = () => {
+  let animationFrame;
+  console.log("wait for animation");
+  const animated = new Promise((resolve) => animationFrame = resolve);
+  requestAnimationFrame(() => animationFrame(true));
+  return animated;
+};
 
 // js/toUmd.ts
 init_define_process();
-var mod = {
+var mod2 = {
   printR(name, included) {
     if (included[name])
       return "";
     included[name] = true;
-    const current = mod.data[mod.hashMap[name]];
+    const current = mod2.data[mod2.hashMap[name]];
     const currentCode = current.code;
     if (!current.deps || !current.deps.length) {
       return currentCode;
     }
     const myDepts = [...current.deps];
-    const depts = myDepts.map((n) => mod.printR(n, included)).join(" \n ");
+    const depts = myDepts.map((n) => mod2.printR(n, included)).join(" \n ");
     return depts + `
     
     ` + currentCode;
   },
   async toJs(name) {
-    const js = mod.printR(name, {});
-    const modZ = Object.keys(mod.data).map(
-      (k) => [`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, "")]
+    const js = mod2.printR(name, {});
+    const modZ = Object.keys(mod2.data).map(
+      (k) => [`"${mod2.hashMap[k]}"`, k.replace(/[^a-f]/g, "")]
     ).map((x) => x[0] + ": " + x[1]).join(", \n ");
     const res = `
      ${js}
@@ -26319,7 +21331,7 @@ var mod = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform } = await import("./chunk-esbuildEsm-MWW6R7HJ.mjs");
+    const { transform } = await import("./chunk-esbuildEsm-2UHKWLLD.mjs");
     const t = await transform(res, {
       format: "esm",
       minify: true,
@@ -26340,31 +21352,31 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform } = await import("./chunk-esbuildEsm-MWW6R7HJ.mjs");
-  const hash2 = md5(source);
-  mod.hashMap = { ...mod.hashMap, [hash2]: name, [name]: hash2 };
-  if (!mod.data[hash2]) {
+  const { transform } = await import("./chunk-esbuildEsm-2UHKWLLD.mjs");
+  const hash = md5(source);
+  mod2.hashMap = { ...mod2.hashMap, [hash]: name, [name]: hash };
+  if (!mod2.data[hash]) {
     const transformed = await transform(source, {
       format: "iife",
       keepNames: true,
       treeShaking: true,
       target: "es2021",
       loader: name.includes(".tsx") ? "tsx" : name.includes(".ts") ? "ts" : name.includes(".jsx") ? "jsx" : "js",
-      globalName: hash2.replace(/[^a-f]/g, "")
+      globalName: hash.replace(/[^a-f]/g, "")
     });
     if (!transformed || !transformed.code) {
       console.log("transform result -code is empty");
       return;
     }
-    mod.data = {
-      ...mod.data,
-      [hash2]: {
+    mod2.data = {
+      ...mod2.data,
+      [hash]: {
         ...transformed,
         deps: findDeps(transformed.code)
       }
     };
-    await Promise.all(mod.data[hash2].deps.map(async (dep) => {
-      if (mod.hashMap[dep]) {
+    await Promise.all(mod2.data[hash].deps.map(async (dep) => {
+      if (mod2.hashMap[dep]) {
         return;
       }
       const importMap = JSON.parse(
@@ -26387,15 +21399,15 @@ var toUmd = async (source, name) => {
           return;
         }
       }
-      if (mod.hashMap[urlHash]) {
+      if (mod2.hashMap[urlHash]) {
         return;
       }
-      mod.hashMap[dep] = url;
+      mod2.hashMap[dep] = url;
       const source2 = await (await fetch(url)).text();
       return toUmd(source2, dep);
     }));
   }
-  return mod;
+  return mod2;
 };
 var findDeps = (code) => {
   const regex = /require\("(.+?)"\)/gm;
@@ -26416,7 +21428,7 @@ var findDeps = (code) => {
 };
 
 // js/runner.tsx
-var debouncedSync = (0, import_lodash2.default)(patchSync, 200, {
+var debouncedSync = (0, import_lodash.default)(patchSync, 200, {
   leading: true,
   trailing: true,
   maxWait: 800
@@ -26451,26 +21463,217 @@ var umdTransform = async (code) => {
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
   return transpiled.code;
 };
+async function runner({ code, counter, codeSpace }) {
+  if (counter <= counterMax)
+    return;
+  counterMax = counter;
+  try {
+    const transpiledCode = await umdTransform(code);
+    const { html, css: css2 } = await render(transpiledCode, codeSpace);
+    if (!html || !css2) {
+      return;
+    }
+    debouncedSync({
+      ...mST(),
+      code,
+      i: counter,
+      transpiled: transpiledCode,
+      html,
+      css: css2
+    });
+  } catch (error) {
+    console.error({ error });
+  } finally {
+  }
+}
 
 // js/isMobile.mjs
 init_define_process();
+function isMobile() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || navigator.platform === "MacIntel" && navigator.userAgent.indexOf("SAMSUNG") === -1;
+  let check = false;
+  (function(a) {
+    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[23]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(a.slice(0, 4))) {
+      check = true;
+    }
+  })(navigator.userAgent || navigator.vendor || window.opera);
+  return check && !isIOS;
+}
 
 // js/prettierEsm.ts
 init_define_process();
 var import_parser_babel = __toESM(require_parser_babel(), 1);
 var import_standalone = __toESM(require_standalone(), 1);
+var prettierJs = (code) => {
+  try {
+    return (0, import_standalone.format)(code, {
+      arrowParens: "always",
+      bracketSpacing: true,
+      embeddedLanguageFormatting: "auto",
+      insertPragma: false,
+      bracketSameLine: true,
+      jsxSingleQuote: false,
+      htmlWhitespaceSensitivity: "strict",
+      printWidth: 90,
+      proseWrap: "preserve",
+      quoteProps: "as-needed",
+      requirePragma: false,
+      semi: true,
+      singleQuote: true,
+      tabWidth: 2,
+      trailingComma: "all",
+      useTabs: false,
+      parser: "babel-ts",
+      plugins: [
+        import_parser_babel.default
+      ]
+    });
+  } catch (error) {
+    console.error("prettier error"), console.error({ err: error });
+    return null;
+  }
+};
 
 // js/Editor.tsx
-var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var mod3 = {
+  getValue: async () => "",
+  setValue: async (code) => {
+    if (code.length < 10)
+      console.log(code);
+  },
+  getErrors: async () => [],
+  code: "",
+  counter: 0,
+  codeSpace: "",
+  lastKeyDown: 0,
+  codeToSet: ""
+};
+var Editor = ({ codeSpace }) => {
+  const ref = useRef(null);
+  const { i, code } = mST();
+  const engine = isMobile() ? "ace" : "monaco";
+  const [
+    mySession,
+    changeContent
+  ] = reactMod_default.useState({
+    lastKeyDown: 0,
+    myCode: code,
+    counter: i,
+    started: false,
+    onChange(_cb) {
+    }
+  });
+  mod3.counter = mST().i;
+  mod3.codeSpace = codeSpace;
+  const {
+    myCode,
+    started: started2,
+    onChange
+  } = mySession;
+  mod3.code = myCode;
+  reactMod_default.useEffect(() => {
+    if (started2)
+      return;
+    if (!ref?.current || started2) {
+      return;
+    }
+    const container = ref?.current;
+    if (container === null)
+      return;
+    engine === "monaco" ? setMonaco(container) : setAce(container).then((res) => Object.assign(mod3, res)).then(
+      () => changeContent((x) => ({ ...x, started: true }))
+    );
+  }, [started2, ref.current]);
+  reactMod_default.useEffect(
+    () => {
+      mod3.getErrors().then(console.log);
+      onChange(
+        () => mod3.getValue().then(
+          () => changeContent((x) => ({
+            ...x,
+            counter: mod3.counter,
+            myCode: mod3.code
+          }))
+        )
+      );
+    },
+    [onChange, myCode, changeContent]
+  );
+  onSessionUpdate(async () => {
+    if (mod3.counter >= mST().i) {
+      return;
+    }
+    mod3.counter = mST().i;
+    const code2 = mST().code;
+    if (!code2)
+      return;
+    mod3.code = code2;
+    await mod3.setValue(mod3.code);
+    changeContent((x) => ({
+      ...x,
+      counter: mod3.counter,
+      myCode: mod3.code
+    }));
+  }, "editor");
+  return jsx(Resizable, {
+    defaultSize: {
+      width: "640px",
+      height: "100vh"
+    },
+    children: jsx("div", {
+      "data-test-id": "editor",
+      ref,
+      css: css`
+          width: 100%;
+          height: 100%;
+          display: block;
+          position: absolute;
+          top:0;
+          bottom:0;
+          left:0;
+          right:0;
+          `
+    })
+  });
+};
+async function onModChange(_code) {
+  const code = prettierJs(_code);
+  if (!code)
+    return;
+  if (code === prettierJs(mod3.code))
+    return;
+  const counter = ++mod3.counter;
+  mod3.code = code;
+  runner({ code, counter, codeSpace: mod3.codeSpace });
+}
+var startedM = 0;
+async function setMonaco(container) {
+  if (startedM)
+    return;
+  startedM = 1;
+  const link = document.createElement("link");
+  link.setAttribute("rel", "stylesheet");
+  link.href = location.origin + "/Editor.css";
+  document.head.append(link);
+  const { startMonaco } = await import("./chunk-startMonaco-EW5YL7HK.mjs");
+  return startMonaco({
+    container,
+    name: mod3.codeSpace,
+    code: mST().code,
+    onChange: onModChange
+  });
+}
+var startedAce = 0;
+async function setAce(container) {
+  if (startedAce)
+    return;
+  startedAce = 1;
+  const { startAce } = await import("./chunk-startAce-G24FPSIL.mjs");
+  return await startAce(mST().code, onModChange, container);
+}
 
 export {
-  require_lodash,
-  hashCode3 as hashCode,
-  mST,
-  applyPatch2 as applyPatch,
-  makePatchFrom,
-  makePatch,
   wait,
-  require_emotion_react_jsx_runtime_cjs,
-  umdTransform
+  appFactory,
+  Editor
 };
