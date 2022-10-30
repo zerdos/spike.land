@@ -21,24 +21,35 @@ Object.assign(globalThis, {
 });
 
 export const umdTransform = async (code: string) => {
-  const transpiled = await transform(code, {
-    loader: "tsx",
-    format: "iife",
-    treeShaking: false,
-    platform: "browser",
-    minify: false,
-    keepNames: true,
-    globalName: `apps["${md5(code)}"]`,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: "react-jsx",
-        module: "ESNext",
-        jsxFragmentFactory: "Fragment",
-        jsxImportSource: "@emotion/react",
+  const transpiled = await transform(
+    (await transform(code, {
+      format: "cjs",
+      tsconfigRaw: {
+        compilerOptions: {
+          jsx: "react-jsx",
+          jsxFragmentFactory: "Fragment",
+          jsxImportSource: "@emotion/react",
+        },
       },
-    },
-    target: "es2021",
-  } as unknown as TransformOptions);
+    })).code,
+    {
+      loader: "tsx",
+      format: "iife",
+      treeShaking: false,
+      platform: "browser",
+      minify: false,
+      keepNames: true,
+      tsconfigRaw: {
+        compilerOptions: {
+          jsx: "react-jsx",
+          module: "ESNext",
+          jsxFragmentFactory: "Fragment",
+          jsxImportSource: "@emotion/react",
+        },
+      },
+      target: "es2021",
+    } as unknown as TransformOptions,
+  );
 
   globalThis.IIFE = globalThis.IIFE = {};
 
