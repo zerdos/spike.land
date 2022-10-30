@@ -39506,6 +39506,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     fetch(importShim.resolve(pkg)).then((resp) => resp.text()).then((code) => globalThis.umdTransform(code)).then((x) => {
       const y = x.split("(");
       y.shift();
+      y.unshift("");
       const ret = new Function("return " + y.join("("))();
       return ret;
     }).then((x) => mapTable[pkg] = x).then(
