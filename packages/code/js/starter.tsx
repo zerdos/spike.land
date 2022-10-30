@@ -43,15 +43,12 @@ const dynamicImport = (src: string) =>
 
 // const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache};
 
-Object.assign(globalThis, { apps: {}, eCaches: {} });
+if (!globalThis.apps) Object.assign(globalThis, { apps: {}, eCaches: {} });
 
 export const { apps, eCaches } = (globalThis as unknown as {
   apps: Record<string, FC<{ appId: string }>>;
   eCaches: Record<string, EmotionCache>;
-}) || (globalThis as unknown as {
-  apps: Record<string, FC<{ appId: string }>>;
-  eCaches: Record<string, EmotionCache>;
-}).apps;
+});
 
 // const myCache = createCache({
 // key: "z",
@@ -217,7 +214,7 @@ export async function appFactory(
       //   terminal.clear();
       // }
       console.log(`i: ${mstI}: `);
-      let App;
+      let App: FC;
       try {
         App = new Function(trp + "return " + globalThis.IIFE[hash])().default as unknown as FC;
       } catch {

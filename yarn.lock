@@ -948,7 +948,7 @@ __metadata:
     "@types/is-callable": "npm:1.1.0"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:^18.11.7"
+    "@types/node": "npm:^18.11.8"
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.24"
     "@types/react-dom": "npm:18.0.8"
@@ -1013,7 +1013,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:^18.11.7"
+    "@types/node": "npm:^18.11.8"
     esbuild: "npm:0.15.12"
   languageName: unknown
   linkType: soft
@@ -1270,10 +1270,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.11.7":
+"@types/node@npm:*":
   version: 18.11.7
   resolution: "@types/node@npm:18.11.7"
   checksum: 1756caf0177b764ca8153e7a5d58a2f70466105f5cd64933b40f0f390a0f53167f87898ef6e9e1da4b5ceb00468fca457fe174abd87b3b5b5a0ccc8aba38787a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.11.8":
+  version: 18.11.8
+  resolution: "@types/node@npm:18.11.8"
+  checksum: 46527a04b97610751efcefffe33e4b1b8428855c9b95a4efd225299730409990631296cfc4a5d67ae32741274ab686dbf76cdf5eb201c9476833250bb9d9b60e
   languageName: node
   linkType: hard
 
