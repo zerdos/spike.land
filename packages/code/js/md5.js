@@ -1,4 +1,13 @@
-export const md5 = (code) => (md5FULL(code).replace(/\d+/g, "") + "ffffff").slice(0, 8);
+export const md5 = (code) => (md5FULL(code).split("0").join("k")
+  .split("1").join("l")
+  .split("2").join("m")
+  .split("4").join("b")
+  .split("5").join("n")
+  .split("6").join("o")
+  .split("6").join("p")
+  .split("8").join("w")
+  .split("9").join("z")
+  .slice(0, 8));
 
 function md5FULL(inputString) {
   const hc = "0123456789abcdef";
