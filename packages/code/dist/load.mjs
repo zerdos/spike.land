@@ -1,5 +1,16 @@
+import {
+  umdTransform
+} from "./chunk-chunk-PFUDLRC6.mjs";
+import "./chunk-chunk-EXKZY7I4.mjs";
+import "./chunk-chunk-TZJXJSL2.mjs";
+import {
+  init_define_process
+} from "./chunk-chunk-AIJYQNQW.mjs";
+
 // js/load.ts
+init_define_process();
 import "./react-jsx-runtime.mjs";
+Object.assign(globalThis, { umdTransform });
 var { hydrateRoot, createRoot } = ReactDOMClient;
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var start = (dry = false) => import(`${location.origin}/live/${codeSpace}/mST.mjs`).then(

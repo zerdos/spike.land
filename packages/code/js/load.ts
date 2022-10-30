@@ -1,10 +1,10 @@
+import { umdTransform } from "runner.js";
 import "./react-jsx-runtime.mjs";
 
+Object.assign(globalThis, { umdTransform });
 // importShim.addImportMap(importmap);
 
 const { hydrateRoot, createRoot } = ReactDOMClient;
-
-const imp = {};
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
