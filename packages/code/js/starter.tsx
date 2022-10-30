@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 // import {terminal} from "./DraggableWindow"
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -8,13 +8,13 @@ import { CacheProvider, css } from "@emotion/react";
 import { renderPreviewWindow } from "renderPreviewWindow";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
-import { mST, onSessionUpdate } from "./session";
+import { mST } from "./session";
 
 // import { CacheProvider } from "@emotion/react// import createCache from "@emotion/cache";
 // import type { EmotionCache } from "@emotion/cache";
 
-import { red } from "@mui/material/colors";
 import isCallable from "is-callable";
+import ms from "ms";
 import { wait } from "./wait";
 
 globalThis.IIFE = globalThis.IIFE = {};
@@ -68,7 +68,6 @@ export function AutoUpdateApp(
   { codeSpace, transpiled }: { codeSpace: string; transpiled?: string },
 ) {
   const [i, setI] = useState(starterI);
-  const futureSuspenseRef = useRef(null);
 
   const [{ App, FutureApp }, setApps] = useState({
     App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`)),
@@ -79,8 +78,10 @@ export function AutoUpdateApp(
     setApps({
       App: FutureApp,
       FutureApp: lazy(async () => {
-        const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
-        setI(i => i + 1);
+        const bigI = (mST().i > i ? mST().i : i) + 1;
+        const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${bigI}`);
+        setI(i => (bigI > i ? bigI : i) + 1);
+
         return {
           default: ret.default,
         };
@@ -108,7 +109,7 @@ export function AutoUpdateApp(
           </Suspense>
         }
       >
-        <FutureApp ref={futureSuspenseRef} />
+        <FutureApp />
       </Suspense>
     </ErrorBoundary>
   );
