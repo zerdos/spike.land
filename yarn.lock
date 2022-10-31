@@ -979,8 +979,6 @@ __metadata:
     monaco-editor: "npm:0.34.1"
     p-map: "npm:5.5.0"
     popmotion: "npm:11.0.5"
-    preact: "npm:10.11.2"
-    preact-render-to-string: "npm:5.2.6"
     prettier: "npm:2.7.1"
     prism-react-renderer: "npm:^1.3.5"
     qrious: "npm:4.0.2"
@@ -5322,24 +5320,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact-render-to-string@npm:5.2.6":
-  version: 5.2.6
-  resolution: "preact-render-to-string@npm:5.2.6"
-  dependencies:
-    pretty-format: "npm:^3.8.0"
-  peerDependencies:
-    preact: ">=10"
-  checksum: 4def6c1a11b61d5af91cc98a7568938848686715c33a884939fdd098a98770dcaa59c11642c44209f6952ca659554ce6462cfc1913b0cc4d5fa27aea92a9c1fd
-  languageName: node
-  linkType: hard
-
-"preact@npm:10.11.2":
-  version: 10.11.2
-  resolution: "preact@npm:10.11.2"
-  checksum: e2aacf760fea4647b761ec7b187fc94377acf9d573d27325cac90b091f608cc9b0214e8c8296e46a6780f0b2ab1ea18d9763a63299c1a4dd7a1f766f4a59c03f
-  languageName: node
-  linkType: hard
-
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -5353,13 +5333,6 @@ __metadata:
   bin:
     prettier: bin-prettier.js
   checksum: d2cd7adc83b4f3eb86ab665fa76c58fb3c60c879b37e6d858f71a9d97d2091d4c8a7fe92ad6a1dfa211832025e3660635df9c5e27b3ef79c99d431923bdf933b
-  languageName: node
-  linkType: hard
-
-"pretty-format@npm:^3.8.0":
-  version: 3.8.0
-  resolution: "pretty-format@npm:3.8.0"
-  checksum: 9b296c22bf6a0c345118d694a35073cb4a4a236a6096adecbbffefc237f703fc80357bd2603f7b51245656966cc44ce403873ce2f41632c24bd143e27f12f6f4
   languageName: node
   linkType: hard
 
