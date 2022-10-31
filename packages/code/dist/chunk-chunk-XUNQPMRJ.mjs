@@ -20620,18 +20620,23 @@ if (!Object.hasOwn(globalThis, "apps"))
 var { apps: apps2, eCaches: eCaches2 } = globalThis;
 var starterI = 1 * document.getElementById("root").getAttribute("data-i");
 async function importIt(url) {
-  let res = null;
-  try {
-    while (!(res && res.ok)) {
-      await fetch(url);
-      await wait(500);
+  let waitingTime = 0;
+  while (true) {
+    try {
+      let resp = await fetch(url);
+      await wait(waitingTime);
+      waitingTime = waitingTime * 2;
+      resp = await fetch(url);
+      if (resp.ok) {
+        const trp = await resp.text();
+        const App = new Function(trp + ` return ${trp.slice(2, 10)}`)();
+        return App;
+      }
+    } catch {
+      console.error("error has been thrown");
+      waitingTime = waitingTime / 1.5;
     }
-  } catch {
-    return importIt(url);
   }
-  const trp = await res.text();
-  const App = new Function(trp + ` return ${trp.slice(2, 10)}`)();
-  return App;
 }
 function AutoUpdateApp({ codeSpace }) {
   const [i, setI] = useState(starterI);

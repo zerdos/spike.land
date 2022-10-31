@@ -31,7 +31,7 @@ const user = md5(((self && self.crypto && self.crypto.randomUUID
   && self.crypto.randomUUID()) || (uidV4())).slice(
     0,
     8,
-  );
+  ));
 
 users.insert(user);
 const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection

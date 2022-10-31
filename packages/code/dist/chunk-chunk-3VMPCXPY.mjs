@@ -2,7 +2,7 @@ import {
   AutoUpdateApp,
   Editor,
   wait
-} from "./chunk-chunk-KQWHANCL.mjs";
+} from "./chunk-chunk-XUNQPMRJ.mjs";
 import {
   applyPatch,
   hashCode,
@@ -3459,7 +3459,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-W26AJ4KU.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-KSFLVJ4J.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -3976,10 +3976,10 @@ var users = new AVLTree(
   true
 );
 var webRtcArray = [];
-var user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || uidV4_default()).slice(
+var user = md5((self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || uidV4_default()).slice(
   0,
   8
-);
+));
 users.insert(user);
 var rtcConns = {};
 var bc;
