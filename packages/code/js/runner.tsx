@@ -19,26 +19,25 @@ Object.assign(globalThis, {
     toUmd(mST().code, "app");
   },
 });
-
+globalThis.IIFE = globalThis.IIFE = {};
 export const umdTransform = async (code: string) => {
-  const transpiled = await transform(await transform(code, {}), {
+  const transpiled = await transform(code, {
     loader: "tsx",
     format: "iife",
-    treeShaking: false,
+    treeShaking: true,
     platform: "browser",
     minify: false,
     keepNames: true,
     tsconfigRaw: {
       compilerOptions: {
         jsx: "react-jsx",
+        module: "ESNext",
         jsxFragmentFactory: "Fragment",
         jsxImportSource: "@emotion/react",
       },
     },
     target: "es2021",
   } as unknown as TransformOptions);
-
-  globalThis.IIFE = globalThis.IIFE = {};
 
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
   apps[md5(transpiled.code)] = apps[md5(code)];
