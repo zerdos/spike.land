@@ -20689,7 +20689,10 @@ async function appFactory(transpiled = "") {
       });
       eCaches2[hash].compat = void 0;
       console.log(`i: ${mstI}: `);
-      const App = (await importShim(createJsBlob(trp))).default;
+      new Function(
+        trp.replace("return __toCommonJS(stdin_exports)", "globalThis.TmpApp=__toCommonJS(stdin_exports)")()
+      );
+      const App = globalThis.TmpApp.default;
       apps2[hash] = ({ appId }) => jsx("div", {
         style: { height: 100 + "%" },
         id: appId,
@@ -20760,14 +20763,6 @@ async function appFactory(transpiled = "") {
       return apps2[hash];
   }
   return apps2[hash];
-}
-function createJsBlob(code, fileName = "index.mjs") {
-  const file = new File([code], fileName, {
-    type: "application/javascript",
-    lastModified: Date.now()
-  });
-  const blobUrl = URL.createObjectURL(file);
-  return blobUrl;
 }
 
 // js/renderToString.tsx
