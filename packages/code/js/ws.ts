@@ -12,10 +12,10 @@ import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, s
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
+import { renderPreviewWindow } from "renderPreviewWindow";
 import { wait } from "wait.js";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import type { ICodeSession } from "./session";
-import { appFactory } from "./starter";
 import uidV4 from "./uidV4.mjs";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
@@ -122,7 +122,9 @@ export const run = async (startState: {
     state: mst,
   }, location.origin);
 
-  await appFactory(mst.transpiled, codeSpace, dry);
+  renderPreviewWindow({ codeSpace, dry: !!dry });
+
+  // await appFactory(mst.transpiled, codeSpace, dry);
 
   // Const {join} = await import("./rtc");
 
