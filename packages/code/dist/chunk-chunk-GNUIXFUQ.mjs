@@ -20797,7 +20797,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-M3QYFTTK.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-SOE2Z5IG.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -20980,16 +20980,15 @@ async function appFactory(transpiled = "", codeSpace, dry) {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);
-  if (!apps2[hash]) {
+  if (!apps2[hash] || !eCaches2[hash]) {
     try {
-      console.log(`i: ${mstI}: `);
-      const App = lazy(() => importShim(createJsBlob(trp)));
-      console.log({ App });
       eCaches2[hash] = eCaches2[hash] || emotionCache_default({
         key: hash,
         speedy: false
       });
       eCaches2[hash].compat = void 0;
+      console.log(`i: ${mstI}: `);
+      const App = lazy(() => importShim(createJsBlob(trp)));
       apps2[hash] = ({ appId }) => jsx("div", {
         style: { height: 100 + "%" },
         id: appId,
@@ -21064,6 +21063,8 @@ async function appFactory(transpiled = "", codeSpace, dry) {
         });
       }
     }
+    if (transpiled !== "")
+      return apps2[hash];
   }
   if (!started && codeSpace) {
     started = true;
@@ -21081,8 +21082,6 @@ function createJsBlob(code, fileName = "index.mjs") {
 }
 
 // js/renderToString.tsx
-init_reactMod();
-init_reactMod();
 var mod = {
   md5Hash: "",
   wait: 1,
@@ -21104,22 +21103,17 @@ var mod = {
     mod.wait = mod.wait * 2;
     return await mod.waitForDiv(md5Hash);
   },
-  setHash: null,
   setApp: (md5Hash) => {
     const rootDiv = document.createElement("div");
-    rootDiv.style.visibility = "hidden";
-    rootDiv.style.position = "absolute";
+    const root = ReactDOMClient.createRoot(rootDiv);
+    const App = apps[md5Hash];
     mod.md5Hash = md5Hash;
-    const root = createRoot(rootDiv);
-    root.render(
-      jsx(Helper, {
-        md5Hash
-      })
-    );
+    root.render(jsx(App, {
+      appId: `${mod.codeSpace}-${md5Hash}`
+    }));
     return () => {
-      root.unmount;
+      root.unmount();
       rootDiv.remove();
-      mod.setHash = null;
     };
   }
 };
@@ -21154,20 +21148,6 @@ function mineFromCaches(cache) {
     (x) => x && keys.includes(x.selectorText)
   ).map((x) => x.cssText).join("\n");
 }
-var Helper = ({ md5Hash }) => {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (ref?.current)
-      mod.res = ref.current;
-  }, [ref?.current]);
-  const App = apps[md5Hash];
-  return jsx("div", {
-    ref,
-    children: jsx(App, {
-      appId: `${mod.codeSpace}-${md5Hash}`
-    })
-  }, md5Hash);
-};
 var waitForAnimation = () => {
   let animationFrame;
   console.log("wait for animation");

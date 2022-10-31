@@ -1,14 +1,7 @@
-import type { FC } from "react";
-// import { hashCode, mST } from "session";
 import { md5 } from "md5";
 import { appFactory } from "starter";
 
-import { createRoot } from "react-dom/client";
-
-// import { flushSync } from "react-dom";
-// import createEmotionServer from "@emotion/server/dist/emotion-server.browser.esm.js";
 import type { EmotionCache } from "@emotion/cache";
-import { useEffect, useRef } from "react";
 import { wait } from "./wait";
 
 const mod = {
@@ -38,23 +31,21 @@ const mod = {
       md5Hash: string,
     ) => Promise<string>)(md5Hash);
   },
-  setHash: null as (null | ((_hash: string) => void)),
   setApp: (md5Hash: string) => {
     const rootDiv = document.createElement("div");
-    rootDiv.style.visibility = "hidden";
-    rootDiv.style.position = "absolute";
+    // rootDiv.style.visibility = "hidden";
+    // rootDiv.style.position = "absolute";
     // document.body.appendChild(rootDiv);
 
+    const root = ReactDOMClient.createRoot(rootDiv);
+    const App = apps[md5Hash];
+
     mod.md5Hash = md5Hash;
-    const root = createRoot(rootDiv);
-    root.render(
-      <Helper md5Hash={md5Hash} />,
-    );
+    root.render(<App appId={`${mod.codeSpace}-${md5Hash}`} />);
+
     return () => {
-      root.unmount;
-      // document.body.removeChild(rootDiv);
+      root.unmount();
       rootDiv.remove();
-      mod.setHash = null;
     };
   },
 };
@@ -98,22 +89,6 @@ function mineFromCaches(cache: EmotionCache) {
   ).map((x) => x.cssText)
     .join("\n");
 }
-
-const Helper: FC<{ md5Hash: string }> = ({ md5Hash }) => {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    if (ref?.current) mod.res = ref.current;
-  }, [ref?.current]);
-
-  const App = apps[md5Hash];
-
-  return (
-    <div ref={ref} key={md5Hash}>
-      <App appId={`${mod.codeSpace}-${md5Hash}`} />
-    </div>
-  );
-};
 
 const waitForAnimation = () => {
   let animationFrame: (_v: unknown) => void;

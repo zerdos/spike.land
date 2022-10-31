@@ -26073,7 +26073,7 @@ var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react4.lazy)(() => wait(1e3).then(() => import("./chunk-DraggableWindow-UUTIG2KB.mjs")));
+var DraggableWindowLazy = (0, import_react4.lazy)(() => wait(1e3).then(() => import("./chunk-DraggableWindow-QJLF2H7J.mjs")));
 
 // js/emotionCache.ts
 init_define_process();
@@ -26088,8 +26088,6 @@ var { apps: apps2, eCaches: eCaches2 } = globalThis;
 var starterI = 1 * document.getElementById("root").getAttribute("data-i");
 
 // js/renderToString.tsx
-var import_client2 = __toESM(require_client(), 1);
-var import_react8 = __toESM(require_react(), 1);
 var import_jsx_runtime4 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 
 // js/toUmd.ts
