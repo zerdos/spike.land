@@ -62,7 +62,7 @@ async function importIt(url: string) {
   while (true) {
     try {
       let resp = await fetch(url);
-      if (resp.headers.get("location")) {
+      if (resp.status === 307 && resp.headers.get("location")) {
         nextUrl = resp.headers.get("location")!;
         const i = nextUrl.split("/").pop();
         starterI = Number(i) * 1;
@@ -97,7 +97,7 @@ export function AutoUpdateApp(
 
   useEffect(() => {
     importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`).then(({ default: App }) =>
-      setApps({ App: App as any, i: starterI > i ? starterI : i + 1 })
+      setApps({ App: App as any, i: starterI > i ? (starterI + 1) : (i + 1) })
     );
   }, [i]);
 
