@@ -1,6 +1,6 @@
 import {
   Editor
-} from "./chunk-chunk-4645G3K3.mjs";
+} from "./chunk-chunk-XDC25LTQ.mjs";
 import "./chunk-chunk-SPNC3BA5.mjs";
 import "./chunk-chunk-DSTXGLQA.mjs";
 import "./chunk-chunk-ADALEOZA.mjs";
