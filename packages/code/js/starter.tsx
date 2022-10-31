@@ -207,8 +207,15 @@ export async function appFactory(
 
   const hash = md5(trp);
 
-  if (!apps[hash]) {
+  if (!apps[hash] || !eCaches[hash]) {
     try {
+      eCaches[hash] = eCaches[hash] || createCache({
+        key: hash,
+        speedy: false,
+      });
+
+      eCaches[hash].compat = undefined;
+
       // if (terminal && terminal.clear) {
       //   terminal.clear();
       // }
@@ -221,14 +228,6 @@ export async function appFactory(
       //   wait(300);
       //   App = new Function("return " + trp)().default as unknown as FC;
       // }
-      console.log({ App });
-
-      eCaches[hash] = eCaches[hash] || createCache({
-        key: hash,
-        speedy: false,
-      });
-
-      eCaches[hash].compat = undefined;
 
       apps[hash] = ({ appId }: { appId: string }) => (
         <div key={hash} style={{ height: 100 + "%" }} id={appId}>
@@ -286,6 +285,8 @@ export async function appFactory(
         );
       }
     }
+
+    if (transpiled !== "") return apps[hash];
   }
 
   if (!started && codeSpace) {
