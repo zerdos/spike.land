@@ -27,7 +27,7 @@ const users = new AVLTree(
 
 const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 
-const user = ((self && self.crypto && self.crypto.randomUUID
+const user = md5(((self && self.crypto && self.crypto.randomUUID
   && self.crypto.randomUUID()) || (uidV4())).slice(
     0,
     8,
