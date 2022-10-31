@@ -164,14 +164,6 @@
       if (!cache) {
         cache = await caches.open(cacheName || await getCacheName() && cacheName);
       }
-      if (url.href === "/mocks") {
-        return new Response(JSON.stringify(mocks), {
-          headers: {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Cache-Control": "no-cache"
-          }
-        });
-      }
       if (Date.now() - lastChecked > 1e4) {
         lastChecked = Date.now();
         getCacheName();

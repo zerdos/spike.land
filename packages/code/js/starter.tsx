@@ -17,7 +17,7 @@ import { hashCode, mST } from "./session";
 import isCallable from "is-callable";
 import { wait } from "./wait";
 
-globalThis.md5 = md5;
+Object.assign(globalThis, { md5 });
 
 // const dynamicImport = (src: string) =>
 //   return require(src)
@@ -41,7 +41,7 @@ globalThis.md5 = md5;
 
 // const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache};
 
-if (!globalThis.apps) Object.assign(globalThis, { apps: {}, eCaches: {} });
+if (!Object.hasOwn(globalThis, "apps")) Object.assign(globalThis, { apps: {}, eCaches: {} });
 
 export const { apps, eCaches } = (globalThis as unknown as {
   apps: Record<string, FC<{ appId: string }>>;
@@ -54,7 +54,7 @@ export const { apps, eCaches } = (globalThis as unknown as {
 
 // const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
-const starterI = 1 * document.getElementById("root")?.getAttribute("data-i");
+const starterI = 1 * (document.getElementById("root")!.getAttribute("data-i") as unknown as number);
 
 async function importIt(url: string) {
   let res;
@@ -63,13 +63,13 @@ async function importIt(url: string) {
       await wait(500);
     }
   } catch {
-    return importIt(url) as unknown;
+    return importShim(url) as unknown as { default: FC };
   }
-  return res as unknown;
+  return res as unknown as { default: FC };
 }
 
 export function AutoUpdateApp(
-  { codeSpace, transpiled }: { codeSpace: string; transpiled?: string },
+  { codeSpace }: { codeSpace: string },
 ) {
   const [i, setI] = useState(starterI);
 
@@ -78,7 +78,7 @@ export function AutoUpdateApp(
     FutureApp: lazy(async () => {
       const bigI = (mST().i > i ? mST().i : i) + 1;
       const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${bigI}`);
-      setI(i => (bigI > x ? bigI : i) + 1);
+      setI(i => (bigI > i ? bigI : i) + 1);
 
       return {
         default: ret.default,
@@ -213,7 +213,7 @@ export async function appFactory(
       //   terminal.clear();
       // }
       console.log(`i: ${mstI}: `);
-      const App: FC = require(globalThis.IIFE[md5(transpiled)]).default; // (await importShim(createJsBlob(transpiled))).default;
+      const App: FC = lazy(() => importShim(createJsBlob(trp))); // (await importShim(createJsBlob(transpiled))).default;
       // try {
       //   const fn = new Function("return " + trp)().default as unknown as FC;
       //   App = fn;
@@ -234,7 +234,20 @@ export async function appFactory(
         apps[hash] = ({ appId }: { appId: string }) => (
           <div key={hash} style={{ height: 100 + "%" }} id={appId}>
             <CacheProvider key={hash} value={eCaches[hash]}>
-              <App />
+              <Suspense
+                fallback={
+                  <div
+                    style={{ height: "100%" }}
+                    dangerouslySetInnerHTML={{
+                      __html: `<style>${
+                        mST().css.split("body").join(`${codeSpace}-${hashCode()}`)
+                      }</style>${mST().html}`,
+                    }}
+                  />
+                }
+              >
+                <App />
+              </Suspense>
             </CacheProvider>
           </div>
         );

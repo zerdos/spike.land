@@ -1,8 +1,9 @@
 import {
   umdTransform
-} from "./chunk-chunk-3EXP7BBS.mjs";
+} from "./chunk-chunk-TN6JCTTH.mjs";
+import "./chunk-chunk-NCUMYE5D.mjs";
 import "./chunk-chunk-EXKZY7I4.mjs";
-import "./chunk-chunk-TZJXJSL2.mjs";
+import "./chunk-chunk-5SVJH34K.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-AIJYQNQW.mjs";
@@ -11,7 +12,7 @@ import {
 init_define_process();
 Object.assign(globalThis, { umdTransform });
 (async () => {
-  await import("./react-jsx-runtime.mjs");
+  const { ReactDOMClient } = await import("./chunk-react-jsx-runtime-GRYE4YJX.mjs");
   const { hydrateRoot, createRoot } = ReactDOMClient;
   const codeSpace = location.pathname.slice(1).split("/")[1];
   const start = (dry = false) => import(`${location.origin}/live/${codeSpace}/mST.mjs`).then(

@@ -1,10 +1,10 @@
 import "es-module-shims";
 import importmap from "./importmap.json";
-import { md5 } from "./md5";
-const imp = {};
-Object.keys(importmap.imports).map((k) => imp[k] = location.origin + importmap.imports[k]);
+const imp: { [key: string]: string } = { ...importmap.imports };
+const res = {};
+Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
 
-importShim.addImportMap({ imports: imp });
+importShim.addImportMap({ imports: res });
 
 const runtime = () => {
   if (globalThis.React) return;
@@ -54,7 +54,7 @@ const runtime = () => {
 
 runtime();
 
-const {
+export const {
   React,
   ReactDOM,
   ReactDOMClient,
@@ -84,7 +84,7 @@ globalThis.requireLoading = [] as string[];
 
 const requireUmd = (pkg: string) => {
   if (mapTable[pkg]) return mapTable[pkg];
-  if (window[pkg]) return window[pkg];
+  if (window[pkg as any] as unknown) return window[pkg as any];
   if (globalThis[pkg]) return globalThis[pkg];
   if (apps[pkg]) return apps[pkg];
   if (pkg.includes(`spike.land/live`)) return React.lazy(() => importShim(pkg));

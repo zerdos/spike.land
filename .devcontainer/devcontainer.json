@@ -25,9 +25,6 @@
   "extensions": [
     "streetsidesoftware.code-spell-checker",
     "pflannery.vscode-versionlens",
-    "silvenon.mdx",
-    "unifiedjs.vscode-mdx",
-    "xyc.vscode-mdx-preview",
     "styled-components.vscode-styled-components",
     "arcanis.vscode-zipfs"
   ],

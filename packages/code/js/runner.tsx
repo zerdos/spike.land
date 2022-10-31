@@ -13,13 +13,7 @@ const debouncedSync = debounce(patchSync, 200, {
 });
 
 let counterMax = mST().i;
-
-Object.assign(globalThis, {
-  toUmd: () => {
-    toUmd(mST().code, "app");
-  },
-});
-globalThis.IIFE = globalThis.IIFE = {};
+const IIFE = {};
 
 export const umdTransform = async (code: string) => {
   const transpiled = await transform(code, {
@@ -41,13 +35,19 @@ export const umdTransform = async (code: string) => {
     target: "es2021",
   } as unknown as TransformOptions);
 
-  globalThis.IIFE[md5(transpiled.code)] = md5(code);
+  Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
   // apps[md5(transpiled.code)] = require(md5(code));
 
   return transpiled.code;
 };
 
-globalThis.umdTransform = globalThis.umdTransform = umdTransform;
+Object.assign(globalThis, {
+  toUmd: () => {
+    toUmd(mST().code, "app");
+  },
+  IIFE,
+  umdTransform,
+});
 
 export async function runner({ code, counter, codeSpace }: {
   code: string;

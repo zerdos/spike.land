@@ -401,7 +401,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     <>
                       <video
                         ref={videoRef}
-                        onClick={() => startVideo(videoRef?.current!)}
+                        onClick={
+                          () => {} // startVideo(videoRef?.current!)
+                        }
                         playsInline={true}
                         autoPlay={true}
                       >

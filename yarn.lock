@@ -952,6 +952,7 @@ __metadata:
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.24"
     "@types/react-dom": "npm:18.0.8"
+    "@types/uuid": "npm:^8.3.4"
     "@typescript-eslint/eslint-plugin": "npm:^5.41.0"
     "@typescript-eslint/parser": "npm:^5.41.0"
     "@typescript/ata": "npm:0.9.3"
@@ -991,7 +992,9 @@ __metadata:
     react-icons: "npm:4.6.0"
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
+    tslib: "npm:^2.4.0"
     typescript: "npm:4.8.4"
+    uuid: "npm:^9.0.0"
     uvu: "npm:0.5.6"
     webrtc-adapter: "npm:^8.2.0"
   peerDependencies:
@@ -1401,6 +1404,13 @@ __metadata:
   version: 1.0.0
   resolution: "@types/treeify@npm:1.0.0"
   checksum: 9a51bd33d129a578009e355039829a7d80a2100a881a5cda96befa0e7d59bdf0541728f07c3a2ddb26124c750792f6a9e8c1e12b202481c5196bed7b311a0a2d
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:^8.3.4":
+  version: 8.3.4
+  resolution: "@types/uuid@npm:8.3.4"
+  checksum: 42fa6d1868c459444c257fe418f624067aabfbe550ce97d9c124c5759a16f03bc475dc82086eefee807571608830b2f955e688c0e63e40aad5eb29b573471492
   languageName: node
   linkType: hard
 
@@ -6469,6 +6479,15 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 6a88ed8344d07f2324b304ee36def365d967953b5a9c15baa3213eb3909e86a7da1ee70a4c2133e80c23d6c1987590e9c3c57d874e20a124f9e41620b462fa57
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "uuid@npm:9.0.0"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: e1f76aff372e430bb129157360fd4cd3b393411b245604ea78e178a822ab7874ec2ebecec03ce94422b0b80bbd24733c6fa1df166c9cbad5086ef4b4843140bb
   languageName: node
   linkType: hard
 

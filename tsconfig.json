@@ -13,11 +13,12 @@
     "downlevelIteration": true,
     "strict": true,
     "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
-    "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects  all imports. Implies 'allowSyntheticDefaultImports'. */
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "composite": true,
-    "importHelpers": false,
+    "importHelpers": true,
+    "checkJs": false,
     "incremental": true,
     /* Advanced Options */
     "skipLibCheck": false, /* Skip type checking of declaration files. */

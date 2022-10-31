@@ -8,7 +8,6 @@ import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
 // import { setupTypeAcquisition } from "@typescript/ata";
 // import pMap from "p-map";
 
-import { Editor } from "Editor.js";
 import { getWorkerUrl } from "./monacoWorkers.mjs";
 // Import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
 // import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
@@ -815,7 +814,7 @@ export const startMonaco = async (
 
     model.onDidChangeContent((e) => {
       if (mod.silent) return;
-
+      e;
       onChange(model.getValue());
     });
 

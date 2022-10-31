@@ -4,7 +4,7 @@ Object.assign(globalThis, { umdTransform });
 // importShim.addImportMap(importmap);
 
 (async () => {
-  await import("./react-jsx-runtime.mjs");
+  const { ReactDOMClient } = await import("./react-jsx-runtime");
   const { hydrateRoot, createRoot } = ReactDOMClient;
 
   const codeSpace = location.pathname.slice(1).split("/")[1];
@@ -43,7 +43,7 @@ Object.assign(globalThis, { umdTransform });
         const root = createRoot(rootDiv);
 
         const current = i;
-        importShim(
+        importShim<() => JSX.Element, {}>(
           `${location.origin}/live/${codeSpace}/index.js/${i}`,
         ).then((mod) => i === current && root.render(mod.default())).then(
           () => document.querySelectorAll("#root>div>div")[0].replaceWith(rootDiv),
@@ -54,9 +54,9 @@ Object.assign(globalThis, { umdTransform });
         );
       }
     };
-    importShim(
+    importShim<() => JSX.Element, {}>(
       `${location.origin}/live/${codeSpace}/index.js/${i}`,
-    ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default()));
+    ).then(mod => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default()));
     // .then(() => {
     //   setTimeout(() => {
     //     const dry = true;
