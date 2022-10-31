@@ -991,7 +991,6 @@ __metadata:
     react-icons: "npm:4.6.0"
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
-    react-use-poll: "npm:^1.1.5"
     tslib: "npm:^2.4.1"
     typescript: "npm:4.8.4"
     uuid: "npm:^9.0.0"
@@ -1273,14 +1272,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 18.11.7
-  resolution: "@types/node@npm:18.11.7"
-  checksum: 1756caf0177b764ca8153e7a5d58a2f70466105f5cd64933b40f0f390a0f53167f87898ef6e9e1da4b5ceb00468fca457fe174abd87b3b5b5a0ccc8aba38787a
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.11.8":
+"@types/node@npm:*, @types/node@npm:^18.11.8":
   version: 18.11.8
   resolution: "@types/node@npm:18.11.8"
   checksum: 46527a04b97610751efcefffe33e4b1b8428855c9b95a4efd225299730409990631296cfc4a5d67ae32741274ab686dbf76cdf5eb201c9476833250bb9d9b60e
@@ -5565,15 +5557,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-use-poll@npm:^1.1.5":
-  version: 1.1.5
-  resolution: "react-use-poll@npm:1.1.5"
-  peerDependencies:
-    react: ^16.9.0
-  checksum: 0d6b2b0164612f25176aad18057e2371c43f2da77bd4a66964ca2d5a265d6d4c62af1492c1d5d9802597d50a17102a56d639e8fd5ca250c227c806476f475943
-  languageName: node
-  linkType: hard
-
 "react@npm:18.2.0, react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
@@ -6340,7 +6323,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.4.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
+"tslib@npm:2.4.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 022a70708abbc3491734959effd9a87e6e0af5932b61d0c9f1d07b8b80cabbbfc9fc9e9c0fe86e5ab2d32d766ae30117edf00b02d170ff255ab7e60361a4b711
@@ -6354,7 +6337,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.4.1":
+"tslib@npm:^2.3.1, tslib@npm:^2.4.0, tslib@npm:^2.4.1":
   version: 2.4.1
   resolution: "tslib@npm:2.4.1"
   checksum: a739a21e3ff059e62c7c3c0845333fbc9c081bcc91e015f2d246a31eeaf1fb0e29b10c0913c7d22f692b3203bb469fd60ca5288aa4f27d351a969df2d0714899

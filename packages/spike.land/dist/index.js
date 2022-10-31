@@ -6,8 +6,8 @@ var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __commonJS = (cb, mod) =>
   function __require() {
-    return mod ||
-      (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod),
+    return mod
+      || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod),
       mod.exports;
   };
 var __copyProps = (to, from, except, desc) => {
@@ -52,9 +52,9 @@ var require_Mime = __commonJS({
       this.getType = this.getType.bind(this);
       this.getExtension = this.getExtension.bind(this);
     }
-    Mime.prototype.define = function (typeMap, force) {
+    Mime.prototype.define = function(typeMap, force) {
       for (let type in typeMap) {
-        let extensions = typeMap[type].map(function (t) {
+        let extensions = typeMap[type].map(function(t) {
           return t.toLowerCase();
         });
         type = type.toLowerCase();
@@ -65,10 +65,10 @@ var require_Mime = __commonJS({
           }
           if (!force && ext in this._types) {
             throw new Error(
-              'Attempt to change mapping for "' + ext + '" extension from "' +
-                this._types[ext] + '" to "' + type +
-                '". Pass `force=true` to allow this, otherwise remove "' + ext +
-                '" from the list of extensions for "' + type + '".',
+              "Attempt to change mapping for \"" + ext + "\" extension from \""
+                + this._types[ext] + "\" to \"" + type
+                + "\". Pass `force=true` to allow this, otherwise remove \"" + ext
+                + "\" from the list of extensions for \"" + type + "\".",
             );
           }
           this._types[ext] = type;
@@ -79,7 +79,7 @@ var require_Mime = __commonJS({
         }
       }
     };
-    Mime.prototype.getType = function (path) {
+    Mime.prototype.getType = function(path) {
       path = String(path);
       let last3 = path.replace(/^.*[/\\]/, "").toLowerCase();
       let ext = last3.replace(/^.*\./, "").toLowerCase();
@@ -87,7 +87,7 @@ var require_Mime = __commonJS({
       let hasDot = ext.length < last3.length - 1;
       return (hasDot || !hasPath) && this._types[ext] || null;
     };
-    Mime.prototype.getExtension = function (type) {
+    Mime.prototype.getExtension = function(type) {
       type = /^\s*([^;\s]*)/.test(type) && RegExp.$1;
       return type && this._extensions[type.toLowerCase()] || null;
     };
@@ -705,13 +705,11 @@ var require_other = __commonJS({
       "application/vnd.openblox.game+xml": ["obgx"],
       "application/vnd.openofficeorg.extension": ["oxt"],
       "application/vnd.openstreetmap.data+xml": ["osm"],
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation":
-        ["pptx"],
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation": ["pptx"],
       "application/vnd.openxmlformats-officedocument.presentationml.slide": [
         "sldx",
       ],
-      "application/vnd.openxmlformats-officedocument.presentationml.slideshow":
-        ["ppsx"],
+      "application/vnd.openxmlformats-officedocument.presentationml.slideshow": ["ppsx"],
       "application/vnd.openxmlformats-officedocument.presentationml.template": [
         "potx",
       ],
@@ -721,10 +719,8 @@ var require_other = __commonJS({
       "application/vnd.openxmlformats-officedocument.spreadsheetml.template": [
         "xltx",
       ],
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-        ["docx"],
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.template":
-        ["dotx"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ["docx"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.template": ["dotx"],
       "application/vnd.osgeo.mapguide.package": ["mgp"],
       "application/vnd.osgi.dp": ["dp"],
       "application/vnd.osgi.subsystem": ["esa"],
@@ -1209,19 +1205,19 @@ var require_dist = __commonJS({
     var types_1 = require_types();
     Object.defineProperty(exports, "MethodNotAllowedError", {
       enumerable: true,
-      get: function () {
+      get: function() {
         return types_1.MethodNotAllowedError;
       },
     });
     Object.defineProperty(exports, "NotFoundError", {
       enumerable: true,
-      get: function () {
+      get: function() {
         return types_1.NotFoundError;
       },
     });
     Object.defineProperty(exports, "InternalError", {
       enumerable: true,
-      get: function () {
+      get: function() {
         return types_1.InternalError;
       },
     });
@@ -1230,8 +1226,7 @@ var require_dist = __commonJS({
       edgeTTL: 2 * 60 * 60 * 24,
       bypassCache: false,
     };
-    var parseStringAsObject = (maybeString) =>
-      typeof maybeString === "string" ? JSON.parse(maybeString) : maybeString;
+    var parseStringAsObject = (maybeString) => typeof maybeString === "string" ? JSON.parse(maybeString) : maybeString;
     var getAssetFromKVDefaultOptions = {
       ASSET_NAMESPACE: typeof __STATIC_CONTENT !== "undefined"
         ? __STATIC_CONTENT
@@ -1371,13 +1366,12 @@ var require_dist = __commonJS({
         evalCacheOpts,
       );
       if (
-        options.cacheControl.bypassCache ||
-        options.cacheControl.edgeTTL === null || request.method == "HEAD"
+        options.cacheControl.bypassCache
+        || options.cacheControl.edgeTTL === null || request.method == "HEAD"
       ) {
         shouldEdgeCache = false;
       }
-      const shouldSetBrowserCache =
-        typeof options.cacheControl.browserTTL === "number";
+      const shouldSetBrowserCache = typeof options.cacheControl.browserTTL === "number";
       let response = null;
       if (shouldEdgeCache) {
         response = await cache.match(cacheKey);
@@ -1509,13 +1503,11 @@ var package_default = {
     "build:orbit-db":
       "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
     "build:framer-motion":
-      'yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\"production\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs',
+      "yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs",
     prebuild: "yarn test || echo FAILED",
-    build:
-      "rm -rf dist js/monaco-workers && deno fmt . && yarn favicons && yarn es:build",
+    build: "rm -rf dist js/monaco-workers && deno fmt . && yarn favicons && yarn es:build",
     "es:build": "yarn test && node esbuild-dev.mjs",
-    favicons:
-      "cp -af js/assets/ ./dist && mkdir -p  ./dist/assets && cp js/assets/synthwave.webp   ./dist/assets/",
+    favicons: "cp -af js/assets/ ./dist && mkdir -p  ./dist/assets && cp js/assets/synthwave.webp   ./dist/assets/",
     sw: "echo ok",
   },
   keywords: [
@@ -1666,8 +1658,8 @@ var chat_default = {
       const accept = request.headers.get("accept");
       const serveJs = !(accept && accept.includes("html"));
       if (
-        serveJs && u.pathname.endsWith(".tsx") &&
-        !u.pathname.endsWith("index.tsx")
+        serveJs && u.pathname.endsWith(".tsx")
+        && !u.pathname.endsWith("index.tsx")
       ) {
         url = new URL(request.url.replace(".tsx", "/index.tsx"));
       }
@@ -1706,8 +1698,8 @@ var chat_default = {
           if (
             path2[0].startsWith("npm:") || path2[0].startsWith("node_modules/")
           ) {
-            const isJs = u.toString().includes(".js") ||
-              u.toString().includes(".mjs");
+            const isJs = u.toString().includes(".js")
+              || u.toString().includes(".mjs");
             const packageName = u.toString().replace(
               u.origin + "/npm:",
               "",
@@ -1716,9 +1708,7 @@ var chat_default = {
               "",
             );
             const searchParams = isJs
-              ? `?bundle&external=${
-                esbuildExternal.filter((p) => p !== packageName).join(",")
-              } `
+              ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} `
               : "";
             const esmUrl = "https://esm.sh/" + packageName + searchParams;
             let resp = await fetch(esmUrl, { ...request2, url: esmUrl });
@@ -1750,11 +1740,11 @@ var chat_default = {
               isText
                 ? bodyStr.replaceAll(regex, u.origin + "/npm:/").replaceAll(
                   regex2,
-                  ' from "/npm:/',
-                ).replaceAll(regex3, 'import "/npm:/').replaceAll(
+                  " from \"/npm:/",
+                ).replaceAll(regex3, "import \"/npm:/").replaceAll(
                   regex4,
-                  ' from "/npm:/',
-                ).replaceAll(regex5, 'import "/npm:/')
+                  " from \"/npm:/",
+                ).replaceAll(regex5, "import \"/npm:/")
                 : await resp.blob(),
               {
                 status: 200,
@@ -1800,10 +1790,11 @@ var chat_default = {
             const responseToCache = new Response(
               `
               // ${request2.url}
-              ` + bodyStr
+              `
+                + bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/unpkg:").replaceAll(
                   regex2,
-                  ' from "/unpkg:',
+                  " from \"/unpkg:",
                 )
                 : await resp.blob(),
               {
@@ -1853,9 +1844,10 @@ var chat_default = {
             const responseToCache = new Response(
               `
               // ${request2.url}
-              ` + bodyStr
+              `
+                + bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
-                  .replaceAll(regex2, ' from "/node_modules/')
+                  .replaceAll(regex2, " from \"/node_modules/")
                 : await resp.blob(),
               {
                 status: 200,
@@ -2371,8 +2363,8 @@ var __esm = (fn, res) =>
   };
 var __commonJS2 = (cb, mod) =>
   function __require() {
-    return mod ||
-      (0, cb[__getOwnPropNames2(cb)[0]])((mod = { exports: {} }).exports, mod),
+    return mod
+      || (0, cb[__getOwnPropNames2(cb)[0]])((mod = { exports: {} }).exports, mod),
       mod.exports;
   };
 var __copyProps2 = (to, from, except, desc) => {
@@ -2429,16 +2421,16 @@ var require_lodash = __commonJS2({
     var reIsBinary = /^0b[01]+$/i;
     var reIsOctal = /^0o[0-7]+$/i;
     var freeParseInt = parseInt;
-    var freeGlobal = typeof globalThis == "object" && globalThis &&
-      globalThis.Object === Object && globalThis;
-    var freeSelf = typeof self == "object" && self && self.Object === Object &&
-      self;
+    var freeGlobal = typeof globalThis == "object" && globalThis
+      && globalThis.Object === Object && globalThis;
+    var freeSelf = typeof self == "object" && self && self.Object === Object
+      && self;
     var root = freeGlobal || freeSelf || Function("return this")();
     var objectProto = Object.prototype;
     var objectToString = objectProto.toString;
     var nativeMax = Math.max;
     var nativeMin = Math.min;
-    var now = function () {
+    var now = function() {
       return root.Date.now();
     };
     function debounce2(func, wait, options) {
@@ -2487,8 +2479,8 @@ var require_lodash = __commonJS2({
       function shouldInvoke(time) {
         var timeSinceLastCall = time - lastCallTime,
           timeSinceLastInvoke = time - lastInvokeTime;
-        return lastCallTime === void 0 || timeSinceLastCall >= wait ||
-          timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+        return lastCallTime === void 0 || timeSinceLastCall >= wait
+          || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
       }
       function timerExpired() {
         var time = now();
@@ -2550,8 +2542,8 @@ var require_lodash = __commonJS2({
       return !!value && typeof value == "object";
     }
     function isSymbol(value) {
-      return typeof value == "symbol" ||
-        isObjectLike(value) && objectToString.call(value) == symbolTag;
+      return typeof value == "symbol"
+        || isObjectLike(value) && objectToString.call(value) == symbolTag;
     }
     function toNumber(value) {
       if (typeof value == "number") {
@@ -2689,8 +2681,8 @@ var require_diff = __commonJS2({
           }
           var y1 = x1 - k1;
           while (
-            x1 < text1_length && y1 < text2_length &&
-            text1.charAt(x1) === text2.charAt(y1)
+            x1 < text1_length && y1 < text2_length
+            && text1.charAt(x1) === text2.charAt(y1)
           ) {
             x1++;
             y1++;
@@ -2722,9 +2714,9 @@ var require_diff = __commonJS2({
           }
           var y2 = x2 - k2;
           while (
-            x2 < text1_length && y2 < text2_length &&
-            text1.charAt(text1_length - x2 - 1) ===
-              text2.charAt(text2_length - y2 - 1)
+            x2 < text1_length && y2 < text2_length
+            && text1.charAt(text1_length - x2 - 1)
+              === text2.charAt(text2_length - y2 - 1)
           ) {
             x2++;
             y2++;
@@ -2770,8 +2762,8 @@ var require_diff = __commonJS2({
       var pointerstart = 0;
       while (pointermin < pointermid) {
         if (
-          text1.substring(pointerstart, pointermid) ==
-            text2.substring(pointerstart, pointermid)
+          text1.substring(pointerstart, pointermid)
+            == text2.substring(pointerstart, pointermid)
         ) {
           pointermin = pointermid;
           pointerstart = pointermin;
@@ -2798,8 +2790,8 @@ var require_diff = __commonJS2({
           text1.substring(
             text1.length - pointermid,
             text1.length - pointerend,
-          ) ==
-            text2.substring(
+          )
+            == text2.substring(
               text2.length - pointermid,
               text2.length - pointerend,
             )
@@ -2925,8 +2917,8 @@ var require_diff = __commonJS2({
             var previous_equality = pointer - count_insert - count_delete - 1;
             if (fix_unicode) {
               if (
-                previous_equality >= 0 &&
-                ends_with_pair_start(diffs[previous_equality][1])
+                previous_equality >= 0
+                && ends_with_pair_start(diffs[previous_equality][1])
               ) {
                 var stray = diffs[previous_equality][1].slice(-1);
                 diffs[previous_equality][1] = diffs[previous_equality][1].slice(
@@ -2984,9 +2976,8 @@ var require_diff = __commonJS2({
                 }
                 commonlength = diff_commonSuffix(text_insert, text_delete);
                 if (commonlength !== 0) {
-                  diffs[pointer][1] =
-                    text_insert.substring(text_insert.length - commonlength) +
-                    diffs[pointer][1];
+                  diffs[pointer][1] = text_insert.substring(text_insert.length - commonlength)
+                    + diffs[pointer][1];
                   text_insert = text_insert.substring(
                     0,
                     text_insert.length - commonlength,
@@ -3035,31 +3026,30 @@ var require_diff = __commonJS2({
       pointer = 1;
       while (pointer < diffs.length - 1) {
         if (
-          diffs[pointer - 1][0] === DIFF_EQUAL &&
-          diffs[pointer + 1][0] === DIFF_EQUAL
+          diffs[pointer - 1][0] === DIFF_EQUAL
+          && diffs[pointer + 1][0] === DIFF_EQUAL
         ) {
           if (
             diffs[pointer][1].substring(
               diffs[pointer][1].length - diffs[pointer - 1][1].length,
             ) === diffs[pointer - 1][1]
           ) {
-            diffs[pointer][1] = diffs[pointer - 1][1] +
-              diffs[pointer][1].substring(
+            diffs[pointer][1] = diffs[pointer - 1][1]
+              + diffs[pointer][1].substring(
                 0,
                 diffs[pointer][1].length - diffs[pointer - 1][1].length,
               );
-            diffs[pointer + 1][1] = diffs[pointer - 1][1] +
-              diffs[pointer + 1][1];
+            diffs[pointer + 1][1] = diffs[pointer - 1][1]
+              + diffs[pointer + 1][1];
             diffs.splice(pointer - 1, 1);
             changes = true;
           } else if (
-            diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) ==
-              diffs[pointer + 1][1]
+            diffs[pointer][1].substring(0, diffs[pointer + 1][1].length)
+              == diffs[pointer + 1][1]
           ) {
             diffs[pointer - 1][1] += diffs[pointer + 1][1];
-            diffs[pointer][1] =
-              diffs[pointer][1].substring(diffs[pointer + 1][1].length) +
-              diffs[pointer + 1][1];
+            diffs[pointer][1] = diffs[pointer][1].substring(diffs[pointer + 1][1].length)
+              + diffs[pointer + 1][1];
             diffs.splice(pointer + 1, 1);
             changes = true;
           }
@@ -3229,8 +3219,8 @@ function returnTrue() {
   return true;
 }
 function wholeSlice(begin, end, size) {
-  return (begin === 0 && !isNeg(begin) || size !== void 0 && begin <= -size) &&
-    (end === void 0 || size !== void 0 && end >= size);
+  return (begin === 0 && !isNeg(begin) || size !== void 0 && begin <= -size)
+    && (end === void 0 || size !== void 0 && end >= size);
 }
 function resolveBegin(begin, size) {
   return resolveIndex(begin, size, 0);
@@ -3268,7 +3258,7 @@ function isAssociative(maybeAssociative) {
 var Collection = function Collection2(value) {
   return isCollection(value) ? value : Seq(value);
 };
-var KeyedCollection = function (Collection3) {
+var KeyedCollection = function(Collection3) {
   function KeyedCollection2(value) {
     return isKeyed(value) ? value : KeyedSeq(value);
   }
@@ -3281,7 +3271,7 @@ var KeyedCollection = function (Collection3) {
   KeyedCollection2.prototype.constructor = KeyedCollection2;
   return KeyedCollection2;
 }(Collection);
-var IndexedCollection = function (Collection3) {
+var IndexedCollection = function(Collection3) {
   function IndexedCollection2(value) {
     return isIndexed(value) ? value : IndexedSeq(value);
   }
@@ -3294,7 +3284,7 @@ var IndexedCollection = function (Collection3) {
   IndexedCollection2.prototype.constructor = IndexedCollection2;
   return IndexedCollection2;
 }(Collection);
-var SetCollection = function (Collection3) {
+var SetCollection = function(Collection3) {
   function SetCollection2(value) {
     return isCollection(value) && !isAssociative(value) ? value : SetSeq(value);
   }
@@ -3340,10 +3330,10 @@ Iterator.prototype.toString = function toString() {
 Iterator.KEYS = ITERATE_KEYS;
 Iterator.VALUES = ITERATE_VALUES;
 Iterator.ENTRIES = ITERATE_ENTRIES;
-Iterator.prototype.inspect = Iterator.prototype.toSource = function () {
+Iterator.prototype.inspect = Iterator.prototype.toSource = function() {
   return this.toString();
 };
-Iterator.prototype[ITERATOR_SYMBOL] = function () {
+Iterator.prototype[ITERATOR_SYMBOL] = function() {
   return this;
 };
 function iteratorValue(type, k, v, iteratorResult) {
@@ -3371,9 +3361,9 @@ function getIterator(iterable) {
   return iteratorFn && iteratorFn.call(iterable);
 }
 function getIteratorFn(iterable) {
-  var iteratorFn = iterable &&
-    (REAL_ITERATOR_SYMBOL && iterable[REAL_ITERATOR_SYMBOL] ||
-      iterable[FAUX_ITERATOR_SYMBOL]);
+  var iteratorFn = iterable
+    && (REAL_ITERATOR_SYMBOL && iterable[REAL_ITERATOR_SYMBOL]
+      || iterable[FAUX_ITERATOR_SYMBOL]);
   if (typeof iteratorFn === "function") {
     return iteratorFn;
   }
@@ -3391,13 +3381,13 @@ function isArrayLike(value) {
   if (Array.isArray(value) || typeof value === "string") {
     return true;
   }
-  return value && typeof value === "object" && Number.isInteger(value.length) &&
-    value.length >= 0 &&
-    (value.length === 0
+  return value && typeof value === "object" && Number.isInteger(value.length)
+    && value.length >= 0
+    && (value.length === 0
       ? Object.keys(value).length === 1
       : value.hasOwnProperty(value.length - 1));
 }
-var Seq = function (Collection3) {
+var Seq = function(Collection3) {
   function Seq2(value) {
     return value === void 0 || value === null
       ? emptySequence()
@@ -3443,7 +3433,7 @@ var Seq = function (Collection3) {
     if (cache) {
       var size = cache.length;
       var i = 0;
-      return new Iterator(function () {
+      return new Iterator(function() {
         if (i === size) {
           return iteratorDone();
         }
@@ -3455,7 +3445,7 @@ var Seq = function (Collection3) {
   };
   return Seq2;
 }(Collection);
-var KeyedSeq = function (Seq2) {
+var KeyedSeq = function(Seq2) {
   function KeyedSeq2(value) {
     return value === void 0 || value === null
       ? emptySequence().toKeyedSeq()
@@ -3475,7 +3465,7 @@ var KeyedSeq = function (Seq2) {
   };
   return KeyedSeq2;
 }(Seq);
-var IndexedSeq = function (Seq2) {
+var IndexedSeq = function(Seq2) {
   function IndexedSeq2(value) {
     return value === void 0 || value === null
       ? emptySequence()
@@ -3501,7 +3491,7 @@ var IndexedSeq = function (Seq2) {
   };
   return IndexedSeq2;
 }(Seq);
-var SetSeq = function (Seq2) {
+var SetSeq = function(Seq2) {
   function SetSeq2(value) {
     return (isCollection(value) && !isAssociative(value)
       ? value
@@ -3525,7 +3515,7 @@ Seq.Keyed = KeyedSeq;
 Seq.Set = SetSeq;
 Seq.Indexed = IndexedSeq;
 Seq.prototype[IS_SEQ_SYMBOL] = true;
-var ArraySeq = function (IndexedSeq2) {
+var ArraySeq = function(IndexedSeq2) {
   function ArraySeq2(array) {
     this._array = array;
     this.size = array.length;
@@ -3554,7 +3544,7 @@ var ArraySeq = function (IndexedSeq2) {
     var array = this._array;
     var size = array.length;
     var i = 0;
-    return new Iterator(function () {
+    return new Iterator(function() {
       if (i === size) {
         return iteratorDone();
       }
@@ -3564,7 +3554,7 @@ var ArraySeq = function (IndexedSeq2) {
   };
   return ArraySeq2;
 }(IndexedSeq);
-var ObjectSeq = function (KeyedSeq2) {
+var ObjectSeq = function(KeyedSeq2) {
   function ObjectSeq2(object) {
     var keys2 = Object.keys(object).concat(
       Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : [],
@@ -3605,7 +3595,7 @@ var ObjectSeq = function (KeyedSeq2) {
     var keys2 = this._keys;
     var size = keys2.length;
     var i = 0;
-    return new Iterator(function () {
+    return new Iterator(function() {
       if (i === size) {
         return iteratorDone();
       }
@@ -3616,7 +3606,7 @@ var ObjectSeq = function (KeyedSeq2) {
   return ObjectSeq2;
 }(KeyedSeq);
 ObjectSeq.prototype[IS_ORDERED_SYMBOL] = true;
-var CollectionSeq = function (IndexedSeq2) {
+var CollectionSeq = function(IndexedSeq2) {
   function CollectionSeq2(collection) {
     this._collection = collection;
     this.size = collection.length || collection.size;
@@ -3661,7 +3651,7 @@ var CollectionSeq = function (IndexedSeq2) {
       return new Iterator(iteratorDone);
     }
     var iterations = 0;
-    return new Iterator(function () {
+    return new Iterator(function() {
       var step = iterator.next();
       return step.done ? step : iteratorValue(type, iterations++, step.value);
     });
@@ -3681,8 +3671,8 @@ function keyedSeqFromValue(value) {
     return new ObjectSeq(value);
   }
   throw new TypeError(
-    "Expected Array or collection object of [k, v] entries, or keyed object: " +
-      value,
+    "Expected Array or collection object of [k, v] entries, or keyed object: "
+      + value,
   );
 }
 function indexedSeqFromValue(value) {
@@ -3726,8 +3716,8 @@ function isOrderedMap(maybeOrderedMap) {
 }
 function isValueObject(maybeValue) {
   return Boolean(
-    maybeValue && typeof maybeValue.equals === "function" &&
-      typeof maybeValue.hashCode === "function",
+    maybeValue && typeof maybeValue.equals === "function"
+      && typeof maybeValue.hashCode === "function",
   );
 }
 function is(valueA, valueB) {
@@ -3749,8 +3739,8 @@ function is(valueA, valueB) {
       return false;
     }
   }
-  return !!(isValueObject(valueA) && isValueObject(valueB) &&
-    valueA.equals(valueB));
+  return !!(isValueObject(valueA) && isValueObject(valueB)
+    && valueA.equals(valueB));
 }
 var imul = typeof Math.imul === "function" && Math.imul(4294967295, 2) === -2
   ? Math.imul
@@ -3878,10 +3868,10 @@ function hashJSObj(obj) {
       value: hashed,
     });
   } else if (
-    obj.propertyIsEnumerable !== void 0 &&
-    obj.propertyIsEnumerable === obj.constructor.prototype.propertyIsEnumerable
+    obj.propertyIsEnumerable !== void 0
+    && obj.propertyIsEnumerable === obj.constructor.prototype.propertyIsEnumerable
   ) {
-    obj.propertyIsEnumerable = function () {
+    obj.propertyIsEnumerable = function() {
       return this.constructor.prototype.propertyIsEnumerable.apply(
         this,
         arguments,
@@ -3896,7 +3886,7 @@ function hashJSObj(obj) {
   return hashed;
 }
 var isExtensible = Object.isExtensible;
-var canDefineProperty = function () {
+var canDefineProperty = function() {
   try {
     Object.defineProperty({}, "@", {});
     return true;
@@ -3941,7 +3931,7 @@ var STRING_HASH_CACHE_MIN_STRLEN = 16;
 var STRING_HASH_CACHE_MAX_SIZE = 255;
 var STRING_HASH_CACHE_SIZE = 0;
 var stringHashCache = {};
-var ToKeyedSequence = function (KeyedSeq2) {
+var ToKeyedSequence = function(KeyedSeq2) {
   function ToKeyedSequence2(indexed, useKeys) {
     this._iter = indexed;
     this._useKeys = useKeys;
@@ -3965,7 +3955,7 @@ var ToKeyedSequence = function (KeyedSeq2) {
     var this$1$1 = this;
     var reversedSequence = reverseFactory(this, true);
     if (!this._useKeys) {
-      reversedSequence.valueSeq = function () {
+      reversedSequence.valueSeq = function() {
         return this$1$1._iter.toSeq().reverse();
       };
     }
@@ -3975,7 +3965,7 @@ var ToKeyedSequence = function (KeyedSeq2) {
     var this$1$1 = this;
     var mappedSequence = mapFactory(this, mapper, context);
     if (!this._useKeys) {
-      mappedSequence.valueSeq = function () {
+      mappedSequence.valueSeq = function() {
         return this$1$1._iter.toSeq().map(mapper, context);
       };
     }
@@ -3983,7 +3973,7 @@ var ToKeyedSequence = function (KeyedSeq2) {
   };
   ToKeyedSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
     var this$1$1 = this;
-    return this._iter.__iterate(function (v, k) {
+    return this._iter.__iterate(function(v, k) {
       return fn(v, k, this$1$1);
     }, reverse3);
   };
@@ -3993,7 +3983,7 @@ var ToKeyedSequence = function (KeyedSeq2) {
   return ToKeyedSequence2;
 }(KeyedSeq);
 ToKeyedSequence.prototype[IS_ORDERED_SYMBOL] = true;
-var ToIndexedSequence = function (IndexedSeq2) {
+var ToIndexedSequence = function(IndexedSeq2) {
   function ToIndexedSequence2(iter) {
     this._iter = iter;
     this.size = iter.size;
@@ -4013,7 +4003,7 @@ var ToIndexedSequence = function (IndexedSeq2) {
     var i = 0;
     reverse3 && ensureSize(this);
     return this._iter.__iterate(
-      function (v) {
+      function(v) {
         return fn(v, reverse3 ? this$1$1.size - ++i : i++, this$1$1);
       },
       reverse3,
@@ -4027,7 +4017,7 @@ var ToIndexedSequence = function (IndexedSeq2) {
     var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
     var i = 0;
     reverse3 && ensureSize(this);
-    return new Iterator(function () {
+    return new Iterator(function() {
       var step = iterator.next();
       return step.done ? step : iteratorValue(
         type,
@@ -4039,7 +4029,7 @@ var ToIndexedSequence = function (IndexedSeq2) {
   };
   return ToIndexedSequence2;
 }(IndexedSeq);
-var ToSetSequence = function (SetSeq2) {
+var ToSetSequence = function(SetSeq2) {
   function ToSetSequence2(iter) {
     this._iter = iter;
     this.size = iter.size;
@@ -4054,13 +4044,13 @@ var ToSetSequence = function (SetSeq2) {
   };
   ToSetSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
     var this$1$1 = this;
-    return this._iter.__iterate(function (v) {
+    return this._iter.__iterate(function(v) {
       return fn(v, v, this$1$1);
     }, reverse3);
   };
   ToSetSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
     var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
-    return new Iterator(function () {
+    return new Iterator(function() {
       var step = iterator.next();
       return step.done
         ? step
@@ -4069,7 +4059,7 @@ var ToSetSequence = function (SetSeq2) {
   };
   return ToSetSequence2;
 }(SetSeq);
-var FromEntriesSequence = function (KeyedSeq2) {
+var FromEntriesSequence = function(KeyedSeq2) {
   function FromEntriesSequence2(entries3) {
     this._iter = entries3;
     this.size = entries3.size;
@@ -4086,7 +4076,7 @@ var FromEntriesSequence = function (KeyedSeq2) {
   };
   FromEntriesSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
     var this$1$1 = this;
-    return this._iter.__iterate(function (entry) {
+    return this._iter.__iterate(function(entry) {
       if (entry) {
         validateEntry(entry);
         var indexedCollection = isCollection(entry);
@@ -4103,7 +4093,7 @@ var FromEntriesSequence = function (KeyedSeq2) {
     reverse3,
   ) {
     var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
-    return new Iterator(function () {
+    return new Iterator(function() {
       while (true) {
         var step = iterator.next();
         if (step.done) {
@@ -4134,33 +4124,33 @@ function flipFactory(collection) {
   var flipSequence = makeSequence(collection);
   flipSequence._iter = collection;
   flipSequence.size = collection.size;
-  flipSequence.flip = function () {
+  flipSequence.flip = function() {
     return collection;
   };
-  flipSequence.reverse = function () {
+  flipSequence.reverse = function() {
     var reversedSequence = collection.reverse.apply(this);
-    reversedSequence.flip = function () {
+    reversedSequence.flip = function() {
       return collection.reverse();
     };
     return reversedSequence;
   };
-  flipSequence.has = function (key) {
+  flipSequence.has = function(key) {
     return collection.includes(key);
   };
-  flipSequence.includes = function (key) {
+  flipSequence.includes = function(key) {
     return collection.has(key);
   };
   flipSequence.cacheResult = cacheResultThrough;
-  flipSequence.__iterateUncached = function (fn, reverse3) {
+  flipSequence.__iterateUncached = function(fn, reverse3) {
     var this$1$1 = this;
-    return collection.__iterate(function (v, k) {
+    return collection.__iterate(function(v, k) {
       return fn(k, v, this$1$1) !== false;
     }, reverse3);
   };
-  flipSequence.__iteratorUncached = function (type, reverse3) {
+  flipSequence.__iteratorUncached = function(type, reverse3) {
     if (type === ITERATE_ENTRIES) {
       var iterator = collection.__iterator(type, reverse3);
-      return new Iterator(function () {
+      return new Iterator(function() {
         var step = iterator.next();
         if (!step.done) {
           var k = step.value[0];
@@ -4180,27 +4170,27 @@ function flipFactory(collection) {
 function mapFactory(collection, mapper, context) {
   var mappedSequence = makeSequence(collection);
   mappedSequence.size = collection.size;
-  mappedSequence.has = function (key) {
+  mappedSequence.has = function(key) {
     return collection.has(key);
   };
-  mappedSequence.get = function (key, notSetValue) {
+  mappedSequence.get = function(key, notSetValue) {
     var v = collection.get(key, NOT_SET);
     return v === NOT_SET
       ? notSetValue
       : mapper.call(context, v, key, collection);
   };
-  mappedSequence.__iterateUncached = function (fn, reverse3) {
+  mappedSequence.__iterateUncached = function(fn, reverse3) {
     var this$1$1 = this;
     return collection.__iterate(
-      function (v, k, c) {
+      function(v, k, c) {
         return fn(mapper.call(context, v, k, c), k, this$1$1) !== false;
       },
       reverse3,
     );
   };
-  mappedSequence.__iteratorUncached = function (type, reverse3) {
+  mappedSequence.__iteratorUncached = function(type, reverse3) {
     var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
-    return new Iterator(function () {
+    return new Iterator(function() {
       var step = iterator.next();
       if (step.done) {
         return step;
@@ -4222,34 +4212,34 @@ function reverseFactory(collection, useKeys) {
   var reversedSequence = makeSequence(collection);
   reversedSequence._iter = collection;
   reversedSequence.size = collection.size;
-  reversedSequence.reverse = function () {
+  reversedSequence.reverse = function() {
     return collection;
   };
   if (collection.flip) {
-    reversedSequence.flip = function () {
+    reversedSequence.flip = function() {
       var flipSequence = flipFactory(collection);
-      flipSequence.reverse = function () {
+      flipSequence.reverse = function() {
         return collection.flip();
       };
       return flipSequence;
     };
   }
-  reversedSequence.get = function (key, notSetValue) {
+  reversedSequence.get = function(key, notSetValue) {
     return collection.get(useKeys ? key : -1 - key, notSetValue);
   };
-  reversedSequence.has = function (key) {
+  reversedSequence.has = function(key) {
     return collection.has(useKeys ? key : -1 - key);
   };
-  reversedSequence.includes = function (value) {
+  reversedSequence.includes = function(value) {
     return collection.includes(value);
   };
   reversedSequence.cacheResult = cacheResultThrough;
-  reversedSequence.__iterate = function (fn, reverse3) {
+  reversedSequence.__iterate = function(fn, reverse3) {
     var this$1$12 = this;
     var i = 0;
     reverse3 && ensureSize(collection);
     return collection.__iterate(
-      function (v, k) {
+      function(v, k) {
         return fn(
           v,
           useKeys ? k : reverse3 ? this$1$12.size - ++i : i++,
@@ -4259,11 +4249,11 @@ function reverseFactory(collection, useKeys) {
       !reverse3,
     );
   };
-  reversedSequence.__iterator = function (type, reverse3) {
+  reversedSequence.__iterator = function(type, reverse3) {
     var i = 0;
     reverse3 && ensureSize(collection);
     var iterator = collection.__iterator(ITERATE_ENTRIES, !reverse3);
-    return new Iterator(function () {
+    return new Iterator(function() {
       var step = iterator.next();
       if (step.done) {
         return step;
@@ -4282,21 +4272,21 @@ function reverseFactory(collection, useKeys) {
 function filterFactory(collection, predicate, context, useKeys) {
   var filterSequence = makeSequence(collection);
   if (useKeys) {
-    filterSequence.has = function (key) {
+    filterSequence.has = function(key) {
       var v = collection.get(key, NOT_SET);
       return v !== NOT_SET && !!predicate.call(context, v, key, collection);
     };
-    filterSequence.get = function (key, notSetValue) {
+    filterSequence.get = function(key, notSetValue) {
       var v = collection.get(key, NOT_SET);
       return v !== NOT_SET && predicate.call(context, v, key, collection)
         ? v
         : notSetValue;
     };
   }
-  filterSequence.__iterateUncached = function (fn, reverse3) {
+  filterSequence.__iterateUncached = function(fn, reverse3) {
     var this$1$1 = this;
     var iterations = 0;
-    collection.__iterate(function (v, k, c) {
+    collection.__iterate(function(v, k, c) {
       if (predicate.call(context, v, k, c)) {
         iterations++;
         return fn(v, useKeys ? k : iterations - 1, this$1$1);
@@ -4304,10 +4294,10 @@ function filterFactory(collection, predicate, context, useKeys) {
     }, reverse3);
     return iterations;
   };
-  filterSequence.__iteratorUncached = function (type, reverse3) {
+  filterSequence.__iteratorUncached = function(type, reverse3) {
     var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
     var iterations = 0;
-    return new Iterator(function () {
+    return new Iterator(function() {
       while (true) {
         var step = iterator.next();
         if (step.done) {
@@ -4326,8 +4316,8 @@ function filterFactory(collection, predicate, context, useKeys) {
 }
 function countByFactory(collection, grouper, context) {
   var groups = Map().asMutable();
-  collection.__iterate(function (v, k) {
-    groups.update(grouper.call(context, v, k, collection), 0, function (a3) {
+  collection.__iterate(function(v, k) {
+    groups.update(grouper.call(context, v, k, collection), 0, function(a3) {
       return a3 + 1;
     });
   });
@@ -4336,16 +4326,16 @@ function countByFactory(collection, grouper, context) {
 function groupByFactory(collection, grouper, context) {
   var isKeyedIter = isKeyed(collection);
   var groups = (isOrdered(collection) ? OrderedMap() : Map()).asMutable();
-  collection.__iterate(function (v, k) {
+  collection.__iterate(function(v, k) {
     groups.update(
       grouper.call(context, v, k, collection),
-      function (a3) {
+      function(a3) {
         return a3 = a3 || [], a3.push(isKeyedIter ? [k, v] : v), a3;
       },
     );
   });
   var coerce = collectionClass(collection);
-  return groups.map(function (arr) {
+  return groups.map(function(arr) {
     return reify(collection, coerce(arr));
   }).asImmutable();
 }
@@ -4369,14 +4359,14 @@ function sliceFactory(collection, begin, end, useKeys) {
     ? sliceSize
     : collection.size && sliceSize || void 0;
   if (!useKeys && isSeq(collection) && sliceSize >= 0) {
-    sliceSeq.get = function (index, notSetValue) {
+    sliceSeq.get = function(index, notSetValue) {
       index = wrapIndex(this, index);
       return index >= 0 && index < sliceSize
         ? collection.get(index + resolvedBegin, notSetValue)
         : notSetValue;
     };
   }
-  sliceSeq.__iterateUncached = function (fn, reverse3) {
+  sliceSeq.__iterateUncached = function(fn, reverse3) {
     var this$1$1 = this;
     if (sliceSize === 0) {
       return 0;
@@ -4387,16 +4377,16 @@ function sliceFactory(collection, begin, end, useKeys) {
     var skipped = 0;
     var isSkipping = true;
     var iterations = 0;
-    collection.__iterate(function (v, k) {
+    collection.__iterate(function(v, k) {
       if (!(isSkipping && (isSkipping = skipped++ < resolvedBegin))) {
         iterations++;
-        return fn(v, useKeys ? k : iterations - 1, this$1$1) !== false &&
-          iterations !== sliceSize;
+        return fn(v, useKeys ? k : iterations - 1, this$1$1) !== false
+          && iterations !== sliceSize;
       }
     });
     return iterations;
   };
-  sliceSeq.__iteratorUncached = function (type, reverse3) {
+  sliceSeq.__iteratorUncached = function(type, reverse3) {
     if (sliceSize !== 0 && reverse3) {
       return this.cacheResult().__iterator(type, reverse3);
     }
@@ -4406,7 +4396,7 @@ function sliceFactory(collection, begin, end, useKeys) {
     var iterator = collection.__iterator(type, reverse3);
     var skipped = 0;
     var iterations = 0;
-    return new Iterator(function () {
+    return new Iterator(function() {
       while (skipped++ < resolvedBegin) {
         iterator.next();
       }
@@ -4427,28 +4417,28 @@ function sliceFactory(collection, begin, end, useKeys) {
 }
 function takeWhileFactory(collection, predicate, context) {
   var takeSequence = makeSequence(collection);
-  takeSequence.__iterateUncached = function (fn, reverse3) {
+  takeSequence.__iterateUncached = function(fn, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
       return this.cacheResult().__iterate(fn, reverse3);
     }
     var iterations = 0;
     collection.__iterate(
-      function (v, k, c) {
-        return predicate.call(context, v, k, c) && ++iterations &&
-          fn(v, k, this$1$1);
+      function(v, k, c) {
+        return predicate.call(context, v, k, c) && ++iterations
+          && fn(v, k, this$1$1);
       },
     );
     return iterations;
   };
-  takeSequence.__iteratorUncached = function (type, reverse3) {
+  takeSequence.__iteratorUncached = function(type, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
       return this.cacheResult().__iterator(type, reverse3);
     }
     var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
     var iterating = true;
-    return new Iterator(function () {
+    return new Iterator(function() {
       if (!iterating) {
         return iteratorDone();
       }
@@ -4470,14 +4460,14 @@ function takeWhileFactory(collection, predicate, context) {
 }
 function skipWhileFactory(collection, predicate, context, useKeys) {
   var skipSequence = makeSequence(collection);
-  skipSequence.__iterateUncached = function (fn, reverse3) {
+  skipSequence.__iterateUncached = function(fn, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
       return this.cacheResult().__iterate(fn, reverse3);
     }
     var isSkipping = true;
     var iterations = 0;
-    collection.__iterate(function (v, k, c) {
+    collection.__iterate(function(v, k, c) {
       if (!(isSkipping && (isSkipping = predicate.call(context, v, k, c)))) {
         iterations++;
         return fn(v, useKeys ? k : iterations - 1, this$1$1);
@@ -4485,7 +4475,7 @@ function skipWhileFactory(collection, predicate, context, useKeys) {
     });
     return iterations;
   };
-  skipSequence.__iteratorUncached = function (type, reverse3) {
+  skipSequence.__iteratorUncached = function(type, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
       return this.cacheResult().__iterator(type, reverse3);
@@ -4493,7 +4483,7 @@ function skipWhileFactory(collection, predicate, context, useKeys) {
     var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
     var skipping = true;
     var iterations = 0;
-    return new Iterator(function () {
+    return new Iterator(function() {
       var step;
       var k;
       var v;
@@ -4520,7 +4510,7 @@ function skipWhileFactory(collection, predicate, context, useKeys) {
 }
 function concatFactory(collection, values2) {
   var isKeyedCollection = isKeyed(collection);
-  var iters = [collection].concat(values2).map(function (v) {
+  var iters = [collection].concat(values2).map(function(v) {
     if (!isCollection(v)) {
       v = isKeyedCollection
         ? keyedSeqFromValue(v)
@@ -4529,7 +4519,7 @@ function concatFactory(collection, values2) {
       v = KeyedCollection(v);
     }
     return v;
-  }).filter(function (v) {
+  }).filter(function(v) {
     return v.size !== 0;
   });
   if (iters.length === 0) {
@@ -4538,8 +4528,8 @@ function concatFactory(collection, values2) {
   if (iters.length === 1) {
     var singleton = iters[0];
     if (
-      singleton === collection || isKeyedCollection && isKeyed(singleton) ||
-      isIndexed(collection) && isIndexed(singleton)
+      singleton === collection || isKeyedCollection && isKeyed(singleton)
+      || isIndexed(collection) && isIndexed(singleton)
     ) {
       return singleton;
     }
@@ -4551,7 +4541,7 @@ function concatFactory(collection, values2) {
     concatSeq = concatSeq.toSetSeq();
   }
   concatSeq = concatSeq.flatten(true);
-  concatSeq.size = iters.reduce(function (sum, seq) {
+  concatSeq.size = iters.reduce(function(sum, seq) {
     if (sum !== void 0) {
       var size = seq.size;
       if (size !== void 0) {
@@ -4563,14 +4553,14 @@ function concatFactory(collection, values2) {
 }
 function flattenFactory(collection, depth, useKeys) {
   var flatSequence = makeSequence(collection);
-  flatSequence.__iterateUncached = function (fn, reverse3) {
+  flatSequence.__iterateUncached = function(fn, reverse3) {
     if (reverse3) {
       return this.cacheResult().__iterate(fn, reverse3);
     }
     var iterations = 0;
     var stopped = false;
     function flatDeep(iter, currentDepth) {
-      iter.__iterate(function (v, k) {
+      iter.__iterate(function(v, k) {
         if ((!depth || currentDepth < depth) && isCollection(v)) {
           flatDeep(v, currentDepth + 1);
         } else {
@@ -4585,14 +4575,14 @@ function flattenFactory(collection, depth, useKeys) {
     flatDeep(collection, 0);
     return iterations;
   };
-  flatSequence.__iteratorUncached = function (type, reverse3) {
+  flatSequence.__iteratorUncached = function(type, reverse3) {
     if (reverse3) {
       return this.cacheResult().__iterator(type, reverse3);
     }
     var iterator = collection.__iterator(type, reverse3);
     var stack = [];
     var iterations = 0;
-    return new Iterator(function () {
+    return new Iterator(function() {
       while (iterator) {
         var step = iterator.next();
         if (step.done !== false) {
@@ -4617,31 +4607,31 @@ function flattenFactory(collection, depth, useKeys) {
 }
 function flatMapFactory(collection, mapper, context) {
   var coerce = collectionClass(collection);
-  return collection.toSeq().map(function (v, k) {
+  return collection.toSeq().map(function(v, k) {
     return coerce(mapper.call(context, v, k, collection));
   }).flatten(true);
 }
 function interposeFactory(collection, separator) {
   var interposedSequence = makeSequence(collection);
   interposedSequence.size = collection.size && collection.size * 2 - 1;
-  interposedSequence.__iterateUncached = function (fn, reverse3) {
+  interposedSequence.__iterateUncached = function(fn, reverse3) {
     var this$1$1 = this;
     var iterations = 0;
     collection.__iterate(
-      function (v) {
-        return (!iterations ||
-          fn(separator, iterations++, this$1$1) !== false) &&
-          fn(v, iterations++, this$1$1) !== false;
+      function(v) {
+        return (!iterations
+          || fn(separator, iterations++, this$1$1) !== false)
+          && fn(v, iterations++, this$1$1) !== false;
       },
       reverse3,
     );
     return iterations;
   };
-  interposedSequence.__iteratorUncached = function (type, reverse3) {
+  interposedSequence.__iteratorUncached = function(type, reverse3) {
     var iterator = collection.__iterator(ITERATE_VALUES, reverse3);
     var iterations = 0;
     var step;
-    return new Iterator(function () {
+    return new Iterator(function() {
       if (!step || iterations % 2) {
         step = iterator.next();
         if (step.done) {
@@ -4661,17 +4651,17 @@ function sortFactory(collection, comparator, mapper) {
   }
   var isKeyedCollection = isKeyed(collection);
   var index = 0;
-  var entries3 = collection.toSeq().map(function (v, k) {
+  var entries3 = collection.toSeq().map(function(v, k) {
     return [k, v, index++, mapper ? mapper(v, k, collection) : v];
   }).valueSeq().toArray();
-  entries3.sort(function (a3, b) {
+  entries3.sort(function(a3, b) {
     return comparator(a3[3], b[3]) || a3[2] - b[2];
   }).forEach(
     isKeyedCollection
-      ? function (v, i) {
+      ? function(v, i) {
         entries3[i].length = 2;
       }
-      : function (v, i) {
+      : function(v, i) {
         entries3[i] = v[1];
       },
   );
@@ -4686,29 +4676,29 @@ function maxFactory(collection, comparator, mapper) {
     comparator = defaultComparator;
   }
   if (mapper) {
-    var entry = collection.toSeq().map(function (v, k) {
+    var entry = collection.toSeq().map(function(v, k) {
       return [v, mapper(v, k, collection)];
-    }).reduce(function (a3, b) {
+    }).reduce(function(a3, b) {
       return maxCompare(comparator, a3[1], b[1]) ? b : a3;
     });
     return entry && entry[0];
   }
-  return collection.reduce(function (a3, b) {
+  return collection.reduce(function(a3, b) {
     return maxCompare(comparator, a3, b) ? b : a3;
   });
 }
 function maxCompare(comparator, a3, b) {
   var comp = comparator(b, a3);
-  return comp === 0 && b !== a3 && (b === void 0 || b === null || b !== b) ||
-    comp > 0;
+  return comp === 0 && b !== a3 && (b === void 0 || b === null || b !== b)
+    || comp > 0;
 }
 function zipWithFactory(keyIter, zipper, iters, zipAll2) {
   var zipSequence = makeSequence(keyIter);
-  var sizes = new ArraySeq(iters).map(function (i) {
+  var sizes = new ArraySeq(iters).map(function(i) {
     return i.size;
   });
   zipSequence.size = zipAll2 ? sizes.max() : sizes.min();
-  zipSequence.__iterate = function (fn, reverse3) {
+  zipSequence.__iterate = function(fn, reverse3) {
     var iterator = this.__iterator(ITERATE_VALUES, reverse3);
     var step;
     var iterations = 0;
@@ -4719,25 +4709,25 @@ function zipWithFactory(keyIter, zipper, iters, zipAll2) {
     }
     return iterations;
   };
-  zipSequence.__iteratorUncached = function (type, reverse3) {
+  zipSequence.__iteratorUncached = function(type, reverse3) {
     var iterators = iters.map(
-      function (i) {
+      function(i) {
         return i = Collection(i), getIterator(reverse3 ? i.reverse() : i);
       },
     );
     var iterations = 0;
     var isDone = false;
-    return new Iterator(function () {
+    return new Iterator(function() {
       var steps;
       if (!isDone) {
-        steps = iterators.map(function (i) {
+        steps = iterators.map(function(i) {
           return i.next();
         });
         isDone = zipAll2
-          ? steps.every(function (s) {
+          ? steps.every(function(s) {
             return s.done;
           })
-          : steps.some(function (s) {
+          : steps.some(function(s) {
             return s.done;
           });
       }
@@ -4749,7 +4739,7 @@ function zipWithFactory(keyIter, zipper, iters, zipAll2) {
         iterations++,
         zipper.apply(
           null,
-          steps.map(function (s) {
+          steps.map(function(s) {
             return s.value;
           }),
         ),
@@ -4836,8 +4826,8 @@ function coerceKeyPath(keyPath) {
 var toString2 = Object.prototype.toString;
 function isPlainObject(value) {
   if (
-    !value || typeof value !== "object" ||
-    toString2.call(value) !== "[object Object]"
+    !value || typeof value !== "object"
+    || toString2.call(value) !== "[object Object]"
   ) {
     return false;
   }
@@ -4854,8 +4844,8 @@ function isPlainObject(value) {
   return parentProto === proto;
 }
 function isDataStructure(value) {
-  return typeof value === "object" &&
-    (isImmutable(value) || Array.isArray(value) || isPlainObject(value));
+  return typeof value === "object"
+    && (isImmutable(value) || Array.isArray(value) || isPlainObject(value));
 }
 function quoteString(value) {
   try {
@@ -4967,8 +4957,8 @@ function updateInDeeply(
   }
   if (!wasNotSet && !isDataStructure(existing)) {
     throw new TypeError(
-      "Cannot update within non-data-structure value in path [" +
-        keyPath.slice(0, i).map(quoteString) + "]: " + existing,
+      "Cannot update within non-data-structure value in path ["
+        + keyPath.slice(0, i).map(quoteString) + "]: " + existing,
     );
   }
   var key = keyPath[i];
@@ -4992,7 +4982,7 @@ function updateInDeeply(
     );
 }
 function setIn$1(collection, keyPath, value) {
-  return updateIn$1(collection, keyPath, NOT_SET, function () {
+  return updateIn$1(collection, keyPath, NOT_SET, function() {
     return value;
   });
 }
@@ -5000,7 +4990,7 @@ function setIn(keyPath, v) {
   return setIn$1(this, keyPath, v);
 }
 function removeIn(collection, keyPath) {
-  return updateIn$1(collection, keyPath, function () {
+  return updateIn$1(collection, keyPath, function() {
     return NOT_SET;
   });
 }
@@ -5051,19 +5041,19 @@ function mergeIntoKeyedWith(collection, collections, merger) {
   ) {
     return collection.constructor(iters[0]);
   }
-  return collection.withMutations(function (collection2) {
+  return collection.withMutations(function(collection2) {
     var mergeIntoCollection = merger
-      ? function (value, key) {
+      ? function(value, key) {
         update$1(
           collection2,
           key,
           NOT_SET,
-          function (oldVal) {
+          function(oldVal) {
             return oldVal === NOT_SET ? value : merger(oldVal, value, key);
           },
         );
       }
-      : function (value, key) {
+      : function(value, key) {
         collection2.set(key, value);
       };
     for (var ii2 = 0; ii2 < iters.length; ii2++) {
@@ -5091,13 +5081,13 @@ function mergeWithSources(collection, sources, merger) {
   var merged = collection;
   var Collection3 = isArray ? IndexedCollection : KeyedCollection;
   var mergeItem = isArray
-    ? function (value) {
+    ? function(value) {
       if (merged === collection) {
         merged = shallowCopy(merged);
       }
       merged.push(value);
     }
-    : function (value, key) {
+    : function(value, key) {
       var hasVal = hasOwnProperty.call(merged, key);
       var nextVal = hasVal && merger ? merger(merged[key], value, key) : value;
       if (!hasVal || nextVal !== merged[key]) {
@@ -5114,8 +5104,8 @@ function mergeWithSources(collection, sources, merger) {
 }
 function deepMergerWith(merger) {
   function deepMerger(oldValue, newValue, key) {
-    return isDataStructure(oldValue) && isDataStructure(newValue) &&
-        areMergeable(oldValue, newValue)
+    return isDataStructure(oldValue) && isDataStructure(newValue)
+        && areMergeable(oldValue, newValue)
       ? mergeWithSources(oldValue, [newValue], deepMerger)
       : merger
       ? merger(oldValue, newValue, key)
@@ -5126,8 +5116,8 @@ function deepMergerWith(merger) {
 function areMergeable(oldDataStructure, newDataStructure) {
   var oldSeq = Seq(oldDataStructure);
   var newSeq = Seq(newDataStructure);
-  return isIndexed(oldSeq) === isIndexed(newSeq) &&
-    isKeyed(oldSeq) === isKeyed(newSeq);
+  return isIndexed(oldSeq) === isIndexed(newSeq)
+    && isKeyed(oldSeq) === isKeyed(newSeq);
 }
 function mergeDeep() {
   var iters = [], len = arguments.length;
@@ -5148,7 +5138,7 @@ function mergeIn(keyPath) {
   while (len-- > 0) {
     iters[len] = arguments[len + 1];
   }
-  return updateIn$1(this, keyPath, emptyMap(), function (m) {
+  return updateIn$1(this, keyPath, emptyMap(), function(m) {
     return mergeWithSources(m, iters);
   });
 }
@@ -5161,7 +5151,7 @@ function mergeDeepIn(keyPath) {
     this,
     keyPath,
     emptyMap(),
-    function (m) {
+    function(m) {
       return mergeDeepWithSources(m, iters);
     },
   );
@@ -5180,16 +5170,16 @@ function asImmutable() {
 function wasAltered() {
   return this.__altered;
 }
-var Map = function (KeyedCollection2) {
+var Map = function(KeyedCollection2) {
   function Map2(value) {
     return value === void 0 || value === null
       ? emptyMap()
       : isMap(value) && !isOrdered(value)
       ? value
-      : emptyMap().withMutations(function (map2) {
+      : emptyMap().withMutations(function(map2) {
         var iter = KeyedCollection2(value);
         assertNotInfinite(iter.size);
-        iter.forEach(function (v, k) {
+        iter.forEach(function(v, k) {
           return map2.set(k, v);
         });
       });
@@ -5206,7 +5196,7 @@ var Map = function (KeyedCollection2) {
     while (len--) {
       keyValues[len] = arguments[len];
     }
-    return emptyMap().withMutations(function (map2) {
+    return emptyMap().withMutations(function(map2) {
       for (var i = 0; i < keyValues.length; i += 2) {
         if (i + 1 >= keyValues.length) {
           throw new Error("Missing value for key: " + keyValues[i]);
@@ -5232,8 +5222,8 @@ var Map = function (KeyedCollection2) {
     if (collection.size === 0) {
       return this;
     }
-    return this.withMutations(function (map2) {
-      collection.forEach(function (key) {
+    return this.withMutations(function(map2) {
+      collection.forEach(function(key) {
         return map2.remove(key);
       });
     });
@@ -5259,8 +5249,8 @@ var Map = function (KeyedCollection2) {
   };
   Map2.prototype.map = function map2(mapper, context) {
     var this$1$1 = this;
-    return this.withMutations(function (map3) {
-      map3.forEach(function (value, key) {
+    return this.withMutations(function(map3) {
+      map3.forEach(function(value, key) {
         map3.set(key, mapper.call(context, value, key, this$1$1));
       });
     });
@@ -5271,7 +5261,7 @@ var Map = function (KeyedCollection2) {
   Map2.prototype.__iterate = function __iterate2(fn, reverse3) {
     var this$1$1 = this;
     var iterations = 0;
-    this._root && this._root.iterate(function (entry) {
+    this._root && this._root.iterate(function(entry) {
       iterations++;
       return fn(entry[1], entry[0], this$1$1);
     }, reverse3);
@@ -5312,10 +5302,10 @@ MapPrototype.withMutations = withMutations;
 MapPrototype.wasAltered = wasAltered;
 MapPrototype.asImmutable = asImmutable;
 MapPrototype["@@transducer/init"] = MapPrototype.asMutable = asMutable;
-MapPrototype["@@transducer/step"] = function (result, arr) {
+MapPrototype["@@transducer/step"] = function(result, arr) {
   return result.set(arr[0], arr[1]);
 };
-MapPrototype["@@transducer/result"] = function (obj) {
+MapPrototype["@@transducer/result"] = function(obj) {
   return obj.asImmutable();
 };
 var ArrayMapNode = function ArrayMapNode2(ownerID, entries3) {
@@ -5648,7 +5638,7 @@ ValueNode.prototype.update = function update6(
 };
 ArrayMapNode.prototype.iterate =
   HashCollisionNode.prototype.iterate =
-    function (fn, reverse3) {
+    function(fn, reverse3) {
       var entries3 = this.entries;
       for (var ii = 0, maxIndex = entries3.length - 1; ii <= maxIndex; ii++) {
         if (fn(entries3[reverse3 ? maxIndex - ii : ii]) === false) {
@@ -5658,7 +5648,7 @@ ArrayMapNode.prototype.iterate =
     };
 BitmapIndexedNode.prototype.iterate =
   HashArrayMapNode.prototype.iterate =
-    function (fn, reverse3) {
+    function(fn, reverse3) {
       var nodes = this.nodes;
       for (var ii = 0, maxIndex = nodes.length - 1; ii <= maxIndex; ii++) {
         var node = nodes[reverse3 ? maxIndex - ii : ii];
@@ -5667,10 +5657,10 @@ BitmapIndexedNode.prototype.iterate =
         }
       }
     };
-ValueNode.prototype.iterate = function (fn, reverse3) {
+ValueNode.prototype.iterate = function(fn, reverse3) {
   return fn(this.entry);
 };
-var MapIterator = function (Iterator3) {
+var MapIterator = function(Iterator3) {
   function MapIterator2(map2, type, reverse3) {
     this._type = type;
     this._reverse = reverse3;
@@ -5807,8 +5797,8 @@ function updateNode(
   );
 }
 function isLeafNode(node) {
-  return node.constructor === ValueNode ||
-    node.constructor === HashCollisionNode;
+  return node.constructor === ValueNode
+    || node.constructor === HashCollisionNode;
 }
 function mergeIntoNode(node, ownerID, shift, keyHash, entry) {
   if (node.keyHash === keyHash) {
@@ -5819,8 +5809,7 @@ function mergeIntoNode(node, ownerID, shift, keyHash, entry) {
   var newNode;
   var nodes = idx1 === idx2
     ? [mergeIntoNode(node, ownerID, shift + SHIFT, keyHash, entry)]
-    : (newNode = new ValueNode(ownerID, keyHash, entry),
-      idx1 < idx2 ? [node, newNode] : [newNode, node]);
+    : (newNode = new ValueNode(ownerID, keyHash, entry), idx1 < idx2 ? [node, newNode] : [newNode, node]);
   return new BitmapIndexedNode(ownerID, 1 << idx1 | 1 << idx2, nodes);
 }
 function createNodes(ownerID, entries3, key, value) {
@@ -5910,7 +5899,7 @@ var IS_LIST_SYMBOL = "@@__IMMUTABLE_LIST__@@";
 function isList(maybeList) {
   return Boolean(maybeList && maybeList[IS_LIST_SYMBOL]);
 }
-var List = function (IndexedCollection2) {
+var List = function(IndexedCollection2) {
   function List2(value) {
     var empty = emptyList();
     if (value === void 0 || value === null) {
@@ -5928,9 +5917,9 @@ var List = function (IndexedCollection2) {
     if (size > 0 && size < SIZE) {
       return makeList(0, size, SHIFT, null, new VNode(iter.toArray()));
     }
-    return empty.withMutations(function (list) {
+    return empty.withMutations(function(list) {
       list.setSize(size);
-      iter.forEach(function (v, i) {
+      iter.forEach(function(v, i) {
         return list.set(i, v);
       });
     });
@@ -5988,7 +5977,7 @@ var List = function (IndexedCollection2) {
   List2.prototype.push = function push() {
     var values2 = arguments;
     var oldSize = this.size;
-    return this.withMutations(function (list) {
+    return this.withMutations(function(list) {
       setListBounds(list, 0, oldSize + values2.length);
       for (var ii = 0; ii < values2.length; ii++) {
         list.set(oldSize + ii, values2[ii]);
@@ -6000,7 +5989,7 @@ var List = function (IndexedCollection2) {
   };
   List2.prototype.unshift = function unshift() {
     var values2 = arguments;
-    return this.withMutations(function (list) {
+    return this.withMutations(function(list) {
       setListBounds(list, -values2.length);
       for (var ii = 0; ii < values2.length; ii++) {
         list.set(ii, values2[ii]);
@@ -6030,9 +6019,9 @@ var List = function (IndexedCollection2) {
     if (this.size === 0 && !this.__ownerID && seqs.length === 1) {
       return this.constructor(seqs[0]);
     }
-    return this.withMutations(function (list) {
-      seqs.forEach(function (seq2) {
-        return seq2.forEach(function (value) {
+    return this.withMutations(function(list) {
+      seqs.forEach(function(seq2) {
+        return seq2.forEach(function(value) {
           return list.push(value);
         });
       });
@@ -6043,7 +6032,7 @@ var List = function (IndexedCollection2) {
   };
   List2.prototype.map = function map2(mapper, context) {
     var this$1$1 = this;
-    return this.withMutations(function (list) {
+    return this.withMutations(function(list) {
       for (var i = 0; i < this$1$1.size; i++) {
         list.set(i, mapper.call(context, list.get(i), i, this$1$1));
       }
@@ -6063,7 +6052,7 @@ var List = function (IndexedCollection2) {
   List2.prototype.__iterator = function __iterator2(type, reverse3) {
     var index = reverse3 ? this.size : 0;
     var values2 = iterateList(this, reverse3);
-    return new Iterator(function () {
+    return new Iterator(function() {
       var value = values2();
       return value === DONE
         ? iteratorDone()
@@ -6120,10 +6109,10 @@ ListPrototype.withMutations = withMutations;
 ListPrototype.wasAltered = wasAltered;
 ListPrototype.asImmutable = asImmutable;
 ListPrototype["@@transducer/init"] = ListPrototype.asMutable = asMutable;
-ListPrototype["@@transducer/step"] = function (result, arr) {
+ListPrototype["@@transducer/step"] = function(result, arr) {
   return result.push(arr);
 };
-ListPrototype["@@transducer/result"] = function (obj) {
+ListPrototype["@@transducer/result"] = function(obj) {
   return obj.asImmutable();
 };
 var VNode = function VNode2(array, ownerID) {
@@ -6203,7 +6192,7 @@ function iterateList(list, reverse3) {
     if (to > SIZE) {
       to = SIZE;
     }
-    return function () {
+    return function() {
       if (from === to) {
         return DONE;
       }
@@ -6219,7 +6208,7 @@ function iterateList(list, reverse3) {
     if (to > SIZE) {
       to = SIZE;
     }
-    return function () {
+    return function() {
       while (true) {
         if (values2) {
           var value = values2();
@@ -6264,7 +6253,7 @@ function updateList(list, index, value) {
     return list;
   }
   if (index >= list.size || index < 0) {
-    return list.withMutations(function (list2) {
+    return list.withMutations(function(list2) {
       index < 0
         ? setListBounds(list2, index).set(0, value)
         : setListBounds(list2, 0, index + 1).set(index, value);
@@ -6411,8 +6400,8 @@ function setListBounds(list, begin, end) {
     ? new VNode([], owner)
     : oldTail;
   if (
-    oldTail && newTailOffset > oldTailOffset && newOrigin < oldCapacity &&
-    oldTail.array.length
+    oldTail && newTailOffset > oldTailOffset && newOrigin < oldCapacity
+    && oldTail.array.length
   ) {
     newRoot = editableVNode(newRoot, owner);
     var node = newRoot;
@@ -6475,16 +6464,16 @@ function setListBounds(list, begin, end) {
 function getTailOffset(size) {
   return size < SIZE ? 0 : size - 1 >>> SHIFT << SHIFT;
 }
-var OrderedMap = function (Map2) {
+var OrderedMap = function(Map2) {
   function OrderedMap2(value) {
     return value === void 0 || value === null
       ? emptyOrderedMap()
       : isOrderedMap(value)
       ? value
-      : emptyOrderedMap().withMutations(function (map2) {
+      : emptyOrderedMap().withMutations(function(map2) {
         var iter = KeyedCollection(value);
         assertNotInfinite(iter.size);
-        iter.forEach(function (v, k) {
+        iter.forEach(function(v, k) {
           return map2.set(k, v);
         });
       });
@@ -6526,7 +6515,7 @@ var OrderedMap = function (Map2) {
   OrderedMap2.prototype.__iterate = function __iterate2(fn, reverse3) {
     var this$1$1 = this;
     return this._list.__iterate(
-      function (entry) {
+      function(entry) {
         return entry && fn(entry[1], entry[0], this$1$1);
       },
       reverse3,
@@ -6570,8 +6559,8 @@ function makeOrderedMap(map2, list, ownerID, hash2) {
 }
 var EMPTY_ORDERED_MAP;
 function emptyOrderedMap() {
-  return EMPTY_ORDERED_MAP ||
-    (EMPTY_ORDERED_MAP = makeOrderedMap(emptyMap(), emptyList()));
+  return EMPTY_ORDERED_MAP
+    || (EMPTY_ORDERED_MAP = makeOrderedMap(emptyMap(), emptyList()));
 }
 function updateOrderedMap(omap, k, v) {
   var map2 = omap._map;
@@ -6585,10 +6574,10 @@ function updateOrderedMap(omap, k, v) {
       return omap;
     }
     if (list.size >= SIZE && list.size >= map2.size * 2) {
-      newList = list.filter(function (entry, idx) {
+      newList = list.filter(function(entry, idx) {
         return entry !== void 0 && i !== idx;
       });
-      newMap = newList.toKeyedSeq().map(function (entry) {
+      newMap = newList.toKeyedSeq().map(function(entry) {
         return entry[0];
       }).flip().toMap();
       if (omap.__ownerID) {
@@ -6622,7 +6611,7 @@ var IS_STACK_SYMBOL = "@@__IMMUTABLE_STACK__@@";
 function isStack(maybeStack) {
   return Boolean(maybeStack && maybeStack[IS_STACK_SYMBOL]);
 }
-var Stack = function (IndexedCollection2) {
+var Stack = function(IndexedCollection2) {
   function Stack2(value) {
     return value === void 0 || value === null
       ? emptyStack()
@@ -6687,7 +6676,7 @@ var Stack = function (IndexedCollection2) {
     assertNotInfinite(iter.size);
     var newSize = this.size;
     var head = this._head;
-    iter.__iterate(function (value) {
+    iter.__iterate(function(value) {
       newSize++;
       head = {
         value,
@@ -6760,7 +6749,7 @@ var Stack = function (IndexedCollection2) {
     var this$1$1 = this;
     if (reverse3) {
       return new ArraySeq(this.toArray()).__iterate(
-        function (v, k) {
+        function(v, k) {
           return fn(v, k, this$1$1);
         },
         reverse3,
@@ -6782,7 +6771,7 @@ var Stack = function (IndexedCollection2) {
     }
     var iterations = 0;
     var node = this._head;
-    return new Iterator(function () {
+    return new Iterator(function() {
       if (node) {
         var value = node.value;
         node = node.next;
@@ -6803,10 +6792,10 @@ StackPrototype.withMutations = withMutations;
 StackPrototype.wasAltered = wasAltered;
 StackPrototype.asImmutable = asImmutable;
 StackPrototype["@@transducer/init"] = StackPrototype.asMutable = asMutable;
-StackPrototype["@@transducer/step"] = function (result, arr) {
+StackPrototype["@@transducer/step"] = function(result, arr) {
   return result.unshift(arr);
 };
-StackPrototype["@@transducer/result"] = function (obj) {
+StackPrototype["@@transducer/result"] = function(obj) {
   return obj.asImmutable();
 };
 function makeStack(size, head, ownerID, hash2) {
@@ -6834,11 +6823,11 @@ function deepEqual(a3, b) {
     return true;
   }
   if (
-    !isCollection(b) ||
-    a3.size !== void 0 && b.size !== void 0 && a3.size !== b.size ||
-    a3.__hash !== void 0 && b.__hash !== void 0 && a3.__hash !== b.__hash ||
-    isKeyed(a3) !== isKeyed(b) || isIndexed(a3) !== isIndexed(b) ||
-    isOrdered(a3) !== isOrdered(b)
+    !isCollection(b)
+    || a3.size !== void 0 && b.size !== void 0 && a3.size !== b.size
+    || a3.__hash !== void 0 && b.__hash !== void 0 && a3.__hash !== b.__hash
+    || isKeyed(a3) !== isKeyed(b) || isIndexed(a3) !== isIndexed(b)
+    || isOrdered(a3) !== isOrdered(b)
   ) {
     return false;
   }
@@ -6848,7 +6837,7 @@ function deepEqual(a3, b) {
   var notAssociative = !isAssociative(a3);
   if (isOrdered(a3)) {
     var entries3 = a3.entries();
-    return b.every(function (v, k) {
+    return b.every(function(v, k) {
       var entry = entries3.next().value;
       return entry && is(entry[1], v) && (notAssociative || is(entry[0], k));
     }) && entries3.next().done;
@@ -6867,7 +6856,7 @@ function deepEqual(a3, b) {
     }
   }
   var allEqual = true;
-  var bSize = b.__iterate(function (v, k) {
+  var bSize = b.__iterate(function(v, k) {
     if (
       notAssociative
         ? !a3.has(v)
@@ -6882,12 +6871,12 @@ function deepEqual(a3, b) {
   return allEqual && a3.size === bSize;
 }
 function mixin(ctor, methods) {
-  var keyCopier = function (key) {
+  var keyCopier = function(key) {
     ctor.prototype[key] = methods[key];
   };
   Object.keys(methods).forEach(keyCopier);
-  Object.getOwnPropertySymbols &&
-    Object.getOwnPropertySymbols(methods).forEach(keyCopier);
+  Object.getOwnPropertySymbols
+    && Object.getOwnPropertySymbols(methods).forEach(keyCopier);
   return ctor;
 }
 function toJS(value) {
@@ -6902,27 +6891,27 @@ function toJS(value) {
   }
   if (isKeyed(value)) {
     var result$1 = {};
-    value.__iterate(function (v, k) {
+    value.__iterate(function(v, k) {
       result$1[k] = toJS(v);
     });
     return result$1;
   }
   var result = [];
-  value.__iterate(function (v) {
+  value.__iterate(function(v) {
     result.push(toJS(v));
   });
   return result;
 }
-var Set = function (SetCollection2) {
+var Set = function(SetCollection2) {
   function Set2(value) {
     return value === void 0 || value === null
       ? emptySet()
       : isSet(value) && !isOrdered(value)
       ? value
-      : emptySet().withMutations(function (set3) {
+      : emptySet().withMutations(function(set3) {
         var iter = SetCollection2(value);
         assertNotInfinite(iter.size);
-        iter.forEach(function (v) {
+        iter.forEach(function(v) {
           return set3.add(v);
         });
       });
@@ -6970,7 +6959,7 @@ var Set = function (SetCollection2) {
     var didChanges = false;
     var newMap = updateSet(
       this,
-      this._map.mapEntries(function (ref) {
+      this._map.mapEntries(function(ref) {
         var v = ref[1];
         var mapped = mapper.call(context, v, v, this$1$1);
         if (mapped !== v) {
@@ -6986,7 +6975,7 @@ var Set = function (SetCollection2) {
     while (len--) {
       iters[len] = arguments[len];
     }
-    iters = iters.filter(function (x) {
+    iters = iters.filter(function(x) {
       return x.size !== 0;
     });
     if (iters.length === 0) {
@@ -6995,9 +6984,9 @@ var Set = function (SetCollection2) {
     if (this.size === 0 && !this.__ownerID && iters.length === 1) {
       return this.constructor(iters[0]);
     }
-    return this.withMutations(function (set3) {
+    return this.withMutations(function(set3) {
       for (var ii = 0; ii < iters.length; ii++) {
-        SetCollection2(iters[ii]).forEach(function (value) {
+        SetCollection2(iters[ii]).forEach(function(value) {
           return set3.add(value);
         });
       }
@@ -7011,21 +7000,21 @@ var Set = function (SetCollection2) {
     if (iters.length === 0) {
       return this;
     }
-    iters = iters.map(function (iter) {
+    iters = iters.map(function(iter) {
       return SetCollection2(iter);
     });
     var toRemove = [];
-    this.forEach(function (value) {
+    this.forEach(function(value) {
       if (
-        !iters.every(function (iter) {
+        !iters.every(function(iter) {
           return iter.includes(value);
         })
       ) {
         toRemove.push(value);
       }
     });
-    return this.withMutations(function (set3) {
-      toRemove.forEach(function (value) {
+    return this.withMutations(function(set3) {
+      toRemove.forEach(function(value) {
         set3.remove(value);
       });
     });
@@ -7038,21 +7027,21 @@ var Set = function (SetCollection2) {
     if (iters.length === 0) {
       return this;
     }
-    iters = iters.map(function (iter) {
+    iters = iters.map(function(iter) {
       return SetCollection2(iter);
     });
     var toRemove = [];
-    this.forEach(function (value) {
+    this.forEach(function(value) {
       if (
-        iters.some(function (iter) {
+        iters.some(function(iter) {
           return iter.includes(value);
         })
       ) {
         toRemove.push(value);
       }
     });
-    return this.withMutations(function (set3) {
-      toRemove.forEach(function (value) {
+    return this.withMutations(function(set3) {
+      toRemove.forEach(function(value) {
         set3.remove(value);
       });
     });
@@ -7068,7 +7057,7 @@ var Set = function (SetCollection2) {
   };
   Set2.prototype.__iterate = function __iterate2(fn, reverse3) {
     var this$1$1 = this;
-    return this._map.__iterate(function (k) {
+    return this._map.__iterate(function(k) {
       return fn(k, k, this$1$1);
     }, reverse3);
   };
@@ -7100,10 +7089,10 @@ SetPrototype.merge = SetPrototype.concat = SetPrototype.union;
 SetPrototype.withMutations = withMutations;
 SetPrototype.asImmutable = asImmutable;
 SetPrototype["@@transducer/init"] = SetPrototype.asMutable = asMutable;
-SetPrototype["@@transducer/step"] = function (result, arr) {
+SetPrototype["@@transducer/step"] = function(result, arr) {
   return result.add(arr);
 };
-SetPrototype["@@transducer/result"] = function (obj) {
+SetPrototype["@@transducer/result"] = function(obj) {
   return obj.asImmutable();
 };
 SetPrototype.__empty = emptySet;
@@ -7131,7 +7120,7 @@ var EMPTY_SET;
 function emptySet() {
   return EMPTY_SET || (EMPTY_SET = makeSet(emptyMap()));
 }
-var Range = function (IndexedSeq2) {
+var Range = function(IndexedSeq2) {
   function Range2(start, end, step) {
     if (!(this instanceof Range2)) {
       return new Range2(start, end, step);
@@ -7165,8 +7154,8 @@ var Range = function (IndexedSeq2) {
     if (this.size === 0) {
       return "Range []";
     }
-    return "Range [ " + this._start + "..." + this._end +
-      (this._step !== 1 ? " by " + this._step : "") + " ]";
+    return "Range [ " + this._start + "..." + this._end
+      + (this._step !== 1 ? " by " + this._step : "") + " ]";
   };
   Range2.prototype.get = function get11(index, notSetValue) {
     return this.has(index)
@@ -7175,8 +7164,8 @@ var Range = function (IndexedSeq2) {
   };
   Range2.prototype.includes = function includes3(searchValue) {
     var possibleIndex = (searchValue - this._start) / this._step;
-    return possibleIndex >= 0 && possibleIndex < this.size &&
-      possibleIndex === Math.floor(possibleIndex);
+    return possibleIndex >= 0 && possibleIndex < this.size
+      && possibleIndex === Math.floor(possibleIndex);
   };
   Range2.prototype.slice = function slice3(begin, end) {
     if (wholeSlice(begin, end, this.size)) {
@@ -7224,7 +7213,7 @@ var Range = function (IndexedSeq2) {
     var step = this._step;
     var value = reverse3 ? this._start + (size - 1) * step : this._start;
     var i = 0;
-    return new Iterator(function () {
+    return new Iterator(function() {
       if (i === size) {
         return iteratorDone();
       }
@@ -7235,8 +7224,8 @@ var Range = function (IndexedSeq2) {
   };
   Range2.prototype.equals = function equals3(other) {
     return other instanceof Range2
-      ? this._start === other._start && this._end === other._end &&
-        this._step === other._step
+      ? this._start === other._start && this._end === other._end
+        && this._step === other._step
       : deepEqual(this, other);
   };
   return Range2;
@@ -7265,7 +7254,7 @@ function hasIn(searchKeyPath) {
 function toObject() {
   assertNotInfinite(this.size);
   var object = {};
-  this.__iterate(function (v, k) {
+  this.__iterate(function(v, k) {
     object[k] = v;
   });
   return object;
@@ -7282,7 +7271,7 @@ mixin(Collection, {
     var array = new Array(this.size || 0);
     var useTuples = isKeyed(this);
     var i = 0;
-    this.__iterate(function (v, k) {
+    this.__iterate(function(v, k) {
       array[i++] = useTuples ? [k, v] : v;
     });
     return array;
@@ -7332,8 +7321,8 @@ mixin(Collection, {
     if (this.size === 0) {
       return head + tail;
     }
-    return head + " " + this.toSeq().map(this.__toStringMapper).join(", ") +
-      " " + tail;
+    return head + " " + this.toSeq().map(this.__toStringMapper).join(", ")
+      + " " + tail;
   },
   concat: function concat() {
     var values2 = [], len = arguments.length;
@@ -7343,7 +7332,7 @@ mixin(Collection, {
     return reify(this, concatFactory(this, values2));
   },
   includes: function includes(searchValue) {
-    return this.some(function (value) {
+    return this.some(function(value) {
       return is(value, searchValue);
     });
   },
@@ -7353,7 +7342,7 @@ mixin(Collection, {
   every: function every(predicate, context) {
     assertNotInfinite(this.size);
     var returnValue = true;
-    this.__iterate(function (v, k, c) {
+    this.__iterate(function(v, k, c) {
       if (!predicate.call(context, v, k, c)) {
         returnValue = false;
         return false;
@@ -7377,7 +7366,7 @@ mixin(Collection, {
     separator = separator !== void 0 ? "" + separator : ",";
     var joined = "";
     var isFirst = true;
-    this.__iterate(function (v) {
+    this.__iterate(function(v) {
       isFirst ? isFirst = false : joined += separator;
       joined += v !== null && v !== void 0 ? v.toString() : "";
     });
@@ -7428,7 +7417,7 @@ mixin(Collection, {
     return this.slice(0, -1);
   },
   isEmpty: function isEmpty() {
-    return this.size !== void 0 ? this.size === 0 : !this.some(function () {
+    return this.size !== void 0 ? this.size === 0 : !this.some(function() {
       return true;
     });
   },
@@ -7449,7 +7438,7 @@ mixin(Collection, {
       return new ArraySeq(collection._cache);
     }
     var entriesSequence = collection.toSeq().map(entryMapper).toIndexedSeq();
-    entriesSequence.fromEntrySeq = function () {
+    entriesSequence.fromEntrySeq = function() {
       return collection.toSeq();
     };
     return entriesSequence;
@@ -7459,7 +7448,7 @@ mixin(Collection, {
   },
   findEntry: function findEntry(predicate, context, notSetValue) {
     var found = notSetValue;
-    this.__iterate(function (v, k, c) {
+    this.__iterate(function(v, k, c) {
       if (predicate.call(context, v, k, c)) {
         found = [k, v];
         return false;
@@ -7498,7 +7487,7 @@ mixin(Collection, {
   },
   get: function get7(searchKey, notSetValue) {
     return this.find(
-      function (_, key) {
+      function(_, key) {
         return is(key, searchKey);
       },
       void 0,
@@ -7515,7 +7504,7 @@ mixin(Collection, {
   hasIn,
   isSubset: function isSubset(iter) {
     iter = typeof iter.includes === "function" ? iter : Collection(iter);
-    return this.every(function (value) {
+    return this.every(function(value) {
       return iter.includes(value);
     });
   },
@@ -7524,7 +7513,7 @@ mixin(Collection, {
     return iter.isSubset(this);
   },
   keyOf: function keyOf(searchValue) {
-    return this.findKey(function (value) {
+    return this.findKey(function(value) {
       return is(value, searchValue);
     });
   },
@@ -7601,7 +7590,7 @@ CollectionPrototype[IS_COLLECTION_SYMBOL] = true;
 CollectionPrototype[ITERATOR_SYMBOL] = CollectionPrototype.values;
 CollectionPrototype.toJSON = CollectionPrototype.toArray;
 CollectionPrototype.__toStringMapper = quoteString;
-CollectionPrototype.inspect = CollectionPrototype.toSource = function () {
+CollectionPrototype.inspect = CollectionPrototype.toSource = function() {
   return this.toString();
 };
 CollectionPrototype.chain = CollectionPrototype.flatMap;
@@ -7615,7 +7604,7 @@ mixin(KeyedCollection, {
     var iterations = 0;
     return reify(
       this,
-      this.toSeq().map(function (v, k) {
+      this.toSeq().map(function(v, k) {
         return mapper.call(context, [k, v], iterations++, this$1$1);
       }).fromEntrySeq(),
     );
@@ -7624,7 +7613,7 @@ mixin(KeyedCollection, {
     var this$1$1 = this;
     return reify(
       this,
-      this.toSeq().flip().map(function (k, v) {
+      this.toSeq().flip().map(function(k, v) {
         return mapper.call(context, k, v, this$1$1);
       }).flip(),
     );
@@ -7634,7 +7623,7 @@ var KeyedCollectionPrototype = KeyedCollection.prototype;
 KeyedCollectionPrototype[IS_KEYED_SYMBOL] = true;
 KeyedCollectionPrototype[ITERATOR_SYMBOL] = CollectionPrototype.entries;
 KeyedCollectionPrototype.toJSON = toObject;
-KeyedCollectionPrototype.__toStringMapper = function (v, k) {
+KeyedCollectionPrototype.__toStringMapper = function(v, k) {
   return quoteString(k) + ": " + quoteString(v);
 };
 mixin(IndexedCollection, {
@@ -7689,11 +7678,11 @@ mixin(IndexedCollection, {
   },
   get: function get8(index, notSetValue) {
     index = wrapIndex(this, index);
-    return index < 0 || this.size === Infinity ||
-        this.size !== void 0 && index > this.size
+    return index < 0 || this.size === Infinity
+        || this.size !== void 0 && index > this.size
       ? notSetValue
       : this.find(
-        function (_, key) {
+        function(_, key) {
           return key === index;
         },
         void 0,
@@ -7702,8 +7691,8 @@ mixin(IndexedCollection, {
   },
   has: function has3(index) {
     index = wrapIndex(this, index);
-    return index >= 0 &&
-      (this.size !== void 0
+    return index >= 0
+      && (this.size !== void 0
         ? this.size === Infinity || index < this.size
         : this.indexOf(index) !== -1);
   },
@@ -7765,7 +7754,7 @@ mixin(IndexedSeq, IndexedCollectionPrototype);
 mixin(SetSeq, SetCollectionPrototype);
 function reduce(collection, reducer, reduction, context, useFirst, reverse3) {
   assertNotInfinite(collection.size);
-  collection.__iterate(function (v, k, c) {
+  collection.__iterate(function(v, k, c) {
     if (useFirst) {
       useFirst = false;
       reduction = v;
@@ -7782,12 +7771,12 @@ function entryMapper(v, k) {
   return [k, v];
 }
 function not(predicate) {
-  return function () {
+  return function() {
     return !predicate.apply(this, arguments);
   };
 }
 function neg(predicate) {
-  return function () {
+  return function() {
     return -predicate.apply(this, arguments);
   };
 }
@@ -7807,17 +7796,17 @@ function hashCollection(collection) {
   var size = collection.__iterate(
     keyed
       ? ordered
-        ? function (v, k) {
+        ? function(v, k) {
           h = 31 * h + hashMerge(hash(v), hash(k)) | 0;
         }
-        : function (v, k) {
+        : function(v, k) {
           h = h + hashMerge(hash(v), hash(k)) | 0;
         }
       : ordered
-      ? function (v) {
+      ? function(v) {
         h = 31 * h + hash(v) | 0;
       }
-      : function (v) {
+      : function(v) {
         h = h + hash(v) | 0;
       },
   );
@@ -7836,16 +7825,16 @@ function murmurHashOfSize(size, h) {
 function hashMerge(a3, b) {
   return a3 ^ b + 2654435769 + (a3 << 6) + (a3 >> 2) | 0;
 }
-var OrderedSet = function (Set2) {
+var OrderedSet = function(Set2) {
   function OrderedSet2(value) {
     return value === void 0 || value === null
       ? emptyOrderedSet()
       : isOrderedSet(value)
       ? value
-      : emptyOrderedSet().withMutations(function (set3) {
+      : emptyOrderedSet().withMutations(function(set3) {
         var iter = SetCollection(value);
         assertNotInfinite(iter.size);
-        iter.forEach(function (v) {
+        iter.forEach(function(v) {
           return set3.add(v);
         });
       });
@@ -7883,8 +7872,8 @@ function makeOrderedSet(map2, ownerID) {
 }
 var EMPTY_ORDERED_SET;
 function emptyOrderedSet() {
-  return EMPTY_ORDERED_SET ||
-    (EMPTY_ORDERED_SET = makeOrderedSet(emptyOrderedMap()));
+  return EMPTY_ORDERED_SET
+    || (EMPTY_ORDERED_SET = makeOrderedSet(emptyOrderedMap()));
 }
 function throwOnInvalidDefaultValues(defaultValues) {
   if (isRecord(defaultValues)) {
@@ -7926,9 +7915,9 @@ var Record = function Record2(defaultValues, name) {
         indices[propName] = i;
         if (RecordTypePrototype[propName]) {
           typeof console === "object" && console.warn && console.warn(
-            "Cannot define " + recordName(this) + ' with property "' +
-              propName +
-              '" since that property name is part of the Record API.',
+            "Cannot define " + recordName(this) + " with property \""
+              + propName
+              + "\" since that property name is part of the Record API.",
           );
         } else {
           setProp(RecordTypePrototype, propName);
@@ -7936,9 +7925,9 @@ var Record = function Record2(defaultValues, name) {
       }
     }
     this.__ownerID = void 0;
-    this._values = List().withMutations(function (l) {
+    this._values = List().withMutations(function(l) {
       l.setSize(this$1$1._keys.length);
-      KeyedCollection(values2).forEach(function (v, k) {
+      KeyedCollection(values2).forEach(function(v, k) {
         l.set(
           this$1$1._indices[k],
           v === this$1$1._defaultValues[k] ? void 0 : v,
@@ -7967,8 +7956,8 @@ Record.prototype.toString = function toString4() {
   return str + " }";
 };
 Record.prototype.equals = function equals2(other) {
-  return this === other ||
-    isRecord(other) && recordSeq(this).equals(recordSeq(other));
+  return this === other
+    || isRecord(other) && recordSeq(this).equals(recordSeq(other));
 };
 Record.prototype.hashCode = function hashCode2() {
   return recordSeq(this).hashCode();
@@ -8056,7 +8045,7 @@ RecordPrototype.asImmutable = asImmutable;
 RecordPrototype[ITERATOR_SYMBOL] = RecordPrototype.entries;
 RecordPrototype.toJSON = RecordPrototype.toObject = CollectionPrototype
   .toObject;
-RecordPrototype.inspect = RecordPrototype.toSource = function () {
+RecordPrototype.inspect = RecordPrototype.toSource = function() {
   return this.toString();
 };
 function makeRecord(likeRecord, values2, ownerID) {
@@ -8069,17 +8058,17 @@ function recordName(record) {
   return record.constructor.displayName || record.constructor.name || "Record";
 }
 function recordSeq(record) {
-  return keyedSeqFromValue(record._keys.map(function (k) {
+  return keyedSeqFromValue(record._keys.map(function(k) {
     return [k, record.get(k)];
   }));
 }
 function setProp(prototype, name) {
   try {
     Object.defineProperty(prototype, name, {
-      get: function () {
+      get: function() {
         return this.get(name);
       },
-      set: function (value) {
+      set: function(value) {
         invariant(this.__ownerID, "Cannot set on an immutable record.");
         this.set(name, value);
       },
@@ -8087,7 +8076,7 @@ function setProp(prototype, name) {
   } catch (error) {
   }
 }
-var Repeat = function (IndexedSeq2) {
+var Repeat = function(IndexedSeq2) {
   function Repeat2(value, times) {
     if (!(this instanceof Repeat2)) {
       return new Repeat2(value, times);
@@ -8155,7 +8144,7 @@ var Repeat = function (IndexedSeq2) {
     var size = this.size;
     var i = 0;
     return new Iterator(
-      function () {
+      function() {
         return i === size
           ? iteratorDone()
           : iteratorValue(type, reverse3 ? size - ++i : i++, this$1$1._value);
@@ -8388,8 +8377,8 @@ var CodeSession = class {
     );
     __publicField(this, "patchSync", (sess) => {
       if (
-        sess.code !== this.session.get("state").code &&
-        sess.i <= this.session.get("state").i
+        sess.code !== this.session.get("state").code
+        && sess.i <= this.session.get("state").i
       ) {
         throw new Error("Code update without I update error");
       }
@@ -8397,16 +8386,14 @@ var CodeSession = class {
         throw new Error("never going back!");
       }
       if (
-        sess.code !== this.session.get("state").code &&
-        sess.i <= this.session.get("state").i
+        sess.code !== this.session.get("state").code
+        && sess.i <= this.session.get("state").i
       ) {
         throw new Error("Code update without I update error");
       }
       if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
         console.error(
-          `missing: /*${md5(sess.code)}*/, transpiled: ${
-            sess.transpiled.slice(0, 12)
-          }`,
+          `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`,
         );
         throw new Error("transpiled	hack issue");
       }
@@ -8432,10 +8419,7 @@ var CodeSession = class {
       const newHash = md5(this.session.get("state").transpiled);
       if (newHash !== oldHash) {
         (self.requestAnimationFrame || setTimeout)(
-          async () =>
-            this.createPatchFromHashCode(oldHash, mST()).then(() =>
-              this.update()
-            ),
+          async () => this.createPatchFromHashCode(oldHash, mST()).then(() => this.update()),
         );
       }
     });
@@ -8487,17 +8471,15 @@ var CodeSession = class {
         throw new Error("never going back!");
       }
       if (
-        newRecord.code !== this.session.get("state").code &&
-        newRecord.i <= this.session.get("state").i
+        newRecord.code !== this.session.get("state").code
+        && newRecord.i <= this.session.get("state").i
       ) {
         throw new Error("Code update without I update error");
       }
       const codeHash = md5(newRecord.code);
       if (newRecord.transpiled.slice(0, 12) !== `/*${codeHash}*/`) {
         console.error(
-          `missing: ${codeHash}, transpiled: ${
-            newRecord.transpiled.slice(0, 12)
-          }`,
+          `missing: ${codeHash}, transpiled: ${newRecord.transpiled.slice(0, 12)}`,
         );
         throw new Error("transpiled	hack issue");
       }
@@ -8590,11 +8572,11 @@ function addOrigin(s, originString) {
   mst.code = mst.code.replace("from '/live", `from '${originString}/live`);
   mst.code = mst.code.replace("from './", `from '${originString}/live/`);
   mst.transpiled = mst.transpiled.replace(
-    'from "/live',
+    "from \"/live",
     `from "${originString}/live`,
   );
   mst.transpiled = mst.transpiled.replace(
-    'from "./',
+    "from \"./",
     `from "${originString}/live/`,
   );
   return mst;
@@ -8607,8 +8589,7 @@ var applyPatch2 = async (x) => {
   await session?.applyPatch(x);
   session?.update();
 };
-var makePatchFrom = async (n, st, update8) =>
-  session.createPatchFromHashCode(n, st, update8);
+var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
 var startSession = (room, u, originString) =>
   session || new CodeSession(room, {
     name: u.name,
@@ -8623,11 +8604,11 @@ function getBackupSession() {
   return {
     "i": 3734,
     "transpiled":
-      'import { jsx as jsX } from "@emotion/react";\nimport { css } from "@emotion/react";\nimport { motion } from "framer-motion";\nexport default () => /* @__PURE__ */ jsX("header", {\n  css: css`\n      background-color: gre;\n      min-height: 100%;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-size: calc(10px + 2vmin);\n      color: white;\n      text-align: center;\n      overflow: hidden;\n    `\n}, /* @__PURE__ */ jsX(motion.div, {\n  animate: { rotate: 360 },\n  transition: {\n    repeat: 0,\n    duration: 2,\n    repeatType: "loop"\n  }\n}, /* @__PURE__ */ jsX("div", {\n  css: css`\n          font-size: calc(10px + 20vmin);\n        `\n}, "\\u{1F525}"), "-------------------"), /* @__PURE__ */ jsX("p", null, "Hey!Try to modify ", /* @__PURE__ */ jsX("code", null, "this"), " page."), /* @__PURE__ */ jsX("a", {\n  css: css`\n        color: #61dafb;\n      `,\n  href: "./edit"\n}, "Open the editor."));\n',
+      "import { jsx as jsX } from \"@emotion/react\";\nimport { css } from \"@emotion/react\";\nimport { motion } from \"framer-motion\";\nexport default () => /* @__PURE__ */ jsX(\"header\", {\n  css: css`\n      background-color: gre;\n      min-height: 100%;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-size: calc(10px + 2vmin);\n      color: white;\n      text-align: center;\n      overflow: hidden;\n    `\n}, /* @__PURE__ */ jsX(motion.div, {\n  animate: { rotate: 360 },\n  transition: {\n    repeat: 0,\n    duration: 2,\n    repeatType: \"loop\"\n  }\n}, /* @__PURE__ */ jsX(\"div\", {\n  css: css`\n          font-size: calc(10px + 20vmin);\n        `\n}, \"\\u{1F525}\"), \"-------------------\"), /* @__PURE__ */ jsX(\"p\", null, \"Hey!Try to modify \", /* @__PURE__ */ jsX(\"code\", null, \"this\"), \" page.\"), /* @__PURE__ */ jsX(\"a\", {\n  css: css`\n        color: #61dafb;\n      `,\n  href: \"./edit\"\n}, \"Open the editor.\"));\n",
     "code":
       "import { css } from '@emotion/react';\nimport { motion } from 'framer-motion';\n\nexport default () => (\n  <header\n    css={css`\n      background-color: gre;\n      min-height: 100%;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-size: calc(10px + 2vmin);\n      color: white;\n      text-align: center;\n      overflow: hidden;\n    `}>\n    <motion.div\n      animate={{ rotate: 360 }}\n      transition={{\n        repeat: 0,\n        duration: 2,\n        repeatType: 'loop',\n      }}>\n      <div\n        css={css`\n          font-size: calc(10px + 20vmin);\n        `}>\n        \u{1F525}\n      </div>\n      -------------------\n    </motion.div>\n    <p>\n      Hey!Try to modify <code>this</code> page.\n    </p>\n    <a\n      css={css`\n        color: #61dafb;\n      `}\n      href=\"./edit\">\n      Open the editor.\n    </a>\n  </header>\n);\n",
     "html":
-      '<header class="css-34wkbp">\n  <div data-projection-id="3">\n    <div class="css-15plvkc">\u{1F525}</div>\n    -------------------\n  </div>\n  <p>Hey!Try to modify <code>this</code> page.</p>\n  <a href="./edit" class="css-1v5q1ar">Open the editor.</a>\n</header>\n',
+      "<header class=\"css-34wkbp\">\n  <div data-projection-id=\"3\">\n    <div class=\"css-15plvkc\">\u{1F525}</div>\n    -------------------\n  </div>\n  <p>Hey!Try to modify <code>this</code> page.</p>\n  <a href=\"./edit\" class=\"css-1v5q1ar\">Open the editor.</a>\n</header>\n",
     "css":
       ".css-34wkbp {\n  background-color: gre;\n  min-height: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-direction: column;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  font-size: calc(10px + 2vmin);\n  color: white;\n  text-align: center;\n  overflow: hidden;\n}\n.css-15plvkc {\n  font-size: calc(10px + 20vmin);\n}\n.css-1v5q1ar {\n  color: #61dafb;\n}\n",
   };
@@ -8642,9 +8623,7 @@ function print(root, printNode = (n) => n.key) {
 function row(root, prefix, isTail, out, printNode) {
   if (root) {
     out(
-      `${prefix}${isTail ? "\u2514\u2500\u2500 " : "\u251C\u2500\u2500 "}${
-        printNode(root)
-      }
+      `${prefix}${isTail ? "\u2514\u2500\u2500 " : "\u251C\u2500\u2500 "}${printNode(root)}
 `,
     );
     const indent = prefix + (isTail ? "    " : "\u2502   ");
@@ -9654,8 +9633,8 @@ var Code = class {
     try {
       try {
         if (
-          data.target && data.type &&
-          ["new-ice-candidate", "video-offer", "video-answer"].includes(
+          data.target && data.type
+          && ["new-ice-candidate", "video-offer", "video-answer"].includes(
             data.type,
           )
         ) {
@@ -9712,9 +9691,7 @@ var Code = class {
   }
   user2user(to, msg) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
-    this.sessions.filter((session2) => session2.name === to).map((s) =>
-      s.webSocket.send(message)
-    );
+    this.sessions.filter((session2) => session2.name === to).map((s) => s.webSocket.send(message));
   }
   broadcast(msg) {
     const message = JSON.stringify(msg);

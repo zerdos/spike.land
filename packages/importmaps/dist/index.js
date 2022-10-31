@@ -3,11 +3,11 @@ import { render } from "https://ga.jspm.io/npm:react-dom@17.0.2/dev.index.js";
 
 // src/rca.tsx
 import { css } from "https://ga.jspm.io/npm:@emotion/react@11.10.0/dist/emotion-react.browser.esm.js";
-import { motion } from "https://ga.jspm.io/npm:framer-motion@6.5.1/dist/es/index.mjs";
 import {
   jsx,
   jsxs,
 } from "https://ga.jspm.io/npm:@emotion/react@11.10.0/jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm.js";
+import { motion } from "https://ga.jspm.io/npm:framer-motion@6.5.1/dist/es/index.mjs";
 var RCA = () =>
   /* @__PURE__ */ jsxs("header", {
     css: css`
