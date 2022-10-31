@@ -57,26 +57,27 @@ export const { apps, eCaches } = (globalThis as unknown as {
 let starterI = 1 * (document.getElementById("root")!.getAttribute("data-i") as unknown as number);
 
 async function importIt(url: string) {
-  let waitingTime = 0;
+  let waitingTime = 100;
+  let nextUrl = url;
   while (true) {
     try {
       let resp = await fetch(url);
       if (resp.headers.get("location")) {
-        const i = resp.headers.get("location")?.split("/").pop();
-        starterI = Number(i);
+        nextUrl = resp.headers.get("location")!;
+        const i = nextUrl.split("/").pop();
+        starterI = Number(i) * 1;
       }
-      await wait(waitingTime);
-      waitingTime = waitingTime * 2;
-      resp = await fetch(url);
       if (resp.ok) {
         const trp = await resp.text();
         const App = new Function(trp + ` return ${trp.slice(2, 10)}`)();
 
         return App as unknown as { default: FC };
       }
+      await wait(waitingTime);
+      waitingTime = waitingTime * 2;
     } catch {
       console.error("error has been thrown");
-      waitingTime = waitingTime / 1.5;
+      waitingTime = waitingTime * 1.5;
     }
   }
 }
