@@ -218,10 +218,10 @@ export async function appFactory(
       //   terminal.clear();
       // }
       console.log(`i: ${mstI}: `);
-      new Function(
-        trp.replace("return __toCommonJS(stdin_exports)", "globalThis.TmpApp=stdin_exports")(),
-      );
-      const App = globalThis.TmpApp.default as unknown as FC; // (await importShim(createJsBlob(transpiled))).default;
+
+      const App = new Function(trp + ` return ${transpiled.slice(2, 10)}`)().default;
+
+      //      globalThis.TmpApp.default as unknown as FC; // (await importShim(createJsBlob(transpiled))).default;
 
       // try {
       //   const fn = new Function("return " + trp)().default as unknown as FC;
