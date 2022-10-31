@@ -57,19 +57,24 @@ export const { apps, eCaches } = (globalThis as unknown as {
 const starterI = 1 * (document.getElementById("root")!.getAttribute("data-i") as unknown as number);
 
 async function importIt(url: string) {
-  let res = null as null | Response;
-  try {
-    while (!(res && res.ok)) {
-      await fetch(url);
-      await wait(500);
-    }
-  } catch {
-    return importIt(url) as unknown as { default: FC };
-  }
-  const trp = await res.text();
-  const App = new Function(trp + ` return ${trp.slice(2, 10)}`)();
+  let waitingTime = 0;
+  while (true) {
+    try {
+      let resp = await fetch(url);
+      await wait(waitingTime);
+      waitingTime = waitingTime * 2;
+      resp = await fetch(url);
+      if (resp.ok) {
+        const trp = await resp.text();
+        const App = new Function(trp + ` return ${trp.slice(2, 10)}`)();
 
-  return App as unknown as { default: FC };
+        return App as unknown as { default: FC };
+      }
+    } catch {
+      console.error("error has been thrown");
+      waitingTime = waitingTime / 1.5;
+    }
+  }
 }
 
 export function AutoUpdateApp(

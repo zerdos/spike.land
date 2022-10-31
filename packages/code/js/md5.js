@@ -5,7 +5,7 @@ export const md5 = (code) => (md5FULL(code).split("0").join("k")
   .split("4").join("b")
   .split("5").join("n")
   .split("6").join("o")
-.split("7").join("x")
+  .split("7").join("x")
   .split("8").join("q")
   .split("9").join("z")
   .slice(0, 8));
