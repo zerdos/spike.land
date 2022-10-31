@@ -98,7 +98,7 @@ const build = (
     sourcemap: false,
 
     minify: !isDevelopment,
-    minifyWhitespace: true,
+    minifyWhitespace: false,
     minifyIdentifiers: false,
     minifySyntax: !isDevelopment,
     legalComments: "none",

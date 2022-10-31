@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 // import {terminal} from "./DraggableWindow"
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -15,7 +15,7 @@ import { hashCode, mST } from "./session";
 // import type { EmotionCache } from "@emotion/cache";
 
 // import isCallable from "is-callable";
-import { useEffect } from "preact/hooks";
+
 import { wait } from "./wait";
 
 Object.assign(globalThis, { md5 });
@@ -77,7 +77,7 @@ export function AutoUpdateApp(
         }
         if (resp.ok) {
           const trp = await resp.text();
-          let App;
+          let mod;
           try {
             mod = new Function(trp + ` return ${trp.slice(2, 10)}`)();
           } catch {
@@ -85,7 +85,7 @@ export function AutoUpdateApp(
           }
           setApps({ App: lazy(async () => mod), i: i + 1 });
 
-          return App;
+          return mod;
         }
       } catch (err) {
         console.error({ err });
