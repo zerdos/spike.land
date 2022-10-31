@@ -956,7 +956,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^5.41.0"
     "@typescript/ata": "npm:0.9.3"
     "@yarnpkg/sdks": "npm:3.0.0-rc.27"
-    ace-builds: "npm:1.12.3"
+    ace-builds: "npm:1.12.4"
     ace-code: "npm:^1.12.3"
     avl: "npm:1.5.3"
     comlink: "npm:4.3.1"
@@ -1657,10 +1657,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.12.3":
-  version: 1.12.3
-  resolution: "ace-builds@npm:1.12.3"
-  checksum: fafc22bf536680785413b556d7fad308c75bd0b36754a33a2b9b206c4ead50154c53a3ef4872ed42d00b47f805b45c88cfcb040a40b8e4c7f65c1c92ed4af976
+"ace-builds@npm:1.12.4":
+  version: 1.12.4
+  resolution: "ace-builds@npm:1.12.4"
+  checksum: 04f4e29be63dbcdfbcd8677eafcb90553a9c9e3dd77d85e9da335f594da4188e298fc79ab0214d52c38960a665137496671512e9a07f0985ffc1fd0a5e9ca369
   languageName: node
   linkType: hard
 

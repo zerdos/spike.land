@@ -68,7 +68,7 @@
     "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
     "@typescript/ata": "0.9.3",
-    "ace-builds": "1.12.3",
+    "ace-builds": "1.12.4",
     "ace-code": "^1.12.3",
     "avl": "1.5.3",
     "comlink": "4.3.1",
