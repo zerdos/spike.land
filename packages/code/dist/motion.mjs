@@ -1,1 +1,1 @@
-var o=globalThis.FramerMotion,{LazyMotion:e,m:a,domMax:m,domAnimation:r,motion:M,MotionConfig:s,AnimatePresence:c}=o,d=o;export{c as AnimatePresence,e as LazyMotion,s as MotionConfig,d as default,r as domAnimation,m as domMax,a as m,M as motion};
+import{AnimatePresence,LazyMotion,MotionConfig,domAnimation,domMax,m,motion,motion_default}from"./chunk-chunk-NGRT32L4.mjs";import"./chunk-chunk-3HAAPUMV.mjs";export{AnimatePresence,LazyMotion,MotionConfig,motion_default as default,domAnimation,domMax,m,motion};

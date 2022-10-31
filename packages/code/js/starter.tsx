@@ -42,7 +42,9 @@ Object.assign(globalThis, { md5 });
 
 // const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache};
 
-if (!Object.hasOwn(globalThis, "apps")) Object.assign(globalThis, { apps: {}, eCaches: {} });
+if (!Object.hasOwn(globalThis, "apps")) {
+  Object.assign(globalThis, { apps: {}, eCaches: {} });
+}
 
 export const { apps, eCaches } = (globalThis as unknown as {
   apps: Record<string, FC<{ appId: string }>>;
@@ -55,13 +57,47 @@ export const { apps, eCaches } = (globalThis as unknown as {
 
 // const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
-let starterI = 1 * (document.getElementById("root")!.getAttribute("data-i") as unknown as number);
+let starterI = 1
+  * (document.getElementById("root")!.getAttribute(
+    "data-i",
+  ) as unknown as number);
 
 export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
+  const importIt = async (url: string) => {
+    let waitingTime = 100;
+    while (true) {
+      try {
+        let resp = await fetch(url);
+        if (resp.status === 307 && resp.headers.get("location")) {
+          const i = Number(resp.headers.get("location")!.split("/").pop()) * 1;
+          setApps((x) => ({ ...x, i }));
+          return;
+        }
+        if (resp.ok) {
+          const trp = await resp.text();
+          let App;
+          try {
+            App = new Function(trp + ` return ${trp.slice(2, 10)}`)().default;
+          } catch {
+            App = (await importShim(createJsBlob(trp))).default;
+          }
+          setApps({ App: App as any, i: i + 1 });
+
+          return App;
+        }
+      } catch (err) {
+        console.error({ err });
+        console.error("error has been thrown");
+      } finally {
+        await wait(waitingTime *= 2);
+      }
+    }
+  };
+
   const [{ App, i }, setApps] = useState({
-    i: starterI,
+    i: starterI - 1,
     App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`)),
   });
 
@@ -93,30 +129,6 @@ export function AutoUpdateApp(
       </Suspense>
     </ErrorBoundary>
   );
-
-  async function importIt(url: string) {
-    let waitingTime = 100;
-    while (true) {
-      try {
-        let resp = await fetch(url);
-        if (resp.status === 307 && resp.headers.get("location")) {
-          const i = Number(resp.headers.get("location")!.split("/").pop()) * 1;
-          setApps(x => ({ ...x, i }));
-          return;
-        }
-        if (resp.ok) {
-          const trp = await resp.text();
-          const App = new Function(trp + ` return ${trp.slice(2, 10)}`)().default;
-          setApps({ App: App as any, i: i + 1 });
-          return App;
-        }
-      } catch {
-        console.error("error has been thrown");
-      } finally {
-        await wait(waitingTime *= 2);
-      }
-    }
-  }
 }
 
 // export function AutoUpdateApp(

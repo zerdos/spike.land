@@ -35,8 +35,8 @@ class Code {
     this.address = "";
     this.state.blockConcurrencyWhile(async () => {
       const backupSession = (0, getBackupSession_1.getBackupSession)();
-      const session = await this.kv.get("session") ||
-        backupSession;
+      const session = await this.kv.get("session")
+        || backupSession;
       if (!session.code) {
         const s = backupSession;
         session.code = s.code;
@@ -425,9 +425,7 @@ class Code {
             }
             if (otherSession.name === data.name) {
               otherSession.name = "";
-              otherSession.blockedMessages.map((m) =>
-                session.webSocket.send(m)
-              );
+              otherSession.blockedMessages.map((m) => session.webSocket.send(m));
               otherSession.blockedMessages = [];
             }
           });
@@ -470,9 +468,9 @@ class Code {
       // }
       try {
         if (
-          data.target &&
-          data.type &&
-          ["new-ice-candidate", "offer", "answer"].includes(data.type)
+          data.target
+          && data.type
+          && ["new-ice-candidate", "offer", "answer"].includes(data.type)
         ) {
           return this.user2user(data.target, { ...data, name });
         }
@@ -569,4 +567,4 @@ async function sha256(myText) {
   }, myY);
   return new TextDecoder("utf-8").decode(new Uint8Array(myDigest));
 }
-//# sourceMappingURL=chatRoom.js.map
+// # sourceMappingURL=chatRoom.js.map

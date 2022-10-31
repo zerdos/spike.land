@@ -49,7 +49,7 @@ if (location.pathname.endsWith("/hydrated")) {
   };
   importShim<() => JSX.Element, {}>(
     `${location.origin}/live/${codeSpace}/index.js/${i}`,
-  ).then(mod => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default()));
+  ).then((mod) => hydrateRoot(document.querySelectorAll("#root>div>div")[0], mod.default()));
   // .then(() => {
   //   setTimeout(() => {
   //     const dry = true;

@@ -11,26 +11,26 @@ const IPV6_REGEX =
 const RATE_LIMITING_SAMPLING_RATE = 100.0;
 function validatePayload(headers, payload) {
   if (
-    !payload.r ||
-    payload.r.length < 4 ||
-    payload.r.length > 64 ||
-    !payload.r.match(/^[A-Za-z0-9_-]+$/)
+    !payload.r
+    || payload.r.length < 4
+    || payload.r.length > 64
+    || !payload.r.match(/^[A-Za-z0-9_-]+$/)
   ) {
     return new Response("Bad rtc id" + payload.r, { status: 400, headers });
   }
   if (payload.d) {
     if (
-      !payload.x ||
-      typeof payload.x !== "number" ||
-      payload.x > 24 * 60 * 60 * 1000
+      !payload.x
+      || typeof payload.x !== "number"
+      || payload.x > 24 * 60 * 60 * 1000
     ) {
       return new Response("Bad expiration", { status: 400, headers });
     }
     // Validate timestamp - note date is of last I/O in worker
     if (
-      !payload.t ||
-      typeof payload.t !== "number" ||
-      Math.abs(payload.t - new Date().getTime()) > 10 * 60 * 1000
+      !payload.t
+      || typeof payload.t !== "number"
+      || Math.abs(payload.t - new Date().getTime()) > 10 * 60 * 1000
     ) {
       return new Response("Bad timestamp", { status: 400, headers });
     }
@@ -59,9 +59,9 @@ function validatePayload(headers, payload) {
       return new Response("Bad joined at timestamp", { status: 400, headers });
     }
     if (
-      !d[5] ||
-      typeof d[5] !== "object" ||
-      d[5].find((ip) => !ip.match(IPV4_REGEX) && !ip.match(IPV6_REGEX))
+      !d[5]
+      || typeof d[5] !== "object"
+      || d[5].find((ip) => !ip.match(IPV4_REGEX) && !ip.match(IPV6_REGEX))
     ) {
       return new Response("Bad reflexive IPs", { status: 400, headers });
     }
@@ -74,8 +74,7 @@ function validatePayload(headers, payload) {
 }
 function getRandomString(length) {
   let result = "";
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const charactersLength = characters.length;
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -121,7 +120,7 @@ async function handleGet(request, env) {
     `<html><body style="font-size: 24px; padding: 18px; font-family: Arial, sans-serif"">Hello from P2PCF<br/><div style=\"line-height: 28px; margin-top: 8px; font-size: 0.8em\">${
       hasStore
         ? "&#128077; R2 bucket is configured properly, ready to serve."
-        : '&#10060; Couldn\'t find a configured R2 bucket.<br/>Make sure you <a href="https://github.com/gfodor/p2pcf/blob/master/INSTALL.md#set-up-the-r2-bucket" target="_blank">created a bucket</a> and <a href="https://github.com/gfodor/p2pcf/blob/master/INSTALL.md#bind-the-worker-to-r2" target="_blank">connected the worker to it</a>.'
+        : "&#10060; Couldn't find a configured R2 bucket.<br/>Make sure you <a href=\"https://github.com/gfodor/p2pcf/blob/master/INSTALL.md#set-up-the-r2-bucket\" target=\"_blank\">created a bucket</a> and <a href=\"https://github.com/gfodor/p2pcf/blob/master/INSTALL.md#bind-the-worker-to-r2\" target=\"_blank\">connected the worker to it</a>."
     }</div></body></html>`,
     {
       headers: {
@@ -133,9 +132,9 @@ async function handleGet(request, env) {
 async function handleOptions(request, env) {
   const headers = request.headers;
   if (
-    headers.get("Origin") !== null &&
-    headers.get("Access-Control-Request-Method") !== null &&
-    headers.get("Access-Control-Request-Headers") !== null
+    headers.get("Origin") !== null
+    && headers.get("Access-Control-Request-Method") !== null
+    && headers.get("Access-Control-Request-Headers") !== null
   ) {
     const respHeaders = {
       ...corsHeaders,
@@ -221,9 +220,9 @@ async function handleDelete(request, env, context) {
     const entryContextId = getEntryContextId(entry);
     const entryDeleteKey = getEntryDeleteKey(entry);
     if (
-      payload.k === entryContextId &&
-      payload.d[0] === entrySessionId &&
-      payload.dk === entryDeleteKey
+      payload.k === entryContextId
+      && payload.d[0] === entrySessionId
+      && payload.dk === entryDeleteKey
     ) {
       context.waitUntil(store.delete(`rtcs/${rtcId}/entries:${i}`));
       if (maxIndex === i) {
@@ -408,8 +407,8 @@ async function handlePost(request, env, context) {
   // Check for vacuum
   const nextVacuumEntryValue = await nextVacuumEntry;
   if (
-    !nextVacuumEntryValue ||
-    now > parseInt(await nextVacuumEntryValue.text())
+    !nextVacuumEntryValue
+    || now > parseInt(await nextVacuumEntryValue.text())
   ) {
     // Add a random delay and re-check to avoid stampede.
     context.waitUntil(
@@ -418,8 +417,8 @@ async function handlePost(request, env, context) {
           const now = new Date().getTime();
           const nextVacuumEntry = await store.get(`rtcs/${rtcId}/next_vacuum`);
           if (
-            !nextVacuumEntry ||
-            now > parseInt(await nextVacuumEntry.text())
+            !nextVacuumEntry
+            || now > parseInt(await nextVacuumEntry.text())
           ) {
             let removed = 0;
             // Vacuum
@@ -442,11 +441,11 @@ async function handlePost(request, env, context) {
             }
             await Promise.all(removePromises);
             console.log(
-              "Vacuumed rtc " +
-                rtcId +
-                ". Removed " +
-                (removed + 1) +
-                " keys.",
+              "Vacuumed rtc "
+                + rtcId
+                + ". Removed "
+                + (removed + 1)
+                + " keys.",
             );
           }
           res();
@@ -476,9 +475,7 @@ async function getResponseIfDisallowed(request, env) {
   }
   const store = getStore(env);
   const d = new Date();
-  const currentCountKey = `join-counts/${d.getYear()}-${d.getMonth()}/${
-    encodeURIComponent(origin)
-  }`;
+  const currentCountKey = `join-counts/${d.getYear()}-${d.getMonth()}/${encodeURIComponent(origin)}`;
   const currentCountEntry = await store.get(currentCountKey);
   let currentCount = 0;
   if (currentCountEntry) {
@@ -513,8 +510,8 @@ exports.default = {
       });
     }
     if (
-      request.headers.get("x-worker-method") === "DELETE" ||
-      request.method === "DELETE"
+      request.headers.get("x-worker-method") === "DELETE"
+      || request.method === "DELETE"
     ) {
       return await handleDelete(request, env, context);
     }
@@ -524,4 +521,4 @@ exports.default = {
     return new Response("Method not allowed", { status: 405 });
   },
 };
-//# sourceMappingURL=rtc.mjs.map
+// # sourceMappingURL=rtc.mjs.map
