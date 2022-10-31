@@ -105,7 +105,7 @@ window.esmsInitOptions = {
 
   
    <script type="importmap"></script>
-   <script type="/react-jsx-runtime.mjs"></script>
+
   </head>
    
    
@@ -147,7 +147,8 @@ window.addEventListener('pageshow', (event) => {
 
 <div id="root"></div>
   
-<script type="module">
+<script defer src="/react-jsx-runtime.mjs"></script>
+<script  type="module">
 
 if (location.pathname.endsWith("dehydrated")) {
   const paths = location.pathname.split("/");
