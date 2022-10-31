@@ -2,7 +2,7 @@ import {
   __esm,
   __export,
   init_define_process
-} from "./chunk-chunk-2DK73MPQ.mjs";
+} from "./chunk-chunk-C6MIXMNE.mjs";
 
 // js/reactMod.ts
 var reactMod_exports = {};

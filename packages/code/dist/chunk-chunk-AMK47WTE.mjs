@@ -1,13 +1,13 @@
 import {
   emotionCache_default
-} from "./chunk-chunk-SPNC3BA5.mjs";
+} from "./chunk-chunk-RLMKQNHN.mjs";
 import {
   hashCode,
   mST,
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-DSTXGLQA.mjs";
+} from "./chunk-chunk-INXOQHTE.mjs";
 import {
   Children,
   Fragment,
@@ -29,29 +29,30 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-ADALEOZA.mjs";
+} from "./chunk-chunk-5L4G4M7L.mjs";
 import {
   CacheProvider,
   Global,
   css
-} from "./chunk-chunk-HS3IGWOP.mjs";
+} from "./chunk-chunk-STW2X7BX.mjs";
 import {
   Fragment as Fragment2,
   jsx,
   jsxs
-} from "./chunk-chunk-V6QE4D7F.mjs";
+} from "./chunk-chunk-FMP4XQH7.mjs";
 import {
   initAndTransform
-} from "./chunk-chunk-UJK7BO2G.mjs";
+} from "./chunk-chunk-HLXH4AHS.mjs";
 import {
   md5
-} from "./chunk-chunk-XT46MF77.mjs";
+} from "./chunk-chunk-JDNLFPEH.mjs";
 import {
   __commonJS,
+  __require,
   __toCommonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-2DK73MPQ.mjs";
+} from "./chunk-chunk-C6MIXMNE.mjs";
 
 // ../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js
 var require_react_error_boundary_umd = __commonJS({
@@ -20916,7 +20917,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-6PCG3VDW.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-KQKSCD5K.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -21103,7 +21104,7 @@ async function appFactory(transpiled = "", codeSpace, dry) {
   if (!apps2[hash]) {
     try {
       console.log(`i: ${mstI}: `);
-      const App = (await importShim(createJsBlob(transpiled))).default;
+      const App = __require(globalThis.IIFE[md5(transpiled)]).default;
       console.log({ App });
       if ((0, import_is_callable.default)(App)) {
         eCaches2[hash] = eCaches2[hash] || emotionCache_default({
@@ -21185,14 +21186,6 @@ async function appFactory(transpiled = "", codeSpace, dry) {
     await renderPreviewWindow({ codeSpace, dry: !!dry });
   }
   return apps2[hash];
-}
-function createJsBlob(code, fileName = "index.mjs") {
-  const file = new File([code], fileName, {
-    type: "application/javascript",
-    lastModified: Date.now()
-  });
-  const blobUrl = URL.createObjectURL(file);
-  return blobUrl;
 }
 
 // js/renderToString.tsx
@@ -21322,7 +21315,7 @@ var mod2 = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform } = await import("./chunk-esbuildEsm-2UHKWLLD.mjs");
+    const { transform } = await import("./chunk-esbuildEsm-NNPW6422.mjs");
     const t = await transform(res, {
       format: "esm",
       minify: true,
@@ -21343,7 +21336,7 @@ var mod2 = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const { transform } = await import("./chunk-esbuildEsm-2UHKWLLD.mjs");
+  const { transform } = await import("./chunk-esbuildEsm-NNPW6422.mjs");
   const hash = md5(source);
   mod2.hashMap = { ...mod2.hashMap, [hash]: name, [name]: hash };
   if (!mod2.data[hash]) {
@@ -21438,6 +21431,7 @@ var umdTransform = async (code) => {
     treeShaking: true,
     platform: "browser",
     minify: false,
+    globalName: md5(code),
     keepNames: true,
     tsconfigRaw: {
       compilerOptions: {
@@ -21450,7 +21444,6 @@ var umdTransform = async (code) => {
     target: "es2021"
   });
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
-  apps[md5(transpiled.code)] = apps[md5(code)];
   return transpiled.code;
 };
 globalThis.umdTransform = globalThis.umdTransform = umdTransform;
@@ -21646,7 +21639,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-PZVLLSV7.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-XMG4LYIU.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,
@@ -21659,7 +21652,7 @@ async function setAce(container) {
   if (startedAce)
     return;
   startedAce = 1;
-  const { startAce } = await import("./chunk-startAce-G24FPSIL.mjs");
+  const { startAce } = await import("./chunk-startAce-B72XXOOP.mjs");
   return await startAce(mST().code, onModChange, container);
 }
 

@@ -1,7 +1,7 @@
 import {
   appFactory,
   wait
-} from "./chunk-chunk-Z2NDLPIO.mjs";
+} from "./chunk-chunk-AMK47WTE.mjs";
 import {
   applyPatch,
   hashCode,
@@ -11,16 +11,16 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-DSTXGLQA.mjs";
+} from "./chunk-chunk-INXOQHTE.mjs";
 import {
   md5
-} from "./chunk-chunk-XT46MF77.mjs";
+} from "./chunk-chunk-JDNLFPEH.mjs";
 import {
   __commonJS,
   __export,
   __toESM,
   init_define_process
-} from "./chunk-chunk-2DK73MPQ.mjs";
+} from "./chunk-chunk-C6MIXMNE.mjs";
 
 // ../../.yarn/global/cache/sdp-npm-3.0.3-3ac42de16d-9.zip/node_modules/sdp/sdp.js
 var require_sdp = __commonJS({
