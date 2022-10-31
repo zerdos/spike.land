@@ -6,7 +6,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import type { EmotionCache } from "@emotion/cache";
 
 import { CacheProvider, css } from "@emotion/react";
-import { renderPreviewWindow } from "renderPreviewWindow";
+
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
 import { hashCode, mST } from "./session";
@@ -194,12 +194,11 @@ export function AutoUpdateApp(
 
 //
 // let Emotion: typeof iEmotion;
-let started = false;
+// let started = false;
 
 export async function appFactory(
   transpiled = "",
   codeSpace?: string,
-  dry?: boolean,
 ): Promise<FC<{ appId: string }>> {
   // }
   const { transpiled: mstTranspiled, i: mstI } = mST();
@@ -289,10 +288,6 @@ export async function appFactory(
     if (transpiled !== "") return apps[hash];
   }
 
-  if (!started && codeSpace) {
-    started = true;
-    await renderPreviewWindow({ codeSpace, dry: !!dry });
-  }
   // If ( mST().transpiled !== trp) {
   //   if (hashC===hashCode()){
   //     apps[hashC]=apps[hash];

@@ -2,7 +2,7 @@ import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-AIJYQNQW.mjs";
+} from "./chunk-chunk-Q44E7SEZ.mjs";
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.12-3f001d0ec2-9.zip/node_modules/esbuild-wasm/lib/browser.js
 var require_browser = __commonJS({
