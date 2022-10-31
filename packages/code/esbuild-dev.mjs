@@ -87,7 +87,7 @@ const build = (entryPoints = [""], extraExternal = [""], watch = false, format =
     external: [...buildOptions.external, ...extraExternal.filter(x => x)],
     outExtension: { ".js": ".mjs" },
     bundle: true,
-    splitting: format === "esm",
+    splitting: false, // format === "esm",
     target,
     format: format || "esm",
     sourcemap: false,

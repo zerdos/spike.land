@@ -1,19 +1,19 @@
-import {
+// js/emotion.ts
+var {
+  __unsafe_useEmotionCache,
   CacheProvider,
   ClassNames,
-  Global,
-  ThemeContext,
-  ThemeProvider,
-  __unsafe_useEmotionCache,
   createElement,
   css,
+  Global,
   jsx,
   keyframes,
+  ThemeContext,
+  ThemeProvider,
   useTheme,
   withEmotionCache,
   withTheme
-} from "./chunk-chunk-HS3IGWOP.mjs";
-import "./chunk-chunk-2DK73MPQ.mjs";
+} = globalThis.emotionReact;
 export {
   CacheProvider,
   ClassNames,

@@ -1,9 +1,5 @@
-import {
-  Fragment,
-  jsx,
-  jsxs
-} from "./chunk-chunk-2RHEIFZB.mjs";
-import "./chunk-chunk-2DK73MPQ.mjs";
+// js/emotionJsxRuntime.ts
+var { Fragment, jsx, jsxs } = globalThis.emotionReactJsxRuntime;
 export {
   Fragment,
   jsx,

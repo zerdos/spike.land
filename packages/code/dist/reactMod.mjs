@@ -1,33 +1,22 @@
-import {
+// js/reactMod.ts
+var { React, ReactDOM, ReactDOMClient } = globalThis;
+var {
   Children,
   Component,
   Fragment,
   PureComponent,
   StrictMode,
   Suspense,
-  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
   cloneElement,
   createContext,
   createElement,
   createFactory,
-  createPortal,
   createRef,
-  createRoot,
-  findDOMNode,
-  flushSync,
   forwardRef,
-  hydrate,
-  hydrateRoot,
-  init_reactMod,
   isValidElement,
   lazy,
   memo,
-  reactMod_default,
-  render,
   startTransition,
-  unmountComponentAtNode,
-  unstable_batchedUpdates,
-  unstable_renderSubtreeIntoContainer,
   useCallback,
   useContext,
   useDebugValue,
@@ -43,10 +32,24 @@ import {
   useState,
   useSyncExternalStore,
   useTransition,
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+} = React;
+var {
+  createRoot,
+  hydrateRoot
+} = ReactDOMClient;
+var {
+  createPortal,
+  flushSync,
+  render,
+  findDOMNode,
+  hydrate,
+  unmountComponentAtNode,
+  unstable_batchedUpdates,
+  unstable_renderSubtreeIntoContainer,
   version
-} from "./chunk-chunk-ADALEOZA.mjs";
-import "./chunk-chunk-2DK73MPQ.mjs";
-init_reactMod();
+} = ReactDOM;
+var reactMod_default = React;
 export {
   Children,
   Component,
