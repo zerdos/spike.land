@@ -20624,6 +20624,10 @@ async function importIt(url) {
   while (true) {
     try {
       let resp = await fetch(url);
+      if (resp.headers.get("location")) {
+        const i = resp.headers.get("location")?.split("/").pop();
+        starterI = Number(i);
+      }
       await wait(waitingTime);
       waitingTime = waitingTime * 2;
       resp = await fetch(url);
@@ -20650,7 +20654,7 @@ function AutoUpdateApp({ codeSpace }) {
   });
   useEffect(() => {
     importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`).then(
-      ({ default: App2 }) => setApps({ App: App2, i: i + 1 })
+      ({ default: App2 }) => setApps({ App: App2, i: starterI > i ? starterI : i + 1 })
     );
   }, [i]);
   return jsx(import_react_error_boundary.ErrorBoundary, {
