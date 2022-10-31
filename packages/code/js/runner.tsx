@@ -20,6 +20,7 @@ Object.assign(globalThis, {
   },
 });
 globalThis.IIFE = globalThis.IIFE = {};
+
 export const umdTransform = async (code: string) => {
   const transpiled = await transform(code, {
     loader: "tsx",
@@ -27,6 +28,7 @@ export const umdTransform = async (code: string) => {
     treeShaking: true,
     platform: "browser",
     minify: false,
+    globalName: md5(code),
     keepNames: true,
     tsconfigRaw: {
       compilerOptions: {
@@ -40,7 +42,7 @@ export const umdTransform = async (code: string) => {
   } as unknown as TransformOptions);
 
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
-  apps[md5(transpiled.code)] = apps[md5(code)];
+  // apps[md5(transpiled.code)] = require(md5(code));
 
   return transpiled.code;
 };

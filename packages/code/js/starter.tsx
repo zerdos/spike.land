@@ -213,7 +213,7 @@ export async function appFactory(
       //   terminal.clear();
       // }
       console.log(`i: ${mstI}: `);
-      const App: FC = (await importShim(createJsBlob(transpiled))).default;
+      const App: FC = require(globalThis.IIFE[md5(transpiled)]).default; // (await importShim(createJsBlob(transpiled))).default;
       // try {
       //   const fn = new Function("return " + trp)().default as unknown as FC;
       //   App = fn;
