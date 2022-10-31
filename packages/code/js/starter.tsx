@@ -54,13 +54,17 @@ export const { apps, eCaches } = (globalThis as unknown as {
 
 // const render: Record<string, { html: string; css: string }> = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
-const starterI = 1 * (document.getElementById("root")!.getAttribute("data-i") as unknown as number);
+let starterI = 1 * (document.getElementById("root")!.getAttribute("data-i") as unknown as number);
 
 async function importIt(url: string) {
   let waitingTime = 0;
   while (true) {
     try {
       let resp = await fetch(url);
+      if (resp.headers.get("location")) {
+        const i = resp.headers.get("location")?.split("/").pop();
+        starterI = Number(i);
+      }
       await wait(waitingTime);
       waitingTime = waitingTime * 2;
       resp = await fetch(url);
@@ -92,7 +96,7 @@ export function AutoUpdateApp(
 
   useEffect(() => {
     importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`).then(({ default: App }) =>
-      setApps({ App: App as any, i: i + 1 })
+      setApps({ App: App as any, i: starterI > i ? starterI : i + 1 })
     );
   }, [i]);
 
