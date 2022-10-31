@@ -79,11 +79,11 @@ export function AutoUpdateApp(
           const trp = await resp.text();
           let App;
           try {
-            App = new Function(trp + ` return ${trp.slice(2, 10)}`)().default;
+            mod = new Function(trp + ` return ${trp.slice(2, 10)}`)();
           } catch {
-            App = (await importShim(createJsBlob(trp))).default;
+            mod = await importShim(createJsBlob(trp));
           }
-          setApps({ App: App as any, i: i + 1 });
+          setApps({ App: lazy(async () => mod), i: i + 1 });
 
           return App;
         }
