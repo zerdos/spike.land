@@ -195,125 +195,6 @@ var require_react_error_boundary_umd = __commonJS({
   }
 });
 
-// ../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js
-var require_is_callable = __commonJS({
-  "../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js"(exports, module) {
-    "use strict";
-    init_define_process();
-    var fnToStr = Function.prototype.toString;
-    var reflectApply = typeof Reflect === "object" && Reflect !== null && Reflect.apply;
-    var badArrayLike;
-    var isCallableMarker;
-    if (typeof reflectApply === "function" && typeof Object.defineProperty === "function") {
-      try {
-        badArrayLike = Object.defineProperty({}, "length", {
-          get: function() {
-            throw isCallableMarker;
-          }
-        });
-        isCallableMarker = {};
-        reflectApply(function() {
-          throw 42;
-        }, null, badArrayLike);
-      } catch (_) {
-        if (_ !== isCallableMarker) {
-          reflectApply = null;
-        }
-      }
-    } else {
-      reflectApply = null;
-    }
-    var constructorRegex = /^\s*class\b/;
-    var isES6ClassFn = function isES6ClassFunction(value) {
-      try {
-        var fnStr = fnToStr.call(value);
-        return constructorRegex.test(fnStr);
-      } catch (e) {
-        return false;
-      }
-    };
-    var tryFunctionObject = function tryFunctionToStr(value) {
-      try {
-        if (isES6ClassFn(value)) {
-          return false;
-        }
-        fnToStr.call(value);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    };
-    var toStr = Object.prototype.toString;
-    var objectClass = "[object Object]";
-    var fnClass = "[object Function]";
-    var genClass = "[object GeneratorFunction]";
-    var ddaClass = "[object HTMLAllCollection]";
-    var ddaClass2 = "[object HTML document.all class]";
-    var ddaClass3 = "[object HTMLCollection]";
-    var hasToStringTag = typeof Symbol === "function" && !!Symbol.toStringTag;
-    var isIE68 = !(0 in [,]);
-    var isDDA = function isDocumentDotAll() {
-      return false;
-    };
-    if (typeof document === "object") {
-      all = document.all;
-      if (toStr.call(all) === toStr.call(document.all)) {
-        isDDA = function isDocumentDotAll(value) {
-          if ((isIE68 || !value) && (typeof value === "undefined" || typeof value === "object")) {
-            try {
-              var str = toStr.call(value);
-              return (str === ddaClass || str === ddaClass2 || str === ddaClass3 || str === objectClass) && value("") == null;
-            } catch (e) {
-            }
-          }
-          return false;
-        };
-      }
-    }
-    var all;
-    module.exports = reflectApply ? function isCallable2(value) {
-      if (isDDA(value)) {
-        return true;
-      }
-      if (!value) {
-        return false;
-      }
-      if (typeof value !== "function" && typeof value !== "object") {
-        return false;
-      }
-      try {
-        reflectApply(value, null, badArrayLike);
-      } catch (e) {
-        if (e !== isCallableMarker) {
-          return false;
-        }
-      }
-      return !isES6ClassFn(value) && tryFunctionObject(value);
-    } : function isCallable2(value) {
-      if (isDDA(value)) {
-        return true;
-      }
-      if (!value) {
-        return false;
-      }
-      if (typeof value !== "function" && typeof value !== "object") {
-        return false;
-      }
-      if (hasToStringTag) {
-        return tryFunctionObject(value);
-      }
-      if (isES6ClassFn(value)) {
-        return false;
-      }
-      var strClass = toStr.call(value);
-      if (strClass !== fnClass && strClass !== genClass && !/^\[object HTML/.test(strClass)) {
-        return false;
-      }
-      return tryFunctionObject(value);
-    };
-  }
-});
-
 // ../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/parser-babel.js
 var require_parser_babel = __commonJS({
   "../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/parser-babel.js"(exports, module) {
@@ -20916,7 +20797,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-RN7CXNR7.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-M3QYFTTK.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -21031,7 +20912,6 @@ var renderPreviewWindow = ({ codeSpace, dry }) => {
 };
 
 // js/starter.tsx
-var import_is_callable = __toESM(require_is_callable(), 1);
 Object.assign(globalThis, { md5 });
 if (!Object.hasOwn(globalThis, "apps"))
   Object.assign(globalThis, { apps: {}, eCaches: {} });
@@ -21105,30 +20985,27 @@ async function appFactory(transpiled = "", codeSpace, dry) {
       console.log(`i: ${mstI}: `);
       const App = lazy(() => importShim(createJsBlob(trp)));
       console.log({ App });
-      if ((0, import_is_callable.default)(App)) {
-        eCaches2[hash] = eCaches2[hash] || emotionCache_default({
-          key: hash,
-          speedy: false
-        });
-        eCaches2[hash].compat = void 0;
-        apps2[hash] = ({ appId }) => jsx("div", {
-          style: { height: 100 + "%" },
-          id: appId,
-          children: jsx(CacheProvider, {
-            value: eCaches2[hash],
-            children: jsx(Suspense, {
-              fallback: jsx("div", {
-                style: { height: "100%" },
-                dangerouslySetInnerHTML: {
-                  __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
-                }
-              }),
-              children: jsx(App, {})
-            })
-          }, hash)
-        }, hash);
-      } else
-        throw new Error("the default export is not a function!");
+      eCaches2[hash] = eCaches2[hash] || emotionCache_default({
+        key: hash,
+        speedy: false
+      });
+      eCaches2[hash].compat = void 0;
+      apps2[hash] = ({ appId }) => jsx("div", {
+        style: { height: 100 + "%" },
+        id: appId,
+        children: jsx(CacheProvider, {
+          value: eCaches2[hash],
+          children: jsx(Suspense, {
+            fallback: jsx("div", {
+              style: { height: "100%" },
+              dangerouslySetInnerHTML: {
+                __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
+              }
+            }),
+            children: jsx(App, {})
+          })
+        }, hash)
+      }, hash);
     } catch (error) {
       if (error instanceof SyntaxError) {
         const name = error.name;

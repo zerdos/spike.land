@@ -14,7 +14,7 @@ import { hashCode, mST } from "./session";
 // import { CacheProvider } from "@emotion/react// import createCache from "@emotion/cache";
 // import type { EmotionCache } from "@emotion/cache";
 
-import isCallable from "is-callable";
+// import isCallable from "is-callable";
 import { wait } from "./wait";
 
 Object.assign(globalThis, { md5 });
@@ -223,35 +223,31 @@ export async function appFactory(
       // }
       console.log({ App });
 
-      if (isCallable(App)) {
-        eCaches[hash] = eCaches[hash] || createCache({
-          key: hash,
-          speedy: false,
-        });
+      eCaches[hash] = eCaches[hash] || createCache({
+        key: hash,
+        speedy: false,
+      });
 
-        eCaches[hash].compat = undefined;
+      eCaches[hash].compat = undefined;
 
-        apps[hash] = ({ appId }: { appId: string }) => (
-          <div key={hash} style={{ height: 100 + "%" }} id={appId}>
-            <CacheProvider key={hash} value={eCaches[hash]}>
-              <Suspense
-                fallback={
-                  <div
-                    style={{ height: "100%" }}
-                    dangerouslySetInnerHTML={{
-                      __html: `<style>${
-                        mST().css.split("body").join(`${codeSpace}-${hashCode()}`)
-                      }</style>${mST().html}`,
-                    }}
-                  />
-                }
-              >
-                <App />
-              </Suspense>
-            </CacheProvider>
-          </div>
-        );
-      } else throw new Error("the default export is not a function!");
+      apps[hash] = ({ appId }: { appId: string }) => (
+        <div key={hash} style={{ height: 100 + "%" }} id={appId}>
+          <CacheProvider key={hash} value={eCaches[hash]}>
+            <Suspense
+              fallback={
+                <div
+                  style={{ height: "100%" }}
+                  dangerouslySetInnerHTML={{
+                    __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`,
+                  }}
+                />
+              }
+            >
+              <App />
+            </Suspense>
+          </CacheProvider>
+        </div>
+      );
     } catch (error) {
       // Try {
       //   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as FC;
