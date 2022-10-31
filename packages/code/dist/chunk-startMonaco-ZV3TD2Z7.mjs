@@ -42447,7 +42447,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         let state = null;
         try {
           state = myEditor.saveViewState();
-          model.setValue(code3);
+          myEditor.setValue(code3);
           if (state) {
             myEditor.restoreViewState(state);
           }

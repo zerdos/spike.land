@@ -836,8 +836,8 @@ export const startMonaco = async (
         let state = null;
         try {
           state = myEditor.saveViewState();
-          model.setValue(code);
 
+          myEditor.setValue(code);
           if (state) {
             myEditor.restoreViewState(state);
           }
