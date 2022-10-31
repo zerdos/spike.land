@@ -219,7 +219,7 @@ export async function appFactory(
       //   terminal.clear();
       // }
       console.log(`i: ${mstI}: `);
-      const App: FC = lazy(() => importShim(createJsBlob(trp))); // (await importShim(createJsBlob(transpiled))).default;
+      const App = lazy(() => importShim(createJsBlob(trp))); // (await importShim(createJsBlob(transpiled))).default;
       // try {
       //   const fn = new Function("return " + trp)().default as unknown as FC;
       //   App = fn;
@@ -229,22 +229,15 @@ export async function appFactory(
       // }
 
       apps[hash] = ({ appId }: { appId: string }) => (
-        <div key={hash} style={{ height: 100 + "%" }} id={appId}>
-          <CacheProvider key={hash} value={eCaches[hash]}>
-            <Suspense
-              fallback={
-                <div
-                  style={{ height: "100%" }}
-                  dangerouslySetInnerHTML={{
-                    __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`,
-                  }}
-                />
-              }
-            >
+        <Suspense
+          fallback={<span>suspended</span>}
+        >
+          <div key={hash} style={{ height: 100 + "%" }} id={appId}>
+            <CacheProvider key={hash} value={eCaches[hash]}>
               <App />
-            </Suspense>
-          </CacheProvider>
-        </div>
+            </CacheProvider>
+          </div>
+        </Suspense>
       );
     } catch (error) {
       // Try {
