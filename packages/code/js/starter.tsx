@@ -198,7 +198,6 @@ export function AutoUpdateApp(
 
 export async function appFactory(
   transpiled = "",
-  codeSpace?: string,
 ): Promise<FC<{ appId: string }>> {
   // }
   const { transpiled: mstTranspiled, i: mstI } = mST();
@@ -220,6 +219,7 @@ export async function appFactory(
       // }
       console.log(`i: ${mstI}: `);
       const App = lazy(() => importShim(createJsBlob(trp))); // (await importShim(createJsBlob(transpiled))).default;
+
       // try {
       //   const fn = new Function("return " + trp)().default as unknown as FC;
       //   App = fn;

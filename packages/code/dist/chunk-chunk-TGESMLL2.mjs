@@ -20677,7 +20677,7 @@ function AutoUpdateApp({ codeSpace }) {
     })
   }, i);
 }
-async function appFactory(transpiled = "", codeSpace) {
+async function appFactory(transpiled = "") {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);
@@ -20802,6 +20802,7 @@ var mod = {
     const root = ReactDOMClient.createRoot(rootDiv);
     const App = apps[md5Hash];
     mod.md5Hash = md5Hash;
+    mod.res = rootDiv;
     root.render(jsx(App, {
       appId: `${mod.codeSpace}-${md5Hash}`
     }));
