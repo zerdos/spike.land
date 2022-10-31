@@ -59,7 +59,7 @@ const starterI = 1 * document.getElementById("root")?.getAttribute("data-i");
 async function importIt(url: string) {
   let res;
   try {
-    while (!(res = globalThis.require(url))) {
+    while (!(res = await importShim(url))) {
       await wait(500);
     }
   } catch {
@@ -213,14 +213,14 @@ export async function appFactory(
       //   terminal.clear();
       // }
       console.log(`i: ${mstI}: `);
-      let App: FC;
-      try {
-        const fn = new Function("return " + trp)().default as unknown as FC;
-        App = fn;
-      } catch {
-        wait(300);
-        App = new Function("return " + trp)().default as unknown as FC;
-      }
+      const App: FC = (await importShim(createJsBlob(transpiled))).default;
+      // try {
+      //   const fn = new Function("return " + trp)().default as unknown as FC;
+      //   App = fn;
+      // } catch {
+      //   wait(300);
+      //   App = new Function("return " + trp)().default as unknown as FC;
+      // }
       console.log({ App });
 
       if (isCallable(App)) {

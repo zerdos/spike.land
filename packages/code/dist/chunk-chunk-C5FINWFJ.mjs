@@ -26268,7 +26268,7 @@ async function wait(delay) {
 
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => wait(1e3).then(() => import("./chunk-DraggableWindow-LKRTE5G5.mjs")));
+var DraggableWindowLazy = (0, import_react.lazy)(() => wait(1e3).then(() => import("./chunk-DraggableWindow-3VDTPPQH.mjs")));
 
 // js/emotionCache.ts
 init_define_process();
@@ -26428,35 +26428,22 @@ Object.assign(globalThis, {
   }
 });
 var umdTransform = async (code) => {
-  const transpiled = await initAndTransform(
-    (await initAndTransform(code, {
-      format: "cjs",
-      tsconfigRaw: {
-        compilerOptions: {
-          jsx: "react-jsx",
-          jsxFragmentFactory: "Fragment",
-          jsxImportSource: "@emotion/react"
-        }
+  const transpiled = await initAndTransform(await initAndTransform(code, {}), {
+    loader: "tsx",
+    format: "iife",
+    treeShaking: false,
+    platform: "browser",
+    minify: false,
+    keepNames: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react"
       }
-    })).code,
-    {
-      loader: "tsx",
-      format: "iife",
-      treeShaking: false,
-      platform: "browser",
-      minify: false,
-      keepNames: true,
-      tsconfigRaw: {
-        compilerOptions: {
-          jsx: "react-jsx",
-          module: "ESNext",
-          jsxFragmentFactory: "Fragment",
-          jsxImportSource: "@emotion/react"
-        }
-      },
-      target: "es2021"
-    }
-  );
+    },
+    target: "es2021"
+  });
   globalThis.IIFE = globalThis.IIFE = {};
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
   apps[md5(transpiled.code)] = apps[md5(code)];

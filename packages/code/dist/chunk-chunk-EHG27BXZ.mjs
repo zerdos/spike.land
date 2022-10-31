@@ -20916,7 +20916,7 @@ async function wait(delay) {
 }
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-DHHJO2DR.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-LYWD735S.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -21040,7 +21040,7 @@ var starterI = 1 * document.getElementById("root")?.getAttribute("data-i");
 async function importIt(url) {
   let res;
   try {
-    while (!(res = globalThis.require(url))) {
+    while (!(res = await importShim(url))) {
       await wait(500);
     }
   } catch {
@@ -21103,14 +21103,7 @@ async function appFactory(transpiled = "", codeSpace, dry) {
   if (!apps2[hash]) {
     try {
       console.log(`i: ${mstI}: `);
-      let App;
-      try {
-        const fn = new Function("return " + trp)().default;
-        App = fn;
-      } catch {
-        wait(300);
-        App = new Function("return " + trp)().default;
-      }
+      const App = (await importShim(createJsBlob(transpiled))).default;
       console.log({ App });
       if ((0, import_is_callable.default)(App)) {
         eCaches2[hash] = eCaches2[hash] || emotionCache_default({
@@ -21192,6 +21185,14 @@ async function appFactory(transpiled = "", codeSpace, dry) {
     await renderPreviewWindow({ codeSpace, dry: !!dry });
   }
   return apps2[hash];
+}
+function createJsBlob(code, fileName = "index.mjs") {
+  const file = new File([code], fileName, {
+    type: "application/javascript",
+    lastModified: Date.now()
+  });
+  const blobUrl = URL.createObjectURL(file);
+  return blobUrl;
 }
 
 // js/renderToString.tsx
@@ -21430,35 +21431,22 @@ Object.assign(globalThis, {
   }
 });
 var umdTransform = async (code) => {
-  const transpiled = await initAndTransform(
-    (await initAndTransform(code, {
-      format: "cjs",
-      tsconfigRaw: {
-        compilerOptions: {
-          jsx: "react-jsx",
-          jsxFragmentFactory: "Fragment",
-          jsxImportSource: "@emotion/react"
-        }
+  const transpiled = await initAndTransform(await initAndTransform(code, {}), {
+    loader: "tsx",
+    format: "iife",
+    treeShaking: false,
+    platform: "browser",
+    minify: false,
+    keepNames: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react"
       }
-    })).code,
-    {
-      loader: "tsx",
-      format: "iife",
-      treeShaking: false,
-      platform: "browser",
-      minify: false,
-      keepNames: true,
-      tsconfigRaw: {
-        compilerOptions: {
-          jsx: "react-jsx",
-          module: "ESNext",
-          jsxFragmentFactory: "Fragment",
-          jsxImportSource: "@emotion/react"
-        }
-      },
-      target: "es2021"
-    }
-  );
+    },
+    target: "es2021"
+  });
   globalThis.IIFE = globalThis.IIFE = {};
   globalThis.IIFE[md5(transpiled.code)] = md5(code);
   apps[md5(transpiled.code)] = apps[md5(code)];
@@ -21657,7 +21645,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-HW5RJHQG.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-UCAKLUB2.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,
