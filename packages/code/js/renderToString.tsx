@@ -36,11 +36,12 @@ const mod = {
     // rootDiv.style.visibility = "hidden";
     // rootDiv.style.position = "absolute";
     // document.body.appendChild(rootDiv);
-
     const root = ReactDOMClient.createRoot(rootDiv);
     const App = apps[md5Hash];
 
     mod.md5Hash = md5Hash;
+    mod.res = rootDiv;
+
     root.render(<App appId={`${mod.codeSpace}-${md5Hash}`} />);
 
     return () => {
