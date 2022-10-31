@@ -219,7 +219,7 @@ export async function appFactory(
       // }
       console.log(`i: ${mstI}: `);
       new Function(
-        trp.replace("return __toCommonJS(stdin_exports)", "globalThis.TmpApp=__toCommonJS(stdin_exports)")(),
+        trp.replace("return __toCommonJS(stdin_exports)", "globalThis.TmpApp=stdin_exports")(),
       );
       const App = globalThis.TmpApp.default as unknown as FC; // (await importShim(createJsBlob(transpiled))).default;
 

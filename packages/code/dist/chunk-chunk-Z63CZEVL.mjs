@@ -20690,7 +20690,7 @@ async function appFactory(transpiled = "") {
       eCaches2[hash].compat = void 0;
       console.log(`i: ${mstI}: `);
       new Function(
-        trp.replace("return __toCommonJS(stdin_exports)", "globalThis.TmpApp=__toCommonJS(stdin_exports)")()
+        trp.replace("return __toCommonJS(stdin_exports)", "globalThis.TmpApp=stdin_exports")()
       );
       const App = globalThis.TmpApp.default;
       apps2[hash] = ({ appId }) => jsx("div", {
