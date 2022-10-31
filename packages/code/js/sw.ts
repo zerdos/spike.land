@@ -30,15 +30,6 @@ addEventListener("fetch", async (_event) => {
       cache = await caches.open(cacheName || await getCacheName() && cacheName);
     }
 
-    if (url.href === "/mocks") {
-      return new Response(JSON.stringify(mocks), {
-        headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-          "Cache-Control": "no-cache",
-        },
-      });
-    }
-
     if (Date.now() - lastChecked > 10_000) {
       lastChecked = Date.now();
       getCacheName();

@@ -3,8 +3,6 @@
 // Object.assign(globalThis, require("stream-browserify"));
 
 // import 'css-paint-polyfill
-
-import type { Timer } from "node";
 import "webrtc-adapter";
 import AVLTree from "avl";
 import debounce from "lodash.debounce";
@@ -203,7 +201,7 @@ export const run = async (startState: {
     }));
   }
 })();
-let intervalHandler: Timer;
+let intervalHandler: NodeJS.Timer;
 
 async function rejoin() {
   if (!rejoined || ws === null) {

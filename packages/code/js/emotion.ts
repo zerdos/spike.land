@@ -14,4 +14,5 @@ export const {
   useTheme,
   withEmotionCache,
   withTheme,
+  // @ts-ignore
 } = globalThis.emotionReact;

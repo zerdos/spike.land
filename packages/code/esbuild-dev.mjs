@@ -79,17 +79,17 @@ console.log(`
 ----------------------b1--------------------------
 -------------------------------------------------`);
 
-const build = (entryPoints, extraExternal, watch = false, format = "esm") =>
+const build = (entryPoints = [""], extraExternal = [""], watch = false, format = "esm") =>
   esbuild.build({
     ...buildOptions,
     entryPoints,
     watch,
-    external: [...buildOptions.external, ...extraExternal],
+    external: [...buildOptions.external, ...extraExternal.filter(x => x)],
     outExtension: { ".js": ".mjs" },
     bundle: true,
     splitting: format === "esm",
     target,
-    format,
+    format: format || "esm",
     sourcemap: false,
 
     minify: !isDevelopment,

@@ -22,7 +22,7 @@
     "noEmit": true,
     "module": "ESNext",
     "jsx": "react-jsx",
-    "checkJs": true,
+    "checkJs": false,
 
     "jsxImportSource": "@emotion/react",
     "sourceMap": false,
