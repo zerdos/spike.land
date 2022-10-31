@@ -15,6 +15,7 @@ import { hashCode, mST } from "./session";
 // import type { EmotionCache } from "@emotion/cache";
 
 // import isCallable from "is-callable";
+import { useEffect } from "preact/hooks";
 import { wait } from "./wait";
 
 Object.assign(globalThis, { md5 });
@@ -63,6 +64,10 @@ export function AutoUpdateApp(
     i: starterI,
     App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`)),
   });
+
+  useEffect(() => {
+    importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
+  }, [i]);
 
   return (
     <ErrorBoundary
