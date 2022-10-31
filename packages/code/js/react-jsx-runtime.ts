@@ -84,22 +84,24 @@ globalThis.requireLoading = [] as string[];
 
 const requireUmd = (pkg: string) => {
   if (mapTable[pkg]) return mapTable[pkg];
-  globalThis.requireLoading.push[pkg];
-  fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
-    const hash = md5(x);
+  if (window[pkg]) return window[pkg];
+  if (globalThis[pkg]) return globalThis[pkg];
+  // globalThis.requireLoading.push[pkg];
+  // fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
+  //   const hash = md5(x);
 
-    let z = x.split("(() => {");
-    z.shift();
-    z.unshift(`globalThis.apps.${hash} = `);
-    z = z.join("(() => {");
+  //   let z = x.split("(() => {");
+  //   z.shift();
+  //   z.unshift(`globalThis.apps.${hash} = `);
+  //   z = z.join("(() => {");
 
-    new Function(z)();
-    return apps[hash];
-  }).then(x => mapTable[pkg] = x).then(() =>
-    globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
-  ).then(() => {
-    if (mapTable[pkg]) return mapTable[pkg];
-    console.error("Error - require: " + pkg + " not found");
-  });
+  //   new Function(z)();
+  //   return apps[hash];
+  // }).then(x => mapTable[pkg] = x).then(() =>
+  //   globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
+  // ).then(() => {
+  //   if (mapTable[pkg]) return mapTable[pkg];
+  //   console.error("Error - require: " + pkg + " not found");
+  // });
 };
 Object.assign(globalThis, { require: requireUmd });
