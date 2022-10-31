@@ -991,6 +991,7 @@ __metadata:
     react-icons: "npm:4.6.0"
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
+    react-use-poll: "npm:^1.1.5"
     tslib: "npm:^2.4.1"
     typescript: "npm:4.8.4"
     uuid: "npm:^9.0.0"
@@ -5561,6 +5562,15 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: e1280cefba98ac056e57d39d008771901bb6d4b36f2a6b3288a106b29af024f0b355320fd5387e1ab6b93da7e27f2a507a9b16e40649a96336013898c360d748
+  languageName: node
+  linkType: hard
+
+"react-use-poll@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "react-use-poll@npm:1.1.5"
+  peerDependencies:
+    react: ^16.9.0
+  checksum: 0d6b2b0164612f25176aad18057e2371c43f2da77bd4a66964ca2d5a265d6d4c62af1492c1d5d9802597d50a17102a56d639e8fd5ca250c227c806476f475943
   languageName: node
   linkType: hard
 

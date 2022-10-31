@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 // import {terminal} from "./DraggableWindow"
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -56,32 +56,6 @@ export const { apps, eCaches } = (globalThis as unknown as {
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 let starterI = 1 * (document.getElementById("root")!.getAttribute("data-i") as unknown as number);
 
-async function importIt(url: string) {
-  let waitingTime = 100;
-  let nextUrl = url;
-  while (true) {
-    try {
-      let resp = await fetch(url);
-      if (resp.status === 307 && resp.headers.get("location")) {
-        nextUrl = resp.headers.get("location")!;
-        const i = nextUrl.split("/").pop();
-        starterI = Number(i) * 1;
-      }
-      if (resp.ok) {
-        const trp = await resp.text();
-        const App = new Function(trp + ` return ${trp.slice(2, 10)}`)();
-
-        return App as unknown as { default: FC };
-      }
-      await wait(waitingTime);
-      waitingTime = waitingTime * 2;
-    } catch {
-      console.error("error has been thrown");
-      waitingTime = waitingTime * 1.5;
-    }
-  }
-}
-
 export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
@@ -89,14 +63,6 @@ export function AutoUpdateApp(
     i: starterI,
     App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`)),
   });
-
-  useEffect(() => {
-    importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`).then(({ default: App }) =>
-      setApps({ App: App as any, i: starterI > i ? (starterI + 1) : (i + 1) })
-    );
-  }, [i]);
-
-  // const App = apps[md5Hash];
 
   return (
     <ErrorBoundary
@@ -122,6 +88,30 @@ export function AutoUpdateApp(
       </Suspense>
     </ErrorBoundary>
   );
+
+  async function importIt(url: string) {
+    let waitingTime = 100;
+    while (true) {
+      try {
+        let resp = await fetch(url);
+        if (resp.status === 307 && resp.headers.get("location")) {
+          const i = Number(resp.headers.get("location")!.split("/").pop()) * 1;
+          setApps(x => ({ ...x, i }));
+          return;
+        }
+        if (resp.ok) {
+          const trp = await resp.text();
+          const App = new Function(trp + ` return ${trp.slice(2, 10)}`)().default;
+          setApps({ App: App as any, i: i + 1 });
+          return App;
+        }
+      } catch {
+        console.error("error has been thrown");
+      } finally {
+        await wait(waitingTime *= 2);
+      }
+    }
+  }
 }
 
 // export function AutoUpdateApp(
@@ -162,8 +152,7 @@ export function AutoUpdateApp(
 //   return (
 //     <ErrorBoundary
 //       key={md5Hash}
-//       fallbackRender={({ error, resetErrorBoundary }) => (
-//         <div role="alert">
+//       fallbackRender={({ error, resetErrorBoundary }) §
 //           <div>Oh no</div>
 //           <pre>{error.message}</pre>
 //           <button
