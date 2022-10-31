@@ -57,15 +57,19 @@ export const { apps, eCaches } = (globalThis as unknown as {
 const starterI = 1 * (document.getElementById("root")!.getAttribute("data-i") as unknown as number);
 
 async function importIt(url: string) {
-  let res;
+  let res = null as null | Response;
   try {
-    while (!(res = await importShim(url))) {
+    while (!(res && res.ok)) {
+      await fetch(url);
       await wait(500);
     }
   } catch {
-    return importShim(url) as unknown as { default: FC };
+    return importIt(url) as unknown as { default: FC };
   }
-  return res as unknown as { default: FC };
+  const trp = await res.text();
+  const App = new Function(trp + ` return ${trp.slice(2, 10)}`)();
+
+  return App as unknown as { default: FC };
 }
 
 export function AutoUpdateApp(
@@ -219,7 +223,7 @@ export async function appFactory(
       // }
       console.log(`i: ${mstI}: `);
 
-      const App = new Function(trp + ` return ${transpiled.slice(2, 10)}`)().default;
+      const App = new Function(trp + ` return ${trp.slice(2, 10)}`)().default;
 
       //      globalThis.TmpApp.default as unknown as FC; // (await importShim(createJsBlob(transpiled))).default;
 
