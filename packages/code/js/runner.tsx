@@ -74,7 +74,8 @@ export async function runner({ code, counter, codeSpace }: {
 
     const { html, css } = await render(transpiledCode, codeSpace);
 
-    // console.log({ html, css });
+    console.log({ html, css });
+
     if (!html || !css) {
       return;
     }

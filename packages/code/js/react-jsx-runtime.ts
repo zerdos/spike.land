@@ -86,6 +86,8 @@ const requireUmd = (pkg: string) => {
   if (mapTable[pkg]) return mapTable[pkg];
   if (window[pkg]) return window[pkg];
   if (globalThis[pkg]) return globalThis[pkg];
+  if (apps[pkg]) return apps[pkg];
+  if (pkg.includes(`spike.land/live`)) return React.lazy(() => importShim(pkg));
   // globalThis.requireLoading.push[pkg];
   // fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
   //   const hash = md5(x);

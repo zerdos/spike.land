@@ -39509,6 +39509,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       return window[pkg];
     if (globalThis[pkg])
       return globalThis[pkg];
+    if (apps[pkg])
+      return apps[pkg];
+    if (pkg.includes(`spike.land/live`))
+      return React.lazy(() => importShim(pkg));
   };
   Object.assign(globalThis, { require: requireUmd });
 })();
