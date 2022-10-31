@@ -86,13 +86,8 @@ export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
   const [{ App, i }, setApps] = useState({
-    i: starterI - 1,
-    App: lazy(() =>
-      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(({ default: App }) => {
-        setApps(x => ({ ...x, i: starterI }));
-        return { default: App };
-      })
-    ),
+    i: starterI,
+    App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`)),
   });
 
   useEffect(() => {
