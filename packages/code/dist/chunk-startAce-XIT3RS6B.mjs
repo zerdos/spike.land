@@ -2,11 +2,11 @@ import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-AIJYQNQW.mjs";
+} from "./chunk-chunk-C6MIXMNE.mjs";
 
-// ../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-noconflict/ace.js
+// ../../.yarn/global/cache/ace-builds-npm-1.12.4-79f176dabe-9.zip/node_modules/ace-builds/src-noconflict/ace.js
 var require_ace = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-noconflict/ace.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.12.4-79f176dabe-9.zip/node_modules/ace-builds/src-noconflict/ace.js"(exports, module) {
     init_define_process();
     (function() {
       var ACE_NAMESPACE = "ace";
@@ -1084,7 +1084,7 @@ var require_ace = __commonJS({
           };
         }
       };
-      exports2.version = "1.12.3";
+      exports2.version = "1.12.4";
     });
     ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(require2, exports2, module2) {
       "use strict";
@@ -11673,6 +11673,13 @@ var require_ace = __commonJS({
           readOnly: true
         },
         {
+          name: "openlink",
+          bindKey: bindKey("Ctrl+F3", "F3"),
+          exec: function(editor) {
+            editor.openLink();
+          }
+        },
+        {
           name: "joinlines",
           description: "Join lines",
           bindKey: bindKey(null, null),
@@ -11801,6 +11808,20 @@ var require_ace = __commonJS({
     });
     ace.define("ace/editor", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/lib/lang", "ace/lib/useragent", "ace/keyboard/textinput", "ace/mouse/mouse_handler", "ace/mouse/fold_handler", "ace/keyboard/keybinding", "ace/edit_session", "ace/search", "ace/range", "ace/lib/event_emitter", "ace/commands/command_manager", "ace/commands/default_commands", "ace/config", "ace/token_iterator", "ace/clipboard"], function(require2, exports2, module2) {
       "use strict";
+      var __values = this && this.__values || function(o) {
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+        if (m)
+          return m.call(o);
+        if (o && typeof o.length === "number")
+          return {
+            next: function() {
+              if (o && i >= o.length)
+                o = void 0;
+              return { value: o && o[i++], done: !o };
+            }
+          };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+      };
       var oop = require2("./lib/oop");
       var dom = require2("./lib/dom");
       var lang = require2("./lib/lang");
@@ -12907,6 +12928,46 @@ var require_ace = __commonJS({
               }
             }
           }
+        };
+        this.findLinkAt = function(row, column) {
+          var e_1, _a;
+          var line = this.session.getLine(row);
+          var wordParts = line.split(/((?:https?|ftp):\/\/[\S]+)/);
+          var columnPosition = column;
+          if (columnPosition < 0)
+            columnPosition = 0;
+          var previousPosition = 0, currentPosition = 0, match;
+          try {
+            for (var wordParts_1 = __values(wordParts), wordParts_1_1 = wordParts_1.next(); !wordParts_1_1.done; wordParts_1_1 = wordParts_1.next()) {
+              var item = wordParts_1_1.value;
+              currentPosition = previousPosition + item.length;
+              if (columnPosition >= previousPosition && columnPosition <= currentPosition) {
+                if (item.match(/((?:https?|ftp):\/\/[\S]+)/)) {
+                  match = item.replace(/[\s:.,'";}\]]+$/, "");
+                  break;
+                }
+              }
+              previousPosition = currentPosition;
+            }
+          } catch (e_1_1) {
+            e_1 = { error: e_1_1 };
+          } finally {
+            try {
+              if (wordParts_1_1 && !wordParts_1_1.done && (_a = wordParts_1.return))
+                _a.call(wordParts_1);
+            } finally {
+              if (e_1)
+                throw e_1.error;
+            }
+          }
+          return match;
+        };
+        this.openLink = function() {
+          var cursor = this.selection.getCursor();
+          var url = this.findLinkAt(cursor.row, cursor.column);
+          if (url)
+            window.open(url, "_blank");
+          return url != null;
         };
         this.removeLines = function() {
           var rows = this.$getSelectedRows();
@@ -19961,9 +20022,9 @@ styles.join("\\n")
   }
 });
 
-// ../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js
+// ../../.yarn/global/cache/ace-builds-npm-1.12.4-79f176dabe-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js
 var require_theme_monokai = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.12.4-79f176dabe-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js"(exports, module) {
     init_define_process();
     ace.define("ace/theme/monokai.css", ["require", "exports", "module"], function(e, t, n) {
       n.exports = '.ace-monokai .ace_gutter {\n  background: #2F3129;\n  color: #8F908A\n}\n\n.ace-monokai .ace_print-margin {\n  width: 1px;\n  background: #555651\n}\n\n.ace-monokai {\n  background-color: #272822;\n  color: #F8F8F2\n}\n\n.ace-monokai .ace_cursor {\n  color: #F8F8F0\n}\n\n.ace-monokai .ace_marker-layer .ace_selection {\n  background: #49483E\n}\n\n.ace-monokai.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px #272822;\n}\n\n.ace-monokai .ace_marker-layer .ace_step {\n  background: rgb(102, 82, 0)\n}\n\n.ace-monokai .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_marker-layer .ace_active-line {\n  background: #202020\n}\n\n.ace-monokai .ace_gutter-active-line {\n  background-color: #272727\n}\n\n.ace-monokai .ace_marker-layer .ace_selected-word {\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_invisible {\n  color: #52524d\n}\n\n.ace-monokai .ace_entity.ace_name.ace_tag,\n.ace-monokai .ace_keyword,\n.ace-monokai .ace_meta.ace_tag,\n.ace-monokai .ace_storage {\n  color: #F92672\n}\n\n.ace-monokai .ace_punctuation,\n.ace-monokai .ace_punctuation.ace_tag {\n  color: #fff\n}\n\n.ace-monokai .ace_constant.ace_character,\n.ace-monokai .ace_constant.ace_language,\n.ace-monokai .ace_constant.ace_numeric,\n.ace-monokai .ace_constant.ace_other {\n  color: #AE81FF\n}\n\n.ace-monokai .ace_invalid {\n  color: #F8F8F0;\n  background-color: #F92672\n}\n\n.ace-monokai .ace_invalid.ace_deprecated {\n  color: #F8F8F0;\n  background-color: #AE81FF\n}\n\n.ace-monokai .ace_support.ace_constant,\n.ace-monokai .ace_support.ace_function {\n  color: #66D9EF\n}\n\n.ace-monokai .ace_fold {\n  background-color: #A6E22E;\n  border-color: #F8F8F2\n}\n\n.ace-monokai .ace_storage.ace_type,\n.ace-monokai .ace_support.ace_class,\n.ace-monokai .ace_support.ace_type {\n  font-style: italic;\n  color: #66D9EF\n}\n\n.ace-monokai .ace_entity.ace_name.ace_function,\n.ace-monokai .ace_entity.ace_other,\n.ace-monokai .ace_entity.ace_other.ace_attribute-name,\n.ace-monokai .ace_variable {\n  color: #A6E22E\n}\n\n.ace-monokai .ace_variable.ace_parameter {\n  font-style: italic;\n  color: #FD971F\n}\n\n.ace-monokai .ace_string {\n  color: #E6DB74\n}\n\n.ace-monokai .ace_comment {\n  color: #75715E\n}\n\n.ace-monokai .ace_indent-guide {\n  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWPQ0FD0ZXBzd/wPAAjVAoxeSgNeAAAAAElFTkSuQmCC) right repeat-y\n}\n\n.ace-monokai .ace_indent-guide-active {\n  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;\n}\n';
@@ -19982,9 +20043,9 @@ var require_theme_monokai = __commonJS({
   }
 });
 
-// ../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js
+// ../../.yarn/global/cache/ace-builds-npm-1.12.4-79f176dabe-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js
 var require_mode_typescript = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.12.3-9b4fbee825-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.12.4-79f176dabe-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js"(exports, module) {
     init_define_process();
     ace.define("ace/mode/doc_comment_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text_highlight_rules"], function(e, t, n) {
       "use strict";
