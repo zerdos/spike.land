@@ -80,33 +80,21 @@ async function importIt(url: string) {
 export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
-  const [i, setI] = useState(starterI);
-
-  const [{ App, FutureApp }, setApps] = useState({
-    App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`)),
-    FutureApp: lazy(async () => {
-      const bigI = (mST().i > i ? mST().i : i) + 1;
-      const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${bigI}`);
-      setI(i => (bigI > i ? bigI : i) + 1);
-
-      return {
-        default: ret.default,
-      };
-    }),
+  const [{ App, i }, setApps] = useState({
+    i: starterI - 1,
+    App: lazy(() =>
+      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(({ default: App }) => {
+        setApps(x => ({ ...x, i: starterI }));
+        return { default: App };
+      })
+    ),
   });
 
-  useEffect(() =>
-    setApps({
-      App: FutureApp,
-      FutureApp: lazy(async () => {
-        const bigI = (mST().i > i ? mST().i : i) + 1;
-        const ret = await importIt(`${location.origin}/live/${codeSpace}/index.js/${bigI}`);
-        setI(i => (bigI > i ? bigI : i) + 1);
-        return {
-          default: ret.default,
-        };
-      }),
-    }), [i]);
+  useEffect(() => {
+    importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`).then(({ default: App }) =>
+      setApps({ App: App as any, i: i + 1 })
+    );
+  }, [i]);
 
   // const App = apps[md5Hash];
 
