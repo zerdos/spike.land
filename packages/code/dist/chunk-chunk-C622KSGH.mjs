@@ -20689,20 +20689,15 @@ async function appFactory(transpiled = "") {
       });
       eCaches2[hash].compat = void 0;
       console.log(`i: ${mstI}: `);
-      const App = lazy(() => importShim(createJsBlob(trp)));
-      apps2[hash] = ({ appId }) => jsx(Suspense, {
-        fallback: jsx("span", {
-          children: "suspended"
-        }),
-        children: jsx("div", {
-          style: { height: 100 + "%" },
-          id: appId,
-          children: jsx(CacheProvider, {
-            value: eCaches2[hash],
-            children: jsx(App, {})
-          }, hash)
+      const App = (await importShim(createJsBlob(trp))).default;
+      apps2[hash] = ({ appId }) => jsx("div", {
+        style: { height: 100 + "%" },
+        id: appId,
+        children: jsx(CacheProvider, {
+          value: eCaches2[hash],
+          children: jsx(App, {})
         }, hash)
-      });
+      }, hash);
     } catch (error) {
       if (error instanceof SyntaxError) {
         const name = error.name;
