@@ -20620,15 +20620,18 @@ if (!Object.hasOwn(globalThis, "apps"))
 var { apps: apps2, eCaches: eCaches2 } = globalThis;
 var starterI = 1 * document.getElementById("root").getAttribute("data-i");
 async function importIt(url) {
-  let res;
+  let res = null;
   try {
-    while (!(res = await importShim(url))) {
+    while (!(res && res.ok)) {
+      await fetch(url);
       await wait(500);
     }
   } catch {
-    return importShim(url);
+    return importIt(url);
   }
-  return res;
+  const trp = await res.text();
+  const App = new Function(trp + ` return ${trp.slice(2, 10)}`)();
+  return App;
 }
 function AutoUpdateApp({ codeSpace }) {
   const [i, setI] = useState(starterI);
@@ -20689,7 +20692,7 @@ async function appFactory(transpiled = "") {
       });
       eCaches2[hash].compat = void 0;
       console.log(`i: ${mstI}: `);
-      const App = new Function(trp + ` return ${transpiled.slice(2, 10)}`)().default;
+      const App = new Function(trp + ` return ${trp.slice(2, 10)}`)().default;
       apps2[hash] = ({ appId }) => jsx("div", {
         style: { height: 100 + "%" },
         id: appId,
