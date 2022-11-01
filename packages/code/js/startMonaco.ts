@@ -144,19 +144,20 @@ const monacoContribution = async (
     include: [originToUse + "/node_modules"],
   });
 
-  console.log("Trying to deal with eta");
-  const extraLibs = localStorage && localStorage.getItem(codeSpace);
-  if (extraLibs) {
-    console.log("Extra libs are loading");
-    const extraLibMap: { filePath: string; content: string }[] = JSON.parse(
-      extraLibs,
-    );
+  // console.log("Trying to deal with eta");
+  // const extraLibs = {}
+  // localStorage && localStorage.getItem(codeSpace);
+  // if (extraLibs) {
+  // console.log("Extra libs are loading");
+  // const extraLibMap: { filePath: string; content: string }[] = JSON.parse(
+  //   extraLibs,
+  // );
 
-    console.log({ extraLibMap });
-    languages.typescript.typescriptDefaults.setExtraLibs(extraLibMap);
-    extraLibMap.map((lib) => bc.postMessage({ ...lib, type: "set-mock" }));
-    // console.log("ata is done");
-  }
+  // console.log({ extraLibMap });
+  // languages.typescript.typescriptDefaults.setExtraLibs(extraLibMap);
+  // extraLibMap.map((lib) => bc.postMessage({ ...lib, type: "set-mock" }));
+  // console.log("ata is done");
+  // }
 
   const regex1 = / from '\.\./gi;
 
@@ -429,23 +430,23 @@ export const startMonaco = async (
       uri,
     );
 
-    const shadowRoot = container.attachShadow({
-      mode: "closed",
-    });
+    // const shadowRoot = container.attachShadow({
+    //   mode: "closed",
+    // });
 
-    const innerContainer = document.createElement("div");
+    // const innerContainer = document.createElement("div");
 
-    innerContainer.style.width = "100%";
-    innerContainer.style.display = "block";
-    innerContainer.style.height = "100%";
+    // innerContainer.style.width = "100%";
+    // innerContainer.style.display = "block";
+    // innerContainer.style.height = "100%";
 
-    const target = shadowRoot.appendChild(innerContainer);
+    // const target = shadowRoot.appendChild(innerContainer);
 
-    const innerStyle = document.createElement("style");
-    innerStyle.innerText = `@import "/Editor.css";`;
-    shadowRoot.appendChild(innerStyle);
-
-    // const innerContainer = container;
+    // const innerStyle = document.createElement("style");
+    // innerStyle.innerText = `@import "/Editor.css";`;
+    // shadowRoot.appendChild(innerStyle);
+    //
+    const target = container;
 
     const myEditor = create(target, {
       model,
@@ -753,8 +754,8 @@ export const startMonaco = async (
         content: libs[lib].content,
       }));
 
-      localStorage
-        && localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
+      // localStorage
+      //   && localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
     };
 
     const setExtraLibs = () => {

@@ -222,8 +222,14 @@ export async function appFactory(
       // }
       console.log(`i: ${mstI}: `);
 
-      const App = new Function(trp + ` return ${trp.slice(2, 10)}`)().default;
+      let mod;
 
+      try {
+        mod = new Function(trp + ` return ${trp.slice(2, 10)}`)();
+      } catch {
+        mod = await importShim(createJsBlob(trp));
+      }
+      const App = mod.default;
       //      globalThis.TmpApp.default as unknown as FC; // (await importShim(createJsBlob(transpiled))).default;
 
       // try {

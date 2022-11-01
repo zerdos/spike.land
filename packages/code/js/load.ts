@@ -1,7 +1,9 @@
 import { createRoot, hydrateRoot } from "./reactMod";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
+// import { upgradeElement } from '@ampproject/worker-dom/dist/main.mjs';
 
+// globalThis.upgradeElement = upgradeElement;
 const start = (dry = false) =>
   import(
     `${location.origin}/live/${codeSpace}/mST.mjs`
