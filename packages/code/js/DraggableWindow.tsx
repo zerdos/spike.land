@@ -3,7 +3,7 @@ import { AnimatePresence, domAnimation, domMax, LazyMotion, m, MotionConfig } fr
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
-import { QRButton } from "./Qr";
+import { QRButton } from "./Qr.lazy";
 import { mST } from "./session";
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
