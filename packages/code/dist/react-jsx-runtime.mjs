@@ -31727,9 +31727,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }
   });
 
-  // ../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/cjs/index.js
+  // ../../.yarn/__virtual__/framer-motion-virtual-9c169da00b/0/global/cache/framer-motion-npm-7.6.3-ec66869d75-9.zip/node_modules/framer-motion/dist/cjs/index.js
   var require_cjs = __commonJS({
-    "../../.yarn/__virtual__/framer-motion-virtual-f2663e67ae/0/global/cache/framer-motion-npm-7.6.2-cc6e4732fc-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
+    "../../.yarn/__virtual__/framer-motion-virtual-9c169da00b/0/global/cache/framer-motion-npm-7.6.3-ec66869d75-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
@@ -33266,7 +33266,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       };
       var MotionValue = class {
         constructor(init) {
-          this.version = "7.6.2";
+          this.version = "7.6.3";
           this.timeDelta = 0;
           this.lastUpdated = 0;
           this.updateSubscribers = new SubscriptionManager();
@@ -34512,7 +34512,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               willChange.add(key);
             }
             if (true) {
-              warnOnce(nextValue.version === "7.6.2", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.2 may not work as expected.`);
+              warnOnce(nextValue.version === "7.6.3", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.3 may not work as expected.`);
             }
           } else if (isMotionValue(prevValue)) {
             element.addValue(key, motionValue(nextValue));
@@ -37239,6 +37239,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       exports.animateVisualElement = animateVisualElement;
       exports.animationControls = animationControls;
       exports.animations = animations;
+      exports.buildTransform = buildTransform;
       exports.calcLength = calcLength;
       exports.checkTargetForNewValues = checkTargetForNewValues;
       exports.createBox = createBox;

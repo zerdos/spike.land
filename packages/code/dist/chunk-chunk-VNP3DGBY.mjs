@@ -21227,7 +21227,7 @@ async function setAce(container) {
   if (startedAce)
     return;
   startedAce = 1;
-  const { startAce } = await import("./chunk-startAce-7RSH5ANV.mjs");
+  const { startAce } = await import("./chunk-startAce-NNDZYC4I.mjs");
   return await startAce(mST().code, onModChange, container);
 }
 
