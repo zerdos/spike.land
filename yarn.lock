@@ -956,7 +956,7 @@ __metadata:
     "@types/is-callable": "npm:1.1.0"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:^18.11.8"
+    "@types/node": "npm:^18.11.9"
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:^18.0.24"
     "@types/react-dom": "npm:18.0.8"
@@ -965,7 +965,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^5.42.0"
     "@typescript/ata": "npm:0.9.3"
     "@yarnpkg/sdks": "npm:3.0.0-rc.27"
-    ace-builds: "npm:1.12.4"
+    ace-builds: "npm:1.12.5"
     avl: "npm:1.5.3"
     comlink: "npm:4.3.1"
     csstype: "npm:3.1.1"
@@ -979,7 +979,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.10"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:7.6.2"
+    framer-motion: "npm:7.6.3"
     immutable: "npm:^4.1.0"
     is-callable: "npm:1.2.7"
     lodash.debounce: "npm:4.0.8"
@@ -1021,7 +1021,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:^18.11.8"
+    "@types/node": "npm:^18.11.9"
     esbuild: "npm:0.15.12"
   languageName: unknown
   linkType: soft
@@ -1278,10 +1278,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.11.8":
+"@types/node@npm:*":
   version: 18.11.8
   resolution: "@types/node@npm:18.11.8"
   checksum: 46527a04b97610751efcefffe33e4b1b8428855c9b95a4efd225299730409990631296cfc4a5d67ae32741274ab686dbf76cdf5eb201c9476833250bb9d9b60e
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.11.9":
+  version: 18.11.9
+  resolution: "@types/node@npm:18.11.9"
+  checksum: 7b7d90894dd1ae9b6836e49ace5bdea55cc08806a508e38851e333f1ad77ec81ea6dca58e6a2444ad0471fee965b9908cc1ef06028eebca9c20d54729df98bab
   languageName: node
   linkType: hard
 
@@ -1666,10 +1673,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.12.4":
-  version: 1.12.4
-  resolution: "ace-builds@npm:1.12.4"
-  checksum: 04f4e29be63dbcdfbcd8677eafcb90553a9c9e3dd77d85e9da335f594da4188e298fc79ab0214d52c38960a665137496671512e9a07f0985ffc1fd0a5e9ca369
+"ace-builds@npm:1.12.5":
+  version: 1.12.5
+  resolution: "ace-builds@npm:1.12.5"
+  checksum: f9b65d5cc420dd95017884927c076f5f39278a09665cc2bb7c4350cfd5ce1afd6f0a6abe17b098bd8c84818952ce5e2e3d25e2a188f0e564c3848a8506ed2ca3
   languageName: node
   linkType: hard
 
@@ -3586,9 +3593,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.6.2":
-  version: 7.6.2
-  resolution: "framer-motion@npm:7.6.2"
+"framer-motion@npm:7.6.3":
+  version: 7.6.3
+  resolution: "framer-motion@npm:7.6.3"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
@@ -3603,7 +3610,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 0f25904bfe14cf11bb3e839c819b4b0f3545d56ef25b99819ed6f67f1cb623a3ccb5299e9f87f95b08455e23f58ca3e3cf7be53b080e786751e4aaf7ee30b3f0
+  checksum: da6bdc683b205a75c4c9a91b6959a72c5181c9c45b1eaa0ef8f96ad509e6d7674eeecd17769987c2111fc497b63074111b5eed6c9c32f100b629e6254e0dbd7b
   languageName: node
   linkType: hard
 
@@ -4875,7 +4882,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.8"
     esbuild: "npm:0.15.12"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:7.6.2"
+    framer-motion: "npm:7.6.3"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.0.1"
