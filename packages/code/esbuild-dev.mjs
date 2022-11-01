@@ -2,7 +2,7 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 import esbuild from "esbuild";
-import { rm } from "node:fs/promises";
+import { cp, rm } from "node:fs/promises";
 
 import { resolve } from "node:path";
 // import open from "open";
@@ -153,7 +153,7 @@ const build = (
 
 (async () => {
   await rm("js/monaco-workers", { recursive: true, force: true });
-
+  await cp("./index.html", "./dist/index.html");
   await esbuild.build({
     entryPoints: [
       ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),

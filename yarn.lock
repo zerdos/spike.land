@@ -5,6 +5,13 @@ __metadata:
   version: 7
   cacheKey: 9
 
+"@ampproject/worker-dom@npm:^0.34.0":
+  version: 0.34.0
+  resolution: "@ampproject/worker-dom@npm:0.34.0"
+  checksum: a2cf0a1c3aaef1a0bea89ed00ad2bf8529be9a8e9d0fddaf3c33500fb4a837cff3dff68d0c1664d18f88ab209f8fa66e7f50dbc10e8febe3154d25774ba169ad
+  languageName: node
+  linkType: hard
+
 "@arcanis/slice-ansi@npm:^1.1.1":
   version: 1.1.1
   resolution: "@arcanis/slice-ansi@npm:1.1.1"
@@ -937,6 +944,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
+    "@ampproject/worker-dom": "npm:^0.34.0"
     "@emotion/cache": "npm:11.10.5"
     "@emotion/react": "npm:11.10.5"
     "@emotion/styled": "npm:11.10.5"

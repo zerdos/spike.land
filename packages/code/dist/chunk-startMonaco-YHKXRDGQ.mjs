@@ -42139,17 +42139,6 @@ var monacoContribution = async (code) => {
     allowUmdGlobalAccess: false,
     include: [originToUse + "/node_modules"]
   });
-  console.log("Trying to deal with eta");
-  const extraLibs = localStorage && localStorage.getItem(codeSpace);
-  if (extraLibs) {
-    console.log("Extra libs are loading");
-    const extraLibMap = JSON.parse(
-      extraLibs
-    );
-    console.log({ extraLibMap });
-    languages.typescript.typescriptDefaults.setExtraLibs(extraLibMap);
-    extraLibMap.map((lib2) => bc.postMessage({ ...lib2, type: "set-mock" }));
-  }
   const regex1 = / from '\.\./gi;
   const regex2 = / from '\./gi;
   const search = new RegExp(
@@ -42197,17 +42186,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       "typescript",
       uri
     );
-    const shadowRoot = container2.attachShadow({
-      mode: "closed"
-    });
-    const innerContainer = document.createElement("div");
-    innerContainer.style.width = "100%";
-    innerContainer.style.display = "block";
-    innerContainer.style.height = "100%";
-    const target = shadowRoot.appendChild(innerContainer);
-    const innerStyle = document.createElement("style");
-    innerStyle.innerText = `@import "/Editor.css";`;
-    shadowRoot.appendChild(innerStyle);
+    const target = container2;
     const myEditor = create(target, {
       model,
       scrollbar: {
@@ -42381,7 +42360,6 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         filePath: lib2,
         content: libs[lib2].content
       }));
-      localStorage && localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
     };
     const setExtraLibs = () => {
       replaceMaps["/node_modules/"] = "/npm:/v96/";

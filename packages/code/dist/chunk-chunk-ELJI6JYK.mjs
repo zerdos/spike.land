@@ -20694,7 +20694,13 @@ async function appFactory(transpiled = "") {
       });
       eCaches2[hash].compat = void 0;
       console.log(`i: ${mstI}: `);
-      const App = new Function(trp + ` return ${trp.slice(2, 10)}`)().default;
+      let mod4;
+      try {
+        mod4 = new Function(trp + ` return ${trp.slice(2, 10)}`)();
+      } catch {
+        mod4 = await importShim(createJsBlob(trp));
+      }
+      const App = mod4.default;
       apps2[hash] = ({ appId }) => jsx("div", {
         style: { height: 100 + "%" },
         id: appId,
@@ -21208,7 +21214,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-ZV3TD2Z7.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-YHKXRDGQ.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,
