@@ -1,6 +1,4 @@
-import {
-  typescriptDefaults
-} from "./chunk-chunk-PUTCJXOT.mjs";
+import "./chunk-chunk-PUTCJXOT.mjs";
 import {
   $,
   Action,
@@ -42095,7 +42093,7 @@ var lib = [
   "webworker.iterable"
 ];
 var monacoContribution = async (code) => {
-  typescriptDefaults.setCompilerOptions({
+  languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
     target: languages.typescript.ScriptTarget.ESNext,
     importHelpers: false,
@@ -42151,12 +42149,12 @@ var monacoContribution = async (code) => {
   const models = replaced.matchAll(search);
   for (const match of models) {
     const extraModel = new URL(match[0].slice(7) + ".tsx", originToUse).toString();
-    typescriptDefaults.addExtraLib(
+    languages.typescript.typescriptDefaults.addExtraLib(
       extraModel,
       await fetch(extraModel).then(async (res) => res.text())
     );
   }
-  typescriptDefaults.setEagerModelSync(true);
+  languages.typescript.typescriptDefaults.setEagerModelSync(true);
   return code;
 };
 self.MonacoEnvironment = {
@@ -42177,7 +42175,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
     const replaced = await monacoContribution(
       code2
     );
-    typescriptDefaults.setDiagnosticsOptions({
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: true,
       noSemanticValidation: true,
       noSyntaxValidation: true
@@ -42351,13 +42349,13 @@ var startMonaco = async ({ code, container, name, onChange }) => {
       console.log({ replaceMaps });
       const extraLib = setExtraLibs();
       extraLib.map((lib2) => {
-        typescriptDefaults.addExtraLib(
+        languages.typescript.typescriptDefaults.addExtraLib(
           lib2.content,
           lib2.filePath
         );
         bc.postMessage({ ...lib2, type: "set-mock" });
       });
-      const libs = typescriptDefaults.getExtraLibs();
+      const libs = languages.typescript.typescriptDefaults.getExtraLibs();
       const extraLibsForSave = Object.keys(libs).map((lib2) => ({
         filePath: lib2,
         content: libs[lib2].content
@@ -42388,7 +42386,7 @@ var startMonaco = async ({ code, container, name, onChange }) => {
         };
       });
       console.log({ extraLibs });
-      typescriptDefaults.setExtraLibs(
+      languages.typescript.typescriptDefaults.setExtraLibs(
         extraLibs
       );
       return extraLibs;
