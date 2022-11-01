@@ -51,3 +51,4 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
     </m.div>
   );
 };
+export default QRButton;
