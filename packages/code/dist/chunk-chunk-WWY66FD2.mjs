@@ -2,7 +2,7 @@ import {
   AutoUpdateApp,
   Editor,
   wait
-} from "./chunk-chunk-65ZR62PS.mjs";
+} from "./chunk-chunk-YC6CXXX6.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-L7BHZL4T.mjs";
+} from "./chunk-chunk-7WFOLUKV.mjs";
 import {
   Children,
   Fragment,
@@ -3459,7 +3459,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-S3O6HTQP.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-HZLQXCMQ.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -4042,8 +4042,10 @@ var run = async (startState) => {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
     }
     if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
-      const messageData = await makePatch(event.data.sess);
-      await applyPatch(messageData);
+      const messageData = makePatch(event.data.sess);
+      if (messageData) {
+        await applyPatch(messageData);
+      }
     }
   };
   onSessionUpdate(
@@ -4162,11 +4164,11 @@ async function syncRTC() {
         return;
       }
       const sess = mST();
-      const message = webRTCLastSeenHashCode ? await makePatchFrom(
+      const message = webRTCLastSeenHashCode ? makePatchFrom(
         webRTCLastSeenHashCode,
         sess
-      ) : await makePatch(sess);
-      if (message && message.patch) {
+      ) : makePatch(sess);
+      if (message !== null && message.patch) {
         sendChannel.send(message);
       }
     }

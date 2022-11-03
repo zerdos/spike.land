@@ -75,7 +75,7 @@ type ICodeSess = {
     c: string,
     st: ICodeSession,
     updateHash?: (h: string) => void,
-  ) => Promise<CodePatch>;
+  ) => CodePatch | null;
   json: () => IUserJSON;
 };
 
@@ -147,34 +147,38 @@ export class CodeSession implements ICodeSess {
     return hashCode;
   };
 
-  createPatchFromHashCode = async (
+  createPatchFromHashCode = (
     oldHash: string,
     state: ICodeSession,
     updateHash?: (h: string) => void,
   ) => {
     const s = JSON.parse(string_(state));
 
+    hashStore[md5(this.session.get("state").transpiled)] = this.session.get("state");
     let oldRec = hashStore[oldHash];
     let usedOldHash = oldHash;
 
     if (!oldRec) {
-      const resp = await fetch(
+      fetch(
         `/live/${this.room}/mST`,
-      );
-      if (!resp.ok) {
-        console.error(location.origin + " is NOT OK", await resp.text());
-        throw new Error(location.origin + " is NOT OK");
-      }
+      ).then(async (resp) => {
+        if (!resp.ok) {
+          console.error(location.origin + " is NOT OK", await resp.text());
+          throw new Error(location.origin + " is NOT OK");
+        }
 
-      const { mST, hashCode } = await resp.json();
-      if (updateHash) {
-        updateHash(hashCode);
-      }
+        const { mST } = await resp.json();
+        const hashC = md5(mST.transpiled);
+        if (updateHash) {
+          updateHash(hashC);
+        }
 
-      hashStore[hashCode] = this.session.get("state").merge(mST);
+        hashStore[hashC] = this.session.get("state").merge(mST);
 
-      usedOldHash = hashCode;
-      oldRec = hashStore[hashCode];
+        oldRec = hashStore[hashC];
+        this.createPatchFromHashCode(hashC, state, updateHash);
+      });
+      return null;
     }
 
     const oldString = string_(oldRec.toJSON());
@@ -237,10 +241,11 @@ export class CodeSession implements ICodeSess {
     );
     const newHash = md5(this.session.get("state").transpiled);
     if (newHash !== oldHash) {
-      // console.log({ sess });
-      (self.requestAnimationFrame || setTimeout)(async () =>
-        this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
-      );
+      // console.log({ sess });\
+      queueMicrotask(() => {
+        this.createPatchFromHashCode(oldHash, mST());
+        this.update();
+      });
     }
   };
 
@@ -420,12 +425,12 @@ export const onSessionUpdate = (
   fn: () => void,
   regId = "default",
 ) => session?.onUpdate(fn, regId);
-export const makePatchFrom = async (
+export const makePatchFrom = (
   n: string,
   st: ICodeSession,
   update?: (h: string) => void,
 ) => (session!).createPatchFromHashCode(n, st, update);
-export const makePatch = async (
+export const makePatch = (
   st: ICodeSession,
   update?: (h: string) => void,
 ) => makePatchFrom(md5(mST().transpiled), st, update);

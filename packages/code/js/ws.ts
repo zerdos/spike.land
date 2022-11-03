@@ -158,9 +158,10 @@ export const run = async (startState: {
     if (
       event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
     ) {
-      const messageData = await makePatch(event.data.sess);
-
-      await applyPatch(messageData);
+      const messageData = makePatch(event.data.sess);
+      if (messageData) {
+        await applyPatch(messageData);
+      }
     }
   };
 
@@ -313,12 +314,12 @@ async function syncRTC() {
       // console.//log({ wsLastHashCode });
 
       const message = webRTCLastSeenHashCode
-        ? await makePatchFrom(
+        ? makePatchFrom(
           webRTCLastSeenHashCode,
           sess,
         )
-        : await makePatch(sess);
-      if (message && message.patch) {
+        : makePatch(sess);
+      if (message !== null && message.patch) {
         // console.//log("sendRTC");
         sendChannel.send(message);
       }

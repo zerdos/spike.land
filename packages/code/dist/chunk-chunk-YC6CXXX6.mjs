@@ -7,7 +7,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-L7BHZL4T.mjs";
+} from "./chunk-chunk-7WFOLUKV.mjs";
 import {
   PureComponent,
   Suspense,

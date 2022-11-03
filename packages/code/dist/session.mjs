@@ -9,7 +9,7 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-L7BHZL4T.mjs";
+} from "./chunk-chunk-7WFOLUKV.mjs";
 import {
   md5
 } from "./chunk-chunk-IEMJ7HZ3.mjs";

@@ -525,8 +525,10 @@ export class Code {
 
           if (data.hashCode) {
             if (data?.hashCode !== hashCode()) {
-              const patch = await makePatchFrom(data.hashCode, mST());
-              return respondWith({ ...patch });
+              const patch = makePatchFrom(data.hashCode, mST());
+              if (patch) {
+                return respondWith({ ...patch });
+              }
             }
           }
         } catch (e) {

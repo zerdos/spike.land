@@ -5288,25 +5288,29 @@ var CodeSession = class {
       hashStore[hashCode4] = state;
       return hashCode4;
     };
-    this.createPatchFromHashCode = async (oldHash, state, updateHash) => {
+    this.createPatchFromHashCode = (oldHash, state, updateHash) => {
       const s = JSON.parse(string_(state));
+      hashStore[md5(this.session.get("state").transpiled)] = this.session.get("state");
       let oldRec = hashStore[oldHash];
       let usedOldHash = oldHash;
       if (!oldRec) {
-        const resp = await fetch(
+        fetch(
           `/live/${this.room}/mST`
-        );
-        if (!resp.ok) {
-          console.error(location.origin + " is NOT OK", await resp.text());
-          throw new Error(location.origin + " is NOT OK");
-        }
-        const { mST: mST2, hashCode: hashCode4 } = await resp.json();
-        if (updateHash) {
-          updateHash(hashCode4);
-        }
-        hashStore[hashCode4] = this.session.get("state").merge(mST2);
-        usedOldHash = hashCode4;
-        oldRec = hashStore[hashCode4];
+        ).then(async (resp) => {
+          if (!resp.ok) {
+            console.error(location.origin + " is NOT OK", await resp.text());
+            throw new Error(location.origin + " is NOT OK");
+          }
+          const { mST: mST2 } = await resp.json();
+          const hashC = md5(mST2.transpiled);
+          if (updateHash) {
+            updateHash(hashC);
+          }
+          hashStore[hashC] = this.session.get("state").merge(mST2);
+          oldRec = hashStore[hashC];
+          this.createPatchFromHashCode(hashC, state, updateHash);
+        });
+        return null;
       }
       const oldString = string_(oldRec.toJSON());
       const newRec = oldRec.merge(s);
@@ -5355,9 +5359,10 @@ var CodeSession = class {
       );
       const newHash = md5(this.session.get("state").transpiled);
       if (newHash !== oldHash) {
-        (self.requestAnimationFrame || setTimeout)(
-          async () => this.createPatchFromHashCode(oldHash, mST()).then(() => this.update())
-        );
+        queueMicrotask(() => {
+          this.createPatchFromHashCode(oldHash, mST());
+          this.update();
+        });
       }
     };
     this.applyPatch = async ({
@@ -5520,8 +5525,8 @@ var applyPatch2 = async (x) => {
   session?.update();
 };
 var onSessionUpdate = (fn, regId = "default") => session?.onUpdate(fn, regId);
-var makePatchFrom = async (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
-var makePatch = async (st, update8) => makePatchFrom(md5(mST().transpiled), st, update8);
+var makePatchFrom = (n, st, update8) => session.createPatchFromHashCode(n, st, update8);
+var makePatch = (st, update8) => makePatchFrom(md5(mST().transpiled), st, update8);
 var startSession = (room, u, originString) => session || new CodeSession(room, {
   name: u.name,
   state: addOrigin(u.state, originString)

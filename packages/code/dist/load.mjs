@@ -2,7 +2,7 @@
 var codeSpace = location.pathname.slice(1).split("/")[1];
 async function start() {
   if (!globalThis.React?.Children) {
-    setTimeout(start, 100);
+    queueMicrotask(() => start());
     return;
   }
   const { run } = await importShim(`${location.origin}/ws.mjs`);
