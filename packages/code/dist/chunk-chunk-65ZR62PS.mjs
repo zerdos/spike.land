@@ -20646,7 +20646,7 @@ function AutoUpdateApp({ codeSpace }) {
         }
       } catch (err) {
         console.error({ err });
-        console.error("error has been thrown");
+        console.error(err && err.message || "error has been thrown");
       } finally {
         await wait(waitingTime *= 2);
       }
