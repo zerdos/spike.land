@@ -4,8 +4,8 @@ import {
 
 // js/emotionCache.ts
 init_define_process();
-var { createEmotionCache } = globalThis;
-var emotionCache_default = createEmotionCache;
+var createCache = globalThis.createEmotionCache.default || globalThis.createEmotionCache;
+var emotionCache_default = createCache;
 
 export {
   emotionCache_default

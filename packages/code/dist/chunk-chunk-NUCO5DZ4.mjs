@@ -1,6 +1,6 @@
 import {
   emotionCache_default
-} from "./chunk-chunk-SPNC3BA5.mjs";
+} from "./chunk-chunk-5L5QDEBB.mjs";
 import {
   Children,
   Fragment,
@@ -11173,7 +11173,8 @@ init_define_process();
 
 // js/emotionStyled.mjs
 init_define_process();
-var emotionStyled_default = globalThis.styled;
+var emotionStyled = globalThis.styled.default || globalThis.styled;
+var emotionStyled_default = emotionStyled;
 
 // ../../.yarn/__virtual__/@mui-styled-engine-virtual-eec8d42131/0/global/cache/@mui-styled-engine-npm-5.10.8-a0cbfa59bc-9.zip/node_modules/@mui/styled-engine/StyledEngineProvider/index.js
 init_define_process();

@@ -1,8 +1,10 @@
 // js/load.ts
 var codeSpace = location.pathname.slice(1).split("/")[1];
 async function start() {
-  if (!globalThis.React?.Children)
-    return setTimeout(start, 100);
+  if (!globalThis.React?.Children) {
+    setTimeout(start, 100);
+    return;
+  }
   const { run } = await importShim(`${location.origin}/ws.mjs`);
   const {
     mST,
@@ -16,3 +18,6 @@ async function start() {
   });
 }
 start();
+export {
+  codeSpace
+};

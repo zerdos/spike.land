@@ -5,9 +5,12 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 // const start = (dry = false) =>
 
 async function start() {
-  if (!globalThis.React?.Children) return setTimeout(start, 100);
+  if (!globalThis.React?.Children) {
+    setTimeout(start, 100);
+    return;
+  }
 
-  const { run } = await importShim(`${location.origin}/ws.mjs`);
+  const { run } = await importShim<{ run: (t: any) => void }, { run: (t: any) => void }>(`${location.origin}/ws.mjs`);
   const {
     mST,
     address,
@@ -67,3 +70,5 @@ start();
 //   const dry = false;
 //   start(dry);
 // }
+
+export { codeSpace };

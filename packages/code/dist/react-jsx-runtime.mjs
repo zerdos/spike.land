@@ -39899,9 +39899,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const emotionReactJsxRuntime2 = require_emotion_react_jsx_runtime_cjs();
     Object.assign(globalThis, { emotionReactJsxRuntime: emotionReactJsxRuntime2 });
     emotionReactJsxRuntime2.emotionJsx = emotionReactJsxRuntime2.jsx;
-    const createEmotionCache2 = require_emotion_cache_cjs().default;
+    const createEmotionCache2 = require_emotion_cache_cjs();
     Object.assign(globalThis, { createEmotionCache: createEmotionCache2 });
-    const styled2 = require_emotion_styled_cjs().default;
+    const styled2 = require_emotion_styled_cjs();
     Object.assign(globalThis, { styled: styled2 });
     emotionReactJsxRuntime2.jsx = function() {
       const props = arguments[1];

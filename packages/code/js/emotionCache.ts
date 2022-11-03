@@ -1,3 +1,3 @@
-const { createEmotionCache } = globalThis;
+const createCache = globalThis.createEmotionCache.default || globalThis.createEmotionCache;
 
-export default createEmotionCache;
+export default createCache;
