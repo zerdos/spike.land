@@ -16,7 +16,7 @@
     "@cloudflare/workers-types": "3.18.0",
     "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
-    "esbuild": "0.15.12"
+    "esbuild": "0.15.13"
   },
   "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
 }
