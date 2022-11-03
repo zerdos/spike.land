@@ -260,6 +260,7 @@ export class CodeSession implements ICodeSess {
     newHash,
     patch,
   }: CodePatch) => {
+    if (!(oldHash && newHash && patch.length)) return;
     const codeSpace = this.room || "";
     const now = mST();
     const nowHash = md5(now.transpiled);

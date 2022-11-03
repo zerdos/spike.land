@@ -5370,6 +5370,8 @@ var CodeSession = class {
       newHash,
       patch
     }) => {
+      if (!(oldHash && newHash && patch.length))
+        return;
       const codeSpace = this.room || "";
       const now = mST();
       const nowHash = md5(now.transpiled);
