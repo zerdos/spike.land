@@ -30,10 +30,10 @@ const runtime = () => {
   Object.assign(globalThis, { emotionReactJsxRuntime });
   emotionReactJsxRuntime.emotionJsx = emotionReactJsxRuntime.jsx;
 
-  const createEmotionCache = require("@emotion/cache").default;
+  const createEmotionCache = require("@emotion/cache");
   Object.assign(globalThis, { createEmotionCache });
 
-  const styled = require("@emotion/styled").default;
+  const styled = require("@emotion/styled");
   Object.assign(globalThis, { styled });
 
   emotionReactJsxRuntime.jsx = function() {
