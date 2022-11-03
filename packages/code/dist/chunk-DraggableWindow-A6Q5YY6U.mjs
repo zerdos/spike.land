@@ -15,10 +15,10 @@ import {
   domAnimation,
   domMax,
   m
-} from "./chunk-chunk-NQXE3QMF.mjs";
+} from "./chunk-chunk-W2EEQE43.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-PK344ZTK.mjs";
+} from "./chunk-chunk-3KLJF5K7.mjs";
 import "./chunk-chunk-3CLJFEHS.mjs";
 import "./chunk-chunk-5L5QDEBB.mjs";
 import {
@@ -52,7 +52,7 @@ init_reactMod();
 // js/Qr.lazy.tsx
 init_define_process();
 init_reactMod();
-var LQR = lazy(() => import("./chunk-Qr-6JWZGQJO.mjs"));
+var LQR = lazy(() => import("./chunk-Qr-FYNQX5Y6.mjs"));
 var QRButton = ({ url }) => jsx(Suspense, {
   fallback: jsx("div", {
     children: "...qr...,"

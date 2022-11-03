@@ -4,7 +4,7 @@ import {
 } from "./chunk-chunk-2RQZBBZI.mjs";
 import {
   motion
-} from "./chunk-chunk-NQXE3QMF.mjs";
+} from "./chunk-chunk-W2EEQE43.mjs";
 import {
   createElement,
   init_reactMod,
