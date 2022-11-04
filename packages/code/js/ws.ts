@@ -275,9 +275,29 @@ async function stopVideo() {
 
 async function startVideo() {
   console.log({ adapter });
+
+  const supported = await navigator.mediaDevices.getSupportedConstraints();
+  console.log({ supported });
+
   const mediaConstraints = {
     audio: false, // We want an audio track
-    video: true, // And we want a video track
+    video: true, // {
+    //  .. aspectRatio?: ConstrainDouble;
+    // autoGainControl?: ConstrainBoolean;
+    // channelCount?: ConstrainULong;
+    //  deviceId?: ConstrainDOMString;
+    //  echoCancellation?: ConstrainBoolean;
+    //  facingMode?: ConstrainDOMString;
+    // frameRate?: ConstrainDouble;
+    // groupId?: ConstrainDOMString;
+    // height?: ConstrainULong;
+    // latency?: ConstrainDouble;
+    // noiseSuppression?: ConstrainBoolean;
+    // sampleRate?: ConstrainULong;
+    // sampleSize?: ConstrainULong;
+    // suppressLocalAudioPlayback?: ConstrainBoolean;
+    // width?: ConstrainULong;
+    // }, // And we want a video track
   };
 
   // document.body.appendChild(sendChannel.vidElement);
@@ -425,10 +445,6 @@ async function processWsMessage(
   source: "ws" | "rtc",
   conn: { hashCode: string },
 ) {
-  if (ws == null) {
-    return;
-  }
-
   lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
@@ -632,6 +648,7 @@ async function processData(
     };
 
     rtcConns[target].ondatachannel = (event) => {
+      users.insert(target);
       // console.//log("Receive Channel Callback");
       const rtcChannel = event.channel;
       rtcChannel.binaryType = "arraybuffer";
@@ -653,6 +670,8 @@ async function processData(
             message,
             "rtc",
             Object.assign(rtc, { hashCode: hashCode() }),
+            // respond: (msg)=>{},
+            // broadcast: ()=>{}
           ),
       );
       const rtcWithTarget = Object.assign(rtc, { target });
