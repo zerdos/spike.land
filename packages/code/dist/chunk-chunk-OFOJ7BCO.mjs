@@ -3460,7 +3460,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-QCOZ3C6I.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-SO2B5GT2.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -4298,13 +4298,13 @@ async function processData(data, source, conn) {
       if (data.name && data.name !== user && !rtcConns[data.name] && !ignoreUsers.includes(data.name)) {
         await createPeerConnection(data.name);
         const users2 = data.users;
-        const p2pUsers = users2.filter((u) => u !== user);
+        const p2pUsers = users2.filter((u) => u !== user && !ignoreUsers.includes(u));
         while (p2pUsers.length) {
-          const nextToConnect = users2.pop();
+          const nextToConnect = p2pUsers.pop();
           if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
             createPeerConnection(nextToConnect);
           }
-          await wait(200);
+          await wait(500);
         }
         return;
       }
