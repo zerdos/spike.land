@@ -525,13 +525,13 @@ async function processData(
       ) {
         await createPeerConnection(data.name);
         const users = data.users as string[];
-        const p2pUsers = users.filter(u => u !== user);
+        const p2pUsers = users.filter(u => u !== user && !ignoreUsers.includes(u));
         while (p2pUsers.length) {
-          const nextToConnect = users.pop();
+          const nextToConnect = p2pUsers.pop();
           if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
             createPeerConnection(nextToConnect);
           }
-          await wait(200);
+          await wait(500);
         }
 
         return;

@@ -658,7 +658,14 @@ export class Code {
     // Iterate over all the sessions sending them messages.
     this.sessions
       .filter((session) => session.name === to)
-      .map((s) => s.webSocket.send(message));
+      .map((s) => {
+        try {
+          s.webSocket.send(message);
+        } catch {
+          console.error("p2p error");
+          "";
+        }
+      });
   }
 
   broadcast(msg: unknown) {
