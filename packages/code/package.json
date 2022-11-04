@@ -105,7 +105,7 @@
   "devDependencies": {
     "@libp2p/interfaces": "3.0.3",
     "@motionone/dom": "10.14.3",
-    "@types/eslint": "^8.4.9",
+    "@types/eslint": "^8.4.10",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/is-callable": "1.1.0",
     "@types/lodash.debounce": "4.0.7",
