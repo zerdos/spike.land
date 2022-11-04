@@ -3,9 +3,9 @@
 // Object.assign(globalThis, require("stream-browserify"));
 
 // import 'css-paint-polyfill
-import "webrtc-adapter";
 import AVLTree from "avl";
 import debounce from "lodash.debounce";
+import adapter from "webrtc-adapter";
 import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
@@ -51,7 +51,7 @@ const tracks: {
   [key: string]: {
     track: MediaStreamTrack;
     streams: readonly MediaStream[];
-    vidElement: HTMLVideoElement;
+    // vidElement: HTMLVideoElement;
   };
 } = {};
 export const sendChannel = {
@@ -59,7 +59,7 @@ export const sendChannel = {
   webRtcArray,
   tracks,
   user,
-  vidElement: document.createElement("video"),
+  // vidElement: document.createElement("video"),
   stopVideo,
   startVideo,
   rtcConns,
@@ -271,7 +271,8 @@ async function stopVideo() {
   sendChannel.localStream.getTracks().map((x) => x.stop());
 }
 
-async function startVideo() {
+async function startVideo(vidElement) {
+  console.log({ adapter });
   const mediaConstraints = {
     audio: false, // We want an audio track
     video: true, // And we want a video track
@@ -285,13 +286,13 @@ async function startVideo() {
 
   handleSuccess(localStream);
   function handleSuccess(localStream: MediaStream) {
-    const video = sendChannel.vidElement;
+    vidElement.srcObject = localStream;
     const videoTracks = localStream.getVideoTracks();
     console.log("Got stream with constraints:", mediaConstraints);
     console.log(`Using video device: ${videoTracks[0].label}`);
-    sendChannel.localStream = localStream; // make variable available to browser console
-    video.srcObject = localStream;
-    video.play();
+    // sendChannel.localStream = localStream; // make variable available to browser console
+
+    // vi.play();
   }
 
   localStream.getVideoTracks().forEach((track) =>
@@ -609,12 +610,12 @@ async function processData(
       this: RTCPeerConnection,
       { track, streams }: RTCTrackEvent,
     ) {
-      const vidElement = document.createElement("video");
-      vidElement.srcObject = streams[0];
+      //      const vidElement = document.createElement("video");
+      //    vidElement.srcObject = streams[0];
 
       sendChannel.localStream?.addTrack(track);
 
-      sendChannel.tracks[target] = { track, streams, vidElement };
+      sendChannel.tracks[target] = { track, streams };
     };
 
     rtcConns[target].ondatachannel = (event) => {
