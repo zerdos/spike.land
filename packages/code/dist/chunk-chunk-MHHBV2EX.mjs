@@ -3460,7 +3460,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-OEIXAQA2.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-DXKCZBAN.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -4304,9 +4304,9 @@ async function processData(data, source, conn) {
         while (p2pUsers.length) {
           const nextToConnect = users2.pop();
           if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
-            await createPeerConnection(nextToConnect);
+            createPeerConnection(nextToConnect);
           }
-          await wait(2e3);
+          await wait(200);
         }
         return;
       }

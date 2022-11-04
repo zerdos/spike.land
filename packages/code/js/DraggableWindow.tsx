@@ -257,7 +257,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     initial={{
                       width: window.innerWidth,
                       height: window.innerHeight,
-                      backgroundColor: rgba(r, g, b, 1),
+                      backgroundColor: rgba(r, g, b, 0),
                       scale: 1,
                     }}
                     animate={{

@@ -18,7 +18,7 @@ import {
 } from "./chunk-chunk-W2EEQE43.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-YGOZMIU5.mjs";
+} from "./chunk-chunk-MHHBV2EX.mjs";
 import "./chunk-chunk-Y3RRPQZ5.mjs";
 import "./chunk-chunk-5L5QDEBB.mjs";
 import {
@@ -237,7 +237,7 @@ var DraggableWindow = ({
                       initial: {
                         width: window.innerWidth,
                         height: window.innerHeight,
-                        backgroundColor: rgba(r, g, b, 1),
+                        backgroundColor: rgba(r, g, b, 0),
                         scale: 1
                       },
                       animate: {
