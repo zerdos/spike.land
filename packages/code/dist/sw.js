@@ -4,7 +4,8 @@
   var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
   // js/md5.js
-  var md5 = /* @__PURE__ */ __name((code) => md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8), "md5");
+  var cache = {};
+  var md5 = /* @__PURE__ */ __name((code) => cache[code] = cache[code] || md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8), "md5");
   function md5FULL(inputString) {
     const hc = "0123456789abcdef";
     function rh(n) {
@@ -151,32 +152,32 @@
 
   // js/sw.ts
   var lastChecked = 0;
-  var cache;
+  var cache2;
   var cacheName = "default";
   var getCacheName = /* @__PURE__ */ __name(() => fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => md5(content)).then(
-    (cn) => cn === cacheName || (cache = null) || (cacheName = cn)
+    (cn) => cn === cacheName || (cache2 = null) || (cacheName = cn)
   ).finally(() => cacheName), "getCacheName");
   addEventListener("fetch", async (_event) => {
     const event = _event;
     const request = event.request;
     const url = new URL(request.url);
     return event.respondWith((async () => {
-      if (!cache) {
-        cache = await caches.open(cacheName || await getCacheName() && cacheName);
+      if (!cache2) {
+        cache2 = await caches.open(cacheName || await getCacheName() && cacheName);
       }
       if (Date.now() - lastChecked > 1e4) {
         lastChecked = Date.now();
         getCacheName();
       }
       const cacheKey = new Request(request.url);
-      const cachedResp = await cache.match(cacheKey);
+      const cachedResp = await cache2.match(cacheKey);
       if (cachedResp)
         return cachedResp.clone();
       if (!url.toString().includes(location.origin))
         return fetch(request);
       const resp = await fetch(request);
       if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
-        await cache.put(cacheKey, resp.clone());
+        await cache2.put(cacheKey, resp.clone());
       }
       return resp;
     })());

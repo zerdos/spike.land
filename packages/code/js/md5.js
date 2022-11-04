@@ -1,14 +1,16 @@
-export const md5 = (code) => (md5FULL(code).split("0").join("k")
-  .split("1").join("g")
-  .split("2").join("j")
-  .split("3").join("k")
-  .split("4").join("b")
-  .split("5").join("n")
-  .split("6").join("o")
-  .split("7").join("x")
-  .split("8").join("q")
-  .split("9").join("z")
-  .slice(0, 8));
+const cache = {};
+export const md5 = (code) =>
+  cache[code] = cache[code] || (md5FULL(code).split("0").join("k")
+    .split("1").join("g")
+    .split("2").join("j")
+    .split("3").join("k")
+    .split("4").join("b")
+    .split("5").join("n")
+    .split("6").join("o")
+    .split("7").join("x")
+    .split("8").join("q")
+    .split("9").join("z")
+    .slice(0, 8));
 
 function md5FULL(inputString) {
   const hc = "0123456789abcdef";
