@@ -20637,11 +20637,18 @@ function AutoUpdateApp({ codeSpace }) {
           const trp = await resp.text();
           let mod4;
           try {
-            mod4 = new Function(trp + ` return ${trp.slice(2, 10)}`)();
+            mod4 = await fetch(url.replace(".js", ".tsx")).then(
+              async (resp2) => resp2 && !resp2.ok ? false : await resp2.text().then(
+                (code) => esmTransform(code).then(
+                  (transpiled) => importShim(createJsBlob(transpiled))
+                )
+              )
+            ) || new Function(trp + ` return ${trp.slice(2, 10)}`)();
           } catch {
-            mod4 = await importShim(createJsBlob(trp));
+            console.error("something went nuts");
+            return;
           }
-          setApps({ App: lazy(async () => mod4), i: i + 1 });
+          setApps({ App: mod4.default, i: i + 1 });
           return mod4;
         }
       } catch (err) {
@@ -20696,9 +20703,9 @@ async function appFactory(transpiled = "") {
       console.log(`i: ${mstI}: `);
       let mod4;
       try {
-        mod4 = new Function(trp + ` return ${trp.slice(2, 10)}`)();
-      } catch {
         mod4 = await importShim(createJsBlob(trp));
+      } catch {
+        mod4 = new Function(trp + ` return ${trp.slice(2, 10)}`)();
       }
       const App = mod4.default;
       apps2[hash] = ({ appId }) => jsx("div", {
@@ -20992,6 +20999,29 @@ var debouncedSync = (0, import_lodash.default)(patchSync, 200, {
 });
 var counterMax = mST().i;
 var IIFE = {};
+var esmTransform = async (code) => {
+  const transpiled = await initAndTransform(code, {
+    loader: "tsx",
+    format: "esm",
+    treeShaking: true,
+    platform: "browser",
+    minify: false,
+    globalName: md5(code),
+    keepNames: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        module: "ESNext",
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react"
+      }
+    },
+    target: "es2021"
+  });
+  Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
+  return transpiled.code;
+};
+globalThis.esmTransform = esmTransform;
 var umdTransform = async (code) => {
   const transpiled = await initAndTransform(code, {
     loader: "tsx",
@@ -21026,7 +21056,7 @@ async function runner({ code, counter, codeSpace }) {
     return;
   counterMax = counter;
   try {
-    const transpiledCode = await umdTransform(code);
+    const transpiledCode = await esmTransform(code);
     const { html, css: css2 } = await render(transpiledCode, codeSpace);
     console.log({ html, css: css2 });
     if (!html || !css2) {

@@ -16,6 +16,7 @@ import { hashCode, mST } from "./session";
 
 // import isCallable from "is-callable";
 
+import { esmTransform } from "runner";
 import { wait } from "./wait";
 
 Object.assign(globalThis, { md5 });
@@ -79,11 +80,21 @@ export function AutoUpdateApp(
           const trp = await resp.text();
           let mod;
           try {
-            mod = new Function(trp + ` return ${trp.slice(2, 10)}`)();
+            mod = await (fetch(url.replace(".js", ".tsx")).then(async (resp) =>
+              resp && !resp.ok ? false : await resp.text().then(
+                code =>
+                  esmTransform(code).then(
+                    transpiled =>
+                      importShim(createJsBlob(transpiled)),
+                  ),
+              )
+            )) || new Function(trp + ` return ${trp.slice(2, 10)}`)();
           } catch {
-            mod = await importShim(createJsBlob(trp));
+            console.error("something went nuts");
+            return;
           }
-          setApps({ App: lazy(async () => mod), i: i + 1 });
+
+          setApps({ App: mod.default, i: i + 1 });
 
           return mod;
         }
@@ -225,9 +236,9 @@ export async function appFactory(
       let mod;
 
       try {
-        mod = new Function(trp + ` return ${trp.slice(2, 10)}`)();
-      } catch {
         mod = await importShim(createJsBlob(trp));
+      } catch {
+        mod = new Function(trp + ` return ${trp.slice(2, 10)}`)();
       }
       const App = mod.default;
       //      globalThis.TmpApp.default as unknown as FC; // (await importShim(createJsBlob(transpiled))).default;

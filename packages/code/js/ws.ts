@@ -13,10 +13,10 @@ import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, s
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import { renderPreviewWindow } from "renderPreviewWindow";
-import { wait } from "wait.js";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
+import { wait } from "./wait.js";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
 
