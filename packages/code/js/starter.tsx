@@ -17,7 +17,7 @@ import { hashCode, mST } from "./session";
 
 // import isCallable from "is-callable";
 
-import { esmTransform } from "runner";
+import { esmTransform } from "./runner";
 import { wait } from "./wait";
 
 Object.assign(globalThis, { md5 });
@@ -43,6 +43,55 @@ Object.assign(globalThis, { md5 });
 // window.importShim ? window.importShim(src) : import(src);
 
 // const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache};
+export const importIt = async (url: string) => {
+  let waitingTime = 100;
+  let mod;
+
+  while (true) {
+    try {
+      try {
+        mod = await importShim(url);
+        return mod;
+      } catch {
+        try {
+          let resp = await fetch(url);
+          if (resp.status === 307 && resp.headers.get("location")) {
+            const i = Number(resp.headers.get("location")!.split("/").pop()) * 1;
+            globalThis.codeSpaces = globalThis.codeSpaces = {};
+            globalThis.codeSpaces[url] = i;
+            return await importIt(resp.headers.get("location"));
+          }
+          if (resp.ok) {
+            const trp = await resp.text();
+            try {
+              mod = await (fetch(url.replace(".js", ".tsx")).then(async (resp) =>
+                resp && !resp.ok ? false : await resp.text().then(
+                  code =>
+                    esmTransform(code).then(
+                      transpiled =>
+                        importShim(createJsBlob(transpiled)),
+                    ),
+                )
+              )) || new Function(trp + ` return ${trp.slice(2, 10)}`)();
+            } catch {
+              console.error("something went nuts");
+              return;
+            }
+
+            return mod;
+          }
+        } catch (err) {
+          console.error({ err });
+          console.error((err && (err as unknown as any)?.message as unknown as any) || "error has been thrown");
+        }
+      }
+    } catch {
+      console.error("bad something happened;");
+    } finally {
+      await wait(waitingTime *= 2);
+    }
+  }
+};
 
 if (!Object.hasOwn(globalThis, "apps")) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
@@ -67,55 +116,22 @@ let starterI = 1
 export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
-  const importIt = async (url: string) => {
-    let waitingTime = 100;
-    while (true) {
-      try {
-        let resp = await fetch(url);
-        if (resp.status === 307 && resp.headers.get("location")) {
-          const i = Number(resp.headers.get("location")!.split("/").pop()) * 1;
-          setApps((x) => ({ ...x, i }));
-          return;
-        }
-        if (resp.ok) {
-          const trp = await resp.text();
-          let mod;
-          try {
-            mod = await (fetch(url.replace(".js", ".tsx")).then(async (resp) =>
-              resp && !resp.ok ? false : await resp.text().then(
-                code =>
-                  esmTransform(code).then(
-                    transpiled =>
-                      importShim(createJsBlob(transpiled)),
-                  ),
-              )
-            )) || new Function(trp + ` return ${trp.slice(2, 10)}`)();
-          } catch {
-            console.error("something went nuts");
-            return;
-          }
-
-          setApps({ App: mod.default, i: i + 1 });
-
-          return mod;
-        }
-      } catch (err) {
-        console.error({ err });
-        console.error((err && err.message) || "error has been thrown");
-      } finally {
-        await wait(waitingTime *= 2);
-      }
-    }
-  };
-
   const [{ App, i }, setApps] = useState({
     i: starterI - 1,
-    App: lazy(() => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`)),
+    App: lazy(() =>
+      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI - 1}`).then(m => {
+        setApps(x => ({ ...x, i: x.i + 1 }));
+        return m;
+      })
+    ),
   });
 
   useEffect(() => {
-    importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
-  }, [i]);
+    (async () => {
+      const mod = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
+      setApps(x => ({ ...x, i: x.i + 1, App: lazy(async () => mod) }));
+    })();
+  }, [i, setApps]);
 
   return (
     <ErrorBoundary
