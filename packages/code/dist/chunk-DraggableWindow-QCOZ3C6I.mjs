@@ -18,8 +18,8 @@ import {
 } from "./chunk-chunk-W2EEQE43.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-U7IXW7S4.mjs";
-import "./chunk-chunk-EKD5FGTV.mjs";
+} from "./chunk-chunk-XJA5EUNQ.mjs";
+import "./chunk-chunk-YGUBUPVH.mjs";
 import "./chunk-chunk-5L5QDEBB.mjs";
 import {
   mST
@@ -206,7 +206,7 @@ var DraggableWindow = ({
                         value: size,
                         children: jsxs("span", {
                           css: css`
-                       color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
+                       color: ${size === scaleRange ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                        `,
                           children: [
                             size,
@@ -284,17 +284,17 @@ var DraggableWindow = ({
                         value: size,
                         children: size === 680 ? jsx("span", {
                           css: css`
-                        color: ${width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
+                        color: ${width === 680 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                         `,
                           children: jsx(Phone, {})
                         }) : size === 768 ? jsx("span", {
                           css: css`
-                        color: ${width === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
+                        color: ${width === 768 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                         `,
                           children: jsx(Tablet, {})
                         }) : jsx("span", {
                           css: css`
-                        color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
+                        color: ${width === 1920 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                       `,
                           children: jsx(Tv, {})
                         })

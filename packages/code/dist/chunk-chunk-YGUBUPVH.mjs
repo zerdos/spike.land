@@ -19782,6 +19782,13 @@ var require_standalone = __commonJS({
 // js/Editor.tsx
 init_define_process();
 
+// ../../.yarn/global/cache/comlink-npm-4.3.1-45efe1dd36-9.zip/node_modules/comlink/dist/esm/comlink.mjs
+init_define_process();
+var proxyMarker = Symbol("Comlink.proxy");
+var createEndpoint = Symbol("Comlink.endpoint");
+var releaseProxy = Symbol("Comlink.releaseProxy");
+var throwMarker = Symbol("Comlink.thrown");
+
 // ../../.yarn/__virtual__/re-resizable-virtual-24c16ab62b/0/global/cache/re-resizable-npm-6.9.9-2a772ae568-9.zip/node_modules/re-resizable/lib/index.js
 init_define_process();
 init_reactMod();
@@ -20186,8 +20193,8 @@ var Resizable = function(_super) {
       return { width: 0, height: 0 };
     }
     var wrapChanged = false;
-    var wrap = this.parentNode.style.flexWrap;
-    if (wrap !== "wrap") {
+    var wrap2 = this.parentNode.style.flexWrap;
+    if (wrap2 !== "wrap") {
       wrapChanged = true;
       this.parentNode.style.flexWrap = "wrap";
     }
@@ -20199,7 +20206,7 @@ var Resizable = function(_super) {
       height: base.offsetHeight
     };
     if (wrapChanged) {
-      this.parentNode.style.flexWrap = wrap;
+      this.parentNode.style.flexWrap = wrap2;
     }
     this.removeBase(base);
     return size;
@@ -21261,7 +21268,7 @@ async function setMonaco(container) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-R74RRBZB.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-OKDPJLP5.mjs");
   return startMonaco({
     container,
     name: mod3.codeSpace,

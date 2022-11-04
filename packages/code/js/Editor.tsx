@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { wrap } from "comlink";
 import { Resizable } from "re-resizable";
 import type { FC } from "react";
 import { useRef } from "react";
