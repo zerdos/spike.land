@@ -935,7 +935,7 @@ __metadata:
     "@spike.land/code": "npm:*"
     avl: "npm:1.5.3"
     esbuild: "npm:0.15.13"
-    typescript: "npm:4.8.4"
+    typescript: "npm:rc"
     wrangler: "npm:2.1.15"
   languageName: unknown
   linkType: soft
@@ -998,7 +998,7 @@ __metadata:
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
     tslib: "npm:^2.4.1"
-    typescript: "npm:4.8.4"
+    typescript: "npm:rc"
     uuid: "npm:^9.0.0"
     uvu: "npm:0.5.6"
     webrtc-adapter: "npm:^8.2.0"
@@ -1083,7 +1083,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.10"
     playwright: "npm:1.27.1"
     react: "npm:^18.2.0"
-    typescript: "npm:4.8.4"
+    typescript: "npm:rc"
   languageName: unknown
   linkType: soft
 
@@ -4879,7 +4879,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.0.1"
-    typescript: "npm:4.8.4"
+    typescript: "npm:rc"
   languageName: unknown
   linkType: soft
 
@@ -6373,23 +6373,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.8.4":
-  version: 4.8.4
-  resolution: "typescript@npm:4.8.4"
+"typescript@npm:rc":
+  version: 4.9.2-rc
+  resolution: "typescript@npm:4.9.2-rc"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 008c336ed785130b6e13254adbfc4084f5dbbe62851df9bac3eaf62fc29e0a396839c00ce47e0d92db44fa9a08b9f7ba4d31304f2b10cf7d42a0817728e822a1
+  checksum: 4b469f029e38f6f41f9ee5506bc8565cf5eeb489bc2ebcb706c19c2977131b199f4520ae636b6902cf674ce8a4bd9209173ff560555e0ef8c501a94c660a6ae6
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>":
-  version: 4.8.4
-  resolution: "typescript@patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=0102e9"
+"typescript@patch:typescript@npm%3Arc#optional!builtin<compat/typescript>":
+  version: 4.9.2-rc
+  resolution: "typescript@patch:typescript@npm%3A4.9.2-rc#optional!builtin<compat/typescript>::version=4.9.2-rc&hash=7f4d21"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 72574875bac1c13aec22010780d4841a10a88342d73744dbbad538bb0ed601f2024187f197239f2dcbf2442f83ecc4de04a80941d49730c403969fbba035ed81
+  checksum: 27369de9ca687c52927c0d6050b05415738f3ac0b6175eb22b60cdb4e3da55e5132307eaf30376c19b8f743068508b8f8d7cfa364d002af21515fbe54ea21867
   languageName: node
   linkType: hard
 
