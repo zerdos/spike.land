@@ -220,8 +220,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                           css={css`
                        color: ${
                             size === scaleRange
-                              ? "rgba(255,255,255,.8)"
-                              : "rgba(0,0,0,.3)"
+                              ? "var(--text-color-highlight)"
+                              : "var(--text-color-normal)"
                           };
                        `}
                         >
@@ -314,8 +314,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                               css={css`
                         color: ${
                                 width === 680
-                                  ? "rgba(255,255,255,.8)"
-                                  : "rgba(0,0,0,.3)"
+                                  ? "var(--text-color-highlight)"
+                                  : "var(--text-color-normal)"
                               };
                         `}
                             >
@@ -328,8 +328,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                                 css={css`
                         color: ${
                                   width === 768
-                                    ? "rgba(255,255,255,.8)"
-                                    : "rgba(0,0,0,.3)"
+                                    ? "var(--text-color-highlight)"
+                                    : "var(--text-color-normal)"
                                 };
                         `}
                               >
@@ -341,8 +341,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                                 css={css`
                         color: ${
                                   width === 1920
-                                    ? "rgba(255,255,255,.8)"
-                                    : "rgba(0,0,0,.3)"
+                                    ? "var(--text-color-highlight)"
+                                    : "var(--text-color-normal)"
                                 };
                       `}
                               >
