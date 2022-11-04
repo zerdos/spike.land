@@ -1080,7 +1080,7 @@ __metadata:
     "@types/lodash.throttle": "npm:4.1.7"
     "@types/node": "npm:^18.11.9"
     "@types/prettier": "npm:2.7.1"
-    "@types/react": "npm:^18.0.24"
+    "@types/react": "npm:^18.0.25"
     "@types/react-dom": "npm:18.0.8"
     "@types/uuid": "npm:^8.3.4"
     "@typescript-eslint/eslint-plugin": "npm:^5.42.0"
@@ -1107,7 +1107,7 @@ __metadata:
     is-callable: "npm:1.2.7"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.35.0-dev.20221103"
+    monaco-editor: "npm:0.35.0-dev.20221104"
     p-map: "npm:5.5.0"
     popmotion: "npm:11.0.5"
     prettier: "npm:2.7.1"
@@ -1196,7 +1196,7 @@ __metadata:
     "@emotion/react": "npm:^11.10.5"
     "@playwright/test": "npm:1.27.1"
     "@types/eslint": "npm:^8.4.9"
-    "@types/react": "npm:18.0.24"
+    "@types/react": "npm:18.0.25"
     "@types/react-dom": "npm:18.0.8"
     "@typescript-eslint/eslint-plugin": "npm:^5.42.0"
     "@typescript-eslint/parser": "npm:^5.42.0"
@@ -1463,7 +1463,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.24, @types/react@npm:^18.0.24":
+"@types/react@npm:*":
   version: 18.0.24
   resolution: "@types/react@npm:18.0.24"
   dependencies:
@@ -1471,6 +1471,17 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 4ef5bc8353a28fe7343bc429b91cf7d72e26fea49868ac5f874b963c928fa29806b853bb1bf25d857043fe46edd88846a76138faa47111727caee4428e8529f0
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.0.25, @types/react@npm:^18.0.25":
+  version: 18.0.25
+  resolution: "@types/react@npm:18.0.25"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: af960f03dd2ab8cf51789d09c13c440fcc505a6e22101d9c58a4f4ad562cd81122ff345cc9bf8d131d68c185ee1a48411d62e90d3dbaa9623abd0b2564f7b5fe
   languageName: node
   linkType: hard
 
@@ -3274,7 +3285,7 @@ __metadata:
   resolution: "esbuild-worker@workspace:packages/esbuild-worker"
   dependencies:
     "@cloudflare/workers-types": "npm:3.18.0"
-    "@types/react": "npm:18.0.24"
+    "@types/react": "npm:18.0.25"
     "@types/react-dom": "npm:18.0.8"
     esbuild: "npm:0.15.13"
   languageName: unknown
@@ -5036,10 +5047,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20221103":
-  version: 0.35.0-dev.20221103
-  resolution: "monaco-editor@npm:0.35.0-dev.20221103"
-  checksum: 6e29ddae0afff4a64f5216e65293ca73e944c2e570e6507c1735b2c4ed89fa74c869982541198179d7fbb99b599ceca4982f83c4e959ad3d78598df32a08a93e
+"monaco-editor@npm:0.35.0-dev.20221104":
+  version: 0.35.0-dev.20221104
+  resolution: "monaco-editor@npm:0.35.0-dev.20221104"
+  checksum: 34085dc1ded2817ff2ba55b2edb77b158919b54b5c292eeb60a00fd42a4e99102cfcae955f5b7e1c882a1866039dc61338cbce83bae389b9d529be8282c877bd
   languageName: node
   linkType: hard
 

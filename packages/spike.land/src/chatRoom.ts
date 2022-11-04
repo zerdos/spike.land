@@ -482,7 +482,7 @@ export class Code {
     }
 
     const { name } = session;
-    //    session.lastSeen = Date.now();
+    // session.lastSeen = Date.now();
 
     const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
 
