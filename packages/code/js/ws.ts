@@ -271,7 +271,6 @@ async function syncWS() {
 }
 async function stopVideo() {
   if (!sendChannel.localStream) return;
-  sendChannel.localStream.getTracks().map((x) => x.stop());
 }
 
 async function startVideo() {
@@ -625,6 +624,7 @@ async function processData(
         vidElement.srcObject = inboundStream;
         stream = inboundStream;
       }
+      ev.track.onended = () => vidElement.srcObject = null;
 
       //  sendChannel.localStream?.addTrack(ev.track);
 

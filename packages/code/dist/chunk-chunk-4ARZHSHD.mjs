@@ -3460,7 +3460,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-DXKCZBAN.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-WC5A3W2Z.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -4133,7 +4133,6 @@ async function syncWS() {
 async function stopVideo() {
   if (!sendChannel.localStream)
     return;
-  sendChannel.localStream.getTracks().map((x) => x.stop());
 }
 async function startVideo() {
   console.log({ adapter: adapter_core_default });
@@ -4376,6 +4375,7 @@ async function processData(data, source, conn) {
         vidElement.srcObject = inboundStream;
         stream = inboundStream;
       }
+      ev.track.onended = () => vidElement.srcObject = null;
       sendChannel.tracks[target] = { track: ev.track, streams: [stream], vidElement };
     };
     rtcConns[target].ondatachannel = (event) => {

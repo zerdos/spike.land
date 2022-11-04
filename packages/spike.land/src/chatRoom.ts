@@ -482,6 +482,7 @@ export class Code {
     }
 
     const { name } = session;
+    //    session.lastSeen = Date.now();
 
     const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
 
@@ -668,6 +669,7 @@ export class Code {
         s.webSocket.send(message);
       } catch (err) {
         s.quit = true;
+        this.users.remove(s.name);
         s.blockedMessages.push(message);
       }
     });
