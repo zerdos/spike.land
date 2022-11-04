@@ -30,7 +30,7 @@ const runtime = () => {
   const cssCache = {};
   emotionReact.css = function() {
     const cache = md5(cssText);
-    return cssCache[cache] = cssCache[cache] || emotionReact.cssNonMemo/;
+    return cssCache[cache] = cssCache[cache] || emotionReact.cssNonMemo.apply(this, arguments);
   };
 
   const emotionReactJsxRuntime = require("@emotion/react/jsx-runtime");
