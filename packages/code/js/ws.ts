@@ -51,7 +51,7 @@ const tracks: {
   [key: string]: {
     track: MediaStreamTrack;
     streams: readonly MediaStream[];
-    // vidElement: HTMLVideoElement;
+    vidElement: HTMLVideoElement;
   };
 } = {};
 export const sendChannel = {
@@ -59,7 +59,7 @@ export const sendChannel = {
   webRtcArray,
   tracks,
   user,
-  // vidElement: document.createElement("video"),
+  vidElement: document.createElement("video"),
   stopVideo,
   startVideo,
   rtcConns,
@@ -89,6 +89,9 @@ export const sendChannel = {
     });
   },
 };
+sendChannel.vidElement.playsInline = true;
+sendChannel.vidElement.autoplay = true;
+
 Object.assign(globalThis, { sendChannel, mST });
 
 // Let createDelta;
@@ -271,7 +274,7 @@ async function stopVideo() {
   sendChannel.localStream.getTracks().map((x) => x.stop());
 }
 
-async function startVideo(vidElement) {
+async function startVideo() {
   console.log({ adapter });
   const mediaConstraints = {
     audio: false, // We want an audio track
@@ -286,13 +289,12 @@ async function startVideo(vidElement) {
 
   handleSuccess(localStream);
   function handleSuccess(localStream: MediaStream) {
-    vidElement.srcObject = localStream;
+    const video = sendChannel.vidElement;
     const videoTracks = localStream.getVideoTracks();
     console.log("Got stream with constraints:", mediaConstraints);
     console.log(`Using video device: ${videoTracks[0].label}`);
-    // sendChannel.localStream = localStream; // make variable available to browser console
-
-    // vi.play();
+    sendChannel.localStream = localStream; // make variable available to browser console
+    video.srcObject = localStream;
   }
 
   localStream.getVideoTracks().forEach((track) =>
@@ -508,12 +510,13 @@ async function processData(
       ) {
         await createPeerConnection(data.name);
         const users = data.users as string[];
-        while (users.length) {
-          await wait(2000);
+        const p2pUsers = users.filter(u => u !== user);
+        while (p2pUsers.length) {
           const nextToConnect = users.pop();
           if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
             await createPeerConnection(nextToConnect);
           }
+          await wait(2000);
         }
 
         return;
@@ -606,16 +609,26 @@ async function processData(
 
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
 
-    rtcConns[target].ontrack = function(
-      this: RTCPeerConnection,
-      { track, streams }: RTCTrackEvent,
-    ) {
-      //      const vidElement = document.createElement("video");
-      //    vidElement.srcObject = streams[0];
+    rtcConns[target].ontrack = function(ev) {
+      console.log("OnTack event ", ev);
+      const vidElement = document.createElement("video");
+      vidElement.autoplay = true;
+      vidElement.playsInline = true;
+      let stream = null;
+      if (ev.streams && ev.streams[0]) {
+        vidElement.srcObject = ev.streams[0];
+        stream = ev.streams[0];
+      } else {
+        let inboundStream = new MediaStream();
+        inboundStream.addTrack(ev.track);
 
-      sendChannel.localStream?.addTrack(track);
+        vidElement.srcObject = inboundStream;
+        stream = inboundStream;
+      }
 
-      sendChannel.tracks[target] = { track, streams };
+      //  sendChannel.localStream?.addTrack(ev.track);
+
+      sendChannel.tracks[target] = { track: ev.track, streams: [stream], vidElement };
     };
 
     rtcConns[target].ondatachannel = (event) => {

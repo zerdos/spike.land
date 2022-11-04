@@ -3460,7 +3460,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-PWSSGFFP.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-OEIXAQA2.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -3999,6 +3999,7 @@ var sendChannel = {
   webRtcArray,
   tracks,
   user,
+  vidElement: document.createElement("video"),
   stopVideo,
   startVideo,
   rtcConns,
@@ -4020,6 +4021,8 @@ var sendChannel = {
     });
   }
 };
+sendChannel.vidElement.playsInline = true;
+sendChannel.vidElement.autoplay = true;
 Object.assign(globalThis, { sendChannel, mST });
 var run = async (startState) => {
   const { mST: mst, dry, address } = startState;
@@ -4132,7 +4135,7 @@ async function stopVideo() {
     return;
   sendChannel.localStream.getTracks().map((x) => x.stop());
 }
-async function startVideo(vidElement) {
+async function startVideo() {
   console.log({ adapter: adapter_core_default });
   const mediaConstraints = {
     audio: false,
@@ -4143,10 +4146,12 @@ async function startVideo(vidElement) {
   );
   handleSuccess(localStream);
   function handleSuccess(localStream2) {
-    vidElement.srcObject = localStream2;
+    const video = sendChannel.vidElement;
     const videoTracks = localStream2.getVideoTracks();
     console.log("Got stream with constraints:", mediaConstraints);
     console.log(`Using video device: ${videoTracks[0].label}`);
+    sendChannel.localStream = localStream2;
+    video.srcObject = localStream2;
   }
   localStream.getVideoTracks().forEach(
     (track) => Object.keys(sendChannel.rtcConns).map((k) => {
@@ -4295,12 +4300,13 @@ async function processData(data, source, conn) {
       if (data.name && data.name !== user && !rtcConns[data.name] && !ignoreUsers.includes(data.name)) {
         await createPeerConnection(data.name);
         const users2 = data.users;
-        while (users2.length) {
-          await wait(2e3);
+        const p2pUsers = users2.filter((u) => u !== user);
+        while (p2pUsers.length) {
           const nextToConnect = users2.pop();
           if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
             await createPeerConnection(nextToConnect);
           }
+          await wait(2e3);
         }
         return;
       }
@@ -4355,9 +4361,22 @@ async function processData(data, source, conn) {
       }
     };
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
-    rtcConns[target].ontrack = function({ track, streams }) {
-      sendChannel.localStream?.addTrack(track);
-      sendChannel.tracks[target] = { track, streams };
+    rtcConns[target].ontrack = function(ev) {
+      console.log("OnTack event ", ev);
+      const vidElement = document.createElement("video");
+      vidElement.autoplay = true;
+      vidElement.playsInline = true;
+      let stream = null;
+      if (ev.streams && ev.streams[0]) {
+        vidElement.srcObject = ev.streams[0];
+        stream = ev.streams[0];
+      } else {
+        let inboundStream = new MediaStream();
+        inboundStream.addTrack(ev.track);
+        vidElement.srcObject = inboundStream;
+        stream = inboundStream;
+      }
+      sendChannel.tracks[target] = { track: ev.track, streams: [stream], vidElement };
     };
     rtcConns[target].ondatachannel = (event) => {
       const rtcChannel = event.channel;
