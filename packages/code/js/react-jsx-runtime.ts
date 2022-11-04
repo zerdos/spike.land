@@ -1,4 +1,5 @@
 import "es-module-shims";
+// import { createJsBlob } from "starter";
 import importmap from "./importmap.json";
 const imp: { [key: string]: string } = { ...importmap.imports };
 const res = {};
@@ -88,6 +89,17 @@ const requireUmd = (pkg: string) => {
   if (globalThis[pkg]) return globalThis[pkg];
   if (apps[pkg]) return apps[pkg];
   if (pkg.includes(`spike.land/live`)) return React.lazy(() => importShim(pkg));
+
+  // if (pkg.includes(`spike.land/live`)) {
+  //   if (!globalThis.esmTransform) return {};
+  //   apps[pkg] = apps[pkg] ||  fetch(importShim.resolve(pkg).replace(".js",".tsx")).then(src=>src.text().then(code=>globalThis.esmTransform(code).then(transpiled=>importShim(createJsBlob(transpiled)))).then(mod=>Object.assign(apps, {[pkg]:mod})))
+  //   return apps[pkg];
+  //   //  throw new Error(pkg + 'mod just loading' );
+  // }  if (!globalThis.esmTransform) return {};
+  // apps[pkg] = apps[pkg] || importShim(pkg).then(mod=>Object.assign(apps, {[pkg]:mod}));
+  // return apps[pkg];
+  //  throw new Error(pkg + 'mod just loading' );
+
   // globalThis.requireLoading.push[pkg];
   // fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
   //   const hash = md5(x);

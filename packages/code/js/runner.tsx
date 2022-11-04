@@ -15,6 +15,33 @@ const debouncedSync = debounce(patchSync, 200, {
 let counterMax = mST().i;
 const IIFE = {};
 
+export const esmTransform = async (code: string) => {
+  const transpiled = await transform(code, {
+    loader: "tsx",
+    format: "esm",
+    treeShaking: true,
+    platform: "browser",
+    minify: false,
+    globalName: md5(code),
+    keepNames: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        module: "ESNext",
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react",
+      },
+    },
+    target: "es2021",
+  } as unknown as TransformOptions);
+
+  Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
+  // apps[md5(transpiled.code)] = require(md5(code));
+
+  return transpiled.code;
+};
+globalThis.esmTransform = esmTransform;
+
 export const umdTransform = async (code: string) => {
   const transpiled = await transform(code, {
     loader: "tsx",
@@ -70,7 +97,7 @@ export async function runner({ code, counter, codeSpace }: {
   //   (await import("./esbuildEsm.ts")).transform;
 
   try {
-    const transpiledCode = await umdTransform(code);
+    const transpiledCode = await esmTransform(code);
 
     const { html, css } = await render(transpiledCode, codeSpace);
 
