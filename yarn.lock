@@ -1107,7 +1107,7 @@ __metadata:
     is-callable: "npm:1.2.7"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.35.0-dev.20221104"
+    monaco-editor: "npm:0.34.1"
     p-map: "npm:5.5.0"
     popmotion: "npm:11.0.5"
     prettier: "npm:2.7.1"
@@ -5047,10 +5047,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20221104":
-  version: 0.35.0-dev.20221104
-  resolution: "monaco-editor@npm:0.35.0-dev.20221104"
-  checksum: 34085dc1ded2817ff2ba55b2edb77b158919b54b5c292eeb60a00fd42a4e99102cfcae955f5b7e1c882a1866039dc61338cbce83bae389b9d529be8282c877bd
+"monaco-editor@npm:0.34.1":
+  version: 0.34.1
+  resolution: "monaco-editor@npm:0.34.1"
+  checksum: 7ff885f003acc7163269f7197d552cc9a8e3471ab363ede84c74350282a8996cdc83f5146818c3557eff3671f4012fc38b0471b52437f554de95a2ea405a2865
   languageName: node
   linkType: hard
 
