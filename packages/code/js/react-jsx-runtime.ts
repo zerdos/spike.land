@@ -1,4 +1,5 @@
 import "es-module-shims";
+import { md5 } from "./md5";
 // import { createJsBlob } from "starter";
 import importmap from "./importmap.json";
 const imp: { [key: string]: string } = { ...importmap.imports };
@@ -29,7 +30,8 @@ const runtime = () => {
   emotionReact.cssNonMemo = emotionReact.css;
   const cssCache = {};
   emotionReact.css = function() {
-    const cache = md5(cssText);
+    const cache = md5(arguments[0]);
+    console.log({ arguments });
     return cssCache[cache] = cssCache[cache] || emotionReact.cssNonMemo.apply(this, arguments);
   };
 
