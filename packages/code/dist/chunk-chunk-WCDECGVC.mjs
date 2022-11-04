@@ -2,7 +2,7 @@ import {
   AutoUpdateApp,
   Editor,
   wait
-} from "./chunk-chunk-ABQ7DDRF.mjs";
+} from "./chunk-chunk-ZPRTLRHO.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-UDEIJR4K.mjs";
+} from "./chunk-chunk-AUL7LWHA.mjs";
 import {
   Children,
   Fragment,
@@ -40,7 +40,7 @@ import {
 } from "./chunk-chunk-2RHEIFZB.mjs";
 import {
   md5
-} from "./chunk-chunk-XSWIKHM6.mjs";
+} from "./chunk-chunk-AZHCEBCB.mjs";
 import {
   __commonJS,
   __export,
@@ -3459,7 +3459,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-Q2BM7RCU.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-JE2VQA56.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {

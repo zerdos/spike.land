@@ -30,9 +30,7 @@ const runtime = () => {
   emotionReact.cssNonMemo = emotionReact.css;
   const cssCache = {};
   emotionReact.css = function() {
-    const cache = md5(arguments[0].map(x = x.trim()).join(""));
-
-    console.log({ arguments });
+    const cache = md5(arguments[0].join(""));
     return cssCache[cache] = cssCache[cache] || emotionReact.cssNonMemo.apply(this, arguments);
   };
 
