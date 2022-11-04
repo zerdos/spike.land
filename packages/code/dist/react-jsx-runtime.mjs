@@ -39896,6 +39896,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     Object.assign(globalThis, { ReactJSXRuntime: ReactJSXRuntime2 });
     const emotionReact2 = require_emotion_react_cjs();
     Object.assign(globalThis, { emotionReact: emotionReact2 });
+    emotionReact2.cssNonMemo = emotionReact2.css;
+    const cssCache = {};
+    emotionReact2.css = function(cssText) {
+      const cache = md5(cssText);
+      return cssCache[cache] = cssCache[cache] || emotionReact2.cssNonMemo(cssText);
+    };
     const emotionReactJsxRuntime2 = require_emotion_react_jsx_runtime_cjs();
     Object.assign(globalThis, { emotionReactJsxRuntime: emotionReactJsxRuntime2 });
     emotionReactJsxRuntime2.emotionJsx = emotionReactJsxRuntime2.jsx;

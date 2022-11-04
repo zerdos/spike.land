@@ -26,6 +26,12 @@ const runtime = () => {
 
   const emotionReact = require("@emotion/react");
   Object.assign(globalThis, { emotionReact });
+  emotionReact.cssNonMemo = emotionReact.css;
+  const cssCache = {};
+  emotionReact.css = function() {
+    const cache = md5(cssText);
+    return cssCache[cache] = cssCache[cache] || emotionReact.cssNonMemo/;
+  };
 
   const emotionReactJsxRuntime = require("@emotion/react/jsx-runtime");
   Object.assign(globalThis, { emotionReactJsxRuntime });
