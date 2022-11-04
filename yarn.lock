@@ -1073,7 +1073,7 @@ __metadata:
     "@libp2p/interfaces": "npm:3.0.3"
     "@motionone/dom": "npm:10.14.3"
     "@mui/material": "npm:5.10.12"
-    "@types/eslint": "npm:^8.4.9"
+    "@types/eslint": "npm:^8.4.10"
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/is-callable": "npm:1.1.0"
     "@types/lodash.debounce": "npm:4.0.7"
@@ -1195,7 +1195,7 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:^11.10.5"
     "@playwright/test": "npm:1.27.1"
-    "@types/eslint": "npm:^8.4.9"
+    "@types/eslint": "npm:^8.4.10"
     "@types/react": "npm:18.0.25"
     "@types/react-dom": "npm:18.0.8"
     "@typescript-eslint/eslint-plugin": "npm:^5.42.0"
@@ -1276,13 +1276,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^8.4.9":
-  version: 8.4.9
-  resolution: "@types/eslint@npm:8.4.9"
+"@types/eslint@npm:^8.4.10":
+  version: 8.4.10
+  resolution: "@types/eslint@npm:8.4.10"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 71ff3912cd6eda93e167a16f96c1041344a9491176f47ef5d9836c8d6d6bc303ddcc00f6756adb1653236de10829d0fae61624c0beea79f844a216b210a36ba7
+  checksum: 459bcef9a9b7994668c32f853285bea5004dfce293511cf4a9596bdd00ee345a978e96bb82c773c2b03c486847f17194c2fcf36900ee3532549fecd7680f5fc1
   languageName: node
   linkType: hard
 
