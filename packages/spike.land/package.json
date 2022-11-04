@@ -17,7 +17,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.2.0",
     "esbuild": "0.15.13",
-    "typescript": "rc",
+    "typescript": "^4.9.2-rc",
     "wrangler": "2.1.15"
   },
   "dependencies": {
