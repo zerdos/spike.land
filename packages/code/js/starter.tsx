@@ -7,6 +7,7 @@ import type { EmotionCache } from "@emotion/cache";
 
 import { CacheProvider, css } from "@emotion/react";
 
+// import { ConsoleApp } from "./Console";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
 import { hashCode, mST } from "./session";
@@ -137,6 +138,7 @@ export function AutoUpdateApp(
         }
       >
         <App />
+        {/* <ConsoleApp id={i} />  */}
       </Suspense>
     </ErrorBoundary>
   );

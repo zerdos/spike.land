@@ -28,7 +28,7 @@ export default {
     ctx: ExecutionContext,
   ) {
     if (request.cf?.asOrganization?.startsWith("YANDEX")) {
-      return new Response(null, { status: 401, statusText: "no robots" });
+      return new Response(null, { stat: 401, statusText: "no robots" });
     }
 
     return handleErrors(request, async () => {

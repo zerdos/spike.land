@@ -514,9 +514,9 @@ async function processData(
         while (p2pUsers.length) {
           const nextToConnect = users.pop();
           if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
-            await createPeerConnection(nextToConnect);
+            createPeerConnection(nextToConnect);
           }
-          await wait(2000);
+          await wait(200);
         }
 
         return;
