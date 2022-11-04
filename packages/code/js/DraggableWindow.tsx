@@ -172,7 +172,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             backdrop-filter: blur(15px);
             z-index: 10;
 
-            white-space: normal;
             position: fixed;
           `}
             drag={true}
