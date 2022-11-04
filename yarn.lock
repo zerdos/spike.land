@@ -935,7 +935,7 @@ __metadata:
     "@spike.land/code": "npm:*"
     avl: "npm:1.5.3"
     esbuild: "npm:0.15.13"
-    typescript: "npm:rc"
+    typescript: "npm:^4.9.2-rc"
     wrangler: "npm:2.1.15"
   languageName: unknown
   linkType: soft
@@ -998,7 +998,7 @@ __metadata:
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
     tslib: "npm:^2.4.1"
-    typescript: "npm:rc"
+    typescript: "npm:^4.9.2-rc"
     uuid: "npm:^9.0.0"
     uvu: "npm:0.5.6"
     webrtc-adapter: "npm:^8.2.0"
@@ -1083,7 +1083,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.10"
     playwright: "npm:1.27.1"
     react: "npm:^18.2.0"
-    typescript: "npm:rc"
+    typescript: "npm:^4.9.2-rc"
   languageName: unknown
   linkType: soft
 
@@ -4879,7 +4879,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.0.1"
-    typescript: "npm:rc"
+    typescript: "npm:^4.9.2-rc"
   languageName: unknown
   linkType: soft
 
@@ -6373,7 +6373,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:rc":
+"typescript@npm:^4.9.2-rc":
   version: 4.9.2-rc
   resolution: "typescript@npm:4.9.2-rc"
   bin:
@@ -6383,7 +6383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3Arc#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^4.9.2-rc#optional!builtin<compat/typescript>":
   version: 4.9.2-rc
   resolution: "typescript@patch:typescript@npm%3A4.9.2-rc#optional!builtin<compat/typescript>::version=4.9.2-rc&hash=7f4d21"
   bin:
