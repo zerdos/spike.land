@@ -45,14 +45,14 @@ Object.assign(globalThis, { md5 });
 // const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache};
 export const importIt = async (url: string) => {
   let waitingTime = 100;
-  let mod;
+  let App;
 
   while (true) {
     try {
       try {
-        mod = await importShim(url);
+        App = (await importShim(url)).default;
 
-        return { mod, url };
+        return { App, url };
       } catch {
         try {
           let resp = await fetch(url);
@@ -64,8 +64,9 @@ export const importIt = async (url: string) => {
           }
           if (resp.ok) {
             const trp = await resp.text();
+
             try {
-              mod = await (fetch(url.replace(".js", ".tsx")).then(async (resp) =>
+              App = (await (fetch(url.replace(".js", ".tsx")).then(async (resp) =>
                 resp && !resp.ok ? false : await resp.text().then(
                   code =>
                     esmTransform(code).then(
@@ -73,13 +74,13 @@ export const importIt = async (url: string) => {
                         importShim(createJsBlob(transpiled)),
                     ),
                 )
-              )) || new Function(trp + ` return ${trp.slice(2, 10)}`)();
+              )) || new Function(trp + ` return ${trp.slice(2, 10)}`)()).default;
             } catch {
               console.error("something went nuts");
               return;
             }
 
-            return { mod, utl };
+            return { App, url };
           }
         } catch (err) {
           console.error({ err });
@@ -121,22 +122,22 @@ export function AutoUpdateApp(
     i: starterI,
     url: `${location.origin}/live/${codeSpace}/index.js/${starterI}`,
     App: lazy(() =>
-      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async ({ mod, url }) => {
+      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async ({ App, url }) => {
         const urlCounter = url.split("/").pop() * 1;
 
-        setApps(x => ({ ...x, url, App: mod.default, i: (urlCounter || x.i) + 1 }));
-        return mod;
+        setApps(x => ({ ...x, url, App, i: (urlCounter || x.i) + 1 }));
+        return { default: App };
       })
     ),
   });
 
   useEffect(() => {
     (async () => {
-      const { url, mod } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
+      const { url, App } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
 
       const urlCounter = url.split("/").pop() * 1;
 
-      setApps(x => ({ ...x, i: (urlCounter || x.i) + 1, url: mod.url, App: mod.default }));
+      setApps(x => ({ ...x, i: (urlCounter || x.i) + 1, url: url, App }));
     })();
   }, [i, setApps, App]);
 
