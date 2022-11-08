@@ -19,22 +19,29 @@ export const extraStuff = (
     },
   });
 
-  return new Worker(createJsBlob(
-    `
+  const createWorker = () =>
+    new Worker(createJsBlob(
+      `
 const ext = globalThis.extraStuff2;
-const {extraStuffFn, code,
+const {extraStuffFn, 
+  code,
   uri,
   getTsWorker,
-   addExtraLib,
-    setExtraLibs} = ext;
-extraStuffFn(  code,
+  addExtraLib,
+  setExtraLibs} = ext;
+
+
+extraStuffFn(code,
   uri,
   getTsWorker,
-   addExtraLib,
-    setExtraLibs
+  addExtraLib,
+  setExtraLibs
+  );
 `,
-    "monacoExtra.js",
-  ));
+      "monacoExtra.js",
+    ));
+
+  globalThis.createExtraStuffWorker = createWorker;
 
   function extraStuffFn(
     code: string,
