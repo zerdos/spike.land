@@ -165,22 +165,21 @@
     const request = event.request;
     const url = new URL(request.url);
     return event.respondWith((async () => {
-      if (!cache2) {
-        cache2 = await caches.open(cacheName || await getCacheName() && cacheName);
-      }
+      let myCache = cache2 || await caches.open(cacheName || await getCacheName() && cacheName);
+      cache2 = myCache;
       if (Date.now() - lastChecked > 1e4) {
         lastChecked = Date.now();
         getCacheName();
       }
       const cacheKey = new Request(request.url);
-      const cachedResp = await cache2.match(cacheKey);
+      const cachedResp = await myCache.match(cacheKey);
       if (cachedResp)
         return cachedResp.clone();
       if (!url.toString().includes(location.origin))
         return fetch(request);
       const resp = await fetch(request);
       if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
-        await cache2.put(cacheKey, resp.clone());
+        await myCache.put(cacheKey, resp.clone());
       }
       return resp;
     })());

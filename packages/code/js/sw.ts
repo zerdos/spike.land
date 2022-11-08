@@ -25,10 +25,8 @@ addEventListener("fetch", async (_event) => {
 
   return event.respondWith((async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-
-    if (!cache) {
-      cache = await caches.open(cacheName || await getCacheName() && cacheName);
-    }
+    let myCache = cache || await caches.open(cacheName || await getCacheName() && cacheName);
+    cache = myCache;
 
     if (Date.now() - lastChecked > 10_000) {
       lastChecked = Date.now();
@@ -36,7 +34,7 @@ addEventListener("fetch", async (_event) => {
     }
 
     const cacheKey = new Request(request.url);
-    const cachedResp = await cache.match(cacheKey);
+    const cachedResp = await myCache.match(cacheKey);
 
     if (cachedResp) return cachedResp.clone();
 
@@ -45,7 +43,7 @@ addEventListener("fetch", async (_event) => {
     const resp = await fetch(request);
 
     if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
-      await cache.put(cacheKey, resp.clone());
+      await myCache.put(cacheKey, resp.clone());
     }
     return resp;
   })());
