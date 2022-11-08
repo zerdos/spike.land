@@ -167,8 +167,7 @@
     const request = event.request;
     const url = new URL(request.url);
     return event.respondWith((async () => {
-      let myCache = url.pathname.includes("npm:/v9") || url.pathname.includes("npm:/v1") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? chunkCache = chunkCache || await caches.open("chunks") : cache2 || await caches.open(cacheName || await getCacheName() && cacheName);
-      cache2 = myCache;
+      let myCache = url.pathname.includes("npm:/v9") || url.pathname.includes("npm:/v1") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? chunkCache = chunkCache || await caches.open("chunks") : cache2 = cache2 || await caches.open(cacheName || await getCacheName() && cacheName);
       if (Date.now() - lastChecked > 1e4) {
         lastChecked = Date.now();
         getCacheName();

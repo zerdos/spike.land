@@ -33,8 +33,7 @@ addEventListener("fetch", async (_event) => {
       ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
       : url.pathname.includes("chunk-")
       ? (chunkCache = chunkCache || await caches.open("chunks"))
-      : (cache || await caches.open(cacheName || await getCacheName() && cacheName));
-    cache = myCache;
+      : (cache = cache || await caches.open(cacheName || await getCacheName() && cacheName));
 
     if (Date.now() - lastChecked > 10_000) {
       lastChecked = Date.now();
