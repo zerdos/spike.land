@@ -10,7 +10,8 @@ import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
 // import { setupTypeAcquisition } from "@typescript/ata";
 // import pMap from "p-map";
 
-import { extraStuff } from "./monacoExtra";
+import * as w from "./monacoExtra";
+// import {w} from "mextra.mjs";
 import { getWorkerUrl } from "./monacoWorkers.mjs";
 // Import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
 // import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
@@ -591,22 +592,14 @@ export const startMonaco = async (
       onChange(model.getValue());
     });
 
-    const getTsWorker = () => languages.typescript.getTypeScriptWorker();
-    const addExtraLib = (content: string, filePath: string) =>
-      languages.typescript.typescriptDefaults.addExtraLib(content, filePath);
-    const setExtraLibs = (libs: {
-      content: string;
-      filePath?: string | undefined;
-    }[]) => languages.typescript.typescriptDefaults.setExtraLibs(libs);
-    extraStuff(code, uri, getTsWorker, addExtraLib, setExtraLibs);
+    setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 
     const mod = {
       getValue: () => model.getValue(),
       silent: false,
       getErrors: async () => {
-        return (await (await getTsWorker())(uri)).getSuggestionDiagnostics(uri.toString()).then((diag) =>
-          diag.map((d) => d.messageText.toString())
-        )
+        return (await (await languages.typescript.getTypeScriptWorker())(uri)).getSuggestionDiagnostics(uri.toString())
+          .then((diag) => diag.map((d) => d.messageText.toString()))
           .catch(
             (e) => {
               console.log("ts error, will retry", e);
