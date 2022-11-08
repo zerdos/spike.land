@@ -10,6 +10,8 @@ import { md5 } from "./md5";
 
 let lastChecked = 0;
 let npmCache: Cache | null;
+
+let chunkCache: Cache | null;
 let cache: Cache | null;
 let cacheName = "default";
 
@@ -30,7 +32,7 @@ addEventListener("fetch", async (_event) => {
     let myCache = url.pathname.includes("npm:/v9") || url.pathname.includes("npm:/v1")
       ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
       : url.pathname.includes("chunk-")
-      ? (cache || await caches.open("chunks" || await getCacheName() && cacheName))
+      ? (chunkCache = chunkCache || await caches.open("chunks"))
       : (cache || await caches.open(cacheName || await getCacheName() && cacheName));
     cache = myCache;
 
