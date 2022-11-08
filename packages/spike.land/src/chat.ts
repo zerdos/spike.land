@@ -1,7 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
 import packages from "@spike.land/code/package.json";
-import { a, ASSET_MANIFEST } from "./staticContent.mjs";
+import { ASSET_MANIFEST } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 

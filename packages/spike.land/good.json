@@ -46,23 +46,74 @@
         }
       ]
     },
-    "src/staticContent.mjs": {
-      "bytes": 123,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
+      "bytes": 4584,
       "imports": []
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
-      "bytes": 4182,
+    "src/staticContent.mjs": {
+      "bytes": 84,
       "imports": []
+    },
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/js/importmap.json": {
+      "bytes": 261,
+      "imports": []
+    },
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs": {
+      "bytes": 1726,
+      "imports": []
+    },
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AZHCEBCB.mjs": {
+      "bytes": 5443,
+      "imports": [
+        {
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AUL7LWHA.mjs": {
+      "bytes": 175729,
+      "imports": [
+        {
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AZHCEBCB.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs": {
+      "bytes": 434,
+      "imports": [
+        {
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AUL7LWHA.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AZHCEBCB.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs",
+          "kind": "import-statement"
+        }
+      ]
     },
     "src/handleErrors.ts": {
       "bytes": 1109,
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 16850,
+      "bytes": 16434,
       "imports": [
         {
           "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json",
           "kind": "import-statement"
         },
         {
@@ -70,7 +121,11 @@
           "kind": "import-statement"
         },
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/js/importmap.json",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs",
           "kind": "import-statement"
         },
         {
@@ -79,46 +134,16 @@
         }
       ]
     },
-    "src/rateLimiterClient.ts": {
-      "bytes": 3141,
+    "src/index.html": {
+      "bytes": 3685,
       "imports": []
     },
-    "src/index.html": {
-      "bytes": 3209,
+    "src/rateLimiterClient.ts": {
+      "bytes": 2945,
       "imports": []
     },
     "src/iife.html": {
-      "bytes": 2236,
-      "imports": []
-    },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JS5E2TTE.mjs": {
-      "bytes": 2762,
-      "imports": []
-    },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-H2FPX7XE.mjs": {
-      "bytes": 180601,
-      "imports": [
-        {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JS5E2TTE.mjs",
-          "kind": "import-statement"
-        }
-      ]
-    },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs": {
-      "bytes": 389,
-      "imports": [
-        {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-H2FPX7XE.mjs",
-          "kind": "import-statement"
-        },
-        {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JS5E2TTE.mjs",
-          "kind": "import-statement"
-        }
-      ]
-    },
-    "src/getBackupSession.ts": {
-      "bytes": 2935,
+      "bytes": 2208,
       "imports": []
     },
     "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js": {
@@ -135,18 +160,18 @@
       ]
     },
     "src/chatRoom.ts": {
-      "bytes": 19595,
+      "bytes": 20861,
       "imports": [
         {
           "path": "src/handleErrors.ts",
           "kind": "import-statement"
         },
         {
-          "path": "src/rateLimiterClient.ts",
+          "path": "src/index.html",
           "kind": "import-statement"
         },
         {
-          "path": "src/index.html",
+          "path": "src/rateLimiterClient.ts",
           "kind": "import-statement"
         },
         {
@@ -158,15 +183,20 @@
           "kind": "import-statement"
         },
         {
-          "path": "src/getBackupSession.ts",
+          "path": "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js",
           "kind": "import-statement"
         },
         {
           "path": "src/chat.ts",
           "kind": "import-statement"
-        },
+        }
+      ]
+    },
+    "src/rateLimiter.ts": {
+      "bytes": 1864,
+      "imports": [
         {
-          "path": "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js",
+          "path": "src/handleErrors.ts",
           "kind": "import-statement"
         }
       ]
@@ -174,15 +204,6 @@
     "src/users.ts": {
       "bytes": 148,
       "imports": []
-    },
-    "src/rateLimiter.ts": {
-      "bytes": 1931,
-      "imports": [
-        {
-          "path": "src/handleErrors.ts",
-          "kind": "import-statement"
-        }
-      ]
     },
     "src/index.ts": {
       "bytes": 166,
@@ -196,11 +217,11 @@
           "kind": "import-statement"
         },
         {
-          "path": "src/users.ts",
+          "path": "src/rateLimiter.ts",
           "kind": "import-statement"
         },
         {
-          "path": "src/rateLimiter.ts",
+          "path": "src/users.ts",
           "kind": "import-statement"
         }
       ]
@@ -233,58 +254,61 @@
           "bytesInOutput": 1315
         },
         "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
-          "bytesInOutput": 8923
+          "bytesInOutput": 8926
         },
         "src/chat.ts": {
-          "bytesInOutput": 14133
-        },
-        "src/staticContent.mjs": {
-          "bytesInOutput": 92
+          "bytesInOutput": 14251
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
-          "bytesInOutput": 4105
+          "bytesInOutput": 4503
+        },
+        "src/staticContent.mjs": {
+          "bytesInOutput": 56
+        },
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/js/importmap.json": {
+          "bytesInOutput": 282
+        },
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs": {
+          "bytesInOutput": 1381
+        },
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AZHCEBCB.mjs": {
+          "bytesInOutput": 5342
+        },
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AUL7LWHA.mjs": {
+          "bytesInOutput": 174879
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
         },
-        "src/rateLimiterClient.ts": {
-          "bytesInOutput": 1120
-        },
         "src/index.html": {
-          "bytesInOutput": 3238
+          "bytesInOutput": 3726
+        },
+        "src/rateLimiterClient.ts": {
+          "bytesInOutput": 931
         },
         "src/iife.html": {
-          "bytesInOutput": 2264
-        },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JS5E2TTE.mjs": {
-          "bytesInOutput": 1678
-        },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-H2FPX7XE.mjs": {
-          "bytesInOutput": 179818
-        },
-        "src/getBackupSession.ts": {
-          "bytesInOutput": 2836
+          "bytesInOutput": 2236
         },
         "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js": {
           "bytesInOutput": 2081
         },
         "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js": {
-          "bytesInOutput": 11152
+          "bytesInOutput": 11149
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 15073
+          "bytesInOutput": 16365
         },
         "src/index.ts": {
           "bytesInOutput": 33
         },
+        "src/rateLimiter.ts": {
+          "bytesInOutput": 475
+        },
         "src/users.ts": {
           "bytesInOutput": 91
-        },
-        "src/rateLimiter.ts": {
-          "bytesInOutput": 497
         }
       },
-      "bytes": 292035
+      "bytes": 291788
     }
   }
 }
