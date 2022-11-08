@@ -246,12 +246,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     borderRadius: 8,
                     // Opacity: isFullScreen ? 1 : 0.7,
                   }}
-                  css={css`
-                    display: block;                    
-                    overflow-x: hidden;
-                    overflow-y: hidden;
-
-            `}
                 >
                   <m.div
                     initial={{
@@ -269,8 +263,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     }}
                     data-test-id="z-body"
                     css={css`
-                  overflow: overlay;
-                  overflow-y: hidden;
+                  overflow: scroll;
                   ${mstCss.split("body").join("#root-" + room)}
                 
               `}

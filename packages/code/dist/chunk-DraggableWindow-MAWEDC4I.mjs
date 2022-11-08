@@ -18,7 +18,7 @@ import {
 } from "./chunk-chunk-W2EEQE43.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-N63FAO7R.mjs";
+} from "./chunk-chunk-RUYN62OZ.mjs";
 import "./chunk-chunk-6PO2TCK2.mjs";
 import "./chunk-chunk-5L5QDEBB.mjs";
 import {
@@ -227,12 +227,6 @@ var DraggableWindow = ({
                       height: height * scale / devicePixelRatio,
                       borderRadius: 8
                     },
-                    css: css`
-                    display: block;                    
-                    overflow-x: hidden;
-                    overflow-y: hidden;
-
-            `,
                     children: jsx(m.div, {
                       initial: {
                         width: window.innerWidth,
@@ -249,8 +243,7 @@ var DraggableWindow = ({
                       },
                       "data-test-id": "z-body",
                       css: css`
-                  overflow: overlay;
-                  overflow-y: hidden;
+                  overflow: scroll;
                   ${mstCss.split("body").join("#root-" + room)}
                 
               `,
