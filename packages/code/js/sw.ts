@@ -9,8 +9,10 @@ import { md5 } from "./md5";
 // }
 
 let lastChecked = 0;
+let npmCache: Cache | null;
 let cache: Cache | null;
 let cacheName = "default";
+
 const getCacheName = () =>
   fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => md5(content))
     .then(
@@ -25,7 +27,9 @@ addEventListener("fetch", async (_event) => {
 
   return event.respondWith((async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    let myCache = cache || await caches.open(cacheName || await getCacheName() && cacheName);
+    let myCache = url.pathname.includes("npm:")
+      ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
+      : cache || await caches.open(cacheName || await getCacheName() && cacheName);
     cache = myCache;
 
     if (Date.now() - lastChecked > 10_000) {
