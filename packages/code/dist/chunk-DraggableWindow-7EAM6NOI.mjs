@@ -7,7 +7,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Tv
-} from "./chunk-chunk-BAIBTL4K.mjs";
+} from "./chunk-chunk-EZDTOPYV.mjs";
 import {
   AnimatePresence,
   LazyMotion,
@@ -18,7 +18,7 @@ import {
 } from "./chunk-chunk-W2EEQE43.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-F3I3MJM5.mjs";
+} from "./chunk-chunk-LEMYF5VB.mjs";
 import "./chunk-chunk-UIRBVPO6.mjs";
 import "./chunk-chunk-5L5QDEBB.mjs";
 import {
@@ -52,7 +52,7 @@ init_reactMod();
 // js/Qr.lazy.tsx
 init_define_process();
 init_reactMod();
-var LQR = lazy(() => import("./chunk-Qr-HRRVWJBF.mjs"));
+var LQR = lazy(() => import("./chunk-Qr-YNCTREBC.mjs"));
 var QRButton = ({ url }) => jsx(Suspense, {
   fallback: jsx("div", {
     children: "...qr...,"

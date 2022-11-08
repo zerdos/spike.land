@@ -31727,9 +31727,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }
   });
 
-  // ../../.yarn/__virtual__/framer-motion-virtual-156cca53ab/0/global/cache/framer-motion-npm-7.6.4-87d01d29fb-9.zip/node_modules/framer-motion/dist/cjs/index.js
+  // ../../.yarn/__virtual__/framer-motion-virtual-40e8f4593a/0/global/cache/framer-motion-npm-7.6.5-1b49729749-9.zip/node_modules/framer-motion/dist/cjs/index.js
   var require_cjs = __commonJS({
-    "../../.yarn/__virtual__/framer-motion-virtual-156cca53ab/0/global/cache/framer-motion-npm-7.6.4-87d01d29fb-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
+    "../../.yarn/__virtual__/framer-motion-virtual-40e8f4593a/0/global/cache/framer-motion-npm-7.6.5-1b49729749-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
@@ -31783,7 +31783,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const lazyContext = React2.useContext(LazyContext);
         const presenceContext = React2.useContext(PresenceContext);
         const reducedMotionConfig = React2.useContext(MotionConfigContext).reducedMotion;
-        const visualElementRef = React2.useRef(void 0);
+        const visualElementRef = React2.useRef();
         createVisualElement = createVisualElement || lazyContext.renderer;
         if (!visualElementRef.current && createVisualElement) {
           visualElementRef.current = createVisualElement(Component, {
@@ -31795,27 +31795,27 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             reducedMotionConfig
           });
         }
-        const visualElement2 = visualElementRef.current;
+        const visualElement = visualElementRef.current;
         useIsomorphicLayoutEffect(() => {
-          visualElement2 && visualElement2.syncRender();
+          visualElement && visualElement.render();
         });
         React2.useEffect(() => {
-          if (visualElement2 && visualElement2.animationState) {
-            visualElement2.animationState.animateChanges();
+          if (visualElement && visualElement.animationState) {
+            visualElement.animationState.animateChanges();
           }
         });
-        useIsomorphicLayoutEffect(() => () => visualElement2 && visualElement2.notifyUnmount(), []);
-        return visualElement2;
+        useIsomorphicLayoutEffect(() => () => visualElement && visualElement.notify("Unmount"), []);
+        return visualElement;
       }
       function isRefObject(ref) {
         return typeof ref === "object" && Object.prototype.hasOwnProperty.call(ref, "current");
       }
-      function useMotionRef(visualState, visualElement2, externalRef) {
+      function useMotionRef(visualState, visualElement, externalRef) {
         return React2.useCallback(
           (instance) => {
             instance && visualState.mount && visualState.mount(instance);
-            if (visualElement2) {
-              instance ? visualElement2.mount(instance) : visualElement2.unmount();
+            if (visualElement) {
+              instance ? visualElement.mount(instance) : visualElement.unmount();
             }
             if (externalRef) {
               if (typeof externalRef === "function") {
@@ -31825,7 +31825,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               }
             }
           },
-          [visualElement2]
+          [visualElement]
         );
       }
       function isVariantLabel(v) {
@@ -31930,9 +31930,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var LayoutGroupContext = React2.createContext({});
       var VisualElementHandler = class extends React__default["default"].Component {
         getSnapshotBeforeUpdate() {
-          const { visualElement: visualElement2, props } = this.props;
-          if (visualElement2)
-            visualElement2.setProps(props);
+          const { visualElement, props } = this.props;
+          if (visualElement)
+            visualElement.setProps(props);
           return null;
         }
         componentDidUpdate() {
@@ -32613,16 +32613,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }, [ref, eventName, handler, options]);
       }
-      function useFocusGesture({ whileFocus, visualElement: visualElement2 }) {
-        const { animationState } = visualElement2;
+      function useFocusGesture({ whileFocus, visualElement }) {
+        const { animationState } = visualElement;
         const onFocus = () => {
           animationState && animationState.setActive(exports.AnimationType.Focus, true);
         };
         const onBlur = () => {
           animationState && animationState.setActive(exports.AnimationType.Focus, false);
         };
-        useDomEvent(visualElement2, "focus", whileFocus ? onFocus : void 0);
-        useDomEvent(visualElement2, "blur", whileFocus ? onBlur : void 0);
+        useDomEvent(visualElement, "focus", whileFocus ? onFocus : void 0);
+        useDomEvent(visualElement, "blur", whileFocus ? onBlur : void 0);
       }
       function isMouseEvent(event) {
         if (typeof PointerEvent !== "undefined" && event instanceof PointerEvent) {
@@ -32747,19 +32747,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         openGestureLock();
         return false;
       }
-      function createHoverEvent(visualElement2, isActive, callback) {
+      function createHoverEvent(visualElement, isActive, callback) {
         return (event, info) => {
           if (!isMouseEvent(event) || isDragActive())
             return;
-          if (visualElement2.animationState) {
-            visualElement2.animationState.setActive(exports.AnimationType.Hover, isActive);
+          if (visualElement.animationState) {
+            visualElement.animationState.setActive(exports.AnimationType.Hover, isActive);
           }
           callback && callback(event, info);
         };
       }
-      function useHoverGesture({ onHoverStart, onHoverEnd, whileHover, visualElement: visualElement2 }) {
-        usePointerEvent(visualElement2, "pointerenter", onHoverStart || whileHover ? createHoverEvent(visualElement2, true, onHoverStart) : void 0, { passive: !onHoverStart });
-        usePointerEvent(visualElement2, "pointerleave", onHoverEnd || whileHover ? createHoverEvent(visualElement2, false, onHoverEnd) : void 0, { passive: !onHoverEnd });
+      function useHoverGesture({ onHoverStart, onHoverEnd, whileHover, visualElement }) {
+        usePointerEvent(visualElement, "pointerenter", onHoverStart || whileHover ? createHoverEvent(visualElement, true, onHoverStart) : void 0, { passive: !onHoverStart });
+        usePointerEvent(visualElement, "pointerleave", onHoverEnd || whileHover ? createHoverEvent(visualElement, false, onHoverEnd) : void 0, { passive: !onHoverEnd });
       }
       var isNodeOrChild = (parent, child) => {
         if (!child) {
@@ -32773,7 +32773,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function useUnmountEffect(callback) {
         return React2.useEffect(() => () => callback(), []);
       }
-      function useTapGesture({ onTap, onTapStart, onTapCancel, whileTap, visualElement: visualElement2 }) {
+      function useTapGesture({ onTap, onTapStart, onTapCancel, whileTap, visualElement }) {
         const hasPressListeners = onTap || onTapStart || onTapCancel || whileTap;
         const isPressing = React2.useRef(false);
         const cancelPointerEndListeners = React2.useRef(null);
@@ -32787,13 +32787,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         function checkPointerEnd() {
           removePointerEndListener();
           isPressing.current = false;
-          visualElement2.animationState && visualElement2.animationState.setActive(exports.AnimationType.Tap, false);
+          visualElement.animationState && visualElement.animationState.setActive(exports.AnimationType.Tap, false);
           return !isDragActive();
         }
         function onPointerUp(event, info) {
           if (!checkPointerEnd())
             return;
-          !isNodeOrChild(visualElement2.getInstance(), event.target) ? onTapCancel && onTapCancel(event, info) : onTap && onTap(event, info);
+          !isNodeOrChild(visualElement.current, event.target) ? onTapCancel && onTapCancel(event, info) : onTap && onTap(event, info);
         }
         function onPointerCancel(event, info) {
           if (!checkPointerEnd())
@@ -32806,10 +32806,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return;
           isPressing.current = true;
           cancelPointerEndListeners.current = popmotion.pipe(addPointerEvent(window, "pointerup", onPointerUp, eventOptions), addPointerEvent(window, "pointercancel", onPointerCancel, eventOptions));
-          visualElement2.animationState && visualElement2.animationState.setActive(exports.AnimationType.Tap, true);
+          visualElement.animationState && visualElement.animationState.setActive(exports.AnimationType.Tap, true);
           onTapStart && onTapStart(event, info);
         }
-        usePointerEvent(visualElement2, "pointerdown", hasPressListeners ? onPointerDown : void 0, eventOptions);
+        usePointerEvent(visualElement, "pointerdown", hasPressListeners ? onPointerDown : void 0, eventOptions);
         useUnmountEffect(removePointerEndListener);
       }
       var defaultEnvironment = "production";
@@ -32853,7 +32853,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           rootInteresectionObserver.unobserve(element);
         };
       }
-      function useViewport({ visualElement: visualElement2, whileInView, onViewportEnter, onViewportLeave, viewport = {} }) {
+      function useViewport({ visualElement, whileInView, onViewportEnter, onViewportLeave, viewport = {} }) {
         const state = React2.useRef({
           hasEnteredView: false,
           isInView: false
@@ -32862,15 +32862,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         if (viewport.once && state.current.hasEnteredView)
           shouldObserve = false;
         const useObserver = typeof IntersectionObserver === "undefined" ? useMissingIntersectionObserver : useIntersectionObserver;
-        useObserver(shouldObserve, state.current, visualElement2, viewport);
+        useObserver(shouldObserve, state.current, visualElement, viewport);
       }
       var thresholdNames = {
         some: 0,
         all: 1
       };
-      function useIntersectionObserver(shouldObserve, state, visualElement2, { root, margin: rootMargin, amount = "some", once }) {
+      function useIntersectionObserver(shouldObserve, state, visualElement, { root, margin: rootMargin, amount = "some", once }) {
         React2.useEffect(() => {
-          if (!shouldObserve)
+          if (!shouldObserve || !visualElement.current)
             return;
           const options = {
             root: root === null || root === void 0 ? void 0 : root.current,
@@ -32887,17 +32887,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             } else if (isIntersecting) {
               state.hasEnteredView = true;
             }
-            if (visualElement2.animationState) {
-              visualElement2.animationState.setActive(exports.AnimationType.InView, isIntersecting);
+            if (visualElement.animationState) {
+              visualElement.animationState.setActive(exports.AnimationType.InView, isIntersecting);
             }
-            const props = visualElement2.getProps();
+            const props = visualElement.getProps();
             const callback = isIntersecting ? props.onViewportEnter : props.onViewportLeave;
             callback && callback(entry);
           };
-          return observeIntersection(visualElement2.getInstance(), options, intersectionCallback);
+          return observeIntersection(visualElement.current, options, intersectionCallback);
         }, [shouldObserve, root, rootMargin, amount]);
       }
-      function useMissingIntersectionObserver(shouldObserve, state, visualElement2, { fallback = true }) {
+      function useMissingIntersectionObserver(shouldObserve, state, visualElement, { fallback = true }) {
         React2.useEffect(() => {
           if (!shouldObserve || !fallback)
             return;
@@ -32906,10 +32906,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           requestAnimationFrame(() => {
             state.hasEnteredView = true;
-            const { onViewportEnter } = visualElement2.getProps();
+            const { onViewportEnter } = visualElement.getProps();
             onViewportEnter && onViewportEnter(null);
-            if (visualElement2.animationState) {
-              visualElement2.animationState.setActive(exports.AnimationType.InView, true);
+            if (visualElement.animationState) {
+              visualElement.animationState.setActive(exports.AnimationType.InView, true);
             }
           });
         }, [shouldObserve]);
@@ -33266,7 +33266,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       };
       var MotionValue = class {
         constructor(init) {
-          this.version = "7.6.4";
+          this.version = "7.6.5";
           this.timeDelta = 0;
           this.lastUpdated = 0;
           this.updateSubscribers = new SubscriptionManager();
@@ -33368,59 +33368,59 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var findDimensionValueType = (v) => dimensionValueTypes.find(testValueType(v));
       var valueTypes = [...dimensionValueTypes, styleValueTypes.color, styleValueTypes.complex];
       var findValueType = (v) => valueTypes.find(testValueType(v));
-      function getCurrent(visualElement2) {
+      function getCurrent(visualElement) {
         const current = {};
-        visualElement2.forEachValue((value, key) => current[key] = value.get());
+        visualElement.values.forEach((value, key) => current[key] = value.get());
         return current;
       }
-      function getVelocity$1(visualElement2) {
+      function getVelocity$1(visualElement) {
         const velocity = {};
-        visualElement2.forEachValue((value, key) => velocity[key] = value.getVelocity());
+        visualElement.values.forEach((value, key) => velocity[key] = value.getVelocity());
         return velocity;
       }
-      function resolveVariant(visualElement2, definition, custom) {
-        const props = visualElement2.getProps();
-        return resolveVariantFromProps(props, definition, custom !== void 0 ? custom : props.custom, getCurrent(visualElement2), getVelocity$1(visualElement2));
+      function resolveVariant(visualElement, definition, custom) {
+        const props = visualElement.getProps();
+        return resolveVariantFromProps(props, definition, custom !== void 0 ? custom : props.custom, getCurrent(visualElement), getVelocity$1(visualElement));
       }
-      function setMotionValue(visualElement2, key, value) {
-        if (visualElement2.hasValue(key)) {
-          visualElement2.getValue(key).set(value);
+      function setMotionValue(visualElement, key, value) {
+        if (visualElement.hasValue(key)) {
+          visualElement.getValue(key).set(value);
         } else {
-          visualElement2.addValue(key, motionValue(value));
+          visualElement.addValue(key, motionValue(value));
         }
       }
-      function setTarget(visualElement2, definition) {
-        const resolved = resolveVariant(visualElement2, definition);
-        let { transitionEnd = {}, transition = {}, ...target } = resolved ? visualElement2.makeTargetAnimatable(resolved, false) : {};
+      function setTarget(visualElement, definition) {
+        const resolved = resolveVariant(visualElement, definition);
+        let { transitionEnd = {}, transition = {}, ...target } = resolved ? visualElement.makeTargetAnimatable(resolved, false) : {};
         target = { ...target, ...transitionEnd };
         for (const key in target) {
           const value = resolveFinalValueInKeyframes(target[key]);
-          setMotionValue(visualElement2, key, value);
+          setMotionValue(visualElement, key, value);
         }
       }
-      function setVariants(visualElement2, variantLabels) {
+      function setVariants(visualElement, variantLabels) {
         const reversedLabels = [...variantLabels].reverse();
         reversedLabels.forEach((key) => {
           var _a;
-          const variant = visualElement2.getVariant(key);
-          variant && setTarget(visualElement2, variant);
-          (_a = visualElement2.variantChildren) === null || _a === void 0 ? void 0 : _a.forEach((child) => {
+          const variant = visualElement.getVariant(key);
+          variant && setTarget(visualElement, variant);
+          (_a = visualElement.variantChildren) === null || _a === void 0 ? void 0 : _a.forEach((child) => {
             setVariants(child, variantLabels);
           });
         });
       }
-      function setValues(visualElement2, definition) {
+      function setValues(visualElement, definition) {
         if (Array.isArray(definition)) {
-          return setVariants(visualElement2, definition);
+          return setVariants(visualElement, definition);
         } else if (typeof definition === "string") {
-          return setVariants(visualElement2, [definition]);
+          return setVariants(visualElement, [definition]);
         } else {
-          setTarget(visualElement2, definition);
+          setTarget(visualElement, definition);
         }
       }
-      function checkTargetForNewValues(visualElement2, target, origin) {
+      function checkTargetForNewValues(visualElement, target, origin) {
         var _a, _b;
-        const newValueKeys = Object.keys(target).filter((key) => !visualElement2.hasValue(key));
+        const newValueKeys = Object.keys(target).filter((key) => !visualElement.hasValue(key));
         const numNewValues = newValueKeys.length;
         if (!numNewValues)
           return;
@@ -33432,7 +33432,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             value = targetValue[0];
           }
           if (value === null) {
-            value = (_b = (_a = origin[key]) !== null && _a !== void 0 ? _a : visualElement2.readValue(key)) !== null && _b !== void 0 ? _b : target[key];
+            value = (_b = (_a = origin[key]) !== null && _a !== void 0 ? _a : visualElement.readValue(key)) !== null && _b !== void 0 ? _b : target[key];
           }
           if (value === void 0 || value === null)
             continue;
@@ -33441,11 +33441,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           } else if (!findValueType(value) && styleValueTypes.complex.test(targetValue)) {
             value = getAnimatableNone(key, targetValue);
           }
-          visualElement2.addValue(key, motionValue(value));
+          visualElement.addValue(key, motionValue(value));
           if (origin[key] === void 0) {
             origin[key] = value;
           }
-          visualElement2.setBaseTarget(key, value);
+          if (value !== null)
+            visualElement.setBaseTarget(key, value);
         }
       }
       function getOriginFromTransition(key, transition) {
@@ -33454,43 +33455,43 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const valueTransition = transition[key] || transition["default"] || transition;
         return valueTransition.from;
       }
-      function getOrigin(target, transition, visualElement2) {
+      function getOrigin(target, transition, visualElement) {
         var _a;
         const origin = {};
         for (const key in target) {
           const transitionOrigin = getOriginFromTransition(key, transition);
-          origin[key] = transitionOrigin !== void 0 ? transitionOrigin : (_a = visualElement2.getValue(key)) === null || _a === void 0 ? void 0 : _a.get();
+          origin[key] = transitionOrigin !== void 0 ? transitionOrigin : (_a = visualElement.getValue(key)) === null || _a === void 0 ? void 0 : _a.get();
         }
         return origin;
       }
       function isWillChangeMotionValue(value) {
         return Boolean(isMotionValue(value) && value.add);
       }
-      function animateVisualElement(visualElement2, definition, options = {}) {
-        visualElement2.notifyAnimationStart(definition);
+      function animateVisualElement(visualElement, definition, options = {}) {
+        visualElement.notify("AnimationStart", definition);
         let animation;
         if (Array.isArray(definition)) {
-          const animations2 = definition.map((variant) => animateVariant(visualElement2, variant, options));
+          const animations2 = definition.map((variant) => animateVariant(visualElement, variant, options));
           animation = Promise.all(animations2);
         } else if (typeof definition === "string") {
-          animation = animateVariant(visualElement2, definition, options);
+          animation = animateVariant(visualElement, definition, options);
         } else {
-          const resolvedDefinition = typeof definition === "function" ? resolveVariant(visualElement2, definition, options.custom) : definition;
-          animation = animateTarget(visualElement2, resolvedDefinition, options);
+          const resolvedDefinition = typeof definition === "function" ? resolveVariant(visualElement, definition, options.custom) : definition;
+          animation = animateTarget(visualElement, resolvedDefinition, options);
         }
-        return animation.then(() => visualElement2.notifyAnimationComplete(definition));
+        return animation.then(() => visualElement.notify("AnimationComplete", definition));
       }
-      function animateVariant(visualElement2, variant, options = {}) {
+      function animateVariant(visualElement, variant, options = {}) {
         var _a;
-        const resolved = resolveVariant(visualElement2, variant, options.custom);
-        let { transition = visualElement2.getDefaultTransition() || {} } = resolved || {};
+        const resolved = resolveVariant(visualElement, variant, options.custom);
+        let { transition = visualElement.getDefaultTransition() || {} } = resolved || {};
         if (options.transitionOverride) {
           transition = options.transitionOverride;
         }
-        const getAnimation2 = resolved ? () => animateTarget(visualElement2, resolved, options) : () => Promise.resolve();
-        const getChildAnimations = ((_a = visualElement2.variantChildren) === null || _a === void 0 ? void 0 : _a.size) ? (forwardDelay = 0) => {
+        const getAnimation2 = resolved ? () => animateTarget(visualElement, resolved, options) : () => Promise.resolve();
+        const getChildAnimations = ((_a = visualElement.variantChildren) === null || _a === void 0 ? void 0 : _a.size) ? (forwardDelay = 0) => {
           const { delayChildren = 0, staggerChildren, staggerDirection } = transition;
-          return animateChildren(visualElement2, variant, delayChildren + forwardDelay, staggerChildren, staggerDirection, options);
+          return animateChildren(visualElement, variant, delayChildren + forwardDelay, staggerChildren, staggerDirection, options);
         } : () => Promise.resolve();
         const { when } = transition;
         if (when) {
@@ -33500,22 +33501,22 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return Promise.all([getAnimation2(), getChildAnimations(options.delay)]);
         }
       }
-      function animateTarget(visualElement2, definition, { delay: delay2 = 0, transitionOverride, type } = {}) {
+      function animateTarget(visualElement, definition, { delay: delay2 = 0, transitionOverride, type } = {}) {
         var _a;
-        let { transition = visualElement2.getDefaultTransition(), transitionEnd, ...target } = visualElement2.makeTargetAnimatable(definition);
-        const willChange = visualElement2.getValue("willChange");
+        let { transition = visualElement.getDefaultTransition(), transitionEnd, ...target } = visualElement.makeTargetAnimatable(definition);
+        const willChange = visualElement.getValue("willChange");
         if (transitionOverride)
           transition = transitionOverride;
         const animations2 = [];
-        const animationTypeState = type && ((_a = visualElement2.animationState) === null || _a === void 0 ? void 0 : _a.getState()[type]);
+        const animationTypeState = type && ((_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.getState()[type]);
         for (const key in target) {
-          const value = visualElement2.getValue(key);
+          const value = visualElement.getValue(key);
           const valueTarget = target[key];
           if (!value || valueTarget === void 0 || animationTypeState && shouldBlockAnimation(animationTypeState, key)) {
             continue;
           }
           let valueTransition = { delay: delay2, ...transition };
-          if (visualElement2.shouldReduceMotion && transformProps.has(key)) {
+          if (visualElement.shouldReduceMotion && transformProps.has(key)) {
             valueTransition = {
               ...valueTransition,
               type: false,
@@ -33530,23 +33531,23 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           animations2.push(animation);
         }
         return Promise.all(animations2).then(() => {
-          transitionEnd && setTarget(visualElement2, transitionEnd);
+          transitionEnd && setTarget(visualElement, transitionEnd);
         });
       }
-      function animateChildren(visualElement2, variant, delayChildren = 0, staggerChildren = 0, staggerDirection = 1, options) {
+      function animateChildren(visualElement, variant, delayChildren = 0, staggerChildren = 0, staggerDirection = 1, options) {
         const animations2 = [];
-        const maxStaggerDuration = (visualElement2.variantChildren.size - 1) * staggerChildren;
+        const maxStaggerDuration = (visualElement.variantChildren.size - 1) * staggerChildren;
         const generateStaggerDuration = staggerDirection === 1 ? (i = 0) => i * staggerChildren : (i = 0) => maxStaggerDuration - i * staggerChildren;
-        Array.from(visualElement2.variantChildren).sort(sortByTreeOrder).forEach((child, i) => {
+        Array.from(visualElement.variantChildren).sort(sortByTreeOrder).forEach((child, i) => {
           animations2.push(animateVariant(child, variant, {
             ...options,
             delay: delayChildren + generateStaggerDuration(i)
-          }).then(() => child.notifyAnimationComplete(variant)));
+          }).then(() => child.notify("AnimationComplete", variant)));
         });
         return Promise.all(animations2);
       }
-      function stopAnimation(visualElement2) {
-        visualElement2.forEachValue((value) => value.stop());
+      function stopAnimation(visualElement) {
+        visualElement.values.forEach((value) => value.stop());
       }
       function sortByTreeOrder(a, b) {
         return a.sortNodePosition(b);
@@ -33567,15 +33568,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       ];
       var reversePriorityOrder = [...variantPriorityOrder].reverse();
       var numAnimationTypes = variantPriorityOrder.length;
-      function animateList(visualElement2) {
-        return (animations2) => Promise.all(animations2.map(({ animation, options }) => animateVisualElement(visualElement2, animation, options)));
+      function animateList(visualElement) {
+        return (animations2) => Promise.all(animations2.map(({ animation, options }) => animateVisualElement(visualElement, animation, options)));
       }
-      function createAnimationState(visualElement2) {
-        let animate2 = animateList(visualElement2);
+      function createAnimationState(visualElement) {
+        let animate2 = animateList(visualElement);
         const state = createState();
         let isInitialRender = true;
         const buildResolvedTypeValues = (acc, definition) => {
-          const resolved = resolveVariant(visualElement2, definition);
+          const resolved = resolveVariant(visualElement, definition);
           if (resolved) {
             const { transition, transitionEnd, ...target } = resolved;
             acc = { ...acc, ...target, ...transitionEnd };
@@ -33583,12 +33584,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return acc;
         };
         function setAnimateFunction(makeAnimator) {
-          animate2 = makeAnimator(visualElement2);
+          animate2 = makeAnimator(visualElement);
         }
         function animateChanges(options, changedActiveType) {
           var _a;
-          const props = visualElement2.getProps();
-          const context = visualElement2.getVariantContext(true) || {};
+          const props = visualElement.getProps();
+          const context = visualElement.getVariantContext(true) || {};
           const animations2 = [];
           const removedKeys = /* @__PURE__ */ new Set();
           let encounteredKeys = {};
@@ -33602,7 +33603,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (activeDelta === false)
               removedVariantIndex = i;
             let isInherited = prop === context[type] && prop !== props[type] && propIsVariant;
-            if (isInherited && isInitialRender && visualElement2.manuallyAnimateOnMount) {
+            if (isInherited && isInitialRender && visualElement.manuallyAnimateOnMount) {
               isInherited = false;
             }
             typeState.protectedKeys = { ...encounteredKeys };
@@ -33653,7 +33654,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (typeState.isActive) {
               encounteredKeys = { ...encounteredKeys, ...resolvedValues };
             }
-            if (isInitialRender && visualElement2.blockInitialAnimation) {
+            if (isInitialRender && visualElement.blockInitialAnimation) {
               shouldAnimateType = false;
             }
             if (shouldAnimateType && !isInherited) {
@@ -33666,7 +33667,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           if (removedKeys.size) {
             const fallbackAnimation = {};
             removedKeys.forEach((key) => {
-              const fallbackTarget = visualElement2.getBaseTarget(key);
+              const fallbackTarget = visualElement.getBaseTarget(key);
               if (fallbackTarget !== void 0) {
                 fallbackAnimation[key] = fallbackTarget;
               }
@@ -33674,7 +33675,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             animations2.push({ animation: fallbackAnimation });
           }
           let shouldAnimate = Boolean(animations2.length);
-          if (isInitialRender && props.initial === false && !visualElement2.manuallyAnimateOnMount) {
+          if (isInitialRender && props.initial === false && !visualElement.manuallyAnimateOnMount) {
             shouldAnimate = false;
           }
           isInitialRender = false;
@@ -33684,7 +33685,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           var _a;
           if (state[type].isActive === isActive)
             return Promise.resolve();
-          (_a = visualElement2.variantChildren) === null || _a === void 0 ? void 0 : _a.forEach((child) => {
+          (_a = visualElement.variantChildren) === null || _a === void 0 ? void 0 : _a.forEach((child) => {
             var _a2;
             return (_a2 = child.animationState) === null || _a2 === void 0 ? void 0 : _a2.setActive(type, isActive);
           });
@@ -33730,19 +33731,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         };
       }
       var animations = {
-        animation: makeRenderlessComponent(({ visualElement: visualElement2, animate: animate2 }) => {
-          visualElement2.animationState || (visualElement2.animationState = createAnimationState(visualElement2));
+        animation: makeRenderlessComponent(({ visualElement, animate: animate2 }) => {
+          visualElement.animationState || (visualElement.animationState = createAnimationState(visualElement));
           if (isAnimationControls(animate2)) {
-            React2.useEffect(() => animate2.subscribe(visualElement2), [animate2]);
+            React2.useEffect(() => animate2.subscribe(visualElement), [animate2]);
           }
         }),
         exit: makeRenderlessComponent((props) => {
-          const { custom, visualElement: visualElement2 } = props;
+          const { custom, visualElement } = props;
           const [isPresent2, safeToRemove] = usePresence();
           const presenceContext = React2.useContext(PresenceContext);
           React2.useEffect(() => {
-            visualElement2.isPresent = isPresent2;
-            const animation = visualElement2.animationState && visualElement2.animationState.setActive(exports.AnimationType.Exit, !isPresent2, {
+            visualElement.isPresent = isPresent2;
+            const animation = visualElement.animationState && visualElement.animationState.setActive(exports.AnimationType.Exit, !isPresent2, {
               custom: presenceContext && presenceContext.custom || custom
             });
             if (animation && !isPresent2) {
@@ -34108,7 +34109,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       var elementDragControls = /* @__PURE__ */ new WeakMap();
       var VisualElementDragControls = class {
-        constructor(visualElement2) {
+        constructor(visualElement) {
           this.openGlobalLock = null;
           this.isDragging = false;
           this.currentDirection = null;
@@ -34116,7 +34117,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           this.constraints = false;
           this.hasMutatedConstraints = false;
           this.elastic = createBox();
-          this.visualElement = visualElement2;
+          this.visualElement = visualElement;
         }
         start(originEvent, { snapToCursor = false } = {}) {
           if (this.visualElement.isPresent === false)
@@ -34173,7 +34174,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             this.updateAxis("x", info.point, offset);
             this.updateAxis("y", info.point, offset);
-            this.visualElement.syncRender();
+            this.visualElement.render();
             onDrag === null || onDrag === void 0 ? void 0 : onDrag(event, info);
           };
           const onSessionEnd = (event, info) => this.stop(event, info);
@@ -34320,6 +34321,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         scalePositionWithinConstraints() {
           var _a;
+          if (!this.visualElement.current)
+            return;
           const { drag: drag2, dragConstraints } = this.getProps();
           const { projection } = this.visualElement;
           if (!isRefObject(dragConstraints) || !projection || !this.constraints)
@@ -34334,7 +34337,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           });
           const { transformTemplate } = this.visualElement.getProps();
-          this.visualElement.getInstance().style.transform = transformTemplate ? transformTemplate({}, "") : "none";
+          this.visualElement.current.style.transform = transformTemplate ? transformTemplate({}, "") : "none";
           (_a = projection.root) === null || _a === void 0 ? void 0 : _a.updateScroll();
           projection.updateLayout();
           this.resolveConstraints();
@@ -34348,8 +34351,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         addListeners() {
           var _a;
+          if (!this.visualElement.current)
+            return;
           elementDragControls.set(this.visualElement, this);
-          const element = this.visualElement.getInstance();
+          const element = this.visualElement.current;
           const stopPointerListener = addPointerEvent(element, "pointerdown", (event) => {
             const { drag: drag2, dragListener = true } = this.getProps();
             drag2 && dragListener && this.start(event);
@@ -34377,7 +34382,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 this.originPoint[axis] += delta[axis].translate;
                 motionValue2.set(motionValue2.get() + delta[axis].translate);
               });
-              this.visualElement.syncRender();
+              this.visualElement.render();
             }
           });
           return () => {
@@ -34414,12 +34419,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return direction;
       }
       function useDrag(props) {
-        const { dragControls: groupDragControls, visualElement: visualElement2 } = props;
-        const dragControls = useConstant(() => new VisualElementDragControls(visualElement2));
+        const { dragControls: groupDragControls, visualElement } = props;
+        const dragControls = useConstant(() => new VisualElementDragControls(visualElement));
         React2.useEffect(() => groupDragControls && groupDragControls.subscribe(dragControls), [dragControls, groupDragControls]);
         React2.useEffect(() => dragControls.addListeners(), [dragControls]);
       }
-      function usePanGesture({ onPan, onPanStart, onPanEnd, onPanSessionStart, visualElement: visualElement2 }) {
+      function usePanGesture({ onPan, onPanStart, onPanEnd, onPanSessionStart, visualElement }) {
         const hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
         const panSession = React2.useRef(null);
         const { transformPagePoint } = React2.useContext(MotionConfigContext);
@@ -34442,359 +34447,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             transformPagePoint
           });
         }
-        usePointerEvent(visualElement2, "pointerdown", hasPanEvents && onPointerDown);
+        usePointerEvent(visualElement, "pointerdown", hasPanEvents && onPointerDown);
         useUnmountEffect(() => panSession.current && panSession.current.end());
       }
       var drag = {
         pan: makeRenderlessComponent(usePanGesture),
         drag: makeRenderlessComponent(useDrag)
       };
-      var prefersReducedMotion = { current: null };
-      var hasReducedMotionListener = { current: false };
-      function initPrefersReducedMotion() {
-        hasReducedMotionListener.current = true;
-        if (!isBrowser)
-          return;
-        if (window.matchMedia) {
-          const motionMediaQuery = window.matchMedia("(prefers-reduced-motion)");
-          const setReducedMotionPreferences = () => prefersReducedMotion.current = motionMediaQuery.matches;
-          motionMediaQuery.addListener(setReducedMotionPreferences);
-          setReducedMotionPreferences();
-        } else {
-          prefersReducedMotion.current = false;
-        }
-      }
-      var names = [
-        "LayoutMeasure",
-        "BeforeLayoutMeasure",
-        "LayoutUpdate",
-        "ViewportBoxUpdate",
-        "Update",
-        "Render",
-        "AnimationComplete",
-        "LayoutAnimationComplete",
-        "AnimationStart",
-        "LayoutAnimationStart",
-        "SetAxisTarget",
-        "Unmount"
-      ];
-      function createLifecycles() {
-        const managers = names.map(() => new SubscriptionManager());
-        const propSubscriptions = {};
-        const lifecycles = {
-          clearAllListeners: () => managers.forEach((manager) => manager.clear()),
-          updatePropListeners: (props) => {
-            names.forEach((name) => {
-              var _a;
-              const on = "on" + name;
-              const propListener = props[on];
-              (_a = propSubscriptions[name]) === null || _a === void 0 ? void 0 : _a.call(propSubscriptions);
-              if (propListener) {
-                propSubscriptions[name] = lifecycles[on](propListener);
-              }
-            });
-          }
-        };
-        managers.forEach((manager, i) => {
-          lifecycles["on" + names[i]] = (handler) => manager.add(handler);
-          lifecycles["notify" + names[i]] = (...args) => manager.notify(...args);
-        });
-        return lifecycles;
-      }
-      function updateMotionValuesFromProps(element, next, prev) {
-        const { willChange } = next;
-        for (const key in next) {
-          const nextValue = next[key];
-          const prevValue = prev[key];
-          if (isMotionValue(nextValue)) {
-            element.addValue(key, nextValue);
-            if (isWillChangeMotionValue(willChange)) {
-              willChange.add(key);
-            }
-            if (true) {
-              warnOnce(nextValue.version === "7.6.4", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.4 may not work as expected.`);
-            }
-          } else if (isMotionValue(prevValue)) {
-            element.addValue(key, motionValue(nextValue));
-            if (isWillChangeMotionValue(willChange)) {
-              willChange.remove(key);
-            }
-          } else if (prevValue !== nextValue) {
-            if (element.hasValue(key)) {
-              const existingValue = element.getValue(key);
-              !existingValue.hasAnimated && existingValue.set(nextValue);
-            } else {
-              const latestValue = element.getStaticValue(key);
-              element.addValue(key, motionValue(latestValue !== void 0 ? latestValue : nextValue));
-            }
-          }
-        }
-        for (const key in prev) {
-          if (next[key] === void 0)
-            element.removeValue(key);
-        }
-        return next;
-      }
-      var featureNames = Object.keys(featureDefinitions);
-      var numFeatures = featureNames.length;
-      var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable, measureViewportBox: measureViewportBox2, render: renderInstance, readValueFromInstance, removeValueFromRenderState, sortNodePosition, scrapeMotionValuesFromProps: scrapeMotionValuesFromProps2 }) => ({ parent, props, presenceId, blockInitialAnimation, visualState, reducedMotionConfig }, options = {}) => {
-        let isMounted = false;
-        const { latestValues, renderState } = visualState;
-        let instance;
-        const lifecycles = createLifecycles();
-        const values = /* @__PURE__ */ new Map();
-        const valueSubscriptions = /* @__PURE__ */ new Map();
-        let prevMotionValues = {};
-        const baseTarget = {
-          ...latestValues
-        };
-        const initialValues = props.initial ? { ...latestValues } : {};
-        let removeFromVariantTree;
-        function render() {
-          if (!instance || !isMounted)
-            return;
-          triggerBuild();
-          renderInstance(instance, renderState, props.style, element.projection);
-        }
-        function triggerBuild() {
-          build(element, renderState, latestValues, options, props);
-        }
-        function update() {
-          lifecycles.notifyUpdate(latestValues);
-        }
-        function bindToMotionValue(key, value) {
-          const removeOnChange = value.onChange((latestValue) => {
-            latestValues[key] = latestValue;
-            props.onUpdate && sync__default["default"].update(update, false, true);
-          });
-          const removeOnRenderRequest = value.onRenderRequest(element.scheduleRender);
-          valueSubscriptions.set(key, () => {
-            removeOnChange();
-            removeOnRenderRequest();
-          });
-        }
-        const { willChange, ...initialMotionValues } = scrapeMotionValuesFromProps2(props);
-        for (const key in initialMotionValues) {
-          const value = initialMotionValues[key];
-          if (latestValues[key] !== void 0 && isMotionValue(value)) {
-            value.set(latestValues[key], false);
-            if (isWillChangeMotionValue(willChange)) {
-              willChange.add(key);
-            }
-          }
-        }
-        if (props.values) {
-          for (const key in props.values) {
-            const value = props.values[key];
-            if (latestValues[key] !== void 0 && isMotionValue(value)) {
-              value.set(latestValues[key]);
-            }
-          }
-        }
-        const isControllingVariants$1 = isControllingVariants(props);
-        const isVariantNode$1 = isVariantNode(props);
-        const element = {
-          treeType,
-          current: null,
-          depth: parent ? parent.depth + 1 : 0,
-          parent,
-          children: /* @__PURE__ */ new Set(),
-          presenceId,
-          shouldReduceMotion: null,
-          variantChildren: isVariantNode$1 ? /* @__PURE__ */ new Set() : void 0,
-          isVisible: void 0,
-          manuallyAnimateOnMount: Boolean(parent === null || parent === void 0 ? void 0 : parent.isMounted()),
-          blockInitialAnimation,
-          isMounted: () => Boolean(instance),
-          mount(newInstance) {
-            isMounted = true;
-            instance = element.current = newInstance;
-            if (element.projection) {
-              element.projection.mount(newInstance);
-            }
-            if (isVariantNode$1 && parent && !isControllingVariants$1) {
-              removeFromVariantTree = parent === null || parent === void 0 ? void 0 : parent.addVariantChild(element);
-            }
-            values.forEach((value, key) => bindToMotionValue(key, value));
-            if (!hasReducedMotionListener.current) {
-              initPrefersReducedMotion();
-            }
-            element.shouldReduceMotion = reducedMotionConfig === "never" ? false : reducedMotionConfig === "always" ? true : prefersReducedMotion.current;
-            parent === null || parent === void 0 ? void 0 : parent.children.add(element);
-            element.setProps(props);
-          },
-          unmount() {
-            var _a;
-            (_a = element.projection) === null || _a === void 0 ? void 0 : _a.unmount();
-            sync.cancelSync.update(update);
-            sync.cancelSync.render(render);
-            valueSubscriptions.forEach((remove) => remove());
-            removeFromVariantTree === null || removeFromVariantTree === void 0 ? void 0 : removeFromVariantTree();
-            parent === null || parent === void 0 ? void 0 : parent.children.delete(element);
-            lifecycles.clearAllListeners();
-            instance = void 0;
-            isMounted = false;
-          },
-          loadFeatures(renderedProps, isStrict, preloadedFeatures, projectionId, ProjectionNodeConstructor, initialLayoutGroupConfig) {
-            const features = [];
-            if (env !== "production" && preloadedFeatures && isStrict) {
-              heyListen.invariant(false, "You have rendered a `motion` component within a `LazyMotion` component. This will break tree shaking. Import and render a `m` component instead.");
-            }
-            for (let i = 0; i < numFeatures; i++) {
-              const name = featureNames[i];
-              const { isEnabled, Component } = featureDefinitions[name];
-              if (isEnabled(renderedProps) && Component) {
-                features.push(React2.createElement(Component, {
-                  key: name,
-                  ...renderedProps,
-                  visualElement: element
-                }));
-              }
-            }
-            if (!element.projection && ProjectionNodeConstructor) {
-              element.projection = new ProjectionNodeConstructor(projectionId, element.getLatestValues(), parent && parent.projection);
-              const { layoutId, layout, drag: drag2, dragConstraints, layoutScroll } = renderedProps;
-              element.projection.setOptions({
-                layoutId,
-                layout,
-                alwaysMeasureLayout: Boolean(drag2) || dragConstraints && isRefObject(dragConstraints),
-                visualElement: element,
-                scheduleRender: () => element.scheduleRender(),
-                animationType: typeof layout === "string" ? layout : "both",
-                initialPromotionConfig: initialLayoutGroupConfig,
-                layoutScroll
-              });
-            }
-            return features;
-          },
-          addVariantChild(child) {
-            var _a;
-            const closestVariantNode = element.getClosestVariantNode();
-            if (closestVariantNode) {
-              (_a = closestVariantNode.variantChildren) === null || _a === void 0 ? void 0 : _a.add(child);
-              return () => closestVariantNode.variantChildren.delete(child);
-            }
-          },
-          sortNodePosition(other) {
-            if (!sortNodePosition || treeType !== other.treeType)
-              return 0;
-            return sortNodePosition(element.getInstance(), other.getInstance());
-          },
-          getClosestVariantNode: () => isVariantNode$1 ? element : parent === null || parent === void 0 ? void 0 : parent.getClosestVariantNode(),
-          getLayoutId: () => props.layoutId,
-          getInstance: () => instance,
-          getStaticValue: (key) => latestValues[key],
-          setStaticValue: (key, value) => latestValues[key] = value,
-          getLatestValues: () => latestValues,
-          setVisibility(visibility) {
-            if (element.isVisible === visibility)
-              return;
-            element.isVisible = visibility;
-            element.scheduleRender();
-          },
-          makeTargetAnimatable(target, canMutate = true) {
-            return makeTargetAnimatable(element, target, props, canMutate);
-          },
-          measureViewportBox() {
-            return measureViewportBox2(instance, props);
-          },
-          addValue(key, value) {
-            if (element.hasValue(key))
-              element.removeValue(key);
-            values.set(key, value);
-            latestValues[key] = value.get();
-            bindToMotionValue(key, value);
-          },
-          removeValue(key) {
-            var _a;
-            values.delete(key);
-            (_a = valueSubscriptions.get(key)) === null || _a === void 0 ? void 0 : _a();
-            valueSubscriptions.delete(key);
-            delete latestValues[key];
-            removeValueFromRenderState(key, renderState);
-          },
-          hasValue: (key) => values.has(key),
-          getValue(key, defaultValue) {
-            if (props.values && props.values[key]) {
-              return props.values[key];
-            }
-            let value = values.get(key);
-            if (value === void 0 && defaultValue !== void 0) {
-              value = motionValue(defaultValue);
-              element.addValue(key, value);
-            }
-            return value;
-          },
-          forEachValue: (callback) => values.forEach(callback),
-          readValue: (key) => latestValues[key] !== void 0 ? latestValues[key] : readValueFromInstance(instance, key, options),
-          setBaseTarget(key, value) {
-            baseTarget[key] = value;
-          },
-          getBaseTarget(key) {
-            var _a;
-            const { initial } = props;
-            const valueFromInitial = typeof initial === "string" || typeof initial === "object" ? (_a = resolveVariantFromProps(props, initial)) === null || _a === void 0 ? void 0 : _a[key] : void 0;
-            if (initial && valueFromInitial !== void 0) {
-              return valueFromInitial;
-            }
-            if (getBaseTarget) {
-              const target = getBaseTarget(props, key);
-              if (target !== void 0 && !isMotionValue(target))
-                return target;
-            }
-            return initialValues[key] !== void 0 && valueFromInitial === void 0 ? void 0 : baseTarget[key];
-          },
-          ...lifecycles,
-          build() {
-            triggerBuild();
-            return renderState;
-          },
-          scheduleRender() {
-            sync__default["default"].render(render, false, true);
-          },
-          syncRender: render,
-          setProps(newProps) {
-            if (newProps.transformTemplate || props.transformTemplate) {
-              element.scheduleRender();
-            }
-            props = newProps;
-            lifecycles.updatePropListeners(newProps);
-            prevMotionValues = updateMotionValuesFromProps(element, scrapeMotionValuesFromProps2(props), prevMotionValues);
-          },
-          getProps: () => props,
-          getVariant: (name) => {
-            var _a;
-            return (_a = props.variants) === null || _a === void 0 ? void 0 : _a[name];
-          },
-          getDefaultTransition: () => props.transition,
-          getTransformPagePoint: () => {
-            return props.transformPagePoint;
-          },
-          getVariantContext(startAtParent = false) {
-            if (startAtParent)
-              return parent === null || parent === void 0 ? void 0 : parent.getVariantContext();
-            if (!isControllingVariants$1) {
-              const context2 = (parent === null || parent === void 0 ? void 0 : parent.getVariantContext()) || {};
-              if (props.initial !== void 0) {
-                context2.initial = props.initial;
-              }
-              return context2;
-            }
-            const context = {};
-            for (let i = 0; i < numVariantProps; i++) {
-              const name = variantProps[i];
-              const prop = props[name];
-              if (isVariantLabel(prop) || prop === false) {
-                context[name] = prop;
-              }
-            }
-            return context;
-          }
-        };
-        return element;
-      };
-      var variantProps = ["initial", ...variantPriorityOrder];
-      var numVariantProps = variantProps.length;
       function isCSSVariable(value) {
         return typeof value === "string" && value.startsWith("var(--");
       }
@@ -34821,14 +34480,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return fallback;
         }
       }
-      function resolveCSSVariables(visualElement2, { ...target }, transitionEnd) {
-        const element = visualElement2.getInstance();
+      function resolveCSSVariables(visualElement, { ...target }, transitionEnd) {
+        const element = visualElement.current;
         if (!(element instanceof Element))
           return { target, transitionEnd };
         if (transitionEnd) {
           transitionEnd = { ...transitionEnd };
         }
-        visualElement2.forEachValue((value) => {
+        visualElement.values.forEach((value) => {
           const current = value.get();
           if (!isCSSVariable(current))
             return;
@@ -34896,17 +34555,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       };
       var transformKeys = /* @__PURE__ */ new Set(["x", "y", "z"]);
       var nonTranslationalTransformKeys = transformPropOrder.filter((key) => !transformKeys.has(key));
-      function removeNonTranslationalTransform(visualElement2) {
+      function removeNonTranslationalTransform(visualElement) {
         const removedTransforms = [];
         nonTranslationalTransformKeys.forEach((key) => {
-          const value = visualElement2.getValue(key);
+          const value = visualElement.getValue(key);
           if (value !== void 0) {
             removedTransforms.push([key, value.get()]);
             value.set(key.startsWith("scale") ? 1 : 0);
           }
         });
         if (removedTransforms.length)
-          visualElement2.syncRender();
+          visualElement.render();
         return removedTransforms;
       }
       var positionalValues = {
@@ -34919,28 +34578,28 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         x: getTranslateFromMatrix(4, 13),
         y: getTranslateFromMatrix(5, 14)
       };
-      var convertChangedValueTypes = (target, visualElement2, changedKeys) => {
-        const originBbox = visualElement2.measureViewportBox();
-        const element = visualElement2.getInstance();
+      var convertChangedValueTypes = (target, visualElement, changedKeys) => {
+        const originBbox = visualElement.measureViewportBox();
+        const element = visualElement.current;
         const elementComputedStyle = getComputedStyle(element);
         const { display } = elementComputedStyle;
         const origin = {};
         if (display === "none") {
-          visualElement2.setStaticValue("display", target.display || "block");
+          visualElement.setStaticValue("display", target.display || "block");
         }
         changedKeys.forEach((key) => {
           origin[key] = positionalValues[key](originBbox, elementComputedStyle);
         });
-        visualElement2.syncRender();
-        const targetBbox = visualElement2.measureViewportBox();
+        visualElement.render();
+        const targetBbox = visualElement.measureViewportBox();
         changedKeys.forEach((key) => {
-          const value = visualElement2.getValue(key);
+          const value = visualElement.getValue(key);
           setAndResetVelocity(value, origin[key]);
           target[key] = positionalValues[key](targetBbox, elementComputedStyle);
         });
         return target;
       };
-      var checkAndConvertChangedValueTypes = (visualElement2, target, origin = {}, transitionEnd = {}) => {
+      var checkAndConvertChangedValueTypes = (visualElement, target, origin = {}, transitionEnd = {}) => {
         target = { ...target };
         transitionEnd = { ...transitionEnd };
         const targetPositionalKeys = Object.keys(target).filter(isPositionalKey);
@@ -34948,8 +34607,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         let hasAttemptedToRemoveTransformValues = false;
         const changedValueTypeKeys = [];
         targetPositionalKeys.forEach((key) => {
-          const value = visualElement2.getValue(key);
-          if (!visualElement2.hasValue(key))
+          const value = visualElement.getValue(key);
+          if (!visualElement.hasValue(key))
             return;
           let from = origin[key];
           let fromType = findDimensionValueType(from);
@@ -34990,7 +34649,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               }
             } else {
               if (!hasAttemptedToRemoveTransformValues) {
-                removedTransformValues = removeNonTranslationalTransform(visualElement2);
+                removedTransformValues = removeNonTranslationalTransform(visualElement);
                 hasAttemptedToRemoveTransformValues = true;
               }
               changedValueTypeKeys.push(key);
@@ -35001,13 +34660,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
         if (changedValueTypeKeys.length) {
           const scrollY = changedValueTypeKeys.indexOf("height") >= 0 ? window.pageYOffset : null;
-          const convertedTarget = convertChangedValueTypes(target, visualElement2, changedValueTypeKeys);
+          const convertedTarget = convertChangedValueTypes(target, visualElement, changedValueTypeKeys);
           if (removedTransformValues.length) {
             removedTransformValues.forEach(([key, value]) => {
-              visualElement2.getValue(key).set(value);
+              visualElement.getValue(key).set(value);
             });
           }
-          visualElement2.syncRender();
+          visualElement.render();
           if (isBrowser && scrollY !== null) {
             window.scrollTo({ top: scrollY });
           }
@@ -35016,54 +34675,367 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return { target, transitionEnd };
         }
       };
-      function unitConversion(visualElement2, target, origin, transitionEnd) {
-        return hasPositionalKey(target) ? checkAndConvertChangedValueTypes(visualElement2, target, origin, transitionEnd) : { target, transitionEnd };
+      function unitConversion(visualElement, target, origin, transitionEnd) {
+        return hasPositionalKey(target) ? checkAndConvertChangedValueTypes(visualElement, target, origin, transitionEnd) : { target, transitionEnd };
       }
-      var parseDomVariant = (visualElement2, target, origin, transitionEnd) => {
-        const resolved = resolveCSSVariables(visualElement2, target, transitionEnd);
+      var parseDomVariant = (visualElement, target, origin, transitionEnd) => {
+        const resolved = resolveCSSVariables(visualElement, target, transitionEnd);
         target = resolved.target;
         transitionEnd = resolved.transitionEnd;
-        return unitConversion(visualElement2, target, origin, transitionEnd);
+        return unitConversion(visualElement, target, origin, transitionEnd);
       };
-      function getComputedStyle$1(element) {
-        return window.getComputedStyle(element);
+      var prefersReducedMotion = { current: null };
+      var hasReducedMotionListener = { current: false };
+      function initPrefersReducedMotion() {
+        hasReducedMotionListener.current = true;
+        if (!isBrowser)
+          return;
+        if (window.matchMedia) {
+          const motionMediaQuery = window.matchMedia("(prefers-reduced-motion)");
+          const setReducedMotionPreferences = () => prefersReducedMotion.current = motionMediaQuery.matches;
+          motionMediaQuery.addListener(setReducedMotionPreferences);
+          setReducedMotionPreferences();
+        } else {
+          prefersReducedMotion.current = false;
+        }
       }
-      var htmlConfig = {
-        treeType: "dom",
-        readValueFromInstance(domElement, key) {
-          if (transformProps.has(key)) {
-            const defaultType = getDefaultValueType(key);
-            return defaultType ? defaultType.default || 0 : 0;
-          } else {
-            const computedStyle = getComputedStyle$1(domElement);
-            const value = (isCSSVariable$1(key) ? computedStyle.getPropertyValue(key) : computedStyle[key]) || 0;
-            return typeof value === "string" ? value.trim() : value;
+      function updateMotionValuesFromProps(element, next, prev) {
+        const { willChange } = next;
+        for (const key in next) {
+          const nextValue = next[key];
+          const prevValue = prev[key];
+          if (isMotionValue(nextValue)) {
+            element.addValue(key, nextValue);
+            if (isWillChangeMotionValue(willChange)) {
+              willChange.add(key);
+            }
+            if (true) {
+              warnOnce(nextValue.version === "7.6.5", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.5 may not work as expected.`);
+            }
+          } else if (isMotionValue(prevValue)) {
+            element.addValue(key, motionValue(nextValue));
+            if (isWillChangeMotionValue(willChange)) {
+              willChange.remove(key);
+            }
+          } else if (prevValue !== nextValue) {
+            if (element.hasValue(key)) {
+              const existingValue = element.getValue(key);
+              !existingValue.hasAnimated && existingValue.set(nextValue);
+            } else {
+              const latestValue = element.getStaticValue(key);
+              element.addValue(key, motionValue(latestValue !== void 0 ? latestValue : nextValue));
+            }
           }
-        },
-        sortNodePosition(a, b) {
+        }
+        for (const key in prev) {
+          if (next[key] === void 0)
+            element.removeValue(key);
+        }
+        return next;
+      }
+      var featureNames = Object.keys(featureDefinitions);
+      var numFeatures = featureNames.length;
+      var propEventHandlers = [
+        "AnimationStart",
+        "AnimationComplete",
+        "Update",
+        "Unmount",
+        "BeforeLayoutMeasure",
+        "LayoutMeasure",
+        "LayoutAnimationStart",
+        "LayoutAnimationComplete"
+      ];
+      var VisualElement = class {
+        constructor({ parent, props, reducedMotionConfig, visualState }, options = {}) {
+          this.current = null;
+          this.children = /* @__PURE__ */ new Set();
+          this.isVariantNode = false;
+          this.isControllingVariants = false;
+          this.shouldReduceMotion = null;
+          this.values = /* @__PURE__ */ new Map();
+          this.isPresent = true;
+          this.valueSubscriptions = /* @__PURE__ */ new Map();
+          this.prevMotionValues = {};
+          this.events = {};
+          this.propEventSubscriptions = {};
+          this.notifyUpdate = () => this.notify("Update", this.latestValues);
+          this.render = () => {
+            if (!this.current)
+              return;
+            this.triggerBuild();
+            this.renderInstance(this.current, this.renderState, this.props.style, this.projection);
+          };
+          this.scheduleRender = () => sync__default["default"].render(this.render, false, true);
+          const { latestValues, renderState } = visualState;
+          this.latestValues = latestValues;
+          this.baseTarget = { ...latestValues };
+          this.initialValues = props.initial ? { ...latestValues } : {};
+          this.renderState = renderState;
+          this.parent = parent;
+          this.props = props;
+          this.depth = parent ? parent.depth + 1 : 0;
+          this.reducedMotionConfig = reducedMotionConfig;
+          this.options = options;
+          this.isControllingVariants = isControllingVariants(props);
+          this.isVariantNode = isVariantNode(props);
+          if (this.isVariantNode) {
+            this.variantChildren = /* @__PURE__ */ new Set();
+          }
+          this.manuallyAnimateOnMount = Boolean(parent && parent.current);
+          const { willChange, ...initialMotionValues } = this.scrapeMotionValuesFromProps(props);
+          for (const key in initialMotionValues) {
+            const value = initialMotionValues[key];
+            if (latestValues[key] !== void 0 && isMotionValue(value)) {
+              value.set(latestValues[key], false);
+              if (isWillChangeMotionValue(willChange)) {
+                willChange.add(key);
+              }
+            }
+          }
+          if (props.values) {
+            for (const key in props.values) {
+              const value = props.values[key];
+              if (latestValues[key] !== void 0 && isMotionValue(value)) {
+                value.set(latestValues[key]);
+              }
+            }
+          }
+        }
+        scrapeMotionValuesFromProps(_props) {
+          return {};
+        }
+        mount(instance) {
+          var _a;
+          this.current = instance;
+          if (this.projection) {
+            this.projection.mount(instance);
+          }
+          if (this.parent && this.isVariantNode && !this.isControllingVariants) {
+            this.removeFromVariantTree = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.addVariantChild(this);
+          }
+          this.values.forEach((value, key) => this.bindToMotionValue(key, value));
+          if (!hasReducedMotionListener.current) {
+            initPrefersReducedMotion();
+          }
+          this.shouldReduceMotion = this.reducedMotionConfig === "never" ? false : this.reducedMotionConfig === "always" ? true : prefersReducedMotion.current;
+          if (this.parent)
+            this.parent.children.add(this);
+          this.setProps(this.props);
+        }
+        unmount() {
+          var _a, _b, _c;
+          (_a = this.projection) === null || _a === void 0 ? void 0 : _a.unmount();
+          sync.cancelSync.update(this.notifyUpdate);
+          sync.cancelSync.render(this.render);
+          this.valueSubscriptions.forEach((remove) => remove());
+          (_b = this.removeFromVariantTree) === null || _b === void 0 ? void 0 : _b.call(this);
+          (_c = this.parent) === null || _c === void 0 ? void 0 : _c.children.delete(this);
+          for (const key in this.events) {
+            this.events[key].clear();
+          }
+          this.current = null;
+        }
+        bindToMotionValue(key, value) {
+          const removeOnChange = value.onChange((latestValue) => {
+            this.latestValues[key] = latestValue;
+            this.props.onUpdate && sync__default["default"].update(this.notifyUpdate, false, true);
+          });
+          const removeOnRenderRequest = value.onRenderRequest(this.scheduleRender);
+          this.valueSubscriptions.set(key, () => {
+            removeOnChange();
+            removeOnRenderRequest();
+          });
+        }
+        sortNodePosition(other) {
+          if (!this.current || !this.sortInstanceNodePosition || this.type !== other.type)
+            return 0;
+          return this.sortInstanceNodePosition(this.current, other.current);
+        }
+        loadFeatures(renderedProps, isStrict, preloadedFeatures, projectionId, ProjectionNodeConstructor, initialLayoutGroupConfig) {
+          const features = [];
+          if (env !== "production" && preloadedFeatures && isStrict) {
+            heyListen.invariant(false, "You have rendered a `motion` component within a `LazyMotion` component. This will break tree shaking. Import and render a `m` component instead.");
+          }
+          for (let i = 0; i < numFeatures; i++) {
+            const name = featureNames[i];
+            const { isEnabled, Component } = featureDefinitions[name];
+            if (isEnabled(renderedProps) && Component) {
+              features.push(React2.createElement(Component, {
+                key: name,
+                ...renderedProps,
+                visualElement: this
+              }));
+            }
+          }
+          if (!this.projection && ProjectionNodeConstructor) {
+            this.projection = new ProjectionNodeConstructor(projectionId, this.latestValues, this.parent && this.parent.projection);
+            const { layoutId, layout, drag: drag2, dragConstraints, layoutScroll } = renderedProps;
+            this.projection.setOptions({
+              layoutId,
+              layout,
+              alwaysMeasureLayout: Boolean(drag2) || dragConstraints && isRefObject(dragConstraints),
+              visualElement: this,
+              scheduleRender: () => this.scheduleRender(),
+              animationType: typeof layout === "string" ? layout : "both",
+              initialPromotionConfig: initialLayoutGroupConfig,
+              layoutScroll
+            });
+          }
+          return features;
+        }
+        triggerBuild() {
+          this.build(this.renderState, this.latestValues, this.options, this.props);
+        }
+        measureViewportBox() {
+          return this.current ? this.measureInstanceViewportBox(this.current, this.props) : createBox();
+        }
+        getStaticValue(key) {
+          return this.latestValues[key];
+        }
+        setStaticValue(key, value) {
+          this.latestValues[key] = value;
+        }
+        makeTargetAnimatable(target, canMutate = true) {
+          return this.makeTargetAnimatableFromInstance(target, this.props, canMutate);
+        }
+        setProps(props) {
+          if (props.transformTemplate || this.props.transformTemplate) {
+            this.scheduleRender();
+          }
+          this.props = props;
+          for (let i = 0; i < propEventHandlers.length; i++) {
+            const key = propEventHandlers[i];
+            if (this.propEventSubscriptions[key]) {
+              this.propEventSubscriptions[key]();
+              delete this.propEventSubscriptions[key];
+            }
+            const listener = props["on" + key];
+            if (listener) {
+              this.propEventSubscriptions[key] = this.on(key, listener);
+            }
+          }
+          this.prevMotionValues = updateMotionValuesFromProps(this, this.scrapeMotionValuesFromProps(props), this.prevMotionValues);
+        }
+        getProps() {
+          return this.props;
+        }
+        getVariant(name) {
+          var _a;
+          return (_a = this.props.variants) === null || _a === void 0 ? void 0 : _a[name];
+        }
+        getDefaultTransition() {
+          return this.props.transition;
+        }
+        getTransformPagePoint() {
+          return this.props.transformPagePoint;
+        }
+        getClosestVariantNode() {
+          var _a;
+          return this.isVariantNode ? this : (_a = this.parent) === null || _a === void 0 ? void 0 : _a.getClosestVariantNode();
+        }
+        getVariantContext(startAtParent = false) {
+          var _a, _b;
+          if (startAtParent)
+            return (_a = this.parent) === null || _a === void 0 ? void 0 : _a.getVariantContext();
+          if (!this.isControllingVariants) {
+            const context2 = ((_b = this.parent) === null || _b === void 0 ? void 0 : _b.getVariantContext()) || {};
+            if (this.props.initial !== void 0) {
+              context2.initial = this.props.initial;
+            }
+            return context2;
+          }
+          const context = {};
+          for (let i = 0; i < numVariantProps; i++) {
+            const name = variantProps[i];
+            const prop = this.props[name];
+            if (isVariantLabel(prop) || prop === false) {
+              context[name] = prop;
+            }
+          }
+          return context;
+        }
+        addVariantChild(child) {
+          var _a;
+          const closestVariantNode = this.getClosestVariantNode();
+          if (closestVariantNode) {
+            (_a = closestVariantNode.variantChildren) === null || _a === void 0 ? void 0 : _a.add(child);
+            return () => closestVariantNode.variantChildren.delete(child);
+          }
+        }
+        addValue(key, value) {
+          if (this.hasValue(key))
+            this.removeValue(key);
+          this.values.set(key, value);
+          this.latestValues[key] = value.get();
+          this.bindToMotionValue(key, value);
+        }
+        removeValue(key) {
+          var _a;
+          this.values.delete(key);
+          (_a = this.valueSubscriptions.get(key)) === null || _a === void 0 ? void 0 : _a();
+          this.valueSubscriptions.delete(key);
+          delete this.latestValues[key];
+          this.removeValueFromRenderState(key, this.renderState);
+        }
+        hasValue(key) {
+          return this.values.has(key);
+        }
+        getValue(key, defaultValue) {
+          if (this.props.values && this.props.values[key]) {
+            return this.props.values[key];
+          }
+          let value = this.values.get(key);
+          if (value === void 0 && defaultValue !== void 0) {
+            value = motionValue(defaultValue);
+            this.addValue(key, value);
+          }
+          return value;
+        }
+        readValue(key) {
+          return this.latestValues[key] !== void 0 || !this.current ? this.latestValues[key] : this.readValueFromInstance(this.current, key, this.options);
+        }
+        setBaseTarget(key, value) {
+          this.baseTarget[key] = value;
+        }
+        getBaseTarget(key) {
+          var _a;
+          const { initial } = this.props;
+          const valueFromInitial = typeof initial === "string" || typeof initial === "object" ? (_a = resolveVariantFromProps(this.props, initial)) === null || _a === void 0 ? void 0 : _a[key] : void 0;
+          if (initial && valueFromInitial !== void 0) {
+            return valueFromInitial;
+          }
+          const target = this.getBaseTargetFromProps(this.props, key);
+          if (target !== void 0 && !isMotionValue(target))
+            return target;
+          return this.initialValues[key] !== void 0 && valueFromInitial === void 0 ? void 0 : this.baseTarget[key];
+        }
+        on(eventName, callback) {
+          if (!this.events[eventName]) {
+            this.events[eventName] = new SubscriptionManager();
+          }
+          return this.events[eventName].add(callback);
+        }
+        notify(eventName, ...args) {
+          var _a;
+          (_a = this.events[eventName]) === null || _a === void 0 ? void 0 : _a.notify(...args);
+        }
+      };
+      var variantProps = ["initial", ...variantPriorityOrder];
+      var numVariantProps = variantProps.length;
+      var DOMVisualElement = class extends VisualElement {
+        sortInstanceNodePosition(a, b) {
           return a.compareDocumentPosition(b) & 2 ? 1 : -1;
-        },
-        getBaseTarget(props, key) {
+        }
+        getBaseTargetFromProps(props, key) {
           var _a;
           return (_a = props.style) === null || _a === void 0 ? void 0 : _a[key];
-        },
-        measureViewportBox(element, { transformPagePoint }) {
-          return measureViewportBox(element, transformPagePoint);
-        },
-        resetTransform(element, domElement, props) {
-          const { transformTemplate } = props;
-          domElement.style.transform = transformTemplate ? transformTemplate({}, "") : "none";
-          element.scheduleRender();
-        },
-        restoreTransform(instance, mutableState) {
-          instance.style.transform = mutableState.style.transform;
-        },
+        }
         removeValueFromRenderState(key, { vars, style }) {
           delete vars[key];
           delete style[key];
-        },
-        makeTargetAnimatable(element, { transition, transitionEnd, ...target }, { transformValues }, isMounted = true) {
-          let origin = getOrigin(target, transition || {}, element);
+        }
+        makeTargetAnimatableFromInstance({ transition, transitionEnd, ...target }, { transformValues }, isMounted) {
+          let origin = getOrigin(target, transition || {}, this);
           if (transformValues) {
             if (transitionEnd)
               transitionEnd = transformValues(transitionEnd);
@@ -35073,8 +35045,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               origin = transformValues(origin);
           }
           if (isMounted) {
-            checkTargetForNewValues(element, target, origin);
-            const parsed = parseDomVariant(element, target, origin, transitionEnd);
+            checkTargetForNewValues(this, target, origin);
+            const parsed = parseDomVariant(this, target, origin, transitionEnd);
             transitionEnd = parsed.transitionEnd;
             target = parsed.target;
           }
@@ -35083,38 +35055,62 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             transitionEnd,
             ...target
           };
-        },
-        scrapeMotionValuesFromProps: scrapeMotionValuesFromProps$1,
-        build(element, renderState, latestValues, options, props) {
-          if (element.isVisible !== void 0) {
-            renderState.style.visibility = element.isVisible ? "visible" : "hidden";
-          }
-          buildHTMLStyles(renderState, latestValues, options, props.transformTemplate);
-        },
-        render: renderHTML
+        }
       };
-      var htmlVisualElement = visualElement(htmlConfig);
-      var svgVisualElement = visualElement({
-        ...htmlConfig,
-        getBaseTarget(props, key) {
+      function getComputedStyle$1(element) {
+        return window.getComputedStyle(element);
+      }
+      var HTMLVisualElement = class extends DOMVisualElement {
+        readValueFromInstance(instance, key) {
+          if (transformProps.has(key)) {
+            const defaultType = getDefaultValueType(key);
+            return defaultType ? defaultType.default || 0 : 0;
+          } else {
+            const computedStyle = getComputedStyle$1(instance);
+            const value = (isCSSVariable$1(key) ? computedStyle.getPropertyValue(key) : computedStyle[key]) || 0;
+            return typeof value === "string" ? value.trim() : value;
+          }
+        }
+        measureInstanceViewportBox(instance, { transformPagePoint }) {
+          return measureViewportBox(instance, transformPagePoint);
+        }
+        build(renderState, latestValues, options, props) {
+          buildHTMLStyles(renderState, latestValues, options, props.transformTemplate);
+        }
+        scrapeMotionValuesFromProps(props) {
+          return scrapeMotionValuesFromProps$1(props);
+        }
+        renderInstance(instance, renderState, styleProp, projection) {
+          renderHTML(instance, renderState, styleProp, projection);
+        }
+      };
+      var SVGVisualElement = class extends DOMVisualElement {
+        getBaseTargetFromProps(props, key) {
           return props[key];
-        },
-        readValueFromInstance(domElement, key) {
+        }
+        readValueFromInstance(instance, key) {
           var _a;
           if (transformProps.has(key)) {
             return ((_a = getDefaultValueType(key)) === null || _a === void 0 ? void 0 : _a.default) || 0;
           }
           key = !camelCaseAttributes.has(key) ? camelToDash(key) : key;
-          return domElement.getAttribute(key);
-        },
-        scrapeMotionValuesFromProps,
-        build(_element, renderState, latestValues, options, props) {
+          return instance.getAttribute(key);
+        }
+        measureInstanceViewportBox() {
+          return createBox();
+        }
+        scrapeMotionValuesFromProps(props) {
+          return scrapeMotionValuesFromProps(props);
+        }
+        build(renderState, latestValues, options, props) {
           buildSVGAttrs(renderState, latestValues, options, props.transformTemplate);
-        },
-        render: renderSVG
-      });
+        }
+        renderInstance(instance, renderState, styleProp, projection) {
+          renderSVG(instance, renderState, styleProp, projection);
+        }
+      };
       var createDomVisualElement = (Component, options) => {
-        return isSVGComponent(Component) ? svgVisualElement(options, { enableHardwareAcceleration: false }) : htmlVisualElement(options, { enableHardwareAcceleration: true });
+        return isSVGComponent(Component) ? new SVGVisualElement(options, { enableHardwareAcceleration: false }) : new HTMLVisualElement(options, { enableHardwareAcceleration: true });
       };
       function pixelsToPercent(pixels, axis) {
         if (axis.max === axis.min)
@@ -35177,8 +35173,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       };
       var MeasureLayoutWithContext = class extends React__default["default"].Component {
         componentDidMount() {
-          const { visualElement: visualElement2, layoutGroup, switchLayoutGroup, layoutId } = this.props;
-          const { projection } = visualElement2;
+          const { visualElement, layoutGroup, switchLayoutGroup, layoutId } = this.props;
+          const { projection } = visualElement;
           addScaleCorrector(defaultScaleCorrectors);
           if (projection) {
             if (layoutGroup.group)
@@ -35198,8 +35194,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           globalProjectionState.hasEverUpdated = true;
         }
         getSnapshotBeforeUpdate(prevProps) {
-          const { layoutDependency, visualElement: visualElement2, drag: drag2, isPresent: isPresent2 } = this.props;
-          const projection = visualElement2.projection;
+          const { layoutDependency, visualElement, drag: drag2, isPresent: isPresent2 } = this.props;
+          const projection = visualElement.projection;
           if (!projection)
             return null;
           projection.isPresent = isPresent2;
@@ -35232,8 +35228,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }
         componentWillUnmount() {
-          const { visualElement: visualElement2, layoutGroup, switchLayoutGroup: promoteContext } = this.props;
-          const { projection } = visualElement2;
+          const { visualElement, layoutGroup, switchLayoutGroup: promoteContext } = this.props;
+          const { projection } = visualElement;
           if (projection) {
             projection.scheduleCheckAfterUnmount();
             if (layoutGroup === null || layoutGroup === void 0 ? void 0 : layoutGroup.group)
@@ -35583,9 +35579,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               return;
             this.isSVG = instance instanceof SVGElement && instance.tagName !== "svg";
             this.instance = instance;
-            const { layoutId, layout, visualElement: visualElement2 } = this.options;
-            if (visualElement2 && !visualElement2.getInstance()) {
-              visualElement2.mount(instance);
+            const { layoutId, layout, visualElement } = this.options;
+            if (visualElement && !visualElement.current) {
+              visualElement.mount(instance);
             }
             this.root.nodes.add(this);
             (_a = this.parent) === null || _a === void 0 ? void 0 : _a.children.add(this);
@@ -35609,7 +35605,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (layoutId) {
               this.root.registerSharedNode(layoutId, this);
             }
-            if (this.options.animate !== false && visualElement2 && (layoutId || layout)) {
+            if (this.options.animate !== false && visualElement && (layoutId || layout)) {
               this.addEventListener("didUpdate", ({ delta, hasLayoutChanged, hasRelativeTargetChanged, layout: newLayout }) => {
                 var _a2, _b, _c, _d, _e;
                 if (this.isTreeAnimationBlocked()) {
@@ -35617,8 +35613,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                   this.relativeTarget = void 0;
                   return;
                 }
-                const layoutTransition = (_b = (_a2 = this.options.transition) !== null && _a2 !== void 0 ? _a2 : visualElement2.getDefaultTransition()) !== null && _b !== void 0 ? _b : defaultLayoutTransition;
-                const { onLayoutAnimationStart, onLayoutAnimationComplete } = visualElement2.getProps();
+                const layoutTransition = (_b = (_a2 = this.options.transition) !== null && _a2 !== void 0 ? _a2 : visualElement.getDefaultTransition()) !== null && _b !== void 0 ? _b : defaultLayoutTransition;
+                const { onLayoutAnimationStart, onLayoutAnimationComplete } = visualElement.getProps();
                 const targetChanged = !this.targetLayout || !boxEquals(this.targetLayout, newLayout) || hasRelativeTargetChanged;
                 const hasOnlyRelativeTargetChanged = !hasLayoutChanged && hasRelativeTargetChanged;
                 if (((_c = this.resumeFrom) === null || _c === void 0 ? void 0 : _c.instance) || hasOnlyRelativeTargetChanged || hasLayoutChanged && (targetChanged || !this.currentAnimation)) {
@@ -35632,7 +35628,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                     onPlay: onLayoutAnimationStart,
                     onComplete: onLayoutAnimationComplete
                   };
-                  if (visualElement2.shouldReduceMotion) {
+                  if (visualElement.shouldReduceMotion) {
                     animationOptions.delay = 0;
                     animationOptions.type = false;
                   }
@@ -35775,7 +35771,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             this.isLayoutDirty = false;
             this.projectionDelta = void 0;
             this.notifyListeners("measure", this.layout.actual);
-            (_a = this.options.visualElement) === null || _a === void 0 ? void 0 : _a.notifyLayoutMeasure(this.layout.actual, prevLayout === null || prevLayout === void 0 ? void 0 : prevLayout.actual);
+            (_a = this.options.visualElement) === null || _a === void 0 ? void 0 : _a.notify("LayoutMeasure", this.layout.actual, prevLayout === null || prevLayout === void 0 ? void 0 : prevLayout.actual);
           }
           updateScroll() {
             if (this.options.layoutScroll && this.instance) {
@@ -35799,10 +35795,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           }
           measure() {
-            const { visualElement: visualElement2 } = this.options;
-            if (!visualElement2)
+            const { visualElement } = this.options;
+            if (!visualElement)
               return createBox();
-            const box = visualElement2.measureViewportBox();
+            const box = visualElement.measureViewportBox();
             const { scroll } = this.root;
             if (scroll) {
               translateAxis(box.x, scroll.x);
@@ -35898,12 +35894,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (!this.layout || !(layout || layoutId))
               return;
             if (!this.targetDelta && !this.relativeTarget) {
-              this.relativeParent = this.getClosestProjectingParent();
-              if (this.relativeParent && this.relativeParent.layout) {
+              const relativeParent = this.getClosestProjectingParent();
+              if (relativeParent && relativeParent.layout) {
+                this.relativeParent = relativeParent;
                 this.relativeTarget = createBox();
                 this.relativeTargetOrigin = createBox();
-                calcRelativePosition(this.relativeTargetOrigin, this.layout.actual, this.relativeParent.layout.actual);
+                calcRelativePosition(this.relativeTargetOrigin, this.layout.actual, relativeParent.layout.actual);
                 copyBoxInto(this.relativeTarget, this.relativeTargetOrigin);
+              } else {
+                this.relativeParent = this.relativeTarget = void 0;
               }
             }
             if (!this.relativeTarget && !this.targetDelta)
@@ -35926,12 +35925,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             if (this.attemptToResolveRelativeTarget) {
               this.attemptToResolveRelativeTarget = false;
-              this.relativeParent = this.getClosestProjectingParent();
-              if (this.relativeParent && Boolean(this.relativeParent.resumingFrom) === Boolean(this.resumingFrom) && !this.relativeParent.options.layoutScroll && this.relativeParent.target) {
+              const relativeParent = this.getClosestProjectingParent();
+              if (relativeParent && Boolean(relativeParent.resumingFrom) === Boolean(this.resumingFrom) && !relativeParent.options.layoutScroll && relativeParent.target) {
+                this.relativeParent = relativeParent;
                 this.relativeTarget = createBox();
                 this.relativeTargetOrigin = createBox();
-                calcRelativePosition(this.relativeTargetOrigin, this.target, this.relativeParent.target);
+                calcRelativePosition(this.relativeTargetOrigin, this.target, relativeParent.target);
                 copyBoxInto(this.relativeTarget, this.relativeTargetOrigin);
+              } else {
+                this.relativeParent = this.relativeTarget = void 0;
               }
             }
           }
@@ -36140,28 +36142,28 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           }
           resetRotation() {
-            const { visualElement: visualElement2 } = this.options;
-            if (!visualElement2)
+            const { visualElement } = this.options;
+            if (!visualElement)
               return;
             let hasRotate = false;
             const resetValues = {};
             for (let i = 0; i < transformAxes.length; i++) {
               const axis = transformAxes[i];
               const key = "rotate" + axis;
-              if (!visualElement2.getStaticValue(key)) {
+              if (!visualElement.getStaticValue(key)) {
                 continue;
               }
               hasRotate = true;
-              resetValues[key] = visualElement2.getStaticValue(key);
-              visualElement2.setStaticValue(key, 0);
+              resetValues[key] = visualElement.getStaticValue(key);
+              visualElement.setStaticValue(key, 0);
             }
             if (!hasRotate)
               return;
-            visualElement2 === null || visualElement2 === void 0 ? void 0 : visualElement2.syncRender();
+            visualElement === null || visualElement === void 0 ? void 0 : visualElement.render();
             for (const key in resetValues) {
-              visualElement2.setStaticValue(key, resetValues[key]);
+              visualElement.setStaticValue(key, resetValues[key]);
             }
-            visualElement2.scheduleRender();
+            visualElement.scheduleRender();
           }
           getProjectionStyles(styleProp = {}) {
             var _a, _b, _c;
@@ -36273,9 +36275,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           const hasLayoutChanged = !isDeltaZero(layoutDelta);
           let hasRelativeTargetChanged = false;
           if (!node.resumeFrom) {
-            node.relativeParent = node.getClosestProjectingParent();
-            if (node.relativeParent && !node.relativeParent.resumeFrom) {
-              const { snapshot: parentSnapshot, layout: parentLayout } = node.relativeParent;
+            const relativeParent = node.getClosestProjectingParent();
+            if (relativeParent && !relativeParent.resumeFrom) {
+              const { snapshot: parentSnapshot, layout: parentLayout } = relativeParent;
               if (parentSnapshot && parentLayout) {
                 const relativeSnapshot = createBox();
                 calcRelativePosition(relativeSnapshot, snapshot.layout, parentSnapshot.layout);
@@ -36307,9 +36309,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         node.clearMeasurements();
       }
       function resetTransformStyle(node) {
-        const { visualElement: visualElement2 } = node.options;
-        if (visualElement2 === null || visualElement2 === void 0 ? void 0 : visualElement2.getProps().onBeforeLayoutMeasure) {
-          visualElement2.notifyBeforeLayoutMeasure();
+        const { visualElement } = node.options;
+        if (visualElement === null || visualElement === void 0 ? void 0 : visualElement.getProps().onBeforeLayoutMeasure) {
+          visualElement.notify("BeforeLayoutMeasure");
         }
         node.resetTransform();
       }
@@ -37008,15 +37010,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const pendingAnimations = [];
         const subscribers = /* @__PURE__ */ new Set();
         const controls = {
-          subscribe(visualElement2) {
-            subscribers.add(visualElement2);
-            return () => void subscribers.delete(visualElement2);
+          subscribe(visualElement) {
+            subscribers.add(visualElement);
+            return () => void subscribers.delete(visualElement);
           },
           start(definition, transitionOverride) {
             if (hasMounted) {
               const animations2 = [];
-              subscribers.forEach((visualElement2) => {
-                animations2.push(animateVisualElement(visualElement2, definition, {
+              subscribers.forEach((visualElement) => {
+                animations2.push(animateVisualElement(visualElement, definition, {
                   transitionOverride
                 }));
               });
@@ -37032,13 +37034,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           },
           set(definition) {
             heyListen.invariant(hasMounted, "controls.set() should only be called after a component has mounted. Consider calling within a useEffect hook.");
-            return subscribers.forEach((visualElement2) => {
-              setValues(visualElement2, definition);
+            return subscribers.forEach((visualElement) => {
+              setValues(visualElement, definition);
             });
           },
           stop() {
-            subscribers.forEach((visualElement2) => {
-              stopAnimation(visualElement2);
+            subscribers.forEach((visualElement) => {
+              stopAnimation(visualElement);
             });
           },
           mount() {
@@ -37151,28 +37153,38 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return reset;
       }
       var createObject = () => ({});
-      var stateVisualElement = visualElement({
+      var StateVisualElement = class extends VisualElement {
         build() {
-        },
-        measureViewportBox: createBox,
+        }
+        measureInstanceViewportBox() {
+          return createBox();
+        }
         resetTransform() {
-        },
+        }
         restoreTransform() {
-        },
+        }
         removeValueFromRenderState() {
-        },
-        render() {
-        },
-        scrapeMotionValuesFromProps: createObject,
+        }
+        renderInstance() {
+        }
+        scrapeMotionValuesFromProps() {
+          return createObject();
+        }
+        getBaseTargetFromProps() {
+          return void 0;
+        }
         readValueFromInstance(_state, key, options) {
           return options.initialState[key] || 0;
-        },
-        makeTargetAnimatable(element, { transition, transitionEnd, ...target }) {
-          const origin = getOrigin(target, transition || {}, element);
-          checkTargetForNewValues(element, target, origin);
+        }
+        sortInstanceNodePosition() {
+          return 0;
+        }
+        makeTargetAnimatableFromInstance({ transition, transitionEnd, ...target }) {
+          const origin = getOrigin(target, transition || {}, this);
+          checkTargetForNewValues(this, target, origin);
           return { transition, transitionEnd, ...target };
         }
-      });
+      };
       var useVisualState = makeUseVisualState({
         scrapeMotionValuesFromProps: createObject,
         createRenderState: createObject
@@ -37180,10 +37192,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function useAnimatedState(initialState) {
         const [animationState, setAnimationState] = React2.useState(initialState);
         const visualState = useVisualState({}, false);
-        const element = useConstant(() => stateVisualElement({ props: {}, visualState }, { initialState }));
+        const element = useConstant(() => {
+          return new StateVisualElement({ props: {}, visualState }, { initialState });
+        });
         React2.useEffect(() => {
           element.mount({});
-          return element.unmount;
+          return () => element.unmount();
         }, [element]);
         React2.useEffect(() => {
           element.setProps({
@@ -37203,16 +37217,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function useInvertedScale(scale) {
         let parentScaleX = useMotionValue(1);
         let parentScaleY = useMotionValue(1);
-        const visualElement2 = useVisualElementContext();
-        heyListen.invariant(!!(scale || visualElement2), "If no scale values are provided, useInvertedScale must be used within a child of another motion component.");
+        const visualElement = useVisualElementContext();
+        heyListen.invariant(!!(scale || visualElement), "If no scale values are provided, useInvertedScale must be used within a child of another motion component.");
         heyListen.warning(hasWarned, "useInvertedScale is deprecated and will be removed in 3.0. Use the layout prop instead.");
         hasWarned = true;
         if (scale) {
           parentScaleX = scale.scaleX || parentScaleX;
           parentScaleY = scale.scaleY || parentScaleY;
-        } else if (visualElement2) {
-          parentScaleX = visualElement2.getValue("scaleX", 1);
-          parentScaleY = visualElement2.getValue("scaleY", 1);
+        } else if (visualElement) {
+          parentScaleX = visualElement.getValue("scaleX", 1);
+          parentScaleY = visualElement.getValue("scaleY", 1);
         }
         const scaleX = useTransform(parentScaleX, invertScale);
         const scaleY = useTransform(parentScaleY, invertScale);
@@ -37233,6 +37247,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       exports.PresenceContext = PresenceContext;
       exports.Reorder = Reorder;
       exports.SwitchLayoutGroupContext = SwitchLayoutGroupContext;
+      exports.VisualElement = VisualElement;
       exports.addPointerEvent = addPointerEvent;
       exports.addScaleCorrector = addScaleCorrector;
       exports.animate = animate;
@@ -37291,7 +37306,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       exports.useViewportScroll = useViewportScroll;
       exports.useVisualElementContext = useVisualElementContext;
       exports.useWillChange = useWillChange;
-      exports.visualElement = visualElement;
       exports.wrapHandler = wrapHandler;
     }
   });

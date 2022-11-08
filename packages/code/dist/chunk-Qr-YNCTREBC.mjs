@@ -1,7 +1,7 @@
 import {
   Fab,
   QrCodeIcon
-} from "./chunk-chunk-BAIBTL4K.mjs";
+} from "./chunk-chunk-EZDTOPYV.mjs";
 import {
   motion
 } from "./chunk-chunk-W2EEQE43.mjs";
