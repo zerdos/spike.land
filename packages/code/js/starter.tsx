@@ -119,7 +119,7 @@ export function AutoUpdateApp(
   const [{ App, i }, setApps] = useState({
     i: starterI,
     App: lazy(() =>
-      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(m => {
+      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async (m) => {
         setApps(x => ({ ...x, i: x.i + 1 }));
         return m;
       })
