@@ -51,6 +51,7 @@ export const importIt = async (url: string) => {
     try {
       try {
         mod = await importShim(url);
+        mod.url = url;
         return mod;
       } catch {
         try {
@@ -78,6 +79,7 @@ export const importIt = async (url: string) => {
               return;
             }
 
+            mod.url = url;
             return mod;
           }
         } catch (err) {
@@ -118,6 +120,7 @@ export function AutoUpdateApp(
 ) {
   const [{ App, i }, setApps] = useState({
     i: starterI,
+    url: `${location.origin}/live/${codeSpace}/index.js/${starterI}`,
     App: lazy(() =>
       importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async (m) => {
         setApps(x => ({ ...x, i: x.i + 1 }));
@@ -129,7 +132,10 @@ export function AutoUpdateApp(
   useEffect(() => {
     (async () => {
       const mod = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
-      setApps(x => ({ ...x, i: x.i + 1, App: lazy(async () => mod) }));
+
+      const urlCounter = mod.url.split("/").pop() * 1;
+
+      setApps(x => ({ ...x, i: (urlCounter || x.i) + 1, url: mod.url, App: mod.default }));
     })();
   }, [i, setApps]);
 
