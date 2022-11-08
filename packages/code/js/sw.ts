@@ -49,7 +49,7 @@ addEventListener("fetch", async (_event) => {
 
     const resp = await fetch(request);
 
-    if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache") {
+    if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache" && !resp.headers.get("Location")) {
       await myCache.put(cacheKey, resp.clone());
     }
     return resp;
