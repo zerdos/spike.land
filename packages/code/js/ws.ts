@@ -145,6 +145,7 @@ export const run = async (startState: {
       return;
     }
 
+    event.source?.postMessage("yooo");
     // console.//log({ event });
 
     if (
@@ -183,6 +184,7 @@ export const run = async (startState: {
         ignoreUser: user,
         sess,
         codeSpace,
+
         address,
       });
     },

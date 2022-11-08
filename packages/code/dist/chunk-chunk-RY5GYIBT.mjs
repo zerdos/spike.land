@@ -3460,7 +3460,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-DZCWRPS5.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-NKFGSKAX.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -4038,6 +4038,7 @@ var run = async (startState) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
     }
+    event.source?.postMessage("yooo");
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
       ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
