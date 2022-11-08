@@ -12,13 +12,13 @@ let lastChecked = 0;
 let npmCache: Cache | null;
 
 let chunkCache: Cache | null;
-let cache: Cache | null;
+let fileCache: Cache | null;
 let cacheName = "default";
 
 const getCacheName = () =>
   fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => md5(content))
     .then(
-      (cn) => (cn === cacheName || (cache = null) || (cacheName = cn)),
+      (cn) => (cn === cacheName || (fileCache = null) || (cacheName = cn)),
     ).finally(() => cacheName);
 
 addEventListener("fetch", async (_event) => {
@@ -33,14 +33,14 @@ addEventListener("fetch", async (_event) => {
       ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
       : url.pathname.includes("chunk-")
       ? (chunkCache = chunkCache || await caches.open("chunks"))
-      : (cache = cache || await caches.open(cacheName || await getCacheName() && cacheName));
+      : (fileCache = fileCache || await caches.open("files"));
 
     if (Date.now() - lastChecked > 10_000) {
       lastChecked = Date.now();
       getCacheName();
     }
 
-    const cacheKey = new Request(request.url);
+    const cacheKey = new Request(request.url + (fileCache === myCache ? "?files=" + cacheName : ""));
     const cachedResp = await myCache.match(cacheKey);
 
     if (cachedResp) return cachedResp.clone();

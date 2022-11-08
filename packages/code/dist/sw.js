@@ -157,22 +157,22 @@
   var lastChecked = 0;
   var npmCache;
   var chunkCache;
-  var cache2;
+  var fileCache;
   var cacheName = "default";
   var getCacheName = /* @__PURE__ */ __name(() => fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => md5(content)).then(
-    (cn) => cn === cacheName || (cache2 = null) || (cacheName = cn)
+    (cn) => cn === cacheName || (fileCache = null) || (cacheName = cn)
   ).finally(() => cacheName), "getCacheName");
   addEventListener("fetch", async (_event) => {
     const event = _event;
     const request = event.request;
     const url = new URL(request.url);
     return event.respondWith((async () => {
-      let myCache = url.pathname.includes("npm:/v9") || url.pathname.includes("npm:/v1") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? chunkCache = chunkCache || await caches.open("chunks") : cache2 = cache2 || await caches.open(cacheName || await getCacheName() && cacheName);
+      let myCache = url.pathname.includes("npm:/v9") || url.pathname.includes("npm:/v1") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? chunkCache = chunkCache || await caches.open("chunks") : fileCache = fileCache || await caches.open("files");
       if (Date.now() - lastChecked > 1e4) {
         lastChecked = Date.now();
         getCacheName();
       }
-      const cacheKey = new Request(request.url);
+      const cacheKey = new Request(request.url + (fileCache === myCache ? "?files=" + cacheName : ""));
       const cachedResp = await myCache.match(cacheKey);
       if (cachedResp)
         return cachedResp.clone();
