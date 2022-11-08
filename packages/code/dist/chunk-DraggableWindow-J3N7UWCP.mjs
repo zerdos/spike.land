@@ -18,7 +18,7 @@ import {
 } from "./chunk-chunk-W2EEQE43.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-RUYN62OZ.mjs";
+} from "./chunk-chunk-DCRWMBGJ.mjs";
 import "./chunk-chunk-6PO2TCK2.mjs";
 import "./chunk-chunk-5L5QDEBB.mjs";
 import {
@@ -243,7 +243,7 @@ var DraggableWindow = ({
                       },
                       "data-test-id": "z-body",
                       css: css`
-                  overflow: scroll;
+                  overflow: auto;
                   ${mstCss.split("body").join("#root-" + room)}
                 
               `,

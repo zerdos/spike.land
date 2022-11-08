@@ -263,7 +263,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     }}
                     data-test-id="z-body"
                     css={css`
-                  overflow: scroll;
+                  overflow: auto;
                   ${mstCss.split("body").join("#root-" + room)}
                 
               `}
