@@ -29,7 +29,9 @@ addEventListener("fetch", async (_event) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     let myCache = url.pathname.includes("npm:/v9") || url.pathname.includes("npm:/v1")
       ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
-      : cache || await caches.open(cacheName || await getCacheName() && cacheName);
+      : url.pathname.includes("chunk-")
+      ? (cache || await caches.open("chunks" || await getCacheName() && cacheName))
+      : (cache || await caches.open(cacheName || await getCacheName() && cacheName));
     cache = myCache;
 
     if (Date.now() - lastChecked > 10_000) {
