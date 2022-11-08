@@ -20629,6 +20629,7 @@ var importIt = async (url) => {
     try {
       try {
         mod4 = await importShim(url);
+        mod4.url = url;
         return mod4;
       } catch {
         try {
@@ -20653,6 +20654,7 @@ var importIt = async (url) => {
               console.error("something went nuts");
               return;
             }
+            mod4.url = url;
             return mod4;
           }
         } catch (err) {
@@ -20677,6 +20679,7 @@ var starterI = 1 * document.getElementById("root").getAttribute(
 function AutoUpdateApp({ codeSpace }) {
   const [{ App, i }, setApps] = useState({
     i: starterI,
+    url: `${location.origin}/live/${codeSpace}/index.js/${starterI}`,
     App: lazy(
       () => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async (m) => {
         setApps((x) => ({ ...x, i: x.i + 1 }));
@@ -20687,7 +20690,8 @@ function AutoUpdateApp({ codeSpace }) {
   useEffect(() => {
     (async () => {
       const mod4 = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
-      setApps((x) => ({ ...x, i: x.i + 1, App: lazy(async () => mod4) }));
+      const urlCounter = mod4.url.split("/").pop() * 1;
+      setApps((x) => ({ ...x, i: (urlCounter || x.i) + 1, url: mod4.url, App: mod4.default }));
     })();
   }, [i, setApps]);
   return jsx(import_react_error_boundary.ErrorBoundary, {
