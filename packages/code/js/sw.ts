@@ -27,7 +27,7 @@ addEventListener("fetch", async (_event) => {
 
   return event.respondWith((async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    let myCache = url.pathname.includes("npm:")
+    let myCache = url.pathname.includes("npm:/v9") || url.pathname.includes("npm:/v1")
       ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
       : cache || await caches.open(cacheName || await getCacheName() && cacheName);
     cache = myCache;
