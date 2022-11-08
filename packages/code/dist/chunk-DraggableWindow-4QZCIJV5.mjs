@@ -18,7 +18,7 @@ import {
 } from "./chunk-chunk-W2EEQE43.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-66GSTGWA.mjs";
+} from "./chunk-chunk-VRM5TOKZ.mjs";
 import "./chunk-chunk-6PO2TCK2.mjs";
 import "./chunk-chunk-5L5QDEBB.mjs";
 import {
@@ -159,7 +159,7 @@ var DraggableWindow = ({
             borderRadius: 16
           },
           css: css`
-            ${mstCss.split("body").join(" ")}
+            ${mstCss.split("body").join("#fakeBody")}
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, 0.3)};
             backdrop-filter: blur(15px);
@@ -175,161 +175,164 @@ var DraggableWindow = ({
             bottom: innerHeight
           },
           dragElastic: 0.5,
-          children: jsxs("div", {
-            style: { display: "flex" },
-            children: [
-              jsxs("div", {
-                style: {
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center"
-                },
-                children: [
-                  jsx(m.div, {
-                    css: css`
+          children: jsx("div", {
+            id: "fakeBody",
+            children: jsxs("div", {
+              style: { display: "flex" },
+              children: [
+                jsxs("div", {
+                  style: {
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center"
+                  },
+                  children: [
+                    jsx(m.div, {
+                      css: css`
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`,
-                    initial: { height: "0px", width: "0", opacity: 0 },
-                    animate: {
-                      height: "42px",
-                      width: "100%",
-                      opacity: 1
-                    },
-                    children: jsx(ToggleButtonGroup, {
-                      value: scaleRange,
-                      size: "small",
-                      exclusive: true,
-                      onChange: (_e, newScale) => {
-                        newScale && changeScaleRange(newScale);
+                      initial: { height: "0px", width: "0", opacity: 0 },
+                      animate: {
+                        height: "42px",
+                        width: "100%",
+                        opacity: 1
                       },
-                      children: sizes.map((size, ind) => jsx(ToggleButton, {
-                        value: size,
-                        children: jsxs("span", {
-                          css: css`
+                      children: jsx(ToggleButtonGroup, {
+                        value: scaleRange,
+                        size: "small",
+                        exclusive: true,
+                        onChange: (_e, newScale) => {
+                          newScale && changeScaleRange(newScale);
+                        },
+                        children: sizes.map((size, ind) => jsx(ToggleButton, {
+                          value: size,
+                          children: jsxs("span", {
+                            css: css`
                        color: ${size === scaleRange ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                        `,
-                          children: [
-                            size,
-                            "%"
-                          ]
-                        })
-                      }, ind))
-                    })
-                  }),
-                  jsx(m.div, {
-                    initial: {
-                      width: window.innerWidth,
-                      height: window.innerHeight,
-                      borderRadius: 0
-                    },
-                    animate: {
-                      width: width * scale / devicePixelRatio,
-                      height: height * scale / devicePixelRatio,
-                      borderRadius: 8
-                    },
-                    children: jsx(m.div, {
+                            children: [
+                              size,
+                              "%"
+                            ]
+                          })
+                        }, ind))
+                      })
+                    }),
+                    jsx(m.div, {
                       initial: {
                         width: window.innerWidth,
                         height: window.innerHeight,
-                        backgroundColor: rgba(r, g, b, 0),
-                        scale: 1
+                        borderRadius: 0
                       },
                       animate: {
-                        backgroundColor: rgba(r, g, b, 0.7),
-                        transformOrigin: "0px 0px",
-                        width: width / devicePixelRatio,
-                        height: height / devicePixelRatio,
-                        scale: scaleRange / 100
+                        width: width * scale / devicePixelRatio,
+                        height: height * scale / devicePixelRatio,
+                        borderRadius: 8
                       },
-                      "data-test-id": "z-body",
-                      css: css`
+                      children: jsx(m.div, {
+                        initial: {
+                          width: window.innerWidth,
+                          height: window.innerHeight,
+                          backgroundColor: rgba(r, g, b, 0),
+                          scale: 1
+                        },
+                        animate: {
+                          backgroundColor: rgba(r, g, b, 0.7),
+                          transformOrigin: "0px 0px",
+                          width: width / devicePixelRatio,
+                          height: height / devicePixelRatio,
+                          scale: scaleRange / 100
+                        },
+                        "data-test-id": "z-body",
+                        css: css`
                   overflow: auto;    
               `,
-                      children
-                    })
-                  }),
-                  jsx(m.div, {
-                    css: css`
+                        children
+                      })
+                    }),
+                    jsx(m.div, {
+                      css: css`
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`,
-                    initial: { height: "0", width: "0", opacity: 0 },
-                    animate: {
-                      height: "42px",
-                      width: "100%",
-                      opacity: 1
-                    },
-                    children: jsx(ToggleButtonGroup, {
-                      value: width,
-                      size: "small",
-                      exclusive: true,
-                      onChange: (_e, newSize) => {
-                        if (newSize) {
-                          setHeight(
-                            breakPointHeights[breakPoints.indexOf(newSize)]
-                          );
-                          setWidth(newSize);
-                        }
+                      initial: { height: "0", width: "0", opacity: 0 },
+                      animate: {
+                        height: "42px",
+                        width: "100%",
+                        opacity: 1
                       },
-                      children: breakPoints.map((size, ind) => jsx(ToggleButton, {
-                        value: size,
-                        children: size === 680 ? jsx("span", {
-                          css: css`
+                      children: jsx(ToggleButtonGroup, {
+                        value: width,
+                        size: "small",
+                        exclusive: true,
+                        onChange: (_e, newSize) => {
+                          if (newSize) {
+                            setHeight(
+                              breakPointHeights[breakPoints.indexOf(newSize)]
+                            );
+                            setWidth(newSize);
+                          }
+                        },
+                        children: breakPoints.map((size, ind) => jsx(ToggleButton, {
+                          value: size,
+                          children: size === 680 ? jsx("span", {
+                            css: css`
                         color: ${width === 680 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                         `,
-                          children: jsx(Phone, {})
-                        }) : size === 768 ? jsx("span", {
-                          css: css`
+                            children: jsx(Phone, {})
+                          }) : size === 768 ? jsx("span", {
+                            css: css`
                         color: ${width === 768 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                         `,
-                          children: jsx(Tablet, {})
-                        }) : jsx("span", {
-                          css: css`
+                            children: jsx(Tablet, {})
+                          }) : jsx("span", {
+                            css: css`
                         color: ${width === 1920 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                       `,
-                          children: jsx(Tv, {})
-                        })
-                      }, ind))
+                            children: jsx(Tv, {})
+                          })
+                        }, ind))
+                      })
                     })
-                  })
-                ]
-              }),
-              jsx(m.div, {
-                initial: { height: 0, width: 0, opacity: 0 },
-                animate: { height: "100%", width: "88px", opacity: 1 },
-                children: jsxs("div", {
-                  css: css`
+                  ]
+                }),
+                jsx(m.div, {
+                  initial: { height: 0, width: 0, opacity: 0 },
+                  animate: { height: "100%", width: "88px", opacity: 1 },
+                  children: jsxs("div", {
+                    css: css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
               align-items: center;          
               flex-direction: column;
               `,
-                  children: [
-                    jsx(Fab, {
-                      onClick: () => {
-                        document.querySelector("#root")?.requestFullscreen();
-                      },
-                      children: jsx("span", {
-                        css: css`
+                    children: [
+                      jsx(Fab, {
+                        onClick: () => {
+                          document.querySelector("#root")?.requestFullscreen();
+                        },
+                        children: jsx("span", {
+                          css: css`
                 font-size: 20pt;
               `,
-                        children: jsx(MdFullscreen, {}, "fs")
-                      })
-                    }, "fullscreen"),
-                    jsx(QRButton, {
-                      url: location.origin + `/live/${room}/public`
-                    }),
-                    false,
-                    jsx(Fab, {
-                      onClick: () => open(`/live/${room}/public`),
-                      children: jsx(Share, {})
-                    }, "Share")
-                  ]
+                          children: jsx(MdFullscreen, {}, "fs")
+                        })
+                      }, "fullscreen"),
+                      jsx(QRButton, {
+                        url: location.origin + `/live/${room}/public`
+                      }),
+                      false,
+                      jsx(Fab, {
+                        onClick: () => open(`/live/${room}/public`),
+                        children: jsx(Share, {})
+                      }, "Share")
+                    ]
+                  })
                 })
-              })
-            ]
+              ]
+            })
           })
         })
       })
