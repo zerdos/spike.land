@@ -36,8 +36,19 @@ const user = md5(((self && self.crypto && self.crypto.randomUUID
 users.insert(user);
 const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection
 let bc: BroadcastChannel;
+
 let codeSpace: string;
 let _hash = "";
+
+const leftUser = {
+  id: null,
+  sendMessage: () => null,
+};
+
+const rightUser = {
+  id: null,
+  sendMessage: () => null,
+};
 
 // let address: string;
 let wsLastHashCode = "";
@@ -140,9 +151,21 @@ export const run = async (startState: {
 
   await join();
   bc = new BroadcastChannel(location.origin);
+  bc.postMessage({ user, type: "suggestNeighborsRequest" });
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
+    }
+
+    if (
+      event.data.user !== user
+      && event.data.type === "suggestNeighborsRequest"
+    ) {
+      const usernode = users.insert(user);
+
+      const left = mostRight(usernode.left).data;
+      const right = mostLeft(usernode.right).data;
+      bc.postMessage({ user, type: "suggestNeighborsResponse", left, right });
     }
 
     event.source?.postMessage("yooo");
@@ -957,4 +980,14 @@ export async function sw() {
   } catch {
     // console.//log("ipfs load error");
   }
+}
+
+function mostRight(node) {
+  if (node.right) return mostRight(node.right);
+  return node;
+}
+
+function mostLeft(node) {
+  if (node.left) return mostRight(node.left);
+  return node;
 }
