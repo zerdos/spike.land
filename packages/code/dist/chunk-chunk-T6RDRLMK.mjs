@@ -20625,11 +20625,12 @@ Object.assign(globalThis, { md5 });
 var importIt = async (url) => {
   let waitingTime = 100;
   let mod4;
+  let App;
   while (true) {
     try {
       try {
-        mod4 = await importShim(url);
-        return { mod: mod4, url };
+        App = (await importShim(url)).default;
+        return { App, url };
       } catch {
         try {
           let resp = await fetch(url);
@@ -20642,18 +20643,18 @@ var importIt = async (url) => {
           if (resp.ok) {
             const trp = await resp.text();
             try {
-              mod4 = await fetch(url.replace(".js", ".tsx")).then(
+              App = (await fetch(url.replace(".js", ".tsx")).then(
                 async (resp2) => resp2 && !resp2.ok ? false : await resp2.text().then(
                   (code) => esmTransform(code).then(
                     (transpiled) => importShim(createJsBlob(transpiled))
                   )
                 )
-              ) || new Function(trp + ` return ${trp.slice(2, 10)}`)();
+              ) || new Function(trp + ` return ${trp.slice(2, 10)}`)()).default;
             } catch {
               console.error("something went nuts");
               return;
             }
-            return { mod: mod4, utl };
+            return { App, url };
           }
         } catch (err) {
           console.error({ err });
@@ -20679,18 +20680,18 @@ function AutoUpdateApp({ codeSpace }) {
     i: starterI,
     url: `${location.origin}/live/${codeSpace}/index.js/${starterI}`,
     App: lazy(
-      () => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async ({ mod: mod4, url }) => {
+      () => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async ({ App: App2, url }) => {
         const urlCounter = url.split("/").pop() * 1;
-        setApps((x) => ({ ...x, url, App: mod4.default, i: (urlCounter || x.i) + 1 }));
-        return mod4;
+        setApps((x) => ({ ...x, url, App: App2, i: (urlCounter || x.i) + 1 }));
+        return { default: App2 };
       })
     )
   });
   useEffect(() => {
     (async () => {
-      const { url, mod: mod4 } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
+      const { url, App: App2 } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
       const urlCounter = url.split("/").pop() * 1;
-      setApps((x) => ({ ...x, i: (urlCounter || x.i) + 1, url: mod4.url, App: mod4.default }));
+      setApps((x) => ({ ...x, i: (urlCounter || x.i) + 1, url, App: App2 }));
     })();
   }, [i, setApps, App]);
   return jsx(import_react_error_boundary.ErrorBoundary, {
