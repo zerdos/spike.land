@@ -20629,8 +20629,7 @@ var importIt = async (url) => {
     try {
       try {
         mod4 = await importShim(url);
-        mod4.url = url;
-        return mod4;
+        return { mod: mod4, url };
       } catch {
         try {
           let resp = await fetch(url);
@@ -20654,8 +20653,7 @@ var importIt = async (url) => {
               console.error("something went nuts");
               return;
             }
-            mod4.url = url;
-            return mod4;
+            return { mod: mod4, utl };
           }
         } catch (err) {
           console.error({ err });
@@ -20681,19 +20679,20 @@ function AutoUpdateApp({ codeSpace }) {
     i: starterI,
     url: `${location.origin}/live/${codeSpace}/index.js/${starterI}`,
     App: lazy(
-      () => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async (m) => {
-        setApps((x) => ({ ...x, i: x.i + 1 }));
-        return m;
+      () => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async ({ mod: mod4, url }) => {
+        const urlCounter = url.split("/").pop() * 1;
+        setApps((x) => ({ ...x, url, App: mod4.default, i: (urlCounter || x.i) + 1 }));
+        return mod4;
       })
     )
   });
   useEffect(() => {
     (async () => {
-      const mod4 = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
-      const urlCounter = mod4.url.split("/").pop() * 1;
+      const { url, mod: mod4 } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
+      const urlCounter = url.split("/").pop() * 1;
       setApps((x) => ({ ...x, i: (urlCounter || x.i) + 1, url: mod4.url, App: mod4.default }));
     })();
-  }, [i, setApps]);
+  }, [i, setApps, App]);
   return jsx(import_react_error_boundary.ErrorBoundary, {
     fallbackRender: ({ error }) => jsxs("div", {
       role: "alert",
