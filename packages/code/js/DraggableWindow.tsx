@@ -167,6 +167,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               borderRadius: 16,
             }}
             css={css`
+            ${mstCss.split("body").join(" ")}
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, .3)};
             backdrop-filter: blur(15px);
@@ -263,9 +264,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     }}
                     data-test-id="z-body"
                     css={css`
-                  overflow: auto;
-                  ${mstCss.split("body").join("#root-" + room)}
-                
+                  overflow: auto;    
               `}
                   >
                     {children}

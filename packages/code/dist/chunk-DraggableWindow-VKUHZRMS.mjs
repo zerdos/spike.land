@@ -18,7 +18,7 @@ import {
 } from "./chunk-chunk-W2EEQE43.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-DCRWMBGJ.mjs";
+} from "./chunk-chunk-66GSTGWA.mjs";
 import "./chunk-chunk-6PO2TCK2.mjs";
 import "./chunk-chunk-5L5QDEBB.mjs";
 import {
@@ -159,6 +159,7 @@ var DraggableWindow = ({
             borderRadius: 16
           },
           css: css`
+            ${mstCss.split("body").join(" ")}
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, 0.3)};
             backdrop-filter: blur(15px);
@@ -243,9 +244,7 @@ var DraggableWindow = ({
                       },
                       "data-test-id": "z-body",
                       css: css`
-                  overflow: auto;
-                  ${mstCss.split("body").join("#root-" + room)}
-                
+                  overflow: auto;    
               `,
                       children
                     })
