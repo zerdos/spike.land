@@ -156,6 +156,7 @@
   // js/sw.ts
   var lastChecked = 0;
   var npmCache;
+  var chunkCache;
   var cache2;
   var cacheName = "default";
   var getCacheName = /* @__PURE__ */ __name(() => fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => md5(content)).then(
@@ -166,7 +167,7 @@
     const request = event.request;
     const url = new URL(request.url);
     return event.respondWith((async () => {
-      let myCache = url.pathname.includes("npm:/v9") || url.pathname.includes("npm:/v1") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? cache2 || await caches.open("chunks") : cache2 || await caches.open(cacheName || await getCacheName() && cacheName);
+      let myCache = url.pathname.includes("npm:/v9") || url.pathname.includes("npm:/v1") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? chunkCache = chunkCache || await caches.open("chunks") : cache2 || await caches.open(cacheName || await getCacheName() && cacheName);
       cache2 = myCache;
       if (Date.now() - lastChecked > 1e4) {
         lastChecked = Date.now();
