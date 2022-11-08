@@ -20676,9 +20676,9 @@ var starterI = 1 * document.getElementById("root").getAttribute(
 );
 function AutoUpdateApp({ codeSpace }) {
   const [{ App, i }, setApps] = useState({
-    i: starterI - 1,
+    i: starterI,
     App: lazy(
-      () => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI - 1}`).then((m) => {
+      () => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then((m) => {
         setApps((x) => ({ ...x, i: x.i + 1 }));
         return m;
       })
