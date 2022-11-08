@@ -238,6 +238,8 @@ const build = (
 
   await build(["js/react-jsx-runtime.ts"], [], false, "iife");
 
+  await build(["js/mWorker.mjs"], [], false, "iife");
+
   await build([
     "js/load.ts",
   ], ["./react-jsx-runtime.mjs"]);

@@ -1,10 +1,8 @@
 import {
-  Editor
-} from "./chunk-chunk-JJTHS2MC.mjs";
-import {
   AutoUpdateApp,
+  Editor,
   wait
-} from "./chunk-chunk-AFDFR6UQ.mjs";
+} from "./chunk-chunk-6PO2TCK2.mjs";
 import {
   applyPatch,
   hashCode,
@@ -3462,7 +3460,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-YIXJ5IUT.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-DZCWRPS5.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
