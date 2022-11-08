@@ -150,6 +150,7 @@ export const run = async (startState: {
   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
   await join();
+  console.log("broadcastChannel");
   bc = new BroadcastChannel(location.origin);
   bc.postMessage({ user, type: "suggestNeighborsRequest" });
   bc.onmessage = async (event) => {
@@ -161,10 +162,12 @@ export const run = async (startState: {
       event.data.user !== user
       && event.data.type === "suggestNeighborsRequest"
     ) {
+      console.log("suggestNeighborsRequest");
       const usernode = users.insert(user);
 
       const left = mostRight(usernode.left).data;
       const right = mostLeft(usernode.right).data;
+      console.log({ user, type: "suggestNeighborsResponse", left, right });
       bc.postMessage({ user, type: "suggestNeighborsResponse", left, right });
     }
 

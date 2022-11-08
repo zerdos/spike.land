@@ -3460,7 +3460,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-5NHOZP6Y.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-AC2C2EJH.mjs")));
 var RainbowContainer = ({ children }) => jsxs("div", {
   children: [
     !mST().css.includes("body{") ? jsx(Global, {
@@ -4033,6 +4033,7 @@ var run = async (startState) => {
   }, location.origin);
   renderPreviewWindow({ codeSpace, dry: !!dry });
   await join();
+  console.log("broadcastChannel");
   bc = new BroadcastChannel(location.origin);
   bc.postMessage({ user, type: "suggestNeighborsRequest" });
   bc.onmessage = async (event) => {
@@ -4040,9 +4041,11 @@ var run = async (startState) => {
       return;
     }
     if (event.data.user !== user && event.data.type === "suggestNeighborsRequest") {
+      console.log("suggestNeighborsRequest");
       const usernode = users.insert(user);
       const left = mostRight(usernode.left).data;
       const right = mostLeft(usernode.right).data;
+      console.log({ user, type: "suggestNeighborsResponse", left, right });
       bc.postMessage({ user, type: "suggestNeighborsResponse", left, right });
     }
     event.source?.postMessage("yooo");
