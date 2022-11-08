@@ -51,8 +51,8 @@ export const importIt = async (url: string) => {
     try {
       try {
         mod = await importShim(url);
-        mod.url = url;
-        return mod;
+
+        return { mod, url };
       } catch {
         try {
           let resp = await fetch(url);
@@ -79,8 +79,7 @@ export const importIt = async (url: string) => {
               return;
             }
 
-            mod.url = url;
-            return mod;
+            return { mod, utl };
           }
         } catch (err) {
           console.error({ err });
@@ -122,22 +121,24 @@ export function AutoUpdateApp(
     i: starterI,
     url: `${location.origin}/live/${codeSpace}/index.js/${starterI}`,
     App: lazy(() =>
-      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async (m) => {
-        setApps(x => ({ ...x, i: x.i + 1 }));
-        return m;
+      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async ({ mod, url }) => {
+        const urlCounter = url.split("/").pop() * 1;
+
+        setApps(x => ({ ...x, url, App: mod.default, i: (urlCounter || x.i) + 1 }));
+        return mod;
       })
     ),
   });
 
   useEffect(() => {
     (async () => {
-      const mod = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
+      const { url, mod } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
 
-      const urlCounter = mod.url.split("/").pop() * 1;
+      const urlCounter = url.split("/").pop() * 1;
 
       setApps(x => ({ ...x, i: (urlCounter || x.i) + 1, url: mod.url, App: mod.default }));
     })();
-  }, [i, setApps]);
+  }, [i, setApps, App]);
 
   return (
     <ErrorBoundary
