@@ -162,13 +162,12 @@ export const run = async (startState: {
       event.data.user !== user
       && event.data.type === "suggestNeighborsRequest"
     ) {
-      console.log("suggestNeighborsRequest");
-      const usernode = users.insert(user);
+      // console.log("suggestNeighborsRequest");
+      // const usernode = users.insert(user);
 
-      const left = mostRight(usernode.left).data;
-      const right = mostLeft(usernode.right).data;
-      console.log({ user, type: "suggestNeighborsResponse", left, right });
-      bc.postMessage({ user, type: "suggestNeighborsResponse", left, right });
+      // const left =user
+      // console.log({ user, type: "suggestNeighborsResponse", left, right });
+      // bc.postMessage({ user, type: "suggestNeighborsResponse", left, right });
     }
 
     event.source?.postMessage("yooo");
