@@ -1,143 +1,239 @@
 import type { languages, Uri } from "monaco-editor";
+import { createJsBlob } from "starter";
 
-export function extraStuff(
+export const extraStuff = (
   code: string,
   uri: Uri,
   getTsWorker: () => Promise<(...uris: Uri[]) => Promise<languages.typescript.TypeScriptWorker>>,
   addExtraLib: (content: string, filePath: string) => void,
   setExtraLibs: (extraLibs: any) => void,
-) {
-  const extraModelCache: { [key: string]: string } = {};
-  const extraModels: { [key: string]: string[] } = {};
+) => {
+  Object.assign(globalThis, {
+    extraStuff2: {
+      code,
+      uri,
+      getTsWorker,
+      addExtraLib,
+      setExtraLibs,
+      extraStuffFn,
+    },
+  });
 
-  Object.assign(globalThis, { extraModels, extraModelCache });
+  return new Worker(createJsBlob(
+    `
+const ext = globalThis.extraStuff2;
+const {extraStuffFn, code,
+  uri,
+  getTsWorker,
+   addExtraLib,
+    setExtraLibs} = ext;
+extraStuffFn(  code,
+  uri,
+  getTsWorker,
+   addExtraLib,
+    setExtraLibs
+`,
+    "monacoExtra.js",
+  ));
 
-  const addExtraModels = async (code: string, url: string) => {
-    try {
-      if (extraModels[url]) return;
-      extraModels[url] = [];
+  function extraStuffFn(
+    code: string,
+    uri: Uri,
+    getTsWorker: () => Promise<(...uris: Uri[]) => Promise<languages.typescript.TypeScriptWorker>>,
+    addExtraLib: (content: string, filePath: string) => void,
+    setExtraLibs: (extraLibs: any) => void,
+  ) {
+    const extraModelCache: { [key: string]: string } = {};
+    const extraModels: { [key: string]: string[] } = {};
 
-      // languages.typescript.typescriptDefaults.addExtraLib(
-      //   url,
-      //   code,
-      // );
+    Object.assign(globalThis, { extraModels, extraModelCache });
 
-      const baSe = (new URL(".", url)).toString();
-      const parent = (new URL("..", url)).toString();
-      const gParent = (new URL("../..", url)).toString();
+    const addExtraModels = async (code: string, url: string) => {
+      try {
+        if (extraModels[url]) return;
+        extraModels[url] = [];
 
-      let replaced = removeComments(code);
-      replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
-      replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
-      replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
-      replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
-      replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
-      replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
-      extraModelCache[url] = replaced;
+        // languages.typescript.typescriptDefaults.addExtraLib(
+        //   url,
+        //   code,
+        // );
 
-      const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
+        const baSe = (new URL(".", url)).toString();
+        const parent = (new URL("..", url)).toString();
+        const gParent = (new URL("../..", url)).toString();
 
-      const models = replaced.matchAll(regex);
-      // Console.log("load more models", replaced, models);
+        let replaced = removeComments(code);
+        replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
+        replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
+        replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
+        replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
+        replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
+        replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
+        extraModelCache[url] = replaced;
 
-      for (const match of models) {
-        //    console.log("***** EXTRA MODELS *****");
+        const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
 
-        //    console.log("***** EXTRA MODELS *****");
-        try {
-          const dts = match[0].indexOf(".d.ts");
-          if (!match[0].includes("spike.land")) continue;
-          if (dts === -1) continue;
+        const models = replaced.matchAll(regex);
+        // Console.log("load more models", replaced, models);
 
-          const extraModel = match[0].slice(0, dts + 5); // (new URL(match[0].slice(7).slice(0, -1)))
-          //            .toString();
-          if (extraModels[url].includes(extraModel)) continue;
+        for (const match of models) {
+          //    console.log("***** EXTRA MODELS *****");
 
-          extraModels[url].push(extraModel);
+          //    console.log("***** EXTRA MODELS *****");
+          try {
+            const dts = match[0].indexOf(".d.ts");
+            if (!match[0].includes("spike.land")) continue;
+            if (dts === -1) continue;
 
-          if (extraModels[extraModel]) continue;
+            const extraModel = match[0].slice(0, dts + 5); // (new URL(match[0].slice(7).slice(0, -1)))
+            //            .toString();
+            if (extraModels[url].includes(extraModel)) continue;
 
-          if (extraModelCache[extraModel]) continue;
+            extraModels[url].push(extraModel);
 
-          let extraModelUrl = extraModel;
+            if (extraModels[extraModel]) continue;
 
-          const extraModelContent = await fetch(extraModel).then((resp) =>
-            resp.status === 307 ? fetch(resp.headers.get("location")!) : resp
-          ).then((res) => {
-            extraModelUrl = res.url;
-            return res.text();
-          });
+            if (extraModelCache[extraModel]) continue;
 
-          if (extraModelUrl !== extraModel) {
-            extraModelCache[url] = replaceAll(
-              extraModelCache[url],
-              extraModel,
-              extraModelUrl,
-            );
-          }
-          extraModelCache[extraModelUrl] = extraModelContent;
+            let extraModelUrl = extraModel;
 
-          await addExtraModels(extraModelCache[extraModel], extraModel);
-        } catch (err) {
-          console.error("Error in add extra models", code, url, { err });
-        }
-      }
-    } catch {
-      console.log("error in extra lib  mining", url);
-      return;
-    }
-  };
-  const replaceMaps: { [key: string]: string } = {};
-  const ATA = async () => {
-    console.log("ATA");
-    const mappings = (await Promise.all(
-      (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(uri.toString())).map((x) => {
-        //   console.log(x.messageText);
-        return x.messageText;
-      }).filter((x) =>
-        typeof x === "string"
-        && x.includes(" or its corresponding type declarations.")
-      )
-        .map((x) => typeof x === "string" && x.split!("'")[1]).map(
-          async (mod) => {
-            const retMod = { url: "", mod: mod, content: "" };
-            if (mod && mod.startsWith("https://")) {
-              return retMod;
+            const extraModelContent = await fetch(extraModel).then((resp) =>
+              resp.status === 307 ? fetch(resp.headers.get("location")!) : resp
+            ).then((res) => {
+              extraModelUrl = res.url;
+              return res.text();
+            });
+
+            if (extraModelUrl !== extraModel) {
+              extraModelCache[url] = replaceAll(
+                extraModelCache[url],
+                extraModel,
+                extraModelUrl,
+              );
             }
+            extraModelCache[extraModelUrl] = extraModelContent;
 
-            retMod.content = (await fetch("/npm:/" + mod).then((resp) =>
-              resp.status === 307
-                ? fetch(resp.headers.get("location")!)
-                : resp
-            ).then((x) => {
-              retMod.url = x.headers.get("x-dts")!;
-              console.log(retMod.url);
-              return fetch(retMod.url).then((resp) =>
-                resp.status === 307 || resp.redirected
-                  ? fetch(retMod.url = resp.url)
+            await addExtraModels(extraModelCache[extraModel], extraModel);
+          } catch (err) {
+            console.error("Error in add extra models", code, url, { err });
+          }
+        }
+      } catch {
+        console.log("error in extra lib  mining", url);
+        return;
+      }
+    };
+    const replaceMaps: { [key: string]: string } = {};
+    const ATA = async () => {
+      console.log("ATA");
+      const mappings = (await Promise.all(
+        (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(uri.toString())).map((x) => {
+          //   console.log(x.messageText);
+          return x.messageText;
+        }).filter((x) =>
+          typeof x === "string"
+          && x.includes(" or its corresponding type declarations.")
+        )
+          .map((x) => typeof x === "string" && x.split!("'")[1]).map(
+            async (mod) => {
+              const retMod = { url: "", mod: mod, content: "" };
+              if (mod && mod.startsWith("https://")) {
+                return retMod;
+              }
+
+              retMod.content = (await fetch("/npm:/" + mod).then((resp) =>
+                resp.status === 307
+                  ? fetch(resp.headers.get("location")!)
                   : resp
-              ).then((resp) => resp.text());
-            }).catch(() => "")) || "";
+              ).then((x) => {
+                retMod.url = x.headers.get("x-dts")!;
+                console.log(retMod.url);
+                return fetch(retMod.url).then((resp) =>
+                  resp.status === 307 || resp.redirected
+                    ? fetch(retMod.url = resp.url)
+                    : resp
+                ).then((resp) => resp.text());
+              }).catch(() => "")) || "";
 
-            return retMod;
-          },
-        ),
-    )).filter((m) => m.mod && m.content).map(async (m) => {
-      console.log(`Aga-Insert: ${m.mod}`);
+              return retMod;
+            },
+          ),
+      )).filter((m) => m.mod && m.content).map(async (m) => {
+        console.log(`Aga-Insert: ${m.mod}`);
 
-      await addExtraModels(
-        m.content,
-        m.url,
+        await addExtraModels(
+          m.content,
+          m.url,
+        );
+        return {
+          [location.origin + `/node_modules/${m.mod}/index.d.ts`]: m.url,
+        };
+      });
+
+      const maps = await Promise.all(mappings);
+      maps.forEach((m) => Object.assign(replaceMaps, m));
+
+      console.log({ replaceMaps });
+
+      const extraLib = xxxsetExtraLibs();
+      extraLib.map((lib) => {
+        addExtraLib(
+          lib.content,
+          lib.filePath,
+        );
+        // bc.postMessage({ ...lib, type: "set-mock" });
+      });
+
+      //   const libs = languages.typescript.typescriptDefaults.getExtraLibs();
+
+      //   const extraLibsForSave = Object.keys(libs).map((lib) => ({
+      //     filePath: lib,
+      //     content: libs[lib].content,
+      //   }));
+
+      // localStorage
+      //   && localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
+    };
+
+    const xxxsetExtraLibs = () => {
+      replaceMaps["/node_modules/"] = "/npm:/v96/";
+
+      const versionNumbers = /@\d+.\d+.\d+/gm;
+
+      const types = /\/types\//gm;
+
+      const extraLibs = Object.keys(extraModelCache).map((filePath) => {
+        const url = replaceMappings(filePath, replaceMaps).replaceAll(
+          versionNumbers,
+          ``,
+        ).replaceAll(types, `/`);
+
+        const fileDir = (new URL(".", url)).toString();
+
+        const content = replaceMappings(extraModelCache[filePath], replaceMaps)
+          .replaceAll(versionNumbers, ``).replaceAll(types, `/`);
+
+        const fileDirRemoved = replaceAll(content, fileDir, "./");
+        const linksRemoved = replaceAll(
+          fileDirRemoved,
+          location.origin + "/node_modules/",
+          "",
+        );
+        const indexDtsRemoved = replaceAll(linksRemoved, "/index.d.ts", "");
+        const dtsRemoved = replaceAll(indexDtsRemoved, ".d.ts", "");
+
+        return {
+          filePath: url,
+          content: dtsRemoved,
+        };
+      });
+      console.log({ extraLibs });
+
+      setExtraLibs(
+        extraLibs,
       );
-      return {
-        [location.origin + `/node_modules/${m.mod}/index.d.ts`]: m.url,
-      };
-    });
-
-    const maps = await Promise.all(mappings);
-    maps.forEach((m) => Object.assign(replaceMaps, m));
-
-    console.log({ replaceMaps });
+      return extraLibs;
+    };
 
     const extraLib = xxxsetExtraLibs();
     extraLib.map((lib) => {
@@ -145,99 +241,40 @@ export function extraStuff(
         lib.content,
         lib.filePath,
       );
-      // bc.postMessage({ ...lib, type: "set-mock" });
     });
 
-    //   const libs = languages.typescript.typescriptDefaults.getExtraLibs();
+    const mod = {
+      //   editor,
+      ATA,
+      //   languages,
+      silent: false,
+      code,
+      //   tsWorker: (await getTsWorker()(uri) .catch((e) => ({
+      //       getSemanticDiagnostics: async () => [{ messageText: JSON.stringify({ e }) }],
+      //     })),
+    };
 
-    //   const extraLibsForSave = Object.keys(libs).map((lib) => ({
-    //     filePath: lib,
-    //     content: libs[lib].content,
-    //   }));
+    setTimeout(() => mod.ATA(), 2000);
+  }
 
-    // localStorage
-    //   && localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
-  };
+  function replaceAll(input: string, search: string, replace: string) {
+    return input.split(search).join(replace);
+  }
 
-  const xxxsetExtraLibs = () => {
-    replaceMaps["/node_modules/"] = "/npm:/v96/";
+  function replaceMappings(input: string, maps: { [key: string]: string }) {
+    let result = input;
+    Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
+    return result;
+  }
 
-    const versionNumbers = /@\d+.\d+.\d+/gm;
+  function removeComments(str: string) {
+    const regex = /\/\*.*?\*\//gi;
 
-    const types = /\/types\//gm;
-
-    const extraLibs = Object.keys(extraModelCache).map((filePath) => {
-      const url = replaceMappings(filePath, replaceMaps).replaceAll(
-        versionNumbers,
-        ``,
-      ).replaceAll(types, `/`);
-
-      const fileDir = (new URL(".", url)).toString();
-
-      const content = replaceMappings(extraModelCache[filePath], replaceMaps)
-        .replaceAll(versionNumbers, ``).replaceAll(types, `/`);
-
-      const fileDirRemoved = replaceAll(content, fileDir, "./");
-      const linksRemoved = replaceAll(
-        fileDirRemoved,
-        location.origin + "/node_modules/",
-        "",
-      );
-      const indexDtsRemoved = replaceAll(linksRemoved, "/index.d.ts", "");
-      const dtsRemoved = replaceAll(indexDtsRemoved, ".d.ts", "");
-
-      return {
-        filePath: url,
-        content: dtsRemoved,
-      };
-    });
-    console.log({ extraLibs });
-
-    setExtraLibs(
-      extraLibs,
-    );
-    return extraLibs;
-  };
-
-  const extraLib = xxxsetExtraLibs();
-  extraLib.map((lib) => {
-    addExtraLib(
-      lib.content,
-      lib.filePath,
-    );
-  });
-
-  const mod = {
-    //   editor,
-    ATA,
-    //   languages,
-    silent: false,
-    code,
-    //   tsWorker: (await getTsWorker()(uri) .catch((e) => ({
-    //       getSemanticDiagnostics: async () => [{ messageText: JSON.stringify({ e }) }],
-    //     })),
-  };
-
-  setTimeout(() => mod.ATA(), 2000);
-}
-
-function replaceAll(input: string, search: string, replace: string) {
-  return input.split(search).join(replace);
-}
-
-function replaceMappings(input: string, maps: { [key: string]: string }) {
-  let result = input;
-  Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
-  return result;
-}
-
-function removeComments(str: string) {
-  const regex = /\/\*.*?\*\//gi;
-
-  // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
-  /\/\*.*?\*\//gi;
-  // Takes a string of code, not an actual function.
-  return str.replaceAll(regex, ``).split(`\n`).filter((x) =>
-    x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
-  ).join(`\n`);
-}
+    // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
+    /\/\*.*?\*\//gi;
+    // Takes a string of code, not an actual function.
+    return str.replaceAll(regex, ``).split(`\n`).filter((x) =>
+      x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
+    ).join(`\n`);
+  }
+};

@@ -569,6 +569,16 @@ import {
   withNullAsUndefined
 } from "./chunk-chunk-B36LW6WR.mjs";
 import {
+  createJsBlob
+} from "./chunk-chunk-AFDFR6UQ.mjs";
+import "./chunk-chunk-5L5QDEBB.mjs";
+import "./chunk-chunk-AUL7LWHA.mjs";
+import "./chunk-chunk-ADALEOZA.mjs";
+import "./chunk-chunk-HS3IGWOP.mjs";
+import "./chunk-chunk-2RHEIFZB.mjs";
+import "./chunk-chunk-334XPUVR.mjs";
+import "./chunk-chunk-AZHCEBCB.mjs";
+import {
   __commonJS,
   __esm,
   __toESM,
@@ -41990,176 +42000,204 @@ registerLanguage({
 
 // js/monacoExtra.ts
 init_define_process();
-function extraStuff(code, uri, getTsWorker, addExtraLib, setExtraLibs) {
-  const extraModelCache = {};
-  const extraModels = {};
-  Object.assign(globalThis, { extraModels, extraModelCache });
-  const addExtraModels = async (code2, url) => {
-    try {
-      if (extraModels[url])
-        return;
-      extraModels[url] = [];
-      const baSe = new URL(".", url).toString();
-      const parent = new URL("..", url).toString();
-      const gParent = new URL("../..", url).toString();
-      let replaced = removeComments(code2);
-      replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
-      replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
-      replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
-      replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
-      replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
-      replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
-      extraModelCache[url] = replaced;
-      const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
-      const models = replaced.matchAll(regex);
-      for (const match of models) {
-        try {
-          const dts = match[0].indexOf(".d.ts");
-          if (!match[0].includes("spike.land"))
-            continue;
-          if (dts === -1)
-            continue;
-          const extraModel = match[0].slice(0, dts + 5);
-          if (extraModels[url].includes(extraModel))
-            continue;
-          extraModels[url].push(extraModel);
-          if (extraModels[extraModel])
-            continue;
-          if (extraModelCache[extraModel])
-            continue;
-          let extraModelUrl = extraModel;
-          const extraModelContent = await fetch(extraModel).then(
-            (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
-          ).then((res) => {
-            extraModelUrl = res.url;
-            return res.text();
-          });
-          if (extraModelUrl !== extraModel) {
-            extraModelCache[url] = replaceAll(
-              extraModelCache[url],
-              extraModel,
-              extraModelUrl
-            );
-          }
-          extraModelCache[extraModelUrl] = extraModelContent;
-          await addExtraModels(extraModelCache[extraModel], extraModel);
-        } catch (err) {
-          console.error("Error in add extra models", code2, url, { err });
-        }
-      }
-    } catch {
-      console.log("error in extra lib  mining", url);
-      return;
+var extraStuff = (code, uri, getTsWorker, addExtraLib, setExtraLibs) => {
+  Object.assign(globalThis, {
+    extraStuff2: {
+      code,
+      uri,
+      getTsWorker,
+      addExtraLib,
+      setExtraLibs,
+      extraStuffFn
     }
-  };
-  const replaceMaps = {};
-  const ATA = async () => {
-    console.log("ATA");
-    const mappings = (await Promise.all(
-      (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(uri.toString())).map((x) => {
-        return x.messageText;
-      }).filter(
-        (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")
-      ).map((x) => typeof x === "string" && x.split("'")[1]).map(
-        async (mod3) => {
-          const retMod = { url: "", mod: mod3, content: "" };
-          if (mod3 && mod3.startsWith("https://")) {
+  });
+  return new Worker(createJsBlob(
+    `
+const ext = globalThis.extraStuff2;
+const {extraStuffFn, code,
+  uri,
+  getTsWorker,
+   addExtraLib,
+    setExtraLibs} = ext;
+extraStuffFn(  code,
+  uri,
+  getTsWorker,
+   addExtraLib,
+    setExtraLibs
+`,
+    "monacoExtra.js"
+  ));
+  function extraStuffFn(code2, uri2, getTsWorker2, addExtraLib2, setExtraLibs2) {
+    const extraModelCache = {};
+    const extraModels = {};
+    Object.assign(globalThis, { extraModels, extraModelCache });
+    const addExtraModels = async (code3, url) => {
+      try {
+        if (extraModels[url])
+          return;
+        extraModels[url] = [];
+        const baSe = new URL(".", url).toString();
+        const parent = new URL("..", url).toString();
+        const gParent = new URL("../..", url).toString();
+        let replaced = removeComments(code3);
+        replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
+        replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
+        replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
+        replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
+        replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
+        replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
+        extraModelCache[url] = replaced;
+        const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
+        const models = replaced.matchAll(regex);
+        for (const match of models) {
+          try {
+            const dts = match[0].indexOf(".d.ts");
+            if (!match[0].includes("spike.land"))
+              continue;
+            if (dts === -1)
+              continue;
+            const extraModel = match[0].slice(0, dts + 5);
+            if (extraModels[url].includes(extraModel))
+              continue;
+            extraModels[url].push(extraModel);
+            if (extraModels[extraModel])
+              continue;
+            if (extraModelCache[extraModel])
+              continue;
+            let extraModelUrl = extraModel;
+            const extraModelContent = await fetch(extraModel).then(
+              (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
+            ).then((res) => {
+              extraModelUrl = res.url;
+              return res.text();
+            });
+            if (extraModelUrl !== extraModel) {
+              extraModelCache[url] = replaceAll(
+                extraModelCache[url],
+                extraModel,
+                extraModelUrl
+              );
+            }
+            extraModelCache[extraModelUrl] = extraModelContent;
+            await addExtraModels(extraModelCache[extraModel], extraModel);
+          } catch (err) {
+            console.error("Error in add extra models", code3, url, { err });
+          }
+        }
+      } catch {
+        console.log("error in extra lib  mining", url);
+        return;
+      }
+    };
+    const replaceMaps = {};
+    const ATA = async () => {
+      console.log("ATA");
+      const mappings = (await Promise.all(
+        (await (await (await getTsWorker2())(uri2)).getSemanticDiagnostics(uri2.toString())).map((x) => {
+          return x.messageText;
+        }).filter(
+          (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")
+        ).map((x) => typeof x === "string" && x.split("'")[1]).map(
+          async (mod3) => {
+            const retMod = { url: "", mod: mod3, content: "" };
+            if (mod3 && mod3.startsWith("https://")) {
+              return retMod;
+            }
+            retMod.content = await fetch("/npm:/" + mod3).then(
+              (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
+            ).then((x) => {
+              retMod.url = x.headers.get("x-dts");
+              console.log(retMod.url);
+              return fetch(retMod.url).then(
+                (resp) => resp.status === 307 || resp.redirected ? fetch(retMod.url = resp.url) : resp
+              ).then((resp) => resp.text());
+            }).catch(() => "") || "";
             return retMod;
           }
-          retMod.content = await fetch("/npm:/" + mod3).then(
-            (resp) => resp.status === 307 ? fetch(resp.headers.get("location")) : resp
-          ).then((x) => {
-            retMod.url = x.headers.get("x-dts");
-            console.log(retMod.url);
-            return fetch(retMod.url).then(
-              (resp) => resp.status === 307 || resp.redirected ? fetch(retMod.url = resp.url) : resp
-            ).then((resp) => resp.text());
-          }).catch(() => "") || "";
-          return retMod;
-        }
-      )
-    )).filter((m) => m.mod && m.content).map(async (m) => {
-      console.log(`Aga-Insert: ${m.mod}`);
-      await addExtraModels(
-        m.content,
-        m.url
+        )
+      )).filter((m) => m.mod && m.content).map(async (m) => {
+        console.log(`Aga-Insert: ${m.mod}`);
+        await addExtraModels(
+          m.content,
+          m.url
+        );
+        return {
+          [location.origin + `/node_modules/${m.mod}/index.d.ts`]: m.url
+        };
+      });
+      const maps = await Promise.all(mappings);
+      maps.forEach((m) => Object.assign(replaceMaps, m));
+      console.log({ replaceMaps });
+      const extraLib2 = xxxsetExtraLibs();
+      extraLib2.map((lib2) => {
+        addExtraLib2(
+          lib2.content,
+          lib2.filePath
+        );
+      });
+    };
+    const xxxsetExtraLibs = () => {
+      replaceMaps["/node_modules/"] = "/npm:/v96/";
+      const versionNumbers = /@\d+.\d+.\d+/gm;
+      const types = /\/types\//gm;
+      const extraLibs = Object.keys(extraModelCache).map((filePath) => {
+        const url = replaceMappings(filePath, replaceMaps).replaceAll(
+          versionNumbers,
+          ``
+        ).replaceAll(types, `/`);
+        const fileDir = new URL(".", url).toString();
+        const content = replaceMappings(extraModelCache[filePath], replaceMaps).replaceAll(versionNumbers, ``).replaceAll(types, `/`);
+        const fileDirRemoved = replaceAll(content, fileDir, "./");
+        const linksRemoved = replaceAll(
+          fileDirRemoved,
+          location.origin + "/node_modules/",
+          ""
+        );
+        const indexDtsRemoved = replaceAll(linksRemoved, "/index.d.ts", "");
+        const dtsRemoved = replaceAll(indexDtsRemoved, ".d.ts", "");
+        return {
+          filePath: url,
+          content: dtsRemoved
+        };
+      });
+      console.log({ extraLibs });
+      setExtraLibs2(
+        extraLibs
       );
-      return {
-        [location.origin + `/node_modules/${m.mod}/index.d.ts`]: m.url
-      };
-    });
-    const maps = await Promise.all(mappings);
-    maps.forEach((m) => Object.assign(replaceMaps, m));
-    console.log({ replaceMaps });
-    const extraLib2 = xxxsetExtraLibs();
-    extraLib2.map((lib2) => {
-      addExtraLib(
+      return extraLibs;
+    };
+    const extraLib = xxxsetExtraLibs();
+    extraLib.map((lib2) => {
+      addExtraLib2(
         lib2.content,
         lib2.filePath
       );
     });
-  };
-  const xxxsetExtraLibs = () => {
-    replaceMaps["/node_modules/"] = "/npm:/v96/";
-    const versionNumbers = /@\d+.\d+.\d+/gm;
-    const types = /\/types\//gm;
-    const extraLibs = Object.keys(extraModelCache).map((filePath) => {
-      const url = replaceMappings(filePath, replaceMaps).replaceAll(
-        versionNumbers,
-        ``
-      ).replaceAll(types, `/`);
-      const fileDir = new URL(".", url).toString();
-      const content = replaceMappings(extraModelCache[filePath], replaceMaps).replaceAll(versionNumbers, ``).replaceAll(types, `/`);
-      const fileDirRemoved = replaceAll(content, fileDir, "./");
-      const linksRemoved = replaceAll(
-        fileDirRemoved,
-        location.origin + "/node_modules/",
-        ""
-      );
-      const indexDtsRemoved = replaceAll(linksRemoved, "/index.d.ts", "");
-      const dtsRemoved = replaceAll(indexDtsRemoved, ".d.ts", "");
-      return {
-        filePath: url,
-        content: dtsRemoved
-      };
-    });
-    console.log({ extraLibs });
-    setExtraLibs(
-      extraLibs
-    );
-    return extraLibs;
-  };
-  const extraLib = xxxsetExtraLibs();
-  extraLib.map((lib2) => {
-    addExtraLib(
-      lib2.content,
-      lib2.filePath
-    );
-  });
-  const mod2 = {
-    ATA,
-    silent: false,
-    code
-  };
-  setTimeout(() => mod2.ATA(), 2e3);
-}
-function replaceAll(input, search, replace) {
-  return input.split(search).join(replace);
-}
-function replaceMappings(input, maps) {
-  let result = input;
-  Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
-  return result;
-}
-function removeComments(str) {
-  const regex = /\/\*.*?\*\//gi;
-  /\/\*.*?\*\//gi;
-  return str.replaceAll(regex, ``).split(`
+    const mod2 = {
+      ATA,
+      silent: false,
+      code: code2
+    };
+    setTimeout(() => mod2.ATA(), 2e3);
+  }
+  function replaceAll(input, search, replace) {
+    return input.split(search).join(replace);
+  }
+  function replaceMappings(input, maps) {
+    let result = input;
+    Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
+    return result;
+  }
+  function removeComments(str) {
+    const regex = /\/\*.*?\*\//gi;
+    /\/\*.*?\*\//gi;
+    return str.replaceAll(regex, ``).split(`
 `).filter(
-    (x) => x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
-  ).join(`
+      (x) => x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
+    ).join(`
 `);
-}
+  }
+};
 
 // js/monacoWorkers.mjs
 init_define_process();
