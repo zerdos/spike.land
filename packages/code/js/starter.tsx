@@ -16,7 +16,7 @@ Object.assign(globalThis, { md5 });
 const myApps: { [key: string]: FC } = {};
 const myAppCounters: { [key: string]: number } = {};
 
-export const importIt = async (url: string) => {
+export const importIt: (url: string) => Promise<{ App: FC; url: string }> = async (url: string) => {
   let waitingTime = 100;
   let App;
   const urlARR = url.split("/");
@@ -31,7 +31,7 @@ export const importIt = async (url: string) => {
 
     try {
       try {
-        App = (await importShim(url)).default;
+        App = (await importShim(url)).default as FC;
 
         return { App, url };
       } catch {
@@ -40,11 +40,11 @@ export const importIt = async (url: string) => {
           if (resp.status === 307 && resp.headers.get("location")) {
             if (typeof resp.headers.get("location") === "string") {
               const urlLoc = resp.headers.get("location");
-              if (urlLoc === null) th
+              if (urlLoc === null) throw new Error("No idea why");
 
               const bestCounter = +(urlLoc.split("/").pop() || 0);
               myAppCounters[nUrl] = bestCounter;
-              if (url !== null) return importIt(url);
+              if (url !== null) return await importIt(url);
             }
           }
           if (resp.ok) {
@@ -62,7 +62,6 @@ export const importIt = async (url: string) => {
               )) || new Function(trp + ` return ${trp.slice(2, 10)}`)()).default;
             } catch {
               console.error("something went nuts");
-              return;
             }
             myApps[nUrl] = App;
 
@@ -107,7 +106,7 @@ export function AutoUpdateApp(
     (async () => {
       const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
 
-      const urlCounter = url.split("/").pop() * 1;
+      const urlCounter = +(url.split("/").pop() || 0);
       if (i < urlCounter && newApp !== App) {
         setApps(x => ({ ...x, i: urlCounter, App: newApp }));
       }
@@ -119,7 +118,7 @@ export function AutoUpdateApp(
       (async () => {
         const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
 
-        const urlCounter = url.split("/").pop() * 1;
+        const urlCounter = +(url.split("/").pop() || 0);
         if (i < urlCounter && newApp !== App) {
           setApps(x => ({ ...x, i: urlCounter, App: newApp }));
         }

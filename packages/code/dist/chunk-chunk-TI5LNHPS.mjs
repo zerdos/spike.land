@@ -21773,11 +21773,11 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
             if (typeof resp.headers.get("location") === "string") {
               const urlLoc = resp.headers.get("location");
               if (urlLoc === null)
-                return {};
+                throw new Error("No idea why");
               const bestCounter = +(urlLoc.split("/").pop() || 0);
               myAppCounters[nUrl] = bestCounter;
               if (url2 !== null)
-                return importIt(url2);
+                return await importIt(url2);
             }
           }
           if (resp.ok) {
@@ -21792,7 +21792,6 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
               ) || new Function(trp + ` return ${trp.slice(2, 10)}`)()).default;
             } catch {
               console.error("something went nuts");
-              return;
             }
             myApps[nUrl] = App;
             return { App, url: url2 };
@@ -21824,7 +21823,7 @@ function AutoUpdateApp({ codeSpace }) {
   useEffect(() => {
     (async () => {
       const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
-      const urlCounter = url.split("/").pop() * 1;
+      const urlCounter = +(url.split("/").pop() || 0);
       if (i < urlCounter && newApp !== App) {
         setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
       }
@@ -21834,7 +21833,7 @@ function AutoUpdateApp({ codeSpace }) {
     (async () => {
       (async () => {
         const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
-        const urlCounter = url.split("/").pop() * 1;
+        const urlCounter = +(url.split("/").pop() || 0);
         if (i < urlCounter && newApp !== App) {
           setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
         }
