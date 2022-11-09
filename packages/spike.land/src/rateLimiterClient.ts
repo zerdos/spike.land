@@ -42,9 +42,10 @@ export class RateLimiterClient {
         // Currently, fetch() needs a valid URL even though it's not actually going to the
         // internet. We may loosen this in the future to accept an arbitrary string. But for now,
         // we have to provide a dummy URL that will be ignored at the other end anyway.
-        response = await this.limiter.fetch({
+        response = await this.limiter.fetch(new Request({
+          url: "https://dummy-url",
           method: "POST",
-        });
+        }));
       } catch (err) {
         // `fetch()` threw an exception. This is probably because the limiter has been
         // disconnected. Stubs implement E-order semantics, meaning that calls to the same stub
@@ -56,7 +57,8 @@ export class RateLimiterClient {
         // Anyway, get a new limiter and try again. If it fails again, something else is probably
         // wrong.
         this.limiter = this.getLimiterStub();
-        response = await this.limiter.fetch("https://dummy-url", {
+        response = await this.limiter.fetch({
+          url: "https://dummy-url",
           method: "POST",
         });
       }
