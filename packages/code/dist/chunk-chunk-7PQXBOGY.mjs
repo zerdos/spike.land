@@ -10,11 +10,9 @@ import {
 } from "./chunk-chunk-AUL7LWHA.mjs";
 import {
   PureComponent,
-  Suspense,
   createElement,
   flushSync,
   init_reactMod,
-  lazy,
   reactMod_default,
   reactMod_exports,
   useEffect,
@@ -20622,28 +20620,37 @@ async function wait(delay) {
 
 // js/starter.tsx
 Object.assign(globalThis, { md5 });
+var myAppCounters = {};
 var importIt = async (url) => {
   let waitingTime = 100;
-  let mod4;
   let App;
+  const urlARR = url.split("/");
+  const naked = urlARR.pop();
+  const nUrl = urlARR.join("/");
+  myAppCounters[nUrl] = myAppCounters[nUrl] || naked;
   while (true) {
+    const betterNaked = naked < myAppCounters[nUrl] ? myAppCounters[nUrl] : naked;
+    const url2 = [...urlARR, betterNaked].join("/");
     try {
       try {
-        App = (await importShim(url)).default;
-        return { App, url };
+        App = (await importShim(url2)).default;
+        return { App, url: url2 };
       } catch {
         try {
-          let resp = await fetch(url);
+          let resp = await fetch(url2);
           if (resp.status === 307 && resp.headers.get("location")) {
-            const i = Number(resp.headers.get("location").split("/").pop()) * 1;
-            globalThis.codeSpaces = globalThis.codeSpaces = {};
-            globalThis.codeSpaces[url] = i;
-            return await importIt(resp.headers.get("location"));
+            if (typeof resp.headers.get("location") === "string") {
+              const url3 = resp.headers.get("location");
+              const bestCounter = url3.split("/").pop();
+              myAppCounters[nUrl] = bestCounter;
+              if (url3 !== null)
+                return importIt(url3);
+            }
           }
           if (resp.ok) {
             const trp = await resp.text();
             try {
-              App = (await fetch(url.replace(".js", ".tsx")).then(
+              App = (await fetch(url2.replace(".js", ".tsx")).then(
                 async (resp2) => resp2 && !resp2.ok ? false : await resp2.text().then(
                   (code) => esmTransform(code).then(
                     (transpiled) => importShim(createJsBlob(transpiled))
@@ -20654,7 +20661,8 @@ var importIt = async (url) => {
               console.error("something went nuts");
               return;
             }
-            return { App, url };
+            myapps9[nUrl] = App;
+            return { App, url: url2 };
           }
         } catch (err) {
           console.error({ err });
@@ -20677,21 +20685,27 @@ var starterI = 1 * document.getElementById("root").getAttribute(
 );
 function AutoUpdateApp({ codeSpace }) {
   const [{ App, i }, setApps] = useState({
-    i: starterI,
-    url: `${location.origin}/live/${codeSpace}/index.js/${starterI}`,
-    App: lazy(
-      () => importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async ({ App: App2, url }) => {
-        const urlCounter = url.split("/").pop() * 1;
-        setApps((x) => ({ ...x, url, App: App2, i: (urlCounter || x.i) + 1 }));
-        return { default: App2 };
-      })
-    )
+    i: starterI - 1,
+    App: null
   });
   useEffect(() => {
     (async () => {
-      const { url, App: App2 } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
+      const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
       const urlCounter = url.split("/").pop() * 1;
-      setApps((x) => ({ ...x, i: (urlCounter || x.i) + 1, url, App: App2 }));
+      if (i < urlCounter && newApp !== App) {
+        setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
+      }
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      (async () => {
+        const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
+        const urlCounter = url.split("/").pop() * 1;
+        if (i < urlCounter && newApp !== App) {
+          setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
+        }
+      })();
     })();
   }, [i, setApps, App]);
   return jsx(import_react_error_boundary.ErrorBoundary, {
@@ -20706,16 +20720,13 @@ function AutoUpdateApp({ codeSpace }) {
         })
       ]
     }),
-    children: jsx(Suspense, {
-      fallback: jsx("div", {
-        style: { height: "100%" },
-        dangerouslySetInnerHTML: {
-          __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
-        }
-      }),
-      children: jsx(App, {})
-    })
-  }, i);
+    children: App == null ? jsx("div", {
+      style: { height: "100%" },
+      dangerouslySetInnerHTML: {
+        __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
+      }
+    }) : jsx(App, {})
+  });
 }
 async function appFactory(transpiled = "") {
   const { transpiled: mstTranspiled, i: mstI } = mST();

@@ -1,53 +1,34 @@
 import type { FC } from "react";
-import { lazy, Suspense, useEffect, useState } from "react";
-// import {terminal} from "./DraggableWindow"
+import { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import type { EmotionCache } from "@emotion/cache";
 
 import { CacheProvider, css } from "@emotion/react";
 
-// import { ConsoleApp } from "./Console";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
-import { hashCode, mST } from "./session";
-
-// import { CacheProvider } from "@emotion/react// import createCache from "@emotion/cache";
-// import type { EmotionCache } from "@emotion/cache";
-
-// import isCallable from "is-callable";
-
 import { esmTransform } from "./runner";
+import { hashCode, mST } from "./session";
 import { wait } from "./wait";
 
 Object.assign(globalThis, { md5 });
+const myapps = {};
+const myAppCounters = {};
 
-// const dynamicImport = (src: string) =>
-//   return require(src)
-//   fetch(src).then(async (resp) => {
-//     if (!resp.ok) throw new Error("Error while import ${src}");
-
-//     const trp = await resp.text();
-//     const hash = md5(trp);
-//     const codeHash = trp.slice(2, 10);
-//     globalThis.IIFE[hash] = codeHash;
-//     try {
-//       return new Function(trp + "return " + globalThis.IIFE[hash])();
-//     } catch {
-//       const umdTrp = await umdTransform(trp);
-//       const umdHash = md5(umdTrp);
-//       return new Function(umdTrp + "return " + globalThis.IIFE[umdHash])();
-//     }
-//   });
-
-// window.importShim ? window.importShim(src) : import(src);
-
-// const {default: createCache} = emotionCache as unknown as {default: typeof emotionCache};
 export const importIt = async (url: string) => {
   let waitingTime = 100;
   let App;
+  const urlARR = url.split("/");
+  const naked = urlARR.pop();
+
+  const nUrl = urlARR.join("/");
+  myAppCounters[nUrl] = myAppCounters[nUrl] || naked;
 
   while (true) {
+    const betterNaked = naked < myAppCounters[nUrl] ? myAppCounters[nUrl] : naked;
+    const url = [...urlARR, betterNaked].join("/");
+
     try {
       try {
         App = (await importShim(url)).default;
@@ -57,10 +38,12 @@ export const importIt = async (url: string) => {
         try {
           let resp = await fetch(url);
           if (resp.status === 307 && resp.headers.get("location")) {
-            const i = Number(resp.headers.get("location")!.split("/").pop()) * 1;
-            globalThis.codeSpaces = globalThis.codeSpaces = {};
-            globalThis.codeSpaces[url] = i;
-            return await importIt(resp.headers.get("location"));
+            if (typeof resp.headers.get("location") === "string") {
+              const url = resp.headers.get("location");
+              const bestCounter = url.split("/").pop();
+              myAppCounters[nUrl] = bestCounter;
+              if (url !== null) return importIt(url);
+            }
           }
           if (resp.ok) {
             const trp = await resp.text();
@@ -79,6 +62,7 @@ export const importIt = async (url: string) => {
               console.error("something went nuts");
               return;
             }
+            myapps9[nUrl] = App;
 
             return { App, url };
           }
@@ -104,12 +88,6 @@ export const { apps, eCaches } = (globalThis as unknown as {
   eCaches: Record<string, EmotionCache>;
 });
 
-// const myCache = createCache({
-// key: "z",
-// });
-
-// const render: Record<string, { html: string; css: string }> = {};
-// {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 let starterI = 1
   * (document.getElementById("root")!.getAttribute(
     "data-i",
@@ -119,31 +97,36 @@ export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
   const [{ App, i }, setApps] = useState({
-    i: starterI,
-    url: `${location.origin}/live/${codeSpace}/index.js/${starterI}`,
-    App: lazy(() =>
-      importIt(`${location.origin}/live/${codeSpace}/index.js/${starterI}`).then(async ({ App, url }) => {
-        const urlCounter = url.split("/").pop() * 1;
-
-        setApps(x => ({ ...x, url, App, i: (urlCounter || x.i) + 1 }));
-        return { default: App };
-      })
-    ),
+    i: starterI - 1,
+    App: null as null | FC<{}>,
   });
 
   useEffect(() => {
     (async () => {
-      const { url, App } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
+      const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
 
       const urlCounter = url.split("/").pop() * 1;
+      if (i < urlCounter && newApp !== App) {
+        setApps(x => ({ ...x, i: urlCounter, App: newApp }));
+      }
+    })();
+  }, []);
 
-      setApps(x => ({ ...x, i: (urlCounter || x.i) + 1, url: url, App }));
+  useEffect(() => {
+    (async () => {
+      (async () => {
+        const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
+
+        const urlCounter = url.split("/").pop() * 1;
+        if (i < urlCounter && newApp !== App) {
+          setApps(x => ({ ...x, i: urlCounter, App: newApp }));
+        }
+      })();
     })();
   }, [i, setApps, App]);
 
   return (
     <ErrorBoundary
-      key={i}
       fallbackRender={({ error }) => (
         <div role="alert">
           <div>Oh no</div>
@@ -151,90 +134,19 @@ export function AutoUpdateApp(
         </div>
       )}
     >
-      <Suspense
-        fallback={
+      {App == null
+        ? (
           <div
             style={{ height: "100%" }}
             dangerouslySetInnerHTML={{
               __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`,
             }}
           />
-        }
-      >
-        <App />
-        {/* <ConsoleApp id={i} />  */}
-      </Suspense>
+        )
+        : <App />}
     </ErrorBoundary>
   );
 }
-
-// export function AutoUpdateApp(
-//   { codeSpace, transpiled }: { codeSpace: string; transpiled?: string },
-// ) {
-//   const [{ md5Hash, resetErrorBoundary, App }, setMdHash] = useState({
-//     App: lazy(async () => {
-//       return {
-//         default: apps[md5(mST().transpiled)],
-//       };
-//     }),
-//     md5Hash: md5(transpiled || mST().transpiled),
-//     resetErrorBoundary: null as null | (() => void),
-//   });
-
-//   useEffect(() =>
-//     onSessionUpdate(async () => {
-//       const transpiled = mST().transpiled;
-//       await appFactory(transpiled);
-//       resetErrorBoundary && resetErrorBoundary();
-//       const md5Hash = md5(transpiled);
-//       if (apps[md5Hash]) {
-//         setMdHash({
-//           md5Hash: md5(transpiled),
-//           resetErrorBoundary: null,
-//           App: lazy(async () => {
-//             if (!location.href.endsWith("/public")) await wait(1000);
-//             return {
-//               default: apps[md5(mST().transpiled)],
-//             };
-//           }),
-//         });
-//       }
-//     }, "autoUpdate"), [setMdHash, resetErrorBoundary]);
-
-//   // const App = apps[md5Hash];
-
-//   return (
-//     <ErrorBoundary
-//       key={md5Hash}
-//       fallbackRender={({ error, resetErrorBoundary }) §
-//           <div>Oh no</div>
-//           <pre>{error.message}</pre>
-//           <button
-//             onClick={() => {
-//               if (
-//                 resetErrorBoundary !== null && isCallable(resetErrorBoundary)
-//               ) resetErrorBoundary();
-
-//               setMdHash((x) => ({ ...x, resetErrorBoundary: null }));
-//             }}
-//           >
-//             Try again
-//           </button>
-//         </div>
-//       )}
-//     >
-//       <Suspense
-//         fallback={<div style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: mST().html }} />}
-//       >
-//         <App key={md5Hash} appId={`${codeSpace}-${md5Hash}`} />
-//       </Suspense>
-//     </ErrorBoundary>
-//   );
-// }
-
-//
-// let Emotion: typeof iEmotion;
-// let started = false;
 
 export async function appFactory(
   transpiled = "",
@@ -267,15 +179,6 @@ export async function appFactory(
         mod = new Function(trp + ` return ${trp.slice(2, 10)}`)();
       }
       const App = mod.default;
-      //      globalThis.TmpApp.default as unknown as FC; // (await importShim(createJsBlob(transpiled))).default;
-
-      // try {
-      //   const fn = new Function("return " + trp)().default as unknown as FC;
-      //   App = fn;
-      // } catch {
-      //   wait(300);
-      //   App = new Function("return " + trp)().default as unknown as FC;
-      // }
 
       apps[hash] = ({ appId }: { appId: string }) => (
         <div key={hash} style={{ height: 100 + "%" }} id={appId}>
@@ -285,12 +188,6 @@ export async function appFactory(
         </div>
       );
     } catch (error) {
-      // Try {
-      //   apps[hash] = (await importShim(createJsBlob(trp))).default as unknown as FC;
-      // } catch {
-      //   console.error("not even importShim");
-      // }
-
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
@@ -326,19 +223,6 @@ export async function appFactory(
     if (transpiled !== "") return apps[hash];
   }
 
-  // If ( mST().transpiled !== trp) {
-  //   if (hashC===hashCode()){
-  //     apps[hashC]=apps[hash];
-  //   } else {
-  //     apps[hashC] =  await  appFactory(mST().transpiled)
-  //   }
-
-  // }
-  //   const newApp = apps[hash];
-
-  //   // delete apps[hash];
-  //   return newApp;
-  // }
   return apps[hash];
 }
 
@@ -349,7 +233,4 @@ export function createJsBlob(code: string, fileName = "index.mjs") {
   });
   const blobUrl = URL.createObjectURL(file);
   return blobUrl;
-  // Const actualUrl = new URL(blobUrl,'//live/');
-
-  // return actualUrl;
 }
