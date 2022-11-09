@@ -117,9 +117,10 @@ export function AutoUpdateApp(
     (async () => {
       (async () => {
         const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
-        await wait(1000);
+        await wait(Math.random() * 1000);
         const urlCounter = +(url.split("/").pop() || 0);
         if (i < urlCounter && newApp !== App) {
+          console.log)
           setApps(x => ({ ...x, i: urlCounter, App: newApp }));
         }
       })();
