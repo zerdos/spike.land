@@ -5,7 +5,7 @@ export class CodeRateLimiter {
   // Our protocol is: POST when the IP performs an action, or GET to simply read the current limit.
   // Either way, the result is the number of seconds to wait before allowing the IP to perform its
   // next action.
-  async fetch(url: string, request: Request) {
+  async fetch(request: Request) {
     return await handleErrors(request, async () => {
       const now = Date.now() / 1000;
 
