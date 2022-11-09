@@ -11,6 +11,7 @@ import { CodeEnv } from "./env";
 // import importMap from "@spike.land/code/js/importmap.json";
 import AVLTree from "avl";
 import { getImportMapStr, imap } from "./chat";
+import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
   name: string;
@@ -419,15 +420,10 @@ export class Code {
     });
   }
 
-  async handleSession(webSocket: WebSocket, ip: string) {
+  async handleSession(webSocket: WebSocketg) {
     webSocket.accept();
 
-    const limiterId = this.env.LIMITERS.idFromName(ip);
-
-    const limiter = new RateLimiterClient(
-      () => this.env.LIMITERS.get(limiterId),
-      (err: unknown) => webSocket.close(1011, (err as unknown as Error).stack),
-    );
+    const limiter = new CodeRateLimiter();
 
     // Create our session and add it to the sessions list.
     // We don't send any messages to the client until it has sent us the initial user info
