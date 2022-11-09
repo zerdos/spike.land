@@ -42,7 +42,7 @@ export class RateLimiterClient {
         // Currently, fetch() needs a valid URL even though it's not actually going to the
         // internet. We may loosen this in the future to accept an arbitrary string. But for now,
         // we have to provide a dummy URL that will be ignored at the other end anyway.
-        response = await this.limiter.fetch("https://dummy-url", {
+        response = await this.limiter.fetch({
           method: "POST",
         });
       } catch (err) {
