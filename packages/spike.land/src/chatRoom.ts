@@ -278,7 +278,7 @@ export class Code {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "public, max-age=604800, immutable",
+                  "Cache-Control": "no-cache",
                   "Content-Type": "application/javascript; charset=UTF-8",
                 },
               },
@@ -405,11 +405,10 @@ export class Code {
             return new Response("expected websocket", { status: 400 });
           }
 
-          const ip = request.headers.get("CF-Connecting-IP") || "192.100.123.1";
           // eslint-disable-next-line no-undef
           const pair = new WebSocketPair();
 
-          await this.handleSession(pair[1], ip);
+          await this.handleSession(pair[1]);
 
           return new Response(null, { status: 101, webSocket: pair[0] });
         }

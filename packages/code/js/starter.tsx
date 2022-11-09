@@ -31,23 +31,24 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
 
     try {
       try {
-        App = (await importShim(url)).default as FC;
+        let resp = await fetch(url);
 
-        return { App, url };
-      } catch {
-        try {
-          let resp = await fetch(url);
-          if (resp.status === 307 && resp.headers.get("location")) {
-            if (typeof resp.headers.get("location") === "string") {
-              const urlLoc = resp.headers.get("location");
-              if (urlLoc === null) throw new Error("No idea why");
+        //  let urlLoc: null | string;
+        // if (resp.headers.keys()) {
+        //   urlLoc = resp.headers.get("location");
+        //   const// if (urlLoc === null) throw new Error("No idea why");
+        // const bestCounter = +(urlLoc.split("/").pop() || 0);
+        // myAppCounters[nUrl] = bestCounter;
+        // if (urlLoc !== null)
+        // return await importIt(urlLoc);
+        // }
 
-              const bestCounter = +(urlLoc.split("/").pop() || 0);
-              myAppCounters[nUrl] = bestCounter;
-              if (url !== null) return await importIt(url);
-            }
-          }
-          if (resp.ok) {
+        if (resp.ok) {
+          try {
+            App = (await importShim(url)).default as FC;
+
+            return { App, url: resp.url };
+          } catch {
             const trp = await resp.text();
 
             try {
@@ -65,12 +66,12 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
             }
             myApps[nUrl] = App;
 
-            return { App, url };
+            return { App, url: resp.url };
           }
-        } catch (err) {
-          console.error({ err });
-          console.error((err && (err as unknown as any)?.message as unknown as any) || "error has been thrown");
         }
+      } catch (err) {
+        console.error({ err });
+        console.error((err && (err as unknown as any)?.message as unknown as any) || "error has been thrown");
       }
     } catch {
       console.error("bad something happened;");
