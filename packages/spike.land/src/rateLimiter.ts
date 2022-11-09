@@ -12,7 +12,7 @@ import { handleErrors } from "./handleErrors";
 // themselves rate limited in all other chat rooms simultaneously.
 
 export class CodeRateLimiter {
-  constructor(controller, env) {
+  constructor(, env) {
     // Timestamp at which this IP will next be allowed to send a message. Start in the distant
     // past, i.e. the IP can send a message now.
     this.nextAllowedTime = 0;
@@ -21,16 +21,16 @@ export class CodeRateLimiter {
   // Our protocol is: POST when the IP performs an action, or GET to simply read the current limit.
   // Either way, the result is the number of seconds to wait before allowing the IP to perform its
   // next action.
-  async fetch(request) {
+  async fetch(url, request) {
     return await handleErrors(request, async () => {
-      let now = Date.now() / 1000;
+      const now = Date.now() / 1000;
 
       this.nextAllowedTime = Math.max(now, this.nextAllowedTime);
 
       if (request.method == "POST") {
         // POST request means the user performed an action.
         // We allow one action per 5 seconds.
-        this.nextAllowedTime += 5;
+        this.nextAllowedTime += 1;
       }
 
       // Return the number of seconds that the client needs to wait.
