@@ -21750,12 +21750,13 @@ __name(wait, "wait");
 
 // js/starter.tsx
 Object.assign(globalThis, { md5 });
+var myApps = {};
 var myAppCounters = {};
 var importIt = /* @__PURE__ */ __name(async (url) => {
   let waitingTime = 100;
   let App;
   const urlARR = url.split("/");
-  const naked = urlARR.pop();
+  const naked = +(urlARR.pop() || 0);
   const nUrl = urlARR.join("/");
   myAppCounters[nUrl] = myAppCounters[nUrl] || naked;
   while (true) {
@@ -21770,11 +21771,13 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
           let resp = await fetch(url2);
           if (resp.status === 307 && resp.headers.get("location")) {
             if (typeof resp.headers.get("location") === "string") {
-              const url3 = resp.headers.get("location");
-              const bestCounter = url3.split("/").pop();
+              const urlLoc = resp.headers.get("location");
+              if (urlLoc === null)
+                return {};
+              const bestCounter = +(urlLoc.split("/").pop() || 0);
               myAppCounters[nUrl] = bestCounter;
-              if (url3 !== null)
-                return importIt(url3);
+              if (url2 !== null)
+                return importIt(url2);
             }
           }
           if (resp.ok) {
@@ -21791,7 +21794,7 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
               console.error("something went nuts");
               return;
             }
-            myapps9[nUrl] = App;
+            myApps[nUrl] = App;
             return { App, url: url2 };
           }
         } catch (err) {
