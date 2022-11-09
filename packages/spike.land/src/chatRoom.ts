@@ -426,7 +426,7 @@ export class Code {
 
     const limiter = new RateLimiterClient(
       () => this.env.LIMITERS.get(limiterId),
-      (err: Error) => webSocket.close(1011, err.stack),
+      (err: unknown) => webSocket.close(1011, (err as unknown as Error).stack),
     );
 
     // Create our session and add it to the sessions list.
@@ -577,13 +577,13 @@ export class Code {
     }
 
     try {
-      //   if (
-      //     !data.type &&  limiter.checkLimit()
-      //   ) {
-      //     return respondWith({
-      //       error: "Your IP is being rate-limited, please try again later.",
-      //     });
-      //   }
+      if (
+        !data.type && limiter.checkLimit()
+      ) {
+        return respondWith({
+          error: "Your IP is being rate-limited, please try again later.",
+        });
+      }
 
       try {
         if (

@@ -40,16 +40,6 @@ let bc: BroadcastChannel;
 let codeSpace: string;
 let _hash = "";
 
-const leftUser = {
-  id: null,
-  sendMessage: () => null,
-};
-
-const rightUser = {
-  id: null,
-  sendMessage: () => null,
-};
-
 // let address: string;
 let wsLastHashCode = "";
 let webRTCLastSeenHashCode = "";
@@ -162,16 +152,7 @@ export const run = async (startState: {
       event.data.user !== user
       && event.data.type === "suggestNeighborsRequest"
     ) {
-      // console.log("suggestNeighborsRequest");
-      // const usernode = users.insert(user);
-
-      // const left =user
-      // console.log({ user, type: "suggestNeighborsResponse", left, right });
-      // bc.postMessage({ user, type: "suggestNeighborsResponse", left, right });
     }
-
-    event.source?.postMessage("yooo");
-    // console.//log({ event });
 
     if (
       event.data.codeSpace === codeSpace && event.data.address && !address
@@ -982,14 +963,4 @@ export async function sw() {
   } catch {
     // console.//log("ipfs load error");
   }
-}
-
-function mostRight(node) {
-  if (node.right) return mostRight(node.right);
-  return node;
-}
-
-function mostLeft(node) {
-  if (node.left) return mostRight(node.left);
-  return node;
 }
