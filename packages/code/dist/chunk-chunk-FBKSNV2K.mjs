@@ -21764,23 +21764,12 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
     const url2 = [...urlARR, betterNaked].join("/");
     try {
       try {
-        App = (await importShim(url2)).default;
-        return { App, url: url2 };
-      } catch {
-        try {
-          let resp = await fetch(url2);
-          if (resp.status === 307 && resp.headers.get("location")) {
-            if (typeof resp.headers.get("location") === "string") {
-              const urlLoc = resp.headers.get("location");
-              if (urlLoc === null)
-                throw new Error("No idea why");
-              const bestCounter = +(urlLoc.split("/").pop() || 0);
-              myAppCounters[nUrl] = bestCounter;
-              if (url2 !== null)
-                return await importIt(url2);
-            }
-          }
-          if (resp.ok) {
+        let resp = await fetch(url2);
+        if (resp.ok) {
+          try {
+            App = (await importShim(url2)).default;
+            return { App, url: resp.url };
+          } catch {
             const trp = await resp.text();
             try {
               App = (await fetch(url2.replace(".js", ".tsx")).then(
@@ -21794,12 +21783,12 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
               console.error("something went nuts");
             }
             myApps[nUrl] = App;
-            return { App, url: url2 };
+            return { App, url: resp.url };
           }
-        } catch (err) {
-          console.error({ err });
-          console.error(err && err?.message || "error has been thrown");
         }
+      } catch (err) {
+        console.error({ err });
+        console.error(err && err?.message || "error has been thrown");
       }
     } catch {
       console.error("bad something happened;");
