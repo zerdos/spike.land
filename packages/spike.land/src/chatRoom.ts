@@ -1,6 +1,6 @@
 import { handleErrors } from "./handleErrors";
 import HTML from "./index.html";
-import { RateLimiterClient } from "./rateLimiterClient";
+// import { RateLimiterClient } from "./rateLimiterClient";
 
 import IIFE from "./iife.html";
 // import {a} from "./staticContent.mjs"
@@ -11,7 +11,7 @@ import { CodeEnv } from "./env";
 // import importMap from "@spike.land/code/js/importmap.json";
 import AVLTree from "avl";
 import { getImportMapStr, imap } from "./chat";
-import { CodeRateLimiter } from "./rateLimiter";
+// import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
   name: string;
@@ -420,10 +420,10 @@ export class Code {
     });
   }
 
-  async handleSession(webSocket: WebSocketg) {
+  async handleSession(webSocket: WebSocket) {
     webSocket.accept();
 
-    const limiter = new CodeRateLimiter();
+    // const limiter = new CodeRateLimiter(  );
 
     // Create our session and add it to the sessions list.
     // We don't send any messages to the client until it has sent us the initial user info
@@ -455,7 +455,7 @@ export class Code {
 
     webSocket.addEventListener(
       "message",
-      (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session, limiter),
+      (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
     );
 
     const closeOrErrorHandler = () => {
@@ -469,7 +469,7 @@ export class Code {
   async processWsMessage(
     msg: { data: string | ArrayBuffer },
     session: WebsocketSession,
-    limiter: RateLimiterClient,
+    //    limiter: RateLimiterClient,
   ) {
     if (session.quit) {
       this.users.remove(session.name);
@@ -573,13 +573,13 @@ export class Code {
     }
 
     try {
-      if (
-        !data.type && limiter.checkLimit()
-      ) {
-        return respondWith({
-          error: "Your IP is being rate-limited, please try again later.",
-        });
-      }
+      // if (
+      //   !data.type && limiter.checkLimit()
+      // ) {
+      //   return respondWith({
+      //     error: "Your IP is being rate-limited, please try again later.",
+      //   });
+      // }
 
       try {
         if (
