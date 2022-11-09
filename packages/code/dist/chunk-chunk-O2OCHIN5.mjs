@@ -21836,6 +21836,7 @@ function AutoUpdateApp({ codeSpace }) {
         await wait(Math.random() * 1e3);
         const urlCounter = +(url.split("/").pop() || 0);
         if (i < urlCounter && newApp !== App) {
+          console.log({ url, urlCounter });
           setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
         }
       })();

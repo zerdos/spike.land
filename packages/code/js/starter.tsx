@@ -120,7 +120,7 @@ export function AutoUpdateApp(
         await wait(Math.random() * 1000);
         const urlCounter = +(url.split("/").pop() || 0);
         if (i < urlCounter && newApp !== App) {
-          console.log)
+          console.log({ url, urlCounter });
           setApps(x => ({ ...x, i: urlCounter, App: newApp }));
         }
       })();
