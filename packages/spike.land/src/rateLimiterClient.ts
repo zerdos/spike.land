@@ -43,10 +43,12 @@ export class RateLimiterClient {
         // internet. We may loosen this in the future to accept an arbitrary string. But for now,
         // we have to provide a dummy URL that will be ignored at the other end anyway.
         response = await this.limiter.fetch(
-          new Request({
-            url: "https://dummy-url",
-            method: "POST",
-          }),
+          new Request(
+            "https://dummy-url",
+            {
+              method: "POST",
+            },
+          ),
         );
       } catch (err) {
         // `fetch()` threw an exception. This is probably because the limiter has been
@@ -60,9 +62,9 @@ export class RateLimiterClient {
         // wrong.
         this.limiter = this.getLimiterStub();
         response = await this.limiter.fetch(
-          new Request* "https://dummy-url",
+          new Request("https://dummy-url", {
             method: "POST",
-          })
+          }),
         );
       }
 
