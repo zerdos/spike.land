@@ -13,14 +13,14 @@ import { hashCode, mST } from "./session";
 import { wait } from "./wait";
 
 Object.assign(globalThis, { md5 });
-const myapps = {};
-const myAppCounters = {};
+const myApps: { [key: string]: FC } = {};
+const myAppCounters: { [key: string]: number } = {};
 
 export const importIt = async (url: string) => {
   let waitingTime = 100;
   let App;
   const urlARR = url.split("/");
-  const naked = urlARR.pop();
+  const naked = +(urlARR.pop() || 0);
 
   const nUrl = urlARR.join("/");
   myAppCounters[nUrl] = myAppCounters[nUrl] || naked;
@@ -39,8 +39,10 @@ export const importIt = async (url: string) => {
           let resp = await fetch(url);
           if (resp.status === 307 && resp.headers.get("location")) {
             if (typeof resp.headers.get("location") === "string") {
-              const url = resp.headers.get("location");
-              const bestCounter = url.split("/").pop();
+              const urlLoc = resp.headers.get("location");
+              if (urlLoc === null) th
+
+              const bestCounter = +(urlLoc.split("/").pop() || 0);
               myAppCounters[nUrl] = bestCounter;
               if (url !== null) return importIt(url);
             }
@@ -62,7 +64,7 @@ export const importIt = async (url: string) => {
               console.error("something went nuts");
               return;
             }
-            myapps9[nUrl] = App;
+            myApps[nUrl] = App;
 
             return { App, url };
           }
