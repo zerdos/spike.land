@@ -1,3 +1,6 @@
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+
 // js/load.ts
 var codeSpace = location.pathname.slice(1).split("/")[1];
 async function start() {
@@ -17,6 +20,7 @@ async function start() {
     address
   });
 }
+__name(start, "start");
 start();
 export {
   codeSpace

@@ -1,11 +1,14 @@
 "use strict";
 (() => {
+  var __defProp = Object.defineProperty;
+  var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+
   // ../../.yarn/global/cache/comlink-npm-4.3.1-45efe1dd36-9.zip/node_modules/comlink/dist/esm/comlink.mjs
   var proxyMarker = Symbol("Comlink.proxy");
   var createEndpoint = Symbol("Comlink.endpoint");
   var releaseProxy = Symbol("Comlink.releaseProxy");
   var throwMarker = Symbol("Comlink.thrown");
-  var isObject = (val) => typeof val === "object" && val !== null || typeof val === "function";
+  var isObject = /* @__PURE__ */ __name((val) => typeof val === "object" && val !== null || typeof val === "function", "isObject");
   var proxyTransferHandler = {
     canHandle: (val) => isObject(val) && val[proxyMarker],
     serialize(obj) {
@@ -48,7 +51,7 @@
     ["throw", throwTransferHandler]
   ]);
   function expose(obj, ep = self) {
-    ep.addEventListener("message", function callback(ev) {
+    ep.addEventListener("message", /* @__PURE__ */ __name(function callback(ev) {
       if (!ev || !ev.data) {
         return;
       }
@@ -109,26 +112,31 @@
           closeEndPoint(ep);
         }
       });
-    });
+    }, "callback"));
     if (ep.start) {
       ep.start();
     }
   }
+  __name(expose, "expose");
   function isMessagePort(endpoint) {
     return endpoint.constructor.name === "MessagePort";
   }
+  __name(isMessagePort, "isMessagePort");
   function closeEndPoint(endpoint) {
     if (isMessagePort(endpoint))
       endpoint.close();
   }
+  __name(closeEndPoint, "closeEndPoint");
   function wrap(ep, target) {
     return createProxy(ep, [], target);
   }
+  __name(wrap, "wrap");
   function throwIfProxyReleased(isReleased) {
     if (isReleased) {
       throw new Error("Proxy has been released and is not useable");
     }
   }
+  __name(throwIfProxyReleased, "throwIfProxyReleased");
   function createProxy(ep, path = [], target = function() {
   }) {
     let isProxyReleased = false;
@@ -197,21 +205,26 @@
     });
     return proxy2;
   }
+  __name(createProxy, "createProxy");
   function myFlat(arr) {
     return Array.prototype.concat.apply([], arr);
   }
+  __name(myFlat, "myFlat");
   function processArguments(argumentList) {
     const processed = argumentList.map(toWireValue);
     return [processed.map((v) => v[0]), myFlat(processed.map((v) => v[1]))];
   }
+  __name(processArguments, "processArguments");
   var transferCache = /* @__PURE__ */ new WeakMap();
   function transfer(obj, transfers) {
     transferCache.set(obj, transfers);
     return obj;
   }
+  __name(transfer, "transfer");
   function proxy(obj) {
     return Object.assign(obj, { [proxyMarker]: true });
   }
+  __name(proxy, "proxy");
   function toWireValue(value) {
     for (const [name, handler] of transferHandlers) {
       if (handler.canHandle(value)) {
@@ -234,6 +247,7 @@
       transferCache.get(value) || []
     ];
   }
+  __name(toWireValue, "toWireValue");
   function fromWireValue(value) {
     switch (value.type) {
       case "HANDLER":
@@ -242,35 +256,38 @@
         return value.value;
     }
   }
+  __name(fromWireValue, "fromWireValue");
   function requestResponseMessage(ep, msg, transfers) {
     return new Promise((resolve) => {
       const id = generateUUID();
-      ep.addEventListener("message", function l(ev) {
+      ep.addEventListener("message", /* @__PURE__ */ __name(function l(ev) {
         if (!ev.data || !ev.data.id || ev.data.id !== id) {
           return;
         }
         ep.removeEventListener("message", l);
         resolve(ev.data);
-      });
+      }, "l"));
       if (ep.start) {
         ep.start();
       }
       ep.postMessage(Object.assign({ id }, msg), transfers);
     });
   }
+  __name(requestResponseMessage, "requestResponseMessage");
   function generateUUID() {
     return new Array(4).fill(0).map(() => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(16)).join("-");
   }
+  __name(generateUUID, "generateUUID");
 
   // js/monacoExtra.ts
   function extraStuff(code, uri, typescript) {
-    const getTsWorker = () => typescript.getTypeScriptWorker();
-    const addExtraLib = (content, filePath) => typescript.typescriptDefaults.addExtraLib(content, filePath);
-    const setExtraLibs = (libs) => typescript.typescriptDefaults.setExtraLibs(libs);
+    const getTsWorker = /* @__PURE__ */ __name(() => typescript.getTypeScriptWorker(), "getTsWorker");
+    const addExtraLib = /* @__PURE__ */ __name((content, filePath) => typescript.typescriptDefaults.addExtraLib(content, filePath), "addExtraLib");
+    const setExtraLibs = /* @__PURE__ */ __name((libs) => typescript.typescriptDefaults.setExtraLibs(libs), "setExtraLibs");
     const extraModelCache = {};
     const extraModels = {};
     Object.assign(globalThis, { extraModels, extraModelCache });
-    const addExtraModels = async (code2, url) => {
+    const addExtraModels = /* @__PURE__ */ __name(async (code2, url) => {
       try {
         if (extraModels[url])
           return;
@@ -327,9 +344,9 @@
         console.log("error in extra lib  mining", url);
         return;
       }
-    };
+    }, "addExtraModels");
     const replaceMaps = {};
-    const ATA = async () => {
+    const ATA = /* @__PURE__ */ __name(async () => {
       console.log("ATA");
       const mappings = (await Promise.all(
         (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(uri.toString())).map((x) => {
@@ -374,8 +391,8 @@
           lib.filePath
         );
       });
-    };
-    const xxxsetExtraLibs = () => {
+    }, "ATA");
+    const xxxsetExtraLibs = /* @__PURE__ */ __name(() => {
       replaceMaps["/node_modules/"] = "/npm:/v96/";
       const versionNumbers = /@\d+.\d+.\d+/gm;
       const types = /\/types\//gm;
@@ -404,7 +421,7 @@
         extraLibs
       );
       return extraLibs;
-    };
+    }, "xxxsetExtraLibs");
     const extraLib = xxxsetExtraLibs();
     extraLib.map((lib) => {
       addExtraLib(
@@ -419,14 +436,17 @@
     };
     setTimeout(() => mod.ATA(), 2e3);
   }
+  __name(extraStuff, "extraStuff");
   function replaceAll(input, search, replace) {
     return input.split(search).join(replace);
   }
+  __name(replaceAll, "replaceAll");
   function replaceMappings(input, maps) {
     let result = input;
     Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
     return result;
   }
+  __name(replaceMappings, "replaceMappings");
   function removeComments(str) {
     const regex = /\/\*.*?\*\//gi;
     /\/\*.*?\*\//gi;
@@ -436,6 +456,7 @@
     ).join(`
 `);
   }
+  __name(removeComments, "removeComments");
 
   // js/mWorker.mjs
   var m = {

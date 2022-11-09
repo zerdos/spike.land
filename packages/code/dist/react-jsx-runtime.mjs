@@ -1,6 +1,8 @@
 "use strict";
 (() => {
+  var __defProp = Object.defineProperty;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
   var __esm = (fn, res2) => function __init() {
     return fn && (res2 = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res2;
   };
@@ -53,6 +55,7 @@
             }
             return null;
           }
+          __name(getIteratorFn, "getIteratorFn");
           var ReactCurrentDispatcher = {
             current: null
           };
@@ -74,6 +77,7 @@
               currentExtraStackFrame = stack;
             }
           }
+          __name(setExtraStackFrame, "setExtraStackFrame");
           {
             ReactDebugCurrentFrame.setExtraStackFrame = function(stack) {
               {
@@ -117,6 +121,7 @@
               }
             }
           }
+          __name(warn, "warn");
           function error(format) {
             {
               {
@@ -127,6 +132,7 @@
               }
             }
           }
+          __name(error, "error");
           function printWarning(level, format, args) {
             {
               var ReactDebugCurrentFrame2 = ReactSharedInternals.ReactDebugCurrentFrame;
@@ -142,6 +148,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat);
             }
           }
+          __name(printWarning, "printWarning");
           var didWarnStateUpdateForUnmountedComponent = {};
           function warnNoop(publicInstance, callerName) {
             {
@@ -155,6 +162,7 @@
               didWarnStateUpdateForUnmountedComponent[warningKey] = true;
             }
           }
+          __name(warnNoop, "warnNoop");
           var ReactNoopUpdateQueue = {
             isMounted: function(publicInstance) {
               return false;
@@ -180,6 +188,7 @@
             this.refs = emptyObject;
             this.updater = updater || ReactNoopUpdateQueue;
           }
+          __name(Component, "Component");
           Component.prototype.isReactComponent = {};
           Component.prototype.setState = function(partialState, callback) {
             if (typeof partialState !== "object" && typeof partialState !== "function" && partialState != null) {
@@ -195,14 +204,14 @@
               isMounted: ["isMounted", "Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks."],
               replaceState: ["replaceState", "Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236)."]
             };
-            var defineDeprecationWarning = function(methodName, info) {
+            var defineDeprecationWarning = /* @__PURE__ */ __name(function(methodName, info) {
               Object.defineProperty(Component.prototype, methodName, {
                 get: function() {
                   warn("%s(...) is deprecated in plain JavaScript React classes. %s", info[0], info[1]);
                   return void 0;
                 }
               });
-            };
+            }, "defineDeprecationWarning");
             for (var fnName in deprecatedAPIs) {
               if (deprecatedAPIs.hasOwnProperty(fnName)) {
                 defineDeprecationWarning(fnName, deprecatedAPIs[fnName]);
@@ -211,6 +220,7 @@
           }
           function ComponentDummy() {
           }
+          __name(ComponentDummy, "ComponentDummy");
           ComponentDummy.prototype = Component.prototype;
           function PureComponent(props, context, updater) {
             this.props = props;
@@ -218,6 +228,7 @@
             this.refs = emptyObject;
             this.updater = updater || ReactNoopUpdateQueue;
           }
+          __name(PureComponent, "PureComponent");
           var pureComponentPrototype = PureComponent.prototype = new ComponentDummy();
           pureComponentPrototype.constructor = PureComponent;
           assign(pureComponentPrototype, Component.prototype);
@@ -231,10 +242,12 @@
             }
             return refObject;
           }
+          __name(createRef, "createRef");
           var isArrayImpl = Array.isArray;
           function isArray(a) {
             return isArrayImpl(a);
           }
+          __name(isArray, "isArray");
           function typeName(value) {
             {
               var hasToStringTag = typeof Symbol === "function" && Symbol.toStringTag;
@@ -242,6 +255,7 @@
               return type;
             }
           }
+          __name(typeName, "typeName");
           function willCoercionThrow(value) {
             {
               try {
@@ -252,9 +266,11 @@
               }
             }
           }
+          __name(willCoercionThrow, "willCoercionThrow");
           function testStringCoercion(value) {
             return "" + value;
           }
+          __name(testStringCoercion, "testStringCoercion");
           function checkKeyStringCoercion(value) {
             {
               if (willCoercionThrow(value)) {
@@ -263,6 +279,7 @@
               }
             }
           }
+          __name(checkKeyStringCoercion, "checkKeyStringCoercion");
           function getWrappedName(outerType, innerType, wrapperName) {
             var displayName = outerType.displayName;
             if (displayName) {
@@ -271,9 +288,11 @@
             var functionName = innerType.displayName || innerType.name || "";
             return functionName !== "" ? wrapperName + "(" + functionName + ")" : wrapperName;
           }
+          __name(getWrappedName, "getWrappedName");
           function getContextName(type) {
             return type.displayName || "Context";
           }
+          __name(getContextName, "getContextName");
           function getComponentNameFromType(type) {
             if (type == null) {
               return null;
@@ -333,6 +352,7 @@
             }
             return null;
           }
+          __name(getComponentNameFromType, "getComponentNameFromType");
           var hasOwnProperty = Object.prototype.hasOwnProperty;
           var RESERVED_PROPS = {
             key: true,
@@ -355,6 +375,7 @@
             }
             return config.ref !== void 0;
           }
+          __name(hasValidRef, "hasValidRef");
           function hasValidKey(config) {
             {
               if (hasOwnProperty.call(config, "key")) {
@@ -366,36 +387,39 @@
             }
             return config.key !== void 0;
           }
+          __name(hasValidKey, "hasValidKey");
           function defineKeyPropWarningGetter(props, displayName) {
-            var warnAboutAccessingKey = function() {
+            var warnAboutAccessingKey = /* @__PURE__ */ __name(function() {
               {
                 if (!specialPropKeyWarningShown) {
                   specialPropKeyWarningShown = true;
                   error("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", displayName);
                 }
               }
-            };
+            }, "warnAboutAccessingKey");
             warnAboutAccessingKey.isReactWarning = true;
             Object.defineProperty(props, "key", {
               get: warnAboutAccessingKey,
               configurable: true
             });
           }
+          __name(defineKeyPropWarningGetter, "defineKeyPropWarningGetter");
           function defineRefPropWarningGetter(props, displayName) {
-            var warnAboutAccessingRef = function() {
+            var warnAboutAccessingRef = /* @__PURE__ */ __name(function() {
               {
                 if (!specialPropRefWarningShown) {
                   specialPropRefWarningShown = true;
                   error("%s: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", displayName);
                 }
               }
-            };
+            }, "warnAboutAccessingRef");
             warnAboutAccessingRef.isReactWarning = true;
             Object.defineProperty(props, "ref", {
               get: warnAboutAccessingRef,
               configurable: true
             });
           }
+          __name(defineRefPropWarningGetter, "defineRefPropWarningGetter");
           function warnIfStringRefCannotBeAutoConverted(config) {
             {
               if (typeof config.ref === "string" && ReactCurrentOwner.current && config.__self && ReactCurrentOwner.current.stateNode !== config.__self) {
@@ -407,7 +431,8 @@
               }
             }
           }
-          var ReactElement = function(type, key, ref, self2, source, owner, props) {
+          __name(warnIfStringRefCannotBeAutoConverted, "warnIfStringRefCannotBeAutoConverted");
+          var ReactElement = /* @__PURE__ */ __name(function(type, key, ref, self2, source, owner, props) {
             var element = {
               $$typeof: REACT_ELEMENT_TYPE,
               type,
@@ -442,7 +467,7 @@
               }
             }
             return element;
-          };
+          }, "ReactElement");
           function createElement(type, config, children) {
             var propName;
             var props = {};
@@ -507,10 +532,12 @@
             }
             return ReactElement(type, key, ref, self2, source, ReactCurrentOwner.current, props);
           }
+          __name(createElement, "createElement");
           function cloneAndReplaceKey(oldElement, newKey) {
             var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
             return newElement;
           }
+          __name(cloneAndReplaceKey, "cloneAndReplaceKey");
           function cloneElement(element, config, children) {
             if (element === null || element === void 0) {
               throw new Error("React.cloneElement(...): The argument must be a React element, but you passed " + element + ".");
@@ -559,9 +586,11 @@
             }
             return ReactElement(element.type, key, ref, self2, source, owner, props);
           }
+          __name(cloneElement, "cloneElement");
           function isValidElement(object) {
             return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
           }
+          __name(isValidElement, "isValidElement");
           var SEPARATOR = ".";
           var SUBSEPARATOR = ":";
           function escape(key) {
@@ -575,11 +604,13 @@
             });
             return "$" + escapedString;
           }
+          __name(escape, "escape");
           var didWarnAboutMaps = false;
           var userProvidedKeyEscapeRegex = /\/+/g;
           function escapeUserProvidedKey(text) {
             return text.replace(userProvidedKeyEscapeRegex, "$&/");
           }
+          __name(escapeUserProvidedKey, "escapeUserProvidedKey");
           function getElementKey(element, index) {
             if (typeof element === "object" && element !== null && element.key != null) {
               {
@@ -589,6 +620,7 @@
             }
             return index.toString(36);
           }
+          __name(getElementKey, "getElementKey");
           function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
             var type = typeof children;
             if (type === "undefined" || type === "boolean") {
@@ -676,6 +708,7 @@
             }
             return subtreeCount;
           }
+          __name(mapIntoArray, "mapIntoArray");
           function mapChildren(children, func, context) {
             if (children == null) {
               return children;
@@ -687,6 +720,7 @@
             });
             return result;
           }
+          __name(mapChildren, "mapChildren");
           function countChildren(children) {
             var n = 0;
             mapChildren(children, function() {
@@ -694,22 +728,26 @@
             });
             return n;
           }
+          __name(countChildren, "countChildren");
           function forEachChildren(children, forEachFunc, forEachContext) {
             mapChildren(children, function() {
               forEachFunc.apply(this, arguments);
             }, forEachContext);
           }
+          __name(forEachChildren, "forEachChildren");
           function toArray(children) {
             return mapChildren(children, function(child) {
               return child;
             }) || [];
           }
+          __name(toArray, "toArray");
           function onlyChild(children) {
             if (!isValidElement(children)) {
               throw new Error("React.Children.only expected to receive a single React element child.");
             }
             return children;
           }
+          __name(onlyChild, "onlyChild");
           function createContext(defaultValue) {
             var context = {
               $$typeof: REACT_CONTEXT_TYPE,
@@ -799,6 +837,7 @@
             }
             return context;
           }
+          __name(createContext, "createContext");
           var Uninitialized = -1;
           var Pending = 0;
           var Resolved = 1;
@@ -843,6 +882,7 @@
               throw payload._result;
             }
           }
+          __name(lazyInitializer, "lazyInitializer");
           function lazy(ctor) {
             var payload = {
               _status: Uninitialized,
@@ -887,6 +927,7 @@
             }
             return lazyType;
           }
+          __name(lazy, "lazy");
           function forwardRef(render) {
             {
               if (render != null && render.$$typeof === REACT_MEMO_TYPE) {
@@ -926,6 +967,7 @@
             }
             return elementType;
           }
+          __name(forwardRef, "forwardRef");
           var REACT_MODULE_REFERENCE;
           {
             REACT_MODULE_REFERENCE = Symbol.for("react.module.reference");
@@ -944,6 +986,7 @@
             }
             return false;
           }
+          __name(isValidElementType, "isValidElementType");
           function memo(type, compare) {
             {
               if (!isValidElementType(type)) {
@@ -973,6 +1016,7 @@
             }
             return elementType;
           }
+          __name(memo, "memo");
           function resolveDispatcher() {
             var dispatcher = ReactCurrentDispatcher.current;
             {
@@ -982,6 +1026,7 @@
             }
             return dispatcher;
           }
+          __name(resolveDispatcher, "resolveDispatcher");
           function useContext(Context) {
             var dispatcher = resolveDispatcher();
             {
@@ -996,64 +1041,79 @@
             }
             return dispatcher.useContext(Context);
           }
+          __name(useContext, "useContext");
           function useState(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
+          __name(useState, "useState");
           function useReducer(reducer, initialArg, init) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
+          __name(useReducer, "useReducer");
           function useRef(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
+          __name(useRef, "useRef");
           function useEffect(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
+          __name(useEffect, "useEffect");
           function useInsertionEffect(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useInsertionEffect(create, deps);
           }
+          __name(useInsertionEffect, "useInsertionEffect");
           function useLayoutEffect(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useLayoutEffect(create, deps);
           }
+          __name(useLayoutEffect, "useLayoutEffect");
           function useCallback(callback, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
+          __name(useCallback, "useCallback");
           function useMemo(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
+          __name(useMemo, "useMemo");
           function useImperativeHandle(ref, create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useImperativeHandle(ref, create, deps);
           }
+          __name(useImperativeHandle, "useImperativeHandle");
           function useDebugValue(value, formatterFn) {
             {
               var dispatcher = resolveDispatcher();
               return dispatcher.useDebugValue(value, formatterFn);
             }
           }
+          __name(useDebugValue, "useDebugValue");
           function useTransition() {
             var dispatcher = resolveDispatcher();
             return dispatcher.useTransition();
           }
+          __name(useTransition, "useTransition");
           function useDeferredValue(value) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useDeferredValue(value);
           }
+          __name(useDeferredValue, "useDeferredValue");
           function useId() {
             var dispatcher = resolveDispatcher();
             return dispatcher.useId();
           }
+          __name(useId, "useId");
           function useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
           }
+          __name(useSyncExternalStore, "useSyncExternalStore");
           var disabledDepth = 0;
           var prevLog;
           var prevInfo;
@@ -1064,6 +1124,7 @@
           var prevGroupEnd;
           function disabledLog() {
           }
+          __name(disabledLog, "disabledLog");
           disabledLog.__reactDisabledLog = true;
           function disableLogs() {
             {
@@ -1094,6 +1155,7 @@
               disabledDepth++;
             }
           }
+          __name(disableLogs, "disableLogs");
           function reenableLogs() {
             {
               disabledDepth--;
@@ -1132,6 +1194,7 @@
               }
             }
           }
+          __name(reenableLogs, "reenableLogs");
           var ReactCurrentDispatcher$1 = ReactSharedInternals.ReactCurrentDispatcher;
           var prefix;
           function describeBuiltInComponentFrame(name, source, ownerFn) {
@@ -1147,6 +1210,7 @@
               return "\n" + prefix + name;
             }
           }
+          __name(describeBuiltInComponentFrame, "describeBuiltInComponentFrame");
           var reentry = false;
           var componentFrameCache;
           {
@@ -1175,9 +1239,9 @@
             }
             try {
               if (construct) {
-                var Fake = function() {
+                var Fake = /* @__PURE__ */ __name(function() {
                   throw Error();
-                };
+                }, "Fake");
                 Object.defineProperty(Fake.prototype, "props", {
                   set: function() {
                     throw Error();
@@ -1256,15 +1320,18 @@
             }
             return syntheticFrame;
           }
+          __name(describeNativeComponentFrame, "describeNativeComponentFrame");
           function describeFunctionComponentFrame(fn, source, ownerFn) {
             {
               return describeNativeComponentFrame(fn, false);
             }
           }
+          __name(describeFunctionComponentFrame, "describeFunctionComponentFrame");
           function shouldConstruct(Component2) {
             var prototype = Component2.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
+          __name(shouldConstruct, "shouldConstruct");
           function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
             if (type == null) {
               return "";
@@ -1302,6 +1369,7 @@
             }
             return "";
           }
+          __name(describeUnknownElementTypeFrameInDEV, "describeUnknownElementTypeFrameInDEV");
           var loggedTypeFailures = {};
           var ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
           function setCurrentlyValidatingElement(element) {
@@ -1315,6 +1383,7 @@
               }
             }
           }
+          __name(setCurrentlyValidatingElement, "setCurrentlyValidatingElement");
           function checkPropTypes(typeSpecs, values, location2, componentName, element) {
             {
               var has = Function.call.bind(hasOwnProperty);
@@ -1346,6 +1415,7 @@
               }
             }
           }
+          __name(checkPropTypes, "checkPropTypes");
           function setCurrentlyValidatingElement$1(element) {
             {
               if (element) {
@@ -1357,6 +1427,7 @@
               }
             }
           }
+          __name(setCurrentlyValidatingElement$1, "setCurrentlyValidatingElement$1");
           var propTypesMisspellWarningShown;
           {
             propTypesMisspellWarningShown = false;
@@ -1370,6 +1441,7 @@
             }
             return "";
           }
+          __name(getDeclarationErrorAddendum, "getDeclarationErrorAddendum");
           function getSourceInfoErrorAddendum(source) {
             if (source !== void 0) {
               var fileName = source.fileName.replace(/^.*[\\\/]/, "");
@@ -1378,12 +1450,14 @@
             }
             return "";
           }
+          __name(getSourceInfoErrorAddendum, "getSourceInfoErrorAddendum");
           function getSourceInfoErrorAddendumForProps(elementProps) {
             if (elementProps !== null && elementProps !== void 0) {
               return getSourceInfoErrorAddendum(elementProps.__source);
             }
             return "";
           }
+          __name(getSourceInfoErrorAddendumForProps, "getSourceInfoErrorAddendumForProps");
           var ownerHasKeyUseWarning = {};
           function getCurrentComponentErrorInfo(parentType) {
             var info = getDeclarationErrorAddendum();
@@ -1395,6 +1469,7 @@
             }
             return info;
           }
+          __name(getCurrentComponentErrorInfo, "getCurrentComponentErrorInfo");
           function validateExplicitKey(element, parentType) {
             if (!element._store || element._store.validated || element.key != null) {
               return;
@@ -1415,6 +1490,7 @@
               setCurrentlyValidatingElement$1(null);
             }
           }
+          __name(validateExplicitKey, "validateExplicitKey");
           function validateChildKeys(node, parentType) {
             if (typeof node !== "object") {
               return;
@@ -1445,6 +1521,7 @@
               }
             }
           }
+          __name(validateChildKeys, "validateChildKeys");
           function validatePropTypes(element) {
             {
               var type = element.type;
@@ -1472,6 +1549,7 @@
               }
             }
           }
+          __name(validatePropTypes, "validatePropTypes");
           function validateFragmentProps(fragment) {
             {
               var keys = Object.keys(fragment.props);
@@ -1491,6 +1569,7 @@
               }
             }
           }
+          __name(validateFragmentProps, "validateFragmentProps");
           function createElementWithValidation(type, props, children) {
             var validType = isValidElementType(type);
             if (!validType) {
@@ -1535,6 +1614,7 @@
             }
             return element;
           }
+          __name(createElementWithValidation, "createElementWithValidation");
           var didWarnAboutDeprecatedCreateFactory = false;
           function createFactoryWithValidation(type) {
             var validatedFactory = createElementWithValidation.bind(null, type);
@@ -1557,6 +1637,7 @@
             }
             return validatedFactory;
           }
+          __name(createFactoryWithValidation, "createFactoryWithValidation");
           function cloneElementWithValidation(element, props, children) {
             var newElement = cloneElement.apply(this, arguments);
             for (var i = 2; i < arguments.length; i++) {
@@ -1565,6 +1646,7 @@
             validatePropTypes(newElement);
             return newElement;
           }
+          __name(cloneElementWithValidation, "cloneElementWithValidation");
           function startTransition(scope, options) {
             var prevTransition = ReactCurrentBatchConfig.transition;
             ReactCurrentBatchConfig.transition = {};
@@ -1587,6 +1669,7 @@
               }
             }
           }
+          __name(startTransition, "startTransition");
           var didWarnAboutMessageChannel = false;
           var enqueueTaskImpl = null;
           function enqueueTask(task) {
@@ -1596,7 +1679,7 @@
                 var nodeRequire = module && module[requireString];
                 enqueueTaskImpl = nodeRequire.call(module, "timers").setImmediate;
               } catch (_err) {
-                enqueueTaskImpl = function(callback) {
+                enqueueTaskImpl = /* @__PURE__ */ __name(function(callback) {
                   {
                     if (didWarnAboutMessageChannel === false) {
                       didWarnAboutMessageChannel = true;
@@ -1608,11 +1691,12 @@
                   var channel = new MessageChannel();
                   channel.port1.onmessage = callback;
                   channel.port2.postMessage(void 0);
-                };
+                }, "enqueueTaskImpl");
               }
             }
             return enqueueTaskImpl(task);
           }
+          __name(enqueueTask, "enqueueTask");
           var actScopeDepth = 0;
           var didWarnNoAwaitAct = false;
           function act(callback) {
@@ -1702,6 +1786,7 @@
               }
             }
           }
+          __name(act, "act");
           function popActScope(prevActScopeDepth) {
             {
               if (prevActScopeDepth !== actScopeDepth - 1) {
@@ -1710,6 +1795,7 @@
               actScopeDepth = prevActScopeDepth;
             }
           }
+          __name(popActScope, "popActScope");
           function recursivelyFlushAsyncActWork(returnValue, resolve, reject) {
             {
               var queue = ReactCurrentActQueue.current;
@@ -1732,6 +1818,7 @@
               }
             }
           }
+          __name(recursivelyFlushAsyncActWork, "recursivelyFlushAsyncActWork");
           var isFlushing = false;
           function flushActQueue(queue) {
             {
@@ -1755,6 +1842,7 @@
               }
             }
           }
+          __name(flushActQueue, "flushActQueue");
           var createElement$1 = createElementWithValidation;
           var cloneElement$1 = cloneElementWithValidation;
           var createFactory = createFactoryWithValidation;
@@ -1840,9 +1928,11 @@
             heap.push(node);
             siftUp(heap, node, index);
           }
+          __name(push, "push");
           function peek(heap) {
             return heap.length === 0 ? null : heap[0];
           }
+          __name(peek, "peek");
           function pop(heap) {
             if (heap.length === 0) {
               return null;
@@ -1855,6 +1945,7 @@
             }
             return first;
           }
+          __name(pop, "pop");
           function siftUp(heap, node, i) {
             var index = i;
             while (index > 0) {
@@ -1869,6 +1960,7 @@
               }
             }
           }
+          __name(siftUp, "siftUp");
           function siftDown(heap, node, i) {
             var index = i;
             var length2 = heap.length;
@@ -1897,10 +1989,12 @@
               }
             }
           }
+          __name(siftDown, "siftDown");
           function compare(a, b) {
             var diff = a.sortIndex - b.sortIndex;
             return diff !== 0 ? diff : a.id - b.id;
           }
+          __name(compare, "compare");
           var ImmediatePriority = 1;
           var UserBlockingPriority = 2;
           var NormalPriority = 3;
@@ -1908,6 +2002,7 @@
           var IdlePriority = 5;
           function markTaskErrored(task, ms) {
           }
+          __name(markTaskErrored, "markTaskErrored");
           var hasPerformanceNow = typeof performance === "object" && typeof performance.now === "function";
           if (hasPerformanceNow) {
             var localPerformance = performance;
@@ -1954,6 +2049,7 @@
               timer = peek(timerQueue);
             }
           }
+          __name(advanceTimers, "advanceTimers");
           function handleTimeout(currentTime) {
             isHostTimeoutScheduled = false;
             advanceTimers(currentTime);
@@ -1969,6 +2065,7 @@
               }
             }
           }
+          __name(handleTimeout, "handleTimeout");
           function flushWork(hasTimeRemaining, initialTime2) {
             isHostCallbackScheduled = false;
             if (isHostTimeoutScheduled) {
@@ -1998,6 +2095,7 @@
               isPerformingWork = false;
             }
           }
+          __name(flushWork, "flushWork");
           function workLoop(hasTimeRemaining, initialTime2) {
             var currentTime = initialTime2;
             advanceTimers(currentTime);
@@ -2036,6 +2134,7 @@
               return false;
             }
           }
+          __name(workLoop, "workLoop");
           function unstable_runWithPriority(priorityLevel, eventHandler) {
             switch (priorityLevel) {
               case ImmediatePriority:
@@ -2055,6 +2154,7 @@
               currentPriorityLevel = previousPriorityLevel;
             }
           }
+          __name(unstable_runWithPriority, "unstable_runWithPriority");
           function unstable_next(eventHandler) {
             var priorityLevel;
             switch (currentPriorityLevel) {
@@ -2075,6 +2175,7 @@
               currentPriorityLevel = previousPriorityLevel;
             }
           }
+          __name(unstable_next, "unstable_next");
           function unstable_wrapCallback(callback) {
             var parentPriorityLevel = currentPriorityLevel;
             return function() {
@@ -2087,6 +2188,7 @@
               }
             };
           }
+          __name(unstable_wrapCallback, "unstable_wrapCallback");
           function unstable_scheduleCallback(priorityLevel, callback, options) {
             var currentTime = exports.unstable_now();
             var startTime2;
@@ -2149,23 +2251,29 @@
             }
             return newTask;
           }
+          __name(unstable_scheduleCallback, "unstable_scheduleCallback");
           function unstable_pauseExecution() {
           }
+          __name(unstable_pauseExecution, "unstable_pauseExecution");
           function unstable_continueExecution() {
             if (!isHostCallbackScheduled && !isPerformingWork) {
               isHostCallbackScheduled = true;
               requestHostCallback(flushWork);
             }
           }
+          __name(unstable_continueExecution, "unstable_continueExecution");
           function unstable_getFirstCallbackNode() {
             return peek(taskQueue);
           }
+          __name(unstable_getFirstCallbackNode, "unstable_getFirstCallbackNode");
           function unstable_cancelCallback(task) {
             task.callback = null;
           }
+          __name(unstable_cancelCallback, "unstable_cancelCallback");
           function unstable_getCurrentPriorityLevel() {
             return currentPriorityLevel;
           }
+          __name(unstable_getCurrentPriorityLevel, "unstable_getCurrentPriorityLevel");
           var isMessageLoopRunning = false;
           var scheduledHostCallback = null;
           var taskTimeoutID = -1;
@@ -2178,8 +2286,10 @@
             }
             return true;
           }
+          __name(shouldYieldToHost, "shouldYieldToHost");
           function requestPaint() {
           }
+          __name(requestPaint, "requestPaint");
           function forceFrameRate(fps) {
             if (fps < 0 || fps > 125) {
               console["error"]("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported");
@@ -2191,7 +2301,8 @@
               frameInterval = frameYieldMs;
             }
           }
-          var performWorkUntilDeadline = function() {
+          __name(forceFrameRate, "forceFrameRate");
+          var performWorkUntilDeadline = /* @__PURE__ */ __name(function() {
             if (scheduledHostCallback !== null) {
               var currentTime = exports.unstable_now();
               startTime = currentTime;
@@ -2210,23 +2321,23 @@
             } else {
               isMessageLoopRunning = false;
             }
-          };
+          }, "performWorkUntilDeadline");
           var schedulePerformWorkUntilDeadline;
           if (typeof localSetImmediate === "function") {
-            schedulePerformWorkUntilDeadline = function() {
+            schedulePerformWorkUntilDeadline = /* @__PURE__ */ __name(function() {
               localSetImmediate(performWorkUntilDeadline);
-            };
+            }, "schedulePerformWorkUntilDeadline");
           } else if (typeof MessageChannel !== "undefined") {
             var channel = new MessageChannel();
             var port = channel.port2;
             channel.port1.onmessage = performWorkUntilDeadline;
-            schedulePerformWorkUntilDeadline = function() {
+            schedulePerformWorkUntilDeadline = /* @__PURE__ */ __name(function() {
               port.postMessage(null);
-            };
+            }, "schedulePerformWorkUntilDeadline");
           } else {
-            schedulePerformWorkUntilDeadline = function() {
+            schedulePerformWorkUntilDeadline = /* @__PURE__ */ __name(function() {
               localSetTimeout(performWorkUntilDeadline, 0);
-            };
+            }, "schedulePerformWorkUntilDeadline");
           }
           function requestHostCallback(callback) {
             scheduledHostCallback = callback;
@@ -2235,15 +2346,18 @@
               schedulePerformWorkUntilDeadline();
             }
           }
+          __name(requestHostCallback, "requestHostCallback");
           function requestHostTimeout(callback, ms) {
             taskTimeoutID = localSetTimeout(function() {
               callback(exports.unstable_now());
             }, ms);
           }
+          __name(requestHostTimeout, "requestHostTimeout");
           function cancelHostTimeout() {
             localClearTimeout(taskTimeoutID);
             taskTimeoutID = -1;
           }
+          __name(cancelHostTimeout, "cancelHostTimeout");
           var unstable_requestPaint = requestPaint;
           var unstable_Profiling = null;
           exports.unstable_IdlePriority = IdlePriority;
@@ -2305,6 +2419,7 @@
               suppressWarning = newSuppressWarning;
             }
           }
+          __name(setSuppressWarning, "setSuppressWarning");
           function warn(format) {
             {
               if (!suppressWarning) {
@@ -2315,6 +2430,7 @@
               }
             }
           }
+          __name(warn, "warn");
           function error(format) {
             {
               if (!suppressWarning) {
@@ -2325,6 +2441,7 @@
               }
             }
           }
+          __name(error, "error");
           function printWarning(level, format, args) {
             {
               var ReactDebugCurrentFrame2 = ReactSharedInternals.ReactDebugCurrentFrame;
@@ -2340,6 +2457,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat);
             }
           }
+          __name(printWarning, "printWarning");
           var FunctionComponent = 0;
           var ClassComponent = 1;
           var IndeterminateComponent = 2;
@@ -2383,6 +2501,7 @@
             registerDirectEvent(registrationName, dependencies);
             registerDirectEvent(registrationName + "Capture", dependencies);
           }
+          __name(registerTwoPhaseEvent, "registerTwoPhaseEvent");
           function registerDirectEvent(registrationName, dependencies) {
             {
               if (registrationNameDependencies[registrationName]) {
@@ -2401,6 +2520,7 @@
               allNativeEvents.add(dependencies[i]);
             }
           }
+          __name(registerDirectEvent, "registerDirectEvent");
           var canUseDOM = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
           var hasOwnProperty = Object.prototype.hasOwnProperty;
           function typeName(value) {
@@ -2410,6 +2530,7 @@
               return type;
             }
           }
+          __name(typeName, "typeName");
           function willCoercionThrow(value) {
             {
               try {
@@ -2420,9 +2541,11 @@
               }
             }
           }
+          __name(willCoercionThrow, "willCoercionThrow");
           function testStringCoercion(value) {
             return "" + value;
           }
+          __name(testStringCoercion, "testStringCoercion");
           function checkAttributeStringCoercion(value, attributeName) {
             {
               if (willCoercionThrow(value)) {
@@ -2431,6 +2554,7 @@
               }
             }
           }
+          __name(checkAttributeStringCoercion, "checkAttributeStringCoercion");
           function checkKeyStringCoercion(value) {
             {
               if (willCoercionThrow(value)) {
@@ -2439,6 +2563,7 @@
               }
             }
           }
+          __name(checkKeyStringCoercion, "checkKeyStringCoercion");
           function checkPropStringCoercion(value, propName) {
             {
               if (willCoercionThrow(value)) {
@@ -2447,6 +2572,7 @@
               }
             }
           }
+          __name(checkPropStringCoercion, "checkPropStringCoercion");
           function checkCSSPropertyStringCoercion(value, propName) {
             {
               if (willCoercionThrow(value)) {
@@ -2455,6 +2581,7 @@
               }
             }
           }
+          __name(checkCSSPropertyStringCoercion, "checkCSSPropertyStringCoercion");
           function checkHtmlStringCoercion(value) {
             {
               if (willCoercionThrow(value)) {
@@ -2463,6 +2590,7 @@
               }
             }
           }
+          __name(checkHtmlStringCoercion, "checkHtmlStringCoercion");
           function checkFormFieldValueStringCoercion(value) {
             {
               if (willCoercionThrow(value)) {
@@ -2471,6 +2599,7 @@
               }
             }
           }
+          __name(checkFormFieldValueStringCoercion, "checkFormFieldValueStringCoercion");
           var RESERVED = 0;
           var STRING = 1;
           var BOOLEANISH_STRING = 2;
@@ -2500,6 +2629,7 @@
             }
             return false;
           }
+          __name(isAttributeNameSafe, "isAttributeNameSafe");
           function shouldIgnoreAttribute(name, propertyInfo, isCustomComponentTag) {
             if (propertyInfo !== null) {
               return propertyInfo.type === RESERVED;
@@ -2512,6 +2642,7 @@
             }
             return false;
           }
+          __name(shouldIgnoreAttribute, "shouldIgnoreAttribute");
           function shouldRemoveAttributeWithWarning(name, value, propertyInfo, isCustomComponentTag) {
             if (propertyInfo !== null && propertyInfo.type === RESERVED) {
               return false;
@@ -2535,6 +2666,7 @@
                 return false;
             }
           }
+          __name(shouldRemoveAttributeWithWarning, "shouldRemoveAttributeWithWarning");
           function shouldRemoveAttribute(name, value, propertyInfo, isCustomComponentTag) {
             if (value === null || typeof value === "undefined") {
               return true;
@@ -2559,9 +2691,11 @@
             }
             return false;
           }
+          __name(shouldRemoveAttribute, "shouldRemoveAttribute");
           function getPropertyInfo(name) {
             return properties.hasOwnProperty(name) ? properties[name] : null;
           }
+          __name(getPropertyInfo, "getPropertyInfo");
           function PropertyInfoRecord(name, type, mustUseProperty, attributeName, attributeNamespace, sanitizeURL2, removeEmptyString) {
             this.acceptsBooleans = type === BOOLEANISH_STRING || type === BOOLEAN || type === OVERLOADED_BOOLEAN;
             this.attributeName = attributeName;
@@ -2572,6 +2706,7 @@
             this.sanitizeURL = sanitizeURL2;
             this.removeEmptyString = removeEmptyString;
           }
+          __name(PropertyInfoRecord, "PropertyInfoRecord");
           var properties = {};
           var reservedProps = [
             "children",
@@ -2721,9 +2856,9 @@
             );
           });
           var CAMELIZE = /[\-\:]([a-z])/g;
-          var capitalize = function(token) {
+          var capitalize = /* @__PURE__ */ __name(function(token) {
             return token[1].toUpperCase();
-          };
+          }, "capitalize");
           [
             "accent-height",
             "alignment-baseline",
@@ -2887,6 +3022,7 @@
               }
             }
           }
+          __name(sanitizeURL, "sanitizeURL");
           function getValueForProperty(node, name, expected, propertyInfo) {
             {
               if (propertyInfo.mustUseProperty) {
@@ -2934,6 +3070,7 @@
               }
             }
           }
+          __name(getValueForProperty, "getValueForProperty");
           function getValueForAttribute(node, name, expected, isCustomComponentTag) {
             {
               if (!isAttributeNameSafe(name)) {
@@ -2952,6 +3089,7 @@
               return value;
             }
           }
+          __name(getValueForAttribute, "getValueForAttribute");
           function setValueForProperty(node, name, value, isCustomComponentTag) {
             var propertyInfo = getPropertyInfo(name);
             if (shouldIgnoreAttribute(name, propertyInfo, isCustomComponentTag)) {
@@ -3011,6 +3149,7 @@
               }
             }
           }
+          __name(setValueForProperty, "setValueForProperty");
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -3041,6 +3180,7 @@
             }
             return null;
           }
+          __name(getIteratorFn, "getIteratorFn");
           var assign = Object.assign;
           var disabledDepth = 0;
           var prevLog;
@@ -3052,6 +3192,7 @@
           var prevGroupEnd;
           function disabledLog() {
           }
+          __name(disabledLog, "disabledLog");
           disabledLog.__reactDisabledLog = true;
           function disableLogs() {
             {
@@ -3082,6 +3223,7 @@
               disabledDepth++;
             }
           }
+          __name(disableLogs, "disableLogs");
           function reenableLogs() {
             {
               disabledDepth--;
@@ -3120,6 +3262,7 @@
               }
             }
           }
+          __name(reenableLogs, "reenableLogs");
           var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
           var prefix;
           function describeBuiltInComponentFrame(name, source, ownerFn) {
@@ -3135,6 +3278,7 @@
               return "\n" + prefix + name;
             }
           }
+          __name(describeBuiltInComponentFrame, "describeBuiltInComponentFrame");
           var reentry = false;
           var componentFrameCache;
           {
@@ -3163,9 +3307,9 @@
             }
             try {
               if (construct) {
-                var Fake = function() {
+                var Fake = /* @__PURE__ */ __name(function() {
                   throw Error();
-                };
+                }, "Fake");
                 Object.defineProperty(Fake.prototype, "props", {
                   set: function() {
                     throw Error();
@@ -3244,20 +3388,24 @@
             }
             return syntheticFrame;
           }
+          __name(describeNativeComponentFrame, "describeNativeComponentFrame");
           function describeClassComponentFrame(ctor, source, ownerFn) {
             {
               return describeNativeComponentFrame(ctor, true);
             }
           }
+          __name(describeClassComponentFrame, "describeClassComponentFrame");
           function describeFunctionComponentFrame(fn, source, ownerFn) {
             {
               return describeNativeComponentFrame(fn, false);
             }
           }
+          __name(describeFunctionComponentFrame, "describeFunctionComponentFrame");
           function shouldConstruct(Component) {
             var prototype = Component.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
+          __name(shouldConstruct, "shouldConstruct");
           function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
             if (type == null) {
               return "";
@@ -3295,6 +3443,7 @@
             }
             return "";
           }
+          __name(describeUnknownElementTypeFrameInDEV, "describeUnknownElementTypeFrameInDEV");
           function describeFiber(fiber) {
             var owner = fiber._debugOwner ? fiber._debugOwner.type : null;
             var source = fiber._debugSource;
@@ -3319,6 +3468,7 @@
                 return "";
             }
           }
+          __name(describeFiber, "describeFiber");
           function getStackByFiberInDevAndProd(workInProgress2) {
             try {
               var info = "";
@@ -3332,6 +3482,7 @@
               return "\nError generating stack: " + x.message + "\n" + x.stack;
             }
           }
+          __name(getStackByFiberInDevAndProd, "getStackByFiberInDevAndProd");
           function getWrappedName(outerType, innerType, wrapperName) {
             var displayName = outerType.displayName;
             if (displayName) {
@@ -3340,9 +3491,11 @@
             var functionName = innerType.displayName || innerType.name || "";
             return functionName !== "" ? wrapperName + "(" + functionName + ")" : wrapperName;
           }
+          __name(getWrappedName, "getWrappedName");
           function getContextName(type) {
             return type.displayName || "Context";
           }
+          __name(getContextName, "getContextName");
           function getComponentNameFromType(type) {
             if (type == null) {
               return null;
@@ -3402,13 +3555,16 @@
             }
             return null;
           }
+          __name(getComponentNameFromType, "getComponentNameFromType");
           function getWrappedName$1(outerType, innerType, wrapperName) {
             var functionName = innerType.displayName || innerType.name || "";
             return outerType.displayName || (functionName !== "" ? wrapperName + "(" + functionName + ")" : wrapperName);
           }
+          __name(getWrappedName$1, "getWrappedName$1");
           function getContextName$1(type) {
             return type.displayName || "Context";
           }
+          __name(getContextName$1, "getContextName$1");
           function getComponentNameFromFiber(fiber) {
             var tag = fiber.tag, type = fiber.type;
             switch (tag) {
@@ -3469,6 +3625,7 @@
             }
             return null;
           }
+          __name(getComponentNameFromFiber, "getComponentNameFromFiber");
           var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
           var current = null;
           var isRendering = false;
@@ -3484,6 +3641,7 @@
             }
             return null;
           }
+          __name(getCurrentFiberOwnerNameInDevOrNull, "getCurrentFiberOwnerNameInDevOrNull");
           function getCurrentFiberStackInDev() {
             {
               if (current === null) {
@@ -3492,6 +3650,7 @@
               return getStackByFiberInDevAndProd(current);
             }
           }
+          __name(getCurrentFiberStackInDev, "getCurrentFiberStackInDev");
           function resetCurrentFiber() {
             {
               ReactDebugCurrentFrame.getCurrentStack = null;
@@ -3499,6 +3658,7 @@
               isRendering = false;
             }
           }
+          __name(resetCurrentFiber, "resetCurrentFiber");
           function setCurrentFiber(fiber) {
             {
               ReactDebugCurrentFrame.getCurrentStack = fiber === null ? null : getCurrentFiberStackInDev;
@@ -3506,19 +3666,23 @@
               isRendering = false;
             }
           }
+          __name(setCurrentFiber, "setCurrentFiber");
           function getCurrentFiber() {
             {
               return current;
             }
           }
+          __name(getCurrentFiber, "getCurrentFiber");
           function setIsRendering(rendering) {
             {
               isRendering = rendering;
             }
           }
+          __name(setIsRendering, "setIsRendering");
           function toString(value) {
             return "" + value;
           }
+          __name(toString, "toString");
           function getToStringValue(value) {
             switch (typeof value) {
               case "boolean":
@@ -3535,6 +3699,7 @@
                 return "";
             }
           }
+          __name(getToStringValue, "getToStringValue");
           var hasReadOnlyValue = {
             button: true,
             checkbox: true,
@@ -3554,17 +3719,21 @@
               }
             }
           }
+          __name(checkControlledValueProps, "checkControlledValueProps");
           function isCheckable(elem) {
             var type = elem.type;
             var nodeName = elem.nodeName;
             return nodeName && nodeName.toLowerCase() === "input" && (type === "checkbox" || type === "radio");
           }
+          __name(isCheckable, "isCheckable");
           function getTracker(node) {
             return node._valueTracker;
           }
+          __name(getTracker, "getTracker");
           function detachTracker(node) {
             node._valueTracker = null;
           }
+          __name(detachTracker, "detachTracker");
           function getValueFromNode(node) {
             var value = "";
             if (!node) {
@@ -3577,6 +3746,7 @@
             }
             return value;
           }
+          __name(getValueFromNode, "getValueFromNode");
           function trackValueOnNode(node) {
             var valueField = isCheckable(node) ? "checked" : "value";
             var descriptor = Object.getOwnPropertyDescriptor(node.constructor.prototype, valueField);
@@ -3621,12 +3791,14 @@
             };
             return tracker;
           }
+          __name(trackValueOnNode, "trackValueOnNode");
           function track(node) {
             if (getTracker(node)) {
               return;
             }
             node._valueTracker = trackValueOnNode(node);
           }
+          __name(track, "track");
           function updateValueIfChanged(node) {
             if (!node) {
               return false;
@@ -3643,6 +3815,7 @@
             }
             return false;
           }
+          __name(updateValueIfChanged, "updateValueIfChanged");
           function getActiveElement(doc) {
             doc = doc || (typeof document !== "undefined" ? document : void 0);
             if (typeof doc === "undefined") {
@@ -3654,6 +3827,7 @@
               return doc.body;
             }
           }
+          __name(getActiveElement, "getActiveElement");
           var didWarnValueDefaultValue = false;
           var didWarnCheckedDefaultChecked = false;
           var didWarnControlledToUncontrolled = false;
@@ -3662,6 +3836,7 @@
             var usesChecked = props.type === "checkbox" || props.type === "radio";
             return usesChecked ? props.checked != null : props.value != null;
           }
+          __name(isControlled, "isControlled");
           function getHostProps(element, props) {
             var node = element;
             var checked = props.checked;
@@ -3673,6 +3848,7 @@
             });
             return hostProps;
           }
+          __name(getHostProps, "getHostProps");
           function initWrapperState(element, props) {
             {
               checkControlledValueProps("input", props);
@@ -3693,6 +3869,7 @@
               controlled: isControlled(props)
             };
           }
+          __name(initWrapperState, "initWrapperState");
           function updateChecked(element, props) {
             var node = element;
             var checked = props.checked;
@@ -3700,6 +3877,7 @@
               setValueForProperty(node, "checked", checked, false);
             }
           }
+          __name(updateChecked, "updateChecked");
           function updateWrapper(element, props) {
             var node = element;
             {
@@ -3741,6 +3919,7 @@
               }
             }
           }
+          __name(updateWrapper, "updateWrapper");
           function postMountWrapper(element, props, isHydrating2) {
             var node = element;
             if (props.hasOwnProperty("value") || props.hasOwnProperty("defaultValue")) {
@@ -3773,11 +3952,13 @@
               node.name = name;
             }
           }
+          __name(postMountWrapper, "postMountWrapper");
           function restoreControlledState(element, props) {
             var node = element;
             updateWrapper(node, props);
             updateNamedCousins(node, props);
           }
+          __name(restoreControlledState, "restoreControlledState");
           function updateNamedCousins(rootNode, props) {
             var name = props.name;
             if (props.type === "radio" && name != null) {
@@ -3803,6 +3984,7 @@
               }
             }
           }
+          __name(updateNamedCousins, "updateNamedCousins");
           function setDefaultValue(node, type, value) {
             if (type !== "number" || getActiveElement(node.ownerDocument) !== node) {
               if (value == null) {
@@ -3812,6 +3994,7 @@
               }
             }
           }
+          __name(setDefaultValue, "setDefaultValue");
           var didWarnSelectedSetOnOption = false;
           var didWarnInvalidChild = false;
           var didWarnInvalidInnerHTML = false;
@@ -3844,15 +4027,18 @@
               }
             }
           }
+          __name(validateProps, "validateProps");
           function postMountWrapper$1(element, props) {
             if (props.value != null) {
               element.setAttribute("value", toString(getToStringValue(props.value)));
             }
           }
+          __name(postMountWrapper$1, "postMountWrapper$1");
           var isArrayImpl = Array.isArray;
           function isArray(a) {
             return isArrayImpl(a);
           }
+          __name(isArray, "isArray");
           var didWarnValueDefaultValue$1;
           {
             didWarnValueDefaultValue$1 = false;
@@ -3864,6 +4050,7 @@
             }
             return "";
           }
+          __name(getDeclarationErrorAddendum, "getDeclarationErrorAddendum");
           var valuePropNames = ["value", "defaultValue"];
           function checkSelectPropTypes(props) {
             {
@@ -3882,6 +4069,7 @@
               }
             }
           }
+          __name(checkSelectPropTypes, "checkSelectPropTypes");
           function updateOptions(node, multiple, propValue, setDefaultSelected) {
             var options2 = node.options;
             if (multiple) {
@@ -3919,11 +4107,13 @@
               }
             }
           }
+          __name(updateOptions, "updateOptions");
           function getHostProps$1(element, props) {
             return assign({}, props, {
               value: void 0
             });
           }
+          __name(getHostProps$1, "getHostProps$1");
           function initWrapperState$1(element, props) {
             var node = element;
             {
@@ -3939,6 +4129,7 @@
               }
             }
           }
+          __name(initWrapperState$1, "initWrapperState$1");
           function postMountWrapper$2(element, props) {
             var node = element;
             node.multiple = !!props.multiple;
@@ -3949,6 +4140,7 @@
               updateOptions(node, !!props.multiple, props.defaultValue, true);
             }
           }
+          __name(postMountWrapper$2, "postMountWrapper$2");
           function postUpdateWrapper(element, props) {
             var node = element;
             var wasMultiple = node._wrapperState.wasMultiple;
@@ -3964,6 +4156,7 @@
               }
             }
           }
+          __name(postUpdateWrapper, "postUpdateWrapper");
           function restoreControlledState$1(element, props) {
             var node = element;
             var value = props.value;
@@ -3971,6 +4164,7 @@
               updateOptions(node, !!props.multiple, value, false);
             }
           }
+          __name(restoreControlledState$1, "restoreControlledState$1");
           var didWarnValDefaultVal = false;
           function getHostProps$2(element, props) {
             var node = element;
@@ -3984,6 +4178,7 @@
             });
             return hostProps;
           }
+          __name(getHostProps$2, "getHostProps$2");
           function initWrapperState$2(element, props) {
             var node = element;
             {
@@ -4022,6 +4217,7 @@
               initialValue: getToStringValue(initialValue)
             };
           }
+          __name(initWrapperState$2, "initWrapperState$2");
           function updateWrapper$1(element, props) {
             var node = element;
             var value = getToStringValue(props.value);
@@ -4039,6 +4235,7 @@
               node.defaultValue = toString(defaultValue);
             }
           }
+          __name(updateWrapper$1, "updateWrapper$1");
           function postMountWrapper$3(element, props) {
             var node = element;
             var textContent = node.textContent;
@@ -4048,9 +4245,11 @@
               }
             }
           }
+          __name(postMountWrapper$3, "postMountWrapper$3");
           function restoreControlledState$2(element, props) {
             updateWrapper$1(element, props);
           }
+          __name(restoreControlledState$2, "restoreControlledState$2");
           var HTML_NAMESPACE = "http://www.w3.org/1999/xhtml";
           var MATH_NAMESPACE = "http://www.w3.org/1998/Math/MathML";
           var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
@@ -4064,6 +4263,7 @@
                 return HTML_NAMESPACE;
             }
           }
+          __name(getIntrinsicNamespace, "getIntrinsicNamespace");
           function getChildNamespace(parentNamespace, type) {
             if (parentNamespace == null || parentNamespace === HTML_NAMESPACE) {
               return getIntrinsicNamespace(type);
@@ -4073,7 +4273,8 @@
             }
             return parentNamespace;
           }
-          var createMicrosoftUnsafeLocalFunction = function(func) {
+          __name(getChildNamespace, "getChildNamespace");
+          var createMicrosoftUnsafeLocalFunction = /* @__PURE__ */ __name(function(func) {
             if (typeof MSApp !== "undefined" && MSApp.execUnsafeLocalFunction) {
               return function(arg0, arg1, arg2, arg3) {
                 MSApp.execUnsafeLocalFunction(function() {
@@ -4083,7 +4284,7 @@
             } else {
               return func;
             }
-          };
+          }, "createMicrosoftUnsafeLocalFunction");
           var reusableSVGContainer;
           var setInnerHTML = createMicrosoftUnsafeLocalFunction(function(node, html) {
             if (node.namespaceURI === SVG_NAMESPACE) {
@@ -4107,7 +4308,7 @@
           var COMMENT_NODE = 8;
           var DOCUMENT_NODE = 9;
           var DOCUMENT_FRAGMENT_NODE = 11;
-          var setTextContent = function(node, text) {
+          var setTextContent = /* @__PURE__ */ __name(function(node, text) {
             if (text) {
               var firstChild = node.firstChild;
               if (firstChild && firstChild === node.lastChild && firstChild.nodeType === TEXT_NODE) {
@@ -4116,7 +4317,7 @@
               }
             }
             node.textContent = text;
-          };
+          }, "setTextContent");
           var shorthandToLonghand = {
             animation: ["animationDelay", "animationDirection", "animationDuration", "animationFillMode", "animationIterationCount", "animationName", "animationPlayState", "animationTimingFunction"],
             background: ["backgroundAttachment", "backgroundClip", "backgroundColor", "backgroundImage", "backgroundOrigin", "backgroundPositionX", "backgroundPositionY", "backgroundRepeat", "backgroundSize"],
@@ -4214,6 +4415,7 @@
           function prefixKey(prefix2, key) {
             return prefix2 + key.charAt(0).toUpperCase() + key.substring(1);
           }
+          __name(prefixKey, "prefixKey");
           var prefixes = ["Webkit", "ms", "Moz", "O"];
           Object.keys(isUnitlessNumber).forEach(function(prop) {
             prefixes.forEach(function(prefix2) {
@@ -4233,13 +4435,15 @@
             }
             return ("" + value).trim();
           }
+          __name(dangerousStyleValue, "dangerousStyleValue");
           var uppercasePattern = /([A-Z])/g;
           var msPattern = /^ms-/;
           function hyphenateStyleName(name) {
             return name.replace(uppercasePattern, "-$1").toLowerCase().replace(msPattern, "-ms-");
           }
-          var warnValidStyle = function() {
-          };
+          __name(hyphenateStyleName, "hyphenateStyleName");
+          var warnValidStyle = /* @__PURE__ */ __name(function() {
+          }, "warnValidStyle");
           {
             var badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/;
             var msPattern$1 = /^-ms-/;
@@ -4249,12 +4453,12 @@
             var warnedStyleValues = {};
             var warnedForNaNValue = false;
             var warnedForInfinityValue = false;
-            var camelize = function(string) {
+            var camelize = /* @__PURE__ */ __name(function(string) {
               return string.replace(hyphenPattern, function(_, character) {
                 return character.toUpperCase();
               });
-            };
-            var warnHyphenatedStyleName = function(name) {
+            }, "camelize");
+            var warnHyphenatedStyleName = /* @__PURE__ */ __name(function(name) {
               if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
                 return;
               }
@@ -4264,36 +4468,36 @@
                 name,
                 camelize(name.replace(msPattern$1, "ms-"))
               );
-            };
-            var warnBadVendoredStyleName = function(name) {
+            }, "warnHyphenatedStyleName");
+            var warnBadVendoredStyleName = /* @__PURE__ */ __name(function(name) {
               if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
                 return;
               }
               warnedStyleNames[name] = true;
               error("Unsupported vendor-prefixed style property %s. Did you mean %s?", name, name.charAt(0).toUpperCase() + name.slice(1));
-            };
-            var warnStyleValueWithSemicolon = function(name, value) {
+            }, "warnBadVendoredStyleName");
+            var warnStyleValueWithSemicolon = /* @__PURE__ */ __name(function(name, value) {
               if (warnedStyleValues.hasOwnProperty(value) && warnedStyleValues[value]) {
                 return;
               }
               warnedStyleValues[value] = true;
               error(`Style property values shouldn't contain a semicolon. Try "%s: %s" instead.`, name, value.replace(badStyleValueWithSemicolonPattern, ""));
-            };
-            var warnStyleValueIsNaN = function(name, value) {
+            }, "warnStyleValueWithSemicolon");
+            var warnStyleValueIsNaN = /* @__PURE__ */ __name(function(name, value) {
               if (warnedForNaNValue) {
                 return;
               }
               warnedForNaNValue = true;
               error("`NaN` is an invalid value for the `%s` css style property.", name);
-            };
-            var warnStyleValueIsInfinity = function(name, value) {
+            }, "warnStyleValueIsNaN");
+            var warnStyleValueIsInfinity = /* @__PURE__ */ __name(function(name, value) {
               if (warnedForInfinityValue) {
                 return;
               }
               warnedForInfinityValue = true;
               error("`Infinity` is an invalid value for the `%s` css style property.", name);
-            };
-            warnValidStyle = function(name, value) {
+            }, "warnStyleValueIsInfinity");
+            warnValidStyle = /* @__PURE__ */ __name(function(name, value) {
               if (name.indexOf("-") > -1) {
                 warnHyphenatedStyleName(name);
               } else if (badVendoredStyleNamePattern.test(name)) {
@@ -4308,7 +4512,7 @@
                   warnStyleValueIsInfinity(name, value);
                 }
               }
-            };
+            }, "warnValidStyle");
           }
           var warnValidStyle$1 = warnValidStyle;
           function createDangerousStringForStyles(styles) {
@@ -4330,6 +4534,7 @@
               return serialized || null;
             }
           }
+          __name(createDangerousStringForStyles, "createDangerousStringForStyles");
           function setValueForStyles(node, styles) {
             var style2 = node.style;
             for (var styleName in styles) {
@@ -4353,9 +4558,11 @@
               }
             }
           }
+          __name(setValueForStyles, "setValueForStyles");
           function isValueEmpty(value) {
             return value == null || typeof value === "boolean" || value === "";
           }
+          __name(isValueEmpty, "isValueEmpty");
           function expandShorthandMap(styles) {
             var expanded = {};
             for (var key in styles) {
@@ -4366,6 +4573,7 @@
             }
             return expanded;
           }
+          __name(expandShorthandMap, "expandShorthandMap");
           function validateShorthandPropertyCollisionInDev(styleUpdates, nextStyles) {
             {
               if (!nextStyles) {
@@ -4388,6 +4596,7 @@
               }
             }
           }
+          __name(validateShorthandPropertyCollisionInDev, "validateShorthandPropertyCollisionInDev");
           var omittedCloseTags = {
             area: true,
             base: true,
@@ -4435,6 +4644,7 @@
               throw new Error("The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.");
             }
           }
+          __name(assertValidProps, "assertValidProps");
           function isCustomComponent(tagName, props) {
             if (tagName.indexOf("-") === -1) {
               return typeof props.is === "string";
@@ -4453,6 +4663,7 @@
                 return true;
             }
           }
+          __name(isCustomComponent, "isCustomComponent");
           var possibleStandardNames = {
             accept: "accept",
             acceptcharset: "acceptCharset",
@@ -5029,6 +5240,7 @@
             }
             return true;
           }
+          __name(validateProperty, "validateProperty");
           function warnInvalidARIAProps(type, props) {
             {
               var invalidProps = [];
@@ -5048,12 +5260,14 @@
               }
             }
           }
+          __name(warnInvalidARIAProps, "warnInvalidARIAProps");
           function validateProperties(type, props) {
             if (isCustomComponent(type, props)) {
               return;
             }
             warnInvalidARIAProps(type, props);
           }
+          __name(validateProperties, "validateProperties");
           var didWarnValueNull = false;
           function validateProperties$1(type, props) {
             {
@@ -5070,15 +5284,16 @@
               }
             }
           }
-          var validateProperty$1 = function() {
-          };
+          __name(validateProperties$1, "validateProperties$1");
+          var validateProperty$1 = /* @__PURE__ */ __name(function() {
+          }, "validateProperty$1");
           {
             var warnedProperties$1 = {};
             var EVENT_NAME_REGEX = /^on./;
             var INVALID_EVENT_NAME_REGEX = /^on[^A-Z]/;
             var rARIA$1 = new RegExp("^(aria)-[" + ATTRIBUTE_NAME_CHAR + "]*$");
             var rARIACamel$1 = new RegExp("^(aria)[A-Z][" + ATTRIBUTE_NAME_CHAR + "]*$");
-            validateProperty$1 = function(tagName, name, value, eventRegistry) {
+            validateProperty$1 = /* @__PURE__ */ __name(function(tagName, name, value, eventRegistry) {
               if (hasOwnProperty.call(warnedProperties$1, name) && warnedProperties$1[name]) {
                 return true;
               }
@@ -5170,9 +5385,9 @@
                 return true;
               }
               return true;
-            };
+            }, "validateProperty$1");
           }
-          var warnUnknownProperties = function(type, props, eventRegistry) {
+          var warnUnknownProperties = /* @__PURE__ */ __name(function(type, props, eventRegistry) {
             {
               var unknownProps = [];
               for (var key in props) {
@@ -5190,13 +5405,14 @@
                 error("Invalid values for props %s on <%s> tag. Either remove them from the element, or pass a string or number value to keep them in the DOM. For details, see https://reactjs.org/link/attribute-behavior ", unknownPropString, type);
               }
             }
-          };
+          }, "warnUnknownProperties");
           function validateProperties$2(type, props, eventRegistry) {
             if (isCustomComponent(type, props)) {
               return;
             }
             warnUnknownProperties(type, props, eventRegistry);
           }
+          __name(validateProperties$2, "validateProperties$2");
           var IS_EVENT_HANDLE_NON_MANAGED_NODE = 1;
           var IS_NON_DELEGATED = 1 << 1;
           var IS_CAPTURE_PHASE = 1 << 2;
@@ -5210,6 +5426,7 @@
             }
             currentReplayingEvent = event;
           }
+          __name(setReplayingEvent, "setReplayingEvent");
           function resetReplayingEvent() {
             {
               if (currentReplayingEvent === null) {
@@ -5218,9 +5435,11 @@
             }
             currentReplayingEvent = null;
           }
+          __name(resetReplayingEvent, "resetReplayingEvent");
           function isReplayingEvent(event) {
             return event === currentReplayingEvent;
           }
+          __name(isReplayingEvent, "isReplayingEvent");
           function getEventTarget(nativeEvent) {
             var target = nativeEvent.target || nativeEvent.srcElement || window;
             if (target.correspondingUseElement) {
@@ -5228,6 +5447,7 @@
             }
             return target.nodeType === TEXT_NODE ? target.parentNode : target;
           }
+          __name(getEventTarget, "getEventTarget");
           var restoreImpl = null;
           var restoreTarget = null;
           var restoreQueue = null;
@@ -5245,9 +5465,11 @@
               restoreImpl(internalInstance.stateNode, internalInstance.type, _props);
             }
           }
+          __name(restoreStateOfTarget, "restoreStateOfTarget");
           function setRestoreImplementation(impl) {
             restoreImpl = impl;
           }
+          __name(setRestoreImplementation, "setRestoreImplementation");
           function enqueueStateRestore(target) {
             if (restoreTarget) {
               if (restoreQueue) {
@@ -5259,9 +5481,11 @@
               restoreTarget = target;
             }
           }
+          __name(enqueueStateRestore, "enqueueStateRestore");
           function needsStateRestore() {
             return restoreTarget !== null || restoreQueue !== null;
           }
+          __name(needsStateRestore, "needsStateRestore");
           function restoreStateIfNeeded() {
             if (!restoreTarget) {
               return;
@@ -5277,11 +5501,12 @@
               }
             }
           }
-          var batchedUpdatesImpl = function(fn, bookkeeping) {
+          __name(restoreStateIfNeeded, "restoreStateIfNeeded");
+          var batchedUpdatesImpl = /* @__PURE__ */ __name(function(fn, bookkeeping) {
             return fn(bookkeeping);
-          };
-          var flushSyncImpl = function() {
-          };
+          }, "batchedUpdatesImpl");
+          var flushSyncImpl = /* @__PURE__ */ __name(function() {
+          }, "flushSyncImpl");
           var isInsideEventHandler = false;
           function finishEventHandler() {
             var controlledComponentsHavePendingUpdates = needsStateRestore();
@@ -5290,6 +5515,7 @@
               restoreStateIfNeeded();
             }
           }
+          __name(finishEventHandler, "finishEventHandler");
           function batchedUpdates(fn, a, b) {
             if (isInsideEventHandler) {
               return fn(a, b);
@@ -5302,13 +5528,16 @@
               finishEventHandler();
             }
           }
+          __name(batchedUpdates, "batchedUpdates");
           function setBatchingImplementation(_batchedUpdatesImpl, _discreteUpdatesImpl, _flushSyncImpl) {
             batchedUpdatesImpl = _batchedUpdatesImpl;
             flushSyncImpl = _flushSyncImpl;
           }
+          __name(setBatchingImplementation, "setBatchingImplementation");
           function isInteractive(tag) {
             return tag === "button" || tag === "input" || tag === "select" || tag === "textarea";
           }
+          __name(isInteractive, "isInteractive");
           function shouldPreventMouseEvent(name, type, props) {
             switch (name) {
               case "onClick":
@@ -5327,6 +5556,7 @@
                 return false;
             }
           }
+          __name(shouldPreventMouseEvent, "shouldPreventMouseEvent");
           function getListener(inst, registrationName) {
             var stateNode = inst.stateNode;
             if (stateNode === null) {
@@ -5345,6 +5575,7 @@
             }
             return listener;
           }
+          __name(getListener, "getListener");
           var passiveBrowserEventsSupported = false;
           if (canUseDOM) {
             try {
@@ -5368,11 +5599,12 @@
               this.onError(error2);
             }
           }
+          __name(invokeGuardedCallbackProd, "invokeGuardedCallbackProd");
           var invokeGuardedCallbackImpl = invokeGuardedCallbackProd;
           {
             if (typeof window !== "undefined" && typeof window.dispatchEvent === "function" && typeof document !== "undefined" && typeof document.createEvent === "function") {
               var fakeNode = document.createElement("react");
-              invokeGuardedCallbackImpl = function invokeGuardedCallbackDev(name, func, context, a, b, c, d, e, f) {
+              invokeGuardedCallbackImpl = /* @__PURE__ */ __name(function invokeGuardedCallbackDev(name, func, context, a, b, c, d, e, f) {
                 if (typeof document === "undefined" || document === null) {
                   throw new Error("The `document` global was defined when React was initialized, but is not defined anymore. This can happen in a test environment if a component schedules an update from an asynchronous callback, but the test has already finished running. To solve this, you can either unmount the component at the end of your test (and ensure that any asynchronous operations get canceled in `componentWillUnmount`), or you can change the test itself to be asynchronous.");
                 }
@@ -5387,6 +5619,7 @@
                     window.event = windowEvent;
                   }
                 }
+                __name(restoreAfterDispatch, "restoreAfterDispatch");
                 var funcArgs = Array.prototype.slice.call(arguments, 3);
                 function callCallback2() {
                   didCall = true;
@@ -5394,6 +5627,7 @@
                   func.apply(context, funcArgs);
                   didError = false;
                 }
+                __name(callCallback2, "callCallback");
                 var error2;
                 var didSetError = false;
                 var isCrossOriginError = false;
@@ -5412,6 +5646,7 @@
                     }
                   }
                 }
+                __name(handleWindowError, "handleWindowError");
                 var evtType = "react-" + (name ? name : "invokeguardedcallback");
                 window.addEventListener("error", handleWindowError);
                 fakeNode.addEventListener(evtType, callCallback2, false);
@@ -5433,7 +5668,7 @@
                   restoreAfterDispatch();
                   return invokeGuardedCallbackProd.apply(this, arguments);
                 }
-              };
+              }, "invokeGuardedCallbackDev");
             }
           }
           var invokeGuardedCallbackImpl$1 = invokeGuardedCallbackImpl;
@@ -5452,6 +5687,7 @@
             caughtError = null;
             invokeGuardedCallbackImpl$1.apply(reporter, arguments);
           }
+          __name(invokeGuardedCallback, "invokeGuardedCallback");
           function invokeGuardedCallbackAndCatchFirstError(name, func, context, a, b, c, d, e, f) {
             invokeGuardedCallback.apply(this, arguments);
             if (hasError) {
@@ -5462,6 +5698,7 @@
               }
             }
           }
+          __name(invokeGuardedCallbackAndCatchFirstError, "invokeGuardedCallbackAndCatchFirstError");
           function rethrowCaughtError() {
             if (hasRethrowError) {
               var error2 = rethrowError;
@@ -5470,9 +5707,11 @@
               throw error2;
             }
           }
+          __name(rethrowCaughtError, "rethrowCaughtError");
           function hasCaughtError() {
             return hasError;
           }
+          __name(hasCaughtError, "hasCaughtError");
           function clearCaughtError() {
             if (hasError) {
               var error2 = caughtError;
@@ -5483,15 +5722,19 @@
               throw new Error("clearCaughtError was called but no error was captured. This error is likely caused by a bug in React. Please file an issue.");
             }
           }
+          __name(clearCaughtError, "clearCaughtError");
           function get(key) {
             return key._reactInternals;
           }
+          __name(get, "get");
           function has(key) {
             return key._reactInternals !== void 0;
           }
+          __name(has, "has");
           function set(key, value) {
             key._reactInternals = value;
           }
+          __name(set, "set");
           var NoFlags = 0;
           var PerformedWork = 1;
           var Placement = 2;
@@ -5546,6 +5789,7 @@
             }
             return null;
           }
+          __name(getNearestMountedFiber, "getNearestMountedFiber");
           function getSuspenseInstanceFromFiber(fiber) {
             if (fiber.tag === SuspenseComponent) {
               var suspenseState = fiber.memoizedState;
@@ -5561,12 +5805,15 @@
             }
             return null;
           }
+          __name(getSuspenseInstanceFromFiber, "getSuspenseInstanceFromFiber");
           function getContainerFromFiber(fiber) {
             return fiber.tag === HostRoot ? fiber.stateNode.containerInfo : null;
           }
+          __name(getContainerFromFiber, "getContainerFromFiber");
           function isFiberMounted(fiber) {
             return getNearestMountedFiber(fiber) === fiber;
           }
+          __name(isFiberMounted, "isFiberMounted");
           function isMounted(component) {
             {
               var owner = ReactCurrentOwner.current;
@@ -5585,11 +5832,13 @@
             }
             return getNearestMountedFiber(fiber) === fiber;
           }
+          __name(isMounted, "isMounted");
           function assertIsMounted(fiber) {
             if (getNearestMountedFiber(fiber) !== fiber) {
               throw new Error("Unable to find node on an unmounted component.");
             }
           }
+          __name(assertIsMounted, "assertIsMounted");
           function findCurrentFiberUsingSlowPath(fiber) {
             var alternate = fiber.alternate;
             if (!alternate) {
@@ -5688,10 +5937,12 @@
             }
             return alternate;
           }
+          __name(findCurrentFiberUsingSlowPath, "findCurrentFiberUsingSlowPath");
           function findCurrentHostFiber(parent) {
             var currentParent = findCurrentFiberUsingSlowPath(parent);
             return currentParent !== null ? findCurrentHostFiberImpl(currentParent) : null;
           }
+          __name(findCurrentHostFiber, "findCurrentHostFiber");
           function findCurrentHostFiberImpl(node) {
             if (node.tag === HostComponent || node.tag === HostText) {
               return node;
@@ -5706,10 +5957,12 @@
             }
             return null;
           }
+          __name(findCurrentHostFiberImpl, "findCurrentHostFiberImpl");
           function findCurrentHostFiberWithNoPortals(parent) {
             var currentParent = findCurrentFiberUsingSlowPath(parent);
             return currentParent !== null ? findCurrentHostFiberWithNoPortalsImpl(currentParent) : null;
           }
+          __name(findCurrentHostFiberWithNoPortals, "findCurrentHostFiberWithNoPortals");
           function findCurrentHostFiberWithNoPortalsImpl(node) {
             if (node.tag === HostComponent || node.tag === HostText) {
               return node;
@@ -5726,6 +5979,7 @@
             }
             return null;
           }
+          __name(findCurrentHostFiberWithNoPortalsImpl, "findCurrentHostFiberWithNoPortalsImpl");
           var scheduleCallback = Scheduler.unstable_scheduleCallback;
           var cancelCallback = Scheduler.unstable_cancelCallback;
           var shouldYield = Scheduler.unstable_shouldYield;
@@ -5778,6 +6032,7 @@
               return false;
             }
           }
+          __name(injectInternals, "injectInternals");
           function onScheduleRoot(root2, children) {
             {
               if (injectedHook && typeof injectedHook.onScheduleFiberRoot === "function") {
@@ -5792,6 +6047,7 @@
               }
             }
           }
+          __name(onScheduleRoot, "onScheduleRoot");
           function onCommitRoot(root2, eventPriority) {
             if (injectedHook && typeof injectedHook.onCommitFiberRoot === "function") {
               try {
@@ -5829,6 +6085,7 @@
               }
             }
           }
+          __name(onCommitRoot, "onCommitRoot");
           function onPostCommitRoot(root2) {
             if (injectedHook && typeof injectedHook.onPostCommitFiberRoot === "function") {
               try {
@@ -5843,6 +6100,7 @@
               }
             }
           }
+          __name(onPostCommitRoot, "onPostCommitRoot");
           function onCommitUnmount(fiber) {
             if (injectedHook && typeof injectedHook.onCommitFiberUnmount === "function") {
               try {
@@ -5857,6 +6115,7 @@
               }
             }
           }
+          __name(onCommitUnmount, "onCommitUnmount");
           function setIsStrictModeForDevtools(newIsStrictMode) {
             {
               if (typeof unstable_yieldValue === "function") {
@@ -5877,9 +6136,11 @@
               }
             }
           }
+          __name(setIsStrictModeForDevtools, "setIsStrictModeForDevtools");
           function injectProfilingHooks(profilingHooks) {
             injectedProfilingHooks = profilingHooks;
           }
+          __name(injectProfilingHooks, "injectProfilingHooks");
           function getLaneLabelMap() {
             {
               var map = /* @__PURE__ */ new Map();
@@ -5892,6 +6153,7 @@
               return map;
             }
           }
+          __name(getLaneLabelMap, "getLaneLabelMap");
           function markCommitStarted(lanes) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markCommitStarted === "function") {
@@ -5899,6 +6161,7 @@
               }
             }
           }
+          __name(markCommitStarted, "markCommitStarted");
           function markCommitStopped() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markCommitStopped === "function") {
@@ -5906,6 +6169,7 @@
               }
             }
           }
+          __name(markCommitStopped, "markCommitStopped");
           function markComponentRenderStarted(fiber) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentRenderStarted === "function") {
@@ -5913,6 +6177,7 @@
               }
             }
           }
+          __name(markComponentRenderStarted, "markComponentRenderStarted");
           function markComponentRenderStopped() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentRenderStopped === "function") {
@@ -5920,6 +6185,7 @@
               }
             }
           }
+          __name(markComponentRenderStopped, "markComponentRenderStopped");
           function markComponentPassiveEffectMountStarted(fiber) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentPassiveEffectMountStarted === "function") {
@@ -5927,6 +6193,7 @@
               }
             }
           }
+          __name(markComponentPassiveEffectMountStarted, "markComponentPassiveEffectMountStarted");
           function markComponentPassiveEffectMountStopped() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentPassiveEffectMountStopped === "function") {
@@ -5934,6 +6201,7 @@
               }
             }
           }
+          __name(markComponentPassiveEffectMountStopped, "markComponentPassiveEffectMountStopped");
           function markComponentPassiveEffectUnmountStarted(fiber) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentPassiveEffectUnmountStarted === "function") {
@@ -5941,6 +6209,7 @@
               }
             }
           }
+          __name(markComponentPassiveEffectUnmountStarted, "markComponentPassiveEffectUnmountStarted");
           function markComponentPassiveEffectUnmountStopped() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentPassiveEffectUnmountStopped === "function") {
@@ -5948,6 +6217,7 @@
               }
             }
           }
+          __name(markComponentPassiveEffectUnmountStopped, "markComponentPassiveEffectUnmountStopped");
           function markComponentLayoutEffectMountStarted(fiber) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentLayoutEffectMountStarted === "function") {
@@ -5955,6 +6225,7 @@
               }
             }
           }
+          __name(markComponentLayoutEffectMountStarted, "markComponentLayoutEffectMountStarted");
           function markComponentLayoutEffectMountStopped() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentLayoutEffectMountStopped === "function") {
@@ -5962,6 +6233,7 @@
               }
             }
           }
+          __name(markComponentLayoutEffectMountStopped, "markComponentLayoutEffectMountStopped");
           function markComponentLayoutEffectUnmountStarted(fiber) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentLayoutEffectUnmountStarted === "function") {
@@ -5969,6 +6241,7 @@
               }
             }
           }
+          __name(markComponentLayoutEffectUnmountStarted, "markComponentLayoutEffectUnmountStarted");
           function markComponentLayoutEffectUnmountStopped() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentLayoutEffectUnmountStopped === "function") {
@@ -5976,6 +6249,7 @@
               }
             }
           }
+          __name(markComponentLayoutEffectUnmountStopped, "markComponentLayoutEffectUnmountStopped");
           function markComponentErrored(fiber, thrownValue, lanes) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentErrored === "function") {
@@ -5983,6 +6257,7 @@
               }
             }
           }
+          __name(markComponentErrored, "markComponentErrored");
           function markComponentSuspended(fiber, wakeable, lanes) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markComponentSuspended === "function") {
@@ -5990,6 +6265,7 @@
               }
             }
           }
+          __name(markComponentSuspended, "markComponentSuspended");
           function markLayoutEffectsStarted(lanes) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markLayoutEffectsStarted === "function") {
@@ -5997,6 +6273,7 @@
               }
             }
           }
+          __name(markLayoutEffectsStarted, "markLayoutEffectsStarted");
           function markLayoutEffectsStopped() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markLayoutEffectsStopped === "function") {
@@ -6004,6 +6281,7 @@
               }
             }
           }
+          __name(markLayoutEffectsStopped, "markLayoutEffectsStopped");
           function markPassiveEffectsStarted(lanes) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markPassiveEffectsStarted === "function") {
@@ -6011,6 +6289,7 @@
               }
             }
           }
+          __name(markPassiveEffectsStarted, "markPassiveEffectsStarted");
           function markPassiveEffectsStopped() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markPassiveEffectsStopped === "function") {
@@ -6018,6 +6297,7 @@
               }
             }
           }
+          __name(markPassiveEffectsStopped, "markPassiveEffectsStopped");
           function markRenderStarted(lanes) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markRenderStarted === "function") {
@@ -6025,6 +6305,7 @@
               }
             }
           }
+          __name(markRenderStarted, "markRenderStarted");
           function markRenderYielded() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markRenderYielded === "function") {
@@ -6032,6 +6313,7 @@
               }
             }
           }
+          __name(markRenderYielded, "markRenderYielded");
           function markRenderStopped() {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markRenderStopped === "function") {
@@ -6039,6 +6321,7 @@
               }
             }
           }
+          __name(markRenderStopped, "markRenderStopped");
           function markRenderScheduled(lane) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markRenderScheduled === "function") {
@@ -6046,6 +6329,7 @@
               }
             }
           }
+          __name(markRenderScheduled, "markRenderScheduled");
           function markForceUpdateScheduled(fiber, lane) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markForceUpdateScheduled === "function") {
@@ -6053,6 +6337,7 @@
               }
             }
           }
+          __name(markForceUpdateScheduled, "markForceUpdateScheduled");
           function markStateUpdateScheduled(fiber, lane) {
             {
               if (injectedProfilingHooks !== null && typeof injectedProfilingHooks.markStateUpdateScheduled === "function") {
@@ -6060,6 +6345,7 @@
               }
             }
           }
+          __name(markStateUpdateScheduled, "markStateUpdateScheduled");
           var NoMode = 0;
           var ConcurrentMode = 1;
           var ProfileMode = 2;
@@ -6075,6 +6361,7 @@
             }
             return 31 - (log(asUint) / LN2 | 0) | 0;
           }
+          __name(clz32Fallback, "clz32Fallback");
           var TotalLanes = 31;
           var NoLanes = 0;
           var NoLane = 0;
@@ -6153,6 +6440,7 @@
               }
             }
           }
+          __name(getLabelForLane, "getLabelForLane");
           var NoTimestamp = -1;
           var nextTransitionLane = TransitionLane1;
           var nextRetryLane = RetryLane1;
@@ -6208,6 +6496,7 @@
                 return lanes;
             }
           }
+          __name(getHighestPriorityLanes, "getHighestPriorityLanes");
           function getNextLanes(root2, wipLanes) {
             var pendingLanes = root2.pendingLanes;
             if (pendingLanes === NoLanes) {
@@ -6263,6 +6552,7 @@
             }
             return nextLanes;
           }
+          __name(getNextLanes, "getNextLanes");
           function getMostRecentEventTime(root2, lanes) {
             var eventTimes = root2.eventTimes;
             var mostRecentEventTime = NoTimestamp;
@@ -6277,6 +6567,7 @@
             }
             return mostRecentEventTime;
           }
+          __name(getMostRecentEventTime, "getMostRecentEventTime");
           function computeExpirationTime(lane, currentTime) {
             switch (lane) {
               case SyncLane:
@@ -6321,6 +6612,7 @@
                 return NoTimestamp;
             }
           }
+          __name(computeExpirationTime, "computeExpirationTime");
           function markStarvedLanesAsExpired(root2, currentTime) {
             var pendingLanes = root2.pendingLanes;
             var suspendedLanes = root2.suspendedLanes;
@@ -6341,9 +6633,11 @@
               lanes &= ~lane;
             }
           }
+          __name(markStarvedLanesAsExpired, "markStarvedLanesAsExpired");
           function getHighestPriorityPendingLanes(root2) {
             return getHighestPriorityLanes(root2.pendingLanes);
           }
+          __name(getHighestPriorityPendingLanes, "getHighestPriorityPendingLanes");
           function getLanesToRetrySynchronouslyOnError(root2) {
             var everythingButOffscreen = root2.pendingLanes & ~OffscreenLane;
             if (everythingButOffscreen !== NoLanes) {
@@ -6354,32 +6648,41 @@
             }
             return NoLanes;
           }
+          __name(getLanesToRetrySynchronouslyOnError, "getLanesToRetrySynchronouslyOnError");
           function includesSyncLane(lanes) {
             return (lanes & SyncLane) !== NoLanes;
           }
+          __name(includesSyncLane, "includesSyncLane");
           function includesNonIdleWork(lanes) {
             return (lanes & NonIdleLanes) !== NoLanes;
           }
+          __name(includesNonIdleWork, "includesNonIdleWork");
           function includesOnlyRetries(lanes) {
             return (lanes & RetryLanes) === lanes;
           }
+          __name(includesOnlyRetries, "includesOnlyRetries");
           function includesOnlyNonUrgentLanes(lanes) {
             var UrgentLanes = SyncLane | InputContinuousLane | DefaultLane;
             return (lanes & UrgentLanes) === NoLanes;
           }
+          __name(includesOnlyNonUrgentLanes, "includesOnlyNonUrgentLanes");
           function includesOnlyTransitions(lanes) {
             return (lanes & TransitionLanes) === lanes;
           }
+          __name(includesOnlyTransitions, "includesOnlyTransitions");
           function includesBlockingLane(root2, lanes) {
             var SyncDefaultLanes = InputContinuousHydrationLane | InputContinuousLane | DefaultHydrationLane | DefaultLane;
             return (lanes & SyncDefaultLanes) !== NoLanes;
           }
+          __name(includesBlockingLane, "includesBlockingLane");
           function includesExpiredLane(root2, lanes) {
             return (lanes & root2.expiredLanes) !== NoLanes;
           }
+          __name(includesExpiredLane, "includesExpiredLane");
           function isTransitionLane(lane) {
             return (lane & TransitionLanes) !== NoLanes;
           }
+          __name(isTransitionLane, "isTransitionLane");
           function claimNextTransitionLane() {
             var lane = nextTransitionLane;
             nextTransitionLane <<= 1;
@@ -6388,6 +6691,7 @@
             }
             return lane;
           }
+          __name(claimNextTransitionLane, "claimNextTransitionLane");
           function claimNextRetryLane() {
             var lane = nextRetryLane;
             nextRetryLane <<= 1;
@@ -6396,39 +6700,51 @@
             }
             return lane;
           }
+          __name(claimNextRetryLane, "claimNextRetryLane");
           function getHighestPriorityLane(lanes) {
             return lanes & -lanes;
           }
+          __name(getHighestPriorityLane, "getHighestPriorityLane");
           function pickArbitraryLane(lanes) {
             return getHighestPriorityLane(lanes);
           }
+          __name(pickArbitraryLane, "pickArbitraryLane");
           function pickArbitraryLaneIndex(lanes) {
             return 31 - clz32(lanes);
           }
+          __name(pickArbitraryLaneIndex, "pickArbitraryLaneIndex");
           function laneToIndex(lane) {
             return pickArbitraryLaneIndex(lane);
           }
+          __name(laneToIndex, "laneToIndex");
           function includesSomeLane(a, b) {
             return (a & b) !== NoLanes;
           }
+          __name(includesSomeLane, "includesSomeLane");
           function isSubsetOfLanes(set2, subset) {
             return (set2 & subset) === subset;
           }
+          __name(isSubsetOfLanes, "isSubsetOfLanes");
           function mergeLanes(a, b) {
             return a | b;
           }
+          __name(mergeLanes, "mergeLanes");
           function removeLanes(set2, subset) {
             return set2 & ~subset;
           }
+          __name(removeLanes, "removeLanes");
           function intersectLanes(a, b) {
             return a & b;
           }
+          __name(intersectLanes, "intersectLanes");
           function laneToLanes(lane) {
             return lane;
           }
+          __name(laneToLanes, "laneToLanes");
           function higherPriorityLane(a, b) {
             return a !== NoLane && a < b ? a : b;
           }
+          __name(higherPriorityLane, "higherPriorityLane");
           function createLaneMap(initial) {
             var laneMap = [];
             for (var i = 0; i < TotalLanes; i++) {
@@ -6436,6 +6752,7 @@
             }
             return laneMap;
           }
+          __name(createLaneMap, "createLaneMap");
           function markRootUpdated(root2, updateLane, eventTime) {
             root2.pendingLanes |= updateLane;
             if (updateLane !== IdleLane) {
@@ -6446,6 +6763,7 @@
             var index2 = laneToIndex(updateLane);
             eventTimes[index2] = eventTime;
           }
+          __name(markRootUpdated, "markRootUpdated");
           function markRootSuspended(root2, suspendedLanes) {
             root2.suspendedLanes |= suspendedLanes;
             root2.pingedLanes &= ~suspendedLanes;
@@ -6458,9 +6776,11 @@
               lanes &= ~lane;
             }
           }
+          __name(markRootSuspended, "markRootSuspended");
           function markRootPinged(root2, pingedLanes, eventTime) {
             root2.pingedLanes |= root2.suspendedLanes & pingedLanes;
           }
+          __name(markRootPinged, "markRootPinged");
           function markRootFinished(root2, remainingLanes) {
             var noLongerPendingLanes = root2.pendingLanes & ~remainingLanes;
             root2.pendingLanes = remainingLanes;
@@ -6482,6 +6802,7 @@
               lanes &= ~lane;
             }
           }
+          __name(markRootFinished, "markRootFinished");
           function markRootEntangled(root2, entangledLanes) {
             var rootEntangledLanes = root2.entangledLanes |= entangledLanes;
             var entanglements = root2.entanglements;
@@ -6495,6 +6816,7 @@
               lanes &= ~lane;
             }
           }
+          __name(markRootEntangled, "markRootEntangled");
           function getBumpedLaneForHydration(root2, renderLanes2) {
             var renderLane = getHighestPriorityLane(renderLanes2);
             var lane;
@@ -6540,6 +6862,7 @@
             }
             return lane;
           }
+          __name(getBumpedLaneForHydration, "getBumpedLaneForHydration");
           function addFiberToLanesMap(root2, fiber, lanes) {
             if (!isDevToolsPresent) {
               return;
@@ -6553,6 +6876,7 @@
               lanes &= ~lane;
             }
           }
+          __name(addFiberToLanesMap, "addFiberToLanesMap");
           function movePendingFibersToMemoized(root2, lanes) {
             if (!isDevToolsPresent) {
               return;
@@ -6575,11 +6899,13 @@
               lanes &= ~lane;
             }
           }
+          __name(movePendingFibersToMemoized, "movePendingFibersToMemoized");
           function getTransitionsForLanes(root2, lanes) {
             {
               return null;
             }
           }
+          __name(getTransitionsForLanes, "getTransitionsForLanes");
           var DiscreteEventPriority = SyncLane;
           var ContinuousEventPriority = InputContinuousLane;
           var DefaultEventPriority = DefaultLane;
@@ -6588,9 +6914,11 @@
           function getCurrentUpdatePriority() {
             return currentUpdatePriority;
           }
+          __name(getCurrentUpdatePriority, "getCurrentUpdatePriority");
           function setCurrentUpdatePriority(newPriority) {
             currentUpdatePriority = newPriority;
           }
+          __name(setCurrentUpdatePriority, "setCurrentUpdatePriority");
           function runWithPriority(priority, fn) {
             var previousPriority = currentUpdatePriority;
             try {
@@ -6600,15 +6928,19 @@
               currentUpdatePriority = previousPriority;
             }
           }
+          __name(runWithPriority, "runWithPriority");
           function higherEventPriority(a, b) {
             return a !== 0 && a < b ? a : b;
           }
+          __name(higherEventPriority, "higherEventPriority");
           function lowerEventPriority(a, b) {
             return a === 0 || a > b ? a : b;
           }
+          __name(lowerEventPriority, "lowerEventPriority");
           function isHigherEventPriority(a, b) {
             return a !== 0 && a < b;
           }
+          __name(isHigherEventPriority, "isHigherEventPriority");
           function lanesToEventPriority(lanes) {
             var lane = getHighestPriorityLane(lanes);
             if (!isHigherEventPriority(DiscreteEventPriority, lane)) {
@@ -6622,33 +6954,41 @@
             }
             return IdleEventPriority;
           }
+          __name(lanesToEventPriority, "lanesToEventPriority");
           function isRootDehydrated(root2) {
             var currentState = root2.current.memoizedState;
             return currentState.isDehydrated;
           }
+          __name(isRootDehydrated, "isRootDehydrated");
           var _attemptSynchronousHydration;
           function setAttemptSynchronousHydration(fn) {
             _attemptSynchronousHydration = fn;
           }
+          __name(setAttemptSynchronousHydration, "setAttemptSynchronousHydration");
           function attemptSynchronousHydration(fiber) {
             _attemptSynchronousHydration(fiber);
           }
+          __name(attemptSynchronousHydration, "attemptSynchronousHydration");
           var attemptContinuousHydration;
           function setAttemptContinuousHydration(fn) {
             attemptContinuousHydration = fn;
           }
+          __name(setAttemptContinuousHydration, "setAttemptContinuousHydration");
           var attemptHydrationAtCurrentPriority;
           function setAttemptHydrationAtCurrentPriority(fn) {
             attemptHydrationAtCurrentPriority = fn;
           }
+          __name(setAttemptHydrationAtCurrentPriority, "setAttemptHydrationAtCurrentPriority");
           var getCurrentUpdatePriority$1;
           function setGetCurrentUpdatePriority(fn) {
             getCurrentUpdatePriority$1 = fn;
           }
+          __name(setGetCurrentUpdatePriority, "setGetCurrentUpdatePriority");
           var attemptHydrationAtPriority;
           function setAttemptHydrationAtPriority(fn) {
             attemptHydrationAtPriority = fn;
           }
+          __name(setAttemptHydrationAtPriority, "setAttemptHydrationAtPriority");
           var hasScheduledReplayAttempt = false;
           var queuedDiscreteEvents = [];
           var queuedFocus = null;
@@ -6690,6 +7030,7 @@
           function isDiscreteEventThatRequiresHydration(eventType) {
             return discreteReplayableEvents.indexOf(eventType) > -1;
           }
+          __name(isDiscreteEventThatRequiresHydration, "isDiscreteEventThatRequiresHydration");
           function createQueuedReplayableEvent(blockedOn, domEventName, eventSystemFlags, targetContainer, nativeEvent) {
             return {
               blockedOn,
@@ -6699,6 +7040,7 @@
               targetContainers: [targetContainer]
             };
           }
+          __name(createQueuedReplayableEvent, "createQueuedReplayableEvent");
           function clearIfContinuousEvent(domEventName, nativeEvent) {
             switch (domEventName) {
               case "focusin":
@@ -6727,6 +7069,7 @@
               }
             }
           }
+          __name(clearIfContinuousEvent, "clearIfContinuousEvent");
           function accumulateOrCreateContinuousQueuedReplayableEvent(existingQueuedEvent, blockedOn, domEventName, eventSystemFlags, targetContainer, nativeEvent) {
             if (existingQueuedEvent === null || existingQueuedEvent.nativeEvent !== nativeEvent) {
               var queuedEvent = createQueuedReplayableEvent(blockedOn, domEventName, eventSystemFlags, targetContainer, nativeEvent);
@@ -6745,6 +7088,7 @@
             }
             return existingQueuedEvent;
           }
+          __name(accumulateOrCreateContinuousQueuedReplayableEvent, "accumulateOrCreateContinuousQueuedReplayableEvent");
           function queueIfContinuousEvent(blockedOn, domEventName, eventSystemFlags, targetContainer, nativeEvent) {
             switch (domEventName) {
               case "focusin": {
@@ -6777,6 +7121,7 @@
             }
             return false;
           }
+          __name(queueIfContinuousEvent, "queueIfContinuousEvent");
           function attemptExplicitHydrationTarget(queuedTarget) {
             var targetInst = getClosestInstanceFromNode(queuedTarget.target);
             if (targetInst !== null) {
@@ -6803,6 +7148,7 @@
             }
             queuedTarget.blockedOn = null;
           }
+          __name(attemptExplicitHydrationTarget, "attemptExplicitHydrationTarget");
           function queueExplicitHydrationTarget(target) {
             var updatePriority = getCurrentUpdatePriority$1();
             var queuedTarget = {
@@ -6821,6 +7167,7 @@
               attemptExplicitHydrationTarget(queuedTarget);
             }
           }
+          __name(queueExplicitHydrationTarget, "queueExplicitHydrationTarget");
           function attemptReplayContinuousQueuedEvent(queuedEvent) {
             if (queuedEvent.blockedOn !== null) {
               return false;
@@ -6849,11 +7196,13 @@
             }
             return true;
           }
+          __name(attemptReplayContinuousQueuedEvent, "attemptReplayContinuousQueuedEvent");
           function attemptReplayContinuousQueuedEventInMap(queuedEvent, key, map) {
             if (attemptReplayContinuousQueuedEvent(queuedEvent)) {
               map.delete(key);
             }
           }
+          __name(attemptReplayContinuousQueuedEventInMap, "attemptReplayContinuousQueuedEventInMap");
           function replayUnblockedEvents() {
             hasScheduledReplayAttempt = false;
             if (queuedFocus !== null && attemptReplayContinuousQueuedEvent(queuedFocus)) {
@@ -6868,6 +7217,7 @@
             queuedPointers.forEach(attemptReplayContinuousQueuedEventInMap);
             queuedPointerCaptures.forEach(attemptReplayContinuousQueuedEventInMap);
           }
+          __name(replayUnblockedEvents, "replayUnblockedEvents");
           function scheduleCallbackIfUnblocked(queuedEvent, unblocked) {
             if (queuedEvent.blockedOn === unblocked) {
               queuedEvent.blockedOn = null;
@@ -6877,6 +7227,7 @@
               }
             }
           }
+          __name(scheduleCallbackIfUnblocked, "scheduleCallbackIfUnblocked");
           function retryIfBlockedOn(unblocked) {
             if (queuedDiscreteEvents.length > 0) {
               scheduleCallbackIfUnblocked(queuedDiscreteEvents[0], unblocked);
@@ -6896,9 +7247,9 @@
             if (queuedMouse !== null) {
               scheduleCallbackIfUnblocked(queuedMouse, unblocked);
             }
-            var unblock = function(queuedEvent2) {
+            var unblock = /* @__PURE__ */ __name(function(queuedEvent2) {
               return scheduleCallbackIfUnblocked(queuedEvent2, unblocked);
-            };
+            }, "unblock");
             queuedPointers.forEach(unblock);
             queuedPointerCaptures.forEach(unblock);
             for (var _i = 0; _i < queuedExplicitHydrationTargets.length; _i++) {
@@ -6919,14 +7270,17 @@
               }
             }
           }
+          __name(retryIfBlockedOn, "retryIfBlockedOn");
           var ReactCurrentBatchConfig = ReactSharedInternals.ReactCurrentBatchConfig;
           var _enabled = true;
           function setEnabled(enabled) {
             _enabled = !!enabled;
           }
+          __name(setEnabled, "setEnabled");
           function isEnabled() {
             return _enabled;
           }
+          __name(isEnabled, "isEnabled");
           function createEventListenerWrapperWithPriority(targetContainer, domEventName, eventSystemFlags) {
             var eventPriority = getEventPriority(domEventName);
             var listenerWrapper;
@@ -6944,6 +7298,7 @@
             }
             return listenerWrapper.bind(null, domEventName, eventSystemFlags, targetContainer);
           }
+          __name(createEventListenerWrapperWithPriority, "createEventListenerWrapperWithPriority");
           function dispatchDiscreteEvent(domEventName, eventSystemFlags, container, nativeEvent) {
             var previousPriority = getCurrentUpdatePriority();
             var prevTransition = ReactCurrentBatchConfig.transition;
@@ -6956,6 +7311,7 @@
               ReactCurrentBatchConfig.transition = prevTransition;
             }
           }
+          __name(dispatchDiscreteEvent, "dispatchDiscreteEvent");
           function dispatchContinuousEvent(domEventName, eventSystemFlags, container, nativeEvent) {
             var previousPriority = getCurrentUpdatePriority();
             var prevTransition = ReactCurrentBatchConfig.transition;
@@ -6968,6 +7324,7 @@
               ReactCurrentBatchConfig.transition = prevTransition;
             }
           }
+          __name(dispatchContinuousEvent, "dispatchContinuousEvent");
           function dispatchEvent(domEventName, eventSystemFlags, targetContainer, nativeEvent) {
             if (!_enabled) {
               return;
@@ -6976,6 +7333,7 @@
               dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay(domEventName, eventSystemFlags, targetContainer, nativeEvent);
             }
           }
+          __name(dispatchEvent, "dispatchEvent");
           function dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay(domEventName, eventSystemFlags, targetContainer, nativeEvent) {
             var blockedOn = findInstanceBlockingEvent(domEventName, eventSystemFlags, targetContainer, nativeEvent);
             if (blockedOn === null) {
@@ -7010,6 +7368,7 @@
             }
             dispatchEventForPluginEventSystem(domEventName, eventSystemFlags, nativeEvent, null, targetContainer);
           }
+          __name(dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay, "dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay");
           var return_targetInst = null;
           function findInstanceBlockingEvent(domEventName, eventSystemFlags, targetContainer, nativeEvent) {
             return_targetInst = null;
@@ -7041,6 +7400,7 @@
             return_targetInst = targetInst;
             return null;
           }
+          __name(findInstanceBlockingEvent, "findInstanceBlockingEvent");
           function getEventPriority(domEventName) {
             switch (domEventName) {
               case "cancel":
@@ -7135,14 +7495,17 @@
                 return DefaultEventPriority;
             }
           }
+          __name(getEventPriority, "getEventPriority");
           function addEventBubbleListener(target, eventType, listener) {
             target.addEventListener(eventType, listener, false);
             return listener;
           }
+          __name(addEventBubbleListener, "addEventBubbleListener");
           function addEventCaptureListener(target, eventType, listener) {
             target.addEventListener(eventType, listener, true);
             return listener;
           }
+          __name(addEventCaptureListener, "addEventCaptureListener");
           function addEventCaptureListenerWithPassiveFlag(target, eventType, listener, passive) {
             target.addEventListener(eventType, listener, {
               capture: true,
@@ -7150,12 +7513,14 @@
             });
             return listener;
           }
+          __name(addEventCaptureListenerWithPassiveFlag, "addEventCaptureListenerWithPassiveFlag");
           function addEventBubbleListenerWithPassiveFlag(target, eventType, listener, passive) {
             target.addEventListener(eventType, listener, {
               passive
             });
             return listener;
           }
+          __name(addEventBubbleListenerWithPassiveFlag, "addEventBubbleListenerWithPassiveFlag");
           var root = null;
           var startText = null;
           var fallbackText = null;
@@ -7164,11 +7529,13 @@
             startText = getText();
             return true;
           }
+          __name(initialize, "initialize");
           function reset() {
             root = null;
             startText = null;
             fallbackText = null;
           }
+          __name(reset, "reset");
           function getData() {
             if (fallbackText) {
               return fallbackText;
@@ -7194,12 +7561,14 @@
             fallbackText = endValue.slice(start, sliceTail);
             return fallbackText;
           }
+          __name(getData, "getData");
           function getText() {
             if ("value" in root) {
               return root.value;
             }
             return root.textContent;
           }
+          __name(getText, "getText");
           function getEventCharCode(nativeEvent) {
             var charCode;
             var keyCode = nativeEvent.keyCode;
@@ -7219,12 +7588,15 @@
             }
             return 0;
           }
+          __name(getEventCharCode, "getEventCharCode");
           function functionThatReturnsTrue() {
             return true;
           }
+          __name(functionThatReturnsTrue, "functionThatReturnsTrue");
           function functionThatReturnsFalse() {
             return false;
           }
+          __name(functionThatReturnsFalse, "functionThatReturnsFalse");
           function createSyntheticEvent(Interface) {
             function SyntheticBaseEvent(reactName, reactEventType, targetInst, nativeEvent, nativeEventTarget) {
               this._reactName = reactName;
@@ -7253,6 +7625,7 @@
               this.isPropagationStopped = functionThatReturnsFalse;
               return this;
             }
+            __name(SyntheticBaseEvent, "SyntheticBaseEvent");
             assign(SyntheticBaseEvent.prototype, {
               preventDefault: function() {
                 this.defaultPrevented = true;
@@ -7285,6 +7658,7 @@
             });
             return SyntheticBaseEvent;
           }
+          __name(createSyntheticEvent, "createSyntheticEvent");
           var EventInterface = {
             eventPhase: 0,
             bubbles: 0,
@@ -7316,6 +7690,7 @@
               lastMouseEvent = event;
             }
           }
+          __name(updateMouseMovementPolyfillState, "updateMouseMovementPolyfillState");
           var MouseEventInterface = assign({}, UIEventInterface, {
             screenX: 0,
             screenY: 0,
@@ -7443,6 +7818,7 @@
             }
             return "";
           }
+          __name(getEventKey, "getEventKey");
           var modifierKeyToProp = {
             Alt: "altKey",
             Control: "ctrlKey",
@@ -7458,9 +7834,11 @@
             var keyProp = modifierKeyToProp[keyArg];
             return keyProp ? !!nativeEvent[keyProp] : false;
           }
+          __name(modifierStateGetter, "modifierStateGetter");
           function getEventModifierState(nativeEvent) {
             return modifierStateGetter;
           }
+          __name(getEventModifierState, "getEventModifierState");
           var KeyboardEventInterface = assign({}, UIEventInterface, {
             key: getEventKey,
             code: 0,
@@ -7553,10 +7931,12 @@
             registerTwoPhaseEvent("onCompositionStart", ["compositionstart", "focusout", "keydown", "keypress", "keyup", "mousedown"]);
             registerTwoPhaseEvent("onCompositionUpdate", ["compositionupdate", "focusout", "keydown", "keypress", "keyup", "mousedown"]);
           }
+          __name(registerEvents, "registerEvents");
           var hasSpaceKeypress = false;
           function isKeypressCommand(nativeEvent) {
             return (nativeEvent.ctrlKey || nativeEvent.altKey || nativeEvent.metaKey) && !(nativeEvent.ctrlKey && nativeEvent.altKey);
           }
+          __name(isKeypressCommand, "isKeypressCommand");
           function getCompositionEventType(domEventName) {
             switch (domEventName) {
               case "compositionstart":
@@ -7567,9 +7947,11 @@
                 return "onCompositionUpdate";
             }
           }
+          __name(getCompositionEventType, "getCompositionEventType");
           function isFallbackCompositionStart(domEventName, nativeEvent) {
             return domEventName === "keydown" && nativeEvent.keyCode === START_KEYCODE;
           }
+          __name(isFallbackCompositionStart, "isFallbackCompositionStart");
           function isFallbackCompositionEnd(domEventName, nativeEvent) {
             switch (domEventName) {
               case "keyup":
@@ -7584,6 +7966,7 @@
                 return false;
             }
           }
+          __name(isFallbackCompositionEnd, "isFallbackCompositionEnd");
           function getDataFromCustomEvent(nativeEvent) {
             var detail = nativeEvent.detail;
             if (typeof detail === "object" && "data" in detail) {
@@ -7591,9 +7974,11 @@
             }
             return null;
           }
+          __name(getDataFromCustomEvent, "getDataFromCustomEvent");
           function isUsingKoreanIME(nativeEvent) {
             return nativeEvent.locale === "ko";
           }
+          __name(isUsingKoreanIME, "isUsingKoreanIME");
           var isComposing = false;
           function extractCompositionEvent(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget) {
             var eventType;
@@ -7636,6 +8021,7 @@
               }
             }
           }
+          __name(extractCompositionEvent, "extractCompositionEvent");
           function getNativeBeforeInputChars(domEventName, nativeEvent) {
             switch (domEventName) {
               case "compositionend":
@@ -7657,6 +8043,7 @@
                 return null;
             }
           }
+          __name(getNativeBeforeInputChars, "getNativeBeforeInputChars");
           function getFallbackBeforeInputChars(domEventName, nativeEvent) {
             if (isComposing) {
               if (domEventName === "compositionend" || !canUseCompositionEvent && isFallbackCompositionEnd(domEventName, nativeEvent)) {
@@ -7685,6 +8072,7 @@
                 return null;
             }
           }
+          __name(getFallbackBeforeInputChars, "getFallbackBeforeInputChars");
           function extractBeforeInputEvent(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget) {
             var chars;
             if (canUseTextInputEvent) {
@@ -7705,10 +8093,12 @@
               event.data = chars;
             }
           }
+          __name(extractBeforeInputEvent, "extractBeforeInputEvent");
           function extractEvents(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget, eventSystemFlags, targetContainer) {
             extractCompositionEvent(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget);
             extractBeforeInputEvent(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget);
           }
+          __name(extractEvents, "extractEvents");
           var supportedInputTypes = {
             color: true,
             date: true,
@@ -7736,6 +8126,7 @@
             }
             return false;
           }
+          __name(isTextInputElement, "isTextInputElement");
           function isEventSupported(eventNameSuffix) {
             if (!canUseDOM) {
               return false;
@@ -7749,9 +8140,11 @@
             }
             return isSupported;
           }
+          __name(isEventSupported, "isEventSupported");
           function registerEvents$1() {
             registerTwoPhaseEvent("onChange", ["change", "click", "focusin", "focusout", "input", "keydown", "keyup", "selectionchange"]);
           }
+          __name(registerEvents$1, "registerEvents$1");
           function createAndAccumulateChangeEvent(dispatchQueue, inst, nativeEvent, target) {
             enqueueStateRestore(target);
             var listeners = accumulateTwoPhaseListeners(inst, "onChange");
@@ -7763,31 +8156,37 @@
               });
             }
           }
+          __name(createAndAccumulateChangeEvent, "createAndAccumulateChangeEvent");
           var activeElement = null;
           var activeElementInst = null;
           function shouldUseChangeEvent(elem) {
             var nodeName = elem.nodeName && elem.nodeName.toLowerCase();
             return nodeName === "select" || nodeName === "input" && elem.type === "file";
           }
+          __name(shouldUseChangeEvent, "shouldUseChangeEvent");
           function manualDispatchChangeEvent(nativeEvent) {
             var dispatchQueue = [];
             createAndAccumulateChangeEvent(dispatchQueue, activeElementInst, nativeEvent, getEventTarget(nativeEvent));
             batchedUpdates(runEventInBatch, dispatchQueue);
           }
+          __name(manualDispatchChangeEvent, "manualDispatchChangeEvent");
           function runEventInBatch(dispatchQueue) {
             processDispatchQueue(dispatchQueue, 0);
           }
+          __name(runEventInBatch, "runEventInBatch");
           function getInstIfValueChanged(targetInst) {
             var targetNode = getNodeFromInstance(targetInst);
             if (updateValueIfChanged(targetNode)) {
               return targetInst;
             }
           }
+          __name(getInstIfValueChanged, "getInstIfValueChanged");
           function getTargetInstForChangeEvent(domEventName, targetInst) {
             if (domEventName === "change") {
               return targetInst;
             }
           }
+          __name(getTargetInstForChangeEvent, "getTargetInstForChangeEvent");
           var isInputEventSupported = false;
           if (canUseDOM) {
             isInputEventSupported = isEventSupported("input") && (!document.documentMode || document.documentMode > 9);
@@ -7797,6 +8196,7 @@
             activeElementInst = targetInst;
             activeElement.attachEvent("onpropertychange", handlePropertyChange);
           }
+          __name(startWatchingForValueChange, "startWatchingForValueChange");
           function stopWatchingForValueChange() {
             if (!activeElement) {
               return;
@@ -7805,6 +8205,7 @@
             activeElement = null;
             activeElementInst = null;
           }
+          __name(stopWatchingForValueChange, "stopWatchingForValueChange");
           function handlePropertyChange(nativeEvent) {
             if (nativeEvent.propertyName !== "value") {
               return;
@@ -7813,6 +8214,7 @@
               manualDispatchChangeEvent(nativeEvent);
             }
           }
+          __name(handlePropertyChange, "handlePropertyChange");
           function handleEventsForInputEventPolyfill(domEventName, target, targetInst) {
             if (domEventName === "focusin") {
               stopWatchingForValueChange();
@@ -7821,25 +8223,30 @@
               stopWatchingForValueChange();
             }
           }
+          __name(handleEventsForInputEventPolyfill, "handleEventsForInputEventPolyfill");
           function getTargetInstForInputEventPolyfill(domEventName, targetInst) {
             if (domEventName === "selectionchange" || domEventName === "keyup" || domEventName === "keydown") {
               return getInstIfValueChanged(activeElementInst);
             }
           }
+          __name(getTargetInstForInputEventPolyfill, "getTargetInstForInputEventPolyfill");
           function shouldUseClickEvent(elem) {
             var nodeName = elem.nodeName;
             return nodeName && nodeName.toLowerCase() === "input" && (elem.type === "checkbox" || elem.type === "radio");
           }
+          __name(shouldUseClickEvent, "shouldUseClickEvent");
           function getTargetInstForClickEvent(domEventName, targetInst) {
             if (domEventName === "click") {
               return getInstIfValueChanged(targetInst);
             }
           }
+          __name(getTargetInstForClickEvent, "getTargetInstForClickEvent");
           function getTargetInstForInputOrChangeEvent(domEventName, targetInst) {
             if (domEventName === "input" || domEventName === "change") {
               return getInstIfValueChanged(targetInst);
             }
           }
+          __name(getTargetInstForInputOrChangeEvent, "getTargetInstForInputOrChangeEvent");
           function handleControlledInputBlur(node) {
             var state = node._wrapperState;
             if (!state || !state.controlled || node.type !== "number") {
@@ -7849,6 +8256,7 @@
               setDefaultValue(node, "number", node.value);
             }
           }
+          __name(handleControlledInputBlur, "handleControlledInputBlur");
           function extractEvents$1(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget, eventSystemFlags, targetContainer) {
             var targetNode = targetInst ? getNodeFromInstance(targetInst) : window;
             var getTargetInstFunc, handleEventFunc;
@@ -7878,12 +8286,14 @@
               handleControlledInputBlur(targetNode);
             }
           }
+          __name(extractEvents$1, "extractEvents$1");
           function registerEvents$2() {
             registerDirectEvent("onMouseEnter", ["mouseout", "mouseover"]);
             registerDirectEvent("onMouseLeave", ["mouseout", "mouseover"]);
             registerDirectEvent("onPointerEnter", ["pointerout", "pointerover"]);
             registerDirectEvent("onPointerLeave", ["pointerout", "pointerover"]);
           }
+          __name(registerEvents$2, "registerEvents$2");
           function extractEvents$2(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget, eventSystemFlags, targetContainer) {
             var isOverEvent = domEventName === "mouseover" || domEventName === "pointerover";
             var isOutEvent = domEventName === "mouseout" || domEventName === "pointerout";
@@ -7953,9 +8363,11 @@
             }
             accumulateEnterLeaveTwoPhaseListeners(dispatchQueue, leave, enter, from, to);
           }
+          __name(extractEvents$2, "extractEvents$2");
           function is(x, y) {
             return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
           }
+          __name(is, "is");
           var objectIs = typeof Object.is === "function" ? Object.is : is;
           function shallowEqual(objA, objB) {
             if (objectIs(objA, objB)) {
@@ -7977,12 +8389,14 @@
             }
             return true;
           }
+          __name(shallowEqual, "shallowEqual");
           function getLeafNode(node) {
             while (node && node.firstChild) {
               node = node.firstChild;
             }
             return node;
           }
+          __name(getLeafNode, "getLeafNode");
           function getSiblingNode(node) {
             while (node) {
               if (node.nextSibling) {
@@ -7991,6 +8405,7 @@
               node = node.parentNode;
             }
           }
+          __name(getSiblingNode, "getSiblingNode");
           function getNodeForCharacterOffset(root2, offset) {
             var node = getLeafNode(root2);
             var nodeStart = 0;
@@ -8009,6 +8424,7 @@
               node = getLeafNode(getSiblingNode(node));
             }
           }
+          __name(getNodeForCharacterOffset, "getNodeForCharacterOffset");
           function getOffsets(outerNode) {
             var ownerDocument = outerNode.ownerDocument;
             var win = ownerDocument && ownerDocument.defaultView || window;
@@ -8025,6 +8441,7 @@
             }
             return getModernOffsetsFromPoints(outerNode, anchorNode, anchorOffset, focusNode, focusOffset);
           }
+          __name(getOffsets, "getOffsets");
           function getModernOffsetsFromPoints(outerNode, anchorNode, anchorOffset, focusNode, focusOffset) {
             var length2 = 0;
             var start = -1;
@@ -8078,6 +8495,7 @@
               end
             };
           }
+          __name(getModernOffsetsFromPoints, "getModernOffsetsFromPoints");
           function setOffsets(node, offsets) {
             var doc = node.ownerDocument || document;
             var win = doc && doc.defaultView || window;
@@ -8111,9 +8529,11 @@
               }
             }
           }
+          __name(setOffsets, "setOffsets");
           function isTextNode(node) {
             return node && node.nodeType === TEXT_NODE;
           }
+          __name(isTextNode, "isTextNode");
           function containsNode(outerNode, innerNode) {
             if (!outerNode || !innerNode) {
               return false;
@@ -8131,9 +8551,11 @@
               return false;
             }
           }
+          __name(containsNode, "containsNode");
           function isInDocument(node) {
             return node && node.ownerDocument && containsNode(node.ownerDocument.documentElement, node);
           }
+          __name(isInDocument, "isInDocument");
           function isSameOriginFrame(iframe) {
             try {
               return typeof iframe.contentWindow.location.href === "string";
@@ -8141,6 +8563,7 @@
               return false;
             }
           }
+          __name(isSameOriginFrame, "isSameOriginFrame");
           function getActiveElementDeep() {
             var win = window;
             var element = getActiveElement();
@@ -8154,10 +8577,12 @@
             }
             return element;
           }
+          __name(getActiveElementDeep, "getActiveElementDeep");
           function hasSelectionCapabilities(elem) {
             var nodeName = elem && elem.nodeName && elem.nodeName.toLowerCase();
             return nodeName && (nodeName === "input" && (elem.type === "text" || elem.type === "search" || elem.type === "tel" || elem.type === "url" || elem.type === "password") || nodeName === "textarea" || elem.contentEditable === "true");
           }
+          __name(hasSelectionCapabilities, "hasSelectionCapabilities");
           function getSelectionInformation() {
             var focusedElem = getActiveElementDeep();
             return {
@@ -8165,6 +8590,7 @@
               selectionRange: hasSelectionCapabilities(focusedElem) ? getSelection(focusedElem) : null
             };
           }
+          __name(getSelectionInformation, "getSelectionInformation");
           function restoreSelection(priorSelectionInformation) {
             var curFocusedElem = getActiveElementDeep();
             var priorFocusedElem = priorSelectionInformation.focusedElem;
@@ -8194,6 +8620,7 @@
               }
             }
           }
+          __name(restoreSelection, "restoreSelection");
           function getSelection(input) {
             var selection;
             if ("selectionStart" in input) {
@@ -8209,6 +8636,7 @@
               end: 0
             };
           }
+          __name(getSelection, "getSelection");
           function setSelection(input, offsets) {
             var start = offsets.start;
             var end = offsets.end;
@@ -8222,10 +8650,12 @@
               setOffsets(input, offsets);
             }
           }
+          __name(setSelection, "setSelection");
           var skipSelectionChangeEvent = canUseDOM && "documentMode" in document && document.documentMode <= 11;
           function registerEvents$3() {
             registerTwoPhaseEvent("onSelect", ["focusout", "contextmenu", "dragend", "focusin", "keydown", "keyup", "mousedown", "mouseup", "selectionchange"]);
           }
+          __name(registerEvents$3, "registerEvents$3");
           var activeElement$1 = null;
           var activeElementInst$1 = null;
           var lastSelection = null;
@@ -8247,9 +8677,11 @@
               };
             }
           }
+          __name(getSelection$1, "getSelection$1");
           function getEventTargetDocument(eventTarget) {
             return eventTarget.window === eventTarget ? eventTarget.document : eventTarget.nodeType === DOCUMENT_NODE ? eventTarget : eventTarget.ownerDocument;
           }
+          __name(getEventTargetDocument, "getEventTargetDocument");
           function constructSelectEvent(dispatchQueue, nativeEvent, nativeEventTarget) {
             var doc = getEventTargetDocument(nativeEventTarget);
             if (mouseDown || activeElement$1 == null || activeElement$1 !== getActiveElement(doc)) {
@@ -8269,6 +8701,7 @@
               }
             }
           }
+          __name(constructSelectEvent, "constructSelectEvent");
           function extractEvents$3(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget, eventSystemFlags, targetContainer) {
             var targetNode = targetInst ? getNodeFromInstance(targetInst) : window;
             switch (domEventName) {
@@ -8302,6 +8735,7 @@
                 constructSelectEvent(dispatchQueue, nativeEvent, nativeEventTarget);
             }
           }
+          __name(extractEvents$3, "extractEvents$3");
           function makePrefixMap(styleProp, eventName) {
             var prefixes2 = {};
             prefixes2[styleProp.toLowerCase()] = eventName.toLowerCase();
@@ -8309,6 +8743,7 @@
             prefixes2["Moz" + styleProp] = "moz" + eventName;
             return prefixes2;
           }
+          __name(makePrefixMap, "makePrefixMap");
           var vendorPrefixes = {
             animationend: makePrefixMap("Animation", "AnimationEnd"),
             animationiteration: makePrefixMap("Animation", "AnimationIteration"),
@@ -8342,6 +8777,7 @@
             }
             return eventName;
           }
+          __name(getVendorPrefixedEventName, "getVendorPrefixedEventName");
           var ANIMATION_END = getVendorPrefixedEventName("animationend");
           var ANIMATION_ITERATION = getVendorPrefixedEventName("animationiteration");
           var ANIMATION_START = getVendorPrefixedEventName("animationstart");
@@ -8352,6 +8788,7 @@
             topLevelEventsToReactNames.set(domEventName, reactName);
             registerTwoPhaseEvent(reactName, [domEventName]);
           }
+          __name(registerSimpleEvent, "registerSimpleEvent");
           function registerSimpleEvents() {
             for (var i = 0; i < simpleEventPluginEvents.length; i++) {
               var eventName = simpleEventPluginEvents[i];
@@ -8367,6 +8804,7 @@
             registerSimpleEvent("focusout", "onBlur");
             registerSimpleEvent(TRANSITION_END, "onTransitionEnd");
           }
+          __name(registerSimpleEvents, "registerSimpleEvents");
           function extractEvents$4(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget, eventSystemFlags, targetContainer) {
             var reactName = topLevelEventsToReactNames.get(domEventName);
             if (reactName === void 0) {
@@ -8468,6 +8906,7 @@
               }
             }
           }
+          __name(extractEvents$4, "extractEvents$4");
           registerSimpleEvents();
           registerEvents$2();
           registerEvents$1();
@@ -8483,6 +8922,7 @@
               extractEvents(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget);
             }
           }
+          __name(extractEvents$5, "extractEvents$5");
           var mediaEventTypes = ["abort", "canplay", "canplaythrough", "durationchange", "emptied", "encrypted", "ended", "error", "loadeddata", "loadedmetadata", "loadstart", "pause", "play", "playing", "progress", "ratechange", "resize", "seeked", "seeking", "stalled", "suspend", "timeupdate", "volumechange", "waiting"];
           var nonDelegatedEvents = new Set(["cancel", "close", "invalid", "load", "scroll", "toggle"].concat(mediaEventTypes));
           function executeDispatch(event, listener, currentTarget) {
@@ -8491,6 +8931,7 @@
             invokeGuardedCallbackAndCatchFirstError(type, listener, void 0, event);
             event.currentTarget = null;
           }
+          __name(executeDispatch, "executeDispatch");
           function processDispatchQueueItemsInOrder(event, dispatchListeners, inCapturePhase) {
             var previousInstance;
             if (inCapturePhase) {
@@ -8513,6 +8954,7 @@
               }
             }
           }
+          __name(processDispatchQueueItemsInOrder, "processDispatchQueueItemsInOrder");
           function processDispatchQueue(dispatchQueue, eventSystemFlags) {
             var inCapturePhase = (eventSystemFlags & IS_CAPTURE_PHASE) !== 0;
             for (var i = 0; i < dispatchQueue.length; i++) {
@@ -8521,12 +8963,14 @@
             }
             rethrowCaughtError();
           }
+          __name(processDispatchQueue, "processDispatchQueue");
           function dispatchEventsForPlugins(domEventName, eventSystemFlags, nativeEvent, targetInst, targetContainer) {
             var nativeEventTarget = getEventTarget(nativeEvent);
             var dispatchQueue = [];
             extractEvents$5(dispatchQueue, domEventName, targetInst, nativeEvent, nativeEventTarget, eventSystemFlags);
             processDispatchQueue(dispatchQueue, eventSystemFlags);
           }
+          __name(dispatchEventsForPlugins, "dispatchEventsForPlugins");
           function listenToNonDelegatedEvent(domEventName, targetElement) {
             {
               if (!nonDelegatedEvents.has(domEventName)) {
@@ -8541,6 +8985,7 @@
               listenerSet.add(listenerSetKey);
             }
           }
+          __name(listenToNonDelegatedEvent, "listenToNonDelegatedEvent");
           function listenToNativeEvent(domEventName, isCapturePhaseListener, target) {
             {
               if (nonDelegatedEvents.has(domEventName) && !isCapturePhaseListener) {
@@ -8553,6 +8998,7 @@
             }
             addTrappedEventListener(target, domEventName, eventSystemFlags, isCapturePhaseListener);
           }
+          __name(listenToNativeEvent, "listenToNativeEvent");
           var listeningMarker = "_reactListening" + Math.random().toString(36).slice(2);
           function listenToAllSupportedEvents(rootContainerElement) {
             if (!rootContainerElement[listeningMarker]) {
@@ -8574,6 +9020,7 @@
               }
             }
           }
+          __name(listenToAllSupportedEvents, "listenToAllSupportedEvents");
           function addTrappedEventListener(targetContainer, domEventName, eventSystemFlags, isCapturePhaseListener, isDeferredListenerForLegacyFBSupport) {
             var listener = createEventListenerWrapperWithPriority(targetContainer, domEventName, eventSystemFlags);
             var isPassiveListener = void 0;
@@ -8598,9 +9045,11 @@
               }
             }
           }
+          __name(addTrappedEventListener, "addTrappedEventListener");
           function isMatchingRootContainer(grandContainer, targetContainer) {
             return grandContainer === targetContainer || grandContainer.nodeType === COMMENT_NODE && grandContainer.parentNode === targetContainer;
           }
+          __name(isMatchingRootContainer, "isMatchingRootContainer");
           function dispatchEventForPluginEventSystem(domEventName, eventSystemFlags, nativeEvent, targetInst, targetContainer) {
             var ancestorInst = targetInst;
             if ((eventSystemFlags & IS_EVENT_HANDLE_NON_MANAGED_NODE) === 0 && (eventSystemFlags & IS_NON_DELEGATED) === 0) {
@@ -8652,6 +9101,7 @@
               return dispatchEventsForPlugins(domEventName, eventSystemFlags, nativeEvent, ancestorInst);
             });
           }
+          __name(dispatchEventForPluginEventSystem, "dispatchEventForPluginEventSystem");
           function createDispatchListener(instance, listener, currentTarget) {
             return {
               instance,
@@ -8659,6 +9109,7 @@
               currentTarget
             };
           }
+          __name(createDispatchListener, "createDispatchListener");
           function accumulateSinglePhaseListeners(targetFiber, reactName, nativeEventType, inCapturePhase, accumulateTargetOnly, nativeEvent) {
             var captureName = reactName !== null ? reactName + "Capture" : null;
             var reactEventName = inCapturePhase ? captureName : reactName;
@@ -8683,6 +9134,7 @@
             }
             return listeners;
           }
+          __name(accumulateSinglePhaseListeners, "accumulateSinglePhaseListeners");
           function accumulateTwoPhaseListeners(targetFiber, reactName) {
             var captureName = reactName + "Capture";
             var listeners = [];
@@ -8704,6 +9156,7 @@
             }
             return listeners;
           }
+          __name(accumulateTwoPhaseListeners, "accumulateTwoPhaseListeners");
           function getParent(inst) {
             if (inst === null) {
               return null;
@@ -8716,6 +9169,7 @@
             }
             return null;
           }
+          __name(getParent, "getParent");
           function getLowestCommonAncestor(instA, instB) {
             var nodeA = instA;
             var nodeB = instB;
@@ -8745,6 +9199,7 @@
             }
             return null;
           }
+          __name(getLowestCommonAncestor, "getLowestCommonAncestor");
           function accumulateEnterLeaveListenersForEvent(dispatchQueue, event, target, common, inCapturePhase) {
             var registrationName = event._reactName;
             var listeners = [];
@@ -8780,6 +9235,7 @@
               });
             }
           }
+          __name(accumulateEnterLeaveListenersForEvent, "accumulateEnterLeaveListenersForEvent");
           function accumulateEnterLeaveTwoPhaseListeners(dispatchQueue, leaveEvent, enterEvent, from, to) {
             var common = from && to ? getLowestCommonAncestor(from, to) : null;
             if (from !== null) {
@@ -8789,9 +9245,11 @@
               accumulateEnterLeaveListenersForEvent(dispatchQueue, enterEvent, to, common, true);
             }
           }
+          __name(accumulateEnterLeaveTwoPhaseListeners, "accumulateEnterLeaveTwoPhaseListeners");
           function getListenerSetKey(domEventName, capture) {
             return domEventName + "__" + (capture ? "capture" : "bubble");
           }
+          __name(getListenerSetKey, "getListenerSetKey");
           var didWarnInvalidHydration = false;
           var DANGEROUSLY_SET_INNER_HTML = "dangerouslySetInnerHTML";
           var SUPPRESS_CONTENT_EDITABLE_WARNING = "suppressContentEditableWarning";
@@ -8812,16 +9270,16 @@
               dialog: true,
               webview: true
             };
-            validatePropertiesInDevelopment = function(type, props) {
+            validatePropertiesInDevelopment = /* @__PURE__ */ __name(function(type, props) {
               validateProperties(type, props);
               validateProperties$1(type, props);
               validateProperties$2(type, props, {
                 registrationNameDependencies,
                 possibleRegistrationNames
               });
-            };
+            }, "validatePropertiesInDevelopment");
             canDiffStyleForHydrationWarning = canUseDOM && !document.documentMode;
-            warnForPropDifference = function(propName, serverValue, clientValue) {
+            warnForPropDifference = /* @__PURE__ */ __name(function(propName, serverValue, clientValue) {
               if (didWarnInvalidHydration) {
                 return;
               }
@@ -8832,8 +9290,8 @@
               }
               didWarnInvalidHydration = true;
               error("Prop `%s` did not match. Server: %s Client: %s", propName, JSON.stringify(normalizedServerValue), JSON.stringify(normalizedClientValue));
-            };
-            warnForExtraAttributes = function(attributeNames) {
+            }, "warnForPropDifference");
+            warnForExtraAttributes = /* @__PURE__ */ __name(function(attributeNames) {
               if (didWarnInvalidHydration) {
                 return;
               }
@@ -8843,19 +9301,19 @@
                 names.push(name);
               });
               error("Extra attributes from the server: %s", names);
-            };
-            warnForInvalidEventListener = function(registrationName, listener) {
+            }, "warnForExtraAttributes");
+            warnForInvalidEventListener = /* @__PURE__ */ __name(function(registrationName, listener) {
               if (listener === false) {
                 error("Expected `%s` listener to be a function, instead got `false`.\n\nIf you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead.", registrationName, registrationName, registrationName);
               } else {
                 error("Expected `%s` listener to be a function, instead got a value of `%s` type.", registrationName, typeof listener);
               }
-            };
-            normalizeHTML = function(parent, html) {
+            }, "warnForInvalidEventListener");
+            normalizeHTML = /* @__PURE__ */ __name(function(parent, html) {
               var testElement = parent.namespaceURI === HTML_NAMESPACE ? parent.ownerDocument.createElement(parent.tagName) : parent.ownerDocument.createElementNS(parent.namespaceURI, parent.tagName);
               testElement.innerHTML = html;
               return testElement.innerHTML;
-            };
+            }, "normalizeHTML");
           }
           var NORMALIZE_NEWLINES_REGEX = /\r\n?/g;
           var NORMALIZE_NULL_AND_REPLACEMENT_REGEX = /\u0000|\uFFFD/g;
@@ -8866,6 +9324,7 @@
             var markupString = typeof markup === "string" ? markup : "" + markup;
             return markupString.replace(NORMALIZE_NEWLINES_REGEX, "\n").replace(NORMALIZE_NULL_AND_REPLACEMENT_REGEX, "");
           }
+          __name(normalizeMarkupForTextOrAttribute, "normalizeMarkupForTextOrAttribute");
           function checkForUnmatchedText(serverText, clientText, isConcurrentMode, shouldWarnDev) {
             var normalizedClientText = normalizeMarkupForTextOrAttribute(clientText);
             var normalizedServerText = normalizeMarkupForTextOrAttribute(serverText);
@@ -8884,14 +9343,18 @@
               throw new Error("Text content does not match server-rendered HTML.");
             }
           }
+          __name(checkForUnmatchedText, "checkForUnmatchedText");
           function getOwnerDocumentFromRootContainer(rootContainerElement) {
             return rootContainerElement.nodeType === DOCUMENT_NODE ? rootContainerElement : rootContainerElement.ownerDocument;
           }
+          __name(getOwnerDocumentFromRootContainer, "getOwnerDocumentFromRootContainer");
           function noop() {
           }
+          __name(noop, "noop");
           function trapClickOnNonInteractiveElement(node) {
             node.onclick = noop;
           }
+          __name(trapClickOnNonInteractiveElement, "trapClickOnNonInteractiveElement");
           function setInitialDOMProperties(tag, domElement, rootContainerElement, nextProps, isCustomComponentTag) {
             for (var propKey in nextProps) {
               if (!nextProps.hasOwnProperty(propKey)) {
@@ -8937,6 +9400,7 @@
               }
             }
           }
+          __name(setInitialDOMProperties, "setInitialDOMProperties");
           function updateDOMProperties(domElement, updatePayload, wasCustomComponentTag, isCustomComponentTag) {
             for (var i = 0; i < updatePayload.length; i += 2) {
               var propKey = updatePayload[i];
@@ -8952,6 +9416,7 @@
               }
             }
           }
+          __name(updateDOMProperties, "updateDOMProperties");
           function createElement(type, props, rootContainerElement, parentNamespace) {
             var isCustomComponentTag;
             var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
@@ -9000,9 +9465,11 @@
             }
             return domElement;
           }
+          __name(createElement, "createElement");
           function createTextNode(text, rootContainerElement) {
             return getOwnerDocumentFromRootContainer(rootContainerElement).createTextNode(text);
           }
+          __name(createTextNode, "createTextNode");
           function setInitialProperties(domElement, tag, rawProps, rootContainerElement) {
             var isCustomComponentTag = isCustomComponent(tag, rawProps);
             {
@@ -9089,6 +9556,7 @@
                 break;
             }
           }
+          __name(setInitialProperties, "setInitialProperties");
           function diffProperties(domElement, tag, lastRawProps, nextRawProps, rootContainerElement) {
             {
               validatePropertiesInDevelopment(tag, nextRawProps);
@@ -9228,6 +9696,7 @@
             }
             return updatePayload;
           }
+          __name(diffProperties, "diffProperties");
           function updateProperties(domElement, updatePayload, tag, lastRawProps, nextRawProps) {
             if (tag === "input" && nextRawProps.type === "radio" && nextRawProps.name != null) {
               updateChecked(domElement, nextRawProps);
@@ -9247,6 +9716,7 @@
                 break;
             }
           }
+          __name(updateProperties, "updateProperties");
           function getPossibleStandardName(propName) {
             {
               var lowerCasedName = propName.toLowerCase();
@@ -9256,6 +9726,7 @@
               return possibleStandardNames[lowerCasedName] || null;
             }
           }
+          __name(getPossibleStandardName, "getPossibleStandardName");
           function diffHydratedProperties(domElement, tag, rawProps, parentNamespace, rootContainerElement, isConcurrentMode, shouldWarnDev) {
             var isCustomComponentTag;
             var extraAttributeNames;
@@ -9443,10 +9914,12 @@
             }
             return updatePayload;
           }
+          __name(diffHydratedProperties, "diffHydratedProperties");
           function diffHydratedText(textNode, text, isConcurrentMode) {
             var isDifferent = textNode.nodeValue !== text;
             return isDifferent;
           }
+          __name(diffHydratedText, "diffHydratedText");
           function warnForDeletedHydratableElement(parentNode, child) {
             {
               if (didWarnInvalidHydration) {
@@ -9456,6 +9929,7 @@
               error("Did not expect server HTML to contain a <%s> in <%s>.", child.nodeName.toLowerCase(), parentNode.nodeName.toLowerCase());
             }
           }
+          __name(warnForDeletedHydratableElement, "warnForDeletedHydratableElement");
           function warnForDeletedHydratableText(parentNode, child) {
             {
               if (didWarnInvalidHydration) {
@@ -9465,6 +9939,7 @@
               error('Did not expect server HTML to contain the text node "%s" in <%s>.', child.nodeValue, parentNode.nodeName.toLowerCase());
             }
           }
+          __name(warnForDeletedHydratableText, "warnForDeletedHydratableText");
           function warnForInsertedHydratedElement(parentNode, tag, props) {
             {
               if (didWarnInvalidHydration) {
@@ -9474,6 +9949,7 @@
               error("Expected server HTML to contain a matching <%s> in <%s>.", tag, parentNode.nodeName.toLowerCase());
             }
           }
+          __name(warnForInsertedHydratedElement, "warnForInsertedHydratedElement");
           function warnForInsertedHydratedText(parentNode, text) {
             {
               if (text === "") {
@@ -9486,6 +9962,7 @@
               error('Expected server HTML to contain a matching text node for "%s" in <%s>.', text, parentNode.nodeName.toLowerCase());
             }
           }
+          __name(warnForInsertedHydratedText, "warnForInsertedHydratedText");
           function restoreControlledState$3(domElement, tag, props) {
             switch (tag) {
               case "input":
@@ -9499,10 +9976,11 @@
                 return;
             }
           }
-          var validateDOMNesting = function() {
-          };
-          var updatedAncestorInfo = function() {
-          };
+          __name(restoreControlledState$3, "restoreControlledState$3");
+          var validateDOMNesting = /* @__PURE__ */ __name(function() {
+          }, "validateDOMNesting");
+          var updatedAncestorInfo = /* @__PURE__ */ __name(function() {
+          }, "updatedAncestorInfo");
           {
             var specialTags = ["address", "applet", "area", "article", "aside", "base", "basefont", "bgsound", "blockquote", "body", "br", "button", "caption", "center", "col", "colgroup", "dd", "details", "dir", "div", "dl", "dt", "embed", "fieldset", "figcaption", "figure", "footer", "form", "frame", "frameset", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "iframe", "img", "input", "isindex", "li", "link", "listing", "main", "marquee", "menu", "menuitem", "meta", "nav", "noembed", "noframes", "noscript", "object", "ol", "p", "param", "plaintext", "pre", "script", "section", "select", "source", "style", "summary", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "title", "tr", "track", "ul", "wbr", "xmp"];
             var inScopeTags = [
@@ -9531,7 +10009,7 @@
               listItemTagAutoclosing: null,
               dlItemTagAutoclosing: null
             };
-            updatedAncestorInfo = function(oldInfo, tag) {
+            updatedAncestorInfo = /* @__PURE__ */ __name(function(oldInfo, tag) {
               var ancestorInfo = assign({}, oldInfo || emptyAncestorInfo);
               var info = {
                 tag
@@ -9571,8 +10049,8 @@
                 ancestorInfo.dlItemTagAutoclosing = info;
               }
               return ancestorInfo;
-            };
-            var isTagValidWithParent = function(tag, parentTag) {
+            }, "updatedAncestorInfo");
+            var isTagValidWithParent = /* @__PURE__ */ __name(function(tag, parentTag) {
               switch (parentTag) {
                 case "select":
                   return tag === "option" || tag === "optgroup" || tag === "#text";
@@ -9627,8 +10105,8 @@
                   return parentTag == null;
               }
               return true;
-            };
-            var findInvalidAncestorForTag = function(tag, ancestorInfo) {
+            }, "isTagValidWithParent");
+            var findInvalidAncestorForTag = /* @__PURE__ */ __name(function(tag, ancestorInfo) {
               switch (tag) {
                 case "address":
                 case "article":
@@ -9681,9 +10159,9 @@
                   return ancestorInfo.nobrTagInScope;
               }
               return null;
-            };
+            }, "findInvalidAncestorForTag");
             var didWarn$1 = {};
-            validateDOMNesting = function(childTag, childText, ancestorInfo) {
+            validateDOMNesting = /* @__PURE__ */ __name(function(childTag, childText, ancestorInfo) {
               ancestorInfo = ancestorInfo || emptyAncestorInfo;
               var parentInfo = ancestorInfo.current;
               var parentTag = parentInfo && parentInfo.tag;
@@ -9726,7 +10204,7 @@
               } else {
                 error("validateDOMNesting(...): %s cannot appear as a descendant of <%s>.", tagDisplayName, ancestorTag);
               }
-            };
+            }, "validateDOMNesting");
           }
           var SUPPRESS_HYDRATION_WARNING$1 = "suppressHydrationWarning";
           var SUSPENSE_START_DATA = "$";
@@ -9765,6 +10243,7 @@
               };
             }
           }
+          __name(getRootHostContext, "getRootHostContext");
           function getChildHostContext(parentHostContext, type, rootContainerInstance) {
             {
               var parentHostContextDev = parentHostContext;
@@ -9776,9 +10255,11 @@
               };
             }
           }
+          __name(getChildHostContext, "getChildHostContext");
           function getPublicInstance(instance) {
             return instance;
           }
+          __name(getPublicInstance, "getPublicInstance");
           function prepareForCommit(containerInfo) {
             eventsEnabled = isEnabled();
             selectionInformation = getSelectionInformation();
@@ -9786,12 +10267,14 @@
             setEnabled(false);
             return activeInstance;
           }
+          __name(prepareForCommit, "prepareForCommit");
           function resetAfterCommit(containerInfo) {
             restoreSelection(selectionInformation);
             setEnabled(eventsEnabled);
             eventsEnabled = null;
             selectionInformation = null;
           }
+          __name(resetAfterCommit, "resetAfterCommit");
           function createInstance(type, props, rootContainerInstance, hostContext, internalInstanceHandle) {
             var parentNamespace;
             {
@@ -9809,9 +10292,11 @@
             updateFiberProps(domElement, props);
             return domElement;
           }
+          __name(createInstance, "createInstance");
           function appendInitialChild(parentInstance, child) {
             parentInstance.appendChild(child);
           }
+          __name(appendInitialChild, "appendInitialChild");
           function finalizeInitialChildren(domElement, type, props, rootContainerInstance, hostContext) {
             setInitialProperties(domElement, type, props, rootContainerInstance);
             switch (type) {
@@ -9826,6 +10311,7 @@
                 return false;
             }
           }
+          __name(finalizeInitialChildren, "finalizeInitialChildren");
           function prepareUpdate(domElement, type, oldProps, newProps, rootContainerInstance, hostContext) {
             {
               var hostContextDev = hostContext;
@@ -9837,9 +10323,11 @@
             }
             return diffProperties(domElement, type, oldProps, newProps);
           }
+          __name(prepareUpdate, "prepareUpdate");
           function shouldSetTextContent(type, props) {
             return type === "textarea" || type === "noscript" || typeof props.children === "string" || typeof props.children === "number" || typeof props.dangerouslySetInnerHTML === "object" && props.dangerouslySetInnerHTML !== null && props.dangerouslySetInnerHTML.__html != null;
           }
+          __name(shouldSetTextContent, "shouldSetTextContent");
           function createTextInstance(text, rootContainerInstance, hostContext, internalInstanceHandle) {
             {
               var hostContextDev = hostContext;
@@ -9849,6 +10337,7 @@
             precacheFiberNode(internalInstanceHandle, textNode);
             return textNode;
           }
+          __name(createTextInstance, "createTextInstance");
           function getCurrentEventPriority() {
             var currentEvent = window.event;
             if (currentEvent === void 0) {
@@ -9856,6 +10345,7 @@
             }
             return getEventPriority(currentEvent.type);
           }
+          __name(getCurrentEventPriority, "getCurrentEventPriority");
           var scheduleTimeout = typeof setTimeout === "function" ? setTimeout : void 0;
           var cancelTimeout = typeof clearTimeout === "function" ? clearTimeout : void 0;
           var noTimeout = -1;
@@ -9868,6 +10358,7 @@
               throw error2;
             });
           }
+          __name(handleErrorInNextTick, "handleErrorInNextTick");
           function commitMount(domElement, type, newProps, internalInstanceHandle) {
             switch (type) {
               case "button":
@@ -9886,19 +10377,24 @@
               }
             }
           }
+          __name(commitMount, "commitMount");
           function commitUpdate(domElement, updatePayload, type, oldProps, newProps, internalInstanceHandle) {
             updateProperties(domElement, updatePayload, type, oldProps, newProps);
             updateFiberProps(domElement, newProps);
           }
+          __name(commitUpdate, "commitUpdate");
           function resetTextContent(domElement) {
             setTextContent(domElement, "");
           }
+          __name(resetTextContent, "resetTextContent");
           function commitTextUpdate(textInstance, oldText, newText) {
             textInstance.nodeValue = newText;
           }
+          __name(commitTextUpdate, "commitTextUpdate");
           function appendChild(parentInstance, child) {
             parentInstance.appendChild(child);
           }
+          __name(appendChild, "appendChild");
           function appendChildToContainer(container, child) {
             var parentNode;
             if (container.nodeType === COMMENT_NODE) {
@@ -9913,9 +10409,11 @@
               trapClickOnNonInteractiveElement(parentNode);
             }
           }
+          __name(appendChildToContainer, "appendChildToContainer");
           function insertBefore(parentInstance, child, beforeChild) {
             parentInstance.insertBefore(child, beforeChild);
           }
+          __name(insertBefore, "insertBefore");
           function insertInContainerBefore(container, child, beforeChild) {
             if (container.nodeType === COMMENT_NODE) {
               container.parentNode.insertBefore(child, beforeChild);
@@ -9923,9 +10421,11 @@
               container.insertBefore(child, beforeChild);
             }
           }
+          __name(insertInContainerBefore, "insertInContainerBefore");
           function removeChild(parentInstance, child) {
             parentInstance.removeChild(child);
           }
+          __name(removeChild, "removeChild");
           function removeChildFromContainer(container, child) {
             if (container.nodeType === COMMENT_NODE) {
               container.parentNode.removeChild(child);
@@ -9933,6 +10433,7 @@
               container.removeChild(child);
             }
           }
+          __name(removeChildFromContainer, "removeChildFromContainer");
           function clearSuspenseBoundary(parentInstance, suspenseInstance) {
             var node = suspenseInstance;
             var depth = 0;
@@ -9957,6 +10458,7 @@
             } while (node);
             retryIfBlockedOn(suspenseInstance);
           }
+          __name(clearSuspenseBoundary, "clearSuspenseBoundary");
           function clearSuspenseBoundaryFromContainer(container, suspenseInstance) {
             if (container.nodeType === COMMENT_NODE) {
               clearSuspenseBoundary(container.parentNode, suspenseInstance);
@@ -9965,6 +10467,7 @@
             }
             retryIfBlockedOn(container);
           }
+          __name(clearSuspenseBoundaryFromContainer, "clearSuspenseBoundaryFromContainer");
           function hideInstance(instance) {
             instance = instance;
             var style2 = instance.style;
@@ -9974,18 +10477,22 @@
               style2.display = "none";
             }
           }
+          __name(hideInstance, "hideInstance");
           function hideTextInstance(textInstance) {
             textInstance.nodeValue = "";
           }
+          __name(hideTextInstance, "hideTextInstance");
           function unhideInstance(instance, props) {
             instance = instance;
             var styleProp = props[STYLE$1];
             var display = styleProp !== void 0 && styleProp !== null && styleProp.hasOwnProperty("display") ? styleProp.display : null;
             instance.style.display = dangerousStyleValue("display", display);
           }
+          __name(unhideInstance, "unhideInstance");
           function unhideTextInstance(textInstance, text) {
             textInstance.nodeValue = text;
           }
+          __name(unhideTextInstance, "unhideTextInstance");
           function clearContainer(container) {
             if (container.nodeType === ELEMENT_NODE) {
               container.textContent = "";
@@ -9995,30 +10502,36 @@
               }
             }
           }
+          __name(clearContainer, "clearContainer");
           function canHydrateInstance(instance, type, props) {
             if (instance.nodeType !== ELEMENT_NODE || type.toLowerCase() !== instance.nodeName.toLowerCase()) {
               return null;
             }
             return instance;
           }
+          __name(canHydrateInstance, "canHydrateInstance");
           function canHydrateTextInstance(instance, text) {
             if (text === "" || instance.nodeType !== TEXT_NODE) {
               return null;
             }
             return instance;
           }
+          __name(canHydrateTextInstance, "canHydrateTextInstance");
           function canHydrateSuspenseInstance(instance) {
             if (instance.nodeType !== COMMENT_NODE) {
               return null;
             }
             return instance;
           }
+          __name(canHydrateSuspenseInstance, "canHydrateSuspenseInstance");
           function isSuspenseInstancePending(instance) {
             return instance.data === SUSPENSE_PENDING_START_DATA;
           }
+          __name(isSuspenseInstancePending, "isSuspenseInstancePending");
           function isSuspenseInstanceFallback(instance) {
             return instance.data === SUSPENSE_FALLBACK_START_DATA;
           }
+          __name(isSuspenseInstanceFallback, "isSuspenseInstanceFallback");
           function getSuspenseInstanceFallbackErrorDetails(instance) {
             var dataset = instance.nextSibling && instance.nextSibling.dataset;
             var digest, message, stack;
@@ -10037,9 +10550,11 @@
               };
             }
           }
+          __name(getSuspenseInstanceFallbackErrorDetails, "getSuspenseInstanceFallbackErrorDetails");
           function registerSuspenseInstanceRetry(instance, callback) {
             instance._reactRetry = callback;
           }
+          __name(registerSuspenseInstanceRetry, "registerSuspenseInstanceRetry");
           function getNextHydratable(node) {
             for (; node != null; node = node.nextSibling) {
               var nodeType = node.nodeType;
@@ -10058,18 +10573,23 @@
             }
             return node;
           }
+          __name(getNextHydratable, "getNextHydratable");
           function getNextHydratableSibling(instance) {
             return getNextHydratable(instance.nextSibling);
           }
+          __name(getNextHydratableSibling, "getNextHydratableSibling");
           function getFirstHydratableChild(parentInstance) {
             return getNextHydratable(parentInstance.firstChild);
           }
+          __name(getFirstHydratableChild, "getFirstHydratableChild");
           function getFirstHydratableChildWithinContainer(parentContainer) {
             return getNextHydratable(parentContainer.firstChild);
           }
+          __name(getFirstHydratableChildWithinContainer, "getFirstHydratableChildWithinContainer");
           function getFirstHydratableChildWithinSuspenseInstance(parentInstance) {
             return getNextHydratable(parentInstance.nextSibling);
           }
+          __name(getFirstHydratableChildWithinSuspenseInstance, "getFirstHydratableChildWithinSuspenseInstance");
           function hydrateInstance(instance, type, props, rootContainerInstance, hostContext, internalInstanceHandle, shouldWarnDev) {
             precacheFiberNode(internalInstanceHandle, instance);
             updateFiberProps(instance, props);
@@ -10081,14 +10601,17 @@
             var isConcurrentMode = (internalInstanceHandle.mode & ConcurrentMode) !== NoMode;
             return diffHydratedProperties(instance, type, props, parentNamespace, rootContainerInstance, isConcurrentMode, shouldWarnDev);
           }
+          __name(hydrateInstance, "hydrateInstance");
           function hydrateTextInstance(textInstance, text, internalInstanceHandle, shouldWarnDev) {
             precacheFiberNode(internalInstanceHandle, textInstance);
             var isConcurrentMode = (internalInstanceHandle.mode & ConcurrentMode) !== NoMode;
             return diffHydratedText(textInstance, text);
           }
+          __name(hydrateTextInstance, "hydrateTextInstance");
           function hydrateSuspenseInstance(suspenseInstance, internalInstanceHandle) {
             precacheFiberNode(internalInstanceHandle, suspenseInstance);
           }
+          __name(hydrateSuspenseInstance, "hydrateSuspenseInstance");
           function getNextHydratableInstanceAfterSuspenseInstance(suspenseInstance) {
             var node = suspenseInstance.nextSibling;
             var depth = 0;
@@ -10109,6 +10632,7 @@
             }
             return null;
           }
+          __name(getNextHydratableInstanceAfterSuspenseInstance, "getNextHydratableInstanceAfterSuspenseInstance");
           function getParentSuspenseInstance(targetInstance) {
             var node = targetInstance.previousSibling;
             var depth = 0;
@@ -10129,25 +10653,31 @@
             }
             return null;
           }
+          __name(getParentSuspenseInstance, "getParentSuspenseInstance");
           function commitHydratedContainer(container) {
             retryIfBlockedOn(container);
           }
+          __name(commitHydratedContainer, "commitHydratedContainer");
           function commitHydratedSuspenseInstance(suspenseInstance) {
             retryIfBlockedOn(suspenseInstance);
           }
+          __name(commitHydratedSuspenseInstance, "commitHydratedSuspenseInstance");
           function shouldDeleteUnhydratedTailInstances(parentType) {
             return parentType !== "head" && parentType !== "body";
           }
+          __name(shouldDeleteUnhydratedTailInstances, "shouldDeleteUnhydratedTailInstances");
           function didNotMatchHydratedContainerTextInstance(parentContainer, textInstance, text, isConcurrentMode) {
             var shouldWarnDev = true;
             checkForUnmatchedText(textInstance.nodeValue, text, isConcurrentMode, shouldWarnDev);
           }
+          __name(didNotMatchHydratedContainerTextInstance, "didNotMatchHydratedContainerTextInstance");
           function didNotMatchHydratedTextInstance(parentType, parentProps, parentInstance, textInstance, text, isConcurrentMode) {
             if (parentProps[SUPPRESS_HYDRATION_WARNING$1] !== true) {
               var shouldWarnDev = true;
               checkForUnmatchedText(textInstance.nodeValue, text, isConcurrentMode, shouldWarnDev);
             }
           }
+          __name(didNotMatchHydratedTextInstance, "didNotMatchHydratedTextInstance");
           function didNotHydrateInstanceWithinContainer(parentContainer, instance) {
             {
               if (instance.nodeType === ELEMENT_NODE) {
@@ -10159,6 +10689,7 @@
               }
             }
           }
+          __name(didNotHydrateInstanceWithinContainer, "didNotHydrateInstanceWithinContainer");
           function didNotHydrateInstanceWithinSuspenseInstance(parentInstance, instance) {
             {
               var parentNode = parentInstance.parentNode;
@@ -10173,6 +10704,7 @@
               }
             }
           }
+          __name(didNotHydrateInstanceWithinSuspenseInstance, "didNotHydrateInstanceWithinSuspenseInstance");
           function didNotHydrateInstance(parentType, parentProps, parentInstance, instance, isConcurrentMode) {
             {
               if (isConcurrentMode || parentProps[SUPPRESS_HYDRATION_WARNING$1] !== true) {
@@ -10186,16 +10718,19 @@
               }
             }
           }
+          __name(didNotHydrateInstance, "didNotHydrateInstance");
           function didNotFindHydratableInstanceWithinContainer(parentContainer, type, props) {
             {
               warnForInsertedHydratedElement(parentContainer, type);
             }
           }
+          __name(didNotFindHydratableInstanceWithinContainer, "didNotFindHydratableInstanceWithinContainer");
           function didNotFindHydratableTextInstanceWithinContainer(parentContainer, text) {
             {
               warnForInsertedHydratedText(parentContainer, text);
             }
           }
+          __name(didNotFindHydratableTextInstanceWithinContainer, "didNotFindHydratableTextInstanceWithinContainer");
           function didNotFindHydratableInstanceWithinSuspenseInstance(parentInstance, type, props) {
             {
               var parentNode = parentInstance.parentNode;
@@ -10203,6 +10738,7 @@
                 warnForInsertedHydratedElement(parentNode, type);
             }
           }
+          __name(didNotFindHydratableInstanceWithinSuspenseInstance, "didNotFindHydratableInstanceWithinSuspenseInstance");
           function didNotFindHydratableTextInstanceWithinSuspenseInstance(parentInstance, text) {
             {
               var parentNode = parentInstance.parentNode;
@@ -10210,6 +10746,7 @@
                 warnForInsertedHydratedText(parentNode, text);
             }
           }
+          __name(didNotFindHydratableTextInstanceWithinSuspenseInstance, "didNotFindHydratableTextInstanceWithinSuspenseInstance");
           function didNotFindHydratableInstance(parentType, parentProps, parentInstance, type, props, isConcurrentMode) {
             {
               if (isConcurrentMode || parentProps[SUPPRESS_HYDRATION_WARNING$1] !== true) {
@@ -10217,6 +10754,7 @@
               }
             }
           }
+          __name(didNotFindHydratableInstance, "didNotFindHydratableInstance");
           function didNotFindHydratableTextInstance(parentType, parentProps, parentInstance, text, isConcurrentMode) {
             {
               if (isConcurrentMode || parentProps[SUPPRESS_HYDRATION_WARNING$1] !== true) {
@@ -10224,14 +10762,17 @@
               }
             }
           }
+          __name(didNotFindHydratableTextInstance, "didNotFindHydratableTextInstance");
           function errorHydratingContainer(parentContainer) {
             {
               error("An error occurred during hydration. The server HTML was replaced with client content in <%s>.", parentContainer.nodeName.toLowerCase());
             }
           }
+          __name(errorHydratingContainer, "errorHydratingContainer");
           function preparePortalMount(portalInstance) {
             listenToAllSupportedEvents(portalInstance);
           }
+          __name(preparePortalMount, "preparePortalMount");
           var randomKey = Math.random().toString(36).slice(2);
           var internalInstanceKey = "__reactFiber$" + randomKey;
           var internalPropsKey = "__reactProps$" + randomKey;
@@ -10246,18 +10787,23 @@
             delete node[internalEventHandlerListenersKey];
             delete node[internalEventHandlesSetKey];
           }
+          __name(detachDeletedInstance, "detachDeletedInstance");
           function precacheFiberNode(hostInst, node) {
             node[internalInstanceKey] = hostInst;
           }
+          __name(precacheFiberNode, "precacheFiberNode");
           function markContainerAsRoot(hostRoot, node) {
             node[internalContainerInstanceKey] = hostRoot;
           }
+          __name(markContainerAsRoot, "markContainerAsRoot");
           function unmarkContainerAsRoot(node) {
             node[internalContainerInstanceKey] = null;
           }
+          __name(unmarkContainerAsRoot, "unmarkContainerAsRoot");
           function isContainerMarkedAsRoot(node) {
             return !!node[internalContainerInstanceKey];
           }
+          __name(isContainerMarkedAsRoot, "isContainerMarkedAsRoot");
           function getClosestInstanceFromNode(targetNode) {
             var targetInst = targetNode[internalInstanceKey];
             if (targetInst) {
@@ -10285,6 +10831,7 @@
             }
             return null;
           }
+          __name(getClosestInstanceFromNode, "getClosestInstanceFromNode");
           function getInstanceFromNode(node) {
             var inst = node[internalInstanceKey] || node[internalContainerInstanceKey];
             if (inst) {
@@ -10296,18 +10843,22 @@
             }
             return null;
           }
+          __name(getInstanceFromNode, "getInstanceFromNode");
           function getNodeFromInstance(inst) {
             if (inst.tag === HostComponent || inst.tag === HostText) {
               return inst.stateNode;
             }
             throw new Error("getNodeFromInstance: Invalid argument.");
           }
+          __name(getNodeFromInstance, "getNodeFromInstance");
           function getFiberCurrentPropsFromNode(node) {
             return node[internalPropsKey] || null;
           }
+          __name(getFiberCurrentPropsFromNode, "getFiberCurrentPropsFromNode");
           function updateFiberProps(node, props) {
             node[internalPropsKey] = props;
           }
+          __name(updateFiberProps, "updateFiberProps");
           function getEventListenerSet(node) {
             var elementListenerSet = node[internalEventHandlersKey];
             if (elementListenerSet === void 0) {
@@ -10315,6 +10866,7 @@
             }
             return elementListenerSet;
           }
+          __name(getEventListenerSet, "getEventListenerSet");
           var loggedTypeFailures = {};
           var ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
           function setCurrentlyValidatingElement(element) {
@@ -10328,6 +10880,7 @@
               }
             }
           }
+          __name(setCurrentlyValidatingElement, "setCurrentlyValidatingElement");
           function checkPropTypes(typeSpecs, values, location2, componentName, element) {
             {
               var has2 = Function.call.bind(hasOwnProperty);
@@ -10359,6 +10912,7 @@
               }
             }
           }
+          __name(checkPropTypes, "checkPropTypes");
           var valueStack = [];
           var fiberStack;
           {
@@ -10370,6 +10924,7 @@
               current: defaultValue
             };
           }
+          __name(createCursor, "createCursor");
           function pop(cursor, fiber) {
             if (index < 0) {
               {
@@ -10389,6 +10944,7 @@
             }
             index--;
           }
+          __name(pop, "pop");
           function push(cursor, value, fiber) {
             index++;
             valueStack[index] = cursor.current;
@@ -10397,6 +10953,7 @@
             }
             cursor.current = value;
           }
+          __name(push, "push");
           var warnedAboutMissingGetChildContext;
           {
             warnedAboutMissingGetChildContext = {};
@@ -10416,6 +10973,7 @@
               return contextStackCursor.current;
             }
           }
+          __name(getUnmaskedContext, "getUnmaskedContext");
           function cacheContext(workInProgress2, unmaskedContext, maskedContext) {
             {
               var instance = workInProgress2.stateNode;
@@ -10423,6 +10981,7 @@
               instance.__reactInternalMemoizedMaskedChildContext = maskedContext;
             }
           }
+          __name(cacheContext, "cacheContext");
           function getMaskedContext(workInProgress2, unmaskedContext) {
             {
               var type = workInProgress2.type;
@@ -10448,29 +11007,34 @@
               return context;
             }
           }
+          __name(getMaskedContext, "getMaskedContext");
           function hasContextChanged() {
             {
               return didPerformWorkStackCursor.current;
             }
           }
+          __name(hasContextChanged, "hasContextChanged");
           function isContextProvider(type) {
             {
               var childContextTypes = type.childContextTypes;
               return childContextTypes !== null && childContextTypes !== void 0;
             }
           }
+          __name(isContextProvider, "isContextProvider");
           function popContext(fiber) {
             {
               pop(didPerformWorkStackCursor, fiber);
               pop(contextStackCursor, fiber);
             }
           }
+          __name(popContext, "popContext");
           function popTopLevelContextObject(fiber) {
             {
               pop(didPerformWorkStackCursor, fiber);
               pop(contextStackCursor, fiber);
             }
           }
+          __name(popTopLevelContextObject, "popTopLevelContextObject");
           function pushTopLevelContextObject(fiber, context, didChange) {
             {
               if (contextStackCursor.current !== emptyContextObject) {
@@ -10480,6 +11044,7 @@
               push(didPerformWorkStackCursor, didChange, fiber);
             }
           }
+          __name(pushTopLevelContextObject, "pushTopLevelContextObject");
           function processChildContext(fiber, type, parentContext) {
             {
               var instance = fiber.stateNode;
@@ -10507,6 +11072,7 @@
               return assign({}, parentContext, childContext);
             }
           }
+          __name(processChildContext, "processChildContext");
           function pushContextProvider(workInProgress2) {
             {
               var instance = workInProgress2.stateNode;
@@ -10517,6 +11083,7 @@
               return true;
             }
           }
+          __name(pushContextProvider, "pushContextProvider");
           function invalidateContextProvider(workInProgress2, type, didChange) {
             {
               var instance = workInProgress2.stateNode;
@@ -10536,6 +11103,7 @@
               }
             }
           }
+          __name(invalidateContextProvider, "invalidateContextProvider");
           function findCurrentUnmaskedContext(fiber) {
             {
               if (!isFiberMounted(fiber) || fiber.tag !== ClassComponent) {
@@ -10559,6 +11127,7 @@
               throw new Error("Found unexpected detached subtree parent. This error is likely caused by a bug in React. Please file an issue.");
             }
           }
+          __name(findCurrentUnmaskedContext, "findCurrentUnmaskedContext");
           var LegacyRoot = 0;
           var ConcurrentRoot = 1;
           var syncQueue = null;
@@ -10571,15 +11140,18 @@
               syncQueue.push(callback);
             }
           }
+          __name(scheduleSyncCallback, "scheduleSyncCallback");
           function scheduleLegacySyncCallback(callback) {
             includesLegacySyncCallbacks = true;
             scheduleSyncCallback(callback);
           }
+          __name(scheduleLegacySyncCallback, "scheduleLegacySyncCallback");
           function flushSyncCallbacksOnlyInLegacyMode() {
             if (includesLegacySyncCallbacks) {
               flushSyncCallbacks();
             }
           }
+          __name(flushSyncCallbacksOnlyInLegacyMode, "flushSyncCallbacksOnlyInLegacyMode");
           function flushSyncCallbacks() {
             if (!isFlushingSyncQueue && syncQueue !== null) {
               isFlushingSyncQueue = true;
@@ -10610,6 +11182,7 @@
             }
             return null;
           }
+          __name(flushSyncCallbacks, "flushSyncCallbacks");
           var forkStack = [];
           var forkStackIndex = 0;
           var treeForkProvider = null;
@@ -10623,16 +11196,19 @@
             warnIfNotHydrating();
             return (workInProgress2.flags & Forked) !== NoFlags;
           }
+          __name(isForkedChild, "isForkedChild");
           function getForksAtLevel(workInProgress2) {
             warnIfNotHydrating();
             return treeForkCount;
           }
+          __name(getForksAtLevel, "getForksAtLevel");
           function getTreeId() {
             var overflow = treeContextOverflow;
             var idWithLeadingBit = treeContextId;
             var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
             return id.toString(32) + overflow;
           }
+          __name(getTreeId, "getTreeId");
           function pushTreeFork(workInProgress2, totalChildren) {
             warnIfNotHydrating();
             forkStack[forkStackIndex++] = treeForkCount;
@@ -10640,6 +11216,7 @@
             treeForkProvider = workInProgress2;
             treeForkCount = totalChildren;
           }
+          __name(pushTreeFork, "pushTreeFork");
           function pushTreeId(workInProgress2, totalChildren, index2) {
             warnIfNotHydrating();
             idStack[idStackIndex++] = treeContextId;
@@ -10672,6 +11249,7 @@
               treeContextOverflow = _overflow;
             }
           }
+          __name(pushTreeId, "pushTreeId");
           function pushMaterializedTreeId(workInProgress2) {
             warnIfNotHydrating();
             var returnFiber = workInProgress2.return;
@@ -10682,12 +11260,15 @@
               pushTreeId(workInProgress2, numberOfForks, slotIndex);
             }
           }
+          __name(pushMaterializedTreeId, "pushMaterializedTreeId");
           function getBitLength(number) {
             return 32 - clz32(number);
           }
+          __name(getBitLength, "getBitLength");
           function getLeadingBit(id) {
             return 1 << getBitLength(id) - 1;
           }
+          __name(getLeadingBit, "getLeadingBit");
           function popTreeContext(workInProgress2) {
             while (workInProgress2 === treeForkProvider) {
               treeForkProvider = forkStack[--forkStackIndex];
@@ -10704,6 +11285,7 @@
               idStack[idStackIndex] = null;
             }
           }
+          __name(popTreeContext, "popTreeContext");
           function getSuspendedTreeContext() {
             warnIfNotHydrating();
             if (treeContextProvider !== null) {
@@ -10715,6 +11297,7 @@
               return null;
             }
           }
+          __name(getSuspendedTreeContext, "getSuspendedTreeContext");
           function restoreSuspendedTreeContext(workInProgress2, suspendedContext) {
             warnIfNotHydrating();
             idStack[idStackIndex++] = treeContextId;
@@ -10724,6 +11307,7 @@
             treeContextOverflow = suspendedContext.overflow;
             treeContextProvider = workInProgress2;
           }
+          __name(restoreSuspendedTreeContext, "restoreSuspendedTreeContext");
           function warnIfNotHydrating() {
             {
               if (!getIsHydrating()) {
@@ -10731,6 +11315,7 @@
               }
             }
           }
+          __name(warnIfNotHydrating, "warnIfNotHydrating");
           var hydrationParentFiber = null;
           var nextHydratableInstance = null;
           var isHydrating = false;
@@ -10743,16 +11328,19 @@
               }
             }
           }
+          __name(warnIfHydrating, "warnIfHydrating");
           function markDidThrowWhileHydratingDEV() {
             {
               didSuspendOrErrorDEV = true;
             }
           }
+          __name(markDidThrowWhileHydratingDEV, "markDidThrowWhileHydratingDEV");
           function didSuspendOrErrorWhileHydratingDEV() {
             {
               return didSuspendOrErrorDEV;
             }
           }
+          __name(didSuspendOrErrorWhileHydratingDEV, "didSuspendOrErrorWhileHydratingDEV");
           function enterHydrationState(fiber) {
             var parentInstance = fiber.stateNode.containerInfo;
             nextHydratableInstance = getFirstHydratableChildWithinContainer(parentInstance);
@@ -10762,6 +11350,7 @@
             didSuspendOrErrorDEV = false;
             return true;
           }
+          __name(enterHydrationState, "enterHydrationState");
           function reenterHydrationStateFromDehydratedSuspenseInstance(fiber, suspenseInstance, treeContext) {
             nextHydratableInstance = getFirstHydratableChildWithinSuspenseInstance(suspenseInstance);
             hydrationParentFiber = fiber;
@@ -10773,6 +11362,7 @@
             }
             return true;
           }
+          __name(reenterHydrationStateFromDehydratedSuspenseInstance, "reenterHydrationStateFromDehydratedSuspenseInstance");
           function warnUnhydratedInstance(returnFiber, instance) {
             {
               switch (returnFiber.tag) {
@@ -10800,6 +11390,7 @@
               }
             }
           }
+          __name(warnUnhydratedInstance, "warnUnhydratedInstance");
           function deleteHydratableInstance(returnFiber, instance) {
             warnUnhydratedInstance(returnFiber, instance);
             var childToDelete = createFiberFromHostInstanceForDeletion();
@@ -10813,6 +11404,7 @@
               deletions.push(childToDelete);
             }
           }
+          __name(deleteHydratableInstance, "deleteHydratableInstance");
           function warnNonhydratedInstance(returnFiber, fiber) {
             {
               if (didSuspendOrErrorDEV) {
@@ -10890,10 +11482,12 @@
               }
             }
           }
+          __name(warnNonhydratedInstance, "warnNonhydratedInstance");
           function insertNonHydratedInstance(returnFiber, fiber) {
             fiber.flags = fiber.flags & ~Hydrating | Placement;
             warnNonhydratedInstance(returnFiber, fiber);
           }
+          __name(insertNonHydratedInstance, "insertNonHydratedInstance");
           function tryHydrate(fiber, nextInstance) {
             switch (fiber.tag) {
               case HostComponent: {
@@ -10941,12 +11535,15 @@
                 return false;
             }
           }
+          __name(tryHydrate, "tryHydrate");
           function shouldClientRenderOnMismatch(fiber) {
             return (fiber.mode & ConcurrentMode) !== NoMode && (fiber.flags & DidCapture) === NoFlags;
           }
+          __name(shouldClientRenderOnMismatch, "shouldClientRenderOnMismatch");
           function throwOnHydrationMismatch(fiber) {
             throw new Error("Hydration failed because the initial UI does not match what was rendered on the server.");
           }
+          __name(throwOnHydrationMismatch, "throwOnHydrationMismatch");
           function tryToClaimNextHydratableInstance(fiber) {
             if (!isHydrating) {
               return;
@@ -10979,6 +11576,7 @@
               deleteHydratableInstance(prevHydrationParentFiber, firstAttemptedInstance);
             }
           }
+          __name(tryToClaimNextHydratableInstance, "tryToClaimNextHydratableInstance");
           function prepareToHydrateHostInstance(fiber, rootContainerInstance, hostContext) {
             var instance = fiber.stateNode;
             var shouldWarnIfMismatchDev = !didSuspendOrErrorDEV;
@@ -10989,6 +11587,7 @@
             }
             return false;
           }
+          __name(prepareToHydrateHostInstance, "prepareToHydrateHostInstance");
           function prepareToHydrateHostTextInstance(fiber) {
             var textInstance = fiber.stateNode;
             var textContent = fiber.memoizedProps;
@@ -11028,6 +11627,7 @@
             }
             return shouldUpdate;
           }
+          __name(prepareToHydrateHostTextInstance, "prepareToHydrateHostTextInstance");
           function prepareToHydrateHostSuspenseInstance(fiber) {
             var suspenseState = fiber.memoizedState;
             var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
@@ -11036,6 +11636,7 @@
             }
             hydrateSuspenseInstance(suspenseInstance, fiber);
           }
+          __name(prepareToHydrateHostSuspenseInstance, "prepareToHydrateHostSuspenseInstance");
           function skipPastDehydratedSuspenseInstance(fiber) {
             var suspenseState = fiber.memoizedState;
             var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
@@ -11044,6 +11645,7 @@
             }
             return getNextHydratableInstanceAfterSuspenseInstance(suspenseInstance);
           }
+          __name(skipPastDehydratedSuspenseInstance, "skipPastDehydratedSuspenseInstance");
           function popToNextHostParent(fiber) {
             var parent = fiber.return;
             while (parent !== null && parent.tag !== HostComponent && parent.tag !== HostRoot && parent.tag !== SuspenseComponent) {
@@ -11051,6 +11653,7 @@
             }
             hydrationParentFiber = parent;
           }
+          __name(popToNextHostParent, "popToNextHostParent");
           function popHydrationState(fiber) {
             if (fiber !== hydrationParentFiber) {
               return false;
@@ -11082,9 +11685,11 @@
             }
             return true;
           }
+          __name(popHydrationState, "popHydrationState");
           function hasUnhydratedTailNodes() {
             return isHydrating && nextHydratableInstance !== null;
           }
+          __name(hasUnhydratedTailNodes, "hasUnhydratedTailNodes");
           function warnIfUnhydratedTailNodes(fiber) {
             var nextInstance = nextHydratableInstance;
             while (nextInstance) {
@@ -11092,21 +11697,25 @@
               nextInstance = getNextHydratableSibling(nextInstance);
             }
           }
+          __name(warnIfUnhydratedTailNodes, "warnIfUnhydratedTailNodes");
           function resetHydrationState() {
             hydrationParentFiber = null;
             nextHydratableInstance = null;
             isHydrating = false;
             didSuspendOrErrorDEV = false;
           }
+          __name(resetHydrationState, "resetHydrationState");
           function upgradeHydrationErrorsToRecoverable() {
             if (hydrationErrors !== null) {
               queueRecoverableErrors(hydrationErrors);
               hydrationErrors = null;
             }
           }
+          __name(upgradeHydrationErrorsToRecoverable, "upgradeHydrationErrorsToRecoverable");
           function getIsHydrating() {
             return isHydrating;
           }
+          __name(getIsHydrating, "getIsHydrating");
           function queueHydrationError(error2) {
             if (hydrationErrors === null) {
               hydrationErrors = [error2];
@@ -11114,11 +11723,13 @@
               hydrationErrors.push(error2);
             }
           }
+          __name(queueHydrationError, "queueHydrationError");
           var ReactCurrentBatchConfig$1 = ReactSharedInternals.ReactCurrentBatchConfig;
           var NoTransition = null;
           function requestCurrentTransition() {
             return ReactCurrentBatchConfig$1.transition;
           }
+          __name(requestCurrentTransition, "requestCurrentTransition");
           var ReactStrictModeWarnings = {
             recordUnsafeLifecycleWarnings: function(fiber, instance) {
             },
@@ -11132,7 +11743,7 @@
             }
           };
           {
-            var findStrictRoot = function(fiber) {
+            var findStrictRoot = /* @__PURE__ */ __name(function(fiber) {
               var maybeStrictRoot = null;
               var node = fiber;
               while (node !== null) {
@@ -11142,14 +11753,14 @@
                 node = node.return;
               }
               return maybeStrictRoot;
-            };
-            var setToSortedString = function(set2) {
+            }, "findStrictRoot");
+            var setToSortedString = /* @__PURE__ */ __name(function(set2) {
               var array = [];
               set2.forEach(function(value) {
                 array.push(value);
               });
               return array.sort().join(", ");
-            };
+            }, "setToSortedString");
             var pendingComponentWillMountWarnings = [];
             var pendingUNSAFE_ComponentWillMountWarnings = [];
             var pendingComponentWillReceivePropsWarnings = [];
@@ -11317,6 +11928,7 @@
             }
             return baseProps;
           }
+          __name(resolveDefaultProps, "resolveDefaultProps");
           var valueCursor = createCursor(null);
           var rendererSigil;
           {
@@ -11334,16 +11946,19 @@
               isDisallowedContextReadInDEV = false;
             }
           }
+          __name(resetContextDependencies, "resetContextDependencies");
           function enterDisallowedContextReadInDEV() {
             {
               isDisallowedContextReadInDEV = true;
             }
           }
+          __name(enterDisallowedContextReadInDEV, "enterDisallowedContextReadInDEV");
           function exitDisallowedContextReadInDEV() {
             {
               isDisallowedContextReadInDEV = false;
             }
           }
+          __name(exitDisallowedContextReadInDEV, "exitDisallowedContextReadInDEV");
           function pushProvider(providerFiber, context, nextValue) {
             {
               push(valueCursor, context._currentValue, providerFiber);
@@ -11356,6 +11971,7 @@
               }
             }
           }
+          __name(pushProvider, "pushProvider");
           function popProvider(context, providerFiber) {
             var currentValue = valueCursor.current;
             pop(valueCursor, providerFiber);
@@ -11365,6 +11981,7 @@
               }
             }
           }
+          __name(popProvider, "popProvider");
           function scheduleContextWorkOnParentPath(parent, renderLanes2, propagationRoot) {
             var node = parent;
             while (node !== null) {
@@ -11388,11 +12005,13 @@
               }
             }
           }
+          __name(scheduleContextWorkOnParentPath, "scheduleContextWorkOnParentPath");
           function propagateContextChange(workInProgress2, context, renderLanes2) {
             {
               propagateContextChange_eager(workInProgress2, context, renderLanes2);
             }
           }
+          __name(propagateContextChange, "propagateContextChange");
           function propagateContextChange_eager(workInProgress2, context, renderLanes2) {
             var fiber = workInProgress2.child;
             if (fiber !== null) {
@@ -11474,6 +12093,7 @@
               fiber = nextFiber;
             }
           }
+          __name(propagateContextChange_eager, "propagateContextChange_eager");
           function prepareToReadContext(workInProgress2, renderLanes2) {
             currentlyRenderingFiber = workInProgress2;
             lastContextDependency = null;
@@ -11491,6 +12111,7 @@
               }
             }
           }
+          __name(prepareToReadContext, "prepareToReadContext");
           function readContext(context) {
             {
               if (isDisallowedContextReadInDEV) {
@@ -11521,6 +12142,7 @@
             }
             return value;
           }
+          __name(readContext, "readContext");
           var concurrentQueues = null;
           function pushConcurrentUpdateQueue(queue) {
             if (concurrentQueues === null) {
@@ -11529,6 +12151,7 @@
               concurrentQueues.push(queue);
             }
           }
+          __name(pushConcurrentUpdateQueue, "pushConcurrentUpdateQueue");
           function finishQueueingConcurrentUpdates() {
             if (concurrentQueues !== null) {
               for (var i = 0; i < concurrentQueues.length; i++) {
@@ -11549,6 +12172,7 @@
               concurrentQueues = null;
             }
           }
+          __name(finishQueueingConcurrentUpdates, "finishQueueingConcurrentUpdates");
           function enqueueConcurrentHookUpdate(fiber, queue, update, lane) {
             var interleaved = queue.interleaved;
             if (interleaved === null) {
@@ -11561,6 +12185,7 @@
             queue.interleaved = update;
             return markUpdateLaneFromFiberToRoot(fiber, lane);
           }
+          __name(enqueueConcurrentHookUpdate, "enqueueConcurrentHookUpdate");
           function enqueueConcurrentHookUpdateAndEagerlyBailout(fiber, queue, update, lane) {
             var interleaved = queue.interleaved;
             if (interleaved === null) {
@@ -11572,6 +12197,7 @@
             }
             queue.interleaved = update;
           }
+          __name(enqueueConcurrentHookUpdateAndEagerlyBailout, "enqueueConcurrentHookUpdateAndEagerlyBailout");
           function enqueueConcurrentClassUpdate(fiber, queue, update, lane) {
             var interleaved = queue.interleaved;
             if (interleaved === null) {
@@ -11584,9 +12210,11 @@
             queue.interleaved = update;
             return markUpdateLaneFromFiberToRoot(fiber, lane);
           }
+          __name(enqueueConcurrentClassUpdate, "enqueueConcurrentClassUpdate");
           function enqueueConcurrentRenderForLane(fiber, lane) {
             return markUpdateLaneFromFiberToRoot(fiber, lane);
           }
+          __name(enqueueConcurrentRenderForLane, "enqueueConcurrentRenderForLane");
           var unsafe_markUpdateLaneFromFiberToRoot = markUpdateLaneFromFiberToRoot;
           function markUpdateLaneFromFiberToRoot(sourceFiber, lane) {
             sourceFiber.lanes = mergeLanes(sourceFiber.lanes, lane);
@@ -11623,6 +12251,7 @@
               return null;
             }
           }
+          __name(markUpdateLaneFromFiberToRoot, "markUpdateLaneFromFiberToRoot");
           var UpdateState = 0;
           var ReplaceState = 1;
           var ForceUpdate = 2;
@@ -11648,6 +12277,7 @@
             };
             fiber.updateQueue = queue;
           }
+          __name(initializeUpdateQueue, "initializeUpdateQueue");
           function cloneUpdateQueue(current2, workInProgress2) {
             var queue = workInProgress2.updateQueue;
             var currentQueue = current2.updateQueue;
@@ -11662,6 +12292,7 @@
               workInProgress2.updateQueue = clone;
             }
           }
+          __name(cloneUpdateQueue, "cloneUpdateQueue");
           function createUpdate(eventTime, lane) {
             var update = {
               eventTime,
@@ -11673,6 +12304,7 @@
             };
             return update;
           }
+          __name(createUpdate, "createUpdate");
           function enqueueUpdate(fiber, update, lane) {
             var updateQueue = fiber.updateQueue;
             if (updateQueue === null) {
@@ -11699,6 +12331,7 @@
               return enqueueConcurrentClassUpdate(fiber, sharedQueue, update, lane);
             }
           }
+          __name(enqueueUpdate, "enqueueUpdate");
           function entangleTransitions(root2, fiber, lane) {
             var updateQueue = fiber.updateQueue;
             if (updateQueue === null) {
@@ -11713,6 +12346,7 @@
               markRootEntangled(root2, newQueueLanes);
             }
           }
+          __name(entangleTransitions, "entangleTransitions");
           function enqueueCapturedUpdate(workInProgress2, capturedUpdate) {
             var queue = workInProgress2.updateQueue;
             var current2 = workInProgress2.alternate;
@@ -11769,6 +12403,7 @@
             }
             queue.lastBaseUpdate = capturedUpdate;
           }
+          __name(enqueueCapturedUpdate, "enqueueCapturedUpdate");
           function getStateFromUpdate(workInProgress2, queue, update, prevState, nextProps, instance) {
             switch (update.tag) {
               case ReplaceState: {
@@ -11830,6 +12465,7 @@
             }
             return prevState;
           }
+          __name(getStateFromUpdate, "getStateFromUpdate");
           function processUpdateQueue(workInProgress2, props, instance, renderLanes2) {
             var queue = workInProgress2.updateQueue;
             hasForceUpdate = false;
@@ -11953,18 +12589,22 @@
               currentlyProcessingQueue = null;
             }
           }
+          __name(processUpdateQueue, "processUpdateQueue");
           function callCallback(callback, context) {
             if (typeof callback !== "function") {
               throw new Error("Invalid argument passed as callback. Expected a function. Instead " + ("received: " + callback));
             }
             callback.call(context);
           }
+          __name(callCallback, "callCallback");
           function resetHasForceUpdateBeforeProcessing() {
             hasForceUpdate = false;
           }
+          __name(resetHasForceUpdateBeforeProcessing, "resetHasForceUpdateBeforeProcessing");
           function checkHasForceUpdateAfterProcessing() {
             return hasForceUpdate;
           }
+          __name(checkHasForceUpdateAfterProcessing, "checkHasForceUpdateAfterProcessing");
           function commitUpdateQueue(finishedWork, finishedQueue, instance) {
             var effects = finishedQueue.effects;
             finishedQueue.effects = null;
@@ -11979,6 +12619,7 @@
               }
             }
           }
+          __name(commitUpdateQueue, "commitUpdateQueue");
           var fakeInternalInstance = {};
           var emptyRefsObject = new React2.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
@@ -12001,7 +12642,7 @@
             didWarnAboutContextTypeAndContextTypes = /* @__PURE__ */ new Set();
             didWarnAboutInvalidateContextType = /* @__PURE__ */ new Set();
             var didWarnOnInvalidCallback = /* @__PURE__ */ new Set();
-            warnOnInvalidCallback = function(callback, callerName) {
+            warnOnInvalidCallback = /* @__PURE__ */ __name(function(callback, callerName) {
               if (callback === null || typeof callback === "function") {
                 return;
               }
@@ -12010,8 +12651,8 @@
                 didWarnOnInvalidCallback.add(key);
                 error("%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.", callerName, callback);
               }
-            };
-            warnOnUndefinedDerivedState = function(type, partialState) {
+            }, "warnOnInvalidCallback");
+            warnOnUndefinedDerivedState = /* @__PURE__ */ __name(function(type, partialState) {
               if (partialState === void 0) {
                 var componentName = getComponentNameFromType(type) || "Component";
                 if (!didWarnAboutUndefinedDerivedState.has(componentName)) {
@@ -12019,7 +12660,7 @@
                   error("%s.getDerivedStateFromProps(): A valid state object (or null) must be returned. You have returned undefined.", componentName);
                 }
               }
-            };
+            }, "warnOnUndefinedDerivedState");
             Object.defineProperty(fakeInternalInstance, "_processChildContext", {
               enumerable: false,
               value: function() {
@@ -12049,6 +12690,7 @@
               updateQueue.baseState = memoizedState;
             }
           }
+          __name(applyDerivedStateFromProps, "applyDerivedStateFromProps");
           var classComponentUpdater = {
             isMounted,
             enqueueSetState: function(inst, payload, callback) {
@@ -12140,6 +12782,7 @@
             }
             return true;
           }
+          __name(checkShouldComponentUpdate, "checkShouldComponentUpdate");
           function checkClassInstance(workInProgress2, ctor, newProps) {
             var instance = workInProgress2.stateNode;
             {
@@ -12220,6 +12863,7 @@
               }
             }
           }
+          __name(checkClassInstance, "checkClassInstance");
           function adoptClassInstance(workInProgress2, instance) {
             instance.updater = classComponentUpdater;
             workInProgress2.stateNode = instance;
@@ -12228,6 +12872,7 @@
               instance._reactInternalInstance = fakeInternalInstance;
             }
           }
+          __name(adoptClassInstance, "adoptClassInstance");
           function constructClassInstance(workInProgress2, ctor, props) {
             var isLegacyContextConsumer = false;
             var unmaskedContext = emptyContextObject;
@@ -12317,6 +12962,7 @@
             }
             return instance;
           }
+          __name(constructClassInstance, "constructClassInstance");
           function callComponentWillMount(workInProgress2, instance) {
             var oldState = instance.state;
             if (typeof instance.componentWillMount === "function") {
@@ -12332,6 +12978,7 @@
               classComponentUpdater.enqueueReplaceState(instance, instance.state, null);
             }
           }
+          __name(callComponentWillMount, "callComponentWillMount");
           function callComponentWillReceiveProps(workInProgress2, instance, newProps, nextContext) {
             var oldState = instance.state;
             if (typeof instance.componentWillReceiveProps === "function") {
@@ -12351,6 +12998,7 @@
               classComponentUpdater.enqueueReplaceState(instance, instance.state, null);
             }
           }
+          __name(callComponentWillReceiveProps, "callComponentWillReceiveProps");
           function mountClassInstance(workInProgress2, ctor, newProps, renderLanes2) {
             {
               checkClassInstance(workInProgress2, ctor, newProps);
@@ -12404,6 +13052,7 @@
               workInProgress2.flags |= fiberFlags;
             }
           }
+          __name(mountClassInstance, "mountClassInstance");
           function resumeMountClassInstance(workInProgress2, ctor, newProps, renderLanes2) {
             var instance = workInProgress2.stateNode;
             var oldProps = workInProgress2.memoizedProps;
@@ -12485,6 +13134,7 @@
             instance.context = nextContext;
             return shouldUpdate;
           }
+          __name(resumeMountClassInstance, "resumeMountClassInstance");
           function updateClassInstance(current2, workInProgress2, ctor, newProps, renderLanes2) {
             var instance = workInProgress2.stateNode;
             cloneUpdateQueue(current2, workInProgress2);
@@ -12565,20 +13215,21 @@
             instance.context = nextContext;
             return shouldUpdate;
           }
+          __name(updateClassInstance, "updateClassInstance");
           var didWarnAboutMaps;
           var didWarnAboutGenerators;
           var didWarnAboutStringRefs;
           var ownerHasKeyUseWarning;
           var ownerHasFunctionTypeWarning;
-          var warnForMissingKey = function(child, returnFiber) {
-          };
+          var warnForMissingKey = /* @__PURE__ */ __name(function(child, returnFiber) {
+          }, "warnForMissingKey");
           {
             didWarnAboutMaps = false;
             didWarnAboutGenerators = false;
             didWarnAboutStringRefs = {};
             ownerHasKeyUseWarning = {};
             ownerHasFunctionTypeWarning = {};
-            warnForMissingKey = function(child, returnFiber) {
+            warnForMissingKey = /* @__PURE__ */ __name(function(child, returnFiber) {
               if (child === null || typeof child !== "object") {
                 return;
               }
@@ -12595,7 +13246,7 @@
               }
               ownerHasKeyUseWarning[componentName] = true;
               error('Each child in a list should have a unique "key" prop. See https://reactjs.org/link/warning-keys for more information.');
-            };
+            }, "warnForMissingKey");
           }
           function coerceRef(returnFiber, current2, element) {
             var mixedRef = element.ref;
@@ -12632,7 +13283,7 @@
                 if (current2 !== null && current2.ref !== null && typeof current2.ref === "function" && current2.ref._stringRef === stringRef) {
                   return current2.ref;
                 }
-                var ref = function(value) {
+                var ref = /* @__PURE__ */ __name(function(value) {
                   var refs = resolvedInst.refs;
                   if (refs === emptyRefsObject) {
                     refs = resolvedInst.refs = {};
@@ -12642,7 +13293,7 @@
                   } else {
                     refs[stringRef] = value;
                   }
-                };
+                }, "ref");
                 ref._stringRef = stringRef;
                 return ref;
               } else {
@@ -12656,10 +13307,12 @@
             }
             return mixedRef;
           }
+          __name(coerceRef, "coerceRef");
           function throwOnInvalidObjectType(returnFiber, newChild) {
             var childString = Object.prototype.toString.call(newChild);
             throw new Error("Objects are not valid as a React child (found: " + (childString === "[object Object]" ? "object with keys {" + Object.keys(newChild).join(", ") + "}" : childString) + "). If you meant to render a collection of children, use an array instead.");
           }
+          __name(throwOnInvalidObjectType, "throwOnInvalidObjectType");
           function warnOnFunctionType(returnFiber) {
             {
               var componentName = getComponentNameFromFiber(returnFiber) || "Component";
@@ -12670,11 +13323,13 @@
               error("Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it.");
             }
           }
+          __name(warnOnFunctionType, "warnOnFunctionType");
           function resolveLazy(lazyType) {
             var payload = lazyType._payload;
             var init = lazyType._init;
             return init(payload);
           }
+          __name(resolveLazy, "resolveLazy");
           function ChildReconciler(shouldTrackSideEffects) {
             function deleteChild(returnFiber, childToDelete) {
               if (!shouldTrackSideEffects) {
@@ -12688,6 +13343,7 @@
                 deletions.push(childToDelete);
               }
             }
+            __name(deleteChild, "deleteChild");
             function deleteRemainingChildren(returnFiber, currentFirstChild) {
               if (!shouldTrackSideEffects) {
                 return null;
@@ -12699,6 +13355,7 @@
               }
               return null;
             }
+            __name(deleteRemainingChildren, "deleteRemainingChildren");
             function mapRemainingChildren(returnFiber, currentFirstChild) {
               var existingChildren = /* @__PURE__ */ new Map();
               var existingChild = currentFirstChild;
@@ -12712,12 +13369,14 @@
               }
               return existingChildren;
             }
+            __name(mapRemainingChildren, "mapRemainingChildren");
             function useFiber(fiber, pendingProps) {
               var clone = createWorkInProgress(fiber, pendingProps);
               clone.index = 0;
               clone.sibling = null;
               return clone;
             }
+            __name(useFiber, "useFiber");
             function placeChild(newFiber, lastPlacedIndex, newIndex) {
               newFiber.index = newIndex;
               if (!shouldTrackSideEffects) {
@@ -12738,12 +13397,14 @@
                 return lastPlacedIndex;
               }
             }
+            __name(placeChild, "placeChild");
             function placeSingleChild(newFiber) {
               if (shouldTrackSideEffects && newFiber.alternate === null) {
                 newFiber.flags |= Placement;
               }
               return newFiber;
             }
+            __name(placeSingleChild, "placeSingleChild");
             function updateTextNode(returnFiber, current2, textContent, lanes) {
               if (current2 === null || current2.tag !== HostText) {
                 var created = createFiberFromText(textContent, returnFiber.mode, lanes);
@@ -12755,6 +13416,7 @@
                 return existing;
               }
             }
+            __name(updateTextNode, "updateTextNode");
             function updateElement(returnFiber, current2, element, lanes) {
               var elementType = element.type;
               if (elementType === REACT_FRAGMENT_TYPE) {
@@ -12777,6 +13439,7 @@
               created.return = returnFiber;
               return created;
             }
+            __name(updateElement, "updateElement");
             function updatePortal(returnFiber, current2, portal, lanes) {
               if (current2 === null || current2.tag !== HostPortal || current2.stateNode.containerInfo !== portal.containerInfo || current2.stateNode.implementation !== portal.implementation) {
                 var created = createFiberFromPortal(portal, returnFiber.mode, lanes);
@@ -12788,6 +13451,7 @@
                 return existing;
               }
             }
+            __name(updatePortal, "updatePortal");
             function updateFragment2(returnFiber, current2, fragment, lanes, key) {
               if (current2 === null || current2.tag !== Fragment) {
                 var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
@@ -12799,6 +13463,7 @@
                 return existing;
               }
             }
+            __name(updateFragment2, "updateFragment");
             function createChild(returnFiber, newChild, lanes) {
               if (typeof newChild === "string" && newChild !== "" || typeof newChild === "number") {
                 var created = createFiberFromText("" + newChild, returnFiber.mode, lanes);
@@ -12838,6 +13503,7 @@
               }
               return null;
             }
+            __name(createChild, "createChild");
             function updateSlot(returnFiber, oldFiber, newChild, lanes) {
               var key = oldFiber !== null ? oldFiber.key : null;
               if (typeof newChild === "string" && newChild !== "" || typeof newChild === "number") {
@@ -12883,6 +13549,7 @@
               }
               return null;
             }
+            __name(updateSlot, "updateSlot");
             function updateFromMap(existingChildren, returnFiber, newIdx, newChild, lanes) {
               if (typeof newChild === "string" && newChild !== "" || typeof newChild === "number") {
                 var matchedFiber = existingChildren.get(newIdx) || null;
@@ -12916,6 +13583,7 @@
               }
               return null;
             }
+            __name(updateFromMap, "updateFromMap");
             function warnOnInvalidKey(child, knownKeys, returnFiber) {
               {
                 if (typeof child !== "object" || child === null) {
@@ -12949,6 +13617,7 @@
               }
               return knownKeys;
             }
+            __name(warnOnInvalidKey, "warnOnInvalidKey");
             function reconcileChildrenArray(returnFiber, currentFirstChild, newChildren, lanes) {
               {
                 var knownKeys = null;
@@ -13048,6 +13717,7 @@
               }
               return resultingFirstChild;
             }
+            __name(reconcileChildrenArray, "reconcileChildrenArray");
             function reconcileChildrenIterator(returnFiber, currentFirstChild, newChildrenIterable, lanes) {
               var iteratorFn = getIteratorFn(newChildrenIterable);
               if (typeof iteratorFn !== "function") {
@@ -13172,6 +13842,7 @@
               }
               return resultingFirstChild;
             }
+            __name(reconcileChildrenIterator, "reconcileChildrenIterator");
             function reconcileSingleTextNode(returnFiber, currentFirstChild, textContent, lanes) {
               if (currentFirstChild !== null && currentFirstChild.tag === HostText) {
                 deleteRemainingChildren(returnFiber, currentFirstChild.sibling);
@@ -13184,6 +13855,7 @@
               created.return = returnFiber;
               return created;
             }
+            __name(reconcileSingleTextNode, "reconcileSingleTextNode");
             function reconcileSingleElement(returnFiber, currentFirstChild, element, lanes) {
               var key = element.key;
               var child = currentFirstChild;
@@ -13232,6 +13904,7 @@
                 return _created4;
               }
             }
+            __name(reconcileSingleElement, "reconcileSingleElement");
             function reconcileSinglePortal(returnFiber, currentFirstChild, portal, lanes) {
               var key = portal.key;
               var child = currentFirstChild;
@@ -13255,6 +13928,7 @@
               created.return = returnFiber;
               return created;
             }
+            __name(reconcileSinglePortal, "reconcileSinglePortal");
             function reconcileChildFibers2(returnFiber, currentFirstChild, newChild, lanes) {
               var isUnkeyedTopLevelFragment = typeof newChild === "object" && newChild !== null && newChild.type === REACT_FRAGMENT_TYPE && newChild.key === null;
               if (isUnkeyedTopLevelFragment) {
@@ -13289,8 +13963,10 @@
               }
               return deleteRemainingChildren(returnFiber, currentFirstChild);
             }
+            __name(reconcileChildFibers2, "reconcileChildFibers");
             return reconcileChildFibers2;
           }
+          __name(ChildReconciler, "ChildReconciler");
           var reconcileChildFibers = ChildReconciler(true);
           var mountChildFibers = ChildReconciler(false);
           function cloneChildFibers(current2, workInProgress2) {
@@ -13311,6 +13987,7 @@
             }
             newChild.sibling = null;
           }
+          __name(cloneChildFibers, "cloneChildFibers");
           function resetChildFibers(workInProgress2, lanes) {
             var child = workInProgress2.child;
             while (child !== null) {
@@ -13318,6 +13995,7 @@
               child = child.sibling;
             }
           }
+          __name(resetChildFibers, "resetChildFibers");
           var NO_CONTEXT = {};
           var contextStackCursor$1 = createCursor(NO_CONTEXT);
           var contextFiberStackCursor = createCursor(NO_CONTEXT);
@@ -13328,10 +14006,12 @@
             }
             return c;
           }
+          __name(requiredContext, "requiredContext");
           function getRootHostContainer() {
             var rootInstance = requiredContext(rootInstanceStackCursor.current);
             return rootInstance;
           }
+          __name(getRootHostContainer, "getRootHostContainer");
           function pushHostContainer(fiber, nextRootInstance) {
             push(rootInstanceStackCursor, nextRootInstance, fiber);
             push(contextFiberStackCursor, fiber, fiber);
@@ -13340,15 +14020,18 @@
             pop(contextStackCursor$1, fiber);
             push(contextStackCursor$1, nextRootContext, fiber);
           }
+          __name(pushHostContainer, "pushHostContainer");
           function popHostContainer(fiber) {
             pop(contextStackCursor$1, fiber);
             pop(contextFiberStackCursor, fiber);
             pop(rootInstanceStackCursor, fiber);
           }
+          __name(popHostContainer, "popHostContainer");
           function getHostContext() {
             var context = requiredContext(contextStackCursor$1.current);
             return context;
           }
+          __name(getHostContext, "getHostContext");
           function pushHostContext(fiber) {
             var rootInstance = requiredContext(rootInstanceStackCursor.current);
             var context = requiredContext(contextStackCursor$1.current);
@@ -13359,6 +14042,7 @@
             push(contextFiberStackCursor, fiber, fiber);
             push(contextStackCursor$1, nextContext, fiber);
           }
+          __name(pushHostContext, "pushHostContext");
           function popHostContext(fiber) {
             if (contextFiberStackCursor.current !== fiber) {
               return;
@@ -13366,6 +14050,7 @@
             pop(contextStackCursor$1, fiber);
             pop(contextFiberStackCursor, fiber);
           }
+          __name(popHostContext, "popHostContext");
           var DefaultSuspenseContext = 0;
           var SubtreeSuspenseContextMask = 1;
           var InvisibleParentSuspenseContext = 1;
@@ -13374,21 +14059,27 @@
           function hasSuspenseContext(parentContext, flag) {
             return (parentContext & flag) !== 0;
           }
+          __name(hasSuspenseContext, "hasSuspenseContext");
           function setDefaultShallowSuspenseContext(parentContext) {
             return parentContext & SubtreeSuspenseContextMask;
           }
+          __name(setDefaultShallowSuspenseContext, "setDefaultShallowSuspenseContext");
           function setShallowSuspenseContext(parentContext, shallowContext) {
             return parentContext & SubtreeSuspenseContextMask | shallowContext;
           }
+          __name(setShallowSuspenseContext, "setShallowSuspenseContext");
           function addSubtreeSuspenseContext(parentContext, subtreeContext) {
             return parentContext | subtreeContext;
           }
+          __name(addSubtreeSuspenseContext, "addSubtreeSuspenseContext");
           function pushSuspenseContext(fiber, newContext) {
             push(suspenseStackCursor, newContext, fiber);
           }
+          __name(pushSuspenseContext, "pushSuspenseContext");
           function popSuspenseContext(fiber) {
             pop(suspenseStackCursor, fiber);
           }
+          __name(popSuspenseContext, "popSuspenseContext");
           function shouldCaptureSuspense(workInProgress2, hasInvisibleParent) {
             var nextState = workInProgress2.memoizedState;
             if (nextState !== null) {
@@ -13402,6 +14093,7 @@
               return true;
             }
           }
+          __name(shouldCaptureSuspense, "shouldCaptureSuspense");
           function findFirstSuspended(row) {
             var node = row;
             while (node !== null) {
@@ -13437,6 +14129,7 @@
             }
             return null;
           }
+          __name(findFirstSuspended, "findFirstSuspended");
           var NoFlags$1 = 0;
           var HasEffect = 1;
           var Insertion = 2;
@@ -13452,6 +14145,7 @@
             }
             workInProgressSources.length = 0;
           }
+          __name(resetWorkInProgressVersions, "resetWorkInProgressVersions");
           function registerMutableSourceForHydration(root2, mutableSource) {
             var getVersion = mutableSource._getVersion;
             var version = getVersion(mutableSource._source);
@@ -13461,6 +14155,7 @@
               root2.mutableSourceEagerHydrationData.push(mutableSource, version);
             }
           }
+          __name(registerMutableSourceForHydration, "registerMutableSourceForHydration");
           var ReactCurrentDispatcher$1 = ReactSharedInternals.ReactCurrentDispatcher, ReactCurrentBatchConfig$2 = ReactSharedInternals.ReactCurrentBatchConfig;
           var didWarnAboutMismatchedHooksForComponent;
           var didWarnUncachedGetSnapshot;
@@ -13490,6 +14185,7 @@
               }
             }
           }
+          __name(mountHookTypesDev, "mountHookTypesDev");
           function updateHookTypesDev() {
             {
               var hookName = currentHookNameInDev;
@@ -13501,6 +14197,7 @@
               }
             }
           }
+          __name(updateHookTypesDev, "updateHookTypesDev");
           function checkDepsAreArrayDev(deps) {
             {
               if (deps !== void 0 && deps !== null && !isArray(deps)) {
@@ -13508,6 +14205,7 @@
               }
             }
           }
+          __name(checkDepsAreArrayDev, "checkDepsAreArrayDev");
           function warnOnHookMismatchInDev(currentHookName) {
             {
               var componentName = getComponentNameFromFiber(currentlyRenderingFiber$1);
@@ -13531,9 +14229,11 @@
               }
             }
           }
+          __name(warnOnHookMismatchInDev, "warnOnHookMismatchInDev");
           function throwInvalidHookError() {
             throw new Error("Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.");
           }
+          __name(throwInvalidHookError, "throwInvalidHookError");
           function areHookInputsEqual(nextDeps, prevDeps) {
             {
               if (ignorePreviousDependencies) {
@@ -13559,6 +14259,7 @@
             }
             return true;
           }
+          __name(areHookInputsEqual, "areHookInputsEqual");
           function renderWithHooks(current2, workInProgress2, Component, props, secondArg, nextRenderLanes) {
             renderLanes = nextRenderLanes;
             currentlyRenderingFiber$1 = workInProgress2;
@@ -13625,11 +14326,13 @@
             }
             return children;
           }
+          __name(renderWithHooks, "renderWithHooks");
           function checkDidRenderIdHook() {
             var didRenderIdHook = localIdCounter !== 0;
             localIdCounter = 0;
             return didRenderIdHook;
           }
+          __name(checkDidRenderIdHook, "checkDidRenderIdHook");
           function bailoutHooks(current2, workInProgress2, lanes) {
             workInProgress2.updateQueue = current2.updateQueue;
             if ((workInProgress2.mode & StrictEffectsMode) !== NoMode) {
@@ -13639,6 +14342,7 @@
             }
             current2.lanes = removeLanes(current2.lanes, lanes);
           }
+          __name(bailoutHooks, "bailoutHooks");
           function resetHooksAfterThrow() {
             ReactCurrentDispatcher$1.current = ContextOnlyDispatcher;
             if (didScheduleRenderPhaseUpdate) {
@@ -13665,6 +14369,7 @@
             didScheduleRenderPhaseUpdateDuringThisPass = false;
             localIdCounter = 0;
           }
+          __name(resetHooksAfterThrow, "resetHooksAfterThrow");
           function mountWorkInProgressHook() {
             var hook = {
               memoizedState: null,
@@ -13680,6 +14385,7 @@
             }
             return workInProgressHook;
           }
+          __name(mountWorkInProgressHook, "mountWorkInProgressHook");
           function updateWorkInProgressHook() {
             var nextCurrentHook;
             if (currentHook === null) {
@@ -13722,15 +14428,18 @@
             }
             return workInProgressHook;
           }
+          __name(updateWorkInProgressHook, "updateWorkInProgressHook");
           function createFunctionComponentUpdateQueue() {
             return {
               lastEffect: null,
               stores: null
             };
           }
+          __name(createFunctionComponentUpdateQueue, "createFunctionComponentUpdateQueue");
           function basicStateReducer(state, action) {
             return typeof action === "function" ? action(state) : action;
           }
+          __name(basicStateReducer, "basicStateReducer");
           function mountReducer(reducer, initialArg, init) {
             var hook = mountWorkInProgressHook();
             var initialState;
@@ -13752,6 +14461,7 @@
             var dispatch = queue.dispatch = dispatchReducerAction.bind(null, currentlyRenderingFiber$1, queue);
             return [hook.memoizedState, dispatch];
           }
+          __name(mountReducer, "mountReducer");
           function updateReducer(reducer, initialArg, init) {
             var hook = updateWorkInProgressHook();
             var queue = hook.queue;
@@ -13850,6 +14560,7 @@
             var dispatch = queue.dispatch;
             return [hook.memoizedState, dispatch];
           }
+          __name(updateReducer, "updateReducer");
           function rerenderReducer(reducer, initialArg, init) {
             var hook = updateWorkInProgressHook();
             var queue = hook.queue;
@@ -13880,16 +14591,19 @@
             }
             return [newState, dispatch];
           }
+          __name(rerenderReducer, "rerenderReducer");
           function mountMutableSource(source, getSnapshot, subscribe) {
             {
               return void 0;
             }
           }
+          __name(mountMutableSource, "mountMutableSource");
           function updateMutableSource(source, getSnapshot, subscribe) {
             {
               return void 0;
             }
           }
+          __name(updateMutableSource, "updateMutableSource");
           function mountSyncExternalStore(subscribe, getSnapshot, getServerSnapshot) {
             var fiber = currentlyRenderingFiber$1;
             var hook = mountWorkInProgressHook();
@@ -13938,6 +14652,7 @@
             pushEffect(HasEffect | Passive$1, updateStoreInstance.bind(null, fiber, inst, nextSnapshot, getSnapshot), void 0, null);
             return nextSnapshot;
           }
+          __name(mountSyncExternalStore, "mountSyncExternalStore");
           function updateSyncExternalStore(subscribe, getSnapshot, getServerSnapshot) {
             var fiber = currentlyRenderingFiber$1;
             var hook = updateWorkInProgressHook();
@@ -13972,6 +14687,7 @@
             }
             return nextSnapshot;
           }
+          __name(updateSyncExternalStore, "updateSyncExternalStore");
           function pushStoreConsistencyCheck(fiber, getSnapshot, renderedSnapshot) {
             fiber.flags |= StoreConsistency;
             var check = {
@@ -13992,6 +14708,7 @@
               }
             }
           }
+          __name(pushStoreConsistencyCheck, "pushStoreConsistencyCheck");
           function updateStoreInstance(fiber, inst, nextSnapshot, getSnapshot) {
             inst.value = nextSnapshot;
             inst.getSnapshot = getSnapshot;
@@ -13999,14 +14716,16 @@
               forceStoreRerender(fiber);
             }
           }
+          __name(updateStoreInstance, "updateStoreInstance");
           function subscribeToStore(fiber, inst, subscribe) {
-            var handleStoreChange = function() {
+            var handleStoreChange = /* @__PURE__ */ __name(function() {
               if (checkIfSnapshotChanged(inst)) {
                 forceStoreRerender(fiber);
               }
-            };
+            }, "handleStoreChange");
             return subscribe(handleStoreChange);
           }
+          __name(subscribeToStore, "subscribeToStore");
           function checkIfSnapshotChanged(inst) {
             var latestGetSnapshot = inst.getSnapshot;
             var prevValue = inst.value;
@@ -14017,12 +14736,14 @@
               return true;
             }
           }
+          __name(checkIfSnapshotChanged, "checkIfSnapshotChanged");
           function forceStoreRerender(fiber) {
             var root2 = enqueueConcurrentRenderForLane(fiber, SyncLane);
             if (root2 !== null) {
               scheduleUpdateOnFiber(root2, fiber, SyncLane, NoTimestamp);
             }
           }
+          __name(forceStoreRerender, "forceStoreRerender");
           function mountState(initialState) {
             var hook = mountWorkInProgressHook();
             if (typeof initialState === "function") {
@@ -14041,12 +14762,15 @@
             var dispatch = queue.dispatch = dispatchSetState.bind(null, currentlyRenderingFiber$1, queue);
             return [hook.memoizedState, dispatch];
           }
+          __name(mountState, "mountState");
           function updateState(initialState) {
             return updateReducer(basicStateReducer);
           }
+          __name(updateState, "updateState");
           function rerenderState(initialState) {
             return rerenderReducer(basicStateReducer);
           }
+          __name(rerenderState, "rerenderState");
           function pushEffect(tag, create, destroy, deps) {
             var effect = {
               tag,
@@ -14073,6 +14797,7 @@
             }
             return effect;
           }
+          __name(pushEffect, "pushEffect");
           function mountRef(initialValue) {
             var hook = mountWorkInProgressHook();
             {
@@ -14083,16 +14808,19 @@
               return _ref2;
             }
           }
+          __name(mountRef, "mountRef");
           function updateRef(initialValue) {
             var hook = updateWorkInProgressHook();
             return hook.memoizedState;
           }
+          __name(updateRef, "updateRef");
           function mountEffectImpl(fiberFlags, hookFlags, create, deps) {
             var hook = mountWorkInProgressHook();
             var nextDeps = deps === void 0 ? null : deps;
             currentlyRenderingFiber$1.flags |= fiberFlags;
             hook.memoizedState = pushEffect(HasEffect | hookFlags, create, void 0, nextDeps);
           }
+          __name(mountEffectImpl, "mountEffectImpl");
           function updateEffectImpl(fiberFlags, hookFlags, create, deps) {
             var hook = updateWorkInProgressHook();
             var nextDeps = deps === void 0 ? null : deps;
@@ -14111,6 +14839,7 @@
             currentlyRenderingFiber$1.flags |= fiberFlags;
             hook.memoizedState = pushEffect(HasEffect | hookFlags, create, destroy, nextDeps);
           }
+          __name(updateEffectImpl, "updateEffectImpl");
           function mountEffect(create, deps) {
             if ((currentlyRenderingFiber$1.mode & StrictEffectsMode) !== NoMode) {
               return mountEffectImpl(MountPassiveDev | Passive | PassiveStatic, Passive$1, create, deps);
@@ -14118,15 +14847,19 @@
               return mountEffectImpl(Passive | PassiveStatic, Passive$1, create, deps);
             }
           }
+          __name(mountEffect, "mountEffect");
           function updateEffect(create, deps) {
             return updateEffectImpl(Passive, Passive$1, create, deps);
           }
+          __name(updateEffect, "updateEffect");
           function mountInsertionEffect(create, deps) {
             return mountEffectImpl(Update, Insertion, create, deps);
           }
+          __name(mountInsertionEffect, "mountInsertionEffect");
           function updateInsertionEffect(create, deps) {
             return updateEffectImpl(Update, Insertion, create, deps);
           }
+          __name(updateInsertionEffect, "updateInsertionEffect");
           function mountLayoutEffect(create, deps) {
             var fiberFlags = Update;
             {
@@ -14137,9 +14870,11 @@
             }
             return mountEffectImpl(fiberFlags, Layout, create, deps);
           }
+          __name(mountLayoutEffect, "mountLayoutEffect");
           function updateLayoutEffect(create, deps) {
             return updateEffectImpl(Update, Layout, create, deps);
           }
+          __name(updateLayoutEffect, "updateLayoutEffect");
           function imperativeHandleEffect(create, ref) {
             if (typeof ref === "function") {
               var refCallback = ref;
@@ -14162,6 +14897,7 @@
               };
             }
           }
+          __name(imperativeHandleEffect, "imperativeHandleEffect");
           function mountImperativeHandle(ref, create, deps) {
             {
               if (typeof create !== "function") {
@@ -14178,6 +14914,7 @@
             }
             return mountEffectImpl(fiberFlags, Layout, imperativeHandleEffect.bind(null, create, ref), effectDeps);
           }
+          __name(mountImperativeHandle, "mountImperativeHandle");
           function updateImperativeHandle(ref, create, deps) {
             {
               if (typeof create !== "function") {
@@ -14187,8 +14924,10 @@
             var effectDeps = deps !== null && deps !== void 0 ? deps.concat([ref]) : null;
             return updateEffectImpl(Update, Layout, imperativeHandleEffect.bind(null, create, ref), effectDeps);
           }
+          __name(updateImperativeHandle, "updateImperativeHandle");
           function mountDebugValue(value, formatterFn) {
           }
+          __name(mountDebugValue, "mountDebugValue");
           var updateDebugValue = mountDebugValue;
           function mountCallback(callback, deps) {
             var hook = mountWorkInProgressHook();
@@ -14196,6 +14935,7 @@
             hook.memoizedState = [callback, nextDeps];
             return callback;
           }
+          __name(mountCallback, "mountCallback");
           function updateCallback(callback, deps) {
             var hook = updateWorkInProgressHook();
             var nextDeps = deps === void 0 ? null : deps;
@@ -14211,6 +14951,7 @@
             hook.memoizedState = [callback, nextDeps];
             return callback;
           }
+          __name(updateCallback, "updateCallback");
           function mountMemo(nextCreate, deps) {
             var hook = mountWorkInProgressHook();
             var nextDeps = deps === void 0 ? null : deps;
@@ -14218,6 +14959,7 @@
             hook.memoizedState = [nextValue, nextDeps];
             return nextValue;
           }
+          __name(mountMemo, "mountMemo");
           function updateMemo(nextCreate, deps) {
             var hook = updateWorkInProgressHook();
             var nextDeps = deps === void 0 ? null : deps;
@@ -14234,17 +14976,20 @@
             hook.memoizedState = [nextValue, nextDeps];
             return nextValue;
           }
+          __name(updateMemo, "updateMemo");
           function mountDeferredValue(value) {
             var hook = mountWorkInProgressHook();
             hook.memoizedState = value;
             return value;
           }
+          __name(mountDeferredValue, "mountDeferredValue");
           function updateDeferredValue(value) {
             var hook = updateWorkInProgressHook();
             var resolvedCurrentHook = currentHook;
             var prevValue = resolvedCurrentHook.memoizedState;
             return updateDeferredValueImpl(hook, prevValue, value);
           }
+          __name(updateDeferredValue, "updateDeferredValue");
           function rerenderDeferredValue(value) {
             var hook = updateWorkInProgressHook();
             if (currentHook === null) {
@@ -14255,6 +15000,7 @@
               return updateDeferredValueImpl(hook, prevValue, value);
             }
           }
+          __name(rerenderDeferredValue, "rerenderDeferredValue");
           function updateDeferredValueImpl(hook, prevValue, value) {
             var shouldDeferValue = !includesOnlyNonUrgentLanes(renderLanes);
             if (shouldDeferValue) {
@@ -14274,6 +15020,7 @@
               return value;
             }
           }
+          __name(updateDeferredValueImpl, "updateDeferredValueImpl");
           function startTransition(setPending, callback, options2) {
             var previousPriority = getCurrentUpdatePriority();
             setCurrentUpdatePriority(higherEventPriority(previousPriority, ContinuousEventPriority));
@@ -14301,6 +15048,7 @@
               }
             }
           }
+          __name(startTransition, "startTransition");
           function mountTransition() {
             var _mountState = mountState(false), isPending = _mountState[0], setPending = _mountState[1];
             var start = startTransition.bind(null, setPending);
@@ -14308,24 +15056,28 @@
             hook.memoizedState = start;
             return [isPending, start];
           }
+          __name(mountTransition, "mountTransition");
           function updateTransition() {
             var _updateState = updateState(), isPending = _updateState[0];
             var hook = updateWorkInProgressHook();
             var start = hook.memoizedState;
             return [isPending, start];
           }
+          __name(updateTransition, "updateTransition");
           function rerenderTransition() {
             var _rerenderState = rerenderState(), isPending = _rerenderState[0];
             var hook = updateWorkInProgressHook();
             var start = hook.memoizedState;
             return [isPending, start];
           }
+          __name(rerenderTransition, "rerenderTransition");
           var isUpdatingOpaqueValueInRenderPhase = false;
           function getIsUpdatingOpaqueValueInRenderPhaseInDEV() {
             {
               return isUpdatingOpaqueValueInRenderPhase;
             }
           }
+          __name(getIsUpdatingOpaqueValueInRenderPhaseInDEV, "getIsUpdatingOpaqueValueInRenderPhaseInDEV");
           function mountId() {
             var hook = mountWorkInProgressHook();
             var root2 = getWorkInProgressRoot();
@@ -14346,11 +15098,13 @@
             hook.memoizedState = id;
             return id;
           }
+          __name(mountId, "mountId");
           function updateId() {
             var hook = updateWorkInProgressHook();
             var id = hook.memoizedState;
             return id;
           }
+          __name(updateId, "updateId");
           function dispatchReducerAction(fiber, queue, action) {
             {
               if (typeof arguments[3] === "function") {
@@ -14377,6 +15131,7 @@
             }
             markUpdateInDevTools(fiber, lane);
           }
+          __name(dispatchReducerAction, "dispatchReducerAction");
           function dispatchSetState(fiber, queue, action) {
             {
               if (typeof arguments[3] === "function") {
@@ -14429,10 +15184,12 @@
             }
             markUpdateInDevTools(fiber, lane);
           }
+          __name(dispatchSetState, "dispatchSetState");
           function isRenderPhaseUpdate(fiber) {
             var alternate = fiber.alternate;
             return fiber === currentlyRenderingFiber$1 || alternate !== null && alternate === currentlyRenderingFiber$1;
           }
+          __name(isRenderPhaseUpdate, "isRenderPhaseUpdate");
           function enqueueRenderPhaseUpdate(queue, update) {
             didScheduleRenderPhaseUpdateDuringThisPass = didScheduleRenderPhaseUpdate = true;
             var pending = queue.pending;
@@ -14444,6 +15201,7 @@
             }
             queue.pending = update;
           }
+          __name(enqueueRenderPhaseUpdate, "enqueueRenderPhaseUpdate");
           function entangleTransitionUpdate(root2, queue, lane) {
             if (isTransitionLane(lane)) {
               var queueLanes = queue.lanes;
@@ -14453,11 +15211,13 @@
               markRootEntangled(root2, newQueueLanes);
             }
           }
+          __name(entangleTransitionUpdate, "entangleTransitionUpdate");
           function markUpdateInDevTools(fiber, lane, action) {
             {
               markStateUpdateScheduled(fiber, lane);
             }
           }
+          __name(markUpdateInDevTools, "markUpdateInDevTools");
           var ContextOnlyDispatcher = {
             readContext,
             useCallback: throwInvalidHookError,
@@ -14486,12 +15246,12 @@
           var InvalidNestedHooksDispatcherOnUpdateInDEV = null;
           var InvalidNestedHooksDispatcherOnRerenderInDEV = null;
           {
-            var warnInvalidContextAccess = function() {
+            var warnInvalidContextAccess = /* @__PURE__ */ __name(function() {
               error("Context can only be read while React is rendering. In classes, you can read it in the render method or getDerivedStateFromProps. In function components, you can read it directly in the function body, but not inside Hooks like useReducer() or useMemo().");
-            };
-            var warnInvalidHookAccess = function() {
+            }, "warnInvalidContextAccess");
+            var warnInvalidHookAccess = /* @__PURE__ */ __name(function() {
               error("Do not call Hooks inside useEffect(...), useMemo(...), or other built-in Hooks. You can only call Hooks at the top level of your React function. For more information, see https://reactjs.org/link/rules-of-hooks");
-            };
+            }, "warnInvalidHookAccess");
             HooksDispatcherOnMountInDEV = {
               readContext: function(context) {
                 return readContext(context);
@@ -15288,38 +16048,46 @@
           function isCurrentUpdateNested() {
             return currentUpdateIsNested;
           }
+          __name(isCurrentUpdateNested, "isCurrentUpdateNested");
           function markNestedUpdateScheduled() {
             {
               nestedUpdateScheduled = true;
             }
           }
+          __name(markNestedUpdateScheduled, "markNestedUpdateScheduled");
           function resetNestedUpdateFlag() {
             {
               currentUpdateIsNested = false;
               nestedUpdateScheduled = false;
             }
           }
+          __name(resetNestedUpdateFlag, "resetNestedUpdateFlag");
           function syncNestedUpdateFlag() {
             {
               currentUpdateIsNested = nestedUpdateScheduled;
               nestedUpdateScheduled = false;
             }
           }
+          __name(syncNestedUpdateFlag, "syncNestedUpdateFlag");
           function getCommitTime() {
             return commitTime;
           }
+          __name(getCommitTime, "getCommitTime");
           function recordCommitTime() {
             commitTime = now$1();
           }
+          __name(recordCommitTime, "recordCommitTime");
           function startProfilerTimer(fiber) {
             profilerStartTime = now$1();
             if (fiber.actualStartTime < 0) {
               fiber.actualStartTime = now$1();
             }
           }
+          __name(startProfilerTimer, "startProfilerTimer");
           function stopProfilerTimerIfRunning(fiber) {
             profilerStartTime = -1;
           }
+          __name(stopProfilerTimerIfRunning, "stopProfilerTimerIfRunning");
           function stopProfilerTimerIfRunningAndRecordDelta(fiber, overrideBaseTime) {
             if (profilerStartTime >= 0) {
               var elapsedTime = now$1() - profilerStartTime;
@@ -15330,6 +16098,7 @@
               profilerStartTime = -1;
             }
           }
+          __name(stopProfilerTimerIfRunningAndRecordDelta, "stopProfilerTimerIfRunningAndRecordDelta");
           function recordLayoutEffectDuration(fiber) {
             if (layoutEffectStartTime >= 0) {
               var elapsedTime = now$1() - layoutEffectStartTime;
@@ -15350,6 +16119,7 @@
               }
             }
           }
+          __name(recordLayoutEffectDuration, "recordLayoutEffectDuration");
           function recordPassiveEffectDuration(fiber) {
             if (passiveEffectStartTime >= 0) {
               var elapsedTime = now$1() - passiveEffectStartTime;
@@ -15374,12 +16144,15 @@
               }
             }
           }
+          __name(recordPassiveEffectDuration, "recordPassiveEffectDuration");
           function startLayoutEffectTimer() {
             layoutEffectStartTime = now$1();
           }
+          __name(startLayoutEffectTimer, "startLayoutEffectTimer");
           function startPassiveEffectTimer() {
             passiveEffectStartTime = now$1();
           }
+          __name(startPassiveEffectTimer, "startPassiveEffectTimer");
           function transferActualDuration(fiber) {
             var child = fiber.child;
             while (child) {
@@ -15387,6 +16160,7 @@
               child = child.sibling;
             }
           }
+          __name(transferActualDuration, "transferActualDuration");
           function createCapturedValueAtFiber(value, source) {
             return {
               value,
@@ -15395,6 +16169,7 @@
               digest: null
             };
           }
+          __name(createCapturedValueAtFiber, "createCapturedValueAtFiber");
           function createCapturedValue(value, digest, stack) {
             return {
               value,
@@ -15403,9 +16178,11 @@
               digest: digest != null ? digest : null
             };
           }
+          __name(createCapturedValue, "createCapturedValue");
           function showErrorDialog(boundary, errorInfo) {
             return true;
           }
+          __name(showErrorDialog, "showErrorDialog");
           function logCapturedError(boundary, errorInfo) {
             try {
               var logError = showErrorDialog(boundary, errorInfo);
@@ -15443,6 +16220,7 @@
               });
             }
           }
+          __name(logCapturedError, "logCapturedError");
           var PossiblyWeakMap$1 = typeof WeakMap === "function" ? WeakMap : Map;
           function createRootErrorUpdate(fiber, errorInfo, lane) {
             var update = createUpdate(NoTimestamp, lane);
@@ -15457,6 +16235,7 @@
             };
             return update;
           }
+          __name(createRootErrorUpdate, "createRootErrorUpdate");
           function createClassErrorUpdate(fiber, errorInfo, lane) {
             var update = createUpdate(NoTimestamp, lane);
             update.tag = CaptureUpdate;
@@ -15475,7 +16254,7 @@
             }
             var inst = fiber.stateNode;
             if (inst !== null && typeof inst.componentDidCatch === "function") {
-              update.callback = function callback() {
+              update.callback = /* @__PURE__ */ __name(function callback() {
                 {
                   markFailedErrorBoundaryForHotReloading(fiber);
                 }
@@ -15495,10 +16274,11 @@
                     }
                   }
                 }
-              };
+              }, "callback");
             }
             return update;
           }
+          __name(createClassErrorUpdate, "createClassErrorUpdate");
           function attachPingListener(root2, wakeable, lanes) {
             var pingCache = root2.pingCache;
             var threadIDs;
@@ -15524,6 +16304,7 @@
               wakeable.then(ping, ping);
             }
           }
+          __name(attachPingListener, "attachPingListener");
           function attachRetryListener(suspenseBoundary, root2, wakeable, lanes) {
             var wakeables = suspenseBoundary.updateQueue;
             if (wakeables === null) {
@@ -15534,6 +16315,7 @@
               wakeables.add(wakeable);
             }
           }
+          __name(attachRetryListener, "attachRetryListener");
           function resetSuspendedComponent(sourceFiber, rootRenderLanes) {
             var tag = sourceFiber.tag;
             if ((sourceFiber.mode & ConcurrentMode) === NoMode && (tag === FunctionComponent || tag === ForwardRef || tag === SimpleMemoComponent)) {
@@ -15548,6 +16330,7 @@
               }
             }
           }
+          __name(resetSuspendedComponent, "resetSuspendedComponent");
           function getNearestSuspenseBoundaryToCapture(returnFiber) {
             var node = returnFiber;
             do {
@@ -15558,6 +16341,7 @@
             } while (node !== null);
             return null;
           }
+          __name(getNearestSuspenseBoundaryToCapture, "getNearestSuspenseBoundaryToCapture");
           function markSuspenseBoundaryShouldCapture(suspenseBoundary, returnFiber, sourceFiber, root2, rootRenderLanes) {
             if ((suspenseBoundary.mode & ConcurrentMode) === NoMode) {
               if (suspenseBoundary === returnFiber) {
@@ -15584,6 +16368,7 @@
             suspenseBoundary.lanes = rootRenderLanes;
             return suspenseBoundary;
           }
+          __name(markSuspenseBoundaryShouldCapture, "markSuspenseBoundaryShouldCapture");
           function throwException(root2, returnFiber, sourceFiber, value, rootRenderLanes) {
             sourceFiber.flags |= Incomplete;
             {
@@ -15662,11 +16447,13 @@
               workInProgress2 = workInProgress2.return;
             } while (workInProgress2 !== null);
           }
+          __name(throwException, "throwException");
           function getSuspendedCache() {
             {
               return null;
             }
           }
+          __name(getSuspendedCache, "getSuspendedCache");
           var ReactCurrentOwner$1 = ReactSharedInternals.ReactCurrentOwner;
           var didReceiveUpdate = false;
           var didWarnAboutBadClass;
@@ -15694,10 +16481,12 @@
               workInProgress2.child = reconcileChildFibers(workInProgress2, current2.child, nextChildren, renderLanes2);
             }
           }
+          __name(reconcileChildren, "reconcileChildren");
           function forceUnmountCurrentAndReconcile(current2, workInProgress2, nextChildren, renderLanes2) {
             workInProgress2.child = reconcileChildFibers(workInProgress2, current2.child, null, renderLanes2);
             workInProgress2.child = reconcileChildFibers(workInProgress2, null, nextChildren, renderLanes2);
           }
+          __name(forceUnmountCurrentAndReconcile, "forceUnmountCurrentAndReconcile");
           function updateForwardRef(current2, workInProgress2, Component, nextProps, renderLanes2) {
             {
               if (workInProgress2.type !== workInProgress2.elementType) {
@@ -15750,6 +16539,7 @@
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(updateForwardRef, "updateForwardRef");
           function updateMemoComponent(current2, workInProgress2, Component, nextProps, renderLanes2) {
             if (current2 === null) {
               var type = Component.type;
@@ -15811,6 +16601,7 @@
             workInProgress2.child = newChild;
             return newChild;
           }
+          __name(updateMemoComponent, "updateMemoComponent");
           function updateSimpleMemoComponent(current2, workInProgress2, Component, nextProps, renderLanes2) {
             {
               if (workInProgress2.type !== workInProgress2.elementType) {
@@ -15851,6 +16642,7 @@
             }
             return updateFunctionComponent(current2, workInProgress2, Component, nextProps, renderLanes2);
           }
+          __name(updateSimpleMemoComponent, "updateSimpleMemoComponent");
           function updateOffscreenComponent(current2, workInProgress2, renderLanes2) {
             var nextProps = workInProgress2.pendingProps;
             var nextChildren = nextProps.children;
@@ -15906,16 +16698,19 @@
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(updateOffscreenComponent, "updateOffscreenComponent");
           function updateFragment(current2, workInProgress2, renderLanes2) {
             var nextChildren = workInProgress2.pendingProps;
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(updateFragment, "updateFragment");
           function updateMode(current2, workInProgress2, renderLanes2) {
             var nextChildren = workInProgress2.pendingProps.children;
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(updateMode, "updateMode");
           function updateProfiler(current2, workInProgress2, renderLanes2) {
             {
               workInProgress2.flags |= Update;
@@ -15930,6 +16725,7 @@
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(updateProfiler, "updateProfiler");
           function markRef(current2, workInProgress2) {
             var ref = workInProgress2.ref;
             if (current2 === null && ref !== null || current2 !== null && current2.ref !== ref) {
@@ -15939,6 +16735,7 @@
               }
             }
           }
+          __name(markRef, "markRef");
           function updateFunctionComponent(current2, workInProgress2, Component, nextProps, renderLanes2) {
             {
               if (workInProgress2.type !== workInProgress2.elementType) {
@@ -15994,6 +16791,7 @@
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(updateFunctionComponent, "updateFunctionComponent");
           function updateClassComponent(current2, workInProgress2, Component, nextProps, renderLanes2) {
             {
               switch (shouldError(workInProgress2)) {
@@ -16060,6 +16858,7 @@
             }
             return nextUnitOfWork;
           }
+          __name(updateClassComponent, "updateClassComponent");
           function finishClassComponent(current2, workInProgress2, Component, shouldUpdate, hasContext, renderLanes2) {
             markRef(current2, workInProgress2);
             var didCaptureError = (workInProgress2.flags & DidCapture) !== NoFlags;
@@ -16110,6 +16909,7 @@
             }
             return workInProgress2.child;
           }
+          __name(finishClassComponent, "finishClassComponent");
           function pushHostRootContext(workInProgress2) {
             var root2 = workInProgress2.stateNode;
             if (root2.pendingContext) {
@@ -16119,6 +16919,7 @@
             }
             pushHostContainer(workInProgress2, root2.containerInfo);
           }
+          __name(pushHostRootContext, "pushHostRootContext");
           function updateHostRoot(current2, workInProgress2, renderLanes2) {
             pushHostRootContext(workInProgress2);
             if (current2 === null) {
@@ -16168,6 +16969,7 @@
             }
             return workInProgress2.child;
           }
+          __name(updateHostRoot, "updateHostRoot");
           function mountHostRootWithoutHydrating(current2, workInProgress2, nextChildren, renderLanes2, recoverableError) {
             resetHydrationState();
             queueHydrationError(recoverableError);
@@ -16175,6 +16977,7 @@
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(mountHostRootWithoutHydrating, "mountHostRootWithoutHydrating");
           function updateHostComponent(current2, workInProgress2, renderLanes2) {
             pushHostContext(workInProgress2);
             if (current2 === null) {
@@ -16194,12 +16997,14 @@
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(updateHostComponent, "updateHostComponent");
           function updateHostText(current2, workInProgress2) {
             if (current2 === null) {
               tryToClaimNextHydratableInstance(workInProgress2);
             }
             return null;
           }
+          __name(updateHostText, "updateHostText");
           function mountLazyComponent(_current, workInProgress2, elementType, renderLanes2) {
             resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress2);
             var props = workInProgress2.pendingProps;
@@ -16266,6 +17071,7 @@
             }
             throw new Error("Element type is invalid. Received a promise that resolves to: " + Component + ". " + ("Lazy element type must resolve to a class or function." + hint));
           }
+          __name(mountLazyComponent, "mountLazyComponent");
           function mountIncompleteClassComponent(_current, workInProgress2, Component, nextProps, renderLanes2) {
             resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress2);
             workInProgress2.tag = ClassComponent;
@@ -16281,6 +17087,7 @@
             mountClassInstance(workInProgress2, Component, nextProps, renderLanes2);
             return finishClassComponent(null, workInProgress2, Component, true, hasContext, renderLanes2);
           }
+          __name(mountIncompleteClassComponent, "mountIncompleteClassComponent");
           function mountIndeterminateComponent(_current, workInProgress2, Component, renderLanes2) {
             resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress2);
             var props = workInProgress2.pendingProps;
@@ -16371,6 +17178,7 @@
               return workInProgress2.child;
             }
           }
+          __name(mountIndeterminateComponent, "mountIndeterminateComponent");
           function validateFunctionComponentInDev(workInProgress2, Component) {
             {
               if (Component) {
@@ -16410,6 +17218,7 @@
               }
             }
           }
+          __name(validateFunctionComponentInDev, "validateFunctionComponentInDev");
           var SUSPENDED_MARKER = {
             dehydrated: null,
             treeContext: null,
@@ -16422,6 +17231,7 @@
               transitions: null
             };
           }
+          __name(mountSuspenseOffscreenState, "mountSuspenseOffscreenState");
           function updateSuspenseOffscreenState(prevOffscreenState, renderLanes2) {
             var cachePool = null;
             return {
@@ -16430,6 +17240,7 @@
               transitions: prevOffscreenState.transitions
             };
           }
+          __name(updateSuspenseOffscreenState, "updateSuspenseOffscreenState");
           function shouldRemainOnFallback(suspenseContext, current2, workInProgress2, renderLanes2) {
             if (current2 !== null) {
               var suspenseState = current2.memoizedState;
@@ -16439,9 +17250,11 @@
             }
             return hasSuspenseContext(suspenseContext, ForceSuspenseFallback);
           }
+          __name(shouldRemainOnFallback, "shouldRemainOnFallback");
           function getRemainingWorkInPrimaryTree(current2, renderLanes2) {
             return removeLanes(current2.childLanes, renderLanes2);
           }
+          __name(getRemainingWorkInPrimaryTree, "getRemainingWorkInPrimaryTree");
           function updateSuspenseComponent(current2, workInProgress2, renderLanes2) {
             var nextProps = workInProgress2.pendingProps;
             {
@@ -16510,6 +17323,7 @@
               }
             }
           }
+          __name(updateSuspenseComponent, "updateSuspenseComponent");
           function mountSuspensePrimaryChildren(workInProgress2, primaryChildren, renderLanes2) {
             var mode = workInProgress2.mode;
             var primaryChildProps = {
@@ -16521,6 +17335,7 @@
             workInProgress2.child = primaryChildFragment;
             return primaryChildFragment;
           }
+          __name(mountSuspensePrimaryChildren, "mountSuspensePrimaryChildren");
           function mountSuspenseFallbackChildren(workInProgress2, primaryChildren, fallbackChildren, renderLanes2) {
             var mode = workInProgress2.mode;
             var progressedPrimaryFragment = workInProgress2.child;
@@ -16551,12 +17366,15 @@
             workInProgress2.child = primaryChildFragment;
             return fallbackChildFragment;
           }
+          __name(mountSuspenseFallbackChildren, "mountSuspenseFallbackChildren");
           function mountWorkInProgressOffscreenFiber(offscreenProps, mode, renderLanes2) {
             return createFiberFromOffscreen(offscreenProps, mode, NoLanes, null);
           }
+          __name(mountWorkInProgressOffscreenFiber, "mountWorkInProgressOffscreenFiber");
           function updateWorkInProgressOffscreenFiber(current2, offscreenProps) {
             return createWorkInProgress(current2, offscreenProps);
           }
+          __name(updateWorkInProgressOffscreenFiber, "updateWorkInProgressOffscreenFiber");
           function updateSuspensePrimaryChildren(current2, workInProgress2, primaryChildren, renderLanes2) {
             var currentPrimaryChildFragment = current2.child;
             var currentFallbackChildFragment = currentPrimaryChildFragment.sibling;
@@ -16581,6 +17399,7 @@
             workInProgress2.child = primaryChildFragment;
             return primaryChildFragment;
           }
+          __name(updateSuspensePrimaryChildren, "updateSuspensePrimaryChildren");
           function updateSuspenseFallbackChildren(current2, workInProgress2, primaryChildren, fallbackChildren, renderLanes2) {
             var mode = workInProgress2.mode;
             var currentPrimaryChildFragment = current2.child;
@@ -16619,6 +17438,7 @@
             workInProgress2.child = primaryChildFragment;
             return fallbackChildFragment;
           }
+          __name(updateSuspenseFallbackChildren, "updateSuspenseFallbackChildren");
           function retrySuspenseComponentWithoutHydrating(current2, workInProgress2, renderLanes2, recoverableError) {
             if (recoverableError !== null) {
               queueHydrationError(recoverableError);
@@ -16631,6 +17451,7 @@
             workInProgress2.memoizedState = null;
             return primaryChildFragment;
           }
+          __name(retrySuspenseComponentWithoutHydrating, "retrySuspenseComponentWithoutHydrating");
           function mountSuspenseFallbackAfterRetryWithoutHydrating(current2, workInProgress2, primaryChildren, fallbackChildren, renderLanes2) {
             var fiberMode = workInProgress2.mode;
             var primaryChildProps = {
@@ -16649,6 +17470,7 @@
             }
             return fallbackChildFragment;
           }
+          __name(mountSuspenseFallbackAfterRetryWithoutHydrating, "mountSuspenseFallbackAfterRetryWithoutHydrating");
           function mountDehydratedSuspenseComponent(workInProgress2, suspenseInstance, renderLanes2) {
             if ((workInProgress2.mode & ConcurrentMode) === NoMode) {
               {
@@ -16662,6 +17484,7 @@
             }
             return null;
           }
+          __name(mountDehydratedSuspenseComponent, "mountDehydratedSuspenseComponent");
           function updateDehydratedSuspenseComponent(current2, workInProgress2, didSuspend, nextProps, suspenseInstance, suspenseState, renderLanes2) {
             if (!didSuspend) {
               warnIfHydrating();
@@ -16738,6 +17561,7 @@
               }
             }
           }
+          __name(updateDehydratedSuspenseComponent, "updateDehydratedSuspenseComponent");
           function scheduleSuspenseWorkOnFiber(fiber, renderLanes2, propagationRoot) {
             fiber.lanes = mergeLanes(fiber.lanes, renderLanes2);
             var alternate = fiber.alternate;
@@ -16746,6 +17570,7 @@
             }
             scheduleContextWorkOnParentPath(fiber.return, renderLanes2, propagationRoot);
           }
+          __name(scheduleSuspenseWorkOnFiber, "scheduleSuspenseWorkOnFiber");
           function propagateSuspenseContextChange(workInProgress2, firstChild, renderLanes2) {
             var node = firstChild;
             while (node !== null) {
@@ -16774,6 +17599,7 @@
               node = node.sibling;
             }
           }
+          __name(propagateSuspenseContextChange, "propagateSuspenseContextChange");
           function findLastContentRow(firstChild) {
             var row = firstChild;
             var lastContentRow = null;
@@ -16786,6 +17612,7 @@
             }
             return lastContentRow;
           }
+          __name(findLastContentRow, "findLastContentRow");
           function validateRevealOrder(revealOrder) {
             {
               if (revealOrder !== void 0 && revealOrder !== "forwards" && revealOrder !== "backwards" && revealOrder !== "together" && !didWarnAboutRevealOrder[revealOrder]) {
@@ -16813,6 +17640,7 @@
               }
             }
           }
+          __name(validateRevealOrder, "validateRevealOrder");
           function validateTailOptions(tailMode, revealOrder) {
             {
               if (tailMode !== void 0 && !didWarnAboutTailOptions[tailMode]) {
@@ -16826,6 +17654,7 @@
               }
             }
           }
+          __name(validateTailOptions, "validateTailOptions");
           function validateSuspenseListNestedChild(childSlot, index2) {
             {
               var isAnArray = isArray(childSlot);
@@ -16838,6 +17667,7 @@
             }
             return true;
           }
+          __name(validateSuspenseListNestedChild, "validateSuspenseListNestedChild");
           function validateSuspenseListChildren(children, revealOrder) {
             {
               if ((revealOrder === "forwards" || revealOrder === "backwards") && children !== void 0 && children !== null && children !== false) {
@@ -16868,6 +17698,7 @@
               }
             }
           }
+          __name(validateSuspenseListChildren, "validateSuspenseListChildren");
           function initSuspenseListRenderState(workInProgress2, isBackwards, tail, lastContentRow, tailMode) {
             var renderState = workInProgress2.memoizedState;
             if (renderState === null) {
@@ -16888,6 +17719,7 @@
               renderState.tailMode = tailMode;
             }
           }
+          __name(initSuspenseListRenderState, "initSuspenseListRenderState");
           function updateSuspenseListComponent(current2, workInProgress2, renderLanes2) {
             var nextProps = workInProgress2.pendingProps;
             var revealOrder = nextProps.revealOrder;
@@ -16974,6 +17806,7 @@
             }
             return workInProgress2.child;
           }
+          __name(updateSuspenseListComponent, "updateSuspenseListComponent");
           function updatePortalComponent(current2, workInProgress2, renderLanes2) {
             pushHostContainer(workInProgress2, workInProgress2.stateNode.containerInfo);
             var nextChildren = workInProgress2.pendingProps;
@@ -16984,6 +17817,7 @@
             }
             return workInProgress2.child;
           }
+          __name(updatePortalComponent, "updatePortalComponent");
           var hasWarnedAboutUsingNoValuePropOnContextProvider = false;
           function updateContextProvider(current2, workInProgress2, renderLanes2) {
             var providerType = workInProgress2.type;
@@ -17020,6 +17854,7 @@
             reconcileChildren(current2, workInProgress2, newChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(updateContextProvider, "updateContextProvider");
           var hasWarnedAboutUsingContextAsConsumer = false;
           function updateContextConsumer(current2, workInProgress2, renderLanes2) {
             var context = workInProgress2.type;
@@ -17061,9 +17896,11 @@
             reconcileChildren(current2, workInProgress2, newChildren, renderLanes2);
             return workInProgress2.child;
           }
+          __name(updateContextConsumer, "updateContextConsumer");
           function markWorkInProgressReceivedUpdate() {
             didReceiveUpdate = true;
           }
+          __name(markWorkInProgressReceivedUpdate, "markWorkInProgressReceivedUpdate");
           function resetSuspendedCurrentOnMountInLegacyMode(current2, workInProgress2) {
             if ((workInProgress2.mode & ConcurrentMode) === NoMode) {
               if (current2 !== null) {
@@ -17073,6 +17910,7 @@
               }
             }
           }
+          __name(resetSuspendedCurrentOnMountInLegacyMode, "resetSuspendedCurrentOnMountInLegacyMode");
           function bailoutOnAlreadyFinishedWork(current2, workInProgress2, renderLanes2) {
             if (current2 !== null) {
               workInProgress2.dependencies = current2.dependencies;
@@ -17089,6 +17927,7 @@
             cloneChildFibers(current2, workInProgress2);
             return workInProgress2.child;
           }
+          __name(bailoutOnAlreadyFinishedWork, "bailoutOnAlreadyFinishedWork");
           function remountFiber(current2, oldWorkInProgress, newWorkInProgress) {
             {
               var returnFiber = oldWorkInProgress.return;
@@ -17127,6 +17966,7 @@
               return newWorkInProgress;
             }
           }
+          __name(remountFiber, "remountFiber");
           function checkScheduledUpdateOrContext(current2, renderLanes2) {
             var updateLanes = current2.lanes;
             if (includesSomeLane(updateLanes, renderLanes2)) {
@@ -17134,6 +17974,7 @@
             }
             return false;
           }
+          __name(checkScheduledUpdateOrContext, "checkScheduledUpdateOrContext");
           function attemptEarlyBailoutIfNoScheduledUpdate(current2, workInProgress2, renderLanes2) {
             switch (workInProgress2.tag) {
               case HostRoot:
@@ -17229,6 +18070,7 @@
             }
             return bailoutOnAlreadyFinishedWork(current2, workInProgress2, renderLanes2);
           }
+          __name(attemptEarlyBailoutIfNoScheduledUpdate, "attemptEarlyBailoutIfNoScheduledUpdate");
           function beginWork(current2, workInProgress2, renderLanes2) {
             {
               if (workInProgress2._debugNeedsRemount && current2 !== null) {
@@ -17348,21 +18190,24 @@
             }
             throw new Error("Unknown unit of work tag (" + workInProgress2.tag + "). This error is likely caused by a bug in React. Please file an issue.");
           }
+          __name(beginWork, "beginWork");
           function markUpdate(workInProgress2) {
             workInProgress2.flags |= Update;
           }
+          __name(markUpdate, "markUpdate");
           function markRef$1(workInProgress2) {
             workInProgress2.flags |= Ref;
             {
               workInProgress2.flags |= RefStatic;
             }
           }
+          __name(markRef$1, "markRef$1");
           var appendAllChildren;
           var updateHostContainer;
           var updateHostComponent$1;
           var updateHostText$1;
           {
-            appendAllChildren = function(parent, workInProgress2, needsVisibilityToggle, isHidden) {
+            appendAllChildren = /* @__PURE__ */ __name(function(parent, workInProgress2, needsVisibilityToggle, isHidden) {
               var node = workInProgress2.child;
               while (node !== null) {
                 if (node.tag === HostComponent || node.tag === HostText) {
@@ -17386,10 +18231,10 @@
                 node.sibling.return = node.return;
                 node = node.sibling;
               }
-            };
-            updateHostContainer = function(current2, workInProgress2) {
-            };
-            updateHostComponent$1 = function(current2, workInProgress2, type, newProps, rootContainerInstance) {
+            }, "appendAllChildren");
+            updateHostContainer = /* @__PURE__ */ __name(function(current2, workInProgress2) {
+            }, "updateHostContainer");
+            updateHostComponent$1 = /* @__PURE__ */ __name(function(current2, workInProgress2, type, newProps, rootContainerInstance) {
               var oldProps = current2.memoizedProps;
               if (oldProps === newProps) {
                 return;
@@ -17401,12 +18246,12 @@
               if (updatePayload) {
                 markUpdate(workInProgress2);
               }
-            };
-            updateHostText$1 = function(current2, workInProgress2, oldText, newText) {
+            }, "updateHostComponent$1");
+            updateHostText$1 = /* @__PURE__ */ __name(function(current2, workInProgress2, oldText, newText) {
               if (oldText !== newText) {
                 markUpdate(workInProgress2);
               }
-            };
+            }, "updateHostText$1");
           }
           function cutOffTailIfNeeded(renderState, hasRenderedATailFallback) {
             if (getIsHydrating()) {
@@ -17451,6 +18296,7 @@
               }
             }
           }
+          __name(cutOffTailIfNeeded, "cutOffTailIfNeeded");
           function bubbleProperties(completedWork) {
             var didBailout = completedWork.alternate !== null && completedWork.alternate.child === completedWork.child;
             var newChildLanes = NoLanes;
@@ -17508,6 +18354,7 @@
             completedWork.childLanes = newChildLanes;
             return didBailout;
           }
+          __name(bubbleProperties, "bubbleProperties");
           function completeDehydratedSuspenseBoundary(current2, workInProgress2, nextState) {
             if (hasUnhydratedTailNodes() && (workInProgress2.mode & ConcurrentMode) !== NoMode && (workInProgress2.flags & DidCapture) === NoFlags) {
               warnIfUnhydratedTailNodes(workInProgress2);
@@ -17560,6 +18407,7 @@
               return true;
             }
           }
+          __name(completeDehydratedSuspenseBoundary, "completeDehydratedSuspenseBoundary");
           function completeWork(current2, workInProgress2, renderLanes2) {
             var newProps = workInProgress2.pendingProps;
             popTreeContext(workInProgress2);
@@ -17882,6 +18730,7 @@
             }
             throw new Error("Unknown unit of work tag (" + workInProgress2.tag + "). This error is likely caused by a bug in React. Please file an issue.");
           }
+          __name(completeWork, "completeWork");
           function unwindWork(current2, workInProgress2, renderLanes2) {
             popTreeContext(workInProgress2);
             switch (workInProgress2.tag) {
@@ -17956,6 +18805,7 @@
                 return null;
             }
           }
+          __name(unwindWork, "unwindWork");
           function unwindInterruptedWork(current2, interruptedWork, renderLanes2) {
             popTreeContext(interruptedWork);
             switch (interruptedWork.tag) {
@@ -17996,6 +18846,7 @@
                 break;
             }
           }
+          __name(unwindInterruptedWork, "unwindInterruptedWork");
           var didWarnAboutUndefinedSnapshotBeforeUpdate = null;
           {
             didWarnAboutUndefinedSnapshotBeforeUpdate = /* @__PURE__ */ new Set();
@@ -18014,7 +18865,8 @@
               clearCaughtError();
             }
           }
-          var callComponentWillUnmountWithTimer = function(current2, instance) {
+          __name(reportUncaughtErrorInDEV, "reportUncaughtErrorInDEV");
+          var callComponentWillUnmountWithTimer = /* @__PURE__ */ __name(function(current2, instance) {
             instance.props = current2.memoizedProps;
             instance.state = current2.memoizedState;
             if (current2.mode & ProfileMode) {
@@ -18027,7 +18879,7 @@
             } else {
               instance.componentWillUnmount();
             }
-          };
+          }, "callComponentWillUnmountWithTimer");
           function safelyCallCommitHookLayoutEffectListMount(current2, nearestMountedAncestor) {
             try {
               commitHookEffectListMount(Layout, current2);
@@ -18035,6 +18887,7 @@
               captureCommitPhaseError(current2, nearestMountedAncestor, error2);
             }
           }
+          __name(safelyCallCommitHookLayoutEffectListMount, "safelyCallCommitHookLayoutEffectListMount");
           function safelyCallComponentWillUnmount(current2, nearestMountedAncestor, instance) {
             try {
               callComponentWillUnmountWithTimer(current2, instance);
@@ -18042,6 +18895,7 @@
               captureCommitPhaseError(current2, nearestMountedAncestor, error2);
             }
           }
+          __name(safelyCallComponentWillUnmount, "safelyCallComponentWillUnmount");
           function safelyCallComponentDidMount(current2, nearestMountedAncestor, instance) {
             try {
               instance.componentDidMount();
@@ -18049,6 +18903,7 @@
               captureCommitPhaseError(current2, nearestMountedAncestor, error2);
             }
           }
+          __name(safelyCallComponentDidMount, "safelyCallComponentDidMount");
           function safelyAttachRef(current2, nearestMountedAncestor) {
             try {
               commitAttachRef(current2);
@@ -18056,6 +18911,7 @@
               captureCommitPhaseError(current2, nearestMountedAncestor, error2);
             }
           }
+          __name(safelyAttachRef, "safelyAttachRef");
           function safelyDetachRef(current2, nearestMountedAncestor) {
             var ref = current2.ref;
             if (ref !== null) {
@@ -18085,6 +18941,7 @@
               }
             }
           }
+          __name(safelyDetachRef, "safelyDetachRef");
           function safelyCallDestroy(current2, nearestMountedAncestor, destroy) {
             try {
               destroy();
@@ -18092,6 +18949,7 @@
               captureCommitPhaseError(current2, nearestMountedAncestor, error2);
             }
           }
+          __name(safelyCallDestroy, "safelyCallDestroy");
           var focusedInstanceHandle = null;
           var shouldFireAfterActiveInstanceBlur = false;
           function commitBeforeMutationEffects(root2, firstChild) {
@@ -18103,6 +18961,7 @@
             focusedInstanceHandle = null;
             return shouldFire;
           }
+          __name(commitBeforeMutationEffects, "commitBeforeMutationEffects");
           function commitBeforeMutationEffects_begin() {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -18115,6 +18974,7 @@
               }
             }
           }
+          __name(commitBeforeMutationEffects_begin, "commitBeforeMutationEffects_begin");
           function commitBeforeMutationEffects_complete() {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -18134,6 +18994,7 @@
               nextEffect = fiber.return;
             }
           }
+          __name(commitBeforeMutationEffects_complete, "commitBeforeMutationEffects_complete");
           function commitBeforeMutationEffectsOnFiber(finishedWork) {
             var current2 = finishedWork.alternate;
             var flags = finishedWork.flags;
@@ -18191,6 +19052,7 @@
               resetCurrentFiber();
             }
           }
+          __name(commitBeforeMutationEffectsOnFiber, "commitBeforeMutationEffectsOnFiber");
           function commitHookEffectListUnmount(flags, finishedWork, nearestMountedAncestor) {
             var updateQueue = finishedWork.updateQueue;
             var lastEffect = updateQueue !== null ? updateQueue.lastEffect : null;
@@ -18233,6 +19095,7 @@
               } while (effect !== firstEffect);
             }
           }
+          __name(commitHookEffectListUnmount, "commitHookEffectListUnmount");
           function commitHookEffectListMount(flags, finishedWork) {
             var updateQueue = finishedWork.updateQueue;
             var lastEffect = updateQueue !== null ? updateQueue.lastEffect : null;
@@ -18294,6 +19157,7 @@
               } while (effect !== firstEffect);
             }
           }
+          __name(commitHookEffectListMount, "commitHookEffectListMount");
           function commitPassiveEffectDurations(finishedRoot, finishedWork) {
             {
               if ((finishedWork.flags & Update) !== NoFlags) {
@@ -18332,6 +19196,7 @@
               }
             }
           }
+          __name(commitPassiveEffectDurations, "commitPassiveEffectDurations");
           function commitLayoutEffectOnFiber(finishedRoot, current2, finishedWork, committedLanes) {
             if ((finishedWork.flags & LayoutMask) !== NoFlags) {
               switch (finishedWork.tag) {
@@ -18514,6 +19379,7 @@
               }
             }
           }
+          __name(commitLayoutEffectOnFiber, "commitLayoutEffectOnFiber");
           function reappearLayoutEffectsOnFiber(node) {
             switch (node.tag) {
               case FunctionComponent:
@@ -18545,6 +19411,7 @@
               }
             }
           }
+          __name(reappearLayoutEffectsOnFiber, "reappearLayoutEffectsOnFiber");
           function hideOrUnhideAllChildren(finishedWork, isHidden) {
             var hostSubtreeRoot = null;
             {
@@ -18604,6 +19471,7 @@
               }
             }
           }
+          __name(hideOrUnhideAllChildren, "hideOrUnhideAllChildren");
           function commitAttachRef(finishedWork) {
             var ref = finishedWork.ref;
             if (ref !== null) {
@@ -18643,6 +19511,7 @@
               }
             }
           }
+          __name(commitAttachRef, "commitAttachRef");
           function detachFiberMutation(fiber) {
             var alternate = fiber.alternate;
             if (alternate !== null) {
@@ -18650,6 +19519,7 @@
             }
             fiber.return = null;
           }
+          __name(detachFiberMutation, "detachFiberMutation");
           function detachFiberAfterEffects(fiber) {
             var alternate = fiber.alternate;
             if (alternate !== null) {
@@ -18681,6 +19551,7 @@
               }
             }
           }
+          __name(detachFiberAfterEffects, "detachFiberAfterEffects");
           function getHostParentFiber(fiber) {
             var parent = fiber.return;
             while (parent !== null) {
@@ -18691,9 +19562,11 @@
             }
             throw new Error("Expected to find a host parent. This error is likely caused by a bug in React. Please file an issue.");
           }
+          __name(getHostParentFiber, "getHostParentFiber");
           function isHostParent(fiber) {
             return fiber.tag === HostComponent || fiber.tag === HostRoot || fiber.tag === HostPortal;
           }
+          __name(isHostParent, "isHostParent");
           function getHostSibling(fiber) {
             var node = fiber;
             siblings:
@@ -18722,6 +19595,7 @@
                 }
               }
           }
+          __name(getHostSibling, "getHostSibling");
           function commitPlacement(finishedWork) {
             var parentFiber = getHostParentFiber(finishedWork);
             switch (parentFiber.tag) {
@@ -18746,6 +19620,7 @@
                 throw new Error("Invalid host parent fiber. This error is likely caused by a bug in React. Please file an issue.");
             }
           }
+          __name(commitPlacement, "commitPlacement");
           function insertOrAppendPlacementNodeIntoContainer(node, before, parent) {
             var tag = node.tag;
             var isHost = tag === HostComponent || tag === HostText;
@@ -18770,6 +19645,7 @@
               }
             }
           }
+          __name(insertOrAppendPlacementNodeIntoContainer, "insertOrAppendPlacementNodeIntoContainer");
           function insertOrAppendPlacementNode(node, before, parent) {
             var tag = node.tag;
             var isHost = tag === HostComponent || tag === HostText;
@@ -18794,6 +19670,7 @@
               }
             }
           }
+          __name(insertOrAppendPlacementNode, "insertOrAppendPlacementNode");
           var hostParent = null;
           var hostParentIsContainer = false;
           function commitDeletionEffects(root2, returnFiber, deletedFiber) {
@@ -18829,6 +19706,7 @@
             }
             detachFiberMutation(deletedFiber);
           }
+          __name(commitDeletionEffects, "commitDeletionEffects");
           function recursivelyTraverseDeletionEffects(finishedRoot, nearestMountedAncestor, parent) {
             var child = parent.child;
             while (child !== null) {
@@ -18836,6 +19714,7 @@
               child = child.sibling;
             }
           }
+          __name(recursivelyTraverseDeletionEffects, "recursivelyTraverseDeletionEffects");
           function commitDeletionEffectsOnFiber(finishedRoot, nearestMountedAncestor, deletedFiber) {
             onCommitUnmount(deletedFiber);
             switch (deletedFiber.tag) {
@@ -18958,9 +19837,11 @@
               }
             }
           }
+          __name(commitDeletionEffectsOnFiber, "commitDeletionEffectsOnFiber");
           function commitSuspenseCallback(finishedWork) {
             var newState = finishedWork.memoizedState;
           }
+          __name(commitSuspenseCallback, "commitSuspenseCallback");
           function commitSuspenseHydrationCallbacks(finishedRoot, finishedWork) {
             var newState = finishedWork.memoizedState;
             if (newState === null) {
@@ -18976,6 +19857,7 @@
               }
             }
           }
+          __name(commitSuspenseHydrationCallbacks, "commitSuspenseHydrationCallbacks");
           function attachSuspenseRetryListeners(finishedWork) {
             var wakeables = finishedWork.updateQueue;
             if (wakeables !== null) {
@@ -19002,6 +19884,7 @@
               });
             }
           }
+          __name(attachSuspenseRetryListeners, "attachSuspenseRetryListeners");
           function commitMutationEffects(root2, finishedWork, committedLanes) {
             inProgressLanes = committedLanes;
             inProgressRoot = root2;
@@ -19011,6 +19894,7 @@
             inProgressLanes = null;
             inProgressRoot = null;
           }
+          __name(commitMutationEffects, "commitMutationEffects");
           function recursivelyTraverseMutationEffects(root2, parentFiber, lanes) {
             var deletions = parentFiber.deletions;
             if (deletions !== null) {
@@ -19034,6 +19918,7 @@
             }
             setCurrentFiber(prevDebugFiber);
           }
+          __name(recursivelyTraverseMutationEffects, "recursivelyTraverseMutationEffects");
           function commitMutationEffectsOnFiber(finishedWork, root2, lanes) {
             var current2 = finishedWork.alternate;
             var flags = finishedWork.flags;
@@ -19242,6 +20127,7 @@
               }
             }
           }
+          __name(commitMutationEffectsOnFiber, "commitMutationEffectsOnFiber");
           function commitReconciliationEffects(finishedWork) {
             var flags = finishedWork.flags;
             if (flags & Placement) {
@@ -19256,6 +20142,7 @@
               finishedWork.flags &= ~Hydrating;
             }
           }
+          __name(commitReconciliationEffects, "commitReconciliationEffects");
           function commitLayoutEffects(finishedWork, root2, committedLanes) {
             inProgressLanes = committedLanes;
             inProgressRoot = root2;
@@ -19264,6 +20151,7 @@
             inProgressLanes = null;
             inProgressRoot = null;
           }
+          __name(commitLayoutEffects, "commitLayoutEffects");
           function commitLayoutEffects_begin(subtreeRoot, root2, committedLanes) {
             var isModernRoot = (subtreeRoot.mode & ConcurrentMode) !== NoMode;
             while (nextEffect !== null) {
@@ -19312,6 +20200,7 @@
               }
             }
           }
+          __name(commitLayoutEffects_begin, "commitLayoutEffects_begin");
           function commitLayoutMountEffects_complete(subtreeRoot, root2, committedLanes) {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19338,6 +20227,7 @@
               nextEffect = fiber.return;
             }
           }
+          __name(commitLayoutMountEffects_complete, "commitLayoutMountEffects_complete");
           function disappearLayoutEffects_begin(subtreeRoot) {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19388,6 +20278,7 @@
               }
             }
           }
+          __name(disappearLayoutEffects_begin, "disappearLayoutEffects_begin");
           function disappearLayoutEffects_complete(subtreeRoot) {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19404,6 +20295,7 @@
               nextEffect = fiber.return;
             }
           }
+          __name(disappearLayoutEffects_complete, "disappearLayoutEffects_complete");
           function reappearLayoutEffects_begin(subtreeRoot) {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19423,6 +20315,7 @@
               }
             }
           }
+          __name(reappearLayoutEffects_begin, "reappearLayoutEffects_begin");
           function reappearLayoutEffects_complete(subtreeRoot) {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19446,10 +20339,12 @@
               nextEffect = fiber.return;
             }
           }
+          __name(reappearLayoutEffects_complete, "reappearLayoutEffects_complete");
           function commitPassiveMountEffects(root2, finishedWork, committedLanes, committedTransitions) {
             nextEffect = finishedWork;
             commitPassiveMountEffects_begin(finishedWork, root2, committedLanes, committedTransitions);
           }
+          __name(commitPassiveMountEffects, "commitPassiveMountEffects");
           function commitPassiveMountEffects_begin(subtreeRoot, root2, committedLanes, committedTransitions) {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19462,6 +20357,7 @@
               }
             }
           }
+          __name(commitPassiveMountEffects_begin, "commitPassiveMountEffects_begin");
           function commitPassiveMountEffects_complete(subtreeRoot, root2, committedLanes, committedTransitions) {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19487,6 +20383,7 @@
               nextEffect = fiber.return;
             }
           }
+          __name(commitPassiveMountEffects_complete, "commitPassiveMountEffects_complete");
           function commitPassiveMountOnFiber(finishedRoot, finishedWork, committedLanes, committedTransitions) {
             switch (finishedWork.tag) {
               case FunctionComponent:
@@ -19506,10 +20403,12 @@
               }
             }
           }
+          __name(commitPassiveMountOnFiber, "commitPassiveMountOnFiber");
           function commitPassiveUnmountEffects(firstChild) {
             nextEffect = firstChild;
             commitPassiveUnmountEffects_begin();
           }
+          __name(commitPassiveUnmountEffects, "commitPassiveUnmountEffects");
           function commitPassiveUnmountEffects_begin() {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19547,6 +20446,7 @@
               }
             }
           }
+          __name(commitPassiveUnmountEffects_begin, "commitPassiveUnmountEffects_begin");
           function commitPassiveUnmountEffects_complete() {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19564,6 +20464,7 @@
               nextEffect = fiber.return;
             }
           }
+          __name(commitPassiveUnmountEffects_complete, "commitPassiveUnmountEffects_complete");
           function commitPassiveUnmountOnFiber(finishedWork) {
             switch (finishedWork.tag) {
               case FunctionComponent:
@@ -19580,6 +20481,7 @@
               }
             }
           }
+          __name(commitPassiveUnmountOnFiber, "commitPassiveUnmountOnFiber");
           function commitPassiveUnmountEffectsInsideOfDeletedTree_begin(deletedSubtreeRoot, nearestMountedAncestor) {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19595,6 +20497,7 @@
               }
             }
           }
+          __name(commitPassiveUnmountEffectsInsideOfDeletedTree_begin, "commitPassiveUnmountEffectsInsideOfDeletedTree_begin");
           function commitPassiveUnmountEffectsInsideOfDeletedTree_complete(deletedSubtreeRoot) {
             while (nextEffect !== null) {
               var fiber = nextEffect;
@@ -19615,6 +20518,7 @@
               nextEffect = returnFiber;
             }
           }
+          __name(commitPassiveUnmountEffectsInsideOfDeletedTree_complete, "commitPassiveUnmountEffectsInsideOfDeletedTree_complete");
           function commitPassiveUnmountInsideDeletedTreeOnFiber(current2, nearestMountedAncestor) {
             switch (current2.tag) {
               case FunctionComponent:
@@ -19631,6 +20535,7 @@
               }
             }
           }
+          __name(commitPassiveUnmountInsideDeletedTreeOnFiber, "commitPassiveUnmountInsideDeletedTreeOnFiber");
           function invokeLayoutEffectMountInDEV(fiber) {
             {
               switch (fiber.tag) {
@@ -19656,6 +20561,7 @@
               }
             }
           }
+          __name(invokeLayoutEffectMountInDEV, "invokeLayoutEffectMountInDEV");
           function invokePassiveEffectMountInDEV(fiber) {
             {
               switch (fiber.tag) {
@@ -19672,6 +20578,7 @@
               }
             }
           }
+          __name(invokePassiveEffectMountInDEV, "invokePassiveEffectMountInDEV");
           function invokeLayoutEffectUnmountInDEV(fiber) {
             {
               switch (fiber.tag) {
@@ -19695,6 +20602,7 @@
               }
             }
           }
+          __name(invokeLayoutEffectUnmountInDEV, "invokeLayoutEffectUnmountInDEV");
           function invokePassiveEffectUnmountInDEV(fiber) {
             {
               switch (fiber.tag) {
@@ -19710,6 +20618,7 @@
               }
             }
           }
+          __name(invokePassiveEffectUnmountInDEV, "invokePassiveEffectUnmountInDEV");
           var COMPONENT_TYPE = 0;
           var HAS_PSEUDO_CLASS_TYPE = 1;
           var ROLE_TYPE = 2;
@@ -19731,6 +20640,7 @@
               });
             }
           }
+          __name(onCommitRoot$1, "onCommitRoot$1");
           var ReactCurrentActQueue = ReactSharedInternals.ReactCurrentActQueue;
           function isLegacyActEnvironment(fiber) {
             {
@@ -19739,6 +20649,7 @@
               return jestIsDefined && isReactActEnvironmentGlobal !== false;
             }
           }
+          __name(isLegacyActEnvironment, "isLegacyActEnvironment");
           function isConcurrentActEnvironment() {
             {
               var isReactActEnvironmentGlobal = typeof IS_REACT_ACT_ENVIRONMENT !== "undefined" ? IS_REACT_ACT_ENVIRONMENT : void 0;
@@ -19748,6 +20659,7 @@
               return isReactActEnvironmentGlobal;
             }
           }
+          __name(isConcurrentActEnvironment, "isConcurrentActEnvironment");
           var ceil = Math.ceil;
           var ReactCurrentDispatcher$2 = ReactSharedInternals.ReactCurrentDispatcher, ReactCurrentOwner$2 = ReactSharedInternals.ReactCurrentOwner, ReactCurrentBatchConfig$3 = ReactSharedInternals.ReactCurrentBatchConfig, ReactCurrentActQueue$1 = ReactSharedInternals.ReactCurrentActQueue;
           var NoContext = 0;
@@ -19783,9 +20695,11 @@
           function resetRenderTimer() {
             workInProgressRootRenderTargetTime = now() + RENDER_TIMEOUT_MS;
           }
+          __name(resetRenderTimer, "resetRenderTimer");
           function getRenderTargetTime() {
             return workInProgressRootRenderTargetTime;
           }
+          __name(getRenderTargetTime, "getRenderTargetTime");
           var hasUncaughtError = false;
           var firstUncaughtError = null;
           var legacyErrorBoundariesThatAlreadyFailed = null;
@@ -19808,6 +20722,7 @@
           function getWorkInProgressRoot() {
             return workInProgressRoot;
           }
+          __name(getWorkInProgressRoot, "getWorkInProgressRoot");
           function requestEventTime() {
             if ((executionContext & (RenderContext | CommitContext)) !== NoContext) {
               return now();
@@ -19818,6 +20733,7 @@
             currentEventTime = now();
             return currentEventTime;
           }
+          __name(requestEventTime, "requestEventTime");
           function requestUpdateLane(fiber) {
             var mode = fiber.mode;
             if ((mode & ConcurrentMode) === NoMode) {
@@ -19846,6 +20762,7 @@
             var eventLane = getCurrentEventPriority();
             return eventLane;
           }
+          __name(requestUpdateLane, "requestUpdateLane");
           function requestRetryLane(fiber) {
             var mode = fiber.mode;
             if ((mode & ConcurrentMode) === NoMode) {
@@ -19853,6 +20770,7 @@
             }
             return claimNextRetryLane();
           }
+          __name(requestRetryLane, "requestRetryLane");
           function scheduleUpdateOnFiber(root2, fiber, lane, eventTime) {
             checkForNestedUpdates();
             {
@@ -19890,15 +20808,18 @@
               }
             }
           }
+          __name(scheduleUpdateOnFiber, "scheduleUpdateOnFiber");
           function scheduleInitialHydrationOnRoot(root2, lane, eventTime) {
             var current2 = root2.current;
             current2.lanes = lane;
             markRootUpdated(root2, lane, eventTime);
             ensureRootIsScheduled(root2, eventTime);
           }
+          __name(scheduleInitialHydrationOnRoot, "scheduleInitialHydrationOnRoot");
           function isUnsafeClassRenderPhaseUpdate(fiber) {
             return (executionContext & RenderContext) !== NoContext;
           }
+          __name(isUnsafeClassRenderPhaseUpdate, "isUnsafeClassRenderPhaseUpdate");
           function ensureRootIsScheduled(root2, currentTime) {
             var existingCallbackNode = root2.callbackNode;
             markStarvedLanesAsExpired(root2, currentTime);
@@ -19970,6 +20891,7 @@
             root2.callbackPriority = newCallbackPriority;
             root2.callbackNode = newCallbackNode;
           }
+          __name(ensureRootIsScheduled, "ensureRootIsScheduled");
           function performConcurrentWorkOnRoot(root2, didTimeout) {
             {
               resetNestedUpdateFlag();
@@ -20040,6 +20962,7 @@
             }
             return null;
           }
+          __name(performConcurrentWorkOnRoot, "performConcurrentWorkOnRoot");
           function recoverFromConcurrentError(root2, errorRetryLanes) {
             var errorsFromFirstAttempt = workInProgressRootConcurrentErrors;
             if (isRootDehydrated(root2)) {
@@ -20059,6 +20982,7 @@
             }
             return exitStatus;
           }
+          __name(recoverFromConcurrentError, "recoverFromConcurrentError");
           function queueRecoverableErrors(errors) {
             if (workInProgressRootRecoverableErrors === null) {
               workInProgressRootRecoverableErrors = errors;
@@ -20066,6 +20990,7 @@
               workInProgressRootRecoverableErrors.push.apply(workInProgressRootRecoverableErrors, errors);
             }
           }
+          __name(queueRecoverableErrors, "queueRecoverableErrors");
           function finishConcurrentRender(root2, exitStatus, lanes) {
             switch (exitStatus) {
               case RootInProgress:
@@ -20125,6 +21050,7 @@
               }
             }
           }
+          __name(finishConcurrentRender, "finishConcurrentRender");
           function isRenderConsistentWithExternalStores(finishedWork) {
             var node = finishedWork;
             while (true) {
@@ -20168,11 +21094,13 @@
             }
             return true;
           }
+          __name(isRenderConsistentWithExternalStores, "isRenderConsistentWithExternalStores");
           function markRootSuspended$1(root2, suspendedLanes) {
             suspendedLanes = removeLanes(suspendedLanes, workInProgressRootPingedLanes);
             suspendedLanes = removeLanes(suspendedLanes, workInProgressRootInterleavedUpdatedLanes);
             markRootSuspended(root2, suspendedLanes);
           }
+          __name(markRootSuspended$1, "markRootSuspended$1");
           function performSyncWorkOnRoot(root2) {
             {
               syncNestedUpdateFlag();
@@ -20211,6 +21139,7 @@
             ensureRootIsScheduled(root2, now());
             return null;
           }
+          __name(performSyncWorkOnRoot, "performSyncWorkOnRoot");
           function flushRoot(root2, lanes) {
             if (lanes !== NoLanes) {
               markRootEntangled(root2, mergeLanes(lanes, SyncLane));
@@ -20221,6 +21150,7 @@
               }
             }
           }
+          __name(flushRoot, "flushRoot");
           function batchedUpdates$1(fn, a) {
             var prevExecutionContext = executionContext;
             executionContext |= BatchedContext;
@@ -20234,6 +21164,7 @@
               }
             }
           }
+          __name(batchedUpdates$1, "batchedUpdates$1");
           function discreteUpdates(fn, a, b, c, d) {
             var previousPriority = getCurrentUpdatePriority();
             var prevTransition = ReactCurrentBatchConfig$3.transition;
@@ -20249,6 +21180,7 @@
               }
             }
           }
+          __name(discreteUpdates, "discreteUpdates");
           function flushSync(fn) {
             if (rootWithPendingPassiveEffects !== null && rootWithPendingPassiveEffects.tag === LegacyRoot && (executionContext & (RenderContext | CommitContext)) === NoContext) {
               flushPassiveEffects();
@@ -20274,18 +21206,22 @@
               }
             }
           }
+          __name(flushSync, "flushSync");
           function isAlreadyRendering() {
             return (executionContext & (RenderContext | CommitContext)) !== NoContext;
           }
+          __name(isAlreadyRendering, "isAlreadyRendering");
           function pushRenderLanes(fiber, lanes) {
             push(subtreeRenderLanesCursor, subtreeRenderLanes, fiber);
             subtreeRenderLanes = mergeLanes(subtreeRenderLanes, lanes);
             workInProgressRootIncludedLanes = mergeLanes(workInProgressRootIncludedLanes, lanes);
           }
+          __name(pushRenderLanes, "pushRenderLanes");
           function popRenderLanes(fiber) {
             subtreeRenderLanes = subtreeRenderLanesCursor.current;
             pop(subtreeRenderLanesCursor, fiber);
           }
+          __name(popRenderLanes, "popRenderLanes");
           function prepareFreshStack(root2, lanes) {
             root2.finishedWork = null;
             root2.finishedLanes = NoLanes;
@@ -20319,6 +21255,7 @@
             }
             return rootWorkInProgress;
           }
+          __name(prepareFreshStack, "prepareFreshStack");
           function handleError(root2, thrownValue) {
             do {
               var erroredWork = workInProgress;
@@ -20360,6 +21297,7 @@
               return;
             } while (true);
           }
+          __name(handleError, "handleError");
           function pushDispatcher() {
             var prevDispatcher = ReactCurrentDispatcher$2.current;
             ReactCurrentDispatcher$2.current = ContextOnlyDispatcher;
@@ -20369,20 +21307,25 @@
               return prevDispatcher;
             }
           }
+          __name(pushDispatcher, "pushDispatcher");
           function popDispatcher(prevDispatcher) {
             ReactCurrentDispatcher$2.current = prevDispatcher;
           }
+          __name(popDispatcher, "popDispatcher");
           function markCommitTimeOfFallback() {
             globalMostRecentFallbackTime = now();
           }
+          __name(markCommitTimeOfFallback, "markCommitTimeOfFallback");
           function markSkippedUpdateLanes(lane) {
             workInProgressRootSkippedLanes = mergeLanes(lane, workInProgressRootSkippedLanes);
           }
+          __name(markSkippedUpdateLanes, "markSkippedUpdateLanes");
           function renderDidSuspend() {
             if (workInProgressRootExitStatus === RootInProgress) {
               workInProgressRootExitStatus = RootSuspended;
             }
           }
+          __name(renderDidSuspend, "renderDidSuspend");
           function renderDidSuspendDelayIfPossible() {
             if (workInProgressRootExitStatus === RootInProgress || workInProgressRootExitStatus === RootSuspended || workInProgressRootExitStatus === RootErrored) {
               workInProgressRootExitStatus = RootSuspendedWithDelay;
@@ -20391,6 +21334,7 @@
               markRootSuspended$1(workInProgressRoot, workInProgressRootRenderLanes);
             }
           }
+          __name(renderDidSuspendDelayIfPossible, "renderDidSuspendDelayIfPossible");
           function renderDidError(error2) {
             if (workInProgressRootExitStatus !== RootSuspendedWithDelay) {
               workInProgressRootExitStatus = RootErrored;
@@ -20401,9 +21345,11 @@
               workInProgressRootConcurrentErrors.push(error2);
             }
           }
+          __name(renderDidError, "renderDidError");
           function renderHasNotSuspendedYet() {
             return workInProgressRootExitStatus === RootInProgress;
           }
+          __name(renderHasNotSuspendedYet, "renderHasNotSuspendedYet");
           function renderRootSync(root2, lanes) {
             var prevExecutionContext = executionContext;
             executionContext |= RenderContext;
@@ -20446,11 +21392,13 @@
             workInProgressRootRenderLanes = NoLanes;
             return workInProgressRootExitStatus;
           }
+          __name(renderRootSync, "renderRootSync");
           function workLoopSync() {
             while (workInProgress !== null) {
               performUnitOfWork(workInProgress);
             }
           }
+          __name(workLoopSync, "workLoopSync");
           function renderRootConcurrent(root2, lanes) {
             var prevExecutionContext = executionContext;
             executionContext |= RenderContext;
@@ -20498,11 +21446,13 @@
               return workInProgressRootExitStatus;
             }
           }
+          __name(renderRootConcurrent, "renderRootConcurrent");
           function workLoopConcurrent() {
             while (workInProgress !== null && !shouldYield()) {
               performUnitOfWork(workInProgress);
             }
           }
+          __name(workLoopConcurrent, "workLoopConcurrent");
           function performUnitOfWork(unitOfWork) {
             var current2 = unitOfWork.alternate;
             setCurrentFiber(unitOfWork);
@@ -20523,6 +21473,7 @@
             }
             ReactCurrentOwner$2.current = null;
           }
+          __name(performUnitOfWork, "performUnitOfWork");
           function completeUnitOfWork(unitOfWork) {
             var completedWork = unitOfWork;
             do {
@@ -20582,6 +21533,7 @@
               workInProgressRootExitStatus = RootCompleted;
             }
           }
+          __name(completeUnitOfWork, "completeUnitOfWork");
           function commitRoot(root2, recoverableErrors, transitions) {
             var previousUpdateLanePriority = getCurrentUpdatePriority();
             var prevTransition = ReactCurrentBatchConfig$3.transition;
@@ -20595,6 +21547,7 @@
             }
             return null;
           }
+          __name(commitRoot, "commitRoot");
           function commitRootImpl(root2, recoverableErrors, transitions, renderPriorityLevel) {
             do {
               flushPassiveEffects();
@@ -20749,6 +21702,7 @@
             }
             return null;
           }
+          __name(commitRootImpl, "commitRootImpl");
           function flushPassiveEffects() {
             if (rootWithPendingPassiveEffects !== null) {
               var renderPriority = lanesToEventPriority(pendingPassiveEffectsLanes);
@@ -20766,6 +21720,7 @@
             }
             return false;
           }
+          __name(flushPassiveEffects, "flushPassiveEffects");
           function enqueuePendingPassiveProfilerEffect(fiber) {
             {
               pendingPassiveProfilerEffects.push(fiber);
@@ -20778,6 +21733,7 @@
               }
             }
           }
+          __name(enqueuePendingPassiveProfilerEffect, "enqueuePendingPassiveProfilerEffect");
           function flushPassiveEffectsImpl() {
             if (rootWithPendingPassiveEffects === null) {
               return false;
@@ -20840,9 +21796,11 @@
             }
             return true;
           }
+          __name(flushPassiveEffectsImpl, "flushPassiveEffectsImpl");
           function isAlreadyFailedLegacyErrorBoundary(instance) {
             return legacyErrorBoundariesThatAlreadyFailed !== null && legacyErrorBoundariesThatAlreadyFailed.has(instance);
           }
+          __name(isAlreadyFailedLegacyErrorBoundary, "isAlreadyFailedLegacyErrorBoundary");
           function markLegacyErrorBoundaryAsFailed(instance) {
             if (legacyErrorBoundariesThatAlreadyFailed === null) {
               legacyErrorBoundariesThatAlreadyFailed = /* @__PURE__ */ new Set([instance]);
@@ -20850,12 +21808,14 @@
               legacyErrorBoundariesThatAlreadyFailed.add(instance);
             }
           }
+          __name(markLegacyErrorBoundaryAsFailed, "markLegacyErrorBoundaryAsFailed");
           function prepareToThrowUncaughtError(error2) {
             if (!hasUncaughtError) {
               hasUncaughtError = true;
               firstUncaughtError = error2;
             }
           }
+          __name(prepareToThrowUncaughtError, "prepareToThrowUncaughtError");
           var onUncaughtError = prepareToThrowUncaughtError;
           function captureCommitPhaseErrorOnRoot(rootFiber, sourceFiber, error2) {
             var errorInfo = createCapturedValueAtFiber(error2, sourceFiber);
@@ -20867,6 +21827,7 @@
               ensureRootIsScheduled(root2, eventTime);
             }
           }
+          __name(captureCommitPhaseErrorOnRoot, "captureCommitPhaseErrorOnRoot");
           function captureCommitPhaseError(sourceFiber, nearestMountedAncestor, error$1) {
             {
               reportUncaughtErrorInDEV(error$1);
@@ -20905,6 +21866,7 @@
               error("Internal React error: Attempted to capture a commit phase error inside a detached tree. This indicates a bug in React. Likely causes include deleting the same fiber more than once, committing an already-finished tree, or an inconsistent return pointer.\n\nError message:\n\n%s", error$1);
             }
           }
+          __name(captureCommitPhaseError, "captureCommitPhaseError");
           function pingSuspendedRoot(root2, wakeable, pingedLanes) {
             var pingCache = root2.pingCache;
             if (pingCache !== null) {
@@ -20922,6 +21884,7 @@
             }
             ensureRootIsScheduled(root2, eventTime);
           }
+          __name(pingSuspendedRoot, "pingSuspendedRoot");
           function retryTimedOutBoundary(boundaryFiber, retryLane) {
             if (retryLane === NoLane) {
               retryLane = requestRetryLane(boundaryFiber);
@@ -20933,6 +21896,7 @@
               ensureRootIsScheduled(root2, eventTime);
             }
           }
+          __name(retryTimedOutBoundary, "retryTimedOutBoundary");
           function retryDehydratedSuspenseBoundary(boundaryFiber) {
             var suspenseState = boundaryFiber.memoizedState;
             var retryLane = NoLane;
@@ -20941,6 +21905,7 @@
             }
             retryTimedOutBoundary(boundaryFiber, retryLane);
           }
+          __name(retryDehydratedSuspenseBoundary, "retryDehydratedSuspenseBoundary");
           function resolveRetryWakeable(boundaryFiber, wakeable) {
             var retryLane = NoLane;
             var retryCache;
@@ -20963,9 +21928,11 @@
             }
             retryTimedOutBoundary(boundaryFiber, retryLane);
           }
+          __name(resolveRetryWakeable, "resolveRetryWakeable");
           function jnd(timeElapsed) {
             return timeElapsed < 120 ? 120 : timeElapsed < 480 ? 480 : timeElapsed < 1080 ? 1080 : timeElapsed < 1920 ? 1920 : timeElapsed < 3e3 ? 3e3 : timeElapsed < 4320 ? 4320 : ceil(timeElapsed / 1960) * 1960;
           }
+          __name(jnd, "jnd");
           function checkForNestedUpdates() {
             if (nestedUpdateCount > NESTED_UPDATE_LIMIT) {
               nestedUpdateCount = 0;
@@ -20980,6 +21947,7 @@
               }
             }
           }
+          __name(checkForNestedUpdates, "checkForNestedUpdates");
           function flushRenderPhaseStrictModeWarningsInDEV() {
             {
               ReactStrictModeWarnings.flushLegacyContextWarning();
@@ -20988,6 +21956,7 @@
               }
             }
           }
+          __name(flushRenderPhaseStrictModeWarningsInDEV, "flushRenderPhaseStrictModeWarningsInDEV");
           function commitDoubleInvokeEffectsInDEV(fiber, hasPassiveEffects) {
             {
               setCurrentFiber(fiber);
@@ -21002,6 +21971,7 @@
               resetCurrentFiber();
             }
           }
+          __name(commitDoubleInvokeEffectsInDEV, "commitDoubleInvokeEffectsInDEV");
           function invokeEffectsInDev(firstChild, fiberFlags, invokeEffectFn) {
             {
               var current2 = firstChild;
@@ -21023,6 +21993,7 @@
               }
             }
           }
+          __name(invokeEffectsInDev, "invokeEffectsInDev");
           var didWarnStateUpdateForNotYetMountedComponent = null;
           function warnAboutUpdateOnNotYetMountedFiberInDEV(fiber) {
             {
@@ -21058,10 +22029,11 @@
               }
             }
           }
+          __name(warnAboutUpdateOnNotYetMountedFiberInDEV, "warnAboutUpdateOnNotYetMountedFiberInDEV");
           var beginWork$1;
           {
             var dummyFiber = null;
-            beginWork$1 = function(current2, unitOfWork, lanes) {
+            beginWork$1 = /* @__PURE__ */ __name(function(current2, unitOfWork, lanes) {
               var originalWorkInProgressCopy = assignFiberPropertiesInDEV(dummyFiber, unitOfWork);
               try {
                 return beginWork(current2, unitOfWork, lanes);
@@ -21085,7 +22057,7 @@
                 }
                 throw originalError;
               }
-            };
+            }, "beginWork$1");
           }
           var didWarnAboutUpdateInRender = false;
           var didWarnAboutUpdateInRenderForAnotherComponent;
@@ -21119,6 +22091,7 @@
               }
             }
           }
+          __name(warnAboutRenderPhaseUpdatesInDEV, "warnAboutRenderPhaseUpdatesInDEV");
           function restorePendingUpdaters(root2, lanes) {
             {
               if (isDevToolsPresent) {
@@ -21129,6 +22102,7 @@
               }
             }
           }
+          __name(restorePendingUpdaters, "restorePendingUpdaters");
           var fakeActCallbackNode = {};
           function scheduleCallback$1(priorityLevel, callback) {
             {
@@ -21141,15 +22115,18 @@
               }
             }
           }
+          __name(scheduleCallback$1, "scheduleCallback$1");
           function cancelCallback$1(callbackNode) {
             if (callbackNode === fakeActCallbackNode) {
               return;
             }
             return cancelCallback(callbackNode);
           }
+          __name(cancelCallback$1, "cancelCallback$1");
           function shouldForceFlushFallbacksInDEV() {
             return ReactCurrentActQueue$1.current !== null;
           }
+          __name(shouldForceFlushFallbacksInDEV, "shouldForceFlushFallbacksInDEV");
           function warnIfUpdatesNotWrappedWithActDEV(fiber) {
             {
               if (fiber.mode & ConcurrentMode) {
@@ -21182,6 +22159,7 @@
               }
             }
           }
+          __name(warnIfUpdatesNotWrappedWithActDEV, "warnIfUpdatesNotWrappedWithActDEV");
           function warnIfSuspenseResolutionNotWrappedWithActDEV(root2) {
             {
               if (root2.tag !== LegacyRoot && isConcurrentActEnvironment() && ReactCurrentActQueue$1.current === null) {
@@ -21189,18 +22167,20 @@
               }
             }
           }
+          __name(warnIfSuspenseResolutionNotWrappedWithActDEV, "warnIfSuspenseResolutionNotWrappedWithActDEV");
           function setIsRunningInsertionEffect(isRunning) {
             {
               isRunningInsertionEffect = isRunning;
             }
           }
+          __name(setIsRunningInsertionEffect, "setIsRunningInsertionEffect");
           var resolveFamily = null;
           var failedBoundaries = null;
-          var setRefreshHandler = function(handler) {
+          var setRefreshHandler = /* @__PURE__ */ __name(function(handler) {
             {
               resolveFamily = handler;
             }
-          };
+          }, "setRefreshHandler");
           function resolveFunctionForHotReloading(type) {
             {
               if (resolveFamily === null) {
@@ -21213,9 +22193,11 @@
               return family.current;
             }
           }
+          __name(resolveFunctionForHotReloading, "resolveFunctionForHotReloading");
           function resolveClassForHotReloading(type) {
             return resolveFunctionForHotReloading(type);
           }
+          __name(resolveClassForHotReloading, "resolveClassForHotReloading");
           function resolveForwardRefForHotReloading(type) {
             {
               if (resolveFamily === null) {
@@ -21241,6 +22223,7 @@
               return family.current;
             }
           }
+          __name(resolveForwardRefForHotReloading, "resolveForwardRefForHotReloading");
           function isCompatibleFamilyForHotReloading(fiber, element) {
             {
               if (resolveFamily === null) {
@@ -21294,6 +22277,7 @@
               return false;
             }
           }
+          __name(isCompatibleFamilyForHotReloading, "isCompatibleFamilyForHotReloading");
           function markFailedErrorBoundaryForHotReloading(fiber) {
             {
               if (resolveFamily === null) {
@@ -21308,7 +22292,8 @@
               failedBoundaries.add(fiber);
             }
           }
-          var scheduleRefresh = function(root2, update) {
+          __name(markFailedErrorBoundaryForHotReloading, "markFailedErrorBoundaryForHotReloading");
+          var scheduleRefresh = /* @__PURE__ */ __name(function(root2, update) {
             {
               if (resolveFamily === null) {
                 return;
@@ -21319,8 +22304,8 @@
                 scheduleFibersWithFamiliesRecursively(root2.current, updatedFamilies, staleFamilies);
               });
             }
-          };
-          var scheduleRoot = function(root2, element) {
+          }, "scheduleRefresh");
+          var scheduleRoot = /* @__PURE__ */ __name(function(root2, element) {
             {
               if (root2.context !== emptyContextObject) {
                 return;
@@ -21330,7 +22315,7 @@
                 updateContainer(element, root2, null, null);
               });
             }
-          };
+          }, "scheduleRoot");
           function scheduleFibersWithFamiliesRecursively(fiber, updatedFamilies, staleFamilies) {
             {
               var alternate = fiber.alternate, child = fiber.child, sibling = fiber.sibling, tag = fiber.tag, type = fiber.type;
@@ -21386,7 +22371,8 @@
               }
             }
           }
-          var findHostInstancesForRefresh = function(root2, families) {
+          __name(scheduleFibersWithFamiliesRecursively, "scheduleFibersWithFamiliesRecursively");
+          var findHostInstancesForRefresh = /* @__PURE__ */ __name(function(root2, families) {
             {
               var hostInstances = /* @__PURE__ */ new Set();
               var types = new Set(families.map(function(family) {
@@ -21395,7 +22381,7 @@
               findHostInstancesForMatchingFibersRecursively(root2.current, types, hostInstances);
               return hostInstances;
             }
-          };
+          }, "findHostInstancesForRefresh");
           function findHostInstancesForMatchingFibersRecursively(fiber, types, hostInstances) {
             {
               var child = fiber.child, sibling = fiber.sibling, tag = fiber.tag, type = fiber.type;
@@ -21428,6 +22414,7 @@
               }
             }
           }
+          __name(findHostInstancesForMatchingFibersRecursively, "findHostInstancesForMatchingFibersRecursively");
           function findHostInstancesForFiberShallowly(fiber, hostInstances) {
             {
               var foundHostInstances = findChildHostInstancesForFiberShallowly(fiber, hostInstances);
@@ -21454,6 +22441,7 @@
               }
             }
           }
+          __name(findHostInstancesForFiberShallowly, "findHostInstancesForFiberShallowly");
           function findChildHostInstancesForFiberShallowly(fiber, hostInstances) {
             {
               var node = fiber;
@@ -21482,6 +22470,7 @@
             }
             return false;
           }
+          __name(findChildHostInstancesForFiberShallowly, "findChildHostInstancesForFiberShallowly");
           var hasBadMapPolyfill;
           {
             hasBadMapPolyfill = false;
@@ -21536,16 +22525,19 @@
               }
             }
           }
-          var createFiber = function(tag, pendingProps, key, mode) {
+          __name(FiberNode, "FiberNode");
+          var createFiber = /* @__PURE__ */ __name(function(tag, pendingProps, key, mode) {
             return new FiberNode(tag, pendingProps, key, mode);
-          };
+          }, "createFiber");
           function shouldConstruct$1(Component) {
             var prototype = Component.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
+          __name(shouldConstruct$1, "shouldConstruct$1");
           function isSimpleFunctionComponent(type) {
             return typeof type === "function" && !shouldConstruct$1(type) && type.defaultProps === void 0;
           }
+          __name(isSimpleFunctionComponent, "isSimpleFunctionComponent");
           function resolveLazyComponentTag(Component) {
             if (typeof Component === "function") {
               return shouldConstruct$1(Component) ? ClassComponent : FunctionComponent;
@@ -21560,6 +22552,7 @@
             }
             return IndeterminateComponent;
           }
+          __name(resolveLazyComponentTag, "resolveLazyComponentTag");
           function createWorkInProgress(current2, pendingProps) {
             var workInProgress2 = current2.alternate;
             if (workInProgress2 === null) {
@@ -21622,6 +22615,7 @@
             }
             return workInProgress2;
           }
+          __name(createWorkInProgress, "createWorkInProgress");
           function resetWorkInProgress(workInProgress2, renderLanes2) {
             workInProgress2.flags &= StaticMask | Placement;
             var current2 = workInProgress2.alternate;
@@ -21661,6 +22655,7 @@
             }
             return workInProgress2;
           }
+          __name(resetWorkInProgress, "resetWorkInProgress");
           function createHostRootFiber(tag, isStrictMode, concurrentUpdatesByDefaultOverride) {
             var mode;
             if (tag === ConcurrentRoot) {
@@ -21679,6 +22674,7 @@
             }
             return createFiber(HostRoot, null, null, mode);
           }
+          __name(createHostRootFiber, "createHostRootFiber");
           function createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, lanes) {
             var fiberTag = IndeterminateComponent;
             var resolvedType = type;
@@ -21767,6 +22763,7 @@
             }
             return fiber;
           }
+          __name(createFiberFromTypeAndProps, "createFiberFromTypeAndProps");
           function createFiberFromElement(element, mode, lanes) {
             var owner = null;
             {
@@ -21782,11 +22779,13 @@
             }
             return fiber;
           }
+          __name(createFiberFromElement, "createFiberFromElement");
           function createFiberFromFragment(elements, mode, lanes, key) {
             var fiber = createFiber(Fragment, elements, key, mode);
             fiber.lanes = lanes;
             return fiber;
           }
+          __name(createFiberFromFragment, "createFiberFromFragment");
           function createFiberFromProfiler(pendingProps, mode, lanes, key) {
             {
               if (typeof pendingProps.id !== "string") {
@@ -21804,18 +22803,21 @@
             }
             return fiber;
           }
+          __name(createFiberFromProfiler, "createFiberFromProfiler");
           function createFiberFromSuspense(pendingProps, mode, lanes, key) {
             var fiber = createFiber(SuspenseComponent, pendingProps, key, mode);
             fiber.elementType = REACT_SUSPENSE_TYPE;
             fiber.lanes = lanes;
             return fiber;
           }
+          __name(createFiberFromSuspense, "createFiberFromSuspense");
           function createFiberFromSuspenseList(pendingProps, mode, lanes, key) {
             var fiber = createFiber(SuspenseListComponent, pendingProps, key, mode);
             fiber.elementType = REACT_SUSPENSE_LIST_TYPE;
             fiber.lanes = lanes;
             return fiber;
           }
+          __name(createFiberFromSuspenseList, "createFiberFromSuspenseList");
           function createFiberFromOffscreen(pendingProps, mode, lanes, key) {
             var fiber = createFiber(OffscreenComponent, pendingProps, key, mode);
             fiber.elementType = REACT_OFFSCREEN_TYPE;
@@ -21826,21 +22828,25 @@
             fiber.stateNode = primaryChildInstance;
             return fiber;
           }
+          __name(createFiberFromOffscreen, "createFiberFromOffscreen");
           function createFiberFromText(content, mode, lanes) {
             var fiber = createFiber(HostText, content, null, mode);
             fiber.lanes = lanes;
             return fiber;
           }
+          __name(createFiberFromText, "createFiberFromText");
           function createFiberFromHostInstanceForDeletion() {
             var fiber = createFiber(HostComponent, null, null, NoMode);
             fiber.elementType = "DELETED";
             return fiber;
           }
+          __name(createFiberFromHostInstanceForDeletion, "createFiberFromHostInstanceForDeletion");
           function createFiberFromDehydratedFragment(dehydratedNode) {
             var fiber = createFiber(DehydratedFragment, null, null, NoMode);
             fiber.stateNode = dehydratedNode;
             return fiber;
           }
+          __name(createFiberFromDehydratedFragment, "createFiberFromDehydratedFragment");
           function createFiberFromPortal(portal, mode, lanes) {
             var pendingProps = portal.children !== null ? portal.children : [];
             var fiber = createFiber(HostPortal, pendingProps, portal.key, mode);
@@ -21852,6 +22858,7 @@
             };
             return fiber;
           }
+          __name(createFiberFromPortal, "createFiberFromPortal");
           function assignFiberPropertiesInDEV(target, source) {
             if (target === null) {
               target = createFiber(IndeterminateComponent, null, null, NoMode);
@@ -21890,6 +22897,7 @@
             target._debugHookTypes = source._debugHookTypes;
             return target;
           }
+          __name(assignFiberPropertiesInDEV, "assignFiberPropertiesInDEV");
           function FiberRootNode(containerInfo, tag, hydrate2, identifierPrefix, onRecoverableError) {
             this.tag = tag;
             this.containerInfo = containerInfo;
@@ -21939,6 +22947,7 @@
               }
             }
           }
+          __name(FiberRootNode, "FiberRootNode");
           function createFiberRoot(containerInfo, tag, hydrate2, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError, transitionCallbacks) {
             var root2 = new FiberRootNode(containerInfo, tag, hydrate2, identifierPrefix, onRecoverableError);
             var uninitializedFiber = createHostRootFiber(tag, isStrictMode);
@@ -21957,6 +22966,7 @@
             initializeUpdateQueue(uninitializedFiber);
             return root2;
           }
+          __name(createFiberRoot, "createFiberRoot");
           var ReactVersion = "18.2.0";
           function createPortal(children, containerInfo, implementation) {
             var key = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
@@ -21971,6 +22981,7 @@
               implementation
             };
           }
+          __name(createPortal, "createPortal");
           var didWarnAboutNestedUpdates;
           var didWarnAboutFindNodeInStrictMode;
           {
@@ -21991,6 +23002,7 @@
             }
             return parentContext;
           }
+          __name(getContextForSubtree, "getContextForSubtree");
           function findHostInstanceWithWarning(component, methodName) {
             {
               var fiber = get(component);
@@ -22030,11 +23042,13 @@
               return hostFiber.stateNode;
             }
           }
+          __name(findHostInstanceWithWarning, "findHostInstanceWithWarning");
           function createContainer(containerInfo, tag, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError, transitionCallbacks) {
             var hydrate2 = false;
             var initialChildren = null;
             return createFiberRoot(containerInfo, tag, hydrate2, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError);
           }
+          __name(createContainer, "createContainer");
           function createHydrationContainer(initialChildren, callback, containerInfo, tag, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError, transitionCallbacks) {
             var hydrate2 = true;
             var root2 = createFiberRoot(containerInfo, tag, hydrate2, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError);
@@ -22048,6 +23062,7 @@
             scheduleInitialHydrationOnRoot(root2, lane, eventTime);
             return root2;
           }
+          __name(createHydrationContainer, "createHydrationContainer");
           function updateContainer(element, container, parentComponent, callback) {
             {
               onScheduleRoot(container, element);
@@ -22090,6 +23105,7 @@
             }
             return lane;
           }
+          __name(updateContainer, "updateContainer");
           function getPublicRootInstance(container) {
             var containerFiber = container.current;
             if (!containerFiber.child) {
@@ -22102,6 +23118,7 @@
                 return containerFiber.child.stateNode;
             }
           }
+          __name(getPublicRootInstance, "getPublicRootInstance");
           function attemptSynchronousHydration$1(fiber) {
             switch (fiber.tag) {
               case HostRoot: {
@@ -22126,12 +23143,14 @@
               }
             }
           }
+          __name(attemptSynchronousHydration$1, "attemptSynchronousHydration$1");
           function markRetryLaneImpl(fiber, retryLane) {
             var suspenseState = fiber.memoizedState;
             if (suspenseState !== null && suspenseState.dehydrated !== null) {
               suspenseState.retryLane = higherPriorityLane(suspenseState.retryLane, retryLane);
             }
           }
+          __name(markRetryLaneImpl, "markRetryLaneImpl");
           function markRetryLaneIfNotHydrated(fiber, retryLane) {
             markRetryLaneImpl(fiber, retryLane);
             var alternate = fiber.alternate;
@@ -22139,6 +23158,7 @@
               markRetryLaneImpl(alternate, retryLane);
             }
           }
+          __name(markRetryLaneIfNotHydrated, "markRetryLaneIfNotHydrated");
           function attemptContinuousHydration$1(fiber) {
             if (fiber.tag !== SuspenseComponent) {
               return;
@@ -22151,6 +23171,7 @@
             }
             markRetryLaneIfNotHydrated(fiber, lane);
           }
+          __name(attemptContinuousHydration$1, "attemptContinuousHydration$1");
           function attemptHydrationAtCurrentPriority$1(fiber) {
             if (fiber.tag !== SuspenseComponent) {
               return;
@@ -22163,6 +23184,7 @@
             }
             markRetryLaneIfNotHydrated(fiber, lane);
           }
+          __name(attemptHydrationAtCurrentPriority$1, "attemptHydrationAtCurrentPriority$1");
           function findHostInstanceWithNoPortals(fiber) {
             var hostFiber = findCurrentHostFiberWithNoPortals(fiber);
             if (hostFiber === null) {
@@ -22170,18 +23192,21 @@
             }
             return hostFiber.stateNode;
           }
-          var shouldErrorImpl = function(fiber) {
+          __name(findHostInstanceWithNoPortals, "findHostInstanceWithNoPortals");
+          var shouldErrorImpl = /* @__PURE__ */ __name(function(fiber) {
             return null;
-          };
+          }, "shouldErrorImpl");
           function shouldError(fiber) {
             return shouldErrorImpl(fiber);
           }
-          var shouldSuspendImpl = function(fiber) {
+          __name(shouldError, "shouldError");
+          var shouldSuspendImpl = /* @__PURE__ */ __name(function(fiber) {
             return false;
-          };
+          }, "shouldSuspendImpl");
           function shouldSuspend(fiber) {
             return shouldSuspendImpl(fiber);
           }
+          __name(shouldSuspend, "shouldSuspend");
           var overrideHookState = null;
           var overrideHookStateDeletePath = null;
           var overrideHookStateRenamePath = null;
@@ -22192,7 +23217,7 @@
           var setErrorHandler = null;
           var setSuspenseHandler = null;
           {
-            var copyWithDeleteImpl = function(obj, path, index2) {
+            var copyWithDeleteImpl = /* @__PURE__ */ __name(function(obj, path, index2) {
               var key = path[index2];
               var updated = isArray(obj) ? obj.slice() : assign({}, obj);
               if (index2 + 1 === path.length) {
@@ -22205,11 +23230,11 @@
               }
               updated[key] = copyWithDeleteImpl(obj[key], path, index2 + 1);
               return updated;
-            };
-            var copyWithDelete = function(obj, path) {
+            }, "copyWithDeleteImpl");
+            var copyWithDelete = /* @__PURE__ */ __name(function(obj, path) {
               return copyWithDeleteImpl(obj, path, 0);
-            };
-            var copyWithRenameImpl = function(obj, oldPath, newPath, index2) {
+            }, "copyWithDelete");
+            var copyWithRenameImpl = /* @__PURE__ */ __name(function(obj, oldPath, newPath, index2) {
               var oldKey = oldPath[index2];
               var updated = isArray(obj) ? obj.slice() : assign({}, obj);
               if (index2 + 1 === oldPath.length) {
@@ -22229,8 +23254,8 @@
                 );
               }
               return updated;
-            };
-            var copyWithRename = function(obj, oldPath, newPath) {
+            }, "copyWithRenameImpl");
+            var copyWithRename = /* @__PURE__ */ __name(function(obj, oldPath, newPath) {
               if (oldPath.length !== newPath.length) {
                 warn("copyWithRename() expects paths of the same length");
                 return;
@@ -22243,8 +23268,8 @@
                 }
               }
               return copyWithRenameImpl(obj, oldPath, newPath, 0);
-            };
-            var copyWithSetImpl = function(obj, path, index2, value) {
+            }, "copyWithRename");
+            var copyWithSetImpl = /* @__PURE__ */ __name(function(obj, path, index2, value) {
               if (index2 >= path.length) {
                 return value;
               }
@@ -22252,19 +23277,19 @@
               var updated = isArray(obj) ? obj.slice() : assign({}, obj);
               updated[key] = copyWithSetImpl(obj[key], path, index2 + 1, value);
               return updated;
-            };
-            var copyWithSet = function(obj, path, value) {
+            }, "copyWithSetImpl");
+            var copyWithSet = /* @__PURE__ */ __name(function(obj, path, value) {
               return copyWithSetImpl(obj, path, 0, value);
-            };
-            var findHook = function(fiber, id) {
+            }, "copyWithSet");
+            var findHook = /* @__PURE__ */ __name(function(fiber, id) {
               var currentHook2 = fiber.memoizedState;
               while (currentHook2 !== null && id > 0) {
                 currentHook2 = currentHook2.next;
                 id--;
               }
               return currentHook2;
-            };
-            overrideHookState = function(fiber, id, path, value) {
+            }, "findHook");
+            overrideHookState = /* @__PURE__ */ __name(function(fiber, id, path, value) {
               var hook = findHook(fiber, id);
               if (hook !== null) {
                 var newState = copyWithSet(hook.memoizedState, path, value);
@@ -22276,8 +23301,8 @@
                   scheduleUpdateOnFiber(root2, fiber, SyncLane, NoTimestamp);
                 }
               }
-            };
-            overrideHookStateDeletePath = function(fiber, id, path) {
+            }, "overrideHookState");
+            overrideHookStateDeletePath = /* @__PURE__ */ __name(function(fiber, id, path) {
               var hook = findHook(fiber, id);
               if (hook !== null) {
                 var newState = copyWithDelete(hook.memoizedState, path);
@@ -22289,8 +23314,8 @@
                   scheduleUpdateOnFiber(root2, fiber, SyncLane, NoTimestamp);
                 }
               }
-            };
-            overrideHookStateRenamePath = function(fiber, id, oldPath, newPath) {
+            }, "overrideHookStateDeletePath");
+            overrideHookStateRenamePath = /* @__PURE__ */ __name(function(fiber, id, oldPath, newPath) {
               var hook = findHook(fiber, id);
               if (hook !== null) {
                 var newState = copyWithRename(hook.memoizedState, oldPath, newPath);
@@ -22302,8 +23327,8 @@
                   scheduleUpdateOnFiber(root2, fiber, SyncLane, NoTimestamp);
                 }
               }
-            };
-            overrideProps = function(fiber, path, value) {
+            }, "overrideHookStateRenamePath");
+            overrideProps = /* @__PURE__ */ __name(function(fiber, path, value) {
               fiber.pendingProps = copyWithSet(fiber.memoizedProps, path, value);
               if (fiber.alternate) {
                 fiber.alternate.pendingProps = fiber.pendingProps;
@@ -22312,8 +23337,8 @@
               if (root2 !== null) {
                 scheduleUpdateOnFiber(root2, fiber, SyncLane, NoTimestamp);
               }
-            };
-            overridePropsDeletePath = function(fiber, path) {
+            }, "overrideProps");
+            overridePropsDeletePath = /* @__PURE__ */ __name(function(fiber, path) {
               fiber.pendingProps = copyWithDelete(fiber.memoizedProps, path);
               if (fiber.alternate) {
                 fiber.alternate.pendingProps = fiber.pendingProps;
@@ -22322,8 +23347,8 @@
               if (root2 !== null) {
                 scheduleUpdateOnFiber(root2, fiber, SyncLane, NoTimestamp);
               }
-            };
-            overridePropsRenamePath = function(fiber, oldPath, newPath) {
+            }, "overridePropsDeletePath");
+            overridePropsRenamePath = /* @__PURE__ */ __name(function(fiber, oldPath, newPath) {
               fiber.pendingProps = copyWithRename(fiber.memoizedProps, oldPath, newPath);
               if (fiber.alternate) {
                 fiber.alternate.pendingProps = fiber.pendingProps;
@@ -22332,19 +23357,19 @@
               if (root2 !== null) {
                 scheduleUpdateOnFiber(root2, fiber, SyncLane, NoTimestamp);
               }
-            };
-            scheduleUpdate = function(fiber) {
+            }, "overridePropsRenamePath");
+            scheduleUpdate = /* @__PURE__ */ __name(function(fiber) {
               var root2 = enqueueConcurrentRenderForLane(fiber, SyncLane);
               if (root2 !== null) {
                 scheduleUpdateOnFiber(root2, fiber, SyncLane, NoTimestamp);
               }
-            };
-            setErrorHandler = function(newShouldErrorImpl) {
+            }, "scheduleUpdate");
+            setErrorHandler = /* @__PURE__ */ __name(function(newShouldErrorImpl) {
               shouldErrorImpl = newShouldErrorImpl;
-            };
-            setSuspenseHandler = function(newShouldSuspendImpl) {
+            }, "setErrorHandler");
+            setSuspenseHandler = /* @__PURE__ */ __name(function(newShouldSuspendImpl) {
               shouldSuspendImpl = newShouldSuspendImpl;
-            };
+            }, "setSuspenseHandler");
           }
           function findHostInstanceByFiber(fiber) {
             var hostFiber = findCurrentHostFiber(fiber);
@@ -22353,12 +23378,15 @@
             }
             return hostFiber.stateNode;
           }
+          __name(findHostInstanceByFiber, "findHostInstanceByFiber");
           function emptyFindFiberByHostInstance(instance) {
             return null;
           }
+          __name(emptyFindFiberByHostInstance, "emptyFindFiberByHostInstance");
           function getCurrentFiberForDevTools() {
             return current;
           }
+          __name(getCurrentFiberForDevTools, "getCurrentFiberForDevTools");
           function injectIntoDevTools(devToolsConfig) {
             var findFiberByHostInstance = devToolsConfig.findFiberByHostInstance;
             var ReactCurrentDispatcher2 = ReactSharedInternals.ReactCurrentDispatcher;
@@ -22387,12 +23415,14 @@
               reconcilerVersion: ReactVersion
             });
           }
+          __name(injectIntoDevTools, "injectIntoDevTools");
           var defaultOnRecoverableError = typeof reportError === "function" ? reportError : function(error2) {
             console["error"](error2);
           };
           function ReactDOMRoot(internalRoot) {
             this._internalRoot = internalRoot;
           }
+          __name(ReactDOMRoot, "ReactDOMRoot");
           ReactDOMHydrationRoot.prototype.render = ReactDOMRoot.prototype.render = function(children) {
             var root2 = this._internalRoot;
             if (root2 === null) {
@@ -22478,14 +23508,17 @@
             listenToAllSupportedEvents(rootContainerElement);
             return new ReactDOMRoot(root2);
           }
+          __name(createRoot, "createRoot");
           function ReactDOMHydrationRoot(internalRoot) {
             this._internalRoot = internalRoot;
           }
+          __name(ReactDOMHydrationRoot, "ReactDOMHydrationRoot");
           function scheduleHydration(target) {
             if (target) {
               queueExplicitHydrationTarget(target);
             }
           }
+          __name(scheduleHydration, "scheduleHydration");
           ReactDOMHydrationRoot.prototype.unstable_scheduleHydration = scheduleHydration;
           function hydrateRoot(container, initialChildren, options2) {
             if (!isValidContainer(container)) {
@@ -22525,12 +23558,15 @@
             }
             return new ReactDOMHydrationRoot(root2);
           }
+          __name(hydrateRoot, "hydrateRoot");
           function isValidContainer(node) {
             return !!(node && (node.nodeType === ELEMENT_NODE || node.nodeType === DOCUMENT_NODE || node.nodeType === DOCUMENT_FRAGMENT_NODE || !disableCommentsAsDOMContainers));
           }
+          __name(isValidContainer, "isValidContainer");
           function isValidContainerLegacy(node) {
             return !!(node && (node.nodeType === ELEMENT_NODE || node.nodeType === DOCUMENT_NODE || node.nodeType === DOCUMENT_FRAGMENT_NODE || node.nodeType === COMMENT_NODE && node.nodeValue === " react-mount-point-unstable "));
           }
+          __name(isValidContainerLegacy, "isValidContainerLegacy");
           function warnIfReactDOMContainerInDEV(container) {
             {
               if (container.nodeType === ELEMENT_NODE && container.tagName && container.tagName.toUpperCase() === "BODY") {
@@ -22545,10 +23581,11 @@
               }
             }
           }
+          __name(warnIfReactDOMContainerInDEV, "warnIfReactDOMContainerInDEV");
           var ReactCurrentOwner$3 = ReactSharedInternals.ReactCurrentOwner;
           var topLevelUpdateWarnings;
           {
-            topLevelUpdateWarnings = function(container) {
+            topLevelUpdateWarnings = /* @__PURE__ */ __name(function(container) {
               if (container._reactRootContainer && container.nodeType !== COMMENT_NODE) {
                 var hostInstance = findHostInstanceWithNoPortals(container._reactRootContainer.current);
                 if (hostInstance) {
@@ -22566,7 +23603,7 @@
               if (container.nodeType === ELEMENT_NODE && container.tagName && container.tagName.toUpperCase() === "BODY") {
                 error("render(): Rendering components directly into document.body is discouraged, since its children are often manipulated by third-party scripts and browser extensions. This may lead to subtle reconciliation issues. Try rendering into a container element created for your app.");
               }
-            };
+            }, "topLevelUpdateWarnings");
           }
           function getReactRootElementInContainer(container) {
             if (!container) {
@@ -22578,16 +23615,18 @@
               return container.firstChild;
             }
           }
+          __name(getReactRootElementInContainer, "getReactRootElementInContainer");
           function noopOnRecoverableError() {
           }
+          __name(noopOnRecoverableError, "noopOnRecoverableError");
           function legacyCreateRootFromDOMContainer(container, initialChildren, parentComponent, callback, isHydrationContainer) {
             if (isHydrationContainer) {
               if (typeof callback === "function") {
                 var originalCallback = callback;
-                callback = function() {
+                callback = /* @__PURE__ */ __name(function() {
                   var instance = getPublicRootInstance(root2);
                   originalCallback.call(instance);
-                };
+                }, "callback");
               }
               var root2 = createHydrationContainer(
                 initialChildren,
@@ -22613,10 +23652,10 @@
               }
               if (typeof callback === "function") {
                 var _originalCallback = callback;
-                callback = function() {
+                callback = /* @__PURE__ */ __name(function() {
                   var instance = getPublicRootInstance(_root);
                   _originalCallback.call(instance);
-                };
+                }, "callback");
               }
               var _root = createContainer(
                 container,
@@ -22637,6 +23676,7 @@
               return _root;
             }
           }
+          __name(legacyCreateRootFromDOMContainer, "legacyCreateRootFromDOMContainer");
           function warnOnInvalidCallback$1(callback, callerName) {
             {
               if (callback !== null && typeof callback !== "function") {
@@ -22644,6 +23684,7 @@
               }
             }
           }
+          __name(warnOnInvalidCallback$1, "warnOnInvalidCallback$1");
           function legacyRenderSubtreeIntoContainer(parentComponent, children, container, forceHydrate, callback) {
             {
               topLevelUpdateWarnings(container);
@@ -22657,15 +23698,16 @@
               root2 = maybeRoot;
               if (typeof callback === "function") {
                 var originalCallback = callback;
-                callback = function() {
+                callback = /* @__PURE__ */ __name(function() {
                   var instance = getPublicRootInstance(root2);
                   originalCallback.call(instance);
-                };
+                }, "callback");
               }
               updateContainer(children, root2, parentComponent, callback);
             }
             return getPublicRootInstance(root2);
           }
+          __name(legacyRenderSubtreeIntoContainer, "legacyRenderSubtreeIntoContainer");
           function findDOMNode(componentOrElement) {
             {
               var owner = ReactCurrentOwner$3.current;
@@ -22687,6 +23729,7 @@
               return findHostInstanceWithWarning(componentOrElement, "findDOMNode");
             }
           }
+          __name(findDOMNode, "findDOMNode");
           function hydrate(element, container, callback) {
             {
               error("ReactDOM.hydrate is no longer supported in React 18. Use hydrateRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot");
@@ -22702,6 +23745,7 @@
             }
             return legacyRenderSubtreeIntoContainer(null, element, container, true, callback);
           }
+          __name(hydrate, "hydrate");
           function render(element, container, callback) {
             {
               error("ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot");
@@ -22717,6 +23761,7 @@
             }
             return legacyRenderSubtreeIntoContainer(null, element, container, false, callback);
           }
+          __name(render, "render");
           function unstable_renderSubtreeIntoContainer(parentComponent, element, containerNode, callback) {
             {
               error("ReactDOM.unstable_renderSubtreeIntoContainer() is no longer supported in React 18. Consider using a portal instead. Until you switch to the createRoot API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot");
@@ -22729,6 +23774,7 @@
             }
             return legacyRenderSubtreeIntoContainer(parentComponent, element, containerNode, false, callback);
           }
+          __name(unstable_renderSubtreeIntoContainer, "unstable_renderSubtreeIntoContainer");
           function unmountComponentAtNode(container) {
             if (!isValidContainerLegacy(container)) {
               throw new Error("unmountComponentAtNode(...): Target container is not a DOM element.");
@@ -22766,6 +23812,7 @@
               return false;
             }
           }
+          __name(unmountComponentAtNode, "unmountComponentAtNode");
           setAttemptSynchronousHydration(attemptSynchronousHydration$1);
           setAttemptContinuousHydration(attemptContinuousHydration$1);
           setAttemptHydrationAtCurrentPriority(attemptHydrationAtCurrentPriority$1);
@@ -22785,9 +23832,11 @@
             }
             return createPortal(children, container, null, key);
           }
+          __name(createPortal$1, "createPortal$1");
           function renderSubtreeIntoContainer(parentComponent, element, containerNode, callback) {
             return unstable_renderSubtreeIntoContainer(parentComponent, element, containerNode, callback);
           }
+          __name(renderSubtreeIntoContainer, "renderSubtreeIntoContainer");
           var Internals = {
             usingClientEntryPoint: false,
             Events: [getInstanceFromNode, getNodeFromInstance, getFiberCurrentPropsFromNode, enqueueStateRestore, restoreStateIfNeeded, batchedUpdates$1]
@@ -22800,6 +23849,7 @@
             }
             return createRoot(container, options2);
           }
+          __name(createRoot$1, "createRoot$1");
           function hydrateRoot$1(container, initialChildren, options2) {
             {
               if (!Internals.usingClientEntryPoint && true) {
@@ -22808,6 +23858,7 @@
             }
             return hydrateRoot(container, initialChildren, options2);
           }
+          __name(hydrateRoot$1, "hydrateRoot$1");
           function flushSync$1(fn) {
             {
               if (isAlreadyRendering()) {
@@ -22816,6 +23867,7 @@
             }
             return flushSync(fn);
           }
+          __name(flushSync$1, "flushSync$1");
           var foundDevTools = injectIntoDevTools({
             findFiberByHostInstance: getClosestInstanceFromNode,
             bundleType: 1,
@@ -22932,6 +23984,7 @@
             }
             return null;
           }
+          __name(getIteratorFn, "getIteratorFn");
           var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
@@ -22943,6 +23996,7 @@
               }
             }
           }
+          __name(error, "error");
           function printWarning(level, format, args) {
             {
               var ReactDebugCurrentFrame2 = ReactSharedInternals.ReactDebugCurrentFrame;
@@ -22958,6 +24012,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat);
             }
           }
+          __name(printWarning, "printWarning");
           var enableScopeAPI = false;
           var enableCacheElement = false;
           var enableTransitionTracing = false;
@@ -22981,6 +24036,7 @@
             }
             return false;
           }
+          __name(isValidElementType, "isValidElementType");
           function getWrappedName(outerType, innerType, wrapperName) {
             var displayName = outerType.displayName;
             if (displayName) {
@@ -22989,9 +24045,11 @@
             var functionName = innerType.displayName || innerType.name || "";
             return functionName !== "" ? wrapperName + "(" + functionName + ")" : wrapperName;
           }
+          __name(getWrappedName, "getWrappedName");
           function getContextName(type) {
             return type.displayName || "Context";
           }
+          __name(getContextName, "getContextName");
           function getComponentNameFromType(type) {
             if (type == null) {
               return null;
@@ -23051,6 +24109,7 @@
             }
             return null;
           }
+          __name(getComponentNameFromType, "getComponentNameFromType");
           var assign = Object.assign;
           var disabledDepth = 0;
           var prevLog;
@@ -23062,6 +24121,7 @@
           var prevGroupEnd;
           function disabledLog() {
           }
+          __name(disabledLog, "disabledLog");
           disabledLog.__reactDisabledLog = true;
           function disableLogs() {
             {
@@ -23092,6 +24152,7 @@
               disabledDepth++;
             }
           }
+          __name(disableLogs, "disableLogs");
           function reenableLogs() {
             {
               disabledDepth--;
@@ -23130,6 +24191,7 @@
               }
             }
           }
+          __name(reenableLogs, "reenableLogs");
           var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
           var prefix;
           function describeBuiltInComponentFrame(name, source, ownerFn) {
@@ -23145,6 +24207,7 @@
               return "\n" + prefix + name;
             }
           }
+          __name(describeBuiltInComponentFrame, "describeBuiltInComponentFrame");
           var reentry = false;
           var componentFrameCache;
           {
@@ -23173,9 +24236,9 @@
             }
             try {
               if (construct) {
-                var Fake = function() {
+                var Fake = /* @__PURE__ */ __name(function() {
                   throw Error();
-                };
+                }, "Fake");
                 Object.defineProperty(Fake.prototype, "props", {
                   set: function() {
                     throw Error();
@@ -23254,15 +24317,18 @@
             }
             return syntheticFrame;
           }
+          __name(describeNativeComponentFrame, "describeNativeComponentFrame");
           function describeFunctionComponentFrame(fn, source, ownerFn) {
             {
               return describeNativeComponentFrame(fn, false);
             }
           }
+          __name(describeFunctionComponentFrame, "describeFunctionComponentFrame");
           function shouldConstruct(Component) {
             var prototype = Component.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
+          __name(shouldConstruct, "shouldConstruct");
           function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
             if (type == null) {
               return "";
@@ -23300,6 +24366,7 @@
             }
             return "";
           }
+          __name(describeUnknownElementTypeFrameInDEV, "describeUnknownElementTypeFrameInDEV");
           var hasOwnProperty = Object.prototype.hasOwnProperty;
           var loggedTypeFailures = {};
           var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
@@ -23314,6 +24381,7 @@
               }
             }
           }
+          __name(setCurrentlyValidatingElement, "setCurrentlyValidatingElement");
           function checkPropTypes(typeSpecs, values, location2, componentName, element) {
             {
               var has = Function.call.bind(hasOwnProperty);
@@ -23345,10 +24413,12 @@
               }
             }
           }
+          __name(checkPropTypes, "checkPropTypes");
           var isArrayImpl = Array.isArray;
           function isArray(a) {
             return isArrayImpl(a);
           }
+          __name(isArray, "isArray");
           function typeName(value) {
             {
               var hasToStringTag = typeof Symbol === "function" && Symbol.toStringTag;
@@ -23356,6 +24426,7 @@
               return type;
             }
           }
+          __name(typeName, "typeName");
           function willCoercionThrow(value) {
             {
               try {
@@ -23366,9 +24437,11 @@
               }
             }
           }
+          __name(willCoercionThrow, "willCoercionThrow");
           function testStringCoercion(value) {
             return "" + value;
           }
+          __name(testStringCoercion, "testStringCoercion");
           function checkKeyStringCoercion(value) {
             {
               if (willCoercionThrow(value)) {
@@ -23377,6 +24450,7 @@
               }
             }
           }
+          __name(checkKeyStringCoercion, "checkKeyStringCoercion");
           var ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
           var RESERVED_PROPS = {
             key: true,
@@ -23401,6 +24475,7 @@
             }
             return config.ref !== void 0;
           }
+          __name(hasValidRef, "hasValidRef");
           function hasValidKey(config) {
             {
               if (hasOwnProperty.call(config, "key")) {
@@ -23412,6 +24487,7 @@
             }
             return config.key !== void 0;
           }
+          __name(hasValidKey, "hasValidKey");
           function warnIfStringRefCannotBeAutoConverted(config, self2) {
             {
               if (typeof config.ref === "string" && ReactCurrentOwner.current && self2 && ReactCurrentOwner.current.stateNode !== self2) {
@@ -23423,14 +24499,15 @@
               }
             }
           }
+          __name(warnIfStringRefCannotBeAutoConverted, "warnIfStringRefCannotBeAutoConverted");
           function defineKeyPropWarningGetter(props, displayName) {
             {
-              var warnAboutAccessingKey = function() {
+              var warnAboutAccessingKey = /* @__PURE__ */ __name(function() {
                 if (!specialPropKeyWarningShown) {
                   specialPropKeyWarningShown = true;
                   error("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", displayName);
                 }
-              };
+              }, "warnAboutAccessingKey");
               warnAboutAccessingKey.isReactWarning = true;
               Object.defineProperty(props, "key", {
                 get: warnAboutAccessingKey,
@@ -23438,14 +24515,15 @@
               });
             }
           }
+          __name(defineKeyPropWarningGetter, "defineKeyPropWarningGetter");
           function defineRefPropWarningGetter(props, displayName) {
             {
-              var warnAboutAccessingRef = function() {
+              var warnAboutAccessingRef = /* @__PURE__ */ __name(function() {
                 if (!specialPropRefWarningShown) {
                   specialPropRefWarningShown = true;
                   error("%s: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", displayName);
                 }
-              };
+              }, "warnAboutAccessingRef");
               warnAboutAccessingRef.isReactWarning = true;
               Object.defineProperty(props, "ref", {
                 get: warnAboutAccessingRef,
@@ -23453,7 +24531,8 @@
               });
             }
           }
-          var ReactElement = function(type, key, ref, self2, source, owner, props) {
+          __name(defineRefPropWarningGetter, "defineRefPropWarningGetter");
+          var ReactElement = /* @__PURE__ */ __name(function(type, key, ref, self2, source, owner, props) {
             var element = {
               $$typeof: REACT_ELEMENT_TYPE,
               type,
@@ -23488,7 +24567,7 @@
               }
             }
             return element;
-          };
+          }, "ReactElement");
           function jsxDEV(type, config, maybeKey, source, self2) {
             {
               var propName;
@@ -23536,6 +24615,7 @@
               return ReactElement(type, key, ref, self2, source, ReactCurrentOwner.current, props);
             }
           }
+          __name(jsxDEV, "jsxDEV");
           var ReactCurrentOwner$1 = ReactSharedInternals.ReactCurrentOwner;
           var ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
           function setCurrentlyValidatingElement$1(element) {
@@ -23549,6 +24629,7 @@
               }
             }
           }
+          __name(setCurrentlyValidatingElement$1, "setCurrentlyValidatingElement$1");
           var propTypesMisspellWarningShown;
           {
             propTypesMisspellWarningShown = false;
@@ -23558,6 +24639,7 @@
               return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
             }
           }
+          __name(isValidElement, "isValidElement");
           function getDeclarationErrorAddendum() {
             {
               if (ReactCurrentOwner$1.current) {
@@ -23569,6 +24651,7 @@
               return "";
             }
           }
+          __name(getDeclarationErrorAddendum, "getDeclarationErrorAddendum");
           function getSourceInfoErrorAddendum(source) {
             {
               if (source !== void 0) {
@@ -23579,6 +24662,7 @@
               return "";
             }
           }
+          __name(getSourceInfoErrorAddendum, "getSourceInfoErrorAddendum");
           var ownerHasKeyUseWarning = {};
           function getCurrentComponentErrorInfo(parentType) {
             {
@@ -23592,6 +24676,7 @@
               return info;
             }
           }
+          __name(getCurrentComponentErrorInfo, "getCurrentComponentErrorInfo");
           function validateExplicitKey(element, parentType) {
             {
               if (!element._store || element._store.validated || element.key != null) {
@@ -23612,6 +24697,7 @@
               setCurrentlyValidatingElement$1(null);
             }
           }
+          __name(validateExplicitKey, "validateExplicitKey");
           function validateChildKeys(node, parentType) {
             {
               if (typeof node !== "object") {
@@ -23644,6 +24730,7 @@
               }
             }
           }
+          __name(validateChildKeys, "validateChildKeys");
           function validatePropTypes(element) {
             {
               var type = element.type;
@@ -23671,6 +24758,7 @@
               }
             }
           }
+          __name(validatePropTypes, "validatePropTypes");
           function validateFragmentProps(fragment) {
             {
               var keys = Object.keys(fragment.props);
@@ -23690,6 +24778,7 @@
               }
             }
           }
+          __name(validateFragmentProps, "validateFragmentProps");
           function jsxWithValidation(type, props, key, isStaticChildren, source, self2) {
             {
               var validType = isValidElementType(type);
@@ -23748,16 +24837,19 @@
               return element;
             }
           }
+          __name(jsxWithValidation, "jsxWithValidation");
           function jsxWithValidationStatic(type, props, key) {
             {
               return jsxWithValidation(type, props, key, true);
             }
           }
+          __name(jsxWithValidationStatic, "jsxWithValidationStatic");
           function jsxWithValidationDynamic(type, props, key) {
             {
               return jsxWithValidation(type, props, key, false);
             }
           }
+          __name(jsxWithValidationDynamic, "jsxWithValidationDynamic");
           var jsx = jsxWithValidationDynamic;
           var jsxs = jsxWithValidationStatic;
           exports.Fragment = REACT_FRAGMENT_TYPE;
@@ -23797,6 +24889,7 @@
           }
         }
       }
+      __name(sheetForTag, "sheetForTag");
       function createStyleElement(options) {
         var tag = document.createElement("style");
         tag.setAttribute("data-emotion", options.key);
@@ -23807,7 +24900,8 @@
         tag.setAttribute("data-s", "");
         return tag;
       }
-      var StyleSheet = function() {
+      __name(createStyleElement, "createStyleElement");
+      var StyleSheet = /* @__PURE__ */ function() {
         function StyleSheet2(options) {
           var _this = this;
           this._insertTag = function(tag) {
@@ -23836,11 +24930,12 @@
           this.insertionPoint = options.insertionPoint;
           this.before = null;
         }
+        __name(StyleSheet2, "StyleSheet");
         var _proto = StyleSheet2.prototype;
-        _proto.hydrate = function hydrate(nodes) {
+        _proto.hydrate = /* @__PURE__ */ __name(function hydrate(nodes) {
           nodes.forEach(this._insertTag);
-        };
-        _proto.insert = function insert(rule) {
+        }, "hydrate");
+        _proto.insert = /* @__PURE__ */ __name(function insert(rule) {
           if (this.ctr % (this.isSpeedy ? 65e3 : 1) === 0) {
             this._insertTag(createStyleElement(this));
           }
@@ -23865,8 +24960,8 @@
             tag.appendChild(document.createTextNode(rule));
           }
           this.ctr++;
-        };
-        _proto.flush = function flush() {
+        }, "insert");
+        _proto.flush = /* @__PURE__ */ __name(function flush() {
           this.tags.forEach(function(tag) {
             return tag.parentNode && tag.parentNode.removeChild(tag);
           });
@@ -23875,7 +24970,7 @@
           if (true) {
             this._alreadyInsertedOrderInsensitiveRule = false;
           }
-        };
+        }, "flush");
         return StyleSheet2;
       }();
       exports.StyleSheet = StyleSheet;
@@ -23927,36 +25022,47 @@
         function x(e2, r2) {
           return A(e2, 0) ^ 45 ? (((r2 << 2 ^ A(e2, 0)) << 2 ^ A(e2, 1)) << 2 ^ A(e2, 2)) << 2 ^ A(e2, 3) : 0;
         }
+        __name(x, "x");
         function E(e2) {
           return e2.trim();
         }
+        __name(E, "E");
         function y(e2, r2) {
           return (e2 = r2.exec(e2)) ? e2[0] : e2;
         }
+        __name(y, "y");
         function T(e2, r2, a2) {
           return e2.replace(r2, a2);
         }
+        __name(T, "T");
         function O(e2, r2) {
           return e2.indexOf(r2);
         }
+        __name(O, "O");
         function A(e2, r2) {
           return e2.charCodeAt(r2) | 0;
         }
+        __name(A, "A");
         function M(e2, r2, a2) {
           return e2.slice(r2, a2);
         }
+        __name(M, "M");
         function C(e2) {
           return e2.length;
         }
+        __name(C, "C");
         function S(e2) {
           return e2.length;
         }
+        __name(S, "S");
         function R(e2, r2) {
           return r2.push(e2), e2;
         }
+        __name(R, "R");
         function z(e2, r2) {
           return e2.map(r2).join("");
         }
+        __name(z, "z");
         e.line = 1;
         e.column = 1;
         e.length = 0;
@@ -23966,33 +25072,41 @@
         function N(r2, a2, c2, t2, n2, s2, i2) {
           return { value: r2, root: a2, parent: c2, type: t2, props: n2, children: s2, line: e.line, column: e.column, length: i2, return: "" };
         }
+        __name(N, "N");
         function P(e2, r2) {
           return $(N("", null, null, "", null, null, 0), e2, { length: -e2.length }, r2);
         }
+        __name(P, "P");
         function j() {
           return e.character;
         }
+        __name(j, "j");
         function U() {
           e.character = e.position > 0 ? A(e.characters, --e.position) : 0;
           if (e.column--, e.character === 10)
             e.column = 1, e.line--;
           return e.character;
         }
+        __name(U, "U");
         function _() {
           e.character = e.position < e.length ? A(e.characters, e.position++) : 0;
           if (e.column++, e.character === 10)
             e.column = 1, e.line++;
           return e.character;
         }
+        __name(_, "_");
         function F() {
           return A(e.characters, e.position);
         }
+        __name(F, "F");
         function I() {
           return e.position;
         }
+        __name(I, "I");
         function L(r2, a2) {
           return M(e.characters, r2, a2);
         }
+        __name(L, "L");
         function D(e2) {
           switch (e2) {
             case 0:
@@ -24025,18 +25139,23 @@
           }
           return 0;
         }
+        __name(D, "D");
         function K(r2) {
           return e.line = e.column = 1, e.length = C(e.characters = r2), e.position = 0, [];
         }
+        __name(K, "K");
         function V(r2) {
           return e.characters = "", r2;
         }
+        __name(V, "V");
         function W(r2) {
           return E(L(e.position - 1, Z(r2 === 91 ? r2 + 2 : r2 === 40 ? r2 + 1 : r2)));
         }
+        __name(W, "W");
         function Y(e2) {
           return V(G(K(e2)));
         }
+        __name(Y, "Y");
         function B(r2) {
           while (e.character = F())
             if (e.character < 33)
@@ -24045,6 +25164,7 @@
               break;
           return D(r2) > 2 || D(e.character) > 3 ? "" : " ";
         }
+        __name(B, "B");
         function G(r2) {
           while (_())
             switch (D(e.character)) {
@@ -24059,12 +25179,14 @@
             }
           return r2;
         }
+        __name(G, "G");
         function H(r2, a2) {
           while (--a2 && _())
             if (e.character < 48 || e.character > 102 || e.character > 57 && e.character < 65 || e.character > 70 && e.character < 97)
               break;
           return L(r2, I() + (a2 < 6 && F() == 32 && _() == 32));
         }
+        __name(H, "H");
         function Z(r2) {
           while (_())
             switch (e.character) {
@@ -24085,6 +25207,7 @@
             }
           return e.position;
         }
+        __name(Z, "Z");
         function q(r2, a2) {
           while (_())
             if (r2 + e.character === 47 + 10)
@@ -24093,14 +25216,17 @@
               break;
           return "/*" + L(a2, e.position - 1) + "*" + k(r2 === 47 ? r2 : _());
         }
+        __name(q, "q");
         function J(r2) {
           while (!D(F()))
             _();
           return L(r2, e.position);
         }
+        __name(J, "J");
         function Q(e2) {
           return V(X("", null, null, null, [""], e2 = K(e2), 0, [0], e2));
         }
+        __name(Q, "Q");
         function X(e2, r2, a2, c2, t2, n2, s2, i2, u2) {
           var o2 = 0;
           var f2 = 0;
@@ -24210,6 +25336,7 @@
             }
           return n2;
         }
+        __name(X, "X");
         function ee(e2, r2, a2, c2, t2, s2, i2, u2, o2, f2, l2) {
           var p2 = t2 - 1;
           var h2 = t2 === 0 ? s2 : [""];
@@ -24220,12 +25347,15 @@
                 o2[w2++] = $2;
           return N(e2, r2, a2, t2 === 0 ? n : u2, o2, f2, l2);
         }
+        __name(ee, "ee");
         function re(e2, r2, a2) {
           return N(e2, r2, a2, t, k(j()), M(e2, 2, -2), 0);
         }
+        __name(re, "re");
         function ae(e2, r2, a2, c2) {
           return N(e2, r2, a2, s, M(e2, 0, c2), M(e2, c2 + 1, -1), c2);
         }
+        __name(ae, "ae");
         function ce(e2, t2, n2) {
           switch (x(e2, t2)) {
             case 5103:
@@ -24374,6 +25504,7 @@
           }
           return e2;
         }
+        __name(ce, "ce");
         function te(e2, r2) {
           var a2 = "";
           var c2 = S(e2);
@@ -24381,6 +25512,7 @@
             a2 += r2(e2[t2], t2, e2, r2) || "";
           return a2;
         }
+        __name(te, "te");
         function ne(e2, r2, a2, c2) {
           switch (e2.type) {
             case o:
@@ -24395,6 +25527,7 @@
           }
           return C(a2 = te(e2.children, c2)) ? e2.return = e2.value + "{" + a2 + "}" : "";
         }
+        __name(ne, "ne");
         function se(e2) {
           var r2 = S(e2);
           return function(a2, c2, t2, n2) {
@@ -24404,6 +25537,7 @@
             return s2;
           };
         }
+        __name(se, "se");
         function ie(e2) {
           return function(r2) {
             if (!r2.root) {
@@ -24412,6 +25546,7 @@
             }
           };
         }
+        __name(ie, "ie");
         function ue(e2, t2, i2, u2) {
           if (e2.length > -1) {
             if (!e2.return)
@@ -24436,6 +25571,7 @@
               }
           }
         }
+        __name(ue, "ue");
         function oe(e2) {
           switch (e2.type) {
             case n:
@@ -24471,6 +25607,7 @@
               });
           }
         }
+        __name(oe, "oe");
         e.CHARSET = f;
         e.COMMENT = t;
         e.COUNTER_STYLE = w;
@@ -24545,7 +25682,7 @@
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var weakMemoize = function weakMemoize2(func) {
+      var weakMemoize = /* @__PURE__ */ __name(function weakMemoize2(func) {
         var cache2 = /* @__PURE__ */ new WeakMap();
         return function(arg) {
           if (cache2.has(arg)) {
@@ -24555,7 +25692,7 @@
           cache2.set(arg, ret);
           return ret;
         };
-      };
+      }, "weakMemoize");
       exports.default = weakMemoize;
     }
   });
@@ -24587,6 +25724,7 @@
           return cache2[arg];
         };
       }
+      __name(memoize, "memoize");
       exports.default = memoize;
     }
   });
@@ -24617,9 +25755,10 @@
       function _interopDefault(e) {
         return e && e.__esModule ? e : { "default": e };
       }
-      var weakMemoize__default = _interopDefault(weakMemoize);
-      var memoize__default = _interopDefault(memoize);
-      var identifierWithPointTracking = function identifierWithPointTracking2(begin, points, index) {
+      __name(_interopDefault, "_interopDefault");
+      var weakMemoize__default = /* @__PURE__ */ _interopDefault(weakMemoize);
+      var memoize__default = /* @__PURE__ */ _interopDefault(memoize);
+      var identifierWithPointTracking = /* @__PURE__ */ __name(function identifierWithPointTracking2(begin, points, index) {
         var previous = 0;
         var character = 0;
         while (true) {
@@ -24634,8 +25773,8 @@
           stylis.next();
         }
         return stylis.slice(begin, stylis.position);
-      };
-      var toRules = function toRules2(parsed, points) {
+      }, "identifierWithPointTracking");
+      var toRules = /* @__PURE__ */ __name(function toRules2(parsed, points) {
         var index = -1;
         var character = 44;
         do {
@@ -24660,12 +25799,12 @@
           }
         } while (character = stylis.next());
         return parsed;
-      };
-      var getRules = function getRules2(value, points) {
+      }, "toRules");
+      var getRules = /* @__PURE__ */ __name(function getRules2(value, points) {
         return stylis.dealloc(toRules(stylis.alloc(value), points));
-      };
+      }, "getRules");
       var fixedElements = /* @__PURE__ */ new WeakMap();
-      var compat = function compat2(element) {
+      var compat = /* @__PURE__ */ __name(function compat2(element) {
         if (element.type !== "rule" || !element.parent || element.length < 1) {
           return;
         }
@@ -24691,8 +25830,8 @@
             element.props[k] = points[i] ? rules[i].replace(/&\f/g, parentRules[j]) : parentRules[j] + " " + rules[i];
           }
         }
-      };
-      var removeLabel = function removeLabel2(element) {
+      }, "compat");
+      var removeLabel = /* @__PURE__ */ __name(function removeLabel2(element) {
         if (element.type === "decl") {
           var value = element.value;
           if (value.charCodeAt(0) === 108 && value.charCodeAt(2) === 98) {
@@ -24700,12 +25839,12 @@
             element.value = "";
           }
         }
-      };
+      }, "removeLabel");
       var ignoreFlag = "emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason";
-      var isIgnoringComment = function isIgnoringComment2(element) {
+      var isIgnoringComment = /* @__PURE__ */ __name(function isIgnoringComment2(element) {
         return element.type === "comm" && element.children.indexOf(ignoreFlag) > -1;
-      };
-      var createUnsafeSelectorsAlarm = function createUnsafeSelectorsAlarm2(cache2) {
+      }, "isIgnoringComment");
+      var createUnsafeSelectorsAlarm = /* @__PURE__ */ __name(function createUnsafeSelectorsAlarm2(cache2) {
         return function(element, index, children) {
           if (element.type !== "rule" || cache2.compat)
             return;
@@ -24730,26 +25869,26 @@
             });
           }
         };
-      };
-      var isImportRule = function isImportRule2(element) {
+      }, "createUnsafeSelectorsAlarm");
+      var isImportRule = /* @__PURE__ */ __name(function isImportRule2(element) {
         return element.type.charCodeAt(1) === 105 && element.type.charCodeAt(0) === 64;
-      };
-      var isPrependedWithRegularRules = function isPrependedWithRegularRules2(index, children) {
+      }, "isImportRule");
+      var isPrependedWithRegularRules = /* @__PURE__ */ __name(function isPrependedWithRegularRules2(index, children) {
         for (var i = index - 1; i >= 0; i--) {
           if (!isImportRule(children[i])) {
             return true;
           }
         }
         return false;
-      };
-      var nullifyElement = function nullifyElement2(element) {
+      }, "isPrependedWithRegularRules");
+      var nullifyElement = /* @__PURE__ */ __name(function nullifyElement2(element) {
         element.type = "";
         element.value = "";
         element["return"] = "";
         element.children = "";
         element.props = "";
-      };
-      var incorrectImportAlarm = function incorrectImportAlarm2(element, index, children) {
+      }, "nullifyElement");
+      var incorrectImportAlarm = /* @__PURE__ */ __name(function incorrectImportAlarm2(element, index, children) {
         if (!isImportRule(element)) {
           return;
         }
@@ -24760,7 +25899,7 @@
           console.error("`@import` rules can't be after other rules. Please put your `@import` rules before your other rules.");
           nullifyElement(element);
         }
-      };
+      }, "incorrectImportAlarm");
       function prefix(value, length2) {
         switch (stylis.hash(value, length2)) {
           case 5103:
@@ -24875,7 +26014,8 @@
         }
         return value;
       }
-      var prefixer = function prefixer2(element, index, children, callback) {
+      __name(prefix, "prefix");
+      var prefixer = /* @__PURE__ */ __name(function prefixer2(element, index, children, callback) {
         if (element.length > -1) {
           if (!element["return"])
             switch (element.type) {
@@ -24908,7 +26048,7 @@
                   });
             }
         }
-      };
+      }, "prefixer");
       var isBrowser = typeof document !== "undefined";
       var getServerStylisCache = isBrowser ? void 0 : weakMemoize__default["default"](function() {
         return memoize__default["default"](function() {
@@ -24919,7 +26059,7 @@
         });
       });
       var defaultStylisPlugins = [prefixer];
-      var createCache = function createCache2(options) {
+      var createCache = /* @__PURE__ */ __name(function createCache2(options) {
         var key = options.key;
         if (!key) {
           throw new Error("You have to configure `key` for your cache. Please make sure it's unique (and not equal to 'css') as it's used for linking styles to your cache.\nIf multiple caches share the same key they might \"fight\" for each other's style elements.");
@@ -24980,38 +26120,38 @@
             currentSheet.insert(rule);
           })];
           var serializer = stylis.middleware(omnipresentPlugins.concat(stylisPlugins, finalizingPlugins));
-          var stylis$1 = function stylis$12(styles) {
+          var stylis$1 = /* @__PURE__ */ __name(function stylis$12(styles) {
             return stylis.serialize(stylis.compile(styles), serializer);
-          };
-          _insert = function insert(selector, serialized, sheet2, shouldCache) {
+          }, "stylis$1");
+          _insert = /* @__PURE__ */ __name(function insert(selector, serialized, sheet2, shouldCache) {
             currentSheet = sheet2;
             if (serialized.map !== void 0) {
               currentSheet = {
-                insert: function insert2(rule) {
+                insert: /* @__PURE__ */ __name(function insert2(rule) {
                   sheet2.insert(rule + serialized.map);
-                }
+                }, "insert")
               };
             }
             stylis$1(selector ? selector + "{" + serialized.styles + "}" : serialized.styles);
             if (shouldCache) {
               cache2.inserted[serialized.name] = true;
             }
-          };
+          }, "insert");
         } else {
           var _finalizingPlugins = [stylis.stringify];
           var _serializer = stylis.middleware(omnipresentPlugins.concat(stylisPlugins, _finalizingPlugins));
-          var _stylis = function _stylis2(styles) {
+          var _stylis = /* @__PURE__ */ __name(function _stylis2(styles) {
             return stylis.serialize(stylis.compile(styles), _serializer);
-          };
+          }, "_stylis");
           var serverStylisCache = getServerStylisCache(stylisPlugins)(key);
-          var getRules2 = function getRules3(selector, serialized) {
+          var getRules2 = /* @__PURE__ */ __name(function getRules3(selector, serialized) {
             var name = serialized.name;
             if (serverStylisCache[name] === void 0) {
               serverStylisCache[name] = _stylis(selector ? selector + "{" + serialized.styles + "}" : serialized.styles);
             }
             return serverStylisCache[name];
-          };
-          _insert = function _insert2(selector, serialized, sheet2, shouldCache) {
+          }, "getRules");
+          _insert = /* @__PURE__ */ __name(function _insert2(selector, serialized, sheet2, shouldCache) {
             var name = serialized.name;
             var rules = getRules2(selector, serialized);
             if (cache2.compat === void 0) {
@@ -25029,7 +26169,7 @@
                 return rules;
               }
             }
-          };
+          }, "_insert");
         }
         var cache2 = {
           key,
@@ -25048,7 +26188,7 @@
         };
         cache2.sheet.hydrate(nodesToHydrate);
         return cache2;
-      };
+      }, "createCache");
       exports.default = createCache;
     }
   });
@@ -25084,6 +26224,7 @@
         }, module.exports.__esModule = true, module.exports["default"] = module.exports;
         return _extends.apply(this, arguments);
       }
+      __name(_extends, "_extends");
       module.exports = _extends, module.exports.__esModule = true, module.exports["default"] = module.exports;
     }
   });
@@ -25118,6 +26259,7 @@
           function isValidElementType(type) {
             return typeof type === "string" || typeof type === "function" || type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
           }
+          __name(isValidElementType, "isValidElementType");
           function typeOf(object) {
             if (typeof object === "object" && object !== null) {
               var $$typeof = object.$$typeof;
@@ -25151,6 +26293,7 @@
             }
             return void 0;
           }
+          __name(typeOf, "typeOf");
           var AsyncMode = REACT_ASYNC_MODE_TYPE;
           var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
           var ContextConsumer = REACT_CONTEXT_TYPE;
@@ -25174,42 +26317,55 @@
             }
             return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
           }
+          __name(isAsyncMode, "isAsyncMode");
           function isConcurrentMode(object) {
             return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
           }
+          __name(isConcurrentMode, "isConcurrentMode");
           function isContextConsumer(object) {
             return typeOf(object) === REACT_CONTEXT_TYPE;
           }
+          __name(isContextConsumer, "isContextConsumer");
           function isContextProvider(object) {
             return typeOf(object) === REACT_PROVIDER_TYPE;
           }
+          __name(isContextProvider, "isContextProvider");
           function isElement(object) {
             return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
           }
+          __name(isElement, "isElement");
           function isForwardRef(object) {
             return typeOf(object) === REACT_FORWARD_REF_TYPE;
           }
+          __name(isForwardRef, "isForwardRef");
           function isFragment(object) {
             return typeOf(object) === REACT_FRAGMENT_TYPE;
           }
+          __name(isFragment, "isFragment");
           function isLazy(object) {
             return typeOf(object) === REACT_LAZY_TYPE;
           }
+          __name(isLazy, "isLazy");
           function isMemo(object) {
             return typeOf(object) === REACT_MEMO_TYPE;
           }
+          __name(isMemo, "isMemo");
           function isPortal(object) {
             return typeOf(object) === REACT_PORTAL_TYPE;
           }
+          __name(isPortal, "isPortal");
           function isProfiler(object) {
             return typeOf(object) === REACT_PROFILER_TYPE;
           }
+          __name(isProfiler, "isProfiler");
           function isStrictMode(object) {
             return typeOf(object) === REACT_STRICT_MODE_TYPE;
           }
+          __name(isStrictMode, "isStrictMode");
           function isSuspense(object) {
             return typeOf(object) === REACT_SUSPENSE_TYPE;
           }
+          __name(isSuspense, "isSuspense");
           exports.AsyncMode = AsyncMode;
           exports.ConcurrentMode = ConcurrentMode;
           exports.ContextConsumer = ContextConsumer;
@@ -25308,6 +26464,7 @@
         }
         return TYPE_STATICS[component["$$typeof"]] || REACT_STATICS;
       }
+      __name(getStatics, "getStatics");
       var defineProperty = Object.defineProperty;
       var getOwnPropertyNames = Object.getOwnPropertyNames;
       var getOwnPropertySymbols = Object.getOwnPropertySymbols;
@@ -25341,6 +26498,7 @@
         }
         return targetComponent;
       }
+      __name(hoistNonReactStatics, "hoistNonReactStatics");
       module.exports = hoistNonReactStatics;
     }
   });
@@ -25355,10 +26513,11 @@
       function _interopDefault(e) {
         return e && e.__esModule ? e : { "default": e };
       }
-      var hoistNonReactStatics__default = _interopDefault(hoistNonReactStatics$1);
-      var hoistNonReactStatics = function(targetComponent, sourceComponent) {
+      __name(_interopDefault, "_interopDefault");
+      var hoistNonReactStatics__default = /* @__PURE__ */ _interopDefault(hoistNonReactStatics$1);
+      var hoistNonReactStatics = /* @__PURE__ */ __name(function(targetComponent, sourceComponent) {
         return hoistNonReactStatics__default["default"](targetComponent, sourceComponent);
-      };
+      }, "hoistNonReactStatics");
       exports.default = hoistNonReactStatics;
     }
   });
@@ -25381,13 +26540,14 @@
         });
         return rawClassName;
       }
-      var registerStyles = function registerStyles2(cache2, serialized, isStringTag) {
+      __name(getRegisteredStyles, "getRegisteredStyles");
+      var registerStyles = /* @__PURE__ */ __name(function registerStyles2(cache2, serialized, isStringTag) {
         var className = cache2.key + "-" + serialized.name;
         if ((isStringTag === false || isBrowser === false && cache2.compat !== void 0) && cache2.registered[className] === void 0) {
           cache2.registered[className] = serialized.styles;
         }
-      };
-      var insertStyles = function insertStyles2(cache2, serialized, isStringTag) {
+      }, "registerStyles");
+      var insertStyles = /* @__PURE__ */ __name(function insertStyles2(cache2, serialized, isStringTag) {
         registerStyles(cache2, serialized, isStringTag);
         var className = cache2.key + "-" + serialized.name;
         if (cache2.inserted[serialized.name] === void 0) {
@@ -25404,7 +26564,7 @@
             return stylesForSSR;
           }
         }
-      };
+      }, "insertStyles");
       exports.getRegisteredStyles = getRegisteredStyles;
       exports.insertStyles = insertStyles;
       exports.registerStyles = registerStyles;
@@ -25452,6 +26612,7 @@
         h = (h & 65535) * 1540483477 + ((h >>> 16) * 59797 << 16);
         return ((h ^ h >>> 15) >>> 0).toString(36);
       }
+      __name(murmur2, "murmur2");
       exports.default = murmur2;
     }
   });
@@ -25551,9 +26712,10 @@
       function _interopDefault(e) {
         return e && e.__esModule ? e : { "default": e };
       }
-      var hashString__default = _interopDefault(hashString);
-      var unitless__default = _interopDefault(unitless);
-      var memoize__default = _interopDefault(memoize);
+      __name(_interopDefault, "_interopDefault");
+      var hashString__default = /* @__PURE__ */ _interopDefault(hashString);
+      var unitless__default = /* @__PURE__ */ _interopDefault(unitless);
+      var memoize__default = /* @__PURE__ */ _interopDefault(memoize);
       var ILLEGAL_ESCAPE_SEQUENCE_ERROR = `You have illegal escape sequence in your template literal, most likely inside content's property value.
 Because you write your CSS inside a JavaScript string you actually have to do double escaping, so for example "content: '\\00d7';" should become "content: '\\\\00d7';".
 You can read more about this here:
@@ -25561,16 +26723,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var UNDEFINED_AS_OBJECT_KEY_ERROR = "You have passed in falsy value as style object's key (can happen when in example you pass unexported component as computed key).";
       var hyphenateRegex = /[A-Z]|^ms/g;
       var animationRegex = /_EMO_([^_]+?)_([^]*?)_EMO_/g;
-      var isCustomProperty = function isCustomProperty2(property) {
+      var isCustomProperty = /* @__PURE__ */ __name(function isCustomProperty2(property) {
         return property.charCodeAt(1) === 45;
-      };
-      var isProcessableValue = function isProcessableValue2(value) {
+      }, "isCustomProperty");
+      var isProcessableValue = /* @__PURE__ */ __name(function isProcessableValue2(value) {
         return value != null && typeof value !== "boolean";
-      };
-      var processStyleName = memoize__default["default"](function(styleName) {
+      }, "isProcessableValue");
+      var processStyleName = /* @__PURE__ */ memoize__default["default"](function(styleName) {
         return isCustomProperty(styleName) ? styleName : styleName.replace(hyphenateRegex, "-$&").toLowerCase();
       });
-      var processStyleValue = function processStyleValue2(key, value) {
+      var processStyleValue = /* @__PURE__ */ __name(function processStyleValue2(key, value) {
         switch (key) {
           case "animation":
           case "animationName": {
@@ -25590,7 +26752,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return value + "px";
         }
         return value;
-      };
+      }, "processStyleValue");
       if (true) {
         contentValuePattern = /(var|attr|counters?|url|element|(((repeating-)?(linear|radial))|conic)-gradient)\(|(no-)?(open|close)-quote/;
         contentValues = ["normal", "none", "initial", "inherit", "unset"];
@@ -25598,7 +26760,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         msPattern = /^-ms-/;
         hyphenPattern = /-(.)/g;
         hyphenatedCache = {};
-        processStyleValue = function processStyleValue2(key, value) {
+        processStyleValue = /* @__PURE__ */ __name(function processStyleValue2(key, value) {
           if (key === "content") {
             if (typeof value !== "string" || contentValues.indexOf(value) === -1 && !contentValuePattern.test(value) && (value.charAt(0) !== value.charAt(value.length - 1) || value.charAt(0) !== '"' && value.charAt(0) !== "'")) {
               throw new Error("You seem to be using a value for 'content' without quotes, try replacing it with `content: '\"" + value + "\"'`");
@@ -25612,7 +26774,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }) + "?");
           }
           return processed;
-        };
+        }, "processStyleValue");
       }
       var contentValuePattern;
       var contentValues;
@@ -25695,6 +26857,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         var cached = registered[interpolation];
         return cached !== void 0 ? cached : interpolation;
       }
+      __name(handleInterpolation, "handleInterpolation");
       function createStringFromObject(mergedProps, registered, obj) {
         var string = "";
         if (Array.isArray(obj)) {
@@ -25741,13 +26904,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return string;
       }
+      __name(createStringFromObject, "createStringFromObject");
       var labelPattern = /label:\s*([^\s;\n{]+)\s*(;|$)/g;
       var sourceMapPattern;
       if (true) {
         sourceMapPattern = /\/\*#\ssourceMappingURL=data:application\/json;\S+\s+\*\//g;
       }
       var cursor;
-      var serializeStyles = function serializeStyles2(args, registered, mergedProps) {
+      var serializeStyles = /* @__PURE__ */ __name(function serializeStyles2(args, registered, mergedProps) {
         if (args.length === 1 && typeof args[0] === "object" && args[0] !== null && args[0].styles !== void 0) {
           return args[0];
         }
@@ -25793,9 +26957,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             styles,
             map: sourceMap,
             next: cursor,
-            toString: function toString() {
+            toString: /* @__PURE__ */ __name(function toString() {
               return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop).";
-            }
+            }, "toString")
           };
         }
         return {
@@ -25803,7 +26967,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           styles,
           next: cursor
         };
-      };
+      }, "serializeStyles");
       exports.serializeStyles = serializeStyles;
     }
   });
@@ -25848,11 +27012,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         n["default"] = e;
         return Object.freeze(n);
       }
-      var React__namespace = _interopNamespace(React2);
+      __name(_interopNamespace, "_interopNamespace");
+      var React__namespace = /* @__PURE__ */ _interopNamespace(React2);
       var isBrowser = typeof document !== "undefined";
-      var syncFallback = function syncFallback2(create) {
+      var syncFallback = /* @__PURE__ */ __name(function syncFallback2(create) {
         return create();
-      };
+      }, "syncFallback");
       var useInsertionEffect = React__namespace["useInsertionEffect"] ? React__namespace["useInsertionEffect"] : false;
       var useInsertionEffectAlwaysWithSyncFallback = !isBrowser ? syncFallback : useInsertionEffect || syncFallback;
       var useInsertionEffectWithLayoutFallback = useInsertionEffect || React2.useLayoutEffect;
@@ -25890,12 +27055,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function _interopDefault(e) {
         return e && e.__esModule ? e : { "default": e };
       }
-      var createCache__default = _interopDefault(createCache);
-      var weakMemoize__default = _interopDefault(weakMemoize);
+      __name(_interopDefault, "_interopDefault");
+      var createCache__default = /* @__PURE__ */ _interopDefault(createCache);
+      var weakMemoize__default = /* @__PURE__ */ _interopDefault(weakMemoize);
       var isBrowser = typeof document !== "undefined";
       var hasOwnProperty = {}.hasOwnProperty;
-      var EmotionCacheContext = React2.createContext(
-        typeof HTMLElement !== "undefined" ? createCache__default["default"]({
+      var EmotionCacheContext = /* @__PURE__ */ React2.createContext(
+        typeof HTMLElement !== "undefined" ? /* @__PURE__ */ createCache__default["default"]({
           key: "css"
         }) : null
       );
@@ -25903,40 +27069,40 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         EmotionCacheContext.displayName = "EmotionCacheContext";
       }
       var CacheProvider = EmotionCacheContext.Provider;
-      var __unsafe_useEmotionCache = function useEmotionCache() {
+      var __unsafe_useEmotionCache = /* @__PURE__ */ __name(function useEmotionCache() {
         return React2.useContext(EmotionCacheContext);
-      };
-      exports.withEmotionCache = function withEmotionCache(func) {
-        return React2.forwardRef(function(props, ref) {
+      }, "useEmotionCache");
+      exports.withEmotionCache = /* @__PURE__ */ __name(function withEmotionCache(func) {
+        return /* @__PURE__ */ React2.forwardRef(function(props, ref) {
           var cache2 = React2.useContext(EmotionCacheContext);
           return func(props, cache2, ref);
         });
-      };
+      }, "withEmotionCache");
       if (!isBrowser) {
-        exports.withEmotionCache = function withEmotionCache(func) {
+        exports.withEmotionCache = /* @__PURE__ */ __name(function withEmotionCache(func) {
           return function(props) {
             var cache2 = React2.useContext(EmotionCacheContext);
             if (cache2 === null) {
               cache2 = createCache__default["default"]({
                 key: "css"
               });
-              return React2.createElement(EmotionCacheContext.Provider, {
+              return /* @__PURE__ */ React2.createElement(EmotionCacheContext.Provider, {
                 value: cache2
               }, func(props, cache2));
             } else {
               return func(props, cache2);
             }
           };
-        };
+        }, "withEmotionCache");
       }
-      var ThemeContext = React2.createContext({});
+      var ThemeContext = /* @__PURE__ */ React2.createContext({});
       if (true) {
         ThemeContext.displayName = "EmotionThemeContext";
       }
-      var useTheme = function useTheme2() {
+      var useTheme = /* @__PURE__ */ __name(function useTheme2() {
         return React2.useContext(ThemeContext);
-      };
-      var getTheme = function getTheme2(outerTheme, theme) {
+      }, "useTheme");
+      var getTheme = /* @__PURE__ */ __name(function getTheme2(outerTheme, theme) {
         if (typeof theme === "function") {
           var mergedTheme = theme(outerTheme);
           if (mergedTheme == null || typeof mergedTheme !== "object" || Array.isArray(mergedTheme)) {
@@ -25948,39 +27114,40 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           throw new Error("[ThemeProvider] Please make your theme prop a plain object");
         }
         return _extends({}, outerTheme, theme);
-      };
-      var createCacheWithTheme = weakMemoize__default["default"](function(outerTheme) {
+      }, "getTheme");
+      var createCacheWithTheme = /* @__PURE__ */ weakMemoize__default["default"](function(outerTheme) {
         return weakMemoize__default["default"](function(theme) {
           return getTheme(outerTheme, theme);
         });
       });
-      var ThemeProvider = function ThemeProvider2(props) {
+      var ThemeProvider = /* @__PURE__ */ __name(function ThemeProvider2(props) {
         var theme = React2.useContext(ThemeContext);
         if (props.theme !== theme) {
           theme = createCacheWithTheme(theme)(props.theme);
         }
-        return React2.createElement(ThemeContext.Provider, {
+        return /* @__PURE__ */ React2.createElement(ThemeContext.Provider, {
           value: theme
         }, props.children);
-      };
+      }, "ThemeProvider");
       function withTheme(Component) {
         var componentName = Component.displayName || Component.name || "Component";
-        var render = function render2(props, ref) {
+        var render = /* @__PURE__ */ __name(function render2(props, ref) {
           var theme = React2.useContext(ThemeContext);
-          return React2.createElement(Component, _extends({
+          return /* @__PURE__ */ React2.createElement(Component, _extends({
             theme,
             ref
           }, props));
-        };
-        var WithTheme = React2.forwardRef(render);
+        }, "render");
+        var WithTheme = /* @__PURE__ */ React2.forwardRef(render);
         WithTheme.displayName = "WithTheme(" + componentName + ")";
         return _isolatedHnrs_dist_emotionReact_isolatedHnrs["default"](WithTheme, Component);
       }
-      var getLastPart = function getLastPart2(functionName) {
+      __name(withTheme, "withTheme");
+      var getLastPart = /* @__PURE__ */ __name(function getLastPart2(functionName) {
         var parts = functionName.split(".");
         return parts[parts.length - 1];
-      };
-      var getFunctionNameFromStackTraceLine = function getFunctionNameFromStackTraceLine2(line) {
+      }, "getLastPart");
+      var getFunctionNameFromStackTraceLine = /* @__PURE__ */ __name(function getFunctionNameFromStackTraceLine2(line) {
         var match = /^\s+at\s+([A-Za-z0-9$.]+)\s/.exec(line);
         if (match)
           return getLastPart(match[1]);
@@ -25988,12 +27155,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         if (match)
           return getLastPart(match[1]);
         return void 0;
-      };
+      }, "getFunctionNameFromStackTraceLine");
       var internalReactFunctionNames = /* @__PURE__ */ new Set(["renderWithHooks", "processChild", "finishClassComponent", "renderToString"]);
-      var sanitizeIdentifier = function sanitizeIdentifier2(identifier) {
+      var sanitizeIdentifier = /* @__PURE__ */ __name(function sanitizeIdentifier2(identifier) {
         return identifier.replace(/\$/g, "-");
-      };
-      var getLabelFromStackTrace = function getLabelFromStackTrace2(stackTrace) {
+      }, "sanitizeIdentifier");
+      var getLabelFromStackTrace = /* @__PURE__ */ __name(function getLabelFromStackTrace2(stackTrace) {
         if (!stackTrace)
           return void 0;
         var lines = stackTrace.split("\n");
@@ -26007,10 +27174,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return sanitizeIdentifier(functionName);
         }
         return void 0;
-      };
+      }, "getLabelFromStackTrace");
       var typePropName = "__EMOTION_TYPE_PLEASE_DO_NOT_USE__";
       var labelPropName = "__EMOTION_LABEL_PLEASE_DO_NOT_USE__";
-      var createEmotionProps = function createEmotionProps2(type, props) {
+      var createEmotionProps = /* @__PURE__ */ __name(function createEmotionProps2(type, props) {
         if (typeof props.css === "string" && props.css.indexOf(":") !== -1) {
           throw new Error("Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/react' like this: css`" + props.css + "`");
         }
@@ -26027,8 +27194,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             newProps[labelPropName] = label;
         }
         return newProps;
-      };
-      var Insertion = function Insertion2(_ref) {
+      }, "createEmotionProps");
+      var Insertion = /* @__PURE__ */ __name(function Insertion2(_ref) {
         var cache2 = _ref.cache, serialized = _ref.serialized, isStringTag = _ref.isStringTag;
         utils.registerStyles(cache2, serialized, isStringTag);
         var rules = useInsertionEffectWithFallbacks.useInsertionEffectAlwaysWithSyncFallback(function() {
@@ -26042,13 +27209,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             serializedNames += " " + next.name;
             next = next.next;
           }
-          return React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache2.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+          return /* @__PURE__ */ React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache2.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
             __html: rules
           }, _ref2.nonce = cache2.sheet.nonce, _ref2));
         }
         return null;
-      };
-      var Emotion = exports.withEmotionCache(function(props, cache2, ref) {
+      }, "Insertion");
+      var Emotion = /* @__PURE__ */ exports.withEmotionCache(function(props, cache2, ref) {
         var cssProp = props.css;
         if (typeof cssProp === "string" && cache2.registered[cssProp] !== void 0) {
           cssProp = cache2.registered[cssProp];
@@ -26077,11 +27244,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         newProps.ref = ref;
         newProps.className = className;
-        return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
+        return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(Insertion, {
           cache: cache2,
           serialized,
           isStringTag: typeof WrappedComponent === "string"
-        }), React2.createElement(WrappedComponent, newProps));
+        }), /* @__PURE__ */ React2.createElement(WrappedComponent, newProps));
       });
       if (true) {
         Emotion.displayName = "EmotionCssPropInternal";
@@ -26237,7 +27404,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }
       };
-      var jsx = function jsx2(type, props) {
+      var jsx = /* @__PURE__ */ __name(function jsx2(type, props) {
         var args = arguments;
         if (props == null || !emotionElement.hasOwnProperty.call(props, "css")) {
           return React2.createElement.apply(void 0, args);
@@ -26250,9 +27417,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           createElementArgArray[i] = args[i];
         }
         return React2.createElement.apply(null, createElementArgArray);
-      };
+      }, "jsx");
       var warnedAboutCssPropForGlobal = false;
-      var Global = emotionElement.withEmotionCache(function(props, cache2) {
+      var Global = /* @__PURE__ */ emotionElement.withEmotionCache(function(props, cache2) {
         if (!warnedAboutCssPropForGlobal && (props.className || props.css)) {
           console.error("It looks like you're using the css prop on Global, did you mean to use the styles prop instead?");
           warnedAboutCssPropForGlobal = true;
@@ -26277,7 +27444,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           if (shouldCache) {
             return null;
           }
-          return React2.createElement("style", (_ref = {}, _ref["data-emotion"] = cache2.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
+          return /* @__PURE__ */ React2.createElement("style", (_ref = {}, _ref["data-emotion"] = cache2.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
             __html: rules
           }, _ref.nonce = cache2.sheet.nonce, _ref));
         }
@@ -26333,19 +27500,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return serialize.serializeStyles(args);
       }
-      var keyframes = function keyframes2() {
+      __name(css, "css");
+      var keyframes = /* @__PURE__ */ __name(function keyframes2() {
         var insertable = css.apply(void 0, arguments);
         var name = "animation-" + insertable.name;
         return {
           name,
           styles: "@keyframes " + name + "{" + insertable.styles + "}",
           anim: 1,
-          toString: function toString() {
+          toString: /* @__PURE__ */ __name(function toString() {
             return "_EMO_" + this.name + "_" + this.styles + "_EMO_";
-          }
+          }, "toString")
         };
-      };
-      var classnames = function classnames2(args) {
+      }, "keyframes");
+      var classnames = /* @__PURE__ */ __name(function classnames2(args) {
         var len = args.length;
         var i = 0;
         var cls = "";
@@ -26384,7 +27552,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }
         return cls;
-      };
+      }, "classnames");
       function merge(registered, css2, className) {
         var registeredStyles = [];
         var rawClassName = utils.getRegisteredStyles(registered, registeredStyles, className);
@@ -26393,7 +27561,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return rawClassName + css2(registeredStyles);
       }
-      var Insertion = function Insertion2(_ref) {
+      __name(merge, "merge");
+      var Insertion = /* @__PURE__ */ __name(function Insertion2(_ref) {
         var cache2 = _ref.cache, serializedArr = _ref.serializedArr;
         var rules = useInsertionEffectWithFallbacks.useInsertionEffectAlwaysWithSyncFallback(function() {
           var rules2 = "";
@@ -26409,18 +27578,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
         if (!emotionElement.isBrowser && rules.length !== 0) {
           var _ref2;
-          return React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache2.key + " " + serializedArr.map(function(serialized) {
+          return /* @__PURE__ */ React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache2.key + " " + serializedArr.map(function(serialized) {
             return serialized.name;
           }).join(" "), _ref2.dangerouslySetInnerHTML = {
             __html: rules
           }, _ref2.nonce = cache2.sheet.nonce, _ref2));
         }
         return null;
-      };
-      var ClassNames = emotionElement.withEmotionCache(function(props, cache2) {
+      }, "Insertion");
+      var ClassNames = /* @__PURE__ */ emotionElement.withEmotionCache(function(props, cache2) {
         var hasRendered = false;
         var serializedArr = [];
-        var css2 = function css3() {
+        var css2 = /* @__PURE__ */ __name(function css3() {
           if (hasRendered && true) {
             throw new Error("css can only be used during render");
           }
@@ -26431,8 +27600,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           serializedArr.push(serialized);
           utils.registerStyles(cache2, serialized, false);
           return cache2.key + "-" + serialized.name;
-        };
-        var cx = function cx2() {
+        }, "css");
+        var cx = /* @__PURE__ */ __name(function cx2() {
           if (hasRendered && true) {
             throw new Error("cx can only be used during render");
           }
@@ -26440,7 +27609,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             args[_key2] = arguments[_key2];
           }
           return merge(cache2.registered, css2, classnames(args));
-        };
+        }, "cx");
         var content = {
           css: css2,
           cx,
@@ -26448,7 +27617,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         };
         var ele = props.children(content);
         hasRendered = true;
-        return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
+        return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(Insertion, {
           cache: cache2,
           serializedArr
         }), ele);
@@ -26530,12 +27699,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return ReactJSXRuntime2.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
       }
+      __name(jsx, "jsx");
       function jsxs(type, props, key) {
         if (!emotionElement.hasOwnProperty.call(props, "css")) {
           return ReactJSXRuntime2.jsxs(type, props, key);
         }
         return ReactJSXRuntime2.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
       }
+      __name(jsxs, "jsxs");
       exports.Fragment = Fragment;
       exports.jsx = jsx;
       exports.jsxs = jsxs;
@@ -26565,9 +27736,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function _interopDefault(e) {
         return e && e.__esModule ? e : { "default": e };
       }
-      var memoize__default = _interopDefault(memoize);
+      __name(_interopDefault, "_interopDefault");
+      var memoize__default = /* @__PURE__ */ _interopDefault(memoize);
       var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|enterKeyHint|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
-      var isPropValid = memoize__default["default"](
+      var isPropValid = /* @__PURE__ */ memoize__default["default"](
         function(prop) {
           return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111 && prop.charCodeAt(1) === 110 && prop.charCodeAt(2) < 91;
         }
@@ -26605,15 +27777,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function _interopDefault(e) {
         return e && e.__esModule ? e : { "default": e };
       }
-      var isPropValid__default = _interopDefault(isPropValid);
+      __name(_interopDefault, "_interopDefault");
+      var isPropValid__default = /* @__PURE__ */ _interopDefault(isPropValid);
       var testOmitPropsOnStringTag = isPropValid__default["default"];
-      var testOmitPropsOnComponent = function testOmitPropsOnComponent2(key) {
+      var testOmitPropsOnComponent = /* @__PURE__ */ __name(function testOmitPropsOnComponent2(key) {
         return key !== "theme";
-      };
-      var getDefaultShouldForwardProp = function getDefaultShouldForwardProp2(tag) {
+      }, "testOmitPropsOnComponent");
+      var getDefaultShouldForwardProp = /* @__PURE__ */ __name(function getDefaultShouldForwardProp2(tag) {
         return typeof tag === "string" && tag.charCodeAt(0) > 96 ? testOmitPropsOnStringTag : testOmitPropsOnComponent;
-      };
-      var composeShouldForwardProps = function composeShouldForwardProps2(tag, options, isReal) {
+      }, "getDefaultShouldForwardProp");
+      var composeShouldForwardProps = /* @__PURE__ */ __name(function composeShouldForwardProps2(tag, options, isReal) {
         var shouldForwardProp;
         if (options) {
           var optionsShouldForwardProp = options.shouldForwardProp;
@@ -26625,13 +27798,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           shouldForwardProp = tag.__emotion_forwardProp;
         }
         return shouldForwardProp;
-      };
+      }, "composeShouldForwardProps");
       var ILLEGAL_ESCAPE_SEQUENCE_ERROR = `You have illegal escape sequence in your template literal, most likely inside content's property value.
 Because you write your CSS inside a JavaScript string you actually have to do double escaping, so for example "content: '\\00d7';" should become "content: '\\\\00d7';".
 You can read more about this here:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences`;
       var isBrowser = typeof document !== "undefined";
-      var Insertion = function Insertion2(_ref) {
+      var Insertion = /* @__PURE__ */ __name(function Insertion2(_ref) {
         var cache2 = _ref.cache, serialized = _ref.serialized, isStringTag = _ref.isStringTag;
         utils.registerStyles(cache2, serialized, isStringTag);
         var rules = useInsertionEffectWithFallbacks.useInsertionEffectAlwaysWithSyncFallback(function() {
@@ -26645,13 +27818,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             serializedNames += " " + next.name;
             next = next.next;
           }
-          return React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache2.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+          return /* @__PURE__ */ React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache2.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
             __html: rules
           }, _ref2.nonce = cache2.sheet.nonce, _ref2));
         }
         return null;
-      };
-      var createStyled = function createStyled2(tag, options) {
+      }, "Insertion");
+      var createStyled = /* @__PURE__ */ __name(function createStyled2(tag, options) {
         if (true) {
           if (tag === void 0) {
             throw new Error("You are trying to create a styled element with an undefined component.\nYou may have forgotten to import it.");
@@ -26723,11 +27896,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             newProps.className = className;
             newProps.ref = ref;
-            return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
+            return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(Insertion, {
               cache: cache2,
               serialized,
               isStringTag: typeof FinalTag === "string"
-            }), React2.createElement(FinalTag, newProps));
+            }), /* @__PURE__ */ React2.createElement(FinalTag, newProps));
           });
           Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag === "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")";
           Styled.defaultProps = tag.defaultProps;
@@ -26736,12 +27909,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           Styled.__emotion_styles = styles;
           Styled.__emotion_forwardProp = shouldForwardProp;
           Object.defineProperty(Styled, "toString", {
-            value: function value() {
+            value: /* @__PURE__ */ __name(function value() {
               if (targetClassName === void 0 && true) {
                 return "NO_COMPONENT_SELECTOR";
               }
               return "." + targetClassName;
-            }
+            }, "value")
           });
           Styled.withComponent = function(nextTag, nextOptions) {
             return createStyled2(nextTag, _extends({}, options, nextOptions, {
@@ -26750,7 +27923,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
           return Styled;
         };
-      };
+      }, "createStyled");
       exports.default = createStyled;
     }
   });
@@ -26932,14 +28105,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var clamp = (min, max) => (v) => Math.max(Math.min(v, max), min);
-      var sanitize = (v) => v % 1 ? Number(v.toFixed(5)) : v;
+      var clamp = /* @__PURE__ */ __name((min, max) => (v) => Math.max(Math.min(v, max), min), "clamp");
+      var sanitize = /* @__PURE__ */ __name((v) => v % 1 ? Number(v.toFixed(5)) : v, "sanitize");
       var floatRegex = /(-)?([\d]*\.?[\d])+/g;
       var colorRegex = /(#[0-9a-f]{6}|#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\((-?[\d\.]+%?[,\s]+){2}(-?[\d\.]+%?)\s*[\,\/]?\s*[\d\.]*%?\))/gi;
       var singleColorRegex = /^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\((-?[\d\.]+%?[,\s]+){2}(-?[\d\.]+%?)\s*[\,\/]?\s*[\d\.]*%?\))$/i;
       function isString(v) {
         return typeof v === "string";
       }
+      __name(isString, "isString");
       var number = {
         test: (v) => typeof v === "number",
         parse: parseFloat,
@@ -26947,21 +28121,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       };
       var alpha = Object.assign(Object.assign({}, number), { transform: clamp(0, 1) });
       var scale = Object.assign(Object.assign({}, number), { default: 1 });
-      var createUnitType = (unit) => ({
+      var createUnitType = /* @__PURE__ */ __name((unit) => ({
         test: (v) => isString(v) && v.endsWith(unit) && v.split(" ").length === 1,
         parse: parseFloat,
         transform: (v) => `${v}${unit}`
-      });
+      }), "createUnitType");
       var degrees = createUnitType("deg");
       var percent = createUnitType("%");
       var px = createUnitType("px");
       var vh = createUnitType("vh");
       var vw = createUnitType("vw");
       var progressPercentage = Object.assign(Object.assign({}, percent), { parse: (v) => percent.parse(v) / 100, transform: (v) => percent.transform(v * 100) });
-      var isColorString = (type, testProp) => (v) => {
+      var isColorString = /* @__PURE__ */ __name((type, testProp) => (v) => {
         return Boolean(isString(v) && singleColorRegex.test(v) && v.startsWith(type) || testProp && Object.prototype.hasOwnProperty.call(v, testProp));
-      };
-      var splitColor = (aName, bName, cName) => (v) => {
+      }, "isColorString");
+      var splitColor = /* @__PURE__ */ __name((aName, bName, cName) => (v) => {
         if (!isString(v))
           return v;
         const [a, b, c, alpha2] = v.match(floatRegex);
@@ -26971,7 +28145,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           [cName]: parseFloat(c),
           alpha: alpha2 !== void 0 ? parseFloat(alpha2) : 1
         };
-      };
+      }, "splitColor");
       var hsla = {
         test: isColorString("hsl", "hue"),
         parse: splitColor("hue", "saturation", "lightness"),
@@ -27013,6 +28187,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           alpha: a ? parseInt(a, 16) / 255 : 1
         };
       }
+      __name(parseHex, "parseHex");
       var hex = {
         test: isColorString("#"),
         parse: parseHex,
@@ -27039,6 +28214,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         var _a, _b, _c, _d;
         return isNaN(v) && isString(v) && ((_b = (_a = v.match(floatRegex)) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0) + ((_d = (_c = v.match(colorRegex)) === null || _c === void 0 ? void 0 : _c.length) !== null && _d !== void 0 ? _d : 0) > 0;
       }
+      __name(test, "test");
       function analyse(v) {
         if (typeof v === "number")
           v = `${v}`;
@@ -27057,9 +28233,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return { values, numColors, tokenised: v };
       }
+      __name(analyse, "analyse");
       function parse(v) {
         return analyse(v).values;
       }
+      __name(parse, "parse");
       function createTransformer(v) {
         const { values, numColors, tokenised } = analyse(v);
         const numValues = values.length;
@@ -27071,12 +28249,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return output;
         };
       }
-      var convertNumbersToZero = (v) => typeof v === "number" ? 0 : v;
+      __name(createTransformer, "createTransformer");
+      var convertNumbersToZero = /* @__PURE__ */ __name((v) => typeof v === "number" ? 0 : v, "convertNumbersToZero");
       function getAnimatableNone(v) {
         const parsed = parse(v);
         const transformer = createTransformer(v);
         return transformer(parsed.map(convertNumbersToZero));
       }
+      __name(getAnimatableNone, "getAnimatableNone");
       var complex = { test, parse, createTransformer, getAnimatableNone };
       var maxDefaults = /* @__PURE__ */ new Set(["brightness", "contrast", "saturate", "opacity"]);
       function applyDefaultFilter(v) {
@@ -27092,6 +28272,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           defaultValue *= 100;
         return name + "(" + defaultValue + unit + ")";
       }
+      __name(applyDefaultFilter, "applyDefaultFilter");
       var functionRegex = /([a-z-]*)\(.*?\)/g;
       var filter = Object.assign(Object.assign({}, complex), { getAnimatableNone: (v) => {
         const functions = v.match(functionRegex);
@@ -27168,6 +28349,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return exports2[id] = previous ? previous(id, v) : v;
           };
         }
+        __name(createExporter, "createExporter");
       })(function(exporter) {
         var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, b) {
           d.__proto__ = b;
@@ -27176,15 +28358,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (Object.prototype.hasOwnProperty.call(b, p))
               d[p] = b[p];
         };
-        __extends = function(d, b) {
+        __extends = /* @__PURE__ */ __name(function(d, b) {
           if (typeof b !== "function" && b !== null)
             throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
           extendStatics(d, b);
           function __() {
             this.constructor = d;
           }
+          __name(__, "__");
           d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-        };
+        }, "__extends");
         __assign = Object.assign || function(t) {
           for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
@@ -27194,7 +28377,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           return t;
         };
-        __rest = function(s, e) {
+        __rest = /* @__PURE__ */ __name(function(s, e) {
           var t = {};
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -27205,8 +28388,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 t[p[i]] = s[p[i]];
             }
           return t;
-        };
-        __decorate = function(decorators, target, key, desc) {
+        }, "__rest");
+        __decorate = /* @__PURE__ */ __name(function(decorators, target, key, desc) {
           var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
           if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
             r = Reflect.decorate(decorators, target, key, desc);
@@ -27215,22 +28398,23 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               if (d = decorators[i])
                 r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
           return c > 3 && r && Object.defineProperty(target, key, r), r;
-        };
-        __param = function(paramIndex, decorator) {
+        }, "__decorate");
+        __param = /* @__PURE__ */ __name(function(paramIndex, decorator) {
           return function(target, key) {
             decorator(target, key, paramIndex);
           };
-        };
-        __metadata = function(metadataKey, metadataValue) {
+        }, "__param");
+        __metadata = /* @__PURE__ */ __name(function(metadataKey, metadataValue) {
           if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
             return Reflect.metadata(metadataKey, metadataValue);
-        };
-        __awaiter = function(thisArg, _arguments, P, generator) {
+        }, "__metadata");
+        __awaiter = /* @__PURE__ */ __name(function(thisArg, _arguments, P, generator) {
           function adopt(value) {
             return value instanceof P ? value : new P(function(resolve) {
               resolve(value);
             });
           }
+          __name(adopt, "adopt");
           return new (P || (P = Promise))(function(resolve, reject) {
             function fulfilled(value) {
               try {
@@ -27239,6 +28423,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 reject(e);
               }
             }
+            __name(fulfilled, "fulfilled");
             function rejected(value) {
               try {
                 step(generator["throw"](value));
@@ -27246,13 +28431,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 reject(e);
               }
             }
+            __name(rejected, "rejected");
             function step(result) {
               result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
             }
+            __name(step, "step");
             step((generator = generator.apply(thisArg, _arguments || [])).next());
           });
-        };
-        __generator = function(thisArg, body) {
+        }, "__awaiter");
+        __generator = /* @__PURE__ */ __name(function(thisArg, body) {
           var _ = { label: 0, sent: function() {
             if (t[0] & 1)
               throw t[1];
@@ -27266,6 +28453,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               return step([n, v]);
             };
           }
+          __name(verb, "verb");
           function step(op) {
             if (f)
               throw new TypeError("Generator is already executing.");
@@ -27327,12 +28515,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               throw op[1];
             return { value: op[0] ? op[1] : void 0, done: true };
           }
-        };
-        __exportStar = function(m, o) {
+          __name(step, "step");
+        }, "__generator");
+        __exportStar = /* @__PURE__ */ __name(function(m, o) {
           for (var p in m)
             if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
               __createBinding(o, m, p);
-        };
+        }, "__exportStar");
         __createBinding = Object.create ? function(o, m, k, k2) {
           if (k2 === void 0)
             k2 = k;
@@ -27348,7 +28537,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             k2 = k;
           o[k2] = m[k];
         };
-        __values = function(o) {
+        __values = /* @__PURE__ */ __name(function(o) {
           var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
           if (m)
             return m.call(o);
@@ -27361,8 +28550,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               }
             };
           throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-        };
-        __read = function(o, n) {
+        }, "__values");
+        __read = /* @__PURE__ */ __name(function(o, n) {
           var m = typeof Symbol === "function" && o[Symbol.iterator];
           if (!m)
             return o;
@@ -27382,21 +28571,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           }
           return ar;
-        };
-        __spread = function() {
+        }, "__read");
+        __spread = /* @__PURE__ */ __name(function() {
           for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
           return ar;
-        };
-        __spreadArrays = function() {
+        }, "__spread");
+        __spreadArrays = /* @__PURE__ */ __name(function() {
           for (var s = 0, i = 0, il = arguments.length; i < il; i++)
             s += arguments[i].length;
           for (var r = Array(s), k = 0, i = 0; i < il; i++)
             for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
               r[k] = a[j];
           return r;
-        };
-        __spreadArray = function(to, from, pack) {
+        }, "__spreadArrays");
+        __spreadArray = /* @__PURE__ */ __name(function(to, from, pack) {
           if (pack || arguments.length === 2)
             for (var i = 0, l = from.length, ar; i < l; i++) {
               if (ar || !(i in from)) {
@@ -27406,11 +28595,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               }
             }
           return to.concat(ar || Array.prototype.slice.call(from));
-        };
-        __await = function(v) {
+        }, "__spreadArray");
+        __await = /* @__PURE__ */ __name(function(v) {
           return this instanceof __await ? (this.v = v, this) : new __await(v);
-        };
-        __asyncGenerator = function(thisArg, _arguments, generator) {
+        }, "__await");
+        __asyncGenerator = /* @__PURE__ */ __name(function(thisArg, _arguments, generator) {
           if (!Symbol.asyncIterator)
             throw new TypeError("Symbol.asyncIterator is not defined.");
           var g = generator.apply(thisArg, _arguments || []), i, q = [];
@@ -27425,6 +28614,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 });
               };
           }
+          __name(verb, "verb");
           function resume(n, v) {
             try {
               step(g[n](v));
@@ -27432,21 +28622,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               settle(q[0][3], e);
             }
           }
+          __name(resume, "resume");
           function step(r) {
             r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
           }
+          __name(step, "step");
           function fulfill(value) {
             resume("next", value);
           }
+          __name(fulfill, "fulfill");
           function reject(value) {
             resume("throw", value);
           }
+          __name(reject, "reject");
           function settle(f, v) {
             if (f(v), q.shift(), q.length)
               resume(q[0][0], q[0][1]);
           }
-        };
-        __asyncDelegator = function(o) {
+          __name(settle, "settle");
+        }, "__asyncGenerator");
+        __asyncDelegator = /* @__PURE__ */ __name(function(o) {
           var i, p;
           return i = {}, verb("next"), verb("throw", function(e) {
             throw e;
@@ -27458,8 +28653,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v;
             } : f;
           }
-        };
-        __asyncValues = function(o) {
+          __name(verb, "verb");
+        }, "__asyncDelegator");
+        __asyncValues = /* @__PURE__ */ __name(function(o) {
           if (!Symbol.asyncIterator)
             throw new TypeError("Symbol.asyncIterator is not defined.");
           var m = o[Symbol.asyncIterator], i;
@@ -27473,26 +28669,28 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               });
             };
           }
+          __name(verb, "verb");
           function settle(resolve, reject, d, v) {
             Promise.resolve(v).then(function(v2) {
               resolve({ value: v2, done: d });
             }, reject);
           }
-        };
-        __makeTemplateObject = function(cooked, raw) {
+          __name(settle, "settle");
+        }, "__asyncValues");
+        __makeTemplateObject = /* @__PURE__ */ __name(function(cooked, raw) {
           if (Object.defineProperty) {
             Object.defineProperty(cooked, "raw", { value: raw });
           } else {
             cooked.raw = raw;
           }
           return cooked;
-        };
+        }, "__makeTemplateObject");
         var __setModuleDefault = Object.create ? function(o, v) {
           Object.defineProperty(o, "default", { enumerable: true, value: v });
         } : function(o, v) {
           o["default"] = v;
         };
-        __importStar = function(mod) {
+        __importStar = /* @__PURE__ */ __name(function(mod) {
           if (mod && mod.__esModule)
             return mod;
           var result = {};
@@ -27503,18 +28701,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           __setModuleDefault(result, mod);
           return result;
-        };
-        __importDefault = function(mod) {
+        }, "__importStar");
+        __importDefault = /* @__PURE__ */ __name(function(mod) {
           return mod && mod.__esModule ? mod : { "default": mod };
-        };
-        __classPrivateFieldGet = function(receiver, state, kind, f) {
+        }, "__importDefault");
+        __classPrivateFieldGet = /* @__PURE__ */ __name(function(receiver, state, kind, f) {
           if (kind === "a" && !f)
             throw new TypeError("Private accessor was defined without a getter");
           if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
             throw new TypeError("Cannot read private member from an object whose class did not declare it");
           return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-        };
-        __classPrivateFieldSet = function(receiver, state, value, kind, f) {
+        }, "__classPrivateFieldGet");
+        __classPrivateFieldSet = /* @__PURE__ */ __name(function(receiver, state, value, kind, f) {
           if (kind === "m")
             throw new TypeError("Private method is not writable");
           if (kind === "a" && !f)
@@ -27522,12 +28720,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
             throw new TypeError("Cannot write private member to an object whose class did not declare it");
           return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-        };
-        __classPrivateFieldIn = function(state, receiver) {
+        }, "__classPrivateFieldSet");
+        __classPrivateFieldIn = /* @__PURE__ */ __name(function(state, receiver) {
           if (receiver === null || typeof receiver !== "object" && typeof receiver !== "function")
             throw new TypeError("Cannot use 'in' operator on non-object");
           return typeof state === "function" ? receiver === state : state.has(receiver);
-        };
+        }, "__classPrivateFieldIn");
         exporter("__extends", __extends);
         exporter("__assign", __assign);
         exporter("__rest", __rest);
@@ -27645,6 +28843,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         };
         return step;
       }
+      __name(createRenderStep, "createRenderStep");
       var maxElapsed = 40;
       var useDefaultElapsed = true;
       var runNextFrame = false;
@@ -27681,8 +28880,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         acc[key] = () => steps[key].process(frame);
         return acc;
       }, {});
-      var processStep = (stepId) => steps[stepId].process(frame);
-      var processFrame = (timestamp) => {
+      var processStep = /* @__PURE__ */ __name((stepId) => steps[stepId].process(frame), "processStep");
+      var processFrame = /* @__PURE__ */ __name((timestamp) => {
         runNextFrame = false;
         frame.delta = useDefaultElapsed ? defaultTimestep : Math.max(Math.min(timestamp - frame.timestamp, maxElapsed), 1);
         frame.timestamp = timestamp;
@@ -27693,14 +28892,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           useDefaultElapsed = false;
           onNextFrame(processFrame);
         }
-      };
-      var startLoop = () => {
+      }, "processFrame");
+      var startLoop = /* @__PURE__ */ __name(() => {
         runNextFrame = true;
         useDefaultElapsed = true;
         if (!isProcessing)
           onNextFrame(processFrame);
-      };
-      var getFrameData = () => frame;
+      }, "startLoop");
+      var getFrameData = /* @__PURE__ */ __name(() => frame, "getFrameData");
       exports.cancelSync = cancelSync;
       exports.default = sync;
       exports.flushSync = flushSync;
@@ -27721,8 +28920,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function _interopDefaultLegacy(e) {
         return e && typeof e === "object" && "default" in e ? e : { "default": e };
       }
-      var sync__default = _interopDefaultLegacy(sync);
-      var clamp = (min, max, v) => Math.min(Math.max(v, min), max);
+      __name(_interopDefaultLegacy, "_interopDefaultLegacy");
+      var sync__default = /* @__PURE__ */ _interopDefaultLegacy(sync);
+      var clamp = /* @__PURE__ */ __name((min, max, v) => Math.min(Math.max(v, min), max), "clamp");
       var safeMin = 1e-3;
       var minDuration = 0.01;
       var maxDuration = 10;
@@ -27736,15 +28936,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         dampingRatio = clamp(minDamping, maxDamping, dampingRatio);
         duration = clamp(minDuration, maxDuration, duration / 1e3);
         if (dampingRatio < 1) {
-          envelope = (undampedFreq2) => {
+          envelope = /* @__PURE__ */ __name((undampedFreq2) => {
             const exponentialDecay = undampedFreq2 * dampingRatio;
             const delta = exponentialDecay * duration;
             const a2 = exponentialDecay - velocity;
             const b2 = calcAngularFreq(undampedFreq2, dampingRatio);
             const c2 = Math.exp(-delta);
             return safeMin - a2 / b2 * c2;
-          };
-          derivative = (undampedFreq2) => {
+          }, "envelope");
+          derivative = /* @__PURE__ */ __name((undampedFreq2) => {
             const exponentialDecay = undampedFreq2 * dampingRatio;
             const delta = exponentialDecay * duration;
             const d = delta * velocity + velocity;
@@ -27753,18 +28953,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             const g = calcAngularFreq(Math.pow(undampedFreq2, 2), dampingRatio);
             const factor = -envelope(undampedFreq2) + safeMin > 0 ? -1 : 1;
             return factor * ((d - e) * f) / g;
-          };
+          }, "derivative");
         } else {
-          envelope = (undampedFreq2) => {
+          envelope = /* @__PURE__ */ __name((undampedFreq2) => {
             const a2 = Math.exp(-undampedFreq2 * duration);
             const b2 = (undampedFreq2 - velocity) * duration + 1;
             return -safeMin + a2 * b2;
-          };
-          derivative = (undampedFreq2) => {
+          }, "envelope");
+          derivative = /* @__PURE__ */ __name((undampedFreq2) => {
             const a2 = Math.exp(-undampedFreq2 * duration);
             const b2 = (velocity - undampedFreq2) * (duration * duration);
             return a2 * b2;
-          };
+          }, "derivative");
         }
         const initialGuess = 5 / duration;
         const undampedFreq = approximateRoot(envelope, derivative, initialGuess);
@@ -27784,6 +28984,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
         }
       }
+      __name(findSpring, "findSpring");
       var rootIterations = 12;
       function approximateRoot(envelope, derivative, initialGuess) {
         let result = initialGuess;
@@ -27792,14 +28993,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return result;
       }
+      __name(approximateRoot, "approximateRoot");
       function calcAngularFreq(undampedFreq, dampingRatio) {
         return undampedFreq * Math.sqrt(1 - dampingRatio * dampingRatio);
       }
+      __name(calcAngularFreq, "calcAngularFreq");
       var durationKeys = ["duration", "bounce"];
       var physicsKeys = ["stiffness", "damping", "mass"];
       function isSpringType(options, keys) {
         return keys.some((key) => options[key] !== void 0);
       }
+      __name(isSpringType, "isSpringType");
       function getSpringOptions(options) {
         let springOptions = Object.assign({ velocity: 0, stiffness: 100, damping: 10, mass: 1, isResolvedFromDuration: false }, options);
         if (!isSpringType(options, physicsKeys) && isSpringType(options, durationKeys)) {
@@ -27809,6 +29013,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return springOptions;
       }
+      __name(getSpringOptions, "getSpringOptions");
       function spring(_a) {
         var { from = 0, to = 1, restSpeed = 2, restDelta } = _a, options = tslib.__rest(_a, ["from", "to", "restSpeed", "restDelta"]);
         const state = { done: false, value: from };
@@ -27825,25 +29030,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           if (dampingRatio < 1) {
             const angularFreq = calcAngularFreq(undampedAngularFreq, dampingRatio);
-            resolveSpring = (t) => {
+            resolveSpring = /* @__PURE__ */ __name((t) => {
               const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
               return to - envelope * ((initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) / angularFreq * Math.sin(angularFreq * t) + initialDelta * Math.cos(angularFreq * t));
-            };
-            resolveVelocity = (t) => {
+            }, "resolveSpring");
+            resolveVelocity = /* @__PURE__ */ __name((t) => {
               const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
               return dampingRatio * undampedAngularFreq * envelope * (Math.sin(angularFreq * t) * (initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) / angularFreq + initialDelta * Math.cos(angularFreq * t)) - envelope * (Math.cos(angularFreq * t) * (initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) - angularFreq * initialDelta * Math.sin(angularFreq * t));
-            };
+            }, "resolveVelocity");
           } else if (dampingRatio === 1) {
-            resolveSpring = (t) => to - Math.exp(-undampedAngularFreq * t) * (initialDelta + (initialVelocity + undampedAngularFreq * initialDelta) * t);
+            resolveSpring = /* @__PURE__ */ __name((t) => to - Math.exp(-undampedAngularFreq * t) * (initialDelta + (initialVelocity + undampedAngularFreq * initialDelta) * t), "resolveSpring");
           } else {
             const dampedAngularFreq = undampedAngularFreq * Math.sqrt(dampingRatio * dampingRatio - 1);
-            resolveSpring = (t) => {
+            resolveSpring = /* @__PURE__ */ __name((t) => {
               const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
               const freqForT = Math.min(dampedAngularFreq * t, 300);
               return to - envelope * ((initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) * Math.sinh(freqForT) + dampedAngularFreq * initialDelta * Math.cosh(freqForT)) / dampedAngularFreq;
-            };
+            }, "resolveSpring");
           }
         }
+        __name(createSpring, "createSpring");
         createSpring();
         return {
           next: (t) => {
@@ -27866,13 +29072,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         };
       }
+      __name(spring, "spring");
       spring.needsInterpolation = (a2, b2) => typeof a2 === "string" || typeof b2 === "string";
-      var zero = (_t) => 0;
-      var progress = (from, to, value) => {
+      var zero = /* @__PURE__ */ __name((_t) => 0, "zero");
+      var progress = /* @__PURE__ */ __name((from, to, value) => {
         const toFromDifference = to - from;
         return toFromDifference === 0 ? 1 : (value - from) / toFromDifference;
-      };
-      var mix = (from, to, progress2) => -progress2 * from + progress2 * to + from;
+      }, "progress");
+      var mix = /* @__PURE__ */ __name((from, to, progress2) => -progress2 * from + progress2 * to + from, "mix");
       function hueToRgb(p, q, t) {
         if (t < 0)
           t += 1;
@@ -27886,6 +29093,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return p + (q - p) * (2 / 3 - t) * 6;
         return p;
       }
+      __name(hueToRgb, "hueToRgb");
       function hslaToRgba({ hue, saturation, lightness, alpha }) {
         hue /= 360;
         saturation /= 100;
@@ -27909,15 +29117,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           alpha
         };
       }
-      var mixLinearColor = (from, to, v) => {
+      __name(hslaToRgba, "hslaToRgba");
+      var mixLinearColor = /* @__PURE__ */ __name((from, to, v) => {
         const fromExpo = from * from;
         const toExpo = to * to;
         return Math.sqrt(Math.max(0, v * (toExpo - fromExpo) + fromExpo));
-      };
+      }, "mixLinearColor");
       var colorTypes = [styleValueTypes.hex, styleValueTypes.rgba, styleValueTypes.hsla];
-      var getColorType = (v) => colorTypes.find((type) => type.test(v));
-      var notAnimatable = (color) => `'${color}' is not an animatable color. Use the equivalent color code instead.`;
-      var mixColor = (from, to) => {
+      var getColorType = /* @__PURE__ */ __name((v) => colorTypes.find((type) => type.test(v)), "getColorType");
+      var notAnimatable = /* @__PURE__ */ __name((color) => `'${color}' is not an animatable color. Use the equivalent color code instead.`, "notAnimatable");
+      var mixColor = /* @__PURE__ */ __name((from, to) => {
         let fromColorType = getColorType(from);
         let toColorType = getColorType(to);
         heyListen.invariant(!!fromColorType, notAnimatable(from));
@@ -27942,15 +29151,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           blended.alpha = mix(fromColor.alpha, toColor.alpha, v);
           return fromColorType.transform(blended);
         };
-      };
+      }, "mixColor");
       var zeroPoint = {
         x: 0,
         y: 0,
         z: 0
       };
-      var isNum = (v) => typeof v === "number";
-      var combineFunctions = (a2, b2) => (v) => b2(a2(v));
-      var pipe = (...transformers) => transformers.reduce(combineFunctions);
+      var isNum = /* @__PURE__ */ __name((v) => typeof v === "number", "isNum");
+      var combineFunctions = /* @__PURE__ */ __name((a2, b2) => (v) => b2(a2(v)), "combineFunctions");
+      var pipe = /* @__PURE__ */ __name((...transformers) => transformers.reduce(combineFunctions), "pipe");
       function getMixer(origin, target) {
         if (isNum(origin)) {
           return (v) => mix(origin, target, v);
@@ -27960,7 +29169,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return mixComplex(origin, target);
         }
       }
-      var mixArray = (from, to) => {
+      __name(getMixer, "getMixer");
+      var mixArray = /* @__PURE__ */ __name((from, to) => {
         const output = [...from];
         const numValues = output.length;
         const blendValue = from.map((fromThis, i) => getMixer(fromThis, to[i]));
@@ -27970,8 +29180,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           return output;
         };
-      };
-      var mixObject = (origin, target) => {
+      }, "mixArray");
+      var mixObject = /* @__PURE__ */ __name((origin, target) => {
         const output = Object.assign(Object.assign({}, origin), target);
         const blendValue = {};
         for (const key in output) {
@@ -27985,7 +29195,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           return output;
         };
-      };
+      }, "mixObject");
       function analyse(value) {
         const parsed = styleValueTypes.complex.parse(value);
         const numValues = parsed.length;
@@ -28005,7 +29215,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return { parsed, numNumbers, numRGB, numHSL };
       }
-      var mixComplex = (origin, target) => {
+      __name(analyse, "analyse");
+      var mixComplex = /* @__PURE__ */ __name((origin, target) => {
         const template = styleValueTypes.complex.createTransformer(target);
         const originStats = analyse(origin);
         const targetStats = analyse(target);
@@ -28016,8 +29227,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           heyListen.warning(true, `Complex values '${origin}' and '${target}' too different to mix. Ensure all colors are of the same type, and that each contains the same quantity of number and color values. Falling back to instant transition.`);
           return (p) => `${p > 0 ? target : origin}`;
         }
-      };
-      var mixNumber = (from, to) => (p) => mix(from, to, p);
+      }, "mixComplex");
+      var mixNumber = /* @__PURE__ */ __name((from, to) => (p) => mix(from, to, p), "mixNumber");
       function detectMixerFactory(v) {
         if (typeof v === "number") {
           return mixNumber;
@@ -28033,6 +29244,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return mixObject;
         }
       }
+      __name(detectMixerFactory, "detectMixerFactory");
       function createMixers(output, ease, customMixer) {
         const mixers = [];
         const mixerFactory = customMixer || detectMixerFactory(output[0]);
@@ -28047,9 +29259,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return mixers;
       }
+      __name(createMixers, "createMixers");
       function fastInterpolate([from, to], [mixer]) {
         return (v) => mixer(progress(from, to, v));
       }
+      __name(fastInterpolate, "fastInterpolate");
       function slowInterpolate(input, mixers) {
         const inputLength = input.length;
         const lastInputIndex = inputLength - 1;
@@ -28075,6 +29289,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return mixers[mixerIndex](progressInRange);
         };
       }
+      __name(slowInterpolate, "slowInterpolate");
       function interpolate(input, output, { clamp: isClamp = true, ease, mixer } = {}) {
         const inputLength = input.length;
         heyListen.invariant(inputLength === output.length, "Both input and output ranges must be the same length");
@@ -28089,23 +29304,24 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const interpolator = inputLength === 2 ? fastInterpolate(input, mixers) : slowInterpolate(input, mixers);
         return isClamp ? (v) => interpolator(clamp(input[0], input[inputLength - 1], v)) : interpolator;
       }
-      var reverseEasing = (easing) => (p) => 1 - easing(1 - p);
-      var mirrorEasing = (easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
-      var createExpoIn = (power) => (p) => Math.pow(p, power);
-      var createBackIn = (power) => (p) => p * p * ((power + 1) * p - power);
-      var createAnticipate = (power) => {
+      __name(interpolate, "interpolate");
+      var reverseEasing = /* @__PURE__ */ __name((easing) => (p) => 1 - easing(1 - p), "reverseEasing");
+      var mirrorEasing = /* @__PURE__ */ __name((easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2, "mirrorEasing");
+      var createExpoIn = /* @__PURE__ */ __name((power) => (p) => Math.pow(p, power), "createExpoIn");
+      var createBackIn = /* @__PURE__ */ __name((power) => (p) => p * p * ((power + 1) * p - power), "createBackIn");
+      var createAnticipate = /* @__PURE__ */ __name((power) => {
         const backEasing = createBackIn(power);
         return (p) => (p *= 2) < 1 ? 0.5 * backEasing(p) : 0.5 * (2 - Math.pow(2, -10 * (p - 1)));
-      };
+      }, "createAnticipate");
       var DEFAULT_OVERSHOOT_STRENGTH = 1.525;
       var BOUNCE_FIRST_THRESHOLD = 4 / 11;
       var BOUNCE_SECOND_THRESHOLD = 8 / 11;
       var BOUNCE_THIRD_THRESHOLD = 9 / 10;
-      var linear = (p) => p;
+      var linear = /* @__PURE__ */ __name((p) => p, "linear");
       var easeIn = createExpoIn(2);
       var easeOut = reverseEasing(easeIn);
       var easeInOut = mirrorEasing(easeIn);
-      var circIn = (p) => 1 - Math.sin(Math.acos(p));
+      var circIn = /* @__PURE__ */ __name((p) => 1 - Math.sin(Math.acos(p)), "circIn");
       var circOut = reverseEasing(circIn);
       var circInOut = mirrorEasing(circOut);
       var backIn = createBackIn(DEFAULT_OVERSHOOT_STRENGTH);
@@ -28115,24 +29331,27 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var ca = 4356 / 361;
       var cb = 35442 / 1805;
       var cc = 16061 / 1805;
-      var bounceOut = (p) => {
+      var bounceOut = /* @__PURE__ */ __name((p) => {
         if (p === 1 || p === 0)
           return p;
         const p2 = p * p;
         return p < BOUNCE_FIRST_THRESHOLD ? 7.5625 * p2 : p < BOUNCE_SECOND_THRESHOLD ? 9.075 * p2 - 9.9 * p + 3.4 : p < BOUNCE_THIRD_THRESHOLD ? ca * p2 - cb * p + cc : 10.8 * p * p - 20.52 * p + 10.72;
-      };
+      }, "bounceOut");
       var bounceIn = reverseEasing(bounceOut);
-      var bounceInOut = (p) => p < 0.5 ? 0.5 * (1 - bounceOut(1 - p * 2)) : 0.5 * bounceOut(p * 2 - 1) + 0.5;
+      var bounceInOut = /* @__PURE__ */ __name((p) => p < 0.5 ? 0.5 * (1 - bounceOut(1 - p * 2)) : 0.5 * bounceOut(p * 2 - 1) + 0.5, "bounceInOut");
       function defaultEasing(values, easing) {
         return values.map(() => easing || easeInOut).splice(0, values.length - 1);
       }
+      __name(defaultEasing, "defaultEasing");
       function defaultOffset(values) {
         const numValues = values.length;
         return values.map((_value, i) => i !== 0 ? i / (numValues - 1) : 0);
       }
+      __name(defaultOffset, "defaultOffset");
       function convertOffsetToTimes(offset, duration) {
         return offset.map((o) => o * duration);
       }
+      __name(convertOffsetToTimes, "convertOffsetToTimes");
       function keyframes({ from = 0, to = 1, ease, offset, duration = 300 }) {
         const state = { done: false, value: from };
         const values = Array.isArray(to) ? to : [from, to];
@@ -28142,6 +29361,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             ease: Array.isArray(ease) ? ease : defaultEasing(values, ease)
           });
         }
+        __name(createInterpolator, "createInterpolator");
         let interpolator = createInterpolator();
         return {
           next: (t) => {
@@ -28155,6 +29375,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         };
       }
+      __name(keyframes, "keyframes");
       function decay({ velocity = 0, from = 0, power = 0.8, timeConstant = 350, restDelta = 0.5, modifyTarget }) {
         const state = { done: false, value: from };
         let amplitude = power * velocity;
@@ -28173,6 +29394,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         };
       }
+      __name(decay, "decay");
       var types = { keyframes, spring, decay };
       function detectAnimationFromOptions(config) {
         if (Array.isArray(config.to)) {
@@ -28188,22 +29410,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return keyframes;
       }
+      __name(detectAnimationFromOptions, "detectAnimationFromOptions");
       function loopElapsed(elapsed, duration, delay = 0) {
         return elapsed - duration - delay;
       }
+      __name(loopElapsed, "loopElapsed");
       function reverseElapsed(elapsed, duration, delay = 0, isForwardPlayback = true) {
         return isForwardPlayback ? loopElapsed(duration + -elapsed, duration, delay) : duration - (elapsed - duration) + delay;
       }
+      __name(reverseElapsed, "reverseElapsed");
       function hasRepeatDelayElapsed(elapsed, duration, delay, isForwardPlayback) {
         return isForwardPlayback ? elapsed >= duration + delay : elapsed <= -delay;
       }
-      var framesync = (update) => {
-        const passTimestamp = ({ delta }) => update(delta);
+      __name(hasRepeatDelayElapsed, "hasRepeatDelayElapsed");
+      var framesync = /* @__PURE__ */ __name((update) => {
+        const passTimestamp = /* @__PURE__ */ __name(({ delta }) => update(delta), "passTimestamp");
         return {
           start: () => sync__default["default"].update(passTimestamp, true),
           stop: () => sync.cancelSync.update(passTimestamp)
         };
-      };
+      }, "framesync");
       function animate(_a) {
         var _b, _c;
         var { from, autoplay = true, driver = framesync, elapsed = 0, repeat: repeatMax = 0, repeatType = "loop", repeatDelay = 0, onPlay, onStop, onComplete, onRepeat, onUpdate } = _a, options = tslib.__rest(_a, ["from", "autoplay", "driver", "elapsed", "repeat", "repeatType", "repeatDelay", "onPlay", "onStop", "onComplete", "onRepeat", "onUpdate"]);
@@ -28237,10 +29463,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           isComplete = false;
           onRepeat && onRepeat();
         }
+        __name(repeat, "repeat");
         function complete() {
           driverControls.stop();
           onComplete && onComplete();
         }
+        __name(complete, "complete");
         function update(delta) {
           if (!isForwardPlayback)
             delta = -delta;
@@ -28263,11 +29491,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           }
         }
+        __name(update, "update");
         function play() {
           onPlay === null || onPlay === void 0 ? void 0 : onPlay();
           driverControls = driver(update);
           driverControls.start();
         }
+        __name(play, "play");
         autoplay && play();
         return {
           stop: () => {
@@ -28276,14 +29506,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         };
       }
+      __name(animate, "animate");
       function velocityPerSecond(velocity, frameDuration) {
         return frameDuration ? velocity * (1e3 / frameDuration) : 0;
       }
+      __name(velocityPerSecond, "velocityPerSecond");
       function inertia({ from = 0, velocity = 0, min, max, power = 0.8, timeConstant = 750, bounceStiffness = 500, bounceDamping = 10, restDelta = 1, modifyTarget, driver, onUpdate, onComplete, onStop }) {
         let currentAnimation;
         function isOutOfBounds(v) {
           return min !== void 0 && v < min || max !== void 0 && v > max;
         }
+        __name(isOutOfBounds, "isOutOfBounds");
         function boundaryNearest(v) {
           if (min === void 0)
             return max;
@@ -28291,6 +29524,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return min;
           return Math.abs(min - v) < Math.abs(max - v) ? min : max;
         }
+        __name(boundaryNearest, "boundaryNearest");
         function startAnimation(options) {
           currentAnimation === null || currentAnimation === void 0 ? void 0 : currentAnimation.stop();
           currentAnimation = animate(Object.assign(Object.assign({}, options), {
@@ -28304,9 +29538,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             onStop
           }));
         }
+        __name(startAnimation, "startAnimation");
         function startSpring(options) {
           startAnimation(Object.assign({ type: "spring", stiffness: bounceStiffness, damping: bounceDamping, restDelta }, options));
         }
+        __name(startSpring, "startSpring");
         if (isOutOfBounds(from)) {
           startSpring({ from, velocity, to: boundaryNearest(from) });
         } else {
@@ -28317,14 +29553,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           const heading = boundary === min ? -1 : 1;
           let prev;
           let current;
-          const checkBoundary = (v) => {
+          const checkBoundary = /* @__PURE__ */ __name((v) => {
             prev = current;
             current = v;
             velocity = velocityPerSecond(v - prev, sync.getFrameData().delta);
             if (heading === 1 && v > boundary || heading === -1 && v < boundary) {
               startSpring({ from: v, to: boundary, velocity });
             }
-          };
+          }, "checkBoundary");
           startAnimation({
             type: "decay",
             from,
@@ -28340,9 +29576,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           stop: () => currentAnimation === null || currentAnimation === void 0 ? void 0 : currentAnimation.stop()
         };
       }
-      var radiansToDegrees = (radians) => radians * 180 / Math.PI;
-      var angle = (a2, b2 = zeroPoint) => radiansToDegrees(Math.atan2(b2.y - a2.y, b2.x - a2.x));
-      var applyOffset = (from, to) => {
+      __name(inertia, "inertia");
+      var radiansToDegrees = /* @__PURE__ */ __name((radians) => radians * 180 / Math.PI, "radiansToDegrees");
+      var angle = /* @__PURE__ */ __name((a2, b2 = zeroPoint) => radiansToDegrees(Math.atan2(b2.y - a2.y, b2.x - a2.x)), "angle");
+      var applyOffset = /* @__PURE__ */ __name((from, to) => {
         let hasReceivedFrom = true;
         if (to === void 0) {
           to = from;
@@ -28357,19 +29594,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return to;
           }
         };
-      };
-      var identity = (v) => v;
-      var createAttractor = (alterDisplacement = identity) => (constant, origin, v) => {
+      }, "applyOffset");
+      var identity = /* @__PURE__ */ __name((v) => v, "identity");
+      var createAttractor = /* @__PURE__ */ __name((alterDisplacement = identity) => (constant, origin, v) => {
         const displacement = origin - v;
         const springModifiedDisplacement = -(0 - constant + 1) * (0 - alterDisplacement(Math.abs(displacement)));
         return displacement <= 0 ? origin + springModifiedDisplacement : origin - springModifiedDisplacement;
-      };
+      }, "createAttractor");
       var attract = createAttractor();
       var attractExpo = createAttractor(Math.sqrt);
-      var degreesToRadians = (degrees) => degrees * Math.PI / 180;
-      var isPoint = (point) => point.hasOwnProperty("x") && point.hasOwnProperty("y");
-      var isPoint3D = (point) => isPoint(point) && point.hasOwnProperty("z");
-      var distance1D = (a2, b2) => Math.abs(a2 - b2);
+      var degreesToRadians = /* @__PURE__ */ __name((degrees) => degrees * Math.PI / 180, "degreesToRadians");
+      var isPoint = /* @__PURE__ */ __name((point) => point.hasOwnProperty("x") && point.hasOwnProperty("y"), "isPoint");
+      var isPoint3D = /* @__PURE__ */ __name((point) => isPoint(point) && point.hasOwnProperty("z"), "isPoint3D");
+      var distance1D = /* @__PURE__ */ __name((a2, b2) => Math.abs(a2 - b2), "distance1D");
       function distance(a2, b2) {
         if (isNum(a2) && isNum(b2)) {
           return distance1D(a2, b2);
@@ -28380,19 +29617,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return Math.sqrt(Math.pow(xDelta, 2) + Math.pow(yDelta, 2) + Math.pow(zDelta, 2));
         }
       }
-      var pointFromVector = (origin, angle2, distance2) => {
+      __name(distance, "distance");
+      var pointFromVector = /* @__PURE__ */ __name((origin, angle2, distance2) => {
         angle2 = degreesToRadians(angle2);
         return {
           x: distance2 * Math.cos(angle2) + origin.x,
           y: distance2 * Math.sin(angle2) + origin.y
         };
-      };
-      var toDecimal = (num, precision = 2) => {
+      }, "pointFromVector");
+      var toDecimal = /* @__PURE__ */ __name((num, precision = 2) => {
         precision = Math.pow(10, precision);
         return Math.round(num * precision) / precision;
-      };
-      var smoothFrame = (prevValue, nextValue, duration, smoothing = 0) => toDecimal(prevValue + duration * (nextValue - prevValue) / Math.max(smoothing, duration));
-      var smooth = (strength = 50) => {
+      }, "toDecimal");
+      var smoothFrame = /* @__PURE__ */ __name((prevValue, nextValue, duration, smoothing = 0) => toDecimal(prevValue + duration * (nextValue - prevValue) / Math.max(smoothing, duration)), "smoothFrame");
+      var smooth = /* @__PURE__ */ __name((strength = 50) => {
         let previousValue = 0;
         let lastUpdated = 0;
         return (v) => {
@@ -28403,8 +29641,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           previousValue = newValue;
           return newValue;
         };
-      };
-      var snap = (points) => {
+      }, "smooth");
+      var snap = /* @__PURE__ */ __name((points) => {
         if (typeof points === "number") {
           return (v) => Math.round(v / points) * points;
         } else {
@@ -28425,19 +29663,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           };
         }
-      };
+      }, "snap");
       function velocityPerFrame(xps, frameDuration) {
         return xps / (1e3 / frameDuration);
       }
-      var wrap = (min, max, v) => {
+      __name(velocityPerFrame, "velocityPerFrame");
+      var wrap = /* @__PURE__ */ __name((min, max, v) => {
         const rangeSize = max - min;
         return ((v - min) % rangeSize + rangeSize) % rangeSize + min;
-      };
-      var a = (a1, a2) => 1 - 3 * a2 + 3 * a1;
-      var b = (a1, a2) => 3 * a2 - 6 * a1;
-      var c = (a1) => 3 * a1;
-      var calcBezier = (t, a1, a2) => ((a(a1, a2) * t + b(a1, a2)) * t + c(a1)) * t;
-      var getSlope = (t, a1, a2) => 3 * a(a1, a2) * t * t + 2 * b(a1, a2) * t + c(a1);
+      }, "wrap");
+      var a = /* @__PURE__ */ __name((a1, a2) => 1 - 3 * a2 + 3 * a1, "a");
+      var b = /* @__PURE__ */ __name((a1, a2) => 3 * a2 - 6 * a1, "b");
+      var c = /* @__PURE__ */ __name((a1) => 3 * a1, "c");
+      var calcBezier = /* @__PURE__ */ __name((t, a1, a2) => ((a(a1, a2) * t + b(a1, a2)) * t + c(a1)) * t, "calcBezier");
+      var getSlope = /* @__PURE__ */ __name((t, a1, a2) => 3 * a(a1, a2) * t * t + 2 * b(a1, a2) * t + c(a1), "getSlope");
       var subdivisionPrecision = 1e-7;
       var subdivisionMaxIterations = 10;
       function binarySubdivide(aX, aA, aB, mX1, mX2) {
@@ -28455,6 +29694,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         } while (Math.abs(currentX) > subdivisionPrecision && ++i < subdivisionMaxIterations);
         return currentT;
       }
+      __name(binarySubdivide, "binarySubdivide");
       var newtonIterations = 8;
       var newtonMinSlope = 1e-3;
       function newtonRaphsonIterate(aX, aGuessT, mX1, mX2) {
@@ -28468,6 +29708,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return aGuessT;
       }
+      __name(newtonRaphsonIterate, "newtonRaphsonIterate");
       var kSplineTableSize = 11;
       var kSampleStepSize = 1 / (kSplineTableSize - 1);
       function cubicBezier(mX1, mY1, mX2, mY2) {
@@ -28496,14 +29737,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return binarySubdivide(aX, intervalStart, intervalStart + kSampleStepSize, mX1, mX2);
           }
         }
+        __name(getTForX, "getTForX");
         return (t) => t === 0 || t === 1 ? t : calcBezier(getTForX(t), mY1, mY2);
       }
-      var steps = (steps2, direction = "end") => (progress2) => {
+      __name(cubicBezier, "cubicBezier");
+      var steps = /* @__PURE__ */ __name((steps2, direction = "end") => (progress2) => {
         progress2 = direction === "end" ? Math.min(progress2, 0.999) : Math.max(progress2, 1e-3);
         const expanded = progress2 * steps2;
         const rounded = direction === "end" ? Math.floor(expanded) : Math.ceil(expanded);
         return clamp(0, 1, rounded / steps2);
-      };
+      }, "steps");
       exports.angle = angle;
       exports.animate = animate;
       exports.anticipate = anticipate;
@@ -28574,6 +29817,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           this.animation = this.generator = void 0;
         }
       };
+      __name(MotionValue, "MotionValue");
       exports.MotionValue = MotionValue;
     }
   });
@@ -28606,12 +29850,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return data.get(element);
       }
+      __name(getAnimationData, "getAnimationData");
       function getMotionValue(motionValues, name) {
         if (!motionValues.has(name)) {
           motionValues.set(name, new types.MotionValue());
         }
         return motionValues.get(name);
       }
+      __name(getMotionValue, "getMotionValue");
       exports.getAnimationData = getAnimationData;
       exports.getMotionValue = getMotionValue;
     }
@@ -28626,10 +29872,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function addUniqueItem(array, item) {
         array.indexOf(item) === -1 && array.push(item);
       }
+      __name(addUniqueItem, "addUniqueItem");
       function removeItem(arr, item) {
         const index = arr.indexOf(item);
         index > -1 && arr.splice(index, 1);
       }
+      __name(removeItem, "removeItem");
       exports.addUniqueItem = addUniqueItem;
       exports.removeItem = removeItem;
     }
@@ -28641,7 +29889,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var clamp = (min, max, v) => Math.min(Math.max(v, min), max);
+      var clamp = /* @__PURE__ */ __name((min, max, v) => Math.min(Math.max(v, min), max), "clamp");
       exports.clamp = clamp;
     }
   });
@@ -28669,7 +29917,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var isNumber = (value) => typeof value === "number";
+      var isNumber = /* @__PURE__ */ __name((value) => typeof value === "number", "isNumber");
       exports.isNumber = isNumber;
     }
   });
@@ -28681,7 +29929,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
       var isNumber = require_is_number_cjs();
-      var isEasingList = (easing) => Array.isArray(easing) && !isNumber.isNumber(easing[0]);
+      var isEasingList = /* @__PURE__ */ __name((easing) => Array.isArray(easing) && !isNumber.isNumber(easing[0]), "isEasingList");
       exports.isEasingList = isEasingList;
     }
   });
@@ -28692,10 +29940,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var wrap = (min, max, v) => {
+      var wrap = /* @__PURE__ */ __name((min, max, v) => {
         const rangeSize = max - min;
         return ((v - min) % rangeSize + rangeSize) % rangeSize + min;
-      };
+      }, "wrap");
       exports.wrap = wrap;
     }
   });
@@ -28711,6 +29959,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function getEasingForSegment(easing, i) {
         return isEasingList.isEasingList(easing) ? easing[wrap.wrap(0, easing.length, i)] : easing;
       }
+      __name(getEasingForSegment, "getEasingForSegment");
       exports.getEasingForSegment = getEasingForSegment;
     }
   });
@@ -28721,7 +29970,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var mix = (min, max, progress) => -progress * min + progress * max + min;
+      var mix = /* @__PURE__ */ __name((min, max, progress) => -progress * min + progress * max + min, "mix");
       exports.mix = mix;
     }
   });
@@ -28732,9 +29981,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var noop = () => {
-      };
-      var noopReturn = (v) => v;
+      var noop = /* @__PURE__ */ __name(() => {
+      }, "noop");
+      var noopReturn = /* @__PURE__ */ __name((v) => v, "noopReturn");
       exports.noop = noop;
       exports.noopReturn = noopReturn;
     }
@@ -28746,7 +29995,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var progress = (min, max, value) => max - min === 0 ? 1 : (value - min) / (max - min);
+      var progress = /* @__PURE__ */ __name((min, max, value) => max - min === 0 ? 1 : (value - min) / (max - min), "progress");
       exports.progress = progress;
     }
   });
@@ -28766,11 +30015,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           offset.push(mix.mix(min, 1, offsetProgress));
         }
       }
+      __name(fillOffset, "fillOffset");
       function defaultOffset(length2) {
         const offset = [0];
         fillOffset(offset, length2 - 1);
         return offset;
       }
+      __name(defaultOffset, "defaultOffset");
       exports.defaultOffset = defaultOffset;
       exports.fillOffset = fillOffset;
     }
@@ -28804,6 +30055,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return mix.mix(output[i], output[i + 1], progressInRange);
         };
       }
+      __name(interpolate, "interpolate");
       exports.interpolate = interpolate;
     }
   });
@@ -28815,7 +30067,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
       var isNumber = require_is_number_cjs();
-      var isCubicBezier = (easing) => Array.isArray(easing) && isNumber.isNumber(easing[0]);
+      var isCubicBezier = /* @__PURE__ */ __name((easing) => Array.isArray(easing) && isNumber.isNumber(easing[0]), "isCubicBezier");
       exports.isCubicBezier = isCubicBezier;
     }
   });
@@ -28826,7 +30078,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var isEasingGenerator = (easing) => typeof easing === "object" && Boolean(easing.createAnimation);
+      var isEasingGenerator = /* @__PURE__ */ __name((easing) => typeof easing === "object" && Boolean(easing.createAnimation), "isEasingGenerator");
       exports.isEasingGenerator = isEasingGenerator;
     }
   });
@@ -28837,7 +30089,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var isFunction = (value) => typeof value === "function";
+      var isFunction = /* @__PURE__ */ __name((value) => typeof value === "function", "isFunction");
       exports.isFunction = isFunction;
     }
   });
@@ -28848,7 +30100,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var isString = (value) => typeof value === "string";
+      var isString = /* @__PURE__ */ __name((value) => typeof value === "string", "isString");
       exports.isString = isString;
     }
   });
@@ -28876,6 +30128,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function velocityPerSecond(velocity, frameDuration) {
         return frameDuration ? velocity * (1e3 / frameDuration) : 0;
       }
+      __name(velocityPerSecond, "velocityPerSecond");
       exports.velocityPerSecond = velocityPerSecond;
     }
   });
@@ -28963,7 +30216,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         skew: rotation
       };
       var transformDefinitions = /* @__PURE__ */ new Map();
-      var asTransformCssVar = (name) => `--motion-${name}`;
+      var asTransformCssVar = /* @__PURE__ */ __name((name) => `--motion-${name}`, "asTransformCssVar");
       var transforms = ["x", "y", "z"];
       order.forEach((name) => {
         axes.forEach((axis) => {
@@ -28971,18 +30224,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           transformDefinitions.set(asTransformCssVar(name + axis), baseTransformProperties[name]);
         });
       });
-      var compareTransformOrder = (a, b) => transforms.indexOf(a) - transforms.indexOf(b);
+      var compareTransformOrder = /* @__PURE__ */ __name((a, b) => transforms.indexOf(a) - transforms.indexOf(b), "compareTransformOrder");
       var transformLookup = new Set(transforms);
-      var isTransform = (name) => transformLookup.has(name);
-      var addTransformToElement = (element, name) => {
+      var isTransform = /* @__PURE__ */ __name((name) => transformLookup.has(name), "isTransform");
+      var addTransformToElement = /* @__PURE__ */ __name((element, name) => {
         if (transformAlias[name])
           name = transformAlias[name];
         const { transforms: transforms2 } = data.getAnimationData(element);
         utils.addUniqueItem(transforms2, name);
         element.style.transform = buildTransformTemplate(transforms2);
-      };
-      var buildTransformTemplate = (transforms2) => transforms2.sort(compareTransformOrder).reduce(transformListToString, "").trim();
-      var transformListToString = (template, name) => `${template} ${name}(var(${asTransformCssVar(name)}))`;
+      }, "addTransformToElement");
+      var buildTransformTemplate = /* @__PURE__ */ __name((transforms2) => transforms2.sort(compareTransformOrder).reduce(transformListToString, "").trim(), "buildTransformTemplate");
+      var transformListToString = /* @__PURE__ */ __name((template, name) => `${template} ${name}(var(${asTransformCssVar(name)}))`, "transformListToString");
       exports.addTransformToElement = addTransformToElement;
       exports.asTransformCssVar = asTransformCssVar;
       exports.axes = axes;
@@ -29001,7 +30254,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
       var transforms = require_transforms_cjs();
-      var isCssVar = (name) => name.startsWith("--");
+      var isCssVar = /* @__PURE__ */ __name((name) => name.startsWith("--"), "isCssVar");
       var registeredProperties = /* @__PURE__ */ new Set();
       function registerCssVariable(name) {
         if (registeredProperties.has(name))
@@ -29018,6 +30271,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         } catch (e) {
         }
       }
+      __name(registerCssVariable, "registerCssVariable");
       exports.isCssVar = isCssVar;
       exports.registerCssVariable = registerCssVariable;
       exports.registeredProperties = registeredProperties;
@@ -29031,7 +30285,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
       var utils = require_index_cjs2();
-      var calcBezier = (t, a1, a2) => (((1 - 3 * a2 + 3 * a1) * t + (3 * a2 - 6 * a1)) * t + 3 * a1) * t;
+      var calcBezier = /* @__PURE__ */ __name((t, a1, a2) => (((1 - 3 * a2 + 3 * a1) * t + (3 * a2 - 6 * a1)) * t + 3 * a1) * t, "calcBezier");
       var subdivisionPrecision = 1e-7;
       var subdivisionMaxIterations = 12;
       function binarySubdivide(x, lowerBound, upperBound, mX1, mX2) {
@@ -29049,12 +30303,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         } while (Math.abs(currentX) > subdivisionPrecision && ++i < subdivisionMaxIterations);
         return currentT;
       }
+      __name(binarySubdivide, "binarySubdivide");
       function cubicBezier(mX1, mY1, mX2, mY2) {
         if (mX1 === mY1 && mX2 === mY2)
           return utils.noopReturn;
-        const getTForX = (aX) => binarySubdivide(aX, 0, 1, mX1, mX2);
+        const getTForX = /* @__PURE__ */ __name((aX) => binarySubdivide(aX, 0, 1, mX1, mX2), "getTForX");
         return (t) => t === 0 || t === 1 ? t : calcBezier(getTForX(t), mY1, mY2);
       }
+      __name(cubicBezier, "cubicBezier");
       exports.cubicBezier = cubicBezier;
     }
   });
@@ -29066,12 +30322,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
       var utils = require_index_cjs2();
-      var steps = (steps2, direction = "end") => (progress) => {
+      var steps = /* @__PURE__ */ __name((steps2, direction = "end") => (progress) => {
         progress = direction === "end" ? Math.min(progress, 0.999) : Math.max(progress, 1e-3);
         const expanded = progress * steps2;
         const rounded = direction === "end" ? Math.floor(expanded) : Math.ceil(expanded);
         return utils.clamp(0, 1, rounded / steps2);
-      };
+      }, "steps");
       exports.steps = steps;
     }
   });
@@ -29120,6 +30376,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return utils.noopReturn;
       }
+      __name(getEasingFunction, "getEasingFunction");
       exports.getEasingFunction = getEasingFunction;
     }
   });
@@ -29255,6 +30512,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           this.rate = rate;
         }
       };
+      __name(Animation, "Animation");
       exports.Animation = Animation;
     }
   });
@@ -29278,7 +30536,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var testAnimation = (keyframes, options) => document.createElement("div").animate(keyframes, options);
+      var testAnimation = /* @__PURE__ */ __name((keyframes, options) => document.createElement("div").animate(keyframes, options), "testAnimation");
       var featureTests = {
         cssRegisterProperty: () => typeof CSS !== "undefined" && Object.hasOwnProperty.call(CSS, "registerProperty"),
         waapi: () => Object.hasOwnProperty.call(Element.prototype, "animate"),
@@ -29322,22 +30580,22 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var utils = require_index_cjs2();
       var featureDetection = require_feature_detection_cjs();
       var resolution = 0.015;
-      var generateLinearEasingPoints = (easing, duration) => {
+      var generateLinearEasingPoints = /* @__PURE__ */ __name((easing, duration) => {
         let points = "";
         const numPoints = Math.round(duration / resolution);
         for (let i = 0; i < numPoints; i++) {
           points += easing(utils.progress(0, numPoints - 1, i)) + ", ";
         }
         return points.substring(0, points.length - 2);
-      };
-      var convertEasing = (easing, duration) => {
+      }, "generateLinearEasingPoints");
+      var convertEasing = /* @__PURE__ */ __name((easing, duration) => {
         if (utils.isFunction(easing)) {
           return featureDetection.supports.linearEasing() ? `linear(${generateLinearEasingPoints(easing, duration)})` : utils.defaults.easing;
         } else {
           return utils.isCubicBezier(easing) ? cubicBezierAsString(easing) : easing;
         }
-      };
-      var cubicBezierAsString = ([a, b, c, d]) => `cubic-bezier(${a}, ${b}, ${c}, ${d})`;
+      }, "convertEasing");
+      var cubicBezierAsString = /* @__PURE__ */ __name(([a, b, c, d]) => `cubic-bezier(${a}, ${b}, ${c}, ${d})`, "cubicBezierAsString");
       exports.convertEasing = convertEasing;
       exports.cubicBezierAsString = cubicBezierAsString;
       exports.generateLinearEasingPoints = generateLinearEasingPoints;
@@ -29358,7 +30616,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return keyframes;
       }
-      var keyframesList = (keyframes) => Array.isArray(keyframes) ? keyframes : [keyframes];
+      __name(hydrateKeyframes, "hydrateKeyframes");
+      var keyframesList = /* @__PURE__ */ __name((keyframes) => Array.isArray(keyframes) ? keyframes : [keyframes], "keyframesList");
       exports.hydrateKeyframes = hydrateKeyframes;
       exports.keyframesList = keyframesList;
     }
@@ -29376,6 +30635,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           key = transforms.transformAlias[key];
         return transforms.isTransform(key) ? transforms.asTransformCssVar(key) : key;
       }
+      __name(getStyleName, "getStyleName");
       exports.getStyleName = getStyleName;
     }
   });
@@ -29432,6 +30692,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         } catch (e) {
         }
       }
+      __name(stopAnimation, "stopAnimation");
       exports.stopAnimation = stopAnimation;
     }
   });
@@ -29456,6 +30717,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function getDevToolsRecord() {
         return window.__MOTION_DEV_TOOLS_RECORD;
       }
+      __name(getDevToolsRecord, "getDevToolsRecord");
       function animateStyle(element, key, keyframesDefinition, options = {}) {
         const record = getDevToolsRecord();
         const isRecording = options.record !== false && record;
@@ -29470,10 +30732,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const definition = transforms.transformDefinitions.get(name);
         stopAnimation.stopAnimation(motionValue.animation, !(utils.isEasingGenerator(easing$1) && motionValue.generator) && options.record !== false);
         return () => {
-          const readInitialValue = () => {
+          const readInitialValue = /* @__PURE__ */ __name(() => {
             var _a, _b;
             return (_b = (_a = style.style.get(element, name)) !== null && _a !== void 0 ? _a : definition === null || definition === void 0 ? void 0 : definition.initialValue) !== null && _b !== void 0 ? _b : 0;
-          };
+          }, "readInitialValue");
           let keyframes$1 = keyframes.hydrateKeyframes(keyframes.keyframesList(keyframesDefinition), readInitialValue);
           if (utils.isEasingGenerator(easing$1)) {
             const custom = easing$1.createAnimation(keyframes$1, readInitialValue, valueIsTransform, name, motionValue);
@@ -29532,11 +30794,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (keyframes$1.length === 1) {
               keyframes$1.unshift(parseFloat(readInitialValue()));
             }
-            const render = (latest) => {
+            const render = /* @__PURE__ */ __name((latest) => {
               if (definition)
                 latest = definition.toDefaultUnit(latest);
               style.style.set(element, name, latest);
-            };
+            }, "render");
             animation$1 = new animation.Animation(render, keyframes$1, Object.assign(Object.assign({}, options), {
               duration,
               easing: easing$1
@@ -29558,6 +30820,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return animation$1;
         };
       }
+      __name(animateStyle, "animateStyle");
       exports.animateStyle = animateStyle;
     }
   });
@@ -29568,7 +30831,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var getOptions = (options, key) => options[key] ? Object.assign(Object.assign({}, options), options[key]) : Object.assign({}, options);
+      var getOptions = /* @__PURE__ */ __name((options, key) => options[key] ? Object.assign(Object.assign({}, options), options[key]) : Object.assign({}, options), "getOptions");
       exports.getOptions = getOptions;
     }
   });
@@ -29593,6 +30856,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return Array.from(elements || []);
       }
+      __name(resolveElements, "resolveElements");
       exports.resolveElements = resolveElements;
     }
   });
@@ -29605,15 +30869,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       Object.defineProperty(exports, "__esModule", { value: true });
       var utils = require_index_cjs2();
       var stopAnimation = require_stop_animation_cjs();
-      var createAnimation = (factory) => factory();
-      var withControls = (animationFactory, options, duration = utils.defaults.duration) => {
+      var createAnimation = /* @__PURE__ */ __name((factory) => factory(), "createAnimation");
+      var withControls = /* @__PURE__ */ __name((animationFactory, options, duration = utils.defaults.duration) => {
         return new Proxy({
           animations: animationFactory.map(createAnimation).filter(Boolean),
           duration,
           options
         }, controls);
-      };
-      var getActiveAnimation = (state) => state.animations[0];
+      }, "withControls");
+      var getActiveAnimation = /* @__PURE__ */ __name((state) => state.animations[0], "getActiveAnimation");
       var controls = {
         get: (target, key) => {
           const activeAnimation = getActiveAnimation(target);
@@ -29656,7 +30920,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return false;
         }
       };
-      var selectFinished = (animation) => animation.finished;
+      var selectFinished = /* @__PURE__ */ __name((animation) => animation.finished, "selectFinished");
       exports.controls = controls;
       exports.withControls = withControls;
     }
@@ -29683,6 +30947,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return start + delay;
         };
       }
+      __name(stagger, "stagger");
       function getFromIndex(from, total) {
         if (from === "first") {
           return 0;
@@ -29691,9 +30956,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return from === "last" ? lastIndex : lastIndex / 2;
         }
       }
+      __name(getFromIndex, "getFromIndex");
       function resolveOption(option, i, total) {
         return utils.isFunction(option) ? option(i, total) : option;
       }
+      __name(resolveOption, "resolveOption");
       exports.getFromIndex = getFromIndex;
       exports.resolveOption = resolveOption;
       exports.stagger = stagger;
@@ -29730,6 +30997,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           options$1.duration
         );
       }
+      __name(animate, "animate");
       exports.animate = animate;
     }
   });
@@ -29786,6 +31054,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return exports2[id] = previous ? previous(id, v) : v;
           };
         }
+        __name(createExporter, "createExporter");
       })(function(exporter) {
         var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, b) {
           d.__proto__ = b;
@@ -29794,15 +31063,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (Object.prototype.hasOwnProperty.call(b, p))
               d[p] = b[p];
         };
-        __extends = function(d, b) {
+        __extends = /* @__PURE__ */ __name(function(d, b) {
           if (typeof b !== "function" && b !== null)
             throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
           extendStatics(d, b);
           function __() {
             this.constructor = d;
           }
+          __name(__, "__");
           d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-        };
+        }, "__extends");
         __assign = Object.assign || function(t) {
           for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
@@ -29812,7 +31082,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           return t;
         };
-        __rest = function(s, e) {
+        __rest = /* @__PURE__ */ __name(function(s, e) {
           var t = {};
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -29823,8 +31093,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 t[p[i]] = s[p[i]];
             }
           return t;
-        };
-        __decorate = function(decorators, target, key, desc) {
+        }, "__rest");
+        __decorate = /* @__PURE__ */ __name(function(decorators, target, key, desc) {
           var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
           if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
             r = Reflect.decorate(decorators, target, key, desc);
@@ -29833,22 +31103,23 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               if (d = decorators[i])
                 r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
           return c > 3 && r && Object.defineProperty(target, key, r), r;
-        };
-        __param = function(paramIndex, decorator) {
+        }, "__decorate");
+        __param = /* @__PURE__ */ __name(function(paramIndex, decorator) {
           return function(target, key) {
             decorator(target, key, paramIndex);
           };
-        };
-        __metadata = function(metadataKey, metadataValue) {
+        }, "__param");
+        __metadata = /* @__PURE__ */ __name(function(metadataKey, metadataValue) {
           if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
             return Reflect.metadata(metadataKey, metadataValue);
-        };
-        __awaiter = function(thisArg, _arguments, P, generator) {
+        }, "__metadata");
+        __awaiter = /* @__PURE__ */ __name(function(thisArg, _arguments, P, generator) {
           function adopt(value) {
             return value instanceof P ? value : new P(function(resolve) {
               resolve(value);
             });
           }
+          __name(adopt, "adopt");
           return new (P || (P = Promise))(function(resolve, reject) {
             function fulfilled(value) {
               try {
@@ -29857,6 +31128,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 reject(e);
               }
             }
+            __name(fulfilled, "fulfilled");
             function rejected(value) {
               try {
                 step(generator["throw"](value));
@@ -29864,13 +31136,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 reject(e);
               }
             }
+            __name(rejected, "rejected");
             function step(result) {
               result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
             }
+            __name(step, "step");
             step((generator = generator.apply(thisArg, _arguments || [])).next());
           });
-        };
-        __generator = function(thisArg, body) {
+        }, "__awaiter");
+        __generator = /* @__PURE__ */ __name(function(thisArg, body) {
           var _ = { label: 0, sent: function() {
             if (t[0] & 1)
               throw t[1];
@@ -29884,6 +31158,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               return step([n, v]);
             };
           }
+          __name(verb, "verb");
           function step(op) {
             if (f)
               throw new TypeError("Generator is already executing.");
@@ -29945,12 +31220,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               throw op[1];
             return { value: op[0] ? op[1] : void 0, done: true };
           }
-        };
-        __exportStar = function(m, o) {
+          __name(step, "step");
+        }, "__generator");
+        __exportStar = /* @__PURE__ */ __name(function(m, o) {
           for (var p in m)
             if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
               __createBinding(o, m, p);
-        };
+        }, "__exportStar");
         __createBinding = Object.create ? function(o, m, k, k2) {
           if (k2 === void 0)
             k2 = k;
@@ -29966,7 +31242,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             k2 = k;
           o[k2] = m[k];
         };
-        __values = function(o) {
+        __values = /* @__PURE__ */ __name(function(o) {
           var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
           if (m)
             return m.call(o);
@@ -29979,8 +31255,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               }
             };
           throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-        };
-        __read = function(o, n) {
+        }, "__values");
+        __read = /* @__PURE__ */ __name(function(o, n) {
           var m = typeof Symbol === "function" && o[Symbol.iterator];
           if (!m)
             return o;
@@ -30000,21 +31276,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           }
           return ar;
-        };
-        __spread = function() {
+        }, "__read");
+        __spread = /* @__PURE__ */ __name(function() {
           for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
           return ar;
-        };
-        __spreadArrays = function() {
+        }, "__spread");
+        __spreadArrays = /* @__PURE__ */ __name(function() {
           for (var s = 0, i = 0, il = arguments.length; i < il; i++)
             s += arguments[i].length;
           for (var r = Array(s), k = 0, i = 0; i < il; i++)
             for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
               r[k] = a[j];
           return r;
-        };
-        __spreadArray = function(to, from, pack) {
+        }, "__spreadArrays");
+        __spreadArray = /* @__PURE__ */ __name(function(to, from, pack) {
           if (pack || arguments.length === 2)
             for (var i = 0, l = from.length, ar; i < l; i++) {
               if (ar || !(i in from)) {
@@ -30024,11 +31300,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               }
             }
           return to.concat(ar || Array.prototype.slice.call(from));
-        };
-        __await = function(v) {
+        }, "__spreadArray");
+        __await = /* @__PURE__ */ __name(function(v) {
           return this instanceof __await ? (this.v = v, this) : new __await(v);
-        };
-        __asyncGenerator = function(thisArg, _arguments, generator) {
+        }, "__await");
+        __asyncGenerator = /* @__PURE__ */ __name(function(thisArg, _arguments, generator) {
           if (!Symbol.asyncIterator)
             throw new TypeError("Symbol.asyncIterator is not defined.");
           var g = generator.apply(thisArg, _arguments || []), i, q = [];
@@ -30043,6 +31319,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 });
               };
           }
+          __name(verb, "verb");
           function resume(n, v) {
             try {
               step(g[n](v));
@@ -30050,21 +31327,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               settle(q[0][3], e);
             }
           }
+          __name(resume, "resume");
           function step(r) {
             r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
           }
+          __name(step, "step");
           function fulfill(value) {
             resume("next", value);
           }
+          __name(fulfill, "fulfill");
           function reject(value) {
             resume("throw", value);
           }
+          __name(reject, "reject");
           function settle(f, v) {
             if (f(v), q.shift(), q.length)
               resume(q[0][0], q[0][1]);
           }
-        };
-        __asyncDelegator = function(o) {
+          __name(settle, "settle");
+        }, "__asyncGenerator");
+        __asyncDelegator = /* @__PURE__ */ __name(function(o) {
           var i, p;
           return i = {}, verb("next"), verb("throw", function(e) {
             throw e;
@@ -30076,8 +31358,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v;
             } : f;
           }
-        };
-        __asyncValues = function(o) {
+          __name(verb, "verb");
+        }, "__asyncDelegator");
+        __asyncValues = /* @__PURE__ */ __name(function(o) {
           if (!Symbol.asyncIterator)
             throw new TypeError("Symbol.asyncIterator is not defined.");
           var m = o[Symbol.asyncIterator], i;
@@ -30091,26 +31374,28 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               });
             };
           }
+          __name(verb, "verb");
           function settle(resolve, reject, d, v) {
             Promise.resolve(v).then(function(v2) {
               resolve({ value: v2, done: d });
             }, reject);
           }
-        };
-        __makeTemplateObject = function(cooked, raw) {
+          __name(settle, "settle");
+        }, "__asyncValues");
+        __makeTemplateObject = /* @__PURE__ */ __name(function(cooked, raw) {
           if (Object.defineProperty) {
             Object.defineProperty(cooked, "raw", { value: raw });
           } else {
             cooked.raw = raw;
           }
           return cooked;
-        };
+        }, "__makeTemplateObject");
         var __setModuleDefault = Object.create ? function(o, v) {
           Object.defineProperty(o, "default", { enumerable: true, value: v });
         } : function(o, v) {
           o["default"] = v;
         };
-        __importStar = function(mod) {
+        __importStar = /* @__PURE__ */ __name(function(mod) {
           if (mod && mod.__esModule)
             return mod;
           var result = {};
@@ -30121,18 +31406,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           __setModuleDefault(result, mod);
           return result;
-        };
-        __importDefault = function(mod) {
+        }, "__importStar");
+        __importDefault = /* @__PURE__ */ __name(function(mod) {
           return mod && mod.__esModule ? mod : { "default": mod };
-        };
-        __classPrivateFieldGet = function(receiver, state, kind, f) {
+        }, "__importDefault");
+        __classPrivateFieldGet = /* @__PURE__ */ __name(function(receiver, state, kind, f) {
           if (kind === "a" && !f)
             throw new TypeError("Private accessor was defined without a getter");
           if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
             throw new TypeError("Cannot read private member from an object whose class did not declare it");
           return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-        };
-        __classPrivateFieldSet = function(receiver, state, value, kind, f) {
+        }, "__classPrivateFieldGet");
+        __classPrivateFieldSet = /* @__PURE__ */ __name(function(receiver, state, value, kind, f) {
           if (kind === "m")
             throw new TypeError("Private method is not writable");
           if (kind === "a" && !f)
@@ -30140,12 +31425,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
             throw new TypeError("Cannot write private member to an object whose class did not declare it");
           return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-        };
-        __classPrivateFieldIn = function(state, receiver) {
+        }, "__classPrivateFieldSet");
+        __classPrivateFieldIn = /* @__PURE__ */ __name(function(state, receiver) {
           if (receiver === null || typeof receiver !== "object" && typeof receiver !== "function")
             throw new TypeError("Cannot use 'in' operator on non-object");
           return typeof state === "function" ? receiver === state : state.has(receiver);
-        };
+        }, "__classPrivateFieldIn");
         exporter("__extends", __extends);
         exporter("__assign", __assign);
         exporter("__rest", __rest);
@@ -30194,6 +31479,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return (_a = labels.get(next)) !== null && _a !== void 0 ? _a : current;
         }
       }
+      __name(calcNextTime, "calcNextTime");
       exports.calcNextTime = calcNextTime;
     }
   });
@@ -30214,6 +31500,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }
       }
+      __name(eraseKeyframes, "eraseKeyframes");
       function addKeyframes(sequence, keyframes, easing, offset, startTime, endTime) {
         eraseKeyframes(sequence, startTime, endTime);
         for (let i = 0; i < keyframes.length; i++) {
@@ -30224,6 +31511,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           });
         }
       }
+      __name(addKeyframes, "addKeyframes");
       exports.addKeyframes = addKeyframes;
       exports.eraseKeyframes = eraseKeyframes;
     }
@@ -30242,6 +31530,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return a.at - b.at;
         }
       }
+      __name(compareByTime, "compareByTime");
       exports.compareByTime = compareByTime;
     }
   });
@@ -30275,6 +31564,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           (_a = animationDefinitions[0]) === null || _a === void 0 ? void 0 : _a[3].duration
         );
       }
+      __name(timeline, "timeline");
       function createAnimationsFromTimeline(definition, _a = {}) {
         var { defaultOptions = {} } = _a, timelineOptions = tslib.__rest(_a, ["defaultOptions"]);
         const animationDefinitions = [];
@@ -30372,15 +31662,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
         return animationDefinitions;
       }
+      __name(createAnimationsFromTimeline, "createAnimationsFromTimeline");
       function getElementSequence(element, sequences) {
         !sequences.has(element) && sequences.set(element, {});
         return sequences.get(element);
       }
+      __name(getElementSequence, "getElementSequence");
       function getValueSequence(name, sequences) {
         if (!sequences[name])
           sequences[name] = [];
         return sequences[name];
       }
+      __name(getValueSequence, "getValueSequence");
       exports.createAnimationsFromTimeline = createAnimationsFromTimeline;
       exports.timeline = timeline;
     }
@@ -30398,6 +31691,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const prevT = Math.max(t - sampleT, 0);
         return utils.velocityPerSecond(current - resolveValue(prevT), t - prevT);
       }
+      __name(calcGeneratorVelocity, "calcGeneratorVelocity");
       exports.calcGeneratorVelocity = calcGeneratorVelocity;
     }
   });
@@ -30424,7 +31718,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
       var defaults = require_defaults_cjs2();
-      var calcDampingRatio = (stiffness = defaults.defaults.stiffness, damping = defaults.defaults.damping, mass = defaults.defaults.mass) => damping / (2 * Math.sqrt(stiffness * mass));
+      var calcDampingRatio = /* @__PURE__ */ __name((stiffness = defaults.defaults.stiffness, damping = defaults.defaults.damping, mass = defaults.defaults.mass) => damping / (2 * Math.sqrt(stiffness * mass)), "calcDampingRatio");
       exports.calcDampingRatio = calcDampingRatio;
     }
   });
@@ -30438,6 +31732,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function hasReachedTarget(origin, target, current) {
         return origin < target && current >= target || origin > target && current <= target;
       }
+      __name(hasReachedTarget, "hasReachedTarget");
       exports.hasReachedTarget = hasReachedTarget;
     }
   });
@@ -30453,7 +31748,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var utils$1 = require_utils_cjs();
       var hasReachedTarget = require_has_reached_target_cjs();
       var velocity = require_velocity_cjs2();
-      var spring = ({ stiffness = defaults.defaults.stiffness, damping = defaults.defaults.damping, mass = defaults.defaults.mass, from = 0, to = 1, velocity: velocity$1 = 0, restSpeed = 2, restDistance = 0.5 } = {}) => {
+      var spring = /* @__PURE__ */ __name(({ stiffness = defaults.defaults.stiffness, damping = defaults.defaults.damping, mass = defaults.defaults.mass, from = 0, to = 1, velocity: velocity$1 = 0, restSpeed = 2, restDistance = 0.5 } = {}) => {
         velocity$1 = velocity$1 ? utils.time.s(velocity$1) : 0;
         const state = {
           done: false,
@@ -30467,11 +31762,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         let resolveSpring;
         if (dampingRatio < 1) {
           const angularFreq = undampedAngularFreq * Math.sqrt(1 - dampingRatio * dampingRatio);
-          resolveSpring = (t) => to - Math.exp(-dampingRatio * undampedAngularFreq * t) * ((-velocity$1 + dampingRatio * undampedAngularFreq * initialDelta) / angularFreq * Math.sin(angularFreq * t) + initialDelta * Math.cos(angularFreq * t));
+          resolveSpring = /* @__PURE__ */ __name((t) => to - Math.exp(-dampingRatio * undampedAngularFreq * t) * ((-velocity$1 + dampingRatio * undampedAngularFreq * initialDelta) / angularFreq * Math.sin(angularFreq * t) + initialDelta * Math.cos(angularFreq * t)), "resolveSpring");
         } else {
-          resolveSpring = (t) => {
+          resolveSpring = /* @__PURE__ */ __name((t) => {
             return to - Math.exp(-undampedAngularFreq * t) * (initialDelta + (-velocity$1 + undampedAngularFreq * initialDelta) * t);
-          };
+          }, "resolveSpring");
         }
         return (t) => {
           state.current = resolveSpring(t);
@@ -30482,7 +31777,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           state.hasReachedTarget = hasReachedTarget.hasReachedTarget(from, to, state.current);
           return state;
         };
-      };
+      }, "spring");
       exports.spring = spring;
     }
   });
@@ -30496,7 +31791,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var utils = require_index_cjs2();
       var velocity = require_velocity_cjs2();
       var index = require_index_cjs7();
-      var glide = ({ from = 0, velocity: velocity$1 = 0, power = 0.8, decay = 0.325, bounceDamping, bounceStiffness, changeTarget, min, max, restDistance = 0.5, restSpeed }) => {
+      var glide = /* @__PURE__ */ __name(({ from = 0, velocity: velocity$1 = 0, power = 0.8, decay = 0.325, bounceDamping, bounceStiffness, changeTarget, min, max, restDistance = 0.5, restSpeed }) => {
         decay = utils.time.ms(decay);
         const state = {
           hasReachedTarget: false,
@@ -30504,31 +31799,31 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           current: from,
           target: from
         };
-        const isOutOfBounds = (v) => min !== void 0 && v < min || max !== void 0 && v > max;
-        const nearestBoundary = (v) => {
+        const isOutOfBounds = /* @__PURE__ */ __name((v) => min !== void 0 && v < min || max !== void 0 && v > max, "isOutOfBounds");
+        const nearestBoundary = /* @__PURE__ */ __name((v) => {
           if (min === void 0)
             return max;
           if (max === void 0)
             return min;
           return Math.abs(min - v) < Math.abs(max - v) ? min : max;
-        };
+        }, "nearestBoundary");
         let amplitude = power * velocity$1;
         const ideal = from + amplitude;
         const target = changeTarget === void 0 ? ideal : changeTarget(ideal);
         state.target = target;
         if (target !== ideal)
           amplitude = target - from;
-        const calcDelta = (t) => -amplitude * Math.exp(-t / decay);
-        const calcLatest = (t) => target + calcDelta(t);
-        const applyFriction = (t) => {
+        const calcDelta = /* @__PURE__ */ __name((t) => -amplitude * Math.exp(-t / decay), "calcDelta");
+        const calcLatest = /* @__PURE__ */ __name((t) => target + calcDelta(t), "calcLatest");
+        const applyFriction = /* @__PURE__ */ __name((t) => {
           const delta = calcDelta(t);
           const latest = calcLatest(t);
           state.done = Math.abs(delta) <= restDistance;
           state.current = state.done ? target : latest;
-        };
+        }, "applyFriction");
         let timeReachedBoundary;
         let spring;
-        const checkCatchBoundary = (t) => {
+        const checkCatchBoundary = /* @__PURE__ */ __name((t) => {
           if (!isOutOfBounds(state.current))
             return;
           timeReachedBoundary = t;
@@ -30541,7 +31836,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             restDistance,
             restSpeed
           });
-        };
+        }, "checkCatchBoundary");
         checkCatchBoundary(0);
         return (t) => {
           let hasUpdatedFrame = false;
@@ -30559,7 +31854,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return state;
           }
         };
-      };
+      }, "glide");
       exports.glide = glide;
     }
   });
@@ -30595,6 +31890,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           overshootDuration: (overshootDuration !== null && overshootDuration !== void 0 ? overshootDuration : duration) / 1e3
         };
       }
+      __name(pregenerateKeyframes, "pregenerateKeyframes");
       exports.pregenerateKeyframes = pregenerateKeyframes;
     }
   });
@@ -30627,7 +31923,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const keyframesCache = /* @__PURE__ */ new WeakMap();
         return (options = {}) => {
           const generatorCache = /* @__PURE__ */ new Map();
-          const getGenerator = (from = 0, to = 100, velocity = 0, isScale = false) => {
+          const getGenerator = /* @__PURE__ */ __name((from = 0, to = 100, velocity = 0, isScale = false) => {
             const key = `${from}-${to}-${velocity}-${isScale}`;
             if (!generatorCache.has(key)) {
               generatorCache.set(key, createGenerator(Object.assign({
@@ -30639,13 +31935,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               }, options)));
             }
             return generatorCache.get(key);
-          };
-          const getKeyframes = (generator) => {
+          }, "getGenerator");
+          const getKeyframes = /* @__PURE__ */ __name((generator) => {
             if (!keyframesCache.has(generator)) {
               keyframesCache.set(generator, generators.pregenerateKeyframes(generator));
             }
             return keyframesCache.get(generator);
-          };
+          }, "getKeyframes");
           return {
             createAnimation: (keyframes, getOrigin, canUseGenerator, name, motionValue) => {
               var _a, _b;
@@ -30689,7 +31985,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
         };
       }
-      var isNumberOrNull = (value) => typeof value !== "string";
+      __name(createGeneratorEasing, "createGeneratorEasing");
+      var isNumberOrNull = /* @__PURE__ */ __name((value) => typeof value !== "string", "isNumberOrNull");
       exports.createGeneratorEasing = createGeneratorEasing;
     }
   });
@@ -30739,7 +32036,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         const elements = resolveElements.resolveElements(elementOrSelector);
         const activeIntersections = /* @__PURE__ */ new WeakMap();
-        const onIntersectionChange = (entries) => {
+        const onIntersectionChange = /* @__PURE__ */ __name((entries) => {
           entries.forEach((entry) => {
             const onEnd = activeIntersections.get(entry.target);
             if (entry.isIntersecting === Boolean(onEnd))
@@ -30756,7 +32053,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               activeIntersections.delete(entry.target);
             }
           });
-        };
+        }, "onIntersectionChange");
         const observer = new IntersectionObserver(onIntersectionChange, {
           root,
           rootMargin,
@@ -30765,6 +32062,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         elements.forEach((element) => observer.observe(element));
         return () => observer.disconnect();
       }
+      __name(inView, "inView");
       exports.inView = inView;
     }
   });
@@ -30791,6 +32089,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
         }
       }
+      __name(getElementSize, "getElementSize");
       function notifyTarget({ target, contentRect, borderBoxSize }) {
         var _a;
         (_a = resizeHandlers.get(target)) === null || _a === void 0 ? void 0 : _a.forEach((handler) => {
@@ -30803,14 +32102,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           });
         });
       }
+      __name(notifyTarget, "notifyTarget");
       function notifyAll(entries) {
         entries.forEach(notifyTarget);
       }
+      __name(notifyAll, "notifyAll");
       function createResizeObserver() {
         if (typeof ResizeObserver === "undefined")
           return;
         observer = new ResizeObserver(notifyAll);
       }
+      __name(createResizeObserver, "createResizeObserver");
       function resizeElement(target, handler) {
         if (!observer)
           createResizeObserver();
@@ -30834,6 +32136,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           });
         };
       }
+      __name(resizeElement, "resizeElement");
       exports.resizeElement = resizeElement;
     }
   });
@@ -30847,7 +32150,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var windowCallbacks = /* @__PURE__ */ new Set();
       var windowResizeHandler;
       function createWindowResizeHandler() {
-        windowResizeHandler = () => {
+        windowResizeHandler = /* @__PURE__ */ __name(() => {
           const size = {
             width: window.innerWidth,
             height: window.innerHeight
@@ -30858,9 +32161,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             contentSize: size
           };
           windowCallbacks.forEach((callback) => callback(info));
-        };
+        }, "windowResizeHandler");
         window.addEventListener("resize", windowResizeHandler);
       }
+      __name(createWindowResizeHandler, "createWindowResizeHandler");
       function resizeWindow(callback) {
         windowCallbacks.add(callback);
         if (!windowResizeHandler)
@@ -30872,6 +32176,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         };
       }
+      __name(resizeWindow, "resizeWindow");
       exports.resizeWindow = resizeWindow;
     }
   });
@@ -30888,6 +32193,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function resize(a, b) {
         return utils.isFunction(a) ? handleWindow.resizeWindow(a) : handleElement.resizeElement(a, b);
       }
+      __name(resize, "resize");
       exports.resize = resize;
     }
   });
@@ -30900,7 +32206,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       Object.defineProperty(exports, "__esModule", { value: true });
       var utils = require_index_cjs2();
       var maxElapsed = 50;
-      var createAxisInfo = () => ({
+      var createAxisInfo = /* @__PURE__ */ __name(() => ({
         current: 0,
         offset: [],
         progress: 0,
@@ -30909,12 +32215,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         targetLength: 0,
         containerLength: 0,
         velocity: 0
-      });
-      var createScrollInfo = () => ({
+      }), "createAxisInfo");
+      var createScrollInfo = /* @__PURE__ */ __name(() => ({
         time: 0,
         x: createAxisInfo(),
         y: createAxisInfo()
-      });
+      }), "createScrollInfo");
       var keys = {
         x: {
           length: "Width",
@@ -30939,11 +32245,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const elapsed = time - prevTime;
         axis.velocity = elapsed > maxElapsed ? 0 : utils.velocityPerSecond(axis.current - prev, elapsed);
       }
+      __name(updateAxisInfo, "updateAxisInfo");
       function updateScrollInfo(element, info, time) {
         updateAxisInfo(element, "x", info, time);
         updateAxisInfo(element, "y", info, time);
         info.time = time;
       }
+      __name(updateScrollInfo, "updateScrollInfo");
       exports.createScrollInfo = createScrollInfo;
       exports.updateScrollInfo = updateScrollInfo;
     }
@@ -30974,6 +32282,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return inset;
       }
+      __name(calcInset, "calcInset");
       exports.calcInset = calcInset;
     }
   });
@@ -31042,6 +32351,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return inset + delta;
       }
+      __name(resolveEdge, "resolveEdge");
       exports.namedEdges = namedEdges;
       exports.resolveEdge = resolveEdge;
     }
@@ -31074,6 +32384,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         containerPoint = edge.resolveEdge(offsetDefinition[1], containerLength);
         return targetPoint - containerPoint;
       }
+      __name(resolveOffset, "resolveOffset");
       exports.resolveOffset = resolveOffset;
     }
   });
@@ -31115,6 +32426,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         info[axis].progress = info[axis].interpolate(info[axis].current);
       }
+      __name(resolveOffsets, "resolveOffsets");
       exports.resolveOffsets = resolveOffsets;
     }
   });
@@ -31144,6 +32456,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         info2.x.containerLength = container.clientWidth;
         info2.y.containerLength = container.clientHeight;
       }
+      __name(measure, "measure");
       function createOnScrollHandler(element, onScroll, info$1, options = {}) {
         const axis = options.axis || "y";
         return {
@@ -31157,6 +32470,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           notify: utils.isFunction(onScroll) ? () => onScroll(info$1) : scrubAnimation(onScroll, info$1[axis])
         };
       }
+      __name(createOnScrollHandler, "createOnScrollHandler");
       function scrubAnimation(controls, axisInfo) {
         controls.pause();
         controls.forEachNative((animation, { easing }) => {
@@ -31176,6 +32490,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           controls.currentTime = axisInfo.progress;
         };
       }
+      __name(scrubAnimation, "scrubAnimation");
       exports.createOnScrollHandler = createOnScrollHandler;
     }
   });
@@ -31193,7 +32508,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var scrollListeners = /* @__PURE__ */ new WeakMap();
       var resizeListeners = /* @__PURE__ */ new WeakMap();
       var onScrollHandlers = /* @__PURE__ */ new WeakMap();
-      var getEventTarget = (element) => element === document.documentElement ? window : element;
+      var getEventTarget = /* @__PURE__ */ __name((element) => element === document.documentElement ? window : element, "getEventTarget");
       function scroll(onScroll, _a = {}) {
         var { container = document.documentElement } = _a, options = tslib.__rest(_a, ["container"]);
         let containerHandlers = onScrollHandlers.get(container);
@@ -31205,7 +32520,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const containerHandler = onScrollHandler.createOnScrollHandler(container, onScroll, info$1, options);
         containerHandlers.add(containerHandler);
         if (!scrollListeners.has(container)) {
-          const listener2 = () => {
+          const listener2 = /* @__PURE__ */ __name(() => {
             const time = performance.now();
             for (const handler of containerHandlers)
               handler.measure();
@@ -31213,7 +32528,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               handler.update(time);
             for (const handler of containerHandlers)
               handler.notify();
-          };
+          }, "listener");
           scrollListeners.set(container, listener2);
           const target = getEventTarget(container);
           window.addEventListener("resize", listener2, { passive: true });
@@ -31244,6 +32559,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         };
       }
+      __name(scroll, "scroll");
       exports.scroll = scroll;
     }
   });
@@ -31261,6 +32577,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return !shallowCompare(a, b);
         return a !== b;
       }
+      __name(hasChanged, "hasChanged");
       function shallowCompare(next, prev) {
         const prevLength = prev.length;
         if (prevLength !== next.length)
@@ -31271,6 +32588,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return true;
       }
+      __name(shallowCompare, "shallowCompare");
       exports.hasChanged = hasChanged;
       exports.shallowCompare = shallowCompare;
     }
@@ -31285,6 +32603,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function isVariant(definition) {
         return typeof definition === "object";
       }
+      __name(isVariant, "isVariant");
       exports.isVariant = isVariant;
     }
   });
@@ -31303,6 +32622,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return variants[definition];
         }
       }
+      __name(resolveVariant, "resolveVariant");
       exports.resolveVariant = resolveVariant;
     }
   });
@@ -31323,6 +32643,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         generators.forEach(fireNext);
         scheduled = void 0;
       }
+      __name(processScheduledAnimations, "processScheduledAnimations");
       function scheduleAnimation(state) {
         if (!scheduled) {
           scheduled = [state];
@@ -31331,12 +32652,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           utils.addUniqueItem(scheduled, state);
         }
       }
+      __name(scheduleAnimation, "scheduleAnimation");
       function unscheduleAnimation(state) {
         scheduled && utils.removeItem(scheduled, state);
       }
-      var compareByDepth = (a, b) => a.getDepth() - b.getDepth();
-      var fireAnimateUpdates = (state) => state.animateUpdates();
-      var fireNext = (iterator) => iterator.next();
+      __name(unscheduleAnimation, "unscheduleAnimation");
+      var compareByDepth = /* @__PURE__ */ __name((a, b) => a.getDepth() - b.getDepth(), "compareByDepth");
+      var fireAnimateUpdates = /* @__PURE__ */ __name((state) => state.animateUpdates(), "fireAnimateUpdates");
+      var fireNext = /* @__PURE__ */ __name((iterator) => iterator.next(), "fireNext");
       exports.scheduleAnimation = scheduleAnimation;
       exports.unscheduleAnimation = unscheduleAnimation;
     }
@@ -31348,13 +32671,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var motionEvent = (name, target) => new CustomEvent(name, { detail: { target } });
+      var motionEvent = /* @__PURE__ */ __name((name, target) => new CustomEvent(name, { detail: { target } }), "motionEvent");
       function dispatchPointerEvent(element, name, event) {
         element.dispatchEvent(new CustomEvent(name, { detail: { originalEvent: event } }));
       }
+      __name(dispatchPointerEvent, "dispatchPointerEvent");
       function dispatchViewEvent(element, name, entry) {
         element.dispatchEvent(new CustomEvent(name, { detail: { originalEntry: entry } }));
       }
+      __name(dispatchViewEvent, "dispatchViewEvent");
       exports.dispatchPointerEvent = dispatchPointerEvent;
       exports.dispatchViewEvent = dispatchViewEvent;
       exports.motionEvent = motionEvent;
@@ -31397,12 +32722,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
       var events = require_events_cjs();
-      var mouseEvent = (element, name, action) => (event) => {
+      var mouseEvent = /* @__PURE__ */ __name((element, name, action) => (event) => {
         if (event.pointerType && event.pointerType !== "mouse")
           return;
         action();
         events.dispatchPointerEvent(element, name, event);
-      };
+      }, "mouseEvent");
       var hover = {
         isActive: (options) => Boolean(options.hover),
         subscribe: (element, { enable, disable }) => {
@@ -31430,16 +32755,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var press = {
         isActive: (options) => Boolean(options.press),
         subscribe: (element, { enable, disable }) => {
-          const onPointerUp = (event) => {
+          const onPointerUp = /* @__PURE__ */ __name((event) => {
             disable();
             events.dispatchPointerEvent(element, "pressend", event);
             window.removeEventListener("pointerup", onPointerUp);
-          };
-          const onPointerDown = (event) => {
+          }, "onPointerUp");
+          const onPointerDown = /* @__PURE__ */ __name((event) => {
             enable();
             events.dispatchPointerEvent(element, "pressstart", event);
             window.addEventListener("pointerup", onPointerUp);
-          };
+          }, "onPointerDown");
           element.addEventListener("pointerdown", onPointerDown);
           return () => {
             element.removeEventListener("pointerdown", onPointerDown);
@@ -31528,11 +32853,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             element.dispatchEvent(events.motionEvent("motioncomplete", animationTarget));
           }).catch(utils.noop);
         }
-        const setGesture = (name, isActive) => () => {
+        __name(animateUpdates, "animateUpdates");
+        const setGesture = /* @__PURE__ */ __name((name, isActive) => () => {
           activeStates[name] = isActive;
           schedule.scheduleAnimation(state);
-        };
-        const updateGestureSubscriptions = () => {
+        }, "setGesture");
+        const updateGestureSubscriptions = /* @__PURE__ */ __name(() => {
           for (const name in gestures) {
             const isGestureActive = gestures[name].isActive(options$1);
             const remove = gestureSubscriptions[name];
@@ -31546,7 +32872,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               delete gestureSubscriptions[name];
             }
           }
-        };
+        }, "updateGestureSubscriptions");
         const state = {
           update: (newOptions) => {
             if (!element)
@@ -31583,6 +32909,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         };
         return state;
       }
+      __name(createMotionState, "createMotionState");
       exports.createMotionState = createMotionState;
       exports.mountedStates = mountedStates;
     }
@@ -31619,6 +32946,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return initialKeyframes;
       }
+      __name(createStyles, "createStyles");
       exports.createStyles = createStyles;
     }
   });
@@ -31630,8 +32958,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
       var styleObject = require_style_object_cjs();
-      var camelLetterToPipeLetter = (letter) => `-${letter.toLowerCase()}`;
-      var camelToPipeCase = (str) => str.replace(/[A-Z]/g, camelLetterToPipeLetter);
+      var camelLetterToPipeLetter = /* @__PURE__ */ __name((letter) => `-${letter.toLowerCase()}`, "camelLetterToPipeLetter");
+      var camelToPipeCase = /* @__PURE__ */ __name((str) => str.replace(/[A-Z]/g, camelLetterToPipeLetter), "camelToPipeCase");
       function createStyleString(target = {}) {
         const styles = styleObject.createStyles(target);
         let style = "";
@@ -31641,6 +32969,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return style;
       }
+      __name(createStyleString, "createStyleString");
       exports.createStyleString = createStyleString;
     }
   });
@@ -31703,6 +33032,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return cache2[arg];
         };
       }
+      __name(memoize, "memoize");
       exports.default = memoize;
     }
   });
@@ -31716,6 +33046,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function _interopDefault(ex) {
         return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
       }
+      __name(_interopDefault, "_interopDefault");
       var memoize = _interopDefault(require_memoize_browser_cjs());
       var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|inert|itemProp|itemScope|itemType|itemID|itemRef|on|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
       var index = memoize(
@@ -31742,6 +33073,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function _interopDefaultLegacy(e) {
         return e && typeof e === "object" && "default" in e ? e : { "default": e };
       }
+      __name(_interopDefaultLegacy, "_interopDefaultLegacy");
       function _interopNamespace(e) {
         if (e && e.__esModule)
           return e;
@@ -31762,9 +33094,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         n["default"] = e;
         return Object.freeze(n);
       }
-      var React__default = _interopDefaultLegacy(React2);
-      var React__namespace = _interopNamespace(React2);
-      var sync__default = _interopDefaultLegacy(sync);
+      __name(_interopNamespace, "_interopNamespace");
+      var React__default = /* @__PURE__ */ _interopDefaultLegacy(React2);
+      var React__namespace = /* @__PURE__ */ _interopNamespace(React2);
+      var sync__default = /* @__PURE__ */ _interopDefaultLegacy(sync);
       var MotionConfigContext = React2.createContext({
         transformPagePoint: (p) => p,
         isStatic: false,
@@ -31774,6 +33107,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function useVisualElementContext() {
         return React2.useContext(MotionContext).visualElement;
       }
+      __name(useVisualElementContext, "useVisualElementContext");
       var PresenceContext = React2.createContext(null);
       var isBrowser = typeof document !== "undefined";
       var useIsomorphicLayoutEffect = isBrowser ? React2.useLayoutEffect : React2.useEffect;
@@ -31807,9 +33141,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         useIsomorphicLayoutEffect(() => () => visualElement && visualElement.notify("Unmount"), []);
         return visualElement;
       }
+      __name(useVisualElement, "useVisualElement");
       function isRefObject(ref) {
         return typeof ref === "object" && Object.prototype.hasOwnProperty.call(ref, "current");
       }
+      __name(isRefObject, "isRefObject");
       function useMotionRef(visualState, visualElement, externalRef) {
         return React2.useCallback(
           (instance) => {
@@ -31828,12 +33164,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           [visualElement]
         );
       }
+      __name(useMotionRef, "useMotionRef");
       function isVariantLabel(v) {
         return typeof v === "string" || Array.isArray(v);
       }
+      __name(isVariantLabel, "isVariantLabel");
       function isAnimationControls(v) {
         return typeof v === "object" && typeof v.start === "function";
       }
+      __name(isAnimationControls, "isAnimationControls");
       var variantProps$1 = [
         "initial",
         "animate",
@@ -31847,9 +33186,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function isControllingVariants(props) {
         return isAnimationControls(props.animate) || variantProps$1.some((name) => isVariantLabel(props[name]));
       }
+      __name(isControllingVariants, "isControllingVariants");
       function isVariantNode(props) {
         return Boolean(isControllingVariants(props) || props.variants);
       }
+      __name(isVariantNode, "isVariantNode");
       function getCurrentTreeVariants(props, context) {
         if (isControllingVariants(props)) {
           const { initial, animate: animate2 } = props;
@@ -31860,16 +33201,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return props.inherit !== false ? context : {};
       }
+      __name(getCurrentTreeVariants, "getCurrentTreeVariants");
       function useCreateMotionContext(props) {
         const { initial, animate: animate2 } = getCurrentTreeVariants(props, React2.useContext(MotionContext));
         return React2.useMemo(() => ({ initial, animate: animate2 }), [variantLabelsAsDependency(initial), variantLabelsAsDependency(animate2)]);
       }
+      __name(useCreateMotionContext, "useCreateMotionContext");
       function variantLabelsAsDependency(prop) {
         return Array.isArray(prop) ? prop.join(" ") : prop;
       }
-      var createDefinition = (propNames) => ({
+      __name(variantLabelsAsDependency, "variantLabelsAsDependency");
+      var createDefinition = /* @__PURE__ */ __name((propNames) => ({
         isEnabled: (props) => propNames.some((name) => !!props[name])
-      });
+      }), "createDefinition");
       var featureDefinitions = {
         measureLayout: createDefinition(["layout", "layoutId", "drag"]),
         animation: createDefinition([
@@ -31908,6 +33252,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }
       }
+      __name(loadFeatures, "loadFeatures");
       function useConstant(init) {
         const ref = React2.useRef(null);
         if (ref.current === null) {
@@ -31915,6 +33260,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return ref.current;
       }
+      __name(useConstant, "useConstant");
       var globalProjectionState = {
         hasAnimatedSinceResize: true,
         hasEverUpdated: false
@@ -31927,6 +33273,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         });
       }
+      __name(useProjectionId, "useProjectionId");
       var LayoutGroupContext = React2.createContext({});
       var VisualElementHandler = class extends React__default["default"].Component {
         getSnapshotBeforeUpdate() {
@@ -31941,6 +33288,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return this.props.children;
         }
       };
+      __name(VisualElementHandler, "VisualElementHandler");
       var SwitchLayoutGroupContext = React2.createContext({});
       var motionComponentSymbol = Symbol.for("motionComponentSymbol");
       function createMotionComponent({ preloadedFeatures, createVisualElement, projectionNodeConstructor, useRender, useVisualState: useVisualState2, Component }) {
@@ -31978,18 +33326,22 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             React__namespace.createElement(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic, context.visualElement))
           );
         }
+        __name(MotionComponent, "MotionComponent");
         const ForwardRefComponent = React2.forwardRef(MotionComponent);
         ForwardRefComponent[motionComponentSymbol] = Component;
         return ForwardRefComponent;
       }
+      __name(createMotionComponent, "createMotionComponent");
       function useLayoutId({ layoutId }) {
         const layoutGroupId = React2.useContext(LayoutGroupContext).id;
         return layoutGroupId && layoutId !== void 0 ? layoutGroupId + "-" + layoutId : layoutId;
       }
+      __name(useLayoutId, "useLayoutId");
       function createMotionProxy(createConfig) {
         function custom(Component, customMotionComponentConfig = {}) {
           return createMotionComponent(createConfig(Component, customMotionComponentConfig));
         }
+        __name(custom, "custom");
         if (typeof Proxy === "undefined") {
           return custom;
         }
@@ -32003,6 +33355,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         });
       }
+      __name(createMotionProxy, "createMotionProxy");
       var lowercaseSVGElements = [
         "animate",
         "circle",
@@ -32038,10 +33391,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return false;
       }
+      __name(isSVGComponent, "isSVGComponent");
       var scaleCorrectors = {};
       function addScaleCorrector(correctors) {
         Object.assign(scaleCorrectors, correctors);
       }
+      __name(addScaleCorrector, "addScaleCorrector");
       var transformPropOrder = [
         "transformPerspective",
         "x",
@@ -32065,14 +33420,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function isForcedMotionValue(key, { layout, layoutId }) {
         return transformProps.has(key) || key.startsWith("origin") || (layout || layoutId !== void 0) && (!!scaleCorrectors[key] || key === "opacity");
       }
-      var isMotionValue = (value) => !!(value === null || value === void 0 ? void 0 : value.getVelocity);
+      __name(isForcedMotionValue, "isForcedMotionValue");
+      var isMotionValue = /* @__PURE__ */ __name((value) => !!(value === null || value === void 0 ? void 0 : value.getVelocity), "isMotionValue");
       var translateAlias = {
         x: "translateX",
         y: "translateY",
         z: "translateZ",
         transformPerspective: "perspective"
       };
-      var sortTransformProps = (a, b) => transformPropOrder.indexOf(a) - transformPropOrder.indexOf(b);
+      var sortTransformProps = /* @__PURE__ */ __name((a, b) => transformPropOrder.indexOf(a) - transformPropOrder.indexOf(b), "sortTransformProps");
       function buildTransform({ transform: transform2, transformKeys: transformKeys2 }, { enableHardwareAcceleration = true, allowTransformNone = true }, transformIsDefault, transformTemplate) {
         let transformString = "";
         transformKeys2.sort(sortTransformProps);
@@ -32090,12 +33446,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return transformString;
       }
+      __name(buildTransform, "buildTransform");
       function isCSSVariable$1(key) {
         return key.startsWith("--");
       }
-      var getValueAsType = (value, type) => {
+      __name(isCSSVariable$1, "isCSSVariable$1");
+      var getValueAsType = /* @__PURE__ */ __name((value, type) => {
         return type && typeof value === "number" ? type.transform(value) : value;
-      };
+      }, "getValueAsType");
       var int = {
         ...styleValueTypes.number,
         transform: Math.round
@@ -32201,13 +33559,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           style.transformOrigin = `${originX} ${originY} ${originZ}`;
         }
       }
-      var createHtmlRenderState = () => ({
+      __name(buildHTMLStyles, "buildHTMLStyles");
+      var createHtmlRenderState = /* @__PURE__ */ __name(() => ({
         style: {},
         transform: {},
         transformKeys: [],
         transformOrigin: {},
         vars: {}
-      });
+      }), "createHtmlRenderState");
       function copyRawValuesOnly(target, source, props) {
         for (const key in source) {
           if (!isMotionValue(source[key]) && !isForcedMotionValue(key, props)) {
@@ -32215,6 +33574,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }
       }
+      __name(copyRawValuesOnly, "copyRawValuesOnly");
       function useInitialMotionValues({ transformTemplate }, visualState, isStatic) {
         return React2.useMemo(() => {
           const state = createHtmlRenderState();
@@ -32222,6 +33582,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return Object.assign({}, state.vars, state.style);
         }, [visualState]);
       }
+      __name(useInitialMotionValues, "useInitialMotionValues");
       function useStyle(props, visualState, isStatic) {
         const styleProp = props.style || {};
         const style = {};
@@ -32229,6 +33590,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         Object.assign(style, useInitialMotionValues(props, visualState, isStatic));
         return props.transformValues ? props.transformValues(style) : style;
       }
+      __name(useStyle, "useStyle");
       function useHTMLProps(props, visualState, isStatic) {
         const htmlProps = {};
         const style = useStyle(props, visualState, isStatic);
@@ -32240,6 +33602,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         htmlProps.style = style;
         return htmlProps;
       }
+      __name(useHTMLProps, "useHTMLProps");
       var animationProps = [
         "animate",
         "exit",
@@ -32307,12 +33670,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function isValidMotionProp(key) {
         return validMotionProps.has(key);
       }
-      var shouldForward = (key) => !isValidMotionProp(key);
+      __name(isValidMotionProp, "isValidMotionProp");
+      var shouldForward = /* @__PURE__ */ __name((key) => !isValidMotionProp(key), "shouldForward");
       function loadExternalIsValidProp(isValidProp) {
         if (!isValidProp)
           return;
-        shouldForward = (key) => key.startsWith("on") ? !isValidMotionProp(key) : isValidProp(key);
+        shouldForward = /* @__PURE__ */ __name((key) => key.startsWith("on") ? !isValidMotionProp(key) : isValidProp(key), "shouldForward");
       }
+      __name(loadExternalIsValidProp, "loadExternalIsValidProp");
       try {
         loadExternalIsValidProp(require_is_prop_valid_browser_cjs().default);
       } catch (_a) {
@@ -32326,14 +33691,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return filteredProps;
       }
+      __name(filterProps, "filterProps");
       function calcOrigin$1(origin, offset, size) {
         return typeof origin === "string" ? origin : styleValueTypes.px.transform(offset + size * origin);
       }
+      __name(calcOrigin$1, "calcOrigin$1");
       function calcSVGTransformOrigin(dimensions, originX, originY) {
         const pxOriginX = calcOrigin$1(originX, dimensions.x, dimensions.width);
         const pxOriginY = calcOrigin$1(originY, dimensions.y, dimensions.height);
         return `${pxOriginX} ${pxOriginY}`;
       }
+      __name(calcSVGTransformOrigin, "calcSVGTransformOrigin");
       var dashKeys = {
         offset: "stroke-dashoffset",
         array: "stroke-dasharray"
@@ -32350,6 +33718,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const pathSpacing = styleValueTypes.px.transform(spacing);
         attrs[keys.array] = `${pathLength} ${pathSpacing}`;
       }
+      __name(buildSVGPath, "buildSVGPath");
       function buildSVGAttrs(state, {
         attrX,
         attrY,
@@ -32380,10 +33749,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           buildSVGPath(attrs, pathLength, pathSpacing, pathOffset, false);
         }
       }
-      var createSvgRenderState = () => ({
+      __name(buildSVGAttrs, "buildSVGAttrs");
+      var createSvgRenderState = /* @__PURE__ */ __name(() => ({
         ...createHtmlRenderState(),
         attrs: {}
-      });
+      }), "createSvgRenderState");
       function useSVGProps(props, visualState) {
         const visualProps = React2.useMemo(() => {
           const state = createSvgRenderState();
@@ -32400,8 +33770,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return visualProps;
       }
+      __name(useSVGProps, "useSVGProps");
       function createUseRender(forwardMotionProps = false) {
-        const useRender = (Component, props, projectionId, ref, { latestValues }, isStatic) => {
+        const useRender = /* @__PURE__ */ __name((Component, props, projectionId, ref, { latestValues }, isStatic) => {
           const useVisualProps = isSVGComponent(Component) ? useSVGProps : useHTMLProps;
           const visualProps = useVisualProps(props, latestValues, isStatic);
           const filteredProps = filterProps(props, typeof Component === "string", forwardMotionProps);
@@ -32414,16 +33785,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             elementProps["data-projection-id"] = projectionId;
           }
           return React2.createElement(Component, elementProps);
-        };
+        }, "useRender");
         return useRender;
       }
-      var camelToDash = (str) => str.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+      __name(createUseRender, "createUseRender");
+      var camelToDash = /* @__PURE__ */ __name((str) => str.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase(), "camelToDash");
       function renderHTML(element, { style, vars }, styleProp, projection) {
         Object.assign(element.style, style, projection && projection.getProjectionStyles(styleProp));
         for (const key in vars) {
           element.style.setProperty(key, vars[key]);
         }
       }
+      __name(renderHTML, "renderHTML");
       var camelCaseAttributes = /* @__PURE__ */ new Set([
         "baseFrequency",
         "diffuseConstant",
@@ -32452,6 +33825,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           element.setAttribute(!camelCaseAttributes.has(key) ? camelToDash(key) : key, renderState.attrs[key]);
         }
       }
+      __name(renderSVG, "renderSVG");
       function scrapeMotionValuesFromProps$1(props) {
         const { style } = props;
         const newValues = {};
@@ -32462,6 +33836,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return newValues;
       }
+      __name(scrapeMotionValuesFromProps$1, "scrapeMotionValuesFromProps$1");
       function scrapeMotionValuesFromProps(props) {
         const newValues = scrapeMotionValuesFromProps$1(props);
         for (const key in props) {
@@ -32472,6 +33847,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return newValues;
       }
+      __name(scrapeMotionValuesFromProps, "scrapeMotionValuesFromProps");
       function resolveVariantFromProps(props, definition, custom, currentValues = {}, currentVelocity = {}) {
         if (typeof definition === "function") {
           definition = definition(custom !== void 0 ? custom : props.custom, currentValues, currentVelocity);
@@ -32484,19 +33860,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return definition;
       }
-      var isKeyframesTarget = (v) => {
+      __name(resolveVariantFromProps, "resolveVariantFromProps");
+      var isKeyframesTarget = /* @__PURE__ */ __name((v) => {
         return Array.isArray(v);
-      };
-      var isCustomValue = (v) => {
+      }, "isKeyframesTarget");
+      var isCustomValue = /* @__PURE__ */ __name((v) => {
         return Boolean(v && typeof v === "object" && v.mix && v.toValue);
-      };
-      var resolveFinalValueInKeyframes = (v) => {
+      }, "isCustomValue");
+      var resolveFinalValueInKeyframes = /* @__PURE__ */ __name((v) => {
         return isKeyframesTarget(v) ? v[v.length - 1] || 0 : v;
-      };
+      }, "resolveFinalValueInKeyframes");
       function resolveMotionValue(value) {
         const unwrappedValue = isMotionValue(value) ? value.get() : value;
         return isCustomValue(unwrappedValue) ? unwrappedValue.toValue() : unwrappedValue;
       }
+      __name(resolveMotionValue, "resolveMotionValue");
       function makeState({ scrapeMotionValuesFromProps: scrapeMotionValuesFromProps2, createRenderState, onMount }, props, context, presenceContext) {
         const state = {
           latestValues: makeLatestValues(props, context, presenceContext, scrapeMotionValuesFromProps2),
@@ -32507,12 +33885,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return state;
       }
-      var makeUseVisualState = (config) => (props, isStatic) => {
+      __name(makeState, "makeState");
+      var makeUseVisualState = /* @__PURE__ */ __name((config) => (props, isStatic) => {
         const context = React2.useContext(MotionContext);
         const presenceContext = React2.useContext(PresenceContext);
-        const make = () => makeState(config, props, context, presenceContext);
+        const make = /* @__PURE__ */ __name(() => makeState(config, props, context, presenceContext), "make");
         return isStatic ? make() : useConstant(make);
-      };
+      }, "makeUseVisualState");
       function makeLatestValues(props, context, presenceContext, scrapeMotionValues) {
         const values = {};
         const motionValues = scrapeMotionValues(props);
@@ -32554,6 +33933,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return values;
       }
+      __name(makeLatestValues, "makeLatestValues");
       var svgMotionConfig = {
         useVisualState: makeUseVisualState({
           scrapeMotionValuesFromProps,
@@ -32591,6 +33971,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           Component
         };
       }
+      __name(createDomMotionConfig, "createDomMotionConfig");
       exports.AnimationType = void 0;
       (function(AnimationType) {
         AnimationType["Animate"] = "animate";
@@ -32605,6 +33986,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         target.addEventListener(eventName, handler, options);
         return () => target.removeEventListener(eventName, handler);
       }
+      __name(addDomEvent, "addDomEvent");
       function useDomEvent(ref, eventName, handler, options) {
         React2.useEffect(() => {
           const element = ref.current;
@@ -32613,27 +33995,31 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }, [ref, eventName, handler, options]);
       }
+      __name(useDomEvent, "useDomEvent");
       function useFocusGesture({ whileFocus, visualElement }) {
         const { animationState } = visualElement;
-        const onFocus = () => {
+        const onFocus = /* @__PURE__ */ __name(() => {
           animationState && animationState.setActive(exports.AnimationType.Focus, true);
-        };
-        const onBlur = () => {
+        }, "onFocus");
+        const onBlur = /* @__PURE__ */ __name(() => {
           animationState && animationState.setActive(exports.AnimationType.Focus, false);
-        };
+        }, "onBlur");
         useDomEvent(visualElement, "focus", whileFocus ? onFocus : void 0);
         useDomEvent(visualElement, "blur", whileFocus ? onBlur : void 0);
       }
+      __name(useFocusGesture, "useFocusGesture");
       function isMouseEvent(event) {
         if (typeof PointerEvent !== "undefined" && event instanceof PointerEvent) {
           return !!(event.pointerType === "mouse");
         }
         return event instanceof MouseEvent;
       }
+      __name(isMouseEvent, "isMouseEvent");
       function isTouchEvent(event) {
         const hasTouches = !!event.touches;
         return hasTouches;
       }
+      __name(isTouchEvent, "isTouchEvent");
       function filterPrimaryPointer(eventHandler) {
         return (event) => {
           const isMouseEvent2 = event instanceof MouseEvent;
@@ -32643,6 +34029,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         };
       }
+      __name(filterPrimaryPointer, "filterPrimaryPointer");
       var defaultPagePoint = { pageX: 0, pageY: 0 };
       function pointFromTouch(e, pointType = "page") {
         const primaryTouch = e.touches[0] || e.changedTouches[0];
@@ -32652,24 +34039,27 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           y: point[pointType + "Y"]
         };
       }
+      __name(pointFromTouch, "pointFromTouch");
       function pointFromMouse(point, pointType = "page") {
         return {
           x: point[pointType + "X"],
           y: point[pointType + "Y"]
         };
       }
+      __name(pointFromMouse, "pointFromMouse");
       function extractEventInfo(event, pointType = "page") {
         return {
           point: isTouchEvent(event) ? pointFromTouch(event, pointType) : pointFromMouse(event, pointType)
         };
       }
-      var wrapHandler = (handler, shouldFilterPrimaryPointer = false) => {
-        const listener = (event) => handler(event, extractEventInfo(event));
+      __name(extractEventInfo, "extractEventInfo");
+      var wrapHandler = /* @__PURE__ */ __name((handler, shouldFilterPrimaryPointer = false) => {
+        const listener = /* @__PURE__ */ __name((event) => handler(event, extractEventInfo(event)), "listener");
         return shouldFilterPrimaryPointer ? filterPrimaryPointer(listener) : listener;
-      };
-      var supportsPointerEvents = () => isBrowser && window.onpointerdown === null;
-      var supportsTouchEvents = () => isBrowser && window.ontouchstart === null;
-      var supportsMouseEvents = () => isBrowser && window.onmousedown === null;
+      }, "wrapHandler");
+      var supportsPointerEvents = /* @__PURE__ */ __name(() => isBrowser && window.onpointerdown === null, "supportsPointerEvents");
+      var supportsTouchEvents = /* @__PURE__ */ __name(() => isBrowser && window.ontouchstart === null, "supportsTouchEvents");
+      var supportsMouseEvents = /* @__PURE__ */ __name(() => isBrowser && window.onmousedown === null, "supportsMouseEvents");
       var mouseEventNames = {
         pointerdown: "mousedown",
         pointermove: "mousemove",
@@ -32696,18 +34086,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return name;
       }
+      __name(getPointerEventName, "getPointerEventName");
       function addPointerEvent(target, eventName, handler, options) {
         return addDomEvent(target, getPointerEventName(eventName), wrapHandler(handler, eventName === "pointerdown"), options);
       }
+      __name(addPointerEvent, "addPointerEvent");
       function usePointerEvent(ref, eventName, handler, options) {
         return useDomEvent(ref, getPointerEventName(eventName), handler && wrapHandler(handler, eventName === "pointerdown"), options);
       }
+      __name(usePointerEvent, "usePointerEvent");
       function createLock(name) {
         let lock = null;
         return () => {
-          const openLock = () => {
+          const openLock = /* @__PURE__ */ __name(() => {
             lock = null;
-          };
+          }, "openLock");
           if (lock === null) {
             lock = name;
             return openLock;
@@ -32715,6 +34108,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return false;
         };
       }
+      __name(createLock, "createLock");
       var globalHorizontalLock = createLock("dragHorizontal");
       var globalVerticalLock = createLock("dragVertical");
       function getGlobalLock(drag2) {
@@ -32727,10 +34121,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           const openHorizontal = globalHorizontalLock();
           const openVertical = globalVerticalLock();
           if (openHorizontal && openVertical) {
-            lock = () => {
+            lock = /* @__PURE__ */ __name(() => {
               openHorizontal();
               openVertical();
-            };
+            }, "lock");
           } else {
             if (openHorizontal)
               openHorizontal();
@@ -32740,6 +34134,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return lock;
       }
+      __name(getGlobalLock, "getGlobalLock");
       function isDragActive() {
         const openGestureLock = getGlobalLock(true);
         if (!openGestureLock)
@@ -32747,6 +34142,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         openGestureLock();
         return false;
       }
+      __name(isDragActive, "isDragActive");
       function createHoverEvent(visualElement, isActive, callback) {
         return (event, info) => {
           if (!isMouseEvent(event) || isDragActive())
@@ -32757,11 +34153,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           callback && callback(event, info);
         };
       }
+      __name(createHoverEvent, "createHoverEvent");
       function useHoverGesture({ onHoverStart, onHoverEnd, whileHover, visualElement }) {
         usePointerEvent(visualElement, "pointerenter", onHoverStart || whileHover ? createHoverEvent(visualElement, true, onHoverStart) : void 0, { passive: !onHoverStart });
         usePointerEvent(visualElement, "pointerleave", onHoverEnd || whileHover ? createHoverEvent(visualElement, false, onHoverEnd) : void 0, { passive: !onHoverEnd });
       }
-      var isNodeOrChild = (parent, child) => {
+      __name(useHoverGesture, "useHoverGesture");
+      var isNodeOrChild = /* @__PURE__ */ __name((parent, child) => {
         if (!child) {
           return false;
         } else if (parent === child) {
@@ -32769,10 +34167,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         } else {
           return isNodeOrChild(parent, child.parentElement);
         }
-      };
+      }, "isNodeOrChild");
       function useUnmountEffect(callback) {
         return React2.useEffect(() => () => callback(), []);
       }
+      __name(useUnmountEffect, "useUnmountEffect");
       function useTapGesture({ onTap, onTapStart, onTapCancel, whileTap, visualElement }) {
         const hasPressListeners = onTap || onTapStart || onTapCancel || whileTap;
         const isPressing = React2.useRef(false);
@@ -32784,22 +34183,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           cancelPointerEndListeners.current && cancelPointerEndListeners.current();
           cancelPointerEndListeners.current = null;
         }
+        __name(removePointerEndListener, "removePointerEndListener");
         function checkPointerEnd() {
           removePointerEndListener();
           isPressing.current = false;
           visualElement.animationState && visualElement.animationState.setActive(exports.AnimationType.Tap, false);
           return !isDragActive();
         }
+        __name(checkPointerEnd, "checkPointerEnd");
         function onPointerUp(event, info) {
           if (!checkPointerEnd())
             return;
           !isNodeOrChild(visualElement.current, event.target) ? onTapCancel && onTapCancel(event, info) : onTap && onTap(event, info);
         }
+        __name(onPointerUp, "onPointerUp");
         function onPointerCancel(event, info) {
           if (!checkPointerEnd())
             return;
           onTapCancel && onTapCancel(event, info);
         }
+        __name(onPointerCancel, "onPointerCancel");
         function onPointerDown(event, info) {
           removePointerEndListener();
           if (isPressing.current)
@@ -32809,9 +34212,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           visualElement.animationState && visualElement.animationState.setActive(exports.AnimationType.Tap, true);
           onTapStart && onTapStart(event, info);
         }
+        __name(onPointerDown, "onPointerDown");
         usePointerEvent(visualElement, "pointerdown", hasPressListeners ? onPointerDown : void 0, eventOptions);
         useUnmountEffect(removePointerEndListener);
       }
+      __name(useTapGesture, "useTapGesture");
       var defaultEnvironment = "production";
       var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "development";
       var warned = /* @__PURE__ */ new Set();
@@ -32823,15 +34228,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           console.warn(element);
         warned.add(message);
       }
+      __name(warnOnce, "warnOnce");
       var observerCallbacks = /* @__PURE__ */ new WeakMap();
       var observers = /* @__PURE__ */ new WeakMap();
-      var fireObserverCallback = (entry) => {
+      var fireObserverCallback = /* @__PURE__ */ __name((entry) => {
         const callback = observerCallbacks.get(entry.target);
         callback && callback(entry);
-      };
-      var fireAllObserverCallbacks = (entries) => {
+      }, "fireObserverCallback");
+      var fireAllObserverCallbacks = /* @__PURE__ */ __name((entries) => {
         entries.forEach(fireObserverCallback);
-      };
+      }, "fireAllObserverCallbacks");
       function initIntersectionObserver({ root, ...options }) {
         const lookupRoot = root || document;
         if (!observers.has(lookupRoot)) {
@@ -32844,6 +34250,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return rootObservers[key];
       }
+      __name(initIntersectionObserver, "initIntersectionObserver");
       function observeIntersection(element, options, callback) {
         const rootInteresectionObserver = initIntersectionObserver(options);
         observerCallbacks.set(element, callback);
@@ -32853,6 +34260,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           rootInteresectionObserver.unobserve(element);
         };
       }
+      __name(observeIntersection, "observeIntersection");
       function useViewport({ visualElement, whileInView, onViewportEnter, onViewportLeave, viewport = {} }) {
         const state = React2.useRef({
           hasEnteredView: false,
@@ -32864,6 +34272,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const useObserver = typeof IntersectionObserver === "undefined" ? useMissingIntersectionObserver : useIntersectionObserver;
         useObserver(shouldObserve, state.current, visualElement, viewport);
       }
+      __name(useViewport, "useViewport");
       var thresholdNames = {
         some: 0,
         all: 1
@@ -32877,7 +34286,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             rootMargin,
             threshold: typeof amount === "number" ? amount : thresholdNames[amount]
           };
-          const intersectionCallback = (entry) => {
+          const intersectionCallback = /* @__PURE__ */ __name((entry) => {
             const { isIntersecting } = entry;
             if (state.isInView === isIntersecting)
               return;
@@ -32893,10 +34302,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             const props = visualElement.getProps();
             const callback = isIntersecting ? props.onViewportEnter : props.onViewportLeave;
             callback && callback(entry);
-          };
+          }, "intersectionCallback");
           return observeIntersection(visualElement.current, options, intersectionCallback);
         }, [shouldObserve, root, rootMargin, amount]);
       }
+      __name(useIntersectionObserver, "useIntersectionObserver");
       function useMissingIntersectionObserver(shouldObserve, state, visualElement, { fallback = true }) {
         React2.useEffect(() => {
           if (!shouldObserve || !fallback)
@@ -32914,10 +34324,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           });
         }, [shouldObserve]);
       }
-      var makeRenderlessComponent = (hook) => (props) => {
+      __name(useMissingIntersectionObserver, "useMissingIntersectionObserver");
+      var makeRenderlessComponent = /* @__PURE__ */ __name((hook) => (props) => {
         hook(props);
         return null;
-      };
+      }, "makeRenderlessComponent");
       var gestureAnimations = {
         inView: makeRenderlessComponent(useViewport),
         tap: makeRenderlessComponent(useTapGesture),
@@ -32931,15 +34342,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const { isPresent: isPresent2, onExitComplete, register } = context;
         const id2 = React2.useId();
         React2.useEffect(() => register(id2), []);
-        const safeToRemove = () => onExitComplete && onExitComplete(id2);
+        const safeToRemove = /* @__PURE__ */ __name(() => onExitComplete && onExitComplete(id2), "safeToRemove");
         return !isPresent2 && onExitComplete ? [false, safeToRemove] : [true];
       }
+      __name(usePresence, "usePresence");
       function useIsPresent() {
         return isPresent(React2.useContext(PresenceContext));
       }
+      __name(useIsPresent, "useIsPresent");
       function isPresent(context) {
         return context === null ? true : context.isPresent;
       }
+      __name(isPresent, "isPresent");
       function shallowCompare(next, prev) {
         if (!Array.isArray(prev))
           return false;
@@ -32952,7 +34366,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return true;
       }
-      var secondsToMilliseconds = (seconds) => seconds * 1e3;
+      __name(shallowCompare, "shallowCompare");
+      var secondsToMilliseconds = /* @__PURE__ */ __name((seconds) => seconds * 1e3, "secondsToMilliseconds");
       var easingLookup = {
         linear: popmotion.linear,
         easeIn: popmotion.easeIn,
@@ -32969,7 +34384,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         bounceInOut: popmotion.bounceInOut,
         bounceOut: popmotion.bounceOut
       };
-      var easingDefinitionToFunction = (definition) => {
+      var easingDefinitionToFunction = /* @__PURE__ */ __name((definition) => {
         if (Array.isArray(definition)) {
           heyListen.invariant(definition.length === 4, `Cubic bezier arrays must contain four numerical values.`);
           const [x1, y1, x2, y2] = definition;
@@ -32979,11 +34394,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return easingLookup[definition];
         }
         return definition;
-      };
-      var isEasingArray = (ease) => {
+      }, "easingDefinitionToFunction");
+      var isEasingArray = /* @__PURE__ */ __name((ease) => {
         return Array.isArray(ease) && typeof ease[0] !== "number";
-      };
-      var isAnimatable = (key, value) => {
+      }, "isEasingArray");
+      var isAnimatable = /* @__PURE__ */ __name((key, value) => {
         if (key === "zIndex")
           return false;
         if (typeof value === "number" || Array.isArray(value))
@@ -32992,29 +34407,29 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return true;
         }
         return false;
-      };
-      var underDampedSpring = () => ({
+      }, "isAnimatable");
+      var underDampedSpring = /* @__PURE__ */ __name(() => ({
         type: "spring",
         stiffness: 500,
         damping: 25,
         restSpeed: 10
-      });
-      var criticallyDampedSpring = (to) => ({
+      }), "underDampedSpring");
+      var criticallyDampedSpring = /* @__PURE__ */ __name((to) => ({
         type: "spring",
         stiffness: 550,
         damping: to === 0 ? 2 * Math.sqrt(550) : 30,
         restSpeed: 10
-      });
-      var linearTween = () => ({
+      }), "criticallyDampedSpring");
+      var linearTween = /* @__PURE__ */ __name(() => ({
         type: "keyframes",
         ease: "linear",
         duration: 0.3
-      });
-      var keyframes = (values) => ({
+      }), "linearTween");
+      var keyframes = /* @__PURE__ */ __name((values) => ({
         type: "keyframes",
         duration: 0.8,
         values
-      });
+      }), "keyframes");
       var defaultTransitions = {
         x: underDampedSpring,
         y: underDampedSpring,
@@ -33031,7 +34446,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         color: linearTween,
         default: criticallyDampedSpring
       };
-      var getDefaultTransition = (valueKey, to) => {
+      var getDefaultTransition = /* @__PURE__ */ __name((valueKey, to) => {
         let transitionFactory;
         if (isKeyframesTarget(to)) {
           transitionFactory = keyframes;
@@ -33039,7 +34454,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           transitionFactory = defaultTransitions[valueKey] || defaultTransitions.default;
         }
         return { to, ...transitionFactory(to) };
-      };
+      }, "getDefaultTransition");
       var defaultValueTypes = {
         ...numberValueTypes,
         color: styleValueTypes.color,
@@ -33055,7 +34470,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         filter: styleValueTypes.filter,
         WebkitFilter: styleValueTypes.filter
       };
-      var getDefaultValueType = (key) => defaultValueTypes[key];
+      var getDefaultValueType = /* @__PURE__ */ __name((key) => defaultValueTypes[key], "getDefaultValueType");
       function getAnimatableNone(key, value) {
         var _a;
         let defaultValueType = getDefaultValueType(key);
@@ -33063,24 +34478,27 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           defaultValueType = styleValueTypes.complex;
         return (_a = defaultValueType.getAnimatableNone) === null || _a === void 0 ? void 0 : _a.call(defaultValueType, value);
       }
+      __name(getAnimatableNone, "getAnimatableNone");
       var instantAnimationState = {
         current: false
       };
       function delay(callback, timeout) {
         const start = performance.now();
-        const checkElapsed = ({ timestamp }) => {
+        const checkElapsed = /* @__PURE__ */ __name(({ timestamp }) => {
           const elapsed = timestamp - start;
           if (elapsed >= timeout) {
             sync.cancelSync.read(checkElapsed);
             callback(elapsed - timeout);
           }
-        };
+        }, "checkElapsed");
         sync__default["default"].read(checkElapsed, true);
         return () => sync.cancelSync.read(checkElapsed);
       }
+      __name(delay, "delay");
       function isTransitionDefined({ when, delay: _delay, delayChildren, staggerChildren, staggerDirection, repeat, repeatType, repeatDelay, from, ...transition }) {
         return !!Object.keys(transition).length;
       }
+      __name(isTransitionDefined, "isTransitionDefined");
       var legacyRepeatWarning = false;
       function convertTransitionToAnimationOptions({ ease, times, yoyo, flip, loop, ...transition }) {
         const options = { ...transition };
@@ -33111,11 +34529,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           options.type = "keyframes";
         return options;
       }
+      __name(convertTransitionToAnimationOptions, "convertTransitionToAnimationOptions");
       function getDelayFromTransition(transition, key) {
         var _a, _b;
         const valueTransition = getValueTransition(transition, key) || {};
         return (_b = (_a = valueTransition.delay) !== null && _a !== void 0 ? _a : transition.delay) !== null && _b !== void 0 ? _b : 0;
       }
+      __name(getDelayFromTransition, "getDelayFromTransition");
       function hydrateKeyframes(options) {
         if (Array.isArray(options.to) && options.to[0] === null) {
           options.to = [...options.to];
@@ -33123,6 +34543,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return options;
       }
+      __name(hydrateKeyframes, "hydrateKeyframes");
       function getPopmotionAnimationOptions(transition, options, key) {
         if (Array.isArray(options.to) && transition.duration === void 0) {
           transition.duration = 0.8;
@@ -33139,6 +34560,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           ...convertTransitionToAnimationOptions(transition)
         };
       }
+      __name(getPopmotionAnimationOptions, "getPopmotionAnimationOptions");
       function getAnimation(key, value, target, transition, onComplete) {
         const valueTransition = getValueTransition(transition, key) || {};
         let origin = valueTransition.from !== void 0 ? valueTransition.from : value.get();
@@ -33172,6 +34594,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           });
         }
+        __name(start, "start");
         function set() {
           const finalTarget = resolveFinalValueInKeyframes(target);
           value.set(finalTarget);
@@ -33181,17 +34604,22 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return { stop: () => {
           } };
         }
+        __name(set, "set");
         return !isOriginAnimatable || !isTargetAnimatable || valueTransition.type === false ? set : start;
       }
+      __name(getAnimation, "getAnimation");
       function isZero(value) {
         return value === 0 || typeof value === "string" && parseFloat(value) === 0 && value.indexOf(" ") === -1;
       }
+      __name(isZero, "isZero");
       function getZeroUnit(potentialUnitType) {
         return typeof potentialUnitType === "number" ? 0 : getAnimatableNone("", potentialUnitType);
       }
+      __name(getZeroUnit, "getZeroUnit");
       function getValueTransition(transition, key) {
         return transition[key] || transition["default"] || transition;
       }
+      __name(getValueTransition, "getValueTransition");
       function startAnimation(key, value, target, transition = {}) {
         if (instantAnimationState.current) {
           transition = { type: false };
@@ -33200,7 +34628,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           let controls;
           const animation = getAnimation(key, value, target, transition, onComplete);
           const delayBy = getDelayFromTransition(transition, key);
-          const start = () => controls = animation();
+          const start = /* @__PURE__ */ __name(() => controls = animation(), "start");
           let cancelDelay;
           if (delayBy) {
             cancelDelay = delay(start, secondsToMilliseconds(delayBy));
@@ -33213,17 +34641,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
         });
       }
-      var isNumericalString = (v) => /^\-?\d*\.?\d+$/.test(v);
-      var isZeroValueString = (v) => /^0[^.\s]+$/.test(v);
+      __name(startAnimation, "startAnimation");
+      var isNumericalString = /* @__PURE__ */ __name((v) => /^\-?\d*\.?\d+$/.test(v), "isNumericalString");
+      var isZeroValueString = /* @__PURE__ */ __name((v) => /^0[^.\s]+$/.test(v), "isZeroValueString");
       function addUniqueItem(arr, item) {
         if (arr.indexOf(item) === -1)
           arr.push(item);
       }
+      __name(addUniqueItem, "addUniqueItem");
       function removeItem(arr, item) {
         const index = arr.indexOf(item);
         if (index > -1)
           arr.splice(index, 1);
       }
+      __name(removeItem, "removeItem");
       function moveItem([...arr], fromIndex, toIndex) {
         const startIndex = fromIndex < 0 ? arr.length + fromIndex : fromIndex;
         if (startIndex >= 0 && startIndex < arr.length) {
@@ -33233,6 +34664,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return arr;
       }
+      __name(moveItem, "moveItem");
       var SubscriptionManager = class {
         constructor() {
           this.subscriptions = [];
@@ -33261,9 +34693,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           this.subscriptions.length = 0;
         }
       };
-      var isFloat = (value) => {
+      __name(SubscriptionManager, "SubscriptionManager");
+      var isFloat = /* @__PURE__ */ __name((value) => {
         return !isNaN(parseFloat(value));
-      };
+      }, "isFloat");
       var MotionValue = class {
         constructor(init) {
           this.version = "7.6.5";
@@ -33356,32 +34789,37 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           this.stop();
         }
       };
+      __name(MotionValue, "MotionValue");
       function motionValue(init) {
         return new MotionValue(init);
       }
-      var testValueType = (v) => (type) => type.test(v);
+      __name(motionValue, "motionValue");
+      var testValueType = /* @__PURE__ */ __name((v) => (type) => type.test(v), "testValueType");
       var auto = {
         test: (v) => v === "auto",
         parse: (v) => v
       };
       var dimensionValueTypes = [styleValueTypes.number, styleValueTypes.px, styleValueTypes.percent, styleValueTypes.degrees, styleValueTypes.vw, styleValueTypes.vh, auto];
-      var findDimensionValueType = (v) => dimensionValueTypes.find(testValueType(v));
+      var findDimensionValueType = /* @__PURE__ */ __name((v) => dimensionValueTypes.find(testValueType(v)), "findDimensionValueType");
       var valueTypes = [...dimensionValueTypes, styleValueTypes.color, styleValueTypes.complex];
-      var findValueType = (v) => valueTypes.find(testValueType(v));
+      var findValueType = /* @__PURE__ */ __name((v) => valueTypes.find(testValueType(v)), "findValueType");
       function getCurrent(visualElement) {
         const current = {};
         visualElement.values.forEach((value, key) => current[key] = value.get());
         return current;
       }
+      __name(getCurrent, "getCurrent");
       function getVelocity$1(visualElement) {
         const velocity = {};
         visualElement.values.forEach((value, key) => velocity[key] = value.getVelocity());
         return velocity;
       }
+      __name(getVelocity$1, "getVelocity$1");
       function resolveVariant(visualElement, definition, custom) {
         const props = visualElement.getProps();
         return resolveVariantFromProps(props, definition, custom !== void 0 ? custom : props.custom, getCurrent(visualElement), getVelocity$1(visualElement));
       }
+      __name(resolveVariant, "resolveVariant");
       function setMotionValue(visualElement, key, value) {
         if (visualElement.hasValue(key)) {
           visualElement.getValue(key).set(value);
@@ -33389,6 +34827,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           visualElement.addValue(key, motionValue(value));
         }
       }
+      __name(setMotionValue, "setMotionValue");
       function setTarget(visualElement, definition) {
         const resolved = resolveVariant(visualElement, definition);
         let { transitionEnd = {}, transition = {}, ...target } = resolved ? visualElement.makeTargetAnimatable(resolved, false) : {};
@@ -33398,6 +34837,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           setMotionValue(visualElement, key, value);
         }
       }
+      __name(setTarget, "setTarget");
       function setVariants(visualElement, variantLabels) {
         const reversedLabels = [...variantLabels].reverse();
         reversedLabels.forEach((key) => {
@@ -33409,6 +34849,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           });
         });
       }
+      __name(setVariants, "setVariants");
       function setValues(visualElement, definition) {
         if (Array.isArray(definition)) {
           return setVariants(visualElement, definition);
@@ -33418,6 +34859,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           setTarget(visualElement, definition);
         }
       }
+      __name(setValues, "setValues");
       function checkTargetForNewValues(visualElement, target, origin) {
         var _a, _b;
         const newValueKeys = Object.keys(target).filter((key) => !visualElement.hasValue(key));
@@ -33449,12 +34891,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             visualElement.setBaseTarget(key, value);
         }
       }
+      __name(checkTargetForNewValues, "checkTargetForNewValues");
       function getOriginFromTransition(key, transition) {
         if (!transition)
           return;
         const valueTransition = transition[key] || transition["default"] || transition;
         return valueTransition.from;
       }
+      __name(getOriginFromTransition, "getOriginFromTransition");
       function getOrigin(target, transition, visualElement) {
         var _a;
         const origin = {};
@@ -33464,9 +34908,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return origin;
       }
+      __name(getOrigin, "getOrigin");
       function isWillChangeMotionValue(value) {
         return Boolean(isMotionValue(value) && value.add);
       }
+      __name(isWillChangeMotionValue, "isWillChangeMotionValue");
       function animateVisualElement(visualElement, definition, options = {}) {
         visualElement.notify("AnimationStart", definition);
         let animation;
@@ -33481,6 +34927,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return animation.then(() => visualElement.notify("AnimationComplete", definition));
       }
+      __name(animateVisualElement, "animateVisualElement");
       function animateVariant(visualElement, variant, options = {}) {
         var _a;
         const resolved = resolveVariant(visualElement, variant, options.custom);
@@ -33501,6 +34948,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return Promise.all([getAnimation2(), getChildAnimations(options.delay)]);
         }
       }
+      __name(animateVariant, "animateVariant");
       function animateTarget(visualElement, definition, { delay: delay2 = 0, transitionOverride, type } = {}) {
         var _a;
         let { transition = visualElement.getDefaultTransition(), transitionEnd, ...target } = visualElement.makeTargetAnimatable(definition);
@@ -33534,6 +34982,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           transitionEnd && setTarget(visualElement, transitionEnd);
         });
       }
+      __name(animateTarget, "animateTarget");
       function animateChildren(visualElement, variant, delayChildren = 0, staggerChildren = 0, staggerDirection = 1, options) {
         const animations2 = [];
         const maxStaggerDuration = (visualElement.variantChildren.size - 1) * staggerChildren;
@@ -33546,17 +34995,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
         return Promise.all(animations2);
       }
+      __name(animateChildren, "animateChildren");
       function stopAnimation(visualElement) {
         visualElement.values.forEach((value) => value.stop());
       }
+      __name(stopAnimation, "stopAnimation");
       function sortByTreeOrder(a, b) {
         return a.sortNodePosition(b);
       }
+      __name(sortByTreeOrder, "sortByTreeOrder");
       function shouldBlockAnimation({ protectedKeys, needsAnimating }, key) {
         const shouldBlock = protectedKeys.hasOwnProperty(key) && needsAnimating[key] !== true;
         needsAnimating[key] = false;
         return shouldBlock;
       }
+      __name(shouldBlockAnimation, "shouldBlockAnimation");
       var variantPriorityOrder = [
         exports.AnimationType.Animate,
         exports.AnimationType.InView,
@@ -33571,21 +35024,23 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function animateList(visualElement) {
         return (animations2) => Promise.all(animations2.map(({ animation, options }) => animateVisualElement(visualElement, animation, options)));
       }
+      __name(animateList, "animateList");
       function createAnimationState(visualElement) {
         let animate2 = animateList(visualElement);
         const state = createState();
         let isInitialRender = true;
-        const buildResolvedTypeValues = (acc, definition) => {
+        const buildResolvedTypeValues = /* @__PURE__ */ __name((acc, definition) => {
           const resolved = resolveVariant(visualElement, definition);
           if (resolved) {
             const { transition, transitionEnd, ...target } = resolved;
             acc = { ...acc, ...target, ...transitionEnd };
           }
           return acc;
-        };
+        }, "buildResolvedTypeValues");
         function setAnimateFunction(makeAnimator) {
           animate2 = makeAnimator(visualElement);
         }
+        __name(setAnimateFunction, "setAnimateFunction");
         function animateChanges(options, changedActiveType) {
           var _a;
           const props = visualElement.getProps();
@@ -33621,11 +35076,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               ...prevResolvedValues,
               ...resolvedValues
             };
-            const markToAnimate = (key) => {
+            const markToAnimate = /* @__PURE__ */ __name((key) => {
               shouldAnimateType = true;
               removedKeys.delete(key);
               typeState.needsAnimating[key] = true;
-            };
+            }, "markToAnimate");
             for (const key in allKeys) {
               const next = resolvedValues[key];
               const prev = prevResolvedValues[key];
@@ -33681,6 +35136,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           isInitialRender = false;
           return shouldAnimate ? animate2(animations2) : Promise.resolve();
         }
+        __name(animateChanges, "animateChanges");
         function setActive(type, isActive, options) {
           var _a;
           if (state[type].isActive === isActive)
@@ -33696,6 +35152,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           return animations2;
         }
+        __name(setActive, "setActive");
         return {
           animateChanges,
           setActive,
@@ -33703,6 +35160,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           getState: () => state
         };
       }
+      __name(createAnimationState, "createAnimationState");
       function checkVariantsDidChange(prev, next) {
         if (typeof next === "string") {
           return next !== prev;
@@ -33711,6 +35169,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return false;
       }
+      __name(checkVariantsDidChange, "checkVariantsDidChange");
       function createTypeState(isActive = false) {
         return {
           isActive,
@@ -33719,6 +35178,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           prevResolvedValues: {}
         };
       }
+      __name(createTypeState, "createTypeState");
       function createState() {
         return {
           [exports.AnimationType.Animate]: createTypeState(true),
@@ -33730,6 +35190,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           [exports.AnimationType.Exit]: createTypeState()
         };
       }
+      __name(createState, "createState");
       var animations = {
         animation: makeRenderlessComponent(({ visualElement, animate: animate2 }) => {
           visualElement.animationState || (visualElement.animationState = createAnimationState(visualElement));
@@ -33815,12 +35276,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           sync.cancelSync.update(this.updatePoint);
         }
       };
+      __name(PanSession, "PanSession");
       function transformPoint(info, transformPagePoint) {
         return transformPagePoint ? { point: transformPagePoint(info.point) } : info;
       }
+      __name(transformPoint, "transformPoint");
       function subtractPoint(a, b) {
         return { x: a.x - b.x, y: a.y - b.y };
       }
+      __name(subtractPoint, "subtractPoint");
       function getPanInfo({ point }, history) {
         return {
           point,
@@ -33829,12 +35293,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           velocity: getVelocity(history, 0.1)
         };
       }
+      __name(getPanInfo, "getPanInfo");
       function startDevicePoint(history) {
         return history[0];
       }
+      __name(startDevicePoint, "startDevicePoint");
       function lastDevicePoint(history) {
         return history[history.length - 1];
       }
+      __name(lastDevicePoint, "lastDevicePoint");
       function getVelocity(history, timeDelta) {
         if (history.length < 2) {
           return { x: 0, y: 0 };
@@ -33868,12 +35335,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return currentVelocity;
       }
+      __name(getVelocity, "getVelocity");
       function calcLength(axis) {
         return axis.max - axis.min;
       }
+      __name(calcLength, "calcLength");
       function isNear(value, target = 0, maxDistance = 0.01) {
         return popmotion.distance(value, target) < maxDistance;
       }
+      __name(isNear, "isNear");
       function calcAxisDelta(delta, source, target, origin = 0.5) {
         delta.origin = origin;
         delta.originPoint = popmotion.mix(source.min, source.max, delta.origin);
@@ -33884,26 +35354,32 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         if (isNear(delta.translate) || isNaN(delta.translate))
           delta.translate = 0;
       }
+      __name(calcAxisDelta, "calcAxisDelta");
       function calcBoxDelta(delta, source, target, origin) {
         calcAxisDelta(delta.x, source.x, target.x, origin === null || origin === void 0 ? void 0 : origin.originX);
         calcAxisDelta(delta.y, source.y, target.y, origin === null || origin === void 0 ? void 0 : origin.originY);
       }
+      __name(calcBoxDelta, "calcBoxDelta");
       function calcRelativeAxis(target, relative, parent) {
         target.min = parent.min + relative.min;
         target.max = target.min + calcLength(relative);
       }
+      __name(calcRelativeAxis, "calcRelativeAxis");
       function calcRelativeBox(target, relative, parent) {
         calcRelativeAxis(target.x, relative.x, parent.x);
         calcRelativeAxis(target.y, relative.y, parent.y);
       }
+      __name(calcRelativeBox, "calcRelativeBox");
       function calcRelativeAxisPosition(target, layout, parent) {
         target.min = layout.min - parent.min;
         target.max = target.min + calcLength(layout);
       }
+      __name(calcRelativeAxisPosition, "calcRelativeAxisPosition");
       function calcRelativePosition(target, layout, parent) {
         calcRelativeAxisPosition(target.x, layout.x, parent.x);
         calcRelativeAxisPosition(target.y, layout.y, parent.y);
       }
+      __name(calcRelativePosition, "calcRelativePosition");
       function applyConstraints(point, { min, max }, elastic) {
         if (min !== void 0 && point < min) {
           point = elastic ? popmotion.mix(min, point, elastic.min) : Math.max(point, min);
@@ -33912,18 +35388,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return point;
       }
+      __name(applyConstraints, "applyConstraints");
       function calcRelativeAxisConstraints(axis, min, max) {
         return {
           min: min !== void 0 ? axis.min + min : void 0,
           max: max !== void 0 ? axis.max + max - (axis.max - axis.min) : void 0
         };
       }
+      __name(calcRelativeAxisConstraints, "calcRelativeAxisConstraints");
       function calcRelativeConstraints(layoutBox, { top, left, bottom, right }) {
         return {
           x: calcRelativeAxisConstraints(layoutBox.x, left, right),
           y: calcRelativeAxisConstraints(layoutBox.y, top, bottom)
         };
       }
+      __name(calcRelativeConstraints, "calcRelativeConstraints");
       function calcViewportAxisConstraints(layoutAxis, constraintsAxis) {
         let min = constraintsAxis.min - layoutAxis.min;
         let max = constraintsAxis.max - layoutAxis.max;
@@ -33932,12 +35411,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return { min, max };
       }
+      __name(calcViewportAxisConstraints, "calcViewportAxisConstraints");
       function calcViewportConstraints(layoutBox, constraintsBox) {
         return {
           x: calcViewportAxisConstraints(layoutBox.x, constraintsBox.x),
           y: calcViewportAxisConstraints(layoutBox.y, constraintsBox.y)
         };
       }
+      __name(calcViewportConstraints, "calcViewportConstraints");
       function calcOrigin(source, target) {
         let origin = 0.5;
         const sourceLength = calcLength(source);
@@ -33949,6 +35430,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return popmotion.clamp(0, 1, origin);
       }
+      __name(calcOrigin, "calcOrigin");
       function rebaseAxisConstraints(layout, constraints) {
         const relativeConstraints = {};
         if (constraints.min !== void 0) {
@@ -33959,6 +35441,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return relativeConstraints;
       }
+      __name(rebaseAxisConstraints, "rebaseAxisConstraints");
       var defaultElastic = 0.35;
       function resolveDragElastic(dragElastic = defaultElastic) {
         if (dragElastic === false) {
@@ -33971,43 +35454,49 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           y: resolveAxisElastic(dragElastic, "top", "bottom")
         };
       }
+      __name(resolveDragElastic, "resolveDragElastic");
       function resolveAxisElastic(dragElastic, minLabel, maxLabel) {
         return {
           min: resolvePointElastic(dragElastic, minLabel),
           max: resolvePointElastic(dragElastic, maxLabel)
         };
       }
+      __name(resolveAxisElastic, "resolveAxisElastic");
       function resolvePointElastic(dragElastic, label) {
         var _a;
         return typeof dragElastic === "number" ? dragElastic : (_a = dragElastic[label]) !== null && _a !== void 0 ? _a : 0;
       }
-      var createAxisDelta = () => ({
+      __name(resolvePointElastic, "resolvePointElastic");
+      var createAxisDelta = /* @__PURE__ */ __name(() => ({
         translate: 0,
         scale: 1,
         origin: 0,
         originPoint: 0
-      });
-      var createDelta = () => ({
+      }), "createAxisDelta");
+      var createDelta = /* @__PURE__ */ __name(() => ({
         x: createAxisDelta(),
         y: createAxisDelta()
-      });
-      var createAxis = () => ({ min: 0, max: 0 });
-      var createBox = () => ({
+      }), "createDelta");
+      var createAxis = /* @__PURE__ */ __name(() => ({ min: 0, max: 0 }), "createAxis");
+      var createBox = /* @__PURE__ */ __name(() => ({
         x: createAxis(),
         y: createAxis()
-      });
+      }), "createBox");
       function eachAxis(callback) {
         return [callback("x"), callback("y")];
       }
+      __name(eachAxis, "eachAxis");
       function convertBoundingBoxToBox({ top, left, right, bottom }) {
         return {
           x: { min: left, max: right },
           y: { min: top, max: bottom }
         };
       }
+      __name(convertBoundingBoxToBox, "convertBoundingBoxToBox");
       function convertBoxToBoundingBox({ x, y }) {
         return { top: y.min, right: x.max, bottom: y.max, left: x.min };
       }
+      __name(convertBoxToBoundingBox, "convertBoxToBoundingBox");
       function transformBoxPoints(point, transformPoint2) {
         if (!transformPoint2)
           return point;
@@ -34020,40 +35509,50 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           right: bottomRight.x
         };
       }
+      __name(transformBoxPoints, "transformBoxPoints");
       function isIdentityScale(scale) {
         return scale === void 0 || scale === 1;
       }
+      __name(isIdentityScale, "isIdentityScale");
       function hasScale({ scale, scaleX, scaleY }) {
         return !isIdentityScale(scale) || !isIdentityScale(scaleX) || !isIdentityScale(scaleY);
       }
+      __name(hasScale, "hasScale");
       function hasTransform(values) {
         return hasScale(values) || has2DTranslate(values) || values.z || values.rotate || values.rotateX || values.rotateY;
       }
+      __name(hasTransform, "hasTransform");
       function has2DTranslate(values) {
         return is2DTranslate(values.x) || is2DTranslate(values.y);
       }
+      __name(has2DTranslate, "has2DTranslate");
       function is2DTranslate(value) {
         return value && value !== "0%";
       }
+      __name(is2DTranslate, "is2DTranslate");
       function scalePoint(point, scale, originPoint) {
         const distanceFromOrigin = point - originPoint;
         const scaled = scale * distanceFromOrigin;
         return originPoint + scaled;
       }
+      __name(scalePoint, "scalePoint");
       function applyPointDelta(point, translate, scale, originPoint, boxScale) {
         if (boxScale !== void 0) {
           point = scalePoint(point, boxScale, originPoint);
         }
         return scalePoint(point, scale, originPoint) + translate;
       }
+      __name(applyPointDelta, "applyPointDelta");
       function applyAxisDelta(axis, translate = 0, scale = 1, originPoint, boxScale) {
         axis.min = applyPointDelta(axis.min, translate, scale, originPoint, boxScale);
         axis.max = applyPointDelta(axis.max, translate, scale, originPoint, boxScale);
       }
+      __name(applyAxisDelta, "applyAxisDelta");
       function applyBoxDelta(box, { x, y }) {
         applyAxisDelta(box.x, x.translate, x.scale, x.originPoint);
         applyAxisDelta(box.y, y.translate, y.scale, y.originPoint);
       }
+      __name(applyBoxDelta, "applyBoxDelta");
       function applyTreeDeltas(box, treeScale, treePath, isSharedTransition = false) {
         var _a, _b;
         const treeLength = treePath.length;
@@ -34080,24 +35579,29 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }
       }
+      __name(applyTreeDeltas, "applyTreeDeltas");
       function translateAxis(axis, distance) {
         axis.min = axis.min + distance;
         axis.max = axis.max + distance;
       }
+      __name(translateAxis, "translateAxis");
       function transformAxis(axis, transforms, [key, scaleKey, originKey]) {
         const axisOrigin = transforms[originKey] !== void 0 ? transforms[originKey] : 0.5;
         const originPoint = popmotion.mix(axis.min, axis.max, axisOrigin);
         applyAxisDelta(axis, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
       }
+      __name(transformAxis, "transformAxis");
       var xKeys$1 = ["x", "scaleX", "originX"];
       var yKeys$1 = ["y", "scaleY", "originY"];
       function transformBox(box, transform2) {
         transformAxis(box.x, transform2, xKeys$1);
         transformAxis(box.y, transform2, yKeys$1);
       }
+      __name(transformBox, "transformBox");
       function measureViewportBox(instance, transformPoint2) {
         return convertBoundingBoxToBox(transformBoxPoints(instance.getBoundingClientRect(), transformPoint2));
       }
+      __name(measureViewportBox, "measureViewportBox");
       function measurePageBox(element, rootProjectionNode2, transformPagePoint) {
         const viewportBox = measureViewportBox(element, transformPagePoint);
         const { scroll } = rootProjectionNode2;
@@ -34107,6 +35611,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return viewportBox;
       }
+      __name(measurePageBox, "measurePageBox");
       var elementDragControls = /* @__PURE__ */ new WeakMap();
       var VisualElementDragControls = class {
         constructor(visualElement) {
@@ -34122,13 +35627,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         start(originEvent, { snapToCursor = false } = {}) {
           if (this.visualElement.isPresent === false)
             return;
-          const onSessionStart = (event) => {
+          const onSessionStart = /* @__PURE__ */ __name((event) => {
             this.stopAnimation();
             if (snapToCursor) {
               this.snapToCursor(extractEventInfo(event, "page").point);
             }
-          };
-          const onStart = (event, info) => {
+          }, "onSessionStart");
+          const onStart = /* @__PURE__ */ __name((event, info) => {
             var _a;
             const { drag: drag2, dragPropagation, onDragStart } = this.getProps();
             if (drag2 && !dragPropagation) {
@@ -34159,8 +35664,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             });
             onDragStart === null || onDragStart === void 0 ? void 0 : onDragStart(event, info);
             (_a = this.visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(exports.AnimationType.Drag, true);
-          };
-          const onMove = (event, info) => {
+          }, "onStart");
+          const onMove = /* @__PURE__ */ __name((event, info) => {
             const { dragPropagation, dragDirectionLock, onDirectionLock, onDrag } = this.getProps();
             if (!dragPropagation && !this.openGlobalLock)
               return;
@@ -34176,8 +35681,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             this.updateAxis("y", info.point, offset);
             this.visualElement.render();
             onDrag === null || onDrag === void 0 ? void 0 : onDrag(event, info);
-          };
-          const onSessionEnd = (event, info) => this.stop(event, info);
+          }, "onMove");
+          const onSessionEnd = /* @__PURE__ */ __name((event, info) => this.stop(event, info), "onSessionEnd");
           this.panSession = new PanSession(originEvent, {
             onSessionStart,
             onStart,
@@ -34359,12 +35864,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             const { drag: drag2, dragListener = true } = this.getProps();
             drag2 && dragListener && this.start(event);
           });
-          const measureDragConstraints = () => {
+          const measureDragConstraints = /* @__PURE__ */ __name(() => {
             const { dragConstraints } = this.getProps();
             if (isRefObject(dragConstraints)) {
               this.constraints = this.resolveRefConstraints();
             }
-          };
+          }, "measureDragConstraints");
           const { projection } = this.visualElement;
           const stopMeasureLayoutListener = projection.addEventListener("measure", measureDragConstraints);
           if (projection && !projection.layout) {
@@ -34406,9 +35911,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
         }
       };
+      __name(VisualElementDragControls, "VisualElementDragControls");
       function shouldDrag(direction, drag2, currentDirection) {
         return (drag2 === true || drag2 === direction) && (currentDirection === null || currentDirection === direction);
       }
+      __name(shouldDrag, "shouldDrag");
       function getCurrentDirection(offset, lockThreshold = 10) {
         let direction = null;
         if (Math.abs(offset.y) > lockThreshold) {
@@ -34418,12 +35925,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return direction;
       }
+      __name(getCurrentDirection, "getCurrentDirection");
       function useDrag(props) {
         const { dragControls: groupDragControls, visualElement } = props;
         const dragControls = useConstant(() => new VisualElementDragControls(visualElement));
         React2.useEffect(() => groupDragControls && groupDragControls.subscribe(dragControls), [dragControls, groupDragControls]);
         React2.useEffect(() => dragControls.addListeners(), [dragControls]);
       }
+      __name(useDrag, "useDrag");
       function usePanGesture({ onPan, onPanStart, onPanEnd, onPanSessionStart, visualElement }) {
         const hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
         const panSession = React2.useRef(null);
@@ -34447,9 +35956,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             transformPagePoint
           });
         }
+        __name(onPointerDown, "onPointerDown");
         usePointerEvent(visualElement, "pointerdown", hasPanEvents && onPointerDown);
         useUnmountEffect(() => panSession.current && panSession.current.end());
       }
+      __name(usePanGesture, "usePanGesture");
       var drag = {
         pan: makeRenderlessComponent(usePanGesture),
         drag: makeRenderlessComponent(useDrag)
@@ -34457,6 +35968,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function isCSSVariable(value) {
         return typeof value === "string" && value.startsWith("var(--");
       }
+      __name(isCSSVariable, "isCSSVariable");
       var cssVariableRegex = /var\((--[a-zA-Z0-9-_]+),? ?([a-zA-Z0-9 ()%#.,-]+)?\)/;
       function parseCSSVariable(current) {
         const match = cssVariableRegex.exec(current);
@@ -34465,6 +35977,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const [, token, fallback] = match;
         return [token, fallback];
       }
+      __name(parseCSSVariable, "parseCSSVariable");
       var maxDepth = 4;
       function getVariableValue(current, element, depth = 1) {
         heyListen.invariant(depth <= maxDepth, `Max CSS variable fallback depth detected in property "${current}". This may indicate a circular fallback dependency.`);
@@ -34480,6 +35993,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return fallback;
         }
       }
+      __name(getVariableValue, "getVariableValue");
       function resolveCSSVariables(visualElement, { ...target }, transitionEnd) {
         const element = visualElement.current;
         if (!(element instanceof Element))
@@ -34509,6 +36023,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return { target, transitionEnd };
       }
+      __name(resolveCSSVariables, "resolveCSSVariables");
       var positionalKeys = /* @__PURE__ */ new Set([
         "width",
         "height",
@@ -34519,15 +36034,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         "x",
         "y"
       ]);
-      var isPositionalKey = (key) => positionalKeys.has(key);
-      var hasPositionalKey = (target) => {
+      var isPositionalKey = /* @__PURE__ */ __name((key) => positionalKeys.has(key), "isPositionalKey");
+      var hasPositionalKey = /* @__PURE__ */ __name((target) => {
         return Object.keys(target).some(isPositionalKey);
-      };
-      var setAndResetVelocity = (value, to) => {
+      }, "hasPositionalKey");
+      var setAndResetVelocity = /* @__PURE__ */ __name((value, to) => {
         value.set(to, false);
         value.set(to);
-      };
-      var isNumOrPxType = (v) => v === styleValueTypes.number || v === styleValueTypes.px;
+      }, "setAndResetVelocity");
+      var isNumOrPxType = /* @__PURE__ */ __name((v) => v === styleValueTypes.number || v === styleValueTypes.px, "isNumOrPxType");
       var BoundingBoxDimension;
       (function(BoundingBoxDimension2) {
         BoundingBoxDimension2["width"] = "width";
@@ -34537,8 +36052,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         BoundingBoxDimension2["top"] = "top";
         BoundingBoxDimension2["bottom"] = "bottom";
       })(BoundingBoxDimension || (BoundingBoxDimension = {}));
-      var getPosFromMatrix = (matrix, pos) => parseFloat(matrix.split(", ")[pos]);
-      var getTranslateFromMatrix = (pos2, pos3) => (_bbox, { transform: transform2 }) => {
+      var getPosFromMatrix = /* @__PURE__ */ __name((matrix, pos) => parseFloat(matrix.split(", ")[pos]), "getPosFromMatrix");
+      var getTranslateFromMatrix = /* @__PURE__ */ __name((pos2, pos3) => (_bbox, { transform: transform2 }) => {
         if (transform2 === "none" || !transform2)
           return 0;
         const matrix3d = transform2.match(/^matrix3d\((.+)\)$/);
@@ -34552,7 +36067,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return 0;
           }
         }
-      };
+      }, "getTranslateFromMatrix");
       var transformKeys = /* @__PURE__ */ new Set(["x", "y", "z"]);
       var nonTranslationalTransformKeys = transformPropOrder.filter((key) => !transformKeys.has(key));
       function removeNonTranslationalTransform(visualElement) {
@@ -34568,6 +36083,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           visualElement.render();
         return removedTransforms;
       }
+      __name(removeNonTranslationalTransform, "removeNonTranslationalTransform");
       var positionalValues = {
         width: ({ x }, { paddingLeft = "0", paddingRight = "0" }) => x.max - x.min - parseFloat(paddingLeft) - parseFloat(paddingRight),
         height: ({ y }, { paddingTop = "0", paddingBottom = "0" }) => y.max - y.min - parseFloat(paddingTop) - parseFloat(paddingBottom),
@@ -34578,7 +36094,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         x: getTranslateFromMatrix(4, 13),
         y: getTranslateFromMatrix(5, 14)
       };
-      var convertChangedValueTypes = (target, visualElement, changedKeys) => {
+      var convertChangedValueTypes = /* @__PURE__ */ __name((target, visualElement, changedKeys) => {
         const originBbox = visualElement.measureViewportBox();
         const element = visualElement.current;
         const elementComputedStyle = getComputedStyle(element);
@@ -34598,8 +36114,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           target[key] = positionalValues[key](targetBbox, elementComputedStyle);
         });
         return target;
-      };
-      var checkAndConvertChangedValueTypes = (visualElement, target, origin = {}, transitionEnd = {}) => {
+      }, "convertChangedValueTypes");
+      var checkAndConvertChangedValueTypes = /* @__PURE__ */ __name((visualElement, target, origin = {}, transitionEnd = {}) => {
         target = { ...target };
         transitionEnd = { ...transitionEnd };
         const targetPositionalKeys = Object.keys(target).filter(isPositionalKey);
@@ -34674,16 +36190,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         } else {
           return { target, transitionEnd };
         }
-      };
+      }, "checkAndConvertChangedValueTypes");
       function unitConversion(visualElement, target, origin, transitionEnd) {
         return hasPositionalKey(target) ? checkAndConvertChangedValueTypes(visualElement, target, origin, transitionEnd) : { target, transitionEnd };
       }
-      var parseDomVariant = (visualElement, target, origin, transitionEnd) => {
+      __name(unitConversion, "unitConversion");
+      var parseDomVariant = /* @__PURE__ */ __name((visualElement, target, origin, transitionEnd) => {
         const resolved = resolveCSSVariables(visualElement, target, transitionEnd);
         target = resolved.target;
         transitionEnd = resolved.transitionEnd;
         return unitConversion(visualElement, target, origin, transitionEnd);
-      };
+      }, "parseDomVariant");
       var prefersReducedMotion = { current: null };
       var hasReducedMotionListener = { current: false };
       function initPrefersReducedMotion() {
@@ -34692,13 +36209,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return;
         if (window.matchMedia) {
           const motionMediaQuery = window.matchMedia("(prefers-reduced-motion)");
-          const setReducedMotionPreferences = () => prefersReducedMotion.current = motionMediaQuery.matches;
+          const setReducedMotionPreferences = /* @__PURE__ */ __name(() => prefersReducedMotion.current = motionMediaQuery.matches, "setReducedMotionPreferences");
           motionMediaQuery.addListener(setReducedMotionPreferences);
           setReducedMotionPreferences();
         } else {
           prefersReducedMotion.current = false;
         }
       }
+      __name(initPrefersReducedMotion, "initPrefersReducedMotion");
       function updateMotionValuesFromProps(element, next, prev) {
         const { willChange } = next;
         for (const key in next) {
@@ -34733,6 +36251,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return next;
       }
+      __name(updateMotionValuesFromProps, "updateMotionValuesFromProps");
       var featureNames = Object.keys(featureDefinitions);
       var numFeatures = featureNames.length;
       var propEventHandlers = [
@@ -35020,6 +36539,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           (_a = this.events[eventName]) === null || _a === void 0 ? void 0 : _a.notify(...args);
         }
       };
+      __name(VisualElement, "VisualElement");
       var variantProps = ["initial", ...variantPriorityOrder];
       var numVariantProps = variantProps.length;
       var DOMVisualElement = class extends VisualElement {
@@ -35057,9 +36577,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
         }
       };
+      __name(DOMVisualElement, "DOMVisualElement");
       function getComputedStyle$1(element) {
         return window.getComputedStyle(element);
       }
+      __name(getComputedStyle$1, "getComputedStyle$1");
       var HTMLVisualElement = class extends DOMVisualElement {
         readValueFromInstance(instance, key) {
           if (transformProps.has(key)) {
@@ -35084,6 +36606,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           renderHTML(instance, renderState, styleProp, projection);
         }
       };
+      __name(HTMLVisualElement, "HTMLVisualElement");
       var SVGVisualElement = class extends DOMVisualElement {
         getBaseTargetFromProps(props, key) {
           return props[key];
@@ -35109,14 +36632,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           renderSVG(instance, renderState, styleProp, projection);
         }
       };
-      var createDomVisualElement = (Component, options) => {
+      __name(SVGVisualElement, "SVGVisualElement");
+      var createDomVisualElement = /* @__PURE__ */ __name((Component, options) => {
         return isSVGComponent(Component) ? new SVGVisualElement(options, { enableHardwareAcceleration: false }) : new HTMLVisualElement(options, { enableHardwareAcceleration: true });
-      };
+      }, "createDomVisualElement");
       function pixelsToPercent(pixels, axis) {
         if (axis.max === axis.min)
           return 0;
         return pixels / (axis.max - axis.min) * 100;
       }
+      __name(pixelsToPercent, "pixelsToPercent");
       var correctBorderRadius = {
         correct: (latest, node) => {
           if (!node.target)
@@ -35246,11 +36771,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return null;
         }
       };
+      __name(MeasureLayoutWithContext, "MeasureLayoutWithContext");
       function MeasureLayout(props) {
         const [isPresent2, safeToRemove] = usePresence();
         const layoutGroup = React2.useContext(LayoutGroupContext);
         return React__default["default"].createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: React2.useContext(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove });
       }
+      __name(MeasureLayout, "MeasureLayout");
       var defaultScaleCorrectors = {
         borderRadius: {
           ...correctBorderRadius,
@@ -35278,10 +36805,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           isAnimating: () => value.isAnimating()
         };
       }
+      __name(animate, "animate");
       var borders = ["TopLeft", "TopRight", "BottomLeft", "BottomRight"];
       var numBorders = borders.length;
-      var asNumber = (value) => typeof value === "string" ? parseFloat(value) : value;
-      var isPx = (value) => typeof value === "number" || styleValueTypes.px.test(value);
+      var asNumber = /* @__PURE__ */ __name((value) => typeof value === "string" ? parseFloat(value) : value, "asNumber");
+      var isPx = /* @__PURE__ */ __name((value) => typeof value === "number" || styleValueTypes.px.test(value), "isPx");
       function mixValues(target, follow, lead, progress, shouldCrossfadeOpacity, isOnlyMember) {
         var _a, _b, _c, _d;
         if (shouldCrossfadeOpacity) {
@@ -35316,10 +36844,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           target.rotate = popmotion.mix(follow.rotate || 0, lead.rotate || 0, progress);
         }
       }
+      __name(mixValues, "mixValues");
       function getRadius(values, radiusName) {
         var _a;
         return (_a = values[radiusName]) !== null && _a !== void 0 ? _a : values.borderRadius;
       }
+      __name(getRadius, "getRadius");
       var easeCrossfadeIn = compress(0, 0.5, popmotion.circOut);
       var easeCrossfadeOut = compress(0.5, 0.95, popmotion.linear);
       function compress(min, max, easing) {
@@ -35331,14 +36861,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return easing(popmotion.progress(min, max, p));
         };
       }
+      __name(compress, "compress");
       function copyAxisInto(axis, originAxis) {
         axis.min = originAxis.min;
         axis.max = originAxis.max;
       }
+      __name(copyAxisInto, "copyAxisInto");
       function copyBoxInto(box, originBox) {
         copyAxisInto(box.x, originBox.x);
         copyAxisInto(box.y, originBox.y);
       }
+      __name(copyBoxInto, "copyBoxInto");
       function removePointDelta(point, translate, scale, originPoint, boxScale) {
         point -= translate;
         point = scalePoint(point, 1 / scale, originPoint);
@@ -35347,6 +36880,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return point;
       }
+      __name(removePointDelta, "removePointDelta");
       function removeAxisDelta(axis, translate = 0, scale = 1, origin = 0.5, boxScale, originAxis = axis, sourceAxis = axis) {
         if (styleValueTypes.percent.test(translate)) {
           translate = parseFloat(translate);
@@ -35361,30 +36895,38 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         axis.min = removePointDelta(axis.min, translate, scale, originPoint, boxScale);
         axis.max = removePointDelta(axis.max, translate, scale, originPoint, boxScale);
       }
+      __name(removeAxisDelta, "removeAxisDelta");
       function removeAxisTransforms(axis, transforms, [key, scaleKey, originKey], origin, sourceAxis) {
         removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale, origin, sourceAxis);
       }
+      __name(removeAxisTransforms, "removeAxisTransforms");
       var xKeys = ["x", "scaleX", "originX"];
       var yKeys = ["y", "scaleY", "originY"];
       function removeBoxTransforms(box, transforms, originBox, sourceBox) {
         removeAxisTransforms(box.x, transforms, xKeys, originBox === null || originBox === void 0 ? void 0 : originBox.x, sourceBox === null || sourceBox === void 0 ? void 0 : sourceBox.x);
         removeAxisTransforms(box.y, transforms, yKeys, originBox === null || originBox === void 0 ? void 0 : originBox.y, sourceBox === null || sourceBox === void 0 ? void 0 : sourceBox.y);
       }
+      __name(removeBoxTransforms, "removeBoxTransforms");
       function isAxisDeltaZero(delta) {
         return delta.translate === 0 && delta.scale === 1;
       }
+      __name(isAxisDeltaZero, "isAxisDeltaZero");
       function isDeltaZero(delta) {
         return isAxisDeltaZero(delta.x) && isAxisDeltaZero(delta.y);
       }
+      __name(isDeltaZero, "isDeltaZero");
       function boxEquals(a, b) {
         return a.x.min === b.x.min && a.x.max === b.x.max && a.y.min === b.y.min && a.y.max === b.y.max;
       }
+      __name(boxEquals, "boxEquals");
       function aspectRatio(box) {
         return calcLength(box.x) / calcLength(box.y);
       }
+      __name(aspectRatio, "aspectRatio");
       function isCloseTo(a, b, max = 0.1) {
         return popmotion.distance(a, b) <= max;
       }
+      __name(isCloseTo, "isCloseTo");
       var NodeStack = class {
         constructor() {
           this.members = [];
@@ -35471,6 +37013,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         }
       };
+      __name(NodeStack, "NodeStack");
       var identityProjection = "translate3d(0px, 0px, 0) scale(1, 1) scale(1, 1)";
       function buildProjectionTransform(delta, treeScale, latestTransform) {
         const xTranslate = delta.x.translate / treeScale.x;
@@ -35491,7 +37034,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         transform2 += `scale(${elementScaleX}, ${elementScaleY})`;
         return transform2 === identityProjection ? "none" : transform2;
       }
-      var compareByDepth = (a, b) => a.depth - b.depth;
+      __name(buildProjectionTransform, "buildProjectionTransform");
+      var compareByDepth = /* @__PURE__ */ __name((a, b) => a.depth - b.depth, "compareByDepth");
       var FlatTree = class {
         constructor() {
           this.children = [];
@@ -35511,10 +37055,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           this.children.forEach(callback);
         }
       };
+      __name(FlatTree, "FlatTree");
       var transformAxes = ["", "X", "Y", "Z"];
       var animationTarget = 1e3;
       function createProjectionNode({ attachResizeListener, defaultParent, measureScroll, checkIsScrollRoot, resetTransform }) {
-        return class ProjectionNode {
+        return /* @__PURE__ */ __name(class ProjectionNode {
           constructor(id2, latestValues = {}, parent = defaultParent === null || defaultParent === void 0 ? void 0 : defaultParent()) {
             this.children = /* @__PURE__ */ new Set();
             this.options = {};
@@ -35591,7 +37136,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             if (attachResizeListener) {
               let cancelDelay;
-              const resizeUnblockUpdate = () => this.root.updateBlockedByResize = false;
+              const resizeUnblockUpdate = /* @__PURE__ */ __name(() => this.root.updateBlockedByResize = false, "resizeUnblockUpdate");
               attachResizeListener(instance, () => {
                 this.root.updateBlockedByResize = true;
                 cancelDelay && cancelDelay();
@@ -36239,11 +37784,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             this.root.nodes.forEach(clearMeasurements);
             this.root.sharedNodes.clear();
           }
-        };
+        }, "ProjectionNode");
       }
+      __name(createProjectionNode, "createProjectionNode");
       function updateLayout(node) {
         node.updateLayout();
       }
+      __name(updateLayout, "updateLayout");
       function notifyLayoutUpdate(node) {
         var _a, _b, _c;
         const snapshot = ((_a = node.resumeFrom) === null || _a === void 0 ? void 0 : _a.snapshot) || node.snapshot;
@@ -36302,12 +37849,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         node.options.transition = void 0;
       }
+      __name(notifyLayoutUpdate, "notifyLayoutUpdate");
       function clearSnapshot(node) {
         node.clearSnapshot();
       }
+      __name(clearSnapshot, "clearSnapshot");
       function clearMeasurements(node) {
         node.clearMeasurements();
       }
+      __name(clearMeasurements, "clearMeasurements");
       function resetTransformStyle(node) {
         const { visualElement } = node.options;
         if (visualElement === null || visualElement === void 0 ? void 0 : visualElement.getProps().onBeforeLayoutMeasure) {
@@ -36315,39 +37865,49 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         node.resetTransform();
       }
+      __name(resetTransformStyle, "resetTransformStyle");
       function finishAnimation(node) {
         node.finishAnimation();
         node.targetDelta = node.relativeTarget = node.target = void 0;
       }
+      __name(finishAnimation, "finishAnimation");
       function resolveTargetDelta(node) {
         node.resolveTargetDelta();
       }
+      __name(resolveTargetDelta, "resolveTargetDelta");
       function calcProjection(node) {
         node.calcProjection();
       }
+      __name(calcProjection, "calcProjection");
       function resetRotation(node) {
         node.resetRotation();
       }
+      __name(resetRotation, "resetRotation");
       function removeLeadSnapshots(stack) {
         stack.removeLeadSnapshot();
       }
+      __name(removeLeadSnapshots, "removeLeadSnapshots");
       function mixAxisDelta(output, delta, p) {
         output.translate = popmotion.mix(delta.translate, 0, p);
         output.scale = popmotion.mix(delta.scale, 1, p);
         output.origin = delta.origin;
         output.originPoint = delta.originPoint;
       }
+      __name(mixAxisDelta, "mixAxisDelta");
       function mixAxis(output, from, to, p) {
         output.min = popmotion.mix(from.min, to.min, p);
         output.max = popmotion.mix(from.max, to.max, p);
       }
+      __name(mixAxis, "mixAxis");
       function mixBox(output, from, to, p) {
         mixAxis(output.x, from.x, to.x, p);
         mixAxis(output.y, from.y, to.y, p);
       }
+      __name(mixBox, "mixBox");
       function hasOpacityCrossfade(node) {
         return node.animationValues && node.animationValues.opacityExit !== void 0;
       }
+      __name(hasOpacityCrossfade, "hasOpacityCrossfade");
       var defaultLayoutTransition = {
         duration: 0.45,
         ease: [0.4, 0, 0.1, 1]
@@ -36365,17 +37925,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         if (element)
           node.mount(element, true);
       }
+      __name(mountNodeEarly, "mountNodeEarly");
       function roundAxis(axis) {
         axis.min = Math.round(axis.min);
         axis.max = Math.round(axis.max);
       }
+      __name(roundAxis, "roundAxis");
       function roundBox(box) {
         roundAxis(box.x);
         roundAxis(box.y);
       }
+      __name(roundBox, "roundBox");
       function shouldAnimatePositionOnly(animationType, snapshot, layout) {
         return animationType === "position" || animationType === "preserve-aspect" && !isCloseTo(aspectRatio(snapshot), aspectRatio(layout), 0.2);
       }
+      __name(shouldAnimatePositionOnly, "shouldAnimatePositionOnly");
       var DocumentProjectionNode = createProjectionNode({
         attachResizeListener: (ref, notify2) => addDomEvent(ref, "resize", notify2),
         measureScroll: () => ({
@@ -36412,10 +37976,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         ...drag,
         ...layoutFeatures
       };
-      var motion = createMotionProxy((Component, config) => createDomMotionConfig(Component, config, featureBundle, createDomVisualElement, HTMLProjectionNode));
+      var motion = /* @__PURE__ */ createMotionProxy((Component, config) => createDomMotionConfig(Component, config, featureBundle, createDomVisualElement, HTMLProjectionNode));
       function createDomMotionComponent(key) {
         return createMotionComponent(createDomMotionConfig(key, { forwardMotionProps: false }, featureBundle, createDomVisualElement, HTMLProjectionNode));
       }
+      __name(createDomMotionComponent, "createDomMotionComponent");
       var m = createMotionProxy(createDomMotionConfig);
       function useIsMounted() {
         const isMounted = React2.useRef(false);
@@ -36427,6 +37992,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, []);
         return isMounted;
       }
+      __name(useIsMounted, "useIsMounted");
       function useForceUpdate() {
         const isMounted = useIsMounted();
         const [forcedRenderCount, setForcedRenderCount] = React2.useState(0);
@@ -36436,6 +38002,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const deferredForceRender = React2.useCallback(() => sync__default["default"].postRender(forceRender), [forceRender]);
         return [deferredForceRender, forcedRenderCount];
       }
+      __name(useForceUpdate, "useForceUpdate");
       var PopChildMeasure = class extends React__namespace.Component {
         getSnapshotBeforeUpdate(prevProps) {
           const element = this.props.childRef.current;
@@ -36454,6 +38021,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return this.props.children;
         }
       };
+      __name(PopChildMeasure, "PopChildMeasure");
       function PopChild({ children, isPresent: isPresent2 }) {
         const id2 = React2.useId();
         const ref = React2.useRef(null);
@@ -36487,7 +38055,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, [isPresent2]);
         return React__namespace.createElement(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, React__namespace.cloneElement(children, { ref }));
       }
-      var PresenceChild = ({ children, initial, isPresent: isPresent2, onExitComplete, custom, presenceAffectsLayout, mode }) => {
+      __name(PopChild, "PopChild");
+      var PresenceChild = /* @__PURE__ */ __name(({ children, initial, isPresent: isPresent2, onExitComplete, custom, presenceAffectsLayout, mode }) => {
         const presenceChildren = useConstant(newChildrenMap);
         const id2 = React2.useId();
         const context = React2.useMemo(
@@ -36521,17 +38090,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           children = React__namespace.createElement(PopChild, { isPresent: isPresent2 }, children);
         }
         return React__namespace.createElement(PresenceContext.Provider, { value: context }, children);
-      };
+      }, "PresenceChild");
       function newChildrenMap() {
         return /* @__PURE__ */ new Map();
       }
-      var getChildKey = (child) => child.key || "";
+      __name(newChildrenMap, "newChildrenMap");
+      var getChildKey = /* @__PURE__ */ __name((child) => child.key || "", "getChildKey");
       function updateChildLookup(children, allChildren) {
         children.forEach((child) => {
           const key = getChildKey(child);
           allChildren.set(key, child);
         });
       }
+      __name(updateChildLookup, "updateChildLookup");
       function onlyElements(children) {
         const filtered = [];
         React2.Children.forEach(children, (child) => {
@@ -36540,7 +38111,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
         return filtered;
       }
-      var AnimatePresence = ({ children, custom, initial = true, onExitComplete, exitBeforeEnter, presenceAffectsLayout = true, mode = "sync" }) => {
+      __name(onlyElements, "onlyElements");
+      var AnimatePresence = /* @__PURE__ */ __name(({ children, custom, initial = true, onExitComplete, exitBeforeEnter, presenceAffectsLayout = true, mode = "sync" }) => {
         if (exitBeforeEnter) {
           mode = "wait";
           warnOnce(false, "Replace exitBeforeEnter with mode='wait'");
@@ -36589,7 +38161,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           if (!child)
             return;
           const insertionIndex = presentKeys.indexOf(key);
-          const onExit = () => {
+          const onExit = /* @__PURE__ */ __name(() => {
             allChildren.delete(key);
             exiting.delete(key);
             const removeIndex = presentChildren.current.findIndex((presentChild) => presentChild.key === key);
@@ -36601,7 +38173,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               forceRender();
               onExitComplete && onExitComplete();
             }
-          };
+          }, "onExit");
           childrenToRender.splice(insertionIndex, 0, React__namespace.createElement(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom, presenceAffectsLayout, mode }, child));
         });
         childrenToRender = childrenToRender.map((child) => {
@@ -36612,13 +38184,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           console.warn(`You're attempting to animate multiple children within AnimatePresence, but its mode is set to "wait". This will lead to odd visual behaviour.`);
         }
         return React__namespace.createElement(React__namespace.Fragment, null, exiting.size ? childrenToRender : childrenToRender.map((child) => React2.cloneElement(child)));
-      };
+      }, "AnimatePresence");
       var DeprecatedLayoutGroupContext = React2.createContext(null);
-      var notify = (node) => !node.isLayoutDirty && node.willUpdate(false);
+      var notify = /* @__PURE__ */ __name((node) => !node.isLayoutDirty && node.willUpdate(false), "notify");
       function nodeGroup() {
         const nodes = /* @__PURE__ */ new Set();
         const subscriptions = /* @__PURE__ */ new WeakMap();
-        const dirtyAll = () => nodes.forEach(notify);
+        const dirtyAll = /* @__PURE__ */ __name(() => nodes.forEach(notify), "dirtyAll");
         return {
           add: (node) => {
             nodes.add(node);
@@ -36634,9 +38206,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           dirty: dirtyAll
         };
       }
-      var shouldInheritGroup = (inherit) => inherit === true;
-      var shouldInheritId = (inherit) => shouldInheritGroup(inherit === true) || inherit === "id";
-      var LayoutGroup = ({ children, id: id2, inheritId, inherit = true }) => {
+      __name(nodeGroup, "nodeGroup");
+      var shouldInheritGroup = /* @__PURE__ */ __name((inherit) => inherit === true, "shouldInheritGroup");
+      var shouldInheritId = /* @__PURE__ */ __name((inherit) => shouldInheritGroup(inherit === true) || inherit === "id", "shouldInheritId");
+      var LayoutGroup = /* @__PURE__ */ __name(({ children, id: id2, inheritId, inherit = true }) => {
         if (inheritId !== void 0)
           inherit = inheritId;
         const layoutGroupContext = React2.useContext(LayoutGroupContext);
@@ -36655,14 +38228,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         const memoizedContext = React2.useMemo(() => ({ ...context.current, forceRender }), [key]);
         return React__namespace.createElement(LayoutGroupContext.Provider, { value: memoizedContext }, children);
-      };
+      }, "LayoutGroup");
       var id = 0;
-      var AnimateSharedLayout = ({ children }) => {
+      var AnimateSharedLayout = /* @__PURE__ */ __name(({ children }) => {
         React__namespace.useEffect(() => {
           heyListen.warning(false, "AnimateSharedLayout is deprecated: https://www.framer.com/docs/guide-upgrade/##shared-layout-animations");
         }, []);
         return React__namespace.createElement(LayoutGroup, { id: useConstant(() => `asl-${id++}`) }, children);
-      };
+      }, "AnimateSharedLayout");
       function MotionConfig({ children, isValidProp, ...config }) {
         isValidProp && loadExternalIsValidProp(isValidProp);
         config = { ...React2.useContext(MotionConfigContext), ...config };
@@ -36670,6 +38243,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const context = React2.useMemo(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
         return React__namespace.createElement(MotionConfigContext.Provider, { value: context }, children);
       }
+      __name(MotionConfig, "MotionConfig");
       function LazyMotion({ children, features, strict = false }) {
         const [, setIsLoaded] = React2.useState(!isLazyBundle(features));
         const loadedRenderer = React2.useRef(void 0);
@@ -36689,9 +38263,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, []);
         return React__namespace.createElement(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
       }
+      __name(LazyMotion, "LazyMotion");
       function isLazyBundle(features) {
         return typeof features === "function";
       }
+      __name(isLazyBundle, "isLazyBundle");
       var ReorderContext = React2.createContext(null);
       function checkReorder(order, value, offset, velocity) {
         if (!velocity)
@@ -36711,6 +38287,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return order;
       }
+      __name(checkReorder, "checkReorder");
       function ReorderGroup({ children, as = "ul", axis = "y", onReorder, values, ...props }, externalRef) {
         const Component = useConstant(() => motion(as));
         const order = [];
@@ -36743,13 +38320,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           React__namespace.createElement(ReorderContext.Provider, { value: context }, children)
         );
       }
+      __name(ReorderGroup, "ReorderGroup");
       var Group = React2.forwardRef(ReorderGroup);
       function getValue(item) {
         return item.value;
       }
+      __name(getValue, "getValue");
       function compareMin(a, b) {
         return a.layout.min - b.layout.min;
       }
+      __name(compareMin, "compareMin");
       function useMotionValue(initial) {
         const value = useConstant(() => motionValue(initial));
         const { isStatic } = React2.useContext(MotionConfigContext);
@@ -36759,10 +38339,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         return value;
       }
-      var isCustomValueType = (v) => {
+      __name(useMotionValue, "useMotionValue");
+      var isCustomValueType = /* @__PURE__ */ __name((v) => {
         return typeof v === "object" && v.mix;
-      };
-      var getMixer = (v) => isCustomValueType(v) ? v.mix : void 0;
+      }, "isCustomValueType");
+      var getMixer = /* @__PURE__ */ __name((v) => isCustomValueType(v) ? v.mix : void 0, "getMixer");
       function transform(...args) {
         const useImmediate = !Array.isArray(args[0]);
         const argOffset = useImmediate ? 0 : -1;
@@ -36776,12 +38357,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
         return useImmediate ? interpolator(inputValue) : interpolator;
       }
+      __name(transform, "transform");
       function useOnChange(value, callback) {
         useIsomorphicLayoutEffect(() => {
           if (isMotionValue(value))
             return value.onChange(callback);
         }, [callback]);
       }
+      __name(useOnChange, "useOnChange");
       function useMultiOnChange(values, handler, cleanup) {
         useIsomorphicLayoutEffect(() => {
           const subscriptions = values.map((value) => value.onChange(handler));
@@ -36791,17 +38374,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
         });
       }
+      __name(useMultiOnChange, "useMultiOnChange");
       function useCombineMotionValues(values, combineValues) {
         const value = useMotionValue(combineValues());
-        const updateValue = () => value.set(combineValues());
+        const updateValue = /* @__PURE__ */ __name(() => value.set(combineValues()), "updateValue");
         updateValue();
         useMultiOnChange(values, () => sync__default["default"].update(updateValue, false, true), () => sync.cancelSync.update(updateValue));
         return value;
       }
+      __name(useCombineMotionValues, "useCombineMotionValues");
       function useTransform(input, inputRangeOrTransformer, outputRange, options) {
         const transformer = typeof inputRangeOrTransformer === "function" ? inputRangeOrTransformer : transform(inputRangeOrTransformer, outputRange, options);
         return Array.isArray(input) ? useListTransform(input, transformer) : useListTransform([input], ([latest]) => transformer(latest));
       }
+      __name(useTransform, "useTransform");
       function useListTransform(values, transformer) {
         const latest = useConstant(() => []);
         return useCombineMotionValues(values, () => {
@@ -36813,9 +38399,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return transformer(latest);
         });
       }
+      __name(useListTransform, "useListTransform");
       function useDefaultMotionValue(value, defaultValue = 0) {
         return isMotionValue(value) ? value : useMotionValue(defaultValue);
       }
+      __name(useDefaultMotionValue, "useDefaultMotionValue");
       function ReorderItem({ children, style = {}, value, as = "li", onDrag, layout = true, ...props }, externalRef) {
         const Component = useConstant(() => motion(as));
         const context = React2.useContext(ReorderContext);
@@ -36838,6 +38426,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           measuredLayout.current = measured;
         }, ref: externalRef }, children);
       }
+      __name(ReorderItem, "ReorderItem");
       var Item = React2.forwardRef(ReorderItem);
       var Reorder = {
         Group,
@@ -36866,8 +38455,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           return output;
         }
+        __name(buildValue, "buildValue");
         return useCombineMotionValues(values, buildValue);
       }
+      __name(useMotionTemplate, "useMotionTemplate");
       function useSpring(source, config = {}) {
         const { isStatic } = React2.useContext(MotionConfigContext);
         const activeSpringAnimation = React2.useRef(null);
@@ -36892,6 +38483,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         useOnChange(source, (v) => value.set(parseFloat(v)));
         return value;
       }
+      __name(useSpring, "useSpring");
       function useVelocity(value) {
         const velocity = useMotionValue(value.getVelocity());
         React2.useEffect(() => {
@@ -36901,12 +38493,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, [value]);
         return velocity;
       }
-      var createScrollMotionValues = () => ({
+      __name(useVelocity, "useVelocity");
+      var createScrollMotionValues = /* @__PURE__ */ __name(() => ({
         scrollX: motionValue(0),
         scrollY: motionValue(0),
         scrollXProgress: motionValue(0),
         scrollYProgress: motionValue(0)
-      });
+      }), "createScrollMotionValues");
       function useScroll({ container, target, layoutEffect = true, ...options } = {}) {
         const values = useConstant(createScrollMotionValues);
         const useLifecycleEffect = layoutEffect ? useIsomorphicLayoutEffect : React2.useEffect;
@@ -36924,34 +38517,39 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, []);
         return values;
       }
+      __name(useScroll, "useScroll");
       function useElementScroll(ref) {
         warnOnce(false, "useElementScroll is deprecated. Convert to useScroll({ container: ref }).");
         return useScroll({ container: ref });
       }
+      __name(useElementScroll, "useElementScroll");
       function useViewportScroll() {
         warnOnce(false, "useViewportScroll is deprecated. Convert to useScroll().");
         return useScroll();
       }
+      __name(useViewportScroll, "useViewportScroll");
       function useAnimationFrame(callback) {
         const initialTimestamp = React2.useRef(0);
         const { isStatic } = React2.useContext(MotionConfigContext);
         React2.useEffect(() => {
           if (isStatic)
             return;
-          const provideTimeSinceStart = ({ timestamp, delta }) => {
+          const provideTimeSinceStart = /* @__PURE__ */ __name(({ timestamp, delta }) => {
             if (!initialTimestamp.current)
               initialTimestamp.current = timestamp;
             callback(timestamp - initialTimestamp.current, delta);
-          };
+          }, "provideTimeSinceStart");
           sync__default["default"].update(provideTimeSinceStart, true);
           return () => sync.cancelSync.update(provideTimeSinceStart);
         }, [callback]);
       }
+      __name(useAnimationFrame, "useAnimationFrame");
       function useTime() {
         const time = useMotionValue(0);
         useAnimationFrame((t) => time.set(t));
         return time;
       }
+      __name(useTime, "useTime");
       var WillChangeMotionValue = class extends MotionValue {
         constructor() {
           super(...arguments);
@@ -36986,14 +38584,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           this.set(this.members.length ? this.members.join(", ") : "auto");
         }
       };
+      __name(WillChangeMotionValue, "WillChangeMotionValue");
       function useWillChange() {
         return useConstant(() => new WillChangeMotionValue("auto"));
       }
+      __name(useWillChange, "useWillChange");
       function useReducedMotion() {
         !hasReducedMotionListener.current && initPrefersReducedMotion();
         const [shouldReduceMotion] = React2.useState(prefersReducedMotion.current);
         return shouldReduceMotion;
       }
+      __name(useReducedMotion, "useReducedMotion");
       function useReducedMotionConfig() {
         const reducedMotionPreference = useReducedMotion();
         const { reducedMotion } = React2.useContext(MotionConfigContext);
@@ -37005,6 +38606,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return reducedMotionPreference;
         }
       }
+      __name(useReducedMotionConfig, "useReducedMotionConfig");
       function animationControls() {
         let hasMounted = false;
         const pendingAnimations = [];
@@ -37056,11 +38658,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         };
         return controls;
       }
+      __name(animationControls, "animationControls");
       function useAnimationControls() {
         const controls = useConstant(animationControls);
         React2.useEffect(controls.mount, []);
         return controls;
       }
+      __name(useAnimationControls, "useAnimationControls");
       var useAnimation = useAnimationControls;
       function useCycle(...items) {
         const index = React2.useRef(0);
@@ -37074,15 +38678,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         );
         return [item, runCycle];
       }
+      __name(useCycle, "useCycle");
       function useInView(ref, { root, margin, amount, once = false } = {}) {
         const [isInView, setInView] = React2.useState(false);
         React2.useEffect(() => {
           if (!ref.current || once && isInView)
             return;
-          const onEnter = () => {
+          const onEnter = /* @__PURE__ */ __name(() => {
             setInView(true);
             return once ? void 0 : () => setInView(false);
-          };
+          }, "onEnter");
           const options = {
             root: root && root.current || void 0,
             margin,
@@ -37092,6 +38697,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, [root, ref, margin, once]);
         return isInView;
       }
+      __name(useInView, "useInView");
       var DragControls = class {
         constructor() {
           this.componentControls = /* @__PURE__ */ new Set();
@@ -37106,22 +38712,27 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           });
         }
       };
-      var createDragControls = () => new DragControls();
+      __name(DragControls, "DragControls");
+      var createDragControls = /* @__PURE__ */ __name(() => new DragControls(), "createDragControls");
       function useDragControls() {
         return useConstant(createDragControls);
       }
+      __name(useDragControls, "useDragControls");
       function isMotionComponent(component) {
         return component !== null && typeof component === "object" && motionComponentSymbol in component;
       }
+      __name(isMotionComponent, "isMotionComponent");
       function unwrapMotionComponent(component) {
         if (isMotionComponent(component)) {
           return component[motionComponentSymbol];
         }
         return void 0;
       }
+      __name(unwrapMotionComponent, "unwrapMotionComponent");
       function useInstantLayoutTransition() {
         return startTransition;
       }
+      __name(useInstantLayoutTransition, "useInstantLayoutTransition");
       function startTransition(callback) {
         if (!rootProjectionNode.current)
           return;
@@ -37129,6 +38740,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         rootProjectionNode.current.blockUpdate();
         callback && callback();
       }
+      __name(startTransition, "startTransition");
       function useInstantTransition() {
         const [forceUpdate, forcedRenderCount] = useForceUpdate();
         const startInstantLayoutTransition = useInstantLayoutTransition();
@@ -37143,6 +38755,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           });
         };
       }
+      __name(useInstantTransition, "useInstantTransition");
       function useResetProjection() {
         const reset = React__namespace.useCallback(() => {
           const root = rootProjectionNode.current;
@@ -37152,7 +38765,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, []);
         return reset;
       }
-      var createObject = () => ({});
+      __name(useResetProjection, "useResetProjection");
+      var createObject = /* @__PURE__ */ __name(() => ({}), "createObject");
       var StateVisualElement = class extends VisualElement {
         build() {
         }
@@ -37185,6 +38799,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return { transition, transitionEnd, ...target };
         }
       };
+      __name(StateVisualElement, "StateVisualElement");
       var useVisualState = makeUseVisualState({
         scrapeMotionValuesFromProps: createObject,
         createRenderState: createObject
@@ -37211,8 +38826,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
         return [animationState, startAnimation2];
       }
+      __name(useAnimatedState, "useAnimatedState");
       var maxScale = 1e5;
-      var invertScale = (scale) => scale > 1e-3 ? 1 / scale : maxScale;
+      var invertScale = /* @__PURE__ */ __name((scale) => scale > 1e-3 ? 1 / scale : maxScale, "invertScale");
       var hasWarned = false;
       function useInvertedScale(scale) {
         let parentScaleX = useMotionValue(1);
@@ -37232,6 +38848,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const scaleY = useTransform(parentScaleY, invertScale);
         return { scaleX, scaleY };
       }
+      __name(useInvertedScale, "useInvertedScale");
       exports.AnimatePresence = AnimatePresence;
       exports.AnimateSharedLayout = AnimateSharedLayout;
       exports.DeprecatedLayoutGroupContext = DeprecatedLayoutGroupContext;
@@ -37318,8 +38935,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   (function() {
     const hasWindow = typeof window !== "undefined";
     const hasDocument = typeof document !== "undefined";
-    const noop = () => {
-    };
+    const noop = /* @__PURE__ */ __name(() => {
+    }, "noop");
     const optionsScript = hasDocument ? document.querySelector("script[type=esms-options]") : void 0;
     const esmsInitOptions = optionsScript ? JSON.parse(optionsScript.innerHTML) : {};
     Object.assign(esmsInitOptions, self.esmsInitOptions || {});
@@ -37343,33 +38960,36 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     function globalHook(name) {
       return typeof name === "string" ? self[name] : name;
     }
+    __name(globalHook, "globalHook");
     const enable = Array.isArray(esmsInitOptions.polyfillEnable) ? esmsInitOptions.polyfillEnable : [];
     const cssModulesEnabled = enable.includes("css-modules");
     const jsonModulesEnabled = enable.includes("json-modules");
     const edge = !navigator.userAgentData && !!navigator.userAgent.match(/Edge\/\d+\.\d+/);
     const baseUrl = hasDocument ? document.baseURI : `${location.protocol}//${location.host}${location.pathname.includes("/") ? location.pathname.slice(0, location.pathname.lastIndexOf("/") + 1) : location.pathname}`;
-    const createBlob = (source, type = "text/javascript") => URL.createObjectURL(new Blob([source], { type }));
+    const createBlob = /* @__PURE__ */ __name((source, type = "text/javascript") => URL.createObjectURL(new Blob([source], { type })), "createBlob");
     let { skip } = esmsInitOptions;
     if (Array.isArray(skip)) {
       const l2 = skip.map((s2) => new URL(s2, baseUrl).href);
-      skip = (s2) => l2.some((i2) => i2[i2.length - 1] === "/" && s2.startsWith(i2) || s2 === i2);
+      skip = /* @__PURE__ */ __name((s2) => l2.some((i2) => i2[i2.length - 1] === "/" && s2.startsWith(i2) || s2 === i2), "skip");
     } else if (typeof skip === "string") {
       const r2 = new RegExp(skip);
-      skip = (s2) => r2.test(s2);
+      skip = /* @__PURE__ */ __name((s2) => r2.test(s2), "skip");
     }
-    const eoop = (err) => setTimeout(() => {
+    const eoop = /* @__PURE__ */ __name((err) => setTimeout(() => {
       throw err;
-    });
-    const throwError = (err) => {
+    }), "eoop");
+    const throwError = /* @__PURE__ */ __name((err) => {
       (self.reportError || hasWindow && window.safari && console.error || eoop)(err), void onerror(err);
-    };
+    }, "throwError");
     function fromParent(parent) {
       return parent ? ` imported from ${parent}` : "";
     }
+    __name(fromParent, "fromParent");
     let importMapSrcOrLazy = false;
     function setImportMapSrcOrLazy() {
       importMapSrcOrLazy = true;
     }
+    __name(setImportMapSrcOrLazy, "setImportMapSrcOrLazy");
     if (!shimMode) {
       if (document.querySelectorAll("script[type=module-shim],script[type=importmap-shim],link[rel=modulepreload-shim]").length) {
         shimMode = true;
@@ -37397,9 +39017,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return false;
       }
     }
+    __name(isURL, "isURL");
     function resolveUrl(relUrl, parentUrl) {
       return resolveIfNotPlainOrUrl(relUrl, parentUrl) || (isURL(relUrl) ? relUrl : resolveIfNotPlainOrUrl("./" + relUrl, parentUrl));
     }
+    __name(resolveUrl, "resolveUrl");
     function resolveIfNotPlainOrUrl(relUrl, parentUrl) {
       const hIdx = parentUrl.indexOf("#"), qIdx = parentUrl.indexOf("?");
       if (hIdx + qIdx > -2)
@@ -37452,6 +39074,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return parentUrl.slice(0, parentUrl.length - pathname.length) + output.join("");
       }
     }
+    __name(resolveIfNotPlainOrUrl, "resolveIfNotPlainOrUrl");
     function resolveAndComposeImportMap(json, baseUrl2, parentMap) {
       const outMap = { imports: Object.assign({}, parentMap.imports), scopes: Object.assign({}, parentMap.scopes) };
       if (json.imports)
@@ -37463,6 +39086,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       return outMap;
     }
+    __name(resolveAndComposeImportMap, "resolveAndComposeImportMap");
     function getMatch(path, matchObj) {
       if (matchObj[path])
         return path;
@@ -37473,6 +39097,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return segment;
       } while ((sepIndex = path.lastIndexOf("/", sepIndex - 1)) !== -1);
     }
+    __name(getMatch, "getMatch");
     function applyPackages(id, packages) {
       const pkgName = getMatch(id, packages);
       if (pkgName) {
@@ -37482,6 +39107,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return pkg + id.slice(pkgName.length);
       }
     }
+    __name(applyPackages, "applyPackages");
     function resolveImportMap(importMap2, resolvedOrPlain, parentUrl) {
       let scopeUrl = parentUrl && getMatch(parentUrl, importMap2.scopes);
       while (scopeUrl) {
@@ -37492,6 +39118,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return applyPackages(resolvedOrPlain, importMap2.imports) || resolvedOrPlain.indexOf(":") !== -1 && resolvedOrPlain;
     }
+    __name(resolveImportMap, "resolveImportMap");
     function resolveAndComposePackages(packages, outPackages, baseUrl2, parentMap) {
       for (let p2 in packages) {
         const resolvedLhs = resolveIfNotPlainOrUrl(p2, baseUrl2) || p2;
@@ -37509,6 +39136,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         console.warn(`Mapping "${p2}" -> "${packages[p2]}" does not resolve`);
       }
     }
+    __name(resolveAndComposePackages, "resolveAndComposePackages");
     let dynamicImport = !hasDocument && (0, eval)("u=>import(u)");
     let supportsDynamicImport;
     const dynamicImportCheck = hasDocument && new Promise((resolve2) => {
@@ -37521,7 +39149,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         if (!(supportsDynamicImport = !!(dynamicImport = self._d))) {
           let err;
           window.addEventListener("error", (_err) => err = _err);
-          dynamicImport = (url, opts) => new Promise((resolve3, reject) => {
+          dynamicImport = /* @__PURE__ */ __name((url, opts) => new Promise((resolve3, reject) => {
             const s3 = Object.assign(document.createElement("script"), {
               type: "module",
               src: createBlob(`import*as m from'${url}';self._esmsi=m`)
@@ -37542,8 +39170,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 err = void 0;
               }
             }
+            __name(cb, "cb");
             document.head.appendChild(s3);
-          });
+          }), "dynamicImport");
         }
         document.head.removeChild(s2);
         delete self._d;
@@ -37580,6 +39209,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           document.head.removeChild(iframe);
           window.removeEventListener("message", cb, false);
         }
+        __name(cb, "cb");
         window.addEventListener("message", cb, false);
         const importMapTest = `<script nonce=${nonce || ""}>b=(s,type='text/javascript')=>URL.createObjectURL(new Blob([s],{type}));document.head.appendChild(Object.assign(document.createElement('script'),{type:'importmap',nonce:"${nonce}",innerText:\`{"imports":{"x":"\${b('')}"}}\`}));Promise.all([${supportsImportMaps ? "true,true" : `'x',b('${importMetaCheck}')`}, ${cssModulesEnabled ? `b('${cssModulesCheck}'.replace('x',b('','text/css')))` : "false"}, ${jsonModulesEnabled ? `b('${jsonModulesCheck}'.replace('x',b('{}','text/json')))` : "false"}].map(x =>typeof x==='string'?import(x).then(x =>!!x,()=>false):x)).then(a=>parent.postMessage(a,'*'))<${""}/script>`;
         iframe.onload = () => {
@@ -38016,6 +39646,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             n2 = w3;
             return e3 | 0;
           }
+          __name(b2, "b");
           function l3() {
             var e3 = 0, a3 = 0, r3 = 0, t3 = 0, c3 = 0, n3 = 0, b3 = 0, l4 = 0, k4 = 0;
             c3 = f2[70] | 0;
@@ -38254,6 +39885,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               } while (0);
             return;
           }
+          __name(l3, "l");
           function k3() {
             var e3 = 0, a3 = 0, r3 = 0, t3 = 0, c3 = 0, n3 = 0;
             c3 = f2[70] | 0;
@@ -38414,6 +40046,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             } while (0);
             return;
           }
+          __name(k3, "k");
           function u3(e3) {
             e3 = e3 | 0;
             e:
@@ -38529,6 +40162,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               } while (0);
             return e3 | 0;
           }
+          __name(u3, "u");
           function o2(e3, a3) {
             e3 = e3 | 0;
             a3 = a3 | 0;
@@ -38642,6 +40276,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             } while (0);
             return;
           }
+          __name(o2, "o");
           function h2() {
             var e3 = 0, a3 = 0, r3 = 0, i3 = 0;
             a3 = f2[71] | 0;
@@ -38696,6 +40331,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             return;
           }
+          __name(h2, "h");
           function w2(e3) {
             e3 = e3 | 0;
             var a3 = 0, r3 = 0, i3 = 0;
@@ -38737,6 +40373,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               } while (i3 >>> 0 < (f2[71] | 0) >>> 0);
             return a3 | 0;
           }
+          __name(w2, "w");
           function d2(e3) {
             e3 = e3 | 0;
             var a3 = 0, r3 = 0, i3 = 0, t3 = 0;
@@ -38773,6 +40410,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               f2[70] = i3;
             return;
           }
+          __name(d2, "d");
           function v(e3, a3) {
             e3 = e3 | 0;
             a3 = a3 | 0;
@@ -38801,6 +40439,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               O(e3, a3, t3, c3);
             return i3 | 0;
           }
+          __name(v, "v");
           function A(e3, a3, r3, s3) {
             e3 = e3 | 0;
             a3 = a3 | 0;
@@ -38827,6 +40466,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             f2[t3 + 28 >> 2] = 0;
             return;
           }
+          __name(A, "A");
           function C() {
             var e3 = 0, a3 = 0, r3 = 0;
             r3 = f2[71] | 0;
@@ -38867,6 +40507,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             return e3 | 0;
           }
+          __name(C, "C");
           function g() {
             var e3 = 0, a3 = 0, r3 = 0;
             e:
@@ -38902,6 +40543,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               Q();
             return;
           }
+          __name(g, "g");
           function p2(e3) {
             e3 = e3 | 0;
             switch (s2[e3 >> 1] | 0) {
@@ -38931,6 +40573,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             return e3 | 0;
           }
+          __name(p2, "p");
           function y(e3) {
             e3 = e3 | 0;
             var a3 = 0, r3 = 0, i3 = 0, t3 = 0, c3 = 0;
@@ -38957,6 +40600,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             f2[70] = a3;
             return;
           }
+          __name(y, "y");
           function m(e3, a3, r3) {
             e3 = e3 | 0;
             a3 = a3 | 0;
@@ -38986,6 +40630,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               } while (0);
             return e3 | 0;
           }
+          __name(m, "m");
           function I(e3) {
             e3 = e3 | 0;
             e:
@@ -39017,6 +40662,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               } while (0);
             return e3 | 0;
           }
+          __name(I, "I");
           function U(e3) {
             e3 = e3 | 0;
             e:
@@ -39041,6 +40687,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               } while (0);
             return 1;
           }
+          __name(U, "U");
           function x(e3) {
             e3 = e3 | 0;
             var a3 = 0, r3 = 0, i3 = 0, t3 = 0;
@@ -39064,6 +40711,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             n2 = r3;
             return a3 | 0;
           }
+          __name(x, "x");
           function S(e3, a3, r3) {
             e3 = e3 | 0;
             a3 = a3 | 0;
@@ -39081,6 +40729,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               e3 = 0;
             return e3 | 0;
           }
+          __name(S, "S");
           function O(e3, a3, r3, i3) {
             e3 = e3 | 0;
             a3 = a3 | 0;
@@ -39099,6 +40748,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             f2[s3 + 16 >> 2] = 0;
             return;
           }
+          __name(O, "O");
           function $(e3) {
             e3 = e3 | 0;
             switch (s2[e3 >> 1] | 0) {
@@ -39118,6 +40768,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             return e3 | 0;
           }
+          __name($, "$");
           function j(e3, a3) {
             e3 = e3 | 0;
             a3 = a3 | 0;
@@ -39132,6 +40783,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               r3 = 0;
             return r3 | 0;
           }
+          __name(j, "j");
           function B(e3) {
             e3 = e3 | 0;
             e:
@@ -39153,6 +40805,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               } while (0);
             return e3 | 0;
           }
+          __name(B, "B");
           function E() {
             var e3 = 0, a3 = 0, r3 = 0;
             e3 = f2[71] | 0;
@@ -39173,6 +40826,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             f2[70] = a3;
             return;
           }
+          __name(E, "E");
           function P(e3) {
             e3 = e3 | 0;
             while (1) {
@@ -39190,6 +40844,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             return e3 | 0;
           }
+          __name(P, "P");
           function q() {
             var e3 = 0;
             e3 = f2[(f2[59] | 0) + 20 >> 2] | 0;
@@ -39207,6 +40862,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             return e3 | 0;
           }
+          __name(q, "q");
           function z(e3) {
             e3 = e3 | 0;
             if (!(S(e3, 182, 5) | 0) ? !(S(e3, 192, 3) | 0) : 0)
@@ -39215,6 +40871,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               e3 = 1;
             return e3 | 0;
           }
+          __name(z, "z");
           function D(e3) {
             e3 = e3 | 0;
             switch (e3 << 16 >> 16) {
@@ -39231,6 +40888,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             return e3 | 0;
           }
+          __name(D, "D");
           function F(e3) {
             e3 = e3 | 0;
             if ((f2[3] | 0) == (e3 | 0))
@@ -39239,6 +40897,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               e3 = B(s2[e3 + -2 >> 1] | 0) | 0;
             return e3 | 0;
           }
+          __name(F, "F");
           function G() {
             var e3 = 0;
             e3 = f2[(f2[60] | 0) + 12 >> 2] | 0;
@@ -39248,6 +40907,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               e3 = e3 - (f2[3] | 0) >> 1;
             return e3 | 0;
           }
+          __name(G, "G");
           function H() {
             var e3 = 0;
             e3 = f2[(f2[59] | 0) + 12 >> 2] | 0;
@@ -39257,6 +40917,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               e3 = e3 - (f2[3] | 0) >> 1;
             return e3 | 0;
           }
+          __name(H, "H");
           function J() {
             var e3 = 0;
             e3 = f2[(f2[60] | 0) + 8 >> 2] | 0;
@@ -39266,6 +40927,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               e3 = e3 - (f2[3] | 0) >> 1;
             return e3 | 0;
           }
+          __name(J, "J");
           function K() {
             var e3 = 0;
             e3 = f2[(f2[59] | 0) + 16 >> 2] | 0;
@@ -39275,6 +40937,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               e3 = e3 - (f2[3] | 0) >> 1;
             return e3 | 0;
           }
+          __name(K, "K");
           function L() {
             var e3 = 0;
             e3 = f2[(f2[59] | 0) + 4 >> 2] | 0;
@@ -39284,6 +40947,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               e3 = e3 - (f2[3] | 0) >> 1;
             return e3 | 0;
           }
+          __name(L, "L");
           function M() {
             var e3 = 0;
             e3 = f2[59] | 0;
@@ -39291,6 +40955,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             f2[59] = e3;
             return (e3 | 0) != 0 | 0;
           }
+          __name(M, "M");
           function N() {
             var e3 = 0;
             e3 = f2[60] | 0;
@@ -39298,55 +40963,69 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             f2[60] = e3;
             return (e3 | 0) != 0 | 0;
           }
+          __name(N, "N");
           function Q() {
             i2[794] = 1;
             f2[66] = (f2[70] | 0) - (f2[3] | 0) >> 1;
             f2[70] = (f2[71] | 0) + 2;
             return;
           }
+          __name(Q, "Q");
           function R(e3) {
             e3 = e3 | 0;
             return (e3 | 128) << 16 >> 16 == 160 | (e3 + -9 & 65535) < 5 | 0;
           }
+          __name(R, "R");
           function T(e3) {
             e3 = e3 | 0;
             return e3 << 16 >> 16 == 39 | e3 << 16 >> 16 == 34 | 0;
           }
+          __name(T, "T");
           function V() {
             return (f2[(f2[59] | 0) + 8 >> 2] | 0) - (f2[3] | 0) >> 1 | 0;
           }
+          __name(V, "V");
           function W() {
             return (f2[(f2[60] | 0) + 4 >> 2] | 0) - (f2[3] | 0) >> 1 | 0;
           }
+          __name(W, "W");
           function X(e3) {
             e3 = e3 | 0;
             return e3 << 16 >> 16 == 13 | e3 << 16 >> 16 == 10 | 0;
           }
+          __name(X, "X");
           function Y() {
             return (f2[f2[59] >> 2] | 0) - (f2[3] | 0) >> 1 | 0;
           }
+          __name(Y, "Y");
           function Z() {
             return (f2[f2[60] >> 2] | 0) - (f2[3] | 0) >> 1 | 0;
           }
+          __name(Z, "Z");
           function _() {
             return t2[(f2[59] | 0) + 24 >> 0] | 0 | 0;
           }
+          __name(_, "_");
           function ee(e3) {
             e3 = e3 | 0;
             f2[3] = e3;
             return;
           }
+          __name(ee, "ee");
           function ae() {
             return (i2[795] | 0) != 0 | 0;
           }
+          __name(ae, "ae");
           function re() {
             return f2[66] | 0;
           }
+          __name(re, "re");
           function ie(e3) {
             e3 = e3 | 0;
             n2 = e3 + 992 + 15 & -16;
             return 992;
           }
+          __name(ie, "ie");
           return { su: ie, ai: K, e: re, ee: W, ele: G, els: J, es: Z, f: ae, id: q, ie: L, ip: _, is: Y, p: b2, re: N, ri: M, sa: x, se: H, ses: ee, ss: V };
         }("undefined" != typeof self ? self : globalThis, {}, a), r = e.su(i - (2 << 17));
       }
@@ -39364,6 +41043,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return [w, d, !!e.f()];
     }
+    __name(parse, "parse");
     function b(e2, a2) {
       n = e2;
       let r2 = "", i2 = n;
@@ -39376,6 +41056,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return r2 += t.slice(i2, n++), r2;
     }
+    __name(b, "b");
     function l() {
       let e2 = t.charCodeAt(++n);
       switch (++n, e2) {
@@ -39414,6 +41095,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           return u(e2) ? "" : String.fromCharCode(e2);
       }
     }
+    __name(l, "l");
     function k(e2) {
       const a2 = n;
       let r2 = 0, i2 = 0;
@@ -39437,12 +41119,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return 95 !== i2 && n - a2 === e2 || o(), r2;
     }
+    __name(k, "k");
     function u(e2) {
       return 13 === e2 || 10 === e2;
     }
+    __name(u, "u");
     function o() {
       throw Object.assign(Error(`Parse error ${c$1}:${t.slice(0, n).split("\n").length}:${n - t.lastIndexOf("\n", n - 1)}`), { idx: n });
     }
+    __name(o, "o");
     async function _resolve(id, parentUrl) {
       const urlResolved = resolveIfNotPlainOrUrl(id, parentUrl);
       return {
@@ -39450,6 +41135,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         b: !urlResolved && !isURL(id)
       };
     }
+    __name(_resolve, "_resolve");
     const resolve = resolveHook ? async (id, parentUrl) => {
       let result = resolveHook(id, parentUrl, defaultResolve);
       if (result && result.then)
@@ -39472,21 +41158,25 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       await importMapPromise;
       return topLevelLoad((await resolve(id, parentUrl)).r, { credentials: "same-origin" });
     }
+    __name(importShim2, "importShim");
     self.importShim = importShim2;
     function defaultResolve(id, parentUrl) {
       return resolveImportMap(importMap, resolveIfNotPlainOrUrl(id, parentUrl) || id, parentUrl) || throwUnresolved(id, parentUrl);
     }
+    __name(defaultResolve, "defaultResolve");
     function throwUnresolved(id, parentUrl) {
       throw Error(`Unable to resolve specifier '${id}'${fromParent(parentUrl)}`);
     }
-    const resolveSync = (id, parentUrl = baseUrl) => {
+    __name(throwUnresolved, "throwUnresolved");
+    const resolveSync = /* @__PURE__ */ __name((id, parentUrl = baseUrl) => {
       parentUrl = `${parentUrl}`;
       const result = resolveHook && resolveHook(id, parentUrl, defaultResolve);
       return result && !result.then ? result : defaultResolve(id, parentUrl);
-    };
+    }, "resolveSync");
     function metaResolve(id, parentUrl = this.url) {
       return resolveSync(id, parentUrl);
     }
+    __name(metaResolve, "metaResolve");
     importShim2.resolve = resolveSync;
     importShim2.getImportMap = () => JSON.parse(JSON.stringify(importMap));
     importShim2.addImportMap = (importMapIn) => {
@@ -39504,6 +41194,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       if (!load.n)
         load.n = load.d.some((dep) => dep.n);
     }
+    __name(loadAll, "loadAll");
     let importMap = { imports: {}, scopes: {} };
     let baselinePassthrough;
     const initPromise = featureDetectionPromise.then(() => {
@@ -39542,6 +41233,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 document.removeEventListener("readystatechange", readyListener);
               }
             }
+            __name(readyListener, "readyListener");
             document.addEventListener("readystatechange", readyListener);
           }
         }
@@ -39587,6 +41279,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         revokeObjectURLs(Object.keys(seen));
       return module;
     }
+    __name(topLevelLoad, "topLevelLoad");
     function revokeObjectURLs(registryKeys) {
       let batch = 0;
       const keysLength = registryKeys.length;
@@ -39604,10 +41297,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         batch++;
         schedule(cleanup);
       }
+      __name(cleanup, "cleanup");
     }
+    __name(revokeObjectURLs, "revokeObjectURLs");
     function urlJsString(url) {
       return `'${url.replace(/'/g, "\\'")}'`;
     }
+    __name(urlJsString, "urlJsString");
     let lastLoad;
     function resolveDeps(load, seen) {
       if (load.b || !seen[load.u])
@@ -39630,6 +41326,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           resolvedSource += source.slice(lastIndex, originalIndex);
           lastIndex = originalIndex;
         };
+        __name(pushStringTo, "pushStringTo");
         let lastIndex = 0, depIndex = 0, dynamicImportEndStack = [];
         for (const { s: start, ss: statementStart, se: statementEnd, d: dynamicImportIndex } of imports) {
           if (dynamicImportIndex === -1) {
@@ -39676,6 +41373,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       load.b = lastLoad = createBlob(resolvedSource);
       load.S = void 0;
     }
+    __name(resolveDeps, "resolveDeps");
     const sourceMapURLRegEx = /\n\/\/# source(Mapping)?URL=([^\n]+)\s*((;|\/\/[^#][^\n]*)\s*)*$/;
     const jsContentType = /^(text|application)\/(x-)?javascript(;|$)/;
     const jsonContentType = /^(text|application)\/json(;|$)/;
@@ -39687,11 +41385,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       if (++c > 100)
         return new Promise((r2) => p.push(r2));
     }
+    __name(pushFetchPool, "pushFetchPool");
     function popFetchPool() {
       c--;
       if (p.length)
         p.shift()();
     }
+    __name(popFetchPool, "popFetchPool");
     async function doFetch(url, fetchOpts, parent) {
       if (enforceIntegrity && !fetchOpts.integrity)
         throw Error(`No integrity for ${url}${fromParent(parent)}.`);
@@ -39711,6 +41411,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         throw Error(`${res2.status} ${res2.statusText} ${res2.url}${fromParent(parent)}`);
       return res2;
     }
+    __name(doFetch, "doFetch");
     async function fetchModule(url, fetchOpts, parent) {
       const res2 = await doFetch(url, fetchOpts, parent);
       const contentType = res2.headers.get("content-type");
@@ -39723,6 +41424,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       } else
         throw Error(`Unsupported Content-Type "${contentType}" loading ${url}${fromParent(parent)}. Modules must be served with a valid MIME type like application/javascript.`);
     }
+    __name(fetchModule, "fetchModule");
     function getOrCreateLoad(url, fetchOpts, parent, source) {
       let load = registry[url];
       if (load && !source)
@@ -39789,6 +41491,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       });
       return load;
     }
+    __name(getOrCreateLoad, "getOrCreateLoad");
     function processScriptsAndPreloads(mapsOnly = false) {
       if (!mapsOnly)
         for (const link of document.querySelectorAll(shimMode ? "link[rel=modulepreload-shim]" : "link[rel=modulepreload]"))
@@ -39799,6 +41502,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         for (const script of document.querySelectorAll(shimMode ? "script[type=module-shim]" : "script[type=module]"))
           processScript(script);
     }
+    __name(processScriptsAndPreloads, "processScriptsAndPreloads");
     function getFetchOpts(script) {
       const fetchOpts = {};
       if (script.integrity)
@@ -39813,12 +41517,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         fetchOpts.credentials = "same-origin";
       return fetchOpts;
     }
+    __name(getFetchOpts, "getFetchOpts");
     let lastStaticLoadPromise = Promise.resolve();
     let domContentLoadedCnt = 1;
     function domContentLoadedCheck() {
       if (--domContentLoadedCnt === 0 && !noLoadEventRetriggers)
         document.dispatchEvent(new Event("DOMContentLoaded"));
     }
+    __name(domContentLoadedCheck, "domContentLoadedCheck");
     if (hasDocument) {
       document.addEventListener("DOMContentLoaded", async () => {
         await initPromise;
@@ -39831,8 +41537,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       if (--readyStateCompleteCnt === 0 && !noLoadEventRetriggers)
         document.dispatchEvent(new Event("readystatechange"));
     }
-    const hasNext = (script) => script.nextSibling || script.parentNode && hasNext(script.parentNode);
-    const epCheck = (script, ready) => script.ep || !ready && (!script.src && !script.innerHTML || !hasNext(script)) || script.getAttribute("noshim") !== null || !(script.ep = true);
+    __name(readyStateCompleteCheck, "readyStateCompleteCheck");
+    const hasNext = /* @__PURE__ */ __name((script) => script.nextSibling || script.parentNode && hasNext(script.parentNode), "hasNext");
+    const epCheck = /* @__PURE__ */ __name((script, ready) => script.ep || !ready && (!script.src && !script.innerHTML || !hasNext(script)) || script.getAttribute("noshim") !== null || !(script.ep = true), "epCheck");
     function processImportMap(script, ready = readyStateCompleteCnt > 0) {
       if (epCheck(script, ready))
         return;
@@ -39854,6 +41561,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           acceptingImportMaps = false;
       }
     }
+    __name(processImportMap, "processImportMap");
     function processScript(script, ready = readyStateCompleteCnt > 0) {
       if (epCheck(script, ready))
         return;
@@ -39869,6 +41577,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       if (isDomContentLoadedScript)
         loadPromise.then(domContentLoadedCheck);
     }
+    __name(processScript, "processScript");
     const fetchCache = {};
     function processPreload(link) {
       if (link.ep)
@@ -39878,15 +41587,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return;
       fetchCache[link.href] = fetchModule(link.href, getFetchOpts(link));
     }
+    __name(processPreload, "processPreload");
   })();
 
   // js/md5.js
   init_define_process();
   var cache = globalThis.md5cache = globalThis.md5cache || /* @__PURE__ */ new Map();
-  var md5 = (code) => cache.get(code) || cache.set(
+  var md5 = /* @__PURE__ */ __name((code) => cache.get(code) || cache.set(
     code,
     md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8)
-  ).get(code);
+  ).get(code), "md5");
   function md5FULL(inputString) {
     const hc = "0123456789abcdef";
     function rh(n) {
@@ -39897,29 +41607,37 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return s;
     }
+    __name(rh, "rh");
     function ad(x2, y) {
       const l = (x2 & 65535) + (y & 65535);
       const m = (x2 >> 16) + (y >> 16) + (l >> 16);
       return m << 16 | l & 65535;
     }
+    __name(ad, "ad");
     function rl(n, c2) {
       return n << c2 | n >>> 32 - c2;
     }
+    __name(rl, "rl");
     function cm(q, a2, b2, x2, s, t) {
       return ad(rl(ad(ad(a2, q), ad(x2, t)), s), b2);
     }
+    __name(cm, "cm");
     function ff(a2, b2, c2, d2, x2, s, t) {
       return cm(b2 & c2 | ~b2 & d2, a2, b2, x2, s, t);
     }
+    __name(ff, "ff");
     function gg(a2, b2, c2, d2, x2, s, t) {
       return cm(b2 & d2 | c2 & ~d2, a2, b2, x2, s, t);
     }
+    __name(gg, "gg");
     function hh(a2, b2, c2, d2, x2, s, t) {
       return cm(b2 ^ c2 ^ d2, a2, b2, x2, s, t);
     }
+    __name(hh, "hh");
     function ii(a2, b2, c2, d2, x2, s, t) {
       return cm(c2 ^ (b2 | ~d2), a2, b2, x2, s, t);
     }
+    __name(ii, "ii");
     function sb(x2) {
       let i2;
       const nblk = (x2.length + 8 >> 6) + 1;
@@ -39934,6 +41652,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       blks[nblk * 16 - 2] = x2.length * 8;
       return blks;
     }
+    __name(sb, "sb");
     let i;
     const x = sb(inputString);
     let a = 1732584193;
@@ -40020,6 +41739,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }
     return rh(a) + rh(b) + rh(c) + rh(d);
   }
+  __name(md5FULL, "md5FULL");
 
   // js/importmap.json
   var importmap_default = {
@@ -40038,7 +41758,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   var res = {};
   Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
   importShim.addImportMap({ imports: res });
-  var runtime = () => {
+  var runtime = /* @__PURE__ */ __name(() => {
     if (globalThis.React)
       return;
     const React2 = require_react();
@@ -40076,7 +41796,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     };
     const FramerMotion2 = require_cjs();
     Object.assign(globalThis, { FramerMotion: FramerMotion2 });
-  };
+  }, "runtime");
   runtime();
   var {
     React,
@@ -40103,7 +41823,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     "framer-motion": FramerMotion
   };
   globalThis.requireLoading = [];
-  var requireUmd = (pkg) => {
+  var requireUmd = /* @__PURE__ */ __name((pkg) => {
     if (mapTable[pkg])
       return mapTable[pkg];
     if (window[pkg])
@@ -40114,6 +41834,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       return apps[pkg];
     if (pkg.includes(`spike.land/live`))
       return React.lazy(() => importShim(pkg));
-  };
+  }, "requireUmd");
   Object.assign(globalThis, { require: requireUmd });
 })();

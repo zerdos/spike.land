@@ -1202,6 +1202,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^5.42.1"
     "@yarnpkg/sdks": "npm:3.0.0-rc.27"
     dprint: "npm:^0.32.2"
+    esbuild: "npm:^0.15.13"
     eslint: "npm:^8.27.0"
     eslint-plugin-react: "npm:^7.31.10"
     playwright: "npm:1.27.1"
@@ -3357,7 +3358,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.15.13":
+"esbuild@npm:0.15.13, esbuild@npm:^0.15.13":
   version: 0.15.13
   resolution: "esbuild@npm:0.15.13"
   dependencies:
