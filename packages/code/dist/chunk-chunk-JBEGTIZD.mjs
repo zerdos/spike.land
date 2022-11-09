@@ -21833,6 +21833,7 @@ function AutoUpdateApp({ codeSpace }) {
     (async () => {
       (async () => {
         const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
+        await wait(1e3);
         const urlCounter = +(url.split("/").pop() || 0);
         if (i < urlCounter && newApp !== App) {
           setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
