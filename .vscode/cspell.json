@@ -36,6 +36,7 @@
     "comlink",
     "compat",
     "contenteditable",
+    "Cooldown",
     "crossorigin",
     "csstype",
     "darkred",
