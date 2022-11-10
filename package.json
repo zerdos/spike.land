@@ -1,12 +1,14 @@
 {
-  "name": "@spike.land/monorepo",
+  "name": "monorepo",
   "version": "0.9.1",
   "description": "our monorepo",
   "repository": "git@github.com:zerdos/spike.land.git",
   "author": "Zoltan Erdos <zoliika84@gmail.com>",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/devcontainer-generator",
+    "packages/code",
+    "packages/spike.land"
   ],
   "scripts": {
     "clean": "yarn workspaces foreach --all run  clean",

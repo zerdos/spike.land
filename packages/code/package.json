@@ -73,7 +73,6 @@
     "ace-builds": "1.12.5",
     "avl": "1.5.3",
     "comlink": "4.3.1",
-    "console-feed": "^3.4.0",
     "csstype": "3.1.1",
     "devcert": "^1.2.2",
     "es-module-shims": "1.6.2",
