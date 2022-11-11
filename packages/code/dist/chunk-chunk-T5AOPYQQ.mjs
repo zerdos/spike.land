@@ -22426,7 +22426,7 @@ async function setAce(container) {
   if (startedAce)
     return;
   startedAce = 1;
-  const { startAce } = await import("./chunk-startAce-GTDKGQPE.mjs");
+  const { startAce } = await import("./chunk-startAce-GXALF75K.mjs");
   return await startAce(mST().code, onModChange, container);
 }
 __name(setAce, "setAce");

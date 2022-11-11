@@ -5,9 +5,9 @@ import {
   init_define_process
 } from "./chunk-chunk-4FHARZBR.mjs";
 
-// ../../.yarn/global/cache/ace-builds-npm-1.12.5-72ce9ad1fd-9.zip/node_modules/ace-builds/src-noconflict/ace.js
+// ../../.yarn/global/cache/ace-builds-npm-1.13.0-41f1f2d3eb-9.zip/node_modules/ace-builds/src-noconflict/ace.js
 var require_ace = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.12.5-72ce9ad1fd-9.zip/node_modules/ace-builds/src-noconflict/ace.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.13.0-41f1f2d3eb-9.zip/node_modules/ace-builds/src-noconflict/ace.js"(exports, module) {
     init_define_process();
     (function() {
       var ACE_NAMESPACE = "ace";
@@ -648,7 +648,7 @@ var require_ace = __commonJS({
       exports2.importCssStylsheet = function(uri, doc) {
         exports2.buildDom(["link", { rel: "stylesheet", href: uri }], exports2.getDocumentHead(doc));
       };
-      exports2.scrollbarWidth = function(document2) {
+      exports2.scrollbarWidth = function(doc) {
         var inner = exports2.createElement("ace_inner");
         inner.style.width = "100%";
         inner.style.minWidth = "0px";
@@ -664,12 +664,14 @@ var require_ace = __commonJS({
         style.height = "150px";
         style.display = "block";
         outer.appendChild(inner);
-        var body = document2.documentElement;
+        var body = doc && doc.documentElement || document && document.documentElement;
+        if (!body)
+          return 0;
         body.appendChild(outer);
         var noScrollbar = inner.offsetWidth;
         style.overflow = "scroll";
         var withScrollbar = inner.offsetWidth;
-        if (noScrollbar == withScrollbar) {
+        if (noScrollbar === withScrollbar) {
           withScrollbar = outer.clientWidth;
         }
         body.removeChild(outer);
@@ -1091,7 +1093,7 @@ var require_ace = __commonJS({
           }, "reportErrorIfPathIsNotConfigured");
         }
       }, "reportErrorIfPathIsNotConfigured");
-      exports2.version = "1.12.5";
+      exports2.version = "1.13.0";
     });
     ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(require2, exports2, module2) {
       "use strict";
@@ -1285,6 +1287,7 @@ var require_ace = __commonJS({
             106: "*"
           }
         };
+        ret.PRINTABLE_KEYS[173] = "-";
         var name, i;
         for (i in ret.FUNCTION_KEYS) {
           name = ret.FUNCTION_KEYS[i].toLowerCase();
@@ -1300,7 +1303,6 @@ var require_ace = __commonJS({
         ret.enter = ret["return"];
         ret.escape = ret.esc;
         ret.del = ret["delete"];
-        ret[173] = "-";
         (function() {
           var mods = ["cmd", "ctrl", "alt", "shift"];
           for (var i2 = Math.pow(2, mods.length); i2--; ) {
@@ -17704,6 +17706,9 @@ styles.join("\\n")
           var top = pos.top;
           var topMargin = $viewMargin && $viewMargin.top || 0;
           var bottomMargin = $viewMargin && $viewMargin.bottom || 0;
+          if (this.$scrollAnimation) {
+            this.$stopAnimation = true;
+          }
           var scrollTop = this.$scrollAnimation ? this.session.getScrollTop() : this.scrollTop;
           if (scrollTop + topMargin > top) {
             if (offset && scrollTop + topMargin > top + this.lineHeight)
@@ -17793,7 +17798,18 @@ styles.join("\\n")
           clearInterval(this.$timer);
           _self.session.setScrollTop(steps.shift());
           _self.session.$scrollTop = toValue;
+          function endAnimation() {
+            _self.$timer = clearInterval(_self.$timer);
+            _self.$scrollAnimation = null;
+            _self.$stopAnimation = false;
+            callback && callback();
+          }
+          __name(endAnimation, "endAnimation");
           this.$timer = setInterval(function() {
+            if (_self.$stopAnimation) {
+              endAnimation();
+              return;
+            }
             if (!_self.session)
               return clearInterval(_self.$timer);
             if (steps.length) {
@@ -17804,9 +17820,7 @@ styles.join("\\n")
               _self.session.setScrollTop(toValue);
               toValue = null;
             } else {
-              _self.$timer = clearInterval(_self.$timer);
-              _self.$scrollAnimation = null;
-              callback && callback();
+              endAnimation();
             }
           }, 10);
         };
@@ -20143,9 +20157,9 @@ styles.join("\\n")
   }
 });
 
-// ../../.yarn/global/cache/ace-builds-npm-1.12.5-72ce9ad1fd-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js
+// ../../.yarn/global/cache/ace-builds-npm-1.13.0-41f1f2d3eb-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js
 var require_theme_monokai = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.12.5-72ce9ad1fd-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.13.0-41f1f2d3eb-9.zip/node_modules/ace-builds/src-min-noconflict/theme-monokai.js"(exports, module) {
     init_define_process();
     ace.define("ace/theme/monokai.css", ["require", "exports", "module"], function(e, t, n) {
       n.exports = '.ace-monokai .ace_gutter {\n  background: #2F3129;\n  color: #8F908A\n}\n\n.ace-monokai .ace_print-margin {\n  width: 1px;\n  background: #555651\n}\n\n.ace-monokai {\n  background-color: #272822;\n  color: #F8F8F2\n}\n\n.ace-monokai .ace_cursor {\n  color: #F8F8F0\n}\n\n.ace-monokai .ace_marker-layer .ace_selection {\n  background: #49483E\n}\n\n.ace-monokai.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px #272822;\n}\n\n.ace-monokai .ace_marker-layer .ace_step {\n  background: rgb(102, 82, 0)\n}\n\n.ace-monokai .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_marker-layer .ace_active-line {\n  background: #202020\n}\n\n.ace-monokai .ace_gutter-active-line {\n  background-color: #272727\n}\n\n.ace-monokai .ace_marker-layer .ace_selected-word {\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_invisible {\n  color: #52524d\n}\n\n.ace-monokai .ace_entity.ace_name.ace_tag,\n.ace-monokai .ace_keyword,\n.ace-monokai .ace_meta.ace_tag,\n.ace-monokai .ace_storage {\n  color: #F92672\n}\n\n.ace-monokai .ace_punctuation,\n.ace-monokai .ace_punctuation.ace_tag {\n  color: #fff\n}\n\n.ace-monokai .ace_constant.ace_character,\n.ace-monokai .ace_constant.ace_language,\n.ace-monokai .ace_constant.ace_numeric,\n.ace-monokai .ace_constant.ace_other {\n  color: #AE81FF\n}\n\n.ace-monokai .ace_invalid {\n  color: #F8F8F0;\n  background-color: #F92672\n}\n\n.ace-monokai .ace_invalid.ace_deprecated {\n  color: #F8F8F0;\n  background-color: #AE81FF\n}\n\n.ace-monokai .ace_support.ace_constant,\n.ace-monokai .ace_support.ace_function {\n  color: #66D9EF\n}\n\n.ace-monokai .ace_fold {\n  background-color: #A6E22E;\n  border-color: #F8F8F2\n}\n\n.ace-monokai .ace_storage.ace_type,\n.ace-monokai .ace_support.ace_class,\n.ace-monokai .ace_support.ace_type {\n  font-style: italic;\n  color: #66D9EF\n}\n\n.ace-monokai .ace_entity.ace_name.ace_function,\n.ace-monokai .ace_entity.ace_other,\n.ace-monokai .ace_entity.ace_other.ace_attribute-name,\n.ace-monokai .ace_variable {\n  color: #A6E22E\n}\n\n.ace-monokai .ace_variable.ace_parameter {\n  font-style: italic;\n  color: #FD971F\n}\n\n.ace-monokai .ace_string {\n  color: #E6DB74\n}\n\n.ace-monokai .ace_comment {\n  color: #75715E\n}\n\n.ace-monokai .ace_indent-guide {\n  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWPQ0FD0ZXBzd/wPAAjVAoxeSgNeAAAAAElFTkSuQmCC) right repeat-y\n}\n\n.ace-monokai .ace_indent-guide-active {\n  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;\n}\n';
@@ -20164,9 +20178,9 @@ var require_theme_monokai = __commonJS({
   }
 });
 
-// ../../.yarn/global/cache/ace-builds-npm-1.12.5-72ce9ad1fd-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js
+// ../../.yarn/global/cache/ace-builds-npm-1.13.0-41f1f2d3eb-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js
 var require_mode_typescript = __commonJS({
-  "../../.yarn/global/cache/ace-builds-npm-1.12.5-72ce9ad1fd-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js"(exports, module) {
+  "../../.yarn/global/cache/ace-builds-npm-1.13.0-41f1f2d3eb-9.zip/node_modules/ace-builds/src-min-noconflict/mode-typescript.js"(exports, module) {
     init_define_process();
     ace.define("ace/mode/doc_comment_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text_highlight_rules"], function(e, t, n) {
       "use strict";

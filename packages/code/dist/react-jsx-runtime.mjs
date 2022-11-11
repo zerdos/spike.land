@@ -33058,9 +33058,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }
   });
 
-  // ../../.yarn/__virtual__/framer-motion-virtual-40e8f4593a/0/global/cache/framer-motion-npm-7.6.5-1b49729749-9.zip/node_modules/framer-motion/dist/cjs/index.js
+  // ../../.yarn/__virtual__/framer-motion-virtual-81d2109827/0/global/cache/framer-motion-npm-7.6.6-c091a536e5-9.zip/node_modules/framer-motion/dist/cjs/index.js
   var require_cjs = __commonJS({
-    "../../.yarn/__virtual__/framer-motion-virtual-40e8f4593a/0/global/cache/framer-motion-npm-7.6.5-1b49729749-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
+    "../../.yarn/__virtual__/framer-motion-virtual-81d2109827/0/global/cache/framer-motion-npm-7.6.6-c091a536e5-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
@@ -34699,7 +34699,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }, "isFloat");
       var MotionValue = class {
         constructor(init) {
-          this.version = "7.6.5";
+          this.version = "7.6.6";
           this.timeDelta = 0;
           this.lastUpdated = 0;
           this.updateSubscribers = new SubscriptionManager();
@@ -35654,7 +35654,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               var _a2, _b;
               let current = this.getAxisMotionValue(axis).get() || 0;
               if (styleValueTypes.percent.test(current)) {
-                const measuredAxis = (_b = (_a2 = this.visualElement.projection) === null || _a2 === void 0 ? void 0 : _a2.layout) === null || _b === void 0 ? void 0 : _b.actual[axis];
+                const measuredAxis = (_b = (_a2 = this.visualElement.projection) === null || _a2 === void 0 ? void 0 : _a2.layout) === null || _b === void 0 ? void 0 : _b.layoutBox[axis];
                 if (measuredAxis) {
                   const length2 = calcLength(measuredAxis);
                   current = length2 * (parseFloat(current) / 100);
@@ -35736,7 +35736,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           } else {
             if (dragConstraints && layout) {
-              this.constraints = calcRelativeConstraints(layout.actual, dragConstraints);
+              this.constraints = calcRelativeConstraints(layout.layoutBox, dragConstraints);
             } else {
               this.constraints = false;
             }
@@ -35745,7 +35745,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           if (prevConstraints !== this.constraints && layout && this.constraints && !this.hasMutatedConstraints) {
             eachAxis((axis) => {
               if (this.getAxisMotionValue(axis)) {
-                this.constraints[axis] = rebaseAxisConstraints(layout.actual[axis], this.constraints[axis]);
+                this.constraints[axis] = rebaseAxisConstraints(layout.layoutBox[axis], this.constraints[axis]);
               }
             });
           }
@@ -35760,7 +35760,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           if (!projection || !projection.layout)
             return false;
           const constraintsBox = measurePageBox(constraintsElement, projection.root, this.visualElement.getTransformPagePoint());
-          let measuredConstraints = calcViewportConstraints(projection.layout.actual, constraintsBox);
+          let measuredConstraints = calcViewportConstraints(projection.layout.layoutBox, constraintsBox);
           if (onMeasureDragConstraints) {
             const userConstraints = onMeasureDragConstraints(convertBoxToBoundingBox(measuredConstraints));
             this.hasMutatedConstraints = !!userConstraints;
@@ -35819,7 +35819,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             const { projection } = this.visualElement;
             const axisValue = this.getAxisMotionValue(axis);
             if (projection && projection.layout) {
-              const { min, max } = projection.layout.actual[axis];
+              const { min, max } = projection.layout.layoutBox[axis];
               axisValue.set(point[axis] - popmotion.mix(min, max, 0.5));
             }
           });
@@ -36228,7 +36228,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               willChange.add(key);
             }
             if (true) {
-              warnOnce(nextValue.version === "7.6.5", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.5 may not work as expected.`);
+              warnOnce(nextValue.version === "7.6.6", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.6 may not work as expected.`);
             }
           } else if (isMotionValue(prevValue)) {
             element.addValue(key, motionValue(nextValue));
@@ -37060,7 +37060,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var animationTarget = 1e3;
       function createProjectionNode({ attachResizeListener, defaultParent, measureScroll, checkIsScrollRoot, resetTransform }) {
         return /* @__PURE__ */ __name(class ProjectionNode {
-          constructor(id2, latestValues = {}, parent = defaultParent === null || defaultParent === void 0 ? void 0 : defaultParent()) {
+          constructor(elementId, latestValues = {}, parent = defaultParent === null || defaultParent === void 0 ? void 0 : defaultParent()) {
             this.children = /* @__PURE__ */ new Set();
             this.options = {};
             this.isTreeAnimating = false;
@@ -37089,13 +37089,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             this.isVisible = true;
             this.animationProgress = 0;
             this.sharedNodes = /* @__PURE__ */ new Map();
-            this.id = id2;
+            this.elementId = elementId;
             this.latestValues = latestValues;
             this.root = parent ? parent.root || parent : this;
             this.path = parent ? [...parent.path, parent] : [];
             this.parent = parent;
             this.depth = parent ? parent.depth + 1 : 0;
-            id2 && this.root.registerPotentialNode(id2, this);
+            elementId && this.root.registerPotentialNode(elementId, this);
             for (let i = 0; i < this.path.length; i++) {
               this.path[i].shouldResetTransform = true;
             }
@@ -37130,7 +37130,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
             this.root.nodes.add(this);
             (_a = this.parent) === null || _a === void 0 ? void 0 : _a.children.add(this);
-            this.id && this.root.potentialNodes.delete(this.id);
+            this.elementId && this.root.potentialNodes.delete(this.elementId);
             if (isLayoutDirty && (layout || layoutId)) {
               this.isLayoutDirty = true;
             }
@@ -37282,14 +37282,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           updateSnapshot() {
             if (this.snapshot || !this.instance)
               return;
-            const measured = this.measure();
-            const layout = this.removeTransform(this.removeElementScroll(measured));
-            roundBox(layout);
-            this.snapshot = {
-              measured,
-              layout,
-              latestValues: {}
-            };
+            this.snapshot = this.measure();
           }
           updateLayout() {
             var _a;
@@ -37305,18 +37298,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 node.updateScroll();
               }
             }
-            const measured = this.measure();
-            roundBox(measured);
             const prevLayout = this.layout;
-            this.layout = {
-              measured,
-              actual: this.removeElementScroll(measured)
-            };
+            this.layout = this.measure(false);
             this.layoutCorrected = createBox();
             this.isLayoutDirty = false;
             this.projectionDelta = void 0;
-            this.notifyListeners("measure", this.layout.actual);
-            (_a = this.options.visualElement) === null || _a === void 0 ? void 0 : _a.notify("LayoutMeasure", this.layout.actual, prevLayout === null || prevLayout === void 0 ? void 0 : prevLayout.actual);
+            this.notifyListeners("measure", this.layout.layoutBox);
+            (_a = this.options.visualElement) === null || _a === void 0 ? void 0 : _a.notify("LayoutMeasure", this.layout.layoutBox, prevLayout === null || prevLayout === void 0 ? void 0 : prevLayout.layoutBox);
           }
           updateScroll() {
             if (this.options.layoutScroll && this.instance) {
@@ -37339,7 +37327,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               this.scheduleRender();
             }
           }
-          measure() {
+          measure(removeTransform = true) {
+            const pageBox = this.measurePageBox();
+            let layoutBox = this.removeElementScroll(pageBox);
+            if (removeTransform) {
+              layoutBox = this.removeTransform(layoutBox);
+            }
+            roundBox(layoutBox);
+            return {
+              measuredBox: pageBox,
+              layoutBox,
+              latestValues: {}
+            };
+          }
+          measurePageBox() {
             const { visualElement } = this.options;
             if (!visualElement)
               return createBox();
@@ -37404,9 +37405,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 continue;
               hasScale(node.latestValues) && node.updateSnapshot();
               const sourceBox = createBox();
-              const nodeBox = node.measure();
+              const nodeBox = node.measurePageBox();
               copyBoxInto(sourceBox, nodeBox);
-              removeBoxTransforms(boxWithoutTransform, node.latestValues, (_a = node.snapshot) === null || _a === void 0 ? void 0 : _a.layout, sourceBox);
+              removeBoxTransforms(boxWithoutTransform, node.latestValues, (_a = node.snapshot) === null || _a === void 0 ? void 0 : _a.layoutBox, sourceBox);
             }
             if (hasTransform(this.latestValues)) {
               removeBoxTransforms(boxWithoutTransform, this.latestValues);
@@ -37444,7 +37445,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 this.relativeParent = relativeParent;
                 this.relativeTarget = createBox();
                 this.relativeTargetOrigin = createBox();
-                calcRelativePosition(this.relativeTargetOrigin, this.layout.actual, relativeParent.layout.actual);
+                calcRelativePosition(this.relativeTargetOrigin, this.layout.layoutBox, relativeParent.layout.layoutBox);
                 copyBoxInto(this.relativeTarget, this.relativeTargetOrigin);
               } else {
                 this.relativeParent = this.relativeTarget = void 0;
@@ -37460,13 +37461,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               calcRelativeBox(this.target, this.relativeTarget, this.relativeParent.target);
             } else if (this.targetDelta) {
               if (Boolean(this.resumingFrom)) {
-                this.target = this.applyTransform(this.layout.actual);
+                this.target = this.applyTransform(this.layout.layoutBox);
               } else {
-                copyBoxInto(this.target, this.layout.actual);
+                copyBoxInto(this.target, this.layout.layoutBox);
               }
               applyBoxDelta(this.target, this.targetDelta);
             } else {
-              copyBoxInto(this.target, this.layout.actual);
+              copyBoxInto(this.target, this.layout.layoutBox);
             }
             if (this.attemptToResolveRelativeTarget) {
               this.attemptToResolveRelativeTarget = false;
@@ -37501,7 +37502,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (!this.layout || !(layout || layoutId))
               return;
             const lead = this.getLead();
-            copyBoxInto(this.layoutCorrected, this.layout.actual);
+            copyBoxInto(this.layoutCorrected, this.layout.layoutBox);
             applyTreeDeltas(this.layoutCorrected, this.treeScale, this.path, Boolean(this.resumingFrom) || this !== lead);
             const { target } = lead;
             if (!target)
@@ -37555,7 +37556,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               mixAxisDelta(targetDelta.y, delta.y, progress);
               this.setTargetDelta(targetDelta);
               if (this.relativeTarget && this.relativeTargetOrigin && this.layout && ((_a2 = this.relativeParent) === null || _a2 === void 0 ? void 0 : _a2.layout)) {
-                calcRelativePosition(relativeLayout, this.layout.actual, this.relativeParent.layout.actual);
+                calcRelativePosition(relativeLayout, this.layout.layoutBox, this.relativeParent.layout.layoutBox);
                 mixBox(this.relativeTarget, this.relativeTargetOrigin, relativeLayout, progress);
               }
               if (isSharedLayoutAnimation) {
@@ -37623,12 +37624,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             let { targetWithTransforms, target, layout, latestValues } = lead;
             if (!targetWithTransforms || !target || !layout)
               return;
-            if (this !== lead && this.layout && layout && shouldAnimatePositionOnly(this.options.animationType, this.layout.actual, layout.actual)) {
+            if (this !== lead && this.layout && layout && shouldAnimatePositionOnly(this.options.animationType, this.layout.layoutBox, layout.layoutBox)) {
               target = this.target || createBox();
-              const xLength = calcLength(this.layout.actual.x);
+              const xLength = calcLength(this.layout.layoutBox.x);
               target.x.min = lead.target.x.min;
               target.x.max = target.x.min + xLength;
-              const yLength = calcLength(this.layout.actual.y);
+              const yLength = calcLength(this.layout.layoutBox.y);
               target.y.min = lead.target.y.min;
               target.y.max = target.y.min + yLength;
             }
@@ -37795,29 +37796,29 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         var _a, _b, _c;
         const snapshot = ((_a = node.resumeFrom) === null || _a === void 0 ? void 0 : _a.snapshot) || node.snapshot;
         if (node.isLead() && node.layout && snapshot && node.hasListeners("didUpdate")) {
-          const { actual: layout, measured: measuredLayout } = node.layout;
+          const { layoutBox: layout, measuredBox: measuredLayout } = node.layout;
           const { animationType } = node.options;
           if (animationType === "size") {
             eachAxis((axis) => {
-              const axisSnapshot = snapshot.isShared ? snapshot.measured[axis] : snapshot.layout[axis];
+              const axisSnapshot = snapshot.isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
               const length2 = calcLength(axisSnapshot);
               axisSnapshot.min = layout[axis].min;
               axisSnapshot.max = axisSnapshot.min + length2;
             });
-          } else if (shouldAnimatePositionOnly(animationType, snapshot.layout, layout)) {
+          } else if (shouldAnimatePositionOnly(animationType, snapshot.layoutBox, layout)) {
             eachAxis((axis) => {
-              const axisSnapshot = snapshot.isShared ? snapshot.measured[axis] : snapshot.layout[axis];
+              const axisSnapshot = snapshot.isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
               const length2 = calcLength(layout[axis]);
               axisSnapshot.max = axisSnapshot.min + length2;
             });
           }
           const layoutDelta = createDelta();
-          calcBoxDelta(layoutDelta, layout, snapshot.layout);
+          calcBoxDelta(layoutDelta, layout, snapshot.layoutBox);
           const visualDelta = createDelta();
           if (snapshot.isShared) {
-            calcBoxDelta(visualDelta, node.applyTransform(measuredLayout, true), snapshot.measured);
+            calcBoxDelta(visualDelta, node.applyTransform(measuredLayout, true), snapshot.measuredBox);
           } else {
-            calcBoxDelta(visualDelta, layout, snapshot.layout);
+            calcBoxDelta(visualDelta, layout, snapshot.layoutBox);
           }
           const hasLayoutChanged = !isDeltaZero(layoutDelta);
           let hasRelativeTargetChanged = false;
@@ -37827,9 +37828,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               const { snapshot: parentSnapshot, layout: parentLayout } = relativeParent;
               if (parentSnapshot && parentLayout) {
                 const relativeSnapshot = createBox();
-                calcRelativePosition(relativeSnapshot, snapshot.layout, parentSnapshot.layout);
+                calcRelativePosition(relativeSnapshot, snapshot.layoutBox, parentSnapshot.layoutBox);
                 const relativeLayout = createBox();
-                calcRelativePosition(relativeLayout, layout, parentLayout.actual);
+                calcRelativePosition(relativeLayout, layout, parentLayout.layoutBox);
                 if (!boxEquals(relativeSnapshot, relativeLayout)) {
                   hasRelativeTargetChanged = true;
                 }
