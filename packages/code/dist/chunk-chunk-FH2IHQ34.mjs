@@ -10,7 +10,6 @@ import {
   createElement,
   flushSync,
   init_reactMod,
-  reactMod_default,
   reactMod_exports,
   useEffect,
   useRef,
@@ -37,154 +36,6 @@ import {
   __toESM,
   init_define_process
 } from "./chunk-chunk-4FHARZBR.mjs";
-
-// ../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js
-var require_react_error_boundary_umd = __commonJS({
-  "../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js"(exports, module) {
-    init_define_process();
-    (function(global2, factory) {
-      typeof exports === "object" && typeof module !== "undefined" ? factory(exports, (init_reactMod(), __toCommonJS(reactMod_exports))) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.ReactErrorBoundary = {}, global2.React));
-    })(exports, function(exports2, React) {
-      "use strict";
-      function _interopNamespace(e) {
-        if (e && e.__esModule)
-          return e;
-        var n = /* @__PURE__ */ Object.create(null);
-        if (e) {
-          Object.keys(e).forEach(function(k) {
-            if (k !== "default") {
-              var d = Object.getOwnPropertyDescriptor(e, k);
-              Object.defineProperty(n, k, d.get ? d : {
-                enumerable: true,
-                get: function() {
-                  return e[k];
-                }
-              });
-            }
-          });
-        }
-        n["default"] = e;
-        return Object.freeze(n);
-      }
-      __name(_interopNamespace, "_interopNamespace");
-      var React__namespace = /* @__PURE__ */ _interopNamespace(React);
-      function _setPrototypeOf(o, p) {
-        _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p2) {
-          o2.__proto__ = p2;
-          return o2;
-        }, "_setPrototypeOf");
-        return _setPrototypeOf(o, p);
-      }
-      __name(_setPrototypeOf, "_setPrototypeOf");
-      function _inheritsLoose(subClass, superClass) {
-        subClass.prototype = Object.create(superClass.prototype);
-        subClass.prototype.constructor = subClass;
-        _setPrototypeOf(subClass, superClass);
-      }
-      __name(_inheritsLoose, "_inheritsLoose");
-      var changedArray = /* @__PURE__ */ __name(function changedArray2(a, b) {
-        if (a === void 0) {
-          a = [];
-        }
-        if (b === void 0) {
-          b = [];
-        }
-        return a.length !== b.length || a.some(function(item, index) {
-          return !Object.is(item, b[index]);
-        });
-      }, "changedArray");
-      var initialState = {
-        error: null
-      };
-      var ErrorBoundary2 = /* @__PURE__ */ function(_React$Component) {
-        _inheritsLoose(ErrorBoundary3, _React$Component);
-        function ErrorBoundary3() {
-          var _this;
-          for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
-            _args[_key] = arguments[_key];
-          }
-          _this = _React$Component.call.apply(_React$Component, [this].concat(_args)) || this;
-          _this.state = initialState;
-          _this.resetErrorBoundary = function() {
-            var _this$props;
-            for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-              args[_key2] = arguments[_key2];
-            }
-            _this.props.onReset == null ? void 0 : (_this$props = _this.props).onReset.apply(_this$props, args);
-            _this.reset();
-          };
-          return _this;
-        }
-        __name(ErrorBoundary3, "ErrorBoundary");
-        ErrorBoundary3.getDerivedStateFromError = /* @__PURE__ */ __name(function getDerivedStateFromError(error) {
-          return {
-            error
-          };
-        }, "getDerivedStateFromError");
-        var _proto = ErrorBoundary3.prototype;
-        _proto.reset = /* @__PURE__ */ __name(function reset() {
-          this.setState(initialState);
-        }, "reset");
-        _proto.componentDidCatch = /* @__PURE__ */ __name(function componentDidCatch(error, info) {
-          var _this$props$onError, _this$props2;
-          (_this$props$onError = (_this$props2 = this.props).onError) == null ? void 0 : _this$props$onError.call(_this$props2, error, info);
-        }, "componentDidCatch");
-        _proto.componentDidUpdate = /* @__PURE__ */ __name(function componentDidUpdate(prevProps, prevState) {
-          var error = this.state.error;
-          var resetKeys = this.props.resetKeys;
-          if (error !== null && prevState.error !== null && changedArray(prevProps.resetKeys, resetKeys)) {
-            var _this$props$onResetKe, _this$props3;
-            (_this$props$onResetKe = (_this$props3 = this.props).onResetKeysChange) == null ? void 0 : _this$props$onResetKe.call(_this$props3, prevProps.resetKeys, resetKeys);
-            this.reset();
-          }
-        }, "componentDidUpdate");
-        _proto.render = /* @__PURE__ */ __name(function render2() {
-          var error = this.state.error;
-          var _this$props4 = this.props, fallbackRender = _this$props4.fallbackRender, FallbackComponent = _this$props4.FallbackComponent, fallback = _this$props4.fallback;
-          if (error !== null) {
-            var _props = {
-              error,
-              resetErrorBoundary: this.resetErrorBoundary
-            };
-            if (/* @__PURE__ */ React__namespace.isValidElement(fallback)) {
-              return fallback;
-            } else if (typeof fallbackRender === "function") {
-              return fallbackRender(_props);
-            } else if (FallbackComponent) {
-              return /* @__PURE__ */ React__namespace.createElement(FallbackComponent, _props);
-            } else {
-              throw new Error("react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop");
-            }
-          }
-          return this.props.children;
-        }, "render");
-        return ErrorBoundary3;
-      }(React__namespace.Component);
-      function withErrorBoundary(Component, errorBoundaryProps) {
-        var Wrapped = /* @__PURE__ */ __name(function Wrapped2(props) {
-          return /* @__PURE__ */ React__namespace.createElement(ErrorBoundary2, errorBoundaryProps, /* @__PURE__ */ React__namespace.createElement(Component, props));
-        }, "Wrapped");
-        var name = Component.displayName || Component.name || "Unknown";
-        Wrapped.displayName = "withErrorBoundary(" + name + ")";
-        return Wrapped;
-      }
-      __name(withErrorBoundary, "withErrorBoundary");
-      function useErrorHandler(givenError) {
-        var _React$useState = React__namespace.useState(null), error = _React$useState[0], setError = _React$useState[1];
-        if (givenError != null)
-          throw givenError;
-        if (error != null)
-          throw error;
-        return setError;
-      }
-      __name(useErrorHandler, "useErrorHandler");
-      exports2.ErrorBoundary = ErrorBoundary2;
-      exports2.useErrorHandler = useErrorHandler;
-      exports2.withErrorBoundary = withErrorBoundary;
-      Object.defineProperty(exports2, "__esModule", { value: true });
-    });
-  }
-});
 
 // ../../.yarn/global/cache/prettier-npm-2.7.1-d1f40f5e1a-9.zip/node_modules/prettier/parser-babel.js
 var require_parser_babel = __commonJS({
@@ -20904,6 +20755,154 @@ var require_standalone = __commonJS({
   }
 });
 
+// ../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js
+var require_react_error_boundary_umd = __commonJS({
+  "../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js"(exports, module) {
+    init_define_process();
+    (function(global2, factory) {
+      typeof exports === "object" && typeof module !== "undefined" ? factory(exports, (init_reactMod(), __toCommonJS(reactMod_exports))) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.ReactErrorBoundary = {}, global2.React));
+    })(exports, function(exports2, React) {
+      "use strict";
+      function _interopNamespace(e) {
+        if (e && e.__esModule)
+          return e;
+        var n = /* @__PURE__ */ Object.create(null);
+        if (e) {
+          Object.keys(e).forEach(function(k) {
+            if (k !== "default") {
+              var d = Object.getOwnPropertyDescriptor(e, k);
+              Object.defineProperty(n, k, d.get ? d : {
+                enumerable: true,
+                get: function() {
+                  return e[k];
+                }
+              });
+            }
+          });
+        }
+        n["default"] = e;
+        return Object.freeze(n);
+      }
+      __name(_interopNamespace, "_interopNamespace");
+      var React__namespace = /* @__PURE__ */ _interopNamespace(React);
+      function _setPrototypeOf(o, p) {
+        _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p2) {
+          o2.__proto__ = p2;
+          return o2;
+        }, "_setPrototypeOf");
+        return _setPrototypeOf(o, p);
+      }
+      __name(_setPrototypeOf, "_setPrototypeOf");
+      function _inheritsLoose(subClass, superClass) {
+        subClass.prototype = Object.create(superClass.prototype);
+        subClass.prototype.constructor = subClass;
+        _setPrototypeOf(subClass, superClass);
+      }
+      __name(_inheritsLoose, "_inheritsLoose");
+      var changedArray = /* @__PURE__ */ __name(function changedArray2(a, b) {
+        if (a === void 0) {
+          a = [];
+        }
+        if (b === void 0) {
+          b = [];
+        }
+        return a.length !== b.length || a.some(function(item, index) {
+          return !Object.is(item, b[index]);
+        });
+      }, "changedArray");
+      var initialState = {
+        error: null
+      };
+      var ErrorBoundary2 = /* @__PURE__ */ function(_React$Component) {
+        _inheritsLoose(ErrorBoundary3, _React$Component);
+        function ErrorBoundary3() {
+          var _this;
+          for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
+            _args[_key] = arguments[_key];
+          }
+          _this = _React$Component.call.apply(_React$Component, [this].concat(_args)) || this;
+          _this.state = initialState;
+          _this.resetErrorBoundary = function() {
+            var _this$props;
+            for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+              args[_key2] = arguments[_key2];
+            }
+            _this.props.onReset == null ? void 0 : (_this$props = _this.props).onReset.apply(_this$props, args);
+            _this.reset();
+          };
+          return _this;
+        }
+        __name(ErrorBoundary3, "ErrorBoundary");
+        ErrorBoundary3.getDerivedStateFromError = /* @__PURE__ */ __name(function getDerivedStateFromError(error) {
+          return {
+            error
+          };
+        }, "getDerivedStateFromError");
+        var _proto = ErrorBoundary3.prototype;
+        _proto.reset = /* @__PURE__ */ __name(function reset() {
+          this.setState(initialState);
+        }, "reset");
+        _proto.componentDidCatch = /* @__PURE__ */ __name(function componentDidCatch(error, info) {
+          var _this$props$onError, _this$props2;
+          (_this$props$onError = (_this$props2 = this.props).onError) == null ? void 0 : _this$props$onError.call(_this$props2, error, info);
+        }, "componentDidCatch");
+        _proto.componentDidUpdate = /* @__PURE__ */ __name(function componentDidUpdate(prevProps, prevState) {
+          var error = this.state.error;
+          var resetKeys = this.props.resetKeys;
+          if (error !== null && prevState.error !== null && changedArray(prevProps.resetKeys, resetKeys)) {
+            var _this$props$onResetKe, _this$props3;
+            (_this$props$onResetKe = (_this$props3 = this.props).onResetKeysChange) == null ? void 0 : _this$props$onResetKe.call(_this$props3, prevProps.resetKeys, resetKeys);
+            this.reset();
+          }
+        }, "componentDidUpdate");
+        _proto.render = /* @__PURE__ */ __name(function render2() {
+          var error = this.state.error;
+          var _this$props4 = this.props, fallbackRender = _this$props4.fallbackRender, FallbackComponent = _this$props4.FallbackComponent, fallback = _this$props4.fallback;
+          if (error !== null) {
+            var _props = {
+              error,
+              resetErrorBoundary: this.resetErrorBoundary
+            };
+            if (/* @__PURE__ */ React__namespace.isValidElement(fallback)) {
+              return fallback;
+            } else if (typeof fallbackRender === "function") {
+              return fallbackRender(_props);
+            } else if (FallbackComponent) {
+              return /* @__PURE__ */ React__namespace.createElement(FallbackComponent, _props);
+            } else {
+              throw new Error("react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop");
+            }
+          }
+          return this.props.children;
+        }, "render");
+        return ErrorBoundary3;
+      }(React__namespace.Component);
+      function withErrorBoundary(Component, errorBoundaryProps) {
+        var Wrapped = /* @__PURE__ */ __name(function Wrapped2(props) {
+          return /* @__PURE__ */ React__namespace.createElement(ErrorBoundary2, errorBoundaryProps, /* @__PURE__ */ React__namespace.createElement(Component, props));
+        }, "Wrapped");
+        var name = Component.displayName || Component.name || "Unknown";
+        Wrapped.displayName = "withErrorBoundary(" + name + ")";
+        return Wrapped;
+      }
+      __name(withErrorBoundary, "withErrorBoundary");
+      function useErrorHandler(givenError) {
+        var _React$useState = React__namespace.useState(null), error = _React$useState[0], setError = _React$useState[1];
+        if (givenError != null)
+          throw givenError;
+        if (error != null)
+          throw error;
+        return setError;
+      }
+      __name(useErrorHandler, "useErrorHandler");
+      exports2.ErrorBoundary = ErrorBoundary2;
+      exports2.useErrorHandler = useErrorHandler;
+      exports2.withErrorBoundary = withErrorBoundary;
+      Object.defineProperty(exports2, "__esModule", { value: true });
+    });
+  }
+});
+
 // js/Editor.tsx
 init_define_process();
 
@@ -21718,7 +21717,54 @@ var Resizable = function(_super) {
 
 // js/Editor.tsx
 init_reactMod();
-init_reactMod();
+
+// js/isMobile.mjs
+init_define_process();
+function isMobile() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || navigator.platform === "MacIntel" && navigator.userAgent.indexOf("SAMSUNG") === -1;
+  let check = false;
+  (function(a) {
+    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[23]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(a.slice(0, 4))) {
+      check = true;
+    }
+  })(navigator.userAgent || navigator.vendor || window.opera);
+  return check && !isIOS;
+}
+__name(isMobile, "isMobile");
+
+// js/prettierEsm.ts
+init_define_process();
+var import_parser_babel = __toESM(require_parser_babel(), 1);
+var import_standalone = __toESM(require_standalone(), 1);
+var prettierJs = /* @__PURE__ */ __name((code) => {
+  try {
+    return (0, import_standalone.format)(code, {
+      arrowParens: "always",
+      bracketSpacing: true,
+      embeddedLanguageFormatting: "auto",
+      insertPragma: false,
+      bracketSameLine: true,
+      jsxSingleQuote: false,
+      htmlWhitespaceSensitivity: "strict",
+      printWidth: 90,
+      proseWrap: "preserve",
+      quoteProps: "as-needed",
+      requirePragma: false,
+      semi: true,
+      singleQuote: true,
+      tabWidth: 2,
+      trailingComma: "all",
+      useTabs: false,
+      parser: "babel-ts",
+      plugins: [
+        import_parser_babel.default
+      ]
+    });
+  } catch (error) {
+    console.error("prettier error"), console.error({ err: error });
+    return null;
+  }
+}, "prettierJs");
 
 // js/runner.tsx
 init_define_process();
@@ -22242,54 +22288,6 @@ async function runner({ code, counter, codeSpace }) {
 }
 __name(runner, "runner");
 
-// js/isMobile.mjs
-init_define_process();
-function isMobile() {
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || navigator.platform === "MacIntel" && navigator.userAgent.indexOf("SAMSUNG") === -1;
-  let check = false;
-  (function(a) {
-    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[23]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(a.slice(0, 4))) {
-      check = true;
-    }
-  })(navigator.userAgent || navigator.vendor || window.opera);
-  return check && !isIOS;
-}
-__name(isMobile, "isMobile");
-
-// js/prettierEsm.ts
-init_define_process();
-var import_parser_babel = __toESM(require_parser_babel(), 1);
-var import_standalone = __toESM(require_standalone(), 1);
-var prettierJs = /* @__PURE__ */ __name((code) => {
-  try {
-    return (0, import_standalone.format)(code, {
-      arrowParens: "always",
-      bracketSpacing: true,
-      embeddedLanguageFormatting: "auto",
-      insertPragma: false,
-      bracketSameLine: true,
-      jsxSingleQuote: false,
-      htmlWhitespaceSensitivity: "strict",
-      printWidth: 90,
-      proseWrap: "preserve",
-      quoteProps: "as-needed",
-      requirePragma: false,
-      semi: true,
-      singleQuote: true,
-      tabWidth: 2,
-      trailingComma: "all",
-      useTabs: false,
-      parser: "babel-ts",
-      plugins: [
-        import_parser_babel.default
-      ]
-    });
-  } catch (error) {
-    console.error("prettier error"), console.error({ err: error });
-    return null;
-  }
-}, "prettierJs");
-
 // js/Editor.tsx
 var mod3 = {
   getValue: async () => "",
@@ -22300,8 +22298,6 @@ var mod3 = {
   getErrors: async () => [],
   code: "",
   counter: 0,
-  codeSpace: "",
-  lastKeyDown: 0,
   codeToSet: ""
 };
 var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
@@ -22311,8 +22307,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
   const [
     mySession,
     changeContent
-  ] = reactMod_default.useState({
-    lastKeyDown: 0,
+  ] = useState({
     myCode: code,
     counter: i,
     started: false,
@@ -22320,14 +22315,13 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     }
   });
   mod3.counter = mST().i;
-  mod3.codeSpace = codeSpace;
   const {
     myCode,
     started,
     onChange
   } = mySession;
   mod3.code = myCode;
-  reactMod_default.useEffect(() => {
+  useEffect(() => {
     if (started)
       return;
     if (!ref?.current || started) {
@@ -22336,11 +22330,11 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     const container = ref?.current;
     if (container === null)
       return;
-    engine === "monaco" ? setMonaco(container) : setAce(container).then((res) => Object.assign(mod3, res)).then(
+    engine === "monaco" ? setMonaco(container, codeSpace) : setAce(container, codeSpace).then((res) => Object.assign(mod3, res)).then(
       () => changeContent((x) => ({ ...x, started: true }))
     );
   }, [started, ref.current]);
-  reactMod_default.useEffect(
+  useEffect(
     () => {
       mod3.getErrors().then(console.log);
       onChange(
@@ -22392,7 +22386,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     })
   });
 }, "Editor");
-async function onModChange(_code) {
+async function onModChange(_code, codeSpace) {
   const code = prettierJs(_code);
   if (!code)
     return;
@@ -22400,11 +22394,11 @@ async function onModChange(_code) {
     return;
   const counter = ++mod3.counter;
   mod3.code = code;
-  runner({ code, counter, codeSpace: mod3.codeSpace });
+  runner({ code, counter, codeSpace });
 }
 __name(onModChange, "onModChange");
 var startedM = 0;
-async function setMonaco(container) {
+async function setMonaco(container, codeSpace) {
   if (startedM)
     return;
   startedM = 1;
@@ -22415,19 +22409,19 @@ async function setMonaco(container) {
   const { startMonaco } = await import("./chunk-startMonaco-N3TD3EPA.mjs");
   return startMonaco({
     container,
-    name: mod3.codeSpace,
+    name: codeSpace,
     code: mST().code,
-    onChange: onModChange
+    onChange: (code) => onModChange(code, codeSpace)
   });
 }
 __name(setMonaco, "setMonaco");
 var startedAce = 0;
-async function setAce(container) {
+async function setAce(container, codeSpace) {
   if (startedAce)
     return;
   startedAce = 1;
   const { startAce } = await import("./chunk-startAce-GXALF75K.mjs");
-  return await startAce(mST().code, onModChange, container);
+  return await startAce(mST().code, (code) => onModChange(code, codeSpace), container);
 }
 __name(setAce, "setAce");
 
