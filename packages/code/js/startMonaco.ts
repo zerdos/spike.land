@@ -185,8 +185,9 @@ const monacoContribution = async (
     const extraModel = new URL(match[0].slice(7) + "/index.tsx", originToUse)
       .toString();
     //   console.log(extraModel);
+    // createModel(await fetch(extraModel).then(async (res) => res.text()), "typescript", Uri.parse(match[0].slice(7)) )
     languages.typescript.typescriptDefaults.addExtraLib(
-      extraModel,
+      new URL(match[0].slice(7)).pathname,
       await fetch(extraModel).then(async (res) => res.text()),
     );
     // Editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(originToUse+"/node_modules/framer-motion/index.js"));
