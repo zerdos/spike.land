@@ -1,60 +1,12 @@
 import { css } from "@emotion/react";
-import { wrap } from "comlink";
 import { Resizable } from "re-resizable";
 import type { FC } from "react";
-import { useRef } from "react";
-import React from "react";
-import { runner } from "./runner";
+import { useEffect, useRef, useState } from "react";
 
-// Import type FC from "react"
-// import { css } from "@emotion/react";
 import { isMobile } from "./isMobile.mjs";
 import { prettierJs } from "./prettierEsm";
+import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
-// /Volumes/devX/spike.land/packages/code/js/prettierJs.ts
-// import {wrkModuleImport} from "./moduleWorker.mjs"
-
-// const prettierJs = async (code: string) =>{
-// console.log({code});
-//   const mod = wrkModuleImport("/prettierJs.mjs",['prettierJs']) as unknown as {prettierJs: (code:string)=>Promise<string>};
-//   const prettied = await mod.prettierJs(code);
-//   console.log({prettied});
-//   return prettied
-
-// }
-
-// import styled from "@emotion/styled";
-// import Highlight, { defaultProps } from "prism-react-renderer";
-// import theme from "prism-react-renderer/themes/vsDark";
-
-// const Pre = styled.pre`
-//   text-align: left;
-//   margin: 1em 0;
-//   padding: 0.5em;
-//   overflow: scroll;
-// `;
-
-// const Line = styled.div`
-//   display: table-row;
-// `;
-
-// const LineNo = styled.span`
-//   display: table-cell;
-//   text-align: right;
-//   padding-right: 1em;
-//   user-select: none;
-//   opacity: 0.5;
-// `;
-
-// const LineContent = styled.span`
-//   display: table-cell;
-//   font-size: 12px;
-//   line-height: 18px;
-//   font-weight: normal;
-
-//   font-feature-settings: "liga" 0, "calt" 0;
-//   font-family: Menlo, Monaco, "Courier New", monospace
-// `;
 
 const mod = {
   getValue: async () => "",
@@ -65,9 +17,6 @@ const mod = {
   getErrors: async () => [] as string[],
   code: "",
   counter: 0,
-
-  codeSpace: "",
-  lastKeyDown: 0,
   codeToSet: "",
 };
 
@@ -87,8 +36,7 @@ export const Editor: FC<
   const [
     mySession,
     changeContent,
-  ] = React.useState({
-    lastKeyDown: 0,
+  ] = useState({
     myCode: code,
     counter: i,
     started: false,
@@ -97,7 +45,6 @@ export const Editor: FC<
   });
 
   mod.counter = mST().i;
-  mod.codeSpace = codeSpace;
 
   const {
     myCode,
@@ -108,7 +55,7 @@ export const Editor: FC<
 
   mod.code = myCode;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (started) return;
 
     if (!ref?.current || started) {
@@ -119,8 +66,8 @@ export const Editor: FC<
     if (container === null) return;
 
     engine === "monaco"
-      ? setMonaco(container)
-      : setAce(container).then((res) => Object.assign(mod, res)).then(() =>
+      ? setMonaco(container, codeSpace)
+      : setAce(container, codeSpace).then((res) => Object.assign(mod, res)).then(() =>
         changeContent((x: typeof mySession) => ({ ...x, started: true }))
       );
   }, [started, ref.current]);
@@ -128,8 +75,7 @@ export const Editor: FC<
   // UseInsertionEffect(()=>{
 
   // })
-
-  React.useEffect(
+  useEffect(
     () => {
       mod.getErrors().then(console.log);
       onChange(() =>
@@ -207,7 +153,7 @@ export const Editor: FC<
   );
 };
 
-async function onModChange(_code: string) {
+async function onModChange(_code: string, codeSpace: string) {
   const code = prettierJs(_code);
   if (!code) return;
 
@@ -215,10 +161,10 @@ async function onModChange(_code: string) {
 
   const counter = ++mod.counter;
   mod.code = code;
-  runner({ code, counter, codeSpace: mod.codeSpace });
+  runner({ code, counter, codeSpace });
 }
 let startedM = 0;
-async function setMonaco(container: HTMLDivElement) {
+async function setMonaco(container: HTMLDivElement, codeSpace: string) {
   if (startedM) return;
   startedM = 1;
   const link = document.createElement("link");
@@ -228,16 +174,16 @@ async function setMonaco(container: HTMLDivElement) {
   const { startMonaco } = await import("./startMonaco");
   return startMonaco({
     container,
-    name: mod.codeSpace,
-    code: (mST().code),
-    onChange: onModChange,
+    name: codeSpace,
+    code: mST().code,
+    onChange: (code) => onModChange(code, codeSpace),
   });
 }
 let startedAce = 0;
-async function setAce(container: HTMLDivElement) {
+async function setAce(container: HTMLDivElement, codeSpace: string) {
   if (startedAce) return;
   startedAce = 1;
   const { startAce } = await import("./startAce");
 
-  return await startAce(mST().code, onModChange, container);
+  return await startAce(mST().code, (code) => onModChange(code, codeSpace), container);
 }
