@@ -262,10 +262,7 @@ export class CodeSession implements ICodeSess {
   }: CodePatch) => {
     if (!(oldHash && newHash && patch.length)) return;
     const codeSpace = this.room || "";
-    const now = mST();
-    const nowHash = md5(now.transpiled);
-    const current = this.session.get("state");
-    hashStore[nowHash] = current;
+    hashStore[hashCode()] = this.session.get("state");
     let maybeOldRec = hashStore[oldHash];
     try {
       if (!maybeOldRec) {
@@ -296,7 +293,8 @@ export class CodeSession implements ICodeSess {
       maybeOldRec = hashStore[oldHash];
       if (!maybeOldRec) throw new Error(`cant find old record: ${oldHash}`);
     } catch (err) {
-      throw new Error("OldHash not found");
+      console.error({ err });
+      throw new Error("oldHash not found");
     }
     const oldString = string_(maybeOldRec.toJSON());
 

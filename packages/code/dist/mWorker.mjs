@@ -391,6 +391,11 @@
           lib.filePath
         );
       });
+      typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSuggestionDiagnostics: false,
+        noSemanticValidation: false,
+        noSyntaxValidation: false
+      });
     }, "ATA");
     const xxxsetExtraLibs = /* @__PURE__ */ __name(() => {
       replaceMaps["/node_modules/"] = "/npm:/v96/";

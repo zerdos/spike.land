@@ -3,7 +3,7 @@ import type { languages, Uri } from "monaco-editor";
 export function extraStuff(
   code: string,
   uri: Uri,
-  typescript: languages.typescript,
+  typescript: typeof languages.typescript,
 ) {
   const getTsWorker = () => typescript.getTypeScriptWorker();
   const addExtraLib = (content: string, filePath: string) =>
@@ -134,6 +134,7 @@ export function extraStuff(
         m.content,
         m.url,
       );
+
       return {
         [location.origin + `/node_modules/${m.mod}/index.d.ts`]: m.url,
       };
@@ -152,6 +153,13 @@ export function extraStuff(
       );
       // bc.postMessage({ ...lib, type: "set-mock" });
     });
+
+    typescript.typescriptDefaults
+      .setDiagnosticsOptions({
+        noSuggestionDiagnostics: false,
+        noSemanticValidation: false,
+        noSyntaxValidation: false,
+      });
 
     //   const libs = languages.typescript.typescriptDefaults.getExtraLibs();
 

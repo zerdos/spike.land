@@ -42894,6 +42894,11 @@ function extraStuff(code, uri, typescript) {
         lib2.filePath
       );
     });
+    typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSuggestionDiagnostics: false,
+      noSemanticValidation: false,
+      noSyntaxValidation: false
+    });
   }, "ATA");
   const xxxsetExtraLibs = /* @__PURE__ */ __name(() => {
     replaceMaps["/node_modules/"] = "/npm:/v96/";
@@ -43207,14 +43212,10 @@ var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name, onChang
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace"
     });
-    model.onDidChangeContent((e) => {
-      if (mod2.silent)
-        return;
-      e;
-      onChange(model.getValue());
-    });
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
     setTimeout(() => extraStuff(code2, uri, languages.typescript), 1e3);
     const mod2 = {
+      model,
       getValue: () => model.getValue(),
       silent: false,
       getErrors: async () => {
@@ -43224,22 +43225,33 @@ var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name, onChang
           }
         );
       },
-      setValue: (code3) => {
-        mod2.silent = true;
+      setValue: (code3) => ((mod3) => {
+        mod3.silent = true;
         let state = null;
         try {
-          state = myEditor.saveViewState();
-          myEditor.setValue(code3);
+          console.log("trying to change code");
+          try {
+            state = myEditor.saveViewState();
+          } catch {
+            console.error("error while saving monaco state");
+          }
+          console.log("trying to change code");
+          mod3.model.setValue(code3);
           if (state) {
             myEditor.restoreViewState(state);
           }
         } catch {
           console.error("error while saving the state");
         } finally {
-          mod2.silent = false;
+          mod3.silent = false;
         }
-      }
+      })(mod2)
     };
+    model.onDidChangeContent(() => {
+      if (mod2.silent)
+        return;
+      onChange(model.getValue());
+    });
     return mod2;
   }
   __name(startMonacoPristine, "startMonacoPristine");

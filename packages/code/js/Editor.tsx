@@ -67,7 +67,7 @@ export const Editor: FC<
 
     engine === "monaco"
       ? setMonaco(container, codeSpace)
-      : setAce(container, codeSpace).then((res) => Object.assign(mod, res)).then(() =>
+      : setAce(container, codeSpace).then((res) => Object.assign(mod, { setValue: res?.setValue })).then(() =>
         changeContent((x: typeof mySession) => ({ ...x, started: true }))
       );
   }, [started, ref.current]);
@@ -96,16 +96,16 @@ export const Editor: FC<
       return;
     }
 
-    mod.counter = mST().i;
-    const code = mST().code;
+    const { i, code } = mST();
     if (!code) return;
+    mod.setValue(code);
     mod.code = code;
-    await mod.setValue(mod.code);
+    mod.counter = i;
 
     changeContent((x: typeof mySession) => ({
       ...x,
-      counter: mod.counter,
-      myCode: mod.code,
+      counter: i,
+      myCode: code,
     }));
   }, "editor");
 
@@ -172,7 +172,7 @@ async function setMonaco(container: HTMLDivElement, codeSpace: string) {
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
   const { startMonaco } = await import("./startMonaco");
-  return startMonaco({
+  return await startMonaco({
     container,
     name: codeSpace,
     code: mST().code,

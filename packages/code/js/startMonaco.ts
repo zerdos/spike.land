@@ -586,15 +586,11 @@ export const startMonaco = async (
       autoClosingBrackets: "beforeWhitespace",
     });
 
-    model.onDidChangeContent((e) => {
-      if (mod.silent) return;
-      e;
-      onChange(model.getValue());
-    });
-
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
     setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 
     const mod = {
+      model,
       getValue: () => model.getValue(),
       silent: false,
       getErrors: async () => {
@@ -606,23 +602,36 @@ export const startMonaco = async (
             },
           );
       },
-      setValue: (code: string) => {
-        mod.silent = true;
-        let state = null;
-        try {
-          state = myEditor.saveViewState();
+      setValue: (code: string) =>
+        ((mod) => {
+          mod.silent = true;
+          let state = null;
+          try {
+            console.log("trying to change code");
+            try {
+              state = myEditor.saveViewState();
+            } catch {
+              console.error("error while saving monaco state");
+            }
 
-          myEditor.setValue(code);
-          if (state) {
-            myEditor.restoreViewState(state);
+            console.log("trying to change code");
+            mod.model.setValue(code);
+            if (state) {
+              myEditor.restoreViewState(state);
+            }
+          } catch {
+            console.error("error while saving the state");
+          } finally {
+            mod.silent = false;
           }
-        } catch {
-          console.error("error while saving the state");
-        } finally {
-          mod.silent = false;
-        }
-      },
+        })(mod),
     };
+
+    model.onDidChangeContent(() => {
+      if (mod.silent) return;
+      onChange(model.getValue());
+    });
+
     return mod;
   }
 };

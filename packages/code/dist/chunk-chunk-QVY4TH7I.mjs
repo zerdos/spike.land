@@ -4,7 +4,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-P6ZW4T6K.mjs";
+} from "./chunk-chunk-BSZOAW4H.mjs";
 import {
   PureComponent,
   createElement,
@@ -22330,7 +22330,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     const container = ref?.current;
     if (container === null)
       return;
-    engine === "monaco" ? setMonaco(container, codeSpace) : setAce(container, codeSpace).then((res) => Object.assign(mod3, res)).then(
+    engine === "monaco" ? setMonaco(container, codeSpace) : setAce(container, codeSpace).then((res) => Object.assign(mod3, { setValue: res?.setValue })).then(
       () => changeContent((x) => ({ ...x, started: true }))
     );
   }, [started, ref.current]);
@@ -22353,16 +22353,16 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     if (mod3.counter >= mST().i) {
       return;
     }
-    mod3.counter = mST().i;
-    const code2 = mST().code;
+    const { i: i2, code: code2 } = mST();
     if (!code2)
       return;
+    mod3.setValue(code2);
     mod3.code = code2;
-    await mod3.setValue(mod3.code);
+    mod3.counter = i2;
     changeContent((x) => ({
       ...x,
-      counter: mod3.counter,
-      myCode: mod3.code
+      counter: i2,
+      myCode: code2
     }));
   }, "editor");
   return /* @__PURE__ */ jsx(Resizable, {
@@ -22406,8 +22406,8 @@ async function setMonaco(container, codeSpace) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-N3TD3EPA.mjs");
-  return startMonaco({
+  const { startMonaco } = await import("./chunk-startMonaco-XACY5OWP.mjs");
+  return await startMonaco({
     container,
     name: codeSpace,
     code: mST().code,
