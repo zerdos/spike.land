@@ -43116,21 +43116,6 @@ var monacoContribution = /* @__PURE__ */ __name(async (code) => {
     allowUmdGlobalAccess: false,
     include: [originToUse + "/node_modules"]
   });
-  const regex1 = / from '\.\./gi;
-  const regex2 = / from '\./gi;
-  const search = new RegExp(
-    ` from '(${originToUse}/)?live/[a-zA-Z]+`,
-    "gm"
-  );
-  const replaced = code.replaceAll(regex1, ` from '${originToUse}/live`).replaceAll(regex2, ` from '${originToUse}/live`);
-  const models = replaced.matchAll(search);
-  for (const match of models) {
-    const extraModel = new URL(match[0].slice(7) + "/index.tsx", originToUse).toString();
-    languages.typescript.typescriptDefaults.addExtraLib(
-      new URL(match[0].slice(7)).pathname,
-      await fetch(extraModel).then(async (res) => res.text())
-    );
-  }
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   return code;
 }, "monacoContribution");

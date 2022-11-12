@@ -25,7 +25,7 @@ import {
 } from "./chunk-chunk-QWXFQFWU.mjs";
 import {
   initAndTransform
-} from "./chunk-chunk-DI4LN3BC.mjs";
+} from "./chunk-chunk-PAZYWBPP.mjs";
 import {
   md5
 } from "./chunk-chunk-WNMOTYVA.mjs";
@@ -22106,7 +22106,7 @@ var mod2 = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform } = await import("./chunk-esbuildEsm-4LQE4UTA.mjs");
+    const { transform } = await import("./chunk-esbuildEsm-AADGTPZL.mjs");
     const t = await transform(res, {
       format: "esm",
       minify: true,
@@ -22127,7 +22127,7 @@ var mod2 = {
   data: {}
 };
 var toUmd = /* @__PURE__ */ __name(async (source, name) => {
-  const { transform } = await import("./chunk-esbuildEsm-4LQE4UTA.mjs");
+  const { transform } = await import("./chunk-esbuildEsm-AADGTPZL.mjs");
   const hash = md5(source);
   mod2.hashMap = { ...mod2.hashMap, [hash]: name, [name]: hash };
   if (!mod2.data[hash]) {
@@ -22406,7 +22406,7 @@ async function setMonaco(container, codeSpace) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-NM6J2HXM.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-24GVI6SL.mjs");
   return await startMonaco({
     container,
     name: codeSpace,

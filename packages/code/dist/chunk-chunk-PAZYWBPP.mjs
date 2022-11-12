@@ -2464,7 +2464,10 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   if (initFinished !== true)
     await initFinished;
   const transformed = await (0, import_esbuild_wasm.transform)(code, opts);
-  return { ...transformed, code: `/*${md5(code)}*/` + transformed.code };
+  const regex1 = / from '\.\./gi;
+  const regex2 = / from '\./gi;
+  const trp = transformed.code.replaceAll(regex1, ` from '${location.origin}/live/`).replaceAll(regex2, ` from '${location.origin}/live/`);
+  return { ...transformed, code: `/*${md5(code)}*/` + trp };
 }, "initAndTransform");
 
 export {
