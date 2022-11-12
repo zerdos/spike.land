@@ -277,6 +277,7 @@ export class Code {
               {
                 status: 200,
                 headers: {
+                  "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
                   "Access-Control-Allow-Origin": "*",
                   "Cache-Control": "no-cache",
                   "Content-Type": "application/javascript; charset=UTF-8",
