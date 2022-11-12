@@ -43127,7 +43127,7 @@ var monacoContribution = /* @__PURE__ */ __name(async (code) => {
   for (const match of models) {
     const extraModel = new URL(match[0].slice(7) + "/index.tsx", originToUse).toString();
     languages.typescript.typescriptDefaults.addExtraLib(
-      extraModel,
+      new URL(match[0].slice(7)).pathname,
       await fetch(extraModel).then(async (res) => res.text())
     );
   }
