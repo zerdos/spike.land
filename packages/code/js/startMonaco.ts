@@ -182,7 +182,7 @@ const monacoContribution = async (
   for (const match of models) {
     //    console.log("***** EXTRA MODELS *****");
 
-    const extraModel = new URL(match[0].slice(7) + ".tsx", originToUse)
+    const extraModel = new URL(match[0].slice(7) + "/index.tsx", originToUse)
       .toString();
     //   console.log(extraModel);
     languages.typescript.typescriptDefaults.addExtraLib(
