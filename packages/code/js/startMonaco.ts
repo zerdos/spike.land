@@ -219,10 +219,30 @@ export const startMonaco = async (
       uri,
     );
 
-    // const shadowRoot = container.attachShadow({
-    //   mode: "closed",
-    // });
+    const search = new RegExp(
+      ` from '(${originToUse}/)?live/[a-zA-Z]+`,
+      "gm",
+    );
 
+    // 0123456
+
+    const models = replaced.matchAll(search);
+    // Console.log("load more models", replaced, models);
+
+    for (const match of models) {
+      //    console.log("***** EXTRA MODELS *****");
+
+      const extraModel = new URL(match[0].slice(7) + "/index.tsx", originToUse)
+        .toString();
+
+      const mUri = Uri.parse(extraModel);
+
+      editor.getModel(mUri) || createModel(
+        await fetch(extraModel).then(async (res) => res.text()),
+        "typescript",
+        mUri,
+      );
+    }
     // const innerContainer = document.createElement("div");
 
     // innerContainer.style.width = "100%";

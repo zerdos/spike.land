@@ -43146,6 +43146,20 @@ var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name, onChang
       "typescript",
       uri
     );
+    const search = new RegExp(
+      ` from '(${originToUse}/)?live/[a-zA-Z]+`,
+      "gm"
+    );
+    const models = replaced.matchAll(search);
+    for (const match of models) {
+      const extraModel = new URL(match[0].slice(7) + "/index.tsx", originToUse).toString();
+      const mUri = Uri.parse(extraModel);
+      editor.getModel(mUri) || createModel(
+        await fetch(extraModel).then(async (res) => res.text()),
+        "typescript",
+        mUri
+      );
+    }
     const target = container2;
     const myEditor = create(target, {
       model,
