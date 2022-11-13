@@ -22412,7 +22412,7 @@ async function setMonaco(container, codeSpace) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-W3LMVR3K.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-T2CJNSWF.mjs");
   return await startMonaco({
     container,
     codeSpace,

@@ -422,12 +422,12 @@ async function startMonacoPristine(
           console.error("error while saving the state");
         } finally {
           mod.silent = false;
-          myEditor.getModel()!.onDidChangeContent(() => () => changed());
+          myEditor.getModel()!.onDidChangeContent(changed);
         }
       })(mod),
   };
 
-  editor.getModels()[0].onDidChangeContent(() => () => changed());
+  editor.getModels()[0].onDidChangeContent(changed);
 
   return mod;
 }
