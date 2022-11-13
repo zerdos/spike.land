@@ -6,9 +6,7 @@
   "author": "Zoltan Erdos <zoliika84@gmail.com>",
   "private": true,
   "workspaces": [
-    "packages/devcontainer-generator",
-    "packages/code",
-    "packages/spike.land"
+    "packages/*"
   ],
   "scripts": {
     "clean": "yarn workspaces foreach --all run  clean",
