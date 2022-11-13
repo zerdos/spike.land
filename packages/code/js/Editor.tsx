@@ -159,7 +159,7 @@ async function onModChange(_code: string, codeSpace: string) {
 
   if (code === prettierJs(mod.code)) return;
 
-  const counter = mST().i + 1;
+  const counter = ++mod.counter;
   mod.code = code;
   runner({ code, counter, codeSpace });
 }
