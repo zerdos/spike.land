@@ -1,27 +1,15 @@
-// import * as Comlink from "comlink";
-
 import "monaco-editor/esm/vs/editor/editor.all";
-import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
-
-// import "monaco-editor/min/vs/basic-languages/typescript/typescript";
-// import "monaco-editor/min/vs/language/typescript/tsMode";
-// import { setupTypeAcquisition } from "@typescript/ata";
-// import pMap from "p-map";
+import "monaco-editor/esm/vs/basic-languages/typescript/typescript";
+import "monaco-editor/esm/vs/language/typescript/tsMode";
+import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 
 import * as w from "./monacoExtra";
-// import {w} from "mextra.mjs";
 import { getWorkerUrl } from "./monacoWorkers.mjs";
-// Import {  createModel } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneEditor'
-// import { languages, Uri, editor} from 'monaco-editor/esm/vs/editor/editor.api'
-// const {createModel} = editor
-const create = editor.create;
-// const languages = monaco.languages;
-const createModel = editor.createModel;
-// const Uri = monaco.Uri;
 
-let codeSpace = "";
+const { createModel } = editor;
+const create = editor.create;
 
 const originToUse = location.origin.includes("spike")
   ? location.origin
@@ -165,67 +153,63 @@ self.MonacoEnvironment = {
 const mod: Record<string, Record<string, unknown>> = {};
 
 export const startMonaco = async (
-  { code, container, name, onChange }: {
+  { code, container, codeSpace, onChange }: {
     code: string;
     container: HTMLDivElement;
-    name: string;
+    codeSpace: string;
     onChange: (_code: string) => void;
   },
-) => {
-  editor.getEditors().map((x) => x.dispose());
-  // editor.getModels().map(x => x.dispose());
-  codeSpace = name;
-  //  console.log({code, container, name});
-  if (mod[name]) {
-    return mod[name] as unknown as typeof returnValue;
-  }
+) => mod[codeSpace] = mod[codeSpace] || await startMonacoPristine({ code, container, codeSpace, onChange });
 
-  const returnValue = await startMonacoPristine({ code, container, name });
-  // mod[name] = returnValue;
+//  editor.getEditors().map((x) => x.dispose());
 
-  async function startMonacoPristine(
-    { code, container }: {
-      code: string;
-      container: HTMLDivElement;
-      name: string;
-    },
-  ) {
-    // If (mod[name]) return mod[name];
+// const returnValue = await startMonacoPristine({ code, container, codeSpace, onChange });
+// mod[name] = returnValue;
 
-    // Const innerStyle = document.createElement("style");
-    // monacoCss
-    // innerStyle.innerText = `@import url(${originToUse}/npm:/monaco-editor@${version}/?css);`;
-    // container.appendChild(innerStyle);
+async function startMonacoPristine(
+  { code, container, codeSpace, onChange }: {
+    code: string;
+    container: HTMLDivElement;
+    codeSpace: string;
+    onChange: (_code: string) => void;
+  },
+) {
+  // If (mod[name]) return mod[name];
 
-    const replaced = await monacoContribution(
-      code,
-    );
+  // Const innerStyle = document.createElement("style");
+  // monacoCss
+  // innerStyle.innerText = `@import url(${originToUse}/npm:/monaco-editor@${version}/?css);`;
+  // container.appendChild(innerStyle);
 
-    // Editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${originToUse}/package.json`))
-    // languages.typescript.typescriptDefaults.inlayHintsOptions
+  const replaced = await monacoContribution(
+    code,
+  );
 
-    languages.typescript.typescriptDefaults
-      .setDiagnosticsOptions({
-        noSuggestionDiagnostics: true,
-        noSemanticValidation: true,
-        noSyntaxValidation: true,
-      });
+  // Editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${originToUse}/package.json`))
+  // languages.typescript.typescriptDefaults.inlayHintsOptions
 
-    const uri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
+  languages.typescript.typescriptDefaults
+    .setDiagnosticsOptions({
+      noSuggestionDiagnostics: true,
+      noSemanticValidation: true,
+      noSyntaxValidation: true,
+    });
 
-    const model = editor.getModel(uri) || createModel(
-      replaced,
-      "typescript",
-      uri,
-    );
+  const uri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
 
+  const model = editor.getModel(uri) || createModel(
+    replaced,
+    "typescript",
+    uri,
+  );
+
+  const addExtraM = async () => {
     const search = new RegExp(
       ` from '(${originToUse}/)?live/[a-zA-Z]+`,
       "gm",
     );
 
     // 0123456
-
     const models = replaced.matchAll(search);
     // Console.log("load more models", replaced, models);
 
@@ -243,203 +227,205 @@ export const startMonaco = async (
         mUri,
       );
     }
-    // const innerContainer = document.createElement("div");
+  };
+  setTimeout(() => addExtraM(), 500);
+  // const innerContainer = document.createElement("div");
 
-    // innerContainer.style.width = "100%";
-    // innerContainer.style.display = "block";
-    // innerContainer.style.height = "100%";
+  // innerContainer.style.width = "100%";
+  // innerContainer.style.display = "block";
+  // innerContainer.style.height = "100%";
 
-    // const target = shadowRoot.appendChild(innerContainer);
+  // const target = shadowRoot.appendChild(innerContainer);
 
-    // const innerStyle = document.createElement("style");
-    // innerStyle.innerText = `@import "/Editor.css";`;
-    // shadowRoot.appendChild(innerStyle);
-    //
-    const target = container;
+  // const innerStyle = document.createElement("style");
+  // innerStyle.innerText = `@import "/Editor.css";`;
+  // shadowRoot.appendChild(innerStyle);
+  //
+  const target = container;
 
-    const myEditor = create(target, {
-      model,
-      scrollbar: {
-        scrollByPage: false,
-        alwaysConsumeMouseWheel: false,
-      },
-      scrollBeyondLastLine: true,
-      scrollPredominantAxis: false,
+  const myEditor = create(target, {
+    model,
+    scrollbar: {
+      scrollByPage: false,
+      alwaysConsumeMouseWheel: false,
+    },
+    scrollBeyondLastLine: true,
+    scrollPredominantAxis: false,
 
-      smoothScrolling: true,
-      suggest: {
-        /**
-         * Overwrite word ends on accept. Default to false.
-         */
-        insertMode: "replace",
-        /**
-         * Enable graceful matching. Defaults to true.
-         */
-        filterGraceful: false,
-        /**
-         * Prevent quick suggestions when a snippet is active. Defaults to true.
-         */
-        snippetsPreventQuickSuggestions: false,
-        /**
-         * Favors words that appear close to the cursor.
-         */
-        localityBonus: true,
-        /**
-         * Enable using global storage for remembering suggestions.
-         */
-        shareSuggestSelections: true,
-        /**
-         * Enable or disable icons in suggestions. Defaults to true.
-         */
-        showIcons: true,
-        /**
-         * Enable or disable the suggest status bar.
-         */
-        showStatusBar: true,
-        /**
-         * Enable or disable the rendering of the suggestion preview.
-         */
-        preview: true,
-        /**
-         * Configures the mode of the preview.
-         */
-        previewMode: "subwordSmart",
-        /**
-         * Show details inline with the label. Defaults to true.
-         */
-        showInlineDetails: true,
+    smoothScrolling: true,
+    suggest: {
+      /**
+       * Overwrite word ends on accept. Default to false.
+       */
+      insertMode: "replace",
+      /**
+       * Enable graceful matching. Defaults to true.
+       */
+      filterGraceful: false,
+      /**
+       * Prevent quick suggestions when a snippet is active. Defaults to true.
+       */
+      snippetsPreventQuickSuggestions: false,
+      /**
+       * Favors words that appear close to the cursor.
+       */
+      localityBonus: true,
+      /**
+       * Enable using global storage for remembering suggestions.
+       */
+      shareSuggestSelections: true,
+      /**
+       * Enable or disable icons in suggestions. Defaults to true.
+       */
+      showIcons: true,
+      /**
+       * Enable or disable the suggest status bar.
+       */
+      showStatusBar: true,
+      /**
+       * Enable or disable the rendering of the suggestion preview.
+       */
+      preview: true,
+      /**
+       * Configures the mode of the preview.
+       */
+      previewMode: "subwordSmart",
+      /**
+       * Show details inline with the label. Defaults to true.
+       */
+      showInlineDetails: true,
 
-        /**
-         * Show method-suggestions.
-         */
-        showMethods: true,
-        /**
-         * Show function-suggestions.
-         */
-        showFunctions: true,
-        /**
-         * Show constructor-suggestions.
-         */
-        showConstructors: true,
-        /**
-         * Show deprecated-suggestions.
-         */
+      /**
+       * Show method-suggestions.
+       */
+      showMethods: true,
+      /**
+       * Show function-suggestions.
+       */
+      showFunctions: true,
+      /**
+       * Show constructor-suggestions.
+       */
+      showConstructors: true,
+      /**
+       * Show deprecated-suggestions.
+       */
 
-        /**
-         * Show field-suggestions.
-         */
-        showFields: true,
+      /**
+       * Show field-suggestions.
+       */
+      showFields: true,
+      showModules: true,
 
-        /**
-         * Show color-suggestions.
-         */
-        showColors: true,
-        /**
-         * Show file-suggestions.
-         */
-        showFiles: true,
-        /**
-         * Show reference-suggestions.
-         */
-        showReferences: true,
-        /**
-         * Show folder-suggestions.
-         */
-        showFolders: true,
-        /**
-         * Show typeParameter-suggestions.
-         */
-        showTypeParameters: true,
-        /**
-         * Show issue-suggestions.
-         */
-        showIssues: true,
-        /**
-         * Show user-suggestions.
-         */
-        showUsers: true,
-        /**
-         * Show snippet-suggestions.
-         */
-        showSnippets: true,
-      },
+      /**
+       * Show color-suggestions.
+       */
+      showColors: true,
+      /**
+       * Show file-suggestions.
+       */
+      showFiles: true,
+      /**
+       * Show reference-suggestions.
+       */
+      showReferences: true,
+      /**
+       * Show folder-suggestions.
+       */
+      showFolders: true,
+      /**
+       * Show typeParameter-suggestions.
+       */
+      showTypeParameters: true,
+      /**
+       * Show issue-suggestions.
+       */
+      showIssues: true,
+      /**
+       * Show user-suggestions.
+       */
+      showUsers: true,
+      /**
+       * Show snippet-suggestions.
+       */
+      showSnippets: true,
+    },
 
-      automaticLayout: true,
+    automaticLayout: true,
 
-      useShadowDOM: false,
+    useShadowDOM: false,
 
-      roundedSelection: true,
-      //  Editing: true,
-      bracketPairColorization: {
-        independentColorPoolPerBracketType: true,
-        enabled: true,
-      },
-      // bracketPairGuides: {
-      //   bracketPairs: true,
-      //   bracketPairsHorizontal : true,
-      //   highlightActiveBracketPair: true,
-      //   indentation: true,
-      //   highlightActiveIndentation:  'always'
-      // },
-      codeLens: true,
-      "semanticHighlighting.enabled": true,
-      dragAndDrop: true,
-      codeActionsOnSaveTimeout: 300,
-      dropIntoEditor: { enabled: true },
-      // GotoLocation: true,]]
-      mouseStyle: "default",
-      definitionLinkOpensInPeek: true,
-      theme: "vs-dark",
-      autoClosingBrackets: "beforeWhitespace",
-    });
+    roundedSelection: true,
+    //  Editing: true,
+    bracketPairColorization: {
+      independentColorPoolPerBracketType: true,
+      enabled: true,
+    },
+    // bracketPairGuides: {
+    //   bracketPairs: true,
+    //   bracketPairsHorizontal : true,
+    //   highlightActiveBracketPair: true,
+    //   indentation: true,
+    //   highlightActiveIndentation:  'always'
+    // },
+    codeLens: true,
+    "semanticHighlighting.enabled": true,
+    dragAndDrop: true,
+    codeActionsOnSaveTimeout: 300,
+    dropIntoEditor: { enabled: true },
+    // GotoLocation: true,]]
+    mouseStyle: "default",
+    definitionLinkOpensInPeek: true,
+    theme: "vs-dark",
+    autoClosingBrackets: "beforeWhitespace",
+  });
 
-    languages.typescript.typescriptDefaults.setEagerModelSync(true);
-    setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
+  languages.typescript.typescriptDefaults.setEagerModelSync(true);
+  setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 
-    const mod = {
-      model,
-      getValue: () => model.getValue(),
-      silent: false,
-      getErrors: async () => {
-        return (await (await languages.typescript.getTypeScriptWorker())(uri))
-          .getSuggestionDiagnostics(uri.toString())
-          .then((diag) => diag.map((d) => d.messageText.toString()))
-          .catch(
-            (e) => {
-              console.log("ts error, will retry", e);
-            },
-          );
-      },
-      setValue: (code: string) =>
-        ((mod) => {
-          mod.silent = true;
-          let state = null;
+  const mod = {
+    model,
+    getValue: () => model.getValue(),
+    silent: false,
+    getErrors: async () => {
+      return (await (await languages.typescript.getTypeScriptWorker())(uri))
+        .getSuggestionDiagnostics(uri.toString())
+        .then((diag) => diag.map((d) => d.messageText.toString()))
+        .catch(
+          (e) => {
+            console.log("ts error, will retry", e);
+          },
+        );
+    },
+    setValue: (code: string) =>
+      ((mod) => {
+        mod.silent = true;
+        let state = null;
+        try {
+          console.log("trying to change code");
           try {
-            console.log("trying to change code");
-            try {
-              state = myEditor.saveViewState();
-            } catch {
-              console.error("error while saving monaco state");
-            }
-
-            console.log("trying to change code");
-            mod.model.setValue(code);
-            if (state) {
-              myEditor.restoreViewState(state);
-            }
+            state = myEditor.saveViewState();
           } catch {
-            console.error("error while saving the state");
-          } finally {
-            mod.silent = false;
+            console.error("error while saving monaco state");
           }
-        })(mod),
-    };
 
-    model.onDidChangeContent(() => {
-      if (mod.silent) return;
-      onChange(model.getValue());
-    });
+          console.log("trying to change code");
+          myEditor.setValue(code);
+          if (state) {
+            myEditor.restoreViewState(state);
+          }
+        } catch {
+          console.error("error while saving the state");
+        } finally {
+          mod.silent = false;
+        }
+      })(mod),
+  };
 
-    return mod;
-  }
-};
+  model.onDidChangeContent(() => {
+    if (mod.silent) return;
+    onChange(myEditor.getValue());
+  });
+
+  return mod;
+}
