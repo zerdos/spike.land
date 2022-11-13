@@ -271,7 +271,7 @@ const build = (
     ],
     bundle: true,
     define,
-    treeShaking: false,
+    treeShaking: true,
     minify: false, // ! isDevelopment,
     minifyWhitespace: false, // ! isDevelopment,
     minifyIdentifiers: false, // ! isDevelopment,
