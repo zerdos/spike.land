@@ -3565,27 +3565,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.6.5":
-  version: 7.6.5
-  resolution: "framer-motion@npm:7.6.5"
-  dependencies:
-    "@emotion/is-prop-valid": "npm:^0.8.2"
-    "@motionone/dom": "npm:10.13.1"
-    framesync: "npm:6.1.2"
-    hey-listen: "npm:^1.0.8"
-    popmotion: "npm:11.0.5"
-    style-value-types: "npm:5.1.2"
-    tslib: "npm:2.4.0"
-  peerDependencies:
-    react: ^18.0.0
-    react-dom: ^18.0.0
-  dependenciesMeta:
-    "@emotion/is-prop-valid":
-      optional: true
-  checksum: 85578e98f08460da683206f68d3e7b19faf99ddf8cfeaae8d5e20f9836c355e9226aa1e3fe6bea2ecfbeec24d8e8bad1d6733977b8a6fe8bcf39062e62f49abc
-  languageName: node
-  linkType: hard
-
 "framer-motion@npm:7.6.6":
   version: 7.6.6
   resolution: "framer-motion@npm:7.6.6"
@@ -4888,7 +4867,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.8"
     esbuild: "npm:0.15.13"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:7.6.5"
+    framer-motion: "npm:7.6.6"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.1.1"
