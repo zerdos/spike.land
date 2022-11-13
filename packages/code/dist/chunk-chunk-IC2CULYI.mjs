@@ -22398,7 +22398,7 @@ async function onModChange(_code, codeSpace) {
     return;
   if (code === prettierJs(mod3.code))
     return;
-  const counter = ++mod3.counter;
+  const counter = mST().i + 1;
   mod3.code = code;
   runner({ code, counter, codeSpace });
 }
@@ -22412,10 +22412,10 @@ async function setMonaco(container, codeSpace) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-O3UGFWBR.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-4KMURIAL.mjs");
   return await startMonaco({
     container,
-    name: codeSpace,
+    codeSpace,
     code: mST().code,
     onChange: (code) => onModChange(code, codeSpace)
   });

@@ -1,7 +1,4 @@
 import {
-  typescriptDefaults
-} from "./chunk-chunk-2AJNQCQO.mjs";
-import {
   editor_api_exports
 } from "./chunk-chunk-DGDPLPIN.mjs";
 import {
@@ -11,11 +8,13 @@ import {
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
 init_define_process();
+
+// ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/monaco.contribution.js
+init_define_process();
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __defNormalProp = /* @__PURE__ */ __name((obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value, "__defNormalProp");
 var __copyProps = /* @__PURE__ */ __name((to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
@@ -25,12 +24,240 @@ var __copyProps = /* @__PURE__ */ __name((to, from, except, desc) => {
   return to;
 }, "__copyProps");
 var __reExport = /* @__PURE__ */ __name((target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default")), "__reExport");
+var typescriptVersion = "4.5.5";
+var monaco_editor_core_exports = {};
+__reExport(monaco_editor_core_exports, editor_api_exports);
+var ModuleKind = /* @__PURE__ */ ((ModuleKind2) => {
+  ModuleKind2[ModuleKind2["None"] = 0] = "None";
+  ModuleKind2[ModuleKind2["CommonJS"] = 1] = "CommonJS";
+  ModuleKind2[ModuleKind2["AMD"] = 2] = "AMD";
+  ModuleKind2[ModuleKind2["UMD"] = 3] = "UMD";
+  ModuleKind2[ModuleKind2["System"] = 4] = "System";
+  ModuleKind2[ModuleKind2["ES2015"] = 5] = "ES2015";
+  ModuleKind2[ModuleKind2["ESNext"] = 99] = "ESNext";
+  return ModuleKind2;
+})(ModuleKind || {});
+var JsxEmit = /* @__PURE__ */ ((JsxEmit2) => {
+  JsxEmit2[JsxEmit2["None"] = 0] = "None";
+  JsxEmit2[JsxEmit2["Preserve"] = 1] = "Preserve";
+  JsxEmit2[JsxEmit2["React"] = 2] = "React";
+  JsxEmit2[JsxEmit2["ReactNative"] = 3] = "ReactNative";
+  JsxEmit2[JsxEmit2["ReactJSX"] = 4] = "ReactJSX";
+  JsxEmit2[JsxEmit2["ReactJSXDev"] = 5] = "ReactJSXDev";
+  return JsxEmit2;
+})(JsxEmit || {});
+var NewLineKind = /* @__PURE__ */ ((NewLineKind2) => {
+  NewLineKind2[NewLineKind2["CarriageReturnLineFeed"] = 0] = "CarriageReturnLineFeed";
+  NewLineKind2[NewLineKind2["LineFeed"] = 1] = "LineFeed";
+  return NewLineKind2;
+})(NewLineKind || {});
+var ScriptTarget = /* @__PURE__ */ ((ScriptTarget2) => {
+  ScriptTarget2[ScriptTarget2["ES3"] = 0] = "ES3";
+  ScriptTarget2[ScriptTarget2["ES5"] = 1] = "ES5";
+  ScriptTarget2[ScriptTarget2["ES2015"] = 2] = "ES2015";
+  ScriptTarget2[ScriptTarget2["ES2016"] = 3] = "ES2016";
+  ScriptTarget2[ScriptTarget2["ES2017"] = 4] = "ES2017";
+  ScriptTarget2[ScriptTarget2["ES2018"] = 5] = "ES2018";
+  ScriptTarget2[ScriptTarget2["ES2019"] = 6] = "ES2019";
+  ScriptTarget2[ScriptTarget2["ES2020"] = 7] = "ES2020";
+  ScriptTarget2[ScriptTarget2["ESNext"] = 99] = "ESNext";
+  ScriptTarget2[ScriptTarget2["JSON"] = 100] = "JSON";
+  ScriptTarget2[ScriptTarget2["Latest"] = 99] = "Latest";
+  return ScriptTarget2;
+})(ScriptTarget || {});
+var ModuleResolutionKind = /* @__PURE__ */ ((ModuleResolutionKind2) => {
+  ModuleResolutionKind2[ModuleResolutionKind2["Classic"] = 1] = "Classic";
+  ModuleResolutionKind2[ModuleResolutionKind2["NodeJs"] = 2] = "NodeJs";
+  return ModuleResolutionKind2;
+})(ModuleResolutionKind || {});
+var LanguageServiceDefaultsImpl = /* @__PURE__ */ __name(class {
+  constructor(compilerOptions, diagnosticsOptions, workerOptions, inlayHintsOptions) {
+    this._onDidChange = new monaco_editor_core_exports.Emitter();
+    this._onDidExtraLibsChange = new monaco_editor_core_exports.Emitter();
+    this._extraLibs = /* @__PURE__ */ Object.create(null);
+    this._removedExtraLibs = /* @__PURE__ */ Object.create(null);
+    this._eagerModelSync = false;
+    this.setCompilerOptions(compilerOptions);
+    this.setDiagnosticsOptions(diagnosticsOptions);
+    this.setWorkerOptions(workerOptions);
+    this.setInlayHintsOptions(inlayHintsOptions);
+    this._onDidExtraLibsChangeTimeout = -1;
+  }
+  get onDidChange() {
+    return this._onDidChange.event;
+  }
+  get onDidExtraLibsChange() {
+    return this._onDidExtraLibsChange.event;
+  }
+  get workerOptions() {
+    return this._workerOptions;
+  }
+  get inlayHintsOptions() {
+    return this._inlayHintsOptions;
+  }
+  getExtraLibs() {
+    return this._extraLibs;
+  }
+  addExtraLib(content, _filePath) {
+    let filePath;
+    if (typeof _filePath === "undefined") {
+      filePath = `ts:extralib-${Math.random().toString(36).substring(2, 15)}`;
+    } else {
+      filePath = _filePath;
+    }
+    if (this._extraLibs[filePath] && this._extraLibs[filePath].content === content) {
+      return {
+        dispose: () => {
+        }
+      };
+    }
+    let myVersion = 1;
+    if (this._removedExtraLibs[filePath]) {
+      myVersion = this._removedExtraLibs[filePath] + 1;
+    }
+    if (this._extraLibs[filePath]) {
+      myVersion = this._extraLibs[filePath].version + 1;
+    }
+    this._extraLibs[filePath] = {
+      content,
+      version: myVersion
+    };
+    this._fireOnDidExtraLibsChangeSoon();
+    return {
+      dispose: () => {
+        let extraLib = this._extraLibs[filePath];
+        if (!extraLib) {
+          return;
+        }
+        if (extraLib.version !== myVersion) {
+          return;
+        }
+        delete this._extraLibs[filePath];
+        this._removedExtraLibs[filePath] = myVersion;
+        this._fireOnDidExtraLibsChangeSoon();
+      }
+    };
+  }
+  setExtraLibs(libs) {
+    for (const filePath in this._extraLibs) {
+      this._removedExtraLibs[filePath] = this._extraLibs[filePath].version;
+    }
+    this._extraLibs = /* @__PURE__ */ Object.create(null);
+    if (libs && libs.length > 0) {
+      for (const lib of libs) {
+        const filePath = lib.filePath || `ts:extralib-${Math.random().toString(36).substring(2, 15)}`;
+        const content = lib.content;
+        let myVersion = 1;
+        if (this._removedExtraLibs[filePath]) {
+          myVersion = this._removedExtraLibs[filePath] + 1;
+        }
+        this._extraLibs[filePath] = {
+          content,
+          version: myVersion
+        };
+      }
+    }
+    this._fireOnDidExtraLibsChangeSoon();
+  }
+  _fireOnDidExtraLibsChangeSoon() {
+    if (this._onDidExtraLibsChangeTimeout !== -1) {
+      return;
+    }
+    this._onDidExtraLibsChangeTimeout = window.setTimeout(() => {
+      this._onDidExtraLibsChangeTimeout = -1;
+      this._onDidExtraLibsChange.fire(void 0);
+    }, 0);
+  }
+  getCompilerOptions() {
+    return this._compilerOptions;
+  }
+  setCompilerOptions(options) {
+    this._compilerOptions = options || /* @__PURE__ */ Object.create(null);
+    this._onDidChange.fire(void 0);
+  }
+  getDiagnosticsOptions() {
+    return this._diagnosticsOptions;
+  }
+  setDiagnosticsOptions(options) {
+    this._diagnosticsOptions = options || /* @__PURE__ */ Object.create(null);
+    this._onDidChange.fire(void 0);
+  }
+  setWorkerOptions(options) {
+    this._workerOptions = options || /* @__PURE__ */ Object.create(null);
+    this._onDidChange.fire(void 0);
+  }
+  setInlayHintsOptions(options) {
+    this._inlayHintsOptions = options || /* @__PURE__ */ Object.create(null);
+    this._onDidChange.fire(void 0);
+  }
+  setMaximumWorkerIdleTime(value) {
+  }
+  setEagerModelSync(value) {
+    this._eagerModelSync = value;
+  }
+  getEagerModelSync() {
+    return this._eagerModelSync;
+  }
+}, "LanguageServiceDefaultsImpl");
+var typescriptVersion2 = typescriptVersion;
+var typescriptDefaults = new LanguageServiceDefaultsImpl({ allowNonTsExtensions: true, target: 99 }, { noSemanticValidation: false, noSyntaxValidation: false, onlyVisible: false }, {}, {});
+var javascriptDefaults = new LanguageServiceDefaultsImpl({ allowNonTsExtensions: true, allowJs: true, target: 99 }, { noSemanticValidation: true, noSyntaxValidation: false, onlyVisible: false }, {}, {});
+var getTypeScriptWorker = /* @__PURE__ */ __name(() => {
+  return getMode().then((mode) => mode.getTypeScriptWorker());
+}, "getTypeScriptWorker");
+var getJavaScriptWorker = /* @__PURE__ */ __name(() => {
+  return getMode().then((mode) => mode.getJavaScriptWorker());
+}, "getJavaScriptWorker");
+monaco_editor_core_exports.languages.typescript = {
+  ModuleKind,
+  JsxEmit,
+  NewLineKind,
+  ScriptTarget,
+  ModuleResolutionKind,
+  typescriptVersion: typescriptVersion2,
+  typescriptDefaults,
+  javascriptDefaults,
+  getTypeScriptWorker,
+  getJavaScriptWorker
+};
+function getMode() {
+  if (false) {
+    return new Promise((resolve, reject) => {
+      __require(["vs/language/typescript/tsMode"], resolve, reject);
+    });
+  } else {
+    return import("./chunk-tsMode-QUINJFU7.mjs");
+  }
+}
+__name(getMode, "getMode");
+monaco_editor_core_exports.languages.onLanguage("typescript", () => {
+  return getMode().then((mode) => mode.setupTypeScript(typescriptDefaults));
+});
+monaco_editor_core_exports.languages.onLanguage("javascript", () => {
+  return getMode().then((mode) => mode.setupJavaScript(javascriptDefaults));
+});
+
+// ../../.yarn/global/cache/monaco-editor-npm-0.34.1-03d887d213-9.zip/node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js
+var __defProp2 = Object.defineProperty;
+var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames2 = Object.getOwnPropertyNames;
+var __hasOwnProp2 = Object.prototype.hasOwnProperty;
+var __defNormalProp = /* @__PURE__ */ __name((obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value, "__defNormalProp");
+var __copyProps2 = /* @__PURE__ */ __name((to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames2(from))
+      if (!__hasOwnProp2.call(to, key) && key !== except)
+        __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
+  }
+  return to;
+}, "__copyProps");
+var __reExport2 = /* @__PURE__ */ __name((target, mod, secondTarget) => (__copyProps2(target, mod, "default"), secondTarget && __copyProps2(secondTarget, mod, "default")), "__reExport");
 var __publicField = /* @__PURE__ */ __name((obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 }, "__publicField");
-var monaco_editor_core_exports = {};
-__reExport(monaco_editor_core_exports, editor_api_exports);
+var monaco_editor_core_exports2 = {};
+__reExport2(monaco_editor_core_exports2, editor_api_exports);
 var WorkerManager = /* @__PURE__ */ __name(class {
   constructor(_modeId, _defaults) {
     this._modeId = _modeId;
@@ -67,7 +294,7 @@ var WorkerManager = /* @__PURE__ */ __name(class {
   _getClient() {
     if (!this._client) {
       this._client = (async () => {
-        this._worker = monaco_editor_core_exports.editor.createWebWorker({
+        this._worker = monaco_editor_core_exports2.editor.createWebWorker({
           moduleId: "vs/language/typescript/tsWorker",
           label: this._modeId,
           keepIdleModels: true,
@@ -79,7 +306,7 @@ var WorkerManager = /* @__PURE__ */ __name(class {
           }
         });
         if (this._defaults.getEagerModelSync()) {
-          return await this._worker.withSyncedResources(monaco_editor_core_exports.editor.getModels().filter((model) => model.getLanguageId() === this._modeId).map((model) => model.uri));
+          return await this._worker.withSyncedResources(monaco_editor_core_exports2.editor.getModels().filter((model) => model.getLanguageId() === this._modeId).map((model) => model.uri));
         }
         return await this._worker.getProxy();
       })();
@@ -216,17 +443,17 @@ var LibFiles = /* @__PURE__ */ __name(class {
     return false;
   }
   getOrCreateModel(fileName) {
-    const uri = monaco_editor_core_exports.Uri.parse(fileName);
-    const model = monaco_editor_core_exports.editor.getModel(uri);
+    const uri = monaco_editor_core_exports2.Uri.parse(fileName);
+    const model = monaco_editor_core_exports2.editor.getModel(uri);
     if (model) {
       return model;
     }
     if (this.isLibFile(uri) && this._hasFetchedLibFiles) {
-      return monaco_editor_core_exports.editor.createModel(this._libFiles[uri.path.slice(1)], "typescript", uri);
+      return monaco_editor_core_exports2.editor.createModel(this._libFiles[uri.path.slice(1)], "typescript", uri);
     }
     const matchedLibFile = typescriptDefaults.getExtraLibs()[fileName];
     if (matchedLibFile) {
-      return monaco_editor_core_exports.editor.createModel(matchedLibFile.content, "typescript", uri);
+      return monaco_editor_core_exports2.editor.createModel(matchedLibFile.content, "typescript", uri);
     }
     return null;
   }
@@ -287,7 +514,7 @@ var DiagnosticsAdapter = /* @__PURE__ */ __name(class extends Adapter {
           if (model.isAttachedToEditor()) {
             maybeValidate();
           } else {
-            monaco_editor_core_exports.editor.setModelMarkers(model, this._selector, []);
+            monaco_editor_core_exports2.editor.setModelMarkers(model, this._selector, []);
           }
         }
       });
@@ -301,35 +528,35 @@ var DiagnosticsAdapter = /* @__PURE__ */ __name(class extends Adapter {
       maybeValidate();
     }, "onModelAdd");
     const onModelRemoved = /* @__PURE__ */ __name((model) => {
-      monaco_editor_core_exports.editor.setModelMarkers(model, this._selector, []);
+      monaco_editor_core_exports2.editor.setModelMarkers(model, this._selector, []);
       const key = model.uri.toString();
       if (this._listener[key]) {
         this._listener[key].dispose();
         delete this._listener[key];
       }
     }, "onModelRemoved");
-    this._disposables.push(monaco_editor_core_exports.editor.onDidCreateModel((model) => onModelAdd(model)));
-    this._disposables.push(monaco_editor_core_exports.editor.onWillDisposeModel(onModelRemoved));
-    this._disposables.push(monaco_editor_core_exports.editor.onDidChangeModelLanguage((event) => {
+    this._disposables.push(monaco_editor_core_exports2.editor.onDidCreateModel((model) => onModelAdd(model)));
+    this._disposables.push(monaco_editor_core_exports2.editor.onWillDisposeModel(onModelRemoved));
+    this._disposables.push(monaco_editor_core_exports2.editor.onDidChangeModelLanguage((event) => {
       onModelRemoved(event.model);
       onModelAdd(event.model);
     }));
     this._disposables.push({
       dispose() {
-        for (const model of monaco_editor_core_exports.editor.getModels()) {
+        for (const model of monaco_editor_core_exports2.editor.getModels()) {
           onModelRemoved(model);
         }
       }
     });
     const recomputeDiagostics = /* @__PURE__ */ __name(() => {
-      for (const model of monaco_editor_core_exports.editor.getModels()) {
+      for (const model of monaco_editor_core_exports2.editor.getModels()) {
         onModelRemoved(model);
         onModelAdd(model);
       }
     }, "recomputeDiagostics");
     this._disposables.push(this._defaults.onDidChange(recomputeDiagostics));
     this._disposables.push(this._defaults.onDidExtraLibsChange(recomputeDiagostics));
-    monaco_editor_core_exports.editor.getModels().forEach((model) => onModelAdd(model));
+    monaco_editor_core_exports2.editor.getModels().forEach((model) => onModelAdd(model));
   }
   dispose() {
     this._disposables.forEach((d) => d && d.dispose());
@@ -356,12 +583,12 @@ var DiagnosticsAdapter = /* @__PURE__ */ __name(class extends Adapter {
       return;
     }
     const diagnostics = allDiagnostics.reduce((p, c) => c.concat(p), []).filter((d) => (this._defaults.getDiagnosticsOptions().diagnosticCodesToIgnore || []).indexOf(d.code) === -1);
-    const relatedUris = diagnostics.map((d) => d.relatedInformation || []).reduce((p, c) => c.concat(p), []).map((relatedInformation) => relatedInformation.file ? monaco_editor_core_exports.Uri.parse(relatedInformation.file.fileName) : null);
+    const relatedUris = diagnostics.map((d) => d.relatedInformation || []).reduce((p, c) => c.concat(p), []).map((relatedInformation) => relatedInformation.file ? monaco_editor_core_exports2.Uri.parse(relatedInformation.file.fileName) : null);
     await this._libFiles.fetchLibFilesIfNecessary(relatedUris);
     if (model.isDisposed()) {
       return;
     }
-    monaco_editor_core_exports.editor.setModelMarkers(model, this._selector, diagnostics.map((d) => this._convertDiagnostics(model, d)));
+    monaco_editor_core_exports2.editor.setModelMarkers(model, this._selector, diagnostics.map((d) => this._convertDiagnostics(model, d)));
   }
   _convertDiagnostics(model, diag) {
     const diagStart = diag.start || 0;
@@ -370,10 +597,10 @@ var DiagnosticsAdapter = /* @__PURE__ */ __name(class extends Adapter {
     const { lineNumber: endLineNumber, column: endColumn } = model.getPositionAt(diagStart + diagLength);
     const tags = [];
     if (diag.reportsUnnecessary) {
-      tags.push(monaco_editor_core_exports.MarkerTag.Unnecessary);
+      tags.push(monaco_editor_core_exports2.MarkerTag.Unnecessary);
     }
     if (diag.reportsDeprecated) {
-      tags.push(monaco_editor_core_exports.MarkerTag.Deprecated);
+      tags.push(monaco_editor_core_exports2.MarkerTag.Deprecated);
     }
     return {
       severity: this._tsDiagnosticCategoryToMarkerSeverity(diag.category),
@@ -418,15 +645,15 @@ var DiagnosticsAdapter = /* @__PURE__ */ __name(class extends Adapter {
   _tsDiagnosticCategoryToMarkerSeverity(category) {
     switch (category) {
       case 1:
-        return monaco_editor_core_exports.MarkerSeverity.Error;
+        return monaco_editor_core_exports2.MarkerSeverity.Error;
       case 3:
-        return monaco_editor_core_exports.MarkerSeverity.Info;
+        return monaco_editor_core_exports2.MarkerSeverity.Info;
       case 0:
-        return monaco_editor_core_exports.MarkerSeverity.Warning;
+        return monaco_editor_core_exports2.MarkerSeverity.Warning;
       case 2:
-        return monaco_editor_core_exports.MarkerSeverity.Hint;
+        return monaco_editor_core_exports2.MarkerSeverity.Hint;
     }
-    return monaco_editor_core_exports.MarkerSeverity.Info;
+    return monaco_editor_core_exports2.MarkerSeverity.Info;
   }
 }, "DiagnosticsAdapter");
 var SuggestAdapter = /* @__PURE__ */ __name(class extends Adapter {
@@ -435,7 +662,7 @@ var SuggestAdapter = /* @__PURE__ */ __name(class extends Adapter {
   }
   async provideCompletionItems(model, position, _context, token) {
     const wordInfo = model.getWordUntilPosition(position);
-    const wordRange = new monaco_editor_core_exports.Range(position.lineNumber, wordInfo.startColumn, position.lineNumber, wordInfo.endColumn);
+    const wordRange = new monaco_editor_core_exports2.Range(position.lineNumber, wordInfo.startColumn, position.lineNumber, wordInfo.endColumn);
     const resource = model.uri;
     const offset = model.getOffsetAt(position);
     const worker = await this._worker(resource);
@@ -451,11 +678,11 @@ var SuggestAdapter = /* @__PURE__ */ __name(class extends Adapter {
       if (entry.replacementSpan) {
         const p1 = model.getPositionAt(entry.replacementSpan.start);
         const p2 = model.getPositionAt(entry.replacementSpan.start + entry.replacementSpan.length);
-        range = new monaco_editor_core_exports.Range(p1.lineNumber, p1.column, p2.lineNumber, p2.column);
+        range = new monaco_editor_core_exports2.Range(p1.lineNumber, p1.column, p2.lineNumber, p2.column);
       }
       const tags = [];
       if (entry.kindModifiers?.indexOf("deprecated") !== -1) {
-        tags.push(monaco_editor_core_exports.languages.CompletionItemTag.Deprecated);
+        tags.push(monaco_editor_core_exports2.languages.CompletionItemTag.Deprecated);
       }
       return {
         uri: resource,
@@ -498,32 +725,32 @@ var SuggestAdapter = /* @__PURE__ */ __name(class extends Adapter {
     switch (kind) {
       case Kind.primitiveType:
       case Kind.keyword:
-        return monaco_editor_core_exports.languages.CompletionItemKind.Keyword;
+        return monaco_editor_core_exports2.languages.CompletionItemKind.Keyword;
       case Kind.variable:
       case Kind.localVariable:
-        return monaco_editor_core_exports.languages.CompletionItemKind.Variable;
+        return monaco_editor_core_exports2.languages.CompletionItemKind.Variable;
       case Kind.memberVariable:
       case Kind.memberGetAccessor:
       case Kind.memberSetAccessor:
-        return monaco_editor_core_exports.languages.CompletionItemKind.Field;
+        return monaco_editor_core_exports2.languages.CompletionItemKind.Field;
       case Kind.function:
       case Kind.memberFunction:
       case Kind.constructSignature:
       case Kind.callSignature:
       case Kind.indexSignature:
-        return monaco_editor_core_exports.languages.CompletionItemKind.Function;
+        return monaco_editor_core_exports2.languages.CompletionItemKind.Function;
       case Kind.enum:
-        return monaco_editor_core_exports.languages.CompletionItemKind.Enum;
+        return monaco_editor_core_exports2.languages.CompletionItemKind.Enum;
       case Kind.module:
-        return monaco_editor_core_exports.languages.CompletionItemKind.Module;
+        return monaco_editor_core_exports2.languages.CompletionItemKind.Module;
       case Kind.class:
-        return monaco_editor_core_exports.languages.CompletionItemKind.Class;
+        return monaco_editor_core_exports2.languages.CompletionItemKind.Class;
       case Kind.interface:
-        return monaco_editor_core_exports.languages.CompletionItemKind.Interface;
+        return monaco_editor_core_exports2.languages.CompletionItemKind.Interface;
       case Kind.warning:
-        return monaco_editor_core_exports.languages.CompletionItemKind.File;
+        return monaco_editor_core_exports2.languages.CompletionItemKind.File;
     }
-    return monaco_editor_core_exports.languages.CompletionItemKind.Property;
+    return monaco_editor_core_exports2.languages.CompletionItemKind.Property;
   }
   static createDocumentationString(details) {
     let documentationString = displayPartsToString(details.documentation);
@@ -559,7 +786,7 @@ var SignatureHelpAdapter = /* @__PURE__ */ __name(class extends Adapter {
   }
   static _toSignatureHelpTriggerReason(context) {
     switch (context.triggerKind) {
-      case monaco_editor_core_exports.languages.SignatureHelpTriggerKind.TriggerCharacter:
+      case monaco_editor_core_exports2.languages.SignatureHelpTriggerKind.TriggerCharacter:
         if (context.triggerCharacter) {
           if (context.isRetrigger) {
             return { kind: "retrigger", triggerCharacter: context.triggerCharacter };
@@ -569,9 +796,9 @@ var SignatureHelpAdapter = /* @__PURE__ */ __name(class extends Adapter {
         } else {
           return { kind: "invoked" };
         }
-      case monaco_editor_core_exports.languages.SignatureHelpTriggerKind.ContentChange:
+      case monaco_editor_core_exports2.languages.SignatureHelpTriggerKind.ContentChange:
         return context.isRetrigger ? { kind: "retrigger" } : { kind: "invoked" };
-      case monaco_editor_core_exports.languages.SignatureHelpTriggerKind.Invoke:
+      case monaco_editor_core_exports2.languages.SignatureHelpTriggerKind.Invoke:
       default:
         return { kind: "invoked" };
     }
@@ -670,7 +897,7 @@ var OccurrencesAdapter = /* @__PURE__ */ __name(class extends Adapter {
     return entries.map((entry) => {
       return {
         range: this._textSpanToRange(model, entry.textSpan),
-        kind: entry.isWriteAccess ? monaco_editor_core_exports.languages.DocumentHighlightKind.Write : monaco_editor_core_exports.languages.DocumentHighlightKind.Text
+        kind: entry.isWriteAccess ? monaco_editor_core_exports2.languages.DocumentHighlightKind.Write : monaco_editor_core_exports2.languages.DocumentHighlightKind.Text
       };
     });
   }
@@ -691,7 +918,7 @@ var DefinitionAdapter = /* @__PURE__ */ __name(class extends Adapter {
     if (!entries || model.isDisposed()) {
       return;
     }
-    await this._libFiles.fetchLibFilesIfNecessary(entries.map((entry) => monaco_editor_core_exports.Uri.parse(entry.fileName)));
+    await this._libFiles.fetchLibFilesIfNecessary(entries.map((entry) => monaco_editor_core_exports2.Uri.parse(entry.fileName)));
     if (model.isDisposed()) {
       return;
     }
@@ -724,7 +951,7 @@ var ReferenceAdapter = /* @__PURE__ */ __name(class extends Adapter {
     if (!entries || model.isDisposed()) {
       return;
     }
-    await this._libFiles.fetchLibFilesIfNecessary(entries.map((entry) => monaco_editor_core_exports.Uri.parse(entry.fileName)));
+    await this._libFiles.fetchLibFilesIfNecessary(entries.map((entry) => monaco_editor_core_exports2.Uri.parse(entry.fileName)));
     if (model.isDisposed()) {
       return;
     }
@@ -756,7 +983,7 @@ var OutlineAdapter = /* @__PURE__ */ __name(class extends Adapter {
       let result2 = {
         name: item.text,
         detail: "",
-        kind: outlineTypeTable[item.kind] || monaco_editor_core_exports.languages.SymbolKind.Variable,
+        kind: outlineTypeTable[item.kind] || monaco_editor_core_exports2.languages.SymbolKind.Variable,
         range: this._textSpanToRange(model, item.spans[0]),
         selectionRange: this._textSpanToRange(model, item.spans[0]),
         tags: []
@@ -806,20 +1033,20 @@ __publicField(Kind, "const", "const");
 __publicField(Kind, "let", "let");
 __publicField(Kind, "warning", "warning");
 var outlineTypeTable = /* @__PURE__ */ Object.create(null);
-outlineTypeTable[Kind.module] = monaco_editor_core_exports.languages.SymbolKind.Module;
-outlineTypeTable[Kind.class] = monaco_editor_core_exports.languages.SymbolKind.Class;
-outlineTypeTable[Kind.enum] = monaco_editor_core_exports.languages.SymbolKind.Enum;
-outlineTypeTable[Kind.interface] = monaco_editor_core_exports.languages.SymbolKind.Interface;
-outlineTypeTable[Kind.memberFunction] = monaco_editor_core_exports.languages.SymbolKind.Method;
-outlineTypeTable[Kind.memberVariable] = monaco_editor_core_exports.languages.SymbolKind.Property;
-outlineTypeTable[Kind.memberGetAccessor] = monaco_editor_core_exports.languages.SymbolKind.Property;
-outlineTypeTable[Kind.memberSetAccessor] = monaco_editor_core_exports.languages.SymbolKind.Property;
-outlineTypeTable[Kind.variable] = monaco_editor_core_exports.languages.SymbolKind.Variable;
-outlineTypeTable[Kind.const] = monaco_editor_core_exports.languages.SymbolKind.Variable;
-outlineTypeTable[Kind.localVariable] = monaco_editor_core_exports.languages.SymbolKind.Variable;
-outlineTypeTable[Kind.variable] = monaco_editor_core_exports.languages.SymbolKind.Variable;
-outlineTypeTable[Kind.function] = monaco_editor_core_exports.languages.SymbolKind.Function;
-outlineTypeTable[Kind.localFunction] = monaco_editor_core_exports.languages.SymbolKind.Function;
+outlineTypeTable[Kind.module] = monaco_editor_core_exports2.languages.SymbolKind.Module;
+outlineTypeTable[Kind.class] = monaco_editor_core_exports2.languages.SymbolKind.Class;
+outlineTypeTable[Kind.enum] = monaco_editor_core_exports2.languages.SymbolKind.Enum;
+outlineTypeTable[Kind.interface] = monaco_editor_core_exports2.languages.SymbolKind.Interface;
+outlineTypeTable[Kind.memberFunction] = monaco_editor_core_exports2.languages.SymbolKind.Method;
+outlineTypeTable[Kind.memberVariable] = monaco_editor_core_exports2.languages.SymbolKind.Property;
+outlineTypeTable[Kind.memberGetAccessor] = monaco_editor_core_exports2.languages.SymbolKind.Property;
+outlineTypeTable[Kind.memberSetAccessor] = monaco_editor_core_exports2.languages.SymbolKind.Property;
+outlineTypeTable[Kind.variable] = monaco_editor_core_exports2.languages.SymbolKind.Variable;
+outlineTypeTable[Kind.const] = monaco_editor_core_exports2.languages.SymbolKind.Variable;
+outlineTypeTable[Kind.localVariable] = monaco_editor_core_exports2.languages.SymbolKind.Variable;
+outlineTypeTable[Kind.variable] = monaco_editor_core_exports2.languages.SymbolKind.Variable;
+outlineTypeTable[Kind.function] = monaco_editor_core_exports2.languages.SymbolKind.Function;
+outlineTypeTable[Kind.localFunction] = monaco_editor_core_exports2.languages.SymbolKind.Function;
 var FormatHelper = /* @__PURE__ */ __name(class extends Adapter {
   static _convertOptions(options) {
     return {
@@ -1022,11 +1249,11 @@ var InlayHintsAdapter = /* @__PURE__ */ __name(class extends Adapter {
   _convertHintKind(kind) {
     switch (kind) {
       case "Parameter":
-        return monaco_editor_core_exports.languages.InlayHintKind.Parameter;
+        return monaco_editor_core_exports2.languages.InlayHintKind.Parameter;
       case "Type":
-        return monaco_editor_core_exports.languages.InlayHintKind.Type;
+        return monaco_editor_core_exports2.languages.InlayHintKind.Type;
       default:
-        return monaco_editor_core_exports.languages.InlayHintKind.Type;
+        return monaco_editor_core_exports2.languages.InlayHintKind.Type;
     }
   }
 }, "InlayHintsAdapter");
@@ -1040,7 +1267,7 @@ function setupJavaScript(defaults) {
   javaScriptWorker = setupMode(defaults, "javascript");
 }
 __name(setupJavaScript, "setupJavaScript");
-function getJavaScriptWorker() {
+function getJavaScriptWorker2() {
   return new Promise((resolve, reject) => {
     if (!javaScriptWorker) {
       return reject("JavaScript not registered!");
@@ -1048,8 +1275,8 @@ function getJavaScriptWorker() {
     resolve(javaScriptWorker);
   });
 }
-__name(getJavaScriptWorker, "getJavaScriptWorker");
-function getTypeScriptWorker() {
+__name(getJavaScriptWorker2, "getJavaScriptWorker");
+function getTypeScriptWorker2() {
   return new Promise((resolve, reject) => {
     if (!typeScriptWorker) {
       return reject("TypeScript not registered!");
@@ -1057,51 +1284,52 @@ function getTypeScriptWorker() {
     resolve(typeScriptWorker);
   });
 }
-__name(getTypeScriptWorker, "getTypeScriptWorker");
+__name(getTypeScriptWorker2, "getTypeScriptWorker");
 function setupMode(defaults, modeId) {
   const client = new WorkerManager(modeId, defaults);
   const worker = /* @__PURE__ */ __name((...uris) => {
     return client.getLanguageServiceWorker(...uris);
   }, "worker");
   const libFiles = new LibFiles(worker);
-  monaco_editor_core_exports.languages.registerCompletionItemProvider(modeId, new SuggestAdapter(worker));
-  monaco_editor_core_exports.languages.registerSignatureHelpProvider(modeId, new SignatureHelpAdapter(worker));
-  monaco_editor_core_exports.languages.registerHoverProvider(modeId, new QuickInfoAdapter(worker));
-  monaco_editor_core_exports.languages.registerDocumentHighlightProvider(modeId, new OccurrencesAdapter(worker));
-  monaco_editor_core_exports.languages.registerDefinitionProvider(modeId, new DefinitionAdapter(libFiles, worker));
-  monaco_editor_core_exports.languages.registerReferenceProvider(modeId, new ReferenceAdapter(libFiles, worker));
-  monaco_editor_core_exports.languages.registerDocumentSymbolProvider(modeId, new OutlineAdapter(worker));
-  monaco_editor_core_exports.languages.registerDocumentRangeFormattingEditProvider(modeId, new FormatAdapter(worker));
-  monaco_editor_core_exports.languages.registerOnTypeFormattingEditProvider(modeId, new FormatOnTypeAdapter(worker));
-  monaco_editor_core_exports.languages.registerCodeActionProvider(modeId, new CodeActionAdaptor(worker));
-  monaco_editor_core_exports.languages.registerRenameProvider(modeId, new RenameAdapter(libFiles, worker));
-  monaco_editor_core_exports.languages.registerInlayHintsProvider(modeId, new InlayHintsAdapter(worker));
+  monaco_editor_core_exports2.languages.registerCompletionItemProvider(modeId, new SuggestAdapter(worker));
+  monaco_editor_core_exports2.languages.registerSignatureHelpProvider(modeId, new SignatureHelpAdapter(worker));
+  monaco_editor_core_exports2.languages.registerHoverProvider(modeId, new QuickInfoAdapter(worker));
+  monaco_editor_core_exports2.languages.registerDocumentHighlightProvider(modeId, new OccurrencesAdapter(worker));
+  monaco_editor_core_exports2.languages.registerDefinitionProvider(modeId, new DefinitionAdapter(libFiles, worker));
+  monaco_editor_core_exports2.languages.registerReferenceProvider(modeId, new ReferenceAdapter(libFiles, worker));
+  monaco_editor_core_exports2.languages.registerDocumentSymbolProvider(modeId, new OutlineAdapter(worker));
+  monaco_editor_core_exports2.languages.registerDocumentRangeFormattingEditProvider(modeId, new FormatAdapter(worker));
+  monaco_editor_core_exports2.languages.registerOnTypeFormattingEditProvider(modeId, new FormatOnTypeAdapter(worker));
+  monaco_editor_core_exports2.languages.registerCodeActionProvider(modeId, new CodeActionAdaptor(worker));
+  monaco_editor_core_exports2.languages.registerRenameProvider(modeId, new RenameAdapter(libFiles, worker));
+  monaco_editor_core_exports2.languages.registerInlayHintsProvider(modeId, new InlayHintsAdapter(worker));
   new DiagnosticsAdapter(libFiles, defaults, modeId, worker);
   return worker;
 }
 __name(setupMode, "setupMode");
+
 export {
-  Adapter,
-  CodeActionAdaptor,
-  DefinitionAdapter,
-  DiagnosticsAdapter,
-  FormatAdapter,
-  FormatHelper,
-  FormatOnTypeAdapter,
-  InlayHintsAdapter,
-  Kind,
-  LibFiles,
-  OccurrencesAdapter,
-  OutlineAdapter,
-  QuickInfoAdapter,
-  ReferenceAdapter,
-  RenameAdapter,
-  SignatureHelpAdapter,
-  SuggestAdapter,
   WorkerManager,
   flattenDiagnosticMessageText,
-  getJavaScriptWorker,
-  getTypeScriptWorker,
+  Adapter,
+  LibFiles,
+  DiagnosticsAdapter,
+  SuggestAdapter,
+  SignatureHelpAdapter,
+  QuickInfoAdapter,
+  OccurrencesAdapter,
+  DefinitionAdapter,
+  ReferenceAdapter,
+  OutlineAdapter,
+  Kind,
+  FormatHelper,
+  FormatAdapter,
+  FormatOnTypeAdapter,
+  CodeActionAdaptor,
+  RenameAdapter,
+  InlayHintsAdapter,
+  setupTypeScript,
   setupJavaScript,
-  setupTypeScript
+  getJavaScriptWorker2 as getJavaScriptWorker,
+  getTypeScriptWorker2 as getTypeScriptWorker
 };

@@ -1,4 +1,5 @@
-import "./chunk-chunk-2AJNQCQO.mjs";
+import "./chunk-chunk-S2OCZ5J3.mjs";
+import "./chunk-chunk-KOG6CMON.mjs";
 import {
   $,
   Action,
@@ -42776,7 +42777,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-5WXUAW5Q.mjs");
+      return import("./chunk-typescript-2RJ6CDQ6.mjs");
     }
   }
 });
@@ -43004,9 +43005,8 @@ var getWorkerUrl = /* @__PURE__ */ __name((_moduleId, label) => {
 }, "getWorkerUrl");
 
 // js/startMonaco.ts
+var { createModel } = editor;
 var create = editor.create;
-var createModel = editor.createModel;
-var codeSpace = "";
 var originToUse = location.origin.includes("spike") ? location.origin : "https://testing.spike.land/";
 var lib = [
   "dom",
@@ -43126,28 +43126,23 @@ self.MonacoEnvironment = {
   getWorkerUrl
 };
 var mod = {};
-var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name, onChange }) => {
-  editor.getEditors().map((x) => x.dispose());
-  codeSpace = name;
-  if (mod[name]) {
-    return mod[name];
-  }
-  const returnValue = await startMonacoPristine({ code, container, name });
-  async function startMonacoPristine({ code: code2, container: container2 }) {
-    const replaced = await monacoContribution(
-      code2
-    );
-    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-      noSuggestionDiagnostics: true,
-      noSemanticValidation: true,
-      noSyntaxValidation: true
-    });
-    const uri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
-    const model = editor.getModel(uri) || createModel(
-      replaced,
-      "typescript",
-      uri
-    );
+var startMonaco = /* @__PURE__ */ __name(async ({ code, container, codeSpace, onChange }) => mod[codeSpace] = mod[codeSpace] || await startMonacoPristine({ code, container, codeSpace, onChange }), "startMonaco");
+async function startMonacoPristine({ code, container, codeSpace, onChange }) {
+  const replaced = await monacoContribution(
+    code
+  );
+  languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    noSuggestionDiagnostics: true,
+    noSemanticValidation: true,
+    noSyntaxValidation: true
+  });
+  const uri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
+  const model = editor.getModel(uri) || createModel(
+    replaced,
+    "typescript",
+    uri
+  );
+  const addExtraM = /* @__PURE__ */ __name(async () => {
     const search = new RegExp(
       ` from '(${originToUse}/)?live/[a-zA-Z]+`,
       "gm"
@@ -43162,101 +43157,103 @@ var startMonaco = /* @__PURE__ */ __name(async ({ code, container, name, onChang
         mUri
       );
     }
-    const target = container2;
-    const myEditor = create(target, {
-      model,
-      scrollbar: {
-        scrollByPage: false,
-        alwaysConsumeMouseWheel: false
-      },
-      scrollBeyondLastLine: true,
-      scrollPredominantAxis: false,
-      smoothScrolling: true,
-      suggest: {
-        insertMode: "replace",
-        filterGraceful: false,
-        snippetsPreventQuickSuggestions: false,
-        localityBonus: true,
-        shareSuggestSelections: true,
-        showIcons: true,
-        showStatusBar: true,
-        preview: true,
-        previewMode: "subwordSmart",
-        showInlineDetails: true,
-        showMethods: true,
-        showFunctions: true,
-        showConstructors: true,
-        showFields: true,
-        showColors: true,
-        showFiles: true,
-        showReferences: true,
-        showFolders: true,
-        showTypeParameters: true,
-        showIssues: true,
-        showUsers: true,
-        showSnippets: true
-      },
-      automaticLayout: true,
-      useShadowDOM: false,
-      roundedSelection: true,
-      bracketPairColorization: {
-        independentColorPoolPerBracketType: true,
-        enabled: true
-      },
-      codeLens: true,
-      "semanticHighlighting.enabled": true,
-      dragAndDrop: true,
-      codeActionsOnSaveTimeout: 300,
-      dropIntoEditor: { enabled: true },
-      mouseStyle: "default",
-      definitionLinkOpensInPeek: true,
-      theme: "vs-dark",
-      autoClosingBrackets: "beforeWhitespace"
-    });
-    languages.typescript.typescriptDefaults.setEagerModelSync(true);
-    setTimeout(() => extraStuff(code2, uri, languages.typescript), 1e3);
-    const mod2 = {
-      model,
-      getValue: () => model.getValue(),
-      silent: false,
-      getErrors: async () => {
-        return (await (await languages.typescript.getTypeScriptWorker())(uri)).getSuggestionDiagnostics(uri.toString()).then((diag) => diag.map((d) => d.messageText.toString())).catch(
-          (e) => {
-            console.log("ts error, will retry", e);
-          }
-        );
-      },
-      setValue: (code3) => ((mod3) => {
-        mod3.silent = true;
-        let state = null;
-        try {
-          console.log("trying to change code");
-          try {
-            state = myEditor.saveViewState();
-          } catch {
-            console.error("error while saving monaco state");
-          }
-          console.log("trying to change code");
-          mod3.model.setValue(code3);
-          if (state) {
-            myEditor.restoreViewState(state);
-          }
-        } catch {
-          console.error("error while saving the state");
-        } finally {
-          mod3.silent = false;
+  }, "addExtraM");
+  setTimeout(() => addExtraM(), 500);
+  const target = container;
+  const myEditor = create(target, {
+    model,
+    scrollbar: {
+      scrollByPage: false,
+      alwaysConsumeMouseWheel: false
+    },
+    scrollBeyondLastLine: true,
+    scrollPredominantAxis: false,
+    smoothScrolling: true,
+    suggest: {
+      insertMode: "replace",
+      filterGraceful: false,
+      snippetsPreventQuickSuggestions: false,
+      localityBonus: true,
+      shareSuggestSelections: true,
+      showIcons: true,
+      showStatusBar: true,
+      preview: true,
+      previewMode: "subwordSmart",
+      showInlineDetails: true,
+      showMethods: true,
+      showFunctions: true,
+      showConstructors: true,
+      showFields: true,
+      showModules: true,
+      showColors: true,
+      showFiles: true,
+      showReferences: true,
+      showFolders: true,
+      showTypeParameters: true,
+      showIssues: true,
+      showUsers: true,
+      showSnippets: true
+    },
+    automaticLayout: true,
+    useShadowDOM: false,
+    roundedSelection: true,
+    bracketPairColorization: {
+      independentColorPoolPerBracketType: true,
+      enabled: true
+    },
+    codeLens: true,
+    "semanticHighlighting.enabled": true,
+    dragAndDrop: true,
+    codeActionsOnSaveTimeout: 300,
+    dropIntoEditor: { enabled: true },
+    mouseStyle: "default",
+    definitionLinkOpensInPeek: true,
+    theme: "vs-dark",
+    autoClosingBrackets: "beforeWhitespace"
+  });
+  languages.typescript.typescriptDefaults.setEagerModelSync(true);
+  setTimeout(() => extraStuff(code, uri, languages.typescript), 1e3);
+  const mod2 = {
+    model,
+    getValue: () => model.getValue(),
+    silent: false,
+    getErrors: async () => {
+      return (await (await languages.typescript.getTypeScriptWorker())(uri)).getSuggestionDiagnostics(uri.toString()).then((diag) => diag.map((d) => d.messageText.toString())).catch(
+        (e) => {
+          console.log("ts error, will retry", e);
         }
-      })(mod2)
-    };
-    model.onDidChangeContent(() => {
-      if (mod2.silent)
-        return;
-      onChange(model.getValue());
-    });
-    return mod2;
-  }
-  __name(startMonacoPristine, "startMonacoPristine");
-}, "startMonaco");
+      );
+    },
+    setValue: (code2) => ((mod3) => {
+      mod3.silent = true;
+      let state = null;
+      try {
+        console.log("trying to change code");
+        try {
+          state = myEditor.saveViewState();
+        } catch {
+          console.error("error while saving monaco state");
+        }
+        console.log("trying to change code");
+        myEditor.setValue(code2);
+        if (state) {
+          myEditor.restoreViewState(state);
+        }
+      } catch {
+        console.error("error while saving the state");
+      } finally {
+        mod3.silent = false;
+      }
+    })(mod2)
+  };
+  model.onDidChangeContent(() => {
+    if (mod2.silent)
+      return;
+    onChange(myEditor.getValue());
+  });
+  return mod2;
+}
+__name(startMonacoPristine, "startMonacoPristine");
 export {
   startMonaco
 };

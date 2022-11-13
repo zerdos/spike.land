@@ -159,7 +159,7 @@ async function onModChange(_code: string, codeSpace: string) {
 
   if (code === prettierJs(mod.code)) return;
 
-  const counter = ++mod.counter;
+  const counter = mST().i + 1;
   mod.code = code;
   runner({ code, counter, codeSpace });
 }
@@ -174,7 +174,7 @@ async function setMonaco(container: HTMLDivElement, codeSpace: string) {
   const { startMonaco } = await import("./startMonaco");
   return await startMonaco({
     container,
-    name: codeSpace,
+    codeSpace,
     code: mST().code,
     onChange: (code) => onModChange(code, codeSpace),
   });
