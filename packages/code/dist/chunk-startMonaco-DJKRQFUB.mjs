@@ -43213,6 +43213,11 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
   });
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   setTimeout(() => extraStuff(code, uri, languages.typescript), 1e3);
+  const changed = /* @__PURE__ */ __name(() => {
+    if (mod2.silent)
+      return;
+    onChange(myEditor.getValue());
+  }, "changed");
   const mod2 = {
     model,
     getValue: () => model.getValue(),
@@ -43246,11 +43251,7 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
       }
     })(mod2)
   };
-  model.onDidChangeContent(() => {
-    if (mod2.silent)
-      return;
-    onChange(myEditor.getValue());
-  });
+  editor.getModels()[0].onDidChangeContent(() => () => changed());
   return mod2;
 }
 __name(startMonacoPristine, "startMonacoPristine");

@@ -383,6 +383,10 @@ async function startMonacoPristine(
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 
+  const changed = () => {
+    if (mod.silent) return;
+    onChange(myEditor.getValue());
+  };
   const mod = {
     model,
     getValue: () => model.getValue(),
@@ -418,14 +422,12 @@ async function startMonacoPristine(
           console.error("error while saving the state");
         } finally {
           mod.silent = false;
+          editor.getModels()[0].onDidChangeContent(() => () => changed());
         }
       })(mod),
   };
 
-  model.onDidChangeContent(() => {
-    if (mod.silent) return;
-    onChange(myEditor.getValue());
-  });
+  editor.getModels()[0].onDidChangeContent(() => () => changed());
 
   return mod;
 }
