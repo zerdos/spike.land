@@ -5442,7 +5442,9 @@ var CodeSession = class {
     }, "hashOfState");
     this.createPatchFromHashCode = /* @__PURE__ */ __name((oldHash, state, updateHash) => {
       const s = JSON.parse(string_(state));
-      hashStore[md5(this.session.get("state").transpiled)] = this.session.get("state");
+      hashStore[md5(this.session.get("state").transpiled)] = this.session.get(
+        "state"
+      );
       let oldRec = hashStore[oldHash];
       let usedOldHash = oldHash;
       if (!oldRec) {

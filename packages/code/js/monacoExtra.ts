@@ -96,7 +96,9 @@ export function extraStuff(
   const ATA = async () => {
     console.log("ATA");
     const mappings = (await Promise.all(
-      (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(uri.toString())).map((x) => {
+      (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(
+        uri.toString(),
+      )).map((x) => {
         //   console.log(x.messageText);
         return x.messageText;
       }).filter((x) =>

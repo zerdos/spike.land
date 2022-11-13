@@ -27,7 +27,10 @@ export const initAndTransform: typeof transform = async (code, opts) => {
 
   // 0123456
 
-  const trp = transformed.code.replaceAll(regex1, ` from '${location.origin}/live/`)
+  const trp = transformed.code.replaceAll(
+    regex1,
+    ` from '${location.origin}/live/`,
+  )
     .replaceAll(regex2, ` from '${location.origin}/live/`);
 
   return { ...transformed, code: `/*${md5(code)}*/` + trp };

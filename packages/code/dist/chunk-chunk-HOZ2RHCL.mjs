@@ -2,7 +2,7 @@ import {
   AutoUpdateApp,
   Editor,
   wait
-} from "./chunk-chunk-C4YGW4UC.mjs";
+} from "./chunk-chunk-UGIWG4RL.mjs";
 import {
   applyPatch,
   hashCode,
@@ -12,7 +12,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-BSZOAW4H.mjs";
+} from "./chunk-chunk-EHCA3OUL.mjs";
 import {
   Children,
   Fragment,
@@ -3530,7 +3530,7 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-XXG6RZMA.mjs")));
+var DraggableWindowLazy = lazy(() => wait(1e3).then(() => import("./chunk-DraggableWindow-O7I3WN66.mjs")));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ jsxs("div", {
   children: [
     !mST().css.includes("body{") ? /* @__PURE__ */ jsx(Global, {
@@ -4126,7 +4126,11 @@ async function processData(data, source, conn) {
         stream = inboundStream;
       }
       ev.track.onended = () => vidElement.srcObject = null;
-      sendChannel.tracks[target] = { track: ev.track, streams: [stream], vidElement };
+      sendChannel.tracks[target] = {
+        track: ev.track,
+        streams: [stream],
+        vidElement
+      };
     };
     rtcConns[target].ondatachannel = (event) => {
       users.insert(target);

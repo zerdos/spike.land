@@ -66,7 +66,7 @@ export class Code {
     });
   }
   wait = (x?: () => boolean) => {
-    this.waiting = this.waiting.filter(x => !x());
+    this.waiting = this.waiting.filter((x) => !x());
     if (x && !x()) this.waiting.push(x);
   };
 

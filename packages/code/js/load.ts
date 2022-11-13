@@ -10,7 +10,10 @@ async function start() {
     return;
   }
 
-  const { run } = await importShim<{ run: (t: any) => void }, { run: (t: any) => void }>(`${location.origin}/ws.mjs`);
+  const { run } = await importShim<
+    { run: (t: any) => void },
+    { run: (t: any) => void }
+  >(`${location.origin}/ws.mjs`);
   const {
     mST,
     address,

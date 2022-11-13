@@ -42852,7 +42852,9 @@ function extraStuff(code, uri, typescript) {
   const ATA = /* @__PURE__ */ __name(async () => {
     console.log("ATA");
     const mappings = (await Promise.all(
-      (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(uri.toString())).map((x) => {
+      (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(
+        uri.toString()
+      )).map((x) => {
         return x.messageText;
       }).filter(
         (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")

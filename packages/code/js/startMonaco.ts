@@ -401,7 +401,8 @@ export const startMonaco = async (
       getValue: () => model.getValue(),
       silent: false,
       getErrors: async () => {
-        return (await (await languages.typescript.getTypeScriptWorker())(uri)).getSuggestionDiagnostics(uri.toString())
+        return (await (await languages.typescript.getTypeScriptWorker())(uri))
+          .getSuggestionDiagnostics(uri.toString())
           .then((diag) => diag.map((d) => d.messageText.toString()))
           .catch(
             (e) => {

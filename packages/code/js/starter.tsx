@@ -26,7 +26,9 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
   myAppCounters[nUrl] = myAppCounters[nUrl] || naked;
 
   while (true) {
-    const betterNaked = naked < myAppCounters[nUrl] ? myAppCounters[nUrl] : naked;
+    const betterNaked = naked < myAppCounters[nUrl]
+      ? myAppCounters[nUrl]
+      : naked;
     const url = [...urlARR, betterNaked].join("/");
 
     try {
@@ -54,13 +56,14 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
             try {
               App = (await (fetch(url.replace(".js", ".tsx")).then(async (resp) =>
                 resp && !resp.ok ? false : await resp.text().then(
-                  code =>
+                  (code) =>
                     esmTransform(code).then(
-                      transpiled =>
+                      (transpiled) =>
                         importShim(createJsBlob(transpiled)),
                     ),
                 )
-              )) || new Function(trp + ` return ${trp.slice(2, 10)}`)()).default;
+              )) || new Function(trp + ` return ${trp.slice(2, 10)}`)())
+                .default;
             } catch {
               console.error("something went nuts");
             }
@@ -71,7 +74,10 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
         }
       } catch (err) {
         console.error({ err });
-        console.error((err && (err as unknown as any)?.message as unknown as any) || "error has been thrown");
+        console.error(
+          (err && (err as unknown as any)?.message as unknown as any)
+            || "error has been thrown",
+        );
       }
     } catch {
       console.error("bad something happened;");
@@ -105,11 +111,13 @@ export function AutoUpdateApp(
 
   useEffect(() => {
     (async () => {
-      const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
+      const { url, App: newApp } = await importIt(
+        `${location.origin}/live/${codeSpace}/index.js/${i}`,
+      );
 
       const urlCounter = +(url.split("/").pop() || 0);
       if (i < urlCounter && newApp !== App) {
-        setApps(x => ({ ...x, i: urlCounter, App: newApp }));
+        setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
       }
     })();
   }, []);
@@ -117,11 +125,13 @@ export function AutoUpdateApp(
   useEffect(() => {
     (async () => {
       (async () => {
-        const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
+        const { url, App: newApp } = await importIt(
+          `${location.origin}/live/${codeSpace}/index.js/${i + 1}`,
+        );
         const urlCounter = +(url.split("/").pop() || 0);
         if (i < urlCounter && newApp !== App) {
           console.log({ url, urlCounter });
-          setApps(x => ({ ...x, i: urlCounter, App: newApp }));
+          setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
         }
       })();
     })();

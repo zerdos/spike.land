@@ -4,7 +4,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-BSZOAW4H.mjs";
+} from "./chunk-chunk-EHCA3OUL.mjs";
 import {
   PureComponent,
   createElement,
@@ -25,7 +25,7 @@ import {
 } from "./chunk-chunk-QWXFQFWU.mjs";
 import {
   initAndTransform
-} from "./chunk-chunk-PAZYWBPP.mjs";
+} from "./chunk-chunk-WVPHG7BD.mjs";
 import {
   md5
 } from "./chunk-chunk-WNMOTYVA.mjs";
@@ -21834,7 +21834,9 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
         }
       } catch (err) {
         console.error({ err });
-        console.error(err && err?.message || "error has been thrown");
+        console.error(
+          err && err?.message || "error has been thrown"
+        );
       }
     } catch {
       console.error("bad something happened;");
@@ -21857,7 +21859,9 @@ function AutoUpdateApp({ codeSpace }) {
   });
   useEffect(() => {
     (async () => {
-      const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i}`);
+      const { url, App: newApp } = await importIt(
+        `${location.origin}/live/${codeSpace}/index.js/${i}`
+      );
       const urlCounter = +(url.split("/").pop() || 0);
       if (i < urlCounter && newApp !== App) {
         setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
@@ -21867,7 +21871,9 @@ function AutoUpdateApp({ codeSpace }) {
   useEffect(() => {
     (async () => {
       (async () => {
-        const { url, App: newApp } = await importIt(`${location.origin}/live/${codeSpace}/index.js/${i + 1}`);
+        const { url, App: newApp } = await importIt(
+          `${location.origin}/live/${codeSpace}/index.js/${i + 1}`
+        );
         const urlCounter = +(url.split("/").pop() || 0);
         if (i < urlCounter && newApp !== App) {
           console.log({ url, urlCounter });
@@ -22106,7 +22112,7 @@ var mod2 = {
   globalThis.UMD_require = require;
   
      `;
-    const { transform } = await import("./chunk-esbuildEsm-AADGTPZL.mjs");
+    const { transform } = await import("./chunk-esbuildEsm-GEUOV5MA.mjs");
     const t = await transform(res, {
       format: "esm",
       minify: true,
@@ -22127,7 +22133,7 @@ var mod2 = {
   data: {}
 };
 var toUmd = /* @__PURE__ */ __name(async (source, name) => {
-  const { transform } = await import("./chunk-esbuildEsm-AADGTPZL.mjs");
+  const { transform } = await import("./chunk-esbuildEsm-GEUOV5MA.mjs");
   const hash = md5(source);
   mod2.hashMap = { ...mod2.hashMap, [hash]: name, [name]: hash };
   if (!mod2.data[hash]) {
@@ -22406,7 +22412,7 @@ async function setMonaco(container, codeSpace) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-ZOR4LG6X.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-O3UGFWBR.mjs");
   return await startMonaco({
     container,
     name: codeSpace,
@@ -22421,7 +22427,11 @@ async function setAce(container, codeSpace) {
     return;
   startedAce = 1;
   const { startAce } = await import("./chunk-startAce-GXALF75K.mjs");
-  return await startAce(mST().code, (code) => onModChange(code, codeSpace), container);
+  return await startAce(
+    mST().code,
+    (code) => onModChange(code, codeSpace),
+    container
+  );
 }
 __name(setAce, "setAce");
 

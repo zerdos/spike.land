@@ -2466,7 +2466,10 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   const transformed = await (0, import_esbuild_wasm.transform)(code, opts);
   const regex1 = / from '\.\./gi;
   const regex2 = / from '\./gi;
-  const trp = transformed.code.replaceAll(regex1, ` from '${location.origin}/live/`).replaceAll(regex2, ` from '${location.origin}/live/`);
+  const trp = transformed.code.replaceAll(
+    regex1,
+    ` from '${location.origin}/live/`
+  ).replaceAll(regex2, ` from '${location.origin}/live/`);
   return { ...transformed, code: `/*${md5(code)}*/` + trp };
 }, "initAndTransform");
 

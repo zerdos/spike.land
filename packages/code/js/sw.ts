@@ -40,7 +40,9 @@ addEventListener("fetch", async (_event) => {
       getCacheName();
     }
 
-    const cacheKey = new Request(request.url + (fileCache === myCache ? "?files=" + cacheName : ""));
+    const cacheKey = new Request(
+      request.url + (fileCache === myCache ? "?files=" + cacheName : ""),
+    );
     const cachedResp = await myCache.match(cacheKey);
 
     if (cachedResp) return cachedResp.clone();
@@ -49,7 +51,10 @@ addEventListener("fetch", async (_event) => {
 
     const resp = await fetch(request);
 
-    if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache" && !resp.headers.get("Location")) {
+    if (
+      resp.ok && resp.headers.get("Cache-Control") !== "no-cache"
+      && !resp.headers.get("Location")
+    ) {
       await myCache.put(cacheKey, resp.clone());
     }
     return resp;

@@ -185,5 +185,9 @@ async function setAce(container: HTMLDivElement, codeSpace: string) {
   startedAce = 1;
   const { startAce } = await import("./startAce");
 
-  return await startAce(mST().code, (code) => onModChange(code, codeSpace), container);
+  return await startAce(
+    mST().code,
+    (code) => onModChange(code, codeSpace),
+    container,
+  );
 }
