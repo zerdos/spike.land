@@ -12,7 +12,10 @@ export class RateLimiterClient {
   //   lost.
   // * reportError(err) is called when something goes wrong and the rate limiter is broken. It
   //   should probably disconnect the client, so that they can reconnect and start over.
-  constructor(private getLimiterStub: () => CodeRateLimiter, private reportError: (err: unknown) => void) {
+  constructor(
+    private getLimiterStub: () => CodeRateLimiter,
+    private reportError: (err: unknown) => void,
+  ) {
     this.getLimiterStub = getLimiterStub;
     this.reportError = reportError;
 

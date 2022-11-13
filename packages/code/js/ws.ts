@@ -533,7 +533,7 @@ async function processData(
       ) {
         await createPeerConnection(data.name);
         const users = data.users as string[];
-        const p2pUsers = users.filter(u => u !== user && !ignoreUsers.includes(u));
+        const p2pUsers = users.filter((u) => u !== user && !ignoreUsers.includes(u));
         while (p2pUsers.length) {
           const nextToConnect = p2pUsers.pop();
           if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
@@ -652,7 +652,11 @@ async function processData(
 
       //  sendChannel.localStream?.addTrack(ev.track);
 
-      sendChannel.tracks[target] = { track: ev.track, streams: [stream], vidElement };
+      sendChannel.tracks[target] = {
+        track: ev.track,
+        streams: [stream],
+        vidElement,
+      };
     };
 
     rtcConns[target].ondatachannel = (event) => {

@@ -59,8 +59,8 @@ exports.default = {
       const accept = request.headers.get("accept");
       const serveJs = !(accept && accept.includes("html"));
       if (
-        serveJs && u.pathname.endsWith(".tsx")
-        && !u.pathname.endsWith(".index.tsx")
+        serveJs && u.pathname.endsWith(".tsx") &&
+        !u.pathname.endsWith(".index.tsx")
       ) {
         url = new URL(request.url.replace(".tsx", "/index.tsx"));
       }
@@ -97,12 +97,14 @@ exports.default = {
           if (
             path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
           ) {
-            const isJs = u.toString().includes(".js")
-              || u.toString().includes(".mjs");
+            const isJs = u.toString().includes(".js") ||
+              u.toString().includes(".mjs");
             const packageName = u.toString().replace(u.origin + "/npm:", "")
               .replace(u.origin + "/node_modules", "");
             const searchParams = (isJs
-              ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} `
+              ? `?bundle&external=${
+                esbuildExternal.filter((p) => p !== packageName).join(",")
+              } `
               : "");
             const esmUrl = "https://esm.sh/" + packageName + searchParams;
             let resp = await fetch(esmUrl, { ...request, url: esmUrl });
@@ -133,10 +135,10 @@ exports.default = {
             const responseToCache = new Response(
               isText
                 ? bodyStr.replaceAll(regex, u.origin + "/npm:/")
-                  .replaceAll(regex2, " from \"/npm:/")
-                  .replaceAll(regex3, "import \"/npm:/")
-                  .replaceAll(regex4, " from \"/npm:/")
-                  .replaceAll(regex5, "import \"/npm:/")
+                  .replaceAll(regex2, ' from "/npm:/')
+                  .replaceAll(regex3, 'import "/npm:/')
+                  .replaceAll(regex4, ' from "/npm:/')
+                  .replaceAll(regex5, 'import "/npm:/')
                 : await resp.blob(),
               {
                 status: 200,
@@ -180,10 +182,10 @@ exports.default = {
             const responseToCache = new Response(
               `
               // ${request.url}
-              `
-                + bodyStr
+              ` +
+                bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
-                  .replaceAll(regex2, " from \"/unpkg:")
+                  .replaceAll(regex2, ' from "/unpkg:')
                 : await resp.blob(),
               {
                 status: 200,
@@ -230,10 +232,10 @@ exports.default = {
             const responseToCache = new Response(
               `
               // ${request.url}
-              `
-                + bodyStr
+              ` +
+                bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
-                  .replaceAll(regex2, " from \"/node_modules/")
+                  .replaceAll(regex2, ' from "/node_modules/')
                 : await resp.blob(),
               {
                 status: 200,
