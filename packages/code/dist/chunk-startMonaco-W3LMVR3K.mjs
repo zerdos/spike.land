@@ -43248,6 +43248,7 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
         console.error("error while saving the state");
       } finally {
         mod3.silent = false;
+        myEditor.getModel().onDidChangeContent(() => () => changed());
       }
     })(mod2)
   };
