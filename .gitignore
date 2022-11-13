@@ -1,9 +1,5 @@
-.yarn/cache 
-**.yarn/cache
 haters/
 .env
-.yarn/cache
-.yarn/global
 client_id§
 videos/
 screenshots/

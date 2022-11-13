@@ -1,0 +1,37 @@
+{
+  "lastUpdate": 1668309119538,
+  "blocks": {
+    "*": {
+      "hits": {
+        "installCount": {
+          "pnp": 20
+        }
+      },
+      "values": {
+        "version": [
+          "4.0.0-rc.28"
+        ],
+        "commandName": [
+          "<none>",
+          "workspace",
+          "upgrade-interactive",
+          "workspaces foreach",
+          "install"
+        ],
+        "workspaceCount": [
+          "4",
+          "16"
+        ],
+        "dependencyCount": [
+          "83",
+          "102"
+        ]
+      },
+      "enumerators": {
+        "projectCount": [
+          "3470108c7bab21d1d1101dc1031ac4d37d727cba6c530b9ec0e62af9b7bc7c05f0ceb09a9864b22904903f7bab1fc928301deb0e406cc7fd87030ac0c43cce9d"
+        ]
+      }
+    }
+  }
+}
