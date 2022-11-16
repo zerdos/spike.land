@@ -884,15 +884,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.27.1":
-  version: 1.27.1
-  resolution: "@playwright/test@npm:1.27.1"
+"@playwright/test@npm:1.28.0":
+  version: 1.28.0
+  resolution: "@playwright/test@npm:1.28.0"
   dependencies:
     "@types/node": "npm:*"
-    playwright-core: "npm:1.27.1"
+    playwright-core: "npm:1.28.0"
   bin:
     playwright: cli.js
-  checksum: b4e1616a963df30a5f642acffd9a691bb3ffa1c00a76fae8c260d363144c4a7d433269dbd6fee5a8b8f46db36316de3d44b4e5b31ad74b5ec0e4f8240a76d7aa
+  checksum: 4b5f83451b9ff233de74f0141e221b4949fe71d44fb56df5329057e5e38968197dab64c9e2433f932943808836f7cffd01a629deb71c0ef598d80d41ade99237
   languageName: node
   linkType: hard
 
@@ -4775,7 +4775,7 @@ __metadata:
   resolution: "monorepo@workspace:."
   dependencies:
     "@emotion/react": "npm:^11.10.5"
-    "@playwright/test": "npm:1.27.1"
+    "@playwright/test": "npm:1.28.0"
     "@types/eslint": "npm:^8.4.10"
     "@types/react": "npm:18.0.25"
     "@types/react-dom": "npm:18.0.9"
@@ -4786,7 +4786,7 @@ __metadata:
     esbuild: "npm:^0.15.14"
     eslint: "npm:^8.27.0"
     eslint-plugin-react: "npm:^7.31.10"
-    playwright: "npm:1.27.1"
+    playwright: "npm:1.28.0"
     react: "npm:^18.2.0"
     typescript: "npm:^4.9.3"
   languageName: unknown
@@ -5288,23 +5288,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.27.1":
-  version: 1.27.1
-  resolution: "playwright-core@npm:1.27.1"
+"playwright-core@npm:1.28.0":
+  version: 1.28.0
+  resolution: "playwright-core@npm:1.28.0"
   bin:
     playwright: cli.js
-  checksum: 997ebf99163243a7c6bfcdac9218f7c4b7234d65c52dce26a8eff352426f426618e0c7ad1b8b4fe6aba93fc481da219677268a2c373bdf87d1b519d90db36809
+  checksum: df9bb4b18d25556952ea4ae5696da03c12c1793aa87d5565c888088fad07d9e092577dc8de2b8130203c7a366f237decb0f6baecaacfd08599262baeceb7749b
   languageName: node
   linkType: hard
 
-"playwright@npm:1.27.1":
-  version: 1.27.1
-  resolution: "playwright@npm:1.27.1"
+"playwright@npm:1.28.0":
+  version: 1.28.0
+  resolution: "playwright@npm:1.28.0"
   dependencies:
-    playwright-core: "npm:1.27.1"
+    playwright-core: "npm:1.28.0"
   bin:
     playwright: cli.js
-  checksum: 67f6e1915c1bc68c582e974978fb26e1337d2f954e2a7f7bdbba10399184f09f172c55c85553d0d3168ce4ecc4af81697fb3d9c21de065bbe510e30919771af2
+  checksum: d79fdd8831360e52fadf716ada17fc81a535e804163beeae3f1c86488b814078073bb7c34249fda52756a6ce495e2d5665a3c7176afa17a31b4c1b4e4eca798e
   languageName: node
   linkType: hard
 
