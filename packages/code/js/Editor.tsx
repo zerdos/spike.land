@@ -111,6 +111,12 @@ export const Editor: FC<
 
   return (
     <Resizable
+      enable={{
+        top: true,
+        bottom: true,
+        right: true,
+        left: false,
+      }}
       defaultSize={{
         width: "640px",
         height: "95vh",
