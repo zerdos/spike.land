@@ -159,7 +159,9 @@ export const startMonaco = async (
     codeSpace: string;
     onChange: (_code: string) => void;
   },
-) => mod[codeSpace] = mod[codeSpace] || await startMonacoPristine({ code, container, codeSpace, onChange });
+) =>
+  mod[codeSpace] = mod[codeSpace]
+    || await startMonacoPristine({ code, container, codeSpace, onChange });
 
 //  editor.getEditors().map((x) => x.dispose());
 

@@ -41752,8 +41752,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
   importShim.addImportMap({ imports: res });
   var runtime = /* @__PURE__ */ __name(() => {
-    if (globalThis.React)
-      return;
     const React2 = require_react();
     Object.assign(globalThis, { React: React2 });
     const ReactDOM2 = require_react_dom();
@@ -41789,20 +41787,27 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     };
     const FramerMotion2 = require_cjs();
     Object.assign(globalThis, { FramerMotion: FramerMotion2 });
+    return {
+      React: React2,
+      ReactDOM: ReactDOM2,
+      styled: styled2,
+      emotionReact: emotionReact2,
+      emotionReactJsxRuntime: emotionReactJsxRuntime2,
+      ReactDOMClient: ReactDOMClient2,
+      createEmotionCache: createEmotionCache2,
+      FramerMotion: FramerMotion2
+    };
   }, "runtime");
-  runtime();
   var {
     React,
     ReactDOM,
-    ReactDOMClient,
-    ReactJSXRuntime,
+    styled,
     emotionReact,
     emotionReactJsxRuntime,
-    ReactDOMServer,
+    ReactDOMClient,
     createEmotionCache,
-    styled,
     FramerMotion
-  } = globalThis;
+  } = runtime();
   var mapTable = {
     "react": React,
     "react-dom": ReactDOM,
@@ -41812,17 +41817,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     "@emotion/cache": createEmotionCache,
     "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
     "react/jsx-runtime": ReactJSXRuntime,
-    "react-dom/server": ReactDOMServer,
     "framer-motion": FramerMotion
   };
-  globalThis.requireLoading = [];
   var requireUmd = /* @__PURE__ */ __name((pkg) => {
     if (mapTable[pkg])
       return mapTable[pkg];
     if (window[pkg])
       return window[pkg];
-    if (globalThis[pkg])
-      return globalThis[pkg];
     if (apps[pkg])
       return apps[pkg];
     if (pkg.includes(`spike.land/live`))
