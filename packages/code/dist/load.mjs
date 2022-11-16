@@ -1,7 +1,10 @@
-var __defProp = Object.defineProperty;
-var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+import {
+  __name,
+  init_define_process
+} from "./chunk-chunk-4FHARZBR.mjs";
 
 // js/load.ts
+init_define_process();
 var codeSpace = location.pathname.slice(1).split("/")[1];
 async function start() {
   if (!globalThis.React?.Children) {

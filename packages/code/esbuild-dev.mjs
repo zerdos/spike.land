@@ -249,18 +249,18 @@ const build = (
     aliasPlugin({
       //    "stream": resolve("./js/stream.mjs"),
       //  "buffer": resolve("./js/buffer/index.ts"),
-      "@emotion/react": resolve("./js/emotion.ts"),
-      "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
-      "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
-      "@emotion/cache": resolve("./js/emotionCache.ts"),
-      "@emotion/styled": resolve("./js/emotionStyled.mjs"),
+      // "@emotion/react": resolve("./js/emotion.ts"),
+      // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
+      // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
+      // "@emotion/cache": resolve("./js/emotionCache.ts"),
+      // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
 
       // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
       // // "./mui": resolve("./dist/mui.mjs"),
       "react": resolve("./js/reactMod.ts"),
       "react-dom": resolve("./js/reactMod.ts"),
       "react-dom/client": resolve("./js/reactMod.ts"),
-      "framer-motion": resolve("./js/motion.ts"),
+      // "framer-motion": resolve("./js/motion.ts"),
       // "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
     }),
   ];
@@ -282,20 +282,30 @@ const build = (
     format: "iife",
     outdir: "dist",
   });
+
   await build(
     [
       "js/session.ts",
       // "js/prettierWorker.mjs",
-      // "js/load.ts",
-      "js/reactMod.ts",
+      "js/load.ts",
+      // "js/reactMod.ts",
       "js/Editor.tsx",
-      "js/motion.ts",
+      // "js/motion.ts",
       "js/ws.ts",
+
+      "js/reactMod.ts",
+      // "js/Editor.tsx",
+      "js/motion.ts",
+
+      // "js/ws.ts",
       "js/emotion.ts",
       "js/emotionJsxRuntime.ts",
+      // "js/emotion.ts",
+      // "js/emotionJsxRuntime.ts",
       // "js/jsx.mjs",
     ],
-    [],
+    [ // "react", "react-dom", "react-dom/client", "@emotion/react", "@emotion/react/jsx-runtime", "framer-motion"
+    ],
     false,
   );
   console.log("done");

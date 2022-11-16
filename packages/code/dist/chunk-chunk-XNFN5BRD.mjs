@@ -2,7 +2,7 @@ import {
   AutoUpdateApp,
   Editor,
   wait
-} from "./chunk-chunk-CNAHYCZ7.mjs";
+} from "./chunk-chunk-EHR5X7MS.mjs";
 import {
   applyPatch,
   hashCode,
@@ -13,6 +13,15 @@ import {
   require_lodash,
   startSession
 } from "./chunk-chunk-EHCA3OUL.mjs";
+import {
+  md5
+} from "./chunk-chunk-WNMOTYVA.mjs";
+import {
+  require_emotion_react_cjs
+} from "./chunk-chunk-RX5QNQUD.mjs";
+import {
+  require_emotion_react_jsx_runtime_cjs
+} from "./chunk-chunk-P5CAS67B.mjs";
 import {
   Children,
   Fragment,
@@ -29,18 +38,6 @@ import {
   lazy,
   useMemo
 } from "./chunk-chunk-5XDTQVNY.mjs";
-import {
-  Global,
-  css
-} from "./chunk-chunk-PFBWPXXL.mjs";
-import {
-  Fragment as Fragment2,
-  jsx,
-  jsxs
-} from "./chunk-chunk-QWXFQFWU.mjs";
-import {
-  md5
-} from "./chunk-chunk-WNMOTYVA.mjs";
 import {
   __commonJS,
   __export,
@@ -3530,11 +3527,13 @@ var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
 var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/renderPreviewWindow.tsx
-var DraggableWindowLazy = lazy(() => import("./chunk-DraggableWindow-Z524Z722.mjs"));
-var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ jsxs("div", {
+var import_react2 = __toESM(require_emotion_react_cjs(), 1);
+var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var DraggableWindowLazy = lazy(() => import("./chunk-DraggableWindow-XBEKA4TR.mjs"));
+var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
   children: [
-    !mST().css.includes("body{") ? /* @__PURE__ */ jsx(Global, {
-      styles: css`
+    !mST().css.includes("body{") ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.Global, {
+      styles: import_react2.css`
 body{
 height: 100%;
 width: 100%;
@@ -3592,35 +3591,35 @@ var AppToRender = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
   }), []);
   const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
   const devTools = !onlyApp;
-  return /* @__PURE__ */ jsxs(Fragment2, {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, {
     children: [
-      /* @__PURE__ */ jsx(InPortal, {
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InPortal, {
         node: portalNode,
-        children: /* @__PURE__ */ jsx(AutoUpdateApp, {
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AutoUpdateApp, {
           codeSpace: codeSpace2
         })
       }),
-      /* @__PURE__ */ jsx(Suspense, {
-        fallback: /* @__PURE__ */ jsx(OutPortal, {
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Suspense, {
+        fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, {
           node: portalNode
         }),
-        children: devTools ? /* @__PURE__ */ jsx(RainbowContainer, {
-          children: /* @__PURE__ */ jsxs(Fragment, {
+        children: devTools ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RainbowContainer, {
+          children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Fragment, {
             children: [
-              /* @__PURE__ */ jsx(Editor, {
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Editor, {
                 codeSpace: codeSpace2
               }),
-              /* @__PURE__ */ jsx(DraggableWindowLazy, {
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DraggableWindowLazy, {
                 room: codeSpace2,
-                children: /* @__PURE__ */ jsx(OutPortal, {
+                children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, {
                   node: portalNode
                 })
               })
             ]
           })
-        }) : /* @__PURE__ */ jsx("div", {
+        }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
           style: { height: 100 + "%" },
-          children: /* @__PURE__ */ jsx(OutPortal, {
+          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, {
             node: portalNode
           })
         })
@@ -3636,8 +3635,8 @@ var renderPreviewWindow = /* @__PURE__ */ __name(({ codeSpace: codeSpace2, dry }
   const div = dry ? document.createElement("div") : document.querySelector("#root");
   const root = createRoot(div);
   root.render(
-    /* @__PURE__ */ jsx(StrictMode, {
-      children: /* @__PURE__ */ jsx(AppToRender, {
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StrictMode, {
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppToRender, {
         codeSpace: codeSpace2
       })
     })

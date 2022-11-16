@@ -1,22 +1,23 @@
 import {
   Fab,
-  QrCodeIcon
-} from "./chunk-chunk-O4JFGNE4.mjs";
-import {
+  QrCodeIcon,
   motion
-} from "./chunk-chunk-HYAK7S2L.mjs";
+} from "./chunk-chunk-XJXRTQJ3.mjs";
+import "./chunk-chunk-GGQHJ3NU.mjs";
+import {
+  require_emotion_react_cjs
+} from "./chunk-chunk-RX5QNQUD.mjs";
+import {
+  require_emotion_react_jsx_runtime_cjs
+} from "./chunk-chunk-P5CAS67B.mjs";
+import "./chunk-chunk-EYLLFVLK.mjs";
+import "./chunk-chunk-ZC42IS3E.mjs";
 import {
   createElement,
   init_reactMod,
   useEffect,
   useState
 } from "./chunk-chunk-5XDTQVNY.mjs";
-import {
-  css
-} from "./chunk-chunk-PFBWPXXL.mjs";
-import {
-  jsx
-} from "./chunk-chunk-QWXFQFWU.mjs";
 import {
   __commonJS,
   __name,
@@ -2363,6 +2364,7 @@ var require_qrious = __commonJS({
 
 // js/Qr.tsx
 init_define_process();
+var import_react3 = __toESM(require_emotion_react_cjs(), 1);
 init_reactMod();
 
 // ../../.yarn/__virtual__/react-qrious-virtual-b90ac76f79/0/global/cache/react-qrious-npm-2.5.6-421c990834-9.zip/node_modules/react-qrious/lib/QRious.js
@@ -2403,9 +2405,10 @@ var QRious2 = /* @__PURE__ */ __name(({ background, backgroundAlpha, foreground,
 }, "QRious");
 
 // js/Qr.tsx
+var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var QRButton = /* @__PURE__ */ __name(({ url }) => {
   const [showQR, setQR] = useState(false);
-  return /* @__PURE__ */ jsx(motion.div, {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
     animate: {
       width: showQR ? 200 : 56,
       height: showQR ? 220 : 48
@@ -2413,14 +2416,14 @@ var QRButton = /* @__PURE__ */ __name(({ url }) => {
     onClick: () => {
       setQR(!showQR);
     },
-    css: css`
+    css: import_react3.css`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
-    children: showQR ? /* @__PURE__ */ jsx(QRious2, {
+    children: showQR ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QRious2, {
       value: url || "/live/coder/public"
-    }, url || origin + url) : /* @__PURE__ */ jsx(Fab, {
-      children: /* @__PURE__ */ jsx(QrCodeIcon, {})
+    }, url || origin + url) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Fab, {
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QrCodeIcon, {})
     })
   });
 }, "QRButton");

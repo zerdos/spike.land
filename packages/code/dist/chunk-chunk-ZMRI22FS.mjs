@@ -6,15 +6,18 @@ import {
   elementTypeAcceptingRef_default,
   generateUtilityClass,
   generateUtilityClasses,
+  import_react,
   refType_default,
-  require_jsx_runtime,
   require_prop_types,
   styled_default,
   useEventCallback,
   useForkRef,
   useIsFocusVisible,
   useThemeProps
-} from "./chunk-chunk-5BCGTN3G.mjs";
+} from "./chunk-chunk-GPVNW7PN.mjs";
+import {
+  require_jsx_runtime
+} from "./chunk-chunk-EYLLFVLK.mjs";
 import {
   Children,
   cloneElement,
@@ -28,9 +31,6 @@ import {
   useRef,
   useState
 } from "./chunk-chunk-5XDTQVNY.mjs";
-import {
-  keyframes
-} from "./chunk-chunk-PFBWPXXL.mjs";
 import {
   __name,
   __toESM,
@@ -378,7 +378,7 @@ var _t3;
 var _t4;
 var DURATION = 550;
 var DELAY_RIPPLE = 80;
-var enterKeyframe = keyframes(_t || (_t = _`
+var enterKeyframe = (0, import_react.keyframes)(_t || (_t = _`
   0% {
     transform: scale(0);
     opacity: 0.1;
@@ -389,7 +389,7 @@ var enterKeyframe = keyframes(_t || (_t = _`
     opacity: 0.3;
   }
 `));
-var exitKeyframe = keyframes(_t2 || (_t2 = _`
+var exitKeyframe = (0, import_react.keyframes)(_t2 || (_t2 = _`
   0% {
     opacity: 1;
   }
@@ -398,7 +398,7 @@ var exitKeyframe = keyframes(_t2 || (_t2 = _`
     opacity: 0;
   }
 `));
-var pulsateKeyframe = keyframes(_t3 || (_t3 = _`
+var pulsateKeyframe = (0, import_react.keyframes)(_t3 || (_t3 = _`
   0% {
     transform: scale(1);
   }

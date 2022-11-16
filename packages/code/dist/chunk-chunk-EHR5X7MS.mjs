@@ -1,10 +1,25 @@
 import {
+  initAndTransform
+} from "./chunk-chunk-Q6AOKHQK.mjs";
+import {
   hashCode,
   mST,
   onSessionUpdate,
   patchSync,
   require_lodash
 } from "./chunk-chunk-EHCA3OUL.mjs";
+import {
+  md5
+} from "./chunk-chunk-WNMOTYVA.mjs";
+import {
+  require_emotion_react_cjs
+} from "./chunk-chunk-RX5QNQUD.mjs";
+import {
+  require_emotion_react_jsx_runtime_cjs
+} from "./chunk-chunk-P5CAS67B.mjs";
+import {
+  require_emotion_cache_cjs
+} from "./chunk-chunk-ZC42IS3E.mjs";
 import {
   PureComponent,
   createElement,
@@ -15,20 +30,6 @@ import {
   useRef,
   useState
 } from "./chunk-chunk-5XDTQVNY.mjs";
-import {
-  CacheProvider,
-  css
-} from "./chunk-chunk-PFBWPXXL.mjs";
-import {
-  jsx,
-  jsxs
-} from "./chunk-chunk-QWXFQFWU.mjs";
-import {
-  initAndTransform
-} from "./chunk-chunk-Q6AOKHQK.mjs";
-import {
-  md5
-} from "./chunk-chunk-WNMOTYVA.mjs";
 import {
   __commonJS,
   __name,
@@ -20905,6 +20906,7 @@ var require_react_error_boundary_umd = __commonJS({
 
 // js/Editor.tsx
 init_define_process();
+var import_react3 = __toESM(require_emotion_react_cjs(), 1);
 
 // ../../.yarn/__virtual__/re-resizable-virtual-24c16ab62b/0/global/cache/re-resizable-npm-6.9.9-2a772ae568-9.zip/node_modules/re-resizable/lib/index.js
 init_define_process();
@@ -21777,9 +21779,11 @@ init_define_process();
 init_define_process();
 init_reactMod();
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
+var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/emotionCache.ts
 init_define_process();
+globalThis.createEmotionCache = globalThis.createEmotionCache || require_emotion_cache_cjs();
 var createCache = globalThis.createEmotionCache.default || globalThis.createEmotionCache;
 var emotionCache_default = createCache;
 
@@ -21795,6 +21799,7 @@ async function wait(delay) {
 __name(wait, "wait");
 
 // js/starter.tsx
+var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 Object.assign(globalThis, { md5 });
 var myApps = {};
 var myAppCounters = {};
@@ -21882,24 +21887,24 @@ function AutoUpdateApp({ codeSpace }) {
       })();
     })();
   }, [i, setApps, App]);
-  return /* @__PURE__ */ jsx(import_react_error_boundary.ErrorBoundary, {
-    fallbackRender: ({ error }) => /* @__PURE__ */ jsxs("div", {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react_error_boundary.ErrorBoundary, {
+    fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
       role: "alert",
       children: [
-        /* @__PURE__ */ jsx("div", {
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
           children: "Oh no"
         }),
-        /* @__PURE__ */ jsx("pre", {
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", {
           children: error.message
         })
       ]
     }),
-    children: App == null ? /* @__PURE__ */ jsx("div", {
+    children: App == null ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
       style: { height: "100%" },
       dangerouslySetInnerHTML: {
         __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
       }
-    }) : /* @__PURE__ */ jsx(App, {})
+    }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
   });
 }
 __name(AutoUpdateApp, "AutoUpdateApp");
@@ -21922,35 +21927,35 @@ async function appFactory(transpiled = "") {
         mod4 = new Function(trp + ` return ${trp.slice(2, 10)}`)();
       }
       const App = mod4.default;
-      apps2[hash] = ({ appId }) => /* @__PURE__ */ jsx("div", {
+      apps2[hash] = ({ appId }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
         style: { height: 100 + "%" },
         id: appId,
-        children: /* @__PURE__ */ jsx(CacheProvider, {
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.CacheProvider, {
           value: eCaches2[hash],
-          children: /* @__PURE__ */ jsx(App, {})
+          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
         }, hash)
       }, hash);
     } catch (error) {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps2[hash] = () => /* @__PURE__ */ jsxs("div", {
-          css: css`background-color: orange;`,
+        apps2[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+          css: import_react2.css`background-color: orange;`,
           children: [
-            /* @__PURE__ */ jsx("h1", {
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
               children: "Syntax Error"
             }),
-            /* @__PURE__ */ jsx("h2", {
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
               children: hash
             }),
-            /* @__PURE__ */ jsxs("h2", {
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            /* @__PURE__ */ jsx("p", {
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
               children: JSON.stringify({ err: error })
             })
           ]
@@ -21958,28 +21963,28 @@ async function appFactory(transpiled = "") {
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps2[hash] = () => /* @__PURE__ */ jsxs("div", {
-          css: css`background-color: orange;`,
+        apps2[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+          css: import_react2.css`background-color: orange;`,
           children: [
-            /* @__PURE__ */ jsx("h1", {
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
               children: "Syntax Error"
             }),
-            /* @__PURE__ */ jsxs("h2", {
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
               children: [
                 name,
                 ": ",
                 message
               ]
             }),
-            /* @__PURE__ */ jsx("p", {
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
               children: JSON.stringify({ err: error })
             })
           ]
         });
       } else {
-        apps2[hash] = () => /* @__PURE__ */ jsx("div", {
-          css: css`background-color: orange;`,
-          children: /* @__PURE__ */ jsxs("h1", {
+        apps2[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+          css: import_react2.css`background-color: orange;`,
+          children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
             children: [
               "Unknown Error: $",
               hash
@@ -22005,6 +22010,7 @@ function createJsBlob(code, fileName = "index.mjs") {
 __name(createJsBlob, "createJsBlob");
 
 // js/renderToString.tsx
+var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod = {
   md5Hash: "",
   wait: 1,
@@ -22032,7 +22038,7 @@ var mod = {
     const App = apps[md5Hash];
     mod.md5Hash = md5Hash;
     mod.res = rootDiv;
-    root.render(/* @__PURE__ */ jsx(App, {
+    root.render(/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App, {
       appId: `${mod.codeSpace}-${md5Hash}`
     }));
     return () => {
@@ -22054,13 +22060,13 @@ var render = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
     const html = await mod.waitForDiv(md5hash);
     if (!html)
       return { html: null, css: null };
-    const css2 = mineFromCaches(eCaches[md5hash]);
+    const css3 = mineFromCaches(eCaches[md5hash]);
     const globalCss = document.querySelector(
       `style[data-emotion=${eCaches[md5hash].key}-global]`
     )?.innerHTML;
     return {
       html,
-      css: globalCss ? globalCss + " " + css2 : css2
+      css: globalCss ? globalCss + " " + css3 : css3
     };
   } finally {
     cleanup();
@@ -22273,9 +22279,9 @@ async function runner({ code, counter, codeSpace }) {
   counterMax = counter;
   try {
     const transpiledCode = await esmTransform(code);
-    const { html, css: css2 } = await render(transpiledCode, codeSpace);
-    console.log({ html, css: css2 });
-    if (!html || !css2) {
+    const { html, css: css3 } = await render(transpiledCode, codeSpace);
+    console.log({ html, css: css3 });
+    if (!html || !css3) {
       return;
     }
     debouncedSync({
@@ -22284,7 +22290,7 @@ async function runner({ code, counter, codeSpace }) {
       i: counter,
       transpiled: transpiledCode,
       html,
-      css: css2
+      css: css3
     });
   } catch (error) {
     console.error({ error });
@@ -22294,6 +22300,7 @@ async function runner({ code, counter, codeSpace }) {
 __name(runner, "runner");
 
 // js/Editor.tsx
+var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod3 = {
   getValue: async () => "",
   setValue: async (code) => {
@@ -22370,7 +22377,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
       myCode: code2
     }));
   }, "editor");
-  return /* @__PURE__ */ jsx(Resizable, {
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Resizable, {
     enable: {
       top: false,
       bottom: true,
@@ -22381,10 +22388,10 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
       width: "640px",
       height: "95vh"
     },
-    children: /* @__PURE__ */ jsx("div", {
+    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", {
       "data-test-id": "editor",
       ref,
-      css: css`
+      css: import_react3.css`
         border-right: 4px dashed gray;
         border-bottom: 4px dashed gray;
           width: 100%;
