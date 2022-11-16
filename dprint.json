@@ -6,6 +6,7 @@
   ],
   "excludes": [
     "**/.yarn",
+    "**/.pnp.*",
     "**/dist",
     "**/public",
     "**/monaco-workers",
