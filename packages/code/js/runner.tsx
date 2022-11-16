@@ -40,7 +40,6 @@ export const esmTransform = async (code: string) => {
 
   return transpiled.code;
 };
-globalThis.esmTransform = esmTransform;
 
 export const umdTransform = async (code: string) => {
   const transpiled = await transform(code, {

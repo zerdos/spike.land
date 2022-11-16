@@ -22238,7 +22238,6 @@ var esmTransform = /* @__PURE__ */ __name(async (code) => {
   Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
   return transpiled.code;
 }, "esmTransform");
-globalThis.esmTransform = esmTransform;
 var umdTransform = /* @__PURE__ */ __name(async (code) => {
   const transpiled = await initAndTransform(code, {
     loader: "tsx",
