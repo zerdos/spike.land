@@ -22371,6 +22371,12 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     }));
   }, "editor");
   return /* @__PURE__ */ jsx(Resizable, {
+    enable: {
+      top: true,
+      bottom: true,
+      right: true,
+      left: false
+    },
     defaultSize: {
       width: "640px",
       height: "95vh"
