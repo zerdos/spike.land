@@ -12,9 +12,8 @@ import { css, Global } from "@emotion/react";
 import { md5, mST } from "./session";
 
 import { Editor } from "./Editor";
-import { wait } from "./wait";
 
-const DraggableWindowLazy = lazy(() => wait(1000).then(() => import("./DraggableWindow")));
+const DraggableWindowLazy = lazy(() => import("./DraggableWindow"));
 
 const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
