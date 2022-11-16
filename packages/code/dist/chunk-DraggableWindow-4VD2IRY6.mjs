@@ -18,7 +18,7 @@ import {
 } from "./chunk-chunk-HYAK7S2L.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-XJEQ2BLO.mjs";
+} from "./chunk-chunk-AI7DSFS7.mjs";
 import "./chunk-chunk-ORDR47UA.mjs";
 import {
   mST
@@ -119,7 +119,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const rgba = /* @__PURE__ */ __name((r2, g2, b2, a) => `rgba(${r2},${g2},${b2},${a})`, "rgba");
   const [bg, setBG] = useState(bgColor);
   const [mstCss, setCSS] = useState(mST().css);
-  const [r, g, b, _a, ..._rest] = bg;
+  const [r, g, b, _a, ...rest] = bg;
   useEffect(() => {
     const intervalHandler = setInterval(() => {
       setCSS(mST().css);
@@ -159,7 +159,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
             borderRadius: 16
           },
           css: css`
-            ${mstCss.split("body").join(`body [data-test-id="z-body"]`)}
+            ${mstCss.split("body").join(`body > div[data-test-id="z-body"]`)}
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, 0.3)};
             backdrop-filter: blur(15px);

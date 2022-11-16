@@ -120,7 +120,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [bg, setBG] = useState(bgColor);
   const [mstCss, setCSS] = useState(mST().css);
-  const [r, g, b, _a, ..._rest] = bg;
+  const [r, g, b, _a, ...rest] = bg;
 
   useEffect(() => {
     const intervalHandler = setInterval(() => {
@@ -167,7 +167,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               borderRadius: 16,
             }}
             css={css`
-            ${mstCss.split("body").join(`body [data-test-id="z-body"]`)}
+            ${mstCss.split("body").join(`body > div[data-test-id="z-body"]`)}
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, .3)};
             backdrop-filter: blur(15px);
