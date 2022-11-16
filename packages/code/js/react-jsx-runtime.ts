@@ -9,7 +9,6 @@ Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }
 importShim.addImportMap({ imports: res });
 
 const runtime = () => {
-  if (globalThis.React) return;
   const React = require("react");
   Object.assign(globalThis, { React });
 
@@ -28,7 +27,7 @@ const runtime = () => {
   const emotionReact = require("@emotion/react");
   Object.assign(globalThis, { emotionReact });
   emotionReact.cssNonMemo = emotionReact.css;
-  const cssCache = {};
+  const cssCache: { [key: string]: unknown } = {};
   emotionReact.css = function() {
     const cache = md5(arguments[0].join(""));
     return cssCache[cache] = cssCache[cache]
@@ -59,22 +58,28 @@ const runtime = () => {
 
   const FramerMotion = require("framer-motion");
   Object.assign(globalThis, { FramerMotion });
+  return {
+    React,
+    ReactDOM,
+    styled,
+    emotionReact,
+    emotionReactJsxRuntime,
+    ReactDOMClient,
+    createEmotionCache,
+    FramerMotion,
+  };
 };
 
-runtime();
-
-export const {
+const {
   React,
   ReactDOM,
-  ReactDOMClient,
-  ReactJSXRuntime,
+  styled,
   emotionReact,
   emotionReactJsxRuntime,
-  ReactDOMServer,
+  ReactDOMClient,
   createEmotionCache,
-  styled,
   FramerMotion,
-} = globalThis;
+} = runtime();
 
 const mapTable = {
   "react": React,
@@ -85,16 +90,12 @@ const mapTable = {
   "@emotion/cache": createEmotionCache,
   "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
   "react/jsx-runtime": ReactJSXRuntime,
-  "react-dom/server": ReactDOMServer,
   "framer-motion": FramerMotion,
 } as { [key: string]: unknown };
-
-globalThis.requireLoading = [] as string[];
 
 const requireUmd = (pkg: string) => {
   if (mapTable[pkg]) return mapTable[pkg];
   if (window[pkg as any] as unknown) return window[pkg as any];
-  if (globalThis[pkg]) return globalThis[pkg];
   if (apps[pkg]) return apps[pkg];
   if (pkg.includes(`spike.land/live`)) return React.lazy(() => importShim(pkg));
 
