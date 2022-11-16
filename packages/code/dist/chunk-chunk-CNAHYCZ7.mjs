@@ -22372,14 +22372,14 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
   }, "editor");
   return /* @__PURE__ */ jsx(Resizable, {
     enable: {
-      top: true,
+      top: false,
       bottom: true,
       right: true,
       left: false
     },
     defaultSize: {
       width: "640px",
-      height: "1-"
+      height: "95vh"
     },
     children: /* @__PURE__ */ jsx("div", {
       "data-test-id": "editor",
@@ -22388,7 +22388,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
         border-right: 4px dashed gray;
         border-bottom: 4px dashed gray;
           width: 100%;
-          height: 95%;
+          height: 100%;
           display: block;
           position: absolute;
           top:0;

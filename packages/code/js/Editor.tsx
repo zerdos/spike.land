@@ -112,7 +112,7 @@ export const Editor: FC<
   return (
     <Resizable
       enable={{
-        top: true,
+        top: false,
         bottom: true,
         right: true,
         left: false,
