@@ -33058,9 +33058,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }
   });
 
-  // ../../.yarn/__virtual__/framer-motion-virtual-81d2109827/0/global/cache/framer-motion-npm-7.6.6-c091a536e5-9.zip/node_modules/framer-motion/dist/cjs/index.js
+  // ../../.yarn/__virtual__/framer-motion-virtual-548be56b4a/0/global/cache/framer-motion-npm-7.6.7-869904e6f3-9.zip/node_modules/framer-motion/dist/cjs/index.js
   var require_cjs = __commonJS({
-    "../../.yarn/__virtual__/framer-motion-virtual-81d2109827/0/global/cache/framer-motion-npm-7.6.6-c091a536e5-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
+    "../../.yarn/__virtual__/framer-motion-virtual-548be56b4a/0/global/cache/framer-motion-npm-7.6.7-869904e6f3-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
@@ -34699,7 +34699,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }, "isFloat");
       var MotionValue = class {
         constructor(init) {
-          this.version = "7.6.6";
+          this.version = "7.6.7";
           this.timeDelta = 0;
           this.lastUpdated = 0;
           this.updateSubscribers = new SubscriptionManager();
@@ -36228,7 +36228,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               willChange.add(key);
             }
             if (true) {
-              warnOnce(nextValue.version === "7.6.6", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.6 may not work as expected.`);
+              warnOnce(nextValue.version === "7.6.7", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.7 may not work as expected.`);
             }
           } else if (isMotionValue(prevValue)) {
             element.addValue(key, motionValue(nextValue));
@@ -36308,14 +36308,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               value.set(latestValues[key], false);
               if (isWillChangeMotionValue(willChange)) {
                 willChange.add(key);
-              }
-            }
-          }
-          if (props.values) {
-            for (const key in props.values) {
-              const value = props.values[key];
-              if (latestValues[key] !== void 0 && isMotionValue(value)) {
-                value.set(latestValues[key]);
               }
             }
           }

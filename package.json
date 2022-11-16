@@ -33,16 +33,16 @@
     "@playwright/test": "1.27.1",
     "@types/eslint": "^8.4.10",
     "@types/react": "18.0.25",
-    "@types/react-dom": "18.0.8",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
-    "@typescript-eslint/parser": "^5.42.1",
+    "@types/react-dom": "18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
     "@yarnpkg/sdks": "3.0.0-rc.28",
     "dprint": "^0.32.2",
-    "esbuild": "^0.15.13",
+    "esbuild": "^0.15.14",
     "eslint": "^8.27.0",
     "eslint-plugin-react": "^7.31.10",
     "playwright": "1.27.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.3"
   },
   "resolutions": {
     "wrangler/esbuild": "0.15.11"
