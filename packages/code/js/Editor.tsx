@@ -110,27 +110,9 @@ export const Editor: FC<
   }, "editor");
 
   return (
-    //    {
-    /* {engine === "monaco" && (
-        <Highlight Prism={defaultProps.Prism} theme={theme} code={myCode} language="tsx">
-          {({ className, style, tokens, getLineProps, getTokenProps }) => (
-            <Pre className={className} style={style}>
-              {tokens.map((line, i) => (
-                <Line key={i} {...getLineProps({ line, key: i })}>
-                  <LineNo>{i + 1}</LineNo>
-                  <LineContent>
-                    {line.map((token, key) => <span key={key} {...getTokenProps({ token, key })} />)}
-                  </LineContent>
-                </Line>
-              ))}
-            </Pre>
-          )}
-        </Highlight>
-      )} */
-    // }
     <Resizable
       defaultSize={{
-        width: "95vw",
+        width: "min(50vw, 640px);",
         height: "95vh",
       }}
     >
