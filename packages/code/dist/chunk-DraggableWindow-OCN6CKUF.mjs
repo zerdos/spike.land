@@ -18,7 +18,7 @@ import {
 } from "./chunk-chunk-HYAK7S2L.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-AYIGCCXZ.mjs";
+} from "./chunk-chunk-UY5ZE2CF.mjs";
 import "./chunk-chunk-CNAHYCZ7.mjs";
 import {
   mST
@@ -170,7 +170,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
           drag: true,
           dragMomentum: false,
           dragConstraints: {
-            left: 0,
+            left: -innerWidth,
             right: width - 20 - width / 6,
             bottom: innerHeight
           },

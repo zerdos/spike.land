@@ -178,7 +178,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             drag={true}
             dragMomentum={false}
             dragConstraints={{
-              left: 0,
+              left: -innerWidth,
               right: width - 20 - width / 6,
               bottom: innerHeight,
             }}
