@@ -1,5 +1,5 @@
 import "es-module-shims";
-import { md5 } from "./md5";
+// import { md5 } from "./md5";
 // import { createJsBlob } from "starter";
 import importmap from "./importmap.json";
 const imp: { [key: string]: string } = { ...importmap.imports };
@@ -24,73 +24,73 @@ const runtime = () => {
   const ReactJSXRuntime = require("react/jsx-runtime");
   Object.assign(globalThis, { ReactJSXRuntime });
 
-  const emotionReact = require("@emotion/react");
-  Object.assign(globalThis, { emotionReact });
-  emotionReact.cssNonMemo = emotionReact.css;
-  const cssCache: { [key: string]: unknown } = {};
-  emotionReact.css = function() {
-    const cache = md5(arguments[0].join(""));
-    return cssCache[cache] = cssCache[cache]
-      || emotionReact.cssNonMemo.apply(this, arguments);
-  };
+  // const emotionReact = require("@emotion/react");
+  // Object.assign(globalThis, { emotionReact });
+  // emotionReact.cssNonMemo = emotionReact.css;
+  // const cssCache: { [key: string]: unknown } = {};
+  // emotionReact.css = function() {
+  //   const cache = md5(arguments[0].join(""));
+  //   return cssCache[cache] = cssCache[cache]
+  //     || emotionReact.cssNonMemo.apply(this, arguments);
+  // };
 
-  const emotionReactJsxRuntime = require("@emotion/react/jsx-runtime");
-  Object.assign(globalThis, { emotionReactJsxRuntime });
-  emotionReactJsxRuntime.emotionJsx = emotionReactJsxRuntime.jsx;
+  // const emotionReactJsxRuntime = require("@emotion/react/jsx-runtime");
+  // Object.assign(globalThis, { emotionReactJsxRuntime });
+  // emotionReactJsxRuntime.emotionJsx = emotionReactJsxRuntime.jsx;
 
-  const createEmotionCache = require("@emotion/cache");
-  Object.assign(globalThis, { createEmotionCache });
+  // const createEmotionCache = require("@emotion/cache");
+  // Object.assign(globalThis, { createEmotionCache });
 
-  const styled = require("@emotion/styled");
-  Object.assign(globalThis, { styled });
+  // const styled = require("@emotion/styled");
+  // Object.assign(globalThis, { styled });
 
-  emotionReactJsxRuntime.jsx = function() {
-    const props = arguments[1];
-    if (Object.hasOwn(props, "css") && typeof props.css === "string") {
-      props.css = emotionReact.css`${props.css}`;
-    }
+  // emotionReactJsxRuntime.jsx = function() {
+  //   const props = arguments[1];
+  //   if (Object.hasOwn(props, "css") && typeof props.css === "string") {
+  //     props.css = emotionReact.css`${props.css}`;
+  //   }
 
-    return emotionReactJsxRuntime.emotionJsx.apply(
-      emotionReactJsxRuntime,
-      arguments,
-    );
-  };
+  //   return emotionReactJsxRuntime.emotionJsx.apply(
+  //     emotionReactJsxRuntime,
+  //     arguments,
+  //   );
+  // };
 
-  const FramerMotion = require("framer-motion");
-  Object.assign(globalThis, { FramerMotion });
+  // const FramerMotion = require("framer-motion");
+  // Object.assign(globalThis, { FramerMotion });
   return {
     React,
     ReactDOM,
-    styled,
-    emotionReact,
-    emotionReactJsxRuntime,
+    // styled,
+    // emotionReact,
+    // emotionReactJsxRuntime,
     ReactDOMClient,
-    createEmotionCache,
-    FramerMotion,
+    // createEmotionCache,
+    // FramerMotion,
   };
 };
 
 const {
   React,
   ReactDOM,
-  styled,
-  emotionReact,
-  emotionReactJsxRuntime,
+  // styled,
+  // emotionReact,
+  // emotionReactJsxRuntime,
   ReactDOMClient,
-  createEmotionCache,
-  FramerMotion,
+  // createEmotionCache,
+  // FramerMotion,
 } = runtime();
 
 const mapTable = {
   "react": React,
   "react-dom": ReactDOM,
   "react-dom/client": ReactDOMClient,
-  "@emotion/react": emotionReact,
-  "@emotion/styled": styled,
-  "@emotion/cache": createEmotionCache,
-  "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
+  // "@emotion/react": emotionReact,
+  // "@emotion/styled": styled,
+  // "@emotion/cache": createEmotionCache,
+  // "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
   "react/jsx-runtime": ReactJSXRuntime,
-  "framer-motion": FramerMotion,
+  // "framer-motion": FramerMotion,
 } as { [key: string]: unknown };
 
 const requireUmd = (pkg: string) => {

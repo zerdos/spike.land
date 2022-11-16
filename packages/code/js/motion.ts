@@ -1,3 +1,4 @@
+globalThis.FramerMotion = globalThis.FramerMotion || require("framer-motion");
 const fm = globalThis.FramerMotion;
 
 export const { createDomMotionComponent, motion } = fm; // ./render/dom/motion.mjs';

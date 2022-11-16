@@ -6,6 +6,7 @@ export const {
   // @ts-ignore
   createElement,
   css,
+  default,
   Global,
   jsx,
   keyframes,
@@ -15,4 +16,4 @@ export const {
   withEmotionCache,
   withTheme,
   // @ts-ignore
-} = globalThis.emotionReact;
+} = globalThis.emotionReact = globalThis.emotionReact || require("@emotion/react");
