@@ -112,7 +112,7 @@ export const Editor: FC<
   return (
     <Resizable
       defaultSize={{
-        width: "min(50vw, 640px);",
+        width: "min(50vw, 640px)",
         height: "95vh",
       }}
     >
