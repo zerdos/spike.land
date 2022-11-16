@@ -18,7 +18,7 @@ import {
 } from "./chunk-chunk-HYAK7S2L.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-UY5ZE2CF.mjs";
+} from "./chunk-chunk-D77Z7WWW.mjs";
 import "./chunk-chunk-CNAHYCZ7.mjs";
 import {
   mST
@@ -116,10 +116,10 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     document.body,
     null
   ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
-  const rgba = /* @__PURE__ */ __name((r2, g2, b2, a) => `rgba(${r2},${g2},${b2},${a})`, "rgba");
   const [bg, setBG] = useState(bgColor);
   const [mstCss, setCSS] = useState(mST().css);
-  const [r, g, b, _a, ...rest] = bg;
+  const [r, g, b, a] = bg;
+  const rgba = /* @__PURE__ */ __name((r2, g2, b2, a2) => `rgba(${r2},${g2},${b2},${a2})`, "rgba");
   useEffect(() => {
     const intervalHandler = setInterval(() => {
       setCSS(mST().css);
@@ -161,7 +161,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
           css: css`
             ${mstCss.split("body").join(`[data-test-id="z-body"]`)}
             touch-action: pinch-zoom;
-            background-color: ${rgba(r | 96, g | 66, b || 160, 0.3)};
+            background-color: ${rgba(r | 96, g | 66, b || 160, a || 0.3)};
             backdrop-filter: blur(15px);
             z-index: 10;
 
