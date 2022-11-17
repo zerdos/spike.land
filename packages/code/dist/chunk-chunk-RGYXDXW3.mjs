@@ -24628,21 +24628,7 @@ var mod3 = {
   globalThis.UMD_require = require;
   
      `;
-    const t = await initAndTransform(res, {
-      format: "esm",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true
-    });
-    const c = await initAndTransform(t.code, {
-      format: "iife",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true
-    });
-    return c.code;
+    return res;
   },
   last: 0,
   hashMap: {},
