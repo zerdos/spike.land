@@ -1,8 +1,7 @@
+import * as ReactNameSpace from "react";
 import React from "react";
-import ReactDOM from "react-dom";
-import { createRoot, hydrateRoot } from "react-dom/client";
 
-export const {
+const {
   Children,
   Component,
   Fragment,
@@ -37,20 +36,46 @@ export const {
   useTransition,
   // @ts-ignore
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
-} = React;
-
-export const {
-  createPortal,
-  flushSync,
-  render,
-  findDOMNode,
-  hydrate,
-  unmountComponentAtNode,
-  unstable_batchedUpdates,
-  unstable_renderSubtreeIntoContainer,
   version,
-} = ReactDOM;
+  Profiler,
+  ...rest
+} = ReactNameSpace;
 
-export { createRoot, hydrateRoot };
+export {
+  // @ts-ignore
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
+  Children,
+  cloneElement,
+  Component,
+  createContext,
+  createElement,
+  createFactory,
+  createRef,
+  forwardRef,
+  Fragment,
+  isValidElement,
+  lazy,
+  memo,
+  PureComponent,
+  rest,
+  startTransition,
+  StrictMode,
+  Suspense,
+  useCallback,
+  useContext,
+  useDebugValue,
+  useDeferredValue,
+  useEffect,
+  useId,
+  useImperativeHandle,
+  useInsertionEffect,
+  useLayoutEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  useTransition,
+};
 
 export default React;
