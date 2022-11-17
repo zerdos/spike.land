@@ -1,5 +1,6 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 import type { TransformOptions } from "esbuild-wasm";
+import { codeSpace } from "load";
 import debounce from "lodash.debounce";
 import { transform } from "./esbuildEsm";
 import { render } from "./renderToString";
@@ -69,7 +70,7 @@ export const umdTransform = async (code: string) => {
 
 Object.assign(globalThis, {
   toUmd: () => {
-    toUmd(mST().code, "app");
+    toUmd(mST().code, codeSpace);
   },
   IIFE,
   umdTransform,
