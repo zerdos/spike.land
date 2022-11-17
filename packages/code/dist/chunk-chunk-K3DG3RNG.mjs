@@ -24561,97 +24561,45 @@ var mod3 = {
       return "";
     included[mod3.hashMap[name]] = true;
     const current = mod3.data[mod3.hashMap[name]];
+    if (!current)
+      console.error(name + " is missing!");
     const currentCode = current.code;
     if (!current.deps || !current.deps.length) {
       return currentCode;
     }
     const myDepts = [...current.deps];
-    const depts = myDepts.map((n) => mod3.printR(n, included)).join(" \n ");
+    const depts = myDepts.map((name2) => mod3.printR(name2, included)).join(" \n ");
     return depts + `
     
     ` + currentCode;
   },
-  async toJs(name) {
+  toJs: async (name) => {
+    while ((Date.now() - mod3.last) / 1e3 < 4) {
+      console.log((Date.now() - mod3.last) / 1e3);
+      await wait(1e3);
+    }
     const js = mod3.printR(name, {});
-    const modZ = Object.keys(mod3.hashMap).map(
-      (k) => [`"${mod3.hashMap[k]}"`, k]
-    ).map((x) => x[0] + ": " + x[1]).join(", \n ");
+    const modZ = {};
+    Object.keys(mod3.data).forEach((k) => Object.assign(modZ, { [mod3.hashMap[k]]: k }));
     const res = `
      ${js}
   function require(name){
-    return ({${modZ}})[name];
+    try{
+      return (${JSON.stringify(modZ)})[name];
+    }
+    catch{
+      debugger;
+    }
   }
   globalThis.UMD_require = require;
   
      `;
-    const c = await initAndTransform(res, {
-      format: "iife",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true
-    });
-    return c.code;
+    return res;
   },
+  last: 0,
   hashMap: {},
   data: {}
 };
-var toUmd = /* @__PURE__ */ __name(async (source, name) => {
-  try {
-    const hash = md5(source);
-    mod3.hashMap = { ...mod3.hashMap, [name]: hash };
-    if (!mod3.data[hash]) {
-      const transformed = await initAndTransform(source, {
-        format: "iife",
-        keepNames: true,
-        treeShaking: true,
-        target: "es2021",
-        tsconfigRaw: {
-          compilerOptions: {
-            jsx: "react-jsx",
-            target: "es2021",
-            useDefineForClassFields: false,
-            jsxFragmentFactory: "Fragment",
-            jsxImportSource: "@emotion/react"
-          }
-        },
-        loader: "tsx",
-        globalName: hash
-      });
-      if (!transformed || !transformed.code) {
-        console.log("transform result -code is empty");
-        return;
-      }
-      mod3.data = {
-        ...mod3.data,
-        [hash]: {
-          ...transformed,
-          deps: findDeps(transformed.code)
-        }
-      };
-      await Promise.all(mod3.data[hash].deps.map(async (dep) => {
-        if (mod3.hashMap[dep]) {
-          return;
-        }
-        let url = "";
-        try {
-          url = importShim.resolve(dep, name);
-        } catch {
-          console.error(`failed to resolve: ${dep}`);
-          return;
-        }
-        if (mod3.data[mod3.hashMap[name]].deps) {
-          return;
-        }
-        mod3.hashMap[dep] = url;
-        return await toUmd(await fetch(url).then((r) => r.text()), url);
-      }));
-    }
-    return mod3;
-  } catch {
-    return mod3;
-  }
-}, "toUmd");
 var findDeps = /* @__PURE__ */ __name((code) => {
   const regex = /require\("(.+?)"\)/gm;
   let m;
@@ -24669,6 +24617,46 @@ var findDeps = /* @__PURE__ */ __name((code) => {
   }
   return deps;
 }, "findDeps");
+var toUmd = /* @__PURE__ */ __name(async (source, name) => {
+  console.log("toUmd: " + name);
+  const hash = md5(source);
+  mod3.hashMap = { ...mod3.hashMap, [name]: hash };
+  if (mod3.data[hash])
+    return mod3;
+  mod3.last = Date.now();
+  mod3.data[hash] = {
+    code: (await initAndTransform(source, {
+      format: "iife",
+      keepNames: true,
+      treeShaking: true,
+      sourcefile: name,
+      ignoreAnnotations: true,
+      target: "es2021",
+      tsconfigRaw: {
+        compilerOptions: {
+          jsx: "react-jsx",
+          useDefineForClassFields: false,
+          jsxImportSource: "@emotion/react"
+        }
+      },
+      loader: "tsx",
+      globalName: hash
+    })).code,
+    deps: []
+  };
+  mod3.data[hash].deps = findDeps(mod3.data[hash].code).map((dep) => importShim.resolve(dep, name));
+  await Promise.all(
+    mod3.data[hash].deps.map(
+      (depUrl) => fetch_or_die(depUrl).then((content) => toUmd(content, depUrl).then(async (mod5) => await mod5))
+    )
+  );
+  return mod3;
+}, "toUmd");
+var urls = {};
+var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
+  urls[url] = urls[url] || await fetch(url).then((res) => res.text());
+  return urls[url];
+}, "fetch_or_die");
 
 // js/runner.tsx
 var debouncedSync = (0, import_lodash.default)(patchSync, 200, {

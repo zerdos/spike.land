@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-export { createRoot, hydrateRoot } from "react-dom/client";
-// impoirt
-// const { React, ReactDOM, ReactDOMClient } = globalThis;
+import { createRoot, hydrateRoot } from "react-dom/client";
 
 export const {
   Children,
@@ -52,5 +50,7 @@ export const {
   unstable_renderSubtreeIntoContainer,
   version,
 } = ReactDOM;
+
+export { createRoot, hydrateRoot };
 
 export default React;
