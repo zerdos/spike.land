@@ -1,17 +1,18 @@
 import {
-  export_createRoot,
-  export_hydrateRoot,
+  createRoot,
+  hydrateRoot,
+  reactDom_default
+} from "./chunk-chunk-HOQL657L.mjs";
+import {
   init_reactMod,
   reactMod_default
-} from "./chunk-chunk-237KVN3I.mjs";
+} from "./chunk-chunk-OWE3IVJZ.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-4FHARZBR.mjs";
 
 // js/reactMod.ts
 init_define_process();
-init_reactMod();
-init_reactMod();
 init_reactMod();
 var {
   Children,
@@ -57,7 +58,7 @@ var {
   unstable_batchedUpdates,
   unstable_renderSubtreeIntoContainer,
   version
-} = reactMod_default;
+} = reactDom_default;
 var reactMod_default2 = reactMod_default;
 export {
   Children,
@@ -73,13 +74,13 @@ export {
   createFactory,
   createPortal,
   createRef,
-  export_createRoot as createRoot,
+  createRoot,
   reactMod_default2 as default,
   findDOMNode,
   flushSync,
   forwardRef,
   hydrate,
-  export_hydrateRoot as hydrateRoot,
+  hydrateRoot,
   isValidElement,
   lazy,
   memo,

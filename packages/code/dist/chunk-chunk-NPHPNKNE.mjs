@@ -1,6 +1,6 @@
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-OOKNKU5D.mjs";
+} from "./chunk-chunk-OY7KLYSJ.mjs";
 import {
   hashCode,
   mST,
@@ -13,19 +13,21 @@ import {
   codeSpace
 } from "./chunk-chunk-SNJP6NQZ.mjs";
 import {
+  createRoot,
+  flushSync
+} from "./chunk-chunk-HOQL657L.mjs";
+import {
   require_emotion_react_cjs
-} from "./chunk-chunk-63HHZNB2.mjs";
+} from "./chunk-chunk-ODMZRGLB.mjs";
 import {
   PureComponent,
   createElement,
-  export_createRoot,
-  flushSync,
   init_reactMod,
   reactMod_exports,
   useEffect,
   useRef,
   useState
-} from "./chunk-chunk-237KVN3I.mjs";
+} from "./chunk-chunk-OWE3IVJZ.mjs";
 import {
   emotionCache_default
 } from "./chunk-chunk-RIYCOIZI.mjs";
@@ -23341,7 +23343,6 @@ var import_react3 = __toESM(require_emotion_react_cjs(), 1);
 // ../../.yarn/__virtual__/re-resizable-virtual-24c16ab62b/0/global/cache/re-resizable-npm-6.9.9-2a772ae568-9.zip/node_modules/re-resizable/lib/index.js
 init_define_process();
 init_reactMod();
-init_reactMod();
 
 // ../../.yarn/__virtual__/re-resizable-virtual-24c16ab62b/0/global/cache/re-resizable-npm-6.9.9-2a772ae568-9.zip/node_modules/re-resizable/lib/resizer.js
 init_define_process();
@@ -24475,7 +24476,6 @@ function createJsBlob(code, fileName = "index.mjs") {
 __name(createJsBlob, "createJsBlob");
 
 // js/renderToString.tsx
-init_reactMod();
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod2 = {
   md5Hash: "",
@@ -24500,7 +24500,7 @@ var mod2 = {
   },
   setApp: (md5Hash) => {
     const rootDiv = document.createElement("div");
-    const root = export_createRoot(rootDiv);
+    const root = createRoot(rootDiv);
     const App = apps[md5Hash];
     mod2.md5Hash = md5Hash;
     mod2.res = rootDiv;
@@ -24566,8 +24566,8 @@ var importmap_default = {
     "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
     react: "/reactMod.mjs",
     "react/jsx-runtime": "/jsx.mjs",
-    "react-dom": "/reactMod.mjs",
-    "react-dom/client": "/reactMod.mjs"
+    "react-dom": "/reactDom.mjs",
+    "react-dom/client": "/reactDomClient.mjs"
   }
 };
 

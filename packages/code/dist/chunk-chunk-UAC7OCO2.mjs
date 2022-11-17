@@ -2,10 +2,10 @@ import {
   AutoUpdateApp,
   Editor,
   wait
-} from "./chunk-chunk-RGYXDXW3.mjs";
+} from "./chunk-chunk-NPHPNKNE.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-OOKNKU5D.mjs";
+} from "./chunk-chunk-OY7KLYSJ.mjs";
 import {
   applyPatch,
   hashCode,
@@ -18,8 +18,12 @@ import {
   startSession
 } from "./chunk-chunk-MG23ME7G.mjs";
 import {
+  createPortal,
+  createRoot
+} from "./chunk-chunk-HOQL657L.mjs";
+import {
   require_emotion_react_cjs
-} from "./chunk-chunk-63HHZNB2.mjs";
+} from "./chunk-chunk-ODMZRGLB.mjs";
 import {
   Children,
   Fragment,
@@ -28,14 +32,12 @@ import {
   Suspense,
   cloneElement,
   createElement,
-  createPortal,
   createRef,
-  export_createRoot,
   init_reactMod,
   isValidElement,
   lazy,
   useMemo
-} from "./chunk-chunk-237KVN3I.mjs";
+} from "./chunk-chunk-OWE3IVJZ.mjs";
 import {
   __commonJS,
   __export,
@@ -3352,11 +3354,9 @@ var adapter_core_default = adapter;
 // js/renderPreviewWindow.tsx
 init_define_process();
 init_reactMod();
-init_reactMod();
 
 // ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
 init_define_process();
-init_reactMod();
 init_reactMod();
 var __extends = function() {
   var extendStatics = /* @__PURE__ */ __name(function(d, b) {
@@ -3527,7 +3527,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = lazy(() => import("./chunk-DraggableWindow-POLAPNYX.mjs"));
+var DraggableWindowLazy = lazy(() => import("./chunk-DraggableWindow-O6Z6GZGW.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
   css: import_react2.css`
 height: 100%;
@@ -3626,7 +3626,7 @@ var renderPreviewWindow = /* @__PURE__ */ __name(({ codeSpace: codeSpace2, dry }
     return;
   singleton.started = true;
   const div = dry ? document.createElement("div") : document.querySelector("#root");
-  const root = export_createRoot(div);
+  const root = createRoot(div);
   root.render(
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StrictMode, {
       children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppToRender, {

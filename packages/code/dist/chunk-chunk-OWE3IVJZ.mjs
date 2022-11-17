@@ -5,57 +5,11 @@ import {
   init_define_process
 } from "./chunk-chunk-4FHARZBR.mjs";
 
-// dist/reactMod.mjs
-var reactMod_exports = {};
-__export(reactMod_exports, {
-  Children: () => Children,
-  Component: () => Component,
-  Fragment: () => Fragment,
-  PureComponent: () => PureComponent,
-  StrictMode: () => StrictMode,
-  Suspense: () => Suspense,
-  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: () => __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
-  cloneElement: () => cloneElement,
-  createContext: () => createContext,
-  createElement: () => createElement,
-  createFactory: () => createFactory,
-  createPortal: () => createPortal,
-  createRef: () => createRef,
-  createRoot: () => export_createRoot,
-  default: () => reactMod_default,
-  findDOMNode: () => findDOMNode,
-  flushSync: () => flushSync,
-  forwardRef: () => forwardRef,
-  hydrate: () => hydrate,
-  hydrateRoot: () => export_hydrateRoot,
-  isValidElement: () => isValidElement,
-  lazy: () => lazy,
-  memo: () => memo,
-  render: () => render,
-  startTransition: () => startTransition,
-  unmountComponentAtNode: () => unmountComponentAtNode,
-  unstable_batchedUpdates: () => unstable_batchedUpdates,
-  unstable_renderSubtreeIntoContainer: () => unstable_renderSubtreeIntoContainer,
-  useCallback: () => useCallback,
-  useContext: () => useContext,
-  useDebugValue: () => useDebugValue,
-  useDeferredValue: () => useDeferredValue,
-  useEffect: () => useEffect,
-  useId: () => useId,
-  useImperativeHandle: () => useImperativeHandle,
-  useInsertionEffect: () => useInsertionEffect,
-  useLayoutEffect: () => useLayoutEffect,
-  useMemo: () => useMemo,
-  useReducer: () => useReducer,
-  useRef: () => useRef,
-  useState: () => useState,
-  useSyncExternalStore: () => useSyncExternalStore,
-  useTransition: () => useTransition,
-  version: () => version
-});
-var __create, __defProp, __getOwnPropDesc, __getOwnPropNames, __getProtoOf, __hasOwnProp, __name2, __esm2, __commonJS, __copyProps, __toESM, init_define_process2, require_react_development, require_react, require_scheduler_development, require_scheduler, require_react_dom_development, require_react_dom, require_client, import_react, import_react_dom, import_client, Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, createPortal, flushSync, render, findDOMNode, hydrate, unmountComponentAtNode, unstable_batchedUpdates, unstable_renderSubtreeIntoContainer, version, reactMod_default, export_createRoot, export_hydrateRoot;
-var init_reactMod = __esm({
-  "dist/reactMod.mjs"() {
+// dist/chunk-chunk-GBRFGZQ7.mjs
+var __create, __defProp, __getOwnPropDesc, __getOwnPropNames, __getProtoOf, __hasOwnProp, __name2, __esm2, __commonJS, __copyProps, __toESM, init_define_process2, require_react_development, require_react, require_scheduler_development, require_scheduler, require_react_dom_development, require_react_dom;
+var init_chunk_chunk_GBRFGZQ7 = __esm({
+  "dist/chunk-chunk-GBRFGZQ7.mjs"() {
+    "use strict";
     init_define_process();
     __create = Object.create;
     __defProp = Object.defineProperty;
@@ -261,7 +215,7 @@ var init_reactMod = __esm({
               this.refs = emptyObject;
               this.updater = updater || ReactNoopUpdateQueue;
             }
-            __name(Component2, "Component2");
+            __name(Component2, "Component");
             __name2(Component2, "Component");
             Component2.prototype.isReactComponent = {};
             Component2.prototype.setState = function(partialState, callback) {
@@ -303,7 +257,7 @@ var init_reactMod = __esm({
               this.refs = emptyObject;
               this.updater = updater || ReactNoopUpdateQueue;
             }
-            __name(PureComponent2, "PureComponent2");
+            __name(PureComponent2, "PureComponent");
             __name2(PureComponent2, "PureComponent");
             var pureComponentPrototype = PureComponent2.prototype = new ComponentDummy();
             pureComponentPrototype.constructor = PureComponent2;
@@ -318,7 +272,7 @@ var init_reactMod = __esm({
               }
               return refObject;
             }
-            __name(createRef2, "createRef2");
+            __name(createRef2, "createRef");
             __name2(createRef2, "createRef");
             var isArrayImpl = Array.isArray;
             function isArray(a) {
@@ -622,7 +576,7 @@ var init_reactMod = __esm({
               }
               return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
             }
-            __name(createElement2, "createElement2");
+            __name(createElement2, "createElement");
             __name2(createElement2, "createElement");
             function cloneAndReplaceKey(oldElement, newKey) {
               var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
@@ -678,12 +632,12 @@ var init_reactMod = __esm({
               }
               return ReactElement(element.type, key, ref, self, source, owner, props);
             }
-            __name(cloneElement2, "cloneElement2");
+            __name(cloneElement2, "cloneElement");
             __name2(cloneElement2, "cloneElement");
             function isValidElement2(object) {
               return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
             }
-            __name(isValidElement2, "isValidElement2");
+            __name(isValidElement2, "isValidElement");
             __name2(isValidElement2, "isValidElement");
             var SEPARATOR = ".";
             var SUBSEPARATOR = ":";
@@ -940,7 +894,7 @@ var init_reactMod = __esm({
               }
               return context;
             }
-            __name(createContext2, "createContext2");
+            __name(createContext2, "createContext");
             __name2(createContext2, "createContext");
             var Uninitialized = -1;
             var Pending = 0;
@@ -1032,7 +986,7 @@ var init_reactMod = __esm({
               }
               return lazyType;
             }
-            __name(lazy2, "lazy2");
+            __name(lazy2, "lazy");
             __name2(lazy2, "lazy");
             function forwardRef2(render2) {
               {
@@ -1073,7 +1027,7 @@ var init_reactMod = __esm({
               }
               return elementType;
             }
-            __name(forwardRef2, "forwardRef2");
+            __name(forwardRef2, "forwardRef");
             __name2(forwardRef2, "forwardRef");
             var REACT_MODULE_REFERENCE;
             {
@@ -1124,7 +1078,7 @@ var init_reactMod = __esm({
               }
               return elementType;
             }
-            __name(memo2, "memo2");
+            __name(memo2, "memo");
             __name2(memo2, "memo");
             function resolveDispatcher() {
               var dispatcher = ReactCurrentDispatcher.current;
@@ -1151,61 +1105,61 @@ var init_reactMod = __esm({
               }
               return dispatcher.useContext(Context);
             }
-            __name(useContext2, "useContext2");
+            __name(useContext2, "useContext");
             __name2(useContext2, "useContext");
             function useState2(initialState) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useState(initialState);
             }
-            __name(useState2, "useState2");
+            __name(useState2, "useState");
             __name2(useState2, "useState");
             function useReducer2(reducer, initialArg, init) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useReducer(reducer, initialArg, init);
             }
-            __name(useReducer2, "useReducer2");
+            __name(useReducer2, "useReducer");
             __name2(useReducer2, "useReducer");
             function useRef2(initialValue) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useRef(initialValue);
             }
-            __name(useRef2, "useRef2");
+            __name(useRef2, "useRef");
             __name2(useRef2, "useRef");
             function useEffect2(create, deps) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useEffect(create, deps);
             }
-            __name(useEffect2, "useEffect2");
+            __name(useEffect2, "useEffect");
             __name2(useEffect2, "useEffect");
             function useInsertionEffect2(create, deps) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useInsertionEffect(create, deps);
             }
-            __name(useInsertionEffect2, "useInsertionEffect2");
+            __name(useInsertionEffect2, "useInsertionEffect");
             __name2(useInsertionEffect2, "useInsertionEffect");
             function useLayoutEffect2(create, deps) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useLayoutEffect(create, deps);
             }
-            __name(useLayoutEffect2, "useLayoutEffect2");
+            __name(useLayoutEffect2, "useLayoutEffect");
             __name2(useLayoutEffect2, "useLayoutEffect");
             function useCallback2(callback, deps) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useCallback(callback, deps);
             }
-            __name(useCallback2, "useCallback2");
+            __name(useCallback2, "useCallback");
             __name2(useCallback2, "useCallback");
             function useMemo2(create, deps) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useMemo(create, deps);
             }
-            __name(useMemo2, "useMemo2");
+            __name(useMemo2, "useMemo");
             __name2(useMemo2, "useMemo");
             function useImperativeHandle2(ref, create, deps) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useImperativeHandle(ref, create, deps);
             }
-            __name(useImperativeHandle2, "useImperativeHandle2");
+            __name(useImperativeHandle2, "useImperativeHandle");
             __name2(useImperativeHandle2, "useImperativeHandle");
             function useDebugValue2(value, formatterFn) {
               {
@@ -1213,31 +1167,31 @@ var init_reactMod = __esm({
                 return dispatcher.useDebugValue(value, formatterFn);
               }
             }
-            __name(useDebugValue2, "useDebugValue2");
+            __name(useDebugValue2, "useDebugValue");
             __name2(useDebugValue2, "useDebugValue");
             function useTransition2() {
               var dispatcher = resolveDispatcher();
               return dispatcher.useTransition();
             }
-            __name(useTransition2, "useTransition2");
+            __name(useTransition2, "useTransition");
             __name2(useTransition2, "useTransition");
             function useDeferredValue2(value) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useDeferredValue(value);
             }
-            __name(useDeferredValue2, "useDeferredValue2");
+            __name(useDeferredValue2, "useDeferredValue");
             __name2(useDeferredValue2, "useDeferredValue");
             function useId2() {
               var dispatcher = resolveDispatcher();
               return dispatcher.useId();
             }
-            __name(useId2, "useId2");
+            __name(useId2, "useId");
             __name2(useId2, "useId");
             function useSyncExternalStore2(subscribe, getSnapshot, getServerSnapshot) {
               var dispatcher = resolveDispatcher();
               return dispatcher.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
             }
-            __name(useSyncExternalStore2, "useSyncExternalStore2");
+            __name(useSyncExternalStore2, "useSyncExternalStore");
             __name2(useSyncExternalStore2, "useSyncExternalStore");
             var disabledDepth = 0;
             var prevLog;
@@ -1458,8 +1412,8 @@ var init_reactMod = __esm({
             }
             __name(describeFunctionComponentFrame, "describeFunctionComponentFrame");
             __name2(describeFunctionComponentFrame, "describeFunctionComponentFrame");
-            function shouldConstruct(Component3) {
-              var prototype = Component3.prototype;
+            function shouldConstruct(Component22) {
+              var prototype = Component22.prototype;
               return !!(prototype && prototype.isReactComponent);
             }
             __name(shouldConstruct, "shouldConstruct");
@@ -1816,7 +1770,7 @@ var init_reactMod = __esm({
                 }
               }
             }
-            __name(startTransition2, "startTransition2");
+            __name(startTransition2, "startTransition");
             __name2(startTransition2, "startTransition");
             var didWarnAboutMessageChannel = false;
             var enqueueTaskImpl = null;
@@ -2581,9 +2535,9 @@ var init_reactMod = __esm({
             if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
               __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
             }
-            var React2 = require_react();
+            var React = require_react();
             var Scheduler = require_scheduler();
-            var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+            var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
             var suppressWarning = false;
             function setSuppressWarning(newSuppressWarning) {
               {
@@ -4242,7 +4196,7 @@ var init_reactMod = __esm({
               {
                 if (props.value == null) {
                   if (typeof props.children === "object" && props.children !== null) {
-                    React2.Children.forEach(props.children, function(child) {
+                    React.Children.forEach(props.children, function(child) {
                       if (child == null) {
                         return;
                       }
@@ -9987,7 +9941,7 @@ var init_reactMod = __esm({
               }
               return domElement;
             }
-            __name(createElement2, "createElement2");
+            __name(createElement2, "createElement");
             __name2(createElement2, "createElement");
             function createTextNode(text, rootContainerElement) {
               return getOwnerDocumentFromRootContainer(rootContainerElement).createTextNode(text);
@@ -13319,7 +13273,7 @@ var init_reactMod = __esm({
             __name(commitUpdateQueue, "commitUpdateQueue");
             __name2(commitUpdateQueue, "commitUpdateQueue");
             var fakeInternalInstance = {};
-            var emptyRefsObject = new React2.Component().refs;
+            var emptyRefsObject = new React.Component().refs;
             var didWarnAboutStateAssignmentForComponent;
             var didWarnAboutUninitializedState;
             var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -15852,7 +15806,7 @@ var init_reactMod = __esm({
                 }
               }
             }
-            __name(startTransition2, "startTransition2");
+            __name(startTransition2, "startTransition");
             __name2(startTransition2, "startTransition");
             function mountTransition() {
               var _mountState = mountState(false), isPending = _mountState[0], setPending = _mountState[1];
@@ -17347,7 +17301,7 @@ var init_reactMod = __esm({
                   }
                 }
               }
-              var render3 = Component2.render;
+              var render22 = Component2.render;
               var ref = workInProgress2.ref;
               var nextChildren;
               var hasId;
@@ -17358,12 +17312,12 @@ var init_reactMod = __esm({
               {
                 ReactCurrentOwner$1.current = workInProgress2;
                 setIsRendering(true);
-                nextChildren = renderWithHooks(current2, workInProgress2, render3, nextProps, ref, renderLanes2);
+                nextChildren = renderWithHooks(current2, workInProgress2, render22, nextProps, ref, renderLanes2);
                 hasId = checkDidRenderIdHook();
                 if (workInProgress2.mode & StrictLegacyMode) {
                   setIsStrictModeForDevtools(true);
                   try {
-                    nextChildren = renderWithHooks(current2, workInProgress2, render3, nextProps, ref, renderLanes2);
+                    nextChildren = renderWithHooks(current2, workInProgress2, render22, nextProps, ref, renderLanes2);
                     hasId = checkDidRenderIdHook();
                   } finally {
                     setIsStrictModeForDevtools(false);
@@ -18763,9 +18717,9 @@ var init_reactMod = __esm({
                 }
               }
               var newProps = workInProgress2.pendingProps;
-              var render3 = newProps.children;
+              var render22 = newProps.children;
               {
-                if (typeof render3 !== "function") {
+                if (typeof render22 !== "function") {
                   error("A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it.");
                 }
               }
@@ -18778,7 +18732,7 @@ var init_reactMod = __esm({
               {
                 ReactCurrentOwner$1.current = workInProgress2;
                 setIsRendering(true);
-                newChildren = render3(newValue);
+                newChildren = render22(newValue);
                 setIsRendering(false);
               }
               {
@@ -22195,7 +22149,7 @@ var init_reactMod = __esm({
                 }
               }
             }
-            __name(flushSync2, "flushSync2");
+            __name(flushSync2, "flushSync");
             __name2(flushSync2, "flushSync");
             function isAlreadyRendering() {
               return (executionContext & (RenderContext | CommitContext)) !== NoContext;
@@ -23963,7 +23917,7 @@ var init_reactMod = __esm({
             }
             __name(assignFiberPropertiesInDEV, "assignFiberPropertiesInDEV");
             __name2(assignFiberPropertiesInDEV, "assignFiberPropertiesInDEV");
-            function FiberRootNode(containerInfo, tag, hydrate3, identifierPrefix, onRecoverableError) {
+            function FiberRootNode(containerInfo, tag, hydrate22, identifierPrefix, onRecoverableError) {
               this.tag = tag;
               this.containerInfo = containerInfo;
               this.pendingChildren = null;
@@ -24004,25 +23958,25 @@ var init_reactMod = __esm({
               {
                 switch (tag) {
                   case ConcurrentRoot:
-                    this._debugRootType = hydrate3 ? "hydrateRoot()" : "createRoot()";
+                    this._debugRootType = hydrate22 ? "hydrateRoot()" : "createRoot()";
                     break;
                   case LegacyRoot:
-                    this._debugRootType = hydrate3 ? "hydrate()" : "render()";
+                    this._debugRootType = hydrate22 ? "hydrate()" : "render()";
                     break;
                 }
               }
             }
             __name(FiberRootNode, "FiberRootNode");
             __name2(FiberRootNode, "FiberRootNode");
-            function createFiberRoot(containerInfo, tag, hydrate3, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError, transitionCallbacks) {
-              var root2 = new FiberRootNode(containerInfo, tag, hydrate3, identifierPrefix, onRecoverableError);
+            function createFiberRoot(containerInfo, tag, hydrate22, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError, transitionCallbacks) {
+              var root2 = new FiberRootNode(containerInfo, tag, hydrate22, identifierPrefix, onRecoverableError);
               var uninitializedFiber = createHostRootFiber(tag, isStrictMode);
               root2.current = uninitializedFiber;
               uninitializedFiber.stateNode = root2;
               {
                 var _initialState = {
                   element: initialChildren,
-                  isDehydrated: hydrate3,
+                  isDehydrated: hydrate22,
                   cache: null,
                   transitions: null,
                   pendingSuspenseBoundaries: null
@@ -24048,7 +24002,7 @@ var init_reactMod = __esm({
                 implementation
               };
             }
-            __name(createPortal2, "createPortal2");
+            __name(createPortal2, "createPortal");
             __name2(createPortal2, "createPortal");
             var didWarnAboutNestedUpdates;
             var didWarnAboutFindNodeInStrictMode;
@@ -24114,15 +24068,15 @@ var init_reactMod = __esm({
             __name(findHostInstanceWithWarning, "findHostInstanceWithWarning");
             __name2(findHostInstanceWithWarning, "findHostInstanceWithWarning");
             function createContainer(containerInfo, tag, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError, transitionCallbacks) {
-              var hydrate3 = false;
+              var hydrate22 = false;
               var initialChildren = null;
-              return createFiberRoot(containerInfo, tag, hydrate3, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError);
+              return createFiberRoot(containerInfo, tag, hydrate22, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError);
             }
             __name(createContainer, "createContainer");
             __name2(createContainer, "createContainer");
             function createHydrationContainer(initialChildren, callback, containerInfo, tag, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError, transitionCallbacks) {
-              var hydrate3 = true;
-              var root2 = createFiberRoot(containerInfo, tag, hydrate3, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError);
+              var hydrate22 = true;
+              var root2 = createFiberRoot(containerInfo, tag, hydrate22, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, identifierPrefix, onRecoverableError);
               root2.context = getContextForSubtree(null);
               var current2 = root2.current;
               var eventTime = requestEventTime();
@@ -24556,7 +24510,7 @@ var init_reactMod = __esm({
                 unmarkContainerAsRoot(container);
               }
             };
-            function createRoot2(container, options2) {
+            function createRoot(container, options2) {
               if (!isValidContainer(container)) {
                 throw new Error("createRoot(...): Target container is not a DOM element.");
               }
@@ -24595,8 +24549,8 @@ var init_reactMod = __esm({
               listenToAllSupportedEvents(rootContainerElement);
               return new ReactDOMRoot(root2);
             }
-            __name(createRoot2, "createRoot2");
-            __name2(createRoot2, "createRoot");
+            __name(createRoot, "createRoot");
+            __name2(createRoot, "createRoot");
             function ReactDOMHydrationRoot(internalRoot) {
               this._internalRoot = internalRoot;
             }
@@ -24610,7 +24564,7 @@ var init_reactMod = __esm({
             __name(scheduleHydration, "scheduleHydration");
             __name2(scheduleHydration, "scheduleHydration");
             ReactDOMHydrationRoot.prototype.unstable_scheduleHydration = scheduleHydration;
-            function hydrateRoot2(container, initialChildren, options2) {
+            function hydrateRoot(container, initialChildren, options2) {
               if (!isValidContainer(container)) {
                 throw new Error("hydrateRoot(...): Target container is not a DOM element.");
               }
@@ -24648,8 +24602,8 @@ var init_reactMod = __esm({
               }
               return new ReactDOMHydrationRoot(root2);
             }
-            __name(hydrateRoot2, "hydrateRoot2");
-            __name2(hydrateRoot2, "hydrateRoot");
+            __name(hydrateRoot, "hydrateRoot");
+            __name2(hydrateRoot, "hydrateRoot");
             function isValidContainer(node) {
               return !!(node && (node.nodeType === ELEMENT_NODE || node.nodeType === DOCUMENT_NODE || node.nodeType === DOCUMENT_FRAGMENT_NODE || !disableCommentsAsDOMContainers));
             }
@@ -24828,7 +24782,7 @@ var init_reactMod = __esm({
                 return findHostInstanceWithWarning(componentOrElement, "findDOMNode");
               }
             }
-            __name(findDOMNode2, "findDOMNode2");
+            __name(findDOMNode2, "findDOMNode");
             __name2(findDOMNode2, "findDOMNode");
             function hydrate2(element, container, callback) {
               {
@@ -24845,7 +24799,7 @@ var init_reactMod = __esm({
               }
               return legacyRenderSubtreeIntoContainer(null, element, container, true, callback);
             }
-            __name(hydrate2, "hydrate2");
+            __name(hydrate2, "hydrate");
             __name2(hydrate2, "hydrate");
             function render2(element, container, callback) {
               {
@@ -24862,7 +24816,7 @@ var init_reactMod = __esm({
               }
               return legacyRenderSubtreeIntoContainer(null, element, container, false, callback);
             }
-            __name(render2, "render2");
+            __name(render2, "render");
             __name2(render2, "render");
             function unstable_renderSubtreeIntoContainer2(parentComponent, element, containerNode, callback) {
               {
@@ -24876,7 +24830,7 @@ var init_reactMod = __esm({
               }
               return legacyRenderSubtreeIntoContainer(parentComponent, element, containerNode, false, callback);
             }
-            __name(unstable_renderSubtreeIntoContainer2, "unstable_renderSubtreeIntoContainer2");
+            __name(unstable_renderSubtreeIntoContainer2, "unstable_renderSubtreeIntoContainer");
             __name2(unstable_renderSubtreeIntoContainer2, "unstable_renderSubtreeIntoContainer");
             function unmountComponentAtNode2(container) {
               if (!isValidContainerLegacy(container)) {
@@ -24915,7 +24869,7 @@ var init_reactMod = __esm({
                 return false;
               }
             }
-            __name(unmountComponentAtNode2, "unmountComponentAtNode2");
+            __name(unmountComponentAtNode2, "unmountComponentAtNode");
             __name2(unmountComponentAtNode2, "unmountComponentAtNode");
             setAttemptSynchronousHydration(attemptSynchronousHydration$1);
             setAttemptContinuousHydration(attemptContinuousHydration$1);
@@ -24953,7 +24907,7 @@ var init_reactMod = __esm({
                   error('You are importing createRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
                 }
               }
-              return createRoot2(container, options2);
+              return createRoot(container, options2);
             }
             __name(createRoot$1, "createRoot$1");
             __name2(createRoot$1, "createRoot$1");
@@ -24963,7 +24917,7 @@ var init_reactMod = __esm({
                   error('You are importing hydrateRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
                 }
               }
-              return hydrateRoot2(container, initialChildren, options2);
+              return hydrateRoot(container, initialChildren, options2);
             }
             __name(hydrateRoot$1, "hydrateRoot$1");
             __name2(hydrateRoot$1, "hydrateRoot$1");
@@ -25024,6 +24978,16 @@ var init_reactMod = __esm({
         }
       }
     });
+  }
+});
+
+// dist/chunk-chunk-EFO53JI7.mjs
+var require_client;
+var init_chunk_chunk_EFO53JI7 = __esm({
+  "dist/chunk-chunk-EFO53JI7.mjs"() {
+    "use strict";
+    init_define_process();
+    init_chunk_chunk_GBRFGZQ7();
     require_client = __commonJS({
       "../../.yarn/__virtual__/react-dom-virtual-fbce32c2b9/0/global/cache/react-dom-npm-18.2.0-dd675bca1c-9.zip/node_modules/react-dom/client.js"(exports) {
         "use strict";
@@ -25054,6 +25018,63 @@ var init_reactMod = __esm({
         var i;
       }
     });
+  }
+});
+
+// dist/reactMod.mjs
+var reactMod_exports = {};
+__export(reactMod_exports, {
+  Children: () => Children,
+  Component: () => Component,
+  Fragment: () => Fragment,
+  PureComponent: () => PureComponent,
+  StrictMode: () => StrictMode,
+  Suspense: () => Suspense,
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: () => __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
+  cloneElement: () => cloneElement,
+  createContext: () => createContext,
+  createElement: () => createElement,
+  createFactory: () => createFactory,
+  createPortal: () => createPortal,
+  createRef: () => createRef,
+  createRoot: () => export_createRoot,
+  default: () => reactMod_default,
+  findDOMNode: () => findDOMNode,
+  flushSync: () => flushSync,
+  forwardRef: () => forwardRef,
+  hydrate: () => hydrate,
+  hydrateRoot: () => export_hydrateRoot,
+  isValidElement: () => isValidElement,
+  lazy: () => lazy,
+  memo: () => memo,
+  render: () => render,
+  startTransition: () => startTransition,
+  unmountComponentAtNode: () => unmountComponentAtNode,
+  unstable_batchedUpdates: () => unstable_batchedUpdates,
+  unstable_renderSubtreeIntoContainer: () => unstable_renderSubtreeIntoContainer,
+  useCallback: () => useCallback,
+  useContext: () => useContext,
+  useDebugValue: () => useDebugValue,
+  useDeferredValue: () => useDeferredValue,
+  useEffect: () => useEffect,
+  useId: () => useId,
+  useImperativeHandle: () => useImperativeHandle,
+  useInsertionEffect: () => useInsertionEffect,
+  useLayoutEffect: () => useLayoutEffect,
+  useMemo: () => useMemo,
+  useReducer: () => useReducer,
+  useRef: () => useRef,
+  useState: () => useState,
+  useSyncExternalStore: () => useSyncExternalStore,
+  useTransition: () => useTransition,
+  version: () => version
+});
+var import_react, import_react_dom, import_client, Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, createPortal, flushSync, render, findDOMNode, hydrate, unmountComponentAtNode, unstable_batchedUpdates, unstable_renderSubtreeIntoContainer, version, reactMod_default, export_createRoot, export_hydrateRoot;
+var init_reactMod = __esm({
+  "dist/reactMod.mjs"() {
+    init_define_process();
+    init_chunk_chunk_EFO53JI7();
+    init_chunk_chunk_GBRFGZQ7();
     init_define_process2();
     import_react = __toESM(require_react(), 1);
     import_react_dom = __toESM(require_react_dom(), 1);
@@ -25110,6 +25131,12 @@ var init_reactMod = __esm({
 });
 
 export {
+  __toESM,
+  init_define_process2 as init_define_process,
+  require_react_dom,
+  init_chunk_chunk_GBRFGZQ7,
+  require_client,
+  init_chunk_chunk_EFO53JI7,
   Children,
   Component,
   Fragment,
@@ -25134,11 +25161,7 @@ export {
   useMemo,
   useRef,
   useState,
-  createPortal,
-  flushSync,
   reactMod_default,
-  export_createRoot,
-  export_hydrateRoot,
   reactMod_exports,
   init_reactMod
 };
