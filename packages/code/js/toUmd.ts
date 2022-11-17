@@ -48,15 +48,15 @@ const mod = {
   
      `;
 
-    const t = await transform(res, {
-      format: "esm",
-      minify: true,
-      keepNames: true,
-      platform: "browser",
-      treeShaking: true,
-    });
+    // const t = await transform(res, {
+    //   format: "esm",
+    //   minify: true,
+    //   keepNames: true,
+    //   platform: "browser",
+    //   treeShaking: true,
+    // });
 
-    const c = await transform(RE, {
+    const c = await transform(res, {
       format: "iife",
       minify: true,
       keepNames: true,
