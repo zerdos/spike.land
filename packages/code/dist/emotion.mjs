@@ -9,13 +9,14 @@ import {
 
 // js/emotion.ts
 init_define_process();
+var gt = globalThis;
+var emotionReact = gt.emotionReact = gt.emotionReact || require_emotion_react_cjs();
 var {
   __unsafe_useEmotionCache,
   CacheProvider,
   ClassNames,
   createElement,
   css,
-  default: default2,
   Global,
   jsx,
   keyframes,
@@ -24,7 +25,8 @@ var {
   useTheme,
   withEmotionCache,
   withTheme
-} = globalThis.emotionReact = globalThis.emotionReact || require_emotion_react_cjs();
+} = emotionReact;
+var emotion_default = emotionReact;
 export {
   CacheProvider,
   ClassNames,
@@ -34,7 +36,7 @@ export {
   __unsafe_useEmotionCache,
   createElement,
   css,
-  default2 as default,
+  emotion_default as default,
   jsx,
   keyframes,
   useTheme,

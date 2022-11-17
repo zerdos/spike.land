@@ -3,7 +3,9 @@
 // import { hashCode } from "session";
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
 // Import { string } from "prop-types";
+import { transform } from "./esbuildEsm";
 import { md5 } from "./md5.js";
+
 // import "es-module-shims";
 // Import { m } from "framer-motion";
 
@@ -78,8 +80,6 @@ const mod = {
 };
 
 export const toUmd = async (source: string, name: string) => {
-  const { transform } = await import("./esbuildEsm");
-
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
 

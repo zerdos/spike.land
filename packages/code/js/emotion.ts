@@ -1,3 +1,8 @@
+import EmotionReact from "@emotion/react";
+
+const gt = globalThis as unknown as { emotionReact: typeof EmotionReact };
+const emotionReact = gt.emotionReact = gt.emotionReact || require("@emotion/react");
+
 export const {
   // @ts-ignore
   __unsafe_useEmotionCache,
@@ -6,7 +11,6 @@ export const {
   // @ts-ignore
   createElement,
   css,
-  default,
   Global,
   jsx,
   keyframes,
@@ -16,4 +20,6 @@ export const {
   withEmotionCache,
   withTheme,
   // @ts-ignore
-} = globalThis.emotionReact = globalThis.emotionReact || require("@emotion/react");
+} = emotionReact;
+
+export default emotionReact;
