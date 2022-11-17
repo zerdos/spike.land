@@ -48,8 +48,6 @@ const mod = {
   
      `;
 
-    const { transform } = await import("./esbuildEsm");
-
     const t = await transform(res, {
       format: "esm",
       minify: true,
@@ -58,7 +56,7 @@ const mod = {
       treeShaking: true,
     });
 
-    const c = await transform(t.code, {
+    const c = await transform(RE, {
       format: "iife",
       minify: true,
       keepNames: true,

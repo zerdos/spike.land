@@ -2,7 +2,7 @@ import {
   AutoUpdateApp,
   Editor,
   wait
-} from "./chunk-chunk-BZHGUAA5.mjs";
+} from "./chunk-chunk-W4N5TCF5.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
 } from "./chunk-chunk-OOKNKU5D.mjs";
@@ -12,13 +12,11 @@ import {
   mST,
   makePatch,
   makePatchFrom,
+  md5,
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-EHCA3OUL.mjs";
-import {
-  md5
-} from "./chunk-chunk-WNMOTYVA.mjs";
+} from "./chunk-chunk-MG23ME7G.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-63HHZNB2.mjs";
@@ -3529,7 +3527,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = lazy(() => import("./chunk-DraggableWindow-DZVVZLJN.mjs"));
+var DraggableWindowLazy = lazy(() => import("./chunk-DraggableWindow-LCAPMDEL.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
   children: [
     !mST().css.includes("body{") ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.Global, {

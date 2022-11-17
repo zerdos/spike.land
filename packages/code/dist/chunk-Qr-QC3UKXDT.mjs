@@ -2,7 +2,7 @@ import {
   Fab,
   QrCodeIcon,
   motion
-} from "./chunk-chunk-6HAK4XRC.mjs";
+} from "./chunk-chunk-Q6L6YB4N.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
 } from "./chunk-chunk-OOKNKU5D.mjs";
