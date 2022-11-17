@@ -1,20 +1,22 @@
 import {
   ButtonBase_default
-} from "./chunk-chunk-DMOHENVR.mjs";
+} from "./chunk-chunk-VH5JMJ7D.mjs";
 import {
   _extends,
   _objectWithoutPropertiesLoose,
   alpha,
   capitalize_default,
-  clsx_m_default,
   composeClasses,
   generateUtilityClass,
   generateUtilityClasses,
-  require_prop_types,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-HOJDC3CV.mjs";
+} from "./chunk-chunk-D2QI464V.mjs";
 import "./chunk-chunk-SWCKXOIT.mjs";
+import {
+  require_clsx,
+  require_prop_types
+} from "./chunk-chunk-N2R5FMST.mjs";
 import "./chunk-chunk-M2S7XGO2.mjs";
 import {
   require_jsx_runtime
@@ -37,6 +39,7 @@ init_define_process();
 init_define_process();
 var React = __toESM(require_react());
 var import_prop_types = __toESM(require_prop_types());
+var import_clsx = __toESM(require_clsx());
 
 // ../../.yarn/__virtual__/@mui-material-virtual-92fdf247ea/0/global/cache/@mui-material-npm-5.10.14-8d1f74b3b3-9.zip/node_modules/@mui/material/esm/styles/index.js
 init_define_process();
@@ -161,7 +164,7 @@ var ToggleButton = /* @__PURE__ */ React.forwardRef(/* @__PURE__ */ __name(funct
     }
   }, "handleChange");
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleButtonRoot, _extends({
-    className: clsx_m_default(classes.root, className),
+    className: (0, import_clsx.default)(classes.root, className),
     disabled,
     focusRipple: !disableFocusRipple,
     ref,

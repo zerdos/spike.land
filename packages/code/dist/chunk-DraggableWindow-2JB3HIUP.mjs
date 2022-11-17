@@ -13,11 +13,12 @@ import {
   domAnimation,
   domMax,
   m
-} from "./chunk-chunk-YF6ZRRIH.mjs";
+} from "./chunk-chunk-KFAJK2TU.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-N3CAHLUW.mjs";
-import "./chunk-chunk-66KFCGEI.mjs";
+} from "./chunk-chunk-TBB5V3SW.mjs";
+import "./chunk-chunk-NIJ5OSMS.mjs";
+import "./chunk-chunk-N2R5FMST.mjs";
 import "./chunk-chunk-IBU5ZNPH.mjs";
 import {
   require_emotion_react_cjs
@@ -53,7 +54,7 @@ var import_react3 = __toESM(require_react(), 1);
 init_define_process();
 var import_react = __toESM(require_react(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-3PJ3BTQA.mjs"));
+var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-YDQ6UVYZ.mjs"));
 var QRButton = /* @__PURE__ */ __name(({ url }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.Suspense, {
   fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
     children: "...qr...,"

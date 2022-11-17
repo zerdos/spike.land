@@ -1,7 +1,8 @@
 import { css } from "@emotion/react";
-import { Resizable } from "re-resizable";
+
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
+import { Rnd } from "react-rnd";
 
 import { isMobile } from "./isMobile.mjs";
 import { prettierJs } from "./prettierEsm";
@@ -110,7 +111,12 @@ export const Editor: FC<
   }, "editor");
 
   return (
-    <Resizable
+    <Rnd
+      enableResizing={true}
+      minWidth={640}
+      minHeight={400}
+      allowAnyClick={true}
+      lockAspectRatio={false}
       enable={{
         top: false,
         bottom: true,
@@ -139,7 +145,7 @@ export const Editor: FC<
           `}
       >
       </div>
-    </Resizable>
+    </Rnd>
   );
 };
 

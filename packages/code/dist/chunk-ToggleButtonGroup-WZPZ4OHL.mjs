@@ -2,16 +2,18 @@ import {
   _extends,
   _objectWithoutPropertiesLoose,
   capitalize_default,
-  clsx_m_default,
   composeClasses,
   generateUtilityClass,
   generateUtilityClasses,
-  require_prop_types,
   require_react_is,
   styled_default,
   useThemeProps
-} from "./chunk-chunk-HOJDC3CV.mjs";
+} from "./chunk-chunk-D2QI464V.mjs";
 import "./chunk-chunk-SWCKXOIT.mjs";
+import {
+  require_clsx,
+  require_prop_types
+} from "./chunk-chunk-N2R5FMST.mjs";
 import "./chunk-chunk-M2S7XGO2.mjs";
 import {
   require_jsx_runtime
@@ -35,6 +37,7 @@ init_define_process();
 var React = __toESM(require_react());
 var import_react_is = __toESM(require_react_is());
 var import_prop_types = __toESM(require_prop_types());
+var import_clsx = __toESM(require_clsx());
 
 // ../../.yarn/__virtual__/@mui-material-virtual-92fdf247ea/0/global/cache/@mui-material-npm-5.10.14-8d1f74b3b3-9.zip/node_modules/@mui/material/esm/ToggleButtonGroup/isValueSelected.js
 init_define_process();
@@ -176,7 +179,7 @@ var ToggleButtonGroup = /* @__PURE__ */ React.forwardRef(/* @__PURE__ */ __name(
   }, "handleExclusiveChange");
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleButtonGroupRoot, _extends({
     role: "group",
-    className: clsx_m_default(classes.root, className),
+    className: (0, import_clsx.default)(classes.root, className),
     ref,
     ownerState
   }, other, {
@@ -190,7 +193,7 @@ var ToggleButtonGroup = /* @__PURE__ */ React.forwardRef(/* @__PURE__ */ __name(
         }
       }
       return /* @__PURE__ */ React.cloneElement(child, {
-        className: clsx_m_default(classes.grouped, child.props.className),
+        className: (0, import_clsx.default)(classes.grouped, child.props.className),
         onChange: exclusive ? handleExclusiveChange : handleChange,
         selected: child.props.selected === void 0 ? isValueSelected(child.props.value, value) : child.props.selected,
         size: child.props.size || size,
