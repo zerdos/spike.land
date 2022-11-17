@@ -1,4 +1,4 @@
-import ReactDomClient from "react-dom/client";
+const ReactDomClient = require("react-dom/client");
 
 export const { createRoot, hydrateRoot } = ReactDomClient;
 

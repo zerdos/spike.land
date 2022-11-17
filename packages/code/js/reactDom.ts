@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+const ReactDOM = require("react-dom");
 
 export const {
   createPortal,

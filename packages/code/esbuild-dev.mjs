@@ -41,8 +41,7 @@ const define = {
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   process: JSON.stringify({
-    env: { NODE_ENV: "production", browser: true },
-    version: "1.1.1",
+    env: { NODE_ENV: `${environment}`, browser: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true },
     browser: true,
   }),
 };
@@ -183,12 +182,12 @@ const build = (
   // ], []);
   // console.log("done");
 
-  await build([
-    "js/reactMod.ts",
-    "js/reactDom.ts",
-    "js/reactDomClient.ts",
-  ], []);
-  console.log("done");
+  // await build([
+  //   "js/reactMod.ts",
+  //   "js/reactDom.ts",
+  //   "js/reactDomClient.ts"
+  // ], []);
+  // console.log("done");
 
   buildOptions.plugins = [
     aliasPlugin({
@@ -204,9 +203,9 @@ const build = (
       // // "./mui": resolve("./dist/mui.mjs"),
       // "react": resolve("./dist/reactMod.mjs"),
       // "react/jsx-runtime": resolve("./dist/jsx.mjs"),
-      "react": resolve("./dist/reactMod.mjs"),
-      "react-dom": resolve("./dist/reactDom.mjs"),
-      "react-dom/client": resolve("./dist/reactDomClient.mjs"),
+      // "react": resolve("./dist/reactMod.mjs"),
+      // "react-dom": resolve("./dist/reactDom.mjs"),
+      // "react-dom/client": resolve("./dist/reactDomClient.mjs"),
       // "react-dom": resolve("./dist/reactMod.mjs"),
       // "react-dom/client": resolve("./dist/reactMod.mjs"),
       // "framer-motion": resolve("./js/motion.ts"),
@@ -245,6 +244,8 @@ const build = (
       "js/reactMod.ts",
       // "js/Editor.tsx",
       "js/motion.ts",
+      "js/reactDom.ts",
+      "js/reactDomClient.ts",
 
       // "js/ws.ts",
       "js/emotion.ts",
