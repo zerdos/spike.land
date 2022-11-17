@@ -60,7 +60,7 @@ const mod = {
       format: "iife",
       minify: true,
       keepNames: true,
-      platform: "browser",
+      platform: "neutral",
       treeShaking: true,
     });
 

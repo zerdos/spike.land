@@ -59,7 +59,7 @@ const define = {
 const buildOptions = {
   define,
   target,
-  platform: "browser",
+  platform: "neutral",
 
   external: ["./mST", "/npm:*"],
   legalComments: "none",
