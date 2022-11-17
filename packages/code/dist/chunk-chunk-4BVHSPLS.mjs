@@ -24803,7 +24803,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
     const container = ref?.current;
     if (container === null)
       return;
-    engine === "monaco" ? setMonaco(container, codeSpace2) : setAce(container, codeSpace2).then((res) => Object.assign(mod4, { setValue: res?.setValue })).then(
+    (engine === "monaco" ? setMonaco(container, codeSpace2) : setAce(container, codeSpace2)).then((res) => Object.assign(mod4, { setValue: res?.setValue })).then(
       () => changeContent((x) => ({ ...x, started: true }))
     );
   }, [started, ref.current]);
@@ -24887,7 +24887,7 @@ async function setMonaco(container, codeSpace2) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-T2CJNSWF.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-DNHE4JNI.mjs");
   return await startMonaco({
     container,
     codeSpace: codeSpace2,

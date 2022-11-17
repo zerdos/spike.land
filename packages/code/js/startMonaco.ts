@@ -385,12 +385,7 @@ async function startMonacoPristine(
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 
-  const changed = () => {
-    if (mod.silent) return;
-    onChange(myEditor.getValue());
-  };
   const mod = {
-    model,
     getValue: () => model.getValue(),
     silent: false,
     getErrors: async () => {
@@ -403,33 +398,32 @@ async function startMonacoPristine(
           },
         );
     },
-    setValue: (code: string) =>
-      ((mod) => {
-        mod.silent = true;
-        let state = null;
+    setValue: (code: string) => {
+      console.log("setValue! ", code);
+      mod.silent = true;
+      let state = null;
+      try {
+        console.log("trying to change code");
         try {
-          console.log("trying to change code");
-          try {
-            state = myEditor.saveViewState();
-          } catch {
-            console.error("error while saving monaco state");
-          }
-
-          console.log("trying to change code");
-          myEditor.setValue(code);
-          if (state) {
-            myEditor.restoreViewState(state);
-          }
+          state = myEditor.saveViewState();
         } catch {
-          console.error("error while saving the state");
-        } finally {
-          mod.silent = false;
-          myEditor.getModel()!.onDidChangeContent(changed);
+          console.error("error while saving monaco state");
         }
-      })(mod),
+
+        console.log("trying to change code");
+        model.setValue(code);
+        if (state) {
+          myEditor.restoreViewState(state);
+        }
+      } catch {
+        console.error("error while saving the state");
+      } finally {
+        mod.silent = false;
+      }
+    },
   };
 
-  editor.getModels()[0].onDidChangeContent(changed);
+  model.onDidChangeContent(() => mod.silent == false && onChange(model.getValue()));
 
   return mod;
 }

@@ -65,9 +65,9 @@ export const Editor: FC<
     const container = ref?.current;
     if (container === null) return;
 
-    engine === "monaco"
+    (engine === "monaco"
       ? setMonaco(container, codeSpace)
-      : setAce(container, codeSpace).then((res) => Object.assign(mod, { setValue: res?.setValue })).then(() =>
+      : setAce(container, codeSpace)).then((res) => Object.assign(mod, { setValue: res?.setValue })).then(() =>
         changeContent((x: typeof mySession) => ({ ...x, started: true }))
       );
   }, [started, ref.current]);

@@ -43213,13 +43213,7 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
   });
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   setTimeout(() => extraStuff(code, uri, languages.typescript), 1e3);
-  const changed = /* @__PURE__ */ __name(() => {
-    if (mod2.silent)
-      return;
-    onChange(myEditor.getValue());
-  }, "changed");
   const mod2 = {
-    model,
     getValue: () => model.getValue(),
     silent: false,
     getErrors: async () => {
@@ -43229,8 +43223,9 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
         }
       );
     },
-    setValue: (code2) => ((mod3) => {
-      mod3.silent = true;
+    setValue: (code2) => {
+      console.log("setValue! ", code2);
+      mod2.silent = true;
       let state = null;
       try {
         console.log("trying to change code");
@@ -43240,19 +43235,18 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
           console.error("error while saving monaco state");
         }
         console.log("trying to change code");
-        myEditor.setValue(code2);
+        model.setValue(code2);
         if (state) {
           myEditor.restoreViewState(state);
         }
       } catch {
         console.error("error while saving the state");
       } finally {
-        mod3.silent = false;
-        myEditor.getModel().onDidChangeContent(changed);
+        mod2.silent = false;
       }
-    })(mod2)
+    }
   };
-  editor.getModels()[0].onDidChangeContent(changed);
+  model.onDidChangeContent(() => mod2.silent == false && onChange(model.getValue()));
   return mod2;
 }
 __name(startMonacoPristine, "startMonacoPristine");
