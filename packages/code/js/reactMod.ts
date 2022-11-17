@@ -1,4 +1,8 @@
-const { React, ReactDOM, ReactDOMClient } = globalThis;
+import React from "react";
+import ReactDOM from "react-dom";
+export { createRoot, hydrateRoot } from "react-dom/client";
+// impoirt
+// const { React, ReactDOM, ReactDOMClient } = globalThis;
 
 export const {
   Children,
@@ -36,11 +40,6 @@ export const {
   // @ts-ignore
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
 } = React;
-
-export const {
-  createRoot,
-  hydrateRoot,
-} = ReactDOMClient;
 
 export const {
   createPortal,

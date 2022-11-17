@@ -5,10 +5,10 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 // const start = (dry = false) =>
 
 async function start() {
-  if (!globalThis.React?.Children) {
-    queueMicrotask(() => start());
-    return;
-  }
+  // if (!globalThis.React?.Children) {
+  //   queueMicrotask(() => start());
+  //   return;
+  // }
 
   const { run } = await importShim<
     { run: (t: any) => void },

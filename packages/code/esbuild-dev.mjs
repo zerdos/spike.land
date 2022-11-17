@@ -241,7 +241,7 @@ const build = (
   await build(["js/mWorker.mjs"], [], false, "iife");
 
   await build([
-    "js/load.ts",
+    "js/reactMod.ts",
   ], ["./react-jsx-runtime.mjs"]);
   console.log("done");
 
@@ -257,9 +257,9 @@ const build = (
 
       // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
       // // "./mui": resolve("./dist/mui.mjs"),
-      "react": resolve("./js/reactMod.ts"),
-      "react-dom": resolve("./js/reactMod.ts"),
-      "react-dom/client": resolve("./js/reactMod.ts"),
+      "react": resolve("./dist/reactMod.mjs"),
+      "react-dom": resolve("./dist/reactMod.mjs"),
+      "react-dom/client": resolve("./dist/reactMod.mjs"),
       // "framer-motion": resolve("./js/motion.ts"),
       // "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
     }),
@@ -299,6 +299,8 @@ const build = (
 
       // "js/ws.ts",
       "js/emotion.ts",
+      "js/emotionCache.ts",
+      "js/emotionStyled.mjs",
       "js/emotionJsxRuntime.ts",
       // "js/emotion.ts",
       // "js/emotionJsxRuntime.ts",

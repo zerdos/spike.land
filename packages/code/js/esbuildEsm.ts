@@ -1,6 +1,6 @@
 import { initialize, transform } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
-import { md5 } from "md5";
+import { md5 } from "./md5";
 
 const mod = {
   init: false as (boolean | Promise<void>),

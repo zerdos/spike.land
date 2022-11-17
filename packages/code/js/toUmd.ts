@@ -80,75 +80,77 @@ const mod = {
 };
 
 export const toUmd = async (source: string, name: string) => {
-  const hash = md5(source);
-  mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
+  try {
+    const hash = md5(source);
+    mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
 
-  if (!mod.data[hash]) {
-    const transformed = await transform(source, {
-      format: "iife",
-      keepNames: true,
-      treeShaking: true,
+    if (!mod.data[hash]) {
+      const transformed = await transform(source, {
+        format: "iife",
+        keepNames: true,
+        treeShaking: true,
 
-      target: "es2021",
+        target: "es2021",
 
-      loader: name.includes(".tsx")
-        ? "tsx"
-        : (name.includes(".ts") ? "ts" : name.includes(".jsx") ? "jsx" : "js"),
-      globalName: hash.replace(/[^a-f]/g, ""),
-    });
-    if (!transformed || !transformed.code) {
-      console.log("transform result -code is empty");
-      return;
-    }
-
-    mod.data = {
-      ...mod.data,
-      [hash]: {
-        ...transformed,
-        deps: findDeps(transformed.code),
-      },
-    };
-
-    await Promise.all(mod.data[hash].deps.map(async (dep) => {
-      if (mod.hashMap[dep]) {
+        loader: "tsx",
+        globalName: hash.replace(/[^a-f]/g, ""),
+      });
+      if (!transformed || !transformed.code) {
+        console.log("transform result -code is empty");
         return;
       }
 
-      const importMap = JSON.parse(
-        document.querySelector("script[type=importmap]")!.innerHTML,
-      );
+      mod.data = {
+        ...mod.data,
+        [hash]: {
+          ...transformed,
+          deps: findDeps(transformed.code),
+        },
+      };
 
-      let url = "";
-      let urlHash = "";
-      if (importMap.imports[dep]) {
-        url = importMap.imports[dep];
-        urlHash = md5(dep);
-      } else if (dep.startsWith("./")) {
-        url = new URL(dep, location.origin).toString();
-        urlHash = md5(dep);
-      } else {
-        try {
-          // @ts-ignore
-          url = await (import.meta.resolve || importShim.resolve)(dep, name);
-          urlHash = md5(dep);
-        } catch {
-          console.error(`failed to resolve: ${dep}`);
+      await Promise.all(mod.data[hash].deps.map(async (dep) => {
+        if (mod.hashMap[dep]) {
           return;
         }
-      }
 
-      if (mod.hashMap[urlHash]) {
-        return;
-      }
+        const importMap = JSON.parse(
+          document.querySelector("script[type=importmap]")!.innerHTML,
+        );
 
-      mod.hashMap[dep] = url;
-      const source = await (await fetch(url)).text();
+        let url = "";
+        let urlHash = "";
+        if (importMap.imports[dep]) {
+          url = importMap.imports[dep];
+          urlHash = md5(dep);
+        } else if (dep.startsWith("./")) {
+          url = new URL(dep, location.origin).toString();
+          urlHash = md5(dep);
+        } else {
+          try {
+            // @ts-ignore
+            url = importShim.resolve(dep, name);
+            urlHash = md5(dep);
+          } catch {
+            console.error(`failed to resolve: ${dep}`);
+            return;
+          }
+        }
 
-      return toUmd(source, dep);
-    }));
+        if (mod.hashMap[urlHash]) {
+          return;
+        }
+
+        mod.hashMap[dep] = url;
+        const source = await (await fetch(url)).text();
+
+        return toUmd(source, dep);
+      }));
+    }
+
+    return mod;
+  } catch {
+    return mod;
   }
-
-  return mod;
 };
 
 // `importScripts("${comlinkUmd}");

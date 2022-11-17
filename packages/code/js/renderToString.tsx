@@ -2,6 +2,7 @@ import { md5 } from "md5";
 import { appFactory } from "starter";
 
 import type { EmotionCache } from "@emotion/cache";
+import { createRoot } from "react-dom/client";
 import { wait } from "./wait";
 
 const mod = {
@@ -36,7 +37,7 @@ const mod = {
     // rootDiv.style.visibility = "hidden";
     // rootDiv.style.position = "absolute";
     // document.body.appendChild(rootDiv);
-    const root = ReactDOMClient.createRoot(rootDiv);
+    const root = createRoot(rootDiv);
     const App = apps[md5Hash];
 
     mod.md5Hash = md5Hash;
