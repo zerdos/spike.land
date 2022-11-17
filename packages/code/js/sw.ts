@@ -14,9 +14,13 @@ let npmCache: Cache | null;
 let chunkCache: Cache | null;
 let fileCache: Cache | null;
 let cacheName = "default";
+let files = {};
 
 const getCacheName = () =>
-  fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => md5(content))
+  fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => {
+    if (content !== null) files = JSON.parse(content);
+    return md5(content);
+  })
     .then(
       (cn) => (cn === cacheName || (fileCache = null) || (cacheName = cn)),
     ).finally(() => cacheName);
@@ -41,7 +45,7 @@ addEventListener("fetch", async (_event) => {
     }
 
     const cacheKey = new Request(
-      request.url + (fileCache === myCache ? "?files=" + cacheName : ""),
+      request.url,
     );
     const cachedResp = await myCache.match(cacheKey);
 
@@ -52,8 +56,9 @@ addEventListener("fetch", async (_event) => {
     const resp = await fetch(request);
 
     if (
-      resp.ok && resp.headers.get("Cache-Control") !== "no-cache"
-      && !resp.headers.get("Location")
+      resp.ok && (resp.headers.get("Cache-Control") !== "no-cache"
+          && !resp.headers.get("Location"))
+      || (myCache == fileCache && Object.hasOwn(files, request.url.split("/").pop()!))
     ) {
       await myCache.put(cacheKey, resp.clone());
     }
