@@ -11,7 +11,7 @@ import { wait } from "./wait";
 import importmap from "./importmap.json";
 const imp: { [key: string]: string } = { ...importmap.imports };
 
-const importmapsRes = {};
+const importmapsRes: { [k: string]: string } = {};
 Object.keys(imp).map((k) => Object.assign(importmapsRes, { [k]: location.origin + imp[k] }));
 
 // import "es-module-shims";

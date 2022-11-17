@@ -1,18 +1,15 @@
 import {
-  createRoot,
-  hydrateRoot,
-  reactDom_default
-} from "./chunk-chunk-HOQL657L.mjs";
-import {
   init_reactMod,
-  reactMod_default
-} from "./chunk-chunk-OWE3IVJZ.mjs";
+  reactMod_default,
+  reactMod_exports
+} from "./chunk-chunk-X33UIKCE.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-4FHARZBR.mjs";
 
 // js/reactMod.ts
 init_define_process();
+init_reactMod();
 init_reactMod();
 var {
   Children,
@@ -46,19 +43,11 @@ var {
   useState,
   useSyncExternalStore,
   useTransition,
-  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
-} = reactMod_default;
-var {
-  createPortal,
-  flushSync,
-  render,
-  findDOMNode,
-  hydrate,
-  unmountComponentAtNode,
-  unstable_batchedUpdates,
-  unstable_renderSubtreeIntoContainer,
-  version
-} = reactDom_default;
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
+  version,
+  Profiler,
+  ...rest
+} = reactMod_exports;
 var reactMod_default2 = reactMod_default;
 export {
   Children,
@@ -72,23 +61,14 @@ export {
   createContext,
   createElement,
   createFactory,
-  createPortal,
   createRef,
-  createRoot,
   reactMod_default2 as default,
-  findDOMNode,
-  flushSync,
   forwardRef,
-  hydrate,
-  hydrateRoot,
   isValidElement,
   lazy,
   memo,
-  render,
+  rest,
   startTransition,
-  unmountComponentAtNode,
-  unstable_batchedUpdates,
-  unstable_renderSubtreeIntoContainer,
   useCallback,
   useContext,
   useDebugValue,
@@ -103,6 +83,5 @@ export {
   useRef,
   useState,
   useSyncExternalStore,
-  useTransition,
-  version
+  useTransition
 };

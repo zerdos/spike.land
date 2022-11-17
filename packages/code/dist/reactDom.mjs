@@ -1,8 +1,10 @@
 import {
-  __toESM,
-  init_define_process,
   require_react_dom
-} from "./chunk-chunk-GBRFGZQ7.mjs";
+} from "./chunk-chunk-LFFDIMG7.mjs";
+import {
+  __toESM,
+  init_define_process
+} from "./chunk-chunk-ZKWO2POS.mjs";
 
 // js/reactDom.ts
 init_define_process();

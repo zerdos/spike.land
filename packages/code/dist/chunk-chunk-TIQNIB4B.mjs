@@ -1,11 +1,13 @@
 import {
   AutoUpdateApp,
   Editor,
+  createPortal,
+  createRoot,
   wait
-} from "./chunk-chunk-NPHPNKNE.mjs";
+} from "./chunk-chunk-HPRIS33E.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-OY7KLYSJ.mjs";
+} from "./chunk-chunk-5IILXD2Q.mjs";
 import {
   applyPatch,
   hashCode,
@@ -18,12 +20,8 @@ import {
   startSession
 } from "./chunk-chunk-MG23ME7G.mjs";
 import {
-  createPortal,
-  createRoot
-} from "./chunk-chunk-HOQL657L.mjs";
-import {
   require_emotion_react_cjs
-} from "./chunk-chunk-ODMZRGLB.mjs";
+} from "./chunk-chunk-LCSH5MSR.mjs";
 import {
   Children,
   Fragment,
@@ -37,7 +35,7 @@ import {
   isValidElement,
   lazy,
   useMemo
-} from "./chunk-chunk-OWE3IVJZ.mjs";
+} from "./chunk-chunk-X33UIKCE.mjs";
 import {
   __commonJS,
   __export,
@@ -3527,7 +3525,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = lazy(() => import("./chunk-DraggableWindow-O6Z6GZGW.mjs"));
+var DraggableWindowLazy = lazy(() => import("./chunk-DraggableWindow-ABH6XCV6.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
   css: import_react2.css`
 height: 100%;
