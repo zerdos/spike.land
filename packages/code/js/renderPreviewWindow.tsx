@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import { createHtmlPortalNode, InPortal, OutPortal } from "react-reverse-portal";
 import { AutoUpdateApp } from "./starter";
 
-import { css, Global } from "@emotion/react";
+import { css } from "@emotion/react";
 
 // Import { useSpring, a } from '@react-spring/web'
 
@@ -18,12 +18,8 @@ const DraggableWindowLazy = lazy(() => import("./DraggableWindow"));
 const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
 ) => (
-  <div>
-    {!mST().css.includes("body{")
-      ? (
-        <Global
-          styles={css`
-body{
+  <div
+    css={css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -64,11 +60,9 @@ background:  repeating-radial-gradient(circle at bottom left,
                 #239a87 0, #239a87 83.3333333333%, 
                 #7cba6d 0, #7cba6d 88.8888888889%, 
                 #becc2f 0, #becc2f 94.4444444444%, 
-                #e0d81d 0, #e0d81d 100%);}
+                #e0d81d 0, #e0d81d 100%);
 `}
-        />
-      )
-      : null}
+  >
     {children}
   </div>
 );
@@ -78,13 +72,6 @@ const AppToRender: FC<
 > = (
   { codeSpace },
 ) => {
-  // Const [flipped, set] = useState(false)
-  // const { transform, opacity } = useSpring({
-  //   opacity: flipped ? 1 : 0,
-  //   transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
-  //   config: { mass: 5, tension: 500, friction: 80 },
-  // })
-
   const portalNode = useMemo(() =>
     createHtmlPortalNode({
       attributes: {
