@@ -27050,6 +27050,25 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
       myCode: code2
     }));
   }, "editor");
+  const EditorNode = /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", {
+    "data-test-id": "editor",
+    ref,
+    css: import_react4.css`
+    ${engine === "ace" ? `` : `border-right: 4px dashed gray;
+    border-bottom: 4px dashed gray;`}
+
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    `
+  });
+  if (engine === "ace")
+    return EditorNode;
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Rnd, {
     enableResizing: true,
     minWidth: 640,
@@ -27066,22 +27085,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
       width: "640px",
       height: "95vh"
     },
-    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", {
-      "data-test-id": "editor",
-      ref,
-      css: import_react4.css`
-        border-right: 4px dashed gray;
-        border-bottom: 4px dashed gray;
-          width: 100%;
-          height: 100%;
-          display: block;
-          position: absolute;
-          top:0;
-          bottom:0;
-          left:0;
-          right:0;
-          `
-    })
+    children: EditorNode
   });
 }, "Editor");
 async function onModChange(_code, codeSpace2) {

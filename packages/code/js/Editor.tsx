@@ -110,6 +110,29 @@ export const Editor: FC<
     }));
   }, "editor");
 
+  const EditorNode = (
+    <div
+      data-test-id="editor"
+      ref={ref}
+      css={css`
+    ${
+        (engine === "ace") ? `` : `border-right: 4px dashed gray;
+    border-bottom: 4px dashed gray;`
+      }
+
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    `}
+    />
+  );
+  if (engine === "ace") return EditorNode;
+
   return (
     <Rnd
       enableResizing={true}
@@ -128,23 +151,7 @@ export const Editor: FC<
         height: "95vh",
       }}
     >
-      <div
-        data-test-id="editor"
-        ref={ref}
-        css={css`
-        border-right: 4px dashed gray;
-        border-bottom: 4px dashed gray;
-          width: 100%;
-          height: 100%;
-          display: block;
-          position: absolute;
-          top:0;
-          bottom:0;
-          left:0;
-          right:0;
-          `}
-      >
-      </div>
+      {EditorNode}
     </Rnd>
   );
 };
