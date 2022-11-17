@@ -2,18 +2,16 @@ import {
   require_dist,
   require_is_prop_valid_browser_cjs,
   require_tslib
-} from "./chunk-chunk-GGQHJ3NU.mjs";
+} from "./chunk-chunk-FBPRZQYH.mjs";
 import {
-  init_reactMod,
-  reactMod_exports
-} from "./chunk-chunk-22ENMEQX.mjs";
+  require_react
+} from "./chunk-chunk-3MF4K2ZX.mjs";
 import {
   __commonJS,
   __name,
-  __toCommonJS,
   define_process_default,
   init_define_process
-} from "./chunk-chunk-4FHARZBR.mjs";
+} from "./chunk-chunk-CIPP7HWN.mjs";
 
 // ../../.yarn/global/cache/style-value-types-npm-5.1.2-f9d7bb50ee-9.zip/node_modules/style-value-types/dist/valueTypes.cjs.js
 var require_valueTypes_cjs = __commonJS({
@@ -4457,7 +4455,7 @@ var require_cjs = __commonJS({
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
-    var React = (init_reactMod(), __toCommonJS(reactMod_exports));
+    var React = require_react();
     var styleValueTypes = require_valueTypes_cjs();
     var popmotion = require_popmotion_cjs();
     var heyListen = require_dist();

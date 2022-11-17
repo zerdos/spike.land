@@ -58,6 +58,9 @@ const mod = {
     //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts +
     const res = `
      ${js}
+
+  function __export()
+  
   function require(name){
     let m1;
     let m2;
@@ -147,28 +150,53 @@ export const toUmd = async (source: string, name: string) => {
   if (mod.data[hash]) return mod;
   mod.last = Date.now();
 
-  mod.data[hash] = {
-    code: (await transform(source, {
-      format: "iife",
-      // keepNames: true,
-      treeShaking: true,
-      // sourcefile: name,
+  try {
+    mod.data[hash] = {
+      code: (await transform(source, {
+        format: "iife",
+        // keepNames: true,
+        treeShaking: true,
+        // sourcefile: name,
 
-      ignoreAnnotations: true,
-      target: "es2021",
-      tsconfigRaw: {
-        compilerOptions: {
-          jsx: "react-jsx",
-          useDefineForClassFields: false,
-          jsxImportSource: "@emotion/react",
+        ignoreAnnotations: true,
+        target: "es2021",
+        // tsconfigRaw: {
+        //   compilerOptions: {
+        //     jsx: "react-jsx",
+        //     useDefineForClassFields: false,
+        //     jsxImportSource: "@emotion/react",
+        //   },
+        // },
+
+        // loader: "js",
+        globalName: hash,
+      })).code,
+      deps: [],
+    };
+  } catch {
+    mod.data[hash] = {
+      code: (await transform(source, {
+        format: "iife",
+        // keepNames: true,
+        treeShaking: true,
+        // sourcefile: name,
+
+        ignoreAnnotations: true,
+        target: "es2021",
+        tsconfigRaw: {
+          compilerOptions: {
+            jsx: "react-jsx",
+            useDefineForClassFields: false,
+            jsxImportSource: "@emotion/react",
+          },
         },
-      },
 
-      loader: "tsx",
-      globalName: hash,
-    })).code,
-    deps: [],
-  };
+        loader: "tsx",
+        globalName: hash,
+      })).code,
+      deps: [],
+    };
+  }
 
   mod.data[hash].deps = findDeps(mod.data[hash].code).map(dep => importShim.resolve(dep, name));
 

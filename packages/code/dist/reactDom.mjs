@@ -1,14 +1,14 @@
 import {
   require_react_dom
-} from "./chunk-chunk-LFFDIMG7.mjs";
+} from "./chunk-chunk-7UW6FRGF.mjs";
+import "./chunk-chunk-3MF4K2ZX.mjs";
 import {
-  __toESM,
   init_define_process
-} from "./chunk-chunk-ZKWO2POS.mjs";
+} from "./chunk-chunk-CIPP7HWN.mjs";
 
 // js/reactDom.ts
 init_define_process();
-var import_react_dom = __toESM(require_react_dom(), 1);
+var ReactDOM = require_react_dom();
 var {
   createPortal,
   flushSync,
@@ -19,8 +19,8 @@ var {
   unstable_batchedUpdates,
   unstable_renderSubtreeIntoContainer,
   version
-} = import_react_dom.default;
-var reactDom_default = import_react_dom.default;
+} = ReactDOM;
+var reactDom_default = ReactDOM;
 export {
   createPortal,
   reactDom_default as default,
