@@ -1,4 +1,4 @@
-import emotionReact from "@emotion/react";
+import * as EA from "@emotion/react";
 
 export const {
   // @ts-ignore
@@ -17,6 +17,25 @@ export const {
   withEmotionCache,
   withTheme,
   // @ts-ignore
-} = emotionReact;
+} = EA;
+
+const emotionReact = {
+  // @ts-ignore
+  __unsafe_useEmotionCache,
+  CacheProvider,
+  ClassNames,
+  // @ts-ignore
+  createElement,
+  css,
+  Global,
+  jsx,
+  keyframes,
+  ThemeContext,
+  ThemeProvider,
+  useTheme,
+  withEmotionCache,
+  withTheme,
+  // @ts-ignore
+};
 
 export default emotionReact;
