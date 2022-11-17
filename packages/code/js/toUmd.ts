@@ -83,23 +83,23 @@ const mod = {
   
      `;
 
-    // const t = await transform(res, {
-    //   format: "esm",
-    //   minify: true,
-    //   keepNames: true,
-    //   platform: "neutral",
-    //   treeShaking: true,
-    // });
+    const t = await transform(res, {
+      format: "esm",
+      minify: true,
+      keepNames: true,
+      platform: "neutral",
+      treeShaking: true,
+    });
 
-    // const c = await transform(t.code, {
-    //   format: "iife",
-    //   minify: true,
-    //   keepNames: true,
-    //   platform: "neutral",
-    //   treeShaking: true,
-    // });
+    const c = await transform(t.code, {
+      format: "iife",
+      minify: true,
+      keepNames: true,
+      platform: "neutral",
+      treeShaking: true,
+    });
 
-    return res;
+    return c.code;
   },
   last: 0,
   hashMap: {} as { [key: string]: string },
