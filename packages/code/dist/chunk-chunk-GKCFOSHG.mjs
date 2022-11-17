@@ -24261,6 +24261,11 @@ var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 Object.assign(globalThis, { md5 });
 var myApps = {};
 var myAppCounters = {};
+var controller;
+onSessionUpdate(() => {
+  if (controller)
+    controller.abort("new i");
+}, "abort");
 var importIt = /* @__PURE__ */ __name(async (url) => {
   let waitingTime = 100;
   let App;
@@ -24273,7 +24278,9 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
     const url2 = [...urlARR, betterNaked].join("/");
     try {
       try {
-        let resp = await fetch(url2);
+        let controller2 = new AbortController();
+        const signal = controller2.signal;
+        let resp = await fetch(url2, { signal });
         if (resp.ok) {
           try {
             App = (await importShim(url2)).default;

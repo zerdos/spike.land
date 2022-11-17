@@ -9,7 +9,7 @@ import { CacheProvider, css } from "@emotion/react";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
 import { esmTransform } from "./runner";
-import { hashCode, mST } from "./session";
+import { hashCode, mST, onSessionUpdate } from "./session";
 import { wait } from "./wait";
 // import importmap from "./importmap.json";
 // const imp: { [key: string]: string } = { ...importmap.imports };
@@ -21,6 +21,11 @@ import { wait } from "./wait";
 Object.assign(globalThis, { md5 });
 const myApps: { [key: string]: FC } = {};
 const myAppCounters: { [key: string]: number } = {};
+let controller: AbortController;
+
+onSessionUpdate(() => {
+  if (controller) controller.abort("new i");
+}, "abort");
 
 export const importIt: (url: string) => Promise<{ App: FC; url: string }> = async (url: string) => {
   let waitingTime = 100;
@@ -39,7 +44,9 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
 
     try {
       try {
-        let resp = await fetch(url);
+        let controller = new AbortController();
+        const signal = controller.signal;
+        let resp = await fetch(url, { signal });
 
         //  let urlLoc: null | string;
         // if (resp.headers.keys()) {
