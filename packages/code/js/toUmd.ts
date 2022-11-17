@@ -90,6 +90,15 @@ export const toUmd = async (source: string, name: string) => {
 
         target: "es2021",
 
+        tsconfigRaw: {
+          compilerOptions: {
+            jsx: "react-jsx",
+            module: "ESNext",
+            jsxFragmentFactory: "Fragment",
+            jsxImportSource: "@emotion/react",
+          },
+        },
+
         loader: "tsx",
         globalName: hash.replace(/[^a-f]/g, ""),
       });
