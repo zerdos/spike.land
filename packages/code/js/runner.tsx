@@ -69,9 +69,9 @@ export const umdTransform = async (code: string) => {
 };
 
 Object.assign(globalThis, {
-  toUmd: () => {
-    toUmd(mST().code, codeSpace);
-  },
+  _toUmd: () => toUmd(mST().code, codeSpace),
+  toUmd,
+
   IIFE,
   umdTransform,
 });

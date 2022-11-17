@@ -1,7 +1,4 @@
-import EmotionReact from "@emotion/react";
-
-const gt = globalThis as unknown as { emotionReact: typeof EmotionReact };
-const emotionReact = gt.emotionReact = gt.emotionReact || require("@emotion/react");
+import emotionReact from "@emotion/react";
 
 export const {
   // @ts-ignore

@@ -6,7 +6,7 @@ import {
 import {
   init_reactMod,
   reactMod_exports
-} from "./chunk-chunk-5XDTQVNY.mjs";
+} from "./chunk-chunk-237KVN3I.mjs";
 import {
   __commonJS,
   __name,

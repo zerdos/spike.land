@@ -8,93 +8,93 @@ Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }
 
 importShim.addImportMap({ imports: res });
 
-const runtime = () => {
-  const React = require("react");
-  Object.assign(globalThis, { React });
+// const runtime = () => {
+//   const React = require("react");
+//   Object.assign(globalThis, { React });
 
-  const ReactDOM = require("react-dom");
-  Object.assign(globalThis, { ReactDOM });
+//   const ReactDOM = require("react-dom");
+//   Object.assign(globalThis, { ReactDOM });
 
-  const ReactDOMClient = require("react-dom/client");
-  Object.assign(globalThis, { ReactDOMClient });
+//   const ReactDOMClient = require("react-dom/client");
+//   Object.assign(globalThis, { ReactDOMClient });
 
-  // const ReactDOMServer = require("react-dom/server");
-  // Object.assign(globalThis, { ReactDOMServer });
+//   // const ReactDOMServer = require("react-dom/server");
+//   // Object.assign(globalThis, { ReactDOMServer });
 
-  const ReactJSXRuntime = require("react/jsx-runtime");
-  Object.assign(globalThis, { ReactJSXRuntime });
+//   const ReactJSXRuntime = require("react/jsx-runtime");
+//   Object.assign(globalThis, { ReactJSXRuntime });
 
-  // const emotionReact = require("@emotion/react");
-  // Object.assign(globalThis, { emotionReact });
-  // emotionReact.cssNonMemo = emotionReact.css;
-  // const cssCache: { [key: string]: unknown } = {};
-  // emotionReact.css = function() {
-  //   const cache = md5(arguments[0].join(""));
-  //   return cssCache[cache] = cssCache[cache]
-  //     || emotionReact.cssNonMemo.apply(this, arguments);
-  // };
+//   // const emotionReact = require("@emotion/react");
+//   // Object.assign(globalThis, { emotionReact });
+//   // emotionReact.cssNonMemo = emotionReact.css;
+//   // const cssCache: { [key: string]: unknown } = {};
+//   // emotionReact.css = function() {
+//   //   const cache = md5(arguments[0].join(""));
+//   //   return cssCache[cache] = cssCache[cache]
+//   //     || emotionReact.cssNonMemo.apply(this, arguments);
+//   // };
 
-  // const emotionReactJsxRuntime = require("@emotion/react/jsx-runtime");
-  // Object.assign(globalThis, { emotionReactJsxRuntime });
-  // emotionReactJsxRuntime.emotionJsx = emotionReactJsxRuntime.jsx;
+//   // const emotionReactJsxRuntime = require("@emotion/react/jsx-runtime");
+//   // Object.assign(globalThis, { emotionReactJsxRuntime });
+//   // emotionReactJsxRuntime.emotionJsx = emotionReactJsxRuntime.jsx;
 
-  // const createEmotionCache = require("@emotion/cache");
-  // Object.assign(globalThis, { createEmotionCache });
+//   // const createEmotionCache = require("@emotion/cache");
+//   // Object.assign(globalThis, { createEmotionCache });
 
-  // const styled = require("@emotion/styled");
-  // Object.assign(globalThis, { styled });
+//   // const styled = require("@emotion/styled");
+//   // Object.assign(globalThis, { styled });
 
-  // emotionReactJsxRuntime.jsx = function() {
-  //   const props = arguments[1];
-  //   if (Object.hasOwn(props, "css") && typeof props.css === "string") {
-  //     props.css = emotionReact.css`${props.css}`;
-  //   }
+//   // emotionReactJsxRuntime.jsx = function() {
+//   //   const props = arguments[1];
+//   //   if (Object.hasOwn(props, "css") && typeof props.css === "string") {
+//   //     props.css = emotionReact.css`${props.css}`;
+//   //   }
 
-  //   return emotionReactJsxRuntime.emotionJsx.apply(
-  //     emotionReactJsxRuntime,
-  //     arguments,
-  //   );
-  // };
+//   //   return emotionReactJsxRuntime.emotionJsx.apply(
+//   //     emotionReactJsxRuntime,
+//   //     arguments,
+//   //   );
+//   // };
 
-  // const FramerMotion = require("framer-motion");
-  // Object.assign(globalThis, { FramerMotion });
-  return {
-    React,
-    ReactDOM,
-    // styled,
-    // emotionReact,
-    // emotionReactJsxRuntime,
-    ReactDOMClient,
-    // createEmotionCache,
-    // FramerMotion,
-  };
-};
+//   // const FramerMotion = require("framer-motion");
+//   // Object.assign(globalThis, { FramerMotion });
+//   return {
+//     React,
+//     ReactDOM,
+//     // styled,
+//     // emotionReact,
+//     // emotionReactJsxRuntime,
+//     ReactDOMClient,
+//     // createEmotionCache,
+//     // FramerMotion,
+//   };
+// };
 
-const {
-  React,
-  ReactDOM,
-  // styled,
-  // emotionReact,
-  // emotionReactJsxRuntime,
-  ReactDOMClient,
-  // createEmotionCache,
-  // FramerMotion,
-} = runtime();
+// const {
+//   React,
+//   ReactDOM,
+//   // styled,
+//   // emotionReact,
+//   // emotionReactJsxRuntime,
+//   ReactDOMClient,
+//   // createEmotionCache,
+//   // FramerMotion,
+// } = runtime();
 
-const mapTable = {
-  "react": React,
-  "react-dom": ReactDOM,
-  "react-dom/client": ReactDOMClient,
-  // "@emotion/react": emotionReact,
-  // "@emotion/styled": styled,
-  // "@emotion/cache": createEmotionCache,
-  // "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
-  "react/jsx-runtime": ReactJSXRuntime,
-  // "framer-motion": FramerMotion,
-} as { [key: string]: unknown };
+// const mapTable = {
+//   "react": React,
+//   "react-dom": ReactDOM,
+//   "react-dom/client": ReactDOMClient,
+//   // "@emotion/react": emotionReact,
+//   // "@emotion/styled": styled,
+//   // "@emotion/cache": createEmotionCache,
+//   // "@emotion/react/jsx-runtime": emotionReactJsxRuntime,
+//   "react/jsx-runtime": ReactJSXRuntime,
+//   // "framer-motion": FramerMotion,
+// } as { [key: string]: unknown };
 
 const requireUmd = (pkg: string) => {
-  if (mapTable[pkg]) return mapTable[pkg];
+  // if (mapTable[pkg]) return mapTable[pkg];
   if (window[pkg as any] as unknown) return window[pkg as any];
   if (apps[pkg]) return apps[pkg];
   if (pkg.includes(`spike.land/live`)) return React.lazy(() => importShim(pkg));

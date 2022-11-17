@@ -1,5 +1,4 @@
-globalThis.createEmotionCache = globalThis.createEmotionCache || require("@emotion/cache");
-const createCache = globalThis.createEmotionCache.default
-  || globalThis.createEmotionCache;
+import createEmotionCache from "@emotion/cache";
+const createCache = createEmotionCache.default || createEmotionCache;
 
 export default createCache;

@@ -1,3 +1,3 @@
-globalThis.styled = globalThis.styled || require("@emotion/styled");
-const emotionStyled = globalThis.styled.default || globalThis.styled;
+import styled from "@emotion/styled";
+const emotionStyled = styled.default || styled;
 export default emotionStyled;

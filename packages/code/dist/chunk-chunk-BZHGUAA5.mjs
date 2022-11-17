@@ -1,4 +1,7 @@
 import {
+  require_emotion_react_jsx_runtime_cjs
+} from "./chunk-chunk-OOKNKU5D.mjs";
+import {
   initAndTransform
 } from "./chunk-chunk-Q6AOKHQK.mjs";
 import {
@@ -13,26 +16,24 @@ import {
 } from "./chunk-chunk-WNMOTYVA.mjs";
 import {
   codeSpace
-} from "./chunk-chunk-WHMNYGRX.mjs";
+} from "./chunk-chunk-SNJP6NQZ.mjs";
 import {
   require_emotion_react_cjs
-} from "./chunk-chunk-RX5QNQUD.mjs";
-import {
-  require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-P5CAS67B.mjs";
-import {
-  require_emotion_cache_cjs
-} from "./chunk-chunk-ZC42IS3E.mjs";
+} from "./chunk-chunk-63HHZNB2.mjs";
 import {
   PureComponent,
   createElement,
+  export_createRoot,
   flushSync,
   init_reactMod,
   reactMod_exports,
   useEffect,
   useRef,
   useState
-} from "./chunk-chunk-5XDTQVNY.mjs";
+} from "./chunk-chunk-237KVN3I.mjs";
+import {
+  emotionCache_default
+} from "./chunk-chunk-SRPTWHCW.mjs";
 import {
   __commonJS,
   __name,
@@ -21784,12 +21785,6 @@ init_reactMod();
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 
-// js/emotionCache.ts
-init_define_process();
-globalThis.createEmotionCache = globalThis.createEmotionCache || require_emotion_cache_cjs();
-var createCache = globalThis.createEmotionCache.default || globalThis.createEmotionCache;
-var emotionCache_default = createCache;
-
 // js/wait.ts
 init_define_process();
 async function wait(delay) {
@@ -22013,6 +22008,7 @@ function createJsBlob(code, fileName = "index.mjs") {
 __name(createJsBlob, "createJsBlob");
 
 // js/renderToString.tsx
+init_reactMod();
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod = {
   md5Hash: "",
@@ -22037,7 +22033,7 @@ var mod = {
   },
   setApp: (md5Hash) => {
     const rootDiv = document.createElement("div");
-    const root = ReactDOMClient.createRoot(rootDiv);
+    const root = export_createRoot(rootDiv);
     const App = apps[md5Hash];
     mod.md5Hash = md5Hash;
     mod.res = rootDiv;
@@ -22142,61 +22138,65 @@ var mod2 = {
   data: {}
 };
 var toUmd = /* @__PURE__ */ __name(async (source, name) => {
-  const hash = md5(source);
-  mod2.hashMap = { ...mod2.hashMap, [hash]: name, [name]: hash };
-  if (!mod2.data[hash]) {
-    const transformed = await initAndTransform(source, {
-      format: "iife",
-      keepNames: true,
-      treeShaking: true,
-      target: "es2021",
-      loader: name.includes(".tsx") ? "tsx" : name.includes(".ts") ? "ts" : name.includes(".jsx") ? "jsx" : "js",
-      globalName: hash.replace(/[^a-f]/g, "")
-    });
-    if (!transformed || !transformed.code) {
-      console.log("transform result -code is empty");
-      return;
-    }
-    mod2.data = {
-      ...mod2.data,
-      [hash]: {
-        ...transformed,
-        deps: findDeps(transformed.code)
-      }
-    };
-    await Promise.all(mod2.data[hash].deps.map(async (dep) => {
-      if (mod2.hashMap[dep]) {
+  try {
+    const hash = md5(source);
+    mod2.hashMap = { ...mod2.hashMap, [hash]: name, [name]: hash };
+    if (!mod2.data[hash]) {
+      const transformed = await initAndTransform(source, {
+        format: "iife",
+        keepNames: true,
+        treeShaking: true,
+        target: "es2021",
+        loader: "tsx",
+        globalName: hash.replace(/[^a-f]/g, "")
+      });
+      if (!transformed || !transformed.code) {
+        console.log("transform result -code is empty");
         return;
       }
-      const importMap = JSON.parse(
-        document.querySelector("script[type=importmap]").innerHTML
-      );
-      let url = "";
-      let urlHash = "";
-      if (importMap.imports[dep]) {
-        url = importMap.imports[dep];
-        urlHash = md5(dep);
-      } else if (dep.startsWith("./")) {
-        url = new URL(dep, location.origin).toString();
-        urlHash = md5(dep);
-      } else {
-        try {
-          url = await (import.meta.resolve || importShim.resolve)(dep, name);
-          urlHash = md5(dep);
-        } catch {
-          console.error(`failed to resolve: ${dep}`);
+      mod2.data = {
+        ...mod2.data,
+        [hash]: {
+          ...transformed,
+          deps: findDeps(transformed.code)
+        }
+      };
+      await Promise.all(mod2.data[hash].deps.map(async (dep) => {
+        if (mod2.hashMap[dep]) {
           return;
         }
-      }
-      if (mod2.hashMap[urlHash]) {
-        return;
-      }
-      mod2.hashMap[dep] = url;
-      const source2 = await (await fetch(url)).text();
-      return toUmd(source2, dep);
-    }));
+        const importMap = JSON.parse(
+          document.querySelector("script[type=importmap]").innerHTML
+        );
+        let url = "";
+        let urlHash = "";
+        if (importMap.imports[dep]) {
+          url = importMap.imports[dep];
+          urlHash = md5(dep);
+        } else if (dep.startsWith("./")) {
+          url = new URL(dep, location.origin).toString();
+          urlHash = md5(dep);
+        } else {
+          try {
+            url = importShim.resolve(dep, name);
+            urlHash = md5(dep);
+          } catch {
+            console.error(`failed to resolve: ${dep}`);
+            return;
+          }
+        }
+        if (mod2.hashMap[urlHash]) {
+          return;
+        }
+        mod2.hashMap[dep] = url;
+        const source2 = await (await fetch(url)).text();
+        return toUmd(source2, dep);
+      }));
+    }
+    return mod2;
+  } catch {
+    return mod2;
   }
-  return mod2;
 }, "toUmd");
 var findDeps = /* @__PURE__ */ __name((code) => {
   const regex = /require\("(.+?)"\)/gm;
@@ -22269,9 +22269,8 @@ var umdTransform = /* @__PURE__ */ __name(async (code) => {
   return transpiled.code;
 }, "umdTransform");
 Object.assign(globalThis, {
-  toUmd: () => {
-    toUmd(mST().code, codeSpace);
-  },
+  _toUmd: () => toUmd(mST().code, codeSpace),
+  toUmd,
   IIFE,
   umdTransform
 });
