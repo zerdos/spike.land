@@ -3,9 +3,16 @@
 // import { hashCode } from "session";
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
 // Import { string } from "prop-types";
+
 import { transform } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { wait } from "./wait";
+
+import importmap from "./importmap.json";
+const imp: { [key: string]: string } = { ...importmap.imports };
+
+const importmapsRes = {};
+Object.keys(imp).map((k) => Object.assign(importmapsRes, { [k]: location.origin + imp[k] }));
 
 // import "es-module-shims";
 // Import { m } from "framer-motion";
@@ -40,18 +47,36 @@ const mod = {
     }
     const js = mod.printR(name, {});
 
-    const modZ: { [key: string]: string } = {};
-    Object.keys(mod.data).forEach((k) => Object.assign(modZ, { [mod.hashMap[k]]: k }));
+    let reverseMap: { [key: string]: string } = {};
+
+    Object.keys(mod.hashMap).forEach(key => reverseMap = { ...reverseMap, [mod.hashMap[key]]: key });
+
+    let modZ: { [key: string]: string } = {};
+    Object.keys(mod.data).forEach((k) => modZ = { ...modZ, [reverseMap[k]]: k });
+    Object.keys(importmapsRes).forEach(k => modZ = { ...modZ, [k]: "getName(`" + importmapsRes[k] + "`)" });
 
     //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts +
     const res = `
      ${js}
   function require(name){
+    let m1;
+    let m2;
     try{
-      return (${JSON.stringify(modZ)})[name];
+     
+      const urlName = new URL(name, location.origin).toString();
+
+      const getName = (name)=>
+       (${
+      JSON.stringify(modZ).split(`":"`).join(`": `).split(`",`).join(`,
+`).split(`"}`).join(`}`)
+    })[name];
+    
+      m1 =  getName(url);
+      m2 = getName(name);
+      return m1;
     }
     catch{
-      debugger;
+      return m2;
     }
   }
   globalThis.UMD_require = require;
@@ -125,9 +150,9 @@ export const toUmd = async (source: string, name: string) => {
   mod.data[hash] = {
     code: (await transform(source, {
       format: "iife",
-      keepNames: true,
+      // keepNames: true,
       treeShaking: true,
-      sourcefile: name,
+      // sourcefile: name,
 
       ignoreAnnotations: true,
       target: "es2021",

@@ -173,14 +173,19 @@ const build = (
     outbase: "monaco-editor/esm/vs",
     outdir: "./js/monaco-workers",
   });
-
   await build(["js/react-jsx-runtime.ts"], [], false, "iife");
 
-  await build(["js/mWorker.mjs"], [], false, "iife");
+  // await build(["js/mWorker.mjs"], [], false, "iife");
+
+  // await build([
+  //   "js/reactMod.ts",
+  //   "js/jsx.mjs"
+  // ], []);
+  // console.log("done");
 
   await build([
     "js/reactMod.ts",
-  ], ["./react-jsx-runtime.mjs"]);
+  ], []);
   console.log("done");
 
   buildOptions.plugins = [
@@ -195,9 +200,13 @@ const build = (
 
       // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
       // // "./mui": resolve("./dist/mui.mjs"),
+      // "react": resolve("./dist/reactMod.mjs"),
+      // "react/jsx-runtime": resolve("./dist/jsx.mjs"),
       "react": resolve("./dist/reactMod.mjs"),
       "react-dom": resolve("./dist/reactMod.mjs"),
       "react-dom/client": resolve("./dist/reactMod.mjs"),
+      // "react-dom": resolve("./dist/reactMod.mjs"),
+      // "react-dom/client": resolve("./dist/reactMod.mjs"),
       // "framer-motion": resolve("./js/motion.ts"),
       // "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
     }),
@@ -237,6 +246,7 @@ const build = (
 
       // "js/ws.ts",
       "js/emotion.ts",
+
       "js/emotionCache.ts",
       "js/emotionStyled.mjs",
       "js/emotionJsxRuntime.ts",
@@ -244,7 +254,8 @@ const build = (
       // "js/emotionJsxRuntime.ts",
       // "js/jsx.mjs",
     ],
-    [ // "react", "react-dom", "react-dom/client", "@emotion/react", "@emotion/react/jsx-runtime", "framer-motion"
+    [ // "react",
+      //  "react-dom", "react-dom/client"//, "@emotion/react", "@emotion/react/jsx-runtime", "framer-motion"
     ],
     false,
   );

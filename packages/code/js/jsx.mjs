@@ -1,8 +1,3 @@
-const JSX = globalThis.ReactJSXRuntime || window.ReactJSXRuntime || {
-  jsxs: (...args) => JSX.jsxs(...args),
-  jsx: (...args) => JSX.jsx(...args),
-  Fragment: React.Fragment || "",
-};
+import * as JSX from "react/jsx-runtime";
 
 export const { jsx, jsxs, Fragment } = JSX;
-export default jsx;

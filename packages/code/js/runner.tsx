@@ -28,7 +28,7 @@ export const esmTransform = async (code: string) => {
     tsconfigRaw: {
       compilerOptions: {
         jsx: "react-jsx",
-        module: "ESNext",
+        useDefineForClassFields: false,
         jsxFragmentFactory: "Fragment",
         jsxImportSource: "@emotion/react",
       },
@@ -56,6 +56,7 @@ export const umdTransform = async (code: string) => {
         jsx: "react-jsx",
         module: "ESNext",
         jsxFragmentFactory: "Fragment",
+        useDefineForClassFields: false,
         jsxImportSource: "@emotion/react",
       },
     },
