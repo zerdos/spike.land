@@ -936,7 +936,7 @@ __metadata:
     avl: "npm:1.5.3"
     esbuild: "npm:0.15.14"
     typescript: "npm:^4.9.3"
-    wrangler: "npm:2.3.2"
+    wrangler: "npm:2.4.0"
   languageName: unknown
   linkType: soft
 
@@ -6259,9 +6259,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.3.2":
-  version: 2.3.2
-  resolution: "wrangler@npm:2.3.2"
+"wrangler@npm:2.4.0":
+  version: 2.4.0
+  resolution: "wrangler@npm:2.4.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
@@ -6285,7 +6285,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 0d46cae4c0f6931b4ff7b9f83dc9ce1a04f1d459ad8652700fae8edc4ede6579386b40fabeb5aac8576953545a97417901283fedfc62315459837174fd3c6dd1
+  checksum: 4585987aeda9751c46b30d97ec764f2c4b4bd54979ee70535db55cc14277a1cac43dc50977300c9be069ebe537476b096595579d0d58df5dfce2b62f8127d430
   languageName: node
   linkType: hard
 

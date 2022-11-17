@@ -28,7 +28,7 @@ import {
 } from "./chunk-chunk-237KVN3I.mjs";
 import {
   emotionCache_default
-} from "./chunk-chunk-SRPTWHCW.mjs";
+} from "./chunk-chunk-RIYCOIZI.mjs";
 import {
   __commonJS,
   __name,
@@ -24555,6 +24555,26 @@ var waitForAnimation = /* @__PURE__ */ __name(() => {
 
 // js/toUmd.ts
 init_define_process();
+
+// js/importmap.json
+var importmap_default = {
+  imports: {
+    "framer-motion": "/motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/cache": "/emotionCache.mjs",
+    "@emotion/styled": "/emotionStyled.mjs",
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    react: "/reactMod.mjs",
+    "react/jsx-runtime": "/jsx.mjs",
+    "react-dom": "/reactMod.mjs",
+    "react-dom/client": "/reactMod.mjs"
+  }
+};
+
+// js/toUmd.ts
+var imp = { ...importmap_default.imports };
+var importmapsRes = {};
+Object.keys(imp).map((k) => Object.assign(importmapsRes, { [k]: location.origin + imp[k] }));
 var mod3 = {
   printR(name, included) {
     if (included[mod3.hashMap[name]])
@@ -24579,16 +24599,30 @@ var mod3 = {
       await wait(1e3);
     }
     const js = mod3.printR(name, {});
-    const modZ = {};
-    Object.keys(mod3.data).forEach((k) => Object.assign(modZ, { [mod3.hashMap[k]]: k }));
+    let reverseMap = {};
+    Object.keys(mod3.hashMap).forEach((key) => reverseMap = { ...reverseMap, [mod3.hashMap[key]]: key });
+    let modZ = {};
+    Object.keys(mod3.data).forEach((k) => modZ = { ...modZ, [reverseMap[k]]: k });
+    Object.keys(importmapsRes).forEach((k) => modZ = { ...modZ, [k]: "getName(`" + importmapsRes[k] + "`)" });
     const res = `
      ${js}
   function require(name){
+    let m1;
+    let m2;
     try{
-      return (${JSON.stringify(modZ)})[name];
+     
+      const urlName = new URL(name, location.origin).toString();
+
+      const getName = (name)=>
+       (${JSON.stringify(modZ).split(`":"`).join(`": `).split(`",`).join(`,
+`).split(`"}`).join(`}`)})[name];
+    
+      m1 =  getName(url);
+      m2 = getName(name);
+      return m1;
     }
     catch{
-      debugger;
+      return m2;
     }
   }
   globalThis.UMD_require = require;
@@ -24627,9 +24661,7 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
   mod3.data[hash] = {
     code: (await initAndTransform(source, {
       format: "iife",
-      keepNames: true,
       treeShaking: true,
-      sourcefile: name,
       ignoreAnnotations: true,
       target: "es2021",
       tsconfigRaw: {
@@ -24678,7 +24710,7 @@ var esmTransform = /* @__PURE__ */ __name(async (code) => {
     tsconfigRaw: {
       compilerOptions: {
         jsx: "react-jsx",
-        module: "ESNext",
+        useDefineForClassFields: false,
         jsxFragmentFactory: "Fragment",
         jsxImportSource: "@emotion/react"
       }
@@ -24702,6 +24734,7 @@ var umdTransform = /* @__PURE__ */ __name(async (code) => {
         jsx: "react-jsx",
         module: "ESNext",
         jsxFragmentFactory: "Fragment",
+        useDefineForClassFields: false,
         jsxImportSource: "@emotion/react"
       }
     },

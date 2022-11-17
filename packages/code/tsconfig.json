@@ -23,7 +23,7 @@
     "module": "ESNext",
     "jsx": "react-jsx",
     "checkJs": false,
-
+    "useDefineForClassFields": false,
     "jsxImportSource": "@emotion/react",
     "sourceMap": false,
     "noUnusedLocals": true,

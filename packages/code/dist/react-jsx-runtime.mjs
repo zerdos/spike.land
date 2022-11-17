@@ -2671,6 +2671,7 @@
       "@emotion/styled": "/emotionStyled.mjs",
       "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
       react: "/reactMod.mjs",
+      "react/jsx-runtime": "/jsx.mjs",
       "react-dom": "/reactMod.mjs",
       "react-dom/client": "/reactMod.mjs"
     }
