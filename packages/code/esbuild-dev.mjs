@@ -185,6 +185,8 @@ const build = (
 
   await build([
     "js/reactMod.ts",
+    "js/reactDom.ts",
+    "js/reactDomClient.ts",
   ], []);
   console.log("done");
 
@@ -203,8 +205,8 @@ const build = (
       // "react": resolve("./dist/reactMod.mjs"),
       // "react/jsx-runtime": resolve("./dist/jsx.mjs"),
       "react": resolve("./dist/reactMod.mjs"),
-      "react-dom": resolve("./dist/reactMod.mjs"),
-      "react-dom/client": resolve("./dist/reactMod.mjs"),
+      "react-dom": resolve("./dist/reactDom.mjs"),
+      "react-dom/client": resolve("./dist/reactDomClient.mjs"),
       // "react-dom": resolve("./dist/reactMod.mjs"),
       // "react-dom/client": resolve("./dist/reactMod.mjs"),
       // "framer-motion": resolve("./js/motion.ts"),
