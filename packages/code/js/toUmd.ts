@@ -5,17 +5,18 @@
 // Import { string } from "prop-types";
 import { transform } from "./esbuildEsm";
 import { md5 } from "./md5.js";
+import { wait } from "./wait";
 
 // import "es-module-shims";
 // Import { m } from "framer-motion";
 
 const mod = {
-  printR(name: string, included: { [key: string]: boolean }): string {
+  printR(name: string, included: { [modZkey: string]: boolean }): string {
     if (included[mod.hashMap[name]]) return "";
     included[mod.hashMap[name]] = true;
 
     const current = mod.data[mod.hashMap[name]];
-
+    if (!current) console.error(name + " is missing!");
     const currentCode = current.code;
     if (!current.deps || !current.deps.length) {
       return currentCode;
@@ -25,24 +26,33 @@ const mod = {
     const myDepts = [...current.deps];
     // current.deps=[]
 
-    const depts = myDepts.map((n) => mod.printR(n, included)).join(" \n ");
+    const depts = myDepts.map((name) => mod.printR(name, included)).join(" \n ");
 
     return depts + `
     
     ` + currentCode;
   },
-  async toJs(name: string) {
+
+  toJs: async (name: string) => {
+    while ((Date.now() - mod.last) / 1000 < 4) {
+      console.log((Date.now() - mod.last) / 1000);
+      await wait(1000);
+    }
     const js = mod.printR(name, {});
 
-    const modZ = Object.keys(mod.hashMap).map(
-      (k) => [`"${mod.hashMap[k]}"`, k],
-    ).map((x) => x[0] + ": " + x[1]).join(", \n ");
+    const modZ: { [key: string]: string } = {};
+    Object.keys(mod.data).forEach((k) => Object.assign(modZ, { [mod.hashMap[k]]: k }));
 
     //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts +
     const res = `
      ${js}
   function require(name){
-    return ({${modZ}})[name];
+    try{
+      return (${JSON.stringify(modZ)})[name];
+    }
+    catch{
+      debugger;
+    }
   }
   globalThis.UMD_require = require;
   
@@ -52,21 +62,22 @@ const mod = {
     //   format: "esm",
     //   minify: true,
     //   keepNames: true,
-    //   platform: "browser",
+    //   platform: "neutral",
     //   treeShaking: true,
     // });
 
-    const c = await transform(res, {
-      format: "iife",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true,
-    });
+    // const c = await transform(t.code, {
+    //   format: "iife",
+    //   minify: true,
+    //   keepNames: true,
+    //   platform: "neutral",
+    //   treeShaking: true,
+    // });
 
-    return c.code;
+    return res;
   },
-  hashMap: {} as unknown as Record<string, string>,
+  last: 0,
+  hashMap: {} as { [key: string]: string },
   // ToJs: (name: string)=>{
   //   const md5Name = md5(name);
   //   return mod.data[md5Name].code +  mod.data[md5Name].deps.map(dep=>mod.toJs(dep)).join() as unknown as string
@@ -76,118 +87,6 @@ const mod = {
     deps: string[];
   }>,
 };
-
-export const toUmd = async (source: string, name: string) => {
-  try {
-    const hash = md5(source);
-    mod.hashMap = { ...mod.hashMap, [name]: hash };
-
-    if (!mod.data[hash]) {
-      const transformed = await transform(source, {
-        format: "iife",
-        keepNames: true,
-        treeShaking: true,
-
-        target: "es2021",
-
-        tsconfigRaw: {
-          compilerOptions: {
-            jsx: "react-jsx",
-            target: "es2021",
-            useDefineForClassFields: false,
-            jsxFragmentFactory: "Fragment",
-            jsxImportSource: "@emotion/react",
-          },
-        },
-
-        loader: "tsx",
-        globalName: hash,
-      });
-      if (!transformed || !transformed.code) {
-        console.log("transform result -code is empty");
-        return;
-      }
-
-      mod.data = {
-        ...mod.data,
-        [hash]: {
-          ...transformed,
-          deps: findDeps(transformed.code),
-        },
-      };
-
-      await Promise.all(mod.data[hash].deps.map(async (dep) => {
-        if (mod.hashMap[dep]) {
-          return;
-        }
-
-        // const importMap = JSON.parse(
-        //   document.querySelector("script[type=importmap]")!.innerHTML,
-        // );
-
-        let url = "";
-        // let urlHash = "";
-        // if (importMap.imports[dep]) {
-        // url = importMap.imports[dep];
-        // urlHash = md5(dep);
-        // if (dep.startsWith("./")) {
-        //   url = new URL(dep, name).toString();
-        //   urlHash = md5(dep);
-        // } else {
-        try {
-          // @ts-ignore
-          url = importShim.resolve(dep, name);
-          // urlHash = md5(dep);
-        } catch {
-          console.error(`failed to resolve: ${dep}`);
-          return;
-        }
-        // }
-
-        if (mod.data[mod.hashMap[name]].deps) {
-          return;
-        }
-
-        mod.hashMap[dep] = url;
-
-        return await toUmd(await fetch(url).then(r => r.text()), url);
-      }));
-    }
-
-    return mod;
-  } catch {
-    return mod;
-  }
-};
-
-// `importScripts("${comlinkUmd}");
-
-// const mod = {
-//   data: [];
-// }
-// };
-
-// Comlink.expose(mod);
-
-// var example = example || {};
-// example.versions = example.versions || {};
-// example.versions["1.0"] = (() => {
-//   ...
-//   var require_stdin = __commonJS((exports, module) => {
-//     module.exports = "test";
-//   });
-//   return require_stdin();
-// })();
-
-// export function createJsBlob(code: string) {
-//   const file = new File([code], "worker.js", {
-//     type: "application/javascript",
-//   });
-//   const blobUrl = URL.createObjectURL(file);
-//   return blobUrl;
-
-//   new Worker(blobUrl)
-// createJsBlob(
 
 const findDeps = (code: string) => {
   // Alternative syntax using RegExp constructor
@@ -213,4 +112,52 @@ const findDeps = (code: string) => {
   }
 
   return deps;
+};
+
+export const toUmd = async (source: string, name: string) => {
+  console.log("toUmd: " + name);
+  const hash = md5(source);
+  mod.hashMap = { ...mod.hashMap, [name]: hash };
+
+  if (mod.data[hash]) return mod;
+  mod.last = Date.now();
+
+  mod.data[hash] = {
+    code: (await transform(source, {
+      format: "iife",
+      keepNames: true,
+      treeShaking: true,
+      sourcefile: name,
+
+      ignoreAnnotations: true,
+      target: "es2021",
+      tsconfigRaw: {
+        compilerOptions: {
+          jsx: "react-jsx",
+          useDefineForClassFields: false,
+          jsxImportSource: "@emotion/react",
+        },
+      },
+
+      loader: "tsx",
+      globalName: hash,
+    })).code,
+    deps: [],
+  };
+
+  mod.data[hash].deps = findDeps(mod.data[hash].code).map(dep => importShim.resolve(dep, name));
+
+  await Promise.all(
+    mod.data[hash].deps.map(depUrl =>
+      fetch_or_die(depUrl).then(content => toUmd(content, depUrl).then(async (mod) => await mod))
+    ),
+  );
+
+  return mod;
+};
+
+const urls: { [url: string]: string } = {};
+const fetch_or_die = async (url: string) => {
+  urls[url] = urls[url] || await fetch(url).then(res => res.text());
+  return urls[url];
 };
