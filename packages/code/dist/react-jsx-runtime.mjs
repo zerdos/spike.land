@@ -2681,13 +2681,4 @@
   var res = {};
   Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
   importShim.addImportMap({ imports: res });
-  var requireUmd = /* @__PURE__ */ __name((pkg) => {
-    if (window[pkg])
-      return window[pkg];
-    if (apps[pkg])
-      return apps[pkg];
-    if (pkg.includes(`spike.land/live`))
-      return React.lazy(() => importShim(pkg));
-  }, "requireUmd");
-  Object.assign(globalThis, { require: requireUmd });
 })();

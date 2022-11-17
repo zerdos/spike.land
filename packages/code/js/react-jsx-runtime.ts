@@ -93,38 +93,38 @@ importShim.addImportMap({ imports: res });
 //   // "framer-motion": FramerMotion,
 // } as { [key: string]: unknown };
 
-const requireUmd = (pkg: string) => {
-  // if (mapTable[pkg]) return mapTable[pkg];
-  if (window[pkg as any] as unknown) return window[pkg as any];
-  if (apps[pkg]) return apps[pkg];
-  if (pkg.includes(`spike.land/live`)) return React.lazy(() => importShim(pkg));
+// const requireUmd = (pkg: string) => {
+// if (mapTable[pkg]) return mapTable[pkg];
+// if (window[pkg as any] as unknown) return window[pkg as any];
+// if (apps[pkg]) return apps[pkg];
+// if (pkg.includes(`spike.land/live`)) return Reacx/t.lazy(() => importShim(pkg));
 
-  // if (pkg.includes(`spike.land/live`)) {
-  //   if (!globalThis.esmTransform) return {};
-  //   apps[pkg] = apps[pkg] ||  fetch(importShim.resolve(pkg).replace(".js",".tsx")).then(src=>src.text().then(code=>globalThis.esmTransform(code).then(transpiled=>importShim(createJsBlob(transpiled)))).then(mod=>Object.assign(apps, {[pkg]:mod})))
-  //   return apps[pkg];
-  //   //  throw new Error(pkg + 'mod just loading' );
-  // }  if (!globalThis.esmTransform) return {};
-  // apps[pkg] = apps[pkg] || importShim(pkg).then(mod=>Object.assign(apps, {[pkg]:mod}));
-  // return apps[pkg];
-  //  throw new Error(pkg + 'mod just loading' );
+// if (pkg.includes(`spike.land/live`)) {
+//   if (!globalThis.esmTransform) return {};
+//   apps[pkg] = apps[pkg] ||  fetch(importShim.resolve(pkg).replace(".js",".tsx")).then(src=>src.text().then(code=>globalThis.esmTransform(code).then(transpiled=>importShim(createJsBlob(transpiled)))).then(mod=>Object.assign(apps, {[pkg]:mod})))
+//   return apps[pkg];
+//   //  throw new Error(pkg + 'mod just loading' );
+// }  if (!globalThis.esmTransform) return {};
+// apps[pkg] = apps[pkg] || importShim(pkg).then(mod=>Object.assign(apps, {[pkg]:mod}));
+// return apps[pkg];
+//  throw new Error(pkg + 'mod just loading' );
 
-  // globalThis.requireLoading.push[pkg];
-  // fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
-  //   const hash = md5(x);
+// globalThis.requireLoading.push[pkg];
+// fetch(importShim.resolve(pkg)).then(resp => resp.text()).then(code => globalThis.umdTransform(code)).then(x => {
+//   const hash = md5(x);
 
-  //   let z = x.split("(() => {");
-  //   z.shift();
-  //   z.unshift(`globalThis.apps.${hash} = `);
-  //   z = z.join("(() => {");
+//   let z = x.split("(() => {");
+//   z.shift();
+//   z.unshift(`globalThis.apps.${hash} = `);
+//   z = z.join("(() => {");
 
-  //   new Function(z)();
-  //   return apps[hash];
-  // }).then(x => mapTable[pkg] = x).then(() =>
-  //   globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
-  // ).then(() => {
-  //   if (mapTable[pkg]) return mapTable[pkg];
-  //   console.error("Error - require: " + pkg + " not found");
-  // });
-};
-Object.assign(globalThis, { require: requireUmd });
+//   new Function(z)();
+//   return apps[hash];
+// }).then(x => mapTable[pkg] = x).then(() =>
+//   globalThis.requireLoading = globalThis.requireLoading.filter(x => x !== pkg)
+// ).then(() => {
+//   if (mapTable[pkg]) return mapTable[pkg];
+//   console.error("Error - require: " + pkg + " not found");
+// });
+// };
+// Object.assign(globalThis, { require: requireUmd });
