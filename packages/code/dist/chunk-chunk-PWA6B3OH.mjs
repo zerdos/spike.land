@@ -1,7 +1,7 @@
 import {
   init_reactMod,
   reactMod_exports
-} from "./chunk-chunk-X33UIKCE.mjs";
+} from "./chunk-chunk-22ENMEQX.mjs";
 import {
   __commonJS,
   __name,

@@ -2022,6 +2022,7 @@ __export(reactMod_exports, {
   Children: () => Children,
   Component: () => Component,
   Fragment: () => Fragment,
+  Profiler: () => Profiler,
   PureComponent: () => PureComponent,
   StrictMode: () => StrictMode,
   Suspense: () => Suspense,
@@ -2036,7 +2037,6 @@ __export(reactMod_exports, {
   isValidElement: () => isValidElement,
   lazy: () => lazy,
   memo: () => memo,
-  rest: () => rest,
   startTransition: () => startTransition,
   useCallback: () => useCallback,
   useContext: () => useContext,
@@ -2052,53 +2052,50 @@ __export(reactMod_exports, {
   useRef: () => useRef,
   useState: () => useState,
   useSyncExternalStore: () => useSyncExternalStore,
-  useTransition: () => useTransition
+  useTransition: () => useTransition,
+  version: () => version
 });
-var ReactNameSpace, import_react, Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, version, Profiler, rest, reactMod_default;
+var import_react, Children, Component, Fragment, PureComponent, StrictMode, Suspense, cloneElement, createContext, createElement, createFactory, createRef, forwardRef, isValidElement, lazy, memo, startTransition, useCallback, useContext, useDebugValue, useDeferredValue, useEffect, useId, useImperativeHandle, useInsertionEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, useTransition, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, version, Profiler, reactMod_default;
 var init_reactMod = __esm({
   "dist/reactMod.mjs"() {
     init_define_process();
     init_chunk_chunk_ZKWO2POS();
     init_define_process2();
-    ReactNameSpace = __toESM(require_react(), 1);
     import_react = __toESM(require_react(), 1);
-    ({
-      Children,
-      Component,
-      Fragment,
-      PureComponent,
-      StrictMode,
-      Suspense,
-      cloneElement,
-      createContext,
-      createElement,
-      createFactory,
-      createRef,
-      forwardRef,
-      isValidElement,
-      lazy,
-      memo,
-      startTransition,
-      useCallback,
-      useContext,
-      useDebugValue,
-      useDeferredValue,
-      useEffect,
-      useId,
-      useImperativeHandle,
-      useInsertionEffect,
-      useLayoutEffect,
-      useMemo,
-      useReducer,
-      useRef,
-      useState,
-      useSyncExternalStore,
-      useTransition,
-      __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
-      version,
-      Profiler,
-      ...rest
-    } = ReactNameSpace);
+    Children = import_react.default.Children;
+    Component = import_react.default.Component;
+    Fragment = import_react.default.Fragment;
+    PureComponent = import_react.default.PureComponent;
+    StrictMode = import_react.default.StrictMode;
+    Suspense = import_react.default.Suspense;
+    cloneElement = import_react.default.cloneElement;
+    createContext = import_react.default.createContext;
+    createElement = import_react.default.createElement;
+    createFactory = import_react.default.createFactory;
+    createRef = import_react.default.createRef;
+    forwardRef = import_react.default.forwardRef;
+    isValidElement = import_react.default.isValidElement;
+    lazy = import_react.default.lazy;
+    memo = import_react.default.memo;
+    startTransition = import_react.default.startTransition;
+    useCallback = import_react.default.useCallback;
+    useContext = import_react.default.useContext;
+    useDebugValue = import_react.default.useDebugValue;
+    useDeferredValue = import_react.default.useDeferredValue;
+    useEffect = import_react.default.useEffect;
+    useId = import_react.default.useId;
+    useImperativeHandle = import_react.default.useImperativeHandle;
+    useInsertionEffect = import_react.default.useInsertionEffect;
+    useLayoutEffect = import_react.default.useLayoutEffect;
+    useMemo = import_react.default.useMemo;
+    useReducer = import_react.default.useReducer;
+    useRef = import_react.default.useRef;
+    useState = import_react.default.useState;
+    useSyncExternalStore = import_react.default.useSyncExternalStore;
+    useTransition = import_react.default.useTransition;
+    __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = import_react.default.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+    version = import_react.default.version;
+    Profiler = import_react.default.Profiler;
     reactMod_default = import_react.default;
   }
 });
