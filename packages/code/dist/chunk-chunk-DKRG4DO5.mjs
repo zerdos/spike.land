@@ -24577,14 +24577,7 @@ var mod3 = {
   globalThis.UMD_require = require;
   
      `;
-    const t = await initAndTransform(res, {
-      format: "esm",
-      minify: true,
-      keepNames: true,
-      platform: "browser",
-      treeShaking: true
-    });
-    const c = await initAndTransform(t.code, {
+    const c = await initAndTransform(res, {
       format: "iife",
       minify: true,
       keepNames: true,
