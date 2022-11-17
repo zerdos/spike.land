@@ -11,6 +11,12 @@ import { md5 } from "./md5.js";
 import { esmTransform } from "./runner";
 import { hashCode, mST } from "./session";
 import { wait } from "./wait";
+// import importmap from "./importmap.json";
+// const imp: { [key: string]: string } = { ...importmap.imports };
+// const res = {};
+// Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
+
+// importShim.addImportMap({ imports: res });
 
 Object.assign(globalThis, { md5 });
 const myApps: { [key: string]: FC } = {};
@@ -173,6 +179,7 @@ export async function appFactory(
     try {
       eCaches[hash] = eCaches[hash] || createCache({
         key: hash,
+
         speedy: false,
       });
 

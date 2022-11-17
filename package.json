@@ -42,7 +42,7 @@
     "eslint": "^8.27.0",
     "eslint-plugin-react": "^7.31.10",
     "playwright": "1.28.0",
-    "typescript": "next"
+    "typescript": "^4.9.3"
   },
   "resolutions": {
     "wrangler/esbuild": "0.15.11"
