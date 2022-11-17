@@ -26788,29 +26788,24 @@ var mod3 = {
     const res = `
      ${js}
 
-  function __export()
+
+
+
   
   function require(name){
-    let m1;
-    let m2;
-    try{
-     
-      const urlName = new URL(name, location.origin).toString();
 
-      const getName = (name)=>
-       (${JSON.stringify(modZ).split(`":"`).join(`": `).split(`",`).join(`,
-`).split(`"}`).join(`}`)})[name];
+
+      const importmap = ${JSON.stringify(importmap_default.imports)};
     
-      m1 =  getName(url);
-      m2 = getName(name);
-      return m1;
-    }
-    catch{
-      return m2;
-    }
-  }
-  globalThis.UMD_require = require;
+      const urlName = new URL(name, location.origin).toString();
+ 
+      if (globalThis.globalNames[name]) return  globalThis.globalNames[name];     
+      if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
+      if (importmap[name]) return require(importmap[name])
+
   
+  }
+    
      `;
     return res;
   },
@@ -26873,6 +26868,10 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
       deps: []
     };
   }
+  mod3.data[hash].code = mod3.data[hash].code + `
+  
+  globalThis.globalNames = globalThis.globalNames || {};
+  globalThis.globalNames["${name}"] =  ${hash}  ;`;
   mod3.data[hash].deps = findDeps(mod3.data[hash].code).map((dep) => importShim.resolve(dep, name));
   await Promise.all(
     mod3.data[hash].deps.map(
