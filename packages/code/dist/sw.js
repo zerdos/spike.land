@@ -159,7 +159,12 @@
   var chunkCache;
   var fileCache;
   var cacheName = "default";
-  var getCacheName = /* @__PURE__ */ __name(() => fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => md5(content)).then(
+  var files = {};
+  var getCacheName = /* @__PURE__ */ __name(() => fetch(location.origin + "/files.json").then((files2) => files2.ok ? files2.text() : null).then((content) => {
+    if (content !== null)
+      files = JSON.parse(content);
+    return md5(content);
+  }).then(
     (cn) => cn === cacheName || (fileCache = null) || (cacheName = cn)
   ).finally(() => cacheName), "getCacheName");
   addEventListener("fetch", async (_event) => {
@@ -173,7 +178,7 @@
         getCacheName();
       }
       const cacheKey = new Request(
-        request.url + (fileCache === myCache ? "?files=" + cacheName : "")
+        request.url
       );
       const cachedResp = await myCache.match(cacheKey);
       if (cachedResp)
@@ -181,7 +186,7 @@
       if (!url.toString().includes(location.origin))
         return fetch(request);
       const resp = await fetch(request);
-      if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache" && !resp.headers.get("Location")) {
+      if (resp.ok && (resp.headers.get("Cache-Control") !== "no-cache" && !resp.headers.get("Location")) || myCache == fileCache && Object.hasOwn(files, request.url.split("/").pop())) {
         await myCache.put(cacheKey, resp.clone());
       }
       return resp;

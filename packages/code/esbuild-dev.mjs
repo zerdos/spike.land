@@ -174,68 +174,6 @@ const build = (
     outdir: "./js/monaco-workers",
   });
 
-  // buildOptions.plugins = [
-  //   aliasPlugin({
-  //     react: resolve("./js/react-preact.ts"),
-  //     "react-dom": resolve("./js/react-preact.ts"),
-  //     "react-dom/client": resolve("./js/react-preact.ts"),
-  //     "react-dom/server": resolve("./js/react-preact.ts"),
-  //     // "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
-  //     "react/jsx-runtime": resolve("./js/react-preact.ts"),
-  //   })];
-
-  //   await build([
-  //     // "js/session.ts",
-  //     // "js/prettierWorker.mjs",
-  //     "js/react-preact.ts",
-  //     // "js/motion.ts",
-  //     // "js/react-preact.ts",
-  //     "js/emotion.ts",
-  //     // "js/mui.tsx",
-  //     "js/emotionJsxRuntime.ts",
-  //     // "js/ws.ts"],
-  //    ],[]);
-
-  // buildOptions.plugins = [
-  //   aliasPlugin({
-  //     //    "stream": resolve("./js/stream.mjs"),
-  //     //  "buffer": resolve("./js/buffer/index.ts"),
-  //     // "@emotion/react": resolve("./js/emotion.ts"),
-  //     // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
-  //     // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
-  //     //"@emotion/styled": resolve("./js/emotionStyled.mjs"),
-  //     // // "./mui": resolve("./dist/mui.mjs"),
-  //     "react": resolve("./js/react-preact.ts"),
-  //     "react-dom": resolve("./js/react-preact.ts"),
-  //     "react-dom/client": resolve("./js/react-preact.ts"),
-  //     "react-dom/server": resolve("./js/react-preact.ts"),
-  //     "react/jsx-runtime": resolve("./js/react-preact.ts"),
-  //     "react/jsx-dev-runtime": resolve("./js/react-preact.ts"),
-  //   }),
-  // ];
-
-  // // await fs.cp("./index.html", "./dist/index.html");
-
-  // await build([
-  //   // "js/session.ts",
-  //   // "js/prettierWorker.mjs",
-  //   "js/react-preact.ts",
-  //   // "js/react.ts",
-  //   // "js/Editor.tsx",
-  //   // "js/motion.ts",
-  //   // "js/renderToString.tsx",
-  //   // "js/renderPreviewWindow.tsx",
-  //   "js/emotionStyled.mjs",
-
-  //   "js/emotionCache.ts",
-
-  //   "js/emotion.ts",
-  //   "js/emotionJsxRuntime.ts",
-  //   // "js/ws.ts",
-  //   // "js/load.ts",
-  // ], [ //"react", "react-dom*"
-  // ]);
-
   await build(["js/react-jsx-runtime.ts"], [], false, "iife");
 
   await build(["js/mWorker.mjs"], [], false, "iife");

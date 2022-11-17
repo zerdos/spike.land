@@ -24550,9 +24550,9 @@ var waitForAnimation = /* @__PURE__ */ __name(() => {
 init_define_process();
 var mod3 = {
   printR(name, included) {
-    if (included[name])
+    if (included[mod3.hashMap[name]])
       return "";
-    included[name] = true;
+    included[mod3.hashMap[name]] = true;
     const current = mod3.data[mod3.hashMap[name]];
     const currentCode = current.code;
     if (!current.deps || !current.deps.length) {
@@ -24566,8 +24566,8 @@ var mod3 = {
   },
   async toJs(name) {
     const js = mod3.printR(name, {});
-    const modZ = Object.keys(mod3.data).map(
-      (k) => [`"${mod3.hashMap[k]}"`, k.replace(/[^a-f]/g, "")]
+    const modZ = Object.keys(mod3.hashMap).map(
+      (k) => [`"${mod3.hashMap[k]}"`, k]
     ).map((x) => x[0] + ": " + x[1]).join(", \n ");
     const res = `
      ${js}
@@ -24592,7 +24592,7 @@ var mod3 = {
 var toUmd = /* @__PURE__ */ __name(async (source, name) => {
   try {
     const hash = md5(source);
-    mod3.hashMap = { ...mod3.hashMap, [hash]: name, [name]: hash };
+    mod3.hashMap = { ...mod3.hashMap, [name]: hash };
     if (!mod3.data[hash]) {
       const transformed = await initAndTransform(source, {
         format: "iife",
@@ -24602,13 +24602,14 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
         tsconfigRaw: {
           compilerOptions: {
             jsx: "react-jsx",
-            module: "ESNext",
+            target: "es2021",
+            useDefineForClassFields: false,
             jsxFragmentFactory: "Fragment",
             jsxImportSource: "@emotion/react"
           }
         },
         loader: "tsx",
-        globalName: hash.replace(/[^a-f]/g, "")
+        globalName: hash
       });
       if (!transformed || !transformed.code) {
         console.log("transform result -code is empty");
@@ -24625,32 +24626,18 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
         if (mod3.hashMap[dep]) {
           return;
         }
-        const importMap = JSON.parse(
-          document.querySelector("script[type=importmap]").innerHTML
-        );
         let url = "";
-        let urlHash = "";
-        if (importMap.imports[dep]) {
-          url = importMap.imports[dep];
-          urlHash = md5(dep);
-        } else if (dep.startsWith("./")) {
-          url = new URL(dep, location.origin).toString();
-          urlHash = md5(dep);
-        } else {
-          try {
-            url = importShim.resolve(dep, name);
-            urlHash = md5(dep);
-          } catch {
-            console.error(`failed to resolve: ${dep}`);
-            return;
-          }
+        try {
+          url = importShim.resolve(dep, name);
+        } catch {
+          console.error(`failed to resolve: ${dep}`);
+          return;
         }
-        if (mod3.hashMap[urlHash]) {
+        if (mod3.data[mod3.hashMap[name]].deps) {
           return;
         }
         mod3.hashMap[dep] = url;
-        const source2 = await (await fetch(url)).text();
-        return toUmd(source2, dep);
+        return await toUmd(await fetch(url).then((r) => r.text()), url);
       }));
     }
     return mod3;

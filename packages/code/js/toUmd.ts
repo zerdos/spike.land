@@ -11,8 +11,8 @@ import { md5 } from "./md5.js";
 
 const mod = {
   printR(name: string, included: { [key: string]: boolean }): string {
-    if (included[name]) return "";
-    included[name] = true;
+    if (included[mod.hashMap[name]]) return "";
+    included[mod.hashMap[name]] = true;
 
     const current = mod.data[mod.hashMap[name]];
 
@@ -34,8 +34,8 @@ const mod = {
   async toJs(name: string) {
     const js = mod.printR(name, {});
 
-    const modZ = Object.keys(mod.data).map(
-      (k) => [`"${mod.hashMap[k]}"`, k.replace(/[^a-f]/g, "")],
+    const modZ = Object.keys(mod.hashMap).map(
+      (k) => [`"${mod.hashMap[k]}"`, k],
     ).map((x) => x[0] + ": " + x[1]).join(", \n ");
 
     //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts +
@@ -80,7 +80,7 @@ const mod = {
 export const toUmd = async (source: string, name: string) => {
   try {
     const hash = md5(source);
-    mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
+    mod.hashMap = { ...mod.hashMap, [name]: hash };
 
     if (!mod.data[hash]) {
       const transformed = await transform(source, {
@@ -93,14 +93,15 @@ export const toUmd = async (source: string, name: string) => {
         tsconfigRaw: {
           compilerOptions: {
             jsx: "react-jsx",
-            module: "ESNext",
+            target: "es2021",
+            useDefineForClassFields: false,
             jsxFragmentFactory: "Fragment",
             jsxImportSource: "@emotion/react",
           },
         },
 
         loader: "tsx",
-        globalName: hash.replace(/[^a-f]/g, ""),
+        globalName: hash,
       });
       if (!transformed || !transformed.code) {
         console.log("transform result -code is empty");
@@ -120,37 +121,36 @@ export const toUmd = async (source: string, name: string) => {
           return;
         }
 
-        const importMap = JSON.parse(
-          document.querySelector("script[type=importmap]")!.innerHTML,
-        );
+        // const importMap = JSON.parse(
+        //   document.querySelector("script[type=importmap]")!.innerHTML,
+        // );
 
         let url = "";
-        let urlHash = "";
-        if (importMap.imports[dep]) {
-          url = importMap.imports[dep];
-          urlHash = md5(dep);
-        } else if (dep.startsWith("./")) {
-          url = new URL(dep, location.origin).toString();
-          urlHash = md5(dep);
-        } else {
-          try {
-            // @ts-ignore
-            url = importShim.resolve(dep, name);
-            urlHash = md5(dep);
-          } catch {
-            console.error(`failed to resolve: ${dep}`);
-            return;
-          }
+        // let urlHash = "";
+        // if (importMap.imports[dep]) {
+        // url = importMap.imports[dep];
+        // urlHash = md5(dep);
+        // if (dep.startsWith("./")) {
+        //   url = new URL(dep, name).toString();
+        //   urlHash = md5(dep);
+        // } else {
+        try {
+          // @ts-ignore
+          url = importShim.resolve(dep, name);
+          // urlHash = md5(dep);
+        } catch {
+          console.error(`failed to resolve: ${dep}`);
+          return;
         }
+        // }
 
-        if (mod.hashMap[urlHash]) {
+        if (mod.data[mod.hashMap[name]].deps) {
           return;
         }
 
         mod.hashMap[dep] = url;
-        const source = await (await fetch(url)).text();
 
-        return toUmd(source, dep);
+        return await toUmd(await fetch(url).then(r => r.text()), url);
       }));
     }
 
