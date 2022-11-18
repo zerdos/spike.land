@@ -37,12 +37,12 @@ export const initAndTransform: typeof transform = async (code, opts) => {
 
   return { ...transformed, code: `/*${md5(code)}*/` + trp };
 };
-const initAndBuild: typeof build = async (code, opts) => {
+const initAndBuild: typeof build = async (opts) => {
   const initFinished = mod.initialize();
 
   if (initFinished !== true) await (initFinished);
-  const build = await build(opts);
-  return build;
+  const b = await build(opts);
+  return b;
 };
 
 export { initAndBuild as build };
