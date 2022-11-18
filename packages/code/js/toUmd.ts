@@ -6,7 +6,6 @@
 
 import { transform } from "./esbuildEsm";
 import { md5 } from "./md5.js";
-import { wait } from "./wait";
 
 import importmap from "./importmap.json";
 const imp: { [key: string]: string } = { ...importmap.imports };
@@ -41,10 +40,10 @@ const mod = {
   },
 
   toJs: async (name: string) => {
-    while ((Date.now() - mod.last) / 1000 < 4) {
-      console.log((Date.now() - mod.last) / 1000);
-      await wait(1000);
-    }
+    // while ((Date.now() - mod.last) / 1000 < 4) {
+    //   console.log((Date.now() - mod.last) / 1000);
+    //   await wait(1000);
+    // }
     const js = mod.printR(name, {});
 
     let reverseMap: { [key: string]: string } = {};
@@ -141,7 +140,7 @@ export const toUmd = async (source: string, name: string) => {
   mod.hashMap = { ...mod.hashMap, [name]: hash };
 
   if (mod.data[hash]) return mod;
-  mod.last = Date.now();
+  //  mod.last = Date.now();
 
   try {
     mod.data[hash] = {
