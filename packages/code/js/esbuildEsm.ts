@@ -1,4 +1,4 @@
-import { initialize, transform } from "esbuild-wasm";
+import { build, initialize, transform } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { md5 } from "./md5";
 
@@ -37,5 +37,13 @@ export const initAndTransform: typeof transform = async (code, opts) => {
 
   return { ...transformed, code: `/*${md5(code)}*/` + trp };
 };
+const initAndBuild: typeof build = async (code, opts) => {
+  const initFinished = mod.initialize();
 
+  if (initFinished !== true) await (initFinished);
+  const build = await build(opts);
+  return build;
+};
+
+export { initAndBuild as build };
 export { initAndTransform as transform };

@@ -2,10 +2,12 @@
 import type { TransformOptions } from "esbuild-wasm";
 import { codeSpace } from "load";
 import debounce from "lodash.debounce";
-import { transform } from "./esbuildEsm";
+import { build, transform } from "./esbuildEsm";
 import { render } from "./renderToString";
 import { md5, mST, patchSync } from "./session";
 import { toUmd } from "./toUmd";
+
+Object.assign(globalThis, { transform, build });
 
 const debouncedSync = debounce(patchSync, 200, {
   leading: true,
