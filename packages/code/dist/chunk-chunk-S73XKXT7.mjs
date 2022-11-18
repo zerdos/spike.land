@@ -22509,7 +22509,7 @@ var require_browser = __commonJS({
       __export(browser_exports, {
         analyzeMetafile: () => analyzeMetafile,
         analyzeMetafileSync: () => analyzeMetafileSync,
-        build: () => build,
+        build: () => build2,
         buildSync: () => buildSync,
         default: () => browser_default,
         formatMessages: () => formatMessages,
@@ -24162,7 +24162,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
       }
       __name(convertOutputFiles, "convertOutputFiles");
       var version = "0.15.14";
-      var build = /* @__PURE__ */ __name((options) => ensureServiceIsRunning().build(options), "build");
+      var build2 = /* @__PURE__ */ __name((options) => ensureServiceIsRunning().build(options), "build");
       var serve = /* @__PURE__ */ __name(() => {
         throw new Error(`The "serve" API only works in node`);
       }, "serve");
@@ -26417,6 +26417,13 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   ).replaceAll(regex2, ` from '${location.origin}/live/`);
   return { ...transformed, code: `/*${md5(code)}*/` + trp };
 }, "initAndTransform");
+var initAndBuild = /* @__PURE__ */ __name(async (code, opts) => {
+  const initFinished = mod.initialize();
+  if (initFinished !== true)
+    await initFinished;
+  const build2 = await build2(opts);
+  return build2;
+}, "initAndBuild");
 
 // js/renderToString.tsx
 init_define_process();
@@ -26883,6 +26890,7 @@ var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
 }, "fetch_or_die");
 
 // js/runner.tsx
+Object.assign(globalThis, { transform: initAndTransform, build: initAndBuild });
 var debouncedSync = (0, import_lodash.default)(patchSync, 200, {
   leading: true,
   trailing: true,
@@ -27067,7 +27075,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Rnd, {
     enableResizing: true,
     minWidth: 640,
-    minHeight: 400,
+    minHeight: "100vh",
     allowAnyClick: true,
     lockAspectRatio: false,
     enable: {
@@ -27078,7 +27086,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
     },
     defaultSize: {
       width: "640px",
-      height: "95vh"
+      height: "100vh"
     },
     children: EditorNode
   });

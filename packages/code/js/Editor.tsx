@@ -137,7 +137,7 @@ export const Editor: FC<
     <Rnd
       enableResizing={true}
       minWidth={640}
-      minHeight={400}
+      minHeight={"100vh"}
       allowAnyClick={true}
       lockAspectRatio={false}
       enable={{
@@ -148,7 +148,7 @@ export const Editor: FC<
       }}
       defaultSize={{
         width: "640px",
-        height: "95vh",
+        height: "100vh",
       }}
     >
       {EditorNode}
