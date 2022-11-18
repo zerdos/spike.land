@@ -26407,6 +26407,7 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
+  globalThis.transformed = globalThis.transformed + 1 || 1;
   const transformed = await (0, import_esbuild_wasm.transform)(code, opts);
   const regex1 = / from '\.\./gi;
   const regex2 = / from '\./gi;
