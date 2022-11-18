@@ -112,7 +112,7 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
-    "@yarnpkg/sdks": "3.0.0-rc.29",
+    "@yarnpkg/sdks": "3.0.0-rc.30",
     "esbuild": "0.15.14",
     "esbuild-plugin-alias": "0.2.1",
     "eslint": "^8.27.0",
