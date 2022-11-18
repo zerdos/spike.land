@@ -1,4 +1,6 @@
 .yarn/global/telemetry.json
+.yarn/global/index
+
 .yarn/global/store
 haters/
 .env
