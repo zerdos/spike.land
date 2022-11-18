@@ -26776,10 +26776,6 @@ var mod3 = {
     ` + currentCode;
   },
   toJs: async (name) => {
-    while ((Date.now() - mod3.last) / 1e3 < 4) {
-      console.log((Date.now() - mod3.last) / 1e3);
-      await wait(1e3);
-    }
     const js = mod3.printR(name, {});
     let reverseMap = {};
     Object.keys(mod3.hashMap).forEach((key) => reverseMap = { ...reverseMap, [mod3.hashMap[key]]: key });
@@ -26837,7 +26833,6 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
   mod3.hashMap = { ...mod3.hashMap, [name]: hash };
   if (mod3.data[hash])
     return mod3;
-  mod3.last = Date.now();
   try {
     mod3.data[hash] = {
       code: (await initAndTransform(source, {
