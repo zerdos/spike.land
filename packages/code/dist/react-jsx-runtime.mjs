@@ -3,7 +3,7 @@
   var __defProp = Object.defineProperty;
   var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
-  // ../../.yarn/global/cache/es-module-shims-npm-1.6.2-15ec69049d-9.zip/node_modules/es-module-shims/dist/es-module-shims.js
+  // ../../node_modules/es-module-shims/dist/es-module-shims.js
   (function() {
     const hasWindow = typeof window !== "undefined";
     const hasDocument = typeof document !== "undefined";

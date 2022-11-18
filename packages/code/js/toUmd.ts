@@ -146,7 +146,7 @@ export const toUmd = async (source: string, name: string) => {
     mod.data[hash] = {
       code: (await transform(source, {
         format: "iife",
-        // keepNames: true,
+        keepNames: true,
         treeShaking: true,
         // sourcefile: name,
 
@@ -160,7 +160,7 @@ export const toUmd = async (source: string, name: string) => {
         //   },
         // },
 
-        // loader: "js",
+        loader: "ts",
         globalName: hash,
       })).code,
       deps: [],
@@ -169,7 +169,7 @@ export const toUmd = async (source: string, name: string) => {
     mod.data[hash] = {
       code: (await transform(source, {
         format: "iife",
-        // keepNames: true,
+        keepNames: true,
         treeShaking: true,
         // sourcefile: name,
 

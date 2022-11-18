@@ -1,6 +1,6 @@
 import {
   require_react
-} from "./chunk-chunk-3MF4K2ZX.mjs";
+} from "./chunk-chunk-BH3GJV4T.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-CIPP7HWN.mjs";

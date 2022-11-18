@@ -1,0 +1,7 @@
+{
+  "name": "vendor",
+  "packageManager": "yarn@4.0.0-rc.29",
+  "dependencies": {
+    "@emotion/cache": "^11.10.5"
+  }
+}

@@ -1,4 +1,5 @@
 .yarn/global/telemetry.json
+.yarn/global/store
 haters/
 .env
 client_id§
