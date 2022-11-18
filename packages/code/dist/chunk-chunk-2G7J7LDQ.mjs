@@ -26417,12 +26417,12 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   ).replaceAll(regex2, ` from '${location.origin}/live/`);
   return { ...transformed, code: `/*${md5(code)}*/` + trp };
 }, "initAndTransform");
-var initAndBuild = /* @__PURE__ */ __name(async (code, opts) => {
+var initAndBuild = /* @__PURE__ */ __name(async (opts) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
-  const build2 = await build2(opts);
-  return build2;
+  const b = await (0, import_esbuild_wasm.build)(opts);
+  return b;
 }, "initAndBuild");
 
 // js/renderToString.tsx
