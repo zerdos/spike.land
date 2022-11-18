@@ -47,7 +47,7 @@
   "resolutions": {
     "wrangler/esbuild": "0.15.11"
   },
-  "packageManager": "yarn@4.0.0-rc.29",
+  "packageManager": "yarn@3.3.0",
   "dependencies": {
     "react": "^18.2.0"
   }
