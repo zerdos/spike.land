@@ -31138,7 +31138,7 @@ var mod3 = {
       if (globalThis.globalNames[name]) return  globalThis.globalNames[name];     
       if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
       if (importmap[name]) return require(importmap[name])
-      if (!name.includes("/npm:)){
+      if (!name.includes("/npm:")){
       const npmUrl = new URL('/npm:*'+name+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
       return require(npmUrl);
     }
