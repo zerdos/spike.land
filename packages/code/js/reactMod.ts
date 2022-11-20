@@ -31,9 +31,18 @@ export const {
   useMemo,
   useReducer,
   useRef,
-  useState,
   useSyncExternalStore,
   useTransition,
   version,
 } = React;
+
+const originalUseState = React.useState;
+
+export const useState = (startState: unknown) => {
+  const [state, setState] = originalUseState(startState);
+  const delayedSetState = (updates: unknown) => queueMicrotask(() => setState(updates));
+  return [state, delayedSetState];
+};
+React.useState = useState;
+
 export default React;

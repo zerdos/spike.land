@@ -1,10 +1,10 @@
 import {
   require_react_dom
-} from "./chunk-chunk-7UW6FRGF.mjs";
-import "./chunk-chunk-3MF4K2ZX.mjs";
+} from "./chunk-chunk-QNTVLDPA.mjs";
+import "./chunk-chunk-IGJHLPB6.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-CIPP7HWN.mjs";
+} from "./chunk-chunk-BSQL4JKA.mjs";
 
 // js/reactDom.ts
 init_define_process();

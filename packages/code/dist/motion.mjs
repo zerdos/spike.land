@@ -2,16 +2,19 @@ import {
   require_dist,
   require_is_prop_valid_browser_cjs,
   require_tslib
-} from "./chunk-chunk-FBPRZQYH.mjs";
+} from "./chunk-chunk-IZGGUXAP.mjs";
 import {
   require_react
-} from "./chunk-chunk-3MF4K2ZX.mjs";
+} from "./chunk-chunk-IGJHLPB6.mjs";
 import {
   __commonJS,
   __name,
+  __objRest,
+  __spreadProps,
+  __spreadValues,
   define_process_default,
   init_define_process
-} from "./chunk-chunk-CIPP7HWN.mjs";
+} from "./chunk-chunk-BSQL4JKA.mjs";
 
 // ../../.yarn/global/cache/style-value-types-npm-5.1.2-f9d7bb50ee-9.zip/node_modules/style-value-types/dist/valueTypes.cjs.js
 var require_valueTypes_cjs = __commonJS({
@@ -4685,11 +4688,9 @@ var require_cjs = __commonJS({
     function createMotionComponent2({ preloadedFeatures, createVisualElement, projectionNodeConstructor, useRender, useVisualState: useVisualState2, Component }) {
       preloadedFeatures && loadFeatures(preloadedFeatures);
       function MotionComponent(props, externalRef) {
-        const configAndProps = {
-          ...React.useContext(MotionConfigContext2),
-          ...props,
+        const configAndProps = __spreadProps(__spreadValues(__spreadValues({}, React.useContext(MotionConfigContext2)), props), {
           layoutId: useLayoutId(props)
-        };
+        });
         const { isStatic } = configAndProps;
         let features = null;
         const context = useCreateMotionContext(props);
@@ -4845,10 +4846,9 @@ var require_cjs = __commonJS({
     var getValueAsType = /* @__PURE__ */ __name((value, type) => {
       return type && typeof value === "number" ? type.transform(value) : value;
     }, "getValueAsType");
-    var int = {
-      ...styleValueTypes.number,
+    var int = __spreadProps(__spreadValues({}, styleValueTypes.number), {
       transform: Math.round
-    };
+    });
     var numberValueTypes = {
       borderWidth: styleValueTypes.px,
       borderTopWidth: styleValueTypes.px,
@@ -5110,16 +5110,24 @@ var require_cjs = __commonJS({
       attrs[keys.array] = `${pathLength} ${pathSpacing}`;
     }
     __name(buildSVGPath, "buildSVGPath");
-    function buildSVGAttrs(state, {
-      attrX,
-      attrY,
-      originX,
-      originY,
-      pathLength,
-      pathSpacing = 1,
-      pathOffset = 0,
-      ...latest
-    }, options, transformTemplate) {
+    function buildSVGAttrs(state, _a, options, transformTemplate) {
+      var _b = _a, {
+        attrX,
+        attrY,
+        originX,
+        originY,
+        pathLength,
+        pathSpacing = 1,
+        pathOffset = 0
+      } = _b, latest = __objRest(_b, [
+        "attrX",
+        "attrY",
+        "originX",
+        "originY",
+        "pathLength",
+        "pathSpacing",
+        "pathOffset"
+      ]);
       buildHTMLStyles(state, latest, options, transformTemplate);
       state.attrs = state.style;
       state.style = {};
@@ -5141,23 +5149,21 @@ var require_cjs = __commonJS({
       }
     }
     __name(buildSVGAttrs, "buildSVGAttrs");
-    var createSvgRenderState = /* @__PURE__ */ __name(() => ({
-      ...createHtmlRenderState(),
+    var createSvgRenderState = /* @__PURE__ */ __name(() => __spreadProps(__spreadValues({}, createHtmlRenderState()), {
       attrs: {}
     }), "createSvgRenderState");
     function useSVGProps(props, visualState) {
       const visualProps = React.useMemo(() => {
         const state = createSvgRenderState();
         buildSVGAttrs(state, visualState, { enableHardwareAcceleration: false }, props.transformTemplate);
-        return {
-          ...state.attrs,
-          style: { ...state.style }
-        };
+        return __spreadProps(__spreadValues({}, state.attrs), {
+          style: __spreadValues({}, state.style)
+        });
       }, [visualState]);
       if (props.style) {
         const rawStyles = {};
         copyRawValuesOnly(rawStyles, props.style, props);
-        visualProps.style = { ...rawStyles, ...visualProps.style };
+        visualProps.style = __spreadValues(__spreadValues({}, rawStyles), visualProps.style);
       }
       return visualProps;
     }
@@ -5167,11 +5173,9 @@ var require_cjs = __commonJS({
         const useVisualProps = isSVGComponent(Component) ? useSVGProps : useHTMLProps;
         const visualProps = useVisualProps(props, latestValues, isStatic);
         const filteredProps = filterProps2(props, typeof Component === "string", forwardMotionProps);
-        const elementProps = {
-          ...filteredProps,
-          ...visualProps,
+        const elementProps = __spreadProps(__spreadValues(__spreadValues({}, filteredProps), visualProps), {
           ref
-        };
+        });
         if (projectionId) {
           elementProps["data-projection-id"] = projectionId;
         }
@@ -5307,7 +5311,7 @@ var require_cjs = __commonJS({
           const resolved = resolveVariantFromProps(props, definition);
           if (!resolved)
             return;
-          const { transitionEnd, transition, ...target } = resolved;
+          const _a = resolved, { transitionEnd, transition } = _a, target = __objRest(_a, ["transitionEnd", "transition"]);
           for (const key in target) {
             let valueTarget = target[key];
             if (Array.isArray(valueTarget)) {
@@ -5353,14 +5357,13 @@ var require_cjs = __commonJS({
     };
     function createDomMotionConfig(Component, { forwardMotionProps = false }, preloadedFeatures, createVisualElement, projectionNodeConstructor) {
       const baseConfig = isSVGComponent(Component) ? svgMotionConfig : htmlMotionConfig;
-      return {
-        ...baseConfig,
+      return __spreadProps(__spreadValues({}, baseConfig), {
         preloadedFeatures,
         useRender: createUseRender(forwardMotionProps),
         createVisualElement,
         projectionNodeConstructor,
         Component
-      };
+      });
     }
     __name(createDomMotionConfig, "createDomMotionConfig");
     exports.AnimationType = void 0;
@@ -5629,7 +5632,8 @@ var require_cjs = __commonJS({
     var fireAllObserverCallbacks = /* @__PURE__ */ __name((entries) => {
       entries.forEach(fireObserverCallback);
     }, "fireAllObserverCallbacks");
-    function initIntersectionObserver({ root, ...options }) {
+    function initIntersectionObserver(_a) {
+      var _b = _a, { root } = _b, options = __objRest(_b, ["root"]);
       const lookupRoot = root || document;
       if (!observers.has(lookupRoot)) {
         observers.set(lookupRoot, {});
@@ -5637,7 +5641,7 @@ var require_cjs = __commonJS({
       const rootObservers = observers.get(lookupRoot);
       const key = JSON.stringify(options);
       if (!rootObservers[key]) {
-        rootObservers[key] = new IntersectionObserver(fireAllObserverCallbacks, { root, ...options });
+        rootObservers[key] = new IntersectionObserver(fireAllObserverCallbacks, __spreadValues({ root }, options));
       }
       return rootObservers[key];
     }
@@ -5844,10 +5848,9 @@ var require_cjs = __commonJS({
       } else {
         transitionFactory = defaultTransitions[valueKey] || defaultTransitions.default;
       }
-      return { to, ...transitionFactory(to) };
+      return __spreadValues({ to }, transitionFactory(to));
     }, "getDefaultTransition");
-    var defaultValueTypes = {
-      ...numberValueTypes,
+    var defaultValueTypes = __spreadProps(__spreadValues({}, numberValueTypes), {
       color: styleValueTypes.color,
       backgroundColor: styleValueTypes.color,
       outlineColor: styleValueTypes.color,
@@ -5860,7 +5863,7 @@ var require_cjs = __commonJS({
       borderLeftColor: styleValueTypes.color,
       filter: styleValueTypes.filter,
       WebkitFilter: styleValueTypes.filter
-    };
+    });
     var getDefaultValueType = /* @__PURE__ */ __name((key) => defaultValueTypes[key], "getDefaultValueType");
     function getAnimatableNone(key, value) {
       var _a;
@@ -5886,13 +5889,15 @@ var require_cjs = __commonJS({
       return () => sync.cancelSync.read(checkElapsed);
     }
     __name(delay2, "delay");
-    function isTransitionDefined({ when, delay: _delay, delayChildren, staggerChildren, staggerDirection, repeat, repeatType, repeatDelay, from, ...transition }) {
+    function isTransitionDefined(_a) {
+      var _b = _a, { when, delay: _delay, delayChildren, staggerChildren, staggerDirection, repeat, repeatType, repeatDelay, from } = _b, transition = __objRest(_b, ["when", "delay", "delayChildren", "staggerChildren", "staggerDirection", "repeat", "repeatType", "repeatDelay", "from"]);
       return !!Object.keys(transition).length;
     }
     __name(isTransitionDefined, "isTransitionDefined");
     var legacyRepeatWarning = false;
-    function convertTransitionToAnimationOptions({ ease, times, yoyo, flip, loop, ...transition }) {
-      const options = { ...transition };
+    function convertTransitionToAnimationOptions(_a) {
+      var _b = _a, { ease, times, yoyo, flip, loop } = _b, transition = __objRest(_b, ["ease", "times", "yoyo", "flip", "loop"]);
+      const options = __spreadValues({}, transition);
       if (times)
         options["offset"] = times;
       if (transition.duration)
@@ -5941,15 +5946,9 @@ var require_cjs = __commonJS({
       }
       hydrateKeyframes(options);
       if (!isTransitionDefined(transition)) {
-        transition = {
-          ...transition,
-          ...getDefaultTransition(key, options.to)
-        };
+        transition = __spreadValues(__spreadValues({}, transition), getDefaultTransition(key, options.to));
       }
-      return {
-        ...options,
-        ...convertTransitionToAnimationOptions(transition)
-      };
+      return __spreadValues(__spreadValues({}, options), convertTransitionToAnimationOptions(transition));
     }
     __name(getPopmotionAnimationOptions, "getPopmotionAnimationOptions");
     function getAnimation(key, value, target, transition, onComplete) {
@@ -5973,8 +5972,7 @@ var require_cjs = __commonJS({
           onComplete,
           onUpdate: (v) => value.set(v)
         };
-        return valueTransition.type === "inertia" || valueTransition.type === "decay" ? popmotion.inertia({ ...options, ...valueTransition }) : popmotion.animate({
-          ...getPopmotionAnimationOptions(valueTransition, options, key),
+        return valueTransition.type === "inertia" || valueTransition.type === "decay" ? popmotion.inertia(__spreadValues(__spreadValues({}, options), valueTransition)) : popmotion.animate(__spreadProps(__spreadValues({}, getPopmotionAnimationOptions(valueTransition, options, key)), {
           onUpdate: (v) => {
             options.onUpdate(v);
             valueTransition.onUpdate && valueTransition.onUpdate(v);
@@ -5983,7 +5981,7 @@ var require_cjs = __commonJS({
             options.onComplete();
             valueTransition.onComplete && valueTransition.onComplete();
           }
-        });
+        }));
       }
       __name(start, "start");
       function set() {
@@ -6221,8 +6219,8 @@ var require_cjs = __commonJS({
     __name(setMotionValue, "setMotionValue");
     function setTarget(visualElement2, definition) {
       const resolved = resolveVariant(visualElement2, definition);
-      let { transitionEnd = {}, transition = {}, ...target } = resolved ? visualElement2.makeTargetAnimatable(resolved, false) : {};
-      target = { ...target, ...transitionEnd };
+      let _a = resolved ? visualElement2.makeTargetAnimatable(resolved, false) : {}, { transitionEnd = {}, transition = {} } = _a, target = __objRest(_a, ["transitionEnd", "transition"]);
+      target = __spreadValues(__spreadValues({}, target), transitionEnd);
       for (const key in target) {
         const value = resolveFinalValueInKeyframes(target[key]);
         setMotionValue(visualElement2, key, value);
@@ -6342,7 +6340,7 @@ var require_cjs = __commonJS({
     __name(animateVariant, "animateVariant");
     function animateTarget(visualElement2, definition, { delay: delay3 = 0, transitionOverride, type } = {}) {
       var _a;
-      let { transition = visualElement2.getDefaultTransition(), transitionEnd, ...target } = visualElement2.makeTargetAnimatable(definition);
+      let _a2 = visualElement2.makeTargetAnimatable(definition), { transition = visualElement2.getDefaultTransition(), transitionEnd } = _a2, target = __objRest(_a2, ["transition", "transitionEnd"]);
       const willChange = visualElement2.getValue("willChange");
       if (transitionOverride)
         transition = transitionOverride;
@@ -6354,13 +6352,12 @@ var require_cjs = __commonJS({
         if (!value || valueTarget === void 0 || animationTypeState && shouldBlockAnimation(animationTypeState, key)) {
           continue;
         }
-        let valueTransition = { delay: delay3, ...transition };
+        let valueTransition = __spreadValues({ delay: delay3 }, transition);
         if (visualElement2.shouldReduceMotion && transformProps.has(key)) {
-          valueTransition = {
-            ...valueTransition,
+          valueTransition = __spreadProps(__spreadValues({}, valueTransition), {
             type: false,
             delay: 0
-          };
+          });
         }
         let animation = startAnimation(key, value, valueTarget, valueTransition);
         if (isWillChangeMotionValue(willChange)) {
@@ -6379,10 +6376,9 @@ var require_cjs = __commonJS({
       const maxStaggerDuration = (visualElement2.variantChildren.size - 1) * staggerChildren;
       const generateStaggerDuration = staggerDirection === 1 ? (i = 0) => i * staggerChildren : (i = 0) => maxStaggerDuration - i * staggerChildren;
       Array.from(visualElement2.variantChildren).sort(sortByTreeOrder).forEach((child, i) => {
-        animations3.push(animateVariant(child, variant, {
-          ...options,
+        animations3.push(animateVariant(child, variant, __spreadProps(__spreadValues({}, options), {
           delay: delayChildren + generateStaggerDuration(i)
-        }).then(() => child.notify("AnimationComplete", variant)));
+        })).then(() => child.notify("AnimationComplete", variant)));
       });
       return Promise.all(animations3);
     }
@@ -6423,8 +6419,8 @@ var require_cjs = __commonJS({
       const buildResolvedTypeValues = /* @__PURE__ */ __name((acc, definition) => {
         const resolved = resolveVariant(visualElement2, definition);
         if (resolved) {
-          const { transition, transitionEnd, ...target } = resolved;
-          acc = { ...acc, ...target, ...transitionEnd };
+          const _a = resolved, { transition, transitionEnd } = _a, target = __objRest(_a, ["transition", "transitionEnd"]);
+          acc = __spreadValues(__spreadValues(__spreadValues({}, acc), target), transitionEnd);
         }
         return acc;
       }, "buildResolvedTypeValues");
@@ -6452,7 +6448,7 @@ var require_cjs = __commonJS({
           if (isInherited && isInitialRender && visualElement2.manuallyAnimateOnMount) {
             isInherited = false;
           }
-          typeState.protectedKeys = { ...encounteredKeys };
+          typeState.protectedKeys = __spreadValues({}, encounteredKeys);
           if (!typeState.isActive && activeDelta === null || !prop && !typeState.prevProp || isAnimationControls(prop) || typeof prop === "boolean") {
             continue;
           }
@@ -6463,10 +6459,7 @@ var require_cjs = __commonJS({
           if (activeDelta === false)
             resolvedValues = {};
           const { prevResolvedValues = {} } = typeState;
-          const allKeys = {
-            ...prevResolvedValues,
-            ...resolvedValues
-          };
+          const allKeys = __spreadValues(__spreadValues({}, prevResolvedValues), resolvedValues);
           const markToAnimate = /* @__PURE__ */ __name((key) => {
             shouldAnimateType = true;
             removedKeys.delete(key);
@@ -6498,7 +6491,7 @@ var require_cjs = __commonJS({
           typeState.prevProp = prop;
           typeState.prevResolvedValues = resolvedValues;
           if (typeState.isActive) {
-            encounteredKeys = { ...encounteredKeys, ...resolvedValues };
+            encounteredKeys = __spreadValues(__spreadValues({}, encounteredKeys), resolvedValues);
           }
           if (isInitialRender && visualElement2.blockInitialAnimation) {
             shouldAnimateType = false;
@@ -6506,7 +6499,7 @@ var require_cjs = __commonJS({
           if (shouldAnimateType && !isInherited) {
             animations3.push(...definitionList.map((animation) => ({
               animation,
-              options: { type, ...options }
+              options: __spreadValues({ type }, options)
             })));
           }
         }
@@ -6620,7 +6613,7 @@ var require_cjs = __commonJS({
             return;
           const { point: point2 } = info2;
           const { timestamp: timestamp2 } = sync.getFrameData();
-          this.history.push({ ...point2, timestamp: timestamp2 });
+          this.history.push(__spreadProps(__spreadValues({}, point2), { timestamp: timestamp2 }));
           const { onStart, onMove } = this.handlers;
           if (!isPanStarted) {
             onStart && onStart(this.lastMoveEvent, info2);
@@ -6654,7 +6647,7 @@ var require_cjs = __commonJS({
         const initialInfo = transformPoint(info, this.transformPagePoint);
         const { point } = initialInfo;
         const { timestamp } = sync.getFrameData();
-        this.history = [{ ...point, timestamp }];
+        this.history = [__spreadProps(__spreadValues({}, point), { timestamp })];
         const { onSessionStart } = handlers;
         onSessionStart && onSessionStart(event, getPanInfo(initialInfo, this.history));
         this.removeListeners = popmotion.pipe(addPointerEvent2(window, "pointermove", this.handlePointerMove), addPointerEvent2(window, "pointerup", this.handlePointerUp), addPointerEvent2(window, "pointercancel", this.handlePointerUp));
@@ -7174,17 +7167,15 @@ var require_cjs = __commonJS({
             transition = { min: 0, max: 0 };
           const bounceStiffness = dragElastic ? 200 : 1e6;
           const bounceDamping = dragElastic ? 40 : 1e7;
-          const inertia = {
+          const inertia = __spreadValues(__spreadValues({
             type: "inertia",
             velocity: dragMomentum ? velocity[axis] : 0,
             bounceStiffness,
             bounceDamping,
             timeConstant: 750,
             restDelta: 1,
-            restSpeed: 10,
-            ...dragTransition,
-            ...transition
-          };
+            restSpeed: 10
+          }, dragTransition), transition);
           return this.startAxisValueAnimation(axis, inertia);
         });
         return Promise.all(momentumAnimations).then(onDragTransitionEnd);
@@ -7291,15 +7282,14 @@ var require_cjs = __commonJS({
       getProps() {
         const props = this.visualElement.getProps();
         const { drag: drag2 = false, dragDirectionLock = false, dragPropagation = false, dragConstraints = false, dragElastic = defaultElastic, dragMomentum = true } = props;
-        return {
-          ...props,
+        return __spreadProps(__spreadValues({}, props), {
           drag: drag2,
           dragDirectionLock,
           dragPropagation,
           dragConstraints,
           dragElastic,
           dragMomentum
-        };
+        });
       }
     };
     __name(VisualElementDragControls, "VisualElementDragControls");
@@ -7385,12 +7375,13 @@ var require_cjs = __commonJS({
       }
     }
     __name(getVariableValue, "getVariableValue");
-    function resolveCSSVariables(visualElement2, { ...target }, transitionEnd) {
+    function resolveCSSVariables(visualElement2, _a, transitionEnd) {
+      var target = __objRest(_a, []);
       const element = visualElement2.current;
       if (!(element instanceof Element))
         return { target, transitionEnd };
       if (transitionEnd) {
-        transitionEnd = { ...transitionEnd };
+        transitionEnd = __spreadValues({}, transitionEnd);
       }
       visualElement2.values.forEach((value) => {
         const current = value.get();
@@ -7507,8 +7498,8 @@ var require_cjs = __commonJS({
       return target;
     }, "convertChangedValueTypes");
     var checkAndConvertChangedValueTypes = /* @__PURE__ */ __name((visualElement2, target, origin = {}, transitionEnd = {}) => {
-      target = { ...target };
-      transitionEnd = { ...transitionEnd };
+      target = __spreadValues({}, target);
+      transitionEnd = __spreadValues({}, transitionEnd);
       const targetPositionalKeys = Object.keys(target).filter(isPositionalKey);
       let removedTransformValues = [];
       let hasAttemptedToRemoveTransformValues = false;
@@ -7678,8 +7669,8 @@ var require_cjs = __commonJS({
         this.scheduleRender = () => sync__default["default"].render(this.render, false, true);
         const { latestValues, renderState } = visualState;
         this.latestValues = latestValues;
-        this.baseTarget = { ...latestValues };
-        this.initialValues = props.initial ? { ...latestValues } : {};
+        this.baseTarget = __spreadValues({}, latestValues);
+        this.initialValues = props.initial ? __spreadValues({}, latestValues) : {};
         this.renderState = renderState;
         this.parent = parent;
         this.props = props;
@@ -7692,7 +7683,7 @@ var require_cjs = __commonJS({
           this.variantChildren = /* @__PURE__ */ new Set();
         }
         this.manuallyAnimateOnMount = Boolean(parent && parent.current);
-        const { willChange, ...initialMotionValues } = this.scrapeMotionValuesFromProps(props);
+        const _a = this.scrapeMotionValuesFromProps(props), { willChange } = _a, initialMotionValues = __objRest(_a, ["willChange"]);
         for (const key in initialMotionValues) {
           const value = initialMotionValues[key];
           if (latestValues[key] !== void 0 && isMotionValue2(value)) {
@@ -7762,11 +7753,11 @@ var require_cjs = __commonJS({
           const name = featureNames[i];
           const { isEnabled, Component } = featureDefinitions[name];
           if (isEnabled(renderedProps) && Component) {
-            features.push(React.createElement(Component, {
-              key: name,
-              ...renderedProps,
+            features.push(React.createElement(Component, __spreadProps(__spreadValues({
+              key: name
+            }, renderedProps), {
               visualElement: this
-            }));
+            })));
           }
         }
         if (!this.projection && ProjectionNodeConstructor) {
@@ -7937,7 +7928,8 @@ var require_cjs = __commonJS({
         delete vars[key];
         delete style[key];
       }
-      makeTargetAnimatableFromInstance({ transition, transitionEnd, ...target }, { transformValues }, isMounted) {
+      makeTargetAnimatableFromInstance(_a, { transformValues }, isMounted) {
+        var _b = _a, { transition, transitionEnd } = _b, target = __objRest(_b, ["transition", "transitionEnd"]);
         let origin = getOrigin(target, transition || {}, this);
         if (transformValues) {
           if (transitionEnd)
@@ -7953,11 +7945,10 @@ var require_cjs = __commonJS({
           transitionEnd = parsed.transitionEnd;
           target = parsed.target;
         }
-        return {
+        return __spreadValues({
           transition,
-          transitionEnd,
-          ...target
-        };
+          transitionEnd
+        }, target);
       }
     };
     __name(DOMVisualElement, "DOMVisualElement");
@@ -8094,10 +8085,9 @@ var require_cjs = __commonJS({
           projection.addEventListener("animationComplete", () => {
             this.safeToRemove();
           });
-          projection.setOptions({
-            ...projection.options,
+          projection.setOptions(__spreadProps(__spreadValues({}, projection.options), {
             onExitComplete: () => this.safeToRemove()
-          });
+          }));
         }
         globalProjectionState.hasEverUpdated = true;
       }
@@ -8158,19 +8148,18 @@ var require_cjs = __commonJS({
     function MeasureLayout(props) {
       const [isPresent2, safeToRemove] = usePresence2();
       const layoutGroup = React.useContext(LayoutGroupContext2);
-      return React__default["default"].createElement(MeasureLayoutWithContext, { ...props, layoutGroup, switchLayoutGroup: React.useContext(SwitchLayoutGroupContext2), isPresent: isPresent2, safeToRemove });
+      return React__default["default"].createElement(MeasureLayoutWithContext, __spreadProps(__spreadValues({}, props), { layoutGroup, switchLayoutGroup: React.useContext(SwitchLayoutGroupContext2), isPresent: isPresent2, safeToRemove }));
     }
     __name(MeasureLayout, "MeasureLayout");
     var defaultScaleCorrectors = {
-      borderRadius: {
-        ...correctBorderRadius,
+      borderRadius: __spreadProps(__spreadValues({}, correctBorderRadius), {
         applyTo: [
           "borderTopLeftRadius",
           "borderTopRightRadius",
           "borderBottomLeftRadius",
           "borderBottomRightRadius"
         ]
-      },
+      }),
       borderTopLeftRadius: correctBorderRadius,
       borderTopRightRadius: correctBorderRadius,
       borderBottomLeftRadius: correctBorderRadius,
@@ -8551,11 +8540,10 @@ var require_cjs = __commonJS({
                   this.resumingFrom.resumingFrom = void 0;
                 }
                 this.setAnimationOrigin(delta, hasOnlyRelativeTargetChanged);
-                const animationOptions = {
-                  ...getValueTransition(layoutTransition, "layout"),
+                const animationOptions = __spreadProps(__spreadValues({}, getValueTransition(layoutTransition, "layout")), {
                   onPlay: onLayoutAnimationStart,
                   onComplete: onLayoutAnimationComplete
-                };
+                });
                 if (visualElement2.shouldReduceMotion) {
                   animationOptions.delay = 0;
                   animationOptions.type = false;
@@ -8802,11 +8790,9 @@ var require_cjs = __commonJS({
           this.root.scheduleUpdateProjection();
         }
         setOptions(options) {
-          this.options = {
-            ...this.options,
-            ...options,
+          this.options = __spreadProps(__spreadValues(__spreadValues({}, this.options), options), {
             crossfade: options.crossfade !== void 0 ? options.crossfade : true
-          };
+          });
         }
         clearMeasurements() {
           this.scroll = void 0;
@@ -8923,7 +8909,7 @@ var require_cjs = __commonJS({
           var _a;
           const snapshot = this.snapshot;
           const snapshotLatestValues = (snapshot === null || snapshot === void 0 ? void 0 : snapshot.latestValues) || {};
-          const mixedValues = { ...this.latestValues };
+          const mixedValues = __spreadValues({}, this.latestValues);
           const targetDelta = createDelta();
           this.relativeTarget = this.relativeTargetOrigin = void 0;
           this.attemptToResolveRelativeTarget = !hasOnlyRelativeTargetChanged;
@@ -8965,8 +8951,7 @@ var require_cjs = __commonJS({
           }
           this.pendingAnimation = sync__default["default"].update(() => {
             globalProjectionState.hasAnimatedSinceResize = true;
-            this.currentAnimation = animate2(0, animationTarget, {
-              ...options,
+            this.currentAnimation = animate2(0, animationTarget, __spreadProps(__spreadValues({}, options), {
               onUpdate: (latest) => {
                 var _a2;
                 this.mixTargetDelta(latest);
@@ -8977,7 +8962,7 @@ var require_cjs = __commonJS({
                 (_a2 = options.onComplete) === null || _a2 === void 0 ? void 0 : _a2.call(options);
                 this.completeAnimation();
               }
-            });
+            }));
             if (this.resumingFrom) {
               this.resumingFrom.currentAnimation = this.currentAnimation;
             }
@@ -9354,12 +9339,7 @@ var require_cjs = __commonJS({
       },
       checkIsScrollRoot: (instance) => Boolean(window.getComputedStyle(instance).position === "fixed")
     });
-    var featureBundle = {
-      ...animations2,
-      ...gestureAnimations,
-      ...drag,
-      ...layoutFeatures
-    };
+    var featureBundle = __spreadValues(__spreadValues(__spreadValues(__spreadValues({}, animations2), gestureAnimations), drag), layoutFeatures);
     var motion2 = /* @__PURE__ */ createMotionProxy((Component, config) => createDomMotionConfig(Component, config, featureBundle, createDomVisualElement, HTMLProjectionNode));
     function createDomMotionComponent2(key) {
       return createMotionComponent2(createDomMotionConfig(key, { forwardMotionProps: false }, featureBundle, createDomVisualElement, HTMLProjectionNode));
@@ -9610,7 +9590,7 @@ var require_cjs = __commonJS({
           group: shouldInheritGroup(inherit) ? layoutGroupContext.group || nodeGroup() : nodeGroup()
         };
       }
-      const memoizedContext = React.useMemo(() => ({ ...context.current, forceRender }), [key]);
+      const memoizedContext = React.useMemo(() => __spreadProps(__spreadValues({}, context.current), { forceRender }), [key]);
       return React__namespace.createElement(LayoutGroupContext2.Provider, { value: memoizedContext }, children);
     }, "LayoutGroup");
     var id = 0;
@@ -9620,9 +9600,10 @@ var require_cjs = __commonJS({
       }, []);
       return React__namespace.createElement(LayoutGroup2, { id: useConstant(() => `asl-${id++}`) }, children);
     }, "AnimateSharedLayout");
-    function MotionConfig2({ children, isValidProp, ...config }) {
+    function MotionConfig2(_a) {
+      var _b = _a, { children, isValidProp } = _b, config = __objRest(_b, ["children", "isValidProp"]);
       isValidProp && loadExternalIsValidProp(isValidProp);
-      config = { ...React.useContext(MotionConfigContext2), ...config };
+      config = __spreadValues(__spreadValues({}, React.useContext(MotionConfigContext2)), config);
       config.isStatic = useConstant(() => config.isStatic);
       const context = React.useMemo(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
       return React__namespace.createElement(MotionConfigContext2.Provider, { value: context }, children);
@@ -9632,13 +9613,14 @@ var require_cjs = __commonJS({
       const [, setIsLoaded] = React.useState(!isLazyBundle(features));
       const loadedRenderer = React.useRef(void 0);
       if (!isLazyBundle(features)) {
-        const { renderer, ...loadedFeatures } = features;
+        const _a = features, { renderer } = _a, loadedFeatures = __objRest(_a, ["renderer"]);
         loadedRenderer.current = renderer;
         loadFeatures(loadedFeatures);
       }
       React.useEffect(() => {
         if (isLazyBundle(features)) {
-          features().then(({ renderer, ...loadedFeatures }) => {
+          features().then((_a2) => {
+            var _b = _a2, { renderer } = _b, loadedFeatures = __objRest(_b, ["renderer"]);
             loadFeatures(loadedFeatures);
             loadedRenderer.current = renderer;
             setIsLoaded(true);
@@ -9672,7 +9654,8 @@ var require_cjs = __commonJS({
       return order;
     }
     __name(checkReorder, "checkReorder");
-    function ReorderGroup({ children, as = "ul", axis = "y", onReorder, values, ...props }, externalRef) {
+    function ReorderGroup(_a, externalRef) {
+      var _b = _a, { children, as = "ul", axis = "y", onReorder, values } = _b, props = __objRest(_b, ["children", "as", "axis", "onReorder", "values"]);
       const Component = useConstant(() => motion2(as));
       const order = [];
       const isReordering = React.useRef(false);
@@ -9700,7 +9683,7 @@ var require_cjs = __commonJS({
       });
       return React__namespace.createElement(
         Component,
-        { ...props, ref: externalRef },
+        __spreadProps(__spreadValues({}, props), { ref: externalRef }),
         React__namespace.createElement(ReorderContext.Provider, { value: context }, children)
       );
     }
@@ -9735,10 +9718,9 @@ var require_cjs = __commonJS({
       const inputRange = args[1 + argOffset];
       const outputRange = args[2 + argOffset];
       const options = args[3 + argOffset];
-      const interpolator = popmotion.interpolate(inputRange, outputRange, {
-        mixer: getMixer(outputRange[0]),
-        ...options
-      });
+      const interpolator = popmotion.interpolate(inputRange, outputRange, __spreadValues({
+        mixer: getMixer(outputRange[0])
+      }, options));
       return useImmediate ? interpolator(inputValue) : interpolator;
     }
     __name(transform2, "transform");
@@ -9788,7 +9770,8 @@ var require_cjs = __commonJS({
       return isMotionValue2(value) ? value : useMotionValue2(defaultValue);
     }
     __name(useDefaultMotionValue, "useDefaultMotionValue");
-    function ReorderItem({ children, style = {}, value, as = "li", onDrag, layout = true, ...props }, externalRef) {
+    function ReorderItem(_a, externalRef) {
+      var _b = _a, { children, style = {}, value, as = "li", onDrag, layout = true } = _b, props = __objRest(_b, ["children", "style", "value", "as", "onDrag", "layout"]);
       const Component = useConstant(() => motion2(as));
       const context = React.useContext(ReorderContext);
       const point = {
@@ -9802,13 +9785,13 @@ var require_cjs = __commonJS({
       React.useEffect(() => {
         registerItem(value, measuredLayout.current);
       }, [context]);
-      return React__namespace.createElement(Component, { drag: axis, ...props, dragSnapToOrigin: true, style: { ...style, x: point.x, y: point.y, zIndex }, layout, onDrag: (event, gesturePoint) => {
+      return React__namespace.createElement(Component, __spreadProps(__spreadValues({ drag: axis }, props), { dragSnapToOrigin: true, style: __spreadProps(__spreadValues({}, style), { x: point.x, y: point.y, zIndex }), layout, onDrag: (event, gesturePoint) => {
         const { velocity } = gesturePoint;
         velocity[axis] && updateOrder(value, point[axis].get(), velocity[axis]);
         onDrag && onDrag(event, gesturePoint);
       }, onLayoutMeasure: (measured) => {
         measuredLayout.current = measured;
-      }, ref: externalRef }, children);
+      }, ref: externalRef }), children);
     }
     __name(ReorderItem, "ReorderItem");
     var Item = React.forwardRef(ReorderItem);
@@ -9816,17 +9799,12 @@ var require_cjs = __commonJS({
       Group,
       Item
     };
-    var domAnimation2 = {
-      renderer: createDomVisualElement,
-      ...animations2,
-      ...gestureAnimations
-    };
-    var domMax2 = {
-      ...domAnimation2,
-      ...drag,
-      ...layoutFeatures,
+    var domAnimation2 = __spreadValues(__spreadValues({
+      renderer: createDomVisualElement
+    }, animations2), gestureAnimations);
+    var domMax2 = __spreadProps(__spreadValues(__spreadValues(__spreadValues({}, domAnimation2), drag), layoutFeatures), {
       projectionNodeConstructor: HTMLProjectionNode
-    };
+    });
     function useMotionTemplate2(fragments, ...values) {
       const numFragments = fragments.length;
       function buildValue() {
@@ -9854,13 +9832,13 @@ var require_cjs = __commonJS({
           if (activeSpringAnimation.current) {
             activeSpringAnimation.current.stop();
           }
-          activeSpringAnimation.current = popmotion.animate({
+          activeSpringAnimation.current = popmotion.animate(__spreadProps(__spreadValues({
             from: value.get(),
             to: v,
-            velocity: value.getVelocity(),
-            ...config,
+            velocity: value.getVelocity()
+          }, config), {
             onUpdate: set
-          });
+          }));
           return value.get();
         });
       }, [JSON.stringify(config)]);
@@ -9884,7 +9862,8 @@ var require_cjs = __commonJS({
       scrollXProgress: motionValue2(0),
       scrollYProgress: motionValue2(0)
     }), "createScrollMotionValues");
-    function useScroll2({ container, target, layoutEffect = true, ...options } = {}) {
+    function useScroll2(_a = {}) {
+      var _b = _a, { container, target, layoutEffect = true } = _b, options = __objRest(_b, ["container", "target", "layoutEffect"]);
       const values = useConstant(createScrollMotionValues);
       const useLifecycleEffect = layoutEffect ? useIsomorphicLayoutEffect2 : React.useEffect;
       useLifecycleEffect(() => {
@@ -9893,11 +9872,10 @@ var require_cjs = __commonJS({
           values.scrollXProgress.set(x.progress);
           values.scrollY.set(y.current);
           values.scrollYProgress.set(y.progress);
-        }, {
-          ...options,
+        }, __spreadProps(__spreadValues({}, options), {
           container: (container === null || container === void 0 ? void 0 : container.current) || void 0,
           target: (target === null || target === void 0 ? void 0 : target.current) || void 0
-        });
+        }));
       }, []);
       return values;
     }
@@ -10177,10 +10155,11 @@ var require_cjs = __commonJS({
       sortInstanceNodePosition() {
         return 0;
       }
-      makeTargetAnimatableFromInstance({ transition, transitionEnd, ...target }) {
+      makeTargetAnimatableFromInstance(_a) {
+        var _b = _a, { transition, transitionEnd } = _b, target = __objRest(_b, ["transition", "transitionEnd"]);
         const origin = getOrigin(target, transition || {}, this);
         checkTargetForNewValues2(this, target, origin);
-        return { transition, transitionEnd, ...target };
+        return __spreadValues({ transition, transitionEnd }, target);
       }
     };
     __name(StateVisualElement, "StateVisualElement");
@@ -10201,7 +10180,7 @@ var require_cjs = __commonJS({
       React.useEffect(() => {
         element.setProps({
           onUpdate: (v) => {
-            setAnimationState({ ...v });
+            setAnimationState(__spreadValues({}, v));
           }
         });
       }, [setAnimationState, element]);

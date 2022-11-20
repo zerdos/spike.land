@@ -264,8 +264,8 @@ export class Code {
 
         case "index.js":
         case "js": {
-          if (path[1] && Number(path[1]) >= mST().i) {
-            const i = path[1];
+          const i = path[1] || mST().i;
+          if (i > mST().i) {
             return new Response(
               await new Promise<string>((res) =>
                 this.wait(() => {
@@ -285,12 +285,20 @@ export class Code {
               },
             );
           }
-
+          if (i < mST().i) {
+            return new Response(mST().transpiled, {
+              status: 307,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Location": `${url.origin}/live/${this.codeSpace}/index.js/${mST().i}`,
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/javascript; charset=UTF-8",
+              },
+            });
+          }
           return new Response(mST().transpiled, {
-            status: 307,
             headers: {
               "Access-Control-Allow-Origin": "*",
-              "Location": `${url.origin}/live/${this.codeSpace}/index.js/${mST().i}`,
               "Cache-Control": "no-cache",
               "Content-Type": "application/javascript; charset=UTF-8",
             },

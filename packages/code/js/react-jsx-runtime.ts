@@ -1,3 +1,4 @@
+import "core-js/stable";
 import "es-module-shims";
 // import { md5 } from "./md5";
 // import { createJsBlob } from "starter";

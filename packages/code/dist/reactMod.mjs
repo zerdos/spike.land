@@ -1,9 +1,10 @@
 import {
   require_react
-} from "./chunk-chunk-3MF4K2ZX.mjs";
+} from "./chunk-chunk-IGJHLPB6.mjs";
 import {
+  __name,
   init_define_process
-} from "./chunk-chunk-CIPP7HWN.mjs";
+} from "./chunk-chunk-BSQL4JKA.mjs";
 
 // js/reactMod.ts
 init_define_process();
@@ -39,11 +40,17 @@ var {
   useMemo,
   useReducer,
   useRef,
-  useState,
   useSyncExternalStore,
   useTransition,
   version
 } = React;
+var originalUseState = React.useState;
+var useState = /* @__PURE__ */ __name((startState) => {
+  const [state, setState] = originalUseState(startState);
+  const delayedSetState = /* @__PURE__ */ __name((updates) => queueMicrotask(() => setState(updates)), "delayedSetState");
+  return [state, delayedSetState];
+}, "useState");
+React.useState = useState;
 var reactMod_default = React;
 export {
   Children,
