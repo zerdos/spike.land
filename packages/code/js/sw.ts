@@ -1,3 +1,5 @@
+import "core-js/stable";
+
 import { md5 } from "./md5";
 
 // async function wait(delay) {

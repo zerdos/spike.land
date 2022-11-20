@@ -1339,7 +1339,9 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/sdks", "npm:3.0.0-rc.30"],\
           ["ace-builds", "npm:1.13.1"],\
           ["avl", "npm:1.5.3"],\
+          ["axios", "npm:1.1.3"],\
           ["comlink", "npm:4.3.1"],\
+          ["core-js", "npm:3.26.1"],\
           ["csstype", "npm:3.1.1"],\
           ["es-module-shims", "npm:1.6.2"],\
           ["esbuild", "npm:0.15.14"],\
@@ -1353,6 +1355,7 @@ const RAW_RUNTIME_STATE =
           ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:7.6.7"],\
           ["immutable", "npm:4.1.0"],\
           ["is-callable", "npm:1.2.7"],\
+          ["localforage", "npm:1.10.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
           ["monaco-editor", "npm:0.34.1"],\
@@ -1407,7 +1410,9 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/sdks", "npm:3.0.0-rc.30"],\
           ["ace-builds", "npm:1.13.1"],\
           ["avl", "npm:1.5.3"],\
+          ["axios", "npm:1.1.3"],\
           ["comlink", "npm:4.3.1"],\
+          ["core-js", "npm:3.26.1"],\
           ["csstype", "npm:3.1.1"],\
           ["es-module-shims", "npm:1.6.2"],\
           ["esbuild", "npm:0.15.14"],\
@@ -1421,6 +1426,7 @@ const RAW_RUNTIME_STATE =
           ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:7.6.7"],\
           ["immutable", "npm:4.1.0"],\
           ["is-callable", "npm:1.2.7"],\
+          ["localforage", "npm:1.10.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
           ["monaco-editor", "npm:0.34.1"],\
@@ -2453,11 +2459,32 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["asynckit", [\
+      ["npm:0.4.0", {\
+        "packageLocation": "./.yarn/global/cache/asynckit-npm-0.4.0-c718858525-9.zip/node_modules/asynckit/",\
+        "packageDependencies": [\
+          ["asynckit", "npm:0.4.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["avl", [\
       ["npm:1.5.3", {\
         "packageLocation": "./.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/",\
         "packageDependencies": [\
           ["avl", "npm:1.5.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["axios", [\
+      ["npm:1.1.3", {\
+        "packageLocation": "./.yarn/global/cache/axios-npm-1.1.3-4b63965ac1-9.zip/node_modules/axios/",\
+        "packageDependencies": [\
+          ["axios", "npm:1.1.3"],\
+          ["follow-redirects", "virtual:4b63965ac1b2157b91a1875529bea3b0bbc3068d3676d1bef28bff5cf6689705374a86cc3832f95ba8d934037a93cc0e09c3662c13ca0e747800d7ca279a53c0#npm:1.15.2"],\
+          ["form-data", "npm:4.0.0"],\
+          ["proxy-from-env", "npm:1.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2892,6 +2919,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["combined-stream", [\
+      ["npm:1.0.8", {\
+        "packageLocation": "./.yarn/global/cache/combined-stream-npm-1.0.8-dc14d4a63a-9.zip/node_modules/combined-stream/",\
+        "packageDependencies": [\
+          ["combined-stream", "npm:1.0.8"],\
+          ["delayed-stream", "npm:1.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["comlink", [\
       ["npm:4.3.1", {\
         "packageLocation": "./.yarn/global/cache/comlink-npm-4.3.1-45efe1dd36-9.zip/node_modules/comlink/",\
@@ -2981,6 +3018,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/cookie-npm-0.4.2-7761894d5f-9.zip/node_modules/cookie/",\
         "packageDependencies": [\
           ["cookie", "npm:0.4.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["core-js", [\
+      ["npm:3.26.1", {\
+        "packageLocation": "./.yarn/unplugged/core-js-npm-3.26.1-42575888f8/node_modules/core-js/",\
+        "packageDependencies": [\
+          ["core-js", "npm:3.26.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3126,6 +3172,15 @@ const RAW_RUNTIME_STATE =
           ["define-properties", "npm:1.1.4"],\
           ["has-property-descriptors", "npm:1.0.0"],\
           ["object-keys", "npm:1.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["delayed-stream", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "./.yarn/global/cache/delayed-stream-npm-1.0.0-c5a4c4cc02-9.zip/node_modules/delayed-stream/",\
+        "packageDependencies": [\
+          ["delayed-stream", "npm:1.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4229,6 +4284,40 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["follow-redirects", [\
+      ["npm:1.15.2", {\
+        "packageLocation": "./.yarn/global/cache/follow-redirects-npm-1.15.2-1ec1dd82be-9.zip/node_modules/follow-redirects/",\
+        "packageDependencies": [\
+          ["follow-redirects", "npm:1.15.2"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:4b63965ac1b2157b91a1875529bea3b0bbc3068d3676d1bef28bff5cf6689705374a86cc3832f95ba8d934037a93cc0e09c3662c13ca0e747800d7ca279a53c0#npm:1.15.2", {\
+        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-b0bb08d690/0/global/cache/follow-redirects-npm-1.15.2-1ec1dd82be-9.zip/node_modules/follow-redirects/",\
+        "packageDependencies": [\
+          ["follow-redirects", "virtual:4b63965ac1b2157b91a1875529bea3b0bbc3068d3676d1bef28bff5cf6689705374a86cc3832f95ba8d934037a93cc0e09c3662c13ca0e747800d7ca279a53c0#npm:1.15.2"],\
+          ["@types/debug", null],\
+          ["debug", null]\
+        ],\
+        "packagePeers": [\
+          "@types/debug",\
+          "debug"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["form-data", [\
+      ["npm:4.0.0", {\
+        "packageLocation": "./.yarn/global/cache/form-data-npm-4.0.0-916facec2d-9.zip/node_modules/form-data/",\
+        "packageDependencies": [\
+          ["form-data", "npm:4.0.0"],\
+          ["asynckit", "npm:0.4.0"],\
+          ["combined-stream", "npm:1.0.8"],\
+          ["mime-types", "npm:2.1.35"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["framer-motion", [\
       ["npm:7.6.7", {\
         "packageLocation": "./.yarn/global/cache/framer-motion-npm-7.6.7-869904e6f3-9.zip/node_modules/framer-motion/",\
@@ -4719,6 +4808,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["immediate", [\
+      ["npm:3.0.6", {\
+        "packageLocation": "./.yarn/global/cache/immediate-npm-3.0.6-c27588a2d3-9.zip/node_modules/immediate/",\
+        "packageDependencies": [\
+          ["immediate", "npm:3.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["immutable", [\
       ["npm:4.1.0", {\
         "packageLocation": "./.yarn/global/cache/immutable-npm-4.1.0-f6635927b8-9.zip/node_modules/immutable/",\
@@ -5191,11 +5289,31 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["lie", [\
+      ["npm:3.1.1", {\
+        "packageLocation": "./.yarn/global/cache/lie-npm-3.1.1-91350720d9-9.zip/node_modules/lie/",\
+        "packageDependencies": [\
+          ["lie", "npm:3.1.1"],\
+          ["immediate", "npm:3.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["lines-and-columns", [\
       ["npm:1.2.4", {\
         "packageLocation": "./.yarn/global/cache/lines-and-columns-npm-1.2.4-d6c7cc5799-9.zip/node_modules/lines-and-columns/",\
         "packageDependencies": [\
           ["lines-and-columns", "npm:1.2.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["localforage", [\
+      ["npm:1.10.0", {\
+        "packageLocation": "./.yarn/global/cache/localforage-npm-1.10.0-cf9ea9a436-9.zip/node_modules/localforage/",\
+        "packageDependencies": [\
+          ["localforage", "npm:1.10.0"],\
+          ["lie", "npm:3.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6231,6 +6349,15 @@ const RAW_RUNTIME_STATE =
           ["loose-envify", "npm:1.4.0"],\
           ["object-assign", "npm:4.1.1"],\
           ["react-is", "npm:16.13.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["proxy-from-env", [\
+      ["npm:1.1.0", {\
+        "packageLocation": "./.yarn/global/cache/proxy-from-env-npm-1.1.0-c13d07f26b-9.zip/node_modules/proxy-from-env/",\
+        "packageDependencies": [\
+          ["proxy-from-env", "npm:1.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\

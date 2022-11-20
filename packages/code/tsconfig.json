@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "ES2017",
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
@@ -11,6 +11,7 @@
       "es2022",
       "ESNext.Promise",
       "WebWorker",
+      "ES2022.Object",
       "ESNext.String",
       "esnext"
     ],

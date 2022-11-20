@@ -21,7 +21,7 @@ const environment = env.NODE_ENV === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "./dist";
-const target = "es2021";
+const target = "es2017";
 
 console.log(`
 -------------------------------------------------
@@ -215,18 +215,19 @@ const build = (
   ];
 
   await esbuild.build({
+    ...buildOptions,
     entryPoints: [
       "js/sw.ts",
     ],
     bundle: true,
     define,
-    treeShaking: true,
     minify: false, // ! isDevelopment,
     minifyWhitespace: false, // ! isDevelopment,
     minifyIdentifiers: false, // ! isDevelopment,
     minifySyntax: false, // ! isDevelopment,
     ignoreAnnotations: false,
     keepNames: true,
+    treeShaking: true,
     platform: "browser",
     format: "iife",
     outdir: "dist",

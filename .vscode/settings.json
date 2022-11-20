@@ -33,6 +33,7 @@
     "Erdos",
     "esbuild",
     "esms",
+    "filecache",
     "ipfs",
     "jsximportsource",
     "metafile",

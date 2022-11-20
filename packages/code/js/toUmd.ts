@@ -4,10 +4,17 @@
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
 // Import { string } from "prop-types";
 
-import { transform } from "./esbuildEsm";
+import { build, transform } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 
 import importmap from "./importmap.json";
+
+import localForage from "localforage";
+
+const fileCache = localForage.createInstance({
+  name: "filecache",
+});
+
 const imp: { [key: string]: string } = { ...importmap.imports };
 
 const importmapsRes: { [k: string]: string } = {};
@@ -72,6 +79,8 @@ const mod = {
       if (globalThis.globalNames[name]) return  globalThis.globalNames[name];     
       if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
       if (importmap[name]) return require(importmap[name])
+      const npmUrl = new URL('/npm:*'+name+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
+      return require(npmUrl);
 
   
   }
@@ -116,7 +125,7 @@ const findDeps = (code: string) => {
   const deps: string[] = [];
 
   while ((m = regex.exec(code)) !== null) {
-    // This is necessary to avoid infinite loops with zero-width matches
+    // This is necessary to avoid infini5tote loops with zero-width matches
     if (m.index === regex.lastIndex) {
       regex.lastIndex++;
     }
@@ -135,6 +144,11 @@ const findDeps = (code: string) => {
 };
 
 export const toUmd = async (source: string, name: string) => {
+  //  const tr=  await build(source, {});
+
+  //  return {
+  //   toJs: ()=>tr
+  //  }
   console.log("toUmd: " + name);
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [name]: hash };
@@ -207,6 +221,12 @@ export const toUmd = async (source: string, name: string) => {
 
 const urls: { [url: string]: string } = {};
 const fetch_or_die = async (url: string) => {
+  if (url.includes(`/live/`)) return await fetch(url).then(res => res.text());
+  if (urls[url]) return urls[url];
+  const cached = await fileCache.getItem<string>(url);
+  if (cached) return cached;
+
   urls[url] = urls[url] || await fetch(url).then(res => res.text());
+  await fileCache.setItem(url, urls[url]);
   return urls[url];
 };
