@@ -28,11 +28,9 @@ const getCacheName = () =>
 addEventListener("fetch", async (_event) => {
   const event = _event as unknown as FetchEvent;
 
-  const request = event.request;
-
   return event.respondWith((async () => {
     const cacheKey = new Request(
-      request.url,
+      event.request.url,
     );
     const url = new URL(cacheKey.url);
 
@@ -52,10 +50,12 @@ addEventListener("fetch", async (_event) => {
 
     if (cachedResp) return cachedResp;
 
-    if (!url.toString().includes(location.origin)) return fetch(request);
+    if (!url.toString().includes(location.origin)) return fetch(event.request);
 
-    const resp = await fetch(request);
-    const maybeFilename = request.url.split("/").pop();
+    const resp = await fetch(event.request);
+    if (!resp.ok) return resp;
+
+    const maybeFilename = cacheKey.url.split("/").pop();
 
     if (
       resp.ok && (

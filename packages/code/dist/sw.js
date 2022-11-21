@@ -169,10 +169,9 @@
   ).finally(() => cacheName), "getCacheName");
   addEventListener("fetch", async (_event) => {
     const event = _event;
-    const request = event.request;
     return event.respondWith((async () => {
       const cacheKey = new Request(
-        request.url
+        event.request.url
       );
       const url = new URL(cacheKey.url);
       const myCache = url.pathname.includes("npm:/v") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? chunkCache = chunkCache || await caches.open("chunks") : fileCache = fileCache || await caches.open(`f-${cacheName}`);
@@ -184,9 +183,11 @@
       if (cachedResp)
         return cachedResp;
       if (!url.toString().includes(location.origin))
-        return fetch(request);
-      const resp = await fetch(request);
-      const maybeFilename = request.url.split("/").pop();
+        return fetch(event.request);
+      const resp = await fetch(event.request);
+      if (!resp.ok)
+        return resp;
+      const maybeFilename = cacheKey.url.split("/").pop();
       if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache" || myCache === fileCache && maybeFilename && files[maybeFilename]) {
         await myCache.put(cacheKey, resp.clone());
       }
