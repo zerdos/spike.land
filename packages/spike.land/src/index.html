@@ -66,23 +66,9 @@
    <script>
 
 
-const assetsProm = fetch(`${location.origin}/files.json`).then((r) =>
-  r.json()).then((x) => window.assets=x);
-
 
 window.esmsInitOptions = {
       shimMode: true,
-      fetch: async (target, options) => {
-        if (!window.assets) await assetsProm ;
-        
-    const url = new URL(target);
-   
-    let asset = assets[url.href.slice(1)];''
-    if (asset) {
-      return fetch(new URL("/" + asset, url.origin).toString());
-    }
-    return fetch(target, options);
-  },
       resolve: function (id, parentUrl, defaultResolve) {
       let resolved;
 
