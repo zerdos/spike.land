@@ -29,6 +29,8 @@ addEventListener("fetch", async (_event) => {
   const event = _event as unknown as FetchEvent;
 
   return event.respondWith((async () => {
+    if (!event.request.url.includes(location.origin)) return fetch(event.request);
+
     const cacheKey = new Request(
       event.request.url,
     );
@@ -49,8 +51,6 @@ addEventListener("fetch", async (_event) => {
     const cachedResp = await myCache.match(cacheKey);
 
     if (cachedResp) return cachedResp;
-
-    if (!url.toString().includes(location.origin)) return fetch(event.request);
 
     const resp = await fetch(event.request);
     if (!resp.ok) return resp;

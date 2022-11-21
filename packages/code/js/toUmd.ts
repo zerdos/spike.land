@@ -144,7 +144,6 @@ const findDeps = (code: string) => {
 
   return deps;
 };
-
 export const toUmd = async (source: string, name: string) => {
   //  const tr=  await build(source, {});
 
