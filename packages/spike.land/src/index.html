@@ -145,14 +145,21 @@ window.addEventListener('pageshow', (event) => {
 <div id="root"></div>
   
 <script defer src="/react-jsx-runtime.mjs"></script>
-<script  type="module">
+<script type="module">
+setTimeout(() => navigator && navigator.serviceWorker &&  navigator.serviceWorker.register("/sw.js", {
+      scope: "/",
+      type: "classic",
+    }).then(current=>navigator.serviceWorker.getRegistrations()
+          .then(r=>r.filter(sw=>sw!==current)
+          .forEach(sw=>sw.unregister())))
+)
 
 if (location.pathname.endsWith("dehydrated")) {
   const paths = location.pathname.split("/");
   paths.pop() //dehydrated;
   const codeSpace = paths.pop();
 
-  const  bc =new BroadcastChannel(location.origin);
+  const bc = new BroadcastChannel(location.origin);
 
     bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {

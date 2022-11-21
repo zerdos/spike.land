@@ -201,20 +201,6 @@ export const run = async (startState: {
   // await startIpfs(codeSpace);
 };
 
-(async () => {
-  if (navigator && navigator?.serviceWorker) {
-    navigator.serviceWorker.register("/sw.js", {
-      scope: "/",
-      type: "classic",
-    });
-    const current = await navigator.serviceWorker.ready;
-    await sw();
-
-    Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
-      if (current !== sw) sw.unregister();
-    }));
-  }
-})();
 let intervalHandler: NodeJS.Timer;
 
 async function rejoin() {
@@ -907,64 +893,64 @@ async function handleNewICECandidateMessage(
   await rtcConns[target].addIceCandidate(candidate);
 }
 
-export async function sw() {
-  try {
-    navigator.serviceWorker.onmessage = async (event) => {
-      /** @type {null|ServiceWorker} */
-      const serviceWorker = event.source;
-      if (serviceWorker == null) {
-        return;
-      }
+// export async function sw() {
+//   try {
+//     navigator.serviceWorker.onmessage = async (event) => {
+//       /** @type {null|ServiceWorker} */
+//       const serviceWorker = event.source;
+//       if (serviceWorker == null) {
+//         return;
+//       }
 
-      switch (event.data.method) {
-        case "ipfs-message-port":
-          // console.//log("Message port request");
-          // Const { connect } = await import("./ipfs.mjs");
+//       switch (event.data.method) {
+//         case "ipfs-message-port":
+//           // console.//log("Message port request");
+//           // Const { connect } = await import("./ipfs.mjs");
 
-          // console.//log("can connect trough", { connect });
-          // await ipfsWorker();
-          //
-          //          const channel = new MessageChannel();
-          // Await connect(channel);
-          // console.//log({ channel });
+//           // console.//log("can connect trough", { connect });
+//           // await ipfsWorker();
+//           //
+//           //          const channel = new MessageChannel();
+//           // Await connect(channel);
+//           // console.//log({ channel });
 
-          // {
-          //   serviceWorker.postMessage({
-          //     method: "ipfs-message-port",
-          //     id: event.data.id,
-          //     port: channel.port2,
-          //   }, { transfer: [channel.port2] });
-          // }
+//           // {
+//           //   serviceWorker.postMessage({
+//           //     method: "ipfs-message-port",
+//           //     id: event.data.id,
+//           //     port: channel.port2,
+//           //   }, { transfer: [channel.port2] });
+//           // }
 
-          // Receives request from service worker, creates a new shared worker and
-          // responds back with the message port.
-          // Note: MessagePort can be transferred only once which is why we need to
-          // create a SharedWorker each time. However a ServiceWorker is only created
-          // once (in main function) all other creations just create port to it.
-      }
-    };
+//           // Receives request from service worker, creates a new shared worker and
+//           // responds back with the message port.
+//           // Note: MessagePort can be transferred only once which is why we need to
+//           // create a SharedWorker each time. However a ServiceWorker is only created
+//           // once (in main function) all other creations just create port to it.
+//       }
+//     };
 
-    // This is just for testing, lets us know when SW is ready.
+//     // This is just for testing, lets us know when SW is ready.
 
-    // are loaded from service worker. However it could be that such a URL is loaded
-    // before the service worker was registered in which case our server just loads a blank
-    if (document.documentElement.dataset.viewer) {
-      const load = async (path: string) => {
-        const paths = path && path.split("/") || [];
-        const protocol = paths[0] || "";
-        switch (protocol) {
-          case "ipfs":
-          case "ipns": {
-            document.body.innerHTML =
-              `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
-          }
-        }
-      };
+//     // are loaded from service worker. However it could be that such a URL is loaded
+//     // before the service worker was registered in which case our server just loads a blank
+//     if (document.documentElement.dataset.viewer) {
+//       const load = async (path: string) => {
+//         const paths = path && path.split("/") || [];
+//         const protocol = paths[0] || "";
+//         switch (protocol) {
+//           case "ipfs":
+//           case "ipns": {
+//             document.body.innerHTML =
+//               `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
+//           }
+//         }
+//       };
 
-      await load(location.pathname);
-      return;
-    }
-  } catch {
-    // console.//log("ipfs load error");
-  }
-}
+//       await load(location.pathname);
+//       return;
+//     }
+//   } catch {
+//     // console.//log("ipfs load error");
+//   }
+// }

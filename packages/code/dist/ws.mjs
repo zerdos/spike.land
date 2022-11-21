@@ -1,10 +1,9 @@
 import {
   join,
   run,
-  sendChannel,
-  sw
-} from "./chunk-chunk-CCLSJWVV.mjs";
-import "./chunk-chunk-FU3RRRNX.mjs";
+  sendChannel
+} from "./chunk-chunk-S7TDESUL.mjs";
+import "./chunk-chunk-XVTKZGGF.mjs";
 import "./chunk-chunk-JN55TS27.mjs";
 import "./chunk-chunk-BGPB5RNK.mjs";
 import "./chunk-chunk-NRK2N2RS.mjs";
@@ -21,6 +20,5 @@ import "./chunk-chunk-BSQL4JKA.mjs";
 export {
   join,
   run,
-  sendChannel,
-  sw
+  sendChannel
 };
