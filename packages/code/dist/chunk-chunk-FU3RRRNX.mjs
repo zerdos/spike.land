@@ -30640,14 +30640,6 @@ var fetchPlugin = /* @__PURE__ */ __name((inputCode) => {
           contents: inputCode
         };
       });
-      build3.onLoad({ filter: /.*/ }, async (args) => {
-        const cachedResult = await fileCache.getItem(
-          args.path
-        );
-        if (cachedResult) {
-          return cachedResult;
-        }
-      });
       build3.onLoad({ filter: /.css$/ }, async (args) => {
         const { data, request } = await axios_default2.get(args.path);
         const escaped = data.replace(/\n/g, "").replace(/"/g, '\\"').replace(/'/g, "\\'");
@@ -30665,6 +30657,12 @@ var fetchPlugin = /* @__PURE__ */ __name((inputCode) => {
         return result;
       });
       build3.onLoad({ filter: /.*/ }, async (args) => {
+        const cachedResult = await fileCache.getItem(
+          args.path
+        );
+        if (cachedResult) {
+          return cachedResult;
+        }
         const { data, request } = await axios_default2.get(args.path);
         const result = {
           loader: "jsx",

@@ -93,7 +93,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.43.0"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.43.0"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.30"],\
-          ["dprint", "npm:0.32.2"],\
+          ["dprint", "npm:0.33.0"],\
           ["esbuild", "npm:0.15.14"],\
           ["eslint", "npm:8.28.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
@@ -3270,10 +3270,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["dprint", [\
-      ["npm:0.32.2", {\
-        "packageLocation": "./.yarn/unplugged/dprint-npm-0.32.2-ff41599cd7/node_modules/dprint/",\
+      ["npm:0.33.0", {\
+        "packageLocation": "./.yarn/unplugged/dprint-npm-0.33.0-9dc211df89/node_modules/dprint/",\
         "packageDependencies": [\
-          ["dprint", "npm:0.32.2"],\
+          ["dprint", "npm:0.33.0"],\
           ["yauzl", "npm:2.10.0"]\
         ],\
         "linkType": "HARD"\
@@ -5722,7 +5722,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.43.0"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.43.0"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.30"],\
-          ["dprint", "npm:0.32.2"],\
+          ["dprint", "npm:0.33.0"],\
           ["esbuild", "npm:0.15.14"],\
           ["eslint", "npm:8.28.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
