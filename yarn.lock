@@ -2482,14 +2482,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dprint@npm:^0.32.2":
-  version: 0.32.2
-  resolution: "dprint@npm:0.32.2"
+"dprint@npm:^0.33.0":
+  version: 0.33.0
+  resolution: "dprint@npm:0.33.0"
   dependencies:
     yauzl: "npm:=2.10.0"
   bin:
     dprint: bin.js
-  checksum: cdc540be42687d5c4950ef314d023d49eb7770bd4c89753c1116ac3a9cb1194945acf5f54df962a7789860f8a70684ef99619297a97785a52b06734c84441d7b
+  checksum: 73d899ea80a9a02357d561444bdda3a7dda56e584a3efbef50ca1fc697b7617257ea1606b9eee2e0b7fb42ec737f9a7e2e4641a40b0c335d7d1faa3c2b025595
   languageName: node
   linkType: hard
 
@@ -4693,7 +4693,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^5.43.0"
     "@typescript-eslint/parser": "npm:^5.43.0"
     "@yarnpkg/sdks": "npm:3.0.0-rc.30"
-    dprint: "npm:^0.32.2"
+    dprint: "npm:^0.33.0"
     esbuild: "npm:^0.15.14"
     eslint: "npm:^8.28.0"
     eslint-plugin-react: "npm:^7.31.11"

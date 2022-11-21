@@ -25,18 +25,18 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "target": "es2021",
     "module": "ESNext",
-    "lib": ["ES2020", "ESNext"],
+    "lib": [ "ESNext"],
     "types": []
   },
   "exclude": [
     ".git",
     "cypress",
-    "fixtures",
-    "node_modules",
+    ".fixtures",
+    "*/node_modules",
     ".yarn",
-    "dist",
-    "build",
-    "monaco-workers"
+    "**/dist",
+    "**/build",
+    "**/monaco-workers"
   ],
   "include": [
     "packages/code",
