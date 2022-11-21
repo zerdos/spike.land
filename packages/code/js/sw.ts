@@ -29,7 +29,9 @@ addEventListener("fetch", async (_event) => {
   const event = _event as unknown as FetchEvent;
 
   return event.respondWith((async () => {
-    if (!event.request.url.includes(location.origin)) return fetch(event.request);
+    if (!event.request.url.includes(location.origin) || event.request.url.includes("/live/")) {
+      return fetch(event.request);
+    }
 
     const cacheKey = new Request(
       event.request.url,
