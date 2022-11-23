@@ -22682,7 +22682,7 @@ var require_browser = __commonJS({
       __export(browser_exports, {
         analyzeMetafile: () => analyzeMetafile,
         analyzeMetafileSync: () => analyzeMetafileSync,
-        build: () => build3,
+        build: () => build2,
         buildSync: () => buildSync,
         default: () => browser_default2,
         formatMessages: () => formatMessages,
@@ -24335,7 +24335,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
       }
       __name(convertOutputFiles, "convertOutputFiles");
       var version = "0.15.15";
-      var build3 = /* @__PURE__ */ __name((options) => ensureServiceIsRunning().build(options), "build");
+      var build2 = /* @__PURE__ */ __name((options) => ensureServiceIsRunning().build(options), "build");
       var serve = /* @__PURE__ */ __name(() => {
         throw new Error(`The "serve" API only works in node`);
       }, "serve");
@@ -29340,7 +29340,7 @@ function toFormData(obj, formData, options) {
     convertValue,
     isVisitable
   });
-  function build3(value, path) {
+  function build2(value, path) {
     if (utils_default.isUndefined(value))
       return;
     if (stack.indexOf(value) !== -1) {
@@ -29356,16 +29356,16 @@ function toFormData(obj, formData, options) {
         exposedHelpers
       );
       if (result === true) {
-        build3(el, path ? path.concat(key) : [key]);
+        build2(el, path ? path.concat(key) : [key]);
       }
     }, "each"));
     stack.pop();
   }
-  __name(build3, "build");
+  __name(build2, "build");
   if (!utils_default.isObject(obj)) {
     throw new TypeError("data must be an object");
   }
-  build3(obj);
+  build2(obj);
   return formData;
 }
 __name(toFormData, "toFormData");
@@ -30867,14 +30867,14 @@ var fileCache = import_localforage.default.createInstance({
 var fetchPlugin = /* @__PURE__ */ __name((inputCode) => {
   return {
     name: "fetch-plugin",
-    setup(build3) {
-      build3.onLoad({ filter: /(^index\.js$)/ }, async (args) => {
-        return {
+    setup(build2) {
+      build2.onLoad({ filter: /(^index\.js$)/ }, async (args) => {
+        return __spreadValues({
           loader: "tsx",
           contents: inputCode
-        };
+        }, args);
       });
-      build3.onLoad({ filter: /.css$/ }, async (args) => {
+      build2.onLoad({ filter: /.css$/ }, async (args) => {
         const { data, request } = await axios_default.get(args.path);
         const escaped = data.replace(/\n/g, "").replace(/"/g, '\\"').replace(/'/g, "\\'");
         const contents = `
@@ -30890,7 +30890,7 @@ var fetchPlugin = /* @__PURE__ */ __name((inputCode) => {
         await fileCache.setItem(args.path, result);
         return result;
       });
-      build3.onLoad({ filter: /.*/ }, async (args) => {
+      build2.onLoad({ filter: /.*/ }, async (args) => {
         const cachedResult = await fileCache.getItem(
           args.path
         );
@@ -30916,18 +30916,18 @@ var esbuild2 = __toESM(require_browser(), 1);
 var unpkgPathPlugin = /* @__PURE__ */ __name((inputCode) => {
   return {
     name: "unpkg-path-plugin",
-    setup(build3) {
-      build3.onResolve({ filter: /(^index\.js$)/ }, (args) => {
+    setup(build2) {
+      build2.onResolve({ filter: /(^index\.js$)/ }, (args) => {
         return { path: "index.js", namespace: "a" };
       });
-      build3.onResolve({ filter: /^\.+\// }, (args) => {
+      build2.onResolve({ filter: /^\.+\// }, (args) => {
         const url = new URL(args.path, `https://unpkg.com${args.resolveDir}/`);
         return {
           path: url.href,
           namespace: "a"
         };
       });
-      build3.onResolve({ filter: /.*/ }, async (args) => {
+      build2.onResolve({ filter: /.*/ }, async (args) => {
         return {
           namespace: "a",
           path: `https://unpkg.com/${args.path}`
@@ -30963,7 +30963,7 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   ).replaceAll(regex2, ` from '${location.origin}/live/`);
   return __spreadProps(__spreadValues({}, transformed), { code: `/*${md5(code)}*/` + trp });
 }, "initAndTransform");
-var initAndBuild = /* @__PURE__ */ __name(async (rawCode, opts) => {
+var build = /* @__PURE__ */ __name(async (rawCode) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -30977,10 +30977,9 @@ var initAndBuild = /* @__PURE__ */ __name(async (rawCode, opts) => {
     },
     plugins: [unpkgPathPlugin(rawCode), fetchPlugin(rawCode)]
   };
-  Object.assign(defaultOpts, opts);
   const b = await (0, import_esbuild_wasm.build)(defaultOpts);
   return b.outputFiles[0].text;
-}, "initAndBuild");
+}, "build");
 
 // js/renderToString.tsx
 init_define_process();
@@ -31034,21 +31033,13 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
           } catch (e) {
             const trp = await resp.text();
             try {
-              App = await fetch(url2.replace(".js", ".tsx")).then(
-                async (resp2) => resp2 && !resp2.ok ? false : await resp2.text().then(
-                  (code) => esmTransform(code).then(
-                    (transpiled) => import(createJsBlob(transpiled))
-                  )
-                )
+              App = await esmTransform(trp).then(
+                (transpiled) => import(createJsBlob(transpiled))
               );
             } catch (e2) {
               console.error("something went nuts");
-              App = await fetch(url2.replace(".js", ".tsx")).then(
-                async (resp2) => resp2 && !resp2.ok ? false : await resp2.text().then(
-                  (code) => esmTransform(code).then(
-                    (transpiled) => importShim(createJsBlob(transpiled))
-                  )
-                )
+              App = await esmTransform(trp).then(
+                (transpiled) => importShim(createJsBlob(transpiled))
               );
             }
             myApps[nUrl] = App;
@@ -31332,8 +31323,8 @@ var fileCache2 = import_localforage2.default.createInstance({
   name: "filecache"
 });
 var imp = __spreadValues({}, importmap_default.imports);
-var importmapsRes = {};
-Object.keys(imp).map((k) => Object.assign(importmapsRes, { [k]: location.origin + imp[k] }));
+var importMasRes = {};
+Object.keys(imp).map((k) => Object.assign(importMasRes, { [k]: location.origin + imp[k] }));
 var mod3 = {
   printR(name, included) {
     if (included[mod3.hashMap[name]])
@@ -31360,7 +31351,7 @@ var mod3 = {
     Object.keys(mod3.hashMap).forEach((key) => reverseMap = __spreadProps(__spreadValues({}, reverseMap), { [mod3.hashMap[key]]: key }));
     let modZ = {};
     Object.keys(mod3.data).forEach((k) => modZ = __spreadProps(__spreadValues({}, modZ), { [reverseMap[k]]: k }));
-    Object.keys(importmapsRes).forEach((k) => modZ = __spreadProps(__spreadValues({}, modZ), { [k]: "getName(`" + importmapsRes[k] + "`)" }));
+    Object.keys(importMasRes).forEach((k) => modZ = __spreadProps(__spreadValues({}, modZ), { [k]: "getName(`" + importMasRes[k] + "`)" }));
     const res = `
      ${js}
 
@@ -31477,7 +31468,7 @@ var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
 }, "fetch_or_die");
 
 // js/runner.tsx
-Object.assign(globalThis, { transform: initAndTransform, build: initAndBuild });
+Object.assign(globalThis, { transform: initAndTransform, build });
 var debouncedSync = (0, import_lodash.default)(patchSync, 200, {
   leading: true,
   trailing: true,

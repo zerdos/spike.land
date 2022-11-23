@@ -66,26 +66,14 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
             const trp = await resp.text();
 
             try {
-              App = await (fetch(url.replace(".js", ".tsx")).then(async (resp) =>
-                resp && !resp.ok ? false : await resp.text().then(
-                  (code) =>
-                    esmTransform(code).then(
-                      (transpiled) =>
-                        import(createJsBlob(transpiled)),
-                    ),
-                )
+              App = await (esmTransform(trp).then(
+                (transpiled) => import(createJsBlob(transpiled)),
               ));
             } catch {
               console.error("something went nuts");
 
-              App = await (fetch(url.replace(".js", ".tsx")).then(async (resp) =>
-                resp && !resp.ok ? false : await resp.text().then(
-                  (code) =>
-                    esmTransform(code).then(
-                      (transpiled) =>
-                        importShim(createJsBlob(transpiled)),
-                    ),
-                )
+              App = await (esmTransform(trp).then(
+                (transpiled) => importShim(createJsBlob(transpiled)),
               ));
             }
             myApps[nUrl] = App;

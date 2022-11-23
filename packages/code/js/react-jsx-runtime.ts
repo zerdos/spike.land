@@ -98,7 +98,7 @@ importShim.addImportMap({ imports: res });
 // if (mapTable[pkg]) return mapTable[pkg];
 // if (window[pkg as any] as unknown) return window[pkg as any];
 // if (apps[pkg]) return apps[pkg];
-// if (pkg.includes(`spike.land/live`)) return Reacx/t.lazy(() => importShim(pkg));
+// if (pkg.includes(`spike.land/live`)) return React.lazy(() => importShim(pkg));
 
 // if (pkg.includes(`spike.land/live`)) {
 //   if (!globalThis.esmTransform) return {};

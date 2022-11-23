@@ -4,7 +4,7 @@
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
 // Import { string } from "prop-types";
 
-import { build, transform } from "./esbuildEsm";
+import { transform } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 
 import importmap from "./importmap.json";
@@ -17,8 +17,8 @@ const fileCache = localForage.createInstance({
 
 const imp: { [key: string]: string } = { ...importmap.imports };
 
-const importmapsRes: { [k: string]: string } = {};
-Object.keys(imp).map((k) => Object.assign(importmapsRes, { [k]: location.origin + imp[k] }));
+const importMasRes: { [k: string]: string } = {};
+Object.keys(imp).map((k) => Object.assign(importMasRes, { [k]: location.origin + imp[k] }));
 
 // import "es-module-shims";
 // Import { m } from "framer-motion";
@@ -61,7 +61,7 @@ const mod = {
 
     let modZ: { [key: string]: string } = {};
     Object.keys(mod.data).forEach((k) => modZ = { ...modZ, [reverseMap[k]]: k });
-    Object.keys(importmapsRes).forEach((k) => modZ = { ...modZ, [k]: "getName(`" + importmapsRes[k] + "`)" });
+    Object.keys(importMasRes).forEach((k) => modZ = { ...modZ, [k]: "getName(`" + importMasRes[k] + "`)" });
 
     //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts +
     const res = `
@@ -129,7 +129,6 @@ const findDeps = (code: string) => {
   const deps: string[] = [];
 
   while ((m = regex.exec(code)) !== null) {
-    // This is necessary to avoid infini5tote loops with zero-width matches
     if (m.index === regex.lastIndex) {
       regex.lastIndex++;
     }
