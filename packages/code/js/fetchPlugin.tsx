@@ -13,6 +13,7 @@ export const fetchPlugin = (inputCode: string) => {
         return {
           loader: "tsx",
           contents: inputCode,
+          ...args,
         };
       });
 
