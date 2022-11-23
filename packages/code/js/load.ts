@@ -1,4 +1,4 @@
-// import "./react-jsx-runtime"
+// import "./react-jsx-runtime
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 

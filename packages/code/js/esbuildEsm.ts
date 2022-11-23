@@ -21,8 +21,6 @@ export const initAndTransform: typeof transform = async (code, opts) => {
 
   if (initFinished !== true) await (initFinished);
 
-  globalThis.transformed = globalThis.transformed + 1 || 1;
-
   const transformed = await transform(code, opts);
 
   const regex1 = / from '\.\./gi;

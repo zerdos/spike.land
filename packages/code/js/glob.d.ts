@@ -8,7 +8,6 @@ import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
 declare global {
   const apps: { [key: string]: FC<{ appId: string }> };
   const eCaches: { [key: string]: EmotionCache };
-  let transformed: number;
   const emotionReact: typeof ear;
 
   export namespace ReactJSXRuntime {

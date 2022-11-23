@@ -26,7 +26,7 @@ export const fetchPlugin = (inputCode: string) => {
         const contents = `
                     const style = document.createElement('style');
                     style.innerText = '${escaped}';
-                    document.head.appendChild(style);
+                    document.body.appendChild(style);
                 `;
         const result: esbuild.OnLoadResult = {
           loader: "jsx",
