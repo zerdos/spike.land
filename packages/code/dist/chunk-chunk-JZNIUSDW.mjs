@@ -30880,7 +30880,7 @@ var fetchPlugin = /* @__PURE__ */ __name((inputCode) => {
         const contents = `
                     const style = document.createElement('style');
                     style.innerText = '${escaped}';
-                    document.head.appendChild(style);
+                    document.body.appendChild(style);
                 `;
         const result = {
           loader: "jsx",
@@ -30954,7 +30954,6 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
-  globalThis.transformed = globalThis.transformed + 1 || 1;
   const transformed = await (0, import_esbuild_wasm.transform)(code, opts);
   const regex1 = / from '\.\./gi;
   const regex2 = / from '\./gi;
@@ -31035,15 +31034,22 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
           } catch (e) {
             const trp = await resp.text();
             try {
-              App = (await fetch(url2.replace(".js", ".tsx")).then(
+              App = await fetch(url2.replace(".js", ".tsx")).then(
+                async (resp2) => resp2 && !resp2.ok ? false : await resp2.text().then(
+                  (code) => esmTransform(code).then(
+                    (transpiled) => import(createJsBlob(transpiled))
+                  )
+                )
+              );
+            } catch (e2) {
+              console.error("something went nuts");
+              App = await fetch(url2.replace(".js", ".tsx")).then(
                 async (resp2) => resp2 && !resp2.ok ? false : await resp2.text().then(
                   (code) => esmTransform(code).then(
                     (transpiled) => importShim(createJsBlob(transpiled))
                   )
                 )
-              ) || new Function(trp + ` return ${trp.slice(2, 10)}`)()).default;
-            } catch (e2) {
-              console.error("something went nuts");
+              );
             }
             myApps[nUrl] = App;
             return { App, url: resp.url };
