@@ -4452,9 +4452,9 @@ var require_index_cjs16 = __commonJS({
   }
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-548be56b4a/0/global/cache/framer-motion-npm-7.6.7-869904e6f3-9.zip/node_modules/framer-motion/dist/cjs/index.js
+// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/cjs/index.js
 var require_cjs = __commonJS({
-  "../../.yarn/__virtual__/framer-motion-virtual-548be56b4a/0/global/cache/framer-motion-npm-7.6.7-869904e6f3-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
+  "../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/cjs/index.js"(exports) {
     "use strict";
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -4659,11 +4659,11 @@ var require_cjs = __commonJS({
       hasAnimatedSinceResize: true,
       hasEverUpdated: false
     };
-    var id$1 = 1;
+    var id$2 = 1;
     function useProjectionId() {
       return useConstant(() => {
         if (globalProjectionState.hasEverUpdated) {
-          return id$1++;
+          return id$2++;
         }
       });
     }
@@ -6088,7 +6088,7 @@ var require_cjs = __commonJS({
     }, "isFloat");
     var MotionValue2 = class {
       constructor(init) {
-        this.version = "7.6.7";
+        this.version = "7.6.9";
         this.timeDelta = 0;
         this.lastUpdated = 0;
         this.updateSubscribers = new SubscriptionManager();
@@ -6951,7 +6951,10 @@ var require_cjs = __commonJS({
         if (((_b = (_a = node.instance) === null || _a === void 0 ? void 0 : _a.style) === null || _b === void 0 ? void 0 : _b.display) === "contents")
           continue;
         if (isSharedTransition && node.options.layoutScroll && node.scroll && node !== node.root) {
-          transformBox(box, { x: -node.scroll.x, y: -node.scroll.y });
+          transformBox(box, {
+            x: -node.scroll.offset.x,
+            y: -node.scroll.offset.y
+          });
         }
         if (delta) {
           treeScale.x *= delta.x.scale;
@@ -6990,8 +6993,8 @@ var require_cjs = __commonJS({
       const viewportBox = measureViewportBox(element, transformPagePoint);
       const { scroll } = rootProjectionNode2;
       if (scroll) {
-        translateAxis(viewportBox.x, scroll.x);
-        translateAxis(viewportBox.y, scroll.y);
+        translateAxis(viewportBox.x, scroll.offset.x);
+        translateAxis(viewportBox.y, scroll.offset.y);
       }
       return viewportBox;
     }
@@ -7610,7 +7613,7 @@ var require_cjs = __commonJS({
             willChange.add(key);
           }
           if (true) {
-            warnOnce(nextValue.version === "7.6.7", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.7 may not work as expected.`);
+            warnOnce(nextValue.version === "7.6.9", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.9 may not work as expected.`);
           }
         } else if (isMotionValue2(prevValue)) {
           element.addValue(key, motionValue2(nextValue));
@@ -7729,9 +7732,13 @@ var require_cjs = __commonJS({
         this.current = null;
       }
       bindToMotionValue(key, value) {
+        const valueIsTransform = transformProps.has(key);
         const removeOnChange = value.onChange((latestValue) => {
           this.latestValues[key] = latestValue;
           this.props.onUpdate && sync__default["default"].update(this.notifyUpdate, false, true);
+          if (valueIsTransform && this.projection) {
+            this.projection.isProjectionDirty = true;
+          }
         });
         const removeOnRenderRequest = value.onRenderRequest(this.scheduleRender);
         this.valueSubscriptions.set(key, () => {
@@ -8356,7 +8363,6 @@ var require_cjs = __commonJS({
           if (prevLead.snapshot) {
             node.snapshot = prevLead.snapshot;
             node.snapshot.latestValues = prevLead.animationValues || prevLead.latestValues;
-            node.snapshot.isShared = true;
           }
           if ((_a = node.root) === null || _a === void 0 ? void 0 : _a.isUpdating) {
             node.isLayoutDirty = true;
@@ -8386,12 +8392,16 @@ var require_cjs = __commonJS({
       }
     };
     __name(NodeStack, "NodeStack");
-    var identityProjection = "translate3d(0px, 0px, 0) scale(1, 1) scale(1, 1)";
     function buildProjectionTransform(delta, treeScale, latestTransform) {
+      let transform3 = "";
       const xTranslate = delta.x.translate / treeScale.x;
       const yTranslate = delta.y.translate / treeScale.y;
-      let transform3 = `translate3d(${xTranslate}px, ${yTranslate}px, 0) `;
-      transform3 += `scale(${1 / treeScale.x}, ${1 / treeScale.y}) `;
+      if (xTranslate || yTranslate) {
+        transform3 = `translate3d(${xTranslate}px, ${yTranslate}px, 0) `;
+      }
+      if (treeScale.x !== 1 || treeScale.y !== 1) {
+        transform3 += `scale(${1 / treeScale.x}, ${1 / treeScale.y}) `;
+      }
       if (latestTransform) {
         const { rotate, rotateX, rotateY } = latestTransform;
         if (rotate)
@@ -8403,8 +8413,10 @@ var require_cjs = __commonJS({
       }
       const elementScaleX = delta.x.scale * treeScale.x;
       const elementScaleY = delta.y.scale * treeScale.y;
-      transform3 += `scale(${elementScaleX}, ${elementScaleY})`;
-      return transform3 === identityProjection ? "none" : transform3;
+      if (elementScaleX !== 1 || elementScaleY !== 1) {
+        transform3 += `scale(${elementScaleX}, ${elementScaleY})`;
+      }
+      return transform3 || "none";
     }
     __name(buildProjectionTransform, "buildProjectionTransform");
     var compareByDepth = /* @__PURE__ */ __name((a, b) => a.depth - b.depth, "compareByDepth");
@@ -8430,14 +8442,18 @@ var require_cjs = __commonJS({
     __name(FlatTree2, "FlatTree");
     var transformAxes = ["", "X", "Y", "Z"];
     var animationTarget = 1e3;
+    var id$1 = 0;
     function createProjectionNode({ attachResizeListener, defaultParent, measureScroll, checkIsScrollRoot, resetTransform }) {
       return /* @__PURE__ */ __name(class ProjectionNode {
         constructor(elementId, latestValues = {}, parent = defaultParent === null || defaultParent === void 0 ? void 0 : defaultParent()) {
+          this.id = id$1++;
+          this.animationId = 0;
           this.children = /* @__PURE__ */ new Set();
           this.options = {};
           this.isTreeAnimating = false;
           this.isAnimationBlocked = false;
           this.isLayoutDirty = false;
+          this.isProjectionDirty = false;
           this.updateManuallyBlocked = false;
           this.updateBlockedByResize = false;
           this.isUpdating = false;
@@ -8487,8 +8503,8 @@ var require_cjs = __commonJS({
         hasListeners(name) {
           return this.eventHandlers.has(name);
         }
-        registerPotentialNode(id2, node) {
-          this.potentialNodes.set(id2, node);
+        registerPotentialNode(elementId, node) {
+          this.potentialNodes.set(elementId, node);
         }
         mount(instance, isLayoutDirty = false) {
           var _a;
@@ -8587,6 +8603,7 @@ var require_cjs = __commonJS({
             return;
           this.isUpdating = true;
           (_a = this.nodes) === null || _a === void 0 ? void 0 : _a.forEach(resetRotation);
+          this.animationId++;
         }
         willUpdate(shouldNotifyListeners = true) {
           var _a, _b, _c;
@@ -8601,7 +8618,7 @@ var require_cjs = __commonJS({
           for (let i = 0; i < this.path.length; i++) {
             const node = this.path[i];
             node.shouldResetTransform = true;
-            node.updateScroll();
+            node.updateScroll("snapshot");
           }
           const { layoutId, layout } = this.options;
           if (layoutId === void 0 && !layout)
@@ -8677,10 +8694,18 @@ var require_cjs = __commonJS({
           this.notifyListeners("measure", this.layout.layoutBox);
           (_a = this.options.visualElement) === null || _a === void 0 ? void 0 : _a.notify("LayoutMeasure", this.layout.layoutBox, prevLayout === null || prevLayout === void 0 ? void 0 : prevLayout.layoutBox);
         }
-        updateScroll() {
-          if (this.options.layoutScroll && this.instance) {
-            this.isScrollRoot = checkIsScrollRoot(this.instance);
-            this.scroll = measureScroll(this.instance);
+        updateScroll(phase = "measure") {
+          let needsMeasurement = Boolean(this.options.layoutScroll && this.instance);
+          if (this.scroll && this.scroll.animationId === this.root.animationId && this.scroll.phase === phase) {
+            needsMeasurement = false;
+          }
+          if (needsMeasurement) {
+            this.scroll = {
+              animationId: this.root.animationId,
+              phase,
+              isRoot: checkIsScrollRoot(this.instance),
+              offset: measureScroll(this.instance)
+            };
           }
         }
         resetTransform() {
@@ -8699,16 +8724,22 @@ var require_cjs = __commonJS({
           }
         }
         measure(removeTransform = true) {
+          var _a;
           const pageBox = this.measurePageBox();
           let layoutBox = this.removeElementScroll(pageBox);
           if (removeTransform) {
             layoutBox = this.removeTransform(layoutBox);
           }
           roundBox(layoutBox);
+          const positionStyle = (_a = this.options.visualElement) === null || _a === void 0 ? void 0 : _a.readValue("position");
+          const position = positionStyle === "fixed" || positionStyle === "sticky" ? positionStyle : "static";
           return {
+            animationId: this.root.animationId,
             measuredBox: pageBox,
             layoutBox,
-            latestValues: {}
+            latestValues: {},
+            source: this.id,
+            position
           };
         }
         measurePageBox() {
@@ -8718,8 +8749,8 @@ var require_cjs = __commonJS({
           const box = visualElement2.measureViewportBox();
           const { scroll } = this.root;
           if (scroll) {
-            translateAxis(box.x, scroll.x);
-            translateAxis(box.y, scroll.y);
+            translateAxis(box.x, scroll.offset.x);
+            translateAxis(box.y, scroll.offset.y);
           }
           return box;
         }
@@ -8728,18 +8759,18 @@ var require_cjs = __commonJS({
           copyBoxInto(boxWithoutScroll, box);
           for (let i = 0; i < this.path.length; i++) {
             const node = this.path[i];
-            const { scroll, options, isScrollRoot } = node;
+            const { scroll, options } = node;
             if (node !== this.root && scroll && options.layoutScroll) {
-              if (isScrollRoot) {
+              if (scroll.isRoot) {
                 copyBoxInto(boxWithoutScroll, box);
                 const { scroll: rootScroll } = this.root;
                 if (rootScroll) {
-                  translateAxis(boxWithoutScroll.x, -rootScroll.x);
-                  translateAxis(boxWithoutScroll.y, -rootScroll.y);
+                  translateAxis(boxWithoutScroll.x, -rootScroll.offset.x);
+                  translateAxis(boxWithoutScroll.y, -rootScroll.offset.y);
                 }
               }
-              translateAxis(boxWithoutScroll.x, scroll.x);
-              translateAxis(boxWithoutScroll.y, scroll.y);
+              translateAxis(boxWithoutScroll.x, scroll.offset.x);
+              translateAxis(boxWithoutScroll.y, scroll.offset.y);
             }
           }
           return boxWithoutScroll;
@@ -8751,8 +8782,8 @@ var require_cjs = __commonJS({
             const node = this.path[i];
             if (!transformOnly && node.options.layoutScroll && node.scroll && node !== node.root) {
               transformBox(withTransforms, {
-                x: -node.scroll.x,
-                y: -node.scroll.y
+                x: -node.scroll.offset.x,
+                y: -node.scroll.offset.y
               });
             }
             if (!hasTransform(node.latestValues))
@@ -8787,6 +8818,7 @@ var require_cjs = __commonJS({
         }
         setTargetDelta(delta) {
           this.targetDelta = delta;
+          this.isProjectionDirty = true;
           this.root.scheduleUpdateProjection();
         }
         setOptions(options) {
@@ -8805,6 +8837,9 @@ var require_cjs = __commonJS({
         }
         resolveTargetDelta() {
           var _a;
+          this.isProjectionDirty || (this.isProjectionDirty = this.getLead().isProjectionDirty || Boolean(this.parent && this.parent.isProjectionDirty));
+          if (!this.isProjectionDirty)
+            return;
           const { layout, layoutId } = this.options;
           if (!this.layout || !(layout || layoutId))
             return;
@@ -8863,6 +8898,9 @@ var require_cjs = __commonJS({
         }
         calcProjection() {
           var _a;
+          if (!this.isProjectionDirty)
+            return;
+          this.isProjectionDirty = false;
           const { layout, layoutId } = this.options;
           this.isTreeAnimating = Boolean(((_a = this.parent) === null || _a === void 0 ? void 0 : _a.isTreeAnimating) || this.currentAnimation || this.pendingAnimation);
           if (!this.isTreeAnimating) {
@@ -8906,7 +8944,7 @@ var require_cjs = __commonJS({
           }
         }
         setAnimationOrigin(delta, hasOnlyRelativeTargetChanged = false) {
-          var _a;
+          var _a, _b;
           const snapshot = this.snapshot;
           const snapshotLatestValues = (snapshot === null || snapshot === void 0 ? void 0 : snapshot.latestValues) || {};
           const mixedValues = __spreadValues({}, this.latestValues);
@@ -8914,8 +8952,8 @@ var require_cjs = __commonJS({
           this.relativeTarget = this.relativeTargetOrigin = void 0;
           this.attemptToResolveRelativeTarget = !hasOnlyRelativeTargetChanged;
           const relativeLayout = createBox2();
-          const isSharedLayoutAnimation = snapshot === null || snapshot === void 0 ? void 0 : snapshot.isShared;
-          const isOnlyMember = (((_a = this.getStack()) === null || _a === void 0 ? void 0 : _a.members.length) || 0) <= 1;
+          const isSharedLayoutAnimation = (snapshot === null || snapshot === void 0 ? void 0 : snapshot.source) !== ((_a = this.layout) === null || _a === void 0 ? void 0 : _a.source);
+          const isOnlyMember = (((_b = this.getStack()) === null || _b === void 0 ? void 0 : _b.members.length) || 0) <= 1;
           const shouldCrossfadeOpacity = Boolean(isSharedLayoutAnimation && !isOnlyMember && this.options.crossfade === true && !this.path.some(hasOpacityCrossfade));
           this.animationProgress = 0;
           this.mixTargetDelta = (latest) => {
@@ -9060,19 +9098,20 @@ var require_cjs = __commonJS({
           if (!visualElement2)
             return;
           let hasRotate = false;
-          const resetValues = {};
-          for (let i = 0; i < transformAxes.length; i++) {
-            const axis = transformAxes[i];
-            const key = "rotate" + axis;
-            if (!visualElement2.getStaticValue(key)) {
-              continue;
-            }
+          const { latestValues } = visualElement2;
+          if (latestValues.rotate || latestValues.rotateX || latestValues.rotateY || latestValues.rotateZ) {
             hasRotate = true;
-            resetValues[key] = visualElement2.getStaticValue(key);
-            visualElement2.setStaticValue(key, 0);
           }
           if (!hasRotate)
             return;
+          const resetValues = {};
+          for (let i = 0; i < transformAxes.length; i++) {
+            const key = "rotate" + transformAxes[i];
+            if (latestValues[key]) {
+              resetValues[key] = latestValues[key];
+              visualElement2.setStaticValue(key, 0);
+            }
+          }
           visualElement2 === null || visualElement2 === void 0 ? void 0 : visualElement2.render();
           for (const key in resetValues) {
             visualElement2.setStaticValue(key, resetValues[key]);
@@ -9166,16 +9205,17 @@ var require_cjs = __commonJS({
       if (node.isLead() && node.layout && snapshot && node.hasListeners("didUpdate")) {
         const { layoutBox: layout, measuredBox: measuredLayout } = node.layout;
         const { animationType } = node.options;
+        const isShared = snapshot.source !== node.layout.source;
         if (animationType === "size") {
           eachAxis((axis) => {
-            const axisSnapshot = snapshot.isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
+            const axisSnapshot = isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
             const length2 = calcLength2(axisSnapshot);
             axisSnapshot.min = layout[axis].min;
             axisSnapshot.max = axisSnapshot.min + length2;
           });
         } else if (shouldAnimatePositionOnly(animationType, snapshot.layoutBox, layout)) {
           eachAxis((axis) => {
-            const axisSnapshot = snapshot.isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
+            const axisSnapshot = isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
             const length2 = calcLength2(layout[axis]);
             axisSnapshot.max = axisSnapshot.min + length2;
           });
@@ -9183,7 +9223,7 @@ var require_cjs = __commonJS({
         const layoutDelta = createDelta();
         calcBoxDelta(layoutDelta, layout, snapshot.layoutBox);
         const visualDelta = createDelta();
-        if (snapshot.isShared) {
+        if (isShared) {
           calcBoxDelta(visualDelta, node.applyTransform(measuredLayout, true), snapshot.measuredBox);
         } else {
           calcBoxDelta(visualDelta, layout, snapshot.layoutBox);
@@ -9281,7 +9321,7 @@ var require_cjs = __commonJS({
       duration: 0.45,
       ease: [0.4, 0, 0.1, 1]
     };
-    function mountNodeEarly(node, id2) {
+    function mountNodeEarly(node, elementId) {
       let searchNode = node.root;
       for (let i = node.path.length - 1; i >= 0; i--) {
         if (Boolean(node.path[i].instance)) {
@@ -9290,7 +9330,7 @@ var require_cjs = __commonJS({
         }
       }
       const searchElement = searchNode && searchNode !== node.root ? searchNode.instance : document;
-      const element = searchElement.querySelector(`[data-projection-id="${id2}"]`);
+      const element = searchElement.querySelector(`[data-projection-id="${elementId}"]`);
       if (element)
         node.mount(element, true);
     }
