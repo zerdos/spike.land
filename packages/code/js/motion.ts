@@ -1,5 +1,4 @@
-globalThis.FramerMotion = globalThis.FramerMotion || require("framer-motion");
-const fm = globalThis.FramerMotion;
+import * as fm from "framer-motion";
 
 export const { createDomMotionComponent, motion } = fm; // ./render/dom/motion.mjs';
 export const { m } = fm; // ./render/dom/motion-minimal.mjs';
@@ -71,5 +70,3 @@ export const { isBrowser } = fm; // ./utils/is-browser.mjs';
 export const { useUnmountEffect } = fm; // ./utils/use-unmount-effect.mjs';
 export const { useIsomorphicLayoutEffect } = fm; // ./utils/use-isomorphic-effect.mjs';
 export const { useForceUpdate } = fm; // ./utils/use-force-update.mjs';
-
-export default fm;

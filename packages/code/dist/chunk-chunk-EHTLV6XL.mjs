@@ -31033,14 +31033,10 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
           } catch (e) {
             const trp = await resp.text();
             try {
-              App = await esmTransform(trp).then(
-                (transpiled) => import(createJsBlob(transpiled))
-              );
+              App = (await import(createJsBlob(trp))).default;
             } catch (e2) {
               console.error("something went nuts");
-              App = await esmTransform(trp).then(
-                (transpiled) => importShim(createJsBlob(transpiled))
-              );
+              App = (await importShim(createJsBlob(trp))).default;
             }
             myApps[nUrl] = App;
             return { App, url: resp.url };
