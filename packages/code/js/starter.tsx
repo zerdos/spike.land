@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import type { EmotionCache } from "@emotion/cache";
-
 import { CacheProvider, css } from "@emotion/react";
+
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
-import { esmTransform } from "./runner";
 import { hashCode, mST, onSessionUpdate } from "./session";
 import { wait } from "./wait";
 // import importmap from "./importmap.json";
@@ -66,15 +65,11 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
             const trp = await resp.text();
 
             try {
-              App = await (esmTransform(trp).then(
-                (transpiled) => import(createJsBlob(transpiled)),
-              ));
+              App = (await import(createJsBlob(trp))).default;
             } catch {
               console.error("something went nuts");
 
-              App = await (esmTransform(trp).then(
-                (transpiled) => importShim(createJsBlob(transpiled)),
-              ));
+              App = (await importShim(createJsBlob(trp))).default;
             }
             myApps[nUrl] = App;
 
