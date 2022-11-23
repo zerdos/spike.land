@@ -39,7 +39,9 @@ const mod = {
     const myDepts = [...current.deps];
     // current.deps=[]
 
-    const depts = myDepts.map((name) => mod.printR(name, included)).join(" \n ");
+    const depts = myDepts.map((name) => mod.printR(name, included)).join(
+      " \n ",
+    );
 
     return depts + `
     
@@ -55,11 +57,11 @@ const mod = {
 
     let reverseMap: { [key: string]: string } = {};
 
-    Object.keys(mod.hashMap).forEach(key => reverseMap = { ...reverseMap, [mod.hashMap[key]]: key });
+    Object.keys(mod.hashMap).forEach((key) => reverseMap = { ...reverseMap, [mod.hashMap[key]]: key });
 
     let modZ: { [key: string]: string } = {};
     Object.keys(mod.data).forEach((k) => modZ = { ...modZ, [reverseMap[k]]: k });
-    Object.keys(importmapsRes).forEach(k => modZ = { ...modZ, [k]: "getName(`" + importmapsRes[k] + "`)" });
+    Object.keys(importmapsRes).forEach((k) => modZ = { ...modZ, [k]: "getName(`" + importmapsRes[k] + "`)" });
 
     //  Object.keys(mod.data).map(key=>mod.data[key].code).join( "\n") + debts +
     const res = `
@@ -209,11 +211,11 @@ export const toUmd = async (source: string, name: string) => {
   globalThis.globalNames = globalThis.globalNames || {};
   globalThis.globalNames["${name}"] =  ${hash}  ;`;
 
-  mod.data[hash].deps = findDeps(mod.data[hash].code).map(dep => importShim.resolve(dep, name));
+  mod.data[hash].deps = findDeps(mod.data[hash].code).map((dep) => importShim.resolve(dep, name));
 
   await Promise.all(
-    mod.data[hash].deps.map(depUrl =>
-      fetch_or_die(depUrl).then(content => toUmd(content, depUrl).then(async (mod) => await mod))
+    mod.data[hash].deps.map((depUrl) =>
+      fetch_or_die(depUrl).then((content) => toUmd(content, depUrl).then(async (mod) => await mod))
     ),
   );
 
@@ -222,12 +224,12 @@ export const toUmd = async (source: string, name: string) => {
 
 const urls: { [url: string]: string } = {};
 const fetch_or_die = async (url: string) => {
-  if (url.includes(`/live/`)) return await fetch(url).then(res => res.text());
+  if (url.includes(`/live/`)) return await fetch(url).then((res) => res.text());
   if (urls[url]) return urls[url];
   const cached = await fileCache.getItem<string>(url);
   if (cached) return cached;
 
-  urls[url] = urls[url] || await fetch(url).then(res => res.text());
+  urls[url] = urls[url] || await fetch(url).then((res) => res.text());
   await fileCache.setItem(url, urls[url]);
   return urls[url];
 };
