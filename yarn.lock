@@ -1195,9 +1195,9 @@ __metadata:
   linkType: hard
 
 "@types/lodash@npm:*":
-  version: 4.14.189
-  resolution: "@types/lodash@npm:4.14.189"
-  checksum: aed64b9dc0835e961be4aae5512a7d3aeba6267f48e8a7761e37ff4e3d8465a5bfa7068fd1a7c8959bba341049da8d10d2c5b907a0e9dd3675146c424e4746c3
+  version: 4.14.190
+  resolution: "@types/lodash@npm:4.14.190"
+  checksum: dd0953031bb684cdb3edc98f3236a0cb87534998036b4b72ec26627829470c583944b9fadfb32a5783677c378fa25945eb114ac29c3f4d892c0f4d82cb5f3a6c
   languageName: node
   linkType: hard
 
@@ -1694,12 +1694,12 @@ __metadata:
   linkType: hard
 
 "anymatch@npm:~3.1.2":
-  version: 3.1.2
-  resolution: "anymatch@npm:3.1.2"
+  version: 3.1.3
+  resolution: "anymatch@npm:3.1.3"
   dependencies:
     normalize-path: "npm:^3.0.0"
     picomatch: "npm:^2.0.4"
-  checksum: b9266228a3e1406086ece57c20f9cbfc9755375218697c79a71fba9245ad23a672687314422e97753fbb3bccd245d7c76974d7c15ba513386b499de6ba002300
+  checksum: 0d50ce459783767bb68ce635c0a8f3e7de9843ebd6e6733accd59e13a49421a84944b8be5d68b5acecf74eca767a06229e07cae48151757744618e1a32dda0ed
   languageName: node
   linkType: hard
 
@@ -2095,9 +2095,9 @@ __metadata:
   linkType: hard
 
 "ci-info@npm:^3.2.0":
-  version: 3.6.1
-  resolution: "ci-info@npm:3.6.1"
-  checksum: e38ac8154e2cfcd5bee537113de0604ba152778c9b3da69c2f1f781ee9b0f0781820a5c05cd8423738739c932e8e6a2187037e3ba8c7f66f82d5435983792936
+  version: 3.6.2
+  resolution: "ci-info@npm:3.6.2"
+  checksum: ae946cb0a2cc797a1700088062a7840d2ba7a988838f1abc7bcc7f4018ed65e7519c16302f9c8a83c06ba5c5cd215c7363d2e5a358e275f78089d3fd722346df
   languageName: node
   linkType: hard
 
@@ -2125,13 +2125,13 @@ __metadata:
   linkType: hard
 
 "clipanion@npm:^3.2.0-rc.10":
-  version: 3.2.0-rc.13
-  resolution: "clipanion@npm:3.2.0-rc.13"
+  version: 3.2.0-rc.14
+  resolution: "clipanion@npm:3.2.0-rc.14"
   dependencies:
     typanion: "npm:^3.8.0"
   peerDependencies:
     typanion: "*"
-  checksum: 46660d2fc75b5b2ecc642fb4ca5371c95984c6e0730b6df9a42cf9a5f0066653cde33014a488296c106aa66c7387e18d1c578d61daa6ca29646aacd41965d219
+  checksum: 4f496c432613a126dfac077c784e08fdd1610cf83151854a2796b617040ea20a4f6e81e72964332f178a8293a643e99f3edc0a11eb71c2afcc53eb87f4224b58
   languageName: node
   linkType: hard
 
@@ -3668,11 +3668,11 @@ __metadata:
   linkType: hard
 
 "globals@npm:^13.15.0":
-  version: 13.17.0
-  resolution: "globals@npm:13.17.0"
+  version: 13.18.0
+  resolution: "globals@npm:13.18.0"
   dependencies:
     type-fest: "npm:^0.20.2"
-  checksum: 663e415f2ea22909f3336e1575a585c1b0976de186bb46e3a3dcd526a0390d836d27351c10be370396581b198351f5e108b77a3c906424391dcbd836825825e3
+  checksum: 6f892694a2be6ac05dfb6ae4b6955ec5ad4fe6d02c5de7481a4e7ea8519b43702775cb9022348a8c859c35bff81bdf768c76570cfd9b98c0d3759a1cc4b979f3
   languageName: node
   linkType: hard
 
@@ -4199,9 +4199,9 @@ __metadata:
   linkType: hard
 
 "js-sdsl@npm:^4.1.4":
-  version: 4.1.5
-  resolution: "js-sdsl@npm:4.1.5"
-  checksum: dafad5531a0a7a345a8ec5d83b16c8daf068893a90db8e718cf857b25878d87bbb08eee44bae309c4967dea3f2bd1aecaa8f107cf5c5c09d1579a671f1a14ed5
+  version: 4.2.0
+  resolution: "js-sdsl@npm:4.2.0"
+  checksum: 74ea285cb5f76087c4d6f4f959ddb889d6232d16160f86cfb5d538d59b7cf5cfb9966d9cd6603b2d3646804c1372700ae1feafbed1b5d13b5f779618d1285d49
   languageName: node
   linkType: hard
 
