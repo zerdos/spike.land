@@ -41,7 +41,13 @@ const define = {
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   process: JSON.stringify({
-    env: { NODE_ENV: `${environment}`, browser: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true },
+    env: {
+      NODE_ENV: `${environment}`,
+      browser: true,
+      NODE_DEBUG: false,
+      DEBUG: false,
+      isBrowser: true,
+    },
     browser: true,
   }),
 };
@@ -153,7 +159,10 @@ const build = (
 (async () => {
   await rm("js/monaco-workers", { recursive: true, force: true });
   await cp("./index.html", "./dist/index.html");
-  await cp("./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf", "./dist/enhanced_dot_digital-7.ttf");
+  await cp(
+    "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
+    "./dist/enhanced_dot_digital-7.ttf",
+  );
   await esbuild.build({
     entryPoints: [
       ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),

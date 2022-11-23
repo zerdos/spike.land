@@ -31347,7 +31347,9 @@ var mod3 = {
       return currentCode;
     }
     const myDepts = [...current.deps];
-    const depts = myDepts.map((name2) => mod3.printR(name2, included)).join(" \n ");
+    const depts = myDepts.map((name2) => mod3.printR(name2, included)).join(
+      " \n "
+    );
     return depts + `
     
     ` + currentCode;
