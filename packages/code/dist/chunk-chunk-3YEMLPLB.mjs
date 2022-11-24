@@ -304,12 +304,16 @@ async function appFactory(transpiled = "", codeSpace) {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);
+  const st = document.createElement("div");
+  const child = document.createElement("div");
+  document.getElementById(`root-${codeSpace}`)?.insertBefore(st, child);
   if (!apps[hash] || !eCaches[hash]) {
     try {
       eCaches[hash] = eCaches[hash] || emotionCache_default({
         key: hash,
-        insertionPoint: document.getElementById(`root-${codeSpace}`)?.parentNode,
-        speedy: false
+        container: child,
+        insertionPoint: st,
+        speedy: true
       });
       eCaches[hash].compat = void 0;
       console.log(`i: ${mstI}: `);
