@@ -5,7 +5,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 
-import { codeSpace } from "load";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate } from "./session";
