@@ -1,5 +1,5 @@
+import isCallable from "is-callable";
 import React from "react";
-
 export const {
   Children,
   Component,
@@ -8,7 +8,7 @@ export const {
   PureComponent,
   StrictMode,
   Suspense,
-  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
+
   cloneElement,
   createContext,
   createElement,
@@ -38,18 +38,19 @@ export const {
 
 const originalUseState = React.useState;
 
-export const useState: typeof originalUseState = (startState) => {
+export function useState<S>(
+  initialState: (() => S) | S,
+) {
   if ((globalThis as unknown as { workerDom: boolean }).workerDom) {
-    const [state, setState] = originalUseState(startState);
-    const delayedSetState: React.Dispatch<React.SetStateAction<typeof startState>> = (updates) =>
-      queueMicrotask(() =>
-        (typeof updates === typeof startState) ? setState((s) => ({ ...s, updates })) : setState(updates => (updates))
-      );
+    const [state, setState] = originalUseState(initialState);
+    const delayedSetState = (updates: (() => S) | S) =>
+      setTimeout(() => isCallable(updates) ? setState(() => updates()) : setState(updates));
     return [state, delayedSetState];
   }
-  return originalUseState(startState);
-};
 
-React.useState = useState;
+  return originalUseState(initialState);
+}
+
+Object.assign(React, { useState });
 
 export default React;

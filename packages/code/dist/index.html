@@ -60,12 +60,8 @@
    }
    
   
-  
    
-        #root{
-          height: 100%; 
-        }
-        body{background-image:radial-gradient(circle,#226347,#00575d,#00456f,#002d69,#440044);} .css-92ovb0 { font-size: 2em; height: 100%; display: flex; -webkit-box-pack: center; justify-content: center; text-align: center; -webkit-box-align: center; align-items: center; flex-direction: column; }
+body{background-image:radial-gradient(circle,#226347,#00575d,#00456f,#002d69,#440044);} .css-92ovb0 { font-size: 2em; height: 100%; display: flex; -webkit-box-pack: center; justify-content: center; text-align: center; -webkit-box-align: center; align-items: center; flex-direction: column; }
 .css-pz3z9j { border: 4px dotted darkred; margin: 10px; }
 .css-x98km2 { font-size: 4em; }
 .css-5p7c9z { color: rgb(97, 218, 251); }
@@ -166,7 +162,7 @@ if (location.pathname.endsWith("dehydrated")) {
   paths.pop() //dehydrated;
   const codeSpace = paths.pop();
 
-  const  bc =new BroadcastChannel(location.origin);
+  const  bc =new  BroadcastChannel(location.origin);
 
     bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {

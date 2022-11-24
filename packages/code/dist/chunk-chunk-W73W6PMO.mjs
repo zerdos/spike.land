@@ -3,8 +3,12 @@ import {
   require_prop_types
 } from "./chunk-chunk-WXF4QHVQ.mjs";
 import {
-  emotionCache_default
-} from "./chunk-chunk-TIL35SAU.mjs";
+  require_client
+} from "./chunk-chunk-FFMS35Y7.mjs";
+import {
+  appFactory,
+  wait
+} from "./chunk-chunk-UQRG2FWL.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-CTKH5FCC.mjs";
@@ -12,7 +16,6 @@ import {
   require_emotion_react_jsx_runtime_cjs
 } from "./chunk-chunk-MYCITQ4M.mjs";
 import {
-  hashCode,
   mST,
   md5,
   onSessionUpdate,
@@ -21,10 +24,7 @@ import {
 } from "./chunk-chunk-LYLXMEXZ.mjs";
 import {
   codeSpace
-} from "./chunk-chunk-ED4JDCTW.mjs";
-import {
-  require_client
-} from "./chunk-chunk-FFMS35Y7.mjs";
+} from "./chunk-chunk-PTTQB2AC.mjs";
 import {
   require_react_dom
 } from "./chunk-chunk-M3XF32XQ.mjs";
@@ -22961,7 +22961,7 @@ var require_browser = __commonJS({
         let charset = getFlag(options, keys, "charset", mustBeString);
         let treeShaking = getFlag(options, keys, "treeShaking", mustBeBoolean);
         let ignoreAnnotations = getFlag(options, keys, "ignoreAnnotations", mustBeBoolean);
-        let jsx4 = getFlag(options, keys, "jsx", mustBeString);
+        let jsx3 = getFlag(options, keys, "jsx", mustBeString);
         let jsxFactory = getFlag(options, keys, "jsxFactory", mustBeString);
         let jsxFragment = getFlag(options, keys, "jsxFragment", mustBeString);
         let jsxImportSource = getFlag(options, keys, "jsxImportSource", mustBeString);
@@ -23014,8 +23014,8 @@ var require_browser = __commonJS({
           flags.push(`--reserve-props=${reserveProps.source}`);
         if (mangleQuoted !== void 0)
           flags.push(`--mangle-quoted=${mangleQuoted}`);
-        if (jsx4)
-          flags.push(`--jsx=${jsx4}`);
+        if (jsx3)
+          flags.push(`--jsx=${jsx3}`);
         if (jsxFactory)
           flags.push(`--jsx-factory=${jsxFactory}`);
         if (jsxFragment)
@@ -27307,158 +27307,10 @@ var require_localforage = __commonJS({
   }
 });
 
-// ../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js
-var require_react_error_boundary_umd = __commonJS({
-  "../../.yarn/__virtual__/react-error-boundary-virtual-8f70cc21a5/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-9.zip/node_modules/react-error-boundary/dist/react-error-boundary.umd.js"(exports, module) {
-    init_define_process();
-    (function(global2, factory) {
-      typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require_react()) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.ReactErrorBoundary = {}, global2.React));
-    })(exports, function(exports2, React3) {
-      "use strict";
-      function _interopNamespace(e) {
-        if (e && e.__esModule)
-          return e;
-        var n = /* @__PURE__ */ Object.create(null);
-        if (e) {
-          Object.keys(e).forEach(function(k) {
-            if (k !== "default") {
-              var d = Object.getOwnPropertyDescriptor(e, k);
-              Object.defineProperty(n, k, d.get ? d : {
-                enumerable: true,
-                get: function() {
-                  return e[k];
-                }
-              });
-            }
-          });
-        }
-        n["default"] = e;
-        return Object.freeze(n);
-      }
-      __name(_interopNamespace, "_interopNamespace");
-      var React__namespace = /* @__PURE__ */ _interopNamespace(React3);
-      function _setPrototypeOf(o, p) {
-        _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p2) {
-          o2.__proto__ = p2;
-          return o2;
-        }, "_setPrototypeOf");
-        return _setPrototypeOf(o, p);
-      }
-      __name(_setPrototypeOf, "_setPrototypeOf");
-      function _inheritsLoose(subClass, superClass) {
-        subClass.prototype = Object.create(superClass.prototype);
-        subClass.prototype.constructor = subClass;
-        _setPrototypeOf(subClass, superClass);
-      }
-      __name(_inheritsLoose, "_inheritsLoose");
-      var changedArray = /* @__PURE__ */ __name(function changedArray2(a, b) {
-        if (a === void 0) {
-          a = [];
-        }
-        if (b === void 0) {
-          b = [];
-        }
-        return a.length !== b.length || a.some(function(item, index) {
-          return !Object.is(item, b[index]);
-        });
-      }, "changedArray");
-      var initialState = {
-        error: null
-      };
-      var ErrorBoundary2 = /* @__PURE__ */ function(_React$Component) {
-        _inheritsLoose(ErrorBoundary3, _React$Component);
-        function ErrorBoundary3() {
-          var _this;
-          for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
-            _args[_key] = arguments[_key];
-          }
-          _this = _React$Component.call.apply(_React$Component, [this].concat(_args)) || this;
-          _this.state = initialState;
-          _this.resetErrorBoundary = function() {
-            var _this$props;
-            for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-              args[_key2] = arguments[_key2];
-            }
-            _this.props.onReset == null ? void 0 : (_this$props = _this.props).onReset.apply(_this$props, args);
-            _this.reset();
-          };
-          return _this;
-        }
-        __name(ErrorBoundary3, "ErrorBoundary");
-        ErrorBoundary3.getDerivedStateFromError = /* @__PURE__ */ __name(function getDerivedStateFromError(error) {
-          return {
-            error
-          };
-        }, "getDerivedStateFromError");
-        var _proto = ErrorBoundary3.prototype;
-        _proto.reset = /* @__PURE__ */ __name(function reset() {
-          this.setState(initialState);
-        }, "reset");
-        _proto.componentDidCatch = /* @__PURE__ */ __name(function componentDidCatch(error, info) {
-          var _this$props$onError, _this$props2;
-          (_this$props$onError = (_this$props2 = this.props).onError) == null ? void 0 : _this$props$onError.call(_this$props2, error, info);
-        }, "componentDidCatch");
-        _proto.componentDidUpdate = /* @__PURE__ */ __name(function componentDidUpdate(prevProps, prevState) {
-          var error = this.state.error;
-          var resetKeys = this.props.resetKeys;
-          if (error !== null && prevState.error !== null && changedArray(prevProps.resetKeys, resetKeys)) {
-            var _this$props$onResetKe, _this$props3;
-            (_this$props$onResetKe = (_this$props3 = this.props).onResetKeysChange) == null ? void 0 : _this$props$onResetKe.call(_this$props3, prevProps.resetKeys, resetKeys);
-            this.reset();
-          }
-        }, "componentDidUpdate");
-        _proto.render = /* @__PURE__ */ __name(function render2() {
-          var error = this.state.error;
-          var _this$props4 = this.props, fallbackRender = _this$props4.fallbackRender, FallbackComponent = _this$props4.FallbackComponent, fallback = _this$props4.fallback;
-          if (error !== null) {
-            var _props = {
-              error,
-              resetErrorBoundary: this.resetErrorBoundary
-            };
-            if (/* @__PURE__ */ React__namespace.isValidElement(fallback)) {
-              return fallback;
-            } else if (typeof fallbackRender === "function") {
-              return fallbackRender(_props);
-            } else if (FallbackComponent) {
-              return /* @__PURE__ */ React__namespace.createElement(FallbackComponent, _props);
-            } else {
-              throw new Error("react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop");
-            }
-          }
-          return this.props.children;
-        }, "render");
-        return ErrorBoundary3;
-      }(React__namespace.Component);
-      function withErrorBoundary(Component, errorBoundaryProps) {
-        var Wrapped = /* @__PURE__ */ __name(function Wrapped2(props) {
-          return /* @__PURE__ */ React__namespace.createElement(ErrorBoundary2, errorBoundaryProps, /* @__PURE__ */ React__namespace.createElement(Component, props));
-        }, "Wrapped");
-        var name = Component.displayName || Component.name || "Unknown";
-        Wrapped.displayName = "withErrorBoundary(" + name + ")";
-        return Wrapped;
-      }
-      __name(withErrorBoundary, "withErrorBoundary");
-      function useErrorHandler(givenError) {
-        var _React$useState = React__namespace.useState(null), error = _React$useState[0], setError = _React$useState[1];
-        if (givenError != null)
-          throw givenError;
-        if (error != null)
-          throw error;
-        return setError;
-      }
-      __name(useErrorHandler, "useErrorHandler");
-      exports2.ErrorBoundary = ErrorBoundary2;
-      exports2.useErrorHandler = useErrorHandler;
-      exports2.withErrorBoundary = withErrorBoundary;
-      Object.defineProperty(exports2, "__esModule", { value: true });
-    });
-  }
-});
-
 // js/Editor.tsx
 init_define_process();
-var import_react4 = __toESM(require_emotion_react_cjs(), 1);
-var import_react5 = __toESM(require_react(), 1);
+var import_react2 = __toESM(require_emotion_react_cjs(), 1);
+var import_react3 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/react-rnd-virtual-1610495181/0/global/cache/react-rnd-npm-10.3.7-cb1aaea902-9.zip/node_modules/react-rnd/lib/index.js
 init_define_process();
@@ -30982,240 +30834,8 @@ var build = /* @__PURE__ */ __name(async (rawCode) => {
 
 // js/renderToString.tsx
 init_define_process();
-
-// js/starter.tsx
-init_define_process();
-var import_react2 = __toESM(require_react(), 1);
-var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
-var import_react3 = __toESM(require_emotion_react_cjs(), 1);
-
-// js/wait.ts
-init_define_process();
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(delay);
-    }, delay);
-  });
-}
-__name(wait, "wait");
-
-// js/starter.tsx
-var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-Object.assign(globalThis, { md5 });
-var myApps = {};
-var myAppCounters = {};
-var controller;
-onSessionUpdate(() => {
-  if (controller)
-    controller.abort("new i");
-}, "abort");
-var importIt = /* @__PURE__ */ __name(async (url) => {
-  let waitingTime = 100;
-  let App;
-  const urlARR = url.split("/");
-  const naked = +(urlARR.pop() || 0);
-  const nUrl = urlARR.join("/");
-  myAppCounters[nUrl] = myAppCounters[nUrl] || naked;
-  while (true) {
-    const betterNaked = naked < myAppCounters[nUrl] ? myAppCounters[nUrl] : naked;
-    const url2 = [...urlARR, betterNaked].join("/");
-    try {
-      try {
-        let controller2 = new AbortController();
-        const signal = controller2.signal;
-        let resp = await fetch(url2, { signal });
-        if (resp.ok) {
-          try {
-            App = (await importShim(url2)).default;
-            return { App, url: resp.url };
-          } catch {
-            const trp = await resp.text();
-            try {
-              App = (await import(createJsBlob(trp))).default;
-            } catch {
-              console.error("something went nuts");
-              App = (await importShim(createJsBlob(trp))).default;
-            }
-            myApps[nUrl] = App;
-            return { App, url: resp.url };
-          }
-        }
-      } catch (err) {
-        console.error({ err });
-        console.error(
-          err && err?.message || "error has been thrown"
-        );
-      }
-    } catch {
-      console.error("bad something happened;");
-    } finally {
-      await wait(waitingTime *= 2);
-    }
-  }
-}, "importIt");
-if (!Object.hasOwn(globalThis, "apps")) {
-  Object.assign(globalThis, { apps: {}, eCaches: {} });
-}
-var { apps: apps2, eCaches: eCaches2 } = globalThis;
-var starterI = 1 * document.getElementById("root").getAttribute(
-  "data-i"
-);
-function AutoUpdateApp({ codeSpace: codeSpace2 }) {
-  const [{ App, i }, setApps] = (0, import_react2.useState)({
-    i: starterI - 1,
-    App: null
-  });
-  (0, import_react2.useEffect)(() => {
-    (async () => {
-      const { url, App: newApp } = await importIt(
-        `${location.origin}/live/${codeSpace2}/index.js/${i}`
-      );
-      const urlCounter = +(url.split("/").pop() || 0);
-      if (i < urlCounter && newApp !== App) {
-        setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
-      }
-    })();
-  }, []);
-  (0, import_react2.useEffect)(() => {
-    (async () => {
-      (async () => {
-        const { url, App: newApp } = await importIt(
-          `${location.origin}/live/${codeSpace2}/index.js/${i + 1}`
-        );
-        const urlCounter = +(url.split("/").pop() || 0);
-        if (i < urlCounter && newApp !== App) {
-          console.log({ url, urlCounter });
-          setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
-        }
-      })();
-    })();
-  }, [i, setApps, App]);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react_error_boundary.ErrorBoundary, {
-    fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-      role: "alert",
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-          children: "Oh no"
-        }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", {
-          children: error.message
-        })
-      ]
-    }),
-    children: App == null ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-      style: { height: "100%" },
-      dangerouslySetInnerHTML: {
-        __html: `<style>${mST().css.split("body").join(`${codeSpace2}-${hashCode()}`)}</style>${mST().html}`
-      }
-    }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
-  });
-}
-__name(AutoUpdateApp, "AutoUpdateApp");
-async function appFactory(transpiled = "") {
-  const { transpiled: mstTranspiled, i: mstI } = mST();
-  const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
-  const hash = md5(trp);
-  if (!apps2[hash] || !eCaches2[hash]) {
-    try {
-      eCaches2[hash] = eCaches2[hash] || emotionCache_default({
-        key: hash,
-        speedy: false
-      });
-      eCaches2[hash].compat = void 0;
-      console.log(`i: ${mstI}: `);
-      let mod5;
-      try {
-        mod5 = await importShim(createJsBlob(trp));
-      } catch {
-        mod5 = new Function(trp + ` return ${trp.slice(2, 10)}`)();
-      }
-      const App = mod5.default;
-      apps2[hash] = ({ appId }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-        style: { height: 100 + "%" },
-        id: appId,
-        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react3.CacheProvider, {
-          value: eCaches2[hash],
-          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
-        }, hash)
-      }, hash);
-    } catch (error) {
-      if (error instanceof SyntaxError) {
-        const name = error.name;
-        const message = error.message;
-        apps2[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-          css: import_react3.css`background-color: orange;`,
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-              children: "Syntax Error"
-            }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-              children: hash
-            }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
-              children: [
-                name,
-                ": ",
-                message
-              ]
-            }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-              children: JSON.stringify({ err: error })
-            })
-          ]
-        });
-      } else if (error instanceof Error) {
-        const name = error.name;
-        const message = error.message;
-        apps2[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-          css: import_react3.css`background-color: orange;`,
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-              children: "Syntax Error"
-            }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
-              children: [
-                name,
-                ": ",
-                message
-              ]
-            }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-              children: JSON.stringify({ err: error })
-            })
-          ]
-        });
-      } else {
-        apps2[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-          css: import_react3.css`background-color: orange;`,
-          children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
-            children: [
-              "Unknown Error: $",
-              hash
-            ]
-          })
-        });
-      }
-    }
-    if (transpiled !== "")
-      return apps2[hash];
-  }
-  return apps2[hash];
-}
-__name(appFactory, "appFactory");
-function createJsBlob(code, fileName = "index.mjs") {
-  const file = new File([code], fileName, {
-    type: "application/javascript",
-    lastModified: Date.now()
-  });
-  const blobUrl = URL.createObjectURL(file);
-  return blobUrl;
-}
-__name(createJsBlob, "createJsBlob");
-
-// js/renderToString.tsx
 var import_client = __toESM(require_client(), 1);
-var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod2 = {
   md5Hash: "",
   wait: 1,
@@ -31243,7 +30863,7 @@ var mod2 = {
     const App = apps[md5Hash];
     mod2.md5Hash = md5Hash;
     mod2.res = rootDiv;
-    root.render(/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App, {
+    root.render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {
       appId: `${mod2.codeSpace}-${md5Hash}`
     }));
     return () => {
@@ -31265,13 +30885,13 @@ var render = /* @__PURE__ */ __name(async (transpiled, codeSpace2) => {
     const html = await mod2.waitForDiv(md5hash);
     if (!html)
       return { html: null, css: null };
-    const css3 = mineFromCaches(eCaches[md5hash]);
+    const css2 = mineFromCaches(eCaches[md5hash]);
     const globalCss = document.querySelector(
       `style[data-emotion=${eCaches[md5hash].key}-global]`
     )?.innerHTML;
     return {
       html,
-      css: globalCss ? globalCss + " " + css3 : css3
+      css: globalCss ? globalCss + " " + css2 : css2
     };
   } finally {
     cleanup();
@@ -31542,9 +31162,9 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
   counterMax = counter;
   try {
     const transpiledCode = await esmTransform(code);
-    const { html, css: css3 } = await render(transpiledCode, codeSpace2);
-    console.log({ html, css: css3 });
-    if (!html || !css3) {
+    const { html, css: css2 } = await render(transpiledCode, codeSpace2);
+    console.log({ html, css: css2 });
+    if (!html || !css2) {
       return;
     }
     debouncedSync({
@@ -31553,7 +31173,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
       i: counter,
       transpiled: transpiledCode,
       html,
-      css: css3
+      css: css2
     });
   } catch (error) {
     console.error({ error });
@@ -31563,7 +31183,7 @@ async function runner({ code, counter, codeSpace: codeSpace2 }) {
 __name(runner, "runner");
 
 // js/Editor.tsx
-var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod4 = {
   getValue: async () => "",
   setValue: async (code) => {
@@ -31576,13 +31196,13 @@ var mod4 = {
   codeToSet: ""
 };
 var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
-  const ref = (0, import_react5.useRef)(null);
+  const ref = (0, import_react3.useRef)(null);
   const { i, code } = mST();
   const engine = isMobile() ? "ace" : "monaco";
   const [
     mySession,
     changeContent
-  ] = (0, import_react5.useState)({
+  ] = (0, import_react3.useState)({
     myCode: code,
     counter: i,
     started: false,
@@ -31596,7 +31216,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
     onChange
   } = mySession;
   mod4.code = myCode;
-  (0, import_react5.useEffect)(() => {
+  (0, import_react3.useEffect)(() => {
     if (started)
       return;
     if (!ref?.current || started) {
@@ -31609,7 +31229,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
       () => changeContent((x) => ({ ...x, started: true }))
     );
   }, [started, ref.current]);
-  (0, import_react5.useEffect)(
+  (0, import_react3.useEffect)(
     () => {
       mod4.getErrors().then(console.log);
       onChange(
@@ -31640,10 +31260,10 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
       myCode: code2
     }));
   }, "editor");
-  const EditorNode = /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", {
+  const EditorNode = /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", {
     "data-test-id": "editor",
     ref,
-    css: import_react4.css`
+    css: import_react2.css`
     ${engine === "ace" ? `` : `border-right: 4px dashed gray;
     border-bottom: 4px dashed gray;`}
 
@@ -31659,7 +31279,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
   });
   if (engine === "ace")
     return EditorNode;
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Rnd, {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Rnd, {
     enableResizing: true,
     disableDragging: true,
     minWidth: 640,
@@ -31724,7 +31344,5 @@ async function setAce(container, codeSpace2) {
 __name(setAce, "setAce");
 
 export {
-  wait,
-  AutoUpdateApp,
   Editor
 };

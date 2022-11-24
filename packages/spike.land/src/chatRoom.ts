@@ -342,32 +342,14 @@ export class Code {
         case "hydrated":
         case "dehydrated":
         case "public": {
-          const respText = HTML.replaceAll(
-            "/live/coder/",
-            `/live/${this.codeSpace}/`,
-          ).replace(
-            `/* #root{} */`,
+          const respText = HTML.replace(
+            `<root/>`,
             `
-        #root{
-          height: 100%; 
-        }
-        ${mST().css}
-        `,
-          ).replace(
-            `<script type="importmap"></script>`,
-            `<script type="importmap">
-            ${getImportMapStr(url.origin)}
-            </script>`,
-          )
-            .replace(
-              `<div id="root"></div>`,
-              `<div data-i="${mST().i}" id="root">
-                    <div id="root-${this.codeSpace}" style="height: 100%">
+                    <style>${mST().css}</style>
+                    <div id="root-${this.codeSpace}" data-i="${mST().i}" style="height: 100%">
                       ${mST().html}
-                    </div>
-              </div>
-         `,
-            ).split(hashCode()).join("css");
+                    </div>`,
+          ).split(hashCode()).join("css");
 
           // const Etag = request.headers.get("Etag");
           // const newEtag = await sha256(respText);

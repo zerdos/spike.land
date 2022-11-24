@@ -252,6 +252,7 @@ const build = (
       // "js/motion.ts",
       "js/ws.ts",
 
+      "js/starter.tsx",
       "js/reactMod.ts",
       // "js/Editor.tsx",
       "js/motion.ts",
