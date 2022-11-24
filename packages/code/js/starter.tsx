@@ -181,7 +181,7 @@ export async function appFactory(
     try {
       eCaches[hash] = eCaches[hash] || createCache({
         key: hash,
-        container: st,
+        container: document.body,
         speedy: true,
       });
 
