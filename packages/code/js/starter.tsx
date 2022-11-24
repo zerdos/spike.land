@@ -174,16 +174,14 @@ export async function appFactory(
   const hash = md5(trp);
 
   const st = document.createElement("div");
-  const child = document.createElement("div");
 
-  document.getElementById(`root-${codeSpace}`)?.insertBefore(st, child);
+  document.body.insertBefore(document.getElementById(`root-${codeSpace}`)!, st);
 
   if (!apps[hash] || !eCaches[hash]) {
     try {
       eCaches[hash] = eCaches[hash] || createCache({
         key: hash,
-        container: child,
-        insertionPoint: st,
+        container: st,
         speedy: true,
       });
 

@@ -305,14 +305,12 @@ async function appFactory(transpiled = "", codeSpace) {
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);
   const st = document.createElement("div");
-  const child = document.createElement("div");
-  document.getElementById(`root-${codeSpace}`)?.insertBefore(st, child);
+  document.body.insertBefore(document.getElementById(`root-${codeSpace}`), st);
   if (!apps[hash] || !eCaches[hash]) {
     try {
       eCaches[hash] = eCaches[hash] || emotionCache_default({
         key: hash,
-        container: child,
-        insertionPoint: st,
+        container: st,
         speedy: true
       });
       eCaches[hash].compat = void 0;
