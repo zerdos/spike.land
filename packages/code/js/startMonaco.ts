@@ -107,7 +107,7 @@ const monacoContribution = async (
     moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
     moduleSpecifierCompletion: 2,
     declaration: true,
-    module: languages.typescript.ModuleKind.CommonJS,
+    module: languages.typescript.ModuleKind.ESNext,
     noEmitOnError: true,
     sourceMap: true,
     mapRoot: originToUse + "/src/sourcemaps",
