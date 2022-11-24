@@ -167,7 +167,7 @@ export const toUmd = async (source: string, name: string) => {
         // sourcefile: name,
 
         ignoreAnnotations: true,
-        target: "es2021",
+        target: "es2022",
         // tsconfigRaw: {
         //   compilerOptions: {
         //     jsx: "react-jsx",
@@ -188,9 +188,21 @@ export const toUmd = async (source: string, name: string) => {
         keepNames: true,
         treeShaking: true,
         // sourcefile: name,
+        define: {
+          "globalThis.workerDom": JSON.stringify(true),
+          "process.env.NODE_ENV": `"production"`,
+          "process.env.NODE_DEBUG": JSON.stringify(false),
+          "process.browser": JSON.stringify(true),
+          "process.env.DEBUG": JSON.stringify(false),
+          "isBrowser": JSON.stringify(true),
+          "isJest": JSON.stringify(false),
+          "process.env.version": "\"1.1.1\"",
+          global: "globalThis",
+          "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
+        },
 
         ignoreAnnotations: true,
-        target: "es2021",
+        target: "es2022",
         tsconfigRaw: {
           compilerOptions: {
             jsx: "react-jsx",

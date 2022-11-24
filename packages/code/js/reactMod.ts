@@ -1,4 +1,4 @@
-const React = require("react");
+import React from "react";
 
 export const {
   Children,
@@ -38,11 +38,18 @@ export const {
 
 const originalUseState = React.useState;
 
-export const useState = (startState: unknown) => {
-  const [state, setState] = originalUseState(startState);
-  const delayedSetState = (updates: unknown) => queueMicrotask(() => setState(updates));
-  return [state, delayedSetState];
+export const useState: typeof originalUseState = (startState) => {
+  if ((globalThis as unknown as { workerDom: boolean }).workerDom) {
+    const [state, setState] = originalUseState(startState);
+    const delayedSetState: React.Dispatch<React.SetStateAction<typeof startState>> = (updates) =>
+      queueMicrotask(() =>
+        (typeof updates === typeof startState) ? setState((s) => ({ ...s, updates })) : setState(updates => (updates))
+      );
+    return [state, delayedSetState];
+  }
+  return originalUseState(startState);
 };
+
 React.useState = useState;
 
 export default React;

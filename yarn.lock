@@ -979,7 +979,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.11"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:7.6.10"
+    framer-motion: "npm:7.6.12"
     immutable: "npm:^4.1.0"
     is-callable: "npm:1.2.7"
     localforage: "npm:^1.10.0"
@@ -3478,9 +3478,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.6.10":
-  version: 7.6.10
-  resolution: "framer-motion@npm:7.6.10"
+"framer-motion@npm:7.6.12":
+  version: 7.6.12
+  resolution: "framer-motion@npm:7.6.12"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
@@ -3495,7 +3495,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: fe55839b3cbda25eb427f1a10a9437c3ea394b67840e8e49fc03a4aebf94c95a20301f223cd451074d14f3d3b91180d4729dab11fa110827bd1ad69c1717fb55
+  checksum: 84e934a0a91b4cab04a7bb4bb6165cc3e3e446d48640c7030385fcbc337c995d731be56f5a143f2201deaf33f66e6e263c0b5e94aeba8b648f0f709b67df4f88
   languageName: node
   linkType: hard
 
@@ -4778,7 +4778,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.9"
     esbuild: "npm:0.15.15"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:7.6.10"
+    framer-motion: "npm:7.6.12"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.1.2"

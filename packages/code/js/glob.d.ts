@@ -10,6 +10,7 @@ declare global {
   const eCaches: { [key: string]: EmotionCache };
   const emotionReact: typeof ear;
 
+  const workerDom: boolean;
   export namespace ReactJSXRuntime {
     export const jsx: typeof EmotionReact.jsx;
   }

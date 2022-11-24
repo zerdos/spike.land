@@ -29,13 +29,21 @@ addEventListener("fetch", async (_event) => {
   const event = _event as unknown as FetchEvent;
 
   return event.respondWith((async () => {
+    const reqUrl = event.request.url;
     if (
       !event.request.url.includes(location.origin)
       || event.request.url.includes("/live/")
     ) {
-      return fetch(event.request);
-    }
+      // let response;
+      try {
+        let response = await fetch(event.request);
 
+        return response;
+      } catch {
+        console.error("fetch error", reqUrl);
+        // console.log())
+      }
+    }
     const cacheKey = new Request(
       event.request.url,
     );
