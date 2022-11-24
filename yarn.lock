@@ -884,15 +884,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.28.0":
-  version: 1.28.0
-  resolution: "@playwright/test@npm:1.28.0"
+"@playwright/test@npm:1.28.1":
+  version: 1.28.1
+  resolution: "@playwright/test@npm:1.28.1"
   dependencies:
     "@types/node": "npm:*"
-    playwright-core: "npm:1.28.0"
+    playwright-core: "npm:1.28.1"
   bin:
     playwright: cli.js
-  checksum: 4b5f83451b9ff233de74f0141e221b4949fe71d44fb56df5329057e5e38968197dab64c9e2433f932943808836f7cffd01a629deb71c0ef598d80d41ade99237
+  checksum: f84a92783a629cb724a781c60058b96c0354c56471e601cdd8815b7e216ea4fccc630dd063ab530259574cfbf6c265b6113a64c9a1d2dea34a560cf0b3f4db95
   languageName: node
   linkType: hard
 
@@ -979,7 +979,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.11"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:7.6.9"
+    framer-motion: "npm:7.6.10"
     immutable: "npm:^4.1.0"
     is-callable: "npm:1.2.7"
     localforage: "npm:^1.10.0"
@@ -3478,9 +3478,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.6.9":
-  version: 7.6.9
-  resolution: "framer-motion@npm:7.6.9"
+"framer-motion@npm:7.6.10":
+  version: 7.6.10
+  resolution: "framer-motion@npm:7.6.10"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
@@ -3495,7 +3495,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 8b34bf6267f402f61cc554841d071eba9ce43976120ae36460a520705f68542dcd29e3dabad2b1a4db4c2863dfb4b53b5ff2c944df8533698feed59fe5dea164
+  checksum: fe55839b3cbda25eb427f1a10a9437c3ea394b67840e8e49fc03a4aebf94c95a20301f223cd451074d14f3d3b91180d4729dab11fa110827bd1ad69c1717fb55
   languageName: node
   linkType: hard
 
@@ -4686,7 +4686,7 @@ __metadata:
   resolution: "monorepo@workspace:."
   dependencies:
     "@emotion/react": "npm:^11.10.5"
-    "@playwright/test": "npm:1.28.0"
+    "@playwright/test": "npm:1.28.1"
     "@types/eslint": "npm:^8.4.10"
     "@types/react": "npm:18.0.25"
     "@types/react-dom": "npm:18.0.9"
@@ -4697,7 +4697,7 @@ __metadata:
     esbuild: "npm:^0.15.15"
     eslint: "npm:^8.28.0"
     eslint-plugin-react: "npm:^7.31.11"
-    playwright: "npm:1.28.0"
+    playwright: "npm:1.28.1"
     react: "npm:^18.2.0"
     typescript: "npm:^4.9.3"
   languageName: unknown
@@ -4778,7 +4778,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.9"
     esbuild: "npm:0.15.15"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:7.6.9"
+    framer-motion: "npm:7.6.10"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.1.2"
@@ -5168,23 +5168,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.28.0":
-  version: 1.28.0
-  resolution: "playwright-core@npm:1.28.0"
+"playwright-core@npm:1.28.1":
+  version: 1.28.1
+  resolution: "playwright-core@npm:1.28.1"
   bin:
     playwright: cli.js
-  checksum: df9bb4b18d25556952ea4ae5696da03c12c1793aa87d5565c888088fad07d9e092577dc8de2b8130203c7a366f237decb0f6baecaacfd08599262baeceb7749b
+  checksum: 0137714ab5e1452b01b5b080648b26964372b8bf77fabb0c97efef42e4b2ddfe0598f150db57558dc8791e5340ab48eb9ce329f3ce7e2d71bdd80263aa57d8af
   languageName: node
   linkType: hard
 
-"playwright@npm:1.28.0":
-  version: 1.28.0
-  resolution: "playwright@npm:1.28.0"
+"playwright@npm:1.28.1":
+  version: 1.28.1
+  resolution: "playwright@npm:1.28.1"
   dependencies:
-    playwright-core: "npm:1.28.0"
+    playwright-core: "npm:1.28.1"
   bin:
     playwright: cli.js
-  checksum: d79fdd8831360e52fadf716ada17fc81a535e804163beeae3f1c86488b814078073bb7c34249fda52756a6ce495e2d5665a3c7176afa17a31b4c1b4e4eca798e
+  checksum: 6fb66fe0decf95725ac9ed40ce2ce7ac5f8e5f9f6654379d3fa2d0255b1c5b2fcb3b4f5f9f480779d221b11b05b327a3e91e8bb8f50d32d682acb717f8113c2b
   languageName: node
   linkType: hard
 

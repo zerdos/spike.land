@@ -13,7 +13,7 @@ import "./chunk-chunk-DKLIUXI6.mjs";
 import "./chunk-chunk-TKBKOKNA.mjs";
 import {
   motion
-} from "./chunk-chunk-EM3X6DMP.mjs";
+} from "./chunk-chunk-7TKAYA7D.mjs";
 import {
   require_react
 } from "./chunk-chunk-IGJHLPB6.mjs";

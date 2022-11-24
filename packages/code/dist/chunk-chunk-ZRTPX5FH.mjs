@@ -31223,7 +31223,7 @@ var mod2 = {
   res: null,
   codeSpace: "",
   waitForDiv: async (md5Hash) => {
-    var _a, _b, _c;
+    var _a, _b, _c, _d, _e;
     if (mod2.md5Hash !== md5Hash)
       return "";
     if (!((_a = mod2.res) == null ? void 0 : _a.innerHTML))
@@ -31234,7 +31234,7 @@ var mod2 = {
       await waitForAnimation();
     }
     const html = (_c = mod2.res) == null ? void 0 : _c.innerHTML;
-    if (html == null ? void 0 : html.includes(md5Hash))
+    if ((html == null ? void 0 : html.includes(md5Hash)) && ((_e = (_d = mod2.res) == null ? void 0 : _d.firstElementChild) == null ? void 0 : _e.innerHTML) !== "")
       return html;
     mod2.wait = mod2.wait * 2;
     return await mod2.waitForDiv(md5Hash);
@@ -31684,7 +31684,7 @@ async function setMonaco(container, codeSpace2) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-WRPALE2M.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-6RUH4CSA.mjs");
   return await startMonaco({
     container,
     codeSpace: codeSpace2,

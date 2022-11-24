@@ -68,6 +68,7 @@
 
 
 window.esmsInitOptions = {
+      polyfillEnable: ['css-modules', 'json-modules'],
       shimMode: true,
       resolve: function (id, parentUrl, defaultResolve) {
       let resolved;
@@ -129,7 +130,7 @@ window.addEventListener('pageshow', (event) => {
 
 <div id="zWorker"></div>
 <div id="root"></div>
-  
+<script defer src="/node_modules/construct-style-sheets-polyfill/dist/adoptedStyleSheets.js"></script>
 <script defer src="/react-jsx-runtime.mjs"></script>
 <script type="module">
 setTimeout(() => navigator && navigator.serviceWorker &&  navigator.serviceWorker.register("/sw.js", {

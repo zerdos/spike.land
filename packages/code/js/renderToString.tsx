@@ -25,7 +25,7 @@ const mod = {
 
     const html = mod.res?.innerHTML;
 
-    if (html?.includes(md5Hash)) return html;
+    if (html?.includes(md5Hash) && mod.res?.firstElementChild?.innerHTML !== "") return html;
 
     mod.wait = mod.wait * 2;
     return await (mod.waitForDiv as unknown as (

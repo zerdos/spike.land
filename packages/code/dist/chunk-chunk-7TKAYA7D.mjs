@@ -969,15 +969,15 @@ var require_tslib2 = __commonJS({
   }
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/motion.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
 init_define_process();
 var React = __toESM(require_react(), 1);
 var import_react13 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/MotionConfigContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/MotionConfigContext.mjs
 init_define_process();
 var import_react = __toESM(require_react(), 1);
 var MotionConfigContext = (0, import_react.createContext)({
@@ -986,7 +986,7 @@ var MotionConfigContext = (0, import_react.createContext)({
   reducedMotion: "never"
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/index.mjs
 init_define_process();
 var import_react2 = __toESM(require_react(), 1);
 var MotionContext = (0, import_react2.createContext)({});
@@ -995,32 +995,32 @@ function useVisualElementContext() {
 }
 __name(useVisualElementContext, "useVisualElementContext");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
 init_define_process();
 var import_react6 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/PresenceContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/PresenceContext.mjs
 init_define_process();
 var import_react3 = __toESM(require_react(), 1);
 var PresenceContext = (0, import_react3.createContext)(null);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.mjs
 init_define_process();
 var import_react4 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/is-browser.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/is-browser.mjs
 init_define_process();
 var isBrowser = typeof document !== "undefined";
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.mjs
 var useIsomorphicLayoutEffect = isBrowser ? import_react4.useLayoutEffect : import_react4.useEffect;
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/LazyContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/LazyContext.mjs
 init_define_process();
 var import_react5 = __toESM(require_react(), 1);
 var LazyContext = (0, import_react5.createContext)({ strict: false });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
 function useVisualElement(Component2, visualState, props, createVisualElement) {
   const parent = useVisualElementContext();
   const lazyContext = (0, import_react6.useContext)(LazyContext);
@@ -1052,18 +1052,18 @@ function useVisualElement(Component2, visualState, props, createVisualElement) {
 }
 __name(useVisualElement, "useVisualElement");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
 init_define_process();
 var import_react7 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/is-ref-object.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/is-ref-object.mjs
 init_define_process();
 function isRefObject(ref) {
   return typeof ref === "object" && Object.prototype.hasOwnProperty.call(ref, "current");
 }
 __name(isRefObject, "isRefObject");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
 function useMotionRef(visualState, visualElement, externalRef) {
   return (0, import_react7.useCallback)(
     (instance) => {
@@ -1084,31 +1084,31 @@ function useMotionRef(visualState, visualElement, externalRef) {
 }
 __name(useMotionRef, "useMotionRef");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
 init_define_process();
 var import_react8 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/is-variant-label.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/is-variant-label.mjs
 init_define_process();
 function isVariantLabel(v) {
   return typeof v === "string" || Array.isArray(v);
 }
 __name(isVariantLabel, "isVariantLabel");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/is-controlling-variants.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/is-controlling-variants.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.mjs
 init_define_process();
 function isAnimationControls(v) {
   return typeof v === "object" && typeof v.start === "function";
 }
 __name(isAnimationControls, "isAnimationControls");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/is-controlling-variants.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/is-controlling-variants.mjs
 var variantProps = [
   "initial",
   "animate",
@@ -1128,7 +1128,7 @@ function isVariantNode(props) {
 }
 __name(isVariantNode, "isVariantNode");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
 function getCurrentTreeVariants(props, context) {
   if (isControllingVariants(props)) {
     const { initial, animate: animate3 } = props;
@@ -1141,7 +1141,7 @@ function getCurrentTreeVariants(props, context) {
 }
 __name(getCurrentTreeVariants, "getCurrentTreeVariants");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
 function useCreateMotionContext(props) {
   const { initial, animate: animate3 } = getCurrentTreeVariants(props, (0, import_react8.useContext)(MotionContext));
   return (0, import_react8.useMemo)(() => ({ initial, animate: animate3 }), [variantLabelsAsDependency(initial), variantLabelsAsDependency(animate3)]);
@@ -1152,7 +1152,7 @@ function variantLabelsAsDependency(prop) {
 }
 __name(variantLabelsAsDependency, "variantLabelsAsDependency");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/definitions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/definitions.mjs
 init_define_process();
 var createDefinition = /* @__PURE__ */ __name((propNames) => ({
   isEnabled: (props) => propNames.some((name) => !!props[name])
@@ -1187,7 +1187,7 @@ var featureDefinitions = {
   ])
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/load-features.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/load-features.mjs
 init_define_process();
 function loadFeatures(features) {
   for (const key in features) {
@@ -1200,10 +1200,10 @@ function loadFeatures(features) {
 }
 __name(loadFeatures, "loadFeatures");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/node/id.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/node/id.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-constant.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-constant.mjs
 init_define_process();
 var import_react9 = __toESM(require_react(), 1);
 function useConstant(init) {
@@ -1215,14 +1215,14 @@ function useConstant(init) {
 }
 __name(useConstant, "useConstant");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/node/state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/node/state.mjs
 init_define_process();
 var globalProjectionState = {
   hasAnimatedSinceResize: true,
   hasEverUpdated: false
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/node/id.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/node/id.mjs
 var id = 1;
 function useProjectionId() {
   return useConstant(() => {
@@ -1233,12 +1233,12 @@ function useProjectionId() {
 }
 __name(useProjectionId, "useProjectionId");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs
 init_define_process();
 var import_react10 = __toESM(require_react(), 1);
 var LayoutGroupContext = (0, import_react10.createContext)({});
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.mjs
 init_define_process();
 var import_react11 = __toESM(require_react(), 1);
 var VisualElementHandler = class extends import_react11.default.Component {
@@ -1256,16 +1256,16 @@ var VisualElementHandler = class extends import_react11.default.Component {
 };
 __name(VisualElementHandler, "VisualElementHandler");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/SwitchLayoutGroupContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/SwitchLayoutGroupContext.mjs
 init_define_process();
 var import_react12 = __toESM(require_react(), 1);
 var SwitchLayoutGroupContext = (0, import_react12.createContext)({});
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/symbol.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/symbol.mjs
 init_define_process();
 var motionComponentSymbol = Symbol.for("motionComponentSymbol");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
 function createMotionComponent({ preloadedFeatures, createVisualElement, projectionNodeConstructor, useRender, useVisualState: useVisualState2, Component: Component2 }) {
   preloadedFeatures && loadFeatures(preloadedFeatures);
   function MotionComponent(props, externalRef) {
@@ -1311,7 +1311,7 @@ function useLayoutId({ layoutId }) {
 }
 __name(useLayoutId, "useLayoutId");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-proxy.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-proxy.mjs
 init_define_process();
 function createMotionProxy(createConfig) {
   function custom(Component2, customMotionComponentConfig = {}) {
@@ -1333,13 +1333,13 @@ function createMotionProxy(createConfig) {
 }
 __name(createMotionProxy, "createMotionProxy");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/lowercase-elements.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/lowercase-elements.mjs
 init_define_process();
 var lowercaseSVGElements = [
   "animate",
@@ -1369,7 +1369,7 @@ var lowercaseSVGElements = [
   "view"
 ];
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.mjs
 function isSVGComponent(Component2) {
   if (typeof Component2 !== "string" || Component2.includes("-")) {
     return false;
@@ -1380,18 +1380,18 @@ function isSVGComponent(Component2) {
 }
 __name(isSVGComponent, "isSVGComponent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
 init_define_process();
 var import_react16 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
 init_define_process();
 var import_react14 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-correction.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-correction.mjs
 init_define_process();
 var scaleCorrectors = {};
 function addScaleCorrector(correctors) {
@@ -1399,7 +1399,7 @@ function addScaleCorrector(correctors) {
 }
 __name(addScaleCorrector, "addScaleCorrector");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/utils/transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/utils/transform.mjs
 init_define_process();
 var transformPropOrder = [
   "transformPerspective",
@@ -1422,20 +1422,20 @@ var transformPropOrder = [
 ];
 var transformProps = new Set(transformPropOrder);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.mjs
 function isForcedMotionValue(key, { layout, layoutId }) {
   return transformProps.has(key) || key.startsWith("origin") || (layout || layoutId !== void 0) && (!!scaleCorrectors[key] || key === "opacity");
 }
 __name(isForcedMotionValue, "isForcedMotionValue");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/utils/is-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/utils/is-motion-value.mjs
 init_define_process();
 var isMotionValue = /* @__PURE__ */ __name((value) => !!(value === null || value === void 0 ? void 0 : value.getVelocity), "isMotionValue");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-styles.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-styles.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-transform.mjs
 init_define_process();
 var translateAlias = {
   x: "translateX",
@@ -1463,20 +1463,20 @@ function buildTransform({ transform: transform2, transformKeys: transformKeys2 }
 }
 __name(buildTransform, "buildTransform");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.mjs
 init_define_process();
 function isCSSVariable(key) {
   return key.startsWith("--");
 }
 __name(isCSSVariable, "isCSSVariable");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/get-as-type.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/get-as-type.mjs
 init_define_process();
 var getValueAsType = /* @__PURE__ */ __name((value, type) => {
   return type && typeof value === "number" ? type.transform(value) : value;
 }, "getValueAsType");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
 init_define_process();
 
 // ../../.yarn/global/cache/style-value-types-npm-5.1.2-f9d7bb50ee-9.zip/node_modules/style-value-types/dist/es/index.mjs
@@ -1689,13 +1689,13 @@ var filter = Object.assign(Object.assign({}, complex), { getAnimatableNone: (v) 
   return functions ? functions.map(applyDefaultFilter).join(" ") : v;
 } });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/type-int.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/type-int.mjs
 init_define_process();
 var int = __spreadProps(__spreadValues({}, number), {
   transform: Math.round
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
 var numberValueTypes = {
   borderWidth: px,
   borderTopWidth: px,
@@ -1757,7 +1757,7 @@ var numberValueTypes = {
   numOctaves: int
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-styles.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-styles.mjs
 function buildHTMLStyles(state, latestValues, options, transformTemplate) {
   const { style, vars, transform: transform2, transformKeys: transformKeys2, transformOrigin } = state;
   transformKeys2.length = 0;
@@ -1801,7 +1801,7 @@ function buildHTMLStyles(state, latestValues, options, transformTemplate) {
 }
 __name(buildHTMLStyles, "buildHTMLStyles");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/utils/create-render-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/utils/create-render-state.mjs
 init_define_process();
 var createHtmlRenderState = /* @__PURE__ */ __name(() => ({
   style: {},
@@ -1811,7 +1811,7 @@ var createHtmlRenderState = /* @__PURE__ */ __name(() => ({
   vars: {}
 }), "createHtmlRenderState");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
 function copyRawValuesOnly(target, source, props) {
   for (const key in source) {
     if (!isMotionValue(source[key]) && !isForcedMotionValue(key, props)) {
@@ -1849,10 +1849,10 @@ function useHTMLProps(props, visualState, isStatic) {
 }
 __name(useHTMLProps, "useHTMLProps");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/filter-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/filter-props.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/valid-prop.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/valid-prop.mjs
 init_define_process();
 var animationProps = [
   "animate",
@@ -1923,7 +1923,7 @@ function isValidMotionProp(key) {
 }
 __name(isValidMotionProp, "isValidMotionProp");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/filter-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/filter-props.mjs
 var shouldForward = /* @__PURE__ */ __name((key) => !isValidMotionProp(key), "shouldForward");
 function loadExternalIsValidProp(isValidProp) {
   if (!isValidProp)
@@ -1946,14 +1946,14 @@ function filterProps(props, isDom, forwardMotionProps) {
 }
 __name(filterProps, "filterProps");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
 init_define_process();
 var import_react15 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.mjs
 init_define_process();
 function calcOrigin(origin, offset, size) {
   return typeof origin === "string" ? origin : px.transform(offset + size * origin);
@@ -1966,7 +1966,7 @@ function calcSVGTransformOrigin(dimensions, originX, originY) {
 }
 __name(calcSVGTransformOrigin, "calcSVGTransformOrigin");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/path.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/path.mjs
 init_define_process();
 var dashKeys = {
   offset: "stroke-dashoffset",
@@ -1986,7 +1986,7 @@ function buildSVGPath(attrs, length, spacing = 1, offset = 0, useDashCase = true
 }
 __name(buildSVGPath, "buildSVGPath");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
 function buildSVGAttrs(state, _a, options, transformTemplate) {
   var _b = _a, {
     attrX,
@@ -2027,13 +2027,13 @@ function buildSVGAttrs(state, _a, options, transformTemplate) {
 }
 __name(buildSVGAttrs, "buildSVGAttrs");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.mjs
 init_define_process();
 var createSvgRenderState = /* @__PURE__ */ __name(() => __spreadProps(__spreadValues({}, createHtmlRenderState()), {
   attrs: {}
 }), "createSvgRenderState");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
 function useSVGProps(props, visualState) {
   const visualProps = (0, import_react15.useMemo)(() => {
     const state = createSvgRenderState();
@@ -2051,7 +2051,7 @@ function useSVGProps(props, visualState) {
 }
 __name(useSVGProps, "useSVGProps");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
 function createUseRender(forwardMotionProps = false) {
   const useRender = /* @__PURE__ */ __name((Component2, props, projectionId, ref, { latestValues }, isStatic) => {
     const useVisualProps = isSVGComponent(Component2) ? useSVGProps : useHTMLProps;
@@ -2069,17 +2069,17 @@ function createUseRender(forwardMotionProps = false) {
 }
 __name(createUseRender, "createUseRender");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/config-motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/config-motion.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/render.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.mjs
 init_define_process();
 var camelToDash = /* @__PURE__ */ __name((str) => str.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase(), "camelToDash");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/utils/render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/utils/render.mjs
 init_define_process();
 function renderHTML(element, { style, vars }, styleProp, projection) {
   Object.assign(element.style, style, projection && projection.getProjectionStyles(styleProp));
@@ -2089,7 +2089,7 @@ function renderHTML(element, { style, vars }, styleProp, projection) {
 }
 __name(renderHTML, "renderHTML");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.mjs
 init_define_process();
 var camelCaseAttributes = /* @__PURE__ */ new Set([
   "baseFrequency",
@@ -2114,7 +2114,7 @@ var camelCaseAttributes = /* @__PURE__ */ new Set([
   "pathLength"
 ]);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/render.mjs
 function renderSVG(element, renderState, _styleProp, projection) {
   renderHTML(element, renderState, void 0, projection);
   for (const key in renderState.attrs) {
@@ -2123,10 +2123,10 @@ function renderSVG(element, renderState, _styleProp, projection) {
 }
 __name(renderSVG, "renderSVG");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.mjs
 init_define_process();
 function scrapeMotionValuesFromProps(props) {
   const { style } = props;
@@ -2140,7 +2140,7 @@ function scrapeMotionValuesFromProps(props) {
 }
 __name(scrapeMotionValuesFromProps, "scrapeMotionValuesFromProps");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.mjs
 function scrapeMotionValuesFromProps2(props) {
   const newValues = scrapeMotionValuesFromProps(props);
   for (const key in props) {
@@ -2153,11 +2153,11 @@ function scrapeMotionValuesFromProps2(props) {
 }
 __name(scrapeMotionValuesFromProps2, "scrapeMotionValuesFromProps");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
 init_define_process();
 var import_react17 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/resolve-variants.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/resolve-variants.mjs
 init_define_process();
 function resolveVariantFromProps(props, definition, custom, currentValues = {}, currentVelocity = {}) {
   if (typeof definition === "function") {
@@ -2173,19 +2173,19 @@ function resolveVariantFromProps(props, definition, custom, currentValues = {}, 
 }
 __name(resolveVariantFromProps, "resolveVariantFromProps");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/resolve-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/resolve-value.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.mjs
 init_define_process();
 var isKeyframesTarget = /* @__PURE__ */ __name((v) => {
   return Array.isArray(v);
 }, "isKeyframesTarget");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/resolve-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/resolve-value.mjs
 var isCustomValue = /* @__PURE__ */ __name((v) => {
   return Boolean(v && typeof v === "object" && v.mix && v.toValue);
 }, "isCustomValue");
@@ -2193,14 +2193,14 @@ var resolveFinalValueInKeyframes = /* @__PURE__ */ __name((v) => {
   return isKeyframesTarget(v) ? v[v.length - 1] || 0 : v;
 }, "resolveFinalValueInKeyframes");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.mjs
 function resolveMotionValue(value) {
   const unwrappedValue = isMotionValue(value) ? value.get() : value;
   return isCustomValue(unwrappedValue) ? unwrappedValue.toValue() : unwrappedValue;
 }
 __name(resolveMotionValue, "resolveMotionValue");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
 function makeState({ scrapeMotionValuesFromProps: scrapeMotionValuesFromProps3, createRenderState, onMount }, props, context, presenceContext) {
   const state = {
     latestValues: makeLatestValues(props, context, presenceContext, scrapeMotionValuesFromProps3),
@@ -2261,7 +2261,7 @@ function makeLatestValues(props, context, presenceContext, scrapeMotionValues) {
 }
 __name(makeLatestValues, "makeLatestValues");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/config-motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/config-motion.mjs
 var svgMotionConfig = {
   useVisualState: makeUseVisualState({
     scrapeMotionValuesFromProps: scrapeMotionValuesFromProps2,
@@ -2283,7 +2283,7 @@ var svgMotionConfig = {
   })
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/config-motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/config-motion.mjs
 init_define_process();
 var htmlMotionConfig = {
   useVisualState: makeUseVisualState({
@@ -2292,7 +2292,7 @@ var htmlMotionConfig = {
   })
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
 function createDomMotionConfig(Component2, { forwardMotionProps = false }, preloadedFeatures, createVisualElement, projectionNodeConstructor) {
   const baseConfig = isSVGComponent(Component2) ? svgMotionConfig : htmlMotionConfig;
   return __spreadProps(__spreadValues({}, baseConfig), {
@@ -2305,13 +2305,13 @@ function createDomMotionConfig(Component2, { forwardMotionProps = false }, prelo
 }
 __name(createDomMotionConfig, "createDomMotionConfig");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/gestures.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/gestures.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/use-focus-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/use-focus-gesture.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/types.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/types.mjs
 init_define_process();
 var AnimationType;
 (function(AnimationType2) {
@@ -2324,7 +2324,7 @@ var AnimationType;
   AnimationType2["Exit"] = "exit";
 })(AnimationType || (AnimationType = {}));
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/events/use-dom-event.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/events/use-dom-event.mjs
 init_define_process();
 var import_react18 = __toESM(require_react(), 1);
 function addDomEvent(target, eventName, handler, options = { passive: true }) {
@@ -2342,7 +2342,7 @@ function useDomEvent(ref, eventName, handler, options) {
 }
 __name(useDomEvent, "useDomEvent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/use-focus-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/use-focus-gesture.mjs
 function useFocusGesture({ whileFocus, visualElement }) {
   const { animationState } = visualElement;
   const onFocus = /* @__PURE__ */ __name(() => {
@@ -2356,10 +2356,10 @@ function useFocusGesture({ whileFocus, visualElement }) {
 }
 __name(useFocusGesture, "useFocusGesture");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/use-hover-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/use-hover-gesture.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/utils/event-type.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/utils/event-type.mjs
 init_define_process();
 function isMouseEvent(event) {
   if (typeof PointerEvent !== "undefined" && event instanceof PointerEvent) {
@@ -2374,10 +2374,10 @@ function isTouchEvent(event) {
 }
 __name(isTouchEvent, "isTouchEvent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/events/use-pointer-event.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/events/use-pointer-event.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/events/event-info.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/events/event-info.mjs
 init_define_process();
 function filterPrimaryPointer(eventHandler) {
   return (event) => {
@@ -2417,13 +2417,13 @@ var wrapHandler = /* @__PURE__ */ __name((handler, shouldFilterPrimaryPointer = 
   return shouldFilterPrimaryPointer ? filterPrimaryPointer(listener) : listener;
 }, "wrapHandler");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/events/utils.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/events/utils.mjs
 init_define_process();
 var supportsPointerEvents = /* @__PURE__ */ __name(() => isBrowser && window.onpointerdown === null, "supportsPointerEvents");
 var supportsTouchEvents = /* @__PURE__ */ __name(() => isBrowser && window.ontouchstart === null, "supportsTouchEvents");
 var supportsMouseEvents = /* @__PURE__ */ __name(() => isBrowser && window.onmousedown === null, "supportsMouseEvents");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/events/use-pointer-event.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/events/use-pointer-event.mjs
 var mouseEventNames = {
   pointerdown: "mousedown",
   pointermove: "mousemove",
@@ -2460,7 +2460,7 @@ function usePointerEvent(ref, eventName, handler, options) {
 }
 __name(usePointerEvent, "usePointerEvent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/lock.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/lock.mjs
 init_define_process();
 function createLock(name) {
   let lock = null;
@@ -2511,7 +2511,7 @@ function isDragActive() {
 }
 __name(isDragActive, "isDragActive");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/use-hover-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/use-hover-gesture.mjs
 function createHoverEvent(visualElement, isActive, callback) {
   return (event, info) => {
     if (!isMouseEvent(event) || isDragActive())
@@ -2529,11 +2529,11 @@ function useHoverGesture({ onHoverStart, onHoverEnd, whileHover, visualElement }
 }
 __name(useHoverGesture, "useHoverGesture");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
 init_define_process();
 var import_react20 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.mjs
 init_define_process();
 var isNodeOrChild = /* @__PURE__ */ __name((parent, child) => {
   if (!child) {
@@ -2545,7 +2545,7 @@ var isNodeOrChild = /* @__PURE__ */ __name((parent, child) => {
   }
 }, "isNodeOrChild");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-unmount-effect.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-unmount-effect.mjs
 init_define_process();
 var import_react19 = __toESM(require_react(), 1);
 function useUnmountEffect(callback) {
@@ -3566,7 +3566,7 @@ function cubicBezier(mX1, mY1, mX2, mY2) {
 }
 __name(cubicBezier, "cubicBezier");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
 function useTapGesture({ onTap, onTapStart, onTapCancel, whileTap, visualElement }) {
   const hasPressListeners = onTap || onTapStart || onTapCancel || whileTap;
   const isPressing = (0, import_react20.useRef)(false);
@@ -3613,18 +3613,18 @@ function useTapGesture({ onTap, onTapStart, onTapCancel, whileTap, visualElement
 }
 __name(useTapGesture, "useTapGesture");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/process.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/process.mjs
 init_define_process();
 var defaultEnvironment = "production";
 var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "development";
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 var import_react21 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/warn-once.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/warn-once.mjs
 init_define_process();
 var warned = /* @__PURE__ */ new Set();
 function warnOnce(condition, message, element) {
@@ -3637,7 +3637,7 @@ function warnOnce(condition, message, element) {
 }
 __name(warnOnce, "warnOnce");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/observers.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/observers.mjs
 init_define_process();
 var observerCallbacks = /* @__PURE__ */ new WeakMap();
 var observers = /* @__PURE__ */ new WeakMap();
@@ -3673,7 +3673,7 @@ function observeIntersection(element, options, callback) {
 }
 __name(observeIntersection, "observeIntersection");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 function useViewport({ visualElement, whileInView, onViewportEnter, onViewportLeave, viewport = {} }) {
   const state = (0, import_react21.useRef)({
     hasEnteredView: false,
@@ -3739,14 +3739,14 @@ function useMissingIntersectionObserver(shouldObserve, state, visualElement, { f
 }
 __name(useMissingIntersectionObserver, "useMissingIntersectionObserver");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.mjs
 init_define_process();
 var makeRenderlessComponent = /* @__PURE__ */ __name((hook) => (props) => {
   hook(props);
   return null;
 }, "makeRenderlessComponent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/gestures.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/gestures.mjs
 var gestureAnimations = {
   inView: makeRenderlessComponent(useViewport),
   tap: makeRenderlessComponent(useTapGesture),
@@ -3754,11 +3754,11 @@ var gestureAnimations = {
   hover: makeRenderlessComponent(useHoverGesture)
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
 init_define_process();
 var import_react23 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.mjs
 init_define_process();
 var import_react22 = __toESM(require_react(), 1);
 function usePresence() {
@@ -3781,10 +3781,10 @@ function isPresent(context) {
 }
 __name(isPresent, "isPresent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/shallow-compare.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/shallow-compare.mjs
 init_define_process();
 function shallowCompare(next, prev) {
   if (!Array.isArray(prev))
@@ -3800,17 +3800,17 @@ function shallowCompare(next, prev) {
 }
 __name(shallowCompare, "shallowCompare");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/animation.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/animation.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/time-conversion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/time-conversion.mjs
 init_define_process();
 var secondsToMilliseconds = /* @__PURE__ */ __name((seconds) => seconds * 1e3, "secondsToMilliseconds");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/utils/easing.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/utils/easing.mjs
 init_define_process();
 var easingLookup = {
   linear,
@@ -3843,7 +3843,7 @@ var isEasingArray = /* @__PURE__ */ __name((ease) => {
   return Array.isArray(ease) && typeof ease[0] !== "number";
 }, "isEasingArray");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-animatable.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-animatable.mjs
 init_define_process();
 var isAnimatable = /* @__PURE__ */ __name((key, value) => {
   if (key === "zIndex")
@@ -3856,7 +3856,7 @@ var isAnimatable = /* @__PURE__ */ __name((key, value) => {
   return false;
 }, "isAnimatable");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/utils/default-transitions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/utils/default-transitions.mjs
 init_define_process();
 var underDampedSpring = /* @__PURE__ */ __name(() => ({
   type: "spring",
@@ -3906,10 +3906,10 @@ var getDefaultTransition = /* @__PURE__ */ __name((valueKey, to) => {
   return __spreadValues({ to }, transitionFactory(to));
 }, "getDefaultTransition");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/defaults.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/defaults.mjs
 init_define_process();
 var defaultValueTypes = __spreadProps(__spreadValues({}, numberValueTypes), {
   color,
@@ -3927,7 +3927,7 @@ var defaultValueTypes = __spreadProps(__spreadValues({}, numberValueTypes), {
 });
 var getDefaultValueType = /* @__PURE__ */ __name((key) => defaultValueTypes[key], "getDefaultValueType");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.mjs
 function getAnimatableNone2(key, value) {
   var _a;
   let defaultValueType = getDefaultValueType(key);
@@ -3937,13 +3937,13 @@ function getAnimatableNone2(key, value) {
 }
 __name(getAnimatableNone2, "getAnimatableNone");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition-state.mjs
 init_define_process();
 var instantAnimationState = {
   current: false
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/delay.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/delay.mjs
 init_define_process();
 function delay(callback, timeout) {
   const start = performance.now();
@@ -3959,7 +3959,7 @@ function delay(callback, timeout) {
 }
 __name(delay, "delay");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
 function isTransitionDefined(_a) {
   var _b = _a, { when, delay: _delay, delayChildren, staggerChildren, staggerDirection, repeat, repeatType, repeatDelay, from } = _b, transition = __objRest(_b, ["when", "delay", "delayChildren", "staggerChildren", "staggerDirection", "repeat", "repeatType", "repeatDelay", "from"]);
   return !!Object.keys(transition).length;
@@ -4103,24 +4103,24 @@ function startAnimation(key, value, target, transition = {}) {
 }
 __name(startAnimation, "startAnimation");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/setters.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/setters.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/is-numerical-string.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/is-numerical-string.mjs
 init_define_process();
 var isNumericalString = /* @__PURE__ */ __name((v) => /^\-?\d*\.?\d+$/.test(v), "isNumericalString");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/is-zero-value-string.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/is-zero-value-string.mjs
 init_define_process();
 var isZeroValueString = /* @__PURE__ */ __name((v) => /^0[^.\s]+$/.test(v), "isZeroValueString");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/index.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/subscription-manager.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/subscription-manager.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/array.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/array.mjs
 init_define_process();
 function addUniqueItem(arr, item) {
   if (arr.indexOf(item) === -1)
@@ -4144,7 +4144,7 @@ function moveItem([...arr], fromIndex, toIndex) {
 }
 __name(moveItem, "moveItem");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/subscription-manager.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/subscription-manager.mjs
 var SubscriptionManager = class {
   constructor() {
     this.subscriptions = [];
@@ -4175,13 +4175,13 @@ var SubscriptionManager = class {
 };
 __name(SubscriptionManager, "SubscriptionManager");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/index.mjs
 var isFloat = /* @__PURE__ */ __name((value) => {
   return !isNaN(parseFloat(value));
 }, "isFloat");
 var MotionValue = class {
   constructor(init) {
-    this.version = "7.6.9";
+    this.version = "7.6.10";
     this.timeDelta = 0;
     this.lastUpdated = 0;
     this.updateSubscribers = new SubscriptionManager();
@@ -4277,32 +4277,32 @@ function motionValue(init) {
 }
 __name(motionValue, "motionValue");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/test.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/test.mjs
 init_define_process();
 var testValueType = /* @__PURE__ */ __name((v) => (type) => type.test(v), "testValueType");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.mjs
 init_define_process();
 var auto = {
   test: (v) => v === "auto",
   parse: (v) => v
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.mjs
 var dimensionValueTypes = [number, px, percent, degrees, vw, vh, auto];
 var findDimensionValueType = /* @__PURE__ */ __name((v) => dimensionValueTypes.find(testValueType(v)), "findDimensionValueType");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
 var valueTypes = [...dimensionValueTypes, color, complex];
 var findValueType = /* @__PURE__ */ __name((v) => valueTypes.find(testValueType(v)), "findValueType");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/resolve-dynamic-variants.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/resolve-dynamic-variants.mjs
 init_define_process();
 function getCurrent(visualElement) {
   const current = {};
@@ -4322,7 +4322,7 @@ function resolveVariant(visualElement, definition, custom) {
 }
 __name(resolveVariant, "resolveVariant");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/setters.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/setters.mjs
 function setMotionValue(visualElement, key, value) {
   if (visualElement.hasValue(key)) {
     visualElement.getValue(key).set(value);
@@ -4413,14 +4413,14 @@ function getOrigin(target, transition, visualElement) {
 }
 __name(getOrigin, "getOrigin");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-will-change/is.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-will-change/is.mjs
 init_define_process();
 function isWillChangeMotionValue(value) {
   return Boolean(isMotionValue(value) && value.add);
 }
 __name(isWillChangeMotionValue, "isWillChangeMotionValue");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/animation.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/animation.mjs
 function animateVisualElement(visualElement, definition, options = {}) {
   visualElement.notify("AnimationStart", definition);
   let animation;
@@ -4517,7 +4517,7 @@ function shouldBlockAnimation({ protectedKeys, needsAnimating }, key) {
 }
 __name(shouldBlockAnimation, "shouldBlockAnimation");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
 var variantPriorityOrder = [
   AnimationType.Animate,
   AnimationType.InView,
@@ -4697,7 +4697,7 @@ function createState() {
 }
 __name(createState, "createState");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
 var animations = {
   animation: makeRenderlessComponent(({ visualElement, animate: animate3 }) => {
     visualElement.animationState || (visualElement.animationState = createAnimationState(visualElement));
@@ -4721,17 +4721,17 @@ var animations = {
   })
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/drag.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/drag.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
 init_define_process();
 var import_react24 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/PanSession.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/PanSession.mjs
 init_define_process();
 var PanSession = class {
   constructor(event, handlers, { transformPagePoint } = {}) {
@@ -4857,10 +4857,10 @@ function getVelocity2(history, timeDelta) {
 }
 __name(getVelocity2, "getVelocity");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-calc.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-calc.mjs
 init_define_process();
 function calcLength(axis) {
   return axis.max - axis.min;
@@ -4907,7 +4907,7 @@ function calcRelativePosition(target, layout, parent) {
 }
 __name(calcRelativePosition, "calcRelativePosition");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.mjs
 function applyConstraints(point2, { min, max }, elastic) {
   if (min !== void 0 && point2 < min) {
     point2 = elastic ? mix(min, point2, elastic.min) : Math.max(point2, min);
@@ -4996,7 +4996,7 @@ function resolvePointElastic(dragElastic, label) {
 }
 __name(resolvePointElastic, "resolvePointElastic");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/geometry/models.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/geometry/models.mjs
 init_define_process();
 var createAxisDelta = /* @__PURE__ */ __name(() => ({
   translate: 0,
@@ -5014,17 +5014,17 @@ var createBox = /* @__PURE__ */ __name(() => ({
   y: createAxis()
 }), "createBox");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/utils/each-axis.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/utils/each-axis.mjs
 init_define_process();
 function eachAxis(callback) {
   return [callback("x"), callback("y")];
 }
 __name(eachAxis, "eachAxis");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/utils/measure.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/utils/measure.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/geometry/conversion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/geometry/conversion.mjs
 init_define_process();
 function convertBoundingBoxToBox({ top, left, right, bottom }) {
   return {
@@ -5051,10 +5051,10 @@ function transformBoxPoints(point2, transformPoint2) {
 }
 __name(transformBoxPoints, "transformBoxPoints");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/utils/has-transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/utils/has-transform.mjs
 init_define_process();
 function isIdentityScale(scale2) {
   return scale2 === void 0 || scale2 === 1;
@@ -5077,7 +5077,7 @@ function is2DTranslate(value) {
 }
 __name(is2DTranslate, "is2DTranslate");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
 function scalePoint(point2, scale2, originPoint) {
   const distanceFromOrigin = point2 - originPoint;
   const scaled = scale2 * distanceFromOrigin;
@@ -5150,7 +5150,7 @@ function transformBox(box, transform2) {
 }
 __name(transformBox, "transformBox");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/utils/measure.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/utils/measure.mjs
 function measureViewportBox(instance, transformPoint2) {
   return convertBoundingBoxToBox(transformBoxPoints(instance.getBoundingClientRect(), transformPoint2));
 }
@@ -5166,7 +5166,7 @@ function measurePageBox(element, rootProjectionNode2, transformPagePoint) {
 }
 __name(measurePageBox, "measurePageBox");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
 var elementDragControls = /* @__PURE__ */ new WeakMap();
 var VisualElementDragControls = class {
   constructor(visualElement) {
@@ -5479,7 +5479,7 @@ function getCurrentDirection(offset, lockThreshold = 10) {
 }
 __name(getCurrentDirection, "getCurrentDirection");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
 function useDrag(props) {
   const { dragControls: groupDragControls, visualElement } = props;
   const dragControls = useConstant(() => new VisualElementDragControls(visualElement));
@@ -5488,7 +5488,7 @@ function useDrag(props) {
 }
 __name(useDrag, "useDrag");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/use-pan-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/use-pan-gesture.mjs
 init_define_process();
 var import_react25 = __toESM(require_react(), 1);
 function usePanGesture({ onPan, onPanStart, onPanEnd, onPanSessionStart, visualElement }) {
@@ -5520,25 +5520,25 @@ function usePanGesture({ onPan, onPanStart, onPanEnd, onPanSessionStart, visualE
 }
 __name(usePanGesture, "usePanGesture");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/drag.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/drag.mjs
 var drag = {
   pan: makeRenderlessComponent(usePanGesture),
   drag: makeRenderlessComponent(useDrag)
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/HTMLVisualElement.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/HTMLVisualElement.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/DOMVisualElement.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/DOMVisualElement.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.mjs
 init_define_process();
 function isCSSVariable2(value) {
   return typeof value === "string" && value.startsWith("var(--");
@@ -5601,7 +5601,7 @@ function resolveCSSVariables(visualElement, _a, transitionEnd) {
 }
 __name(resolveCSSVariables, "resolveCSSVariables");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.mjs
 init_define_process();
 var positionalKeys = /* @__PURE__ */ new Set([
   "width",
@@ -5775,7 +5775,7 @@ function unitConversion(visualElement, target, origin, transitionEnd) {
 }
 __name(unitConversion, "unitConversion");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.mjs
 var parseDomVariant = /* @__PURE__ */ __name((visualElement, target, origin, transitionEnd) => {
   const resolved = resolveCSSVariables(visualElement, target, transitionEnd);
   target = resolved.target;
@@ -5783,19 +5783,19 @@ var parseDomVariant = /* @__PURE__ */ __name((visualElement, target, origin, tra
   return unitConversion(visualElement, target, origin, transitionEnd);
 }, "parseDomVariant");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/VisualElement.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/VisualElement.mjs
 init_define_process();
 var import_react26 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/index.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/state.mjs
 init_define_process();
 var prefersReducedMotion = { current: null };
 var hasReducedMotionListener = { current: false };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/index.mjs
 function initPrefersReducedMotion() {
   hasReducedMotionListener.current = true;
   if (!isBrowser)
@@ -5811,7 +5811,7 @@ function initPrefersReducedMotion() {
 }
 __name(initPrefersReducedMotion, "initPrefersReducedMotion");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/motion-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/motion-values.mjs
 init_define_process();
 function updateMotionValuesFromProps(element, next, prev) {
   const { willChange } = next;
@@ -5824,7 +5824,7 @@ function updateMotionValuesFromProps(element, next, prev) {
         willChange.add(key);
       }
       if (true) {
-        warnOnce(nextValue.version === "7.6.9", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.9 may not work as expected.`);
+        warnOnce(nextValue.version === "7.6.10", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.6.10 may not work as expected.`);
       }
     } else if (isMotionValue(prevValue)) {
       element.addValue(key, motionValue(nextValue));
@@ -5849,7 +5849,7 @@ function updateMotionValuesFromProps(element, next, prev) {
 }
 __name(updateMotionValuesFromProps, "updateMotionValuesFromProps");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/VisualElement.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/VisualElement.mjs
 var featureNames = Object.keys(featureDefinitions);
 var numFeatures = featureNames.length;
 var propEventHandlers = [
@@ -6137,7 +6137,7 @@ __name(VisualElement, "VisualElement");
 var variantProps2 = ["initial", ...variantPriorityOrder];
 var numVariantProps = variantProps2.length;
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/DOMVisualElement.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/DOMVisualElement.mjs
 var DOMVisualElement = class extends VisualElement {
   sortInstanceNodePosition(a2, b2) {
     return a2.compareDocumentPosition(b2) & 2 ? 1 : -1;
@@ -6175,7 +6175,7 @@ var DOMVisualElement = class extends VisualElement {
 };
 __name(DOMVisualElement, "DOMVisualElement");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/html/HTMLVisualElement.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/html/HTMLVisualElement.mjs
 function getComputedStyle2(element) {
   return window.getComputedStyle(element);
 }
@@ -6206,7 +6206,7 @@ var HTMLVisualElement = class extends DOMVisualElement {
 };
 __name(HTMLVisualElement, "HTMLVisualElement");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/svg/SVGVisualElement.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/svg/SVGVisualElement.mjs
 init_define_process();
 var SVGVisualElement = class extends DOMVisualElement {
   getBaseTargetFromProps(props, key) {
@@ -6235,19 +6235,19 @@ var SVGVisualElement = class extends DOMVisualElement {
 };
 __name(SVGVisualElement, "SVGVisualElement");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
 var createDomVisualElement = /* @__PURE__ */ __name((Component2, options) => {
   return isSVGComponent(Component2) ? new SVGVisualElement(options, { enableHardwareAcceleration: false }) : new HTMLVisualElement(options, { enableHardwareAcceleration: true });
 }, "createDomVisualElement");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/index.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
 init_define_process();
 var import_react27 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.mjs
 init_define_process();
 function pixelsToPercent(pixels, axis) {
   if (axis.max === axis.min)
@@ -6272,7 +6272,7 @@ var correctBorderRadius = {
   }
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-box-shadow.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-box-shadow.mjs
 init_define_process();
 var varToken = "_$css";
 var correctBoxShadow = {
@@ -6313,7 +6313,7 @@ var correctBoxShadow = {
   }
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
 var MeasureLayoutWithContext = class extends import_react27.default.Component {
   componentDidMount() {
     const { visualElement, layoutGroup, switchLayoutGroup, layoutId } = this.props;
@@ -6411,18 +6411,18 @@ var defaultScaleCorrectors = {
   boxShadow: correctBoxShadow
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/index.mjs
 var layoutFeatures = {
   measureLayout: MeasureLayout
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/node/HTMLProjectionNode.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/node/HTMLProjectionNode.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/node/create-projection-node.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/node/create-projection-node.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/animate.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/animate.mjs
 init_define_process();
 function animate2(from, to, transition = {}) {
   const value = isMotionValue(from) ? from : motionValue(from);
@@ -6434,7 +6434,7 @@ function animate2(from, to, transition = {}) {
 }
 __name(animate2, "animate");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/animation/mix-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/animation/mix-values.mjs
 init_define_process();
 var borders = ["TopLeft", "TopRight", "BottomLeft", "BottomRight"];
 var numBorders = borders.length;
@@ -6493,7 +6493,7 @@ function compress(min, max, easing) {
 }
 __name(compress, "compress");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/geometry/copy.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/geometry/copy.mjs
 init_define_process();
 function copyAxisInto(axis, originAxis) {
   axis.min = originAxis.min;
@@ -6506,7 +6506,7 @@ function copyBoxInto(box, originBox) {
 }
 __name(copyBoxInto, "copyBoxInto");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-remove.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-remove.mjs
 init_define_process();
 function removePointDelta(point2, translate, scale2, originPoint, boxScale) {
   point2 -= translate;
@@ -6544,7 +6544,7 @@ function removeBoxTransforms(box, transforms, originBox, sourceBox) {
 }
 __name(removeBoxTransforms, "removeBoxTransforms");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/geometry/utils.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/geometry/utils.mjs
 init_define_process();
 function isAxisDeltaZero(delta) {
   return delta.translate === 0 && delta.scale === 1;
@@ -6567,7 +6567,7 @@ function isCloseTo(a2, b2, max = 0.1) {
 }
 __name(isCloseTo, "isCloseTo");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/shared/stack.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/shared/stack.mjs
 init_define_process();
 var NodeStack = class {
   constructor() {
@@ -6656,7 +6656,7 @@ var NodeStack = class {
 };
 __name(NodeStack, "NodeStack");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/styles/transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/styles/transform.mjs
 init_define_process();
 function buildProjectionTransform(delta, treeScale, latestTransform) {
   let transform2 = "";
@@ -6686,14 +6686,14 @@ function buildProjectionTransform(delta, treeScale, latestTransform) {
 }
 __name(buildProjectionTransform, "buildProjectionTransform");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/flat-tree.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/flat-tree.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/compare-by-depth.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/compare-by-depth.mjs
 init_define_process();
 var compareByDepth = /* @__PURE__ */ __name((a2, b2) => a2.depth - b2.depth, "compareByDepth");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/utils/flat-tree.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/utils/flat-tree.mjs
 var FlatTree = class {
   constructor() {
     this.children = [];
@@ -6715,7 +6715,7 @@ var FlatTree = class {
 };
 __name(FlatTree, "FlatTree");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/node/create-projection-node.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/node/create-projection-node.mjs
 var transformAxes = ["", "X", "Y", "Z"];
 var animationTarget = 1e3;
 var id2 = 0;
@@ -7000,22 +7000,18 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       }
     }
     measure(removeTransform = true) {
-      var _a;
       const pageBox = this.measurePageBox();
       let layoutBox = this.removeElementScroll(pageBox);
       if (removeTransform) {
         layoutBox = this.removeTransform(layoutBox);
       }
       roundBox(layoutBox);
-      const positionStyle = (_a = this.options.visualElement) === null || _a === void 0 ? void 0 : _a.readValue("position");
-      const position = positionStyle === "fixed" || positionStyle === "sticky" ? positionStyle : "static";
       return {
         animationId: this.root.animationId,
         measuredBox: pageBox,
         layoutBox,
         latestValues: {},
-        source: this.id,
-        position
+        source: this.id
       };
     }
     measurePageBox() {
@@ -7626,7 +7622,7 @@ function shouldAnimatePositionOnly(animationType, snapshot, layout) {
 }
 __name(shouldAnimatePositionOnly, "shouldAnimatePositionOnly");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/node/DocumentProjectionNode.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/node/DocumentProjectionNode.mjs
 init_define_process();
 var DocumentProjectionNode = createProjectionNode({
   attachResizeListener: (ref, notify2) => addDomEvent(ref, "resize", notify2),
@@ -7637,7 +7633,7 @@ var DocumentProjectionNode = createProjectionNode({
   checkIsScrollRoot: () => true
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/node/HTMLProjectionNode.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/node/HTMLProjectionNode.mjs
 var rootProjectionNode = {
   current: void 0
 };
@@ -7661,7 +7657,7 @@ var HTMLProjectionNode = createProjectionNode({
   checkIsScrollRoot: (instance) => Boolean(window.getComputedStyle(instance).position === "fixed")
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/motion.mjs
 var featureBundle = __spreadValues(__spreadValues(__spreadValues(__spreadValues({}, animations), gestureAnimations), drag), layoutFeatures);
 var motion = /* @__PURE__ */ createMotionProxy((Component2, config) => createDomMotionConfig(Component2, config, featureBundle, createDomVisualElement, HTMLProjectionNode));
 function createDomMotionComponent(key) {
@@ -7669,20 +7665,20 @@ function createDomMotionComponent(key) {
 }
 __name(createDomMotionComponent, "createDomMotionComponent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-minimal.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-minimal.mjs
 init_define_process();
 var m = createMotionProxy(createDomMotionConfig);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
 init_define_process();
 var React4 = __toESM(require_react(), 1);
 var import_react32 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
 init_define_process();
 var import_react29 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
 init_define_process();
 var import_react28 = __toESM(require_react(), 1);
 function useIsMounted() {
@@ -7697,7 +7693,7 @@ function useIsMounted() {
 }
 __name(useIsMounted, "useIsMounted");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
 function useForceUpdate() {
   const isMounted = useIsMounted();
   const [forcedRenderCount, setForcedRenderCount] = (0, import_react29.useState)(0);
@@ -7709,12 +7705,12 @@ function useForceUpdate() {
 }
 __name(useForceUpdate, "useForceUpdate");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
 init_define_process();
 var React3 = __toESM(require_react(), 1);
 var import_react31 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PopChild.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PopChild.mjs
 init_define_process();
 var React2 = __toESM(require_react(), 1);
 var import_react30 = __toESM(require_react(), 1);
@@ -7772,7 +7768,7 @@ function PopChild({ children, isPresent: isPresent2 }) {
 }
 __name(PopChild, "PopChild");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
 var PresenceChild = /* @__PURE__ */ __name(({ children, initial, isPresent: isPresent2, onExitComplete, custom, presenceAffectsLayout, mode }) => {
   const presenceChildren = useConstant(newChildrenMap);
   const id4 = (0, import_react31.useId)();
@@ -7813,7 +7809,7 @@ function newChildrenMap() {
 }
 __name(newChildrenMap, "newChildrenMap");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
 var getChildKey = /* @__PURE__ */ __name((child) => child.key || "", "getChildKey");
 function updateChildLookup(children, allChildren) {
   children.forEach((child) => {
@@ -7905,7 +7901,7 @@ var AnimatePresence = /* @__PURE__ */ __name(({ children, custom, initial = true
   return React4.createElement(React4.Fragment, null, exiting.size ? childrenToRender : childrenToRender.map((child) => (0, import_react32.cloneElement)(child)));
 }, "AnimatePresence");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/MotionConfig/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/MotionConfig/index.mjs
 init_define_process();
 var React5 = __toESM(require_react(), 1);
 var import_react33 = __toESM(require_react(), 1);
@@ -7919,7 +7915,7 @@ function MotionConfig(_a) {
 }
 __name(MotionConfig, "MotionConfig");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
 init_define_process();
 var React6 = __toESM(require_react(), 1);
 var import_react34 = __toESM(require_react(), 1);
@@ -7949,19 +7945,19 @@ function isLazyBundle(features) {
 }
 __name(isLazyBundle, "isLazyBundle");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/features-animation.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/features-animation.mjs
 init_define_process();
 var domAnimation = __spreadValues(__spreadValues({
   renderer: createDomVisualElement
 }, animations), gestureAnimations);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/render/dom/features-max.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/render/dom/features-max.mjs
 init_define_process();
 var domMax = __spreadProps(__spreadValues(__spreadValues(__spreadValues({}, domAnimation), drag), layoutFeatures), {
   projectionNodeConstructor: HTMLProjectionNode
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/index.mjs
 var es_exports = {};
 __export(es_exports, {
   AnimatePresence: () => AnimatePresence,
@@ -8043,21 +8039,21 @@ __export(es_exports, {
 });
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
 init_define_process();
 var React8 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
 init_define_process();
 var React7 = __toESM(require_react(), 1);
 var import_react36 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.mjs
 init_define_process();
 var import_react35 = __toESM(require_react(), 1);
 var DeprecatedLayoutGroupContext = (0, import_react35.createContext)(null);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/node/group.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/node/group.mjs
 init_define_process();
 var notify = /* @__PURE__ */ __name((node) => !node.isLayoutDirty && node.willUpdate(false), "notify");
 function nodeGroup() {
@@ -8081,7 +8077,7 @@ function nodeGroup() {
 }
 __name(nodeGroup, "nodeGroup");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
 var shouldInheritGroup = /* @__PURE__ */ __name((inherit) => inherit === true, "shouldInheritGroup");
 var shouldInheritId = /* @__PURE__ */ __name((inherit) => shouldInheritGroup(inherit === true) || inherit === "id", "shouldInheritId");
 var LayoutGroup = /* @__PURE__ */ __name(({ children, id: id4, inheritId, inherit = true }) => {
@@ -8105,7 +8101,7 @@ var LayoutGroup = /* @__PURE__ */ __name(({ children, id: id4, inheritId, inheri
   return React7.createElement(LayoutGroupContext.Provider, { value: memoizedContext }, children);
 }, "LayoutGroup");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
 var id3 = 0;
 var AnimateSharedLayout = /* @__PURE__ */ __name(({ children }) => {
   React8.useEffect(() => {
@@ -8114,20 +8110,20 @@ var AnimateSharedLayout = /* @__PURE__ */ __name(({ children }) => {
   return React8.createElement(LayoutGroup, { id: useConstant(() => `asl-${id3++}`) }, children);
 }, "AnimateSharedLayout");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
 init_define_process();
 var React9 = __toESM(require_react(), 1);
 var import_react38 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/context/ReorderContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/context/ReorderContext.mjs
 init_define_process();
 var import_react37 = __toESM(require_react(), 1);
 var ReorderContext = (0, import_react37.createContext)(null);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/Reorder/utils/check-reorder.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/Reorder/utils/check-reorder.mjs
 init_define_process();
 function checkReorder(order, value, offset, velocity) {
   if (!velocity)
@@ -8149,7 +8145,7 @@ function checkReorder(order, value, offset, velocity) {
 }
 __name(checkReorder, "checkReorder");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
 function ReorderGroup(_a, externalRef) {
   var _b = _a, { children, as = "ul", axis = "y", onReorder, values } = _b, props = __objRest(_b, ["children", "as", "axis", "onReorder", "values"]);
   const Component2 = useConstant(() => motion(as));
@@ -8194,12 +8190,12 @@ function compareMin(a2, b2) {
 }
 __name(compareMin, "compareMin");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Item.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Item.mjs
 init_define_process();
 var React10 = __toESM(require_react(), 1);
 var import_react40 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-motion-value.mjs
 init_define_process();
 var import_react39 = __toESM(require_react(), 1);
 function useMotionValue(initial) {
@@ -8213,10 +8209,10 @@ function useMotionValue(initial) {
 }
 __name(useMotionValue, "useMotionValue");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-transform.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/transform.mjs
 init_define_process();
 var isCustomValueType = /* @__PURE__ */ __name((v) => {
   return typeof v === "object" && v.mix;
@@ -8236,10 +8232,10 @@ function transform(...args) {
 }
 __name(transform, "transform");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-combine-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-combine-values.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-on-change.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-on-change.mjs
 init_define_process();
 function useOnChange(value, callback) {
   useIsomorphicLayoutEffect(() => {
@@ -8259,7 +8255,7 @@ function useMultiOnChange(values, handler, cleanup) {
 }
 __name(useMultiOnChange, "useMultiOnChange");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-combine-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-combine-values.mjs
 function useCombineMotionValues(values, combineValues) {
   const value = useMotionValue(combineValues());
   const updateValue = /* @__PURE__ */ __name(() => value.set(combineValues()), "updateValue");
@@ -8269,7 +8265,7 @@ function useCombineMotionValues(values, combineValues) {
 }
 __name(useCombineMotionValues, "useCombineMotionValues");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-transform.mjs
 function useTransform(input, inputRangeOrTransformer, outputRange, options) {
   const transformer = typeof inputRangeOrTransformer === "function" ? inputRangeOrTransformer : transform(inputRangeOrTransformer, outputRange, options);
   return Array.isArray(input) ? useListTransform(input, transformer) : useListTransform([input], ([latest]) => transformer(latest));
@@ -8288,7 +8284,7 @@ function useListTransform(values, transformer) {
 }
 __name(useListTransform, "useListTransform");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Item.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Item.mjs
 function useDefaultMotionValue(value, defaultValue = 0) {
   return isMotionValue(value) ? value : useMotionValue(defaultValue);
 }
@@ -8319,13 +8315,13 @@ function ReorderItem(_a, externalRef) {
 __name(ReorderItem, "ReorderItem");
 var Item = (0, import_react40.forwardRef)(ReorderItem);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 var Reorder = {
   Group,
   Item
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-motion-template.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-motion-template.mjs
 init_define_process();
 function useMotionTemplate(fragments, ...values) {
   const numFragments = fragments.length;
@@ -8344,7 +8340,7 @@ function useMotionTemplate(fragments, ...values) {
 }
 __name(useMotionTemplate, "useMotionTemplate");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-spring.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-spring.mjs
 init_define_process();
 var import_react41 = __toESM(require_react(), 1);
 function useSpring(source, config = {}) {
@@ -8373,7 +8369,7 @@ function useSpring(source, config = {}) {
 }
 __name(useSpring, "useSpring");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-velocity.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-velocity.mjs
 init_define_process();
 var import_react42 = __toESM(require_react(), 1);
 function useVelocity(value) {
@@ -8387,7 +8383,7 @@ function useVelocity(value) {
 }
 __name(useVelocity, "useVelocity");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-scroll.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-scroll.mjs
 init_define_process();
 
 // ../../.yarn/global/cache/@motionone-dom-npm-10.13.1-2b54608f7c-9.zip/node_modules/@motionone/dom/dist/index.es.js
@@ -8993,7 +8989,7 @@ function scroll(onScroll, _a = {}) {
 }
 __name(scroll, "scroll");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-scroll.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-scroll.mjs
 var import_react43 = __toESM(require_react(), 1);
 var createScrollMotionValues = /* @__PURE__ */ __name(() => ({
   scrollX: motionValue(0),
@@ -9020,7 +9016,7 @@ function useScroll(_a = {}) {
 }
 __name(useScroll, "useScroll");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/scroll/use-element-scroll.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/scroll/use-element-scroll.mjs
 init_define_process();
 function useElementScroll(ref) {
   warnOnce(false, "useElementScroll is deprecated. Convert to useScroll({ container: ref }).");
@@ -9028,7 +9024,7 @@ function useElementScroll(ref) {
 }
 __name(useElementScroll, "useElementScroll");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/scroll/use-viewport-scroll.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/scroll/use-viewport-scroll.mjs
 init_define_process();
 function useViewportScroll() {
   warnOnce(false, "useViewportScroll is deprecated. Convert to useScroll().");
@@ -9036,10 +9032,10 @@ function useViewportScroll() {
 }
 __name(useViewportScroll, "useViewportScroll");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-time.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-time.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
 init_define_process();
 var import_react44 = __toESM(require_react(), 1);
 function useAnimationFrame(callback) {
@@ -9059,7 +9055,7 @@ function useAnimationFrame(callback) {
 }
 __name(useAnimationFrame, "useAnimationFrame");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-time.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-time.mjs
 function useTime() {
   const time = useMotionValue(0);
   useAnimationFrame((t) => time.set(t));
@@ -9067,7 +9063,7 @@ function useTime() {
 }
 __name(useTime, "useTime");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-will-change/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-will-change/index.mjs
 init_define_process();
 var WillChangeMotionValue = class extends MotionValue {
   constructor() {
@@ -9109,7 +9105,7 @@ function useWillChange() {
 }
 __name(useWillChange, "useWillChange");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion.mjs
 init_define_process();
 var import_react45 = __toESM(require_react(), 1);
 function useReducedMotion() {
@@ -9119,7 +9115,7 @@ function useReducedMotion() {
 }
 __name(useReducedMotion, "useReducedMotion");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion-config.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion-config.mjs
 init_define_process();
 var import_react46 = __toESM(require_react(), 1);
 function useReducedMotionConfig() {
@@ -9135,7 +9131,7 @@ function useReducedMotionConfig() {
 }
 __name(useReducedMotionConfig, "useReducedMotionConfig");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/animation-controls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/animation-controls.mjs
 init_define_process();
 function animationControls() {
   let hasMounted = false;
@@ -9190,7 +9186,7 @@ function animationControls() {
 }
 __name(animationControls, "animationControls");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/use-animation.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/use-animation.mjs
 init_define_process();
 var import_react47 = __toESM(require_react(), 1);
 function useAnimationControls() {
@@ -9201,7 +9197,7 @@ function useAnimationControls() {
 __name(useAnimationControls, "useAnimationControls");
 var useAnimation = useAnimationControls;
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-cycle.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-cycle.mjs
 init_define_process();
 var import_react48 = __toESM(require_react(), 1);
 function useCycle(...items) {
@@ -9218,7 +9214,7 @@ function useCycle(...items) {
 }
 __name(useCycle, "useCycle");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-in-view.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-in-view.mjs
 init_define_process();
 var import_react49 = __toESM(require_react(), 1);
 function useInView(ref, { root, margin, amount, once = false } = {}) {
@@ -9241,7 +9237,7 @@ function useInView(ref, { root, margin, amount, once = false } = {}) {
 }
 __name(useInView, "useInView");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag-controls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag-controls.mjs
 init_define_process();
 var DragControls = class {
   constructor() {
@@ -9264,14 +9260,14 @@ function useDragControls() {
 }
 __name(useDragControls, "useDragControls");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-motion-component.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-motion-component.mjs
 init_define_process();
 function isMotionComponent(component) {
   return component !== null && typeof component === "object" && motionComponentSymbol in component;
 }
 __name(isMotionComponent, "isMotionComponent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/motion/utils/unwrap-motion-component.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/motion/utils/unwrap-motion-component.mjs
 init_define_process();
 function unwrapMotionComponent(component) {
   if (isMotionComponent(component)) {
@@ -9281,11 +9277,11 @@ function unwrapMotionComponent(component) {
 }
 __name(unwrapMotionComponent, "unwrapMotionComponent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition.mjs
 init_define_process();
 var import_react50 = __toESM(require_react(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/use-instant-layout-transition.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/use-instant-layout-transition.mjs
 init_define_process();
 function useInstantLayoutTransition() {
   return startTransition;
@@ -9300,7 +9296,7 @@ function startTransition(callback) {
 }
 __name(startTransition, "startTransition");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition.mjs
 function useInstantTransition() {
   const [forceUpdate, forcedRenderCount] = useForceUpdate();
   const startInstantLayoutTransition = useInstantLayoutTransition();
@@ -9317,7 +9313,7 @@ function useInstantTransition() {
 }
 __name(useInstantTransition, "useInstantTransition");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/projection/use-reset-projection.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/projection/use-reset-projection.mjs
 init_define_process();
 var React11 = __toESM(require_react(), 1);
 function useResetProjection() {
@@ -9331,7 +9327,7 @@ function useResetProjection() {
 }
 __name(useResetProjection, "useResetProjection");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/animation/use-animated-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/animation/use-animated-state.mjs
 init_define_process();
 var import_react51 = __toESM(require_react(), 1);
 var createObject = /* @__PURE__ */ __name(() => ({}), "createObject");
@@ -9397,7 +9393,7 @@ function useAnimatedState(initialState) {
 }
 __name(useAnimatedState, "useAnimatedState");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-d4e050a007/0/global/cache/framer-motion-npm-7.6.9-1d982fe72f-9.zip/node_modules/framer-motion/dist/es/value/use-inverted-scale.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-7bcaefcfae/0/global/cache/framer-motion-npm-7.6.10-eede6b649b-9.zip/node_modules/framer-motion/dist/es/value/use-inverted-scale.mjs
 init_define_process();
 var maxScale = 1e5;
 var invertScale = /* @__PURE__ */ __name((scale2) => scale2 > 1e-3 ? 1 / scale2 : maxScale, "invertScale");

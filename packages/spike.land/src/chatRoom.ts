@@ -266,10 +266,19 @@ export class Code {
         case "js": {
           const i = path[1] || mST().i;
           if (i > mST().i) {
+            const started = Date.now() / 1000;
             return new Response(
-              await new Promise<string>((res) =>
+              await new Promise<string>((res, reject) =>
                 this.wait(() => {
-                  if (mST().i < Number(i)) return false;
+                  const now = Date.now() / 1000``;
+
+                  if (mST().i < Number(i) && started - now < 3000) {
+                    return false;
+                  }
+                  if (mST().i < Number(i) && started - now >= 3000) {
+                    return reject(null);
+                  }
+
                   res(mST().transpiled);
                   return true;
                 })
