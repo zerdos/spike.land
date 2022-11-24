@@ -10,7 +10,7 @@ import type { Delta } from "@spike.land/code/js/session";
 import { CodeEnv } from "./env";
 // import importMap from "@spike.land/code/js/importmap.json";
 import AVLTree from "avl";
-import { getImportMapStr, imap } from "./chat";
+import { imap } from "./chat";
 // import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
@@ -276,7 +276,8 @@ export class Code {
                     return false;
                   }
                   if (mST().i < Number(i) && started - now >= 3000) {
-                    return reject(null);
+                    reject(null);
+                    return false;
                   }
 
                   res(mST().transpiled);

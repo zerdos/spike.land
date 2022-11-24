@@ -165,6 +165,7 @@ export function AutoUpdateApp(
 
 export async function appFactory(
   transpiled = "",
+  codeSpace: string,
 ): Promise<FC<{ appId: string }>> {
   // }
   const { transpiled: mstTranspiled, i: mstI } = mST();
