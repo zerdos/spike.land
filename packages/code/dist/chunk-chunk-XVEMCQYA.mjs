@@ -31045,7 +31045,7 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
         treeShaking: true,
         define: {
           "globalThis.workerDom": JSON.stringify(true),
-          "process.env.NODE_ENV": `"production"`,
+          "process.env.NODE_ENV": `"development"`,
           "process.env.NODE_DEBUG": JSON.stringify(false),
           "process.browser": JSON.stringify(true),
           "process.env.DEBUG": JSON.stringify(false),
