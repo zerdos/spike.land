@@ -25,6 +25,8 @@ onSessionUpdate(() => {
   if (controller) controller.abort("new i");
 }, "abort");
 
+export { md5 };
+
 export const importIt: (url: string) => Promise<{ App: FC; url: string }> = async (url: string) => {
   let waitingTime = 100;
   let App;
@@ -177,7 +179,7 @@ export async function appFactory(
     try {
       eCaches[hash] = eCaches[hash] || createCache({
         key: hash,
-        container: document.getElementById(`root-${codeSpace}`)?.firstChild!,
+        insertionPoint: document.getElementById(`root-${codeSpace}`)!,
         speedy: true,
       });
 
