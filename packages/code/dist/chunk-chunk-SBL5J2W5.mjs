@@ -11,7 +11,7 @@ import {
 import {
   appFactory,
   wait
-} from "./chunk-chunk-JX7Y755H.mjs";
+} from "./chunk-chunk-UCMAJIFU.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-CTKH5FCC.mjs";

@@ -308,7 +308,7 @@ async function appFactory(transpiled = "", codeSpace) {
     try {
       eCaches[hash] = eCaches[hash] || emotionCache_default({
         key: hash,
-        container: document.getElementById(`root-${codeSpace}`),
+        insertionPoint: document.getElementById(`root-${codeSpace}`)?.parentNode,
         speedy: false
       });
       eCaches[hash].compat = void 0;
