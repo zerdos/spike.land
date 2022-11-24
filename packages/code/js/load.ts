@@ -18,6 +18,7 @@ async function start() {
     codeSpace,
     address,
   });
+  a;
 }
 start();
 

@@ -5,6 +5,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 
+import { codeSpace } from "load";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate } from "./session";
@@ -100,14 +101,13 @@ export const { apps, eCaches } = (globalThis as unknown as {
   eCaches: Record<string, EmotionCache>;
 });
 
-let starterI = 1
-  * (document.getElementById("root")!.getAttribute(
-    "data-i",
-  ) as unknown as number);
-
 export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
+  let starterI = 1 * (document.getElementById(`root-${codeSpace}`)!.getAttribute(
+    "data-i",
+  ) as unknown as number);
+
   const [{ App, i }, setApps] = useState({
     i: starterI - 1,
     App: null as null | FC<{}>,
@@ -177,7 +177,8 @@ export async function appFactory(
     try {
       eCaches[hash] = eCaches[hash] || createCache({
         key: hash,
-
+        container: document.getElementById(`root-${codeSpace}`)!,
+        insertionPoint: document.getElementById(`root-${codeSpace}`)!,
         speedy: false,
       });
 

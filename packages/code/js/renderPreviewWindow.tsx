@@ -123,9 +123,7 @@ export const renderPreviewWindow = (
   if (singleton.started) return;
   singleton.started = true;
 
-  const div = dry
-    ? document.createElement("div")
-    : document.querySelector("#root")!;
+  const div = document.querySelector(`#root-${codeSpace}`)!;
   // Div.style.height='100%';
   const root = createRoot(div);
 
