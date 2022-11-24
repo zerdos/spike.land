@@ -178,7 +178,7 @@ export async function appFactory(
       eCaches[hash] = eCaches[hash] || createCache({
         key: hash,
         container: document.getElementById(`root-${codeSpace}`)!,
-        speedy: true,
+        speedy: false,
       });
 
       eCaches[hash].compat = undefined;
