@@ -177,7 +177,7 @@ export async function appFactory(
     try {
       eCaches[hash] = eCaches[hash] || createCache({
         key: hash,
-        container: document.getElementById(`root-${codeSpace}`)!,
+        insertionPoint: document.getElementById(`root-${codeSpace}`)?.parentNode!,
         speedy: false,
       });
 
