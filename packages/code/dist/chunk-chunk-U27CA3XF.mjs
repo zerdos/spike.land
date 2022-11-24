@@ -246,8 +246,8 @@ if (!Object.hasOwn(globalThis, "apps")) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
 }
 var { apps, eCaches } = globalThis;
-function AutoUpdateApp({ codeSpace: codeSpace2 }) {
-  let starterI = 1 * document.getElementById(`root-${codeSpace2}`).getAttribute(
+function AutoUpdateApp({ codeSpace }) {
+  let starterI = 1 * document.getElementById(`root-${codeSpace}`).getAttribute(
     "data-i"
   );
   const [{ App, i }, setApps] = (0, import_react.useState)({
@@ -257,7 +257,7 @@ function AutoUpdateApp({ codeSpace: codeSpace2 }) {
   (0, import_react.useEffect)(() => {
     (async () => {
       const { url, App: newApp } = await importIt(
-        `${location.origin}/live/${codeSpace2}/index.js/${i}`
+        `${location.origin}/live/${codeSpace}/index.js/${i}`
       );
       const urlCounter = +(url.split("/").pop() || 0);
       if (i < urlCounter && newApp !== App) {
@@ -269,7 +269,7 @@ function AutoUpdateApp({ codeSpace: codeSpace2 }) {
     (async () => {
       (async () => {
         const { url, App: newApp } = await importIt(
-          `${location.origin}/live/${codeSpace2}/index.js/${i + 1}`
+          `${location.origin}/live/${codeSpace}/index.js/${i + 1}`
         );
         const urlCounter = +(url.split("/").pop() || 0);
         if (i < urlCounter && newApp !== App) {
@@ -294,13 +294,13 @@ function AutoUpdateApp({ codeSpace: codeSpace2 }) {
     children: App == null ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
       style: { height: "100%" },
       dangerouslySetInnerHTML: {
-        __html: `<style>${mST().css.split("body").join(`${codeSpace2}-${hashCode()}`)}</style>${mST().html}`
+        __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
       }
     }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
   });
 }
 __name(AutoUpdateApp, "AutoUpdateApp");
-async function appFactory(transpiled = "") {
+async function appFactory(transpiled = "", codeSpace) {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);

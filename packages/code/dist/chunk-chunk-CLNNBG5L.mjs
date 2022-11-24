@@ -7,11 +7,11 @@ import {
 } from "./chunk-chunk-FFMS35Y7.mjs";
 import {
   codeSpace
-} from "./chunk-chunk-PTTQB2AC.mjs";
+} from "./chunk-chunk-ED4JDCTW.mjs";
 import {
   appFactory,
   wait
-} from "./chunk-chunk-I5WZFJFN.mjs";
+} from "./chunk-chunk-U27CA3XF.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-CTKH5FCC.mjs";
@@ -30876,7 +30876,7 @@ var render = /* @__PURE__ */ __name(async (transpiled, codeSpace2) => {
   mod2.codeSpace = codeSpace2;
   const md5hash = md5(transpiled);
   if (!apps[md5hash])
-    await appFactory(transpiled);
+    await appFactory(transpiled, codeSpace2);
   mod2.wait = 1;
   const cleanup = mod2.setApp(
     md5hash

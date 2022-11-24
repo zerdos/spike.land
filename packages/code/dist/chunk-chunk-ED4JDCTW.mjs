@@ -18,7 +18,6 @@ async function start() {
     codeSpace,
     address
   });
-  a;
 }
 __name(start, "start");
 start();

@@ -55,7 +55,7 @@ const mod = {
 export const render = async (transpiled: string, codeSpace: string) => {
   mod.codeSpace = codeSpace;
   const md5hash = md5(transpiled);
-  if (!apps[md5hash]) await appFactory(transpiled);
+  if (!apps[md5hash]) await appFactory(transpiled, codeSpace);
 
   mod.wait = 1;
 
