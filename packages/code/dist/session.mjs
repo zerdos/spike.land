@@ -10,8 +10,8 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-AM5XZHSQ.mjs";
-import "./chunk-chunk-BSQL4JKA.mjs";
+} from "./chunk-chunk-LYLXMEXZ.mjs";
+import "./chunk-chunk-A3E5PINE.mjs";
 export {
   CodeSession,
   applyPatch,

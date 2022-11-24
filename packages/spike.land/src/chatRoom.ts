@@ -270,7 +270,7 @@ export class Code {
             return new Response(
               await new Promise<string>((res, reject) =>
                 this.wait(() => {
-                  const now = Date.now() / 1000``;
+                  const now = Date.now() / 1000;
 
                   if (mST().i < Number(i) && started - now < 3000) {
                     return false;

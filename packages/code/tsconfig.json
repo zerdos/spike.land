@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "es2022",
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
