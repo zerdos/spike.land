@@ -29253,7 +29253,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // js/starter.tsx
   var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
   var moveToWorker = /* @__PURE__ */ __name(async (codeSpace) => {
-    const { html, css: css2, i: i2, transpiled } = await import(`${location.origin}/live/${codeSpace}/mST.mjs`);
+    const { html, css: css2, i: i2, transpiled } = (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
     const App = await appFactory(transpiled, codeSpace);
     const div = document.createElement("div");
     div.setAttribute("id", `${codeSpace}-${i2}`);

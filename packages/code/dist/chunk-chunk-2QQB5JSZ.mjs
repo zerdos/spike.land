@@ -8,7 +8,7 @@ import {
 import {
   appFactory,
   wait
-} from "./chunk-chunk-GH23JWUT.mjs";
+} from "./chunk-chunk-M7ZDOF73.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";

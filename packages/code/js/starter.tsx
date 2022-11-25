@@ -19,7 +19,7 @@ import { wait } from "./wait";
 // importShim.addImportMap({ imports: res });
 
 export const moveToWorker = async (codeSpace: string) => {
-  const { html, css, i, transpiled } = await import(`${location.origin}/live/${codeSpace}/mST.mjs`);
+  const { html, css, i, transpiled } = (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const App = await appFactory(transpiled, codeSpace);
   const div = document.createElement("div");
   div.setAttribute("id", `${codeSpace}-${i}`);
