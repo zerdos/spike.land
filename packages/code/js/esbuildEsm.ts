@@ -1,8 +1,13 @@
 import { build as esbuildBuild, initialize, transform } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
+import localForage from "localforage";
 import { fetchPlugin } from "./fetchPlugin";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
+
+const transformCache = localForage.createInstance({
+  name: "transformCache",
+});
 
 const mod = {
   init: false as (boolean | Promise<void>),
@@ -19,6 +24,11 @@ const mod = {
 export const initAndTransform: typeof transform = async (code, opts) => {
   const initFinished = mod.initialize();
 
+  const cacheKey = md5(code + opts?.format!);
+
+  const item = await transformCache.getItem(cacheKey);
+  if (item) return { code: item };
+
   if (initFinished !== true) await (initFinished);
 
   const transformed = await transform(code, opts);
@@ -27,7 +37,9 @@ export const initAndTransform: typeof transform = async (code, opts) => {
     ` from '${location.origin}/live`,
   );
 
-  return { ...transformed, code: `/*${md5(code)}*/` + trp };
+  const res = { ...transformed, code: `/*${md5(code)}*/` + trp };
+  await transformCache.setItem(cacheKey, res.code);
+  return res;
 };
 const build = async (rawCode: string) => {
   const initFinished = mod.initialize();

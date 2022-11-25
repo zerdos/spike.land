@@ -91,23 +91,23 @@ const mod = {
     
      `;
 
-    // const t = await transform(res, {
-    //   format: "esm",
-    //   minify: true,
-    //   keepNames: true,
-    //   platform: "neutral",
-    //   treeShaking: true,
-    // });
+    const t = await transform(res, {
+      format: "esm",
+      minify: true,
+      keepNames: true,
+      platform: "neutral",
+      treeShaking: true,
+    });
 
-    // const c = await transform(t.code, {
-    //   format: "iife",
-    //   minify: true,
-    //   keepNames: true,
-    //   platform: "neutral",
-    //   treeShaking: true,
-    // });
+    const c = await transform(t.code, {
+      format: "iife",
+      minify: true,
+      keepNames: true,
+      platform: "neutral",
+      treeShaking: true,
+    });
 
-    return res;
+    return c.code;
   },
   last: 0,
   hashMap: {} as { [key: string]: string },
@@ -139,7 +139,7 @@ const findDeps = (code: string) => {
         deps.push(match);
       }
 
-      console.log(`Found match, group ${groupIndex}: ${match}`);
+      //      console.log(`Found match, group ${groupIndex}: ${match}`);
     }
   }
 
@@ -151,7 +151,7 @@ export const toUmd = async (source: string, name: string) => {
   //  return {
   //   toJs: ()=>tr
   //  }
-  console.log("toUmd: " + name);
+  // console.log("toUmd: " + name);
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [name]: hash };
 
