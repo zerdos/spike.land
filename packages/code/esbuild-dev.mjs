@@ -227,6 +227,7 @@ const build = (
     ...buildOptions,
     entryPoints: [
       "js/sw.ts",
+      "js/wdom.tsx",
     ],
     bundle: true,
     define,
