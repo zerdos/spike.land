@@ -11,7 +11,7 @@ import {
   initAndTransform,
   toUmd,
   wait
-} from "./chunk-chunk-VQ7EGFHX.mjs";
+} from "./chunk-chunk-GQD6EDD6.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-CTKH5FCC.mjs";

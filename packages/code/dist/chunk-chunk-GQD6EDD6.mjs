@@ -7561,12 +7561,11 @@ async function moveToWorker(nameSpace, parent2) {
 
   if (!parent) {
     parent =  document.createElement("div");
-    parent.style.height="100%";
     parent.setAttribute("id", "${codeSpace}-${i2}");
     document.body.appendChild(parent);
   }
-  
-  parent.innerHTML=\`<style>${css2}</style><div id="root-${codeSpace}" data-i="${i2}" style="height: 100%;">${html}</div>\`;  
+  parent.style.height="100%";
+  parent.innerHTML="<div id="${codeSpace}-${k2}"></div>";  
   const div = document.getElementById("${codeSpace}-${k2}");
   div.style.height="100%";
   const root = createRoot(div );
