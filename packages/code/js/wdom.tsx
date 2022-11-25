@@ -1,2 +1,2 @@
 import { moveToWorker } from "./starter";
-moveToWorker("coder");
+moveToWorker("code");

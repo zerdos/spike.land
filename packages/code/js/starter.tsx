@@ -18,24 +18,32 @@ import { wait } from "./wait";
 
 // importShim.addImportMap({ imports: res });
 
-export const moveToWorker = async (codeSpace: string) => {
+export const moveToWorker = async (codeSpace: string, counter: number) => {
   const App = await appFactory(mST().transpiled, codeSpace);
+  const { html, css, transpiled, i } = mST();
   const div = document.createElement("div");
-
-  const root = createRoot(div);
-  root.render(
-    <ErrorBoundary
-      fallbackRender={({ error }) => (
-        <div role="alert">
-          <div>Oh no</div>
-          <pre>{error.message}</pre>
-        </div>
-      )}
-    >
-      <App />
-    </ErrorBoundary>,
-  );
+  div.setAttribute("id", `${codeSpace}-${i}`);
+  document.body.appendChild(div);
+  const mod = await toUmd(transpiled, `${codeSpace}-${i}`);
+  const js = await mod.toJs(`${codeSpace}-${i}`);
+  const scr = createJsBlob(js, `${codeSpace}-${i}`);
+  div.setAttribute("src", scr);
+  return upgradeElement(div, `/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js`);
 };
+
+const root = createRoot(div);
+root.render(
+  <ErrorBoundary
+    fallbackRender={({ error }) => (
+      <div role="alert">
+        <div>Oh no</div>
+        <pre>{error.message}</pre>
+      </div>
+    )}
+  >
+    <App />
+  </ErrorBoundary>,
+);
 
 Object.assign(globalThis, { md5 });
 const myApps: { [key: string]: FC } = {};
