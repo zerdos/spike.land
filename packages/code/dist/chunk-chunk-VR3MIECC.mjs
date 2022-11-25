@@ -7838,7 +7838,7 @@ document.body.appendChild(reset);
   const cache = createCache({
     key: "${k2}",
     container: parent,
-    speedy: false,
+    speedy: true,
   });
 
 
