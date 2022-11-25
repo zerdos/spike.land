@@ -2455,14 +2455,6 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
   }
 });
 
-// ../../.yarn/global/cache/form-data-npm-4.0.0-916facec2d-9.zip/node_modules/form-data/lib/browser.js
-var require_browser2 = __commonJS({
-  "../../.yarn/global/cache/form-data-npm-4.0.0-916facec2d-9.zip/node_modules/form-data/lib/browser.js"(exports, module) {
-    init_define_process();
-    module.exports = typeof self == "object" ? self.FormData : window.FormData;
-  }
-});
-
 // ../../.yarn/global/cache/localforage-npm-1.10.0-cf9ea9a436-9.zip/node_modules/localforage/dist/localforage.js
 var require_localforage = __commonJS({
   "../../.yarn/global/cache/localforage-npm-1.10.0-cf9ea9a436-9.zip/node_modules/localforage/dist/localforage.js"(exports, module) {
@@ -4698,6 +4690,14 @@ var require_localforage = __commonJS({
   }
 });
 
+// ../../.yarn/global/cache/form-data-npm-4.0.0-916facec2d-9.zip/node_modules/form-data/lib/browser.js
+var require_browser2 = __commonJS({
+  "../../.yarn/global/cache/form-data-npm-4.0.0-916facec2d-9.zip/node_modules/form-data/lib/browser.js"(exports, module) {
+    init_define_process();
+    module.exports = typeof self == "object" ? self.FormData : window.FormData;
+  }
+});
+
 // js/starter.tsx
 init_define_process();
 var import_react = __toESM(require_react(), 1);
@@ -5405,6 +5405,9 @@ var import_esbuild_wasm = __toESM(require_browser(), 1);
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.15-ddeb55310e-9.zip/node_modules/esbuild-wasm/esbuild.wasm
 var esbuild_default = "./chunk-esbuild-XQPI3AQ6.wasm";
+
+// js/esbuildEsm.ts
+var import_localforage2 = __toESM(require_localforage(), 1);
 
 // js/fetchPlugin.tsx
 init_define_process();
@@ -7539,6 +7542,9 @@ var unpkgPathPlugin = /* @__PURE__ */ __name((inputCode) => {
 }, "unpkgPathPlugin");
 
 // js/esbuildEsm.ts
+var transformCache = import_localforage2.default.createInstance({
+  name: "transformCache"
+});
 var mod = {
   init: false,
   initialize: () => {
@@ -7553,13 +7559,19 @@ var mod = {
 };
 var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   const initFinished = mod.initialize();
+  const cacheKey = md5(code + opts?.format);
+  const item = await transformCache.getItem(cacheKey);
+  if (item)
+    return { code: item };
   if (initFinished !== true)
     await initFinished;
   const transformed = await (0, import_esbuild_wasm.transform)(code, opts);
   const trp = transformed.code.split(` from '..`).join(` from '${location.origin}/live`).split(` from '.`).join(
     ` from '${location.origin}/live`
   );
-  return { ...transformed, code: `/*${md5(code)}*/` + trp };
+  const res = { ...transformed, code: `/*${md5(code)}*/` + trp };
+  await transformCache.setItem(cacheKey, res.code);
+  return res;
 }, "initAndTransform");
 var build = /* @__PURE__ */ __name(async (rawCode) => {
   const initFinished = mod.initialize();
@@ -7595,8 +7607,8 @@ var importmap_default = {
 };
 
 // js/toUmd.ts
-var import_localforage2 = __toESM(require_localforage(), 1);
-var fileCache2 = import_localforage2.default.createInstance({
+var import_localforage3 = __toESM(require_localforage(), 1);
+var fileCache2 = import_localforage3.default.createInstance({
   name: "filecache"
 });
 var imp = { ...importmap_default.imports };
@@ -7655,7 +7667,21 @@ var mod2 = {
   }
     
      `;
-    return res;
+    const t2 = await initAndTransform(res, {
+      format: "esm",
+      minify: true,
+      keepNames: true,
+      platform: "neutral",
+      treeShaking: true
+    });
+    const c2 = await initAndTransform(t2.code, {
+      format: "iife",
+      minify: true,
+      keepNames: true,
+      platform: "neutral",
+      treeShaking: true
+    });
+    return c2.code;
   },
   last: 0,
   hashMap: {},
@@ -7673,13 +7699,11 @@ var findDeps = /* @__PURE__ */ __name((code) => {
       if (groupIndex == 1) {
         deps.push(match);
       }
-      console.log(`Found match, group ${groupIndex}: ${match}`);
     }
   }
   return deps;
 }, "findDeps");
 var toUmd = /* @__PURE__ */ __name(async (source, name) => {
-  console.log("toUmd: " + name);
   const hash = md5(source);
   mod2.hashMap = { ...mod2.hashMap, [name]: hash };
   if (mod2.data[hash])
