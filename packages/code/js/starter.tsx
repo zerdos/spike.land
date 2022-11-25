@@ -28,24 +28,26 @@ export const moveToWorker = async (codeSpace: string) => {
   document.body.appendChild(div);
   const mod = await globalThis.toUmd(transpiled, `${codeSpace}-${i}`);
   const js = await mod.toJs(`${codeSpace}-${i}`);
-  const scr = createJsBlob(js, `${codeSpace}-${i}`);
-  div.setAttribute("src", scr);
+  const src = createJsBlob(js, `${codeSpace}-${i}`);
+  div.setAttribute("src", src);
+  const root = createRoot(div);
+  const key = md5(transpiled);
+
+  root.render(
+    <ErrorBoundary
+      fallbackRender={({ error }) => (
+        <div role="alert">
+          <div>Oh no</div>
+          <pre>{error.message}</pre>
+        </div>
+      )}
+    >
+      <App appId={codeSpace + "-" + key} />
+    </ErrorBoundary>,
+  );
+
   return upgradeElement(div, `/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js`);
 };
-
-const root = createRoot(div);
-root.render(
-  <ErrorBoundary
-    fallbackRender={({ error }) => (
-      <div role="alert">
-        <div>Oh no</div>
-        <pre>{error.message}</pre>
-      </div>
-    )}
-  >
-    <App />
-  </ErrorBoundary>,
-);
 
 Object.assign(globalThis, { md5 });
 const myApps: { [key: string]: FC } = {};
