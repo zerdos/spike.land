@@ -27,7 +27,22 @@ export const moveToWorker = async (codeSpace: string) => {
   ${html}</div>`;
   document.body.appendChild(div);
   const mod = await globalThis.toUmd(transpiled, `${codeSpace}-${i}`);
-  const js = await mod.toJs(`${codeSpace}-${i}`);
+
+  const k = md5(transpiled);
+
+  const mod2 = await globalThis.toUmd(
+    `
+
+  const {createRoot} = require("react-dom/client");
+  const App = require("${codeSpace}-${i}")
+  const root = createRoot(document.getElementById("${codeSpace}-${k}");
+
+root.render(App());
+
+  `,
+    `${codeSpace}-${i}-render`,
+  );
+  const js = await mod.toJs(`${codeSpace}-${i}-render`);
   const src = createJsBlob(js, `${codeSpace}-${i}`);
   div.setAttribute("src", src);
   const root = createRoot(div);
@@ -159,7 +174,6 @@ export function AutoUpdateApp(
       }
     })();
   }, []);
-
   useEffect(() => {
     (async () => {
       (async () => {

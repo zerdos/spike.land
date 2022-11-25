@@ -641,7 +641,20 @@ var moveToWorker = /* @__PURE__ */ __name(async (codeSpace) => {
   ${html}</div>`;
   document.body.appendChild(div);
   const mod = await globalThis.toUmd(transpiled, `${codeSpace}-${i2}`);
-  const js = await mod.toJs(`${codeSpace}-${i2}`);
+  const k2 = md5(transpiled);
+  const mod2 = await globalThis.toUmd(
+    `
+
+  const {createRoot} = require("react-dom/client");
+  const App = require("${codeSpace}-${i2}")
+  const root = createRoot(document.getElementById("${codeSpace}-${k2}");
+
+root.render(App());
+
+  `,
+    `${codeSpace}-${i2}-render`
+  );
+  const js = await mod.toJs(`${codeSpace}-${i2}-render`);
   const src = createJsBlob(js, `${codeSpace}-${i2}`);
   div.setAttribute("src", src);
   const root = (0, import_client.createRoot)(div);
