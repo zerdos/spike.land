@@ -7566,8 +7566,9 @@ async function moveToWorker(nameSpace, parent2) {
     document.body.appendChild(parent);
   }
   
-  parent.innerHTML=\`<style>${css2}</style><div id="root-${codeSpace}" data-i="${i2}" style="height: 100%">${html}</div>\`;  
+  parent.innerHTML=\`<style>${css2}</style><div id="root-${codeSpace}" data-i="${i2}" style="height: 100%;">${html}</div>\`;  
   const div = document.getElementById("${codeSpace}-${k2}");
+  div.style.height="100%";
   const root = createRoot(div );
 
   const cache = createCache({
@@ -7584,7 +7585,7 @@ root.render( <ErrorBoundary
       <pre>{error.message}</pre>
     </div>
   )}
-><CacheProvider  value={cache}>
+><CacheProvider value={cache}>
   <App />
   </CacheProvider></ErrorBoundary>);
 
