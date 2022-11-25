@@ -3,6 +3,15 @@ import "es-module-shims";
 // import { md5 } from "./md5";
 // import { createJsBlob } from "starter";
 import importmap from "./importmap.json";
+
+import { resetCSS } from "./getResetCss";
+
+const reset = document.createElement("style");
+reset.textContent = resetCSS;
+document.head.appendChild(reset);
+
+reset.inner;
+
 const imp: { [key: string]: string } = { ...importmap.imports };
 const res = {};
 Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
