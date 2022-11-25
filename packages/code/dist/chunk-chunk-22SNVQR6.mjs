@@ -7818,9 +7818,11 @@ async function moveToWorker(nameSpace, parent2) {
 
   ` + code.replace("export default", `const App${k2} =`) + `
   
+  document.styleSheets = [];
   const reset = document.createElement("style");
 reset.textContent = ${JSON.stringify(resetCSS)};
 document.body.appendChild(reset);
+
 
   let parent = document.getElementById("${codeSpace}-${i2}");
 
@@ -7838,9 +7840,10 @@ document.body.appendChild(reset);
   const cache = createCache({
     key: "${k2}",
     container: parent,
-    speedy: true,
+    speedy: false ,
   });
 
+ cache.compat = undefined;
 
 root.render( <ErrorBoundary
   fallbackRender={({ error }) => (
