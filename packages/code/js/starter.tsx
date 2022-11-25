@@ -70,7 +70,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
     import createCache from "@emotion/cache ";
     import { ErrorBoundary } from "react-error-boundary";
 
-  ` + code.replace("export default", "const App =") + `
+  ` + code.replace("export default", `const App${k} =`) + `
   
   const reset = document.createElement("style");
 reset.textContent = ${JSON.stringify(resetCSS)};
@@ -104,7 +104,7 @@ root.render( <ErrorBoundary
     </div>
   )}
 ><CacheProvider value={cache}>
-  <App />
+  <App${k} />
   </CacheProvider></ErrorBoundary>);
 
   `,
