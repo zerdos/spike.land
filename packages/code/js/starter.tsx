@@ -51,7 +51,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
     : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = document.createElement("div");
   div.setAttribute("id", `${codeSpace}-${i}`);
-  div.innerHTML = `<style>${css}</style><div id="root-${codeSpace}" data-i="${i}" style="height: 100%"> ${html}</div>`;
+  div.innerHTML = `<style>${css}</style><div id="${codeSpace}-${i}" style="height: 100%">${html}</div>`;
   parent.appendChild(div);
 
   const k = md5(transpiled);
