@@ -84,10 +84,6 @@ export default {
         const cacheKey = new Request(_request.url);
         const cache = caches.default;
 
-        // if(url.pathname.includes('ws.mjs') || url.pathname.includes("/live")){
-        //   cacheKey = new Request(_request.url+ Date.now());
-        // }
-
         const cachedResponse = await cache.match(cacheKey);
         if (cachedResponse && cachedResponse.ok) {
           return cachedResponse;
@@ -457,7 +453,7 @@ async function handleApiRequest(
 
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
-      return roomObject.fetch(newUrl.toString(), request);
+      return roomObject.fetch(new Request(newUrl.toString(), request));
     }
     default:
       return new Response("Not found", { status: 404 });

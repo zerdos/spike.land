@@ -23,17 +23,9 @@ export const initAndTransform: typeof transform = async (code, opts) => {
 
   const transformed = await transform(code, opts);
 
-  const regex1 = / from '\.\./gi;
-
-  const regex2 = / from '\./gi;
-
-  // 0123456
-
-  const trp = transformed.code.replaceAll(
-    regex1,
-    ` from '${location.origin}/live/`,
-  )
-    .replaceAll(regex2, ` from '${location.origin}/live/`);
+  const trp = transformed.code.split(` from '..`).join(` from '${location.origin}/live`).split(` from '.`).join(
+    ` from '${location.origin}/live`,
+  );
 
   return { ...transformed, code: `/*${md5(code)}*/` + trp };
 };

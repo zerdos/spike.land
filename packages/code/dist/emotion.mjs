@@ -11,7 +11,7 @@ import {
 
 // js/emotion.ts
 init_define_process();
-var EA = __toESM(require_emotion_react_cjs(), 1);
+var import_react = __toESM(require_emotion_react_cjs(), 1);
 var {
   __unsafe_useEmotionCache,
   CacheProvider,
@@ -26,23 +26,8 @@ var {
   useTheme,
   withEmotionCache,
   withTheme
-} = EA;
-var emotionReact = {
-  __unsafe_useEmotionCache,
-  CacheProvider,
-  ClassNames,
-  createElement,
-  css,
-  Global,
-  jsx,
-  keyframes,
-  ThemeContext,
-  ThemeProvider,
-  useTheme,
-  withEmotionCache,
-  withTheme
-};
-var emotion_default = emotionReact;
+} = import_react.default;
+var emotion_default = import_react.default;
 export {
   CacheProvider,
   ClassNames,

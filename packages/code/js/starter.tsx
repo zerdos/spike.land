@@ -2,10 +2,8 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
-import { createRoot } from "react-dom/client";
 
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
@@ -44,7 +42,8 @@ root.render(App());
   const js = await mod2.toJs(`${codeSpace}-${i}-render`);
   const src = createJsBlob(js, `${codeSpace}-${i}`);
   div.setAttribute("src", src);
-  return upgradeElement(div, `/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js`);
+
+  return div;
 };
 
 Object.assign(globalThis, { md5 });
@@ -209,8 +208,7 @@ export async function appFactory(
     try {
       eCaches[hash] = eCaches[hash] || createCache({
         key: hash,
-        insertionPoint: document.getElementById(`root-${codeSpace}`)!,
-        speedy: true,
+        speedy: false,
       });
 
       eCaches[hash].compat = undefined;

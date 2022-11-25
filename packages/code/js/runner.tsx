@@ -1,13 +1,12 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 import type { TransformOptions } from "esbuild-wasm";
-import { codeSpace } from "load";
 import debounce from "lodash.debounce";
 import { build, transform } from "./esbuildEsm";
 import { render } from "./renderToString";
 import { md5, mST, patchSync } from "./session";
 import { toUmd } from "./toUmd";
 
-Object.assign(globalThis, { transform, build });
+Object.assign(globalThis, { transform, build, toUmd });
 
 const debouncedSync = debounce(patchSync, 200, {
   leading: true,
@@ -71,13 +70,13 @@ export const umdTransform = async (code: string) => {
   return transpiled.code;
 };
 
-Object.assign(globalThis, {
-  _toUmd: () => toUmd(mST().code, codeSpace),
-  toUmd,
+// Object.assign(globalThis, {
+//   _toUmd: () => toUmd(mST().code, codeSpace),
+//   toUmd,
 
-  IIFE,
-  umdTransform,
-});
+//   IIFE,
+//   umdTransform,
+// });
 
 export async function runner({ code, counter, codeSpace }: {
   code: string;

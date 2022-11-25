@@ -164,41 +164,33 @@
     if (content !== null)
       files = JSON.parse(content);
     return md5(content);
-  }).then(
-    (cn) => cn === cacheName || (fileCache = null) || (cacheName = cn)
-  ).finally(() => cacheName), "getCacheName");
-  addEventListener("fetch", async (_event) => {
-    const event = _event;
+  }).then((cn) => cn === cacheName || (fileCache = null) || (cacheName = cn)).finally(() => cacheName), "getCacheName");
+  addEventListener("fetch", function(event) {
     return event.respondWith((async () => {
-      const reqUrl = event.request.url;
-      if (!event.request.url.includes(location.origin) || event.request.url.includes("/live/")) {
-        try {
-          let response = await fetch(event.request);
-          return response;
-        } catch {
-          console.error("fetch error", reqUrl);
-        }
+      const url = new URL(event.request.url);
+      if (url.origin !== location.origin || url.pathname.includes("/live/")) {
+        return fetch(event.request);
+      }
+      const myCache = url.pathname.includes("npm:/v") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? chunkCache = chunkCache || await caches.open("chunks") : fileCache = fileCache || await caches.open(`f-${cacheName}`);
+      if (Date.now() - lastChecked > 4e4) {
+        lastChecked = Date.now();
+        setTimeout(getCacheName);
       }
       const cacheKey = new Request(
-        event.request.url
+        url.toString()
       );
-      const url = new URL(cacheKey.url);
-      const myCache = url.pathname.includes("npm:/v") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? chunkCache = chunkCache || await caches.open("chunks") : fileCache = fileCache || await caches.open(`f-${cacheName}`);
-      if (Date.now() - lastChecked > 1e4) {
-        lastChecked = Date.now();
-        getCacheName();
+      let response = await myCache.match(cacheKey);
+      if (response)
+        return response;
+      response = await fetch(event.request);
+      if (!response.ok)
+        return response;
+      response = new Response(response.body, response);
+      const maybeFilename = url.pathname.split("/").pop();
+      if (response.ok && response.headers.get("Cache-Control") !== "no-cache" || myCache === fileCache && maybeFilename && files[maybeFilename]) {
+        event.waitUntil(myCache.put(cacheKey, response.clone()));
       }
-      const cachedResp = await myCache.match(cacheKey);
-      if (cachedResp)
-        return cachedResp;
-      const resp = await fetch(event.request);
-      if (!resp.ok)
-        return resp;
-      const maybeFilename = cacheKey.url.split("/").pop();
-      if (resp.ok && resp.headers.get("Cache-Control") !== "no-cache" || myCache === fileCache && maybeFilename && files[maybeFilename]) {
-        await myCache.put(cacheKey, resp.clone());
-      }
-      return resp;
+      return response;
     })());
   });
 })();
