@@ -18,13 +18,15 @@ import { wait } from "./wait";
 
 // importShim.addImportMap({ imports: res });
 
-export const moveToWorker = async (codeSpace: string, counter: number) => {
-  const App = await appFactory(mST().transpiled, codeSpace);
-  const { html, css, transpiled, i } = mST();
+export const moveToWorker = async (codeSpace: string) => {
+  const { html, css, i, transpiled } = await import(`${location.origin}/live/${codeSpace}/mST.mjs`);
+  const App = await appFactory(transpiled, codeSpace);
   const div = document.createElement("div");
   div.setAttribute("id", `${codeSpace}-${i}`);
+  div.innerHTML = `<style>${css}</style><div id="root-${codeSpace}" data-i="${i}" style="height: 100%">
+  ${html}</div>`;
   document.body.appendChild(div);
-  const mod = await toUmd(transpiled, `${codeSpace}-${i}`);
+  const mod = await globalThis.toUmd(transpiled, `${codeSpace}-${i}`);
   const js = await mod.toJs(`${codeSpace}-${i}`);
   const scr = createJsBlob(js, `${codeSpace}-${i}`);
   div.setAttribute("src", scr);

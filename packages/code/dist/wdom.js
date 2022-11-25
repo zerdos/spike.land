@@ -29252,13 +29252,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // js/starter.tsx
   var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-  var moveToWorker = /* @__PURE__ */ __name(async (codeSpace, counter) => {
-    const App2 = await appFactory(mST().transpiled, codeSpace);
-    const { html, css: css2, transpiled, i: i2 } = mST();
+  var moveToWorker = /* @__PURE__ */ __name(async (codeSpace) => {
+    const { html, css: css2, i: i2, transpiled } = await import(`${location.origin}/live/${codeSpace}/mST.mjs`);
+    const App2 = await appFactory(transpiled, codeSpace);
     const div2 = document.createElement("div");
     div2.setAttribute("id", `${codeSpace}-${i2}`);
+    div2.innerHTML = `<style>${css2}</style><div id="root-${codeSpace}" data-i="${i2}" style="height: 100%">
+  ${html}</div>`;
     document.body.appendChild(div2);
-    const mod = await toUmd(transpiled, `${codeSpace}-${i2}`);
+    const mod = await globalThis.toUmd(transpiled, `${codeSpace}-${i2}`);
     const js = await mod.toJs(`${codeSpace}-${i2}`);
     const scr = createJsBlob(js, `${codeSpace}-${i2}`);
     div2.setAttribute("src", scr);
@@ -29394,5 +29396,5 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   __name(createJsBlob, "createJsBlob");
 
   // js/wdom.tsx
-  moveToWorker("code");
+  globalThis.moveToWorker = (nameSpace) => moveToWorker(nameSpace);
 })();
