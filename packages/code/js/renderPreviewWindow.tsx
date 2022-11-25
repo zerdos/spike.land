@@ -124,7 +124,7 @@ export const renderPreviewWindow = (
   singleton.started = true;
 
   const div = document.querySelector(`#root-${codeSpace}`)!;
-  // Div.style.height='100%';
+  div.style.height = "100%";
   const root = createRoot(div);
 
   // (createCache as unknown as {default: typeof createCache}).default
