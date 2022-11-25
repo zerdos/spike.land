@@ -40,56 +40,49 @@ var getDistro = (b) =>
 var DevcontainerGenerator = class {
   constructor(base) {
     this.base = base;
-    this._dockerfile = "";
-    this._readme = "";
-    this._dockerTemplates = {};
-    this._readmeTemplates = {};
-    this._templateInputs = [
-      "base",
-      "android",
-      "git",
-      "debianBackports",
-      "google-chrome",
-      "chromium",
-      "gitUbuntu",
-      "node",
-      "cypress",
-      "dotnet6",
-      "docker",
-      "kubernetes",
-      "dotnet3",
-      "xfce",
-      "noVNC",
-      "xpra",
-      "deno",
-      "zsh",
-      "vscode",
-      "suffix",
-    ];
-    this._nodeVersion = null;
-    this._gitVersion = "";
-    this._cypressVersion = "";
-    this._dotnet = null;
-    this._xfce = false;
-    this._debianBackports = false;
-    this._docker = false;
-    this._android = false;
-    this._vscode = false;
-    this._xpra = false;
-    this._k8s = false;
-    this._deno = false;
-    this._noVNC = false;
-    this._zsh = false;
-    this._chromium = false;
-    this._chrome = false;
-    this.loadTemplate = async (filename, extension) =>
-      await readFile(
-        `../devcontainer-generator/templates/${filename}.${extension}`,
-      ).catch((e) => {
-        console.error({ e });
-        return "";
-      });
   }
+  _dockerfile = "";
+  _readme = "";
+  _dockerTemplates = {};
+  _readmeTemplates = {};
+  _templateInputs = [
+    "base",
+    "android",
+    "git",
+    "debianBackports",
+    "google-chrome",
+    "chromium",
+    "gitUbuntu",
+    "node",
+    "cypress",
+    "dotnet6",
+    "docker",
+    "kubernetes",
+    "dotnet3",
+    "xfce",
+    "noVNC",
+    "xpra",
+    "deno",
+    "zsh",
+    "vscode",
+    "suffix",
+  ];
+  _nodeVersion = null;
+  _gitVersion = "";
+  _cypressVersion = "";
+  _dotnet = null;
+  _xfce = false;
+  _debianBackports = false;
+  _docker = false;
+  _android = false;
+  _vscode = false;
+  _xpra = false;
+  _k8s = false;
+  _deno = false;
+  _noVNC = false;
+  _zsh = false;
+  _chromium = false;
+  _chrome = false;
   async init() {
     const bufferDockerfiles = await Promise.all(
       this._templateInputs.map(
@@ -308,5 +301,12 @@ RUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding
       README: this._readme,
     };
   }
+  loadTemplate = async (filename, extension) =>
+    await readFile(
+      `../devcontainer-generator/templates/${filename}.${extension}`,
+    ).catch((e) => {
+      console.error({ e });
+      return "";
+    });
 };
 export { DevcontainerGenerator };

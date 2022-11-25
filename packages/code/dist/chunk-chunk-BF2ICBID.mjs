@@ -7789,7 +7789,7 @@ async function runInWorker(nameSpace, _parent) {
     div = await moveToWorker(nameSpace, parent);
     if (oldDiv)
       oldDiv.remove();
-    div.setAttribute("data-shadow-dom", "open");
+    div.setAttribute("data-shadow-dom", "closed ");
     worker = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
   });
 }
