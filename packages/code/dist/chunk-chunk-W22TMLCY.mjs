@@ -7565,7 +7565,7 @@ async function moveToWorker(nameSpace, parent2) {
     document.body.appendChild(parent);
   }
   parent.style.height="100%";
-  parent.innerHTML="<div id="${codeSpace}-${k2}"></div>";  
+  parent.innerHTML=\`<div id="${codeSpace}-${k2}"></div>\`;  
   const div = document.getElementById("${codeSpace}-${k2}");
   div.style.height="100%";
   const root = createRoot(div );
