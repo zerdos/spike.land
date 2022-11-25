@@ -1,3 +1,6 @@
+/// <reference no-default-lib="true"/>
+/// <reference lib="webworker"/>
+
 import { md5 } from "./md5";
 
 // async function wait(delay) {
@@ -20,34 +23,17 @@ const getCacheName = () =>
   fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => {
     if (content !== null) files = JSON.parse(content);
     return md5(content);
-  })
-    .then(
-      (cn) => (cn === cacheName || (fileCache = null) || (cacheName = cn)),
-    ).finally(() => cacheName);
+  }).then((cn) => (cn === cacheName || (fileCache = null) || (cacheName = cn))).finally(() => cacheName);
 
-addEventListener("fetch", async (_event) => {
-  const event = _event as unknown as FetchEvent;
-
+addEventListener("fetch", function(event: FetchEvent) {
   return event.respondWith((async () => {
-    const reqUrl = event.request.url;
-    if (
-      !event.request.url.includes(location.origin)
-      || event.request.url.includes("/live/")
-    ) {
-      // let response;
-      try {
-        let response = await fetch(event.request);
+    const url = new URL(event.request.url);
 
-        return response;
-      } catch {
-        console.error("fetch error", reqUrl);
-        // console.log())
-      }
+    if (
+      url.origin !== location.origin || url.pathname.includes("/live/")
+    ) {
+      return fetch(event.request);
     }
-    const cacheKey = new Request(
-      event.request.url,
-    );
-    const url = new URL(cacheKey.url);
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     const myCache = url.pathname.includes("npm:/v")
@@ -56,29 +42,35 @@ addEventListener("fetch", async (_event) => {
       ? (chunkCache = chunkCache || await caches.open("chunks"))
       : (fileCache = fileCache || await caches.open(`f-${cacheName}`));
 
-    if (Date.now() - lastChecked > 10_000) {
+    if (Date.now() - lastChecked > 40_000) {
       lastChecked = Date.now();
-      getCacheName();
+      setTimeout(getCacheName);
     }
 
-    const cachedResp = await myCache.match(cacheKey);
+    const cacheKey = new Request(
+      url.toString(),
+    );
 
-    if (cachedResp) return cachedResp;
+    let response = await myCache.match(cacheKey);
 
-    const resp = await fetch(event.request);
-    if (!resp.ok) return resp;
+    if (response) return response;
 
-    const maybeFilename = cacheKey.url.split("/").pop();
+    response = await fetch(event.request);
+    if (!response.ok) return response;
+
+    response = new Response(response.body, response);
+
+    const maybeFilename = url.pathname.split("/").pop();
 
     if (
-      resp.ok && (
-          resp.headers.get("Cache-Control") !== "no-cache"
+      response.ok && (
+          response.headers.get("Cache-Control") !== "no-cache"
           //    && !resp.headers.get("Location")
         )
       || (myCache === fileCache && maybeFilename && files[maybeFilename])
     ) {
-      await myCache.put(cacheKey, resp.clone());
+      event.waitUntil(myCache.put(cacheKey, response.clone()));
     }
-    return resp;
+    return response;
   })());
 });

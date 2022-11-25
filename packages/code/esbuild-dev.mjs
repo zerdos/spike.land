@@ -182,7 +182,7 @@ const build = (
     outbase: "monaco-editor/esm/vs",
     outdir: "./js/monaco-workers",
   });
-  await build(["js/react-jsx-runtime.ts"], [], false, "iife");
+  // await build(["js/react-jsx-runtime.ts"], [], false, "iife");
 
   // await build(["js/mWorker.mjs"], [], false, "iife");
 
@@ -228,6 +228,7 @@ const build = (
     entryPoints: [
       "js/sw.ts",
       "js/wdom.tsx",
+      "js/react-jsx-runtime.ts",
     ],
     bundle: true,
     define,
@@ -262,7 +263,6 @@ const build = (
 
       // "js/ws.ts",
       "js/emotion.ts",
-
       "js/emotionCache.ts",
       "js/emotionStyled.mjs",
       "js/emotionJsxRuntime.ts",

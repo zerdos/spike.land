@@ -9,6 +9,24 @@ Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }
 
 importShim.addImportMap({ imports: res });
 
+if (location.pathname.endsWith("dehydrated")) {
+  const paths = location.pathname.split("/");
+  paths.pop(); // dehydrated;
+  const codeSpace = paths.pop();
+
+  const bc = new BroadcastChannel(location.origin);
+
+  bc.onmessage = (event) => {
+    if (event.data.codeSpace === codeSpace) {
+      const { html, css } = event.data.sess;
+      document.getElementById(`root-${codeSpace}`).innerHTML = `<style>${css}</style>${html}`;
+    }
+  };
+} else {
+  (async () => {
+    (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
+  })();
+}
 // const runtime = () => {
 //   const React = require("react");
 //   Object.assign(globalThis, { React });
