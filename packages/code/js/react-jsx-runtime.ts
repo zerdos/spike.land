@@ -10,8 +10,6 @@ const reset = document.createElement("style");
 reset.textContent = resetCSS;
 document.head.appendChild(reset);
 
-reset.inner;
-
 const imp: { [key: string]: string } = { ...importmap.imports };
 const res = {};
 Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));

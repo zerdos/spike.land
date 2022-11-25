@@ -5139,6 +5139,263 @@ function upgradeElement(e2, t2) {
 }
 __name(upgradeElement, "upgradeElement");
 
+// ../../.yarn/global/cache/async-mutex-npm-0.4.0-f5a25d4255-9.zip/node_modules/async-mutex/index.mjs
+init_define_process();
+var E_TIMEOUT = new Error("timeout while waiting for mutex to become available");
+var E_ALREADY_LOCKED = new Error("mutex already locked");
+var E_CANCELED = new Error("request for lock canceled");
+var __awaiter$2 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve) {
+      resolve(value);
+    });
+  }
+  __name(adopt, "adopt");
+  return new (P2 || (P2 = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e2) {
+        reject(e2);
+      }
+    }
+    __name(fulfilled, "fulfilled");
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e2) {
+        reject(e2);
+      }
+    }
+    __name(rejected, "rejected");
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    __name(step, "step");
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Semaphore = class {
+  constructor(_value, _cancelError = E_CANCELED) {
+    this._value = _value;
+    this._cancelError = _cancelError;
+    this._weightedQueues = [];
+    this._weightedWaiters = [];
+  }
+  acquire(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    return new Promise((resolve, reject) => {
+      if (!this._weightedQueues[weight - 1])
+        this._weightedQueues[weight - 1] = [];
+      this._weightedQueues[weight - 1].push({ resolve, reject });
+      this._dispatch();
+    });
+  }
+  runExclusive(callback, weight = 1) {
+    return __awaiter$2(this, void 0, void 0, function* () {
+      const [value, release] = yield this.acquire(weight);
+      try {
+        return yield callback(value);
+      } finally {
+        release();
+      }
+    });
+  }
+  waitForUnlock(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    return new Promise((resolve) => {
+      if (!this._weightedWaiters[weight - 1])
+        this._weightedWaiters[weight - 1] = [];
+      this._weightedWaiters[weight - 1].push(resolve);
+      this._dispatch();
+    });
+  }
+  isLocked() {
+    return this._value <= 0;
+  }
+  getValue() {
+    return this._value;
+  }
+  setValue(value) {
+    this._value = value;
+    this._dispatch();
+  }
+  release(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    this._value += weight;
+    this._dispatch();
+  }
+  cancel() {
+    this._weightedQueues.forEach((queue) => queue.forEach((entry) => entry.reject(this._cancelError)));
+    this._weightedQueues = [];
+  }
+  _dispatch() {
+    var _a;
+    for (let weight = this._value; weight > 0; weight--) {
+      const queueEntry = (_a = this._weightedQueues[weight - 1]) === null || _a === void 0 ? void 0 : _a.shift();
+      if (!queueEntry)
+        continue;
+      const previousValue = this._value;
+      const previousWeight = weight;
+      this._value -= weight;
+      weight = this._value + 1;
+      queueEntry.resolve([previousValue, this._newReleaser(previousWeight)]);
+    }
+    this._drainUnlockWaiters();
+  }
+  _newReleaser(weight) {
+    let called = false;
+    return () => {
+      if (called)
+        return;
+      called = true;
+      this.release(weight);
+    };
+  }
+  _drainUnlockWaiters() {
+    for (let weight = this._value; weight > 0; weight--) {
+      if (!this._weightedWaiters[weight - 1])
+        continue;
+      this._weightedWaiters[weight - 1].forEach((waiter) => waiter());
+      this._weightedWaiters[weight - 1] = [];
+    }
+  }
+};
+__name(Semaphore, "Semaphore");
+var __awaiter$1 = function(thisArg, _arguments, P2, generator) {
+  function adopt(value) {
+    return value instanceof P2 ? value : new P2(function(resolve) {
+      resolve(value);
+    });
+  }
+  __name(adopt, "adopt");
+  return new (P2 || (P2 = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e2) {
+        reject(e2);
+      }
+    }
+    __name(fulfilled, "fulfilled");
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e2) {
+        reject(e2);
+      }
+    }
+    __name(rejected, "rejected");
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    __name(step, "step");
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Mutex = class {
+  constructor(cancelError) {
+    this._semaphore = new Semaphore(1, cancelError);
+  }
+  acquire() {
+    return __awaiter$1(this, void 0, void 0, function* () {
+      const [, releaser] = yield this._semaphore.acquire();
+      return releaser;
+    });
+  }
+  runExclusive(callback) {
+    return this._semaphore.runExclusive(() => callback());
+  }
+  isLocked() {
+    return this._semaphore.isLocked();
+  }
+  waitForUnlock() {
+    return this._semaphore.waitForUnlock();
+  }
+  release() {
+    if (this._semaphore.isLocked())
+      this._semaphore.release();
+  }
+  cancel() {
+    return this._semaphore.cancel();
+  }
+};
+__name(Mutex, "Mutex");
+
+// js/getResetCss.ts
+init_define_process();
+var resetCSS = `
+*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
+all: unset;
+display: revert;
+}
+
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+
+a, button {
+cursor: revert;
+}
+
+ol, ul, menu {
+list-style: none;
+}
+
+img {
+max-width: 100%;
+}
+
+table {
+border-collapse: collapse;
+}
+
+input, textarea {
+-webkit-user-select: auto;
+}
+
+textarea {
+white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter {
+-webkit-appearance: revert;
+appearance: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder {
+color: unset;
+}
+
+/* fix the feature of 'hidden' attribute.
+display:revert; revert to element instead of a/live/editttribute */
+:where([hidden]) {
+display: none;
+}
+
+/* revert for bug in Chromium browsers
+- fix for the content editable attribute will work properly.
+- webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
+:where([contenteditable]:not([contenteditable="false"])) {
+-moz-user-modify: read-write;
+-webkit-user-modify: read-write;
+overflow-wrap: break-word;
+-webkit-line-break: after-white-space;
+-webkit-user-select: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"]) {
+-webkit-user-drag: element;
+}`;
+
 // js/toUmd.ts
 init_define_process();
 
@@ -7518,19 +7775,23 @@ var div = null;
 var oldDiv = null;
 var parent;
 var lastH;
+var mutex = new Mutex();
 async function runInWorker(nameSpace, _parent) {
-  if (lastH === hashCode())
-    return;
-  lastH = hashCode();
-  parent = parent || _parent;
-  if (worker)
-    worker.terminate();
-  if (div)
-    oldDiv = div;
-  div = await moveToWorker(nameSpace, parent);
-  if (oldDiv)
-    oldDiv.remove();
-  worker = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+  await mutex.runExclusive(async () => {
+    if (lastH === hashCode())
+      return;
+    lastH = hashCode();
+    parent = parent || _parent;
+    if (worker)
+      worker.terminate();
+    if (div)
+      div.remove();
+    div = await moveToWorker(nameSpace, parent);
+    if (oldDiv)
+      oldDiv.remove();
+    div.setAttribute("data-shadow-dom", "open");
+    worker = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+  });
 }
 __name(runInWorker, "runInWorker");
 var bc = new BroadcastChannel(location.origin);
@@ -7545,7 +7806,7 @@ async function moveToWorker(nameSpace, parent2) {
   const div2 = document.createElement("div");
   div2.setAttribute("id", `${codeSpace}-${i2}`);
   div2.style.height = "100%";
-  div2.innerHTML = `<style>${css2}</style><div id="${codeSpace}-${i2}" style="height: 100%">${html}</div>`;
+  div2.innerHTML = `<style>${resetCSS} ${css2}</style><div id="${codeSpace}-${i2}" style="height: 100%">${html}</div>`;
   parent2.appendChild(div2);
   const k2 = md5(transpiled);
   const mod22 = await toUmd(
@@ -7557,6 +7818,10 @@ async function moveToWorker(nameSpace, parent2) {
 
   ` + code.replace("export default", "const App =") + `
   
+  const reset = document.createElement("style");
+reset.textContent = ${JSON.stringify(resetCSS)};
+document.body.appendChild(reset);
+
   let parent = document.getElementById("${codeSpace}-${i2}");
 
   if (!parent) {

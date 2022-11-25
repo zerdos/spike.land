@@ -18354,7 +18354,6 @@ overflow-wrap: break-word;
   var reset = document.createElement("style");
   reset.textContent = resetCSS;
   document.head.appendChild(reset);
-  reset.inner;
   var imp = { ...importmap_default.imports };
   var res = {};
   Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
