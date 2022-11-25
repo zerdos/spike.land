@@ -1,3 +1,4 @@
+import "core-js/stable/string/replace-all";
 import type { languages, Uri } from "monaco-editor";
 
 export function extraStuff(
@@ -175,7 +176,7 @@ export function extraStuff(
   };
 
   const xxxsetExtraLibs = () => {
-    replaceMaps["/node_modules/"] = "/npm:/v99/";
+    // replaceMaps["/node_modules/"] = "/npm:/v99/";
 
     const versionNumbers = /@\d+.\d+.\d+/gm;
 

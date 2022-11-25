@@ -227,7 +227,6 @@ const build = (
     ...buildOptions,
     entryPoints: [
       "js/sw.ts",
-      "js/wdom.tsx",
       "js/react-jsx-runtime.ts",
     ],
     bundle: true,

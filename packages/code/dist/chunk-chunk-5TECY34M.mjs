@@ -5570,7 +5570,6 @@ function applyPatch(original, delta) {
 __name(applyPatch, "applyPatch");
 
 // js/session.ts
-mST();
 function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
