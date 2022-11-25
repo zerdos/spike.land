@@ -1338,6 +1338,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.44.0"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.31"],\
           ["ace-builds", "npm:1.13.1"],\
+          ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
           ["axios", "npm:1.2.0"],\
           ["comlink", "npm:4.3.1"],\
@@ -1409,6 +1410,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.44.0"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.31"],\
           ["ace-builds", "npm:1.13.1"],\
+          ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
           ["axios", "npm:1.2.0"],\
           ["comlink", "npm:4.3.1"],\
@@ -2455,6 +2457,16 @@ const RAW_RUNTIME_STATE =
           ["es-abstract", "npm:1.20.4"],\
           ["es-shim-unscopables", "npm:1.0.0"],\
           ["get-intrinsic", "npm:1.1.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["async-mutex", [\
+      ["npm:0.4.0", {\
+        "packageLocation": "./.yarn/global/cache/async-mutex-npm-0.4.0-f5a25d4255-9.zip/node_modules/async-mutex/",\
+        "packageDependencies": [\
+          ["async-mutex", "npm:0.4.0"],\
+          ["tslib", "npm:2.4.1"]\
         ],\
         "linkType": "HARD"\
       }]\

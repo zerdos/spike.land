@@ -70,6 +70,7 @@
     "@emotion/styled": "11.10.5",
     "@mui/material": "5.10.15",
     "ace-builds": "1.13.1",
+    "async-mutex": "^0.4.0",
     "avl": "1.5.3",
     "axios": "^1.2.0",
     "comlink": "4.3.1",
