@@ -634,35 +634,38 @@ __name(wait, "wait");
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var moveToWorker = /* @__PURE__ */ __name(async (codeSpace) => {
   const { html, css: css2, i: i2, transpiled } = await import(`${location.origin}/live/${codeSpace}/mST.mjs`);
-  const App2 = await appFactory(transpiled, codeSpace);
-  const div2 = document.createElement("div");
-  div2.setAttribute("id", `${codeSpace}-${i2}`);
-  div2.innerHTML = `<style>${css2}</style><div id="root-${codeSpace}" data-i="${i2}" style="height: 100%">
+  const App = await appFactory(transpiled, codeSpace);
+  const div = document.createElement("div");
+  div.setAttribute("id", `${codeSpace}-${i2}`);
+  div.innerHTML = `<style>${css2}</style><div id="root-${codeSpace}" data-i="${i2}" style="height: 100%">
   ${html}</div>`;
-  document.body.appendChild(div2);
+  document.body.appendChild(div);
   const mod = await globalThis.toUmd(transpiled, `${codeSpace}-${i2}`);
   const js = await mod.toJs(`${codeSpace}-${i2}`);
-  const scr = createJsBlob(js, `${codeSpace}-${i2}`);
-  div2.setAttribute("src", scr);
-  return upgradeElement(div2, `/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js`);
+  const src = createJsBlob(js, `${codeSpace}-${i2}`);
+  div.setAttribute("src", src);
+  const root = (0, import_client.createRoot)(div);
+  const key = md5(transpiled);
+  root.render(
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react_error_boundary.ErrorBoundary, {
+      fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+        role: "alert",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+            children: "Oh no"
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", {
+            children: error.message
+          })
+        ]
+      }),
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {
+        appId: codeSpace + "-" + key
+      })
+    })
+  );
+  return upgradeElement(div, `/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js`);
 }, "moveToWorker");
-var root = (0, import_client.createRoot)(div);
-root.render(
-  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react_error_boundary.ErrorBoundary, {
-    fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-      role: "alert",
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-          children: "Oh no"
-        }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", {
-          children: error.message
-        })
-      ]
-    }),
-    children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
-  })
-);
 Object.assign(globalThis, { md5 });
 var myApps = {};
 var myAppCounters = {};
@@ -673,7 +676,7 @@ onSessionUpdate(() => {
 }, "abort");
 var importIt = /* @__PURE__ */ __name(async (url) => {
   let waitingTime = 100;
-  let App2;
+  let App;
   const urlARR = url.split("/");
   const naked = +(urlARR.pop() || 0);
   const nUrl = urlARR.join("/");
@@ -688,18 +691,18 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
         let resp = await fetch(url2, { signal });
         if (resp.ok) {
           try {
-            App2 = (await importShim(url2)).default;
-            return { App: App2, url: resp.url };
+            App = (await importShim(url2)).default;
+            return { App, url: resp.url };
           } catch {
             const trp = await resp.text();
             try {
-              App2 = (await import(createJsBlob(trp))).default;
+              App = (await import(createJsBlob(trp))).default;
             } catch {
               console.error("something went nuts");
-              App2 = (await importShim(createJsBlob(trp))).default;
+              App = (await importShim(createJsBlob(trp))).default;
             }
-            myApps[nUrl] = App2;
-            return { App: App2, url: resp.url };
+            myApps[nUrl] = App;
+            return { App, url: resp.url };
           }
         }
       } catch (err) {
@@ -723,7 +726,7 @@ function AutoUpdateApp({ codeSpace }) {
   let starterI = 1 * document.getElementById(`root-${codeSpace}`).getAttribute(
     "data-i"
   );
-  const [{ App: App2, i: i2 }, setApps] = (0, import_react.useState)({
+  const [{ App, i: i2 }, setApps] = (0, import_react.useState)({
     i: starterI - 1,
     App: null
   });
@@ -733,7 +736,7 @@ function AutoUpdateApp({ codeSpace }) {
         `${location.origin}/live/${codeSpace}/index.js/${i2}`
       );
       const urlCounter = +(url.split("/").pop() || 0);
-      if (i2 < urlCounter && newApp !== App2) {
+      if (i2 < urlCounter && newApp !== App) {
         setApps((x2) => ({ ...x2, i: urlCounter, App: newApp }));
       }
     })();
@@ -745,13 +748,13 @@ function AutoUpdateApp({ codeSpace }) {
           `${location.origin}/live/${codeSpace}/index.js/${i2 + 1}`
         );
         const urlCounter = +(url.split("/").pop() || 0);
-        if (i2 < urlCounter && newApp !== App2) {
+        if (i2 < urlCounter && newApp !== App) {
           console.log({ url, urlCounter });
           setApps((x2) => ({ ...x2, i: urlCounter, App: newApp }));
         }
       })();
     })();
-  }, [i2, setApps, App2]);
+  }, [i2, setApps, App]);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react_error_boundary.ErrorBoundary, {
     fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
       role: "alert",
@@ -764,12 +767,12 @@ function AutoUpdateApp({ codeSpace }) {
         })
       ]
     }),
-    children: App2 == null ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+    children: App == null ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
       style: { height: "100%" },
       dangerouslySetInnerHTML: {
         __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`
       }
-    }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App2, {})
+    }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
   });
 }
 __name(AutoUpdateApp, "AutoUpdateApp");
@@ -792,13 +795,13 @@ async function appFactory(transpiled = "", codeSpace) {
       } catch {
         mod = new Function(trp + ` return ${trp.slice(2, 10)}`)();
       }
-      const App2 = mod.default;
+      const App = mod.default;
       apps[hash] = ({ appId }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
         style: { height: 100 + "%" },
         id: appId,
         children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.CacheProvider, {
           value: eCaches[hash],
-          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App2, {})
+          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
         }, hash)
       }, hash);
     } catch (error) {
