@@ -75,8 +75,6 @@ const AppToRender: FC<
   const portalNode = useMemo(() =>
     createHtmlPortalNode({
       attributes: {
-        id: `root-${codeSpace}`,
-        className: md5(mST().code),
         style: "height: 100%",
       },
     }), []);
@@ -123,7 +121,7 @@ export const renderPreviewWindow = (
   if (singleton.started) return;
   singleton.started = true;
 
-  const div = document.querySelector(`#root-${codeSpace}`)!;
+  const div = document.querySelector(`#root`)!;
   div.style.height = "100%";
   const root = createRoot(div);
 

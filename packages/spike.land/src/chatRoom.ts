@@ -358,10 +358,7 @@ export class Code {
           const respText = HTML.replace(
             `<root/>`,
             `
-                    <style>${mST().css}</style>
-                    <div id="root-${this.codeSpace}" data-i="${mST().i}" style="height: 100%">
-                      ${mST().html}
-                    </div>`,
+                    <div id="root" style="height: 100%;"><style>${mST().css}</style><div id="root-${this.codeSpace}" data-i="${mST().i}" style="height: 100%;">${mST().html}</div></div>`,
           ).split(hashCode()).join("css");
 
           // const Etag = request.headers.get("Etag");
