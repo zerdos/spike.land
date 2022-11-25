@@ -177,15 +177,15 @@
         setTimeout(getCacheName);
       }
       if (url.origin !== location.origin) {
-        url = this.location.origin + ":z:" + url.hostname + url.href + url.search;
+        url = new URL(location.origin + "/:z:" + btoa(url.toString()));
       }
+      let request = new Request(url.toString(), event.request);
       const cacheKey = new Request(
-        url.toString()
+        request.url
       );
       let response = await myCache.match(cacheKey);
       if (response)
         return response;
-      let request = new Request(cacheKey.url, event.request);
       response = await fetch(request);
       if (!response.ok)
         return response;
