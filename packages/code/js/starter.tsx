@@ -1,7 +1,6 @@
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
 
-import type * as Main from "@ampproject/worker-dom";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 
