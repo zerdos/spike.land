@@ -199,6 +199,18 @@ export class Code {
             },
           });
         }
+        case "list": {
+          const list = await this.kv.list();
+
+          return new Response(JSON.stringify({ ...list }), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+        }
         case "hashCodeSession":
           return new Response(hashCode().toString(), {
             status: 200,
