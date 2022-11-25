@@ -1,2 +1,2 @@
 import { moveToWorker } from "./starter";
-moveToWorker("code");
+globalThis.moveToWorker = (nameSpace: string) => moveToWorker(nameSpace);
