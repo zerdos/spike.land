@@ -6,9 +6,10 @@
     /* Basic Options */
     "lib": [
       "DOM",
-      "ES2015",
       "DOM.Iterable",
+      "ES2015",
       "es2022",
+      "ES2021.String",
       "ESNext.Promise",
       "WebWorker",
       "ES2022.Object",

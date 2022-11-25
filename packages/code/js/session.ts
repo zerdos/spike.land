@@ -6,8 +6,6 @@ import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
 // Import * as Immutable from "immutable"
 
-mST();
-
 type IUsername = string;
 
 export { md5 };

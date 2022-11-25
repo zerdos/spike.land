@@ -1,14 +1,40 @@
 import type { FC } from "react";
-import { useEffect, useState } from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import { useEffect, useRef } from "react";
 
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 
+import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
-import { hashCode, mST, onSessionUpdate } from "./session";
+import { mST, onSessionUpdate } from "./session";
+import { toUmd } from "./toUmd";
 import { wait } from "./wait";
+
+const codeSpace = location.pathname.slice(1).split("/")[1];
+let worker = null;
+let div = null;
+let oldDiv = null;
+let parent: HTMLDivElement;
+
+async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
+  parent = parent || _parent;
+  if (worker) worker.terminate();
+  if (div) oldDiv = div;
+  div = await moveToWorker(nameSpace, parent);
+  if (oldDiv) oldDiv.remove();
+  worker = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+}
+
+const bc = new BroadcastChannel(location.origin);
+
+bc.onmessage = (event) => {
+  const nameSpace = location.pathname.slice(1).split("/")[1];
+  if (event.data.codeSpace === nameSpace) {
+    runInWorker(nameSpace, parent);
+  }
+};
+
 // import importmap from "./importmap.json";
 // const imp: { [key: string]: string } = { ...importmap.imports };
 // const res = {};
@@ -16,35 +42,65 @@ import { wait } from "./wait";
 
 // importShim.addImportMap({ imports: res });
 
-export const moveToWorker = async (codeSpace: string) => {
-  const { html, css, i, transpiled } = (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
+async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
+  const { html, css, i, code, transpiled } = nameSpace === codeSpace
+    ? mST()
+    : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = document.createElement("div");
   div.setAttribute("id", `${codeSpace}-${i}`);
-  div.innerHTML = `<style>${css}</style><div id="root-${codeSpace}" data-i="${i}" style="height: 100%">
-  ${html}</div>`;
-  document.body.appendChild(div);
-  await globalThis.toUmd(transpiled, `${codeSpace}-${i}`);
+  div.innerHTML = `<style>${css}</style><div id="root-${codeSpace}" data-i="${i}" style="height: 100%"> ${html}</div>`;
+  parent.appendChild(div);
 
   const k = md5(transpiled);
-
-  const mod2 = await globalThis.toUmd(
+  const mod2 = await toUmd(
     `
+    import {createRoot} from "react-dom/client"
+    import { CacheProvider } from "@emotion/react";
+    import createCache from "@emotion/cache ";
+    import { ErrorBoundary } from "react-error-boundary";
 
-  const {createRoot} = require("react-dom/client");
-  const App = require("${codeSpace}-${i}")
-  const root = createRoot(document.getElementById("${codeSpace}-${k}");
+  ` + code.replace("export default", "const App =") + `
+  
+  let parent = document.getElementById("${codeSpace}-${i}");
 
-root.render(App());
+  if (!parent) {
+    parent =  document.createElement("div");
+    parent.setAttribute("id", "${codeSpace}-${i}");
+    document.body.appendChild(parent);
+  }
+  
+  parent.innerHTML=\`<style>${css}</style><div id="root-${codeSpace}" data-i="${i}" style="height: 100%">${html}</div>\`;  
+  const div = document.getElementById("${codeSpace}-${k}");
+  const root = createRoot(div );
+
+  const cache = createCache({
+    key: "${k}",
+    container: parent,
+    speedy: false,
+  });
+
+
+root.render( <ErrorBoundary
+  fallbackRender={({ error }) => (
+    <div role="alert">
+      <div>Oh no</div>
+      <pre>{error.message}</pre>
+    </div>
+  )}
+><CacheProvider  value={cache}>
+  <App />
+  </CacheProvider></ErrorBoundary>);
 
   `,
-    `${codeSpace}-${i}-render`,
+    `${codeSpace}-${i}`,
   );
-  const js = await mod2.toJs(`${codeSpace}-${i}-render`);
-  const src = createJsBlob(js, `${codeSpace}-${i}`);
+
+  const js = await mod2.toJs(`${codeSpace}-${i}`);
+  const src = createJsBlob(js);
   div.setAttribute("src", src);
 
   return div;
-};
+}
 
 Object.assign(globalThis, { md5 });
 const myApps: { [key: string]: FC } = {};
@@ -135,62 +191,54 @@ export const { apps, eCaches } = (globalThis as unknown as {
 export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
-  let starterI = 1 * (document.getElementById(`root-${codeSpace}`)!.getAttribute(
-    "data-i",
-  ) as unknown as number);
-
-  const [{ App, i }, setApps] = useState({
-    i: starterI - 1,
-    App: null as null | FC<{}>,
-  });
-
+  const ref = useRef(null);
   useEffect(() => {
-    (async () => {
-      const { url, App: newApp } = await importIt(
-        `${location.origin}/live/${codeSpace}/index.js/${i}`,
-      );
+    if (ref.current === null) return;
 
-      const urlCounter = +(url.split("/").pop() || 0);
-      if (i < urlCounter && newApp !== App) {
-        setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
-      }
-    })();
-  }, []);
-  useEffect(() => {
-    (async () => {
-      (async () => {
-        const { url, App: newApp } = await importIt(
-          `${location.origin}/live/${codeSpace}/index.js/${i + 1}`,
-        );
-        const urlCounter = +(url.split("/").pop() || 0);
-        if (i < urlCounter && newApp !== App) {
-          console.log({ url, urlCounter });
-          setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
-        }
-      })();
-    })();
-  }, [i, setApps, App]);
+    runInWorker(codeSpace, ref.current);
+  }, [ref, ref.current]);
+  // let starterI = 1 * (document.getElementById(`root-${codeSpace}`)!.getAttribute(
+  //   "data-i",
+  // ) as unknown as number);
+
+  // const [{ App, i }, setApps] = useState({
+  //   i: starterI - 1,
+  //   App: null as null | FC<{}>,
+  // });
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const { url, App: newApp } = await importIt(
+  //       `${location.origin}/live/${codeSpace}/index.js/${i}`,
+  //     );
+
+  //     const urlCounter = +(url.split("/").pop() || 0);
+  //     if (i < urlCounter && newApp !== App) {
+  //       setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
+  //     }
+  //   })();
+  // }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     (async () => {
+  //       const { url, App: newApp } = await importIt(
+  //         `${location.origin}/live/${codeSpace}/index.js/${i + 1}`,
+  //       );
+  //       const urlCounter = +(url.split("/").pop() || 0);
+  //       if (i < urlCounter && newApp !== App) {
+  //         console.log({ url, urlCounter });
+  //         setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
+  //       }
+  //     })();
+  //   })();
+  // }, [i, setApps, App]);
 
   return (
-    <ErrorBoundary
-      fallbackRender={({ error }) => (
-        <div role="alert">
-          <div>Oh no</div>
-          <pre>{error.message}</pre>
-        </div>
-      )}
-    >
-      {App == null
-        ? (
-          <div
-            style={{ height: "100%" }}
-            dangerouslySetInnerHTML={{
-              __html: `<style>${mST().css.split("body").join(`${codeSpace}-${hashCode()}`)}</style>${mST().html}`,
-            }}
-          />
-        )
-        : <App />}
-    </ErrorBoundary>
+    <div
+      ref={ref}
+      css={css`
+    height: 100%`}
+    />
   );
 }
 
