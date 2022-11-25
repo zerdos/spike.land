@@ -7,7 +7,7 @@ import { CacheProvider, css } from "@emotion/react";
 import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
-import { mST, onSessionUpdate } from "./session";
+import { hashCode, mST, onSessionUpdate } from "./session";
 import { toUmd } from "./toUmd";
 import { wait } from "./wait";
 
@@ -16,8 +16,11 @@ let worker = null;
 let div = null;
 let oldDiv = null;
 let parent: HTMLDivElement;
+let lastH;
 
 async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
+  if (lastH === hashCode()) return;
+  lastH = hashCode();
   parent = parent || _parent;
   if (worker) worker.terminate();
   if (div) oldDiv = div;

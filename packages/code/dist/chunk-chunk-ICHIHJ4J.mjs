@@ -8,6 +8,7 @@ import {
   require_emotion_react_jsx_runtime_cjs
 } from "./chunk-chunk-MYCITQ4M.mjs";
 import {
+  hashCode,
   mST,
   md5,
   onSessionUpdate
@@ -7516,7 +7517,11 @@ var worker = null;
 var div = null;
 var oldDiv = null;
 var parent;
+var lastH;
 async function runInWorker(nameSpace, _parent) {
+  if (lastH === hashCode())
+    return;
+  lastH = hashCode();
   parent = parent || _parent;
   if (worker)
     worker.terminate();
