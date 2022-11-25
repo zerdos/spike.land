@@ -20,13 +20,12 @@ import { wait } from "./wait";
 
 export const moveToWorker = async (codeSpace: string) => {
   const { html, css, i, transpiled } = (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
-  const App = await appFactory(transpiled, codeSpace);
   const div = document.createElement("div");
   div.setAttribute("id", `${codeSpace}-${i}`);
   div.innerHTML = `<style>${css}</style><div id="root-${codeSpace}" data-i="${i}" style="height: 100%">
   ${html}</div>`;
   document.body.appendChild(div);
-  const mod = await globalThis.toUmd(transpiled, `${codeSpace}-${i}`);
+  await globalThis.toUmd(transpiled, `${codeSpace}-${i}`);
 
   const k = md5(transpiled);
 
@@ -42,25 +41,9 @@ root.render(App());
   `,
     `${codeSpace}-${i}-render`,
   );
-  const js = await mod.toJs(`${codeSpace}-${i}-render`);
+  const js = await mod2.toJs(`${codeSpace}-${i}-render`);
   const src = createJsBlob(js, `${codeSpace}-${i}`);
   div.setAttribute("src", src);
-  const root = createRoot(div);
-  const key = md5(transpiled);
-
-  root.render(
-    <ErrorBoundary
-      fallbackRender={({ error }) => (
-        <div role="alert">
-          <div>Oh no</div>
-          <pre>{error.message}</pre>
-        </div>
-      )}
-    >
-      <App appId={codeSpace + "-" + key} />
-    </ErrorBoundary>,
-  );
-
   return upgradeElement(div, `/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js`);
 };
 

@@ -634,13 +634,12 @@ __name(wait, "wait");
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var moveToWorker = /* @__PURE__ */ __name(async (codeSpace) => {
   const { html, css: css2, i: i2, transpiled } = (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
-  const App = await appFactory(transpiled, codeSpace);
   const div = document.createElement("div");
   div.setAttribute("id", `${codeSpace}-${i2}`);
   div.innerHTML = `<style>${css2}</style><div id="root-${codeSpace}" data-i="${i2}" style="height: 100%">
   ${html}</div>`;
   document.body.appendChild(div);
-  const mod = await globalThis.toUmd(transpiled, `${codeSpace}-${i2}`);
+  await globalThis.toUmd(transpiled, `${codeSpace}-${i2}`);
   const k2 = md5(transpiled);
   const mod2 = await globalThis.toUmd(
     `
@@ -654,29 +653,9 @@ root.render(App());
   `,
     `${codeSpace}-${i2}-render`
   );
-  const js = await mod.toJs(`${codeSpace}-${i2}-render`);
+  const js = await mod2.toJs(`${codeSpace}-${i2}-render`);
   const src = createJsBlob(js, `${codeSpace}-${i2}`);
   div.setAttribute("src", src);
-  const root = (0, import_client.createRoot)(div);
-  const key = md5(transpiled);
-  root.render(
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react_error_boundary.ErrorBoundary, {
-      fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-        role: "alert",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-            children: "Oh no"
-          }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", {
-            children: error.message
-          })
-        ]
-      }),
-      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {
-        appId: codeSpace + "-" + key
-      })
-    })
-  );
   return upgradeElement(div, `/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js`);
 }, "moveToWorker");
 Object.assign(globalThis, { md5 });
