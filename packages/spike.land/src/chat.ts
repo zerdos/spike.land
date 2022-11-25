@@ -102,6 +102,22 @@ export default {
             return cachedResponse;
           }
 
+          if (path[0].startsWith(":z:")) {
+            const reqHeaders = new Headers(request.headers);
+            const newUrl = "https://" + url.href.slice(3);
+            reqHeaders.set("Referer", newUrl);
+
+            const req = new Request(newUrl, { ...request, headers: reqHeaders });
+            let resp = await fetch(req);
+            const headers = new Headers(resp.headers);
+            headers.set("Access-Control-Allow-Origin", "*");
+            resp = new Response(resp.body, { ...resp, headers });
+
+            if (resp.ok) await cache.put(cacheKey, resp.clone());
+            return resp;
+          }
+          // ) {
+
           if (
             path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
           ) {

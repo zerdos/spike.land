@@ -27,10 +27,10 @@ const getCacheName = () =>
 
 addEventListener("fetch", function(event: FetchEvent) {
   return event.respondWith((async () => {
-    const url = new URL(event.request.url);
+    let url = new URL(event.request.url);
 
     if (
-      url.origin !== location.origin || url.pathname.includes("/live/")
+      url.pathname.includes("/live/")
     ) {
       return fetch(event.request);
     }
@@ -47,6 +47,12 @@ addEventListener("fetch", function(event: FetchEvent) {
       setTimeout(getCacheName);
     }
 
+    if (
+      url.origin !== location.origin
+    ) {
+      url = this.location.origin + ":z:" + url.hostname + url.href + url.search;
+    }
+
     const cacheKey = new Request(
       url.toString(),
     );
@@ -55,7 +61,9 @@ addEventListener("fetch", function(event: FetchEvent) {
 
     if (response) return response;
 
-    response = await fetch(event.request);
+    let request = new Request(cacheKey.url, event.request);
+
+    response = await fetch(request);
     if (!response.ok) return response;
 
     response = new Response(response.body, response);
