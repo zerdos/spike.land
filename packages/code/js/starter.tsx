@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
 
+import type * as Main from "@ampproject/worker-dom";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 
@@ -32,6 +33,7 @@ async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     div = await moveToWorker(nameSpace, parent);
     if (oldDiv) oldDiv.remove();
     div.setAttribute("data-shadow-dom", "closed ");
+
     worker = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
   });
 }
