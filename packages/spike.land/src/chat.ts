@@ -104,7 +104,7 @@ export default {
 
           if (path[0].startsWith(":z:")) {
             const reqHeaders = new Headers(request.headers);
-            const newUrl = "https://" + url.href.slice(3);
+            const newUrl = atob(url.href.slice(3));
             reqHeaders.set("Referer", newUrl);
 
             const req = new Request(newUrl, { ...request, headers: reqHeaders });
