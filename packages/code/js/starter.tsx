@@ -2,8 +2,10 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
+import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
+import { createRoot } from "react-dom/client";
 
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
@@ -15,6 +17,25 @@ import { wait } from "./wait";
 // Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
 
 // importShim.addImportMap({ imports: res });
+
+export const moveToWorker = async (codeSpace: string) => {
+  const App = await appFactory(mST().transpiled, codeSpace);
+  const div = document.createElement("div");
+
+  const root = createRoot(div);
+  root.render(
+    <ErrorBoundary
+      fallbackRender={({ error }) => (
+        <div role="alert">
+          <div>Oh no</div>
+          <pre>{error.message}</pre>
+        </div>
+      )}
+    >
+      <App />
+    </ErrorBoundary>,
+  );
+};
 
 Object.assign(globalThis, { md5 });
 const myApps: { [key: string]: FC } = {};

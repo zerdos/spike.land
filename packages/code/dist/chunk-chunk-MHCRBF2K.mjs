@@ -1,4 +1,7 @@
 import {
+  require_client
+} from "./chunk-chunk-FFMS35Y7.mjs";
+import {
   emotionCache_default
 } from "./chunk-chunk-TIL35SAU.mjs";
 import {
@@ -175,7 +178,15 @@ var require_react_error_boundary_umd = __commonJS({
 init_define_process();
 var import_react = __toESM(require_react(), 1);
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
+
+// ../../.yarn/global/cache/@ampproject-worker-dom-npm-0.34.0-cfc9652499-9.zip/node_modules/@ampproject/worker-dom/dist/main.mjs
+init_define_process();
+var m = new Float32Array(1);
+var w = new Uint16Array(m.buffer);
+
+// js/starter.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
+var import_client = __toESM(require_client(), 1);
 
 // js/wait.ts
 init_define_process();
@@ -190,6 +201,27 @@ __name(wait, "wait");
 
 // js/starter.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var moveToWorker = /* @__PURE__ */ __name(async (codeSpace) => {
+  const App = await appFactory(mST().transpiled, codeSpace);
+  const div = document.createElement("div");
+  const root = (0, import_client.createRoot)(div);
+  root.render(
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react_error_boundary.ErrorBoundary, {
+      fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+        role: "alert",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+            children: "Oh no"
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", {
+            children: error.message
+          })
+        ]
+      }),
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
+    })
+  );
+}, "moveToWorker");
 Object.assign(globalThis, { md5 });
 var myApps = {};
 var myAppCounters = {};
@@ -404,6 +436,7 @@ __name(createJsBlob, "createJsBlob");
 
 export {
   wait,
+  moveToWorker,
   importIt,
   apps,
   eCaches,
