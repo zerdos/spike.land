@@ -51,6 +51,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
     : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = document.createElement("div");
   div.setAttribute("id", `${codeSpace}-${i}`);
+  div.style.height = "100%";
   div.innerHTML = `<style>${css}</style><div id="${codeSpace}-${i}" style="height: 100%">${html}</div>`;
   parent.appendChild(div);
 
@@ -68,6 +69,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
 
   if (!parent) {
     parent =  document.createElement("div");
+    parent.style.height="100%";
     parent.setAttribute("id", "${codeSpace}-${i}");
     document.body.appendChild(parent);
   }

@@ -7544,6 +7544,7 @@ async function moveToWorker(nameSpace, parent2) {
   const { html, css: css2, i: i2, code, transpiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div2 = document.createElement("div");
   div2.setAttribute("id", `${codeSpace}-${i2}`);
+  div2.style.height = "100%";
   div2.innerHTML = `<style>${css2}</style><div id="${codeSpace}-${i2}" style="height: 100%">${html}</div>`;
   parent2.appendChild(div2);
   const k2 = md5(transpiled);
@@ -7560,6 +7561,7 @@ async function moveToWorker(nameSpace, parent2) {
 
   if (!parent) {
     parent =  document.createElement("div");
+    parent.style.height="100%";
     parent.setAttribute("id", "${codeSpace}-${i2}");
     document.body.appendChild(parent);
   }
