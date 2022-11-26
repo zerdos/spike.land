@@ -2758,19 +2758,21 @@ overflow-wrap: break-word;
   var paths = location.pathname.split("/");
   var codeSpace = paths[2];
   var rootEl = document.getElementById(`root-${codeSpace}`);
-  var i = rootEl.getAttribute("data-i");
+  var i = +(rootEl.getAttribute("data-i") || "0");
   var root;
   var bc = new BroadcastChannel(location.origin);
   if (location.pathname.includes("dehydrated")) {
     bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {
-        const { html, css, i } = event.data.sess;
+        const { html, css } = event.data.sess;
+        i = event.data.sess.i;
         rootEl.innerHTML = `<style>${css}</style>${html}`;
       }
     };
   } else if (location.pathname.includes("/hydrated")) {
     const render = /* @__PURE__ */ __name(async () => {
       const App = (await importShim(`/live/${codeSpace}/index.js/${i}`)).default();
+      i++;
       const { createRoot } = await importShim("react-dom/client");
       root = createRoot(rootEl);
       root.render(App);
@@ -2778,6 +2780,7 @@ overflow-wrap: break-word;
     render();
     bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {
+        i = event.data.sess.i;
         try {
           root.unmount();
         } catch {

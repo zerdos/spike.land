@@ -20,7 +20,7 @@ const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 
 const rootEl = document.getElementById(`root-${codeSpace}`)!;
-let i = rootEl.getAttribute("data-i");
+let i = +(rootEl.getAttribute("data-i") || "0");
 let root: ReactDOMClient.Root;
 const bc = new BroadcastChannel(location.origin);
 
@@ -28,12 +28,14 @@ if (location.pathname.includes("dehydrated")) {
   bc.onmessage = (event) => {
     if (event.data.codeSpace === codeSpace) {
       const { html, css } = event.data.sess;
+      i = event.data.sess.i;
       rootEl.innerHTML = `<style>${css}</style>${html}`;
     }
   };
 } else if (location.pathname.includes("/hydrated")) {
   const render = (async () => {
     const App = (await importShim<() => ReactNode, {}>(`/live/${codeSpace}/index.js/${i}`)).default();
+    i++;
     const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
 
     root = createRoot(rootEl);
@@ -43,6 +45,8 @@ if (location.pathname.includes("dehydrated")) {
 
   bc.onmessage = (event) => {
     if (event.data.codeSpace === codeSpace) {
+      i = event.data.sess.i;
+
       try {
         root.unmount();
       } catch {
