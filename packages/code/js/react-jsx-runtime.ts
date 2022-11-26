@@ -28,6 +28,17 @@ if (location.pathname.endsWith("dehydrated")) {
       document.getElementById(`root-${codeSpace}`).innerHTML = `<style>${css}</style>${html}`;
     }
   };
+} else if (location.pathname.endsWith("hydrated")) {
+  const paths = location.pathname.split("/");
+  paths.pop(); // dehydrated;
+  const codeSpace = paths.pop();
+
+  (async () => {
+    const App = (await importShim(`/live/${codeSpace}`)).default;
+    const { createRoot } = await importShim(`react-dom/client`);
+    const root = createRoot(document.getElementById(`root-${codeSpace}`));
+    root.render(App());
+  })();
 } else {
   (async () => {
     (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
