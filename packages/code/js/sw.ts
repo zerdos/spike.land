@@ -1,6 +1,6 @@
-/// <reference lib="webworker"/>
-
 import { md5 } from "./md5";
+export type {};
+declare const self: ServiceWorkerGlobalScope;
 
 // async function wait(delay) {
 //   return new Promise((resolve) => {
@@ -24,7 +24,7 @@ const getCacheName = () =>
     return md5(content);
   }).then((cn) => (cn === cacheName || (fileCache = null) || (cacheName = cn))).finally(() => cacheName);
 
-addEventListener("fetch", function(event: FetchEvent) {
+self.addEventListener("fetch", function(event) {
   return event.respondWith((async () => {
     let url = new URL(event.request.url);
 
@@ -69,10 +69,7 @@ addEventListener("fetch", function(event: FetchEvent) {
     const maybeFilename = url.pathname.split("/").pop();
 
     if (
-      response.ok && (
-          response.headers.get("Cache-Control") !== "no-cache"
-          //    && !resp.headers.get("Location")
-        )
+      response.headers.get("Cache-Control") !== "no-cache"
       || (myCache === fileCache && maybeFilename && files[maybeFilename])
     ) {
       event.waitUntil(myCache.put(cacheKey, response.clone()));

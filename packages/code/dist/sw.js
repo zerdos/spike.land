@@ -165,7 +165,7 @@
       files = JSON.parse(content);
     return md5(content);
   }).then((cn) => cn === cacheName || (fileCache = null) || (cacheName = cn)).finally(() => cacheName), "getCacheName");
-  addEventListener("fetch", function(event) {
+  self.addEventListener("fetch", function(event) {
     return event.respondWith((async () => {
       let url = new URL(event.request.url);
       if (url.pathname.includes("/live/") || url.pathname.includes("ze3w")) {
@@ -188,7 +188,7 @@
         return response;
       response = new Response(response.body, response);
       const maybeFilename = url.pathname.split("/").pop();
-      if (response.ok && response.headers.get("Cache-Control") !== "no-cache" || myCache === fileCache && maybeFilename && files[maybeFilename]) {
+      if (response.headers.get("Cache-Control") !== "no-cache" || myCache === fileCache && maybeFilename && files[maybeFilename]) {
         event.waitUntil(myCache.put(cacheKey, response.clone()));
       }
       return response;

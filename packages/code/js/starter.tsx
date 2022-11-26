@@ -16,10 +16,10 @@ import { upgradeElement } from "./worker-dom/src/main-thread/index";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 let worker: ExportedWorker;
-let div: HTMLDivElement = null;
-let oldDiv = null;
+let div: HTMLDivElement;
+// let oldDiv = null;
 let parent: HTMLDivElement;
-let lastH;
+let lastH = "";
 
 const mutex = new Mutex();
 
@@ -31,10 +31,12 @@ async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     if (worker) worker.terminate();
     if (div) div.remove();
     div = await moveToWorker(nameSpace, parent);
-    if (oldDiv) oldDiv.remove();
+    // if (oldDiv) oldDiv.remove();
     div.setAttribute("data-shadow-dom", "closed ");
 
-    worker = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+    const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+    if (w === null) throw new Error("No worker");
+    worker = w;
   });
 }
 

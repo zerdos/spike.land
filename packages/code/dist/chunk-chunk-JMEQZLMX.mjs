@@ -7789,105 +7789,6 @@ function createHydrateableRootNode(element, config, workerContext) {
   return { skeleton, strings };
 }
 __name(createHydrateableRootNode, "createHydrateableRootNode");
-function createReadableHydrateableRootNode(element, config, workerContext) {
-  return createHydrateableNode(
-    element,
-    (value) => value,
-    config.hydrateFilter || (() => true),
-    workerContext
-  );
-}
-__name(createReadableHydrateableRootNode, "createReadableHydrateableRootNode");
-
-// js/worker-dom/src/main-thread/debugging.ts
-var readableHydrateableRootNode = /* @__PURE__ */ __name((element, config, workerContext) => readableHydrateableNode(createReadableHydrateableRootNode(element, config, workerContext)), "readableHydrateableRootNode");
-var readableTransferredNode = /* @__PURE__ */ __name((nodeContext, node) => node != null && nodeContext.getNode(node[0 /* Index */]) || node, "readableTransferredNode");
-function readableHydrateableNode(node) {
-  const out = {
-    nodeType: node[0 /* nodeType */],
-    name: node[1 /* localOrNodeName */],
-    attributes: null,
-    childNodes: null
-  };
-  const attributes = node[2 /* attributes */];
-  if (attributes) {
-    out.attributes = attributes.map((attr) => ({
-      name: attr[1],
-      value: attr[2]
-    }));
-  }
-  const childNodes = node[4 /* childNodes */];
-  if (childNodes) {
-    out.childNodes = childNodes.map(readableHydrateableNode);
-  }
-  return out;
-}
-__name(readableHydrateableNode, "readableHydrateableNode");
-var isEvent = /* @__PURE__ */ __name((message) => message[12 /* type */] == 1 /* EVENT */, "isEvent");
-var isValueSync = /* @__PURE__ */ __name((message) => message[12 /* type */] == 4 /* SYNC */, "isValueSync");
-var isBoundingClientRect = /* @__PURE__ */ __name((message) => message[12 /* type */] === 6 /* GET_BOUNDING_CLIENT_RECT */, "isBoundingClientRect");
-var isGetStorage = /* @__PURE__ */ __name((message) => message[12 /* type */] === 11 /* GET_STORAGE */, "isGetStorage");
-function readableTransferrableEvent(nodeContext, event) {
-  const value = /* @__PURE__ */ __name((item) => {
-    if (typeof item === "number" || typeof item === "boolean") {
-      return item !== void 0 ? item : null;
-    }
-    return item !== void 0 && item !== null ? readableTransferredNode(nodeContext, item) : null;
-  }, "value");
-  return {
-    type: event[12 /* type */],
-    bubbles: value(event[25 /* bubbles */]),
-    cancelable: value(event[26 /* cancelable */]),
-    cancelBubble: value(event[27 /* cancelBubble */]),
-    defaultPrevented: value(event[29 /* defaultPrevented */]),
-    eventPhase: value(event[30 /* eventPhase */]),
-    isTrusted: value(event[31 /* isTrusted */]),
-    returnValue: value(event[32 /* returnValue */]),
-    currentTarget: value(event[28 /* currentTarget */]),
-    target: value(event[13 /* target */]),
-    scoped: value(event[34 /* scoped */]),
-    keyCode: value(event[35 /* keyCode */])
-  };
-}
-__name(readableTransferrableEvent, "readableTransferrableEvent");
-function readableTransferrableSyncValue(nodeContext, value) {
-  const index = value[7 /* index */];
-  return {
-    target: nodeContext.getNode(index) || index,
-    value: value[21 /* value */]
-  };
-}
-__name(readableTransferrableSyncValue, "readableTransferrableSyncValue");
-function readableMessageToWorker(nodeContext, message) {
-  if (isEvent(message)) {
-    const event = message[39 /* event */];
-    return {
-      type: "EVENT",
-      event: readableTransferrableEvent(nodeContext, event)
-    };
-  } else if (isValueSync(message)) {
-    const sync = message[40 /* sync */];
-    return {
-      type: "SYNC",
-      sync: readableTransferrableSyncValue(nodeContext, sync)
-    };
-  } else if (isBoundingClientRect(message)) {
-    return {
-      type: "GET_BOUNDING_CLIENT_RECT",
-      target: readableTransferredNode(nodeContext, message[13 /* target */])
-    };
-  } else if (isGetStorage(message)) {
-    return {
-      type: "GET_STORAGE",
-      key: message[74 /* storageKey */],
-      location: message[75 /* storageLocation */],
-      value: message[21 /* value */]
-    };
-  } else {
-    return "Unrecognized MessageToWorker type: " + message[12 /* type */];
-  }
-}
-__name(readableMessageToWorker, "readableMessageToWorker");
 
 // js/worker-dom/src/main-thread/iframe-worker.ts
 init_define_process();
@@ -8000,7 +7901,7 @@ var WorkerContext4 = class {
         config.sandbox.iframeUrl
       );
     }
-    if (WORKER_DOM_DEBUG) {
+    if (false) {
       console.info("debug", "hydratedNode", readableHydrateableRootNode(baseElement, config, this));
     }
     if (config.onCreateWorker) {
@@ -8014,7 +7915,7 @@ var WorkerContext4 = class {
     return this[55 /* worker */];
   }
   messageToWorker(message, transferables) {
-    if (WORKER_DOM_DEBUG) {
+    if (false) {
       console.info("debug", "messageToWorker", readableMessageToWorker(this.nodeContext, message));
     }
     if (this.config.onSendMessage) {
@@ -8792,7 +8693,7 @@ var MutatorProcessor = class {
     this.mutationQueue = [];
     this.pendingMutations = false;
     this.syncFlush = (allowVisibleMutations = true) => {
-      if (WORKER_DOM_DEBUG) {
+      if (false) {
         console.group("Mutations");
       }
       const disallowedMutations = [];
@@ -8806,17 +8707,17 @@ var MutatorProcessor = class {
             disallowedMutations.push(mutationType);
           }
           const executor = this.executors[mutationType];
-          if (WORKER_DOM_DEBUG) {
+          if (false) {
             console.log(
               allow ? "" : "[disallowed]",
-              ReadableMutationType[mutationType],
+              ReadableMutationType2[mutationType],
               executor.print(mutationArray, operationStart)
             );
           }
           operationStart = executor.execute(mutationArray, operationStart, allow);
         }
       });
-      if (WORKER_DOM_DEBUG) {
+      if (false) {
         console.groupEnd();
       }
       this.mutationQueue = [];
@@ -8942,10 +8843,9 @@ __name(upgradeElement, "upgradeElement");
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var worker;
-var div = null;
-var oldDiv = null;
+var div;
 var parent;
-var lastH;
+var lastH = "";
 var mutex = new Mutex();
 async function runInWorker(nameSpace, _parent) {
   await mutex.runExclusive(async () => {
@@ -8958,10 +8858,11 @@ async function runInWorker(nameSpace, _parent) {
     if (div)
       div.remove();
     div = await moveToWorker(nameSpace, parent);
-    if (oldDiv)
-      oldDiv.remove();
     div.setAttribute("data-shadow-dom", "closed ");
-    worker = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+    const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+    if (w === null)
+      throw new Error("No worker");
+    worker = w;
   });
 }
 __name(runInWorker, "runInWorker");
