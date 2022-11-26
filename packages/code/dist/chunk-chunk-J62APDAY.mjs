@@ -7355,9 +7355,6 @@ async function wait(delay) {
 }
 __name(wait, "wait");
 
-// js/worker-dom/src/main-thread/index.ts
-init_define_process();
-
 // js/worker-dom/src/main-thread/exported-worker.ts
 init_define_process();
 
@@ -8124,6 +8121,9 @@ var ExportedWorker = class {
   }
 };
 __name(ExportedWorker, "ExportedWorker");
+
+// js/worker-dom/src/main-thread/index.ts
+init_define_process();
 
 // js/worker-dom/src/main-thread/install.ts
 init_define_process();
@@ -8941,7 +8941,7 @@ __name(upgradeElement, "upgradeElement");
 // js/starter.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var codeSpace = location.pathname.slice(1).split("/")[1];
-var worker = null;
+var worker;
 var div = null;
 var oldDiv = null;
 var parent;
