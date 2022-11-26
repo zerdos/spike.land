@@ -2764,7 +2764,7 @@ overflow-wrap: break-word;
   if (location.pathname.includes("dehydrated")) {
     bc.onmessage = (event) => {
       if (event.data.codeSpace === codeSpace) {
-        const { html, css } = event.data.sess;
+        const { html, css, i } = event.data.sess;
         rootEl.innerHTML = `<style>${css}</style>${html}`;
       }
     };
