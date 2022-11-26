@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Preact • TodoMVC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="todomvc.css" />
+  <script src="/dist/main.mjs" type="module"></script>
+  <script src="/dist/main.js" nomodule defer></script>
+  <!-- This comment block is intended to make it easier to test both the script module and nomodule path -->
+  <!-- Comment either block to enable module/nomodule or disable it. -->
+  <!-- <script src="/dist/main.js" defer></script> -->
+</head>
+<body>
+  <div src="app.js" id="upgrade-me" class="todoapp"></div>
+  <footer class="info">
+    <p>Double-click to edit a todo</p>
+    <p>Created by <a href="http://github.com/kristoferbaxter/">kristoferbaxter</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+  </footer>
+  <script type="module">
+    import {upgradeElement} from '/dist/main.mjs';
+    upgradeElement(document.getElementById('upgrade-me'), '/dist/worker/worker.mjs');
+  </script>
+  <script nomodule async=false defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      MainThread.upgradeElement(document.getElementById('upgrade-me'), '/dist/worker/worker.js');
+    }, false);
+  </script>
+  <!-- This comment block is intended to make it easier to test both the script module and nomodule path -->
+  <!-- Comment either block to enable module/nomodule or disable it. -->
+  <!-- <script async=false defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      MainThread.upgradeElement(document.getElementById('upgrade-me'), './dist/worker/worker.js');
+    }, false);
+  </script> -->
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    ["../../lib", {
+      "transforms": [{
+        "transform": "transform-lib"
+      }]
+    }]
+  ]
+}
