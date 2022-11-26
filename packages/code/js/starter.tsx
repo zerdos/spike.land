@@ -11,11 +11,12 @@ import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate } from "./session";
 import { toUmd } from "./toUmd";
 import { wait } from "./wait";
+import { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
 import { upgradeElement } from "./worker-dom/src/main-thread/index";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
-let worker:ExportedWorker = null;
-let div = null;
+let worker: ExportedWorker;
+let div: HTMLDivElement = null;
 let oldDiv = null;
 let parent: HTMLDivElement;
 let lastH;
