@@ -176,7 +176,7 @@
         lastChecked = Date.now();
         setTimeout(getCacheName);
       }
-      let request = new Request(url.toString(), event.request);
+      let request = event.request;
       const cacheKey = new Request(
         request.url
       );
