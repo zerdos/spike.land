@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 
-import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import { Mutex } from "async-mutex";
 import { resetCSS } from "getResetCss";
 import createCache from "./emotionCache";
@@ -12,9 +11,10 @@ import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate } from "./session";
 import { toUmd } from "./toUmd";
 import { wait } from "./wait";
+import { upgradeElement } from "./worker-dom/src/main-thread/index";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
-let worker = null;
+let worker:ExportedWorker = null;
 let div = null;
 let oldDiv = null;
 let parent: HTMLDivElement;

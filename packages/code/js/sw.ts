@@ -1,4 +1,3 @@
-/// <reference no-default-lib="true"/>
 /// <reference lib="webworker"/>
 
 import { md5 } from "./md5";
