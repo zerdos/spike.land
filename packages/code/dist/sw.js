@@ -176,9 +176,6 @@
         lastChecked = Date.now();
         setTimeout(getCacheName);
       }
-      if (url.origin !== location.origin) {
-        url = new URL(location.origin + "/:z:" + btoa(url.toString()));
-      }
       let request = new Request(url.toString(), event.request);
       const cacheKey = new Request(
         request.url

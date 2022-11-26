@@ -47,11 +47,11 @@ addEventListener("fetch", function(event: FetchEvent) {
       setTimeout(getCacheName);
     }
 
-    if (
-      url.origin !== location.origin
-    ) {
-      url = new URL(location.origin + "/:z:" + btoa(url.toString()));
-    }
+    // if (
+    //   url.origin !== location.origin
+    // ) {
+    //   url = new URL(location.origin + "/:z:" + btoa(url.toString()));
+    // }
 
     let request = new Request(url.toString(), event.request);
     const cacheKey = new Request(
