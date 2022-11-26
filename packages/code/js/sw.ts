@@ -30,7 +30,7 @@ addEventListener("fetch", function(event: FetchEvent) {
     let url = new URL(event.request.url);
 
     if (
-      url.pathname.includes("/live/")
+      url.pathname.includes("/live/") || url.pathname.includes("ze3w")
     ) {
       return fetch(event.request);
     }

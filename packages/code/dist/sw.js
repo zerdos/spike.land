@@ -168,7 +168,7 @@
   addEventListener("fetch", function(event) {
     return event.respondWith((async () => {
       let url = new URL(event.request.url);
-      if (url.pathname.includes("/live/")) {
+      if (url.pathname.includes("/live/") || url.pathname.includes("ze3w")) {
         return fetch(event.request);
       }
       const myCache = url.pathname.includes("npm:/v") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") ? chunkCache = chunkCache || await caches.open("chunks") : fileCache = fileCache || await caches.open(`f-${cacheName}`);
