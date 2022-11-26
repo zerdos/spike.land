@@ -1,9 +1,10 @@
 import "es-module-shims";
 // import { md5 } from "./md5";
 // import { createJsBlob } from "starter";
-import importmap from "./importmap.json";
-
+import type { ReactNode } from "react";
+import type * as ReactDOMClient from "react-dom/client";
 import { resetCSS } from "./getResetCss";
+import importmap from "./importmap.json";
 
 const reset = document.createElement("style");
 reset.textContent = resetCSS;
@@ -15,30 +16,42 @@ Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }
 
 importShim.addImportMap({ imports: res });
 
-if (location.pathname.endsWith("dehydrated")) {
-  const paths = location.pathname.split("/");
-  paths.pop(); // dehydrated;
-  const codeSpace = paths.pop();
+const paths = location.pathname.split("/");
+const codeSpace = paths[2];
 
-  const bc = new BroadcastChannel(location.origin);
+const rootEl = document.getElementById(`root-${codeSpace}`)!;
+let i = rootEl.getAttribute("data-i");
+let root: ReactDOMClient.Root;
+const bc = new BroadcastChannel(location.origin);
 
+if (location.pathname.includes("dehydrated")) {
   bc.onmessage = (event) => {
     if (event.data.codeSpace === codeSpace) {
       const { html, css } = event.data.sess;
-      document.getElementById(`root-${codeSpace}`).innerHTML = `<style>${css}</style>${html}`;
+      rootEl.innerHTML = `<style>${css}</style>${html}`;
     }
   };
-} else if (location.pathname.endsWith("hydrated")) {
-  const paths = location.pathname.split("/");
-  paths.pop(); // dehydrated;
-  const codeSpace = paths.pop();
+} else if (location.pathname.includes("/hydrated")) {
+  const render = (async () => {
+    const App = (await importShim<() => ReactNode, {}>(`/live/${codeSpace}/index.js/${i}`)).default();
+    const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
 
-  (async () => {
-    const App = (await importShim(`/live/${codeSpace}`)).default;
-    const { createRoot } = await importShim(`react-dom/client`);
-    const root = createRoot(document.getElementById(`root-${codeSpace}`));
-    root.render(App());
-  })();
+    root = createRoot(rootEl);
+    root.render(App);
+  });
+  render();
+
+  bc.onmessage = (event) => {
+    if (event.data.codeSpace === codeSpace) {
+      try {
+        root.unmount();
+      } catch {
+        console.error("unmount issue");
+      } finally {
+        render();
+      }
+    }
+  };
 } else {
   (async () => {
     (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
