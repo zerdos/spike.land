@@ -228,11 +228,17 @@ async function startMonacoPristine(
 
       languages.typescript.typescriptDefaults.addExtraLib(
         content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace}/index.ts`,
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace}`,
       );
+
+      languages.typescript.typescriptDefaults.addExtraLib(
+        content,
+        `${location.origin}/npm:/@spike.land/live/${codeSpace}`,
+      );
+      //      https://testing.spike.land/npm:/@spike.land/live/box
       console.log(
         content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace}/index.ts`,
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace}`,
       );
     }
   };
