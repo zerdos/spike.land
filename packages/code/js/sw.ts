@@ -57,12 +57,14 @@ self.addEventListener("fetch", function(event) {
       if (contentHash) {
         const { memoryCache } = self;
 
-        const cachedResp = await memoryCache.getItem<typeof resp>(contentHash);
-        if (cachedResp) return cachedResp;
+        let body = await memoryCache.getItem<string>(contentHash);
+        if (!body) {
+          body = await resp.text();
 
-        resp = new Response(await resp.blob(), resp);
+          await memoryCache.setItem(contentHash, body);
+        }
 
-        await memoryCache.setItem(contentHash, resp.clone());
+        new Response(body, resp);
       }
       return resp;
     }
