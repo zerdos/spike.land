@@ -228,7 +228,11 @@ async function startMonacoPristine(
 
       languages.typescript.typescriptDefaults.addExtraLib(
         content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace}.ts`,
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace}/index.ts`,
+      );
+      console.log(
+        content,
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace}/index.ts`,
       );
     }
   };

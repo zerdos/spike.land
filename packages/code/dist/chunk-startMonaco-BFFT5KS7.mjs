@@ -45211,7 +45211,11 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
       const content = await fetch(extraModel).then(async (res) => res.text());
       languages.typescript.typescriptDefaults.addExtraLib(
         content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace2}.ts`
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace2}/index.ts`
+      );
+      console.log(
+        content,
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace2}/index.ts`
       );
     }
   }, "addExtraM");
