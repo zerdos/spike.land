@@ -222,7 +222,7 @@ async function startMonacoPristine(
       const extraModel = new URL("/live/" + codeSpace + "/index.tsx", location.origin)
         .toString();
 
-      const mUri = Uri.parse("/live/" + codeSpace + "/index.tsx");
+      const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
 
       const content = await fetch(extraModel).then(async (res) => res.text());
 
