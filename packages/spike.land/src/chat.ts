@@ -200,15 +200,17 @@ const api: ExportedHandler<CodeEnv> = {
             "https://unpkg.com/",
           );
 
-          let resp = await fetch(esmUrl, { ...request, url: esmUrl });
+          request = new Request(esmUrl, { ...request, redirect: "follow" });
+          let resp = await fetch(request);
 
           if (resp !== null && !resp.ok || resp.status === 307) {
             const redirectUrl = resp.headers.get("location");
             if (redirectUrl) {
-              resp = await fetch(redirectUrl, {
+              request = new Request(redirectUrl, {
                 ...request,
-                url: redirectUrl,
+                redirect: "follow",
               });
+              resp = await fetch(request);
             }
             if (resp !== null && !resp.ok) return resp;
           }
@@ -249,8 +251,8 @@ const api: ExportedHandler<CodeEnv> = {
             u.origin + "/node_modules/",
             "https://unpkg.com/",
           );
-
-          let resp = await fetch(esmUrl, { ...request, url: esmUrl });
+          request = new Request(esmUrl, { ...request, redirect: "follow" });
+          let resp = await fetch(request);
 
           if (resp !== null && !resp.ok || resp.status === 307) {
             const redirectUrl = resp.headers.get("location");
@@ -408,11 +410,10 @@ const api: ExportedHandler<CodeEnv> = {
 
               return response;
             } catch {
-              const resp = await fetch(
+              return fetch(
                 new URL(url.pathname.slice(1), url.origin + "/node_modules/")
                   .toString(),
               );
-              if (resp.ok) return resp;
             }
         }
       };
