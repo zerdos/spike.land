@@ -1,6 +1,12 @@
-import { md5 } from "./md5";
+import localForage from "localforage";
+
 export type {};
-declare const self: ServiceWorkerGlobalScope;
+
+interface MyServiceWorkerScope extends ServiceWorkerGlobalScope {
+  memoryCache: LocalForage;
+}
+
+declare const self: MyServiceWorkerScope;
 
 // async function wait(delay) {
 //   return new Promise((resolve) => {
@@ -10,14 +16,19 @@ declare const self: ServiceWorkerGlobalScope;
 //   });
 // }
 
+self.addEventListener("activate", (ev) => {
+  
+  self.memoryCache = localForage.createInstance({
+    name: "memoryCache",
+  });
+});
+
 let lastChecked = 0;
 let npmCache: Cache | null;
 
 let chunkCache: Cache | null;
 let fileCache: Cache | null;
 let cacheName = "default";
-const memoryCache: { [k: string]: Response } = {};
-
 let files: { [k: string]: string } = {};
 const assets: { [assetHash: string]: Promise<typeof files> } = {};
 const getCacheName = () =>
@@ -47,9 +58,14 @@ self.addEventListener("fetch", function(event) {
       if (!resp.ok) return resp;
       const contentHash = resp.headers.get("content_hash");
       if (contentHash) {
-        if (memoryCache[contentHash]) return memoryCache[contentHash];
+        const { memoryCache } = self;
+
+        const cachedResp = await memoryCache.getItem<typeof resp>(contentHash);
+        if (cachedResp) return cachedResp;
+
         resp = new Response(await resp.blob(), resp);
-        memoryCache[contentHash] = resp.clone();
+
+        await memoryCache.setItem(contentHash, resp.clone());
       }
       return resp;
     }
