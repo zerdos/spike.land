@@ -52,7 +52,8 @@ self.addEventListener("fetch", function(event) {
     if (
       url.pathname.includes("/live/")
     ) {
-      let resp = await fetch({ ...event.request, signal });
+      let req = new Request(event.request.url, { ...event.request, signal });
+      let resp = await fetch(req);
       if (!resp.ok) return resp;
       resp = new Response(resp.body, resp);
       const contentHash = resp.headers.get("content_hash");
