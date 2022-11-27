@@ -16,11 +16,8 @@ declare const self: MyServiceWorkerScope;
 //   });
 // }
 
-self.addEventListener("activate", (ev) => {
-  
-  self.memoryCache = localForage.createInstance({
-    name: "memoryCache",
-  });
+self.memoryCache = localForage.createInstance({
+  name: "memoryCache",
 });
 
 let lastChecked = 0;
