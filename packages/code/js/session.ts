@@ -397,7 +397,7 @@ function addOrigin(s: ICodeSession, originString: string) {
 
   const mst = { i, transpiled, code, html, css };
 
-  mst.code = mst.code.replace("from '/live", `from '${originString}/live`);
+  // mst.code = mst.code.replace("from '/live", `from '${originString}/live`);
   mst.code = mst.code.replace("from './", `from '${originString}/live/`);
 
   mst.transpiled = mst.transpiled.replace(
