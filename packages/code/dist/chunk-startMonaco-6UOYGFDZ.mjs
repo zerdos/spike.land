@@ -45206,6 +45206,7 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
     );
     const models = replaced.matchAll(search);
     for (const match of models) {
+      console.log("***** EXTRA MODELS *****");
       const codeSpace2 = match[0].split("/live/").pop();
       const extraModel = new URL("/live/" + codeSpace2 + "/index.tsx", location.origin).toString();
       const mUri = Uri.parse(`${originToUse}/live/${codeSpace2}/index.tsx`);
