@@ -45131,7 +45131,7 @@ var lib = [
 var monacoContribution = /* @__PURE__ */ __name(async (code) => {
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
-    target: languages.typescript.ScriptTarget.ESNext,
+    target: languages.typescript.ScriptTarget.ES2016,
     importHelpers: false,
     lib,
     allowJs: true,
@@ -45211,11 +45211,11 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
       const content = await fetch(extraModel).then(async (res) => res.text());
       languages.typescript.typescriptDefaults.addExtraLib(
         content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace2}`
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace2}/index.ts`
       );
       languages.typescript.typescriptDefaults.addExtraLib(
         content,
-        `${location.origin}/npm:/@spike.land/live/${codeSpace2}`
+        `${location.origin}/npm:/@spike.land/live/${codeSpace2}/index.ts`
       );
       console.log(
         content,

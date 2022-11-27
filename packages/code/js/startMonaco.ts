@@ -87,7 +87,7 @@ const monacoContribution = async (
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
-    target: languages.typescript.ScriptTarget.ESNext,
+    target: languages.typescript.ScriptTarget.ES2016,
 
     importHelpers: false,
 
@@ -228,12 +228,12 @@ async function startMonacoPristine(
 
       languages.typescript.typescriptDefaults.addExtraLib(
         content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace}`,
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace}/index.ts`,
       );
 
       languages.typescript.typescriptDefaults.addExtraLib(
         content,
-        `${location.origin}/npm:/@spike.land/live/${codeSpace}`,
+        `${location.origin}/npm:/@spike.land/live/${codeSpace}/index.ts`,
       );
       //      https://testing.spike.land/npm:/@spike.land/live/box
       console.log(
