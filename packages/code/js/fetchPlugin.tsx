@@ -30,7 +30,7 @@ export const fetchPlugin = (inputCode: string) => {
                     document.body.appendChild(style);
                 `;
         const result: esbuild.OnLoadResult = {
-          loader: "jsx",
+          loader: "tsx",
           contents,
           resolveDir: new URL("./", request.responseURL).pathname,
         };
@@ -52,7 +52,7 @@ export const fetchPlugin = (inputCode: string) => {
         const { data, request } = await axios.get(args.path);
 
         const result: esbuild.OnLoadResult = {
-          loader: "jsx",
+          loader: "tsx",
           contents: data,
           resolveDir: new URL("./", request.responseURL).pathname,
         };

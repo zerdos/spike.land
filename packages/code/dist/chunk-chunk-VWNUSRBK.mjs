@@ -6981,7 +6981,7 @@ var fetchPlugin = /* @__PURE__ */ __name((inputCode) => {
                     document.body.appendChild(style);
                 `;
         const result = {
-          loader: "jsx",
+          loader: "tsx",
           contents,
           resolveDir: new URL("./", request.responseURL).pathname
         };
@@ -6997,7 +6997,7 @@ var fetchPlugin = /* @__PURE__ */ __name((inputCode) => {
         }
         const { data, request } = await axios_default.get(args.path);
         const result = {
-          loader: "jsx",
+          loader: "tsx",
           contents: data,
           resolveDir: new URL("./", request.responseURL).pathname
         };
@@ -7015,11 +7015,11 @@ var unpkgPathPlugin = /* @__PURE__ */ __name((inputCode) => {
   return {
     name: "unpkg-path-plugin",
     setup(build2) {
-      build2.onResolve({ filter: /(^index\.js$)/ }, (args) => {
-        return { path: "index.js", namespace: "a" };
+      build2.onResolve({ filter: /(^live\/index\.js$)/ }, (args) => {
+        return { path: "/live/index.js", namespace: "a" };
       });
       build2.onResolve({ filter: /^\.+\// }, (args) => {
-        const url = new URL(args.path, `https://unpkg.com${args.resolveDir}/`);
+        const url = new URL(args.path, `${location.origin}/${args.resolveDir}/`);
         return {
           path: url.href,
           namespace: "a"
@@ -7028,7 +7028,7 @@ var unpkgPathPlugin = /* @__PURE__ */ __name((inputCode) => {
       build2.onResolve({ filter: /.*/ }, async (args) => {
         return {
           namespace: "a",
-          path: `https://unpkg.com/${args.path}`
+          path: `${location.origin}/npm:/${args.path}`
         };
       });
     }
@@ -7074,10 +7074,11 @@ var build = /* @__PURE__ */ __name(async (rawCode) => {
   const defaultOpts = {
     bundle: true,
     write: false,
-    entryPoints: ["index.js"],
+    format: "iife",
+    entryPoints: ["/live/index.js"],
     define: {
       "process.env.NODE_ENV": '"production"',
-      global: "window"
+      global: "globalThis"
     },
     plugins: [unpkgPathPlugin(rawCode), fetchPlugin(rawCode)]
   };
