@@ -45209,7 +45209,7 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
       const codeSpace2 = match[0].split("/live/").pop();
       const extraModel = new URL("/live/" + codeSpace2 + "/index.tsx", location.origin).toString();
       const mUri = Uri.parse(`${originToUse}/live/${codeSpace2}/index.tsx`);
-      const content = await fetch(extraModel).then(async (res) => res.text());
+      const content = await fetch(extraModel).then((res) => res.text());
       editor.getModel(mUri) || createModel(
         content,
         "typescript",
@@ -45217,7 +45217,7 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
       );
     }
   }, "addExtraM");
-  setTimeout(() => addExtraM());
+  setTimeout(() => addExtraM(), 500);
   const target = container;
   const myEditor = create(target, {
     model,

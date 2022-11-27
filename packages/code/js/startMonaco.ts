@@ -219,25 +219,21 @@ async function startMonacoPristine(
       //    console.log("***** EXTRA MODELS *****");
 
       const codeSpace = match[0].split("/live/").pop();
-      const extraModel = new URL("/live/" + codeSpace + "/index.tsx", location.origin)
-        .toString();
+      const extraModel = new URL("/live/" + codeSpace + "/index.tsx", location.origin).toString();
 
       const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
 
-      const content = await fetch(extraModel).then(async (res) => res.text());
+      const content = await fetch(extraModel).then((res) => res.text());
 
       editor.getModel(mUri) || createModel(
         content,
         "typescript",
         mUri,
       );
-
-      //      https://testing.spike.land/npm:/@spike.land/live/box
     }
   };
-  //   https://testing.spike.land/npm:/@spike.land/live/clockWithCss
 
-  setTimeout(() => addExtraM());
+  setTimeout(() => addExtraM(), 500);
   // const innerContainer = document.createElement("div");
 
   // innerContainer.style.width = "100%";
