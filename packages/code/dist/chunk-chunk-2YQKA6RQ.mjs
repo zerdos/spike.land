@@ -11,7 +11,7 @@ import {
   initAndTransform,
   toUmd,
   wait
-} from "./chunk-chunk-JMEQZLMX.mjs";
+} from "./chunk-chunk-EXKLSDTA.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-CTKH5FCC.mjs";
@@ -24,7 +24,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-5TECY34M.mjs";
+} from "./chunk-chunk-PE774VWH.mjs";
 import {
   require_react_dom
 } from "./chunk-chunk-M3XF32XQ.mjs";
@@ -24024,6 +24024,8 @@ var render = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
     md5hash
   );
   try {
+    await mod.waitForDiv(md5hash);
+    await wait(200);
     const html = await mod.waitForDiv(md5hash);
     if (!html)
       return { html: null, css: null };
@@ -24040,14 +24042,20 @@ var render = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
   }
 }, "render");
 function mineFromCaches(cache) {
-  const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
-  return Array.from(document.styleSheets).map((x) => {
-    try {
-      return x.cssRules[0];
-    } catch {
-      return null;
-    }
-  }).filter((x) => x && keys.includes(x.selectorText)).map((x) => x.cssText).join("\n");
+  const key = cache.key;
+  try {
+    return Array.from(document.querySelectorAll(`style[data-emotion="${cache.key}"]`)).map((x) => x.textContent).join(
+      "\n"
+    );
+  } catch {
+    return Array.from(document.styleSheets).map((x) => {
+      try {
+        return x.cssRules[0];
+      } catch {
+        return null;
+      }
+    }).filter((x) => x && x.selectorText && x.selectorText.indexOf(key) !== -1).map((x) => x.cssText).join("\n");
+  }
 }
 __name(mineFromCaches, "mineFromCaches");
 var waitForAnimation = /* @__PURE__ */ __name(() => {

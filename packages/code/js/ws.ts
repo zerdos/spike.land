@@ -125,8 +125,9 @@ export const run = async (startState: {
     name: user,
     state: mst,
   }, location.origin);
-
-  renderPreviewWindow({ codeSpace, dry: !!dry });
+  if (location.pathname === `/live/${codeSpace}`) {
+    renderPreviewWindow({ codeSpace, dry: !!dry });
+  }
 
   // await appFactory(mst.transpiled, codeSpace, dry);
 

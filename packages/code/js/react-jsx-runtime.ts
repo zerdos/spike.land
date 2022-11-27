@@ -16,51 +16,53 @@ Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }
 
 importShim.addImportMap({ imports: res });
 
-const paths = location.pathname.split("/");
-const codeSpace = paths[2];
+(async () => {
+  const paths = location.pathname.split("/");
+  const codeSpace = paths[2];
 
-const rootEl = document.getElementById(`root-${codeSpace}`)!;
-let i = +(rootEl.getAttribute("data-i") || "0");
-let root: ReactDOMClient.Root;
-const bc = new BroadcastChannel(location.origin);
+  const rootEl = document.getElementById(`root-${codeSpace}`)!;
+  let i = +(rootEl.getAttribute("data-i") || "0");
+  let root: ReactDOMClient.Root;
+  const bc = new BroadcastChannel(location.origin);
 
-if (location.pathname.includes("dehydrated")) {
-  bc.onmessage = (event) => {
-    if (event.data.codeSpace === codeSpace) {
-      const { html, css } = event.data.sess;
-      i = event.data.sess.i;
-      rootEl.innerHTML = `<style>${css}</style>${html}`;
-    }
-  };
-} else if (location.pathname.includes("/hydrated")) {
-  const render = (async () => {
-    const App = (await importShim<() => ReactNode, {}>(`/live/${codeSpace}/index.js/${i}`)).default();
-    i++;
+  if (location.pathname.includes("dehydrated")) {
+    bc.onmessage = (event) => {
+      if (event.data.codeSpace === codeSpace) {
+        const { html, css } = event.data.sess;
+        i = event.data.sess.i;
+        rootEl.innerHTML = `<style>${css}</style>${html}`;
+      }
+    };
+    return;
+  }
+  await (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
+  if (location.pathname.includes("/hydrated") || location.pathname.includes("/public")) {
     const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
 
-    root = createRoot(rootEl);
-    root.render(App);
-  });
-  render();
+    const render = (async () => {
+      const App = (await importShim<() => ReactNode, {}>(`/live/${codeSpace}/index.js/${i}`)).default();
+      i++;
 
-  bc.onmessage = (event) => {
-    if (event.data.codeSpace === codeSpace) {
-      i = event.data.sess.i;
+      root = createRoot(rootEl);
+      root.render(App);
+    });
+    render();
 
-      try {
-        root.unmount();
-      } catch {
-        console.error("unmount issue");
-      } finally {
-        render();
+    bc.onmessage = (event) => {
+      if (event.data.codeSpace === codeSpace) {
+        i = event.data.sess.i;
+
+        try {
+          root.unmount();
+        } catch {
+          console.error("unmount issue");
+        } finally {
+          render();
+        }
       }
-    }
-  };
-} else {
-  (async () => {
-    (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
-  })();
-}
+    };
+  }
+})();
 // const runtime = () => {
 //   const React = require("react");
 //   Object.assign(globalThis, { React });

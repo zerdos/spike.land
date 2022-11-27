@@ -9,8 +9,9 @@ import {
   md5,
   onSessionUpdate,
   patchSync,
+  resetCSS,
   startSession
-} from "./chunk-chunk-5TECY34M.mjs";
+} from "./chunk-chunk-PE774VWH.mjs";
 import "./chunk-chunk-A3E5PINE.mjs";
 export {
   CodeSession,
@@ -23,5 +24,6 @@ export {
   md5,
   onSessionUpdate,
   patchSync,
+  resetCSS,
   startSession
 };

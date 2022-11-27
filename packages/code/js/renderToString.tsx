@@ -64,6 +64,8 @@ export const render = async (transpiled: string, codeSpace: string) => {
   );
 
   try {
+    await mod.waitForDiv(md5hash);
+    await wait(200);
     const html = await mod.waitForDiv(md5hash);
 
     if (!html) return { html: null, css: null };
@@ -85,15 +87,23 @@ export const render = async (transpiled: string, codeSpace: string) => {
 };
 
 function mineFromCaches(cache: EmotionCache) {
-  const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
-  return Array.from(document.styleSheets).map((x) => {
-    try {
-      return x.cssRules[0] as CSSPageRule;
-    } catch {
-      return null;
-    }
-  }).filter((x) => x && keys.includes(x.selectorText)).map((x) => x!.cssText)
-    .join("\n");
+  const key = cache.key;
+  try {
+    return Array.from(document.querySelectorAll(`style[data-emotion="${cache.key}"]`)).map(x => x.textContent).join(
+      "\n",
+    );
+  } catch {
+    // const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
+    return Array.from(document.styleSheets).map((x) => {
+      try {
+        return x.cssRules[0] as CSSPageRule;
+      } catch {
+        return null;
+      }
+    }).filter((x) => x && x.selectorText && x.selectorText.indexOf(key) !== -1).map((x) => x!.cssText)
+      // .filter((x) => x && keys.includes(x.selectorText)).map((x) => x!.cssText)
+      .join("\n");
+  }
 }
 
 const waitForAnimation = () => {

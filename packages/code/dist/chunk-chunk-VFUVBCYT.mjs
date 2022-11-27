@@ -1,13 +1,13 @@
 import {
   Editor
-} from "./chunk-chunk-K4ZDFRUQ.mjs";
+} from "./chunk-chunk-2YQKA6RQ.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
 import {
   AutoUpdateApp,
   wait
-} from "./chunk-chunk-JMEQZLMX.mjs";
+} from "./chunk-chunk-EXKLSDTA.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-CTKH5FCC.mjs";
@@ -24,7 +24,7 @@ import {
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-5TECY34M.mjs";
+} from "./chunk-chunk-PE774VWH.mjs";
 import {
   require_react_dom
 } from "./chunk-chunk-M3XF32XQ.mjs";
@@ -3522,7 +3522,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-BEHEA36F.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-ABXZRJQX.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
   css: import_react2.css`
 height: 100%;
@@ -3756,7 +3756,9 @@ var run = /* @__PURE__ */ __name(async (startState) => {
     name: user,
     state: mst
   }, location.origin);
-  renderPreviewWindow({ codeSpace, dry: !!dry });
+  if (location.pathname === `/live/${codeSpace}`) {
+    renderPreviewWindow({ codeSpace, dry: !!dry });
+  }
   await join();
   console.log("broadcastChannel");
   bc = new BroadcastChannel(location.origin);
