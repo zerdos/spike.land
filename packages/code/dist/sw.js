@@ -2314,11 +2314,12 @@
         const contentHash = resp.headers.get("content_hash");
         if (contentHash) {
           const { memoryCache } = self;
-          const cachedResp = await memoryCache.getItem(contentHash);
-          if (cachedResp)
-            return cachedResp;
-          resp = new Response(await resp.blob(), resp);
-          await memoryCache.setItem(contentHash, resp.clone());
+          let body = await memoryCache.getItem(contentHash);
+          if (!body) {
+            body = await resp.text();
+            await memoryCache.setItem(contentHash, body);
+          }
+          new Response(body, resp);
         }
         return resp;
       }
