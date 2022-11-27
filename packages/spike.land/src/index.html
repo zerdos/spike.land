@@ -47,13 +47,6 @@
 <root/>
   
 <script>     
-  
-  if (location.href.indexOf(".tsx")!==-1) {
-    const loc = location.href.indexOf(".tsx");
-
-    location.href = location.href.slice(0,loc);
-  }
-
 
 
 
@@ -77,14 +70,16 @@ window.addEventListener('pageshow', (event) => {
         let resolved;
   
           try{
-            resolved = defaultResolve(id, parentUrl);
+            if (id.indexOf('/live/')){
+              const url = new URL(id, parentUrl)
+              const pathname = url.pathname.split("/").slice(0.3).join("/")+"/index.js";
+              return (new URL(pathname, location.origin)).toString();
+            }
+            return defaultResolve(id, parentUrl);
           } catch{
-            resolved = new URL('/npm:*'+id+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
+            return resolved = new URL('/npm:*'+id+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
           }
-          // console.table(id, parentUrl, resolved);
-    
-          // Default resolve will handle the typical URL and import map resolution
-          return resolved;
+        
         }
       }
 </script>
