@@ -43,11 +43,12 @@ self.addEventListener("fetch", function(event) {
     if (
       url.pathname.includes("/live/")
     ) {
-      const resp = await fetch(event.request);
+      let resp = await fetch(event.request);
       if (!resp.ok) return resp;
       const contentHash = resp.headers.get("content_hash");
       if (contentHash) {
         if (memoryCache[contentHash]) return memoryCache[contentHash];
+        resp = new Response(await resp.blob(), resp);
         memoryCache[contentHash] = resp.clone();
       }
       return resp;
