@@ -1,3 +1,7 @@
+import "core-js/features/url";
+import "core-js/features/string";
+import "core-js/features/self";
+
 import localForage from "localforage";
 
 export type {};
@@ -43,13 +47,13 @@ const getCacheName = () =>
 self.addEventListener("fetch", function(event) {
   return event.respondWith((async () => {
     let url = new URL(event.request.url);
-    let isChunk = false;
+    let isChunk = url.pathname.includes("chunk-");
     if (files && files[url.pathname.slice(1)]) {
       isChunk = true;
       url = new URL(files[url.pathname.slice(1)], url.origin);
     }
     if (
-      url.pathname.includes("/live/")
+      url.pathname.indexOf("/live/") !== -1
     ) {
       const controller = new AbortController();
 
@@ -103,17 +107,16 @@ self.addEventListener("fetch", function(event) {
 
     try {
       response = await fetch(request);
-      if (!response.ok) return response;
+      if (!response.ok || !response.body) return response;
+      response = new Response(response.body, response);
+      if (
+        response.headers.get("Cache-Control") !== "no-cache" || isChunk
+      ) {
+        event.waitUntil(myCache.put(cacheKey, response.clone()));
+      }
+      return response;
     } catch {
       return new Response("oh no!", { status: 500, statusText: `Could not fetch:  ${request.url}` });
     }
-    response = new Response(response.body, response);
-
-    if (
-      response.headers.get("Cache-Control") !== "no-cache"
-    ) {
-      event.waitUntil(myCache.put(cacheKey, response.clone()));
-    }
-    return response;
   })());
 });

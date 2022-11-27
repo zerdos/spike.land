@@ -5,6 +5,7 @@
 // Import { string } from "prop-types";
 
 import { transform } from "./esbuildEsm";
+import imap from "./importmap.json";
 import { md5 } from "./md5.js";
 
 import importmap from "./importmap.json";
@@ -75,10 +76,14 @@ const mod = {
 
 
       const importmap = ${JSON.stringify(importmap.imports)};
-    
-      const urlName = new URL(name, location.origin).toString();
+      const uName = new URL(name, location.origin).toString();    
+      const urlName = new URL(name+"/index.js", location.origin).toString();
  
+
       if (globalThis.globalNames[name]) return  globalThis.globalNames[name];     
+      
+      if (globalThis.globalNames[uName]) return  globalThis.globalNames[uName];     
+
       if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
       if (importmap[name]) return require(importmap[name])
       if (!name.includes("/npm:")){
@@ -91,23 +96,23 @@ const mod = {
     
      `;
 
-    const t = await transform(res, {
-      format: "esm",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true,
-    });
+    // const t = await transform(res, {
+    //   format: "esm",
+    //   minify: true,
+    //   keepNames: true,
+    //   platform: "neutral",
+    //   treeShaking: true,
+    // });
 
-    const c = await transform(t.code, {
-      format: "iife",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true,
-    });
+    // const c = await transform(t.code, {
+    //   format: "iife",
+    //   minify: true,
+    //   keepNames: true,
+    //   platform: "neutral",
+    //   treeShaking: true,
+    // });
 
-    return c.code;
+    return res;
   },
   last: 0,
   hashMap: {} as { [key: string]: string },
@@ -145,7 +150,8 @@ const findDeps = (code: string) => {
 
   return deps;
 };
-export const toUmd = async (source: string, name: string) => {
+export const toUmd = async (s: string, name: string) => {
+  const source = importMapReplace(s);
   //  const tr=  await build(source, {});
 
   //  return {
@@ -244,3 +250,18 @@ const fetch_or_die = async (url: string) => {
   await fileCache.setItem(url, urls[url]);
   return urls[url];
 };
+
+function importMapReplace(codeInp: string) {
+  const items = Object.keys(imap.imports);
+  let returnStr = codeInp;
+
+  items.map((lib) => {
+    const uri = (new URL(imap.imports[lib], location.origin)).toString();
+    returnStr = returnStr.replaceAll(
+      ` from "${lib}"`,
+      ` from "${uri}"`,
+    );
+  });
+
+  return returnStr;
+}
