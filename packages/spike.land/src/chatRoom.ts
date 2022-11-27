@@ -88,17 +88,19 @@ export class Code {
     }
 
     return handleErrors(request, async () => {
+      const { code, transpiled, css, html, i } = mST();
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
 
       switch (path[0]) {
         case "code":
         case "index.tsx":
-          return new Response(mST().code, {
+          return new Response(code, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
+              content_hash: md5(code),
               "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
@@ -114,6 +116,7 @@ export class Code {
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cache-Control": "no-cache",
+                  content_hash: md5(session),
                   "Content-Type": "application/json; charset=UTF-8",
                 },
               });
@@ -131,11 +134,13 @@ export class Code {
               );
             }
           }
-          return new Response(JSON.stringify(mST()), {
+          const body = JSON.stringify(mST());
+          return new Response(body, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
+              content_hash: md5(body),
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
@@ -220,7 +225,19 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
-        case "mST.mjs":
+        case "mST.mjs": {
+          const body = `
+          export const mST=${JSON.stringify(mST())};
+          export const codeSpace="${this.codeSpace}";
+          export const address="${this.address}";
+          export const importmapReplaced=${
+            JSON.stringify({
+              js: importMapReplace(mST().transpiled),
+            })
+          }`;
+
+          const content_hash = md5(body);
+
           return new Response(
             `
               export const mST=${JSON.stringify(mST())};
@@ -236,10 +253,12 @@ export class Code {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cache-Control": "no-cache",
+                content_hash: content_hash,
                 "Content-Type": "application/javascript; charset=UTF-8",
               },
             },
           );
+        }
         case "mST":
           return new Response(
             JSON.stringify({
@@ -279,49 +298,56 @@ export class Code {
           const i = path[1] || mST().i;
           if (i > mST().i) {
             const started = Date.now() / 1000;
+            const body = await new Promise<string>((res, reject) =>
+              this.wait(() => {
+                const now = Date.now() / 1000;
+
+                if (mST().i < Number(i) && started - now < 3000) {
+                  return false;
+                }
+                if (mST().i < Number(i) && started - now >= 3000) {
+                  reject(null);
+                  return false;
+                }
+
+                res(mST().transpiled);
+                return true;
+              })
+            );
             return new Response(
-              await new Promise<string>((res, reject) =>
-                this.wait(() => {
-                  const now = Date.now() / 1000;
-
-                  if (mST().i < Number(i) && started - now < 3000) {
-                    return false;
-                  }
-                  if (mST().i < Number(i) && started - now >= 3000) {
-                    reject(null);
-                    return false;
-                  }
-
-                  res(mST().transpiled);
-                  return true;
-                })
-              ),
+              body,
               {
                 status: 200,
                 headers: {
                   "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
                   "Access-Control-Allow-Origin": "*",
                   "Cache-Control": "no-cache",
+
+                  content_hash: md5(body),
                   "Content-Type": "application/javascript; charset=UTF-8",
                 },
               },
             );
           }
           if (i < mST().i) {
-            return new Response(mST().transpiled, {
+            return new Response(transpiled, {
               status: 307,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Location": `${url.origin}/live/${this.codeSpace}/index.js/${mST().i}`,
                 "Cache-Control": "no-cache",
+
+                content_hash: md5(transpiled),
                 "Content-Type": "application/javascript; charset=UTF-8",
               },
             });
           }
-          return new Response(mST().transpiled, {
+          return new Response(transpiled, {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
+
+              content_hash: md5(transpiled),
               "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
@@ -382,6 +408,7 @@ export class Code {
           // }
 
           headers.set("Content-Type", "text/html; charset=UTF-8");
+          headers.set("content_hash", md5(respText));
           // headers.set("Etag", newEtag)
           // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
           return new Response(respText, {

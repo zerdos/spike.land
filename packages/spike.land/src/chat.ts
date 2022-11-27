@@ -1,7 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
 import packages from "@spike.land/code/package.json";
-import { ASSET_MANIFEST } from "./staticContent.mjs";
+import { ASSET_HASH, ASSET_MANIFEST, getFilePath } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
@@ -73,6 +73,7 @@ const api: ExportedHandler<CodeEnv> = {
               "Location": `${u.origin}/live/${start}/hydrated`,
               "Content-Type": "text/html;charset=UTF-8",
               "Cache-Control": "no-cache",
+              ASSET_HASH: ASSET_HASH,
             },
           },
         );
@@ -254,13 +255,11 @@ const api: ExportedHandler<CodeEnv> = {
           if (resp !== null && !resp.ok || resp.status === 307) {
             const redirectUrl = resp.headers.get("location");
             if (redirectUrl) {
-              resp = await fetch(
-                new URL(redirectUrl, `https://unpkg.com`).toString(),
-                {
-                  ...request,
-                  url: redirectUrl,
-                },
-              );
+              request = new Request(new URL(redirectUrl, `https://unpkg.com`).toString(), {
+                ...request,
+                redirect: "follow",
+              });
+              resp = await fetch(request);
             }
             if (resp !== null && !resp.ok) return resp;
           }
@@ -316,6 +315,7 @@ const api: ExportedHandler<CodeEnv> = {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
+                ASSET_HASH,
               },
             });
           case "packages.json":
@@ -330,6 +330,7 @@ const api: ExportedHandler<CodeEnv> = {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
+                ASSET_HASH,
               },
             });
           case "api":
@@ -393,7 +394,19 @@ const api: ExportedHandler<CodeEnv> = {
               );
 
               if (!kvResp.ok) throw new Error("no kv, try something else");
-              return kvResp;
+              const headers = new Headers(kvResp.headers);
+              const fileName = url.pathname.slice(1);
+              const filePath = getFilePath(fileName);
+              headers.append("ASSET_PATH", filePath);
+              headers.append("ASSET_HASH", ASSET_HASH);
+              if (fileName === filePath) {
+                headers.append("Cache-Control", "public, max-age=604800, immutable");
+              }
+
+              response = new Response(kvResp.body, { ...kvResp, headers });
+              if (fileName === filePath) await cache.put(cacheKey, response.clone());
+
+              return response;
             } catch {
               const resp = await fetch(
                 new URL(url.pathname.slice(1), url.origin + "/node_modules/")
@@ -402,19 +415,6 @@ const api: ExportedHandler<CodeEnv> = {
               if (resp.ok) return resp;
             }
         }
-
-        if (!cachedResponse2) {
-          return new Response("404 :(", {
-            status: 404,
-            statusText: "not found",
-          });
-        }
-
-        if (cachedResponse2?.ok) {
-          await cache.put(cacheKey, cachedResponse2.clone());
-        }
-
-        return cachedResponse2;
       };
 
       return handleFetchApi(path);
