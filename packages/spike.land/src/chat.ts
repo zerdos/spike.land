@@ -41,18 +41,18 @@ const api: ExportedHandler<CodeEnv> = {
 
       const accept = request.headers.get("accept");
 
-      const serveJs = !(accept && accept.includes("html"));
+      // const serveJs = !(accept && accept.includes("html"));
 
-      if (
-        serveJs && u.pathname.endsWith(".tsx")
-        && !u.pathname.endsWith("index.tsx")
-      ) {
-        url = new URL(request.url.replace(".tsx", "/index.tsx"));
-      }
+      // if (
+      //   serveJs && u.pathname.endsWith(".tsx")
+      //   && !u.pathname.endsWith("index.tsx")
+      // ) {
+      //   url = new URL(request.url.replace(".tsx", "/index.tsx"));
+      // }
 
-      if (serveJs && !url.pathname.includes(".")) {
-        url = new URL(request.url + "/index.js");
-      }
+      // if (serveJs && !url.pathname.includes(".")) {
+      //   url = new URL(request.url + "/index.js");
+      // }
 
       const path = url.pathname.slice(1).split("/");
 
