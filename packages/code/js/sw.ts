@@ -69,8 +69,6 @@ self.addEventListener("fetch", function(event) {
         } else {
           controller.abort();
         }
-
-
         return new Response(body, resp);
       }
       return resp;

@@ -2321,8 +2321,9 @@
           if (body === null) {
             body = await resp.text();
             await memoryCache.setItem(contentHash, body);
+          } else {
+            controller.abort();
           }
-          controller.abort();
           return new Response(body, resp);
         }
         return resp;
