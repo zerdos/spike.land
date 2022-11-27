@@ -70,7 +70,7 @@ window.addEventListener('pageshow', (event) => {
         let resolved;
   
           try{
-            if (id.indexOf('/live/')!==-1){
+            if (id.indexOf('/live/')!==-1 && id.indexOf("index.")===-1){
               const url = new URL(id)
               const pathname = url.pathname.split("/").slice(0.3).join("/")+"/index.js";
               return (new URL(pathname, location.origin)).toString();

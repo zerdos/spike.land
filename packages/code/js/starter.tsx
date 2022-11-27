@@ -3,9 +3,8 @@ import { useEffect, useRef } from "react";
 
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
-
 import { Mutex } from "async-mutex";
-import { resetCSS } from "getResetCss";
+
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate } from "./session";
@@ -63,7 +62,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
   const div = document.createElement("div");
   div.setAttribute("id", `${codeSpace}-${i}`);
   div.style.height = "100%";
-  div.innerHTML = `<style>${resetCSS} ${css}</style><div id="${codeSpace}-${i}" style="height: 100%">${html}</div>`;
+  div.innerHTML = `<style>${css}</style><div id="${codeSpace}-${i}" style="height: 100%">${html}</div>`;
   parent.appendChild(div);
 
   const k = md5(transpiled);
@@ -71,15 +70,9 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
     `
     import {createRoot} from "react-dom/client"
     import { CacheProvider } from "@emotion/react";
-    import createCache from "@emotion/cache ";
+    import createCache from "@emotion/cache";
     import { ErrorBoundary } from "react-error-boundary";
-
-  ` + code.replace("export default", `const App${k} =`) + `
-  
-  document.styleSheets = [];
-  const reset = document.createElement("style");
-reset.textContent = ${JSON.stringify(resetCSS)};
-document.body.appendChild(reset);
+    import App from "${location.origin}/live/${codeSpace}/index.js/${i}"
 
 
   let parent = document.getElementById("${codeSpace}-${i}");
@@ -98,7 +91,7 @@ document.body.appendChild(reset);
   const cache = createCache({
     key: "${k}",
     container: parent,
-    speedy: false ,
+    speedy: false
   });
 
  cache.compat = undefined;
@@ -109,10 +102,11 @@ root.render( <ErrorBoundary
       <div>Oh no</div>
       <pre>{error.message}</pre>
     </div>
-  )}
-><CacheProvider value={cache}>
-  <App${k} />
-  </CacheProvider></ErrorBoundary>);
+  )}>
+  <CacheProvider value={cache}>
+    <App />
+  </CacheProvider>
+  </ErrorBoundary>);
 
   `,
     `${codeSpace}-${i}`,
@@ -217,7 +211,7 @@ export function AutoUpdateApp(
   const ref = useRef(null);
   useEffect(() => {
     if (ref.current === null) return;
-
+    parent = ref.current;
     runInWorker(codeSpace, ref.current);
   }, [ref, ref.current]);
   // let starterI = 1 * (document.getElementById(`root-${codeSpace}`)!.getAttribute(

@@ -3,12 +3,7 @@ import "es-module-shims";
 // import { createJsBlob } from "starter";
 import type { FC, ReactNode } from "react";
 import type * as ReactDOMClient from "react-dom/client";
-import { resetCSS } from "./getResetCss";
 import importmap from "./importmap.json";
-
-const reset = document.createElement("style");
-reset.textContent = resetCSS;
-document.head.appendChild(reset);
 
 const imp: { [key: string]: string } = { ...importmap.imports };
 const res = {};

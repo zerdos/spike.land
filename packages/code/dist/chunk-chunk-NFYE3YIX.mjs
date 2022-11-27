@@ -11,8 +11,7 @@ import {
   hashCode,
   mST,
   md5,
-  onSessionUpdate,
-  resetCSS
+  onSessionUpdate
 } from "./chunk-chunk-PE774VWH.mjs";
 import {
   require_react
@@ -7145,10 +7144,14 @@ var mod2 = {
 
 
       const importmap = ${JSON.stringify(importmap_default.imports)};
-    
-      const urlName = new URL(name, location.origin).toString();
+      const uName = new URL(name, location.origin).toString();    
+      const urlName = new URL(name+"/index.js", location.origin).toString();
  
+
       if (globalThis.globalNames[name]) return  globalThis.globalNames[name];     
+      
+      if (globalThis.globalNames[uName]) return  globalThis.globalNames[uName];     
+
       if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
       if (importmap[name]) return require(importmap[name])
       if (!name.includes("/npm:")){
@@ -7160,21 +7163,7 @@ var mod2 = {
   }
     
      `;
-    const t = await initAndTransform(res, {
-      format: "esm",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true
-    });
-    const c = await initAndTransform(t.code, {
-      format: "iife",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true
-    });
-    return c.code;
+    return res;
   },
   last: 0,
   hashMap: {},
@@ -7196,7 +7185,8 @@ var findDeps = /* @__PURE__ */ __name((code) => {
   }
   return deps;
 }, "findDeps");
-var toUmd = /* @__PURE__ */ __name(async (source, name) => {
+var toUmd = /* @__PURE__ */ __name(async (s, name) => {
+  const source = importMapReplace(s);
   const hash = md5(source);
   mod2.hashMap = { ...mod2.hashMap, [name]: hash };
   if (mod2.data[hash])
@@ -7272,6 +7262,19 @@ var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
   await fileCache2.setItem(url, urls[url]);
   return urls[url];
 }, "fetch_or_die");
+function importMapReplace(codeInp) {
+  const items = Object.keys(importmap_default.imports);
+  let returnStr = codeInp;
+  items.map((lib) => {
+    const uri = new URL(importmap_default.imports[lib], location.origin).toString();
+    returnStr = returnStr.replaceAll(
+      ` from "${lib}"`,
+      ` from "${uri}"`
+    );
+  });
+  return returnStr;
+}
+__name(importMapReplace, "importMapReplace");
 
 // js/wait.ts
 init_define_process();
@@ -8807,22 +8810,16 @@ async function moveToWorker(nameSpace, parent2) {
   const div2 = document.createElement("div");
   div2.setAttribute("id", `${codeSpace}-${i}`);
   div2.style.height = "100%";
-  div2.innerHTML = `<style>${resetCSS} ${css2}</style><div id="${codeSpace}-${i}" style="height: 100%">${html}</div>`;
+  div2.innerHTML = `<style>${css2}</style><div id="${codeSpace}-${i}" style="height: 100%">${html}</div>`;
   parent2.appendChild(div2);
   const k = md5(transpiled);
   const mod22 = await toUmd(
     `
     import {createRoot} from "react-dom/client"
     import { CacheProvider } from "@emotion/react";
-    import createCache from "@emotion/cache ";
+    import createCache from "@emotion/cache";
     import { ErrorBoundary } from "react-error-boundary";
-
-  ` + code.replace("export default", `const App${k} =`) + `
-  
-  document.styleSheets = [];
-  const reset = document.createElement("style");
-reset.textContent = ${JSON.stringify(resetCSS)};
-document.body.appendChild(reset);
+    import App from "${location.origin}/live/${codeSpace}/index.js/${i}"
 
 
   let parent = document.getElementById("${codeSpace}-${i}");
@@ -8841,7 +8838,7 @@ document.body.appendChild(reset);
   const cache = createCache({
     key: "${k}",
     container: parent,
-    speedy: false ,
+    speedy: false
   });
 
  cache.compat = undefined;
@@ -8852,10 +8849,11 @@ root.render( <ErrorBoundary
       <div>Oh no</div>
       <pre>{error.message}</pre>
     </div>
-  )}
-><CacheProvider value={cache}>
-  <App${k} />
-  </CacheProvider></ErrorBoundary>);
+  )}>
+  <CacheProvider value={cache}>
+    <App />
+  </CacheProvider>
+  </ErrorBoundary>);
 
   `,
     `${codeSpace}-${i}`
@@ -8927,6 +8925,7 @@ function AutoUpdateApp({ codeSpace: codeSpace2 }) {
   (0, import_react.useEffect)(() => {
     if (ref.current === null)
       return;
+    parent = ref.current;
     runInWorker(codeSpace2, ref.current);
   }, [ref, ref.current]);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
