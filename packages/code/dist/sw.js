@@ -2301,6 +2301,7 @@
   }), "getCacheName");
   self.addEventListener("fetch", function(event) {
     return event.respondWith((async () => {
+      const { signal, abort } = new AbortController();
       let url = new URL(event.request.url);
       let isChunk = false;
       if (files && files[url.pathname.slice(1)]) {
@@ -2308,7 +2309,7 @@
         url = new URL(files[url.pathname.slice(1)], url.origin);
       }
       if (url.pathname.includes("/live/")) {
-        let resp = await fetch(event.request);
+        let resp = await fetch({ ...event.request, signal });
         if (!resp.ok)
           return resp;
         resp = new Response(resp.body, resp);
@@ -2316,11 +2317,12 @@
         if (contentHash) {
           const { memoryCache } = self;
           let body = await memoryCache.getItem(contentHash);
-          if (!body) {
+          if (body === null) {
             body = await resp.text();
             await memoryCache.setItem(contentHash, body);
           }
-          new Response(body, resp);
+          abort();
+          return new Response(body, resp);
         }
         return resp;
       }
