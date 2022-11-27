@@ -9,8 +9,6 @@ import { css } from "@emotion/react";
 
 // Import { useSpring, a } from '@react-spring/web'
 
-import { md5, mST } from "./session";
-
 import { Editor } from "./Editor";
 
 const DraggableWindowLazy = lazy(() => import("./DraggableWindow"));
@@ -121,7 +119,7 @@ export const renderPreviewWindow = (
   if (singleton.started) return;
   singleton.started = true;
 
-  const div = document.querySelector(`#root`)!;
+  const div: HTMLDivElement = document.querySelector(`#root`)!;
   div.style.height = "100%";
   const root = createRoot(div);
 

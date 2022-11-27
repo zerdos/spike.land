@@ -149,7 +149,7 @@ __metadata:
     "@emotion/utils": "npm:^1.2.0"
     "@emotion/weak-memoize": "npm:^0.3.0"
     stylis: "npm:4.1.3"
-  checksum: 40c744c5eea3d4438186ea4be71bf691cf3ac16774bda3d6d825960286fa35d735492ae881c028e01881101890f79568107877faefa58d027c760a4207ebe738
+  checksum: 81e71b9b11d26407c5a4bd58e2413f8ac48772f47334d91e5f9b58f3abb490f6f59807fc22a0d2faf52636c5471b77183ebecdd1149e10d79e7c5287d3789f2b
   languageName: node
   linkType: hard
 
@@ -232,7 +232,7 @@ __metadata:
 "@emotion/sheet@npm:^1.2.1":
   version: 1.2.1
   resolution: "@emotion/sheet@npm:1.2.1"
-  checksum: bf811e2557855c53daa3ffb3fdee3ce5da4b7f3f9fcf3be7571edb8388b437dd33afc831190bb473be6b1065276efea9b5ba2290589ea367510832d9d1f971e4
+  checksum: bee3a311112163891fd61eef6a4bce080127a5da71966d1af135d9565b80948c87ab2ee35960efa81bb0cf4a45a0ae0ceed4668911b813298e6b839dcb36e9f4
   languageName: node
   linkType: hard
 

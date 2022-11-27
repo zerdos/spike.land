@@ -4,7 +4,7 @@ import HTML from "./index.html";
 
 import IIFE from "./iife.html";
 // import {a} from "./staticContent.mjs"
-import type { ICodeSession } from "@spike.land/code/js/session";
+import { ICodeSession, resetCSS } from "@spike.land/code/js/session";
 import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { CodeEnv } from "./env";
@@ -355,7 +355,7 @@ export class Code {
         case "hydrated":
         case "dehydrated":
         case "public": {
-          const respText = HTML.replace(
+          const respText = HTML.replace("/**reset*/", resetCSS).replace(
             `<root/>`,
             `
                     <div id="root" style="height: 100%;"><style>${mST().css}</style><div id="root-${this.codeSpace}" data-i="${mST().i}" style="height: 100%;">${mST().html}</div></div>`,
