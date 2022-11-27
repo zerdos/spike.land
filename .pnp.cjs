@@ -2060,7 +2060,7 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/shell", "npm:4.0.0-rc.31"],\
           ["camelcase", "npm:5.3.1"],\
           ["chalk", "npm:3.0.0"],\
-          ["ci-info", "npm:3.6.2"],\
+          ["ci-info", "npm:3.7.0"],\
           ["clipanion", "virtual:63051d091d543c4151b4e0147fdc230059d371b7036cc33827723c04d084f1305a460d82cf1a60fa6fea37f2d647718335e3a0c081df7df21791d86a08645fca#npm:3.2.0-rc.14"],\
           ["cross-spawn", "npm:7.0.3"],\
           ["diff", "npm:5.1.0"],\
@@ -2645,7 +2645,7 @@ const RAW_RUNTIME_STATE =
           ["glob", "npm:8.0.3"],\
           ["infer-owner", "npm:1.0.4"],\
           ["lru-cache", "npm:7.14.1"],\
-          ["minipass", "npm:3.3.5"],\
+          ["minipass", "npm:3.3.6"],\
           ["minipass-collect", "npm:1.0.2"],\
           ["minipass-flush", "npm:1.0.5"],\
           ["minipass-pipeline", "npm:1.2.4"],\
@@ -2802,10 +2802,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["ci-info", [\
-      ["npm:3.6.2", {\
-        "packageLocation": "./.yarn/global/cache/ci-info-npm-3.6.2-bd3e284307-9.zip/node_modules/ci-info/",\
+      ["npm:3.7.0", {\
+        "packageLocation": "./.yarn/global/cache/ci-info-npm-3.7.0-3df431b240-9.zip/node_modules/ci-info/",\
         "packageDependencies": [\
-          ["ci-info", "npm:3.6.2"]\
+          ["ci-info", "npm:3.7.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4402,7 +4402,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/fs-minipass-npm-2.1.0-501ef87306-9.zip/node_modules/fs-minipass/",\
         "packageDependencies": [\
           ["fs-minipass", "npm:2.1.0"],\
-          ["minipass", "npm:3.3.5"]\
+          ["minipass", "npm:3.3.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5434,7 +5434,7 @@ const RAW_RUNTIME_STATE =
           ["https-proxy-agent", "npm:5.0.1"],\
           ["is-lambda", "npm:1.0.1"],\
           ["lru-cache", "npm:7.14.1"],\
-          ["minipass", "npm:3.3.5"],\
+          ["minipass", "npm:3.3.6"],\
           ["minipass-collect", "npm:1.0.2"],\
           ["minipass-fetch", "npm:2.1.2"],\
           ["minipass-flush", "npm:1.0.5"],\
@@ -5630,10 +5630,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["minipass", [\
-      ["npm:3.3.5", {\
-        "packageLocation": "./.yarn/global/cache/minipass-npm-3.3.5-a555b091e7-9.zip/node_modules/minipass/",\
+      ["npm:3.3.6", {\
+        "packageLocation": "./.yarn/global/cache/minipass-npm-3.3.6-b8d93a945b-9.zip/node_modules/minipass/",\
         "packageDependencies": [\
-          ["minipass", "npm:3.3.5"],\
+          ["minipass", "npm:3.3.6"],\
           ["yallist", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
@@ -5644,7 +5644,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/minipass-collect-npm-1.0.2-3b4676eab5-9.zip/node_modules/minipass-collect/",\
         "packageDependencies": [\
           ["minipass-collect", "npm:1.0.2"],\
-          ["minipass", "npm:3.3.5"]\
+          ["minipass", "npm:3.3.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5655,7 +5655,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["minipass-fetch", "npm:2.1.2"],\
           ["encoding", "npm:0.1.13"],\
-          ["minipass", "npm:3.3.5"],\
+          ["minipass", "npm:3.3.6"],\
           ["minipass-sized", "npm:1.0.3"],\
           ["minizlib", "npm:2.1.2"]\
         ],\
@@ -5667,7 +5667,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/minipass-flush-npm-1.0.5-efe79d9826-9.zip/node_modules/minipass-flush/",\
         "packageDependencies": [\
           ["minipass-flush", "npm:1.0.5"],\
-          ["minipass", "npm:3.3.5"]\
+          ["minipass", "npm:3.3.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5677,7 +5677,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/minipass-pipeline-npm-1.2.4-5924cb077f-9.zip/node_modules/minipass-pipeline/",\
         "packageDependencies": [\
           ["minipass-pipeline", "npm:1.2.4"],\
-          ["minipass", "npm:3.3.5"]\
+          ["minipass", "npm:3.3.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5687,7 +5687,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/minipass-sized-npm-1.0.3-306d86f432-9.zip/node_modules/minipass-sized/",\
         "packageDependencies": [\
           ["minipass-sized", "npm:1.0.3"],\
-          ["minipass", "npm:3.3.5"]\
+          ["minipass", "npm:3.3.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5697,7 +5697,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/minizlib-npm-2.1.2-ea89cd0cfb-9.zip/node_modules/minizlib/",\
         "packageDependencies": [\
           ["minizlib", "npm:2.1.2"],\
-          ["minipass", "npm:3.3.5"],\
+          ["minipass", "npm:3.3.6"],\
           ["yallist", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
@@ -7256,7 +7256,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/ssri-npm-9.0.1-33ce27f4f8-9.zip/node_modules/ssri/",\
         "packageDependencies": [\
           ["ssri", "npm:9.0.1"],\
-          ["minipass", "npm:3.3.5"]\
+          ["minipass", "npm:3.3.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7456,7 +7456,7 @@ const RAW_RUNTIME_STATE =
           ["tar", "npm:6.1.12"],\
           ["chownr", "npm:2.0.0"],\
           ["fs-minipass", "npm:2.1.0"],\
-          ["minipass", "npm:3.3.5"],\
+          ["minipass", "npm:3.3.6"],\
           ["minizlib", "npm:2.1.2"],\
           ["mkdirp", "npm:1.0.4"],\
           ["yallist", "npm:4.0.0"]\
