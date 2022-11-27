@@ -45208,7 +45208,7 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
     for (const match of models) {
       const codeSpace2 = match[0].split("/live/").pop();
       const extraModel = new URL("/live/" + codeSpace2 + "/index.tsx", location.origin).toString();
-      const mUri = Uri.parse("/live/" + codeSpace2 + "/index.tsx");
+      const mUri = Uri.parse(`${originToUse}/live/${codeSpace2}/index.tsx`);
       const content = await fetch(extraModel).then(async (res) => res.text());
       editor.getModel(mUri) || createModel(
         content,
