@@ -16,7 +16,7 @@ declare const self: MyServiceWorkerScope;
 //   });
 // }
 
-self.memoryCache = localForage.createInstance({
+self.memoryCache = self.memoryCache || localForage.createInstance({
   name: "memoryCache",
 });
 
