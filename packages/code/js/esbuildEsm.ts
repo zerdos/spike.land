@@ -72,8 +72,8 @@ function importMapReplace(codeInp: string) {
       ` from "${lib}"`,
       ` from "${uri}"`,
     ).replaceAll(
-      ` from "@spike.land/`,
-      ` from "${location.origin}/`,
+      ` from "/live/`,
+      ` from "${location.origin}/live/`,
     );
   });
 

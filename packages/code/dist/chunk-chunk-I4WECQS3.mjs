@@ -7013,7 +7013,7 @@ var importmap_default = {
     "@emotion/styled": "/emotionStyled.mjs",
     "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
     react: "/reactMod.mjs",
-    "@spike.land/live/": "/live/",
+    "/live/": "/live/",
     "react/jsx-runtime": "/jsx.mjs",
     "react-dom": "/reactDom.mjs",
     "react-dom/client": "/reactDomClient.mjs"
@@ -7105,8 +7105,8 @@ function importMapReplace(codeInp) {
       ` from "${lib}"`,
       ` from "${uri}"`
     ).replaceAll(
-      ` from "@spike.land/`,
-      ` from "${location.origin}/`
+      ` from "/live/`,
+      ` from "${location.origin}/live/`
     );
   });
   return returnStr;
