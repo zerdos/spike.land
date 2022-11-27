@@ -229,7 +229,7 @@ const build = (
     ...buildOptions,
     entryPoints: [
       "js/sw.ts",
-      "js/react-jsx-runtime.ts",
+      "js/react-jsx-runtime.tsx",
     ],
     bundle: true,
     define,
