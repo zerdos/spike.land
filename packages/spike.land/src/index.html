@@ -71,7 +71,7 @@ window.addEventListener('pageshow', (event) => {
   
           try{
             if (id.indexOf('/live/')!==-1){
-              const url = new URL(id, parentUrl)
+              const url = new URL(id)
               const pathname = url.pathname.split("/").slice(0.3).join("/")+"/index.js";
               return (new URL(pathname, location.origin)).toString();
             }
