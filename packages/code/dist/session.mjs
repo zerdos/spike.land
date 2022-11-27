@@ -11,7 +11,7 @@ import {
   patchSync,
   resetCSS,
   startSession
-} from "./chunk-chunk-6CBX5HZJ.mjs";
+} from "./chunk-chunk-WUWQ4ERP.mjs";
 import "./chunk-chunk-A3E5PINE.mjs";
 export {
   CodeSession,

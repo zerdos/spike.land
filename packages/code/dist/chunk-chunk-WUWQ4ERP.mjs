@@ -5879,10 +5879,10 @@ __name(mST, "mST");
 function addOrigin(s, originString) {
   const { i, transpiled, code, html, css } = s;
   const mst = { i, transpiled, code, html, css };
-  mst.code = mst.code.replace("from './", `from '${originString}/live/`);
+  mst.code = mst.code.replace("from '/live", `from './`);
   mst.transpiled = mst.transpiled.replace(
-    'from "/live',
-    `from "${originString}/live`
+    'from "./',
+    `from "${originString}/live/`
   );
   mst.transpiled = mst.transpiled.replace(
     'from "./',
