@@ -1,7 +1,7 @@
 import "es-module-shims";
 // import { md5 } from "./md5";
 // import { createJsBlob } from "starter";
-import type { ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import type * as ReactDOMClient from "react-dom/client";
 import { resetCSS } from "./getResetCss";
 import importmap from "./importmap.json";
@@ -40,11 +40,11 @@ importShim.addImportMap({ imports: res });
     const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
 
     const render = (async () => {
-      const App = (await importShim<() => ReactNode, {}>(`/live/${codeSpace}/index.js/${i}`)).default();
+      const App = (await importShim<FC<{}>, {}>(`/live/${codeSpace}/index.js/${i}`)).default;
       i++;
 
       root = createRoot(rootEl);
-      root.render(App);
+      root.render(<App />);
     });
     render();
 
