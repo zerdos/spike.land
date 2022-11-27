@@ -2277,7 +2277,7 @@
   // js/sw.ts
   init_define_process();
   var import_localforage = __toESM(require_localforage(), 1);
-  self.memoryCache = import_localforage.default.createInstance({
+  self.memoryCache = self.memoryCache || import_localforage.default.createInstance({
     name: "memoryCache"
   });
   var lastChecked = 0;
