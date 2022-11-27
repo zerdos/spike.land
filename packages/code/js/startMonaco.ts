@@ -87,7 +87,7 @@ const monacoContribution = async (
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
-    target: languages.typescript.ScriptTarget.ES2016,
+    target: languages.typescript.ScriptTarget.ESNext,
 
     importHelpers: false,
 
@@ -112,7 +112,7 @@ const monacoContribution = async (
     sourceMap: true,
     mapRoot: originToUse + "/src/sourcemaps",
     maxNodeModuleJsDepth: 10,
-    rootDir: originToUse + "/live",
+    rootDir: originToUse,
     paths: {
       [originToUse + "/live/node_modules/"]: [originToUse + "/*"],
       [originToUse + "/live/*"]: [originToUse + "/live/*"],
