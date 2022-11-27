@@ -45210,26 +45210,14 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
       const extraModel = new URL("/live/" + codeSpace2 + "/index.tsx", location.origin).toString();
       const mUri = Uri.parse("/live/" + codeSpace2 + "/index.tsx");
       const content = await fetch(extraModel).then(async (res) => res.text());
-      languages.typescript.typescriptDefaults.addExtraLib(
-        content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace2}/index.tsx`
-      );
-      languages.typescript.typescriptDefaults.addExtraLib(
-        content,
-        `${location.origin}/live/${codeSpace2}/index.tsx`
-      );
       editor.getModel(mUri) || createModel(
         content,
         "typescript",
         mUri
       );
-      console.log(
-        content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace2}`
-      );
     }
   }, "addExtraM");
-  setTimeout(() => addExtraM(), 500);
+  setTimeout(() => addExtraM());
   const target = container;
   const myEditor = create(target, {
     model,
