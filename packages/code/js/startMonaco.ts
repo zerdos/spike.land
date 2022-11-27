@@ -216,8 +216,8 @@ async function startMonacoPristine(
     // Console.log("load more models", replaced, models);
 
     for (const match of models) {
-      //    console.log("***** EXTRA MODELS *****");
-
+      console.log("***** EXTRA MODELS *****");
+      //
       const codeSpace = match[0].split("/live/").pop();
       const extraModel = new URL("/live/" + codeSpace + "/index.tsx", location.origin).toString();
 
