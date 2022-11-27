@@ -2456,6 +2456,14 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
   }
 });
 
+// ../../.yarn/global/cache/form-data-npm-4.0.0-916facec2d-9.zip/node_modules/form-data/lib/browser.js
+var require_browser2 = __commonJS({
+  "../../.yarn/global/cache/form-data-npm-4.0.0-916facec2d-9.zip/node_modules/form-data/lib/browser.js"(exports, module) {
+    init_define_process();
+    module.exports = typeof self == "object" ? self.FormData : window.FormData;
+  }
+});
+
 // ../../.yarn/global/cache/localforage-npm-1.10.0-cf9ea9a436-9.zip/node_modules/localforage/dist/localforage.js
 var require_localforage = __commonJS({
   "../../.yarn/global/cache/localforage-npm-1.10.0-cf9ea9a436-9.zip/node_modules/localforage/dist/localforage.js"(exports, module) {
@@ -4691,14 +4699,6 @@ var require_localforage = __commonJS({
   }
 });
 
-// ../../.yarn/global/cache/form-data-npm-4.0.0-916facec2d-9.zip/node_modules/form-data/lib/browser.js
-var require_browser2 = __commonJS({
-  "../../.yarn/global/cache/form-data-npm-4.0.0-916facec2d-9.zip/node_modules/form-data/lib/browser.js"(exports, module) {
-    init_define_process();
-    module.exports = typeof self == "object" ? self.FormData : window.FormData;
-  }
-});
-
 // js/starter.tsx
 init_define_process();
 var import_react = __toESM(require_react(), 1);
@@ -4899,9 +4899,6 @@ var import_esbuild_wasm = __toESM(require_browser(), 1);
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.15-ddeb55310e-9.zip/node_modules/esbuild-wasm/esbuild.wasm
 var esbuild_default = "./chunk-esbuild-XQPI3AQ6.wasm";
-
-// js/esbuildEsm.ts
-var import_localforage2 = __toESM(require_localforage(), 1);
 
 // js/fetchPlugin.tsx
 init_define_process();
@@ -7036,6 +7033,7 @@ var unpkgPathPlugin = /* @__PURE__ */ __name((inputCode) => {
 }, "unpkgPathPlugin");
 
 // js/esbuildEsm.ts
+var import_localforage2 = __toESM(require_localforage(), 1);
 var transformCache = import_localforage2.default.createInstance({
   name: "transformCache"
 });

@@ -1,10 +1,10 @@
 import { build as esbuildBuild, initialize, transform } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
-import localForage from "localforage";
 import { fetchPlugin } from "./fetchPlugin";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
+import localForage from "localforage";
 const transformCache = localForage.createInstance({
   name: "transformCache",
 });
