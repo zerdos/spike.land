@@ -7962,6 +7962,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "@emotion/styled": "/emotionStyled.mjs",
       "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
       react: "/reactMod.mjs",
+      "@spike.land/live/": "/live/",
       "react/jsx-runtime": "/jsx.mjs",
       "react-dom": "/reactDom.mjs",
       "react-dom/client": "/reactDomClient.mjs"
@@ -7972,7 +7973,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
   var imp = { ...importmap_default.imports };
   var res = {};
-  Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
+  Object.keys(imp).map((k) => Object.assign(res, { [k]: new URL(imp[k], location.origin).toString() }));
   importShim.addImportMap({ imports: res });
   (async () => {
     const paths = location.pathname.split("/");

@@ -45201,17 +45201,17 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
   );
   const addExtraM = /* @__PURE__ */ __name(async () => {
     const search = new RegExp(
-      ` from '(${originToUse}/)?live/[a-zA-Z]+`,
+      ` from '@spike.land/live/[a-zA-Z]+`,
       "gm"
     );
     const models = replaced.matchAll(search);
     for (const match of models) {
-      const extraModel = new URL(match[0].slice(7) + "/index.tsx", originToUse).toString();
-      const mUri = Uri.parse(extraModel);
-      editor.getModel(mUri) || createModel(
-        await fetch(extraModel).then(async (res) => res.text()),
-        "typescript",
-        mUri
+      const codeSpace2 = match[0].split("/live/").pop();
+      const extraModel = new URL("/live/" + codeSpace2 + "/index.tsx", location.origin).toString();
+      const content = await fetch(extraModel).then(async (res) => res.text());
+      languages.typescript.typescriptDefaults.addExtraLib(
+        content,
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace2}.ts`
       );
     }
   }, "addExtraM");

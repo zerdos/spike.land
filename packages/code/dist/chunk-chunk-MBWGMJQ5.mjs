@@ -5700,7 +5700,8 @@ var CodeSession = class {
       if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");
       if (sess.i < this.session.get("state").i) {
-        throw new Error("never going back!");
+        console.log("never going back!");
+        return;
       }
       if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");

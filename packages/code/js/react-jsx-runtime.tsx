@@ -1,13 +1,13 @@
 import "es-module-shims";
 // import { md5 } from "./md5";
 // import { createJsBlob } from "starter";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import type * as ReactDOMClient from "react-dom/client";
 import importmap from "./importmap.json";
 
 const imp: { [key: string]: string } = { ...importmap.imports };
 const res = {};
-Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
+Object.keys(imp).map((k) => Object.assign(res, { [k]: (new URL(imp[k], location.origin)).toString() }));
 
 importShim.addImportMap({ imports: res });
 

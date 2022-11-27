@@ -12,7 +12,7 @@ import {
   mST,
   md5,
   onSessionUpdate
-} from "./chunk-chunk-PE774VWH.mjs";
+} from "./chunk-chunk-MBWGMJQ5.mjs";
 import {
   require_react
 } from "./chunk-chunk-UX3KX3KY.mjs";
@@ -7004,6 +7004,22 @@ var fetchPlugin = /* @__PURE__ */ __name((inputCode) => {
   };
 }, "fetchPlugin");
 
+// js/importmap.json
+var importmap_default = {
+  imports: {
+    "framer-motion": "/motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/cache": "/emotionCache.mjs",
+    "@emotion/styled": "/emotionStyled.mjs",
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    react: "/reactMod.mjs",
+    "@spike.land/live/": "/live/",
+    "react/jsx-runtime": "/jsx.mjs",
+    "react-dom": "/reactDom.mjs",
+    "react-dom/client": "/reactDomClient.mjs"
+  }
+};
+
 // js/unpkg-path-plugin.tsx
 init_define_process();
 var esbuild2 = __toESM(require_browser(), 1);
@@ -7057,9 +7073,7 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   if (initFinished !== true)
     await initFinished;
   const transformed = await (0, import_esbuild_wasm.transform)(code, opts);
-  const trp = transformed.code.split(` from '..`).join(` from '${location.origin}/live`).split(` from '.`).join(
-    ` from '${location.origin}/live`
-  );
+  const trp = importMapReplace(transformed.code);
   const res = { ...transformed, code: `/*${md5(code)}*/` + trp };
   await transformCache.setItem(cacheKey, res.code);
   return res;
@@ -7082,21 +7096,22 @@ var build = /* @__PURE__ */ __name(async (rawCode) => {
   const b = await (0, import_esbuild_wasm.build)(defaultOpts);
   return b.outputFiles[0].text;
 }, "build");
-
-// js/importmap.json
-var importmap_default = {
-  imports: {
-    "framer-motion": "/motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/cache": "/emotionCache.mjs",
-    "@emotion/styled": "/emotionStyled.mjs",
-    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-    react: "/reactMod.mjs",
-    "react/jsx-runtime": "/jsx.mjs",
-    "react-dom": "/reactDom.mjs",
-    "react-dom/client": "/reactDomClient.mjs"
-  }
-};
+function importMapReplace(codeInp) {
+  const items = Object.keys(importmap_default.imports);
+  let returnStr = codeInp;
+  items.map((lib) => {
+    const uri = new URL(importmap_default.imports[lib], location.origin).toString();
+    returnStr = returnStr.replaceAll(
+      ` from "${lib}"`,
+      ` from "${uri}"`
+    ).replaceAll(
+      ` from "@spike.land/`,
+      ` from "${location.origin}/`
+    );
+  });
+  return returnStr;
+}
+__name(importMapReplace, "importMapReplace");
 
 // js/toUmd.ts
 var import_localforage3 = __toESM(require_localforage(), 1);
@@ -7146,24 +7161,32 @@ var mod2 = {
       const importmap = ${JSON.stringify(importmap_default.imports)};
       const uName = new URL(name, location.origin).toString();    
       const urlName = new URL(name+"/index.js", location.origin).toString();
- 
-
       if (globalThis.globalNames[name]) return  globalThis.globalNames[name];     
       
       if (globalThis.globalNames[uName]) return  globalThis.globalNames[uName];     
 
       if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
-      if (importmap[name]) return require(importmap[name])
+      if (importmap[name]) return require(importmap[name])      
       if (!name.includes("/npm:")){
       const npmUrl = new URL('/npm:*'+name+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
       return require(npmUrl);
     }
-
-  
-  }
-    
-     `;
-    return res;
+  }`;
+    const t = await initAndTransform(res, {
+      format: "esm",
+      minify: true,
+      keepNames: true,
+      platform: "neutral",
+      treeShaking: true
+    });
+    const c = await initAndTransform(t.code, {
+      format: "iife",
+      minify: true,
+      keepNames: true,
+      platform: "neutral",
+      treeShaking: true
+    });
+    return c.code;
   },
   last: 0,
   hashMap: {},
@@ -7185,8 +7208,7 @@ var findDeps = /* @__PURE__ */ __name((code) => {
   }
   return deps;
 }, "findDeps");
-var toUmd = /* @__PURE__ */ __name(async (s, name) => {
-  const source = importMapReplace(s);
+var toUmd = /* @__PURE__ */ __name(async (source, name) => {
   const hash = md5(source);
   mod2.hashMap = { ...mod2.hashMap, [name]: hash };
   if (mod2.data[hash])
@@ -7262,19 +7284,6 @@ var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
   await fileCache2.setItem(url, urls[url]);
   return urls[url];
 }, "fetch_or_die");
-function importMapReplace(codeInp) {
-  const items = Object.keys(importmap_default.imports);
-  let returnStr = codeInp;
-  items.map((lib) => {
-    const uri = new URL(importmap_default.imports[lib], location.origin).toString();
-    returnStr = returnStr.replaceAll(
-      ` from "${lib}"`,
-      ` from "${uri}"`
-    );
-  });
-  return returnStr;
-}
-__name(importMapReplace, "importMapReplace");
 
 // js/wait.ts
 init_define_process();
@@ -8780,10 +8789,10 @@ var parent;
 var lastH = "";
 var mutex = new Mutex();
 async function runInWorker(nameSpace, _parent) {
+  lastH = hashCode();
   await mutex.runExclusive(async () => {
-    if (lastH === hashCode())
+    if (lastH !== hashCode())
       return;
-    lastH = hashCode();
     parent = parent || _parent;
     if (worker)
       worker.terminate();

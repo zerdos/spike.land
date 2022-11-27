@@ -207,7 +207,7 @@ async function startMonacoPristine(
 
   const addExtraM = async () => {
     const search = new RegExp(
-      ` from '(${originToUse}/)?live/[a-zA-Z]+`,
+      ` from '@spike.land/live/[a-zA-Z]+`,
       "gm",
     );
 
@@ -218,18 +218,28 @@ async function startMonacoPristine(
     for (const match of models) {
       //    console.log("***** EXTRA MODELS *****");
 
-      const extraModel = new URL(match[0].slice(7) + "/index.tsx", originToUse)
+      const codeSpace = match[0].split("/live/").pop();
+      const extraModel = new URL("/live/" + codeSpace + "/index.tsx", location.origin)
         .toString();
 
-      const mUri = Uri.parse(extraModel);
+      // const mUri = Uri.parse('/live/'+match[0].slice(7) + "/index.tsx");
 
-      editor.getModel(mUri) || createModel(
-        await fetch(extraModel).then(async (res) => res.text()),
-        "typescript",
-        mUri,
+      const content = await fetch(extraModel).then(async (res) => res.text());
+
+      languages.typescript.typescriptDefaults.addExtraLib(
+        content,
+        `${location.origin}/node_modules/@spike.land/live/${codeSpace}.ts`,
       );
     }
   };
+  //   https://testing.spike.land/npm:/@spike.land/live/clockWithCss
+
+  // addExra(
+  //   await fetch(extraModel).then(async (res) => res.text()),
+  //   "typescript",
+  //   mUri,
+  // );
+
   setTimeout(() => addExtraM(), 500);
   // const innerContainer = document.createElement("div");
 

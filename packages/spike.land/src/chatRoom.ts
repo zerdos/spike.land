@@ -232,7 +232,7 @@ export class Code {
           export const address="${this.address}";
           export const importmapReplaced=${
             JSON.stringify({
-              js: importMapReplace(mST().transpiled),
+              js: importMapReplace(mST().transpiled, url.origin),
             })
           }`;
 
@@ -245,7 +245,7 @@ export class Code {
               export const address="${this.address}";
               export const importmapReplaced=${
               JSON.stringify({
-                js: importMapReplace(mST().transpiled),
+                js: importMapReplace(mST().transpiled, url.origin),
               })
             }`,
             {
@@ -715,16 +715,18 @@ export class Code {
   }
 }
 
-type LibName = keyof typeof imap.imports;
-
-function importMapReplace(codeInp: string) {
-  const items = Object.keys(imap.imports) as unknown as LibName[];
+function importMapReplace(codeInp: string, origin: string) {
+  const items = Object.keys(imap.imports);
   let returnStr = codeInp;
 
   items.map((lib) => {
+    const uri = (new URL(imap.imports[lib], origin)).toString();
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
-      `from "${imap.imports[lib]}"`,
+      ` from "${uri}"`,
+    ).replaceAll(
+      ` from "@spike.land/`,
+      ` from "${origin}/`,
     );
   });
 

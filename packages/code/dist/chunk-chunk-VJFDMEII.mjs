@@ -11,7 +11,7 @@ import {
   initAndTransform,
   toUmd,
   wait
-} from "./chunk-chunk-NFYE3YIX.mjs";
+} from "./chunk-chunk-IJFQQHIQ.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-CTKH5FCC.mjs";
@@ -24,7 +24,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-PE774VWH.mjs";
+} from "./chunk-chunk-MBWGMJQ5.mjs";
 import {
   require_react_dom
 } from "./chunk-chunk-M3XF32XQ.mjs";
@@ -24261,7 +24261,7 @@ async function setMonaco(container, codeSpace) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-J66DHZNT.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-WZSLO7HZ.mjs");
   return await startMonaco({
     container,
     codeSpace,
