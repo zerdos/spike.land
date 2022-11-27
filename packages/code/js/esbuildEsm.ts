@@ -48,10 +48,11 @@ const build = async (rawCode: string) => {
   const defaultOpts = {
     bundle: true,
     write: false,
-    entryPoints: ["index.js"],
+    format: "iife",
+    entryPoints: ["/live/index.js"],
     define: {
       "process.env.NODE_ENV": "\"production\"",
-      global: "window",
+      global: "globalThis",
     },
     plugins: [unpkgPathPlugin(rawCode), fetchPlugin(rawCode)],
   };
