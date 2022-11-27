@@ -2311,6 +2311,7 @@
         let resp = await fetch(event.request);
         if (!resp.ok)
           return resp;
+        resp = new Response(resp.body, resp);
         const contentHash = resp.headers.get("content_hash");
         if (contentHash) {
           const { memoryCache } = self;
