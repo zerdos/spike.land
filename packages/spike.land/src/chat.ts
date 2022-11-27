@@ -21,12 +21,13 @@ const mods: { [key: string]: string } = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
 export const imap = importMap;
 
-export default {
-  async fetch(
-    request: Request,
-    env: CodeEnv,
-    ctx: ExecutionContext,
-  ) {
+const api: ExportedHandler<CodeEnv> = {
+  fetch: async (
+    req,
+    env,
+    ctx,
+  ) => {
+    let request = new Request(req.url, req);
     if (request.cf?.asOrganization?.startsWith("YANDEX")) {
       return new Response(null, { status: 401, statusText: "no robots" });
     }
@@ -79,342 +80,329 @@ export default {
 
       const handleFetchApi = async (path: string[]): Promise<Response> => {
         const newUrl = new URL(path.join("/"), url.origin).toString();
-        const _request = new Request(newUrl, { ...request, url: newUrl });
+        request = new Request(newUrl, request);
 
-        const cacheKey = new Request(_request.url);
+        const cacheKey = new Request(request.url);
         const cache = caches.default;
 
-        const cachedResponse = await cache.match(cacheKey);
-        if (cachedResponse && cachedResponse.ok) {
-          return cachedResponse;
+        let response = await cache.match(cacheKey);
+        if (response) {
+          return response;
         }
 
-        const cachedResponse2 = await (async (request) => {
-          const cacheKey = new Request(request.url);
+        if (newUrl.includes(":z:")) {
+          const reqHeaders = new Headers(request.headers);
+          const newUrl = atob(url.href.slice(3));
+          reqHeaders.set("Referer", newUrl);
 
-          const cache = caches.default;
+          request = new Request(newUrl, { ...request, headers: reqHeaders });
+          response = await fetch(request);
+          if (!response.ok) return response;
 
-          // Check whether the value is already available in the cache
-          // if not, you will need to fetch it from origin, and store it in the cache
-          // for future access
-          const cachedResponse = await cache.match(cacheKey);
-          if (cachedResponse?.ok) {
-            return cachedResponse;
+          const headers = new Headers(response.headers);
+          headers.set("Access-Control-Allow-Origin", "*");
+          response = new Response(response.body, { ...response, headers });
+
+          await cache.put(cacheKey, response.clone());
+          return response;
+        }
+        // ) {
+
+        if (
+          path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
+        ) {
+          const isJs = u.toString().includes(".js")
+            || u.toString().includes(".mjs");
+
+          const packageName = u.toString().replace(
+            u.origin + "/npm:",
+            "",
+          ).replace(
+            u.origin + "/node_modules",
+            "",
+          );
+          const searchParams = (isJs
+            ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} `
+            : "");
+          const esmUrl = "https://esm.sh/" + packageName + searchParams;
+
+          request = new Request(esmUrl, { ...request, redirect: "follow" });
+          response = await fetch(request);
+          if (!response.ok) return response;
+
+          if (response?.status === 307 || response.headers.has("location")) {
+            const redirectUrl = response.headers.get("location")!;
+
+            request = new Request(redirectUrl, request);
+
+            const headers = new Headers(response.headers);
+            headers.set(
+              "location",
+              redirectUrl.replace(
+                "esm.sh/",
+                u.hostname + "/npm:/",
+              ),
+            );
+
+            response = new Response((await response.text()).replace("esm.sh/", u.hostname + "/npm:/"), {
+              ...response,
+              headers,
+            });
+
+            await cache.put(cacheKey, response.clone());
+            return response;
           }
 
-          if (path[0].startsWith(":z:")) {
-            const reqHeaders = new Headers(request.headers);
-            const newUrl = atob(url.href.slice(3));
-            reqHeaders.set("Referer", newUrl);
+          const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
 
-            const req = new Request(newUrl, { ...request, headers: reqHeaders });
-            let resp = await fetch(req);
-            const headers = new Headers(resp.headers);
-            headers.set("Access-Control-Allow-Origin", "*");
-            resp = new Response(resp.body, { ...resp, headers });
-
-            if (resp.ok) await cache.put(cacheKey, resp.clone());
-            return resp;
+          const isText = !!response?.headers?.get("Content-Type")?.includes(
+            "charset",
+          );
+          const bodyStr = await (isText ? response.text() : null);
+          if (!bodyStr) {
+            throw new Error("empty body");
           }
-          // ) {
 
-          if (
-            path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
-          ) {
-            const isJs = u.toString().includes(".js")
-              || u.toString().includes(".mjs");
+          const regex = /https:\/\/esm.sh\//gm;
+          const regex2 = / from "\//gm;
+          const regex3 = /import "\//gm;
 
-            const packageName = u.toString().replace(
-              u.origin + "/npm:",
-              "",
-            ).replace(
-              u.origin + "/node_modules",
-              "",
-            );
-            const searchParams = (isJs
-              ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} `
-              : "");
-            const esmUrl = "https://esm.sh/" + packageName + searchParams;
+          const regex4 = /from"\//gm;
+          const regex5 = /import"\//gm;
 
-            const resp = await fetch(esmUrl, { ...request, url: esmUrl });
-
-            if (resp !== null && !resp.ok || resp.status === 307) {
-              const redirectUrl = resp.headers.get("location");
-
-              if (redirectUrl) {
-                return new Response(
-                  (await resp.text()).replace("esm.sh/", u.hostname + "/npm:/"),
-                  {
-                    status: 307,
-                    headers: {
-                      "location": redirectUrl.replace(
-                        "esm.sh/",
-                        u.hostname + "/npm:/",
-                      ),
-                    },
-                  },
-                );
-
-                // resp = await fetch(redirectUrl, {
-                //   ...request,
-                //   url: redirectUrl,
-                // });
-              }
-              if (resp !== null && !resp.ok) {
-                return resp;
-              }
-            }
-            const xTs = resp.headers.get("x-typescript-types") || "NO_DTS";
-
-            const isText = !!resp?.headers?.get("Content-Type")?.includes(
-              "charset",
-            );
-            const bodyStr = await (isText ? resp.text() : null);
-            if (!bodyStr) {
-              throw new Error("empty body");
-            }
-
-            const regex = /https:\/\/esm.sh\//gm;
-            const regex2 = / from "\//gm;
-            const regex3 = /import "\//gm;
-
-            const regex4 = /from"\//gm;
-            const regex5 = /import"\//gm;
-
-            const responseToCache = new Response(
-              isText
-                ? bodyStr.replaceAll(regex, u.origin + "/npm:/")
-                  .replaceAll(regex2, " from \"/npm:/")
-                  .replaceAll(regex3, "import \"/npm:/")
-                  .replaceAll(regex4, " from \"/npm:/")
-                  .replaceAll(regex5, "import \"/npm:/")
-                : await resp.blob(),
-              {
-                status: 200,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "public, max-age=604800, immutable",
-                  "x-DTS": xTs.replace("esm.sh/", u.host + "/npm:/"),
-                  "Content-Type": resp.headers.get("Content-Type")!,
-                },
+          response = new Response(
+            isText
+              ? bodyStr.replaceAll(regex, u.origin + "/npm:/")
+                .replaceAll(regex2, " from \"/npm:/")
+                .replaceAll(regex3, "import \"/npm:/")
+                .replaceAll(regex4, " from \"/npm:/")
+                .replaceAll(regex5, "import \"/npm:/")
+              : await response.blob(),
+            {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "public, max-age=604800, immutable",
+                "x-DTS": xTs.replace("esm.sh/", u.host + "/npm:/"),
+                "Content-Type": response.headers.get("Content-Type")!,
               },
-            );
-            if (responseToCache.ok) {
-              await cache.put(cacheKey, responseToCache.clone());
+            },
+          );
+
+          await cache.put(cacheKey, response.clone());
+          return response;
+        }
+
+        if (path[0].startsWith("unpkg:")) {
+          const esmUrl = u.toString().replace(
+            u.origin + "/unpkg:",
+            "https://unpkg.com/",
+          );
+
+          let resp = await fetch(esmUrl, { ...request, url: esmUrl });
+
+          if (resp !== null && !resp.ok || resp.status === 307) {
+            const redirectUrl = resp.headers.get("location");
+            if (redirectUrl) {
+              resp = await fetch(redirectUrl, {
+                ...request,
+                url: redirectUrl,
+              });
             }
-            return responseToCache;
+            if (resp !== null && !resp.ok) return resp;
           }
 
-          if (path[0].startsWith("unpkg:")) {
-            const esmUrl = u.toString().replace(
-              u.origin + "/unpkg:",
-              "https://unpkg.com/",
-            );
+          const isText = !!resp?.headers?.get("Content-Type")?.includes(
+            "charset",
+          );
+          const bodyStr = await (isText ? resp.text() : null);
+          const regex = /https:\/\/unpkg.com\//gm;
+          const regex2 = / from "\//gm;
+          if (!bodyStr) throw new Error("empty body");
 
-            let resp = await fetch(esmUrl, { ...request, url: esmUrl });
+          const responseToCache = new Response(
+            `
+              // ${request.url}
+              `
+              + bodyStr
+              ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
+                .replaceAll(regex2, " from \"/unpkg:")
+              : await resp.blob(),
+            {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "public, max-age=604800, immutable",
+                "Content-Type": resp.headers.get("Content-Type")!,
+              },
+            },
+          );
+          if (responseToCache.ok) {
+            await cache.put(cacheKey, responseToCache.clone());
+          }
+          return responseToCache;
+        }
 
-            if (resp !== null && !resp.ok || resp.status === 307) {
-              const redirectUrl = resp.headers.get("location");
-              if (redirectUrl) {
-                resp = await fetch(redirectUrl, {
+        if (path[0].startsWith("node_modules")) {
+          const esmUrl = u.toString().replace(
+            u.origin + "/node_modules/",
+            "https://unpkg.com/",
+          );
+
+          let resp = await fetch(esmUrl, { ...request, url: esmUrl });
+
+          if (resp !== null && !resp.ok || resp.status === 307) {
+            const redirectUrl = resp.headers.get("location");
+            if (redirectUrl) {
+              resp = await fetch(
+                new URL(redirectUrl, `https://unpkg.com`).toString(),
+                {
                   ...request,
                   url: redirectUrl,
-                });
-              }
-              if (resp !== null && !resp.ok) return resp;
-            }
-
-            const isText = !!resp?.headers?.get("Content-Type")?.includes(
-              "charset",
-            );
-            const bodyStr = await (isText ? resp.text() : null);
-            const regex = /https:\/\/unpkg.com\//gm;
-            const regex2 = / from "\//gm;
-            if (!bodyStr) throw new Error("empty body");
-
-            const responseToCache = new Response(
-              `
-              // ${request.url}
-              `
-                + bodyStr
-                ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
-                  .replaceAll(regex2, " from \"/unpkg:")
-                : await resp.blob(),
-              {
-                status: 200,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "public, max-age=604800, immutable",
-                  "Content-Type": resp.headers.get("Content-Type")!,
                 },
-              },
-            );
-            if (responseToCache.ok) {
-              await cache.put(cacheKey, responseToCache.clone());
-            }
-            return responseToCache;
-          }
-
-          if (path[0].startsWith("node_modules")) {
-            const esmUrl = u.toString().replace(
-              u.origin + "/node_modules/",
-              "https://unpkg.com/",
-            );
-
-            let resp = await fetch(esmUrl, { ...request, url: esmUrl });
-
-            if (resp !== null && !resp.ok || resp.status === 307) {
-              const redirectUrl = resp.headers.get("location");
-              if (redirectUrl) {
-                resp = await fetch(
-                  new URL(redirectUrl, `https://unpkg.com`).toString(),
-                  {
-                    ...request,
-                    url: redirectUrl,
-                  },
-                );
-              }
-              if (resp !== null && !resp.ok) return resp;
-            }
-
-            const isText = !!resp?.headers?.get("Content-Type")?.includes(
-              "charset",
-            );
-            const bodyStr = await (isText ? resp.text() : null);
-            const regex = /https:\/\/unpkg.com\//gm;
-            const regex2 = / from "\//gm;
-            if (!bodyStr) throw new Error("empty body");
-
-            const responseToCache = new Response(
-              `
-              // ${request.url}
-              `
-                + bodyStr
-                ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
-                  .replaceAll(regex2, " from \"/node_modules/")
-                : await resp.blob(),
-              {
-                status: 200,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "public, max-age=604800, immutable",
-                  "Content-Type": resp.headers.get("Content-Type")!,
-                },
-              },
-            );
-            if (responseToCache.ok) {
-              await cache.put(cacheKey, responseToCache.clone());
-            }
-            return responseToCache;
-          }
-
-          switch (path[0]) {
-            case "ping":
-              return new Response("ping" + Math.random(), {
-                headers: {
-                  "Content-Type": "text/html;charset=UTF-8",
-                  "Cache-Control": "no-cache",
-                },
-              });
-            case "env":
-              return new Response(JSON.stringify({ env, accept }), {
-                headers: {
-                  "Content-Type": "text/html;charset=UTF-8",
-                  "Cache-Control": "no-cache",
-                },
-              });
-            case "files.json":
-              return new Response(ASSET_MANIFEST, {
-                headers: {
-                  "Content-Type": "application/json;charset=UTF-8",
-                  "Cache-Control": "no-cache",
-                },
-              });
-            case "packages.json":
-              return new Response(JSON.stringify(packages), {
-                headers: {
-                  "Content-Type": "application/json;charset=UTF-8",
-                  "Cache-Control": "no-cache",
-                },
-              });
-            case "importmap.json":
-              return new Response(getImportMapStr(url.origin), {
-                headers: {
-                  "Content-Type": "application/json;charset=UTF-8",
-                  "Cache-Control": "no-cache",
-                },
-              });
-            case "api":
-              // This is a request for `/api/...`, call the API handler.
-              return handleApiRequest(path.slice(1), request, env);
-
-            case "ipns":
-            case "ipfs": {
-              const u = new URL(request.url, "https://cloudflare-ipfs.com");
-              const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
-              const resp = await fetch(new1.toString());
-              if (resp.ok) return resp;
-
-              const new2 = new URL(u.pathname, "https://ipfs.io");
-              const resp2 = await fetch(new2.toString());
-              return resp2;
-            }
-            case "live": {
-              const paths = [...path.slice(1)];
-
-              // const newUrl =  new URL(paths.join("/"), url.origin);
-
-              // const assets: typeof assetManifest = {}
-              // Object.keys(assetManifest).map(x=>{assets[`/live/${paths[0]}/${x}`]=assetManifest[x]})
-
-              return handleApiRequest(
-                ["room", ...paths],
-                request,
-                env,
-              ).catch((e) =>
-                new Response("Error," + e?.message, {
-                  status: 500,
-                  statusText: e?.message,
-                })
               );
             }
-            default:
-              try {
-                const kvResp = await getAssetFromKV(
-                  {
-                    request,
-                    waitUntil(promise) {
-                      return ctx.waitUntil(promise);
-                    },
-                  },
-                  {
-                    cacheControl: (isChunk(url.href)
-                      ? {
-                        browserTTL: 2 * 60 * 60 * 24,
-                        edgeTTL: 2 * 60 * 60 * 24,
-                        bypassCache: false,
-                      }
-                      : {
-                        browserTTL: 0,
-                        edgeTTL: 0,
-                        bypassCache: true,
-                      }),
-                    ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                    ASSET_MANIFEST,
-                  },
-                );
-
-                if (!kvResp.ok) throw new Error("no kv, try something else");
-                return kvResp;
-              } catch {
-                const resp = await fetch(
-                  new URL(url.pathname.slice(1), url.origin + "/node_modules/")
-                    .toString(),
-                );
-                if (resp.ok) return resp;
-              }
+            if (resp !== null && !resp.ok) return resp;
           }
-        })(_request);
+
+          const isText = !!resp?.headers?.get("Content-Type")?.includes(
+            "charset",
+          );
+          const bodyStr = await (isText ? resp.text() : null);
+          const regex = /https:\/\/unpkg.com\//gm;
+          const regex2 = / from "\//gm;
+          if (!bodyStr) throw new Error("empty body");
+
+          const responseToCache = new Response(
+            `
+              // ${request.url}
+              `
+              + bodyStr
+              ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
+                .replaceAll(regex2, " from \"/node_modules/")
+              : await resp.blob(),
+            {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "public, max-age=604800, immutable",
+                "Content-Type": resp.headers.get("Content-Type")!,
+              },
+            },
+          );
+          if (responseToCache.ok) {
+            await cache.put(cacheKey, responseToCache.clone());
+          }
+          return responseToCache;
+        }
+
+        switch (path[0]) {
+          case "ping":
+            return new Response("ping" + Math.random(), {
+              headers: {
+                "Content-Type": "text/html;charset=UTF-8",
+                "Cache-Control": "no-cache",
+              },
+            });
+          case "env":
+            return new Response(JSON.stringify({ env, accept }), {
+              headers: {
+                "Content-Type": "text/html;charset=UTF-8",
+                "Cache-Control": "no-cache",
+              },
+            });
+          case "files.json":
+            return new Response(ASSET_MANIFEST, {
+              headers: {
+                "Content-Type": "application/json;charset=UTF-8",
+                "Cache-Control": "no-cache",
+              },
+            });
+          case "packages.json":
+            return new Response(JSON.stringify(packages), {
+              headers: {
+                "Content-Type": "application/json;charset=UTF-8",
+                "Cache-Control": "no-cache",
+              },
+            });
+          case "importmap.json":
+            return new Response(getImportMapStr(url.origin), {
+              headers: {
+                "Content-Type": "application/json;charset=UTF-8",
+                "Cache-Control": "no-cache",
+              },
+            });
+          case "api":
+            // This is a request for `/api/...`, call the API handler.
+            return handleApiRequest(path.slice(1), request, env);
+
+          case "ipns":
+          case "ipfs": {
+            const u = new URL(request.url, "https://cloudflare-ipfs.com");
+            const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
+            const resp = await fetch(new1.toString());
+            if (resp.ok) return resp;
+
+            const new2 = new URL(u.pathname, "https://ipfs.io");
+            const resp2 = await fetch(new2.toString());
+            return resp2;
+          }
+          case "live": {
+            const paths = [...path.slice(1)];
+
+            // const newUrl =  new URL(paths.join("/"), url.origin);
+
+            // const assets: typeof assetManifest = {}
+            // Object.keys(assetManifest).map(x=>{assets[`/live/${paths[0]}/${x}`]=assetManifest[x]})
+
+            return handleApiRequest(
+              ["room", ...paths],
+              request,
+              env,
+            ).catch((e) =>
+              new Response("Error," + e?.message, {
+                status: 500,
+                statusText: e?.message,
+              })
+            );
+          }
+          default:
+            try {
+              const kvResp = await getAssetFromKV(
+                {
+                  request,
+                  waitUntil(promise) {
+                    return ctx.waitUntil(promise);
+                  },
+                },
+                {
+                  cacheControl: (isChunk(url.href)
+                    ? {
+                      browserTTL: 2 * 60 * 60 * 24,
+                      edgeTTL: 2 * 60 * 60 * 24,
+                      bypassCache: false,
+                    }
+                    : {
+                      browserTTL: 0,
+                      edgeTTL: 0,
+                      bypassCache: true,
+                    }),
+                  ASSET_NAMESPACE: env.__STATIC_CONTENT,
+                  ASSET_MANIFEST,
+                },
+              );
+
+              if (!kvResp.ok) throw new Error("no kv, try something else");
+              return kvResp;
+            } catch {
+              const resp = await fetch(
+                new URL(url.pathname.slice(1), url.origin + "/node_modules/")
+                  .toString(),
+              );
+              if (resp.ok) return resp;
+            }
+        }
+
         if (!cachedResponse2) {
           return new Response("404 :(", {
             status: 404,
@@ -497,3 +485,5 @@ export const getImportMapStr = (orig: string) => {
 
   return JSON.stringify({ imports: importmapImport });
 };
+
+export default api;

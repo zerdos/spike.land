@@ -14,9 +14,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "ES2022",
+    "target": "ESNext",
     "module": "CommonJS",
-    "lib": ["ES2020", "ES2020.String", "ES2015", "es2021", "ES2022.Error"],
+    "lib": ["ES2020.String", "es2021", "ES2022.Error"],
     "types": ["@cloudflare/workers-types"]
   },
   "include": [
