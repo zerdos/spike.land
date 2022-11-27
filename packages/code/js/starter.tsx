@@ -23,9 +23,10 @@ let lastH = "";
 const mutex = new Mutex();
 
 async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
+  lastH = hashCode();
   await mutex.runExclusive(async () => {
-    if (lastH === hashCode()) return;
-    lastH = hashCode();
+    if (lastH !== hashCode()) return;
+
     parent = parent || _parent;
     if (worker) worker.terminate();
     if (div) div.remove();

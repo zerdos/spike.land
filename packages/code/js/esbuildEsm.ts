@@ -1,6 +1,7 @@
 import { build as esbuildBuild, initialize, transform } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
+import imap from "./importmap.json";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
@@ -33,9 +34,7 @@ export const initAndTransform: typeof transform = async (code, opts) => {
 
   const transformed = await transform(code, opts);
 
-  const trp = transformed.code.split(` from '..`).join(` from '${location.origin}/live`).split(` from '.`).join(
-    ` from '${location.origin}/live`,
-  );
+  const trp = importMapReplace(transformed.code);
 
   const res = { ...transformed, code: `/*${md5(code)}*/` + trp };
   await transformCache.setItem(cacheKey, res.code);
@@ -62,3 +61,21 @@ const build = async (rawCode: string) => {
 
 export { build };
 export { initAndTransform as transform };
+
+function importMapReplace(codeInp: string) {
+  const items = Object.keys(imap.imports);
+  let returnStr = codeInp;
+
+  items.map((lib) => {
+    const uri = (new URL(imap.imports[lib], location.origin)).toString();
+    returnStr = returnStr.replaceAll(
+      ` from "${lib}"`,
+      ` from "${uri}"`,
+    ).replaceAll(
+      ` from "@spike.land/`,
+      ` from "${location.origin}/`,
+    );
+  });
+
+  return returnStr;
+}

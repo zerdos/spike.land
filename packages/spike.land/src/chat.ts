@@ -37,7 +37,7 @@ const api: ExportedHandler<CodeEnv> = {
       // We have received an HTTP request! Parse the URL and route the request.
 
       const u = new URL(request.url);
-      let url = u;
+      const url = u;
 
       const accept = request.headers.get("accept");
 

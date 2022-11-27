@@ -71,10 +71,10 @@ window.addEventListener('pageshow', (event) => {
   
           try{
             if (id.indexOf('/live/')!==-1 && id.indexOf("index.")===-1){
-              const url = new URL(id)
-              const pathname = url.pathname.split("/").slice(0.3).join("/")+"/index.js";
-              return (new URL(pathname, location.origin)).toString();
+
+             return id + "/index.js"
             }
+          
             return defaultResolve(id, parentUrl);
           } catch{
             return resolved = new URL('/npm:*'+id+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
