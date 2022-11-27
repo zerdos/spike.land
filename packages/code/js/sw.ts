@@ -16,30 +16,49 @@ let npmCache: Cache | null;
 let chunkCache: Cache | null;
 let fileCache: Cache | null;
 let cacheName = "default";
-let files: { [k: string]: string } = {};
+const memoryCache: { [k: string]: Response } = {};
 
+let files: { [k: string]: string } = {};
+const assets: { [assetHash: string]: Promise<typeof files> } = {};
 const getCacheName = () =>
-  fetch(location.origin + "/files.json").then((files) => files.ok ? files.text() : null).then((content) => {
-    if (content !== null) files = JSON.parse(content);
-    return md5(content);
-  }).then((cn) => (cn === cacheName || (fileCache = null) || (cacheName = cn))).finally(() => cacheName);
+  fetch(location.origin + "/files.json").then((resp) => {
+    if (!resp.ok) return;
+
+    const assetHash = resp.headers.get("asset_hash");
+    if (assetHash === null) return;
+    if (cacheName === assetHash) return;
+    cacheName = assetHash;
+    Object.assign(assets, { [assetHash]: resp.json() });
+    assets[assetHash].then(f => files = f);
+  });
 
 self.addEventListener("fetch", function(event) {
   return event.respondWith((async () => {
     let url = new URL(event.request.url);
-
+    let isChunk = false;
+    if (files && files[url.pathname.slice(1)]) {
+      isChunk = true;
+      url = new URL(files[url.pathname.slice(1)], url.origin);
+    }
     if (
-      url.pathname.includes("/live/") || url.pathname.includes("ze3w")
+      url.pathname.includes("/live/")
     ) {
-      return fetch(event.request);
+      const resp = await fetch(event.request);
+      if (!resp.ok) return resp;
+      const contentHash = resp.headers.get("content_hash");
+      if (contentHash) {
+        if (memoryCache[contentHash]) return memoryCache[contentHash];
+        memoryCache[contentHash] = resp.clone();
+      }
+      return resp;
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     const myCache = url.pathname.includes("npm:/v")
       ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
-      : url.pathname.includes("chunk-")
+      : (url.pathname.includes("chunk-") || isChunk)
       ? (chunkCache = chunkCache || await caches.open("chunks"))
-      : (fileCache = fileCache || await caches.open(`f-${cacheName}`));
+      : (fileCache = fileCache || await caches.open(`fileCache`));
 
     if (Date.now() - lastChecked > 40_000) {
       lastChecked = Date.now();
@@ -54,23 +73,23 @@ self.addEventListener("fetch", function(event) {
 
     let request = event.request;
     const cacheKey = new Request(
-      request.url,
+      url,
     );
 
     let response = await myCache.match(cacheKey);
 
     if (response) return response;
 
-    response = await fetch(request);
-    if (!response.ok) return response;
-
+    try {
+      response = await fetch(request);
+      if (!response.ok) return response;
+    } catch {
+      return new Response("oh no!", { status: 500, statusText: `Could not fetch:  ${request.url}` });
+    }
     response = new Response(response.body, response);
-
-    const maybeFilename = url.pathname.split("/").pop();
 
     if (
       response.headers.get("Cache-Control") !== "no-cache"
-      || (myCache === fileCache && maybeFilename && files[maybeFilename])
     ) {
       event.waitUntil(myCache.put(cacheKey, response.clone()));
     }
