@@ -226,15 +226,6 @@ async function startMonacoPristine(
 
       const content = await fetch(extraModel).then(async (res) => res.text());
 
-      languages.typescript.typescriptDefaults.addExtraLib(
-        content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace}/index.tsx`,
-      );
-
-      languages.typescript.typescriptDefaults.addExtraLib(
-        content,
-        `${location.origin}/live/${codeSpace}/index.tsx`,
-      );
       editor.getModel(mUri) || createModel(
         content,
         "typescript",
@@ -242,15 +233,11 @@ async function startMonacoPristine(
       );
 
       //      https://testing.spike.land/npm:/@spike.land/live/box
-      console.log(
-        content,
-        `${location.origin}/node_modules/@spike.land/live/${codeSpace}`,
-      );
     }
   };
   //   https://testing.spike.land/npm:/@spike.land/live/clockWithCss
 
-  setTimeout(() => addExtraM(), 500);
+  setTimeout(() => addExtraM());
   // const innerContainer = document.createElement("div");
 
   // innerContainer.style.width = "100%";
