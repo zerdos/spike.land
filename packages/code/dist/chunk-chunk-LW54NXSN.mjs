@@ -7030,12 +7030,12 @@ var importmap_default = {
 // js/unpkg-path-plugin.tsx
 init_define_process();
 var esbuild2 = __toESM(require_browser(), 1);
-var unpkgPathPlugin = /* @__PURE__ */ __name((inputCode) => {
+var unpkgPathPlugin = /* @__PURE__ */ __name((codeSpace2) => {
   return {
     name: "unpkg-path-plugin",
     setup(build2) {
-      build2.onResolve({ filter: /(^live\/index\.js$)/ }, (args) => {
-        return { path: "/live/index.js", namespace: "a" };
+      build2.onResolve({ filter: /(^index\.js$)/ }, (args) => {
+        return { path: `${location.origin}/live/${codeSpace2}/index.js`, namespace: "a" };
       });
       build2.onResolve({ filter: /^\.+\// }, (args) => {
         const url = new URL(args.path, `${location.origin}/${args.resolveDir}/`);
