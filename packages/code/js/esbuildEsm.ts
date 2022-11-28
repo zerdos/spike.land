@@ -49,12 +49,12 @@ const build = async (codeSpace: string) => {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: [`index.js`],
+    entryPoints: [`${location.origin}/live/${codeSpace}/index.js`],
     define: {
       "process.env.NODE_ENV": "\"production\"",
       global: "globalThis",
     },
-    plugins: [unpkgPathPlugin(codeSpace), fetchPlugin(rawCode)],
+    plugins: [unpkgPathPlugin(codeSpace), fetchPlugin()],
   };
   const b = await esbuildBuild(defaultOpts);
   return b.outputFiles![0].text;

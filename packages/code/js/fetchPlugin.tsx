@@ -5,18 +5,10 @@ import localForage from "localforage";
 const fileCache = localForage.createInstance({
   name: "filecache",
 });
-export const fetchPlugin = (inputCode: string) => {
+export const fetchPlugin = () => {
   return {
     name: "fetch-plugin",
     setup(build: esbuild.PluginBuild) {
-      build.onLoad({ filter: /(^index\.js$)/ }, async (args: any) => {
-        return {
-          loader: "tsx",
-          contents: inputCode,
-          ...args,
-        };
-      });
-
       build.onLoad({ filter: /.css$/ }, async (args: any) => {
         const { data, request } = await axios.get(args.path);
         const escaped = data
