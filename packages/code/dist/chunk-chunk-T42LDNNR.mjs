@@ -7187,7 +7187,7 @@ var mod2 = {
       treeShaking: true
     });
     const c = await initAndTransform(t.code, {
-      format: "iife",
+      format: "cjs",
       minify: true,
       keepNames: true,
       platform: "neutral",
@@ -7223,7 +7223,7 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
   try {
     mod2.data[hash] = {
       code: (await initAndTransform(source, {
-        format: "iife",
+        format: "cjs",
         keepNames: true,
         treeShaking: true,
         ignoreAnnotations: true,
