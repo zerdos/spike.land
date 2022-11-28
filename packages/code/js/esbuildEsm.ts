@@ -49,7 +49,7 @@ const build = async (codeSpace: string) => {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: [`/live/${codeSpace}/index.js`],
+    entryPoints: [`${location.origin}/live/${codeSpace}/index.js`],
     define: {
       "process.env.NODE_ENV": "\"production\"",
       global: "globalThis",
