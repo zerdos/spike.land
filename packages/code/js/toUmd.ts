@@ -89,23 +89,23 @@ const mod = {
     }
   }`;
 
-    const t = await transform(res, {
-      format: "esm",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true,
-    });
+    // const t = await transform(res, {
+    //   format: "esm",
+    //   minify: true,
+    //   keepNames: true,
+    //   platform: "neutral",
+    //   treeShaking: true,
+    // });
 
-    const c = await transform(t.code, {
-      format: "cjs",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true,
-    });
+    // const c = await transform(t.code, {
+    //   format: "cjs",
+    //   minify: true,
+    //   keepNames: true,
+    //   platform: "neutral",
+    //   treeShaking: true,
+    // });
 
-    return c.code;
+    return res;
   },
   last: 0,
   hashMap: {} as { [key: string]: string },
@@ -159,7 +159,7 @@ export const toUmd = async (source: string, name: string) => {
   try {
     mod.data[hash] = {
       code: (await transform(source, {
-        format: "esm",
+        format: "iife",
         keepNames: true,
         treeShaking: true,
         // sourcefile: name,

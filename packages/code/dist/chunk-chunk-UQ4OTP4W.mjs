@@ -7180,21 +7180,7 @@ var mod2 = {
       return require(npmUrl);
     }
   }`;
-    const t = await initAndTransform(res, {
-      format: "esm",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true
-    });
-    const c = await initAndTransform(t.code, {
-      format: "cjs",
-      minify: true,
-      keepNames: true,
-      platform: "neutral",
-      treeShaking: true
-    });
-    return c.code;
+    return res;
   },
   last: 0,
   hashMap: {},
@@ -7224,7 +7210,7 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
   try {
     mod2.data[hash] = {
       code: (await initAndTransform(source, {
-        format: "esm",
+        format: "iife",
         keepNames: true,
         treeShaking: true,
         platform: "browser",
