@@ -7085,15 +7085,16 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   await transformCache.setItem(cacheKey, res.code);
   return res;
 }, "initAndTransform");
-var build = /* @__PURE__ */ __name(async (rawCode) => {
+var build = /* @__PURE__ */ __name(async (codeSpace2) => {
   const initFinished = mod.initialize();
+  const rawCode = await fetch(`${location.origin}/live/${codeSpace2}/index.jsx`).then((x) => x.text());
   if (initFinished !== true)
     await initFinished;
   const defaultOpts = {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: ["/live/index.js"],
+    entryPoints: [`/live/${codeSpace2}/index.js`],
     define: {
       "process.env.NODE_ENV": '"production"',
       global: "globalThis"
