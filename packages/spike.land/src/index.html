@@ -70,6 +70,7 @@ window.addEventListener('pageshow', (event) => {
         let resolved;
   
           try{
+            if (id.indexOf('https://') !== -1 && (id.indexOf(".js")!==-1 || id.indexOf(".ts")!==-1)) return id;
             if (id.indexOf('live/')!==-1 && id.indexOf("index.")===-1){
 
              return (new URL(id + "/index.js", location.origin)).toString();
