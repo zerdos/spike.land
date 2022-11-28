@@ -3,7 +3,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <base href="https://testing.spike.land/">
+  <base href="/">
   <link rel="icon" href="/favicons/favicon.ico" type="image/x-icon" />
   <title>Instant React Editor</title>
 <style>
@@ -70,9 +70,9 @@ window.addEventListener('pageshow', (event) => {
         let resolved;
   
           try{
-            if (id.indexOf('/live/')!==-1 && id.indexOf("index.")===-1){
+            if (id.indexOf('live/')!==-1 && id.indexOf("index.")===-1){
 
-             return id + "/index.js"
+             return (new URL(id + "/index.js", location.origin)).toString();
             }
           
             return defaultResolve(id, parentUrl);
@@ -96,8 +96,5 @@ setTimeout(() => navigator && navigator.serviceWorker &&  navigator.serviceWorke
 )
 </script>
 
-  <!-- Cloudflare Web Analytics -->
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>
-  <!-- End Cloudflare Web Analytics -->
 </body>
 </html>

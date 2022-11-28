@@ -87,7 +87,7 @@ const monacoContribution = async (
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
-    target: languages.typescript.ScriptTarget.ESNext,
+    target: languages.typescript.ScriptTarget.ES2016,
 
     importHelpers: false,
 
@@ -107,7 +107,7 @@ const monacoContribution = async (
     moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
     moduleSpecifierCompletion: 2,
     declaration: true,
-    module: languages.typescript.ModuleKind.ESNext,
+    module: languages.typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
     sourceMap: true,
     mapRoot: originToUse + "/src/sourcemaps",
@@ -146,7 +146,7 @@ const monacoContribution = async (
 };
 
 self.MonacoEnvironment = {
-  baseUrl: originToUse,
+  baseUrl: originToUse + "/",
   getWorkerUrl,
 };
 
@@ -207,7 +207,7 @@ async function startMonacoPristine(
 
   const addExtraM = async () => {
     const search = new RegExp(
-      ` from '/live/[a-zA-Z]+`,
+      ` from '(${originToUse}/)?live/[a-zA-Z]+`,
       "gm",
     );
 
