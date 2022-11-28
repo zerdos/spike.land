@@ -98,7 +98,7 @@ const mod = {
     });
 
     const c = await transform(t.code, {
-      format: "iife",
+      format: "cjs",
       minify: true,
       keepNames: true,
       platform: "neutral",
@@ -159,7 +159,7 @@ export const toUmd = async (source: string, name: string) => {
   try {
     mod.data[hash] = {
       code: (await transform(source, {
-        format: "iife",
+        format: "cjs",
         keepNames: true,
         treeShaking: true,
         // sourcefile: name,
