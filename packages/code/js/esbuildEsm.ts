@@ -1,4 +1,4 @@
-import { build as esbuildBuild, initialize, transform } from "esbuild-wasm";
+import { build as esbuildBuild, type BuildOptions, initialize, transform } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
 import imap from "./importmap.json";
@@ -40,15 +40,16 @@ export const initAndTransform: typeof transform = async (code, opts) => {
   await transformCache.setItem(cacheKey, res.code);
   return res;
 };
-const build = async (rawCode: string) => {
+const build = async (codeSpace: string) => {
   const initFinished = mod.initialize();
+  const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.jsx`).then(x => x.text());
 
   if (initFinished !== true) await (initFinished);
-  const defaultOpts = {
+  const defaultOpts: BuildOptions = {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: ["/live/index.js"],
+    entryPoints: [`/live/${codeSpace}/index.js`],
     define: {
       "process.env.NODE_ENV": "\"production\"",
       global: "globalThis",
