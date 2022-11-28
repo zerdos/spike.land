@@ -7226,6 +7226,7 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
         format: "cjs",
         keepNames: true,
         treeShaking: true,
+        platform: "browser",
         ignoreAnnotations: true,
         target: "es2022",
         loader: "ts",
