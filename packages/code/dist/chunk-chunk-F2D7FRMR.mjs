@@ -7094,7 +7094,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2) => {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: [`${location.origin}/live/${codeSpace2}/index.js`],
+    entryPoints: [`index.js`],
     define: {
       "process.env.NODE_ENV": '"production"',
       global: "globalThis"
