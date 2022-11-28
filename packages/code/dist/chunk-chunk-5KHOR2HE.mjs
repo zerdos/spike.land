@@ -6965,17 +6965,10 @@ var import_localforage = __toESM(require_localforage(), 1);
 var fileCache = import_localforage.default.createInstance({
   name: "filecache"
 });
-var fetchPlugin = /* @__PURE__ */ __name((inputCode) => {
+var fetchPlugin = /* @__PURE__ */ __name(() => {
   return {
     name: "fetch-plugin",
     setup(build2) {
-      build2.onLoad({ filter: /(^index\.js$)/ }, async (args) => {
-        return {
-          loader: "tsx",
-          contents: inputCode,
-          ...args
-        };
-      });
       build2.onLoad({ filter: /.css$/ }, async (args) => {
         const { data, request } = await axios_default.get(args.path);
         const escaped = data.replace(/\n/g, "").replace(/"/g, '\\"').replace(/'/g, "\\'");
@@ -7100,12 +7093,12 @@ var build = /* @__PURE__ */ __name(async (codeSpace2) => {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: [`index.js`],
+    entryPoints: [`${location.origin}/live/${codeSpace2}/index.js`],
     define: {
       "process.env.NODE_ENV": '"production"',
       global: "globalThis"
     },
-    plugins: [unpkgPathPlugin(codeSpace2), fetchPlugin(rawCode)]
+    plugins: [unpkgPathPlugin(codeSpace2), fetchPlugin()]
   };
   const b = await (0, import_esbuild_wasm.build)(defaultOpts);
   return b.outputFiles[0].text;
