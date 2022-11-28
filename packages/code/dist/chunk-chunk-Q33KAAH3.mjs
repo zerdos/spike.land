@@ -7045,6 +7045,12 @@ var unpkgPathPlugin = /* @__PURE__ */ __name((codeSpace2) => {
         };
       });
       build2.onResolve({ filter: /.*/ }, async (args) => {
+        if (args.path.indexOf(location.origin) !== -1) {
+          return {
+            namespace: "a",
+            path: args.path
+          };
+        }
         return {
           namespace: "a",
           path: `${location.origin}/npm:/${args.path}`

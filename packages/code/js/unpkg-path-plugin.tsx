@@ -19,6 +19,12 @@ export const unpkgPathPlugin = (codeSpace: string) => {
       });
       // handle main file
       build.onResolve({ filter: /.*/ }, async (args: any) => {
+        if (args.path.indexOf(location.origin) !== -1) {
+          return {
+            namespace: "a",
+            path: args.path,
+          };
+        }
         return {
           namespace: "a",
           path: `${location.origin}/npm:/${args.path}`,
