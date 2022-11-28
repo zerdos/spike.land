@@ -7087,7 +7087,7 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
 }, "initAndTransform");
 var build = /* @__PURE__ */ __name(async (codeSpace2) => {
   const initFinished = mod.initialize();
-  const rawCode = await fetch(`${location.origin}/live/${codeSpace2}/index.jsx`).then((x) => x.text());
+  const rawCode = await fetch(`${location.origin}/live/${codeSpace2}/index.js`).then((x) => x.text());
   if (initFinished !== true)
     await initFinished;
   const defaultOpts = {
