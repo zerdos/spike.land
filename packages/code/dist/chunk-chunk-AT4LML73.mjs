@@ -7099,7 +7099,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2) => {
       "process.env.NODE_ENV": '"production"',
       global: "globalThis"
     },
-    plugins: [unpkgPathPlugin(rawCode), fetchPlugin(rawCode)]
+    plugins: [unpkgPathPlugin(codeSpace2), fetchPlugin(rawCode)]
   };
   const b = await (0, import_esbuild_wasm.build)(defaultOpts);
   return b.outputFiles[0].text;
