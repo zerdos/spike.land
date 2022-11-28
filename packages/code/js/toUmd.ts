@@ -159,7 +159,7 @@ export const toUmd = async (source: string, name: string) => {
   try {
     mod.data[hash] = {
       code: (await transform(source, {
-        format: "cjs",
+        format: "esm",
         keepNames: true,
         treeShaking: true,
         // sourcefile: name,
