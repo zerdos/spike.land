@@ -163,7 +163,7 @@ export const toUmd = async (source: string, name: string) => {
         keepNames: true,
         treeShaking: true,
         // sourcefile: name,
-
+        platform: "browser",
         ignoreAnnotations: true,
         target: "es2022",
         // tsconfigRaw: {
