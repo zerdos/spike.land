@@ -22,7 +22,7 @@ export const fetchPlugin = () => {
                     document.body.appendChild(style);
                 `;
         const result: esbuild.OnLoadResult = {
-          loader: "tsx",
+          loader: "js",
           contents,
           resolveDir: new URL("./", request.responseURL).pathname,
         };
@@ -44,7 +44,7 @@ export const fetchPlugin = () => {
         const { data, request } = await axios.get(args.path);
 
         const result: esbuild.OnLoadResult = {
-          loader: "tsx",
+          loader: "js",
           contents: data,
           resolveDir: new URL("./", request.responseURL).pathname,
         };

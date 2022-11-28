@@ -42,7 +42,7 @@ export const initAndTransform: typeof transform = async (code, opts) => {
 };
 const build = async (codeSpace: string) => {
   const initFinished = mod.initialize();
-  const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
+  // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
   if (initFinished !== true) await (initFinished);
   const defaultOpts: BuildOptions = {
