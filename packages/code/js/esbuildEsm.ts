@@ -54,7 +54,7 @@ const build = async (codeSpace: string) => {
       "process.env.NODE_ENV": "\"production\"",
       global: "globalThis",
     },
-    plugins: [unpkgPathPlugin(rawCode), fetchPlugin(rawCode)],
+    plugins: [unpkgPathPlugin(codeSpace), fetchPlugin(rawCode)],
   };
   const b = await esbuildBuild(defaultOpts);
   return b.outputFiles![0].text;
