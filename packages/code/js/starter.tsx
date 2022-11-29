@@ -5,6 +5,7 @@ import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 
+import { upgradeElement } from "worker-dom/dist/main.mjs";
 import createCache from "./emotionCache";
 import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
@@ -12,7 +13,6 @@ import { hashCode, mST, onSessionUpdate } from "./session";
 import { toUmd } from "./toUmd";
 import { wait } from "./wait";
 import { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
-import { upgradeElement } from "./worker-dom/src/main-thread/index";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 let worker: ExportedWorker;
