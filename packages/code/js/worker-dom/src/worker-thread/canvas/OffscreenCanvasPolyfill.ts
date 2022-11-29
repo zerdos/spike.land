@@ -159,6 +159,10 @@ class OffscreenCanvasRenderingContext2DPolyfill<ElementType extends HTMLElement>
     this[TransferrableKeys.mutated]("scale", [...arguments]);
   }
 
+  roundRect(x: number, y: number, w: number, h: number, radii?: number | DOMPointInit | (number | DOMPointInit)[]) {
+    this[TransferrableKeys.mutated]("roundRect", [...arguments]);
+  }
+
   set globalAlpha(value: number) {
     this[TransferrableKeys.mutated]("globalAlpha", [...arguments]);
   }

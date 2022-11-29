@@ -16,7 +16,7 @@ import { Document } from "./Document";
 import { DOMTokenList, synchronizedAccessor } from "./DOMTokenList";
 import { getNextElementSibling, getPreviousElementSibling } from "./elementSibling";
 import { reflectProperties } from "./enhanceElement";
-import { matchChildrenElements } from "./matchElements";
+import { elementPredicate, matchChildrenElements } from "./matchElements";
 import { NamespaceURI, Node, NodeName } from "./Node";
 import { propagate } from "./Node";
 import { ParentNode } from "./ParentNode";
@@ -504,6 +504,18 @@ export class Element extends ParentNode {
    * @return Element array with matching tagnames
    */
   public getElementsByTagName(tagName: string): Array<Element> {
+    if (tagName === "canvas") {
+      return matchChildrenElements(
+        this,
+        tagName === "canvas"
+          ? (_) => true
+          : (
+            element,
+          ) => (element.namespaceURI === HTML_NAMESPACE
+            ? element.localName === "OffscreenCanvas"
+            : element.tagName === tagName),
+      );
+    }
     const lowerTagName = toLower(tagName);
     return matchChildrenElements(
       this,
