@@ -358,7 +358,7 @@ var require_browser = __commonJS({
         let jsxImportSource = getFlag(options, keys, "jsxImportSource", mustBeString);
         let jsxDev = getFlag(options, keys, "jsxDev", mustBeBoolean);
         let jsxSideEffects = getFlag(options, keys, "jsxSideEffects", mustBeBoolean);
-        let define2 = getFlag(options, keys, "define", mustBeObject);
+        let define3 = getFlag(options, keys, "define", mustBeObject);
         let logOverride = getFlag(options, keys, "logOverride", mustBeObject);
         let supported = getFlag(options, keys, "supported", mustBeObject);
         let pure = getFlag(options, keys, "pure", mustBeArray);
@@ -417,11 +417,11 @@ var require_browser = __commonJS({
           flags.push(`--jsx-dev`);
         if (jsxSideEffects)
           flags.push(`--jsx-side-effects`);
-        if (define2) {
-          for (let key in define2) {
+        if (define3) {
+          for (let key in define3) {
             if (key.indexOf("=") >= 0)
               throw new Error(`Invalid define: ${key}`);
-            flags.push(`--define:${key}=${define2[key]}`);
+            flags.push(`--define:${key}=${define3[key]}`);
           }
         }
         if (logOverride) {
@@ -2486,7 +2486,7 @@ var require_localforage = __commonJS({
         g.localforage = f();
       }
     })(function() {
-      var define2, module2, exports2;
+      var define3, module2, exports2;
       return (/* @__PURE__ */ __name(function e(t, n, r) {
         function s(o2, u) {
           if (!n[o2]) {
@@ -4920,52 +4920,48 @@ var fetchPlugin = {
 };
 
 // js/importmap.json
+var imports = {
+  "framer-motion": "/motion.mjs",
+  "@emotion/react": "/emotion.mjs",
+  "@emotion/cache": "/emotionCache.mjs",
+  "@emotion/styled": "/emotionStyled.mjs",
+  "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+  react: "/reactMod.mjs",
+  "react/jsx-runtime": "/jsx.mjs",
+  "react-dom": "/reactDom.mjs",
+  "react-dom/client": "/reactDomClient.mjs"
+};
 var importmap_default = {
-  imports: {
-    "framer-motion": "/motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/cache": "/emotionCache.mjs",
-    "@emotion/styled": "/emotionStyled.mjs",
-    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-    react: "/reactMod.mjs",
-    "react/jsx-runtime": "/jsx.mjs",
-    "react-dom": "/reactDom.mjs",
-    "react-dom/client": "/reactDomClient.mjs"
-  }
+  imports
 };
 
 // js/unpkg-path-plugin.tsx
 init_define_process();
 var esbuild = __toESM(require_browser(), 1);
-var unpkgPathPlugin = /* @__PURE__ */ __name((codeSpace2) => {
-  return {
-    name: "unpkg-path-plugin",
-    setup(build2) {
-      build2.onResolve({ filter: /(^index\.js$)/ }, (args) => {
-        return { path: `${location.origin}/live/${codeSpace2}/index.js`, namespace: "a" };
-      });
-      build2.onResolve({ filter: /^\.+\// }, (args) => {
-        const url = new URL(args.path, `${location.origin}/${args.resolveDir}/`);
+var unpkgPathPlugin = {
+  name: "unpkg-path-plugin",
+  setup(build2) {
+    build2.onResolve({ filter: /^\.+\// }, (args) => {
+      const url = new URL(args.path, `${location.origin}/${args.resolveDir}`).toString();
+      return {
+        path: url,
+        namespace: "http-url"
+      };
+    });
+    build2.onResolve({ filter: /.*/ }, async (args) => {
+      if (args.path.indexOf(location.origin) !== -1) {
         return {
-          path: url.href,
-          namespace: "a"
+          namespace: "http-url",
+          path: args.path
         };
-      });
-      build2.onResolve({ filter: /.*/ }, async (args) => {
-        if (args.path.indexOf(location.origin) !== -1) {
-          return {
-            namespace: "a",
-            path: args.path
-          };
-        }
-        return {
-          namespace: "a",
-          path: `${location.origin}/npm:/${args.path}`
-        };
-      });
-    }
-  };
-}, "unpkgPathPlugin");
+      }
+      return {
+        namespace: "http-url",
+        path: `${location.origin}/npm:/${args.path}`
+      };
+    });
+  }
+};
 
 // js/esbuildEsm.ts
 var import_localforage = __toESM(require_localforage(), 1);
@@ -4998,6 +4994,28 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   await transformCache.setItem(cacheKey, res.code);
   return res;
 }, "initAndTransform");
+var define2 = {
+  "process.env.NODE_ENV": `"production"`,
+  "process.env.NODE_DEBUG": JSON.stringify(false),
+  "process.browser": JSON.stringify(true),
+  "process.env.DEBUG": JSON.stringify(false),
+  "isBrowser": JSON.stringify(true),
+  "isJest": JSON.stringify(false),
+  "process.env.version": '"1.1.1"',
+  global: "globalThis",
+  "WORKER_DOM_DEBUG": JSON.stringify(false),
+  "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
+  process: JSON.stringify({
+    env: {
+      NODE_ENV: `production`,
+      browser: true,
+      NODE_DEBUG: false,
+      DEBUG: false,
+      isBrowser: true
+    },
+    browser: true
+  })
+};
 var build = /* @__PURE__ */ __name(async (codeSpace2) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
@@ -5007,20 +5025,18 @@ var build = /* @__PURE__ */ __name(async (codeSpace2) => {
     write: false,
     format: "iife",
     entryPoints: [`./live/${codeSpace2}/index.js`],
-    define: {
-      "process.env.NODE_ENV": '"production"',
-      global: "globalThis"
-    },
-    plugins: [unpkgPathPlugin(codeSpace2), fetchPlugin]
+    define: define2,
+    tsconfig: "./tsconfig.json",
+    plugins: [unpkgPathPlugin, fetchPlugin]
   };
   const b = await (0, import_esbuild_wasm.build)(defaultOpts);
   return b.outputFiles[0].text;
 }, "build");
 function importMapReplace(codeInp) {
-  const items = Object.keys(importmap_default.imports);
+  const items = Object.keys(imports);
   let returnStr = codeInp;
   items.map((lib) => {
-    const uri = new URL(importmap_default.imports[lib], location.origin).toString();
+    const uri = new URL(imports[lib], location.origin).toString();
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
       ` from "${uri}"`
