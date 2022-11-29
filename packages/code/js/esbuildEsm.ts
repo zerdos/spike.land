@@ -1,7 +1,7 @@
 import { build as esbuildBuild, type BuildOptions, initialize, transform } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
-import imap from "./importmap.json";
+import { imports as importMapImports } from "./importmap.json";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
@@ -41,6 +41,29 @@ export const initAndTransform: typeof transform = async (code, opts) => {
   return res;
 };
 
+const define = {
+  "process.env.NODE_ENV": `"production"`,
+  "process.env.NODE_DEBUG": JSON.stringify(false),
+  "process.browser": JSON.stringify(true),
+  "process.env.DEBUG": JSON.stringify(false),
+  "isBrowser": JSON.stringify(true),
+  "isJest": JSON.stringify(false),
+  "process.env.version": "\"1.1.1\"",
+  global: "globalThis",
+  "WORKER_DOM_DEBUG": JSON.stringify(false),
+  "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
+  // "libFileMap": JSON.stringify({}),
+  process: JSON.stringify({
+    env: {
+      NODE_ENV: `production`,
+      browser: true,
+      NODE_DEBUG: false,
+      DEBUG: false,
+      isBrowser: true,
+    },
+    browser: true,
+  }),
+};
 const build = async (codeSpace: string) => {
   const initFinished = mod.initialize();
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
@@ -51,11 +74,9 @@ const build = async (codeSpace: string) => {
     write: false,
     format: "iife",
     entryPoints: [`./live/${codeSpace}/index.js`],
-    define: {
-      "process.env.NODE_ENV": "\"production\"",
-      global: "globalThis",
-    },
-    plugins: [unpkgPathPlugin(codeSpace), fetchPlugin],
+    define,
+    tsconfig: "./tsconfig.json",
+    plugins: [unpkgPathPlugin, fetchPlugin],
   };
   const b = await esbuildBuild(defaultOpts);
   return b.outputFiles![0].text;
@@ -65,11 +86,11 @@ export { build };
 export { initAndTransform as transform };
 
 function importMapReplace(codeInp: string) {
-  const items = Object.keys(imap.imports);
+  const items = Object.keys(importMapImports) as (keyof typeof importMapImports)[];
   let returnStr = codeInp;
 
-  items.map((lib) => {
-    const uri = (new URL(imap.imports[lib], location.origin)).toString();
+  items.map((lib: keyof typeof importMapImports) => {
+    const uri = (new URL(importMapImports[lib], location.origin)).toString();
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
       ` from "${uri}"`,
