@@ -11,7 +11,7 @@ import {
   initAndTransform,
   toUmd,
   wait
-} from "./chunk-chunk-ADVBLUQS.mjs";
+} from "./chunk-chunk-PYD6USQQ.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-CTKH5FCC.mjs";
@@ -24001,6 +24001,9 @@ var mod = {
   },
   setApp: (md5Hash) => {
     const rootDiv = document.createElement("div");
+    rootDiv.style.visibility = "hidden";
+    rootDiv.style.position = "absolute";
+    document.body.appendChild(rootDiv);
     const root = (0, import_client.createRoot)(rootDiv);
     const App = apps[md5Hash];
     mod.md5Hash = md5Hash;

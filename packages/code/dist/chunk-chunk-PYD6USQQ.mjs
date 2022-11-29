@@ -4901,49 +4901,23 @@ var esbuild_default = "./chunk-esbuild-LYOCB4YY.wasm";
 
 // js/fetchPlugin.tsx
 init_define_process();
-var import_localforage = __toESM(require_localforage(), 1);
-var fileCache = import_localforage.default.createInstance({
-  name: "filecache"
-});
-var fetchPlugin = /* @__PURE__ */ __name(() => {
-  return {
-    name: "fetch-plugin",
-    setup(build2) {
-      build2.onLoad({ filter: /.css$/ }, async (args) => {
-        const data = await fetch(args.path).then((x) => x.text());
-        const escaped = data.replace(/\n/g, "").replace(/"/g, '\\"').replace(/'/g, "\\'");
-        const contents = `
-                    const style = document.createElement('style');
-                    style.innerText = '${escaped}';
-                    document.body.appendChild(style);
-                `;
-        const result = {
-          loader: "js",
-          contents,
-          resolveDir: location.origin + "/" + new URL("./", args.path).pathname
-        };
-        await fileCache.setItem(args.path, result);
-        return result;
-      });
-      build2.onLoad({ filter: /.*/ }, async (args) => {
-        const cachedResult = await fileCache.getItem(
-          args.path
-        );
-        if (cachedResult) {
-          return cachedResult;
-        }
-        const data = await fetch(args.path).then((x) => x.text());
-        const result = {
-          loader: "js",
-          contents: data,
-          resolveDir: location.origin + "/" + new URL("./", args.path).pathname
-        };
-        await fileCache.setItem(args.path, result);
-        return result;
-      });
-    }
-  };
-}, "fetchPlugin");
+var fetchPlugin = {
+  name: "http",
+  setup(build2) {
+    build2.onResolve({ filter: /^https?:\/\// }, (args) => ({
+      path: args.path,
+      namespace: "http-url"
+    }));
+    build2.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
+      path: new URL(args.path, args.importer).toString(),
+      namespace: "http-url"
+    }));
+    build2.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
+      let contents = await fetch(args.path).then((res) => res.text());
+      return { contents };
+    });
+  }
+};
 
 // js/importmap.json
 var importmap_default = {
@@ -4994,8 +4968,8 @@ var unpkgPathPlugin = /* @__PURE__ */ __name((codeSpace2) => {
 }, "unpkgPathPlugin");
 
 // js/esbuildEsm.ts
-var import_localforage2 = __toESM(require_localforage(), 1);
-var transformCache = import_localforage2.default.createInstance({
+var import_localforage = __toESM(require_localforage(), 1);
+var transformCache = import_localforage.default.createInstance({
   name: "transformCache"
 });
 var mod = {
@@ -5032,12 +5006,12 @@ var build = /* @__PURE__ */ __name(async (codeSpace2) => {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: [`${location.origin}/live/${codeSpace2}/index.js`],
+    entryPoints: [`live/${codeSpace2}/index.js`],
     define: {
       "process.env.NODE_ENV": '"production"',
       global: "globalThis"
     },
-    plugins: [unpkgPathPlugin(codeSpace2), fetchPlugin()]
+    plugins: [unpkgPathPlugin(codeSpace2), fetchPlugin]
   };
   const b = await (0, import_esbuild_wasm.build)(defaultOpts);
   return b.outputFiles[0].text;
@@ -5060,8 +5034,8 @@ function importMapReplace(codeInp) {
 __name(importMapReplace, "importMapReplace");
 
 // js/toUmd.ts
-var import_localforage3 = __toESM(require_localforage(), 1);
-var fileCache2 = import_localforage3.default.createInstance({
+var import_localforage2 = __toESM(require_localforage(), 1);
+var fileCache = import_localforage2.default.createInstance({
   name: "filecache"
 });
 var imp = { ...importmap_default.imports };
@@ -5153,7 +5127,7 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
         treeShaking: true,
         platform: "browser",
         ignoreAnnotations: true,
-        target: "es2022",
+        target: "es2015",
         loader: "ts",
         globalName: hash
       })).code,
@@ -5210,11 +5184,11 @@ var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
     return await fetch(url).then((res) => res.text());
   if (urls[url])
     return urls[url];
-  const cached = await fileCache2.getItem(url);
+  const cached = await fileCache.getItem(url);
   if (cached)
     return cached;
   urls[url] = urls[url] || await fetch(url).then((res) => res.text());
-  await fileCache2.setItem(url, urls[url]);
+  await fileCache.setItem(url, urls[url]);
   return urls[url];
 }, "fetch_or_die");
 
