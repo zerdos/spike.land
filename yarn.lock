@@ -936,7 +936,7 @@ __metadata:
     avl: "npm:1.5.3"
     esbuild: "npm:0.15.16"
     typescript: "npm:^4.9.3"
-    wrangler: "npm:2.4.4"
+    wrangler: "npm:2.5.0"
   languageName: unknown
   linkType: soft
 
@@ -960,7 +960,7 @@ __metadata:
     "@types/prettier": "npm:2.7.1"
     "@types/react": "npm:18.0.25"
     "@types/react-dom": "npm:18.0.9"
-    "@types/uuid": "npm:^8.3.4"
+    "@types/uuid": "npm:^9.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^5.45.0"
     "@typescript-eslint/parser": "npm:^5.45.0"
     "@yarnpkg/sdks": "npm:3.0.0-rc.31"
@@ -1305,10 +1305,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:^8.3.4":
-  version: 8.3.4
-  resolution: "@types/uuid@npm:8.3.4"
-  checksum: 42fa6d1868c459444c257fe418f624067aabfbe550ce97d9c124c5759a16f03bc475dc82086eefee807571608830b2f955e688c0e63e40aad5eb29b573471492
+"@types/uuid@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "@types/uuid@npm:9.0.0"
+  checksum: f834b8b23d48e80d79aad515934815b720e5d1646742804af99afad1df406467d4f5089893bca06ef67d41ebb58edfeb583dae47211b8d7eefdb666cf7ae93a7
   languageName: node
   linkType: hard
 
@@ -6434,9 +6434,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.4.4":
-  version: 2.4.4
-  resolution: "wrangler@npm:2.4.4"
+"wrangler@npm:2.5.0":
+  version: 2.5.0
+  resolution: "wrangler@npm:2.5.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
@@ -6460,7 +6460,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: f46ae1134bf5b8c9cbdca804a9ead8816957bcca85b673d53a3372c9455013f808157644277fe585db2f66ef47b788ec76324520d76433487b36908cf00c4132
+  checksum: 0f558164a28d655879fe51811818ed73decf021e025b681f4cad9b3c86157e84a6dcee4e1c64011c6433faa623bdf5a392b230280bae681ac037fc8e625fba36
   languageName: node
   linkType: hard
 
