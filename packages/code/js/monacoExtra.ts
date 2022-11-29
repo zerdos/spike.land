@@ -31,8 +31,11 @@ export function extraStuff(
       const baSe = (new URL(".", url)).toString();
       const parent = (new URL("..", url)).toString();
       const gParent = (new URL("../..", url)).toString();
+      const ggParent = (new URL("../../..", url)).toString();
 
       let replaced = removeComments(code);
+      replaced = replaceAll(replaced, ` from '../../`, ` from '${ggParent}`);
+      replaced = replaceAll(replaced, ` from "../../`, ` from "${ggParent}`);
       replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
       replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
       replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
