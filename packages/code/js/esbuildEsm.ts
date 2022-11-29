@@ -1,4 +1,4 @@
-import { build as esbuildBuild, type BuildOptions, initialize, transform } from "esbuild-wasm";
+import { build as esbuildBuild, type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
@@ -22,21 +22,21 @@ const mod = {
   },
 };
 
-export const initAndTransform: typeof transform = async (code, opts) => {
+export const initAndTransform = async (code: string, opts: TransformOptions) => {
   const initFinished = mod.initialize();
 
   const cacheKey = md5(code + opts?.format!);
 
-  const item = await transformCache.getItem(cacheKey);
+  const item = await transformCache.getItem<string>(cacheKey);
   if (item) return { code: item };
 
   if (initFinished !== true) await (initFinished);
 
-  const transformed = await transform(code, opts);
+  const transformed = await transform(code, { ...opts, define: { ...define, ...(opts?.define ? opts.define : {}) } });
 
-  const trp = importMapReplace(transformed.code);
+  const trp = importMapReplace(transformed.code); // .split("dataset").join("attributes");
 
-  const res = { ...transformed, code: `/*${md5(code)}*/` + trp };
+  const res = { code: `/*${md5(code)}*/` + trp };
   await transformCache.setItem(cacheKey, res.code);
   return res;
 };

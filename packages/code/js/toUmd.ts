@@ -165,7 +165,7 @@ export const toUmd = async (source: string, name: string) => {
         // sourcefile: name,
         platform: "browser",
         ignoreAnnotations: true,
-        target: "es2015",
+        target: "es2021",
         // tsconfigRaw: {
         //   compilerOptions: {
         //     jsx: "react-jsx",
@@ -173,6 +173,18 @@ export const toUmd = async (source: string, name: string) => {
         //     jsxImportSource: "@emotion/react",
         //   },
         // },
+        define: {
+          "globalThis.workerDom": JSON.stringify(true),
+          "process.env.NODE_ENV": `"development"`,
+          "process.env.NODE_DEBUG": JSON.stringify(false),
+          "process.browser": JSON.stringify(true),
+          "process.env.DEBUG": JSON.stringify(false),
+          "isBrowser": JSON.stringify(true),
+          "isJest": JSON.stringify(false),
+          "process.env.version": "\"1.1.1\"",
+          global: "globalThis",
+          "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
+        },
 
         loader: "ts",
         globalName: hash,

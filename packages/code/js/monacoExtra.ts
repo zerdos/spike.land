@@ -68,9 +68,9 @@ export function extraStuff(
 
           if (extraModelCache[extraModel]) continue;
 
-          let extraModelUrl = extraModel;
+          let extraModelUrl = (new URL(extraModel, location.origin)).toString();
 
-          const extraModelContent = await fetch(extraModel).then((resp) =>
+          const extraModelContent = await fetch(extraModelUrl).then((resp) =>
             resp.status === 307 ? fetch(resp.headers.get("location")!) : resp
           ).then((res) => {
             extraModelUrl = res.url;
@@ -86,13 +86,13 @@ export function extraStuff(
           }
           extraModelCache[extraModelUrl] = extraModelContent;
 
-          await addExtraModels(extraModelCache[extraModel], extraModel);
+          await addExtraModels(extraModelCache[extraModelUrl], extraModelUrl);
         } catch (err) {
           console.error("Error in add extra models", code, url, { err });
         }
       }
-    } catch {
-      console.log("error in extra lib  mining", url);
+    } catch (err) {
+      console.log("error in extra lib  mining", url, { err });
       return;
     }
   };
