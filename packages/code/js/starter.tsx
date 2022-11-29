@@ -6,6 +6,7 @@ import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 
 import createCache from "./emotionCache";
+import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate } from "./session";
 import { toUmd } from "./toUmd";
@@ -113,8 +114,15 @@ root.render( <ErrorBoundary
     `${codeSpace}-${i}`,
   );
 
-  const js = await mod2.toJs(`${codeSpace}-${i}`);
+  let js: string;
+  // try{
+  //  js = await build(codeSpace)
+  // } catch{
+  js = await mod2.toJs(`${codeSpace}-${i}`);
+  // }
+
   const src = createJsBlob(js);
+
   div.setAttribute("src", src);
 
   return div;

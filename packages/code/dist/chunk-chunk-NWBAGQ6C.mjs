@@ -71,7 +71,7 @@ var require_browser = __commonJS({
       __export(browser_exports, {
         analyzeMetafile: () => analyzeMetafile,
         analyzeMetafileSync: () => analyzeMetafileSync,
-        build: () => build2,
+        build: () => build3,
         buildSync: () => buildSync,
         default: () => browser_default,
         formatMessages: () => formatMessages,
@@ -1732,7 +1732,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
       }
       __name(convertOutputFiles, "convertOutputFiles");
       var version = "0.15.16";
-      var build2 = /* @__PURE__ */ __name((options) => ensureServiceIsRunning().build(options), "build");
+      var build3 = /* @__PURE__ */ __name((options) => ensureServiceIsRunning().build(options), "build");
       var serve = /* @__PURE__ */ __name(() => {
         throw new Error(`The "serve" API only works in node`);
       }, "serve");
@@ -4889,9 +4889,6 @@ var Mutex = class {
 };
 __name(Mutex, "Mutex");
 
-// js/toUmd.ts
-init_define_process();
-
 // js/esbuildEsm.ts
 init_define_process();
 var import_esbuild_wasm = __toESM(require_browser(), 1);
@@ -4903,16 +4900,16 @@ var esbuild_default = "./chunk-esbuild-LYOCB4YY.wasm";
 init_define_process();
 var fetchPlugin = {
   name: "http",
-  setup(build2) {
-    build2.onResolve({ filter: /^https?:\/\// }, (args) => ({
+  setup(build3) {
+    build3.onResolve({ filter: /^https?:\/\// }, (args) => ({
       path: args.path,
       namespace: "http-url"
     }));
-    build2.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
+    build3.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
       path: new URL(args.path, args.importer).toString(),
       namespace: "http-url"
     }));
-    build2.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
+    build3.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       let contents = await fetch(args.path).then((res) => res.text());
       return { contents };
     });
@@ -4940,15 +4937,15 @@ init_define_process();
 var esbuild = __toESM(require_browser(), 1);
 var unpkgPathPlugin = {
   name: "unpkg-path-plugin",
-  setup(build2) {
-    build2.onResolve({ filter: /^\.+\// }, (args) => {
-      const url = new URL(args.path, `${location.origin}/${args.resolveDir}`).toString();
+  setup(build3) {
+    build3.onResolve({ filter: /^\.+\// }, (args) => {
+      const url = new URL(args.path, location.origin).toString();
       return {
         path: url,
         namespace: "http-url"
       };
     });
-    build2.onResolve({ filter: /.*/ }, async (args) => {
+    build3.onResolve({ filter: /^\[a-z]+\// }, (args) => {
       if (args.path.indexOf(location.origin) !== -1) {
         return {
           namespace: "http-url",
@@ -4956,8 +4953,8 @@ var unpkgPathPlugin = {
         };
       }
       return {
-        namespace: "http-url",
-        path: `${location.origin}/npm:/${args.path}`
+        path: `${location.origin}/npm:/${args.path}`,
+        namespace: "http-url"
       };
     });
   }
@@ -5050,6 +5047,7 @@ function importMapReplace(codeInp) {
 __name(importMapReplace, "importMapReplace");
 
 // js/toUmd.ts
+init_define_process();
 var import_localforage2 = __toESM(require_localforage(), 1);
 var fileCache = import_localforage2.default.createInstance({
   name: "filecache"
@@ -6790,7 +6788,8 @@ root.render( <ErrorBoundary
   `,
     `${codeSpace}-${i}`
   );
-  const js = await mod22.toJs(`${codeSpace}-${i}`);
+  let js;
+  js = await mod22.toJs(`${codeSpace}-${i}`);
   const src = createJsBlob(js);
   div2.setAttribute("src", src);
   return div2;
