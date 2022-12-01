@@ -128,7 +128,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
 
   parent.appendChild(div);
 
-  const js = await build(codeSpace);
+  const js = await build(codeSpace, i);
 
   const src = createJsBlob(js);
 

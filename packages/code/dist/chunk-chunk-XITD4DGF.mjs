@@ -5597,7 +5597,7 @@ async function moveToWorker(nameSpace, parent2) {
   div2.style.height = "100%";
   parent2.innerHTML = `<style>${resetCSS} ${css2}</style>${html}`;
   parent2.appendChild(div2);
-  const js = await build(codeSpace);
+  const js = await build(codeSpace, i2);
   const src = createJsBlob(js);
   div2.setAttribute("src", src);
   return div2;
