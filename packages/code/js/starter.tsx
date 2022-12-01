@@ -265,7 +265,10 @@ export function AutoUpdateApp(
   useEffect(() => {
     if (ref.current === null) return;
     parent = ref.current;
-    build(codeSpace, mST().i);
+    build(codeSpace, mST().i).then(iframe => {
+      globalThis.zBodyRef.current.innerHTML = ``;
+      globalThis.zBodyRef.current.appendChild(iframe);
+    });
     setHash(hashCode());
     // runInWorker(codeSpace, ref.current);
   }, [ref, ref.current]);

@@ -6024,7 +6024,10 @@ function AutoUpdateApp({ codeSpace: codeSpace2 }) {
     if (ref.current === null)
       return;
     parent = ref.current;
-    build(codeSpace2, mST().i);
+    build(codeSpace2, mST().i).then((iframe) => {
+      globalThis.zBodyRef.current.innerHTML = ``;
+      globalThis.zBodyRef.current.appendChild(iframe);
+    });
     setHash(hashCode());
   }, [ref, ref.current]);
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
