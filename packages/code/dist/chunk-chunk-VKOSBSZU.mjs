@@ -5708,6 +5708,10 @@ var fetchPlugin = {
       path: new URL(args.path, args.importer).toString(),
       namespace: "http-url"
     }));
+    build2.onResolve({ filter: /^.*/, namespace: "http-url" }, (args) => ({
+      path: new URL(args.path, location.origin + "/npm:/").toString(),
+      namespace: "http-url"
+    }));
     build2.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       let contents = await esmTransform(await fetch(args.path).then((res) => res.text()));
       return { contents };
