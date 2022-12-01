@@ -292,7 +292,63 @@ export class Code {
               "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
+        case "render.tsx": {
+          const codeSpace = this.codeSpace;
+          const k = hashCode();
 
+          const src = importMapReplace(
+            `import {createRoot} from "react-dom/client"
+          import { CacheProvider } from "@emotion/react";
+          import createCache from "@emotion/cache";
+          import { ErrorBoundary } from "react-error-boundary";
+          import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
+      
+      
+        let parent = document.getElementById("${codeSpace}-${i}");
+      
+        if (!parent) {
+          parent =  document.createElement("div");
+          parent.setAttribute("id", "${codeSpace}-${i}");
+          document.body.appendChild(parent);
+        }
+        parent.style.height="100%";
+        parent.innerHTML=\`<div id="${codeSpace}-${k}"></div>\`;  
+        const div = document.getElementById("${codeSpace}-${k}");
+        div.style.height="100%";
+        const root = createRoot(div );
+      
+        const cache = createCache({
+          key: "${k}",
+          container: parent,
+          speedy: false
+        });
+      
+       cache.compat = undefined;
+      
+      root.render( <ErrorBoundary
+        fallbackRender={({ error }) => (
+          <div role="alert">
+            <div>Oh no</div>
+            <pre>{error.message}</pre>
+          </div>
+        )}>
+        <CacheProvider value={cache}>
+          <App />
+        </CacheProvider>
+        </ErrorBoundary>);`,
+            url.origin,
+          );
+          return new Response(src, {
+            headers: {
+              "x-typescript-types": `${url.origin}/live/${this.codeSpace}/render.tsx`,
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+
+              content_hash: md5(src),
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
+        }
         case "index.js":
         case "js": {
           const i = path[1] || mST().i;
@@ -716,17 +772,17 @@ export class Code {
 }
 
 function importMapReplace(codeInp: string, origin: string) {
-  const items = Object.keys(imap.imports);
+  const items = Object.keys(imap.imports) as (keyof typeof imap.imports)[];
   let returnStr = codeInp;
 
-  items.map((lib) => {
+  items.map((lib: keyof typeof imap.imports) => {
     const uri = (new URL(imap.imports[lib], origin)).toString();
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
       ` from "${uri}"`,
     ).replaceAll(
-      ` from "@spike.land/`,
-      ` from "${origin}/`,
+      ` from './`,
+      ` from 'https://${origin}/live/`,
     );
   });
 

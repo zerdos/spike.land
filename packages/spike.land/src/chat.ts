@@ -488,3 +488,21 @@ export const getImportMapStr = (orig: string) => {
 };
 
 export default api;
+
+function importMapReplace(codeInp: string, origin: string) {
+  const items = Object.keys(imap.imports) as (keyof typeof imap.imports)[];
+  let returnStr = codeInp;
+
+  items.map((lib: keyof typeof imap.imports) => {
+    const uri = (new URL(imap.imports[lib], origin)).toString();
+    returnStr = returnStr.replaceAll(
+      ` from "${lib}"`,
+      ` from "${uri}"`,
+    ).replaceAll(
+      ` from './`,
+      ` from 'https://${location.host}/live/`,
+    );
+  });
+
+  return returnStr;
+}

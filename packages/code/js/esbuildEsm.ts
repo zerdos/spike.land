@@ -73,7 +73,7 @@ const build = async (codeSpace: string) => {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: [`./live/${codeSpace}/index.js`],
+    entryPoints: [`./live/${codeSpace}/render.tsx`],
     define,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin],
