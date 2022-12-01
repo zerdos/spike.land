@@ -259,15 +259,16 @@ export const { apps, eCaches } = (globalThis as unknown as {
 export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
-  const ref = useRef(null);
+  const ref = useRef(globalThis.zBodyRef);
+  globalThis.zBodyRef = ref;
   const [hash, setHash] = useState(hashCode());
 
   useEffect(() => {
     if (ref.current === null) return;
     parent = ref.current;
     build(codeSpace, mST().i).then(iframe => {
-      globalThis.zBodyRef.current.innerHTML = ``;
-      globalThis.zBodyRef.current.appendChild(iframe);
+      ref.current.innerHTML = ``;
+      ref.current.appendChild(iframe);
     });
     setHash(hashCode());
     // runInWorker(codeSpace, ref.current);
