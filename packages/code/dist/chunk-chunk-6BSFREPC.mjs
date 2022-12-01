@@ -4889,7 +4889,7 @@ var Mutex = class {
 };
 __name(Mutex, "Mutex");
 
-// js/worker-dom/dist/main.mjs
+// ../../.yarn/global/cache/@ampproject-worker-dom-npm-0.34.0-cfc9652499-9.zip/node_modules/@ampproject/worker-dom/dist/main.mjs
 init_define_process();
 var e = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
   const o2 = s2.executorsAllowed.includes(8);
