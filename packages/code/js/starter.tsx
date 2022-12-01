@@ -42,7 +42,8 @@ globalThis.build = async (cs: string, counter: number) => {
 
     let code = ``;
 
-    let iSRC = () => (`
+    let iSRC = () =>
+      createHTML(`
   <html> 
   <head>
   <style>
@@ -257,6 +258,7 @@ export function AutoUpdateApp(
 ) {
   const ref = useRef(null);
   const [hash, setHash] = useState(hashCode());
+
   useEffect(() => {
     if (ref.current === null) return;
     parent = ref.current;
