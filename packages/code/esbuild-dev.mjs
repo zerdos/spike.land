@@ -1,7 +1,7 @@
 // Import inlineWorkerPlugin from 'esbuild-plugin-inline-worker';
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
-import esbuild from "esbuild-wasm";
+import esbuild from "esbuild";
 import { cp, rm } from "node:fs/promises";
 
 import { resolve } from "node:path";
@@ -13,7 +13,7 @@ import { resolve } from "node:path";
 import { env, exit } from "process";
 // import { wait } from "./js/wait.mjs";
 
-await esbuild.initialize();
+// await esbuild.initialize();
 const environment = env.NODE_ENV === "production"
   ? "production"
   : "development";
