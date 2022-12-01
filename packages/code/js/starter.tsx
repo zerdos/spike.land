@@ -70,7 +70,7 @@ bc.onmessage = (event) => {
 // importShim.addImportMap({ imports: res });
 
 async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
-  const { html, css, i, transpiled } = nameSpace === codeSpace
+  const { html, i, transpiled } = nameSpace === codeSpace
     ? mST()
     : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = document.createElement("div");
