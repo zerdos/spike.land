@@ -21,11 +21,15 @@ export function createHTML(code: string, fileName = "index.html") {
   const blobUrl = URL.createObjectURL(file);
   return blobUrl;
 }
-globalThis.build = async (codeSpace: string, i: number) => {
-  const I = i || mST().i;
-  const { mST: MST } = await importShim(`/live/${codeSpace}/mST.mjs?${I}`);
+globalThis.build = async (cs: string, counter: number) => {
+  let MST = {};
+  if (cs === codeSpace) MST = mST();
+  else {
+    const I = counter || mST().i;
+    const MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
+  }
 
-  const { html, css, i: II } = MST;
+  const { html, css, i } = MST;
 
   const code = await build(codeSpace, i);
 
@@ -44,6 +48,12 @@ globalThis.build = async (codeSpace: string, i: number) => {
   </html>`);
   const iframe = document.createElement("iframe");
   iframe.src = iSRC;
+  document.body.appendChild(iframe);
+  iframe.style.position = "fixed";
+  iframe.style.height = "100vh";
+  iframe.style.top = "0";
+  iframe.style.width = "100%";
+
   return iframe;
   // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
   // iframe.setAttribute("id", `coder-${codeSpace}`);
