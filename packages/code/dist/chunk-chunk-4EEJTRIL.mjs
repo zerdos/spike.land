@@ -3,15 +3,8 @@ import {
   require_prop_types
 } from "./chunk-chunk-ZZWIKWD4.mjs";
 import {
-  require_client
-} from "./chunk-chunk-FFMS35Y7.mjs";
-import {
-  appFactory,
-  build,
-  initAndTransform,
-  toUmd,
-  wait
-} from "./chunk-chunk-6BSFREPC.mjs";
+  runner
+} from "./chunk-chunk-H6POVBFK.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
@@ -20,10 +13,7 @@ import {
 } from "./chunk-chunk-NFYMKIWC.mjs";
 import {
   mST,
-  md5,
-  onSessionUpdate,
-  patchSync,
-  require_lodash
+  onSessionUpdate
 } from "./chunk-chunk-LC2N6673.mjs";
 import {
   require_react_dom
@@ -1037,7 +1027,7 @@ var require_DraggableCore = __commonJS({
         }, "findDOMNode")
       }, {
         key: "render",
-        value: /* @__PURE__ */ __name(function render2() {
+        value: /* @__PURE__ */ __name(function render() {
           return /* @__PURE__ */ React3.cloneElement(React3.Children.only(this.props.children), {
             onMouseDown: this.onMouseDown,
             onMouseUp: this.onMouseUp,
@@ -1526,7 +1516,7 @@ var require_Draggable = __commonJS({
         }, "findDOMNode")
       }, {
         key: "render",
-        value: /* @__PURE__ */ __name(function render2() {
+        value: /* @__PURE__ */ __name(function render() {
           var _clsx;
           var _this$props2 = this.props, axis = _this$props2.axis, bounds = _this$props2.bounds, children = _this$props2.children, defaultPosition = _this$props2.defaultPosition, defaultClassName = _this$props2.defaultClassName, defaultClassNameDragging = _this$props2.defaultClassNameDragging, defaultClassNameDragged = _this$props2.defaultClassNameDragged, position = _this$props2.position, positionOffset = _this$props2.positionOffset, scale = _this$props2.scale, draggableCoreProps = _objectWithoutProperties(_this$props2, _excluded);
           var style = {};
@@ -23970,161 +23960,9 @@ var prettierJs = /* @__PURE__ */ __name((code) => {
   }
 }, "prettierJs");
 
-// js/runner.tsx
-init_define_process();
-var import_lodash = __toESM(require_lodash(), 1);
-
-// js/renderToString.tsx
-init_define_process();
-var import_client = __toESM(require_client(), 1);
+// js/Editor.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod = {
-  md5Hash: "",
-  wait: 1,
-  res: null,
-  codeSpace: "",
-  waitForDiv: async (md5Hash) => {
-    if (mod.md5Hash !== md5Hash)
-      return "";
-    if (!mod.res?.innerHTML)
-      await waitForAnimation();
-    mod.wait *= 2;
-    await wait(mod.wait);
-    if (!mod.res?.innerHTML.includes(md5Hash)) {
-      await waitForAnimation();
-    }
-    const html = mod.res?.innerHTML;
-    if (html?.includes(md5Hash) && mod.res?.firstElementChild?.innerHTML !== "")
-      return html;
-    mod.wait = mod.wait * 2;
-    return await mod.waitForDiv(md5Hash);
-  },
-  setApp: (md5Hash) => {
-    const rootDiv = document.createElement("div");
-    rootDiv.style.visibility = "hidden";
-    rootDiv.style.position = "absolute";
-    document.body.appendChild(rootDiv);
-    const root = (0, import_client.createRoot)(rootDiv);
-    const App = apps[md5Hash];
-    mod.md5Hash = md5Hash;
-    mod.res = rootDiv;
-    root.render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, { appId: `${mod.codeSpace}-${md5Hash}` }));
-    return () => {
-      root.unmount();
-      rootDiv.remove();
-    };
-  }
-};
-var render = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
-  mod.codeSpace = codeSpace;
-  const md5hash = md5(transpiled);
-  if (!apps[md5hash])
-    await appFactory(transpiled);
-  mod.wait = 1;
-  const cleanup = mod.setApp(
-    md5hash
-  );
-  try {
-    const html = await mod.waitForDiv(md5hash);
-    if (!html)
-      return { html: null, css: null };
-    const css2 = mineFromCaches(eCaches[md5hash]);
-    const globalCss = document.querySelector(
-      `style[data-emotion=${eCaches[md5hash].key}-global]`
-    )?.innerHTML;
-    return {
-      html,
-      css: globalCss ? globalCss + " " + css2 : css2
-    };
-  } finally {
-    cleanup();
-  }
-}, "render");
-function mineFromCaches(cache) {
-  const key = cache.key;
-  try {
-    return Array.from(document.querySelectorAll(`style[data-emotion="${cache.key}"]`)).map((x) => x.textContent).join(
-      "\n"
-    );
-  } catch {
-    return Array.from(document.styleSheets).map((x) => {
-      try {
-        return x.cssRules[0];
-      } catch {
-        return null;
-      }
-    }).filter((x) => x && x.selectorText && x.selectorText.indexOf(key) !== -1).map((x) => x.cssText).join("\n");
-  }
-}
-__name(mineFromCaches, "mineFromCaches");
-var waitForAnimation = /* @__PURE__ */ __name(() => {
-  let animationFrame;
-  console.log("wait for animation");
-  const animated = new Promise((resolve) => animationFrame = resolve);
-  requestAnimationFrame(() => animationFrame(true));
-  return animated;
-}, "waitForAnimation");
-
-// js/runner.tsx
-Object.assign(globalThis, { transform: initAndTransform, build, toUmd });
-var debouncedSync = (0, import_lodash.default)(patchSync, 200, {
-  leading: true,
-  trailing: true,
-  maxWait: 800
-});
-var counterMax = mST().i;
-var IIFE = {};
-var esmTransform = /* @__PURE__ */ __name(async (code) => {
-  const transpiled = await initAndTransform(code, {
-    loader: "tsx",
-    format: "esm",
-    treeShaking: true,
-    platform: "browser",
-    minify: false,
-    globalName: md5(code),
-    keepNames: true,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: "react-jsx",
-        useDefineForClassFields: false,
-        jsxFragmentFactory: "Fragment",
-        jsxImportSource: "@emotion/react"
-      }
-    },
-    target: "es2022"
-  });
-  Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
-  return transpiled.code;
-}, "esmTransform");
-async function runner({ code, counter, codeSpace }) {
-  if (counter <= counterMax)
-    return;
-  counterMax = counter;
-  try {
-    const transpiledCode = await esmTransform(code);
-    const { html, css: css2 } = await render(transpiledCode, codeSpace);
-    console.log({ html, css: css2 });
-    if (!html || !css2) {
-      return;
-    }
-    debouncedSync({
-      ...mST(),
-      code,
-      i: counter,
-      transpiled: transpiledCode,
-      html,
-      css: css2
-    });
-  } catch (error) {
-    console.error({ error });
-  } finally {
-  }
-}
-__name(runner, "runner");
-
-// js/Editor.tsx
-var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var mod2 = {
   getValue: async () => "",
   setValue: async (code) => {
     if (code.length < 10)
@@ -24149,13 +23987,13 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     onChange(_cb) {
     }
   });
-  mod2.counter = mST().i;
+  mod.counter = mST().i;
   const {
     myCode,
     started,
     onChange
   } = mySession;
-  mod2.code = myCode;
+  mod.code = myCode;
   (0, import_react3.useEffect)(() => {
     if (started)
       return;
@@ -24165,19 +24003,19 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     const container = ref?.current;
     if (container === null)
       return;
-    (engine === "monaco" ? setMonaco(container, codeSpace) : setAce(container, codeSpace)).then((res) => Object.assign(mod2, { setValue: res?.setValue })).then(
+    (engine === "monaco" ? setMonaco(container, codeSpace) : setAce(container, codeSpace)).then((res) => Object.assign(mod, { setValue: res?.setValue })).then(
       () => changeContent((x) => ({ ...x, started: true }))
     );
   }, [started, ref.current]);
   (0, import_react3.useEffect)(
     () => {
-      mod2.getErrors().then(console.log);
+      mod.getErrors().then(console.log);
       onChange(
-        () => mod2.getValue().then(
+        () => mod.getValue().then(
           () => changeContent((x) => ({
             ...x,
-            counter: mod2.counter,
-            myCode: mod2.code
+            counter: mod.counter,
+            myCode: mod.code
           }))
         )
       );
@@ -24185,22 +24023,22 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     [onChange, myCode, changeContent]
   );
   onSessionUpdate(async () => {
-    if (mod2.counter >= mST().i) {
+    if (mod.counter >= mST().i) {
       return;
     }
     const { i: i2, code: code2 } = mST();
     if (!code2)
       return;
-    mod2.setValue(code2);
-    mod2.code = code2;
-    mod2.counter = i2;
+    mod.setValue(code2);
+    mod.code = code2;
+    mod.counter = i2;
     changeContent((x) => ({
       ...x,
       counter: i2,
       myCode: code2
     }));
   }, "editor");
-  const EditorNode = /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+  const EditorNode = /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
     "div",
     {
       "data-test-id": "editor",
@@ -24222,7 +24060,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
   );
   if (engine === "ace")
     return EditorNode;
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
     Rnd,
     {
       enableResizing: true,
@@ -24250,10 +24088,10 @@ async function onModChange(_code, codeSpace) {
   const code = prettierJs(_code);
   if (!code)
     return;
-  if (code === prettierJs(mod2.code))
+  if (code === prettierJs(mod.code))
     return;
-  const counter = ++mod2.counter;
-  mod2.code = code;
+  const counter = ++mod.counter;
+  mod.code = code;
   runner({ code, counter, codeSpace });
 }
 __name(onModChange, "onModChange");

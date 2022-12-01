@@ -1,4 +1,5 @@
 import type { Plugin } from "esbuild-wasm";
+import { esmTransform } from "./runner";
 // import type * as esbuild from "esbuild-wasm";
 
 export const fetchPlugin: Plugin = {
@@ -28,7 +29,7 @@ export const fetchPlugin: Plugin = {
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
-      let contents = await fetch(args.path).then(res => res.text());
+      let contents = (await esmTransform(await fetch(args.path).then(res => res.text())));
       return { contents };
     });
   },

@@ -7964,7 +7964,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       react: "/reactMod.mjs",
       "react/jsx-runtime": "/jsx.mjs",
       "react-dom": "/reactDom.mjs",
-      "react-dom/client": "/reactDomClient.mjs"
+      "react-dom/client": "/reactDomClient.mjs",
+      "react-error-boundary": "/reactMod.mjs"
     }
   };
 

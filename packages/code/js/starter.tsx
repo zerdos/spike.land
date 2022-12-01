@@ -7,6 +7,7 @@ import { Mutex } from "async-mutex";
 
 import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import createCache from "./emotionCache";
+import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate } from "./session";
 import { toUmd } from "./toUmd";
@@ -66,9 +67,13 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
   div.innerHTML = `<style>${css}</style><div id="${codeSpace}-${i}" style="height: 100%">${html}</div>`;
   parent.appendChild(div);
 
-  const k = md5(transpiled);
-  const mod2 = await toUmd(
-    `
+  let js: string;
+  try {
+    js = await build(codeSpace);
+  } catch {
+    const k = md5(transpiled);
+    const mod2 = await toUmd(
+      `
     import {createRoot} from "react-dom/client"
     import { CacheProvider } from "@emotion/react";
     import createCache from "@emotion/cache";
@@ -110,15 +115,15 @@ root.render( <ErrorBoundary
   </ErrorBoundary>);
 
   `,
-    `${codeSpace}-${i}`,
-  );
+      `${codeSpace}-${i}`,
+    );
 
-  let js: string;
-  // try{
-  //  js = await build(codeSpace)
-  // } catch{
-  js = await mod2.toJs(`${codeSpace}-${i}`);
-  // }
+    // try{
+    //  js = await build(codeSpace)
+    // } catch{
+    js = await mod2.toJs(`${codeSpace}-${i}`);
+    // }
+  }
 
   const src = createJsBlob(js);
 

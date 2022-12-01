@@ -1,5 +1,6 @@
 import isCallable from "is-callable";
 import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
 export const {
   Children,
   Component,
@@ -50,6 +51,7 @@ export function useState<S>(
 
   return originalUseState(initialState);
 }
+export { ErrorBoundary };
 
 Object.assign(React, { useState });
 
