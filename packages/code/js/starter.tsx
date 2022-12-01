@@ -42,8 +42,9 @@ globalThis.build = async (codeSpace: string, i: number) => {
   </html>`);
   const iframe = document.createElement("iframe");
   iframe.src = iSRC;
-  document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
-  iframe.setAttribute("id", `coder-${codeSpace}`);
+  return iframe;
+  // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
+  // iframe.setAttribute("id", `coder-${codeSpace}`);
 
   // document.body.appendChild(iframe);
 };
