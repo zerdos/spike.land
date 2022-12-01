@@ -5854,9 +5854,8 @@ globalThis.build = async (codeSpace2) => {
   <\/script></body>
   
   </html>`);
-  const iframe = document.createElement("iframe");
+  const iframe = document.getElementById(`coder-${codeSpace2}`);
   iframe.src = iSRC;
-  document.body.appendChild(iframe);
 };
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var worker;
@@ -5895,6 +5894,7 @@ var bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
+    globalThis.build(nameSpace);
     runInWorker(nameSpace, parent);
   }
 };

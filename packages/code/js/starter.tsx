@@ -40,9 +40,10 @@ globalThis.build = async (codeSpace: string) => {
   </script></body>
   
   </html>`);
-  const iframe = document.createElement("iframe");
+  const iframe = document.getElementById(`coder-${codeSpace}`)!;
+  // ) document.createElement("iframe");
   iframe.src = iSRC;
-  document.body.appendChild(iframe);
+  // document.body.appendChild(iframe);
 };
 const codeSpace = location.pathname.slice(1).split("/")[1];
 let worker: typeof ExportedWorker;
@@ -88,6 +89,8 @@ const bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
+    globalThis.build(nameSpace);
+
     runInWorker(nameSpace, parent);
   }
 };
