@@ -43,9 +43,9 @@ export const fetchPlugin: Plugin = {
         let response = await fetchCache.match(req);
         if (response) return response;
 
-        response = await fetch(args.path);
+        response = await fetch(req);
         if (!response || !response.ok) return response;
-        response = new Response(response?.url, response);
+        response = new Response(response.body, response);
 
         await fetchCache.put(req, response.clone());
         return response;

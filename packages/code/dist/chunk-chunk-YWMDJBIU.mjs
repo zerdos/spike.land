@@ -5711,10 +5711,10 @@ var fetchPlugin = {
         let response = await fetchCache.match(req2);
         if (response)
           return response;
-        response = await fetch(args.path);
+        response = await fetch(req2);
         if (!response || !response.ok)
           return response;
-        response = new Response(response?.url, response);
+        response = new Response(response.body, response);
         await fetchCache.put(req2, response.clone());
         return response;
       }, "getRequest");
