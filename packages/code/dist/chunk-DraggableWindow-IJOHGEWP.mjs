@@ -10,7 +10,7 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-QSJGSFXM.mjs";
+} from "./chunk-chunk-5QU3Y4FS.mjs";
 import "./chunk-chunk-7O57OUBU.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-A6DGMGFP.mjs";
@@ -255,6 +255,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                       },
                       "data-test-id": "z-body",
                       css: import_react2.css`
+                  position: relative;
                   overflow: auto;    
               `,
                       children

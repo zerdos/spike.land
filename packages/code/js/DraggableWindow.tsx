@@ -264,6 +264,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     }}
                     data-test-id="z-body"
                     css={css`
+                  position: relative;
                   overflow: auto;    
               `}
                   >
