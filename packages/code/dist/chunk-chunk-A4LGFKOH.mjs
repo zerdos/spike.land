@@ -5947,8 +5947,7 @@ var bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    globalThis.build(nameSpace, event.data.i);
-    runInWorker(nameSpace, parent);
+    globalThis.build(nameSpace, mST().i);
   }
 };
 async function moveToWorker(nameSpace, parent2) {
@@ -6025,7 +6024,7 @@ function AutoUpdateApp({ codeSpace: codeSpace2 }) {
     if (ref.current === null)
       return;
     parent = ref.current;
-    runInWorker(codeSpace2, ref.current);
+    build(codeSpace2, mST().i);
   }, [ref, ref.current]);
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
     "div",

@@ -120,9 +120,9 @@ const bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    globalThis.build(nameSpace, event.data.i);
+    globalThis.build(nameSpace, mST().i);
 
-    runInWorker(nameSpace, parent);
+    // runInWorker(nameSpace, parent);
   }
 };
 
@@ -246,7 +246,8 @@ export function AutoUpdateApp(
   useEffect(() => {
     if (ref.current === null) return;
     parent = ref.current;
-    runInWorker(codeSpace, ref.current);
+    build(codeSpace, mST().i);
+    // runInWorker(codeSpace, ref.current);
   }, [ref, ref.current]);
   // let starterI = 1 * (document.getElementById(`root-${codeSpace}`)!.getAttribute(
   //   "data-i",
