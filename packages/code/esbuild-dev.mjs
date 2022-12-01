@@ -1,7 +1,7 @@
 // Import inlineWorkerPlugin from 'esbuild-plugin-inline-worker';
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
-import esbuild from "esbuild";
+import esbuild from "esbuild-wasm";
 import { cp, rm } from "node:fs/promises";
 
 import { resolve } from "node:path";
@@ -10,10 +10,10 @@ import { resolve } from "node:path";
 // Const { request } = require("http");
 // require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
-import aliasPlugin from "esbuild-plugin-alias";
 import { env, exit } from "process";
 // import { wait } from "./js/wait.mjs";
 
+await esbuild.initialize();
 const environment = env.NODE_ENV === "production"
   ? "production"
   : "development";
@@ -204,27 +204,27 @@ const build = (
   // console.log("done");
 
   buildOptions.plugins = [
-    aliasPlugin({
-      //    "stream": resolve("./js/stream.mjs"),
-      //  "buffer": resolve("./js/buffer/index.ts"),
-      // "@emotion/react": resolve("./js/emotion.ts"),
-      // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
-      // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
-      // "@emotion/cache": resolve("./js/emotionCache.ts"),
-      // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
+    // aliasPlugin({
+    //    "stream": resolve("./js/stream.mjs"),
+    //  "buffer": resolve("./js/buffer/index.ts"),
+    // "@emotion/react": resolve("./js/emotion.ts"),
+    // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
+    // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
+    // "@emotion/cache": resolve("./js/emotionCache.ts"),
+    // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
 
-      // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
-      // // "./mui": resolve("./dist/mui.mjs"),
-      // "react": resolve("./dist/reactMod.mjs"),
-      // "react/jsx-runtime": resolve("./dist/jsx.mjs"),
-      // "react": resolve("./dist/reactMod.mjs"),
-      // "react-dom": resolve("./dist/reactDom.mjs"),
-      // "react-dom/client": resolve("./dist/reactDomClient.mjs"),
-      // "react-dom": resolve("./dist/reactMod.mjs"),
-      // "react-dom/client": resolve("./dist/reactMod.mjs"),
-      // "framer-motion": resolve("./js/motion.ts"),
-      // "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
-    }),
+    // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
+    // // "./mui": resolve("./dist/mui.mjs"),
+    // "react": resolve("./dist/reactMod.mjs"),
+    // "react/jsx-runtime": resolve("./dist/jsx.mjs"),
+    // "react": resolve("./dist/reactMod.mjs"),
+    // "react-dom": resolve("./dist/reactDom.mjs"),
+    // "react-dom/client": resolve("./dist/reactDomClient.mjs"),
+    // "react-dom": resolve("./dist/reactMod.mjs"),
+    // "react-dom/client": resolve("./dist/reactMod.mjs"),
+    // "framer-motion": resolve("./js/motion.ts"),
+    // "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
+    // }),
   ];
 
   await esbuild.build({

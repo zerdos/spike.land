@@ -5,7 +5,7 @@ import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 
-import { upgradeElement } from "worker-dom/dist/main.mjs";
+import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate } from "./session";
