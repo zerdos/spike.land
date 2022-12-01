@@ -36,7 +36,7 @@
     "@types/react-dom": "18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "@yarnpkg/sdks": "3.0.0-rc.31",
+    "@yarnpkg/sdks": "3.0.0-rc.32",
     "dprint": "^0.33.0",
     "esbuild": "^0.15.16",
     "eslint": "^8.28.0",
@@ -47,7 +47,7 @@
   "resolutions": {
     "wrangler/esbuild": "0.15.11"
   },
-  "packageManager": "yarn@4.0.0-rc.31",
+  "packageManager": "yarn@4.0.0-rc.32",
   "dependencies": {
     "react": "^18.2.0"
   }
