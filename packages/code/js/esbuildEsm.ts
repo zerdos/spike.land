@@ -75,6 +75,7 @@ const build = async (codeSpace: string, i: number) => {
       ".js": "tsx",
     },
     write: false,
+    incre; true,
     format: "iife",
     entryPoints: [`./live/${codeSpace}/render.tsx/${i}`],
     define,

@@ -5860,6 +5860,9 @@ globalThis.build = async (cs, counter) => {
   if (modz[`${cs}-${counter}`])
     return modz[`${cs}-${counter}`];
   return modz[`${cs}-${counter}`] = new Promise(async (res) => {
+    if (modz[cs] > counter)
+      return;
+    modz[cs] = counter;
     let MST;
     if (cs === codeSpace)
       MST = mST();
@@ -5867,8 +5870,12 @@ globalThis.build = async (cs, counter) => {
       const I = counter || mST().i;
       MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
     }
+    if (modz[cs] > counter)
+      return;
     const { html, css: css2, i: i2 } = MST;
     const code = await build(codeSpace, i2);
+    if (modz[cs] > counter)
+      return;
     const iSRC = createHTML(`
   <html> 
   <head>
@@ -5882,13 +5889,21 @@ globalThis.build = async (cs, counter) => {
   <\/script></body>
   
   </html>`);
+    if (modz[cs] > counter)
+      return;
     const iframe = document.createElement("iframe");
     iframe.src = iSRC;
+    if (modz[cs] > counter)
+      return;
     document.body.appendChild(iframe);
     iframe.style.position = "fixed";
     iframe.style.height = "100vh";
     iframe.style.top = "0";
     iframe.style.width = "100%";
+    if (modz[cs] > counter) {
+      iframe.remove();
+      return;
+    }
     res(iframe);
     return iframe;
   });

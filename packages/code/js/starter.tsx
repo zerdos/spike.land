@@ -22,9 +22,12 @@ export function createHTML(code: string, fileName = "index.html") {
   return blobUrl;
 }
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> } = {};
+
 globalThis.build = async (cs: string, counter: number) => {
   if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
   return modz[`${cs}-${counter}`] = new Promise(async (res) => {
+    if (modz[cs] > counter) return;
+    modz[cs] = counter;
     let MST;
     if (cs === codeSpace) MST = mST();
     else {
@@ -32,10 +35,11 @@ globalThis.build = async (cs: string, counter: number) => {
       MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
     }
 
+    if (modz[cs] > counter) return;
     const { html, css, i } = MST;
 
     const code = await build(codeSpace, i);
-
+    if (modz[cs] > counter) return;
     const iSRC = createHTML(`
   <html> 
   <head>
@@ -49,13 +53,19 @@ globalThis.build = async (cs: string, counter: number) => {
   </script></body>
   
   </html>`);
+    if (modz[cs] > counter) return;
     const iframe = document.createElement("iframe");
     iframe.src = iSRC;
+    if (modz[cs] > counter) return;
     document.body.appendChild(iframe);
     iframe.style.position = "fixed";
     iframe.style.height = "100vh";
     iframe.style.top = "0";
     iframe.style.width = "100%";
+    if (modz[cs] > counter) {
+      iframe.remove();
+      return;
+    }
     res(iframe);
     return iframe;
     // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
