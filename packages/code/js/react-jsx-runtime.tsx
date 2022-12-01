@@ -67,6 +67,11 @@ importShim.addImportMap({ imports: res });
       }
     };
   }
+  if (location.pathname.includes("/hydrated")) {
+    const { runInWorker } = await importShim<{}, { runInWorker: (codeSpace: string) => void }>("./starter.mjs");
+
+    runInWorker(codeSpace);
+  }
 })();
 // const runtime = () => {
 //   const React = require("react");

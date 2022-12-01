@@ -4,8 +4,9 @@ import {
   apps,
   createJsBlob,
   eCaches,
-  importIt
-} from "./chunk-chunk-A6DGMGFP.mjs";
+  importIt,
+  runInWorker
+} from "./chunk-chunk-AY7FAPFD.mjs";
 import "./chunk-chunk-FFMS35Y7.mjs";
 import "./chunk-chunk-TIL35SAU.mjs";
 import "./chunk-chunk-RNJNNLQS.mjs";
@@ -26,5 +27,6 @@ export {
   createJsBlob,
   eCaches,
   importIt,
-  md5
+  md5,
+  runInWorker
 };

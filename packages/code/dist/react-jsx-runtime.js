@@ -8015,5 +8015,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       };
     }
+    if (location.pathname.includes("/hydrated")) {
+      const { runInWorker } = await importShim("./starter.mjs");
+      runInWorker(codeSpace);
+    }
   })();
 })();

@@ -6363,6 +6363,7 @@ __name(createJsBlob, "createJsBlob");
 export {
   wait,
   runner,
+  runInWorker,
   importIt,
   apps2 as apps,
   eCaches2 as eCaches,
