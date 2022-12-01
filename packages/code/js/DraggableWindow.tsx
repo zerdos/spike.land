@@ -264,11 +264,19 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     }}
                     data-test-id="z-body"
                     css={css`
-                  position: relative;
+                  position: relative  ;
                   overflow: auto;    
               `}
                   >
-                    {children}
+                    <iframe
+                      src={`/live/${room}/public`}
+                      css={css`
+    height: 100%;
+    width: 100%;
+    border: none;
+    position: absolute;
+    `}
+                    />
                   </m.div>
                 </m.div>
                 <m.div
