@@ -34,6 +34,7 @@ export const fetchPlugin: Plugin = {
     // would probably need to be more complex.
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       // importShim.resolve(args.path, args.importer)
+      console.log("fetch plugin:" + args.path);
       let contents = (await esmTransform(await fetch(args.path).then(res => res.text())));
       return { contents };
     });
