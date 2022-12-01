@@ -38,6 +38,8 @@ globalThis.build = async (cs: string, counter: number) => {
     if (modz[cs] > counter) return;
     const { html, css, i } = MST;
 
+    
+
     if (modz[cs] > counter) return;
 
     let code = ``;
@@ -51,7 +53,7 @@ globalThis.build = async (cs: string, counter: number) => {
   ${css}</style>
   </head>
   <body>${html}
-  <script>
+  <script type="module">
   ${code}
   </script></body>
   

@@ -5875,7 +5875,7 @@ globalThis.build = async (cs, counter) => {
   ${css2}</style>
   </head>
   <body>${html}
-  <script>
+  <script type="module">
   ${code}
   <\/script></body>
   
