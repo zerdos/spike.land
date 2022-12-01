@@ -24,7 +24,7 @@ export function createHTML(code: string, fileName = "index.html") {
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
-globalThis.build = async (cs: string, counter: number) => {
+const createIframe = async (cs: string, counter: number) => {
   if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
   return modz[`${cs}-${counter}`] = new Promise(async (res) => {
     if (modz[cs] > counter) return;
@@ -134,7 +134,7 @@ const bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    globalThis.build(nameSpace, mST().i).then(iframe => {
+    createIframe(nameSpace, mST().i).then(iframe => {
       globalThis.zBodyRef.current.innerHTML = ``;
       globalThis.zBodyRef.current.appendChild(iframe);
     });
@@ -266,7 +266,7 @@ export function AutoUpdateApp(
   useEffect(() => {
     if (ref.current === null) return;
     parent = ref.current;
-    build(codeSpace, mST().i).then(iframe => {
+    createIframe(codeSpace, mST().i).then(iframe => {
       ref.current.innerHTML = ``;
       ref.current.appendChild(iframe);
     });
