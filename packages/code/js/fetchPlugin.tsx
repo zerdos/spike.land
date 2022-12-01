@@ -24,6 +24,10 @@ export const fetchPlugin: Plugin = {
       namespace: "http-url",
     }));
 
+    build.onResolve({ filter: /^.*/, namespace: "http-url" }, args => ({
+      path: new URL(args.path, location.origin + "/npm:/").toString(),
+      namespace: "http-url",
+    }));
     // When a URL is loaded, we want to actually download the content
     // from the internet. This has just enough logic to be able to
     // handle the example import from unpkg.com but in reality this
