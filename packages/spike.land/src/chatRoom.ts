@@ -301,7 +301,7 @@ export class Code {
           import { CacheProvider } from "@emotion/react";
           import createCache from "@emotion/cache";
           import { ErrorBoundary } from "react-error-boundary";
-          import App from "./index.js/${i}"
+          import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
       
       
         let parent = document.getElementById("${codeSpace}-${i}");
