@@ -1,6 +1,7 @@
 import "core-js/features/url";
 import "core-js/features/string";
 import "core-js/features/self";
+import importMap from "./importmap.json";
 
 import localForage from "localforage";
 
@@ -47,6 +48,17 @@ const getCacheName = () =>
 self.addEventListener("fetch", function(event) {
   return event.respondWith((async () => {
     let url = new URL(event.request.url);
+
+    if (event.request.url === "example.com/importmap") {
+      return new Response(JSON.stringify(importMap), {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      });
+    }
     let isChunk = url.pathname.includes("chunk-");
     if (files && files[url.pathname.slice(1)]) {
       isChunk = true;
