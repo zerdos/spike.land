@@ -3,8 +3,16 @@ import {
   require_prop_types
 } from "./chunk-chunk-ZZWIKWD4.mjs";
 import {
-  runner
-} from "./chunk-chunk-U2X6D7GP.mjs";
+  require_client
+} from "./chunk-chunk-FFMS35Y7.mjs";
+import {
+  appFactory,
+  build,
+  importmap_default,
+  initAndTransform,
+  require_localforage,
+  wait
+} from "./chunk-chunk-YNEG6IOV.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
@@ -13,7 +21,10 @@ import {
 } from "./chunk-chunk-NFYMKIWC.mjs";
 import {
   mST,
-  onSessionUpdate
+  md5,
+  onSessionUpdate,
+  patchSync,
+  require_lodash
 } from "./chunk-chunk-LC2N6673.mjs";
 import {
   require_react_dom
@@ -1027,7 +1038,7 @@ var require_DraggableCore = __commonJS({
         }, "findDOMNode")
       }, {
         key: "render",
-        value: /* @__PURE__ */ __name(function render() {
+        value: /* @__PURE__ */ __name(function render2() {
           return /* @__PURE__ */ React3.cloneElement(React3.Children.only(this.props.children), {
             onMouseDown: this.onMouseDown,
             onMouseUp: this.onMouseUp,
@@ -1516,7 +1527,7 @@ var require_Draggable = __commonJS({
         }, "findDOMNode")
       }, {
         key: "render",
-        value: /* @__PURE__ */ __name(function render() {
+        value: /* @__PURE__ */ __name(function render2() {
           var _clsx;
           var _this$props2 = this.props, axis = _this$props2.axis, bounds = _this$props2.bounds, children = _this$props2.children, defaultPosition = _this$props2.defaultPosition, defaultClassName = _this$props2.defaultClassName, defaultClassNameDragging = _this$props2.defaultClassNameDragging, defaultClassNameDragged = _this$props2.defaultClassNameDragged, position = _this$props2.position, positionOffset = _this$props2.positionOffset, scale = _this$props2.scale, draggableCoreProps = _objectWithoutProperties(_this$props2, _excluded);
           var style = {};
@@ -23960,9 +23971,333 @@ var prettierJs = /* @__PURE__ */ __name((code) => {
   }
 }, "prettierJs");
 
-// js/Editor.tsx
+// js/runner.tsx
+init_define_process();
+var import_lodash = __toESM(require_lodash(), 1);
+
+// js/renderToString.tsx
+init_define_process();
+var import_client = __toESM(require_client(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod = {
+  md5Hash: "",
+  wait: 1,
+  res: null,
+  codeSpace: "",
+  waitForDiv: async (md5Hash) => {
+    if (mod.md5Hash !== md5Hash)
+      return "";
+    if (!mod.res?.innerHTML)
+      await waitForAnimation();
+    mod.wait *= 2;
+    await wait(mod.wait);
+    if (!mod.res?.innerHTML.includes(md5Hash)) {
+      await waitForAnimation();
+    }
+    const html = mod.res?.innerHTML;
+    if (html?.includes(md5Hash) && mod.res?.firstElementChild?.innerHTML !== "")
+      return html;
+    mod.wait = mod.wait * 2;
+    return await mod.waitForDiv(md5Hash);
+  },
+  setApp: (md5Hash) => {
+    const rootDiv = document.createElement("div");
+    rootDiv.style.visibility = "hidden";
+    rootDiv.style.position = "absolute";
+    document.body.appendChild(rootDiv);
+    const root = (0, import_client.createRoot)(rootDiv);
+    const App = apps[md5Hash];
+    mod.md5Hash = md5Hash;
+    mod.res = rootDiv;
+    root.render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, { appId: `${mod.codeSpace}-${md5Hash}` }));
+    return () => {
+      root.unmount();
+      rootDiv.remove();
+    };
+  }
+};
+var render = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
+  mod.codeSpace = codeSpace;
+  const md5hash = md5(transpiled);
+  if (!apps[md5hash])
+    await appFactory(transpiled);
+  mod.wait = 1;
+  const cleanup = mod.setApp(
+    md5hash
+  );
+  try {
+    const html = await mod.waitForDiv(md5hash);
+    if (!html)
+      return { html: null, css: null };
+    const css2 = mineFromCaches(eCaches[md5hash]);
+    const globalCss = document.querySelector(
+      `style[data-emotion=${eCaches[md5hash].key}-global]`
+    )?.innerHTML;
+    return {
+      html,
+      css: globalCss ? globalCss + " " + css2 : css2
+    };
+  } finally {
+    cleanup();
+  }
+}, "render");
+function mineFromCaches(cache) {
+  const key = cache.key;
+  try {
+    return Array.from(document.querySelectorAll(`style[data-emotion="${cache.key}"]`)).map((x) => x.textContent).join(
+      "\n"
+    );
+  } catch {
+    return Array.from(document.styleSheets).map((x) => {
+      try {
+        return x.cssRules[0];
+      } catch {
+        return null;
+      }
+    }).filter((x) => x && x.selectorText && x.selectorText.indexOf(key) !== -1).map((x) => x.cssText).join("\n");
+  }
+}
+__name(mineFromCaches, "mineFromCaches");
+var waitForAnimation = /* @__PURE__ */ __name(() => {
+  let animationFrame;
+  console.log("wait for animation");
+  const animated = new Promise((resolve) => animationFrame = resolve);
+  requestAnimationFrame(() => animationFrame(true));
+  return animated;
+}, "waitForAnimation");
+
+// js/toUmd.ts
+init_define_process();
+var import_localforage = __toESM(require_localforage(), 1);
+var fileCache = import_localforage.default.createInstance({
+  name: "filecache"
+});
+var imp = { ...importmap_default.imports };
+var importMasRes = {};
+Object.keys(imp).map((k) => Object.assign(importMasRes, { [k]: location.origin + imp[k] }));
+var mod2 = {
+  printR(name, included) {
+    if (included[mod2.hashMap[name]])
+      return "";
+    included[mod2.hashMap[name]] = true;
+    const current = mod2.data[mod2.hashMap[name]];
+    if (!current)
+      console.error(name + " is missing!");
+    const currentCode = current.code;
+    if (!current.deps || !current.deps.length) {
+      return currentCode;
+    }
+    const myDepts = [...current.deps];
+    const depts = myDepts.map((name2) => mod2.printR(name2, included)).join(
+      " \n "
+    );
+    return depts + `
+    
+    ` + currentCode;
+  },
+  toJs: async (name) => {
+    const js = mod2.printR(name, {});
+    let reverseMap = {};
+    Object.keys(mod2.hashMap).forEach((key) => reverseMap = { ...reverseMap, [mod2.hashMap[key]]: key });
+    let modZ = {};
+    Object.keys(mod2.data).forEach((k) => modZ = { ...modZ, [reverseMap[k]]: k });
+    Object.keys(importMasRes).forEach((k) => modZ = { ...modZ, [k]: "getName(`" + importMasRes[k] + "`)" });
+    const res = `
+     ${js}
+
+
+
+
+  
+  function require(name){
+
+
+      const importmap = ${JSON.stringify(importmap_default.imports)};
+      const uName = new URL(name, location.origin).toString();    
+      const urlName = new URL(name+"/index.js", location.origin).toString();
+      if (globalThis.globalNames[name]) return  globalThis.globalNames[name];     
+      
+      if (globalThis.globalNames[uName]) return  globalThis.globalNames[uName];     
+
+      if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
+      if (importmap[name]) return require(importmap[name])      
+      if (!name.includes("/npm:")){
+      const npmUrl = new URL('/npm:*'+name+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
+      return require(npmUrl);
+    }
+  }`;
+    return res;
+  },
+  last: 0,
+  hashMap: {},
+  data: {}
+};
+var findDeps = /* @__PURE__ */ __name((code) => {
+  const regex = /require\("(.+?)"\)/gm;
+  let m;
+  const deps = [];
+  while ((m = regex.exec(code)) !== null) {
+    if (m.index === regex.lastIndex) {
+      regex.lastIndex++;
+    }
+    for (const [groupIndex, match] of m.entries()) {
+      if (groupIndex == 1) {
+        deps.push(match);
+      }
+    }
+  }
+  return deps;
+}, "findDeps");
+var toUmd = /* @__PURE__ */ __name(async (source, name) => {
+  const hash = md5(source);
+  mod2.hashMap = { ...mod2.hashMap, [name]: hash };
+  if (mod2.data[hash])
+    return mod2;
+  try {
+    mod2.data[hash] = {
+      code: (await initAndTransform(source, {
+        format: "iife",
+        keepNames: true,
+        treeShaking: true,
+        platform: "browser",
+        ignoreAnnotations: true,
+        target: "es2021",
+        define: {
+          "globalThis.workerDom": JSON.stringify(true),
+          "process.env.NODE_ENV": `"development"`,
+          "process.env.NODE_DEBUG": JSON.stringify(false),
+          "process.browser": JSON.stringify(true),
+          "process.env.DEBUG": JSON.stringify(false),
+          "isBrowser": JSON.stringify(true),
+          "isJest": JSON.stringify(false),
+          "process.env.version": '"1.1.1"',
+          global: "globalThis",
+          "process.env.DUMP_SESSION_KEYS": JSON.stringify(false)
+        },
+        loader: "ts",
+        globalName: hash
+      })).code,
+      deps: []
+    };
+  } catch {
+    mod2.data[hash] = {
+      code: (await initAndTransform(source, {
+        format: "iife",
+        keepNames: true,
+        treeShaking: true,
+        define: {
+          "globalThis.workerDom": JSON.stringify(true),
+          "process.env.NODE_ENV": `"development"`,
+          "process.env.NODE_DEBUG": JSON.stringify(false),
+          "process.browser": JSON.stringify(true),
+          "process.env.DEBUG": JSON.stringify(false),
+          "isBrowser": JSON.stringify(true),
+          "isJest": JSON.stringify(false),
+          "process.env.version": '"1.1.1"',
+          global: "globalThis",
+          "process.env.DUMP_SESSION_KEYS": JSON.stringify(false)
+        },
+        ignoreAnnotations: true,
+        target: "es2022",
+        tsconfigRaw: {
+          compilerOptions: {
+            jsx: "react-jsx",
+            useDefineForClassFields: false,
+            jsxImportSource: "@emotion/react"
+          }
+        },
+        loader: "tsx",
+        globalName: hash
+      })).code,
+      deps: []
+    };
+  }
+  mod2.data[hash].code = mod2.data[hash].code + `
+  
+  globalThis.globalNames = globalThis.globalNames || {};
+  globalThis.globalNames["${name}"] =  ${hash}  ;`;
+  mod2.data[hash].deps = findDeps(mod2.data[hash].code).map((dep) => importShim.resolve(dep, name));
+  await Promise.all(
+    mod2.data[hash].deps.map(
+      (depUrl) => fetch_or_die(depUrl).then((content) => toUmd(content, depUrl).then(async (mod4) => await mod4))
+    )
+  );
+  return mod2;
+}, "toUmd");
+var urls = {};
+var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
+  if (url.includes(`/live/`))
+    return await fetch(url).then((res) => res.text());
+  if (urls[url])
+    return urls[url];
+  const cached = await fileCache.getItem(url);
+  if (cached)
+    return cached;
+  urls[url] = urls[url] || await fetch(url).then((res) => res.text());
+  await fileCache.setItem(url, urls[url]);
+  return urls[url];
+}, "fetch_or_die");
+
+// js/runner.tsx
+Object.assign(globalThis, { transform: initAndTransform, build, toUmd });
+var debouncedSync = (0, import_lodash.default)(patchSync, 200, {
+  leading: true,
+  trailing: true,
+  maxWait: 800
+});
+var counterMax = mST().i;
+var IIFE = {};
+var esmTransform = /* @__PURE__ */ __name(async (code) => {
+  const transpiled = await initAndTransform(code, {
+    loader: "tsx",
+    format: "esm",
+    treeShaking: true,
+    platform: "browser",
+    minify: false,
+    globalName: md5(code),
+    keepNames: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        useDefineForClassFields: false,
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react"
+      }
+    },
+    target: "es2022"
+  });
+  Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
+  return transpiled.code;
+}, "esmTransform");
+async function runner({ code, counter, codeSpace }) {
+  if (counter <= counterMax)
+    return;
+  counterMax = counter;
+  try {
+    const transpiledCode = await esmTransform(code);
+    const { html, css: css2 } = await render(transpiledCode, codeSpace);
+    console.log({ html, css: css2 });
+    if (!html || !css2) {
+      return;
+    }
+    debouncedSync({
+      ...mST(),
+      code,
+      i: counter,
+      transpiled: transpiledCode,
+      html,
+      css: css2
+    });
+  } catch (error) {
+    console.error({ error });
+  } finally {
+  }
+}
+__name(runner, "runner");
+
+// js/Editor.tsx
+var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var mod3 = {
   getValue: async () => "",
   setValue: async (code) => {
     if (code.length < 10)
@@ -23987,13 +24322,13 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     onChange(_cb) {
     }
   });
-  mod.counter = mST().i;
+  mod3.counter = mST().i;
   const {
     myCode,
     started,
     onChange
   } = mySession;
-  mod.code = myCode;
+  mod3.code = myCode;
   (0, import_react3.useEffect)(() => {
     if (started)
       return;
@@ -24003,19 +24338,19 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     const container = ref?.current;
     if (container === null)
       return;
-    (engine === "monaco" ? setMonaco(container, codeSpace) : setAce(container, codeSpace)).then((res) => Object.assign(mod, { setValue: res?.setValue })).then(
+    (engine === "monaco" ? setMonaco(container, codeSpace) : setAce(container, codeSpace)).then((res) => Object.assign(mod3, { setValue: res?.setValue })).then(
       () => changeContent((x) => ({ ...x, started: true }))
     );
   }, [started, ref.current]);
   (0, import_react3.useEffect)(
     () => {
-      mod.getErrors().then(console.log);
+      mod3.getErrors().then(console.log);
       onChange(
-        () => mod.getValue().then(
+        () => mod3.getValue().then(
           () => changeContent((x) => ({
             ...x,
-            counter: mod.counter,
-            myCode: mod.code
+            counter: mod3.counter,
+            myCode: mod3.code
           }))
         )
       );
@@ -24023,22 +24358,22 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
     [onChange, myCode, changeContent]
   );
   onSessionUpdate(async () => {
-    if (mod.counter >= mST().i) {
+    if (mod3.counter >= mST().i) {
       return;
     }
     const { i: i2, code: code2 } = mST();
     if (!code2)
       return;
-    mod.setValue(code2);
-    mod.code = code2;
-    mod.counter = i2;
+    mod3.setValue(code2);
+    mod3.code = code2;
+    mod3.counter = i2;
     changeContent((x) => ({
       ...x,
       counter: i2,
       myCode: code2
     }));
   }, "editor");
-  const EditorNode = /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+  const EditorNode = /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
     "div",
     {
       "data-test-id": "editor",
@@ -24060,7 +24395,7 @@ var Editor = /* @__PURE__ */ __name(({ codeSpace }) => {
   );
   if (engine === "ace")
     return EditorNode;
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
     Rnd,
     {
       enableResizing: true,
@@ -24088,10 +24423,10 @@ async function onModChange(_code, codeSpace) {
   const code = prettierJs(_code);
   if (!code)
     return;
-  if (code === prettierJs(mod.code))
+  if (code === prettierJs(mod3.code))
     return;
-  const counter = ++mod.counter;
-  mod.code = code;
+  const counter = ++mod3.counter;
+  mod3.code = code;
   runner({ code, counter, codeSpace });
 }
 __name(onModChange, "onModChange");

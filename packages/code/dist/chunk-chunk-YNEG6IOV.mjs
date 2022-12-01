@@ -1,7 +1,4 @@
 import {
-  require_client
-} from "./chunk-chunk-FFMS35Y7.mjs";
-import {
   emotionCache_default
 } from "./chunk-chunk-TIL35SAU.mjs";
 import {
@@ -15,8 +12,6 @@ import {
   mST,
   md5,
   onSessionUpdate,
-  patchSync,
-  require_lodash,
   resetCSS
 } from "./chunk-chunk-LC2N6673.mjs";
 import {
@@ -52,7 +47,7 @@ var require_browser = __commonJS({
         }
         return to;
       }, "__copyProps");
-      var __toCommonJS = /* @__PURE__ */ __name((mod4) => __copyProps(__defProp({}, "__esModule", { value: true }), mod4), "__toCommonJS");
+      var __toCommonJS = /* @__PURE__ */ __name((mod2) => __copyProps(__defProp({}, "__esModule", { value: true }), mod2), "__toCommonJS");
       var __async = /* @__PURE__ */ __name((__this, __arguments, generator) => {
         return new Promise((resolve, reject) => {
           var fulfilled = /* @__PURE__ */ __name((value) => {
@@ -358,7 +353,7 @@ var require_browser = __commonJS({
         let charset = getFlag(options, keys, "charset", mustBeString);
         let treeShaking = getFlag(options, keys, "treeShaking", mustBeBoolean);
         let ignoreAnnotations = getFlag(options, keys, "ignoreAnnotations", mustBeBoolean);
-        let jsx3 = getFlag(options, keys, "jsx", mustBeString);
+        let jsx2 = getFlag(options, keys, "jsx", mustBeString);
         let jsxFactory = getFlag(options, keys, "jsxFactory", mustBeString);
         let jsxFragment = getFlag(options, keys, "jsxFragment", mustBeString);
         let jsxImportSource = getFlag(options, keys, "jsxImportSource", mustBeString);
@@ -411,8 +406,8 @@ var require_browser = __commonJS({
           flags.push(`--reserve-props=${reserveProps.source}`);
         if (mangleQuoted !== void 0)
           flags.push(`--mangle-quoted=${mangleQuoted}`);
-        if (jsx3)
-          flags.push(`--jsx=${jsx3}`);
+        if (jsx2)
+          flags.push(`--jsx=${jsx2}`);
         if (jsxFactory)
           flags.push(`--jsx-factory=${jsxFactory}`);
         if (jsxFragment)
@@ -5340,117 +5335,32 @@ var esbuild_default = "./chunk-esbuild-LYOCB4YY.wasm";
 
 // js/fetchPlugin.tsx
 init_define_process();
-
-// js/runner.tsx
-init_define_process();
-var import_lodash = __toESM(require_lodash(), 1);
-
-// js/renderToString.tsx
-init_define_process();
-var import_client = __toESM(require_client(), 1);
-
-// js/wait.ts
-init_define_process();
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(delay);
-    }, delay);
-  });
-}
-__name(wait, "wait");
-
-// js/renderToString.tsx
-var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var mod = {
-  md5Hash: "",
-  wait: 1,
-  res: null,
-  codeSpace: "",
-  waitForDiv: async (md5Hash) => {
-    if (mod.md5Hash !== md5Hash)
-      return "";
-    if (!mod.res?.innerHTML)
-      await waitForAnimation();
-    mod.wait *= 2;
-    await wait(mod.wait);
-    if (!mod.res?.innerHTML.includes(md5Hash)) {
-      await waitForAnimation();
-    }
-    const html = mod.res?.innerHTML;
-    if (html?.includes(md5Hash) && mod.res?.firstElementChild?.innerHTML !== "")
-      return html;
-    mod.wait = mod.wait * 2;
-    return await mod.waitForDiv(md5Hash);
-  },
-  setApp: (md5Hash) => {
-    const rootDiv = document.createElement("div");
-    rootDiv.style.visibility = "hidden";
-    rootDiv.style.position = "absolute";
-    document.body.appendChild(rootDiv);
-    const root = (0, import_client.createRoot)(rootDiv);
-    const App = apps[md5Hash];
-    mod.md5Hash = md5Hash;
-    mod.res = rootDiv;
-    root.render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, { appId: `${mod.codeSpace}-${md5Hash}` }));
-    return () => {
-      root.unmount();
-      rootDiv.remove();
-    };
+var fetchCache = await caches.open("fetchcache");
+var fetchPlugin = {
+  name: "http",
+  setup(build2) {
+    build2.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
+      path: importShim.resolve(args.path, args.importer),
+      namespace: "http-url"
+    }));
+    build2.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
+      const getRequest = /* @__PURE__ */ __name(async (req2) => {
+        let response = await fetchCache.match(req2);
+        if (response)
+          return response;
+        response = await fetch(args.path);
+        if (!response || !response.ok)
+          return response;
+        response = new Response(response?.url, response);
+        await fetchCache.put(req2, response.clone());
+        return response;
+      }, "getRequest");
+      const req = new Request(args.path);
+      const contents = await getRequest(req).then((x2) => x2.text());
+      return { contents };
+    });
   }
 };
-var render = /* @__PURE__ */ __name(async (transpiled, codeSpace2) => {
-  mod.codeSpace = codeSpace2;
-  const md5hash = md5(transpiled);
-  if (!apps[md5hash])
-    await appFactory(transpiled);
-  mod.wait = 1;
-  const cleanup = mod.setApp(
-    md5hash
-  );
-  try {
-    const html = await mod.waitForDiv(md5hash);
-    if (!html)
-      return { html: null, css: null };
-    const css2 = mineFromCaches(eCaches[md5hash]);
-    const globalCss = document.querySelector(
-      `style[data-emotion=${eCaches[md5hash].key}-global]`
-    )?.innerHTML;
-    return {
-      html,
-      css: globalCss ? globalCss + " " + css2 : css2
-    };
-  } finally {
-    cleanup();
-  }
-}, "render");
-function mineFromCaches(cache) {
-  const key = cache.key;
-  try {
-    return Array.from(document.querySelectorAll(`style[data-emotion="${cache.key}"]`)).map((x2) => x2.textContent).join(
-      "\n"
-    );
-  } catch {
-    return Array.from(document.styleSheets).map((x2) => {
-      try {
-        return x2.cssRules[0];
-      } catch {
-        return null;
-      }
-    }).filter((x2) => x2 && x2.selectorText && x2.selectorText.indexOf(key) !== -1).map((x2) => x2.cssText).join("\n");
-  }
-}
-__name(mineFromCaches, "mineFromCaches");
-var waitForAnimation = /* @__PURE__ */ __name(() => {
-  let animationFrame;
-  console.log("wait for animation");
-  const animated = new Promise((resolve) => animationFrame = resolve);
-  requestAnimationFrame(() => animationFrame(true));
-  return animated;
-}, "waitForAnimation");
-
-// js/toUmd.ts
-init_define_process();
 
 // js/importmap.json
 var imports = {
@@ -5467,250 +5377,6 @@ var imports = {
 };
 var importmap_default = {
   imports
-};
-
-// js/toUmd.ts
-var import_localforage = __toESM(require_localforage(), 1);
-var fileCache = import_localforage.default.createInstance({
-  name: "filecache"
-});
-var imp = { ...importmap_default.imports };
-var importMasRes = {};
-Object.keys(imp).map((k2) => Object.assign(importMasRes, { [k2]: location.origin + imp[k2] }));
-var mod2 = {
-  printR(name, included) {
-    if (included[mod2.hashMap[name]])
-      return "";
-    included[mod2.hashMap[name]] = true;
-    const current = mod2.data[mod2.hashMap[name]];
-    if (!current)
-      console.error(name + " is missing!");
-    const currentCode = current.code;
-    if (!current.deps || !current.deps.length) {
-      return currentCode;
-    }
-    const myDepts = [...current.deps];
-    const depts = myDepts.map((name2) => mod2.printR(name2, included)).join(
-      " \n "
-    );
-    return depts + `
-    
-    ` + currentCode;
-  },
-  toJs: async (name) => {
-    const js = mod2.printR(name, {});
-    let reverseMap = {};
-    Object.keys(mod2.hashMap).forEach((key) => reverseMap = { ...reverseMap, [mod2.hashMap[key]]: key });
-    let modZ = {};
-    Object.keys(mod2.data).forEach((k2) => modZ = { ...modZ, [reverseMap[k2]]: k2 });
-    Object.keys(importMasRes).forEach((k2) => modZ = { ...modZ, [k2]: "getName(`" + importMasRes[k2] + "`)" });
-    const res = `
-     ${js}
-
-
-
-
-  
-  function require(name){
-
-
-      const importmap = ${JSON.stringify(importmap_default.imports)};
-      const uName = new URL(name, location.origin).toString();    
-      const urlName = new URL(name+"/index.js", location.origin).toString();
-      if (globalThis.globalNames[name]) return  globalThis.globalNames[name];     
-      
-      if (globalThis.globalNames[uName]) return  globalThis.globalNames[uName];     
-
-      if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
-      if (importmap[name]) return require(importmap[name])      
-      if (!name.includes("/npm:")){
-      const npmUrl = new URL('/npm:*'+name+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
-      return require(npmUrl);
-    }
-  }`;
-    return res;
-  },
-  last: 0,
-  hashMap: {},
-  data: {}
-};
-var findDeps = /* @__PURE__ */ __name((code) => {
-  const regex = /require\("(.+?)"\)/gm;
-  let m2;
-  const deps = [];
-  while ((m2 = regex.exec(code)) !== null) {
-    if (m2.index === regex.lastIndex) {
-      regex.lastIndex++;
-    }
-    for (const [groupIndex, match] of m2.entries()) {
-      if (groupIndex == 1) {
-        deps.push(match);
-      }
-    }
-  }
-  return deps;
-}, "findDeps");
-var toUmd = /* @__PURE__ */ __name(async (source, name) => {
-  const hash = md5(source);
-  mod2.hashMap = { ...mod2.hashMap, [name]: hash };
-  if (mod2.data[hash])
-    return mod2;
-  try {
-    mod2.data[hash] = {
-      code: (await initAndTransform(source, {
-        format: "iife",
-        keepNames: true,
-        treeShaking: true,
-        platform: "browser",
-        ignoreAnnotations: true,
-        target: "es2021",
-        define: {
-          "globalThis.workerDom": JSON.stringify(true),
-          "process.env.NODE_ENV": `"development"`,
-          "process.env.NODE_DEBUG": JSON.stringify(false),
-          "process.browser": JSON.stringify(true),
-          "process.env.DEBUG": JSON.stringify(false),
-          "isBrowser": JSON.stringify(true),
-          "isJest": JSON.stringify(false),
-          "process.env.version": '"1.1.1"',
-          global: "globalThis",
-          "process.env.DUMP_SESSION_KEYS": JSON.stringify(false)
-        },
-        loader: "ts",
-        globalName: hash
-      })).code,
-      deps: []
-    };
-  } catch {
-    mod2.data[hash] = {
-      code: (await initAndTransform(source, {
-        format: "iife",
-        keepNames: true,
-        treeShaking: true,
-        define: {
-          "globalThis.workerDom": JSON.stringify(true),
-          "process.env.NODE_ENV": `"development"`,
-          "process.env.NODE_DEBUG": JSON.stringify(false),
-          "process.browser": JSON.stringify(true),
-          "process.env.DEBUG": JSON.stringify(false),
-          "isBrowser": JSON.stringify(true),
-          "isJest": JSON.stringify(false),
-          "process.env.version": '"1.1.1"',
-          global: "globalThis",
-          "process.env.DUMP_SESSION_KEYS": JSON.stringify(false)
-        },
-        ignoreAnnotations: true,
-        target: "es2022",
-        tsconfigRaw: {
-          compilerOptions: {
-            jsx: "react-jsx",
-            useDefineForClassFields: false,
-            jsxImportSource: "@emotion/react"
-          }
-        },
-        loader: "tsx",
-        globalName: hash
-      })).code,
-      deps: []
-    };
-  }
-  mod2.data[hash].code = mod2.data[hash].code + `
-  
-  globalThis.globalNames = globalThis.globalNames || {};
-  globalThis.globalNames["${name}"] =  ${hash}  ;`;
-  mod2.data[hash].deps = findDeps(mod2.data[hash].code).map((dep) => importShim.resolve(dep, name));
-  await Promise.all(
-    mod2.data[hash].deps.map(
-      (depUrl) => fetch_or_die(depUrl).then((content) => toUmd(content, depUrl).then(async (mod4) => await mod4))
-    )
-  );
-  return mod2;
-}, "toUmd");
-var urls = {};
-var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
-  if (url.includes(`/live/`))
-    return await fetch(url).then((res) => res.text());
-  if (urls[url])
-    return urls[url];
-  const cached = await fileCache.getItem(url);
-  if (cached)
-    return cached;
-  urls[url] = urls[url] || await fetch(url).then((res) => res.text());
-  await fileCache.setItem(url, urls[url]);
-  return urls[url];
-}, "fetch_or_die");
-
-// js/runner.tsx
-Object.assign(globalThis, { transform: initAndTransform, build, toUmd });
-var debouncedSync = (0, import_lodash.default)(patchSync, 200, {
-  leading: true,
-  trailing: true,
-  maxWait: 800
-});
-var counterMax = mST().i;
-var IIFE = {};
-var esmTransform = /* @__PURE__ */ __name(async (code) => {
-  const transpiled = await initAndTransform(code, {
-    loader: "tsx",
-    format: "esm",
-    treeShaking: true,
-    platform: "browser",
-    minify: false,
-    globalName: md5(code),
-    keepNames: true,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: "react-jsx",
-        useDefineForClassFields: false,
-        jsxFragmentFactory: "Fragment",
-        jsxImportSource: "@emotion/react"
-      }
-    },
-    target: "es2022"
-  });
-  Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
-  return transpiled.code;
-}, "esmTransform");
-async function runner({ code, counter, codeSpace: codeSpace2 }) {
-  if (counter <= counterMax)
-    return;
-  counterMax = counter;
-  try {
-    const transpiledCode = await esmTransform(code);
-    const { html, css: css2 } = await render(transpiledCode, codeSpace2);
-    console.log({ html, css: css2 });
-    if (!html || !css2) {
-      return;
-    }
-    debouncedSync({
-      ...mST(),
-      code,
-      i: counter,
-      transpiled: transpiledCode,
-      html,
-      css: css2
-    });
-  } catch (error) {
-    console.error({ error });
-  } finally {
-  }
-}
-__name(runner, "runner");
-
-// js/fetchPlugin.tsx
-var fetchPlugin = {
-  name: "http",
-  setup(build2) {
-    build2.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
-      path: importShim.resolve(args.path, args.importer),
-      namespace: "http-url"
-    }));
-    build2.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
-      console.log("fetch plugin:" + args.path);
-      let contents = await fetch(args.path).then((res) => res.text());
-      return { contents };
-    });
-  }
 };
 
 // js/unpkg-path-plugin.tsx
@@ -5742,24 +5408,24 @@ var unpkgPathPlugin = {
 };
 
 // js/esbuildEsm.ts
-var import_localforage2 = __toESM(require_localforage(), 1);
-var transformCache = import_localforage2.default.createInstance({
+var import_localforage = __toESM(require_localforage(), 1);
+var transformCache = import_localforage.default.createInstance({
   name: "transformCache"
 });
-var mod3 = {
+var mod = {
   init: false,
   initialize: () => {
-    if (mod3.init !== false)
-      return mod3.init;
+    if (mod.init !== false)
+      return mod.init;
     const wasmURL = new URL(esbuild_default, location.origin).toString();
-    mod3.init = (0, import_esbuild_wasm.initialize)({
+    mod.init = (0, import_esbuild_wasm.initialize)({
       wasmURL
-    }).then(() => mod3.init = true);
-    return mod3.init;
+    }).then(() => mod.init = true);
+    return mod.init;
   }
 };
 var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
-  const initFinished = mod3.initialize();
+  const initFinished = mod.initialize();
   const cacheKey = md5(code + opts?.format);
   const item = await transformCache.getItem(cacheKey);
   if (item)
@@ -5795,7 +5461,7 @@ var define2 = {
   })
 };
 var build = /* @__PURE__ */ __name(async (codeSpace2, i2) => {
-  const initFinished = mod3.initialize();
+  const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
   const defaultOpts = {
@@ -5827,8 +5493,19 @@ function importMapReplace(codeInp) {
 }
 __name(importMapReplace, "importMapReplace");
 
+// js/wait.ts
+init_define_process();
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(delay);
+    }, delay);
+  });
+}
+__name(wait, "wait");
+
 // js/starter.tsx
-var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 function createHTML(code, fileName = "index.html") {
   const file = new File([code], fileName, {
     type: "text/html",
@@ -5978,7 +5655,7 @@ var importIt = /* @__PURE__ */ __name(async (url) => {
 if (!Object.hasOwn(globalThis, "apps")) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
 }
-var { apps: apps2, eCaches: eCaches2 } = globalThis;
+var { apps, eCaches } = globalThis;
 function AutoUpdateApp({ codeSpace: codeSpace2 }) {
   const ref = (0, import_react.useRef)(null);
   (0, import_react.useEffect)(() => {
@@ -5987,7 +5664,7 @@ function AutoUpdateApp({ codeSpace: codeSpace2 }) {
     parent = ref.current;
     runInWorker(codeSpace2, ref.current);
   }, [ref, ref.current]);
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
     "div",
     {
       ref,
@@ -6001,59 +5678,59 @@ async function appFactory(transpiled = "") {
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   const hash = md5(trp);
-  if (!apps2[hash] || !eCaches2[hash]) {
+  if (!apps[hash] || !eCaches[hash]) {
     try {
-      eCaches2[hash] = eCaches2[hash] || emotionCache_default({
+      eCaches[hash] = eCaches[hash] || emotionCache_default({
         key: hash,
         speedy: false
       });
-      eCaches2[hash].compat = void 0;
+      eCaches[hash].compat = void 0;
       console.log(`i: ${mstI}: `);
-      let mod4;
+      let mod2;
       try {
-        mod4 = await importShim(createJsBlob(trp));
+        mod2 = await importShim(createJsBlob(trp));
       } catch {
-        mod4 = new Function(trp + ` return ${trp.slice(2, 10)}`)();
+        mod2 = new Function(trp + ` return ${trp.slice(2, 10)}`)();
       }
-      const App = mod4.default;
-      apps2[hash] = ({ appId }) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { height: 100 + "%" }, id: appId, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react2.CacheProvider, { value: eCaches2[hash], children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App, {}) }, hash) }, hash);
+      const App = mod2.default;
+      apps[hash] = ({ appId }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { height: 100 + "%" }, id: appId, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.CacheProvider, { value: eCaches[hash], children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}) }, hash) }, hash);
     } catch (error) {
       if (error instanceof SyntaxError) {
         const name = error.name;
         const message = error.message;
-        apps2[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { css: import_react2.css`background-color: orange;`, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h1", { children: "Syntax Error" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h2", { children: hash }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("h2", { children: [
+        apps[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { css: import_react2.css`background-color: orange;`, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: "Syntax Error" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { children: hash }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", { children: [
             name,
             ": ",
             message
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { children: JSON.stringify({ err: error }) })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: JSON.stringify({ err: error }) })
         ] });
       } else if (error instanceof Error) {
         const name = error.name;
         const message = error.message;
-        apps2[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { css: import_react2.css`background-color: orange;`, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h1", { children: "Syntax Error" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("h2", { children: [
+        apps[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { css: import_react2.css`background-color: orange;`, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: "Syntax Error" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", { children: [
             name,
             ": ",
             message
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { children: JSON.stringify({ err: error }) })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: JSON.stringify({ err: error }) })
         ] });
       } else {
-        apps2[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { css: import_react2.css`background-color: orange;`, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("h1", { children: [
+        apps[hash] = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { css: import_react2.css`background-color: orange;`, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
           "Unknown Error: $",
           hash
         ] }) });
       }
     }
     if (transpiled !== "")
-      return apps2[hash];
+      return apps[hash];
   }
-  return apps2[hash];
+  return apps[hash];
 }
 __name(appFactory, "appFactory");
 function createJsBlob(code, fileName = "index.mjs") {
@@ -6067,13 +5744,16 @@ function createJsBlob(code, fileName = "index.mjs") {
 __name(createJsBlob, "createJsBlob");
 
 export {
+  importmap_default,
+  require_localforage,
+  initAndTransform,
+  build,
   wait,
-  runner,
   createHTML,
   runInWorker,
   importIt,
-  apps2 as apps,
-  eCaches2 as eCaches,
+  apps,
+  eCaches,
   AutoUpdateApp,
   appFactory,
   createJsBlob
