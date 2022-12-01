@@ -64,7 +64,7 @@ const define = {
     browser: true,
   }),
 };
-const build = async (codeSpace: string) => {
+const build = async (codeSpace: string, i: number) => {
   const initFinished = mod.initialize();
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
@@ -73,7 +73,7 @@ const build = async (codeSpace: string) => {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: [`./live/${codeSpace}/render.tsx`],
+    entryPoints: [`./live/${codeSpace}/render.tsx/${i}`],
     define,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin],
