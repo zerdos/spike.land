@@ -71,6 +71,9 @@ const build = async (codeSpace: string, i: number) => {
   if (initFinished !== true) await (initFinished);
   const defaultOpts: BuildOptions = {
     bundle: true,
+    loader: {
+      ".js": "tsx",
+    },
     write: false,
     format: "iife",
     entryPoints: [`./live/${codeSpace}/render.tsx/${i}`],
