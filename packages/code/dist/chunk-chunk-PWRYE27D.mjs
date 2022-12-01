@@ -5828,6 +5828,7 @@ __name(importMapReplace, "importMapReplace");
 
 // js/starter.tsx
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+globalThis.build = build;
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var worker;
 var div;
