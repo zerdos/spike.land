@@ -5867,7 +5867,7 @@ globalThis.build = async (cs, counter) => {
     if (modz[cs] > counter)
       return;
     let code = ``;
-    let iSRC = /* @__PURE__ */ __name(() => createHTML(`
+    let iSRC = /* @__PURE__ */ __name(() => `
   <html> 
   <head>
   <style>
@@ -5879,7 +5879,7 @@ globalThis.build = async (cs, counter) => {
   ${code}
   <\/script></body>
   
-  </html>`), "iSRC");
+  </html>`, "iSRC");
     const iframe = document.createElement("iframe");
     iframe.src = iSRC();
     build(codeSpace, i2).then((x2) => {
@@ -5891,7 +5891,7 @@ globalThis.build = async (cs, counter) => {
     });
     if (modz[cs] > counter)
       return;
-    iframe.src = iSRC;
+    iframe.src = iSRC();
     if (modz[cs] > counter)
       return;
     document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
