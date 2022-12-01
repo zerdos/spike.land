@@ -8303,7 +8303,7 @@
   self.addEventListener("fetch", function(event) {
     return event.respondWith((async () => {
       let url = new URL(event.request.url);
-      if (event.request.url === "example.com/importmap") {
+      if (event.request.url === "https://example.com/importmap") {
         return new Response(JSON.stringify(importmap_default), {
           status: 200,
           headers: {
