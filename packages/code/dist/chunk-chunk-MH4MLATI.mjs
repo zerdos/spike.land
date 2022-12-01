@@ -6155,9 +6155,8 @@ bc.onmessage = (event) => {
 async function moveToWorker(nameSpace, parent2) {
   const { html, css: css2, i: i2, transpiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div2 = document.createElement("div");
-  div2.setAttribute("id", `${codeSpace}-${i2}`);
   div2.style.height = "100%";
-  div2.innerHTML = `<style>${css2}</style><div id="${codeSpace}-${i2}" style="height: 100%">${html}</div>`;
+  div2.innerHTML = html;
   parent2.appendChild(div2);
   let js;
   try {

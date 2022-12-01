@@ -74,9 +74,9 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
     ? mST()
     : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = document.createElement("div");
-  div.setAttribute("id", `${codeSpace}-${i}`);
+  // div.setAttribute("id", `${codeSpace}-${i}`);
   div.style.height = "100%";
-  div.innerHTML = `<style>${css}</style><div id="${codeSpace}-${i}" style="height: 100%">${html}</div>`;
+  div.innerHTML = html;
   parent.appendChild(div);
 
   let js: string;
