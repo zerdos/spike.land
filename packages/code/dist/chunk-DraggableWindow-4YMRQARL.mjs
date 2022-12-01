@@ -10,7 +10,7 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-3XZMUL2J.mjs";
+} from "./chunk-chunk-ZBXZDTUO.mjs";
 import "./chunk-chunk-NUDDR2C5.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-RVPYAFS2.mjs";
@@ -261,7 +261,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                       children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
                         "iframe",
                         {
-                          src: `/live/${room}/public`,
+                          src: `/live/${room}/hydrated`,
                           css: import_react2.css`
     height: 100%;
     width: 100%;
