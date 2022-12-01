@@ -9,7 +9,7 @@ import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import createCache from "./emotionCache";
 import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
-import { hashCode, mST, onSessionUpdate } from "./session";
+import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
 import { toUmd } from "./toUmd";
 import { wait } from "./wait";
 import { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
@@ -76,7 +76,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
   const div = document.createElement("div");
   // div.setAttribute("id", `${codeSpace}-${i}`);
   div.style.height = "100%";
-  div.innerHTML = `<style>${css}</style>${html}`;
+  div.innerHTML = `<style>${resetCSS} ${css}</style>${html}`;
   parent.appendChild(div);
 
   let js: string;
