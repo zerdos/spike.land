@@ -57,15 +57,17 @@ globalThis.build = async (cs: string, counter: number) => {
     const iframe = document.createElement("iframe");
     iframe.src = iSRC;
     if (modz[cs] > counter) return;
-    document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.remove());
-    document.body.appendChild(iframe);
-    iframe.style.position = "fixed";
-    iframe.setAttribute("data-coder", cs);
+    document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
+    // document.body.appendChild(iframe);
+    document.getElementById(`coder-${cs}`)?.replaceWith(iframe);
+    // iframe.style.position = "fixed";
+    // iframe.setAttribute("data-coder", cs);
     iframe.style.height = "100vh";
     iframe.style.top = "0";
     iframe.style.width = "100%";
+
     if (modz[cs] > counter) {
-      iframe && iframe.remove();
+      // iframe && iframe.remove();
       return;
     }
     res(iframe);
