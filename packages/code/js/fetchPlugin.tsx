@@ -19,7 +19,7 @@ export const fetchPlugin: Plugin = {
     // files will be in the "http-url" namespace. Make sure to keep
     // the newly resolved URL in the "http-url" namespace so imports
     // inside it will also be resolved as URLs recursively.
-    build.onResolve({ filter: /.*/, namespace: "http-url" }, args => ({
+    build.onResolve({ filter: /^\.*/, namespace: "http-url" }, args => ({
       path: new URL(args.path, args.importer).toString(),
       namespace: "http-url",
     }));

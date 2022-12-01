@@ -5704,7 +5704,7 @@ var fetchPlugin = {
       path: args.path,
       namespace: "http-url"
     }));
-    build2.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
+    build2.onResolve({ filter: /^\.*/, namespace: "http-url" }, (args) => ({
       path: new URL(args.path, args.importer).toString(),
       namespace: "http-url"
     }));
