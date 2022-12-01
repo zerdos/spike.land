@@ -5847,6 +5847,7 @@ function createHTML(code, fileName = "index.html") {
 }
 __name(createHTML, "createHTML");
 var modz = {};
+var codeSpace = location.pathname.slice(1).split("/")[1];
 globalThis.build = async (cs, counter) => {
   if (modz[`${cs}-${counter}`])
     return modz[`${cs}-${counter}`];
@@ -5864,8 +5865,6 @@ globalThis.build = async (cs, counter) => {
     if (modz[cs] > counter)
       return;
     const { html, css: css2, i: i2 } = MST;
-    if (modz[cs] > counter)
-      return;
     let code = ``;
     let iSRC = /* @__PURE__ */ __name(() => createHTML(`
   <html> 
@@ -5882,13 +5881,6 @@ globalThis.build = async (cs, counter) => {
   </html>`), "iSRC");
     const iframe = document.createElement("iframe");
     iframe.src = iSRC();
-    build(codeSpace, i2).then((x2) => {
-      if (modz[cs] === counter)
-        code = x2;
-    }).then(() => {
-      if (modz[cs] === counter)
-        iframe.src = iSRC();
-    });
     if (modz[cs] > counter)
       return;
     iframe.src = iSRC();
@@ -5903,10 +5895,18 @@ globalThis.build = async (cs, counter) => {
       return;
     }
     res(iframe);
+    requestAnimationFrame(
+      () => build(codeSpace, i2).then((x2) => {
+        if (modz[cs] === counter)
+          code = x2;
+      }).then(() => {
+        if (modz[cs] === counter)
+          iframe.src = iSRC();
+      })
+    );
     return iframe;
   });
 };
-var codeSpace = location.pathname.slice(1).split("/")[1];
 var worker;
 var div;
 var parent;

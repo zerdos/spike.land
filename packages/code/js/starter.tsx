@@ -22,6 +22,7 @@ export function createHTML(code: string, fileName = "index.html") {
   return blobUrl;
 }
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
+const codeSpace = location.pathname.slice(1).split("/")[1];
 
 globalThis.build = async (cs: string, counter: number) => {
   if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
@@ -37,8 +38,6 @@ globalThis.build = async (cs: string, counter: number) => {
 
     if (modz[cs] > counter) return;
     const { html, css, i } = MST;
-
-    if (modz[cs] > counter) return;
 
     let code = ``;
 
@@ -59,11 +58,6 @@ globalThis.build = async (cs: string, counter: number) => {
 
     const iframe = document.createElement("iframe");
     iframe.src = iSRC();
-    build(codeSpace, i).then(x => {
-      if (modz[cs] === counter) code = x;
-    }).then(() => {
-      if (modz[cs] === counter) iframe.src = iSRC();
-    });
 
     if (modz[cs] > counter) return;
 
@@ -83,6 +77,13 @@ globalThis.build = async (cs: string, counter: number) => {
       return;
     }
     res(iframe);
+    requestAnimationFrame(() =>
+      build(codeSpace, i).then(x => {
+        if (modz[cs] === counter) code = x;
+      }).then(() => {
+        if (modz[cs] === counter) iframe.src = iSRC();
+      })
+    );
     return iframe;
     // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
     // iframe.setAttribute("id", `coder-${codeSpace}`);
@@ -90,7 +91,6 @@ globalThis.build = async (cs: string, counter: number) => {
     // document.body.appendChild(iframe);
   });
 };
-const codeSpace = location.pathname.slice(1).split("/")[1];
 let worker: typeof ExportedWorker;
 let div: HTMLDivElement;
 // let oldDiv = null;
