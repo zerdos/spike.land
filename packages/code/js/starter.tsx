@@ -44,7 +44,7 @@ async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     if (div) div.remove();
     div = await moveToWorker(nameSpace, parent);
     // if (oldDiv) oldDiv.remove();
-    div.setAttribute("data-shadow-dom", "closed ");
+    div.setAttribute("data-shadow-dom", "open");
 
     const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
     if (w === null) throw new Error("No worker");
