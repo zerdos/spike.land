@@ -6153,10 +6153,10 @@ bc.onmessage = (event) => {
   }
 };
 async function moveToWorker(nameSpace, parent2) {
-  const { html, i: i2, transpiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
+  const { html, css: css2, i: i2, transpiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div2 = document.createElement("div");
   div2.style.height = "100%";
-  div2.innerHTML = html;
+  div2.innerHTML = `<style>${css2}</style>${html}`;
   parent2.appendChild(div2);
   let js;
   try {
