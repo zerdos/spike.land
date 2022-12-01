@@ -38,8 +38,6 @@ globalThis.build = async (cs: string, counter: number) => {
     if (modz[cs] > counter) return;
     const { html, css, i } = MST;
 
-    
-
     if (modz[cs] > counter) return;
 
     let code = ``;
@@ -136,7 +134,10 @@ const bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    globalThis.build(nameSpace, mST().i);
+    globalThis.build(nameSpace, mST().i).then(iframe => {
+      globalThis.zBodyRef.current.innerHTML = ``;
+      globalThis.zBodyRef.current.appendChild(iframe);
+    });
 
     // runInWorker(nameSpace, parent);
   }

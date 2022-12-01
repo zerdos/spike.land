@@ -31,6 +31,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   },
 ) => {
   const [scaleRange, changeScaleRange] = useState(100);
+  const zBodyRef = useRef(null);
+  globalThis.zBodyRef = zBodyRef;
 
   const startPositions = { bottom: 0, right: 0 };
 
@@ -262,22 +264,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       height: height / devicePixelRatio,
                       scale: scaleRange / 100,
                     }}
+                    ref={zBodyRef}
                     data-test-id="z-body"
                     css={css`
                   position: relative  ;
                   overflow: auto;    
               `}
                   >
-                    <iframe
-                      id={`coder-${room}`}
-                      src={`/live/${room}/`}
-                      css={css`
-    height: 100%;
-    width: 100%;
-    border: none;
-    position: absolute;
-    `}
-                    />
                   </m.div>
                 </m.div>
                 <m.div

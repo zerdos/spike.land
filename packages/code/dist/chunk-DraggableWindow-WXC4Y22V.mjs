@@ -10,10 +10,10 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-YMKSTCFM.mjs";
-import "./chunk-chunk-IABRCIF7.mjs";
+} from "./chunk-chunk-FBZ6ID72.mjs";
+import "./chunk-chunk-7ELMGUX2.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
-import "./chunk-chunk-QL3H37WO.mjs";
+import "./chunk-chunk-772O6ZAB.mjs";
 import "./chunk-chunk-FFMS35Y7.mjs";
 import "./chunk-chunk-TIL35SAU.mjs";
 import {
@@ -68,6 +68,8 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   room
 }) => {
   const [scaleRange, changeScaleRange] = (0, import_react3.useState)(100);
+  const zBodyRef = (0, import_react3.useRef)(null);
+  globalThis.zBodyRef = zBodyRef;
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
   const [width, setWidth] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
@@ -253,24 +255,12 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                         height: height / devicePixelRatio,
                         scale: scaleRange / 100
                       },
+                      ref: zBodyRef,
                       "data-test-id": "z-body",
                       css: import_react2.css`
                   position: relative  ;
                   overflow: auto;    
-              `,
-                      children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-                        "iframe",
-                        {
-                          id: `coder-${room}`,
-                          src: `/live/${room}/`,
-                          css: import_react2.css`
-    height: 100%;
-    width: 100%;
-    border: none;
-    position: absolute;
-    `
-                        }
-                      )
+              `
                     }
                   )
                 }
