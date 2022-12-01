@@ -46,7 +46,7 @@ export const esmTransform = async (code: string) => {
 export const umdTransform = async (code: string) => {
   const transpiled = await transform(code, {
     loader: "tsx",
-    format: "iife",
+    format: "esm",
     treeShaking: true,
     platform: "browser",
     minify: false,
