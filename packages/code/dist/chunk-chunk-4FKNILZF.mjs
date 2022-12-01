@@ -5873,7 +5873,8 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   ${resetCSS}
   ${css2}</style>
   </head>
-  <body>${html}
+  <body>
+  <div id="root-${cs}" data-i="${counter}" style="height: 100%;">${html}</div>
   <script type="module">
   ${code}
   <\/script></body>
