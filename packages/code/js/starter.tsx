@@ -40,9 +40,9 @@ globalThis.build = async (codeSpace: string) => {
   </script></body>
   
   </html>`);
-  const iframe = document.getElementById(`coder-${codeSpace}`)!;
-  // ) document.createElement("iframe");
+  const iframe = document.createElement("iframe");
   iframe.src = iSRC;
+  document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
   // document.body.appendChild(iframe);
 };
 const codeSpace = location.pathname.slice(1).split("/")[1];
