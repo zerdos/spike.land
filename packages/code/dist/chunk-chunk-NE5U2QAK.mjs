@@ -6115,13 +6115,19 @@ var worker;
 var div;
 var parent;
 var lastH = "";
+var lastSuccessful = "";
 var mutex = new Mutex();
 async function runInWorker(nameSpace, _parent) {
   lastH = hashCode();
   console.log(`last hash: ${lastH}`);
   await mutex.runExclusive(async () => {
+    const current = hashCode();
     if (lastH !== hashCode()) {
       console.log(`skipping old build hash: ${lastH}`);
+      return;
+    }
+    if (current === lastSuccessful) {
+      console.log(`skipping build since it is the latest successful: ${current}`);
       return;
     }
     parent = parent || _parent;
@@ -6135,6 +6141,7 @@ async function runInWorker(nameSpace, _parent) {
     if (w2 === null)
       throw new Error("No worker");
     worker = w2;
+    lastSuccessful = current;
   });
 }
 __name(runInWorker, "runInWorker");

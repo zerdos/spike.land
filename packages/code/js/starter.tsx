@@ -20,6 +20,7 @@ let div: HTMLDivElement;
 // let oldDiv = null;
 let parent: HTMLDivElement;
 let lastH = "";
+let lastSuccessful = "";
 
 const mutex = new Mutex();
 
@@ -27,8 +28,14 @@ async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
   lastH = hashCode();
   console.log(`last hash: ${lastH}`);
   await mutex.runExclusive(async () => {
+    const current = hashCode();
     if (lastH !== hashCode()) {
       console.log(`skipping old build hash: ${lastH}`);
+      return;
+    }
+
+    if (current === lastSuccessful) {
+      console.log(`skipping build since it is the latest successful: ${current}`);
       return;
     }
 
@@ -42,6 +49,7 @@ async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
     if (w === null) throw new Error("No worker");
     worker = w;
+    lastSuccessful = current;
   });
 }
 
