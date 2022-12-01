@@ -5855,17 +5855,21 @@ function createHTML(code, fileName = "index.html") {
   return blobUrl;
 }
 __name(createHTML, "createHTML");
+var modz = {};
 globalThis.build = async (cs, counter) => {
-  let MST = {};
-  if (cs === codeSpace)
-    MST = mST();
-  else {
-    const I = counter || mST().i;
-    const MST2 = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
-  }
-  const { html, css: css2, i: i2 } = MST;
-  const code = await build(codeSpace, i2);
-  const iSRC = createHTML(`
+  if (modz[`${cs}-${counter}`])
+    return modz[`${cs}-${counter}`];
+  return modz[`${cs}-${counter}`] = new Promise(async (res) => {
+    let MST;
+    if (cs === codeSpace)
+      MST = mST();
+    else {
+      const I = counter || mST().i;
+      MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
+    }
+    const { html, css: css2, i: i2 } = MST;
+    const code = await build(codeSpace, i2);
+    const iSRC = createHTML(`
   <html> 
   <head>
   <style>
@@ -5878,14 +5882,16 @@ globalThis.build = async (cs, counter) => {
   <\/script></body>
   
   </html>`);
-  const iframe = document.createElement("iframe");
-  iframe.src = iSRC;
-  document.body.appendChild(iframe);
-  iframe.style.position = "fixed";
-  iframe.style.height = "100vh";
-  iframe.style.top = "0";
-  iframe.style.width = "100%";
-  return iframe;
+    const iframe = document.createElement("iframe");
+    iframe.src = iSRC;
+    document.body.appendChild(iframe);
+    iframe.style.position = "fixed";
+    iframe.style.height = "100vh";
+    iframe.style.top = "0";
+    iframe.style.width = "100%";
+    res(iframe);
+    return iframe;
+  });
 };
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var worker;

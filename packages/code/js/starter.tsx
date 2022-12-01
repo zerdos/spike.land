@@ -21,19 +21,22 @@ export function createHTML(code: string, fileName = "index.html") {
   const blobUrl = URL.createObjectURL(file);
   return blobUrl;
 }
+const modz: { [key: string]: null | Promise<HTMLIFrameElement> } = {};
 globalThis.build = async (cs: string, counter: number) => {
-  let MST = {};
-  if (cs === codeSpace) MST = mST();
-  else {
-    const I = counter || mST().i;
-    const MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
-  }
+  if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
+  return modz[`${cs}-${counter}`] = new Promise(async (res) => {
+    let MST;
+    if (cs === codeSpace) MST = mST();
+    else {
+      const I = counter || mST().i;
+      MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
+    }
 
-  const { html, css, i } = MST;
+    const { html, css, i } = MST;
 
-  const code = await build(codeSpace, i);
+    const code = await build(codeSpace, i);
 
-  const iSRC = createHTML(`
+    const iSRC = createHTML(`
   <html> 
   <head>
   <style>
@@ -46,19 +49,20 @@ globalThis.build = async (cs: string, counter: number) => {
   </script></body>
   
   </html>`);
-  const iframe = document.createElement("iframe");
-  iframe.src = iSRC;
-  document.body.appendChild(iframe);
-  iframe.style.position = "fixed";
-  iframe.style.height = "100vh";
-  iframe.style.top = "0";
-  iframe.style.width = "100%";
+    const iframe = document.createElement("iframe");
+    iframe.src = iSRC;
+    document.body.appendChild(iframe);
+    iframe.style.position = "fixed";
+    iframe.style.height = "100vh";
+    iframe.style.top = "0";
+    iframe.style.width = "100%";
+    res(iframe);
+    return iframe;
+    // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
+    // iframe.setAttribute("id", `coder-${codeSpace}`);
 
-  return iframe;
-  // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
-  // iframe.setAttribute("id", `coder-${codeSpace}`);
-
-  // document.body.appendChild(iframe);
+    // document.body.appendChild(iframe);
+  });
 };
 const codeSpace = location.pathname.slice(1).split("/")[1];
 let worker: typeof ExportedWorker;
