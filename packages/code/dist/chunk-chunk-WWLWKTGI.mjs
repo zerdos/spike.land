@@ -6118,9 +6118,12 @@ var lastH = "";
 var mutex = new Mutex();
 async function runInWorker(nameSpace, _parent) {
   lastH = hashCode();
+  console.log(`last hash: ${lastH}`);
   await mutex.runExclusive(async () => {
-    if (lastH !== hashCode())
+    if (lastH !== hashCode()) {
+      console.log(`skipping old build hash: ${lastH}`);
       return;
+    }
     parent = parent || _parent;
     if (worker)
       worker.terminate();

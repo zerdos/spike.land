@@ -25,8 +25,12 @@ const mutex = new Mutex();
 
 async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
   lastH = hashCode();
+  console.log(`last hash: ${lastH}`);
   await mutex.runExclusive(async () => {
-    if (lastH !== hashCode()) return;
+    if (lastH !== hashCode()) {
+      console.log(`skipping old build hash: ${lastH}`);
+      return;
+    }
 
     parent = parent || _parent;
     if (worker) worker.terminate();
