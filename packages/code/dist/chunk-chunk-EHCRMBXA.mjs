@@ -5793,7 +5793,7 @@ var define2 = {
     browser: true
   })
 };
-var build = /* @__PURE__ */ __name(async (codeSpace2) => {
+var build = /* @__PURE__ */ __name(async (codeSpace2, i2) => {
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -5801,7 +5801,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2) => {
     bundle: true,
     write: false,
     format: "iife",
-    entryPoints: [`./live/${codeSpace2}/render.tsx`],
+    entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`],
     define: define2,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin]
@@ -5837,10 +5837,10 @@ function createHTML(code, fileName = "index.html") {
   return blobUrl;
 }
 __name(createHTML, "createHTML");
-globalThis.build = async (codeSpace2) => {
-  const code = await build(codeSpace2);
-  const { mST: mST2 } = await importShim(`/live/${codeSpace2}/mST.mjs`);
-  const { html, css: css2 } = mST2;
+globalThis.build = async (codeSpace2, i2) => {
+  const { mST: mST2 } = await importShim(`/live/${codeSpace2}/mST.mjs?${i2}`);
+  const { html, css: css2, i: II } = mST2;
+  const code = await build(codeSpace2, II);
   const iSRC = createHTML(`
   <html> 
   <head>
@@ -5895,7 +5895,7 @@ var bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    globalThis.build(nameSpace);
+    globalThis.build(nameSpace, event.data.i);
     runInWorker(nameSpace, parent);
   }
 };

@@ -21,11 +21,11 @@ export function createHTML(code: string, fileName = "index.html") {
   const blobUrl = URL.createObjectURL(file);
   return blobUrl;
 }
-globalThis.build = async (codeSpace: string) => {
-  const code = await build(codeSpace);
-  const { mST } = await importShim(`/live/${codeSpace}/mST.mjs`);
+globalThis.build = async (codeSpace: string, i: number) => {
+  const { mST } = await importShim(`/live/${codeSpace}/mST.mjs?${i}`);
 
-  const { html, css } = mST;
+  const { html, css, i: II } = mST;
+  const code = await build(codeSpace, II);
 
   const iSRC = createHTML(`
   <html> 
@@ -89,7 +89,7 @@ const bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    globalThis.build(nameSpace);
+    globalThis.build(nameSpace, event.data.i);
 
     runInWorker(nameSpace, parent);
   }
