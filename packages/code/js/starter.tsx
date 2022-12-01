@@ -46,10 +46,14 @@ const createIframe = async (cs: string, counter: number) => {
   <html> 
   <head>
   <style>
+  html, body{
+    heighj: 100%
+  }
   ${resetCSS}
   ${css}</style>
   </head>
-  <body>${html}
+  <body>
+  <div id="root-${cs}" data-i="${counter}" style="height: 100%;">${html}</div>
   <script type="module">
   ${code}
   </script></body>
