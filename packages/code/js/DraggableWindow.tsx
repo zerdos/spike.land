@@ -269,6 +269,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               `}
                   >
                     <iframe
+                      id={`coder-${room}`}
                       src={`/live/${room}/`}
                       css={css`
     height: 100%;
