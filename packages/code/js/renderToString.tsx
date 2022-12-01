@@ -64,8 +64,6 @@ export const render = async (transpiled: string, codeSpace: string) => {
   );
 
   try {
-    await mod.waitForDiv(md5hash);
-    await wait(200);
     const html = await mod.waitForDiv(md5hash);
 
     if (!html) return { html: null, css: null };
