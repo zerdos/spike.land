@@ -5848,7 +5848,7 @@ async function runInWorker(nameSpace, _parent) {
       console.log(`skipping build since it is the latest successful: ${current}`);
       return;
     }
-    parent = _parent || parent;
+    parent = _parent || parent || document.getElementById("root");
     if (div)
       div.remove();
     div = await moveToWorker(nameSpace, parent);
@@ -5872,62 +5872,9 @@ async function moveToWorker(nameSpace, parent2) {
   const { html, css: css2, i: i2, transpiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div2 = document.createElement("div");
   div2.style.height = "100%";
-  div2.innerHTML = `<style>${resetCSS} ${css2}</style>${html}`;
-  parent2.innerHTML = "";
+  parent2.innerHTML = `<style>${resetCSS} ${css2}</style>${html}`;
   parent2.appendChild(div2);
-  let js;
-  try {
-    js = await build(codeSpace);
-  } catch {
-    console.log("inhouse umd build");
-    const k2 = md5(transpiled);
-    const mod22 = await toUmd(
-      `
-    import {createRoot} from "react-dom/client"
-    import { CacheProvider } from "@emotion/react";
-    import createCache from "@emotion/cache";
-    import { ErrorBoundary } from "react-error-boundary";
-    import App from "${location.origin}/live/${codeSpace}/index.js/${i2}"
-
-
-  let parent = document.getElementById("${codeSpace}-${i2}");
-
-  if (!parent) {
-    parent =  document.createElement("div");
-    parent.setAttribute("id", "${codeSpace}-${i2}");
-    document.body.appendChild(parent);
-  }
-  parent.style.height="100%";
-  parent.innerHTML=\`<div id="${codeSpace}-${k2}"></div>\`;  
-  const div = document.getElementById("${codeSpace}-${k2}");
-  div.style.height="100%";
-  const root = createRoot(div );
-
-  const cache = createCache({
-    key: "${k2}",
-    container: parent,
-    speedy: false
-  });
-
- cache.compat = undefined;
-
-root.render( <ErrorBoundary
-  fallbackRender={({ error }) => (
-    <div role="alert">
-      <div>Oh no</div>
-      <pre>{error.message}</pre>
-    </div>
-  )}>
-  <CacheProvider value={cache}>
-    <App />
-  </CacheProvider>
-  </ErrorBoundary>);
-
-  `,
-      `${codeSpace}-${i2}`
-    );
-    js = await mod22.toJs(`${codeSpace}-${i2}`);
-  }
+  const js = await build(codeSpace);
   const src = createJsBlob(js);
   div2.setAttribute("src", src);
   return div2;

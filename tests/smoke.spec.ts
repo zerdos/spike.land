@@ -1,9 +1,5 @@
 import { expect, test } from "@playwright/test";
 
-const RCA = fetch("https://testing.spike.land/live/rca/index.tsx").then(
-  (res) => res.text(),
-).then((x) => x.split("\n").map((x) => x.trim()).join("\n "));
-
 test("basic test", async ({ page }) => {
   await page.goto("https://testing.spike.land");
   await wait(5500);
@@ -22,14 +18,15 @@ test("screens test", async ({ page }) => {
 
   const message = "HELLO" + Math.random() + "Foo..." + Math.random();
   await editor.dblclick();
+  await wait(10);
   await page.keyboard.press("Control+A");
   await page.keyboard.press("Delete");
   await wait(1000);
   await editor.type(`
-  import {css} from "@emotion/react";
-  export default () => <header css={css\`
-  color: red;
-  \`} ${message} </header>`);
+
+
+  export default () => <header css>${message}</header>`);
+
   await wait(1500);
   await expect(page.locator("[data-test-id=z-body]")).toHaveText(message, {
     timeout: 1000,
@@ -45,7 +42,11 @@ test("rca test", async ({ page }) => {
 
   const editor = page.locator("[data-test-id=editor]");
 
-  const message = await RCA;
+  const RCA = await fetch("https://testing.spike.land/live/rca/index.tsx").then(
+    (res) => res.text(),
+  ).then((x) => x.split("\n").map((x) => x.trim()).join("\n "));
+
+  const message = RCA;
   await editor.dblclick();
 
   await page.keyboard.press("Control+A");
