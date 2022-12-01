@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
@@ -38,9 +38,12 @@ globalThis.build = async (cs: string, counter: number) => {
     if (modz[cs] > counter) return;
     const { html, css, i } = MST;
 
-    const code = await build(codeSpace, i);
     if (modz[cs] > counter) return;
-    const iSRC = createHTML(`
+
+    let code = ``;
+
+    let iSRC = () =>
+      createHTML(`
   <html> 
   <head>
   <style>
@@ -49,12 +52,21 @@ globalThis.build = async (cs: string, counter: number) => {
   </head>
   <body>${html}
   <script>
-  ${code}
+ c
   </script></body>
   
   </html>`);
-    if (modz[cs] > counter) return;
+
     const iframe = document.createElement("iframe");
+    iframe.src = iSRC();
+    build(codeSpace, i).then(x => {
+      if (modz[cs] === counter) code = x;
+    }).then(() => {
+      if (modz[cs] === counter) iframe.src = iSRC();
+    });
+
+    if (modz[cs] > counter) return;
+
     iframe.src = iSRC;
     if (modz[cs] > counter) return;
     document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
@@ -63,7 +75,7 @@ globalThis.build = async (cs: string, counter: number) => {
     // iframe.style.position = "fixed";
     // iframe.setAttribute("data-coder", cs);
     iframe.style.height = "100vh";
-    iframe.style.top = "0";
+    iframe.style.border = "none";
     iframe.style.width = "100%";
 
     if (modz[cs] > counter) {
@@ -245,10 +257,12 @@ export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
   const ref = useRef(null);
+  const [hash, setHash] = useState(hashCode());
   useEffect(() => {
     if (ref.current === null) return;
     parent = ref.current;
     build(codeSpace, mST().i);
+    setHash(hashCode());
     // runInWorker(codeSpace, ref.current);
   }, [ref, ref.current]);
   // let starterI = 1 * (document.getElementById(`root-${codeSpace}`)!.getAttribute(
@@ -290,6 +304,7 @@ export function AutoUpdateApp(
   return (
     <div
       ref={ref}
+      key={hash}
       css={css`
     height: 100%`}
     />
