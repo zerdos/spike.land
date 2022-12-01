@@ -13,6 +13,7 @@ import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
 import type { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
 
+globalThis.build = build;
 const codeSpace = location.pathname.slice(1).split("/")[1];
 let worker: typeof ExportedWorker;
 let div: HTMLDivElement;
