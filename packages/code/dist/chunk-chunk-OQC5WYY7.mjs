@@ -18,7 +18,7 @@ import {
   patchSync,
   require_lodash,
   resetCSS
-} from "./chunk-chunk-LC2N6673.mjs";
+} from "./chunk-chunk-MIF2TXG6.mjs";
 import {
   require_react
 } from "./chunk-chunk-UX3KX3KY.mjs";
@@ -5756,10 +5756,6 @@ var unpkgPathPlugin = {
 };
 
 // js/esbuildEsm.ts
-var import_localforage2 = __toESM(require_localforage(), 1);
-var transformCache = import_localforage2.default.createInstance({
-  name: "transformCache"
-});
 var mod3 = {
   init: false,
   initialize: () => {
@@ -5774,16 +5770,11 @@ var mod3 = {
 };
 var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
   const initFinished = mod3.initialize();
-  const cacheKey = md5(code + opts?.format);
-  const item = await transformCache.getItem(cacheKey);
-  if (item)
-    return { code: item };
   if (initFinished !== true)
     await initFinished;
   const transformed = await (0, import_esbuild_wasm.transform)(code, { ...opts, define: { ...define2, ...opts?.define ? opts.define : {} } });
   const trp = importMapReplace(transformed.code);
-  const res = { code: `/*${md5(code)}*/` + trp };
-  await transformCache.setItem(cacheKey, res.code);
+  const res = { code: `/** ${mST().i}: ${md5(code)} */` + trp };
   return res;
 }, "initAndTransform");
 var define2 = {
@@ -5885,7 +5876,7 @@ globalThis.build = async (cs, counter) => {
   </head>
   <body>${html}
   <script>
- c
+  ${code}
   <\/script></body>
   
   </html>`), "iSRC");

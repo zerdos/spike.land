@@ -5902,7 +5902,7 @@ function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
 __name(createPatch, "createPatch");
-var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync(sess), "patchSync");
+var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess, i: mST().i + 1 }), "patchSync");
 
 export {
   require_lodash,

@@ -52,7 +52,7 @@ globalThis.build = async (cs: string, counter: number) => {
   </head>
   <body>${html}
   <script>
- c
+  ${code}
   </script></body>
   
   </html>`);

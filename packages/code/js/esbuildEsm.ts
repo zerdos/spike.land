@@ -3,12 +3,10 @@ import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
 import { md5 } from "./md5";
+
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
-import localForage from "localforage";
-const transformCache = localForage.createInstance({
-  name: "transformCache",
-});
+import { mST } from "session";
 
 const mod = {
   init: false as (boolean | Promise<void>),
@@ -25,19 +23,13 @@ const mod = {
 export const initAndTransform = async (code: string, opts: TransformOptions) => {
   const initFinished = mod.initialize();
 
-  const cacheKey = md5(code + opts?.format!);
-
-  const item = await transformCache.getItem<string>(cacheKey);
-  if (item) return { code: item };
-
   if (initFinished !== true) await (initFinished);
 
   const transformed = await transform(code, { ...opts, define: { ...define, ...(opts?.define ? opts.define : {}) } });
 
   const trp = importMapReplace(transformed.code); // .split("dataset").join("attributes");
 
-  const res = { code: `/*${md5(code)}*/` + trp };
-  await transformCache.setItem(cacheKey, res.code);
+  const res = { code: `/** ${mST().i}: ${md5(code)} */` + trp };
   return res;
 };
 
