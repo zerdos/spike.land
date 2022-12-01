@@ -10,7 +10,6 @@ import createCache from "./emotionCache";
 import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
-import { toUmd } from "./toUmd";
 import { wait } from "./wait";
 import type { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
 
@@ -39,7 +38,7 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
       return;
     }
 
-    parent = _parent || parent;
+    parent = _parent || parent || document.getElementById("root");
     // if (worker) worker.();
     if (div) div.remove();
     div = await moveToWorker(nameSpace, parent);
@@ -76,68 +75,11 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
   const div = document.createElement("div");
   // div.setAttribute("id", `${codeSpace}-${i}`);
   div.style.height = "100%";
-  div.innerHTML = `<style>${resetCSS} ${css}</style>${html}`;
-  parent.innerHTML = "";
+  parent.innerHTML = `<style>${resetCSS} ${css}</style>${html}`;
+
   parent.appendChild(div);
 
-  let js: string;
-  try {
-    js = await build(codeSpace);
-  } catch {
-    console.log("inhouse umd build");
-    const k = md5(transpiled);
-    const mod2 = await toUmd(
-      `
-    import {createRoot} from "react-dom/client"
-    import { CacheProvider } from "@emotion/react";
-    import createCache from "@emotion/cache";
-    import { ErrorBoundary } from "react-error-boundary";
-    import App from "${location.origin}/live/${codeSpace}/index.js/${i}"
-
-
-  let parent = document.getElementById("${codeSpace}-${i}");
-
-  if (!parent) {
-    parent =  document.createElement("div");
-    parent.setAttribute("id", "${codeSpace}-${i}");
-    document.body.appendChild(parent);
-  }
-  parent.style.height="100%";
-  parent.innerHTML=\`<div id="${codeSpace}-${k}"></div>\`;  
-  const div = document.getElementById("${codeSpace}-${k}");
-  div.style.height="100%";
-  const root = createRoot(div );
-
-  const cache = createCache({
-    key: "${k}",
-    container: parent,
-    speedy: false
-  });
-
- cache.compat = undefined;
-
-root.render( <ErrorBoundary
-  fallbackRender={({ error }) => (
-    <div role="alert">
-      <div>Oh no</div>
-      <pre>{error.message}</pre>
-    </div>
-  )}>
-  <CacheProvider value={cache}>
-    <App />
-  </CacheProvider>
-  </ErrorBoundary>);
-
-  `,
-      `${codeSpace}-${i}`,
-    );
-
-    // try{
-    //  js = await build(codeSpace)
-    // } catch{
-    js = await mod2.toJs(`${codeSpace}-${i}`);
-    // }
-  }
+  const js = await build(codeSpace);
 
   const src = createJsBlob(js);
 
