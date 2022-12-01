@@ -5838,11 +5838,16 @@ function createHTML(code, fileName = "index.html") {
   return blobUrl;
 }
 __name(createHTML, "createHTML");
-globalThis.build = async (codeSpace2, i2) => {
-  const I = i2 || mST().i;
-  const { mST: MST } = await importShim(`/live/${codeSpace2}/mST.mjs?${I}`);
-  const { html, css: css2, i: II } = MST;
-  const code = await build(codeSpace2, i2);
+globalThis.build = async (cs, counter) => {
+  let MST = {};
+  if (cs === codeSpace)
+    MST = mST();
+  else {
+    const I = counter || mST().i;
+    const MST2 = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
+  }
+  const { html, css: css2, i: i2 } = MST;
+  const code = await build(codeSpace, i2);
   const iSRC = createHTML(`
   <html> 
   <head>
@@ -5858,6 +5863,11 @@ globalThis.build = async (codeSpace2, i2) => {
   </html>`);
   const iframe = document.createElement("iframe");
   iframe.src = iSRC;
+  document.body.appendChild(iframe);
+  iframe.style.position = "fixed";
+  iframe.style.height = "100vh";
+  iframe.style.top = "0";
+  iframe.style.width = "100%";
   return iframe;
 };
 var codeSpace = location.pathname.slice(1).split("/")[1];
