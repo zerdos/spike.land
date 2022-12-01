@@ -53,14 +53,14 @@ async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
   });
 }
 
-// const bc = new BroadcastChannel(location.origin);
+const bc = new BroadcastChannel(location.origin);
 
-// bc.onmessage = (event) => {
-//   const nameSpace = location.pathname.slice(1).split("/")[1];
-//   if (event.data.codeSpace === nameSpace) {
-//     runInWorker(nameSpace, parent);
-//   }
-// };
+bc.onmessage = (event) => {
+  const nameSpace = location.pathname.slice(1).split("/")[1];
+  if (event.data.codeSpace === nameSpace) {
+    runInWorker(nameSpace, parent);
+  }
+};
 
 // import importmap from "./importmap.json";
 // const imp: { [key: string]: string } = { ...importmap.imports };
