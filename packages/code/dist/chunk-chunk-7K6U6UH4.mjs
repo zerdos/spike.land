@@ -5857,6 +5857,7 @@ globalThis.build = async (codeSpace2, i2) => {
   const iframe = document.createElement("iframe");
   iframe.src = iSRC;
   document.getElementById(`coder-${codeSpace2}`)?.replaceWith(iframe);
+  iframe.setAttribute("id", `coder-${codeSpace2}`);
 };
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var worker;
