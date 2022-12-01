@@ -5700,16 +5700,8 @@ __name(runner, "runner");
 var fetchPlugin = {
   name: "http",
   setup(build2) {
-    build2.onResolve({ filter: /^https?:\/\// }, (args) => ({
-      path: args.path,
-      namespace: "http-url"
-    }));
-    build2.onResolve({ filter: /^\.*/, namespace: "http-url" }, (args) => ({
-      path: new URL(args.path, args.importer).toString(),
-      namespace: "http-url"
-    }));
-    build2.onResolve({ filter: /^.*/, namespace: "http-url" }, (args) => ({
-      path: new URL(args.path, location.origin + "/npm:/").toString(),
+    build2.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
+      path: importShim.resolve(args.path, args.importer),
       namespace: "http-url"
     }));
     build2.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
