@@ -67,7 +67,7 @@ const build = async (codeSpace: string, i: number) => {
       ".js": "tsx",
     },
     write: false,
-    format: "iife",
+    format: "esm",
     entryPoints: [`./live/${codeSpace}/render.tsx/${i}`],
     define,
     tsconfig: "./tsconfig.json",

@@ -5809,7 +5809,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2) => {
       ".js": "tsx"
     },
     write: false,
-    format: "iife",
+    format: "esm",
     entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`],
     define: define2,
     tsconfig: "./tsconfig.json",
