@@ -7,7 +7,6 @@ import { Mutex } from "async-mutex";
 
 import { upgradeElement } from "worker-dom/dist/main.mjs";
 import createCache from "./emotionCache";
-import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate } from "./session";
 import { toUmd } from "./toUmd";
@@ -58,7 +57,7 @@ bc.onmessage = (event) => {
 // importShim.addImportMap({ imports: res });
 
 async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
-  const { html, css, i, code, transpiled } = nameSpace === codeSpace
+  const { html, css, i, transpiled } = nameSpace === codeSpace
     ? mST()
     : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = document.createElement("div");
@@ -270,7 +269,6 @@ export function AutoUpdateApp(
 
 export async function appFactory(
   transpiled = "",
-  codeSpace: string,
 ): Promise<FC<{ appId: string }>> {
   // }
   const { transpiled: mstTranspiled, i: mstI } = mST();
