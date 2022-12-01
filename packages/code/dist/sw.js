@@ -8259,6 +8259,24 @@
   var import_url = __toESM(require_url5(), 1);
   var import_string = __toESM(require_string5(), 1);
   var import_self = __toESM(require_self4(), 1);
+
+  // js/importmap.json
+  var importmap_default = {
+    imports: {
+      "framer-motion": "/motion.mjs",
+      "@emotion/react": "/emotion.mjs",
+      "@emotion/cache": "/emotionCache.mjs",
+      "@emotion/styled": "/emotionStyled.mjs",
+      "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+      react: "/reactMod.mjs",
+      "react/jsx-runtime": "/jsx.mjs",
+      "react-dom": "/reactDom.mjs",
+      "react-dom/client": "/reactDomClient.mjs",
+      "react-error-boundary": "/reactMod.mjs"
+    }
+  };
+
+  // js/sw.ts
   var import_localforage = __toESM(require_localforage(), 1);
   self.memoryCache = self.memoryCache || import_localforage.default.createInstance({
     name: "memoryCache"
@@ -8285,6 +8303,16 @@
   self.addEventListener("fetch", function(event) {
     return event.respondWith((async () => {
       let url = new URL(event.request.url);
+      if (event.request.url === "example.com/importmap") {
+        return new Response(JSON.stringify(importmap_default), {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8"
+          }
+        });
+      }
       let isChunk = url.pathname.includes("chunk-");
       if (files && files[url.pathname.slice(1)]) {
         isChunk = true;
