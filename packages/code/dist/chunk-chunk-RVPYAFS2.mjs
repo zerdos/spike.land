@@ -6158,6 +6158,7 @@ async function moveToWorker(nameSpace, parent2) {
   const div2 = document.createElement("div");
   div2.style.height = "100%";
   div2.innerHTML = `<style>${resetCSS} ${css2}</style>${html}`;
+  parent2.innerHTML = "";
   parent2.appendChild(div2);
   let js;
   try {
