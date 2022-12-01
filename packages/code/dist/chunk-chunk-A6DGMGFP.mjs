@@ -16,7 +16,8 @@ import {
   md5,
   onSessionUpdate,
   patchSync,
-  require_lodash
+  require_lodash,
+  resetCSS
 } from "./chunk-chunk-LC2N6673.mjs";
 import {
   require_react
@@ -6156,7 +6157,7 @@ async function moveToWorker(nameSpace, parent2) {
   const { html, css: css2, i: i2, transpiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div2 = document.createElement("div");
   div2.style.height = "100%";
-  div2.innerHTML = `<style>${css2}</style>${html}`;
+  div2.innerHTML = `<style>${resetCSS} ${css2}</style>${html}`;
   parent2.appendChild(div2);
   let js;
   try {
