@@ -5873,10 +5873,10 @@ globalThis.build = async (cs, counter) => {
     if (modz[cs] > counter)
       return;
     const { html, css: css2, i: i2 } = MST;
-    const code = await build(codeSpace, i2);
     if (modz[cs] > counter)
       return;
-    const iSRC = createHTML(`
+    let code = ``;
+    let iSRC = /* @__PURE__ */ __name(() => createHTML(`
   <html> 
   <head>
   <style>
@@ -5885,18 +5885,29 @@ globalThis.build = async (cs, counter) => {
   </head>
   <body>${html}
   <script>
-  ${code}
+ c
   <\/script></body>
   
-  </html>`);
+  </html>`), "iSRC");
+    const iframe = document.createElement("iframe");
+    iframe.src = iSRC();
+    build(codeSpace, i2).then((x2) => {
+      if (modz[cs] === counter)
+        code = x2;
+    }).then(() => {
+      if (modz[cs] === counter)
+        iframe.src = iSRC();
+    });
     if (modz[cs] > counter)
       return;
-    const iframe = document.createElement("iframe");
     iframe.src = iSRC;
     if (modz[cs] > counter)
       return;
     document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
     document.getElementById(`coder-${cs}`)?.replaceWith(iframe);
+    iframe.style.height = "100vh";
+    iframe.style.border = "none";
+    iframe.style.width = "100%";
     if (modz[cs] > counter) {
       return;
     }
@@ -6014,11 +6025,13 @@ if (!Object.hasOwn(globalThis, "apps")) {
 var { apps: apps2, eCaches: eCaches2 } = globalThis;
 function AutoUpdateApp({ codeSpace: codeSpace2 }) {
   const ref = (0, import_react.useRef)(null);
+  const [hash, setHash] = (0, import_react.useState)(hashCode());
   (0, import_react.useEffect)(() => {
     if (ref.current === null)
       return;
     parent = ref.current;
     build(codeSpace2, mST().i);
+    setHash(hashCode());
   }, [ref, ref.current]);
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
     "div",
@@ -6026,7 +6039,8 @@ function AutoUpdateApp({ codeSpace: codeSpace2 }) {
       ref,
       css: import_react2.css`
     height: 100%`
-    }
+    },
+    hash
   );
 }
 __name(AutoUpdateApp, "AutoUpdateApp");
