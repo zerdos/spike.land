@@ -271,6 +271,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   overflow: auto;    
               `}
                   >
+                    <div />
                   </m.div>
                 </m.div>
                 <m.div
