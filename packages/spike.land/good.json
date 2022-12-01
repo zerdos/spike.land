@@ -47,66 +47,54 @@
       ]
     },
     "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
-      "bytes": 4584,
+      "bytes": 4616,
       "imports": []
     },
-    "src/staticContent.mjs": {
-      "bytes": 84,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs": {
+      "bytes": 2138,
       "imports": []
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/js/importmap.json": {
-      "bytes": 261,
-      "imports": []
-    },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs": {
-      "bytes": 1726,
-      "imports": []
-    },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AZHCEBCB.mjs": {
-      "bytes": 5443,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-LC2N6673.mjs": {
+      "bytes": 198236,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs",
-          "kind": "import-statement"
-        }
-      ]
-    },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AUL7LWHA.mjs": {
-      "bytes": 175729,
-      "imports": [
-        {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AZHCEBCB.mjs",
-          "kind": "import-statement"
-        },
-        {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs",
           "kind": "import-statement"
         }
       ]
     },
     "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs": {
-      "bytes": 434,
+      "bytes": 413,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AUL7LWHA.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-LC2N6673.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AZHCEBCB.mjs",
-          "kind": "import-statement"
-        },
-        {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs",
           "kind": "import-statement"
         }
       ]
+    },
+    "src/staticContent.mjs": {
+      "bytes": 406,
+      "imports": [
+        {
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/js/importmap.json": {
+      "bytes": 437,
+      "imports": []
     },
     "src/handleErrors.ts": {
       "bytes": 1109,
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 16434,
+      "bytes": 16833,
       "imports": [
         {
           "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -135,11 +123,7 @@
       ]
     },
     "src/index.html": {
-      "bytes": 3685,
-      "imports": []
-    },
-    "src/rateLimiterClient.ts": {
-      "bytes": 2945,
+      "bytes": 2576,
       "imports": []
     },
     "src/iife.html": {
@@ -160,7 +144,7 @@
       ]
     },
     "src/chatRoom.ts": {
-      "bytes": 20861,
+      "bytes": 24141,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -171,11 +155,11 @@
           "kind": "import-statement"
         },
         {
-          "path": "src/rateLimiterClient.ts",
+          "path": "src/iife.html",
           "kind": "import-statement"
         },
         {
-          "path": "src/iife.html",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs",
           "kind": "import-statement"
         },
         {
@@ -193,7 +177,7 @@
       ]
     },
     "src/rateLimiter.ts": {
-      "bytes": 1864,
+      "bytes": 1066,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -205,8 +189,12 @@
       "bytes": 148,
       "imports": []
     },
+    "src/r2bucket.ts": {
+      "bytes": 960,
+      "imports": []
+    },
     "src/index.ts": {
-      "bytes": 166,
+      "bytes": 210,
       "imports": [
         {
           "path": "src/chat.ts",
@@ -223,6 +211,10 @@
         {
           "path": "src/users.ts",
           "kind": "import-statement"
+        },
+        {
+          "path": "src/r2bucket.ts",
+          "kind": "import-statement"
         }
       ]
     }
@@ -233,6 +225,7 @@
       "exports": [
         "Code",
         "CodeRateLimiter",
+        "R2",
         "Users",
         "default"
       ],
@@ -257,34 +250,28 @@
           "bytesInOutput": 8926
         },
         "src/chat.ts": {
-          "bytesInOutput": 14251
+          "bytesInOutput": 14283
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
-          "bytesInOutput": 4503
+          "bytesInOutput": 4527
+        },
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs": {
+          "bytesInOutput": 1506
+        },
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-LC2N6673.mjs": {
+          "bytesInOutput": 197163
         },
         "src/staticContent.mjs": {
-          "bytesInOutput": 56
+          "bytesInOutput": 305
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/js/importmap.json": {
-          "bytesInOutput": 282
-        },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-2DK73MPQ.mjs": {
-          "bytesInOutput": 1381
-        },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AZHCEBCB.mjs": {
-          "bytesInOutput": 5342
-        },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-AUL7LWHA.mjs": {
-          "bytesInOutput": 174879
+          "bytesInOutput": 458
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
         },
         "src/index.html": {
-          "bytesInOutput": 3726
-        },
-        "src/rateLimiterClient.ts": {
-          "bytesInOutput": 931
+          "bytesInOutput": 2602
         },
         "src/iife.html": {
           "bytesInOutput": 2236
@@ -296,19 +283,22 @@
           "bytesInOutput": 11149
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 16365
+          "bytesInOutput": 19512
         },
         "src/index.ts": {
           "bytesInOutput": 33
         },
         "src/rateLimiter.ts": {
-          "bytesInOutput": 475
+          "bytesInOutput": 439
         },
         "src/users.ts": {
           "bytesInOutput": 91
+        },
+        "src/r2bucket.ts": {
+          "bytesInOutput": 959
         }
       },
-      "bytes": 291788
+      "bytes": 311259
     }
   }
 }

@@ -39,7 +39,7 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
       return;
     }
 
-    parent = parent || _parent;
+    parent = _parent || parent;
     // if (worker) worker.();
     if (div) div.remove();
     div = await moveToWorker(nameSpace, parent);

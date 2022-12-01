@@ -5848,7 +5848,7 @@ async function runInWorker(nameSpace, _parent) {
       console.log(`skipping build since it is the latest successful: ${current}`);
       return;
     }
-    parent = parent || _parent;
+    parent = _parent || parent;
     if (div)
       div.remove();
     div = await moveToWorker(nameSpace, parent);

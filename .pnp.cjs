@@ -681,6 +681,17 @@ const RAW_RUNTIME_STATE =
           ["undici", "npm:5.9.1"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-cache-npm-2.11.0-7a26e8ec1b-9.zip/node_modules/@miniflare/cache/",\
+        "packageDependencies": [\
+          ["@miniflare/cache", "npm:2.11.0"],\
+          ["@miniflare/core", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
+          ["http-cache-semantics", "npm:4.1.0"],\
+          ["undici", "npm:5.9.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@miniflare/cli-parser", [\
@@ -689,6 +700,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@miniflare/cli-parser", "npm:2.10.0"],\
           ["@miniflare/shared", "npm:2.10.0"],\
+          ["kleur", "npm:4.1.5"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-cli-parser-npm-2.11.0-62e0d3f679-9.zip/node_modules/@miniflare/cli-parser/",\
+        "packageDependencies": [\
+          ["@miniflare/cli-parser", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
           ["kleur", "npm:4.1.5"]\
         ],\
         "linkType": "HARD"\
@@ -711,6 +731,23 @@ const RAW_RUNTIME_STATE =
           ["urlpattern-polyfill", "npm:4.0.3"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-core-npm-2.11.0-1d44714553-9.zip/node_modules/@miniflare/core/",\
+        "packageDependencies": [\
+          ["@miniflare/core", "npm:2.11.0"],\
+          ["@iarna/toml", "npm:2.2.5"],\
+          ["@miniflare/queues", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
+          ["@miniflare/watcher", "npm:2.11.0"],\
+          ["busboy", "npm:1.6.0"],\
+          ["dotenv", "npm:10.0.0"],\
+          ["kleur", "npm:4.1.5"],\
+          ["set-cookie-parser", "npm:2.5.1"],\
+          ["undici", "npm:5.9.1"],\
+          ["urlpattern-polyfill", "npm:4.0.3"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@miniflare/d1", [\
@@ -720,6 +757,15 @@ const RAW_RUNTIME_STATE =
           ["@miniflare/d1", "npm:2.10.0"],\
           ["@miniflare/core", "npm:2.10.0"],\
           ["@miniflare/shared", "npm:2.10.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-d1-npm-2.11.0-46b541959f-9.zip/node_modules/@miniflare/d1/",\
+        "packageDependencies": [\
+          ["@miniflare/d1", "npm:2.11.0"],\
+          ["@miniflare/core", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -735,6 +781,17 @@ const RAW_RUNTIME_STATE =
           ["undici", "npm:5.9.1"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-durable-objects-npm-2.11.0-128b29ce87-9.zip/node_modules/@miniflare/durable-objects/",\
+        "packageDependencies": [\
+          ["@miniflare/durable-objects", "npm:2.11.0"],\
+          ["@miniflare/core", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
+          ["@miniflare/storage-memory", "npm:2.11.0"],\
+          ["undici", "npm:5.9.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@miniflare/html-rewriter", [\
@@ -744,6 +801,17 @@ const RAW_RUNTIME_STATE =
           ["@miniflare/html-rewriter", "npm:2.10.0"],\
           ["@miniflare/core", "npm:2.10.0"],\
           ["@miniflare/shared", "npm:2.10.0"],\
+          ["html-rewriter-wasm", "npm:0.4.1"],\
+          ["undici", "npm:5.9.1"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-html-rewriter-npm-2.11.0-9dbf5b00be-9.zip/node_modules/@miniflare/html-rewriter/",\
+        "packageDependencies": [\
+          ["@miniflare/html-rewriter", "npm:2.11.0"],\
+          ["@miniflare/core", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
           ["html-rewriter-wasm", "npm:0.4.1"],\
           ["undici", "npm:5.9.1"]\
         ],\
@@ -765,6 +833,21 @@ const RAW_RUNTIME_STATE =
           ["youch", "npm:2.2.2"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-http-server-npm-2.11.0-2acadb0cc6-9.zip/node_modules/@miniflare/http-server/",\
+        "packageDependencies": [\
+          ["@miniflare/http-server", "npm:2.11.0"],\
+          ["@miniflare/core", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
+          ["@miniflare/web-sockets", "npm:2.11.0"],\
+          ["kleur", "npm:4.1.5"],\
+          ["selfsigned", "npm:2.1.1"],\
+          ["undici", "npm:5.9.1"],\
+          ["ws", "virtual:c692730c7e79939d63305341d535f314f4eca0c43487bf31ef86347393fc7ec75f886f4924efaccfd3a50d3324283131e11245b10cb5d79e18e9a2f64e1dab59#npm:8.11.0"],\
+          ["youch", "npm:2.2.2"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@miniflare/kv", [\
@@ -775,6 +858,14 @@ const RAW_RUNTIME_STATE =
           ["@miniflare/shared", "npm:2.10.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-kv-npm-2.11.0-e8323790a0-9.zip/node_modules/@miniflare/kv/",\
+        "packageDependencies": [\
+          ["@miniflare/kv", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@miniflare/queues", [\
@@ -783,6 +874,14 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@miniflare/queues", "npm:2.10.0"],\
           ["@miniflare/shared", "npm:2.10.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-queues-npm-2.11.0-1410ce2c21-9.zip/node_modules/@miniflare/queues/",\
+        "packageDependencies": [\
+          ["@miniflare/queues", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -796,6 +895,15 @@ const RAW_RUNTIME_STATE =
           ["undici", "npm:5.9.1"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-r2-npm-2.11.0-7c3d7ad198-9.zip/node_modules/@miniflare/r2/",\
+        "packageDependencies": [\
+          ["@miniflare/r2", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
+          ["undici", "npm:5.9.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@miniflare/runner-vm", [\
@@ -804,6 +912,14 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@miniflare/runner-vm", "npm:2.10.0"],\
           ["@miniflare/shared", "npm:2.10.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-runner-vm-npm-2.11.0-365290c6ab-9.zip/node_modules/@miniflare/runner-vm/",\
+        "packageDependencies": [\
+          ["@miniflare/runner-vm", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -818,6 +934,16 @@ const RAW_RUNTIME_STATE =
           ["cron-schedule", "npm:3.0.6"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-scheduler-npm-2.11.0-4bac1afb09-9.zip/node_modules/@miniflare/scheduler/",\
+        "packageDependencies": [\
+          ["@miniflare/scheduler", "npm:2.11.0"],\
+          ["@miniflare/core", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
+          ["cron-schedule", "npm:3.0.6"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@miniflare/shared", [\
@@ -825,6 +951,17 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@miniflare-shared-npm-2.10.0-bffa2dd2d0-9.zip/node_modules/@miniflare/shared/",\
         "packageDependencies": [\
           ["@miniflare/shared", "npm:2.10.0"],\
+          ["@types/better-sqlite3", "npm:7.6.2"],\
+          ["kleur", "npm:4.1.5"],\
+          ["npx-import", "npm:1.1.4"],\
+          ["picomatch", "npm:2.3.1"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-shared-npm-2.11.0-dd4dbc2fd7-9.zip/node_modules/@miniflare/shared/",\
+        "packageDependencies": [\
+          ["@miniflare/shared", "npm:2.11.0"],\
           ["@types/better-sqlite3", "npm:7.6.2"],\
           ["kleur", "npm:4.1.5"],\
           ["npx-import", "npm:1.1.4"],\
@@ -843,6 +980,16 @@ const RAW_RUNTIME_STATE =
           ["@miniflare/storage-file", "npm:2.10.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-sites-npm-2.11.0-4f99d5e42b-9.zip/node_modules/@miniflare/sites/",\
+        "packageDependencies": [\
+          ["@miniflare/sites", "npm:2.11.0"],\
+          ["@miniflare/kv", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
+          ["@miniflare/storage-file", "npm:2.11.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@miniflare/storage-file", [\
@@ -852,6 +999,15 @@ const RAW_RUNTIME_STATE =
           ["@miniflare/storage-file", "npm:2.10.0"],\
           ["@miniflare/shared", "npm:2.10.0"],\
           ["@miniflare/storage-memory", "npm:2.10.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-storage-file-npm-2.11.0-9ec38a56fd-9.zip/node_modules/@miniflare/storage-file/",\
+        "packageDependencies": [\
+          ["@miniflare/storage-file", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
+          ["@miniflare/storage-memory", "npm:2.11.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -864,6 +1020,14 @@ const RAW_RUNTIME_STATE =
           ["@miniflare/shared", "npm:2.10.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-storage-memory-npm-2.11.0-0cd4649b91-9.zip/node_modules/@miniflare/storage-memory/",\
+        "packageDependencies": [\
+          ["@miniflare/storage-memory", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@miniflare/watcher", [\
@@ -872,6 +1036,14 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@miniflare/watcher", "npm:2.10.0"],\
           ["@miniflare/shared", "npm:2.10.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-watcher-npm-2.11.0-9a31af8e38-9.zip/node_modules/@miniflare/watcher/",\
+        "packageDependencies": [\
+          ["@miniflare/watcher", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -883,6 +1055,17 @@ const RAW_RUNTIME_STATE =
           ["@miniflare/web-sockets", "npm:2.10.0"],\
           ["@miniflare/core", "npm:2.10.0"],\
           ["@miniflare/shared", "npm:2.10.0"],\
+          ["undici", "npm:5.9.1"],\
+          ["ws", "virtual:c692730c7e79939d63305341d535f314f4eca0c43487bf31ef86347393fc7ec75f886f4924efaccfd3a50d3324283131e11245b10cb5d79e18e9a2f64e1dab59#npm:8.11.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/@miniflare-web-sockets-npm-2.11.0-da897bf0de-9.zip/node_modules/@miniflare/web-sockets/",\
+        "packageDependencies": [\
+          ["@miniflare/web-sockets", "npm:2.11.0"],\
+          ["@miniflare/core", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
           ["undici", "npm:5.9.1"],\
           ["ws", "virtual:c692730c7e79939d63305341d535f314f4eca0c43487bf31ef86347393fc7ec75f886f4924efaccfd3a50d3324283131e11245b10cb5d79e18e9a2f64e1dab59#npm:8.11.0"]\
         ],\
@@ -1463,6 +1646,7 @@ const RAW_RUNTIME_STATE =
           ["@spike.land/code", "virtual:64b5d961cd44c16a34b7816cbfe5fd17444f5a63e765a7f2e679323b77f9aea34be80a6d7a6d3f0a012b66af37b324af52829546bf4761da8e342fe778838b81#workspace:packages/code"],\
           ["avl", "npm:1.5.3"],\
           ["esbuild", "npm:0.15.16"],\
+          ["miniflare", "virtual:64b5d961cd44c16a34b7816cbfe5fd17444f5a63e765a7f2e679323b77f9aea34be80a6d7a6d3f0a012b66af37b324af52829546bf4761da8e342fe778838b81#npm:2.11.0"],\
           ["typescript", "patch:typescript@npm%3A4.9.3#optional!builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
           ["wrangler", "npm:2.5.0"]\
         ],\
@@ -5566,6 +5750,13 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["npm:2.11.0", {\
+        "packageLocation": "./.yarn/global/cache/miniflare-npm-2.11.0-95c9a14c0d-9.zip/node_modules/miniflare/",\
+        "packageDependencies": [\
+          ["miniflare", "npm:2.11.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["virtual:1f3d01af8f82c3629cc38d5934048ef7d8e97eaadbb8e35cff6da7c195c20f513d71b84373ffaa072a2fa871ca4d4ba691e2564eaa4721c33a37f01f65151480#npm:2.10.0", {\
         "packageLocation": "./.yarn/__virtual__/miniflare-virtual-23eaa0b317/0/global/cache/miniflare-npm-2.10.0-b4257fb572-9.zip/node_modules/miniflare/",\
         "packageDependencies": [\
@@ -5588,6 +5779,48 @@ const RAW_RUNTIME_STATE =
           ["@miniflare/storage-memory", "npm:2.10.0"],\
           ["@miniflare/storage-redis", null],\
           ["@miniflare/web-sockets", "npm:2.10.0"],\
+          ["@types/cron-schedule", null],\
+          ["@types/ioredis", null],\
+          ["@types/miniflare__storage-redis", null],\
+          ["cron-schedule", null],\
+          ["ioredis", null],\
+          ["kleur", "npm:4.1.5"],\
+          ["semiver", "npm:1.1.0"],\
+          ["source-map-support", "npm:0.5.21"],\
+          ["undici", "npm:5.9.1"]\
+        ],\
+        "packagePeers": [\
+          "@miniflare/storage-redis",\
+          "@types/cron-schedule",\
+          "@types/ioredis",\
+          "@types/miniflare__storage-redis",\
+          "cron-schedule",\
+          "ioredis"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:64b5d961cd44c16a34b7816cbfe5fd17444f5a63e765a7f2e679323b77f9aea34be80a6d7a6d3f0a012b66af37b324af52829546bf4761da8e342fe778838b81#npm:2.11.0", {\
+        "packageLocation": "./.yarn/__virtual__/miniflare-virtual-9908d48220/0/global/cache/miniflare-npm-2.11.0-95c9a14c0d-9.zip/node_modules/miniflare/",\
+        "packageDependencies": [\
+          ["miniflare", "virtual:64b5d961cd44c16a34b7816cbfe5fd17444f5a63e765a7f2e679323b77f9aea34be80a6d7a6d3f0a012b66af37b324af52829546bf4761da8e342fe778838b81#npm:2.11.0"],\
+          ["@miniflare/cache", "npm:2.11.0"],\
+          ["@miniflare/cli-parser", "npm:2.11.0"],\
+          ["@miniflare/core", "npm:2.11.0"],\
+          ["@miniflare/d1", "npm:2.11.0"],\
+          ["@miniflare/durable-objects", "npm:2.11.0"],\
+          ["@miniflare/html-rewriter", "npm:2.11.0"],\
+          ["@miniflare/http-server", "npm:2.11.0"],\
+          ["@miniflare/kv", "npm:2.11.0"],\
+          ["@miniflare/queues", "npm:2.11.0"],\
+          ["@miniflare/r2", "npm:2.11.0"],\
+          ["@miniflare/runner-vm", "npm:2.11.0"],\
+          ["@miniflare/scheduler", "npm:2.11.0"],\
+          ["@miniflare/shared", "npm:2.11.0"],\
+          ["@miniflare/sites", "npm:2.11.0"],\
+          ["@miniflare/storage-file", "npm:2.11.0"],\
+          ["@miniflare/storage-memory", "npm:2.11.0"],\
+          ["@miniflare/storage-redis", null],\
+          ["@miniflare/web-sockets", "npm:2.11.0"],\
           ["@types/cron-schedule", null],\
           ["@types/ioredis", null],\
           ["@types/miniflare__storage-redis", null],\

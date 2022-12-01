@@ -8,7 +8,7 @@ test("basic test", async ({ page }) => {
   await page.goto("https://testing.spike.land");
   await wait(5500);
 
-  await expect(page).toHaveURL("https://testing.spike.land/live/coder ");
+  // await expect(page).toHaveURL("https://testing.spike.land/live/coder ");
 
   await page.screenshot({ path: `editor.png` });
 });
@@ -16,7 +16,6 @@ test("basic test", async ({ page }) => {
 test("screens test", async ({ page }) => {
   await page.goto("https://testing.spike.land/live/pwtest1");
   await wait(500);
-
   await expect(page).toHaveURL("https://testing.spike.land/live/pwtest1");
 
   const editor = page.locator("[data-test-id=editor]");
@@ -26,9 +25,11 @@ test("screens test", async ({ page }) => {
   await page.keyboard.press("Control+A");
   await page.keyboard.press("Delete");
   await wait(1000);
-  await editor.type(
-    `export default () => <header css=""> ${message} </header>;`,
-  );
+  await editor.type(`
+  import {css} from "@emotion/react";
+  export default () => <header css={css\`
+  color: red;
+  \`} ${message} </header>`);
   await wait(1500);
   await expect(page.locator("[data-test-id=z-body]")).toHaveText(message, {
     timeout: 1000,
@@ -50,10 +51,7 @@ test("rca test", async ({ page }) => {
   await page.keyboard.press("Control+A");
   await page.keyboard.press("Delete");
 
-  await editor.type(`export default ()=> <div css={}>
-  <h1>Hello You</h1> 
-  </div>
-  `);
+  await editor.type(message);
 
   await wait(1500);
 
