@@ -24,7 +24,7 @@ let lastSuccessful = "";
 
 const mutex = new Mutex();
 
-async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
+export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
   lastH = hashCode();
   console.log(`last hash: ${lastH}`);
   await mutex.runExclusive(async () => {
