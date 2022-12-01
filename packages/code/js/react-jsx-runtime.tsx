@@ -70,7 +70,7 @@ importShim.addImportMap({ imports: res });
   if (location.pathname.includes("/hydrated")) {
     const { runInWorker } = await importShim<{}, { runInWorker: (codeSpace: string) => void }>("./starter.mjs");
 
-    runInWorker(codeSpace);
+    runInWorker(codeSpace, rootEl);
   }
 })();
 // const runtime = () => {
