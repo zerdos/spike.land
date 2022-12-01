@@ -12,10 +12,10 @@ import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
 import { toUmd } from "./toUmd";
 import { wait } from "./wait";
-import { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
+import type { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
-let worker: ExportedWorker;
+let worker: typeof ExportedWorker;
 let div: HTMLDivElement;
 // let oldDiv = null;
 let parent: HTMLDivElement;
@@ -40,7 +40,7 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     }
 
     parent = parent || _parent;
-    if (worker) worker.terminate();
+    // if (worker) worker.();
     if (div) div.remove();
     div = await moveToWorker(nameSpace, parent);
     // if (oldDiv) oldDiv.remove();
