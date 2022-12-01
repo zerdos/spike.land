@@ -5466,6 +5466,9 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2) => {
     await initFinished;
   const defaultOpts = {
     bundle: true,
+    loader: {
+      ".js": "tsx"
+    },
     write: false,
     format: "iife",
     entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`],
