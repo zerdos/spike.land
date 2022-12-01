@@ -41,7 +41,13 @@ importShim.addImportMap({ imports: res });
   //   return;
   // }
   await (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
-  if (location.pathname.includes("/public")) {
+  if (location.pathname.includes(`/live/${codeSpace}/hydrated`)) {
+    const { runInWorker } = await importShim<{}, { runInWorker: (codeSpace: string, root: HTMLElement) => void }>(
+      "./starter.mjs",
+    );
+
+    runInWorker(codeSpace, document.getElementById("root")!);
+  } else if (location.pathname.includes(`/live/${codeSpace}/`)) {
     const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
 
     const render = (async () => {
@@ -66,13 +72,6 @@ importShim.addImportMap({ imports: res });
         }
       }
     };
-  }
-  if (location.pathname.includes("/hydrated")) {
-    const { runInWorker } = await importShim<{}, { runInWorker: (codeSpace: string, root: HTMLElement) => void }>(
-      "./starter.mjs",
-    );
-
-    runInWorker(codeSpace, document.getElementById("root")!);
   }
 })();
 // const runtime = () => {
