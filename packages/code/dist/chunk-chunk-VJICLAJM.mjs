@@ -11,7 +11,7 @@ import {
   initAndTransform,
   toUmd,
   wait
-} from "./chunk-chunk-RJ4WHYRB.mjs";
+} from "./chunk-chunk-M55HDQRY.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
@@ -24019,7 +24019,7 @@ var render = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
   mod.codeSpace = codeSpace;
   const md5hash = md5(transpiled);
   if (!apps[md5hash])
-    await appFactory(transpiled, codeSpace);
+    await appFactory(transpiled);
   mod.wait = 1;
   const cleanup = mod.setApp(
     md5hash
