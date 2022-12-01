@@ -13,7 +13,37 @@ import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
 import type { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
 
-globalThis.build = build;
+export function createHTML(code: string, fileName = "index.html") {
+  const file = new File([code], fileName, {
+    type: "text/html",
+    lastModified: Date.now(),
+  });
+  const blobUrl = URL.createObjectURL(file);
+  return blobUrl;
+}
+globalThis.build = async (codeSpace: string) => {
+  const code = await build(codeSpace);
+  const { mST } = await importShim(`/live/${codeSpace}/mST.mjs`);
+
+  const { html, css } = mST;
+
+  const iSRC = createHTML(`
+  <html> 
+  <head>
+  <style>
+  ${resetCSS}
+  ${css}</style>
+  </head>
+  <body>${html}
+  <script>
+  ${code}
+  </script></body>
+  
+  </html>`);
+  const iframe = document.createElement("iframe");
+  iframe.src = iSRC;
+  document.body.appendChild(iframe);
+};
 const codeSpace = location.pathname.slice(1).split("/")[1];
 let worker: typeof ExportedWorker;
 let div: HTMLDivElement;
