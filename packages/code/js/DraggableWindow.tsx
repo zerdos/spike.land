@@ -67,6 +67,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //  }, [terminalRef]);
 
   useEffect(() => {
+    if (!zBodyRef.current) return;
+    zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = async () => {
       setPositions({
         bottom: window.innerHeight * 0.2,
@@ -270,9 +272,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   position: relative  ;
                   overflow: auto;    
               `}
-                  >
-                    <div />
-                  </m.div>
+                  />
                 </m.div>
                 <m.div
                   css={css`

@@ -10,7 +10,7 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-5JGYADUC.mjs";
+} from "./chunk-chunk-FYQZMZFW.mjs";
 import "./chunk-chunk-3P7SDZKJ.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-7HCMTWSG.mjs";
@@ -77,6 +77,9 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const videoRef = (0, import_react3.useRef)(null);
   const scale = scaleRange / 100;
   (0, import_react3.useEffect)(() => {
+    if (!zBodyRef.current)
+      return;
+    zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = /* @__PURE__ */ __name(async () => {
       setPositions({
         bottom: window.innerHeight * 0.2,
