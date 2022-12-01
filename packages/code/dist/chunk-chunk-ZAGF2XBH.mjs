@@ -5895,15 +5895,9 @@ globalThis.build = async (cs, counter) => {
     iframe.src = iSRC;
     if (modz[cs] > counter)
       return;
-    document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.remove());
-    document.body.appendChild(iframe);
-    iframe.style.position = "fixed";
-    iframe.setAttribute("data-coder", cs);
-    iframe.style.height = "100vh";
-    iframe.style.top = "0";
-    iframe.style.width = "100%";
+    document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
+    document.getElementById(`coder-${cs}`)?.replaceWith(iframe);
     if (modz[cs] > counter) {
-      iframe && iframe.remove();
       return;
     }
     res(iframe);
