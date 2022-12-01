@@ -6018,15 +6018,16 @@ if (!Object.hasOwn(globalThis, "apps")) {
 }
 var { apps: apps2, eCaches: eCaches2 } = globalThis;
 function AutoUpdateApp({ codeSpace: codeSpace2 }) {
-  const ref = (0, import_react.useRef)(null);
+  const ref = (0, import_react.useRef)(globalThis.zBodyRef);
+  globalThis.zBodyRef = ref;
   const [hash, setHash] = (0, import_react.useState)(hashCode());
   (0, import_react.useEffect)(() => {
     if (ref.current === null)
       return;
     parent = ref.current;
     build(codeSpace2, mST().i).then((iframe) => {
-      globalThis.zBodyRef.current.innerHTML = ``;
-      globalThis.zBodyRef.current.appendChild(iframe);
+      ref.current.innerHTML = ``;
+      ref.current.appendChild(iframe);
     });
     setHash(hashCode());
   }, [ref, ref.current]);
