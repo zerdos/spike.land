@@ -20,9 +20,6 @@ tag = "v1" # Should be unique for each entry
 new_classes = ["Users"] # Array of new classes
 
 
-[[r2_buckets]]
-binding = 'r2_bucket' 
-bucket_name = 'ze3w'
 
 
 
@@ -43,9 +40,4 @@ bindings = [
     { name = "CODE", class_name = "Code" },
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
-
-[[env.testing.r2_buckets]]
-binding = 'r2_bucket' 
-bucket_name = 'ze3w'
-
 

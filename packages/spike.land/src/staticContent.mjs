@@ -1,5 +1,4 @@
 import { md5 } from "@spike.land/code/js/session";
-
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 
 const files = JSON.parse(ASSET_MANIFEST);

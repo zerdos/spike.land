@@ -30,7 +30,7 @@ export const RCA = () => (
       >
         🔥
       </div>
-      ---d--.dd------
+      -----------
     </motion.div>
     <p>
       Hey! <br /> Try to do some msdodify <code>this</code> page.
