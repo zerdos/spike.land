@@ -6157,6 +6157,7 @@ async function moveToWorker(nameSpace, parent2) {
   try {
     js = await build(codeSpace);
   } catch {
+    console.log("inhouse umd build");
     const k2 = md5(transpiled);
     const mod22 = await toUmd(
       `
