@@ -20,6 +20,5 @@
     "types": ["@cloudflare/workers-types"]
   },
   "include": [
-    "src/*"
-  ]
+    "src/*" ]
 }

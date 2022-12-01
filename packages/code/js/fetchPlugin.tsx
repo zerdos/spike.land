@@ -1,4 +1,5 @@
 import type { Plugin } from "esbuild-wasm";
+import { esmTransform } from "runner";
 // import localForage from "localforage";
 
 const fetchCache = await caches.open("fetchcache");
@@ -51,7 +52,8 @@ export const fetchPlugin: Plugin = {
       };
 
       const req = new Request(args.path);
-      const contents = await getRequest(req).then(x => x.text());
+      let contents = await getRequest(req).then(x => x.text());
+      if (args.path.indexOf(".tsx") !== -1) contents = await esmTransform(contents);
 
       return { contents };
     });

@@ -306,7 +306,7 @@ export class Code {
       
         let parent = document.getElementById("${codeSpace}-${i}");
       
-        if (!parent) {
+        if (!parent) {  
           parent =  document.createElement("div");
           parent.setAttribute("id", "${codeSpace}-${i}");
           document.body.appendChild(parent);
