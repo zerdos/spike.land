@@ -41,7 +41,7 @@ importShim.addImportMap({ imports: res });
   //   return;
   // }
   await (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
-  if (location.pathname.includes("/hydrated") || location.pathname.includes("/public")) {
+  if (location.pathname.includes("/public")) {
     const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
 
     const render = (async () => {
