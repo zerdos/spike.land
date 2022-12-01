@@ -2,11 +2,12 @@ import {
   AutoUpdateApp,
   appFactory,
   apps,
+  createHTML,
   createJsBlob,
   eCaches,
   importIt,
   runInWorker
-} from "./chunk-chunk-PWRYE27D.mjs";
+} from "./chunk-chunk-KLKLL4WU.mjs";
 import "./chunk-chunk-FFMS35Y7.mjs";
 import "./chunk-chunk-TIL35SAU.mjs";
 import "./chunk-chunk-RNJNNLQS.mjs";
@@ -24,6 +25,7 @@ export {
   AutoUpdateApp,
   appFactory,
   apps,
+  createHTML,
   createJsBlob,
   eCaches,
   importIt,

@@ -5828,7 +5828,36 @@ __name(importMapReplace, "importMapReplace");
 
 // js/starter.tsx
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-globalThis.build = build;
+function createHTML(code, fileName = "index.html") {
+  const file = new File([code], fileName, {
+    type: "text/html",
+    lastModified: Date.now()
+  });
+  const blobUrl = URL.createObjectURL(file);
+  return blobUrl;
+}
+__name(createHTML, "createHTML");
+globalThis.build = async (codeSpace2) => {
+  const code = await build(codeSpace2);
+  const { mST: mST2 } = await importShim(`/live/${codeSpace2}/mST.mjs`);
+  const { html, css: css2 } = mST2;
+  const iSRC = createHTML(`
+  <html> 
+  <head>
+  <style>
+  ${resetCSS}
+  ${css2}</style>
+  </head>
+  <body>${html}
+  <script>
+  ${code}
+  <\/script></body>
+  
+  </html>`);
+  const iframe = document.createElement("iframe");
+  iframe.src = iSRC;
+  document.body.appendChild(iframe);
+};
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var worker;
 var div;
@@ -6027,6 +6056,7 @@ __name(createJsBlob, "createJsBlob");
 export {
   wait,
   runner,
+  createHTML,
   runInWorker,
   importIt,
   apps2 as apps,
