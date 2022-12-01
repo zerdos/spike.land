@@ -5838,9 +5838,10 @@ function createHTML(code, fileName = "index.html") {
 }
 __name(createHTML, "createHTML");
 globalThis.build = async (codeSpace2, i2) => {
-  const { mST: mST2 } = await importShim(`/live/${codeSpace2}/mST.mjs?${i2}`);
-  const { html, css: css2, i: II } = mST2;
-  const code = await build(codeSpace2, II);
+  const I = i2 || mST().i;
+  const { mST: MST } = await importShim(`/live/${codeSpace2}/mST.mjs?${I}`);
+  const { html, css: css2, i: II } = MST;
+  const code = await build(codeSpace2, i2);
   const iSRC = createHTML(`
   <html> 
   <head>

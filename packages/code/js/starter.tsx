@@ -22,10 +22,12 @@ export function createHTML(code: string, fileName = "index.html") {
   return blobUrl;
 }
 globalThis.build = async (codeSpace: string, i: number) => {
-  const { mST } = await importShim(`/live/${codeSpace}/mST.mjs?${i}`);
+  const I = i || mST().i;
+  const { mST: MST } = await importShim(`/live/${codeSpace}/mST.mjs?${I}`);
 
-  const { html, css, i: II } = mST;
-  const code = await build(codeSpace, II);
+  const { html, css, i: II } = MST;
+
+  const code = await build(codeSpace, i);
 
   const iSRC = createHTML(`
   <html> 
