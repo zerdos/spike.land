@@ -5707,7 +5707,7 @@ var fetchPlugin = {
     }));
     build2.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       console.log("fetch plugin:" + args.path);
-      let contents = await esmTransform(await fetch(args.path).then((res) => res.text()));
+      let contents = await fetch(args.path).then((res) => res.text());
       return { contents };
     });
   }

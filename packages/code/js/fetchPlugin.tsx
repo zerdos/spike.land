@@ -1,4 +1,7 @@
 import type { Plugin } from "esbuild-wasm";
+const transformCache = localForage.createInstance({
+  name: "transformCache",
+});
 import { esmTransform } from "./runner";
 // import type * as esbuild from "esbuild-wasm";
 
@@ -35,7 +38,7 @@ export const fetchPlugin: Plugin = {
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       // importShim.resolve(args.path, args.importer)
       console.log("fetch plugin:" + args.path);
-      let contents = (await esmTransform(await fetch(args.path).then(res => res.text())));
+      let contents = (await fetch(args.path).then(res => res.text()));
       return { contents };
     });
   },
