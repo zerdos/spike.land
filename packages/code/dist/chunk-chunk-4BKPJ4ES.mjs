@@ -5774,7 +5774,7 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
     await initFinished;
   const transformed = await (0, import_esbuild_wasm.transform)(code, { ...opts, define: { ...define2, ...opts?.define ? opts.define : {} } });
   const trp = importMapReplace(transformed.code);
-  const res = { code: `/** ${mST().i}: ${md5(code)} */` + trp };
+  const res = { code: `/*${md5(code)}*/` + trp + `/*${mST().i}*/` };
   return res;
 }, "initAndTransform");
 var define2 = {

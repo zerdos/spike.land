@@ -29,7 +29,7 @@ export const initAndTransform = async (code: string, opts: TransformOptions) => 
 
   const trp = importMapReplace(transformed.code); // .split("dataset").join("attributes");
 
-  const res = { code: `/** ${mST().i}: ${md5(code)} */` + trp };
+  const res = { code: `/*${md5(code)}*/` + trp + `/*${mST().i}*/` };
   return res;
 };
 
