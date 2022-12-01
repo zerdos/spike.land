@@ -24025,8 +24025,6 @@ var render = /* @__PURE__ */ __name(async (transpiled, codeSpace) => {
     md5hash
   );
   try {
-    await mod.waitForDiv(md5hash);
-    await wait(200);
     const html = await mod.waitForDiv(md5hash);
     if (!html)
       return { html: null, css: null };
