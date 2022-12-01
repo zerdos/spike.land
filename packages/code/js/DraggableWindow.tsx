@@ -269,7 +269,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               `}
                   >
                     <iframe
-                      src={`/live/${room}/public`}
+                      src={`/live/${room}/hydrated`}
                       css={css`
     height: 100%;
     width: 100%;
