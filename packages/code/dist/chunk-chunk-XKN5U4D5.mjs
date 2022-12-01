@@ -5848,7 +5848,7 @@ function createHTML(code, fileName = "index.html") {
 __name(createHTML, "createHTML");
 var modz = {};
 var codeSpace = location.pathname.slice(1).split("/")[1];
-globalThis.build = async (cs, counter) => {
+var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   if (modz[`${cs}-${counter}`])
     return modz[`${cs}-${counter}`];
   return modz[`${cs}-${counter}`] = new Promise(async (res) => {
@@ -5906,7 +5906,7 @@ globalThis.build = async (cs, counter) => {
     );
     return iframe;
   });
-};
+}, "createIframe");
 var worker;
 var div;
 var parent;
@@ -5943,7 +5943,7 @@ var bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    globalThis.build(nameSpace, mST().i).then((iframe) => {
+    createIframe(nameSpace, mST().i).then((iframe) => {
       globalThis.zBodyRef.current.innerHTML = ``;
       globalThis.zBodyRef.current.appendChild(iframe);
     });
@@ -6025,7 +6025,7 @@ function AutoUpdateApp({ codeSpace: codeSpace2 }) {
     if (ref.current === null)
       return;
     parent = ref.current;
-    build(codeSpace2, mST().i).then((iframe) => {
+    createIframe(codeSpace2, mST().i).then((iframe) => {
       ref.current.innerHTML = ``;
       ref.current.appendChild(iframe);
     });
