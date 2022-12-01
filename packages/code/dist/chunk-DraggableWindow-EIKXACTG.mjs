@@ -10,7 +10,7 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-5QU3Y4FS.mjs";
+} from "./chunk-chunk-XYIUV4HH.mjs";
 import "./chunk-chunk-7O57OUBU.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-A6DGMGFP.mjs";
@@ -255,10 +255,21 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                       },
                       "data-test-id": "z-body",
                       css: import_react2.css`
-                  position: relative;
+                  position: relative  ;
                   overflow: auto;    
               `,
-                      children
+                      children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                        "iframe",
+                        {
+                          src: `/live/${room}/public`,
+                          css: import_react2.css`
+    height: 100%;
+    width: 100%;
+    border: none;
+    position: absolute;
+    `
+                        }
+                      )
                     }
                   )
                 }

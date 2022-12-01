@@ -30,6 +30,16 @@ importShim.addImportMap({ imports: res });
     };
     return;
   }
+  // if (location.pathname.includes("hydrated")) {
+  //   bc.onmessage = (event) => {
+  //     if (event.data.codeSpace === codeSpace) {
+  //       const { html, css } = event.data.sess;
+  //       i = event.data.sess.i;
+  //       rootEl.innerHTML = `<style>${css}</style>${html}`;
+  //     }
+  //   };
+  //   return;
+  // }
   await (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
   if (location.pathname.includes("/hydrated") || location.pathname.includes("/public")) {
     const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
