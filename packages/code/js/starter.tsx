@@ -42,8 +42,7 @@ globalThis.build = async (cs: string, counter: number) => {
 
     let code = ``;
 
-    let iSRC = () =>
-      createHTML(`
+    let iSRC = () => (`
   <html> 
   <head>
   <style>
@@ -67,7 +66,7 @@ globalThis.build = async (cs: string, counter: number) => {
 
     if (modz[cs] > counter) return;
 
-    iframe.src = iSRC;
+    iframe.src = iSRC();
     if (modz[cs] > counter) return;
     document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
     // document.body.appendChild(iframe);
