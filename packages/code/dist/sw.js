@@ -8324,7 +8324,7 @@
       const myCache = url.pathname.includes("npm:/v") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") || isChunk ? chunkCache = chunkCache || await caches.open("chunks") : fileCache = fileCache || await caches.open(`fileCache`);
       if (Date.now() - lastChecked > 4e4) {
         lastChecked = Date.now();
-        setTimeout(getCacheName);
+        setTimeout(() => getCacheName());
       }
       let request = event.request;
       const cacheKey = new Request(
