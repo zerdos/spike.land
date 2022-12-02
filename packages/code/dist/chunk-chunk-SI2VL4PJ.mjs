@@ -5413,11 +5413,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     incremental: true,
     format: "esm",
     entryPoints: [
-      `./live/${codeSpace2}/render.tsx?i=${i2}`,
-      "./emotion.mjs",
-      "./emotionCache.mjs",
-      "./reactMod.mjs",
-      "./reactDom.mjs"
+      `./live/${codeSpace2}/render.tsx/${i2}`
     ],
     define: define2,
     tsconfig: "./tsconfig.json",
