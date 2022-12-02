@@ -5412,7 +5412,17 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     splitting: true,
     incremental: true,
     format: "esm",
-    entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`, "./react-jsx-runtime.js", "./reactDomClient.mjs"],
+    entryPoints: [
+      `./live/${codeSpace2}/render.tsx/${i2}`,
+      "",
+      "./reactDomClient.mjs",
+      "./emotion.mjs",
+      "./motion.mjs",
+      "./emotionCache.mjs",
+      "./emotionStyled.mjs",
+      "./reactMod.mjs",
+      "./reactDom.mjs"
+    ],
     define: define2,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin]
