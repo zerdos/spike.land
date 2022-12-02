@@ -10,7 +10,7 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-SMWS7BIW.mjs";
+} from "./chunk-chunk-L7D3EQ65.mjs";
 import "./chunk-chunk-L56VCNLM.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-FBNMMGIL.mjs";
@@ -35,7 +35,7 @@ import {
   domAnimation,
   domMax,
   m
-} from "./chunk-chunk-WWM5RW73.mjs";
+} from "./chunk-chunk-LKHY26RX.mjs";
 import "./chunk-chunk-M3XF32XQ.mjs";
 import {
   require_react
@@ -55,7 +55,7 @@ var import_react3 = __toESM(require_react(), 1);
 init_define_process();
 var import_react = __toESM(require_react(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-WZSSB6TW.mjs"));
+var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-NPIWOHSF.mjs"));
 var QRButton = /* @__PURE__ */ __name(({ url }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "qr" }), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LQR, { url }) }), "QRButton");
 
 // js/DraggableWindow.tsx
