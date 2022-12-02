@@ -5,12 +5,12 @@ import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 
-import { upgradeElement } from "./worker-dom/dist/main.mjs";
 import createCache from "./emotionCache";
 import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
+import { upgradeElement } from "./worker-dom/dist/main.mjs";
 import type { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
 
 export function createHTML(code: string, fileName = "index.html") {
@@ -44,7 +44,7 @@ export const createIframe = async (cs: string, counter: number) => {
       else {
         const I = counter || mST().i;
 
-        MST = (await importShim<>(`/live/${cs}/mST.mjs?${I}`)).mST;
+        MST = (await importShim<{}, { mS }>(`/live/${cs}/mST.mjs?${I}`)).mST;
       }
 
       if (signal.aborted) return;
