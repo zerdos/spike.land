@@ -27,9 +27,9 @@ export const fetchPlugin: Plugin = {
       path: importShim.resolve(args.path, args.importer),
       namespace: "http-url",
     }));
-    build.onResolve({ filter: /\.ttcf*/, namespace: "http-url" }, (args) => ({
+    build.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
       path: importShim.resolve(args.path, args.importer),
-      namespace: "http-url",
+      namespace: "ttf",
     }));
 
     // build.onResolve({ filter: /^.*/, namespace: "http-url" }, args => ({
@@ -40,7 +40,7 @@ export const fetchPlugin: Plugin = {
     // from the internet. This has just enough logic to be able to
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
-    build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
+    build.onLoad({ filter: /.*/ }, async (args) => {
       // importShim.resolve(args.path, args.importer)
 
       const getRequest = async (req: Request) => {
@@ -56,7 +56,18 @@ export const fetchPlugin: Plugin = {
       };
 
       const req = new Request(args.path);
-      let contents = await getRequest(req).then((x) => x.text());
+      let response = await getRequest(req);
+
+      if (args.namespace === "ttf") {
+        let contents = response.blob();
+
+        return {
+          contents: contents,
+          loader: "dataurl",
+        };
+      }
+
+      let contents = await response.text();
 
       if (args.path.indexOf(".tsx") !== -1) {
         contents = await esmTransform(contents);

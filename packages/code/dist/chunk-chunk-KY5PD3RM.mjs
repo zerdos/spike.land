@@ -5271,24 +5271,32 @@ var fetchPlugin = {
       path: importShim.resolve(args.path, args.importer),
       namespace: "http-url"
     }));
-    build2.onResolve({ filter: /\.ttcf*/, namespace: "http-url" }, (args) => ({
+    build2.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
       path: importShim.resolve(args.path, args.importer),
-      namespace: "http-url"
+      namespace: "ttf"
     }));
-    build2.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
+    build2.onLoad({ filter: /.*/ }, async (args) => {
       const getRequest = /* @__PURE__ */ __name(async (req2) => {
-        let response = await fetchCache.match(req2);
-        if (response)
-          return response;
-        response = await fetch(req2);
-        if (!response || !response.ok)
-          return response;
-        response = new Response(response.body, response);
-        await fetchCache.put(req2, response.clone());
-        return response;
+        let response2 = await fetchCache.match(req2);
+        if (response2)
+          return response2;
+        response2 = await fetch(req2);
+        if (!response2 || !response2.ok)
+          return response2;
+        response2 = new Response(response2.body, response2);
+        await fetchCache.put(req2, response2.clone());
+        return response2;
       }, "getRequest");
       const req = new Request(args.path);
-      let contents = await getRequest(req).then((x2) => x2.text());
+      let response = await getRequest(req);
+      if (args.namespace === "ttf") {
+        let contents2 = response.blob();
+        return {
+          contents: contents2,
+          loader: "dataurl"
+        };
+      }
+      let contents = await response.text();
       if (args.path.indexOf(".tsx") !== -1) {
         contents = await esmTransform(contents);
       }
