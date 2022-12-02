@@ -6163,7 +6163,13 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
           if (zBody2) {
             zBody2.innerHTML = "";
             zBody2.appendChild(iframe);
+            return true;
           }
+          return new Promise(
+            (res2) => setTimeout(async () => {
+              res2(await setIframe(srcJS));
+            }, 1e4)
+          );
         };
         iframe.setAttribute("data-coder", cs);
         iframe.style.height = "100%";
@@ -6244,6 +6250,7 @@ bc.onmessage = (event) => {
 async function moveToWorker(nameSpace, parent2) {
   const { i: i2 } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
   const div2 = document.getElementById(`root-${codeSpace2}`);
+  div2.style.height = "100%";
   const cont = new AbortController();
   const js = await build(codeSpace2, i2, cont.signal);
   if (!js)
