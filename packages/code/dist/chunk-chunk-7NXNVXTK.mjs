@@ -5284,8 +5284,9 @@ var fetchPlugin = {
       import createCache from "@emotion/cache";
       import { ErrorBoundary } from "react-error-boundary";
       import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
-      
-      document.body.innerHTML = '<div id="root"></div>';
+      document.body.innerHTML = '<div id="root" style="height:100%>
+      <style>${mST().css}</style>${mST().html}
+      </div>';
 
   let rootEl = document.getElementById("root");
 
@@ -5294,7 +5295,7 @@ var fetchPlugin = {
   const root = createRoot(rootEl);
   
     const cache = createCache({
-      key: "z",
+      key: "${hashCode()}",
       container: rootEl,
       speedy: false
     });
@@ -5304,7 +5305,7 @@ var fetchPlugin = {
   root.render(<ErrorBoundary
     fallbackRender={({ error }) => (
       <div role="alert">
-        <div>Oh no</div>
+        <div>Oh n o</div>
         <pre>{error.message}</pre>
       </div>
     )}>
