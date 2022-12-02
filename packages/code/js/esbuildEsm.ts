@@ -1,4 +1,4 @@
-import { build as esbuildBuild, type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
+import { build as esbuildBuild, rebuil type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
@@ -72,6 +72,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     loader: {
       ".js": "tsx",
       ".css": "css",
+      ".ttf": "dataurl",
     },
     write: false,
     metafile: true,
