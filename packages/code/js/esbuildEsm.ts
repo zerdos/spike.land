@@ -75,6 +75,7 @@ const build = async (codeSpace: string, i: number) => {
     plugins: [unpkgPathPlugin, fetchPlugin],
   };
   const b = await esbuildBuild(defaultOpts);
+  console.log(b.outputFiles);
   return b.outputFiles![0].text;
 };
 

@@ -5817,6 +5817,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2) => {
     plugins: [unpkgPathPlugin, fetchPlugin]
   };
   const b2 = await (0, import_esbuild_wasm.build)(defaultOpts);
+  console.log(b2.outputFiles);
   return b2.outputFiles[0].text;
 }, "build");
 function importMapReplace(codeInp) {
