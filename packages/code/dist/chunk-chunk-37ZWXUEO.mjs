@@ -5283,7 +5283,7 @@ var fetchPlugin = {
       import { CacheProvider } from "@emotion/react";
       import createCache from "@emotion/cache";
       import { ErrorBoundary } from "react-error-boundary";
-      import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
+      import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
       
       document.body.innerHTML = '<div id="root"></div>';
 
@@ -5453,14 +5453,9 @@ var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
     splitting: false,
     incremental: true,
     format: "esm",
+    external: Object.keys(imports),
     entryPoints: [
-      `./render.tsx?i=${i2}`,
-      "./reactDomClient.mjs",
-      "./emotion.mjs",
-      "./motion.mjs",
-      "./emotionCache.mjs",
-      "./emotionStyled.mjs",
-      "./reactMod.mjs"
+      `./render.tsx?i=${i2}`
     ],
     define: define2,
     tsconfig: "./tsconfig.json",

@@ -2,6 +2,7 @@ import { build as esbuildBuild, type BuildOptions, initialize, transform, type T
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
+import { imports as importMapImports } from "./importmap.json";
 import { md5 } from "./md5";
 
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
@@ -102,14 +103,15 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     splitting: false,
     incremental: true,
     format: "esm",
+    external: Object.keys(importMapImports),
     entryPoints: [
       `./render.tsx?i=${i}`,
-      "./reactDomClient.mjs",
-      "./emotion.mjs",
-      "./motion.mjs",
-      "./emotionCache.mjs",
-      "./emotionStyled.mjs",
-      "./reactMod.mjs",
+      // "./reactDomClient.mjs",
+      // "./emotion.mjs",
+      // "./motion.mjs",
+      // "./emotionCache.mjs",
+      // "./emotionStyled.mjs",
+      // "./reactMod.mjs",
       // "./reactDom.mjs",
     ],
 
