@@ -56,7 +56,7 @@ const define = {
     browser: true,
   }),
 };
-const build = async (codeSpace: string, i: number) => {
+const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
   const initFinished = mod.initialize();
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
@@ -68,15 +68,19 @@ const build = async (codeSpace: string, i: number) => {
       ".css": "css",
     },
     write: false,
+
     format: "iife",
     entryPoints: [`./live/${codeSpace}/render.tsx/${i}`],
     define,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin],
   };
-  const b = await esbuildBuild(defaultOpts);
-  console.log(b.outputFiles);
-  return b.outputFiles![0].text;
+  let b;
+  if (!signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted) {
+    console.log(b.outputFiles);
+    return b.outputFiles![0].text;
+  }
+  return false;
 };
 
 export { build };

@@ -5798,7 +5798,7 @@ var define2 = {
     browser: true
   })
 };
-var build = /* @__PURE__ */ __name(async (codeSpace2, i2) => {
+var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -5815,9 +5815,12 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2) => {
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin]
   };
-  const b2 = await (0, import_esbuild_wasm.build)(defaultOpts);
-  console.log(b2.outputFiles);
-  return b2.outputFiles[0].text;
+  let b2;
+  if (!signal.aborted && (b2 = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
+    console.log(b2.outputFiles);
+    return b2.outputFiles[0].text;
+  }
+  return false;
 }, "build");
 function importMapReplace(codeInp) {
   const items = Object.keys(imports);
@@ -5853,16 +5856,16 @@ var codeSpace = location.pathname.slice(1).split("/")[1];
 var mutex = new Mutex();
 var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   await mutex.runExclusive(async () => {
-    if (abortz[cs])
-      abortz[cs]();
-    const controller2 = new AbortController();
-    const { signal } = controller2;
-    abortz[cs] = () => controller2.abort();
     if (modz[`${cs}-${counter}`])
       return modz[`${cs}-${counter}`];
     return modz[`${cs}-${counter}`] = new Promise(async (res) => {
       if (modz[cs] !== null && modz[cs] > counter)
         return;
+      if (abortz[cs])
+        abortz[cs]();
+      const controller2 = new AbortController();
+      const { signal } = controller2;
+      abortz[cs] = () => controller2.abort();
       modz[cs] = counter;
       let MST;
       if (cs === codeSpace)
@@ -5875,7 +5878,17 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         return;
       if (modz[cs] !== counter)
         return;
-      const { html, css: css2, i: i2 } = MST;
+      const { html, css: css2, i: i2, transpiled } = MST;
+      if (i2 > modz[cs])
+        modz[cs] = i2;
+      const counterLength = `/*${i2}*/`.length;
+      if (i2 > counter)
+        return createIframe(cs, i2);
+      const c2 = +transpiled.slice(-counterLength).split("*")[1];
+      if (c2 > modz[cs])
+        modz[cs] = c2;
+      if (c2 > i2)
+        return createIframe(cs, c2);
       let code = createJsBlob(``);
       if (signal.aborted)
         return;
@@ -5926,7 +5939,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
       iframe = setIframe();
       res(iframe);
       requestAnimationFrame(
-        () => !signal.aborted && build(cs, i2).then((x2) => {
+        () => !signal.aborted && build(cs, i2, signal).then((x2) => {
           if (modz[cs] === i2)
             code = createJsBlob(x2);
         }).then(() => !signal.aborted && setIframe())
