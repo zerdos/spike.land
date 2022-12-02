@@ -5381,6 +5381,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     },
     write: false,
     metafile: true,
+    outdir: `./dist/${codeSpace2}/`,
     treeShaking: true,
     splitting: true,
     incremental: true,
