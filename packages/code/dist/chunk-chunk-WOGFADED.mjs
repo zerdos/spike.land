@@ -5276,6 +5276,49 @@ var fetchPlugin = {
       path: importShim.resolve(args.path, args.importer),
       namespace: "ttf"
     }));
+    build2.onLoad({ filter: /.*.tsx.*/ }, async (args) => {
+      if (args.path.indexOf("render.tsx") !== -1) {
+        const contents = await esmTransform(`
+      import {createRoot} from "react-dom/client"
+      import { CacheProvider } from "@emotion/react";
+      import createCache from "@emotion/cache";
+      import { ErrorBoundary } from "react-error-boundary";
+      import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
+      
+      document.body.innerHTML = '<div id="root"></div>';
+
+  let rootEl = document.getElementById("root");
+
+  rootEl.innerHTML="";
+   
+  const root = createRoot(rootEl);
+  
+    const cache = createCache({
+      key: "z",
+      container: rootEl,
+      speedy: false
+    });
+  
+   cache.compat = undefined;
+  
+  root.render(<ErrorBoundary
+    fallbackRender={({ error }) => (
+      <div role="alert">
+        <div>Oh no</div>
+        <pre>{error.message}</pre>
+      </div>
+    )}>
+    <CacheProvider value={cache}>
+      <App />
+    </CacheProvider>
+    </ErrorBoundary>);
+
+      `);
+        return {
+          contents
+        };
+      }
+    });
     build2.onLoad({ filter: /.*/ }, async (args) => {
       const getRequest = /* @__PURE__ */ __name(async (req2) => {
         let response2 = await fetchCache.match(req2);
@@ -5298,44 +5341,6 @@ var fetchPlugin = {
         };
       }
       let contents = await response.text();
-      if (args.path.indexOf("render.tsx") !== -1) {
-        contents = await esmTransform(`
-        import {createRoot} from "react-dom/client"
-        import { CacheProvider } from "@emotion/react";
-        import createCache from "@emotion/cache";
-        import { ErrorBoundary } from "react-error-boundary";
-        import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
-        
-        document.body.innerHTML = '<div id="root"></div>';
-
-    let rootEl = document.getElementById("root");
-
-    rootEl.innerHTML="";
-     
-    const root = createRoot(rootEl);
-    
-      const cache = createCache({
-        key: "z",
-        container: rootEl,
-        speedy: false
-      });
-    
-     cache.compat = undefined;
-    
-    root.render(<ErrorBoundary
-      fallbackRender={({ error }) => (
-        <div role="alert">
-          <div>Oh no</div>
-          <pre>{error.message}</pre>
-        </div>
-      )}>
-      <CacheProvider value={cache}>
-        <App />
-      </CacheProvider>
-      </ErrorBoundary>);
-
-        `);
-      }
       return { contents };
     });
   }
