@@ -2,7 +2,6 @@ import { build as esbuildBuild, type BuildOptions, initialize, transform, type T
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
-import { imports as importMapImports } from "./importmap.json";
 import { md5 } from "./md5";
 
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
@@ -34,13 +33,37 @@ export const initAndTransform = async (
     define: { ...define, ...(opts?.define ? opts.define : {}) },
   });
 
-  const trp = importMapReplace(transformed.code); // .split("dataset").join("attributes");
+  const trp = opts.keepNames ? importMapReplace(transformed.code) : transformed.code; // .split("dataset").join("attributes");
 
   const res = { code: `/*${md5(code)}*/` + trp + `/*${mST().i}*/` };
   return res;
 };
 
 const define = {
+  "process.env.NODE_ENV": `"development"`,
+  "process.env.NODE_DEBUG": JSON.stringify(false),
+  "process.browser": JSON.stringify(true),
+  "process.env.DEBUG": JSON.stringify(true),
+  "isBrowser": JSON.stringify(true),
+  "isJest": JSON.stringify(false),
+  "process.env.version": "\"1.1.1\"",
+  global: "globalThis",
+  "WORKER_DOM_DEBUG": JSON.stringify(false),
+  "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
+  // "libFileMap": JSON.stringify({}),
+  process: JSON.stringify({
+    env: {
+      NODE_ENV: `development`,
+      browser: true,
+      NODE_DEBUG: false,
+      DEBUG: true,
+      isBrowser: true,
+    },
+    browser: true,
+  }),
+};
+
+const definePrd = {
   "process.env.NODE_ENV": `"production"`,
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.browser": JSON.stringify(true),
@@ -64,6 +87,7 @@ const define = {
   }),
 };
 
+let skipImportmapReplaceNames = false;
 // let lastbuild;
 const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
   // if (lastbuild) {
@@ -75,6 +99,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
   if (initFinished !== true) await (initFinished);
+  skipImportmapReplaceNames = true;
   const defaultOpts: BuildOptions = {
     bundle: true,
     resolveExtensions: [
@@ -100,10 +125,15 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     target: "es2022",
     outdir: `./`,
     treeShaking: true,
+    minify: false,
+    define: define,
+    minifyIdentifiers: false,
+    minifySyntax: false,
+    minifyWhitespace: false,
     splitting: false,
     incremental: true,
     format: "esm",
-    external: Object.keys(importMapImports),
+    // external: Object.keys(importMapImports),
     entryPoints: [
       `./render.tsx?i=${i}`,
       // "./reactDomClient.mjs",
@@ -115,7 +145,6 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
       // "./reactDom.mjs",
     ],
 
-    define,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin],
   };
@@ -134,6 +163,7 @@ export { build };
 export { initAndTransform as transform };
 
 function importMapReplace(codeInp: string) {
+  if (skipImportmapReplaceNames) return codeInp;
   const items = Object.keys(
     importMapImports,
   ) as (keyof typeof importMapImports)[];
