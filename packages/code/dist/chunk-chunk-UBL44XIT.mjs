@@ -6242,14 +6242,8 @@ bc.onmessage = (event) => {
   }
 };
 async function moveToWorker(nameSpace, parent2) {
-  const { html, css: css2, i: i2, transiled } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
-  const div2 = document.createElement("div");
-  div2.style.height = "100%";
-  parent2.innerHTML = `<style>
-  ${css2}
-  </style>
-  <div id="root-${codeSpace2}" style="height: 100%;">${html}</div>`;
-  parent2.appendChild(div2);
+  const { i: i2 } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
+  const div2 = document.getElementById(`root-${codeSpace2}`);
   const cont = new AbortController();
   const js = await build(codeSpace2, i2, cont.signal);
   if (!js)
