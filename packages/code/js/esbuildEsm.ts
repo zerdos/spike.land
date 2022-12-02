@@ -65,6 +65,7 @@ const build = async (codeSpace: string, i: number) => {
     bundle: true,
     loader: {
       ".js": "tsx",
+      ".css": "css",
     },
     write: false,
     format: "iife",

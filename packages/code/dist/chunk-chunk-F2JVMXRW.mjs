@@ -5806,7 +5806,8 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2) => {
   const defaultOpts = {
     bundle: true,
     loader: {
-      ".js": "tsx"
+      ".js": "tsx",
+      ".css": "css"
     },
     write: false,
     format: "iife",
