@@ -40,6 +40,50 @@ export const fetchPlugin: Plugin = {
     // from the internet. This has just enough logic to be able to
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
+    build.onLoad({ filter: /.*.tsx.*/ }, async (args) => {
+      if (args.path.indexOf("render.tsx") !== -1) {
+        const contents = await esmTransform(`
+      import {createRoot} from "react-dom/client"
+      import { CacheProvider } from "@emotion/react";
+      import createCache from "@emotion/cache";
+      import { ErrorBoundary } from "react-error-boundary";
+      import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
+      
+      document.body.innerHTML = '<div id="root"></div>';
+
+  let rootEl = document.getElementById("root");
+
+  rootEl.innerHTML="";
+   
+  const root = createRoot(rootEl);
+  
+    const cache = createCache({
+      key: "z",
+      container: rootEl,
+      speedy: false
+    });
+  
+   cache.compat = undefined;
+  
+  root.render(<ErrorBoundary
+    fallbackRender={({ error }) => (
+      <div role="alert">
+        <div>Oh no</div>
+        <pre>{error.message}</pre>
+      </div>
+    )}>
+    <CacheProvider value={cache}>
+      <App />
+    </CacheProvider>
+    </ErrorBoundary>);
+
+      `);
+        return {
+          contents,
+        };
+      }
+    });
+
     build.onLoad({ filter: /.*/ }, async (args) => {
       // importShim.resolve(args.path, args.importer)
 
@@ -68,45 +112,6 @@ export const fetchPlugin: Plugin = {
       }
 
       let contents = await response.text();
-
-      if (args.path.indexOf("render.tsx") !== -1) {
-        contents = await esmTransform(`
-        import {createRoot} from "react-dom/client"
-        import { CacheProvider } from "@emotion/react";
-        import createCache from "@emotion/cache";
-        import { ErrorBoundary } from "react-error-boundary";
-        import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
-        
-        document.body.innerHTML = '<div id="root"></div>';
-
-    let rootEl = document.getElementById("root");
-
-    rootEl.innerHTML="";
-     
-    const root = createRoot(rootEl);
-    
-      const cache = createCache({
-        key: "z",
-        container: rootEl,
-        speedy: false
-      });
-    
-     cache.compat = undefined;
-    
-    root.render(<ErrorBoundary
-      fallbackRender={({ error }) => (
-        <div role="alert">
-          <div>Oh no</div>
-          <pre>{error.message}</pre>
-        </div>
-      )}>
-      <CacheProvider value={cache}>
-        <App />
-      </CacheProvider>
-      </ErrorBoundary>);
-
-        `);
-      }
 
       return { contents };
     });
