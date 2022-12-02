@@ -86,7 +86,7 @@
     "localforage": "^1.10.0",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
-    "monaco-editor": "0.35.0-dev.20221201",
+    "monaco-editor": "0.35.0-dev.20221202",
     "p-map": "5.5.0",
     "prettier": "2.8.0",
     "qrious": "4.0.2",
