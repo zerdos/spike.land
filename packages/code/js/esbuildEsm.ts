@@ -103,8 +103,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     incremental: true,
     format: "esm",
     entryPoints: [
-      `./live/${codeSpace}/render.tsx/${i}`,
-      "",
+      `./live/${codeSpace}/render.tsx?i=${i}`,
       "./reactDomClient.mjs",
       "./emotion.mjs",
       "./motion.mjs",
