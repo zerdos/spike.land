@@ -304,16 +304,21 @@ export class Code {
           import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
 
 
+
+
           document.body.innerHTML = ${
               JSON.stringify(
-                `<div id="root"><style>${css}</style><div id="root-${codeSpace}" data-i="${i}" style="height: 100%;">${html}</div>';`,
+                `<div id="root">
+                  <style>${css}</style>
+                  <div id="root-${codeSpace}" data-i="${i}" style="height: 100%;">
+                    ${html}
+                  </div>
+                </div>`,
               )
             };
 
       
-      let parent = document.getElementById("root");
-        let rootEl = document.getElementById("root-${codeSpace}");
-        
+      let rootEl = document.getElementById("root");
         
         // if (!parent) {  
         //   parent = document.createElement("div");
@@ -324,11 +329,12 @@ export class Code {
         // parent.innerHTML=\`<div id="${codeSpace}-${k}"></div>\`;  
         // const div = document.getElementById("root-${codeSpace}");
         // div.style.height="100%";
+        rootEl.innerHTML="";
         const root = createRoot(rootEl);
       
         const cache = createCache({
           key: "${k}",
-          container: parent,
+          container: rootEl,
           speedy: false
         });
       

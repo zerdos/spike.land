@@ -5387,7 +5387,6 @@ var mod = {
     const rootDiv = document.createElement("div");
     rootDiv.style.visibility = "hidden";
     rootDiv.style.position = "absolute";
-    document.body.appendChild(rootDiv);
     const root = (0, import_client.createRoot)(rootDiv);
     const App = apps[md5Hash];
     mod.md5Hash = md5Hash;
@@ -5856,7 +5855,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
     if (modz[`${cs}-${counter}`])
       return modz[`${cs}-${counter}`];
     return modz[`${cs}-${counter}`] = new Promise(async (res) => {
-      if (modz[cs] > counter)
+      if (modz[cs] !== null && modz[cs] > counter)
         return;
       modz[cs] = counter;
       let MST;
@@ -5866,7 +5865,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         const I = counter || mST().i;
         MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
       }
-      if (modz[cs] > counter)
+      if (modz[cs] !== counter)
         return;
       const { html, css: css2, i: i2 } = MST;
       let code = createJsBlob(``);
@@ -5879,17 +5878,19 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   }
   ${resetCSS}
   ${css2}</style>
-  <script defer src="{${code}}"><\/script> 
+  <script defer src="${code}"><\/script> 
   </head>
   <body>
-  <div id="root-${cs}" data-i="${counter}" style="height: 100%;">${html}</div>
+  <div id="root-${cs}" data-i="${i2}" style="height: 100%;">${html}</div>
   </body>
   
   </html>`), "iSRC");
-      if (modz[cs] > counter)
+      if (modz[cs] !== counter)
         return;
       let iframe;
       const setIframe = /* @__PURE__ */ __name(() => {
+        if (iframe)
+          iframe.remove();
         iframe = document.createElement("iframe");
         iframe.src = iSRC();
         iframe.setAttribute("data-coder", cs);
@@ -5907,8 +5908,8 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
       iframe = setIframe();
       res(iframe);
       requestAnimationFrame(
-        () => build(codeSpace, i2).then((x2) => {
-          if (modz[cs] === counter)
+        () => build(cs, i2).then((x2) => {
+          if (modz[cs] === i2)
             code = createJsBlob(x2);
         }).then(() => setIframe())
       );

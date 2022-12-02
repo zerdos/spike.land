@@ -36,7 +36,7 @@ const mod = {
     const rootDiv = document.createElement("div");
     rootDiv.style.visibility = "hidden";
     rootDiv.style.position = "absolute";
-    document.body.appendChild(rootDiv);
+    // document.body.appendChild(rootDiv);
     const root = createRoot(rootDiv);
     const App = apps[md5Hash];
 
