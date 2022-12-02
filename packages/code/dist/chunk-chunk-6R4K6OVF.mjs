@@ -5977,15 +5977,6 @@ __name(upgradeElement, "upgradeElement");
 
 // js/starter.tsx
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-function createHTML(code, fileName = "index.html") {
-  const file = new File([code], fileName, {
-    type: "text/html",
-    lastModified: Date.now()
-  });
-  const blobUrl = URL.createObjectURL(file);
-  return blobUrl;
-}
-__name(createHTML, "createHTML");
 var modz = {};
 var abortz = {};
 var codeSpace = location.pathname.slice(1).split("/")[1];
@@ -6003,11 +5994,12 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
       const { signal } = controller2;
       abortz[cs] = () => controller2.abort();
       modz[cs] = counter;
-      let MST;
+      let MST = mST();
       if (cs === codeSpace)
         MST = mST();
       else {
-        const I = counter || mST().i;
+        const mst = mST();
+        const I = counter;
         MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
       }
       if (signal.aborted)
@@ -6027,70 +6019,77 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         return createIframe(cs, c2);
       if (signal.aborted)
         return;
-      const iSRC = /* @__PURE__ */ __name((code) => `
-  <html> 
-  <head>
-  <style>
-  html, body{
-    height: 100%;
-  }
-  ${resetCSS}
-  ${css2}</style>
-  <script defer src="${code}"><\/script> 
-  </head>
-  <body>
-  <div id="root-${cs}" data-i="${i2}" style="height: 100%;">${html}</div>
-  </body>
-  
-  </html>`, "iSRC");
-      if (signal.aborted)
-        return;
-      if (modz[cs] !== counter)
-        return;
       let iframe;
-      const setIframe = /* @__PURE__ */ __name((code) => {
+      const setIframe = /* @__PURE__ */ __name((srcJS) => {
+        const iSRC = /* @__PURE__ */ __name((srcJs) => createHTML(
+          `<html> 
+    <head>
+    <style>
+    html,body {
+      height: 100%;
+    }
+    ${resetCSS}
+    ${css2}
+    </style>
+    <script defer src="${srcJs}"><\/script> 
+    </head>
+    <body>
+    <div id="root-${cs}" style="height: 100%;">${html}</div>
+    </body>
+    </html>`,
+          `${location.origin}/live/${cs}/index.html`
+        ), "iSRC");
         if (signal.aborted)
           return;
+        iframe.src = iSRC(srcJS);
         let oldIframe = iframe;
         if (oldIframe)
           oldIframe.remove();
         iframe = document.createElement("iframe");
         iframe.onload = () => {
           if (signal.aborted)
-            return;
-          if (zBody2?.firstChild === iframe) {
+            return false;
+          const zBody2 = document.getElementById("z-body");
+          if (zBody2?.firstChild?.isSameNode(iframe)) {
             console.log("ALL OK");
             return;
           }
-          const zBody2 = document.getElementById("z-body");
           if (zBody2) {
             zBody2.innerHTML = "";
             zBody2.appendChild(iframe);
           }
         };
-        iframe.src = iSRC(code);
         iframe.setAttribute("data-coder", cs);
         iframe.style.height = "100%";
         iframe.setAttribute("id", `coder-${cs}`);
         iframe.style.border = "none";
         iframe.style.width = "100%";
         if (signal.aborted)
-          return iframe.remove();
-        if (oldIframe)
-          oldIframe.remove();
+          return false;
         const zBody = document.getElementById("z-body");
         if (zBody) {
           zBody.innerHTML = "";
           zBody.appendChild(iframe);
+          return iframe;
         }
-        return iframe;
+        return false;
       }, "setIframe");
+      iframe = setIframe(createJsBlob(``));
       if (signal.aborted)
         return;
-      iframe = setIframe(createJsBlob(``));
+      if (modz[cs] !== counter)
+        return;
+      if (signal.aborted)
+        return;
+      if (!iframe)
+        return;
+      if (signal.aborted)
+        return;
       res(iframe);
       requestAnimationFrame(
-        () => !signal.aborted && build(cs, i2, signal).then((x2) => x2 && setIframe(createJsBlob(x2)))
+        () => !signal.aborted && build(cs, counter, signal).then(
+          (x2) => x2 && setIframe(createJsBlob(x2, `${location.origin}/live/${cs}/${counter}/index.js`))
+        )
       );
     });
   });
@@ -6110,9 +6109,7 @@ async function runInWorker(nameSpace, _parent) {
       return;
     }
     if (current === lastSuccessful) {
-      console.log(
-        `skipping build since it is the latest successful: ${current}`
-      );
+      console.log(`skipping build since it is the latest successful: ${current}`);
       return;
     }
     parent = _parent || parent || document.getElementById("root");
@@ -6120,10 +6117,7 @@ async function runInWorker(nameSpace, _parent) {
       div.remove();
     div = await moveToWorker(nameSpace, parent);
     div.setAttribute("data-shadow-dom", "open");
-    const w2 = await upgradeElement(
-      div,
-      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js"
-    );
+    const w2 = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
     if (w2 === null)
       throw new Error("No worker");
     worker = w2;
@@ -6273,19 +6267,26 @@ async function appFactory(transpiled = "") {
 }
 __name(appFactory, "appFactory");
 function createJsBlob(code, fileName = "index.mjs") {
-  const file = new File([code], fileName, {
-    type: "application/javascript",
-    lastModified: Date.now()
-  });
-  const blobUrl = URL.createObjectURL(file);
-  return blobUrl;
+  return URL.createObjectURL(
+    new File([code], fileName, {
+      type: "application/javascript;charser=UTF-8"
+    })
+  );
 }
 __name(createJsBlob, "createJsBlob");
+function createHTML(code, fileName = "index.html") {
+  return URL.createObjectURL(
+    new File([code], fileName, {
+      type: "text/html;charser=UTF-8",
+      lastModified: Date.now()
+    })
+  );
+}
+__name(createHTML, "createHTML");
 
 export {
   wait,
   runner,
-  createHTML,
   createIframe,
   runInWorker,
   importIt,
