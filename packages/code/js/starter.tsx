@@ -62,8 +62,7 @@ export const createIframe = async (cs: string, counter: number) => {
       let code = createJsBlob(``);
 
       if (signal.aborted) return;
-      let iSRC = () =>
-        createHTML(`
+      let iSRC = createHTML(`
   <html> 
   <head>
   <style>
@@ -88,22 +87,28 @@ export const createIframe = async (cs: string, counter: number) => {
 
       const setIframe = () => {
         if (signal.aborted) return;
-        if (iframe) iframe.remove();
+        let oldIframe = iframe;
+        if (oldIframe) oldIframe.remove();
 
         iframe = document.createElement("iframe");
-        iframe.src = iSRC();
+        iframe.onload = () => {
+          if (signal.aborted) return iframe.remove();
 
+          if (oldIframe) oldIframe.remove();
+
+          const zBody = document.getElementById("z-body");
+          if (zBody) {
+            zBody.innerHTML = "";
+            zBody.appendChild(iframe);
+          }
+        };
+        iframe.src = iSRC();
         iframe.setAttribute("data-coder", cs);
         iframe.style.height = "100%";
         iframe.setAttribute("id", `coder-${cs}`);
         iframe.style.border = "none";
         iframe.style.width = "100%";
-        const zBody = document.getElementById("z-body");
-        if (signal.aborted) return;
-        if (zBody) {
-          zBody.innerHTML = "";
-          zBody.appendChild(iframe);
-        }
+
         return iframe;
       };
       if (signal.aborted) return;

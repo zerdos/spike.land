@@ -5818,7 +5818,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
   let b2;
   if (!signal.aborted && (b2 = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
     console.log(b2.outputFiles);
-    return b2.outputFiles[0].text;
+    return b2.outputFiles[0].contents;
   }
   return false;
 }, "build");
@@ -5916,22 +5916,27 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
       const setIframe = /* @__PURE__ */ __name(() => {
         if (signal.aborted)
           return;
-        if (iframe)
-          iframe.remove();
+        let oldIframe = iframe;
+        if (oldIframe)
+          oldIframe.remove();
         iframe = document.createElement("iframe");
+        iframe.onload = () => {
+          if (signal.aborted)
+            return iframe.remove();
+          if (oldIframe)
+            oldIframe.remove();
+          const zBody = document.getElementById("z-body");
+          if (zBody) {
+            zBody.innerHTML = "";
+            zBody.appendChild(iframe);
+          }
+        };
         iframe.src = iSRC();
         iframe.setAttribute("data-coder", cs);
         iframe.style.height = "100%";
         iframe.setAttribute("id", `coder-${cs}`);
         iframe.style.border = "none";
         iframe.style.width = "100%";
-        const zBody = document.getElementById("z-body");
-        if (signal.aborted)
-          return;
-        if (zBody) {
-          zBody.innerHTML = "";
-          zBody.appendChild(iframe);
-        }
         return iframe;
       }, "setIframe");
       if (signal.aborted)

@@ -78,7 +78,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
   let b;
   if (!signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted) {
     console.log(b.outputFiles);
-    return b.outputFiles![0].text;
+    return b.outputFiles![0].contents;
   }
   return false;
 };
