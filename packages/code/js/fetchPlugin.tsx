@@ -47,7 +47,7 @@ export const fetchPlugin: Plugin = {
       import { CacheProvider } from "@emotion/react";
       import createCache from "@emotion/cache";
       import { ErrorBoundary } from "react-error-boundary";
-      import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
+      import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
       
       document.body.innerHTML = '<div id="root"></div>';
 
