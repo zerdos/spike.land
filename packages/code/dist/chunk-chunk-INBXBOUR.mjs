@@ -5333,6 +5333,12 @@ var fetchPlugin = {
       }, "getRequest");
       const req = new Request(args.path);
       let response = await getRequest(req);
+      if (req.url.indexOf(".tsx")) {
+        const contents2 = await esmTransform(await response.text());
+        return {
+          contents: contents2
+        };
+      }
       if (args.namespace === "ttf") {
         let contents2 = response.blob();
         return {

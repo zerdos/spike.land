@@ -102,6 +102,13 @@ export const fetchPlugin: Plugin = {
       const req = new Request(args.path);
       let response = await getRequest(req);
 
+      if (req.url.indexOf(".tsx")) {
+        const contents = await esmTransform(await response.text());
+        return {
+          contents,
+        };
+      }
+
       if (args.namespace === "ttf") {
         let contents = response.blob();
 
