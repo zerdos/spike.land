@@ -7997,7 +7997,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       const { runInWorker } = await importShim(
         "./starter.mjs"
       );
-      runInWorker(codeSpace, document.getElementById("root"));
+      runInWorker(codeSpace, document.getElementById("root-" + codeSpace));
     } else if (location.pathname.includes(`/live/${codeSpace}/`)) {
       const { createRoot } = await importShim("react-dom/client");
       const render = /* @__PURE__ */ __name(async () => {
