@@ -437,9 +437,6 @@ export function createJsBlob(code: Uint8Array | string, fileName = "index.mjs") 
 
 function createHTML(code: string, fileName = "index.html") {
   return URL.createObjectURL(
-    new File([code], fileName, {
-      type: "text/html;charser=UTF-8",
-      lastModified: Date.now(),
-    }),
+    new Blob([code], fileName, { type: "text/html" }),
   );
 }
