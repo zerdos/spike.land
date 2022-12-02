@@ -1,4 +1,11 @@
-import { build as esbuildBuild, rebuil type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
+import {
+  build as esbuildBuild,
+  type BuildOptions,
+  initialize,
+  rebuild,
+  transform,
+  type TransformOptions,
+} from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
@@ -62,7 +69,14 @@ const define = {
     browser: true,
   }),
 };
+
+let lastbuild;
 const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
+  if (lastbuild) {
+    lastbuild = await lastbuild.rebuild();
+
+    return lastbuild.outputFiles![0].contents;
+  }
   const initFinished = mod.initialize();
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
@@ -78,17 +92,18 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     metafile: true,
     incremental: true,
     format: "iife",
-    entryPoints: [`./live/${codeSpace}/render.tsx/${i}`],
+    entryPoints: [`./live/${codeSpace}/render.tsx`],
     define,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin],
   };
-  let b;
+
   if (
-    !signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted
+    !signal.aborted && (lastbuild = await esbuildBuild(defaultOpts)) && !signal.aborted
   ) {
-    console.log(b.outputFiles);
-    return b.outputFiles![0].contents;
+    console.log(lastbuild.outputFiles);
+
+    return lastbuild.outputFiles![0].contents;
   }
   return false;
 };
