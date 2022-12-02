@@ -9,15 +9,23 @@ export const ObjectCreationProcessor: CommandExecutorInterface = (
   objectContext,
   config,
 ) => {
-  const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.OBJECT_CREATION);
+  const allowedExecution = config.executorsAllowed.includes(
+    TransferrableMutationType.OBJECT_CREATION,
+  );
 
   if (!objectContext) {
     throw new Error("objectContext is not defined.");
   }
 
   return {
-    execute(mutations: Uint16Array, startPosition: number, allowedMutation: boolean): number {
-      const functionName = strings.get(mutations[startPosition + ObjectCreationIndex.FunctionName]);
+    execute(
+      mutations: Uint16Array,
+      startPosition: number,
+      allowedMutation: boolean,
+    ): number {
+      const functionName = strings.get(
+        mutations[startPosition + ObjectCreationIndex.FunctionName],
+      );
       const objectId = mutations[startPosition + ObjectCreationIndex.ObjectId];
       const argCount = mutations[startPosition + ObjectCreationIndex.ArgumentCount];
 
@@ -51,7 +59,9 @@ export const ObjectCreationProcessor: CommandExecutorInterface = (
       return argsOffset;
     },
     print(mutations: Uint16Array, startPosition: number): {} {
-      const functionName = strings.get(mutations[startPosition + ObjectCreationIndex.FunctionName]);
+      const functionName = strings.get(
+        mutations[startPosition + ObjectCreationIndex.FunctionName],
+      );
       const objectId = mutations[startPosition + ObjectCreationIndex.ObjectId];
       const argCount = mutations[startPosition + ObjectCreationIndex.ArgumentCount];
 

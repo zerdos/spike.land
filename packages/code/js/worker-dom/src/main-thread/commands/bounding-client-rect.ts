@@ -11,10 +11,16 @@ export const BoundingClientRectProcessor: CommandExecutorInterface = (
   objectContext,
   config,
 ) => {
-  const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.GET_BOUNDING_CLIENT_RECT);
+  const allowedExecution = config.executorsAllowed.includes(
+    TransferrableMutationType.GET_BOUNDING_CLIENT_RECT,
+  );
 
   return {
-    execute(mutations: Uint16Array, startPosition: number, allowedMutation: boolean): number {
+    execute(
+      mutations: Uint16Array,
+      startPosition: number,
+      allowedMutation: boolean,
+    ): number {
       if (allowedExecution && allowedMutation) {
         const targetIndex = mutations[startPosition + BoundClientRectMutationIndex.Target];
         const target = nodes.getNode(targetIndex);
@@ -33,7 +39,9 @@ export const BoundingClientRectProcessor: CommandExecutorInterface = (
             ],
           });
         } else {
-          console.error(`GET_BOUNDING_CLIENT_RECT: getNode(${targetIndex}) is null.`);
+          console.error(
+            `GET_BOUNDING_CLIENT_RECT: getNode(${targetIndex}) is null.`,
+          );
         }
       }
 

@@ -14,7 +14,9 @@ export class HTMLProgressElement extends HTMLElement {
   }
 
   get value(): number {
-    return !this.dirtyValue ? Number(this.getAttribute("value")) || 0 : this[TransferrableKeys.value];
+    return !this.dirtyValue
+      ? Number(this.getAttribute("value")) || 0
+      : this[TransferrableKeys.value];
   }
 
   set value(value: number) {

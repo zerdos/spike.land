@@ -1,6 +1,6 @@
 "use strict";
 
-self.addEventListener("message", e => {
+self.addEventListener("message", (e) => {
   if (e.data === "start") {
     importScripts(
       "../../via/controller/object.js",
@@ -8,7 +8,7 @@ self.addEventListener("message", e => {
       "../../via/controller/controller.js",
     );
 
-    Via.postMessage = data => self.postMessage(data);
+    Via.postMessage = (data) => self.postMessage(data);
     Start();
   } else {
     Via.OnMessage(e.data);
@@ -46,7 +46,7 @@ async function Start() {
   const response = await fetch("sfx5.m4a");
   const arrayBuffer = await response.arrayBuffer();
 
-  via.audioContext.decodeAudioData(arrayBuffer, audioBuffer => {
+  via.audioContext.decodeAudioData(arrayBuffer, (audioBuffer) => {
     self.audioBuffer = audioBuffer;
   });
 }

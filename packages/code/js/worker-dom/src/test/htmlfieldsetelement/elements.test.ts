@@ -73,6 +73,13 @@ test("elements should contain all valid elements, filtering invalid childNodes",
   element.appendChild(textarea);
   element.appendChild(div);
 
-  t.deepEqual(element.elements, [button, fieldset, input, output, select, textarea]);
+  t.deepEqual(element.elements, [
+    button,
+    fieldset,
+    input,
+    output,
+    select,
+    textarea,
+  ]);
   t.is(element.elements.length, 6);
 });

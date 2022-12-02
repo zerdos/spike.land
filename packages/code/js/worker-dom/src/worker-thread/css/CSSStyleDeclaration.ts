@@ -27,7 +27,12 @@ interface StyleDeclaration {
 }
 
 const hyphenateKey = (key: string): string =>
-  toLower(key.replace(/(webkit|ms|moz|khtml)/g, "-$1").replace(/([a-zA-Z])(?=[A-Z])/g, "$1-"));
+  toLower(
+    key.replace(/(webkit|ms|moz|khtml)/g, "-$1").replace(
+      /([a-zA-Z])(?=[A-Z])/g,
+      "$1-",
+    ),
+  );
 
 export const appendKeys = (keys: Array<string>): void => {
   const keysToAppend = keys.filter((key) => isNaN(key as any) && !CSSStyleDeclaration.prototype.hasOwnProperty(key));
@@ -37,7 +42,8 @@ export const appendKeys = (keys: Array<string>): void => {
 
   const previousPrototypeLength = (CSSStyleDeclaration.prototype.length || 0) as number;
   if (previousPrototypeLength !== 0) {
-    CSSStyleDeclaration.prototype.length = previousPrototypeLength + keysToAppend.length;
+    CSSStyleDeclaration.prototype.length = previousPrototypeLength
+      + keysToAppend.length;
   } else {
     Object.defineProperty(CSSStyleDeclaration.prototype, "length", {
       configurable: true,
@@ -73,7 +79,11 @@ export class CSSStyleDeclaration implements StyleDeclaration {
     | ((key: string, value: string) => void)
     | ((namespaceURI: NamespaceURI, name: string, value: string) => void);
   private [TransferrableKeys.properties]: StyleProperties = {};
-  private [TransferrableKeys.storeAttribute]: (namespaceURI: NamespaceURI, name: string, value: string) => string;
+  private [TransferrableKeys.storeAttribute]: (
+    namespaceURI: NamespaceURI,
+    name: string,
+    value: string,
+  ) => string;
   private [TransferrableKeys.target]: Element;
 
   constructor(target: Element) {

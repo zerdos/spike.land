@@ -33,7 +33,10 @@ const shouldTrackChanges = (node: HTMLElement): boolean => node && "value" in no
  * @param worker whom to dispatch value toward.
  * @param node node to listen to value changes on.
  */
-export const applyDefaultInputListener = (workerContext: WorkerContext, node: RenderableElement): void => {
+export const applyDefaultInputListener = (
+  workerContext: WorkerContext,
+  node: RenderableElement,
+): void => {
   if (shouldTrackChanges(node as HTMLElement) && node.oninput === null) {
     node.oninput = () => fireValueChange(workerContext, node);
   }
@@ -44,7 +47,10 @@ export const applyDefaultInputListener = (workerContext: WorkerContext, node: Re
  * @param worker whom to dispatch value toward.
  * @param node node to listen to value changes on.
  */
-export const sendValueChangeOnAttributeMutation = (workerContext: WorkerContext, node: RenderableElement): void => {
+export const sendValueChangeOnAttributeMutation = (
+  workerContext: WorkerContext,
+  node: RenderableElement,
+): void => {
   if (shouldTrackChanges(node as HTMLElement) && !monitoredNodes.get(node)) {
     new MutationObserver((mutations: Array<MutationRecord>) =>
       mutations.map((mutation) => fireValueChange(workerContext, mutation.target as RenderableElement))
@@ -58,7 +64,10 @@ export const sendValueChangeOnAttributeMutation = (workerContext: WorkerContext,
  * @param worker whom to dispatch value toward.
  * @param node where to get the value from.
  */
-const fireValueChange = (workerContext: WorkerContext, node: RenderableElement): void =>
+const fireValueChange = (
+  workerContext: WorkerContext,
+  node: RenderableElement,
+): void =>
   workerContext.messageToWorker({
     [TransferrableKeys.type]: MessageType.SYNC,
     [TransferrableKeys.sync]: {
@@ -72,7 +81,10 @@ const fireValueChange = (workerContext: WorkerContext, node: RenderableElement):
  * @param workerContext
  * @param cachedWindowSize
  */
-const fireResizeChange = (workerContext: WorkerContext, cachedWindowSize: [number, number]): void =>
+const fireResizeChange = (
+  workerContext: WorkerContext,
+  cachedWindowSize: [number, number],
+): void =>
   workerContext.messageToWorker({
     [TransferrableKeys.type]: MessageType.RESIZE,
     [TransferrableKeys.sync]: cachedWindowSize,
@@ -82,7 +94,9 @@ const fireResizeChange = (workerContext: WorkerContext, cachedWindowSize: [numbe
  * Convert a TouchList into a TransferrableTouchList
  * @param touchList
  */
-const createTransferrableTouchList = (touchList: TouchList): TransferrableTouchList =>
+const createTransferrableTouchList = (
+  touchList: TouchList,
+): TransferrableTouchList =>
   Object.values(touchList).map((touch) => [
     touch.identifier,
     touch.screenX,
@@ -102,8 +116,13 @@ export const EventSubscriptionProcessor: CommandExecutorInterface = (
   config,
 ) => {
   const knownListeners: Array<(event: Event) => any> = [];
-  const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.EVENT_SUBSCRIPTION);
-  let cachedWindowSize: [number, number] = [window.innerWidth, window.innerHeight];
+  const allowedExecution = config.executorsAllowed.includes(
+    TransferrableMutationType.EVENT_SUBSCRIPTION,
+  );
+  let cachedWindowSize: [number, number] = [
+    window.innerWidth,
+    window.innerHeight,
+  ];
 
   /**
    * Register an event handler for dispatching events to worker thread
@@ -118,10 +137,16 @@ export const EventSubscriptionProcessor: CommandExecutorInterface = (
       }
 
       if (shouldTrackChanges(event.currentTarget as HTMLElement)) {
-        fireValueChange(workerContext, event.currentTarget as RenderableElement);
+        fireValueChange(
+          workerContext,
+          event.currentTarget as RenderableElement,
+        );
       } else if (event.type === "resize") {
         const { innerWidth, innerHeight } = window;
-        if (cachedWindowSize[0] === innerWidth && cachedWindowSize[1] === innerHeight) {
+        if (
+          cachedWindowSize[0] === innerWidth
+          && cachedWindowSize[1] === innerHeight
+        ) {
           return;
         }
         cachedWindowSize = [window.innerWidth, window.innerHeight];
@@ -135,20 +160,32 @@ export const EventSubscriptionProcessor: CommandExecutorInterface = (
           [TransferrableKeys.bubbles]: event.bubbles,
           [TransferrableKeys.cancelable]: event.cancelable,
           [TransferrableKeys.cancelBubble]: event.cancelBubble,
-          [TransferrableKeys.currentTarget]: [(event.currentTarget as RenderableElement)._index_ || 0],
+          [TransferrableKeys.currentTarget]: [
+            (event.currentTarget as RenderableElement)._index_ || 0,
+          ],
           [TransferrableKeys.defaultPrevented]: event.defaultPrevented,
           [TransferrableKeys.eventPhase]: event.eventPhase,
           [TransferrableKeys.isTrusted]: event.isTrusted,
           [TransferrableKeys.returnValue]: event.returnValue,
-          [TransferrableKeys.target]: [(event.target as RenderableElement)._index_ || 0],
+          [TransferrableKeys.target]: [
+            (event.target as RenderableElement)._index_ || 0,
+          ],
           [TransferrableKeys.timeStamp]: event.timeStamp,
           [TransferrableKeys.type]: event.type,
-          [TransferrableKeys.keyCode]: "keyCode" in event ? event.keyCode : undefined,
+          [TransferrableKeys.keyCode]: "keyCode" in event
+            ? event.keyCode
+            : undefined,
           [TransferrableKeys.pageX]: "pageX" in event ? event.pageX : undefined,
           [TransferrableKeys.pageY]: "pageY" in event ? event.pageY : undefined,
-          [TransferrableKeys.offsetX]: "offsetX" in event ? event.offsetX : undefined,
-          [TransferrableKeys.offsetY]: "offsetY" in event ? event.offsetY : undefined,
-          [TransferrableKeys.touches]: "touches" in event ? createTransferrableTouchList(event.touches) : undefined,
+          [TransferrableKeys.offsetX]: "offsetX" in event
+            ? event.offsetX
+            : undefined,
+          [TransferrableKeys.offsetY]: "offsetY" in event
+            ? event.offsetY
+            : undefined,
+          [TransferrableKeys.touches]: "touches" in event
+            ? createTransferrableTouchList(event.touches)
+            : undefined,
           [TransferrableKeys.changedTouches]: "changedTouches" in event
             ? createTransferrableTouchList(event.changedTouches)
             : undefined,
@@ -175,8 +212,18 @@ export const EventSubscriptionProcessor: CommandExecutorInterface = (
 
     if (target === nodeContext.baseElement) {
       if (addEvent) {
-        const preventDefault = Boolean(mutations[iterator + AddEventRegistrationIndex.WorkerDOMPreventDefault]);
-        addEventListener(type, knownListeners[eventIndex] = eventHandler(BASE_ELEMENT_INDEX, preventDefault));
+        const preventDefault = Boolean(
+          mutations[
+            iterator + AddEventRegistrationIndex.WorkerDOMPreventDefault
+          ],
+        );
+        addEventListener(
+          type,
+          knownListeners[eventIndex] = eventHandler(
+            BASE_ELEMENT_INDEX,
+            preventDefault,
+          ),
+        );
       } else {
         removeEventListener(type, knownListeners[eventIndex]);
       }
@@ -190,29 +237,51 @@ export const EventSubscriptionProcessor: CommandExecutorInterface = (
         inputEventSubscribed = true;
         target.onchange = null;
       }
-      const preventDefault = Boolean(mutations[iterator + AddEventRegistrationIndex.WorkerDOMPreventDefault]);
+      const preventDefault = Boolean(
+        mutations[iterator + AddEventRegistrationIndex.WorkerDOMPreventDefault],
+      );
       (target as HTMLElement).addEventListener(
         type,
-        knownListeners[eventIndex] = eventHandler(target._index_, preventDefault),
+        knownListeners[eventIndex] = eventHandler(
+          target._index_,
+          preventDefault,
+        ),
       );
     } else {
       if (isChangeEvent) {
         inputEventSubscribed = false;
       }
-      (target as HTMLElement).removeEventListener(type, knownListeners[eventIndex]);
+      (target as HTMLElement).removeEventListener(
+        type,
+        knownListeners[eventIndex],
+      );
     }
     if (shouldTrackChanges(target as HTMLElement)) {
-      if (!inputEventSubscribed) applyDefaultInputListener(workerContext, target as RenderableElement);
-      sendValueChangeOnAttributeMutation(workerContext, target as RenderableElement);
+      if (!inputEventSubscribed) {
+        applyDefaultInputListener(workerContext, target as RenderableElement);
+      }
+      sendValueChangeOnAttributeMutation(
+        workerContext,
+        target as RenderableElement,
+      );
     }
   };
 
   return {
-    execute(mutations: Uint16Array, startPosition: number, allowedMutation: boolean): number {
-      const addEventListenerCount = mutations[startPosition + EventSubscriptionMutationIndex.AddEventListenerCount];
-      const removeEventListenerCount =
-        mutations[startPosition + EventSubscriptionMutationIndex.RemoveEventListenerCount];
-      const addEventListenersPosition = startPosition + EventSubscriptionMutationIndex.Events
+    execute(
+      mutations: Uint16Array,
+      startPosition: number,
+      allowedMutation: boolean,
+    ): number {
+      const addEventListenerCount = mutations[
+        startPosition + EventSubscriptionMutationIndex.AddEventListenerCount
+      ];
+      const removeEventListenerCount = mutations[
+        startPosition
+        + EventSubscriptionMutationIndex.RemoveEventListenerCount
+      ];
+      const addEventListenersPosition = startPosition
+        + EventSubscriptionMutationIndex.Events
         + removeEventListenerCount * REMOVE_EVENT_SUBSCRIPTION_LENGTH;
       const endPosition = startPosition
         + EventSubscriptionMutationIndex.Events
@@ -228,7 +297,9 @@ export const EventSubscriptionProcessor: CommandExecutorInterface = (
           while (iterator < endPosition) {
             const isRemoveEvent = iterator <= addEventListenersPosition;
             processListenerChange(target, isRemoveEvent, mutations, iterator);
-            iterator += isRemoveEvent ? REMOVE_EVENT_SUBSCRIPTION_LENGTH : ADD_EVENT_SUBSCRIPTION_LENGTH;
+            iterator += isRemoveEvent
+              ? REMOVE_EVENT_SUBSCRIPTION_LENGTH
+              : ADD_EVENT_SUBSCRIPTION_LENGTH;
           }
         } else {
           console.error(`getNode(${targetIndex}) is null.`);
@@ -238,10 +309,15 @@ export const EventSubscriptionProcessor: CommandExecutorInterface = (
       return endPosition;
     },
     print(mutations: Uint16Array, startPosition: number): {} {
-      const addEventListenerCount = mutations[startPosition + EventSubscriptionMutationIndex.AddEventListenerCount];
-      const removeEventListenerCount =
-        mutations[startPosition + EventSubscriptionMutationIndex.RemoveEventListenerCount];
-      const addEventListenersPosition = startPosition + EventSubscriptionMutationIndex.Events
+      const addEventListenerCount = mutations[
+        startPosition + EventSubscriptionMutationIndex.AddEventListenerCount
+      ];
+      const removeEventListenerCount = mutations[
+        startPosition
+        + EventSubscriptionMutationIndex.RemoveEventListenerCount
+      ];
+      const addEventListenersPosition = startPosition
+        + EventSubscriptionMutationIndex.Events
         + removeEventListenerCount * REMOVE_EVENT_SUBSCRIPTION_LENGTH;
       const endPosition = startPosition
         + EventSubscriptionMutationIndex.Events
@@ -255,12 +331,16 @@ export const EventSubscriptionProcessor: CommandExecutorInterface = (
       let iterator = startPosition + EventSubscriptionMutationIndex.Events;
       while (iterator < endPosition) {
         const isRemoveEvent = iterator <= addEventListenersPosition;
-        const eventList = isRemoveEvent ? addedEventListeners : removedEventListeners;
+        const eventList = isRemoveEvent
+          ? addedEventListeners
+          : removedEventListeners;
         eventList.push({
           type: strings.get(mutations[iterator]),
           index: mutations[iterator + 1],
         });
-        iterator += isRemoveEvent ? REMOVE_EVENT_SUBSCRIPTION_LENGTH : ADD_EVENT_SUBSCRIPTION_LENGTH;
+        iterator += isRemoveEvent
+          ? REMOVE_EVENT_SUBSCRIPTION_LENGTH
+          : ADD_EVENT_SUBSCRIPTION_LENGTH;
       }
 
       return {

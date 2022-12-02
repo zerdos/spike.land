@@ -17,19 +17,21 @@ test.serial.cb("replaceChild mutation, only node", (t) => {
   const { document } = t.context;
   const div = document.createElement("div");
   const p = document.createElement("p");
-  const observer = new document.defaultView.MutationObserver((mutations: MutationRecord[]): void => {
-    t.deepEqual(mutations, [
-      {
-        type: MutationRecordType.CHILD_LIST,
-        target: document.body,
-        removedNodes: [div],
-        addedNodes: [p],
-        nextSibling: undefined,
-      },
-    ]);
-    observer.disconnect();
-    t.end();
-  });
+  const observer = new document.defaultView.MutationObserver(
+    (mutations: MutationRecord[]): void => {
+      t.deepEqual(mutations, [
+        {
+          type: MutationRecordType.CHILD_LIST,
+          target: document.body,
+          removedNodes: [div],
+          addedNodes: [p],
+          nextSibling: undefined,
+        },
+      ]);
+      observer.disconnect();
+      t.end();
+    },
+  );
 
   document.body.appendChild(div);
   observer.observe(document.body);
@@ -42,19 +44,21 @@ test.serial.cb("replaceChild mutation, replace first with second", (t) => {
   const second = document.createElement("second");
   const third = document.createElement("third");
 
-  const observer = new document.defaultView.MutationObserver((mutations: MutationRecord[]): void => {
-    t.deepEqual(mutations, [
-      {
-        type: MutationRecordType.CHILD_LIST,
-        target: document.body,
-        removedNodes: [first],
-        addedNodes: [second],
-        nextSibling: third,
-      },
-    ]);
-    observer.disconnect();
-    t.end();
-  });
+  const observer = new document.defaultView.MutationObserver(
+    (mutations: MutationRecord[]): void => {
+      t.deepEqual(mutations, [
+        {
+          type: MutationRecordType.CHILD_LIST,
+          target: document.body,
+          removedNodes: [first],
+          addedNodes: [second],
+          nextSibling: third,
+        },
+      ]);
+      observer.disconnect();
+      t.end();
+    },
+  );
 
   document.body.appendChild(first);
   document.body.appendChild(third);
@@ -68,19 +72,21 @@ test.serial.cb("replaceChild mutation, replace third with second", (t) => {
   const second = document.createElement("second");
   const third = document.createElement("third");
 
-  const observer = new document.defaultView.MutationObserver((mutations: MutationRecord[]): void => {
-    t.deepEqual(mutations, [
-      {
-        type: MutationRecordType.CHILD_LIST,
-        target: document.body,
-        removedNodes: [third],
-        addedNodes: [second],
-        nextSibling: undefined,
-      },
-    ]);
-    observer.disconnect();
-    t.end();
-  });
+  const observer = new document.defaultView.MutationObserver(
+    (mutations: MutationRecord[]): void => {
+      t.deepEqual(mutations, [
+        {
+          type: MutationRecordType.CHILD_LIST,
+          target: document.body,
+          removedNodes: [third],
+          addedNodes: [second],
+          nextSibling: undefined,
+        },
+      ]);
+      observer.disconnect();
+      t.end();
+    },
+  );
 
   document.body.appendChild(first);
   document.body.appendChild(third);
@@ -92,25 +98,27 @@ test.serial.cb("replaceChild mutation, remove sibling node", (t) => {
   const { document } = t.context;
   const div = document.createElement("div");
   const p = document.createElement("p");
-  const observer = new document.defaultView.MutationObserver((mutations: MutationRecord[]): void => {
-    t.is(mutations.length, 2);
-    t.deepEqual(mutations, [
-      {
-        type: MutationRecordType.CHILD_LIST,
-        target: document.body,
-        removedNodes: [div],
-      },
-      {
-        type: MutationRecordType.CHILD_LIST,
-        target: document.body,
-        removedNodes: [p],
-        addedNodes: [div],
-        nextSibling: undefined,
-      },
-    ]);
-    observer.disconnect();
-    t.end();
-  });
+  const observer = new document.defaultView.MutationObserver(
+    (mutations: MutationRecord[]): void => {
+      t.is(mutations.length, 2);
+      t.deepEqual(mutations, [
+        {
+          type: MutationRecordType.CHILD_LIST,
+          target: document.body,
+          removedNodes: [div],
+        },
+        {
+          type: MutationRecordType.CHILD_LIST,
+          target: document.body,
+          removedNodes: [p],
+          addedNodes: [div],
+          nextSibling: undefined,
+        },
+      ]);
+      observer.disconnect();
+      t.end();
+    },
+  );
 
   document.body.appendChild(div);
   document.body.appendChild(p);

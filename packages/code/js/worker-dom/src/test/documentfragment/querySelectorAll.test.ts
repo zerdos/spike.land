@@ -59,34 +59,96 @@ test("test Element.querySelectorAll on tag selectors", (t) => {
 test("test Element.querySelectorAll on attr selectors [attr]", (t) => {
   const { parentFragment, parentDiv, div } = t.context;
 
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}]`), [div]);
+  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}]`), [
+    parentDiv,
+    div,
+  ]);
+  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}]`), [
+    parentDiv,
+    div,
+  ]);
+  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}]`), [
+    div,
+  ]);
+  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}]`), [
+    div,
+  ]);
 });
 
 test("test Element.querySelectorAll on attr selectors [attr=value]", (t) => {
   const { parentFragment, parentDiv, div } = t.context;
 
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}=${FAKE_ATTR_VALUE}]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}=${FAKE_ATTR_VALUE}]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(`[${FAKE_ATTR}=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(`div[${FAKE_ATTR}=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll on attr selectors [attr=value i]", (t) => {
   const { parentFragment, parentDiv, div } = t.context;
 
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `[${FAKE_ATTR}=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `div[${FAKE_ATTR}=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
 
   div.setAttribute(FAKE_ATTR, `fake_attr_value`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}=${FAKE_ATTR_VALUE} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}=${FAKE_ATTR_VALUE} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}=${FAKE_ATTR_VALUE} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}=${FAKE_ATTR_VALUE} i]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(`[${FAKE_ATTR}=${FAKE_ATTR_VALUE} i]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(`div[${FAKE_ATTR}=${FAKE_ATTR_VALUE} i]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}=${FAKE_ATTR_VALUE} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}=${FAKE_ATTR_VALUE} i]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll on attr selectors [attr~=value]", (t) => {
@@ -97,10 +159,26 @@ test("test Element.querySelectorAll on attr selectors [attr~=value]", (t) => {
   div.setAttribute(FAKE_ATTR, `${FAKE_ATTR_VALUE} JUST_ANOTHER_FAKE`);
   parentDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
   otherDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}1`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}~=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}~=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}~=${FAKE_ATTR_VALUE}]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}~=${FAKE_ATTR_VALUE}]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(`[${FAKE_ATTR}~=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(`div[${FAKE_ATTR}~=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}~=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}~=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll on attr selectors [attr~=value i]", (t) => {
@@ -111,18 +189,64 @@ test("test Element.querySelectorAll on attr selectors [attr~=value i]", (t) => {
   div.setAttribute(FAKE_ATTR, `${FAKE_ATTR_VALUE} JUST_ANOTHER_FAKE`);
   parentDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
   otherDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}1`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `div[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
 
   div.setAttribute(FAKE_ATTR, `${toLower(FAKE_ATTR_VALUE)} JUST_ANOTHER_FAKE`);
-  parentDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}`);
-  otherDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}1`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
+  parentDiv.setAttribute(
+    FAKE_ATTR,
+    `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}`,
+  );
+  otherDiv.setAttribute(
+    FAKE_ATTR,
+    `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}1`,
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `div[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}~=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll on attr selectors [attr^=value]", (t) => {
@@ -130,10 +254,26 @@ test("test Element.querySelectorAll on attr selectors [attr^=value]", (t) => {
 
   div.setAttribute(FAKE_ATTR, `${FAKE_ATTR_VALUE} JUST_ANOTHER_FAKE`);
   parentDiv.setAttribute(FAKE_ATTR, `${FAKE_ATTR_VALUE} JUST_ANOTHER_FAKE`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}^=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}^=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}^=${FAKE_ATTR_VALUE}]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}^=${FAKE_ATTR_VALUE}]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(`[${FAKE_ATTR}^=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(`div[${FAKE_ATTR}^=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}^=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}^=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll on attr selectors [attr^=value i]", (t) => {
@@ -141,17 +281,60 @@ test("test Element.querySelectorAll on attr selectors [attr^=value i]", (t) => {
 
   div.setAttribute(FAKE_ATTR, `${FAKE_ATTR_VALUE} JUST_ANOTHER_FAKE`);
   parentDiv.setAttribute(FAKE_ATTR, `${FAKE_ATTR_VALUE} JUST_ANOTHER_FAKE`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `div[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
 
   div.setAttribute(FAKE_ATTR, `${toLower(FAKE_ATTR_VALUE)} JUST_ANOTHER_FAKE`);
-  parentDiv.setAttribute(FAKE_ATTR, `${toLower(FAKE_ATTR_VALUE)} JUST_ANOTHER_FAKE`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
+  parentDiv.setAttribute(
+    FAKE_ATTR,
+    `${toLower(FAKE_ATTR_VALUE)} JUST_ANOTHER_FAKE`,
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `div[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}^=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll on attr selectors [attr$=value]", (t) => {
@@ -159,10 +342,26 @@ test("test Element.querySelectorAll on attr selectors [attr$=value]", (t) => {
 
   div.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
   parentDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}$=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}$=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}$=${FAKE_ATTR_VALUE}]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}$=${FAKE_ATTR_VALUE}]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(`[${FAKE_ATTR}$=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(`div[${FAKE_ATTR}$=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}$=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}$=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll on attr selectors [attr$=value i]", (t) => {
@@ -170,17 +369,60 @@ test("test Element.querySelectorAll on attr selectors [attr$=value i]", (t) => {
 
   div.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
   parentDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `div[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
 
   div.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}`);
-  parentDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
+  parentDiv.setAttribute(
+    FAKE_ATTR,
+    `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}`,
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `div[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}$=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll on attr selectors [attr*=value]", (t) => {
@@ -188,10 +430,26 @@ test("test Element.querySelectorAll on attr selectors [attr*=value]", (t) => {
 
   div.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
   parentDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}*=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}*=${FAKE_ATTR_VALUE}]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}*=${FAKE_ATTR_VALUE}]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}*=${FAKE_ATTR_VALUE}]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(`[${FAKE_ATTR}*=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(`div[${FAKE_ATTR}*=${FAKE_ATTR_VALUE}]`),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}*=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}*=${FAKE_ATTR_VALUE}]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll on attr selectors [attr*=value i]", (t) => {
@@ -199,17 +457,60 @@ test("test Element.querySelectorAll on attr selectors [attr*=value i]", (t) => {
 
   div.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
   parentDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${FAKE_ATTR_VALUE}`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `div[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
 
   div.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}`);
-  parentDiv.setAttribute(FAKE_ATTR, `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}`);
-  t.deepEqual(parentFragment.querySelectorAll(`[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`div[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`), [parentDiv, div]);
-  t.deepEqual(parentFragment.querySelectorAll(`#${DIV_ID}[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
-  t.deepEqual(parentFragment.querySelectorAll(`.${DIV_CLASS}[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`), [div]);
+  parentDiv.setAttribute(
+    FAKE_ATTR,
+    `JUST_ANOTHER_FAKE ${toLower(FAKE_ATTR_VALUE)}`,
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `div[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [parentDiv, div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `#${DIV_ID}[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
+  t.deepEqual(
+    parentFragment.querySelectorAll(
+      `.${DIV_CLASS}[${FAKE_ATTR}*=${toLower(FAKE_ATTR_VALUE)} i]`,
+    ),
+    [div],
+  );
 });
 
 test("test Element.querySelectorAll is case insensitive with regards to tags", (t) => {
@@ -220,8 +521,14 @@ test("test Element.querySelectorAll is case insensitive with regards to tags", (
   t.deepEqual(parentFragment.querySelectorAll("DIV"), [parentDiv, div]);
   t.deepEqual(parentDiv.querySelectorAll("DIV"), [div]);
 
-  t.deepEqual(parentFragment.querySelectorAll("div"), parentFragment.querySelectorAll("DIV"));
-  t.deepEqual(parentDiv.querySelectorAll("div"), parentDiv.querySelectorAll("DIV"));
+  t.deepEqual(
+    parentFragment.querySelectorAll("div"),
+    parentFragment.querySelectorAll("DIV"),
+  );
+  t.deepEqual(
+    parentDiv.querySelectorAll("div"),
+    parentDiv.querySelectorAll("DIV"),
+  );
 });
 
 test("test Element.querySelector returns the first result of Element.querySelectorAll", (t) => {
@@ -230,7 +537,10 @@ test("test Element.querySelector returns the first result of Element.querySelect
   let querySelectorAllResults = parentFragment.querySelectorAll("div");
   t.not(querySelectorAllResults, null);
   if (querySelectorAllResults) {
-    t.deepEqual(querySelectorAllResults[0], parentFragment.querySelector("div"));
+    t.deepEqual(
+      querySelectorAllResults[0],
+      parentFragment.querySelector("div"),
+    );
   }
 
   querySelectorAllResults = parentDiv.querySelectorAll("div");
@@ -242,7 +552,10 @@ test("test Element.querySelector returns the first result of Element.querySelect
   querySelectorAllResults = parentFragment.querySelectorAll("DIV");
   t.not(querySelectorAllResults, null);
   if (querySelectorAllResults) {
-    t.deepEqual(querySelectorAllResults[0], parentFragment.querySelector("DIV"));
+    t.deepEqual(
+      querySelectorAllResults[0],
+      parentFragment.querySelector("DIV"),
+    );
   }
 
   querySelectorAllResults = parentDiv.querySelectorAll("DIV");

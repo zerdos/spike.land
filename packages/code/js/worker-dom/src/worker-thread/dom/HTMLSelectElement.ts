@@ -9,7 +9,8 @@ import { Node } from "./Node";
 
 const isOptionPredicate = tagNameConditionPredicate(["OPTION"]);
 const isSelectedOptionPredicate = (element: Element): boolean =>
-  isOptionPredicate(element) && (element as HTMLOptionElement).selected === true;
+  isOptionPredicate(element)
+  && (element as HTMLOptionElement).selected === true;
 
 const enum SizeDefaults {
   SINGLE = 1,
@@ -35,7 +36,10 @@ export class HTMLSelectElement extends HTMLElement {
     // When this singular value select is appending a child, set the value property for two cases.
     // 1. The inserted child is already selected.
     // 2. The current value of the select is the default ('').
-    if ((!this.multiple && isOptionPredicate(child as Element) && child.selected) || this.value === "") {
+    if (
+      (!this.multiple && isOptionPredicate(child as Element)
+        && child.selected) || this.value === ""
+    ) {
       this.value = child.value;
     }
   }
@@ -80,7 +84,10 @@ export class HTMLSelectElement extends HTMLElement {
    * @return the index of the first selected option element, or -1 if no element is selected.
    */
   get selectedIndex(): number {
-    const firstSelectedChild = matchChildElement(this, isSelectedOptionPredicate);
+    const firstSelectedChild = matchChildElement(
+      this,
+      isSelectedOptionPredicate,
+    );
     return firstSelectedChild ? this.children.indexOf(firstSelectedChild) : -1;
   }
 
@@ -90,7 +97,10 @@ export class HTMLSelectElement extends HTMLElement {
    * @param selectedIndex index number to make selected.
    */
   set selectedIndex(selectedIndex: number) {
-    this.children.forEach((element: Element, index: number) => (element.selected = index === selectedIndex));
+    this.children.forEach((
+      element: Element,
+      index: number,
+    ) => (element.selected = index === selectedIndex));
   }
 
   /**
@@ -109,9 +119,7 @@ export class HTMLSelectElement extends HTMLElement {
    */
   get size(): number {
     return this[TransferrableKeys.size] === SizeDefaults.UNMODIFIED
-      ? this.multiple
-        ? SizeDefaults.MULTIPLE
-        : SizeDefaults.SINGLE
+      ? this.multiple ? SizeDefaults.MULTIPLE : SizeDefaults.SINGLE
       : this[TransferrableKeys.size];
   }
 
@@ -121,7 +129,11 @@ export class HTMLSelectElement extends HTMLElement {
    * @param size number to set the size to.
    */
   set size(size: number) {
-    this[TransferrableKeys.size] = size > 0 ? size : this.multiple ? SizeDefaults.MULTIPLE : SizeDefaults.SINGLE;
+    this[TransferrableKeys.size] = size > 0
+      ? size
+      : this.multiple
+      ? SizeDefaults.MULTIPLE
+      : SizeDefaults.SINGLE;
   }
 
   /**
@@ -137,8 +149,13 @@ export class HTMLSelectElement extends HTMLElement {
    * @return the value of the first selected option
    */
   get value(): any {
-    const firstSelectedChild = matchChildElement(this, isSelectedOptionPredicate);
-    return firstSelectedChild ? (firstSelectedChild as HTMLOptionElement).value : "";
+    const firstSelectedChild = matchChildElement(
+      this,
+      isSelectedOptionPredicate,
+    );
+    return firstSelectedChild
+      ? (firstSelectedChild as HTMLOptionElement).value
+      : "";
   }
 
   /**
@@ -148,7 +165,8 @@ export class HTMLSelectElement extends HTMLElement {
   set value(value: any) {
     const stringValue = String(value);
     this.children.forEach((element: Element) =>
-      isOptionPredicate(element) && (element.selected = element.value === stringValue)
+      isOptionPredicate(element)
+      && (element.selected = element.value === stringValue)
     );
   }
 }
@@ -159,7 +177,9 @@ HTMLInputLabelsMixin(HTMLSelectElement);
 // HTMLSelectElement.multiple => boolean, reflected attribute
 // HTMLSelectElement.name => string, reflected attribute
 // HTMLSelectElement.required => boolean, reflected attribute
-reflectProperties([{ multiple: [false] }, { name: [""] }, { required: [false] }], HTMLSelectElement);
+reflectProperties([{ multiple: [false] }, { name: [""] }, {
+  required: [false],
+}], HTMLSelectElement);
 
 // Implemented on HTMLElement
 // HTMLSelectElement.form => HTMLFormElement, readonly

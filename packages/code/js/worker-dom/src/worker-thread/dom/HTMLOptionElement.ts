@@ -53,7 +53,9 @@ export class HTMLOptionElement extends HTMLElement {
       this[TransferrableKeys.index],
       storeString("selected"),
       NumericBoolean.TRUE,
-      this[TransferrableKeys.selected] ? NumericBoolean.TRUE : NumericBoolean.FALSE,
+      this[TransferrableKeys.selected]
+        ? NumericBoolean.TRUE
+        : NumericBoolean.FALSE,
     ]);
   }
 
@@ -102,7 +104,9 @@ definePropertyBackedAttributes(HTMLOptionElement, {
 // HTMLOptionElement.disabled => boolean, reflected attribute
 // HTMLOptionElement.type => string, reflected attribute
 reflectProperties(
-  [{ defaultSelected: [false, /* attr */ "selected"] }, { disabled: [false] }, { type: [""] }],
+  [{ defaultSelected: [false, /* attr */ "selected"] }, { disabled: [false] }, {
+    type: [""],
+  }],
   HTMLOptionElement,
 );
 

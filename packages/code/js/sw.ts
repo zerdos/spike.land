@@ -42,7 +42,7 @@ const getCacheName = () =>
     if (cacheName === assetHash) return;
     cacheName = assetHash;
     Object.assign(assets, { [assetHash]: resp.json() });
-    assets[assetHash].then(f => files = f);
+    assets[assetHash].then((f) => files = f);
   });
 
 self.addEventListener("fetch", function(event) {
@@ -69,7 +69,10 @@ self.addEventListener("fetch", function(event) {
     ) {
       const controller = new AbortController();
 
-      let req = new Request(event.request.url, { ...event.request, signal: controller.signal });
+      let req = new Request(event.request.url, {
+        ...event.request,
+        signal: controller.signal,
+      });
       let resp = await fetch(req);
       if (!resp.ok) return resp;
       resp = new Response(resp.body, resp);
@@ -128,7 +131,10 @@ self.addEventListener("fetch", function(event) {
       }
       return response;
     } catch {
-      return new Response("oh no!", { status: 500, statusText: `Could not fetch:  ${request.url}` });
+      return new Response("oh no!", {
+        status: 500,
+        statusText: `Could not fetch:  ${request.url}`,
+      });
     }
   })());
 });

@@ -20,6 +20,6 @@
   "include": [
     "*.ts",
     "**/*.ts",
-    "../../third_party/html-parser/*.ts",
+    "../../third_party/html-parser/*.ts"
   ]
 }

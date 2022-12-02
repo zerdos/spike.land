@@ -39,7 +39,10 @@ export class HTMLAnchorElement extends HTMLElement {
 }
 registerSubclass("a", HTMLAnchorElement);
 definePropertyBackedAttributes(HTMLAnchorElement, {
-  rel: [(el): string | null => el.relList.value, (el, value: string) => (el.relList.value = value)],
+  rel: [
+    (el): string | null => el.relList.value,
+    (el, value: string) => (el.relList.value = value),
+  ],
 });
 synchronizedAccessor(HTMLAnchorElement, "relList", "rel");
 
@@ -50,7 +53,9 @@ synchronizedAccessor(HTMLAnchorElement, "relList", "rel");
 // HTMLAnchorElement.target => string, reflected attribute
 // HTMLAnchorElement.type => string, reflected attribute
 reflectProperties(
-  [{ href: [""] }, { hreflang: [""] }, { media: [""] }, { target: [""] }, { type: [""] }],
+  [{ href: [""] }, { hreflang: [""] }, { media: [""] }, { target: [""] }, {
+    type: [""],
+  }],
   HTMLAnchorElement,
 );
 

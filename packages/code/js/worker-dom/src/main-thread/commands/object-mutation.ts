@@ -9,11 +9,19 @@ export const ObjectMutationProcessor: CommandExecutorInterface = (
   objectContext,
   config,
 ) => {
-  const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.OBJECT_MUTATION);
+  const allowedExecution = config.executorsAllowed.includes(
+    TransferrableMutationType.OBJECT_MUTATION,
+  );
 
   return {
-    execute(mutations: Uint16Array, startPosition: number, allowedMutation: boolean): number {
-      const functionName = strings.get(mutations[startPosition + ObjectMutationIndex.FunctionName]);
+    execute(
+      mutations: Uint16Array,
+      startPosition: number,
+      allowedMutation: boolean,
+    ): number {
+      const functionName = strings.get(
+        mutations[startPosition + ObjectMutationIndex.FunctionName],
+      );
       const argCount = mutations[startPosition + ObjectMutationIndex.ArgumentCount];
 
       const { offset: targetOffset, args: deserializedTarget } = deserializeTransferrableObject(
@@ -46,7 +54,9 @@ export const ObjectMutationProcessor: CommandExecutorInterface = (
       return argsOffset;
     },
     print(mutations: Uint16Array, startPosition: number): {} {
-      const functionName = strings.get(mutations[startPosition + ObjectMutationIndex.FunctionName]);
+      const functionName = strings.get(
+        mutations[startPosition + ObjectMutationIndex.FunctionName],
+      );
       const { args: deserializedTarget } = deserializeTransferrableObject(
         mutations,
         startPosition + ObjectMutationIndex.SerializedTarget,

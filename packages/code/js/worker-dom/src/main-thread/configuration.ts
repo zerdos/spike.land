@@ -82,7 +82,9 @@ export interface WorkerDOMConfiguration {
   onReceiveMessage?: (message: MessageFromWorker) => void;
 }
 
-export function normalizeConfiguration(config: InboundWorkerDOMConfiguration): WorkerDOMConfiguration {
+export function normalizeConfiguration(
+  config: InboundWorkerDOMConfiguration,
+): WorkerDOMConfiguration {
   return Object.assign(
     {},
     {

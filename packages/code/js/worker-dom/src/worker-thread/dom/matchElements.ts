@@ -17,20 +17,28 @@ export const tagNameConditionPredicate =
 
 export const elementPredicate = (node: Node): boolean => node.nodeType === NodeType.ELEMENT_NODE;
 
-export const matchChildrenElements = (node: Node, conditionPredicate: ConditionPredicate): Element[] => {
+export const matchChildrenElements = (
+  node: Node,
+  conditionPredicate: ConditionPredicate,
+): Element[] => {
   const matchingElements: Element[] = [];
   node.childNodes.forEach((child) => {
     if (elementPredicate(child)) {
       if (conditionPredicate(child as Element)) {
         matchingElements.push(child as Element);
       }
-      matchingElements.push(...matchChildrenElements(child as Element, conditionPredicate));
+      matchingElements.push(
+        ...matchChildrenElements(child as Element, conditionPredicate),
+      );
     }
   });
   return matchingElements;
 };
 
-export const matchChildElement = (element: Element, conditionPredicate: ConditionPredicate): Element | null => {
+export const matchChildElement = (
+  element: Element,
+  conditionPredicate: ConditionPredicate,
+): Element | null => {
   let returnValue: Element | null = null;
   element.children.some((child) => {
     if (conditionPredicate(child)) {
@@ -48,7 +56,10 @@ export const matchChildElement = (element: Element, conditionPredicate: Conditio
   return returnValue;
 };
 
-export const matchNearestParent = (element: Element, conditionPredicate: ConditionPredicate): Element | null => {
+export const matchNearestParent = (
+  element: Element,
+  conditionPredicate: ConditionPredicate,
+): Element | null => {
   while ((element = element.parentNode as Element)) {
     if (conditionPredicate(element)) {
       return element;
@@ -63,7 +74,10 @@ export const matchNearestParent = (element: Element, conditionPredicate: Conditi
  * @param element the element being tested.
  * @return boolean for whether we match the condition
  */
-export const matchAttrReference = (attrSelector: string | null, element: Element): boolean => {
+export const matchAttrReference = (
+  attrSelector: string | null,
+  element: Element,
+): boolean => {
   if (!attrSelector) {
     return false;
   }
@@ -81,12 +95,15 @@ export const matchAttrReference = (attrSelector: string | null, element: Element
     const rawAttrValue: string | null = element.getAttribute(attrString);
     if (rawAttrValue) {
       const casedValue: string = caseInsensitive ? toLower(rawValue) : rawValue;
-      const casedAttrValue: string = caseInsensitive ? toLower(rawAttrValue) : rawAttrValue;
+      const casedAttrValue: string = caseInsensitive
+        ? toLower(rawAttrValue)
+        : rawAttrValue;
       switch (equalSuffix) {
         case "~":
           return casedAttrValue.split(" ").indexOf(casedValue) !== -1;
         case "|":
-          return casedAttrValue === casedValue || casedAttrValue === `${casedValue}-`;
+          return casedAttrValue === casedValue
+            || casedAttrValue === `${casedValue}-`;
         case "^":
           return casedAttrValue.startsWith(casedValue);
         case "$":

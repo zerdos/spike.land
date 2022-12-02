@@ -51,7 +51,9 @@ var MemoryStats = function() {
 
   // support of the API?
   if (perf.memory.totalJSHeapSize === 0) {
-    console.warn("totalJSHeapSize === 0... performance.memory is only available in Chrome .");
+    console.warn(
+      "totalJSHeapSize === 0... performance.memory is only available in Chrome .",
+    );
   }
 
   // TODO, add a sanity check to see if values are bucketed.
@@ -87,7 +89,8 @@ var MemoryStats = function() {
         nFractDigit = nFractDigit !== undefined ? nFractDigit : 0;
         var precision = Math.pow(10, nFractDigit);
         var i = Math.floor(Math.log(bytes) / Math.log(1024));
-        return Math.round((bytes * precision) / Math.pow(1024, i)) / precision + " " + sizes[i];
+        return Math.round((bytes * precision) / Math.pow(1024, i)) / precision
+          + " " + sizes[i];
       }
     },
   };

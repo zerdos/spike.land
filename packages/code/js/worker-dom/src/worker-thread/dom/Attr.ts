@@ -9,6 +9,8 @@ export interface Attr {
 }
 
 export const toString = (attributes: Attr[]): string =>
-  attributes.map((attr: Attr) => keyValueString(attr.name, attr.value)).join(" ");
+  attributes.map((attr: Attr) => keyValueString(attr.name, attr.value)).join(
+    " ",
+  );
 export const matchPredicate = (namespaceURI: NamespaceURI, name: string): (attr: Attr) => boolean => (attr) =>
   attr.namespaceURI === namespaceURI && attr.name === name;

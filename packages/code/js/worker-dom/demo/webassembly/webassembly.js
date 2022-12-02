@@ -7,7 +7,10 @@ const wasmBrowserInstantiate = async () => {
   // supported by the current browser. If not,
   // we fallback and instantiate manually.
   if (WebAssembly.instantiateStreaming) {
-    response = await WebAssembly.instantiateStreaming(fetch(wasmModuleUrl), importObject);
+    response = await WebAssembly.instantiateStreaming(
+      fetch(wasmModuleUrl),
+      importObject,
+    );
   } else {
     const fetchAndInstantiateTask = async () => {
       const wasmArrayBuffer = await fetch(wasmModuleUrl).then((response) => response.arrayBuffer());

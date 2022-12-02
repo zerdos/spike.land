@@ -24,7 +24,11 @@ test("calls handler functions registered with addEventListener", (t) => {
   const { node, event } = t.context;
 
   node.addEventListener("click", (event: Event) => {
-    t.deepEqual(event.target, node, "event target is the node the event was dispatched from");
+    t.deepEqual(
+      event.target,
+      node,
+      "event target is the node the event was dispatched from",
+    );
     t.pass();
   });
   t.true(node.dispatchEvent(event));

@@ -25,7 +25,11 @@ test.serial.cb("Element.removeAttribute transfer", (t) => {
   const { document, emitter } = t.context;
   const div = document.createElement("div");
 
-  function transmitted(strings: Array<string>, message: MutationFromWorker, buffers: Array<ArrayBuffer>) {
+  function transmitted(
+    strings: Array<string>,
+    message: MutationFromWorker,
+    buffers: Array<ArrayBuffer>,
+  ) {
     t.deepEqual(
       Array.from(new Uint16Array(message[TransferrableKeys.mutations])),
       [
@@ -52,7 +56,11 @@ test.serial.cb("Element.removeAttribute transfer, with namespace", (t) => {
   const { document, emitter } = t.context;
   const div = document.createElement("div");
 
-  function transmitted(strings: Array<string>, message: MutationFromWorker, buffers: Array<ArrayBuffer>) {
+  function transmitted(
+    strings: Array<string>,
+    message: MutationFromWorker,
+    buffers: Array<ArrayBuffer>,
+  ) {
     t.deepEqual(
       Array.from(new Uint16Array(message[TransferrableKeys.mutations])),
       [

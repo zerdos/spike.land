@@ -46,7 +46,9 @@ export const FunctionProcessor: CommandExecutorInterface = (
   objectContext,
   config,
 ) => {
-  const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.FUNCTION_CALL);
+  const allowedExecution = config.executorsAllowed.includes(
+    TransferrableMutationType.FUNCTION_CALL,
+  );
 
   return {
     execute(mutations: Uint16Array, startPosition: number): number {
@@ -55,7 +57,9 @@ export const FunctionProcessor: CommandExecutorInterface = (
         const index = mutations[startPosition + FunctionMutationIndex.Index];
         const value = mutations[startPosition + FunctionMutationIndex.Value];
 
-        const parsed = strings.hasIndex(value) ? JSON.parse(strings.get(value)) : undefined;
+        const parsed = strings.hasIndex(value)
+          ? JSON.parse(strings.get(value))
+          : undefined;
         if (status === ResolveOrReject.RESOLVE) {
           promiseMap[index].resolve(parsed);
         } else {

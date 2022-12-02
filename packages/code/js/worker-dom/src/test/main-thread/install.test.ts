@@ -27,7 +27,10 @@ test.afterEach((t) => {
 test.serial("terminate the worker-dom", (t) => {
   const { env, baseElement } = t.context;
 
-  const fetchPromise = Promise.all([Promise.resolve("workerDOMScript"), Promise.resolve("authorScript")]);
+  const fetchPromise = Promise.all([
+    Promise.resolve("workerDOMScript"),
+    Promise.resolve("authorScript"),
+  ]);
   return install(fetchPromise, baseElement, {
     authorURL: "authorURL",
     domURL: "domURL",
@@ -44,7 +47,10 @@ test.serial("attach shadow dom", async (t) => {
   const { baseElement } = t.context;
   baseElement.setAttribute("data-shadow-dom", "open");
 
-  const fetchPromise = Promise.all([Promise.resolve("workerDOMScript"), Promise.resolve("authorScript")]);
+  const fetchPromise = Promise.all([
+    Promise.resolve("workerDOMScript"),
+    Promise.resolve("authorScript"),
+  ]);
   await install(fetchPromise, baseElement, {
     authorURL: "authorURL",
     domURL: "domURL",

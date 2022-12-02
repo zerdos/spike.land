@@ -77,7 +77,13 @@ test.serial.cb("Storage.clear", (t) => {
   const { document, storage } = t.context;
 
   expectMutations(document, (mutations) => {
-    t.deepEqual(mutations, [TransferrableMutationType.STORAGE, GetOrSet.SET, StorageLocation.Local, 0, 0]);
+    t.deepEqual(mutations, [
+      TransferrableMutationType.STORAGE,
+      GetOrSet.SET,
+      StorageLocation.Local,
+      0,
+      0,
+    ]);
     t.end();
   });
 

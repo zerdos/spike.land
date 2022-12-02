@@ -12,7 +12,9 @@ registerSubclass("source", HTMLSourceElement);
 // HTMLSourceElement.srcset => string, reflected attribute
 // HTMLSourceElement.type => string, reflected attribute
 reflectProperties(
-  [{ media: [""] }, { sizes: [""] }, { src: [""] }, { srcset: [""] }, { type: [""] }],
+  [{ media: [""] }, { sizes: [""] }, { src: [""] }, { srcset: [""] }, {
+    type: [""],
+  }],
   HTMLSourceElement,
 );
 

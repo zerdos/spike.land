@@ -46,16 +46,28 @@ export function CandidateMap({ focusRegion, regionData, totalData }) {
     focusRegion(region);
   }
 
-  const focusedRegionData = focusedRegion !== null && regionData[focusedRegion].candidates;
-  const winner = focusedRegionData && totalData[focusedRegionData.indexOf(Math.max(...focusedRegionData))];
+  const focusedRegionData = focusedRegion !== null
+    && regionData[focusedRegion].candidates;
+  const winner = focusedRegionData
+    && totalData[focusedRegionData.indexOf(Math.max(...focusedRegionData))];
 
   return (
     <div className={styles.wrapper}>
-      <svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" onMouseLeave={handleMouseLeave}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="360"
+        height="360"
+        onMouseLeave={handleMouseLeave}
+      >
         <CandidateZone x={0} y={0} index={0} focusRegion={localFocusRegion} />
         <CandidateZone x={180} y={0} index={1} focusRegion={localFocusRegion} />
         <CandidateZone x={0} y={180} index={2} focusRegion={localFocusRegion} />
-        <CandidateZone x={180} y={180} index={3} focusRegion={localFocusRegion} />
+        <CandidateZone
+          x={180}
+          y={180}
+          index={3}
+          focusRegion={localFocusRegion}
+        />
       </svg>
       <p
         className={objstr({

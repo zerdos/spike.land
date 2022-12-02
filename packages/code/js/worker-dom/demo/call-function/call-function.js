@@ -30,7 +30,15 @@ function concat() {
   return combined;
 }
 
-[performComplexMath, getRemoteData, immediatelyThrow, reject, add, concat, returnsUndefined].map((fn) => {
+[
+  performComplexMath,
+  getRemoteData,
+  immediatelyThrow,
+  reject,
+  add,
+  concat,
+  returnsUndefined,
+].map((fn) => {
   exportFunction(fn.name, fn);
 });
 

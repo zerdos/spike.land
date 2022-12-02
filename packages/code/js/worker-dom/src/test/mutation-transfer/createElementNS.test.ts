@@ -24,7 +24,11 @@ test.serial.cb("document.createElementNS creation format is valid", (t) => {
   const { document, emitter } = t.context;
   const svg = document.createElement("svg");
 
-  function transmitted(strings: Array<string>, message: MutationFromWorker, buffers: Array<ArrayBuffer>) {
+  function transmitted(
+    strings: Array<string>,
+    message: MutationFromWorker,
+    buffers: Array<ArrayBuffer>,
+  ) {
     t.deepEqual(
       Array.from(new Uint16Array(message[TransferrableKeys.nodes])),
       [

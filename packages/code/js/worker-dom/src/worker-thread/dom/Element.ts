@@ -29,12 +29,23 @@ export const registerSubclass = (
 ): any => (NS_NAME_TO_CLASS[`${namespace}:${localName}`] = subclass);
 
 interface PropertyBackedAttributes {
-  [key: string]: [(el: Element) => string | null, (el: Element, value: string) => string | boolean];
+  [key: string]: [
+    (el: Element) => string | null,
+    (el: Element, value: string) => string | boolean,
+  ];
 }
 
-export function definePropertyBackedAttributes(defineOn: typeof Element, attributes: PropertyBackedAttributes) {
-  const sub = Object.create(defineOn[TransferrableKeys.propertyBackedAttributes]);
-  defineOn[TransferrableKeys.propertyBackedAttributes] = Object.assign(sub, attributes);
+export function definePropertyBackedAttributes(
+  defineOn: typeof Element,
+  attributes: PropertyBackedAttributes,
+) {
+  const sub = Object.create(
+    defineOn[TransferrableKeys.propertyBackedAttributes],
+  );
+  defineOn[TransferrableKeys.propertyBackedAttributes] = Object.assign(
+    sub,
+    attributes,
+  );
 }
 
 interface ClientRect {
@@ -89,8 +100,14 @@ export class Element extends ParentNode {
   private _classList: DOMTokenList;
 
   public static [TransferrableKeys.propertyBackedAttributes]: PropertyBackedAttributes = {
-    class: [(el): string | null => el.classList.value, (el, value: string) => (el.classList.value = value)],
-    style: [(el): string | null => el.cssText, (el, value: string) => (el.cssText = value)],
+    class: [
+      (el): string | null => el.classList.value,
+      (el, value: string) => (el.classList.value = value),
+    ],
+    style: [
+      (el): string | null => el.cssText,
+      (el, value: string) => (el.cssText = value),
+    ],
   };
 
   public localName: NodeName;
@@ -114,7 +131,9 @@ export class Element extends ParentNode {
     super(nodeType, toUpper(localName), ownerDocument, overrideIndex);
     this.namespaceURI = namespaceURI || HTML_NAMESPACE;
     this.localName = localName;
-    this.kind = VOID_ELEMENTS.includes(this.tagName) ? ElementKind.VOID : ElementKind.NORMAL;
+    this.kind = VOID_ELEMENTS.includes(this.tagName)
+      ? ElementKind.VOID
+      : ElementKind.NORMAL;
 
     this[TransferrableKeys.creationFormat] = [
       this[TransferrableKeys.index],
@@ -368,9 +387,15 @@ export class Element extends ParentNode {
    * @param name attribute name
    * @param value attribute value
    */
-  public setAttributeNS(namespaceURI: NamespaceURI, name: string, value: unknown): void {
+  public setAttributeNS(
+    namespaceURI: NamespaceURI,
+    name: string,
+    value: unknown,
+  ): void {
     const valueAsString = String(value);
-    const propertyBacked = (this.constructor as typeof Element)[TransferrableKeys.propertyBackedAttributes][name];
+    const propertyBacked = (this.constructor as typeof Element)[
+      TransferrableKeys.propertyBackedAttributes
+    ][name];
     if (propertyBacked !== undefined) {
       if (!this.attributes.find(matchAttrPredicate(namespaceURI, name))) {
         this.attributes.push({
@@ -383,7 +408,11 @@ export class Element extends ParentNode {
       return;
     }
 
-    const oldValue = this[TransferrableKeys.storeAttribute](namespaceURI, name, valueAsString);
+    const oldValue = this[TransferrableKeys.storeAttribute](
+      namespaceURI,
+      name,
+      valueAsString,
+    );
     mutate(
       this.ownerDocument as Document,
       {
@@ -404,7 +433,11 @@ export class Element extends ParentNode {
     );
   }
 
-  public [TransferrableKeys.storeAttribute](namespaceURI: NamespaceURI, name: string, value: string): string {
+  public [TransferrableKeys.storeAttribute](
+    namespaceURI: NamespaceURI,
+    name: string,
+    value: string,
+  ): string {
     const attr = this.attributes.find(matchAttrPredicate(namespaceURI, name));
     const oldValue = (attr && attr.value) || "";
 
@@ -428,11 +461,18 @@ export class Element extends ParentNode {
    * @param name attribute name
    * @return value of a specified attribute on the element, or null if the attribute doesn't exist.
    */
-  public getAttributeNS(namespaceURI: NamespaceURI, name: string): string | null {
+  public getAttributeNS(
+    namespaceURI: NamespaceURI,
+    name: string,
+  ): string | null {
     const attr = this.attributes.find(matchAttrPredicate(namespaceURI, name));
     if (attr) {
-      const propertyBacked = (this.constructor as typeof Element)[TransferrableKeys.propertyBackedAttributes][name];
-      return propertyBacked !== undefined ? propertyBacked[0](this) : attr.value;
+      const propertyBacked = (this.constructor as typeof Element)[
+        TransferrableKeys.propertyBackedAttributes
+      ][name];
+      return propertyBacked !== undefined
+        ? propertyBacked[0](this)
+        : attr.value;
     }
     return null;
   }
@@ -446,7 +486,9 @@ export class Element extends ParentNode {
    * @param name attribute name
    */
   public removeAttributeNS(namespaceURI: NamespaceURI, name: string): void {
-    const index = this.attributes.findIndex(matchAttrPredicate(namespaceURI, name));
+    const index = this.attributes.findIndex(
+      matchAttrPredicate(namespaceURI, name),
+    );
 
     if (index >= 0) {
       const oldValue = this.attributes[index].value;
@@ -507,25 +549,21 @@ export class Element extends ParentNode {
     if (tagName === "canvas") {
       return matchChildrenElements(
         this,
-        tagName === "canvas"
-          ? (_) => true
-          : (
-            element,
-          ) => (element.namespaceURI === HTML_NAMESPACE
-            ? element.localName === "OffscreenCanvas"
-            : element.tagName === tagName),
+        tagName === "canvas" ? (_) => true : (
+          element,
+        ) => (element.namespaceURI === HTML_NAMESPACE
+          ? element.localName === "OffscreenCanvas"
+          : element.tagName === tagName),
       );
     }
     const lowerTagName = toLower(tagName);
     return matchChildrenElements(
       this,
-      tagName === "*"
-        ? (_) => true
-        : (
-          element,
-        ) => (element.namespaceURI === HTML_NAMESPACE
-          ? element.localName === lowerTagName
-          : element.tagName === tagName),
+      tagName === "*" ? (_) => true : (
+        element,
+      ) => (element.namespaceURI === HTML_NAMESPACE
+        ? element.localName === lowerTagName
+        : element.tagName === tagName),
     );
   }
 
@@ -536,7 +574,10 @@ export class Element extends ParentNode {
    */
   public getElementsByName(name: any): Array<Element> {
     const stringName = "" + name;
-    return matchChildrenElements(this, (element) => element.getAttribute("name") === stringName);
+    return matchChildrenElements(
+      this,
+      (element) => element.getAttribute("name") === stringName,
+    );
   }
 
   /**
@@ -547,7 +588,9 @@ export class Element extends ParentNode {
   public cloneNode(deep: boolean = false): Element {
     const clone: Element = this.ownerDocument.createElementNS(
       this.namespaceURI,
-      this.namespaceURI === HTML_NAMESPACE ? toLower(this.tagName) : this.tagName,
+      this.namespaceURI === HTML_NAMESPACE
+        ? toLower(this.tagName)
+        : this.tagName,
     );
     this.attributes.forEach((attr) => clone.setAttribute(attr.name, attr.value));
     if (deep) {
@@ -578,10 +621,15 @@ export class Element extends ParentNode {
     return new Promise((resolve) => {
       const messageHandler = ({ data }: { data: MessageToWorker }) => {
         if (
-          data[TransferrableKeys.type] === MessageType.GET_BOUNDING_CLIENT_RECT
-          && (data as BoundingClientRectToWorker)[TransferrableKeys.target][0] === this[TransferrableKeys.index]
+          data[TransferrableKeys.type]
+            === MessageType.GET_BOUNDING_CLIENT_RECT
+          && (data as BoundingClientRectToWorker)[TransferrableKeys.target][0]
+            === this[TransferrableKeys.index]
         ) {
-          this.ownerDocument.removeGlobalEventListener("message", messageHandler);
+          this.ownerDocument.removeGlobalEventListener(
+            "message",
+            messageHandler,
+          );
           const transferredBoundingClientRect: TransferrableBoundingClientRect =
             (data as BoundingClientRectToWorker)[TransferrableKeys.data];
           resolve({
@@ -630,7 +678,8 @@ export class Element extends ParentNode {
   }
 
   public get classList(): DOMTokenList {
-    return this._classList || (this._classList = new DOMTokenList(this, "class"));
+    return this._classList
+      || (this._classList = new DOMTokenList(this, "class"));
   }
 }
 synchronizedAccessor(Element, "classList", "className");

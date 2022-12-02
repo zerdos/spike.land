@@ -53,15 +53,21 @@ const Candidate = ({ victor, name, party, votes, percent }) => {
         <span className={styles.votes}>{numberFormatter.format(votes)}</span>
       </td>
       <td>
-        <span className={styles.percent}>{percentFormatter.format(percent)}</span>
+        <span className={styles.percent}>
+          {percentFormatter.format(percent)}
+        </span>
       </td>
     </tr>
   );
 };
 
-export const CandidateTable = ({ victor, totalData, regionData, votes, focusedRegion }) => {
-  const focusedRegionData = focusedRegion !== null && regionData[focusedRegion].candidates;
-  const winnerIndex = focusedRegionData && focusedRegionData.indexOf(Math.max(...focusedRegionData));
+export const CandidateTable = (
+  { victor, totalData, regionData, votes, focusedRegion },
+) => {
+  const focusedRegionData = focusedRegion !== null
+    && regionData[focusedRegion].candidates;
+  const winnerIndex = focusedRegionData
+    && focusedRegionData.indexOf(Math.max(...focusedRegionData));
   return (
     <table>
       <thead>
@@ -74,7 +80,9 @@ export const CandidateTable = ({ victor, totalData, regionData, votes, focusedRe
       </thead>
       <tbody>
         {totalData.map((candidate, index) => {
-          const isVictor = focusedRegion !== null ? winnerIndex === index : candidate.victor;
+          const isVictor = focusedRegion !== null
+            ? winnerIndex === index
+            : candidate.victor;
           return (
             <Candidate
               victor={isVictor}

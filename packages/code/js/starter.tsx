@@ -127,7 +127,10 @@ export const createIframe = async (cs: string, counter: number) => {
 
       // iframe && iframe.remove();
       res(iframe);
-      requestAnimationFrame(() => !signal.aborted && build(cs, i, signal).then(x => x && setIframe(createJsBlob(x))));
+      requestAnimationFrame(() =>
+        !signal.aborted
+        && build(cs, i, signal).then((x) => x && setIframe(createJsBlob(x)))
+      );
       // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
       // iframe.setAttribute("id", `coder-${codeSpace}`);
 
@@ -154,7 +157,9 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     }
 
     if (current === lastSuccessful) {
-      console.log(`skipping build since it is the latest successful: ${current}`);
+      console.log(
+        `skipping build since it is the latest successful: ${current}`,
+      );
       return;
     }
 
@@ -165,7 +170,10 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     // if (oldDiv) oldDiv.remove();
     div.setAttribute("data-shadow-dom", "open");
 
-    const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+    const w = await upgradeElement(
+      div,
+      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js",
+    );
     if (w === null) throw new Error("No worker");
     worker = w;
     lastSuccessful = current;
@@ -422,7 +430,10 @@ export async function appFactory(
   return apps[hash];
 }
 
-export function createJsBlob(code: Uint8Array | string, fileName = "index.mjs") {
+export function createJsBlob(
+  code: Uint8Array | string,
+  fileName = "index.mjs",
+) {
   const file = new File([code], fileName, {
     type: "application/javascript",
     lastModified: Date.now(),

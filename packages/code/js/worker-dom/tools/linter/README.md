@@ -37,5 +37,5 @@ Modify your .babelrc:
 
 This babel plugins doesn't have the complete typing information and thus cannot
 ascertain whether a `x.offsetWidth` expression references `offsetWidth` property
-of an `HTMLElement` instance or some unrelated object. Such false positives
-can be ignored by adding `/*OK*/` comment, e.g. `x./*OK*/offsetWidth`.
+of an `HTMLElement` instance or some unrelated object. Such false positives can
+be ignored by adding `/*OK*/` comment, e.g. `x./*OK*/offsetWidth`.

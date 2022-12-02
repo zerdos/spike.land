@@ -8,10 +8,16 @@ export const CharacterDataProcessor: CommandExecutorInterface = (
   objectContext,
   config,
 ) => {
-  const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.CHARACTER_DATA);
+  const allowedExecution = config.executorsAllowed.includes(
+    TransferrableMutationType.CHARACTER_DATA,
+  );
 
   return {
-    execute(mutations: Uint16Array, startPosition: number, allowedMutation: boolean): number {
+    execute(
+      mutations: Uint16Array,
+      startPosition: number,
+      allowedMutation: boolean,
+    ): number {
       if (allowedExecution && allowedMutation) {
         const targetIndex = mutations[startPosition + CharacterDataMutationIndex.Target];
         const target = nodes.getNode(targetIndex);
@@ -33,7 +39,9 @@ export const CharacterDataProcessor: CommandExecutorInterface = (
       return {
         target,
         allowedExecution,
-        value: strings.get(mutations[startPosition + CharacterDataMutationIndex.Value]),
+        value: strings.get(
+          mutations[startPosition + CharacterDataMutationIndex.Value],
+        ),
       };
     },
   };

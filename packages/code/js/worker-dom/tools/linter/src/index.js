@@ -29,7 +29,8 @@ module.exports = function({ types: t }) {
         const filtered =
           // Global function calls.
           // `getComputedStyle()`
-          (spec.global && t.isCallExpression(parent, { callee: node }) && !hasBinding)
+          (spec.global && t.isCallExpression(parent, { callee: node })
+            && !hasBinding)
           // Global property reads.
           // `x = pageXOffset`
           || (spec.global && path.isReferencedIdentifier() && !hasBinding);
@@ -54,7 +55,11 @@ module.exports = function({ types: t }) {
         if (!property) {
           return;
         }
-        const name = t.isStringLiteral(property) ? property.value : t.isIdentifier(property) ? property.name : null;
+        const name = t.isStringLiteral(property)
+          ? property.value
+          : t.isIdentifier(property)
+          ? property.name
+          : null;
         if (!name) {
           return;
         }
@@ -92,7 +97,11 @@ module.exports = function({ types: t }) {
           if (!key) {
             continue;
           }
-          const name = t.isStringLiteral(key) ? key.value : t.isIdentifier(key) ? key.name : null;
+          const name = t.isStringLiteral(key)
+            ? key.value
+            : t.isIdentifier(key)
+            ? key.name
+            : null;
           if (!name) {
             continue;
           }

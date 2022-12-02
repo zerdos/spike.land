@@ -25,7 +25,9 @@ const mod = {
 
     const html = mod.res?.innerHTML;
 
-    if (html?.includes(md5Hash) && mod.res?.firstElementChild?.innerHTML !== "") return html;
+    if (
+      html?.includes(md5Hash) && mod.res?.firstElementChild?.innerHTML !== ""
+    ) return html;
 
     mod.wait = mod.wait * 2;
     return await (mod.waitForDiv as unknown as (
@@ -87,7 +89,9 @@ export const render = async (transpiled: string, codeSpace: string) => {
 function mineFromCaches(cache: EmotionCache) {
   const key = cache.key;
   try {
-    return Array.from(document.querySelectorAll(`style[data-emotion="${cache.key}"]`)).map(x => x.textContent).join(
+    return Array.from(
+      document.querySelectorAll(`style[data-emotion="${cache.key}"]`),
+    ).map((x) => x.textContent).join(
       "\n",
     );
   } catch {
@@ -98,7 +102,8 @@ function mineFromCaches(cache: EmotionCache) {
       } catch {
         return null;
       }
-    }).filter((x) => x && x.selectorText && x.selectorText.indexOf(key) !== -1).map((x) => x!.cssText)
+    }).filter((x) => x && x.selectorText && x.selectorText.indexOf(key) !== -1)
+      .map((x) => x!.cssText)
       // .filter((x) => x && keys.includes(x.selectorText)).map((x) => x!.cssText)
       .join("\n");
   }

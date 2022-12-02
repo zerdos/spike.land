@@ -30,13 +30,20 @@ export const readableHydrateableRootNode = (
   element: RenderableElement,
   config: WorkerDOMConfiguration,
   workerContext: WorkerContext,
-): {} => readableHydrateableNode(createReadableHydrateableRootNode(element, config, workerContext));
+): {} =>
+  readableHydrateableNode(
+    createReadableHydrateableRootNode(element, config, workerContext),
+  );
 /**
  * @param nodeContext {NodeContext}
  * @param node {TransferredNode}
  */
-export const readableTransferredNode = (nodeContext: NodeContext, node: TransferredNode): {} | number | null =>
-  (node != null && nodeContext.getNode(node[TransferrableNodeIndex.Index])) || node;
+export const readableTransferredNode = (
+  nodeContext: NodeContext,
+  node: TransferredNode,
+): {} | number | null =>
+  (node != null && nodeContext.getNode(node[TransferrableNodeIndex.Index]))
+  || node;
 
 /**
  * @param node
@@ -72,21 +79,30 @@ const isEvent = (message: MessageToWorker): message is EventToWorker =>
   message[TransferrableKeys.type] == MessageType.EVENT;
 const isValueSync = (message: MessageToWorker): message is ValueSyncToWorker =>
   message[TransferrableKeys.type] == MessageType.SYNC;
-const isBoundingClientRect = (message: MessageToWorker): message is BoundingClientRectToWorker =>
-  message[TransferrableKeys.type] === MessageType.GET_BOUNDING_CLIENT_RECT;
-const isGetStorage = (message: MessageToWorker): message is StorageValueToWorker =>
-  message[TransferrableKeys.type] === MessageType.GET_STORAGE;
+const isBoundingClientRect = (
+  message: MessageToWorker,
+): message is BoundingClientRectToWorker => message[TransferrableKeys.type] === MessageType.GET_BOUNDING_CLIENT_RECT;
+const isGetStorage = (
+  message: MessageToWorker,
+): message is StorageValueToWorker => message[TransferrableKeys.type] === MessageType.GET_STORAGE;
 
 /**
  * @param nodeContext {NodeContext}
  * @param event {TransferrableEvent}
  */
-function readableTransferrableEvent(nodeContext: NodeContext, event: TransferrableEvent): {} {
-  const value = (item?: null | number | boolean | TransferredNode): number | boolean | {} | null => {
+function readableTransferrableEvent(
+  nodeContext: NodeContext,
+  event: TransferrableEvent,
+): {} {
+  const value = (
+    item?: null | number | boolean | TransferredNode,
+  ): number | boolean | {} | null => {
     if (typeof item === "number" || typeof item === "boolean") {
       return item !== undefined ? item : null;
     }
-    return item !== undefined && item !== null ? readableTransferredNode(nodeContext, item) : null;
+    return item !== undefined && item !== null
+      ? readableTransferredNode(nodeContext, item)
+      : null;
   };
 
   return {
@@ -109,7 +125,10 @@ function readableTransferrableEvent(nodeContext: NodeContext, event: Transferrab
  * @param nodeContext {NodeContext}
  * @param value {TransferrableSyncValue}
  */
-function readableTransferrableSyncValue(nodeContext: NodeContext, value: TransferrableSyncValue): {} {
+function readableTransferrableSyncValue(
+  nodeContext: NodeContext,
+  value: TransferrableSyncValue,
+): {} {
   const index = value[TransferrableKeys.index];
   return {
     target: nodeContext.getNode(index) || index,
@@ -120,7 +139,10 @@ function readableTransferrableSyncValue(nodeContext: NodeContext, value: Transfe
 /**
  * @param message
  */
-export function readableMessageToWorker(nodeContext: NodeContext, message: MessageToWorker): {} {
+export function readableMessageToWorker(
+  nodeContext: NodeContext,
+  message: MessageToWorker,
+): {} {
   if (isEvent(message)) {
     const event = message[TransferrableKeys.event];
     return {
@@ -136,7 +158,10 @@ export function readableMessageToWorker(nodeContext: NodeContext, message: Messa
   } else if (isBoundingClientRect(message)) {
     return {
       type: "GET_BOUNDING_CLIENT_RECT",
-      target: readableTransferredNode(nodeContext, message[TransferrableKeys.target]),
+      target: readableTransferredNode(
+        nodeContext,
+        message[TransferrableKeys.target],
+      ),
     };
   } else if (isGetStorage(message)) {
     return {
@@ -146,6 +171,7 @@ export function readableMessageToWorker(nodeContext: NodeContext, message: Messa
       value: message[TransferrableKeys.value],
     };
   } else {
-    return "Unrecognized MessageToWorker type: " + message[TransferrableKeys.type];
+    return "Unrecognized MessageToWorker type: "
+      + message[TransferrableKeys.type];
   }
 }

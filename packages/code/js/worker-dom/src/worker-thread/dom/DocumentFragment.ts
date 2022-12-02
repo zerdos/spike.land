@@ -6,7 +6,12 @@ import { ParentNode } from "./ParentNode";
 
 export class DocumentFragment extends ParentNode {
   constructor(ownerDocument: Node, overrideIndex?: number) {
-    super(NodeType.DOCUMENT_FRAGMENT_NODE, "#document-fragment", ownerDocument, overrideIndex);
+    super(
+      NodeType.DOCUMENT_FRAGMENT_NODE,
+      "#document-fragment",
+      ownerDocument,
+      overrideIndex,
+    );
 
     this[TransferrableKeys.creationFormat] = [
       this[TransferrableKeys.index],

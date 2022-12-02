@@ -13,48 +13,60 @@ test.beforeEach((t) => {
   };
 });
 
-test.serial.cb("Element.classList.toggle mutation observed, toggle to remove", (t) => {
-  const { document } = t.context;
-  const el = document.createElement("div");
-  el.className = "foo";
-  const observer = new document.defaultView.MutationObserver((mutations: MutationRecord[]): void => {
-    t.deepEqual(mutations, [
-      {
-        type: MutationRecordType.ATTRIBUTES,
-        attributeName: "class",
-        target: el,
-        value: "",
-        oldValue: "foo",
-      },
-    ]);
-    observer.disconnect();
-    t.end();
-  });
+test
+  .serial.cb(
+    "Element.classList.toggle mutation observed, toggle to remove",
+    (t) => {
+      const { document } = t.context;
+      const el = document.createElement("div");
+      el.className = "foo";
+      const observer = new document.defaultView.MutationObserver(
+        (mutations: MutationRecord[]): void => {
+          t.deepEqual(mutations, [
+            {
+              type: MutationRecordType.ATTRIBUTES,
+              attributeName: "class",
+              target: el,
+              value: "",
+              oldValue: "foo",
+            },
+          ]);
+          observer.disconnect();
+          t.end();
+        },
+      );
 
-  document.body.appendChild(el);
-  observer.observe(document.body);
-  el.classList.toggle("foo");
-});
+      document.body.appendChild(el);
+      observer.observe(document.body);
+      el.classList.toggle("foo");
+    },
+  );
 
-test.serial.cb("Element.classList.toggle mutation observed, toggle to add", (t) => {
-  const { document } = t.context;
-  const el = document.createElement("div");
-  el.className = "foo";
-  const observer = new document.defaultView.MutationObserver((mutations: MutationRecord[]): void => {
-    t.deepEqual(mutations, [
-      {
-        type: MutationRecordType.ATTRIBUTES,
-        attributeName: "class",
-        target: el,
-        value: "foo bar",
-        oldValue: "foo",
-      },
-    ]);
-    observer.disconnect();
-    t.end();
-  });
+test
+  .serial.cb(
+    "Element.classList.toggle mutation observed, toggle to add",
+    (t) => {
+      const { document } = t.context;
+      const el = document.createElement("div");
+      el.className = "foo";
+      const observer = new document.defaultView.MutationObserver(
+        (mutations: MutationRecord[]): void => {
+          t.deepEqual(mutations, [
+            {
+              type: MutationRecordType.ATTRIBUTES,
+              attributeName: "class",
+              target: el,
+              value: "foo bar",
+              oldValue: "foo",
+            },
+          ]);
+          observer.disconnect();
+          t.end();
+        },
+      );
 
-  document.body.appendChild(el);
-  observer.observe(document.body);
-  el.classList.toggle("bar");
-});
+      document.body.appendChild(el);
+      observer.observe(document.body);
+      el.classList.toggle("bar");
+    },
+  );

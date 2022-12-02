@@ -46,7 +46,10 @@ export class Text extends CharacterData {
    * @return Text Node after the offset.
    */
   public splitText(offset: number): Text {
-    const remainderTextNode = new Text(this.data.slice(offset, this.data.length), this.ownerDocument);
+    const remainderTextNode = new Text(
+      this.data.slice(offset, this.data.length),
+      this.ownerDocument,
+    );
     const parentNode = this.parentNode;
 
     this.nodeValue = this.data.slice(0, offset);
@@ -58,7 +61,10 @@ export class Text extends CharacterData {
         ? parentChildNodes[insertBeforePosition]
         : null;
 
-      return parentNode.insertBefore(remainderTextNode, insertBeforeNode) as Text;
+      return parentNode.insertBefore(
+        remainderTextNode,
+        insertBeforeNode,
+      ) as Text;
     }
 
     return remainderTextNode;

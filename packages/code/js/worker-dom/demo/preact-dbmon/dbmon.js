@@ -131,7 +131,9 @@
    *
    * @param {Function} callback
    */
-  var defer = typeof Promise == "function" ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+  var defer = typeof Promise == "function"
+    ? Promise.resolve().then.bind(Promise.resolve())
+    : setTimeout;
 
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -141,7 +143,10 @@
   var items = [];
 
   function enqueueRender(component) {
-    if (!component._dirty && (component._dirty = true) && items.push(component) == 1) {
+    if (
+      !component._dirty && (component._dirty = true)
+      && items.push(component) == 1
+    ) {
       (options.debounceRendering || defer)(rerender);
     }
   }
@@ -180,7 +185,8 @@
    * @param {String} nodeName	Unnormalized name to compare against.
    */
   function isNamedNode(node, nodeName) {
-    return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
+    return node.normalizedNodeName === nodeName
+      || node.nodeName.toLowerCase() === nodeName.toLowerCase();
   }
 
   /**
@@ -280,11 +286,20 @@
     } else {
       var ns = isSvg && name !== (name = name.replace(/^xlink\:?/, ""));
       if (value == null || value === false) {
-        if (ns) node.removeAttributeNS("http://www.w3.org/1999/xlink", name.toLowerCase());
-        else node.removeAttribute(name);
+        if (ns) {
+          node.removeAttributeNS(
+            "http://www.w3.org/1999/xlink",
+            name.toLowerCase(),
+          );
+        } else node.removeAttribute(name);
       } else if (typeof value !== "function") {
-        if (ns) node.setAttributeNS("http://www.w3.org/1999/xlink", name.toLowerCase(), value);
-        else node.setAttribute(name, value);
+        if (ns) {
+          node.setAttributeNS(
+            "http://www.w3.org/1999/xlink",
+            name.toLowerCase(),
+            value,
+          );
+        } else node.setAttribute(name, value);
       }
     }
   }
@@ -368,7 +383,10 @@
     // Fast case: Strings & Numbers create/update Text nodes.
     if (typeof vnode === "string" || typeof vnode === "number") {
       // update if it's already a Text node:
-      if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
+      if (
+        dom && dom.splitText !== undefined && dom.parentNode
+        && (!dom._component || componentRoot)
+      ) {
         /* istanbul ignore if */
         /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
         if (dom.nodeValue != vnode) {
@@ -395,7 +413,11 @@
     }
 
     // Tracks entering and exiting SVG namespace when descending through the tree.
-    isSvgMode = vnodeName === "svg" ? true : vnodeName === "foreignObject" ? false : isSvgMode;
+    isSvgMode = vnodeName === "svg"
+      ? true
+      : vnodeName === "foreignObject"
+      ? false
+      : isSvgMode;
 
     // If there's no existing element or it's the wrong type, create a new one:
     vnodeName = String(vnodeName);
@@ -440,7 +462,13 @@
       }
     } // otherwise, if there are existing or new children, diff them:
     else if ((vchildren && vchildren.length) || fc != null) {
-      innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+      innerDiffNode(
+        out,
+        vchildren,
+        context,
+        mountAll,
+        hydrating || props.dangerouslySetInnerHTML != null,
+      );
     }
 
     // Apply attributes/props from VNode to the DOM Element:
@@ -479,12 +507,17 @@
       for (var i = 0; i < len; i++) {
         var _child = originalChildren[i],
           props = _child["__preactattr_"],
-          key = vlen && props ? (_child._component ? _child._component.__key : props.key) : null;
+          key = vlen && props
+            ? (_child._component ? _child._component.__key : props.key)
+            : null;
         if (key != null) {
           keyedLen++;
           keyed[key] = _child;
         } else if (
-          props || (_child.splitText !== undefined ? (isHydrating ? _child.nodeValue.trim() : true) : isHydrating)
+          props
+          || (_child.splitText !== undefined
+            ? (isHydrating ? _child.nodeValue.trim() : true)
+            : isHydrating)
         ) {
           children[childrenLen++] = _child;
         }
@@ -507,7 +540,10 @@
         } // attempt to pluck a node of the same type from the existing children
         else if (!child && min < childrenLen) {
           for (j = min; j < childrenLen; j++) {
-            if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+            if (
+              children[j] !== undefined
+              && isSameNodeType(c = children[j], vchild, isHydrating)
+            ) {
               child = c;
               children[j] = undefined;
               if (j === childrenLen - 1) childrenLen--;
@@ -542,7 +578,9 @@
 
     // remove orphaned unkeyed children:
     while (min <= childrenLen) {
-      if ((child = children[childrenLen--]) !== undefined) recollectNodeTree(child, false);
+      if ((child = children[childrenLen--]) !== undefined) {
+        recollectNodeTree(child, false);
+      }
     }
   }
 
@@ -558,7 +596,9 @@
     } else {
       // If the node's VNode had a ref function, invoke it with null here.
       // (this is part of the React spec, and smart for unsetting references)
-      if (node["__preactattr_"] != null && node["__preactattr_"].ref) node["__preactattr_"].ref(null);
+      if (node["__preactattr_"] != null && node["__preactattr_"].ref) {
+        node["__preactattr_"].ref(null);
+      }
 
       if (unmountOnly === false || node["__preactattr_"] == null) {
         removeNode(node);
@@ -601,7 +641,9 @@
       if (
         name !== "children"
         && name !== "innerHTML"
-        && (!(name in old) || attrs[name] !== (name === "value" || name === "checked" ? dom[name] : old[name]))
+        && (!(name in old)
+          || attrs[name]
+            !== (name === "value" || name === "checked" ? dom[name] : old[name]))
       ) {
         setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
       }
@@ -681,7 +723,9 @@
     component._disable = false;
 
     if (opts !== 0) {
-      if (opts === 1 || options.syncComponentUpdates !== false || !component.base) {
+      if (
+        opts === 1 || options.syncComponentUpdates !== false || !component.base
+      ) {
         renderComponent(component, 1, mountAll);
       } else {
         enqueueRender(component);
@@ -758,12 +802,19 @@
         var childProps = getNodeProps(rendered);
         inst = initialChildComponent;
 
-        if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
+        if (
+          inst && inst.constructor === childComponent
+          && childProps.key == inst.__key
+        ) {
           setComponentProps(inst, childProps, 1, context, false);
         } else {
           toUnmount = inst;
 
-          component._component = inst = createComponent(childComponent, childProps, context);
+          component._component = inst = createComponent(
+            childComponent,
+            childProps,
+            context,
+          );
           inst.nextBase = inst.nextBase || nextBase;
           inst._parentComponent = component;
           setComponentProps(inst, childProps, 0, context, false);
@@ -782,11 +833,20 @@
 
         if (initialBase || opts === 1) {
           if (cbase) cbase._component = null;
-          base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
+          base = diff(
+            cbase,
+            rendered,
+            context,
+            mountAll || !isUpdate,
+            initialBase && initialBase.parentNode,
+            true,
+          );
         }
       }
 
-      if (initialBase && base !== initialBase && inst !== initialChildComponent) {
+      if (
+        initialBase && base !== initialBase && inst !== initialChildComponent
+      ) {
         var baseParent = initialBase.parentNode;
         if (baseParent && base !== baseParent) {
           baseParent.replaceChild(base, initialBase);
@@ -823,7 +883,11 @@
       // flushMounts();
 
       if (component.componentDidUpdate) {
-        component.componentDidUpdate(previousProps, previousState, previousContext);
+        component.componentDidUpdate(
+          previousProps,
+          previousState,
+          previousContext,
+        );
       }
       if (options.afterUpdate) options.afterUpdate(component);
     }
@@ -901,7 +965,9 @@
     if (inner) {
       unmountComponent(inner);
     } else if (base) {
-      if (base["__preactattr_"] && base["__preactattr_"].ref) base["__preactattr_"].ref(null);
+      if (base["__preactattr_"] && base["__preactattr_"].ref) {
+        base["__preactattr_"].ref(null);
+      }
 
       component.nextBase = base;
 
@@ -962,7 +1028,9 @@
       var s = this.state;
       if (!this.prevState) this.prevState = extend({}, s);
       extend(s, typeof state === "function" ? state(s, this.props) : state);
-      if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
+      if (callback) {
+        (this._renderCallbacks = this._renderCallbacks || []).push(callback);
+      }
       enqueueRender(this);
     },
 
@@ -971,7 +1039,9 @@
      * 	@private
      */
     forceUpdate: function forceUpdate(callback) {
-      if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
+      if (callback) {
+        (this._renderCallbacks = this._renderCallbacks || []).push(callback);
+      }
       renderComponent(this, 2);
     },
 
@@ -1012,7 +1082,9 @@
 
   function _assertThisInitialized(self) {
     if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+      throw new ReferenceError(
+        "this hasn't been initialised - super() hasn't been called",
+      );
     }
 
     return self;
@@ -1027,7 +1099,8 @@
 
       (_base = String.prototype).lpad
         || (_base.lpad = function(padding, toLength) {
-          return padding.repeat((toLength - this.length) / padding.length).concat(this);
+          return padding.repeat((toLength - this.length) / padding.length)
+            .concat(this);
         });
 
       function formatElapsed(value) {
@@ -1263,8 +1336,13 @@
 
       var _proto = Query.prototype;
 
-      _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.elapsedClassName !== this.props.elapsedClassName) return true;
+      _proto.shouldComponentUpdate = function shouldComponentUpdate(
+        nextProps,
+        nextState,
+      ) {
+        if (nextProps.elapsedClassName !== this.props.elapsedClassName) {
+          return true;
+        }
         if (nextProps.formatElapsed !== this.props.formatElapsed) return true;
         if (nextProps.query !== this.props.query) return true;
         return false;
@@ -1310,7 +1388,10 @@
 
       var _proto2 = Database.prototype;
 
-      _proto2.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
+      _proto2.shouldComponentUpdate = function shouldComponentUpdate(
+        nextProps,
+        nextState,
+      ) {
         return nextProps.lastMutationId !== this.props.lastMutationId;
       };
 
@@ -1365,12 +1446,18 @@
       function Databases() {
         var _temp, _this;
 
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        for (
+          var _len = arguments.length, args = new Array(_len), _key = 0;
+          _key < _len;
+          _key++
+        ) {
           args[_key] = arguments[_key];
         }
 
         return (
-          ((_temp = _this = _Component3.call.apply(_Component3, [this].concat(args)) || this),
+          ((_temp =
+            _this =
+              _Component3.call.apply(_Component3, [this].concat(args)) || this),
             Object.defineProperty(_assertThisInitialized(_this), "state", {
               configurable: true,
               enumerable: true,
@@ -1379,18 +1466,22 @@
                 databases: [],
               },
             }),
-            Object.defineProperty(_assertThisInitialized(_this), "loadSamples", {
-              configurable: true,
-              enumerable: true,
-              writable: true,
-              value: function value(_) {
-                _this.setState({
-                  databases: ENV.generateData(true).toArray(),
-                }); // Monitoring.renderRate.ping();
+            Object.defineProperty(
+              _assertThisInitialized(_this),
+              "loadSamples",
+              {
+                configurable: true,
+                enumerable: true,
+                writable: true,
+                value: function value(_) {
+                  _this.setState({
+                    databases: ENV.generateData(true).toArray(),
+                  }); // Monitoring.renderRate.ping();
 
-                setTimeout(_this.loadSamples, ENV.timeout);
+                  setTimeout(_this.loadSamples, ENV.timeout);
+                },
               },
-            }),
+            ),
             _temp) || _assertThisInitialized(_this)
         );
       }
@@ -1428,12 +1519,18 @@
       function DBMon() {
         var _temp2, _this2;
 
-        for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        for (
+          var _len2 = arguments.length, args = new Array(_len2), _key2 = 0;
+          _key2 < _len2;
+          _key2++
+        ) {
           args[_key2] = arguments[_key2];
         }
 
         return (
-          ((_temp2 = _this2 = _Component4.call.apply(_Component4, [this].concat(args)) || this),
+          ((_temp2 =
+            _this2 =
+              _Component4.call.apply(_Component4, [this].concat(args)) || this),
             Object.defineProperty(_assertThisInitialized(_this2), "state", {
               configurable: true,
               enumerable: true,
@@ -1442,19 +1539,23 @@
                 mutations: 0.5,
               },
             }),
-            Object.defineProperty(_assertThisInitialized(_this2), "handleSliderChange", {
-              configurable: true,
-              enumerable: true,
-              writable: true,
-              value: function value(e) {
-                var mutations = e.target.value / 100;
-                ENV.mutations(mutations);
+            Object.defineProperty(
+              _assertThisInitialized(_this2),
+              "handleSliderChange",
+              {
+                configurable: true,
+                enumerable: true,
+                writable: true,
+                value: function value(e) {
+                  var mutations = e.target.value / 100;
+                  ENV.mutations(mutations);
 
-                _this2.setState({
-                  mutations: mutations,
-                });
+                  _this2.setState({
+                    mutations: mutations,
+                  });
+                },
               },
-            }),
+            ),
             _temp2) || _assertThisInitialized(_this2)
         );
       }
@@ -1544,7 +1645,9 @@
         _this.state = {
           clicked: false,
         };
-        _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+        _this.handleClick = _this.handleClick.bind(
+          _assertThisInitialized(_this),
+        );
         return _this;
       }
 
@@ -1560,7 +1663,14 @@
         return h(
           "div",
           null,
-          h("p", null, "Hello ", props.name, "! Button was clicked? ", state.clicked),
+          h(
+            "p",
+            null,
+            "Hello ",
+            props.name,
+            "! Button was clicked? ",
+            state.clicked,
+          ),
           h(
             "button",
             {
@@ -1599,12 +1709,18 @@
       function TodoApp() {
         var _temp, _this2;
 
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        for (
+          var _len = arguments.length, args = new Array(_len), _key = 0;
+          _key < _len;
+          _key++
+        ) {
           args[_key] = arguments[_key];
         }
 
         return (
-          ((_temp = _this2 = _Component2.call.apply(_Component2, [this].concat(args)) || this),
+          ((_temp =
+            _this2 =
+              _Component2.call.apply(_Component2, [this].concat(args)) || this),
             Object.defineProperty(_assertThisInitialized(_this2), "state", {
               configurable: true,
               enumerable: true,
@@ -1616,55 +1732,67 @@
                 focused: false,
               },
             }),
-            Object.defineProperty(_assertThisInitialized(_this2), "handleChange", {
-              configurable: true,
-              enumerable: true,
-              writable: true,
-              value: function value(e) {
-                _this2.setState({
-                  text: e.target.value,
-                });
-              },
-            }),
-            Object.defineProperty(_assertThisInitialized(_this2), "handleFocus", {
-              configurable: true,
-              enumerable: true,
-              writable: true,
-              value: function value(e) {
-                // Clear placeholder text on first focus.
-                if (!_this2.state.focused) {
+            Object.defineProperty(
+              _assertThisInitialized(_this2),
+              "handleChange",
+              {
+                configurable: true,
+                enumerable: true,
+                writable: true,
+                value: function value(e) {
                   _this2.setState({
-                    text: "",
-                    focused: true,
+                    text: e.target.value,
                   });
-                }
+                },
               },
-            }),
-            Object.defineProperty(_assertThisInitialized(_this2), "handleSubmit", {
-              configurable: true,
-              enumerable: true,
-              writable: true,
-              value: function value(e) {
-                var _this2$state = _this2.state,
-                  text = _this2$state.text,
-                  id = _this2$state.id;
-
-                if (!text.length) {
-                  return;
-                }
-
-                _this2.setState(function(prevState) {
-                  return {
-                    items: prevState.items.concat({
-                      text: text,
-                      id: id,
-                    }),
-                    text: "",
-                    id: prevState.id + 1,
-                  };
-                });
+            ),
+            Object.defineProperty(
+              _assertThisInitialized(_this2),
+              "handleFocus",
+              {
+                configurable: true,
+                enumerable: true,
+                writable: true,
+                value: function value(e) {
+                  // Clear placeholder text on first focus.
+                  if (!_this2.state.focused) {
+                    _this2.setState({
+                      text: "",
+                      focused: true,
+                    });
+                  }
+                },
               },
-            }),
+            ),
+            Object.defineProperty(
+              _assertThisInitialized(_this2),
+              "handleSubmit",
+              {
+                configurable: true,
+                enumerable: true,
+                writable: true,
+                value: function value(e) {
+                  var _this2$state = _this2.state,
+                    text = _this2$state.text,
+                    id = _this2$state.id;
+
+                  if (!text.length) {
+                    return;
+                  }
+
+                  _this2.setState(function(prevState) {
+                    return {
+                      items: prevState.items.concat({
+                        text: text,
+                        id: id,
+                      }),
+                      text: "",
+                      id: prevState.id + 1,
+                    };
+                  });
+                },
+              },
+            ),
             _temp) || _assertThisInitialized(_this2)
         );
       }
@@ -1707,12 +1835,18 @@
       function Timer() {
         var _temp2, _this3;
 
-        for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        for (
+          var _len2 = arguments.length, args = new Array(_len2), _key2 = 0;
+          _key2 < _len2;
+          _key2++
+        ) {
           args[_key2] = arguments[_key2];
         }
 
         return (
-          ((_temp2 = _this3 = _Component3.call.apply(_Component3, [this].concat(args)) || this),
+          ((_temp2 =
+            _this3 =
+              _Component3.call.apply(_Component3, [this].concat(args)) || this),
             Object.defineProperty(_assertThisInitialized(_this3), "state", {
               configurable: true,
               enumerable: true,

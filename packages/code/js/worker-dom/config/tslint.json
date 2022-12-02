@@ -1,7 +1,7 @@
 {
   "rules": {
     "variable-name": [
-      true, 
+      true,
       "ban-keywords",
       "allow-trailing-underscore",
       "allow-leading-underscore"
@@ -19,9 +19,10 @@
     "ban": [
       true,
       "alert",
-      {"name": "Array", "message": "tsstyle#array-constructor"}
+      { "name": "Array", "message": "tsstyle#array-constructor" }
     ],
-    "ban-types": [true,
+    "ban-types": [
+      true,
       ["Object", "Use {} instead."],
       ["String", "Use 'string' instead."],
       ["Number", "Use 'number' instead."],

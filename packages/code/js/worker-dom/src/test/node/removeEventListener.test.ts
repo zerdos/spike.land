@@ -32,7 +32,10 @@ test("removing a specific callback from list with more than one callback reduces
 
   node.addEventListener("click", callback);
   node.addEventListener("click", callbackTwo);
-  t.deepEqual(node[TransferrableKeys.handlers]["click"], [callback, callbackTwo]);
+  t.deepEqual(node[TransferrableKeys.handlers]["click"], [
+    callback,
+    callbackTwo,
+  ]);
   node.removeEventListener("click", callback);
   t.deepEqual(node[TransferrableKeys.handlers]["click"], [callbackTwo]);
 });
@@ -42,9 +45,15 @@ test("removing an unknown callback when callbacks are registerd to a type does n
 
   node.addEventListener("click", callback);
   node.addEventListener("click", callbackTwo);
-  t.deepEqual(node[TransferrableKeys.handlers]["click"], [callback, callbackTwo]);
+  t.deepEqual(node[TransferrableKeys.handlers]["click"], [
+    callback,
+    callbackTwo,
+  ]);
   node.removeEventListener("click", () => undefined);
-  t.deepEqual(node[TransferrableKeys.handlers]["click"], [callback, callbackTwo]);
+  t.deepEqual(node[TransferrableKeys.handlers]["click"], [
+    callback,
+    callbackTwo,
+  ]);
 });
 
 test("removing an unknown callback for a unknown type does nothing", (t) => {

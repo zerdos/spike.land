@@ -15,4 +15,11 @@ test.beforeEach((t) => {
   };
 });
 
-testReflectedProperties([{ high: [0] }, { low: [0] }, { max: [1] }, { min: [0] }, { optimum: [0] }, { value: [0] }]);
+testReflectedProperties([
+  { high: [0] },
+  { low: [0] },
+  { max: [1] },
+  { min: [0] },
+  { optimum: [0] },
+  { value: [0] },
+]);

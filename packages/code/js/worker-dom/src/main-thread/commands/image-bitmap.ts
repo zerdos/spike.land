@@ -10,26 +10,37 @@ export const ImageBitmapProcessor: CommandExecutorInterface = (
   objectContext,
   config,
 ) => {
-  const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.IMAGE_BITMAP_INSTANCE);
+  const allowedExecution = config.executorsAllowed.includes(
+    TransferrableMutationType.IMAGE_BITMAP_INSTANCE,
+  );
 
   return {
-    execute(mutations: Uint16Array, startPosition: number, allowedMutation: boolean): number {
+    execute(
+      mutations: Uint16Array,
+      startPosition: number,
+      allowedMutation: boolean,
+    ): number {
       if (allowedExecution && allowedMutation) {
         const targetIndex = mutations[startPosition + ImageBitmapMutationIndex.Target];
         const target = nodeContext.getNode(targetIndex);
         if (target) {
-          self.createImageBitmap(target as HTMLImageElement | HTMLCanvasElement).then((imageBitmap) => {
-            workerContext.messageToWorker(
-              {
-                [TransferrableKeys.type]: MessageType.IMAGE_BITMAP_INSTANCE,
-                [TransferrableKeys.callIndex]: mutations[startPosition + ImageBitmapMutationIndex.CallIndex],
-                [TransferrableKeys.data]: imageBitmap,
-              },
-              [imageBitmap],
-            );
-          });
+          self.createImageBitmap(target as HTMLImageElement | HTMLCanvasElement)
+            .then((imageBitmap) => {
+              workerContext.messageToWorker(
+                {
+                  [TransferrableKeys.type]: MessageType.IMAGE_BITMAP_INSTANCE,
+                  [TransferrableKeys.callIndex]: mutations[
+                    startPosition + ImageBitmapMutationIndex.CallIndex
+                  ],
+                  [TransferrableKeys.data]: imageBitmap,
+                },
+                [imageBitmap],
+              );
+            });
         } else {
-          console.error(`IMAGE_BITMAP_INSTANCE: getNode(${targetIndex}) is null.`);
+          console.error(
+            `IMAGE_BITMAP_INSTANCE: getNode(${targetIndex}) is null.`,
+          );
         }
       }
 

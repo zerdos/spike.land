@@ -13,7 +13,12 @@ const ViaObjectHandler = {
 
   set(target, property, value, receiver) {
     // Add a set command to the queue.
-    Via._AddToQueue([1, /* set */ target._objectId, [property], Via._WrapArg(value)]);
+    Via._AddToQueue([
+      1,
+      /* set */ target._objectId,
+      [property],
+      Via._WrapArg(value),
+    ]);
 
     return true;
   },
@@ -78,7 +83,13 @@ const ViaPropertyHandler = {
     // a Via object proxy representing the returned object ID.
     const returnObjectId = Via._GetNextObjectId();
 
-    Via._AddToQueue([0, /* call */ target._objectId, target._path, argumentsList.map(Via._WrapArg), returnObjectId]);
+    Via._AddToQueue([
+      0,
+      /* call */ target._objectId,
+      target._path,
+      argumentsList.map(Via._WrapArg),
+      returnObjectId,
+    ]);
 
     return Via._MakeObject(returnObjectId);
   },

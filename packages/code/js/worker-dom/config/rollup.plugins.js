@@ -12,9 +12,15 @@ const walk = require("acorn-walk");
  * - allowConsole Should we allow `console` methods in the output?
  * - allowPostMessage Should we allow postMessage to/from the Worker?
  */
-export function babelPlugin({ transpileToES5, allowConsole = false, allowPostMessage = true }) {
-  const targets = transpileToES5 ? { browsers: ["last 2 versions", "ie >= 11", "safari >= 7"] } : { esmodules: true };
-  const exclude = allowConsole ? ["error", "warn", "trace", "info", "log", "time", "timeEnd"] : [];
+export function babelPlugin(
+  { transpileToES5, allowConsole = false, allowPostMessage = true },
+) {
+  const targets = transpileToES5
+    ? { browsers: ["last 2 versions", "ie >= 11", "safari >= 7"] }
+    : { esmodules: true };
+  const exclude = allowConsole
+    ? ["error", "warn", "trace", "info", "log", "time", "timeEnd"]
+    : [];
 
   return babel({
     babelHelpers: "bundled",
@@ -76,7 +82,10 @@ export function removeDebugCommandExecutors() {
       context = this;
       toDiscover = fs
         .readdirSync(path.join(path.dirname(options.input[0]), "commands"))
-        .filter((file) => path.extname(file) !== ".map" && path.basename(file, ".js") !== "interface").length;
+        .filter((file) =>
+          path.extname(file) !== ".map"
+          && path.basename(file, ".js") !== "interface"
+        ).length;
     },
     renderChunk(code) {
       const source = new MagicString(code);
@@ -87,24 +96,35 @@ export function removeDebugCommandExecutors() {
           const propertyNames = (node.properties && node.properties.map((property) => property.key.name)) || [];
           const validPropertyRanges = [];
 
-          if (propertyNames.includes("execute") && propertyNames.includes("print")) {
+          if (
+            propertyNames.includes("execute") && propertyNames.includes("print")
+          ) {
             for (const property of node.properties) {
               if (property.key.type === "Identifier") {
                 if (property.key.name === "print") {
                   toDiscover--;
                 } else {
-                  validPropertyRanges.push([property.range[0], property.range[1]]);
+                  validPropertyRanges.push([
+                    property.range[0],
+                    property.range[1],
+                  ]);
                 }
               }
             }
 
-            source.overwrite(node.range[0], node.range[1], outputPropertyRange(code, validPropertyRanges));
+            source.overwrite(
+              node.range[0],
+              node.range[1],
+              outputPropertyRange(code, validPropertyRanges),
+            );
           }
         },
       });
 
       if (toDiscover > 0) {
-        context.warn(`${toDiscover} CommandExecutors were not found during compilation.`);
+        context.warn(
+          `${toDiscover} CommandExecutors were not found during compilation.`,
+        );
       }
 
       return {
@@ -144,7 +164,9 @@ export function removeWorkerWhitespace() {
   };
 }
 
-export function replacePlugin({ debug = false, server = false, amp = false } = {}) {
+export function replacePlugin(
+  { debug = false, server = false, amp = false } = {},
+) {
   return replace({
     values: {
       WORKER_DOM_DEBUG: debug,

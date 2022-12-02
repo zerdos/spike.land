@@ -28,7 +28,9 @@
 
   function _assertThisInitialized(self) {
     if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+      throw new ReferenceError(
+        "this hasn't been initialised - super() hasn't been called",
+      );
     }
 
     return self;
@@ -164,14 +166,19 @@
    * @param {Function} callback
    */
 
-  var defer = typeof Promise == "function" ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+  var defer = typeof Promise == "function"
+    ? Promise.resolve().then.bind(Promise.resolve())
+    : setTimeout;
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
   /** Managed queue of dirty components to be re-rendered */
 
   var items = [];
 
   function enqueueRender(component) {
-    if (!component._dirty && (component._dirty = true) && items.push(component) == 1) {
+    if (
+      !component._dirty && (component._dirty = true)
+      && items.push(component) == 1
+    ) {
       (options.debounceRendering || defer)(rerender);
     }
   }
@@ -213,7 +220,8 @@
    */
 
   function isNamedNode(node, nodeName) {
-    return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
+    return node.normalizedNodeName === nodeName
+      || node.nodeName.toLowerCase() === nodeName.toLowerCase();
   }
   /**
    * Reconstruct Component-style `props` from a VNode.
@@ -318,11 +326,20 @@
       var ns = isSvg && name !== (name = name.replace(/^xlink\:?/, ""));
 
       if (value == null || value === false) {
-        if (ns) node.removeAttributeNS("http://www.w3.org/1999/xlink", name.toLowerCase());
-        else node.removeAttribute(name);
+        if (ns) {
+          node.removeAttributeNS(
+            "http://www.w3.org/1999/xlink",
+            name.toLowerCase(),
+          );
+        } else node.removeAttribute(name);
       } else if (typeof value !== "function") {
-        if (ns) node.setAttributeNS("http://www.w3.org/1999/xlink", name.toLowerCase(), value);
-        else node.setAttribute(name, value);
+        if (ns) {
+          node.setAttributeNS(
+            "http://www.w3.org/1999/xlink",
+            name.toLowerCase(),
+            value,
+          );
+        } else node.setAttribute(name, value);
       }
     }
   }
@@ -402,7 +419,10 @@
 
     if (typeof vnode === "string" || typeof vnode === "number") {
       // update if it's already a Text node:
-      if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
+      if (
+        dom && dom.splitText !== undefined && dom.parentNode
+        && (!dom._component || componentRoot)
+      ) {
         /* istanbul ignore if */
 
         /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
@@ -429,7 +449,11 @@
       return buildComponentFromVNode(dom, vnode, context, mountAll);
     } // Tracks entering and exiting SVG namespace when descending through the tree.
 
-    isSvgMode = vnodeName === "svg" ? true : vnodeName === "foreignObject" ? false : isSvgMode; // If there's no existing element or it's the wrong type, create a new one:
+    isSvgMode = vnodeName === "svg"
+      ? true
+      : vnodeName === "foreignObject"
+      ? false
+      : isSvgMode; // If there's no existing element or it's the wrong type, create a new one:
 
     vnodeName = String(vnodeName);
 
@@ -474,7 +498,13 @@
       }
     } // otherwise, if there are existing or new children, diff them:
     else if ((vchildren && vchildren.length) || fc != null) {
-      innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+      innerDiffNode(
+        out,
+        vchildren,
+        context,
+        mountAll,
+        hydrating || props.dangerouslySetInnerHTML != null,
+      );
     } // Apply attributes/props from VNode to the DOM Element:
 
     diffAttributes(out, vnode.attributes, props); // restore previous SVG mode: (in case we're exiting an SVG namespace)
@@ -509,13 +539,18 @@
       for (var i = 0; i < len; i++) {
         var _child = originalChildren[i],
           props = _child["__preactattr_"],
-          key = vlen && props ? (_child._component ? _child._component.__key : props.key) : null;
+          key = vlen && props
+            ? (_child._component ? _child._component.__key : props.key)
+            : null;
 
         if (key != null) {
           keyedLen++;
           keyed[key] = _child;
         } else if (
-          props || (_child.splitText !== undefined ? (isHydrating ? _child.nodeValue.trim() : true) : isHydrating)
+          props
+          || (_child.splitText !== undefined
+            ? (isHydrating ? _child.nodeValue.trim() : true)
+            : isHydrating)
         ) {
           children[childrenLen++] = _child;
         }
@@ -538,7 +573,10 @@
         } // attempt to pluck a node of the same type from the existing children
         else if (!child && min < childrenLen) {
           for (j = min; j < childrenLen; j++) {
-            if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+            if (
+              children[j] !== undefined
+              && isSameNodeType(c = children[j], vchild, isHydrating)
+            ) {
               child = c;
               children[j] = undefined;
               if (j === childrenLen - 1) childrenLen--;
@@ -570,7 +608,9 @@
     } // remove orphaned unkeyed children:
 
     while (min <= childrenLen) {
-      if ((child = children[childrenLen--]) !== undefined) recollectNodeTree(child, false);
+      if ((child = children[childrenLen--]) !== undefined) {
+        recollectNodeTree(child, false);
+      }
     }
   }
   /** Recursively recycle (or just unmount) a node and its descendants.
@@ -587,7 +627,9 @@
     } else {
       // If the node's VNode had a ref function, invoke it with null here.
       // (this is part of the React spec, and smart for unsetting references)
-      if (node["__preactattr_"] != null && node["__preactattr_"].ref) node["__preactattr_"].ref(null);
+      if (node["__preactattr_"] != null && node["__preactattr_"].ref) {
+        node["__preactattr_"].ref(null);
+      }
 
       if (unmountOnly === false || node["__preactattr_"] == null) {
         removeNode(node);
@@ -629,7 +671,9 @@
       if (
         name !== "children"
         && name !== "innerHTML"
-        && (!(name in old) || attrs[name] !== (name === "value" || name === "checked" ? dom[name] : old[name]))
+        && (!(name in old)
+          || attrs[name]
+            !== (name === "value" || name === "checked" ? dom[name] : old[name]))
       ) {
         setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
       }
@@ -708,7 +752,9 @@
     component._disable = false;
 
     if (opts !== 0) {
-      if (opts === 1 || options.syncComponentUpdates !== false || !component.base) {
+      if (
+        opts === 1 || options.syncComponentUpdates !== false || !component.base
+      ) {
         renderComponent(component, 1, mountAll);
       } else {
         enqueueRender(component);
@@ -783,11 +829,18 @@
         var childProps = getNodeProps(rendered);
         inst = initialChildComponent;
 
-        if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
+        if (
+          inst && inst.constructor === childComponent
+          && childProps.key == inst.__key
+        ) {
           setComponentProps(inst, childProps, 1, context, false);
         } else {
           toUnmount = inst;
-          component._component = inst = createComponent(childComponent, childProps, context);
+          component._component = inst = createComponent(
+            childComponent,
+            childProps,
+            context,
+          );
           inst.nextBase = inst.nextBase || nextBase;
           inst._parentComponent = component;
           setComponentProps(inst, childProps, 0, context, false);
@@ -806,11 +859,20 @@
 
         if (initialBase || opts === 1) {
           if (cbase) cbase._component = null;
-          base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
+          base = diff(
+            cbase,
+            rendered,
+            context,
+            mountAll || !isUpdate,
+            initialBase && initialBase.parentNode,
+            true,
+          );
         }
       }
 
-      if (initialBase && base !== initialBase && inst !== initialChildComponent) {
+      if (
+        initialBase && base !== initialBase && inst !== initialChildComponent
+      ) {
         var baseParent = initialBase.parentNode;
 
         if (baseParent && base !== baseParent) {
@@ -850,7 +912,11 @@
       // Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
       // flushMounts();
       if (component.componentDidUpdate) {
-        component.componentDidUpdate(previousProps, previousState, previousContext);
+        component.componentDidUpdate(
+          previousProps,
+          previousState,
+          previousContext,
+        );
       }
 
       if (options.afterUpdate) options.afterUpdate(component);
@@ -928,7 +994,9 @@
     if (inner) {
       unmountComponent(inner);
     } else if (base) {
-      if (base["__preactattr_"] && base["__preactattr_"].ref) base["__preactattr_"].ref(null);
+      if (base["__preactattr_"] && base["__preactattr_"].ref) {
+        base["__preactattr_"].ref(null);
+      }
       component.nextBase = base;
       removeNode(base);
       collectComponent(component);
@@ -986,7 +1054,9 @@
       var s = this.state;
       if (!this.prevState) this.prevState = extend({}, s);
       extend(s, typeof state === "function" ? state(s, this.props) : state);
-      if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
+      if (callback) {
+        (this._renderCallbacks = this._renderCallbacks || []).push(callback);
+      }
       enqueueRender(this);
     },
 
@@ -995,7 +1065,9 @@
      * 	@private
      */
     forceUpdate: function forceUpdate(callback) {
-      if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
+      if (callback) {
+        (this._renderCallbacks = this._renderCallbacks || []).push(callback);
+      }
       renderComponent(this, 2);
     },
 
@@ -1062,7 +1134,8 @@
           i = 0;
 
         for (; i < path.length - 1; i++) {
-          obj = obj[path[i]] || (obj[path[i]] = (!i && component.state[path[i]]) || {});
+          obj = obj[path[i]]
+            || (obj[path[i]] = (!i && component.state[path[i]]) || {});
         }
 
         obj[path[i]] = v;
@@ -1081,7 +1154,9 @@
         uuid += "-";
       }
 
-      uuid += (i === 12 ? 4 : i === 16 ? (random & 3) | 8 : random).toString(16);
+      uuid += (i === 12 ? 4 : i === 16 ? (random & 3) | 8 : random).toString(
+        16,
+      );
     }
 
     return uuid;
@@ -1133,11 +1208,9 @@
 
       _proto.toggle = function toggle(todoToToggle) {
         this.todos = this.todos.map(function(todo) {
-          return todo !== todoToToggle
-            ? todo
-            : _extends({}, todo, {
-              completed: !todo.completed,
-            });
+          return todo !== todoToToggle ? todo : _extends({}, todo, {
+            completed: !todo.completed,
+          });
         });
         this.inform();
       };
@@ -1151,11 +1224,9 @@
 
       _proto.save = function save(todoToSave, title) {
         this.todos = this.todos.map(function(todo) {
-          return todo !== todoToSave
-            ? todo
-            : _extends({}, todo, {
-              title: title,
-            });
+          return todo !== todoToSave ? todo : _extends({}, todo, {
+            title: title,
+          });
         });
         this.inform();
       };
@@ -1269,34 +1340,44 @@
       function TodoItem() {
         var _temp, _this;
 
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        for (
+          var _len = arguments.length, args = new Array(_len), _key = 0;
+          _key < _len;
+          _key++
+        ) {
           args[_key] = arguments[_key];
         }
 
         return (
-          ((_temp = _this = _Component.call.apply(_Component, [this].concat(args)) || this),
-            Object.defineProperty(_assertThisInitialized(_this), "handleSubmit", {
-              configurable: true,
-              enumerable: true,
-              writable: true,
-              value: function value() {
-                var _this$props = _this.props,
-                  onSave = _this$props.onSave,
-                  onDestroy = _this$props.onDestroy,
-                  todo = _this$props.todo,
-                  val = _this.state.editText.trim();
+          ((_temp =
+            _this =
+              _Component.call.apply(_Component, [this].concat(args)) || this),
+            Object.defineProperty(
+              _assertThisInitialized(_this),
+              "handleSubmit",
+              {
+                configurable: true,
+                enumerable: true,
+                writable: true,
+                value: function value() {
+                  var _this$props = _this.props,
+                    onSave = _this$props.onSave,
+                    onDestroy = _this$props.onDestroy,
+                    todo = _this$props.todo,
+                    val = _this.state.editText.trim();
 
-                if (val) {
-                  onSave(todo, val);
+                  if (val) {
+                    onSave(todo, val);
 
-                  _this.setState({
-                    editText: val,
-                  });
-                } else {
-                  onDestroy(todo);
-                }
+                    _this.setState({
+                      editText: val,
+                    });
+                  } else {
+                    onDestroy(todo);
+                  }
+                },
               },
-            }),
+            ),
             Object.defineProperty(_assertThisInitialized(_this), "handleEdit", {
               configurable: true,
               enumerable: true,
@@ -1324,32 +1405,40 @@
                 e.preventDefault();
               },
             }),
-            Object.defineProperty(_assertThisInitialized(_this), "handleKeyDown", {
-              configurable: true,
-              enumerable: true,
-              writable: true,
-              value: function value(e) {
-                if (e.which === ESCAPE_KEY) {
-                  var todo = _this.props.todo;
+            Object.defineProperty(
+              _assertThisInitialized(_this),
+              "handleKeyDown",
+              {
+                configurable: true,
+                enumerable: true,
+                writable: true,
+                value: function value(e) {
+                  if (e.which === ESCAPE_KEY) {
+                    var todo = _this.props.todo;
 
-                  _this.setState({
-                    editText: todo.title,
-                  });
+                    _this.setState({
+                      editText: todo.title,
+                    });
 
-                  _this.props.onCancel(todo);
-                } else if (e.which === ENTER_KEY) {
-                  _this.handleSubmit();
-                }
+                    _this.props.onCancel(todo);
+                  } else if (e.which === ENTER_KEY) {
+                    _this.handleSubmit();
+                  }
+                },
               },
-            }),
-            Object.defineProperty(_assertThisInitialized(_this), "handleDestroy", {
-              configurable: true,
-              enumerable: true,
-              writable: true,
-              value: function value() {
-                _this.props.onDestroy(_this.props.todo);
+            ),
+            Object.defineProperty(
+              _assertThisInitialized(_this),
+              "handleDestroy",
+              {
+                configurable: true,
+                enumerable: true,
+                writable: true,
+                value: function value() {
+                  _this.props.onDestroy(_this.props.todo);
+                },
               },
-            }),
+            ),
             _temp) || _assertThisInitialized(_this)
         );
       }
@@ -1376,7 +1465,10 @@
           onDestroy = _ref.onDestroy,
           editing = _ref.editing;
         var editText = _ref2.editText;
-        var className = [completed ? completed : false, editing ? editing : false].filter(Boolean).join(" ");
+        var className = [
+          completed ? completed : false,
+          editing ? editing : false,
+        ].filter(Boolean).join(" ");
         return h(
           "li",
           {
@@ -1441,25 +1533,29 @@
         var _this;
 
         _this = _Component.call(this) || this;
-        Object.defineProperty(_assertThisInitialized(_this), "handleNewTodoKeyDown", {
-          configurable: true,
-          enumerable: true,
-          writable: true,
-          value: function value(e) {
-            if (e.keyCode !== ENTER_KEY$1) return;
-            e.preventDefault();
+        Object.defineProperty(
+          _assertThisInitialized(_this),
+          "handleNewTodoKeyDown",
+          {
+            configurable: true,
+            enumerable: true,
+            writable: true,
+            value: function value(e) {
+              if (e.keyCode !== ENTER_KEY$1) return;
+              e.preventDefault();
 
-            var val = _this.state.newTodo.trim();
+              var val = _this.state.newTodo.trim();
 
-            if (val) {
-              _this.model.addTodo(val);
+              if (val) {
+                _this.model.addTodo(val);
 
-              _this.setState({
-                newTodo: "",
-              });
-            }
+                _this.setState({
+                  newTodo: "",
+                });
+              }
+            },
           },
-        });
+        );
         Object.defineProperty(_assertThisInitialized(_this), "toggleAll", {
           configurable: true,
           enumerable: true,
@@ -1529,7 +1625,10 @@
         _this.model = new TodoModel("preact-todos", function() {
           return _this.setState({});
         });
-        addEventListener("hashchange", _this.handleRoute.bind(_assertThisInitialized(_this)));
+        addEventListener(
+          "hashchange",
+          _this.handleRoute.bind(_assertThisInitialized(_this)),
+        );
 
         _this.handleRoute();
 

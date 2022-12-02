@@ -2,7 +2,11 @@ import { MutationFromWorker } from "../transfer/Messages";
 import { TransferrableKeys } from "../transfer/TransferrableKeys";
 import { Document } from "../worker-thread/dom/Document";
 
-type Subscriber = (strings: Array<string>, message: MutationFromWorker, buffers: Array<ArrayBuffer>) => void;
+type Subscriber = (
+  strings: Array<string>,
+  message: MutationFromWorker,
+  buffers: Array<ArrayBuffer>,
+) => void;
 
 export interface Emitter {
   once(callback: Subscriber): void;
@@ -28,7 +32,10 @@ export function emitter(document: Document): Emitter {
     subscribers.delete(callback);
   }
 
-  document.postMessage = (message: MutationFromWorker, buffers: Array<ArrayBuffer>) => {
+  document.postMessage = (
+    message: MutationFromWorker,
+    buffers: Array<ArrayBuffer>,
+  ) => {
     strings.push(...message[TransferrableKeys.strings]);
 
     let copy = new Map(subscribers);
@@ -64,10 +71,15 @@ type ExpectMutationsCallback = (mutations: number[]) => void;
  * @param document
  * @param callback
  */
-export const expectMutations = (document: Document, callback: ExpectMutationsCallback): void => {
+export const expectMutations = (
+  document: Document,
+  callback: ExpectMutationsCallback,
+): void => {
   document[TransferrableKeys.observe]();
   document.postMessage = (message: MutationFromWorker) => {
-    const mutations = Array.from(new Uint16Array(message[TransferrableKeys.mutations]));
+    const mutations = Array.from(
+      new Uint16Array(message[TransferrableKeys.mutations]),
+    );
     callback(mutations);
   };
 };
