@@ -1068,7 +1068,7 @@ var require_browser = __commonJS({
           if (mangleCache)
             request.mangleCache = mangleCache;
           let serve2 = serveOptions && buildServeData(buildKey, sendRequest, sendResponse, refs, requestCallbacks, serveOptions, request);
-          let rebuild;
+          let rebuild2;
           let stop;
           let copyResponseToResult = /* @__PURE__ */ __name((response, result) => {
             if (response.outputFiles)
@@ -1091,9 +1091,9 @@ var require_browser = __commonJS({
                 return callback2(failureErrorWithLog("Build failed", result.errors, result.warnings), null);
               }
               if (response.rebuild) {
-                if (!rebuild) {
+                if (!rebuild2) {
                   let isDisposed = false;
-                  rebuild = /* @__PURE__ */ __name(() => new Promise((resolve, reject) => {
+                  rebuild2 = /* @__PURE__ */ __name(() => new Promise((resolve, reject) => {
                     if (isDisposed || closeData.didClose)
                       throw new Error("Cannot rebuild");
                     sendRequest(
@@ -1114,7 +1114,7 @@ var require_browser = __commonJS({
                     );
                   }), "rebuild");
                   refs.ref();
-                  rebuild.dispose = () => {
+                  rebuild2.dispose = () => {
                     if (isDisposed)
                       return;
                     isDisposed = true;
@@ -1123,7 +1123,7 @@ var require_browser = __commonJS({
                     refs.unref();
                   };
                 }
-                result.rebuild = rebuild;
+                result.rebuild = rebuild2;
               }
               if (response.watch) {
                 if (!stop) {
@@ -5368,7 +5368,12 @@ var define2 = {
     browser: true
   })
 };
+var lastbuild;
 var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
+  if (lastbuild) {
+    lastbuild = await lastbuild.rebuild();
+    return lastbuild.outputFiles[0].contents;
+  }
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -5383,15 +5388,14 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     metafile: true,
     incremental: true,
     format: "iife",
-    entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`],
+    entryPoints: [`./live/${codeSpace2}/render.tsx`],
     define: define2,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin]
   };
-  let b2;
-  if (!signal.aborted && (b2 = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
-    console.log(b2.outputFiles);
-    return b2.outputFiles[0].contents;
+  if (!signal.aborted && (lastbuild = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
+    console.log(lastbuild.outputFiles);
+    return lastbuild.outputFiles[0].contents;
   }
   return false;
 }, "build");
