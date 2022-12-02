@@ -90,7 +90,13 @@ export const createIframe = async (cs: string, counter: number) => {
           if (zBody) {
             zBody.innerHTML = "";
             zBody.appendChild(iframe);
+            return true;
           }
+          return new Promise((res) =>
+            setTimeout(async () => {
+              res(await setIframe(srcJS));
+            }, 10000)
+          );
         };
 
         iframe.setAttribute("data-coder", cs);
@@ -201,7 +207,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
     ? mST()
     : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = document.getElementById(`root-${codeSpace}`)!;
-
+  div.style.height = "100%";
   const cont = new AbortController();
 
   const js = await build(codeSpace, i, cont.signal);
