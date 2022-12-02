@@ -55,9 +55,9 @@ export const createIframe = async (cs: string, counter: number) => {
       if (signal.aborted) return;
 
       let iframe = document.createElement("iframe");
-      const setIframe = (srcJS: string) => {
-        const iSRC = (srcJS: string) =>
-          createHTML(`
+
+      const iSRC = (srcJS: string) =>
+        createHTML(`
         <html> 
     <head>
     <style>
@@ -73,11 +73,9 @@ export const createIframe = async (cs: string, counter: number) => {
     <div id="root-${cs}" style="height: 100%;">${html}</div>
     </body>
     </html>`);
+      const setIframe = (srcJS: string) => {
         iframe.src = iSRC(srcJS);
         if (signal.aborted) return;
-
-        setIframe(createJsBlob(`
-        `));
 
         const zBody = document.getElementById("z-body");
 
@@ -111,6 +109,8 @@ export const createIframe = async (cs: string, counter: number) => {
         }
         return false;
       };
+
+      setIframe(createJsBlob(``));
       if (signal.aborted) return;
       if (modz[cs] !== counter) return;
       // document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));

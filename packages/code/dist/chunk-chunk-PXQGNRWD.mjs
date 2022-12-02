@@ -6020,8 +6020,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
       if (signal.aborted)
         return;
       let iframe = document.createElement("iframe");
-      const setIframe = /* @__PURE__ */ __name((srcJS) => {
-        const iSRC = /* @__PURE__ */ __name((srcJS2) => createHTML(`
+      const iSRC = /* @__PURE__ */ __name((srcJS) => createHTML(`
         <html> 
     <head>
     <style>
@@ -6031,17 +6030,16 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
     ${resetCSS}
     ${css2}
     </style>
-    <script defer src="${srcJS2}"><\/script> 
+    <script defer src="${srcJS}"><\/script> 
     </head>
     <body>
     <div id="root-${cs}" style="height: 100%;">${html}</div>
     </body>
     </html>`), "iSRC");
+      const setIframe = /* @__PURE__ */ __name((srcJS) => {
         iframe.src = iSRC(srcJS);
         if (signal.aborted)
           return;
-        setIframe(createJsBlob(`
-        `));
         const zBody = document.getElementById("z-body");
         iframe.onload = () => {
           if (signal.aborted)
@@ -6070,6 +6068,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         }
         return false;
       }, "setIframe");
+      setIframe(createJsBlob(``));
       if (signal.aborted)
         return;
       if (modz[cs] !== counter)
