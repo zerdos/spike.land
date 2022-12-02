@@ -305,8 +305,9 @@ export class Code {
       
       
         let parent = document.getElementById("root-${codeSpace}");
-        let rootEl = parent.firstChild;
-      
+        let rootEl =  [...parent.children].find(x=>x.tagName==='DIV');
+        
+        
         // if (!parent) {  
         //   parent = document.createElement("div");
         //   parent.setAttribute("id", "${codeSpace}-${i}");
@@ -314,7 +315,7 @@ export class Code {
         // }
         // parent.style.height="100%";
         // parent.innerHTML=\`<div id="${codeSpace}-${k}"></div>\`;  
-        // const div = document.getElementById("${codeSpace}-${k}");
+        // const div = document.getElementById("root-${codeSpace}");
         // div.style.height="100%";
         const root = createRoot(rootEl);
       
