@@ -15,7 +15,8 @@ import { fetchAndInstall, install } from "./install";
 const hydrateFilter = (element: RenderableElement) => {
   if (element.parentNode !== null) {
     const lowerName = toLower(
-      (element.parentNode as RenderableElement).localName || (element.parentNode as RenderableElement).nodeName,
+      (element.parentNode as RenderableElement).localName
+        || (element.parentNode as RenderableElement).nodeName,
     );
     return !/amp-/.test(lowerName) || lowerName === "amp-script";
   }

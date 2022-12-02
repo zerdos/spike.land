@@ -16,18 +16,20 @@ test.beforeEach((t) => {
 test.serial.cb("Text, set data", (t) => {
   const { document } = t.context;
   const text = document.createTextNode("original text");
-  const observer = new document.defaultView.MutationObserver((mutations: MutationRecord[]): void => {
-    t.deepEqual(mutations, [
-      {
-        type: MutationRecordType.CHARACTER_DATA,
-        target: text,
-        value: "new text",
-        oldValue: "original text",
-      },
-    ]);
-    observer.disconnect();
-    t.end();
-  });
+  const observer = new document.defaultView.MutationObserver(
+    (mutations: MutationRecord[]): void => {
+      t.deepEqual(mutations, [
+        {
+          type: MutationRecordType.CHARACTER_DATA,
+          target: text,
+          value: "new text",
+          oldValue: "original text",
+        },
+      ]);
+      observer.disconnect();
+      t.end();
+    },
+  );
 
   document.body.appendChild(text);
   observer.observe(document.body);
@@ -37,18 +39,20 @@ test.serial.cb("Text, set data", (t) => {
 test.serial.cb("Text, set textContent", (t) => {
   const { document } = t.context;
   const text = document.createTextNode("original text");
-  const observer = new document.defaultView.MutationObserver((mutations: MutationRecord[]): void => {
-    t.deepEqual(mutations, [
-      {
-        type: MutationRecordType.CHARACTER_DATA,
-        target: text,
-        value: "new text",
-        oldValue: "original text",
-      },
-    ]);
-    observer.disconnect();
-    t.end();
-  });
+  const observer = new document.defaultView.MutationObserver(
+    (mutations: MutationRecord[]): void => {
+      t.deepEqual(mutations, [
+        {
+          type: MutationRecordType.CHARACTER_DATA,
+          target: text,
+          value: "new text",
+          oldValue: "original text",
+        },
+      ]);
+      observer.disconnect();
+      t.end();
+    },
+  );
 
   document.body.appendChild(text);
   observer.observe(document.body);

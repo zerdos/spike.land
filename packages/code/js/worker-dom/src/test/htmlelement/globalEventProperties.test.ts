@@ -78,7 +78,9 @@ test("appending as many keys as there are TransferrableKeys functions", (t) => {
   const { element } = t.context;
   const handler = (e: any) => console.log(e);
   appendGlobalEventProperties(["ontouchmove"]);
-  appendGlobalEventProperties(Array.from(Array(TransferrableKeys.END), (d, i) => i + "key"));
+  appendGlobalEventProperties(
+    Array.from(Array(TransferrableKeys.END), (d, i) => i + "key"),
+  );
 
   t.is(element.ontouchmove, null);
   element.ontouchmove = handler;

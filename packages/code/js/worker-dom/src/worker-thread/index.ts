@@ -113,6 +113,10 @@ export const workerDOM = (function(postMessage, addEventListener, removeEventLis
   document.appendChild(document.body = document.createElement("body"));
 
   return document.defaultView;
-})(postMessage.bind(self) || noop, addEventListener.bind(self) || noop, removeEventListener.bind(self) || noop);
+})(
+  postMessage.bind(self) || noop,
+  addEventListener.bind(self) || noop,
+  removeEventListener.bind(self) || noop,
+);
 
 export const hydrate: HydrateFunction = initialize;

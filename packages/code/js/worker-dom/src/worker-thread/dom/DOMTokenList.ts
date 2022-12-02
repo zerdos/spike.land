@@ -15,7 +15,11 @@ const WHITESPACE_REGEX = /\s/;
  * @param accessorKey Key used to access DOMTokenList directly from specific element.
  * @param propertyName Key used to access DOMTokenList as string getter/setter.
  */
-export function synchronizedAccessor(defineOn: typeof Element, accessorKey: string, propertyName: string) {
+export function synchronizedAccessor(
+  defineOn: typeof Element,
+  accessorKey: string,
+  propertyName: string,
+) {
   Object.defineProperty(defineOn.prototype, propertyName, {
     enumerable: true,
     configurable: true,
@@ -32,7 +36,11 @@ export class DOMTokenList {
   private [TransferrableKeys.tokens]: Array<string> = [];
   private [TransferrableKeys.target]: Element;
   private [TransferrableKeys.attributeName]: string;
-  private [TransferrableKeys.storeAttribute]: (namespaceURI: NamespaceURI, name: string, value: string) => void;
+  private [TransferrableKeys.storeAttribute]: (
+    namespaceURI: NamespaceURI,
+    name: string,
+    value: string,
+  ) => void;
 
   /**
    * The DOMTokenList interface represents a set of space-separated tokens.
@@ -127,7 +135,11 @@ export class DOMTokenList {
     this[TransferrableKeys.tokens].splice(
       0,
       this[TransferrableKeys.tokens].length,
-      ...Array.from(new Set(this[TransferrableKeys.tokens].filter((token) => !tokens.includes(token)))),
+      ...Array.from(
+        new Set(
+          this[TransferrableKeys.tokens].filter((token) => !tokens.includes(token)),
+        ),
+      ),
     );
     this[TransferrableKeys.mutated](oldValue, this.value);
   }
@@ -150,7 +162,11 @@ export class DOMTokenList {
         set.add(newToken);
       }
     }
-    this[TransferrableKeys.tokens].splice(0, this[TransferrableKeys.tokens].length, ...Array.from(set));
+    this[TransferrableKeys.tokens].splice(
+      0,
+      this[TransferrableKeys.tokens].length,
+      ...Array.from(set),
+    );
     this[TransferrableKeys.mutated](oldValue, this.value);
   }
 

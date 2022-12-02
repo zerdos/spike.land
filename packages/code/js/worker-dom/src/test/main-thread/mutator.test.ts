@@ -50,7 +50,14 @@ test.afterEach((t) => {
 });
 
 test.serial("batch mutations", (t) => {
-  const { env, baseElement, stringContext, nodeContext, workerContext, objectContext } = t.context;
+  const {
+    env,
+    baseElement,
+    stringContext,
+    nodeContext,
+    workerContext,
+    objectContext,
+  } = t.context;
   const { rafTasks } = env;
   const mutator = new MutatorProcessor(
     stringContext,
@@ -115,7 +122,14 @@ test.serial("batch mutations", (t) => {
 });
 
 test.serial("batch mutations with custom pump", (t) => {
-  const { env, baseElement, stringContext, nodeContext, workerContext, objectContext } = t.context;
+  const {
+    env,
+    baseElement,
+    stringContext,
+    nodeContext,
+    workerContext,
+    objectContext,
+  } = t.context;
   const { rafTasks } = env;
 
   const tasks: Array<{ phase: Phase; flush: Function }> = [];
@@ -188,7 +202,14 @@ test.serial("batch mutations with custom pump", (t) => {
 });
 
 test.serial("leverage allowlist to exclude mutation type", (t) => {
-  const { env, baseElement, stringContext, nodeContext, workerContext, objectContext } = t.context;
+  const {
+    env,
+    baseElement,
+    stringContext,
+    nodeContext,
+    workerContext,
+    objectContext,
+  } = t.context;
   const { rafTasks } = env;
   const mutator = new MutatorProcessor(
     stringContext,
@@ -236,7 +257,14 @@ test.serial("leverage allowlist to exclude mutation type", (t) => {
 });
 
 test.serial("split strings from mutations", (t) => {
-  const { env, baseElement, stringContext, nodeContext, workerContext, objectContext } = t.context;
+  const {
+    env,
+    baseElement,
+    stringContext,
+    nodeContext,
+    workerContext,
+    objectContext,
+  } = t.context;
   const { rafTasks } = env;
   const mutator = new MutatorProcessor(
     stringContext,
@@ -249,7 +277,12 @@ test.serial("split strings from mutations", (t) => {
     objectContext,
   );
 
-  mutator.mutate(Phase.Mutating, new ArrayBuffer(0), ["hidden"], new Uint16Array([]));
+  mutator.mutate(
+    Phase.Mutating,
+    new ArrayBuffer(0),
+    ["hidden"],
+    new Uint16Array([]),
+  );
   mutator.mutate(
     Phase.Mutating,
     new ArrayBuffer(0),

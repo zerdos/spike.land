@@ -30,17 +30,27 @@ export const LongTaskExecutor: LongTaskCommandExecutorInterface = (
   objectContext: ObjectContext,
   config: WorkerDOMConfiguration,
 ) => {
-  const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.LONG_TASK_START);
+  const allowedExecution = config.executorsAllowed.includes(
+    TransferrableMutationType.LONG_TASK_START,
+  );
   let index: number = 0;
   let currentResolver: Function | null;
 
   return {
-    execute(mutations: Uint16Array, startPosition: number, allowedMutation: boolean): number {
+    execute(
+      mutations: Uint16Array,
+      startPosition: number,
+      allowedMutation: boolean,
+    ): number {
       if (allowedExecution && allowedMutation && config.longTask) {
-        if (mutations[startPosition] === TransferrableMutationType.LONG_TASK_START) {
+        if (
+          mutations[startPosition] === TransferrableMutationType.LONG_TASK_START
+        ) {
           index++;
           if (!currentResolver) {
-            const newResolver = new Promise((resolve) => (currentResolver = resolve));
+            const newResolver = new Promise((
+              resolve,
+            ) => (currentResolver = resolve));
             // One of the worker-dom contracts is that there should not be two
             // LONG_TASK_STARTs in a row without an END in between. In case both exist within
             // the same set of mutations, we need to guard against having a consumers 1st END
@@ -49,7 +59,9 @@ export const LongTaskExecutor: LongTaskCommandExecutorInterface = (
             // See: worker-dom/pull/989.
             Promise.resolve().then(() => config.longTask && config.longTask(newResolver));
           }
-        } else if (mutations[startPosition] === TransferrableMutationType.LONG_TASK_END) {
+        } else if (
+          mutations[startPosition] === TransferrableMutationType.LONG_TASK_END
+        ) {
           index--;
           if (currentResolver && index <= 0) {
             currentResolver();

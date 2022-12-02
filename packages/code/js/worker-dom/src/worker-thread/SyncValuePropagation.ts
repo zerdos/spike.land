@@ -14,17 +14,20 @@ export function propagate(global: WorkerDOMGlobalScope): void {
   if (!document.addGlobalEventListener) {
     return;
   }
-  document.addGlobalEventListener("message", ({ data }: { data: MessageToWorker }) => {
-    if (data[TransferrableKeys.type] !== MessageType.SYNC) {
-      return;
-    }
-    const sync = (data as ValueSyncToWorker)[TransferrableKeys.sync];
-    const node = get(sync[TransferrableKeys.index]);
-    if (node) {
-      (node.ownerDocument as Document)[TransferrableKeys.allowTransfer] = false;
-      // Modify the private backing ivar of `value` property to avoid mutation/sync cycle.
-      node.value = sync[TransferrableKeys.value];
-      (node.ownerDocument as Document)[TransferrableKeys.allowTransfer] = true;
-    }
-  });
+  document.addGlobalEventListener(
+    "message",
+    ({ data }: { data: MessageToWorker }) => {
+      if (data[TransferrableKeys.type] !== MessageType.SYNC) {
+        return;
+      }
+      const sync = (data as ValueSyncToWorker)[TransferrableKeys.sync];
+      const node = get(sync[TransferrableKeys.index]);
+      if (node) {
+        (node.ownerDocument as Document)[TransferrableKeys.allowTransfer] = false;
+        // Modify the private backing ivar of `value` property to avoid mutation/sync cycle.
+        node.value = sync[TransferrableKeys.value];
+        (node.ownerDocument as Document)[TransferrableKeys.allowTransfer] = true;
+      }
+    },
+  );
 }

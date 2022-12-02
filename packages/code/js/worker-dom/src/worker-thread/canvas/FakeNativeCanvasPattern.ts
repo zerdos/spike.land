@@ -30,7 +30,10 @@ export class FakeNativeCanvasPattern<ElementType extends HTMLElement> {
     )
       // Create new pattern with retrieved ImageBitmap
       .then((instance: ImageBitmap) => {
-        const pattern = canvas.getContext("2d").createPattern(instance, repetition);
+        const pattern = canvas.getContext("2d").createPattern(
+          instance,
+          repetition,
+        );
 
         if (!pattern) {
           throw new Error("Pattern is null!");

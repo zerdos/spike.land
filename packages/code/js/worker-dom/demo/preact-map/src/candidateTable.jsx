@@ -59,9 +59,13 @@ const Candidate = ({ victor, name, party, votes, percent }) => {
   );
 };
 
-export const CandidateTable = ({ victor, totalData, regionData, votes, focusedRegion }) => {
-  const focusedRegionData = focusedRegion !== null && regionData[focusedRegion].candidates;
-  const winnerIndex = focusedRegionData && focusedRegionData.indexOf(Math.max(...focusedRegionData));
+export const CandidateTable = (
+  { victor, totalData, regionData, votes, focusedRegion },
+) => {
+  const focusedRegionData = focusedRegion !== null
+    && regionData[focusedRegion].candidates;
+  const winnerIndex = focusedRegionData
+    && focusedRegionData.indexOf(Math.max(...focusedRegionData));
   return (
     <table>
       <thead>
@@ -74,7 +78,9 @@ export const CandidateTable = ({ victor, totalData, regionData, votes, focusedRe
       </thead>
       <tbody>
         {totalData.map((candidate, index) => {
-          const isVictor = focusedRegion !== null ? winnerIndex === index : candidate.victor;
+          const isVictor = focusedRegion !== null
+            ? winnerIndex === index
+            : candidate.victor;
           return (
             <Candidate
               victor={isVictor}

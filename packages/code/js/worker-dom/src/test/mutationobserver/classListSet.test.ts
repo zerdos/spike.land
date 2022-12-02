@@ -16,19 +16,21 @@ test.beforeEach((t) => {
 test.cb("Element.classList.set mutation observed", (t) => {
   const { document } = t.context;
   const el = document.createElement("div");
-  const observer = new document.defaultView.MutationObserver((mutations: MutationRecord[]): void => {
-    t.deepEqual(mutations, [
-      {
-        type: MutationRecordType.ATTRIBUTES,
-        attributeName: "class",
-        target: el,
-        value: "foo bar",
-        oldValue: "",
-      },
-    ]);
-    observer.disconnect();
-    t.end();
-  });
+  const observer = new document.defaultView.MutationObserver(
+    (mutations: MutationRecord[]): void => {
+      t.deepEqual(mutations, [
+        {
+          type: MutationRecordType.ATTRIBUTES,
+          attributeName: "class",
+          target: el,
+          value: "foo bar",
+          oldValue: "",
+        },
+      ]);
+      observer.disconnect();
+      t.end();
+    },
+  );
 
   document.body.appendChild(el);
   observer.observe(document.body);

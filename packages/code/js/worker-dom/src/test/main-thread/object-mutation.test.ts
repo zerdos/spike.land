@@ -291,7 +291,11 @@ test("Returns correct end offset", (t) => {
   ];
 
   const mutationsArray = new Uint16Array([1, 2, 3].concat(mutation));
-  const endOffset = objectMutationProcessor.execute(mutationsArray, 3, /* allow */ true);
+  const endOffset = objectMutationProcessor.execute(
+    mutationsArray,
+    3,
+    /* allow */ true,
+  );
 
   t.is(mutationsArray[endOffset], 32);
 });

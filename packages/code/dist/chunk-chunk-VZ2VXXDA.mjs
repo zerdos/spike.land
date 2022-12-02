@@ -4,7 +4,7 @@ import {
 } from "./chunk-chunk-ZZWIKWD4.mjs";
 import {
   runner
-} from "./chunk-chunk-AM3CCVDY.mjs";
+} from "./chunk-chunk-UUI6UVOW.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
@@ -24104,7 +24104,7 @@ async function setMonaco(container, codeSpace) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-EXBA2WSG.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-EZRTMGW6.mjs");
   return await startMonaco({
     container,
     codeSpace,

@@ -40,18 +40,26 @@ importShim.addImportMap({ imports: res });
   //   };
   //   return;
   // }
-  await (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
+  await (await importShim<{ (): Promise<void> }, {}>(
+    `${location.origin}/load.mjs`,
+  )).default();
   if (location.pathname.includes(`/live/${codeSpace}/hydrated`)) {
-    const { runInWorker } = await importShim<{}, { runInWorker: (codeSpace: string, element: HTMLElement) => void }>(
+    const { runInWorker } = await importShim<
+      {},
+      { runInWorker: (codeSpace: string, element: HTMLElement) => void }
+    >(
       "./starter.mjs",
     );
 
     runInWorker(codeSpace, document.getElementById("root"));
   } else if (location.pathname.includes(`/live/${codeSpace}/`)) {
-    const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
+    const { createRoot } = await importShim<{}, typeof ReactDOMClient>(
+      "react-dom/client",
+    );
 
     const render = (async () => {
-      const App = (await importShim<FC<{}>, {}>(`/live/${codeSpace}/index.js/${i}`)).default;
+      const App = (await importShim<FC<{}>, {}>(`/live/${codeSpace}/index.js/${i}`))
+        .default;
       i++;
 
       root = createRoot(rootEl);

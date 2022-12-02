@@ -34,4 +34,7 @@ div.appendChild(input);
 div.appendChild(button);
 document.body.appendChild(div);
 
-div.addEventListener("touchmove", (e) => console.log("touchmove event", e, e.touches.item(0), e.touches.item(1)));
+div.addEventListener(
+  "touchmove",
+  (e) => console.log("touchmove event", e, e.touches.item(0), e.touches.item(1)),
+);

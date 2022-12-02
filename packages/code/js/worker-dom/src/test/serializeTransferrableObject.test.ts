@@ -41,7 +41,10 @@ test("Serializes Transferable Objects", (t) => {
 
   // stub must return a value, otherwise object-creation processor will thow when attempting to store
   const fakeSerializedObject = [1, 2, 3, 4] as number[];
-  const objectSerializeStub = sinon.stub(gradient, TransferrableKeys.serializeAsTransferrableObject).returns(
+  const objectSerializeStub = sinon.stub(
+    gradient,
+    TransferrableKeys.serializeAsTransferrableObject,
+  ).returns(
     fakeSerializedObject,
   );
   const serialized = serializeTransferrableObject([gradient]);

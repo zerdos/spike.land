@@ -11,7 +11,11 @@ import { StorageLocation } from "../../../transfer/TransferrableStorage";
 
 const test = anyTest as TestInterface<{}>;
 
-type SetStorageMeta = { location: StorageLocation; key: string | null; value: string | null };
+type SetStorageMeta = {
+  location: StorageLocation;
+  key: string | null;
+  value: string | null;
+};
 
 function getStorageProcessor(strings: string[]): {
   processor: CommandExecutor;
@@ -38,7 +42,11 @@ function getStorageProcessor(strings: string[]): {
         getStorage() {
           return Promise.resolve({ hello: "world" });
         },
-        setStorage(location: StorageLocation, key: string | null, value: string | null) {
+        setStorage(
+          location: StorageLocation,
+          key: string | null,
+          value: string | null,
+        ) {
           lastSetStorage = { location, key, value };
         },
       } as unknown as Sanitizer,
@@ -84,5 +92,9 @@ test("StorageProcessor handles deletion event from worker", async (t) => {
   processor.execute(mutations, 0, true);
   await Promise.resolve(setTimeout);
 
-  t.deepEqual(getLastSetStorage(), { location: StorageLocation.Local, key: "hello", value: null });
+  t.deepEqual(getLastSetStorage(), {
+    location: StorageLocation.Local,
+    key: "hello",
+    value: null,
+  });
 });

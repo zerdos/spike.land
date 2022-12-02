@@ -90,7 +90,10 @@ export class Document extends Element {
    * @param strings
    * @param skeleton
    */
-  public [TransferrableKeys.hydrateNode](strings: Array<string>, skeleton: HydrateableNode): Node {
+  public [TransferrableKeys.hydrateNode](
+    strings: Array<string>,
+    skeleton: HydrateableNode,
+  ): Node {
     switch (skeleton[TransferrableKeys.nodeType]) {
       case NodeType.TEXT_NODE:
         return new Text(
@@ -105,9 +108,11 @@ export class Document extends Element {
           skeleton[TransferrableKeys.index],
         );
       default:
-        const namespaceURI: string = strings[skeleton[TransferrableKeys.namespaceURI] as number] || HTML_NAMESPACE;
+        const namespaceURI: string = strings[skeleton[TransferrableKeys.namespaceURI] as number]
+          || HTML_NAMESPACE;
         const localName: string = strings[skeleton[TransferrableKeys.localOrNodeName]];
-        const constructor = NS_NAME_TO_CLASS[`${namespaceURI}:${localName}`] || HTMLElement;
+        const constructor = NS_NAME_TO_CLASS[`${namespaceURI}:${localName}`]
+          || HTMLElement;
         const node = new constructor(
           NodeType.ELEMENT_NODE,
           localName,
@@ -119,7 +124,9 @@ export class Document extends Element {
         (skeleton[TransferrableKeys.attributes] || []).forEach((attribute) =>
           // AttributeNamespaceURI = strings[attribute[0]] !== 'null' ? strings[attribute[0]] : HTML_NAMESPACE
           node.setAttributeNS(
-            strings[attribute[0]] !== "null" ? strings[attribute[0]] : HTML_NAMESPACE,
+            strings[attribute[0]] !== "null"
+              ? strings[attribute[0]]
+              : HTML_NAMESPACE,
             strings[attribute[1]],
             strings[attribute[2]],
           )
@@ -135,9 +142,18 @@ export class Document extends Element {
     return this.createElementNS(HTML_NAMESPACE, toLower(name));
   }
 
-  public createElementNS(namespaceURI: NamespaceURI, localName: string): Element {
-    const constructor = NS_NAME_TO_CLASS[`${namespaceURI}:${localName}`] || HTMLElement;
-    return new constructor(NodeType.ELEMENT_NODE, localName, namespaceURI, this);
+  public createElementNS(
+    namespaceURI: NamespaceURI,
+    localName: string,
+  ): Element {
+    const constructor = NS_NAME_TO_CLASS[`${namespaceURI}:${localName}`]
+      || HTMLElement;
+    return new constructor(
+      NodeType.ELEMENT_NODE,
+      localName,
+      namespaceURI,
+      this,
+    );
   }
 
   /**

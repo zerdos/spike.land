@@ -21,7 +21,9 @@ export function initialize(
   appendGlobalEventProperties(globalEventHandlerKeys);
   strings.forEach(storeString);
   (hydrateableNode[TransferrableKeys.childNodes] || []).forEach((child) =>
-    document.body.appendChild(document[TransferrableKeys.hydrateNode](strings, child))
+    document.body.appendChild(
+      document[TransferrableKeys.hydrateNode](strings, child),
+    )
   );
   const window = document.defaultView;
   window.innerWidth = innerWidth;

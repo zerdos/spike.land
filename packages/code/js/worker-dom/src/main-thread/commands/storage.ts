@@ -11,7 +11,9 @@ export const StorageProcessor: CommandExecutorInterface = (
   objectContext,
   config,
 ) => {
-  const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.STORAGE);
+  const allowedExecution = config.executorsAllowed.includes(
+    TransferrableMutationType.STORAGE,
+  );
 
   const get = (location: StorageLocation, key: string): void => {
     if (config.sanitizer && location === StorageLocation.AmpState) {
@@ -25,11 +27,18 @@ export const StorageProcessor: CommandExecutorInterface = (
         workerContext.messageToWorker(message);
       });
     } else {
-      console.error(`STORAGE: Sanitizer not found or unsupported location:`, location);
+      console.error(
+        `STORAGE: Sanitizer not found or unsupported location:`,
+        location,
+      );
     }
   };
 
-  const set = (location: StorageLocation, key: string | null, value: string | null): void => {
+  const set = (
+    location: StorageLocation,
+    key: string | null,
+    value: string | null,
+  ): void => {
     if (config.sanitizer) {
       // TODO: Message worker so AMP.setState() can be Promise-able.
       config.sanitizer.setStorage(location, key, value);
@@ -61,7 +70,11 @@ export const StorageProcessor: CommandExecutorInterface = (
   };
 
   return {
-    execute(mutations: Uint16Array, startPosition: number, allowedMutation: boolean): number {
+    execute(
+      mutations: Uint16Array,
+      startPosition: number,
+      allowedMutation: boolean,
+    ): number {
       if (allowedExecution && allowedMutation) {
         const operation = mutations[startPosition + StorageMutationIndex.Operation];
         const location = mutations[startPosition + StorageMutationIndex.Location];

@@ -303,11 +303,10 @@ export class Code {
           import { ErrorBoundary } from "react-error-boundary";
           import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
           
-          document.body.innerHTML = '<div id="root"></div>';
 
-      let rootEl = document.getElementById("root");
+      let rootEl = document.createElement("div");
 
-      rootEl.innerHTML="";
+
        
       const root = createRoot(rootEl);
       
@@ -329,7 +328,14 @@ export class Code {
         <CacheProvider value={cache}>
           <App />
         </CacheProvider>
-        </ErrorBoundary>);`,
+        </ErrorBoundary>);
+        
+        
+        requestAnimationFrame(()=>{
+          document.getElementById('root').replaceWith(rootEl);
+        })
+        
+        `,
             url.origin,
           );
           return new Response(src, {

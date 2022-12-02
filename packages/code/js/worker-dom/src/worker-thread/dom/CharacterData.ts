@@ -12,7 +12,13 @@ import { Node, NodeName } from "./Node";
 export abstract class CharacterData extends Node {
   private [TransferrableKeys.data]: string;
 
-  constructor(data: string, nodeType: NodeType, nodeName: NodeName, ownerDocument: Node, overrideIndex?: number) {
+  constructor(
+    data: string,
+    nodeType: NodeType,
+    nodeName: NodeName,
+    ownerDocument: Node,
+    overrideIndex?: number,
+  ) {
     super(nodeType, nodeName, ownerDocument, overrideIndex);
     this[TransferrableKeys.data] = data;
 
@@ -56,7 +62,11 @@ export abstract class CharacterData extends Node {
         value,
         oldValue,
       },
-      [TransferrableMutationType.CHARACTER_DATA, this[TransferrableKeys.index], storeString(value)],
+      [
+        TransferrableMutationType.CHARACTER_DATA,
+        this[TransferrableKeys.index],
+        storeString(value),
+      ],
     );
   }
 

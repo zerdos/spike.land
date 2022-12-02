@@ -20,12 +20,18 @@ const mod = {
   },
 };
 
-export const initAndTransform = async (code: string, opts: TransformOptions) => {
+export const initAndTransform = async (
+  code: string,
+  opts: TransformOptions,
+) => {
   const initFinished = mod.initialize();
 
   if (initFinished !== true) await (initFinished);
 
-  const transformed = await transform(code, { ...opts, define: { ...define, ...(opts?.define ? opts.define : {}) } });
+  const transformed = await transform(code, {
+    ...opts,
+    define: { ...define, ...(opts?.define ? opts.define : {}) },
+  });
 
   const trp = importMapReplace(transformed.code); // .split("dataset").join("attributes");
 
@@ -76,7 +82,9 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     plugins: [unpkgPathPlugin, fetchPlugin],
   };
   let b;
-  if (!signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted) {
+  if (
+    !signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted
+  ) {
     console.log(b.outputFiles);
     return b.outputFiles![0].contents;
   }
@@ -87,7 +95,9 @@ export { build };
 export { initAndTransform as transform };
 
 function importMapReplace(codeInp: string) {
-  const items = Object.keys(importMapImports) as (keyof typeof importMapImports)[];
+  const items = Object.keys(
+    importMapImports,
+  ) as (keyof typeof importMapImports)[];
   let returnStr = codeInp;
 
   items.map((lib: keyof typeof importMapImports) => {

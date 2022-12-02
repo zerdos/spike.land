@@ -24,7 +24,11 @@ test.serial.cb("Element.classList.add transfer single value", (t) => {
   const { document, emitter } = t.context;
   const div = document.createElement("div");
 
-  function transmitted(strings: Array<string>, message: MutationFromWorker, buffers: Array<ArrayBuffer>) {
+  function transmitted(
+    strings: Array<string>,
+    message: MutationFromWorker,
+    buffers: Array<ArrayBuffer>,
+  ) {
     t.deepEqual(
       Array.from(new Uint16Array(message[TransferrableKeys.mutations])),
       [
@@ -50,7 +54,11 @@ test.serial.cb("Element.classList.add transfer single override value", (t) => {
   const { document, emitter } = t.context;
   const div = document.createElement("div");
 
-  function transmitted(strings: Array<string>, message: MutationFromWorker, buffers: Array<ArrayBuffer>) {
+  function transmitted(
+    strings: Array<string>,
+    message: MutationFromWorker,
+    buffers: Array<ArrayBuffer>,
+  ) {
     t.deepEqual(
       Array.from(new Uint16Array(message[TransferrableKeys.mutations])),
       [
@@ -77,7 +85,11 @@ test.serial.cb("Element.classList.add transfer multiple values", (t) => {
   const { document, emitter } = t.context;
   const div = document.createElement("div");
 
-  function transmitted(strings: Array<string>, message: MutationFromWorker, buffers: Array<ArrayBuffer>) {
+  function transmitted(
+    strings: Array<string>,
+    message: MutationFromWorker,
+    buffers: Array<ArrayBuffer>,
+  ) {
     t.deepEqual(
       Array.from(new Uint16Array(message[TransferrableKeys.mutations])),
       [
@@ -99,29 +111,37 @@ test.serial.cb("Element.classList.add transfer multiple values", (t) => {
   });
 });
 
-test.serial.cb("Element.classList.add mutation observed, multiple value to existing values", (t) => {
-  const { document, emitter } = t.context;
-  const div = document.createElement("div");
+test
+  .serial.cb(
+    "Element.classList.add mutation observed, multiple value to existing values",
+    (t) => {
+      const { document, emitter } = t.context;
+      const div = document.createElement("div");
 
-  function transmitted(strings: Array<string>, message: MutationFromWorker, buffers: Array<ArrayBuffer>) {
-    t.deepEqual(
-      Array.from(new Uint16Array(message[TransferrableKeys.mutations])),
-      [
-        TransferrableMutationType.ATTRIBUTES,
-        div[TransferrableKeys.index],
-        strings.indexOf("class"),
-        0,
-        strings.indexOf("foo bar baz") + 1,
-      ],
-      "mutation is as expected",
-    );
-    t.end();
-  }
+      function transmitted(
+        strings: Array<string>,
+        message: MutationFromWorker,
+        buffers: Array<ArrayBuffer>,
+      ) {
+        t.deepEqual(
+          Array.from(new Uint16Array(message[TransferrableKeys.mutations])),
+          [
+            TransferrableMutationType.ATTRIBUTES,
+            div[TransferrableKeys.index],
+            strings.indexOf("class"),
+            0,
+            strings.indexOf("foo bar baz") + 1,
+          ],
+          "mutation is as expected",
+        );
+        t.end();
+      }
 
-  document.body.appendChild(div);
-  div.classList.value = "foo";
-  Promise.resolve().then(() => {
-    emitter.once(transmitted);
-    div.classList.add("bar", "baz");
-  });
-});
+      document.body.appendChild(div);
+      div.classList.value = "foo";
+      Promise.resolve().then(() => {
+        emitter.once(transmitted);
+        div.classList.add("bar", "baz");
+      });
+    },
+  );

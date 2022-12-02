@@ -39,7 +39,9 @@ export class OffscreenCanvasPolyfill<ElementType extends HTMLElement> {
   getContext(contextType: string): CanvasRenderingContext2D {
     if (!this.context) {
       if (toLower(contextType) === "2d") {
-        this.context = new OffscreenCanvasRenderingContext2DPolyfill<ElementType>(this.canvas);
+        this.context = new OffscreenCanvasRenderingContext2DPolyfill<
+          ElementType
+        >(this.canvas);
       } else {
         throw new Error("Context type not supported.");
       }
@@ -71,7 +73,10 @@ class OffscreenCanvasRenderingContext2DPolyfill<ElementType extends HTMLElement>
   }
 
   [TransferrableKeys.serializeAsTransferrableObject](): number[] {
-    return [TransferrableObjectType.CanvasRenderingContext2D, this.canvasElement[TransferrableKeys.index]];
+    return [
+      TransferrableObjectType.CanvasRenderingContext2D,
+      this.canvasElement[TransferrableKeys.index],
+    ];
   }
 
   /**
@@ -80,7 +85,11 @@ class OffscreenCanvasRenderingContext2DPolyfill<ElementType extends HTMLElement>
    * @param creationMethod Method to use for object creation.
    * @param creationArgs Arguments to pass into the creation method.
    */
-  private createObjectReference(objectId: number, creationMethod: string, creationArgs: any[]) {
+  private createObjectReference(
+    objectId: number,
+    creationMethod: string,
+    creationArgs: any[],
+  ) {
     transfer(this.canvasElement.ownerDocument as Document, [
       TransferrableMutationType.OBJECT_CREATION,
       store(creationMethod),
@@ -159,7 +168,13 @@ class OffscreenCanvasRenderingContext2DPolyfill<ElementType extends HTMLElement>
     this[TransferrableKeys.mutated]("scale", [...arguments]);
   }
 
-  roundRect(x: number, y: number, w: number, h: number, radii?: number | DOMPointInit | (number | DOMPointInit)[]) {
+  roundRect(
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    radii?: number | DOMPointInit | (number | DOMPointInit)[],
+  ) {
     this[TransferrableKeys.mutated]("roundRect", [...arguments]);
   }
 
@@ -235,7 +250,14 @@ class OffscreenCanvasRenderingContext2DPolyfill<ElementType extends HTMLElement>
     this[TransferrableKeys.mutated]("miterLimit", [...arguments]);
   }
 
-  arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean) {
+  arc(
+    x: number,
+    y: number,
+    radius: number,
+    startAngle: number,
+    endAngle: number,
+    anticlockwise?: boolean,
+  ) {
     this[TransferrableKeys.mutated]("arc", [...arguments]);
   }
 
@@ -264,7 +286,14 @@ class OffscreenCanvasRenderingContext2DPolyfill<ElementType extends HTMLElement>
     this[TransferrableKeys.mutated]("ellipse", [...arguments]);
   }
 
-  bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number) {
+  bezierCurveTo(
+    cp1x: number,
+    cp1y: number,
+    cp2x: number,
+    cp2y: number,
+    x: number,
+    y: number,
+  ) {
     this[TransferrableKeys.mutated]("bezierCurveTo", [...arguments]);
   }
 
@@ -317,24 +346,51 @@ class OffscreenCanvasRenderingContext2DPolyfill<ElementType extends HTMLElement>
     f?: number,
   ) {
     if (typeof transformOrA === "object") {
-      throw new Error("setTransform(DOMMatrix2DInit) is currently not supported!");
+      throw new Error(
+        "setTransform(DOMMatrix2DInit) is currently not supported!",
+      );
     }
     this[TransferrableKeys.mutated]("setTransform", [...arguments]);
   }
 
-  createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient {
+  createLinearGradient(
+    x0: number,
+    y0: number,
+    x1: number,
+    y1: number,
+  ): CanvasGradient {
     const gradientId = this.objectIndex++;
-    this.createObjectReference(gradientId, "createLinearGradient", [...arguments]);
-    return new CanvasGradient(gradientId, this.canvasElement.ownerDocument as Document);
+    this.createObjectReference(gradientId, "createLinearGradient", [
+      ...arguments,
+    ]);
+    return new CanvasGradient(
+      gradientId,
+      this.canvasElement.ownerDocument as Document,
+    );
   }
 
-  createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient {
+  createRadialGradient(
+    x0: number,
+    y0: number,
+    r0: number,
+    x1: number,
+    y1: number,
+    r1: number,
+  ): CanvasGradient {
     const gradientId = this.objectIndex++;
-    this.createObjectReference(gradientId, "createRadialGradient", [...arguments]);
-    return new CanvasGradient(gradientId, this.canvasElement.ownerDocument as Document);
+    this.createObjectReference(gradientId, "createRadialGradient", [
+      ...arguments,
+    ]);
+    return new CanvasGradient(
+      gradientId,
+      this.canvasElement.ownerDocument as Document,
+    );
   }
 
-  createPattern(image: HTMLCanvasElement | HTMLImageElement, repetition: string): CanvasPattern {
+  createPattern(
+    image: HTMLCanvasElement | HTMLImageElement,
+    repetition: string,
+  ): CanvasPattern {
     const patternId = this.objectIndex++;
     this.createObjectReference(patternId, "createPattern", [...arguments]);
     return new CanvasPattern(patternId);

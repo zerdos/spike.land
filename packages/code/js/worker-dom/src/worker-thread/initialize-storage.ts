@@ -15,12 +15,20 @@ export function initializeStorage(
 ) {
   const window = document.defaultView;
   if (localStorageInit.storage) {
-    window.localStorage = createStorage(document, StorageLocation.Local, localStorageInit.storage);
+    window.localStorage = createStorage(
+      document,
+      StorageLocation.Local,
+      localStorageInit.storage,
+    );
   } else {
     console.warn(localStorageInit.errorMsg);
   }
   if (sessionStorageInit.storage) {
-    window.sessionStorage = createStorage(document, StorageLocation.Session, sessionStorageInit.storage);
+    window.sessionStorage = createStorage(
+      document,
+      StorageLocation.Session,
+      sessionStorageInit.storage,
+    );
   } else {
     console.warn(sessionStorageInit.errorMsg);
   }

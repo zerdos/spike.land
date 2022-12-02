@@ -24,7 +24,9 @@ test.beforeEach((t) => {
 
   const mutationPromise: any = new Promise((resolve) => {
     document.postMessage = (message: MutationFromWorker) => {
-      const mutation = Array.from(new Uint16Array(message[TransferrableKeys.mutations]));
+      const mutation = Array.from(
+        new Uint16Array(message[TransferrableKeys.mutations]),
+      );
       resolve(mutation);
     };
   });
@@ -43,7 +45,10 @@ function getFunctionEvent(fnName: string, args: any): MessageEvent {
     },
   } as any;
 }
-function getFunctionMutation(status: ResolveOrReject, valIndex: number | undefined): Array<any> {
+function getFunctionMutation(
+  status: ResolveOrReject,
+  valIndex: number | undefined,
+): Array<any> {
   return [TransferrableMutationType.FUNCTION_CALL, status, index, valIndex];
 }
 
@@ -74,7 +79,10 @@ test.serial("callFunctionMessageHandler unexported fn", async (t) => {
   callFunctionMessageHandler(getFunctionEvent("abc", []), t.context.document);
 
   const mutation = await t.context.mutationPromise;
-  t.deepEqual(mutation, getFunctionMutation(ResolveOrReject.REJECT, getForTestingPartial(`abc`)));
+  t.deepEqual(
+    mutation,
+    getFunctionMutation(ResolveOrReject.REJECT, getForTestingPartial(`abc`)),
+  );
 });
 
 test.serial("callFunctionMessageHandler rejects", async (t) => {
@@ -82,7 +90,13 @@ test.serial("callFunctionMessageHandler rejects", async (t) => {
   callFunctionMessageHandler(getFunctionEvent("abc", []), t.context.document);
 
   const mutation = await t.context.mutationPromise;
-  t.deepEqual(mutation, getFunctionMutation(ResolveOrReject.REJECT, getForTestingPartial(`rejected message`)));
+  t.deepEqual(
+    mutation,
+    getFunctionMutation(
+      ResolveOrReject.REJECT,
+      getForTestingPartial(`rejected message`),
+    ),
+  );
 });
 
 test.serial("callFunctionMessageHandler throws", async (t) => {
@@ -92,7 +106,13 @@ test.serial("callFunctionMessageHandler throws", async (t) => {
   callFunctionMessageHandler(getFunctionEvent("abc", []), t.context.document);
 
   const mutation = await t.context.mutationPromise;
-  t.deepEqual(mutation, getFunctionMutation(ResolveOrReject.REJECT, getForTestingPartial(`error message`)));
+  t.deepEqual(
+    mutation,
+    getFunctionMutation(
+      ResolveOrReject.REJECT,
+      getForTestingPartial(`error message`),
+    ),
+  );
 });
 
 test.serial("callFunctionMessageHandler successful 0 args.", async (t) => {
@@ -100,13 +120,28 @@ test.serial("callFunctionMessageHandler successful 0 args.", async (t) => {
   callFunctionMessageHandler(getFunctionEvent("abc", []), t.context.document);
 
   const mutation = await t.context.mutationPromise;
-  t.deepEqual(mutation, getFunctionMutation(ResolveOrReject.RESOLVE, getForTestingPartial(`"value"`)));
+  t.deepEqual(
+    mutation,
+    getFunctionMutation(
+      ResolveOrReject.RESOLVE,
+      getForTestingPartial(`"value"`),
+    ),
+  );
 });
 
 test.serial("callFunctionMessageHandler successful N args.", async (t) => {
   exportFunction("abc", (arg1: any, arg2: any) => [arg1, arg2]);
-  callFunctionMessageHandler(getFunctionEvent("abc", [12, "test"]), t.context.document);
+  callFunctionMessageHandler(
+    getFunctionEvent("abc", [12, "test"]),
+    t.context.document,
+  );
 
   const mutation = await t.context.mutationPromise;
-  t.deepEqual(mutation, getFunctionMutation(ResolveOrReject.RESOLVE, getForTestingPartial(`[12,"test"]`)));
+  t.deepEqual(
+    mutation,
+    getFunctionMutation(
+      ResolveOrReject.RESOLVE,
+      getForTestingPartial(`[12,"test"]`),
+    ),
+  );
 });

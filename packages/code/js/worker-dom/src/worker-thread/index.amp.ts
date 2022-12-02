@@ -119,7 +119,11 @@ export const workerDOM: WorkerDOMGlobalScope = (function(postMessage, addEventLi
   globalScope.ImageBitmap = (self as any)["ImageBitmap"];
 
   return document.defaultView;
-})(postMessage.bind(self) || noop, addEventListener.bind(self) || noop, removeEventListener.bind(self) || noop);
+})(
+  postMessage.bind(self) || noop,
+  addEventListener.bind(self) || noop,
+  removeEventListener.bind(self) || noop,
+);
 
 // Modify global scope by removing disallowed properties and wrapping `fetch()`.
 (function(global: WorkerGlobalScope) {
@@ -145,6 +149,9 @@ export const workerDOM: WorkerDOMGlobalScope = (function(postMessage, addEventLi
 
 // Allows for function invocation
 (self as any).exportFunction = exportFunction;
-addEventListener("message", (evt: MessageEvent) => callFunctionMessageHandler(evt, workerDOM.document));
+addEventListener(
+  "message",
+  (evt: MessageEvent) => callFunctionMessageHandler(evt, workerDOM.document),
+);
 
 export const hydrate: HydrateFunction = initialize;

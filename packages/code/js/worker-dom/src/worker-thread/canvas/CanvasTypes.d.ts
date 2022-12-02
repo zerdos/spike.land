@@ -31,7 +31,13 @@ declare var CanvasRenderingContext2D: {
 
 interface CanvasDrawImage {
   drawImage(image: CanvasImageSource, dx: number, dy: number): void;
-  drawImage(image: CanvasImageSource, dx: number, dy: number, dw: number, dh: number): void;
+  drawImage(
+    image: CanvasImageSource,
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number,
+  ): void;
   drawImage(
     image: CanvasImageSource,
     sx: number,
@@ -96,9 +102,23 @@ interface CanvasTransform {
   resetTransform(): void;
   rotate(angle: number): void;
   scale(x: number, y: number): void;
-  setTransform(a: number, b: number, c: number, d: number, e: number, f: number): void;
+  setTransform(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    e: number,
+    f: number,
+  ): void;
   setTransform(transform?: DOMMatrix2DInit): void;
-  transform(a: number, b: number, c: number, d: number, e: number, f: number): void;
+  transform(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    e: number,
+    f: number,
+  ): void;
   translate(x: number, y: number): void;
 }
 
@@ -115,9 +135,24 @@ interface CanvasImageSmoothing {
 interface CanvasFillStrokeStyles {
   fillStyle: string | CanvasGradient | CanvasPattern;
   strokeStyle: string | CanvasGradient | CanvasPattern;
-  createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
-  createPattern(image: CanvasImageSource, repetition: string): CanvasPattern | null;
-  createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
+  createLinearGradient(
+    x0: number,
+    y0: number,
+    x1: number,
+    y1: number,
+  ): CanvasGradient;
+  createPattern(
+    image: CanvasImageSource,
+    repetition: string,
+  ): CanvasPattern | null;
+  createRadialGradient(
+    x0: number,
+    y0: number,
+    r0: number,
+    x1: number,
+    y1: number,
+    r1: number,
+  ): CanvasGradient;
 }
 
 interface CanvasShadowStyles {
@@ -144,7 +179,12 @@ interface CanvasDrawPath {
   fill(fillRule?: CanvasFillRule): void;
   fill(path: Path2D, fillRule?: CanvasFillRule): void;
   isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
-  isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean;
+  isPointInPath(
+    path: Path2D,
+    x: number,
+    y: number,
+    fillRule?: CanvasFillRule,
+  ): boolean;
   isPointInStroke(x: number, y: number): boolean;
   isPointInStroke(path: Path2D, x: number, y: number): boolean;
   stroke(): void;
@@ -185,11 +225,20 @@ declare var ImageBitmap: {
 
 export type CanvasDirection = "ltr" | "rtl" | "inherit";
 export type CanvasFillRule = "nonzero" | "evenodd";
-export type CanvasImageSource = HTMLCanvasElement | HTMLImageElement | ImageBitmap;
+export type CanvasImageSource =
+  | HTMLCanvasElement
+  | HTMLImageElement
+  | ImageBitmap;
 export type CanvasLineCap = "butt" | "round" | "square";
 export type CanvasLineJoin = "round" | "bevel" | "miter";
 export type CanvasTextAlign = "start" | "end" | "left" | "right" | "center";
-export type CanvasTextBaseline = "top" | "hanging" | "middle" | "alphabetic" | "ideographic" | "bottom";
+export type CanvasTextBaseline =
+  | "top"
+  | "hanging"
+  | "middle"
+  | "alphabetic"
+  | "ideographic"
+  | "bottom";
 export type ImageSmoothingQuality = "low" | "medium" | "high";
 
 /** The CanvasGradient interface represents an opaque object describing a gradient.

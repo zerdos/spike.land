@@ -1,10 +1,10 @@
 "use strict";
 
-self.addEventListener("message", e => {
+self.addEventListener("message", (e) => {
   if (e.data === "start") {
     importScripts("../../via/receiver/receiver.js");
 
-    ViaReceiver.postMessage = data => self.postMessage(data);
+    ViaReceiver.postMessage = (data) => self.postMessage(data);
   } else {
     ViaReceiver.OnMessage(e.data);
   }

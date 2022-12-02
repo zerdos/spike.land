@@ -43,7 +43,13 @@ test.beforeEach((t) => {
       longTasks.push(promise);
     },
   });
-  const executor = LongTaskExecutor(stringContext, nodeContext, workerContext, objectContext, config);
+  const executor = LongTaskExecutor(
+    stringContext,
+    nodeContext,
+    workerContext,
+    objectContext,
+    config,
+  );
 
   baseElement._index_ = 1;
   document.body.appendChild(baseElement);
@@ -67,7 +73,14 @@ test.afterEach((t) => {
 });
 
 test.serial("should tolerate no callback", async (t) => {
-  const { longTasks, baseElement, stringContext, nodeContext, workerContext, objectContext } = t.context;
+  const {
+    longTasks,
+    baseElement,
+    stringContext,
+    nodeContext,
+    workerContext,
+    objectContext,
+  } = t.context;
   const executor = LongTaskExecutor(
     stringContext,
     nodeContext,
@@ -80,12 +93,18 @@ test.serial("should tolerate no callback", async (t) => {
   );
 
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_START, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_START,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_END, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_END,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -98,7 +117,10 @@ test.serial("should create and release a long task", async (t) => {
   const { executor, longTasks, baseElement } = t.context;
 
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_START, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_START,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -108,7 +130,10 @@ test.serial("should create and release a long task", async (t) => {
 
   // Ensure the promise is resolved in the end.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_END, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_END,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -123,7 +148,10 @@ test.serial("should nest long tasks", async (t) => {
   const { executor, longTasks, baseElement } = t.context;
 
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_START, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_START,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -133,7 +161,10 @@ test.serial("should nest long tasks", async (t) => {
 
   // Nested: no new promise/task created.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_START, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_START,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -143,7 +174,10 @@ test.serial("should nest long tasks", async (t) => {
 
   // Unnest: the task is still active.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_END, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_END,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -153,7 +187,10 @@ test.serial("should nest long tasks", async (t) => {
 
   // Ensure the promise is resolved in the end.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_END, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_END,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -173,7 +210,10 @@ test.serial("multiple long tasks should have their handlers fired in sequence ST
 
   // Start 1st task.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_START, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_START,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -181,12 +221,18 @@ test.serial("multiple long tasks should have their handlers fired in sequence ST
 
   // End 1st task and start the second without a sleep in between.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_END, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_END,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_START, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_START,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -200,7 +246,10 @@ test.serial("should restart a next long tasks", async (t) => {
 
   // Start 1st task.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_START, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_START,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -210,7 +259,10 @@ test.serial("should restart a next long tasks", async (t) => {
 
   // End 1st task.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_END, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_END,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -220,7 +272,10 @@ test.serial("should restart a next long tasks", async (t) => {
 
   // Start 2nd task.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_START, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_START,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );
@@ -230,7 +285,10 @@ test.serial("should restart a next long tasks", async (t) => {
 
   // End 2nd task.
   executor.execute(
-    new Uint16Array([TransferrableMutationType.LONG_TASK_END, baseElement._index_]),
+    new Uint16Array([
+      TransferrableMutationType.LONG_TASK_END,
+      baseElement._index_,
+    ]),
     0,
     /* allow */ true,
   );

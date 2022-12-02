@@ -23,7 +23,7 @@ export const fetchPlugin: Plugin = {
     // files will be in the "http-url" namespace. Make sure to keep
     // the newly resolved URL in the "http-url" namespace so imports
     // inside it will also be resolved as URLs recursively.
-    build.onResolve({ filter: /.*/, namespace: "http-url" }, args => ({
+    build.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
       path: importShim.resolve(args.path, args.importer),
       namespace: "http-url",
     }));
@@ -52,8 +52,10 @@ export const fetchPlugin: Plugin = {
       };
 
       const req = new Request(args.path);
-      let contents = await getRequest(req).then(x => x.text());
-      if (args.path.indexOf(".tsx") !== -1) contents = await esmTransform(contents);
+      let contents = await getRequest(req).then((x) => x.text());
+      if (args.path.indexOf(".tsx") !== -1) {
+        contents = await esmTransform(contents);
+      }
 
       return { contents };
     });

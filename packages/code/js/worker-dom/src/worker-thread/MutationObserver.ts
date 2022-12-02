@@ -13,14 +13,18 @@ let pendingMutations = false;
  * @param target
  */
 const matchesIndex = (observerTarget: Node | null, target: Node): boolean => {
-  return !!observerTarget && observerTarget[TransferrableKeys.index] === target[TransferrableKeys.index];
+  return !!observerTarget
+    && observerTarget[TransferrableKeys.index] === target[TransferrableKeys.index];
 };
 
 /**
  * @param observer
  * @param record
  */
-const pushMutation = (observer: MutationObserver, record: MutationRecord): void => {
+const pushMutation = (
+  observer: MutationObserver,
+  record: MutationRecord,
+): void => {
   observer.pushRecord(record);
 
   if (!pendingMutations) {
@@ -37,7 +41,11 @@ const pushMutation = (observer: MutationObserver, record: MutationRecord): void 
  * @param record
  * @param transferable
  */
-export function mutate(document: Document, record: MutationRecord, transferable: Array<number>): void {
+export function mutate(
+  document: Document,
+  record: MutationRecord,
+  transferable: Array<number>,
+): void {
   // Post-message `transferable` to the main thread to apply mutations.
   transfer(document, transferable);
 

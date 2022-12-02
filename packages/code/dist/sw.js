@@ -8320,7 +8320,10 @@
       }
       if (url.pathname.indexOf("/live/") !== -1) {
         const controller = new AbortController();
-        let req = new Request(event.request.url, { ...event.request, signal: controller.signal });
+        let req = new Request(event.request.url, {
+          ...event.request,
+          signal: controller.signal
+        });
         let resp = await fetch(req);
         if (!resp.ok)
           return resp;
@@ -8361,7 +8364,10 @@
         }
         return response;
       } catch {
-        return new Response("oh no!", { status: 500, statusText: `Could not fetch:  ${request.url}` });
+        return new Response("oh no!", {
+          status: 500,
+          statusText: `Could not fetch:  ${request.url}`
+        });
       }
     })());
   });

@@ -15,7 +15,8 @@ export const appendGlobalEventProperties = (keys: Array<string>): void => {
     Object.defineProperty(HTMLElement.prototype, key, {
       enumerable: true,
       get(): string {
-        return this[TransferrableKeys.propertyEventHandlers][normalizedKey] || null;
+        return this[TransferrableKeys.propertyEventHandlers][normalizedKey]
+          || null;
       },
       set(value) {
         const stored = this[TransferrableKeys.propertyEventHandlers][normalizedKey];
@@ -67,12 +68,18 @@ reflectProperties(
     { lang: [""] },
     { title: [""] },
     {
-      draggable: [false, /* attr */ undefined, /* keywords */ ["true", "false"]],
+      draggable: [false, /* attr */ undefined, /* keywords */ [
+        "true",
+        "false",
+      ]],
     },
     { hidden: [false, /* attr */ undefined] },
     { noModule: [false] }, // TOOD: Why is this on HTMLElement and not HTMLScriptElement?
     {
-      spellcheck: [true, /* attr */ undefined, /* keywords */ ["true", "false"]],
+      spellcheck: [true, /* attr */ undefined, /* keywords */ [
+        "true",
+        "false",
+      ]],
     },
     { translate: [true, /* attr */ undefined, /* keywords */ ["yes", "no"]] },
   ],
