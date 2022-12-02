@@ -6120,7 +6120,6 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   });
 }, "createIframe");
 var worker;
-var div;
 var parent;
 var lastH = "";
 var lastSuccessful = "";
@@ -6138,9 +6137,7 @@ async function runInWorker(nameSpace, _parent) {
       return;
     }
     parent = _parent || parent || document.getElementById("root");
-    if (div)
-      div.remove();
-    div = await moveToWorker(nameSpace, parent) || new Error("OO OOO");
+    const div = await moveToWorker(nameSpace, parent) || new Error("OO OOO");
     if (!div)
       return false;
     div.setAttribute("data-shadow-dom", "open");
@@ -6156,25 +6153,29 @@ var bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    createIframe(nameSpace, mST().i);
+    if (location.href.indexOf("/hydrated")) {
+      runInWorker(nameSpace, parent);
+    } else {
+      createIframe(nameSpace, mST().i);
+    }
   }
 };
 async function moveToWorker(nameSpace, parent2) {
   const { html, css: css2, i: i2, transiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
-  const div2 = document.createElement("div");
-  div2.style.height = "100%";
+  const div = document.createElement("div");
+  div.style.height = "100%";
   parent2.innerHTML = `<style>
   ${css2}
   </style>
   <div id="root-${codeSpace}" style="height: 100%;">${html}</div>`;
-  parent2.appendChild(div2);
+  parent2.appendChild(div);
   const cont = new AbortController();
   const js = await build(codeSpace, i2, cont.signal);
   if (!js)
     return false;
   const src = createJsBlob(js);
-  div2.setAttribute("src", src);
-  return div2;
+  div.setAttribute("src", src);
+  return div;
 }
 __name(moveToWorker, "moveToWorker");
 Object.assign(globalThis, { md5 });

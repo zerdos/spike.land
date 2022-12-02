@@ -301,9 +301,9 @@ export class Code {
           import { CacheProvider } from "@emotion/react";
           import createCache from "@emotion/cache";
           import { ErrorBoundary } from "react-error-boundary";
-          import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
+          import App from "${url.origin}/live/${codeSpace}/index.js/${i}";
           
-          document.body.innerHTML= "${
+          document.body.innerHTML= ${
               JSON.stringify(`<div id="root" style="height: 100%;">
             <style>
             ${css}
@@ -312,7 +312,7 @@ export class Code {
                 ${html}
               </div>
           </div>`)
-            }" 
+            }; 
 
 
       let rootEl = document.createElement("div");

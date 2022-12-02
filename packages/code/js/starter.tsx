@@ -161,12 +161,11 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
 
     parent = _parent || parent || document.getElementById("root");
     // if (worker) worker.();
-    if (div) div.remove();
 
-    div = await moveToWorker(nameSpace, parent) || new Error("OO OOO");
+    const div = await moveToWorker(nameSpace, parent) || new Error("OO OOO");
     // if (oldDiv) oldDiv.remove();
     if (!div) return false;
-    div.setAttribute("data-shadow-dom", "open");
+    div!.setAttribute("data-shadow-dom", "open");
 
     const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
     if (w === null) throw new Error("No worker");
@@ -180,9 +179,11 @@ const bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    createIframe(nameSpace, mST().i);
-
-    // runInWorker(nameSpace, parent);
+    if (location.href.indexOf("/hydrated")) {
+      runInWorker(nameSpace, parent);
+    } else {
+      createIframe(nameSpace, mST().i);
+    }
   }
 };
 
