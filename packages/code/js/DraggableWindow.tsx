@@ -267,6 +267,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       scale: scaleRange / 100,
                     }}
                     ref={zBodyRef}
+                    id={"z-body"}
                     data-test-id="z-body"
                     css={css`
                   position: relative  ;

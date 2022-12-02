@@ -5809,7 +5809,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2) => {
       ".js": "tsx"
     },
     write: false,
-    format: "esm",
+    format: "iife",
     entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`],
     define: define2,
     tsconfig: "./tsconfig.json",
@@ -5848,64 +5848,67 @@ function createHTML(code, fileName = "index.html") {
 __name(createHTML, "createHTML");
 var modz = {};
 var codeSpace = location.pathname.slice(1).split("/")[1];
+var mutex = new Mutex();
 var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
-  if (modz[`${cs}-${counter}`])
-    return modz[`${cs}-${counter}`];
-  return modz[`${cs}-${counter}`] = new Promise(async (res) => {
-    if (modz[cs] > counter)
-      return;
-    modz[cs] = counter;
-    let MST;
-    if (cs === codeSpace)
-      MST = mST();
-    else {
-      const I = counter || mST().i;
-      MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
-    }
-    if (modz[cs] > counter)
-      return;
-    const { html, css: css2, i: i2 } = MST;
-    let code = ``;
-    let iSRC = /* @__PURE__ */ __name(() => createHTML(`
+  await mutex.runExclusive(async () => {
+    if (modz[`${cs}-${counter}`])
+      return modz[`${cs}-${counter}`];
+    return modz[`${cs}-${counter}`] = new Promise(async (res) => {
+      if (modz[cs] > counter)
+        return;
+      modz[cs] = counter;
+      let MST;
+      if (cs === codeSpace)
+        MST = mST();
+      else {
+        const I = counter || mST().i;
+        MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
+      }
+      if (modz[cs] > counter)
+        return;
+      const { html, css: css2, i: i2 } = MST;
+      let code = createJsBlob(``);
+      let iSRC = /* @__PURE__ */ __name(() => createHTML(`
   <html> 
   <head>
   <style>
+  html, body{
+    height: 100%;
+  }
   ${resetCSS}
   ${css2}</style>
+  <script defer src="{${code}}"><\/script> 
   </head>
   <body>
   <div id="root-${cs}" data-i="${counter}" style="height: 100%;">${html}</div>
-  <script type="module">
-  ${code}
-  <\/script></body>
+  </body>
   
   </html>`), "iSRC");
-    const iframe = document.createElement("iframe");
-    iframe.src = iSRC();
-    if (modz[cs] > counter)
-      return;
-    iframe.src = iSRC();
-    if (modz[cs] > counter)
-      return;
-    document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
-    document.getElementById(`coder-${cs}`)?.replaceWith(iframe);
-    iframe.style.height = "100vh";
-    iframe.style.border = "none";
-    iframe.style.width = "100%";
-    if (modz[cs] > counter) {
-      return;
-    }
-    res(iframe);
-    requestAnimationFrame(
-      () => build(codeSpace, i2).then((x2) => {
-        if (modz[cs] === counter)
-          code = x2;
-      }).then(() => {
-        if (modz[cs] === counter)
-          iframe.src = iSRC();
-      })
-    );
-    return iframe;
+      if (modz[cs] > counter)
+        return;
+      let iframe;
+      const setIframe = /* @__PURE__ */ __name(() => {
+        iframe = document.createElement("iframe");
+        iframe.src = iSRC();
+        iframe.setAttribute("data-coder", cs);
+        iframe.style.height = "100%";
+        iframe.setAttribute("id", `coder-${cs}`);
+        iframe.style.border = "none";
+        iframe.style.width = "100%";
+        (document.getElementById("z-body") || document.getElementById("root")).innerHTML = "";
+        (document.getElementById("z-body") || document.getElementById("root")).appendChild(iframe);
+        return iframe;
+      }, "setIframe");
+      iframe = setIframe();
+      res(iframe);
+      requestAnimationFrame(
+        () => build(codeSpace, i2).then((x2) => {
+          if (modz[cs] === counter)
+            code = createJsBlob(x2);
+        }).then(() => setIframe())
+      );
+      return iframe;
+    });
   });
 }, "createIframe");
 var worker;
@@ -5913,7 +5916,6 @@ var div;
 var parent;
 var lastH = "";
 var lastSuccessful = "";
-var mutex = new Mutex();
 async function runInWorker(nameSpace, _parent) {
   lastH = hashCode();
   console.log(`last hash: ${lastH}`);
@@ -5944,10 +5946,7 @@ var bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    createIframe(nameSpace, mST().i).then((iframe) => {
-      globalThis.zBodyRef.current.innerHTML = ``;
-      globalThis.zBodyRef.current.appendChild(iframe);
-    });
+    createIframe(nameSpace, mST().i);
   }
 };
 async function moveToWorker(nameSpace, parent2) {
@@ -6019,28 +6018,10 @@ if (!Object.hasOwn(globalThis, "apps")) {
 }
 var { apps: apps2, eCaches: eCaches2 } = globalThis;
 function AutoUpdateApp({ codeSpace: codeSpace2 }) {
-  const ref = (0, import_react.useRef)(globalThis.zBodyRef);
-  globalThis.zBodyRef = ref;
-  const [hash, setHash] = (0, import_react.useState)(hashCode());
   (0, import_react.useEffect)(() => {
-    if (ref.current === null)
-      return;
-    parent = ref.current;
-    createIframe(codeSpace2, mST().i).then((iframe) => {
-      ref.current.innerHTML = ``;
-      ref.current.appendChild(iframe);
-    });
-    setHash(hashCode());
-  }, [ref, ref.current]);
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-    "div",
-    {
-      ref,
-      css: import_react2.css`
-    height: 100%`
-    },
-    hash
-  );
+    createIframe(codeSpace2, mST().i);
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, {});
 }
 __name(AutoUpdateApp, "AutoUpdateApp");
 async function appFactory(transpiled = "") {
@@ -6116,6 +6097,7 @@ export {
   wait,
   runner,
   createHTML,
+  createIframe,
   runInWorker,
   importIt,
   apps2 as apps,
