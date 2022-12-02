@@ -6163,7 +6163,7 @@ async function moveToWorker(nameSpace, parent2) {
   const { html, css: css2, i: i2, transiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div2 = document.createElement("div");
   div2.style.height = "100%";
-  parent2.innerHTML = `<div id="root}" style="height: 100%;">
+  parent2.innerHTML = `<div id="root" style="height: 100%;">
   <style>
   html,body {
     height: 100%;
