@@ -13,9 +13,9 @@
       "ES2022.String",
       "ES2022.Array",
       "ES2017.TypedArrays",
-    "ESNext.Symbol",
-    "ESNext.WeakRef",
-      
+      "ESNext.Symbol",
+      "ESNext.WeakRef",
+
       "ESNext.Promise",
       "WebWorker",
       "ES2022.Object",

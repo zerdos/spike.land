@@ -25,7 +25,7 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "target": "es2022",
     "module": "ESNext",
-    "lib": [ "ESNext", "DOM","DOM.Iterable"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": []
   },
   "exclude": [

@@ -129,7 +129,9 @@ const api: ExportedHandler<CodeEnv> = {
 
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           response = await fetch(request);
-          if (!response.ok) return response;
+          if (!response.ok) {
+            return response;
+          }
 
           if (response?.status === 307 || response.headers.has("location")) {
             const redirectUrl = response.headers.get("location")!;
@@ -145,10 +147,13 @@ const api: ExportedHandler<CodeEnv> = {
               ),
             );
 
-            response = new Response((await response.text()).replace("esm.sh/", u.hostname + "/npm:/"), {
-              ...response,
-              headers,
-            });
+            response = new Response(
+              (await response.text()).replace("esm.sh/", u.hostname + "/npm:/"),
+              {
+                ...response,
+                headers,
+              },
+            );
 
             await cache.put(cacheKey, response.clone());
             return response;
@@ -257,10 +262,13 @@ const api: ExportedHandler<CodeEnv> = {
           if (resp !== null && !resp.ok || resp.status === 307) {
             const redirectUrl = resp.headers.get("location");
             if (redirectUrl) {
-              request = new Request(new URL(redirectUrl, `https://unpkg.com`).toString(), {
-                ...request,
-                redirect: "follow",
-              });
+              request = new Request(
+                new URL(redirectUrl, `https://unpkg.com`).toString(),
+                {
+                  ...request,
+                  redirect: "follow",
+                },
+              );
               resp = await fetch(request);
             }
             if (resp !== null && !resp.ok) return resp;
@@ -402,11 +410,16 @@ const api: ExportedHandler<CodeEnv> = {
               headers.append("ASSET_PATH", filePath);
               headers.append("ASSET_HASH", ASSET_HASH);
               if (fileName === filePath) {
-                headers.append("Cache-Control", "public, max-age=604800, immutable");
+                headers.append(
+                  "Cache-Control",
+                  "public, max-age=604800, immutable",
+                );
               }
 
               response = new Response(kvResp.body, { ...kvResp, headers });
-              if (fileName === filePath) await cache.put(cacheKey, response.clone());
+              if (fileName === filePath) {
+                await cache.put(cacheKey, response.clone());
+              }
 
               return response;
             } catch {

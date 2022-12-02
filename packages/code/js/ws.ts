@@ -649,9 +649,13 @@ async function processData(
 
     rtcConns[target].ondatachannel = async (event) => {
       const cont = new AbortController();
-      const js = build(codeSpace, mST().i, cont.abort);
+      const js = await build(codeSpace, mST().i, cont.signal);
+      const arrBuff = js.valueOf();
 
+      console.log({ js });
       users.insert(target);
+      event.channel.send(arrBuff as ArrayBuffer);
+
       // console.//log("Receive Channel Callback");
       const rtcChannel = event.channel;
       rtcChannel.binaryType = "arraybuffer";
@@ -660,8 +664,9 @@ async function processData(
       if (
         sendChannel && sendChannel.localStream && sendChannel.localStream.active
       ) {
-        const src = await js;
-        sendChannel.send(JSON.stringify({ mST: mST, bundle: src }));
+        // const src = await js;
+        // sendChannel.send(JSON.stringify({ mST: mST, bundle: src }));
+
         sendChannel.localStream.getTracks().forEach((track) => {
           const datachannel = rtcConns[target];
           datachannel.addTrack(track);
