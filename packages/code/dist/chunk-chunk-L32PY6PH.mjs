@@ -5381,6 +5381,8 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     },
     write: false,
     metafile: true,
+    treeShaking: true,
+    splitting: true,
     incremental: true,
     format: "esm",
     entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`],
