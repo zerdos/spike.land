@@ -6151,6 +6151,17 @@ async function runInWorker(nameSpace, _parent) {
   });
 }
 __name(runInWorker, "runInWorker");
+var bc = new BroadcastChannel(location.origin);
+bc.onmessage = (event) => {
+  const nameSpace = location.pathname.slice(1).split("/")[1];
+  if (event.data.codeSpace === nameSpace) {
+    if (location.href.indexOf("/hydrated") == false) {
+      runInWorker(nameSpace, parent);
+    } else {
+      createIframe(nameSpace, mST().i);
+    }
+  }
+};
 async function moveToWorker(nameSpace, parent2) {
   const { html, css: css2, i: i2, transiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div2 = document.createElement("div");

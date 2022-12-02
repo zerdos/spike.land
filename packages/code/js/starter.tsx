@@ -13,6 +13,7 @@ import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
 import { upgradeElement } from "./worker-dom/dist/main.mjs";
 import type { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
+import { xor } from "lodash";
 
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
 const abortz: { [key: string]: () => void } = {};
@@ -177,18 +178,18 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
   });
 }
 
-// const bc = new BroadcastChannel(location.origin);
+const bc = new BroadcastChannel(location.origin);
 
-// bc.onmessage = (event) => {
-//   const nameSpace = location.pathname.slice(1).split("/")[1];
-//   if (event.data.codeSpace === nameSpace) {
-//     if (location.href.indexOf("/hydrated")) {
-//       runInWorker(nameSpace, parent);
-//     } else {
-//       createIframe(nameSpace, mST().i);
-//     }
-//   }
-// };
+bc.onmessage = (event) => {
+  const nameSpace = location.pathname.slice(1).split("/")[1];
+  if (event.data.codeSpace === nameSpace) {
+    if (location.href.indexOf("/hydrated")=!-1) {
+      runInWorker(nameSpace, parent);
+    } else {
+      createIframe(nameSpace, mST().i);
+    }
+  }
+};
 
 // import importmap from "./importmap.json";
 // const imp: { [key: string]: string } = { ...importmap.imports };
