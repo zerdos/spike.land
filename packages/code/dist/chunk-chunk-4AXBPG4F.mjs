@@ -5889,10 +5889,9 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         modz[cs] = c2;
       if (c2 > i2)
         return createIframe(cs, c2);
-      let code = createJsBlob(``);
       if (signal.aborted)
         return;
-      let iSRC = /* @__PURE__ */ __name(() => createHTML(`
+      const iSRC = /* @__PURE__ */ __name((code) => `
   <html> 
   <head>
   <style>
@@ -5907,13 +5906,13 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   <div id="root-${cs}" data-i="${i2}" style="height: 100%;">${html}</div>
   </body>
   
-  </html>`), "iSRC");
+  </html>`, "iSRC");
       if (signal.aborted)
         return;
       if (modz[cs] !== counter)
         return;
       let iframe;
-      const setIframe = /* @__PURE__ */ __name(() => {
+      const setIframe = /* @__PURE__ */ __name((code) => {
         if (signal.aborted)
           return;
         let oldIframe = iframe;
@@ -5922,34 +5921,39 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         iframe = document.createElement("iframe");
         iframe.onload = () => {
           if (signal.aborted)
-            return iframe.remove();
-          if (oldIframe)
-            oldIframe.remove();
-          const zBody = document.getElementById("z-body");
-          if (zBody) {
-            zBody.innerHTML = "";
-            zBody.appendChild(iframe);
+            return;
+          if (zBody2?.firstChild === iframe) {
+            console.log("ALL OK");
+            return;
+          }
+          const zBody2 = document.getElementById("z-body");
+          if (zBody2) {
+            zBody2.innerHTML = "";
+            zBody2.appendChild(iframe);
           }
         };
-        iframe.src = iSRC();
+        iframe.src = iSRC(code);
         iframe.setAttribute("data-coder", cs);
         iframe.style.height = "100%";
         iframe.setAttribute("id", `coder-${cs}`);
         iframe.style.border = "none";
         iframe.style.width = "100%";
+        if (signal.aborted)
+          return iframe.remove();
+        if (oldIframe)
+          oldIframe.remove();
+        const zBody = document.getElementById("z-body");
+        if (zBody) {
+          zBody.innerHTML = "";
+          zBody.appendChild(iframe);
+        }
         return iframe;
       }, "setIframe");
       if (signal.aborted)
         return;
-      iframe = setIframe();
+      iframe = setIframe(createJsBlob(``));
       res(iframe);
-      requestAnimationFrame(
-        () => !signal.aborted && build(cs, i2, signal).then((x2) => {
-          if (modz[cs] === i2)
-            code = createJsBlob(x2);
-        }).then(() => !signal.aborted && setIframe())
-      );
-      return iframe;
+      requestAnimationFrame(() => !signal.aborted && build(cs, i2, signal).then((x2) => x2 && setIframe(createJsBlob(x2))));
     });
   });
 }, "createIframe");

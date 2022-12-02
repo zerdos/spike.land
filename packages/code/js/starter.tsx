@@ -5,7 +5,7 @@ import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 
-import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
+import { upgradeElement } from "./worker-dom/dist/main.mjs";
 import createCache from "./emotionCache";
 import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
@@ -44,7 +44,7 @@ export const createIframe = async (cs: string, counter: number) => {
       else {
         const I = counter || mST().i;
 
-        MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
+        MST = (await importShim<>(`/live/${cs}/mST.mjs?${I}`)).mST;
       }
 
       if (signal.aborted) return;
@@ -59,10 +59,8 @@ export const createIframe = async (cs: string, counter: number) => {
       if (c2 > modz[cs]) modz[cs] = c2;
       if (c2 > i) return createIframe(cs, c2);
 
-      let code = createJsBlob(``);
-
       if (signal.aborted) return;
-      let iSRC = createHTML(`
+      const iSRC = (code) => `
   <html> 
   <head>
   <style>
@@ -77,7 +75,7 @@ export const createIframe = async (cs: string, counter: number) => {
   <div id="root-${cs}" data-i="${i}" style="height: 100%;">${html}</div>
   </body>
   
-  </html>`);
+  </html>`;
       if (signal.aborted) return;
       if (modz[cs] !== counter) return;
       // document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
@@ -85,16 +83,18 @@ export const createIframe = async (cs: string, counter: number) => {
 
       let iframe: HTMLIFrameElement;
 
-      const setIframe = () => {
+      const setIframe = (code: string) => {
         if (signal.aborted) return;
         let oldIframe = iframe;
         if (oldIframe) oldIframe.remove();
 
         iframe = document.createElement("iframe");
         iframe.onload = () => {
-          if (signal.aborted) return iframe.remove();
-
-          if (oldIframe) oldIframe.remove();
+          if (signal.aborted) return;
+          if (zBody?.firstChild === iframe) {
+            console.log("ALL OK");
+            return;
+          }
 
           const zBody = document.getElementById("z-body");
           if (zBody) {
@@ -102,28 +102,32 @@ export const createIframe = async (cs: string, counter: number) => {
             zBody.appendChild(iframe);
           }
         };
-        iframe.src = iSRC();
+
+        iframe.src = iSRC(code);
         iframe.setAttribute("data-coder", cs);
         iframe.style.height = "100%";
         iframe.setAttribute("id", `coder-${cs}`);
         iframe.style.border = "none";
         iframe.style.width = "100%";
 
+        if (signal.aborted) return iframe.remove();
+
+        if (oldIframe) oldIframe.remove();
+
+        const zBody = document.getElementById("z-body");
+        if (zBody) {
+          zBody.innerHTML = "";
+          zBody.appendChild(iframe);
+        }
         return iframe;
       };
       if (signal.aborted) return;
-      iframe = setIframe();
+      iframe = setIframe(createJsBlob(``));
       // iframe.style.position = "fixed";
 
       // iframe && iframe.remove();
       res(iframe);
-      requestAnimationFrame(() =>
-        !signal.aborted
-        && build(cs, i, signal).then(x => {
-          if (modz[cs] === i) code = createJsBlob(x);
-        }).then(() => !signal.aborted && setIframe())
-      );
-      return iframe;
+      requestAnimationFrame(() => !signal.aborted && build(cs, i, signal).then(x => x && setIframe(createJsBlob(x))));
       // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
       // iframe.setAttribute("id", `coder-${codeSpace}`);
 
@@ -131,6 +135,7 @@ export const createIframe = async (cs: string, counter: number) => {
     });
   });
 };
+
 let worker: typeof ExportedWorker;
 let div: HTMLDivElement;
 // let oldDiv = null;
@@ -417,7 +422,7 @@ export async function appFactory(
   return apps[hash];
 }
 
-export function createJsBlob(code: string, fileName = "index.mjs") {
+export function createJsBlob(code: Uint8Array | string, fileName = "index.mjs") {
   const file = new File([code], fileName, {
     type: "application/javascript",
     lastModified: Date.now(),
