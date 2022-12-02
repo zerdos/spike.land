@@ -74,7 +74,8 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
       ".css": "css",
     },
     write: false,
-
+    metafile: true,
+    incremental: true,
     format: "iife",
     entryPoints: [`./live/${codeSpace}/render.tsx/${i}`],
     define,
