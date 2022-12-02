@@ -1,9 +1,9 @@
 import type { Plugin } from "esbuild-wasm";
 import { esmTransform } from "runner";
 // import localForage from "localforage";
-
+import { mST } from "./session";
 const fetchCache = await caches.open("fetchcache");
-
+const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";
 
 export const fetchPlugin: Plugin = {
@@ -69,8 +69,43 @@ export const fetchPlugin: Plugin = {
 
       let contents = await response.text();
 
-      if (args.path.indexOf(".tsx") !== -1) {
-        contents = await esmTransform(contents);
+      if (args.path.indexOf("render.tsx") !== -1) {
+        contents = await esmTransform(`
+        import {createRoot} from "react-dom/client"
+        import { CacheProvider } from "@emotion/react";
+        import createCache from "@emotion/cache";
+        import { ErrorBoundary } from "react-error-boundary";
+        import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
+        
+        document.body.innerHTML = '<div id="root"></div>';
+
+    let rootEl = document.getElementById("root");
+
+    rootEl.innerHTML="";
+     
+    const root = createRoot(rootEl);
+    
+      const cache = createCache({
+        key: "z",
+        container: rootEl,
+        speedy: false
+      });
+    
+     cache.compat = undefined;
+    
+    root.render(<ErrorBoundary
+      fallbackRender={({ error }) => (
+        <div role="alert">
+          <div>Oh no</div>
+          <pre>{error.message}</pre>
+        </div>
+      )}>
+      <CacheProvider value={cache}>
+        <App />
+      </CacheProvider>
+      </ErrorBoundary>);
+
+        `);
       }
 
       return { contents };

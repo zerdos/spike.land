@@ -179,6 +179,7 @@ const bc = new BroadcastChannel(location.origin);
 
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
+
   if (event.data.codeSpace === nameSpace) {
     if (location.href.indexOf("/hydrated") !== -1) {
       runInWorker(nameSpace, parent);

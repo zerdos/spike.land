@@ -4962,8 +4962,8 @@ var mod = {
     };
   }
 };
-var render = /* @__PURE__ */ __name(async (transpiled, codeSpace2) => {
-  mod.codeSpace = codeSpace2;
+var render = /* @__PURE__ */ __name(async (transpiled, codeSpace3) => {
+  mod.codeSpace = codeSpace3;
   const md5hash = md5(transpiled);
   if (!apps[md5hash])
     await appFactory(transpiled);
@@ -5236,13 +5236,13 @@ var esmTransform = /* @__PURE__ */ __name(async (code) => {
   Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
   return transpiled.code;
 }, "esmTransform");
-async function runner({ code, counter, codeSpace: codeSpace2 }) {
+async function runner({ code, counter, codeSpace: codeSpace3 }) {
   if (counter <= counterMax)
     return;
   counterMax = counter;
   try {
     const transpiledCode = await esmTransform(code);
-    const { html, css: css2 } = await render(transpiledCode, codeSpace2);
+    const { html, css: css2 } = await render(transpiledCode, codeSpace3);
     console.log({ html, css: css2 });
     if (!html || !css2) {
       return;
@@ -5264,6 +5264,7 @@ __name(runner, "runner");
 
 // js/fetchPlugin.tsx
 var fetchCache = await caches.open("fetchcache");
+var codeSpace = location.pathname.slice(1).split("/")[1];
 var fetchPlugin = {
   name: "http",
   setup(build2) {
@@ -5297,8 +5298,43 @@ var fetchPlugin = {
         };
       }
       let contents = await response.text();
-      if (args.path.indexOf(".tsx") !== -1) {
-        contents = await esmTransform(contents);
+      if (args.path.indexOf("render.tsx") !== -1) {
+        contents = await esmTransform(`
+        import {createRoot} from "react-dom/client"
+        import { CacheProvider } from "@emotion/react";
+        import createCache from "@emotion/cache";
+        import { ErrorBoundary } from "react-error-boundary";
+        import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
+        
+        document.body.innerHTML = '<div id="root"></div>';
+
+    let rootEl = document.getElementById("root");
+
+    rootEl.innerHTML="";
+     
+    const root = createRoot(rootEl);
+    
+      const cache = createCache({
+        key: "z",
+        container: rootEl,
+        speedy: false
+      });
+    
+     cache.compat = undefined;
+    
+    root.render(<ErrorBoundary
+      fallbackRender={({ error }) => (
+        <div role="alert">
+          <div>Oh no</div>
+          <pre>{error.message}</pre>
+        </div>
+      )}>
+      <CacheProvider value={cache}>
+        <App />
+      </CacheProvider>
+      </ErrorBoundary>);
+
+        `);
       }
       return { contents };
     });
@@ -5380,7 +5416,7 @@ var define2 = {
     browser: true
   })
 };
-var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
+var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -5413,7 +5449,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     incremental: true,
     format: "esm",
     entryPoints: [
-      `./live/${codeSpace2}/render.tsx/${i2}`,
+      `./render.tsx?i=${i2}`,
       "./reactDomClient.mjs",
       "./emotion.mjs",
       "./motion.mjs",
@@ -6019,7 +6055,7 @@ __name(upgradeElement, "upgradeElement");
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var modz = {};
 var abortz = {};
-var codeSpace = location.pathname.slice(1).split("/")[1];
+var codeSpace2 = location.pathname.slice(1).split("/")[1];
 var mutex = new Mutex();
 var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   await mutex.runExclusive(async () => {
@@ -6035,7 +6071,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
       abortz[cs] = () => controller2.abort();
       modz[cs] = counter;
       let MST = mST();
-      if (cs === codeSpace)
+      if (cs === codeSpace2)
         MST = mST();
       else {
         const mst = mST();
@@ -6171,16 +6207,16 @@ bc.onmessage = (event) => {
   }
 };
 async function moveToWorker(nameSpace, parent2) {
-  const { html, css: css2, i: i2, transiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
+  const { html, css: css2, i: i2, transiled } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
   const div2 = document.createElement("div");
   div2.style.height = "100%";
   parent2.innerHTML = `<style>
   ${css2}
   </style>
-  <div id="root-${codeSpace}" style="height: 100%;">${html}</div>`;
+  <div id="root-${codeSpace2}" style="height: 100%;">${html}</div>`;
   parent2.appendChild(div2);
   const cont = new AbortController();
-  const js = await build(codeSpace, i2, cont.signal);
+  const js = await build(codeSpace2, i2, cont.signal);
   if (!js)
     return false;
   const src = createJsBlob(js);
@@ -6244,9 +6280,9 @@ if (!Object.hasOwn(globalThis, "apps")) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
 }
 var { apps: apps2, eCaches: eCaches2 } = globalThis;
-function AutoUpdateApp({ codeSpace: codeSpace2 }) {
+function AutoUpdateApp({ codeSpace: codeSpace3 }) {
   (0, import_react.useEffect)(() => {
-    createIframe(codeSpace2, mST().i);
+    createIframe(codeSpace3, mST().i);
   }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, {});
 }
