@@ -19,7 +19,7 @@ const esbuildExternal = [
 ];
 const mods: { [key: string]: string } = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
-export const imap = (orig) => getImportMapStr(orig);
+export const imap = (orig: string) => getImportMapStr(orig);
 
 const api: ExportedHandler<CodeEnv> = {
   fetch: async (
@@ -479,9 +479,9 @@ function isChunk(link: string) {
 
 export const getImportMapStr = (orig: string) => {
   const files = JSON.parse(ASSET_MANIFEST);
-  const importmapImport: { [k: string]: string } = { ...imap.imports };
+  const importmapImport: { [k: string]: string } = { ...importMap.imports };
 
-  for (const [key, value] of Object.entries(imap.imports)) {
+  for (const [key, value] of Object.entries(importMap.imports)) {
     importmapImport[key] = orig + "/" + files[value];
   }
 
@@ -491,11 +491,11 @@ export const getImportMapStr = (orig: string) => {
 export default api;
 
 function importMapReplace(codeInp: string, origin: string) {
-  const items = Object.keys(imap.imports) as (keyof typeof imap.imports)[];
+  const items = Object.keys(importMap.imports) as (keyof typeof importMap.imports)[];
   let returnStr = codeInp;
 
-  items.map((lib: keyof typeof imap.imports) => {
-    const uri = (new URL(imap.imports[lib], origin)).toString();
+  items.map((lib: keyof typeof importMap.imports) => {
+    const uri = (new URL(importMap.imports[lib], origin)).toString();
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
       ` from "${uri}"`,
