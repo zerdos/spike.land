@@ -26,6 +26,9 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
     <m.div
       animate={{
         width: showQR ? 200 : 56,
+        marginLeft: sbowQR ? -20 : 0,
+        marginRight: sbowQR ? -20 : 0,
+
         height: showQR ? 220 : 48,
       }}
       onClick={() => {
