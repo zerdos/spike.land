@@ -58,18 +58,18 @@ var require_browser = __commonJS({
           var fulfilled = /* @__PURE__ */ __name((value) => {
             try {
               step(generator.next(value));
-            } catch (e2) {
-              reject(e2);
+            } catch (e) {
+              reject(e);
             }
           }, "fulfilled");
           var rejected = /* @__PURE__ */ __name((value) => {
             try {
               step(generator.throw(value));
-            } catch (e2) {
-              reject(e2);
+            } catch (e) {
+              reject(e);
             }
           }, "rejected");
-          var step = /* @__PURE__ */ __name((x2) => x2.done ? resolve(x2.value) : Promise.resolve(x2.value).then(fulfilled, rejected), "step");
+          var step = /* @__PURE__ */ __name((x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected), "step");
           step((generator = generator.apply(__this, __arguments)).next());
         });
       }, "__async");
@@ -145,7 +145,7 @@ var require_browser = __commonJS({
             case 5: {
               let count = bb.read32();
               let value2 = [];
-              for (let i2 = 0; i2 < count; i2++) {
+              for (let i = 0; i < count; i++) {
                 value2.push(visit());
               }
               return value2;
@@ -153,7 +153,7 @@ var require_browser = __commonJS({
             case 6: {
               let count = bb.read32();
               let value2 = {};
-              for (let i2 = 0; i2 < count; i2++) {
+              for (let i = 0; i < count; i++) {
                 value2[decodeUTF8(bb.read())] = visit();
               }
               return value2;
@@ -766,8 +766,8 @@ var require_browser = __commonJS({
               }
             }
             throw new Error(`Invalid command: ` + request.command);
-          } catch (e2) {
-            sendResponse(id, { errors: [extractErrorMessageV8(e2, streamIn, null, void 0, "")] });
+          } catch (e) {
+            sendResponse(id, { errors: [extractErrorMessageV8(e, streamIn, null, void 0, "")] });
           }
         }), "handleRequest");
         let isFirstPacket = true;
@@ -893,13 +893,13 @@ var require_browser = __commonJS({
                 }
                 next();
               });
-            } catch (e2) {
+            } catch (e) {
               let flags = [];
               try {
                 pushLogFlags(flags, options, {}, isTTY, transformLogLevelDefault);
-              } catch (e22) {
+              } catch (e2) {
               }
-              const error = extractErrorMessageV8(e2, streamIn, details, void 0, "");
+              const error = extractErrorMessageV8(e, streamIn, details, void 0, "");
               sendRequest(refs, { command: "error", flags, error }, () => {
                 error.detail = details.load(error.detail);
                 callback(failureErrorWithLog("Transform failed", [error], []), null);
@@ -975,20 +975,20 @@ var require_browser = __commonJS({
       __name(createChannel, "createChannel");
       function buildOrServeImpl(callName, buildKey, sendRequest, sendResponse, refs, streamIn, requestCallbacks, options, serveOptions, isTTY, defaultWD, closeData, callback) {
         const details = createObjectStash();
-        const logPluginError = /* @__PURE__ */ __name((e2, pluginName, note, done) => {
+        const logPluginError = /* @__PURE__ */ __name((e, pluginName, note, done) => {
           const flags = [];
           try {
             pushLogFlags(flags, options, {}, isTTY, buildLogLevelDefault);
-          } catch (e22) {
+          } catch (e2) {
           }
-          const message = extractErrorMessageV8(e2, streamIn, details, note, pluginName);
+          const message = extractErrorMessageV8(e, streamIn, details, note, pluginName);
           sendRequest(refs, { command: "error", flags, error: message }, () => {
             message.detail = details.load(message.detail);
             done(message);
           });
         }, "logPluginError");
-        const handleError = /* @__PURE__ */ __name((e2, pluginName) => {
-          logPluginError(e2, pluginName, void 0, (error) => {
+        const handleError = /* @__PURE__ */ __name((e, pluginName) => {
+          logPluginError(e, pluginName, void 0, (error) => {
             callback(failureErrorWithLog("Build failed", [error], []), null);
           });
         }, "handleError");
@@ -1024,18 +1024,18 @@ var require_browser = __commonJS({
               }
               try {
                 buildOrServeContinue(result.requestPlugins, result.runOnEndCallbacks);
-              } catch (e2) {
-                handleError(e2, "");
+              } catch (e) {
+                handleError(e, "");
               }
             },
-            (e2) => handleError(e2, "")
+            (e) => handleError(e, "")
           );
           return;
         }
         try {
           buildOrServeContinue(null, (result, logPluginError2, done) => done());
-        } catch (e2) {
-          handleError(e2, "");
+        } catch (e) {
+          handleError(e, "");
         }
         function buildOrServeContinue(requestPlugins, runOnEndCallbacks) {
           let writeDefault = !streamIn.isWriteUnavailable;
@@ -1246,17 +1246,17 @@ var require_browser = __commonJS({
         let onResolveCallbacks = {};
         let onLoadCallbacks = {};
         let nextCallbackID = 0;
-        let i2 = 0;
+        let i = 0;
         let requestPlugins = [];
         let isSetupDone = false;
         plugins = [...plugins];
         for (let item of plugins) {
           let keys = {};
           if (typeof item !== "object")
-            throw new Error(`Plugin at index ${i2} must be an object`);
+            throw new Error(`Plugin at index ${i} must be an object`);
           const name = getFlag(item, keys, "name", mustBeString);
           if (typeof name !== "string" || name === "")
-            throw new Error(`Plugin at index ${i2} is missing a name`);
+            throw new Error(`Plugin at index ${i} is missing a name`);
           try {
             let setup = getFlag(item, keys, "setup", mustBeFunction);
             if (typeof setup !== "function")
@@ -1267,7 +1267,7 @@ var require_browser = __commonJS({
               onResolve: [],
               onLoad: []
             };
-            i2++;
+            i++;
             let resolve = /* @__PURE__ */ __name((path, options = {}) => {
               if (!isSetupDone)
                 throw new Error('Cannot call "resolve" before plugin setup has completed');
@@ -1361,8 +1361,8 @@ var require_browser = __commonJS({
             if (promise)
               yield promise;
             requestPlugins.push(plugin);
-          } catch (e2) {
-            return { ok: false, error: e2, pluginName: name };
+          } catch (e) {
+            return { ok: false, error: e, pluginName: name };
           }
         }
         requestCallbacks["on-start"] = (id, request) => __async(void 0, null, function* () {
@@ -1382,8 +1382,8 @@ var require_browser = __commonJS({
                 if (warnings != null)
                   response.warnings.push(...sanitizeMessages(warnings, "warnings", details, name));
               }
-            } catch (e2) {
-              response.errors.push(extractErrorMessageV8(e2, streamIn, details, note && note(), name));
+            } catch (e) {
+              response.errors.push(extractErrorMessageV8(e, streamIn, details, note && note(), name));
             }
           })));
           sendResponse(id, response);
@@ -1442,8 +1442,8 @@ var require_browser = __commonJS({
                   response.watchDirs = sanitizeStringArray(watchDirs, "watchDirs");
                 break;
               }
-            } catch (e2) {
-              response = { id: id2, errors: [extractErrorMessageV8(e2, streamIn, details, note && note(), name)] };
+            } catch (e) {
+              response = { id: id2, errors: [extractErrorMessageV8(e, streamIn, details, note && note(), name)] };
               break;
             }
           }
@@ -1497,8 +1497,8 @@ var require_browser = __commonJS({
                   response.watchDirs = sanitizeStringArray(watchDirs, "watchDirs");
                 break;
               }
-            } catch (e2) {
-              response = { id: id2, errors: [extractErrorMessageV8(e2, streamIn, details, note && note(), name)] };
+            } catch (e) {
+              response = { id: id2, errors: [extractErrorMessageV8(e, streamIn, details, note && note(), name)] };
               break;
             }
           }
@@ -1511,8 +1511,8 @@ var require_browser = __commonJS({
               for (const { name, callback, note } of onEndCallbacks) {
                 try {
                   yield callback(result);
-                } catch (e2) {
-                  result.errors.push(yield new Promise((resolve) => logPluginError(e2, name, note && note(), resolve)));
+                } catch (e) {
+                  result.errors.push(yield new Promise((resolve) => logPluginError(e, name, note && note(), resolve)));
                 }
               }
             }))().then(done);
@@ -1542,7 +1542,7 @@ var require_browser = __commonJS({
         };
       }
       __name(createObjectStash, "createObjectStash");
-      function extractCallerV8(e2, streamIn, ident) {
+      function extractCallerV8(e, streamIn, ident) {
         let note;
         let tried = false;
         return () => {
@@ -1550,37 +1550,37 @@ var require_browser = __commonJS({
             return note;
           tried = true;
           try {
-            let lines = (e2.stack + "").split("\n");
+            let lines = (e.stack + "").split("\n");
             lines.splice(1, 1);
             let location2 = parseStackLinesV8(streamIn, lines, ident);
             if (location2) {
-              note = { text: e2.message, location: location2 };
+              note = { text: e.message, location: location2 };
               return note;
             }
-          } catch (e22) {
+          } catch (e2) {
           }
         };
       }
       __name(extractCallerV8, "extractCallerV8");
-      function extractErrorMessageV8(e2, streamIn, stash, note, pluginName) {
+      function extractErrorMessageV8(e, streamIn, stash, note, pluginName) {
         let text = "Internal error";
         let location2 = null;
         try {
-          text = (e2 && e2.message || e2) + "";
-        } catch (e22) {
+          text = (e && e.message || e) + "";
+        } catch (e2) {
         }
         try {
-          location2 = parseStackLinesV8(streamIn, (e2.stack + "").split("\n"), "");
-        } catch (e22) {
+          location2 = parseStackLinesV8(streamIn, (e.stack + "").split("\n"), "");
+        } catch (e2) {
         }
-        return { id: "", pluginName, text, location: location2, notes: note ? [note] : [], detail: stash ? stash.store(e2) : -1 };
+        return { id: "", pluginName, text, location: location2, notes: note ? [note] : [], detail: stash ? stash.store(e) : -1 };
       }
       __name(extractErrorMessageV8, "extractErrorMessageV8");
       function parseStackLinesV8(streamIn, lines, ident) {
         let at = "    at ";
         if (streamIn.readFileSync && !lines[0].startsWith(at) && lines[1].startsWith(at)) {
-          for (let i2 = 1; i2 < lines.length; i2++) {
-            let line = lines[i2];
+          for (let i = 1; i < lines.length; i++) {
+            let line = lines[i];
             if (!line.startsWith(at))
               continue;
             line = line.slice(at.length);
@@ -1600,7 +1600,7 @@ var require_browser = __commonJS({
                 let contents;
                 try {
                   contents = streamIn.readFileSync(match[1], "utf8");
-                } catch (e2) {
+                } catch (e) {
                   break;
                 }
                 let lineText = contents.split(/\r\n|\r|\n|\u2028|\u2029/)[+match[2] - 1] || "";
@@ -1625,16 +1625,16 @@ var require_browser = __commonJS({
       __name(parseStackLinesV8, "parseStackLinesV8");
       function failureErrorWithLog(text, errors, warnings) {
         let limit = 5;
-        let summary = errors.length < 1 ? "" : ` with ${errors.length} error${errors.length < 2 ? "" : "s"}:` + errors.slice(0, limit + 1).map((e2, i2) => {
-          if (i2 === limit)
+        let summary = errors.length < 1 ? "" : ` with ${errors.length} error${errors.length < 2 ? "" : "s"}:` + errors.slice(0, limit + 1).map((e, i) => {
+          if (i === limit)
             return "\n...";
-          if (!e2.location)
+          if (!e.location)
             return `
-error: ${e2.text}`;
-          let { file, line, column } = e2.location;
-          let pluginText = e2.pluginName ? `[plugin: ${e2.pluginName}] ` : "";
+error: ${e.text}`;
+          let { file, line, column } = e.location;
+          let pluginText = e.pluginName ? `[plugin: ${e.pluginName}] ` : "";
           return `
-${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
+${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
         }).join("");
         let error = new Error(`${text}${summary}`);
         error.errors = errors;
@@ -1802,27 +1802,27 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                 var fulfilled = /* @__PURE__ */ __name((value) => {
                   try {
                     step(generator.next(value));
-                  } catch (e2) {
-                    reject(e2);
+                  } catch (e) {
+                    reject(e);
                   }
                 }, "fulfilled");
                 var rejected = /* @__PURE__ */ __name((value) => {
                   try {
                     step(generator.throw(value));
-                  } catch (e2) {
-                    reject(e2);
+                  } catch (e) {
+                    reject(e);
                   }
                 }, "rejected");
-                var step = /* @__PURE__ */ __name((x2) => x2.done ? resolve(x2.value) : Promise.resolve(x2.value).then(fulfilled, rejected), "step");
+                var step = /* @__PURE__ */ __name((x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected), "step");
                 step((generator = generator.apply(__this, __arguments)).next());
               });
             }, "__async");
             let onmessage2;
             let globalThis2 = {};
-            for (let o2 = self; o2; o2 = Object.getPrototypeOf(o2))
-              for (let k2 of Object.getOwnPropertyNames(o2))
-                if (!(k2 in globalThis2))
-                  Object.defineProperty(globalThis2, k2, { get: () => self[k2] });
+            for (let o = self; o; o = Object.getPrototypeOf(o))
+              for (let k of Object.getOwnPropertyNames(o))
+                if (!(k in globalThis2))
+                  Object.defineProperty(globalThis2, k, { get: () => self[k] });
             "use strict";
             (() => {
               const enosys = /* @__PURE__ */ __name(() => {
@@ -1848,8 +1848,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                       callback(enosys());
                       return;
                     }
-                    const n2 = this.writeSync(fd, buf);
-                    callback(null, n2);
+                    const n = this.writeSync(fd, buf);
+                    callback(null, n);
                   },
                   chmod(path, mode, callback) {
                     callback(enosys());
@@ -1981,9 +1981,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                   this._pendingEvent = null;
                   this._scheduledTimeouts = /* @__PURE__ */ new Map();
                   this._nextCallbackTimeoutID = 1;
-                  const setInt64 = /* @__PURE__ */ __name((addr, v2) => {
-                    this.mem.setUint32(addr + 0, v2, true);
-                    this.mem.setUint32(addr + 4, Math.floor(v2 / 4294967296), true);
+                  const setInt64 = /* @__PURE__ */ __name((addr, v) => {
+                    this.mem.setUint32(addr + 0, v, true);
+                    this.mem.setUint32(addr + 4, Math.floor(v / 4294967296), true);
                   }, "setInt64");
                   const getInt64 = /* @__PURE__ */ __name((addr) => {
                     const low = this.mem.getUint32(addr + 0, true);
@@ -1991,46 +1991,46 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                     return low + high * 4294967296;
                   }, "getInt64");
                   const loadValue = /* @__PURE__ */ __name((addr) => {
-                    const f2 = this.mem.getFloat64(addr, true);
-                    if (f2 === 0) {
+                    const f = this.mem.getFloat64(addr, true);
+                    if (f === 0) {
                       return void 0;
                     }
-                    if (!isNaN(f2)) {
-                      return f2;
+                    if (!isNaN(f)) {
+                      return f;
                     }
                     const id = this.mem.getUint32(addr, true);
                     return this._values[id];
                   }, "loadValue");
-                  const storeValue = /* @__PURE__ */ __name((addr, v2) => {
+                  const storeValue = /* @__PURE__ */ __name((addr, v) => {
                     const nanHead = 2146959360;
-                    if (typeof v2 === "number" && v2 !== 0) {
-                      if (isNaN(v2)) {
+                    if (typeof v === "number" && v !== 0) {
+                      if (isNaN(v)) {
                         this.mem.setUint32(addr + 4, nanHead, true);
                         this.mem.setUint32(addr, 0, true);
                         return;
                       }
-                      this.mem.setFloat64(addr, v2, true);
+                      this.mem.setFloat64(addr, v, true);
                       return;
                     }
-                    if (v2 === void 0) {
+                    if (v === void 0) {
                       this.mem.setFloat64(addr, 0, true);
                       return;
                     }
-                    let id = this._ids.get(v2);
+                    let id = this._ids.get(v);
                     if (id === void 0) {
                       id = this._idPool.pop();
                       if (id === void 0) {
                         id = this._values.length;
                       }
-                      this._values[id] = v2;
+                      this._values[id] = v;
                       this._goRefCounts[id] = 0;
-                      this._ids.set(v2, id);
+                      this._ids.set(v, id);
                     }
                     this._goRefCounts[id]++;
                     let typeFlag = 0;
-                    switch (typeof v2) {
+                    switch (typeof v) {
                       case "object":
-                        if (v2 !== null) {
+                        if (v !== null) {
                           typeFlag = 1;
                         }
                         break;
@@ -2055,11 +2055,11 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                   const loadSliceOfValues = /* @__PURE__ */ __name((addr) => {
                     const array = getInt64(addr + 0);
                     const len = getInt64(addr + 8);
-                    const a2 = new Array(len);
-                    for (let i2 = 0; i2 < len; i2++) {
-                      a2[i2] = loadValue(array + i2 * 8);
+                    const a = new Array(len);
+                    for (let i = 0; i < len; i++) {
+                      a[i] = loadValue(array + i * 8);
                     }
-                    return a2;
+                    return a;
                   }, "loadSliceOfValues");
                   const loadString = /* @__PURE__ */ __name((addr) => {
                     const saddr = getInt64(addr + 0);
@@ -2083,9 +2083,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                       "runtime.wasmWrite": (sp) => {
                         sp >>>= 0;
                         const fd = getInt64(sp + 8);
-                        const p2 = getInt64(sp + 16);
-                        const n2 = this.mem.getInt32(sp + 24, true);
-                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p2, n2));
+                        const p = getInt64(sp + 16);
+                        const n = this.mem.getInt32(sp + 24, true);
+                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p, n));
                       },
                       "runtime.resetMemoryDataView": (sp) => {
                         sp >>>= 0;
@@ -2132,9 +2132,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                         const id = this.mem.getUint32(sp + 8, true);
                         this._goRefCounts[id]--;
                         if (this._goRefCounts[id] === 0) {
-                          const v2 = this._values[id];
+                          const v = this._values[id];
                           this._values[id] = null;
-                          this._ids.delete(v2);
+                          this._ids.delete(v);
                           this._idPool.push(id);
                         }
                       },
@@ -2167,10 +2167,10 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                       "syscall/js.valueCall": (sp) => {
                         sp >>>= 0;
                         try {
-                          const v2 = loadValue(sp + 8);
-                          const m2 = Reflect.get(v2, loadString(sp + 16));
+                          const v = loadValue(sp + 8);
+                          const m = Reflect.get(v, loadString(sp + 16));
                           const args = loadSliceOfValues(sp + 32);
-                          const result = Reflect.apply(m2, v2, args);
+                          const result = Reflect.apply(m, v, args);
                           sp = this._inst.exports.getsp() >>> 0;
                           storeValue(sp + 56, result);
                           this.mem.setUint8(sp + 64, 1);
@@ -2183,9 +2183,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                       "syscall/js.valueInvoke": (sp) => {
                         sp >>>= 0;
                         try {
-                          const v2 = loadValue(sp + 8);
+                          const v = loadValue(sp + 8);
                           const args = loadSliceOfValues(sp + 16);
-                          const result = Reflect.apply(v2, void 0, args);
+                          const result = Reflect.apply(v, void 0, args);
                           sp = this._inst.exports.getsp() >>> 0;
                           storeValue(sp + 40, result);
                           this.mem.setUint8(sp + 48, 1);
@@ -2198,9 +2198,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                       "syscall/js.valueNew": (sp) => {
                         sp >>>= 0;
                         try {
-                          const v2 = loadValue(sp + 8);
+                          const v = loadValue(sp + 8);
                           const args = loadSliceOfValues(sp + 16);
-                          const result = Reflect.construct(v2, args);
+                          const result = Reflect.construct(v, args);
                           sp = this._inst.exports.getsp() >>> 0;
                           storeValue(sp + 40, result);
                           this.mem.setUint8(sp + 48, 1);
@@ -2401,7 +2401,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                 WebAssembly.instantiate(wasm2, go.importObject).then(({ instance }) => go.run(instance));
               }
             }, "onmessage");
-            return (m2) => onmessage2(m2);
+            return (m) => onmessage2(m);
           })((data) => worker2.onmessage({ data }));
           worker2 = {
             onmessage: null,
@@ -2437,10 +2437,10 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
             options: options || {},
             isTTY: false,
             fs: {
-              readFile(_2, callback) {
+              readFile(_, callback) {
                 callback(new Error("Internal error"), null);
               },
-              writeFile(_2, callback) {
+              writeFile(_, callback) {
                 callback(null);
               }
             },
@@ -2463,8 +2463,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         };
       }), "startRunningService");
       var browser_default = browser_exports;
-    })(typeof module === "object" ? module : { set exports(x2) {
-      (typeof self !== "undefined" ? self : this).esbuild = x2;
+    })(typeof module === "object" ? module : { set exports(x) {
+      (typeof self !== "undefined" ? self : this).esbuild = x;
     } });
   }
 });
@@ -2473,51 +2473,51 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
 var require_localforage = __commonJS({
   "../../.yarn/global/cache/localforage-npm-1.10.0-cf9ea9a436-9.zip/node_modules/localforage/dist/localforage.js"(exports, module) {
     init_define_process();
-    (function(f2) {
+    (function(f) {
       if (typeof exports === "object" && typeof module !== "undefined") {
-        module.exports = f2();
+        module.exports = f();
       } else if (typeof define === "function" && define.amd) {
-        define([], f2);
+        define([], f);
       } else {
-        var g2;
+        var g;
         if (typeof window !== "undefined") {
-          g2 = window;
+          g = window;
         } else if (typeof globalThis !== "undefined") {
-          g2 = globalThis;
+          g = globalThis;
         } else if (typeof self !== "undefined") {
-          g2 = self;
+          g = self;
         } else {
-          g2 = this;
+          g = this;
         }
-        g2.localforage = f2();
+        g.localforage = f();
       }
     })(function() {
       var define3, module2, exports2;
-      return (/* @__PURE__ */ __name(function e2(t2, n2, r2) {
-        function s2(o3, u2) {
-          if (!n2[o3]) {
-            if (!t2[o3]) {
-              var a2 = typeof __require == "function" && __require;
-              if (!u2 && a2)
-                return a2(o3, true);
-              if (i2)
-                return i2(o3, true);
-              var f2 = new Error("Cannot find module '" + o3 + "'");
-              throw f2.code = "MODULE_NOT_FOUND", f2;
+      return (/* @__PURE__ */ __name(function e(t, n, r) {
+        function s(o2, u) {
+          if (!n[o2]) {
+            if (!t[o2]) {
+              var a = typeof __require == "function" && __require;
+              if (!u && a)
+                return a(o2, true);
+              if (i)
+                return i(o2, true);
+              var f = new Error("Cannot find module '" + o2 + "'");
+              throw f.code = "MODULE_NOT_FOUND", f;
             }
-            var l2 = n2[o3] = { exports: {} };
-            t2[o3][0].call(l2.exports, function(e3) {
-              var n3 = t2[o3][1][e3];
-              return s2(n3 ? n3 : e3);
-            }, l2, l2.exports, e2, t2, n2, r2);
+            var l = n[o2] = { exports: {} };
+            t[o2][0].call(l.exports, function(e2) {
+              var n2 = t[o2][1][e2];
+              return s(n2 ? n2 : e2);
+            }, l, l.exports, e, t, n, r);
           }
-          return n2[o3].exports;
+          return n[o2].exports;
         }
-        __name(s2, "s");
-        var i2 = typeof __require == "function" && __require;
-        for (var o2 = 0; o2 < r2.length; o2++)
-          s2(r2[o2]);
-        return s2;
+        __name(s, "s");
+        var i = typeof __require == "function" && __require;
+        for (var o = 0; o < r.length; o++)
+          s(r[o]);
+        return s;
       }, "e"))({ 1: [function(_dereq_, module3, exports3) {
         (function(global2) {
           "use strict";
@@ -2561,14 +2561,14 @@ var require_localforage = __commonJS({
           var queue = [];
           function nextTick() {
             draining = true;
-            var i2, oldQueue;
+            var i, oldQueue;
             var len = queue.length;
             while (len) {
               oldQueue = queue;
               queue = [];
-              i2 = -1;
-              while (++i2 < len) {
-                oldQueue[i2]();
+              i = -1;
+              while (++i < len) {
+                oldQueue[i]();
               }
               len = queue.length;
             }
@@ -2651,8 +2651,8 @@ var require_localforage = __commonJS({
             var returnValue;
             try {
               returnValue = func(value);
-            } catch (e2) {
-              return handlers.reject(promise, e2);
+            } catch (e) {
+              return handlers.reject(promise, e);
             }
             if (returnValue === promise) {
               handlers.reject(promise, new TypeError("Cannot resolve promise with itself"));
@@ -2673,10 +2673,10 @@ var require_localforage = __commonJS({
           } else {
             self2.state = FULFILLED;
             self2.outcome = value;
-            var i2 = -1;
+            var i = -1;
             var len = self2.queue.length;
-            while (++i2 < len) {
-              self2.queue[i2].callFulfilled(value);
+            while (++i < len) {
+              self2.queue[i].callFulfilled(value);
             }
           }
           return self2;
@@ -2684,10 +2684,10 @@ var require_localforage = __commonJS({
         handlers.reject = function(self2, error) {
           self2.state = REJECTED;
           self2.outcome = error;
-          var i2 = -1;
+          var i = -1;
           var len = self2.queue.length;
-          while (++i2 < len) {
-            self2.queue[i2].callRejected(error);
+          while (++i < len) {
+            self2.queue[i].callRejected(error);
           }
           return self2;
         };
@@ -2733,9 +2733,9 @@ var require_localforage = __commonJS({
           try {
             out.value = func(value);
             out.status = "success";
-          } catch (e2) {
+          } catch (e) {
             out.status = "error";
-            out.value = e2;
+            out.value = e;
           }
           return out;
         }
@@ -2767,13 +2767,13 @@ var require_localforage = __commonJS({
           }
           var values = new Array(len);
           var resolved = 0;
-          var i2 = -1;
+          var i = -1;
           var promise = new this(INTERNAL);
-          while (++i2 < len) {
-            allResolver(iterable[i2], i2);
+          while (++i < len) {
+            allResolver(iterable[i], i);
           }
           return promise;
-          function allResolver(value, i3) {
+          function allResolver(value, i2) {
             self2.resolve(value).then(resolveFromAll, function(error) {
               if (!called) {
                 called = true;
@@ -2781,7 +2781,7 @@ var require_localforage = __commonJS({
               }
             });
             function resolveFromAll(outValue) {
-              values[i3] = outValue;
+              values[i2] = outValue;
               if (++resolved === len && !called) {
                 called = true;
                 handlers.resolve(promise, values);
@@ -2803,10 +2803,10 @@ var require_localforage = __commonJS({
           if (!len) {
             return this.resolve([]);
           }
-          var i2 = -1;
+          var i = -1;
           var promise = new this(INTERNAL);
-          while (++i2 < len) {
-            resolver(iterable[i2]);
+          while (++i < len) {
+            resolver(iterable[i]);
           }
           return promise;
           function resolver(value) {
@@ -2862,7 +2862,7 @@ var require_localforage = __commonJS({
             if (typeof msIndexedDB !== "undefined") {
               return msIndexedDB;
             }
-          } catch (e2) {
+          } catch (e) {
             return;
           }
         }
@@ -2876,7 +2876,7 @@ var require_localforage = __commonJS({
             var isSafari = typeof openDatabase !== "undefined" && /(Safari|iPhone|iPad|iPod)/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) && !/BlackBerry/.test(navigator.platform);
             var hasFetch = typeof fetch === "function" && fetch.toString().indexOf("[native code") !== -1;
             return (!isSafari || hasFetch) && typeof indexedDB !== "undefined" && typeof IDBKeyRange !== "undefined";
-          } catch (e2) {
+          } catch (e) {
             return false;
           }
         }
@@ -2886,14 +2886,14 @@ var require_localforage = __commonJS({
           properties = properties || {};
           try {
             return new Blob(parts, properties);
-          } catch (e2) {
-            if (e2.name !== "TypeError") {
-              throw e2;
+          } catch (e) {
+            if (e.name !== "TypeError") {
+              throw e;
             }
             var Builder = typeof BlobBuilder !== "undefined" ? BlobBuilder : typeof MSBlobBuilder !== "undefined" ? MSBlobBuilder : typeof MozBlobBuilder !== "undefined" ? MozBlobBuilder : WebKitBlobBuilder;
             var builder = new Builder();
-            for (var i2 = 0; i2 < parts.length; i2 += 1) {
-              builder.append(parts[i2]);
+            for (var i = 0; i < parts.length; i += 1) {
+              builder.append(parts[i]);
             }
             return builder.getBlob(properties.type);
           }
@@ -2946,8 +2946,8 @@ var require_localforage = __commonJS({
           var length2 = bin.length;
           var buf = new ArrayBuffer(length2);
           var arr = new Uint8Array(buf);
-          for (var i2 = 0; i2 < length2; i2++) {
-            arr[i2] = bin.charCodeAt(i2);
+          for (var i = 0; i < length2; i++) {
+            arr[i] = bin.charCodeAt(i);
           }
           return buf;
         }
@@ -2957,9 +2957,9 @@ var require_localforage = __commonJS({
             var txn = idb2.transaction(DETECT_BLOB_SUPPORT_STORE, READ_WRITE);
             var blob = createBlob([""]);
             txn.objectStore(DETECT_BLOB_SUPPORT_STORE).put(blob, "key");
-            txn.onabort = function(e2) {
-              e2.preventDefault();
-              e2.stopPropagation();
+            txn.onabort = function(e) {
+              e.preventDefault();
+              e.stopPropagation();
               resolve(false);
             };
             txn.oncomplete = function() {
@@ -3034,30 +3034,30 @@ var require_localforage = __commonJS({
             }
             var openreq = idb.open.apply(idb, dbArgs);
             if (upgradeNeeded) {
-              openreq.onupgradeneeded = function(e2) {
+              openreq.onupgradeneeded = function(e) {
                 var db = openreq.result;
                 try {
                   db.createObjectStore(dbInfo.storeName);
-                  if (e2.oldVersion <= 1) {
+                  if (e.oldVersion <= 1) {
                     db.createObjectStore(DETECT_BLOB_SUPPORT_STORE);
                   }
                 } catch (ex) {
                   if (ex.name === "ConstraintError") {
-                    console.warn('The database "' + dbInfo.name + '" has been upgraded from version ' + e2.oldVersion + " to version " + e2.newVersion + ', but the storage "' + dbInfo.storeName + '" already exists.');
+                    console.warn('The database "' + dbInfo.name + '" has been upgraded from version ' + e.oldVersion + " to version " + e.newVersion + ', but the storage "' + dbInfo.storeName + '" already exists.');
                   } else {
                     throw ex;
                   }
                 }
               };
             }
-            openreq.onerror = function(e2) {
-              e2.preventDefault();
+            openreq.onerror = function(e) {
+              e.preventDefault();
               reject(openreq.error);
             };
             openreq.onsuccess = function() {
               var db = openreq.result;
-              db.onversionchange = function(e2) {
-                e2.target.close();
+              db.onversionchange = function(e) {
+                e.target.close();
               };
               resolve(db);
               _advanceReadiness(dbInfo);
@@ -3102,8 +3102,8 @@ var require_localforage = __commonJS({
           return new Promise$1(function(resolve, reject) {
             var reader = new FileReader();
             reader.onerror = reject;
-            reader.onloadend = function(e2) {
-              var base64 = btoa(e2.target.result || "");
+            reader.onloadend = function(e) {
+              var base64 = btoa(e.target.result || "");
               resolve({
                 __local_forage_encoded_blob: true,
                 data: base64,
@@ -3139,8 +3139,8 @@ var require_localforage = __commonJS({
           _deferReadiness(dbInfo);
           var dbContext = dbContexts[dbInfo.name];
           var forages = dbContext.forages;
-          for (var i2 = 0; i2 < forages.length; i2++) {
-            var forage = forages[i2];
+          for (var i = 0; i < forages.length; i++) {
+            var forage = forages[i];
             if (forage._dbInfo.db) {
               forage._dbInfo.db.close();
               forage._dbInfo.db = null;
@@ -3155,8 +3155,8 @@ var require_localforage = __commonJS({
             return db;
           }).then(function(db) {
             dbInfo.db = dbContext.db = db;
-            for (var i3 = 0; i3 < forages.length; i3++) {
-              forages[i3]._dbInfo.db = db;
+            for (var i2 = 0; i2 < forages.length; i2++) {
+              forages[i2]._dbInfo.db = db;
             }
           })["catch"](function(err) {
             _rejectReadiness(dbInfo, err);
@@ -3205,8 +3205,8 @@ var require_localforage = __commonJS({
             db: null
           };
           if (options) {
-            for (var i2 in options) {
-              dbInfo[i2] = options[i2];
+            for (var i in options) {
+              dbInfo[i] = options[i];
             }
           }
           var dbContext = dbContexts[dbInfo.name];
@@ -3224,8 +3224,8 @@ var require_localforage = __commonJS({
             return Promise$1.resolve();
           }
           __name(ignoreErrors, "ignoreErrors");
-          for (var j2 = 0; j2 < dbContext.forages.length; j2++) {
-            var forage = dbContext.forages[j2];
+          for (var j = 0; j < dbContext.forages.length; j++) {
+            var forage = dbContext.forages[j];
             if (forage !== self2) {
               initPromises.push(forage._initReady()["catch"](ignoreErrors));
             }
@@ -3243,8 +3243,8 @@ var require_localforage = __commonJS({
           }).then(function(db) {
             dbInfo.db = dbContext.db = db;
             self2._dbInfo = dbInfo;
-            for (var k2 = 0; k2 < forages.length; k2++) {
-              var forage2 = forages[k2];
+            for (var k = 0; k < forages.length; k++) {
+              var forage2 = forages[k];
               if (forage2 !== self2) {
                 forage2._dbInfo.db = dbInfo.db;
                 forage2._dbInfo.version = dbInfo.version;
@@ -3278,8 +3278,8 @@ var require_localforage = __commonJS({
                   req.onerror = function() {
                     reject(req.error);
                   };
-                } catch (e2) {
-                  reject(e2);
+                } catch (e) {
+                  reject(e);
                 }
               });
             })["catch"](reject);
@@ -3320,8 +3320,8 @@ var require_localforage = __commonJS({
                   req.onerror = function() {
                     reject(req.error);
                   };
-                } catch (e2) {
-                  reject(e2);
+                } catch (e) {
+                  reject(e);
                 }
               });
             })["catch"](reject);
@@ -3367,8 +3367,8 @@ var require_localforage = __commonJS({
                     var err2 = req.error ? req.error : req.transaction.error;
                     reject(err2);
                   };
-                } catch (e2) {
-                  reject(e2);
+                } catch (e) {
+                  reject(e);
                 }
               });
             })["catch"](reject);
@@ -3399,8 +3399,8 @@ var require_localforage = __commonJS({
                     var err2 = req.error ? req.error : req.transaction.error;
                     reject(err2);
                   };
-                } catch (e2) {
-                  reject(e2);
+                } catch (e) {
+                  reject(e);
                 }
               });
             })["catch"](reject);
@@ -3427,8 +3427,8 @@ var require_localforage = __commonJS({
                     var err2 = req.error ? req.error : req.transaction.error;
                     reject(err2);
                   };
-                } catch (e2) {
-                  reject(e2);
+                } catch (e) {
+                  reject(e);
                 }
               });
             })["catch"](reject);
@@ -3454,8 +3454,8 @@ var require_localforage = __commonJS({
                   req.onerror = function() {
                     reject(req.error);
                   };
-                } catch (e2) {
-                  reject(e2);
+                } catch (e) {
+                  reject(e);
                 }
               });
             })["catch"](reject);
@@ -3464,10 +3464,10 @@ var require_localforage = __commonJS({
           return promise;
         }
         __name(length, "length");
-        function key(n2, callback) {
+        function key(n, callback) {
           var self2 = this;
           var promise = new Promise$1(function(resolve, reject) {
-            if (n2 < 0) {
+            if (n < 0) {
               resolve(null);
               return;
             }
@@ -3486,12 +3486,12 @@ var require_localforage = __commonJS({
                       resolve(null);
                       return;
                     }
-                    if (n2 === 0) {
+                    if (n === 0) {
                       resolve(cursor.key);
                     } else {
                       if (!advanced) {
                         advanced = true;
-                        cursor.advance(n2);
+                        cursor.advance(n);
                       } else {
                         resolve(cursor.key);
                       }
@@ -3500,8 +3500,8 @@ var require_localforage = __commonJS({
                   req.onerror = function() {
                     reject(req.error);
                   };
-                } catch (e2) {
-                  reject(e2);
+                } catch (e) {
+                  reject(e);
                 }
               });
             })["catch"](reject);
@@ -3534,8 +3534,8 @@ var require_localforage = __commonJS({
                   req.onerror = function() {
                     reject(req.error);
                   };
-                } catch (e2) {
-                  reject(e2);
+                } catch (e) {
+                  reject(e);
                 }
               });
             })["catch"](reject);
@@ -3562,8 +3562,8 @@ var require_localforage = __commonJS({
               var dbContext = dbContexts[options.name];
               var forages = dbContext.forages;
               dbContext.db = db;
-              for (var i2 = 0; i2 < forages.length; i2++) {
-                forages[i2]._dbInfo.db = db;
+              for (var i = 0; i < forages.length; i++) {
+                forages[i]._dbInfo.db = db;
               }
               return db;
             });
@@ -3573,8 +3573,8 @@ var require_localforage = __commonJS({
                 var dbContext = dbContexts[options.name];
                 var forages = dbContext.forages;
                 db.close();
-                for (var i2 = 0; i2 < forages.length; i2++) {
-                  var forage = forages[i2];
+                for (var i = 0; i < forages.length; i++) {
+                  var forage = forages[i];
                   forage._dbInfo.db = null;
                 }
                 var dropDBPromise = new Promise$1(function(resolve, reject) {
@@ -3599,8 +3599,8 @@ var require_localforage = __commonJS({
                 });
                 return dropDBPromise.then(function(db2) {
                   dbContext.db = db2;
-                  for (var i3 = 0; i3 < forages.length; i3++) {
-                    var _forage = forages[i3];
+                  for (var i2 = 0; i2 < forages.length; i2++) {
+                    var _forage = forages[i2];
                     _advanceReadiness(_forage._dbInfo);
                   }
                 })["catch"](function(err) {
@@ -3619,8 +3619,8 @@ var require_localforage = __commonJS({
                 var dbContext = dbContexts[options.name];
                 var forages = dbContext.forages;
                 db.close();
-                for (var i2 = 0; i2 < forages.length; i2++) {
-                  var forage = forages[i2];
+                for (var i = 0; i < forages.length; i++) {
+                  var forage = forages[i];
                   forage._dbInfo.db = null;
                   forage._dbInfo.version = newVersion;
                 }
@@ -3643,8 +3643,8 @@ var require_localforage = __commonJS({
                 });
                 return dropObjectPromise.then(function(db2) {
                   dbContext.db = db2;
-                  for (var j2 = 0; j2 < forages.length; j2++) {
-                    var _forage2 = forages[j2];
+                  for (var j = 0; j < forages.length; j++) {
+                    var _forage2 = forages[j];
                     _forage2._dbInfo.db = db2;
                     _advanceReadiness(_forage2._dbInfo);
                   }
@@ -3699,8 +3699,8 @@ var require_localforage = __commonJS({
         function stringToBuffer(serializedString) {
           var bufferLength = serializedString.length * 0.75;
           var len = serializedString.length;
-          var i2;
-          var p2 = 0;
+          var i;
+          var p = 0;
           var encoded1, encoded2, encoded3, encoded4;
           if (serializedString[serializedString.length - 1] === "=") {
             bufferLength--;
@@ -3710,14 +3710,14 @@ var require_localforage = __commonJS({
           }
           var buffer = new ArrayBuffer(bufferLength);
           var bytes = new Uint8Array(buffer);
-          for (i2 = 0; i2 < len; i2 += 4) {
-            encoded1 = BASE_CHARS.indexOf(serializedString[i2]);
-            encoded2 = BASE_CHARS.indexOf(serializedString[i2 + 1]);
-            encoded3 = BASE_CHARS.indexOf(serializedString[i2 + 2]);
-            encoded4 = BASE_CHARS.indexOf(serializedString[i2 + 3]);
-            bytes[p2++] = encoded1 << 2 | encoded2 >> 4;
-            bytes[p2++] = (encoded2 & 15) << 4 | encoded3 >> 2;
-            bytes[p2++] = (encoded3 & 3) << 6 | encoded4 & 63;
+          for (i = 0; i < len; i += 4) {
+            encoded1 = BASE_CHARS.indexOf(serializedString[i]);
+            encoded2 = BASE_CHARS.indexOf(serializedString[i + 1]);
+            encoded3 = BASE_CHARS.indexOf(serializedString[i + 2]);
+            encoded4 = BASE_CHARS.indexOf(serializedString[i + 3]);
+            bytes[p++] = encoded1 << 2 | encoded2 >> 4;
+            bytes[p++] = (encoded2 & 15) << 4 | encoded3 >> 2;
+            bytes[p++] = (encoded3 & 3) << 6 | encoded4 & 63;
           }
           return buffer;
         }
@@ -3725,12 +3725,12 @@ var require_localforage = __commonJS({
         function bufferToString(buffer) {
           var bytes = new Uint8Array(buffer);
           var base64String = "";
-          var i2;
-          for (i2 = 0; i2 < bytes.length; i2 += 3) {
-            base64String += BASE_CHARS[bytes[i2] >> 2];
-            base64String += BASE_CHARS[(bytes[i2] & 3) << 4 | bytes[i2 + 1] >> 4];
-            base64String += BASE_CHARS[(bytes[i2 + 1] & 15) << 2 | bytes[i2 + 2] >> 6];
-            base64String += BASE_CHARS[bytes[i2 + 2] & 63];
+          var i;
+          for (i = 0; i < bytes.length; i += 3) {
+            base64String += BASE_CHARS[bytes[i] >> 2];
+            base64String += BASE_CHARS[(bytes[i] & 3) << 4 | bytes[i + 1] >> 4];
+            base64String += BASE_CHARS[(bytes[i + 1] & 15) << 2 | bytes[i + 2] >> 6];
+            base64String += BASE_CHARS[bytes[i + 2] & 63];
           }
           if (bytes.length % 3 === 2) {
             base64String = base64String.substring(0, base64String.length - 1) + "=";
@@ -3786,9 +3786,9 @@ var require_localforage = __commonJS({
           } else {
             try {
               callback(JSON.stringify(value));
-            } catch (e2) {
+            } catch (e) {
               console.error("Couldn't convert value into a JSON string: ", value);
-              callback(null, e2);
+              callback(null, e);
             }
           }
         }
@@ -3840,8 +3840,8 @@ var require_localforage = __commonJS({
           stringToBuffer,
           bufferToString
         };
-        function createDbTable(t2, dbInfo, callback, errorCallback) {
-          t2.executeSql("CREATE TABLE IF NOT EXISTS " + dbInfo.storeName + " (id INTEGER PRIMARY KEY, key unique, value)", [], callback, errorCallback);
+        function createDbTable(t, dbInfo, callback, errorCallback) {
+          t.executeSql("CREATE TABLE IF NOT EXISTS " + dbInfo.storeName + " (id INTEGER PRIMARY KEY, key unique, value)", [], callback, errorCallback);
         }
         __name(createDbTable, "createDbTable");
         function _initStorage$1(options) {
@@ -3850,21 +3850,21 @@ var require_localforage = __commonJS({
             db: null
           };
           if (options) {
-            for (var i2 in options) {
-              dbInfo[i2] = typeof options[i2] !== "string" ? options[i2].toString() : options[i2];
+            for (var i in options) {
+              dbInfo[i] = typeof options[i] !== "string" ? options[i].toString() : options[i];
             }
           }
           var dbInfoPromise = new Promise$1(function(resolve, reject) {
             try {
               dbInfo.db = openDatabase(dbInfo.name, String(dbInfo.version), dbInfo.description, dbInfo.size);
-            } catch (e2) {
-              return reject(e2);
+            } catch (e) {
+              return reject(e);
             }
-            dbInfo.db.transaction(function(t2) {
-              createDbTable(t2, dbInfo, function() {
+            dbInfo.db.transaction(function(t) {
+              createDbTable(t, dbInfo, function() {
                 self2._dbInfo = dbInfo;
                 resolve();
-              }, function(t3, error) {
+              }, function(t2, error) {
                 reject(error);
               });
             }, reject);
@@ -3873,20 +3873,20 @@ var require_localforage = __commonJS({
           return dbInfoPromise;
         }
         __name(_initStorage$1, "_initStorage$1");
-        function tryExecuteSql(t2, dbInfo, sqlStatement, args, callback, errorCallback) {
-          t2.executeSql(sqlStatement, args, callback, function(t3, error) {
+        function tryExecuteSql(t, dbInfo, sqlStatement, args, callback, errorCallback) {
+          t.executeSql(sqlStatement, args, callback, function(t2, error) {
             if (error.code === error.SYNTAX_ERR) {
-              t3.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name = ?", [dbInfo.storeName], function(t4, results) {
+              t2.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name = ?", [dbInfo.storeName], function(t3, results) {
                 if (!results.rows.length) {
-                  createDbTable(t4, dbInfo, function() {
-                    t4.executeSql(sqlStatement, args, callback, errorCallback);
+                  createDbTable(t3, dbInfo, function() {
+                    t3.executeSql(sqlStatement, args, callback, errorCallback);
                   }, errorCallback);
                 } else {
-                  errorCallback(t4, error);
+                  errorCallback(t3, error);
                 }
               }, errorCallback);
             } else {
-              errorCallback(t3, error);
+              errorCallback(t2, error);
             }
           }, errorCallback);
         }
@@ -3897,14 +3897,14 @@ var require_localforage = __commonJS({
           var promise = new Promise$1(function(resolve, reject) {
             self2.ready().then(function() {
               var dbInfo = self2._dbInfo;
-              dbInfo.db.transaction(function(t2) {
-                tryExecuteSql(t2, dbInfo, "SELECT * FROM " + dbInfo.storeName + " WHERE key = ? LIMIT 1", [key2], function(t3, results) {
+              dbInfo.db.transaction(function(t) {
+                tryExecuteSql(t, dbInfo, "SELECT * FROM " + dbInfo.storeName + " WHERE key = ? LIMIT 1", [key2], function(t2, results) {
                   var result = results.rows.length ? results.rows.item(0).value : null;
                   if (result) {
                     result = dbInfo.serializer.deserialize(result);
                   }
                   resolve(result);
-                }, function(t3, error) {
+                }, function(t2, error) {
                   reject(error);
                 });
               });
@@ -3919,24 +3919,24 @@ var require_localforage = __commonJS({
           var promise = new Promise$1(function(resolve, reject) {
             self2.ready().then(function() {
               var dbInfo = self2._dbInfo;
-              dbInfo.db.transaction(function(t2) {
-                tryExecuteSql(t2, dbInfo, "SELECT * FROM " + dbInfo.storeName, [], function(t3, results) {
+              dbInfo.db.transaction(function(t) {
+                tryExecuteSql(t, dbInfo, "SELECT * FROM " + dbInfo.storeName, [], function(t2, results) {
                   var rows = results.rows;
                   var length2 = rows.length;
-                  for (var i2 = 0; i2 < length2; i2++) {
-                    var item = rows.item(i2);
+                  for (var i = 0; i < length2; i++) {
+                    var item = rows.item(i);
                     var result = item.value;
                     if (result) {
                       result = dbInfo.serializer.deserialize(result);
                     }
-                    result = iterator(result, item.key, i2 + 1);
+                    result = iterator(result, item.key, i + 1);
                     if (result !== void 0) {
                       resolve(result);
                       return;
                     }
                   }
                   resolve();
-                }, function(t3, error) {
+                }, function(t2, error) {
                   reject(error);
                 });
               });
@@ -3960,10 +3960,10 @@ var require_localforage = __commonJS({
                 if (error) {
                   reject(error);
                 } else {
-                  dbInfo.db.transaction(function(t2) {
-                    tryExecuteSql(t2, dbInfo, "INSERT OR REPLACE INTO " + dbInfo.storeName + " (key, value) VALUES (?, ?)", [key2, value2], function() {
+                  dbInfo.db.transaction(function(t) {
+                    tryExecuteSql(t, dbInfo, "INSERT OR REPLACE INTO " + dbInfo.storeName + " (key, value) VALUES (?, ?)", [key2, value2], function() {
                       resolve(originalValue);
-                    }, function(t3, error2) {
+                    }, function(t2, error2) {
                       reject(error2);
                     });
                   }, function(sqlError) {
@@ -3993,10 +3993,10 @@ var require_localforage = __commonJS({
           var promise = new Promise$1(function(resolve, reject) {
             self2.ready().then(function() {
               var dbInfo = self2._dbInfo;
-              dbInfo.db.transaction(function(t2) {
-                tryExecuteSql(t2, dbInfo, "DELETE FROM " + dbInfo.storeName + " WHERE key = ?", [key2], function() {
+              dbInfo.db.transaction(function(t) {
+                tryExecuteSql(t, dbInfo, "DELETE FROM " + dbInfo.storeName + " WHERE key = ?", [key2], function() {
                   resolve();
-                }, function(t3, error) {
+                }, function(t2, error) {
                   reject(error);
                 });
               });
@@ -4011,10 +4011,10 @@ var require_localforage = __commonJS({
           var promise = new Promise$1(function(resolve, reject) {
             self2.ready().then(function() {
               var dbInfo = self2._dbInfo;
-              dbInfo.db.transaction(function(t2) {
-                tryExecuteSql(t2, dbInfo, "DELETE FROM " + dbInfo.storeName, [], function() {
+              dbInfo.db.transaction(function(t) {
+                tryExecuteSql(t, dbInfo, "DELETE FROM " + dbInfo.storeName, [], function() {
                   resolve();
-                }, function(t3, error) {
+                }, function(t2, error) {
                   reject(error);
                 });
               });
@@ -4029,11 +4029,11 @@ var require_localforage = __commonJS({
           var promise = new Promise$1(function(resolve, reject) {
             self2.ready().then(function() {
               var dbInfo = self2._dbInfo;
-              dbInfo.db.transaction(function(t2) {
-                tryExecuteSql(t2, dbInfo, "SELECT COUNT(key) as c FROM " + dbInfo.storeName, [], function(t3, results) {
+              dbInfo.db.transaction(function(t) {
+                tryExecuteSql(t, dbInfo, "SELECT COUNT(key) as c FROM " + dbInfo.storeName, [], function(t2, results) {
                   var result = results.rows.item(0).c;
                   resolve(result);
-                }, function(t3, error) {
+                }, function(t2, error) {
                   reject(error);
                 });
               });
@@ -4043,16 +4043,16 @@ var require_localforage = __commonJS({
           return promise;
         }
         __name(length$1, "length$1");
-        function key$1(n2, callback) {
+        function key$1(n, callback) {
           var self2 = this;
           var promise = new Promise$1(function(resolve, reject) {
             self2.ready().then(function() {
               var dbInfo = self2._dbInfo;
-              dbInfo.db.transaction(function(t2) {
-                tryExecuteSql(t2, dbInfo, "SELECT key FROM " + dbInfo.storeName + " WHERE id = ? LIMIT 1", [n2 + 1], function(t3, results) {
+              dbInfo.db.transaction(function(t) {
+                tryExecuteSql(t, dbInfo, "SELECT key FROM " + dbInfo.storeName + " WHERE id = ? LIMIT 1", [n + 1], function(t2, results) {
                   var result = results.rows.length ? results.rows.item(0).key : null;
                   resolve(result);
-                }, function(t3, error) {
+                }, function(t2, error) {
                   reject(error);
                 });
               });
@@ -4067,14 +4067,14 @@ var require_localforage = __commonJS({
           var promise = new Promise$1(function(resolve, reject) {
             self2.ready().then(function() {
               var dbInfo = self2._dbInfo;
-              dbInfo.db.transaction(function(t2) {
-                tryExecuteSql(t2, dbInfo, "SELECT key FROM " + dbInfo.storeName, [], function(t3, results) {
+              dbInfo.db.transaction(function(t) {
+                tryExecuteSql(t, dbInfo, "SELECT key FROM " + dbInfo.storeName, [], function(t2, results) {
                   var keys2 = [];
-                  for (var i2 = 0; i2 < results.rows.length; i2++) {
-                    keys2.push(results.rows.item(i2).key);
+                  for (var i = 0; i < results.rows.length; i++) {
+                    keys2.push(results.rows.item(i).key);
                   }
                   resolve(keys2);
-                }, function(t3, error) {
+                }, function(t2, error) {
                   reject(error);
                 });
               });
@@ -4086,17 +4086,17 @@ var require_localforage = __commonJS({
         __name(keys$1, "keys$1");
         function getAllStoreNames(db) {
           return new Promise$1(function(resolve, reject) {
-            db.transaction(function(t2) {
-              t2.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name <> '__WebKitDatabaseInfoTable__'", [], function(t3, results) {
+            db.transaction(function(t) {
+              t.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name <> '__WebKitDatabaseInfoTable__'", [], function(t2, results) {
                 var storeNames = [];
-                for (var i2 = 0; i2 < results.rows.length; i2++) {
-                  storeNames.push(results.rows.item(i2).name);
+                for (var i = 0; i < results.rows.length; i++) {
+                  storeNames.push(results.rows.item(i).name);
                 }
                 resolve({
                   db,
                   storeNames
                 });
-              }, function(t3, error) {
+              }, function(t2, error) {
                 reject(error);
               });
             }, function(sqlError) {
@@ -4135,25 +4135,25 @@ var require_localforage = __commonJS({
               }
             }).then(function(operationInfo) {
               return new Promise$1(function(resolve, reject) {
-                operationInfo.db.transaction(function(t2) {
+                operationInfo.db.transaction(function(t) {
                   function dropTable(storeName) {
                     return new Promise$1(function(resolve2, reject2) {
-                      t2.executeSql("DROP TABLE IF EXISTS " + storeName, [], function() {
+                      t.executeSql("DROP TABLE IF EXISTS " + storeName, [], function() {
                         resolve2();
-                      }, function(t3, error) {
+                      }, function(t2, error) {
                         reject2(error);
                       });
                     });
                   }
                   __name(dropTable, "dropTable");
                   var operations = [];
-                  for (var i2 = 0, len = operationInfo.storeNames.length; i2 < len; i2++) {
-                    operations.push(dropTable(operationInfo.storeNames[i2]));
+                  for (var i = 0, len = operationInfo.storeNames.length; i < len; i++) {
+                    operations.push(dropTable(operationInfo.storeNames[i]));
                   }
                   Promise$1.all(operations).then(function() {
                     resolve();
-                  })["catch"](function(e2) {
-                    reject(e2);
+                  })["catch"](function(e) {
+                    reject(e);
                   });
                 }, function(sqlError) {
                   reject(sqlError);
@@ -4182,7 +4182,7 @@ var require_localforage = __commonJS({
         function isLocalStorageValid() {
           try {
             return typeof localStorage !== "undefined" && "setItem" in localStorage && !!localStorage.setItem;
-          } catch (e2) {
+          } catch (e) {
             return false;
           }
         }
@@ -4201,7 +4201,7 @@ var require_localforage = __commonJS({
             localStorage.setItem(localStorageTestKey, true);
             localStorage.removeItem(localStorageTestKey);
             return false;
-          } catch (e2) {
+          } catch (e) {
             return true;
           }
         }
@@ -4214,8 +4214,8 @@ var require_localforage = __commonJS({
           var self2 = this;
           var dbInfo = {};
           if (options) {
-            for (var i2 in options) {
-              dbInfo[i2] = options[i2];
+            for (var i in options) {
+              dbInfo[i] = options[i];
             }
           }
           dbInfo.keyPrefix = _getKeyPrefix(options, self2._defaultConfig);
@@ -4231,8 +4231,8 @@ var require_localforage = __commonJS({
           var self2 = this;
           var promise = self2.ready().then(function() {
             var keyPrefix = self2._dbInfo.keyPrefix;
-            for (var i2 = localStorage.length - 1; i2 >= 0; i2--) {
-              var key2 = localStorage.key(i2);
+            for (var i = localStorage.length - 1; i >= 0; i--) {
+              var key2 = localStorage.key(i);
               if (key2.indexOf(keyPrefix) === 0) {
                 localStorage.removeItem(key2);
               }
@@ -4265,8 +4265,8 @@ var require_localforage = __commonJS({
             var keyPrefixLength = keyPrefix.length;
             var length2 = localStorage.length;
             var iterationNumber = 1;
-            for (var i2 = 0; i2 < length2; i2++) {
-              var key2 = localStorage.key(i2);
+            for (var i = 0; i < length2; i++) {
+              var key2 = localStorage.key(i);
               if (key2.indexOf(keyPrefix) !== 0) {
                 continue;
               }
@@ -4284,13 +4284,13 @@ var require_localforage = __commonJS({
           return promise;
         }
         __name(iterate$2, "iterate$2");
-        function key$2(n2, callback) {
+        function key$2(n, callback) {
           var self2 = this;
           var promise = self2.ready().then(function() {
             var dbInfo = self2._dbInfo;
             var result;
             try {
-              result = localStorage.key(n2);
+              result = localStorage.key(n);
             } catch (error) {
               result = null;
             }
@@ -4309,8 +4309,8 @@ var require_localforage = __commonJS({
             var dbInfo = self2._dbInfo;
             var length2 = localStorage.length;
             var keys2 = [];
-            for (var i2 = 0; i2 < length2; i2++) {
-              var itemKey = localStorage.key(i2);
+            for (var i = 0; i < length2; i++) {
+              var itemKey = localStorage.key(i);
               if (itemKey.indexOf(dbInfo.keyPrefix) === 0) {
                 keys2.push(itemKey.substring(dbInfo.keyPrefix.length));
               }
@@ -4358,11 +4358,11 @@ var require_localforage = __commonJS({
                   try {
                     localStorage.setItem(dbInfo.keyPrefix + key2, value2);
                     resolve(originalValue);
-                  } catch (e2) {
-                    if (e2.name === "QuotaExceededError" || e2.name === "NS_ERROR_DOM_QUOTA_REACHED") {
-                      reject(e2);
+                  } catch (e) {
+                    if (e.name === "QuotaExceededError" || e.name === "NS_ERROR_DOM_QUOTA_REACHED") {
+                      reject(e);
                     }
-                    reject(e2);
+                    reject(e);
                   }
                 }
               });
@@ -4392,8 +4392,8 @@ var require_localforage = __commonJS({
                 resolve(_getKeyPrefix(options, self2._defaultConfig));
               }
             }).then(function(keyPrefix) {
-              for (var i2 = localStorage.length - 1; i2 >= 0; i2--) {
-                var key2 = localStorage.key(i2);
+              for (var i = localStorage.length - 1; i >= 0; i--) {
+                var key2 = localStorage.key(i);
                 if (key2.indexOf(keyPrefix) === 0) {
                   localStorage.removeItem(key2);
                 }
@@ -4418,17 +4418,17 @@ var require_localforage = __commonJS({
           keys: keys$2,
           dropInstance: dropInstance$2
         };
-        var sameValue = /* @__PURE__ */ __name(function sameValue2(x2, y2) {
-          return x2 === y2 || typeof x2 === "number" && typeof y2 === "number" && isNaN(x2) && isNaN(y2);
+        var sameValue = /* @__PURE__ */ __name(function sameValue2(x, y) {
+          return x === y || typeof x === "number" && typeof y === "number" && isNaN(x) && isNaN(y);
         }, "sameValue");
         var includes = /* @__PURE__ */ __name(function includes2(array, searchElement) {
           var len = array.length;
-          var i2 = 0;
-          while (i2 < len) {
-            if (sameValue(array[i2], searchElement)) {
+          var i = 0;
+          while (i < len) {
+            if (sameValue(array[i], searchElement)) {
               return true;
             }
-            i2++;
+            i++;
           }
           return false;
         }, "includes");
@@ -4463,8 +4463,8 @@ var require_localforage = __commonJS({
         }
         __name(callWhenReady, "callWhenReady");
         function extend() {
-          for (var i2 = 1; i2 < arguments.length; i2++) {
-            var arg = arguments[i2];
+          for (var i = 1; i < arguments.length; i++) {
+            var arg = arguments[i];
             if (arg) {
               for (var _key in arg) {
                 if (arg.hasOwnProperty(_key)) {
@@ -4509,14 +4509,14 @@ var require_localforage = __commonJS({
               if (this._ready) {
                 return new Error("Can't call config() after localforage has been used.");
               }
-              for (var i2 in options) {
-                if (i2 === "storeName") {
-                  options[i2] = options[i2].replace(/\W/g, "_");
+              for (var i in options) {
+                if (i === "storeName") {
+                  options[i] = options[i].replace(/\W/g, "_");
                 }
-                if (i2 === "version" && typeof options[i2] !== "number") {
+                if (i === "version" && typeof options[i] !== "number") {
                   return new Error("Database version must be a number.");
                 }
-                this._config[i2] = options[i2];
+                this._config[i] = options[i];
               }
               if ("driver" in options && options.driver) {
                 return this.setDriver(this._config.driver);
@@ -4538,8 +4538,8 @@ var require_localforage = __commonJS({
                   return;
                 }
                 var driverMethods = LibraryMethods.concat("_initStorage");
-                for (var i2 = 0, len = driverMethods.length; i2 < len; i2++) {
-                  var driverMethodName = driverMethods[i2];
+                for (var i = 0, len = driverMethods.length; i < len; i++) {
+                  var driverMethodName = driverMethods[i];
                   var isRequired = !includes(OptionalDriverMethods, driverMethodName);
                   if ((isRequired || driverObject[driverMethodName]) && typeof driverObject[driverMethodName] !== "function") {
                     reject(complianceError);
@@ -4580,8 +4580,8 @@ var require_localforage = __commonJS({
                 } else {
                   setDriverSupport(true);
                 }
-              } catch (e2) {
-                reject(e2);
+              } catch (e) {
+                reject(e);
               }
             });
             executeTwoCallbacks(promise, callback, errorCallback);
@@ -4679,8 +4679,8 @@ var require_localforage = __commonJS({
           }, "_extend");
           LocalForage2.prototype._getSupportedDrivers = /* @__PURE__ */ __name(function _getSupportedDrivers(drivers) {
             var supportedDrivers = [];
-            for (var i2 = 0, len = drivers.length; i2 < len; i2++) {
-              var driverName = drivers[i2];
+            for (var i = 0, len = drivers.length; i < len; i++) {
+              var driverName = drivers[i];
               if (this.supports(driverName)) {
                 supportedDrivers.push(driverName);
               }
@@ -4688,8 +4688,8 @@ var require_localforage = __commonJS({
             return supportedDrivers;
           }, "_getSupportedDrivers");
           LocalForage2.prototype._wrapLibraryMethodsWithReady = /* @__PURE__ */ __name(function _wrapLibraryMethodsWithReady() {
-            for (var i2 = 0, len = LibraryMethods.length; i2 < len; i2++) {
-              callWhenReady(this, LibraryMethods[i2]);
+            for (var i = 0, len = LibraryMethods.length; i < len; i++) {
+              callWhenReady(this, LibraryMethods[i]);
             }
           }, "_wrapLibraryMethodsWithReady");
           LocalForage2.prototype.createInstance = /* @__PURE__ */ __name(function createInstance(options) {
@@ -4714,27 +4714,27 @@ init_define_process();
 var E_TIMEOUT = new Error("timeout while waiting for mutex to become available");
 var E_ALREADY_LOCKED = new Error("mutex already locked");
 var E_CANCELED = new Error("request for lock canceled");
-var __awaiter$2 = function(thisArg, _arguments, P2, generator) {
+var __awaiter$2 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
-    return value instanceof P2 ? value : new P2(function(resolve) {
+    return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
     });
   }
   __name(adopt, "adopt");
-  return new (P2 || (P2 = Promise))(function(resolve, reject) {
+  return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
         step(generator.next(value));
-      } catch (e2) {
-        reject(e2);
+      } catch (e) {
+        reject(e);
       }
     }
     __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
-      } catch (e2) {
-        reject(e2);
+      } catch (e) {
+        reject(e);
       }
     }
     __name(rejected, "rejected");
@@ -4835,27 +4835,27 @@ var Semaphore = class {
   }
 };
 __name(Semaphore, "Semaphore");
-var __awaiter$1 = function(thisArg, _arguments, P2, generator) {
+var __awaiter$1 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
-    return value instanceof P2 ? value : new P2(function(resolve) {
+    return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
     });
   }
   __name(adopt, "adopt");
-  return new (P2 || (P2 = Promise))(function(resolve, reject) {
+  return new (P || (P = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
         step(generator.next(value));
-      } catch (e2) {
-        reject(e2);
+      } catch (e) {
+        reject(e);
       }
     }
     __name(fulfilled, "fulfilled");
     function rejected(value) {
       try {
         step(generator["throw"](value));
-      } catch (e2) {
-        reject(e2);
+      } catch (e) {
+        reject(e);
       }
     }
     __name(rejected, "rejected");
@@ -4992,17 +4992,17 @@ function mineFromCaches(cache) {
   try {
     return Array.from(
       document.querySelectorAll(`style[data-emotion="${cache.key}"]`)
-    ).map((x2) => x2.textContent).join(
+    ).map((x) => x.textContent).join(
       "\n"
     );
   } catch {
-    return Array.from(document.styleSheets).map((x2) => {
+    return Array.from(document.styleSheets).map((x) => {
       try {
-        return x2.cssRules[0];
+        return x.cssRules[0];
       } catch {
         return null;
       }
-    }).filter((x2) => x2 && x2.selectorText && x2.selectorText.indexOf(key) !== -1).map((x2) => x2.cssText).join("\n");
+    }).filter((x) => x && x.selectorText && x.selectorText.indexOf(key) !== -1).map((x) => x.cssText).join("\n");
   }
 }
 __name(mineFromCaches, "mineFromCaches");
@@ -5041,7 +5041,7 @@ var fileCache = import_localforage.default.createInstance({
 });
 var imp = { ...importmap_default.imports };
 var importMasRes = {};
-Object.keys(imp).map((k2) => Object.assign(importMasRes, { [k2]: location.origin + imp[k2] }));
+Object.keys(imp).map((k) => Object.assign(importMasRes, { [k]: location.origin + imp[k] }));
 var mod2 = {
   printR(name, included) {
     if (included[mod2.hashMap[name]])
@@ -5067,8 +5067,8 @@ var mod2 = {
     let reverseMap = {};
     Object.keys(mod2.hashMap).forEach((key) => reverseMap = { ...reverseMap, [mod2.hashMap[key]]: key });
     let modZ = {};
-    Object.keys(mod2.data).forEach((k2) => modZ = { ...modZ, [reverseMap[k2]]: k2 });
-    Object.keys(importMasRes).forEach((k2) => modZ = { ...modZ, [k2]: "getName(`" + importMasRes[k2] + "`)" });
+    Object.keys(mod2.data).forEach((k) => modZ = { ...modZ, [reverseMap[k]]: k });
+    Object.keys(importMasRes).forEach((k) => modZ = { ...modZ, [k]: "getName(`" + importMasRes[k] + "`)" });
     const res = `
      ${js}
 
@@ -5101,13 +5101,13 @@ var mod2 = {
 };
 var findDeps = /* @__PURE__ */ __name((code) => {
   const regex = /require\("(.+?)"\)/gm;
-  let m2;
+  let m;
   const deps = [];
-  while ((m2 = regex.exec(code)) !== null) {
-    if (m2.index === regex.lastIndex) {
+  while ((m = regex.exec(code)) !== null) {
+    if (m.index === regex.lastIndex) {
       regex.lastIndex++;
     }
-    for (const [groupIndex, match] of m2.entries()) {
+    for (const [groupIndex, match] of m.entries()) {
       if (groupIndex == 1) {
         deps.push(match);
       }
@@ -5451,7 +5451,7 @@ var definePrd = {
   })
 };
 var skipImportmapReplaceNames = false;
-var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
+var build = /* @__PURE__ */ __name(async (codeSpace3, i, signal) => {
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -5490,15 +5490,15 @@ var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
     incremental: true,
     format: "esm",
     entryPoints: [
-      `./render.tsx?i=${i2}`
+      `./render.tsx?i=${i}`
     ],
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin]
   };
-  let b2;
-  if (!signal.aborted && (b2 = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
-    console.log(b2.outputFiles);
-    return b2.outputFiles[0].contents;
+  let b;
+  if (!signal.aborted && (b = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
+    console.log(b.outputFiles);
+    return b.outputFiles[0].contents;
   }
   return false;
 }, "build");
@@ -5523,567 +5523,1654 @@ function importMapReplace(codeInp) {
 }
 __name(importMapReplace, "importMapReplace");
 
-// js/worker-dom/dist/main.mjs
+// js/worker-dom/src/main-thread/index.ts
 init_define_process();
-var e = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(8);
-  return {
-    execute: (e3, r3, s3) => (o2 && s3 && (e3 = t2.getNode(e3[r3 + 1])) && (s3 = e3.transferControlToOffscreen(), n2.messageToWorker({ 12: 9, 13: [e3._index_], 38: s3 }, [s3])), r3 + 2)
-  };
-}, "e");
-var t = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-var n = /* @__PURE__ */ __name((e2, t2) => Array.prototype.forEach.call(e2, t2), "n");
-var r = class {
-  constructor(e2, t2) {
-    this.nodes = this.count = this.stringContext = this.baseElement = void 0, this.createNodes = (e3, t3) => {
-      let n2 = (e3 = new Uint16Array(e3)).length;
-      for (let s2 = 0; s2 < n2; s2 += 5) {
-        var r2 = void 0;
-        if (3 === e3[s2 + 1]) {
-          r2 = document.createTextNode(
-            this.stringContext.get(e3[s2 + 3])
-          );
-        } else if (8 === e3[s2 + 1]) {
-          r2 = document.createComment(
-            this.stringContext.get(e3[s2 + 3])
-          );
-        } else if (11 === e3[s2 + 1])
-          r2 = document.createDocumentFragment();
-        else if (r2 = this.stringContext.get(e3[s2 + 2]), r2 = 0 !== e3[s2 + 4] ? document.createElementNS(this.stringContext.get(e3[s2 + 4]), r2) : document.createElement(r2), t3 && !t3.sanitize(r2))
-          continue;
-        this.storeNode(r2, e3[s2]);
-      }
-    }, this.getNode = (e3) => (e3 = this.nodes.get(e3)) && "BODY" === e3.nodeName ? this.baseElement : e3, this.storeNodes = (e3) => {
-      this.storeNode(e3, ++this.count), n(e3.childNodes, (e4) => this.storeNodes(e4));
-    }, this.count = 2, this.stringContext = e2, this.nodes = /* @__PURE__ */ new Map([[1, t2], [2, t2]]), this.baseElement = t2, t2._index_ = 2, n(t2.childNodes, (e3) => this.storeNodes(e3));
+
+// js/worker-dom/src/main-thread/exported-worker.ts
+init_define_process();
+
+// js/worker-dom/src/transfer/Messages.ts
+init_define_process();
+
+// js/worker-dom/src/transfer/Phase.ts
+init_define_process();
+
+// js/worker-dom/src/transfer/TransferrableBoundClientRect.ts
+init_define_process();
+
+// js/worker-dom/src/transfer/TransferrableEvent.ts
+init_define_process();
+
+// js/worker-dom/src/transfer/TransferrableKeys.ts
+init_define_process();
+
+// js/worker-dom/src/transfer/TransferrableNodes.ts
+init_define_process();
+
+// js/worker-dom/src/utils.ts
+init_define_process();
+
+// js/worker-dom/src/transfer/TransferrableEvent.ts
+var ADD_EVENT_SUBSCRIPTION_LENGTH = 6;
+var REMOVE_EVENT_SUBSCRIPTION_LENGTH = 2;
+
+// js/worker-dom/src/transfer/TransferrableStorage.ts
+init_define_process();
+
+// js/worker-dom/src/transfer/TransferrableSyncValue.ts
+init_define_process();
+
+// js/worker-dom/src/transfer/TransferrableMutation.ts
+init_define_process();
+var isUserVisibleMutation = /* @__PURE__ */ __name((type) => {
+  switch (type) {
+    case 4 /* EVENT_SUBSCRIPTION */:
+    case 5 /* GET_BOUNDING_CLIENT_RECT */:
+    case 6 /* LONG_TASK_START */:
+    case 7 /* LONG_TASK_END */:
+    case 12 /* STORAGE */:
+    case 8 /* OFFSCREEN_CANVAS_INSTANCE */:
+    case 13 /* FUNCTION_CALL */:
+      return false;
+    default:
+      return true;
   }
-  storeNode(e2, t2) {
-    e2._index_ = t2, this.nodes.set(t2, e2);
-  }
+}, "isUserVisibleMutation");
+var DefaultAllowedMutations = [
+  0 /* ATTRIBUTES */,
+  1 /* CHARACTER_DATA */,
+  2 /* CHILD_LIST */,
+  3 /* PROPERTIES */,
+  4 /* EVENT_SUBSCRIPTION */,
+  5 /* GET_BOUNDING_CLIENT_RECT */,
+  6 /* LONG_TASK_START */,
+  7 /* LONG_TASK_END */,
+  8 /* OFFSCREEN_CANVAS_INSTANCE */,
+  9 /* OBJECT_MUTATION */,
+  10 /* OBJECT_CREATION */,
+  11 /* IMAGE_BITMAP_INSTANCE */,
+  12 /* STORAGE */,
+  13 /* FUNCTION_CALL */,
+  14 /* SCROLL_INTO_VIEW */
+];
+var ReadableMutationType = {
+  0: "ATTRIBUTES",
+  1: "CHARACTER_DATA",
+  2: "CHILD_LIST",
+  3: "PROPERTIES",
+  4: "EVENT_SUBSCRIPTION",
+  5: "GET_BOUNDING_CLIENT_RECT",
+  6: "LONG_TASK_START",
+  7: "LONG_TASK_END",
+  8: "OFFSCREEN_CANVAS_INSTANCE",
+  9: "OBJECT_MUTATION",
+  10: "OBJECT_CREATION",
+  11: "IMAGE_BITMAP_INSTANCE",
+  12: "STORAGE",
+  13: "FUNCTION_INVOCATION",
+  14: "SCROLL_INTO_VIEW"
 };
-__name(r, "r");
-var s = /* @__PURE__ */ new Map();
-var o = /* @__PURE__ */ __name((e2, t2) => {
-  t2 && "value" in t2 && null === t2.oninput && (t2.oninput = () => l(e2, t2));
-}, "o");
-var i = /* @__PURE__ */ __name((e2, t2) => {
-  t2 && "value" in t2 && !s.get(t2) && (new MutationObserver((t3) => t3.map((t4) => l(e2, t4.target))).observe(t2, {
-    attributes: true
-  }), s.set(t2, true));
-}, "i");
-var l = /* @__PURE__ */ __name((e2, t2) => e2.messageToWorker({ 12: 4, 40: { 7: t2._index_, 21: t2.value } }), "l");
-var u = /* @__PURE__ */ __name((e2) => Object.values(e2).map(
-  (e3) => [
-    e3.identifier,
-    e3.screenX,
-    e3.screenY,
-    e3.clientX,
-    e3.clientY,
-    e3.pageX,
-    e3.pageY,
-    e3.target._index_
-  ]
-), "u");
-var a = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const a2 = [], c2 = s2.executorsAllowed.includes(4);
-  let d2 = [window.innerWidth, window.innerHeight];
-  const h2 = /* @__PURE__ */ __name((e3, t3) => (r3) => {
-    t3 && r3.preventDefault();
-    var s3 = r3.currentTarget;
-    if (s3 && "value" in s3)
-      l(n2, r3.currentTarget);
-    else if ("resize" === r3.type) {
-      const { innerWidth: e4, innerHeight: t4 } = window;
-      if (d2[0] === e4 && d2[1] === t4)
-        return;
-      d2 = [window.innerWidth, window.innerHeight], n2.messageToWorker({ 12: 5, 40: d2 });
-    }
-    n2.messageToWorker({
-      12: 1,
-      39: {
-        7: e3,
-        25: r3.bubbles,
-        26: r3.cancelable,
-        27: r3.cancelBubble,
-        28: [r3.currentTarget._index_ || 0],
-        29: r3.defaultPrevented,
-        30: r3.eventPhase,
-        31: r3.isTrusted,
-        32: r3.returnValue,
-        13: [r3.target._index_ || 0],
-        33: r3.timeStamp,
-        12: r3.type,
-        35: "keyCode" in r3 ? r3.keyCode : void 0,
-        60: "pageX" in r3 ? r3.pageX : void 0,
-        61: "pageY" in r3 ? r3.pageY : void 0,
-        65: "offsetX" in r3 ? r3.offsetX : void 0,
-        66: "offsetY" in r3 ? r3.offsetY : void 0,
-        62: "touches" in r3 ? u(r3.touches) : void 0,
-        63: "changedTouches" in r3 ? u(r3.changedTouches) : void 0
-      }
-    });
-  }, "h");
-  return {
-    execute(r3, s3, l2) {
-      var u2 = r3[s3 + 2];
-      const d3 = s3 + 4 + 2 * u2;
-      if (u2 = s3 + 4 + 6 * r3[s3 + 3] + 2 * u2, c2 && l2 && (l2 = t2.getNode(r3[s3 + 1]))) {
-        let c3 = s3 + 4;
-        for (; c3 < u2; ) {
-          const u3 = c3 <= d3;
-          e: {
-            s3 = l2;
-            var g2 = u3, f2 = r3, p2 = c3;
-            const d4 = e2.get(f2[p2]), m2 = f2[p2 + 1];
-            if (s3 === t2.baseElement) {
-              g2 ? addEventListener(d4, a2[m2] = h2(1, !!f2[p2 + 5])) : removeEventListener(d4, a2[m2]);
-              break e;
-            }
-            let w2 = null !== s3.oninput;
-            const x2 = "change" === d4;
-            g2 ? (x2 && (w2 = true, s3.onchange = null), s3.addEventListener(d4, a2[m2] = h2(s3._index_, !!f2[p2 + 5]))) : (x2 && (w2 = false), s3.removeEventListener(d4, a2[m2])), s3 && "value" in s3 && (w2 || o(n2, s3), i(n2, s3));
-          }
-          c3 += u3 ? 2 : 6;
-        }
-      }
-      return u2;
-    }
-  };
-}, "a");
-var c = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(5);
-  return {
-    execute: (e3, r3, s3) => (o2 && s3 && (e3 = t2.getNode(e3[r3 + 1])) && (s3 = e3.getBoundingClientRect(), n2.messageToWorker({
-      12: 6,
-      13: [e3._index_],
-      38: [s3.top, s3.right, s3.bottom, s3.left, s3.width, s3.height]
-    })), r3 + 2)
-  };
-}, "c");
-var d = /* @__PURE__ */ __name((e2, { getNode: t2 }, n2, r2, s2) => {
-  const l2 = s2.executorsAllowed.includes(2);
-  return {
-    execute(e3, r3, s3) {
-      const u2 = e3[r3 + 4], a2 = e3[r3 + 5];
-      if (l2 && s3) {
-        const s4 = t2(e3[r3 + 1]);
-        s4 && (0 < a2 && e3.slice(r3 + 6 + u2, r3 + 6 + u2 + a2).forEach((e4) => {
-          (e4 = t2(e4)) && e4.remove();
-        }), 0 < u2 && e3.slice(r3 + 6, r3 + 6 + u2).forEach((l3) => {
-          const u3 = e3[r3 + 2];
-          (l3 = t2(l3)) && (s4.insertBefore(l3, u3 && t2(u3) || null), o(n2, l3), i(n2, l3));
-        }));
-      }
-      return r3 + 6 + u2 + a2;
-    }
-  };
-}, "d");
-var h = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(0);
-  return {
-    execute(n3, r3, i2) {
-      if (o2 && i2) {
-        i2 = t2.getNode(n3[r3 + 1]);
-        const o3 = e2.get(n3[r3 + 2]);
-        n3 = 0 !== (n3 = n3[r3 + 4]) ? e2.get(n3 - 1) : null, i2 && null != o3 && (s2.sanitizer ? s2.sanitizer.setAttribute(i2, o3, n3) : null == n3 ? i2.removeAttribute(o3) : i2.setAttribute(o3, n3));
-      }
-      return r3 + 5;
-    }
-  };
-}, "h");
-var g = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(1);
-  return {
-    execute: (n3, r3, s3) => (o2 && s3 && (s3 = t2.getNode(n3[r3 + 1]), n3 = n3[r3 + 2], s3 && n3 && (s3.textContent = e2.get(n3))), r3 + 3)
-  };
-}, "g");
-var f = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(3);
-  return {
-    execute(n3, r3, i2) {
-      if (o2 && i2) {
-        i2 = t2.getNode(n3[r3 + 1]);
-        const o3 = e2.get(n3[r3 + 2]);
-        {
-          const t3 = n3[r3 + 4];
-          n3 = 1 === n3[r3 + 3] ? 1 === t3 : 0 !== t3 ? e2.get(t3) : null;
-        }
-        i2 && o3 && null != n3 && (s2.sanitizer ? s2.sanitizer.setProperty(i2, o3, String(n3)) : i2[o3] = n3);
-      }
-      return r3 + 5;
-    }
-  };
-}, "f");
-var p = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(6);
-  let i2, l2 = 0;
-  return {
-    execute(e3, t3, n3) {
-      if (o2 && n3 && s2.longTask) {
-        if (6 === e3[t3]) {
-          if (l2++, !i2) {
-            const e4 = new Promise((e5) => i2 = e5);
-            Promise.resolve().then(() => s2.longTask && s2.longTask(e4));
-          }
-        } else
-          7 === e3[t3] && (l2--, i2 && 0 >= l2 && (i2(), i2 = null, l2 = 0));
-      }
-      return t3 + 2;
+
+// js/worker-dom/src/main-thread/commands/function.ts
+init_define_process();
+
+// js/worker-dom/src/main-thread/commands/interface.ts
+init_define_process();
+
+// js/worker-dom/src/main-thread/configuration.ts
+init_define_process();
+function normalizeConfiguration(config) {
+  return Object.assign(
+    {},
+    {
+      mutationPump: requestAnimationFrame.bind(null),
+      executorsAllowed: DefaultAllowedMutations
     },
-    get active() {
-      return null !== i2;
-    }
-  };
-}, "p");
-var m = new Float32Array(1);
-var w = new Uint16Array(m.buffer);
-function x(e2, t2, n2, r2, s2, o2) {
-  let i2 = [];
-  for (let u2 = 0; u2 < n2; u2++) {
-    switch (e2[t2++]) {
-      case 1:
-        i2.push(e2[t2++]);
-        break;
-      case 2:
-        w[0] = e2[t2++], w[1] = e2[t2++], i2.push(m[0]);
-        break;
-      case 3:
-        i2.push(r2.get(e2[t2++]));
-        break;
-      case 4:
-        var l2 = e2[t2++];
-        t2 = x(e2, t2, l2, r2, s2, o2), i2.push(t2.args), t2 = t2.offset;
-        break;
-      case 5:
-        if (!o2)
-          throw Error("objectContext not provided.");
-        i2.push(o2.get(e2[t2++]));
-        break;
-      case 6:
-        l2 = s2.getNode(e2[t2++]), i2.push(l2.getContext("2d"));
-        break;
-      case 7:
-        i2.push(s2.getNode(e2[t2++]));
-        break;
-      default:
-        throw Error("Cannot deserialize argument.");
-    }
-  }
-  return { args: i2, offset: t2 };
+    config
+  );
 }
-__name(x, "x");
-var v = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(9);
-  return {
-    execute(n3, s3, i2) {
-      const l2 = e2.get(n3[s3 + 1]), u2 = n3[s3 + 2], { offset: a2, args: c2 } = x(n3, s3 + 3, 1, e2, t2, r2);
-      s3 = c2[0];
-      const { offset: d2, args: h2 } = x(n3, a2, u2, e2, t2, r2);
-      return o2 && i2 && (b(s3, l2) ? s3[l2] = h2[0] : s3[l2](...h2)), d2;
-    }
-  };
-}, "v");
-function b(e2, t2) {
-  if (!e2)
-    throw Error(`Property ${t2} does not exist on ${e2}.`);
-  let n2 = Object.getOwnPropertyDescriptor(e2, t2);
-  return void 0 !== n2 ? "set" in n2 : b(Object.getPrototypeOf(e2), t2);
-}
-__name(b, "b");
-var k = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(10);
-  if (!r2)
-    throw Error("objectContext is not defined.");
-  return {
-    execute(n3, s3, i2) {
-      const l2 = e2.get(n3[s3 + 1]), u2 = n3[s3 + 2], a2 = n3[s3 + 3], { offset: c2, args: d2 } = x(n3, s3 + 4, 1, e2, t2, r2);
-      s3 = d2[0];
-      const { offset: h2, args: g2 } = x(n3, c2, a2, e2, t2, r2);
-      return o2 && i2 && "new" !== l2 && r2.store(u2, s3[l2](...g2)), h2;
-    }
-  };
-}, "k");
-var y = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(11);
-  return {
-    execute: (e3, r3, s3) => (o2 && s3 && (s3 = t2.getNode(e3[r3 + 1])) && self.createImageBitmap(s3).then((t3) => {
-      n2.messageToWorker({ 12: 10, 73: e3[r3 + 2], 38: t3 }, [t3]);
-    }), r3 + 3)
-  };
-}, "y");
-var N = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(12);
-  return {
-    execute(t3, r3, i2) {
-      if (o2 && i2) {
-        i2 = t3[r3 + 1];
-        var l2 = t3[r3 + 2], u2 = t3[r3 + 3];
-        const o3 = t3[r3 + 4];
-        if (t3 = 0 < u2 ? e2.get(u2 - 1) : "", u2 = 0 < o3 ? e2.get(o3 - 1) : null, 1 === i2) {
-          ((e3, t4) => {
-            s2.sanitizer && 2 === e3 && s2.sanitizer.getStorage(e3, t4).then((r4) => {
-              n2.messageToWorker({ 12: 11, 74: t4, 75: e3, 21: r4 });
-            });
-          })(l2, t3);
-        } else if (2 === i2) {
-          if (i2 = l2, l2 = t3, t3 = u2, s2.sanitizer) {
-            s2.sanitizer.setStorage(
-              i2,
-              l2,
-              t3
-            );
-          } else {
-            let e3;
-            if (0 === i2 ? e3 = window.localStorage : 1 === i2 && (e3 = window.sessionStorage), e3) {
-              if (null == l2) {
-                if (null != t3)
-                  throw Error("Unexpected storage operation.");
-                e3.clear();
-              } else
-                null == t3 ? e3.removeItem(l2) : e3.setItem(l2, t3);
-            }
-          }
-        }
-      }
-      return r3 + 5;
-    }
-  };
-}, "N");
-var C = 0;
-var A = {};
-var O = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(13);
-  return {
-    execute(t3, n3) {
-      if (o2) {
-        const r3 = t3[n3 + 1], s3 = t3[n3 + 2];
-        t3 = t3[n3 + 3], t3 = e2.hasIndex(t3) ? JSON.parse(e2.get(t3)) : void 0, 1 === r3 ? A[s3].resolve(t3) : A[s3].reject(t3), delete A[s3];
-      }
-      return n3 + 4;
-    }
-  };
-}, "O");
-var _ = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
-  const o2 = s2.executorsAllowed.includes(14);
-  return {
-    execute: (e3, n3, r3) => (o2 && r3 && (e3 = t2.getNode(e3[n3 + 1])) && e3.scrollIntoView(), n3 + 2)
-  };
-}, "_");
-var E = class {
-  constructor(t2, n2, r2, s2, o2) {
-    this.nodeContext = this.stringContext = void 0, this.mutationQueue = [], this.pendingMutations = false, this.executors = this.sanitizer = this.mutationPumpFunction = void 0, this.syncFlush = (e2 = true) => {
-      let t3 = [];
-      return this.mutationQueue.forEach((n3) => {
-        let r3 = n3.length, s3 = 0;
-        for (; s3 < r3; ) {
-          let r4 = n3[s3];
-          var o3;
-          if (!(o3 = e2)) {
-            e:
-              switch (r4) {
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 12:
-                case 8:
-                case 13:
-                  o3 = false;
-                  break e;
-                default:
-                  o3 = true;
-              }
-            o3 = !o3;
-          }
-          o3 || t3.push(r4), s3 = this.executors[r4].execute(n3, s3, o3);
-        }
-      }), this.mutationQueue = [], this.pendingMutations = false, t3;
-    }, this.stringContext = t2, this.nodeContext = n2, this.sanitizer = s2.sanitizer, this.mutationPumpFunction = s2.mutationPump, n2 = p.apply(null, t2 = [t2, n2, r2, o2, s2]), this.executors = {
-      2: d.apply(null, t2),
-      0: h.apply(null, t2),
-      1: g.apply(null, t2),
-      3: f.apply(null, t2),
-      4: a.apply(null, t2),
-      5: c.apply(null, t2),
-      6: n2,
-      7: n2,
-      8: e.apply(null, t2),
-      9: v.apply(null, t2),
-      10: k.apply(null, t2),
-      11: y.apply(null, t2),
-      12: N.apply(null, t2),
-      13: O.apply(null, t2),
-      14: _.apply(null, t2)
-    };
-  }
-  mutate(e2, t2, n2, r2) {
-    this.stringContext.storeValues(n2), this.nodeContext.createNodes(t2, this.sanitizer), this.mutationQueue = this.mutationQueue.concat(r2), this.pendingMutations || (this.pendingMutations = true, this.mutationPumpFunction(this.syncFlush, e2));
-  }
-};
-__name(E, "E");
-var T = class {
+__name(normalizeConfiguration, "normalizeConfiguration");
+
+// js/worker-dom/src/main-thread/nodes.ts
+init_define_process();
+
+// js/worker-dom/src/main-thread/strings.ts
+init_define_process();
+var StringContext = class {
   constructor() {
     this.strings = [];
   }
-  get(e2) {
-    return this.strings[e2] || "";
+  get(index) {
+    return this.strings[index] || "";
   }
-  hasIndex(e2) {
-    return void 0 !== this.strings[e2];
+  hasIndex(index) {
+    return this.strings[index] !== void 0;
   }
-  store(e2) {
-    return this.strings.push(e2), this.strings.length - 1;
+  store(value) {
+    this.strings.push(value);
+    return this.strings.length - 1;
   }
-  storeValues(e2) {
-    e2.forEach((e3) => this.store(e3));
+  storeValues(values) {
+    values.forEach((v) => this.store(v));
   }
 };
-__name(T, "T");
-var M = [8, 3];
-function S(e2, t2, n2, r2) {
-  var s2 = [].slice.call(e2.childNodes).filter(n2);
-  return s2 = {
-    7: e2._index_,
-    11: 0,
-    0: e2.nodeType,
-    1: t2(e2.localName || e2.nodeName),
-    4: s2.map((e3) => S(e3, t2, n2, r2)),
-    2: [].map.call(
-      e2.attributes || [],
-      (e3) => [t2(e3.namespaceURI || "null"), t2(e3.name), t2(e3.value)]
-    )
-  }, null != e2.namespaceURI && (s2[6] = t2(e2.namespaceURI)), M.includes(e2.nodeType) && null !== e2.textContent && (s2[5] = t2(e2.textContent)), o(r2, e2), i(r2, e2), s2;
-}
-__name(S, "S");
-var U = class {
-  constructor(e2, t2, n2, r2, s2) {
-    this[55] = void 0, this.nodeContext = t2, this.config = s2;
-    let { skeleton: o2, strings: i2 } = function(e3, t3, n3) {
-      t3 = t3.hydrateFilter || (() => true);
-      let r3 = [], s3 = /* @__PURE__ */ new Map();
+__name(StringContext, "StringContext");
+
+// js/worker-dom/src/main-thread/nodes.ts
+var nodeListEach = /* @__PURE__ */ __name((list, callback) => Array.prototype.forEach.call(list, callback), "nodeListEach");
+var BASE_ELEMENT_INDEX = 1;
+var NodeContext = class {
+  constructor(stringContext, baseElement) {
+    this.createNodes = (buffer, sanitizer) => {
+      const nodeBuffer = new Uint16Array(buffer);
+      const nodeBufferLength = nodeBuffer.length;
+      for (let iterator = 0; iterator < nodeBufferLength; iterator += 5 /* End */) {
+        let node;
+        if (nodeBuffer[iterator + 1 /* NodeType */] === 3 /* TEXT_NODE */) {
+          node = document.createTextNode(
+            this.stringContext.get(
+              nodeBuffer[iterator + 3 /* TextContent */]
+            )
+          );
+        } else if (nodeBuffer[iterator + 1 /* NodeType */] === 8 /* COMMENT_NODE */) {
+          node = document.createComment(
+            this.stringContext.get(
+              nodeBuffer[iterator + 3 /* TextContent */]
+            )
+          );
+        } else if (nodeBuffer[iterator + 1 /* NodeType */] === 11 /* DOCUMENT_FRAGMENT_NODE */) {
+          node = document.createDocumentFragment();
+        } else {
+          const nodeName = this.stringContext.get(
+            nodeBuffer[iterator + 2 /* NodeName */]
+          );
+          node = nodeBuffer[iterator + 4 /* Namespace */] !== 0 ? document.createElementNS(
+            this.stringContext.get(
+              nodeBuffer[iterator + 4 /* Namespace */]
+            ),
+            nodeName
+          ) : document.createElement(nodeName);
+          if (sanitizer && !sanitizer.sanitize(node)) {
+            continue;
+          }
+        }
+        this.storeNode(node, nodeBuffer[iterator]);
+      }
+    };
+    this.getNode = (id) => {
+      const node = this.nodes.get(id);
+      if (node && node.nodeName === "BODY") {
+        return this.baseElement;
+      }
+      return node;
+    };
+    this.storeNodes = (node) => {
+      this.storeNode(node, ++this.count);
+      nodeListEach(node.childNodes, (n) => this.storeNodes(n));
+    };
+    this.count = 2;
+    this.stringContext = stringContext;
+    this.nodes = /* @__PURE__ */ new Map([
+      [BASE_ELEMENT_INDEX, baseElement],
+      [2, baseElement]
+    ]);
+    this.baseElement = baseElement;
+    baseElement._index_ = 2;
+    nodeListEach(baseElement.childNodes, (n) => this.storeNodes(n));
+  }
+  storeNode(node, id) {
+    node._index_ = id;
+    this.nodes.set(id, node);
+  }
+};
+__name(NodeContext, "NodeContext");
+
+// js/worker-dom/src/main-thread/object-context.ts
+init_define_process();
+var ObjectContext = class {
+  constructor() {
+    this.objects = /* @__PURE__ */ new Map();
+  }
+  store(id, obj) {
+    this.objects.set(id, obj);
+  }
+  get(id) {
+    const obj = this.objects.get(id);
+    if (obj) {
+      return obj;
+    } else {
+      throw new Error("Object with id (" + id + ") does not exist.");
+    }
+  }
+};
+__name(ObjectContext, "ObjectContext");
+
+// js/worker-dom/src/main-thread/worker.ts
+init_define_process();
+
+// js/worker-dom/src/main-thread/debugging.ts
+init_define_process();
+
+// js/worker-dom/src/main-thread/serialize.ts
+init_define_process();
+
+// js/worker-dom/src/main-thread/commands/event-subscription.ts
+init_define_process();
+var monitoredNodes = /* @__PURE__ */ new Map();
+var shouldTrackChanges = /* @__PURE__ */ __name((node) => node && "value" in node, "shouldTrackChanges");
+var applyDefaultInputListener = /* @__PURE__ */ __name((workerContext, node) => {
+  if (shouldTrackChanges(node) && node.oninput === null) {
+    node.oninput = () => fireValueChange(workerContext, node);
+  }
+}, "applyDefaultInputListener");
+var sendValueChangeOnAttributeMutation = /* @__PURE__ */ __name((workerContext, node) => {
+  if (shouldTrackChanges(node) && !monitoredNodes.get(node)) {
+    new MutationObserver(
+      (mutations) => mutations.map((mutation) => fireValueChange(workerContext, mutation.target))
+    ).observe(node, { attributes: true });
+    monitoredNodes.set(node, true);
+  }
+}, "sendValueChangeOnAttributeMutation");
+var fireValueChange = /* @__PURE__ */ __name((workerContext, node) => workerContext.messageToWorker({
+  [12 /* type */]: 4 /* SYNC */,
+  [40 /* sync */]: {
+    [7 /* index */]: node._index_,
+    [21 /* value */]: node.value
+  }
+}), "fireValueChange");
+var fireResizeChange = /* @__PURE__ */ __name((workerContext, cachedWindowSize) => workerContext.messageToWorker({
+  [12 /* type */]: 5 /* RESIZE */,
+  [40 /* sync */]: cachedWindowSize
+}), "fireResizeChange");
+var createTransferrableTouchList = /* @__PURE__ */ __name((touchList) => Object.values(touchList).map((touch) => [
+  touch.identifier,
+  touch.screenX,
+  touch.screenY,
+  touch.clientX,
+  touch.clientY,
+  touch.pageX,
+  touch.pageY,
+  touch.target._index_
+]), "createTransferrableTouchList");
+var EventSubscriptionProcessor = /* @__PURE__ */ __name((strings, nodeContext, workerContext, objectContext, config) => {
+  const knownListeners = [];
+  const allowedExecution = config.executorsAllowed.includes(
+    4 /* EVENT_SUBSCRIPTION */
+  );
+  let cachedWindowSize = [
+    window.innerWidth,
+    window.innerHeight
+  ];
+  const eventHandler = /* @__PURE__ */ __name((index, preventDefault) => (event) => {
+    if (preventDefault) {
+      event.preventDefault();
+    }
+    if (shouldTrackChanges(event.currentTarget)) {
+      fireValueChange(
+        workerContext,
+        event.currentTarget
+      );
+    } else if (event.type === "resize") {
+      const { innerWidth, innerHeight } = window;
+      if (cachedWindowSize[0] === innerWidth && cachedWindowSize[1] === innerHeight) {
+        return;
+      }
+      cachedWindowSize = [window.innerWidth, window.innerHeight];
+      fireResizeChange(workerContext, cachedWindowSize);
+    }
+    workerContext.messageToWorker({
+      [12 /* type */]: 1 /* EVENT */,
+      [39 /* event */]: {
+        [7 /* index */]: index,
+        [25 /* bubbles */]: event.bubbles,
+        [26 /* cancelable */]: event.cancelable,
+        [27 /* cancelBubble */]: event.cancelBubble,
+        [28 /* currentTarget */]: [
+          event.currentTarget._index_ || 0
+        ],
+        [29 /* defaultPrevented */]: event.defaultPrevented,
+        [30 /* eventPhase */]: event.eventPhase,
+        [31 /* isTrusted */]: event.isTrusted,
+        [32 /* returnValue */]: event.returnValue,
+        [13 /* target */]: [
+          event.target._index_ || 0
+        ],
+        [33 /* timeStamp */]: event.timeStamp,
+        [12 /* type */]: event.type,
+        [35 /* keyCode */]: "keyCode" in event ? event.keyCode : void 0,
+        [60 /* pageX */]: "pageX" in event ? event.pageX : void 0,
+        [61 /* pageY */]: "pageY" in event ? event.pageY : void 0,
+        [65 /* offsetX */]: "offsetX" in event ? event.offsetX : void 0,
+        [66 /* offsetY */]: "offsetY" in event ? event.offsetY : void 0,
+        [62 /* touches */]: "touches" in event ? createTransferrableTouchList(event.touches) : void 0,
+        [63 /* changedTouches */]: "changedTouches" in event ? createTransferrableTouchList(event.changedTouches) : void 0
+      }
+    });
+  }, "eventHandler");
+  const processListenerChange = /* @__PURE__ */ __name((target, addEvent, mutations, iterator) => {
+    const type = strings.get(mutations[iterator]);
+    const eventIndex = mutations[iterator + 1 /* Index */];
+    if (target === nodeContext.baseElement) {
+      if (addEvent) {
+        const preventDefault = Boolean(
+          mutations[iterator + 5 /* WorkerDOMPreventDefault */]
+        );
+        addEventListener(
+          type,
+          knownListeners[eventIndex] = eventHandler(
+            BASE_ELEMENT_INDEX,
+            preventDefault
+          )
+        );
+      } else {
+        removeEventListener(type, knownListeners[eventIndex]);
+      }
+      return;
+    }
+    let inputEventSubscribed = target.oninput !== null;
+    const isChangeEvent = type === "change";
+    if (addEvent) {
+      if (isChangeEvent) {
+        inputEventSubscribed = true;
+        target.onchange = null;
+      }
+      const preventDefault = Boolean(
+        mutations[iterator + 5 /* WorkerDOMPreventDefault */]
+      );
+      target.addEventListener(
+        type,
+        knownListeners[eventIndex] = eventHandler(
+          target._index_,
+          preventDefault
+        )
+      );
+    } else {
+      if (isChangeEvent) {
+        inputEventSubscribed = false;
+      }
+      target.removeEventListener(
+        type,
+        knownListeners[eventIndex]
+      );
+    }
+    if (shouldTrackChanges(target)) {
+      if (!inputEventSubscribed) {
+        applyDefaultInputListener(workerContext, target);
+      }
+      sendValueChangeOnAttributeMutation(
+        workerContext,
+        target
+      );
+    }
+  }, "processListenerChange");
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      const addEventListenerCount = mutations[startPosition + 3 /* AddEventListenerCount */];
+      const removeEventListenerCount = mutations[startPosition + 2 /* RemoveEventListenerCount */];
+      const addEventListenersPosition = startPosition + 4 /* Events */ + removeEventListenerCount * REMOVE_EVENT_SUBSCRIPTION_LENGTH;
+      const endPosition = startPosition + 4 /* Events */ + addEventListenerCount * ADD_EVENT_SUBSCRIPTION_LENGTH + removeEventListenerCount * REMOVE_EVENT_SUBSCRIPTION_LENGTH;
+      if (allowedExecution && allowedMutation) {
+        const targetIndex = mutations[startPosition + 1 /* Target */];
+        const target = nodeContext.getNode(targetIndex);
+        if (target) {
+          let iterator = startPosition + 4 /* Events */;
+          while (iterator < endPosition) {
+            const isRemoveEvent = iterator <= addEventListenersPosition;
+            processListenerChange(target, isRemoveEvent, mutations, iterator);
+            iterator += isRemoveEvent ? REMOVE_EVENT_SUBSCRIPTION_LENGTH : ADD_EVENT_SUBSCRIPTION_LENGTH;
+          }
+        } else {
+          console.error(`getNode(${targetIndex}) is null.`);
+        }
+      }
+      return endPosition;
+    },
+    print(mutations, startPosition) {
+      const addEventListenerCount = mutations[startPosition + 3 /* AddEventListenerCount */];
+      const removeEventListenerCount = mutations[startPosition + 2 /* RemoveEventListenerCount */];
+      const addEventListenersPosition = startPosition + 4 /* Events */ + removeEventListenerCount * REMOVE_EVENT_SUBSCRIPTION_LENGTH;
+      const endPosition = startPosition + 4 /* Events */ + addEventListenerCount * ADD_EVENT_SUBSCRIPTION_LENGTH + removeEventListenerCount * REMOVE_EVENT_SUBSCRIPTION_LENGTH;
+      const targetIndex = mutations[startPosition + 1 /* Target */];
+      const target = nodeContext.getNode(targetIndex);
+      const removedEventListeners = [];
+      const addedEventListeners = [];
+      let iterator = startPosition + 4 /* Events */;
+      while (iterator < endPosition) {
+        const isRemoveEvent = iterator <= addEventListenersPosition;
+        const eventList = isRemoveEvent ? addedEventListeners : removedEventListeners;
+        eventList.push({
+          type: strings.get(mutations[iterator]),
+          index: mutations[iterator + 1]
+        });
+        iterator += isRemoveEvent ? REMOVE_EVENT_SUBSCRIPTION_LENGTH : ADD_EVENT_SUBSCRIPTION_LENGTH;
+      }
       return {
-        skeleton: S(
-          e3,
-          (e4) => {
-            if (s3.has(e4))
-              return s3.get(e4);
-            const t4 = r3.length;
-            return s3.set(e4, t4), r3.push(e4), t4;
-          },
-          t3,
-          n3
-        ),
-        strings: r3
+        target,
+        allowedExecution,
+        removedEventListeners,
+        addedEventListeners
       };
-    }(e2, s2, this);
-    t2 = [];
-    let l2 = [], u2 = W("localStorage"), a2 = W("sessionStorage");
-    for (let n3 in e2.style)
-      t2.push(n3);
-    for (let t3 in e2)
-      t3.startsWith("on") && l2.push(t3);
-    n2 = `'use strict';(function(){${n2}self['window']=self;var workerDOM=WorkerThread.workerDOM;WorkerThread.hydrate(workerDOM.document,${JSON.stringify(i2)},${JSON.stringify(o2)},${JSON.stringify(t2)},${JSON.stringify(l2)},[${window.innerWidth},${window.innerHeight}],${JSON.stringify(u2)},${JSON.stringify(a2)});workerDOM.document[59](this);Object.assign(self,workerDOM);}).call(self);${r2}//# sourceURL=${encodeURI(s2.authorURL)}`, s2.sandbox || (this[55] = new Worker(URL.createObjectURL(new Blob([n2])))), s2.onCreateWorker && s2.onCreateWorker(e2, i2, o2, t2);
+    }
+  };
+}, "EventSubscriptionProcessor");
+
+// js/worker-dom/src/main-thread/serialize.ts
+var NODES_ALLOWED_TO_TRANSMIT_TEXT_CONTENT = [
+  8 /* COMMENT_NODE */,
+  3 /* TEXT_NODE */
+];
+function createHydrateableNode(element, minimizeString, hydrateFilter, workerContext) {
+  const filteredChildNodes = [].slice.call(element.childNodes).filter(
+    hydrateFilter
+  );
+  const hydrated = {
+    [7 /* index */]: element._index_,
+    [11 /* transferred */]: 0 /* FALSE */,
+    [0 /* nodeType */]: element.nodeType,
+    [1 /* localOrNodeName */]: minimizeString(
+      element.localName || element.nodeName
+    ),
+    [4 /* childNodes */]: filteredChildNodes.map((child) => createHydrateableNode(child, minimizeString, hydrateFilter, workerContext)),
+    [2 /* attributes */]: [].map.call(
+      element.attributes || [],
+      (attribute) => [
+        minimizeString(attribute.namespaceURI || "null"),
+        minimizeString(attribute.name),
+        minimizeString(attribute.value)
+      ]
+    )
+  };
+  if (element.namespaceURI != null) {
+    hydrated[6 /* namespaceURI */] = minimizeString(
+      element.namespaceURI
+    );
+  }
+  if (NODES_ALLOWED_TO_TRANSMIT_TEXT_CONTENT.includes(element.nodeType) && element.textContent !== null) {
+    hydrated[5 /* textContent */] = minimizeString(
+      element.textContent
+    );
+  }
+  applyDefaultInputListener(workerContext, element);
+  sendValueChangeOnAttributeMutation(workerContext, element);
+  return hydrated;
+}
+__name(createHydrateableNode, "createHydrateableNode");
+function createHydrateableRootNode(element, config, workerContext) {
+  const hydrateFilter = config.hydrateFilter || (() => true);
+  const strings = [];
+  const stringMap = /* @__PURE__ */ new Map();
+  const storeString = /* @__PURE__ */ __name((value) => {
+    if (stringMap.has(value)) {
+      return stringMap.get(value);
+    }
+    const count = strings.length;
+    stringMap.set(value, count);
+    strings.push(value);
+    return count;
+  }, "storeString");
+  const skeleton = createHydrateableNode(
+    element,
+    storeString,
+    hydrateFilter,
+    workerContext
+  );
+  return { skeleton, strings };
+}
+__name(createHydrateableRootNode, "createHydrateableRootNode");
+
+// js/worker-dom/src/main-thread/iframe-worker.ts
+init_define_process();
+var IframeWorker = class {
+  constructor(url, iframeUrl) {
+    this.url = url;
+    this.iframe = window.document.createElement("iframe");
+    this.iframe.setAttribute("sandbox", "allow-scripts");
+    this.iframe.setAttribute("style", "display:none");
+    this.iframe.setAttribute("src", iframeUrl);
+    this.url = url;
+    this.readyPromise = new Promise((resolve) => {
+      this.readyPromiseResolve = resolve;
+    });
+    this.setupInit();
+    this.proxyFromWorker();
+    window.document.body.appendChild(this.iframe);
+  }
+  setupInit() {
+    const listener = /* @__PURE__ */ __name((event) => {
+      if (event.source != this.iframe.contentWindow) {
+        return;
+      }
+      fetch(this.url.toString()).then((res) => res.text()).then((code) => {
+        const data = event.data;
+        if (data.type == "iframe-ready") {
+          const msg = { type: "init-worker", code };
+          this.iframe.contentWindow.postMessage(msg, "*");
+        } else if (data.type === "worker-ready") {
+          this.readyPromiseResolve();
+          window.removeEventListener("message", listener);
+        }
+      });
+    }, "listener");
+    window.addEventListener("message", listener);
+  }
+  proxyFromWorker() {
+    window.addEventListener("message", (event) => {
+      if (event.source != this.iframe.contentWindow) {
+        return;
+      }
+      const { type, message } = event.data;
+      if (type == "onmessage" && this.onmessage) {
+        this.onmessage({ ...event, data: message });
+      } else if (type === "onerror" && this.onerror) {
+        this.onerror(message);
+      } else if (type === "onmessageerror" && this.onmessageerror) {
+        this.onmessageerror({ ...event, data: message });
+      }
+    });
+  }
+  postMessage(message, transferables) {
+    const msg = { type: "postMessage", message };
+    this.readyPromise.then(() => {
+      this.iframe.contentWindow.postMessage(msg, "*", transferables);
+    });
+  }
+  terminate() {
+    const msg = { type: "terminate" };
+    this.iframe.contentWindow.postMessage(msg, "*");
+    this.iframe.remove();
+  }
+};
+__name(IframeWorker, "IframeWorker");
+
+// js/worker-dom/src/main-thread/worker.ts
+var WorkerContext4 = class {
+  constructor(baseElement, nodeContext, workerDOMScript, authorScript, config) {
+    this.nodeContext = nodeContext;
+    this.config = config;
+    const { skeleton, strings } = createHydrateableRootNode(
+      baseElement,
+      config,
+      this
+    );
+    const cssKeys = [];
+    const globalEventHandlerKeys = [];
+    const localStorageInit = getStorageInit("localStorage");
+    const sessionStorageInit = getStorageInit("sessionStorage");
+    for (const key in baseElement.style) {
+      cssKeys.push(key);
+    }
+    for (const key in baseElement) {
+      if (key.startsWith("on")) {
+        globalEventHandlerKeys.push(key);
+      }
+    }
+    const code = `
+      'use strict';
+      (function(){
+        ${workerDOMScript}
+        self['window'] = self;
+        var workerDOM = WorkerThread.workerDOM;
+        WorkerThread.hydrate(
+          workerDOM.document,
+          ${JSON.stringify(strings)},
+          ${JSON.stringify(skeleton)},
+          ${JSON.stringify(cssKeys)},
+          ${JSON.stringify(globalEventHandlerKeys)},
+          [${window.innerWidth}, ${window.innerHeight}],
+          ${JSON.stringify(localStorageInit)},
+          ${JSON.stringify(sessionStorageInit)}
+        );
+        workerDOM.document[${59 /* observe */}](this);
+        Object.assign(self, workerDOM);
+      }).call(self);
+      ${authorScript}
+      //# sourceURL=${encodeURI(config.authorURL)}`;
+    if (!config.sandbox) {
+      this[55 /* worker */] = new Worker(
+        URL.createObjectURL(new Blob([code]))
+      );
+    } else if (IS_AMP) {
+      this[55 /* worker */] = new IframeWorker(
+        URL.createObjectURL(new Blob([code])),
+        config.sandbox.iframeUrl
+      );
+    }
+    if (false) {
+      console.info(
+        "debug",
+        "hydratedNode",
+        readableHydrateableRootNode(baseElement, config, this)
+      );
+    }
+    if (config.onCreateWorker) {
+      config.onCreateWorker(baseElement, strings, skeleton, cssKeys);
+    }
   }
   ready() {
     return this.worker.readyPromise || Promise.resolve();
   }
   get worker() {
-    return this[55];
+    return this[55 /* worker */];
   }
-  messageToWorker(e2, t2) {
-    this.config.onSendMessage && this.config.onSendMessage(e2), this.worker.postMessage(e2, t2 || []);
-  }
-};
-__name(U, "U");
-function W(e2, t2) {
-  try {
-    return t2 ? { storage: t2.getStorage("localStorage" == e2 ? 0 : 1), errorMsg: null } : { storage: window[e2], errorMsg: null };
-  } catch (e3) {
-    return { errorMsg: e3.message, storage: null };
-  }
-}
-__name(W, "W");
-var P = class {
-  constructor() {
-    this.objects = void 0, this.objects = /* @__PURE__ */ new Map();
-  }
-  store(e2, t2) {
-    this.objects.set(e2, t2);
-  }
-  get(e2) {
-    let t2 = this.objects.get(e2);
-    if (t2)
-      return t2;
-    throw Error("Object with id (" + e2 + ") does not exist.");
-  }
-};
-__name(P, "P");
-var L = class {
-  constructor(e2, t2) {
-    this.workerContext_ = e2, this.config = t2;
-  }
-  callFunction(e2, ...t2) {
-    if (!this.config.executorsAllowed.includes(13)) {
-      throw Error(
-        `[worker-dom]: Error calling ${e2}. You must enable the FUNCTION_CALL executor within the config.`
+  messageToWorker(message, transferables) {
+    if (false) {
+      console.info(
+        "debug",
+        "messageToWorker",
+        readableMessageToWorker(this.nodeContext, message)
       );
     }
-    let { promise: n2, index: r2 } = function() {
-      let e3, t3, n3 = new Promise((n4, r4) => {
-        e3 = n4, t3 = r4;
-      });
-      C >= Number.MAX_VALUE && (C = 0);
-      let r3 = C++;
-      return A[r3] = { promise: n3, resolve: e3, reject: t3 }, { promise: n3, index: r3 };
-    }();
-    return e2 = { 12: 12, 77: e2, 78: JSON.stringify(t2), 7: r2 }, this.workerContext_.messageToWorker(e2), n2;
+    if (this.config.onSendMessage) {
+      this.config.onSendMessage(message);
+    }
+    this.worker.postMessage(message, transferables || []);
   }
-  set onerror(e2) {
-    this.workerContext_.worker.onerror = e2;
+};
+__name(WorkerContext4, "WorkerContext");
+55 /* worker */;
+function getStorageInit(type, sanitizer) {
+  try {
+    if (!sanitizer) {
+      return { storage: window[type], errorMsg: null };
+    }
+    return {
+      storage: sanitizer.getStorage(
+        type == "localStorage" ? 0 /* Local */ : 1 /* Session */
+      ),
+      errorMsg: null
+    };
+  } catch (err) {
+    return { errorMsg: err.message, storage: null };
+  }
+}
+__name(getStorageInit, "getStorageInit");
+
+// js/worker-dom/src/main-thread/commands/function.ts
+var fnCallCount = 0;
+var promiseMap = {};
+function registerPromise() {
+  let resolve;
+  let reject;
+  const promise = new Promise((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  if (fnCallCount >= Number.MAX_VALUE) {
+    fnCallCount = 0;
+  }
+  const index = fnCallCount++;
+  promiseMap[index] = { promise, resolve, reject };
+  return { promise, index };
+}
+__name(registerPromise, "registerPromise");
+var FunctionProcessor = /* @__PURE__ */ __name((strings, nodeContext, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    13 /* FUNCTION_CALL */
+  );
+  return {
+    execute(mutations, startPosition) {
+      if (allowedExecution) {
+        const status = mutations[startPosition + 1 /* Status */];
+        const index = mutations[startPosition + 2 /* Index */];
+        const value = mutations[startPosition + 3 /* Value */];
+        const parsed = strings.hasIndex(value) ? JSON.parse(strings.get(value)) : void 0;
+        if (status === 1 /* RESOLVE */) {
+          promiseMap[index].resolve(parsed);
+        } else {
+          promiseMap[index].reject(parsed);
+        }
+        delete promiseMap[index];
+      }
+      return startPosition + 4 /* End */;
+    },
+    print(mutations, startPosition) {
+      const status = mutations[startPosition + 1 /* Status */];
+      const index = mutations[startPosition + 2 /* Index */];
+      const value = mutations[startPosition + 3 /* Value */];
+      return {
+        type: "FUNCTION_INVOCATION",
+        status,
+        index,
+        value: strings.get(value),
+        allowedExecution
+      };
+    }
+  };
+}, "FunctionProcessor");
+
+// js/worker-dom/src/main-thread/exported-worker.ts
+var ExportedWorker = class {
+  constructor(workerContext, config) {
+    this.workerContext_ = workerContext;
+    this.config = config;
+  }
+  callFunction(functionIdentifer, ...functionArguments) {
+    if (!this.config.executorsAllowed.includes(
+      13 /* FUNCTION_CALL */
+    )) {
+      throw new Error(
+        `[worker-dom]: Error calling ${functionIdentifer}. You must enable the FUNCTION_CALL executor within the config.`
+      );
+    }
+    const { promise, index } = registerPromise();
+    const msg = {
+      [12 /* type */]: 12 /* FUNCTION */,
+      [77 /* functionIdentifier */]: functionIdentifer,
+      [78 /* functionArguments */]: JSON.stringify(functionArguments),
+      [7 /* index */]: index
+    };
+    this.workerContext_.messageToWorker(msg);
+    return promise;
+  }
+  set onerror(handler) {
+    this.workerContext_.worker.onerror = handler;
   }
   terminate() {
     this.workerContext_.worker.terminate();
   }
 };
-__name(L, "L");
-var R = [3, 2];
-function j(e2, n2) {
-  return function(e3, n3, s2) {
-    var o2 = n3.dataset.shadowDom;
-    if ("open" === o2 || "closed" === o2) {
-      o2 = n3.attachShadow({ mode: o2 });
-      let e4 = n3.cloneNode(true);
-      o2.appendChild(e4), n3 = e4;
-    }
-    let i2 = new T(), l2 = new P(), u2 = new r(i2, n3), a2 = function(e4) {
-      return Object.assign({}, {
-        mutationPump: requestAnimationFrame.bind(null),
-        executorsAllowed: t
-      }, e4);
-    }(s2);
-    return e3.then(([e4, t2]) => {
-      if (e4 && t2 && s2.authorURL) {
-        let r2 = new U(n3, u2, e4, t2, a2), o3 = new E(i2, u2, r2, a2, l2);
-        return r2.worker.onmessage = (e5) => {
-          let { data: t3 } = e5;
-          R.includes(t3[12]) && (o3.mutate(t3[54], t3[37], t3[41], new Uint16Array(t3[36])), s2.onReceiveMessage) && s2.onReceiveMessage(e5);
-        }, r2.ready().then(() => new L(r2, a2));
-      }
-      return null;
-    });
-  }(
-    Promise.all([
-      fetch(n2.domURL).then((e3) => e3.text()),
-      fetch(n2.authorURL).then((e3) => e3.text())
-    ]),
-    e2,
-    n2
+__name(ExportedWorker, "ExportedWorker");
+
+// js/worker-dom/src/main-thread/install.ts
+init_define_process();
+
+// js/worker-dom/src/main-thread/mutator.ts
+init_define_process();
+
+// js/worker-dom/src/main-thread/commands/attribute.ts
+init_define_process();
+var AttributeProcessor = /* @__PURE__ */ __name((strings, nodes, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    0 /* ATTRIBUTES */
   );
+  const getValue = /* @__PURE__ */ __name((mutations, startPosition) => {
+    const value = mutations[startPosition + 4 /* Value */];
+    return value !== 0 ? strings.get(value - 1) : null;
+  }, "getValue");
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation) {
+        const targetIndex = mutations[startPosition + 1 /* Target */];
+        const target = nodes.getNode(targetIndex);
+        const attributeName = strings.get(
+          mutations[startPosition + 2 /* Name */]
+        );
+        const value = getValue(mutations, startPosition);
+        if (target) {
+          if (attributeName != null) {
+            if (config.sanitizer) {
+              const mutated = config.sanitizer.setAttribute(
+                target,
+                attributeName,
+                value
+              );
+              if (!mutated) {
+              }
+            } else {
+              if (value == null) {
+                target.removeAttribute(attributeName);
+              } else {
+                target.setAttribute(attributeName, value);
+              }
+            }
+          }
+        } else {
+          console.error(`ATTR_LIST: getNode(${targetIndex}) is null.`);
+        }
+      }
+      return startPosition + 5 /* End */;
+    },
+    print(mutations, startPosition) {
+      const targetIndex = mutations[startPosition + 1 /* Target */];
+      const target = nodes.getNode(targetIndex);
+      const attributeName = strings.get(
+        mutations[startPosition + 2 /* Name */]
+      );
+      const value = getValue(mutations, startPosition);
+      return {
+        target,
+        allowedExecution,
+        attributeName,
+        value,
+        remove: value == null
+      };
+    }
+  };
+}, "AttributeProcessor");
+
+// js/worker-dom/src/main-thread/commands/bounding-client-rect.ts
+init_define_process();
+var BoundingClientRectProcessor = /* @__PURE__ */ __name((strings, nodes, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    5 /* GET_BOUNDING_CLIENT_RECT */
+  );
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation) {
+        const targetIndex = mutations[startPosition + 1 /* Target */];
+        const target = nodes.getNode(targetIndex);
+        if (target) {
+          const boundingRect = target.getBoundingClientRect();
+          workerContext.messageToWorker({
+            [12 /* type */]: 6 /* GET_BOUNDING_CLIENT_RECT */,
+            [13 /* target */]: [target._index_],
+            [38 /* data */]: [
+              boundingRect.top,
+              boundingRect.right,
+              boundingRect.bottom,
+              boundingRect.left,
+              boundingRect.width,
+              boundingRect.height
+            ]
+          });
+        } else {
+          console.error(
+            `GET_BOUNDING_CLIENT_RECT: getNode(${targetIndex}) is null.`
+          );
+        }
+      }
+      return startPosition + 2 /* End */;
+    },
+    print(mutations, startPosition) {
+      const targetIndex = mutations[startPosition + 1 /* Target */];
+      const target = nodes.getNode(targetIndex);
+      return {
+        type: "GET_BOUNDING_CLIENT_RECT",
+        target,
+        allowedExecution
+      };
+    }
+  };
+}, "BoundingClientRectProcessor");
+
+// js/worker-dom/src/main-thread/commands/character-data.ts
+init_define_process();
+var CharacterDataProcessor = /* @__PURE__ */ __name((strings, nodes, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    1 /* CHARACTER_DATA */
+  );
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation) {
+        const targetIndex = mutations[startPosition + 1 /* Target */];
+        const target = nodes.getNode(targetIndex);
+        const value = mutations[startPosition + 2 /* Value */];
+        if (target) {
+          if (value) {
+            target.textContent = strings.get(value);
+          }
+        } else {
+          console.error(`CHAR_DATA: getNode(${targetIndex}) is null.`);
+        }
+      }
+      return startPosition + 3 /* End */;
+    },
+    print(mutations, startPosition) {
+      const targetIndex = mutations[startPosition + 1 /* Target */];
+      const target = nodes.getNode(targetIndex);
+      return {
+        target,
+        allowedExecution,
+        value: strings.get(
+          mutations[startPosition + 2 /* Value */]
+        )
+      };
+    }
+  };
+}, "CharacterDataProcessor");
+
+// js/worker-dom/src/main-thread/commands/child-list.ts
+init_define_process();
+var ChildListProcessor = /* @__PURE__ */ __name((strings, { getNode }, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    2 /* CHILD_LIST */
+  );
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      const appendNodeCount = mutations[startPosition + 4 /* AppendedNodeCount */];
+      const removeNodeCount = mutations[startPosition + 5 /* RemovedNodeCount */];
+      if (allowedExecution && allowedMutation) {
+        const targetIndex = mutations[startPosition + 1 /* Target */];
+        const target = getNode(targetIndex);
+        if (target) {
+          if (removeNodeCount > 0) {
+            mutations.slice(
+              startPosition + 6 /* Nodes */ + appendNodeCount,
+              startPosition + 6 /* Nodes */ + appendNodeCount + removeNodeCount
+            ).forEach((removeId) => {
+              const node = getNode(removeId);
+              if (node) {
+                node.remove();
+              } else {
+                console.error(`CHILD_LIST: getNode(${removeId}) is null.`);
+              }
+            });
+          }
+          if (appendNodeCount > 0) {
+            mutations.slice(
+              startPosition + 6 /* Nodes */,
+              startPosition + 6 /* Nodes */ + appendNodeCount
+            ).forEach((addId) => {
+              const nextSibling = mutations[startPosition + 2 /* NextSibling */];
+              const newNode = getNode(addId);
+              if (newNode) {
+                target.insertBefore(
+                  newNode,
+                  nextSibling && getNode(nextSibling) || null
+                );
+                applyDefaultInputListener(workerContext, newNode);
+                sendValueChangeOnAttributeMutation(workerContext, newNode);
+              }
+            });
+          }
+        } else {
+          console.error(`CHILD_LIST: getNode(${targetIndex}) is null.`);
+        }
+      }
+      return startPosition + 6 /* End */ + appendNodeCount + removeNodeCount;
+    },
+    print(mutations, startPosition) {
+      const targetIndex = mutations[startPosition + 1 /* Target */];
+      const target = getNode(targetIndex);
+      const appendNodeCount = mutations[startPosition + 4 /* AppendedNodeCount */];
+      const removeNodeCount = mutations[startPosition + 5 /* RemovedNodeCount */];
+      const removedNodes = Array.from(
+        mutations.slice(
+          startPosition + 6 /* Nodes */ + appendNodeCount,
+          startPosition + 6 /* Nodes */ + appendNodeCount + removeNodeCount
+        )
+      ).map((index) => getNode(index) || index);
+      const addedNodes = Array.from(
+        mutations.slice(
+          startPosition + 6 /* Nodes */,
+          startPosition + 6 /* Nodes */ + appendNodeCount
+        )
+      ).map((index) => getNode(index) || index);
+      return {
+        target,
+        allowedExecution,
+        nextSibling: getNode(
+          mutations[startPosition + 2 /* NextSibling */]
+        ) || null,
+        previousSibling: getNode(
+          mutations[startPosition + 3 /* PreviousSibling */]
+        ) || null,
+        addedNodes,
+        removedNodes
+      };
+    }
+  };
+}, "ChildListProcessor");
+
+// js/worker-dom/src/main-thread/commands/image-bitmap.ts
+init_define_process();
+var ImageBitmapProcessor = /* @__PURE__ */ __name((strings, nodeContext, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    11 /* IMAGE_BITMAP_INSTANCE */
+  );
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation) {
+        const targetIndex = mutations[startPosition + 1 /* Target */];
+        const target = nodeContext.getNode(targetIndex);
+        if (target) {
+          self.createImageBitmap(target).then((imageBitmap) => {
+            workerContext.messageToWorker(
+              {
+                [12 /* type */]: 10 /* IMAGE_BITMAP_INSTANCE */,
+                [73 /* callIndex */]: mutations[startPosition + 2 /* CallIndex */],
+                [38 /* data */]: imageBitmap
+              },
+              [imageBitmap]
+            );
+          });
+        } else {
+          console.error(
+            `IMAGE_BITMAP_INSTANCE: getNode(${targetIndex}) is null.`
+          );
+        }
+      }
+      return startPosition + 3 /* End */;
+    },
+    print(mutations, startPosition) {
+      const targetIndex = mutations[startPosition + 1 /* Target */];
+      const target = nodeContext.getNode(targetIndex);
+      return {
+        type: "IMAGE_BITMAP_INSTANCE",
+        target,
+        allowedExecution,
+        callIndex: mutations[startPosition + 2 /* CallIndex */]
+      };
+    }
+  };
+}, "ImageBitmapProcessor");
+
+// js/worker-dom/src/main-thread/commands/long-task.ts
+init_define_process();
+var LongTaskExecutor = /* @__PURE__ */ __name((stringContext, nodeContext, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    6 /* LONG_TASK_START */
+  );
+  let index = 0;
+  let currentResolver;
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation && config.longTask) {
+        if (mutations[startPosition] === 6 /* LONG_TASK_START */) {
+          index++;
+          if (!currentResolver) {
+            const newResolver = new Promise((resolve) => currentResolver = resolve);
+            Promise.resolve().then(() => config.longTask && config.longTask(newResolver));
+          }
+        } else if (mutations[startPosition] === 7 /* LONG_TASK_END */) {
+          index--;
+          if (currentResolver && index <= 0) {
+            currentResolver();
+            currentResolver = null;
+            index = 0;
+          }
+        }
+      }
+      return startPosition + 2 /* End */;
+    },
+    print(mutations, startPosition) {
+      return {
+        type: ReadableMutationType[mutations[startPosition]],
+        allowedExecution
+      };
+    },
+    get active() {
+      return currentResolver !== null;
+    }
+  };
+}, "LongTaskExecutor");
+
+// js/worker-dom/src/main-thread/commands/object-creation.ts
+init_define_process();
+
+// js/worker-dom/src/main-thread/deserializeTransferrableObject.ts
+init_define_process();
+var f32 = new Float32Array(1);
+var u16 = new Uint16Array(f32.buffer);
+function deserializeTransferrableObject(buffer, offset, count, stringContext, nodeContext, objectContext) {
+  const args = [];
+  for (let i = 0; i < count; i++) {
+    switch (buffer[offset++]) {
+      case 1 /* SmallInt */:
+        args.push(buffer[offset++]);
+        break;
+      case 2 /* Float */:
+        u16[0] = buffer[offset++];
+        u16[1] = buffer[offset++];
+        args.push(f32[0]);
+        break;
+      case 3 /* String */:
+        args.push(stringContext.get(buffer[offset++]));
+        break;
+      case 4 /* Array */:
+        const size = buffer[offset++];
+        const des = deserializeTransferrableObject(
+          buffer,
+          offset,
+          size,
+          stringContext,
+          nodeContext,
+          objectContext
+        );
+        args.push(des.args);
+        offset = des.offset;
+        break;
+      case 5 /* TransferObject */:
+        if (!objectContext) {
+          throw new Error("objectContext not provided.");
+        }
+        args.push(objectContext.get(buffer[offset++]));
+        break;
+      case 6 /* CanvasRenderingContext2D */:
+        const canvas = nodeContext.getNode(
+          buffer[offset++]
+        );
+        args.push(canvas.getContext("2d"));
+        break;
+      case 7 /* HTMLElement */:
+        args.push(nodeContext.getNode(buffer[offset++]));
+        break;
+      default:
+        throw new Error("Cannot deserialize argument.");
+    }
+  }
+  return {
+    args,
+    offset
+  };
 }
-__name(j, "j");
-function upgradeElement(e2, t2) {
-  let n2 = e2.getAttribute("src");
-  return n2 ? j(e2, { authorURL: n2, domURL: t2 }) : Promise.resolve(null);
+__name(deserializeTransferrableObject, "deserializeTransferrableObject");
+
+// js/worker-dom/src/main-thread/commands/object-creation.ts
+var ObjectCreationProcessor = /* @__PURE__ */ __name((strings, nodeContext, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    10 /* OBJECT_CREATION */
+  );
+  if (!objectContext) {
+    throw new Error("objectContext is not defined.");
+  }
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      const functionName = strings.get(
+        mutations[startPosition + 1 /* FunctionName */]
+      );
+      const objectId = mutations[startPosition + 2 /* ObjectId */];
+      const argCount = mutations[startPosition + 3 /* ArgumentCount */];
+      const { offset: targetOffset, args: deserializedTarget } = deserializeTransferrableObject(
+        mutations,
+        startPosition + 4 /* SerializedTarget */,
+        1,
+        strings,
+        nodeContext,
+        objectContext
+      );
+      const target = deserializedTarget[0];
+      const { offset: argsOffset, args } = deserializeTransferrableObject(
+        mutations,
+        targetOffset,
+        argCount,
+        strings,
+        nodeContext,
+        objectContext
+      );
+      if (allowedExecution && allowedMutation) {
+        if (functionName === "new") {
+        } else {
+          objectContext.store(objectId, target[functionName](...args));
+        }
+      }
+      return argsOffset;
+    },
+    print(mutations, startPosition) {
+      const functionName = strings.get(
+        mutations[startPosition + 1 /* FunctionName */]
+      );
+      const objectId = mutations[startPosition + 2 /* ObjectId */];
+      const argCount = mutations[startPosition + 3 /* ArgumentCount */];
+      const { args: deserializedTarget } = deserializeTransferrableObject(
+        mutations,
+        startPosition + 4 /* SerializedTarget */,
+        1,
+        strings,
+        nodeContext,
+        objectContext
+      );
+      const target = deserializedTarget[0];
+      return {
+        type: "OBJECT_CREATION",
+        target,
+        functionName,
+        objectId,
+        argCount,
+        allowedExecution
+      };
+    }
+  };
+}, "ObjectCreationProcessor");
+
+// js/worker-dom/src/main-thread/commands/object-mutation.ts
+init_define_process();
+var ObjectMutationProcessor = /* @__PURE__ */ __name((strings, nodeContext, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    9 /* OBJECT_MUTATION */
+  );
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      const functionName = strings.get(
+        mutations[startPosition + 1 /* FunctionName */]
+      );
+      const argCount = mutations[startPosition + 2 /* ArgumentCount */];
+      const { offset: targetOffset, args: deserializedTarget } = deserializeTransferrableObject(
+        mutations,
+        startPosition + 3 /* SerializedTarget */,
+        1,
+        strings,
+        nodeContext,
+        objectContext
+      );
+      const target = deserializedTarget[0];
+      const { offset: argsOffset, args } = deserializeTransferrableObject(
+        mutations,
+        targetOffset,
+        argCount,
+        strings,
+        nodeContext,
+        objectContext
+      );
+      if (allowedExecution && allowedMutation) {
+        if (isSetter(target, functionName)) {
+          target[functionName] = args[0];
+        } else {
+          target[functionName](...args);
+        }
+      }
+      return argsOffset;
+    },
+    print(mutations, startPosition) {
+      const functionName = strings.get(
+        mutations[startPosition + 1 /* FunctionName */]
+      );
+      const { args: deserializedTarget } = deserializeTransferrableObject(
+        mutations,
+        startPosition + 3 /* SerializedTarget */,
+        1,
+        strings,
+        nodeContext,
+        objectContext
+      );
+      const target = deserializedTarget[0];
+      return {
+        type: "OBJECT_MUTATION",
+        target,
+        functionName,
+        isSetter: isSetter(target, functionName),
+        allowedExecution
+      };
+    }
+  };
+}, "ObjectMutationProcessor");
+function isSetter(object, name) {
+  if (!object) {
+    throw new Error(`Property ${name} does not exist on ${object}.`);
+  }
+  const descriptor = Object.getOwnPropertyDescriptor(object, name);
+  if (descriptor !== void 0) {
+    return "set" in descriptor;
+  }
+  return isSetter(Object.getPrototypeOf(object), name);
+}
+__name(isSetter, "isSetter");
+
+// js/worker-dom/src/main-thread/commands/offscreen-canvas.ts
+init_define_process();
+var OffscreenCanvasProcessor = /* @__PURE__ */ __name((strings, nodeContext, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    8 /* OFFSCREEN_CANVAS_INSTANCE */
+  );
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation) {
+        const targetIndex = mutations[startPosition + 1 /* Target */];
+        const target = nodeContext.getNode(targetIndex);
+        if (target) {
+          const offscreen = target.transferControlToOffscreen();
+          workerContext.messageToWorker(
+            {
+              [12 /* type */]: 9 /* OFFSCREEN_CANVAS_INSTANCE */,
+              [13 /* target */]: [target._index_],
+              [38 /* data */]: offscreen
+            },
+            [offscreen]
+          );
+        } else {
+          console.error(
+            `'OFFSCREEN_CANVAS_INSTANCE': getNode(${targetIndex}) is null.`
+          );
+        }
+      }
+      return startPosition + 2 /* End */;
+    },
+    print(mutations, startPosition, target) {
+      return {
+        type: "OFFSCREEN_CANVAS_INSTANCE",
+        target,
+        allowedExecution
+      };
+    }
+  };
+}, "OffscreenCanvasProcessor");
+
+// js/worker-dom/src/main-thread/commands/property.ts
+init_define_process();
+var PropertyProcessor = /* @__PURE__ */ __name((strings, nodeContext, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    3 /* PROPERTIES */
+  );
+  const getValue = /* @__PURE__ */ __name((mutations, startPosition) => {
+    const value = mutations[startPosition + 4 /* Value */];
+    if (mutations[startPosition + 3 /* IsBoolean */] === 1 /* TRUE */) {
+      return value === 1 /* TRUE */;
+    }
+    if (value !== 0) {
+      return strings.get(value);
+    }
+    return null;
+  }, "getValue");
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation) {
+        const targetIndex = mutations[startPosition + 1 /* Target */];
+        const target = nodeContext.getNode(targetIndex);
+        const name = strings.get(
+          mutations[startPosition + 2 /* Name */]
+        );
+        const value = getValue(mutations, startPosition);
+        if (target) {
+          if (name && value != null) {
+            if (config.sanitizer) {
+              const mutated = config.sanitizer.setProperty(
+                target,
+                name,
+                String(value)
+              );
+              if (!mutated) {
+              }
+            } else {
+              target[name] = value;
+            }
+          }
+        } else {
+          console.error(`PROPERTY: getNode(${targetIndex}) is null.`);
+        }
+      }
+      return startPosition + 5 /* End */;
+    },
+    print(mutations, startPosition) {
+      const targetIndex = mutations[startPosition + 1 /* Target */];
+      const target = nodeContext.getNode(targetIndex);
+      const name = strings.get(
+        mutations[startPosition + 2 /* Name */]
+      );
+      const value = getValue(mutations, startPosition);
+      return {
+        target,
+        name,
+        value,
+        allowedExecution
+      };
+    }
+  };
+}, "PropertyProcessor");
+
+// js/worker-dom/src/main-thread/commands/scroll-into-view.ts
+init_define_process();
+var ScrollIntoViewProcessor = /* @__PURE__ */ __name((strings, nodes, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    14 /* SCROLL_INTO_VIEW */
+  );
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation) {
+        const targetIndex = mutations[startPosition + 1 /* Target */];
+        const target = nodes.getNode(targetIndex);
+        if (target) {
+          target.scrollIntoView();
+        } else {
+          console.error(`SCROLL_INTO_VIEW: getNode(${targetIndex}) is null.`);
+        }
+      }
+      return startPosition + 2 /* End */;
+    },
+    print(mutations, startPosition) {
+      const targetIndex = mutations[startPosition + 1 /* Target */];
+      const target = nodes.getNode(targetIndex);
+      return {
+        type: "SCROLL_INTO_VIEW",
+        target,
+        allowedExecution
+      };
+    }
+  };
+}, "ScrollIntoViewProcessor");
+
+// js/worker-dom/src/main-thread/commands/storage.ts
+init_define_process();
+var StorageProcessor = /* @__PURE__ */ __name((strings, nodeContext, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(
+    12 /* STORAGE */
+  );
+  const get = /* @__PURE__ */ __name((location2, key) => {
+    if (config.sanitizer && location2 === 2 /* AmpState */) {
+      config.sanitizer.getStorage(location2, key).then((value) => {
+        const message = {
+          [12 /* type */]: 11 /* GET_STORAGE */,
+          [74 /* storageKey */]: key,
+          [75 /* storageLocation */]: location2,
+          [21 /* value */]: value
+        };
+        workerContext.messageToWorker(message);
+      });
+    } else {
+      console.error(
+        `STORAGE: Sanitizer not found or unsupported location:`,
+        location2
+      );
+    }
+  }, "get");
+  const set = /* @__PURE__ */ __name((location2, key, value) => {
+    if (config.sanitizer) {
+      config.sanitizer.setStorage(location2, key, value);
+    } else {
+      let storage;
+      if (location2 === 0 /* Local */) {
+        storage = window.localStorage;
+      } else if (location2 === 1 /* Session */) {
+        storage = window.sessionStorage;
+      }
+      if (storage) {
+        if (key == null) {
+          if (value == null) {
+            storage.clear();
+          } else {
+            throw new Error("Unexpected storage operation.");
+          }
+        } else {
+          if (value == null) {
+            storage.removeItem(key);
+          } else {
+            storage.setItem(key, value);
+          }
+        }
+      } else {
+        console.error(`STORAGE: Unexpected location: "${location2}".`);
+      }
+    }
+  }, "set");
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation) {
+        const operation = mutations[startPosition + 1 /* Operation */];
+        const location2 = mutations[startPosition + 2 /* Location */];
+        const keyIndex = mutations[startPosition + 3 /* Key */];
+        const valueIndex = mutations[startPosition + 4 /* Value */];
+        const key = keyIndex > 0 ? strings.get(keyIndex - 1) : "";
+        const value = valueIndex > 0 ? strings.get(valueIndex - 1) : null;
+        if (operation === 1 /* GET */) {
+          get(location2, key);
+        } else if (operation === 2 /* SET */) {
+          set(location2, key, value);
+        }
+      }
+      return startPosition + 5 /* End */;
+    },
+    print(mutations, startPosition) {
+      const operation = mutations[startPosition + 1 /* Operation */];
+      const location2 = mutations[startPosition + 2 /* Location */];
+      const keyIndex = mutations[startPosition + 3 /* Key */];
+      const valueIndex = mutations[startPosition + 4 /* Value */];
+      const key = keyIndex > 0 ? strings.get(keyIndex - 1) : null;
+      const value = valueIndex > 0 ? strings.get(valueIndex - 1) : null;
+      return {
+        type: "STORAGE",
+        operation,
+        location: location2,
+        key,
+        value,
+        allowedExecution
+      };
+    }
+  };
+}, "StorageProcessor");
+
+// js/worker-dom/src/main-thread/mutator.ts
+var MutatorProcessor = class {
+  constructor(stringContext, nodeContext, workerContext, config, objectContext) {
+    this.mutationQueue = [];
+    this.pendingMutations = false;
+    this.syncFlush = (allowVisibleMutations = true) => {
+      if (false) {
+        console.group("Mutations");
+      }
+      const disallowedMutations = [];
+      this.mutationQueue.forEach((mutationArray) => {
+        const length = mutationArray.length;
+        let operationStart = 0;
+        while (operationStart < length) {
+          const mutationType = mutationArray[operationStart];
+          const allow = allowVisibleMutations || !isUserVisibleMutation(mutationType);
+          if (!allow) {
+            disallowedMutations.push(mutationType);
+          }
+          const executor = this.executors[mutationType];
+          if (false) {
+            console.log(
+              allow ? "" : "[disallowed]",
+              ReadableMutationType2[mutationType],
+              executor.print(mutationArray, operationStart)
+            );
+          }
+          operationStart = executor.execute(mutationArray, operationStart, allow);
+        }
+      });
+      if (false) {
+        console.groupEnd();
+      }
+      this.mutationQueue = [];
+      this.pendingMutations = false;
+      return disallowedMutations;
+    };
+    this.stringContext = stringContext;
+    this.nodeContext = nodeContext;
+    this.sanitizer = config.sanitizer;
+    this.mutationPumpFunction = config.mutationPump;
+    const args = [
+      stringContext,
+      nodeContext,
+      workerContext,
+      objectContext,
+      config
+    ];
+    const sharedLongTaskProcessor = LongTaskExecutor.apply(null, args);
+    this.executors = {
+      [2 /* CHILD_LIST */]: ChildListProcessor.apply(
+        null,
+        args
+      ),
+      [0 /* ATTRIBUTES */]: AttributeProcessor.apply(
+        null,
+        args
+      ),
+      [1 /* CHARACTER_DATA */]: CharacterDataProcessor.apply(
+        null,
+        args
+      ),
+      [3 /* PROPERTIES */]: PropertyProcessor.apply(
+        null,
+        args
+      ),
+      [4 /* EVENT_SUBSCRIPTION */]: EventSubscriptionProcessor.apply(null, args),
+      [5 /* GET_BOUNDING_CLIENT_RECT */]: BoundingClientRectProcessor.apply(null, args),
+      [6 /* LONG_TASK_START */]: sharedLongTaskProcessor,
+      [7 /* LONG_TASK_END */]: sharedLongTaskProcessor,
+      [8 /* OFFSCREEN_CANVAS_INSTANCE */]: OffscreenCanvasProcessor.apply(null, args),
+      [9 /* OBJECT_MUTATION */]: ObjectMutationProcessor.apply(null, args),
+      [10 /* OBJECT_CREATION */]: ObjectCreationProcessor.apply(null, args),
+      [11 /* IMAGE_BITMAP_INSTANCE */]: ImageBitmapProcessor.apply(null, args),
+      [12 /* STORAGE */]: StorageProcessor.apply(null, args),
+      [13 /* FUNCTION_CALL */]: FunctionProcessor.apply(
+        null,
+        args
+      ),
+      [14 /* SCROLL_INTO_VIEW */]: ScrollIntoViewProcessor.apply(null, args)
+    };
+  }
+  mutate(phase, nodes, stringValues, mutations) {
+    this.stringContext.storeValues(stringValues);
+    this.nodeContext.createNodes(nodes, this.sanitizer);
+    this.mutationQueue = this.mutationQueue.concat(mutations);
+    if (!this.pendingMutations) {
+      this.pendingMutations = true;
+      this.mutationPumpFunction(this.syncFlush, phase);
+    }
+  }
+};
+__name(MutatorProcessor, "MutatorProcessor");
+
+// js/worker-dom/src/main-thread/install.ts
+var ALLOWABLE_MESSAGE_TYPES = [3 /* MUTATE */, 2 /* HYDRATE */];
+function fetchAndInstall(baseElement, config) {
+  const fetchPromise = Promise.all([
+    fetch(config.domURL).then((response) => response.text()),
+    fetch(config.authorURL).then((response) => response.text())
+  ]);
+  return install(fetchPromise, baseElement, config);
+}
+__name(fetchAndInstall, "fetchAndInstall");
+function install(fetchPromise, baseElement, config) {
+  const mode = baseElement.dataset["shadowDom"];
+  if (mode === "open" || mode === "closed") {
+    const shadowRoot = baseElement.attachShadow({ mode });
+    const clonedElement = baseElement.cloneNode(true);
+    shadowRoot.appendChild(clonedElement);
+    baseElement = clonedElement;
+  }
+  const stringContext = new StringContext();
+  const objectContext = new ObjectContext();
+  const nodeContext = new NodeContext(stringContext, baseElement);
+  const normalizedConfig = normalizeConfiguration(config);
+  return fetchPromise.then(([domScriptContent, authorScriptContent]) => {
+    if (domScriptContent && authorScriptContent && config.authorURL) {
+      const workerContext = new WorkerContext4(
+        baseElement,
+        nodeContext,
+        domScriptContent,
+        authorScriptContent,
+        normalizedConfig
+      );
+      const mutatorContext = new MutatorProcessor(
+        stringContext,
+        nodeContext,
+        workerContext,
+        normalizedConfig,
+        objectContext
+      );
+      workerContext.worker.onmessage = (message) => {
+        const { data } = message;
+        if (!ALLOWABLE_MESSAGE_TYPES.includes(data[12 /* type */])) {
+          return;
+        }
+        mutatorContext.mutate(
+          data[54 /* phase */],
+          data[37 /* nodes */],
+          data[41 /* strings */],
+          new Uint16Array(data[36 /* mutations */])
+        );
+        if (config.onReceiveMessage) {
+          config.onReceiveMessage(message);
+        }
+      };
+      return workerContext.ready().then(() => new ExportedWorker(workerContext, normalizedConfig));
+    }
+    return null;
+  });
+}
+__name(install, "install");
+
+// js/worker-dom/src/main-thread/index.ts
+function upgradeElement(baseElement, domURL) {
+  const authorURL = baseElement.getAttribute("src");
+  if (authorURL) {
+    return fetchAndInstall(baseElement, {
+      authorURL,
+      domURL
+    });
+  }
+  return Promise.resolve(null);
 }
 __name(upgradeElement, "upgradeElement");
 
@@ -6118,16 +7205,16 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         return;
       if (modz[cs] !== counter)
         return;
-      const { html, css: css2, i: i2, transpiled } = MST;
-      if (i2 > modz[cs])
-        modz[cs] = i2;
-      const counterLength = `/*${i2}*/`.length;
-      if (i2 > counter)
-        return createIframe(cs, i2);
+      const { html, css: css2, i, transpiled } = MST;
+      if (i > modz[cs])
+        modz[cs] = i;
+      const counterLength = `/*${i}*/`.length;
+      if (i > counter)
+        return createIframe(cs, i);
       const c2 = +transpiled.slice(-counterLength).split("*")[1];
       if (c2 > modz[cs])
         modz[cs] = c2;
-      if (c2 > i2)
+      if (c2 > i)
         return createIframe(cs, c2);
       if (signal.aborted)
         return;
@@ -6198,7 +7285,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
       if (signal.aborted)
         return;
       requestAnimationFrame(
-        () => !signal.aborted && build(cs, counter, signal).then((x2) => x2 && setIframe(createJsBlob(x2)))
+        () => !signal.aborted && build(cs, counter, signal).then((x) => x && setIframe(createJsBlob(x)))
       );
       res(iframe);
       return iframe;
@@ -6231,10 +7318,10 @@ async function runInWorker(nameSpace, _parent) {
       return false;
     div.setAttribute;
     div.setAttribute("data-shadow-dom", "open");
-    const w2 = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
-    if (w2 === null)
+    const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+    if (w === null)
       throw new Error("No worker");
-    worker = w2;
+    worker = w;
     lastSuccessful = current;
   });
 }
@@ -6251,11 +7338,11 @@ bc.onmessage = (event) => {
   }
 };
 async function moveToWorker(nameSpace, parent2) {
-  const { i: i2 } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
+  const { i } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
   const div2 = document.getElementById(`root-${codeSpace2}`);
   div2.style.height = "100%";
   const cont = new AbortController();
-  const js = await build(codeSpace2, i2, cont.signal);
+  const js = await build(codeSpace2, i, cont.signal);
   if (!js)
     return false;
   const src = createJsBlob(js);

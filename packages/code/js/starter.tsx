@@ -9,8 +9,8 @@ import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
-import { upgradeElement } from "./worker-dom/dist/main.mjs";
 import type { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
+import { upgradeElement } from "./worker-dom/src/main-thread/index";
 
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
 const abortz: { [key: string]: () => void } = {};
