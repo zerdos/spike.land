@@ -5370,10 +5370,7 @@ var define2 = {
 };
 var lastbuild;
 var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
-  if (lastbuild) {
-    lastbuild = await lastbuild.rebuild();
-    return lastbuild.outputFiles[0].contents;
-  }
+  lastbuild = await lastbuild.rebuild();
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -5388,7 +5385,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     metafile: true,
     incremental: true,
     format: "esm",
-    entryPoints: [`./live/${codeSpace2}/render.tsx`],
+    entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`],
     define: define2,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin]
