@@ -5,12 +5,14 @@
 // import 'css-paint-polyfill
 import AVLTree from "avl";
 import debounce from "lodash.debounce";
+
 import adapter from "webrtc-adapter";
 import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
+
 
 import { renderPreviewWindow } from "renderPreviewWindow";
 import { md5 } from "./md5"; // import { wait } from "wait";
@@ -646,7 +648,10 @@ async function processData(
       };
     };
 
-    rtcConns[target].ondatachannel = (event) => {
+    rtcConns[target].ondatachannel = async (event) => {
+      const cont = new AbortController();
+      const js = build(codeSpace, mST().i, cont.abort);
+
       users.insert(target);
       // console.//log("Receive Channel Callback");
       const rtcChannel = event.channel;
@@ -656,6 +661,8 @@ async function processData(
       if (
         sendChannel && sendChannel.localStream && sendChannel.localStream.active
       ) {
+        const src = await js;
+        sendChannel.send(JSON.stringify({ mST: mST, bundle: src }));
         sendChannel.localStream.getTracks().forEach((track) => {
           const datachannel = rtcConns[target];
           datachannel.addTrack(track);

@@ -150,6 +150,7 @@ let lastH = "";
 let lastSuccessful = "";
 
 export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
+  if (worker) worker.terminate;
   lastH = hashCode();
   console.log(`last hash: ${lastH}`);
   await mutex.runExclusive(async () => {

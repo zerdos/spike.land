@@ -6211,6 +6211,8 @@ var parent;
 var lastH = "";
 var lastSuccessful = "";
 async function runInWorker(nameSpace, _parent) {
+  if (worker)
+    worker.terminate;
   lastH = hashCode();
   console.log(`last hash: ${lastH}`);
   await mutex.runExclusive(async () => {
@@ -6399,8 +6401,8 @@ function createHTML(code) {
 __name(createHTML, "createHTML");
 
 export {
+  require_browser,
   wait,
-  runner,
   createIframe,
   runInWorker,
   importIt,
@@ -6408,5 +6410,6 @@ export {
   eCaches2 as eCaches,
   AutoUpdateApp,
   appFactory,
-  createJsBlob
+  createJsBlob,
+  runner
 };
