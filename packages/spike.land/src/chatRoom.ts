@@ -303,9 +303,8 @@ export class Code {
           import { ErrorBoundary } from "react-error-boundary";
           import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
       
-      
-        let parent = document.getElementById("root-${codeSpace}");
-        let rootEl =  [...parent.children].find(x=>x.tagName==='DIV');
+      let parent = document.getElementById("root");
+        let rootEl = document.getElementById("root-${codeSpace}");
         
         
         // if (!parent) {  
