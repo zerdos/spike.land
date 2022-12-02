@@ -5284,9 +5284,9 @@ var fetchPlugin = {
       import createCache from "@emotion/cache";
       import { ErrorBoundary } from "react-error-boundary";
       import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
-      document.body.innerHTML = '<div id="root" style="height:100%>
-      <style>${mST().css}</style>${mST().html}
-      </div>';
+      document.body.innerHTML = ${JSON.stringify(`<div id="root" style="height:100%>
+             <style>${mST().css}</style>${mST().html}
+      </div>`)};
 
   let rootEl = document.getElementById("root");
 
