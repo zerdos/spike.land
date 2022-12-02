@@ -29,27 +29,35 @@ const mutex = new Mutex();
 
 export const createIframe = async (cs: string, counter: number) => {
   await mutex.runExclusive(async () => {
-    if (abortz[cs]) (abortz[cs])();
-
-    const controller = new AbortController();
-    const { signal } = controller;
-    abortz[cs] = () => controller.abort();
-
     if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
     return modz[`${cs}-${counter}`] = new Promise(async (res) => {
       if (modz[cs] !== null && modz[cs]! > counter) return;
+      if (abortz[cs]) (abortz[cs])();
+
+      const controller = new AbortController();
+      const { signal } = controller;
+      abortz[cs] = () => controller.abort();
       modz[cs] = counter;
 
       let MST;
       if (cs === codeSpace) MST = mST();
       else {
         const I = counter || mST().i;
+
         MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
       }
 
       if (signal.aborted) return;
       if (modz[cs] !== counter) return;
-      const { html, css, i } = MST;
+      const { html, css, i, transpiled } = MST;
+      if (i > modz[cs]) modz[cs] = i;
+
+      const counterLength = `/*${i}*/`.length;
+
+      if (i > counter) return createIframe(cs, i);
+      const c2 = +transpiled.slice(-counterLength).split("*")[1];
+      if (c2 > modz[cs]) modz[cs] = c2;
+      if (c2 > i) return createIframe(cs, c2);
 
       let code = createJsBlob(``);
 
@@ -106,7 +114,7 @@ export const createIframe = async (cs: string, counter: number) => {
       res(iframe);
       requestAnimationFrame(() =>
         !signal.aborted
-        && build(cs, i).then(x => {
+        && build(cs, i, signal).then(x => {
           if (modz[cs] === i) code = createJsBlob(x);
         }).then(() => !signal.aborted && setIframe())
       );
