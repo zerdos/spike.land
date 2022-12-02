@@ -110,7 +110,7 @@ self.addEventListener("fetch", function(event) {
 
     if (Date.now() - lastChecked > 40_000) {
       lastChecked = Date.now();
-      setTimeout(getCacheName);
+      setTimeout(() => getCacheName());
     }
 
     // if (
