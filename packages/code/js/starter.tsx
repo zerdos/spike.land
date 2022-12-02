@@ -194,13 +194,22 @@ bc.onmessage = (event) => {
 // importShim.addImportMap({ imports: res });
 
 async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
-  const { html, css, i, transpiled } = nameSpace === codeSpace
+  const { html, css, i, transiled } = nameSpace === codeSpace
     ? mST()
     : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = document.createElement("div");
   // div.setAttribute("id", `${codeSpace}-${i}`);
   div.style.height = "100%";
-  parent.innerHTML = `<style>${resetCSS} ${css}</style>${html}`;
+  parent.innerHTML = `<div id="root}" style="height: 100%;">
+  <style>
+  html,body {
+    height: 100%;
+  }
+  ${resetCSS}
+  ${css}
+  </style>
+  <div id="root-${codeSpace}" style="height: 100%;">${html}</div>
+  </div>`;
 
   parent.appendChild(div);
 
