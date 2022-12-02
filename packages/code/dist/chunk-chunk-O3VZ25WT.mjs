@@ -5376,7 +5376,8 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     bundle: true,
     loader: {
       ".js": "tsx",
-      ".css": "css"
+      ".css": "css",
+      ".ttf": "dataurl"
     },
     write: false,
     metafile: true,
