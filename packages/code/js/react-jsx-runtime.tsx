@@ -46,7 +46,7 @@ importShim.addImportMap({ imports: res });
       "./starter.mjs",
     );
 
-    runInWorker(codeSpace, document.getElementById("root-" + codeSpace));
+    runInWorker(codeSpace, document.getElementById("root"));
   } else if (location.pathname.includes(`/live/${codeSpace}/`)) {
     const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
 
