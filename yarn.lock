@@ -4556,7 +4556,7 @@ __metadata:
   resolution: "localforage@npm:1.10.0"
   dependencies:
     lie: "npm:3.1.1"
-  checksum: f1132878f579bf455dd6ae05d76ea2bb45d6d99c58ce262b0e26c3b1c0c1192625fa28e24d850f3446ffa8319dd456f9d949c0d52edcddb23ea9d75aaf5a557b
+  checksum: d1c580975f5a6c0fec00cb181b61078d70825fc23297b5993a1b7280ac5a3e58f63eea305f837f8e4051524e63a3565c5c455e41d127f6f3e8e28a58045b3a5e
   languageName: node
   linkType: hard
 
