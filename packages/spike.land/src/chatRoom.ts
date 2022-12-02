@@ -303,13 +303,10 @@ export class Code {
           import { ErrorBoundary } from "react-error-boundary";
           import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
           
-          document.body.innerHTML = ${
-              JSON.stringify(
-                `<div id="root"></div>`,
-              )
-            };
+          document.body.innerHTML = '<div id="root"></div>';
 
       let rootEl = document.getElementById("root");
+
       rootEl.innerHTML="";
        
       const root = createRoot(rootEl);
@@ -322,7 +319,7 @@ export class Code {
       
        cache.compat = undefined;
       
-      root.render( <ErrorBoundary
+      root.render(<ErrorBoundary
         fallbackRender={({ error }) => (
           <div role="alert">
             <div>Oh no</div>
