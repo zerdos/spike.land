@@ -72,11 +72,11 @@ const define = {
 
 let lastbuild;
 const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
-  if (lastbuild) {
+  // if (lastbuild) {
     lastbuild = await lastbuild.rebuild();
 
-    return lastbuild.outputFiles![0].contents;
-  }
+    // return lastbuild.outputFiles![0].contents;
+  // }
   const initFinished = mod.initialize();
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
@@ -91,7 +91,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     write: false,
     metafile: true,
     incremental: true,
-    format: "iife",
+    format: "esm",
     entryPoints: [`./live/${codeSpace}/render.tsx`],
     define,
     tsconfig: "./tsconfig.json",
