@@ -6276,10 +6276,7 @@ function createJsBlob(code, fileName = "index.mjs") {
 __name(createJsBlob, "createJsBlob");
 function createHTML(code, fileName = "index.html") {
   return URL.createObjectURL(
-    new File([code], fileName, {
-      type: "text/html;charser=UTF-8",
-      lastModified: Date.now()
-    })
+    new Blob([code], fileName, { type: "text/html" })
   );
 }
 __name(createHTML, "createHTML");
