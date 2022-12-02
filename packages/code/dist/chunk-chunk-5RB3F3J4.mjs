@@ -7489,7 +7489,6 @@ __name(createHTML, "createHTML");
 
 export {
   wait,
-  runner,
   createIframe,
   runInWorker,
   importIt,
@@ -7497,5 +7496,7 @@ export {
   eCaches2 as eCaches,
   AutoUpdateApp,
   appFactory,
-  createJsBlob
+  createJsBlob,
+  runner,
+  build
 };

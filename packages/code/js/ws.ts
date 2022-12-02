@@ -5,8 +5,8 @@
 // import 'css-paint-polyfill
 import AVLTree from "avl";
 import debounce from "lodash.debounce";
-
 import adapter from "webrtc-adapter";
+import { build } from "./esbuildEsm";
 import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
@@ -444,7 +444,7 @@ async function processWsMessage(
   lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
-
+  console.log("WSWSWS", { data });
   processData(data, source, conn);
 }
 
@@ -625,7 +625,7 @@ async function processData(
       const vidElement = document.createElement("video");
       vidElement.autoplay = true;
       vidElement.playsInline = true;
-      let stream = null;
+      let stream;
       if (ev.streams && ev.streams[0]) {
         vidElement.srcObject = ev.streams[0];
         stream = ev.streams[0];

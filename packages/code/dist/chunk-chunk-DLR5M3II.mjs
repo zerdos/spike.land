@@ -1,10 +1,11 @@
 import {
   Editor
-} from "./chunk-chunk-MZ3UE5ZK.mjs";
+} from "./chunk-chunk-ONIEBPB2.mjs";
 import {
   AutoUpdateApp,
+  build,
   wait
-} from "./chunk-chunk-T3DHREVV.mjs";
+} from "./chunk-chunk-5RB3F3J4.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
@@ -3522,7 +3523,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-MLBUQLN2.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-6WH7HWF4.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "div",
   {
@@ -3953,6 +3954,7 @@ var h = {};
 async function processWsMessage(event, source, conn) {
   lastSeenNow = Date.now();
   const data = JSON.parse(event.data);
+  console.log("WSWSWS", { data });
   processData(data, source, conn);
 }
 __name(processWsMessage, "processWsMessage");
@@ -4071,7 +4073,7 @@ async function processData(data, source, conn) {
       const vidElement = document.createElement("video");
       vidElement.autoplay = true;
       vidElement.playsInline = true;
-      let stream = null;
+      let stream;
       if (ev.streams && ev.streams[0]) {
         vidElement.srcObject = ev.streams[0];
         stream = ev.streams[0];
