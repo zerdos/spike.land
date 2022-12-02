@@ -66,8 +66,8 @@ const define = {
 const buildOptions = {
   define,
   target,
-  entryNames: "[dir]/[name]-[hash]",
-  platform: "neutral",
+  //  entryNames: "[dir]/[name]-[hash]",
+  platform: "browser",
 
   external: ["./mST", "/npm:*"],
   legalComments: "none",
@@ -92,7 +92,6 @@ const build = (
   extraExternal = [""],
   watch = false,
   format = "esm",
-  keepEntryNames = false,
 ) =>
   esbuild.build({
     ...buildOptions,
@@ -124,7 +123,7 @@ const build = (
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     assetNames: "chunk-[name]-[hash]",
-    ...(keepEntryNames ? { entryNames: "[name]" } : { entryNames: "chunk-[name]-[hash]" }),
+    // ...(!keepEntryNames ? {en} : { entryNames: "chunk-[name]-[hash]" }),
     // EntryNames: "[name]-[hash]",
     resolveExtensions: [
       ".tsx",
@@ -254,6 +253,7 @@ const build = (
 
   await build(
     [
+      "js/session.ts",
       // "js/prettierWorker.mjs",
       "js/load.ts",
       // "js/reactMod.ts",
@@ -283,17 +283,17 @@ const build = (
   );
   console.log("done");
 
-  await build(
-    [
-      "js/session.ts",
-    ],
-    [ // "react",
-      //  "react-dom", "react-dom/client"//, "@emotion/react", "@emotion/react/jsx-runtime", "framer-motion"
-    ],
-    false,
-    "esm",
-    true,
-  );
+  // await build(
+  //   [
+  //     // "js/session.ts",
+  //   // ],
+  //   [ // "react",
+  //     //  "react-dom", "react-dom/client"//, "@emotion/react", "@emotion/react/jsx-runtime", "framer-motion"
+  //   ],
+  //   false,
+  //   "esm",
+  //   true,
+  // );
   // const {host, port} = serveRES;
   // const url = `http://[${host}]:${port}`;
   // open(url);

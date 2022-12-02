@@ -10,7 +10,7 @@ import type { Delta } from "@spike.land/code/js/session";
 import { CodeEnv } from "./env";
 // import importMap from "@spike.land/code/js/importmap.json";
 import AVLTree from "avl";
-import { imap as imapNoOrigin } from "./chat";
+import { imap } from "./chat";
 // import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
@@ -294,29 +294,20 @@ export class Code {
           });
         case "render.tsx": {
           const codeSpace = this.codeSpace;
+          const k = hashCode();
 
           const src = importMapReplace(
             `import {createRoot} from "react-dom/client"
           import { CacheProvider } from "@emotion/react";
           import createCache from "@emotion/cache";
           import { ErrorBoundary } from "react-error-boundary";
-          import App from "${url.origin}/live/${codeSpace}/index.js/${i}";
+          import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
           
-          document.body.innerHTML= ${
-              JSON.stringify(`<div id="root" style="height: 100%;">
-            <style>
-            ${css}
-            </style>
-              <div id="root-${codeSpace}" style="height: 100%;">
-                ${html}
-              </div>
-          </div>`)
-            }; 
+          document.body.innerHTML = '<div id="root"></div>';
 
+      let rootEl = document.getElementById("root");
 
-      let rootEl = document.createElement("div");
-
-
+      rootEl.innerHTML="";
        
       const root = createRoot(rootEl);
       
@@ -338,14 +329,7 @@ export class Code {
         <CacheProvider value={cache}>
           <App />
         </CacheProvider>
-        </ErrorBoundary>);
-        
-        
-        requestAnimationFrame(()=>{
-          document.getElementById('root-${codeSpace}').replaceWith(rootEl);
-        })
-        
-        `,
+        </ErrorBoundary>);`,
             url.origin,
           );
           return new Response(src, {
@@ -782,8 +766,7 @@ export class Code {
 }
 
 function importMapReplace(codeInp: string, origin: string) {
-  const imap = imapNoOrigin(origin);
-  const items = Object.keys(imap(origin).imports) as (keyof typeof imap.imports)[];
+  const items = Object.keys(imap.imports) as (keyof typeof imap.imports)[];
   let returnStr = codeInp;
 
   items.map((lib: keyof typeof imap.imports) => {
