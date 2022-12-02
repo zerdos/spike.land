@@ -42,9 +42,11 @@ importShim.addImportMap({ imports: res });
   // }
   await (await importShim<{ (): Promise<void> }, {}>(`${location.origin}/load.mjs`)).default();
   if (location.pathname.includes(`/live/${codeSpace}/hydrated`)) {
-    // const { createIframe } = await importShim<{}, { createIframe: (codeSpace: string, counter: number) => void }>("./starter.mjs");
+    const { runInWorker } = await importShim<{}, { runInWorker: (codeSpace: string, element: HTMLElement) => void }>(
+      "./starter.mjs",
+    );
 
-    // createIframe(codeSpace, i);
+    runInWorker(codeSpace, document.getElementById("root"));
   } else if (location.pathname.includes(`/live/${codeSpace}/`)) {
     const { createRoot } = await importShim<{}, typeof ReactDOMClient>("react-dom/client");
 

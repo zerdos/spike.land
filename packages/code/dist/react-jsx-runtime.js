@@ -7994,6 +7994,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }
     await (await importShim(`${location.origin}/load.mjs`)).default();
     if (location.pathname.includes(`/live/${codeSpace}/hydrated`)) {
+      const { runInWorker } = await importShim(
+        "./starter.mjs"
+      );
+      runInWorker(codeSpace, document.getElementById("root"));
     } else if (location.pathname.includes(`/live/${codeSpace}/`)) {
       const { createRoot } = await importShim("react-dom/client");
       const render = /* @__PURE__ */ __name(async () => {
