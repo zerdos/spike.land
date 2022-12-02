@@ -332,7 +332,7 @@ export class Code {
         
         
         requestAnimationFrame(()=>{
-          document.getElementById('root').replaceWith(rootEl);
+          document.getElementById('root-${codeSpace}').replaceWith(rootEl);
         })
         
         `,
