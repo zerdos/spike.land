@@ -1,10 +1,3 @@
-import "core-js/features/url";
-import "core-js/features/string";
-import "core-js/features/self";
-import importMap from "./importmap.json";
-
-import localForage from "localforage";
-
 export type {};
 
 interface MyServiceWorkerScope extends ServiceWorkerGlobalScope {
