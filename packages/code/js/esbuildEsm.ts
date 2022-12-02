@@ -1,4 +1,11 @@
-import { build as esbuildBuild, type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
+import {
+  build as esbuildBuild,
+  type BuildOptions,
+  initialize,
+  serve,
+  transform,
+  type TransformOptions,
+} from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
@@ -104,11 +111,11 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     format: "esm",
     entryPoints: [
       `./live/${codeSpace}/render.tsx?i=${i}`,
-      "./reactDomClient.mjs",
+      // "./reactDomClient.mjs",
       "./emotion.mjs",
-      "./motion.mjs",
+      // "./motion.mjs",
       "./emotionCache.mjs",
-      "./emotionStyled.mjs",
+      // "./emotionStyled.mjs",
       "./reactMod.mjs",
       "./reactDom.mjs",
     ],
@@ -119,7 +126,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
   };
   let b;
   if (
-    !signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted
+    !signal.aborted && (b = await s(defaultOpts)) && !signal.aborted
   ) {
     console.log(b.outputFiles);
 

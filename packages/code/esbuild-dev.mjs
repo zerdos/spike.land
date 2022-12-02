@@ -11,6 +11,7 @@ import { resolve } from "node:path";
 // require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
 import { env, exit } from "process";
+import { NIL } from "uuid";
 // import { wait } from "./js/wait.mjs";
 
 // await esbuild.initialize();
@@ -65,6 +66,7 @@ const define = {
 const buildOptions = {
   define,
   target,
+  entryNames: "[dir]/[name]-[hash]",
   platform: "neutral",
 
   external: ["./mST", "/npm:*"],
@@ -90,6 +92,7 @@ const build = (
   extraExternal = [""],
   watch = false,
   format = "esm",
+  keepEntryNames = false,
 ) =>
   esbuild.build({
     ...buildOptions,
@@ -121,6 +124,7 @@ const build = (
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     assetNames: "chunk-[name]-[hash]",
+    ...(keepEntryNames ? { entryNames: "[name]" } : { entryNames: "chunk-[name]-[hash]" }),
     // EntryNames: "[name]-[hash]",
     resolveExtensions: [
       ".tsx",
@@ -240,6 +244,7 @@ const build = (
     minifyIdentifiers: false, // ! isDevelopment,
     minifySyntax: false, // ! isDevelopment,
     ignoreAnnotations: false,
+
     keepNames: true,
     treeShaking: true,
     platform: "browser",
@@ -249,14 +254,12 @@ const build = (
 
   await build(
     [
-      "js/session.ts",
       // "js/prettierWorker.mjs",
       "js/load.ts",
       // "js/reactMod.ts",
       "js/Editor.tsx",
       // "js/motion.ts",
       "js/ws.ts",
-
       "js/starter.tsx",
       "js/reactMod.ts",
       // "js/Editor.tsx",
@@ -280,6 +283,17 @@ const build = (
   );
   console.log("done");
 
+  await build(
+    [
+      "js/session.ts",
+    ],
+    [ // "react",
+      //  "react-dom", "react-dom/client"//, "@emotion/react", "@emotion/react/jsx-runtime", "framer-motion"
+    ],
+    false,
+    "esm",
+    true,
+  );
   // const {host, port} = serveRES;
   // const url = `http://[${host}]:${port}`;
   // open(url);

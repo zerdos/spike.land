@@ -10,7 +10,7 @@ import type { Delta } from "@spike.land/code/js/session";
 import { CodeEnv } from "./env";
 // import importMap from "@spike.land/code/js/importmap.json";
 import AVLTree from "avl";
-import { imap } from "./chat";
+import { imap as imapNoOrigin } from "./chat";
 // import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
@@ -782,7 +782,8 @@ export class Code {
 }
 
 function importMapReplace(codeInp: string, origin: string) {
-  const items = Object.keys(imap.imports) as (keyof typeof imap.imports)[];
+  const imap = imapNoOrigin(origin);
+  const items = Object.keys(imap(origin).imports) as (keyof typeof imap.imports)[];
   let returnStr = codeInp;
 
   items.map((lib: keyof typeof imap.imports) => {
