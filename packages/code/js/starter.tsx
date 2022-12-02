@@ -67,7 +67,7 @@ export const createIframe = async (cs: string, counter: number) => {
     ${resetCSS}
     ${css}
     </style>
-    <script defer src="${srcJS}"></script> 
+    <script type="module" src="${srcJS}"></script> 
     </head>
     <body>
     <div id="root-${cs}" style="height: 100%;">${html}</div>

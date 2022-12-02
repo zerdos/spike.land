@@ -6033,7 +6033,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
     ${resetCSS}
     ${css2}
     </style>
-    <script defer src="${srcJS}"><\/script> 
+    <script type="module" src="${srcJS}"><\/script> 
     </head>
     <body>
     <div id="root-${cs}" style="height: 100%;">${html}</div>
