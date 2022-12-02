@@ -3523,7 +3523,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-NNJJMYXQ.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-5Y3CUTR7.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "div",
   {
@@ -3952,7 +3952,9 @@ async function join() {
 __name(join, "join");
 var h = {};
 async function processWsMessage(event, source, conn) {
+  console.log({ event });
   lastSeenNow = Date.now();
+  console.log(typeof event.data);
   const data = JSON.parse(event.data);
   console.log("WSWSWS", { data });
   processData(data, source, conn);
