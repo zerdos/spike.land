@@ -304,18 +304,19 @@ export class Code {
           import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
       
       
-        let parent = document.getElementById("${codeSpace}-${i}");
+        let parent = document.getElementById("root-${codeSpace}");
+        let rootEl = parent.firstChild;
       
-        if (!parent) {  
-          parent =  document.createElement("div");
-          parent.setAttribute("id", "${codeSpace}-${i}");
-          document.body.appendChild(parent);
-        }
-        parent.style.height="100%";
-        parent.innerHTML=\`<div id="${codeSpace}-${k}"></div>\`;  
-        const div = document.getElementById("${codeSpace}-${k}");
-        div.style.height="100%";
-        const root = createRoot(div );
+        // if (!parent) {  
+        //   parent = document.createElement("div");
+        //   parent.setAttribute("id", "${codeSpace}-${i}");
+        //   document.body.appendChild(parent);
+        // }
+        // parent.style.height="100%";
+        // parent.innerHTML=\`<div id="${codeSpace}-${k}"></div>\`;  
+        // const div = document.getElementById("${codeSpace}-${k}");
+        // div.style.height="100%";
+        const root = createRoot(rootEl);
       
         const cache = createCache({
           key: "${k}",
