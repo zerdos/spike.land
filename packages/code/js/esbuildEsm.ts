@@ -70,11 +70,11 @@ const define = {
   }),
 };
 
-let lastbuild;
+// let lastbuild;
 const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
   // if (lastbuild) {
-  lastbuild = await lastbuild.rebuild();
-
+  // lastbuild = await lastbuild.rebuild();
+  //
   // return lastbuild.outputFiles![0].contents;
   // }
   const initFinished = mod.initialize();
@@ -97,13 +97,13 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin],
   };
-
+  let b;
   if (
-    !signal.aborted && (lastbuild = await esbuildBuild(defaultOpts)) && !signal.aborted
+    !signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted
   ) {
-    console.log(lastbuild.outputFiles);
+    console.log(b.outputFiles);
 
-    return lastbuild.outputFiles![0].contents;
+    return b.outputFiles![0].contents;
   }
   return false;
 };

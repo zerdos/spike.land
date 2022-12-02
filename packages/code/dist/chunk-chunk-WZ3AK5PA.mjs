@@ -5368,9 +5368,7 @@ var define2 = {
     browser: true
   })
 };
-var lastbuild;
 var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
-  lastbuild = await lastbuild.rebuild();
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -5390,9 +5388,10 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin]
   };
-  if (!signal.aborted && (lastbuild = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
-    console.log(lastbuild.outputFiles);
-    return lastbuild.outputFiles[0].contents;
+  let b2;
+  if (!signal.aborted && (b2 = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
+    console.log(b2.outputFiles);
+    return b2.outputFiles[0].contents;
   }
   return false;
 }, "build");
