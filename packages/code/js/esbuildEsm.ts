@@ -102,7 +102,8 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     splitting: true,
     incremental: true,
     format: "esm",
-    entryPoints: [`./live/${codeSpace}/render.tsx/${i}`],
+    entryPoints: [`./live/${codeSpace}/render.tsx/${i}`, "./react-jsx-runtime.js", "./reactDomClient.mjs"],
+
     define,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin],

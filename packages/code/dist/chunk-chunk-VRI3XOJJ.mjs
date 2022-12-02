@@ -5412,7 +5412,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     splitting: true,
     incremental: true,
     format: "esm",
-    entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`],
+    entryPoints: [`./live/${codeSpace2}/render.tsx/${i2}`, "./react-jsx-runtime.js", "./reactDomClient.mjs"],
     define: define2,
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin]
@@ -6155,7 +6155,7 @@ var bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    if (location.href.indexOf("/hydrated") == false) {
+    if (location.href.indexOf("/hydrated") !== -1) {
       runInWorker(nameSpace, parent);
     } else {
       createIframe(nameSpace, mST().i);

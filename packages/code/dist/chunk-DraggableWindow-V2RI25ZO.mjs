@@ -10,10 +10,10 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-ZJSDQLMS.mjs";
-import "./chunk-chunk-5OV7TB6D.mjs";
+} from "./chunk-chunk-TEHKD67X.mjs";
+import "./chunk-chunk-XFMOF7EL.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
-import "./chunk-chunk-ZMDFUUE6.mjs";
+import "./chunk-chunk-VRI3XOJJ.mjs";
 import "./chunk-chunk-FFMS35Y7.mjs";
 import "./chunk-chunk-TIL35SAU.mjs";
 import {
@@ -64,12 +64,9 @@ var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100];
 var DraggableWindow = /* @__PURE__ */ __name(({
-  children,
   room
 }) => {
   const [scaleRange, changeScaleRange] = (0, import_react3.useState)(100);
-  const zBodyRef = (0, import_react3.useRef)(null);
-  globalThis.zBodyRef = zBodyRef;
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
   const [width, setWidth] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
@@ -77,9 +74,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const videoRef = (0, import_react3.useRef)(null);
   const scale = scaleRange / 100;
   (0, import_react3.useEffect)(() => {
-    if (!zBodyRef.current)
-      return;
-    zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = /* @__PURE__ */ __name(async () => {
       setPositions({
         bottom: window.innerHeight * 0.2,
@@ -258,7 +252,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                         height: height / devicePixelRatio,
                         scale: scaleRange / 100
                       },
-                      ref: zBodyRef,
                       id: "z-body",
                       "data-test-id": "z-body",
                       css: import_react2.css`

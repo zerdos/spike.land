@@ -24,15 +24,14 @@ type DraggableWindowProps = {
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
-    children,
     // OnRestore,
     room,
     // HashCode,
   },
 ) => {
   const [scaleRange, changeScaleRange] = useState(100);
-  const zBodyRef = useRef(null);
-  globalThis.zBodyRef = zBodyRef;
+  // const zBodyRef = useRef(null);
+  // globalThis.zBodyRef = zBodyRef;
 
   const startPositions = { bottom: 0, right: 0 };
 
@@ -67,8 +66,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //  }, [terminalRef]);
 
   useEffect(() => {
-    if (!zBodyRef.current) return;
-    zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
+    // if (!zBodyRef.current) return;
+    // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = async () => {
       setPositions({
         bottom: window.innerHeight * 0.2,
@@ -266,7 +265,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       height: height / devicePixelRatio,
                       scale: scaleRange / 100,
                     }}
-                    ref={zBodyRef}
+                    // ref={zBodyRef}
                     id={"z-body"}
                     data-test-id="z-body"
                     css={css`

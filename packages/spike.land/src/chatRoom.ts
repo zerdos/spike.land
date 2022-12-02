@@ -294,7 +294,6 @@ export class Code {
           });
         case "render.tsx": {
           const codeSpace = this.codeSpace;
-          const k = hashCode();
 
           const src = importMapReplace(
             `import {createRoot} from "react-dom/client"
