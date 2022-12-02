@@ -1,11 +1,4 @@
-import {
-  build as esbuildBuild,
-  type BuildOptions,
-  initialize,
-  rebuild,
-  transform,
-  type TransformOptions,
-} from "esbuild-wasm";
+import { build as esbuildBuild, type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
@@ -90,6 +83,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     },
     write: false,
     metafile: true,
+    target: "es2021",
     outdir: `./dist/${codeSpace}/`,
     treeShaking: true,
     splitting: true,

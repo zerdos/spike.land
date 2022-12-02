@@ -1068,7 +1068,7 @@ var require_browser = __commonJS({
           if (mangleCache)
             request.mangleCache = mangleCache;
           let serve2 = serveOptions && buildServeData(buildKey, sendRequest, sendResponse, refs, requestCallbacks, serveOptions, request);
-          let rebuild2;
+          let rebuild;
           let stop;
           let copyResponseToResult = /* @__PURE__ */ __name((response, result) => {
             if (response.outputFiles)
@@ -1091,9 +1091,9 @@ var require_browser = __commonJS({
                 return callback2(failureErrorWithLog("Build failed", result.errors, result.warnings), null);
               }
               if (response.rebuild) {
-                if (!rebuild2) {
+                if (!rebuild) {
                   let isDisposed = false;
-                  rebuild2 = /* @__PURE__ */ __name(() => new Promise((resolve, reject) => {
+                  rebuild = /* @__PURE__ */ __name(() => new Promise((resolve, reject) => {
                     if (isDisposed || closeData.didClose)
                       throw new Error("Cannot rebuild");
                     sendRequest(
@@ -1114,7 +1114,7 @@ var require_browser = __commonJS({
                     );
                   }), "rebuild");
                   refs.ref();
-                  rebuild2.dispose = () => {
+                  rebuild.dispose = () => {
                     if (isDisposed)
                       return;
                     isDisposed = true;
@@ -1123,7 +1123,7 @@ var require_browser = __commonJS({
                     refs.unref();
                   };
                 }
-                result.rebuild = rebuild2;
+                result.rebuild = rebuild;
               }
               if (response.watch) {
                 if (!stop) {
@@ -5231,7 +5231,7 @@ var esmTransform = /* @__PURE__ */ __name(async (code) => {
         jsxImportSource: "@emotion/react"
       }
     },
-    target: "es2022"
+    target: "es202\xA7"
   });
   Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
   return transpiled.code;
@@ -5381,6 +5381,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     },
     write: false,
     metafile: true,
+    target: "es2021",
     outdir: `./dist/${codeSpace2}/`,
     treeShaking: true,
     splitting: true,

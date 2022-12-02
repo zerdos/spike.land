@@ -34,7 +34,7 @@ export const esmTransform = async (code: string) => {
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "es2022",
+    target: "es202§",
   } as unknown as TransformOptions);
 
   Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
@@ -61,7 +61,7 @@ export const umdTransform = async (code: string) => {
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "es2022",
+    target: "es202§",
   } as unknown as TransformOptions);
 
   Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
