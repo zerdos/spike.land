@@ -56,7 +56,7 @@ export const createIframe = async (cs: string, counter: number) => {
 
       let iframe = document.createElement("iframe");
       const setIframe = (srcJS: string) => {
-        const iSRC = (srcJs: string) =>
+        const iSRC = (srcJS: string) =>
           createHTML(`
         <html> 
     <head>
@@ -67,13 +67,15 @@ export const createIframe = async (cs: string, counter: number) => {
     ${resetCSS}
     ${css}
     </style>
-    <script defer src="${srcJs}"></script> 
+    <script defer src="${srcJS}"></script> 
     </head>
     <body>
     <div id="root-${cs}" style="height: 100%;">${html}</div>
     </body>
     </html>`);
+        iframe.src = iSRC(srcJS);
         if (signal.aborted) return;
+
         setIframe(createJsBlob(`
         `));
 
@@ -160,8 +162,10 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     parent = _parent || parent || document.getElementById("root");
     // if (worker) worker.();
     if (div) div.remove();
-    div = await moveToWorker(nameSpace, parent);
+
+    div = await moveToWorker(nameSpace, parent) || new Error("OO OOO");
     // if (oldDiv) oldDiv.remove();
+    if (!div) return false;
     div.setAttribute("data-shadow-dom", "open");
 
     const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
@@ -200,8 +204,11 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
 
   parent.appendChild(div);
 
-  const js = await build(codeSpace, i);
+  const cont = new AbortController();
 
+  const js = await build(codeSpace, i, cont.signal);
+
+  if (!js) return false;
   const src = createJsBlob(js);
 
   div.setAttribute("src", src);
@@ -421,7 +428,7 @@ export async function appFactory(
   return apps[hash];
 }
 
-export function createJsBlob(code) {
+export function createJsBlob(code: string | Uint8Array) {
   return URL.createObjectURL(
     new Blob([code], {
       type: "application/javascript",

@@ -6021,7 +6021,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         return;
       let iframe = document.createElement("iframe");
       const setIframe = /* @__PURE__ */ __name((srcJS) => {
-        const iSRC = /* @__PURE__ */ __name((srcJs) => createHTML(`
+        const iSRC = /* @__PURE__ */ __name((srcJS2) => createHTML(`
         <html> 
     <head>
     <style>
@@ -6031,12 +6031,13 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
     ${resetCSS}
     ${css2}
     </style>
-    <script defer src="${srcJs}"><\/script> 
+    <script defer src="${srcJS2}"><\/script> 
     </head>
     <body>
     <div id="root-${cs}" style="height: 100%;">${html}</div>
     </body>
     </html>`), "iSRC");
+        iframe.src = iSRC(srcJS);
         if (signal.aborted)
           return;
         setIframe(createJsBlob(`
@@ -6108,7 +6109,9 @@ async function runInWorker(nameSpace, _parent) {
     parent = _parent || parent || document.getElementById("root");
     if (div)
       div.remove();
-    div = await moveToWorker(nameSpace, parent);
+    div = await moveToWorker(nameSpace, parent) || new Error("OO OOO");
+    if (!div)
+      return false;
     div.setAttribute("data-shadow-dom", "open");
     const w2 = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
     if (w2 === null)
@@ -6131,7 +6134,10 @@ async function moveToWorker(nameSpace, parent2) {
   div2.style.height = "100%";
   parent2.innerHTML = `<style>${resetCSS} ${css2}</style>${html}`;
   parent2.appendChild(div2);
-  const js = await build(codeSpace, i2);
+  const cont = new AbortController();
+  const js = await build(codeSpace, i2, cont.signal);
+  if (!js)
+    return false;
   const src = createJsBlob(js);
   div2.setAttribute("src", src);
   return div2;
