@@ -24,75 +24,79 @@ export function createHTML(code: string, fileName = "index.html") {
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
-const createIframe = async (cs: string, counter: number) => {
-  if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
-  return modz[`${cs}-${counter}`] = new Promise(async (res) => {
-    if (modz[cs] > counter) return;
-    modz[cs] = counter;
-    let MST;
-    if (cs === codeSpace) MST = mST();
-    else {
-      const I = counter || mST().i;
-      MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
-    }
+const mutex = new Mutex();
+export const createIframe = async (cs: string, counter: number) => {
+  await mutex.runExclusive(async () => {
+    if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
+    return modz[`${cs}-${counter}`] = new Promise(async (res) => {
+      if (modz[cs] > counter) return;
+      modz[cs] = counter;
+      let MST;
+      if (cs === codeSpace) MST = mST();
+      else {
+        const I = counter || mST().i;
+        MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
+      }
 
-    if (modz[cs] > counter) return;
-    const { html, css, i } = MST;
+      if (modz[cs] > counter) return;
+      const { html, css, i } = MST;
 
-    let code = ``;
+      let code = createJsBlob(``);
 
-    let iSRC = () =>
-      createHTML(`
+      let iSRC = () =>
+        createHTML(`
   <html> 
   <head>
   <style>
   html, body{
-    heighj: 100%
+    height: 100%;
   }
   ${resetCSS}
   ${css}</style>
+  <script defer src="{${code}}"></script> 
   </head>
   <body>
   <div id="root-${cs}" data-i="${counter}" style="height: 100%;">${html}</div>
-  <script type="module">
-  ${code}
-  </script></body>
+  </body>
   
   </html>`);
 
-    const iframe = document.createElement("iframe");
-    iframe.src = iSRC();
+      if (modz[cs] > counter) return;
+      // document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
+      // document.body.appendChild(iframe)
 
-    if (modz[cs] > counter) return;
+      let iframe: HTMLIFrameElement;
 
-    iframe.src = iSRC();
-    if (modz[cs] > counter) return;
-    document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
-    // document.body.appendChild(iframe);
-    document.getElementById(`coder-${cs}`)?.replaceWith(iframe);
-    // iframe.style.position = "fixed";
-    // iframe.setAttribute("data-coder", cs);
-    iframe.style.height = "100vh";
-    iframe.style.border = "none";
-    iframe.style.width = "100%";
+      const setIframe = () => {
+        iframe = document.createElement("iframe");
+        iframe.src = iSRC();
 
-    if (modz[cs] > counter) {
+        iframe.setAttribute("data-coder", cs);
+        iframe.style.height = "100%";
+        iframe.setAttribute("id", `coder-${cs}`);
+        iframe.style.border = "none";
+        iframe.style.width = "100%";
+
+        (document.getElementById("z-body") || document.getElementById("root")).innerHTML = "";
+        (document.getElementById("z-body") || document.getElementById("root")).appendChild(iframe);
+        return iframe;
+      };
+      iframe = setIframe();
+      // iframe.style.position = "fixed";
+
       // iframe && iframe.remove();
-      return;
-    }
-    res(iframe);
-    requestAnimationFrame(() =>
-      build(codeSpace, i).then(x => {
-        if (modz[cs] === counter) code = x;
-      }).then(() => {
-        if (modz[cs] === counter) iframe.src = iSRC();
-      })
-    );
-    return iframe;
-    // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
-    // iframe.setAttribute("id", `coder-${codeSpace}`);
+      res(iframe);
+      requestAnimationFrame(() =>
+        build(codeSpace, i).then(x => {
+          if (modz[cs] === counter) code = createJsBlob(x);
+        }).then(() => setIframe())
+      );
+      return iframe;
+      // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
+      // iframe.setAttribute("id", `coder-${codeSpace}`);
 
-    // document.body.appendChild(iframe);
+      // document.body.appendChild(iframe);
+    });
   });
 };
 let worker: typeof ExportedWorker;
@@ -101,8 +105,6 @@ let div: HTMLDivElement;
 let parent: HTMLDivElement;
 let lastH = "";
 let lastSuccessful = "";
-
-const mutex = new Mutex();
 
 export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
   lastH = hashCode();
@@ -138,10 +140,7 @@ const bc = new BroadcastChannel(location.origin);
 bc.onmessage = (event) => {
   const nameSpace = location.pathname.slice(1).split("/")[1];
   if (event.data.codeSpace === nameSpace) {
-    createIframe(nameSpace, mST().i).then(iframe => {
-      globalThis.zBodyRef.current.innerHTML = ``;
-      globalThis.zBodyRef.current.appendChild(iframe);
-    });
+    createIframe(nameSpace, mST().i);
 
     // runInWorker(nameSpace, parent);
   }
@@ -263,20 +262,12 @@ export const { apps, eCaches } = (globalThis as unknown as {
 export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
-  const ref = useRef(globalThis.zBodyRef);
-  globalThis.zBodyRef = ref;
-  const [hash, setHash] = useState(hashCode());
-
   useEffect(() => {
-    if (ref.current === null) return;
-    parent = ref.current;
-    createIframe(codeSpace, mST().i).then(iframe => {
-      ref.current.innerHTML = ``;
-      ref.current.appendChild(iframe);
-    });
-    setHash(hashCode());
+    createIframe(codeSpace, mST().i);
+
+    // setHash(hashCode());
     // runInWorker(codeSpace, ref.current);
-  }, [ref, ref.current]);
+  }, []);
   // let starterI = 1 * (document.getElementById(`root-${codeSpace}`)!.getAttribute(
   //   "data-i",
   // ) as unknown as number);
@@ -313,14 +304,7 @@ export function AutoUpdateApp(
   //   })();
   // }, [i, setApps, App]);
 
-  return (
-    <div
-      ref={ref}
-      key={hash}
-      css={css`
-    height: 100%`}
-    />
-  );
+  return <></>;
 }
 
 export async function appFactory(
