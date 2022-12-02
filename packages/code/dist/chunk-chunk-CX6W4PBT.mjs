@@ -6021,8 +6021,8 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         return;
       let iframe;
       const setIframe = /* @__PURE__ */ __name((srcJS) => {
-        const iSRC = /* @__PURE__ */ __name((srcJs) => createHTML(
-          `<html> 
+        const iSRC = /* @__PURE__ */ __name((srcJs) => createHTML(`
+        <html> 
     <head>
     <style>
     html,body {
@@ -6036,9 +6036,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
     <body>
     <div id="root-${cs}" style="height: 100%;">${html}</div>
     </body>
-    </html>`,
-          `${location.origin}/live/${cs}/index.html`
-        ), "iSRC");
+    </html>`), "iSRC");
         if (signal.aborted)
           return;
         iframe.src = iSRC(srcJS);
@@ -6074,7 +6072,8 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         }
         return false;
       }, "setIframe");
-      iframe = setIframe(createJsBlob(``));
+      iframe = setIframe(createJsBlob(`
+      `));
       if (signal.aborted)
         return;
       if (modz[cs] !== counter)
@@ -6087,9 +6086,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         return;
       res(iframe);
       requestAnimationFrame(
-        () => !signal.aborted && build(cs, counter, signal).then(
-          (x2) => x2 && setIframe(createJsBlob(x2, `${location.origin}/live/${cs}/${counter}/index.js`))
-        )
+        () => !signal.aborted && build(cs, counter, signal).then((x2) => x2 && setIframe(createJsBlob(x2)))
       );
     });
   });
@@ -6266,17 +6263,17 @@ async function appFactory(transpiled = "") {
   return apps2[hash];
 }
 __name(appFactory, "appFactory");
-function createJsBlob(code, fileName = "index.mjs") {
+function createJsBlob(code) {
   return URL.createObjectURL(
-    new File([code], fileName, {
-      type: "application/javascript;charser=UTF-8"
+    new Blob([code], {
+      type: "application/javascript"
     })
   );
 }
 __name(createJsBlob, "createJsBlob");
-function createHTML(code, fileName = "index.html") {
+function createHTML(code) {
   return URL.createObjectURL(
-    new Blob([code], fileName, { type: "text/html" })
+    new Blob([code], { type: "text/html" })
   );
 }
 __name(createHTML, "createHTML");

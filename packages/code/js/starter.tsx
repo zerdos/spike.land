@@ -57,8 +57,8 @@ export const createIframe = async (cs: string, counter: number) => {
       let iframe: HTMLIFrameElement;
       const setIframe = (srcJS: string) => {
         const iSRC = (srcJs: string) =>
-          createHTML(
-            `<html> 
+          createHTML(`
+        <html> 
     <head>
     <style>
     html,body {
@@ -72,9 +72,7 @@ export const createIframe = async (cs: string, counter: number) => {
     <body>
     <div id="root-${cs}" style="height: 100%;">${html}</div>
     </body>
-    </html>`,
-            `${location.origin}/live/${cs}/index.html`,
-          );
+    </html>`);
         if (signal.aborted) return;
 
         iframe.src = iSRC(srcJS);
@@ -114,7 +112,8 @@ export const createIframe = async (cs: string, counter: number) => {
         }
         return false;
       };
-      iframe = setIframe(createJsBlob(``));
+      iframe = setIframe(createJsBlob(`
+      `));
       if (signal.aborted) return;
       if (modz[cs] !== counter) return;
       // document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
@@ -129,9 +128,7 @@ export const createIframe = async (cs: string, counter: number) => {
       res(iframe);
       requestAnimationFrame(() =>
         !signal.aborted
-        && build(cs, counter, signal).then(x =>
-          x && setIframe(createJsBlob(x, `${location.origin}/live/${cs}/${counter}/index.js`))
-        )
+        && build(cs, counter, signal).then(x => x && setIframe(createJsBlob(x)))
       );
       // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
       // iframe.setAttribute("id", `coder-${codeSpace}`);
@@ -427,16 +424,16 @@ export async function appFactory(
   return apps[hash];
 }
 
-export function createJsBlob(code: Uint8Array | string, fileName = "index.mjs") {
+export function createJsBlob(code) {
   return URL.createObjectURL(
-    new File([code], fileName, {
-      type: "application/javascript;charser=UTF-8",
+    new Blob([code], {
+      type: "application/javascript",
     }),
   );
-} ///
+}
 
-function createHTML(code: string, fileName = "index.html") {
+function createHTML(code: string) {
   return URL.createObjectURL(
-    new Blob([code], fileName, { type: "text/html" }),
+    new Blob([code], { type: "text/html" }),
   );
 }
