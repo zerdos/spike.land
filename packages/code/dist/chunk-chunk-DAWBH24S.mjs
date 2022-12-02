@@ -5231,7 +5231,7 @@ var esmTransform = /* @__PURE__ */ __name(async (code) => {
         jsxImportSource: "@emotion/react"
       }
     },
-    target: "es202\xA7"
+    target: "es2021"
   });
   Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
   return transpiled.code;
