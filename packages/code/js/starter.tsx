@@ -29,7 +29,7 @@ export const createIframe = async (cs: string, counter: number) => {
   await mutex.runExclusive(async () => {
     if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
     return modz[`${cs}-${counter}`] = new Promise(async (res) => {
-      if (modz[cs] > counter) return;
+      if (modz[cs] !== null && modz[cs]! > counter) return;
       modz[cs] = counter;
       let MST;
       if (cs === codeSpace) MST = mST();
@@ -38,7 +38,7 @@ export const createIframe = async (cs: string, counter: number) => {
         MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
       }
 
-      if (modz[cs] > counter) return;
+      if (modz[cs] !== counter) return;
       const { html, css, i } = MST;
 
       let code = createJsBlob(``);
@@ -53,21 +53,23 @@ export const createIframe = async (cs: string, counter: number) => {
   }
   ${resetCSS}
   ${css}</style>
-  <script defer src="{${code}}"></script> 
+  <script defer src="${code}"></script> 
   </head>
   <body>
-  <div id="root-${cs}" data-i="${counter}" style="height: 100%;">${html}</div>
+  <div id="root-${cs}" data-i="${i}" style="height: 100%;">${html}</div>
   </body>
   
   </html>`);
 
-      if (modz[cs] > counter) return;
+      if (modz[cs] !== counter) return;
       // document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
       // document.body.appendChild(iframe)
 
       let iframe: HTMLIFrameElement;
 
       const setIframe = () => {
+        if (iframe) iframe.remove();
+
         iframe = document.createElement("iframe");
         iframe.src = iSRC();
 
@@ -89,8 +91,8 @@ export const createIframe = async (cs: string, counter: number) => {
       // iframe && iframe.remove();
       res(iframe);
       requestAnimationFrame(() =>
-        build(codeSpace, i).then(x => {
-          if (modz[cs] === counter) code = createJsBlob(x);
+        build(cs, i).then(x => {
+          if (modz[cs] === i) code = createJsBlob(x);
         }).then(() => setIframe())
       );
       return iframe;
