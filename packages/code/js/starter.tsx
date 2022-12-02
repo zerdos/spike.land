@@ -5,6 +5,7 @@ import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 
+import type { BackdropProps } from "@mui/material";
 import createCache from "./emotionCache";
 import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
@@ -138,7 +139,7 @@ export const createIframe = async (cs: string, counter: number) => {
 };
 
 let worker: typeof ExportedWorker;
-let div: HTMLDivElement;
+let div: HTMLDivElement | false;
 // let oldDiv = null;
 let parent: HTMLDivElement;
 let lastH = "";
@@ -162,10 +163,12 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     parent = _parent || parent || document.getElementById("root");
     // if (worker) worker.();
 
-    const div = await moveToWorker(nameSpace, parent) || new Error("OO OOO");
+    div = await moveToWorker(nameSpace, parent);
+
     // if (oldDiv) oldDiv.remove();
     if (!div) return false;
-    div!.setAttribute("data-shadow-dom", "open");
+    div.setAttribute;
+    div.setAttribute("data-shadow-dom", "open");
 
     const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
     if (w === null) throw new Error("No worker");
