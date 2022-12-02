@@ -90,6 +90,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     },
     write: false,
     metafile: true,
+    outdir: `./dist/${codeSpace}/`,
     treeShaking: true,
     splitting: true,
     incremental: true,
