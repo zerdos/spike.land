@@ -335,6 +335,7 @@ export class Code {
           document.getElementById('root-${codeSpace}').replaceWith(rootEl);
         })
         
+        export const html = rootEl.innerHTML;
         `,
             url.origin,
           );

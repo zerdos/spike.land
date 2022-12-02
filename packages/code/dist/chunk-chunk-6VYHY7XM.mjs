@@ -5387,7 +5387,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     write: false,
     metafile: true,
     incremental: true,
-    format: "iife",
+    format: "esm",
     entryPoints: [`./live/${codeSpace2}/render.tsx`],
     define: define2,
     tsconfig: "./tsconfig.json",
