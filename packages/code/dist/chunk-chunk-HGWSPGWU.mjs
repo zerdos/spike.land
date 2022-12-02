@@ -5407,7 +5407,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     write: false,
     metafile: true,
     target: "es2022",
-    outdir: `./dist/`,
+    outdir: `./live/${codeSpace2}/`,
     treeShaking: true,
     splitting: true,
     incremental: true,
