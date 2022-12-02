@@ -5271,6 +5271,10 @@ var fetchPlugin = {
       path: importShim.resolve(args.path, args.importer),
       namespace: "http-url"
     }));
+    build2.onResolve({ filter: /\.ttcf*/, namespace: "http-url" }, (args) => ({
+      path: importShim.resolve(args.path, args.importer),
+      namespace: "http-url"
+    }));
     build2.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       const getRequest = /* @__PURE__ */ __name(async (req2) => {
         let response = await fetchCache.match(req2);
@@ -5374,6 +5378,19 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     await initFinished;
   const defaultOpts = {
     bundle: true,
+    resolveExtensions: [
+      ".tsx",
+      ".ts",
+      ".jsx",
+      ".js",
+      ".d.ts",
+      ".css",
+      ".json",
+      ".mjs",
+      ".js",
+      ".wasm",
+      ".ttf"
+    ],
     loader: {
       ".js": "tsx",
       ".css": "css",

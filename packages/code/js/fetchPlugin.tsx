@@ -32,7 +32,6 @@ export const fetchPlugin: Plugin = {
       namespace: "http-url",
     }));
 
-
     // build.onResolve({ filter: /^.*/, namespace: "http-url" }, args => ({
     //   path: new URL(args.path, location.origin + "/npm:/").toString(),
     //   namespace: "http-url",

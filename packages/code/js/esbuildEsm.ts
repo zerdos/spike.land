@@ -76,6 +76,19 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
   if (initFinished !== true) await (initFinished);
   const defaultOpts: BuildOptions = {
     bundle: true,
+    resolveExtensions: [
+      ".tsx",
+      ".ts",
+      ".jsx",
+      ".js",
+      ".d.ts",
+      ".css",
+      ".json",
+      ".mjs",
+      ".js",
+      ".wasm",
+      ".ttf",
+    ],
     loader: {
       ".js": "tsx",
       ".css": "css",
