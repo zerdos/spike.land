@@ -302,6 +302,10 @@ export class Code {
           import createCache from "@emotion/cache";
           import { ErrorBoundary } from "react-error-boundary";
           import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
+
+
+          document.body.innerHTML =  \`<div id="root"><style>${css}</style><div id="root-${codeSpace}" data-i="${i}" style="height: 100%;">${html}</div>\`;
+
       
       let parent = document.getElementById("root");
         let rootEl = document.getElementById("root-${codeSpace}");
