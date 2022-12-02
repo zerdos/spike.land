@@ -2412,7 +2412,7 @@ var QRButton = /* @__PURE__ */ __name(({ url }) => {
     {
       animate: {
         width: showQR ? 200 : 56,
-        marginLeft: showQR ? -20 : 0,
+        marginLeft: showQR ? 8 : 0,
         marginRight: showQR ? -100 : 0,
         height: showQR ? 220 : 48
       },

@@ -6120,6 +6120,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   });
 }, "createIframe");
 var worker;
+var div;
 var parent;
 var lastH = "";
 var lastSuccessful = "";
@@ -6137,9 +6138,10 @@ async function runInWorker(nameSpace, _parent) {
       return;
     }
     parent = _parent || parent || document.getElementById("root");
-    const div = await moveToWorker(nameSpace, parent) || new Error("OO OOO");
+    div = await moveToWorker(nameSpace, parent);
     if (!div)
       return false;
+    div.setAttribute;
     div.setAttribute("data-shadow-dom", "open");
     const w2 = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
     if (w2 === null)
@@ -6151,20 +6153,20 @@ async function runInWorker(nameSpace, _parent) {
 __name(runInWorker, "runInWorker");
 async function moveToWorker(nameSpace, parent2) {
   const { html, css: css2, i: i2, transiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
-  const div = document.createElement("div");
-  div.style.height = "100%";
+  const div2 = document.createElement("div");
+  div2.style.height = "100%";
   parent2.innerHTML = `<style>
   ${css2}
   </style>
   <div id="root-${codeSpace}" style="height: 100%;">${html}</div>`;
-  parent2.appendChild(div);
+  parent2.appendChild(div2);
   const cont = new AbortController();
   const js = await build(codeSpace, i2, cont.signal);
   if (!js)
     return false;
   const src = createJsBlob(js);
-  div.setAttribute("src", src);
-  return div;
+  div2.setAttribute("src", src);
+  return div2;
 }
 __name(moveToWorker, "moveToWorker");
 Object.assign(globalThis, { md5 });
