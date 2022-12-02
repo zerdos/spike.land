@@ -74,20 +74,18 @@ export const createIframe = async (cs: string, counter: number) => {
     </body>
     </html>`);
         if (signal.aborted) return;
+        setIframe(createJsBlob(`
+        `));
 
-        iframe.src = iSRC(srcJS);
+        const zBody = document.getElementById("z-body");
 
-        let oldIframe = iframe;
-        if (oldIframe) oldIframe.remove();
-
-        iframe = document.createElement("iframe");
         iframe.onload = () => {
           if (signal.aborted) return false;
           const zBody = document.getElementById("z-body");
 
           if (zBody?.firstChild?.isSameNode(iframe)) {
             console.log("ALL OK");
-            return;
+            return true;
           }
 
           if (zBody) {
@@ -104,7 +102,6 @@ export const createIframe = async (cs: string, counter: number) => {
 
         if (signal.aborted) return false;
 
-        const zBody = document.getElementById("z-body");
         if (zBody) {
           zBody.innerHTML = "";
           zBody.appendChild(iframe);
@@ -112,8 +109,6 @@ export const createIframe = async (cs: string, counter: number) => {
         }
         return false;
       };
-      iframe = setIframe(createJsBlob(`
-      `));
       if (signal.aborted) return;
       if (modz[cs] !== counter) return;
       // document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
@@ -125,11 +120,13 @@ export const createIframe = async (cs: string, counter: number) => {
       // iframe.style.position = "fixed";
 
       // iframe && iframe.remove();
-      res(iframe);
+
       requestAnimationFrame(() =>
         !signal.aborted
         && build(cs, counter, signal).then(x => x && setIframe(createJsBlob(x)))
       );
+      res(iframe);
+      return iframe;
       // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
       // iframe.setAttribute("id", `coder-${codeSpace}`);
 

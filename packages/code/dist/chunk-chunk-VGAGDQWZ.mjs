@@ -6039,18 +6039,16 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
     </html>`), "iSRC");
         if (signal.aborted)
           return;
-        iframe.src = iSRC(srcJS);
-        let oldIframe = iframe;
-        if (oldIframe)
-          oldIframe.remove();
-        iframe = document.createElement("iframe");
+        setIframe(createJsBlob(`
+        `));
+        const zBody = document.getElementById("z-body");
         iframe.onload = () => {
           if (signal.aborted)
             return false;
           const zBody2 = document.getElementById("z-body");
           if (zBody2?.firstChild?.isSameNode(iframe)) {
             console.log("ALL OK");
-            return;
+            return true;
           }
           if (zBody2) {
             zBody2.innerHTML = "";
@@ -6064,7 +6062,6 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         iframe.style.width = "100%";
         if (signal.aborted)
           return false;
-        const zBody = document.getElementById("z-body");
         if (zBody) {
           zBody.innerHTML = "";
           zBody.appendChild(iframe);
@@ -6072,8 +6069,6 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         }
         return false;
       }, "setIframe");
-      iframe = setIframe(createJsBlob(`
-      `));
       if (signal.aborted)
         return;
       if (modz[cs] !== counter)
@@ -6084,10 +6079,11 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         return;
       if (signal.aborted)
         return;
-      res(iframe);
       requestAnimationFrame(
         () => !signal.aborted && build(cs, counter, signal).then((x2) => x2 && setIframe(createJsBlob(x2)))
       );
+      res(iframe);
+      return iframe;
     });
   });
 }, "createIframe");
