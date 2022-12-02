@@ -90,6 +90,8 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     },
     write: false,
     metafile: true,
+    treeShaking: true,
+    splitting: true,
     incremental: true,
     format: "esm",
     entryPoints: [`./live/${codeSpace}/render.tsx/${i}`],
