@@ -25,8 +25,6 @@ self.addEventListener("activate", () => {
 // }
 
 self.memoryCache = self.memoryCache || localForage.createInstance({
-  driver: [window],
-  size: 100000,
   name: "memoryCache",
 });
 

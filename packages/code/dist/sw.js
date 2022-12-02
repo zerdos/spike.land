@@ -2280,8 +2280,6 @@
   self.addEventListener("activate", () => {
   });
   self.memoryCache = self.memoryCache || import_localforage.default.createInstance({
-    driver: [window],
-    size: 1e5,
     name: "memoryCache"
   });
   var lastChecked = 0;
