@@ -7199,7 +7199,9 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
       else {
         const mst = mST();
         const I = counter;
-        MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
+        MST = (await importShim(
+          `/live/${cs}/mST.mjs?${I}`
+        )).mST;
       }
       if (signal.aborted)
         return;
@@ -7309,7 +7311,9 @@ async function runInWorker(nameSpace, _parent) {
       return;
     }
     if (current === lastSuccessful) {
-      console.log(`skipping build since it is the latest successful: ${current}`);
+      console.log(
+        `skipping build since it is the latest successful: ${current}`
+      );
       return;
     }
     parent = _parent || parent || document.getElementById("root");
@@ -7318,7 +7322,10 @@ async function runInWorker(nameSpace, _parent) {
       return false;
     div.setAttribute;
     div.setAttribute("data-shadow-dom", "open");
-    const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+    const w = await upgradeElement(
+      div,
+      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js"
+    );
     if (w === null)
       throw new Error("No worker");
     worker = w;

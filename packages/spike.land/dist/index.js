@@ -4,25 +4,43 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) => function __require2() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
+var __commonJS = (cb, mod) =>
+  function __require2() {
+    return mod ||
+      (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod),
+      mod.exports;
+  };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    for (let key of __getOwnPropNames(from)) {
+      if (!__hasOwnProp.call(to, key) && key !== except) {
+        __defProp(to, key, {
+          get: () => from[key],
+          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+        });
+      }
+    }
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
+var __toESM = (
+  mod,
+  isNodeMode,
+  target,
+) => (target = mod != null ? __create(__getProtoOf(mod)) : {},
+  __copyProps(
+    isNodeMode || !mod || !mod.__esModule
+      ? __defProp(target, "default", { value: mod, enumerable: true })
+      : target,
+    mod,
+  ));
 
 // ../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js
 var require_Mime = __commonJS({
-  "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js"(exports, module) {
+  "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js"(
+    exports,
+    module,
+  ) {
     "use strict";
     function Mime() {
       this._types = /* @__PURE__ */ Object.create(null);
@@ -34,9 +52,9 @@ var require_Mime = __commonJS({
       this.getType = this.getType.bind(this);
       this.getExtension = this.getExtension.bind(this);
     }
-    Mime.prototype.define = function(typeMap, force) {
+    Mime.prototype.define = function (typeMap, force) {
       for (let type in typeMap) {
-        let extensions = typeMap[type].map(function(t) {
+        let extensions = typeMap[type].map(function (t) {
           return t.toLowerCase();
         });
         type = type.toLowerCase();
@@ -47,7 +65,10 @@ var require_Mime = __commonJS({
           }
           if (!force && ext in this._types) {
             throw new Error(
-              'Attempt to change mapping for "' + ext + '" extension from "' + this._types[ext] + '" to "' + type + '". Pass `force=true` to allow this, otherwise remove "' + ext + '" from the list of extensions for "' + type + '".'
+              'Attempt to change mapping for "' + ext + '" extension from "' +
+                this._types[ext] + '" to "' + type +
+                '". Pass `force=true` to allow this, otherwise remove "' + ext +
+                '" from the list of extensions for "' + type + '".',
             );
           }
           this._types[ext] = type;
@@ -58,7 +79,7 @@ var require_Mime = __commonJS({
         }
       }
     };
-    Mime.prototype.getType = function(path) {
+    Mime.prototype.getType = function (path) {
       path = String(path);
       let last3 = path.replace(/^.*[/\\]/, "").toLowerCase();
       let ext = last3.replace(/^.*\./, "").toLowerCase();
@@ -66,43 +87,1077 @@ var require_Mime = __commonJS({
       let hasDot = ext.length < last3.length - 1;
       return (hasDot || !hasPath) && this._types[ext] || null;
     };
-    Mime.prototype.getExtension = function(type) {
+    Mime.prototype.getExtension = function (type) {
       type = /^\s*([^;\s]*)/.test(type) && RegExp.$1;
       return type && this._extensions[type.toLowerCase()] || null;
     };
     module.exports = Mime;
-  }
+  },
 });
 
 // ../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js
 var require_standard = __commonJS({
-  "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js"(exports, module) {
-    module.exports = { "application/andrew-inset": ["ez"], "application/applixware": ["aw"], "application/atom+xml": ["atom"], "application/atomcat+xml": ["atomcat"], "application/atomdeleted+xml": ["atomdeleted"], "application/atomsvc+xml": ["atomsvc"], "application/atsc-dwd+xml": ["dwd"], "application/atsc-held+xml": ["held"], "application/atsc-rsat+xml": ["rsat"], "application/bdoc": ["bdoc"], "application/calendar+xml": ["xcs"], "application/ccxml+xml": ["ccxml"], "application/cdfx+xml": ["cdfx"], "application/cdmi-capability": ["cdmia"], "application/cdmi-container": ["cdmic"], "application/cdmi-domain": ["cdmid"], "application/cdmi-object": ["cdmio"], "application/cdmi-queue": ["cdmiq"], "application/cu-seeme": ["cu"], "application/dash+xml": ["mpd"], "application/davmount+xml": ["davmount"], "application/docbook+xml": ["dbk"], "application/dssc+der": ["dssc"], "application/dssc+xml": ["xdssc"], "application/ecmascript": ["es", "ecma"], "application/emma+xml": ["emma"], "application/emotionml+xml": ["emotionml"], "application/epub+zip": ["epub"], "application/exi": ["exi"], "application/express": ["exp"], "application/fdt+xml": ["fdt"], "application/font-tdpfr": ["pfr"], "application/geo+json": ["geojson"], "application/gml+xml": ["gml"], "application/gpx+xml": ["gpx"], "application/gxf": ["gxf"], "application/gzip": ["gz"], "application/hjson": ["hjson"], "application/hyperstudio": ["stk"], "application/inkml+xml": ["ink", "inkml"], "application/ipfix": ["ipfix"], "application/its+xml": ["its"], "application/java-archive": ["jar", "war", "ear"], "application/java-serialized-object": ["ser"], "application/java-vm": ["class"], "application/javascript": ["js", "mjs"], "application/json": ["json", "map"], "application/json5": ["json5"], "application/jsonml+json": ["jsonml"], "application/ld+json": ["jsonld"], "application/lgr+xml": ["lgr"], "application/lost+xml": ["lostxml"], "application/mac-binhex40": ["hqx"], "application/mac-compactpro": ["cpt"], "application/mads+xml": ["mads"], "application/manifest+json": ["webmanifest"], "application/marc": ["mrc"], "application/marcxml+xml": ["mrcx"], "application/mathematica": ["ma", "nb", "mb"], "application/mathml+xml": ["mathml"], "application/mbox": ["mbox"], "application/mediaservercontrol+xml": ["mscml"], "application/metalink+xml": ["metalink"], "application/metalink4+xml": ["meta4"], "application/mets+xml": ["mets"], "application/mmt-aei+xml": ["maei"], "application/mmt-usd+xml": ["musd"], "application/mods+xml": ["mods"], "application/mp21": ["m21", "mp21"], "application/mp4": ["mp4s", "m4p"], "application/msword": ["doc", "dot"], "application/mxf": ["mxf"], "application/n-quads": ["nq"], "application/n-triples": ["nt"], "application/node": ["cjs"], "application/octet-stream": ["bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc", "deploy", "exe", "dll", "deb", "dmg", "iso", "img", "msi", "msp", "msm", "buffer"], "application/oda": ["oda"], "application/oebps-package+xml": ["opf"], "application/ogg": ["ogx"], "application/omdoc+xml": ["omdoc"], "application/onenote": ["onetoc", "onetoc2", "onetmp", "onepkg"], "application/oxps": ["oxps"], "application/p2p-overlay+xml": ["relo"], "application/patch-ops-error+xml": ["xer"], "application/pdf": ["pdf"], "application/pgp-encrypted": ["pgp"], "application/pgp-signature": ["asc", "sig"], "application/pics-rules": ["prf"], "application/pkcs10": ["p10"], "application/pkcs7-mime": ["p7m", "p7c"], "application/pkcs7-signature": ["p7s"], "application/pkcs8": ["p8"], "application/pkix-attr-cert": ["ac"], "application/pkix-cert": ["cer"], "application/pkix-crl": ["crl"], "application/pkix-pkipath": ["pkipath"], "application/pkixcmp": ["pki"], "application/pls+xml": ["pls"], "application/postscript": ["ai", "eps", "ps"], "application/provenance+xml": ["provx"], "application/pskc+xml": ["pskcxml"], "application/raml+yaml": ["raml"], "application/rdf+xml": ["rdf", "owl"], "application/reginfo+xml": ["rif"], "application/relax-ng-compact-syntax": ["rnc"], "application/resource-lists+xml": ["rl"], "application/resource-lists-diff+xml": ["rld"], "application/rls-services+xml": ["rs"], "application/route-apd+xml": ["rapd"], "application/route-s-tsid+xml": ["sls"], "application/route-usd+xml": ["rusd"], "application/rpki-ghostbusters": ["gbr"], "application/rpki-manifest": ["mft"], "application/rpki-roa": ["roa"], "application/rsd+xml": ["rsd"], "application/rss+xml": ["rss"], "application/rtf": ["rtf"], "application/sbml+xml": ["sbml"], "application/scvp-cv-request": ["scq"], "application/scvp-cv-response": ["scs"], "application/scvp-vp-request": ["spq"], "application/scvp-vp-response": ["spp"], "application/sdp": ["sdp"], "application/senml+xml": ["senmlx"], "application/sensml+xml": ["sensmlx"], "application/set-payment-initiation": ["setpay"], "application/set-registration-initiation": ["setreg"], "application/shf+xml": ["shf"], "application/sieve": ["siv", "sieve"], "application/smil+xml": ["smi", "smil"], "application/sparql-query": ["rq"], "application/sparql-results+xml": ["srx"], "application/srgs": ["gram"], "application/srgs+xml": ["grxml"], "application/sru+xml": ["sru"], "application/ssdl+xml": ["ssdl"], "application/ssml+xml": ["ssml"], "application/swid+xml": ["swidtag"], "application/tei+xml": ["tei", "teicorpus"], "application/thraud+xml": ["tfi"], "application/timestamped-data": ["tsd"], "application/toml": ["toml"], "application/trig": ["trig"], "application/ttml+xml": ["ttml"], "application/ubjson": ["ubj"], "application/urc-ressheet+xml": ["rsheet"], "application/urc-targetdesc+xml": ["td"], "application/voicexml+xml": ["vxml"], "application/wasm": ["wasm"], "application/widget": ["wgt"], "application/winhlp": ["hlp"], "application/wsdl+xml": ["wsdl"], "application/wspolicy+xml": ["wspolicy"], "application/xaml+xml": ["xaml"], "application/xcap-att+xml": ["xav"], "application/xcap-caps+xml": ["xca"], "application/xcap-diff+xml": ["xdf"], "application/xcap-el+xml": ["xel"], "application/xcap-ns+xml": ["xns"], "application/xenc+xml": ["xenc"], "application/xhtml+xml": ["xhtml", "xht"], "application/xliff+xml": ["xlf"], "application/xml": ["xml", "xsl", "xsd", "rng"], "application/xml-dtd": ["dtd"], "application/xop+xml": ["xop"], "application/xproc+xml": ["xpl"], "application/xslt+xml": ["*xsl", "xslt"], "application/xspf+xml": ["xspf"], "application/xv+xml": ["mxml", "xhvml", "xvml", "xvm"], "application/yang": ["yang"], "application/yin+xml": ["yin"], "application/zip": ["zip"], "audio/3gpp": ["*3gpp"], "audio/adpcm": ["adp"], "audio/amr": ["amr"], "audio/basic": ["au", "snd"], "audio/midi": ["mid", "midi", "kar", "rmi"], "audio/mobile-xmf": ["mxmf"], "audio/mp3": ["*mp3"], "audio/mp4": ["m4a", "mp4a"], "audio/mpeg": ["mpga", "mp2", "mp2a", "mp3", "m2a", "m3a"], "audio/ogg": ["oga", "ogg", "spx", "opus"], "audio/s3m": ["s3m"], "audio/silk": ["sil"], "audio/wav": ["wav"], "audio/wave": ["*wav"], "audio/webm": ["weba"], "audio/xm": ["xm"], "font/collection": ["ttc"], "font/otf": ["otf"], "font/ttf": ["ttf"], "font/woff": ["woff"], "font/woff2": ["woff2"], "image/aces": ["exr"], "image/apng": ["apng"], "image/avif": ["avif"], "image/bmp": ["bmp"], "image/cgm": ["cgm"], "image/dicom-rle": ["drle"], "image/emf": ["emf"], "image/fits": ["fits"], "image/g3fax": ["g3"], "image/gif": ["gif"], "image/heic": ["heic"], "image/heic-sequence": ["heics"], "image/heif": ["heif"], "image/heif-sequence": ["heifs"], "image/hej2k": ["hej2"], "image/hsj2": ["hsj2"], "image/ief": ["ief"], "image/jls": ["jls"], "image/jp2": ["jp2", "jpg2"], "image/jpeg": ["jpeg", "jpg", "jpe"], "image/jph": ["jph"], "image/jphc": ["jhc"], "image/jpm": ["jpm"], "image/jpx": ["jpx", "jpf"], "image/jxr": ["jxr"], "image/jxra": ["jxra"], "image/jxrs": ["jxrs"], "image/jxs": ["jxs"], "image/jxsc": ["jxsc"], "image/jxsi": ["jxsi"], "image/jxss": ["jxss"], "image/ktx": ["ktx"], "image/ktx2": ["ktx2"], "image/png": ["png"], "image/sgi": ["sgi"], "image/svg+xml": ["svg", "svgz"], "image/t38": ["t38"], "image/tiff": ["tif", "tiff"], "image/tiff-fx": ["tfx"], "image/webp": ["webp"], "image/wmf": ["wmf"], "message/disposition-notification": ["disposition-notification"], "message/global": ["u8msg"], "message/global-delivery-status": ["u8dsn"], "message/global-disposition-notification": ["u8mdn"], "message/global-headers": ["u8hdr"], "message/rfc822": ["eml", "mime"], "model/3mf": ["3mf"], "model/gltf+json": ["gltf"], "model/gltf-binary": ["glb"], "model/iges": ["igs", "iges"], "model/mesh": ["msh", "mesh", "silo"], "model/mtl": ["mtl"], "model/obj": ["obj"], "model/step+xml": ["stpx"], "model/step+zip": ["stpz"], "model/step-xml+zip": ["stpxz"], "model/stl": ["stl"], "model/vrml": ["wrl", "vrml"], "model/x3d+binary": ["*x3db", "x3dbz"], "model/x3d+fastinfoset": ["x3db"], "model/x3d+vrml": ["*x3dv", "x3dvz"], "model/x3d+xml": ["x3d", "x3dz"], "model/x3d-vrml": ["x3dv"], "text/cache-manifest": ["appcache", "manifest"], "text/calendar": ["ics", "ifb"], "text/coffeescript": ["coffee", "litcoffee"], "text/css": ["css"], "text/csv": ["csv"], "text/html": ["html", "htm", "shtml"], "text/jade": ["jade"], "text/jsx": ["jsx"], "text/less": ["less"], "text/markdown": ["markdown", "md"], "text/mathml": ["mml"], "text/mdx": ["mdx"], "text/n3": ["n3"], "text/plain": ["txt", "text", "conf", "def", "list", "log", "in", "ini"], "text/richtext": ["rtx"], "text/rtf": ["*rtf"], "text/sgml": ["sgml", "sgm"], "text/shex": ["shex"], "text/slim": ["slim", "slm"], "text/spdx": ["spdx"], "text/stylus": ["stylus", "styl"], "text/tab-separated-values": ["tsv"], "text/troff": ["t", "tr", "roff", "man", "me", "ms"], "text/turtle": ["ttl"], "text/uri-list": ["uri", "uris", "urls"], "text/vcard": ["vcard"], "text/vtt": ["vtt"], "text/xml": ["*xml"], "text/yaml": ["yaml", "yml"], "video/3gpp": ["3gp", "3gpp"], "video/3gpp2": ["3g2"], "video/h261": ["h261"], "video/h263": ["h263"], "video/h264": ["h264"], "video/iso.segment": ["m4s"], "video/jpeg": ["jpgv"], "video/jpm": ["*jpm", "jpgm"], "video/mj2": ["mj2", "mjp2"], "video/mp2t": ["ts"], "video/mp4": ["mp4", "mp4v", "mpg4"], "video/mpeg": ["mpeg", "mpg", "mpe", "m1v", "m2v"], "video/ogg": ["ogv"], "video/quicktime": ["qt", "mov"], "video/webm": ["webm"] };
-  }
+  "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js"(
+    exports,
+    module,
+  ) {
+    module.exports = {
+      "application/andrew-inset": ["ez"],
+      "application/applixware": ["aw"],
+      "application/atom+xml": ["atom"],
+      "application/atomcat+xml": ["atomcat"],
+      "application/atomdeleted+xml": ["atomdeleted"],
+      "application/atomsvc+xml": ["atomsvc"],
+      "application/atsc-dwd+xml": ["dwd"],
+      "application/atsc-held+xml": ["held"],
+      "application/atsc-rsat+xml": ["rsat"],
+      "application/bdoc": ["bdoc"],
+      "application/calendar+xml": ["xcs"],
+      "application/ccxml+xml": ["ccxml"],
+      "application/cdfx+xml": ["cdfx"],
+      "application/cdmi-capability": ["cdmia"],
+      "application/cdmi-container": ["cdmic"],
+      "application/cdmi-domain": ["cdmid"],
+      "application/cdmi-object": ["cdmio"],
+      "application/cdmi-queue": ["cdmiq"],
+      "application/cu-seeme": ["cu"],
+      "application/dash+xml": ["mpd"],
+      "application/davmount+xml": ["davmount"],
+      "application/docbook+xml": ["dbk"],
+      "application/dssc+der": ["dssc"],
+      "application/dssc+xml": ["xdssc"],
+      "application/ecmascript": ["es", "ecma"],
+      "application/emma+xml": ["emma"],
+      "application/emotionml+xml": ["emotionml"],
+      "application/epub+zip": ["epub"],
+      "application/exi": ["exi"],
+      "application/express": ["exp"],
+      "application/fdt+xml": ["fdt"],
+      "application/font-tdpfr": ["pfr"],
+      "application/geo+json": ["geojson"],
+      "application/gml+xml": ["gml"],
+      "application/gpx+xml": ["gpx"],
+      "application/gxf": ["gxf"],
+      "application/gzip": ["gz"],
+      "application/hjson": ["hjson"],
+      "application/hyperstudio": ["stk"],
+      "application/inkml+xml": ["ink", "inkml"],
+      "application/ipfix": ["ipfix"],
+      "application/its+xml": ["its"],
+      "application/java-archive": ["jar", "war", "ear"],
+      "application/java-serialized-object": ["ser"],
+      "application/java-vm": ["class"],
+      "application/javascript": ["js", "mjs"],
+      "application/json": ["json", "map"],
+      "application/json5": ["json5"],
+      "application/jsonml+json": ["jsonml"],
+      "application/ld+json": ["jsonld"],
+      "application/lgr+xml": ["lgr"],
+      "application/lost+xml": ["lostxml"],
+      "application/mac-binhex40": ["hqx"],
+      "application/mac-compactpro": ["cpt"],
+      "application/mads+xml": ["mads"],
+      "application/manifest+json": ["webmanifest"],
+      "application/marc": ["mrc"],
+      "application/marcxml+xml": ["mrcx"],
+      "application/mathematica": ["ma", "nb", "mb"],
+      "application/mathml+xml": ["mathml"],
+      "application/mbox": ["mbox"],
+      "application/mediaservercontrol+xml": ["mscml"],
+      "application/metalink+xml": ["metalink"],
+      "application/metalink4+xml": ["meta4"],
+      "application/mets+xml": ["mets"],
+      "application/mmt-aei+xml": ["maei"],
+      "application/mmt-usd+xml": ["musd"],
+      "application/mods+xml": ["mods"],
+      "application/mp21": ["m21", "mp21"],
+      "application/mp4": ["mp4s", "m4p"],
+      "application/msword": ["doc", "dot"],
+      "application/mxf": ["mxf"],
+      "application/n-quads": ["nq"],
+      "application/n-triples": ["nt"],
+      "application/node": ["cjs"],
+      "application/octet-stream": [
+        "bin",
+        "dms",
+        "lrf",
+        "mar",
+        "so",
+        "dist",
+        "distz",
+        "pkg",
+        "bpk",
+        "dump",
+        "elc",
+        "deploy",
+        "exe",
+        "dll",
+        "deb",
+        "dmg",
+        "iso",
+        "img",
+        "msi",
+        "msp",
+        "msm",
+        "buffer",
+      ],
+      "application/oda": ["oda"],
+      "application/oebps-package+xml": ["opf"],
+      "application/ogg": ["ogx"],
+      "application/omdoc+xml": ["omdoc"],
+      "application/onenote": ["onetoc", "onetoc2", "onetmp", "onepkg"],
+      "application/oxps": ["oxps"],
+      "application/p2p-overlay+xml": ["relo"],
+      "application/patch-ops-error+xml": ["xer"],
+      "application/pdf": ["pdf"],
+      "application/pgp-encrypted": ["pgp"],
+      "application/pgp-signature": ["asc", "sig"],
+      "application/pics-rules": ["prf"],
+      "application/pkcs10": ["p10"],
+      "application/pkcs7-mime": ["p7m", "p7c"],
+      "application/pkcs7-signature": ["p7s"],
+      "application/pkcs8": ["p8"],
+      "application/pkix-attr-cert": ["ac"],
+      "application/pkix-cert": ["cer"],
+      "application/pkix-crl": ["crl"],
+      "application/pkix-pkipath": ["pkipath"],
+      "application/pkixcmp": ["pki"],
+      "application/pls+xml": ["pls"],
+      "application/postscript": ["ai", "eps", "ps"],
+      "application/provenance+xml": ["provx"],
+      "application/pskc+xml": ["pskcxml"],
+      "application/raml+yaml": ["raml"],
+      "application/rdf+xml": ["rdf", "owl"],
+      "application/reginfo+xml": ["rif"],
+      "application/relax-ng-compact-syntax": ["rnc"],
+      "application/resource-lists+xml": ["rl"],
+      "application/resource-lists-diff+xml": ["rld"],
+      "application/rls-services+xml": ["rs"],
+      "application/route-apd+xml": ["rapd"],
+      "application/route-s-tsid+xml": ["sls"],
+      "application/route-usd+xml": ["rusd"],
+      "application/rpki-ghostbusters": ["gbr"],
+      "application/rpki-manifest": ["mft"],
+      "application/rpki-roa": ["roa"],
+      "application/rsd+xml": ["rsd"],
+      "application/rss+xml": ["rss"],
+      "application/rtf": ["rtf"],
+      "application/sbml+xml": ["sbml"],
+      "application/scvp-cv-request": ["scq"],
+      "application/scvp-cv-response": ["scs"],
+      "application/scvp-vp-request": ["spq"],
+      "application/scvp-vp-response": ["spp"],
+      "application/sdp": ["sdp"],
+      "application/senml+xml": ["senmlx"],
+      "application/sensml+xml": ["sensmlx"],
+      "application/set-payment-initiation": ["setpay"],
+      "application/set-registration-initiation": ["setreg"],
+      "application/shf+xml": ["shf"],
+      "application/sieve": ["siv", "sieve"],
+      "application/smil+xml": ["smi", "smil"],
+      "application/sparql-query": ["rq"],
+      "application/sparql-results+xml": ["srx"],
+      "application/srgs": ["gram"],
+      "application/srgs+xml": ["grxml"],
+      "application/sru+xml": ["sru"],
+      "application/ssdl+xml": ["ssdl"],
+      "application/ssml+xml": ["ssml"],
+      "application/swid+xml": ["swidtag"],
+      "application/tei+xml": ["tei", "teicorpus"],
+      "application/thraud+xml": ["tfi"],
+      "application/timestamped-data": ["tsd"],
+      "application/toml": ["toml"],
+      "application/trig": ["trig"],
+      "application/ttml+xml": ["ttml"],
+      "application/ubjson": ["ubj"],
+      "application/urc-ressheet+xml": ["rsheet"],
+      "application/urc-targetdesc+xml": ["td"],
+      "application/voicexml+xml": ["vxml"],
+      "application/wasm": ["wasm"],
+      "application/widget": ["wgt"],
+      "application/winhlp": ["hlp"],
+      "application/wsdl+xml": ["wsdl"],
+      "application/wspolicy+xml": ["wspolicy"],
+      "application/xaml+xml": ["xaml"],
+      "application/xcap-att+xml": ["xav"],
+      "application/xcap-caps+xml": ["xca"],
+      "application/xcap-diff+xml": ["xdf"],
+      "application/xcap-el+xml": ["xel"],
+      "application/xcap-ns+xml": ["xns"],
+      "application/xenc+xml": ["xenc"],
+      "application/xhtml+xml": ["xhtml", "xht"],
+      "application/xliff+xml": ["xlf"],
+      "application/xml": ["xml", "xsl", "xsd", "rng"],
+      "application/xml-dtd": ["dtd"],
+      "application/xop+xml": ["xop"],
+      "application/xproc+xml": ["xpl"],
+      "application/xslt+xml": ["*xsl", "xslt"],
+      "application/xspf+xml": ["xspf"],
+      "application/xv+xml": ["mxml", "xhvml", "xvml", "xvm"],
+      "application/yang": ["yang"],
+      "application/yin+xml": ["yin"],
+      "application/zip": ["zip"],
+      "audio/3gpp": ["*3gpp"],
+      "audio/adpcm": ["adp"],
+      "audio/amr": ["amr"],
+      "audio/basic": ["au", "snd"],
+      "audio/midi": ["mid", "midi", "kar", "rmi"],
+      "audio/mobile-xmf": ["mxmf"],
+      "audio/mp3": ["*mp3"],
+      "audio/mp4": ["m4a", "mp4a"],
+      "audio/mpeg": ["mpga", "mp2", "mp2a", "mp3", "m2a", "m3a"],
+      "audio/ogg": ["oga", "ogg", "spx", "opus"],
+      "audio/s3m": ["s3m"],
+      "audio/silk": ["sil"],
+      "audio/wav": ["wav"],
+      "audio/wave": ["*wav"],
+      "audio/webm": ["weba"],
+      "audio/xm": ["xm"],
+      "font/collection": ["ttc"],
+      "font/otf": ["otf"],
+      "font/ttf": ["ttf"],
+      "font/woff": ["woff"],
+      "font/woff2": ["woff2"],
+      "image/aces": ["exr"],
+      "image/apng": ["apng"],
+      "image/avif": ["avif"],
+      "image/bmp": ["bmp"],
+      "image/cgm": ["cgm"],
+      "image/dicom-rle": ["drle"],
+      "image/emf": ["emf"],
+      "image/fits": ["fits"],
+      "image/g3fax": ["g3"],
+      "image/gif": ["gif"],
+      "image/heic": ["heic"],
+      "image/heic-sequence": ["heics"],
+      "image/heif": ["heif"],
+      "image/heif-sequence": ["heifs"],
+      "image/hej2k": ["hej2"],
+      "image/hsj2": ["hsj2"],
+      "image/ief": ["ief"],
+      "image/jls": ["jls"],
+      "image/jp2": ["jp2", "jpg2"],
+      "image/jpeg": ["jpeg", "jpg", "jpe"],
+      "image/jph": ["jph"],
+      "image/jphc": ["jhc"],
+      "image/jpm": ["jpm"],
+      "image/jpx": ["jpx", "jpf"],
+      "image/jxr": ["jxr"],
+      "image/jxra": ["jxra"],
+      "image/jxrs": ["jxrs"],
+      "image/jxs": ["jxs"],
+      "image/jxsc": ["jxsc"],
+      "image/jxsi": ["jxsi"],
+      "image/jxss": ["jxss"],
+      "image/ktx": ["ktx"],
+      "image/ktx2": ["ktx2"],
+      "image/png": ["png"],
+      "image/sgi": ["sgi"],
+      "image/svg+xml": ["svg", "svgz"],
+      "image/t38": ["t38"],
+      "image/tiff": ["tif", "tiff"],
+      "image/tiff-fx": ["tfx"],
+      "image/webp": ["webp"],
+      "image/wmf": ["wmf"],
+      "message/disposition-notification": ["disposition-notification"],
+      "message/global": ["u8msg"],
+      "message/global-delivery-status": ["u8dsn"],
+      "message/global-disposition-notification": ["u8mdn"],
+      "message/global-headers": ["u8hdr"],
+      "message/rfc822": ["eml", "mime"],
+      "model/3mf": ["3mf"],
+      "model/gltf+json": ["gltf"],
+      "model/gltf-binary": ["glb"],
+      "model/iges": ["igs", "iges"],
+      "model/mesh": ["msh", "mesh", "silo"],
+      "model/mtl": ["mtl"],
+      "model/obj": ["obj"],
+      "model/step+xml": ["stpx"],
+      "model/step+zip": ["stpz"],
+      "model/step-xml+zip": ["stpxz"],
+      "model/stl": ["stl"],
+      "model/vrml": ["wrl", "vrml"],
+      "model/x3d+binary": ["*x3db", "x3dbz"],
+      "model/x3d+fastinfoset": ["x3db"],
+      "model/x3d+vrml": ["*x3dv", "x3dvz"],
+      "model/x3d+xml": ["x3d", "x3dz"],
+      "model/x3d-vrml": ["x3dv"],
+      "text/cache-manifest": ["appcache", "manifest"],
+      "text/calendar": ["ics", "ifb"],
+      "text/coffeescript": ["coffee", "litcoffee"],
+      "text/css": ["css"],
+      "text/csv": ["csv"],
+      "text/html": ["html", "htm", "shtml"],
+      "text/jade": ["jade"],
+      "text/jsx": ["jsx"],
+      "text/less": ["less"],
+      "text/markdown": ["markdown", "md"],
+      "text/mathml": ["mml"],
+      "text/mdx": ["mdx"],
+      "text/n3": ["n3"],
+      "text/plain": ["txt", "text", "conf", "def", "list", "log", "in", "ini"],
+      "text/richtext": ["rtx"],
+      "text/rtf": ["*rtf"],
+      "text/sgml": ["sgml", "sgm"],
+      "text/shex": ["shex"],
+      "text/slim": ["slim", "slm"],
+      "text/spdx": ["spdx"],
+      "text/stylus": ["stylus", "styl"],
+      "text/tab-separated-values": ["tsv"],
+      "text/troff": ["t", "tr", "roff", "man", "me", "ms"],
+      "text/turtle": ["ttl"],
+      "text/uri-list": ["uri", "uris", "urls"],
+      "text/vcard": ["vcard"],
+      "text/vtt": ["vtt"],
+      "text/xml": ["*xml"],
+      "text/yaml": ["yaml", "yml"],
+      "video/3gpp": ["3gp", "3gpp"],
+      "video/3gpp2": ["3g2"],
+      "video/h261": ["h261"],
+      "video/h263": ["h263"],
+      "video/h264": ["h264"],
+      "video/iso.segment": ["m4s"],
+      "video/jpeg": ["jpgv"],
+      "video/jpm": ["*jpm", "jpgm"],
+      "video/mj2": ["mj2", "mjp2"],
+      "video/mp2t": ["ts"],
+      "video/mp4": ["mp4", "mp4v", "mpg4"],
+      "video/mpeg": ["mpeg", "mpg", "mpe", "m1v", "m2v"],
+      "video/ogg": ["ogv"],
+      "video/quicktime": ["qt", "mov"],
+      "video/webm": ["webm"],
+    };
+  },
 });
 
 // ../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js
 var require_other = __commonJS({
-  "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js"(exports, module) {
-    module.exports = { "application/prs.cww": ["cww"], "application/vnd.1000minds.decision-model+xml": ["1km"], "application/vnd.3gpp.pic-bw-large": ["plb"], "application/vnd.3gpp.pic-bw-small": ["psb"], "application/vnd.3gpp.pic-bw-var": ["pvb"], "application/vnd.3gpp2.tcap": ["tcap"], "application/vnd.3m.post-it-notes": ["pwn"], "application/vnd.accpac.simply.aso": ["aso"], "application/vnd.accpac.simply.imp": ["imp"], "application/vnd.acucobol": ["acu"], "application/vnd.acucorp": ["atc", "acutc"], "application/vnd.adobe.air-application-installer-package+zip": ["air"], "application/vnd.adobe.formscentral.fcdt": ["fcdt"], "application/vnd.adobe.fxp": ["fxp", "fxpl"], "application/vnd.adobe.xdp+xml": ["xdp"], "application/vnd.adobe.xfdf": ["xfdf"], "application/vnd.ahead.space": ["ahead"], "application/vnd.airzip.filesecure.azf": ["azf"], "application/vnd.airzip.filesecure.azs": ["azs"], "application/vnd.amazon.ebook": ["azw"], "application/vnd.americandynamics.acc": ["acc"], "application/vnd.amiga.ami": ["ami"], "application/vnd.android.package-archive": ["apk"], "application/vnd.anser-web-certificate-issue-initiation": ["cii"], "application/vnd.anser-web-funds-transfer-initiation": ["fti"], "application/vnd.antix.game-component": ["atx"], "application/vnd.apple.installer+xml": ["mpkg"], "application/vnd.apple.keynote": ["key"], "application/vnd.apple.mpegurl": ["m3u8"], "application/vnd.apple.numbers": ["numbers"], "application/vnd.apple.pages": ["pages"], "application/vnd.apple.pkpass": ["pkpass"], "application/vnd.aristanetworks.swi": ["swi"], "application/vnd.astraea-software.iota": ["iota"], "application/vnd.audiograph": ["aep"], "application/vnd.balsamiq.bmml+xml": ["bmml"], "application/vnd.blueice.multipass": ["mpm"], "application/vnd.bmi": ["bmi"], "application/vnd.businessobjects": ["rep"], "application/vnd.chemdraw+xml": ["cdxml"], "application/vnd.chipnuts.karaoke-mmd": ["mmd"], "application/vnd.cinderella": ["cdy"], "application/vnd.citationstyles.style+xml": ["csl"], "application/vnd.claymore": ["cla"], "application/vnd.cloanto.rp9": ["rp9"], "application/vnd.clonk.c4group": ["c4g", "c4d", "c4f", "c4p", "c4u"], "application/vnd.cluetrust.cartomobile-config": ["c11amc"], "application/vnd.cluetrust.cartomobile-config-pkg": ["c11amz"], "application/vnd.commonspace": ["csp"], "application/vnd.contact.cmsg": ["cdbcmsg"], "application/vnd.cosmocaller": ["cmc"], "application/vnd.crick.clicker": ["clkx"], "application/vnd.crick.clicker.keyboard": ["clkk"], "application/vnd.crick.clicker.palette": ["clkp"], "application/vnd.crick.clicker.template": ["clkt"], "application/vnd.crick.clicker.wordbank": ["clkw"], "application/vnd.criticaltools.wbs+xml": ["wbs"], "application/vnd.ctc-posml": ["pml"], "application/vnd.cups-ppd": ["ppd"], "application/vnd.curl.car": ["car"], "application/vnd.curl.pcurl": ["pcurl"], "application/vnd.dart": ["dart"], "application/vnd.data-vision.rdz": ["rdz"], "application/vnd.dbf": ["dbf"], "application/vnd.dece.data": ["uvf", "uvvf", "uvd", "uvvd"], "application/vnd.dece.ttml+xml": ["uvt", "uvvt"], "application/vnd.dece.unspecified": ["uvx", "uvvx"], "application/vnd.dece.zip": ["uvz", "uvvz"], "application/vnd.denovo.fcselayout-link": ["fe_launch"], "application/vnd.dna": ["dna"], "application/vnd.dolby.mlp": ["mlp"], "application/vnd.dpgraph": ["dpg"], "application/vnd.dreamfactory": ["dfac"], "application/vnd.ds-keypoint": ["kpxx"], "application/vnd.dvb.ait": ["ait"], "application/vnd.dvb.service": ["svc"], "application/vnd.dynageo": ["geo"], "application/vnd.ecowin.chart": ["mag"], "application/vnd.enliven": ["nml"], "application/vnd.epson.esf": ["esf"], "application/vnd.epson.msf": ["msf"], "application/vnd.epson.quickanime": ["qam"], "application/vnd.epson.salt": ["slt"], "application/vnd.epson.ssf": ["ssf"], "application/vnd.eszigno3+xml": ["es3", "et3"], "application/vnd.ezpix-album": ["ez2"], "application/vnd.ezpix-package": ["ez3"], "application/vnd.fdf": ["fdf"], "application/vnd.fdsn.mseed": ["mseed"], "application/vnd.fdsn.seed": ["seed", "dataless"], "application/vnd.flographit": ["gph"], "application/vnd.fluxtime.clip": ["ftc"], "application/vnd.framemaker": ["fm", "frame", "maker", "book"], "application/vnd.frogans.fnc": ["fnc"], "application/vnd.frogans.ltf": ["ltf"], "application/vnd.fsc.weblaunch": ["fsc"], "application/vnd.fujitsu.oasys": ["oas"], "application/vnd.fujitsu.oasys2": ["oa2"], "application/vnd.fujitsu.oasys3": ["oa3"], "application/vnd.fujitsu.oasysgp": ["fg5"], "application/vnd.fujitsu.oasysprs": ["bh2"], "application/vnd.fujixerox.ddd": ["ddd"], "application/vnd.fujixerox.docuworks": ["xdw"], "application/vnd.fujixerox.docuworks.binder": ["xbd"], "application/vnd.fuzzysheet": ["fzs"], "application/vnd.genomatix.tuxedo": ["txd"], "application/vnd.geogebra.file": ["ggb"], "application/vnd.geogebra.tool": ["ggt"], "application/vnd.geometry-explorer": ["gex", "gre"], "application/vnd.geonext": ["gxt"], "application/vnd.geoplan": ["g2w"], "application/vnd.geospace": ["g3w"], "application/vnd.gmx": ["gmx"], "application/vnd.google-apps.document": ["gdoc"], "application/vnd.google-apps.presentation": ["gslides"], "application/vnd.google-apps.spreadsheet": ["gsheet"], "application/vnd.google-earth.kml+xml": ["kml"], "application/vnd.google-earth.kmz": ["kmz"], "application/vnd.grafeq": ["gqf", "gqs"], "application/vnd.groove-account": ["gac"], "application/vnd.groove-help": ["ghf"], "application/vnd.groove-identity-message": ["gim"], "application/vnd.groove-injector": ["grv"], "application/vnd.groove-tool-message": ["gtm"], "application/vnd.groove-tool-template": ["tpl"], "application/vnd.groove-vcard": ["vcg"], "application/vnd.hal+xml": ["hal"], "application/vnd.handheld-entertainment+xml": ["zmm"], "application/vnd.hbci": ["hbci"], "application/vnd.hhe.lesson-player": ["les"], "application/vnd.hp-hpgl": ["hpgl"], "application/vnd.hp-hpid": ["hpid"], "application/vnd.hp-hps": ["hps"], "application/vnd.hp-jlyt": ["jlt"], "application/vnd.hp-pcl": ["pcl"], "application/vnd.hp-pclxl": ["pclxl"], "application/vnd.hydrostatix.sof-data": ["sfd-hdstx"], "application/vnd.ibm.minipay": ["mpy"], "application/vnd.ibm.modcap": ["afp", "listafp", "list3820"], "application/vnd.ibm.rights-management": ["irm"], "application/vnd.ibm.secure-container": ["sc"], "application/vnd.iccprofile": ["icc", "icm"], "application/vnd.igloader": ["igl"], "application/vnd.immervision-ivp": ["ivp"], "application/vnd.immervision-ivu": ["ivu"], "application/vnd.insors.igm": ["igm"], "application/vnd.intercon.formnet": ["xpw", "xpx"], "application/vnd.intergeo": ["i2g"], "application/vnd.intu.qbo": ["qbo"], "application/vnd.intu.qfx": ["qfx"], "application/vnd.ipunplugged.rcprofile": ["rcprofile"], "application/vnd.irepository.package+xml": ["irp"], "application/vnd.is-xpr": ["xpr"], "application/vnd.isac.fcs": ["fcs"], "application/vnd.jam": ["jam"], "application/vnd.jcp.javame.midlet-rms": ["rms"], "application/vnd.jisp": ["jisp"], "application/vnd.joost.joda-archive": ["joda"], "application/vnd.kahootz": ["ktz", "ktr"], "application/vnd.kde.karbon": ["karbon"], "application/vnd.kde.kchart": ["chrt"], "application/vnd.kde.kformula": ["kfo"], "application/vnd.kde.kivio": ["flw"], "application/vnd.kde.kontour": ["kon"], "application/vnd.kde.kpresenter": ["kpr", "kpt"], "application/vnd.kde.kspread": ["ksp"], "application/vnd.kde.kword": ["kwd", "kwt"], "application/vnd.kenameaapp": ["htke"], "application/vnd.kidspiration": ["kia"], "application/vnd.kinar": ["kne", "knp"], "application/vnd.koan": ["skp", "skd", "skt", "skm"], "application/vnd.kodak-descriptor": ["sse"], "application/vnd.las.las+xml": ["lasxml"], "application/vnd.llamagraphics.life-balance.desktop": ["lbd"], "application/vnd.llamagraphics.life-balance.exchange+xml": ["lbe"], "application/vnd.lotus-1-2-3": ["123"], "application/vnd.lotus-approach": ["apr"], "application/vnd.lotus-freelance": ["pre"], "application/vnd.lotus-notes": ["nsf"], "application/vnd.lotus-organizer": ["org"], "application/vnd.lotus-screencam": ["scm"], "application/vnd.lotus-wordpro": ["lwp"], "application/vnd.macports.portpkg": ["portpkg"], "application/vnd.mapbox-vector-tile": ["mvt"], "application/vnd.mcd": ["mcd"], "application/vnd.medcalcdata": ["mc1"], "application/vnd.mediastation.cdkey": ["cdkey"], "application/vnd.mfer": ["mwf"], "application/vnd.mfmp": ["mfm"], "application/vnd.micrografx.flo": ["flo"], "application/vnd.micrografx.igx": ["igx"], "application/vnd.mif": ["mif"], "application/vnd.mobius.daf": ["daf"], "application/vnd.mobius.dis": ["dis"], "application/vnd.mobius.mbk": ["mbk"], "application/vnd.mobius.mqy": ["mqy"], "application/vnd.mobius.msl": ["msl"], "application/vnd.mobius.plc": ["plc"], "application/vnd.mobius.txf": ["txf"], "application/vnd.mophun.application": ["mpn"], "application/vnd.mophun.certificate": ["mpc"], "application/vnd.mozilla.xul+xml": ["xul"], "application/vnd.ms-artgalry": ["cil"], "application/vnd.ms-cab-compressed": ["cab"], "application/vnd.ms-excel": ["xls", "xlm", "xla", "xlc", "xlt", "xlw"], "application/vnd.ms-excel.addin.macroenabled.12": ["xlam"], "application/vnd.ms-excel.sheet.binary.macroenabled.12": ["xlsb"], "application/vnd.ms-excel.sheet.macroenabled.12": ["xlsm"], "application/vnd.ms-excel.template.macroenabled.12": ["xltm"], "application/vnd.ms-fontobject": ["eot"], "application/vnd.ms-htmlhelp": ["chm"], "application/vnd.ms-ims": ["ims"], "application/vnd.ms-lrm": ["lrm"], "application/vnd.ms-officetheme": ["thmx"], "application/vnd.ms-outlook": ["msg"], "application/vnd.ms-pki.seccat": ["cat"], "application/vnd.ms-pki.stl": ["*stl"], "application/vnd.ms-powerpoint": ["ppt", "pps", "pot"], "application/vnd.ms-powerpoint.addin.macroenabled.12": ["ppam"], "application/vnd.ms-powerpoint.presentation.macroenabled.12": ["pptm"], "application/vnd.ms-powerpoint.slide.macroenabled.12": ["sldm"], "application/vnd.ms-powerpoint.slideshow.macroenabled.12": ["ppsm"], "application/vnd.ms-powerpoint.template.macroenabled.12": ["potm"], "application/vnd.ms-project": ["mpp", "mpt"], "application/vnd.ms-word.document.macroenabled.12": ["docm"], "application/vnd.ms-word.template.macroenabled.12": ["dotm"], "application/vnd.ms-works": ["wps", "wks", "wcm", "wdb"], "application/vnd.ms-wpl": ["wpl"], "application/vnd.ms-xpsdocument": ["xps"], "application/vnd.mseq": ["mseq"], "application/vnd.musician": ["mus"], "application/vnd.muvee.style": ["msty"], "application/vnd.mynfc": ["taglet"], "application/vnd.neurolanguage.nlu": ["nlu"], "application/vnd.nitf": ["ntf", "nitf"], "application/vnd.noblenet-directory": ["nnd"], "application/vnd.noblenet-sealer": ["nns"], "application/vnd.noblenet-web": ["nnw"], "application/vnd.nokia.n-gage.ac+xml": ["*ac"], "application/vnd.nokia.n-gage.data": ["ngdat"], "application/vnd.nokia.n-gage.symbian.install": ["n-gage"], "application/vnd.nokia.radio-preset": ["rpst"], "application/vnd.nokia.radio-presets": ["rpss"], "application/vnd.novadigm.edm": ["edm"], "application/vnd.novadigm.edx": ["edx"], "application/vnd.novadigm.ext": ["ext"], "application/vnd.oasis.opendocument.chart": ["odc"], "application/vnd.oasis.opendocument.chart-template": ["otc"], "application/vnd.oasis.opendocument.database": ["odb"], "application/vnd.oasis.opendocument.formula": ["odf"], "application/vnd.oasis.opendocument.formula-template": ["odft"], "application/vnd.oasis.opendocument.graphics": ["odg"], "application/vnd.oasis.opendocument.graphics-template": ["otg"], "application/vnd.oasis.opendocument.image": ["odi"], "application/vnd.oasis.opendocument.image-template": ["oti"], "application/vnd.oasis.opendocument.presentation": ["odp"], "application/vnd.oasis.opendocument.presentation-template": ["otp"], "application/vnd.oasis.opendocument.spreadsheet": ["ods"], "application/vnd.oasis.opendocument.spreadsheet-template": ["ots"], "application/vnd.oasis.opendocument.text": ["odt"], "application/vnd.oasis.opendocument.text-master": ["odm"], "application/vnd.oasis.opendocument.text-template": ["ott"], "application/vnd.oasis.opendocument.text-web": ["oth"], "application/vnd.olpc-sugar": ["xo"], "application/vnd.oma.dd2+xml": ["dd2"], "application/vnd.openblox.game+xml": ["obgx"], "application/vnd.openofficeorg.extension": ["oxt"], "application/vnd.openstreetmap.data+xml": ["osm"], "application/vnd.openxmlformats-officedocument.presentationml.presentation": ["pptx"], "application/vnd.openxmlformats-officedocument.presentationml.slide": ["sldx"], "application/vnd.openxmlformats-officedocument.presentationml.slideshow": ["ppsx"], "application/vnd.openxmlformats-officedocument.presentationml.template": ["potx"], "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": ["xlsx"], "application/vnd.openxmlformats-officedocument.spreadsheetml.template": ["xltx"], "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ["docx"], "application/vnd.openxmlformats-officedocument.wordprocessingml.template": ["dotx"], "application/vnd.osgeo.mapguide.package": ["mgp"], "application/vnd.osgi.dp": ["dp"], "application/vnd.osgi.subsystem": ["esa"], "application/vnd.palm": ["pdb", "pqa", "oprc"], "application/vnd.pawaafile": ["paw"], "application/vnd.pg.format": ["str"], "application/vnd.pg.osasli": ["ei6"], "application/vnd.picsel": ["efif"], "application/vnd.pmi.widget": ["wg"], "application/vnd.pocketlearn": ["plf"], "application/vnd.powerbuilder6": ["pbd"], "application/vnd.previewsystems.box": ["box"], "application/vnd.proteus.magazine": ["mgz"], "application/vnd.publishare-delta-tree": ["qps"], "application/vnd.pvi.ptid1": ["ptid"], "application/vnd.quark.quarkxpress": ["qxd", "qxt", "qwd", "qwt", "qxl", "qxb"], "application/vnd.rar": ["rar"], "application/vnd.realvnc.bed": ["bed"], "application/vnd.recordare.musicxml": ["mxl"], "application/vnd.recordare.musicxml+xml": ["musicxml"], "application/vnd.rig.cryptonote": ["cryptonote"], "application/vnd.rim.cod": ["cod"], "application/vnd.rn-realmedia": ["rm"], "application/vnd.rn-realmedia-vbr": ["rmvb"], "application/vnd.route66.link66+xml": ["link66"], "application/vnd.sailingtracker.track": ["st"], "application/vnd.seemail": ["see"], "application/vnd.sema": ["sema"], "application/vnd.semd": ["semd"], "application/vnd.semf": ["semf"], "application/vnd.shana.informed.formdata": ["ifm"], "application/vnd.shana.informed.formtemplate": ["itp"], "application/vnd.shana.informed.interchange": ["iif"], "application/vnd.shana.informed.package": ["ipk"], "application/vnd.simtech-mindmapper": ["twd", "twds"], "application/vnd.smaf": ["mmf"], "application/vnd.smart.teacher": ["teacher"], "application/vnd.software602.filler.form+xml": ["fo"], "application/vnd.solent.sdkm+xml": ["sdkm", "sdkd"], "application/vnd.spotfire.dxp": ["dxp"], "application/vnd.spotfire.sfs": ["sfs"], "application/vnd.stardivision.calc": ["sdc"], "application/vnd.stardivision.draw": ["sda"], "application/vnd.stardivision.impress": ["sdd"], "application/vnd.stardivision.math": ["smf"], "application/vnd.stardivision.writer": ["sdw", "vor"], "application/vnd.stardivision.writer-global": ["sgl"], "application/vnd.stepmania.package": ["smzip"], "application/vnd.stepmania.stepchart": ["sm"], "application/vnd.sun.wadl+xml": ["wadl"], "application/vnd.sun.xml.calc": ["sxc"], "application/vnd.sun.xml.calc.template": ["stc"], "application/vnd.sun.xml.draw": ["sxd"], "application/vnd.sun.xml.draw.template": ["std"], "application/vnd.sun.xml.impress": ["sxi"], "application/vnd.sun.xml.impress.template": ["sti"], "application/vnd.sun.xml.math": ["sxm"], "application/vnd.sun.xml.writer": ["sxw"], "application/vnd.sun.xml.writer.global": ["sxg"], "application/vnd.sun.xml.writer.template": ["stw"], "application/vnd.sus-calendar": ["sus", "susp"], "application/vnd.svd": ["svd"], "application/vnd.symbian.install": ["sis", "sisx"], "application/vnd.syncml+xml": ["xsm"], "application/vnd.syncml.dm+wbxml": ["bdm"], "application/vnd.syncml.dm+xml": ["xdm"], "application/vnd.syncml.dmddf+xml": ["ddf"], "application/vnd.tao.intent-module-archive": ["tao"], "application/vnd.tcpdump.pcap": ["pcap", "cap", "dmp"], "application/vnd.tmobile-livetv": ["tmo"], "application/vnd.trid.tpt": ["tpt"], "application/vnd.triscape.mxs": ["mxs"], "application/vnd.trueapp": ["tra"], "application/vnd.ufdl": ["ufd", "ufdl"], "application/vnd.uiq.theme": ["utz"], "application/vnd.umajin": ["umj"], "application/vnd.unity": ["unityweb"], "application/vnd.uoml+xml": ["uoml"], "application/vnd.vcx": ["vcx"], "application/vnd.visio": ["vsd", "vst", "vss", "vsw"], "application/vnd.visionary": ["vis"], "application/vnd.vsf": ["vsf"], "application/vnd.wap.wbxml": ["wbxml"], "application/vnd.wap.wmlc": ["wmlc"], "application/vnd.wap.wmlscriptc": ["wmlsc"], "application/vnd.webturbo": ["wtb"], "application/vnd.wolfram.player": ["nbp"], "application/vnd.wordperfect": ["wpd"], "application/vnd.wqd": ["wqd"], "application/vnd.wt.stf": ["stf"], "application/vnd.xara": ["xar"], "application/vnd.xfdl": ["xfdl"], "application/vnd.yamaha.hv-dic": ["hvd"], "application/vnd.yamaha.hv-script": ["hvs"], "application/vnd.yamaha.hv-voice": ["hvp"], "application/vnd.yamaha.openscoreformat": ["osf"], "application/vnd.yamaha.openscoreformat.osfpvg+xml": ["osfpvg"], "application/vnd.yamaha.smaf-audio": ["saf"], "application/vnd.yamaha.smaf-phrase": ["spf"], "application/vnd.yellowriver-custom-menu": ["cmp"], "application/vnd.zul": ["zir", "zirz"], "application/vnd.zzazz.deck+xml": ["zaz"], "application/x-7z-compressed": ["7z"], "application/x-abiword": ["abw"], "application/x-ace-compressed": ["ace"], "application/x-apple-diskimage": ["*dmg"], "application/x-arj": ["arj"], "application/x-authorware-bin": ["aab", "x32", "u32", "vox"], "application/x-authorware-map": ["aam"], "application/x-authorware-seg": ["aas"], "application/x-bcpio": ["bcpio"], "application/x-bdoc": ["*bdoc"], "application/x-bittorrent": ["torrent"], "application/x-blorb": ["blb", "blorb"], "application/x-bzip": ["bz"], "application/x-bzip2": ["bz2", "boz"], "application/x-cbr": ["cbr", "cba", "cbt", "cbz", "cb7"], "application/x-cdlink": ["vcd"], "application/x-cfs-compressed": ["cfs"], "application/x-chat": ["chat"], "application/x-chess-pgn": ["pgn"], "application/x-chrome-extension": ["crx"], "application/x-cocoa": ["cco"], "application/x-conference": ["nsc"], "application/x-cpio": ["cpio"], "application/x-csh": ["csh"], "application/x-debian-package": ["*deb", "udeb"], "application/x-dgc-compressed": ["dgc"], "application/x-director": ["dir", "dcr", "dxr", "cst", "cct", "cxt", "w3d", "fgd", "swa"], "application/x-doom": ["wad"], "application/x-dtbncx+xml": ["ncx"], "application/x-dtbook+xml": ["dtb"], "application/x-dtbresource+xml": ["res"], "application/x-dvi": ["dvi"], "application/x-envoy": ["evy"], "application/x-eva": ["eva"], "application/x-font-bdf": ["bdf"], "application/x-font-ghostscript": ["gsf"], "application/x-font-linux-psf": ["psf"], "application/x-font-pcf": ["pcf"], "application/x-font-snf": ["snf"], "application/x-font-type1": ["pfa", "pfb", "pfm", "afm"], "application/x-freearc": ["arc"], "application/x-futuresplash": ["spl"], "application/x-gca-compressed": ["gca"], "application/x-glulx": ["ulx"], "application/x-gnumeric": ["gnumeric"], "application/x-gramps-xml": ["gramps"], "application/x-gtar": ["gtar"], "application/x-hdf": ["hdf"], "application/x-httpd-php": ["php"], "application/x-install-instructions": ["install"], "application/x-iso9660-image": ["*iso"], "application/x-iwork-keynote-sffkey": ["*key"], "application/x-iwork-numbers-sffnumbers": ["*numbers"], "application/x-iwork-pages-sffpages": ["*pages"], "application/x-java-archive-diff": ["jardiff"], "application/x-java-jnlp-file": ["jnlp"], "application/x-keepass2": ["kdbx"], "application/x-latex": ["latex"], "application/x-lua-bytecode": ["luac"], "application/x-lzh-compressed": ["lzh", "lha"], "application/x-makeself": ["run"], "application/x-mie": ["mie"], "application/x-mobipocket-ebook": ["prc", "mobi"], "application/x-ms-application": ["application"], "application/x-ms-shortcut": ["lnk"], "application/x-ms-wmd": ["wmd"], "application/x-ms-wmz": ["wmz"], "application/x-ms-xbap": ["xbap"], "application/x-msaccess": ["mdb"], "application/x-msbinder": ["obd"], "application/x-mscardfile": ["crd"], "application/x-msclip": ["clp"], "application/x-msdos-program": ["*exe"], "application/x-msdownload": ["*exe", "*dll", "com", "bat", "*msi"], "application/x-msmediaview": ["mvb", "m13", "m14"], "application/x-msmetafile": ["*wmf", "*wmz", "*emf", "emz"], "application/x-msmoney": ["mny"], "application/x-mspublisher": ["pub"], "application/x-msschedule": ["scd"], "application/x-msterminal": ["trm"], "application/x-mswrite": ["wri"], "application/x-netcdf": ["nc", "cdf"], "application/x-ns-proxy-autoconfig": ["pac"], "application/x-nzb": ["nzb"], "application/x-perl": ["pl", "pm"], "application/x-pilot": ["*prc", "*pdb"], "application/x-pkcs12": ["p12", "pfx"], "application/x-pkcs7-certificates": ["p7b", "spc"], "application/x-pkcs7-certreqresp": ["p7r"], "application/x-rar-compressed": ["*rar"], "application/x-redhat-package-manager": ["rpm"], "application/x-research-info-systems": ["ris"], "application/x-sea": ["sea"], "application/x-sh": ["sh"], "application/x-shar": ["shar"], "application/x-shockwave-flash": ["swf"], "application/x-silverlight-app": ["xap"], "application/x-sql": ["sql"], "application/x-stuffit": ["sit"], "application/x-stuffitx": ["sitx"], "application/x-subrip": ["srt"], "application/x-sv4cpio": ["sv4cpio"], "application/x-sv4crc": ["sv4crc"], "application/x-t3vm-image": ["t3"], "application/x-tads": ["gam"], "application/x-tar": ["tar"], "application/x-tcl": ["tcl", "tk"], "application/x-tex": ["tex"], "application/x-tex-tfm": ["tfm"], "application/x-texinfo": ["texinfo", "texi"], "application/x-tgif": ["*obj"], "application/x-ustar": ["ustar"], "application/x-virtualbox-hdd": ["hdd"], "application/x-virtualbox-ova": ["ova"], "application/x-virtualbox-ovf": ["ovf"], "application/x-virtualbox-vbox": ["vbox"], "application/x-virtualbox-vbox-extpack": ["vbox-extpack"], "application/x-virtualbox-vdi": ["vdi"], "application/x-virtualbox-vhd": ["vhd"], "application/x-virtualbox-vmdk": ["vmdk"], "application/x-wais-source": ["src"], "application/x-web-app-manifest+json": ["webapp"], "application/x-x509-ca-cert": ["der", "crt", "pem"], "application/x-xfig": ["fig"], "application/x-xliff+xml": ["*xlf"], "application/x-xpinstall": ["xpi"], "application/x-xz": ["xz"], "application/x-zmachine": ["z1", "z2", "z3", "z4", "z5", "z6", "z7", "z8"], "audio/vnd.dece.audio": ["uva", "uvva"], "audio/vnd.digital-winds": ["eol"], "audio/vnd.dra": ["dra"], "audio/vnd.dts": ["dts"], "audio/vnd.dts.hd": ["dtshd"], "audio/vnd.lucent.voice": ["lvp"], "audio/vnd.ms-playready.media.pya": ["pya"], "audio/vnd.nuera.ecelp4800": ["ecelp4800"], "audio/vnd.nuera.ecelp7470": ["ecelp7470"], "audio/vnd.nuera.ecelp9600": ["ecelp9600"], "audio/vnd.rip": ["rip"], "audio/x-aac": ["aac"], "audio/x-aiff": ["aif", "aiff", "aifc"], "audio/x-caf": ["caf"], "audio/x-flac": ["flac"], "audio/x-m4a": ["*m4a"], "audio/x-matroska": ["mka"], "audio/x-mpegurl": ["m3u"], "audio/x-ms-wax": ["wax"], "audio/x-ms-wma": ["wma"], "audio/x-pn-realaudio": ["ram", "ra"], "audio/x-pn-realaudio-plugin": ["rmp"], "audio/x-realaudio": ["*ra"], "audio/x-wav": ["*wav"], "chemical/x-cdx": ["cdx"], "chemical/x-cif": ["cif"], "chemical/x-cmdf": ["cmdf"], "chemical/x-cml": ["cml"], "chemical/x-csml": ["csml"], "chemical/x-xyz": ["xyz"], "image/prs.btif": ["btif"], "image/prs.pti": ["pti"], "image/vnd.adobe.photoshop": ["psd"], "image/vnd.airzip.accelerator.azv": ["azv"], "image/vnd.dece.graphic": ["uvi", "uvvi", "uvg", "uvvg"], "image/vnd.djvu": ["djvu", "djv"], "image/vnd.dvb.subtitle": ["*sub"], "image/vnd.dwg": ["dwg"], "image/vnd.dxf": ["dxf"], "image/vnd.fastbidsheet": ["fbs"], "image/vnd.fpx": ["fpx"], "image/vnd.fst": ["fst"], "image/vnd.fujixerox.edmics-mmr": ["mmr"], "image/vnd.fujixerox.edmics-rlc": ["rlc"], "image/vnd.microsoft.icon": ["ico"], "image/vnd.ms-dds": ["dds"], "image/vnd.ms-modi": ["mdi"], "image/vnd.ms-photo": ["wdp"], "image/vnd.net-fpx": ["npx"], "image/vnd.pco.b16": ["b16"], "image/vnd.tencent.tap": ["tap"], "image/vnd.valve.source.texture": ["vtf"], "image/vnd.wap.wbmp": ["wbmp"], "image/vnd.xiff": ["xif"], "image/vnd.zbrush.pcx": ["pcx"], "image/x-3ds": ["3ds"], "image/x-cmu-raster": ["ras"], "image/x-cmx": ["cmx"], "image/x-freehand": ["fh", "fhc", "fh4", "fh5", "fh7"], "image/x-icon": ["*ico"], "image/x-jng": ["jng"], "image/x-mrsid-image": ["sid"], "image/x-ms-bmp": ["*bmp"], "image/x-pcx": ["*pcx"], "image/x-pict": ["pic", "pct"], "image/x-portable-anymap": ["pnm"], "image/x-portable-bitmap": ["pbm"], "image/x-portable-graymap": ["pgm"], "image/x-portable-pixmap": ["ppm"], "image/x-rgb": ["rgb"], "image/x-tga": ["tga"], "image/x-xbitmap": ["xbm"], "image/x-xpixmap": ["xpm"], "image/x-xwindowdump": ["xwd"], "message/vnd.wfa.wsc": ["wsc"], "model/vnd.collada+xml": ["dae"], "model/vnd.dwf": ["dwf"], "model/vnd.gdl": ["gdl"], "model/vnd.gtw": ["gtw"], "model/vnd.mts": ["mts"], "model/vnd.opengex": ["ogex"], "model/vnd.parasolid.transmit.binary": ["x_b"], "model/vnd.parasolid.transmit.text": ["x_t"], "model/vnd.sap.vds": ["vds"], "model/vnd.usdz+zip": ["usdz"], "model/vnd.valve.source.compiled-map": ["bsp"], "model/vnd.vtu": ["vtu"], "text/prs.lines.tag": ["dsc"], "text/vnd.curl": ["curl"], "text/vnd.curl.dcurl": ["dcurl"], "text/vnd.curl.mcurl": ["mcurl"], "text/vnd.curl.scurl": ["scurl"], "text/vnd.dvb.subtitle": ["sub"], "text/vnd.fly": ["fly"], "text/vnd.fmi.flexstor": ["flx"], "text/vnd.graphviz": ["gv"], "text/vnd.in3d.3dml": ["3dml"], "text/vnd.in3d.spot": ["spot"], "text/vnd.sun.j2me.app-descriptor": ["jad"], "text/vnd.wap.wml": ["wml"], "text/vnd.wap.wmlscript": ["wmls"], "text/x-asm": ["s", "asm"], "text/x-c": ["c", "cc", "cxx", "cpp", "h", "hh", "dic"], "text/x-component": ["htc"], "text/x-fortran": ["f", "for", "f77", "f90"], "text/x-handlebars-template": ["hbs"], "text/x-java-source": ["java"], "text/x-lua": ["lua"], "text/x-markdown": ["mkd"], "text/x-nfo": ["nfo"], "text/x-opml": ["opml"], "text/x-org": ["*org"], "text/x-pascal": ["p", "pas"], "text/x-processing": ["pde"], "text/x-sass": ["sass"], "text/x-scss": ["scss"], "text/x-setext": ["etx"], "text/x-sfv": ["sfv"], "text/x-suse-ymp": ["ymp"], "text/x-uuencode": ["uu"], "text/x-vcalendar": ["vcs"], "text/x-vcard": ["vcf"], "video/vnd.dece.hd": ["uvh", "uvvh"], "video/vnd.dece.mobile": ["uvm", "uvvm"], "video/vnd.dece.pd": ["uvp", "uvvp"], "video/vnd.dece.sd": ["uvs", "uvvs"], "video/vnd.dece.video": ["uvv", "uvvv"], "video/vnd.dvb.file": ["dvb"], "video/vnd.fvt": ["fvt"], "video/vnd.mpegurl": ["mxu", "m4u"], "video/vnd.ms-playready.media.pyv": ["pyv"], "video/vnd.uvvu.mp4": ["uvu", "uvvu"], "video/vnd.vivo": ["viv"], "video/x-f4v": ["f4v"], "video/x-fli": ["fli"], "video/x-flv": ["flv"], "video/x-m4v": ["m4v"], "video/x-matroska": ["mkv", "mk3d", "mks"], "video/x-mng": ["mng"], "video/x-ms-asf": ["asf", "asx"], "video/x-ms-vob": ["vob"], "video/x-ms-wm": ["wm"], "video/x-ms-wmv": ["wmv"], "video/x-ms-wmx": ["wmx"], "video/x-ms-wvx": ["wvx"], "video/x-msvideo": ["avi"], "video/x-sgi-movie": ["movie"], "video/x-smv": ["smv"], "x-conference/x-cooltalk": ["ice"] };
-  }
+  "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js"(
+    exports,
+    module,
+  ) {
+    module.exports = {
+      "application/prs.cww": ["cww"],
+      "application/vnd.1000minds.decision-model+xml": ["1km"],
+      "application/vnd.3gpp.pic-bw-large": ["plb"],
+      "application/vnd.3gpp.pic-bw-small": ["psb"],
+      "application/vnd.3gpp.pic-bw-var": ["pvb"],
+      "application/vnd.3gpp2.tcap": ["tcap"],
+      "application/vnd.3m.post-it-notes": ["pwn"],
+      "application/vnd.accpac.simply.aso": ["aso"],
+      "application/vnd.accpac.simply.imp": ["imp"],
+      "application/vnd.acucobol": ["acu"],
+      "application/vnd.acucorp": ["atc", "acutc"],
+      "application/vnd.adobe.air-application-installer-package+zip": ["air"],
+      "application/vnd.adobe.formscentral.fcdt": ["fcdt"],
+      "application/vnd.adobe.fxp": ["fxp", "fxpl"],
+      "application/vnd.adobe.xdp+xml": ["xdp"],
+      "application/vnd.adobe.xfdf": ["xfdf"],
+      "application/vnd.ahead.space": ["ahead"],
+      "application/vnd.airzip.filesecure.azf": ["azf"],
+      "application/vnd.airzip.filesecure.azs": ["azs"],
+      "application/vnd.amazon.ebook": ["azw"],
+      "application/vnd.americandynamics.acc": ["acc"],
+      "application/vnd.amiga.ami": ["ami"],
+      "application/vnd.android.package-archive": ["apk"],
+      "application/vnd.anser-web-certificate-issue-initiation": ["cii"],
+      "application/vnd.anser-web-funds-transfer-initiation": ["fti"],
+      "application/vnd.antix.game-component": ["atx"],
+      "application/vnd.apple.installer+xml": ["mpkg"],
+      "application/vnd.apple.keynote": ["key"],
+      "application/vnd.apple.mpegurl": ["m3u8"],
+      "application/vnd.apple.numbers": ["numbers"],
+      "application/vnd.apple.pages": ["pages"],
+      "application/vnd.apple.pkpass": ["pkpass"],
+      "application/vnd.aristanetworks.swi": ["swi"],
+      "application/vnd.astraea-software.iota": ["iota"],
+      "application/vnd.audiograph": ["aep"],
+      "application/vnd.balsamiq.bmml+xml": ["bmml"],
+      "application/vnd.blueice.multipass": ["mpm"],
+      "application/vnd.bmi": ["bmi"],
+      "application/vnd.businessobjects": ["rep"],
+      "application/vnd.chemdraw+xml": ["cdxml"],
+      "application/vnd.chipnuts.karaoke-mmd": ["mmd"],
+      "application/vnd.cinderella": ["cdy"],
+      "application/vnd.citationstyles.style+xml": ["csl"],
+      "application/vnd.claymore": ["cla"],
+      "application/vnd.cloanto.rp9": ["rp9"],
+      "application/vnd.clonk.c4group": ["c4g", "c4d", "c4f", "c4p", "c4u"],
+      "application/vnd.cluetrust.cartomobile-config": ["c11amc"],
+      "application/vnd.cluetrust.cartomobile-config-pkg": ["c11amz"],
+      "application/vnd.commonspace": ["csp"],
+      "application/vnd.contact.cmsg": ["cdbcmsg"],
+      "application/vnd.cosmocaller": ["cmc"],
+      "application/vnd.crick.clicker": ["clkx"],
+      "application/vnd.crick.clicker.keyboard": ["clkk"],
+      "application/vnd.crick.clicker.palette": ["clkp"],
+      "application/vnd.crick.clicker.template": ["clkt"],
+      "application/vnd.crick.clicker.wordbank": ["clkw"],
+      "application/vnd.criticaltools.wbs+xml": ["wbs"],
+      "application/vnd.ctc-posml": ["pml"],
+      "application/vnd.cups-ppd": ["ppd"],
+      "application/vnd.curl.car": ["car"],
+      "application/vnd.curl.pcurl": ["pcurl"],
+      "application/vnd.dart": ["dart"],
+      "application/vnd.data-vision.rdz": ["rdz"],
+      "application/vnd.dbf": ["dbf"],
+      "application/vnd.dece.data": ["uvf", "uvvf", "uvd", "uvvd"],
+      "application/vnd.dece.ttml+xml": ["uvt", "uvvt"],
+      "application/vnd.dece.unspecified": ["uvx", "uvvx"],
+      "application/vnd.dece.zip": ["uvz", "uvvz"],
+      "application/vnd.denovo.fcselayout-link": ["fe_launch"],
+      "application/vnd.dna": ["dna"],
+      "application/vnd.dolby.mlp": ["mlp"],
+      "application/vnd.dpgraph": ["dpg"],
+      "application/vnd.dreamfactory": ["dfac"],
+      "application/vnd.ds-keypoint": ["kpxx"],
+      "application/vnd.dvb.ait": ["ait"],
+      "application/vnd.dvb.service": ["svc"],
+      "application/vnd.dynageo": ["geo"],
+      "application/vnd.ecowin.chart": ["mag"],
+      "application/vnd.enliven": ["nml"],
+      "application/vnd.epson.esf": ["esf"],
+      "application/vnd.epson.msf": ["msf"],
+      "application/vnd.epson.quickanime": ["qam"],
+      "application/vnd.epson.salt": ["slt"],
+      "application/vnd.epson.ssf": ["ssf"],
+      "application/vnd.eszigno3+xml": ["es3", "et3"],
+      "application/vnd.ezpix-album": ["ez2"],
+      "application/vnd.ezpix-package": ["ez3"],
+      "application/vnd.fdf": ["fdf"],
+      "application/vnd.fdsn.mseed": ["mseed"],
+      "application/vnd.fdsn.seed": ["seed", "dataless"],
+      "application/vnd.flographit": ["gph"],
+      "application/vnd.fluxtime.clip": ["ftc"],
+      "application/vnd.framemaker": ["fm", "frame", "maker", "book"],
+      "application/vnd.frogans.fnc": ["fnc"],
+      "application/vnd.frogans.ltf": ["ltf"],
+      "application/vnd.fsc.weblaunch": ["fsc"],
+      "application/vnd.fujitsu.oasys": ["oas"],
+      "application/vnd.fujitsu.oasys2": ["oa2"],
+      "application/vnd.fujitsu.oasys3": ["oa3"],
+      "application/vnd.fujitsu.oasysgp": ["fg5"],
+      "application/vnd.fujitsu.oasysprs": ["bh2"],
+      "application/vnd.fujixerox.ddd": ["ddd"],
+      "application/vnd.fujixerox.docuworks": ["xdw"],
+      "application/vnd.fujixerox.docuworks.binder": ["xbd"],
+      "application/vnd.fuzzysheet": ["fzs"],
+      "application/vnd.genomatix.tuxedo": ["txd"],
+      "application/vnd.geogebra.file": ["ggb"],
+      "application/vnd.geogebra.tool": ["ggt"],
+      "application/vnd.geometry-explorer": ["gex", "gre"],
+      "application/vnd.geonext": ["gxt"],
+      "application/vnd.geoplan": ["g2w"],
+      "application/vnd.geospace": ["g3w"],
+      "application/vnd.gmx": ["gmx"],
+      "application/vnd.google-apps.document": ["gdoc"],
+      "application/vnd.google-apps.presentation": ["gslides"],
+      "application/vnd.google-apps.spreadsheet": ["gsheet"],
+      "application/vnd.google-earth.kml+xml": ["kml"],
+      "application/vnd.google-earth.kmz": ["kmz"],
+      "application/vnd.grafeq": ["gqf", "gqs"],
+      "application/vnd.groove-account": ["gac"],
+      "application/vnd.groove-help": ["ghf"],
+      "application/vnd.groove-identity-message": ["gim"],
+      "application/vnd.groove-injector": ["grv"],
+      "application/vnd.groove-tool-message": ["gtm"],
+      "application/vnd.groove-tool-template": ["tpl"],
+      "application/vnd.groove-vcard": ["vcg"],
+      "application/vnd.hal+xml": ["hal"],
+      "application/vnd.handheld-entertainment+xml": ["zmm"],
+      "application/vnd.hbci": ["hbci"],
+      "application/vnd.hhe.lesson-player": ["les"],
+      "application/vnd.hp-hpgl": ["hpgl"],
+      "application/vnd.hp-hpid": ["hpid"],
+      "application/vnd.hp-hps": ["hps"],
+      "application/vnd.hp-jlyt": ["jlt"],
+      "application/vnd.hp-pcl": ["pcl"],
+      "application/vnd.hp-pclxl": ["pclxl"],
+      "application/vnd.hydrostatix.sof-data": ["sfd-hdstx"],
+      "application/vnd.ibm.minipay": ["mpy"],
+      "application/vnd.ibm.modcap": ["afp", "listafp", "list3820"],
+      "application/vnd.ibm.rights-management": ["irm"],
+      "application/vnd.ibm.secure-container": ["sc"],
+      "application/vnd.iccprofile": ["icc", "icm"],
+      "application/vnd.igloader": ["igl"],
+      "application/vnd.immervision-ivp": ["ivp"],
+      "application/vnd.immervision-ivu": ["ivu"],
+      "application/vnd.insors.igm": ["igm"],
+      "application/vnd.intercon.formnet": ["xpw", "xpx"],
+      "application/vnd.intergeo": ["i2g"],
+      "application/vnd.intu.qbo": ["qbo"],
+      "application/vnd.intu.qfx": ["qfx"],
+      "application/vnd.ipunplugged.rcprofile": ["rcprofile"],
+      "application/vnd.irepository.package+xml": ["irp"],
+      "application/vnd.is-xpr": ["xpr"],
+      "application/vnd.isac.fcs": ["fcs"],
+      "application/vnd.jam": ["jam"],
+      "application/vnd.jcp.javame.midlet-rms": ["rms"],
+      "application/vnd.jisp": ["jisp"],
+      "application/vnd.joost.joda-archive": ["joda"],
+      "application/vnd.kahootz": ["ktz", "ktr"],
+      "application/vnd.kde.karbon": ["karbon"],
+      "application/vnd.kde.kchart": ["chrt"],
+      "application/vnd.kde.kformula": ["kfo"],
+      "application/vnd.kde.kivio": ["flw"],
+      "application/vnd.kde.kontour": ["kon"],
+      "application/vnd.kde.kpresenter": ["kpr", "kpt"],
+      "application/vnd.kde.kspread": ["ksp"],
+      "application/vnd.kde.kword": ["kwd", "kwt"],
+      "application/vnd.kenameaapp": ["htke"],
+      "application/vnd.kidspiration": ["kia"],
+      "application/vnd.kinar": ["kne", "knp"],
+      "application/vnd.koan": ["skp", "skd", "skt", "skm"],
+      "application/vnd.kodak-descriptor": ["sse"],
+      "application/vnd.las.las+xml": ["lasxml"],
+      "application/vnd.llamagraphics.life-balance.desktop": ["lbd"],
+      "application/vnd.llamagraphics.life-balance.exchange+xml": ["lbe"],
+      "application/vnd.lotus-1-2-3": ["123"],
+      "application/vnd.lotus-approach": ["apr"],
+      "application/vnd.lotus-freelance": ["pre"],
+      "application/vnd.lotus-notes": ["nsf"],
+      "application/vnd.lotus-organizer": ["org"],
+      "application/vnd.lotus-screencam": ["scm"],
+      "application/vnd.lotus-wordpro": ["lwp"],
+      "application/vnd.macports.portpkg": ["portpkg"],
+      "application/vnd.mapbox-vector-tile": ["mvt"],
+      "application/vnd.mcd": ["mcd"],
+      "application/vnd.medcalcdata": ["mc1"],
+      "application/vnd.mediastation.cdkey": ["cdkey"],
+      "application/vnd.mfer": ["mwf"],
+      "application/vnd.mfmp": ["mfm"],
+      "application/vnd.micrografx.flo": ["flo"],
+      "application/vnd.micrografx.igx": ["igx"],
+      "application/vnd.mif": ["mif"],
+      "application/vnd.mobius.daf": ["daf"],
+      "application/vnd.mobius.dis": ["dis"],
+      "application/vnd.mobius.mbk": ["mbk"],
+      "application/vnd.mobius.mqy": ["mqy"],
+      "application/vnd.mobius.msl": ["msl"],
+      "application/vnd.mobius.plc": ["plc"],
+      "application/vnd.mobius.txf": ["txf"],
+      "application/vnd.mophun.application": ["mpn"],
+      "application/vnd.mophun.certificate": ["mpc"],
+      "application/vnd.mozilla.xul+xml": ["xul"],
+      "application/vnd.ms-artgalry": ["cil"],
+      "application/vnd.ms-cab-compressed": ["cab"],
+      "application/vnd.ms-excel": ["xls", "xlm", "xla", "xlc", "xlt", "xlw"],
+      "application/vnd.ms-excel.addin.macroenabled.12": ["xlam"],
+      "application/vnd.ms-excel.sheet.binary.macroenabled.12": ["xlsb"],
+      "application/vnd.ms-excel.sheet.macroenabled.12": ["xlsm"],
+      "application/vnd.ms-excel.template.macroenabled.12": ["xltm"],
+      "application/vnd.ms-fontobject": ["eot"],
+      "application/vnd.ms-htmlhelp": ["chm"],
+      "application/vnd.ms-ims": ["ims"],
+      "application/vnd.ms-lrm": ["lrm"],
+      "application/vnd.ms-officetheme": ["thmx"],
+      "application/vnd.ms-outlook": ["msg"],
+      "application/vnd.ms-pki.seccat": ["cat"],
+      "application/vnd.ms-pki.stl": ["*stl"],
+      "application/vnd.ms-powerpoint": ["ppt", "pps", "pot"],
+      "application/vnd.ms-powerpoint.addin.macroenabled.12": ["ppam"],
+      "application/vnd.ms-powerpoint.presentation.macroenabled.12": ["pptm"],
+      "application/vnd.ms-powerpoint.slide.macroenabled.12": ["sldm"],
+      "application/vnd.ms-powerpoint.slideshow.macroenabled.12": ["ppsm"],
+      "application/vnd.ms-powerpoint.template.macroenabled.12": ["potm"],
+      "application/vnd.ms-project": ["mpp", "mpt"],
+      "application/vnd.ms-word.document.macroenabled.12": ["docm"],
+      "application/vnd.ms-word.template.macroenabled.12": ["dotm"],
+      "application/vnd.ms-works": ["wps", "wks", "wcm", "wdb"],
+      "application/vnd.ms-wpl": ["wpl"],
+      "application/vnd.ms-xpsdocument": ["xps"],
+      "application/vnd.mseq": ["mseq"],
+      "application/vnd.musician": ["mus"],
+      "application/vnd.muvee.style": ["msty"],
+      "application/vnd.mynfc": ["taglet"],
+      "application/vnd.neurolanguage.nlu": ["nlu"],
+      "application/vnd.nitf": ["ntf", "nitf"],
+      "application/vnd.noblenet-directory": ["nnd"],
+      "application/vnd.noblenet-sealer": ["nns"],
+      "application/vnd.noblenet-web": ["nnw"],
+      "application/vnd.nokia.n-gage.ac+xml": ["*ac"],
+      "application/vnd.nokia.n-gage.data": ["ngdat"],
+      "application/vnd.nokia.n-gage.symbian.install": ["n-gage"],
+      "application/vnd.nokia.radio-preset": ["rpst"],
+      "application/vnd.nokia.radio-presets": ["rpss"],
+      "application/vnd.novadigm.edm": ["edm"],
+      "application/vnd.novadigm.edx": ["edx"],
+      "application/vnd.novadigm.ext": ["ext"],
+      "application/vnd.oasis.opendocument.chart": ["odc"],
+      "application/vnd.oasis.opendocument.chart-template": ["otc"],
+      "application/vnd.oasis.opendocument.database": ["odb"],
+      "application/vnd.oasis.opendocument.formula": ["odf"],
+      "application/vnd.oasis.opendocument.formula-template": ["odft"],
+      "application/vnd.oasis.opendocument.graphics": ["odg"],
+      "application/vnd.oasis.opendocument.graphics-template": ["otg"],
+      "application/vnd.oasis.opendocument.image": ["odi"],
+      "application/vnd.oasis.opendocument.image-template": ["oti"],
+      "application/vnd.oasis.opendocument.presentation": ["odp"],
+      "application/vnd.oasis.opendocument.presentation-template": ["otp"],
+      "application/vnd.oasis.opendocument.spreadsheet": ["ods"],
+      "application/vnd.oasis.opendocument.spreadsheet-template": ["ots"],
+      "application/vnd.oasis.opendocument.text": ["odt"],
+      "application/vnd.oasis.opendocument.text-master": ["odm"],
+      "application/vnd.oasis.opendocument.text-template": ["ott"],
+      "application/vnd.oasis.opendocument.text-web": ["oth"],
+      "application/vnd.olpc-sugar": ["xo"],
+      "application/vnd.oma.dd2+xml": ["dd2"],
+      "application/vnd.openblox.game+xml": ["obgx"],
+      "application/vnd.openofficeorg.extension": ["oxt"],
+      "application/vnd.openstreetmap.data+xml": ["osm"],
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+        ["pptx"],
+      "application/vnd.openxmlformats-officedocument.presentationml.slide": [
+        "sldx",
+      ],
+      "application/vnd.openxmlformats-officedocument.presentationml.slideshow":
+        ["ppsx"],
+      "application/vnd.openxmlformats-officedocument.presentationml.template": [
+        "potx",
+      ],
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
+        "xlsx",
+      ],
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.template": [
+        "xltx",
+      ],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        ["docx"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.template":
+        ["dotx"],
+      "application/vnd.osgeo.mapguide.package": ["mgp"],
+      "application/vnd.osgi.dp": ["dp"],
+      "application/vnd.osgi.subsystem": ["esa"],
+      "application/vnd.palm": ["pdb", "pqa", "oprc"],
+      "application/vnd.pawaafile": ["paw"],
+      "application/vnd.pg.format": ["str"],
+      "application/vnd.pg.osasli": ["ei6"],
+      "application/vnd.picsel": ["efif"],
+      "application/vnd.pmi.widget": ["wg"],
+      "application/vnd.pocketlearn": ["plf"],
+      "application/vnd.powerbuilder6": ["pbd"],
+      "application/vnd.previewsystems.box": ["box"],
+      "application/vnd.proteus.magazine": ["mgz"],
+      "application/vnd.publishare-delta-tree": ["qps"],
+      "application/vnd.pvi.ptid1": ["ptid"],
+      "application/vnd.quark.quarkxpress": [
+        "qxd",
+        "qxt",
+        "qwd",
+        "qwt",
+        "qxl",
+        "qxb",
+      ],
+      "application/vnd.rar": ["rar"],
+      "application/vnd.realvnc.bed": ["bed"],
+      "application/vnd.recordare.musicxml": ["mxl"],
+      "application/vnd.recordare.musicxml+xml": ["musicxml"],
+      "application/vnd.rig.cryptonote": ["cryptonote"],
+      "application/vnd.rim.cod": ["cod"],
+      "application/vnd.rn-realmedia": ["rm"],
+      "application/vnd.rn-realmedia-vbr": ["rmvb"],
+      "application/vnd.route66.link66+xml": ["link66"],
+      "application/vnd.sailingtracker.track": ["st"],
+      "application/vnd.seemail": ["see"],
+      "application/vnd.sema": ["sema"],
+      "application/vnd.semd": ["semd"],
+      "application/vnd.semf": ["semf"],
+      "application/vnd.shana.informed.formdata": ["ifm"],
+      "application/vnd.shana.informed.formtemplate": ["itp"],
+      "application/vnd.shana.informed.interchange": ["iif"],
+      "application/vnd.shana.informed.package": ["ipk"],
+      "application/vnd.simtech-mindmapper": ["twd", "twds"],
+      "application/vnd.smaf": ["mmf"],
+      "application/vnd.smart.teacher": ["teacher"],
+      "application/vnd.software602.filler.form+xml": ["fo"],
+      "application/vnd.solent.sdkm+xml": ["sdkm", "sdkd"],
+      "application/vnd.spotfire.dxp": ["dxp"],
+      "application/vnd.spotfire.sfs": ["sfs"],
+      "application/vnd.stardivision.calc": ["sdc"],
+      "application/vnd.stardivision.draw": ["sda"],
+      "application/vnd.stardivision.impress": ["sdd"],
+      "application/vnd.stardivision.math": ["smf"],
+      "application/vnd.stardivision.writer": ["sdw", "vor"],
+      "application/vnd.stardivision.writer-global": ["sgl"],
+      "application/vnd.stepmania.package": ["smzip"],
+      "application/vnd.stepmania.stepchart": ["sm"],
+      "application/vnd.sun.wadl+xml": ["wadl"],
+      "application/vnd.sun.xml.calc": ["sxc"],
+      "application/vnd.sun.xml.calc.template": ["stc"],
+      "application/vnd.sun.xml.draw": ["sxd"],
+      "application/vnd.sun.xml.draw.template": ["std"],
+      "application/vnd.sun.xml.impress": ["sxi"],
+      "application/vnd.sun.xml.impress.template": ["sti"],
+      "application/vnd.sun.xml.math": ["sxm"],
+      "application/vnd.sun.xml.writer": ["sxw"],
+      "application/vnd.sun.xml.writer.global": ["sxg"],
+      "application/vnd.sun.xml.writer.template": ["stw"],
+      "application/vnd.sus-calendar": ["sus", "susp"],
+      "application/vnd.svd": ["svd"],
+      "application/vnd.symbian.install": ["sis", "sisx"],
+      "application/vnd.syncml+xml": ["xsm"],
+      "application/vnd.syncml.dm+wbxml": ["bdm"],
+      "application/vnd.syncml.dm+xml": ["xdm"],
+      "application/vnd.syncml.dmddf+xml": ["ddf"],
+      "application/vnd.tao.intent-module-archive": ["tao"],
+      "application/vnd.tcpdump.pcap": ["pcap", "cap", "dmp"],
+      "application/vnd.tmobile-livetv": ["tmo"],
+      "application/vnd.trid.tpt": ["tpt"],
+      "application/vnd.triscape.mxs": ["mxs"],
+      "application/vnd.trueapp": ["tra"],
+      "application/vnd.ufdl": ["ufd", "ufdl"],
+      "application/vnd.uiq.theme": ["utz"],
+      "application/vnd.umajin": ["umj"],
+      "application/vnd.unity": ["unityweb"],
+      "application/vnd.uoml+xml": ["uoml"],
+      "application/vnd.vcx": ["vcx"],
+      "application/vnd.visio": ["vsd", "vst", "vss", "vsw"],
+      "application/vnd.visionary": ["vis"],
+      "application/vnd.vsf": ["vsf"],
+      "application/vnd.wap.wbxml": ["wbxml"],
+      "application/vnd.wap.wmlc": ["wmlc"],
+      "application/vnd.wap.wmlscriptc": ["wmlsc"],
+      "application/vnd.webturbo": ["wtb"],
+      "application/vnd.wolfram.player": ["nbp"],
+      "application/vnd.wordperfect": ["wpd"],
+      "application/vnd.wqd": ["wqd"],
+      "application/vnd.wt.stf": ["stf"],
+      "application/vnd.xara": ["xar"],
+      "application/vnd.xfdl": ["xfdl"],
+      "application/vnd.yamaha.hv-dic": ["hvd"],
+      "application/vnd.yamaha.hv-script": ["hvs"],
+      "application/vnd.yamaha.hv-voice": ["hvp"],
+      "application/vnd.yamaha.openscoreformat": ["osf"],
+      "application/vnd.yamaha.openscoreformat.osfpvg+xml": ["osfpvg"],
+      "application/vnd.yamaha.smaf-audio": ["saf"],
+      "application/vnd.yamaha.smaf-phrase": ["spf"],
+      "application/vnd.yellowriver-custom-menu": ["cmp"],
+      "application/vnd.zul": ["zir", "zirz"],
+      "application/vnd.zzazz.deck+xml": ["zaz"],
+      "application/x-7z-compressed": ["7z"],
+      "application/x-abiword": ["abw"],
+      "application/x-ace-compressed": ["ace"],
+      "application/x-apple-diskimage": ["*dmg"],
+      "application/x-arj": ["arj"],
+      "application/x-authorware-bin": ["aab", "x32", "u32", "vox"],
+      "application/x-authorware-map": ["aam"],
+      "application/x-authorware-seg": ["aas"],
+      "application/x-bcpio": ["bcpio"],
+      "application/x-bdoc": ["*bdoc"],
+      "application/x-bittorrent": ["torrent"],
+      "application/x-blorb": ["blb", "blorb"],
+      "application/x-bzip": ["bz"],
+      "application/x-bzip2": ["bz2", "boz"],
+      "application/x-cbr": ["cbr", "cba", "cbt", "cbz", "cb7"],
+      "application/x-cdlink": ["vcd"],
+      "application/x-cfs-compressed": ["cfs"],
+      "application/x-chat": ["chat"],
+      "application/x-chess-pgn": ["pgn"],
+      "application/x-chrome-extension": ["crx"],
+      "application/x-cocoa": ["cco"],
+      "application/x-conference": ["nsc"],
+      "application/x-cpio": ["cpio"],
+      "application/x-csh": ["csh"],
+      "application/x-debian-package": ["*deb", "udeb"],
+      "application/x-dgc-compressed": ["dgc"],
+      "application/x-director": [
+        "dir",
+        "dcr",
+        "dxr",
+        "cst",
+        "cct",
+        "cxt",
+        "w3d",
+        "fgd",
+        "swa",
+      ],
+      "application/x-doom": ["wad"],
+      "application/x-dtbncx+xml": ["ncx"],
+      "application/x-dtbook+xml": ["dtb"],
+      "application/x-dtbresource+xml": ["res"],
+      "application/x-dvi": ["dvi"],
+      "application/x-envoy": ["evy"],
+      "application/x-eva": ["eva"],
+      "application/x-font-bdf": ["bdf"],
+      "application/x-font-ghostscript": ["gsf"],
+      "application/x-font-linux-psf": ["psf"],
+      "application/x-font-pcf": ["pcf"],
+      "application/x-font-snf": ["snf"],
+      "application/x-font-type1": ["pfa", "pfb", "pfm", "afm"],
+      "application/x-freearc": ["arc"],
+      "application/x-futuresplash": ["spl"],
+      "application/x-gca-compressed": ["gca"],
+      "application/x-glulx": ["ulx"],
+      "application/x-gnumeric": ["gnumeric"],
+      "application/x-gramps-xml": ["gramps"],
+      "application/x-gtar": ["gtar"],
+      "application/x-hdf": ["hdf"],
+      "application/x-httpd-php": ["php"],
+      "application/x-install-instructions": ["install"],
+      "application/x-iso9660-image": ["*iso"],
+      "application/x-iwork-keynote-sffkey": ["*key"],
+      "application/x-iwork-numbers-sffnumbers": ["*numbers"],
+      "application/x-iwork-pages-sffpages": ["*pages"],
+      "application/x-java-archive-diff": ["jardiff"],
+      "application/x-java-jnlp-file": ["jnlp"],
+      "application/x-keepass2": ["kdbx"],
+      "application/x-latex": ["latex"],
+      "application/x-lua-bytecode": ["luac"],
+      "application/x-lzh-compressed": ["lzh", "lha"],
+      "application/x-makeself": ["run"],
+      "application/x-mie": ["mie"],
+      "application/x-mobipocket-ebook": ["prc", "mobi"],
+      "application/x-ms-application": ["application"],
+      "application/x-ms-shortcut": ["lnk"],
+      "application/x-ms-wmd": ["wmd"],
+      "application/x-ms-wmz": ["wmz"],
+      "application/x-ms-xbap": ["xbap"],
+      "application/x-msaccess": ["mdb"],
+      "application/x-msbinder": ["obd"],
+      "application/x-mscardfile": ["crd"],
+      "application/x-msclip": ["clp"],
+      "application/x-msdos-program": ["*exe"],
+      "application/x-msdownload": ["*exe", "*dll", "com", "bat", "*msi"],
+      "application/x-msmediaview": ["mvb", "m13", "m14"],
+      "application/x-msmetafile": ["*wmf", "*wmz", "*emf", "emz"],
+      "application/x-msmoney": ["mny"],
+      "application/x-mspublisher": ["pub"],
+      "application/x-msschedule": ["scd"],
+      "application/x-msterminal": ["trm"],
+      "application/x-mswrite": ["wri"],
+      "application/x-netcdf": ["nc", "cdf"],
+      "application/x-ns-proxy-autoconfig": ["pac"],
+      "application/x-nzb": ["nzb"],
+      "application/x-perl": ["pl", "pm"],
+      "application/x-pilot": ["*prc", "*pdb"],
+      "application/x-pkcs12": ["p12", "pfx"],
+      "application/x-pkcs7-certificates": ["p7b", "spc"],
+      "application/x-pkcs7-certreqresp": ["p7r"],
+      "application/x-rar-compressed": ["*rar"],
+      "application/x-redhat-package-manager": ["rpm"],
+      "application/x-research-info-systems": ["ris"],
+      "application/x-sea": ["sea"],
+      "application/x-sh": ["sh"],
+      "application/x-shar": ["shar"],
+      "application/x-shockwave-flash": ["swf"],
+      "application/x-silverlight-app": ["xap"],
+      "application/x-sql": ["sql"],
+      "application/x-stuffit": ["sit"],
+      "application/x-stuffitx": ["sitx"],
+      "application/x-subrip": ["srt"],
+      "application/x-sv4cpio": ["sv4cpio"],
+      "application/x-sv4crc": ["sv4crc"],
+      "application/x-t3vm-image": ["t3"],
+      "application/x-tads": ["gam"],
+      "application/x-tar": ["tar"],
+      "application/x-tcl": ["tcl", "tk"],
+      "application/x-tex": ["tex"],
+      "application/x-tex-tfm": ["tfm"],
+      "application/x-texinfo": ["texinfo", "texi"],
+      "application/x-tgif": ["*obj"],
+      "application/x-ustar": ["ustar"],
+      "application/x-virtualbox-hdd": ["hdd"],
+      "application/x-virtualbox-ova": ["ova"],
+      "application/x-virtualbox-ovf": ["ovf"],
+      "application/x-virtualbox-vbox": ["vbox"],
+      "application/x-virtualbox-vbox-extpack": ["vbox-extpack"],
+      "application/x-virtualbox-vdi": ["vdi"],
+      "application/x-virtualbox-vhd": ["vhd"],
+      "application/x-virtualbox-vmdk": ["vmdk"],
+      "application/x-wais-source": ["src"],
+      "application/x-web-app-manifest+json": ["webapp"],
+      "application/x-x509-ca-cert": ["der", "crt", "pem"],
+      "application/x-xfig": ["fig"],
+      "application/x-xliff+xml": ["*xlf"],
+      "application/x-xpinstall": ["xpi"],
+      "application/x-xz": ["xz"],
+      "application/x-zmachine": [
+        "z1",
+        "z2",
+        "z3",
+        "z4",
+        "z5",
+        "z6",
+        "z7",
+        "z8",
+      ],
+      "audio/vnd.dece.audio": ["uva", "uvva"],
+      "audio/vnd.digital-winds": ["eol"],
+      "audio/vnd.dra": ["dra"],
+      "audio/vnd.dts": ["dts"],
+      "audio/vnd.dts.hd": ["dtshd"],
+      "audio/vnd.lucent.voice": ["lvp"],
+      "audio/vnd.ms-playready.media.pya": ["pya"],
+      "audio/vnd.nuera.ecelp4800": ["ecelp4800"],
+      "audio/vnd.nuera.ecelp7470": ["ecelp7470"],
+      "audio/vnd.nuera.ecelp9600": ["ecelp9600"],
+      "audio/vnd.rip": ["rip"],
+      "audio/x-aac": ["aac"],
+      "audio/x-aiff": ["aif", "aiff", "aifc"],
+      "audio/x-caf": ["caf"],
+      "audio/x-flac": ["flac"],
+      "audio/x-m4a": ["*m4a"],
+      "audio/x-matroska": ["mka"],
+      "audio/x-mpegurl": ["m3u"],
+      "audio/x-ms-wax": ["wax"],
+      "audio/x-ms-wma": ["wma"],
+      "audio/x-pn-realaudio": ["ram", "ra"],
+      "audio/x-pn-realaudio-plugin": ["rmp"],
+      "audio/x-realaudio": ["*ra"],
+      "audio/x-wav": ["*wav"],
+      "chemical/x-cdx": ["cdx"],
+      "chemical/x-cif": ["cif"],
+      "chemical/x-cmdf": ["cmdf"],
+      "chemical/x-cml": ["cml"],
+      "chemical/x-csml": ["csml"],
+      "chemical/x-xyz": ["xyz"],
+      "image/prs.btif": ["btif"],
+      "image/prs.pti": ["pti"],
+      "image/vnd.adobe.photoshop": ["psd"],
+      "image/vnd.airzip.accelerator.azv": ["azv"],
+      "image/vnd.dece.graphic": ["uvi", "uvvi", "uvg", "uvvg"],
+      "image/vnd.djvu": ["djvu", "djv"],
+      "image/vnd.dvb.subtitle": ["*sub"],
+      "image/vnd.dwg": ["dwg"],
+      "image/vnd.dxf": ["dxf"],
+      "image/vnd.fastbidsheet": ["fbs"],
+      "image/vnd.fpx": ["fpx"],
+      "image/vnd.fst": ["fst"],
+      "image/vnd.fujixerox.edmics-mmr": ["mmr"],
+      "image/vnd.fujixerox.edmics-rlc": ["rlc"],
+      "image/vnd.microsoft.icon": ["ico"],
+      "image/vnd.ms-dds": ["dds"],
+      "image/vnd.ms-modi": ["mdi"],
+      "image/vnd.ms-photo": ["wdp"],
+      "image/vnd.net-fpx": ["npx"],
+      "image/vnd.pco.b16": ["b16"],
+      "image/vnd.tencent.tap": ["tap"],
+      "image/vnd.valve.source.texture": ["vtf"],
+      "image/vnd.wap.wbmp": ["wbmp"],
+      "image/vnd.xiff": ["xif"],
+      "image/vnd.zbrush.pcx": ["pcx"],
+      "image/x-3ds": ["3ds"],
+      "image/x-cmu-raster": ["ras"],
+      "image/x-cmx": ["cmx"],
+      "image/x-freehand": ["fh", "fhc", "fh4", "fh5", "fh7"],
+      "image/x-icon": ["*ico"],
+      "image/x-jng": ["jng"],
+      "image/x-mrsid-image": ["sid"],
+      "image/x-ms-bmp": ["*bmp"],
+      "image/x-pcx": ["*pcx"],
+      "image/x-pict": ["pic", "pct"],
+      "image/x-portable-anymap": ["pnm"],
+      "image/x-portable-bitmap": ["pbm"],
+      "image/x-portable-graymap": ["pgm"],
+      "image/x-portable-pixmap": ["ppm"],
+      "image/x-rgb": ["rgb"],
+      "image/x-tga": ["tga"],
+      "image/x-xbitmap": ["xbm"],
+      "image/x-xpixmap": ["xpm"],
+      "image/x-xwindowdump": ["xwd"],
+      "message/vnd.wfa.wsc": ["wsc"],
+      "model/vnd.collada+xml": ["dae"],
+      "model/vnd.dwf": ["dwf"],
+      "model/vnd.gdl": ["gdl"],
+      "model/vnd.gtw": ["gtw"],
+      "model/vnd.mts": ["mts"],
+      "model/vnd.opengex": ["ogex"],
+      "model/vnd.parasolid.transmit.binary": ["x_b"],
+      "model/vnd.parasolid.transmit.text": ["x_t"],
+      "model/vnd.sap.vds": ["vds"],
+      "model/vnd.usdz+zip": ["usdz"],
+      "model/vnd.valve.source.compiled-map": ["bsp"],
+      "model/vnd.vtu": ["vtu"],
+      "text/prs.lines.tag": ["dsc"],
+      "text/vnd.curl": ["curl"],
+      "text/vnd.curl.dcurl": ["dcurl"],
+      "text/vnd.curl.mcurl": ["mcurl"],
+      "text/vnd.curl.scurl": ["scurl"],
+      "text/vnd.dvb.subtitle": ["sub"],
+      "text/vnd.fly": ["fly"],
+      "text/vnd.fmi.flexstor": ["flx"],
+      "text/vnd.graphviz": ["gv"],
+      "text/vnd.in3d.3dml": ["3dml"],
+      "text/vnd.in3d.spot": ["spot"],
+      "text/vnd.sun.j2me.app-descriptor": ["jad"],
+      "text/vnd.wap.wml": ["wml"],
+      "text/vnd.wap.wmlscript": ["wmls"],
+      "text/x-asm": ["s", "asm"],
+      "text/x-c": ["c", "cc", "cxx", "cpp", "h", "hh", "dic"],
+      "text/x-component": ["htc"],
+      "text/x-fortran": ["f", "for", "f77", "f90"],
+      "text/x-handlebars-template": ["hbs"],
+      "text/x-java-source": ["java"],
+      "text/x-lua": ["lua"],
+      "text/x-markdown": ["mkd"],
+      "text/x-nfo": ["nfo"],
+      "text/x-opml": ["opml"],
+      "text/x-org": ["*org"],
+      "text/x-pascal": ["p", "pas"],
+      "text/x-processing": ["pde"],
+      "text/x-sass": ["sass"],
+      "text/x-scss": ["scss"],
+      "text/x-setext": ["etx"],
+      "text/x-sfv": ["sfv"],
+      "text/x-suse-ymp": ["ymp"],
+      "text/x-uuencode": ["uu"],
+      "text/x-vcalendar": ["vcs"],
+      "text/x-vcard": ["vcf"],
+      "video/vnd.dece.hd": ["uvh", "uvvh"],
+      "video/vnd.dece.mobile": ["uvm", "uvvm"],
+      "video/vnd.dece.pd": ["uvp", "uvvp"],
+      "video/vnd.dece.sd": ["uvs", "uvvs"],
+      "video/vnd.dece.video": ["uvv", "uvvv"],
+      "video/vnd.dvb.file": ["dvb"],
+      "video/vnd.fvt": ["fvt"],
+      "video/vnd.mpegurl": ["mxu", "m4u"],
+      "video/vnd.ms-playready.media.pyv": ["pyv"],
+      "video/vnd.uvvu.mp4": ["uvu", "uvvu"],
+      "video/vnd.vivo": ["viv"],
+      "video/x-f4v": ["f4v"],
+      "video/x-fli": ["fli"],
+      "video/x-flv": ["flv"],
+      "video/x-m4v": ["m4v"],
+      "video/x-matroska": ["mkv", "mk3d", "mks"],
+      "video/x-mng": ["mng"],
+      "video/x-ms-asf": ["asf", "asx"],
+      "video/x-ms-vob": ["vob"],
+      "video/x-ms-wm": ["wm"],
+      "video/x-ms-wmv": ["wmv"],
+      "video/x-ms-wmx": ["wmx"],
+      "video/x-ms-wvx": ["wvx"],
+      "video/x-msvideo": ["avi"],
+      "video/x-sgi-movie": ["movie"],
+      "video/x-smv": ["smv"],
+      "x-conference/x-cooltalk": ["ice"],
+    };
+  },
 });
 
 // ../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js
 var require_mime = __commonJS({
-  "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js"(exports, module) {
+  "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js"(
+    exports,
+    module,
+  ) {
     "use strict";
     var Mime = require_Mime();
     module.exports = new Mime(require_standard(), require_other());
-  }
+  },
 });
 
 // ../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js
 var require_types = __commonJS({
-  "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js"(exports) {
+  "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js"(
+    exports,
+  ) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.InternalError = exports.NotFoundError = exports.MethodNotAllowedError = exports.KVError = void 0;
+    exports.InternalError =
+      exports.NotFoundError =
+      exports.MethodNotAllowedError =
+      exports.KVError =
+        void 0;
     var KVError = class extends Error {
       constructor(message, status = 500) {
         super(message);
@@ -125,44 +1180,69 @@ var require_types = __commonJS({
     };
     exports.NotFoundError = NotFoundError;
     var InternalError = class extends KVError {
-      constructor(message = `Internal Error in KV Asset Handler`, status = 500) {
+      constructor(
+        message = `Internal Error in KV Asset Handler`,
+        status = 500,
+      ) {
         super(message, status);
       }
     };
     exports.InternalError = InternalError;
-  }
+  },
 });
 
 // ../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js
 var require_dist = __commonJS({
-  "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js"(exports) {
+  "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js"(
+    exports,
+  ) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.InternalError = exports.NotFoundError = exports.MethodNotAllowedError = exports.serveSinglePageApp = exports.mapRequestToAsset = exports.getAssetFromKV = void 0;
+    exports.InternalError =
+      exports.NotFoundError =
+      exports.MethodNotAllowedError =
+      exports.serveSinglePageApp =
+      exports.mapRequestToAsset =
+      exports.getAssetFromKV =
+        void 0;
     var mime = require_mime();
     var types_1 = require_types();
-    Object.defineProperty(exports, "MethodNotAllowedError", { enumerable: true, get: function() {
-      return types_1.MethodNotAllowedError;
-    } });
-    Object.defineProperty(exports, "NotFoundError", { enumerable: true, get: function() {
-      return types_1.NotFoundError;
-    } });
-    Object.defineProperty(exports, "InternalError", { enumerable: true, get: function() {
-      return types_1.InternalError;
-    } });
+    Object.defineProperty(exports, "MethodNotAllowedError", {
+      enumerable: true,
+      get: function () {
+        return types_1.MethodNotAllowedError;
+      },
+    });
+    Object.defineProperty(exports, "NotFoundError", {
+      enumerable: true,
+      get: function () {
+        return types_1.NotFoundError;
+      },
+    });
+    Object.defineProperty(exports, "InternalError", {
+      enumerable: true,
+      get: function () {
+        return types_1.InternalError;
+      },
+    });
     var defaultCacheControl = {
       browserTTL: null,
       edgeTTL: 2 * 60 * 60 * 24,
-      bypassCache: false
+      bypassCache: false,
     };
-    var parseStringAsObject = (maybeString) => typeof maybeString === "string" ? JSON.parse(maybeString) : maybeString;
+    var parseStringAsObject = (maybeString) =>
+      typeof maybeString === "string" ? JSON.parse(maybeString) : maybeString;
     var getAssetFromKVDefaultOptions = {
-      ASSET_NAMESPACE: typeof __STATIC_CONTENT !== "undefined" ? __STATIC_CONTENT : void 0,
-      ASSET_MANIFEST: typeof __STATIC_CONTENT_MANIFEST !== "undefined" ? parseStringAsObject(__STATIC_CONTENT_MANIFEST) : {},
+      ASSET_NAMESPACE: typeof __STATIC_CONTENT !== "undefined"
+        ? __STATIC_CONTENT
+        : void 0,
+      ASSET_MANIFEST: typeof __STATIC_CONTENT_MANIFEST !== "undefined"
+        ? parseStringAsObject(__STATIC_CONTENT_MANIFEST)
+        : {},
       cacheControl: defaultCacheControl,
       defaultMimeType: "text/plain",
       defaultDocument: "index.html",
-      pathIsEncoded: false
+      pathIsEncoded: false,
     };
     function assignOptions(options) {
       return Object.assign({}, getAssetFromKVDefaultOptions, options);
@@ -185,7 +1265,10 @@ var require_dist = __commonJS({
       request = mapRequestToAsset(request, options);
       const parsedUrl = new URL(request.url);
       if (parsedUrl.pathname.endsWith(".html")) {
-        return new Request(`${parsedUrl.origin}/${options.defaultDocument}`, request);
+        return new Request(
+          `${parsedUrl.origin}/${options.defaultDocument}`,
+          request,
+        );
       } else {
         return request;
       }
@@ -197,7 +1280,9 @@ var require_dist = __commonJS({
       const ASSET_NAMESPACE = options.ASSET_NAMESPACE;
       const ASSET_MANIFEST2 = parseStringAsObject(options.ASSET_MANIFEST);
       if (typeof ASSET_NAMESPACE === "undefined") {
-        throw new types_1.InternalError(`there is no KV namespace bound to the script`);
+        throw new types_1.InternalError(
+          `there is no KV namespace bound to the script`,
+        );
       }
       const rawPathKey = new URL(request.url).pathname.replace(/^\/+/, "");
       let pathIsEncoded = options.pathIsEncoded;
@@ -211,7 +1296,10 @@ var require_dist = __commonJS({
         requestKey = request;
       } else {
         const mappedRequest = mapRequestToAsset(request);
-        const mappedRawPathKey = new URL(mappedRequest.url).pathname.replace(/^\/+/, "");
+        const mappedRawPathKey = new URL(mappedRequest.url).pathname.replace(
+          /^\/+/,
+          "",
+        );
         if (ASSET_MANIFEST2[decodeURIComponent(mappedRawPathKey)]) {
           pathIsEncoded = true;
           requestKey = mappedRequest;
@@ -221,14 +1309,20 @@ var require_dist = __commonJS({
       }
       const SUPPORTED_METHODS = ["GET", "HEAD"];
       if (!SUPPORTED_METHODS.includes(requestKey.method)) {
-        throw new types_1.MethodNotAllowedError(`${requestKey.method} is not a valid request method`);
+        throw new types_1.MethodNotAllowedError(
+          `${requestKey.method} is not a valid request method`,
+        );
       }
       const parsedUrl = new URL(requestKey.url);
-      const pathname = pathIsEncoded ? decodeURIComponent(parsedUrl.pathname) : parsedUrl.pathname;
+      const pathname = pathIsEncoded
+        ? decodeURIComponent(parsedUrl.pathname)
+        : parsedUrl.pathname;
       let pathKey = pathname.replace(/^\/+/, "");
       const cache2 = caches.default;
       let mimeType = mime.getType(pathKey) || options.defaultMimeType;
-      if (mimeType.startsWith("text") || mimeType === "application/javascript") {
+      if (
+        mimeType.startsWith("text") || mimeType === "application/javascript"
+      ) {
         mimeType += "; charset=utf-8";
       }
       let shouldEdgeCache = false;
@@ -271,18 +1365,28 @@ var require_dist = __commonJS({
             return "";
         }
       };
-      options.cacheControl = Object.assign({}, defaultCacheControl, evalCacheOpts);
-      if (options.cacheControl.bypassCache || options.cacheControl.edgeTTL === null || request.method == "HEAD") {
+      options.cacheControl = Object.assign(
+        {},
+        defaultCacheControl,
+        evalCacheOpts,
+      );
+      if (
+        options.cacheControl.bypassCache ||
+        options.cacheControl.edgeTTL === null || request.method == "HEAD"
+      ) {
         shouldEdgeCache = false;
       }
-      const shouldSetBrowserCache = typeof options.cacheControl.browserTTL === "number";
+      const shouldSetBrowserCache =
+        typeof options.cacheControl.browserTTL === "number";
       let response = null;
       if (shouldEdgeCache) {
         response = await cache2.match(cacheKey);
       }
       if (response) {
         if (response.status > 300 && response.status < 400) {
-          if (response.body && "cancel" in Object.getPrototypeOf(response.body)) {
+          if (
+            response.body && "cancel" in Object.getPrototypeOf(response.body)
+          ) {
             response.body.cancel();
           } else {
           }
@@ -291,7 +1395,7 @@ var require_dist = __commonJS({
           let opts = {
             headers: new Headers(response.headers),
             status: 0,
-            statusText: ""
+            statusText: "",
           };
           opts.headers.set("cf-cache-status", "HIT");
           if (response.status) {
@@ -309,7 +1413,9 @@ var require_dist = __commonJS({
       } else {
         const body = await ASSET_NAMESPACE.get(pathKey, "arrayBuffer");
         if (body === null) {
-          throw new types_1.NotFoundError(`could not find ${pathKey} in your content namespace`);
+          throw new types_1.NotFoundError(
+            `could not find ${pathKey} in your content namespace`,
+          );
         }
         response = new Response(body);
         if (shouldEdgeCache) {
@@ -318,7 +1424,10 @@ var require_dist = __commonJS({
           if (!response.headers.has("etag")) {
             response.headers.set("etag", formatETag(pathKey, "strong"));
           }
-          response.headers.set("Cache-Control", `max-age=${options.cacheControl.edgeTTL}`);
+          response.headers.set(
+            "Cache-Control",
+            `max-age=${options.cacheControl.edgeTTL}`,
+          );
           event.waitUntil(cache2.put(cacheKey, response.clone()));
           response.headers.set("CF-Cache-Status", "MISS");
         }
@@ -329,7 +1438,9 @@ var require_dist = __commonJS({
         let ifNoneMatch = cacheKey.headers.get("if-none-match");
         let proxyCacheStatus = response.headers.get("CF-Cache-Status");
         if (etag) {
-          if (ifNoneMatch && ifNoneMatch === etag && proxyCacheStatus === "MISS") {
+          if (
+            ifNoneMatch && ifNoneMatch === etag && proxyCacheStatus === "MISS"
+          ) {
             response.headers.set("CF-Cache-Status", "EXPIRED");
           } else {
             response.headers.set("CF-Cache-Status", "REVALIDATED");
@@ -338,14 +1449,17 @@ var require_dist = __commonJS({
         }
       }
       if (shouldSetBrowserCache) {
-        response.headers.set("Cache-Control", `max-age=${options.cacheControl.browserTTL}`);
+        response.headers.set(
+          "Cache-Control",
+          `max-age=${options.cacheControl.browserTTL}`,
+        );
       } else {
         response.headers.delete("Cache-Control");
       }
       return response;
     };
     exports.getAssetFromKV = getAssetFromKV2;
-  }
+  },
 });
 
 // src/chat.ts
@@ -361,7 +1475,7 @@ var package_default = {
   source: "index.js",
   main: "public/static/bundle.mjs",
   files: [
-    "**/*"
+    "**/*",
   ],
   exports: {
     "./package.json": "./package.json",
@@ -369,29 +1483,36 @@ var package_default = {
     "./js/rtc.ts": "./js/rtc.ts",
     "./js/session": {
       import: "./dist/session.mjs",
-      node: "./dist/session.js"
+      node: "./dist/session.js",
     },
     "./js/textDiff": "./js/textDiff.ts",
     "./js/esbuildEsm": "./js/esbuildEsm.ts",
     "./js/binary": "./js/binary.ts",
     "./js/importmap.json": "./js/importmap.json",
-    "./js/mockedMap.json": "./js/mockedMap.json"
+    "./js/mockedMap.json": "./js/mockedMap.json",
   },
   scripts: {
-    test: "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/ --format=esm --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
+    test:
+      "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/ --format=esm --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
     typecheck: "yarn tsc",
-    clean: "rm -rf .tsBuildInfo js/vendor dist js/monaco-workers && yarn favicons",
-    "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
+    clean:
+      "rm -rf .tsBuildInfo js/vendor dist js/monaco-workers && yarn favicons",
+    "build:sw":
+      "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
     start: "cd ../../.. && yarn start",
     push: "cd ../../.. && yarn push",
-    "build:preact": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
-    "build:orbit-db": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
-    "build:framer-motion": 'yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\"production\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs',
+    "build:preact":
+      "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
+    "build:orbit-db":
+      "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
+    "build:framer-motion":
+      'yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\"production\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs',
     prebuild: "yarn test || echo FAILED",
     build: "rm -rf dist js/monaco-workers && yarn favicons && yarn es:build",
     "es:build": "yarn test && node esbuild-dev.mjs",
-    favicons: "cp -af js/assets/ ./dist && mkdir -p  ./dist/assets && cp js/assets/synthwave.webp   ./dist/assets/",
-    sw: "echo ok"
+    favicons:
+      "cp -af js/assets/ ./dist && mkdir -p  ./dist/assets && cp js/assets/synthwave.webp   ./dist/assets/",
+    sw: "echo ok",
   },
   keywords: [
     "monaco",
@@ -399,23 +1520,23 @@ var package_default = {
     "react",
     "typescript",
     "html",
-    "vscode"
+    "vscode",
   ],
   authors: [
-    "Zoltan Erdos <zolika84@gmail.com>"
+    "Zoltan Erdos <zolika84@gmail.com>",
   ],
   bugs: {
-    url: "https://github.com/zerdos/spike.land"
+    url: "https://github.com/zerdos/spike.land",
   },
   homepage: "http:///",
   repository: {
     type: "git",
-    url: "git+https://github.com/zerdos/spike.land.git"
+    url: "git+https://github.com/zerdos/spike.land.git",
   },
   author: "Zoltan Erdos <zolika84@gmail.com>",
   license: "BSD-3-Clause",
   publishConfig: {
-    access: "public"
+    access: "public",
   },
   dependencies: {
     "@ampproject/worker-dom": "^0.34.0",
@@ -453,7 +1574,7 @@ var package_default = {
     "react-reverse-portal": "2.1.1",
     "react-rnd": "^10.3.7",
     uuid: "^9.0.0",
-    "webrtc-adapter": "^8.2.0"
+    "webrtc-adapter": "^8.2.0",
   },
   devDependencies: {
     "@libp2p/interfaces": "3.0.4",
@@ -479,16 +1600,16 @@ var package_default = {
     popmotion: "11.0.5",
     tslib: "^2.4.1",
     typescript: "^4.9.3",
-    uvu: "0.5.6"
+    uvu: "0.5.6",
   },
   peerDependencies: {
     "@motionone/dom": "*",
     "fast-glob": "*",
-    popmotion: "*"
+    popmotion: "*",
   },
   directories: {
-    test: "tests"
-  }
+    test: "tests",
+  },
 };
 
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs
@@ -498,35 +1619,64 @@ var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames2 = Object.getOwnPropertyNames;
 var __getProtoOf2 = Object.getPrototypeOf;
 var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-var __name = (target, value) => __defProp2(target, "name", { value, configurable: true });
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
-};
-var __commonJS2 = (cb, mod) => function __require2() {
-  return mod || (0, cb[__getOwnPropNames2(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
+var __name = (target, value) =>
+  __defProp2(target, "name", { value, configurable: true });
+var __esm = (fn, res) =>
+  function __init() {
+    return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
+  };
+var __commonJS2 = (cb, mod) =>
+  function __require2() {
+    return mod ||
+      (0, cb[__getOwnPropNames2(cb)[0]])((mod = { exports: {} }).exports, mod),
+      mod.exports;
+  };
 var __copyProps2 = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames2(from))
-      if (!__hasOwnProp2.call(to, key) && key !== except)
-        __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
+    for (let key of __getOwnPropNames2(from)) {
+      if (!__hasOwnProp2.call(to, key) && key !== except) {
+        __defProp2(to, key, {
+          get: () => from[key],
+          enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable,
+        });
+      }
+    }
   }
   return to;
 };
-var __toESM2 = (mod, isNodeMode, target) => (target = mod != null ? __create2(__getProtoOf2(mod)) : {}, __copyProps2(
-  isNodeMode || !mod || !mod.__esModule ? __defProp2(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
+var __toESM2 = (
+  mod,
+  isNodeMode,
+  target,
+) => (target = mod != null ? __create2(__getProtoOf2(mod)) : {},
+  __copyProps2(
+    isNodeMode || !mod || !mod.__esModule
+      ? __defProp2(target, "default", { value: mod, enumerable: true })
+      : target,
+    mod,
+  ));
 var define_process_default;
 var init_define_process = __esm({
   "<define:process>"() {
-    define_process_default = { env: { NODE_ENV: "development", browser: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true }, browser: true };
-  }
+    define_process_default = {
+      env: {
+        NODE_ENV: "development",
+        browser: true,
+        NODE_DEBUG: false,
+        DEBUG: false,
+        isBrowser: true,
+      },
+      browser: true,
+    };
+  },
 });
 
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-LC2N6673.mjs
 var require_lodash = __commonJS2({
-  "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
+  "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(
+    exports,
+    module,
+  ) {
     init_define_process();
     var FUNC_ERROR_TEXT = "Expected a function";
     var NAN = 0 / 0;
@@ -536,18 +1686,29 @@ var require_lodash = __commonJS2({
     var reIsBinary = /^0b[01]+$/i;
     var reIsOctal = /^0o[0-7]+$/i;
     var freeParseInt = parseInt;
-    var freeGlobal = typeof globalThis == "object" && globalThis && globalThis.Object === Object && globalThis;
-    var freeSelf = typeof self == "object" && self && self.Object === Object && self;
+    var freeGlobal = typeof globalThis == "object" && globalThis &&
+      globalThis.Object === Object && globalThis;
+    var freeSelf = typeof self == "object" && self && self.Object === Object &&
+      self;
     var root = freeGlobal || freeSelf || Function("return this")();
     var objectProto = Object.prototype;
     var objectToString = objectProto.toString;
     var nativeMax = Math.max;
     var nativeMin = Math.min;
-    var now = /* @__PURE__ */ __name(function() {
+    var now = /* @__PURE__ */ __name(function () {
       return root.Date.now();
     }, "now");
     function debounce2(func, wait, options) {
-      var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
+      var lastArgs,
+        lastThis,
+        maxWait,
+        result,
+        timerId,
+        lastCallTime,
+        lastInvokeTime = 0,
+        leading = false,
+        maxing = false,
+        trailing = true;
       if (typeof func != "function") {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
@@ -555,7 +1716,9 @@ var require_lodash = __commonJS2({
       if (isObject(options)) {
         leading = !!options.leading;
         maxing = "maxWait" in options;
-        maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+        maxWait = maxing
+          ? nativeMax(toNumber(options.maxWait) || 0, wait)
+          : maxWait;
         trailing = "trailing" in options ? !!options.trailing : trailing;
       }
       function invokeFunc(time) {
@@ -573,13 +1736,19 @@ var require_lodash = __commonJS2({
       }
       __name(leadingEdge, "leadingEdge");
       function remainingWait(time) {
-        var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, result2 = wait - timeSinceLastCall;
-        return maxing ? nativeMin(result2, maxWait - timeSinceLastInvoke) : result2;
+        var timeSinceLastCall = time - lastCallTime,
+          timeSinceLastInvoke = time - lastInvokeTime,
+          result2 = wait - timeSinceLastCall;
+        return maxing
+          ? nativeMin(result2, maxWait - timeSinceLastInvoke)
+          : result2;
       }
       __name(remainingWait, "remainingWait");
       function shouldInvoke(time) {
-        var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime;
-        return lastCallTime === void 0 || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+        var timeSinceLastCall = time - lastCallTime,
+          timeSinceLastInvoke = time - lastInvokeTime;
+        return lastCallTime === void 0 || timeSinceLastCall >= wait ||
+          timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
       }
       __name(shouldInvoke, "shouldInvoke");
       function timerExpired() {
@@ -604,7 +1773,11 @@ var require_lodash = __commonJS2({
           clearTimeout(timerId);
         }
         lastInvokeTime = 0;
-        lastArgs = lastCallTime = lastThis = timerId = void 0;
+        lastArgs =
+          lastCallTime =
+          lastThis =
+          timerId =
+            void 0;
       }
       __name(cancel, "cancel");
       function flush() {
@@ -646,7 +1819,8 @@ var require_lodash = __commonJS2({
     }
     __name(isObjectLike, "isObjectLike");
     function isSymbol(value) {
-      return typeof value == "symbol" || isObjectLike(value) && objectToString.call(value) == symbolTag;
+      return typeof value == "symbol" ||
+        isObjectLike(value) && objectToString.call(value) == symbolTag;
     }
     __name(isSymbol, "isSymbol");
     function toNumber(value) {
@@ -657,7 +1831,9 @@ var require_lodash = __commonJS2({
         return NAN;
       }
       if (isObject(value)) {
-        var other = typeof value.valueOf == "function" ? value.valueOf() : value;
+        var other = typeof value.valueOf == "function"
+          ? value.valueOf()
+          : value;
         value = isObject(other) ? other + "" : other;
       }
       if (typeof value != "string") {
@@ -665,14 +1841,21 @@ var require_lodash = __commonJS2({
       }
       value = value.replace(reTrim, "");
       var isBinary = reIsBinary.test(value);
-      return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+      return isBinary || reIsOctal.test(value)
+        ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+        : reIsBadHex.test(value)
+        ? NAN
+        : +value;
     }
     __name(toNumber, "toNumber");
     module.exports = debounce2;
-  }
+  },
 });
 var require_diff = __commonJS2({
-  "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
+  "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(
+    exports,
+    module,
+  ) {
     init_define_process();
     var DIFF_DELETE = -1;
     var DIFF_INSERT = 1;
@@ -724,7 +1907,7 @@ var require_diff = __commonJS2({
         diffs = [
           [DIFF_INSERT, longtext.substring(0, i)],
           [DIFF_EQUAL, shorttext],
-          [DIFF_INSERT, longtext.substring(i + shorttext.length)]
+          [DIFF_INSERT, longtext.substring(i + shorttext.length)],
         ];
         if (text1.length > text2.length) {
           diffs[0][0] = diffs[2][0] = DIFF_DELETE;
@@ -778,7 +1961,10 @@ var require_diff = __commonJS2({
             x1 = v1[k1_offset - 1] + 1;
           }
           var y1 = x1 - k1;
-          while (x1 < text1_length && y1 < text2_length && text1.charAt(x1) === text2.charAt(y1)) {
+          while (
+            x1 < text1_length && y1 < text2_length &&
+            text1.charAt(x1) === text2.charAt(y1)
+          ) {
             x1++;
             y1++;
           }
@@ -789,7 +1975,9 @@ var require_diff = __commonJS2({
             k1start += 2;
           } else if (front) {
             var k2_offset = v_offset + delta - k1;
-            if (k2_offset >= 0 && k2_offset < v_length && v2[k2_offset] !== -1) {
+            if (
+              k2_offset >= 0 && k2_offset < v_length && v2[k2_offset] !== -1
+            ) {
               var x2 = text1_length - v2[k2_offset];
               if (x1 >= x2) {
                 return diff_bisectSplit_(text1, text2, x1, y1);
@@ -806,7 +1994,11 @@ var require_diff = __commonJS2({
             x2 = v2[k2_offset - 1] + 1;
           }
           var y2 = x2 - k2;
-          while (x2 < text1_length && y2 < text2_length && text1.charAt(text1_length - x2 - 1) === text2.charAt(text2_length - y2 - 1)) {
+          while (
+            x2 < text1_length && y2 < text2_length &&
+            text1.charAt(text1_length - x2 - 1) ===
+              text2.charAt(text2_length - y2 - 1)
+          ) {
             x2++;
             y2++;
           }
@@ -817,7 +2009,9 @@ var require_diff = __commonJS2({
             k2start += 2;
           } else if (!front) {
             var k1_offset = v_offset + delta - k2;
-            if (k1_offset >= 0 && k1_offset < v_length && v1[k1_offset] !== -1) {
+            if (
+              k1_offset >= 0 && k1_offset < v_length && v1[k1_offset] !== -1
+            ) {
               var x1 = v1[k1_offset];
               var y1 = v_offset + x1 - k1_offset;
               x2 = text1_length - x2;
@@ -850,7 +2044,10 @@ var require_diff = __commonJS2({
       var pointermid = pointermax;
       var pointerstart = 0;
       while (pointermin < pointermid) {
-        if (text1.substring(pointerstart, pointermid) == text2.substring(pointerstart, pointermid)) {
+        if (
+          text1.substring(pointerstart, pointermid) ==
+            text2.substring(pointerstart, pointermid)
+        ) {
           pointermin = pointermid;
           pointerstart = pointermin;
         } else {
@@ -873,7 +2070,16 @@ var require_diff = __commonJS2({
       var pointermid = pointermax;
       var pointerend = 0;
       while (pointermin < pointermid) {
-        if (text1.substring(text1.length - pointermid, text1.length - pointerend) == text2.substring(text2.length - pointermid, text2.length - pointerend)) {
+        if (
+          text1.substring(
+            text1.length - pointermid,
+            text1.length - pointerend,
+          ) ==
+            text2.substring(
+              text2.length - pointermid,
+              text2.length - pointerend,
+            )
+        ) {
           pointermin = pointermid;
           pointerend = pointermin;
         } else {
@@ -897,20 +2103,23 @@ var require_diff = __commonJS2({
         var seed = longtext2.substring(i, i + Math.floor(longtext2.length / 4));
         var j = -1;
         var best_common = "";
-        var best_longtext_a, best_longtext_b, best_shorttext_a, best_shorttext_b;
+        var best_longtext_a,
+          best_longtext_b,
+          best_shorttext_a,
+          best_shorttext_b;
         while ((j = shorttext2.indexOf(seed, j + 1)) !== -1) {
           var prefixLength = diff_commonPrefix(
             longtext2.substring(i),
-            shorttext2.substring(j)
+            shorttext2.substring(j),
           );
           var suffixLength = diff_commonSuffix(
             longtext2.substring(0, i),
-            shorttext2.substring(0, j)
+            shorttext2.substring(0, j),
           );
           if (best_common.length < suffixLength + prefixLength) {
             best_common = shorttext2.substring(
               j - suffixLength,
-              j
+              j,
             ) + shorttext2.substring(j, j + prefixLength);
             best_longtext_a = longtext2.substring(0, i - suffixLength);
             best_longtext_b = longtext2.substring(i + prefixLength);
@@ -924,15 +2133,23 @@ var require_diff = __commonJS2({
             best_longtext_b,
             best_shorttext_a,
             best_shorttext_b,
-            best_common
+            best_common,
           ];
         } else {
           return null;
         }
       }
       __name(diff_halfMatchI_, "diff_halfMatchI_");
-      var hm1 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
-      var hm2 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
+      var hm1 = diff_halfMatchI_(
+        longtext,
+        shorttext,
+        Math.ceil(longtext.length / 4),
+      );
+      var hm2 = diff_halfMatchI_(
+        longtext,
+        shorttext,
+        Math.ceil(longtext.length / 2),
+      );
       var hm;
       if (!hm1 && !hm2) {
         return null;
@@ -986,9 +2203,15 @@ var require_diff = __commonJS2({
           case DIFF_EQUAL:
             var previous_equality = pointer - count_insert - count_delete - 1;
             if (fix_unicode) {
-              if (previous_equality >= 0 && ends_with_pair_start(diffs[previous_equality][1])) {
+              if (
+                previous_equality >= 0 &&
+                ends_with_pair_start(diffs[previous_equality][1])
+              ) {
                 var stray = diffs[previous_equality][1].slice(-1);
-                diffs[previous_equality][1] = diffs[previous_equality][1].slice(0, -1);
+                diffs[previous_equality][1] = diffs[previous_equality][1].slice(
+                  0,
+                  -1,
+                );
                 text_delete = stray + text_delete;
                 text_insert = stray + text_insert;
                 if (!diffs[previous_equality][1]) {
@@ -1024,9 +2247,15 @@ var require_diff = __commonJS2({
                 commonlength = diff_commonPrefix(text_insert, text_delete);
                 if (commonlength !== 0) {
                   if (previous_equality >= 0) {
-                    diffs[previous_equality][1] += text_insert.substring(0, commonlength);
+                    diffs[previous_equality][1] += text_insert.substring(
+                      0,
+                      commonlength,
+                    );
                   } else {
-                    diffs.splice(0, 0, [DIFF_EQUAL, text_insert.substring(0, commonlength)]);
+                    diffs.splice(0, 0, [
+                      DIFF_EQUAL,
+                      text_insert.substring(0, commonlength),
+                    ]);
                     pointer++;
                   }
                   text_insert = text_insert.substring(commonlength);
@@ -1034,9 +2263,17 @@ var require_diff = __commonJS2({
                 }
                 commonlength = diff_commonSuffix(text_insert, text_delete);
                 if (commonlength !== 0) {
-                  diffs[pointer][1] = text_insert.substring(text_insert.length - commonlength) + diffs[pointer][1];
-                  text_insert = text_insert.substring(0, text_insert.length - commonlength);
-                  text_delete = text_delete.substring(0, text_delete.length - commonlength);
+                  diffs[pointer][1] =
+                    text_insert.substring(text_insert.length - commonlength) +
+                    diffs[pointer][1];
+                  text_insert = text_insert.substring(
+                    0,
+                    text_insert.length - commonlength,
+                  );
+                  text_delete = text_delete.substring(
+                    0,
+                    text_delete.length - commonlength,
+                  );
                 }
               }
               var n = count_insert + count_delete;
@@ -1050,7 +2287,10 @@ var require_diff = __commonJS2({
                 diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete]);
                 pointer = pointer - n + 1;
               } else {
-                diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete], [DIFF_INSERT, text_insert]);
+                diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete], [
+                  DIFF_INSERT,
+                  text_insert,
+                ]);
                 pointer = pointer - n + 2;
               }
             }
@@ -1073,15 +2313,32 @@ var require_diff = __commonJS2({
       var changes = false;
       pointer = 1;
       while (pointer < diffs.length - 1) {
-        if (diffs[pointer - 1][0] === DIFF_EQUAL && diffs[pointer + 1][0] === DIFF_EQUAL) {
-          if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
-            diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
-            diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
+        if (
+          diffs[pointer - 1][0] === DIFF_EQUAL &&
+          diffs[pointer + 1][0] === DIFF_EQUAL
+        ) {
+          if (
+            diffs[pointer][1].substring(
+              diffs[pointer][1].length - diffs[pointer - 1][1].length,
+            ) === diffs[pointer - 1][1]
+          ) {
+            diffs[pointer][1] = diffs[pointer - 1][1] +
+              diffs[pointer][1].substring(
+                0,
+                diffs[pointer][1].length - diffs[pointer - 1][1].length,
+              );
+            diffs[pointer + 1][1] = diffs[pointer - 1][1] +
+              diffs[pointer + 1][1];
             diffs.splice(pointer - 1, 1);
             changes = true;
-          } else if (diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) == diffs[pointer + 1][1]) {
+          } else if (
+            diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) ==
+              diffs[pointer + 1][1]
+          ) {
             diffs[pointer - 1][1] += diffs[pointer + 1][1];
-            diffs[pointer][1] = diffs[pointer][1].substring(diffs[pointer + 1][1].length) + diffs[pointer + 1][1];
+            diffs[pointer][1] =
+              diffs[pointer][1].substring(diffs[pointer + 1][1].length) +
+              diffs[pointer + 1][1];
             diffs.splice(pointer + 1, 1);
             changes = true;
           }
@@ -1127,16 +2384,22 @@ var require_diff = __commonJS2({
         [DIFF_EQUAL, before],
         [DIFF_DELETE, oldMiddle],
         [DIFF_INSERT, newMiddle],
-        [DIFF_EQUAL, after]
+        [DIFF_EQUAL, after],
       ]);
     }
     __name(make_edit_splice, "make_edit_splice");
     function find_cursor_edit_diff(oldText, newText, cursor_pos) {
-      var oldRange = typeof cursor_pos === "number" ? { index: cursor_pos, length: 0 } : cursor_pos.oldRange;
-      var newRange = typeof cursor_pos === "number" ? null : cursor_pos.newRange;
+      var oldRange = typeof cursor_pos === "number"
+        ? { index: cursor_pos, length: 0 }
+        : cursor_pos.oldRange;
+      var newRange = typeof cursor_pos === "number"
+        ? null
+        : cursor_pos.newRange;
       var oldLength = oldText.length;
       var newLength = newText.length;
-      if (oldRange.length === 0 && (newRange === null || newRange.length === 0)) {
+      if (
+        oldRange.length === 0 && (newRange === null || newRange.length === 0)
+      ) {
         var oldCursor = oldRange.index;
         var oldBefore = oldText.slice(0, oldCursor);
         var oldAfter = oldText.slice(oldCursor);
@@ -1215,7 +2478,7 @@ var require_diff = __commonJS2({
     diff2.DELETE = DIFF_DELETE;
     diff2.EQUAL = DIFF_EQUAL;
     module.exports = diff2;
-  }
+  },
 });
 init_define_process();
 init_define_process();
@@ -1260,7 +2523,8 @@ function returnTrue() {
 }
 __name(returnTrue, "returnTrue");
 function wholeSlice(begin, end, size) {
-  return (begin === 0 && !isNeg(begin) || size !== void 0 && begin <= -size) && (end === void 0 || size !== void 0 && end >= size);
+  return (begin === 0 && !isNeg(begin) || size !== void 0 && begin <= -size) &&
+    (end === void 0 || size !== void 0 && end >= size);
 }
 __name(wholeSlice, "wholeSlice");
 function resolveBegin(begin, size) {
@@ -1272,7 +2536,13 @@ function resolveEnd(end, size) {
 }
 __name(resolveEnd, "resolveEnd");
 function resolveIndex(index, size, defaultIndex) {
-  return index === void 0 ? defaultIndex : isNeg(index) ? size === Infinity ? size : Math.max(0, size + index) | 0 : size === void 0 || size === index ? index : Math.min(size, index) | 0;
+  return index === void 0
+    ? defaultIndex
+    : isNeg(index)
+    ? size === Infinity ? size : Math.max(0, size + index) | 0
+    : size === void 0 || size === index
+    ? index
+    : Math.min(size, index) | 0;
 }
 __name(resolveIndex, "resolveIndex");
 function isNeg(value) {
@@ -1301,36 +2571,45 @@ __name(isAssociative, "isAssociative");
 var Collection = /* @__PURE__ */ __name(function Collection2(value) {
   return isCollection(value) ? value : Seq(value);
 }, "Collection");
-var KeyedCollection = /* @__PURE__ */ function(Collection3) {
+var KeyedCollection = /* @__PURE__ */ function (Collection3) {
   function KeyedCollection2(value) {
     return isKeyed(value) ? value : KeyedSeq(value);
   }
   __name(KeyedCollection2, "KeyedCollection");
-  if (Collection3)
+  if (Collection3) {
     KeyedCollection2.__proto__ = Collection3;
-  KeyedCollection2.prototype = Object.create(Collection3 && Collection3.prototype);
+  }
+  KeyedCollection2.prototype = Object.create(
+    Collection3 && Collection3.prototype,
+  );
   KeyedCollection2.prototype.constructor = KeyedCollection2;
   return KeyedCollection2;
 }(Collection);
-var IndexedCollection = /* @__PURE__ */ function(Collection3) {
+var IndexedCollection = /* @__PURE__ */ function (Collection3) {
   function IndexedCollection2(value) {
     return isIndexed(value) ? value : IndexedSeq(value);
   }
   __name(IndexedCollection2, "IndexedCollection");
-  if (Collection3)
+  if (Collection3) {
     IndexedCollection2.__proto__ = Collection3;
-  IndexedCollection2.prototype = Object.create(Collection3 && Collection3.prototype);
+  }
+  IndexedCollection2.prototype = Object.create(
+    Collection3 && Collection3.prototype,
+  );
   IndexedCollection2.prototype.constructor = IndexedCollection2;
   return IndexedCollection2;
 }(Collection);
-var SetCollection = /* @__PURE__ */ function(Collection3) {
+var SetCollection = /* @__PURE__ */ function (Collection3) {
   function SetCollection2(value) {
     return isCollection(value) && !isAssociative(value) ? value : SetSeq(value);
   }
   __name(SetCollection2, "SetCollection");
-  if (Collection3)
+  if (Collection3) {
     SetCollection2.__proto__ = Collection3;
-  SetCollection2.prototype = Object.create(Collection3 && Collection3.prototype);
+  }
+  SetCollection2.prototype = Object.create(
+    Collection3 && Collection3.prototype,
+  );
   SetCollection2.prototype.constructor = SetCollection2;
   return SetCollection2;
 }(Collection);
@@ -1371,17 +2650,17 @@ Iterator.prototype.toString = /* @__PURE__ */ __name(function toString() {
 Iterator.KEYS = ITERATE_KEYS;
 Iterator.VALUES = ITERATE_VALUES;
 Iterator.ENTRIES = ITERATE_ENTRIES;
-Iterator.prototype.inspect = Iterator.prototype.toSource = function() {
+Iterator.prototype.inspect = Iterator.prototype.toSource = function () {
   return this.toString();
 };
-Iterator.prototype[ITERATOR_SYMBOL] = function() {
+Iterator.prototype[ITERATOR_SYMBOL] = function () {
   return this;
 };
 function iteratorValue(type, k, v, iteratorResult) {
   var value = type === 0 ? k : type === 1 ? v : [k, v];
   iteratorResult ? iteratorResult.value = value : iteratorResult = {
     value,
-    done: false
+    done: false,
   };
   return iteratorResult;
 }
@@ -1407,7 +2686,9 @@ function getIterator(iterable) {
 }
 __name(getIterator, "getIterator");
 function getIteratorFn(iterable) {
-  var iteratorFn = iterable && (REAL_ITERATOR_SYMBOL && iterable[REAL_ITERATOR_SYMBOL] || iterable[FAUX_ITERATOR_SYMBOL]);
+  var iteratorFn = iterable &&
+    (REAL_ITERATOR_SYMBOL && iterable[REAL_ITERATOR_SYMBOL] ||
+      iterable[FAUX_ITERATOR_SYMBOL]);
   if (typeof iteratorFn === "function") {
     return iteratorFn;
   }
@@ -1428,16 +2709,25 @@ function isArrayLike(value) {
   if (Array.isArray(value) || typeof value === "string") {
     return true;
   }
-  return value && typeof value === "object" && Number.isInteger(value.length) && value.length >= 0 && (value.length === 0 ? Object.keys(value).length === 1 : value.hasOwnProperty(value.length - 1));
+  return value && typeof value === "object" && Number.isInteger(value.length) &&
+    value.length >= 0 &&
+    (value.length === 0
+      ? Object.keys(value).length === 1
+      : value.hasOwnProperty(value.length - 1));
 }
 __name(isArrayLike, "isArrayLike");
-var Seq = /* @__PURE__ */ function(Collection3) {
+var Seq = /* @__PURE__ */ function (Collection3) {
   function Seq2(value) {
-    return value === void 0 || value === null ? emptySequence() : isImmutable(value) ? value.toSeq() : seqFromValue(value);
+    return value === void 0 || value === null
+      ? emptySequence()
+      : isImmutable(value)
+      ? value.toSeq()
+      : seqFromValue(value);
   }
   __name(Seq2, "Seq");
-  if (Collection3)
+  if (Collection3) {
     Seq2.__proto__ = Collection3;
+  }
   Seq2.prototype = Object.create(Collection3 && Collection3.prototype);
   Seq2.prototype.constructor = Seq2;
   Seq2.prototype.toSeq = /* @__PURE__ */ __name(function toSeq3() {
@@ -1453,79 +2743,108 @@ var Seq = /* @__PURE__ */ function(Collection3) {
     }
     return this;
   }, "cacheResult");
-  Seq2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var cache2 = this._cache;
-    if (cache2) {
-      var size = cache2.length;
-      var i = 0;
-      while (i !== size) {
-        var entry = cache2[reverse3 ? size - ++i : i++];
-        if (fn(entry[1], entry[0], this) === false) {
-          break;
+  Seq2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var cache2 = this._cache;
+      if (cache2) {
+        var size = cache2.length;
+        var i = 0;
+        while (i !== size) {
+          var entry = cache2[reverse3 ? size - ++i : i++];
+          if (fn(entry[1], entry[0], this) === false) {
+            break;
+          }
         }
+        return i;
       }
-      return i;
-    }
-    return this.__iterateUncached(fn, reverse3);
-  }, "__iterate");
-  Seq2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    var cache2 = this._cache;
-    if (cache2) {
-      var size = cache2.length;
-      var i = 0;
-      return new Iterator(function() {
-        if (i === size) {
-          return iteratorDone();
-        }
-        var entry = cache2[reverse3 ? size - ++i : i++];
-        return iteratorValue(type, entry[0], entry[1]);
-      });
-    }
-    return this.__iteratorUncached(type, reverse3);
-  }, "__iterator");
+      return this.__iterateUncached(fn, reverse3);
+    },
+    "__iterate",
+  );
+  Seq2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      var cache2 = this._cache;
+      if (cache2) {
+        var size = cache2.length;
+        var i = 0;
+        return new Iterator(function () {
+          if (i === size) {
+            return iteratorDone();
+          }
+          var entry = cache2[reverse3 ? size - ++i : i++];
+          return iteratorValue(type, entry[0], entry[1]);
+        });
+      }
+      return this.__iteratorUncached(type, reverse3);
+    },
+    "__iterator",
+  );
   return Seq2;
 }(Collection);
-var KeyedSeq = /* @__PURE__ */ function(Seq2) {
+var KeyedSeq = /* @__PURE__ */ function (Seq2) {
   function KeyedSeq2(value) {
-    return value === void 0 || value === null ? emptySequence().toKeyedSeq() : isCollection(value) ? isKeyed(value) ? value.toSeq() : value.fromEntrySeq() : isRecord(value) ? value.toSeq() : keyedSeqFromValue(value);
+    return value === void 0 || value === null
+      ? emptySequence().toKeyedSeq()
+      : isCollection(value)
+      ? isKeyed(value) ? value.toSeq() : value.fromEntrySeq()
+      : isRecord(value)
+      ? value.toSeq()
+      : keyedSeqFromValue(value);
   }
   __name(KeyedSeq2, "KeyedSeq");
-  if (Seq2)
+  if (Seq2) {
     KeyedSeq2.__proto__ = Seq2;
+  }
   KeyedSeq2.prototype = Object.create(Seq2 && Seq2.prototype);
   KeyedSeq2.prototype.constructor = KeyedSeq2;
-  KeyedSeq2.prototype.toKeyedSeq = /* @__PURE__ */ __name(function toKeyedSeq3() {
-    return this;
-  }, "toKeyedSeq");
+  KeyedSeq2.prototype.toKeyedSeq = /* @__PURE__ */ __name(
+    function toKeyedSeq3() {
+      return this;
+    },
+    "toKeyedSeq",
+  );
   return KeyedSeq2;
 }(Seq);
-var IndexedSeq = /* @__PURE__ */ function(Seq2) {
+var IndexedSeq = /* @__PURE__ */ function (Seq2) {
   function IndexedSeq2(value) {
-    return value === void 0 || value === null ? emptySequence() : isCollection(value) ? isKeyed(value) ? value.entrySeq() : value.toIndexedSeq() : isRecord(value) ? value.toSeq().entrySeq() : indexedSeqFromValue(value);
+    return value === void 0 || value === null
+      ? emptySequence()
+      : isCollection(value)
+      ? isKeyed(value) ? value.entrySeq() : value.toIndexedSeq()
+      : isRecord(value)
+      ? value.toSeq().entrySeq()
+      : indexedSeqFromValue(value);
   }
   __name(IndexedSeq2, "IndexedSeq");
-  if (Seq2)
+  if (Seq2) {
     IndexedSeq2.__proto__ = Seq2;
+  }
   IndexedSeq2.prototype = Object.create(Seq2 && Seq2.prototype);
   IndexedSeq2.prototype.constructor = IndexedSeq2;
   IndexedSeq2.of = /* @__PURE__ */ __name(function of() {
     return IndexedSeq2(arguments);
   }, "of");
-  IndexedSeq2.prototype.toIndexedSeq = /* @__PURE__ */ __name(function toIndexedSeq2() {
-    return this;
-  }, "toIndexedSeq");
+  IndexedSeq2.prototype.toIndexedSeq = /* @__PURE__ */ __name(
+    function toIndexedSeq2() {
+      return this;
+    },
+    "toIndexedSeq",
+  );
   IndexedSeq2.prototype.toString = /* @__PURE__ */ __name(function toString5() {
     return this.__toString("Seq [", "]");
   }, "toString");
   return IndexedSeq2;
 }(Seq);
-var SetSeq = /* @__PURE__ */ function(Seq2) {
+var SetSeq = /* @__PURE__ */ function (Seq2) {
   function SetSeq2(value) {
-    return (isCollection(value) && !isAssociative(value) ? value : IndexedSeq(value)).toSetSeq();
+    return (isCollection(value) && !isAssociative(value)
+      ? value
+      : IndexedSeq(value)).toSetSeq();
   }
   __name(SetSeq2, "SetSeq");
-  if (Seq2)
+  if (Seq2) {
     SetSeq2.__proto__ = Seq2;
+  }
   SetSeq2.prototype = Object.create(Seq2 && Seq2.prototype);
   SetSeq2.prototype.constructor = SetSeq2;
   SetSeq2.of = /* @__PURE__ */ __name(function of() {
@@ -1541,139 +2860,170 @@ Seq.Keyed = KeyedSeq;
 Seq.Set = SetSeq;
 Seq.Indexed = IndexedSeq;
 Seq.prototype[IS_SEQ_SYMBOL] = true;
-var ArraySeq = /* @__PURE__ */ function(IndexedSeq2) {
+var ArraySeq = /* @__PURE__ */ function (IndexedSeq2) {
   function ArraySeq2(array) {
     this._array = array;
     this.size = array.length;
   }
   __name(ArraySeq2, "ArraySeq");
-  if (IndexedSeq2)
+  if (IndexedSeq2) {
     ArraySeq2.__proto__ = IndexedSeq2;
+  }
   ArraySeq2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
   ArraySeq2.prototype.constructor = ArraySeq2;
-  ArraySeq2.prototype.get = /* @__PURE__ */ __name(function get11(index, notSetValue) {
-    return this.has(index) ? this._array[wrapIndex(this, index)] : notSetValue;
-  }, "get");
-  ArraySeq2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var array = this._array;
-    var size = array.length;
-    var i = 0;
-    while (i !== size) {
-      var ii = reverse3 ? size - ++i : i++;
-      if (fn(array[ii], ii, this) === false) {
-        break;
+  ArraySeq2.prototype.get = /* @__PURE__ */ __name(
+    function get11(index, notSetValue) {
+      return this.has(index)
+        ? this._array[wrapIndex(this, index)]
+        : notSetValue;
+    },
+    "get",
+  );
+  ArraySeq2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var array = this._array;
+      var size = array.length;
+      var i = 0;
+      while (i !== size) {
+        var ii = reverse3 ? size - ++i : i++;
+        if (fn(array[ii], ii, this) === false) {
+          break;
+        }
       }
-    }
-    return i;
-  }, "__iterate");
-  ArraySeq2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    var array = this._array;
-    var size = array.length;
-    var i = 0;
-    return new Iterator(function() {
-      if (i === size) {
-        return iteratorDone();
-      }
-      var ii = reverse3 ? size - ++i : i++;
-      return iteratorValue(type, ii, array[ii]);
-    });
-  }, "__iterator");
+      return i;
+    },
+    "__iterate",
+  );
+  ArraySeq2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      var array = this._array;
+      var size = array.length;
+      var i = 0;
+      return new Iterator(function () {
+        if (i === size) {
+          return iteratorDone();
+        }
+        var ii = reverse3 ? size - ++i : i++;
+        return iteratorValue(type, ii, array[ii]);
+      });
+    },
+    "__iterator",
+  );
   return ArraySeq2;
 }(IndexedSeq);
-var ObjectSeq = /* @__PURE__ */ function(KeyedSeq2) {
+var ObjectSeq = /* @__PURE__ */ function (KeyedSeq2) {
   function ObjectSeq2(object) {
     var keys2 = Object.keys(object).concat(
-      Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : []
+      Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : [],
     );
     this._object = object;
     this._keys = keys2;
     this.size = keys2.length;
   }
   __name(ObjectSeq2, "ObjectSeq");
-  if (KeyedSeq2)
+  if (KeyedSeq2) {
     ObjectSeq2.__proto__ = KeyedSeq2;
+  }
   ObjectSeq2.prototype = Object.create(KeyedSeq2 && KeyedSeq2.prototype);
   ObjectSeq2.prototype.constructor = ObjectSeq2;
-  ObjectSeq2.prototype.get = /* @__PURE__ */ __name(function get11(key, notSetValue) {
-    if (notSetValue !== void 0 && !this.has(key)) {
-      return notSetValue;
-    }
-    return this._object[key];
-  }, "get");
+  ObjectSeq2.prototype.get = /* @__PURE__ */ __name(
+    function get11(key, notSetValue) {
+      if (notSetValue !== void 0 && !this.has(key)) {
+        return notSetValue;
+      }
+      return this._object[key];
+    },
+    "get",
+  );
   ObjectSeq2.prototype.has = /* @__PURE__ */ __name(function has5(key) {
     return hasOwnProperty.call(this._object, key);
   }, "has");
-  ObjectSeq2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var object = this._object;
-    var keys2 = this._keys;
-    var size = keys2.length;
-    var i = 0;
-    while (i !== size) {
-      var key = keys2[reverse3 ? size - ++i : i++];
-      if (fn(object[key], key, this) === false) {
-        break;
+  ObjectSeq2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var object = this._object;
+      var keys2 = this._keys;
+      var size = keys2.length;
+      var i = 0;
+      while (i !== size) {
+        var key = keys2[reverse3 ? size - ++i : i++];
+        if (fn(object[key], key, this) === false) {
+          break;
+        }
       }
-    }
-    return i;
-  }, "__iterate");
-  ObjectSeq2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    var object = this._object;
-    var keys2 = this._keys;
-    var size = keys2.length;
-    var i = 0;
-    return new Iterator(function() {
-      if (i === size) {
-        return iteratorDone();
-      }
-      var key = keys2[reverse3 ? size - ++i : i++];
-      return iteratorValue(type, key, object[key]);
-    });
-  }, "__iterator");
+      return i;
+    },
+    "__iterate",
+  );
+  ObjectSeq2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      var object = this._object;
+      var keys2 = this._keys;
+      var size = keys2.length;
+      var i = 0;
+      return new Iterator(function () {
+        if (i === size) {
+          return iteratorDone();
+        }
+        var key = keys2[reverse3 ? size - ++i : i++];
+        return iteratorValue(type, key, object[key]);
+      });
+    },
+    "__iterator",
+  );
   return ObjectSeq2;
 }(KeyedSeq);
 ObjectSeq.prototype[IS_ORDERED_SYMBOL] = true;
-var CollectionSeq = /* @__PURE__ */ function(IndexedSeq2) {
+var CollectionSeq = /* @__PURE__ */ function (IndexedSeq2) {
   function CollectionSeq2(collection) {
     this._collection = collection;
     this.size = collection.length || collection.size;
   }
   __name(CollectionSeq2, "CollectionSeq");
-  if (IndexedSeq2)
+  if (IndexedSeq2) {
     CollectionSeq2.__proto__ = IndexedSeq2;
-  CollectionSeq2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
+  }
+  CollectionSeq2.prototype = Object.create(
+    IndexedSeq2 && IndexedSeq2.prototype,
+  );
   CollectionSeq2.prototype.constructor = CollectionSeq2;
-  CollectionSeq2.prototype.__iterateUncached = /* @__PURE__ */ __name(function __iterateUncached(fn, reverse3) {
-    if (reverse3) {
-      return this.cacheResult().__iterate(fn, reverse3);
-    }
-    var collection = this._collection;
-    var iterator = getIterator(collection);
-    var iterations = 0;
-    if (isIterator(iterator)) {
-      var step;
-      while (!(step = iterator.next()).done) {
-        if (fn(step.value, iterations++, this) === false) {
-          break;
+  CollectionSeq2.prototype.__iterateUncached = /* @__PURE__ */ __name(
+    function __iterateUncached(fn, reverse3) {
+      if (reverse3) {
+        return this.cacheResult().__iterate(fn, reverse3);
+      }
+      var collection = this._collection;
+      var iterator = getIterator(collection);
+      var iterations = 0;
+      if (isIterator(iterator)) {
+        var step;
+        while (!(step = iterator.next()).done) {
+          if (fn(step.value, iterations++, this) === false) {
+            break;
+          }
         }
       }
-    }
-    return iterations;
-  }, "__iterateUncached");
-  CollectionSeq2.prototype.__iteratorUncached = /* @__PURE__ */ __name(function __iteratorUncached(type, reverse3) {
-    if (reverse3) {
-      return this.cacheResult().__iterator(type, reverse3);
-    }
-    var collection = this._collection;
-    var iterator = getIterator(collection);
-    if (!isIterator(iterator)) {
-      return new Iterator(iteratorDone);
-    }
-    var iterations = 0;
-    return new Iterator(function() {
-      var step = iterator.next();
-      return step.done ? step : iteratorValue(type, iterations++, step.value);
-    });
-  }, "__iteratorUncached");
+      return iterations;
+    },
+    "__iterateUncached",
+  );
+  CollectionSeq2.prototype.__iteratorUncached = /* @__PURE__ */ __name(
+    function __iteratorUncached(type, reverse3) {
+      if (reverse3) {
+        return this.cacheResult().__iterator(type, reverse3);
+      }
+      var collection = this._collection;
+      var iterator = getIterator(collection);
+      if (!isIterator(iterator)) {
+        return new Iterator(iteratorDone);
+      }
+      var iterations = 0;
+      return new Iterator(function () {
+        var step = iterator.next();
+        return step.done ? step : iteratorValue(type, iterations++, step.value);
+      });
+    },
+    "__iteratorUncached",
+  );
   return CollectionSeq2;
 }(IndexedSeq);
 var EMPTY_SEQ;
@@ -1690,7 +3040,8 @@ function keyedSeqFromValue(value) {
     return new ObjectSeq(value);
   }
   throw new TypeError(
-    "Expected Array or collection object of [k, v] entries, or keyed object: " + value
+    "Expected Array or collection object of [k, v] entries, or keyed object: " +
+      value,
   );
 }
 __name(keyedSeqFromValue, "keyedSeqFromValue");
@@ -1700,25 +3051,33 @@ function indexedSeqFromValue(value) {
     return seq;
   }
   throw new TypeError(
-    "Expected Array or collection object of values: " + value
+    "Expected Array or collection object of values: " + value,
   );
 }
 __name(indexedSeqFromValue, "indexedSeqFromValue");
 function seqFromValue(value) {
   var seq = maybeIndexedSeqFromValue(value);
   if (seq) {
-    return isEntriesIterable(value) ? seq.fromEntrySeq() : isKeysIterable(value) ? seq.toSetSeq() : seq;
+    return isEntriesIterable(value)
+      ? seq.fromEntrySeq()
+      : isKeysIterable(value)
+      ? seq.toSetSeq()
+      : seq;
   }
   if (typeof value === "object") {
     return new ObjectSeq(value);
   }
   throw new TypeError(
-    "Expected Array or collection object of values, or keyed object: " + value
+    "Expected Array or collection object of values, or keyed object: " + value,
   );
 }
 __name(seqFromValue, "seqFromValue");
 function maybeIndexedSeqFromValue(value) {
-  return isArrayLike(value) ? new ArraySeq(value) : hasIterator(value) ? new CollectionSeq(value) : void 0;
+  return isArrayLike(value)
+    ? new ArraySeq(value)
+    : hasIterator(value)
+    ? new CollectionSeq(value)
+    : void 0;
 }
 __name(maybeIndexedSeqFromValue, "maybeIndexedSeqFromValue");
 var IS_MAP_SYMBOL = "@@__IMMUTABLE_MAP__@@";
@@ -1732,7 +3091,8 @@ function isOrderedMap(maybeOrderedMap) {
 __name(isOrderedMap, "isOrderedMap");
 function isValueObject(maybeValue) {
   return Boolean(
-    maybeValue && typeof maybeValue.equals === "function" && typeof maybeValue.hashCode === "function"
+    maybeValue && typeof maybeValue.equals === "function" &&
+      typeof maybeValue.hashCode === "function",
   );
 }
 __name(isValueObject, "isValueObject");
@@ -1743,7 +3103,9 @@ function is(valueA, valueB) {
   if (!valueA || !valueB) {
     return false;
   }
-  if (typeof valueA.valueOf === "function" && typeof valueB.valueOf === "function") {
+  if (
+    typeof valueA.valueOf === "function" && typeof valueB.valueOf === "function"
+  ) {
     valueA = valueA.valueOf();
     valueB = valueB.valueOf();
     if (valueA === valueB || valueA !== valueA && valueB !== valueB) {
@@ -1753,16 +3115,19 @@ function is(valueA, valueB) {
       return false;
     }
   }
-  return !!(isValueObject(valueA) && isValueObject(valueB) && valueA.equals(valueB));
+  return !!(isValueObject(valueA) && isValueObject(valueB) &&
+    valueA.equals(valueB));
 }
 __name(is, "is");
-var imul = typeof Math.imul === "function" && Math.imul(4294967295, 2) === -2 ? Math.imul : /* @__PURE__ */ __name(function imul2(a, b) {
-  a |= 0;
-  b |= 0;
-  var c = a & 65535;
-  var d = b & 65535;
-  return c * d + ((a >>> 16) * d + c * (b >>> 16) << 16 >>> 0) | 0;
-}, "imul");
+var imul = typeof Math.imul === "function" && Math.imul(4294967295, 2) === -2
+  ? Math.imul
+  : /* @__PURE__ */ __name(function imul2(a, b) {
+    a |= 0;
+    b |= 0;
+    var c = a & 65535;
+    var d = b & 65535;
+    return c * d + ((a >>> 16) * d + c * (b >>> 16) << 16 >>> 0) | 0;
+  }, "imul");
 function smi(i32) {
   return i32 >>> 1 & 1073741824 | i32 & 3221225471;
 }
@@ -1785,7 +3150,9 @@ function hash(o) {
     case "number":
       return hashNumber(v);
     case "string":
-      return v.length > STRING_HASH_CACHE_MIN_STRLEN ? cachedHashString(v) : hashString(v);
+      return v.length > STRING_HASH_CACHE_MIN_STRLEN
+        ? cachedHashString(v)
+        : hashString(v);
     case "object":
     case "function":
       return hashJSObj(v);
@@ -1882,13 +3249,16 @@ function hashJSObj(obj) {
       enumerable: false,
       configurable: false,
       writable: false,
-      value: hashed
+      value: hashed,
     });
-  } else if (obj.propertyIsEnumerable !== void 0 && obj.propertyIsEnumerable === obj.constructor.prototype.propertyIsEnumerable) {
-    obj.propertyIsEnumerable = function() {
+  } else if (
+    obj.propertyIsEnumerable !== void 0 &&
+    obj.propertyIsEnumerable === obj.constructor.prototype.propertyIsEnumerable
+  ) {
+    obj.propertyIsEnumerable = function () {
       return this.constructor.prototype.propertyIsEnumerable.apply(
         this,
-        arguments
+        arguments,
       );
     };
     obj.propertyIsEnumerable[UID_HASH_KEY] = hashed;
@@ -1901,7 +3271,7 @@ function hashJSObj(obj) {
 }
 __name(hashJSObj, "hashJSObj");
 var isExtensible = Object.isExtensible;
-var canDefineProperty = function() {
+var canDefineProperty = function () {
   try {
     Object.defineProperty({}, "@", {});
     return true;
@@ -1921,7 +3291,9 @@ function getIENodeHash(node) {
 }
 __name(getIENodeHash, "getIENodeHash");
 function valueOf(obj) {
-  return obj.valueOf !== defaultValueOf && typeof obj.valueOf === "function" ? obj.valueOf(obj) : obj;
+  return obj.valueOf !== defaultValueOf && typeof obj.valueOf === "function"
+    ? obj.valueOf(obj)
+    : obj;
 }
 __name(valueOf, "valueOf");
 function nextHash() {
@@ -1947,210 +3319,266 @@ var STRING_HASH_CACHE_MIN_STRLEN = 16;
 var STRING_HASH_CACHE_MAX_SIZE = 255;
 var STRING_HASH_CACHE_SIZE = 0;
 var stringHashCache = {};
-var ToKeyedSequence = /* @__PURE__ */ function(KeyedSeq2) {
+var ToKeyedSequence = /* @__PURE__ */ function (KeyedSeq2) {
   function ToKeyedSequence2(indexed, useKeys) {
     this._iter = indexed;
     this._useKeys = useKeys;
     this.size = indexed.size;
   }
   __name(ToKeyedSequence2, "ToKeyedSequence");
-  if (KeyedSeq2)
+  if (KeyedSeq2) {
     ToKeyedSequence2.__proto__ = KeyedSeq2;
+  }
   ToKeyedSequence2.prototype = Object.create(KeyedSeq2 && KeyedSeq2.prototype);
   ToKeyedSequence2.prototype.constructor = ToKeyedSequence2;
-  ToKeyedSequence2.prototype.get = /* @__PURE__ */ __name(function get11(key, notSetValue) {
-    return this._iter.get(key, notSetValue);
-  }, "get");
+  ToKeyedSequence2.prototype.get = /* @__PURE__ */ __name(
+    function get11(key, notSetValue) {
+      return this._iter.get(key, notSetValue);
+    },
+    "get",
+  );
   ToKeyedSequence2.prototype.has = /* @__PURE__ */ __name(function has5(key) {
     return this._iter.has(key);
   }, "has");
-  ToKeyedSequence2.prototype.valueSeq = /* @__PURE__ */ __name(function valueSeq2() {
-    return this._iter.valueSeq();
-  }, "valueSeq");
-  ToKeyedSequence2.prototype.reverse = /* @__PURE__ */ __name(function reverse3() {
-    var this$1$1 = this;
-    var reversedSequence = reverseFactory(this, true);
-    if (!this._useKeys) {
-      reversedSequence.valueSeq = function() {
-        return this$1$1._iter.toSeq().reverse();
-      };
-    }
-    return reversedSequence;
-  }, "reverse");
-  ToKeyedSequence2.prototype.map = /* @__PURE__ */ __name(function map2(mapper, context) {
-    var this$1$1 = this;
-    var mappedSequence = mapFactory(this, mapper, context);
-    if (!this._useKeys) {
-      mappedSequence.valueSeq = function() {
-        return this$1$1._iter.toSeq().map(mapper, context);
-      };
-    }
-    return mappedSequence;
-  }, "map");
-  ToKeyedSequence2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._iter.__iterate(function(v, k) {
-      return fn(v, k, this$1$1);
-    }, reverse3);
-  }, "__iterate");
-  ToKeyedSequence2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    return this._iter.__iterator(type, reverse3);
-  }, "__iterator");
+  ToKeyedSequence2.prototype.valueSeq = /* @__PURE__ */ __name(
+    function valueSeq2() {
+      return this._iter.valueSeq();
+    },
+    "valueSeq",
+  );
+  ToKeyedSequence2.prototype.reverse = /* @__PURE__ */ __name(
+    function reverse3() {
+      var this$1$1 = this;
+      var reversedSequence = reverseFactory(this, true);
+      if (!this._useKeys) {
+        reversedSequence.valueSeq = function () {
+          return this$1$1._iter.toSeq().reverse();
+        };
+      }
+      return reversedSequence;
+    },
+    "reverse",
+  );
+  ToKeyedSequence2.prototype.map = /* @__PURE__ */ __name(
+    function map2(mapper, context) {
+      var this$1$1 = this;
+      var mappedSequence = mapFactory(this, mapper, context);
+      if (!this._useKeys) {
+        mappedSequence.valueSeq = function () {
+          return this$1$1._iter.toSeq().map(mapper, context);
+        };
+      }
+      return mappedSequence;
+    },
+    "map",
+  );
+  ToKeyedSequence2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var this$1$1 = this;
+      return this._iter.__iterate(function (v, k) {
+        return fn(v, k, this$1$1);
+      }, reverse3);
+    },
+    "__iterate",
+  );
+  ToKeyedSequence2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      return this._iter.__iterator(type, reverse3);
+    },
+    "__iterator",
+  );
   return ToKeyedSequence2;
 }(KeyedSeq);
 ToKeyedSequence.prototype[IS_ORDERED_SYMBOL] = true;
-var ToIndexedSequence = /* @__PURE__ */ function(IndexedSeq2) {
+var ToIndexedSequence = /* @__PURE__ */ function (IndexedSeq2) {
   function ToIndexedSequence2(iter) {
     this._iter = iter;
     this.size = iter.size;
   }
   __name(ToIndexedSequence2, "ToIndexedSequence");
-  if (IndexedSeq2)
+  if (IndexedSeq2) {
     ToIndexedSequence2.__proto__ = IndexedSeq2;
-  ToIndexedSequence2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
+  }
+  ToIndexedSequence2.prototype = Object.create(
+    IndexedSeq2 && IndexedSeq2.prototype,
+  );
   ToIndexedSequence2.prototype.constructor = ToIndexedSequence2;
-  ToIndexedSequence2.prototype.includes = /* @__PURE__ */ __name(function includes3(value) {
-    return this._iter.includes(value);
-  }, "includes");
-  ToIndexedSequence2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    var i = 0;
-    reverse3 && ensureSize(this);
-    return this._iter.__iterate(
-      function(v) {
-        return fn(v, reverse3 ? this$1$1.size - ++i : i++, this$1$1);
-      },
-      reverse3
-    );
-  }, "__iterate");
-  ToIndexedSequence2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    var this$1$1 = this;
-    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
-    var i = 0;
-    reverse3 && ensureSize(this);
-    return new Iterator(function() {
-      var step = iterator.next();
-      return step.done ? step : iteratorValue(
-        type,
-        reverse3 ? this$1$1.size - ++i : i++,
-        step.value,
-        step
+  ToIndexedSequence2.prototype.includes = /* @__PURE__ */ __name(
+    function includes3(value) {
+      return this._iter.includes(value);
+    },
+    "includes",
+  );
+  ToIndexedSequence2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var this$1$1 = this;
+      var i = 0;
+      reverse3 && ensureSize(this);
+      return this._iter.__iterate(
+        function (v) {
+          return fn(v, reverse3 ? this$1$1.size - ++i : i++, this$1$1);
+        },
+        reverse3,
       );
-    });
-  }, "__iterator");
+    },
+    "__iterate",
+  );
+  ToIndexedSequence2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      var this$1$1 = this;
+      var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
+      var i = 0;
+      reverse3 && ensureSize(this);
+      return new Iterator(function () {
+        var step = iterator.next();
+        return step.done ? step : iteratorValue(
+          type,
+          reverse3 ? this$1$1.size - ++i : i++,
+          step.value,
+          step,
+        );
+      });
+    },
+    "__iterator",
+  );
   return ToIndexedSequence2;
 }(IndexedSeq);
-var ToSetSequence = /* @__PURE__ */ function(SetSeq2) {
+var ToSetSequence = /* @__PURE__ */ function (SetSeq2) {
   function ToSetSequence2(iter) {
     this._iter = iter;
     this.size = iter.size;
   }
   __name(ToSetSequence2, "ToSetSequence");
-  if (SetSeq2)
+  if (SetSeq2) {
     ToSetSequence2.__proto__ = SetSeq2;
+  }
   ToSetSequence2.prototype = Object.create(SetSeq2 && SetSeq2.prototype);
   ToSetSequence2.prototype.constructor = ToSetSequence2;
   ToSetSequence2.prototype.has = /* @__PURE__ */ __name(function has5(key) {
     return this._iter.includes(key);
   }, "has");
-  ToSetSequence2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._iter.__iterate(function(v) {
-      return fn(v, v, this$1$1);
-    }, reverse3);
-  }, "__iterate");
-  ToSetSequence2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
-    return new Iterator(function() {
-      var step = iterator.next();
-      return step.done ? step : iteratorValue(type, step.value, step.value, step);
-    });
-  }, "__iterator");
+  ToSetSequence2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var this$1$1 = this;
+      return this._iter.__iterate(function (v) {
+        return fn(v, v, this$1$1);
+      }, reverse3);
+    },
+    "__iterate",
+  );
+  ToSetSequence2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
+      return new Iterator(function () {
+        var step = iterator.next();
+        return step.done
+          ? step
+          : iteratorValue(type, step.value, step.value, step);
+      });
+    },
+    "__iterator",
+  );
   return ToSetSequence2;
 }(SetSeq);
-var FromEntriesSequence = /* @__PURE__ */ function(KeyedSeq2) {
+var FromEntriesSequence = /* @__PURE__ */ function (KeyedSeq2) {
   function FromEntriesSequence2(entries3) {
     this._iter = entries3;
     this.size = entries3.size;
   }
   __name(FromEntriesSequence2, "FromEntriesSequence");
-  if (KeyedSeq2)
+  if (KeyedSeq2) {
     FromEntriesSequence2.__proto__ = KeyedSeq2;
-  FromEntriesSequence2.prototype = Object.create(KeyedSeq2 && KeyedSeq2.prototype);
+  }
+  FromEntriesSequence2.prototype = Object.create(
+    KeyedSeq2 && KeyedSeq2.prototype,
+  );
   FromEntriesSequence2.prototype.constructor = FromEntriesSequence2;
-  FromEntriesSequence2.prototype.entrySeq = /* @__PURE__ */ __name(function entrySeq2() {
-    return this._iter.toSeq();
-  }, "entrySeq");
-  FromEntriesSequence2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._iter.__iterate(function(entry) {
-      if (entry) {
-        validateEntry(entry);
-        var indexedCollection = isCollection(entry);
-        return fn(
-          indexedCollection ? entry.get(1) : entry[1],
-          indexedCollection ? entry.get(0) : entry[0],
-          this$1$1
-        );
-      }
-    }, reverse3);
-  }, "__iterate");
-  FromEntriesSequence2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
-    return new Iterator(function() {
-      while (true) {
-        var step = iterator.next();
-        if (step.done) {
-          return step;
-        }
-        var entry = step.value;
+  FromEntriesSequence2.prototype.entrySeq = /* @__PURE__ */ __name(
+    function entrySeq2() {
+      return this._iter.toSeq();
+    },
+    "entrySeq",
+  );
+  FromEntriesSequence2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var this$1$1 = this;
+      return this._iter.__iterate(function (entry) {
         if (entry) {
           validateEntry(entry);
           var indexedCollection = isCollection(entry);
-          return iteratorValue(
-            type,
-            indexedCollection ? entry.get(0) : entry[0],
+          return fn(
             indexedCollection ? entry.get(1) : entry[1],
-            step
+            indexedCollection ? entry.get(0) : entry[0],
+            this$1$1,
           );
         }
-      }
-    });
-  }, "__iterator");
+      }, reverse3);
+    },
+    "__iterate",
+  );
+  FromEntriesSequence2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
+      return new Iterator(function () {
+        while (true) {
+          var step = iterator.next();
+          if (step.done) {
+            return step;
+          }
+          var entry = step.value;
+          if (entry) {
+            validateEntry(entry);
+            var indexedCollection = isCollection(entry);
+            return iteratorValue(
+              type,
+              indexedCollection ? entry.get(0) : entry[0],
+              indexedCollection ? entry.get(1) : entry[1],
+              step,
+            );
+          }
+        }
+      });
+    },
+    "__iterator",
+  );
   return FromEntriesSequence2;
 }(KeyedSeq);
-ToIndexedSequence.prototype.cacheResult = ToKeyedSequence.prototype.cacheResult = ToSetSequence.prototype.cacheResult = FromEntriesSequence.prototype.cacheResult = cacheResultThrough;
+ToIndexedSequence.prototype.cacheResult =
+  ToKeyedSequence.prototype.cacheResult =
+  ToSetSequence.prototype.cacheResult =
+  FromEntriesSequence.prototype.cacheResult =
+    cacheResultThrough;
 function flipFactory(collection) {
   var flipSequence = makeSequence(collection);
   flipSequence._iter = collection;
   flipSequence.size = collection.size;
-  flipSequence.flip = function() {
+  flipSequence.flip = function () {
     return collection;
   };
-  flipSequence.reverse = function() {
+  flipSequence.reverse = function () {
     var reversedSequence = collection.reverse.apply(this);
-    reversedSequence.flip = function() {
+    reversedSequence.flip = function () {
       return collection.reverse();
     };
     return reversedSequence;
   };
-  flipSequence.has = function(key) {
+  flipSequence.has = function (key) {
     return collection.includes(key);
   };
-  flipSequence.includes = function(key) {
+  flipSequence.includes = function (key) {
     return collection.has(key);
   };
   flipSequence.cacheResult = cacheResultThrough;
-  flipSequence.__iterateUncached = function(fn, reverse3) {
+  flipSequence.__iterateUncached = function (fn, reverse3) {
     var this$1$1 = this;
-    return collection.__iterate(function(v, k) {
+    return collection.__iterate(function (v, k) {
       return fn(k, v, this$1$1) !== false;
     }, reverse3);
   };
-  flipSequence.__iteratorUncached = function(type, reverse3) {
+  flipSequence.__iteratorUncached = function (type, reverse3) {
     if (type === ITERATE_ENTRIES) {
       var iterator = collection.__iterator(type, reverse3);
-      return new Iterator(function() {
+      return new Iterator(function () {
         var step = iterator.next();
         if (!step.done) {
           var k = step.value[0];
@@ -2162,7 +3590,7 @@ function flipFactory(collection) {
     }
     return collection.__iterator(
       type === ITERATE_VALUES ? ITERATE_KEYS : ITERATE_VALUES,
-      reverse3
+      reverse3,
     );
   };
   return flipSequence;
@@ -2171,25 +3599,27 @@ __name(flipFactory, "flipFactory");
 function mapFactory(collection, mapper, context) {
   var mappedSequence = makeSequence(collection);
   mappedSequence.size = collection.size;
-  mappedSequence.has = function(key) {
+  mappedSequence.has = function (key) {
     return collection.has(key);
   };
-  mappedSequence.get = function(key, notSetValue) {
+  mappedSequence.get = function (key, notSetValue) {
     var v = collection.get(key, NOT_SET);
-    return v === NOT_SET ? notSetValue : mapper.call(context, v, key, collection);
+    return v === NOT_SET
+      ? notSetValue
+      : mapper.call(context, v, key, collection);
   };
-  mappedSequence.__iterateUncached = function(fn, reverse3) {
+  mappedSequence.__iterateUncached = function (fn, reverse3) {
     var this$1$1 = this;
     return collection.__iterate(
-      function(v, k, c) {
+      function (v, k, c) {
         return fn(mapper.call(context, v, k, c), k, this$1$1) !== false;
       },
-      reverse3
+      reverse3,
     );
   };
-  mappedSequence.__iteratorUncached = function(type, reverse3) {
+  mappedSequence.__iteratorUncached = function (type, reverse3) {
     var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
-    return new Iterator(function() {
+    return new Iterator(function () {
       var step = iterator.next();
       if (step.done) {
         return step;
@@ -2200,7 +3630,7 @@ function mapFactory(collection, mapper, context) {
         type,
         key,
         mapper.call(context, entry[1], key, collection),
-        step
+        step,
       );
     });
   };
@@ -2212,44 +3642,48 @@ function reverseFactory(collection, useKeys) {
   var reversedSequence = makeSequence(collection);
   reversedSequence._iter = collection;
   reversedSequence.size = collection.size;
-  reversedSequence.reverse = function() {
+  reversedSequence.reverse = function () {
     return collection;
   };
   if (collection.flip) {
-    reversedSequence.flip = function() {
+    reversedSequence.flip = function () {
       var flipSequence = flipFactory(collection);
-      flipSequence.reverse = function() {
+      flipSequence.reverse = function () {
         return collection.flip();
       };
       return flipSequence;
     };
   }
-  reversedSequence.get = function(key, notSetValue) {
+  reversedSequence.get = function (key, notSetValue) {
     return collection.get(useKeys ? key : -1 - key, notSetValue);
   };
-  reversedSequence.has = function(key) {
+  reversedSequence.has = function (key) {
     return collection.has(useKeys ? key : -1 - key);
   };
-  reversedSequence.includes = function(value) {
+  reversedSequence.includes = function (value) {
     return collection.includes(value);
   };
   reversedSequence.cacheResult = cacheResultThrough;
-  reversedSequence.__iterate = function(fn, reverse3) {
+  reversedSequence.__iterate = function (fn, reverse3) {
     var this$1$12 = this;
     var i = 0;
     reverse3 && ensureSize(collection);
     return collection.__iterate(
-      function(v, k) {
-        return fn(v, useKeys ? k : reverse3 ? this$1$12.size - ++i : i++, this$1$12);
+      function (v, k) {
+        return fn(
+          v,
+          useKeys ? k : reverse3 ? this$1$12.size - ++i : i++,
+          this$1$12,
+        );
       },
-      !reverse3
+      !reverse3,
     );
   };
-  reversedSequence.__iterator = function(type, reverse3) {
+  reversedSequence.__iterator = function (type, reverse3) {
     var i = 0;
     reverse3 && ensureSize(collection);
     var iterator = collection.__iterator(ITERATE_ENTRIES, !reverse3);
-    return new Iterator(function() {
+    return new Iterator(function () {
       var step = iterator.next();
       if (step.done) {
         return step;
@@ -2259,7 +3693,7 @@ function reverseFactory(collection, useKeys) {
         type,
         useKeys ? entry[0] : reverse3 ? this$1$1.size - ++i : i++,
         entry[1],
-        step
+        step,
       );
     });
   };
@@ -2269,19 +3703,21 @@ __name(reverseFactory, "reverseFactory");
 function filterFactory(collection, predicate, context, useKeys) {
   var filterSequence = makeSequence(collection);
   if (useKeys) {
-    filterSequence.has = function(key) {
+    filterSequence.has = function (key) {
       var v = collection.get(key, NOT_SET);
       return v !== NOT_SET && !!predicate.call(context, v, key, collection);
     };
-    filterSequence.get = function(key, notSetValue) {
+    filterSequence.get = function (key, notSetValue) {
       var v = collection.get(key, NOT_SET);
-      return v !== NOT_SET && predicate.call(context, v, key, collection) ? v : notSetValue;
+      return v !== NOT_SET && predicate.call(context, v, key, collection)
+        ? v
+        : notSetValue;
     };
   }
-  filterSequence.__iterateUncached = function(fn, reverse3) {
+  filterSequence.__iterateUncached = function (fn, reverse3) {
     var this$1$1 = this;
     var iterations = 0;
-    collection.__iterate(function(v, k, c) {
+    collection.__iterate(function (v, k, c) {
       if (predicate.call(context, v, k, c)) {
         iterations++;
         return fn(v, useKeys ? k : iterations - 1, this$1$1);
@@ -2289,10 +3725,10 @@ function filterFactory(collection, predicate, context, useKeys) {
     }, reverse3);
     return iterations;
   };
-  filterSequence.__iteratorUncached = function(type, reverse3) {
+  filterSequence.__iteratorUncached = function (type, reverse3) {
     var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
     var iterations = 0;
-    return new Iterator(function() {
+    return new Iterator(function () {
       while (true) {
         var step = iterator.next();
         if (step.done) {
@@ -2312,8 +3748,8 @@ function filterFactory(collection, predicate, context, useKeys) {
 __name(filterFactory, "filterFactory");
 function countByFactory(collection, grouper, context) {
   var groups = Map2().asMutable();
-  collection.__iterate(function(v, k) {
-    groups.update(grouper.call(context, v, k, collection), 0, function(a) {
+  collection.__iterate(function (v, k) {
+    groups.update(grouper.call(context, v, k, collection), 0, function (a) {
       return a + 1;
     });
   });
@@ -2323,16 +3759,16 @@ __name(countByFactory, "countByFactory");
 function groupByFactory(collection, grouper, context) {
   var isKeyedIter = isKeyed(collection);
   var groups = (isOrdered(collection) ? OrderedMap() : Map2()).asMutable();
-  collection.__iterate(function(v, k) {
+  collection.__iterate(function (v, k) {
     groups.update(
       grouper.call(context, v, k, collection),
-      function(a) {
+      function (a) {
         return a = a || [], a.push(isKeyedIter ? [k, v] : v), a;
-      }
+      },
     );
   });
   var coerce = collectionClass(collection);
-  return groups.map(function(arr) {
+  return groups.map(function (arr) {
     return reify(collection, coerce(arr));
   }).asImmutable();
 }
@@ -2353,14 +3789,18 @@ function sliceFactory(collection, begin, end, useKeys) {
     sliceSize = resolvedSize < 0 ? 0 : resolvedSize;
   }
   var sliceSeq = makeSequence(collection);
-  sliceSeq.size = sliceSize === 0 ? sliceSize : collection.size && sliceSize || void 0;
+  sliceSeq.size = sliceSize === 0
+    ? sliceSize
+    : collection.size && sliceSize || void 0;
   if (!useKeys && isSeq(collection) && sliceSize >= 0) {
-    sliceSeq.get = function(index, notSetValue) {
+    sliceSeq.get = function (index, notSetValue) {
       index = wrapIndex(this, index);
-      return index >= 0 && index < sliceSize ? collection.get(index + resolvedBegin, notSetValue) : notSetValue;
+      return index >= 0 && index < sliceSize
+        ? collection.get(index + resolvedBegin, notSetValue)
+        : notSetValue;
     };
   }
-  sliceSeq.__iterateUncached = function(fn, reverse3) {
+  sliceSeq.__iterateUncached = function (fn, reverse3) {
     var this$1$1 = this;
     if (sliceSize === 0) {
       return 0;
@@ -2371,15 +3811,16 @@ function sliceFactory(collection, begin, end, useKeys) {
     var skipped = 0;
     var isSkipping = true;
     var iterations = 0;
-    collection.__iterate(function(v, k) {
+    collection.__iterate(function (v, k) {
       if (!(isSkipping && (isSkipping = skipped++ < resolvedBegin))) {
         iterations++;
-        return fn(v, useKeys ? k : iterations - 1, this$1$1) !== false && iterations !== sliceSize;
+        return fn(v, useKeys ? k : iterations - 1, this$1$1) !== false &&
+          iterations !== sliceSize;
       }
     });
     return iterations;
   };
-  sliceSeq.__iteratorUncached = function(type, reverse3) {
+  sliceSeq.__iteratorUncached = function (type, reverse3) {
     if (sliceSize !== 0 && reverse3) {
       return this.cacheResult().__iterator(type, reverse3);
     }
@@ -2389,7 +3830,7 @@ function sliceFactory(collection, begin, end, useKeys) {
     var iterator = collection.__iterator(type, reverse3);
     var skipped = 0;
     var iterations = 0;
-    return new Iterator(function() {
+    return new Iterator(function () {
       while (skipped++ < resolvedBegin) {
         iterator.next();
       }
@@ -2411,27 +3852,28 @@ function sliceFactory(collection, begin, end, useKeys) {
 __name(sliceFactory, "sliceFactory");
 function takeWhileFactory(collection, predicate, context) {
   var takeSequence = makeSequence(collection);
-  takeSequence.__iterateUncached = function(fn, reverse3) {
+  takeSequence.__iterateUncached = function (fn, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
       return this.cacheResult().__iterate(fn, reverse3);
     }
     var iterations = 0;
     collection.__iterate(
-      function(v, k, c) {
-        return predicate.call(context, v, k, c) && ++iterations && fn(v, k, this$1$1);
-      }
+      function (v, k, c) {
+        return predicate.call(context, v, k, c) && ++iterations &&
+          fn(v, k, this$1$1);
+      },
     );
     return iterations;
   };
-  takeSequence.__iteratorUncached = function(type, reverse3) {
+  takeSequence.__iteratorUncached = function (type, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
       return this.cacheResult().__iterator(type, reverse3);
     }
     var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
     var iterating = true;
-    return new Iterator(function() {
+    return new Iterator(function () {
       if (!iterating) {
         return iteratorDone();
       }
@@ -2454,14 +3896,14 @@ function takeWhileFactory(collection, predicate, context) {
 __name(takeWhileFactory, "takeWhileFactory");
 function skipWhileFactory(collection, predicate, context, useKeys) {
   var skipSequence = makeSequence(collection);
-  skipSequence.__iterateUncached = function(fn, reverse3) {
+  skipSequence.__iterateUncached = function (fn, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
       return this.cacheResult().__iterate(fn, reverse3);
     }
     var isSkipping = true;
     var iterations = 0;
-    collection.__iterate(function(v, k, c) {
+    collection.__iterate(function (v, k, c) {
       if (!(isSkipping && (isSkipping = predicate.call(context, v, k, c)))) {
         iterations++;
         return fn(v, useKeys ? k : iterations - 1, this$1$1);
@@ -2469,7 +3911,7 @@ function skipWhileFactory(collection, predicate, context, useKeys) {
     });
     return iterations;
   };
-  skipSequence.__iteratorUncached = function(type, reverse3) {
+  skipSequence.__iteratorUncached = function (type, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
       return this.cacheResult().__iterator(type, reverse3);
@@ -2477,7 +3919,7 @@ function skipWhileFactory(collection, predicate, context, useKeys) {
     var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
     var skipping = true;
     var iterations = 0;
-    return new Iterator(function() {
+    return new Iterator(function () {
       var step;
       var k;
       var v;
@@ -2505,14 +3947,16 @@ function skipWhileFactory(collection, predicate, context, useKeys) {
 __name(skipWhileFactory, "skipWhileFactory");
 function concatFactory(collection, values2) {
   var isKeyedCollection = isKeyed(collection);
-  var iters = [collection].concat(values2).map(function(v) {
+  var iters = [collection].concat(values2).map(function (v) {
     if (!isCollection(v)) {
-      v = isKeyedCollection ? keyedSeqFromValue(v) : indexedSeqFromValue(Array.isArray(v) ? v : [v]);
+      v = isKeyedCollection
+        ? keyedSeqFromValue(v)
+        : indexedSeqFromValue(Array.isArray(v) ? v : [v]);
     } else if (isKeyedCollection) {
       v = KeyedCollection(v);
     }
     return v;
-  }).filter(function(v) {
+  }).filter(function (v) {
     return v.size !== 0;
   });
   if (iters.length === 0) {
@@ -2520,7 +3964,10 @@ function concatFactory(collection, values2) {
   }
   if (iters.length === 1) {
     var singleton = iters[0];
-    if (singleton === collection || isKeyedCollection && isKeyed(singleton) || isIndexed(collection) && isIndexed(singleton)) {
+    if (
+      singleton === collection || isKeyedCollection && isKeyed(singleton) ||
+      isIndexed(collection) && isIndexed(singleton)
+    ) {
       return singleton;
     }
   }
@@ -2531,7 +3978,7 @@ function concatFactory(collection, values2) {
     concatSeq = concatSeq.toSetSeq();
   }
   concatSeq = concatSeq.flatten(true);
-  concatSeq.size = iters.reduce(function(sum, seq) {
+  concatSeq.size = iters.reduce(function (sum, seq) {
     if (sum !== void 0) {
       var size = seq.size;
       if (size !== void 0) {
@@ -2544,14 +3991,14 @@ function concatFactory(collection, values2) {
 __name(concatFactory, "concatFactory");
 function flattenFactory(collection, depth, useKeys) {
   var flatSequence = makeSequence(collection);
-  flatSequence.__iterateUncached = function(fn, reverse3) {
+  flatSequence.__iterateUncached = function (fn, reverse3) {
     if (reverse3) {
       return this.cacheResult().__iterate(fn, reverse3);
     }
     var iterations = 0;
     var stopped = false;
     function flatDeep(iter, currentDepth) {
-      iter.__iterate(function(v, k) {
+      iter.__iterate(function (v, k) {
         if ((!depth || currentDepth < depth) && isCollection(v)) {
           flatDeep(v, currentDepth + 1);
         } else {
@@ -2567,14 +4014,14 @@ function flattenFactory(collection, depth, useKeys) {
     flatDeep(collection, 0);
     return iterations;
   };
-  flatSequence.__iteratorUncached = function(type, reverse3) {
+  flatSequence.__iteratorUncached = function (type, reverse3) {
     if (reverse3) {
       return this.cacheResult().__iterator(type, reverse3);
     }
     var iterator = collection.__iterator(type, reverse3);
     var stack = [];
     var iterations = 0;
-    return new Iterator(function() {
+    return new Iterator(function () {
       while (iterator) {
         var step = iterator.next();
         if (step.done !== false) {
@@ -2600,7 +4047,7 @@ function flattenFactory(collection, depth, useKeys) {
 __name(flattenFactory, "flattenFactory");
 function flatMapFactory(collection, mapper, context) {
   var coerce = collectionClass(collection);
-  return collection.toSeq().map(function(v, k) {
+  return collection.toSeq().map(function (v, k) {
     return coerce(mapper.call(context, v, k, collection));
   }).flatten(true);
 }
@@ -2608,29 +4055,33 @@ __name(flatMapFactory, "flatMapFactory");
 function interposeFactory(collection, separator) {
   var interposedSequence = makeSequence(collection);
   interposedSequence.size = collection.size && collection.size * 2 - 1;
-  interposedSequence.__iterateUncached = function(fn, reverse3) {
+  interposedSequence.__iterateUncached = function (fn, reverse3) {
     var this$1$1 = this;
     var iterations = 0;
     collection.__iterate(
-      function(v) {
-        return (!iterations || fn(separator, iterations++, this$1$1) !== false) && fn(v, iterations++, this$1$1) !== false;
+      function (v) {
+        return (!iterations ||
+          fn(separator, iterations++, this$1$1) !== false) &&
+          fn(v, iterations++, this$1$1) !== false;
       },
-      reverse3
+      reverse3,
     );
     return iterations;
   };
-  interposedSequence.__iteratorUncached = function(type, reverse3) {
+  interposedSequence.__iteratorUncached = function (type, reverse3) {
     var iterator = collection.__iterator(ITERATE_VALUES, reverse3);
     var iterations = 0;
     var step;
-    return new Iterator(function() {
+    return new Iterator(function () {
       if (!step || iterations % 2) {
         step = iterator.next();
         if (step.done) {
           return step;
         }
       }
-      return iterations % 2 ? iteratorValue(type, iterations++, separator) : iteratorValue(type, iterations++, step.value, step);
+      return iterations % 2
+        ? iteratorValue(type, iterations++, separator)
+        : iteratorValue(type, iterations++, step.value, step);
     });
   };
   return interposedSequence;
@@ -2642,19 +4093,25 @@ function sortFactory(collection, comparator, mapper) {
   }
   var isKeyedCollection = isKeyed(collection);
   var index = 0;
-  var entries3 = collection.toSeq().map(function(v, k) {
+  var entries3 = collection.toSeq().map(function (v, k) {
     return [k, v, index++, mapper ? mapper(v, k, collection) : v];
   }).valueSeq().toArray();
-  entries3.sort(function(a, b) {
+  entries3.sort(function (a, b) {
     return comparator(a[3], b[3]) || a[2] - b[2];
   }).forEach(
-    isKeyedCollection ? function(v, i) {
-      entries3[i].length = 2;
-    } : function(v, i) {
-      entries3[i] = v[1];
-    }
+    isKeyedCollection
+      ? function (v, i) {
+        entries3[i].length = 2;
+      }
+      : function (v, i) {
+        entries3[i] = v[1];
+      },
   );
-  return isKeyedCollection ? KeyedSeq(entries3) : isIndexed(collection) ? IndexedSeq(entries3) : SetSeq(entries3);
+  return isKeyedCollection
+    ? KeyedSeq(entries3)
+    : isIndexed(collection)
+    ? IndexedSeq(entries3)
+    : SetSeq(entries3);
 }
 __name(sortFactory, "sortFactory");
 function maxFactory(collection, comparator, mapper) {
@@ -2662,30 +4119,31 @@ function maxFactory(collection, comparator, mapper) {
     comparator = defaultComparator;
   }
   if (mapper) {
-    var entry = collection.toSeq().map(function(v, k) {
+    var entry = collection.toSeq().map(function (v, k) {
       return [v, mapper(v, k, collection)];
-    }).reduce(function(a, b) {
+    }).reduce(function (a, b) {
       return maxCompare(comparator, a[1], b[1]) ? b : a;
     });
     return entry && entry[0];
   }
-  return collection.reduce(function(a, b) {
+  return collection.reduce(function (a, b) {
     return maxCompare(comparator, a, b) ? b : a;
   });
 }
 __name(maxFactory, "maxFactory");
 function maxCompare(comparator, a, b) {
   var comp = comparator(b, a);
-  return comp === 0 && b !== a && (b === void 0 || b === null || b !== b) || comp > 0;
+  return comp === 0 && b !== a && (b === void 0 || b === null || b !== b) ||
+    comp > 0;
 }
 __name(maxCompare, "maxCompare");
 function zipWithFactory(keyIter, zipper, iters, zipAll2) {
   var zipSequence = makeSequence(keyIter);
-  var sizes = new ArraySeq(iters).map(function(i) {
+  var sizes = new ArraySeq(iters).map(function (i) {
     return i.size;
   });
   zipSequence.size = zipAll2 ? sizes.max() : sizes.min();
-  zipSequence.__iterate = function(fn, reverse3) {
+  zipSequence.__iterate = function (fn, reverse3) {
     var iterator = this.__iterator(ITERATE_VALUES, reverse3);
     var step;
     var iterations = 0;
@@ -2696,25 +4154,27 @@ function zipWithFactory(keyIter, zipper, iters, zipAll2) {
     }
     return iterations;
   };
-  zipSequence.__iteratorUncached = function(type, reverse3) {
+  zipSequence.__iteratorUncached = function (type, reverse3) {
     var iterators = iters.map(
-      function(i) {
+      function (i) {
         return i = Collection(i), getIterator(reverse3 ? i.reverse() : i);
-      }
+      },
     );
     var iterations = 0;
     var isDone = false;
-    return new Iterator(function() {
+    return new Iterator(function () {
       var steps;
       if (!isDone) {
-        steps = iterators.map(function(i) {
+        steps = iterators.map(function (i) {
           return i.next();
         });
-        isDone = zipAll2 ? steps.every(function(s) {
-          return s.done;
-        }) : steps.some(function(s) {
-          return s.done;
-        });
+        isDone = zipAll2
+          ? steps.every(function (s) {
+            return s.done;
+          })
+          : steps.some(function (s) {
+            return s.done;
+          });
       }
       if (isDone) {
         return iteratorDone();
@@ -2724,10 +4184,10 @@ function zipWithFactory(keyIter, zipper, iters, zipAll2) {
         iterations++,
         zipper.apply(
           null,
-          steps.map(function(s) {
+          steps.map(function (s) {
             return s.value;
-          })
-        )
+          }),
+        ),
       );
     });
   };
@@ -2745,12 +4205,20 @@ function validateEntry(entry) {
 }
 __name(validateEntry, "validateEntry");
 function collectionClass(collection) {
-  return isKeyed(collection) ? KeyedCollection : isIndexed(collection) ? IndexedCollection : SetCollection;
+  return isKeyed(collection)
+    ? KeyedCollection
+    : isIndexed(collection)
+    ? IndexedCollection
+    : SetCollection;
 }
 __name(collectionClass, "collectionClass");
 function makeSequence(collection) {
   return Object.create(
-    (isKeyed(collection) ? KeyedSeq : isIndexed(collection) ? IndexedSeq : SetSeq).prototype
+    (isKeyed(collection)
+      ? KeyedSeq
+      : isIndexed(collection)
+      ? IndexedSeq
+      : SetSeq).prototype,
   );
 }
 __name(makeSequence, "makeSequence");
@@ -2795,7 +4263,7 @@ __name(invariant, "invariant");
 function assertNotInfinite(size) {
   invariant(
     size !== Infinity,
-    "Cannot perform this action with an infinite size."
+    "Cannot perform this action with an infinite size.",
   );
 }
 __name(assertNotInfinite, "assertNotInfinite");
@@ -2807,13 +4275,16 @@ function coerceKeyPath(keyPath) {
     return keyPath.toArray();
   }
   throw new TypeError(
-    "Invalid keyPath: expected Ordered Collection or Array: " + keyPath
+    "Invalid keyPath: expected Ordered Collection or Array: " + keyPath,
   );
 }
 __name(coerceKeyPath, "coerceKeyPath");
 var toString2 = Object.prototype.toString;
 function isPlainObject(value) {
-  if (!value || typeof value !== "object" || toString2.call(value) !== "[object Object]") {
+  if (
+    !value || typeof value !== "object" ||
+    toString2.call(value) !== "[object Object]"
+  ) {
     return false;
   }
   var proto = Object.getPrototypeOf(value);
@@ -2830,7 +4301,8 @@ function isPlainObject(value) {
 }
 __name(isPlainObject, "isPlainObject");
 function isDataStructure(value) {
-  return typeof value === "object" && (isImmutable(value) || Array.isArray(value) || isPlainObject(value));
+  return typeof value === "object" &&
+    (isImmutable(value) || Array.isArray(value) || isPlainObject(value));
 }
 __name(isDataStructure, "isDataStructure");
 function quoteString(value) {
@@ -2842,11 +4314,19 @@ function quoteString(value) {
 }
 __name(quoteString, "quoteString");
 function has(collection, key) {
-  return isImmutable(collection) ? collection.has(key) : isDataStructure(collection) && hasOwnProperty.call(collection, key);
+  return isImmutable(collection)
+    ? collection.has(key)
+    : isDataStructure(collection) && hasOwnProperty.call(collection, key);
 }
 __name(has, "has");
 function get(collection, key, notSetValue) {
-  return isImmutable(collection) ? collection.get(key, notSetValue) : !has(collection, key) ? notSetValue : typeof collection.get === "function" ? collection.get(key) : collection[key];
+  return isImmutable(collection)
+    ? collection.get(key, notSetValue)
+    : !has(collection, key)
+    ? notSetValue
+    : typeof collection.get === "function"
+    ? collection.get(key)
+    : collection[key];
 }
 __name(get, "get");
 function shallowCopy(from) {
@@ -2865,13 +4345,13 @@ __name(shallowCopy, "shallowCopy");
 function remove(collection, key) {
   if (!isDataStructure(collection)) {
     throw new TypeError(
-      "Cannot update non-data-structure value: " + collection
+      "Cannot update non-data-structure value: " + collection,
     );
   }
   if (isImmutable(collection)) {
     if (!collection.remove) {
       throw new TypeError(
-        "Cannot update immutable value without .remove() method: " + collection
+        "Cannot update immutable value without .remove() method: " + collection,
       );
     }
     return collection.remove(key);
@@ -2891,13 +4371,13 @@ __name(remove, "remove");
 function set(collection, key, value) {
   if (!isDataStructure(collection)) {
     throw new TypeError(
-      "Cannot update non-data-structure value: " + collection
+      "Cannot update non-data-structure value: " + collection,
     );
   }
   if (isImmutable(collection)) {
     if (!collection.set) {
       throw new TypeError(
-        "Cannot update immutable value without .set() method: " + collection
+        "Cannot update immutable value without .set() method: " + collection,
       );
     }
     return collection.set(key, value);
@@ -2921,12 +4401,19 @@ function updateIn$1(collection, keyPath, notSetValue, updater) {
     coerceKeyPath(keyPath),
     0,
     notSetValue,
-    updater
+    updater,
   );
   return updatedValue === NOT_SET ? notSetValue : updatedValue;
 }
 __name(updateIn$1, "updateIn$1");
-function updateInDeeply(inImmutable, existing, keyPath, i, notSetValue, updater) {
+function updateInDeeply(
+  inImmutable,
+  existing,
+  keyPath,
+  i,
+  notSetValue,
+  updater,
+) {
   var wasNotSet = existing === NOT_SET;
   if (i === keyPath.length) {
     var existingValue = wasNotSet ? notSetValue : existing;
@@ -2935,7 +4422,8 @@ function updateInDeeply(inImmutable, existing, keyPath, i, notSetValue, updater)
   }
   if (!wasNotSet && !isDataStructure(existing)) {
     throw new TypeError(
-      "Cannot update within non-data-structure value in path [" + keyPath.slice(0, i).map(quoteString) + "]: " + existing
+      "Cannot update within non-data-structure value in path [" +
+        keyPath.slice(0, i).map(quoteString) + "]: " + existing,
     );
   }
   var key = keyPath[i];
@@ -2946,17 +4434,21 @@ function updateInDeeply(inImmutable, existing, keyPath, i, notSetValue, updater)
     keyPath,
     i + 1,
     notSetValue,
-    updater
+    updater,
   );
-  return nextUpdated === nextExisting ? existing : nextUpdated === NOT_SET ? remove(existing, key) : set(
-    wasNotSet ? inImmutable ? emptyMap() : {} : existing,
-    key,
-    nextUpdated
-  );
+  return nextUpdated === nextExisting
+    ? existing
+    : nextUpdated === NOT_SET
+    ? remove(existing, key)
+    : set(
+      wasNotSet ? inImmutable ? emptyMap() : {} : existing,
+      key,
+      nextUpdated,
+    );
 }
 __name(updateInDeeply, "updateInDeeply");
 function setIn$1(collection, keyPath, value) {
-  return updateIn$1(collection, keyPath, NOT_SET, function() {
+  return updateIn$1(collection, keyPath, NOT_SET, function () {
     return value;
   });
 }
@@ -2966,7 +4458,7 @@ function setIn(keyPath, v) {
 }
 __name(setIn, "setIn");
 function removeIn(collection, keyPath) {
-  return updateIn$1(collection, keyPath, function() {
+  return updateIn$1(collection, keyPath, function () {
     return NOT_SET;
   });
 }
@@ -2980,7 +4472,9 @@ function update$1(collection, key, notSetValue, updater) {
 }
 __name(update$1, "update$1");
 function update(key, notSetValue, updater) {
-  return arguments.length === 1 ? key(this) : update$1(this, key, notSetValue, updater);
+  return arguments.length === 1
+    ? key(this)
+    : update$1(this, key, notSetValue, updater);
 }
 __name(update, "update");
 function updateIn(keyPath, notSetValue, updater) {
@@ -2989,15 +4483,17 @@ function updateIn(keyPath, notSetValue, updater) {
 __name(updateIn, "updateIn");
 function merge$1() {
   var iters = [], len = arguments.length;
-  while (len--)
+  while (len--) {
     iters[len] = arguments[len];
+  }
   return mergeIntoKeyedWith(this, iters);
 }
 __name(merge$1, "merge$1");
 function mergeWith$1(merger) {
   var iters = [], len = arguments.length - 1;
-  while (len-- > 0)
+  while (len-- > 0) {
     iters[len] = arguments[len + 1];
+  }
   if (typeof merger !== "function") {
     throw new TypeError("Invalid merger function: " + merger);
   }
@@ -3015,22 +4511,26 @@ function mergeIntoKeyedWith(collection, collections, merger) {
   if (iters.length === 0) {
     return collection;
   }
-  if (collection.toSeq().size === 0 && !collection.__ownerID && iters.length === 1) {
+  if (
+    collection.toSeq().size === 0 && !collection.__ownerID && iters.length === 1
+  ) {
     return collection.constructor(iters[0]);
   }
-  return collection.withMutations(function(collection2) {
-    var mergeIntoCollection = merger ? function(value, key) {
-      update$1(
-        collection2,
-        key,
-        NOT_SET,
-        function(oldVal) {
-          return oldVal === NOT_SET ? value : merger(oldVal, value, key);
-        }
-      );
-    } : function(value, key) {
-      collection2.set(key, value);
-    };
+  return collection.withMutations(function (collection2) {
+    var mergeIntoCollection = merger
+      ? function (value, key) {
+        update$1(
+          collection2,
+          key,
+          NOT_SET,
+          function (oldVal) {
+            return oldVal === NOT_SET ? value : merger(oldVal, value, key);
+          },
+        );
+      }
+      : function (value, key) {
+        collection2.set(key, value);
+      };
     for (var ii2 = 0; ii2 < iters.length; ii2++) {
       iters[ii2].forEach(mergeIntoCollection);
     }
@@ -3044,30 +4544,36 @@ __name(mergeDeepWithSources, "mergeDeepWithSources");
 function mergeWithSources(collection, sources, merger) {
   if (!isDataStructure(collection)) {
     throw new TypeError(
-      "Cannot merge into non-data-structure value: " + collection
+      "Cannot merge into non-data-structure value: " + collection,
     );
   }
   if (isImmutable(collection)) {
-    return typeof merger === "function" && collection.mergeWith ? collection.mergeWith.apply(collection, [merger].concat(sources)) : collection.merge ? collection.merge.apply(collection, sources) : collection.concat.apply(collection, sources);
+    return typeof merger === "function" && collection.mergeWith
+      ? collection.mergeWith.apply(collection, [merger].concat(sources))
+      : collection.merge
+      ? collection.merge.apply(collection, sources)
+      : collection.concat.apply(collection, sources);
   }
   var isArray = Array.isArray(collection);
   var merged = collection;
   var Collection3 = isArray ? IndexedCollection : KeyedCollection;
-  var mergeItem = isArray ? function(value) {
-    if (merged === collection) {
-      merged = shallowCopy(merged);
-    }
-    merged.push(value);
-  } : function(value, key) {
-    var hasVal = hasOwnProperty.call(merged, key);
-    var nextVal = hasVal && merger ? merger(merged[key], value, key) : value;
-    if (!hasVal || nextVal !== merged[key]) {
+  var mergeItem = isArray
+    ? function (value) {
       if (merged === collection) {
         merged = shallowCopy(merged);
       }
-      merged[key] = nextVal;
+      merged.push(value);
     }
-  };
+    : function (value, key) {
+      var hasVal = hasOwnProperty.call(merged, key);
+      var nextVal = hasVal && merger ? merger(merged[key], value, key) : value;
+      if (!hasVal || nextVal !== merged[key]) {
+        if (merged === collection) {
+          merged = shallowCopy(merged);
+        }
+        merged[key] = nextVal;
+      }
+    };
   for (var i = 0; i < sources.length; i++) {
     Collection3(sources[i]).forEach(mergeItem);
   }
@@ -3076,7 +4582,12 @@ function mergeWithSources(collection, sources, merger) {
 __name(mergeWithSources, "mergeWithSources");
 function deepMergerWith(merger) {
   function deepMerger(oldValue, newValue, key) {
-    return isDataStructure(oldValue) && isDataStructure(newValue) && areMergeable(oldValue, newValue) ? mergeWithSources(oldValue, [newValue], deepMerger) : merger ? merger(oldValue, newValue, key) : newValue;
+    return isDataStructure(oldValue) && isDataStructure(newValue) &&
+        areMergeable(oldValue, newValue)
+      ? mergeWithSources(oldValue, [newValue], deepMerger)
+      : merger
+      ? merger(oldValue, newValue, key)
+      : newValue;
   }
   __name(deepMerger, "deepMerger");
   return deepMerger;
@@ -3085,43 +4596,48 @@ __name(deepMergerWith, "deepMergerWith");
 function areMergeable(oldDataStructure, newDataStructure) {
   var oldSeq = Seq(oldDataStructure);
   var newSeq = Seq(newDataStructure);
-  return isIndexed(oldSeq) === isIndexed(newSeq) && isKeyed(oldSeq) === isKeyed(newSeq);
+  return isIndexed(oldSeq) === isIndexed(newSeq) &&
+    isKeyed(oldSeq) === isKeyed(newSeq);
 }
 __name(areMergeable, "areMergeable");
 function mergeDeep() {
   var iters = [], len = arguments.length;
-  while (len--)
+  while (len--) {
     iters[len] = arguments[len];
+  }
   return mergeDeepWithSources(this, iters);
 }
 __name(mergeDeep, "mergeDeep");
 function mergeDeepWith(merger) {
   var iters = [], len = arguments.length - 1;
-  while (len-- > 0)
+  while (len-- > 0) {
     iters[len] = arguments[len + 1];
+  }
   return mergeDeepWithSources(this, iters, merger);
 }
 __name(mergeDeepWith, "mergeDeepWith");
 function mergeIn(keyPath) {
   var iters = [], len = arguments.length - 1;
-  while (len-- > 0)
+  while (len-- > 0) {
     iters[len] = arguments[len + 1];
-  return updateIn$1(this, keyPath, emptyMap(), function(m) {
+  }
+  return updateIn$1(this, keyPath, emptyMap(), function (m) {
     return mergeWithSources(m, iters);
   });
 }
 __name(mergeIn, "mergeIn");
 function mergeDeepIn(keyPath) {
   var iters = [], len = arguments.length - 1;
-  while (len-- > 0)
+  while (len-- > 0) {
     iters[len] = arguments[len + 1];
+  }
   return updateIn$1(
     this,
     keyPath,
     emptyMap(),
-    function(m) {
+    function (m) {
       return mergeDeepWithSources(m, iters);
-    }
+    },
   );
 }
 __name(mergeDeepIn, "mergeDeepIn");
@@ -3143,26 +4659,34 @@ function wasAltered() {
   return this.__altered;
 }
 __name(wasAltered, "wasAltered");
-var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
+var Map2 = /* @__PURE__ */ function (KeyedCollection2) {
   function Map3(value) {
-    return value === void 0 || value === null ? emptyMap() : isMap(value) && !isOrdered(value) ? value : emptyMap().withMutations(function(map2) {
-      var iter = KeyedCollection2(value);
-      assertNotInfinite(iter.size);
-      iter.forEach(function(v, k) {
-        return map2.set(k, v);
+    return value === void 0 || value === null
+      ? emptyMap()
+      : isMap(value) && !isOrdered(value)
+      ? value
+      : emptyMap().withMutations(function (map2) {
+        var iter = KeyedCollection2(value);
+        assertNotInfinite(iter.size);
+        iter.forEach(function (v, k) {
+          return map2.set(k, v);
+        });
       });
-    });
   }
   __name(Map3, "Map");
-  if (KeyedCollection2)
+  if (KeyedCollection2) {
     Map3.__proto__ = KeyedCollection2;
-  Map3.prototype = Object.create(KeyedCollection2 && KeyedCollection2.prototype);
+  }
+  Map3.prototype = Object.create(
+    KeyedCollection2 && KeyedCollection2.prototype,
+  );
   Map3.prototype.constructor = Map3;
   Map3.of = /* @__PURE__ */ __name(function of() {
     var keyValues = [], len = arguments.length;
-    while (len--)
+    while (len--) {
       keyValues[len] = arguments[len];
-    return emptyMap().withMutations(function(map2) {
+    }
+    return emptyMap().withMutations(function (map2) {
       for (var i = 0; i < keyValues.length; i += 2) {
         if (i + 1 >= keyValues.length) {
           throw new Error("Missing value for key: " + keyValues[i]);
@@ -3188,8 +4712,8 @@ var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
     if (collection.size === 0) {
       return this;
     }
-    return this.withMutations(function(map2) {
-      collection.forEach(function(key) {
+    return this.withMutations(function (map2) {
+      collection.forEach(function (key) {
         return map2.remove(key);
       });
     });
@@ -3210,43 +4734,55 @@ var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
   Map3.prototype.sort = /* @__PURE__ */ __name(function sort22(comparator) {
     return OrderedMap(sortFactory(this, comparator));
   }, "sort");
-  Map3.prototype.sortBy = /* @__PURE__ */ __name(function sortBy2(mapper, comparator) {
-    return OrderedMap(sortFactory(this, comparator, mapper));
-  }, "sortBy");
+  Map3.prototype.sortBy = /* @__PURE__ */ __name(
+    function sortBy2(mapper, comparator) {
+      return OrderedMap(sortFactory(this, comparator, mapper));
+    },
+    "sortBy",
+  );
   Map3.prototype.map = /* @__PURE__ */ __name(function map2(mapper, context) {
     var this$1$1 = this;
-    return this.withMutations(function(map3) {
-      map3.forEach(function(value, key) {
+    return this.withMutations(function (map3) {
+      map3.forEach(function (value, key) {
         map3.set(key, mapper.call(context, value, key, this$1$1));
       });
     });
   }, "map");
-  Map3.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    return new MapIterator(this, type, reverse3);
-  }, "__iterator");
-  Map3.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    var iterations = 0;
-    this._root && this._root.iterate(function(entry) {
-      iterations++;
-      return fn(entry[1], entry[0], this$1$1);
-    }, reverse3);
-    return iterations;
-  }, "__iterate");
-  Map3.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    if (!ownerID) {
-      if (this.size === 0) {
-        return emptyMap();
+  Map3.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      return new MapIterator(this, type, reverse3);
+    },
+    "__iterator",
+  );
+  Map3.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var this$1$1 = this;
+      var iterations = 0;
+      this._root && this._root.iterate(function (entry) {
+        iterations++;
+        return fn(entry[1], entry[0], this$1$1);
+      }, reverse3);
+      return iterations;
+    },
+    "__iterate",
+  );
+  Map3.prototype.__ensureOwner = /* @__PURE__ */ __name(
+    function __ensureOwner2(ownerID) {
+      if (ownerID === this.__ownerID) {
+        return this;
       }
-      this.__ownerID = ownerID;
-      this.__altered = false;
-      return this;
-    }
-    return makeMap(this.size, this._root, ownerID, this.__hash);
-  }, "__ensureOwner");
+      if (!ownerID) {
+        if (this.size === 0) {
+          return emptyMap();
+        }
+        this.__ownerID = ownerID;
+        this.__altered = false;
+        return this;
+      }
+      return makeMap(this.size, this._root, ownerID, this.__hash);
+    },
+    "__ensureOwner",
+  );
   return Map3;
 }(KeyedCollection);
 Map2.isMap = isMap;
@@ -3268,302 +4804,402 @@ MapPrototype.withMutations = withMutations;
 MapPrototype.wasAltered = wasAltered;
 MapPrototype.asImmutable = asImmutable;
 MapPrototype["@@transducer/init"] = MapPrototype.asMutable = asMutable;
-MapPrototype["@@transducer/step"] = function(result, arr) {
+MapPrototype["@@transducer/step"] = function (result, arr) {
   return result.set(arr[0], arr[1]);
 };
-MapPrototype["@@transducer/result"] = function(obj) {
+MapPrototype["@@transducer/result"] = function (obj) {
   return obj.asImmutable();
 };
-var ArrayMapNode = /* @__PURE__ */ __name(function ArrayMapNode2(ownerID, entries3) {
-  this.ownerID = ownerID;
-  this.entries = entries3;
-}, "ArrayMapNode");
-ArrayMapNode.prototype.get = /* @__PURE__ */ __name(function get2(shift, keyHash, key, notSetValue) {
-  var entries3 = this.entries;
-  for (var ii = 0, len = entries3.length; ii < len; ii++) {
-    if (is(key, entries3[ii][0])) {
-      return entries3[ii][1];
+var ArrayMapNode = /* @__PURE__ */ __name(
+  function ArrayMapNode2(ownerID, entries3) {
+    this.ownerID = ownerID;
+    this.entries = entries3;
+  },
+  "ArrayMapNode",
+);
+ArrayMapNode.prototype.get = /* @__PURE__ */ __name(
+  function get2(shift, keyHash, key, notSetValue) {
+    var entries3 = this.entries;
+    for (var ii = 0, len = entries3.length; ii < len; ii++) {
+      if (is(key, entries3[ii][0])) {
+        return entries3[ii][1];
+      }
     }
-  }
-  return notSetValue;
-}, "get");
-ArrayMapNode.prototype.update = /* @__PURE__ */ __name(function update2(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  var removed = value === NOT_SET;
-  var entries3 = this.entries;
-  var idx = 0;
-  var len = entries3.length;
-  for (; idx < len; idx++) {
-    if (is(key, entries3[idx][0])) {
-      break;
-    }
-  }
-  var exists = idx < len;
-  if (exists ? entries3[idx][1] === value : removed) {
-    return this;
-  }
-  SetRef(didAlter);
-  (removed || !exists) && SetRef(didChangeSize);
-  if (removed && entries3.length === 1) {
-    return;
-  }
-  if (!exists && !removed && entries3.length >= MAX_ARRAY_MAP_SIZE) {
-    return createNodes(ownerID, entries3, key, value);
-  }
-  var isEditable = ownerID && ownerID === this.ownerID;
-  var newEntries = isEditable ? entries3 : arrCopy(entries3);
-  if (exists) {
-    if (removed) {
-      idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
-    } else {
-      newEntries[idx] = [key, value];
-    }
-  } else {
-    newEntries.push([key, value]);
-  }
-  if (isEditable) {
-    this.entries = newEntries;
-    return this;
-  }
-  return new ArrayMapNode(ownerID, newEntries);
-}, "update");
-var BitmapIndexedNode = /* @__PURE__ */ __name(function BitmapIndexedNode2(ownerID, bitmap, nodes) {
-  this.ownerID = ownerID;
-  this.bitmap = bitmap;
-  this.nodes = nodes;
-}, "BitmapIndexedNode");
-BitmapIndexedNode.prototype.get = /* @__PURE__ */ __name(function get3(shift, keyHash, key, notSetValue) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var bit = 1 << ((shift === 0 ? keyHash : keyHash >>> shift) & MASK);
-  var bitmap = this.bitmap;
-  return (bitmap & bit) === 0 ? notSetValue : this.nodes[popCount(bitmap & bit - 1)].get(
-    shift + SHIFT,
-    keyHash,
-    key,
-    notSetValue
-  );
-}, "get");
-BitmapIndexedNode.prototype.update = /* @__PURE__ */ __name(function update3(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var keyHashFrag = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
-  var bit = 1 << keyHashFrag;
-  var bitmap = this.bitmap;
-  var exists = (bitmap & bit) !== 0;
-  if (!exists && value === NOT_SET) {
-    return this;
-  }
-  var idx = popCount(bitmap & bit - 1);
-  var nodes = this.nodes;
-  var node = exists ? nodes[idx] : void 0;
-  var newNode = updateNode(
-    node,
+    return notSetValue;
+  },
+  "get",
+);
+ArrayMapNode.prototype.update = /* @__PURE__ */ __name(
+  function update2(
     ownerID,
-    shift + SHIFT,
+    shift,
     keyHash,
     key,
     value,
     didChangeSize,
-    didAlter
-  );
-  if (newNode === node) {
-    return this;
-  }
-  if (!exists && newNode && nodes.length >= MAX_BITMAP_INDEXED_SIZE) {
-    return expandNodes(ownerID, nodes, bitmap, keyHashFrag, newNode);
-  }
-  if (exists && !newNode && nodes.length === 2 && isLeafNode(nodes[idx ^ 1])) {
-    return nodes[idx ^ 1];
-  }
-  if (exists && newNode && nodes.length === 1 && isLeafNode(newNode)) {
-    return newNode;
-  }
-  var isEditable = ownerID && ownerID === this.ownerID;
-  var newBitmap = exists ? newNode ? bitmap : bitmap ^ bit : bitmap | bit;
-  var newNodes = exists ? newNode ? setAt(nodes, idx, newNode, isEditable) : spliceOut(nodes, idx, isEditable) : spliceIn(nodes, idx, newNode, isEditable);
-  if (isEditable) {
-    this.bitmap = newBitmap;
-    this.nodes = newNodes;
-    return this;
-  }
-  return new BitmapIndexedNode(ownerID, newBitmap, newNodes);
-}, "update");
-var HashArrayMapNode = /* @__PURE__ */ __name(function HashArrayMapNode2(ownerID, count2, nodes) {
-  this.ownerID = ownerID;
-  this.count = count2;
-  this.nodes = nodes;
-}, "HashArrayMapNode");
-HashArrayMapNode.prototype.get = /* @__PURE__ */ __name(function get4(shift, keyHash, key, notSetValue) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
-  var node = this.nodes[idx];
-  return node ? node.get(shift + SHIFT, keyHash, key, notSetValue) : notSetValue;
-}, "get");
-HashArrayMapNode.prototype.update = /* @__PURE__ */ __name(function update4(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
-  var removed = value === NOT_SET;
-  var nodes = this.nodes;
-  var node = nodes[idx];
-  if (removed && !node) {
-    return this;
-  }
-  var newNode = updateNode(
-    node,
-    ownerID,
-    shift + SHIFT,
-    keyHash,
-    key,
-    value,
-    didChangeSize,
-    didAlter
-  );
-  if (newNode === node) {
-    return this;
-  }
-  var newCount = this.count;
-  if (!node) {
-    newCount++;
-  } else if (!newNode) {
-    newCount--;
-    if (newCount < MIN_HASH_ARRAY_MAP_SIZE) {
-      return packNodes(ownerID, nodes, newCount, idx);
+    didAlter,
+  ) {
+    var removed = value === NOT_SET;
+    var entries3 = this.entries;
+    var idx = 0;
+    var len = entries3.length;
+    for (; idx < len; idx++) {
+      if (is(key, entries3[idx][0])) {
+        break;
+      }
     }
-  }
-  var isEditable = ownerID && ownerID === this.ownerID;
-  var newNodes = setAt(nodes, idx, newNode, isEditable);
-  if (isEditable) {
-    this.count = newCount;
-    this.nodes = newNodes;
-    return this;
-  }
-  return new HashArrayMapNode(ownerID, newCount, newNodes);
-}, "update");
-var HashCollisionNode = /* @__PURE__ */ __name(function HashCollisionNode2(ownerID, keyHash, entries3) {
-  this.ownerID = ownerID;
-  this.keyHash = keyHash;
-  this.entries = entries3;
-}, "HashCollisionNode");
-HashCollisionNode.prototype.get = /* @__PURE__ */ __name(function get5(shift, keyHash, key, notSetValue) {
-  var entries3 = this.entries;
-  for (var ii = 0, len = entries3.length; ii < len; ii++) {
-    if (is(key, entries3[ii][0])) {
-      return entries3[ii][1];
-    }
-  }
-  return notSetValue;
-}, "get");
-HashCollisionNode.prototype.update = /* @__PURE__ */ __name(function update5(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  if (keyHash === void 0) {
-    keyHash = hash(key);
-  }
-  var removed = value === NOT_SET;
-  if (keyHash !== this.keyHash) {
-    if (removed) {
+    var exists = idx < len;
+    if (exists ? entries3[idx][1] === value : removed) {
       return this;
     }
     SetRef(didAlter);
-    SetRef(didChangeSize);
-    return mergeIntoNode(this, ownerID, shift, keyHash, [key, value]);
-  }
-  var entries3 = this.entries;
-  var idx = 0;
-  var len = entries3.length;
-  for (; idx < len; idx++) {
-    if (is(key, entries3[idx][0])) {
-      break;
+    (removed || !exists) && SetRef(didChangeSize);
+    if (removed && entries3.length === 1) {
+      return;
     }
-  }
-  var exists = idx < len;
-  if (exists ? entries3[idx][1] === value : removed) {
-    return this;
-  }
-  SetRef(didAlter);
-  (removed || !exists) && SetRef(didChangeSize);
-  if (removed && len === 2) {
-    return new ValueNode(ownerID, this.keyHash, entries3[idx ^ 1]);
-  }
-  var isEditable = ownerID && ownerID === this.ownerID;
-  var newEntries = isEditable ? entries3 : arrCopy(entries3);
-  if (exists) {
-    if (removed) {
-      idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
+    if (!exists && !removed && entries3.length >= MAX_ARRAY_MAP_SIZE) {
+      return createNodes(ownerID, entries3, key, value);
+    }
+    var isEditable = ownerID && ownerID === this.ownerID;
+    var newEntries = isEditable ? entries3 : arrCopy(entries3);
+    if (exists) {
+      if (removed) {
+        idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
+      } else {
+        newEntries[idx] = [key, value];
+      }
     } else {
-      newEntries[idx] = [key, value];
+      newEntries.push([key, value]);
     }
-  } else {
-    newEntries.push([key, value]);
-  }
-  if (isEditable) {
-    this.entries = newEntries;
-    return this;
-  }
-  return new HashCollisionNode(ownerID, this.keyHash, newEntries);
-}, "update");
-var ValueNode = /* @__PURE__ */ __name(function ValueNode2(ownerID, keyHash, entry) {
-  this.ownerID = ownerID;
-  this.keyHash = keyHash;
-  this.entry = entry;
-}, "ValueNode");
-ValueNode.prototype.get = /* @__PURE__ */ __name(function get6(shift, keyHash, key, notSetValue) {
-  return is(key, this.entry[0]) ? this.entry[1] : notSetValue;
-}, "get");
-ValueNode.prototype.update = /* @__PURE__ */ __name(function update6(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
-  var removed = value === NOT_SET;
-  var keyMatch = is(key, this.entry[0]);
-  if (keyMatch ? value === this.entry[1] : removed) {
-    return this;
-  }
-  SetRef(didAlter);
-  if (removed) {
-    SetRef(didChangeSize);
-    return;
-  }
-  if (keyMatch) {
-    if (ownerID && ownerID === this.ownerID) {
-      this.entry[1] = value;
+    if (isEditable) {
+      this.entries = newEntries;
       return this;
     }
-    return new ValueNode(ownerID, this.keyHash, [key, value]);
-  }
-  SetRef(didChangeSize);
-  return mergeIntoNode(this, ownerID, shift, hash(key), [key, value]);
-}, "update");
-ArrayMapNode.prototype.iterate = HashCollisionNode.prototype.iterate = function(fn, reverse3) {
-  var entries3 = this.entries;
-  for (var ii = 0, maxIndex = entries3.length - 1; ii <= maxIndex; ii++) {
-    if (fn(entries3[reverse3 ? maxIndex - ii : ii]) === false) {
-      return false;
+    return new ArrayMapNode(ownerID, newEntries);
+  },
+  "update",
+);
+var BitmapIndexedNode = /* @__PURE__ */ __name(
+  function BitmapIndexedNode2(ownerID, bitmap, nodes) {
+    this.ownerID = ownerID;
+    this.bitmap = bitmap;
+    this.nodes = nodes;
+  },
+  "BitmapIndexedNode",
+);
+BitmapIndexedNode.prototype.get = /* @__PURE__ */ __name(
+  function get3(shift, keyHash, key, notSetValue) {
+    if (keyHash === void 0) {
+      keyHash = hash(key);
     }
-  }
-};
-BitmapIndexedNode.prototype.iterate = HashArrayMapNode.prototype.iterate = function(fn, reverse3) {
-  var nodes = this.nodes;
-  for (var ii = 0, maxIndex = nodes.length - 1; ii <= maxIndex; ii++) {
-    var node = nodes[reverse3 ? maxIndex - ii : ii];
-    if (node && node.iterate(fn, reverse3) === false) {
-      return false;
+    var bit = 1 << ((shift === 0 ? keyHash : keyHash >>> shift) & MASK);
+    var bitmap = this.bitmap;
+    return (bitmap & bit) === 0
+      ? notSetValue
+      : this.nodes[popCount(bitmap & bit - 1)].get(
+        shift + SHIFT,
+        keyHash,
+        key,
+        notSetValue,
+      );
+  },
+  "get",
+);
+BitmapIndexedNode.prototype.update = /* @__PURE__ */ __name(
+  function update3(
+    ownerID,
+    shift,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter,
+  ) {
+    if (keyHash === void 0) {
+      keyHash = hash(key);
     }
-  }
-};
-ValueNode.prototype.iterate = function(fn, reverse3) {
+    var keyHashFrag = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+    var bit = 1 << keyHashFrag;
+    var bitmap = this.bitmap;
+    var exists = (bitmap & bit) !== 0;
+    if (!exists && value === NOT_SET) {
+      return this;
+    }
+    var idx = popCount(bitmap & bit - 1);
+    var nodes = this.nodes;
+    var node = exists ? nodes[idx] : void 0;
+    var newNode = updateNode(
+      node,
+      ownerID,
+      shift + SHIFT,
+      keyHash,
+      key,
+      value,
+      didChangeSize,
+      didAlter,
+    );
+    if (newNode === node) {
+      return this;
+    }
+    if (!exists && newNode && nodes.length >= MAX_BITMAP_INDEXED_SIZE) {
+      return expandNodes(ownerID, nodes, bitmap, keyHashFrag, newNode);
+    }
+    if (
+      exists && !newNode && nodes.length === 2 && isLeafNode(nodes[idx ^ 1])
+    ) {
+      return nodes[idx ^ 1];
+    }
+    if (exists && newNode && nodes.length === 1 && isLeafNode(newNode)) {
+      return newNode;
+    }
+    var isEditable = ownerID && ownerID === this.ownerID;
+    var newBitmap = exists ? newNode ? bitmap : bitmap ^ bit : bitmap | bit;
+    var newNodes = exists
+      ? newNode
+        ? setAt(nodes, idx, newNode, isEditable)
+        : spliceOut(nodes, idx, isEditable)
+      : spliceIn(nodes, idx, newNode, isEditable);
+    if (isEditable) {
+      this.bitmap = newBitmap;
+      this.nodes = newNodes;
+      return this;
+    }
+    return new BitmapIndexedNode(ownerID, newBitmap, newNodes);
+  },
+  "update",
+);
+var HashArrayMapNode = /* @__PURE__ */ __name(
+  function HashArrayMapNode2(ownerID, count2, nodes) {
+    this.ownerID = ownerID;
+    this.count = count2;
+    this.nodes = nodes;
+  },
+  "HashArrayMapNode",
+);
+HashArrayMapNode.prototype.get = /* @__PURE__ */ __name(
+  function get4(shift, keyHash, key, notSetValue) {
+    if (keyHash === void 0) {
+      keyHash = hash(key);
+    }
+    var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+    var node = this.nodes[idx];
+    return node
+      ? node.get(shift + SHIFT, keyHash, key, notSetValue)
+      : notSetValue;
+  },
+  "get",
+);
+HashArrayMapNode.prototype.update = /* @__PURE__ */ __name(
+  function update4(
+    ownerID,
+    shift,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter,
+  ) {
+    if (keyHash === void 0) {
+      keyHash = hash(key);
+    }
+    var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+    var removed = value === NOT_SET;
+    var nodes = this.nodes;
+    var node = nodes[idx];
+    if (removed && !node) {
+      return this;
+    }
+    var newNode = updateNode(
+      node,
+      ownerID,
+      shift + SHIFT,
+      keyHash,
+      key,
+      value,
+      didChangeSize,
+      didAlter,
+    );
+    if (newNode === node) {
+      return this;
+    }
+    var newCount = this.count;
+    if (!node) {
+      newCount++;
+    } else if (!newNode) {
+      newCount--;
+      if (newCount < MIN_HASH_ARRAY_MAP_SIZE) {
+        return packNodes(ownerID, nodes, newCount, idx);
+      }
+    }
+    var isEditable = ownerID && ownerID === this.ownerID;
+    var newNodes = setAt(nodes, idx, newNode, isEditable);
+    if (isEditable) {
+      this.count = newCount;
+      this.nodes = newNodes;
+      return this;
+    }
+    return new HashArrayMapNode(ownerID, newCount, newNodes);
+  },
+  "update",
+);
+var HashCollisionNode = /* @__PURE__ */ __name(
+  function HashCollisionNode2(ownerID, keyHash, entries3) {
+    this.ownerID = ownerID;
+    this.keyHash = keyHash;
+    this.entries = entries3;
+  },
+  "HashCollisionNode",
+);
+HashCollisionNode.prototype.get = /* @__PURE__ */ __name(
+  function get5(shift, keyHash, key, notSetValue) {
+    var entries3 = this.entries;
+    for (var ii = 0, len = entries3.length; ii < len; ii++) {
+      if (is(key, entries3[ii][0])) {
+        return entries3[ii][1];
+      }
+    }
+    return notSetValue;
+  },
+  "get",
+);
+HashCollisionNode.prototype.update = /* @__PURE__ */ __name(
+  function update5(
+    ownerID,
+    shift,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter,
+  ) {
+    if (keyHash === void 0) {
+      keyHash = hash(key);
+    }
+    var removed = value === NOT_SET;
+    if (keyHash !== this.keyHash) {
+      if (removed) {
+        return this;
+      }
+      SetRef(didAlter);
+      SetRef(didChangeSize);
+      return mergeIntoNode(this, ownerID, shift, keyHash, [key, value]);
+    }
+    var entries3 = this.entries;
+    var idx = 0;
+    var len = entries3.length;
+    for (; idx < len; idx++) {
+      if (is(key, entries3[idx][0])) {
+        break;
+      }
+    }
+    var exists = idx < len;
+    if (exists ? entries3[idx][1] === value : removed) {
+      return this;
+    }
+    SetRef(didAlter);
+    (removed || !exists) && SetRef(didChangeSize);
+    if (removed && len === 2) {
+      return new ValueNode(ownerID, this.keyHash, entries3[idx ^ 1]);
+    }
+    var isEditable = ownerID && ownerID === this.ownerID;
+    var newEntries = isEditable ? entries3 : arrCopy(entries3);
+    if (exists) {
+      if (removed) {
+        idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
+      } else {
+        newEntries[idx] = [key, value];
+      }
+    } else {
+      newEntries.push([key, value]);
+    }
+    if (isEditable) {
+      this.entries = newEntries;
+      return this;
+    }
+    return new HashCollisionNode(ownerID, this.keyHash, newEntries);
+  },
+  "update",
+);
+var ValueNode = /* @__PURE__ */ __name(
+  function ValueNode2(ownerID, keyHash, entry) {
+    this.ownerID = ownerID;
+    this.keyHash = keyHash;
+    this.entry = entry;
+  },
+  "ValueNode",
+);
+ValueNode.prototype.get = /* @__PURE__ */ __name(
+  function get6(shift, keyHash, key, notSetValue) {
+    return is(key, this.entry[0]) ? this.entry[1] : notSetValue;
+  },
+  "get",
+);
+ValueNode.prototype.update = /* @__PURE__ */ __name(
+  function update6(
+    ownerID,
+    shift,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter,
+  ) {
+    var removed = value === NOT_SET;
+    var keyMatch = is(key, this.entry[0]);
+    if (keyMatch ? value === this.entry[1] : removed) {
+      return this;
+    }
+    SetRef(didAlter);
+    if (removed) {
+      SetRef(didChangeSize);
+      return;
+    }
+    if (keyMatch) {
+      if (ownerID && ownerID === this.ownerID) {
+        this.entry[1] = value;
+        return this;
+      }
+      return new ValueNode(ownerID, this.keyHash, [key, value]);
+    }
+    SetRef(didChangeSize);
+    return mergeIntoNode(this, ownerID, shift, hash(key), [key, value]);
+  },
+  "update",
+);
+ArrayMapNode.prototype.iterate =
+  HashCollisionNode.prototype.iterate =
+    function (fn, reverse3) {
+      var entries3 = this.entries;
+      for (var ii = 0, maxIndex = entries3.length - 1; ii <= maxIndex; ii++) {
+        if (fn(entries3[reverse3 ? maxIndex - ii : ii]) === false) {
+          return false;
+        }
+      }
+    };
+BitmapIndexedNode.prototype.iterate =
+  HashArrayMapNode.prototype.iterate =
+    function (fn, reverse3) {
+      var nodes = this.nodes;
+      for (var ii = 0, maxIndex = nodes.length - 1; ii <= maxIndex; ii++) {
+        var node = nodes[reverse3 ? maxIndex - ii : ii];
+        if (node && node.iterate(fn, reverse3) === false) {
+          return false;
+        }
+      }
+    };
+ValueNode.prototype.iterate = function (fn, reverse3) {
   return fn(this.entry);
 };
-var MapIterator = /* @__PURE__ */ function(Iterator3) {
+var MapIterator = /* @__PURE__ */ function (Iterator3) {
   function MapIterator2(map2, type, reverse3) {
     this._type = type;
     this._reverse = reverse3;
     this._stack = map2._root && mapIteratorFrame(map2._root);
   }
   __name(MapIterator2, "MapIterator");
-  if (Iterator3)
+  if (Iterator3) {
     MapIterator2.__proto__ = Iterator3;
+  }
   MapIterator2.prototype = Object.create(Iterator3 && Iterator3.prototype);
   MapIterator2.prototype.constructor = MapIterator2;
   MapIterator2.prototype.next = /* @__PURE__ */ __name(function next() {
@@ -3582,7 +5218,7 @@ var MapIterator = /* @__PURE__ */ function(Iterator3) {
         if (index <= maxIndex) {
           return mapIteratorValue(
             type,
-            node.entries[this._reverse ? maxIndex - index : index]
+            node.entries[this._reverse ? maxIndex - index : index],
           );
         }
       } else {
@@ -3612,7 +5248,7 @@ function mapIteratorFrame(node, prev) {
   return {
     node,
     index: 0,
-    __prev: prev
+    __prev: prev,
   };
 }
 __name(mapIteratorFrame, "mapIteratorFrame");
@@ -3651,7 +5287,7 @@ function updateMap(map2, k, v) {
       k,
       v,
       didChangeSize,
-      didAlter
+      didAlter,
     );
     if (!didAlter.value) {
       return map2;
@@ -3668,7 +5304,16 @@ function updateMap(map2, k, v) {
   return newRoot ? makeMap(newSize, newRoot) : emptyMap();
 }
 __name(updateMap, "updateMap");
-function updateNode(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+function updateNode(
+  node,
+  ownerID,
+  shift,
+  keyHash,
+  key,
+  value,
+  didChangeSize,
+  didAlter,
+) {
   if (!node) {
     if (value === NOT_SET) {
       return node;
@@ -3684,12 +5329,13 @@ function updateNode(node, ownerID, shift, keyHash, key, value, didChangeSize, di
     key,
     value,
     didChangeSize,
-    didAlter
+    didAlter,
   );
 }
 __name(updateNode, "updateNode");
 function isLeafNode(node) {
-  return node.constructor === ValueNode || node.constructor === HashCollisionNode;
+  return node.constructor === ValueNode ||
+    node.constructor === HashCollisionNode;
 }
 __name(isLeafNode, "isLeafNode");
 function mergeIntoNode(node, ownerID, shift, keyHash, entry) {
@@ -3699,7 +5345,10 @@ function mergeIntoNode(node, ownerID, shift, keyHash, entry) {
   var idx1 = (shift === 0 ? node.keyHash : node.keyHash >>> shift) & MASK;
   var idx2 = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
   var newNode;
-  var nodes = idx1 === idx2 ? [mergeIntoNode(node, ownerID, shift + SHIFT, keyHash, entry)] : (newNode = new ValueNode(ownerID, keyHash, entry), idx1 < idx2 ? [node, newNode] : [newNode, node]);
+  var nodes = idx1 === idx2
+    ? [mergeIntoNode(node, ownerID, shift + SHIFT, keyHash, entry)]
+    : (newNode = new ValueNode(ownerID, keyHash, entry),
+      idx1 < idx2 ? [node, newNode] : [newNode, node]);
   return new BitmapIndexedNode(ownerID, 1 << idx1 | 1 << idx2, nodes);
 }
 __name(mergeIntoNode, "mergeIntoNode");
@@ -3798,7 +5447,7 @@ function isList(maybeList) {
   return Boolean(maybeList && maybeList[IS_LIST_SYMBOL]);
 }
 __name(isList, "isList");
-var List = /* @__PURE__ */ function(IndexedCollection2) {
+var List = /* @__PURE__ */ function (IndexedCollection2) {
   function List2(value) {
     var empty = emptyList();
     if (value === void 0 || value === null) {
@@ -3816,17 +5465,20 @@ var List = /* @__PURE__ */ function(IndexedCollection2) {
     if (size > 0 && size < SIZE) {
       return makeList(0, size, SHIFT, null, new VNode(iter.toArray()));
     }
-    return empty.withMutations(function(list) {
+    return empty.withMutations(function (list) {
       list.setSize(size);
-      iter.forEach(function(v, i) {
+      iter.forEach(function (v, i) {
         return list.set(i, v);
       });
     });
   }
   __name(List2, "List");
-  if (IndexedCollection2)
+  if (IndexedCollection2) {
     List2.__proto__ = IndexedCollection2;
-  List2.prototype = Object.create(IndexedCollection2 && IndexedCollection2.prototype);
+  }
+  List2.prototype = Object.create(
+    IndexedCollection2 && IndexedCollection2.prototype,
+  );
   List2.prototype.constructor = List2;
   List2.of = /* @__PURE__ */ __name(function of() {
     return this(arguments);
@@ -3834,24 +5486,36 @@ var List = /* @__PURE__ */ function(IndexedCollection2) {
   List2.prototype.toString = /* @__PURE__ */ __name(function toString5() {
     return this.__toString("List [", "]");
   }, "toString");
-  List2.prototype.get = /* @__PURE__ */ __name(function get11(index, notSetValue) {
-    index = wrapIndex(this, index);
-    if (index >= 0 && index < this.size) {
-      index += this._origin;
-      var node = listNodeFor(this, index);
-      return node && node.array[index & MASK];
-    }
-    return notSetValue;
-  }, "get");
+  List2.prototype.get = /* @__PURE__ */ __name(
+    function get11(index, notSetValue) {
+      index = wrapIndex(this, index);
+      if (index >= 0 && index < this.size) {
+        index += this._origin;
+        var node = listNodeFor(this, index);
+        return node && node.array[index & MASK];
+      }
+      return notSetValue;
+    },
+    "get",
+  );
   List2.prototype.set = /* @__PURE__ */ __name(function set3(index, value) {
     return updateList(this, index, value);
   }, "set");
   List2.prototype.remove = /* @__PURE__ */ __name(function remove3(index) {
-    return !this.has(index) ? this : index === 0 ? this.shift() : index === this.size - 1 ? this.pop() : this.splice(index, 1);
+    return !this.has(index)
+      ? this
+      : index === 0
+      ? this.shift()
+      : index === this.size - 1
+      ? this.pop()
+      : this.splice(index, 1);
   }, "remove");
-  List2.prototype.insert = /* @__PURE__ */ __name(function insert(index, value) {
-    return this.splice(index, 0, value);
-  }, "insert");
+  List2.prototype.insert = /* @__PURE__ */ __name(
+    function insert(index, value) {
+      return this.splice(index, 0, value);
+    },
+    "insert",
+  );
   List2.prototype.clear = /* @__PURE__ */ __name(function clear2() {
     if (this.size === 0) {
       return this;
@@ -3868,7 +5532,7 @@ var List = /* @__PURE__ */ function(IndexedCollection2) {
   List2.prototype.push = /* @__PURE__ */ __name(function push() {
     var values2 = arguments;
     var oldSize = this.size;
-    return this.withMutations(function(list) {
+    return this.withMutations(function (list) {
       setListBounds(list, 0, oldSize + values2.length);
       for (var ii = 0; ii < values2.length; ii++) {
         list.set(oldSize + ii, values2[ii]);
@@ -3880,7 +5544,7 @@ var List = /* @__PURE__ */ function(IndexedCollection2) {
   }, "pop");
   List2.prototype.unshift = /* @__PURE__ */ __name(function unshift() {
     var values2 = arguments;
-    return this.withMutations(function(list) {
+    return this.withMutations(function (list) {
       setListBounds(list, -values2.length);
       for (var ii = 0; ii < values2.length; ii++) {
         list.set(ii, values2[ii]);
@@ -3896,7 +5560,9 @@ var List = /* @__PURE__ */ function(IndexedCollection2) {
     for (var i = 0; i < arguments.length; i++) {
       var argument = arguments$1[i];
       var seq = IndexedCollection2(
-        typeof argument !== "string" && hasIterator(argument) ? argument : [argument]
+        typeof argument !== "string" && hasIterator(argument)
+          ? argument
+          : [argument],
       );
       if (seq.size !== 0) {
         seqs.push(seq);
@@ -3908,9 +5574,9 @@ var List = /* @__PURE__ */ function(IndexedCollection2) {
     if (this.size === 0 && !this.__ownerID && seqs.length === 1) {
       return this.constructor(seqs[0]);
     }
-    return this.withMutations(function(list) {
-      seqs.forEach(function(seq2) {
-        return seq2.forEach(function(value) {
+    return this.withMutations(function (list) {
+      seqs.forEach(function (seq2) {
+        return seq2.forEach(function (value) {
           return list.push(value);
         });
       });
@@ -3921,7 +5587,7 @@ var List = /* @__PURE__ */ function(IndexedCollection2) {
   }, "setSize");
   List2.prototype.map = /* @__PURE__ */ __name(function map2(mapper, context) {
     var this$1$1 = this;
-    return this.withMutations(function(list) {
+    return this.withMutations(function (list) {
       for (var i = 0; i < this$1$1.size; i++) {
         list.set(i, mapper.call(context, list.get(i), i, this$1$1));
       }
@@ -3935,50 +5601,61 @@ var List = /* @__PURE__ */ function(IndexedCollection2) {
     return setListBounds(
       this,
       resolveBegin(begin, size),
-      resolveEnd(end, size)
+      resolveEnd(end, size),
     );
   }, "slice");
-  List2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    var index = reverse3 ? this.size : 0;
-    var values2 = iterateList(this, reverse3);
-    return new Iterator(function() {
-      var value = values2();
-      return value === DONE ? iteratorDone() : iteratorValue(type, reverse3 ? --index : index++, value);
-    });
-  }, "__iterator");
-  List2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var index = reverse3 ? this.size : 0;
-    var values2 = iterateList(this, reverse3);
-    var value;
-    while ((value = values2()) !== DONE) {
-      if (fn(value, reverse3 ? --index : index++, this) === false) {
-        break;
+  List2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      var index = reverse3 ? this.size : 0;
+      var values2 = iterateList(this, reverse3);
+      return new Iterator(function () {
+        var value = values2();
+        return value === DONE
+          ? iteratorDone()
+          : iteratorValue(type, reverse3 ? --index : index++, value);
+      });
+    },
+    "__iterator",
+  );
+  List2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var index = reverse3 ? this.size : 0;
+      var values2 = iterateList(this, reverse3);
+      var value;
+      while ((value = values2()) !== DONE) {
+        if (fn(value, reverse3 ? --index : index++, this) === false) {
+          break;
+        }
       }
-    }
-    return index;
-  }, "__iterate");
-  List2.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    if (!ownerID) {
-      if (this.size === 0) {
-        return emptyList();
+      return index;
+    },
+    "__iterate",
+  );
+  List2.prototype.__ensureOwner = /* @__PURE__ */ __name(
+    function __ensureOwner2(ownerID) {
+      if (ownerID === this.__ownerID) {
+        return this;
       }
-      this.__ownerID = ownerID;
-      this.__altered = false;
-      return this;
-    }
-    return makeList(
-      this._origin,
-      this._capacity,
-      this._level,
-      this._root,
-      this._tail,
-      ownerID,
-      this.__hash
-    );
-  }, "__ensureOwner");
+      if (!ownerID) {
+        if (this.size === 0) {
+          return emptyList();
+        }
+        this.__ownerID = ownerID;
+        this.__altered = false;
+        return this;
+      }
+      return makeList(
+        this._origin,
+        this._capacity,
+        this._level,
+        this._root,
+        this._tail,
+        ownerID,
+        this.__hash,
+      );
+    },
+    "__ensureOwner",
+  );
   return List2;
 }(IndexedCollection);
 List.isList = isList;
@@ -3996,70 +5673,78 @@ ListPrototype.withMutations = withMutations;
 ListPrototype.wasAltered = wasAltered;
 ListPrototype.asImmutable = asImmutable;
 ListPrototype["@@transducer/init"] = ListPrototype.asMutable = asMutable;
-ListPrototype["@@transducer/step"] = function(result, arr) {
+ListPrototype["@@transducer/step"] = function (result, arr) {
   return result.push(arr);
 };
-ListPrototype["@@transducer/result"] = function(obj) {
+ListPrototype["@@transducer/result"] = function (obj) {
   return obj.asImmutable();
 };
 var VNode = /* @__PURE__ */ __name(function VNode2(array, ownerID) {
   this.array = array;
   this.ownerID = ownerID;
 }, "VNode");
-VNode.prototype.removeBefore = /* @__PURE__ */ __name(function removeBefore(ownerID, level, index) {
-  if (index === level ? 1 << level : this.array.length === 0) {
-    return this;
-  }
-  var originIndex = index >>> level & MASK;
-  if (originIndex >= this.array.length) {
-    return new VNode([], ownerID);
-  }
-  var removingFirst = originIndex === 0;
-  var newChild;
-  if (level > 0) {
-    var oldChild = this.array[originIndex];
-    newChild = oldChild && oldChild.removeBefore(ownerID, level - SHIFT, index);
-    if (newChild === oldChild && removingFirst) {
+VNode.prototype.removeBefore = /* @__PURE__ */ __name(
+  function removeBefore(ownerID, level, index) {
+    if (index === level ? 1 << level : this.array.length === 0) {
       return this;
     }
-  }
-  if (removingFirst && !newChild) {
-    return this;
-  }
-  var editable = editableVNode(this, ownerID);
-  if (!removingFirst) {
-    for (var ii = 0; ii < originIndex; ii++) {
-      editable.array[ii] = void 0;
+    var originIndex = index >>> level & MASK;
+    if (originIndex >= this.array.length) {
+      return new VNode([], ownerID);
     }
-  }
-  if (newChild) {
-    editable.array[originIndex] = newChild;
-  }
-  return editable;
-}, "removeBefore");
-VNode.prototype.removeAfter = /* @__PURE__ */ __name(function removeAfter(ownerID, level, index) {
-  if (index === (level ? 1 << level : 0) || this.array.length === 0) {
-    return this;
-  }
-  var sizeIndex = index - 1 >>> level & MASK;
-  if (sizeIndex >= this.array.length) {
-    return this;
-  }
-  var newChild;
-  if (level > 0) {
-    var oldChild = this.array[sizeIndex];
-    newChild = oldChild && oldChild.removeAfter(ownerID, level - SHIFT, index);
-    if (newChild === oldChild && sizeIndex === this.array.length - 1) {
+    var removingFirst = originIndex === 0;
+    var newChild;
+    if (level > 0) {
+      var oldChild = this.array[originIndex];
+      newChild = oldChild &&
+        oldChild.removeBefore(ownerID, level - SHIFT, index);
+      if (newChild === oldChild && removingFirst) {
+        return this;
+      }
+    }
+    if (removingFirst && !newChild) {
       return this;
     }
-  }
-  var editable = editableVNode(this, ownerID);
-  editable.array.splice(sizeIndex + 1);
-  if (newChild) {
-    editable.array[sizeIndex] = newChild;
-  }
-  return editable;
-}, "removeAfter");
+    var editable = editableVNode(this, ownerID);
+    if (!removingFirst) {
+      for (var ii = 0; ii < originIndex; ii++) {
+        editable.array[ii] = void 0;
+      }
+    }
+    if (newChild) {
+      editable.array[originIndex] = newChild;
+    }
+    return editable;
+  },
+  "removeBefore",
+);
+VNode.prototype.removeAfter = /* @__PURE__ */ __name(
+  function removeAfter(ownerID, level, index) {
+    if (index === (level ? 1 << level : 0) || this.array.length === 0) {
+      return this;
+    }
+    var sizeIndex = index - 1 >>> level & MASK;
+    if (sizeIndex >= this.array.length) {
+      return this;
+    }
+    var newChild;
+    if (level > 0) {
+      var oldChild = this.array[sizeIndex];
+      newChild = oldChild &&
+        oldChild.removeAfter(ownerID, level - SHIFT, index);
+      if (newChild === oldChild && sizeIndex === this.array.length - 1) {
+        return this;
+      }
+    }
+    var editable = editableVNode(this, ownerID);
+    editable.array.splice(sizeIndex + 1);
+    if (newChild) {
+      editable.array[sizeIndex] = newChild;
+    }
+    return editable;
+  },
+  "removeAfter",
+);
 var DONE = {};
 function iterateList(list, reverse3) {
   var left = list._origin;
@@ -4068,7 +5753,9 @@ function iterateList(list, reverse3) {
   var tail = list._tail;
   return iterateNodeOrLeaf(list._root, list._level, 0);
   function iterateNodeOrLeaf(node, level, offset) {
-    return level === 0 ? iterateLeaf(node, offset) : iterateNode(node, level, offset);
+    return level === 0
+      ? iterateLeaf(node, offset)
+      : iterateNode(node, level, offset);
   }
   __name(iterateNodeOrLeaf, "iterateNodeOrLeaf");
   function iterateLeaf(node, offset) {
@@ -4078,7 +5765,7 @@ function iterateList(list, reverse3) {
     if (to > SIZE) {
       to = SIZE;
     }
-    return function() {
+    return function () {
       if (from === to) {
         return DONE;
       }
@@ -4095,7 +5782,7 @@ function iterateList(list, reverse3) {
     if (to > SIZE) {
       to = SIZE;
     }
-    return function() {
+    return function () {
       while (true) {
         if (values2) {
           var value = values2();
@@ -4111,7 +5798,7 @@ function iterateList(list, reverse3) {
         values2 = iterateNodeOrLeaf(
           array && array[idx],
           level - SHIFT,
-          offset + (idx << level)
+          offset + (idx << level),
         );
       }
     };
@@ -4144,8 +5831,10 @@ function updateList(list, index, value) {
     return list;
   }
   if (index >= list.size || index < 0) {
-    return list.withMutations(function(list2) {
-      index < 0 ? setListBounds(list2, index).set(0, value) : setListBounds(list2, 0, index + 1).set(index, value);
+    return list.withMutations(function (list2) {
+      index < 0
+        ? setListBounds(list2, index).set(0, value)
+        : setListBounds(list2, 0, index + 1).set(index, value);
     });
   }
   index += list._origin;
@@ -4161,7 +5850,7 @@ function updateList(list, index, value) {
       list._level,
       index,
       value,
-      didAlter
+      didAlter,
     );
   }
   if (!didAlter.value) {
@@ -4192,7 +5881,7 @@ function updateVNode(node, ownerID, level, index, value, didAlter) {
       level - SHIFT,
       index,
       value,
-      didAlter
+      didAlter,
     );
     if (newLowerNode === lowerNode) {
       return node;
@@ -4249,7 +5938,11 @@ function setListBounds(list, begin, end) {
   var oldOrigin = list._origin;
   var oldCapacity = list._capacity;
   var newOrigin = oldOrigin + begin;
-  var newCapacity = end === void 0 ? oldCapacity : end < 0 ? oldCapacity + end : oldOrigin + end;
+  var newCapacity = end === void 0
+    ? oldCapacity
+    : end < 0
+    ? oldCapacity + end
+    : oldOrigin + end;
   if (newOrigin === oldOrigin && newCapacity === oldCapacity) {
     return list;
   }
@@ -4262,7 +5955,7 @@ function setListBounds(list, begin, end) {
   while (newOrigin + offsetShift < 0) {
     newRoot = new VNode(
       newRoot && newRoot.array.length ? [void 0, newRoot] : [],
-      owner
+      owner,
     );
     newLevel += SHIFT;
     offsetShift += 1 << newLevel;
@@ -4278,13 +5971,20 @@ function setListBounds(list, begin, end) {
   while (newTailOffset >= 1 << newLevel + SHIFT) {
     newRoot = new VNode(
       newRoot && newRoot.array.length ? [newRoot] : [],
-      owner
+      owner,
     );
     newLevel += SHIFT;
   }
   var oldTail = list._tail;
-  var newTail = newTailOffset < oldTailOffset ? listNodeFor(list, newCapacity - 1) : newTailOffset > oldTailOffset ? new VNode([], owner) : oldTail;
-  if (oldTail && newTailOffset > oldTailOffset && newOrigin < oldCapacity && oldTail.array.length) {
+  var newTail = newTailOffset < oldTailOffset
+    ? listNodeFor(list, newCapacity - 1)
+    : newTailOffset > oldTailOffset
+    ? new VNode([], owner)
+    : oldTail;
+  if (
+    oldTail && newTailOffset > oldTailOffset && newOrigin < oldCapacity &&
+    oldTail.array.length
+  ) {
     newRoot = editableVNode(newRoot, owner);
     var node = newRoot;
     for (var level = newLevel; level > SHIFT; level -= SHIFT) {
@@ -4322,7 +6022,7 @@ function setListBounds(list, begin, end) {
       newRoot = newRoot.removeAfter(
         owner,
         newLevel,
-        newTailOffset - offsetShift
+        newTailOffset - offsetShift,
       );
     }
     if (offsetShift) {
@@ -4348,19 +6048,24 @@ function getTailOffset(size) {
   return size < SIZE ? 0 : size - 1 >>> SHIFT << SHIFT;
 }
 __name(getTailOffset, "getTailOffset");
-var OrderedMap = /* @__PURE__ */ function(Map3) {
+var OrderedMap = /* @__PURE__ */ function (Map3) {
   function OrderedMap2(value) {
-    return value === void 0 || value === null ? emptyOrderedMap() : isOrderedMap(value) ? value : emptyOrderedMap().withMutations(function(map2) {
-      var iter = KeyedCollection(value);
-      assertNotInfinite(iter.size);
-      iter.forEach(function(v, k) {
-        return map2.set(k, v);
+    return value === void 0 || value === null
+      ? emptyOrderedMap()
+      : isOrderedMap(value)
+      ? value
+      : emptyOrderedMap().withMutations(function (map2) {
+        var iter = KeyedCollection(value);
+        assertNotInfinite(iter.size);
+        iter.forEach(function (v, k) {
+          return map2.set(k, v);
+        });
       });
-    });
   }
   __name(OrderedMap2, "OrderedMap");
-  if (Map3)
+  if (Map3) {
     OrderedMap2.__proto__ = Map3;
+  }
   OrderedMap2.prototype = Object.create(Map3 && Map3.prototype);
   OrderedMap2.prototype.constructor = OrderedMap2;
   OrderedMap2.of = /* @__PURE__ */ __name(function of() {
@@ -4369,10 +6074,13 @@ var OrderedMap = /* @__PURE__ */ function(Map3) {
   OrderedMap2.prototype.toString = /* @__PURE__ */ __name(function toString5() {
     return this.__toString("OrderedMap {", "}");
   }, "toString");
-  OrderedMap2.prototype.get = /* @__PURE__ */ __name(function get11(k, notSetValue) {
-    var index = this._map.get(k);
-    return index !== void 0 ? this._list.get(index)[1] : notSetValue;
-  }, "get");
+  OrderedMap2.prototype.get = /* @__PURE__ */ __name(
+    function get11(k, notSetValue) {
+      var index = this._map.get(k);
+      return index !== void 0 ? this._list.get(index)[1] : notSetValue;
+    },
+    "get",
+  );
   OrderedMap2.prototype.clear = /* @__PURE__ */ __name(function clear2() {
     if (this.size === 0) {
       return this;
@@ -4392,36 +6100,45 @@ var OrderedMap = /* @__PURE__ */ function(Map3) {
   OrderedMap2.prototype.remove = /* @__PURE__ */ __name(function remove3(k) {
     return updateOrderedMap(this, k, NOT_SET);
   }, "remove");
-  OrderedMap2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._list.__iterate(
-      function(entry) {
-        return entry && fn(entry[1], entry[0], this$1$1);
-      },
-      reverse3
-    );
-  }, "__iterate");
-  OrderedMap2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    return this._list.fromEntrySeq().__iterator(type, reverse3);
-  }, "__iterator");
-  OrderedMap2.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    var newMap = this._map.__ensureOwner(ownerID);
-    var newList = this._list.__ensureOwner(ownerID);
-    if (!ownerID) {
-      if (this.size === 0) {
-        return emptyOrderedMap();
+  OrderedMap2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var this$1$1 = this;
+      return this._list.__iterate(
+        function (entry) {
+          return entry && fn(entry[1], entry[0], this$1$1);
+        },
+        reverse3,
+      );
+    },
+    "__iterate",
+  );
+  OrderedMap2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      return this._list.fromEntrySeq().__iterator(type, reverse3);
+    },
+    "__iterator",
+  );
+  OrderedMap2.prototype.__ensureOwner = /* @__PURE__ */ __name(
+    function __ensureOwner2(ownerID) {
+      if (ownerID === this.__ownerID) {
+        return this;
       }
-      this.__ownerID = ownerID;
-      this.__altered = false;
-      this._map = newMap;
-      this._list = newList;
-      return this;
-    }
-    return makeOrderedMap(newMap, newList, ownerID, this.__hash);
-  }, "__ensureOwner");
+      var newMap = this._map.__ensureOwner(ownerID);
+      var newList = this._list.__ensureOwner(ownerID);
+      if (!ownerID) {
+        if (this.size === 0) {
+          return emptyOrderedMap();
+        }
+        this.__ownerID = ownerID;
+        this.__altered = false;
+        this._map = newMap;
+        this._list = newList;
+        return this;
+      }
+      return makeOrderedMap(newMap, newList, ownerID, this.__hash);
+    },
+    "__ensureOwner",
+  );
   return OrderedMap2;
 }(Map2);
 OrderedMap.isOrderedMap = isOrderedMap;
@@ -4440,7 +6157,8 @@ function makeOrderedMap(map2, list, ownerID, hash2) {
 __name(makeOrderedMap, "makeOrderedMap");
 var EMPTY_ORDERED_MAP;
 function emptyOrderedMap() {
-  return EMPTY_ORDERED_MAP || (EMPTY_ORDERED_MAP = makeOrderedMap(emptyMap(), emptyList()));
+  return EMPTY_ORDERED_MAP ||
+    (EMPTY_ORDERED_MAP = makeOrderedMap(emptyMap(), emptyList()));
 }
 __name(emptyOrderedMap, "emptyOrderedMap");
 function updateOrderedMap(omap, k, v) {
@@ -4455,10 +6173,10 @@ function updateOrderedMap(omap, k, v) {
       return omap;
     }
     if (list.size >= SIZE && list.size >= map2.size * 2) {
-      newList = list.filter(function(entry, idx) {
+      newList = list.filter(function (entry, idx) {
         return entry !== void 0 && i !== idx;
       });
-      newMap = newList.toKeyedSeq().map(function(entry) {
+      newMap = newList.toKeyedSeq().map(function (entry) {
         return entry[0];
       }).flip().toMap();
       if (omap.__ownerID) {
@@ -4494,14 +6212,21 @@ function isStack(maybeStack) {
   return Boolean(maybeStack && maybeStack[IS_STACK_SYMBOL]);
 }
 __name(isStack, "isStack");
-var Stack = /* @__PURE__ */ function(IndexedCollection2) {
+var Stack = /* @__PURE__ */ function (IndexedCollection2) {
   function Stack2(value) {
-    return value === void 0 || value === null ? emptyStack() : isStack(value) ? value : emptyStack().pushAll(value);
+    return value === void 0 || value === null
+      ? emptyStack()
+      : isStack(value)
+      ? value
+      : emptyStack().pushAll(value);
   }
   __name(Stack2, "Stack");
-  if (IndexedCollection2)
+  if (IndexedCollection2) {
     Stack2.__proto__ = IndexedCollection2;
-  Stack2.prototype = Object.create(IndexedCollection2 && IndexedCollection2.prototype);
+  }
+  Stack2.prototype = Object.create(
+    IndexedCollection2 && IndexedCollection2.prototype,
+  );
   Stack2.prototype.constructor = Stack2;
   Stack2.of = /* @__PURE__ */ __name(function of() {
     return this(arguments);
@@ -4509,14 +6234,17 @@ var Stack = /* @__PURE__ */ function(IndexedCollection2) {
   Stack2.prototype.toString = /* @__PURE__ */ __name(function toString5() {
     return this.__toString("Stack [", "]");
   }, "toString");
-  Stack2.prototype.get = /* @__PURE__ */ __name(function get11(index, notSetValue) {
-    var head = this._head;
-    index = wrapIndex(this, index);
-    while (head && index--) {
-      head = head.next;
-    }
-    return head ? head.value : notSetValue;
-  }, "get");
+  Stack2.prototype.get = /* @__PURE__ */ __name(
+    function get11(index, notSetValue) {
+      var head = this._head;
+      index = wrapIndex(this, index);
+      while (head && index--) {
+        head = head.next;
+      }
+      return head ? head.value : notSetValue;
+    },
+    "get",
+  );
   Stack2.prototype.peek = /* @__PURE__ */ __name(function peek() {
     return this._head && this._head.value;
   }, "peek");
@@ -4530,7 +6258,7 @@ var Stack = /* @__PURE__ */ function(IndexedCollection2) {
     for (var ii = arguments.length - 1; ii >= 0; ii--) {
       head = {
         value: arguments$1[ii],
-        next: head
+        next: head,
       };
     }
     if (this.__ownerID) {
@@ -4553,11 +6281,11 @@ var Stack = /* @__PURE__ */ function(IndexedCollection2) {
     assertNotInfinite(iter.size);
     var newSize = this.size;
     var head = this._head;
-    iter.__iterate(function(value) {
+    iter.__iterate(function (value) {
       newSize++;
       head = {
         value,
-        next: head
+        next: head,
       };
     }, true);
     if (this.__ownerID) {
@@ -4608,55 +6336,64 @@ var Stack = /* @__PURE__ */ function(IndexedCollection2) {
     }
     return makeStack(newSize, head);
   }, "slice");
-  Stack2.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    if (!ownerID) {
-      if (this.size === 0) {
-        return emptyStack();
+  Stack2.prototype.__ensureOwner = /* @__PURE__ */ __name(
+    function __ensureOwner2(ownerID) {
+      if (ownerID === this.__ownerID) {
+        return this;
       }
-      this.__ownerID = ownerID;
-      this.__altered = false;
-      return this;
-    }
-    return makeStack(this.size, this._head, ownerID, this.__hash);
-  }, "__ensureOwner");
-  Stack2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    if (reverse3) {
-      return new ArraySeq(this.toArray()).__iterate(
-        function(v, k) {
-          return fn(v, k, this$1$1);
-        },
-        reverse3
-      );
-    }
-    var iterations = 0;
-    var node = this._head;
-    while (node) {
-      if (fn(node.value, iterations++, this) === false) {
-        break;
+      if (!ownerID) {
+        if (this.size === 0) {
+          return emptyStack();
+        }
+        this.__ownerID = ownerID;
+        this.__altered = false;
+        return this;
       }
-      node = node.next;
-    }
-    return iterations;
-  }, "__iterate");
-  Stack2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    if (reverse3) {
-      return new ArraySeq(this.toArray()).__iterator(type, reverse3);
-    }
-    var iterations = 0;
-    var node = this._head;
-    return new Iterator(function() {
-      if (node) {
-        var value = node.value;
+      return makeStack(this.size, this._head, ownerID, this.__hash);
+    },
+    "__ensureOwner",
+  );
+  Stack2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var this$1$1 = this;
+      if (reverse3) {
+        return new ArraySeq(this.toArray()).__iterate(
+          function (v, k) {
+            return fn(v, k, this$1$1);
+          },
+          reverse3,
+        );
+      }
+      var iterations = 0;
+      var node = this._head;
+      while (node) {
+        if (fn(node.value, iterations++, this) === false) {
+          break;
+        }
         node = node.next;
-        return iteratorValue(type, iterations++, value);
       }
-      return iteratorDone();
-    });
-  }, "__iterator");
+      return iterations;
+    },
+    "__iterate",
+  );
+  Stack2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      if (reverse3) {
+        return new ArraySeq(this.toArray()).__iterator(type, reverse3);
+      }
+      var iterations = 0;
+      var node = this._head;
+      return new Iterator(function () {
+        if (node) {
+          var value = node.value;
+          node = node.next;
+          return iteratorValue(type, iterations++, value);
+        }
+        return iteratorDone();
+      });
+    },
+    "__iterator",
+  );
   return Stack2;
 }(IndexedCollection);
 Stack.isStack = isStack;
@@ -4669,10 +6406,10 @@ StackPrototype.withMutations = withMutations;
 StackPrototype.wasAltered = wasAltered;
 StackPrototype.asImmutable = asImmutable;
 StackPrototype["@@transducer/init"] = StackPrototype.asMutable = asMutable;
-StackPrototype["@@transducer/step"] = function(result, arr) {
+StackPrototype["@@transducer/step"] = function (result, arr) {
   return result.unshift(arr);
 };
-StackPrototype["@@transducer/result"] = function(obj) {
+StackPrototype["@@transducer/result"] = function (obj) {
   return obj.asImmutable();
 };
 function makeStack(size, head, ownerID, hash2) {
@@ -4703,7 +6440,13 @@ function deepEqual(a, b) {
   if (a === b) {
     return true;
   }
-  if (!isCollection(b) || a.size !== void 0 && b.size !== void 0 && a.size !== b.size || a.__hash !== void 0 && b.__hash !== void 0 && a.__hash !== b.__hash || isKeyed(a) !== isKeyed(b) || isIndexed(a) !== isIndexed(b) || isOrdered(a) !== isOrdered(b)) {
+  if (
+    !isCollection(b) ||
+    a.size !== void 0 && b.size !== void 0 && a.size !== b.size ||
+    a.__hash !== void 0 && b.__hash !== void 0 && a.__hash !== b.__hash ||
+    isKeyed(a) !== isKeyed(b) || isIndexed(a) !== isIndexed(b) ||
+    isOrdered(a) !== isOrdered(b)
+  ) {
     return false;
   }
   if (a.size === 0 && b.size === 0) {
@@ -4712,7 +6455,7 @@ function deepEqual(a, b) {
   var notAssociative = !isAssociative(a);
   if (isOrdered(a)) {
     var entries3 = a.entries();
-    return b.every(function(v, k) {
+    return b.every(function (v, k) {
       var entry = entries3.next().value;
       return entry && is(entry[1], v) && (notAssociative || is(entry[0], k));
     }) && entries3.next().done;
@@ -4731,8 +6474,14 @@ function deepEqual(a, b) {
     }
   }
   var allEqual = true;
-  var bSize = b.__iterate(function(v, k) {
-    if (notAssociative ? !a.has(v) : flipped ? !is(v, a.get(k, NOT_SET)) : !is(a.get(k, NOT_SET), v)) {
+  var bSize = b.__iterate(function (v, k) {
+    if (
+      notAssociative
+        ? !a.has(v)
+        : flipped
+        ? !is(v, a.get(k, NOT_SET))
+        : !is(a.get(k, NOT_SET), v)
+    ) {
       allEqual = false;
       return false;
     }
@@ -4741,11 +6490,12 @@ function deepEqual(a, b) {
 }
 __name(deepEqual, "deepEqual");
 function mixin(ctor, methods) {
-  var keyCopier = /* @__PURE__ */ __name(function(key) {
+  var keyCopier = /* @__PURE__ */ __name(function (key) {
     ctor.prototype[key] = methods[key];
   }, "keyCopier");
   Object.keys(methods).forEach(keyCopier);
-  Object.getOwnPropertySymbols && Object.getOwnPropertySymbols(methods).forEach(keyCopier);
+  Object.getOwnPropertySymbols &&
+    Object.getOwnPropertySymbols(methods).forEach(keyCopier);
   return ctor;
 }
 __name(mixin, "mixin");
@@ -4761,31 +6511,36 @@ function toJS(value) {
   }
   if (isKeyed(value)) {
     var result$1 = {};
-    value.__iterate(function(v, k) {
+    value.__iterate(function (v, k) {
       result$1[k] = toJS(v);
     });
     return result$1;
   }
   var result = [];
-  value.__iterate(function(v) {
+  value.__iterate(function (v) {
     result.push(toJS(v));
   });
   return result;
 }
 __name(toJS, "toJS");
-var Set = /* @__PURE__ */ function(SetCollection2) {
+var Set = /* @__PURE__ */ function (SetCollection2) {
   function Set2(value) {
-    return value === void 0 || value === null ? emptySet() : isSet(value) && !isOrdered(value) ? value : emptySet().withMutations(function(set3) {
-      var iter = SetCollection2(value);
-      assertNotInfinite(iter.size);
-      iter.forEach(function(v) {
-        return set3.add(v);
+    return value === void 0 || value === null
+      ? emptySet()
+      : isSet(value) && !isOrdered(value)
+      ? value
+      : emptySet().withMutations(function (set3) {
+        var iter = SetCollection2(value);
+        assertNotInfinite(iter.size);
+        iter.forEach(function (v) {
+          return set3.add(v);
+        });
       });
-    });
   }
   __name(Set2, "Set");
-  if (SetCollection2)
+  if (SetCollection2) {
     Set2.__proto__ = SetCollection2;
+  }
   Set2.prototype = Object.create(SetCollection2 && SetCollection2.prototype);
   Set2.prototype.constructor = Set2;
   Set2.of = /* @__PURE__ */ __name(function of() {
@@ -4796,11 +6551,15 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
   }, "fromKeys");
   Set2.intersect = /* @__PURE__ */ __name(function intersect(sets) {
     sets = Collection(sets).toArray();
-    return sets.length ? SetPrototype.intersect.apply(Set2(sets.pop()), sets) : emptySet();
+    return sets.length
+      ? SetPrototype.intersect.apply(Set2(sets.pop()), sets)
+      : emptySet();
   }, "intersect");
   Set2.union = /* @__PURE__ */ __name(function union(sets) {
     sets = Collection(sets).toArray();
-    return sets.length ? SetPrototype.union.apply(Set2(sets.pop()), sets) : emptySet();
+    return sets.length
+      ? SetPrototype.union.apply(Set2(sets.pop()), sets)
+      : emptySet();
   }, "union");
   Set2.prototype.toString = /* @__PURE__ */ __name(function toString5() {
     return this.__toString("Set {", "}");
@@ -4822,22 +6581,23 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
     var didChanges = false;
     var newMap = updateSet(
       this,
-      this._map.mapEntries(function(ref) {
+      this._map.mapEntries(function (ref) {
         var v = ref[1];
         var mapped = mapper.call(context, v, v, this$1$1);
         if (mapped !== v) {
           didChanges = true;
         }
         return [mapped, mapped];
-      }, context)
+      }, context),
     );
     return didChanges ? newMap : this;
   }, "map");
   Set2.prototype.union = /* @__PURE__ */ __name(function union() {
     var iters = [], len = arguments.length;
-    while (len--)
+    while (len--) {
       iters[len] = arguments[len];
-    iters = iters.filter(function(x) {
+    }
+    iters = iters.filter(function (x) {
       return x.size !== 0;
     });
     if (iters.length === 0) {
@@ -4846,9 +6606,9 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
     if (this.size === 0 && !this.__ownerID && iters.length === 1) {
       return this.constructor(iters[0]);
     }
-    return this.withMutations(function(set3) {
+    return this.withMutations(function (set3) {
       for (var ii = 0; ii < iters.length; ii++) {
-        SetCollection2(iters[ii]).forEach(function(value) {
+        SetCollection2(iters[ii]).forEach(function (value) {
           return set3.add(value);
         });
       }
@@ -4856,48 +6616,54 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
   }, "union");
   Set2.prototype.intersect = /* @__PURE__ */ __name(function intersect() {
     var iters = [], len = arguments.length;
-    while (len--)
+    while (len--) {
       iters[len] = arguments[len];
+    }
     if (iters.length === 0) {
       return this;
     }
-    iters = iters.map(function(iter) {
+    iters = iters.map(function (iter) {
       return SetCollection2(iter);
     });
     var toRemove = [];
-    this.forEach(function(value) {
-      if (!iters.every(function(iter) {
-        return iter.includes(value);
-      })) {
+    this.forEach(function (value) {
+      if (
+        !iters.every(function (iter) {
+          return iter.includes(value);
+        })
+      ) {
         toRemove.push(value);
       }
     });
-    return this.withMutations(function(set3) {
-      toRemove.forEach(function(value) {
+    return this.withMutations(function (set3) {
+      toRemove.forEach(function (value) {
         set3.remove(value);
       });
     });
   }, "intersect");
   Set2.prototype.subtract = /* @__PURE__ */ __name(function subtract() {
     var iters = [], len = arguments.length;
-    while (len--)
+    while (len--) {
       iters[len] = arguments[len];
+    }
     if (iters.length === 0) {
       return this;
     }
-    iters = iters.map(function(iter) {
+    iters = iters.map(function (iter) {
       return SetCollection2(iter);
     });
     var toRemove = [];
-    this.forEach(function(value) {
-      if (iters.some(function(iter) {
-        return iter.includes(value);
-      })) {
+    this.forEach(function (value) {
+      if (
+        iters.some(function (iter) {
+          return iter.includes(value);
+        })
+      ) {
         toRemove.push(value);
       }
     });
-    return this.withMutations(function(set3) {
-      toRemove.forEach(function(value) {
+    return this.withMutations(function (set3) {
+      toRemove.forEach(function (value) {
         set3.remove(value);
       });
     });
@@ -4905,36 +6671,48 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
   Set2.prototype.sort = /* @__PURE__ */ __name(function sort22(comparator) {
     return OrderedSet(sortFactory(this, comparator));
   }, "sort");
-  Set2.prototype.sortBy = /* @__PURE__ */ __name(function sortBy2(mapper, comparator) {
-    return OrderedSet(sortFactory(this, comparator, mapper));
-  }, "sortBy");
+  Set2.prototype.sortBy = /* @__PURE__ */ __name(
+    function sortBy2(mapper, comparator) {
+      return OrderedSet(sortFactory(this, comparator, mapper));
+    },
+    "sortBy",
+  );
   Set2.prototype.wasAltered = /* @__PURE__ */ __name(function wasAltered3() {
     return this._map.wasAltered();
   }, "wasAltered");
-  Set2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var this$1$1 = this;
-    return this._map.__iterate(function(k) {
-      return fn(k, k, this$1$1);
-    }, reverse3);
-  }, "__iterate");
-  Set2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    return this._map.__iterator(type, reverse3);
-  }, "__iterator");
-  Set2.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner2(ownerID) {
-    if (ownerID === this.__ownerID) {
-      return this;
-    }
-    var newMap = this._map.__ensureOwner(ownerID);
-    if (!ownerID) {
-      if (this.size === 0) {
-        return this.__empty();
+  Set2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var this$1$1 = this;
+      return this._map.__iterate(function (k) {
+        return fn(k, k, this$1$1);
+      }, reverse3);
+    },
+    "__iterate",
+  );
+  Set2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      return this._map.__iterator(type, reverse3);
+    },
+    "__iterator",
+  );
+  Set2.prototype.__ensureOwner = /* @__PURE__ */ __name(
+    function __ensureOwner2(ownerID) {
+      if (ownerID === this.__ownerID) {
+        return this;
       }
-      this.__ownerID = ownerID;
-      this._map = newMap;
-      return this;
-    }
-    return this.__make(newMap, ownerID);
-  }, "__ensureOwner");
+      var newMap = this._map.__ensureOwner(ownerID);
+      if (!ownerID) {
+        if (this.size === 0) {
+          return this.__empty();
+        }
+        this.__ownerID = ownerID;
+        this._map = newMap;
+        return this;
+      }
+      return this.__make(newMap, ownerID);
+    },
+    "__ensureOwner",
+  );
   return Set2;
 }(SetCollection);
 Set.isSet = isSet;
@@ -4945,10 +6723,10 @@ SetPrototype.merge = SetPrototype.concat = SetPrototype.union;
 SetPrototype.withMutations = withMutations;
 SetPrototype.asImmutable = asImmutable;
 SetPrototype["@@transducer/init"] = SetPrototype.asMutable = asMutable;
-SetPrototype["@@transducer/step"] = function(result, arr) {
+SetPrototype["@@transducer/step"] = function (result, arr) {
   return result.add(arr);
 };
-SetPrototype["@@transducer/result"] = function(obj) {
+SetPrototype["@@transducer/result"] = function (obj) {
   return obj.asImmutable();
 };
 SetPrototype.__empty = emptySet;
@@ -4959,7 +6737,11 @@ function updateSet(set3, newMap) {
     set3._map = newMap;
     return set3;
   }
-  return newMap === set3._map ? set3 : newMap.size === 0 ? set3.__empty() : set3.__make(newMap);
+  return newMap === set3._map
+    ? set3
+    : newMap.size === 0
+    ? set3.__empty()
+    : set3.__make(newMap);
 }
 __name(updateSet, "updateSet");
 function makeSet(map2, ownerID) {
@@ -4975,7 +6757,7 @@ function emptySet() {
   return EMPTY_SET || (EMPTY_SET = makeSet(emptyMap()));
 }
 __name(emptySet, "emptySet");
-var Range = /* @__PURE__ */ function(IndexedSeq2) {
+var Range = /* @__PURE__ */ function (IndexedSeq2) {
   function Range2(start, end, step) {
     if (!(this instanceof Range2)) {
       return new Range2(start, end, step);
@@ -5001,23 +6783,34 @@ var Range = /* @__PURE__ */ function(IndexedSeq2) {
     }
   }
   __name(Range2, "Range");
-  if (IndexedSeq2)
+  if (IndexedSeq2) {
     Range2.__proto__ = IndexedSeq2;
+  }
   Range2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
   Range2.prototype.constructor = Range2;
   Range2.prototype.toString = /* @__PURE__ */ __name(function toString5() {
     if (this.size === 0) {
       return "Range []";
     }
-    return "Range [ " + this._start + "..." + this._end + (this._step !== 1 ? " by " + this._step : "") + " ]";
+    return "Range [ " + this._start + "..." + this._end +
+      (this._step !== 1 ? " by " + this._step : "") + " ]";
   }, "toString");
-  Range2.prototype.get = /* @__PURE__ */ __name(function get11(index, notSetValue) {
-    return this.has(index) ? this._start + wrapIndex(this, index) * this._step : notSetValue;
-  }, "get");
-  Range2.prototype.includes = /* @__PURE__ */ __name(function includes3(searchValue) {
-    var possibleIndex = (searchValue - this._start) / this._step;
-    return possibleIndex >= 0 && possibleIndex < this.size && possibleIndex === Math.floor(possibleIndex);
-  }, "includes");
+  Range2.prototype.get = /* @__PURE__ */ __name(
+    function get11(index, notSetValue) {
+      return this.has(index)
+        ? this._start + wrapIndex(this, index) * this._step
+        : notSetValue;
+    },
+    "get",
+  );
+  Range2.prototype.includes = /* @__PURE__ */ __name(
+    function includes3(searchValue) {
+      var possibleIndex = (searchValue - this._start) / this._step;
+      return possibleIndex >= 0 && possibleIndex < this.size &&
+        possibleIndex === Math.floor(possibleIndex);
+    },
+    "includes",
+  );
   Range2.prototype.slice = /* @__PURE__ */ __name(function slice3(begin, end) {
     if (wholeSlice(begin, end, this.size)) {
       return this;
@@ -5030,51 +6823,66 @@ var Range = /* @__PURE__ */ function(IndexedSeq2) {
     return new Range2(
       this.get(begin, this._end),
       this.get(end, this._end),
-      this._step
+      this._step,
     );
   }, "slice");
-  Range2.prototype.indexOf = /* @__PURE__ */ __name(function indexOf2(searchValue) {
-    var offsetValue = searchValue - this._start;
-    if (offsetValue % this._step === 0) {
-      var index = offsetValue / this._step;
-      if (index >= 0 && index < this.size) {
-        return index;
+  Range2.prototype.indexOf = /* @__PURE__ */ __name(
+    function indexOf2(searchValue) {
+      var offsetValue = searchValue - this._start;
+      if (offsetValue % this._step === 0) {
+        var index = offsetValue / this._step;
+        if (index >= 0 && index < this.size) {
+          return index;
+        }
       }
-    }
-    return -1;
-  }, "indexOf");
-  Range2.prototype.lastIndexOf = /* @__PURE__ */ __name(function lastIndexOf2(searchValue) {
-    return this.indexOf(searchValue);
-  }, "lastIndexOf");
-  Range2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var size = this.size;
-    var step = this._step;
-    var value = reverse3 ? this._start + (size - 1) * step : this._start;
-    var i = 0;
-    while (i !== size) {
-      if (fn(value, reverse3 ? size - ++i : i++, this) === false) {
-        break;
+      return -1;
+    },
+    "indexOf",
+  );
+  Range2.prototype.lastIndexOf = /* @__PURE__ */ __name(
+    function lastIndexOf2(searchValue) {
+      return this.indexOf(searchValue);
+    },
+    "lastIndexOf",
+  );
+  Range2.prototype.__iterate = /* @__PURE__ */ __name(
+    function __iterate2(fn, reverse3) {
+      var size = this.size;
+      var step = this._step;
+      var value = reverse3 ? this._start + (size - 1) * step : this._start;
+      var i = 0;
+      while (i !== size) {
+        if (fn(value, reverse3 ? size - ++i : i++, this) === false) {
+          break;
+        }
+        value += reverse3 ? -step : step;
       }
-      value += reverse3 ? -step : step;
-    }
-    return i;
-  }, "__iterate");
-  Range2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    var size = this.size;
-    var step = this._step;
-    var value = reverse3 ? this._start + (size - 1) * step : this._start;
-    var i = 0;
-    return new Iterator(function() {
-      if (i === size) {
-        return iteratorDone();
-      }
-      var v = value;
-      value += reverse3 ? -step : step;
-      return iteratorValue(type, reverse3 ? size - ++i : i++, v);
-    });
-  }, "__iterator");
+      return i;
+    },
+    "__iterate",
+  );
+  Range2.prototype.__iterator = /* @__PURE__ */ __name(
+    function __iterator2(type, reverse3) {
+      var size = this.size;
+      var step = this._step;
+      var value = reverse3 ? this._start + (size - 1) * step : this._start;
+      var i = 0;
+      return new Iterator(function () {
+        if (i === size) {
+          return iteratorDone();
+        }
+        var v = value;
+        value += reverse3 ? -step : step;
+        return iteratorValue(type, reverse3 ? size - ++i : i++, v);
+      });
+    },
+    "__iterator",
+  );
   Range2.prototype.equals = /* @__PURE__ */ __name(function equals3(other) {
-    return other instanceof Range2 ? this._start === other._start && this._end === other._end && this._step === other._step : deepEqual(this, other);
+    return other instanceof Range2
+      ? this._start === other._start && this._end === other._end &&
+        this._step === other._step
+      : deepEqual(this, other);
   }, "equals");
   return Range2;
 }(IndexedSeq);
@@ -5106,7 +6914,7 @@ __name(hasIn, "hasIn");
 function toObject() {
   assertNotInfinite(this.size);
   var object = {};
-  this.__iterate(function(v, k) {
+  this.__iterate(function (v, k) {
     object[k] = v;
   });
   return object;
@@ -5124,7 +6932,7 @@ mixin(Collection, {
     var array = new Array(this.size || 0);
     var useTuples = isKeyed(this);
     var i = 0;
-    this.__iterate(function(v, k) {
+    this.__iterate(function (v, k) {
       array[i++] = useTuples ? [k, v] : v;
     });
     return array;
@@ -5155,7 +6963,11 @@ mixin(Collection, {
     return new ToSetSequence(this);
   }, "toSetSeq"),
   toSeq: /* @__PURE__ */ __name(function toSeq() {
-    return isIndexed(this) ? this.toIndexedSeq() : isKeyed(this) ? this.toKeyedSeq() : this.toSetSeq();
+    return isIndexed(this)
+      ? this.toIndexedSeq()
+      : isKeyed(this)
+      ? this.toKeyedSeq()
+      : this.toSetSeq();
   }, "toSeq"),
   toStack: /* @__PURE__ */ __name(function toStack() {
     return Stack(isKeyed(this) ? this.valueSeq() : this);
@@ -5170,16 +6982,18 @@ mixin(Collection, {
     if (this.size === 0) {
       return head + tail;
     }
-    return head + " " + this.toSeq().map(this.__toStringMapper).join(", ") + " " + tail;
+    return head + " " + this.toSeq().map(this.__toStringMapper).join(", ") +
+      " " + tail;
   }, "__toString"),
   concat: /* @__PURE__ */ __name(function concat() {
     var values2 = [], len = arguments.length;
-    while (len--)
+    while (len--) {
       values2[len] = arguments[len];
+    }
     return reify(this, concatFactory(this, values2));
   }, "concat"),
   includes: /* @__PURE__ */ __name(function includes(searchValue) {
-    return this.some(function(value) {
+    return this.some(function (value) {
       return is(value, searchValue);
     });
   }, "includes"),
@@ -5189,7 +7003,7 @@ mixin(Collection, {
   every: /* @__PURE__ */ __name(function every(predicate, context) {
     assertNotInfinite(this.size);
     var returnValue = true;
-    this.__iterate(function(v, k, c) {
+    this.__iterate(function (v, k, c) {
       if (!predicate.call(context, v, k, c)) {
         returnValue = false;
         return false;
@@ -5213,7 +7027,7 @@ mixin(Collection, {
     separator = separator !== void 0 ? "" + separator : ",";
     var joined = "";
     var isFirst = true;
-    this.__iterate(function(v) {
+    this.__iterate(function (v) {
       isFirst ? isFirst = false : joined += separator;
       joined += v !== null && v !== void 0 ? v.toString() : "";
     });
@@ -5225,26 +7039,32 @@ mixin(Collection, {
   map: /* @__PURE__ */ __name(function map(mapper, context) {
     return reify(this, mapFactory(this, mapper, context));
   }, "map"),
-  reduce: /* @__PURE__ */ __name(function reduce$1(reducer, initialReduction, context) {
-    return reduce(
-      this,
-      reducer,
-      initialReduction,
-      context,
-      arguments.length < 2,
-      false
-    );
-  }, "reduce$1"),
-  reduceRight: /* @__PURE__ */ __name(function reduceRight(reducer, initialReduction, context) {
-    return reduce(
-      this,
-      reducer,
-      initialReduction,
-      context,
-      arguments.length < 2,
-      true
-    );
-  }, "reduceRight"),
+  reduce: /* @__PURE__ */ __name(
+    function reduce$1(reducer, initialReduction, context) {
+      return reduce(
+        this,
+        reducer,
+        initialReduction,
+        context,
+        arguments.length < 2,
+        false,
+      );
+    },
+    "reduce$1",
+  ),
+  reduceRight: /* @__PURE__ */ __name(
+    function reduceRight(reducer, initialReduction, context) {
+      return reduce(
+        this,
+        reducer,
+        initialReduction,
+        context,
+        arguments.length < 2,
+        true,
+      );
+    },
+    "reduceRight",
+  ),
   reverse: /* @__PURE__ */ __name(function reverse() {
     return reify(this, reverseFactory(this, true));
   }, "reverse"),
@@ -5264,13 +7084,13 @@ mixin(Collection, {
     return this.slice(0, -1);
   }, "butLast"),
   isEmpty: /* @__PURE__ */ __name(function isEmpty() {
-    return this.size !== void 0 ? this.size === 0 : !this.some(function() {
+    return this.size !== void 0 ? this.size === 0 : !this.some(function () {
       return true;
     });
   }, "isEmpty"),
   count: /* @__PURE__ */ __name(function count(predicate, context) {
     return ensureSize(
-      predicate ? this.toSeq().filter(predicate, context) : this
+      predicate ? this.toSeq().filter(predicate, context) : this,
     );
   }, "count"),
   countBy: /* @__PURE__ */ __name(function countBy(grouper, context) {
@@ -5285,7 +7105,7 @@ mixin(Collection, {
       return new ArraySeq(collection._cache);
     }
     var entriesSequence = collection.toSeq().map(entryMapper).toIndexedSeq();
-    entriesSequence.fromEntrySeq = function() {
+    entriesSequence.fromEntrySeq = function () {
       return collection.toSeq();
     };
     return entriesSequence;
@@ -5293,26 +7113,39 @@ mixin(Collection, {
   filterNot: /* @__PURE__ */ __name(function filterNot(predicate, context) {
     return this.filter(not(predicate), context);
   }, "filterNot"),
-  findEntry: /* @__PURE__ */ __name(function findEntry(predicate, context, notSetValue) {
-    var found = notSetValue;
-    this.__iterate(function(v, k, c) {
-      if (predicate.call(context, v, k, c)) {
-        found = [k, v];
-        return false;
-      }
-    });
-    return found;
-  }, "findEntry"),
+  findEntry: /* @__PURE__ */ __name(
+    function findEntry(predicate, context, notSetValue) {
+      var found = notSetValue;
+      this.__iterate(function (v, k, c) {
+        if (predicate.call(context, v, k, c)) {
+          found = [k, v];
+          return false;
+        }
+      });
+      return found;
+    },
+    "findEntry",
+  ),
   findKey: /* @__PURE__ */ __name(function findKey(predicate, context) {
     var entry = this.findEntry(predicate, context);
     return entry && entry[0];
   }, "findKey"),
-  findLast: /* @__PURE__ */ __name(function findLast(predicate, context, notSetValue) {
-    return this.toKeyedSeq().reverse().find(predicate, context, notSetValue);
-  }, "findLast"),
-  findLastEntry: /* @__PURE__ */ __name(function findLastEntry(predicate, context, notSetValue) {
-    return this.toKeyedSeq().reverse().findEntry(predicate, context, notSetValue);
-  }, "findLastEntry"),
+  findLast: /* @__PURE__ */ __name(
+    function findLast(predicate, context, notSetValue) {
+      return this.toKeyedSeq().reverse().find(predicate, context, notSetValue);
+    },
+    "findLast",
+  ),
+  findLastEntry: /* @__PURE__ */ __name(
+    function findLastEntry(predicate, context, notSetValue) {
+      return this.toKeyedSeq().reverse().findEntry(
+        predicate,
+        context,
+        notSetValue,
+      );
+    },
+    "findLastEntry",
+  ),
   findLastKey: /* @__PURE__ */ __name(function findLastKey(predicate, context) {
     return this.toKeyedSeq().reverse().findKey(predicate, context);
   }, "findLastKey"),
@@ -5329,9 +7162,13 @@ mixin(Collection, {
     return new FromEntriesSequence(this);
   }, "fromEntrySeq"),
   get: /* @__PURE__ */ __name(function get7(searchKey, notSetValue) {
-    return this.find(function(_, key) {
-      return is(key, searchKey);
-    }, void 0, notSetValue);
+    return this.find(
+      function (_, key) {
+        return is(key, searchKey);
+      },
+      void 0,
+      notSetValue,
+    );
   }, "get"),
   getIn,
   groupBy: /* @__PURE__ */ __name(function groupBy(grouper, context) {
@@ -5343,7 +7180,7 @@ mixin(Collection, {
   hasIn,
   isSubset: /* @__PURE__ */ __name(function isSubset(iter) {
     iter = typeof iter.includes === "function" ? iter : Collection(iter);
-    return this.every(function(value) {
+    return this.every(function (value) {
       return iter.includes(value);
     });
   }, "isSubset"),
@@ -5352,7 +7189,7 @@ mixin(Collection, {
     return iter.isSubset(this);
   }, "isSuperset"),
   keyOf: /* @__PURE__ */ __name(function keyOf(searchValue) {
-    return this.findKey(function(value) {
+    return this.findKey(function (value) {
       return is(value, searchValue);
     });
   }, "keyOf"),
@@ -5374,14 +7211,14 @@ mixin(Collection, {
   min: /* @__PURE__ */ __name(function min(comparator) {
     return maxFactory(
       this,
-      comparator ? neg(comparator) : defaultNegComparator
+      comparator ? neg(comparator) : defaultNegComparator,
     );
   }, "min"),
   minBy: /* @__PURE__ */ __name(function minBy(mapper, comparator) {
     return maxFactory(
       this,
       comparator ? neg(comparator) : defaultNegComparator,
-      mapper
+      mapper,
     );
   }, "minBy"),
   rest: /* @__PURE__ */ __name(function rest() {
@@ -5422,14 +7259,14 @@ mixin(Collection, {
   }, "valueSeq"),
   hashCode: /* @__PURE__ */ __name(function hashCode() {
     return this.__hash || (this.__hash = hashCollection(this));
-  }, "hashCode")
+  }, "hashCode"),
 });
 var CollectionPrototype = Collection.prototype;
 CollectionPrototype[IS_COLLECTION_SYMBOL] = true;
 CollectionPrototype[ITERATOR_SYMBOL] = CollectionPrototype.values;
 CollectionPrototype.toJSON = CollectionPrototype.toArray;
 CollectionPrototype.__toStringMapper = quoteString;
-CollectionPrototype.inspect = CollectionPrototype.toSource = function() {
+CollectionPrototype.inspect = CollectionPrototype.toSource = function () {
   return this.toString();
 };
 CollectionPrototype.chain = CollectionPrototype.flatMap;
@@ -5443,26 +7280,26 @@ mixin(KeyedCollection, {
     var iterations = 0;
     return reify(
       this,
-      this.toSeq().map(function(v, k) {
+      this.toSeq().map(function (v, k) {
         return mapper.call(context, [k, v], iterations++, this$1$1);
-      }).fromEntrySeq()
+      }).fromEntrySeq(),
     );
   }, "mapEntries"),
   mapKeys: /* @__PURE__ */ __name(function mapKeys(mapper, context) {
     var this$1$1 = this;
     return reify(
       this,
-      this.toSeq().flip().map(function(k, v) {
+      this.toSeq().flip().map(function (k, v) {
         return mapper.call(context, k, v, this$1$1);
-      }).flip()
+      }).flip(),
     );
-  }, "mapKeys")
+  }, "mapKeys"),
 });
 var KeyedCollectionPrototype = KeyedCollection.prototype;
 KeyedCollectionPrototype[IS_KEYED_SYMBOL] = true;
 KeyedCollectionPrototype[ITERATOR_SYMBOL] = CollectionPrototype.entries;
 KeyedCollectionPrototype.toJSON = toObject;
-KeyedCollectionPrototype.__toStringMapper = function(v, k) {
+KeyedCollectionPrototype.__toStringMapper = function (v, k) {
   return quoteString(k) + ": " + quoteString(v);
 };
 mixin(IndexedCollection, {
@@ -5500,13 +7337,18 @@ mixin(IndexedCollection, {
     var spliced = this.slice(0, index);
     return reify(
       this,
-      numArgs === 1 ? spliced : spliced.concat(arrCopy(arguments, 2), this.slice(index + removeNum))
+      numArgs === 1
+        ? spliced
+        : spliced.concat(arrCopy(arguments, 2), this.slice(index + removeNum)),
     );
   }, "splice"),
-  findLastIndex: /* @__PURE__ */ __name(function findLastIndex(predicate, context) {
-    var entry = this.findLastEntry(predicate, context);
-    return entry ? entry[0] : -1;
-  }, "findLastIndex"),
+  findLastIndex: /* @__PURE__ */ __name(
+    function findLastIndex(predicate, context) {
+      var entry = this.findLastEntry(predicate, context);
+      return entry ? entry[0] : -1;
+    },
+    "findLastIndex",
+  ),
   first: /* @__PURE__ */ __name(function first2(notSetValue) {
     return this.get(0, notSetValue);
   }, "first"),
@@ -5515,13 +7357,23 @@ mixin(IndexedCollection, {
   }, "flatten"),
   get: /* @__PURE__ */ __name(function get8(index, notSetValue) {
     index = wrapIndex(this, index);
-    return index < 0 || this.size === Infinity || this.size !== void 0 && index > this.size ? notSetValue : this.find(function(_, key) {
-      return key === index;
-    }, void 0, notSetValue);
+    return index < 0 || this.size === Infinity ||
+        this.size !== void 0 && index > this.size
+      ? notSetValue
+      : this.find(
+        function (_, key) {
+          return key === index;
+        },
+        void 0,
+        notSetValue,
+      );
   }, "get"),
   has: /* @__PURE__ */ __name(function has3(index) {
     index = wrapIndex(this, index);
-    return index >= 0 && (this.size !== void 0 ? this.size === Infinity || index < this.size : this.indexOf(index) !== -1);
+    return index >= 0 &&
+      (this.size !== void 0
+        ? this.size === Infinity || index < this.size
+        : this.indexOf(index) !== -1);
   }, "has"),
   interpose: /* @__PURE__ */ __name(function interpose(separator) {
     return reify(this, interposeFactory(this, separator));
@@ -5556,7 +7408,7 @@ mixin(IndexedCollection, {
     var collections = arrCopy(arguments);
     collections[0] = this;
     return reify(this, zipWithFactory(this, zipper, collections));
-  }, "zipWith")
+  }, "zipWith"),
 });
 var IndexedCollectionPrototype = IndexedCollection.prototype;
 IndexedCollectionPrototype[IS_INDEXED_SYMBOL] = true;
@@ -5570,7 +7422,7 @@ mixin(SetCollection, {
   }, "includes"),
   keySeq: /* @__PURE__ */ __name(function keySeq3() {
     return this.valueSeq();
-  }, "keySeq")
+  }, "keySeq"),
 });
 var SetCollectionPrototype = SetCollection.prototype;
 SetCollectionPrototype.has = CollectionPrototype.includes;
@@ -5581,7 +7433,7 @@ mixin(IndexedSeq, IndexedCollectionPrototype);
 mixin(SetSeq, SetCollectionPrototype);
 function reduce(collection, reducer, reduction, context, useFirst, reverse3) {
   assertNotInfinite(collection.size);
-  collection.__iterate(function(v, k, c) {
+  collection.__iterate(function (v, k, c) {
     if (useFirst) {
       useFirst = false;
       reduction = v;
@@ -5601,13 +7453,13 @@ function entryMapper(v, k) {
 }
 __name(entryMapper, "entryMapper");
 function not(predicate) {
-  return function() {
+  return function () {
     return !predicate.apply(this, arguments);
   };
 }
 __name(not, "not");
 function neg(predicate) {
-  return function() {
+  return function () {
     return -predicate.apply(this, arguments);
   };
 }
@@ -5628,15 +7480,21 @@ function hashCollection(collection) {
   var keyed = isKeyed(collection);
   var h = ordered ? 1 : 0;
   var size = collection.__iterate(
-    keyed ? ordered ? function(v, k) {
-      h = 31 * h + hashMerge(hash(v), hash(k)) | 0;
-    } : function(v, k) {
-      h = h + hashMerge(hash(v), hash(k)) | 0;
-    } : ordered ? function(v) {
-      h = 31 * h + hash(v) | 0;
-    } : function(v) {
-      h = h + hash(v) | 0;
-    }
+    keyed
+      ? ordered
+        ? function (v, k) {
+          h = 31 * h + hashMerge(hash(v), hash(k)) | 0;
+        }
+        : function (v, k) {
+          h = h + hashMerge(hash(v), hash(k)) | 0;
+        }
+      : ordered
+      ? function (v) {
+        h = 31 * h + hash(v) | 0;
+      }
+      : function (v) {
+        h = h + hash(v) | 0;
+      },
   );
   return murmurHashOfSize(size, h);
 }
@@ -5656,19 +7514,24 @@ function hashMerge(a, b) {
   return a ^ b + 2654435769 + (a << 6) + (a >> 2) | 0;
 }
 __name(hashMerge, "hashMerge");
-var OrderedSet = /* @__PURE__ */ function(Set2) {
+var OrderedSet = /* @__PURE__ */ function (Set2) {
   function OrderedSet2(value) {
-    return value === void 0 || value === null ? emptyOrderedSet() : isOrderedSet(value) ? value : emptyOrderedSet().withMutations(function(set3) {
-      var iter = SetCollection(value);
-      assertNotInfinite(iter.size);
-      iter.forEach(function(v) {
-        return set3.add(v);
+    return value === void 0 || value === null
+      ? emptyOrderedSet()
+      : isOrderedSet(value)
+      ? value
+      : emptyOrderedSet().withMutations(function (set3) {
+        var iter = SetCollection(value);
+        assertNotInfinite(iter.size);
+        iter.forEach(function (v) {
+          return set3.add(v);
+        });
       });
-    });
   }
   __name(OrderedSet2, "OrderedSet");
-  if (Set2)
+  if (Set2) {
     OrderedSet2.__proto__ = Set2;
+  }
   OrderedSet2.prototype = Object.create(Set2 && Set2.prototype);
   OrderedSet2.prototype.constructor = OrderedSet2;
   OrderedSet2.of = /* @__PURE__ */ __name(function of() {
@@ -5700,23 +7563,24 @@ function makeOrderedSet(map2, ownerID) {
 __name(makeOrderedSet, "makeOrderedSet");
 var EMPTY_ORDERED_SET;
 function emptyOrderedSet() {
-  return EMPTY_ORDERED_SET || (EMPTY_ORDERED_SET = makeOrderedSet(emptyOrderedMap()));
+  return EMPTY_ORDERED_SET ||
+    (EMPTY_ORDERED_SET = makeOrderedSet(emptyOrderedMap()));
 }
 __name(emptyOrderedSet, "emptyOrderedSet");
 function throwOnInvalidDefaultValues(defaultValues) {
   if (isRecord(defaultValues)) {
     throw new Error(
-      "Can not call `Record` with an immutable Record as default values. Use a plain javascript object instead."
+      "Can not call `Record` with an immutable Record as default values. Use a plain javascript object instead.",
     );
   }
   if (isImmutable(defaultValues)) {
     throw new Error(
-      "Can not call `Record` with an immutable Collection as default values. Use a plain javascript object instead."
+      "Can not call `Record` with an immutable Collection as default values. Use a plain javascript object instead.",
     );
   }
   if (defaultValues === null || typeof defaultValues !== "object") {
     throw new Error(
-      "Can not call `Record` with a non-object as default values. Use a plain javascript object instead."
+      "Can not call `Record` with a non-object as default values. Use a plain javascript object instead.",
     );
   }
 }
@@ -5744,7 +7608,9 @@ var Record = /* @__PURE__ */ __name(function Record2(defaultValues, name) {
         indices[propName] = i;
         if (RecordTypePrototype[propName]) {
           typeof console === "object" && console.warn && console.warn(
-            "Cannot define " + recordName(this) + ' with property "' + propName + '" since that property name is part of the Record API.'
+            "Cannot define " + recordName(this) + ' with property "' +
+              propName +
+              '" since that property name is part of the Record API.',
           );
         } else {
           setProp(RecordTypePrototype, propName);
@@ -5752,15 +7618,20 @@ var Record = /* @__PURE__ */ __name(function Record2(defaultValues, name) {
       }
     }
     this.__ownerID = void 0;
-    this._values = List().withMutations(function(l) {
+    this._values = List().withMutations(function (l) {
       l.setSize(this$1$1._keys.length);
-      KeyedCollection(values2).forEach(function(v, k) {
-        l.set(this$1$1._indices[k], v === this$1$1._defaultValues[k] ? void 0 : v);
+      KeyedCollection(values2).forEach(function (v, k) {
+        l.set(
+          this$1$1._indices[k],
+          v === this$1$1._defaultValues[k] ? void 0 : v,
+        );
       });
     });
     return this;
   }, "Record");
-  var RecordTypePrototype = RecordType.prototype = Object.create(RecordPrototype);
+  var RecordTypePrototype = RecordType.prototype = Object.create(
+    RecordPrototype,
+  );
   RecordTypePrototype.constructor = RecordType;
   if (name) {
     RecordType.displayName = name;
@@ -5778,7 +7649,8 @@ Record.prototype.toString = /* @__PURE__ */ __name(function toString4() {
   return str + " }";
 }, "toString");
 Record.prototype.equals = /* @__PURE__ */ __name(function equals2(other) {
-  return this === other || isRecord(other) && recordSeq(this).equals(recordSeq(other));
+  return this === other ||
+    isRecord(other) && recordSeq(this).equals(recordSeq(other));
 }, "equals");
 Record.prototype.hashCode = /* @__PURE__ */ __name(function hashCode2() {
   return recordSeq(this).hashCode();
@@ -5798,7 +7670,7 @@ Record.prototype.set = /* @__PURE__ */ __name(function set2(k, v) {
   if (this.has(k)) {
     var newValues = this._values.set(
       this._indices[k],
-      v === this._defaultValues[k] ? void 0 : v
+      v === this._defaultValues[k] ? void 0 : v,
     );
     if (newValues !== this._values && !this.__ownerID) {
       return makeRecord(this, newValues);
@@ -5825,24 +7697,33 @@ Record.prototype.toJS = /* @__PURE__ */ __name(function toJS$12() {
 Record.prototype.entries = /* @__PURE__ */ __name(function entries2() {
   return this.__iterator(ITERATE_ENTRIES);
 }, "entries");
-Record.prototype.__iterator = /* @__PURE__ */ __name(function __iterator(type, reverse3) {
-  return recordSeq(this).__iterator(type, reverse3);
-}, "__iterator");
-Record.prototype.__iterate = /* @__PURE__ */ __name(function __iterate(fn, reverse3) {
-  return recordSeq(this).__iterate(fn, reverse3);
-}, "__iterate");
-Record.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner(ownerID) {
-  if (ownerID === this.__ownerID) {
-    return this;
-  }
-  var newValues = this._values.__ensureOwner(ownerID);
-  if (!ownerID) {
-    this.__ownerID = ownerID;
-    this._values = newValues;
-    return this;
-  }
-  return makeRecord(this, newValues, ownerID);
-}, "__ensureOwner");
+Record.prototype.__iterator = /* @__PURE__ */ __name(
+  function __iterator(type, reverse3) {
+    return recordSeq(this).__iterator(type, reverse3);
+  },
+  "__iterator",
+);
+Record.prototype.__iterate = /* @__PURE__ */ __name(
+  function __iterate(fn, reverse3) {
+    return recordSeq(this).__iterate(fn, reverse3);
+  },
+  "__iterate",
+);
+Record.prototype.__ensureOwner = /* @__PURE__ */ __name(
+  function __ensureOwner(ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    var newValues = this._values.__ensureOwner(ownerID);
+    if (!ownerID) {
+      this.__ownerID = ownerID;
+      this._values = newValues;
+      return this;
+    }
+    return makeRecord(this, newValues, ownerID);
+  },
+  "__ensureOwner",
+);
 Record.isRecord = isRecord;
 Record.getDescriptiveName = recordName;
 var RecordPrototype = Record.prototype;
@@ -5864,8 +7745,9 @@ RecordPrototype.withMutations = withMutations;
 RecordPrototype.asMutable = asMutable;
 RecordPrototype.asImmutable = asImmutable;
 RecordPrototype[ITERATOR_SYMBOL] = RecordPrototype.entries;
-RecordPrototype.toJSON = RecordPrototype.toObject = CollectionPrototype.toObject;
-RecordPrototype.inspect = RecordPrototype.toSource = function() {
+RecordPrototype.toJSON = RecordPrototype.toObject = CollectionPrototype
+  .toObject;
+RecordPrototype.inspect = RecordPrototype.toSource = function () {
   return this.toString();
 };
 function makeRecord(likeRecord, values2, ownerID) {
@@ -5880,7 +7762,7 @@ function recordName(record) {
 }
 __name(recordName, "recordName");
 function recordSeq(record) {
-  return keyedSeqFromValue(record._keys.map(function(k) {
+  return keyedSeqFromValue(record._keys.map(function (k) {
     return [k, record.get(k)];
   }));
 }
@@ -5888,13 +7770,13 @@ __name(recordSeq, "recordSeq");
 function setProp(prototype, name) {
   try {
     Object.defineProperty(prototype, name, {
-      get: function() {
+      get: function () {
         return this.get(name);
       },
-      set: function(value) {
+      set: function (value) {
         invariant(this.__ownerID, "Cannot set on an immutable record.");
         this.set(name, value);
-      }
+      },
     });
   } catch (error) {
   }
@@ -5902,11 +7784,16 @@ function setProp(prototype, name) {
 __name(setProp, "setProp");
 var import_lodash = __toESM2(require_lodash(), 1);
 init_define_process();
-var cache = globalThis.md5cache = globalThis.md5cache || /* @__PURE__ */ new Map();
-var md5 = /* @__PURE__ */ __name((code) => cache.get(code) || cache.set(
-  code,
-  md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8)
-).get(code), "md5");
+var cache = globalThis.md5cache = globalThis.md5cache || /* @__PURE__ */
+  new Map();
+var md5 = /* @__PURE__ */ __name((code) =>
+  cache.get(code) || cache.set(
+    code,
+    md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j")
+      .split("3").join("k").split("4").join("b").split("5").join("n").split("6")
+      .join("o").split("7").join("x").split("8").join("q").split("9").join("z")
+      .slice(0, 8),
+  ).get(code), "md5");
 function md5FULL(inputString) {
   const hc = "0123456789abcdef";
   function rh(n) {
@@ -6164,13 +8051,13 @@ var CodeSession = class {
     this.createPatchFromHashCode = (oldHash, state, updateHash) => {
       const s = JSON.parse(string_(state));
       hashStore[md5(this.session.get("state").transpiled)] = this.session.get(
-        "state"
+        "state",
       );
       let oldRec = hashStore[oldHash];
       let usedOldHash = oldHash;
       if (!oldRec) {
         fetch(
-          `/live/${this.room}/mST`
+          `/live/${this.room}/mST`,
         ).then(async (resp) => {
           if (!resp.ok) {
             console.error(location.origin + " is NOT OK", await resp.text());
@@ -6196,21 +8083,31 @@ var CodeSession = class {
       return {
         oldHash: usedOldHash,
         newHash,
-        patch
+        patch,
       };
     };
     this.patchSync = (sess) => {
-      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+      if (
+        sess.code !== this.session.get("state").code &&
+        sess.i <= this.session.get("state").i
+      ) {
         throw new Error("Code update without I update error");
+      }
       if (sess.i < this.session.get("state").i) {
         console.log("never going back!");
         return;
       }
-      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+      if (
+        sess.code !== this.session.get("state").code &&
+        sess.i <= this.session.get("state").i
+      ) {
         throw new Error("Code update without I update error");
+      }
       if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
         console.error(
-          `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`
+          `missing: /*${md5(sess.code)}*/, transpiled: ${
+            sess.transpiled.slice(0, 12)
+          }`,
         );
         throw new Error("transpiled	hack issue");
       }
@@ -6231,7 +8128,7 @@ var CodeSession = class {
       const oldHash = md5(this.session.get("state").transpiled);
       this.session = this.session.set(
         "state",
-        this.session.get("state").merge(sess)
+        this.session.get("state").merge(sess),
       );
       const newHash = md5(this.session.get("state").transpiled);
       if (newHash !== oldHash) {
@@ -6244,35 +8141,39 @@ var CodeSession = class {
     this.applyPatch = async ({
       oldHash,
       newHash,
-      patch
+      patch,
     }) => {
-      if (!(oldHash && newHash && patch.length))
+      if (!(oldHash && newHash && patch.length)) {
         return;
+      }
       const codeSpace = this.room || "";
       hashStore[hashCode3()] = this.session.get("state");
       let maybeOldRec = hashStore[oldHash];
       try {
         if (!maybeOldRec) {
           const resp = await fetch(
-            `/live/${codeSpace}/mST`
+            `/live/${codeSpace}/mST`,
           );
           if (resp.ok) {
             const s = await resp.json();
             const serverRecord = this.session.get("state").merge(
-              JSON.parse(string_(s.mST))
+              JSON.parse(string_(s.mST)),
             );
             hashStore[md5(serverRecord.transpiled)] = serverRecord;
           } else {
-            const { mST: mST2 } = await import(`/live/${this.room}/mst.mjs?${Date.now()}`);
+            const { mST: mST2 } = await import(
+              `/live/${this.room}/mst.mjs?${Date.now()}`
+            );
             const latestRec = this.session.get("state").merge(
-              JSON.parse(string_(mST2))
+              JSON.parse(string_(mST2)),
             );
             hashStore[md5(latestRec.transpiled)] = latestRec;
           }
         }
         maybeOldRec = hashStore[oldHash];
-        if (!maybeOldRec)
+        if (!maybeOldRec) {
           throw new Error(`cant find old record: ${oldHash}`);
+        }
       } catch (err) {
         console.error({ err });
         throw new Error("oldHash not found");
@@ -6281,18 +8182,24 @@ var CodeSession = class {
       const applied = applyPatch(oldString, patch);
       const newState = JSON.parse(applied);
       const newRec = this.session.get("state").merge(
-        newState
+        newState,
       );
       const newRecord = this.session.get("state").merge(newRec);
       if (newRecord.i < this.session.get("state").i) {
         throw new Error("never going back!");
       }
-      if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
+      if (
+        newRecord.code !== this.session.get("state").code &&
+        newRecord.i <= this.session.get("state").i
+      ) {
         throw new Error("Code update without I update error");
+      }
       const codeHash = md5(newRecord.code);
       if (newRecord.transpiled.slice(0, 12) !== `/*${codeHash}*/`) {
         console.error(
-          `missing: ${codeHash}, transpiled: ${newRecord.transpiled.slice(0, 12)}`
+          `missing: ${codeHash}, transpiled: ${
+            newRecord.transpiled.slice(0, 12)
+          }`,
         );
         throw new Error("transpiled	hack issue");
       }
@@ -6323,14 +8230,14 @@ var CodeSession = class {
     const savedState = null;
     this.session = initSession(room, {
       ...user,
-      state: savedState ? savedState : JSON.parse(string_(user.state))
+      state: savedState ? savedState : JSON.parse(string_(user.state)),
     })();
   }
   update() {
     return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, {
       maxWait: 500,
       trailing: true,
-      leading: false
+      leading: false,
     })();
   }
   updateNonDebounced() {
@@ -6364,18 +8271,20 @@ function mST(p) {
       transpiled: "",
       code: "",
       html: "",
-      css: ""
+      css: "",
     };
   }
   const sessAsJs = session.session.get("state").toJSON();
-  const { i, transpiled, code, html, css } = p ? JSON.parse(
-    applyPatch(
-      string_(
-        sessAsJs
+  const { i, transpiled, code, html, css } = p
+    ? JSON.parse(
+      applyPatch(
+        string_(
+          sessAsJs,
+        ),
+        p,
       ),
-      p
     )
-  ) : sessAsJs;
+    : sessAsJs;
   return { i, transpiled, code, html, css };
 }
 __name(mST, "mST");
@@ -6394,11 +8303,18 @@ var applyPatch2 = /* @__PURE__ */ __name(async (x) => {
   await session?.applyPatch(x);
   session?.update();
 }, "applyPatch");
-var makePatchFrom = /* @__PURE__ */ __name((n, st, update8) => session.createPatchFromHashCode(n, st, update8), "makePatchFrom");
-var startSession = /* @__PURE__ */ __name((room, u, originString) => session || new CodeSession(room, {
-  name: u.name,
-  state: addOrigin(u.state, originString)
-}), "startSession");
+var makePatchFrom = /* @__PURE__ */ __name(
+  (n, st, update8) => session.createPatchFromHashCode(n, st, update8),
+  "makePatchFrom",
+);
+var startSession = /* @__PURE__ */ __name(
+  (room, u, originString) =>
+    session || new CodeSession(room, {
+      name: u.name,
+      state: addOrigin(u.state, originString),
+    }),
+  "startSession",
+);
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
@@ -6408,7 +8324,9 @@ __name(createPatch, "createPatch");
 var ASSET_MANIFEST = __STATIC_CONTENT_MANIFEST;
 var files = JSON.parse(ASSET_MANIFEST);
 var reverseMap = {};
-Object.keys(files).forEach((file) => reverseMap = { ...reverseMap, [files[file]]: file });
+Object.keys(files).forEach((file) =>
+  reverseMap = { ...reverseMap, [files[file]]: file }
+);
 var getFilePath = (file) => reverseMap[file] ? file : files[file];
 var ASSET_HASH = md5(ASSET_MANIFEST);
 
@@ -6424,8 +8342,8 @@ var importmap_default = {
     "react/jsx-runtime": "/jsx.mjs",
     "react-dom": "/reactDom.mjs",
     "react-dom/client": "/reactDomClient.mjs",
-    "react-error-boundary": "/reactMod.mjs"
-  }
+    "react-error-boundary": "/reactMod.mjs",
+  },
 };
 
 // src/handleErrors.ts
@@ -6459,7 +8377,7 @@ async function handleErrors(request, func) {
 var esbuildExternal = [
   "monaco-editor",
   "@mui/material",
-  "framer-motion"
+  "framer-motion",
 ];
 var mods = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
@@ -6482,7 +8400,7 @@ var api = {
         const start = md5(
           (request.cf?.asOrganization || "default") + utcSecs + `
         and reset every 2 hours
-        time`
+        time`,
         );
         return new Response(
           `<meta http-equiv="refresh" content="0; URL=${u.origin}/live/${start}" />`,
@@ -6492,9 +8410,9 @@ var api = {
               "Location": `${u.origin}/live/${start}/`,
               "Content-Type": "text/html;charset=UTF-8",
               "Cache-Control": "no-cache",
-              ASSET_HASH
-            }
-          }
+              ASSET_HASH,
+            },
+          },
         );
       }
       const handleFetchApi = async (path2) => {
@@ -6512,29 +8430,38 @@ var api = {
           reqHeaders.set("Referer", newUrl2);
           request = new Request(newUrl2, { ...request, headers: reqHeaders });
           response = await fetch(request);
-          if (!response.ok)
+          if (!response.ok) {
             return response;
+          }
           const headers = new Headers(response.headers);
           headers.set("Access-Control-Allow-Origin", "*");
           response = new Response(response.body, { ...response, headers });
           await cache2.put(cacheKey, response.clone());
           return response;
         }
-        if (path2[0].startsWith("npm:") || path2[0].startsWith("node_modules/")) {
-          const isJs = u.toString().includes(".js") || u.toString().includes(".mjs");
+        if (
+          path2[0].startsWith("npm:") || path2[0].startsWith("node_modules/")
+        ) {
+          const isJs = u.toString().includes(".js") ||
+            u.toString().includes(".mjs");
           const packageName = u.toString().replace(
             u.origin + "/npm:",
-            ""
+            "",
           ).replace(
             u.origin + "/node_modules",
-            ""
+            "",
           );
-          const searchParams = isJs ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} ` : "";
+          const searchParams = isJs
+            ? `?bundle&external=${
+              esbuildExternal.filter((p) => p !== packageName).join(",")
+            } `
+            : "";
           const esmUrl = "https://esm.sh/" + packageName + searchParams;
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           response = await fetch(request);
-          if (!response.ok)
+          if (!response.ok) {
             return response;
+          }
           if (response?.status === 307 || response.headers.has("location")) {
             const redirectUrl = response.headers.get("location");
             request = new Request(redirectUrl, request);
@@ -6543,19 +8470,22 @@ var api = {
               "location",
               redirectUrl.replace(
                 "esm.sh/",
-                u.hostname + "/npm:/"
-              )
+                u.hostname + "/npm:/",
+              ),
             );
-            response = new Response((await response.text()).replace("esm.sh/", u.hostname + "/npm:/"), {
-              ...response,
-              headers
-            });
+            response = new Response(
+              (await response.text()).replace("esm.sh/", u.hostname + "/npm:/"),
+              {
+                ...response,
+                headers,
+              },
+            );
             await cache2.put(cacheKey, response.clone());
             return response;
           }
           const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
           const isText = !!response?.headers?.get("Content-Type")?.includes(
-            "charset"
+            "charset",
           );
           const bodyStr = await (isText ? response.text() : null);
           if (!bodyStr) {
@@ -6567,16 +8497,24 @@ var api = {
           const regex4 = /from"\//gm;
           const regex5 = /import"\//gm;
           response = new Response(
-            isText ? bodyStr.replaceAll(regex, u.origin + "/npm:/").replaceAll(regex2, ' from "/npm:/').replaceAll(regex3, 'import "/npm:/').replaceAll(regex4, ' from "/npm:/').replaceAll(regex5, 'import "/npm:/') : await response.blob(),
+            isText
+              ? bodyStr.replaceAll(regex, u.origin + "/npm:/").replaceAll(
+                regex2,
+                ' from "/npm:/',
+              ).replaceAll(regex3, 'import "/npm:/').replaceAll(
+                regex4,
+                ' from "/npm:/',
+              ).replaceAll(regex5, 'import "/npm:/')
+              : await response.blob(),
             {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cache-Control": "public, max-age=604800, immutable",
                 "x-DTS": xTs.replace("esm.sh/", u.host + "/npm:/"),
-                "Content-Type": response.headers.get("Content-Type")
-              }
-            }
+                "Content-Type": response.headers.get("Content-Type"),
+              },
+            },
           );
           await cache2.put(cacheKey, response.clone());
           return response;
@@ -6584,7 +8522,7 @@ var api = {
         if (path2[0].startsWith("unpkg:")) {
           const esmUrl = u.toString().replace(
             u.origin + "/unpkg:",
-            "https://unpkg.com/"
+            "https://unpkg.com/",
           );
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           let resp = await fetch(request);
@@ -6593,33 +8531,40 @@ var api = {
             if (redirectUrl) {
               request = new Request(redirectUrl, {
                 ...request,
-                redirect: "follow"
+                redirect: "follow",
               });
               resp = await fetch(request);
             }
-            if (resp !== null && !resp.ok)
+            if (resp !== null && !resp.ok) {
               return resp;
+            }
           }
           const isText = !!resp?.headers?.get("Content-Type")?.includes(
-            "charset"
+            "charset",
           );
           const bodyStr = await (isText ? resp.text() : null);
           const regex = /https:\/\/unpkg.com\//gm;
           const regex2 = / from "\//gm;
-          if (!bodyStr)
+          if (!bodyStr) {
             throw new Error("empty body");
+          }
           const responseToCache = new Response(
             `
               // ${request.url}
-              ` + bodyStr ? bodyStr.replaceAll(regex, u.origin + "/unpkg:").replaceAll(regex2, ' from "/unpkg:') : await resp.blob(),
+              ` + bodyStr
+              ? bodyStr.replaceAll(regex, u.origin + "/unpkg:").replaceAll(
+                regex2,
+                ' from "/unpkg:',
+              )
+              : await resp.blob(),
             {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cache-Control": "public, max-age=604800, immutable",
-                "Content-Type": resp.headers.get("Content-Type")
-              }
-            }
+                "Content-Type": resp.headers.get("Content-Type"),
+              },
+            },
           );
           if (responseToCache.ok) {
             await cache2.put(cacheKey, responseToCache.clone());
@@ -6629,42 +8574,50 @@ var api = {
         if (path2[0].startsWith("node_modules")) {
           const esmUrl = u.toString().replace(
             u.origin + "/node_modules/",
-            "https://unpkg.com/"
+            "https://unpkg.com/",
           );
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           let resp = await fetch(request);
           if (resp !== null && !resp.ok || resp.status === 307) {
             const redirectUrl = resp.headers.get("location");
             if (redirectUrl) {
-              request = new Request(new URL(redirectUrl, `https://unpkg.com`).toString(), {
-                ...request,
-                redirect: "follow"
-              });
+              request = new Request(
+                new URL(redirectUrl, `https://unpkg.com`).toString(),
+                {
+                  ...request,
+                  redirect: "follow",
+                },
+              );
               resp = await fetch(request);
             }
-            if (resp !== null && !resp.ok)
+            if (resp !== null && !resp.ok) {
               return resp;
+            }
           }
           const isText = !!resp?.headers?.get("Content-Type")?.includes(
-            "charset"
+            "charset",
           );
           const bodyStr = await (isText ? resp.text() : null);
           const regex = /https:\/\/unpkg.com\//gm;
           const regex2 = / from "\//gm;
-          if (!bodyStr)
+          if (!bodyStr) {
             throw new Error("empty body");
+          }
           const responseToCache = new Response(
             `
               // ${request.url}
-              ` + bodyStr ? bodyStr.replaceAll(regex, u.origin + "/node_modules/").replaceAll(regex2, ' from "/node_modules/') : await resp.blob(),
+              ` + bodyStr
+              ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
+                .replaceAll(regex2, ' from "/node_modules/')
+              : await resp.blob(),
             {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cache-Control": "public, max-age=604800, immutable",
-                "Content-Type": resp.headers.get("Content-Type")
-              }
-            }
+                "Content-Type": resp.headers.get("Content-Type"),
+              },
+            },
           );
           if (responseToCache.ok) {
             await cache2.put(cacheKey, responseToCache.clone());
@@ -6676,38 +8629,38 @@ var api = {
             return new Response("ping" + Math.random(), {
               headers: {
                 "Content-Type": "text/html;charset=UTF-8",
-                "Cache-Control": "no-cache"
-              }
+                "Cache-Control": "no-cache",
+              },
             });
           case "env":
             return new Response(JSON.stringify({ env, accept }), {
               headers: {
                 "Content-Type": "text/html;charset=UTF-8",
-                "Cache-Control": "no-cache"
-              }
+                "Cache-Control": "no-cache",
+              },
             });
           case "files.json":
             return new Response(ASSET_MANIFEST, {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
-                ASSET_HASH
-              }
+                ASSET_HASH,
+              },
             });
           case "packages.json":
             return new Response(JSON.stringify(package_default), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
-                "Cache-Control": "no-cache"
-              }
+                "Cache-Control": "no-cache",
+              },
             });
           case "importmap.json":
             return new Response(getImportMapStr(url.origin), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
-                ASSET_HASH
-              }
+                ASSET_HASH,
+              },
             });
           case "api":
             return handleApiRequest(path2.slice(1), request, env);
@@ -6716,8 +8669,9 @@ var api = {
             const u2 = new URL(request.url, "https://cloudflare-ipfs.com");
             const new1 = new URL(u2.pathname, "https://cloudflare-ipfs.com");
             const resp = await fetch(new1.toString());
-            if (resp.ok)
+            if (resp.ok) {
               return resp;
+            }
             const new2 = new URL(u2.pathname, "https://ipfs.io");
             const resp2 = await fetch(new2.toString());
             return resp2;
@@ -6727,12 +8681,13 @@ var api = {
             return handleApiRequest(
               ["room", ...paths],
               request,
-              env
+              env,
             ).catch(
-              (e) => new Response("Error," + e?.message, {
-                status: 500,
-                statusText: e?.message
-              })
+              (e) =>
+                new Response("Error," + e?.message, {
+                  status: 500,
+                  statusText: e?.message,
+                }),
             );
           }
           default:
@@ -6742,46 +8697,54 @@ var api = {
                   request,
                   waitUntil(promise) {
                     return ctx.waitUntil(promise);
-                  }
+                  },
                 },
                 {
-                  cacheControl: isChunk(url.href) ? {
-                    browserTTL: 2 * 60 * 60 * 24,
-                    edgeTTL: 2 * 60 * 60 * 24,
-                    bypassCache: false
-                  } : {
-                    browserTTL: 0,
-                    edgeTTL: 0,
-                    bypassCache: true
-                  },
+                  cacheControl: isChunk(url.href)
+                    ? {
+                      browserTTL: 2 * 60 * 60 * 24,
+                      edgeTTL: 2 * 60 * 60 * 24,
+                      bypassCache: false,
+                    }
+                    : {
+                      browserTTL: 0,
+                      edgeTTL: 0,
+                      bypassCache: true,
+                    },
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                  ASSET_MANIFEST
-                }
+                  ASSET_MANIFEST,
+                },
               );
-              if (!kvResp.ok)
+              if (!kvResp.ok) {
                 throw new Error("no kv, try something else");
+              }
               const headers = new Headers(kvResp.headers);
               const fileName = url.pathname.slice(1);
               const filePath = getFilePath(fileName);
               headers.append("ASSET_PATH", filePath);
               headers.append("ASSET_HASH", ASSET_HASH);
               if (fileName === filePath) {
-                headers.append("Cache-Control", "public, max-age=604800, immutable");
+                headers.append(
+                  "Cache-Control",
+                  "public, max-age=604800, immutable",
+                );
               }
               response = new Response(kvResp.body, { ...kvResp, headers });
-              if (fileName === filePath)
+              if (fileName === filePath) {
                 await cache2.put(cacheKey, response.clone());
+              }
               return response;
             } catch {
               return fetch(
-                new URL(url.pathname.slice(1), url.origin + "/node_modules/").toString()
+                new URL(url.pathname.slice(1), url.origin + "/node_modules/")
+                  .toString(),
               );
             }
         }
       };
       return handleFetchApi(path);
     });
-  }
+  },
 };
 async function handleApiRequest(path, request, env) {
   switch (path[0]) {
@@ -6790,7 +8753,7 @@ async function handleApiRequest(path, request, env) {
         if (request.method === "POST") {
           const id2 = env.CODE.newUniqueId();
           return new Response(id2.toString(), {
-            headers: { "Access-Control-Allow-Origin": "*" }
+            headers: { "Access-Control-Allow-Origin": "*" },
           });
         } else {
           return new Response("Method not allowed", { status: 405 });
@@ -7040,22 +9003,32 @@ function print(root, printNode = (n) => n.key) {
 }
 function row(root, prefix, isTail, out, printNode) {
   if (root) {
-    out(`${prefix}${isTail ? "\u2514\u2500\u2500 " : "\u251C\u2500\u2500 "}${printNode(root)}
-`);
+    out(
+      `${prefix}${isTail ? "\u2514\u2500\u2500 " : "\u251C\u2500\u2500 "}${
+        printNode(root)
+      }
+`,
+    );
     const indent = prefix + (isTail ? "    " : "\u2502   ");
-    if (root.left)
+    if (root.left) {
       row(root.left, indent, false, out, printNode);
-    if (root.right)
+    }
+    if (root.right) {
       row(root.right, indent, true, out, printNode);
+    }
   }
 }
 function isBalanced(root) {
-  if (root === null)
+  if (root === null) {
     return true;
+  }
   var lh = height(root.left);
   var rh = height(root.right);
-  if (Math.abs(lh - rh) <= 1 && isBalanced(root.left) && isBalanced(root.right))
+  if (
+    Math.abs(lh - rh) <= 1 && isBalanced(root.left) && isBalanced(root.right)
+  ) {
     return true;
+  }
   return false;
 }
 function height(node) {
@@ -7075,28 +9048,27 @@ function loadRecursive(parent, keys2, values2, start, end) {
   return null;
 }
 function markBalance(node) {
-  if (node === null)
+  if (node === null) {
     return 0;
+  }
   const lh = markBalance(node.left);
   const rh = markBalance(node.right);
   node.balanceFactor = lh - rh;
   return Math.max(lh, rh) + 1;
 }
 function sort2(keys2, values2, left, right, compare) {
-  if (left >= right)
+  if (left >= right) {
     return;
+  }
   const pivot = keys2[left + right >> 1];
   let i = left - 1;
   let j = right + 1;
   while (true) {
-    do
-      i++;
-    while (compare(keys2[i], pivot) < 0);
-    do
-      j--;
-    while (compare(keys2[j], pivot) > 0);
-    if (i >= j)
+    do i++; while (compare(keys2[i], pivot) < 0);
+    do j--; while (compare(keys2[j], pivot) > 0);
+    if (i >= j) {
       break;
+    }
     let tmp = keys2[i];
     keys2[i] = keys2[j];
     keys2[j] = tmp;
@@ -7115,8 +9087,9 @@ function DEFAULT_COMPARE(a, b) {
 function rotateLeft(node) {
   var rightNode = node.right;
   node.right = rightNode.left;
-  if (rightNode.left)
+  if (rightNode.left) {
     rightNode.left.parent = node;
+  }
   rightNode.parent = node.parent;
   if (rightNode.parent) {
     if (rightNode.parent.left === node) {
@@ -7140,8 +9113,9 @@ function rotateLeft(node) {
 function rotateRight(node) {
   var leftNode = node.left;
   node.left = leftNode.right;
-  if (node.left)
+  if (node.left) {
     node.left.parent = node;
+  }
   leftNode.parent = node.parent;
   if (leftNode.parent) {
     if (leftNode.parent.left === node) {
@@ -7186,12 +9160,13 @@ var AVLTree = class {
       var comparator = this._comparator;
       while (node) {
         var cmp = comparator(key, node.key);
-        if (cmp === 0)
+        if (cmp === 0) {
           return true;
-        else if (cmp < 0)
+        } else if (cmp < 0) {
           node = node.left;
-        else
+        } else {
           node = node.right;
+        }
       }
     }
     return false;
@@ -7201,8 +9176,9 @@ var AVLTree = class {
     if (successor) {
       if (successor.right) {
         successor = successor.right;
-        while (successor.left)
+        while (successor.left) {
           successor = successor.left;
+        }
       } else {
         successor = node.parent;
         while (successor && successor.right === node) {
@@ -7218,8 +9194,9 @@ var AVLTree = class {
     if (predecessor) {
       if (predecessor.left) {
         predecessor = predecessor.left;
-        while (predecessor.right)
+        while (predecessor.right) {
           predecessor = predecessor.right;
+        }
       } else {
         predecessor = node.parent;
         while (predecessor && predecessor.left === node) {
@@ -7242,8 +9219,9 @@ var AVLTree = class {
           current = s.pop();
           callback(current, i++);
           current = current.right;
-        } else
+        } else {
           done = true;
+        }
       }
     }
     return this;
@@ -7262,8 +9240,9 @@ var AVLTree = class {
         if (cmp > 0) {
           break;
         } else if (compare(node.key, low) >= 0) {
-          if (fn.call(ctx, node))
+          if (fn.call(ctx, node)) {
             return this;
+          }
         }
         node = node.right;
       }
@@ -7282,8 +9261,9 @@ var AVLTree = class {
           current = s.pop();
           r.push(current.key);
           current = current.right;
-        } else
+        } else {
           done = true;
+        }
       }
     }
     return r;
@@ -7300,8 +9280,9 @@ var AVLTree = class {
           current = s.pop();
           r.push(current.data);
           current = current.right;
-        } else
+        } else {
           done = true;
+        }
       }
     }
     return r;
@@ -7316,46 +9297,56 @@ var AVLTree = class {
       } else {
         if (s.length > 0) {
           current = s.pop();
-          if (i === index)
+          if (i === index) {
             return current;
+          }
           i++;
           current = current.right;
-        } else
+        } else {
           done = true;
+        }
       }
     }
     return null;
   }
   minNode() {
     var node = this._root;
-    if (!node)
+    if (!node) {
       return null;
-    while (node.left)
+    }
+    while (node.left) {
       node = node.left;
+    }
     return node;
   }
   maxNode() {
     var node = this._root;
-    if (!node)
+    if (!node) {
       return null;
-    while (node.right)
+    }
+    while (node.right) {
       node = node.right;
+    }
     return node;
   }
   min() {
     var node = this._root;
-    if (!node)
+    if (!node) {
       return null;
-    while (node.left)
+    }
+    while (node.left) {
       node = node.left;
+    }
     return node.key;
   }
   max() {
     var node = this._root;
-    if (!node)
+    if (!node) {
       return null;
-    while (node.right)
+    }
+    while (node.right) {
       node = node.right;
+    }
     return node.key;
   }
   isEmpty() {
@@ -7364,8 +9355,9 @@ var AVLTree = class {
   pop() {
     var node = this._root, returnValue = null;
     if (node) {
-      while (node.left)
+      while (node.left) {
         node = node.left;
+      }
       returnValue = { key: node.key, data: node.data };
       this.remove(node.key);
     }
@@ -7374,8 +9366,9 @@ var AVLTree = class {
   popMax() {
     var node = this._root, returnValue = null;
     if (node) {
-      while (node.right)
+      while (node.right) {
         node = node.right;
+      }
       returnValue = { key: node.key, data: node.data };
       this.remove(node.key);
     }
@@ -7387,12 +9380,13 @@ var AVLTree = class {
     var compare = this._comparator;
     while (subtree) {
       cmp = compare(key, subtree.key);
-      if (cmp === 0)
+      if (cmp === 0) {
         return subtree;
-      else if (cmp < 0)
+      } else if (cmp < 0) {
         subtree = subtree.left;
-      else
+      } else {
         subtree = subtree.right;
+      }
     }
     return null;
   }
@@ -7404,7 +9398,7 @@ var AVLTree = class {
         right: null,
         balanceFactor: 0,
         key,
-        data
+        data,
       };
       this._size++;
       return this._root;
@@ -7417,21 +9411,23 @@ var AVLTree = class {
       while (node) {
         cmp = compare(key, node.key);
         parent = node;
-        if (cmp === 0)
+        if (cmp === 0) {
           return null;
-        else if (cmp < 0)
+        } else if (cmp < 0) {
           node = node.left;
-        else
+        } else {
           node = node.right;
+        }
       }
     } else {
       while (node) {
         cmp = compare(key, node.key);
         parent = node;
-        if (cmp <= 0)
+        if (cmp <= 0) {
           node = node.left;
-        else
+        } else {
           node = node.right;
+        }
       }
     }
     var newNode = {
@@ -7440,34 +9436,40 @@ var AVLTree = class {
       balanceFactor: 0,
       parent,
       key,
-      data
+      data,
     };
     var newRoot;
-    if (cmp <= 0)
+    if (cmp <= 0) {
       parent.left = newNode;
-    else
+    } else {
       parent.right = newNode;
+    }
     while (parent) {
       cmp = compare(parent.key, key);
-      if (cmp < 0)
+      if (cmp < 0) {
         parent.balanceFactor -= 1;
-      else
+      } else {
         parent.balanceFactor += 1;
-      if (parent.balanceFactor === 0)
+      }
+      if (parent.balanceFactor === 0) {
         break;
-      else if (parent.balanceFactor < -1) {
-        if (parent.right.balanceFactor === 1)
+      } else if (parent.balanceFactor < -1) {
+        if (parent.right.balanceFactor === 1) {
           rotateRight(parent.right);
+        }
         newRoot = rotateLeft(parent);
-        if (parent === this._root)
+        if (parent === this._root) {
           this._root = newRoot;
+        }
         break;
       } else if (parent.balanceFactor > 1) {
-        if (parent.left.balanceFactor === -1)
+        if (parent.left.balanceFactor === -1) {
           rotateLeft(parent.left);
+        }
         newRoot = rotateRight(parent);
-        if (parent === this._root)
+        if (parent === this._root) {
           this._root = newRoot;
+        }
         break;
       }
       parent = parent.parent;
@@ -7476,29 +9478,33 @@ var AVLTree = class {
     return newNode;
   }
   remove(key) {
-    if (!this._root)
+    if (!this._root) {
       return null;
+    }
     var node = this._root;
     var compare = this._comparator;
     var cmp = 0;
     while (node) {
       cmp = compare(key, node.key);
-      if (cmp === 0)
+      if (cmp === 0) {
         break;
-      else if (cmp < 0)
+      } else if (cmp < 0) {
         node = node.left;
-      else
+      } else {
         node = node.right;
+      }
     }
-    if (!node)
+    if (!node) {
       return null;
+    }
     var returnValue = node.key;
     var max2, min2;
     if (node.left) {
       max2 = node.left;
       while (max2.left || max2.right) {
-        while (max2.right)
+        while (max2.right) {
           max2 = max2.right;
+        }
         node.key = max2.key;
         node.data = max2.data;
         if (max2.left) {
@@ -7513,8 +9519,9 @@ var AVLTree = class {
     if (node.right) {
       min2 = node.right;
       while (min2.left || min2.right) {
-        while (min2.left)
+        while (min2.left) {
           min2 = min2.left;
+        }
         node.key = min2.key;
         node.data = min2.data;
         if (min2.right) {
@@ -7530,47 +9537,57 @@ var AVLTree = class {
     var pp = node;
     var newRoot;
     while (parent) {
-      if (parent.left === pp)
+      if (parent.left === pp) {
         parent.balanceFactor -= 1;
-      else
+      } else {
         parent.balanceFactor += 1;
+      }
       if (parent.balanceFactor < -1) {
-        if (parent.right.balanceFactor === 1)
+        if (parent.right.balanceFactor === 1) {
           rotateRight(parent.right);
+        }
         newRoot = rotateLeft(parent);
-        if (parent === this._root)
+        if (parent === this._root) {
           this._root = newRoot;
+        }
         parent = newRoot;
       } else if (parent.balanceFactor > 1) {
-        if (parent.left.balanceFactor === -1)
+        if (parent.left.balanceFactor === -1) {
           rotateLeft(parent.left);
+        }
         newRoot = rotateRight(parent);
-        if (parent === this._root)
+        if (parent === this._root) {
           this._root = newRoot;
+        }
         parent = newRoot;
       }
-      if (parent.balanceFactor === -1 || parent.balanceFactor === 1)
+      if (parent.balanceFactor === -1 || parent.balanceFactor === 1) {
         break;
+      }
       pp = parent;
       parent = parent.parent;
     }
     if (node.parent) {
-      if (node.parent.left === node)
+      if (node.parent.left === node) {
         node.parent.left = null;
-      else
+      } else {
         node.parent.right = null;
+      }
     }
-    if (node === this._root)
+    if (node === this._root) {
       this._root = null;
+    }
     this._size--;
     return returnValue;
   }
   load(keys2 = [], values2 = [], presort) {
-    if (this._size !== 0)
+    if (this._size !== 0) {
       throw new Error("bulk-load: tree is not empty");
+    }
     const size = keys2.length;
-    if (presort)
+    if (presort) {
       sort2(keys2, values2, 0, size - 1, this._comparator);
+    }
     this._root = loadRecursive(null, keys2, values2, 0, size);
     markBalance(this._root);
     this._size = size;
@@ -7598,11 +9615,13 @@ var Code = class {
     this.codeSpace = "";
     this.address = "";
     this.state.blockConcurrencyWhile(async () => {
-      const session2 = await this.kv.get("session") || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
-        "session.json"
-      ).then((x) => x.json());
-      if (!session2)
+      const session2 = await this.kv.get("session") ||
+        await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
+          "session.json",
+        ).then((x) => x.json());
+      if (!session2) {
         throw Error("cant get the starter session");
+      }
       this.address = await this.kv.get("address") || "";
       this.sess = session2;
       this.sessionStarted = false;
@@ -7617,14 +9636,15 @@ var Code = class {
   address;
   users = new AVLTree(
     (a, b) => a === b ? 0 : a < b ? 1 : -1,
-    true
+    true,
   );
   waiting = [];
   sessions;
   wait = (x) => {
     this.waiting = this.waiting.filter((x2) => !x2());
-    if (x && !x())
+    if (x && !x()) {
       this.waiting.push(x);
+    }
   };
   async fetch(request) {
     const state = this.sess;
@@ -7635,15 +9655,16 @@ var Code = class {
       startSession(
         this.codeSpace,
         { state, name: this.codeSpace },
-        url.origin
+        url.origin,
       );
       this.sessionStarted = true;
     }
     return handleErrors(request, async () => {
       const { code, transpiled, css, html, i } = mST();
       const path = url.pathname.slice(1).split("/");
-      if (path.length === 0)
+      if (path.length === 0) {
         path.push("");
+      }
       switch (path[0]) {
         case "code":
         case "index.tsx":
@@ -7653,8 +9674,8 @@ var Code = class {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
               content_hash: md5(code),
-              "Content-Type": "application/javascript; charset=UTF-8"
-            }
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
           });
         case "session.json":
         case "session": {
@@ -7667,8 +9688,8 @@ var Code = class {
                   "Access-Control-Allow-Origin": "*",
                   "Cache-Control": "no-cache",
                   content_hash: md5(session2),
-                  "Content-Type": "application/json; charset=UTF-8"
-                }
+                  "Content-Type": "application/json; charset=UTF-8",
+                },
               });
             } else {
               return new Response(
@@ -7678,9 +9699,9 @@ var Code = class {
                   headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Cache-Control": "no-cache",
-                    "Content-Type": "application/json; charset=UTF-8"
-                  }
-                }
+                    "Content-Type": "application/json; charset=UTF-8",
+                  },
+                },
               );
             }
           }
@@ -7691,8 +9712,8 @@ var Code = class {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
               content_hash: md5(body),
-              "Content-Type": "application/json; charset=UTF-8"
-            }
+              "Content-Type": "application/json; charset=UTF-8",
+            },
           });
         }
         case "lazy":
@@ -7706,9 +9727,9 @@ var Code = class {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cache-Control": "no-cache",
-                "Content-Type": "application/javascript; charset=UTF-8"
-              }
-            }
+                "Content-Type": "application/javascript; charset=UTF-8",
+              },
+            },
           );
         case "request": {
           return new Response(JSON.stringify({ ...request }), {
@@ -7716,8 +9737,8 @@ var Code = class {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8"
-            }
+              "Content-Type": "application/json; charset=UTF-8",
+            },
           });
         }
         case "list": {
@@ -7727,8 +9748,8 @@ var Code = class {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8"
-            }
+              "Content-Type": "application/json; charset=UTF-8",
+            },
           });
         }
         case "hashCodeSession":
@@ -7737,51 +9758,55 @@ var Code = class {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8"
-            }
+              "Content-Type": "application/json; charset=UTF-8",
+            },
           });
         case "mST.mjs": {
           const body = `
           export const mST=${JSON.stringify(mST())};
           export const codeSpace="${this.codeSpace}";
           export const address="${this.address}";
-          export const importmapReplaced=${JSON.stringify({
-            js: importMapReplace(mST().transpiled, url.origin)
-          })}`;
+          export const importmapReplaced=${
+            JSON.stringify({
+              js: importMapReplace(mST().transpiled, url.origin),
+            })
+          }`;
           const content_hash = md5(body);
           return new Response(
             `
               export const mST=${JSON.stringify(mST())};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
-              export const importmapReplaced=${JSON.stringify({
-              js: importMapReplace(mST().transpiled, url.origin)
-            })}`,
+              export const importmapReplaced=${
+              JSON.stringify({
+                js: importMapReplace(mST().transpiled, url.origin),
+              })
+            }`,
             {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cache-Control": "no-cache",
                 content_hash,
-                "Content-Type": "application/javascript; charset=UTF-8"
-              }
-            }
+                "Content-Type": "application/javascript; charset=UTF-8",
+              },
+            },
           );
         }
         case "mST":
           return new Response(
             JSON.stringify({
               mST: mST(),
-              hashCode: hashCode3()
+              hashCode: hashCode3(),
             }),
             {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8"
-              }
-            }
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            },
           );
         case "room":
           return new Response(JSON.stringify({ codeSpace: this.codeSpace }), {
@@ -7789,8 +9814,8 @@ var Code = class {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8"
-            }
+              "Content-Type": "application/json; charset=UTF-8",
+            },
           });
         case "path":
           return new Response(path.join("----"), {
@@ -7798,8 +9823,8 @@ var Code = class {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "application/javascript; charset=UTF-8"
-            }
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
           });
         case "render.tsx": {
           const codeSpace = this.codeSpace;
@@ -7844,16 +9869,17 @@ var Code = class {
           <App />
         </CacheProvider>
         </ErrorBoundary>);`,
-            url.origin
+            url.origin,
           );
           return new Response(src, {
             headers: {
-              "x-typescript-types": `${url.origin}/live/${this.codeSpace}/render.tsx`,
+              "x-typescript-types":
+                `${url.origin}/live/${this.codeSpace}/render.tsx`,
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
               content_hash: md5(src),
-              "Content-Type": "application/javascript; charset=UTF-8"
-            }
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
           });
         }
         case "index.js":
@@ -7862,31 +9888,33 @@ var Code = class {
           if (i2 > mST().i) {
             const started = Date.now() / 1e3;
             const body = await new Promise(
-              (res, reject) => this.wait(() => {
-                const now = Date.now() / 1e3;
-                if (mST().i < Number(i2) && started - now < 3e3) {
-                  return false;
-                }
-                if (mST().i < Number(i2) && started - now >= 3e3) {
-                  reject(null);
-                  return false;
-                }
-                res(mST().transpiled);
-                return true;
-              })
+              (res, reject) =>
+                this.wait(() => {
+                  const now = Date.now() / 1e3;
+                  if (mST().i < Number(i2) && started - now < 3e3) {
+                    return false;
+                  }
+                  if (mST().i < Number(i2) && started - now >= 3e3) {
+                    reject(null);
+                    return false;
+                  }
+                  res(mST().transpiled);
+                  return true;
+                }),
             );
             return new Response(
               body,
               {
                 status: 200,
                 headers: {
-                  "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
+                  "x-typescript-types":
+                    `${url.origin}/live/${this.codeSpace}/index.tsx`,
                   "Access-Control-Allow-Origin": "*",
                   "Cache-Control": "no-cache",
                   content_hash: md5(body),
-                  "Content-Type": "application/javascript; charset=UTF-8"
-                }
-              }
+                  "Content-Type": "application/javascript; charset=UTF-8",
+                },
+              },
             );
           }
           if (i2 < mST().i) {
@@ -7894,11 +9922,12 @@ var Code = class {
               status: 307,
               headers: {
                 "Access-Control-Allow-Origin": "*",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.js/${mST().i}`,
+                "Location":
+                  `${url.origin}/live/${this.codeSpace}/index.js/${mST().i}`,
                 "Cache-Control": "no-cache",
                 content_hash: md5(transpiled),
-                "Content-Type": "application/javascript; charset=UTF-8"
-              }
+                "Content-Type": "application/javascript; charset=UTF-8",
+              },
             });
           }
           return new Response(transpiled, {
@@ -7906,8 +9935,8 @@ var Code = class {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
               content_hash: md5(transpiled),
-              "Content-Type": "application/javascript; charset=UTF-8"
-            }
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
           });
         }
         case "env": {
@@ -7916,22 +9945,22 @@ var Code = class {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "text/html; charset=UTF-8"
-            }
+              "Content-Type": "text/html; charset=UTF-8",
+            },
           });
         }
         case "hashCode": {
           const hashCode4 = String(Number(path[1]));
           const patch = await this.kv.get(
-            hashCode4
+            hashCode4,
           );
           return new Response(JSON.stringify(patch || {}), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8"
-            }
+              "Content-Type": "application/json; charset=UTF-8",
+            },
           });
         }
         case "":
@@ -7941,38 +9970,40 @@ var Code = class {
           const respText = src_default.replace("/**reset*/", resetCSS).replace(
             `<root/>`,
             `
-                    <div id="root" style="height: 100%;"><style>${mST().css}</style><div id="root-${this.codeSpace}" data-i="${mST().i}" style="height: 100%;">${mST().html}</div></div>`
+                    <div id="root" style="height: 100%;"><style>${mST().css}</style><div id="root-${this.codeSpace}" data-i="${mST().i}" style="height: 100%;">${mST().html}</div></div>`,
           ).split(hashCode3()).join("css");
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
           headers.set(
             "Cache-Control",
-            "no-cache"
+            "no-cache",
           );
           headers.set("Content-Type", "text/html; charset=UTF-8");
           headers.set("content_hash", md5(respText));
           return new Response(respText, {
             status: 200,
-            headers
+            headers,
           });
         }
         case "iife": {
           const startState = mST();
           const html2 = iife_default.replace(
             `/** startState **/`,
-            `Object.assign(window,${JSON.stringify({
-              startState,
-              codeSpace: this.codeSpace,
-              address: this.address
-            })});`
+            `Object.assign(window,${
+              JSON.stringify({
+                startState,
+                codeSpace: this.codeSpace,
+                address: this.address,
+              })
+            });`,
           );
           return new Response(html2, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "text/html; charset=UTF-8"
-            }
+              "Content-Type": "text/html; charset=UTF-8",
+            },
           });
         }
         case "websocket": {
@@ -7994,13 +10025,13 @@ var Code = class {
       name: "",
       quit: false,
       webSocket,
-      blockedMessages: []
+      blockedMessages: [],
     };
     this.sessions.push(session2);
     this.sessions.forEach((otherSession) => {
       if (otherSession.name) {
         session2.blockedMessages.push(
-          JSON.stringify({ name: otherSession.name })
+          JSON.stringify({ name: otherSession.name }),
         );
       }
     });
@@ -8009,12 +10040,12 @@ var Code = class {
     backlog.reverse();
     backlog.forEach((value) => {
       session2.blockedMessages.push(
-        typeof value === "string" ? value : JSON.stringify(value)
+        typeof value === "string" ? value : JSON.stringify(value),
       );
     });
     webSocket.addEventListener(
       "message",
-      (msg) => this.processWsMessage(msg, session2)
+      (msg) => this.processWsMessage(msg, session2),
     );
     const closeOrErrorHandler = () => {
       session2.quit = true;
@@ -8033,11 +10064,13 @@ var Code = class {
     const respondWith = (obj) => session2.webSocket.send(JSON.stringify(obj));
     let data;
     try {
-      data = typeof msg.data === "string" ? JSON.parse(msg.data) : JSON.parse(new TextDecoder().decode(msg.data));
+      data = typeof msg.data === "string"
+        ? JSON.parse(msg.data)
+        : JSON.parse(new TextDecoder().decode(msg.data));
     } catch (exp) {
       return respondWith({
         error: "JSON parse error",
-        exp: exp || {}
+        exp: exp || {},
       });
     }
     if (!name) {
@@ -8045,11 +10078,14 @@ var Code = class {
         session2.name = data.name;
         try {
           this.sessions.map((otherSession) => {
-            if (otherSession === session2)
+            if (otherSession === session2) {
               return;
+            }
             if (otherSession.name === data.name) {
               otherSession.name = "";
-              otherSession.blockedMessages.map((m) => session2.webSocket.send(m));
+              otherSession.blockedMessages.map((m) =>
+                session2.webSocket.send(m)
+              );
               otherSession.blockedMessages = [];
             }
           });
@@ -8066,15 +10102,17 @@ var Code = class {
         }
         const userNode = this.users.insert(data.name);
         const usersNum = this.users.keys().length;
-        const rtcConnUser = usersNum > 2 ? userNode.parent?.key || userNode.left?.key || userNode.right?.key : null;
+        const rtcConnUser = usersNum > 2
+          ? userNode.parent?.key || userNode.left?.key || userNode.right?.key
+          : null;
         return respondWith({
           ...rtcConnUser ? { name: rtcConnUser } : {},
           hashCode: hashCode3(),
-          users: this.users.keys()
+          users: this.users.keys(),
         });
       }
       return respondWith({
-        msg: "no-name-no-party"
+        msg: "no-name-no-party",
       });
     }
     if (data.codeSpace && data.address && !this.address) {
@@ -8082,7 +10120,7 @@ var Code = class {
         this.broadcast(data);
       } catch {
         return respondWith({
-          "msg": "broadcast issue"
+          "msg": "broadcast issue",
         });
       }
       this.address = data.address;
@@ -8092,14 +10130,17 @@ var Code = class {
     if (data.timestamp && !data.patch) {
       return respondWith({
         timestamp: Date.now(),
-        hashCode: hashCode3()
+        hashCode: hashCode3(),
       });
     }
     try {
       try {
-        if (data.target && data.type && ["new-ice-candidate", "video-offer", "video-answer"].includes(
-          data.type
-        )) {
+        if (
+          data.target && data.type &&
+          ["new-ice-candidate", "video-offer", "video-answer"].includes(
+            data.type,
+          )
+        ) {
           return this.user2user(data.target, { ...data, name });
         }
         if (data.patch && data.oldHash && data.newHash) {
@@ -8122,7 +10163,7 @@ var Code = class {
               this.broadcast(data);
             } catch {
               return respondWith({
-                "msg": "broadcast issue"
+                "msg": "broadcast issue",
               });
             }
             await this.kv.put("session", { ...mST() });
@@ -8130,26 +10171,26 @@ var Code = class {
               String(newHash),
               JSON.stringify({
                 oldHash,
-                patch
-              })
+                patch,
+              }),
             );
           }
           return respondWith({
-            hashCode: hashCode3()
+            hashCode: hashCode3(),
           });
         }
       } catch (exp) {
         console.error({ exp });
         return respondWith({
           error: "unknown error - e1",
-          exp: exp || {}
+          exp: exp || {},
         });
       }
     } catch (exp) {
       console.error({ exp });
       return respondWith({
         error: "unknown error - e2",
-        exp: exp || {}
+        exp: exp || {},
       });
     }
   }
@@ -8184,10 +10225,10 @@ function importMapReplace(codeInp, origin) {
     const uri = new URL(imap.imports[lib], origin).toString();
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
-      ` from "${uri}"`
+      ` from "${uri}"`,
     ).replaceAll(
       ` from './`,
-      ` from 'https://${origin}/live/`
+      ` from 'https://${origin}/live/`,
     );
   });
   return returnStr;
@@ -8234,7 +10275,7 @@ var r2bucket_default = {
         object.writeHttpMetadata(headers);
         headers.set("etag", object.httpEtag);
         return new Response(object.body, {
-          headers
+          headers,
         });
       case "DELETE":
         await env.r2_bucket.delete(key);
@@ -8243,11 +10284,11 @@ var r2bucket_default = {
         return new Response("Method Not Allowed", {
           status: 405,
           headers: {
-            Allow: "PUT, GET, DELETE"
-          }
+            Allow: "PUT, GET, DELETE",
+          },
         });
     }
-  }
+  },
 };
 
 // src/index.ts
@@ -8256,6 +10297,6 @@ export {
   Code,
   CodeRateLimiter,
   r2bucket_default as R2,
+  src_default2 as default,
   Users,
-  src_default2 as default
 };

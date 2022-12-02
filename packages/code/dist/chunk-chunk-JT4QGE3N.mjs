@@ -1,11 +1,11 @@
 import {
   Editor
-} from "./chunk-chunk-ONIEBPB2.mjs";
+} from "./chunk-chunk-ACYGIWYK.mjs";
 import {
   AutoUpdateApp,
   build,
   wait
-} from "./chunk-chunk-5RB3F3J4.mjs";
+} from "./chunk-chunk-OHZM4DWD.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
@@ -3523,7 +3523,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-6WH7HWF4.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-NNJJMYXQ.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "div",
   {
@@ -4092,14 +4092,15 @@ async function processData(data, source, conn) {
     };
     rtcConns[target].ondatachannel = async (event) => {
       const cont = new AbortController();
-      const js = build(codeSpace, mST().i, cont.abort);
+      const js = await build(codeSpace, mST().i, cont.signal);
+      const arrBuff = js.valueOf();
+      console.log({ js });
       users.insert(target);
+      event.channel.send(arrBuff);
       const rtcChannel = event.channel;
       rtcChannel.binaryType = "arraybuffer";
       rtcChannel.addEventListener("close", onReceiveChannelClosed);
       if (sendChannel && sendChannel.localStream && sendChannel.localStream.active) {
-        const src = await js;
-        sendChannel.send(JSON.stringify({ mST, bundle: src }));
         sendChannel.localStream.getTracks().forEach((track) => {
           const datachannel = rtcConns[target];
           datachannel.addTrack(track);

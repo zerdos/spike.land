@@ -36,7 +36,9 @@ export const createIframe = async (cs: string, counter: number) => {
         const mst = mST();
         const I = counter;
 
-        MST = (await importShim<{}, { mST: typeof mst }>(`/live/${cs}/mST.mjs?${I}`)).mST;
+        MST = (await importShim<{}, { mST: typeof mst }>(
+          `/live/${cs}/mST.mjs?${I}`,
+        )).mST;
       }
 
       if (signal.aborted) return;
@@ -130,7 +132,7 @@ export const createIframe = async (cs: string, counter: number) => {
 
       requestAnimationFrame(() =>
         !signal.aborted
-        && build(cs, counter, signal).then(x => x && setIframe(createJsBlob(x)))
+        && build(cs, counter, signal).then((x) => x && setIframe(createJsBlob(x)))
       );
       res(iframe);
       return iframe;
@@ -161,7 +163,9 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     }
 
     if (current === lastSuccessful) {
-      console.log(`skipping build since it is the latest successful: ${current}`);
+      console.log(
+        `skipping build since it is the latest successful: ${current}`,
+      );
       return;
     }
 
@@ -175,7 +179,10 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     div.setAttribute;
     div.setAttribute("data-shadow-dom", "open");
 
-    const w = await upgradeElement(div, "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js");
+    const w = await upgradeElement(
+      div,
+      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js",
+    );
     if (w === null) throw new Error("No worker");
     worker = w;
     lastSuccessful = current;
