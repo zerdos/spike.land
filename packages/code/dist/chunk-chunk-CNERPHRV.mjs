@@ -5853,11 +5853,11 @@ var codeSpace = location.pathname.slice(1).split("/")[1];
 var mutex = new Mutex();
 var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   await mutex.runExclusive(async () => {
-    if ([abortz[cs]])
+    if (abortz[cs])
       abortz[cs]();
     const controller2 = new AbortController();
-    const { signal, abort } = controller2;
-    abortz[cs] = abort;
+    const { signal } = controller2;
+    abortz[cs] = () => controller2.abort();
     if (modz[`${cs}-${counter}`])
       return modz[`${cs}-${counter}`];
     return modz[`${cs}-${counter}`] = new Promise(async (res) => {

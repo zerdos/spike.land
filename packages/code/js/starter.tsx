@@ -29,11 +29,11 @@ const mutex = new Mutex();
 
 export const createIframe = async (cs: string, counter: number) => {
   await mutex.runExclusive(async () => {
-    if ([abortz[cs]]) (abortz[cs])();
+    if (abortz[cs]) (abortz[cs])();
 
     const controller = new AbortController();
-    const { signal, abort } = controller;
-    abortz[cs] = abort;
+    const { signal } = controller;
+    abortz[cs] = () => controller.abort();
 
     if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
     return modz[`${cs}-${counter}`] = new Promise(async (res) => {
