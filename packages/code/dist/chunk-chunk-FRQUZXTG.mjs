@@ -6019,7 +6019,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         return createIframe(cs, c2);
       if (signal.aborted)
         return;
-      let iframe;
+      let iframe = document.createElement("iframe");
       const setIframe = /* @__PURE__ */ __name((srcJS) => {
         const iSRC = /* @__PURE__ */ __name((srcJs) => createHTML(`
         <html> 
@@ -6147,7 +6147,7 @@ var myAppCounters = {};
 var controller;
 onSessionUpdate(() => {
   if (controller)
-    controller.abort("new i");
+    controller.abort();
 }, "abort");
 var importIt = /* @__PURE__ */ __name(async (url) => {
   let waitingTime = 100;

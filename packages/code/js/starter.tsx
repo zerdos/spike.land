@@ -54,7 +54,7 @@ export const createIframe = async (cs: string, counter: number) => {
 
       if (signal.aborted) return;
 
-      let iframe: HTMLIFrameElement;
+      let iframe = document.createElement("iframe");
       const setIframe = (srcJS: string) => {
         const iSRC = (srcJs: string) =>
           createHTML(`
@@ -218,7 +218,7 @@ const myAppCounters: { [key: string]: number } = {};
 let controller: AbortController;
 
 onSessionUpdate(() => {
-  if (controller) controller.abort("new i");
+  if (controller) controller.abort();
 }, "abort");
 
 export { md5 };
