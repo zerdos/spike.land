@@ -22,15 +22,24 @@ export function createHTML(code: string, fileName = "index.html") {
   return blobUrl;
 }
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
+const abortz: { [key: string]: () => void } = {};
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const mutex = new Mutex();
+
 export const createIframe = async (cs: string, counter: number) => {
   await mutex.runExclusive(async () => {
+    if ([abortz[cs]]) (abortz[cs])();
+
+    const controller = new AbortController();
+    const { signal, abort } = controller;
+    abortz[cs] = abort;
+
     if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
     return modz[`${cs}-${counter}`] = new Promise(async (res) => {
       if (modz[cs] !== null && modz[cs]! > counter) return;
       modz[cs] = counter;
+
       let MST;
       if (cs === codeSpace) MST = mST();
       else {
@@ -38,11 +47,13 @@ export const createIframe = async (cs: string, counter: number) => {
         MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
       }
 
+      if (signal.aborted) return;
       if (modz[cs] !== counter) return;
       const { html, css, i } = MST;
 
       let code = createJsBlob(``);
 
+      if (signal.aborted) return;
       let iSRC = () =>
         createHTML(`
   <html> 
@@ -60,7 +71,7 @@ export const createIframe = async (cs: string, counter: number) => {
   </body>
   
   </html>`);
-
+      if (signal.aborted) return;
       if (modz[cs] !== counter) return;
       // document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
       // document.body.appendChild(iframe)
@@ -68,6 +79,7 @@ export const createIframe = async (cs: string, counter: number) => {
       let iframe: HTMLIFrameElement;
 
       const setIframe = () => {
+        if (signal.aborted) return;
         if (iframe) iframe.remove();
 
         iframe = document.createElement("iframe");
@@ -79,21 +91,24 @@ export const createIframe = async (cs: string, counter: number) => {
         iframe.style.border = "none";
         iframe.style.width = "100%";
         const zBody = document.getElementById("z-body");
+        if (signal.aborted) return;
         if (zBody) {
           zBody.innerHTML = "";
           zBody.appendChild(iframe);
         }
         return iframe;
       };
+      if (signal.aborted) return;
       iframe = setIframe();
       // iframe.style.position = "fixed";
 
       // iframe && iframe.remove();
       res(iframe);
       requestAnimationFrame(() =>
-        build(cs, i).then(x => {
+        !signal.aborted
+        && build(cs, i).then(x => {
           if (modz[cs] === i) code = createJsBlob(x);
-        }).then(() => setIframe())
+        }).then(() => !signal.aborted && setIframe())
       );
       return iframe;
       // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);

@@ -5848,10 +5848,16 @@ function createHTML(code, fileName = "index.html") {
 }
 __name(createHTML, "createHTML");
 var modz = {};
+var abortz = {};
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var mutex = new Mutex();
 var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   await mutex.runExclusive(async () => {
+    if ([abortz[cs]])
+      abortz[cs]();
+    const controller2 = new AbortController();
+    const { signal, abort } = controller2;
+    abortz[cs] = abort;
     if (modz[`${cs}-${counter}`])
       return modz[`${cs}-${counter}`];
     return modz[`${cs}-${counter}`] = new Promise(async (res) => {
@@ -5865,10 +5871,14 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         const I = counter || mST().i;
         MST = (await importShim(`/live/${cs}/mST.mjs?${I}`)).mST;
       }
+      if (signal.aborted)
+        return;
       if (modz[cs] !== counter)
         return;
       const { html, css: css2, i: i2 } = MST;
       let code = createJsBlob(``);
+      if (signal.aborted)
+        return;
       let iSRC = /* @__PURE__ */ __name(() => createHTML(`
   <html> 
   <head>
@@ -5885,10 +5895,14 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   </body>
   
   </html>`), "iSRC");
+      if (signal.aborted)
+        return;
       if (modz[cs] !== counter)
         return;
       let iframe;
       const setIframe = /* @__PURE__ */ __name(() => {
+        if (signal.aborted)
+          return;
         if (iframe)
           iframe.remove();
         iframe = document.createElement("iframe");
@@ -5899,19 +5913,23 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         iframe.style.border = "none";
         iframe.style.width = "100%";
         const zBody = document.getElementById("z-body");
+        if (signal.aborted)
+          return;
         if (zBody) {
           zBody.innerHTML = "";
           zBody.appendChild(iframe);
         }
         return iframe;
       }, "setIframe");
+      if (signal.aborted)
+        return;
       iframe = setIframe();
       res(iframe);
       requestAnimationFrame(
-        () => build(cs, i2).then((x2) => {
+        () => !signal.aborted && build(cs, i2).then((x2) => {
           if (modz[cs] === i2)
             code = createJsBlob(x2);
-        }).then(() => setIframe())
+        }).then(() => !signal.aborted && setIframe())
       );
       return iframe;
     });
