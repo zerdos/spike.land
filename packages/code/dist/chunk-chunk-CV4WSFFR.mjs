@@ -6163,16 +6163,14 @@ async function moveToWorker(nameSpace, parent2) {
   const { html, css: css2, i: i2, transiled } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div2 = document.createElement("div");
   div2.style.height = "100%";
-  parent2.innerHTML = `<div id="root" style="height: 100%;">
-  <style>
+  parent2.innerHTML = `<style>
   html,body {
     height: 100%;
   }
   ${resetCSS}
   ${css2}
   </style>
-  <div id="root-${codeSpace}" style="height: 100%;">${html}</div>
-  </div>`;
+  <div id="root-${codeSpace}" style="height: 100%;">${html}</div>`;
   parent2.appendChild(div2);
   const cont = new AbortController();
   const js = await build(codeSpace, i2, cont.signal);
