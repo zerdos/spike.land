@@ -6164,10 +6164,6 @@ async function moveToWorker(nameSpace, parent2) {
   const div2 = document.createElement("div");
   div2.style.height = "100%";
   parent2.innerHTML = `<style>
-  html,body {
-    height: 100%;
-  }
-  ${resetCSS}
   ${css2}
   </style>
   <div id="root-${codeSpace}" style="height: 100%;">${html}</div>`;

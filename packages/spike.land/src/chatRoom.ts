@@ -303,6 +303,17 @@ export class Code {
           import { ErrorBoundary } from "react-error-boundary";
           import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
           
+          document.body.innerHTML= "${
+              JSON.stringify(`<div id="root" style="height: 100%;">
+            <style>
+            ${css}
+            </style>
+              <div id="root-${codeSpace}" style="height: 100%;">
+                ${html}
+              </div>
+          </div>`)
+            }" 
+
 
       let rootEl = document.createElement("div");
 

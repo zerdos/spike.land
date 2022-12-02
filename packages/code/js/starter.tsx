@@ -201,10 +201,6 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
   // div.setAttribute("id", `${codeSpace}-${i}`);
   div.style.height = "100%";
   parent.innerHTML = `<style>
-  html,body {
-    height: 100%;
-  }
-  ${resetCSS}
   ${css}
   </style>
   <div id="root-${codeSpace}" style="height: 100%;">${html}</div>`;
