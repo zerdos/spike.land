@@ -103,7 +103,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     },
     write: false,
     metafile: true,
-    target: "es2021",
+    target: "es2022",
     outdir: `./dist/${codeSpace}/`,
     treeShaking: true,
     splitting: true,

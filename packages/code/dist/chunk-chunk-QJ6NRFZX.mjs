@@ -5128,7 +5128,7 @@ var toUmd = /* @__PURE__ */ __name(async (source, name) => {
         treeShaking: true,
         platform: "browser",
         ignoreAnnotations: true,
-        target: "es2021",
+        target: "es2022",
         define: {
           "globalThis.workerDom": JSON.stringify(true),
           "process.env.NODE_ENV": `"development"`,
@@ -5231,7 +5231,7 @@ var esmTransform = /* @__PURE__ */ __name(async (code) => {
         jsxImportSource: "@emotion/react"
       }
     },
-    target: "es2021"
+    target: "es2022"
   });
   Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
   return transpiled.code;
@@ -5406,7 +5406,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace2, i2, signal) => {
     },
     write: false,
     metafile: true,
-    target: "es2021",
+    target: "es2022",
     outdir: `./dist/${codeSpace2}/`,
     treeShaking: true,
     splitting: true,

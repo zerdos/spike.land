@@ -165,7 +165,7 @@ export const toUmd = async (source: string, name: string) => {
         // sourcefile: name,
         platform: "browser",
         ignoreAnnotations: true,
-        target: "es2021",
+        target: "es2022",
         // tsconfigRaw: {
         //   compilerOptions: {
         //     jsx: "react-jsx",
