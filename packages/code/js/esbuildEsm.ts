@@ -102,7 +102,17 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     splitting: true,
     incremental: true,
     format: "esm",
-    entryPoints: [`./live/${codeSpace}/render.tsx/${i}`, "./react-jsx-runtime.js", "./reactDomClient.mjs"],
+    entryPoints: [
+      `./live/${codeSpace}/render.tsx/${i}`,
+      "",
+      "./reactDomClient.mjs",
+      "./emotion.mjs",
+      "./motion.mjs",
+      "./emotionCache.mjs",
+      "./emotionStyled.mjs",
+      "./reactMod.mjs",
+      "./reactDom.mjs",
+    ],
 
     define,
     tsconfig: "./tsconfig.json",
