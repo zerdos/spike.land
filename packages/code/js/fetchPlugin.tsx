@@ -1,7 +1,7 @@
 import type { Plugin } from "esbuild-wasm";
 import { esmTransform } from "runner";
 // import localForage from "localforage";
-import { mST } from "./session";
+import { hashCode, mST } from "./session";
 const fetchCache = await caches.open("fetchcache");
 const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";
@@ -48,8 +48,9 @@ export const fetchPlugin: Plugin = {
       import createCache from "@emotion/cache";
       import { ErrorBoundary } from "react-error-boundary";
       import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
-      
-      document.body.innerHTML = '<div id="root"></div>';
+      document.body.innerHTML = '<div id="root" style="height:100%>
+      <style>${mST().css}</style>${mST().html}
+      </div>';
 
   let rootEl = document.getElementById("root");
 
@@ -58,7 +59,7 @@ export const fetchPlugin: Plugin = {
   const root = createRoot(rootEl);
   
     const cache = createCache({
-      key: "z",
+      key: "${hashCode()}",
       container: rootEl,
       speedy: false
     });
@@ -68,7 +69,7 @@ export const fetchPlugin: Plugin = {
   root.render(<ErrorBoundary
     fallbackRender={({ error }) => (
       <div role="alert">
-        <div>Oh no</div>
+        <div>Oh n o</div>
         <pre>{error.message}</pre>
       </div>
     )}>
