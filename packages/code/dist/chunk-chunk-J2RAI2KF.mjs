@@ -5450,7 +5450,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
     target: "es2022",
     outdir: `./`,
     treeShaking: true,
-    splitting: true,
+    splitting: false,
     incremental: true,
     format: "esm",
     entryPoints: [

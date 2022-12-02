@@ -99,7 +99,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
     target: "es2022",
     outdir: `./`,
     treeShaking: true,
-    splitting: true,
+    splitting: false,
     incremental: true,
     format: "esm",
     entryPoints: [
