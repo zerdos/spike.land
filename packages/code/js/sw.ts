@@ -13,6 +13,14 @@ interface MyServiceWorkerScope extends ServiceWorkerGlobalScope {
 
 declare const self: MyServiceWorkerScope;
 
+self.addEventListener("activate", () => {
+  const bc = new BroadcastChannel(location.origin);
+
+  bc.onmessage(ev => {
+    if (ev.data.type === "bundle") {
+    }
+  });
+});
 // async function wait(delay) {
 //   return new Promise((resolve) => {
 //     setTimeout(() => {
@@ -49,16 +57,16 @@ self.addEventListener("fetch", function(event) {
   return event.respondWith((async () => {
     let url = new URL(event.request.url);
 
-    if (event.request.url === "https://example.com/importmap") {
-      return new Response(JSON.stringify(importMap), {
-        status: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Cache-Control": "no-cache",
-          "Content-Type": "application/json; charset=UTF-8",
-        },
-      });
-    }
+    //  if (event.request.url === "https://example.com/importmap") {
+    //  return new Response(JSON.stringify(importMap), {
+    //     status: 200,
+    //     headers: {
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Cache-Control": "no-cache",
+    //       "Content-Type": "application/json; charset=UTF-8",
+    //     },
+    //   });
+    // }
     let isChunk = url.pathname.includes("chunk-");
     if (files && files[url.pathname.slice(1)]) {
       isChunk = true;

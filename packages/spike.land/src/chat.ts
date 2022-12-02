@@ -19,7 +19,7 @@ const esbuildExternal = [
 ];
 const mods: { [key: string]: string } = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
-export const imap = importMap;
+export const imap = (orig) => getImportMapStr(orig);
 
 const api: ExportedHandler<CodeEnv> = {
   fetch: async (
@@ -478,10 +478,11 @@ function isChunk(link: string) {
 }
 
 export const getImportMapStr = (orig: string) => {
+  const files = JSON.parse(ASSET_MANIFEST);
   const importmapImport: { [k: string]: string } = { ...imap.imports };
 
   for (const [key, value] of Object.entries(imap.imports)) {
-    importmapImport[key] = orig + "/" + value;
+    importmapImport[key] = orig + "/" + files[value];
   }
 
   return JSON.stringify({ imports: importmapImport });
