@@ -301,39 +301,21 @@ export class Code {
           import { CacheProvider } from "@emotion/react";
           import createCache from "@emotion/cache";
           import { ErrorBoundary } from "react-error-boundary";
-          import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
-
-
-
-
+          import App from "${url.origin}/live/${codeSpace}/index.js/${i + 1}"
+          
           document.body.innerHTML = ${
               JSON.stringify(
-                `<div id="root">
-                  <style>${css}</style>
-                  <div id="root-${codeSpace}" data-i="${i}" style="height: 100%;">
-                    ${html}
-                  </div>
-                </div>`,
+                `<div id="root"></div>`,
               )
             };
 
-      
       let rootEl = document.getElementById("root");
-        
-        // if (!parent) {  
-        //   parent = document.createElement("div");
-        //   parent.setAttribute("id", "${codeSpace}-${i}");
-        //   document.body.appendChild(parent);
-        // }
-        // parent.style.height="100%";
-        // parent.innerHTML=\`<div id="${codeSpace}-${k}"></div>\`;  
-        // const div = document.getElementById("root-${codeSpace}");
-        // div.style.height="100%";
-        rootEl.innerHTML="";
-        const root = createRoot(rootEl);
+      rootEl.innerHTML="";
+       
+      const root = createRoot(rootEl);
       
         const cache = createCache({
-          key: "${k}",
+          key: "z",
           container: rootEl,
           speedy: false
         });
