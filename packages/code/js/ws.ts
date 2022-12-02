@@ -441,7 +441,10 @@ async function processWsMessage(
   source: "ws" | "rtc",
   conn: { hashCode: string },
 ) {
+  console.log({ event });
   lastSeenNow = Date.now();
+
+  console.log(typeof event.data);
 
   const data = JSON.parse(event.data);
   console.log("WSWSWS", { data });
