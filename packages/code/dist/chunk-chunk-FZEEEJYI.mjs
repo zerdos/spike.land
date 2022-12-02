@@ -6401,8 +6401,8 @@ function createHTML(code) {
 __name(createHTML, "createHTML");
 
 export {
-  require_browser,
   wait,
+  runner,
   createIframe,
   runInWorker,
   importIt,
@@ -6410,6 +6410,5 @@ export {
   eCaches2 as eCaches,
   AutoUpdateApp,
   appFactory,
-  createJsBlob,
-  runner
+  createJsBlob
 };

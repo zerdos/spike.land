@@ -13,7 +13,6 @@ import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, s
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
-
 import { renderPreviewWindow } from "renderPreviewWindow";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import type { ICodeSession } from "./session";

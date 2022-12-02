@@ -1,11 +1,10 @@
 import {
   Editor
-} from "./chunk-chunk-KWG6NNBH.mjs";
+} from "./chunk-chunk-IBFUDQIV.mjs";
 import {
   AutoUpdateApp,
-  require_browser,
   wait
-} from "./chunk-chunk-DEC7RQMT.mjs";
+} from "./chunk-chunk-FZEEEJYI.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
@@ -3345,9 +3344,6 @@ __name(adapterFactory, "adapterFactory");
 var adapter = adapterFactory({ window: typeof window === "undefined" ? void 0 : window });
 var adapter_core_default = adapter;
 
-// js/ws.ts
-var import_esbuild_wasm = __toESM(require_browser(), 1);
-
 // js/renderPreviewWindow.tsx
 init_define_process();
 var import_react = __toESM(require_react(), 1);
@@ -3526,7 +3522,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-B54FAQHK.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-FVKTDA3B.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "div",
   {
@@ -4094,7 +4090,7 @@ async function processData(data, source, conn) {
     };
     rtcConns[target].ondatachannel = async (event) => {
       const cont = new AbortController();
-      const js = (0, import_esbuild_wasm.build)(codeSpace, mST().i, cont.abort);
+      const js = build(codeSpace, mST().i, cont.abort);
       users.insert(target);
       const rtcChannel = event.channel;
       rtcChannel.binaryType = "arraybuffer";
