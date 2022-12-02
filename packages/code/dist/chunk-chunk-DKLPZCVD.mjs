@@ -5895,8 +5895,11 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         iframe.setAttribute("id", `coder-${cs}`);
         iframe.style.border = "none";
         iframe.style.width = "100%";
-        (document.getElementById("z-body") || document.getElementById("root")).innerHTML = "";
-        (document.getElementById("z-body") || document.getElementById("root")).appendChild(iframe);
+        const zBody = document.getElementById("z-body");
+        if (zBody) {
+          zBody.innerHTML = "";
+          zBody.appendChild(iframe);
+        }
         return iframe;
       }, "setIframe");
       iframe = setIframe();
