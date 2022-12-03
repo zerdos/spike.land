@@ -250,7 +250,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     // Opacity: isFullScreen ? 1 : 0.7,
                   }}
                 >
-                  <m.div
+                  <m.iframe
                     initial={{
                       width: window.innerWidth,
                       height: window.innerHeight,
@@ -271,14 +271,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   position: relative  ;
                   overflow: auto;    
               `}
-                  >
-                    <iframe
-                      src={`${location.origin}/live/${room}/`}
-                      allowTransparency={true}
-                      suppressHydrationWarning
-                      seamless={true}
-                    />
-                  </m.div>
+                    src={`${location.origin}/live/${room}/`}
+                    allowTransparency={true}
+                    suppressHydrationWarning
+                    seamless={true}
+                  />
                 </m.div>
                 <m.div
                   css={css`
