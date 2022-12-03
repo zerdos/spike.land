@@ -134,7 +134,7 @@ export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin
       if (req.url.indexOf(".tsx")) {
         const contents = await esmTransform(await response.text());
         return {
-          contents: importmapReplace(co),
+          contents: importmapReplace(contents),
         };
       }
 

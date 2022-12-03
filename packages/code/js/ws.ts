@@ -12,7 +12,6 @@ import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, s
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
-import { keys } from "localforage";
 import { renderPreviewWindow } from "renderPreviewWindow";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import type { ICodeSession } from "./session";
@@ -60,13 +59,14 @@ const wsConns: {
     send: (data: string) => boolean;
   };
 } = {};
-let pingHandler = null;
+let pingHandler: NodeJS.Timeout;
 export const sendChannel = {
   localStream: null as MediaStream | null,
   webRtcArray,
   tracks,
   user,
   i: 0,
+  users,
   vidElement: document.createElement("video"),
   stopVideo,
   startVideo,
@@ -130,8 +130,9 @@ export const sendChannel = {
 sendChannel.vidElement.playsInline = true;
 sendChannel.vidElement.autoplay = true;
 
-Object.assign(globalThis, { sendChannel, mST });
+Object.assign(globalThis, { sendChannel, mST, users });
 
+sendChannel.users = users;
 // Let createDelta;
 
 // export const work = async (startState: {
@@ -190,7 +191,7 @@ export const run = async (startState: {
       event.data.codeSpace === codeSpace && event.data.i > sendChannel.i
     ) {
       sendChannel.i = event.data.i;
-      processData(event.data, "bc");
+      // processData(event.data, "bc",  );
       // sendChannel.send(JSON.stringify());
     }
 

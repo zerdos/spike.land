@@ -3229,7 +3229,7 @@ var require_parser_babel = __commonJS({
           __name(g2, "g");
           u2.exports = g2;
         } }), so = {};
-        Zp(so, { EOL: () => ar, arch: () => od, cpus: () => ho, default: () => mo, endianness: () => ro, freemem: () => oo, getNetworkInterfaces: () => fo, hostname: () => io, loadavg: () => ao, networkInterfaces: () => po, platform: () => ld, release: () => co2, tmpDir: () => rr, tmpdir: () => ir, totalmem: () => lo, type: () => uo, uptime: () => no });
+        Zp(so, { EOL: () => ar, arch: () => od, cpus: () => ho, default: () => mo, endianness: () => ro, freemem: () => oo, getNetworkInterfaces: () => fo, hostname: () => io, loadavg: () => ao, networkInterfaces: () => po, platform: () => ld, release: () => co, tmpDir: () => rr, tmpdir: () => ir, totalmem: () => lo, type: () => uo, uptime: () => no });
         function ro() {
           if (typeof jt > "u") {
             var l2 = new ArrayBuffer(2), u2 = new Uint8Array(l2), d2 = new Uint16Array(l2);
@@ -3271,10 +3271,10 @@ var require_parser_babel = __commonJS({
           return "Browser";
         }
         __name(uo, "uo");
-        function co2() {
+        function co() {
           return typeof globalThis.navigator < "u" ? globalThis.navigator.appVersion : "";
         }
-        __name(co2, "co");
+        __name(co, "co");
         function po() {
         }
         __name(po, "po");
@@ -3295,7 +3295,7 @@ var require_parser_babel = __commonJS({
         __name(rr, "rr");
         var jt, ir, ar, mo, hd = Zn({ "node-modules-polyfills:os"() {
           V(), ir = rr, ar = `
-`, mo = { EOL: ar, tmpdir: ir, tmpDir: rr, networkInterfaces: po, getNetworkInterfaces: fo, release: co2, type: uo, cpus: ho, totalmem: lo, freemem: oo, uptime: no, loadavg: ao, hostname: io, endianness: ro };
+`, mo = { EOL: ar, tmpdir: ir, tmpDir: rr, networkInterfaces: po, getNetworkInterfaces: fo, release: co, type: uo, cpus: ho, totalmem: lo, freemem: oo, uptime: no, loadavg: ao, hostname: io, endianness: ro };
         } }), ud = K({ "node-modules-polyfills-commonjs:os"(l2, u2) {
           V();
           var d2 = (hd(), td(so));
@@ -20725,7 +20725,7 @@ ${P2}`), h2 ? g2.reset(P2) : P2;
           re();
           var t2 = wt(), s2 = wd(), a2 = _d(), r2 = Pd(), u2 = [t2(Id(), () => ({ since: "1.5.0", parsers: ["graphql"], vscodeLanguageIds: ["graphql"] }))], i2 = { graphql: s2 };
           n2.exports = { languages: u2, options: a2, printers: i2, parsers: r2 };
-        } }), co2 = ee({ "src/language-markdown/loc.js"(e2, n2) {
+        } }), co = ee({ "src/language-markdown/loc.js"(e2, n2) {
           "use strict";
           re();
           function t2(a2) {
@@ -20742,7 +20742,7 @@ ${P2}`), h2 ? g2.reset(P2) : P2;
         } }), Yn = ee({ "src/language-markdown/utils.js"(e2, n2) {
           "use strict";
           re();
-          var { getLast: t2 } = Ge(), { locStart: s2, locEnd: a2 } = co2(), { cjkPattern: r2, kPattern: u2, punctuationPattern: i2 } = Ld(), l2 = ["liquidNode", "inlineCode", "emphasis", "esComment", "strong", "delete", "wikiLink", "link", "linkReference", "image", "imageReference", "footnote", "footnoteReference", "sentence", "whitespace", "word", "break", "inlineMath"], c2 = [...l2, "tableCell", "paragraph", "heading"], y2 = new RegExp(u2), h2 = new RegExp(i2);
+          var { getLast: t2 } = Ge(), { locStart: s2, locEnd: a2 } = co(), { cjkPattern: r2, kPattern: u2, punctuationPattern: i2 } = Ld(), l2 = ["liquidNode", "inlineCode", "emphasis", "esComment", "strong", "delete", "wikiLink", "link", "linkReference", "image", "imageReference", "footnote", "footnoteReference", "sentence", "whitespace", "word", "break", "inlineMath"], c2 = [...l2, "tableCell", "paragraph", "heading"], y2 = new RegExp(u2), h2 = new RegExp(i2);
           function g2(F, A2) {
             let B = "non-cjk", I = "cj-letter", P2 = "k-letter", R2 = "cjk-punctuation", f2 = [], x2 = (A2.proseWrap === "preserve" ? F : F.replace(new RegExp(`(${r2})
 (${r2})`, "g"), "$1$2")).split(/([\t\n ]+)/);
@@ -20981,7 +20981,7 @@ ${u2.content}`;
         } }), Md = ee({ "src/language-markdown/printer-markdown.js"(e2, n2) {
           "use strict";
           re();
-          var { getLast: t2, getMinNotPresentContinuousCount: s2, getMaxContinuousCount: a2, getStringWidth: r2, isNonEmptyArray: u2 } = Ge(), { builders: { breakParent: i2, join: l2, line: c2, literalline: y2, markAsRoot: h2, hardline: g2, softline: p2, ifBreak: D, fill: v2, align: w2, indent: T2, group: F, hardlineWithoutBreakParent: A2 }, utils: { normalizeDoc: B, replaceTextEndOfLine: I }, printer: { printDocToString: P2 } } = qe(), R2 = jd(), { insertPragma: f2 } = po(), { locStart: x2, locEnd: m2 } = co2(), E2 = Od(), o2 = qd(), { getFencedCodeBlockValue: d2, hasGitDiffFriendlyOrderedList: C2, splitText: _2, punctuationPattern: b2, INLINE_NODE_TYPES: N2, INLINE_NODE_WRAPPER_TYPES: k2, isAutolink: $ } = Yn(), M2 = /* @__PURE__ */ new Set(["importExport"]), q = ["heading", "tableCell", "link", "wikiLink"], J = /* @__PURE__ */ new Set(["listItem", "definition", "footnoteDefinition"]);
+          var { getLast: t2, getMinNotPresentContinuousCount: s2, getMaxContinuousCount: a2, getStringWidth: r2, isNonEmptyArray: u2 } = Ge(), { builders: { breakParent: i2, join: l2, line: c2, literalline: y2, markAsRoot: h2, hardline: g2, softline: p2, ifBreak: D, fill: v2, align: w2, indent: T2, group: F, hardlineWithoutBreakParent: A2 }, utils: { normalizeDoc: B, replaceTextEndOfLine: I }, printer: { printDocToString: P2 } } = qe(), R2 = jd(), { insertPragma: f2 } = po(), { locStart: x2, locEnd: m2 } = co(), E2 = Od(), o2 = qd(), { getFencedCodeBlockValue: d2, hasGitDiffFriendlyOrderedList: C2, splitText: _2, punctuationPattern: b2, INLINE_NODE_TYPES: N2, INLINE_NODE_WRAPPER_TYPES: k2, isAutolink: $ } = Yn(), M2 = /* @__PURE__ */ new Set(["importExport"]), q = ["heading", "tableCell", "link", "wikiLink"], J = /* @__PURE__ */ new Set(["listItem", "definition", "footnoteDefinition"]);
           function L2(pe, ie, ve) {
             let ce = pe.getValue();
             if (fe(pe))
@@ -26708,7 +26708,7 @@ var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
       if (req.url.indexOf(".tsx")) {
         const contents2 = await esmTransform(await response.text());
         return {
-          contents: importmapReplace(co)
+          contents: importmapReplace(contents2)
         };
       }
       if (args.namespace === "ttf") {
@@ -27218,7 +27218,6 @@ function createHTML(code) {
 __name(createHTML, "createHTML");
 
 export {
-  require_localforage,
   prettierJs,
   runner,
   createIframe,

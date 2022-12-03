@@ -1,10 +1,9 @@
 import {
   Editor
-} from "./chunk-chunk-U5AMAKHP.mjs";
+} from "./chunk-chunk-4OCK2FXS.mjs";
 import {
-  AutoUpdateApp,
-  require_localforage
-} from "./chunk-chunk-FN6IDLX5.mjs";
+  AutoUpdateApp
+} from "./chunk-chunk-TXI7OPA3.mjs";
 import {
   wait
 } from "./chunk-chunk-NBK6NTLB.mjs";
@@ -677,15 +676,15 @@ function height(node) {
   return node ? 1 + Math.max(height(node.left), height(node.right)) : 0;
 }
 __name(height, "height");
-function loadRecursive(parent, keys2, values, start, end) {
+function loadRecursive(parent, keys, values, start, end) {
   const size = end - start;
   if (size > 0) {
     const middle = start + Math.floor(size / 2);
-    const key = keys2[middle];
+    const key = keys[middle];
     const data = values[middle];
     const node = { key, data, parent };
-    node.left = loadRecursive(node, keys2, values, start, middle);
-    node.right = loadRecursive(node, keys2, values, middle + 1, end);
+    node.left = loadRecursive(node, keys, values, start, middle);
+    node.right = loadRecursive(node, keys, values, middle + 1, end);
     return node;
   }
   return null;
@@ -700,30 +699,30 @@ function markBalance(node) {
   return Math.max(lh, rh) + 1;
 }
 __name(markBalance, "markBalance");
-function sort(keys2, values, left, right, compare) {
+function sort(keys, values, left, right, compare) {
   if (left >= right)
     return;
-  const pivot = keys2[left + right >> 1];
+  const pivot = keys[left + right >> 1];
   let i = left - 1;
   let j = right + 1;
   while (true) {
     do
       i++;
-    while (compare(keys2[i], pivot) < 0);
+    while (compare(keys[i], pivot) < 0);
     do
       j--;
-    while (compare(keys2[j], pivot) > 0);
+    while (compare(keys[j], pivot) > 0);
     if (i >= j)
       break;
-    let tmp = keys2[i];
-    keys2[i] = keys2[j];
-    keys2[j] = tmp;
+    let tmp = keys[i];
+    keys[i] = keys[j];
+    keys[j] = tmp;
     tmp = values[i];
     values[i] = values[j];
     values[j] = tmp;
   }
-  sort(keys2, values, left, j, compare);
-  sort(keys2, values, j + 1, right, compare);
+  sort(keys, values, left, j, compare);
+  sort(keys, values, j + 1, right, compare);
 }
 __name(sort, "sort");
 
@@ -1187,13 +1186,13 @@ var AVLTree = class {
     this._size--;
     return returnValue;
   }
-  load(keys2 = [], values = [], presort) {
+  load(keys = [], values = [], presort) {
     if (this._size !== 0)
       throw new Error("bulk-load: tree is not empty");
-    const size = keys2.length;
+    const size = keys.length;
     if (presort)
-      sort(keys2, values, 0, size - 1, this._comparator);
-    this._root = loadRecursive(null, keys2, values, 0, size);
+      sort(keys, values, 0, size - 1, this._comparator);
+    this._root = loadRecursive(null, keys, values, 0, size);
     markBalance(this._root);
     this._size = size;
     return this;
@@ -3347,9 +3346,6 @@ __name(adapterFactory, "adapterFactory");
 var adapter = adapterFactory({ window: typeof window === "undefined" ? void 0 : window });
 var adapter_core_default = adapter;
 
-// js/ws.ts
-var import_localforage = __toESM(require_localforage(), 1);
-
 // js/renderPreviewWindow.tsx
 init_define_process();
 var import_react = __toESM(require_react(), 1);
@@ -3528,7 +3524,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-CQESUIF6.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-HP5Q4CAB.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "div",
   {
@@ -3707,13 +3703,14 @@ var ws = null;
 var rejoined = false;
 var tracks = {};
 var wsConns = {};
-var pingHandler = null;
+var pingHandler;
 var sendChannel = {
   localStream: null,
   webRtcArray,
   tracks,
   user,
   i: 0,
+  users,
   vidElement: document.createElement("video"),
   stopVideo,
   startVideo,
@@ -3771,7 +3768,8 @@ var sendChannel = {
 };
 sendChannel.vidElement.playsInline = true;
 sendChannel.vidElement.autoplay = true;
-Object.assign(globalThis, { sendChannel, mST });
+Object.assign(globalThis, { sendChannel, mST, users });
+sendChannel.users = users;
 var run = /* @__PURE__ */ __name(async (startState) => {
   const { mST: mst, dry, address } = startState;
   codeSpace = startState.codeSpace;
