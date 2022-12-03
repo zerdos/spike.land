@@ -61,6 +61,7 @@ const wsConns: {
     send: (data: string) => boolean;
   };
 } = {};
+let pingHandler = null;
 export const sendChannel = {
   localStream: null as MediaStream | null,
   webRtcArray,
@@ -73,6 +74,10 @@ export const sendChannel = {
   rtcConns,
   wsConns,
   send(d: any) {
+    if (pingHandler) clearTimeout(pingHandler);
+    pingHandler = setTimeout(() => {
+      sendChannel.send({ name: user, hashCode: hashCode(), type: "ping" });
+    }, Math.random() * 20_000);
     const me = users.find(user);
 
     const left = me?.left;
@@ -212,7 +217,7 @@ export const run = async (startState: {
   onSessionUpdate(
     () => {
       debouncedSyncWs();
-      debouncedSyncRTC();
+      // debouncedSyncRTC();
 
       const sess = mST();
 
@@ -251,16 +256,16 @@ async function rejoin() {
 
 const ignoreUsers: string[] = [];
 
-const debouncedSyncRTC = debounce(syncRTC, 100, {
-  trailing: true,
-  leading: true,
-  maxWait: 500,
-});
+// const debouncedSyncRTC = debounce(syncRTC, 100, {
+//   trailing: true,
+//   leading: true,
+//   maxWait: 500,
+// });
 
 const debouncedSyncWs = debounce(syncWS, 1200, {
   trailing: true,
   leading: true,
-  maxWait: 2500,
+  maxWait: 1000,
 });
 
 async function syncWS() {
@@ -288,7 +293,7 @@ async function syncWS() {
       }
 
       const messageString = JSON.stringify({ ...message, name: user });
-      sendWS(messageString);
+      sendChannel.send(messageString);
     } else {
       rejoined = false;
       await rejoin();

@@ -3526,7 +3526,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-MS62QSCR.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-IR5TIQDX.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "div",
   {
@@ -3706,6 +3706,7 @@ var sendWS;
 var rejoined = false;
 var tracks = {};
 var wsConns = {};
+var pingHandler = null;
 var sendChannel = {
   localStream: null,
   webRtcArray,
@@ -3718,6 +3719,11 @@ var sendChannel = {
   rtcConns,
   wsConns,
   send(d) {
+    if (pingHandler)
+      clearTimeout(pingHandler);
+    pingHandler = setTimeout(() => {
+      sendChannel.send({ name: user, hashCode: hashCode(), type: "ping" });
+    }, Math.random() * 2e4);
     const me = users.find(user);
     const left = me?.left;
     const right = me?.right;
@@ -3801,7 +3807,6 @@ var run = /* @__PURE__ */ __name(async (startState) => {
   onSessionUpdate(
     () => {
       debouncedSyncWs();
-      debouncedSyncRTC();
       const sess = mST();
       const hash = md5(JSON.stringify(sess));
       if (hash === _hash)
@@ -3828,15 +3833,10 @@ async function rejoin() {
 }
 __name(rejoin, "rejoin");
 var ignoreUsers = [];
-var debouncedSyncRTC = (0, import_lodash.default)(syncRTC, 100, {
-  trailing: true,
-  leading: true,
-  maxWait: 500
-});
 var debouncedSyncWs = (0, import_lodash.default)(syncWS, 1200, {
   trailing: true,
   leading: true,
-  maxWait: 2500
+  maxWait: 1e3
 });
 async function syncWS() {
   try {
@@ -3856,7 +3856,7 @@ async function syncWS() {
         return;
       }
       const messageString = JSON.stringify({ ...message, name: user });
-      sendWS(messageString);
+      sendChannel.send(messageString);
     } else {
       rejoined = false;
       await rejoin();
@@ -3899,25 +3899,6 @@ async function startVideo() {
   );
 }
 __name(startVideo, "startVideo");
-async function syncRTC() {
-  try {
-    if (Object.keys(rtcConns).length > 0) {
-      if (webRTCLastSeenHashCode === hashCode()) {
-        return;
-      }
-      const sess = mST();
-      const message = webRTCLastSeenHashCode ? makePatchFrom(
-        webRTCLastSeenHashCode,
-        sess
-      ) : makePatch(sess);
-      if (message !== null && message.patch) {
-        sendChannel.send(message);
-      }
-    }
-  } catch (error) {
-  }
-}
-__name(syncRTC, "syncRTC");
 async function join() {
   if (ws !== null) {
     return ws;

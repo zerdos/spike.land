@@ -10,7 +10,7 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-ZRQ5PVWF.mjs";
+} from "./chunk-chunk-XEUF64P6.mjs";
 import "./chunk-chunk-54RTYY52.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-MDQSALWO.mjs";
