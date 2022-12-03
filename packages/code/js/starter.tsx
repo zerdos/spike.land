@@ -144,8 +144,7 @@ export const createIframe = async (cs: string, counter: number) => {
   });
 };
 
-let worker: typeof ExportedWorker;
-let div: HTMLDivElement | false;
+let worker: ExportedWorker;
 // let oldDiv = null;
 let parent: HTMLDivElement;
 let lastH = "";
@@ -172,12 +171,8 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     parent = _parent || parent || document.getElementById("root");
     // if (worker) worker.();
 
-    div = await moveToWorker(nameSpace, parent);
-
-    // if (oldDiv) oldDiv.remove();
-    if (!div) return false;
-    div.setAttribute;
-    div.setAttribute("data-shadow-dom", "open");
+    const div = await moveToWorker(nameSpace, parent);
+    if (!div) return;
 
     const w = await upgradeElement(
       div,
@@ -185,7 +180,6 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     );
     if (w === null) throw new Error("No worker");
     worker = w;
-    lastSuccessful = current;
   });
 }
 
@@ -224,6 +218,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
   const src = createJsBlob(js);
 
   div.setAttribute("src", src);
+  div.setAttribute("data-shadow-dom", "open");
 
   return div;
 }
