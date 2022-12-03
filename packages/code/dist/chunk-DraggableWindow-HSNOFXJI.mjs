@@ -8,9 +8,7 @@ import {
   ToggleButtonGroup,
   Tv
 } from "./chunk-chunk-3AXFTQSJ.mjs";
-import {
-  sendChannel
-} from "./chunk-chunk-PY2U2CLF.mjs";
+import "./chunk-chunk-L7UXRYSJ.mjs";
 import "./chunk-chunk-MJRCBGYD.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-2SI3OS7I.mjs";
@@ -25,9 +23,7 @@ import {
 import "./chunk-chunk-FJRKYGWZ.mjs";
 import "./chunk-chunk-OH444ZSQ.mjs";
 import "./chunk-chunk-ZL6L5B7C.mjs";
-import {
-  mST
-} from "./chunk-chunk-MIF2TXG6.mjs";
+import "./chunk-chunk-MIF2TXG6.mjs";
 import {
   AnimatePresence,
   LazyMotion,
@@ -115,12 +111,10 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     null
   ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
   const [bg, setBG] = (0, import_react3.useState)(bgColor);
-  const [mstCss, setCSS] = (0, import_react3.useState)(mST().css);
   const [r, g, b, a] = bg;
   const rgba = /* @__PURE__ */ __name((r2, g2, b2, a2) => `rgba(${r2},${g2},${b2},${a2})`, "rgba");
   (0, import_react3.useEffect)(() => {
     const intervalHandler = setInterval(() => {
-      setCSS(mST().css);
       const bgColor2 = window.getComputedStyle(
         document.body,
         null
@@ -130,10 +124,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     }, 1e3 / 2);
     return () => clearInterval(intervalHandler);
   }, []);
-  const [clients, setClients] = (0, import_react3.useState)(Object.keys(sendChannel.rtcConns));
-  (0, import_react3.useEffect)(() => {
-    setClients([...Object.keys(sendChannel.rtcConns)]);
-  }, [sendChannel.webRtcArray.length, setClients]);
   const delay = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
@@ -154,7 +144,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
         borderRadius: 16
       },
       css: import_react2.css`
-            ${mstCss.split("body").join(`[data-test-id="z-body"]`)}
+            /* ${mstCss.split("body").join(`[data-test-id="z-body"]`)} */
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, a || 0.3)};
             backdrop-filter: blur(15px);
