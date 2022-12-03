@@ -110,7 +110,7 @@ export const fetchPlugin: Plugin = {
       if (req.url.indexOf(".tsx")) {
         const contents = await esmTransform(await response.text());
         return {
-          contents,
+          contents: impo,
         };
       }
 

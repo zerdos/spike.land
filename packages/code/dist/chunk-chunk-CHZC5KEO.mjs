@@ -26694,7 +26694,7 @@ var fetchPlugin = {
       if (req.url.indexOf(".tsx")) {
         const contents2 = await esmTransform(await response.text());
         return {
-          contents: contents2
+          contents: impo
         };
       }
       if (args.namespace === "ttf") {
@@ -26836,6 +26836,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle) => {
     ],
     loader: {
       ".js": "tsx",
+      ".tsx": "tsx",
       ".css": "css",
       ".ttf": "dataurl"
     },
@@ -26856,7 +26857,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle) => {
       `./render.tsx?i=${i2}`
     ],
     tsconfig: "./tsconfig.json",
-    plugins: [unpkgPathPlugin, fetchPlugin]
+    plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)]
   };
   let b2;
   if (!signal.aborted && (b2 = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
