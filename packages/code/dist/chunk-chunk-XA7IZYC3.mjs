@@ -3722,6 +3722,7 @@ var sendChannel = {
     pingHandler = setTimeout(() => {
       sendChannel.send({ name: user, hashCode: hashCode(), type: "ping" });
     }, Math.random() * 2e4);
+    console.log(d);
     const me = users.find(user);
     const left = me?.left;
     const right = me?.right;
@@ -3790,7 +3791,6 @@ var run = /* @__PURE__ */ __name(async (startState) => {
     }
     if (event.data.codeSpace === codeSpace && event.data.i > sendChannel.i) {
       sendChannel.i = event.data.i;
-      processData(event.data, "bc");
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
@@ -4137,7 +4137,7 @@ async function processData(data, source, conn) {
           datachannel.addTrack(track);
         });
       }
-      const extendeConn = {
+      const conn2 = {
         send: (data2) => {
           rtcChannel.readyState == "open";
           rtcChannel.send(data2);
@@ -4152,7 +4152,7 @@ async function processData(data, source, conn) {
         async (message) => processWsMessage(
           message,
           "rtc",
-          extendeConn
+          conn2
         )
       );
       const rtcWithTarget = Object.assign(rtc, { target });
