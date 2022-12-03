@@ -90,5 +90,5 @@
     "esbuild-dev.mjs",
     "js/..prettierJs.ts"
   ],
-  "exclude": [".yarn", "dist"]
+  "exclude": [".yarn", "dist", "../worker-dom/src"]
 }

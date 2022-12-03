@@ -16,7 +16,7 @@ importShim.addImportMap({ imports: res });
   const paths = location.pathname.split("/");
   const codeSpace = paths[2];
 
-  const rootEl = document.getElementById(`root-${codeSpace}`)!;
+  const rootEl = document.getElementById(`root`)!;
   let i = +(rootEl.getAttribute("data-i") || "0");
   let root: ReactDOMClient.Root;
   const bc = new BroadcastChannel(location.origin);
@@ -52,7 +52,7 @@ importShim.addImportMap({ imports: res });
       "./starter.mjs",
     );
 
-    runInWorker(codeSpace, document.getElementById("root"));
+    runInWorker(codeSpace, document.getElementById("root")!);
   } else if (location.pathname.includes(`/live/${codeSpace}/`)) {
     const { createRoot } = await importShim<{}, typeof ReactDOMClient>(
       "react-dom/client",
@@ -63,7 +63,7 @@ importShim.addImportMap({ imports: res });
         .default;
       i++;
 
-      root = createRoot(rootEl);
+      root = createRoot(rootEl.getElementsByTagName("div")[0]);
       root.render(
         <React.StrictMode>
           <App />

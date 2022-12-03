@@ -7981,7 +7981,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   (async () => {
     const paths = location.pathname.split("/");
     const codeSpace = paths[2];
-    const rootEl = document.getElementById(`root-${codeSpace}`);
+    const rootEl = document.getElementById(`root`);
     let i = +(rootEl.getAttribute("data-i") || "0");
     let root;
     const bc = new BroadcastChannel(location.origin);
@@ -8010,7 +8010,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       const render = /* @__PURE__ */ __name(async () => {
         const App = (await importShim(`/live/${codeSpace}/index.js/${i}`)).default;
         i++;
-        root = createRoot(rootEl);
+        root = createRoot(rootEl.getElementsByTagName("div")[0]);
         root.render(
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}) })
         );

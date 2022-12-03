@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { useEffect } from "react";
 
+import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
@@ -9,8 +10,6 @@ import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
-import type { ExportedWorker } from "./worker-dom/src/main-thread/exported-worker";
-import { upgradeElement } from "./worker-dom/src/main-thread/index";
 
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
 const abortz: { [key: string]: () => void } = {};
@@ -59,19 +58,22 @@ export const createIframe = async (cs: string, counter: number) => {
 
       const iSRC = (srcJS: string) =>
         createHTML(`
-        <html> 
+    <html> 
     <head>
     <style>
-    html,body {
+    html,body{
       height: 100%;
+    }
+    q{
+      display: none;
     }
     ${resetCSS}
     ${css}
     </style>
-    <script type="module" src="${srcJS}"></script> 
+    <script type="module" src=${srcJS}></script> 
     </head>
     <body>
-    <div id="root-${cs}" style="height: 100%;">${html}</div>
+    <div id="${cs}-css" style="height: 100%;">${html}</div>
     </body>
     </html>`);
       const setIframe = (srcJS: string) => {
@@ -82,7 +84,6 @@ export const createIframe = async (cs: string, counter: number) => {
 
         iframe.onload = () => {
           if (signal.aborted) return false;
-          const zBody = document.getElementById("z-body");
 
           if (zBody?.firstChild?.isSameNode(iframe)) {
             console.log("ALL OK");
@@ -110,7 +111,7 @@ export const createIframe = async (cs: string, counter: number) => {
         if (signal.aborted) return false;
 
         if (zBody) {
-          zBody.innerHTML = "";
+          zBody.innerHTML = ``;
           zBody.appendChild(iframe);
           return iframe;
         }
@@ -144,7 +145,7 @@ export const createIframe = async (cs: string, counter: number) => {
   });
 };
 
-let worker: ExportedWorker;
+let worker: { terminate: () => void };
 // let oldDiv = null;
 let parent: HTMLDivElement;
 let lastH = "";
@@ -168,15 +169,12 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
       return;
     }
 
-    parent = _parent || parent || document.getElementById("root");
-    // if (worker) worker.();
-
-    const div = await moveToWorker(nameSpace, parent);
+    const div = await moveToWorker(nameSpace, document.getElementById("root")!);
     if (!div) return;
 
     const w = await upgradeElement(
       div,
-      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js",
+      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs",
     );
     if (w === null) throw new Error("No worker");
     worker = w;
@@ -204,11 +202,11 @@ bc.onmessage = (event) => {
 
 // importShim.addImportMap({ imports: res });
 
-async function moveToWorker(nameSpace: string, parent: HTMLDivElement) {
+async function moveToWorker(nameSpace: string, parent: HTMLElement) {
   const { i } = nameSpace === codeSpace
     ? mST()
     : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
-  const div = document.getElementById(`root-${codeSpace}`)!;
+  const div = parent?.getElementsByTagName("div")[0]!;
   div.style.height = "100%";
   const cont = new AbortController();
 

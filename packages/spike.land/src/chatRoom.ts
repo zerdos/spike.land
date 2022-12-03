@@ -433,9 +433,8 @@ export class Code {
         case "public": {
           const respText = HTML.replace("/**reset*/", resetCSS).replace(
             `<root/>`,
-            `
-                    <div id="root" style="height: 100%;"><style>${mST().css}</style><div id="root-${this.codeSpace}" data-i="${mST().i}" style="height: 100%;">${mST().html}</div></div>`,
-          ).split(hashCode()).join("css");
+            `<div id="root" data-i="${i}" style="height: 100%;"><style>${mST().css}</style>${mST().html}</div>`,
+          );
 
           // const Etag = request.headers.get("Etag");
           // const newEtag = await sha256(respText);
