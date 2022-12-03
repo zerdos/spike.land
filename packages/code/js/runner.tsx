@@ -2,6 +2,7 @@
 import type { TransformOptions } from "esbuild-wasm";
 import debounce from "lodash.debounce";
 import { build, transform } from "./esbuildEsm";
+import { prettierJs } from "./prettierEsm";
 import { render } from "./renderToString";
 import { md5, mST, patchSync } from "./session";
 import { toUmd } from "./toUmd";
@@ -76,12 +77,13 @@ export const umdTransform = async (code: string) => {
 //   umdTransform,
 // });
 
-export async function runner({ code, counter, codeSpace }: {
-  code: string;
+export async function runner({ code: c, counter, codeSpace }: {
+  c: string;
   codeSpace: string;
   counter: number;
 }) {
-  if (counter <= counterMax) return;
+  const code = prettierJs(c);
+  if (counter < counterMax) return;
 
   counterMax = counter;
 

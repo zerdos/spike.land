@@ -100,7 +100,7 @@ const definePrd = {
 
 let skipImportmapReplaceNames = false;
 // let lastbuild;
-const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
+const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle: boolean) => {
   // if (lastbuild) {
   // lastbuild = await lastbuild.rebuild();
   //
@@ -112,7 +112,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal) => {
   if (initFinished !== true) await (initFinished);
   skipImportmapReplaceNames = true;
   const defaultOpts: BuildOptions = {
-    bundle: true,
+    bundle: false,
     resolveExtensions: [
       ".tsx",
       ".ts",

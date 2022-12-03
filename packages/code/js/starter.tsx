@@ -35,9 +35,7 @@ export const createIframe = async (cs: string, counter: number) => {
         const mst = mST();
         const I = counter;
 
-        MST = (await importShim<{}, { mST: typeof mst }>(
-          `/live/${cs}/mST.mjs?${I}`,
-        )).mST;
+        MST = (await import(`${location.origin}/live/${cs}/mST.mjs?${I}`)).mST;
       }
 
       if (signal.aborted) return;
@@ -134,7 +132,7 @@ export const createIframe = async (cs: string, counter: number) => {
 
       requestAnimationFrame(() =>
         !signal.aborted
-        && build(cs, counter, signal).then((x) => x && setIframe(createJsBlob(x)))
+        && build(cs, counter, signal, false).then((x) => x && setIframe(createJsBlob(x)))
       );
       res(iframe);
       return iframe;
