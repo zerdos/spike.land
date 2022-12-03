@@ -120,14 +120,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     .map((x) => Number(x) || 0);
 
   const [bg, setBG] = useState(bgColor);
-  const [mstCss, setCSS] = useState(mST().css);
+  // const [mstCss, setCSS] = useState(mST().css);
   const [r, g, b, a] = bg;
 
   const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r},${g},${b},${a})`;
 
   useEffect(() => {
     const intervalHandler = setInterval(() => {
-      setCSS(mST().css);
+      // setCSS(mST().css);
       const bgColor = window.getComputedStyle(
         document.body,
         null,
@@ -141,11 +141,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     return () => clearInterval(intervalHandler);
   }, []);
 
-  const [clients, setClients] = useState(Object.keys(sendChannel.rtcConns));
+  // const [clients, setClients] = useState(Object.keys(sendChannel.rtcConns));
 
-  useEffect(() => {
-    setClients([...Object.keys(sendChannel.rtcConns)]);
-  }, [sendChannel.webRtcArray.length, setClients]);
+  // useEffect(() => {
+  //   setClients([...Object.keys(sendChannel.rtcConns)]);
+  // }, [sendChannel.webRtcArray.length, setClients]);
 
   const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
@@ -170,7 +170,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               borderRadius: 16,
             }}
             css={css`
-            ${mstCss.split("body").join(`[data-test-id="z-body"]`)}
+            /* ${mstCss.split("body").join(`[data-test-id="z-body"]`)} */
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, a || .3)};
             backdrop-filter: blur(15px);
