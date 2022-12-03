@@ -27074,10 +27074,6 @@ bc.onmessage = (event) => {
     if (location.href.indexOf("/hydrated") !== -1) {
       runInWorker(nameSpace, parent);
     } else {
-      let iframe = document.createElement("iframe");
-      iframe.setAttribute("src", `${location.origin}/live/${codeSpace2}/`);
-      iframe.style.height = "100%";
-      iframe.style.border = "none";
     }
   }
 };

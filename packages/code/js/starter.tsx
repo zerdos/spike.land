@@ -190,13 +190,13 @@ bc.onmessage = (event) => {
     if (location.href.indexOf("/hydrated") !== -1) {
       runInWorker(nameSpace, parent);
     } else {
-      let iframe = document.createElement("iframe");
-      iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
+      // let iframe = document.createElement("iframe");
+      // iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
 
-      //  iframe.setAttribute("data-coder", cs);
-      iframe.style.height = "100%";
-      //    iframe.setAttribute("id", `coder-${cs}`);
-      iframe.style.border = "none";
+      // //  iframe.setAttribute("data-coder", cs);
+      // iframe.style.height = "100%";
+      // //    iframe.setAttribute("id", `coder-${cs}`);
+      // iframe.style.border = "none";
       // iframe.style.width = "100%";
 
       //      createIframe(nameSpace, mST().i);
