@@ -245,6 +245,7 @@ const build = (
       "js/motion.ts",
       "js/reactDom.ts",
       "js/reactDomClient.ts",
+      "js/esbuildWASM.ts",
 
       // "js/ws.ts",
       "js/emotion.ts",
