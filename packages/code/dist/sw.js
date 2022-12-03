@@ -2274,154 +2274,6 @@
     }
   });
 
-  // ../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js
-  var require_lodash = __commonJS({
-    "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
-      init_define_process();
-      var FUNC_ERROR_TEXT = "Expected a function";
-      var NAN = 0 / 0;
-      var symbolTag = "[object Symbol]";
-      var reTrim = /^\s+|\s+$/g;
-      var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-      var reIsBinary = /^0b[01]+$/i;
-      var reIsOctal = /^0o[0-7]+$/i;
-      var freeParseInt = parseInt;
-      var freeGlobal = typeof globalThis == "object" && globalThis && globalThis.Object === Object && globalThis;
-      var freeSelf = typeof self == "object" && self && self.Object === Object && self;
-      var root = freeGlobal || freeSelf || Function("return this")();
-      var objectProto = Object.prototype;
-      var objectToString = objectProto.toString;
-      var nativeMax = Math.max;
-      var nativeMin = Math.min;
-      var now = /* @__PURE__ */ __name(function() {
-        return root.Date.now();
-      }, "now");
-      function debounce3(func, wait2, options) {
-        var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
-        if (typeof func != "function") {
-          throw new TypeError(FUNC_ERROR_TEXT);
-        }
-        wait2 = toNumber(wait2) || 0;
-        if (isObject(options)) {
-          leading = !!options.leading;
-          maxing = "maxWait" in options;
-          maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait2) : maxWait;
-          trailing = "trailing" in options ? !!options.trailing : trailing;
-        }
-        function invokeFunc(time) {
-          var args = lastArgs, thisArg = lastThis;
-          lastArgs = lastThis = void 0;
-          lastInvokeTime = time;
-          result = func.apply(thisArg, args);
-          return result;
-        }
-        __name(invokeFunc, "invokeFunc");
-        function leadingEdge(time) {
-          lastInvokeTime = time;
-          timerId = setTimeout(timerExpired, wait2);
-          return leading ? invokeFunc(time) : result;
-        }
-        __name(leadingEdge, "leadingEdge");
-        function remainingWait(time) {
-          var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, result2 = wait2 - timeSinceLastCall;
-          return maxing ? nativeMin(result2, maxWait - timeSinceLastInvoke) : result2;
-        }
-        __name(remainingWait, "remainingWait");
-        function shouldInvoke(time) {
-          var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime;
-          return lastCallTime === void 0 || timeSinceLastCall >= wait2 || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
-        }
-        __name(shouldInvoke, "shouldInvoke");
-        function timerExpired() {
-          var time = now();
-          if (shouldInvoke(time)) {
-            return trailingEdge(time);
-          }
-          timerId = setTimeout(timerExpired, remainingWait(time));
-        }
-        __name(timerExpired, "timerExpired");
-        function trailingEdge(time) {
-          timerId = void 0;
-          if (trailing && lastArgs) {
-            return invokeFunc(time);
-          }
-          lastArgs = lastThis = void 0;
-          return result;
-        }
-        __name(trailingEdge, "trailingEdge");
-        function cancel() {
-          if (timerId !== void 0) {
-            clearTimeout(timerId);
-          }
-          lastInvokeTime = 0;
-          lastArgs = lastCallTime = lastThis = timerId = void 0;
-        }
-        __name(cancel, "cancel");
-        function flush() {
-          return timerId === void 0 ? result : trailingEdge(now());
-        }
-        __name(flush, "flush");
-        function debounced() {
-          var time = now(), isInvoking = shouldInvoke(time);
-          lastArgs = arguments;
-          lastThis = this;
-          lastCallTime = time;
-          if (isInvoking) {
-            if (timerId === void 0) {
-              return leadingEdge(lastCallTime);
-            }
-            if (maxing) {
-              timerId = setTimeout(timerExpired, wait2);
-              return invokeFunc(lastCallTime);
-            }
-          }
-          if (timerId === void 0) {
-            timerId = setTimeout(timerExpired, wait2);
-          }
-          return result;
-        }
-        __name(debounced, "debounced");
-        debounced.cancel = cancel;
-        debounced.flush = flush;
-        return debounced;
-      }
-      __name(debounce3, "debounce");
-      function isObject(value) {
-        var type = typeof value;
-        return !!value && (type == "object" || type == "function");
-      }
-      __name(isObject, "isObject");
-      function isObjectLike(value) {
-        return !!value && typeof value == "object";
-      }
-      __name(isObjectLike, "isObjectLike");
-      function isSymbol(value) {
-        return typeof value == "symbol" || isObjectLike(value) && objectToString.call(value) == symbolTag;
-      }
-      __name(isSymbol, "isSymbol");
-      function toNumber(value) {
-        if (typeof value == "number") {
-          return value;
-        }
-        if (isSymbol(value)) {
-          return NAN;
-        }
-        if (isObject(value)) {
-          var other = typeof value.valueOf == "function" ? value.valueOf() : value;
-          value = isObject(other) ? other + "" : other;
-        }
-        if (typeof value != "string") {
-          return value === 0 ? value : +value;
-        }
-        value = value.replace(reTrim, "");
-        var isBinary = reIsBinary.test(value);
-        return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
-      }
-      __name(toNumber, "toNumber");
-      module.exports = debounce3;
-    }
-  });
-
   // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.16-c2c146172f-9.zip/node_modules/esbuild-wasm/lib/browser.js
   var require_browser = __commonJS({
     "../../.yarn/global/cache/esbuild-wasm-npm-0.15.16-c2c146172f-9.zip/node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
@@ -4861,551 +4713,151 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
     }
   });
 
-  // ../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js
-  var require_diff = __commonJS({
-    "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
+  // ../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js
+  var require_lodash = __commonJS({
+    "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
       init_define_process();
-      var DIFF_DELETE = -1;
-      var DIFF_INSERT = 1;
-      var DIFF_EQUAL = 0;
-      function diff_main(text1, text2, cursor_pos, _fix_unicode) {
-        if (text1 === text2) {
-          if (text1) {
-            return [[DIFF_EQUAL, text1]];
+      var FUNC_ERROR_TEXT = "Expected a function";
+      var NAN = 0 / 0;
+      var symbolTag = "[object Symbol]";
+      var reTrim = /^\s+|\s+$/g;
+      var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+      var reIsBinary = /^0b[01]+$/i;
+      var reIsOctal = /^0o[0-7]+$/i;
+      var freeParseInt = parseInt;
+      var freeGlobal = typeof globalThis == "object" && globalThis && globalThis.Object === Object && globalThis;
+      var freeSelf = typeof self == "object" && self && self.Object === Object && self;
+      var root = freeGlobal || freeSelf || Function("return this")();
+      var objectProto = Object.prototype;
+      var objectToString = objectProto.toString;
+      var nativeMax = Math.max;
+      var nativeMin = Math.min;
+      var now = /* @__PURE__ */ __name(function() {
+        return root.Date.now();
+      }, "now");
+      function debounce3(func, wait2, options) {
+        var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
+        if (typeof func != "function") {
+          throw new TypeError(FUNC_ERROR_TEXT);
+        }
+        wait2 = toNumber(wait2) || 0;
+        if (isObject(options)) {
+          leading = !!options.leading;
+          maxing = "maxWait" in options;
+          maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait2) : maxWait;
+          trailing = "trailing" in options ? !!options.trailing : trailing;
+        }
+        function invokeFunc(time) {
+          var args = lastArgs, thisArg = lastThis;
+          lastArgs = lastThis = void 0;
+          lastInvokeTime = time;
+          result = func.apply(thisArg, args);
+          return result;
+        }
+        __name(invokeFunc, "invokeFunc");
+        function leadingEdge(time) {
+          lastInvokeTime = time;
+          timerId = setTimeout(timerExpired, wait2);
+          return leading ? invokeFunc(time) : result;
+        }
+        __name(leadingEdge, "leadingEdge");
+        function remainingWait(time) {
+          var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, result2 = wait2 - timeSinceLastCall;
+          return maxing ? nativeMin(result2, maxWait - timeSinceLastInvoke) : result2;
+        }
+        __name(remainingWait, "remainingWait");
+        function shouldInvoke(time) {
+          var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime;
+          return lastCallTime === void 0 || timeSinceLastCall >= wait2 || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+        }
+        __name(shouldInvoke, "shouldInvoke");
+        function timerExpired() {
+          var time = now();
+          if (shouldInvoke(time)) {
+            return trailingEdge(time);
           }
-          return [];
+          timerId = setTimeout(timerExpired, remainingWait(time));
         }
-        if (cursor_pos != null) {
-          var editdiff = find_cursor_edit_diff(text1, text2, cursor_pos);
-          if (editdiff) {
-            return editdiff;
+        __name(timerExpired, "timerExpired");
+        function trailingEdge(time) {
+          timerId = void 0;
+          if (trailing && lastArgs) {
+            return invokeFunc(time);
           }
+          lastArgs = lastThis = void 0;
+          return result;
         }
-        var commonlength = diff_commonPrefix(text1, text2);
-        var commonprefix = text1.substring(0, commonlength);
-        text1 = text1.substring(commonlength);
-        text2 = text2.substring(commonlength);
-        commonlength = diff_commonSuffix(text1, text2);
-        var commonsuffix = text1.substring(text1.length - commonlength);
-        text1 = text1.substring(0, text1.length - commonlength);
-        text2 = text2.substring(0, text2.length - commonlength);
-        var diffs = diff_compute_(text1, text2);
-        if (commonprefix) {
-          diffs.unshift([DIFF_EQUAL, commonprefix]);
-        }
-        if (commonsuffix) {
-          diffs.push([DIFF_EQUAL, commonsuffix]);
-        }
-        diff_cleanupMerge(diffs, _fix_unicode);
-        return diffs;
-      }
-      __name(diff_main, "diff_main");
-      function diff_compute_(text1, text2) {
-        var diffs;
-        if (!text1) {
-          return [[DIFF_INSERT, text2]];
-        }
-        if (!text2) {
-          return [[DIFF_DELETE, text1]];
-        }
-        var longtext = text1.length > text2.length ? text1 : text2;
-        var shorttext = text1.length > text2.length ? text2 : text1;
-        var i2 = longtext.indexOf(shorttext);
-        if (i2 !== -1) {
-          diffs = [
-            [DIFF_INSERT, longtext.substring(0, i2)],
-            [DIFF_EQUAL, shorttext],
-            [DIFF_INSERT, longtext.substring(i2 + shorttext.length)]
-          ];
-          if (text1.length > text2.length) {
-            diffs[0][0] = diffs[2][0] = DIFF_DELETE;
+        __name(trailingEdge, "trailingEdge");
+        function cancel() {
+          if (timerId !== void 0) {
+            clearTimeout(timerId);
           }
-          return diffs;
+          lastInvokeTime = 0;
+          lastArgs = lastCallTime = lastThis = timerId = void 0;
         }
-        if (shorttext.length === 1) {
-          return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
+        __name(cancel, "cancel");
+        function flush() {
+          return timerId === void 0 ? result : trailingEdge(now());
         }
-        var hm = diff_halfMatch_(text1, text2);
-        if (hm) {
-          var text1_a = hm[0];
-          var text1_b = hm[1];
-          var text2_a = hm[2];
-          var text2_b = hm[3];
-          var mid_common = hm[4];
-          var diffs_a = diff_main(text1_a, text2_a);
-          var diffs_b = diff_main(text1_b, text2_b);
-          return diffs_a.concat([[DIFF_EQUAL, mid_common]], diffs_b);
-        }
-        return diff_bisect_(text1, text2);
-      }
-      __name(diff_compute_, "diff_compute_");
-      function diff_bisect_(text1, text2) {
-        var text1_length = text1.length;
-        var text2_length = text2.length;
-        var max_d = Math.ceil((text1_length + text2_length) / 2);
-        var v_offset = max_d;
-        var v_length = 2 * max_d;
-        var v1 = new Array(v_length);
-        var v2 = new Array(v_length);
-        for (var x2 = 0; x2 < v_length; x2++) {
-          v1[x2] = -1;
-          v2[x2] = -1;
-        }
-        v1[v_offset + 1] = 0;
-        v2[v_offset + 1] = 0;
-        var delta = text1_length - text2_length;
-        var front = delta % 2 !== 0;
-        var k1start = 0;
-        var k1end = 0;
-        var k2start = 0;
-        var k2end = 0;
-        for (var d2 = 0; d2 < max_d; d2++) {
-          for (var k1 = -d2 + k1start; k1 <= d2 - k1end; k1 += 2) {
-            var k1_offset = v_offset + k1;
-            var x1;
-            if (k1 === -d2 || k1 !== d2 && v1[k1_offset - 1] < v1[k1_offset + 1]) {
-              x1 = v1[k1_offset + 1];
-            } else {
-              x1 = v1[k1_offset - 1] + 1;
+        __name(flush, "flush");
+        function debounced() {
+          var time = now(), isInvoking = shouldInvoke(time);
+          lastArgs = arguments;
+          lastThis = this;
+          lastCallTime = time;
+          if (isInvoking) {
+            if (timerId === void 0) {
+              return leadingEdge(lastCallTime);
             }
-            var y1 = x1 - k1;
-            while (x1 < text1_length && y1 < text2_length && text1.charAt(x1) === text2.charAt(y1)) {
-              x1++;
-              y1++;
-            }
-            v1[k1_offset] = x1;
-            if (x1 > text1_length) {
-              k1end += 2;
-            } else if (y1 > text2_length) {
-              k1start += 2;
-            } else if (front) {
-              var k2_offset = v_offset + delta - k1;
-              if (k2_offset >= 0 && k2_offset < v_length && v2[k2_offset] !== -1) {
-                var x22 = text1_length - v2[k2_offset];
-                if (x1 >= x22) {
-                  return diff_bisectSplit_(text1, text2, x1, y1);
-                }
-              }
+            if (maxing) {
+              timerId = setTimeout(timerExpired, wait2);
+              return invokeFunc(lastCallTime);
             }
           }
-          for (var k2 = -d2 + k2start; k2 <= d2 - k2end; k2 += 2) {
-            var k2_offset = v_offset + k2;
-            var x22;
-            if (k2 === -d2 || k2 !== d2 && v2[k2_offset - 1] < v2[k2_offset + 1]) {
-              x22 = v2[k2_offset + 1];
-            } else {
-              x22 = v2[k2_offset - 1] + 1;
-            }
-            var y2 = x22 - k2;
-            while (x22 < text1_length && y2 < text2_length && text1.charAt(text1_length - x22 - 1) === text2.charAt(text2_length - y2 - 1)) {
-              x22++;
-              y2++;
-            }
-            v2[k2_offset] = x22;
-            if (x22 > text1_length) {
-              k2end += 2;
-            } else if (y2 > text2_length) {
-              k2start += 2;
-            } else if (!front) {
-              var k1_offset = v_offset + delta - k2;
-              if (k1_offset >= 0 && k1_offset < v_length && v1[k1_offset] !== -1) {
-                var x1 = v1[k1_offset];
-                var y1 = v_offset + x1 - k1_offset;
-                x22 = text1_length - x22;
-                if (x1 >= x22) {
-                  return diff_bisectSplit_(text1, text2, x1, y1);
-                }
-              }
-            }
+          if (timerId === void 0) {
+            timerId = setTimeout(timerExpired, wait2);
           }
+          return result;
         }
-        return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
+        __name(debounced, "debounced");
+        debounced.cancel = cancel;
+        debounced.flush = flush;
+        return debounced;
       }
-      __name(diff_bisect_, "diff_bisect_");
-      function diff_bisectSplit_(text1, text2, x2, y2) {
-        var text1a = text1.substring(0, x2);
-        var text2a = text2.substring(0, y2);
-        var text1b = text1.substring(x2);
-        var text2b = text2.substring(y2);
-        var diffs = diff_main(text1a, text2a);
-        var diffsb = diff_main(text1b, text2b);
-        return diffs.concat(diffsb);
+      __name(debounce3, "debounce");
+      function isObject(value) {
+        var type = typeof value;
+        return !!value && (type == "object" || type == "function");
       }
-      __name(diff_bisectSplit_, "diff_bisectSplit_");
-      function diff_commonPrefix(text1, text2) {
-        if (!text1 || !text2 || text1.charAt(0) !== text2.charAt(0)) {
-          return 0;
-        }
-        var pointermin = 0;
-        var pointermax = Math.min(text1.length, text2.length);
-        var pointermid = pointermax;
-        var pointerstart = 0;
-        while (pointermin < pointermid) {
-          if (text1.substring(pointerstart, pointermid) == text2.substring(pointerstart, pointermid)) {
-            pointermin = pointermid;
-            pointerstart = pointermin;
-          } else {
-            pointermax = pointermid;
-          }
-          pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
-        }
-        if (is_surrogate_pair_start(text1.charCodeAt(pointermid - 1))) {
-          pointermid--;
-        }
-        return pointermid;
+      __name(isObject, "isObject");
+      function isObjectLike(value) {
+        return !!value && typeof value == "object";
       }
-      __name(diff_commonPrefix, "diff_commonPrefix");
-      function diff_commonSuffix(text1, text2) {
-        if (!text1 || !text2 || text1.slice(-1) !== text2.slice(-1)) {
-          return 0;
-        }
-        var pointermin = 0;
-        var pointermax = Math.min(text1.length, text2.length);
-        var pointermid = pointermax;
-        var pointerend = 0;
-        while (pointermin < pointermid) {
-          if (text1.substring(text1.length - pointermid, text1.length - pointerend) == text2.substring(text2.length - pointermid, text2.length - pointerend)) {
-            pointermin = pointermid;
-            pointerend = pointermin;
-          } else {
-            pointermax = pointermid;
-          }
-          pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
-        }
-        if (is_surrogate_pair_end(text1.charCodeAt(text1.length - pointermid))) {
-          pointermid--;
-        }
-        return pointermid;
+      __name(isObjectLike, "isObjectLike");
+      function isSymbol(value) {
+        return typeof value == "symbol" || isObjectLike(value) && objectToString.call(value) == symbolTag;
       }
-      __name(diff_commonSuffix, "diff_commonSuffix");
-      function diff_halfMatch_(text1, text2) {
-        var longtext = text1.length > text2.length ? text1 : text2;
-        var shorttext = text1.length > text2.length ? text2 : text1;
-        if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
-          return null;
+      __name(isSymbol, "isSymbol");
+      function toNumber(value) {
+        if (typeof value == "number") {
+          return value;
         }
-        function diff_halfMatchI_(longtext2, shorttext2, i2) {
-          var seed = longtext2.substring(i2, i2 + Math.floor(longtext2.length / 4));
-          var j2 = -1;
-          var best_common = "";
-          var best_longtext_a, best_longtext_b, best_shorttext_a, best_shorttext_b;
-          while ((j2 = shorttext2.indexOf(seed, j2 + 1)) !== -1) {
-            var prefixLength = diff_commonPrefix(
-              longtext2.substring(i2),
-              shorttext2.substring(j2)
-            );
-            var suffixLength = diff_commonSuffix(
-              longtext2.substring(0, i2),
-              shorttext2.substring(0, j2)
-            );
-            if (best_common.length < suffixLength + prefixLength) {
-              best_common = shorttext2.substring(
-                j2 - suffixLength,
-                j2
-              ) + shorttext2.substring(j2, j2 + prefixLength);
-              best_longtext_a = longtext2.substring(0, i2 - suffixLength);
-              best_longtext_b = longtext2.substring(i2 + prefixLength);
-              best_shorttext_a = shorttext2.substring(0, j2 - suffixLength);
-              best_shorttext_b = shorttext2.substring(j2 + prefixLength);
-            }
-          }
-          if (best_common.length * 2 >= longtext2.length) {
-            return [
-              best_longtext_a,
-              best_longtext_b,
-              best_shorttext_a,
-              best_shorttext_b,
-              best_common
-            ];
-          } else {
-            return null;
-          }
+        if (isSymbol(value)) {
+          return NAN;
         }
-        __name(diff_halfMatchI_, "diff_halfMatchI_");
-        var hm1 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
-        var hm2 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
-        var hm;
-        if (!hm1 && !hm2) {
-          return null;
-        } else if (!hm2) {
-          hm = hm1;
-        } else if (!hm1) {
-          hm = hm2;
-        } else {
-          hm = hm1[4].length > hm2[4].length ? hm1 : hm2;
+        if (isObject(value)) {
+          var other = typeof value.valueOf == "function" ? value.valueOf() : value;
+          value = isObject(other) ? other + "" : other;
         }
-        var text1_a, text1_b, text2_a, text2_b;
-        if (text1.length > text2.length) {
-          text1_a = hm[0];
-          text1_b = hm[1];
-          text2_a = hm[2];
-          text2_b = hm[3];
-        } else {
-          text2_a = hm[0];
-          text2_b = hm[1];
-          text1_a = hm[2];
-          text1_b = hm[3];
+        if (typeof value != "string") {
+          return value === 0 ? value : +value;
         }
-        var mid_common = hm[4];
-        return [text1_a, text1_b, text2_a, text2_b, mid_common];
+        value = value.replace(reTrim, "");
+        var isBinary = reIsBinary.test(value);
+        return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
       }
-      __name(diff_halfMatch_, "diff_halfMatch_");
-      function diff_cleanupMerge(diffs, fix_unicode) {
-        diffs.push([DIFF_EQUAL, ""]);
-        var pointer = 0;
-        var count_delete = 0;
-        var count_insert = 0;
-        var text_delete = "";
-        var text_insert = "";
-        var commonlength;
-        while (pointer < diffs.length) {
-          if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
-            diffs.splice(pointer, 1);
-            continue;
-          }
-          switch (diffs[pointer][0]) {
-            case DIFF_INSERT:
-              count_insert++;
-              text_insert += diffs[pointer][1];
-              pointer++;
-              break;
-            case DIFF_DELETE:
-              count_delete++;
-              text_delete += diffs[pointer][1];
-              pointer++;
-              break;
-            case DIFF_EQUAL:
-              var previous_equality = pointer - count_insert - count_delete - 1;
-              if (fix_unicode) {
-                if (previous_equality >= 0 && ends_with_pair_start(diffs[previous_equality][1])) {
-                  var stray = diffs[previous_equality][1].slice(-1);
-                  diffs[previous_equality][1] = diffs[previous_equality][1].slice(0, -1);
-                  text_delete = stray + text_delete;
-                  text_insert = stray + text_insert;
-                  if (!diffs[previous_equality][1]) {
-                    diffs.splice(previous_equality, 1);
-                    pointer--;
-                    var k2 = previous_equality - 1;
-                    if (diffs[k2] && diffs[k2][0] === DIFF_INSERT) {
-                      count_insert++;
-                      text_insert = diffs[k2][1] + text_insert;
-                      k2--;
-                    }
-                    if (diffs[k2] && diffs[k2][0] === DIFF_DELETE) {
-                      count_delete++;
-                      text_delete = diffs[k2][1] + text_delete;
-                      k2--;
-                    }
-                    previous_equality = k2;
-                  }
-                }
-                if (starts_with_pair_end(diffs[pointer][1])) {
-                  var stray = diffs[pointer][1].charAt(0);
-                  diffs[pointer][1] = diffs[pointer][1].slice(1);
-                  text_delete += stray;
-                  text_insert += stray;
-                }
-              }
-              if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
-                diffs.splice(pointer, 1);
-                break;
-              }
-              if (text_delete.length > 0 || text_insert.length > 0) {
-                if (text_delete.length > 0 && text_insert.length > 0) {
-                  commonlength = diff_commonPrefix(text_insert, text_delete);
-                  if (commonlength !== 0) {
-                    if (previous_equality >= 0) {
-                      diffs[previous_equality][1] += text_insert.substring(0, commonlength);
-                    } else {
-                      diffs.splice(0, 0, [DIFF_EQUAL, text_insert.substring(0, commonlength)]);
-                      pointer++;
-                    }
-                    text_insert = text_insert.substring(commonlength);
-                    text_delete = text_delete.substring(commonlength);
-                  }
-                  commonlength = diff_commonSuffix(text_insert, text_delete);
-                  if (commonlength !== 0) {
-                    diffs[pointer][1] = text_insert.substring(text_insert.length - commonlength) + diffs[pointer][1];
-                    text_insert = text_insert.substring(0, text_insert.length - commonlength);
-                    text_delete = text_delete.substring(0, text_delete.length - commonlength);
-                  }
-                }
-                var n2 = count_insert + count_delete;
-                if (text_delete.length === 0 && text_insert.length === 0) {
-                  diffs.splice(pointer - n2, n2);
-                  pointer = pointer - n2;
-                } else if (text_delete.length === 0) {
-                  diffs.splice(pointer - n2, n2, [DIFF_INSERT, text_insert]);
-                  pointer = pointer - n2 + 1;
-                } else if (text_insert.length === 0) {
-                  diffs.splice(pointer - n2, n2, [DIFF_DELETE, text_delete]);
-                  pointer = pointer - n2 + 1;
-                } else {
-                  diffs.splice(pointer - n2, n2, [DIFF_DELETE, text_delete], [DIFF_INSERT, text_insert]);
-                  pointer = pointer - n2 + 2;
-                }
-              }
-              if (pointer !== 0 && diffs[pointer - 1][0] === DIFF_EQUAL) {
-                diffs[pointer - 1][1] += diffs[pointer][1];
-                diffs.splice(pointer, 1);
-              } else {
-                pointer++;
-              }
-              count_insert = 0;
-              count_delete = 0;
-              text_delete = "";
-              text_insert = "";
-              break;
-          }
-        }
-        if (diffs[diffs.length - 1][1] === "") {
-          diffs.pop();
-        }
-        var changes = false;
-        pointer = 1;
-        while (pointer < diffs.length - 1) {
-          if (diffs[pointer - 1][0] === DIFF_EQUAL && diffs[pointer + 1][0] === DIFF_EQUAL) {
-            if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
-              diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
-              diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
-              diffs.splice(pointer - 1, 1);
-              changes = true;
-            } else if (diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) == diffs[pointer + 1][1]) {
-              diffs[pointer - 1][1] += diffs[pointer + 1][1];
-              diffs[pointer][1] = diffs[pointer][1].substring(diffs[pointer + 1][1].length) + diffs[pointer + 1][1];
-              diffs.splice(pointer + 1, 1);
-              changes = true;
-            }
-          }
-          pointer++;
-        }
-        if (changes) {
-          diff_cleanupMerge(diffs, fix_unicode);
-        }
-      }
-      __name(diff_cleanupMerge, "diff_cleanupMerge");
-      function is_surrogate_pair_start(charCode) {
-        return charCode >= 55296 && charCode <= 56319;
-      }
-      __name(is_surrogate_pair_start, "is_surrogate_pair_start");
-      function is_surrogate_pair_end(charCode) {
-        return charCode >= 56320 && charCode <= 57343;
-      }
-      __name(is_surrogate_pair_end, "is_surrogate_pair_end");
-      function starts_with_pair_end(str) {
-        return is_surrogate_pair_end(str.charCodeAt(0));
-      }
-      __name(starts_with_pair_end, "starts_with_pair_end");
-      function ends_with_pair_start(str) {
-        return is_surrogate_pair_start(str.charCodeAt(str.length - 1));
-      }
-      __name(ends_with_pair_start, "ends_with_pair_start");
-      function remove_empty_tuples(tuples) {
-        var ret = [];
-        for (var i2 = 0; i2 < tuples.length; i2++) {
-          if (tuples[i2][1].length > 0) {
-            ret.push(tuples[i2]);
-          }
-        }
-        return ret;
-      }
-      __name(remove_empty_tuples, "remove_empty_tuples");
-      function make_edit_splice(before, oldMiddle, newMiddle, after) {
-        if (ends_with_pair_start(before) || starts_with_pair_end(after)) {
-          return null;
-        }
-        return remove_empty_tuples([
-          [DIFF_EQUAL, before],
-          [DIFF_DELETE, oldMiddle],
-          [DIFF_INSERT, newMiddle],
-          [DIFF_EQUAL, after]
-        ]);
-      }
-      __name(make_edit_splice, "make_edit_splice");
-      function find_cursor_edit_diff(oldText, newText, cursor_pos) {
-        var oldRange = typeof cursor_pos === "number" ? { index: cursor_pos, length: 0 } : cursor_pos.oldRange;
-        var newRange = typeof cursor_pos === "number" ? null : cursor_pos.newRange;
-        var oldLength = oldText.length;
-        var newLength = newText.length;
-        if (oldRange.length === 0 && (newRange === null || newRange.length === 0)) {
-          var oldCursor = oldRange.index;
-          var oldBefore = oldText.slice(0, oldCursor);
-          var oldAfter = oldText.slice(oldCursor);
-          var maybeNewCursor = newRange ? newRange.index : null;
-          editBefore: {
-            var newCursor = oldCursor + newLength - oldLength;
-            if (maybeNewCursor !== null && maybeNewCursor !== newCursor) {
-              break editBefore;
-            }
-            if (newCursor < 0 || newCursor > newLength) {
-              break editBefore;
-            }
-            var newBefore = newText.slice(0, newCursor);
-            var newAfter = newText.slice(newCursor);
-            if (newAfter !== oldAfter) {
-              break editBefore;
-            }
-            var prefixLength = Math.min(oldCursor, newCursor);
-            var oldPrefix = oldBefore.slice(0, prefixLength);
-            var newPrefix = newBefore.slice(0, prefixLength);
-            if (oldPrefix !== newPrefix) {
-              break editBefore;
-            }
-            var oldMiddle = oldBefore.slice(prefixLength);
-            var newMiddle = newBefore.slice(prefixLength);
-            return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldAfter);
-          }
-          editAfter: {
-            if (maybeNewCursor !== null && maybeNewCursor !== oldCursor) {
-              break editAfter;
-            }
-            var cursor = oldCursor;
-            var newBefore = newText.slice(0, cursor);
-            var newAfter = newText.slice(cursor);
-            if (newBefore !== oldBefore) {
-              break editAfter;
-            }
-            var suffixLength = Math.min(oldLength - cursor, newLength - cursor);
-            var oldSuffix = oldAfter.slice(oldAfter.length - suffixLength);
-            var newSuffix = newAfter.slice(newAfter.length - suffixLength);
-            if (oldSuffix !== newSuffix) {
-              break editAfter;
-            }
-            var oldMiddle = oldAfter.slice(0, oldAfter.length - suffixLength);
-            var newMiddle = newAfter.slice(0, newAfter.length - suffixLength);
-            return make_edit_splice(oldBefore, oldMiddle, newMiddle, oldSuffix);
-          }
-        }
-        if (oldRange.length > 0 && newRange && newRange.length === 0) {
-          replaceRange: {
-            var oldPrefix = oldText.slice(0, oldRange.index);
-            var oldSuffix = oldText.slice(oldRange.index + oldRange.length);
-            var prefixLength = oldPrefix.length;
-            var suffixLength = oldSuffix.length;
-            if (newLength < prefixLength + suffixLength) {
-              break replaceRange;
-            }
-            var newPrefix = newText.slice(0, prefixLength);
-            var newSuffix = newText.slice(newLength - suffixLength);
-            if (oldPrefix !== newPrefix || oldSuffix !== newSuffix) {
-              break replaceRange;
-            }
-            var oldMiddle = oldText.slice(prefixLength, oldLength - suffixLength);
-            var newMiddle = newText.slice(prefixLength, newLength - suffixLength);
-            return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldSuffix);
-          }
-        }
-        return null;
-      }
-      __name(find_cursor_edit_diff, "find_cursor_edit_diff");
-      function diff2(text1, text2, cursor_pos) {
-        return diff_main(text1, text2, cursor_pos, true);
-      }
-      __name(diff2, "diff");
-      diff2.INSERT = DIFF_INSERT;
-      diff2.DELETE = DIFF_DELETE;
-      diff2.EQUAL = DIFF_EQUAL;
-      module.exports = diff2;
+      __name(toNumber, "toNumber");
+      module.exports = debounce3;
     }
   });
 
@@ -8630,6 +8082,554 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
       } else {
         module.exports = require_emotion_cache_cjs_dev();
       }
+    }
+  });
+
+  // ../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js
+  var require_diff = __commonJS({
+    "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
+      init_define_process();
+      var DIFF_DELETE = -1;
+      var DIFF_INSERT = 1;
+      var DIFF_EQUAL = 0;
+      function diff_main(text1, text2, cursor_pos, _fix_unicode) {
+        if (text1 === text2) {
+          if (text1) {
+            return [[DIFF_EQUAL, text1]];
+          }
+          return [];
+        }
+        if (cursor_pos != null) {
+          var editdiff = find_cursor_edit_diff(text1, text2, cursor_pos);
+          if (editdiff) {
+            return editdiff;
+          }
+        }
+        var commonlength = diff_commonPrefix(text1, text2);
+        var commonprefix = text1.substring(0, commonlength);
+        text1 = text1.substring(commonlength);
+        text2 = text2.substring(commonlength);
+        commonlength = diff_commonSuffix(text1, text2);
+        var commonsuffix = text1.substring(text1.length - commonlength);
+        text1 = text1.substring(0, text1.length - commonlength);
+        text2 = text2.substring(0, text2.length - commonlength);
+        var diffs = diff_compute_(text1, text2);
+        if (commonprefix) {
+          diffs.unshift([DIFF_EQUAL, commonprefix]);
+        }
+        if (commonsuffix) {
+          diffs.push([DIFF_EQUAL, commonsuffix]);
+        }
+        diff_cleanupMerge(diffs, _fix_unicode);
+        return diffs;
+      }
+      __name(diff_main, "diff_main");
+      function diff_compute_(text1, text2) {
+        var diffs;
+        if (!text1) {
+          return [[DIFF_INSERT, text2]];
+        }
+        if (!text2) {
+          return [[DIFF_DELETE, text1]];
+        }
+        var longtext = text1.length > text2.length ? text1 : text2;
+        var shorttext = text1.length > text2.length ? text2 : text1;
+        var i2 = longtext.indexOf(shorttext);
+        if (i2 !== -1) {
+          diffs = [
+            [DIFF_INSERT, longtext.substring(0, i2)],
+            [DIFF_EQUAL, shorttext],
+            [DIFF_INSERT, longtext.substring(i2 + shorttext.length)]
+          ];
+          if (text1.length > text2.length) {
+            diffs[0][0] = diffs[2][0] = DIFF_DELETE;
+          }
+          return diffs;
+        }
+        if (shorttext.length === 1) {
+          return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
+        }
+        var hm = diff_halfMatch_(text1, text2);
+        if (hm) {
+          var text1_a = hm[0];
+          var text1_b = hm[1];
+          var text2_a = hm[2];
+          var text2_b = hm[3];
+          var mid_common = hm[4];
+          var diffs_a = diff_main(text1_a, text2_a);
+          var diffs_b = diff_main(text1_b, text2_b);
+          return diffs_a.concat([[DIFF_EQUAL, mid_common]], diffs_b);
+        }
+        return diff_bisect_(text1, text2);
+      }
+      __name(diff_compute_, "diff_compute_");
+      function diff_bisect_(text1, text2) {
+        var text1_length = text1.length;
+        var text2_length = text2.length;
+        var max_d = Math.ceil((text1_length + text2_length) / 2);
+        var v_offset = max_d;
+        var v_length = 2 * max_d;
+        var v1 = new Array(v_length);
+        var v2 = new Array(v_length);
+        for (var x2 = 0; x2 < v_length; x2++) {
+          v1[x2] = -1;
+          v2[x2] = -1;
+        }
+        v1[v_offset + 1] = 0;
+        v2[v_offset + 1] = 0;
+        var delta = text1_length - text2_length;
+        var front = delta % 2 !== 0;
+        var k1start = 0;
+        var k1end = 0;
+        var k2start = 0;
+        var k2end = 0;
+        for (var d2 = 0; d2 < max_d; d2++) {
+          for (var k1 = -d2 + k1start; k1 <= d2 - k1end; k1 += 2) {
+            var k1_offset = v_offset + k1;
+            var x1;
+            if (k1 === -d2 || k1 !== d2 && v1[k1_offset - 1] < v1[k1_offset + 1]) {
+              x1 = v1[k1_offset + 1];
+            } else {
+              x1 = v1[k1_offset - 1] + 1;
+            }
+            var y1 = x1 - k1;
+            while (x1 < text1_length && y1 < text2_length && text1.charAt(x1) === text2.charAt(y1)) {
+              x1++;
+              y1++;
+            }
+            v1[k1_offset] = x1;
+            if (x1 > text1_length) {
+              k1end += 2;
+            } else if (y1 > text2_length) {
+              k1start += 2;
+            } else if (front) {
+              var k2_offset = v_offset + delta - k1;
+              if (k2_offset >= 0 && k2_offset < v_length && v2[k2_offset] !== -1) {
+                var x22 = text1_length - v2[k2_offset];
+                if (x1 >= x22) {
+                  return diff_bisectSplit_(text1, text2, x1, y1);
+                }
+              }
+            }
+          }
+          for (var k2 = -d2 + k2start; k2 <= d2 - k2end; k2 += 2) {
+            var k2_offset = v_offset + k2;
+            var x22;
+            if (k2 === -d2 || k2 !== d2 && v2[k2_offset - 1] < v2[k2_offset + 1]) {
+              x22 = v2[k2_offset + 1];
+            } else {
+              x22 = v2[k2_offset - 1] + 1;
+            }
+            var y2 = x22 - k2;
+            while (x22 < text1_length && y2 < text2_length && text1.charAt(text1_length - x22 - 1) === text2.charAt(text2_length - y2 - 1)) {
+              x22++;
+              y2++;
+            }
+            v2[k2_offset] = x22;
+            if (x22 > text1_length) {
+              k2end += 2;
+            } else if (y2 > text2_length) {
+              k2start += 2;
+            } else if (!front) {
+              var k1_offset = v_offset + delta - k2;
+              if (k1_offset >= 0 && k1_offset < v_length && v1[k1_offset] !== -1) {
+                var x1 = v1[k1_offset];
+                var y1 = v_offset + x1 - k1_offset;
+                x22 = text1_length - x22;
+                if (x1 >= x22) {
+                  return diff_bisectSplit_(text1, text2, x1, y1);
+                }
+              }
+            }
+          }
+        }
+        return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
+      }
+      __name(diff_bisect_, "diff_bisect_");
+      function diff_bisectSplit_(text1, text2, x2, y2) {
+        var text1a = text1.substring(0, x2);
+        var text2a = text2.substring(0, y2);
+        var text1b = text1.substring(x2);
+        var text2b = text2.substring(y2);
+        var diffs = diff_main(text1a, text2a);
+        var diffsb = diff_main(text1b, text2b);
+        return diffs.concat(diffsb);
+      }
+      __name(diff_bisectSplit_, "diff_bisectSplit_");
+      function diff_commonPrefix(text1, text2) {
+        if (!text1 || !text2 || text1.charAt(0) !== text2.charAt(0)) {
+          return 0;
+        }
+        var pointermin = 0;
+        var pointermax = Math.min(text1.length, text2.length);
+        var pointermid = pointermax;
+        var pointerstart = 0;
+        while (pointermin < pointermid) {
+          if (text1.substring(pointerstart, pointermid) == text2.substring(pointerstart, pointermid)) {
+            pointermin = pointermid;
+            pointerstart = pointermin;
+          } else {
+            pointermax = pointermid;
+          }
+          pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
+        }
+        if (is_surrogate_pair_start(text1.charCodeAt(pointermid - 1))) {
+          pointermid--;
+        }
+        return pointermid;
+      }
+      __name(diff_commonPrefix, "diff_commonPrefix");
+      function diff_commonSuffix(text1, text2) {
+        if (!text1 || !text2 || text1.slice(-1) !== text2.slice(-1)) {
+          return 0;
+        }
+        var pointermin = 0;
+        var pointermax = Math.min(text1.length, text2.length);
+        var pointermid = pointermax;
+        var pointerend = 0;
+        while (pointermin < pointermid) {
+          if (text1.substring(text1.length - pointermid, text1.length - pointerend) == text2.substring(text2.length - pointermid, text2.length - pointerend)) {
+            pointermin = pointermid;
+            pointerend = pointermin;
+          } else {
+            pointermax = pointermid;
+          }
+          pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
+        }
+        if (is_surrogate_pair_end(text1.charCodeAt(text1.length - pointermid))) {
+          pointermid--;
+        }
+        return pointermid;
+      }
+      __name(diff_commonSuffix, "diff_commonSuffix");
+      function diff_halfMatch_(text1, text2) {
+        var longtext = text1.length > text2.length ? text1 : text2;
+        var shorttext = text1.length > text2.length ? text2 : text1;
+        if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
+          return null;
+        }
+        function diff_halfMatchI_(longtext2, shorttext2, i2) {
+          var seed = longtext2.substring(i2, i2 + Math.floor(longtext2.length / 4));
+          var j2 = -1;
+          var best_common = "";
+          var best_longtext_a, best_longtext_b, best_shorttext_a, best_shorttext_b;
+          while ((j2 = shorttext2.indexOf(seed, j2 + 1)) !== -1) {
+            var prefixLength = diff_commonPrefix(
+              longtext2.substring(i2),
+              shorttext2.substring(j2)
+            );
+            var suffixLength = diff_commonSuffix(
+              longtext2.substring(0, i2),
+              shorttext2.substring(0, j2)
+            );
+            if (best_common.length < suffixLength + prefixLength) {
+              best_common = shorttext2.substring(
+                j2 - suffixLength,
+                j2
+              ) + shorttext2.substring(j2, j2 + prefixLength);
+              best_longtext_a = longtext2.substring(0, i2 - suffixLength);
+              best_longtext_b = longtext2.substring(i2 + prefixLength);
+              best_shorttext_a = shorttext2.substring(0, j2 - suffixLength);
+              best_shorttext_b = shorttext2.substring(j2 + prefixLength);
+            }
+          }
+          if (best_common.length * 2 >= longtext2.length) {
+            return [
+              best_longtext_a,
+              best_longtext_b,
+              best_shorttext_a,
+              best_shorttext_b,
+              best_common
+            ];
+          } else {
+            return null;
+          }
+        }
+        __name(diff_halfMatchI_, "diff_halfMatchI_");
+        var hm1 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
+        var hm2 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
+        var hm;
+        if (!hm1 && !hm2) {
+          return null;
+        } else if (!hm2) {
+          hm = hm1;
+        } else if (!hm1) {
+          hm = hm2;
+        } else {
+          hm = hm1[4].length > hm2[4].length ? hm1 : hm2;
+        }
+        var text1_a, text1_b, text2_a, text2_b;
+        if (text1.length > text2.length) {
+          text1_a = hm[0];
+          text1_b = hm[1];
+          text2_a = hm[2];
+          text2_b = hm[3];
+        } else {
+          text2_a = hm[0];
+          text2_b = hm[1];
+          text1_a = hm[2];
+          text1_b = hm[3];
+        }
+        var mid_common = hm[4];
+        return [text1_a, text1_b, text2_a, text2_b, mid_common];
+      }
+      __name(diff_halfMatch_, "diff_halfMatch_");
+      function diff_cleanupMerge(diffs, fix_unicode) {
+        diffs.push([DIFF_EQUAL, ""]);
+        var pointer = 0;
+        var count_delete = 0;
+        var count_insert = 0;
+        var text_delete = "";
+        var text_insert = "";
+        var commonlength;
+        while (pointer < diffs.length) {
+          if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
+            diffs.splice(pointer, 1);
+            continue;
+          }
+          switch (diffs[pointer][0]) {
+            case DIFF_INSERT:
+              count_insert++;
+              text_insert += diffs[pointer][1];
+              pointer++;
+              break;
+            case DIFF_DELETE:
+              count_delete++;
+              text_delete += diffs[pointer][1];
+              pointer++;
+              break;
+            case DIFF_EQUAL:
+              var previous_equality = pointer - count_insert - count_delete - 1;
+              if (fix_unicode) {
+                if (previous_equality >= 0 && ends_with_pair_start(diffs[previous_equality][1])) {
+                  var stray = diffs[previous_equality][1].slice(-1);
+                  diffs[previous_equality][1] = diffs[previous_equality][1].slice(0, -1);
+                  text_delete = stray + text_delete;
+                  text_insert = stray + text_insert;
+                  if (!diffs[previous_equality][1]) {
+                    diffs.splice(previous_equality, 1);
+                    pointer--;
+                    var k2 = previous_equality - 1;
+                    if (diffs[k2] && diffs[k2][0] === DIFF_INSERT) {
+                      count_insert++;
+                      text_insert = diffs[k2][1] + text_insert;
+                      k2--;
+                    }
+                    if (diffs[k2] && diffs[k2][0] === DIFF_DELETE) {
+                      count_delete++;
+                      text_delete = diffs[k2][1] + text_delete;
+                      k2--;
+                    }
+                    previous_equality = k2;
+                  }
+                }
+                if (starts_with_pair_end(diffs[pointer][1])) {
+                  var stray = diffs[pointer][1].charAt(0);
+                  diffs[pointer][1] = diffs[pointer][1].slice(1);
+                  text_delete += stray;
+                  text_insert += stray;
+                }
+              }
+              if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
+                diffs.splice(pointer, 1);
+                break;
+              }
+              if (text_delete.length > 0 || text_insert.length > 0) {
+                if (text_delete.length > 0 && text_insert.length > 0) {
+                  commonlength = diff_commonPrefix(text_insert, text_delete);
+                  if (commonlength !== 0) {
+                    if (previous_equality >= 0) {
+                      diffs[previous_equality][1] += text_insert.substring(0, commonlength);
+                    } else {
+                      diffs.splice(0, 0, [DIFF_EQUAL, text_insert.substring(0, commonlength)]);
+                      pointer++;
+                    }
+                    text_insert = text_insert.substring(commonlength);
+                    text_delete = text_delete.substring(commonlength);
+                  }
+                  commonlength = diff_commonSuffix(text_insert, text_delete);
+                  if (commonlength !== 0) {
+                    diffs[pointer][1] = text_insert.substring(text_insert.length - commonlength) + diffs[pointer][1];
+                    text_insert = text_insert.substring(0, text_insert.length - commonlength);
+                    text_delete = text_delete.substring(0, text_delete.length - commonlength);
+                  }
+                }
+                var n2 = count_insert + count_delete;
+                if (text_delete.length === 0 && text_insert.length === 0) {
+                  diffs.splice(pointer - n2, n2);
+                  pointer = pointer - n2;
+                } else if (text_delete.length === 0) {
+                  diffs.splice(pointer - n2, n2, [DIFF_INSERT, text_insert]);
+                  pointer = pointer - n2 + 1;
+                } else if (text_insert.length === 0) {
+                  diffs.splice(pointer - n2, n2, [DIFF_DELETE, text_delete]);
+                  pointer = pointer - n2 + 1;
+                } else {
+                  diffs.splice(pointer - n2, n2, [DIFF_DELETE, text_delete], [DIFF_INSERT, text_insert]);
+                  pointer = pointer - n2 + 2;
+                }
+              }
+              if (pointer !== 0 && diffs[pointer - 1][0] === DIFF_EQUAL) {
+                diffs[pointer - 1][1] += diffs[pointer][1];
+                diffs.splice(pointer, 1);
+              } else {
+                pointer++;
+              }
+              count_insert = 0;
+              count_delete = 0;
+              text_delete = "";
+              text_insert = "";
+              break;
+          }
+        }
+        if (diffs[diffs.length - 1][1] === "") {
+          diffs.pop();
+        }
+        var changes = false;
+        pointer = 1;
+        while (pointer < diffs.length - 1) {
+          if (diffs[pointer - 1][0] === DIFF_EQUAL && diffs[pointer + 1][0] === DIFF_EQUAL) {
+            if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
+              diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
+              diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
+              diffs.splice(pointer - 1, 1);
+              changes = true;
+            } else if (diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) == diffs[pointer + 1][1]) {
+              diffs[pointer - 1][1] += diffs[pointer + 1][1];
+              diffs[pointer][1] = diffs[pointer][1].substring(diffs[pointer + 1][1].length) + diffs[pointer + 1][1];
+              diffs.splice(pointer + 1, 1);
+              changes = true;
+            }
+          }
+          pointer++;
+        }
+        if (changes) {
+          diff_cleanupMerge(diffs, fix_unicode);
+        }
+      }
+      __name(diff_cleanupMerge, "diff_cleanupMerge");
+      function is_surrogate_pair_start(charCode) {
+        return charCode >= 55296 && charCode <= 56319;
+      }
+      __name(is_surrogate_pair_start, "is_surrogate_pair_start");
+      function is_surrogate_pair_end(charCode) {
+        return charCode >= 56320 && charCode <= 57343;
+      }
+      __name(is_surrogate_pair_end, "is_surrogate_pair_end");
+      function starts_with_pair_end(str) {
+        return is_surrogate_pair_end(str.charCodeAt(0));
+      }
+      __name(starts_with_pair_end, "starts_with_pair_end");
+      function ends_with_pair_start(str) {
+        return is_surrogate_pair_start(str.charCodeAt(str.length - 1));
+      }
+      __name(ends_with_pair_start, "ends_with_pair_start");
+      function remove_empty_tuples(tuples) {
+        var ret = [];
+        for (var i2 = 0; i2 < tuples.length; i2++) {
+          if (tuples[i2][1].length > 0) {
+            ret.push(tuples[i2]);
+          }
+        }
+        return ret;
+      }
+      __name(remove_empty_tuples, "remove_empty_tuples");
+      function make_edit_splice(before, oldMiddle, newMiddle, after) {
+        if (ends_with_pair_start(before) || starts_with_pair_end(after)) {
+          return null;
+        }
+        return remove_empty_tuples([
+          [DIFF_EQUAL, before],
+          [DIFF_DELETE, oldMiddle],
+          [DIFF_INSERT, newMiddle],
+          [DIFF_EQUAL, after]
+        ]);
+      }
+      __name(make_edit_splice, "make_edit_splice");
+      function find_cursor_edit_diff(oldText, newText, cursor_pos) {
+        var oldRange = typeof cursor_pos === "number" ? { index: cursor_pos, length: 0 } : cursor_pos.oldRange;
+        var newRange = typeof cursor_pos === "number" ? null : cursor_pos.newRange;
+        var oldLength = oldText.length;
+        var newLength = newText.length;
+        if (oldRange.length === 0 && (newRange === null || newRange.length === 0)) {
+          var oldCursor = oldRange.index;
+          var oldBefore = oldText.slice(0, oldCursor);
+          var oldAfter = oldText.slice(oldCursor);
+          var maybeNewCursor = newRange ? newRange.index : null;
+          editBefore: {
+            var newCursor = oldCursor + newLength - oldLength;
+            if (maybeNewCursor !== null && maybeNewCursor !== newCursor) {
+              break editBefore;
+            }
+            if (newCursor < 0 || newCursor > newLength) {
+              break editBefore;
+            }
+            var newBefore = newText.slice(0, newCursor);
+            var newAfter = newText.slice(newCursor);
+            if (newAfter !== oldAfter) {
+              break editBefore;
+            }
+            var prefixLength = Math.min(oldCursor, newCursor);
+            var oldPrefix = oldBefore.slice(0, prefixLength);
+            var newPrefix = newBefore.slice(0, prefixLength);
+            if (oldPrefix !== newPrefix) {
+              break editBefore;
+            }
+            var oldMiddle = oldBefore.slice(prefixLength);
+            var newMiddle = newBefore.slice(prefixLength);
+            return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldAfter);
+          }
+          editAfter: {
+            if (maybeNewCursor !== null && maybeNewCursor !== oldCursor) {
+              break editAfter;
+            }
+            var cursor = oldCursor;
+            var newBefore = newText.slice(0, cursor);
+            var newAfter = newText.slice(cursor);
+            if (newBefore !== oldBefore) {
+              break editAfter;
+            }
+            var suffixLength = Math.min(oldLength - cursor, newLength - cursor);
+            var oldSuffix = oldAfter.slice(oldAfter.length - suffixLength);
+            var newSuffix = newAfter.slice(newAfter.length - suffixLength);
+            if (oldSuffix !== newSuffix) {
+              break editAfter;
+            }
+            var oldMiddle = oldAfter.slice(0, oldAfter.length - suffixLength);
+            var newMiddle = newAfter.slice(0, newAfter.length - suffixLength);
+            return make_edit_splice(oldBefore, oldMiddle, newMiddle, oldSuffix);
+          }
+        }
+        if (oldRange.length > 0 && newRange && newRange.length === 0) {
+          replaceRange: {
+            var oldPrefix = oldText.slice(0, oldRange.index);
+            var oldSuffix = oldText.slice(oldRange.index + oldRange.length);
+            var prefixLength = oldPrefix.length;
+            var suffixLength = oldSuffix.length;
+            if (newLength < prefixLength + suffixLength) {
+              break replaceRange;
+            }
+            var newPrefix = newText.slice(0, prefixLength);
+            var newSuffix = newText.slice(newLength - suffixLength);
+            if (oldPrefix !== newPrefix || oldSuffix !== newSuffix) {
+              break replaceRange;
+            }
+            var oldMiddle = oldText.slice(prefixLength, oldLength - suffixLength);
+            var newMiddle = newText.slice(prefixLength, newLength - suffixLength);
+            return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldSuffix);
+          }
+        }
+        return null;
+      }
+      __name(find_cursor_edit_diff, "find_cursor_edit_diff");
+      function diff2(text1, text2, cursor_pos) {
+        return diff_main(text1, text2, cursor_pos, true);
+      }
+      __name(diff2, "diff");
+      diff2.INSERT = DIFF_INSERT;
+      diff2.DELETE = DIFF_DELETE;
+      diff2.EQUAL = DIFF_EQUAL;
+      module.exports = diff2;
     }
   });
 
@@ -32712,9 +32712,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_define_process();
   var import_localforage2 = __toESM(require_localforage(), 1);
 
-  // js/runner.tsx
+  // js/esmTransform.ts
   init_define_process();
-  var import_lodash2 = __toESM(require_lodash(), 1);
 
   // js/esbuildEsm.ts
   init_define_process();
@@ -32723,9 +32722,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // js/fetchPlugin.tsx
   init_define_process();
 
-  // js/session.ts
+  // js/runner.tsx
   init_define_process();
-  var import_lodash = __toESM(require_lodash(), 1);
+  var import_lodash2 = __toESM(require_lodash(), 1);
+
+  // js/renderToString.tsx
+  init_define_process();
 
   // js/md5.js
   init_define_process();
@@ -32877,423 +32879,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return rh(a2) + rh(b2) + rh(c2) + rh(d2);
   }
   __name(md5FULL, "md5FULL");
-
-  // js/getResetCss.ts
-  init_define_process();
-  var resetCSS = `
-*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
-all: unset;
-display: revert;
-}
-
-*,
-*::before,
-*::after {
-box-sizing: border-box;
-}
-
-a, button {
-cursor: revert;
-}
-
-ol, ul, menu {
-list-style: none;
-}
-
-img {
-max-width: 100%;
-}
-
-table {
-border-collapse: collapse;
-}
-
-input, textarea {
--webkit-user-select: auto;
-}
-
-textarea {
-white-space: revert;
-}
-
-/* minimum style to allow to style meter element */
-meter {
--webkit-appearance: revert;
-appearance: revert;
-}
-
-/* reset default text opacity of input placeholder */
-::placeholder {
-color: unset;
-}
-
-/* fix the feature of 'hidden' attribute.
-display:revert; revert to element instead of a/live/editttribute */
-:where([hidden]) {
-display: none;
-}
-
-/* revert for bug in Chromium browsers
-- fix for the content editable attribute will work properly.
-- webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
-:where([contenteditable]:not([contenteditable="false"])) {
--moz-user-modify: read-write;
--webkit-user-modify: read-write;
-overflow-wrap: break-word;
--webkit-line-break: after-white-space;
--webkit-user-select: auto;
-}
-
-/* apply back the draggable feature - exist only in Chromium and Safari */
-:where([draggable="true"]) {
--webkit-user-drag: element;
-}`;
-
-  // js/textDiff.ts
-  init_define_process();
-  var import_fast_diff = __toESM(require_diff(), 1);
-  function applyPatch(original, delta) {
-    let result = "";
-    let index = 0;
-    for (const item of delta) {
-      const operation = item[0];
-      const value = item[1];
-      if (item[0] === -1 && typeof value === "number") {
-        index += value;
-      } else if (operation == 0 && typeof value === "number") {
-        result += original.slice(index, index += value);
-      } else {
-        result += value;
-      }
-    }
-    return result;
-  }
-  __name(applyPatch, "applyPatch");
-
-  // js/session.ts
-  var session = null;
-  var hashCode = /* @__PURE__ */ __name(() => md5(mST().transpiled), "hashCode");
-  function mST(p2) {
-    if (!session) {
-      return {
-        i: 0,
-        transpiled: "",
-        code: "",
-        html: "",
-        css: ""
-      };
-    }
-    const sessAsJs = session.session.get("state").toJSON();
-    const { i: i2, transpiled, code, html, css } = p2 ? JSON.parse(
-      applyPatch(
-        string_(
-          sessAsJs
-        ),
-        p2
-      )
-    ) : sessAsJs;
-    return { i: i2, transpiled, code, html, css };
-  }
-  __name(mST, "mST");
-  function string_(s2) {
-    const { i: i2, transpiled, code, html, css } = s2;
-    return JSON.stringify({ i: i2, transpiled, code, html, css });
-  }
-  __name(string_, "string_");
-  var onSessionUpdate = /* @__PURE__ */ __name((fn, regId = "default") => session?.onUpdate(fn, regId), "onSessionUpdate");
-  var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess, i: mST().i + 1 }), "patchSync");
-
-  // js/fetchPlugin.tsx
-  var fetchCache = /* @__PURE__ */ __name((req) => caches.open("fetchCache").then((fc) => {
-    fetchCache = fc;
-    return fc.match(req);
-  }), "fetchCache");
-  var codeSpace = location.pathname.slice(1).split("/")[1];
-  var fetchPlugin = {
-    name: "http",
-    setup(build2) {
-      build2.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
-        path: importShim.resolve(args.path, args.importer),
-        namespace: "http-url"
-      }));
-      build2.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
-        path: importShim.resolve(args.path, args.importer),
-        namespace: "ttf"
-      }));
-      build2.onLoad({ filter: /.*.tsx.*/ }, async (args) => {
-        if (args.path.indexOf("render.tsx") !== -1) {
-          const contents = await esmTransform(`
-      import {createRoot} from "react-dom/client"
-      import { CacheProvider } from "@emotion/react";
-      import createCache from "@emotion/cache";
-      import {StrictMode} from "react";
-      import { ErrorBoundary } from "react-error-boundary";
-      import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
-      document.body.innerHTML = ${JSON.stringify(`<div id="root" style="height:100%">
-             <style>${mST().css}</style>${mST().html}
-      </div>`)};
-
-  let rootEl = document.getElementById("root");
-
-  rootEl.innerHTML="";
-   
-  const root = createRoot(rootEl);
-  
-    const cache = createCache({
-      key: "${hashCode()}",
-      container: rootEl,
-      speedy: false
-    });
-  
-   cache.compat = undefined;
-  
-  root.render(<StrictMode><ErrorBoundary
-    fallbackRender={({ error }) => (
-      <div role="alert">
-        <div>Oh n o</div>
-        <pre>{error.message}</pre>
-      </div>
-    )}>
-    <CacheProvider value={cache}>
-      <App />
-    </CacheProvider>
-    </ErrorBoundary></StrictMode>);
-
-      `);
-          return {
-            contents
-          };
-        }
-      });
-      build2.onLoad({ filter: /.*/ }, async (args) => {
-        const getRequest = /* @__PURE__ */ __name(async (req2) => {
-          let response2 = await fetchCache.match(req2);
-          if (response2)
-            return response2;
-          response2 = await fetch(req2);
-          if (!response2 || !response2.ok)
-            return response2;
-          response2 = new Response(response2.body, response2);
-          await fetchCache.put(req2, response2.clone());
-          return response2;
-        }, "getRequest");
-        const req = new Request(args.path);
-        let response = await getRequest(req);
-        if (req.url.indexOf(".tsx")) {
-          const contents2 = await esmTransform(await response.text());
-          return {
-            contents: contents2
-          };
-        }
-        if (args.namespace === "ttf") {
-          let contents2 = response.blob();
-          return {
-            contents: contents2,
-            loader: "dataurl"
-          };
-        }
-        let contents = await response.text();
-        return { contents };
-      });
-    }
-  };
-
-  // js/importmap.json
-  var imports = {
-    "framer-motion": "/motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/cache": "/emotionCache.mjs",
-    "@emotion/styled": "/emotionStyled.mjs",
-    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-    react: "/reactMod.mjs",
-    "react/jsx-runtime": "/jsx.mjs",
-    "react-dom": "/reactDom.mjs",
-    "react-dom/client": "/reactDomClient.mjs",
-    "react-error-boundary": "/reactMod.mjs"
-  };
-  var importmap_default = {
-    imports
-  };
-
-  // js/unpkg-path-plugin.tsx
-  init_define_process();
-  var esbuild = __toESM(require_browser(), 1);
-  var unpkgPathPlugin = {
-    name: "unpkg-path-plugin",
-    setup(build2) {
-      build2.onResolve({ filter: /^\.+\// }, (args) => {
-        const url = new URL(args.path, location.origin).toString();
-        return {
-          path: url,
-          namespace: "http-url"
-        };
-      });
-      build2.onResolve({ filter: /^\[a-z]+\// }, (args) => {
-        if (args.path.indexOf(location.origin) !== -1) {
-          return {
-            namespace: "http-url",
-            path: args.path
-          };
-        }
-        return {
-          path: `${location.origin}/npm:/${args.path}`,
-          namespace: "http-url"
-        };
-      });
-    }
-  };
-
-  // js/esbuildEsm.ts
-  var mod = {
-    init: false,
-    initialize: async () => {
-      if (mod.init !== false)
-        return mod.init;
-      const wasmURL = new URL(
-        await fetch(`${location.origin}/files.json`).then((f2) => f2.json()).then(
-          (k2) => k2[Object.keys(k2).find(
-            (i2) => i2.indexOf(".wasm") !== -1 && i2.indexOf("esbuild") !== -1
-          )]
-        ),
-        location.origin
-      ).toString();
-      mod.init = (0, import_esbuild_wasm.initialize)({
-        wasmURL
-      }).then(() => mod.init = true);
-      return mod.init;
-    }
-  };
-  var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
-    const initFinished = mod.initialize();
-    if (initFinished !== true)
-      await initFinished;
-    const transformed = await (0, import_esbuild_wasm.transform)(code, {
-      ...opts,
-      define: { ...define2, ...opts?.define ? opts.define : {} }
-    });
-    const trp = opts.keepNames ? importMapReplace(transformed.code) : transformed.code;
-    const res = { code: `/*${md5(code)}*/` + trp + `/*${mST().i}*/` };
-    return res;
-  }, "initAndTransform");
-  var define2 = {
-    "process.env.NODE_ENV": `"development"`,
-    "process.env.NODE_DEBUG": JSON.stringify(false),
-    "process.browser": JSON.stringify(true),
-    "process.env.DEBUG": JSON.stringify(true),
-    "isBrowser": JSON.stringify(true),
-    "isJest": JSON.stringify(false),
-    "process.env.version": '"1.1.1"',
-    global: "globalThis",
-    "WORKER_DOM_DEBUG": JSON.stringify(false),
-    "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
-    process: JSON.stringify({
-      env: {
-        NODE_ENV: `development`,
-        browser: true,
-        NODE_DEBUG: false,
-        DEBUG: true,
-        isBrowser: true
-      },
-      browser: true
-    })
-  };
-  var definePrd = {
-    "process.env.NODE_ENV": `"production"`,
-    "process.env.NODE_DEBUG": JSON.stringify(false),
-    "process.browser": JSON.stringify(true),
-    "process.env.DEBUG": JSON.stringify(false),
-    "isBrowser": JSON.stringify(true),
-    "isJest": JSON.stringify(false),
-    "process.env.version": '"1.1.1"',
-    global: "globalThis",
-    "WORKER_DOM_DEBUG": JSON.stringify(false),
-    "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
-    process: JSON.stringify({
-      env: {
-        NODE_ENV: `production`,
-        browser: true,
-        NODE_DEBUG: false,
-        DEBUG: false,
-        isBrowser: true
-      },
-      browser: true
-    })
-  };
-  var skipImportmapReplaceNames = false;
-  var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
-    const initFinished = mod.initialize();
-    if (initFinished !== true)
-      await initFinished;
-    skipImportmapReplaceNames = true;
-    const defaultOpts = {
-      bundle: true,
-      resolveExtensions: [
-        ".tsx",
-        ".ts",
-        ".jsx",
-        ".js",
-        ".d.ts",
-        ".css",
-        ".json",
-        ".mjs",
-        ".js",
-        ".wasm",
-        ".ttf"
-      ],
-      loader: {
-        ".js": "tsx",
-        ".css": "css",
-        ".ttf": "dataurl"
-      },
-      write: false,
-      metafile: true,
-      target: "es2022",
-      outdir: `./`,
-      treeShaking: true,
-      minify: false,
-      define: define2,
-      minifyIdentifiers: false,
-      minifySyntax: false,
-      minifyWhitespace: false,
-      splitting: false,
-      incremental: true,
-      format: "esm",
-      entryPoints: [
-        `./render.tsx?i=${i2}`
-      ],
-      tsconfig: "./tsconfig.json",
-      plugins: [unpkgPathPlugin, fetchPlugin]
-    };
-    let b2;
-    if (!signal.aborted && (b2 = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
-      console.log(b2.outputFiles);
-      return b2.outputFiles[0].contents;
-    }
-    return false;
-  }, "build");
-  function importMapReplace(codeInp) {
-    if (skipImportmapReplaceNames)
-      return codeInp;
-    const items = Object.keys(
-      imports
-    );
-    let returnStr = codeInp;
-    items.map((lib) => {
-      const uri = new URL(imports[lib], location.origin).toString();
-      returnStr = returnStr.replaceAll(
-        ` from "${lib}"`,
-        ` from "${uri}"`
-      ).replaceAll(
-        ` from './`,
-        ` from 'https://${location.host}/live/`
-      );
-    });
-    return returnStr;
-  }
-  __name(importMapReplace, "importMapReplace");
-
-  // js/renderToString.tsx
-  init_define_process();
 
   // js/starter.tsx
   init_define_process();
@@ -33926,6 +33511,135 @@ overflow-wrap: break-word;
   var import_cache = __toESM(require_emotion_cache_cjs(), 1);
   var emotionCacheWithExtraDefault = import_cache.default.default;
 
+  // js/session.ts
+  init_define_process();
+  var import_lodash = __toESM(require_lodash(), 1);
+
+  // js/getResetCss.ts
+  init_define_process();
+  var resetCSS = `
+*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
+all: unset;
+display: revert;
+}
+
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+
+a, button {
+cursor: revert;
+}
+
+ol, ul, menu {
+list-style: none;
+}
+
+img {
+max-width: 100%;
+}
+
+table {
+border-collapse: collapse;
+}
+
+input, textarea {
+-webkit-user-select: auto;
+}
+
+textarea {
+white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter {
+-webkit-appearance: revert;
+appearance: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder {
+color: unset;
+}
+
+/* fix the feature of 'hidden' attribute.
+display:revert; revert to element instead of a/live/editttribute */
+:where([hidden]) {
+display: none;
+}
+
+/* revert for bug in Chromium browsers
+- fix for the content editable attribute will work properly.
+- webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
+:where([contenteditable]:not([contenteditable="false"])) {
+-moz-user-modify: read-write;
+-webkit-user-modify: read-write;
+overflow-wrap: break-word;
+-webkit-line-break: after-white-space;
+-webkit-user-select: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"]) {
+-webkit-user-drag: element;
+}`;
+
+  // js/textDiff.ts
+  init_define_process();
+  var import_fast_diff = __toESM(require_diff(), 1);
+  function applyPatch(original, delta) {
+    let result = "";
+    let index = 0;
+    for (const item of delta) {
+      const operation = item[0];
+      const value = item[1];
+      if (item[0] === -1 && typeof value === "number") {
+        index += value;
+      } else if (operation == 0 && typeof value === "number") {
+        result += original.slice(index, index += value);
+      } else {
+        result += value;
+      }
+    }
+    return result;
+  }
+  __name(applyPatch, "applyPatch");
+
+  // js/session.ts
+  var session = null;
+  var hashCode = /* @__PURE__ */ __name(() => md5(mST().transpiled), "hashCode");
+  function mST(p2) {
+    if (!session) {
+      return {
+        i: 0,
+        transpiled: "",
+        code: "",
+        html: "",
+        css: ""
+      };
+    }
+    const sessAsJs = session.session.get("state").toJSON();
+    const { i: i2, transpiled, code, html, css } = p2 ? JSON.parse(
+      applyPatch(
+        string_(
+          sessAsJs
+        ),
+        p2
+      )
+    ) : sessAsJs;
+    return { i: i2, transpiled, code, html, css };
+  }
+  __name(mST, "mST");
+  function string_(s2) {
+    const { i: i2, transpiled, code, html, css } = s2;
+    return JSON.stringify({ i: i2, transpiled, code, html, css });
+  }
+  __name(string_, "string_");
+  var onSessionUpdate = /* @__PURE__ */ __name((fn, regId = "default") => session?.onUpdate(fn, regId), "onSessionUpdate");
+  var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess, i: mST().i + 1 }), "patchSync");
+
   // js/wait.ts
   init_define_process();
 
@@ -33933,7 +33647,7 @@ overflow-wrap: break-word;
   var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
   var modz = {};
   var abortz = {};
-  var codeSpace2 = location.pathname.slice(1).split("/")[1];
+  var codeSpace = location.pathname.slice(1).split("/")[1];
   var mutex = new Mutex();
   var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
     await mutex.runExclusive(async () => {
@@ -33949,7 +33663,7 @@ overflow-wrap: break-word;
         abortz[cs] = () => controller2.abort();
         modz[cs] = counter;
         let MST = mST();
-        if (cs === codeSpace2)
+        if (cs === codeSpace)
           MST = mST();
         else {
           const mst = mST();
@@ -34097,11 +33811,11 @@ overflow-wrap: break-word;
     }
   };
   async function moveToWorker(nameSpace, parent2) {
-    const { i: i2 } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
+    const { i: i2 } = nameSpace === codeSpace ? mST() : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
     const div = parent2?.getElementsByTagName("div")[0];
     div.style.height = "100%";
     const cont = new AbortController();
-    const js = await build(codeSpace2, i2, cont.signal);
+    const js = await build(codeSpace, i2, cont.signal);
     if (!js)
       return false;
     const src = createJsBlob(js);
@@ -34142,6 +33856,25 @@ overflow-wrap: break-word;
 
   // js/toUmd.ts
   init_define_process();
+
+  // js/importmap.json
+  var imports = {
+    "framer-motion": "/motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/cache": "/emotionCache.mjs",
+    "@emotion/styled": "/emotionStyled.mjs",
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    react: "/reactMod.mjs",
+    "react/jsx-runtime": "/jsx.mjs",
+    "react-dom": "/reactDom.mjs",
+    "react-dom/client": "/reactDomClient.mjs",
+    "react-error-boundary": "/reactMod.mjs"
+  };
+  var importmap_default = {
+    imports
+  };
+
+  // js/toUmd.ts
   var import_localforage = __toESM(require_localforage(), 1);
   var fileCache = import_localforage.default.createInstance({
     name: "filecache"
@@ -34149,12 +33882,12 @@ overflow-wrap: break-word;
   var imp = { ...importmap_default.imports };
   var importMasRes = {};
   Object.keys(imp).map((k2) => Object.assign(importMasRes, { [k2]: location.origin + imp[k2] }));
-  var mod2 = {
+  var mod = {
     printR(name, included) {
-      if (included[mod2.hashMap[name]])
+      if (included[mod.hashMap[name]])
         return "";
-      included[mod2.hashMap[name]] = true;
-      const current = mod2.data[mod2.hashMap[name]];
+      included[mod.hashMap[name]] = true;
+      const current = mod.data[mod.hashMap[name]];
       if (!current)
         console.error(name + " is missing!");
       const currentCode = current.code;
@@ -34162,7 +33895,7 @@ overflow-wrap: break-word;
         return currentCode;
       }
       const myDepts = [...current.deps];
-      const depts = myDepts.map((name2) => mod2.printR(name2, included)).join(
+      const depts = myDepts.map((name2) => mod.printR(name2, included)).join(
         " \n "
       );
       return depts + `
@@ -34170,11 +33903,11 @@ overflow-wrap: break-word;
     ` + currentCode;
     },
     toJs: async (name) => {
-      const js = mod2.printR(name, {});
+      const js = mod.printR(name, {});
       let reverseMap = {};
-      Object.keys(mod2.hashMap).forEach((key) => reverseMap = { ...reverseMap, [mod2.hashMap[key]]: key });
+      Object.keys(mod.hashMap).forEach((key) => reverseMap = { ...reverseMap, [mod.hashMap[key]]: key });
       let modZ = {};
-      Object.keys(mod2.data).forEach((k2) => modZ = { ...modZ, [reverseMap[k2]]: k2 });
+      Object.keys(mod.data).forEach((k2) => modZ = { ...modZ, [reverseMap[k2]]: k2 });
       Object.keys(importMasRes).forEach((k2) => modZ = { ...modZ, [k2]: "getName(`" + importMasRes[k2] + "`)" });
       const res = `
      ${js}
@@ -34224,11 +33957,11 @@ overflow-wrap: break-word;
   }, "findDeps");
   var toUmd = /* @__PURE__ */ __name(async (source, name) => {
     const hash = md5(source);
-    mod2.hashMap = { ...mod2.hashMap, [name]: hash };
-    if (mod2.data[hash])
-      return mod2;
+    mod.hashMap = { ...mod.hashMap, [name]: hash };
+    if (mod.data[hash])
+      return mod;
     try {
-      mod2.data[hash] = {
+      mod.data[hash] = {
         code: (await initAndTransform(source, {
           format: "iife",
           keepNames: true,
@@ -34254,7 +33987,7 @@ overflow-wrap: break-word;
         deps: []
       };
     } catch {
-      mod2.data[hash] = {
+      mod.data[hash] = {
         code: (await initAndTransform(source, {
           format: "iife",
           keepNames: true,
@@ -34286,17 +34019,17 @@ overflow-wrap: break-word;
         deps: []
       };
     }
-    mod2.data[hash].code = mod2.data[hash].code + `
+    mod.data[hash].code = mod.data[hash].code + `
   
   globalThis.globalNames = globalThis.globalNames || {};
   globalThis.globalNames["${name}"] =  ${hash}  ;`;
-    mod2.data[hash].deps = findDeps(mod2.data[hash].code).map((dep) => importShim.resolve(dep, name));
+    mod.data[hash].deps = findDeps(mod.data[hash].code).map((dep) => importShim.resolve(dep, name));
     await Promise.all(
-      mod2.data[hash].deps.map(
+      mod.data[hash].deps.map(
         (depUrl) => fetch_or_die(depUrl).then((content) => toUmd(content, depUrl).then(async (mod3) => await mod3))
       )
     );
-    return mod2;
+    return mod;
   }, "toUmd");
   var urls = {};
   var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
@@ -34320,7 +34053,280 @@ overflow-wrap: break-word;
     maxWait: 800
   });
   var counterMax = mST().i;
-  var IIFE = {};
+
+  // js/fetchPlugin.tsx
+  var fetchCache = /* @__PURE__ */ __name((req) => caches.open("fetchCache").then((fc) => {
+    fetchCache = fc;
+    return fc.match(req);
+  }), "fetchCache");
+  var codeSpace2 = location.pathname.slice(1).split("/")[1];
+  var fetchPlugin = {
+    name: "http",
+    setup(build2) {
+      build2.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
+        path: importShim.resolve(args.path, args.importer),
+        namespace: "http-url"
+      }));
+      build2.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
+        path: importShim.resolve(args.path, args.importer),
+        namespace: "ttf"
+      }));
+      build2.onLoad({ filter: /.*.tsx.*/ }, async (args) => {
+        if (args.path.indexOf("render.tsx") !== -1) {
+          const contents = await esmTransform(`
+      import {createRoot} from "react-dom/client"
+      import { CacheProvider } from "@emotion/react";
+      import createCache from "@emotion/cache";
+      import {StrictMode} from "react";
+      import { ErrorBoundary } from "react-error-boundary";
+      import App from "${location.origin}/live/${codeSpace2}/index.tsx/${mST().i}"
+      document.body.innerHTML = ${JSON.stringify(`<div id="root" style="height:100%">
+             <style>${mST().css}</style>${mST().html}
+      </div>`)};
+
+  let rootEl = document.getElementById("root");
+
+  rootEl.innerHTML="";
+   
+  const root = createRoot(rootEl);
+  
+    const cache = createCache({
+      key: "${hashCode()}",
+      container: rootEl,
+      speedy: false
+    });
+  
+   cache.compat = undefined;
+  
+  root.render(<StrictMode><ErrorBoundary
+    fallbackRender={({ error }) => (
+      <div role="alert">
+        <div>Oh n o</div>
+        <pre>{error.message}</pre>
+      </div>
+    )}>
+    <CacheProvider value={cache}>
+      <App />
+    </CacheProvider>
+    </ErrorBoundary></StrictMode>);
+
+      `);
+          return {
+            contents
+          };
+        }
+      });
+      build2.onLoad({ filter: /.*/ }, async (args) => {
+        const getRequest = /* @__PURE__ */ __name(async (req2) => {
+          let response2 = await fetchCache.match(req2);
+          if (response2)
+            return response2;
+          response2 = await fetch(req2);
+          if (!response2 || !response2.ok)
+            return response2;
+          response2 = new Response(response2.body, response2);
+          await fetchCache.put(req2, response2.clone());
+          return response2;
+        }, "getRequest");
+        const req = new Request(args.path);
+        let response = await getRequest(req);
+        if (req.url.indexOf(".tsx")) {
+          const contents2 = await esmTransform(await response.text());
+          return {
+            contents: contents2
+          };
+        }
+        if (args.namespace === "ttf") {
+          let contents2 = response.blob();
+          return {
+            contents: contents2,
+            loader: "dataurl"
+          };
+        }
+        let contents = await response.text();
+        return { contents };
+      });
+    }
+  };
+
+  // js/unpkg-path-plugin.tsx
+  init_define_process();
+  var esbuild = __toESM(require_browser(), 1);
+  var unpkgPathPlugin = {
+    name: "unpkg-path-plugin",
+    setup(build2) {
+      build2.onResolve({ filter: /^\.+\// }, (args) => {
+        const url = new URL(args.path, location.origin).toString();
+        return {
+          path: url,
+          namespace: "http-url"
+        };
+      });
+      build2.onResolve({ filter: /^\[a-z]+\// }, (args) => {
+        if (args.path.indexOf(location.origin) !== -1) {
+          return {
+            namespace: "http-url",
+            path: args.path
+          };
+        }
+        return {
+          path: `${location.origin}/npm:/${args.path}`,
+          namespace: "http-url"
+        };
+      });
+    }
+  };
+
+  // js/esbuildEsm.ts
+  var mod2 = {
+    init: false,
+    initialize: async () => {
+      if (mod2.init !== false)
+        return mod2.init;
+      const wasmURL = new URL(
+        await fetch(`${location.origin}/files.json`).then((f2) => f2.json()).then(
+          (k2) => k2[Object.keys(k2).find(
+            (i2) => i2.indexOf(".wasm") !== -1 && i2.indexOf("esbuild") !== -1
+          )]
+        ),
+        location.origin
+      ).toString();
+      mod2.init = (0, import_esbuild_wasm.initialize)({
+        wasmURL
+      }).then(() => mod2.init = true);
+      return mod2.init;
+    }
+  };
+  var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
+    const initFinished = mod2.initialize();
+    if (initFinished !== true)
+      await initFinished;
+    const transformed = await (0, import_esbuild_wasm.transform)(code, {
+      ...opts,
+      define: { ...define2, ...opts?.define ? opts.define : {} }
+    });
+    const trp = opts.keepNames ? importMapReplace(transformed.code) : transformed.code;
+    const res = { code: `/*${md5(code)}*/` + trp + `/*${mST().i}*/` };
+    return res;
+  }, "initAndTransform");
+  var define2 = {
+    "process.env.NODE_ENV": `"development"`,
+    "process.env.NODE_DEBUG": JSON.stringify(false),
+    "process.browser": JSON.stringify(true),
+    "process.env.DEBUG": JSON.stringify(true),
+    "isBrowser": JSON.stringify(true),
+    "isJest": JSON.stringify(false),
+    "process.env.version": '"1.1.1"',
+    global: "globalThis",
+    "WORKER_DOM_DEBUG": JSON.stringify(false),
+    "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
+    process: JSON.stringify({
+      env: {
+        NODE_ENV: `development`,
+        browser: true,
+        NODE_DEBUG: false,
+        DEBUG: true,
+        isBrowser: true
+      },
+      browser: true
+    })
+  };
+  var definePrd = {
+    "process.env.NODE_ENV": `"production"`,
+    "process.env.NODE_DEBUG": JSON.stringify(false),
+    "process.browser": JSON.stringify(true),
+    "process.env.DEBUG": JSON.stringify(false),
+    "isBrowser": JSON.stringify(true),
+    "isJest": JSON.stringify(false),
+    "process.env.version": '"1.1.1"',
+    global: "globalThis",
+    "WORKER_DOM_DEBUG": JSON.stringify(false),
+    "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
+    process: JSON.stringify({
+      env: {
+        NODE_ENV: `production`,
+        browser: true,
+        NODE_DEBUG: false,
+        DEBUG: false,
+        isBrowser: true
+      },
+      browser: true
+    })
+  };
+  var skipImportmapReplaceNames = false;
+  var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
+    const initFinished = mod2.initialize();
+    if (initFinished !== true)
+      await initFinished;
+    skipImportmapReplaceNames = true;
+    const defaultOpts = {
+      bundle: true,
+      resolveExtensions: [
+        ".tsx",
+        ".ts",
+        ".jsx",
+        ".js",
+        ".d.ts",
+        ".css",
+        ".json",
+        ".mjs",
+        ".js",
+        ".wasm",
+        ".ttf"
+      ],
+      loader: {
+        ".js": "tsx",
+        ".css": "css",
+        ".ttf": "dataurl"
+      },
+      write: false,
+      metafile: true,
+      target: "es2022",
+      outdir: `./`,
+      treeShaking: true,
+      minify: false,
+      define: define2,
+      minifyIdentifiers: false,
+      minifySyntax: false,
+      minifyWhitespace: false,
+      splitting: false,
+      incremental: true,
+      format: "esm",
+      entryPoints: [
+        `./render.tsx?i=${i2}`
+      ],
+      tsconfig: "./tsconfig.json",
+      plugins: [unpkgPathPlugin, fetchPlugin]
+    };
+    let b2;
+    if (!signal.aborted && (b2 = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
+      console.log(b2.outputFiles);
+      return b2.outputFiles[0].contents;
+    }
+    return false;
+  }, "build");
+  function importMapReplace(codeInp) {
+    if (skipImportmapReplaceNames)
+      return codeInp;
+    const items = Object.keys(
+      imports
+    );
+    let returnStr = codeInp;
+    items.map((lib) => {
+      const uri = new URL(imports[lib], location.origin).toString();
+      returnStr = returnStr.replaceAll(
+        ` from "${lib}"`,
+        ` from "${uri}"`
+      ).replaceAll(
+        ` from './`,
+        ` from 'https://${location.host}/live/`
+      );
+    });
+    return returnStr;
+  }
+  __name(importMapReplace, "importMapReplace");
+
+  // js/esmTransform.ts
   var esmTransform = /* @__PURE__ */ __name(async (code) => {
     const transpiled = await initAndTransform(code, {
       loader: "tsx",
@@ -34328,7 +34334,6 @@ overflow-wrap: break-word;
       treeShaking: true,
       platform: "browser",
       minify: false,
-      globalName: md5(code),
       keepNames: true,
       tsconfigRaw: {
         compilerOptions: {
@@ -34340,7 +34345,6 @@ overflow-wrap: break-word;
       },
       target: "es2022"
     });
-    Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
     return transpiled.code;
   }, "esmTransform");
 

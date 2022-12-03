@@ -5344,6 +5344,29 @@ init_define_process();
 init_define_process();
 var import_lodash = __toESM(require_lodash(), 1);
 
+// js/esmTransform.ts
+init_define_process();
+var esmTransform = /* @__PURE__ */ __name(async (code) => {
+  const transpiled = await initAndTransform(code, {
+    loader: "tsx",
+    format: "esm",
+    treeShaking: true,
+    platform: "browser",
+    minify: false,
+    keepNames: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        useDefineForClassFields: false,
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react"
+      }
+    },
+    target: "es2022"
+  });
+  return transpiled.code;
+}, "esmTransform");
+
 // js/renderToString.tsx
 init_define_process();
 var import_react = __toESM(require_react(), 1);
@@ -5651,29 +5674,6 @@ var debouncedSync = (0, import_lodash.default)(patchSync, 200, {
   maxWait: 800
 });
 var counterMax = mST().i;
-var IIFE = {};
-var esmTransform = /* @__PURE__ */ __name(async (code) => {
-  const transpiled = await initAndTransform(code, {
-    loader: "tsx",
-    format: "esm",
-    treeShaking: true,
-    platform: "browser",
-    minify: false,
-    globalName: md5(code),
-    keepNames: true,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: "react-jsx",
-        useDefineForClassFields: false,
-        jsxFragmentFactory: "Fragment",
-        jsxImportSource: "@emotion/react"
-      }
-    },
-    target: "es2022"
-  });
-  Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
-  return transpiled.code;
-}, "esmTransform");
 async function runner({ code, counter, codeSpace: codeSpace3 }) {
   if (counter <= counterMax)
     return;
