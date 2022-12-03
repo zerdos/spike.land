@@ -7305,7 +7305,7 @@ var lastH = "";
 var lastSuccessful = "";
 async function runInWorker(nameSpace, _parent) {
   if (worker)
-    worker.terminate;
+    worker.terminate();
   lastH = hashCode();
   console.log(`last hash: ${lastH}`);
   await mutex.runExclusive(async () => {
