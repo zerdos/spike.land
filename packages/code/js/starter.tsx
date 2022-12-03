@@ -72,7 +72,7 @@ export const createIframe = async (cs: string, counter: number) => {
     <script type="module" src=${srcJS}></script> 
     </head>
     <body>
-    <div id="${cs}-${hashCode}" style="height: 100%;">${html}</div>
+    <div id="root" style="height: 100%;">${html}</div>
     </body>
     </html>`);
       const setIframe = (srcJS: string) => {
