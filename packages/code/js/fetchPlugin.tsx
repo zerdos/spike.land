@@ -3,11 +3,13 @@ import { esmTransform } from "runner";
 // import localForage from "localforage";
 import { hashCode, mST } from "./session";
 
-let fetchCache: Cache = (req: Request) =>
-  caches.open("fetchCache").then(fc => {
-    fetchCache = fc;
-    return fc.match(req);
-  });
+let fetchCache: Cache = {
+  match: (req: Request) =>
+    caches.open("fetchCache").then(fc => {
+      fetchCache = fc;
+      return fc.match(req);
+    }),
+} as unknown as Cache;
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";

@@ -1,6 +1,6 @@
 import localForage from "localforage";
 // import { importMapReplace } from "./esbuildEsm";
-// import { transform } from "./esmTransform";
+import { transform } from "./esmTransform";
 export type {};
 
 interface MyServiceWorkerScope extends ServiceWorkerGlobalScope {
@@ -121,7 +121,10 @@ self.addEventListener("fetch", function(event) {
         response = new Response(response.body, response);
         if (!response.ok || !response.body) return response;
 
-        if (url.pathname.indexOf(".ts") !== -1) {
+        if (
+          url.pathname.indexOf(".ts") !== -1 && url.pathname.indexOf(".d.ts") === -1
+          && url.pathname.indexOf(".tsx") === -1
+        ) {
           const transformed =
             (await transform(await response.text(), { format: "esm", loader: "ts", target: "es2022" })).code;
           if (typeof transformed !== "string") return new Response("500 transpile error", { status: 500 });
