@@ -1,6 +1,6 @@
-import ReactDomClient from "react-dom/client";
+import * as ReactDOM from "react-dom/client";
 
-export const createRoot = ReactDomClient.createRoot;
-export const hydrateRoot = ReactDomClient.hydrateRoot;
+export const createRoot = ReactDOM.createRoot;
+export const hydrateRoot = ReactDOM.hydrateRoot;
 
-export default ReactDomClient;
+export default ReactDOM;
