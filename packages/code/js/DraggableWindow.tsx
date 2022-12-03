@@ -7,6 +7,7 @@ import { QRButton } from "./Qr.lazy";
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
+import { wait } from "wait";
 import { Phone, Share, Tablet, Tv } from "./icons";
 
 const breakPoints = [680, 768, 1920];
@@ -65,8 +66,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   useEffect(() => {
     if (!iRef.current) return;
+
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = async () => {
+      await wait(500);
       setPositions({
         bottom: window.innerHeight * 0.2,
         right: window.innerWidth * 0.2,
