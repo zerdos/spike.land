@@ -54,6 +54,7 @@ export const createIframe = async (cs: string, counter: number) => {
       if (signal.aborted) return;
 
       let iframe = document.createElement("iframe");
+      iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
 
       const iSRC = (srcJS: string) =>
         createHTML(`
@@ -189,7 +190,16 @@ bc.onmessage = (event) => {
     if (location.href.indexOf("/hydrated") !== -1) {
       runInWorker(nameSpace, parent);
     } else {
-      createIframe(nameSpace, mST().i);
+      let iframe = document.createElement("iframe");
+      iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
+
+      //  iframe.setAttribute("data-coder", cs);
+      iframe.style.height = "100%";
+      //    iframe.setAttribute("id", `coder-${cs}`);
+      iframe.style.border = "none";
+      // iframe.style.width = "100%";
+
+      //      createIframe(nameSpace, mST().i);
     }
   }
 };
