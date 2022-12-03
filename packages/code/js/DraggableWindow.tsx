@@ -38,7 +38,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio + 20);
-  const videoRef = useRef(null);
+  // const videoRef = useRef(null);
   const scale = scaleRange / 100;
 
   // UseEffect(()=> {
@@ -398,7 +398,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
                   {false && (
                     <>
-                      <video
+                      {
+                        /* <video
                         ref={videoRef}
                         onClick={
                           () => {} // startVideo(videoRef?.current!)
@@ -416,7 +417,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                           autoPlay={true}
                         >
                         </video>
-                      ))}
+                      ))} */
+                      }
                     </>
                   )}
                   <Fab
