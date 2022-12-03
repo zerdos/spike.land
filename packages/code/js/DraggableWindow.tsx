@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { AnimatePresence, motion, MotionConfig } from "framer-motion";
+import { motion, MotionConfig } from "framer-motion";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
@@ -7,8 +7,8 @@ import { QRButton } from "./Qr.lazy";
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
-import { wait } from "wait";
 import { Phone, Share, Tablet, Tv } from "./icons";
+import { wait } from "./wait";
 
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
@@ -70,6 +70,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = async () => {
       await wait(400);
+      setPositions({
+        bottom: -50 * devicePixelRatio,
+        right: -90 * dev,
+      });
 
       if (window.innerWidth / devicePixelRatio < 600) {
         changeScaleRange(50);
@@ -143,7 +147,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //   setClients([...Object.keys(sendChannel.rtcConns)]);
   // }, [sendChannel.webRtcArray.length, setClients]);
 
-  const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || 400;
+  const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || 0.4;
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
