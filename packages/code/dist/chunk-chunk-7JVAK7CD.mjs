@@ -26660,7 +26660,7 @@ var fetchPlugin = {
   
    cache.compat = undefined;
   
-   hydrateRoot(<StrictMode><ErrorBoundary
+   hydrateRoot(rootEl, <StrictMode><ErrorBoundary
     fallbackRender={({ error }) => (
       <div role="alert">
         <div>Oh n o</div>
@@ -26670,7 +26670,7 @@ var fetchPlugin = {
     <CacheProvider value={cache}>
       <App />
     </CacheProvider>
-    </ErrorBoundary></StrictMode>, rootEl);
+    </ErrorBoundary></StrictMode>);
       `);
         return {
           contents
@@ -26819,7 +26819,6 @@ var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle) => {
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
-  skipImportmapReplaceNames = true;
   const defaultOpts = {
     bundle: false,
     resolveExtensions: [

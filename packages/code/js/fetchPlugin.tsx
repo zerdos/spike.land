@@ -71,7 +71,7 @@ export const fetchPlugin: Plugin = {
   
    cache.compat = undefined;
   
-   hydrateRoot(<StrictMode><ErrorBoundary
+   hydrateRoot(rootEl, <StrictMode><ErrorBoundary
     fallbackRender={({ error }) => (
       <div role="alert">
         <div>Oh n o</div>
@@ -81,7 +81,7 @@ export const fetchPlugin: Plugin = {
     <CacheProvider value={cache}>
       <App />
     </CacheProvider>
-    </ErrorBoundary></StrictMode>, rootEl);
+    </ErrorBoundary></StrictMode>);
       `);
         return {
           contents,
