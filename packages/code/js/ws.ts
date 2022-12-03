@@ -499,6 +499,7 @@ async function processWsMessage(
 
   if (!conn.target && data.name && data.hashCode) {
     conn.target = data.name;
+    sendChannel.wsConns[data.name] = conn;
     conn.hashCode = data.hashCode;
     users.insert(conn.target);
   }
