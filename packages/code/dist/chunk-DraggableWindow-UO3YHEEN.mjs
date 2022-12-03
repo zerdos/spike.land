@@ -66,8 +66,8 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     const reveal = /* @__PURE__ */ __name(async () => {
       await wait(400);
       setPositions({
-        bottom: -25,
-        right: -45
+        bottom: -50,
+        right: -90
       });
       if (window.innerWidth / devicePixelRatio < 600) {
         changeScaleRange(50);
