@@ -30,7 +30,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   },
 ) => {
   const [scaleRange, changeScaleRange] = useState(100);
-  // const zBodyRef = useRef(null);
+  const iRef = useRef(null);
   // globalThis.zBodyRef = zBodyRef;
 
   const startPositions = { bottom: 0, right: 0 };
@@ -66,7 +66,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //  }, [terminalRef]);
 
   useEffect(() => {
-    // if (!zBodyRef.current) return;
+    if (!iRef.current) return;
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = async () => {
       setPositions({
@@ -109,7 +109,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
     reveal();
     // SetTimeout(reveal, 200);
-  }, []);
+  }, [iRef, iRef.current]);
 
   const bgColor = window.getComputedStyle(
     document.body,
@@ -251,7 +251,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   }}
                 >
                   <m.iframe
-                  ref={iRef}
+                    ref={iRef}
                     frameBorder={0}
                     initial={{
                       width: window.innerWidth,
