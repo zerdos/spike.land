@@ -86,7 +86,7 @@ var require_browser = __commonJS({
         serve: () => serve,
         transform: () => transform2,
         transformSync: () => transformSync,
-        version: () => version2
+        version: () => version
       });
       module2.exports = __toCommonJS(browser_exports);
       function encodePacket(packet) {
@@ -145,7 +145,7 @@ var require_browser = __commonJS({
             case 5: {
               let count = bb.read32();
               let value2 = [];
-              for (let i2 = 0; i2 < count; i2++) {
+              for (let i3 = 0; i3 < count; i3++) {
                 value2.push(visit());
               }
               return value2;
@@ -153,7 +153,7 @@ var require_browser = __commonJS({
             case 6: {
               let count = bb.read32();
               let value2 = {};
-              for (let i2 = 0; i2 < count; i2++) {
+              for (let i3 = 0; i3 < count; i3++) {
                 value2[decodeUTF8(bb.read())] = visit();
               }
               return value2;
@@ -1246,17 +1246,17 @@ var require_browser = __commonJS({
         let onResolveCallbacks = {};
         let onLoadCallbacks = {};
         let nextCallbackID = 0;
-        let i2 = 0;
+        let i3 = 0;
         let requestPlugins = [];
         let isSetupDone = false;
         plugins = [...plugins];
         for (let item of plugins) {
           let keys = {};
           if (typeof item !== "object")
-            throw new Error(`Plugin at index ${i2} must be an object`);
+            throw new Error(`Plugin at index ${i3} must be an object`);
           const name = getFlag(item, keys, "name", mustBeString);
           if (typeof name !== "string" || name === "")
-            throw new Error(`Plugin at index ${i2} is missing a name`);
+            throw new Error(`Plugin at index ${i3} is missing a name`);
           try {
             let setup = getFlag(item, keys, "setup", mustBeFunction);
             if (typeof setup !== "function")
@@ -1267,7 +1267,7 @@ var require_browser = __commonJS({
               onResolve: [],
               onLoad: []
             };
-            i2++;
+            i3++;
             let resolve = /* @__PURE__ */ __name((path, options = {}) => {
               if (!isSetupDone)
                 throw new Error('Cannot call "resolve" before plugin setup has completed');
@@ -1579,8 +1579,8 @@ var require_browser = __commonJS({
       function parseStackLinesV8(streamIn, lines, ident) {
         let at = "    at ";
         if (streamIn.readFileSync && !lines[0].startsWith(at) && lines[1].startsWith(at)) {
-          for (let i2 = 1; i2 < lines.length; i2++) {
-            let line = lines[i2];
+          for (let i3 = 1; i3 < lines.length; i3++) {
+            let line = lines[i3];
             if (!line.startsWith(at))
               continue;
             line = line.slice(at.length);
@@ -1625,8 +1625,8 @@ var require_browser = __commonJS({
       __name(parseStackLinesV8, "parseStackLinesV8");
       function failureErrorWithLog(text, errors, warnings) {
         let limit = 5;
-        let summary = errors.length < 1 ? "" : ` with ${errors.length} error${errors.length < 2 ? "" : "s"}:` + errors.slice(0, limit + 1).map((e2, i2) => {
-          if (i2 === limit)
+        let summary = errors.length < 1 ? "" : ` with ${errors.length} error${errors.length < 2 ? "" : "s"}:` + errors.slice(0, limit + 1).map((e2, i3) => {
+          if (i3 === limit)
             return "\n...";
           if (!e2.location)
             return `
@@ -1737,7 +1737,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         };
       }
       __name(convertOutputFiles, "convertOutputFiles");
-      var version2 = "0.15.16";
+      var version = "0.15.16";
       var build2 = /* @__PURE__ */ __name((options) => ensureServiceIsRunning().build(options), "build");
       var serve = /* @__PURE__ */ __name(() => {
         throw new Error(`The "serve" API only works in node`);
@@ -2056,8 +2056,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                     const array = getInt64(addr + 0);
                     const len = getInt64(addr + 8);
                     const a2 = new Array(len);
-                    for (let i2 = 0; i2 < len; i2++) {
-                      a2[i2] = loadValue(array + i2 * 8);
+                    for (let i3 = 0; i3 < len; i3++) {
+                      a2[i3] = loadValue(array + i3 * 8);
                     }
                     return a2;
                   }, "loadSliceOfValues");
@@ -2500,8 +2500,8 @@ var require_localforage = __commonJS({
               var a2 = typeof __require == "function" && __require;
               if (!u2 && a2)
                 return a2(o3, true);
-              if (i2)
-                return i2(o3, true);
+              if (i3)
+                return i3(o3, true);
               var f2 = new Error("Cannot find module '" + o3 + "'");
               throw f2.code = "MODULE_NOT_FOUND", f2;
             }
@@ -2514,7 +2514,7 @@ var require_localforage = __commonJS({
           return n2[o3].exports;
         }
         __name(s2, "s");
-        var i2 = typeof __require == "function" && __require;
+        var i3 = typeof __require == "function" && __require;
         for (var o2 = 0; o2 < r2.length; o2++)
           s2(r2[o2]);
         return s2;
@@ -2561,14 +2561,14 @@ var require_localforage = __commonJS({
           var queue = [];
           function nextTick() {
             draining = true;
-            var i2, oldQueue;
+            var i3, oldQueue;
             var len = queue.length;
             while (len) {
               oldQueue = queue;
               queue = [];
-              i2 = -1;
-              while (++i2 < len) {
-                oldQueue[i2]();
+              i3 = -1;
+              while (++i3 < len) {
+                oldQueue[i3]();
               }
               len = queue.length;
             }
@@ -2673,10 +2673,10 @@ var require_localforage = __commonJS({
           } else {
             self2.state = FULFILLED;
             self2.outcome = value;
-            var i2 = -1;
+            var i3 = -1;
             var len = self2.queue.length;
-            while (++i2 < len) {
-              self2.queue[i2].callFulfilled(value);
+            while (++i3 < len) {
+              self2.queue[i3].callFulfilled(value);
             }
           }
           return self2;
@@ -2684,10 +2684,10 @@ var require_localforage = __commonJS({
         handlers.reject = function(self2, error) {
           self2.state = REJECTED;
           self2.outcome = error;
-          var i2 = -1;
+          var i3 = -1;
           var len = self2.queue.length;
-          while (++i2 < len) {
-            self2.queue[i2].callRejected(error);
+          while (++i3 < len) {
+            self2.queue[i3].callRejected(error);
           }
           return self2;
         };
@@ -2767,13 +2767,13 @@ var require_localforage = __commonJS({
           }
           var values = new Array(len);
           var resolved = 0;
-          var i2 = -1;
+          var i3 = -1;
           var promise = new this(INTERNAL);
-          while (++i2 < len) {
-            allResolver(iterable[i2], i2);
+          while (++i3 < len) {
+            allResolver(iterable[i3], i3);
           }
           return promise;
-          function allResolver(value, i3) {
+          function allResolver(value, i4) {
             self2.resolve(value).then(resolveFromAll, function(error) {
               if (!called) {
                 called = true;
@@ -2781,7 +2781,7 @@ var require_localforage = __commonJS({
               }
             });
             function resolveFromAll(outValue) {
-              values[i3] = outValue;
+              values[i4] = outValue;
               if (++resolved === len && !called) {
                 called = true;
                 handlers.resolve(promise, values);
@@ -2803,10 +2803,10 @@ var require_localforage = __commonJS({
           if (!len) {
             return this.resolve([]);
           }
-          var i2 = -1;
+          var i3 = -1;
           var promise = new this(INTERNAL);
-          while (++i2 < len) {
-            resolver(iterable[i2]);
+          while (++i3 < len) {
+            resolver(iterable[i3]);
           }
           return promise;
           function resolver(value) {
@@ -2892,8 +2892,8 @@ var require_localforage = __commonJS({
             }
             var Builder = typeof BlobBuilder !== "undefined" ? BlobBuilder : typeof MSBlobBuilder !== "undefined" ? MSBlobBuilder : typeof MozBlobBuilder !== "undefined" ? MozBlobBuilder : WebKitBlobBuilder;
             var builder = new Builder();
-            for (var i2 = 0; i2 < parts.length; i2 += 1) {
-              builder.append(parts[i2]);
+            for (var i3 = 0; i3 < parts.length; i3 += 1) {
+              builder.append(parts[i3]);
             }
             return builder.getBlob(properties.type);
           }
@@ -2946,8 +2946,8 @@ var require_localforage = __commonJS({
           var length2 = bin.length;
           var buf = new ArrayBuffer(length2);
           var arr = new Uint8Array(buf);
-          for (var i2 = 0; i2 < length2; i2++) {
-            arr[i2] = bin.charCodeAt(i2);
+          for (var i3 = 0; i3 < length2; i3++) {
+            arr[i3] = bin.charCodeAt(i3);
           }
           return buf;
         }
@@ -3139,8 +3139,8 @@ var require_localforage = __commonJS({
           _deferReadiness(dbInfo);
           var dbContext = dbContexts[dbInfo.name];
           var forages = dbContext.forages;
-          for (var i2 = 0; i2 < forages.length; i2++) {
-            var forage = forages[i2];
+          for (var i3 = 0; i3 < forages.length; i3++) {
+            var forage = forages[i3];
             if (forage._dbInfo.db) {
               forage._dbInfo.db.close();
               forage._dbInfo.db = null;
@@ -3155,8 +3155,8 @@ var require_localforage = __commonJS({
             return db;
           }).then(function(db) {
             dbInfo.db = dbContext.db = db;
-            for (var i3 = 0; i3 < forages.length; i3++) {
-              forages[i3]._dbInfo.db = db;
+            for (var i4 = 0; i4 < forages.length; i4++) {
+              forages[i4]._dbInfo.db = db;
             }
           })["catch"](function(err) {
             _rejectReadiness(dbInfo, err);
@@ -3205,8 +3205,8 @@ var require_localforage = __commonJS({
             db: null
           };
           if (options) {
-            for (var i2 in options) {
-              dbInfo[i2] = options[i2];
+            for (var i3 in options) {
+              dbInfo[i3] = options[i3];
             }
           }
           var dbContext = dbContexts[dbInfo.name];
@@ -3562,8 +3562,8 @@ var require_localforage = __commonJS({
               var dbContext = dbContexts[options.name];
               var forages = dbContext.forages;
               dbContext.db = db;
-              for (var i2 = 0; i2 < forages.length; i2++) {
-                forages[i2]._dbInfo.db = db;
+              for (var i3 = 0; i3 < forages.length; i3++) {
+                forages[i3]._dbInfo.db = db;
               }
               return db;
             });
@@ -3573,8 +3573,8 @@ var require_localforage = __commonJS({
                 var dbContext = dbContexts[options.name];
                 var forages = dbContext.forages;
                 db.close();
-                for (var i2 = 0; i2 < forages.length; i2++) {
-                  var forage = forages[i2];
+                for (var i3 = 0; i3 < forages.length; i3++) {
+                  var forage = forages[i3];
                   forage._dbInfo.db = null;
                 }
                 var dropDBPromise = new Promise$1(function(resolve, reject) {
@@ -3599,8 +3599,8 @@ var require_localforage = __commonJS({
                 });
                 return dropDBPromise.then(function(db2) {
                   dbContext.db = db2;
-                  for (var i3 = 0; i3 < forages.length; i3++) {
-                    var _forage = forages[i3];
+                  for (var i4 = 0; i4 < forages.length; i4++) {
+                    var _forage = forages[i4];
                     _advanceReadiness(_forage._dbInfo);
                   }
                 })["catch"](function(err) {
@@ -3619,8 +3619,8 @@ var require_localforage = __commonJS({
                 var dbContext = dbContexts[options.name];
                 var forages = dbContext.forages;
                 db.close();
-                for (var i2 = 0; i2 < forages.length; i2++) {
-                  var forage = forages[i2];
+                for (var i3 = 0; i3 < forages.length; i3++) {
+                  var forage = forages[i3];
                   forage._dbInfo.db = null;
                   forage._dbInfo.version = newVersion;
                 }
@@ -3699,7 +3699,7 @@ var require_localforage = __commonJS({
         function stringToBuffer(serializedString) {
           var bufferLength = serializedString.length * 0.75;
           var len = serializedString.length;
-          var i2;
+          var i3;
           var p2 = 0;
           var encoded1, encoded2, encoded3, encoded4;
           if (serializedString[serializedString.length - 1] === "=") {
@@ -3710,11 +3710,11 @@ var require_localforage = __commonJS({
           }
           var buffer = new ArrayBuffer(bufferLength);
           var bytes = new Uint8Array(buffer);
-          for (i2 = 0; i2 < len; i2 += 4) {
-            encoded1 = BASE_CHARS.indexOf(serializedString[i2]);
-            encoded2 = BASE_CHARS.indexOf(serializedString[i2 + 1]);
-            encoded3 = BASE_CHARS.indexOf(serializedString[i2 + 2]);
-            encoded4 = BASE_CHARS.indexOf(serializedString[i2 + 3]);
+          for (i3 = 0; i3 < len; i3 += 4) {
+            encoded1 = BASE_CHARS.indexOf(serializedString[i3]);
+            encoded2 = BASE_CHARS.indexOf(serializedString[i3 + 1]);
+            encoded3 = BASE_CHARS.indexOf(serializedString[i3 + 2]);
+            encoded4 = BASE_CHARS.indexOf(serializedString[i3 + 3]);
             bytes[p2++] = encoded1 << 2 | encoded2 >> 4;
             bytes[p2++] = (encoded2 & 15) << 4 | encoded3 >> 2;
             bytes[p2++] = (encoded3 & 3) << 6 | encoded4 & 63;
@@ -3725,12 +3725,12 @@ var require_localforage = __commonJS({
         function bufferToString(buffer) {
           var bytes = new Uint8Array(buffer);
           var base64String = "";
-          var i2;
-          for (i2 = 0; i2 < bytes.length; i2 += 3) {
-            base64String += BASE_CHARS[bytes[i2] >> 2];
-            base64String += BASE_CHARS[(bytes[i2] & 3) << 4 | bytes[i2 + 1] >> 4];
-            base64String += BASE_CHARS[(bytes[i2 + 1] & 15) << 2 | bytes[i2 + 2] >> 6];
-            base64String += BASE_CHARS[bytes[i2 + 2] & 63];
+          var i3;
+          for (i3 = 0; i3 < bytes.length; i3 += 3) {
+            base64String += BASE_CHARS[bytes[i3] >> 2];
+            base64String += BASE_CHARS[(bytes[i3] & 3) << 4 | bytes[i3 + 1] >> 4];
+            base64String += BASE_CHARS[(bytes[i3 + 1] & 15) << 2 | bytes[i3 + 2] >> 6];
+            base64String += BASE_CHARS[bytes[i3 + 2] & 63];
           }
           if (bytes.length % 3 === 2) {
             base64String = base64String.substring(0, base64String.length - 1) + "=";
@@ -3850,8 +3850,8 @@ var require_localforage = __commonJS({
             db: null
           };
           if (options) {
-            for (var i2 in options) {
-              dbInfo[i2] = typeof options[i2] !== "string" ? options[i2].toString() : options[i2];
+            for (var i3 in options) {
+              dbInfo[i3] = typeof options[i3] !== "string" ? options[i3].toString() : options[i3];
             }
           }
           var dbInfoPromise = new Promise$1(function(resolve, reject) {
@@ -3923,13 +3923,13 @@ var require_localforage = __commonJS({
                 tryExecuteSql(t2, dbInfo, "SELECT * FROM " + dbInfo.storeName, [], function(t3, results) {
                   var rows = results.rows;
                   var length2 = rows.length;
-                  for (var i2 = 0; i2 < length2; i2++) {
-                    var item = rows.item(i2);
+                  for (var i3 = 0; i3 < length2; i3++) {
+                    var item = rows.item(i3);
                     var result = item.value;
                     if (result) {
                       result = dbInfo.serializer.deserialize(result);
                     }
-                    result = iterator(result, item.key, i2 + 1);
+                    result = iterator(result, item.key, i3 + 1);
                     if (result !== void 0) {
                       resolve(result);
                       return;
@@ -4070,8 +4070,8 @@ var require_localforage = __commonJS({
               dbInfo.db.transaction(function(t2) {
                 tryExecuteSql(t2, dbInfo, "SELECT key FROM " + dbInfo.storeName, [], function(t3, results) {
                   var keys2 = [];
-                  for (var i2 = 0; i2 < results.rows.length; i2++) {
-                    keys2.push(results.rows.item(i2).key);
+                  for (var i3 = 0; i3 < results.rows.length; i3++) {
+                    keys2.push(results.rows.item(i3).key);
                   }
                   resolve(keys2);
                 }, function(t3, error) {
@@ -4089,8 +4089,8 @@ var require_localforage = __commonJS({
             db.transaction(function(t2) {
               t2.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name <> '__WebKitDatabaseInfoTable__'", [], function(t3, results) {
                 var storeNames = [];
-                for (var i2 = 0; i2 < results.rows.length; i2++) {
-                  storeNames.push(results.rows.item(i2).name);
+                for (var i3 = 0; i3 < results.rows.length; i3++) {
+                  storeNames.push(results.rows.item(i3).name);
                 }
                 resolve({
                   db,
@@ -4147,8 +4147,8 @@ var require_localforage = __commonJS({
                   }
                   __name(dropTable, "dropTable");
                   var operations = [];
-                  for (var i2 = 0, len = operationInfo.storeNames.length; i2 < len; i2++) {
-                    operations.push(dropTable(operationInfo.storeNames[i2]));
+                  for (var i3 = 0, len = operationInfo.storeNames.length; i3 < len; i3++) {
+                    operations.push(dropTable(operationInfo.storeNames[i3]));
                   }
                   Promise$1.all(operations).then(function() {
                     resolve();
@@ -4214,8 +4214,8 @@ var require_localforage = __commonJS({
           var self2 = this;
           var dbInfo = {};
           if (options) {
-            for (var i2 in options) {
-              dbInfo[i2] = options[i2];
+            for (var i3 in options) {
+              dbInfo[i3] = options[i3];
             }
           }
           dbInfo.keyPrefix = _getKeyPrefix(options, self2._defaultConfig);
@@ -4231,8 +4231,8 @@ var require_localforage = __commonJS({
           var self2 = this;
           var promise = self2.ready().then(function() {
             var keyPrefix = self2._dbInfo.keyPrefix;
-            for (var i2 = localStorage.length - 1; i2 >= 0; i2--) {
-              var key2 = localStorage.key(i2);
+            for (var i3 = localStorage.length - 1; i3 >= 0; i3--) {
+              var key2 = localStorage.key(i3);
               if (key2.indexOf(keyPrefix) === 0) {
                 localStorage.removeItem(key2);
               }
@@ -4265,8 +4265,8 @@ var require_localforage = __commonJS({
             var keyPrefixLength = keyPrefix.length;
             var length2 = localStorage.length;
             var iterationNumber = 1;
-            for (var i2 = 0; i2 < length2; i2++) {
-              var key2 = localStorage.key(i2);
+            for (var i3 = 0; i3 < length2; i3++) {
+              var key2 = localStorage.key(i3);
               if (key2.indexOf(keyPrefix) !== 0) {
                 continue;
               }
@@ -4309,8 +4309,8 @@ var require_localforage = __commonJS({
             var dbInfo = self2._dbInfo;
             var length2 = localStorage.length;
             var keys2 = [];
-            for (var i2 = 0; i2 < length2; i2++) {
-              var itemKey = localStorage.key(i2);
+            for (var i3 = 0; i3 < length2; i3++) {
+              var itemKey = localStorage.key(i3);
               if (itemKey.indexOf(dbInfo.keyPrefix) === 0) {
                 keys2.push(itemKey.substring(dbInfo.keyPrefix.length));
               }
@@ -4392,8 +4392,8 @@ var require_localforage = __commonJS({
                 resolve(_getKeyPrefix(options, self2._defaultConfig));
               }
             }).then(function(keyPrefix) {
-              for (var i2 = localStorage.length - 1; i2 >= 0; i2--) {
-                var key2 = localStorage.key(i2);
+              for (var i3 = localStorage.length - 1; i3 >= 0; i3--) {
+                var key2 = localStorage.key(i3);
                 if (key2.indexOf(keyPrefix) === 0) {
                   localStorage.removeItem(key2);
                 }
@@ -4423,12 +4423,12 @@ var require_localforage = __commonJS({
         }, "sameValue");
         var includes = /* @__PURE__ */ __name(function includes2(array, searchElement) {
           var len = array.length;
-          var i2 = 0;
-          while (i2 < len) {
-            if (sameValue(array[i2], searchElement)) {
+          var i3 = 0;
+          while (i3 < len) {
+            if (sameValue(array[i3], searchElement)) {
               return true;
             }
-            i2++;
+            i3++;
           }
           return false;
         }, "includes");
@@ -4463,8 +4463,8 @@ var require_localforage = __commonJS({
         }
         __name(callWhenReady, "callWhenReady");
         function extend() {
-          for (var i2 = 1; i2 < arguments.length; i2++) {
-            var arg = arguments[i2];
+          for (var i3 = 1; i3 < arguments.length; i3++) {
+            var arg = arguments[i3];
             if (arg) {
               for (var _key in arg) {
                 if (arg.hasOwnProperty(_key)) {
@@ -4509,14 +4509,14 @@ var require_localforage = __commonJS({
               if (this._ready) {
                 return new Error("Can't call config() after localforage has been used.");
               }
-              for (var i2 in options) {
-                if (i2 === "storeName") {
-                  options[i2] = options[i2].replace(/\W/g, "_");
+              for (var i3 in options) {
+                if (i3 === "storeName") {
+                  options[i3] = options[i3].replace(/\W/g, "_");
                 }
-                if (i2 === "version" && typeof options[i2] !== "number") {
+                if (i3 === "version" && typeof options[i3] !== "number") {
                   return new Error("Database version must be a number.");
                 }
-                this._config[i2] = options[i2];
+                this._config[i3] = options[i3];
               }
               if ("driver" in options && options.driver) {
                 return this.setDriver(this._config.driver);
@@ -4538,8 +4538,8 @@ var require_localforage = __commonJS({
                   return;
                 }
                 var driverMethods = LibraryMethods.concat("_initStorage");
-                for (var i2 = 0, len = driverMethods.length; i2 < len; i2++) {
-                  var driverMethodName = driverMethods[i2];
+                for (var i3 = 0, len = driverMethods.length; i3 < len; i3++) {
+                  var driverMethodName = driverMethods[i3];
                   var isRequired = !includes(OptionalDriverMethods, driverMethodName);
                   if ((isRequired || driverObject[driverMethodName]) && typeof driverObject[driverMethodName] !== "function") {
                     reject(complianceError);
@@ -4679,8 +4679,8 @@ var require_localforage = __commonJS({
           }, "_extend");
           LocalForage2.prototype._getSupportedDrivers = /* @__PURE__ */ __name(function _getSupportedDrivers(drivers) {
             var supportedDrivers = [];
-            for (var i2 = 0, len = drivers.length; i2 < len; i2++) {
-              var driverName = drivers[i2];
+            for (var i3 = 0, len = drivers.length; i3 < len; i3++) {
+              var driverName = drivers[i3];
               if (this.supports(driverName)) {
                 supportedDrivers.push(driverName);
               }
@@ -4688,8 +4688,8 @@ var require_localforage = __commonJS({
             return supportedDrivers;
           }, "_getSupportedDrivers");
           LocalForage2.prototype._wrapLibraryMethodsWithReady = /* @__PURE__ */ __name(function _wrapLibraryMethodsWithReady() {
-            for (var i2 = 0, len = LibraryMethods.length; i2 < len; i2++) {
-              callWhenReady(this, LibraryMethods[i2]);
+            for (var i3 = 0, len = LibraryMethods.length; i3 < len; i3++) {
+              callWhenReady(this, LibraryMethods[i3]);
             }
           }, "_wrapLibraryMethodsWithReady");
           LocalForage2.prototype.createInstance = /* @__PURE__ */ __name(function createInstance(options) {
@@ -4745,7 +4745,7 @@ var s = /* @__PURE__ */ new Map();
 var o = /* @__PURE__ */ __name((e2, t2) => {
   t2 && "value" in t2 && null === t2.oninput && (t2.oninput = () => l(e2, t2));
 }, "o");
-var i = /* @__PURE__ */ __name((e2, t2) => {
+var i2 = /* @__PURE__ */ __name((e2, t2) => {
   t2 && "value" in t2 && !s.get(t2) && (new MutationObserver((t3) => t3.map((t4) => l(e2, t4.target))).observe(t2, { attributes: true }), s.set(t2, true));
 }, "i");
 var l = /* @__PURE__ */ __name((e2, t2) => e2.messageToWorker({ 12: 4, 40: { 7: t2._index_, 21: t2.value } }), "l");
@@ -4783,7 +4783,7 @@ var a = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
           }
           let w2 = null !== s3.oninput;
           const x2 = "change" === d4;
-          g2 ? (x2 && (w2 = true, s3.onchange = null), s3.addEventListener(d4, a2[m2] = h2(s3._index_, !!f2[p2 + 5]))) : (x2 && (w2 = false), s3.removeEventListener(d4, a2[m2])), s3 && "value" in s3 && (w2 || o(n2, s3), i(n2, s3));
+          g2 ? (x2 && (w2 = true, s3.onchange = null), s3.addEventListener(d4, a2[m2] = h2(s3._index_, !!f2[p2 + 5]))) : (x2 && (w2 = false), s3.removeEventListener(d4, a2[m2])), s3 && "value" in s3 && (w2 || o(n2, s3), i2(n2, s3));
         }
         c3 += u3 ? 2 : 6;
       }
@@ -4805,7 +4805,7 @@ var d = /* @__PURE__ */ __name((e2, { getNode: t2 }, n2, r2, s2) => {
         (e4 = t2(e4)) && e4.remove();
       }), 0 < u2 && e3.slice(r3 + 6, r3 + 6 + u2).forEach((l3) => {
         const u3 = e3[r3 + 2];
-        (l3 = t2(l3)) && (s4.insertBefore(l3, u3 && t2(u3) || null), o(n2, l3), i(n2, l3));
+        (l3 = t2(l3)) && (s4.insertBefore(l3, u3 && t2(u3) || null), o(n2, l3), i2(n2, l3));
       }));
     }
     return r3 + 6 + u2 + a2;
@@ -4813,11 +4813,11 @@ var d = /* @__PURE__ */ __name((e2, { getNode: t2 }, n2, r2, s2) => {
 }, "d");
 var h = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
   const o2 = s2.executorsAllowed.includes(0);
-  return { execute(n3, r3, i2) {
-    if (o2 && i2) {
-      i2 = t2.getNode(n3[r3 + 1]);
+  return { execute(n3, r3, i3) {
+    if (o2 && i3) {
+      i3 = t2.getNode(n3[r3 + 1]);
       const o3 = e2.get(n3[r3 + 2]);
-      n3 = 0 !== (n3 = n3[r3 + 4]) ? e2.get(n3 - 1) : null, i2 && null != o3 && (s2.sanitizer ? s2.sanitizer.setAttribute(i2, o3, n3) : null == n3 ? i2.removeAttribute(o3) : i2.setAttribute(o3, n3));
+      n3 = 0 !== (n3 = n3[r3 + 4]) ? e2.get(n3 - 1) : null, i3 && null != o3 && (s2.sanitizer ? s2.sanitizer.setAttribute(i3, o3, n3) : null == n3 ? i3.removeAttribute(o3) : i3.setAttribute(o3, n3));
     }
     return r3 + 5;
   } };
@@ -4828,79 +4828,79 @@ var g = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
 }, "g");
 var f = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
   const o2 = s2.executorsAllowed.includes(3);
-  return { execute(n3, r3, i2) {
-    if (o2 && i2) {
-      i2 = t2.getNode(n3[r3 + 1]);
+  return { execute(n3, r3, i3) {
+    if (o2 && i3) {
+      i3 = t2.getNode(n3[r3 + 1]);
       const o3 = e2.get(n3[r3 + 2]);
       {
         const t3 = n3[r3 + 4];
         n3 = 1 === n3[r3 + 3] ? 1 === t3 : 0 !== t3 ? e2.get(t3) : null;
       }
-      i2 && o3 && null != n3 && (s2.sanitizer ? s2.sanitizer.setProperty(i2, o3, String(n3)) : i2[o3] = n3);
+      i3 && o3 && null != n3 && (s2.sanitizer ? s2.sanitizer.setProperty(i3, o3, String(n3)) : i3[o3] = n3);
     }
     return r3 + 5;
   } };
 }, "f");
 var p = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
   const o2 = s2.executorsAllowed.includes(6);
-  let i2, l2 = 0;
+  let i3, l2 = 0;
   return { execute(e3, t3, n3) {
     if (o2 && n3 && s2.longTask)
       if (6 === e3[t3]) {
-        if (l2++, !i2) {
-          const e4 = new Promise((e5) => i2 = e5);
+        if (l2++, !i3) {
+          const e4 = new Promise((e5) => i3 = e5);
           Promise.resolve().then(() => s2.longTask && s2.longTask(e4));
         }
       } else
-        7 === e3[t3] && (l2--, i2 && 0 >= l2 && (i2(), i2 = null, l2 = 0));
+        7 === e3[t3] && (l2--, i3 && 0 >= l2 && (i3(), i3 = null, l2 = 0));
     return t3 + 2;
   }, get active() {
-    return null !== i2;
+    return null !== i3;
   } };
 }, "p");
 var m = new Float32Array(1);
 var w = new Uint16Array(m.buffer);
 function x(e2, t2, n2, r2, s2, o2) {
-  let i2 = [];
+  let i3 = [];
   for (let u2 = 0; u2 < n2; u2++)
     switch (e2[t2++]) {
       case 1:
-        i2.push(e2[t2++]);
+        i3.push(e2[t2++]);
         break;
       case 2:
-        w[0] = e2[t2++], w[1] = e2[t2++], i2.push(m[0]);
+        w[0] = e2[t2++], w[1] = e2[t2++], i3.push(m[0]);
         break;
       case 3:
-        i2.push(r2.get(e2[t2++]));
+        i3.push(r2.get(e2[t2++]));
         break;
       case 4:
         var l2 = e2[t2++];
-        t2 = x(e2, t2, l2, r2, s2, o2), i2.push(t2.args), t2 = t2.offset;
+        t2 = x(e2, t2, l2, r2, s2, o2), i3.push(t2.args), t2 = t2.offset;
         break;
       case 5:
         if (!o2)
           throw Error("objectContext not provided.");
-        i2.push(o2.get(e2[t2++]));
+        i3.push(o2.get(e2[t2++]));
         break;
       case 6:
-        l2 = s2.getNode(e2[t2++]), i2.push(l2.getContext("2d"));
+        l2 = s2.getNode(e2[t2++]), i3.push(l2.getContext("2d"));
         break;
       case 7:
-        i2.push(s2.getNode(e2[t2++]));
+        i3.push(s2.getNode(e2[t2++]));
         break;
       default:
         throw Error("Cannot deserialize argument.");
     }
-  return { args: i2, offset: t2 };
+  return { args: i3, offset: t2 };
 }
 __name(x, "x");
 var v = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
   const o2 = s2.executorsAllowed.includes(9);
-  return { execute(n3, s3, i2) {
+  return { execute(n3, s3, i3) {
     const l2 = e2.get(n3[s3 + 1]), u2 = n3[s3 + 2], { offset: a2, args: c2 } = x(n3, s3 + 3, 1, e2, t2, r2);
     s3 = c2[0];
     const { offset: d2, args: h2 } = x(n3, a2, u2, e2, t2, r2);
-    return o2 && i2 && (b(s3, l2) ? s3[l2] = h2[0] : s3[l2](...h2)), d2;
+    return o2 && i3 && (b(s3, l2) ? s3[l2] = h2[0] : s3[l2](...h2)), d2;
   } };
 }, "v");
 function b(e2, t2) {
@@ -4914,11 +4914,11 @@ var k = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
   const o2 = s2.executorsAllowed.includes(10);
   if (!r2)
     throw Error("objectContext is not defined.");
-  return { execute(n3, s3, i2) {
+  return { execute(n3, s3, i3) {
     const l2 = e2.get(n3[s3 + 1]), u2 = n3[s3 + 2], a2 = n3[s3 + 3], { offset: c2, args: d2 } = x(n3, s3 + 4, 1, e2, t2, r2);
     s3 = d2[0];
     const { offset: h2, args: g2 } = x(n3, c2, a2, e2, t2, r2);
-    return o2 && i2 && "new" !== l2 && r2.store(u2, s3[l2](...g2)), h2;
+    return o2 && i3 && "new" !== l2 && r2.store(u2, s3[l2](...g2)), h2;
   } };
 }, "k");
 var y = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
@@ -4929,23 +4929,23 @@ var y = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
 }, "y");
 var N = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
   const o2 = s2.executorsAllowed.includes(12);
-  return { execute(t3, r3, i2) {
-    if (o2 && i2) {
-      i2 = t3[r3 + 1];
+  return { execute(t3, r3, i3) {
+    if (o2 && i3) {
+      i3 = t3[r3 + 1];
       var l2 = t3[r3 + 2], u2 = t3[r3 + 3];
       const o3 = t3[r3 + 4];
-      if (t3 = 0 < u2 ? e2.get(u2 - 1) : "", u2 = 0 < o3 ? e2.get(o3 - 1) : null, 1 === i2)
+      if (t3 = 0 < u2 ? e2.get(u2 - 1) : "", u2 = 0 < o3 ? e2.get(o3 - 1) : null, 1 === i3)
         ((e3, t4) => {
           s2.sanitizer && 2 === e3 && s2.sanitizer.getStorage(e3, t4).then((r4) => {
             n2.messageToWorker({ 12: 11, 74: t4, 75: e3, 21: r4 });
           });
         })(l2, t3);
-      else if (2 === i2)
-        if (i2 = l2, l2 = t3, t3 = u2, s2.sanitizer)
-          s2.sanitizer.setStorage(i2, l2, t3);
+      else if (2 === i3)
+        if (i3 = l2, l2 = t3, t3 = u2, s2.sanitizer)
+          s2.sanitizer.setStorage(i3, l2, t3);
         else {
           let e3;
-          if (0 === i2 ? e3 = window.localStorage : 1 === i2 && (e3 = window.sessionStorage), e3)
+          if (0 === i3 ? e3 = window.localStorage : 1 === i3 && (e3 = window.sessionStorage), e3)
             if (null == l2) {
               if (null != t3)
                 throw Error("Unexpected storage operation.");
@@ -5030,13 +5030,13 @@ __name(T, "T");
 var M = [8, 3];
 function S(e2, t2, n2, r2) {
   var s2 = [].slice.call(e2.childNodes).filter(n2);
-  return s2 = { 7: e2._index_, 11: 0, 0: e2.nodeType, 1: t2(e2.localName || e2.nodeName), 4: s2.map((e3) => S(e3, t2, n2, r2)), 2: [].map.call(e2.attributes || [], (e3) => [t2(e3.namespaceURI || "null"), t2(e3.name), t2(e3.value)]) }, null != e2.namespaceURI && (s2[6] = t2(e2.namespaceURI)), M.includes(e2.nodeType) && null !== e2.textContent && (s2[5] = t2(e2.textContent)), o(r2, e2), i(r2, e2), s2;
+  return s2 = { 7: e2._index_, 11: 0, 0: e2.nodeType, 1: t2(e2.localName || e2.nodeName), 4: s2.map((e3) => S(e3, t2, n2, r2)), 2: [].map.call(e2.attributes || [], (e3) => [t2(e3.namespaceURI || "null"), t2(e3.name), t2(e3.value)]) }, null != e2.namespaceURI && (s2[6] = t2(e2.namespaceURI)), M.includes(e2.nodeType) && null !== e2.textContent && (s2[5] = t2(e2.textContent)), o(r2, e2), i2(r2, e2), s2;
 }
 __name(S, "S");
 var U = class {
   constructor(e2, t2, n2, r2, s2) {
     this[55] = void 0, this.nodeContext = t2, this.config = s2;
-    let { skeleton: o2, strings: i2 } = function(e3, t3, n3) {
+    let { skeleton: o2, strings: i3 } = function(e3, t3, n3) {
       t3 = t3.hydrateFilter || (() => true);
       let r3 = [], s3 = /* @__PURE__ */ new Map();
       return { skeleton: S(e3, (e4) => {
@@ -5052,7 +5052,7 @@ var U = class {
       t2.push(n3);
     for (let t3 in e2)
       t3.startsWith("on") && l2.push(t3);
-    n2 = `'use strict';(function(){${n2}self['window']=self;var workerDOM=WorkerThread.workerDOM;WorkerThread.hydrate(workerDOM.document,${JSON.stringify(i2)},${JSON.stringify(o2)},${JSON.stringify(t2)},${JSON.stringify(l2)},[${window.innerWidth},${window.innerHeight}],${JSON.stringify(u2)},${JSON.stringify(a2)});workerDOM.document[59](this);Object.assign(self,workerDOM);}).call(self);${r2}//# sourceURL=${encodeURI(s2.authorURL)}`, s2.sandbox || (this[55] = new Worker(URL.createObjectURL(new Blob([n2])))), s2.onCreateWorker && s2.onCreateWorker(e2, i2, o2, t2);
+    n2 = `'use strict';(function(){${n2}self['window']=self;var workerDOM=WorkerThread.workerDOM;WorkerThread.hydrate(workerDOM.document,${JSON.stringify(i3)},${JSON.stringify(o2)},${JSON.stringify(t2)},${JSON.stringify(l2)},[${window.innerWidth},${window.innerHeight}],${JSON.stringify(u2)},${JSON.stringify(a2)});workerDOM.document[59](this);Object.assign(self,workerDOM);}).call(self);${r2}//# sourceURL=${encodeURI(s2.authorURL)}`, s2.sandbox || (this[55] = new Worker(URL.createObjectURL(new Blob([n2])))), s2.onCreateWorker && s2.onCreateWorker(e2, i3, o2, t2);
   }
   ready() {
     return this.worker.readyPromise || Promise.resolve();
@@ -5122,12 +5122,12 @@ function j(e2, n2) {
       let e4 = n3.cloneNode(true);
       o2.appendChild(e4), n3 = e4;
     }
-    let i2 = new T(), l2 = new P(), u2 = new r(i2, n3), a2 = function(e4) {
+    let i3 = new T(), l2 = new P(), u2 = new r(i3, n3), a2 = function(e4) {
       return Object.assign({}, { mutationPump: requestAnimationFrame.bind(null), executorsAllowed: t }, e4);
     }(s2);
     return e3.then(([e4, t2]) => {
       if (e4 && t2 && s2.authorURL) {
-        let r2 = new U(n3, u2, e4, t2, a2), o3 = new E(i2, u2, r2, a2, l2);
+        let r2 = new U(n3, u2, e4, t2, a2), o3 = new E(i3, u2, r2, a2, l2);
         return r2.worker.onmessage = (e5) => {
           let { data: t3 } = e5;
           R.includes(t3[12]) && (o3.mutate(t3[54], t3[37], t3[41], new Uint16Array(t3[36])), s2.onReceiveMessage) && s2.onReceiveMessage(e5);
@@ -5336,9 +5336,6 @@ __name(Mutex, "Mutex");
 // js/esbuildEsm.ts
 init_define_process();
 var import_esbuild_wasm = __toESM(require_browser(), 1);
-
-// ../../.yarn/global/cache/esbuild-wasm-npm-0.15.16-c2c146172f-9.zip/node_modules/esbuild-wasm/package.json
-var version = "0.15.16";
 
 // js/fetchPlugin.tsx
 init_define_process();
@@ -5827,12 +5824,20 @@ var unpkgPathPlugin = {
 };
 
 // js/esbuildEsm.ts
+i;
 var mod3 = {
   init: false,
-  initialize: () => {
+  initialize: async () => {
     if (mod3.init !== false)
       return mod3.init;
-    const wasmURL = new URL(`/node_modules/esbuild-wasm@${version}/esbuild-wasm.wasm`, location.origin).toString();
+    const wasmURL = new URL(
+      await fetch(`${location.origin}/files.json`).then((f2) => f2.json()).then(
+        (k2) => k2[Object.keys(k2).find(
+          (i3) => i3.indexOf(".wasm") !== -1 && i3.indexOf("esbuild") !== -1
+        )]
+      ),
+      location.origin
+    ).toString();
     mod3.init = (0, import_esbuild_wasm.initialize)({
       wasmURL
     }).then(() => mod3.init = true);
@@ -5896,7 +5901,7 @@ var definePrd = {
   })
 };
 var skipImportmapReplaceNames = false;
-var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
+var build = /* @__PURE__ */ __name(async (codeSpace3, i3, signal) => {
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -5935,7 +5940,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
     incremental: true,
     format: "esm",
     entryPoints: [
-      `./render.tsx?i=${i2}`
+      `./render.tsx?i=${i3}`
     ],
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin]
@@ -6001,16 +6006,16 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
         return;
       if (modz[cs] !== counter)
         return;
-      const { html, css: css2, i: i2, transpiled } = MST;
-      if (i2 > modz[cs])
-        modz[cs] = i2;
-      const counterLength = `/*${i2}*/`.length;
-      if (i2 > counter)
-        return createIframe(cs, i2);
+      const { html, css: css2, i: i3, transpiled } = MST;
+      if (i3 > modz[cs])
+        modz[cs] = i3;
+      const counterLength = `/*${i3}*/`.length;
+      if (i3 > counter)
+        return createIframe(cs, i3);
       const c2 = +transpiled.slice(-counterLength).split("*")[1];
       if (c2 > modz[cs])
         modz[cs] = c2;
-      if (c2 > i2)
+      if (c2 > i3)
         return createIframe(cs, c2);
       if (signal.aborted)
         return;
@@ -6136,11 +6141,11 @@ bc.onmessage = (event) => {
   }
 };
 async function moveToWorker(nameSpace, parent2) {
-  const { i: i2 } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
+  const { i: i3 } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
   const div = parent2?.getElementsByTagName("div")[0];
   div.style.height = "100%";
   const cont = new AbortController();
-  const js = await build(codeSpace2, i2, cont.signal);
+  const js = await build(codeSpace2, i3, cont.signal);
   if (!js)
     return false;
   const src = createJsBlob(js);
