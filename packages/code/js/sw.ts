@@ -1,6 +1,6 @@
 import localForage from "localforage";
 // import { importMapReplace } from "./esbuildEsm";
-import { esmTransform } from "./runner";
+import { esmTransform } from "./esmTransform";
 export type {};
 
 interface MyServiceWorkerScope extends ServiceWorkerGlobalScope {
