@@ -1,5 +1,5 @@
 import { build as esbuildBuild, type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
-import wasmFile from "esbuild-wasm/esbuild.wasm";
+import { version } from "esbuild-wasm/package.json";
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
 import { md5 } from "./md5";
@@ -12,7 +12,7 @@ const mod = {
   init: false as (boolean | Promise<void>),
   initialize: () => {
     if (mod.init !== false) return mod.init;
-    const wasmURL = new URL(wasmFile, location.origin).toString();
+    const wasmURL = new URL(`/node_modules/esbuild-wasm@${version}/esbuild-wasm.wasm`, location.origin).toString();
     mod.init = initialize({
       wasmURL,
     }).then(() => mod.init = true) as Promise<void>;
