@@ -4,12 +4,10 @@ import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr.lazy";
-import { mST } from "./session";
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
 import { Phone, Share, Tablet, Tv } from "./icons";
-import { sendChannel } from "./ws";
 
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
@@ -120,7 +118,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     .map((x) => Number(x) || 0);
 
   const [bg, setBG] = useState(bgColor);
-  // const [mstCss, setCSS] = useState(mST().css);
+
   const [r, g, b, a] = bg;
 
   const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r},${g},${b},${a})`;
@@ -170,7 +168,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               borderRadius: 16,
             }}
             css={css`
-            /* ${mstCss.split("body").join(`[data-test-id="z-body"]`)} */
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, a || .3)};
             backdrop-filter: blur(15px);
