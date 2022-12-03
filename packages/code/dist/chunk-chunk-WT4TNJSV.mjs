@@ -7109,248 +7109,16 @@ function createDomMotionComponent(key) {
 }
 __name(createDomMotionComponent, "createDomMotionComponent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
-init_define_process();
-var React4 = __toESM(require_react(), 1);
-var import_react32 = __toESM(require_react(), 1);
-
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
-init_define_process();
-var import_react29 = __toESM(require_react(), 1);
-
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
-init_define_process();
-var import_react28 = __toESM(require_react(), 1);
-function useIsMounted() {
-  const isMounted = (0, import_react28.useRef)(false);
-  useIsomorphicLayoutEffect(() => {
-    isMounted.current = true;
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
-  return isMounted;
-}
-__name(useIsMounted, "useIsMounted");
-
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
-function useForceUpdate() {
-  const isMounted = useIsMounted();
-  const [forcedRenderCount, setForcedRenderCount] = (0, import_react29.useState)(0);
-  const forceRender = (0, import_react29.useCallback)(() => {
-    isMounted.current && setForcedRenderCount(forcedRenderCount + 1);
-  }, [forcedRenderCount]);
-  const deferredForceRender = (0, import_react29.useCallback)(() => es_default.postRender(forceRender), [forceRender]);
-  return [deferredForceRender, forcedRenderCount];
-}
-__name(useForceUpdate, "useForceUpdate");
-
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
-init_define_process();
-var React3 = __toESM(require_react(), 1);
-var import_react31 = __toESM(require_react(), 1);
-
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PopChild.mjs
-init_define_process();
-var React2 = __toESM(require_react(), 1);
-var import_react30 = __toESM(require_react(), 1);
-var PopChildMeasure = class extends React2.Component {
-  getSnapshotBeforeUpdate(prevProps) {
-    const element = this.props.childRef.current;
-    if (element && prevProps.isPresent && !this.props.isPresent) {
-      const size = this.props.sizeRef.current;
-      size.height = element.offsetHeight || 0;
-      size.width = element.offsetWidth || 0;
-      size.top = element.offsetTop;
-      size.left = element.offsetLeft;
-    }
-    return null;
-  }
-  componentDidUpdate() {
-  }
-  render() {
-    return this.props.children;
-  }
-};
-__name(PopChildMeasure, "PopChildMeasure");
-function PopChild({ children, isPresent: isPresent2 }) {
-  const id4 = (0, import_react30.useId)();
-  const ref = (0, import_react30.useRef)(null);
-  const size = (0, import_react30.useRef)({
-    width: 0,
-    height: 0,
-    top: 0,
-    left: 0
-  });
-  (0, import_react30.useInsertionEffect)(() => {
-    const { width, height, top, left } = size.current;
-    if (isPresent2 || !ref.current || !width || !height)
-      return;
-    ref.current.dataset.motionPopId = id4;
-    const style = document.createElement("style");
-    document.head.appendChild(style);
-    if (style.sheet) {
-      style.sheet.insertRule(`
-          [data-motion-pop-id="${id4}"] {
-            position: absolute !important;
-            width: ${width}px !important;
-            height: ${height}px !important;
-            top: ${top}px !important;
-            left: ${left}px !important;
-          }
-        `);
-    }
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, [isPresent2]);
-  return React2.createElement(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, React2.cloneElement(children, { ref }));
-}
-__name(PopChild, "PopChild");
-
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
-var PresenceChild = /* @__PURE__ */ __name(({ children, initial, isPresent: isPresent2, onExitComplete, custom, presenceAffectsLayout, mode }) => {
-  const presenceChildren = useConstant(newChildrenMap);
-  const id4 = (0, import_react31.useId)();
-  const context = (0, import_react31.useMemo)(
-    () => ({
-      id: id4,
-      initial,
-      isPresent: isPresent2,
-      custom,
-      onExitComplete: (childId) => {
-        presenceChildren.set(childId, true);
-        for (const isComplete of presenceChildren.values()) {
-          if (!isComplete)
-            return;
-        }
-        onExitComplete && onExitComplete();
-      },
-      register: (childId) => {
-        presenceChildren.set(childId, false);
-        return () => presenceChildren.delete(childId);
-      }
-    }),
-    presenceAffectsLayout ? void 0 : [isPresent2]
-  );
-  (0, import_react31.useMemo)(() => {
-    presenceChildren.forEach((_, key) => presenceChildren.set(key, false));
-  }, [isPresent2]);
-  React3.useEffect(() => {
-    !isPresent2 && !presenceChildren.size && onExitComplete && onExitComplete();
-  }, [isPresent2]);
-  if (mode === "popLayout") {
-    children = React3.createElement(PopChild, { isPresent: isPresent2 }, children);
-  }
-  return React3.createElement(PresenceContext.Provider, { value: context }, children);
-}, "PresenceChild");
-function newChildrenMap() {
-  return /* @__PURE__ */ new Map();
-}
-__name(newChildrenMap, "newChildrenMap");
-
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
-var getChildKey = /* @__PURE__ */ __name((child) => child.key || "", "getChildKey");
-function updateChildLookup(children, allChildren) {
-  children.forEach((child) => {
-    const key = getChildKey(child);
-    allChildren.set(key, child);
-  });
-}
-__name(updateChildLookup, "updateChildLookup");
-function onlyElements(children) {
-  const filtered = [];
-  import_react32.Children.forEach(children, (child) => {
-    if ((0, import_react32.isValidElement)(child))
-      filtered.push(child);
-  });
-  return filtered;
-}
-__name(onlyElements, "onlyElements");
-var AnimatePresence = /* @__PURE__ */ __name(({ children, custom, initial = true, onExitComplete, exitBeforeEnter, presenceAffectsLayout = true, mode = "sync" }) => {
-  if (exitBeforeEnter) {
-    mode = "wait";
-    warnOnce(false, "Replace exitBeforeEnter with mode='wait'");
-  }
-  let [forceRender] = useForceUpdate();
-  const forceRenderLayoutGroup = (0, import_react32.useContext)(LayoutGroupContext).forceRender;
-  if (forceRenderLayoutGroup)
-    forceRender = forceRenderLayoutGroup;
-  const isMounted = useIsMounted();
-  const filteredChildren = onlyElements(children);
-  let childrenToRender = filteredChildren;
-  const exiting = /* @__PURE__ */ new Set();
-  const presentChildren = (0, import_react32.useRef)(childrenToRender);
-  const allChildren = (0, import_react32.useRef)(/* @__PURE__ */ new Map()).current;
-  const isInitialRender = (0, import_react32.useRef)(true);
-  useIsomorphicLayoutEffect(() => {
-    isInitialRender.current = false;
-    updateChildLookup(filteredChildren, allChildren);
-    presentChildren.current = childrenToRender;
-  });
-  useUnmountEffect(() => {
-    isInitialRender.current = true;
-    allChildren.clear();
-    exiting.clear();
-  });
-  if (isInitialRender.current) {
-    return React4.createElement(React4.Fragment, null, childrenToRender.map((child) => React4.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? void 0 : false, presenceAffectsLayout, mode }, child)));
-  }
-  childrenToRender = [...childrenToRender];
-  const presentKeys = presentChildren.current.map(getChildKey);
-  const targetKeys = filteredChildren.map(getChildKey);
-  const numPresent = presentKeys.length;
-  for (let i = 0; i < numPresent; i++) {
-    const key = presentKeys[i];
-    if (targetKeys.indexOf(key) === -1) {
-      exiting.add(key);
-    }
-  }
-  if (mode === "wait" && exiting.size) {
-    childrenToRender = [];
-  }
-  exiting.forEach((key) => {
-    if (targetKeys.indexOf(key) !== -1)
-      return;
-    const child = allChildren.get(key);
-    if (!child)
-      return;
-    const insertionIndex = presentKeys.indexOf(key);
-    const onExit = /* @__PURE__ */ __name(() => {
-      allChildren.delete(key);
-      exiting.delete(key);
-      const removeIndex = presentChildren.current.findIndex((presentChild) => presentChild.key === key);
-      presentChildren.current.splice(removeIndex, 1);
-      if (!exiting.size) {
-        presentChildren.current = filteredChildren;
-        if (isMounted.current === false)
-          return;
-        forceRender();
-        onExitComplete && onExitComplete();
-      }
-    }, "onExit");
-    childrenToRender.splice(insertionIndex, 0, React4.createElement(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom, presenceAffectsLayout, mode }, child));
-  });
-  childrenToRender = childrenToRender.map((child) => {
-    const key = child.key;
-    return exiting.has(key) ? child : React4.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout, mode }, child);
-  });
-  if (env !== "production" && mode === "wait" && childrenToRender.length > 1) {
-    console.warn(`You're attempting to animate multiple children within AnimatePresence, but its mode is set to "wait". This will lead to odd visual behaviour.`);
-  }
-  return React4.createElement(React4.Fragment, null, exiting.size ? childrenToRender : childrenToRender.map((child) => (0, import_react32.cloneElement)(child)));
-}, "AnimatePresence");
-
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/MotionConfig/index.mjs
 init_define_process();
-var React5 = __toESM(require_react(), 1);
-var import_react33 = __toESM(require_react(), 1);
+var React2 = __toESM(require_react(), 1);
+var import_react28 = __toESM(require_react(), 1);
 function MotionConfig({ children, isValidProp, ...config }) {
   isValidProp && loadExternalIsValidProp(isValidProp);
-  config = { ...(0, import_react33.useContext)(MotionConfigContext), ...config };
+  config = { ...(0, import_react28.useContext)(MotionConfigContext), ...config };
   config.isStatic = useConstant(() => config.isStatic);
-  const context = (0, import_react33.useMemo)(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
-  return React5.createElement(MotionConfigContext.Provider, { value: context }, children);
+  const context = (0, import_react28.useMemo)(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
+  return React2.createElement(MotionConfigContext.Provider, { value: context }, children);
 }
 __name(MotionConfig, "MotionConfig");
 
@@ -7445,6 +7213,238 @@ init_define_process();
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-minimal.mjs
 init_define_process();
 var m = createMotionProxy(createDomMotionConfig);
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
+init_define_process();
+var React5 = __toESM(require_react(), 1);
+var import_react33 = __toESM(require_react(), 1);
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
+init_define_process();
+var import_react30 = __toESM(require_react(), 1);
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
+init_define_process();
+var import_react29 = __toESM(require_react(), 1);
+function useIsMounted() {
+  const isMounted = (0, import_react29.useRef)(false);
+  useIsomorphicLayoutEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+  return isMounted;
+}
+__name(useIsMounted, "useIsMounted");
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
+function useForceUpdate() {
+  const isMounted = useIsMounted();
+  const [forcedRenderCount, setForcedRenderCount] = (0, import_react30.useState)(0);
+  const forceRender = (0, import_react30.useCallback)(() => {
+    isMounted.current && setForcedRenderCount(forcedRenderCount + 1);
+  }, [forcedRenderCount]);
+  const deferredForceRender = (0, import_react30.useCallback)(() => es_default.postRender(forceRender), [forceRender]);
+  return [deferredForceRender, forcedRenderCount];
+}
+__name(useForceUpdate, "useForceUpdate");
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
+init_define_process();
+var React4 = __toESM(require_react(), 1);
+var import_react32 = __toESM(require_react(), 1);
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PopChild.mjs
+init_define_process();
+var React3 = __toESM(require_react(), 1);
+var import_react31 = __toESM(require_react(), 1);
+var PopChildMeasure = class extends React3.Component {
+  getSnapshotBeforeUpdate(prevProps) {
+    const element = this.props.childRef.current;
+    if (element && prevProps.isPresent && !this.props.isPresent) {
+      const size = this.props.sizeRef.current;
+      size.height = element.offsetHeight || 0;
+      size.width = element.offsetWidth || 0;
+      size.top = element.offsetTop;
+      size.left = element.offsetLeft;
+    }
+    return null;
+  }
+  componentDidUpdate() {
+  }
+  render() {
+    return this.props.children;
+  }
+};
+__name(PopChildMeasure, "PopChildMeasure");
+function PopChild({ children, isPresent: isPresent2 }) {
+  const id4 = (0, import_react31.useId)();
+  const ref = (0, import_react31.useRef)(null);
+  const size = (0, import_react31.useRef)({
+    width: 0,
+    height: 0,
+    top: 0,
+    left: 0
+  });
+  (0, import_react31.useInsertionEffect)(() => {
+    const { width, height, top, left } = size.current;
+    if (isPresent2 || !ref.current || !width || !height)
+      return;
+    ref.current.dataset.motionPopId = id4;
+    const style = document.createElement("style");
+    document.head.appendChild(style);
+    if (style.sheet) {
+      style.sheet.insertRule(`
+          [data-motion-pop-id="${id4}"] {
+            position: absolute !important;
+            width: ${width}px !important;
+            height: ${height}px !important;
+            top: ${top}px !important;
+            left: ${left}px !important;
+          }
+        `);
+    }
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [isPresent2]);
+  return React3.createElement(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, React3.cloneElement(children, { ref }));
+}
+__name(PopChild, "PopChild");
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
+var PresenceChild = /* @__PURE__ */ __name(({ children, initial, isPresent: isPresent2, onExitComplete, custom, presenceAffectsLayout, mode }) => {
+  const presenceChildren = useConstant(newChildrenMap);
+  const id4 = (0, import_react32.useId)();
+  const context = (0, import_react32.useMemo)(
+    () => ({
+      id: id4,
+      initial,
+      isPresent: isPresent2,
+      custom,
+      onExitComplete: (childId) => {
+        presenceChildren.set(childId, true);
+        for (const isComplete of presenceChildren.values()) {
+          if (!isComplete)
+            return;
+        }
+        onExitComplete && onExitComplete();
+      },
+      register: (childId) => {
+        presenceChildren.set(childId, false);
+        return () => presenceChildren.delete(childId);
+      }
+    }),
+    presenceAffectsLayout ? void 0 : [isPresent2]
+  );
+  (0, import_react32.useMemo)(() => {
+    presenceChildren.forEach((_, key) => presenceChildren.set(key, false));
+  }, [isPresent2]);
+  React4.useEffect(() => {
+    !isPresent2 && !presenceChildren.size && onExitComplete && onExitComplete();
+  }, [isPresent2]);
+  if (mode === "popLayout") {
+    children = React4.createElement(PopChild, { isPresent: isPresent2 }, children);
+  }
+  return React4.createElement(PresenceContext.Provider, { value: context }, children);
+}, "PresenceChild");
+function newChildrenMap() {
+  return /* @__PURE__ */ new Map();
+}
+__name(newChildrenMap, "newChildrenMap");
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
+var getChildKey = /* @__PURE__ */ __name((child) => child.key || "", "getChildKey");
+function updateChildLookup(children, allChildren) {
+  children.forEach((child) => {
+    const key = getChildKey(child);
+    allChildren.set(key, child);
+  });
+}
+__name(updateChildLookup, "updateChildLookup");
+function onlyElements(children) {
+  const filtered = [];
+  import_react33.Children.forEach(children, (child) => {
+    if ((0, import_react33.isValidElement)(child))
+      filtered.push(child);
+  });
+  return filtered;
+}
+__name(onlyElements, "onlyElements");
+var AnimatePresence = /* @__PURE__ */ __name(({ children, custom, initial = true, onExitComplete, exitBeforeEnter, presenceAffectsLayout = true, mode = "sync" }) => {
+  if (exitBeforeEnter) {
+    mode = "wait";
+    warnOnce(false, "Replace exitBeforeEnter with mode='wait'");
+  }
+  let [forceRender] = useForceUpdate();
+  const forceRenderLayoutGroup = (0, import_react33.useContext)(LayoutGroupContext).forceRender;
+  if (forceRenderLayoutGroup)
+    forceRender = forceRenderLayoutGroup;
+  const isMounted = useIsMounted();
+  const filteredChildren = onlyElements(children);
+  let childrenToRender = filteredChildren;
+  const exiting = /* @__PURE__ */ new Set();
+  const presentChildren = (0, import_react33.useRef)(childrenToRender);
+  const allChildren = (0, import_react33.useRef)(/* @__PURE__ */ new Map()).current;
+  const isInitialRender = (0, import_react33.useRef)(true);
+  useIsomorphicLayoutEffect(() => {
+    isInitialRender.current = false;
+    updateChildLookup(filteredChildren, allChildren);
+    presentChildren.current = childrenToRender;
+  });
+  useUnmountEffect(() => {
+    isInitialRender.current = true;
+    allChildren.clear();
+    exiting.clear();
+  });
+  if (isInitialRender.current) {
+    return React5.createElement(React5.Fragment, null, childrenToRender.map((child) => React5.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? void 0 : false, presenceAffectsLayout, mode }, child)));
+  }
+  childrenToRender = [...childrenToRender];
+  const presentKeys = presentChildren.current.map(getChildKey);
+  const targetKeys = filteredChildren.map(getChildKey);
+  const numPresent = presentKeys.length;
+  for (let i = 0; i < numPresent; i++) {
+    const key = presentKeys[i];
+    if (targetKeys.indexOf(key) === -1) {
+      exiting.add(key);
+    }
+  }
+  if (mode === "wait" && exiting.size) {
+    childrenToRender = [];
+  }
+  exiting.forEach((key) => {
+    if (targetKeys.indexOf(key) !== -1)
+      return;
+    const child = allChildren.get(key);
+    if (!child)
+      return;
+    const insertionIndex = presentKeys.indexOf(key);
+    const onExit = /* @__PURE__ */ __name(() => {
+      allChildren.delete(key);
+      exiting.delete(key);
+      const removeIndex = presentChildren.current.findIndex((presentChild) => presentChild.key === key);
+      presentChildren.current.splice(removeIndex, 1);
+      if (!exiting.size) {
+        presentChildren.current = filteredChildren;
+        if (isMounted.current === false)
+          return;
+        forceRender();
+        onExitComplete && onExitComplete();
+      }
+    }, "onExit");
+    childrenToRender.splice(insertionIndex, 0, React5.createElement(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom, presenceAffectsLayout, mode }, child));
+  });
+  childrenToRender = childrenToRender.map((child) => {
+    const key = child.key;
+    return exiting.has(key) ? child : React5.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout, mode }, child);
+  });
+  if (env !== "production" && mode === "wait" && childrenToRender.length > 1) {
+    console.warn(`You're attempting to animate multiple children within AnimatePresence, but its mode is set to "wait". This will lead to odd visual behaviour.`);
+  }
+  return React5.createElement(React5.Fragment, null, exiting.size ? childrenToRender : childrenToRender.map((child) => (0, import_react33.cloneElement)(child)));
+}, "AnimatePresence");
 
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
 init_define_process();
@@ -8882,7 +8882,6 @@ __name(useInvertedScale, "useInvertedScale");
 
 export {
   motion,
-  AnimatePresence,
   MotionConfig,
   es_exports
 };

@@ -19,10 +19,9 @@ import "./chunk-chunk-FJRKYGWZ.mjs";
 import "./chunk-chunk-OH444ZSQ.mjs";
 import "./chunk-chunk-ZL6L5B7C.mjs";
 import {
-  AnimatePresence,
   MotionConfig,
   motion
-} from "./chunk-chunk-6TLPSDJW.mjs";
+} from "./chunk-chunk-WT4TNJSV.mjs";
 import {
   require_react
 } from "./chunk-chunk-UX3KX3KY.mjs";
@@ -41,7 +40,7 @@ var import_react3 = __toESM(require_react(), 1);
 init_define_process();
 var import_react = __toESM(require_react(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-7AF4LXLP.mjs"));
+var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-53U4CQHX.mjs"));
 var QRButton = /* @__PURE__ */ __name(({ url }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "qr" }), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LQR, { url }) }), "QRButton");
 
 // js/DraggableWindow.tsx
@@ -117,10 +116,9 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const delay = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MotionConfig, { transition: { delay, type, duration }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(AnimatePresence, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MotionConfig, { transition: { delay, type, duration }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
     motion.div,
     {
-      layout: true,
       initial: {
         top: 0,
         padding: 0,
@@ -166,7 +164,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`,
-                  initial: { height: "0px", width: "0", opacity: 0 },
+                  initial: { height: "0px", width: "0%", opacity: 0 },
                   animate: {
                     height: "42px",
                     width: "100%",
@@ -222,6 +220,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                     {
                       ref: iRef,
                       frameBorder: 0,
+                      layout: "preserve-aspect",
                       initial: {
                         width: window.innerWidth,
                         height: window.innerHeight,
@@ -368,7 +367,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
         )
       ] })
     }
-  ) }) });
+  ) });
 }, "DraggableWindow");
 var DraggableWindow_default = DraggableWindow;
 export {
