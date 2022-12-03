@@ -10,12 +10,12 @@ import {
 
 // js/reactDomClient.ts
 init_define_process();
-var import_client = __toESM(require_client(), 1);
-var createRoot = import_client.default.createRoot;
-var hydrateRoot = import_client.default.hydrateRoot;
-var reactDomClient_default = import_client.default;
+var ReactDOM = __toESM(require_client(), 1);
+var createRoot2 = ReactDOM.createRoot;
+var hydrateRoot2 = ReactDOM.hydrateRoot;
+var reactDomClient_default = ReactDOM;
 export {
-  createRoot,
+  createRoot2 as createRoot,
   reactDomClient_default as default,
-  hydrateRoot
+  hydrateRoot2 as hydrateRoot
 };
