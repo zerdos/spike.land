@@ -629,6 +629,7 @@ export class Code {
           ...(rtcConnUser ? { name: rtcConnUser } : {}),
           hashCode: hashCode(),
           name: this.user,
+          i: ++this.i,
         });
       }
 
