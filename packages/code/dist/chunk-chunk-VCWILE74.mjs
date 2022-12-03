@@ -3963,7 +3963,7 @@ async function join() {
         }
       }
     }, 3e4);
-    wsConnection.send(JSON.stringify({ name: user, hashCode: hashCode() }));
+    wsConnection.send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
     return wsConnection;
   });
   return wsConnection;
