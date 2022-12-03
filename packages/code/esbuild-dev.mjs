@@ -230,27 +230,6 @@ const build = (
     // }),
   ];
 
-  await esbuild.build({
-    ...buildOptions,
-    entryPoints: [
-      "js/sw.ts",
-      "js/react-jsx-runtime.tsx",
-    ],
-    bundle: true,
-    define,
-    minify: false, // ! isDevelopment,
-    minifyWhitespace: false, // ! isDevelopment,
-    minifyIdentifiers: false, // ! isDevelopment,
-    minifySyntax: false, // ! isDevelopment,
-    ignoreAnnotations: false,
-
-    keepNames: true,
-    treeShaking: true,
-    platform: "browser",
-    format: "iife",
-    outdir: "dist",
-  });
-
   await build(
     [
       "js/session.ts",
@@ -281,6 +260,26 @@ const build = (
     ],
     false,
   );
+  await esbuild.build({
+    ...buildOptions,
+    entryPoints: [
+      "js/sw.ts",
+      "js/react-jsx-runtime.tsx",
+    ],
+    bundle: true,
+    define,
+    minify: false, // ! isDevelopment,
+    minifyWhitespace: false, // ! isDevelopment,
+    minifyIdentifiers: false, // ! isDevelopment,
+    minifySyntax: false, // ! isDevelopment,
+    ignoreAnnotations: false,
+
+    keepNames: true,
+    treeShaking: true,
+    platform: "browser",
+    format: "iife",
+    outdir: "dist",
+  });
   console.log("done");
 
   // await build(
