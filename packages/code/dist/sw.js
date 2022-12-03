@@ -70,8 +70,8 @@
                 var a2 = typeof __require == "function" && __require;
                 if (!u2 && a2)
                   return a2(o3, true);
-                if (i3)
-                  return i3(o3, true);
+                if (i2)
+                  return i2(o3, true);
                 var f2 = new Error("Cannot find module '" + o3 + "'");
                 throw f2.code = "MODULE_NOT_FOUND", f2;
               }
@@ -84,7 +84,7 @@
             return n2[o3].exports;
           }
           __name(s2, "s");
-          var i3 = typeof __require == "function" && __require;
+          var i2 = typeof __require == "function" && __require;
           for (var o2 = 0; o2 < r2.length; o2++)
             s2(r2[o2]);
           return s2;
@@ -131,14 +131,14 @@
             var queue = [];
             function nextTick() {
               draining = true;
-              var i3, oldQueue;
+              var i2, oldQueue;
               var len = queue.length;
               while (len) {
                 oldQueue = queue;
                 queue = [];
-                i3 = -1;
-                while (++i3 < len) {
-                  oldQueue[i3]();
+                i2 = -1;
+                while (++i2 < len) {
+                  oldQueue[i2]();
                 }
                 len = queue.length;
               }
@@ -243,10 +243,10 @@
             } else {
               self2.state = FULFILLED;
               self2.outcome = value;
-              var i3 = -1;
+              var i2 = -1;
               var len = self2.queue.length;
-              while (++i3 < len) {
-                self2.queue[i3].callFulfilled(value);
+              while (++i2 < len) {
+                self2.queue[i2].callFulfilled(value);
               }
             }
             return self2;
@@ -254,10 +254,10 @@
           handlers.reject = function(self2, error) {
             self2.state = REJECTED;
             self2.outcome = error;
-            var i3 = -1;
+            var i2 = -1;
             var len = self2.queue.length;
-            while (++i3 < len) {
-              self2.queue[i3].callRejected(error);
+            while (++i2 < len) {
+              self2.queue[i2].callRejected(error);
             }
             return self2;
           };
@@ -337,13 +337,13 @@
             }
             var values = new Array(len);
             var resolved = 0;
-            var i3 = -1;
+            var i2 = -1;
             var promise = new this(INTERNAL);
-            while (++i3 < len) {
-              allResolver(iterable[i3], i3);
+            while (++i2 < len) {
+              allResolver(iterable[i2], i2);
             }
             return promise;
-            function allResolver(value, i4) {
+            function allResolver(value, i3) {
               self2.resolve(value).then(resolveFromAll, function(error) {
                 if (!called) {
                   called = true;
@@ -351,7 +351,7 @@
                 }
               });
               function resolveFromAll(outValue) {
-                values[i4] = outValue;
+                values[i3] = outValue;
                 if (++resolved === len && !called) {
                   called = true;
                   handlers.resolve(promise, values);
@@ -373,10 +373,10 @@
             if (!len) {
               return this.resolve([]);
             }
-            var i3 = -1;
+            var i2 = -1;
             var promise = new this(INTERNAL);
-            while (++i3 < len) {
-              resolver(iterable[i3]);
+            while (++i2 < len) {
+              resolver(iterable[i2]);
             }
             return promise;
             function resolver(value) {
@@ -462,8 +462,8 @@
               }
               var Builder = typeof BlobBuilder !== "undefined" ? BlobBuilder : typeof MSBlobBuilder !== "undefined" ? MSBlobBuilder : typeof MozBlobBuilder !== "undefined" ? MozBlobBuilder : WebKitBlobBuilder;
               var builder = new Builder();
-              for (var i3 = 0; i3 < parts.length; i3 += 1) {
-                builder.append(parts[i3]);
+              for (var i2 = 0; i2 < parts.length; i2 += 1) {
+                builder.append(parts[i2]);
               }
               return builder.getBlob(properties.type);
             }
@@ -516,8 +516,8 @@
             var length2 = bin.length;
             var buf = new ArrayBuffer(length2);
             var arr = new Uint8Array(buf);
-            for (var i3 = 0; i3 < length2; i3++) {
-              arr[i3] = bin.charCodeAt(i3);
+            for (var i2 = 0; i2 < length2; i2++) {
+              arr[i2] = bin.charCodeAt(i2);
             }
             return buf;
           }
@@ -709,8 +709,8 @@
             _deferReadiness(dbInfo);
             var dbContext = dbContexts[dbInfo.name];
             var forages = dbContext.forages;
-            for (var i3 = 0; i3 < forages.length; i3++) {
-              var forage = forages[i3];
+            for (var i2 = 0; i2 < forages.length; i2++) {
+              var forage = forages[i2];
               if (forage._dbInfo.db) {
                 forage._dbInfo.db.close();
                 forage._dbInfo.db = null;
@@ -725,8 +725,8 @@
               return db;
             }).then(function(db) {
               dbInfo.db = dbContext.db = db;
-              for (var i4 = 0; i4 < forages.length; i4++) {
-                forages[i4]._dbInfo.db = db;
+              for (var i3 = 0; i3 < forages.length; i3++) {
+                forages[i3]._dbInfo.db = db;
               }
             })["catch"](function(err) {
               _rejectReadiness(dbInfo, err);
@@ -775,8 +775,8 @@
               db: null
             };
             if (options) {
-              for (var i3 in options) {
-                dbInfo[i3] = options[i3];
+              for (var i2 in options) {
+                dbInfo[i2] = options[i2];
               }
             }
             var dbContext = dbContexts[dbInfo.name];
@@ -1132,8 +1132,8 @@
                 var dbContext = dbContexts[options.name];
                 var forages = dbContext.forages;
                 dbContext.db = db;
-                for (var i3 = 0; i3 < forages.length; i3++) {
-                  forages[i3]._dbInfo.db = db;
+                for (var i2 = 0; i2 < forages.length; i2++) {
+                  forages[i2]._dbInfo.db = db;
                 }
                 return db;
               });
@@ -1143,8 +1143,8 @@
                   var dbContext = dbContexts[options.name];
                   var forages = dbContext.forages;
                   db.close();
-                  for (var i3 = 0; i3 < forages.length; i3++) {
-                    var forage = forages[i3];
+                  for (var i2 = 0; i2 < forages.length; i2++) {
+                    var forage = forages[i2];
                     forage._dbInfo.db = null;
                   }
                   var dropDBPromise = new Promise$1(function(resolve, reject) {
@@ -1169,8 +1169,8 @@
                   });
                   return dropDBPromise.then(function(db2) {
                     dbContext.db = db2;
-                    for (var i4 = 0; i4 < forages.length; i4++) {
-                      var _forage = forages[i4];
+                    for (var i3 = 0; i3 < forages.length; i3++) {
+                      var _forage = forages[i3];
                       _advanceReadiness(_forage._dbInfo);
                     }
                   })["catch"](function(err) {
@@ -1189,8 +1189,8 @@
                   var dbContext = dbContexts[options.name];
                   var forages = dbContext.forages;
                   db.close();
-                  for (var i3 = 0; i3 < forages.length; i3++) {
-                    var forage = forages[i3];
+                  for (var i2 = 0; i2 < forages.length; i2++) {
+                    var forage = forages[i2];
                     forage._dbInfo.db = null;
                     forage._dbInfo.version = newVersion;
                   }
@@ -1269,7 +1269,7 @@
           function stringToBuffer(serializedString) {
             var bufferLength = serializedString.length * 0.75;
             var len = serializedString.length;
-            var i3;
+            var i2;
             var p2 = 0;
             var encoded1, encoded2, encoded3, encoded4;
             if (serializedString[serializedString.length - 1] === "=") {
@@ -1280,11 +1280,11 @@
             }
             var buffer = new ArrayBuffer(bufferLength);
             var bytes = new Uint8Array(buffer);
-            for (i3 = 0; i3 < len; i3 += 4) {
-              encoded1 = BASE_CHARS.indexOf(serializedString[i3]);
-              encoded2 = BASE_CHARS.indexOf(serializedString[i3 + 1]);
-              encoded3 = BASE_CHARS.indexOf(serializedString[i3 + 2]);
-              encoded4 = BASE_CHARS.indexOf(serializedString[i3 + 3]);
+            for (i2 = 0; i2 < len; i2 += 4) {
+              encoded1 = BASE_CHARS.indexOf(serializedString[i2]);
+              encoded2 = BASE_CHARS.indexOf(serializedString[i2 + 1]);
+              encoded3 = BASE_CHARS.indexOf(serializedString[i2 + 2]);
+              encoded4 = BASE_CHARS.indexOf(serializedString[i2 + 3]);
               bytes[p2++] = encoded1 << 2 | encoded2 >> 4;
               bytes[p2++] = (encoded2 & 15) << 4 | encoded3 >> 2;
               bytes[p2++] = (encoded3 & 3) << 6 | encoded4 & 63;
@@ -1295,12 +1295,12 @@
           function bufferToString(buffer) {
             var bytes = new Uint8Array(buffer);
             var base64String = "";
-            var i3;
-            for (i3 = 0; i3 < bytes.length; i3 += 3) {
-              base64String += BASE_CHARS[bytes[i3] >> 2];
-              base64String += BASE_CHARS[(bytes[i3] & 3) << 4 | bytes[i3 + 1] >> 4];
-              base64String += BASE_CHARS[(bytes[i3 + 1] & 15) << 2 | bytes[i3 + 2] >> 6];
-              base64String += BASE_CHARS[bytes[i3 + 2] & 63];
+            var i2;
+            for (i2 = 0; i2 < bytes.length; i2 += 3) {
+              base64String += BASE_CHARS[bytes[i2] >> 2];
+              base64String += BASE_CHARS[(bytes[i2] & 3) << 4 | bytes[i2 + 1] >> 4];
+              base64String += BASE_CHARS[(bytes[i2 + 1] & 15) << 2 | bytes[i2 + 2] >> 6];
+              base64String += BASE_CHARS[bytes[i2 + 2] & 63];
             }
             if (bytes.length % 3 === 2) {
               base64String = base64String.substring(0, base64String.length - 1) + "=";
@@ -1420,8 +1420,8 @@
               db: null
             };
             if (options) {
-              for (var i3 in options) {
-                dbInfo[i3] = typeof options[i3] !== "string" ? options[i3].toString() : options[i3];
+              for (var i2 in options) {
+                dbInfo[i2] = typeof options[i2] !== "string" ? options[i2].toString() : options[i2];
               }
             }
             var dbInfoPromise = new Promise$1(function(resolve, reject) {
@@ -1493,13 +1493,13 @@
                   tryExecuteSql(t2, dbInfo, "SELECT * FROM " + dbInfo.storeName, [], function(t3, results) {
                     var rows = results.rows;
                     var length2 = rows.length;
-                    for (var i3 = 0; i3 < length2; i3++) {
-                      var item = rows.item(i3);
+                    for (var i2 = 0; i2 < length2; i2++) {
+                      var item = rows.item(i2);
                       var result = item.value;
                       if (result) {
                         result = dbInfo.serializer.deserialize(result);
                       }
-                      result = iterator(result, item.key, i3 + 1);
+                      result = iterator(result, item.key, i2 + 1);
                       if (result !== void 0) {
                         resolve(result);
                         return;
@@ -1640,8 +1640,8 @@
                 dbInfo.db.transaction(function(t2) {
                   tryExecuteSql(t2, dbInfo, "SELECT key FROM " + dbInfo.storeName, [], function(t3, results) {
                     var keys2 = [];
-                    for (var i3 = 0; i3 < results.rows.length; i3++) {
-                      keys2.push(results.rows.item(i3).key);
+                    for (var i2 = 0; i2 < results.rows.length; i2++) {
+                      keys2.push(results.rows.item(i2).key);
                     }
                     resolve(keys2);
                   }, function(t3, error) {
@@ -1659,8 +1659,8 @@
               db.transaction(function(t2) {
                 t2.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name <> '__WebKitDatabaseInfoTable__'", [], function(t3, results) {
                   var storeNames = [];
-                  for (var i3 = 0; i3 < results.rows.length; i3++) {
-                    storeNames.push(results.rows.item(i3).name);
+                  for (var i2 = 0; i2 < results.rows.length; i2++) {
+                    storeNames.push(results.rows.item(i2).name);
                   }
                   resolve({
                     db,
@@ -1717,8 +1717,8 @@
                     }
                     __name(dropTable, "dropTable");
                     var operations = [];
-                    for (var i3 = 0, len = operationInfo.storeNames.length; i3 < len; i3++) {
-                      operations.push(dropTable(operationInfo.storeNames[i3]));
+                    for (var i2 = 0, len = operationInfo.storeNames.length; i2 < len; i2++) {
+                      operations.push(dropTable(operationInfo.storeNames[i2]));
                     }
                     Promise$1.all(operations).then(function() {
                       resolve();
@@ -1784,8 +1784,8 @@
             var self2 = this;
             var dbInfo = {};
             if (options) {
-              for (var i3 in options) {
-                dbInfo[i3] = options[i3];
+              for (var i2 in options) {
+                dbInfo[i2] = options[i2];
               }
             }
             dbInfo.keyPrefix = _getKeyPrefix(options, self2._defaultConfig);
@@ -1801,8 +1801,8 @@
             var self2 = this;
             var promise = self2.ready().then(function() {
               var keyPrefix = self2._dbInfo.keyPrefix;
-              for (var i3 = localStorage.length - 1; i3 >= 0; i3--) {
-                var key2 = localStorage.key(i3);
+              for (var i2 = localStorage.length - 1; i2 >= 0; i2--) {
+                var key2 = localStorage.key(i2);
                 if (key2.indexOf(keyPrefix) === 0) {
                   localStorage.removeItem(key2);
                 }
@@ -1835,8 +1835,8 @@
               var keyPrefixLength = keyPrefix.length;
               var length2 = localStorage.length;
               var iterationNumber = 1;
-              for (var i3 = 0; i3 < length2; i3++) {
-                var key2 = localStorage.key(i3);
+              for (var i2 = 0; i2 < length2; i2++) {
+                var key2 = localStorage.key(i2);
                 if (key2.indexOf(keyPrefix) !== 0) {
                   continue;
                 }
@@ -1879,8 +1879,8 @@
               var dbInfo = self2._dbInfo;
               var length2 = localStorage.length;
               var keys2 = [];
-              for (var i3 = 0; i3 < length2; i3++) {
-                var itemKey = localStorage.key(i3);
+              for (var i2 = 0; i2 < length2; i2++) {
+                var itemKey = localStorage.key(i2);
                 if (itemKey.indexOf(dbInfo.keyPrefix) === 0) {
                   keys2.push(itemKey.substring(dbInfo.keyPrefix.length));
                 }
@@ -1962,8 +1962,8 @@
                   resolve(_getKeyPrefix(options, self2._defaultConfig));
                 }
               }).then(function(keyPrefix) {
-                for (var i3 = localStorage.length - 1; i3 >= 0; i3--) {
-                  var key2 = localStorage.key(i3);
+                for (var i2 = localStorage.length - 1; i2 >= 0; i2--) {
+                  var key2 = localStorage.key(i2);
                   if (key2.indexOf(keyPrefix) === 0) {
                     localStorage.removeItem(key2);
                   }
@@ -1993,12 +1993,12 @@
           }, "sameValue");
           var includes = /* @__PURE__ */ __name(function includes2(array, searchElement) {
             var len = array.length;
-            var i3 = 0;
-            while (i3 < len) {
-              if (sameValue(array[i3], searchElement)) {
+            var i2 = 0;
+            while (i2 < len) {
+              if (sameValue(array[i2], searchElement)) {
                 return true;
               }
-              i3++;
+              i2++;
             }
             return false;
           }, "includes");
@@ -2033,8 +2033,8 @@
           }
           __name(callWhenReady, "callWhenReady");
           function extend() {
-            for (var i3 = 1; i3 < arguments.length; i3++) {
-              var arg = arguments[i3];
+            for (var i2 = 1; i2 < arguments.length; i2++) {
+              var arg = arguments[i2];
               if (arg) {
                 for (var _key in arg) {
                   if (arg.hasOwnProperty(_key)) {
@@ -2079,14 +2079,14 @@
                 if (this._ready) {
                   return new Error("Can't call config() after localforage has been used.");
                 }
-                for (var i3 in options) {
-                  if (i3 === "storeName") {
-                    options[i3] = options[i3].replace(/\W/g, "_");
+                for (var i2 in options) {
+                  if (i2 === "storeName") {
+                    options[i2] = options[i2].replace(/\W/g, "_");
                   }
-                  if (i3 === "version" && typeof options[i3] !== "number") {
+                  if (i2 === "version" && typeof options[i2] !== "number") {
                     return new Error("Database version must be a number.");
                   }
-                  this._config[i3] = options[i3];
+                  this._config[i2] = options[i2];
                 }
                 if ("driver" in options && options.driver) {
                   return this.setDriver(this._config.driver);
@@ -2108,8 +2108,8 @@
                     return;
                   }
                   var driverMethods = LibraryMethods.concat("_initStorage");
-                  for (var i3 = 0, len = driverMethods.length; i3 < len; i3++) {
-                    var driverMethodName = driverMethods[i3];
+                  for (var i2 = 0, len = driverMethods.length; i2 < len; i2++) {
+                    var driverMethodName = driverMethods[i2];
                     var isRequired = !includes(OptionalDriverMethods, driverMethodName);
                     if ((isRequired || driverObject[driverMethodName]) && typeof driverObject[driverMethodName] !== "function") {
                       reject(complianceError);
@@ -2249,8 +2249,8 @@
             }, "_extend");
             LocalForage2.prototype._getSupportedDrivers = /* @__PURE__ */ __name(function _getSupportedDrivers(drivers) {
               var supportedDrivers = [];
-              for (var i3 = 0, len = drivers.length; i3 < len; i3++) {
-                var driverName = drivers[i3];
+              for (var i2 = 0, len = drivers.length; i2 < len; i2++) {
+                var driverName = drivers[i2];
                 if (this.supports(driverName)) {
                   supportedDrivers.push(driverName);
                 }
@@ -2258,8 +2258,8 @@
               return supportedDrivers;
             }, "_getSupportedDrivers");
             LocalForage2.prototype._wrapLibraryMethodsWithReady = /* @__PURE__ */ __name(function _wrapLibraryMethodsWithReady() {
-              for (var i3 = 0, len = LibraryMethods.length; i3 < len; i3++) {
-                callWhenReady(this, LibraryMethods[i3]);
+              for (var i2 = 0, len = LibraryMethods.length; i2 < len; i2++) {
+                callWhenReady(this, LibraryMethods[i2]);
               }
             }, "_wrapLibraryMethodsWithReady");
             LocalForage2.prototype.createInstance = /* @__PURE__ */ __name(function createInstance(options) {
@@ -2537,7 +2537,7 @@
               case 5: {
                 let count = bb.read32();
                 let value2 = [];
-                for (let i3 = 0; i3 < count; i3++) {
+                for (let i2 = 0; i2 < count; i2++) {
                   value2.push(visit());
                 }
                 return value2;
@@ -2545,7 +2545,7 @@
               case 6: {
                 let count = bb.read32();
                 let value2 = {};
-                for (let i3 = 0; i3 < count; i3++) {
+                for (let i2 = 0; i2 < count; i2++) {
                   value2[decodeUTF8(bb.read())] = visit();
                 }
                 return value2;
@@ -3638,17 +3638,17 @@
           let onResolveCallbacks = {};
           let onLoadCallbacks = {};
           let nextCallbackID = 0;
-          let i3 = 0;
+          let i2 = 0;
           let requestPlugins = [];
           let isSetupDone = false;
           plugins = [...plugins];
           for (let item of plugins) {
             let keys = {};
             if (typeof item !== "object")
-              throw new Error(`Plugin at index ${i3} must be an object`);
+              throw new Error(`Plugin at index ${i2} must be an object`);
             const name = getFlag(item, keys, "name", mustBeString);
             if (typeof name !== "string" || name === "")
-              throw new Error(`Plugin at index ${i3} is missing a name`);
+              throw new Error(`Plugin at index ${i2} is missing a name`);
             try {
               let setup = getFlag(item, keys, "setup", mustBeFunction);
               if (typeof setup !== "function")
@@ -3659,7 +3659,7 @@
                 onResolve: [],
                 onLoad: []
               };
-              i3++;
+              i2++;
               let resolve = /* @__PURE__ */ __name((path, options = {}) => {
                 if (!isSetupDone)
                   throw new Error('Cannot call "resolve" before plugin setup has completed');
@@ -3971,8 +3971,8 @@
         function parseStackLinesV8(streamIn, lines, ident) {
           let at = "    at ";
           if (streamIn.readFileSync && !lines[0].startsWith(at) && lines[1].startsWith(at)) {
-            for (let i3 = 1; i3 < lines.length; i3++) {
-              let line = lines[i3];
+            for (let i2 = 1; i2 < lines.length; i2++) {
+              let line = lines[i2];
               if (!line.startsWith(at))
                 continue;
               line = line.slice(at.length);
@@ -4017,8 +4017,8 @@
         __name(parseStackLinesV8, "parseStackLinesV8");
         function failureErrorWithLog(text, errors, warnings) {
           let limit = 5;
-          let summary = errors.length < 1 ? "" : ` with ${errors.length} error${errors.length < 2 ? "" : "s"}:` + errors.slice(0, limit + 1).map((e2, i3) => {
-            if (i3 === limit)
+          let summary = errors.length < 1 ? "" : ` with ${errors.length} error${errors.length < 2 ? "" : "s"}:` + errors.slice(0, limit + 1).map((e2, i2) => {
+            if (i2 === limit)
               return "\n...";
             if (!e2.location)
               return `
@@ -4448,8 +4448,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                       const array = getInt64(addr + 0);
                       const len = getInt64(addr + 8);
                       const a2 = new Array(len);
-                      for (let i3 = 0; i3 < len; i3++) {
-                        a2[i3] = loadValue(array + i3 * 8);
+                      for (let i2 = 0; i2 < len; i2++) {
+                        a2[i2] = loadValue(array + i2 * 8);
                       }
                       return a2;
                     }, "loadSliceOfValues");
@@ -4910,12 +4910,12 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         }
         var longtext = text1.length > text2.length ? text1 : text2;
         var shorttext = text1.length > text2.length ? text2 : text1;
-        var i3 = longtext.indexOf(shorttext);
-        if (i3 !== -1) {
+        var i2 = longtext.indexOf(shorttext);
+        if (i2 !== -1) {
           diffs = [
-            [DIFF_INSERT, longtext.substring(0, i3)],
+            [DIFF_INSERT, longtext.substring(0, i2)],
             [DIFF_EQUAL, shorttext],
-            [DIFF_INSERT, longtext.substring(i3 + shorttext.length)]
+            [DIFF_INSERT, longtext.substring(i2 + shorttext.length)]
           ];
           if (text1.length > text2.length) {
             diffs[0][0] = diffs[2][0] = DIFF_DELETE;
@@ -5084,18 +5084,18 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
           return null;
         }
-        function diff_halfMatchI_(longtext2, shorttext2, i3) {
-          var seed = longtext2.substring(i3, i3 + Math.floor(longtext2.length / 4));
+        function diff_halfMatchI_(longtext2, shorttext2, i2) {
+          var seed = longtext2.substring(i2, i2 + Math.floor(longtext2.length / 4));
           var j2 = -1;
           var best_common = "";
           var best_longtext_a, best_longtext_b, best_shorttext_a, best_shorttext_b;
           while ((j2 = shorttext2.indexOf(seed, j2 + 1)) !== -1) {
             var prefixLength = diff_commonPrefix(
-              longtext2.substring(i3),
+              longtext2.substring(i2),
               shorttext2.substring(j2)
             );
             var suffixLength = diff_commonSuffix(
-              longtext2.substring(0, i3),
+              longtext2.substring(0, i2),
               shorttext2.substring(0, j2)
             );
             if (best_common.length < suffixLength + prefixLength) {
@@ -5103,8 +5103,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                 j2 - suffixLength,
                 j2
               ) + shorttext2.substring(j2, j2 + prefixLength);
-              best_longtext_a = longtext2.substring(0, i3 - suffixLength);
-              best_longtext_b = longtext2.substring(i3 + prefixLength);
+              best_longtext_a = longtext2.substring(0, i2 - suffixLength);
+              best_longtext_b = longtext2.substring(i2 + prefixLength);
               best_shorttext_a = shorttext2.substring(0, j2 - suffixLength);
               best_shorttext_b = shorttext2.substring(j2 + prefixLength);
             }
@@ -5302,9 +5302,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
       __name(ends_with_pair_start, "ends_with_pair_start");
       function remove_empty_tuples(tuples) {
         var ret = [];
-        for (var i3 = 0; i3 < tuples.length; i3++) {
-          if (tuples[i3][1].length > 0) {
-            ret.push(tuples[i3]);
+        for (var i2 = 0; i2 < tuples.length; i2++) {
+          if (tuples[i2][1].length > 0) {
+            ret.push(tuples[i2]);
           }
         }
         return ret;
@@ -5892,8 +5892,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
               props.children = children;
             } else if (childrenLength > 1) {
               var childArray = Array(childrenLength);
-              for (var i3 = 0; i3 < childrenLength; i3++) {
-                childArray[i3] = arguments[i3 + 2];
+              for (var i2 = 0; i2 < childrenLength; i2++) {
+                childArray[i2] = arguments[i2 + 2];
               }
               {
                 if (Object.freeze) {
@@ -5970,8 +5970,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
               props.children = children;
             } else if (childrenLength > 1) {
               var childArray = Array(childrenLength);
-              for (var i3 = 0; i3 < childrenLength; i3++) {
-                childArray[i3] = arguments[i3 + 2];
+              for (var i2 = 0; i2 < childrenLength; i2++) {
+                childArray[i2] = arguments[i2 + 2];
               }
               props.children = childArray;
             }
@@ -6067,9 +6067,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
             var subtreeCount = 0;
             var nextNamePrefix = nameSoFar === "" ? SEPARATOR : nameSoFar + SUBSEPARATOR;
             if (isArray(children)) {
-              for (var i3 = 0; i3 < children.length; i3++) {
-                child = children[i3];
-                nextName = nextNamePrefix + getElementKey(child, i3);
+              for (var i2 = 0; i2 < children.length; i2++) {
+                child = children[i2];
+                nextName = nextNamePrefix + getElementKey(child, i2);
                 subtreeCount += mapIntoArray(child, array, escapedPrefix, nextName, callback);
               }
             } else {
@@ -6887,8 +6887,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
               return;
             }
             if (isArray(node)) {
-              for (var i3 = 0; i3 < node.length; i3++) {
-                var child = node[i3];
+              for (var i2 = 0; i2 < node.length; i2++) {
+                var child = node[i2];
                 if (isValidElement(child)) {
                   validateExplicitKey(child, parentType);
                 }
@@ -6944,8 +6944,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
           function validateFragmentProps(fragment) {
             {
               var keys = Object.keys(fragment.props);
-              for (var i3 = 0; i3 < keys.length; i3++) {
-                var key = keys[i3];
+              for (var i2 = 0; i2 < keys.length; i2++) {
+                var key = keys[i2];
                 if (key !== "children" && key !== "key") {
                   setCurrentlyValidatingElement$1(fragment);
                   error("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key);
@@ -6994,8 +6994,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
               return element;
             }
             if (validType) {
-              for (var i3 = 2; i3 < arguments.length; i3++) {
-                validateChildKeys(arguments[i3], type);
+              for (var i2 = 2; i2 < arguments.length; i2++) {
+                validateChildKeys(arguments[i2], type);
               }
             }
             if (type === REACT_FRAGMENT_TYPE) {
@@ -7031,8 +7031,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
           __name(createFactoryWithValidation, "createFactoryWithValidation");
           function cloneElementWithValidation(element, props, children) {
             var newElement = cloneElement.apply(this, arguments);
-            for (var i3 = 2; i3 < arguments.length; i3++) {
-              validateChildKeys(arguments[i3], newElement.type);
+            for (var i2 = 2; i2 < arguments.length; i2++) {
+              validateChildKeys(arguments[i2], newElement.type);
             }
             validatePropTypes(newElement);
             return newElement;
@@ -7215,17 +7215,17 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
             {
               if (!isFlushing) {
                 isFlushing = true;
-                var i3 = 0;
+                var i2 = 0;
                 try {
-                  for (; i3 < queue.length; i3++) {
-                    var callback = queue[i3];
+                  for (; i2 < queue.length; i2++) {
+                    var callback = queue[i2];
                     do {
                       callback = callback(true);
                     } while (callback !== null);
                   }
                   queue.length = 0;
                 } catch (error2) {
-                  queue = queue.slice(i3 + 1);
+                  queue = queue.slice(i2 + 1);
                   throw error2;
                 } finally {
                   isFlushing = false;
@@ -7310,9 +7310,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         if (tag.sheet) {
           return tag.sheet;
         }
-        for (var i3 = 0; i3 < document.styleSheets.length; i3++) {
-          if (document.styleSheets[i3].ownerNode === tag) {
-            return document.styleSheets[i3];
+        for (var i2 = 0; i2 < document.styleSheets.length; i2++) {
+          if (document.styleSheets[i2].ownerNode === tag) {
+            return document.styleSheets[i2];
           }
         }
       }
@@ -7431,7 +7431,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         var t2 = "comm";
         var n2 = "rule";
         var s2 = "decl";
-        var i3 = "@page";
+        var i2 = "@page";
         var u2 = "@media";
         var o2 = "@import";
         var f2 = "@charset";
@@ -7496,8 +7496,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         e2.position = 0;
         e2.character = 0;
         e2.characters = "";
-        function N2(r3, a3, c3, t3, n3, s3, i4) {
-          return { value: r3, root: a3, parent: c3, type: t3, props: n3, children: s3, line: e2.line, column: e2.column, length: i4, return: "" };
+        function N2(r3, a3, c3, t3, n3, s3, i3) {
+          return { value: r3, root: a3, parent: c3, type: t3, props: n3, children: s3, line: e2.line, column: e2.column, length: i3, return: "" };
         }
         __name(N2, "N");
         function P2(e3, r3) {
@@ -7654,7 +7654,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
           return V(X("", null, null, null, [""], e3 = K(e3), 0, [0], e3));
         }
         __name(Q, "Q");
-        function X(e3, r3, a3, c3, t3, n3, s3, i4, u3) {
+        function X(e3, r3, a3, c3, t3, n3, s3, i3, u3) {
           var o3 = 0;
           var f3 = 0;
           var l3 = s3;
@@ -7703,7 +7703,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                 }
                 break;
               case 123 * d3:
-                i4[o3++] = C2(y3) * w3;
+                i3[o3++] = C2(y3) * w3;
               case 125 * d3:
               case 59:
               case 0:
@@ -7718,19 +7718,19 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                   case 59:
                     y3 += ";";
                   default:
-                    R2(E3 = ee(y3, r3, a3, o3, f3, t3, i4, g3, $2 = [], x3 = [], l3), n3);
+                    R2(E3 = ee(y3, r3, a3, o3, f3, t3, i3, g3, $2 = [], x3 = [], l3), n3);
                     if (m3 === 123)
                       if (f3 === 0)
-                        X(y3, r3, E3, E3, $2, n3, l3, i4, x3);
+                        X(y3, r3, E3, E3, $2, n3, l3, i3, x3);
                       else
                         switch (p3 === 99 && A2(y3, 3) === 110 ? 100 : p3) {
                           case 100:
                           case 109:
                           case 115:
-                            X(e3, E3, E3, c3 && R2(ee(e3, E3, E3, 0, 0, t3, i4, g3, t3, $2 = [], l3), x3), t3, x3, l3, i4, c3 ? $2 : x3);
+                            X(e3, E3, E3, c3 && R2(ee(e3, E3, E3, 0, 0, t3, i3, g3, t3, $2 = [], l3), x3), t3, x3, l3, i3, c3 ? $2 : x3);
                             break;
                           default:
-                            X(y3, E3, E3, E3, [""], x3, 0, i4, x3);
+                            X(y3, E3, E3, E3, [""], x3, 0, i3, x3);
                         }
                 }
                 o3 = f3 = h3 = 0, d3 = w3 = 1, g3 = y3 = "", l3 = s3;
@@ -7749,7 +7749,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
                     w3 = f3 > 0 ? 1 : (y3 += "\f", -1);
                     break;
                   case 44:
-                    i4[o3++] = (C2(y3) - 1) * w3, w3 = 1;
+                    i3[o3++] = (C2(y3) - 1) * w3, w3 = 1;
                     break;
                   case 64:
                     if (F() === 45)
@@ -7764,12 +7764,12 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
           return n3;
         }
         __name(X, "X");
-        function ee(e3, r3, a3, c3, t3, s3, i4, u3, o3, f3, l3) {
+        function ee(e3, r3, a3, c3, t3, s3, i3, u3, o3, f3, l3) {
           var p3 = t3 - 1;
           var h3 = t3 === 0 ? s3 : [""];
           var v3 = S2(h3);
           for (var d3 = 0, b3 = 0, w3 = 0; d3 < c3; ++d3)
-            for (var m3 = 0, k3 = M2(e3, p3 + 1, p3 = g2(b3 = i4[d3])), $2 = e3; m3 < v3; ++m3)
+            for (var m3 = 0, k3 = M2(e3, p3 + 1, p3 = g2(b3 = i3[d3])), $2 = e3; m3 < v3; ++m3)
               if ($2 = E2(b3 > 0 ? h3[m3] + " " + k3 : T2(k3, /&\f/g, h3[m3])))
                 o3[w3++] = $2;
           return N2(e3, r3, a3, t3 === 0 ? n2 : u3, o3, f3, l3);
@@ -7907,8 +7907,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
               break;
             case 5152:
             case 5920:
-              return T2(e3, /(.+?):(\d+)(\s*\/\s*(span)?\s*(\d+))?(.*)/, function(a3, c3, t4, n4, s3, i4, u3) {
-                return r2 + c3 + ":" + t4 + u3 + (n4 ? r2 + c3 + "-span:" + (s3 ? i4 : +i4 - +t4) + u3 : "") + e3;
+              return T2(e3, /(.+?):(\d+)(\s*\/\s*(span)?\s*(\d+))?(.*)/, function(a3, c3, t4, n4, s3, i3, u3) {
+                return r2 + c3 + ":" + t4 + u3 + (n4 ? r2 + c3 + "-span:" + (s3 ? i3 : +i3 - +t4) + u3 : "") + e3;
               });
             case 4949:
               if (A2(e3, t3 + 6) === 121)
@@ -7959,8 +7959,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
           var r3 = S2(e3);
           return function(a3, c3, t3, n3) {
             var s3 = "";
-            for (var i4 = 0; i4 < r3; i4++)
-              s3 += e3[i4](a3, c3, t3, n3) || "";
+            for (var i3 = 0; i3 < r3; i3++)
+              s3 += e3[i3](a3, c3, t3, n3) || "";
             return s3;
           };
         }
@@ -7974,12 +7974,12 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
           };
         }
         __name(ie, "ie");
-        function ue(e3, t3, i4, u3) {
+        function ue(e3, t3, i3, u3) {
           if (e3.length > -1) {
             if (!e3.return)
               switch (e3.type) {
                 case s2:
-                  e3.return = ce(e3.value, e3.length, i4);
+                  e3.return = ce(e3.value, e3.length, i3);
                   return;
                 case d2:
                   return te([P2(e3, { value: T2(e3.value, "@", "@" + c2) })], u3);
@@ -8048,7 +8048,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         e2.MOZ = a2;
         e2.MS = r2;
         e2.NAMESPACE = v2;
-        e2.PAGE = i3;
+        e2.PAGE = i2;
         e2.RULESET = n2;
         e2.SUPPORTS = p2;
         e2.VIEWPORT = l2;
@@ -8252,9 +8252,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         var points = [];
         var rules = getRules(value, points);
         var parentRules = parent2.props;
-        for (var i3 = 0, k2 = 0; i3 < rules.length; i3++) {
+        for (var i2 = 0, k2 = 0; i2 < rules.length; i2++) {
           for (var j2 = 0; j2 < parentRules.length; j2++, k2++) {
-            element.props[k2] = points[i3] ? rules[i3].replace(/&\f/g, parentRules[j2]) : parentRules[j2] + " " + rules[i3];
+            element.props[k2] = points[i2] ? rules[i2].replace(/&\f/g, parentRules[j2]) : parentRules[j2] + " " + rules[i2];
           }
         }
       }, "compat");
@@ -8279,8 +8279,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
           if (unsafePseudoClasses) {
             var isNested = element.parent === children[0];
             var commentContainer = isNested ? children[0].children : children;
-            for (var i3 = commentContainer.length - 1; i3 >= 0; i3--) {
-              var node = commentContainer[i3];
+            for (var i2 = commentContainer.length - 1; i2 >= 0; i2--) {
+              var node = commentContainer[i2];
               if (node.line < element.line) {
                 break;
               }
@@ -8301,8 +8301,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
         return element.type.charCodeAt(1) === 105 && element.type.charCodeAt(0) === 64;
       }, "isImportRule");
       var isPrependedWithRegularRules = /* @__PURE__ */ __name(function isPrependedWithRegularRules2(index, children) {
-        for (var i3 = index - 1; i3 >= 0; i3--) {
-          if (!isImportRule(children[i3])) {
+        for (var i2 = index - 1; i2 >= 0; i2--) {
+          if (!isImportRule(children[i2])) {
             return true;
           }
         }
@@ -8517,8 +8517,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
             document.querySelectorAll('style[data-emotion^="' + key + ' "]'),
             function(node) {
               var attrib = node.getAttribute("data-emotion").split(" ");
-              for (var i3 = 1; i3 < attrib.length; i3++) {
-                inserted[attrib[i3]] = true;
+              for (var i2 = 1; i2 < attrib.length; i2++) {
+                inserted[attrib[i2]] = true;
               }
               nodesToHydrate.push(node);
             }
@@ -8639,8 +8639,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
       init_define_process();
       function _extends() {
         module.exports = _extends = Object.assign ? Object.assign.bind() : function(target) {
-          for (var i3 = 1; i3 < arguments.length; i3++) {
-            var source = arguments[i3];
+          for (var i2 = 1; i2 < arguments.length; i2++) {
+            var source = arguments[i2];
             for (var key in source) {
               if (Object.prototype.hasOwnProperty.call(source, key)) {
                 target[key] = source[key];
@@ -8912,8 +8912,8 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
           }
           var targetStatics = getStatics(targetComponent);
           var sourceStatics = getStatics(sourceComponent);
-          for (var i3 = 0; i3 < keys.length; ++i3) {
-            var key = keys[i3];
+          for (var i2 = 0; i2 < keys.length; ++i2) {
+            var key = keys[i2];
             if (!KNOWN_STATICS[key] && !(blacklist && blacklist[key]) && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
               var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
               try {
@@ -9019,20 +9019,20 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
       Object.defineProperty(exports, "__esModule", { value: true });
       function murmur2(str) {
         var h2 = 0;
-        var k2, i3 = 0, len = str.length;
-        for (; len >= 4; ++i3, len -= 4) {
-          k2 = str.charCodeAt(i3) & 255 | (str.charCodeAt(++i3) & 255) << 8 | (str.charCodeAt(++i3) & 255) << 16 | (str.charCodeAt(++i3) & 255) << 24;
+        var k2, i2 = 0, len = str.length;
+        for (; len >= 4; ++i2, len -= 4) {
+          k2 = str.charCodeAt(i2) & 255 | (str.charCodeAt(++i2) & 255) << 8 | (str.charCodeAt(++i2) & 255) << 16 | (str.charCodeAt(++i2) & 255) << 24;
           k2 = (k2 & 65535) * 1540483477 + ((k2 >>> 16) * 59797 << 16);
           k2 ^= k2 >>> 24;
           h2 = (k2 & 65535) * 1540483477 + ((k2 >>> 16) * 59797 << 16) ^ (h2 & 65535) * 1540483477 + ((h2 >>> 16) * 59797 << 16);
         }
         switch (len) {
           case 3:
-            h2 ^= (str.charCodeAt(i3 + 2) & 255) << 16;
+            h2 ^= (str.charCodeAt(i2 + 2) & 255) << 16;
           case 2:
-            h2 ^= (str.charCodeAt(i3 + 1) & 255) << 8;
+            h2 ^= (str.charCodeAt(i2 + 1) & 255) << 8;
           case 1:
-            h2 ^= str.charCodeAt(i3) & 255;
+            h2 ^= str.charCodeAt(i2) & 255;
             h2 = (h2 & 65535) * 1540483477 + ((h2 >>> 16) * 59797 << 16);
         }
         h2 ^= h2 >>> 13;
@@ -9288,8 +9288,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       function createStringFromObject(mergedProps, registered, obj) {
         var string = "";
         if (Array.isArray(obj)) {
-          for (var i3 = 0; i3 < obj.length; i3++) {
-            string += handleInterpolation(mergedProps, registered, obj[i3]) + ";";
+          for (var i2 = 0; i2 < obj.length; i2++) {
+            string += handleInterpolation(mergedProps, registered, obj[i2]) + ";";
           }
         } else {
           for (var _key in obj) {
@@ -9355,13 +9355,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           styles += strings[0];
         }
-        for (var i3 = 1; i3 < args.length; i3++) {
-          styles += handleInterpolation(mergedProps, registered, args[i3]);
+        for (var i2 = 1; i2 < args.length; i2++) {
+          styles += handleInterpolation(mergedProps, registered, args[i2]);
           if (stringMode) {
-            if (strings[i3] === void 0) {
+            if (strings[i2] === void 0) {
               console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR);
             }
-            styles += strings[i3];
+            styles += strings[i2];
           }
         }
         var sourceMap;
@@ -9591,8 +9591,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         if (!stackTrace)
           return void 0;
         var lines = stackTrace.split("\n");
-        for (var i3 = 0; i3 < lines.length; i3++) {
-          var functionName = getFunctionNameFromStackTraceLine(lines[i3]);
+        for (var i2 = 0; i2 < lines.length; i2++) {
+          var functionName = getFunctionNameFromStackTraceLine(lines[i2]);
           if (!functionName)
             continue;
           if (internalReactFunctionNames.has(functionName))
@@ -10447,8 +10447,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 return;
               }
               if (isArray(node)) {
-                for (var i3 = 0; i3 < node.length; i3++) {
-                  var child = node[i3];
+                for (var i2 = 0; i2 < node.length; i2++) {
+                  var child = node[i2];
                   if (isValidElement(child)) {
                     validateExplicitKey(child, parentType);
                   }
@@ -10505,8 +10505,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           function validateFragmentProps(fragment) {
             {
               var keys = Object.keys(fragment.props);
-              for (var i3 = 0; i3 < keys.length; i3++) {
-                var key = keys[i3];
+              for (var i2 = 0; i2 < keys.length; i2++) {
+                var key = keys[i2];
                 if (key !== "children" && key !== "key") {
                   setCurrentlyValidatingElement$1(fragment);
                   error("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key);
@@ -10558,8 +10558,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 if (children !== void 0) {
                   if (isStaticChildren) {
                     if (isArray(children)) {
-                      for (var i3 = 0; i3 < children.length; i3++) {
-                        validateChildKeys(children[i3], type);
+                      for (var i2 = 0; i2 < children.length; i2++) {
+                        validateChildKeys(children[i2], type);
                       }
                       if (Object.freeze) {
                         Object.freeze(children);
@@ -10704,8 +10704,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return first;
           }
           __name(pop, "pop");
-          function siftUp(heap, node, i3) {
-            var index = i3;
+          function siftUp(heap, node, i2) {
+            var index = i2;
             while (index > 0) {
               var parentIndex = index - 1 >>> 1;
               var parent2 = heap[parentIndex];
@@ -10719,8 +10719,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             }
           }
           __name(siftUp, "siftUp");
-          function siftDown(heap, node, i3) {
-            var index = i3;
+          function siftDown(heap, node, i2) {
+            var index = i2;
             var length = heap.length;
             var halfLength = length >>> 1;
             while (index < halfLength) {
@@ -11274,8 +11274,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 possibleRegistrationNames.ondblclick = registrationName;
               }
             }
-            for (var i3 = 0; i3 < dependencies.length; i3++) {
-              allNativeEvents.add(dependencies[i3]);
+            for (var i2 = 0; i2 < dependencies.length; i2++) {
+              allNativeEvents.add(dependencies[i2]);
             }
           }
           __name(registerDirectEvent, "registerDirectEvent");
@@ -12728,8 +12728,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 checkAttributeStringCoercion(name, "name");
               }
               var group = queryRoot.querySelectorAll("input[name=" + JSON.stringify("" + name) + '][type="radio"]');
-              for (var i3 = 0; i3 < group.length; i3++) {
-                var otherNode = group[i3];
+              for (var i2 = 0; i2 < group.length; i2++) {
+                var otherNode = group[i2];
                 if (otherNode === rootNode || otherNode.form !== rootNode.form) {
                   continue;
                 }
@@ -12813,8 +12813,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           function checkSelectPropTypes(props) {
             {
               checkControlledValueProps("select", props);
-              for (var i3 = 0; i3 < valuePropNames.length; i3++) {
-                var propName = valuePropNames[i3];
+              for (var i2 = 0; i2 < valuePropNames.length; i2++) {
+                var propName = valuePropNames[i2];
                 if (props[propName] == null) {
                   continue;
                 }
@@ -12833,8 +12833,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (multiple) {
               var selectedValues = propValue;
               var selectedValue = {};
-              for (var i3 = 0; i3 < selectedValues.length; i3++) {
-                selectedValue["$" + selectedValues[i3]] = true;
+              for (var i2 = 0; i2 < selectedValues.length; i2++) {
+                selectedValue["$" + selectedValues[i2]] = true;
               }
               for (var _i = 0; _i < options2.length; _i++) {
                 var selected = selectedValue.hasOwnProperty("$" + options2[_i].value);
@@ -13325,8 +13325,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             var expanded = {};
             for (var key in styles) {
               var longhands = shorthandToLonghand[key] || [key];
-              for (var i3 = 0; i3 < longhands.length; i3++) {
-                expanded[longhands[i3]] = key;
+              for (var i2 = 0; i2 < longhands.length; i2++) {
+                expanded[longhands[i2]] = key;
               }
             }
             return expanded;
@@ -14254,8 +14254,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             restoreQueue = null;
             restoreStateOfTarget(target);
             if (queuedTargets) {
-              for (var i3 = 0; i3 < queuedTargets.length; i3++) {
-                restoreStateOfTarget(queuedTargets[i3]);
+              for (var i2 = 0; i2 < queuedTargets.length; i2++) {
+                restoreStateOfTarget(queuedTargets[i2]);
               }
             }
           }
@@ -15505,7 +15505,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           __name(higherPriorityLane, "higherPriorityLane");
           function createLaneMap(initial) {
             var laneMap = [];
-            for (var i3 = 0; i3 < TotalLanes; i3++) {
+            for (var i2 = 0; i2 < TotalLanes; i2++) {
               laneMap.push(initial);
             }
             return laneMap;
@@ -15914,14 +15914,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               target,
               priority: updatePriority
             };
-            var i3 = 0;
-            for (; i3 < queuedExplicitHydrationTargets.length; i3++) {
-              if (!isHigherEventPriority(updatePriority, queuedExplicitHydrationTargets[i3].priority)) {
+            var i2 = 0;
+            for (; i2 < queuedExplicitHydrationTargets.length; i2++) {
+              if (!isHigherEventPriority(updatePriority, queuedExplicitHydrationTargets[i2].priority)) {
                 break;
               }
             }
-            queuedExplicitHydrationTargets.splice(i3, 0, queuedTarget);
-            if (i3 === 0) {
+            queuedExplicitHydrationTargets.splice(i2, 0, queuedTarget);
+            if (i2 === 0) {
               attemptExplicitHydrationTarget(queuedTarget);
             }
           }
@@ -15989,8 +15989,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           function retryIfBlockedOn(unblocked) {
             if (queuedDiscreteEvents.length > 0) {
               scheduleCallbackIfUnblocked(queuedDiscreteEvents[0], unblocked);
-              for (var i3 = 1; i3 < queuedDiscreteEvents.length; i3++) {
-                var queuedEvent = queuedDiscreteEvents[i3];
+              for (var i2 = 1; i2 < queuedDiscreteEvents.length; i2++) {
+                var queuedEvent = queuedDiscreteEvents[i2];
                 if (queuedEvent.blockedOn === unblocked) {
                   queuedEvent.blockedOn = null;
                 }
@@ -17139,8 +17139,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             if (keysA.length !== keysB.length) {
               return false;
             }
-            for (var i3 = 0; i3 < keysA.length; i3++) {
-              var currentKey = keysA[i3];
+            for (var i2 = 0; i2 < keysA.length; i2++) {
+              var currentKey = keysA[i2];
               if (!hasOwnProperty.call(objB, currentKey) || !objectIs(objA[currentKey], objB[currentKey])) {
                 return false;
               }
@@ -17371,8 +17371,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               if (typeof priorFocusedElem.focus === "function") {
                 priorFocusedElem.focus();
               }
-              for (var i3 = 0; i3 < ancestors.length; i3++) {
-                var info = ancestors[i3];
+              for (var i2 = 0; i2 < ancestors.length; i2++) {
+                var info = ancestors[i2];
                 info.element.scrollLeft = info.left;
                 info.element.scrollTop = info.top;
               }
@@ -17548,8 +17548,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           __name(registerSimpleEvent, "registerSimpleEvent");
           function registerSimpleEvents() {
-            for (var i3 = 0; i3 < simpleEventPluginEvents.length; i3++) {
-              var eventName = simpleEventPluginEvents[i3];
+            for (var i2 = 0; i2 < simpleEventPluginEvents.length; i2++) {
+              var eventName = simpleEventPluginEvents[i2];
               var domEventName = eventName.toLowerCase();
               var capitalizedEvent = eventName[0].toUpperCase() + eventName.slice(1);
               registerSimpleEvent(domEventName, "on" + capitalizedEvent);
@@ -17693,8 +17693,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           function processDispatchQueueItemsInOrder(event, dispatchListeners, inCapturePhase) {
             var previousInstance;
             if (inCapturePhase) {
-              for (var i3 = dispatchListeners.length - 1; i3 >= 0; i3--) {
-                var _dispatchListeners$i = dispatchListeners[i3], instance = _dispatchListeners$i.instance, currentTarget = _dispatchListeners$i.currentTarget, listener = _dispatchListeners$i.listener;
+              for (var i2 = dispatchListeners.length - 1; i2 >= 0; i2--) {
+                var _dispatchListeners$i = dispatchListeners[i2], instance = _dispatchListeners$i.instance, currentTarget = _dispatchListeners$i.currentTarget, listener = _dispatchListeners$i.listener;
                 if (instance !== previousInstance && event.isPropagationStopped()) {
                   return;
                 }
@@ -17715,8 +17715,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           __name(processDispatchQueueItemsInOrder, "processDispatchQueueItemsInOrder");
           function processDispatchQueue(dispatchQueue, eventSystemFlags) {
             var inCapturePhase = (eventSystemFlags & IS_CAPTURE_PHASE) !== 0;
-            for (var i3 = 0; i3 < dispatchQueue.length; i3++) {
-              var _dispatchQueue$i = dispatchQueue[i3], event = _dispatchQueue$i.event, listeners = _dispatchQueue$i.listeners;
+            for (var i2 = 0; i2 < dispatchQueue.length; i2++) {
+              var _dispatchQueue$i = dispatchQueue[i2], event = _dispatchQueue$i.event, listeners = _dispatchQueue$i.listeners;
               processDispatchQueueItemsInOrder(event, listeners, inCapturePhase);
             }
             rethrowCaughtError();
@@ -18160,9 +18160,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           __name(setInitialDOMProperties, "setInitialDOMProperties");
           function updateDOMProperties(domElement, updatePayload, wasCustomComponentTag, isCustomComponentTag) {
-            for (var i3 = 0; i3 < updatePayload.length; i3 += 2) {
-              var propKey = updatePayload[i3];
-              var propValue = updatePayload[i3 + 1];
+            for (var i2 = 0; i2 < updatePayload.length; i2 += 2) {
+              var propKey = updatePayload[i2];
+              var propValue = updatePayload[i2 + 1];
               if (propKey === STYLE) {
                 setValueForStyles(domElement, propValue);
               } else if (propKey === DANGEROUSLY_SET_INNER_HTML) {
@@ -18248,8 +18248,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 break;
               case "video":
               case "audio":
-                for (var i3 = 0; i3 < mediaEventTypes.length; i3++) {
-                  listenToNonDelegatedEvent(mediaEventTypes[i3], domElement);
+                for (var i2 = 0; i2 < mediaEventTypes.length; i2++) {
+                  listenToNonDelegatedEvent(mediaEventTypes[i2], domElement);
                 }
                 props = rawProps;
                 break;
@@ -18504,8 +18504,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 break;
               case "video":
               case "audio":
-                for (var i3 = 0; i3 < mediaEventTypes.length; i3++) {
-                  listenToNonDelegatedEvent(mediaEventTypes[i3], domElement);
+                for (var i2 = 0; i2 < mediaEventTypes.length; i2++) {
+                  listenToNonDelegatedEvent(mediaEventTypes[i2], domElement);
                 }
                 break;
               case "source":
@@ -19913,14 +19913,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           function flushSyncCallbacks() {
             if (!isFlushingSyncQueue && syncQueue !== null) {
               isFlushingSyncQueue = true;
-              var i3 = 0;
+              var i2 = 0;
               var previousUpdatePriority = getCurrentUpdatePriority();
               try {
                 var isSync = true;
                 var queue = syncQueue;
                 setCurrentUpdatePriority(DiscreteEventPriority);
-                for (; i3 < queue.length; i3++) {
-                  var callback = queue[i3];
+                for (; i2 < queue.length; i2++) {
+                  var callback = queue[i2];
                   do {
                     callback = callback(isSync);
                   } while (callback !== null);
@@ -19929,7 +19929,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 includesLegacySyncCallbacks = false;
               } catch (error2) {
                 if (syncQueue !== null) {
-                  syncQueue = syncQueue.slice(i3 + 1);
+                  syncQueue = syncQueue.slice(i2 + 1);
                 }
                 scheduleCallback(ImmediatePriority, flushSyncCallbacks);
                 throw error2;
@@ -20912,8 +20912,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           __name(pushConcurrentUpdateQueue, "pushConcurrentUpdateQueue");
           function finishQueueingConcurrentUpdates() {
             if (concurrentQueues !== null) {
-              for (var i3 = 0; i3 < concurrentQueues.length; i3++) {
-                var queue = concurrentQueues[i3];
+              for (var i2 = 0; i2 < concurrentQueues.length; i2++) {
+                var queue = concurrentQueues[i2];
                 var lastInterleavedUpdate = queue.interleaved;
                 if (lastInterleavedUpdate !== null) {
                   queue.interleaved = null;
@@ -21367,8 +21367,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             var effects = finishedQueue.effects;
             finishedQueue.effects = null;
             if (effects !== null) {
-              for (var i3 = 0; i3 < effects.length; i3++) {
-                var effect = effects[i3];
+              for (var i2 = 0; i2 < effects.length; i2++) {
+                var effect = effects[i2];
                 var callback = effect.callback;
                 if (callback !== null) {
                   effect.callback = null;
@@ -22379,8 +22379,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             function reconcileChildrenArray(returnFiber, currentFirstChild, newChildren, lanes) {
               {
                 var knownKeys = null;
-                for (var i3 = 0; i3 < newChildren.length; i3++) {
-                  var child = newChildren[i3];
+                for (var i2 = 0; i2 < newChildren.length; i2++) {
+                  var child = newChildren[i2];
                   knownKeys = warnOnInvalidKey(child, knownKeys, returnFiber);
                 }
               }
@@ -22895,8 +22895,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           var Passive$1 = 8;
           var workInProgressSources = [];
           function resetWorkInProgressVersions() {
-            for (var i3 = 0; i3 < workInProgressSources.length; i3++) {
-              var mutableSource = workInProgressSources[i3];
+            for (var i2 = 0; i2 < workInProgressSources.length; i2++) {
+              var mutableSource = workInProgressSources[i2];
               {
                 mutableSource._workInProgressVersionPrimary = null;
               }
@@ -22972,10 +22972,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 if (hookTypesDev !== null) {
                   var table = "";
                   var secondColumnStart = 30;
-                  for (var i3 = 0; i3 <= hookTypesUpdateIndexDev; i3++) {
-                    var oldHookName = hookTypesDev[i3];
-                    var newHookName = i3 === hookTypesUpdateIndexDev ? currentHookName : oldHookName;
-                    var row = i3 + 1 + ". " + oldHookName;
+                  for (var i2 = 0; i2 <= hookTypesUpdateIndexDev; i2++) {
+                    var oldHookName = hookTypesDev[i2];
+                    var newHookName = i2 === hookTypesUpdateIndexDev ? currentHookName : oldHookName;
+                    var row = i2 + 1 + ". " + oldHookName;
                     while (row.length < secondColumnStart) {
                       row += " ";
                     }
@@ -23009,8 +23009,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 error("The final argument passed to %s changed size between renders. The order and size of this array must remain constant.\n\nPrevious: %s\nIncoming: %s", currentHookNameInDev, "[" + prevDeps.join(", ") + "]", "[" + nextDeps.join(", ") + "]");
               }
             }
-            for (var i3 = 0; i3 < prevDeps.length && i3 < nextDeps.length; i3++) {
-              if (objectIs(nextDeps[i3], prevDeps[i3])) {
+            for (var i2 = 0; i2 < prevDeps.length && i2 < nextDeps.length; i2++) {
+              if (objectIs(nextDeps[i2], prevDeps[i2])) {
                 continue;
               }
               return false;
@@ -26430,8 +26430,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             {
               if ((revealOrder === "forwards" || revealOrder === "backwards") && children !== void 0 && children !== null && children !== false) {
                 if (isArray(children)) {
-                  for (var i3 = 0; i3 < children.length; i3++) {
-                    if (!validateSuspenseListNestedChild(children[i3], i3)) {
+                  for (var i2 = 0; i2 < children.length; i2++) {
+                    if (!validateSuspenseListNestedChild(children[i2], i2)) {
                       return;
                     }
                   }
@@ -28656,8 +28656,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           function recursivelyTraverseMutationEffects(root2, parentFiber, lanes) {
             var deletions = parentFiber.deletions;
             if (deletions !== null) {
-              for (var i3 = 0; i3 < deletions.length; i3++) {
-                var childToDelete = deletions[i3];
+              for (var i2 = 0; i2 < deletions.length; i2++) {
+                var childToDelete = deletions[i2];
                 try {
                   commitDeletionEffects(root2, parentFiber, childToDelete);
                 } catch (error2) {
@@ -29174,8 +29174,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
               if ((nextEffect.flags & ChildDeletion) !== NoFlags) {
                 var deletions = fiber.deletions;
                 if (deletions !== null) {
-                  for (var i3 = 0; i3 < deletions.length; i3++) {
-                    var fiberToDelete = deletions[i3];
+                  for (var i2 = 0; i2 < deletions.length; i2++) {
+                    var fiberToDelete = deletions[i2];
                     nextEffect = fiberToDelete;
                     commitPassiveUnmountEffectsInsideOfDeletedTree_begin(fiberToDelete, fiber);
                   }
@@ -29817,8 +29817,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 if (updateQueue !== null) {
                   var checks = updateQueue.stores;
                   if (checks !== null) {
-                    for (var i3 = 0; i3 < checks.length; i3++) {
-                      var check = checks[i3];
+                    for (var i2 = 0; i2 < checks.length; i2++) {
+                      var check = checks[i2];
                       var getSnapshot = check.getSnapshot;
                       var renderedValue = check.value;
                       try {
@@ -30421,8 +30421,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             ensureRootIsScheduled(root2, now());
             if (recoverableErrors !== null) {
               var onRecoverableError = root2.onRecoverableError;
-              for (var i3 = 0; i3 < recoverableErrors.length; i3++) {
-                var recoverableError = recoverableErrors[i3];
+              for (var i2 = 0; i2 < recoverableErrors.length; i2++) {
+                var recoverableError = recoverableErrors[i2];
                 var componentStack = recoverableError.stack;
                 var digest = recoverableError.digest;
                 onRecoverableError(recoverableError.value, {
@@ -30519,8 +30519,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             {
               var profilerEffects = pendingPassiveProfilerEffects;
               pendingPassiveProfilerEffects = [];
-              for (var i3 = 0; i3 < profilerEffects.length; i3++) {
-                var _fiber = profilerEffects[i3];
+              for (var i2 = 0; i2 < profilerEffects.length; i2++) {
+                var _fiber = profilerEffects[i2];
                 commitPassiveEffectDurations(root2, _fiber);
               }
             }
@@ -32018,8 +32018,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                 warn("copyWithRename() expects paths of the same length");
                 return;
               } else {
-                for (var i3 = 0; i3 < newPath.length - 1; i3++) {
-                  if (oldPath[i3] !== newPath[i3]) {
+                for (var i2 = 0; i2 < newPath.length - 1; i2++) {
+                  if (oldPath[i2] !== newPath[i2]) {
                     warn("copyWithRename() expects paths to be the same except for the deepest key");
                     return;
                   }
@@ -32309,8 +32309,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             markContainerAsRoot(root2.current, container);
             listenToAllSupportedEvents(container);
             if (mutableSources) {
-              for (var i3 = 0; i3 < mutableSources.length; i3++) {
-                var mutableSource = mutableSources[i3];
+              for (var i2 = 0; i2 < mutableSources.length; i2++) {
+                var mutableSource = mutableSources[i2];
                 registerMutableSourceForHydration(root2, mutableSource);
               }
             }
@@ -32686,25 +32686,25 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         exports.createRoot = m2.createRoot;
         exports.hydrateRoot = m2.hydrateRoot;
       } else {
-        i3 = m2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        i2 = m2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         exports.createRoot = function(c2, o2) {
-          i3.usingClientEntryPoint = true;
+          i2.usingClientEntryPoint = true;
           try {
             return m2.createRoot(c2, o2);
           } finally {
-            i3.usingClientEntryPoint = false;
+            i2.usingClientEntryPoint = false;
           }
         };
         exports.hydrateRoot = function(c2, h2, o2) {
-          i3.usingClientEntryPoint = true;
+          i2.usingClientEntryPoint = true;
           try {
             return m2.hydrateRoot(c2, h2, o2);
           } finally {
-            i3.usingClientEntryPoint = false;
+            i2.usingClientEntryPoint = false;
           }
         };
       }
-      var i3;
+      var i2;
     }
   });
 
@@ -32776,21 +32776,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }
     __name(ii, "ii");
     function sb(x3) {
-      let i4;
+      let i3;
       const nblk = (x3.length + 8 >> 6) + 1;
       const blks = Array.from({ length: nblk * 16 });
-      for (i4 = 0; i4 < nblk * 16; i4++) {
-        blks[i4] = 0;
+      for (i3 = 0; i3 < nblk * 16; i3++) {
+        blks[i3] = 0;
       }
-      for (i4 = 0; i4 < x3.length; i4++) {
-        blks[i4 >> 2] |= x3.charCodeAt(i4) << i4 % 4 * 8;
+      for (i3 = 0; i3 < x3.length; i3++) {
+        blks[i3 >> 2] |= x3.charCodeAt(i3) << i3 % 4 * 8;
       }
-      blks[i4 >> 2] |= 128 << i4 % 4 * 8;
+      blks[i3 >> 2] |= 128 << i3 % 4 * 8;
       blks[nblk * 16 - 2] = x3.length * 8;
       return blks;
     }
     __name(sb, "sb");
-    let i3;
+    let i2;
     const x2 = sb(inputString);
     let a2 = 1732584193;
     let b2 = -271733879;
@@ -32800,75 +32800,75 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     let oldb;
     let oldc;
     let oldd;
-    for (i3 = 0; i3 < x2.length; i3 += 16) {
+    for (i2 = 0; i2 < x2.length; i2 += 16) {
       olda = a2;
       oldb = b2;
       oldc = c2;
       oldd = d2;
-      a2 = ff(a2, b2, c2, d2, x2[i3 + 0], 7, -680876936);
-      d2 = ff(d2, a2, b2, c2, x2[i3 + 1], 12, -389564586);
-      c2 = ff(c2, d2, a2, b2, x2[i3 + 2], 17, 606105819);
-      b2 = ff(b2, c2, d2, a2, x2[i3 + 3], 22, -1044525330);
-      a2 = ff(a2, b2, c2, d2, x2[i3 + 4], 7, -176418897);
-      d2 = ff(d2, a2, b2, c2, x2[i3 + 5], 12, 1200080426);
-      c2 = ff(c2, d2, a2, b2, x2[i3 + 6], 17, -1473231341);
-      b2 = ff(b2, c2, d2, a2, x2[i3 + 7], 22, -45705983);
-      a2 = ff(a2, b2, c2, d2, x2[i3 + 8], 7, 1770035416);
-      d2 = ff(d2, a2, b2, c2, x2[i3 + 9], 12, -1958414417);
-      c2 = ff(c2, d2, a2, b2, x2[i3 + 10], 17, -42063);
-      b2 = ff(b2, c2, d2, a2, x2[i3 + 11], 22, -1990404162);
-      a2 = ff(a2, b2, c2, d2, x2[i3 + 12], 7, 1804603682);
-      d2 = ff(d2, a2, b2, c2, x2[i3 + 13], 12, -40341101);
-      c2 = ff(c2, d2, a2, b2, x2[i3 + 14], 17, -1502002290);
-      b2 = ff(b2, c2, d2, a2, x2[i3 + 15], 22, 1236535329);
-      a2 = gg(a2, b2, c2, d2, x2[i3 + 1], 5, -165796510);
-      d2 = gg(d2, a2, b2, c2, x2[i3 + 6], 9, -1069501632);
-      c2 = gg(c2, d2, a2, b2, x2[i3 + 11], 14, 643717713);
-      b2 = gg(b2, c2, d2, a2, x2[i3 + 0], 20, -373897302);
-      a2 = gg(a2, b2, c2, d2, x2[i3 + 5], 5, -701558691);
-      d2 = gg(d2, a2, b2, c2, x2[i3 + 10], 9, 38016083);
-      c2 = gg(c2, d2, a2, b2, x2[i3 + 15], 14, -660478335);
-      b2 = gg(b2, c2, d2, a2, x2[i3 + 4], 20, -405537848);
-      a2 = gg(a2, b2, c2, d2, x2[i3 + 9], 5, 568446438);
-      d2 = gg(d2, a2, b2, c2, x2[i3 + 14], 9, -1019803690);
-      c2 = gg(c2, d2, a2, b2, x2[i3 + 3], 14, -187363961);
-      b2 = gg(b2, c2, d2, a2, x2[i3 + 8], 20, 1163531501);
-      a2 = gg(a2, b2, c2, d2, x2[i3 + 13], 5, -1444681467);
-      d2 = gg(d2, a2, b2, c2, x2[i3 + 2], 9, -51403784);
-      c2 = gg(c2, d2, a2, b2, x2[i3 + 7], 14, 1735328473);
-      b2 = gg(b2, c2, d2, a2, x2[i3 + 12], 20, -1926607734);
-      a2 = hh(a2, b2, c2, d2, x2[i3 + 5], 4, -378558);
-      d2 = hh(d2, a2, b2, c2, x2[i3 + 8], 11, -2022574463);
-      c2 = hh(c2, d2, a2, b2, x2[i3 + 11], 16, 1839030562);
-      b2 = hh(b2, c2, d2, a2, x2[i3 + 14], 23, -35309556);
-      a2 = hh(a2, b2, c2, d2, x2[i3 + 1], 4, -1530992060);
-      d2 = hh(d2, a2, b2, c2, x2[i3 + 4], 11, 1272893353);
-      c2 = hh(c2, d2, a2, b2, x2[i3 + 7], 16, -155497632);
-      b2 = hh(b2, c2, d2, a2, x2[i3 + 10], 23, -1094730640);
-      a2 = hh(a2, b2, c2, d2, x2[i3 + 13], 4, 681279174);
-      d2 = hh(d2, a2, b2, c2, x2[i3 + 0], 11, -358537222);
-      c2 = hh(c2, d2, a2, b2, x2[i3 + 3], 16, -722521979);
-      b2 = hh(b2, c2, d2, a2, x2[i3 + 6], 23, 76029189);
-      a2 = hh(a2, b2, c2, d2, x2[i3 + 9], 4, -640364487);
-      d2 = hh(d2, a2, b2, c2, x2[i3 + 12], 11, -421815835);
-      c2 = hh(c2, d2, a2, b2, x2[i3 + 15], 16, 530742520);
-      b2 = hh(b2, c2, d2, a2, x2[i3 + 2], 23, -995338651);
-      a2 = ii(a2, b2, c2, d2, x2[i3 + 0], 6, -198630844);
-      d2 = ii(d2, a2, b2, c2, x2[i3 + 7], 10, 1126891415);
-      c2 = ii(c2, d2, a2, b2, x2[i3 + 14], 15, -1416354905);
-      b2 = ii(b2, c2, d2, a2, x2[i3 + 5], 21, -57434055);
-      a2 = ii(a2, b2, c2, d2, x2[i3 + 12], 6, 1700485571);
-      d2 = ii(d2, a2, b2, c2, x2[i3 + 3], 10, -1894986606);
-      c2 = ii(c2, d2, a2, b2, x2[i3 + 10], 15, -1051523);
-      b2 = ii(b2, c2, d2, a2, x2[i3 + 1], 21, -2054922799);
-      a2 = ii(a2, b2, c2, d2, x2[i3 + 8], 6, 1873313359);
-      d2 = ii(d2, a2, b2, c2, x2[i3 + 15], 10, -30611744);
-      c2 = ii(c2, d2, a2, b2, x2[i3 + 6], 15, -1560198380);
-      b2 = ii(b2, c2, d2, a2, x2[i3 + 13], 21, 1309151649);
-      a2 = ii(a2, b2, c2, d2, x2[i3 + 4], 6, -145523070);
-      d2 = ii(d2, a2, b2, c2, x2[i3 + 11], 10, -1120210379);
-      c2 = ii(c2, d2, a2, b2, x2[i3 + 2], 15, 718787259);
-      b2 = ii(b2, c2, d2, a2, x2[i3 + 9], 21, -343485551);
+      a2 = ff(a2, b2, c2, d2, x2[i2 + 0], 7, -680876936);
+      d2 = ff(d2, a2, b2, c2, x2[i2 + 1], 12, -389564586);
+      c2 = ff(c2, d2, a2, b2, x2[i2 + 2], 17, 606105819);
+      b2 = ff(b2, c2, d2, a2, x2[i2 + 3], 22, -1044525330);
+      a2 = ff(a2, b2, c2, d2, x2[i2 + 4], 7, -176418897);
+      d2 = ff(d2, a2, b2, c2, x2[i2 + 5], 12, 1200080426);
+      c2 = ff(c2, d2, a2, b2, x2[i2 + 6], 17, -1473231341);
+      b2 = ff(b2, c2, d2, a2, x2[i2 + 7], 22, -45705983);
+      a2 = ff(a2, b2, c2, d2, x2[i2 + 8], 7, 1770035416);
+      d2 = ff(d2, a2, b2, c2, x2[i2 + 9], 12, -1958414417);
+      c2 = ff(c2, d2, a2, b2, x2[i2 + 10], 17, -42063);
+      b2 = ff(b2, c2, d2, a2, x2[i2 + 11], 22, -1990404162);
+      a2 = ff(a2, b2, c2, d2, x2[i2 + 12], 7, 1804603682);
+      d2 = ff(d2, a2, b2, c2, x2[i2 + 13], 12, -40341101);
+      c2 = ff(c2, d2, a2, b2, x2[i2 + 14], 17, -1502002290);
+      b2 = ff(b2, c2, d2, a2, x2[i2 + 15], 22, 1236535329);
+      a2 = gg(a2, b2, c2, d2, x2[i2 + 1], 5, -165796510);
+      d2 = gg(d2, a2, b2, c2, x2[i2 + 6], 9, -1069501632);
+      c2 = gg(c2, d2, a2, b2, x2[i2 + 11], 14, 643717713);
+      b2 = gg(b2, c2, d2, a2, x2[i2 + 0], 20, -373897302);
+      a2 = gg(a2, b2, c2, d2, x2[i2 + 5], 5, -701558691);
+      d2 = gg(d2, a2, b2, c2, x2[i2 + 10], 9, 38016083);
+      c2 = gg(c2, d2, a2, b2, x2[i2 + 15], 14, -660478335);
+      b2 = gg(b2, c2, d2, a2, x2[i2 + 4], 20, -405537848);
+      a2 = gg(a2, b2, c2, d2, x2[i2 + 9], 5, 568446438);
+      d2 = gg(d2, a2, b2, c2, x2[i2 + 14], 9, -1019803690);
+      c2 = gg(c2, d2, a2, b2, x2[i2 + 3], 14, -187363961);
+      b2 = gg(b2, c2, d2, a2, x2[i2 + 8], 20, 1163531501);
+      a2 = gg(a2, b2, c2, d2, x2[i2 + 13], 5, -1444681467);
+      d2 = gg(d2, a2, b2, c2, x2[i2 + 2], 9, -51403784);
+      c2 = gg(c2, d2, a2, b2, x2[i2 + 7], 14, 1735328473);
+      b2 = gg(b2, c2, d2, a2, x2[i2 + 12], 20, -1926607734);
+      a2 = hh(a2, b2, c2, d2, x2[i2 + 5], 4, -378558);
+      d2 = hh(d2, a2, b2, c2, x2[i2 + 8], 11, -2022574463);
+      c2 = hh(c2, d2, a2, b2, x2[i2 + 11], 16, 1839030562);
+      b2 = hh(b2, c2, d2, a2, x2[i2 + 14], 23, -35309556);
+      a2 = hh(a2, b2, c2, d2, x2[i2 + 1], 4, -1530992060);
+      d2 = hh(d2, a2, b2, c2, x2[i2 + 4], 11, 1272893353);
+      c2 = hh(c2, d2, a2, b2, x2[i2 + 7], 16, -155497632);
+      b2 = hh(b2, c2, d2, a2, x2[i2 + 10], 23, -1094730640);
+      a2 = hh(a2, b2, c2, d2, x2[i2 + 13], 4, 681279174);
+      d2 = hh(d2, a2, b2, c2, x2[i2 + 0], 11, -358537222);
+      c2 = hh(c2, d2, a2, b2, x2[i2 + 3], 16, -722521979);
+      b2 = hh(b2, c2, d2, a2, x2[i2 + 6], 23, 76029189);
+      a2 = hh(a2, b2, c2, d2, x2[i2 + 9], 4, -640364487);
+      d2 = hh(d2, a2, b2, c2, x2[i2 + 12], 11, -421815835);
+      c2 = hh(c2, d2, a2, b2, x2[i2 + 15], 16, 530742520);
+      b2 = hh(b2, c2, d2, a2, x2[i2 + 2], 23, -995338651);
+      a2 = ii(a2, b2, c2, d2, x2[i2 + 0], 6, -198630844);
+      d2 = ii(d2, a2, b2, c2, x2[i2 + 7], 10, 1126891415);
+      c2 = ii(c2, d2, a2, b2, x2[i2 + 14], 15, -1416354905);
+      b2 = ii(b2, c2, d2, a2, x2[i2 + 5], 21, -57434055);
+      a2 = ii(a2, b2, c2, d2, x2[i2 + 12], 6, 1700485571);
+      d2 = ii(d2, a2, b2, c2, x2[i2 + 3], 10, -1894986606);
+      c2 = ii(c2, d2, a2, b2, x2[i2 + 10], 15, -1051523);
+      b2 = ii(b2, c2, d2, a2, x2[i2 + 1], 21, -2054922799);
+      a2 = ii(a2, b2, c2, d2, x2[i2 + 8], 6, 1873313359);
+      d2 = ii(d2, a2, b2, c2, x2[i2 + 15], 10, -30611744);
+      c2 = ii(c2, d2, a2, b2, x2[i2 + 6], 15, -1560198380);
+      b2 = ii(b2, c2, d2, a2, x2[i2 + 13], 21, 1309151649);
+      a2 = ii(a2, b2, c2, d2, x2[i2 + 4], 6, -145523070);
+      d2 = ii(d2, a2, b2, c2, x2[i2 + 11], 10, -1120210379);
+      c2 = ii(c2, d2, a2, b2, x2[i2 + 2], 15, 718787259);
+      b2 = ii(b2, c2, d2, a2, x2[i2 + 9], 21, -343485551);
       a2 = ad(a2, olda);
       b2 = ad(b2, oldb);
       c2 = ad(c2, oldc);
@@ -32984,7 +32984,7 @@ overflow-wrap: break-word;
       };
     }
     const sessAsJs = session.session.get("state").toJSON();
-    const { i: i3, transpiled, code, html, css } = p2 ? JSON.parse(
+    const { i: i2, transpiled, code, html, css } = p2 ? JSON.parse(
       applyPatch(
         string_(
           sessAsJs
@@ -32992,12 +32992,12 @@ overflow-wrap: break-word;
         p2
       )
     ) : sessAsJs;
-    return { i: i3, transpiled, code, html, css };
+    return { i: i2, transpiled, code, html, css };
   }
   __name(mST, "mST");
   function string_(s2) {
-    const { i: i3, transpiled, code, html, css } = s2;
-    return JSON.stringify({ i: i3, transpiled, code, html, css });
+    const { i: i2, transpiled, code, html, css } = s2;
+    return JSON.stringify({ i: i2, transpiled, code, html, css });
   }
   __name(string_, "string_");
   var onSessionUpdate = /* @__PURE__ */ __name((fn, regId = "default") => session?.onUpdate(fn, regId), "onSessionUpdate");
@@ -33144,7 +33144,6 @@ overflow-wrap: break-word;
   };
 
   // js/esbuildEsm.ts
-  i;
   var mod = {
     init: false,
     initialize: async () => {
@@ -33153,7 +33152,7 @@ overflow-wrap: break-word;
       const wasmURL = new URL(
         await fetch(`${location.origin}/files.json`).then((f2) => f2.json()).then(
           (k2) => k2[Object.keys(k2).find(
-            (i3) => i3.indexOf(".wasm") !== -1 && i3.indexOf("esbuild") !== -1
+            (i2) => i2.indexOf(".wasm") !== -1 && i2.indexOf("esbuild") !== -1
           )]
         ),
         location.origin
@@ -33221,7 +33220,7 @@ overflow-wrap: break-word;
     })
   };
   var skipImportmapReplaceNames = false;
-  var build = /* @__PURE__ */ __name(async (codeSpace3, i3, signal) => {
+  var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal) => {
     const initFinished = mod.initialize();
     if (initFinished !== true)
       await initFinished;
@@ -33260,7 +33259,7 @@ overflow-wrap: break-word;
       incremental: true,
       format: "esm",
       entryPoints: [
-        `./render.tsx?i=${i3}`
+        `./render.tsx?i=${i2}`
       ],
       tsconfig: "./tsconfig.json",
       plugins: [unpkgPathPlugin, fetchPlugin]
@@ -33337,7 +33336,7 @@ overflow-wrap: break-word;
   var o = /* @__PURE__ */ __name((e2, t2) => {
     t2 && "value" in t2 && null === t2.oninput && (t2.oninput = () => l(e2, t2));
   }, "o");
-  var i2 = /* @__PURE__ */ __name((e2, t2) => {
+  var i = /* @__PURE__ */ __name((e2, t2) => {
     t2 && "value" in t2 && !s.get(t2) && (new MutationObserver((t3) => t3.map((t4) => l(e2, t4.target))).observe(t2, { attributes: true }), s.set(t2, true));
   }, "i");
   var l = /* @__PURE__ */ __name((e2, t2) => e2.messageToWorker({ 12: 4, 40: { 7: t2._index_, 21: t2.value } }), "l");
@@ -33375,7 +33374,7 @@ overflow-wrap: break-word;
             }
             let w2 = null !== s3.oninput;
             const x2 = "change" === d4;
-            g2 ? (x2 && (w2 = true, s3.onchange = null), s3.addEventListener(d4, a2[m2] = h2(s3._index_, !!f2[p2 + 5]))) : (x2 && (w2 = false), s3.removeEventListener(d4, a2[m2])), s3 && "value" in s3 && (w2 || o(n2, s3), i2(n2, s3));
+            g2 ? (x2 && (w2 = true, s3.onchange = null), s3.addEventListener(d4, a2[m2] = h2(s3._index_, !!f2[p2 + 5]))) : (x2 && (w2 = false), s3.removeEventListener(d4, a2[m2])), s3 && "value" in s3 && (w2 || o(n2, s3), i(n2, s3));
           }
           c3 += u3 ? 2 : 6;
         }
@@ -33397,7 +33396,7 @@ overflow-wrap: break-word;
           (e4 = t2(e4)) && e4.remove();
         }), 0 < u2 && e3.slice(r3 + 6, r3 + 6 + u2).forEach((l3) => {
           const u3 = e3[r3 + 2];
-          (l3 = t2(l3)) && (s4.insertBefore(l3, u3 && t2(u3) || null), o(n2, l3), i2(n2, l3));
+          (l3 = t2(l3)) && (s4.insertBefore(l3, u3 && t2(u3) || null), o(n2, l3), i(n2, l3));
         }));
       }
       return r3 + 6 + u2 + a2;
@@ -33405,11 +33404,11 @@ overflow-wrap: break-word;
   }, "d");
   var h = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
     const o2 = s2.executorsAllowed.includes(0);
-    return { execute(n3, r3, i3) {
-      if (o2 && i3) {
-        i3 = t2.getNode(n3[r3 + 1]);
+    return { execute(n3, r3, i2) {
+      if (o2 && i2) {
+        i2 = t2.getNode(n3[r3 + 1]);
         const o3 = e2.get(n3[r3 + 2]);
-        n3 = 0 !== (n3 = n3[r3 + 4]) ? e2.get(n3 - 1) : null, i3 && null != o3 && (s2.sanitizer ? s2.sanitizer.setAttribute(i3, o3, n3) : null == n3 ? i3.removeAttribute(o3) : i3.setAttribute(o3, n3));
+        n3 = 0 !== (n3 = n3[r3 + 4]) ? e2.get(n3 - 1) : null, i2 && null != o3 && (s2.sanitizer ? s2.sanitizer.setAttribute(i2, o3, n3) : null == n3 ? i2.removeAttribute(o3) : i2.setAttribute(o3, n3));
       }
       return r3 + 5;
     } };
@@ -33420,79 +33419,79 @@ overflow-wrap: break-word;
   }, "g");
   var f = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
     const o2 = s2.executorsAllowed.includes(3);
-    return { execute(n3, r3, i3) {
-      if (o2 && i3) {
-        i3 = t2.getNode(n3[r3 + 1]);
+    return { execute(n3, r3, i2) {
+      if (o2 && i2) {
+        i2 = t2.getNode(n3[r3 + 1]);
         const o3 = e2.get(n3[r3 + 2]);
         {
           const t3 = n3[r3 + 4];
           n3 = 1 === n3[r3 + 3] ? 1 === t3 : 0 !== t3 ? e2.get(t3) : null;
         }
-        i3 && o3 && null != n3 && (s2.sanitizer ? s2.sanitizer.setProperty(i3, o3, String(n3)) : i3[o3] = n3);
+        i2 && o3 && null != n3 && (s2.sanitizer ? s2.sanitizer.setProperty(i2, o3, String(n3)) : i2[o3] = n3);
       }
       return r3 + 5;
     } };
   }, "f");
   var p = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
     const o2 = s2.executorsAllowed.includes(6);
-    let i3, l2 = 0;
+    let i2, l2 = 0;
     return { execute(e3, t3, n3) {
       if (o2 && n3 && s2.longTask)
         if (6 === e3[t3]) {
-          if (l2++, !i3) {
-            const e4 = new Promise((e5) => i3 = e5);
+          if (l2++, !i2) {
+            const e4 = new Promise((e5) => i2 = e5);
             Promise.resolve().then(() => s2.longTask && s2.longTask(e4));
           }
         } else
-          7 === e3[t3] && (l2--, i3 && 0 >= l2 && (i3(), i3 = null, l2 = 0));
+          7 === e3[t3] && (l2--, i2 && 0 >= l2 && (i2(), i2 = null, l2 = 0));
       return t3 + 2;
     }, get active() {
-      return null !== i3;
+      return null !== i2;
     } };
   }, "p");
   var m = new Float32Array(1);
   var w = new Uint16Array(m.buffer);
   function x(e2, t2, n2, r2, s2, o2) {
-    let i3 = [];
+    let i2 = [];
     for (let u2 = 0; u2 < n2; u2++)
       switch (e2[t2++]) {
         case 1:
-          i3.push(e2[t2++]);
+          i2.push(e2[t2++]);
           break;
         case 2:
-          w[0] = e2[t2++], w[1] = e2[t2++], i3.push(m[0]);
+          w[0] = e2[t2++], w[1] = e2[t2++], i2.push(m[0]);
           break;
         case 3:
-          i3.push(r2.get(e2[t2++]));
+          i2.push(r2.get(e2[t2++]));
           break;
         case 4:
           var l2 = e2[t2++];
-          t2 = x(e2, t2, l2, r2, s2, o2), i3.push(t2.args), t2 = t2.offset;
+          t2 = x(e2, t2, l2, r2, s2, o2), i2.push(t2.args), t2 = t2.offset;
           break;
         case 5:
           if (!o2)
             throw Error("objectContext not provided.");
-          i3.push(o2.get(e2[t2++]));
+          i2.push(o2.get(e2[t2++]));
           break;
         case 6:
-          l2 = s2.getNode(e2[t2++]), i3.push(l2.getContext("2d"));
+          l2 = s2.getNode(e2[t2++]), i2.push(l2.getContext("2d"));
           break;
         case 7:
-          i3.push(s2.getNode(e2[t2++]));
+          i2.push(s2.getNode(e2[t2++]));
           break;
         default:
           throw Error("Cannot deserialize argument.");
       }
-    return { args: i3, offset: t2 };
+    return { args: i2, offset: t2 };
   }
   __name(x, "x");
   var v = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
     const o2 = s2.executorsAllowed.includes(9);
-    return { execute(n3, s3, i3) {
+    return { execute(n3, s3, i2) {
       const l2 = e2.get(n3[s3 + 1]), u2 = n3[s3 + 2], { offset: a2, args: c2 } = x(n3, s3 + 3, 1, e2, t2, r2);
       s3 = c2[0];
       const { offset: d2, args: h2 } = x(n3, a2, u2, e2, t2, r2);
-      return o2 && i3 && (b(s3, l2) ? s3[l2] = h2[0] : s3[l2](...h2)), d2;
+      return o2 && i2 && (b(s3, l2) ? s3[l2] = h2[0] : s3[l2](...h2)), d2;
     } };
   }, "v");
   function b(e2, t2) {
@@ -33506,11 +33505,11 @@ overflow-wrap: break-word;
     const o2 = s2.executorsAllowed.includes(10);
     if (!r2)
       throw Error("objectContext is not defined.");
-    return { execute(n3, s3, i3) {
+    return { execute(n3, s3, i2) {
       const l2 = e2.get(n3[s3 + 1]), u2 = n3[s3 + 2], a2 = n3[s3 + 3], { offset: c2, args: d2 } = x(n3, s3 + 4, 1, e2, t2, r2);
       s3 = d2[0];
       const { offset: h2, args: g2 } = x(n3, c2, a2, e2, t2, r2);
-      return o2 && i3 && "new" !== l2 && r2.store(u2, s3[l2](...g2)), h2;
+      return o2 && i2 && "new" !== l2 && r2.store(u2, s3[l2](...g2)), h2;
     } };
   }, "k");
   var y = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
@@ -33521,23 +33520,23 @@ overflow-wrap: break-word;
   }, "y");
   var N = /* @__PURE__ */ __name((e2, t2, n2, r2, s2) => {
     const o2 = s2.executorsAllowed.includes(12);
-    return { execute(t3, r3, i3) {
-      if (o2 && i3) {
-        i3 = t3[r3 + 1];
+    return { execute(t3, r3, i2) {
+      if (o2 && i2) {
+        i2 = t3[r3 + 1];
         var l2 = t3[r3 + 2], u2 = t3[r3 + 3];
         const o3 = t3[r3 + 4];
-        if (t3 = 0 < u2 ? e2.get(u2 - 1) : "", u2 = 0 < o3 ? e2.get(o3 - 1) : null, 1 === i3)
+        if (t3 = 0 < u2 ? e2.get(u2 - 1) : "", u2 = 0 < o3 ? e2.get(o3 - 1) : null, 1 === i2)
           ((e3, t4) => {
             s2.sanitizer && 2 === e3 && s2.sanitizer.getStorage(e3, t4).then((r4) => {
               n2.messageToWorker({ 12: 11, 74: t4, 75: e3, 21: r4 });
             });
           })(l2, t3);
-        else if (2 === i3)
-          if (i3 = l2, l2 = t3, t3 = u2, s2.sanitizer)
-            s2.sanitizer.setStorage(i3, l2, t3);
+        else if (2 === i2)
+          if (i2 = l2, l2 = t3, t3 = u2, s2.sanitizer)
+            s2.sanitizer.setStorage(i2, l2, t3);
           else {
             let e3;
-            if (0 === i3 ? e3 = window.localStorage : 1 === i3 && (e3 = window.sessionStorage), e3)
+            if (0 === i2 ? e3 = window.localStorage : 1 === i2 && (e3 = window.sessionStorage), e3)
               if (null == l2) {
                 if (null != t3)
                   throw Error("Unexpected storage operation.");
@@ -33622,13 +33621,13 @@ overflow-wrap: break-word;
   var M = [8, 3];
   function S(e2, t2, n2, r2) {
     var s2 = [].slice.call(e2.childNodes).filter(n2);
-    return s2 = { 7: e2._index_, 11: 0, 0: e2.nodeType, 1: t2(e2.localName || e2.nodeName), 4: s2.map((e3) => S(e3, t2, n2, r2)), 2: [].map.call(e2.attributes || [], (e3) => [t2(e3.namespaceURI || "null"), t2(e3.name), t2(e3.value)]) }, null != e2.namespaceURI && (s2[6] = t2(e2.namespaceURI)), M.includes(e2.nodeType) && null !== e2.textContent && (s2[5] = t2(e2.textContent)), o(r2, e2), i2(r2, e2), s2;
+    return s2 = { 7: e2._index_, 11: 0, 0: e2.nodeType, 1: t2(e2.localName || e2.nodeName), 4: s2.map((e3) => S(e3, t2, n2, r2)), 2: [].map.call(e2.attributes || [], (e3) => [t2(e3.namespaceURI || "null"), t2(e3.name), t2(e3.value)]) }, null != e2.namespaceURI && (s2[6] = t2(e2.namespaceURI)), M.includes(e2.nodeType) && null !== e2.textContent && (s2[5] = t2(e2.textContent)), o(r2, e2), i(r2, e2), s2;
   }
   __name(S, "S");
   var U = class {
     constructor(e2, t2, n2, r2, s2) {
       this[55] = void 0, this.nodeContext = t2, this.config = s2;
-      let { skeleton: o2, strings: i3 } = function(e3, t3, n3) {
+      let { skeleton: o2, strings: i2 } = function(e3, t3, n3) {
         t3 = t3.hydrateFilter || (() => true);
         let r3 = [], s3 = /* @__PURE__ */ new Map();
         return { skeleton: S(e3, (e4) => {
@@ -33644,7 +33643,7 @@ overflow-wrap: break-word;
         t2.push(n3);
       for (let t3 in e2)
         t3.startsWith("on") && l2.push(t3);
-      n2 = `'use strict';(function(){${n2}self['window']=self;var workerDOM=WorkerThread.workerDOM;WorkerThread.hydrate(workerDOM.document,${JSON.stringify(i3)},${JSON.stringify(o2)},${JSON.stringify(t2)},${JSON.stringify(l2)},[${window.innerWidth},${window.innerHeight}],${JSON.stringify(u2)},${JSON.stringify(a2)});workerDOM.document[59](this);Object.assign(self,workerDOM);}).call(self);${r2}//# sourceURL=${encodeURI(s2.authorURL)}`, s2.sandbox || (this[55] = new Worker(URL.createObjectURL(new Blob([n2])))), s2.onCreateWorker && s2.onCreateWorker(e2, i3, o2, t2);
+      n2 = `'use strict';(function(){${n2}self['window']=self;var workerDOM=WorkerThread.workerDOM;WorkerThread.hydrate(workerDOM.document,${JSON.stringify(i2)},${JSON.stringify(o2)},${JSON.stringify(t2)},${JSON.stringify(l2)},[${window.innerWidth},${window.innerHeight}],${JSON.stringify(u2)},${JSON.stringify(a2)});workerDOM.document[59](this);Object.assign(self,workerDOM);}).call(self);${r2}//# sourceURL=${encodeURI(s2.authorURL)}`, s2.sandbox || (this[55] = new Worker(URL.createObjectURL(new Blob([n2])))), s2.onCreateWorker && s2.onCreateWorker(e2, i2, o2, t2);
     }
     ready() {
       return this.worker.readyPromise || Promise.resolve();
@@ -33714,12 +33713,12 @@ overflow-wrap: break-word;
         let e4 = n3.cloneNode(true);
         o2.appendChild(e4), n3 = e4;
       }
-      let i3 = new T(), l2 = new P(), u2 = new r(i3, n3), a2 = function(e4) {
+      let i2 = new T(), l2 = new P(), u2 = new r(i2, n3), a2 = function(e4) {
         return Object.assign({}, { mutationPump: requestAnimationFrame.bind(null), executorsAllowed: t }, e4);
       }(s2);
       return e3.then(([e4, t2]) => {
         if (e4 && t2 && s2.authorURL) {
-          let r2 = new U(n3, u2, e4, t2, a2), o3 = new E(i3, u2, r2, a2, l2);
+          let r2 = new U(n3, u2, e4, t2, a2), o3 = new E(i2, u2, r2, a2, l2);
           return r2.worker.onmessage = (e5) => {
             let { data: t3 } = e5;
             R.includes(t3[12]) && (o3.mutate(t3[54], t3[37], t3[41], new Uint16Array(t3[36])), s2.onReceiveMessage) && s2.onReceiveMessage(e5);
@@ -33963,16 +33962,16 @@ overflow-wrap: break-word;
           return;
         if (modz[cs] !== counter)
           return;
-        const { html, css, i: i3, transpiled } = MST;
-        if (i3 > modz[cs])
-          modz[cs] = i3;
-        const counterLength = `/*${i3}*/`.length;
-        if (i3 > counter)
-          return createIframe(cs, i3);
+        const { html, css, i: i2, transpiled } = MST;
+        if (i2 > modz[cs])
+          modz[cs] = i2;
+        const counterLength = `/*${i2}*/`.length;
+        if (i2 > counter)
+          return createIframe(cs, i2);
         const c2 = +transpiled.slice(-counterLength).split("*")[1];
         if (c2 > modz[cs])
           modz[cs] = c2;
-        if (c2 > i3)
+        if (c2 > i2)
           return createIframe(cs, c2);
         if (signal.aborted)
           return;
@@ -34098,11 +34097,11 @@ overflow-wrap: break-word;
     }
   };
   async function moveToWorker(nameSpace, parent2) {
-    const { i: i3 } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
+    const { i: i2 } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
     const div = parent2?.getElementsByTagName("div")[0];
     div.style.height = "100%";
     const cont = new AbortController();
-    const js = await build(codeSpace2, i3, cont.signal);
+    const js = await build(codeSpace2, i2, cont.signal);
     if (!js)
       return false;
     const src = createJsBlob(js);
