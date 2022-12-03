@@ -69,6 +69,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = async () => {
+      await wait(400);
       setPositions({
         bottom: -25,
         right: -45,
