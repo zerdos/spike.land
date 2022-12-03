@@ -3989,7 +3989,7 @@ async function processWsMessage(event, source, conn) {
     users.insert(conn.target);
   }
   if (data.name)
-    user.insert(data.name);
+    users.insert(data.name);
   processData(data, source, conn);
 }
 __name(processWsMessage, "processWsMessage");
