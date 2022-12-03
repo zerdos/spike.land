@@ -26642,21 +26642,18 @@ var fetchPlugin = {
     build2.onLoad({ filter: /.*.tsx.*/ }, async (args) => {
       if (args.path.indexOf("render.tsx") !== -1) {
         const contents = await esmTransform(`
-      import {createRoot} from "react-dom/client"
+      import {hydrateRoot} from "react-dom/client"
       import { CacheProvider } from "@emotion/react";
       import createCache from "@emotion/cache";
       import {StrictMode} from "react";
       import { ErrorBoundary } from "react-error-boundary";
       import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
-      document.body.innerHTML = ${JSON.stringify(`<div id="root" style="height:100%">
-             <style>${mST().css}</style>${mST().html}
-      </div>`)};
+      document.body.innerHTML = ${JSON.stringify(`<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`)};
 
   let rootEl = document.getElementById("root");
 
   rootEl.innerHTML="";
    
-  const root = createRoot(rootEl);
   
     const cache = createCache({
       key: "${hashCode()}",
@@ -26666,7 +26663,7 @@ var fetchPlugin = {
   
    cache.compat = undefined;
   
-  root.render(<StrictMode><ErrorBoundary
+   hydrateRoot(<StrictMode><ErrorBoundary
     fallbackRender={({ error }) => (
       <div role="alert">
         <div>Oh n o</div>
@@ -26676,8 +26673,7 @@ var fetchPlugin = {
     <CacheProvider value={cache}>
       <App />
     </CacheProvider>
-    </ErrorBoundary></StrictMode>);
-
+    </ErrorBoundary></StrictMode>, rootEl);
       `);
         return {
           contents
@@ -26956,7 +26952,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
     <script type="module" src=${srcJS}><\/script> 
     </head>
     <body>
-    <div id="${cs}-${hashCode2}" style="height: 100%;">${html}</div>
+    <div id="root" style="height: 100%;">${html}</div>
     </body>
     </html>`), "iSRC");
       const setIframe = /* @__PURE__ */ __name((srcJS) => {

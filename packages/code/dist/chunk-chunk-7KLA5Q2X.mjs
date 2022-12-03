@@ -5,7 +5,7 @@ import {
 import {
   prettierJs,
   runner
-} from "./chunk-chunk-VHZVZAW6.mjs";
+} from "./chunk-chunk-24BK4WSB.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
