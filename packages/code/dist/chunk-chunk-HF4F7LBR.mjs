@@ -26647,7 +26647,7 @@ var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
       import createCache from "@emotion/cache";
       import {StrictMode} from "react";
       import { ErrorBoundary } from "react-error-boundary";
-      import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
+      import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
       document.body.innerHTML = ${JSON.stringify(`<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`)};
 
   let rootEl = document.getElementById("root");

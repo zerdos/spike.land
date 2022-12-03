@@ -56,7 +56,7 @@ export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin
       import createCache from "@emotion/cache";
       import {StrictMode} from "react";
       import { ErrorBoundary } from "react-error-boundary";
-      import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
+      import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
       document.body.innerHTML = ${
           JSON.stringify(`<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`)
         };
