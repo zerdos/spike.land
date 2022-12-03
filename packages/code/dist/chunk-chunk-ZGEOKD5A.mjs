@@ -7299,7 +7299,6 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
   });
 }, "createIframe");
 var worker;
-var div;
 var parent;
 var lastH = "";
 var lastSuccessful = "";
@@ -7321,11 +7320,9 @@ async function runInWorker(nameSpace, _parent) {
       return;
     }
     parent = _parent || parent || document.getElementById("root");
-    div = await moveToWorker(nameSpace, parent);
+    const div = await moveToWorker(nameSpace, parent);
     if (!div)
-      return false;
-    div.setAttribute;
-    div.setAttribute("data-shadow-dom", "open");
+      return;
     const w = await upgradeElement(
       div,
       "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.js"
@@ -7333,7 +7330,6 @@ async function runInWorker(nameSpace, _parent) {
     if (w === null)
       throw new Error("No worker");
     worker = w;
-    lastSuccessful = current;
   });
 }
 __name(runInWorker, "runInWorker");
@@ -7350,15 +7346,16 @@ bc.onmessage = (event) => {
 };
 async function moveToWorker(nameSpace, parent2) {
   const { i } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
-  const div2 = document.getElementById(`root-${codeSpace2}`);
-  div2.style.height = "100%";
+  const div = document.getElementById(`root-${codeSpace2}`);
+  div.style.height = "100%";
   const cont = new AbortController();
   const js = await build(codeSpace2, i, cont.signal);
   if (!js)
     return false;
   const src = createJsBlob(js);
-  div2.setAttribute("src", src);
-  return div2;
+  div.setAttribute("src", src);
+  div.setAttribute("data-shadow-dom", "open");
+  return div;
 }
 __name(moveToWorker, "moveToWorker");
 Object.assign(globalThis, { md5 });
