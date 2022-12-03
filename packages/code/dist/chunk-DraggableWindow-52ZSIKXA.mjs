@@ -56,7 +56,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
   const [width, setWidth] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
-  const [height, setHeight] = (0, import_react3.useState)(window.innerHeight * devicePixelRatio + 20);
+  const [height, setHeight] = (0, import_react3.useState)(window.innerHeight * devicePixelRatio);
   const scale = scaleRange / 100;
   (0, import_react3.useEffect)(() => {
     if (!iRef.current)
