@@ -681,6 +681,7 @@ export class Code {
         }
 
         if (data.i && data.i < this.i) return;
+
         this.i = data.i;
 
         if (data.patch && data.oldHash && data.newHash) {
