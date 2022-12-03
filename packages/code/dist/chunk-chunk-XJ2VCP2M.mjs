@@ -3526,7 +3526,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-LACI64CE.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-7KEC3W5K.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "div",
   {
@@ -3702,7 +3702,6 @@ var webRTCLastSeenHashCode = "";
 var lastSeenTimestamp = 0;
 var lastSeenNow = 0;
 var ws = null;
-var sendWS;
 var rejoined = false;
 var tracks = {};
 var wsConns = {};
@@ -3789,10 +3788,9 @@ var run = /* @__PURE__ */ __name(async (startState) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
     }
-    if (event.data.user !== user && event.data.type === "suggestNeighborsRequest") {
-    }
-    if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      sendChannel.send(JSON.stringify({ codeSpace, address: event.data.address }));
+    if (event.data.codeSpace === codeSpace && event.data.i > sendChannel.i) {
+      sendChannel.i = event.data.i;
+      processData(event.data, "bc");
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);

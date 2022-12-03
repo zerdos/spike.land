@@ -47,7 +47,6 @@ let webRTCLastSeenHashCode = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws: WebSocket | null = null;
-let sendWS: (message: string) => void;
 let rejoined = false;
 const tracks: {
   [key: string]: {
@@ -188,15 +187,11 @@ export const run = async (startState: {
     }
 
     if (
-      event.data.user !== user
-      && event.data.type === "suggestNeighborsRequest"
+      event.data.codeSpace === codeSpace && event.data.i > sendChannel.i
     ) {
-    }
-
-    if (
-      event.data.codeSpace === codeSpace && event.data.address && !address
-    ) {
-      sendChannel.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      sendChannel.i = event.data.i;
+      processData(event.data, "bc");
+      // sendChannel.send(JSON.stringify());
     }
 
     if (event.data.ignoreUser) {
