@@ -2,6 +2,7 @@ import "es-module-shims";
 // import { md5 } from "./md5";
 // import { createJsBlob } from "starter";
 import type { FC } from "react";
+import React from "react";
 import type * as ReactDOMClient from "react-dom/client";
 import importmap from "./importmap.json";
 
@@ -63,7 +64,11 @@ importShim.addImportMap({ imports: res });
       i++;
 
       root = createRoot(rootEl);
-      root.render(<App />);
+      root.render(
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>,
+      );
     });
     render();
 

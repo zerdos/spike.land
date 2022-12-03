@@ -1178,7 +1178,7 @@ __metadata:
     esbuild-plugin-alias: "npm:0.2.1"
     esbuild-plugin-external-global: "npm:1.0.1"
     esbuild-wasm: "npm:0.15.16"
-    eslint: "npm:^8.28.0"
+    eslint: "npm:^8.29.0"
     eslint-plugin-react: "npm:^7.31.11"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
@@ -1188,7 +1188,7 @@ __metadata:
     localforage: "npm:^1.10.0"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.35.0-dev.20221202"
+    monaco-editor: "npm:0.35.0-dev.20221203"
     p-map: "npm:5.5.0"
     popmotion: "npm:11.0.5"
     prettier: "npm:2.8.0"
@@ -3392,7 +3392,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.28.0":
+"eslint@npm:^8.29.0":
   version: 8.29.0
   resolution: "eslint@npm:8.29.0"
   dependencies:
@@ -4927,10 +4927,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20221202":
-  version: 0.35.0-dev.20221202
-  resolution: "monaco-editor@npm:0.35.0-dev.20221202"
-  checksum: 83b2ed8b31af86a5144c38660a192989630bc0ddcd16b1ddeac8012cbe99f3fa8ca9720bfb9d58c0a987f88f77aa45440a4e01264ea864d9a566199be38e632b
+"monaco-editor@npm:0.35.0-dev.20221203":
+  version: 0.35.0-dev.20221203
+  resolution: "monaco-editor@npm:0.35.0-dev.20221203"
+  checksum: 3e6ef48f438f14436bc99486c79e0c831a55a906a574cf7708443b5a6b5c287c47873b3a8425537d55db85ced511997a4f97da60ff735e2152e4bd3a36032b91
   languageName: node
   linkType: hard
 
@@ -4948,7 +4948,7 @@ __metadata:
     "@yarnpkg/sdks": "npm:3.0.0-rc.32"
     dprint: "npm:^0.33.0"
     esbuild: "npm:^0.15.16"
-    eslint: "npm:^8.28.0"
+    eslint: "npm:^8.29.0"
     eslint-plugin-react: "npm:^7.31.11"
     playwright: "npm:1.28.1"
     react: "npm:^18.2.0"

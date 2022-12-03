@@ -46,6 +46,7 @@ export const fetchPlugin: Plugin = {
       import {createRoot} from "react-dom/client"
       import { CacheProvider } from "@emotion/react";
       import createCache from "@emotion/cache";
+      import {StrictMode} from "react";
       import { ErrorBoundary } from "react-error-boundary";
       import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
       document.body.innerHTML = ${
@@ -68,7 +69,7 @@ export const fetchPlugin: Plugin = {
   
    cache.compat = undefined;
   
-  root.render(<ErrorBoundary
+  root.render(<StrictMode><ErrorBoundary
     fallbackRender={({ error }) => (
       <div role="alert">
         <div>Oh n o</div>
@@ -78,7 +79,7 @@ export const fetchPlugin: Plugin = {
     <CacheProvider value={cache}>
       <App />
     </CacheProvider>
-    </ErrorBoundary>);
+    </ErrorBoundary></StrictMode>);
 
       `);
         return {

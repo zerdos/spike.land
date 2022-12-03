@@ -4041,7 +4041,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       "use strict";
       init_define_process();
       Object.defineProperty(exports, "__esModule", { value: true });
-      var React = require_react();
+      var React2 = require_react();
       function _interopNamespace(e) {
         if (e && e.__esModule)
           return e;
@@ -4063,14 +4063,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return Object.freeze(n);
       }
       __name(_interopNamespace, "_interopNamespace");
-      var React__namespace = /* @__PURE__ */ _interopNamespace(React);
+      var React__namespace = /* @__PURE__ */ _interopNamespace(React2);
       var isBrowser = typeof document !== "undefined";
       var syncFallback = /* @__PURE__ */ __name(function syncFallback2(create) {
         return create();
       }, "syncFallback");
       var useInsertionEffect = React__namespace["useInsertionEffect"] ? React__namespace["useInsertionEffect"] : false;
       var useInsertionEffectAlwaysWithSyncFallback = !isBrowser ? syncFallback : useInsertionEffect || syncFallback;
-      var useInsertionEffectWithLayoutFallback = useInsertionEffect || React.useLayoutEffect;
+      var useInsertionEffectWithLayoutFallback = useInsertionEffect || React2.useLayoutEffect;
       exports.useInsertionEffectAlwaysWithSyncFallback = useInsertionEffectAlwaysWithSyncFallback;
       exports.useInsertionEffectWithLayoutFallback = useInsertionEffectWithLayoutFallback;
     }
@@ -4094,7 +4094,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     "../../.yarn/__virtual__/@emotion-react-virtual-12ec163bb1/0/global/cache/@emotion-react-npm-11.10.5-98e2cdb553-9.zip/node_modules/@emotion/react/dist/emotion-element-b63ca7c6.cjs.dev.js"(exports) {
       "use strict";
       init_define_process();
-      var React = require_react();
+      var React2 = require_react();
       var createCache = require_emotion_cache_cjs();
       var _extends = require_extends();
       var weakMemoize = require_emotion_weak_memoize_cjs();
@@ -4110,7 +4110,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       var weakMemoize__default = /* @__PURE__ */ _interopDefault(weakMemoize);
       var isBrowser = typeof document !== "undefined";
       var hasOwnProperty = {}.hasOwnProperty;
-      var EmotionCacheContext = /* @__PURE__ */ React.createContext(
+      var EmotionCacheContext = /* @__PURE__ */ React2.createContext(
         typeof HTMLElement !== "undefined" ? /* @__PURE__ */ createCache__default["default"]({
           key: "css"
         }) : null
@@ -4120,23 +4120,23 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       var CacheProvider = EmotionCacheContext.Provider;
       var __unsafe_useEmotionCache = /* @__PURE__ */ __name(function useEmotionCache() {
-        return React.useContext(EmotionCacheContext);
+        return React2.useContext(EmotionCacheContext);
       }, "useEmotionCache");
       exports.withEmotionCache = /* @__PURE__ */ __name(function withEmotionCache(func) {
-        return /* @__PURE__ */ React.forwardRef(function(props, ref) {
-          var cache = React.useContext(EmotionCacheContext);
+        return /* @__PURE__ */ React2.forwardRef(function(props, ref) {
+          var cache = React2.useContext(EmotionCacheContext);
           return func(props, cache, ref);
         });
       }, "withEmotionCache");
       if (!isBrowser) {
         exports.withEmotionCache = /* @__PURE__ */ __name(function withEmotionCache(func) {
           return function(props) {
-            var cache = React.useContext(EmotionCacheContext);
+            var cache = React2.useContext(EmotionCacheContext);
             if (cache === null) {
               cache = createCache__default["default"]({
                 key: "css"
               });
-              return /* @__PURE__ */ React.createElement(EmotionCacheContext.Provider, {
+              return /* @__PURE__ */ React2.createElement(EmotionCacheContext.Provider, {
                 value: cache
               }, func(props, cache));
             } else {
@@ -4145,12 +4145,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           };
         }, "withEmotionCache");
       }
-      var ThemeContext = /* @__PURE__ */ React.createContext({});
+      var ThemeContext = /* @__PURE__ */ React2.createContext({});
       if (true) {
         ThemeContext.displayName = "EmotionThemeContext";
       }
       var useTheme = /* @__PURE__ */ __name(function useTheme2() {
-        return React.useContext(ThemeContext);
+        return React2.useContext(ThemeContext);
       }, "useTheme");
       var getTheme = /* @__PURE__ */ __name(function getTheme2(outerTheme, theme) {
         if (typeof theme === "function") {
@@ -4171,24 +4171,24 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         });
       });
       var ThemeProvider = /* @__PURE__ */ __name(function ThemeProvider2(props) {
-        var theme = React.useContext(ThemeContext);
+        var theme = React2.useContext(ThemeContext);
         if (props.theme !== theme) {
           theme = createCacheWithTheme(theme)(props.theme);
         }
-        return /* @__PURE__ */ React.createElement(ThemeContext.Provider, {
+        return /* @__PURE__ */ React2.createElement(ThemeContext.Provider, {
           value: theme
         }, props.children);
       }, "ThemeProvider");
       function withTheme(Component) {
         var componentName = Component.displayName || Component.name || "Component";
         var render = /* @__PURE__ */ __name(function render2(props, ref) {
-          var theme = React.useContext(ThemeContext);
-          return /* @__PURE__ */ React.createElement(Component, _extends({
+          var theme = React2.useContext(ThemeContext);
+          return /* @__PURE__ */ React2.createElement(Component, _extends({
             theme,
             ref
           }, props));
         }, "render");
-        var WithTheme = /* @__PURE__ */ React.forwardRef(render);
+        var WithTheme = /* @__PURE__ */ React2.forwardRef(render);
         WithTheme.displayName = "WithTheme(" + componentName + ")";
         return _isolatedHnrs_dist_emotionReact_isolatedHnrs["default"](WithTheme, Component);
       }
@@ -4259,7 +4259,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             serializedNames += " " + next.name;
             next = next.next;
           }
-          return /* @__PURE__ */ React.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+          return /* @__PURE__ */ React2.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
             __html: rules
           }, _ref2.nonce = cache.sheet.nonce, _ref2));
         }
@@ -4278,7 +4278,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         } else if (props.className != null) {
           className = props.className + " ";
         }
-        var serialized = serialize.serializeStyles(registeredStyles, void 0, React.useContext(ThemeContext));
+        var serialized = serialize.serializeStyles(registeredStyles, void 0, React2.useContext(ThemeContext));
         if (serialized.name.indexOf("-") === -1) {
           var labelFromStack = props[labelPropName];
           if (labelFromStack) {
@@ -4294,11 +4294,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
         newProps.ref = ref;
         newProps.className = className;
-        return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Insertion, {
+        return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(Insertion, {
           cache,
           serialized,
           isStringTag: typeof WrappedComponent === "string"
-        }), /* @__PURE__ */ React.createElement(WrappedComponent, newProps));
+        }), /* @__PURE__ */ React2.createElement(WrappedComponent, newProps));
       });
       if (true) {
         Emotion.displayName = "EmotionCssPropInternal";
@@ -4324,7 +4324,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       if (true) {
         (function() {
           "use strict";
-          var React = require_react();
+          var React2 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -4351,7 +4351,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             return null;
           }
           __name(getIteratorFn, "getIteratorFn");
-          var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -7953,6 +7953,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     __name(processPreload, "processPreload");
   })();
 
+  // js/react-jsx-runtime.tsx
+  var import_react = __toESM(require_react(), 1);
+
   // js/importmap.json
   var importmap_default = {
     imports: {
@@ -8008,7 +8011,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const App = (await importShim(`/live/${codeSpace}/index.js/${i}`)).default;
         i++;
         root = createRoot(rootEl);
-        root.render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}));
+        root.render(
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}) })
+        );
       }, "render");
       render();
       bc.onmessage = (event) => {
