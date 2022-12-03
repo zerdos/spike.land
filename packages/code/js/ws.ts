@@ -498,7 +498,7 @@ async function processWsMessage(
     conn.hashCode = data.hashCode;
     users.insert(conn.target);
   }
-  if (data.name) user.insert(data.name);
+  if (data.name) users.insert(data.name);
 
   processData(data, source, conn);
 }
