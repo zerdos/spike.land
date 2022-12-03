@@ -147,6 +147,7 @@ const build = (
       ".tsx": "tsx",
       ".jsx": "tsx",
       ".js": "ts",
+      ".ts": "ts",
       ".cjs": "ts",
       ".mjs": "tsx",
       ".css": "css",
