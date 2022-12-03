@@ -7109,10 +7109,6 @@ function createDomMotionComponent(key) {
 }
 __name(createDomMotionComponent, "createDomMotionComponent");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-minimal.mjs
-init_define_process();
-var m = createMotionProxy(createDomMotionConfig);
-
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
 init_define_process();
 var React4 = __toESM(require_react(), 1);
@@ -7358,52 +7354,6 @@ function MotionConfig({ children, isValidProp, ...config }) {
 }
 __name(MotionConfig, "MotionConfig");
 
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
-init_define_process();
-var React6 = __toESM(require_react(), 1);
-var import_react34 = __toESM(require_react(), 1);
-function LazyMotion({ children, features, strict = false }) {
-  const [, setIsLoaded] = (0, import_react34.useState)(!isLazyBundle(features));
-  const loadedRenderer = (0, import_react34.useRef)(void 0);
-  if (!isLazyBundle(features)) {
-    const { renderer, ...loadedFeatures } = features;
-    loadedRenderer.current = renderer;
-    loadFeatures(loadedFeatures);
-  }
-  (0, import_react34.useEffect)(() => {
-    if (isLazyBundle(features)) {
-      features().then(({ renderer, ...loadedFeatures }) => {
-        loadFeatures(loadedFeatures);
-        loadedRenderer.current = renderer;
-        setIsLoaded(true);
-      });
-    }
-  }, []);
-  return React6.createElement(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
-}
-__name(LazyMotion, "LazyMotion");
-function isLazyBundle(features) {
-  return typeof features === "function";
-}
-__name(isLazyBundle, "isLazyBundle");
-
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/render/dom/features-animation.mjs
-init_define_process();
-var domAnimation = {
-  renderer: createDomVisualElement,
-  ...animations,
-  ...gestureAnimations
-};
-
-// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/render/dom/features-max.mjs
-init_define_process();
-var domMax = {
-  ...domAnimation,
-  ...drag,
-  ...layoutFeatures,
-  projectionNodeConstructor: HTMLProjectionNode
-};
-
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/index.mjs
 var es_exports = {};
 __export(es_exports, {
@@ -7492,19 +7442,23 @@ __export(es_exports, {
 });
 init_define_process();
 
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-minimal.mjs
+init_define_process();
+var m = createMotionProxy(createDomMotionConfig);
+
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
 init_define_process();
-var React8 = __toESM(require_react(), 1);
+var React7 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
 init_define_process();
-var React7 = __toESM(require_react(), 1);
-var import_react36 = __toESM(require_react(), 1);
+var React6 = __toESM(require_react(), 1);
+var import_react35 = __toESM(require_react(), 1);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.mjs
 init_define_process();
-var import_react35 = __toESM(require_react(), 1);
-var DeprecatedLayoutGroupContext = (0, import_react35.createContext)(null);
+var import_react34 = __toESM(require_react(), 1);
+var DeprecatedLayoutGroupContext = (0, import_react34.createContext)(null);
 
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/projection/node/group.mjs
 init_define_process();
@@ -7536,10 +7490,10 @@ var shouldInheritId = /* @__PURE__ */ __name((inherit) => shouldInheritGroup(inh
 var LayoutGroup = /* @__PURE__ */ __name(({ children, id: id4, inheritId, inherit = true }) => {
   if (inheritId !== void 0)
     inherit = inheritId;
-  const layoutGroupContext = (0, import_react36.useContext)(LayoutGroupContext);
-  const deprecatedLayoutGroupContext = (0, import_react36.useContext)(DeprecatedLayoutGroupContext);
+  const layoutGroupContext = (0, import_react35.useContext)(LayoutGroupContext);
+  const deprecatedLayoutGroupContext = (0, import_react35.useContext)(DeprecatedLayoutGroupContext);
   const [forceRender, key] = useForceUpdate();
-  const context = (0, import_react36.useRef)(null);
+  const context = (0, import_react35.useRef)(null);
   const upstreamId = layoutGroupContext.id || deprecatedLayoutGroupContext;
   if (context.current === null) {
     if (shouldInheritId(inherit) && upstreamId) {
@@ -7550,18 +7504,47 @@ var LayoutGroup = /* @__PURE__ */ __name(({ children, id: id4, inheritId, inheri
       group: shouldInheritGroup(inherit) ? layoutGroupContext.group || nodeGroup() : nodeGroup()
     };
   }
-  const memoizedContext = (0, import_react36.useMemo)(() => ({ ...context.current, forceRender }), [key]);
-  return React7.createElement(LayoutGroupContext.Provider, { value: memoizedContext }, children);
+  const memoizedContext = (0, import_react35.useMemo)(() => ({ ...context.current, forceRender }), [key]);
+  return React6.createElement(LayoutGroupContext.Provider, { value: memoizedContext }, children);
 }, "LayoutGroup");
 
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
 var id3 = 0;
 var AnimateSharedLayout = /* @__PURE__ */ __name(({ children }) => {
-  React8.useEffect(() => {
+  React7.useEffect(() => {
     warning(false, "AnimateSharedLayout is deprecated: https://www.framer.com/docs/guide-upgrade/##shared-layout-animations");
   }, []);
-  return React8.createElement(LayoutGroup, { id: useConstant(() => `asl-${id3++}`) }, children);
+  return React7.createElement(LayoutGroup, { id: useConstant(() => `asl-${id3++}`) }, children);
 }, "AnimateSharedLayout");
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
+init_define_process();
+var React8 = __toESM(require_react(), 1);
+var import_react36 = __toESM(require_react(), 1);
+function LazyMotion({ children, features, strict = false }) {
+  const [, setIsLoaded] = (0, import_react36.useState)(!isLazyBundle(features));
+  const loadedRenderer = (0, import_react36.useRef)(void 0);
+  if (!isLazyBundle(features)) {
+    const { renderer, ...loadedFeatures } = features;
+    loadedRenderer.current = renderer;
+    loadFeatures(loadedFeatures);
+  }
+  (0, import_react36.useEffect)(() => {
+    if (isLazyBundle(features)) {
+      features().then(({ renderer, ...loadedFeatures }) => {
+        loadFeatures(loadedFeatures);
+        loadedRenderer.current = renderer;
+        setIsLoaded(true);
+      });
+    }
+  }, []);
+  return React8.createElement(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
+}
+__name(LazyMotion, "LazyMotion");
+function isLazyBundle(features) {
+  return typeof features === "function";
+}
+__name(isLazyBundle, "isLazyBundle");
 
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 init_define_process();
@@ -7773,6 +7756,23 @@ var Item = (0, import_react40.forwardRef)(ReorderItem);
 var Reorder = {
   Group,
   Item
+};
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/render/dom/features-animation.mjs
+init_define_process();
+var domAnimation = {
+  renderer: createDomVisualElement,
+  ...animations,
+  ...gestureAnimations
+};
+
+// ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/render/dom/features-max.mjs
+init_define_process();
+var domMax = {
+  ...domAnimation,
+  ...drag,
+  ...layoutFeatures,
+  projectionNodeConstructor: HTMLProjectionNode
 };
 
 // ../../.yarn/__virtual__/framer-motion-virtual-6db2b66beb/0/global/cache/framer-motion-npm-7.6.18-6a09bafb9e-9.zip/node_modules/framer-motion/dist/es/value/use-motion-template.mjs
@@ -8882,11 +8882,7 @@ __name(useInvertedScale, "useInvertedScale");
 
 export {
   motion,
-  m,
   AnimatePresence,
   MotionConfig,
-  LazyMotion,
-  domAnimation,
-  domMax,
   es_exports
 };

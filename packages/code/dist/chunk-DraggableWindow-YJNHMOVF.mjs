@@ -22,12 +22,9 @@ import "./chunk-chunk-OH444ZSQ.mjs";
 import "./chunk-chunk-ZL6L5B7C.mjs";
 import {
   AnimatePresence,
-  LazyMotion,
   MotionConfig,
-  domAnimation,
-  domMax,
-  m
-} from "./chunk-chunk-LKHY26RX.mjs";
+  motion
+} from "./chunk-chunk-6TLPSDJW.mjs";
 import {
   require_react
 } from "./chunk-chunk-UX3KX3KY.mjs";
@@ -46,7 +43,7 @@ var import_react3 = __toESM(require_react(), 1);
 init_define_process();
 var import_react = __toESM(require_react(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-NPIWOHSF.mjs"));
+var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-7AF4LXLP.mjs"));
 var QRButton = /* @__PURE__ */ __name(({ url }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "qr" }), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LQR, { url }) }), "QRButton");
 
 // js/DraggableWindow.tsx
@@ -123,8 +120,8 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const delay = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MotionConfig, { transition: { delay, type, duration }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(AnimatePresence, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LazyMotion, { features: { ...domAnimation, ...domMax }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-    m.div,
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MotionConfig, { transition: { delay, type, duration }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(AnimatePresence, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    motion.div,
     {
       layout: true,
       initial: {
@@ -166,7 +163,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
             },
             children: [
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-                m.div,
+                motion.div,
                 {
                   css: import_react2.css`
               overflow: hidden;
@@ -211,7 +208,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                 }
               ),
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-                m.div,
+                motion.div,
                 {
                   initial: {
                     width: window.innerWidth,
@@ -224,7 +221,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                     borderRadius: 8
                   },
                   children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-                    m.iframe,
+                    motion.iframe,
                     {
                       ref: iRef,
                       frameBorder: 0,
@@ -253,7 +250,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                 }
               ),
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-                m.div,
+                motion.div,
                 {
                   css: import_react2.css`
               overflow: hidden;
@@ -319,7 +316,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
           }
         ),
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-          m.div,
+          motion.div,
           {
             initial: { height: 0, width: 0, opacity: 0 },
             animate: { height: "100%", width: "88px", opacity: 1 },
@@ -374,7 +371,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
         )
       ] })
     }
-  ) }) }) });
+  ) }) });
 }, "DraggableWindow");
 var DraggableWindow_default = DraggableWindow;
 export {
