@@ -235,7 +235,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     ))}
                   </ToggleButtonGroup>
                 </m.div>
-                {/* <span>{width}*{height}</span> */}
 
                 <m.div
                   initial={{
@@ -272,7 +271,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   position: relative  ;
                   overflow: auto;    
               `}
-                  />
+                  >
+                    <iframe
+                      src={`${location.origin}/live/${room}/`}
+                      allowTransparency={true}
+                      suppressHydrationWarning
+                      seamless={true}
+                    />
+                  </m.div>
                 </m.div>
                 <m.div
                   css={css`

@@ -320,7 +320,15 @@ export function AutoUpdateApp(
   { codeSpace }: { codeSpace: string },
 ) {
   useEffect(() => {
-    createIframe(codeSpace, mST().i);
+    // let iframe = document.createElement("iframe");
+    // iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
+
+    // //  iframe.setAttribute("data-coder", cs);
+    // iframe.style.height = "100%";
+    // //    iframe.setAttribute("id", `coder-${cs}`);
+    // iframe.style.border = "none";
+    // document.getElementById("z-body")
+    // createIframe(codeSpace, mST().i);
 
     // setHash(hashCode());
     // runInWorker(codeSpace, ref.current);
