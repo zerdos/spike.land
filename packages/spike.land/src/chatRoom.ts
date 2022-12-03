@@ -677,8 +677,9 @@ export class Code {
             data.type,
           )
         ) {
-          return this.user2user(data.target, { ...data, name });
+          return this.user2user(data.target, data);
         }
+
         if (data.i && data.i < this.i) return;
         this.i = data.i;
 
