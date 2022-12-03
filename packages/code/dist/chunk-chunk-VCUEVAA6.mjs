@@ -3820,7 +3820,6 @@ var run = /* @__PURE__ */ __name(async (startState) => {
     "broadcast"
   );
 }, "run");
-var intervalHandler;
 async function rejoin() {
   if (!rejoined || ws === null) {
     ws = null;
@@ -3936,34 +3935,13 @@ async function join() {
     };
     ws.addEventListener(
       "message",
-      (message) => processWsMessage(message, "ws", extendedWS)
-    );
-    if (intervalHandler) {
-      clearInterval(intervalHandler);
-    }
-    intervalHandler = setInterval(() => {
-      const now = Date.now();
-      const diff = now - lastSeenNow;
-      if (diff > 4e4) {
-        try {
-          if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection?.send(
-              JSON.stringify({
-                name: user,
-                timestamp: lastSeenTimestamp + diff
-              })
-            );
-            return;
-          }
-          rejoined = false;
-          rejoin();
-        } catch {
-          rejoined = false;
-          rejoin();
-        }
+      (message) => {
+        processWsMessage(message, "ws", extendedWS);
+        setTimeout(() => {
+          ws.send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
+        }, sendChannel.i);
       }
-    }, 3e4);
-    wsConnection.send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
+    );
     return wsConnection;
   });
   return wsConnection;

@@ -429,7 +429,12 @@ export async function join() {
     };
     ws.addEventListener(
       "message",
-      (message) => processWsMessage(message, "ws", extendedWS),
+      (message) => {
+        processWsMessage(message, "ws", extendedWS);
+        setTimeout(() => {
+          ws.send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
+        }, sendChannel.i);
+      },
     );
     // If (delta) {
     // if (delta !== deltaSent) {
@@ -440,37 +445,8 @@ export async function join() {
     // }
     // return;
     // }
-    if (intervalHandler) {
-      clearInterval(intervalHandler);
-    }
-
-    intervalHandler = setInterval(() => {
-      const now = Date.now();
-      const diff = now - lastSeenNow;
-
-      if (diff > 40_000) {
-        try {
-          if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection?.send(
-              JSON.stringify({
-                name: user,
-                timestamp: lastSeenTimestamp + diff,
-              }),
-            );
-            return;
-          }
-
-          rejoined = false;
-          rejoin();
-        } catch {
-          rejoined = false;
-          rejoin();
-        }
-      }
-    }, 30_000);
 
     // Send user info message.
-    wsConnection.send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
     return wsConnection;
   });
 
