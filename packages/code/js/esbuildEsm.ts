@@ -6,27 +6,26 @@ import { md5 } from "./md5";
 
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
-import { mST } from "session";
-
+import { mST } from "./session";
 const mod = {
   init: false as (boolean | Promise<void>),
-  initialize: async () => {
+  initialize: () => {
     if (mod.init !== false) return mod.init;
 
-    const wasmURL = new URL(
-      await fetch(`${location.origin}/files.json`).then(f => f.json()).then(k =>
+    return fetch(`${location.origin}/files.json`).then(f => f.json()).then(k => {
+      const wasmURL = new URL(
         k[
           Object.keys(k).find(i =>
             i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1
           ) as unknown as keyof typeof k
-        ]
-      ),
-      location.origin,
-    ).toString();
-    mod.init = initialize({
-      wasmURL,
-    }).then(() => mod.init = true) as Promise<void>;
-    return mod.init;
+        ],
+        location.origin,
+      ).toString();
+      mod.init = initialize({
+        wasmURL,
+      }).then(() => mod.init = true) as Promise<void>;
+      return mod.init;
+    });
   },
 };
 

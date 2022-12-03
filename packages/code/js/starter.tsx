@@ -43,6 +43,7 @@ export const createIframe = async (cs: string, counter: number) => {
       if (signal.aborted) return;
       if (modz[cs] !== counter) return;
       const { html, css, i, transpiled } = MST;
+      const hashCode = md5(transpiled);
       if (i > modz[cs]!) modz[cs] = i;
 
       const counterLength = `/*${i}*/`.length;
@@ -73,7 +74,7 @@ export const createIframe = async (cs: string, counter: number) => {
     <script type="module" src=${srcJS}></script> 
     </head>
     <body>
-    <div id="${cs}-css" style="height: 100%;">${html}</div>
+    <div id="${cs}-${hashCode}" style="height: 100%;">${html}</div>
     </body>
     </html>`);
       const setIframe = (srcJS: string) => {
