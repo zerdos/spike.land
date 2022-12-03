@@ -6,13 +6,13 @@
 import AVLTree from "avl";
 import debounce from "lodash.debounce";
 import adapter from "webrtc-adapter";
-import { build } from "./esbuildEsm";
 import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
+import { keys } from "localforage";
 import { renderPreviewWindow } from "renderPreviewWindow";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import type { ICodeSession } from "./session";
@@ -56,34 +56,66 @@ const tracks: {
     vidElement: HTMLVideoElement;
   };
 } = {};
+const wsConns: {
+  [key: string]: {
+    send: (data: string) => boolean;
+  };
+} = {};
 export const sendChannel = {
   localStream: null as MediaStream | null,
   webRtcArray,
   tracks,
   user,
+  i: 0,
   vidElement: document.createElement("video"),
   stopVideo,
   startVideo,
   rtcConns,
-  send(data: any) {
+  wsConns,
+  send(d: any) {
+    const me = users.find(user);
+
+    const left = me?.left;
+    const right = me?.right;
+    const parent = me?.parent;
+
     // const target = data.target;
-    const messageString = JSON.stringify({
-      ...data,
-      name: data.name || user,
+    const data = JSON.stringify({
+      i: d.i || ++sendChannel.i,
+      ...d,
+      name: d.name || user,
     });
-    webRtcArray.map((ch) => {
+
+    const sendToUser = (u: string) => {
+      webRtcArray.find(t => t.target === u)?.send(data) || wsConns[u]?.send(data) && users.remove(u);
+    };
+    const target = d.target;
+    if (target) {
+      if (target === user) {
+        return;
+      }
+      if (target === left?.data) return sendToUser(left?.key!);
+      if (target === right?.data) return sendToUser(right?.key!);
+      if (parent === left?.data) return sendToUser(parent?.key!);
+
+      if (target < user) {
+        sendToUser(left?.key!);
+
+        if (parent! < user!) sendToUser(parent?.key!);
+      }
+
+      if (target > user) {
+        sendToUser(right?.key!);
+
+        if (parent! > user!) sendToUser(parent?.key!);
+      }
+    }
+
+    [...Object.keys(wsConns), ...(webRtcArray.map(x => x.target))].map((u) => {
       try {
         // console.//log("WebRtc send", data, ch);
-
-        if (ch.readyState !== "open") {
-          return;
-        }
-
-        if (
-          !data.target
-          || ch.target === data.target && !ignoreUsers.includes(ch.target)
-        ) {
-          ch.send(messageString);
+        if (u in [left!.key!, right!.key, parent!.key]) {
+          sendToUser(u);
         }
       } catch (error) {
         // console.error("Error in broadcasting event", { e: error });
@@ -159,7 +191,7 @@ export const run = async (startState: {
     if (
       event.data.codeSpace === codeSpace && event.data.address && !address
     ) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      sendChannel.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
 
     if (event.data.ignoreUser) {
@@ -383,7 +415,15 @@ export async function join() {
     };
 
     sendWS = mess;
-    const extendedWS = Object.assign(wsConnection, { hashCode: hashCode() });
+    const extendedWS = {
+      send: (data: string) => {
+        mess(data);
+        return true;
+      },
+      hashCode: undefined,
+      lastSeen: Date.now(),
+      target: "",
+    };
     ws.addEventListener(
       "message",
       (message) => processWsMessage(message, "ws", extendedWS),
@@ -439,8 +479,9 @@ const h: Record<number, number> = {};
 async function processWsMessage(
   event: { data: string },
   source: "ws" | "rtc",
-  conn: { hashCode: string },
+  conn: { send: (obj: string) => boolean; hashCode: string; target: string; lastSeen: number },
 ) {
+  conn.lastSeen = Date.now();
   console.log({ event });
   lastSeenNow = Date.now();
 
@@ -448,6 +489,18 @@ async function processWsMessage(
 
   const data = JSON.parse(event.data);
   console.log("WSWSWS", { data });
+  if (!data.i) return;
+  if (sendChannel.i >= data.i) return;
+  sendChannel.i = data.i;
+  sendChannel.send(event.data);
+
+  if (!conn.target && data.name && data.hashCode) {
+    conn.target = data.name;
+    conn.hashCode = data.hashCode;
+    users.insert(conn.target);
+  }
+  if (data.name) user.insert(data.name);
+
   processData(data, source, conn);
 }
 
@@ -502,17 +555,17 @@ async function processData(
 
   (async () => {
     try {
-      if (data.type === "new-ice-candidate") {
+      if (data.type === "new-ice-candidate" && data.target === user) {
         await handleNewICECandidateMessage(data.candidate, data.name);
         return;
       }
 
-      if (data.type === "video-offer") {
+      if (data.type === "video-offer" && data.target === user) {
         await handleChatOffer(data.offer, data.name);
         return;
       }
 
-      if (data.type === "video-answer") {
+      if (data.type === "video-answer" && data.target === user) {
         await handleChatAnswerMessage(data.answer, data.name);
 
         return;
@@ -599,7 +652,7 @@ async function processData(
       if (event.candidate) {
         // log("*** Outgoing ICE candidate: " + event.candidate);
 
-        ws?.send(JSON.stringify({
+        sendChannel.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
@@ -651,13 +704,14 @@ async function processData(
     };
 
     rtcConns[target].ondatachannel = async (event) => {
-      const cont = new AbortController();
-      const js = await build(codeSpace, mST().i, cont.signal);
-      const arrBuff = js.valueOf();
+      // const cont = new AbortController();
+      // const js = await build(codeSpace, mST().i, cont.signal);
+      // const arrBuff = js.valueOf();
 
-      console.log({ js });
+      // console.log({ js });
       users.insert(target);
-      event.channel.send(arrBuff as ArrayBuffer);
+      rtcConns[target];
+      // event.channel.send(arrBuff as ArrayBuffer);
 
       // console.//log("Receive Channel Callback");
       const rtcChannel = event.channel;
@@ -676,13 +730,23 @@ async function processData(
         });
       }
 
+      const extendeConn = {
+        send: (data: string) => {
+          rtcChannel.readyState == "open";
+          rtcChannel.send(data);
+          return true;
+        },
+        hashCode: undefined,
+        lastSeen: Date.now(),
+        target,
+      };
       rtcChannel.addEventListener(
         "message",
         async (message) =>
           processWsMessage(
             message,
             "rtc",
-            Object.assign(rtc, { hashCode: hashCode() }),
+            extendeConn,
             // respond: (msg)=>{},
             // broadcast: ()=>{}
           ),
@@ -744,6 +808,7 @@ async function processData(
       // console.//log("Receive channel is closed");
       rtcConns[target].close();
       delete rtcConns[target];
+      users.remove(target);
       // console.//log("Closed remote peer connection");
     }
 
@@ -768,7 +833,7 @@ async function processData(
         // Send the offer to the remote peer.
 
         // log("---> Sending the offer to the remote peer");
-        ws?.send(JSON.stringify({
+        sendChannel.send(JSON.stringify({
           target,
           name: user,
           type: "video-offer",
@@ -854,7 +919,7 @@ async function processData(
       answer,
     );
 
-    ws?.send(JSON.stringify({
+    sendChannel.send(JSON.stringify({
       target,
       name: user,
       type: "video-answer",

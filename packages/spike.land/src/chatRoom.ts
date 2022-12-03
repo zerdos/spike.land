@@ -38,6 +38,7 @@ export class Code {
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.kv = state.storage;
     this.state = state;
+    this.users.insert(this.user);
     this.sessionStarted = false;
     this.sessions = [];
     this.sess = null;
@@ -626,7 +627,7 @@ export class Code {
         return respondWith({
           ...(rtcConnUser ? { name: rtcConnUser } : {}),
           hashCode: hashCode(),
-          users: this.users.keys(),
+          name: this.user,
         });
       }
 
@@ -751,8 +752,13 @@ export class Code {
 
   broadcast(msg: unknown) {
     const message = JSON.stringify(msg);
+    const me = this.users.find(this.user);
 
-    this.sessions.filter((s) => s.name).map((s) => {
+    const left = me?.left;
+    const right = me?.right;
+    const parent = me?.parent;
+
+    this.sessions.filter((s) => s.name && s.name in [left, right, parent]).map((s) => {
       try {
         s.webSocket.send(message);
       } catch (err) {
