@@ -128,6 +128,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle: 
     ],
     loader: {
       ".js": "tsx",
+      ".tsx": "tsx",
       ".css": "css",
       ".ttf": "dataurl",
     },
@@ -157,7 +158,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle: 
     ],
 
     tsconfig: "./tsconfig.json",
-    plugins: [unpkgPathPlugin, fetchPlugin],
+    plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)],
   };
   let b;
   if (
