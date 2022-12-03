@@ -27129,7 +27129,6 @@ if (!Object.hasOwn(globalThis, "apps")) {
 var { apps: apps2, eCaches: eCaches2 } = globalThis;
 function AutoUpdateApp({ codeSpace: codeSpace3 }) {
   (0, import_react2.useEffect)(() => {
-    createIframe(codeSpace3, mST().i);
   }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, {});
 }
