@@ -188,7 +188,7 @@ function importMapReplace(codeInp: string) {
       ` from "${uri}"`,
     ).replaceAll(
       ` from './`,
-      ` from 'https://${location.host}/live/`,
+      ` from 'https://${location.origin}/live/`,
     );
   });
 

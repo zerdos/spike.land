@@ -1,11 +1,11 @@
 import {
   Editor
-} from "./chunk-chunk-7FFZ5N33.mjs";
+} from "./chunk-chunk-GF4NZEUW.mjs";
 import {
   AutoUpdateApp,
   require_localforage,
   wait
-} from "./chunk-chunk-HF4F7LBR.mjs";
+} from "./chunk-chunk-NPTAS4RM.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
@@ -3526,7 +3526,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-7KEC3W5K.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-66XLCVX5.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "div",
   {
@@ -3925,7 +3925,6 @@ async function join() {
         rejoin();
       }
     }, "mess");
-    sendWS = mess;
     const extendedWS = {
       send: (data) => {
         mess(data);

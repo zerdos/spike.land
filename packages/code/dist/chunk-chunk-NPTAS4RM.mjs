@@ -26880,7 +26880,7 @@ function importMapReplace(codeInp) {
       ` from "${uri}"`
     ).replaceAll(
       ` from './`,
-      ` from 'https://${location.host}/live/`
+      ` from 'https://${location.origin}/live/`
     );
   });
   return returnStr;

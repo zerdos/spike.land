@@ -414,7 +414,6 @@ export async function join() {
       }
     };
 
-    sendWS = mess;
     const extendedWS = {
       send: (data: string) => {
         mess(data);
