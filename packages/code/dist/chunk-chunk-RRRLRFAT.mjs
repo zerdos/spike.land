@@ -3722,7 +3722,6 @@ var sendChannel = {
     pingHandler = setTimeout(() => {
       sendChannel.send({ name: user, hashCode: hashCode(), type: "ping" });
     }, Math.random() * 2e4);
-    console.log(d);
     const me = users.find(user);
     const left = me?.left;
     const right = me?.right;
@@ -3732,6 +3731,7 @@ var sendChannel = {
       ...d,
       name: d.name || user
     });
+    console.log(data);
     const sendToUser = /* @__PURE__ */ __name((u) => {
       webRtcArray.find((t) => t.target === u)?.send(data) || wsConns[u]?.send(data) && users.remove(u);
     }, "sendToUser");
