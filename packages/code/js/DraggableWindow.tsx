@@ -69,7 +69,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = async () => {
-      await wait(400);
+      await wait(100);
       // setPositions({
       //   bottom: -50 * devicePixelRatio,
       //   right: -90 * devicePixelRatio,
@@ -147,7 +147,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //   setClients([...Object.keys(sendChannel.rtcConns)]);
   // }, [sendChannel.webRtcArray.length, setClients]);
 
-  const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || 0.4;
+  const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
