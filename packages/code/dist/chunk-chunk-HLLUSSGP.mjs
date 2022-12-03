@@ -3728,7 +3728,7 @@ var sendChannel = {
     const right = me?.right;
     const parent = me?.parent;
     const data = JSON.stringify({
-      i: d.i || ++sendChannel.i,
+      i: d.i || sendChannel.i + 1,
       ...d,
       name: d.name || user
     });
