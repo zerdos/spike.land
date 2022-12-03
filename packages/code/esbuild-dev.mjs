@@ -262,10 +262,10 @@ const build = (
     ],
     false,
   );
+
   await esbuild.build({
     ...buildOptions,
     entryPoints: [
-      "js/sw.ts",
       "js/react-jsx-runtime.tsx",
     ],
     bundle: true,
