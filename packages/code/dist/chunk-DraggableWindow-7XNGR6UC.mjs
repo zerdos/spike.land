@@ -10,7 +10,7 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-4E3SQUGT.mjs";
+} from "./chunk-chunk-2KWAKFUL.mjs";
 import "./chunk-chunk-MJRCBGYD.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-2SI3OS7I.mjs";
@@ -67,6 +67,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   room
 }) => {
   const [scaleRange, changeScaleRange] = (0, import_react3.useState)(100);
+  const iRef = (0, import_react3.useRef)(null);
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
   const [width, setWidth] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
@@ -74,6 +75,8 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const videoRef = (0, import_react3.useRef)(null);
   const scale = scaleRange / 100;
   (0, import_react3.useEffect)(() => {
+    if (!iRef.current)
+      return;
     const reveal = /* @__PURE__ */ __name(async () => {
       setPositions({
         bottom: window.innerHeight * 0.2,
@@ -107,7 +110,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
       });
     }, "reveal");
     reveal();
-  }, []);
+  }, [iRef, iRef.current]);
   const bgColor = window.getComputedStyle(
     document.body,
     null
@@ -239,7 +242,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                   children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
                     m.iframe,
                     {
-                      ref: true,
+                      ref: iRef,
                       frameBorder: 0,
                       initial: {
                         width: window.innerWidth,
