@@ -1542,7 +1542,7 @@ const RAW_RUNTIME_STATE =
           ["localforage", "npm:1.10.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
-          ["monaco-editor", "npm:0.35.0-dev.20221202"],\
+          ["monaco-editor", "npm:0.35.0-dev.20221203"],\
           ["p-map", "npm:5.5.0"],\
           ["popmotion", "npm:11.0.5"],\
           ["prettier", "npm:2.8.0"],\
@@ -1614,7 +1614,7 @@ const RAW_RUNTIME_STATE =
           ["localforage", "npm:1.10.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
-          ["monaco-editor", "npm:0.35.0-dev.20221202"],\
+          ["monaco-editor", "npm:0.35.0-dev.20221203"],\
           ["p-map", "npm:5.5.0"],\
           ["popmotion", "npm:11.0.5"],\
           ["prettier", "npm:2.8.0"],\
@@ -5944,10 +5944,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
-      ["npm:0.35.0-dev.20221202", {\
-        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.35.0-dev.20221202-8925d5a671-9.zip/node_modules/monaco-editor/",\
+      ["npm:0.35.0-dev.20221203", {\
+        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.35.0-dev.20221203-c0f3c201ac-9.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
-          ["monaco-editor", "npm:0.35.0-dev.20221202"]\
+          ["monaco-editor", "npm:0.35.0-dev.20221203"]\
         ],\
         "linkType": "HARD"\
       }]\

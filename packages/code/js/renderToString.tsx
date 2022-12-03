@@ -2,6 +2,7 @@ import { md5 } from "md5";
 import { appFactory } from "starter";
 
 import type { EmotionCache } from "@emotion/cache";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { wait } from "./wait";
 
@@ -45,7 +46,11 @@ const mod = {
     mod.md5Hash = md5Hash;
     mod.res = rootDiv;
 
-    root.render(<App appId={`${mod.codeSpace}-${md5Hash}`} />);
+    root.render(
+      <StrictMode>
+        <App appId={`${mod.codeSpace}-${md5Hash}`} />
+      </StrictMode>,
+    );
 
     return () => {
       root.unmount();
