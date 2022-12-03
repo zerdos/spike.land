@@ -8,7 +8,9 @@ import {
   ToggleButtonGroup,
   Tv
 } from "./chunk-chunk-3AXFTQSJ.mjs";
-import "./chunk-chunk-NBK6NTLB.mjs";
+import {
+  wait
+} from "./chunk-chunk-NBK6NTLB.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
@@ -62,6 +64,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     if (!iRef.current)
       return;
     const reveal = /* @__PURE__ */ __name(async () => {
+      await wait(400);
       setPositions({
         bottom: -25,
         right: -45
