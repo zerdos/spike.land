@@ -206,6 +206,27 @@ const build = (
   //   "js/reactDomClient.ts"
   // ], []);
   // console.log("done");
+  await esbuild.build({
+    ...buildOptions,
+    entryPoints: [
+      "js/sw.ts",
+
+      "js/react-jsx-runtime.tsx",
+    ],
+    bundle: true,
+    define,
+    minify: false, // ! isDevelopment,
+    minifyWhitespace: false, // ! isDevelopment,
+    minifyIdentifiers: false, // ! isDevelopment,
+    minifySyntax: false, // ! isDevelopment,
+    ignoreAnnotations: false,
+
+    keepNames: true,
+    treeShaking: true,
+    platform: "browser",
+    format: "iife",
+    outdir: "dist",
+  });
 
   buildOptions.plugins = [
     // aliasPlugin({
@@ -263,25 +284,6 @@ const build = (
     false,
   );
 
-  await esbuild.build({
-    ...buildOptions,
-    entryPoints: [
-      "js/react-jsx-runtime.tsx",
-    ],
-    bundle: true,
-    define,
-    minify: false, // ! isDevelopment,
-    minifyWhitespace: false, // ! isDevelopment,
-    minifyIdentifiers: false, // ! isDevelopment,
-    minifySyntax: false, // ! isDevelopment,
-    ignoreAnnotations: false,
-
-    keepNames: true,
-    treeShaking: true,
-    platform: "browser",
-    format: "iife",
-    outdir: "dist",
-  });
   console.log("done");
 
   // await build(
