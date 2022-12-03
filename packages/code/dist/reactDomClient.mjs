@@ -1,1 +1,19 @@
-import{a as o}from"./chunk-chunk-OOBH5VBY.mjs";import"./chunk-chunk-BBFXSIIJ.mjs";import"./chunk-chunk-HJDRMN4F.mjs";import{g as t}from"./chunk-chunk-O6JVKB3A.mjs";t();var e=o(),{createRoot:a,hydrateRoot:c}=e,n=e;export{a as createRoot,n as default,c as hydrateRoot};
+import {
+  require_client
+} from "./chunk-chunk-FFMS35Y7.mjs";
+import "./chunk-chunk-M3XF32XQ.mjs";
+import "./chunk-chunk-UX3KX3KY.mjs";
+import {
+  init_define_process
+} from "./chunk-chunk-A3E5PINE.mjs";
+
+// js/reactDomClient.ts
+init_define_process();
+var ReactDomClient = require_client();
+var { createRoot, hydrateRoot } = ReactDomClient;
+var reactDomClient_default = ReactDomClient;
+export {
+  createRoot,
+  reactDomClient_default as default,
+  hydrateRoot
+};
