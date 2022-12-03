@@ -77,6 +77,9 @@ export const sendChannel = {
     pingHandler = setTimeout(() => {
       sendChannel.send({ name: user, hashCode: hashCode(), type: "ping" });
     }, Math.random() * 20_000);
+
+    console.log(d);
+
     const me = users.find(user);
 
     const left = me?.left;
@@ -730,7 +733,7 @@ async function processData(
         });
       }
 
-      const extendeConn = {
+      const conn = {
         send: (data: string) => {
           rtcChannel.readyState == "open";
           rtcChannel.send(data);
@@ -746,7 +749,7 @@ async function processData(
           processWsMessage(
             message,
             "rtc",
-            extendeConn,
+            conn,
             // respond: (msg)=>{},
             // broadcast: ()=>{}
           ),
