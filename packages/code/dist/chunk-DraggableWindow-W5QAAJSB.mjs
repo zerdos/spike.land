@@ -9,6 +9,9 @@ import {
   Tv
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
+  wait
+} from "./chunk-chunk-NBK6NTLB.mjs";
+import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
 import {
@@ -65,6 +68,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     if (!iRef.current)
       return;
     const reveal = /* @__PURE__ */ __name(async () => {
+      await wait(500);
       setPositions({
         bottom: window.innerHeight * 0.2,
         right: window.innerWidth * 0.2

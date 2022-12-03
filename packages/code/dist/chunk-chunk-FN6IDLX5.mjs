@@ -1,4 +1,7 @@
 import {
+  wait
+} from "./chunk-chunk-NBK6NTLB.mjs";
+import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
 import {
@@ -26270,19 +26273,6 @@ var prettierJs = /* @__PURE__ */ __name((code) => {
 init_define_process();
 var import_react = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
-
-// js/wait.ts
-init_define_process();
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(delay);
-    }, delay);
-  });
-}
-__name(wait, "wait");
-
-// js/renderToString.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod = {
   md5Hash: "",
@@ -27230,7 +27220,6 @@ __name(createHTML, "createHTML");
 export {
   require_localforage,
   prettierJs,
-  wait,
   runner,
   createIframe,
   runInWorker,
