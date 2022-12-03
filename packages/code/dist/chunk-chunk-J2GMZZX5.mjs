@@ -26933,6 +26933,7 @@ var createIframe = /* @__PURE__ */ __name(async (cs, counter) => {
       if (signal.aborted)
         return;
       let iframe = document.createElement("iframe");
+      iframe.setAttribute("src", `${location.origin}/live/${codeSpace2}/`);
       const iSRC = /* @__PURE__ */ __name((srcJS) => createHTML(`
     <html> 
     <head>
@@ -27049,7 +27050,10 @@ bc.onmessage = (event) => {
     if (location.href.indexOf("/hydrated") !== -1) {
       runInWorker(nameSpace, parent);
     } else {
-      createIframe(nameSpace, mST().i);
+      let iframe = document.createElement("iframe");
+      iframe.setAttribute("src", `${location.origin}/live/${codeSpace2}/`);
+      iframe.style.height = "100%";
+      iframe.style.border = "none";
     }
   }
 };
