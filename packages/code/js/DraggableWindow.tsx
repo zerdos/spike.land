@@ -251,6 +251,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   }}
                 >
                   <m.iframe
+                  ref={iRef}
                     frameBorder={0}
                     initial={{
                       width: window.innerWidth,
@@ -273,7 +274,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   overflow: auto;    
               `}
                     src={`${location.origin}/live/${room}/`}
-                    allowTransparency={true}
                     suppressHydrationWarning={true}
                     seamless={true}
                   />

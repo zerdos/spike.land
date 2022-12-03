@@ -10,7 +10,7 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-TMATOFFU.mjs";
+} from "./chunk-chunk-4E3SQUGT.mjs";
 import "./chunk-chunk-MJRCBGYD.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-2SI3OS7I.mjs";
@@ -239,6 +239,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                   children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
                     m.iframe,
                     {
+                      ref: true,
                       frameBorder: 0,
                       initial: {
                         width: window.innerWidth,
@@ -260,7 +261,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                   overflow: auto;    
               `,
                       src: `${location.origin}/live/${room}/`,
-                      allowTransparency: true,
                       suppressHydrationWarning: true,
                       seamless: true
                     }
