@@ -51,7 +51,7 @@ export const fetchPlugin: Plugin = {
       import { ErrorBoundary } from "react-error-boundary";
       import App from "${location.origin}/live/${codeSpace}/index.tsx/${mST().i}"
       document.body.innerHTML = ${
-          JSON.stringify(`<div id="root" style="height:100%>
+          JSON.stringify(`<div id="root" style="height:100%">
              <style>${mST().css}</style>${mST().html}
       </div>`)
         };
