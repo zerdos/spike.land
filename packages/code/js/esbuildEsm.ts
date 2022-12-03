@@ -110,7 +110,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle: 
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
   if (initFinished !== true) await (initFinished);
-  skipImportmapReplaceNames = true;
+  // skipImportmapReplaceNames = true;
   const defaultOpts: BuildOptions = {
     bundle: false,
     resolveExtensions: [
