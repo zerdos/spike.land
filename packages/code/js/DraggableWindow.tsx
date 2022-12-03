@@ -71,8 +71,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     const reveal = async () => {
       await wait(400);
       setPositions({
-        bottom: -50 * devicePixelRatio,
-        right: -90 * devicePixelRatio,
+        bottom: 50 * devicePixelRatio,
+        right: 90 * devicePixelRatio,
       });
 
       if (window.innerWidth / devicePixelRatio < 600) {
