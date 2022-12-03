@@ -2,6 +2,7 @@ import type { Plugin } from "esbuild-wasm";
 import { esmTransform } from "runner";
 // import localForage from "localforage";
 import { hashCode, mST } from "./session";
+
 const fetchCache = await caches.open("fetchcache");
 const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";
