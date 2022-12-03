@@ -24,6 +24,7 @@ export class Code {
   state: DurableObjectState;
   kv: DurableObjectStorage;
   codeSpace: string;
+  i = 0;
   sess: ICodeSession | null;
   sessionStarted: boolean;
   user = md5(self.crypto.randomUUID());
@@ -610,7 +611,7 @@ export class Code {
             if (data?.hashCode !== hashCode()) {
               const patch = makePatchFrom(data.hashCode, mST());
               if (patch) {
-                return respondWith({ ...patch });
+                return respondWith({ ...patch, i: this.i++, name: this.user });
               }
             }
           }
@@ -653,7 +654,8 @@ export class Code {
 
     if (data.timestamp && !data.patch) {
       return respondWith({
-        timestamp: Date.now(),
+        i: this.i++,
+        name: this.user,
         hashCode: hashCode(),
       });
     }
@@ -677,6 +679,8 @@ export class Code {
         ) {
           return this.user2user(data.target, { ...data, name });
         }
+        if (data.i && data.i < this.i) return;
+        this.i = data.i;
 
         if (data.patch && data.oldHash && data.newHash) {
           const patch = data.patch;
@@ -684,7 +688,7 @@ export class Code {
           const oldHash = data.oldHash;
 
           if (oldHash !== hashCode()) {
-            return respondWith({ hashCode: hashCode() });
+            return respondWith({ hashCode: hashCode(), i: this.i++, name: this.user });
           }
 
           try {
@@ -697,7 +701,6 @@ export class Code {
 
           if (newHash === hashCode()) {
             try {
-              this.wait();
               this.broadcast(data);
             } catch {
               return respondWith({
