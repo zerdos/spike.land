@@ -14,7 +14,7 @@ let fetchCache: Cache = {
 const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";
 
-export const fetchPlugin: Plugin = {
+export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin = (importmapReplace) => ({
   name: "http",
   setup(build) {
     // Intercept import paths starting with "http:" and "https:" so
@@ -110,7 +110,7 @@ export const fetchPlugin: Plugin = {
       if (req.url.indexOf(".tsx")) {
         const contents = await esmTransform(await response.text());
         return {
-          contents: impo,
+          contents: importmapReplace(co),
         };
       }
 
@@ -128,4 +128,4 @@ export const fetchPlugin: Plugin = {
       return { contents };
     });
   },
-};
+});

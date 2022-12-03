@@ -1,11 +1,11 @@
 import {
   Editor
-} from "./chunk-chunk-3JPGI2YC.mjs";
+} from "./chunk-chunk-4MDAKRJX.mjs";
 import {
   AutoUpdateApp,
   require_localforage,
   wait
-} from "./chunk-chunk-CHZC5KEO.mjs";
+} from "./chunk-chunk-OMIPAO6A.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
@@ -3526,7 +3526,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 // js/renderPreviewWindow.tsx
 var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-I5TS6QJD.mjs"));
+var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-N43LJZYC.mjs"));
 var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "div",
   {
