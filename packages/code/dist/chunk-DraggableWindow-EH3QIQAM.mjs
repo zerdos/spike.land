@@ -10,7 +10,7 @@ import {
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
   sendChannel
-} from "./chunk-chunk-2KWAKFUL.mjs";
+} from "./chunk-chunk-PFJPHOH4.mjs";
 import "./chunk-chunk-MJRCBGYD.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
 import "./chunk-chunk-2SI3OS7I.mjs";
@@ -72,7 +72,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
   const [width, setWidth] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = (0, import_react3.useState)(window.innerHeight * devicePixelRatio + 20);
-  const videoRef = (0, import_react3.useRef)(null);
   const scale = scaleRange / 100;
   (0, import_react3.useEffect)(() => {
     if (!iRef.current)
