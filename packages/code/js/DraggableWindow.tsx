@@ -70,10 +70,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = async () => {
       await wait(500);
-      setPositions({
-        bottom: window.innerHeight * 0.2,
-        right: window.innerWidth * 0.2,
-      });
+      // setPositions({
+      //   bottom: window.innerHeight * 0.2,
+      //   right: window.innerWidth * 0.2,
+      // });
 
       if (window.innerWidth / devicePixelRatio < 600) {
         changeScaleRange(50);
