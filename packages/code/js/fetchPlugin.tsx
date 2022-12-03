@@ -63,9 +63,6 @@ export const fetchPlugin: Plugin = {
 
   let rootEl = document.getElementById("root");
 
-  rootEl.innerHTML="";
-   
-  
     const cache = createCache({
       key: "${hashCode()}",
       container: rootEl,
