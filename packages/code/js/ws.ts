@@ -78,8 +78,6 @@ export const sendChannel = {
       sendChannel.send({ name: user, hashCode: hashCode(), type: "ping" });
     }, Math.random() * 20_000);
 
-    console.log(d);
-
     const me = users.find(user);
 
     const left = me?.left;
@@ -92,6 +90,8 @@ export const sendChannel = {
       ...d,
       name: d.name || user,
     });
+
+    console.log(data);
 
     const sendToUser = (u: string) => {
       webRtcArray.find(t => t.target === u)?.send(data) || wsConns[u]?.send(data) && users.remove(u);
