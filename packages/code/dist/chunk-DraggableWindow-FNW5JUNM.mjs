@@ -65,10 +65,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
       return;
     const reveal = /* @__PURE__ */ __name(async () => {
       await wait(400);
-      setPositions({
-        bottom: 50 * devicePixelRatio,
-        right: 90 * devicePixelRatio
-      });
       if (window.innerWidth / devicePixelRatio < 600) {
         changeScaleRange(50);
         setWidth(breakPoints[0]);
@@ -116,7 +112,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     }, 1e3 / 2);
     return () => clearInterval(intervalHandler);
   }, []);
-  const delay = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
+  const delay = sessionStorage && Number(sessionStorage.getItem("delay")) || 400;
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MotionConfig, { transition: { delay, type, duration }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
