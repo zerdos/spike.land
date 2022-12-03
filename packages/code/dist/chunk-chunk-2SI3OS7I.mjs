@@ -26652,6 +26652,7 @@ var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
 
   let rootEl = document.getElementById("root");
 
+  const codeSpace="${codeSpace}"
     const cache = createCache({
       key: "${hashCode()}",
       container: rootEl,
@@ -26659,6 +26660,29 @@ var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
     });
   
    cache.compat = undefined;
+
+   const bc = new BroadcastChannel(location.origin);
+
+   bc.onmessage = async (event) => {
+     if (
+      event.data.codeSpace === codeSpace)
+{
+      const App = (await("${location.origin}/live/${codeSpace}/index.js/"+event.data.i)).default;
+
+      hydrateRoot(rootEl, <StrictMode><ErrorBoundary
+        fallbackRender={({ error }) => (
+          <div role="alert">
+            <div>Oh n o</div>
+            <pre>{error.message}</pre>
+          </div>
+        )}>
+        <CacheProvider value={cache}>
+          <App />
+        </CacheProvider>
+        </ErrorBoundary></StrictMode>);
+        }
+  }
+ 
   
    hydrateRoot(rootEl, <StrictMode><ErrorBoundary
     fallbackRender={({ error }) => (
