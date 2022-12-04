@@ -24,7 +24,6 @@ export class Code {
   state: DurableObjectState;
   kv: DurableObjectStorage;
   codeSpace: string;
-  i = 0;
   sess: ICodeSession | null;
   sessionStarted: boolean;
   user = md5(self.crypto.randomUUID());
@@ -39,7 +38,6 @@ export class Code {
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.kv = state.storage;
     this.state = state;
-    this.users.insert(this.user);
     this.sessionStarted = false;
     this.sessions = [];
     this.sess = null;
@@ -565,14 +563,12 @@ export class Code {
     }
 
     const { name } = session;
-    // session.webSocket.send(JSON.stringify({ i: ++this.i, hashCode: hashCode(), name: this.user }));
     // session.lastSeen = Date.now();
 
     const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
 
     let data: {
       name?: string;
-      i: number;
       timestamp?: number;
       codeSpace?: string;
       target?: string;
@@ -593,7 +589,6 @@ export class Code {
         exp: exp || {},
       });
     }
-    if (data.i > 200 && data.i <= this.i) return;
 
     if (!name) {
       if (data.name) {
@@ -614,7 +609,7 @@ export class Code {
             if (data?.hashCode !== hashCode()) {
               const patch = makePatchFrom(data.hashCode, mST());
               if (patch) {
-                return respondWith({ ...patch, i: this.i + 1, name: this.user });
+                return respondWith({ ...patch });
               }
             }
           }
@@ -631,8 +626,7 @@ export class Code {
         return respondWith({
           ...(rtcConnUser ? { name: rtcConnUser } : {}),
           hashCode: hashCode(),
-          name: this.user,
-          i: data.i || this.i + 1,
+          users: this.users.keys(),
         });
       }
 
@@ -657,9 +651,8 @@ export class Code {
     }
 
     if (data.timestamp && !data.patch) {
-      return this.broadcast({
-        i: data.i || this.i + 1,
-        name: this.user,
+      return respondWith({
+        timestamp: Date.now(),
         hashCode: hashCode(),
       });
     }
@@ -681,21 +674,8 @@ export class Code {
             data.type,
           )
         ) {
-          if (data.target === this.user) {
-            this.broadcast({
-              user: this.user,
-              i: data.i || this.i + 1,
-              hashCode,
-              type: "ws-reconnect",
-              target: data.name,
-            });
-          }
-          return this.user2user(data.target, data);
+          return this.user2user(data.target, { ...data, name });
         }
-
-        if (data.i && data.i < this.i) return;
-
-        this.i = data.i;
 
         if (data.patch && data.oldHash && data.newHash) {
           const patch = data.patch;
@@ -703,7 +683,7 @@ export class Code {
           const oldHash = data.oldHash;
 
           if (oldHash !== hashCode()) {
-            return this.broadcast({ hashCode: hashCode(), i: data.i || this.i + 1, name: this.user });
+            return respondWith({ hashCode: hashCode() });
           }
 
           try {
@@ -716,6 +696,7 @@ export class Code {
 
           if (newHash === hashCode()) {
             try {
+              this.wait();
               this.broadcast(data);
             } catch {
               return respondWith({
@@ -769,14 +750,9 @@ export class Code {
   }
 
   broadcast(msg: unknown) {
-    const message = JSON.stringify({ ...msg, i: msg.i || this.i + 1 });
-    const me = this.users.find(this.user);
+    const message = JSON.stringify(msg);
 
-    const left = me?.left;
-    const right = me?.right;
-    const parent = me?.parent;
-
-    this.sessions.filter((s) => s.name && s.name in [left, right, parent]).map((s) => {
+    this.sessions.filter((s) => s.name).map((s) => {
       try {
         s.webSocket.send(message);
       } catch (err) {
