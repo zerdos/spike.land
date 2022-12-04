@@ -28779,7 +28779,8 @@ var imports = {
   "react/jsx-runtime": "/jsx.mjs",
   "react-dom": "/reactDom.mjs",
   "react-dom/client": "/reactDomClient.mjs",
-  "react-error-boundary": "/reactMod.mjs"
+  "react-error-boundary": "/reactMod.mjs",
+  "/": "/npm:/"
 };
 var importmap_default = {
   imports
