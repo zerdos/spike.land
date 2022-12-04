@@ -99,7 +99,7 @@ const definePrd = {
 
 let skipImportmapReplaceNames = false;
 // let lastbuild;
-const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
+export const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
   // if (lastbuild) {
   // lastbuild = await lastbuild.rebuild();
   //
@@ -243,7 +243,6 @@ export const buildT = async (codeSpace: string, i: number, signal: AbortSignal, 
   return false;
 };
 
-export { build };
 export { initAndTransform as transform };
 
 function importMapReplace(codeInp: string) {
