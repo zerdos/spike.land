@@ -593,7 +593,7 @@ export class Code {
         exp: exp || {},
       });
     }
-    if (data.i <= this.i) return;
+    if (data.i > 200 && data.i <= this.i) return;
 
     if (!name) {
       if (data.name) {
@@ -632,7 +632,7 @@ export class Code {
           ...(rtcConnUser ? { name: rtcConnUser } : {}),
           hashCode: hashCode(),
           name: this.user,
-          i: ++this.i,
+          i: data.i || ++this.i,
         });
       }
 
@@ -769,7 +769,7 @@ export class Code {
   }
 
   broadcast(msg: unknown) {
-    const message = JSON.stringify(msg);
+    const message = JSON.stringify({ ...msg, i: msg.i || ++this.i });
     const me = this.users.find(this.user);
 
     const left = me?.left;
