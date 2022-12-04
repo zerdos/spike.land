@@ -18,7 +18,7 @@ import uidV4 from "./uidV4.mjs";
 import { wait } from "./wait.js";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
-
+let send;
 const users = new AVLTree(
   (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
   true,
@@ -229,12 +229,13 @@ sendChannel.users = users;
 // }
 export const save = async (newSess: ICodeSession) => {
   const messageData = makePatch(newSess);
+  await applyPatch(messageData);
+
   if (messageData) {
-    await applyPatch(messageData);
-    const msg = { ...messageData, name: user, i: sendChannel.i + 1 };
+    const msg = { ...messageData, name: user, i: sendChannel.i + 1, hashCode: hashCode() };
+    send(JSON.stringify(msg));
     sendChannel.send(msg);
   }
-  applyPatch
 };
 export const run = async (startState: {
   mST: ICodeSession;
@@ -433,7 +434,6 @@ export async function join() {
   );
   rejoined = false;
 
-  let send;
   wsConnection.addEventListener("open", () => {
     // console.//log("NEW WS CONNECTION");
     ws = wsConnection;
