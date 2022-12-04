@@ -102,9 +102,9 @@ export const sendChannel = {
 
     const me = users.find(user);
 
-    const left = me?.left;
-    const right = me?.right;
-    const parent = me?.parent;
+    const left = me?.left?.key;
+    const right = me?.right?.key;
+    const parent = me?.parent?.key;
 
     if (!d.i) d.i = ++sendChannel.i;
     if (!d.name) d.name = user;
@@ -116,36 +116,34 @@ export const sendChannel = {
     const sendToUser = (u: string) => {
       webRtcArray.find(t => t.target === u)?.send(data) || wsConns[u]?.send(data) || users.remove(u);
     };
+
     const target = d.target;
     if (target) {
       if (target === user) {
         return;
       }
-      if (target === left?.data) return sendToUser(left?.key!);
-      if (target === right?.data) return sendToUser(right?.key!);
-      if (parent === left?.data) return sendToUser(parent?.key!);
+      if (target === left) return sendToUser(left);
+      if (target === right) return sendToUser(right);
+      if (target === parent) return sendToUser(parent);
 
       if (target < user) {
-        sendToUser(left?.key!);
-
-        if (parent! < user!) sendToUser(parent?.key!);
+        left && sendToUser(left);
       }
 
       if (target > user) {
-        sendToUser(right?.key!);
-
-        if (parent! > user!) sendToUser(parent?.key!);
+        right && sendToUser(right);
       }
+      parent && sendToUser(parent);
     }
 
     [...Object.keys(wsConns), ...(webRtcArray.map(x => x.target))].map((u) => {
       try {
         // console.//log("WebRtc send", data, ch);
-        if (u in [left!.key!, right!.key, parent!.key]) {
+        if ([left, right, parent].includes(u)) {
           sendToUser(u);
         }
       } catch (error) {
-        // console.error("Error in broadcasting event", { e: error });
+        console.error("Error in broadcasting event", { e: error });
       }
     });
   },
@@ -434,11 +432,12 @@ export async function join() {
   );
   rejoined = false;
 
+  let send;
   wsConnection.addEventListener("open", () => {
     // console.//log("NEW WS CONNECTION");
     ws = wsConnection;
     // wsConnection.onclose = () => rejoin();
-    const send = (data: string) => {
+    send = (data: string) => {
       if (ws?.readyState === ws?.OPEN) {
         ws && ws?.send && ws?.send(data);
         // else {
