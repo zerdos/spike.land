@@ -99,7 +99,7 @@ const definePrd = {
 
 let skipImportmapReplaceNames = false;
 // let lastbuild;
-const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle: boolean) => {
+const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false, code: syr) => {
   // if (lastbuild) {
   // lastbuild = await lastbuild.rebuild();
   //
@@ -146,7 +146,8 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle: 
     format: "esm",
     // external: Object.keys(importMapImports),
     entryPoints: [
-      `./render.tsx?i=${i}`,
+      `./live/${codeSpace}/index.tsx?i=${i}`,
+      // `./render.tsx?i=${i}`,
       // "./reactDomClient.mjs",
       // "./emotion.mjs",
       // "./motion.mjs",

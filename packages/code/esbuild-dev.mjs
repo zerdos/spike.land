@@ -262,7 +262,7 @@ const build = (
       // "js/Editor.tsx",
       "js/motion.ts",
       "js/reactDom.ts",
-      "js/react-jsx-runtime.tsx",
+      "js/hydrate.tsx",
       "js/reactDomClient.ts",
       "js/esbuildWASM.ts",
 
