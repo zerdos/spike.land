@@ -614,7 +614,7 @@ export class Code {
             if (data?.hashCode !== hashCode()) {
               const patch = makePatchFrom(data.hashCode, mST());
               if (patch) {
-                return respondWith({ ...patch, i: this.i++, name: this.user });
+                return respondWith({ ...patch, i: this.i + 1, name: this.user });
               }
             }
           }
@@ -632,7 +632,7 @@ export class Code {
           ...(rtcConnUser ? { name: rtcConnUser } : {}),
           hashCode: hashCode(),
           name: this.user,
-          i: data.i || ++this.i,
+          i: data.i || this.i + 1,
         });
       }
 
@@ -658,7 +658,7 @@ export class Code {
 
     if (data.timestamp && !data.patch) {
       return this.broadcast({
-        i: data.i || this.i++,
+        i: data.i || this.i + 1,
         name: this.user,
         hashCode: hashCode(),
       });
@@ -684,7 +684,7 @@ export class Code {
           if (data.target === this.user) {
             this.broadcast({
               user: this.user,
-              i: data.i || ++this.i,
+              i: data.i || this.i + 1,
               hashCode,
               type: "ws-reconnect",
               target: data.name,
@@ -703,7 +703,7 @@ export class Code {
           const oldHash = data.oldHash;
 
           if (oldHash !== hashCode()) {
-            return this.broadcast({ hashCode: hashCode(), i: data.i || ++this.i, name: this.user });
+            return this.broadcast({ hashCode: hashCode(), i: data.i || this.i + 1, name: this.user });
           }
 
           try {
@@ -769,7 +769,7 @@ export class Code {
   }
 
   broadcast(msg: unknown) {
-    const message = JSON.stringify({ ...msg, i: msg.i || ++this.i });
+    const message = JSON.stringify({ ...msg, i: msg.i || this.i + 1 });
     const me = this.users.find(this.user);
 
     const left = me?.left;

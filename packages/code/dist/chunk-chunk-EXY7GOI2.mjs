@@ -31745,7 +31745,7 @@ async function runner({ code, counter, codeSpace: codeSpace4 }) {
     if (!html || !css4) {
       return;
     }
-    save({
+    await save({
       ...mST(),
       code,
       i: counter,
@@ -33901,7 +33901,7 @@ var sendChannel = {
     const right = me?.right?.key;
     const parent = me?.parent?.key;
     if (!d2.i)
-      d2.i = ++sendChannel.i;
+      d2.i = sendChannel.i + 1;
     if (!d2.name)
       d2.name = user;
     const data = JSON.stringify(d2);
@@ -33980,7 +33980,7 @@ var save = /* @__PURE__ */ __name(async (newSess) => {
   const messageData = makePatch(newSess);
   if (messageData) {
     await applyPatch(messageData);
-    const msg = { ...messageData, name: user, i: ++sendChannel.i };
+    const msg = { ...messageData, name: user, i: sendChannel.i + 1 };
     sendChannel.send(msg);
   }
 }, "save");
@@ -34079,7 +34079,7 @@ async function join() {
       lastSeen: Date.now(),
       target: void 0
     };
-    send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
+    sendChannel.send({ name: user, hashCode: hashCode(), i: sendChannel.i + 1 });
     ws.addEventListener(
       "message",
       (event) => {

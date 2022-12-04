@@ -102,7 +102,7 @@ export async function runner({ code, counter, codeSpace }: {
       return;
     }
 
-    save({
+    await save({
       ...mST(),
       code,
       i: counter,
