@@ -3071,7 +3071,7 @@ function shimSendThrowTypeError(window2) {
   }
   function wrapDcSend(dc, pc) {
     const origDataChannelSend = dc.send;
-    dc.send = /* @__PURE__ */ __name(function send2() {
+    dc.send = /* @__PURE__ */ __name(function send() {
       const data = arguments[0];
       const length = data.length || data.size || data.byteLength;
       if (dc.readyState === "open" && pc.sctp && length > pc.sctp.maxMessageSize) {
@@ -3911,7 +3911,7 @@ async function join() {
   wsConnection.addEventListener("open", () => {
     ws = wsConnection;
     wsConnection.onclose = () => rejoin();
-    const mess = /* @__PURE__ */ __name((data) => {
+    const send = /* @__PURE__ */ __name((data) => {
       try {
         if (ws?.readyState === ws?.OPEN)
           ws && ws?.send && ws?.send(data);
@@ -3923,21 +3923,19 @@ async function join() {
         rejoined = false;
         rejoin();
       }
-    }, "mess");
+      return true;
+    }, "send");
     const extendedWS = {
-      send: (data) => {
-        mess(data);
-        return true;
-      },
-      hashCode: void 0,
+      send,
+      hashCode,
       lastSeen: Date.now(),
-      target: ""
+      target: void 0
     };
     send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
     ws.addEventListener(
       "message",
-      (message) => {
-        processWsMessage(message, "ws", extendedWS);
+      (event) => {
+        processWsMessage(event, "ws", extendedWS);
         setTimeout(() => {
           send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
         }, sendChannel.i);
