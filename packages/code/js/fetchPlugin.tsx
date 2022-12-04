@@ -1,6 +1,6 @@
 import type { Plugin } from "esbuild-wasm";
 import { esmTransform } from "runner";
-// import localForage from "localforage";
+
 import { hashCode, mST } from "./session";
 
 let fetchCache: Cache = {
