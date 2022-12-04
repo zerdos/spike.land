@@ -572,6 +572,7 @@ export class Code {
 
     let data: {
       name?: string;
+      i: number;
       timestamp?: number;
       codeSpace?: string;
       target?: string;

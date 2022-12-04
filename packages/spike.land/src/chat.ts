@@ -382,9 +382,7 @@ const api: ExportedHandler<CodeEnv> = {
               const kvResp = await getAssetFromKV(
                 {
                   request,
-                  waitUntil(promise) {
-                    return ctx.waitUntil(promise);
-                  },
+                  waitUntil: async (prom) => await prom,
                 },
                 {
                   cacheControl: (isChunk(url.href)
