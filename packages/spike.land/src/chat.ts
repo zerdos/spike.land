@@ -401,7 +401,16 @@ const api: ExportedHandler<CodeEnv> = {
                 },
               );
 
-              if (!kvResp.ok) throw new Error("no kv, try something else");
+              if (!kvResp.ok) {
+                const req = new Request(`${u.origin}/npm:/${u.pathname}?bundle`, request);
+                response = await (fetch(req));
+                if (!response.ok) return response;
+                response = new Response(response.body, response);
+                const cache = caches.default;
+                await cache.put(request.url, response.clone());
+                return response;
+              }
+
               const headers = new Headers(kvResp.headers);
               const fileName = url.pathname.slice(1);
               const filePath = getFilePath(fileName);
