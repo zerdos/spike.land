@@ -219,7 +219,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                     {
                       ref: iRef,
                       frameBorder: 0,
-                      layout: "preserve-aspect",
                       initial: {
                         width: window.innerWidth,
                         height: window.innerHeight,
