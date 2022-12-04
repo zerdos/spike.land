@@ -19,7 +19,9 @@ import {
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
-import "./chunk-chunk-M3XF32XQ.mjs";
+import {
+  require_react_dom
+} from "./chunk-chunk-M3XF32XQ.mjs";
 import {
   require_react
 } from "./chunk-chunk-UX3KX3KY.mjs";
@@ -31,6 +33,7 @@ import {
 
 // js/react-jsx-runtime.tsx
 init_define_process();
+var import_react_dom = __toESM(require_react_dom(), 1);
 
 // js/hydrate.tsx
 init_define_process();
@@ -81,7 +84,9 @@ var load_default = /* @__PURE__ */ __name(async () => {
     await hydrate(codeSpace, 1);
     bc.onmessage = async (event) => {
       if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
-        const { html, css } = event.data.sess;
+        const { html, css, i } = event.data.sess;
+        rootEl.setAttribute("data-i", i);
+        (0, import_react_dom.unmountComponentAtNode)(document.getElementById("root"));
         rootEl.innerHTML = `<style>${css}</style>${html}`;
         await hydrate(codeSpace, event.data.sess.i);
       }
