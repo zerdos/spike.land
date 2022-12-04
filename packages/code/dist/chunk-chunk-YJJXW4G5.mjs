@@ -34084,6 +34084,7 @@ async function join() {
       "message",
       (event) => {
         processWsMessage(event, "ws", extendedWS);
+        send(JSON.stringify({ name: user, hashCode: hashCode(), i: sendChannel.i + 1 }));
       }
     );
     return wsConnection;
