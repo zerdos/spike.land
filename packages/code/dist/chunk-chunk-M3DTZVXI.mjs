@@ -3071,7 +3071,7 @@ function shimSendThrowTypeError(window2) {
   }
   function wrapDcSend(dc, pc) {
     const origDataChannelSend = dc.send;
-    dc.send = /* @__PURE__ */ __name(function send() {
+    dc.send = /* @__PURE__ */ __name(function send2() {
       const data = arguments[0];
       const length = data.length || data.size || data.byteLength;
       if (dc.readyState === "open" && pc.sctp && length > pc.sctp.maxMessageSize) {
@@ -3938,7 +3938,7 @@ async function join() {
       (message) => {
         processWsMessage(message, "ws", extendedWS);
         setTimeout(() => {
-          ws.send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
+          send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
         }, sendChannel.i);
       }
     );
