@@ -4,6 +4,7 @@
 
 // import 'css-paint-polyfill
 import AVLTree from "avl";
+import debounce from "lodash.debounce";
 import adapter from "webrtc-adapter";
 import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
 
@@ -18,7 +19,7 @@ import uidV4 from "./uidV4.mjs";
 import { wait } from "./wait.js";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
-let send;
+
 const users = new AVLTree(
   (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
   true,
@@ -33,7 +34,6 @@ const user = md5(((self && self.crypto && self.crypto.randomUUID
   ));
 
 users.insert(user);
-
 const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection
 let bc: BroadcastChannel;
 
@@ -46,6 +46,7 @@ let webRTCLastSeenHashCode = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws: WebSocket | null = null;
+let sendWS: (message: string) => void;
 let rejoined = false;
 const tracks: {
   [key: string]: {
@@ -54,101 +55,215 @@ const tracks: {
     vidElement: HTMLVideoElement;
   };
 } = {};
-const wsConns: {
-  [key: string]: {
-    target: string;
-    lastSeen: number;
-
-    send: (data: string) => boolean;
-  };
-} = {};
-
-type CodePatch = { oldHash: string; newHash: string; patch: Delta[] };
-
-type Diff = [-1 | 0 | 1, string];
-export type Delta = Diff | [0 | -1, number];
-
-type DataObj = Partial<{
-  name: string;
-  target: string;
-  hashCode: string;
-  i: number;
-  patch: Delta[];
-  oldHash: string;
-  type: "ping" | "new-ice-candidate" | "video-offer" | "video-answer" | "ws-reconnect";
-  answer: object;
-  candidate: object;
-}>;
-
-let pingHandler: NodeJS.Timeout;
 export const sendChannel = {
   localStream: null as MediaStream | null,
   webRtcArray,
   tracks,
   user,
-  i: 0,
-  users,
   vidElement: document.createElement("video"),
   stopVideo,
   startVideo,
   rtcConns,
-  wsConns,
-
-  send(d: DataObj) {
-    if (pingHandler) clearTimeout(pingHandler);
-    pingHandler = setTimeout(() => {
-      sendChannel.send({ name: user, hashCode: hashCode(), type: "ping" });
-    }, Math.random() * 20_000);
-
-    const me = users.find(user);
-
-    const left = me?.left?.key;
-    const right = me?.right?.key;
-    const parent = me?.parent?.key;
-
-    if (!d.i) d.i = sendChannel.i + 1;
-    if (!d.name) d.name = user;
+  send(data: any) {
     // const target = data.target;
-    const data = JSON.stringify(d);
-
-    // console.log(data);
-
-    const sendToUser = (u: string) => {
-      webRtcArray.find(t => t.target === u)?.send(data) || wsConns[u]?.send(data) || users.remove(u);
-    };
-
-    const target = d.target;
-    if (target) {
-      if (target === user) {
-        return;
-      }
-      if (target === left) return sendToUser(left);
-      if (target === right) return sendToUser(right);
-      if (target === parent) return sendToUser(parent);
-
-      if (target < user) {
-        left && sendToUser(left);
-      }
-
-      if (target > user) {
-        right && sendToUser(right);
-      }
-      parent && sendToUser(parent);
-    }
-
-    [...Object.keys(wsConns), ...(webRtcArray.map(x => x.target))].map((u) => {
+    const messageString = JSON.stringify({
+      ...data,
+      name: data.name || user,
+    });
+    webRtcArray.map((ch) => {
       try {
         // console.//log("WebRtc send", data, ch);
-        if ([left, right, parent].includes(u)) {
-          sendToUser(u);
+
+        if (ch.readyState !== "open") {
+          return;
+        }
+
+        if (
+          !data.target
+          || ch.target === data.target && !ignoreUsers.includes(ch.target)
+        ) {
+          ch.send(messageString);
         }
       } catch (error) {
-        console.error("Error in broadcasting event", { e: error });
+        // console.error("Error in broadcasting event", { e: error });
       }
     });
   },
 };
+sendChannel.vidElement.playsInline = true;
+sendChannel.vidElement.autoplay = true;
 
+Object.assign(globalThis, { sendChannel, mST });
+
+// Let createDelta;
+
+// export const work = async (startState: {
+// mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
+// }) => {
+// codeSpace = startState.codeSpace;
+// address = startState.address;
+// const {assets}= startState;
+// const session = startSession(codeSpace, {
+// name: user,
+// state: startState.mST,
+// });
+
+// join()
+
+// }
+
+export const run = async (startState: {
+  mST: ICodeSession;
+  codeSpace: string;
+  dry: boolean;
+  address: string;
+}) => {
+  const { mST: mst, dry, address } = startState;
+  codeSpace = startState.codeSpace;
+
+  startSession(codeSpace, {
+    name: user,
+    state: mst,
+  }, location.origin);
+  if (location.pathname === `/live/${codeSpace}`) {
+    renderPreviewWindow({ codeSpace, dry: !!dry });
+  }
+
+  // await appFactory(mst.transpiled, codeSpace, dry);
+
+  // Const {join} = await import("./rtc");
+
+  // const conn = join(codeSpace, user, (message)=>{
+
+  // processData(message, "rtc")
+  // })
+
+  // sendChannel.send = (message: object)=> conn.broadcast(message);
+
+  await join();
+  console.log("broadcastChannel");
+  bc = new BroadcastChannel(location.origin);
+  bc.postMessage({ user, type: "suggestNeighborsRequest" });
+  bc.onmessage = async (event) => {
+    if (event.data.ignoreUser && event.data.ignoreUser === user) {
+      return;
+    }
+
+    if (
+      event.data.user !== user
+      && event.data.type === "suggestNeighborsRequest"
+    ) {
+    }
+
+    if (
+      event.data.codeSpace === codeSpace && event.data.address && !address
+    ) {
+      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+    }
+
+    if (event.data.ignoreUser) {
+      !ignoreUsers.includes(event.data.ignoreUser)
+        && ignoreUsers.push(event.data.ignoreUser);
+    }
+
+    if (
+      event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
+    ) {
+      const messageData = makePatch(event.data.sess);
+      if (messageData) {
+        await applyPatch(messageData);
+      }
+    }
+  };
+
+  onSessionUpdate(
+    () => {
+      debouncedSyncWs();
+      debouncedSyncRTC();
+
+      const sess = mST();
+
+      const hash = md5(JSON.stringify(sess));
+      if (hash === _hash) return;
+      _hash = hash;
+
+      bc.postMessage({
+        ignoreUser: user,
+        sess,
+        codeSpace,
+
+        address,
+      });
+    },
+    "broadcast",
+  );
+
+  // const { startIpfs } = await import("./startIpfs");
+  // await startIpfs(codeSpace);
+};
+
+let intervalHandler: NodeJS.Timer;
+
+async function rejoin() {
+  if (!rejoined || ws === null) {
+    ws = null;
+
+    const newWs = await join();
+
+    return newWs;
+  }
+
+  return ws;
+}
+
+const ignoreUsers: string[] = [];
+
+const debouncedSyncRTC = debounce(syncRTC, 100, {
+  trailing: true,
+  leading: true,
+  maxWait: 500,
+});
+
+const debouncedSyncWs = debounce(syncWS, 1200, {
+  trailing: true,
+  leading: true,
+  maxWait: 2500,
+});
+
+async function syncWS() {
+  try {
+    if (ws) {
+      if (wsLastHashCode === hashCode()) {
+        return;
+      }
+
+      const sess = mST();
+      // console.//log({ wsLastHashCode });
+
+      const message = await makePatchFrom(
+        wsLastHashCode,
+        sess,
+      );
+
+      if (!message) {
+        return;
+      }
+
+      if (message.newHash !== hashCode()) {
+        // console.error("NEW hash is not even hashCode", hashCode());
+        return;
+      }
+
+      const messageString = JSON.stringify({ ...message, name: user });
+      sendWS(messageString);
+    } else {
+      rejoined = false;
+      await rejoin();
+    }
+  } catch (error) {
+    // console.error("error 2", { e: error });
+  }
+}
 async function stopVideo() {
   if (!sendChannel.localStream) return;
 }
@@ -205,217 +320,31 @@ async function startVideo() {
   );
 }
 
-sendChannel.vidElement.playsInline = true;
-sendChannel.vidElement.autoplay = true;
-
-Object.assign(globalThis, { sendChannel, mST, users });
-
-sendChannel.users = users;
-// Let createDelta;
-
-// export const work = async (startState: {
-// mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
-// }) => {
-// codeSpace = startState.codeSpace;
-// address = startState.address;
-// const {assets}= startState;
-// const session = startSession(codeSpace, {
-// name: user,
-// state: startState.mST,
-// });
-
-// join()
-
-// }
-export const save = async (newSess: ICodeSession) => {
-  const messageData = makePatch(newSess);
-  await applyPatch(messageData);
-
-  if (messageData) {
-    const msg = { ...messageData, name: user, i: sendChannel.i + 1, hashCode: hashCode() };
-    send(JSON.stringify(msg));
-    sendChannel.send(msg);
-  }
-};
-export const run = async (startState: {
-  mST: ICodeSession;
-  codeSpace: string;
-  dry: boolean;
-  address: string;
-}) => {
-  const { mST: mst, dry, address } = startState;
-  codeSpace = startState.codeSpace;
-
-  startSession(codeSpace, {
-    name: user,
-    state: mst,
-  }, location.origin);
-  if (location.pathname === `/live/${codeSpace}`) {
-    renderPreviewWindow({ codeSpace, dry: !!dry });
-  }
-
-  // await appFactory(mst.transpiled, codeSpace, dry);
-
-  // Const {join} = await import("./rtc");
-
-  // const conn = join(codeSpace, user, (message)=>{
-
-  // processData(message, "rtc")
-  // })
-
-  // sendChannel.send = (message: object)=> conn.broadcast(message);
-
-  await join();
-  console.log("broadcastChannel");
-  bc = new BroadcastChannel(location.origin);
-  bc.postMessage({ user, type: "suggestNeighborsRequest" });
-  bc.onmessage = async (event) => {
-    if (event.data.ignoreUser && event.data.ignoreUser === user) {
-      return;
-    }
-
-    if (
-      event.data.codeSpace === codeSpace && event.data.i > sendChannel.i
-    ) {
-      sendChannel.i = event.data.i;
-      // processData(event.data, "bc",  );
-      // sendChannel.send(JSON.stringify());
-    }
-
-    if (event.data.ignoreUser) {
-      !ignoreUsers.includes(event.data.ignoreUser)
-        && ignoreUsers.push(event.data.ignoreUser);
-    }
-
-    if (
-      event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
-    ) {
-    }
-  };
-
-  onSessionUpdate(
-    async () => {
-      // await syncWS();
-      // debouncedSyncRTC();
+async function syncRTC() {
+  try {
+    if (Object.keys(rtcConns).length > 0) {
+      if (webRTCLastSeenHashCode === hashCode()) {
+        return;
+      }
 
       const sess = mST();
+      // console.//log({ wsLastHashCode });
 
-      bc.postMessage({
-        ignoreUser: user,
-        sess,
-        hashCode: md5(sess.transpiled),
-        html: sess.html,
-        css: sess.css,
-        codeSpace,
-
-        address,
-      });
-    },
-    "broadcast",
-  );
-
-  // const { startIpfs } = await import("./startIpfs");
-  // await startIpfs(codeSpace);
-};
-
-let intervalHandler: NodeJS.Timer;
-
-async function rejoin(wsName: string) {
-  if (!rejoined || ws === null) {
-    ws = null;
-
-    const newWs = await join();
-    users.insert(wsName);
-    const t = users.find(wsName);
-
-    sendChannel.wsConns[wsName] = {
-      send: (str: string) => {
-        if (ws && ws.readyState == ws.OPEN) {
-          ws!.send(str);
-          return true;
-        }
-        return false;
-      },
-      target: wsName,
-      lastSeen: Date.now(),
-    };
-    Object.assign(t!, sendChannel.wsConns[wsName]!);
-
-    return newWs;
+      const message = webRTCLastSeenHashCode
+        ? makePatchFrom(
+          webRTCLastSeenHashCode,
+          sess,
+        )
+        : makePatch(sess);
+      if (message !== null && message.patch) {
+        // console.//log("sendRTC");
+        sendChannel.send(message);
+      }
+    }
+  } catch (error) {
+    // console.error("Error sending RTC...", { e: error });
   }
-
-  return ws;
 }
-
-const ignoreUsers: string[] = [];
-
-// const debouncedSyncRTC = debounce(syncRTC, 100, {
-//   trailing: true,
-//   leading: true,
-//   maxWait: 500,
-// });
-
-// const debouncedSyncWs = debounce(syncWS, 1200, {
-// trailing: true,
-// leading: true,
-// maxWait: 1000,
-// });
-
-async function syncWS() {
-  // if (ws) {
-  // if (wsLastHashCode === hashCode()) {
-  // return;
-  // }
-
-  const sess = mST();
-  // console.//log({ wsLastHashCode });
-
-  const message = await makePatchFrom(
-    wsLastHashCode,
-    sess,
-  );
-
-  if (!message) {
-    return;
-  }
-
-  if (message.newHash !== hashCode()) {
-    // console.error("NEW hash is not even hashCode", hashCode());
-    return;
-  }
-
-  // } else {
-  // rejoined = false;
-  // await rejoin();
-  // }
-}
-//
-
-// async function syncRTC() {
-//   try {
-//     if (Object.keys(rtcConns).length > 0) {
-//       if (webRTCLastSeenHashCode === hashCode()) {
-//         return;
-//       }
-
-//       const sess = mST();
-//       // console.//log({ wsLastHashCode });
-
-//       const message = webRTCLastSeenHashCode
-//         ? makePatchFrom(
-//           webRTCLastSeenHashCode,
-//           sess,
-//         )
-//         : makePatch(sess);
-//       if (message !== null && message.patch) {
-//         // console.//log("sendRTC");
-//         sendChannel.send(message);
-//       }
-//     }
-//   } catch (error) {
-//     // console.error("Error sending RTC...", { e: error });
-//   }
-// }
 
 export async function join() {
   if (ws !== null) {
@@ -437,35 +366,26 @@ export async function join() {
   wsConnection.addEventListener("open", () => {
     // console.//log("NEW WS CONNECTION");
     ws = wsConnection;
-    // wsConnection.onclose = () => rejoin();
-    send = (data: string) => {
-      if (ws?.readyState === ws?.OPEN) {
-        ws && ws?.send && ws?.send(data);
-        // else {
-        // rejoin();
-        // }r
+    wsConnection.onclose = () => rejoin();
+    const mess = (data: string) => {
+      try {
+        if (ws?.readyState === ws?.OPEN) ws && ws?.send && ws?.send(data);
+        else {
+          rejoin();
+        }
+      } catch {
+        ws = null;
+        rejoined = false;
 
-        return true;
+        rejoin();
       }
-      return true;
     };
 
-    const extendedWS = {
-      send,
-      hashCode,
-      lastSeen: Date.now(),
-      target: undefined,
-    };
-
-    sendChannel.send({ name: user, hashCode: hashCode(), i: sendChannel.i + 1 });
+    sendWS = mess;
+    const extendedWS = Object.assign(wsConnection, { hashCode: hashCode() });
     ws.addEventListener(
       "message",
-      (event) => {
-        processWsMessage(event, "ws", extendedWS);
-        // setTimeout(() => {
-        send(JSON.stringify({ name: user, hashCode: hashCode(), i: sendChannel.i + 1 }));
-        // }, sendChannel.i);
-      },
+      (message) => processWsMessage(message, "ws", extendedWS),
     );
     // If (delta) {
     // if (delta !== deltaSent) {
@@ -475,9 +395,38 @@ export async function join() {
     // }));
     // }
     // return;
-    // }NC
+    // }
+    if (intervalHandler) {
+      clearInterval(intervalHandler);
+    }
+
+    intervalHandler = setInterval(() => {
+      const now = Date.now();
+      const diff = now - lastSeenNow;
+
+      if (diff > 40_000) {
+        try {
+          if (wsConnection.readyState === wsConnection.OPEN) {
+            wsConnection?.send(
+              JSON.stringify({
+                name: user,
+                timestamp: lastSeenTimestamp + diff,
+              }),
+            );
+            return;
+          }
+
+          rejoined = false;
+          rejoin();
+        } catch {
+          rejoined = false;
+          rejoin();
+        }
+      }
+    }, 30_000);
 
     // Send user info message.
+    wsConnection.send(JSON.stringify({ name: user, hashCode: hashCode() }));
     return wsConnection;
   });
 
@@ -489,28 +438,11 @@ const h: Record<number, number> = {};
 async function processWsMessage(
   event: { data: string },
   source: "ws" | "rtc",
-  conn: { send: (obj: string) => boolean; hashCode: string; target: string; lastSeen: number },
+  conn: { hashCode: string },
 ) {
-  conn.lastSeen = Date.now();
-  console.log({ event });
   lastSeenNow = Date.now();
 
-  console.log(typeof event.data);
-
   const data = JSON.parse(event.data);
-  console.log("WSWSWS", { data });
-  if (!data.i) return;
-  if (sendChannel.i >= data.i) return;
-  sendChannel.i = data.i;
-  sendChannel.send(data);
-
-  if (!conn.target && data.name && data.hashCode) {
-    conn.target = data.name;
-    sendChannel.wsConns[data.name] = conn;
-    conn.hashCode = data.hashCode;
-    users.insert(conn.target);
-  }
-  if (data.name) users.insert(data.name);
 
   processData(data, source, conn);
 }
@@ -522,13 +454,9 @@ async function processData(
 ) {
   // console.//log("ws", data.name, data.oldHash, data.newHash);
 
-  // MySession.addEvent(data);s
+  // MySession.addEvent(data);
 
-  if (data.type === "ws-reconnect" && data.target == user) {
-    rejoin(data.name);
-  }
-
-  if (data.timestamp) {
+  if (source === "ws" && data.timestamp) {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
@@ -536,12 +464,16 @@ async function processData(
     conn.hashCode = data.hashCode || data.newHash;
   }
 
-  if (data.hashCode) {
+  if (source === "ws" && data.hashCode) {
     wsLastHashCode = data.hashCode;
   }
 
-  if ((data.hashCode)) {
+  if (source === "ws" && (data.hashCode)) {
     wsLastHashCode = data.hashCode;
+  }
+
+  if (source === "rtc" && data.hashCode || data.newHash) {
+    webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
 
   if (ignoreUsers.includes(data.name)) {
@@ -566,17 +498,17 @@ async function processData(
 
   (async () => {
     try {
-      if (data.type === "new-ice-candidate" && data.target === user) {
+      if (data.type === "new-ice-candidate") {
         await handleNewICECandidateMessage(data.candidate, data.name);
         return;
       }
 
-      if (data.type === "video-offer" && data.target === user) {
+      if (data.type === "video-offer") {
         await handleChatOffer(data.offer, data.name);
         return;
       }
 
-      if (data.type === "video-answer" && data.target === user) {
+      if (data.type === "video-answer") {
         await handleChatAnswerMessage(data.answer, data.name);
 
         return;
@@ -663,12 +595,12 @@ async function processData(
       if (event.candidate) {
         // log("*** Outgoing ICE candidate: " + event.candidate);
 
-        sendChannel.send({
+        ws?.send(JSON.stringify({
           type: "new-ice-candidate",
-          target: target,
+          target,
           name: user,
           candidate: event.candidate.toJSON(),
-        });
+        }));
       }
     };
 
@@ -692,7 +624,7 @@ async function processData(
       const vidElement = document.createElement("video");
       vidElement.autoplay = true;
       vidElement.playsInline = true;
-      let stream;
+      let stream = null;
       if (ev.streams && ev.streams[0]) {
         vidElement.srcObject = ev.streams[0];
         stream = ev.streams[0];
@@ -714,59 +646,33 @@ async function processData(
       };
     };
 
-    rtcConns[target].ondatachannel = async (event) => {
-      // const cont = new AbortController();
-      // const js = await build(codeSpace, mST().i, cont.signal);
-      // const arrBuff = js.valueOf();
-
-      // console.log({ js });
-      rtcConns[target];
-      // event.channel.send(arrBuff as ArrayBuffer);
-
+    rtcConns[target].ondatachannel = (event) => {
+      users.insert(target);
       // console.//log("Receive Channel Callback");
       const rtcChannel = event.channel;
       rtcChannel.binaryType = "arraybuffer";
-
       rtcChannel.addEventListener("close", onReceiveChannelClosed);
 
       if (
         sendChannel && sendChannel.localStream && sendChannel.localStream.active
       ) {
-        // const src = await js;
-        // sendChannel.send(JSON.stringify({ mST: mST, bundle: src }));
-
         sendChannel.localStream.getTracks().forEach((track) => {
           const datachannel = rtcConns[target];
           datachannel.addTrack(track);
         });
       }
 
-      const conn = {
-        send: (data: string) => {
-          rtcChannel.readyState == "open";
-          rtcChannel.send(data);
-          return true;
-        },
-        hashCode: undefined,
-        lastSeen: Date.now(),
-        target,
-      };
       rtcChannel.addEventListener(
         "message",
         async (message) =>
           processWsMessage(
             message,
             "rtc",
-            conn,
+            Object.assign(rtc, { hashCode: hashCode() }),
             // respond: (msg)=>{},
             // broadcast: ()=>{}
           ),
       );
-      users.insert(target);
-      const t = users.find(target);
-
-      Object.assign(t!, conn);
-
       const rtcWithTarget = Object.assign(rtc, { target });
       webRtcArray.push(rtcWithTarget);
     };
@@ -824,7 +730,6 @@ async function processData(
       // console.//log("Receive channel is closed");
       rtcConns[target].close();
       delete rtcConns[target];
-      users.remove(target);
       // console.//log("Closed remote peer connection");
     }
 
@@ -849,12 +754,12 @@ async function processData(
         // Send the offer to the remote peer.
 
         // log("---> Sending the offer to the remote peer");
-        sendChannel.send({
+        ws?.send(JSON.stringify({
           target,
           name: user,
           type: "video-offer",
           offer: rtcConns[target].localDescription,
-        });
+        }));
       } catch {
         // log(
         //   "*** The following error occurred while handling the negotiationneeded event:",
@@ -935,12 +840,12 @@ async function processData(
       answer,
     );
 
-    sendChannel.send({
+    ws?.send(JSON.stringify({
       target,
       name: user,
       type: "video-answer",
       answer,
-    });
+    }));
   }
 }
 

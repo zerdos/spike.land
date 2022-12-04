@@ -1,10 +1,10 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 import type { TransformOptions } from "esbuild-wasm";
+import debounce from "lodash.debounce";
 import { build, transform } from "./esbuildEsm";
 import { render } from "./renderToString";
-import { md5, mST } from "./session";
+import { md5, mST, patchSync } from "./session";
 import { toUmd } from "./toUmd";
-import { save } from "./ws";
 
 export const esmTransform = async (code: string) => {
   const transpiled = await transform(code, {
@@ -31,6 +31,12 @@ export const esmTransform = async (code: string) => {
   return transpiled.code;
 };
 Object.assign(globalThis, { transform, build, toUmd });
+
+const debouncedSync = debounce(patchSync, 200, {
+  leading: true,
+  trailing: true,
+  maxWait: 800,
+});
 
 let counterMax = mST().i;
 const IIFE = {};
@@ -75,8 +81,7 @@ export async function runner({ code, counter, codeSpace }: {
   codeSpace: string;
   counter: number;
 }) {
-  // const code = prettierJs(c);
-  if (counter < counterMax) return;
+  if (counter <= counterMax) return;
 
   counterMax = counter;
 
@@ -102,10 +107,10 @@ export async function runner({ code, counter, codeSpace }: {
       return;
     }
 
-    await save({
+    debouncedSync({
       ...mST(),
       code,
-      i: counter + 1,
+      i: counter,
       transpiled: transpiledCode,
       html,
       css,
