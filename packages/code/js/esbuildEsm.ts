@@ -171,7 +171,7 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle =
   return false;
 };
 
-const buildT = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
+export const buildT = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
   // if (lastbuild) {
   // lastbuild = await lastbuild.rebuild();
   //
@@ -243,7 +243,7 @@ const buildT = async (codeSpace: string, i: number, signal: AbortSignal, bundle 
   return false;
 };
 
-export { build, buildT };
+export { build };
 export { initAndTransform as transform };
 
 function importMapReplace(codeInp: string) {
