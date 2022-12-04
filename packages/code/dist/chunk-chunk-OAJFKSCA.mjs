@@ -22680,7 +22680,7 @@ var require_browser = __commonJS({
       __export(browser_exports, {
         analyzeMetafile: () => analyzeMetafile,
         analyzeMetafileSync: () => analyzeMetafileSync,
-        build: () => build3,
+        build: () => build2,
         buildSync: () => buildSync,
         default: () => browser_default,
         formatMessages: () => formatMessages,
@@ -24341,7 +24341,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e2.text}`;
       }
       __name(convertOutputFiles, "convertOutputFiles");
       var version = "0.15.16";
-      var build3 = /* @__PURE__ */ __name((options) => ensureServiceIsRunning().build(options), "build");
+      var build2 = /* @__PURE__ */ __name((options) => ensureServiceIsRunning().build(options), "build");
       var serve = /* @__PURE__ */ __name(() => {
         throw new Error(`The "serve" API only works in node`);
       }, "serve");
@@ -28664,16 +28664,16 @@ var fetchCache = {
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
   name: "http",
-  setup(build3) {
-    build3.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
+  setup(build2) {
+    build2.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
       path: new URL(args.path, args.importer).toString(),
       namespace: "http-url"
     }));
-    build3.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
+    build2.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
       path: new URL(args.path, args.importer).toString(),
       namespace: "ttf"
     }));
-    build3.onLoad({ filter: /.*.tsx.*/ }, async (args) => {
+    build2.onLoad({ filter: /.*.tsx.*/ }, async (args) => {
       if (args.path.indexOf("render.tsx") !== -1) {
         const contents = await esmTransform(`
       import {hydrateRoot} from "react-dom/client"
@@ -28735,7 +28735,7 @@ var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
         };
       }
     });
-    build3.onLoad({ filter: /.*/ }, async (args) => {
+    build2.onLoad({ filter: /.*/ }, async (args) => {
       const getRequest = /* @__PURE__ */ __name(async (req2) => {
         let response2 = await fetchCache.match(req2);
         if (response2)
@@ -28792,15 +28792,15 @@ init_define_process();
 var esbuild = __toESM(require_browser(), 1);
 var unpkgPathPlugin = {
   name: "unpkg-path-plugin",
-  setup(build3) {
-    build3.onResolve({ filter: /^\.+\// }, (args) => {
+  setup(build2) {
+    build2.onResolve({ filter: /^\.+\// }, (args) => {
       const url = new URL(args.path, location.origin).toString();
       return {
         path: url,
         namespace: "http-url"
       };
     });
-    build3.onResolve({ filter: /^\[a-z]+\// }, (args) => {
+    build2.onResolve({ filter: /^\[a-z]+\// }, (args) => {
       if (args.path.indexOf(location.origin) !== -1) {
         return {
           namespace: "http-url",
@@ -28892,7 +28892,7 @@ var definePrd = {
   })
 };
 var skipImportmapReplaceNames = false;
-var build2 = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle = false) => {
+var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle = false) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -28943,6 +28943,57 @@ var build2 = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle = fals
   }
   return false;
 }, "build");
+var buildT = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle = false) => {
+  const initFinished = mod.initialize();
+  if (initFinished !== true)
+    await initFinished;
+  const defaultOpts = {
+    bundle: false,
+    resolveExtensions: [
+      ".tsx",
+      ".ts",
+      ".jsx",
+      ".js",
+      ".d.ts",
+      ".css",
+      ".json",
+      ".mjs",
+      ".js",
+      ".wasm",
+      ".ttf"
+    ],
+    loader: {
+      ".js": "tsx",
+      ".tsx": "tsx",
+      ".css": "css",
+      ".ttf": "dataurl"
+    },
+    write: false,
+    metafile: true,
+    target: "es2022",
+    outdir: `./`,
+    treeShaking: true,
+    minify: false,
+    define: define2,
+    minifyIdentifiers: false,
+    minifySyntax: false,
+    minifyWhitespace: false,
+    splitting: false,
+    incremental: true,
+    format: "esm",
+    entryPoints: [
+      `./live/${codeSpace3}/index.tsx?i=${i2}`
+    ],
+    tsconfig: "./tsconfig.json",
+    plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)]
+  };
+  let b2;
+  if (!signal.aborted && (b2 = await (0, import_esbuild_wasm.build)(defaultOpts)) && !signal.aborted) {
+    console.log(b2.outputFiles);
+    return b2.outputFiles[0].text;
+  }
+  return false;
+}, "buildT");
 function importMapReplace(codeInp) {
   if (skipImportmapReplaceNames)
     return codeInp;
@@ -29641,7 +29692,7 @@ async function moveToWorker(nameSpace, parent) {
   const div = parent?.getElementsByTagName("div")[0];
   div.style.height = "100%";
   const cont = new AbortController();
-  const js = await build2(codeSpace2, i2, cont.signal, false);
+  const js = await build(codeSpace2, i2, cont.signal, false);
   if (!js)
     return false;
   const src = createJsBlob(js);
@@ -30033,7 +30084,11 @@ async function runner({ code, counter, codeSpace: codeSpace3 }) {
     return;
   counterMax = counter;
   try {
-    const transpiledCode = await esmTransform(await build(code));
+    const ab = new AbortController();
+    const pp = await buildT(codeSpace3, counter, ab.signal);
+    if (!pp)
+      return;
+    const transpiledCode = await esmTransform(pp);
     const { html, css: css3 } = await render(transpiledCode, codeSpace3);
     console.log({ html, css: css3 });
     if (!html || !css3) {
