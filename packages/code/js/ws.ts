@@ -404,7 +404,7 @@ export async function join() {
     // console.//log("NEW WS CONNECTION");
     ws = wsConnection;
     wsConnection.onclose = () => rejoin();
-    const mess = (data: string) => {
+    const send = (data: string) => {
       try {
         if (ws?.readyState === ws?.OPEN) ws && ws?.send && ws?.send(data);
         else {
@@ -416,22 +416,21 @@ export async function join() {
 
         rejoin();
       }
+      return true;
     };
 
     const extendedWS = {
-      send: (data: string) => {
-        mess(data);
-        return true;
-      },
-      hashCode: undefined,
+      send,
+      hashCode,
       lastSeen: Date.now(),
-      target: "",
+      target: undefined,
     };
+
     send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
     ws.addEventListener(
       "message",
-      (message) => {
-        processWsMessage(message, "ws", extendedWS);
+      (event) => {
+        processWsMessage(event, "ws", extendedWS);
         setTimeout(() => {
           send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
         }, sendChannel.i);
