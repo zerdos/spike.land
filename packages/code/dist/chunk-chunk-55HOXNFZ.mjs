@@ -5906,7 +5906,6 @@ __name(createPatch, "createPatch");
 var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess, i: mST().i + 1 }), "patchSync");
 
 export {
-  require_lodash,
   md5,
   resetCSS,
   initSession,

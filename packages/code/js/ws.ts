@@ -228,7 +228,14 @@ sendChannel.users = users;
 // join()
 
 // }
-
+export const save = async (newSess: ICodeSession) => {
+  const messageData = makePatch(newSess);
+  if (messageData) {
+    await applyPatch(messageData);
+    const msg = { ...messageData, name: user, i: ++sendChannel.i };
+    sendChannel.send(msg);
+  }
+};
 export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;
@@ -282,12 +289,6 @@ export const run = async (startState: {
     if (
       event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
     ) {
-      const messageData = makePatch(event.data.sess);
-      if (messageData) {
-        await applyPatch(messageData);
-        const msg = { ...messageData, name: user, i: ++sendChannel.i };
-        sendChannel.send(msg);
-      }
     }
   };
 
