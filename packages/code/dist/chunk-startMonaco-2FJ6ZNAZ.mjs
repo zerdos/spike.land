@@ -42720,10 +42720,21 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
     }
   };
   let start = await memoryCache.getItem("start");
-  if (!start)
+  if (!start) {
     memoryCache.setItem("start", model.getValue());
+    memoryCache.setItem("versionId", model.getVersionId());
+  } else {
+    let i;
+    const versionId = await memoryCache.getItem("versionId");
+    for (i = 0; i <= versionId; i++) {
+      const ev = await memoryCache.getItem(i.toString());
+      if (ev)
+        model.applyEdits(ev.changes);
+    }
+  }
   model.onDidChangeContent((ev) => {
     memoryCache.setItem(model.getVersionId().toString(), ev);
+    model.applyEdits(ev.changes);
     console.log({ version: model.getVersionId(), ev });
     mod2.silent == false && onChange(model.getValue());
   });
