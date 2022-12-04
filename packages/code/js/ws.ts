@@ -485,7 +485,7 @@ async function processWsMessage(
   if (!data.i) return;
   if (sendChannel.i >= data.i) return;
   sendChannel.i = data.i;
-  sendChannel.send(event.data);
+  sendChannel.send(data);
 
   if (!conn.target && data.name && data.hashCode) {
     conn.target = data.name;
