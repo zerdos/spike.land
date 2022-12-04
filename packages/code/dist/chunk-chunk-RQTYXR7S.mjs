@@ -21,7 +21,7 @@ import {
   onSessionUpdate,
   patchSync,
   require_lodash
-} from "./chunk-chunk-JQLFMSSW.mjs";
+} from "./chunk-chunk-DFJPXHKK.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
