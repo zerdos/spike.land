@@ -24,7 +24,7 @@ import load from "./load";
   } else {
     await load();
   }
-});
+})();
 /// const runtime = () => {
 //   const React = require("react");
 //   Object.assign(globalThis, { React });
