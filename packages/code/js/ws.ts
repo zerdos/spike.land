@@ -86,7 +86,7 @@ export const sendChannel = {
 
     // const target = data.target;
     const data = JSON.stringify({
-      i: d.i || (sendChannel.i + 1),
+      i: d.i || (++sendChannel.i),
       ...d,
       name: d.name || user,
     });
@@ -431,9 +431,9 @@ export async function join() {
       "message",
       (event) => {
         processWsMessage(event, "ws", extendedWS);
-        setTimeout(() => {
-          send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
-        }, sendChannel.i);
+        // setTimeout(() => {
+        //   send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
+        // }, sendChannel.i);
       },
     );
     // If (delta) {
@@ -491,7 +491,7 @@ async function processData(
 ) {
   // console.//log("ws", data.name, data.oldHash, data.newHash);
 
-  // MySession.addEvent(data);
+  // MySession.addEvent(data);s
 
   if (source === "ws" && data.timestamp) {
     lastSeenNow = Date.now();

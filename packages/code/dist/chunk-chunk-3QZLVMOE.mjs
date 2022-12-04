@@ -3727,7 +3727,7 @@ var sendChannel = {
     const right = me?.right;
     const parent = me?.parent;
     const data = JSON.stringify({
-      i: d.i || sendChannel.i + 1,
+      i: d.i || ++sendChannel.i,
       ...d,
       name: d.name || user
     });
@@ -3936,9 +3936,6 @@ async function join() {
       "message",
       (event) => {
         processWsMessage(event, "ws", extendedWS);
-        setTimeout(() => {
-          send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
-        }, sendChannel.i);
       }
     );
     return wsConnection;
