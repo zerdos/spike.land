@@ -83,7 +83,6 @@ var load_default = /* @__PURE__ */ __name(async () => {
       if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
         const { html, css } = event.data.sess;
         rootEl.innerHTML = `<style>${css}</style>${html}`;
-      } else {
         await hydrate(codeSpace, event.data.sess.i);
       }
     };
