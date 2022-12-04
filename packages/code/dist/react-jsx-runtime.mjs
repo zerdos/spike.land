@@ -41,8 +41,8 @@ var import_react = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var hydrate = /* @__PURE__ */ __name(async (codeSpace, i) => {
-  const App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
+var hydrate = /* @__PURE__ */ __name(async (codeSpace2, i) => {
+  const App = (await import(`${location.origin}/live/${codeSpace2}/index.js/${i}`)).default;
   (0, import_client.hydrateRoot)(
     document.getElementById("root"),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -61,26 +61,26 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, i) => {
 // js/load.ts
 init_define_process();
 var load_default = /* @__PURE__ */ __name(async () => {
-  const codeSpace = location.pathname.slice(1).split("/")[1];
+  const codeSpace2 = location.pathname.slice(1).split("/")[1];
   const {
     mST,
     address
-  } = await import(`${location.origin}/live/${codeSpace}/mST.mjs`);
+  } = await import(`${location.origin}/live/${codeSpace2}/mST.mjs`);
   run({
     mST,
     dry: false,
-    codeSpace,
+    codeSpace: codeSpace2,
     address
   });
 }, "default");
 
 // js/react-jsx-runtime.tsx
-(async () => {
-  const paths = location.pathname.split("/");
-  const codeSpace = paths[2];
-  const rootEl = document.getElementById(`root`);
+var paths = location.pathname.split("/");
+var codeSpace = paths[2];
+var rootEl = document.getElementById(`root`);
+if (location.pathname !== `/live/${codeSpace})`) {
   const bc = new BroadcastChannel(location.origin);
-  await hydrate(codeSpace, 1);
+  hydrate(codeSpace, 1);
   bc.onmessage = async (event) => {
     if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
       const { html, css, i } = event.data.sess;
@@ -90,7 +90,6 @@ var load_default = /* @__PURE__ */ __name(async () => {
       await hydrate(codeSpace, event.data.sess.i);
     }
   };
-  if (!location.pathname.includes("hydrated")) {
-    await load_default();
-  }
-})();
+} else {
+  load_default();
+}
