@@ -3,11 +3,11 @@ import {
   QrCodeIcon
 } from "./chunk-chunk-3AXFTQSJ.mjs";
 import {
-  motion
-} from "./chunk-chunk-WT4TNJSV.mjs";
-import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
+import {
+  motion
+} from "./chunk-chunk-WT4TNJSV.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
 } from "./chunk-chunk-NFYMKIWC.mjs";

@@ -12,9 +12,6 @@ import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
 import {
-  require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-NFYMKIWC.mjs";
-import {
   hashCode,
   mST,
   md5,
@@ -22,6 +19,9 @@ import {
   patchSync,
   require_lodash
 } from "./chunk-chunk-DFJPXHKK.mjs";
+import {
+  require_emotion_react_jsx_runtime_cjs
+} from "./chunk-chunk-NFYMKIWC.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
@@ -28890,7 +28890,7 @@ var definePrd = {
   })
 };
 var skipImportmapReplaceNames = false;
-var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle) => {
+var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle = false, code) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
@@ -28929,7 +28929,7 @@ var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle) => {
     incremental: true,
     format: "esm",
     entryPoints: [
-      `./render.tsx?i=${i2}`
+      `./live/${codeSpace3}/index.tsx?i=${i2}`
     ],
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)]
