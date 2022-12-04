@@ -3933,6 +3933,7 @@ async function join() {
       lastSeen: Date.now(),
       target: ""
     };
+    send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
     ws.addEventListener(
       "message",
       (message) => {
