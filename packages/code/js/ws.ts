@@ -234,6 +234,7 @@ export const save = async (newSess: ICodeSession) => {
     const msg = { ...messageData, name: user, i: sendChannel.i + 1 };
     sendChannel.send(msg);
   }
+  applyPatch
 };
 export const run = async (startState: {
   mST: ICodeSession;
