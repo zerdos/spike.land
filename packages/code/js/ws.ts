@@ -106,7 +106,7 @@ export const sendChannel = {
     const right = me?.right?.key;
     const parent = me?.parent?.key;
 
-    if (!d.i) d.i = ++sendChannel.i;
+    if (!d.i) d.i = sendChannel.i + 1;
     if (!d.name) d.name = user;
     // const target = data.target;
     const data = JSON.stringify(d);
@@ -231,7 +231,7 @@ export const save = async (newSess: ICodeSession) => {
   const messageData = makePatch(newSess);
   if (messageData) {
     await applyPatch(messageData);
-    const msg = { ...messageData, name: user, i: ++sendChannel.i };
+    const msg = { ...messageData, name: user, i: sendChannel.i + 1 };
     sendChannel.send(msg);
   }
 };
@@ -456,7 +456,7 @@ export async function join() {
       target: undefined,
     };
 
-    send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
+    sendChannel.send({ name: user, hashCode: hashCode(), i: sendChannel.i + 1 });
     ws.addEventListener(
       "message",
       (event) => {
