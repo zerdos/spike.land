@@ -181,28 +181,28 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
   });
 }
 
-const bc = new BroadcastChannel(location.origin);
+// const bc = new BroadcastChannel(location.origin);
 
-bc.onmessage = (event) => {
-  const nameSpace = location.pathname.slice(1).split("/")[1];
+// bc.onmessage = (event) => {
+// const nameSpace = location.pathname.slice(1).split("/")[1];
 
-  if (event.data.codeSpace === nameSpace) {
-    if (location.href.indexOf("/hydrated") !== -1) {
-      runInWorker(nameSpace, parent);
-    } else {
-      // let iframe = document.createElement("iframe");
-      // iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
+// if (event.data.codeSpace === nameSpace) {
+// if (location.href.indexOf("/hydrated") !== -1) {
+// runInWorker(nameSpace, parent);
+// } else {
+// let iframe = document.createElement("iframe");
+// iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
 
-      // //  iframe.setAttribute("data-coder", cs);
-      // iframe.style.height = "100%";
-      // //    iframe.setAttribute("id", `coder-${cs}`);
-      // iframe.style.border = "none";
-      // iframe.style.width = "100%";
+// //  iframe.setAttribute("data-coder", cs);
+// iframe.style.height = "100%";
+// //    iframe.setAttribute("id", `coder-${cs}`);
+// iframe.style.border = "none";
+// iframe.style.width = "100%";
 
-      //      createIframe(nameSpace, mST().i);
-    }
-  }
-};
+//      createIframe(nameSpace, mST().i);
+// }
+// }
+// };
 
 // import importmap from "./importmap.json";
 // const imp: { [key: string]: string } = { ...importmap.imports };
@@ -219,7 +219,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLElement) {
   div.style.height = "100%";
   const cont = new AbortController();
 
-  const js = await build(codeSpace, i, cont.signal);
+  const js = await build(codeSpace, i, cont.signal, false);
 
   if (!js) return false;
   const src = createJsBlob(js);
