@@ -30336,7 +30336,7 @@ function shimSendThrowTypeError(window2) {
   }
   function wrapDcSend(dc, pc) {
     const origDataChannelSend = dc.send;
-    dc.send = /* @__PURE__ */ __name(function send() {
+    dc.send = /* @__PURE__ */ __name(function send2() {
       const data = arguments[0];
       const length = data.length || data.size || data.byteLength;
       if (dc.readyState === "open" && pc.sctp && length > pc.sctp.maxMessageSize) {
@@ -33856,6 +33856,7 @@ var v4_default = v4;
 var uidV4_default = v4_default;
 
 // js/ws.ts
+var send;
 var users = new AVLTree(
   (a2, b2) => a2 === b2 ? 0 : a2 < b2 ? 1 : -1,
   true
@@ -33977,9 +33978,10 @@ Object.assign(globalThis, { sendChannel, mST, users });
 sendChannel.users = users;
 var save = /* @__PURE__ */ __name(async (newSess) => {
   const messageData = makePatch(newSess);
+  await applyPatch(messageData);
   if (messageData) {
-    await applyPatch(messageData);
-    const msg = { ...messageData, name: user, i: sendChannel.i + 1 };
+    const msg = { ...messageData, name: user, i: sendChannel.i + 1, hashCode: hashCode() };
+    send(JSON.stringify(msg));
     sendChannel.send(msg);
   }
 }, "save");
@@ -34062,7 +34064,6 @@ async function join() {
     `wss://${location.host}/live/` + codeSpace3 + "/websocket"
   );
   rejoined = false;
-  let send;
   wsConnection.addEventListener("open", () => {
     ws = wsConnection;
     send = /* @__PURE__ */ __name((data) => {
