@@ -657,7 +657,7 @@ export class Code {
 
     if (data.timestamp && !data.patch) {
       return this.broadcast({
-        i: ++this.i,
+        i: data.i || this.i++,
         name: this.user,
         hashCode: hashCode(),
       });
@@ -693,7 +693,7 @@ export class Code {
           const oldHash = data.oldHash;
 
           if (oldHash !== hashCode()) {
-            return this.broadcast({ hashCode: hashCode(), i: ++this.i, name: this.user });
+            return this.broadcast({ hashCode: hashCode(), i: data.i || ++this.i, name: this.user });
           }
 
           try {
