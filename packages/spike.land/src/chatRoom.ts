@@ -365,7 +365,10 @@ export class Code {
               })
             );
             return new Response(
-              body,
+              importMapReplace(
+                body,
+                url.origin,
+              ),
               {
                 status: 200,
                 headers: {
