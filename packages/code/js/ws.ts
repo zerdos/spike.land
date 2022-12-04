@@ -146,6 +146,63 @@ export const sendChannel = {
     });
   },
 };
+
+async function stopVideo() {
+  if (!sendChannel.localStream) return;
+}
+
+async function startVideo() {
+  console.log({ adapter });
+
+  const supported = await navigator.mediaDevices.getSupportedConstraints();
+  console.log({ supported });
+
+  const mediaConstraints = {
+    audio: false, // We want an audio track
+    video: true, // {
+    //  .. aspectRatio?: ConstrainDouble;
+    // autoGainControl?: ConstrainBoolean;
+    // channelCount?: ConstrainULong;
+    //  deviceId?: ConstrainDOMString;
+    //  echoCancellation?: ConstrainBoolean;
+    //  facingMode?: ConstrainDOMString;
+    // frameRate?: ConstrainDouble;
+    // groupId?: ConstrainDOMString;
+    // height?: ConstrainULong;
+    // latency?: ConstrainDouble;
+    // noiseSuppression?: ConstrainBoolean;
+    // sampleRate?: ConstrainULong;
+    // sampleSize?: ConstrainULong;
+    // suppressLocalAudioPlayback?: ConstrainBoolean;
+    // width?: ConstrainULong;
+    // }, // And we want a video track
+  };
+
+  // document.body.appendChild(sendChannel.vidElement);
+
+  const localStream = await navigator.mediaDevices.getUserMedia(
+    mediaConstraints,
+  );
+
+  handleSuccess(localStream);
+  function handleSuccess(localStream: MediaStream) {
+    const video = sendChannel.vidElement;
+    const videoTracks = localStream.getVideoTracks();
+    console.log("Got stream with constraints:", mediaConstraints);
+    console.log(`Using video device: ${videoTracks[0].label}`);
+    sendChannel.localStream = localStream; // make variable available to browser console
+    video.srcObject = localStream;
+  }
+
+  localStream.getVideoTracks().forEach((track) =>
+    Object.keys(sendChannel.rtcConns).map((k) => {
+      const peerConnection = sendChannel.rtcConns[k];
+
+      peerConnection.addTrack(track);
+    })
+  );
+}
+
 sendChannel.vidElement.playsInline = true;
 sendChannel.vidElement.autoplay = true;
 
@@ -230,8 +287,8 @@ export const run = async (startState: {
   };
 
   onSessionUpdate(
-    () => {
-      // syncWS
+    async () => {
+      await syncWS();
       // debouncedSyncRTC();
 
       const sess = mST();
@@ -283,95 +340,36 @@ const ignoreUsers: string[] = [];
 // });
 
 async function syncWS() {
-  try {
-    // if (ws) {
-    // if (wsLastHashCode === hashCode()) {
-    // return;
-    // }
+  // if (ws) {
+  // if (wsLastHashCode === hashCode()) {
+  // return;
+  // }
 
-    const sess = mST();
-    // console.//log({ wsLastHashCode });
+  const sess = mST();
+  // console.//log({ wsLastHashCode });
 
-    const message = await makePatchFrom(
-      wsLastHashCode,
-      sess,
-    );
+  const message = await makePatchFrom(
+    wsLastHashCode,
+    sess,
+  );
 
-    if (!message) {
-      return;
-    }
-
-    if (message.newHash !== hashCode()) {
-      // console.error("NEW hash is not even hashCode", hashCode());
-      return;
-    }
-
-    const msg = { ...message, name: user };
-    sendChannel.send(msg);
-    // } else {
-    // rejoined = false;
-    // await rejoin();
-    // }
-  } catch (error) {
-    console.error("error 2", { e: error });
-  }
-  //
-  async function stopVideo() {
-    if (!sendChannel.localStream) return;
+  if (!message) {
+    return;
   }
 
-  async function startVideo() {
-    console.log({ adapter });
-
-    const supported = await navigator.mediaDevices.getSupportedConstraints();
-    console.log({ supported });
-
-    const mediaConstraints = {
-      audio: false, // We want an audio track
-      video: true, // {
-      //  .. aspectRatio?: ConstrainDouble;
-      // autoGainControl?: ConstrainBoolean;
-      // channelCount?: ConstrainULong;
-      //  deviceId?: ConstrainDOMString;
-      //  echoCancellation?: ConstrainBoolean;
-      //  facingMode?: ConstrainDOMString;
-      // frameRate?: ConstrainDouble;
-      // groupId?: ConstrainDOMString;
-      // height?: ConstrainULong;
-      // latency?: ConstrainDouble;
-      // noiseSuppression?: ConstrainBoolean;
-      // sampleRate?: ConstrainULong;
-      // sampleSize?: ConstrainULong;
-      // suppressLocalAudioPlayback?: ConstrainBoolean;
-      // width?: ConstrainULong;
-      // }, // And we want a video track
-    };
-
-    // document.body.appendChild(sendChannel.vidElement);
-
-    const localStream = await navigator.mediaDevices.getUserMedia(
-      mediaConstraints,
-    );
-
-    handleSuccess(localStream);
-    function handleSuccess(localStream: MediaStream) {
-      const video = sendChannel.vidElement;
-      const videoTracks = localStream.getVideoTracks();
-      console.log("Got stream with constraints:", mediaConstraints);
-      console.log(`Using video device: ${videoTracks[0].label}`);
-      sendChannel.localStream = localStream; // make variable available to browser console
-      video.srcObject = localStream;
-    }
-
-    localStream.getVideoTracks().forEach((track) =>
-      Object.keys(sendChannel.rtcConns).map((k) => {
-        const peerConnection = sendChannel.rtcConns[k];
-
-        peerConnection.addTrack(track);
-      })
-    );
+  if (message.newHash !== hashCode()) {
+    // console.error("NEW hash is not even hashCode", hashCode());
+    return;
   }
+
+  const msg = { ...message, name: user };
+  sendChannel.send(msg);
+  // } else {
+  // rejoined = false;
+  // await rejoin();
+  // }
 }
+//
 
 // async function syncRTC() {
 //   try {
@@ -460,7 +458,7 @@ export async function join() {
     // }));
     // }
     // return;
-    // }
+    // }NC
 
     // Send user info message.
     return wsConnection;
