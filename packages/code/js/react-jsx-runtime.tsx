@@ -11,18 +11,18 @@ import load from "./load";
 
   const bc = new BroadcastChannel(location.origin);
 
-  if (location.pathname.includes("hydrated")) {
-    await hydrate(codeSpace, 1);
-    bc.onmessage = async (event) => {
-      if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
-        const { html, css, i } = event.data.sess;
-        rootEl.setAttribute("data-i", i);
-        unmountComponentAtNode(document.getElementById("root"));
-        rootEl.innerHTML = `<style>${css}</style>${html}`;
-        await hydrate(codeSpace, event.data.sess.i);
-      }
-    };
-  } else {
+  await hydrate(codeSpace, 1);
+  bc.onmessage = async (event) => {
+    if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
+      const { html, css, i } = event.data.sess;
+      rootEl.setAttribute("data-i", i);
+      unmountComponentAtNode(document.getElementById("root"));
+      rootEl.innerHTML = `<style>${css}</style>${html}`;
+      await hydrate(codeSpace, event.data.sess.i);
+    }
+  };
+
+  if (!location.pathname.includes("hydrated")) {
     await load();
   }
 })();
