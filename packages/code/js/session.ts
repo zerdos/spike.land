@@ -202,10 +202,11 @@ export class CodeSession implements ICodeSess {
       sess.code !== this.session.get("state").code
       && sess.i <= this.session.get("state").i
     ) throw new Error("Code update without I update error");
-
+    sess.i;
     if (sess.i < this.session.get("state").i) {
       console.log("never going back!");
-      return;
+      sess.i = this.session.get("state").i + 1;
+      // return;
     }
     if (
       sess.code !== this.session.get("state").code
