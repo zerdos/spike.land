@@ -1,8 +1,8 @@
 // import { md5 } from "./md5";
 // import { createJsBlob } from "starter";
+import { unmountComponentAtNode } from "react-dom";
 import { hydrate } from "./hydrate";
 import load from "./load";
-
 (async () => {
   const paths = location.pathname.split("/");
   const codeSpace = paths[2];
@@ -15,9 +15,10 @@ import load from "./load";
     await hydrate(codeSpace, 1);
     bc.onmessage = async (event) => {
       if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
-        const { html, css } = event.data.sess;
+        const { html, css, i } = event.data.sess;
+        rootEl.setAttribute("data-i", i);
+        unmountComponentAtNode(document.getElementById("root"));
         rootEl.innerHTML = `<style>${css}</style>${html}`;
-
         await hydrate(codeSpace, event.data.sess.i);
       }
     };
