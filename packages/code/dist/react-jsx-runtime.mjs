@@ -80,18 +80,17 @@ var load_default = /* @__PURE__ */ __name(async () => {
   const codeSpace = paths[2];
   const rootEl = document.getElementById(`root`);
   const bc = new BroadcastChannel(location.origin);
-  if (location.pathname.includes("hydrated")) {
-    await hydrate(codeSpace, 1);
-    bc.onmessage = async (event) => {
-      if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
-        const { html, css, i } = event.data.sess;
-        rootEl.setAttribute("data-i", i);
-        (0, import_react_dom.unmountComponentAtNode)(document.getElementById("root"));
-        rootEl.innerHTML = `<style>${css}</style>${html}`;
-        await hydrate(codeSpace, event.data.sess.i);
-      }
-    };
-  } else {
+  await hydrate(codeSpace, 1);
+  bc.onmessage = async (event) => {
+    if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
+      const { html, css, i } = event.data.sess;
+      rootEl.setAttribute("data-i", i);
+      (0, import_react_dom.unmountComponentAtNode)(document.getElementById("root"));
+      rootEl.innerHTML = `<style>${css}</style>${html}`;
+      await hydrate(codeSpace, event.data.sess.i);
+    }
+  };
+  if (!location.pathname.includes("hydrated")) {
     await load_default();
   }
 })();
