@@ -3,27 +3,28 @@
 import { hydrate } from "./hydrate";
 import load from "./load";
 
-const paths = location.pathname.split("/");
-const codeSpace = paths[2];
+(async () => {
+  const paths = location.pathname.split("/");
+  const codeSpace = paths[2];
 
-const rootEl = document.getElementById(`root`)!;
+  const rootEl = document.getElementById(`root`)!;
 
-const bc = new BroadcastChannel(location.origin);
+  const bc = new BroadcastChannel(location.origin);
 
-if (location.pathname.includes("hydrated")) {
-  hydrate(codeSpace, 1);
-  bc.onmessage = (event) => {
-    if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
-      const { html, css } = event.data.sess;
-      rootEl.innerHTML = `<style>${css}</style>${html}`;
-    } else {
-      hydrate(codeSpace, event.data.sess.i);
-    }
-  };
-} else {
-  load();
-}
-
+  if (location.pathname.includes("hydrated")) {
+    await hydrate(codeSpace, 1);
+    bc.onmessage = async (event) => {
+      if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
+        const { html, css } = event.data.sess;
+        rootEl.innerHTML = `<style>${css}</style>${html}`;
+      } else {
+        await hydrate(codeSpace, event.data.sess.i);
+      }
+    };
+  } else {
+    await load();
+  }
+});
 /// const runtime = () => {
 //   const React = require("react");
 //   Object.assign(globalThis, { React });
