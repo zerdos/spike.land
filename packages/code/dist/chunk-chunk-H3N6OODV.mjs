@@ -1,9 +1,9 @@
 import {
   Editor
-} from "./chunk-chunk-AMRDHXV5.mjs";
+} from "./chunk-chunk-F3UAZF7A.mjs";
 import {
   AutoUpdateApp
-} from "./chunk-chunk-A54BEWWJ.mjs";
+} from "./chunk-chunk-FQCO6K3Q.mjs";
 import {
   wait
 } from "./chunk-chunk-NBK6NTLB.mjs";
@@ -21,12 +21,10 @@ import {
   hashCode,
   mST,
   makePatch,
-  makePatchFrom,
   md5,
   onSessionUpdate,
-  require_lodash,
   startSession
-} from "./chunk-chunk-MIF2TXG6.mjs";
+} from "./chunk-chunk-WZJHFN4Q.mjs";
 import {
   require_react_dom
 } from "./chunk-chunk-M3XF32XQ.mjs";
@@ -1206,9 +1204,6 @@ var AVLTree = class {
 };
 __name(AVLTree, "AVLTree");
 AVLTree.default = AVLTree;
-
-// js/ws.ts
-var import_lodash = __toESM(require_lodash(), 1);
 
 // ../../.yarn/global/cache/webrtc-adapter-npm-8.2.0-3d75ed65ad-9.zip/node_modules/webrtc-adapter/src/js/adapter_core.js
 init_define_process();
@@ -3344,7 +3339,6 @@ __name(adapterFactory, "adapterFactory");
 
 // ../../.yarn/global/cache/webrtc-adapter-npm-8.2.0-3d75ed65ad-9.zip/node_modules/webrtc-adapter/src/js/adapter_core.js
 var adapter = adapterFactory({ window: typeof window === "undefined" ? void 0 : window });
-var adapter_core_default = adapter;
 
 // js/renderPreviewWindow.tsx
 init_define_process();
@@ -3694,7 +3688,6 @@ users.insert(user);
 var rtcConns = {};
 var bc;
 var codeSpace;
-var _hash = "";
 var wsLastHashCode = "";
 var webRTCLastSeenHashCode = "";
 var lastSeenTimestamp = 0;
@@ -3726,12 +3719,11 @@ var sendChannel = {
     const left = me?.left;
     const right = me?.right;
     const parent = me?.parent;
-    const data = JSON.stringify({
-      i: d.i || ++sendChannel.i,
-      ...d,
-      name: d.name || user
-    });
-    console.log(data);
+    if (!d.i)
+      d.i = ++sendChannel.i;
+    if (!d.name)
+      d.name = user;
+    const data = JSON.stringify(d);
     const sendToUser = /* @__PURE__ */ __name((u) => {
       webRtcArray.find((t) => t.target === u)?.send(data) || wsConns[u]?.send(data) && users.remove(u);
     }, "sendToUser");
@@ -3804,15 +3796,13 @@ var run = /* @__PURE__ */ __name(async (startState) => {
   };
   onSessionUpdate(
     () => {
-      debouncedSyncWs();
       const sess = mST();
-      const hash = md5(JSON.stringify(sess));
-      if (hash === _hash)
-        return;
-      _hash = hash;
       bc.postMessage({
         ignoreUser: user,
         sess,
+        hashCode: md5(sess.transpiled),
+        html: sess.html,
+        css: sess.css,
         codeSpace,
         address
       });
@@ -3830,72 +3820,6 @@ async function rejoin() {
 }
 __name(rejoin, "rejoin");
 var ignoreUsers = [];
-var debouncedSyncWs = (0, import_lodash.default)(syncWS, 1200, {
-  trailing: true,
-  leading: true,
-  maxWait: 1e3
-});
-async function syncWS() {
-  try {
-    if (ws) {
-      if (wsLastHashCode === hashCode()) {
-        return;
-      }
-      const sess = mST();
-      const message = await makePatchFrom(
-        wsLastHashCode,
-        sess
-      );
-      if (!message) {
-        return;
-      }
-      if (message.newHash !== hashCode()) {
-        return;
-      }
-      const messageString = JSON.stringify({ ...message, name: user });
-      sendChannel.send(messageString);
-    } else {
-      rejoined = false;
-      await rejoin();
-    }
-  } catch (error) {
-  }
-}
-__name(syncWS, "syncWS");
-async function stopVideo() {
-  if (!sendChannel.localStream)
-    return;
-}
-__name(stopVideo, "stopVideo");
-async function startVideo() {
-  console.log({ adapter: adapter_core_default });
-  const supported = await navigator.mediaDevices.getSupportedConstraints();
-  console.log({ supported });
-  const mediaConstraints = {
-    audio: false,
-    video: true
-  };
-  const localStream = await navigator.mediaDevices.getUserMedia(
-    mediaConstraints
-  );
-  handleSuccess(localStream);
-  function handleSuccess(localStream2) {
-    const video = sendChannel.vidElement;
-    const videoTracks = localStream2.getVideoTracks();
-    console.log("Got stream with constraints:", mediaConstraints);
-    console.log(`Using video device: ${videoTracks[0].label}`);
-    sendChannel.localStream = localStream2;
-    video.srcObject = localStream2;
-  }
-  __name(handleSuccess, "handleSuccess");
-  localStream.getVideoTracks().forEach(
-    (track) => Object.keys(sendChannel.rtcConns).map((k) => {
-      const peerConnection = sendChannel.rtcConns[k];
-      peerConnection.addTrack(track);
-    })
-  );
-}
-__name(startVideo, "startVideo");
 async function join() {
   if (ws !== null) {
     return ws;
@@ -4061,12 +3985,12 @@ async function processData(data, source, conn) {
     );
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
-        sendChannel.send(JSON.stringify({
+        sendChannel.send({
           type: "new-ice-candidate",
           target,
           name: user,
           candidate: event.candidate.toJSON()
-        }));
+        });
       }
     };
     rtcConns[target].oniceconnectionstatechange = handleICEConnectionStateChangeEvent;

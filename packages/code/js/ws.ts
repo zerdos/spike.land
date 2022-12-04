@@ -4,7 +4,6 @@
 
 // import 'css-paint-polyfill
 import AVLTree from "avl";
-import debounce from "lodash.debounce";
 import adapter from "webrtc-adapter";
 import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
 
@@ -59,6 +58,24 @@ const wsConns: {
     send: (data: string) => boolean;
   };
 } = {};
+
+type CodePatch = { oldHash: string; newHash: string; patch: Delta[] };
+
+type Diff = [-1 | 0 | 1, string];
+export type Delta = Diff | [0 | -1, number];
+
+type DataObj = Partial<{
+  name: string;
+  target: string;
+  hashCode: string;
+  i: number;
+  patch: Delta[];
+  oldHash: string;
+  type: "ping" | "new-ice-candidate" | "video-offer" | "video-answer";
+  answer: object;
+  candidate: object;
+}>;
+
 let pingHandler: NodeJS.Timeout;
 export const sendChannel = {
   localStream: null as MediaStream | null,
@@ -72,7 +89,8 @@ export const sendChannel = {
   startVideo,
   rtcConns,
   wsConns,
-  send(d: any) {
+
+  send(d: DataObj) {
     if (pingHandler) clearTimeout(pingHandler);
     pingHandler = setTimeout(() => {
       sendChannel.send({ name: user, hashCode: hashCode(), type: "ping" });
@@ -84,14 +102,12 @@ export const sendChannel = {
     const right = me?.right;
     const parent = me?.parent;
 
+    if (!d.i) d.i = ++sendChannel.i;
+    if (!d.name) d.name = user;
     // const target = data.target;
-    const data = JSON.stringify({
-      i: d.i || (++sendChannel.i),
-      ...d,
-      name: d.name || user,
-    });
+    const data = JSON.stringify(d);
 
-    console.log(data);
+    // console.log(data);
 
     const sendToUser = (u: string) => {
       webRtcArray.find(t => t.target === u)?.send(data) || wsConns[u]?.send(data) && users.remove(u);
@@ -215,18 +231,17 @@ export const run = async (startState: {
 
   onSessionUpdate(
     () => {
-      debouncedSyncWs();
+      // syncWS
       // debouncedSyncRTC();
 
       const sess = mST();
 
-      const hash = md5(JSON.stringify(sess));
-      if (hash === _hash) return;
-      _hash = hash;
-
       bc.postMessage({
         ignoreUser: user,
         sess,
+        hashCode: md5(sess.transpiled),
+        html: sess.html,
+        css: sess.css,
         codeSpace,
 
         address,
@@ -261,127 +276,128 @@ const ignoreUsers: string[] = [];
 //   maxWait: 500,
 // });
 
-const debouncedSyncWs = debounce(syncWS, 1200, {
-  trailing: true,
-  leading: true,
-  maxWait: 1000,
-});
+// const debouncedSyncWs = debounce(syncWS, 1200, {
+// trailing: true,
+// leading: true,
+// maxWait: 1000,
+// });
 
 async function syncWS() {
   try {
-    if (ws) {
-      if (wsLastHashCode === hashCode()) {
-        return;
-      }
+    // if (ws) {
+    // if (wsLastHashCode === hashCode()) {
+    // return;
+    // }
 
-      const sess = mST();
-      // console.//log({ wsLastHashCode });
+    const sess = mST();
+    // console.//log({ wsLastHashCode });
 
-      const message = await makePatchFrom(
-        wsLastHashCode,
-        sess,
-      );
+    const message = await makePatchFrom(
+      wsLastHashCode,
+      sess,
+    );
 
-      if (!message) {
-        return;
-      }
-
-      if (message.newHash !== hashCode()) {
-        // console.error("NEW hash is not even hashCode", hashCode());
-        return;
-      }
-
-      const messageString = JSON.stringify({ ...message, name: user });
-      sendChannel.send(messageString);
-    } else {
-      rejoined = false;
-      await rejoin();
+    if (!message) {
+      return;
     }
-  } catch (error) {
-    // console.error("error 2", { e: error });
-  }
-}
-async function stopVideo() {
-  if (!sendChannel.localStream) return;
-}
 
-async function startVideo() {
-  console.log({ adapter });
-
-  const supported = await navigator.mediaDevices.getSupportedConstraints();
-  console.log({ supported });
-
-  const mediaConstraints = {
-    audio: false, // We want an audio track
-    video: true, // {
-    //  .. aspectRatio?: ConstrainDouble;
-    // autoGainControl?: ConstrainBoolean;
-    // channelCount?: ConstrainULong;
-    //  deviceId?: ConstrainDOMString;
-    //  echoCancellation?: ConstrainBoolean;
-    //  facingMode?: ConstrainDOMString;
-    // frameRate?: ConstrainDouble;
-    // groupId?: ConstrainDOMString;
-    // height?: ConstrainULong;
-    // latency?: ConstrainDouble;
-    // noiseSuppression?: ConstrainBoolean;
-    // sampleRate?: ConstrainULong;
-    // sampleSize?: ConstrainULong;
-    // suppressLocalAudioPlayback?: ConstrainBoolean;
-    // width?: ConstrainULong;
-    // }, // And we want a video track
-  };
-
-  // document.body.appendChild(sendChannel.vidElement);
-
-  const localStream = await navigator.mediaDevices.getUserMedia(
-    mediaConstraints,
-  );
-
-  handleSuccess(localStream);
-  function handleSuccess(localStream: MediaStream) {
-    const video = sendChannel.vidElement;
-    const videoTracks = localStream.getVideoTracks();
-    console.log("Got stream with constraints:", mediaConstraints);
-    console.log(`Using video device: ${videoTracks[0].label}`);
-    sendChannel.localStream = localStream; // make variable available to browser console
-    video.srcObject = localStream;
-  }
-
-  localStream.getVideoTracks().forEach((track) =>
-    Object.keys(sendChannel.rtcConns).map((k) => {
-      const peerConnection = sendChannel.rtcConns[k];
-
-      peerConnection.addTrack(track);
-    })
-  );
-}
-
-async function syncRTC() {
-  try {
-    if (Object.keys(rtcConns).length > 0) {
-      if (webRTCLastSeenHashCode === hashCode()) {
-        return;
-      }
-
-      const sess = mST();
-      // console.//log({ wsLastHashCode });
-
-      const message = webRTCLastSeenHashCode
-        ? makePatchFrom(
-          webRTCLastSeenHashCode,
-          sess,
-        )
-        : makePatch(sess);
-      if (message !== null && message.patch) {
-        // console.//log("sendRTC");
-        sendChannel.send(message);
-      }
+    if (message.newHash !== hashCode()) {
+      // console.error("NEW hash is not even hashCode", hashCode());
+      return;
     }
+
+    const msg = { ...message, name: user };
+    sendChannel.send(msg);
+    // } else {
+    // rejoined = false;
+    // await rejoin();
+    // }
   } catch (error) {
-    // console.error("Error sending RTC...", { e: error });
+    console.error("error 2", { e: error });
+  }
+  //
+  async function stopVideo() {
+    if (!sendChannel.localStream) return;
+  }
+
+  async function startVideo() {
+    console.log({ adapter });
+
+    const supported = await navigator.mediaDevices.getSupportedConstraints();
+    console.log({ supported });
+
+    const mediaConstraints = {
+      audio: false, // We want an audio track
+      video: true, // {
+      //  .. aspectRatio?: ConstrainDouble;
+      // autoGainControl?: ConstrainBoolean;
+      // channelCount?: ConstrainULong;
+      //  deviceId?: ConstrainDOMString;
+      //  echoCancellation?: ConstrainBoolean;
+      //  facingMode?: ConstrainDOMString;
+      // frameRate?: ConstrainDouble;
+      // groupId?: ConstrainDOMString;
+      // height?: ConstrainULong;
+      // latency?: ConstrainDouble;
+      // noiseSuppression?: ConstrainBoolean;
+      // sampleRate?: ConstrainULong;
+      // sampleSize?: ConstrainULong;
+      // suppressLocalAudioPlayback?: ConstrainBoolean;
+      // width?: ConstrainULong;
+      // }, // And we want a video track
+    };
+
+    // document.body.appendChild(sendChannel.vidElement);
+
+    const localStream = await navigator.mediaDevices.getUserMedia(
+      mediaConstraints,
+    );
+
+    handleSuccess(localStream);
+    function handleSuccess(localStream: MediaStream) {
+      const video = sendChannel.vidElement;
+      const videoTracks = localStream.getVideoTracks();
+      console.log("Got stream with constraints:", mediaConstraints);
+      console.log(`Using video device: ${videoTracks[0].label}`);
+      sendChannel.localStream = localStream; // make variable available to browser console
+      video.srcObject = localStream;
+    }
+
+    localStream.getVideoTracks().forEach((track) =>
+      Object.keys(sendChannel.rtcConns).map((k) => {
+        const peerConnection = sendChannel.rtcConns[k];
+
+        peerConnection.addTrack(track);
+      })
+    );
   }
 }
+
+// async function syncRTC() {
+//   try {
+//     if (Object.keys(rtcConns).length > 0) {
+//       if (webRTCLastSeenHashCode === hashCode()) {
+//         return;
+//       }
+
+//       const sess = mST();
+//       // console.//log({ wsLastHashCode });
+
+//       const message = webRTCLastSeenHashCode
+//         ? makePatchFrom(
+//           webRTCLastSeenHashCode,
+//           sess,
+//         )
+//         : makePatch(sess);
+//       if (message !== null && message.patch) {
+//         // console.//log("sendRTC");
+//         sendChannel.send(message);
+//       }
+//     }
+//   } catch (error) {
+//     // console.error("Error sending RTC...", { e: error });
+//   }
+// }
 
 export async function join() {
   if (ws !== null) {
@@ -632,12 +648,12 @@ async function processData(
       if (event.candidate) {
         // log("*** Outgoing ICE candidate: " + event.candidate);
 
-        sendChannel.send(JSON.stringify({
+        sendChannel.send({
           type: "new-ice-candidate",
-          target,
+          target: target,
           name: user,
           candidate: event.candidate.toJSON(),
-        }));
+        });
       }
     };
 

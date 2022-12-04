@@ -5787,9 +5787,10 @@ var CodeSession = class {
       if (newRecord.code !== this.session.get("state").code && newRecord.i <= this.session.get("state").i)
         throw new Error("Code update without I update error");
       const codeHash = md5(newRecord.code);
-      if (newRecord.transpiled.slice(0, 12) !== `/*${codeHash}*/`) {
+      if (newRecord.transpiled.slice(0, 12) !== "/*$" + codeHash + "*/") {
         console.error(
-          `missing: ${codeHash}, transpiled: ${newRecord.transpiled.slice(0, 12)}`
+          `missing: ${codeHash}, transpiled`,
+          newRecord.transpiled.slice(0, 12)
         );
         throw new Error("transpiled	hack issue");
       }

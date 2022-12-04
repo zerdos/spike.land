@@ -21,7 +21,7 @@ import {
   patchSync,
   require_lodash,
   resetCSS
-} from "./chunk-chunk-MIF2TXG6.mjs";
+} from "./chunk-chunk-WZJHFN4Q.mjs";
 import {
   require_react
 } from "./chunk-chunk-UX3KX3KY.mjs";
