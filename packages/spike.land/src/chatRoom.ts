@@ -565,7 +565,7 @@ export class Code {
     }
 
     const { name } = session;
-    session.webSocket.send(JSON.stringify({ i: ++this.i, hashCode: hashCode(), name: this.user }));
+    // session.webSocket.send(JSON.stringify({ i: ++this.i, hashCode: hashCode(), name: this.user }));
     // session.lastSeen = Date.now();
 
     const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
