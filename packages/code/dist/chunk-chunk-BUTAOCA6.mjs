@@ -33870,7 +33870,6 @@ var rtcConns = {};
 var bc;
 var codeSpace3;
 var wsLastHashCode = "";
-var webRTCLastSeenHashCode = "";
 var lastSeenTimestamp = 0;
 var lastSeenNow = 0;
 var ws = null;
@@ -34121,21 +34120,18 @@ async function processData(data, source, conn) {
   if (data.type === "ws-reconnect" && data.target == user) {
     rejoin(data.name);
   }
-  if (source === "ws" && data.timestamp) {
+  if (data.timestamp) {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
   if (data.hashCode || data.newHash && conn) {
     conn.hashCode = data.hashCode || data.newHash;
   }
-  if (source === "ws" && data.hashCode) {
+  if (data.hashCode) {
     wsLastHashCode = data.hashCode;
   }
-  if (source === "ws" && data.hashCode) {
+  if (data.hashCode) {
     wsLastHashCode = data.hashCode;
-  }
-  if (source === "rtc" && data.hashCode || data.newHash) {
-    webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
   if (ignoreUsers.includes(data.name)) {
     return;

@@ -527,7 +527,7 @@ async function processData(
     rejoin(data.name);
   }
 
-  if (source === "ws" && data.timestamp) {
+  if (data.timestamp) {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
@@ -535,16 +535,12 @@ async function processData(
     conn.hashCode = data.hashCode || data.newHash;
   }
 
-  if (source === "ws" && data.hashCode) {
+  if (data.hashCode) {
     wsLastHashCode = data.hashCode;
   }
 
-  if (source === "ws" && (data.hashCode)) {
+  if ((data.hashCode)) {
     wsLastHashCode = data.hashCode;
-  }
-
-  if (source === "rtc" && data.hashCode || data.newHash) {
-    webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
 
   if (ignoreUsers.includes(data.name)) {
