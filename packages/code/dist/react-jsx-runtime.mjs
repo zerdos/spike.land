@@ -78,11 +78,11 @@ var load_default = /* @__PURE__ */ __name(async () => {
 var paths = location.pathname.split("/");
 var codeSpace = paths[2];
 var rootEl = document.getElementById(`root`);
-if (location.pathname !== `/live/${codeSpace})`) {
+if (location.pathname !== `/live/${codeSpace}`) {
   const bc = new BroadcastChannel(location.origin);
   hydrate(codeSpace, 1);
   bc.onmessage = async (event) => {
-    if (event.data.codeSpace === codeSpace && location.pathname.includes("dehydrated")) {
+    if (event.data.codeSpace === codeSpace) {
       const { html, css, i } = event.data.sess;
       rootEl.setAttribute("data-i", i);
       (0, import_react_dom.unmountComponentAtNode)(document.getElementById("root"));
