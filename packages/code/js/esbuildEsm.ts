@@ -42,9 +42,8 @@ export const initAndTransform = async (
     define: { ...define, ...(opts?.define ? opts.define : {}) },
   });
 
-  const trp = opts.keepNames
-    ? importMapReplace(transformed.code)
-    : transformed.code; // .split("dataset").join("attributes");
+  const trp = importMapReplace(transformed.code);
+  // : transformed.code; // .split("dataset").join("attributes");
 
   const res = { code: `/*${md5(code)}*/` + trp + `/*${mST().i}*/` };
   return res;

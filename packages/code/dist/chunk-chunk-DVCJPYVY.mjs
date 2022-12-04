@@ -28841,7 +28841,7 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
     ...opts,
     define: { ...define2, ...opts?.define ? opts.define : {} }
   });
-  const trp = opts.keepNames ? importMapReplace(transformed.code) : transformed.code;
+  const trp = importMapReplace(transformed.code);
   const res = { code: `/*${md5(code)}*/` + trp + `/*${mST().i}*/` };
   return res;
 }, "initAndTransform");
