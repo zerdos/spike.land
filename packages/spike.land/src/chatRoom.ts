@@ -2,15 +2,15 @@ import { handleErrors } from "./handleErrors";
 import HTML from "./index.html";
 // import { RateLimiterClient } from "./rateLimiterClient";
 
-import IIFE from "./iife.html";
-// import {a} from "./staticContent.mjs"
+import importMap from "@spike.land/code/js/importmap.json";
 import { ICodeSession, resetCSS } from "@spike.land/code/js/session";
 import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
-import { CodeEnv } from "./env";
-// import importMap from "@spike.land/code/js/importmap.json";
 import AVLTree from "avl";
 import { imap } from "./chat";
+import { CodeEnv } from "./env";
+import IIFE from "./iife.html";
+import { files } from "./staticContent.mjs";
 // import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
@@ -434,10 +434,15 @@ export class Code {
         case "hydrated":
         case "dehydrated":
         case "public": {
-          const respText = HTML.replace("/**reset*/", resetCSS).replace(
-            `<root/>`,
-            `<div id="root" data-i="${i}" style="height: 100%;"><style>${mST().css}</style>${mST().html}</div>`,
-          );
+          const respText = HTML.replace("/**reset*/", resetCSS)
+            .replace(
+              `<script type="importmap"></script>`,
+              `<script type="importmap">${JSON.stringify({ imports: { ...importMap.imports, ...files } })}</script>`,
+            )
+            .replace(
+              `<root/>`,
+              `<div id="root" data-i="${i}" style="height: 100%;"><style>${mST().css}</style>${mST().html}</div>`,
+            );
 
           // const Etag = request.headers.get("Etag");
           // const newEtag = await sha256(respText);
