@@ -1,7 +1,7 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 import type { TransformOptions } from "esbuild-wasm";
 import debounce from "lodash.debounce";
-import { build, transform } from "./esbuildEsm";
+import { buildT, transform } from "./esbuildEsm";
 import { render } from "./renderToString";
 import { md5, mST, patchSync } from "./session";
 import { toUmd } from "./toUmd";
@@ -97,7 +97,7 @@ export async function runner({ code, counter, codeSpace }: {
   //   (await import("./esbuildEsm.ts")).transform;
 
   try {
-    const transpiledCode = await esmTransform(code);
+    const transpiledCode = await esmTransform(await build(code));
 
     const { html, css } = await render(transpiledCode, codeSpace);
 

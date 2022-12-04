@@ -99,7 +99,7 @@ const definePrd = {
 
 let skipImportmapReplaceNames = false;
 // let lastbuild;
-const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false, code: syr) => {
+const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
   // if (lastbuild) {
   // lastbuild = await lastbuild.rebuild();
   //
@@ -171,7 +171,79 @@ const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle =
   return false;
 };
 
-export { build };
+const buildT = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
+  // if (lastbuild) {
+  // lastbuild = await lastbuild.rebuild();
+  //
+  // return lastbuild.outputFiles![0].contents;
+  // }
+  const initFinished = mod.initialize();
+  // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
+
+  if (initFinished !== true) await (initFinished);
+  // skipImportmapReplaceNames = true;
+  const defaultOpts: BuildOptions = {
+    bundle: false,
+    resolveExtensions: [
+      ".tsx",
+      ".ts",
+      ".jsx",
+      ".js",
+      ".d.ts",
+      ".css",
+      ".json",
+      ".mjs",
+      ".js",
+      ".wasm",
+      ".ttf",
+    ],
+    loader: {
+      ".js": "tsx",
+      ".tsx": "tsx",
+      ".css": "css",
+      ".ttf": "dataurl",
+    },
+    write: false,
+    metafile: true,
+    target: "es2022",
+    outdir: `./`,
+    treeShaking: true,
+    minify: false,
+    define: define,
+    minifyIdentifiers: false,
+    minifySyntax: false,
+    minifyWhitespace: false,
+    splitting: false,
+    incremental: true,
+    format: "esm",
+    // external: Object.keys(importMapImports),
+    entryPoints: [
+      `./live/${codeSpace}/index.tsx?i=${i}`,
+      // `./render.tsx?i=${i}`,
+      // "./reactDomClient.mjs",
+      // "./emotion.mjs",
+      // "./motion.mjs",
+      // "./emotionCache.mjs",
+      // "./emotionStyled.mjs",
+      // "./reactMod.mjs",
+      // "./reactDom.mjs",
+    ],
+
+    tsconfig: "./tsconfig.json",
+    plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)],
+  };
+  let b;
+  if (
+    !signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted
+  ) {
+    console.log(b.outputFiles);
+
+    return b.outputFiles![0].contents;
+  }
+  return false;
+};
+
+export { build, buildT };
 export { initAndTransform as transform };
 
 function importMapReplace(codeInp: string) {
