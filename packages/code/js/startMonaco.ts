@@ -11,7 +11,7 @@ import { getWorkerUrl } from "./monacoWorkers.mjs";
 const { createModel } = editor;
 const create = editor.create;
 
-const originToUse = location.origin.includes("spike")
+const originToUse = window.origin.includes("spike")
   ? location.origin
   : "https://testing.spike.land/";
 
@@ -429,7 +429,10 @@ async function startMonacoPristine(
     },
   };
 
-  model.onDidChangeContent(() => mod.silent == false && onChange(model.getValue()));
+  model.onDidChangeContent((ev) => {
+    console.log({ version: model.getVersionId(), ev });
+    mod.silent == false && onChange(model.getValue());
+  });
 
   return mod;
 }
