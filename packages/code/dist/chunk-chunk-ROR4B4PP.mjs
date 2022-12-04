@@ -21,6 +21,7 @@ import {
   hashCode,
   mST,
   makePatch,
+  makePatchFrom,
   md5,
   onSessionUpdate,
   startSession
@@ -3339,6 +3340,7 @@ __name(adapterFactory, "adapterFactory");
 
 // ../../.yarn/global/cache/webrtc-adapter-npm-8.2.0-3d75ed65ad-9.zip/node_modules/webrtc-adapter/src/js/adapter_core.js
 var adapter = adapterFactory({ window: typeof window === "undefined" ? void 0 : window });
+var adapter_core_default = adapter;
 
 // js/renderPreviewWindow.tsx
 init_define_process();
@@ -3759,6 +3761,40 @@ var sendChannel = {
     });
   }
 };
+async function stopVideo() {
+  if (!sendChannel.localStream)
+    return;
+}
+__name(stopVideo, "stopVideo");
+async function startVideo() {
+  console.log({ adapter: adapter_core_default });
+  const supported = await navigator.mediaDevices.getSupportedConstraints();
+  console.log({ supported });
+  const mediaConstraints = {
+    audio: false,
+    video: true
+  };
+  const localStream = await navigator.mediaDevices.getUserMedia(
+    mediaConstraints
+  );
+  handleSuccess(localStream);
+  function handleSuccess(localStream2) {
+    const video = sendChannel.vidElement;
+    const videoTracks = localStream2.getVideoTracks();
+    console.log("Got stream with constraints:", mediaConstraints);
+    console.log(`Using video device: ${videoTracks[0].label}`);
+    sendChannel.localStream = localStream2;
+    video.srcObject = localStream2;
+  }
+  __name(handleSuccess, "handleSuccess");
+  localStream.getVideoTracks().forEach(
+    (track) => Object.keys(sendChannel.rtcConns).map((k) => {
+      const peerConnection = sendChannel.rtcConns[k];
+      peerConnection.addTrack(track);
+    })
+  );
+}
+__name(startVideo, "startVideo");
 sendChannel.vidElement.playsInline = true;
 sendChannel.vidElement.autoplay = true;
 Object.assign(globalThis, { sendChannel, mST, users });
@@ -3795,7 +3831,8 @@ var run = /* @__PURE__ */ __name(async (startState) => {
     }
   };
   onSessionUpdate(
-    () => {
+    async () => {
+      await syncWS();
       const sess = mST();
       bc.postMessage({
         ignoreUser: user,
@@ -3820,6 +3857,22 @@ async function rejoin() {
 }
 __name(rejoin, "rejoin");
 var ignoreUsers = [];
+async function syncWS() {
+  const sess = mST();
+  const message = await makePatchFrom(
+    wsLastHashCode,
+    sess
+  );
+  if (!message) {
+    return;
+  }
+  if (message.newHash !== hashCode()) {
+    return;
+  }
+  const msg = { ...message, name: user };
+  sendChannel.send(msg);
+}
+__name(syncWS, "syncWS");
 async function join() {
   if (ws !== null) {
     return ws;
