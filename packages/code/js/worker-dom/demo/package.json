@@ -1,9 +1,0 @@
-{
-  "name": "demo",
-  "packageManager": "yarn@4.0.0-rc.26",
-  "dependencies": {
-    "esbuild": "^0.15.15",
-    "polka": "^0.5.2",
-    "sirv": "^2.0.2"
-  }
-}
