@@ -432,7 +432,7 @@ export async function join() {
       (message) => {
         processWsMessage(message, "ws", extendedWS);
         setTimeout(() => {
-          ws.send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
+          send(JSON.stringify({ name: user, hashCode: hashCode(), i: ++sendChannel.i }));
         }, sendChannel.i);
       },
     );
