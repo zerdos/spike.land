@@ -105,7 +105,7 @@ export async function runner({ code, counter, codeSpace }: {
     await save({
       ...mST(),
       code,
-      i: counter,
+      i: counter + 1,
       transpiled: transpiledCode,
       html,
       css,

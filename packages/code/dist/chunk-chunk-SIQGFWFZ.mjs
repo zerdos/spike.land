@@ -31748,7 +31748,7 @@ async function runner({ code, counter, codeSpace: codeSpace4 }) {
     await save({
       ...mST(),
       code,
-      i: counter,
+      i: counter + 1,
       transpiled: transpiledCode,
       html,
       css: css4
