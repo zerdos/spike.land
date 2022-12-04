@@ -680,6 +680,9 @@ export class Code {
             data.type,
           )
         ) {
+          if (data.target === this.user) {
+            this.broadcast({ user: this.user, i: ++this.i, hashCode, type: "ws-reconnect", target: data.name });
+          }
           return this.user2user(data.target, data);
         }
 

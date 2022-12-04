@@ -17,6 +17,10 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const mutex = new Mutex();
 
+if (location.pathname.includes(`/live/${codeSpace}/hydrated`)) {
+  runInWorker(codeSpace, document.getElementById("root")!);
+}
+
 export const createIframe = async (cs: string, counter: number) => {
   await mutex.runExclusive(async () => {
     if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
@@ -274,7 +278,7 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
 
         if (resp.ok) {
           try {
-            App = (await importShim(url)).default as FC;
+            App = (await import(url)).default as FC;
 
             return { App, url: resp.url };
           } catch {
@@ -285,7 +289,7 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
             } catch {
               console.error("something went nuts");
 
-              App = (await importShim(createJsBlob(trp))).default;
+              App = (await import(createJsBlob(trp))).default;
             }
             myApps[nUrl] = App;
 
@@ -398,7 +402,7 @@ export async function appFactory(
       let mod;
 
       try {
-        mod = await importShim(createJsBlob(trp));
+        mod = await import(createJsBlob(trp));
       } catch {
         mod = new Function(trp + ` return ${trp.slice(2, 10)}`)();
       }
