@@ -77,12 +77,12 @@ export const umdTransform = async (code: string) => {
 //   umdTransform,
 // });
 
-export async function runner({ code: c, counter, codeSpace }: {
-  c: string;
+export async function runner({ code, counter, codeSpace }: {
+  code: string;
   codeSpace: string;
   counter: number;
 }) {
-  const code = prettierJs(c);
+  // const code = prettierJs(c);
   if (counter < counterMax) return;
 
   counterMax = counter;

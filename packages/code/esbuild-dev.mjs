@@ -210,8 +210,6 @@ const build = (
     ...buildOptions,
     entryPoints: [
       "js/sw.ts",
-
-      "js/react-jsx-runtime.tsx",
     ],
     bundle: true,
     define,
@@ -256,16 +254,15 @@ const build = (
     [
       "js/session.ts",
       // "js/prettierWorker.mjs",
-      "js/load.ts",
       // "js/reactMod.ts",
       "js/Editor.tsx",
       // "js/motion.ts",
       "js/ws.ts",
-      "js/starter.tsx",
       "js/reactMod.ts",
       // "js/Editor.tsx",
       "js/motion.ts",
       "js/reactDom.ts",
+      "js/react-jsx-runtime.tsx",
       "js/reactDomClient.ts",
       "js/esbuildWASM.ts",
 

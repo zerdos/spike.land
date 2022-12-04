@@ -55,6 +55,9 @@ const tracks: {
 } = {};
 const wsConns: {
   [key: string]: {
+    target: string;
+    lastSeen: number;
+
     send: (data: string) => boolean;
   };
 } = {};
@@ -71,7 +74,7 @@ type DataObj = Partial<{
   i: number;
   patch: Delta[];
   oldHash: string;
-  type: "ping" | "new-ice-candidate" | "video-offer" | "video-answer";
+  type: "ping" | "new-ice-candidate" | "video-offer" | "video-answer" | "ws-reconnect";
   answer: object;
   candidate: object;
 }>;
@@ -282,13 +285,15 @@ export const run = async (startState: {
       const messageData = makePatch(event.data.sess);
       if (messageData) {
         await applyPatch(messageData);
+        const msg = { ...messageData, name: user, i: ++sendChannel.i };
+        sendChannel.send(msg);
       }
     }
   };
 
   onSessionUpdate(
     async () => {
-      await syncWS();
+      // await syncWS();
       // debouncedSyncRTC();
 
       const sess = mST();
@@ -313,11 +318,23 @@ export const run = async (startState: {
 
 let intervalHandler: NodeJS.Timer;
 
-async function rejoin() {
+async function rejoin(wsName: string) {
   if (!rejoined || ws === null) {
     ws = null;
 
     const newWs = await join();
+    users.insert(wsName);
+    sendChannel.wsConns[wsName] = {
+      send: (str: string) => {
+        if (ws && ws.readyState == ws.OPEN) {
+          ws!.send(str);
+          return true;
+        }
+        return false;
+      },
+      target: wsName,
+      lastSeen: Date.now(),
+    };
 
     return newWs;
   }
@@ -362,8 +379,6 @@ async function syncWS() {
     return;
   }
 
-  const msg = { ...message, name: user };
-  sendChannel.send(msg);
   // } else {
   // rejoined = false;
   // await rejoin();
@@ -417,18 +432,15 @@ export async function join() {
   wsConnection.addEventListener("open", () => {
     // console.//log("NEW WS CONNECTION");
     ws = wsConnection;
-    wsConnection.onclose = () => rejoin();
+    // wsConnection.onclose = () => rejoin();
     const send = (data: string) => {
-      try {
-        if (ws?.readyState === ws?.OPEN) ws && ws?.send && ws?.send(data);
-        else {
-          rejoin();
-        }
-      } catch {
-        ws = null;
-        rejoined = false;
+      if (ws?.readyState === ws?.OPEN) {
+        ws && ws?.send && ws?.send(data);
+        // else {
+        // rejoin();
+        // }r
 
-        rejoin();
+        return true;
       }
       return true;
     };
@@ -506,6 +518,10 @@ async function processData(
   // console.//log("ws", data.name, data.oldHash, data.newHash);
 
   // MySession.addEvent(data);s
+
+  if (data.type === "ws-reconnect" && data.target == user) {
+    rejoin(data.name);
+  }
 
   if (source === "ws" && data.timestamp) {
     lastSeenNow = Date.now();
@@ -827,12 +843,12 @@ async function processData(
         // Send the offer to the remote peer.
 
         // log("---> Sending the offer to the remote peer");
-        sendChannel.send(JSON.stringify({
+        sendChannel.send({
           target,
           name: user,
           type: "video-offer",
           offer: rtcConns[target].localDescription,
-        }));
+        });
       } catch {
         // log(
         //   "*** The following error occurred while handling the negotiationneeded event:",
@@ -913,12 +929,12 @@ async function processData(
       answer,
     );
 
-    sendChannel.send(JSON.stringify({
+    sendChannel.send({
       target,
       name: user,
       type: "video-answer",
       answer,
-    }));
+    });
   }
 }
 

@@ -32,11 +32,11 @@ export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin
     // the newly resolved URL in the "http-url" namespace so imports
     // inside it will also be resolved as URLs recursively.
     build.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
-      path: importShim.resolve(args.path, args.importer),
+      path: new URL(args.path, args.importer).toString(),
       namespace: "http-url",
     }));
     build.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
-      path: importShim.resolve(args.path, args.importer),
+      path: new URL(args.path, args.importer).toString(),
       namespace: "ttf",
     }));
 
