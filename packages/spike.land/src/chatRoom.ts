@@ -593,6 +593,7 @@ export class Code {
         exp: exp || {},
       });
     }
+    if (data.i <= this.i) return;
 
     if (!name) {
       if (data.name) {
@@ -681,7 +682,13 @@ export class Code {
           )
         ) {
           if (data.target === this.user) {
-            this.broadcast({ user: this.user, i: ++this.i, hashCode, type: "ws-reconnect", target: data.name });
+            this.broadcast({
+              user: this.user,
+              i: data.i || ++this.i,
+              hashCode,
+              type: "ws-reconnect",
+              target: data.name,
+            });
           }
           return this.user2user(data.target, data);
         }
