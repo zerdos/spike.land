@@ -266,7 +266,7 @@ const build = (
       "js/reactDomClient.ts",
       "js/esbuildWASM.ts",
 
-      // "js/ws.ts",
+      "js/load.ts",
       "js/emotion.ts",
       "js/emotionCache.ts",
       "js/emotionStyled.mjs",

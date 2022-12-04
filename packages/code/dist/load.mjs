@@ -1,7 +1,5 @@
 import {
-  join,
-  run,
-  sendChannel
+  run
 } from "./chunk-chunk-HXGSI37Q.mjs";
 import "./chunk-chunk-S4BQ7CKD.mjs";
 import "./chunk-chunk-ZZWIKWD4.mjs";
@@ -16,9 +14,26 @@ import "./chunk-chunk-ZL6L5B7C.mjs";
 import "./chunk-chunk-FFMS35Y7.mjs";
 import "./chunk-chunk-M3XF32XQ.mjs";
 import "./chunk-chunk-UX3KX3KY.mjs";
-import "./chunk-chunk-A3E5PINE.mjs";
+import {
+  __name,
+  init_define_process
+} from "./chunk-chunk-A3E5PINE.mjs";
+
+// js/load.ts
+init_define_process();
+var load_default = /* @__PURE__ */ __name(async () => {
+  const codeSpace = location.pathname.slice(1).split("/")[1];
+  const {
+    mST,
+    address
+  } = await import(`${location.origin}/live/${codeSpace}/mST.mjs`);
+  run({
+    mST,
+    dry: false,
+    codeSpace,
+    address
+  });
+}, "default");
 export {
-  join,
-  run,
-  sendChannel
+  load_default as default
 };
