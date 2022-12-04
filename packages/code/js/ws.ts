@@ -33,6 +33,7 @@ const user = md5(((self && self.crypto && self.crypto.randomUUID
   ));
 
 users.insert(user);
+
 const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection
 let bc: BroadcastChannel;
 
@@ -113,8 +114,8 @@ export const sendChannel = {
     // console.log(data);
 
     const sendToUser = (u: string) => {
-      webRtcArray.find(t => t.target === u)?.send(data) || wsConns[u]?.send(data) && users.remove(u);
-    };
+      webRtcArray.find(t => t.target === u)?.send(data) || wsConns[u]?.send(data) || users.remove(u);
+    };x§
     const target = d.target;
     if (target) {
       if (target === user) {
@@ -325,6 +326,8 @@ async function rejoin(wsName: string) {
 
     const newWs = await join();
     users.insert(wsName);
+    const t = users.find(wsName);
+
     sendChannel.wsConns[wsName] = {
       send: (str: string) => {
         if (ws && ws.readyState == ws.OPEN) {
@@ -336,6 +339,7 @@ async function rejoin(wsName: string) {
       target: wsName,
       lastSeen: Date.now(),
     };
+    Object.assign(t!, sendChannel.wsConns[wsName]!);
 
     return newWs;
   }
@@ -720,13 +724,13 @@ async function processData(
       // const arrBuff = js.valueOf();
 
       // console.log({ js });
-      users.insert(target);
       rtcConns[target];
       // event.channel.send(arrBuff as ArrayBuffer);
 
       // console.//log("Receive Channel Callback");
       const rtcChannel = event.channel;
       rtcChannel.binaryType = "arraybuffer";
+
       rtcChannel.addEventListener("close", onReceiveChannelClosed);
 
       if (
@@ -762,6 +766,11 @@ async function processData(
             // broadcast: ()=>{}
           ),
       );
+      users.insert(target);
+      const t = users.find(target);
+
+      Object.assign(t!, conn);
+
       const rtcWithTarget = Object.assign(rtc, { target });
       webRtcArray.push(rtcWithTarget);
     };

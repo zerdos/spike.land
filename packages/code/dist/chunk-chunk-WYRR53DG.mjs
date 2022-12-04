@@ -33906,7 +33906,7 @@ var sendChannel = {
       d2.name = user;
     const data = JSON.stringify(d2);
     const sendToUser = /* @__PURE__ */ __name((u2) => {
-      webRtcArray.find((t2) => t2.target === u2)?.send(data) || wsConns[u2]?.send(data) && users.remove(u2);
+      webRtcArray.find((t2) => t2.target === u2)?.send(data) || wsConns[u2]?.send(data) || users.remove(u2);
     }, "sendToUser");
     const target = d2.target;
     if (target) {
@@ -34034,6 +34034,7 @@ async function rejoin(wsName) {
     ws = null;
     const newWs = await join();
     users.insert(wsName);
+    const t2 = users.find(wsName);
     sendChannel.wsConns[wsName] = {
       send: (str) => {
         if (ws && ws.readyState == ws.OPEN) {
@@ -34045,6 +34046,7 @@ async function rejoin(wsName) {
       target: wsName,
       lastSeen: Date.now()
     };
+    Object.assign(t2, sendChannel.wsConns[wsName]);
     return newWs;
   }
   return ws;
@@ -34251,7 +34253,6 @@ async function processData(data, source, conn) {
       };
     };
     rtcConns[target].ondatachannel = async (event) => {
-      users.insert(target);
       rtcConns[target];
       const rtcChannel = event.channel;
       rtcChannel.binaryType = "arraybuffer";
@@ -34280,6 +34281,9 @@ async function processData(data, source, conn) {
           conn2
         )
       );
+      users.insert(target);
+      const t2 = users.find(target);
+      Object.assign(t2, conn2);
       const rtcWithTarget = Object.assign(rtc, { target });
       webRtcArray.push(rtcWithTarget);
     };
