@@ -1,4 +1,4 @@
-import localForage from "localforage";
+// import localForage from "localforage";
 
 import "monaco-editor/esm/vs/editor/editor.all";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
@@ -389,13 +389,16 @@ async function startMonacoPristine(
     theme: "vs-dark",
     autoClosingBrackets: "beforeWhitespace",
   });
-
+  // if (globalThis[codeSpace]){
+  // globalThis[codeSpace]!.model  && myEditor.setModel( globalThis[codeSpace]!.model );
+  //   globalThis[codeSpace].viewState && myEditor.restoreViewState(globalThis[codeSpace].viewState);
+  // }
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 
-  const memoryCache = localForage.createInstance({
-    name: "model-" + codeSpace,
-  });
+  // const memoryCache = localForage.createInstance({
+  //   name: "model-" + codeSpace,
+  // });
 
   const mod = {
     getValue: () => model.getValue(),
@@ -435,23 +438,26 @@ async function startMonacoPristine(
     },
   };
 
-  let start = await memoryCache.getItem("start");
+  // let start = await memoryCache.getItem("start");
 
-  if (!start) {
-    memoryCache.setItem("start", model.getValue());
-    memoryCache.setItem("versionId", model.getVersionId());
-  } else {
-    let i;
-    const versionId = await memoryCache.getItem("versionId");
-    for (i = 0; i <= versionId!; i++) {
-      const ev = await memoryCache.getItem(i.toString());
-      if (ev) model.applyEdits(ev!.changes!);
-    }
-  }
+  // if (!start) {
+  //   memoryCache.setItem("start", model.getValue());
+  //   memoryCache.setItem("versionId", model.getVersionId());
+  // } else {
+  //   let i;
+  //   const versionId = await memoryCache.getItem("versionId");
+  //  const evs =await Promise.all( new Array(versionId).fill(0).map((_,i)=>memoryCache.getItem(i.toString())))
+  //  evs.map(ev=>model.applyEdits(ev.changes));
+
+  // }
+
+  // globalThis[codeSpace] =  globalThis[codeSpace] = {model:  myEditor.getModel(),
+  // viewState: myEditor.saveViewState()};
 
   model.onDidChangeContent((ev) => {
-    memoryCache.setItem(model.getVersionId().toString(), ev);
-    model.applyEdits(ev.changes);
+    // globalThis[codeSpace].model = myEditor.getModel();
+    // globalThis[codeSpace].viewState = myEditor.saveViewState();
+
     console.log({ version: model.getVersionId(), ev });
     mod.silent == false && onChange(model.getValue());
   });
