@@ -249,7 +249,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               <motion.iframe
                 ref={iRef}
                 frameBorder={0}
-                layout="preserve-aspect"
                 initial={{
                   width: window.innerWidth,
                   height: window.innerHeight,
