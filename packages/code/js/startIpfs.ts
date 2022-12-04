@@ -139,9 +139,6 @@ export const startIpfs = async (codeSpace: string) => {
       // Chunks of data are returned as a Uint8Array, convert it back to a string
       data += decoder.decode(chunk, { stream: true });
     }
-
-    console.log(data);
-    return data;
   };
   Object.assign(globalThis, { cat, send, ipfs, routers, newOptions });
   //  Const room =  new PubSubRoom(ipfs.libp2p, '12D3KooWQNWHF6o7jdEq6VQAYmE4tnYyJw7XTMHip49whBfdi7MJ')
