@@ -1,3 +1,5 @@
+import localForage from "localforage";
+
 import "monaco-editor/esm/vs/editor/editor.all";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
@@ -391,6 +393,10 @@ async function startMonacoPristine(
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 
+  const memoryCache = localForage.createInstance({
+    name: "model-" + codeSpace,
+  });
+
   const mod = {
     getValue: () => model.getValue(),
     silent: false,
@@ -429,7 +435,10 @@ async function startMonacoPristine(
     },
   };
 
+  let start = await memoryCache.getItem("start");
+  if (!start) memoryCache.setItem("start", model.getValue());
   model.onDidChangeContent((ev) => {
+    memoryCache.setItem(model.getVersionId().toString(), ev);
     console.log({ version: model.getVersionId(), ev });
     mod.silent == false && onChange(model.getValue());
   });

@@ -537,6 +537,9 @@ import {
   withNullAsUndefined
 } from "./chunk-chunk-TAGV4JSJ.mjs";
 import {
+  require_localforage
+} from "./chunk-chunk-AULC7L4Y.mjs";
+import {
   __commonJS,
   __esm,
   __name,
@@ -3560,6 +3563,7 @@ var require_replace_all2 = __commonJS({
 
 // js/startMonaco.ts
 init_define_process();
+var import_localforage = __toESM(require_localforage(), 1);
 
 // ../../.yarn/global/cache/monaco-editor-npm-0.35.0-dev.20221204-ea0d8b005c-9.zip/node_modules/monaco-editor/esm/vs/editor/editor.all.js
 init_define_process();
@@ -42679,6 +42683,9 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
   });
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   setTimeout(() => extraStuff(code, uri, languages.typescript), 1e3);
+  const memoryCache = import_localforage.default.createInstance({
+    name: "model-" + codeSpace
+  });
   const mod2 = {
     getValue: () => model.getValue(),
     silent: false,
@@ -42712,7 +42719,11 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
       }
     }
   };
+  let start = await memoryCache.getItem("start");
+  if (!start)
+    memoryCache.setItem("start", model.getValue());
   model.onDidChangeContent((ev) => {
+    memoryCache.setItem(model.getVersionId().toString(), ev);
     console.log({ version: model.getVersionId(), ev });
     mod2.silent == false && onChange(model.getValue());
   });

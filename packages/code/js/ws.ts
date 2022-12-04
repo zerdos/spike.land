@@ -115,7 +115,7 @@ export const sendChannel = {
 
     const sendToUser = (u: string) => {
       webRtcArray.find(t => t.target === u)?.send(data) || wsConns[u]?.send(data) || users.remove(u);
-    };x§
+    };
     const target = d.target;
     if (target) {
       if (target === user) {
