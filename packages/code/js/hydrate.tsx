@@ -11,16 +11,19 @@ export { md5 };
 let root: HTMLDivElement;
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
-  const App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
-
   let rootEl: HTMLDivElement;
+  let App;
   if (sess) {
     rootEl = document.createElement("div");
-    const { css, html, transpiled } = sess;
+    const { i, css, html, transpiled } = sess;
     rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
     document.body.appendChild(rootEl);
+    App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   } else {
-    rootEl = document.getElementById(codeSpace + "-css")!;
+    rootEl = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
+    const rt = document.getElementById("root");
+    const i = rt?.getAttribute("data-i") || 1;
+    App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   }
 
   if (root) unmountComponentAtNode(root);

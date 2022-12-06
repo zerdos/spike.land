@@ -34,15 +34,19 @@ var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1)
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var root;
 var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
-  const App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   let rootEl;
+  let App;
   if (sess) {
     rootEl = document.createElement("div");
-    const { css, html, transpiled } = sess;
+    const { i, css, html, transpiled } = sess;
     rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
     document.body.appendChild(rootEl);
+    App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   } else {
     rootEl = document.getElementById(codeSpace + "-css");
+    const rt = document.getElementById("root");
+    const i = rt?.getAttribute("data-i") || 1;
+    App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   }
   if (root)
     (0, import_react_dom.unmountComponentAtNode)(root);
