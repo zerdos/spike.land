@@ -437,7 +437,7 @@ export class Code {
           const respText = HTML.replace("/**reset*/", resetCSS + css.split(md5(transpiled)).join(`css`))
             .replace(
               `<script type="importmap"></script>`,
-              `<script type="importmap">${JSON.stringify({ imports: { ...importMap.imports, ...files } })}</script>`,
+              `<script type="importmap">${JSON.stringify({ imports: { ...files, ...importMap.imports } })}</script>`,
             )
             .replace(
               `<root/>`,
