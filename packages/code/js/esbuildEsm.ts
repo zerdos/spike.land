@@ -271,6 +271,12 @@ function importMapReplace(codeInp: string) {
     if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
       return x.replace(` '`, ` '${location.origin}/npm:/`);
     }
+    if (x.startsWith("import") && x.includes(location.origin)) {
+      const u = new URL(x.split(`"`)[1]);
+      if (u && u.pathname.indexOf(".") === -1) {
+        return x.slice(0, -1) + `/index.js"`;
+      }
+    }
     return x;
   }).join(";");
 
