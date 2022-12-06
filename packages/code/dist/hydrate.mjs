@@ -32,6 +32,7 @@ var import_react_dom = __toESM(require_react_dom(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var r;
 var root;
 var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   let rootEl;
@@ -51,8 +52,10 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   if (root)
     (0, import_react_dom.unmountComponentAtNode)(root);
   root = rootEl;
-  (0, import_client.hydrateRoot)(
-    rootEl,
+  if (r)
+    r.unmount();
+  r = (0, import_client.createRoot)(rootEl);
+  r.render(
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
       import_react_error_boundary.ErrorBoundary,
       {

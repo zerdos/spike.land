@@ -1,13 +1,16 @@
 import { StrictMode } from "react";
 
 import { unmountComponentAtNode } from "react-dom";
-import { hydrateRoot } from "react-dom/client";
+import type { Root } from "react-dom/client";
+
+import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "react-error-boundary";
 import type { ICodeSession } from "session";
 import { md5 } from "./md5";
 
 export { md5 };
 
+let r: Root;
 let root: HTMLDivElement;
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
@@ -28,9 +31,9 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
 
   if (root) unmountComponentAtNode(root);
   root = rootEl;
-
-  hydrateRoot(
-    rootEl,
+  if (r) r.unmount();
+  r = createRoot(rootEl);
+  r.render(
     <StrictMode>
       <ErrorBoundary
         fallbackRender={({ error }) => (
