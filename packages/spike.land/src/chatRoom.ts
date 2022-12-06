@@ -781,17 +781,17 @@ function importMapReplace(codeInp: string, origin: string) {
   items.map((lib: keyof typeof imap.imports) => {
     const uri = (new URL(imap.imports[lib], origin)).toString();
     returnStr = returnStr.replaceAll(
-      ` from '${lib}'`,
-      ` from '${uri}'`,
+      ` from "${lib}"`,
+      ` from "${uri}"`,
     ).replaceAll(
-      ` from './`,
-      ` from 'https://${origin}/live/`,
+      ` from "./`,
+      ` from "https://${origin}/live/`,
     );
   });
 
   returnStr.split(";").map(x => {
-    if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
-      return x.replace(`'`, `'${origin}/npm:/`);
+    if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
+      return x.replace(`"`, `"${origin}/npm:/`);
     }
     return x;
   }).join(";");
