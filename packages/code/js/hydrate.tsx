@@ -6,10 +6,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import type { ICodeSession } from "session";
 import { md5 } from "./md5";
 
-export {md5}
+export { md5 };
 
 let root: HTMLDivElement;
-
 
 export const hydrate = async (codeSpace: string, sess: ICodeSession) => {
   const { i, css, html, transpiled } = sess;

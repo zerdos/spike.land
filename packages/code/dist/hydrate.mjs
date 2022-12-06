@@ -58,5 +58,6 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   );
 }, "hydrate");
 export {
-  hydrate
+  hydrate,
+  md5
 };
