@@ -364,43 +364,40 @@ export class Code {
                 return true;
               })
             );
-            return new Response(
-              importMapReplace(
-                body,
-                url.origin,
-              ),
-              {
-                status: 200,
-                headers: {
-                  "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
-                  "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "no-cache",
+            const trp = importMapReplace(body, url.origin);
+            return new Response(trp, {
+              status: 200,
+              headers: {
+                "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
 
-                  content_hash: md5(body),
-                  "Content-Type": "application/javascript; charset=UTF-8",
-                },
+                content_hash: md5(trp),
+                "Content-Type": "application/javascript; charset=UTF-8",
               },
-            );
+            });
           }
           if (i < mST().i) {
-            return new Response(transpiled, {
+            const trp = importMapReplace(transpiled, url.origin);
+            return new Response(trp, {
               status: 307,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Location": `${url.origin}/live/${this.codeSpace}/index.js/${mST().i}`,
                 "Cache-Control": "no-cache",
 
-                content_hash: md5(transpiled),
+                content_hash: md5(trp),
                 "Content-Type": "application/javascript; charset=UTF-8",
               },
             });
           }
-          return new Response(transpiled, {
+          const trp = importMapReplace(transpiled, url.origin);
+          return new Response(trp, {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
 
-              content_hash: md5(transpiled),
+              content_hash: md5(trp),
               "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
