@@ -6,6 +6,7 @@ import { md5 } from "./md5";
 
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
+import { prettierJs } from "prettierEsm";
 import { mST } from "./session";
 const mod = {
   init: false as (boolean | Promise<void>),
@@ -30,22 +31,22 @@ const mod = {
 };
 
 export const initAndTransform = async (
-  code: string,
+  c: string,
   opts: TransformOptions,
 ) => {
+  const code = prettierJs(c)!;
   const initFinished = mod.initialize();
 
   if (initFinished !== true) await (initFinished);
 
-  const transformed = await transform(code, {
+  const transformed = await transform(importMapReplace(code), {
     ...opts,
     define: { ...define, ...(opts?.define ? opts.define : {}) },
   });
 
-  const trp = importMapReplace(transformed.code);
   // : transformed.code; // .split("dataset").join("attributes");
 
-  const res = { code: `/*${md5(code)}*/` + trp + `/*${mST().i}*/` };
+  const res = { code: `/*${md5(c)}*/` + transformed.code + `/*${mST().i}*/` };
   return res;
 };
 
@@ -255,13 +256,20 @@ function importMapReplace(codeInp: string) {
   items.map((lib: keyof typeof importMapImports) => {
     const uri = (new URL(importMapImports[lib], location.origin)).toString();
     returnStr = returnStr.replaceAll(
-      ` from "${lib}"`,
-      ` from "${uri}"`,
+      ` from '${lib}'`,
+      ` from '${uri}'`,
     ).replaceAll(
       ` from './`,
       ` from 'https://${location.origin}/live/`,
     );
   });
+
+  returnStr.split(";").map(x => {
+    if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
+      return x.replace(`'`, `'${location.origin}/npm:/`);
+    }
+    return x;
+  }).join(";");
 
   return returnStr;
 }
