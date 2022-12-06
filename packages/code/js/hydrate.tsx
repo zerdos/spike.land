@@ -19,9 +19,10 @@ export const hydrate = (codeSpace: string, sess?: ICodeSession) => {
     let App;
     if (sess) {
       rootEl = document.createElement("div");
-      const { i, css, html } = sess;
-      rootEl.innerHTML = `<style>${css}</style>${html}`;
-      document.body.appendChild(rootEl);
+      const { i, css, html, transpiled } = sess;
+      rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+      document.getElementById(`root`)?.replaceWith(rootEl);
+      rootEl.setAttribute('id')
       App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
     } else {
       rootEl = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
