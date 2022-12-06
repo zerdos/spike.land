@@ -10,16 +10,19 @@ export { md5 };
 
 let root: HTMLDivElement;
 
-export const hydrate = async (codeSpace: string, sess: ICodeSession) => {
-  const { i, css, html, transpiled } = sess;
+export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
   const App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
 
-  const rootEl = sess
-    ? document.createElement("div")
-    : document.getElementById(codeSpace + "-css") || document.createElement("div");
+  let rootEl: HTMLDivElement;
+  if (sess) {
+    rootEl = document.createElement("div");
+    const { css, html, transpiled } = sess;
+    rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+    document.body.appendChild(rootEl);
+  } else {
+    rootEl = document.getElementById(codeSpace + "-css")!;
+  }
 
-  rootEl.innerHTML = rootEl.innerHTML || `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
-  document.body.appendChild(rootEl);
   if (root) unmountComponentAtNode(root);
   root = rootEl;
 
@@ -29,7 +32,7 @@ export const hydrate = async (codeSpace: string, sess: ICodeSession) => {
       <ErrorBoundary
         fallbackRender={({ error }) => (
           <div role="alert">
-            <div>Oh n o</div>
+            <div>Oh, no!!!</div>
             <pre>{error.message}</pre>
           </div>
         )}
@@ -37,7 +40,6 @@ export const hydrate = async (codeSpace: string, sess: ICodeSession) => {
         <App />
       </ErrorBoundary>
     </StrictMode>,
-    { identifierPrefix: md5(transpiled) },
   );
 
   // root = newRoot;

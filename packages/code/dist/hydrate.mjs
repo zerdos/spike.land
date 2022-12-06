@@ -34,11 +34,16 @@ var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1)
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var root;
 var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
-  const { i, css, html, transpiled } = sess;
   const App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
-  const rootEl = sess ? document.createElement("div") : document.getElementById(codeSpace + "-css") || document.createElement("div");
-  rootEl.innerHTML = rootEl.innerHTML || `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
-  document.body.appendChild(rootEl);
+  let rootEl;
+  if (sess) {
+    rootEl = document.createElement("div");
+    const { css, html, transpiled } = sess;
+    rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+    document.body.appendChild(rootEl);
+  } else {
+    rootEl = document.getElementById(codeSpace + "-css");
+  }
   if (root)
     (0, import_react_dom.unmountComponentAtNode)(root);
   root = rootEl;
@@ -48,13 +53,12 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
       import_react_error_boundary.ErrorBoundary,
       {
         fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { role: "alert", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Oh n o" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Oh, no!!!" }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { children: error.message })
         ] }),
         children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
       }
-    ) }),
-    { identifierPrefix: md5(transpiled) }
+    ) })
   );
 }, "hydrate");
 export {
