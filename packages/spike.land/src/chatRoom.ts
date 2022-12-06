@@ -773,19 +773,28 @@ export class Code {
 }
 
 function importMapReplace(codeInp: string, origin: string) {
-  const items = Object.keys(imap.imports) as (keyof typeof imap.imports)[];
+  const items = Object.keys(
+    imap.imports,
+  ) as (keyof typeof imap.imports)[];
   let returnStr = codeInp;
 
   items.map((lib: keyof typeof imap.imports) => {
     const uri = (new URL(imap.imports[lib], origin)).toString();
     returnStr = returnStr.replaceAll(
-      ` from "${lib}"`,
-      ` from "${uri}"`,
+      ` from '${lib}'`,
+      ` from '${uri}'`,
     ).replaceAll(
       ` from './`,
       ` from 'https://${origin}/live/`,
     );
   });
+
+  returnStr.split(";").map(x => {
+    if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
+      return x.replace(`'`, `'${origin}/npm:/`);
+    }
+    return x;
+  }).join(";");
 
   return returnStr;
 }
