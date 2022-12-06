@@ -97,10 +97,10 @@ export async function runner({ code, counter, codeSpace }: {
   //   (await import("./esbuildEsm.ts")).transform;
 
   try {
-    const ab = new AbortController();
-    const pp = await buildT(codeSpace, counter, ab.signal);
-    if (!pp) return;
-    const transpiledCode = await esmTransform(pp);
+    // const ab = new AbortController();
+    // const pp = await buildT(codeSpace, counter, ab.signal);
+    // if (!pp) return;
+    const transpiledCode = await esmTransform(code);
 
     const { html, css } = await render(transpiledCode, codeSpace);
 

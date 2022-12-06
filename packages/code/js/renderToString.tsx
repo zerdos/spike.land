@@ -4,15 +4,16 @@ import { appFactory } from "starter";
 import type { EmotionCache } from "@emotion/cache";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { renderToString } from "react-dom/server";
 import { wait } from "./wait";
 
 const mod = {
-  md5Hash: "",
+  md5hash: "",
   wait: 1,
   res: null as null | HTMLDivElement,
   codeSpace: "",
-  waitForDiv: async (md5Hash: string) => {
-    if (mod.md5Hash !== md5Hash) return "";
+  waitForDiv: async (md5hash: string) => {
+    if (mod.md5hash !== md5hash) return "";
 
     // if (!mod.res?.innerHTML) await waitForFlush();
 
@@ -20,35 +21,35 @@ const mod = {
     mod.wait *= 2;
     await wait(mod.wait);
 
-    if (!mod.res?.innerHTML.includes(md5Hash)) {
+    if (!mod.res?.innerHTML.includes(md5hash)) {
       await waitForAnimation();
     }
 
     const html = mod.res?.innerHTML;
 
     if (
-      html?.includes(md5Hash) && mod.res?.firstElementChild?.innerHTML !== ""
+      html?.includes(md5hash) && mod.res?.firstElementChild?.innerHTML !== ""
     ) return html;
 
     mod.wait = mod.wait * 2;
     return await (mod.waitForDiv as unknown as (
-      md5Hash: string,
-    ) => Promise<string>)(md5Hash);
+      md5hash: string,
+    ) => Promise<string>)(md5hash);
   },
-  setApp: (md5Hash: string) => {
+  setApp: (md5hash: string) => {
     const rootDiv = document.createElement("div");
     rootDiv.style.visibility = "hidden";
     rootDiv.style.position = "absolute";
     // document.body.appendChild(rootDiv);
     const root = createRoot(rootDiv);
-    const App = apps[md5Hash];
+    const App = apps[md5hash];
 
-    mod.md5Hash = md5Hash;
+    mod.md5hash = md5hash;
     mod.res = rootDiv;
 
     root.render(
       <StrictMode>
-        <App appId={`${mod.codeSpace}-${md5Hash}`} />
+        <App appId={`${mod.codeSpace}-${md5hash}`} />
       </StrictMode>,
     );
 
@@ -71,7 +72,13 @@ export const render = async (transpiled: string, codeSpace: string) => {
   );
 
   try {
-    const html = await mod.waitForDiv(md5hash);
+    await mod.waitForDiv(md5hash);
+    const App = apps[md5hash];
+    const html = renderToString(
+      <StrictMode>
+        <App appId={`${mod.codeSpace}-${md5hash}`} />
+      </StrictMode>,
+    );
 
     if (!html) return { html: null, css: null };
 

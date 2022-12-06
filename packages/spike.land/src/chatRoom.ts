@@ -434,14 +434,14 @@ export class Code {
         case "hydrated":
         case "dehydrated":
         case "public": {
-          const respText = HTML.replace("/**reset*/", resetCSS)
+          const respText = HTML.replace("/**reset*/", resetCSS + css.split(md5(transpiled)).join(`css`))
             .replace(
               `<script type="importmap"></script>`,
               `<script type="importmap">${JSON.stringify({ imports: { ...importMap.imports, ...files } })}</script>`,
             )
             .replace(
               `<root/>`,
-              `<div id="root" data-i="${i}" style="height: 100%;"><style>${mST().css}</style>${mST().html}</div>`,
+              `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
             );
 
           // const Etag = request.headers.get("Etag");
