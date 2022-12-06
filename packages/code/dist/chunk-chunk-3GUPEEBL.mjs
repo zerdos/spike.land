@@ -39607,7 +39607,9 @@ var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
       import createCache from "@emotion/cache";
       import {StrictMode} from "react";
       import { ErrorBoundary } from "react-error-boundary";
+    
       import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
+    
       document.body.innerHTML = ${JSON.stringify(`<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`)};
 
   let rootEl = document.getElementById("root");
@@ -39622,6 +39624,7 @@ var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
    cache.compat = undefined;
 
    const bc = new BroadcastChannel(location.origin);
+
 
    bc.onmessage = async (event) => {
      if (
@@ -39660,19 +39663,9 @@ var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
           contents
         };
       }
+      return null;
     });
     build2.onLoad({ filter: /.*/ }, async (args) => {
-      const getRequest = /* @__PURE__ */ __name(async (req2) => {
-        let response2 = await fetchCache.match(req2);
-        if (response2)
-          return response2;
-        response2 = await fetch(req2);
-        if (!response2 || !response2.ok)
-          return response2;
-        response2 = new Response(response2.body, response2);
-        await fetchCache.put(req2, response2.clone());
-        return response2;
-      }, "getRequest");
       const req = new Request(args.path);
       let response = await getRequest(req);
       if (req.url.indexOf(".tsx")) {
@@ -39682,17 +39675,31 @@ var fetchPlugin = /* @__PURE__ */ __name((importmapReplace) => ({
         };
       }
       if (args.namespace === "ttf") {
-        let contents2 = response.blob();
+        let contents2 = await response.arrayBuffer();
+        response = new Response(contents2, response);
         return {
-          contents: contents2,
+          contents: response,
           loader: "dataurl"
         };
       }
       let contents = await response.text();
-      return { contents };
+      response = new Response(contents, response);
+      return { contents: response };
     });
   }
 }), "fetchPlugin");
+async function getRequest(req) {
+  let response = await fetchCache.match(req);
+  if (response)
+    return response;
+  response = await fetch(req);
+  if (!response || !response.ok)
+    return response;
+  response = new Response(response.body, response);
+  await fetchCache.put(req, response.clone());
+  return response;
+}
+__name(getRequest, "getRequest");
 
 // js/importmap.json
 var imports = {
@@ -39795,35 +39802,13 @@ var define2 = {
     browser: true
   })
 };
-var definePrd = {
-  "process.env.NODE_ENV": `"production"`,
-  "process.env.NODE_DEBUG": JSON.stringify(false),
-  "process.browser": JSON.stringify(true),
-  "process.env.DEBUG": JSON.stringify(false),
-  "isBrowser": JSON.stringify(true),
-  "isJest": JSON.stringify(false),
-  "process.env.version": '"1.1.1"',
-  global: "globalThis",
-  "WORKER_DOM_DEBUG": JSON.stringify(false),
-  "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
-  process: JSON.stringify({
-    env: {
-      NODE_ENV: `production`,
-      browser: true,
-      NODE_DEBUG: false,
-      DEBUG: false,
-      isBrowser: true
-    },
-    browser: true
-  })
-};
 var skipImportmapReplaceNames = false;
 var build = /* @__PURE__ */ __name(async (codeSpace3, i2, signal, bundle = false) => {
   const initFinished = mod.initialize();
   if (initFinished !== true)
     await initFinished;
   const defaultOpts = {
-    bundle: false,
+    bundle,
     resolveExtensions: [
       ".tsx",
       ".ts",

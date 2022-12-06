@@ -56,7 +56,9 @@ export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin
       import createCache from "@emotion/cache";
       import {StrictMode} from "react";
       import { ErrorBoundary } from "react-error-boundary";
+    
       import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
+    
       document.body.innerHTML = ${
           JSON.stringify(`<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`)
         };
@@ -73,6 +75,7 @@ export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin
    cache.compat = undefined;
 
    const bc = new BroadcastChannel(location.origin);
+
 
    bc.onmessage = async (event) => {
      if (
@@ -111,22 +114,11 @@ export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin
           contents,
         };
       }
+      return null;
     });
 
     build.onLoad({ filter: /.*/ }, async (args) => {
       // importShim.resolve(args.path, args.importer)
-
-      const getRequest = async (req: Request) => {
-        let response = await fetchCache.match(req);
-        if (response) return response;
-
-        response = await fetch(req);
-        if (!response || !response.ok) return response;
-        response = new Response(response.body, response);
-
-        await fetchCache.put(req, response.clone());
-        return response;
-      };
 
       const req = new Request(args.path);
       let response = await getRequest(req);
@@ -139,17 +131,30 @@ export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin
       }
 
       if (args.namespace === "ttf") {
-        let contents = response.blob();
-
+        let contents = await response.arrayBuffer();
+        response = new Response(contents, response);
         return {
-          contents: contents,
+          contents: response,
           loader: "dataurl",
         };
       }
 
       let contents = await response.text();
+      response = new Response(contents, response);
 
-      return { contents };
+      return { contents: response };
     });
   },
 });
+
+async function getRequest(req: Request) {
+  let response = await fetchCache.match(req);
+  if (response) return response;
+
+  response = await fetch(req);
+  if (!response || !response.ok) return response;
+  response = new Response(response.body, response);
+
+  await fetchCache.put(req, response.clone());
+  return response;
+}

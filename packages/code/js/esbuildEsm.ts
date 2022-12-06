@@ -74,29 +74,29 @@ const define = {
   }),
 };
 
-const definePrd = {
-  "process.env.NODE_ENV": `"production"`,
-  "process.env.NODE_DEBUG": JSON.stringify(false),
-  "process.browser": JSON.stringify(true),
-  "process.env.DEBUG": JSON.stringify(false),
-  "isBrowser": JSON.stringify(true),
-  "isJest": JSON.stringify(false),
-  "process.env.version": "\"1.1.1\"",
-  global: "globalThis",
-  "WORKER_DOM_DEBUG": JSON.stringify(false),
-  "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
-  // "libFileMap": JSON.stringify({}),
-  process: JSON.stringify({
-    env: {
-      NODE_ENV: `production`,
-      browser: true,
-      NODE_DEBUG: false,
-      DEBUG: false,
-      isBrowser: true,
-    },
-    browser: true,
-  }),
-};
+// const definePrd = {
+//   "process.env.NODE_ENV": `"production"`,
+//   "process.env.NODE_DEBUG": JSON.stringify(false),
+//   "process.browser": JSON.stringify(true),
+//   "process.env.DEBUG": JSON.stringify(false),
+//   "isBrowser": JSON.stringify(true),
+//   "isJest": JSON.stringify(false),
+//   "process.env.version": "\"1.1.1\"",
+//   global: "globalThis",
+//   "WORKER_DOM_DEBUG": JSON.stringify(false),
+//   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
+//   // "libFileMap": JSON.stringify({}),
+//   process: JSON.stringify({
+//     env: {
+//       NODE_ENV: `production`,
+//       browser: true,
+//       NODE_DEBUG: false,
+//       DEBUG: false,
+//       isBrowser: true,
+//     },
+//     browser: true,
+//   }),
+// };
 
 let skipImportmapReplaceNames = false;
 // let lastbuild;
@@ -112,7 +112,7 @@ export const build = async (codeSpace: string, i: number, signal: AbortSignal, b
   if (initFinished !== true) await (initFinished);
   // skipImportmapReplaceNames = true;
   const defaultOpts: BuildOptions = {
-    bundle: false,
+    bundle,
     resolveExtensions: [
       ".tsx",
       ".ts",
@@ -184,7 +184,7 @@ export const buildT = async (codeSpace: string, i: number, signal: AbortSignal, 
   if (initFinished !== true) await (initFinished);
   // skipImportmapReplaceNames = true;
   const defaultOpts: BuildOptions = {
-    bundle: false,
+    bundle,
     resolveExtensions: [
       ".tsx",
       ".ts",

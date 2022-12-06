@@ -13,7 +13,9 @@ import {
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
-import "./chunk-chunk-M3XF32XQ.mjs";
+import {
+  require_react_dom
+} from "./chunk-chunk-M3XF32XQ.mjs";
 import {
   require_react
 } from "./chunk-chunk-UX3KX3KY.mjs";
@@ -26,13 +28,22 @@ import {
 // js/hydrate.tsx
 init_define_process();
 var import_react = __toESM(require_react(), 1);
+var import_react_dom = __toESM(require_react_dom(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var hydrate = /* @__PURE__ */ __name(async (codeSpace, i) => {
+var root;
+var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
+  const { i, css, html, transpiled } = sess;
   const App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
+  const rootEl = document.createElement("div");
+  rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+  document.body.appendChild(rootEl);
+  if (root)
+    (0, import_react_dom.unmountComponentAtNode)(root);
+  root = rootEl;
   (0, import_client.hydrateRoot)(
-    document.getElementById(codeSpace + `-css`),
+    rootEl,
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
       import_react_error_boundary.ErrorBoundary,
       {
@@ -42,10 +53,10 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, i) => {
         ] }),
         children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
       }
-    ) })
+    ) }),
+    { identifierPrefix: md5(transpiled) }
   );
 }, "hydrate");
 export {
-  hydrate,
-  md5
+  hydrate
 };

@@ -18,7 +18,7 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 const mutex = new Mutex();
 
 if (location.pathname.includes(`/live/${codeSpace}/hydrated`)) {
-  runInWorker(codeSpace, document.getElementById("root")!);
+  runInWorker(codeSpace, document.getElementById("root") as HTMLDivElement);
 }
 
 export const createIframe = async (cs: string, counter: number) => {
