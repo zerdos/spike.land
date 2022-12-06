@@ -31,35 +31,32 @@ var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1)
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var r;
 var root;
-var hydrate = /* @__PURE__ */ __name((codeSpace, sess) => {
+var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   if (r)
     r.unmount();
-  requestAnimationFrame(async () => {
-    let App;
-    if (sess) {
-      const { i, css, html, transpiled } = sess;
-      document.getElementById("root").innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
-      App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
-    } else {
-      const rt = document.getElementById("root");
-      const i = rt?.getAttribute("data-i") || 1;
-      App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
-    }
-    root = document.getElementById(codeSpace + "-css");
-    r = (0, import_client.createRoot)(root);
-    r.render(
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-        import_react_error_boundary.ErrorBoundary,
-        {
-          fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { role: "alert", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Oh, no!!!" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { children: error.message })
-          ] }),
-          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
-        }
-      ) })
-    );
-  });
+  let App;
+  const rt = document.getElementById("root");
+  if (sess) {
+    const { i: i2, css, html, transpiled } = sess;
+    rt?.setAttribute("data-i", String(i2));
+    rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+  }
+  const i = rt?.getAttribute("data-i") || 1;
+  App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
+  root = document.getElementById(codeSpace + "-css");
+  r = (0, import_client.createRoot)(root);
+  r.render(
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      import_react_error_boundary.ErrorBoundary,
+      {
+        fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { role: "alert", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Oh, no!!!" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { children: error.message })
+        ] }),
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
+      }
+    ) })
+  );
 }, "hydrate");
 export {
   hydrate,

@@ -12,39 +12,36 @@ export { md5 };
 let r: Root;
 let root: HTMLDivElement;
 
-export const hydrate = (codeSpace: string, sess?: ICodeSession) => {
+export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
   if (r) r.unmount();
-  requestAnimationFrame(async () => {
-    let App;
-    if (sess) {
-      const { i, css, html, transpiled } = sess;
-      document.getElementById("root")!.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+  // requestAnimationFrame(async () => {
+  let App;
+  const rt = document.getElementById("root")!;
 
-      App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
-    } else {
-      const rt = document.getElementById("root");
-      const i = rt?.getAttribute("data-i") || 1;
-      App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
-    }
+  if (sess) {
+    const { i, css, html, transpiled } = sess;
+    rt?.setAttribute("data-i", String(i));
+    rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+  }
+  const i = rt?.getAttribute("data-i") || 1;
 
-    root = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
+  App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
 
-    r = createRoot(root);
-    r.render(
-      <StrictMode>
-        <ErrorBoundary
-          fallbackRender={({ error }) => (
-            <div role="alert">
-              <div>Oh, no!!!</div>
-              <pre>{error.message}</pre>
-            </div>
-          )}
-        >
-          <App />
-        </ErrorBoundary>
-      </StrictMode>,
-    );
-  });
+  root = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
 
-  // root = newRoot;
+  r = createRoot(root);
+  r.render(
+    <StrictMode>
+      <ErrorBoundary
+        fallbackRender={({ error }) => (
+          <div role="alert">
+            <div>Oh, no!!!</div>
+            <pre>{error.message}</pre>
+          </div>
+        )}
+      >
+        <App />
+      </ErrorBoundary>
+    </StrictMode>,
+  );
 };
