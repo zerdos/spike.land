@@ -28984,7 +28984,7 @@ function importMapReplace(codeInp) {
     if (x2.startsWith("import") && x2.includes(location.origin)) {
       const u2 = new URL(x2.split(`'`)[1]);
       if (u2 && u2.pathname.indexOf(".") === -1) {
-        return x2.slice(0, -1) + `/index.js"`;
+        return x2.slice(0, -1) + `/index.js'`;
       }
     }
     return x2;

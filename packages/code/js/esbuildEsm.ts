@@ -274,7 +274,7 @@ function importMapReplace(codeInp: string) {
     if (x.startsWith("import") && x.includes(location.origin)) {
       const u = new URL(x.split(`'`)[1]);
       if (u && u.pathname.indexOf(".") === -1) {
-        return x.slice(0, -1) + `/index.js"`;
+        return x.slice(0, -1) + `/index.js'`;
       }
     }
     return x;
