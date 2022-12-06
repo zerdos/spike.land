@@ -35,23 +35,18 @@ var hydrate = /* @__PURE__ */ __name((codeSpace, sess) => {
   if (r)
     r.unmount();
   requestAnimationFrame(async () => {
-    let rootEl;
     let App;
     if (sess) {
-      rootEl = document.createElement("div");
       const { i, css, html, transpiled } = sess;
-      rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
-      document.getElementById(`root`)?.replaceWith(rootEl);
-      rootEl.setAttribute("id", "r");
+      document.getElementById("root").innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
       App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
     } else {
-      rootEl = document.getElementById(codeSpace + "-css");
       const rt = document.getElementById("root");
       const i = rt?.getAttribute("data-i") || 1;
       App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
     }
-    root = rootEl;
-    r = (0, import_client.createRoot)(rootEl);
+    root = document.getElementById(codeSpace + "-css");
+    r = (0, import_client.createRoot)(root);
     r.render(
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
         import_react_error_boundary.ErrorBoundary,

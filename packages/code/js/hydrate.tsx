@@ -15,25 +15,21 @@ let root: HTMLDivElement;
 export const hydrate = (codeSpace: string, sess?: ICodeSession) => {
   if (r) r.unmount();
   requestAnimationFrame(async () => {
-    let rootEl: HTMLDivElement;
     let App;
     if (sess) {
-      rootEl = document.createElement("div");
       const { i, css, html, transpiled } = sess;
-      rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
-      document.getElementById(`root`)?.replaceWith(rootEl);
-      rootEl.setAttribute("id", "r");
+      document.getElementById("root")!.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+
       App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
     } else {
-      rootEl = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
       const rt = document.getElementById("root");
       const i = rt?.getAttribute("data-i") || 1;
       App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
     }
 
-    root = rootEl;
+    root = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
 
-    r = createRoot(rootEl);
+    r = createRoot(root);
     r.render(
       <StrictMode>
         <ErrorBoundary
