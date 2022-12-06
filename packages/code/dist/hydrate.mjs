@@ -35,6 +35,8 @@ var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var r;
 var root;
 var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
+  if (r)
+    r.unmount();
   let rootEl;
   let App;
   if (sess) {
@@ -49,11 +51,7 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
     const i = rt?.getAttribute("data-i") || 1;
     App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   }
-  if (root)
-    (0, import_react_dom.unmountComponentAtNode)(root);
   root = rootEl;
-  if (r)
-    r.unmount();
   r = (0, import_client.createRoot)(rootEl);
   r.render(
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
