@@ -39,8 +39,8 @@ var hydrate = /* @__PURE__ */ __name((codeSpace, sess) => {
     let App;
     if (sess) {
       rootEl = document.createElement("div");
-      const { i, css, html, transpiled } = sess;
-      rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+      const { i, css, html } = sess;
+      rootEl.innerHTML = `<style>${css}</style>${html}`;
       document.body.appendChild(rootEl);
       App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
     } else {
