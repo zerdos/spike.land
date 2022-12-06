@@ -321,7 +321,7 @@ const api: ExportedHandler<CodeEnv> = {
               },
             });
           case "files.json":
-            return new Response(files, {
+            return new Response(JSON.stringify(files), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
