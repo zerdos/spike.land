@@ -1,7 +1,7 @@
 import {
   AutoUpdateApp,
   Editor
-} from "./chunk-chunk-UFUP74MU.mjs";
+} from "./chunk-chunk-QVKM4RZM.mjs";
 import {
   wait
 } from "./chunk-chunk-NBK6NTLB.mjs";
