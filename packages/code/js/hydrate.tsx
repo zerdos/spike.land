@@ -1,6 +1,5 @@
 import { StrictMode } from "react";
 
-import { unmountComponentAtNode } from "react-dom";
 import type { Root } from "react-dom/client";
 
 import { createRoot } from "react-dom/client";

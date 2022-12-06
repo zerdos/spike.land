@@ -13,9 +13,7 @@ import {
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
-import {
-  require_react_dom
-} from "./chunk-chunk-M3XF32XQ.mjs";
+import "./chunk-chunk-M3XF32XQ.mjs";
 import {
   require_react
 } from "./chunk-chunk-UX3KX3KY.mjs";
@@ -28,7 +26,6 @@ import {
 // js/hydrate.tsx
 init_define_process();
 var import_react = __toESM(require_react(), 1);
-var import_react_dom = __toESM(require_react_dom(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);

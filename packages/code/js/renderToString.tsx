@@ -4,7 +4,7 @@ import { appFactory } from "starter";
 import type { EmotionCache } from "@emotion/cache";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { renderToString } from "react-dom/server";
+// import { renderToString } from "react-dom/server";
 import { wait } from "./wait";
 
 const mod = {
@@ -72,13 +72,7 @@ export const render = async (transpiled: string, codeSpace: string) => {
   );
 
   try {
-    await mod.waitForDiv(md5hash);
-    const App = apps[md5hash];
-    const html = renderToString(
-      <StrictMode>
-        <App appId={`${mod.codeSpace}-${md5hash}`} />
-      </StrictMode>,
-    );
+    const html = await mod.waitForDiv(md5hash);
 
     if (!html) return { html: null, css: null };
 
