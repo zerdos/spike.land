@@ -1,7 +1,7 @@
 import {
   AutoUpdateApp,
   Editor
-} from "./chunk-chunk-TALCMT7E.mjs";
+} from "./chunk-chunk-TI7YBB7O.mjs";
 import {
   wait
 } from "./chunk-chunk-NBK6NTLB.mjs";
@@ -14,14 +14,16 @@ import {
   mST,
   makePatch,
   makePatchFrom,
-  md5,
   onSessionUpdate,
   require_lodash,
   startSession
-} from "./chunk-chunk-DFJPXHKK.mjs";
+} from "./chunk-chunk-OOGKLUN3.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
 } from "./chunk-chunk-NFYMKIWC.mjs";
+import {
+  md5
+} from "./chunk-chunk-I52D4BQZ.mjs";
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";

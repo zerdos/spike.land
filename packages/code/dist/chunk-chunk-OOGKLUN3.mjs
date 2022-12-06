@@ -1,4 +1,7 @@
 import {
+  md5
+} from "./chunk-chunk-I52D4BQZ.mjs";
+import {
   __commonJS,
   __name,
   __toESM,
@@ -941,12 +944,12 @@ var Seq = /* @__PURE__ */ function(Collection3) {
     return this;
   }, "cacheResult");
   Seq2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
-    var cache2 = this._cache;
-    if (cache2) {
-      var size = cache2.length;
+    var cache = this._cache;
+    if (cache) {
+      var size = cache.length;
       var i = 0;
       while (i !== size) {
-        var entry = cache2[reverse3 ? size - ++i : i++];
+        var entry = cache[reverse3 ? size - ++i : i++];
         if (fn(entry[1], entry[0], this) === false) {
           break;
         }
@@ -956,15 +959,15 @@ var Seq = /* @__PURE__ */ function(Collection3) {
     return this.__iterateUncached(fn, reverse3);
   }, "__iterate");
   Seq2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
-    var cache2 = this._cache;
-    if (cache2) {
-      var size = cache2.length;
+    var cache = this._cache;
+    if (cache) {
+      var size = cache.length;
       var i = 0;
       return new Iterator(function() {
         if (i === size) {
           return iteratorDone();
         }
-        var entry = cache2[reverse3 ? size - ++i : i++];
+        var entry = cache[reverse3 ? size - ++i : i++];
         return iteratorValue(type, entry[0], entry[1]);
       });
     }
@@ -1798,7 +1801,7 @@ function filterFactory(collection, predicate, context, useKeys) {
 }
 __name(filterFactory, "filterFactory");
 function countByFactory(collection, grouper, context) {
-  var groups = Map2().asMutable();
+  var groups = Map().asMutable();
   collection.__iterate(function(v, k) {
     groups.update(grouper.call(context, v, k, collection), 0, function(a) {
       return a + 1;
@@ -1809,7 +1812,7 @@ function countByFactory(collection, grouper, context) {
 __name(countByFactory, "countByFactory");
 function groupByFactory(collection, grouper, context) {
   var isKeyedIter = isKeyed(collection);
-  var groups = (isOrdered(collection) ? OrderedMap() : Map2()).asMutable();
+  var groups = (isOrdered(collection) ? OrderedMap() : Map()).asMutable();
   collection.__iterate(function(v, k) {
     groups.update(
       grouper.call(context, v, k, collection),
@@ -2630,8 +2633,8 @@ function wasAltered() {
   return this.__altered;
 }
 __name(wasAltered, "wasAltered");
-var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
-  function Map3(value) {
+var Map = /* @__PURE__ */ function(KeyedCollection2) {
+  function Map2(value) {
     return value === void 0 || value === null ? emptyMap() : isMap(value) && !isOrdered(value) ? value : emptyMap().withMutations(function(map2) {
       var iter = KeyedCollection2(value);
       assertNotInfinite(iter.size);
@@ -2640,12 +2643,12 @@ var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
       });
     });
   }
-  __name(Map3, "Map");
+  __name(Map2, "Map");
   if (KeyedCollection2)
-    Map3.__proto__ = KeyedCollection2;
-  Map3.prototype = Object.create(KeyedCollection2 && KeyedCollection2.prototype);
-  Map3.prototype.constructor = Map3;
-  Map3.of = /* @__PURE__ */ __name(function of() {
+    Map2.__proto__ = KeyedCollection2;
+  Map2.prototype = Object.create(KeyedCollection2 && KeyedCollection2.prototype);
+  Map2.prototype.constructor = Map2;
+  Map2.of = /* @__PURE__ */ __name(function of() {
     var keyValues = [], len = arguments.length;
     while (len--)
       keyValues[len] = arguments[len];
@@ -2658,19 +2661,19 @@ var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
       }
     });
   }, "of");
-  Map3.prototype.toString = /* @__PURE__ */ __name(function toString5() {
+  Map2.prototype.toString = /* @__PURE__ */ __name(function toString5() {
     return this.__toString("Map {", "}");
   }, "toString");
-  Map3.prototype.get = /* @__PURE__ */ __name(function get11(k, notSetValue) {
+  Map2.prototype.get = /* @__PURE__ */ __name(function get11(k, notSetValue) {
     return this._root ? this._root.get(0, void 0, k, notSetValue) : notSetValue;
   }, "get");
-  Map3.prototype.set = /* @__PURE__ */ __name(function set3(k, v) {
+  Map2.prototype.set = /* @__PURE__ */ __name(function set3(k, v) {
     return updateMap(this, k, v);
   }, "set");
-  Map3.prototype.remove = /* @__PURE__ */ __name(function remove3(k) {
+  Map2.prototype.remove = /* @__PURE__ */ __name(function remove3(k) {
     return updateMap(this, k, NOT_SET);
   }, "remove");
-  Map3.prototype.deleteAll = /* @__PURE__ */ __name(function deleteAll(keys2) {
+  Map2.prototype.deleteAll = /* @__PURE__ */ __name(function deleteAll(keys2) {
     var collection = Collection(keys2);
     if (collection.size === 0) {
       return this;
@@ -2681,7 +2684,7 @@ var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
       });
     });
   }, "deleteAll");
-  Map3.prototype.clear = /* @__PURE__ */ __name(function clear2() {
+  Map2.prototype.clear = /* @__PURE__ */ __name(function clear2() {
     if (this.size === 0) {
       return this;
     }
@@ -2694,13 +2697,13 @@ var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
     }
     return emptyMap();
   }, "clear");
-  Map3.prototype.sort = /* @__PURE__ */ __name(function sort2(comparator) {
+  Map2.prototype.sort = /* @__PURE__ */ __name(function sort2(comparator) {
     return OrderedMap(sortFactory(this, comparator));
   }, "sort");
-  Map3.prototype.sortBy = /* @__PURE__ */ __name(function sortBy2(mapper, comparator) {
+  Map2.prototype.sortBy = /* @__PURE__ */ __name(function sortBy2(mapper, comparator) {
     return OrderedMap(sortFactory(this, comparator, mapper));
   }, "sortBy");
-  Map3.prototype.map = /* @__PURE__ */ __name(function map2(mapper, context) {
+  Map2.prototype.map = /* @__PURE__ */ __name(function map2(mapper, context) {
     var this$1$1 = this;
     return this.withMutations(function(map3) {
       map3.forEach(function(value, key) {
@@ -2708,10 +2711,10 @@ var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
       });
     });
   }, "map");
-  Map3.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
+  Map2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
     return new MapIterator(this, type, reverse3);
   }, "__iterator");
-  Map3.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
+  Map2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
     var this$1$1 = this;
     var iterations = 0;
     this._root && this._root.iterate(function(entry) {
@@ -2720,7 +2723,7 @@ var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
     }, reverse3);
     return iterations;
   }, "__iterate");
-  Map3.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner2(ownerID) {
+  Map2.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner2(ownerID) {
     if (ownerID === this.__ownerID) {
       return this;
     }
@@ -2734,10 +2737,10 @@ var Map2 = /* @__PURE__ */ function(KeyedCollection2) {
     }
     return makeMap(this.size, this._root, ownerID, this.__hash);
   }, "__ensureOwner");
-  return Map3;
+  return Map2;
 }(KeyedCollection);
-Map2.isMap = isMap;
-var MapPrototype = Map2.prototype;
+Map.isMap = isMap;
+var MapPrototype = Map.prototype;
 MapPrototype[IS_MAP_SYMBOL] = true;
 MapPrototype[DELETE] = MapPrototype.remove;
 MapPrototype.removeAll = MapPrototype.deleteAll;
@@ -3835,7 +3838,7 @@ function getTailOffset(size) {
   return size < SIZE ? 0 : size - 1 >>> SHIFT << SHIFT;
 }
 __name(getTailOffset, "getTailOffset");
-var OrderedMap = /* @__PURE__ */ function(Map3) {
+var OrderedMap = /* @__PURE__ */ function(Map2) {
   function OrderedMap2(value) {
     return value === void 0 || value === null ? emptyOrderedMap() : isOrderedMap(value) ? value : emptyOrderedMap().withMutations(function(map2) {
       var iter = KeyedCollection(value);
@@ -3846,9 +3849,9 @@ var OrderedMap = /* @__PURE__ */ function(Map3) {
     });
   }
   __name(OrderedMap2, "OrderedMap");
-  if (Map3)
-    OrderedMap2.__proto__ = Map3;
-  OrderedMap2.prototype = Object.create(Map3 && Map3.prototype);
+  if (Map2)
+    OrderedMap2.__proto__ = Map2;
+  OrderedMap2.prototype = Object.create(Map2 && Map2.prototype);
   OrderedMap2.prototype.constructor = OrderedMap2;
   OrderedMap2.of = /* @__PURE__ */ __name(function of() {
     return this(arguments);
@@ -3910,7 +3913,7 @@ var OrderedMap = /* @__PURE__ */ function(Map3) {
     return makeOrderedMap(newMap, newList, ownerID, this.__hash);
   }, "__ensureOwner");
   return OrderedMap2;
-}(Map2);
+}(Map);
 OrderedMap.isOrderedMap = isOrderedMap;
 OrderedMap.prototype[IS_ORDERED_SYMBOL] = true;
 OrderedMap.prototype[DELETE] = OrderedMap.prototype.remove;
@@ -4626,7 +4629,7 @@ mixin(Collection, {
     return new ToKeyedSequence(this, true);
   }, "toKeyedSeq"),
   toMap: /* @__PURE__ */ __name(function toMap() {
-    return Map2(this.toKeyedSeq());
+    return Map(this.toKeyedSeq());
   }, "toMap"),
   toObject,
   toOrderedMap: /* @__PURE__ */ __name(function toOrderedMap() {
@@ -5391,157 +5394,6 @@ __name(setProp, "setProp");
 // js/session.ts
 var import_lodash = __toESM(require_lodash(), 1);
 
-// js/md5.js
-init_define_process();
-var cache = globalThis.md5cache = globalThis.md5cache || /* @__PURE__ */ new Map();
-var md5 = /* @__PURE__ */ __name((code) => cache.get(code) || cache.set(
-  code,
-  md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8)
-).get(code), "md5");
-function md5FULL(inputString) {
-  const hc = "0123456789abcdef";
-  function rh(n) {
-    let j;
-    let s = "";
-    for (j = 0; j <= 3; j++) {
-      s += hc.charAt(n >> j * 8 + 4 & 15) + hc.charAt(n >> j * 8 & 15);
-    }
-    return s;
-  }
-  __name(rh, "rh");
-  function ad(x2, y) {
-    const l = (x2 & 65535) + (y & 65535);
-    const m = (x2 >> 16) + (y >> 16) + (l >> 16);
-    return m << 16 | l & 65535;
-  }
-  __name(ad, "ad");
-  function rl(n, c2) {
-    return n << c2 | n >>> 32 - c2;
-  }
-  __name(rl, "rl");
-  function cm(q, a2, b2, x2, s, t) {
-    return ad(rl(ad(ad(a2, q), ad(x2, t)), s), b2);
-  }
-  __name(cm, "cm");
-  function ff(a2, b2, c2, d2, x2, s, t) {
-    return cm(b2 & c2 | ~b2 & d2, a2, b2, x2, s, t);
-  }
-  __name(ff, "ff");
-  function gg(a2, b2, c2, d2, x2, s, t) {
-    return cm(b2 & d2 | c2 & ~d2, a2, b2, x2, s, t);
-  }
-  __name(gg, "gg");
-  function hh(a2, b2, c2, d2, x2, s, t) {
-    return cm(b2 ^ c2 ^ d2, a2, b2, x2, s, t);
-  }
-  __name(hh, "hh");
-  function ii(a2, b2, c2, d2, x2, s, t) {
-    return cm(c2 ^ (b2 | ~d2), a2, b2, x2, s, t);
-  }
-  __name(ii, "ii");
-  function sb(x2) {
-    let i2;
-    const nblk = (x2.length + 8 >> 6) + 1;
-    const blks = Array.from({ length: nblk * 16 });
-    for (i2 = 0; i2 < nblk * 16; i2++) {
-      blks[i2] = 0;
-    }
-    for (i2 = 0; i2 < x2.length; i2++) {
-      blks[i2 >> 2] |= x2.charCodeAt(i2) << i2 % 4 * 8;
-    }
-    blks[i2 >> 2] |= 128 << i2 % 4 * 8;
-    blks[nblk * 16 - 2] = x2.length * 8;
-    return blks;
-  }
-  __name(sb, "sb");
-  let i;
-  const x = sb(inputString);
-  let a = 1732584193;
-  let b = -271733879;
-  let c = -1732584194;
-  let d = 271733878;
-  let olda;
-  let oldb;
-  let oldc;
-  let oldd;
-  for (i = 0; i < x.length; i += 16) {
-    olda = a;
-    oldb = b;
-    oldc = c;
-    oldd = d;
-    a = ff(a, b, c, d, x[i + 0], 7, -680876936);
-    d = ff(d, a, b, c, x[i + 1], 12, -389564586);
-    c = ff(c, d, a, b, x[i + 2], 17, 606105819);
-    b = ff(b, c, d, a, x[i + 3], 22, -1044525330);
-    a = ff(a, b, c, d, x[i + 4], 7, -176418897);
-    d = ff(d, a, b, c, x[i + 5], 12, 1200080426);
-    c = ff(c, d, a, b, x[i + 6], 17, -1473231341);
-    b = ff(b, c, d, a, x[i + 7], 22, -45705983);
-    a = ff(a, b, c, d, x[i + 8], 7, 1770035416);
-    d = ff(d, a, b, c, x[i + 9], 12, -1958414417);
-    c = ff(c, d, a, b, x[i + 10], 17, -42063);
-    b = ff(b, c, d, a, x[i + 11], 22, -1990404162);
-    a = ff(a, b, c, d, x[i + 12], 7, 1804603682);
-    d = ff(d, a, b, c, x[i + 13], 12, -40341101);
-    c = ff(c, d, a, b, x[i + 14], 17, -1502002290);
-    b = ff(b, c, d, a, x[i + 15], 22, 1236535329);
-    a = gg(a, b, c, d, x[i + 1], 5, -165796510);
-    d = gg(d, a, b, c, x[i + 6], 9, -1069501632);
-    c = gg(c, d, a, b, x[i + 11], 14, 643717713);
-    b = gg(b, c, d, a, x[i + 0], 20, -373897302);
-    a = gg(a, b, c, d, x[i + 5], 5, -701558691);
-    d = gg(d, a, b, c, x[i + 10], 9, 38016083);
-    c = gg(c, d, a, b, x[i + 15], 14, -660478335);
-    b = gg(b, c, d, a, x[i + 4], 20, -405537848);
-    a = gg(a, b, c, d, x[i + 9], 5, 568446438);
-    d = gg(d, a, b, c, x[i + 14], 9, -1019803690);
-    c = gg(c, d, a, b, x[i + 3], 14, -187363961);
-    b = gg(b, c, d, a, x[i + 8], 20, 1163531501);
-    a = gg(a, b, c, d, x[i + 13], 5, -1444681467);
-    d = gg(d, a, b, c, x[i + 2], 9, -51403784);
-    c = gg(c, d, a, b, x[i + 7], 14, 1735328473);
-    b = gg(b, c, d, a, x[i + 12], 20, -1926607734);
-    a = hh(a, b, c, d, x[i + 5], 4, -378558);
-    d = hh(d, a, b, c, x[i + 8], 11, -2022574463);
-    c = hh(c, d, a, b, x[i + 11], 16, 1839030562);
-    b = hh(b, c, d, a, x[i + 14], 23, -35309556);
-    a = hh(a, b, c, d, x[i + 1], 4, -1530992060);
-    d = hh(d, a, b, c, x[i + 4], 11, 1272893353);
-    c = hh(c, d, a, b, x[i + 7], 16, -155497632);
-    b = hh(b, c, d, a, x[i + 10], 23, -1094730640);
-    a = hh(a, b, c, d, x[i + 13], 4, 681279174);
-    d = hh(d, a, b, c, x[i + 0], 11, -358537222);
-    c = hh(c, d, a, b, x[i + 3], 16, -722521979);
-    b = hh(b, c, d, a, x[i + 6], 23, 76029189);
-    a = hh(a, b, c, d, x[i + 9], 4, -640364487);
-    d = hh(d, a, b, c, x[i + 12], 11, -421815835);
-    c = hh(c, d, a, b, x[i + 15], 16, 530742520);
-    b = hh(b, c, d, a, x[i + 2], 23, -995338651);
-    a = ii(a, b, c, d, x[i + 0], 6, -198630844);
-    d = ii(d, a, b, c, x[i + 7], 10, 1126891415);
-    c = ii(c, d, a, b, x[i + 14], 15, -1416354905);
-    b = ii(b, c, d, a, x[i + 5], 21, -57434055);
-    a = ii(a, b, c, d, x[i + 12], 6, 1700485571);
-    d = ii(d, a, b, c, x[i + 3], 10, -1894986606);
-    c = ii(c, d, a, b, x[i + 10], 15, -1051523);
-    b = ii(b, c, d, a, x[i + 1], 21, -2054922799);
-    a = ii(a, b, c, d, x[i + 8], 6, 1873313359);
-    d = ii(d, a, b, c, x[i + 15], 10, -30611744);
-    c = ii(c, d, a, b, x[i + 6], 15, -1560198380);
-    b = ii(b, c, d, a, x[i + 13], 21, 1309151649);
-    a = ii(a, b, c, d, x[i + 4], 6, -145523070);
-    d = ii(d, a, b, c, x[i + 11], 10, -1120210379);
-    c = ii(c, d, a, b, x[i + 2], 15, 718787259);
-    b = ii(b, c, d, a, x[i + 9], 21, -343485551);
-    a = ad(a, olda);
-    b = ad(b, oldb);
-    c = ad(c, oldc);
-    d = ad(d, oldd);
-  }
-  return rh(a) + rh(b) + rh(c) + rh(d);
-}
-__name(md5FULL, "md5FULL");
-
 // js/getResetCss.ts
 init_define_process();
 var resetCSS = `
@@ -5908,7 +5760,6 @@ var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess, i
 
 export {
   require_lodash,
-  md5,
   resetCSS,
   initSession,
   CodeSession,
