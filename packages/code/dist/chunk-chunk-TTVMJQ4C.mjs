@@ -28974,9 +28974,9 @@ function importMapReplace(codeInp) {
       ` from 'https://${location.origin}/live/`
     );
   });
-  returnStr.split(";").map((x2) => {
+  returnStr = returnStr.split(";").map((x2) => {
     if (x2.startsWith("import") && x2.indexOf(`'https://`) === -1) {
-      return x2.replace(`'`, `'${location.origin}/npm:/`);
+      return x2.replace(` '`, ` '${location.origin}/npm:/`);
     }
     return x2;
   }).join(";");
