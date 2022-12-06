@@ -32,8 +32,10 @@ var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var r;
 var root;
 var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
-  if (r)
+  if (r) {
     r.unmount();
+    r = null;
+  }
   let App;
   const rt = document.getElementById("root");
   if (sess) {

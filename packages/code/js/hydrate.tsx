@@ -9,11 +9,14 @@ import { md5 } from "./md5";
 
 export { md5 };
 
-let r: Root;
+let r: Root | null;
 let root: HTMLDivElement;
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
-  if (r) r.unmount();
+  if (r) {
+    r.unmount();
+    r = null;
+  }
   // requestAnimationFrame(async () => {
   let App;
   const rt = document.getElementById("root")!;
