@@ -42,6 +42,7 @@ var hydrate = /* @__PURE__ */ __name((codeSpace, sess) => {
       const { i, css, html, transpiled } = sess;
       rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
       document.getElementById(`root`)?.replaceWith(rootEl);
+      rootEl.setAttribute("id", "r");
       App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
     } else {
       rootEl = document.getElementById(codeSpace + "-css");
