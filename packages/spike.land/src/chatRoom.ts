@@ -793,7 +793,7 @@ function importMapReplace(codeInp: string, origin: string) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
     }
     if (x.includes(origin) && x.endsWith(".mjs\";")) {
-      return x.slice(-2) + `/index.mjs";`;
+      return x.slice(0, -2) + `/index.mjs";`;
     }
     return x;
   }).join(";");
