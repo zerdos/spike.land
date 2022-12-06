@@ -99,13 +99,7 @@ const define = {
 // };
 
 let skipImportmapReplaceNames = false;
-// let lastbuild;
 export const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
-  // if (lastbuild) {
-  // lastbuild = await lastbuild.rebuild();
-  //
-  // return lastbuild.outputFiles![0].contents;
-  // }
   const initFinished = mod.initialize();
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
@@ -173,10 +167,10 @@ export const build = async (codeSpace: string, i: number, signal: AbortSignal, b
 };
 
 export const buildT = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
-  // if (lastbuild) {
-  // lastbuild = await lastbuild.rebuild();
+  // if (lastBuild) {
+  // lastBuild = await lastBuild.rebuild();
   //
-  // return lastbuild.outputFiles![0].contents;
+  // return lastBuild.outputFiles![0].contents;
   // }
   const initFinished = mod.initialize();
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());

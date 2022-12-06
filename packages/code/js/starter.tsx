@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { useEffect } from "react";
 
-import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
+import { upgradeElement } from "@ampproject/worker-dom";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
