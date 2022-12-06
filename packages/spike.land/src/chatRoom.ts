@@ -342,6 +342,7 @@ export class Code {
             },
           });
         }
+        case "index.mjs":
         case "index.js":
         case "js": {
           const i = path[1] || mST().i;
@@ -382,7 +383,7 @@ export class Code {
               status: 307,
               headers: {
                 "Access-Control-Allow-Origin": "*",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.js/${mST().i}`,
+                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST().i}`,
                 "Cache-Control": "no-cache",
 
                 content_hash: md5(trp),
@@ -792,7 +793,9 @@ function importMapReplace(codeInp: string, origin: string) {
     if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
     }
-    if (x.includes(origin) && !(x.endsWith(`.js"`) || !x.endsWith(`.mjs"`))) {
+
+    const u = new URL(x.split(`"`)[1]);
+    if (x.includes(origin) && u.pathname.indexOf(".") === -1) {
       return x.slice(0, -1) + `/index.js"`;
     }
     return x;
