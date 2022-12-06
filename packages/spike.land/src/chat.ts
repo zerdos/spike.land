@@ -25,7 +25,6 @@ const api: ExportedHandler<CodeEnv> = {
   fetch: async (
     req,
     env,
-    ctx,
   ) => {
     let request = new Request(req.url, req);
     if (request.cf?.asOrganization?.startsWith("YANDEX")) {
@@ -405,12 +404,16 @@ const api: ExportedHandler<CodeEnv> = {
                 const req = new Request(`${u.origin}/npm:/${u.pathname}?bundle`, request);
                 response = await (fetch(req));
                 if (!response.ok) return response;
-                response = new Response(response.body, {
-                  ...response,
-                  status: 307,
 
-                  headers: new Headers(response.headers).append(`Location`, req.url),
-                });
+                const newHeaders = new Headers(response.headers);
+
+                newHeaders.append(`Location`, req.url),
+                  response = new Response(response.body, {
+                    ...response,
+                    status: 307,
+
+                    headers: newHeaders,
+                  });
                 const cache = caches.default;
                 await cache.put(request.url, response.clone());
                 return response;
