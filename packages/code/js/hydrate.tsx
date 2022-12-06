@@ -29,19 +29,21 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
 
   root = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
 
-  r = createRoot(root);
-  r.render(
-    <StrictMode>
-      <ErrorBoundary
-        fallbackRender={({ error }) => (
-          <div role="alert">
-            <div>Oh, no!!!</div>
-            <pre>{error.message}</pre>
-          </div>
-        )}
-      >
-        <App />
-      </ErrorBoundary>
-    </StrictMode>,
-  );
+  if (!r) {
+    r = createRoot(root);
+    r.render(
+      <StrictMode>
+        <ErrorBoundary
+          fallbackRender={({ error }) => (
+            <div role="alert">
+              <div>Oh, no!!!</div>
+              <pre>{error.message}</pre>
+            </div>
+          )}
+        >
+          <App />
+        </ErrorBoundary>
+      </StrictMode>,
+    );
+  }
 };
