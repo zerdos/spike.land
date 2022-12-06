@@ -794,9 +794,11 @@ function importMapReplace(codeInp: string, origin: string) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
     }
 
-    const u = new URL(x.split(`"`)[1]);
-    if (x.includes(origin) && u.pathname.indexOf(".") === -1) {
-      return x.slice(0, -1) + `/index.js"`;
+    if (x.startsWith("import") && x.includes(origin)) {
+      const u = new URL(x.split(`"`)[1]);
+      if (u && u.pathname.indexOf(".") === -1) {
+        return x.slice(0, -1) + `/index.js"`;
+      }
     }
     return x;
   }).join(";");
