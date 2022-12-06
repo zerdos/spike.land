@@ -11,8 +11,10 @@ export { md5 };
 
 let r: Root | null;
 let root: HTMLDivElement;
+let lastI: number;
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
+  if (sess?.i && sess.i === lastI) return;
   if (r) {
     r.unmount();
     r = null;
@@ -27,6 +29,7 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
     rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
   }
   const i = rt?.getAttribute("data-i") || 1;
+  lastI = +i;
 
   App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
 

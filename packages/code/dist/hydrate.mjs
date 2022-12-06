@@ -31,7 +31,10 @@ var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1)
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var r;
 var root;
+var lastI;
 var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
+  if (sess?.i && sess.i === lastI)
+    return;
   if (r) {
     r.unmount();
     r = null;
@@ -44,6 +47,7 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
     rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
   }
   const i = rt?.getAttribute("data-i") || 1;
+  lastI = +i;
   App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   root = document.getElementById(codeSpace + "-css");
   if (!r) {
