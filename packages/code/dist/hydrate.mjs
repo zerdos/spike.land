@@ -44,19 +44,21 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   const i = rt?.getAttribute("data-i") || 1;
   App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   root = document.getElementById(codeSpace + "-css");
-  r = (0, import_client.createRoot)(root);
-  r.render(
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-      import_react_error_boundary.ErrorBoundary,
-      {
-        fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { role: "alert", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Oh, no!!!" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { children: error.message })
-        ] }),
-        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
-      }
-    ) })
-  );
+  if (!r) {
+    r = (0, import_client.createRoot)(root);
+    r.render(
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        import_react_error_boundary.ErrorBoundary,
+        {
+          fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { role: "alert", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Oh, no!!!" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { children: error.message })
+          ] }),
+          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
+        }
+      ) })
+    );
+  }
 }, "hydrate");
 export {
   hydrate,
