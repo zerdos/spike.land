@@ -100,14 +100,14 @@ const rootEl = document.getElementById(`root`);
 
 if (location.pathname !== `/live/${codeSpace}`) {
   const bc = new BroadcastChannel(location.origin);
-  hydrate(codeSpace, 1);
+  hydrate(codeSpace);
   bc.onmessage = async (event) => {
     if (event.data.codeSpace === codeSpace) {
       const { html, css, transpiled, i } = event.data.sess;
  //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
 
 //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
-      await hydrate(codeSpace, i);
+      await hydrate(codeSpace, event.data.sess);
     }
   };
 } else {
