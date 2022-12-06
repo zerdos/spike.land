@@ -36,8 +36,8 @@ var root;
 var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   const { i, css, html, transpiled } = sess;
   const App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
-  const rootEl = document.createElement("div");
-  rootEl.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+  const rootEl = sess ? document.createElement("div") : document.getElementById(codeSpace + "-css") || document.createElement("div");
+  rootEl.innerHTML = rootEl.innerHTML || `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
   document.body.appendChild(rootEl);
   if (root)
     (0, import_react_dom.unmountComponentAtNode)(root);
