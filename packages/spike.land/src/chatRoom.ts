@@ -782,11 +782,14 @@ function importMapReplace(codeInp: string, origin: string) {
     ).replaceAll(
       ` from "./`,
       ` from "https://${origin}/live/`,
+    ).replaceAll(
+      ` from "/`,
+      ` from "https://${origin}/`,
     );
   });
 
   returnStr = returnStr.split(";").map(x => x.trim()).map(x => {
-    if (x.slice(0, 6) === "import" && x.indexOf(`"https://`) === -1) {
+    if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
     }
     return x;

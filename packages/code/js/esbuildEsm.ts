@@ -260,7 +260,10 @@ function importMapReplace(codeInp: string) {
       ` from '${uri}'`,
     ).replaceAll(
       ` from './`,
-      ` from 'https://${location.origin}/live/`,
+      ` from '${location.origin}/live/`,
+    ).replaceAll(
+      ` from '/`,
+      ` from '${location.origin}/`,
     );
   });
 

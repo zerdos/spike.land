@@ -28971,7 +28971,10 @@ function importMapReplace(codeInp) {
       ` from '${uri}'`
     ).replaceAll(
       ` from './`,
-      ` from 'https://${location.origin}/live/`
+      ` from '${location.origin}/live/`
+    ).replaceAll(
+      ` from '/`,
+      ` from '${location.origin}/`
     );
   });
   returnStr = returnStr.split(";").map((x2) => x2.trim()).map((x2) => {
