@@ -1,8 +1,13 @@
 import { md5 } from "@spike.land/code/js/session";
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 
-export const files = JSON.parse(ASSET_MANIFEST);
+const assets = JSON.parse(ASSET_MANIFEST);
+
+let files = {};
+Object.keys(assets).forEach((file) => files = { ...files, [`/${file}`]: `/` + assets[file] });
+export { files };
 let reverseMap = {};
+
 Object.keys(files).forEach((file) => reverseMap = { ...reverseMap, [files[file]]: file });
 
 export { ASSET_MANIFEST };
