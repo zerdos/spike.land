@@ -5,8 +5,8 @@ import {
 // js/esbuildWASM.ts
 init_define_process();
 
-// ../../.yarn/global/cache/esbuild-wasm-npm-0.15.16-c2c146172f-9.zip/node_modules/esbuild-wasm/esbuild.wasm
-var esbuild_default = "./chunk-esbuild-LYOCB4YY.wasm";
+// ../../.yarn/global/cache/esbuild-wasm-npm-0.15.18-e5fb18979f-9.zip/node_modules/esbuild-wasm/esbuild.wasm
+var esbuild_default = "./chunk-esbuild-ZXN6J33Q.wasm";
 export {
   esbuild_default as wasmFile
 };
