@@ -3560,8 +3560,9 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                         scale: scaleRange / 100
                       },
                       css: import_react2.css`
+                  border-radius: 8px;
                   position: relative;
-                  overflow: auto;    
+                  overflow: overlay;   
               `,
                       src: `${location.origin}/live/${room}/`,
                       suppressHydrationWarning: true,

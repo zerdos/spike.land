@@ -266,8 +266,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 // id={"z-body"}
                 // data-test-id="z-body"
                 css={css`
+                  border-radius: 8px;
                   position: relative;
-                  overflow: auto;    
+                  overflow: overlay;   
               `}
                 src={`${location.origin}/live/${room}/`}
                 suppressHydrationWarning={true}
