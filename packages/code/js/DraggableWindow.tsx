@@ -11,7 +11,7 @@ import { Phone, Share, Tablet, Tv } from "./icons";
 import { wait } from "./wait";
 
 const breakPoints = [680, 768, 1920];
-const breakPointHeights = [1137, 1024, 1080];
+// const breakPointHeights = [1137, 1024, 1080];
 
 const sizes = [10, 25, 50, 75, 100];
 
@@ -36,9 +36,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
-  const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
+  // const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
-  const scale = scaleRange / 100;
+  const scale = Math.sqrt(scaleRange / 100);
 
   // UseEffect(()=> {
 
@@ -78,26 +78,26 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       if (window.innerWidth / devicePixelRatio < 600) {
         changeScaleRange(50);
         setWidth(breakPoints[0]);
-        setHeight(breakPointHeights[0]);
+        // setHeight(breakPointHeights[0]);
       }
 
       if (window.innerWidth / devicePixelRatio < 1200) {
         changeScaleRange(100);
         setWidth(breakPoints[0]);
-        setHeight(breakPointHeights[0]);
+        // setHeight(breakPointHeights[0]);
       } else if (window.innerWidth / devicePixelRatio < 1800) {
         setWidth(breakPoints[1]);
-        setHeight(breakPointHeights[1]);
+        // setHeight(breakPointHeights[1]);
 
         changeScaleRange(50);
       } else if (window.innerWidth / devicePixelRatio < 2500) {
         setWidth(breakPoints[1]);
-        setHeight(breakPointHeights[1]);
+        // setHeight(breakPointHeights[1]);
 
         changeScaleRange(75);
       } else if (window.innerWidth / devicePixelRatio > 2500) {
         setWidth(breakPoints[1]);
-        setHeight(breakPointHeights[1]);
+        // setHeight(breakPointHeights[1]);
         changeScaleRange(100);
       }
 
@@ -231,35 +231,46 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 ))}
               </ToggleButtonGroup>
             </motion.div>
-
-            <motion.iframe
-              ref={iRef}
-              frameBorder={0}
+            <motion.div
+              layout="size"
               initial={{
-                width: window.innerWidth,
-                height: window.innerHeight,
-                backgroundColor: rgba(r, g, b, 0),
-                scale: 1,
+                height: window.innerHeight * scale,
               }}
               animate={{
-                backgroundColor: rgba(r, g, b, 0.7),
-                width: width * scale / devicePixelRatio,
-                height: height * scale / devicePixelRatio,
-                scale: scaleRange / 100,
+                height: 0.4 * window.innerHeight * scale,
+                width: width * scale,
               }}
-              // ref={zBodyRef}
-              // id={"z-body"}
-              // data-test-id="z-body"
-              css={css`
-                transform-origin: "0px 0px";
+            >
+              <motion.iframe
+                layout="preserve-aspect"
+                ref={iRef}
+                frameBorder={0}
+                initial={{
+                  width: window.innerWidth,
+                  height: window.innerHeight,
+                  backgroundColor: rgba(r, g, b, 0),
+                  transform: `scale(1,1)`,
+                }}
+                animate={{
+                  width: width,
+                  backgroundColor: rgba(r, g, b, 0.7),
+                  height: window.innerHeight * 0.4,
+                  transform: `scale(${scale},${scale})`,
+                  transformOrigin: "top left",
+                }}
+                // ref={zBodyRef}
+                // id={"z-body"}
+                // data-test-id="z-body"
+                css={css`
                   border-radius: 8px;
                   position: relative;
                   overflow: overlay;   
               `}
-              src={`${location.origin}/live/${room}/`}
-              suppressHydrationWarning={true}
-              seamless={true}
-            />
+                src={`${location.origin}/live/${room}/`}
+                suppressHydrationWarning={true}
+                seamless={true}
+              />
+            </motion.div>
             <motion.div
               css={css`
               overflow: hidden;
@@ -278,9 +289,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 exclusive
                 onChange={(_e: unknown, newSize: number) => {
                   if (newSize) {
-                    setHeight(
-                      breakPointHeights[breakPoints.indexOf(newSize)],
-                    );
+                    // setHeight(
+                    //   // breakPointHeights[breakPoints.indexOf(newSize)],
+                    // );
                     setWidth(newSize);
                   }
                 }}

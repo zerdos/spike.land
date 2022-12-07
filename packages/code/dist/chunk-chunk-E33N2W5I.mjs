@@ -3375,7 +3375,6 @@ var QRButton = /* @__PURE__ */ __name(({ url }) => /* @__PURE__ */ (0, import_js
 // js/DraggableWindow.tsx
 var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var breakPoints = [680, 768, 1920];
-var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100];
 var DraggableWindow = /* @__PURE__ */ __name(({
   room
@@ -3385,8 +3384,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
   const [width, setWidth] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
-  const [height2, setHeight] = (0, import_react3.useState)(window.innerHeight * devicePixelRatio);
-  const scale = scaleRange / 100;
+  const scale = Math.sqrt(scaleRange / 100);
   (0, import_react3.useEffect)(() => {
     if (!iRef.current)
       return;
@@ -3395,23 +3393,18 @@ var DraggableWindow = /* @__PURE__ */ __name(({
       if (window.innerWidth / devicePixelRatio < 600) {
         changeScaleRange(50);
         setWidth(breakPoints[0]);
-        setHeight(breakPointHeights[0]);
       }
       if (window.innerWidth / devicePixelRatio < 1200) {
         changeScaleRange(100);
         setWidth(breakPoints[0]);
-        setHeight(breakPointHeights[0]);
       } else if (window.innerWidth / devicePixelRatio < 1800) {
         setWidth(breakPoints[1]);
-        setHeight(breakPointHeights[1]);
         changeScaleRange(50);
       } else if (window.innerWidth / devicePixelRatio < 2500) {
         setWidth(breakPoints[1]);
-        setHeight(breakPointHeights[1]);
         changeScaleRange(75);
       } else if (window.innerWidth / devicePixelRatio > 2500) {
         setWidth(breakPoints[1]);
-        setHeight(breakPointHeights[1]);
         changeScaleRange(100);
       }
       setPositions({
@@ -3529,31 +3522,45 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                 }
               ),
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-                motion.iframe,
+                motion.div,
                 {
-                  ref: iRef,
-                  frameBorder: 0,
+                  layout: "size",
                   initial: {
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                    backgroundColor: rgba(r, g, b, 0),
-                    scale: 1
+                    height: window.innerHeight * scale
                   },
                   animate: {
-                    backgroundColor: rgba(r, g, b, 0.7),
-                    width: width * scale / devicePixelRatio,
-                    height: height2 * scale / devicePixelRatio,
-                    scale: scaleRange / 100
+                    height: 0.4 * window.innerHeight * scale,
+                    width: width * scale
                   },
-                  css: import_react2.css`
-                transform-origin: "0px 0px";
+                  children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    motion.iframe,
+                    {
+                      layout: "preserve-aspect",
+                      ref: iRef,
+                      frameBorder: 0,
+                      initial: {
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                        backgroundColor: rgba(r, g, b, 0),
+                        transform: `scale(1,1)`
+                      },
+                      animate: {
+                        width,
+                        backgroundColor: rgba(r, g, b, 0.7),
+                        height: window.innerHeight * 0.4,
+                        transform: `scale(${scale},${scale})`,
+                        transformOrigin: "top left"
+                      },
+                      css: import_react2.css`
                   border-radius: 8px;
                   position: relative;
                   overflow: overlay;   
               `,
-                  src: `${location.origin}/live/${room}/`,
-                  suppressHydrationWarning: true,
-                  seamless: true
+                      src: `${location.origin}/live/${room}/`,
+                      suppressHydrationWarning: true,
+                      seamless: true
+                    }
+                  )
                 }
               ),
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
@@ -3577,9 +3584,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                       exclusive: true,
                       onChange: (_e, newSize) => {
                         if (newSize) {
-                          setHeight(
-                            breakPointHeights[breakPoints.indexOf(newSize)]
-                          );
                           setWidth(newSize);
                         }
                       },
