@@ -50,6 +50,10 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   lastI = +i;
   App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   root = document.getElementById(codeSpace + "-css");
+  if (!root) {
+    document.getElementById("root").innerHTML = `<div id="${codeSpace}-css"></>`;
+    root = document.getElementById(codeSpace + "-css");
+  }
   if (!r) {
     r = (0, import_client.createRoot)(root);
     r.render(
