@@ -44,50 +44,26 @@
     }
   }
   /**reset*/
-   </style>
 
+  
+   </style>
+<style>
+  .console-log-div {
+    border: 1px solid gray;
+    padding: 5px 10px;
+    display: none;
+    border-radius: 5px;
+    width: 95% !important;
+    background-color: #efefef;
+  }
+  </style>
 </head>
    
    
 <body>
+  <fieldset id="console-log-div" class="console-log-div" style="font-family: monospace; margin-top: 20px; margin-left: 10px; margin-right: 10px; white-space: pre; border: 1px solid black; border-radius: 5px; padding: 5px 10px;"><legend>console output</legend><div id="console-log-text"></div></fieldset>
 <root/>
   
-<script>     
-
-
-
-    
-window.addEventListener('pageshow', (event) => {
-  if (event.persisted) {
-    console.log('This page was restored from the background cache.');
-  } else {
-    console.log('This page was loaded normally.');
-  }
-});
- 
-  window.esmsInitOptions = {
-        polyfillEnable: ['css-modules', 'json-modules'],
-    
-
-        resolve: function (id, parentUrl, defaultResolve) {
-        let resolved;
-  
-          try{
-            if (id.indexOf('https://') !== -1 && (id.indexOf(".js")!==-1 || id.indexOf(".ts")!==-1)) return id;
-            if (id.indexOf('live/')!==-1 && id.indexOf("index.")===-1){
-
-             return (new URL(id + "/index.js", location.origin)).toString();
-            }
-          
-            return defaultResolve(id, parentUrl);
-          } catch{
-            return resolved = new URL('/npm:*'+id+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
-          }
-        }
-      }
-</script>
-
-
 <script type="module">
 import { unmountComponentAtNode } from "react-dom";
 import { hydrate, md5 } from "./hydrate.mjs";

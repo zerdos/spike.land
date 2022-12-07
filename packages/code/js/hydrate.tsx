@@ -1,5 +1,3 @@
-import { StrictMode } from "react";
-
 import type { Root } from "react-dom/client";
 
 import { createRoot } from "react-dom/client";
@@ -42,18 +40,16 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
   if (!r) {
     r = createRoot(root);
     r.render(
-      <StrictMode>
-        <ErrorBoundary
-          fallbackRender={({ error }) => (
-            <div role="alert">
-              <div>Oh, no!!!</div>
-              <pre>{error.message}</pre>
-            </div>
-          )}
-        >
-          <App />
-        </ErrorBoundary>
-      </StrictMode>,
+      <ErrorBoundary
+        fallbackRender={({ error }) => (
+          <div role="alert">
+            <div>Oh, no!!!</div>
+            <pre>{error.message}</pre>
+          </div>
+        )}
+      >
+        <App />
+      </ErrorBoundary>,
     );
   }
 };

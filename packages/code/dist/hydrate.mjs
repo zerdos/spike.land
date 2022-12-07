@@ -14,9 +14,7 @@ import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
 import "./chunk-chunk-M3XF32XQ.mjs";
-import {
-  require_react
-} from "./chunk-chunk-UX3KX3KY.mjs";
+import "./chunk-chunk-UX3KX3KY.mjs";
 import {
   __name,
   __toESM,
@@ -25,7 +23,6 @@ import {
 
 // js/hydrate.tsx
 init_define_process();
-var import_react = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
@@ -57,7 +54,7 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   if (!r) {
     r = (0, import_client.createRoot)(root);
     r.render(
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
         import_react_error_boundary.ErrorBoundary,
         {
           fallbackRender: ({ error }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { role: "alert", children: [
@@ -66,7 +63,7 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
           ] }),
           children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
         }
-      ) })
+      )
     );
   }
 }, "hydrate");

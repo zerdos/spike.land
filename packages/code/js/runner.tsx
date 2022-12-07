@@ -5,6 +5,30 @@ import { build, transform } from "./esbuildEsm";
 import { render } from "./renderToString";
 import { md5, mST, patchSync } from "./session";
 import { toUmd } from "./toUmd";
+import "console-log-div";
+
+globalThis.ol = globalThis.ol || console.log; // || (message, ...optionalParams)=>console.log(message, ...optionalParams)
+
+const OriginalLog = globalThis.ol; // (message?: any, ...optionalParams: any[])=> void = globalThis.ol
+
+const data: { [key: string]: string } = {};
+const logs = [];
+globalThis.logs = logs;
+
+console.log = (mess, ...args) => {
+  const sess = mST();
+  data[md5(sess.code)] = sess.code;
+  data[md5(sess.html)] = sess.html;
+  data[md5(sess.css)] = sess.css;
+
+  logs.push({
+    args: [`<b>` + mess + `</b>`, ...args],
+    sess: {
+      code: md5(sess.code),
+    },
+  });
+  OriginalLog(`<b>` + mess + `</b>`, ...args);
+};
 
 export const esmTransform = async (code: string) => {
   const transpiled = await transform(code, {

@@ -24962,9 +24962,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
               let stdin = [];
               let resumeStdin;
               let stdinPos = 0;
-              onmessage2 = /* @__PURE__ */ __name(({ data }) => {
-                if (data.length > 0) {
-                  stdin.push(data);
+              onmessage2 = /* @__PURE__ */ __name(({ data: data2 }) => {
+                if (data2.length > 0) {
+                  stdin.push(data2);
                   if (resumeStdin)
                     resumeStdin();
                 }
@@ -25018,10 +25018,10 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
             }
             __name(tryToInstantiateModule, "tryToInstantiateModule");
             return (m) => onmessage2(m);
-          })((data) => worker2.onmessage({ data }));
+          })((data2) => worker2.onmessage({ data: data2 }));
           worker2 = {
             onmessage: null,
-            postMessage: (data) => setTimeout(() => onmessage({ data })),
+            postMessage: (data2) => setTimeout(() => onmessage({ data: data2 })),
             terminate() {
             }
           };
@@ -25033,7 +25033,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
           firstMessageReject = reject;
         });
         worker2.onmessage = ({ data: error }) => {
-          worker2.onmessage = ({ data }) => readFromStdout(data);
+          worker2.onmessage = ({ data: data2 }) => readFromStdout(data2);
           if (error)
             firstMessageReject(error);
           else
@@ -28341,9 +28341,9 @@ var Rnd = function(_super) {
         return boundary.offsetWidth;
     }
   };
-  Rnd2.prototype.onDragStart = function(e, data) {
+  Rnd2.prototype.onDragStart = function(e, data2) {
     if (this.props.onDragStart) {
-      this.props.onDragStart(e, data);
+      this.props.onDragStart(e, data2);
     }
     var pos = this.getDraggablePosition();
     this.originalPosition = pos;
@@ -28402,28 +28402,28 @@ var Rnd = function(_super) {
       }
     });
   };
-  Rnd2.prototype.onDrag = function(e, data) {
+  Rnd2.prototype.onDrag = function(e, data2) {
     if (!this.props.onDrag)
       return;
     var _a = this.offsetFromParent, left = _a.left, top = _a.top;
     if (!this.props.dragAxis || this.props.dragAxis === "both") {
-      return this.props.onDrag(e, __assign3(__assign3({}, data), { x: data.x - left, y: data.y - top }));
+      return this.props.onDrag(e, __assign3(__assign3({}, data2), { x: data2.x - left, y: data2.y - top }));
     } else if (this.props.dragAxis === "x") {
-      return this.props.onDrag(e, __assign3(__assign3({}, data), { x: data.x + left, y: this.originalPosition.y + top, deltaY: 0 }));
+      return this.props.onDrag(e, __assign3(__assign3({}, data2), { x: data2.x + left, y: this.originalPosition.y + top, deltaY: 0 }));
     } else if (this.props.dragAxis === "y") {
-      return this.props.onDrag(e, __assign3(__assign3({}, data), { x: this.originalPosition.x + left, y: data.y + top, deltaX: 0 }));
+      return this.props.onDrag(e, __assign3(__assign3({}, data2), { x: this.originalPosition.x + left, y: data2.y + top, deltaX: 0 }));
     }
   };
-  Rnd2.prototype.onDragStop = function(e, data) {
+  Rnd2.prototype.onDragStop = function(e, data2) {
     if (!this.props.onDragStop)
       return;
     var _a = this.offsetFromParent, left = _a.left, top = _a.top;
     if (!this.props.dragAxis || this.props.dragAxis === "both") {
-      return this.props.onDragStop(e, __assign3(__assign3({}, data), { x: data.x + left, y: data.y + top }));
+      return this.props.onDragStop(e, __assign3(__assign3({}, data2), { x: data2.x + left, y: data2.y + top }));
     } else if (this.props.dragAxis === "x") {
-      return this.props.onDragStop(e, __assign3(__assign3({}, data), { x: data.x + left, y: this.originalPosition.y + top, deltaY: 0 }));
+      return this.props.onDragStop(e, __assign3(__assign3({}, data2), { x: data2.x + left, y: this.originalPosition.y + top, deltaY: 0 }));
     } else if (this.props.dragAxis === "y") {
-      return this.props.onDragStop(e, __assign3(__assign3({}, data), { x: this.originalPosition.x + left, y: data.y + top, deltaX: 0 }));
+      return this.props.onDragStop(e, __assign3(__assign3({}, data2), { x: this.originalPosition.x + left, y: data2.y + top, deltaX: 0 }));
     }
   };
   Rnd2.prototype.onResizeStart = function(e, dir, elementRef) {
@@ -29579,7 +29579,145 @@ var fetch_or_die = /* @__PURE__ */ __name(async (url) => {
   return urls[url];
 }, "fetch_or_die");
 
+// ../../.yarn/global/cache/console-log-div-npm-0.6.3-93f129d00c-9.zip/node_modules/console-log-div/console-log-div.js
+init_define_process();
+(/* @__PURE__ */ __name(function initConsoleLogDiv() {
+  "use strict";
+  if (console.log.toDiv) {
+    return;
+  }
+  function toString(x) {
+    return typeof x === "string" ? x : JSON.stringify(x);
+  }
+  __name(toString, "toString");
+  var log = console.log.bind(console);
+  var error = console.error.bind(console);
+  var warn = console.warn.bind(console);
+  var table = console.table ? console.table.bind(console) : null;
+  var id = "console-log-div";
+  function createOuterElement() {
+    var outer = document.getElementById(id);
+    if (!outer) {
+      outer = document.createElement("fieldset");
+      outer.id = id;
+      document.body.appendChild(outer);
+    }
+    outer.classList.add(id);
+    var style = outer.style;
+    style.fontFamily = "monospace";
+    style.marginTop = "20px";
+    style.marginLeft = "10px";
+    style.marginRight = "10px";
+    style.whiteSpace = "pre";
+    style.border = "1px solid black";
+    style.borderRadius = "5px";
+    style.padding = "5px 10px";
+    return outer;
+  }
+  __name(createOuterElement, "createOuterElement");
+  var logTo = (/* @__PURE__ */ __name(function createLogDiv() {
+    var outer = createOuterElement();
+    var caption = document.createTextNode("console output");
+    var legend = document.createElement("legend");
+    legend.appendChild(caption);
+    outer.appendChild(legend);
+    var div = document.createElement("div");
+    div.id = "console-log-text";
+    outer.appendChild(div);
+    return div;
+  }, "createLogDiv"))();
+  function printToDiv() {
+    var msg = Array.prototype.slice.call(arguments, 0).map(toString).join(" ");
+    var text = logTo.textContent;
+    logTo.textContent = text + msg + "\n";
+  }
+  __name(printToDiv, "printToDiv");
+  function logWithCopy() {
+    log.apply(null, arguments);
+    printToDiv.apply(null, arguments);
+  }
+  __name(logWithCopy, "logWithCopy");
+  console.log = logWithCopy;
+  console.log.toDiv = true;
+  console.error = /* @__PURE__ */ __name(function errorWithCopy() {
+    error.apply(null, arguments);
+    var args = Array.prototype.slice.call(arguments, 0);
+    args.unshift("ERROR:");
+    printToDiv.apply(null, args);
+  }, "errorWithCopy");
+  console.warn = /* @__PURE__ */ __name(function logWarning() {
+    warn.apply(null, arguments);
+    var args = Array.prototype.slice.call(arguments, 0);
+    args.unshift("WARNING:");
+    printToDiv.apply(null, args);
+  }, "logWarning");
+  function printTable(objArr, keys) {
+    var numCols = keys.length;
+    var len = objArr.length;
+    var $table = document.createElement("table");
+    $table.style.width = "100%";
+    $table.setAttribute("border", "1");
+    var $head = document.createElement("thead");
+    var $tdata = document.createElement("td");
+    $tdata.innerHTML = "Index";
+    $head.appendChild($tdata);
+    for (var k = 0; k < numCols; k++) {
+      $tdata = document.createElement("td");
+      $tdata.innerHTML = keys[k];
+      $head.appendChild($tdata);
+    }
+    $table.appendChild($head);
+    for (var i = 0; i < len; i++) {
+      var $line = document.createElement("tr");
+      $tdata = document.createElement("td");
+      $tdata.innerHTML = i;
+      $line.appendChild($tdata);
+      for (var j = 0; j < numCols; j++) {
+        $tdata = document.createElement("td");
+        $tdata.innerHTML = objArr[i][keys[j]];
+        $line.appendChild($tdata);
+      }
+      $table.appendChild($line);
+    }
+    var div = document.getElementById("console-log-text");
+    div.appendChild($table);
+  }
+  __name(printTable, "printTable");
+  console.table = /* @__PURE__ */ __name(function logTable() {
+    if (typeof table === "function") {
+      table.apply(null, arguments);
+    }
+    var objArr = arguments[0];
+    var keys;
+    if (typeof objArr[0] !== "undefined") {
+      keys = Object.keys(objArr[0]);
+    }
+    printTable(objArr, keys);
+  }, "logTable");
+  window.addEventListener("error", function(err) {
+    printToDiv("EXCEPTION:", err.message + "\n  " + err.filename, err.lineno + ":" + err.colno);
+  });
+}, "initConsoleLogDiv"))();
+
 // js/runner.tsx
+globalThis.ol = globalThis.ol || console.log;
+var OriginalLog = globalThis.ol;
+var data = {};
+var logs = [];
+globalThis.logs = logs;
+console.log = (mess, ...args) => {
+  const sess = mST();
+  data[md5(sess.code)] = sess.code;
+  data[md5(sess.html)] = sess.html;
+  data[md5(sess.css)] = sess.css;
+  logs.push({
+    args: [`<b>` + mess + `</b>`, ...args],
+    sess: {
+      code: md5(sess.code)
+    }
+  });
+  OriginalLog(`<b>` + mess + `</b>`, ...args);
+};
 var esmTransform = /* @__PURE__ */ __name(async (code) => {
   const transpiled = await initAndTransform(code, {
     loader: "tsx",
