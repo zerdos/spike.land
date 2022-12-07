@@ -400,7 +400,7 @@ const api: ExportedHandler<CodeEnv> = {
                 },
               );
 
-              if (!kvResp.ok) {
+              if (!kvResp || kvResp.status !== 200) {
                 const req = new Request(`${u.origin}/npm:/${u.pathname}?bundle`, request);
                 response = await (fetch(req));
                 if (!response.ok) return response;
@@ -415,7 +415,7 @@ const api: ExportedHandler<CodeEnv> = {
                     headers: newHeaders,
                   });
                 const cache = caches.default;
-                await cache.put(request.url, response.clone());
+                await cache.put(cacheKey, response.clone());
                 return response;
               }
 
