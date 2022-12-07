@@ -437,7 +437,7 @@ export class Code {
               `<script type="importmap">${JSON.stringify({ imports: { ...files, ...importMap.imports } })}</script>`,
             )
             .replace(
-              `<root/>`,
+              `<div id="root"></div>`,
               `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
             );
 
