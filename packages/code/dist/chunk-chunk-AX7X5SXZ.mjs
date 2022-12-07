@@ -3397,7 +3397,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     if (!dragRef.current)
       return;
     const reveal = /* @__PURE__ */ __name(async () => {
-      await wait(1e3);
+      await wait(300);
       if (window.innerWidth / devicePixelRatio < 600) {
         setWidth(breakPoints[0]);
       }
