@@ -358,12 +358,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     key={ind}
                     value={size}
                   >
-                    {size === 680
+                    {size === 640
                       ? (
                         <span
                           css={css`
                         color: ${
-                            width === 680
+                            width === 640
                               ? "var(--text-color-highlight)"
                               : "var(--text-color-normal)"
                           };
