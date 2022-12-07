@@ -48,8 +48,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const scale = Math.sqrt(scaleRange / 100);
 
   const setWidth = (width: number) => {
-    changeScaleRange(100 / window.innerWidth / width);
-    changeMaxScaleRange(100 / window.innerWidth / width);
+    changeScaleRange(100 * window.innerWidth / width);
+    changeMaxScaleRange(100 * window.innerWidth / width);
 
     changeMaxScaleRange(Math.floor(100 * 1 / Math.sqrt(Math.abs(1 - (innerWidth / (width + 40))))));
 
@@ -110,11 +110,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
         //        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
       } else if (window.innerWidth / devicePixelRatio < 2500) {
-        setWidth(breakPoints[1]);
+        setWidth(breakPoints[2]);
         //     changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
         // setHeight(breakPointHeights[1]);
       } else if (window.innerWidth / devicePixelRatio > 2500) {
-        setWidth(breakPoints[1]);
+        setWidth(breakPoints[2]);
         // setHeight(breakPointHeights[1]);
         //    changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
         // changeScaleRange(100);
