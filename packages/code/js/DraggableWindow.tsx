@@ -48,8 +48,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const scale = Math.sqrt(scaleRange / 100);
 
   const setWidth = (width: number) => {
-    changeScaleRange(Math.floor(100 * (innerWidth / width + 40)));
-    changeMaxScaleRange(Math.floor(100 * (innerWidth / width + 40)));
+    changeScaleRange(Math.floor(100 * (innerWidth / (width + 40))));
+    changeMaxScaleRange(Math.floor(100 * (innerWidth / (width + 40))));
     setWidthB(width);
   };
 
