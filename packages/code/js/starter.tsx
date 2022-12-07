@@ -1,14 +1,13 @@
 import type { FC } from "react";
-import { useEffect } from "react";
 
-import { upgradeElement } from "@ampproject/worker-dom";
+import * as MainThread from "@ampproject/worker-dom";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 import createCache from "./emotionCache";
 import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
-import { hashCode, mST, onSessionUpdate, resetCSS } from "./session";
+import { hashCode, type ICodeSession, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
 
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
@@ -33,19 +32,16 @@ export const createIframe = async (cs: string, counter: number) => {
       abortz[cs] = () => controller.abort();
       modz[cs] = counter;
 
-      let MST = mST();
+      let MST: ICodeSession;
       if (cs === codeSpace) MST = mST();
       else {
-        const mst = mST();
-        const I = counter;
-
-        MST = (await import(`${location.origin}/live/${cs}/mST.mjs?${I}`)).mST;
+        MST = await fetch(`/live/${cs}/session.json`).then(x => x.json() as Promise<ICodeSession>);
       }
 
       if (signal.aborted) return;
       if (modz[cs] !== counter) return;
       const { html, css, i, transpiled } = MST;
-      const hashCode = md5(transpiled);
+      // const hashCode = md5(transpiled);
       if (i > modz[cs]!) modz[cs] = i;
 
       const counterLength = `/*${i}*/`.length;
@@ -151,7 +147,6 @@ export const createIframe = async (cs: string, counter: number) => {
 
 let worker: { terminate: () => void };
 // let oldDiv = null;
-let parent: HTMLDivElement;
 let lastH = "";
 let lastSuccessful = "";
 
@@ -176,7 +171,7 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     const div = await moveToWorker(nameSpace, document.getElementById("root")!);
     if (!div) return;
 
-    const w = await upgradeElement(
+    const w = await MainThread.upgradeElement(
       div,
       "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs",
     );
@@ -320,61 +315,60 @@ export const { apps, eCaches } = (globalThis as unknown as {
   eCaches: Record<string, EmotionCache>;
 });
 
-export function AutoUpdateApp(
-  { codeSpace }: { codeSpace: string },
-) {
-  useEffect(() => {
-    // let iframe = document.createElement("iframe");
-    // iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
+// export function AutoUpdateApp()
+//    {
+//   useEffect(() => {
+// let iframe = document.createElement("iframe");
+// iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
 
-    // //  iframe.setAttribute("data-coder", cs);
-    // iframe.style.height = "100%";
-    // //    iframe.setAttribute("id", `coder-${cs}`);
-    // iframe.style.border = "none";
-    // document.getElementById("z-body")
-    // createIframe(codeSpace, mST().i);
+// //  iframe.setAttribute("data-coder", cs);
+// iframe.style.height = "100%";
+// //    iframe.setAttribute("id", `coder-${cs}`);
+// iframe.style.border = "none";
+// document.getElementById("z-body")
+// createIframe(codeSpace, mST().i);
 
-    // setHash(hashCode());
-    // runInWorker(codeSpace, ref.current);
-  }, []);
-  // let starterI = 1 * (document.getElementById(`root-${codeSpace}`)!.getAttribute(
-  //   "data-i",
-  // ) as unknown as number);
+// setHash(hashCode());
+// runInWorker(codeSpace, ref.current);
+// }, []);
+// let starterI = 1 * (document.getElementById(`root-${codeSpace}`)!.getAttribute(
+//   "data-i",
+// ) as unknown as number);
 
-  // const [{ App, i }, setApps] = useState({
-  //   i: starterI - 1,
-  //   App: null as null | FC<{}>,
-  // });
+// const [{ App, i }, setApps] = useState({
+//   i: starterI - 1,
+//   App: null as null | FC<{}>,
+// });
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const { url, App: newApp } = await importIt(
-  //       `${location.origin}/live/${codeSpace}/index.js/${i}`,
-  //     );
+// useEffect(() => {
+//   (async () => {
+//     const { url, App: newApp } = await importIt(
+//       `${location.origin}/live/${codeSpace}/index.js/${i}`,
+//     );
 
-  //     const urlCounter = +(url.split("/").pop() || 0);
-  //     if (i < urlCounter && newApp !== App) {
-  //       setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
-  //     }
-  //   })();
-  // }, []);
-  // useEffect(() => {
-  //   (async () => {
-  //     (async () => {
-  //       const { url, App: newApp } = await importIt(
-  //         `${location.origin}/live/${codeSpace}/index.js/${i + 1}`,
-  //       );
-  //       const urlCounter = +(url.split("/").pop() || 0);
-  //       if (i < urlCounter && newApp !== App) {
-  //         console.log({ url, urlCounter });
-  //         setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
-  //       }
-  //     })();
-  //   })();
-  // }, [i, setApps, App]);
+//     const urlCounter = +(url.split("/").pop() || 0);
+//     if (i < urlCounter && newApp !== App) {
+//       setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
+//     }
+//   })();
+// }, []);
+// useEffect(() => {
+//   (async () => {
+//     (async () => {
+//       const { url, App: newApp } = await importIt(
+//         `${location.origin}/live/${codeSpace}/index.js/${i + 1}`,
+//       );
+//       const urlCounter = +(url.split("/").pop() || 0);
+//       if (i < urlCounter && newApp !== App) {
+//         console.log({ url, urlCounter });
+//         setApps((x) => ({ ...x, i: urlCounter, App: newApp }));
+//       }
+//     })();
+//   })();
+// }, [i, setApps, App]);
 
-  return <></>;
-}
+// return <></>;
+// }
 
 export async function appFactory(
   transpiled = "",

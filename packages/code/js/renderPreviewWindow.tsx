@@ -1,17 +1,15 @@
 import type { FC } from "react";
-import { Fragment, lazy, StrictMode, Suspense, useMemo } from "react";
+import { Fragment, StrictMode } from "react";
 
 import { createRoot } from "react-dom/client";
-import { createHtmlPortalNode, InPortal, OutPortal } from "react-reverse-portal";
-import { AutoUpdateApp } from "./starter";
+// import { AutoUpdateApp } from "./starter";
 
 import { css } from "@emotion/react";
 
 // Import { useSpring, a } from '@react-spring/web'
 
+import DraggableWindow from "./DraggableWindow";
 import { Editor } from "./Editor";
-
-const DraggableWindowLazy = lazy(() => import("./DraggableWindow"));
 
 const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
@@ -70,45 +68,25 @@ const AppToRender: FC<
 > = (
   { codeSpace },
 ) => {
-  const portalNode = useMemo(() =>
-    createHtmlPortalNode({
-      attributes: {
-        style: "height: 100%",
-      },
-    }), []);
-  const onlyApp = location.pathname.endsWith("public")
-    || location.pathname.endsWith("hydrated");
-  const devTools = !onlyApp;
+  // const portalNode = useMemo(() =>
+  //   createHtmlPortalNode({
+  //     attributes: {
+  //       style: "height: 100%",
+  //     },
+  //   }), []);
+  // const onlyApp = location.pathname.endsWith("public")
+  //   || location.pathname.endsWith("hydrated");
+  // const devTools = !onlyApp;
 
   return (
-    <>
-      <InPortal node={portalNode}>
-        <AutoUpdateApp codeSpace={codeSpace} />
-      </InPortal>
-
-      <Suspense
-        fallback={<OutPortal node={portalNode} />}
-      >
-        {devTools
-          ? (
-            <RainbowContainer>
-              <Fragment>
-                <Editor
-                  codeSpace={codeSpace}
-                />
-                <DraggableWindowLazy room={codeSpace}>
-                  <OutPortal node={portalNode} />
-                </DraggableWindowLazy>
-              </Fragment>
-            </RainbowContainer>
-          )
-          : (
-            <div style={{ height: 100 + "%" }}>
-              <OutPortal node={portalNode} />
-            </div>
-          )}
-      </Suspense>
-    </>
+    <RainbowContainer>
+      <Fragment>
+        <Editor
+          codeSpace={codeSpace}
+        />
+        <DraggableWindow room={codeSpace} />
+      </Fragment>
+    </RainbowContainer>
   );
 };
 const singleton = { started: false };
