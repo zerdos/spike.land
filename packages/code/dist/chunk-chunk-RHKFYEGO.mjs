@@ -3529,44 +3529,31 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                 }
               ),
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-                motion.div,
+                motion.iframe,
                 {
+                  ref: iRef,
+                  frameBorder: 0,
                   initial: {
                     width: window.innerWidth,
-                    height: window.innerHeight
+                    height: window.innerHeight,
+                    backgroundColor: rgba(r, g, b, 0),
+                    scale: 1
                   },
                   animate: {
+                    backgroundColor: rgba(r, g, b, 0.7),
                     width: width * scale / devicePixelRatio,
-                    height: height2 * scale / devicePixelRatio
+                    height: height2 * scale / devicePixelRatio,
+                    scale: scaleRange / 100
                   },
-                  children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-                    motion.iframe,
-                    {
-                      ref: iRef,
-                      frameBorder: 0,
-                      initial: {
-                        width: window.innerWidth,
-                        height: window.innerHeight,
-                        backgroundColor: rgba(r, g, b, 0),
-                        scale: 1
-                      },
-                      animate: {
-                        backgroundColor: rgba(r, g, b, 0.7),
-                        transformOrigin: "0px 0px",
-                        width: width / devicePixelRatio,
-                        height: height2 / devicePixelRatio,
-                        scale: scaleRange / 100
-                      },
-                      css: import_react2.css`
+                  css: import_react2.css`
+                transform-origin: "0px 0px";
                   border-radius: 8px;
                   position: relative;
                   overflow: overlay;   
               `,
-                      src: `${location.origin}/live/${room}/`,
-                      suppressHydrationWarning: true,
-                      seamless: true
-                    }
-                  )
+                  src: `${location.origin}/live/${room}/`,
+                  suppressHydrationWarning: true,
+                  seamless: true
                 }
               ),
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
