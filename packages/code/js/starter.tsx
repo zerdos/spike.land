@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import * as MainThread from "@ampproject/worker-dom";
+// import * as MainThread from "@ampproject/worker-dom";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
@@ -138,7 +138,7 @@ export const createIframe = async (cs: string, counter: number) => {
       res(iframe);
       return iframe;
       // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
-      // iframe.setAttribute("id", `coder-${codeSpace}`);
+      // iframe.setAttribute("id", `coder-${code#Space}`);
 
       // document.body.appendChild(iframe);
     });
@@ -171,12 +171,12 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     const div = await moveToWorker(nameSpace, document.getElementById("root")!);
     if (!div) return;
 
-    const w = await MainThread.upgradeElement(
-      div,
-      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs",
-    );
-    if (w === null) throw new Error("No worker");
-    worker = w;
+    // const w = await MainThread.upgradeElement(
+    //   div,
+    //   "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs",
+    // );
+    // if (w === null) throw new Error("No worker");
+    // worker = w;
   });
 }
 
