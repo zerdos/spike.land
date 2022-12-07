@@ -393,8 +393,7 @@ export async function appFactory(
       // }
       console.log(`i: ${mstI}: `);
 
-
-      const App = (await import(createJsBlob(trp))).default();
+      const App = (await import(createJsBlob(trp))).default;
 
       apps[hash] = ({ appId }: { appId: string }) => (
         <div key={hash} style={{ height: 100 + "%" }} id={appId}>
