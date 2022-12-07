@@ -10,7 +10,7 @@ import {
   init_define_process
 } from "./chunk-chunk-A3E5PINE.mjs";
 
-// js/emotionJsxRuntime.ts
+// js/emotionJsxRuntime.mjs
 init_define_process();
 var JSX = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var { jsx, jsxs, Fragment } = JSX;

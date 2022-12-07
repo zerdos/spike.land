@@ -270,7 +270,7 @@ const build = (
       "js/emotion.ts",
       "js/emotionCache.ts",
       "js/emotionStyled.mjs",
-      "js/emotionJsxRuntime.ts",
+      "js/emotionJsxRuntime.mjs",
       // "js/emotion.ts",
       // "js/emotionJsxRuntime.ts",
       // "js/jsx.mjs",
